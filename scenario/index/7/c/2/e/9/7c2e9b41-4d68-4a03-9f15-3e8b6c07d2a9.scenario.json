@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7c2e9b41-4d68-4a03-9f15-3e8b6c07d2a9",
+    "name": "test:R30.14 ServiceWorker.navigationStrategy — network-first shell (clean-release root-cause)",
+    "description": "Bridged to test/visual/r3014-network-first-gate.mjs (DET-3x GREEN, live prod). Deployed sw.js routes shell/navigate + /dist bundles through networkFirst (static cache-first); a real SW-controlled client soft-reloads and gets the CURRENT served bundle hash fresh — no stale pin, no manual hard-reload. Version-confirm via served edit-*.js hash + /api/config, not DOM.",
+    "sourceFile": "ior:file:test/visual/r3014-network-first-gate.mjs",
+    "implementations": [
+      "ior:instance:769bc9bc-61aa-4ed4-8012-04b45d1e49a9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:769bc9bc-61aa-4ed4-8012-04b45d1e49a9"
+}

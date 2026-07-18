@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5d8b3f47-1a29-4e6c-b0d4-7f2e9a63c815",
+    "name": "test:R30.35 diff coloring by kind (add=green/delete=red/modify=blue/conflict=brown) + per-block merge actions",
+    "description": "Bridged to test/visual/r3035-coloring-gate.mjs (DET-3x GREEN on v0.7.51). SCREENSHOT+PIXEL via the .de-gutter-<kind> strip element (locate+sample, NEVER DOM-count). Deterministic synthetic 3-way fixture (override resolveBase) yields ALL 4 kinds: left MODIFY, right DELETE, left ADD, both-diverge CONFLICT (stable:false). Asserts add=GREEN/delete=RED-not-blue(bug fix)/modify=BLUE/conflict=BROWN; acceptChange >> on the DELETION RE-ADDS the deleted line to CENTER. Two-key: computeMergedCenter(kind+palette) + acceptChange(per-kind actions).",
+    "sourceFile": "ior:file:test/visual/r3035-coloring-gate.mjs",
+    "implementations": [
+      "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f",
+      "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+}

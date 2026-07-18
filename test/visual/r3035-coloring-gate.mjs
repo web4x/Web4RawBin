@@ -40,27 +40,30 @@ try {
     await sleep(900);
     const m = await page.evaluate(() => {
       const e = document.querySelector('rb-diff-editor'); const live = (e['conflicts'] || []).filter(c => !(e['dismissed'] && e['dismissed'].has(c.id)));
-      const pRect = e.querySelector('.de-panes').getBoundingClientRect(); const cRect = e['mount']('center').getBoundingClientRect();
-      const blocks = live.map(c => ({ kind: c.kind, id: c.id, aLen: c.a.length, bLen: c.b.length, a0: (c.a[0] || ''), screenY: Math.round(pRect.top + e['lineY'](e['edCenter'], c.span[0]) + 8), gutterX: Math.round(cRect.left + 6) }));
-      return { twoWay: e['twoWay'], kinds: [...new Set(live.map(c => c.kind))], blocks };
+      // LOCATE each solid .de-gutter-<kind> strip element (center + side panes) → its own pixel is the verdict (no Y-guessing,
+      // no neighbor bleed). de-gutter-<kind> is a 3px solid CONFLICT_PALETTE strip on the change lines.
+      const gutters = [...document.querySelectorAll('[class*="de-gutter-"]')].map(el => { const kind = (String(el.className).match(/de-gutter-([a-z]+)/) || [])[1]; const r = el.getBoundingClientRect(); return { kind, cx: Math.round(r.left + r.width / 2), cy: Math.round(r.top + r.height / 2), w: r.width, h: r.height }; }).filter(g => g.kind && g.w >= 1 && g.h >= 1);
+      return { twoWay: e['twoWay'], kinds: [...new Set(live.map(c => c.kind))], gutters };
     });
     if (i === 1) await page.screenshot({ path: OUT + 'fixture.png' }).catch(() => {});
     const shot = 'data:image/png;base64,' + (await page.screenshot()).toString('base64');
-    const colored = await page.evaluate(async ({ shot, blocks }) => {
+    const colored = await page.evaluate(async ({ shot, gutters }) => {
       const img = new Image(); img.src = shot; await img.decode(); const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height; const ctx = cv.getContext('2d'); ctx.drawImage(img, 0, 0);
-      return blocks.map(b => { let best = null, bc = 0; for (let dx = -2; dx < 14; dx++) for (let dy = -6; dy < 22; dy += 2) { const x = b.gutterX + dx, y = b.screenY + dy; if (x < 0 || y < 0 || x >= img.width || y >= img.height) continue; const p = ctx.getImageData(x, y, 1, 1).data; const ch = Math.max(p[0], p[1], p[2]) - Math.min(p[0], p[1], p[2]); if (ch > bc) { bc = ch; best = [p[0], p[1], p[2]]; } } return { ...b, px: best }; });
-    }, { shot, blocks: m.blocks });
-    const perKind = colored.map(b => ({ kind: b.kind, aLen: b.aLen, bLen: b.bLen, bucket: b.px ? hueBucket(b.px) : 'none', expect: EXPECT[b.kind] || '?', px: b.px }));
+      return gutters.map(g => { let best = null, bc = 0; for (let dx = -1; dx <= 2; dx++) for (let dy = -2; dy <= 2; dy++) { const x = g.cx + dx, y = g.cy + dy; if (x < 0 || y < 0 || x >= img.width || y >= img.height) continue; const p = ctx.getImageData(x, y, 1, 1).data; const ch = Math.max(p[0], p[1], p[2]) - Math.min(p[0], p[1], p[2]); if (ch > bc) { bc = ch; best = [p[0], p[1], p[2]]; } } return { kind: g.kind, px: best }; });
+    }, { shot, gutters: m.gutters });
+    // one representative bucket per kind (a kind may have multiple gutter strips; take the strongest-chroma sample)
+    const byKind = {}; for (const g of colored) { if (!g.px) continue; const cur = byKind[g.kind]; const ch = Math.max(...g.px) - Math.min(...g.px); if (!cur || ch > cur.ch) byKind[g.kind] = { px: g.px, ch, bucket: hueBucket(g.px) }; }
+    const perKind = Object.keys(byKind).map(kind => ({ kind, bucket: byKind[kind].bucket, expect: EXPECT[kind] || '?', px: byKind[kind].px }));
 
     // ACTION: '>>' (take Local→Result) on the DELETION block RE-ADDS the deleted line to CENTER
-    const del = colored.find(b => /delet/i.test(b.kind) || (b.bLen === 0 && b.aLen > 0 && b.a0 === '')) || colored.find(b => /delet/i.test(b.kind));
-    let reAdd = 'no-deletion-block';
-    if (del) reAdd = await page.evaluate(async ({ id, line }) => {
-      const e = document.querySelector('rb-diff-editor'); const before = e['edCenter'].getValue();
-      const btn = e.querySelector(`[data-cid="${id}"][data-act="left"]`); if (btn) btn.click(); else if (e['acceptChange']) e['acceptChange'](id, 'left');
+    const reAdd = await page.evaluate(async (line) => {
+      const e = document.querySelector('rb-diff-editor');
+      const del = (e['conflicts'] || []).find(c => /delet/i.test(c.kind) || (c.b.length === 0 && c.a.length > 0)); if (!del) return 'no-deletion-block';
+      const before = e['edCenter'].getValue();
+      const btn = e.querySelector(`[data-cid="${del.id}"][data-act="left"]`); if (btn) btn.click(); else if (e['acceptChange']) e['acceptChange'](del.id, 'left');
       await new Promise(r => setTimeout(r, 500)); const after = e['edCenter'].getValue();
       return (!before.includes(line) && after.includes(line)) ? 'RE-ADDED' : (after !== before ? 'changed-not-readd' : 'no-change');
-    }, { id: del.id, line: DELETED_LINE });
+    }, DELETED_LINE);
 
     const colorsOk = perKind.every(k => k.expect === '?' || k.bucket === k.expect);
     const has4 = ['green', 'red', 'blue', 'brown'].every(c => perKind.some(k => k.bucket === c));
