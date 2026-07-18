@@ -33,3 +33,26 @@
 **NOT RECOMMENDED — Option D: renumber tasks.** HIGH RISK — breaks every cross-reference, git history, marker, and dual-link. The numbers are identifiers, not positions; don't churn them.
 
 **My recommendation: A + C** (numeric reorder + rationale header). Low-risk, fully reversible, makes the board legible without touching any task's identity. Await Tron's approval before I reorder.
+
+---
+
+## Post-A+C Review (Tron-requested, 2026-07-18) — MEASURED
+
+### (1) Task order
+- **Now CLEAN + fully numeric: T30.1 → T30.37** (with T30.6.1–6.7 sub-tasks in place), **0 inversions**, 40 tasks, complete.
+- ⚠ **Caught + fixed a regression during this review:** T30.11 had been stranded at the array end — a buggy re-sort in the T30.37 backfill globbed `*.scenario.json`[0] (wrong file in the dir) so T30.11 got sort-key (999,999,999). Fixed by keying on the specific uuid (commit a2cbcc933). Post-A+C the order was briefly 1-inversion; it is now 0.
+
+### (2) T30.31 (line-mapping)
+- **Exact status: BACKLOG / unblocked, NEVER MINTED** — 0 requirement unit, 0 task, 0 UC on disk (verified, no git trace). It exists only as a concept-name in prior PO messages.
+- **What it IS:** the "line-mapping" concept — visual line-to-line correspondence across the 3 merge panes. Never given a formal spec.
+- **Relevance:** LIKELY SUBSUMED by shipped work — R30.27/R30.29/R30.30 (3-pane rows align, corresponding lines share a visual row at 0px) + R30.34 (continuous connector splines) already deliver line-mapping visually. **Recommendation:** stays BACKLOG; Tron's call whether to (a) CLOSE as subsumed-by-R30.27/30/34, or (b) give it a distinct spec + schedule. Speculative mint = gold-plating.
+
+### (3) Other missing — every hole + every taskless req
+- **Numbering holes (T30.1..37): 8, 31, 32.**
+  - **T30.8** = UNUSED number (never minted — clean skip; no req/task; not a gap).
+  - **T30.31** = BACKLOG (above).
+  - **T30.32** = SUPERSEDED (R30.32 SVG-boxes → R30.34 spline; no task by design).
+- **Reqs without a task (42 reqs / 40 tasks / 40 covered → exactly 2 uncovered):**
+  - **R30.6** (12922d5d) = ROLLUP umbrella — its children **T30.6.1–6.7** (7 sub-tasks) cover it.
+  - **R30.32** (4e0b50f2) = SUPERSEDED → R30.34.
+- **★ 0 genuine #126 gaps** — every shippable req has a task; the 2 uncovered are intentional (rollup + superseded). The earlier gap-audit wave + the T30.37 backfill closed all real gaps.
