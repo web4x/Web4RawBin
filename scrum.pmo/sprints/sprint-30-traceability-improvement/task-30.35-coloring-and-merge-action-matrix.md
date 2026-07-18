@@ -50,16 +50,17 @@ S30 diff/merge editor, R30.35 (Tron scenario-first: plan x/>> merge-actions with
 
 IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (diagram approval before any fix). PART A COLORING = GATED GREEN DET-3x v0.7.51 (Test 5d8b3f47, delete=red FIXED - was blue; 32f976921). PART B ACTIONS MATRIX = being validated by architect vs live v0.7.51 (per-cell WORKS/BROKEN below). acceptChange 843d79d4 built (>> take-Local/DELETE re-adds, << take-Repo, x dismiss). NEXT: architect fills the matrix WORKS/BROKEN -> matrix diagram -> TRON APPROVES DIAGRAM (hard gate) -> THEN expert implements fixes for BROKEN cells. NO implementation of fixes until Tron approves. 
 
-MERGE-ACTION MATRIX (WORKS/BROKEN per combination — architect validates each vs LIVE v0.7.51; ? = pending architect validation):
-| KIND \ ACTION | x (dismiss) | >> (take Local->Result) | << (take Repo->Result) |
+MERGE-ACTION MATRIX — WORKS/BROKEN per combination UC (architect validates each vs LIVE v0.7.51; ?=pending). Dual-linked to the 16 behaviour UCs (req f0b8acb14, each carries an expectedBehaviour AC = the architect PUML/SVG source of truth):
+| KIND \ ACTION | x dismiss | >> takeLocal | << takeRepo |
 |---|---|---|---|
-| ADD (oLength==0, green)      | ? | ? | ? |
-| DELETE (abLength==0, red)    | ? | ? (RE-ADDS deleted line) | ? |
-| MODIFY (both>0, blue)        | ? | ? | ? |
-| CONFLICT (stable:false, brown)| ? | ? | ? |
-EDGE STATES (each ?): empty-opposite-side / no-base 2-way fallback / first-line / last-line / adjacent-blocks / already-accepted re-click / dismiss-then-reaccept.
-Each cell + edge = a combination UC under R30.35 (18 UCs minted by req). Architect fills WORKS/BROKEN; BROKEN cells -> fix only AFTER Tron approves the matrix DIAGRAM (HARD GATE).
+| ADD      | 3662f00b ? | 1eed3029 ? | 4b47be33 ? |
+| DELETE   | 74167c20 ? | fd08c146 ? (RE-ADDS line) | 98c235e0 ? |
+| MODIFY   | c014b832 ? | 33ade681 ? | 352b05ec ? |
+| CONFLICT | a328ddac ? | b934da9e ? | 72668662 ? |
+EDGES (4): oneSidedLeftEmpty 45cac75f ? / oneSidedRightEmpty bc52e3ed ? / alreadyApplied e11a2842 ? / reAddAfterDelete c4ecb985 ?
+(non-matrix UCs on R30.35: kindColoring 9c41a415 + blockActions d7493e80 = the coloring, GATED GREEN.)
+HARD GATE: architect fills WORKS/BROKEN -> PUML/SVG matrix DIAGRAM -> TRON APPROVES DIAGRAM -> only THEN expert fixes BROKEN cells. Task PRE-IMPLEMENTATION until Tron signs the diagram.
 
 ## Subtasks
 
-The 18 combination UCs are the matrix cells (see matrix in implementation). Each = WORKS/BROKEN, architect-validated vs live v0.7.51.
+16 behaviour UCs (12 core {ADD/DELETE/MODIFY/CONFLICT}x{>>/<</x} + 4 edges) = the matrix cells, each dual-linked with an expectedBehaviour AC. WORKS/BROKEN tracked in the matrix (implementation). No fix-impl until Tron approves the diagram.

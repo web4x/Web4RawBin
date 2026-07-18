@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3591abf8-62a6-4e73-a12f-bd7e05a13940",
+    "name": "Task 30.36: Diff-nav aids — brighter current-change on up/down + open-changes count",
+    "slug": "task-30.36-diff-nav-aids",
+    "description": "Two nav aids for the merge editor: (A) brighter CURRENT-change highlight during UP/DOWN navigation (jumpToChange impl-edit) — the focused change is pixel-distinguishable from non-current same-kind, and the highlight MOVES as you step. (B) an accurate COUNT of OPEN (unresolved) changes (NEW openChangeCount) that DECREMENTS as each is acted on via >> / << / x.",
+    "intention": "S30 diff/merge editor, R30.36 (Tron scenario-first): make navigation legible — you can see which change is current and how many still need action.",
+    "context": "Covers R30.36 (dde56b34) -> UCs diffEditor.highlightCurrentChange (17700deb, jumpToChange impl-edit) + diffEditor.openChangeCount (cb29d749, NEW openChangeCount decrements on >>/<</x). Class RbDiffEditor 18165081. ★ HARD GATE (Tron): Tron approves the architect diagram BEFORE any implementation — this task stays PRE-IMPLEMENTATION until then. Sibling of R30.35 matrix (both diagram-gated). Sync req(0.4)+architect(0.3).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (architect diagram approval before any impl). (A) brighter-current = jumpToChange impl-edit (highlight the focused change brighter than non-current same-kind; move highlight on step). (B) open-count = NEW openChangeCount method (count unresolved change blocks; decrement on each >>/<</x resolve). NO implementation until Tron signs the architect diagram. Then expert builds -> gate (pixel-distinguishable current + count-accurate) -> chain-to-Test + served==gated -> Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.36 `[requirement:uuid:dde56b34-2cfc-41bb-b432-9a0508566a62]`\n  - hard-gate\n    - Tron approves the architect diagram before ANY implementation\n  - down\n    - [UC highlightCurrentChange](./planning.md) `[uc:uuid:17700deb-dfbc-46dc-bd44-e0f01adceb40]` + [UC openChangeCount](./planning.md) `[uc:uuid:cb29d749-6d9c-443b-8a64-8d8e674cdec2]`",
+    "acceptanceCriteria": "- [ ] (nav-highlight) During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer).\n- [ ] (nav-highlight) Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time).\n- [ ] (count) An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones.\n- [ ] (count) The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled.\n- [ ] (verify) GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump.",
+    "subtasks": "None (atomic task, 2 UCs).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+    ],
+    "useCases": [
+      "ior:instance:17700deb-dfbc-46dc-bd44-e0f01adceb40",
+      "ior:instance:cb29d749-6d9c-443b-8a64-8d8e674cdec2"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-18"
+  },
+  "ownerIor": null
+}

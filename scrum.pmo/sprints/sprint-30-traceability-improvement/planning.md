@@ -50,3 +50,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)](./task-30.28-atomic-deploy-invariant.md)
 - [x] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)
 - [ ] [Task 30.35: Diff coloring by kind + per-block merge-action MATRIX (WORKS/BROKEN validation)](./task-30.35-coloring-and-merge-action-matrix.md)
+- [ ] [Task 30.36: Diff-nav aids — brighter current-change on up/down + open-changes count](./task-30.36-diff-nav-aids.md)
