@@ -53,10 +53,13 @@ export class RbDiffEditor extends HTMLElement {
         .de-conflict-glyph::before { content: '⚠'; color: #e66; font-size: 0.7rem; }
         /* R30.34: SUBTLE line-tint only (NO box-outline, NO border-radius — Tron rejected boxes). The changed lines
            get a translucent kind-colored background that the continuous spline ribbon ties into at the pane edges. */
-        .de-block-add { background: rgba(58,138,90,0.16); }
-        .de-block-delete { background: rgba(184,58,58,0.16); }
-        .de-block-modify { background: rgba(58,110,165,0.15); }
-        .de-block-conflict { background: rgba(165,96,58,0.16); }
+        .de-block-add { background: rgba(58,138,90,0.16); --kind: #3a8a5a; }
+        .de-block-delete { background: rgba(184,58,58,0.16); --kind: #b83a3a; }
+        .de-block-modify { background: rgba(58,110,165,0.15); --kind: #3a6ea5; }
+        .de-block-conflict { background: rgba(165,96,58,0.16); --kind: #a5603a; }
+        /* R30.36: the CURRENT change (up/down nav) — same KIND hue, just brighter + a 2px kind-colour border + glow so
+           it's pixel-distinguishable from non-current same-kind blocks (hue never changes → kind-identity preserved). */
+        .de-block-current { filter: brightness(1.35) saturate(1.25); box-shadow: inset 0 0 0 2px var(--kind), 0 0 6px rgba(255,255,255,0.35); }
         /* R30.35: NEWER (b/Repo) lines highlighted = brighter kind fill + left accent bar; OLDER (a/Local) keep the subtle de-block tint (reads dark). */
         .de-newer-add { background: rgba(58,138,90,0.36) !important; box-shadow: inset 2px 0 0 #3a8a5a; }
         .de-newer-delete { background: rgba(184,58,58,0.36) !important; box-shadow: inset 2px 0 0 #b83a3a; }
@@ -225,7 +228,7 @@ export class RbDiffEditor extends HTMLElement {
     this.twoWay = this.base === '' && !!(this.left.ref && this.right.ref) ? false : this.base === '';
     this.conflicts = [];
     this.centerSeq = [];
-    this.dismissed.clear(); this._jumpIdx = -1; // R30.13: fresh merge → clear ignored set + jump cursor
+    this.dismissed.clear(); this._jumpIdx = -1; this._resolved.clear(); this._currentId = null; // R30.13/36: fresh merge → clear jump cursor + resolved set + current-change emphasis
     if (this.base === '') {
       // R30.12: no merge-base → 2-way TAKE-OVER. LCS(local,remote) → conflicts[] as take-over hunks so the gutter
       // renders ◄/► (pick='a' keep Local default, ► take Version). Previously centerSeq was flat local → no arrows.
@@ -360,7 +363,7 @@ export class RbDiffEditor extends HTMLElement {
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
     const nc2 = this.conflicts.filter(c => (this.twoWay || c.kind === 'conflict') && !this.dismissed.has(c.id)).length; // R30.23.1: M = TRUE conflicts (3-way); in 2-way every hunk is a take-over so count all
     const cnt = this.querySelector('.de-count') as HTMLElement;
-    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'}`;
+    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'} · ${this.openChangeCount()} open`; // R30.36: live open-change count → 0 as the user acts
   }
 
   private _maxH(c: Conflict): number { return Math.max(c.a.length, c.b.length, 1); } // aligned block height (rows) across all 3 panes
@@ -419,8 +422,9 @@ export class RbDiffEditor extends HTMLElement {
     // get the brighter de-newer-<kind> (highlighted). Both share the kind gutter bar → age is visible, kind preserved.
     const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).flatMap(c => {
       const oEnd = c.span[0] + c.olderLen; const out: any[] = [];
-      if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined } });
-      if (c.span[1] > oEnd) out.push({ range: new m.Range(oEnd + 1, 1, c.span[1], 1), options: { isWholeLine: true, className: `de-block-${c.kind} de-newer-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
+      const cur = c.id === this._currentId ? ' de-block-current' : ''; // R30.36: brighter same-hue emphasis for the nav-current change
+      if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined } });
+      if (c.span[1] > oEnd) out.push({ range: new m.Range(oEnd + 1, 1, c.span[1], 1), options: { isWholeLine: true, className: `de-block-${c.kind} de-newer-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
       return out;
     });
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
@@ -438,14 +442,16 @@ export class RbDiffEditor extends HTMLElement {
     const live = this.conflicts.filter(c => !this.dismissed.has(c.id));
     const decosFor = (startKey: 'aStart' | 'bStart', linesKey: 'a' | 'b') => live.filter(c => c[linesKey].length > 0).map(c => ({
       range: new m.Range(c[startKey] + 1, 1, c[startKey] + c[linesKey].length, 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` }, // R30.34: subtle line-tint (boxes dropped)
+      options: { isWholeLine: true, className: `de-block-${c.kind}${c.id === this._currentId ? ' de-block-current' : ''}`, linesDecorationsClassName: `de-gutter-${c.kind}` }, // R30.36: current-change emphasis
     }));
     this._sideDecoIds.local = this.edLocal.deltaDecorations(this._sideDecoIds.local, decosFor('aStart', 'a'));
     this._sideDecoIds.remote = this.edRemote.deltaDecorations(this._sideDecoIds.remote, decosFor('bStart', 'b'));
   }
   private _sideDecoIds: { local: string[]; remote: string[] } = { local: [], remote: [] };
-  private dismissed = new Set<number>();   // R30.13: changes the user ✕-ignored (visual dismiss; center untouched)
+  private dismissed = new Set<number>();   // R30.13: (legacy; unused post-R30.35 — x is now removeLine, not dismiss)
   private _jumpIdx = -1;
+  private _currentId: number | null = null; // R30.36: the change under the up/down nav cursor → rendered brighter
+  private _resolved = new Set<number>();     // R30.36: changes the user has ACTED on (≫/≪/✕) → openChangeCount excludes them
   private _ribbonSvg: SVGSVGElement | null = null;
 
   // Visible Y (px, relative to .de-panes top) of the TOP of 0-based `line0` in Monaco editor `ed`.
@@ -525,20 +531,24 @@ export class RbDiffEditor extends HTMLElement {
       if (left && right) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
       else if (left) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
       else if (right) d = `M${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} Z`;
-      if (d) parts.push(`<path d="${d}" fill="${color}" fill-opacity="0.30" stroke="${color}" stroke-opacity="0.85" stroke-width="1.5"/>`);
+      const isCur = c.id === this._currentId; // R30.36: current change's ribbon brighter (same kind hue)
+      if (d) parts.push(`<path d="${d}" fill="${color}" fill-opacity="${isCur ? 0.45 : 0.3}" stroke="${color}" stroke-opacity="${isCur ? 1 : 0.85}" stroke-width="${isCur ? 2 : 1.5}"/>`);
     }
     this._ribbonSvg.innerHTML = parts.join('');
   }
 
   // [impl:uuid:65c465fa-1c45-497c-a3f9-f95829cff06d] RbDiffEditor.jumpToChange
-  // Change navigation: reveal the next/prev (dir ±1) non-ignored change region in Result (wraps). Counter lives in the toolbar.
+  // Change navigation: reveal the next/prev (dir ±1) change in Result (wraps). R30.36: also mark it the CURRENT change
+  // (_currentId) + re-render so it renders BRIGHTER (same kind hue) than its same-kind neighbours (highlightCurrentChange).
   jumpToChange(dir: number): void {
-    const list = this.conflicts.filter(c => !this.dismissed.has(c.id));
+    const list = this.conflicts;
     if (!list.length || !this.edCenter) return;
     this._jumpIdx = (((this._jumpIdx + dir) % list.length) + list.length) % list.length;
     const c = list[this._jumpIdx];
+    this._currentId = c.id;
     this.edCenter.revealLineInCenter(c.span[0] + 1);
     this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
+    this.renderMergeGutter(); // re-render blocks+ribbons with the current one emphasised
   }
 
   // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.acceptChange — R30.35 REWORK = ADD-SIDE semantic.
@@ -550,19 +560,27 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = true; else c.incl.b = true;
+    this._resolved.add(changeId); // R30.36: acting on a change marks it resolved → openChangeCount decrements
     this.rebuildCenter(); // re-flatten center from the included sets, re-render blocks+ribbons+counter
     this.dirty = true;
   }
 
-  // [impl:uuid:TBD-REQ-MINT RbDiffEditor.removeLine] — R30.35: ✕ REMOVES a side's lines from center, ALWAYS (drop the
-  // version you don't want). left=drop Local(older), right=drop Repo(newer). (marker pending req mint of the removeLine
-  // Method/Impl for the *RemoveLine UCs — 3662f00b/74167c20/c014b832/a328ddac; functional per Tron's model, real uuid later.)
+  // [impl:uuid:af887908-0d9a-4d44-beda-8c1ebc7fa695] RbDiffEditor.removeLine — R30.35: ✕ REMOVES a side's lines from
+  // center, ALWAYS (drop the version you don't want). left=drop Local(older), right=drop Repo(newer). (Method 03c84f3a;
+  // the 4 *RemoveLine UCs 3662f00b/74167c20/c014b832/a328ddac point here.)
   removeLine(changeId: number, side: 'left' | 'right'): void {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = false; else c.incl.b = false;
+    this._resolved.add(changeId); // R30.36: ✕ is an action → resolves the change
     this.rebuildCenter();
     this.dirty = true;
+  }
+
+  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.36: # of changes the user has
+  // NOT yet acted on (≫/≪/✕). = total at load, −1 per distinct action (Set → no double-count), = 0 when all reviewed.
+  openChangeCount(): number {
+    return this.conflicts.filter(c => !this._resolved.has(c.id)).length;
   }
 
   // [impl:uuid:91c452ae-d41c-49bc-8efe-f656d628fd62] RbDiffEditor.applyAllNonConflicting
