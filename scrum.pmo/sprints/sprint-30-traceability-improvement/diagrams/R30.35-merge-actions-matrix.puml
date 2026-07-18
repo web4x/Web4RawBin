@@ -1,5 +1,5 @@
 @startuml R30.35-merge-actions-matrix
-title R30.35 — Merge Actions x ConflictKind — Behaviour Matrix + v0.7.51 Validation (HARD GATE: Tron approves before ANY impl)
+title R30.35 REWORK — COMPOSABLE BOTH-VERSIONS center: ≫ add-Left · ≪ add-Right (coexist) · ✕ remove-line — EXPECTED vs v0.7.51 (authoritative render = the SVG)
 
 skinparam rectangle {
   BorderColor #333
@@ -76,15 +76,13 @@ E_RE <--> ACC
 KIND <--> ACC
 
 note bottom
-  EXPECTED (16 UCs f0b8acb14) vs MEASURED-ACTUAL (tester 6981460e6). WORKS / IDEMPOTENT-OK / DESIGN-QUESTION.
-  ★ TWO DESIGN QUESTIONS FOR TRON (decide BEFORE any impl):
-  Q1 — ✕ dismiss is VISUAL-ONLY (:157 hides overlay; change STAYS in center). AC says 'delete block from center'.
-       DECIDE: fix ✕ to mutate center (revert region→base / drop change) OR revise the AC (✕ = hide-overlay)?  [4 cells]
-  Q2 — one-sided ADD/DELETE have NO opposite-pane (≪) reject button (origin-gated). DECIDE: make one-sided
-       changes rejectable from the opposite pane, OR is ✕ the canonical reject (then Q1 settles it)?  [4 cells]
-  ✓ NOT A BUG (idempotent-correct): ≫ take-Local is a no-op for ADD/MODIFY/CONFLICT because the result is ALREADY
-       Local (auto-merge); ≫ only changes state for DELETE (re-add). Buttons confirm the active pick — by design.
-  TALLY: WORKS 4 (delete≫, modify≪, conflict≪, re-add) · IDEMPOTENT-OK 4 (add≫, modify≫, conflict≫, already-applied)
-       · DESIGN-QUESTION 8 (Q1×4 dismiss, Q2×4 one-sided reject). HARD GATE: implement NOTHING until Tron decides.
+  ★ MODEL REWORK (Tron, req 2bdbab817) — per-cell EXP/NOW text above is SUPERSEDED by the SVG (authoritative). New model:
+  CENTER holds BOTH versions of a changed region — older=DARK, newer=HIGHLIGHTED (grounded: /edit/otmux left=mcdonges.latest
+  right=dev line 38). ≫ = ADD-Left into center · ≪ = ADD-Right into center (idempotent, COEXIST — click both → both present)
+  · ✕ = REMOVE the line from center ALWAYS. NO ignore / dismiss / pick-a-side.
+  ROOT: v0.7.51 uses a SINGLE-PICK center (Conflict.pick:'a'|'b'; rebuildCenter emits ONE side) → nearly ALL cells BROKEN
+  vs the new model. REWORK: pick:'a'|'b' → included-line SET per region (left ∪ right − removed); acceptChange→addSide;
+  NEW removeLine(id,lineRef); render older-dark/newer-highlighted. Same 16 UC uuids (dual-links intact); req reworked the
+  UC names+expectedBehaviour to putLeft/putRight/removeLine. HARD GATE: build NOTHING until Tron approves this model + SVG.
 end note
 @enduml
