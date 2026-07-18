@@ -15,68 +15,68 @@
 <text x="130" y="134" font-size="11" fill="#1b2631">EXP: remove the add from CENTER (AC)</text>
 <text x="130" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: overlay hidden, add</text>
 <text x="130" y="164" font-size="11" fill="#7b241c" font-weight="600">STAYS</text>
-<text x="130" y="210" font-size="10" fill="#2c3e50" font-style="italic">add_dismiss 3662f00b</text>
+<text x="130" y="210" font-size="10" fill="#2c3e50" font-style="italic">addDismiss 3662f00b</text>
 <rect x="476" y="92" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
 <text x="486" y="114" font-size="13" font-weight="800">OK idempotent</text>
 <text x="486" y="134" font-size="11" fill="#1b2631">EXP: result = Local (keep the add)</text>
 <text x="486" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: already Local → no-op (CORRECT)</text>
-<text x="486" y="210" font-size="10" fill="#2c3e50" font-style="italic">add_takeLocal 1eed3029</text>
+<text x="486" y="210" font-size="10" fill="#2c3e50" font-style="italic">addTakeLocal 1eed3029</text>
 <rect x="832" y="92" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="842" y="114" font-size="13" font-weight="800">DESIGN-Q2</text>
 <text x="842" y="134" font-size="11" fill="#1b2631">EXP: reject / take-Repo (drop the add)</text>
 <text x="842" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: NO ≪ button — origin-gated</text>
-<text x="842" y="210" font-size="10" fill="#2c3e50" font-style="italic">add_takeRepo 4b47be33</text>
+<text x="842" y="210" font-size="10" fill="#2c3e50" font-style="italic">addTakeRepo 4b47be33</text>
 <rect x="10" y="224" width="104" height="126" fill="#34495e"/>
 <text x="62" y="290.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">DELETE</text>
 <rect x="120" y="224" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="130" y="246" font-size="13" font-weight="800">DESIGN-Q1</text>
 <text x="130" y="266" font-size="11" fill="#1b2631">EXP: reject delete → line returns</text>
 <text x="130" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: stays deleted</text>
-<text x="130" y="342" font-size="10" fill="#2c3e50" font-style="italic">delete_dismiss 74167c20</text>
+<text x="130" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteDismiss 74167c20</text>
 <rect x="476" y="224" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
 <text x="486" y="246" font-size="13" font-weight="800">WORKS</text>
 <text x="486" y="266" font-size="11" fill="#1b2631">EXP: RE-ADD the deleted line</text>
 <text x="486" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: re-adds ✔ (tester confirmed)</text>
-<text x="486" y="342" font-size="10" fill="#2c3e50" font-style="italic">delete_takeLocal fd08c146</text>
+<text x="486" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteTakeLocal fd08c146</text>
 <rect x="832" y="224" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="842" y="246" font-size="13" font-weight="800">DESIGN-Q2</text>
 <text x="842" y="266" font-size="11" fill="#1b2631">EXP: take-Repo / reject</text>
 <text x="842" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: NO ≪ button — origin-gated</text>
-<text x="842" y="342" font-size="10" fill="#2c3e50" font-style="italic">delete_takeRepo 98c235e0</text>
+<text x="842" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteTakeRepo 98c235e0</text>
 <rect x="10" y="356" width="104" height="126" fill="#34495e"/>
 <text x="62" y="422.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">MODIFY</text>
 <rect x="120" y="356" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="130" y="378" font-size="13" font-weight="800">DESIGN-Q1</text>
 <text x="130" y="398" font-size="11" fill="#1b2631">EXP: remove the modification</text>
 <text x="130" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: modified content STAYS</text>
-<text x="130" y="474" font-size="10" fill="#2c3e50" font-style="italic">modify_dismiss c014b832</text>
+<text x="130" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyDismiss c014b832</text>
 <rect x="476" y="356" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
 <text x="486" y="378" font-size="13" font-weight="800">OK idempotent</text>
 <text x="486" y="398" font-size="11" fill="#1b2631">EXP: result = Local version</text>
 <text x="486" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: already Local → no-op (CORRECT)</text>
-<text x="486" y="474" font-size="10" fill="#2c3e50" font-style="italic">modify_takeLocal 33ade681</text>
+<text x="486" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyTakeLocal 33ade681</text>
 <rect x="832" y="356" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
 <text x="842" y="378" font-size="13" font-weight="800">WORKS</text>
 <text x="842" y="398" font-size="11" fill="#1b2631">EXP: result = Repo version</text>
 <text x="842" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: applies Repo ✔ (tester)</text>
-<text x="842" y="474" font-size="10" fill="#2c3e50" font-style="italic">modify_takeRepo 352b05ec</text>
+<text x="842" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyTakeRepo 352b05ec</text>
 <rect x="10" y="488" width="104" height="126" fill="#34495e"/>
 <text x="62" y="554.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">CONFLICT</text>
 <rect x="120" y="488" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="130" y="510" font-size="13" font-weight="800">DESIGN-Q1</text>
 <text x="130" y="530" font-size="11" fill="#1b2631">EXP: resolve / remove conflict</text>
 <text x="130" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: conflict content STAYS</text>
-<text x="130" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflict_dismiss a328ddac</text>
+<text x="130" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictDismiss a328ddac</text>
 <rect x="476" y="488" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
 <text x="486" y="510" font-size="13" font-weight="800">OK idempotent</text>
 <text x="486" y="530" font-size="11" fill="#1b2631">EXP: result = Local</text>
 <text x="486" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: default already &#x27;a&#x27; → no-op (CORRECT)</text>
-<text x="486" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflict_takeLocal b934da9e</text>
+<text x="486" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictTakeLocal b934da9e</text>
 <rect x="832" y="488" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
 <text x="842" y="510" font-size="13" font-weight="800">WORKS</text>
 <text x="842" y="530" font-size="11" fill="#1b2631">EXP: result = Repo</text>
 <text x="842" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: applies Repo ✔ (tester)</text>
-<text x="842" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflict_takeRepo 72668662</text>
+<text x="842" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictTakeRepo 72668662</text>
 <rect x="10" y="620" width="104" height="126" fill="#34495e"/>
 <text x="62" y="686.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">EDGE STATES</text>
 <rect x="120" y="620" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
@@ -84,18 +84,18 @@
 <text x="130" y="662" font-size="11" fill="#1b2631">EXP: re-click already-accepted = stable</text>
 <text x="130" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: no-op reflecting current pick</text>
 <text x="130" y="692" font-size="11" fill="#7b241c" font-weight="600">(CORRECT)</text>
-<text x="130" y="738" font-size="10" fill="#2c3e50" font-style="italic">alreadyApplied e11a2842</text>
+<text x="130" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeAlreadyApplied e11a2842</text>
 <rect x="476" y="620" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
 <text x="486" y="642" font-size="13" font-weight="800">DESIGN-Q2</text>
 <text x="486" y="662" font-size="11" fill="#1b2631">EXP: reject one-sided from opposite pane</text>
 <text x="486" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: opposite-side button ABSENT</text>
 <text x="486" y="692" font-size="11" fill="#7b241c" font-weight="600">(origin-gated)</text>
-<text x="486" y="738" font-size="10" fill="#2c3e50" font-style="italic">oneSidedL 45cac75f / R bc52e3ed</text>
+<text x="486" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeOneSidedLeftEmpty 45cac75f / edgeOneSidedRightEmpty bc52e3ed</text>
 <rect x="832" y="620" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
 <text x="842" y="642" font-size="13" font-weight="800">WORKS</text>
 <text x="842" y="662" font-size="11" fill="#1b2631">EXP: re-add persists on repeat</text>
 <text x="842" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: ≫ delete re-adds; stable ✔</text>
-<text x="842" y="738" font-size="10" fill="#2c3e50" font-style="italic">reAddAfterDelete c4ecb985</text>
+<text x="842" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeReAddAfterDelete c4ecb985</text>
 <rect x="10" y="768" width="1180" height="132" fill="#fef9e7" stroke="#b7950b" rx="6"/>
 <text x="22" y="790" font-size="14" font-weight="700" fill="#7d6608">★ TWO DESIGN QUESTIONS FOR TRON (decide BEFORE any implementation):</text>
 <text x="22" y="810" font-size="11.5" fill="#5b4409">Q1 — ✕ dismiss is VISUAL-ONLY (hides overlay; change STAYS in center). AC says &#x27;delete block from center&#x27;. DECIDE: fix ✕ to mutate center (revert region → base / drop change), OR revise the AC (✕ = hide-overlay only)?</text>
