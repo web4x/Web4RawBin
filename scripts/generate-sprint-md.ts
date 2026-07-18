@@ -106,6 +106,7 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
     '',
     `**Status:** ${m.status || 'PLANNED'}`,
     '',
+    ...(m.orderingRationale ? ['## Task Ordering', '', String(m.orderingRationale), ''] : []),
     '## Tasks',
     '',
   ];
