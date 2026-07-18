@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -49,7 +49,7 @@ S30 diff/merge editor, R30.34 REVISED (Tron 'ALWAYS 3 columns, no matter what'):
 
 ## Implementation
 
-QA-REVIEW / AWAITING-TRON final visual confirm (rule#9 hold). DESIGN REVERTED to always-3-col (v0.7.48): the mobile-first stacking caused a desktop regression, reverted per Tron. Gate GREEN + chain-complete (verified, not relayed): pixel-gate 50f282076 'ALWAYS-3-columns + across-overlay spline range gate — GREEN DET-3x on v0.7.48 (revert)' — 3 columns at EVERY width 1920-390 incl the 700-819 regression band + 390px, across-spline + horizontal-scroll-track; media-query REMOVED-IN-SOURCE = 0 matches (correct-by-construction, not just tested). Test 2a7f5c94 status=pass, wired onto Impl 5051b2a4 renderConnectorRibbons (designAhead=false, the marker-reconciled unit). served==gated v0.7.48 (verified gate cites the served revert bundle). 6/6 ACs gate-proven. On TRON final visual confirm → DONE + R30.31 line-mapping UNHOLDS.
+QA-REVIEW / AWAITING-TRON final visual confirm (rule#9 hold). DESIGN REVERTED to always-3-col (v0.7.48): the mobile-first stacking caused a desktop regression, reverted per Tron. Gate GREEN + chain-complete (verified, not relayed): pixel-gate 50f282076 'ALWAYS-3-columns + across-overlay spline range gate — GREEN DET-3x on v0.7.48 (revert)' — 3 columns at EVERY width 1920-390 incl the 700-819 regression band + 390px, across-spline + horizontal-scroll-track; media-query REMOVED-IN-SOURCE = 0 matches (correct-by-construction, not just tested). Test 2a7f5c94 status=pass, wired onto Impl 5051b2a4 renderConnectorRibbons (designAhead=false, the marker-reconciled unit). served==gated v0.7.48 (verified gate cites the served revert bundle). 6/6 ACs gate-proven. On TRON final visual confirm → DONE + R30.31 line-mapping UNHOLDS. | -> DONE: TRON CONFIRMED v0.7.48 layout FIXED (always 3 columns, alignment holds whole otmux file; SVG rounding good-enough, pixel-perfect NOT required). Rule#9 satisfied (Tron sign-off = acceptance) + gate GREEN + chain-to-Test + served==gated all pre-verified. Closes the layout saga (PO P0 + recovery, Tron-accepted). R30.31 line-mapping UNHOLDS.
 
 ## Subtasks
 

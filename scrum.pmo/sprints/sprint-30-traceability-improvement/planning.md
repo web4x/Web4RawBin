@@ -40,7 +40,7 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.25: Picking a RIGHT ref preserves the LEFT side (no blanking)](./task-30.25-right-pick-preserves-left.md)
 - [x] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
 - [x] [Task 30.26: Deep-link right-pick preserves the user's pick (BUG-1)](./task-30.26-deeplink-right-pick-preserved.md)
-- [ ] [Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines](./task-30.34-always-3-columns-spline.md)
+- [x] [Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines](./task-30.34-always-3-columns-spline.md)
 - [x] [Task 30.21: Drawer non-sprint detail render (graph-independent /api/ior fetch-fallback)](./task-30.21-drawer-graph-independent-detail.md)
 - [x] [Task 30.22: Drawer select opens content-visible (not peek-clipped)](./task-30.22-drawer-select-content-visible.md)
 - [x] [Task 30.30: 3-pane rows re-anchor to 0px at every blank/stable line (no persistent residual)](./task-30.30-absolute-blank-reanchor.md)
