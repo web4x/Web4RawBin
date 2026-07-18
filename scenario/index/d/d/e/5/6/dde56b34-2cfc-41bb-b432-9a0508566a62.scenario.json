@@ -46,7 +46,7 @@
    {
     "id": "AC-open-count",
     "group": "count",
-    "text": "An accurate 'N conflicts to resolve' COUNT of OPEN = UNRESOLVED changes is shown (a change is resolved ONLY via the R30.37 green checkmark, NOT automatically on a merge action)."
+    "text": "The 'N conflicts to resolve' count = # of UNRESOLVED changes, where UNRESOLVED = the center holds 2 versions (derived from line-count), unless manually overridden via the R30.37 checkmark. Resolving (via 'x'/derived 1-line OR the checkmark) decrements it; re-opening increments it."
    },
    {
     "id": "AC-count-decrements",

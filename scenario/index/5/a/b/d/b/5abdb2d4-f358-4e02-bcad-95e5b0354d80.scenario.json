@@ -14,7 +14,7 @@
   "useCases": [
    "ior:instance:fa87d094-a723-443c-8f71-b4a1ce54ba24"
   ],
-  "description": "A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK (labelled 'RESOLVED') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28). WORDING is 'RESOLVED' (button/label/tooltip) - never 'commit'/'committed'. There is ONE resolved-state per CHANGE: even when a change renders as 2 SVG blocks (R30.35 two-per-side rendering), it is ONE change with ONE checkmark and ONE resolved-state - resolve/unresolve applies to the whole change, not per-block.",
+  "description": "A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK (labelled 'RESOLVED') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28). RECONCILE (Tron conflict-merge optimize): resolution DERIVES from the center line-count (1 line = resolved, 2 lines = unresolved) - the checkmark REFLECTS that derived state (SOLID=1-line/resolved, OUTLINED=2-line/unresolved, auto-updating) AND is a MANUAL OVERRIDE (force-resolve a still-2-line change when you intend to keep BOTH versions; or re-open a 1-line change). WORDING is 'RESOLVED' (button/label/tooltip), never 'commit'. ONE resolved-state per CHANGE (even rendered as 2 SVG blocks). 'x' (visible only when 2 lines, per side) removes a side -> 1 line -> auto-resolves + jumps to next; '>>'/'<<' add a side and the state re-derives from line-count.",
   "tronQuote": "> TRON: a green checkmark per change (labelled 'RESOLVED', not 'commit') next to the up/down nav - outlined-green = unresolved, solid-green = resolved; clicking toggles resolved; clicking any x/>>/<< on that change resets it to unresolved. ONE resolved-state per change even if it renders as 2 blocks.",
   "discoverySource": {
    "type": "tron-directive",
@@ -37,12 +37,12 @@
    {
     "id": "AC-states",
     "group": "toggle",
-    "text": "OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. The checkmark's fill visually distinguishes the two states (pixel-distinguishable)."
+    "text": "The checkmark REFLECTS the DERIVED resolved-state: SOLID-green when the center holds ONE version (resolved), OUTLINED-green when it holds BOTH (unresolved) - auto-updating from the center line-count. Pixel-distinguishable states."
    },
    {
     "id": "AC-toggle",
     "group": "toggle",
-    "text": "Clicking the checkmark TOGGLES the change between resolved and unresolved. Resolution is EXPLICIT via the checkmark - it is NOT auto-set by a merge action."
+    "text": "The checkmark is a MANUAL OVERRIDE on top of the derived state: click to force-RESOLVE a still-2-line change (intentionally keep BOTH versions) or to re-open (force-unresolve) a 1-line change. Default resolution is DERIVED from the center line-count; the checkmark both INDICATES and OVERRIDES it - it is not the sole resolution mechanism."
    },
    {
     "id": "AC-one-state-per-change",
@@ -52,7 +52,7 @@
    {
     "id": "AC-reset-on-action",
     "group": "reset",
-    "text": "Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (re-working the change un-resolves it)."
+    "text": "Merge actions change the center line-count so the derived state updates automatically: 'x' -> 1 line -> resolved (+ jump to next); '>>'/'<<' -> re-derive (2 lines = unresolved, 1 line = resolved). A manual override persists until an action changes the line-count or the user toggles again."
    },
    {
     "id": "AC-drives-count",

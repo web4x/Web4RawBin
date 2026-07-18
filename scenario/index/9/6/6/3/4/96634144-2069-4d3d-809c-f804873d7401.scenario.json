@@ -79,6 +79,26 @@
     "text": "Per changed region the CENTER shows BOTH versions (left line + right line; older=dark, newer=highlighted). Actions are ADD/REMOVE (NO ignore/dismiss/pick-side): '>>' PUTS the LEFT version into the center, '<<' PUTS the RIGHT version into the center (BOTH can be in the center at once), 'x' REMOVES that line from the center (ALWAYS). See the 16-cell behaviour matrix (mergeAction.* UCs)."
    },
    {
+    "id": "AC-x-visibility",
+    "group": "action-visibility",
+    "text": "The 'x' (remove) action shows ONLY when the center holds BOTH versions (2 lines) - PER SIDE: a left-x on the left version and a right-x on the right version. No 'x' when the center already holds one version."
+   },
+   {
+    "id": "AC-x-auto-resolve",
+    "group": "action-visibility",
+    "text": "Pressing left-x or right-x REMOVES that side from the center, leaving ONE version -> the change AUTO-RESOLVES (derived) and the editor JUMPS to the next change (jumpToChange)."
+   },
+   {
+    "id": "AC-addside-visibility",
+    "group": "action-visibility",
+    "text": "The '>>' (left) / '<<' (right) add-side action shows when that side's line is NOT currently in the center."
+   },
+   {
+    "id": "AC-resolution-derives",
+    "group": "resolution",
+    "text": "The resolved-state DERIVES from the center line-count: 1 line in center = RESOLVED, 2 lines = UNRESOLVED. '>>'/'<<' adds that side (2 lines -> unresolved; 1 line -> resolved); 'x' removes a side (-> 1 line -> resolved). The R30.37 checkmark REFLECTS this derived state and can MANUALLY OVERRIDE it."
+   },
+   {
     "id": "AC-two-per-side-blocks",
     "group": "rendering",
     "text": "A both-versions change (a>0 && b>0) renders as TWO PER-SIDE blocks, NOT one merged block spanning both center lines. MECHANISM (architect design e6a58f982): centerLeft span = [span0, span0+a.len] = the LEFT/older version (DARK); centerRight span = [span0+a.len, span1] = the RIGHT/newer version (HIGHLIGHTED). renderCenterChangeBlocks [37c9694c] emits 2 decorations (centerLeft + centerRight); renderConnectorRibbons [5051b2a4] draws 2 HALF-ribbons - Local<->centerLeft AND Repository<->centerRight - each side connecting to ITS specific center line, never one merged ribbon spanning both. One-sided changes (insertions/deletions) unchanged. Impl-edit, markers stay. The 2 blocks are VISUAL ONLY: the change remains ONE unit for resolution (one R30.37 'RESOLVED' checkmark, one resolved-state) - 2 blocks does NOT mean 2 resolve targets. (Ref screenshot: line 73 left / center 74+75 / right 74 -> 2 blocks.)"
