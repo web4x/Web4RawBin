@@ -28,10 +28,13 @@ Rule per side: **in-center + other-side-also-in → `✕`(remove this) · not-in
 Resolution = center line-count (1=resolved, 2=unresolved). The R30.37 checkmark stays as a **read-only DERIVED indicator** — solid when the change is 1 line, outlined when 2 lines — driven by the count, NOT clicked. `toggleResolved` [`c86a104d`] is repurposed from a manual toggle to the derived-indicator refresh (no state mutation). `openChangeCount` = # changes with 2 lines. Single source of truth, no dual state. (If a genuine keep-both result is ever needed, that's a future explicit-override feature — not now.)
 
 ## Impl spec (BUILD DIRECTLY — expert)
-- **`renderInterPaneGutters` [fd99c520] (impl-edit):** re-gate visibility from `c.a.length>0`/`c.b.length>0` (`:500`) to CENTER-STATE: per side show `✕` iff (thisSideInCenter && otherSideInCenter); show add(`≫`/`≪`) iff !thisSideInCenter; else nothing. Uses the R30.35 included-set.
+- **`renderInterPaneGutters` [fd99c520] (impl-edit):** re-gate visibility from `c.a.length>0`/`c.b.length>0` (`:500`) to SIDE-INCLUSION: per side show `✕` iff (`c.incl[thisSide] && c.incl[otherSide]`); show add(`≫`/`≪`) iff `!c.incl[thisSide]`; else nothing. Uses the R30.35 included flags (`incl.a`/`incl.b`).
 - **`✕` handler:** removeSide(id, side) → included-set −side → `renderMergeGutter()` → if count==1 `jumpToChange(+1 to next 2-line change)`.
 - **`≫`/`≪` handler:** addSide(id, side) → included-set +side → `renderMergeGutter()` (derive; no jump).
-- **`isResolved(change) = centerLineCount(change) === 1`** (derived). `openChangeCount() = conflicts.filter(c => centerLineCount(c) !== 1).length`. **REMOVE the R30.36/R30.37 `_resolved` set + its `.add/.delete` on actions/checkmark** — resolution is derived, not stored.
+- **Derived rule (CONFIRMED per expert — SIDE-inclusion, robust for multi-line sides, NOT literal line-count):** a side (left/right version) can be multi-line, so derive from WHICH SIDES are in center, not the physical count:
+  - `unresolved = incl.a && incl.b` (BOTH sides in center) · `resolved = exactly one side` (`incl.a !== incl.b`) · zero sides = empty→treat unresolved.
+  - `isResolved(c) = (c.incl.a !== c.incl.b)`. `openChangeCount() = conflicts.filter(c => c.incl.a && c.incl.b).length` (# both-included = unresolved). Marker **[impl 8b6abf77]** `RbDiffEditor.openChangeCount` (:622/:626) — Method uuid = 643de373.
+- **REMOVE the R30.36/R30.37 `_resolved` set + its `.add/.delete`** in the add/removeLine handlers (:603/:616) and the checkmark — resolution is DERIVED from `incl.a/incl.b`, not stored.
 - **`toggleResolved` [c86a104d]:** repurpose from a manual toggle to a derived-indicator refresh — reads `centerLineCount(_currentId)`, sets the checkmark outlined/solid, mutates NO state. (Bound to nothing clickable, or the checkmark is a non-interactive `<span>`.)
 - **Checkmark (R30.37):** outlined = 2 lines (unresolved), solid = 1 line (resolved) — driven purely by the derived count; refreshed on every add/remove + jump.
 
