@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5c9e2a71-8d34-4b0f-a6e2-3f71c085d946",
+    "name": "test:R30.35 2-block render — both-versions=2 half-ribbons / one-sided=1 + center 2-decos",
+    "description": "Bridged to test/visual/r3038-two-block-ribbons-gate.mjs (DET-3x GREEN on v0.7.56). SVG-geometry (per-change ribbon subpath count) + pixel (center 2-decos), NOT DOM element-count. both-versions change draws 2 HALF-ribbons (Local↔centerLeft older + centerRight↔Repo newer), one-sided draws 1 — subpaths [modify:2 delete:1 add:1 conflict:2] = expert [2,1,1,2]. Center 2-decos: older de-block dark tint + newer de-newer brighter+accent (56>40). otmux line ~73/75 real-diff spot-check ✓. Two-key: renderConnectorRibbons (half-ribbons) + computeMergedCenter (olderLen/2-block split).",
+    "sourceFile": "ior:file:test/visual/r3038-two-block-ribbons-gate.mjs",
+    "implementations": [
+      "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e",
+      "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+}
