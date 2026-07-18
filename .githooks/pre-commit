@@ -1,0 +1,9 @@
+#!/bin/sh
+# Pre-commit gate (req a90fdb9c1): reject snake_case (underscore) UseCase/Method names — correct-by-construction,
+# so a snake_case unit name can never be committed (it caught names that slipped past manual review).
+# Enable once per clone:  git config core.hooksPath .githooks
+# Fast, node-only (no tsx). The heavier gates (trace-audit / rule-pair / sprint-md) run in CI via `npm run ci:gates`.
+node scripts/check-camelcase-names.mjs || {
+  echo "pre-commit BLOCKED: camelCase name gate failed — rename the snake_case UseCase/Method name(s) above." >&2
+  exit 1
+}
