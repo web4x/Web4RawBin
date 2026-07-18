@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "769bc9bc-61aa-4ed4-8012-04b45d1e49a9",
+  "name": "ServiceWorker.navigationStrategy impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/sw.js",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: sw.js network-first shell/navigation strategy (fresh fetch, cache-fallback offline). Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:f819f252-8e9e-4f90-a82b-48a7290a6f39"
+}

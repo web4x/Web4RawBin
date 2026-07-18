@@ -240,6 +240,7 @@
   - [ ] **(gate)** GATE (verified on a REAL long-open running client, NOT a fresh navigation): deploy a new version -> the left-open client picks it up within <=60s with NO manual hard-reload (network-first shell serves the fresh bundle + poll detects + one-click banner) and then reports the new version. Confirm across a deploy; version-confirm/screenshot, NEVER DOM/element-count.
   -> swUpdate.pollForUpdate [uc:uuid:ba7b15ab-c785-4c94-a8fe-936016b0023c]
   -> swUpdate.claimClients [uc:uuid:decc53f9-13b9-4785-bddf-b1f001bb2b9c]
+  -> serviceWorker.networkFirstShell [uc:uuid:a5dd44bc-e7c6-4db1-8bc4-04478bd9d3ef]
 
 - [ ] **R30.15 — Right-history default is meaningful + user-pick wins**
   [requirement:uuid:c2472818-0d33-4d4d-9f34-a858c03bb346]

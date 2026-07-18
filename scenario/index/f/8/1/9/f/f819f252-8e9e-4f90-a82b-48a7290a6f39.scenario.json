@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "f819f252-8e9e-4f90-a82b-48a7290a6f39",
+  "name": "ServiceWorker.navigationStrategy",
+  "implementations": [
+   "ior:instance:769bc9bc-61aa-4ed4-8012-04b45d1e49a9"
+  ],
+  "tests": [],
+  "note": "R30.14 root-cause fix. Name EXACT for [impl] AST-attach. sw.js fetch handler: NETWORK-FIRST for the shell (index.html/navigations) + bundles (fetch fresh, cache-fallback ONLY offline) - reuse a networkFirst helper; replaces the cache-first shell that defeated poll+claim. Offline intact by construction (cache-fallback)."
+ },
+ "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a5dd44bc-e7c6-4db1-8bc4-04478bd9d3ef",
+  "name": "serviceWorker.networkFirstShell",
+  "description": "The SW fetch handler serves the app SHELL (index.html/navigations) + bundles NETWORK-FIRST (ServiceWorker.navigationStrategy): fetch fresh, fall back to cache ONLY when offline - so a deploy's new shell reaches the running client without a hard-reload (the prior cache-first shell defeated pollForWorkerUpdate+claimClients). Offline intact by construction via the cache-fallback.",
+  "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+  "classes": [
+   "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+  ],
+  "method": "ior:instance:f819f252-8e9e-4f90-a82b-48a7290a6f39",
+  "coveredRequirement": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+ },
+ "ownerIor": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+}

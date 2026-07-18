@@ -13,7 +13,8 @@
   "unitLinks": [],
   "useCases": [
    "ior:instance:ba7b15ab-c785-4c94-a8fe-936016b0023c",
-   "ior:instance:decc53f9-13b9-4785-bddf-b1f001bb2b9c"
+   "ior:instance:decc53f9-13b9-4785-bddf-b1f001bb2b9c",
+   "ior:instance:a5dd44bc-e7c6-4db1-8bc4-04478bd9d3ef"
   ],
   "description": "A new deploy becomes visible to open pages WITHOUT a hard-refresh. Root cause: the update detection (updatefound -> banner, /api/config version compare) is correct but only fires on load/navigation, so a PWA left open never re-checks. Two targeted additions reusing the existing banner/skipWaiting flow: (1) ServiceWorker.pollForWorkerUpdate periodically (interval + visibilitychange/focus, debounced) forces registration.update() + the version compare so updatefound/the banner lights up while the app is open; (2) ServiceWorker.claimClients adds self.clients.claim() to the sw.js activate handler so the new SW controls open pages and the existing controllerchange->reload fires. Primary UX = the existing one-tap 'New version - reload' banner (no surprise mid-edit reload). Pure client, no server restart.",
   "tronQuote": "> Tron/PO 2026-07-14: Tron hard-refreshes every deploy because the SW serves the stale cached bundle. Make new deploys auto-detected -> one-tap 'New version - reload', no hard-refresh.",
