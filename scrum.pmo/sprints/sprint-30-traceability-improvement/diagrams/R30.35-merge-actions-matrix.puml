@@ -76,14 +76,15 @@ E_RE <--> ACC
 KIND <--> ACC
 
 note bottom
-  ROOT CAUSES of "many do NOT work" (v0.7.51):
-  RC1 — ✕ dismiss (act='ignore', :157) only hides the overlay (dismissed set); NO rebuildCenter →
-        the change STAYS in center. ALL 4 dismiss cells BROKEN (add/delete/modify/conflict ✕).
-  RC2 — ≫/≪ are INERT when the default pick already = that side (default pick = the change's ORIGIN side):
-        add≫(local-add), modify≫(local-mod), conflict≫(default 'a'), left/right-empty edges → NO-OP.
-  WORKS (6): delete≫, delete≪, add≪(local-add), modify≪(local-mod), conflict≪, re-add-after-delete.
-  BROKEN/INERT (10): 4× ✕ dismiss + add≫ + modify≫ + conflict≫ + 2× oneSided edges + already-applied.
-  HARD GATE: NO implementation until Tron approves this SVG. Fix design follows approval (RC1: ✕→rebuild/revert;
-  RC2: make ≫/≪ origin-aware or force a distinct outcome so the button is never a no-op).
+  EXPECTED (16 UCs f0b8acb14) vs MEASURED-ACTUAL (tester 6981460e6). WORKS / IDEMPOTENT-OK / DESIGN-QUESTION.
+  ★ TWO DESIGN QUESTIONS FOR TRON (decide BEFORE any impl):
+  Q1 — ✕ dismiss is VISUAL-ONLY (:157 hides overlay; change STAYS in center). AC says 'delete block from center'.
+       DECIDE: fix ✕ to mutate center (revert region→base / drop change) OR revise the AC (✕ = hide-overlay)?  [4 cells]
+  Q2 — one-sided ADD/DELETE have NO opposite-pane (≪) reject button (origin-gated). DECIDE: make one-sided
+       changes rejectable from the opposite pane, OR is ✕ the canonical reject (then Q1 settles it)?  [4 cells]
+  ✓ NOT A BUG (idempotent-correct): ≫ take-Local is a no-op for ADD/MODIFY/CONFLICT because the result is ALREADY
+       Local (auto-merge); ≫ only changes state for DELETE (re-add). Buttons confirm the active pick — by design.
+  TALLY: WORKS 4 (delete≫, modify≪, conflict≪, re-add) · IDEMPOTENT-OK 4 (add≫, modify≫, conflict≫, already-applied)
+       · DESIGN-QUESTION 8 (Q1×4 dismiss, Q2×4 one-sided reject). HARD GATE: implement NOTHING until Tron decides.
 end note
 @enduml
