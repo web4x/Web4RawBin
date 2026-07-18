@@ -1,108 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1010" font-family="Segoe UI,Arial,sans-serif">
-<rect width="1200" height="1010" fill="#fbfbfb"/>
-<text x="20" y="34" font-size="20" font-weight="700">R30.35 — Merge Actions × ConflictKind — EXPECTED vs MEASURED-ACTUAL (v0.7.51) — HARD GATE for Tron</text>
-<text x="20" y="56" font-size="12" fill="#555">DUAL LINKS: each cell ⟷ req mergeAction unit (uuid) under R30.35 f0b8acb14. ACTUAL = tester measured (6981460e6). Implement NOTHING until Tron decides Q1/Q2.</text>
-<rect x="120" y="60" width="350" height="30" fill="#2c3e50"/>
-<text x="295.0" y="81" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">✕ dismiss (act=ignore)</text>
-<rect x="476" y="60" width="350" height="30" fill="#2c3e50"/>
-<text x="651.0" y="81" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">≫ take-Local (act=left)</text>
-<rect x="832" y="60" width="350" height="30" fill="#2c3e50"/>
-<text x="1007.0" y="81" font-size="13" fill="#fff" font-weight="700" text-anchor="middle">≪ take-Repo (act=right)</text>
-<rect x="10" y="92" width="104" height="126" fill="#34495e"/>
-<text x="62" y="158.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">ADD</text>
-<rect x="120" y="92" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="130" y="114" font-size="13" font-weight="800">DESIGN-Q1</text>
-<text x="130" y="134" font-size="11" fill="#1b2631">EXP: remove the add from CENTER (AC)</text>
-<text x="130" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: overlay hidden, add</text>
-<text x="130" y="164" font-size="11" fill="#7b241c" font-weight="600">STAYS</text>
-<text x="130" y="210" font-size="10" fill="#2c3e50" font-style="italic">addDismiss 3662f00b</text>
-<rect x="476" y="92" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
-<text x="486" y="114" font-size="13" font-weight="800">OK idempotent</text>
-<text x="486" y="134" font-size="11" fill="#1b2631">EXP: result = Local (keep the add)</text>
-<text x="486" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: already Local → no-op (CORRECT)</text>
-<text x="486" y="210" font-size="10" fill="#2c3e50" font-style="italic">addTakeLocal 1eed3029</text>
-<rect x="832" y="92" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="842" y="114" font-size="13" font-weight="800">DESIGN-Q2</text>
-<text x="842" y="134" font-size="11" fill="#1b2631">EXP: reject / take-Repo (drop the add)</text>
-<text x="842" y="149" font-size="11" fill="#7b241c" font-weight="600">ACT: NO ≪ button — origin-gated</text>
-<text x="842" y="210" font-size="10" fill="#2c3e50" font-style="italic">addTakeRepo 4b47be33</text>
-<rect x="10" y="224" width="104" height="126" fill="#34495e"/>
-<text x="62" y="290.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">DELETE</text>
-<rect x="120" y="224" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="130" y="246" font-size="13" font-weight="800">DESIGN-Q1</text>
-<text x="130" y="266" font-size="11" fill="#1b2631">EXP: reject delete → line returns</text>
-<text x="130" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: stays deleted</text>
-<text x="130" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteDismiss 74167c20</text>
-<rect x="476" y="224" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
-<text x="486" y="246" font-size="13" font-weight="800">WORKS</text>
-<text x="486" y="266" font-size="11" fill="#1b2631">EXP: RE-ADD the deleted line</text>
-<text x="486" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: re-adds ✔ (tester confirmed)</text>
-<text x="486" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteTakeLocal fd08c146</text>
-<rect x="832" y="224" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="842" y="246" font-size="13" font-weight="800">DESIGN-Q2</text>
-<text x="842" y="266" font-size="11" fill="#1b2631">EXP: take-Repo / reject</text>
-<text x="842" y="281" font-size="11" fill="#7b241c" font-weight="600">ACT: NO ≪ button — origin-gated</text>
-<text x="842" y="342" font-size="10" fill="#2c3e50" font-style="italic">deleteTakeRepo 98c235e0</text>
-<rect x="10" y="356" width="104" height="126" fill="#34495e"/>
-<text x="62" y="422.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">MODIFY</text>
-<rect x="120" y="356" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="130" y="378" font-size="13" font-weight="800">DESIGN-Q1</text>
-<text x="130" y="398" font-size="11" fill="#1b2631">EXP: remove the modification</text>
-<text x="130" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: modified content STAYS</text>
-<text x="130" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyDismiss c014b832</text>
-<rect x="476" y="356" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
-<text x="486" y="378" font-size="13" font-weight="800">OK idempotent</text>
-<text x="486" y="398" font-size="11" fill="#1b2631">EXP: result = Local version</text>
-<text x="486" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: already Local → no-op (CORRECT)</text>
-<text x="486" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyTakeLocal 33ade681</text>
-<rect x="832" y="356" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
-<text x="842" y="378" font-size="13" font-weight="800">WORKS</text>
-<text x="842" y="398" font-size="11" fill="#1b2631">EXP: result = Repo version</text>
-<text x="842" y="413" font-size="11" fill="#7b241c" font-weight="600">ACT: applies Repo ✔ (tester)</text>
-<text x="842" y="474" font-size="10" fill="#2c3e50" font-style="italic">modifyTakeRepo 352b05ec</text>
-<rect x="10" y="488" width="104" height="126" fill="#34495e"/>
-<text x="62" y="554.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">CONFLICT</text>
-<rect x="120" y="488" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="130" y="510" font-size="13" font-weight="800">DESIGN-Q1</text>
-<text x="130" y="530" font-size="11" fill="#1b2631">EXP: resolve / remove conflict</text>
-<text x="130" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: VISUAL-ONLY: conflict content STAYS</text>
-<text x="130" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictDismiss a328ddac</text>
-<rect x="476" y="488" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
-<text x="486" y="510" font-size="13" font-weight="800">OK idempotent</text>
-<text x="486" y="530" font-size="11" fill="#1b2631">EXP: result = Local</text>
-<text x="486" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: default already &#x27;a&#x27; → no-op (CORRECT)</text>
-<text x="486" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictTakeLocal b934da9e</text>
-<rect x="832" y="488" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
-<text x="842" y="510" font-size="13" font-weight="800">WORKS</text>
-<text x="842" y="530" font-size="11" fill="#1b2631">EXP: result = Repo</text>
-<text x="842" y="545" font-size="11" fill="#7b241c" font-weight="600">ACT: applies Repo ✔ (tester)</text>
-<text x="842" y="606" font-size="10" fill="#2c3e50" font-style="italic">conflictTakeRepo 72668662</text>
-<rect x="10" y="620" width="104" height="126" fill="#34495e"/>
-<text x="62" y="686.0" font-size="14" fill="#fff" font-weight="700" text-anchor="middle">EDGE STATES</text>
-<rect x="120" y="620" width="350" height="126" fill="#aed6f1" stroke="#333" stroke-width="1" rx="5"/>
-<text x="130" y="642" font-size="13" font-weight="800">OK idempotent</text>
-<text x="130" y="662" font-size="11" fill="#1b2631">EXP: re-click already-accepted = stable</text>
-<text x="130" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: no-op reflecting current pick</text>
-<text x="130" y="692" font-size="11" fill="#7b241c" font-weight="600">(CORRECT)</text>
-<text x="130" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeAlreadyApplied e11a2842</text>
-<rect x="476" y="620" width="350" height="126" fill="#f9e79f" stroke="#333" stroke-width="1" rx="5"/>
-<text x="486" y="642" font-size="13" font-weight="800">DESIGN-Q2</text>
-<text x="486" y="662" font-size="11" fill="#1b2631">EXP: reject one-sided from opposite pane</text>
-<text x="486" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: opposite-side button ABSENT</text>
-<text x="486" y="692" font-size="11" fill="#7b241c" font-weight="600">(origin-gated)</text>
-<text x="486" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeOneSidedLeftEmpty 45cac75f / edgeOneSidedRightEmpty bc52e3ed</text>
-<rect x="832" y="620" width="350" height="126" fill="#abebc9" stroke="#333" stroke-width="1" rx="5"/>
-<text x="842" y="642" font-size="13" font-weight="800">WORKS</text>
-<text x="842" y="662" font-size="11" fill="#1b2631">EXP: re-add persists on repeat</text>
-<text x="842" y="677" font-size="11" fill="#7b241c" font-weight="600">ACT: ≫ delete re-adds; stable ✔</text>
-<text x="842" y="738" font-size="10" fill="#2c3e50" font-style="italic">edgeReAddAfterDelete c4ecb985</text>
-<rect x="10" y="768" width="1180" height="132" fill="#fef9e7" stroke="#b7950b" rx="6"/>
-<text x="22" y="790" font-size="14" font-weight="700" fill="#7d6608">★ TWO DESIGN QUESTIONS FOR TRON (decide BEFORE any implementation):</text>
-<text x="22" y="810" font-size="11.5" fill="#5b4409">Q1 — ✕ dismiss is VISUAL-ONLY (hides overlay; change STAYS in center). AC says &#x27;delete block from center&#x27;. DECIDE: fix ✕ to mutate center (revert region → base / drop change), OR revise the AC (✕ = hide-overlay only)?</text>
-<text x="22" y="830" font-size="11.5" fill="#5b4409">Q2 — one-sided ADD/DELETE have NO opposite-pane (≪) reject button (origin-gated). DECIDE: make one-sided changes rejectable from the opposite pane, OR is ✕ the canonical reject (then Q1&#x27;s ✕ answer settles this)?</text>
-<text x="22" y="850" font-size="11.5" fill="#5b4409">✓ NOT A BUG (idempotent-correct, blue): ≫ take-Local is a no-op for ADD/MODIFY/CONFLICT because the result is ALREADY Local (auto-merge). ≫ only changes state for DELETE (re-add). Buttons confirm the active pick — correct-by-design.</text>
-<text x="22" y="870" font-size="11.5" fill="#5b4409">TALLY: WORKS 4 (delete≫, modify≪, conflict≪, re-add-after-delete) · IDEMPOTENT-OK 4 (add≫, modify≫, conflict≫, already-applied) · DESIGN-QUESTION 8 (Q1: 4× dismiss · Q2: 4× one-sided reject).</text>
-<rect x="850" y="60" width="14" height="14" fill="#abebc9"/><text x="868" y="72" font-size="11">WORKS</text>
-<rect x="925" y="60" width="14" height="14" fill="#aed6f1"/><text x="943" y="72" font-size="11">OK (idempotent)</text>
-<rect x="1045" y="60" width="14" height="14" fill="#f9e79f"/><text x="1063" y="72" font-size="11">DESIGN-Q (Tron)</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1040" font-family="Segoe UI,Arial,sans-serif">
+<rect width="1240" height="1040" fill="#fbfbfb"/>
+<text x="20" y="34" font-size="19" font-weight="700">R30.35 REWORKED — Center holds BOTH versions · ≫ add-Left · ≪ add-Right (coexist) · ✕ remove-line — EXPECTED vs v0.7.51</text>
+<text x="20" y="55" font-size="12" fill="#555">Tron model: no ignore/pick-side. DUAL LINKS: cell ⟷ req mergeAction unit (uuid, camelCase). Grounded: /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 line 38. HARD GATE: build nothing.</text>
+<rect x="120" y="64" width="362" height="30" fill="#2c3e50"/>
+<text x="301.0" y="85" font-size="12.5" fill="#fff" font-weight="700" text-anchor="middle">≫ put-LEFT into center (ADD)</text>
+<rect x="488" y="64" width="362" height="30" fill="#2c3e50"/>
+<text x="669.0" y="85" font-size="12.5" fill="#fff" font-weight="700" text-anchor="middle">≪ put-RIGHT into center (ADD)</text>
+<rect x="856" y="64" width="362" height="30" fill="#2c3e50"/>
+<text x="1037.0" y="85" font-size="12.5" fill="#fff" font-weight="700" text-anchor="middle">✕ REMOVE line from center (always)</text>
+<rect x="10" y="96" width="104" height="132" fill="#34495e"/>
+<text x="62" y="159.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">MODIFY</text>
+<rect x="120" y="96" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="130" y="118" font-size="13" font-weight="800">BROKEN</text>
+<text x="130" y="138" font-size="11" fill="#0e3d1b">EXP: ADD left version; RIGHT stays (both</text>
+<text x="130" y="153" font-size="11" fill="#0e3d1b">coexist, older dark/newer hl)</text>
+<text x="130" y="168" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;a&#x27; REPLACES center w/ left →</text>
+<text x="130" y="183" font-size="11" fill="#7b241c" font-weight="600">right REMOVED</text>
+<text x="130" y="221" font-size="10" fill="#2c3e50" font-style="italic">modifyPutLeft 33ade681</text>
+<rect x="488" y="96" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="498" y="118" font-size="13" font-weight="800">BROKEN</text>
+<text x="498" y="138" font-size="11" fill="#0e3d1b">EXP: ADD right version; LEFT stays (coexist)</text>
+<text x="498" y="153" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;b&#x27; REPLACES center w/ right →</text>
+<text x="498" y="168" font-size="11" fill="#7b241c" font-weight="600">left REMOVED</text>
+<text x="498" y="221" font-size="10" fill="#2c3e50" font-style="italic">modifyPutRight 352b05ec</text>
+<rect x="856" y="96" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="866" y="118" font-size="13" font-weight="800">BROKEN</text>
+<text x="866" y="138" font-size="11" fill="#0e3d1b">EXP: REMOVE the line from center</text>
+<text x="866" y="153" font-size="11" fill="#7b241c" font-weight="600">NOW: VISUAL dismiss only; center UNCHANGED</text>
+<text x="866" y="221" font-size="10" fill="#2c3e50" font-style="italic">modifyRemoveLine c014b832</text>
+<rect x="10" y="234" width="104" height="132" fill="#34495e"/>
+<text x="62" y="297.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">CONFLICT</text>
+<rect x="120" y="234" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="130" y="256" font-size="13" font-weight="800">BROKEN</text>
+<text x="130" y="276" font-size="11" fill="#0e3d1b">EXP: ADD left; right coexists</text>
+<text x="130" y="291" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;a&#x27; replaces → right gone</text>
+<text x="130" y="359" font-size="10" fill="#2c3e50" font-style="italic">conflictPutLeft b934da9e</text>
+<rect x="488" y="234" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="498" y="256" font-size="13" font-weight="800">BROKEN</text>
+<text x="498" y="276" font-size="11" fill="#0e3d1b">EXP: ADD right; left coexists</text>
+<text x="498" y="291" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;b&#x27; replaces → left gone</text>
+<text x="498" y="359" font-size="10" fill="#2c3e50" font-style="italic">conflictPutRight 72668662</text>
+<rect x="856" y="234" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="866" y="256" font-size="13" font-weight="800">BROKEN</text>
+<text x="866" y="276" font-size="11" fill="#0e3d1b">EXP: REMOVE the line</text>
+<text x="866" y="291" font-size="11" fill="#7b241c" font-weight="600">NOW: visual dismiss; center unchanged</text>
+<text x="866" y="359" font-size="10" fill="#2c3e50" font-style="italic">conflictRemoveLine a328ddac</text>
+<rect x="10" y="372" width="104" height="132" fill="#34495e"/>
+<text x="62" y="435.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">ADD</text>
+<rect x="120" y="372" width="362" height="132" fill="#f5b041" stroke="#333" stroke-width="1" rx="5"/>
+<text x="130" y="394" font-size="13" font-weight="800">PARTIAL</text>
+<text x="130" y="414" font-size="11" fill="#0e3d1b">EXP: ADD the left-added lines (keep)</text>
+<text x="130" y="429" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;a&#x27; keeps them — but no coexist</text>
+<text x="130" y="444" font-size="11" fill="#7b241c" font-weight="600">model</text>
+<text x="130" y="497" font-size="10" fill="#2c3e50" font-style="italic">addPutLeft 1eed3029</text>
+<rect x="488" y="372" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="498" y="394" font-size="13" font-weight="800">BROKEN</text>
+<text x="498" y="414" font-size="11" fill="#0e3d1b">EXP: ADD right version (nothing if right</text>
+<text x="498" y="429" font-size="11" fill="#0e3d1b">empty); reject via ✕</text>
+<text x="498" y="444" font-size="11" fill="#7b241c" font-weight="600">NOW: pick=&#x27;b&#x27;=[] SILENTLY drops add (wrong</text>
+<text x="498" y="459" font-size="11" fill="#7b241c" font-weight="600">mechanism)</text>
+<text x="498" y="497" font-size="10" fill="#2c3e50" font-style="italic">addPutRight 4b47be33</text>
+<rect x="856" y="372" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="866" y="394" font-size="13" font-weight="800">BROKEN</text>
+<text x="866" y="414" font-size="11" fill="#0e3d1b">EXP: REMOVE the added line</text>
+<text x="866" y="429" font-size="11" fill="#7b241c" font-weight="600">NOW: visual dismiss; added line STAYS</text>
+<text x="866" y="497" font-size="10" fill="#2c3e50" font-style="italic">addRemoveLine 3662f00b</text>
+<rect x="10" y="510" width="104" height="132" fill="#34495e"/>
+<text x="62" y="573.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">DELETE</text>
+<rect x="120" y="510" width="362" height="132" fill="#f5b041" stroke="#333" stroke-width="1" rx="5"/>
+<text x="130" y="532" font-size="13" font-weight="800">PARTIAL</text>
+<text x="130" y="552" font-size="11" fill="#0e3d1b">EXP: ADD left version (add-back if left kept</text>
+<text x="130" y="567" font-size="11" fill="#0e3d1b">the line)</text>
+<text x="130" y="582" font-size="11" fill="#7b241c" font-weight="600">NOW: delete-special re-adds — but still</text>
+<text x="130" y="597" font-size="11" fill="#7b241c" font-weight="600">pick-model</text>
+<text x="130" y="635" font-size="10" fill="#2c3e50" font-style="italic">deletePutLeft fd08c146</text>
+<rect x="488" y="510" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="498" y="532" font-size="13" font-weight="800">BROKEN</text>
+<text x="498" y="552" font-size="11" fill="#0e3d1b">EXP: ADD right version</text>
+<text x="498" y="567" font-size="11" fill="#7b241c" font-weight="600">NOW: no ≪ / pick-model, can&#x27;t add-both</text>
+<text x="498" y="635" font-size="10" fill="#2c3e50" font-style="italic">deletePutRight 98c235e0</text>
+<rect x="856" y="510" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="866" y="532" font-size="13" font-weight="800">BROKEN</text>
+<text x="866" y="552" font-size="11" fill="#0e3d1b">EXP: REMOVE the line</text>
+<text x="866" y="567" font-size="11" fill="#7b241c" font-weight="600">NOW: visual dismiss; line stays deleted</text>
+<text x="866" y="635" font-size="10" fill="#2c3e50" font-style="italic">deleteRemoveLine 74167c20</text>
+<rect x="10" y="648" width="104" height="132" fill="#34495e"/>
+<text x="62" y="711.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">★ MODEL</text>
+<text x="62" y="725.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">(both</text>
+<text x="62" y="739.0" font-size="12" fill="#fff" font-weight="700" text-anchor="middle">coexist)</text>
+<rect x="120" y="648" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="130" y="670" font-size="13" font-weight="800">MODEL GAP</text>
+<text x="130" y="690" font-size="11" fill="#0e3d1b">EXP: ≫/≪ must ADD (compose) — BOTH versions</text>
+<text x="130" y="705" font-size="11" fill="#0e3d1b">coexist in center</text>
+<text x="130" y="720" font-size="11" fill="#7b241c" font-weight="600">NOW: single pick (&#x27;a&#x27;|&#x27;b&#x27;) → only ONE</text>
+<text x="130" y="735" font-size="11" fill="#7b241c" font-weight="600">version; both IMPOSSIBLE</text>
+<text x="130" y="773" font-size="10" fill="#2c3e50" font-style="italic">edgeRemoveIsAlways e11a2842</text>
+<rect x="488" y="648" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="498" y="670" font-size="13" font-weight="800">GROUND</text>
+<text x="498" y="690" font-size="11" fill="#0e3d1b">EXP: line-38 otmux left=mcdonges.latest ≠</text>
+<text x="498" y="705" font-size="11" fill="#0e3d1b">right=dev → center should show BOTH</text>
+<text x="498" y="720" font-size="11" fill="#7b241c" font-weight="600">NOW: today center shows ONE (picked/auto)</text>
+<text x="498" y="735" font-size="11" fill="#7b241c" font-weight="600">side</text>
+<text x="498" y="773" font-size="10" fill="#2c3e50" font-style="italic">edgeReAddAfterRemove c4ecb985</text>
+<rect x="856" y="648" width="362" height="132" fill="#f1948a" stroke="#333" stroke-width="1" rx="5"/>
+<text x="866" y="670" font-size="13" font-weight="800">MODEL GAP</text>
+<text x="866" y="690" font-size="11" fill="#0e3d1b">EXP: ✕ must REMOVE a line ALWAYS</text>
+<text x="866" y="705" font-size="11" fill="#7b241c" font-weight="600">NOW: today ✕ only hides the overlay</text>
+<text x="866" y="720" font-size="11" fill="#7b241c" font-weight="600">(dismissed set)</text>
+<text x="866" y="773" font-size="10" fill="#2c3e50" font-style="italic">edgeBothVersionsInCenter 45cac75f / edgeCenterShowsBothVersions bc52e3ed</text>
+<rect x="10" y="802" width="1220" height="134" fill="#fef9e7" stroke="#b7950b" rx="6"/>
+<text x="22" y="824" font-size="14" font-weight="700" fill="#7d6608">ROOT: v0.7.51 uses a SINGLE-PICK center (Conflict.pick:'a'|'b'; rebuildCenter emits ONE side). Tron's model = COMPOSABLE BOTH-VERSIONS center.</text>
+<text x="22" y="844" font-size="11.5" fill="#5b4409">REWORK (3 changes, FOR TRON REVIEW — build nothing): (1) CENTER holds BOTH versions per changed region — older=DARK, newer=HIGHLIGHTED (line-38 shows mcdonges.latest AND dev).</text>
+<text x="22" y="864" font-size="11.5" fill="#5b4409">(2) ≫ = ADD-left / ≪ = ADD-right into center (idempotent, COEXIST — click both → both present); NOT replace/pick. (3) ✕ = REMOVE the line from center ALWAYS (drop an unwanted version); NOT dismiss-overlay.</text>
+<text x="22" y="884" font-size="11.5" fill="#5b4409">DATA MODEL: replace Conflict.pick:&#x27;a&#x27;|&#x27;b&#x27; with an included-line SET per region (left ∪ right − removed); rebuildCenter emits the set styled by age; acceptChange→addSide(id,side); NEW removeLine(id,lineRef).</text>
+<text x="22" y="904" font-size="11.5" fill="#5b4409">VERDICT: nearly all cells BROKEN vs the new model — it is a MODEL replacement, not per-cell tweaks. Same 16 UC uuids (dual-links intact); req reworks each UC.expectedBehaviour to add/remove semantics.</text>
+<rect x="910" y="62" width="14" height="14" fill="#f1948a"/><text x="928" y="74" font-size="11">BROKEN vs new model</text>
+<rect x="1075" y="62" width="14" height="14" fill="#f5b041"/><text x="1093" y="74" font-size="11">PARTIAL</text>
 </svg>

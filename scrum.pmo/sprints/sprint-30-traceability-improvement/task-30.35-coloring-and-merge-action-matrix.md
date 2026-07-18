@@ -28,7 +28,7 @@
 
 ## Task Description
 
-Two parts: (A) diff COLORING by kind (add=green/delete=red/modify=blue/conflict=brown, kind derived in computeMergedCenter) - GATED GREEN. (B) per-block IntelliJ MERGE-ACTIONS matrix: for every {ADD/DELETE/MODIFY/CONFLICT} x {x dismiss / >> take-Local / << take-Repo} combination + edge states, track a WORKS/BROKEN status (architect validates each vs live v0.7.51). '>>' on a DELETION RE-ADDS the deleted line.
+Two parts: (A) diff COLORING by kind (add=green/delete=red/modify=blue/conflict=brown) - GATED GREEN. (B) per-block MERGE-ACTIONS matrix (Tron new model 2bdbab817): the center shows BOTH versions; for every {ADD/DELETE/MODIFY/CONFLICT} x {>> putLeft (add left) / << putRight (add right) / x removeLine (ALWAYS remove)} + edge states, track a WORKS/BROKEN status (architect validates each vs live). NO ignore/dismiss/pick-side.
 
 ## Context
 
@@ -42,24 +42,24 @@ S30 diff/merge editor, R30.35 (Tron scenario-first: plan x/>> merge-actions with
 
 - [x] (color-kind) KIND derived in computeMergedCenter (oLength==0 ADD / abLength==0 DELETE / both>0 MODIFY / stable:false CONFLICT); CONFLICT_PALETTE add=green/delete=red/modify=blue/conflict=brown [GATED v0.7.51]
 - [x] (color-delete) DELETION renders RED (fixes the defect where one-sided changes rendered BLUE) [GATED v0.7.51 Test 5d8b3f47]
-- [ ] (actions-matrix) EVERY {ADD/DELETE/MODIFY/CONFLICT} x {x / >> / <<} combination + edge states validated WORKS on live v0.7.51 (architect-measured); '>>' on a DELETION RE-ADDS the deleted line
+- [ ] (actions-matrix) NEW MODEL (2bdbab817): the center shows BOTH versions; EVERY {ADD/DELETE/MODIFY/CONFLICT} x {>> putLeft / << putRight / x removeLine-always} + edge states validated WORKS on live (architect-measured); removeLine ALWAYS removes, putLeft/putRight ADD the respective version
 - [ ] (diagram-gate) ★ Tron APPROVES the matrix DIAGRAM before ANY fix-implementation (HARD GATE - task pre-implementation until then)
 - [ ] (gate) GATE = SCREENSHOT the 4 kinds show correct colors AND each action does the right thing per kind (esp >> re-adds a deleted line); pixel/screenshot NEVER DOM-count
 
 ## Implementation
 
-IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (diagram approval before any fix). PART A COLORING = GATED GREEN DET-3x v0.7.51 (Test 5d8b3f47, delete=red FIXED - was blue; 32f976921). PART B ACTIONS MATRIX = being validated by architect vs live v0.7.51 (per-cell WORKS/BROKEN below). acceptChange 843d79d4 built (>> take-Local/DELETE re-adds, << take-Repo, x dismiss). NEXT: architect fills the matrix WORKS/BROKEN -> matrix diagram -> TRON APPROVES DIAGRAM (hard gate) -> THEN expert implements fixes for BROKEN cells. NO implementation of fixes until Tron approves. 
+IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (diagram approval before any fix). PART A COLORING = GATED GREEN DET-3x v0.7.51 (Test 5d8b3f47, delete=red FIXED - was blue; 32f976921). PART B ACTIONS MATRIX = being validated by architect vs live v0.7.51 (per-cell WORKS/BROKEN below). NEW MODEL 2bdbab817: >> putLeft (add left) / << putRight (add right) / x removeLine (always). acceptChange 843d79d4 to be re-fitted to put-left/put-right/remove on the both-versions center. NEXT: architect fills the matrix WORKS/BROKEN -> matrix diagram -> TRON APPROVES DIAGRAM (hard gate) -> THEN expert implements fixes for BROKEN cells. NO implementation of fixes until Tron approves. 
 
-MERGE-ACTION MATRIX — WORKS/BROKEN per combination UC (architect validates each vs LIVE v0.7.51; ?=pending). Dual-linked to the 16 behaviour UCs (req f0b8acb14, each carries an expectedBehaviour AC = the architect PUML/SVG source of truth):
-| KIND \ ACTION | x dismiss | >> takeLocal | << takeRepo |
+MERGE-ACTION MATRIX — WORKS/BROKEN per combination UC (architect validates each vs LIVE; ?=pending). Dual-linked to the 16 behaviour UCs (req f0b8acb14, REWORKED to Tron's new model 2bdbab817 — SAME uuids, new semantics). NEW MODEL: the center shows BOTH versions; >> putLeft ADDS the left/local version, << putRight ADDS the right/repo version, x removeLine REMOVES (ALWAYS) — NO ignore/dismiss/pick-side.
+| KIND \ ACTION | >> putLeft (add left) | << putRight (add right) | x removeLine (always) |
 |---|---|---|---|
-| ADD      | 3662f00b ? | 1eed3029 ? | 4b47be33 ? |
-| DELETE   | 74167c20 ? | fd08c146 ? (RE-ADDS line) | 98c235e0 ? |
-| MODIFY   | c014b832 ? | 33ade681 ? | 352b05ec ? |
-| CONFLICT | a328ddac ? | b934da9e ? | 72668662 ? |
-EDGES (4): oneSidedLeftEmpty 45cac75f ? / oneSidedRightEmpty bc52e3ed ? / alreadyApplied e11a2842 ? / reAddAfterDelete c4ecb985 ?
-(non-matrix UCs on R30.35: kindColoring 9c41a415 + blockActions d7493e80 = the coloring, GATED GREEN.)
-HARD GATE: architect fills WORKS/BROKEN -> PUML/SVG matrix DIAGRAM -> TRON APPROVES DIAGRAM -> only THEN expert fixes BROKEN cells. Task PRE-IMPLEMENTATION until Tron signs the diagram.
+| ADD      | 1eed3029 addPutLeft ?      | 4b47be33 addPutRight ?      | 3662f00b addRemoveLine ? |
+| DELETE   | fd08c146 deletePutLeft ?   | 98c235e0 deletePutRight ?   | 74167c20 deleteRemoveLine ? |
+| MODIFY   | 33ade681 modifyPutLeft ?   | 352b05ec modifyPutRight ?   | c014b832 modifyRemoveLine ? |
+| CONFLICT | b934da9e conflictPutLeft ? | 72668662 conflictPutRight ? | a328ddac conflictRemoveLine ? |
+EDGES (4): edgeBothVersionsInCenter 45cac75f ? / edgeCenterShowsBothVersions bc52e3ed ? / edgeRemoveIsAlways e11a2842 ? / edgeReAddAfterRemove c4ecb985 ?
+(non-matrix UCs on R30.35: kindColoring 9c41a415 + blockActions d7493e80 = coloring, GATED GREEN.)
+HARD GATE: architect fills WORKS/BROKEN -> PUML/SVG matrix DIAGRAM -> TRON APPROVES DIAGRAM -> only THEN expert fixes BROKEN cells. Task PRE-IMPLEMENTATION until Tron signs the diagram. ⚠ SEMANTICS REWORKED 2bdbab817 (put-left/put-right/remove-always); the 16 uuids + WORKS/BROKEN grid are UNAFFECTED (only cell labels re-synced).
 
 ## Subtasks
 

@@ -27,30 +27,30 @@ package "IMPL (v0.7.51 — already built)" #EEE {
 }
 
 package "ADD (green #3a8a5a)" #EAF7EF {
-  rectangle "add ≫ take-Local\naddTakeLocal [1eed3029]\nEXP: result keeps the added line\nACT: pick='a' — inert if local-added (already there)\nWORKS only if repo-added (drops it)" as A_TL #F5B041
-  rectangle "add ≪ take-Repo\naddTakeRepo [4b47be33]\nEXP: result drops the add (repo has none)\nACT: pick='b'=[] → drops add (local-added)\ninert if repo-added" as A_TR #ABEBC9
-  rectangle "add ✕ dismiss\naddDismiss [3662f00b]\nEXP: remove the add from CENTER\nACT: overlay hidden; added line STAYS in center" as A_X #F1948A
+  rectangle "add ≫ take-Local\naddPutLeft [1eed3029]\nEXP: result keeps the added line\nACT: pick='a' — inert if local-added (already there)\nWORKS only if repo-added (drops it)" as A_TL #F5B041
+  rectangle "add ≪ take-Repo\naddPutRight [4b47be33]\nEXP: result drops the add (repo has none)\nACT: pick='b'=[] → drops add (local-added)\ninert if repo-added" as A_TR #ABEBC9
+  rectangle "add ✕ dismiss\naddRemoveLine [3662f00b]\nEXP: remove the add from CENTER\nACT: overlay hidden; added line STAYS in center" as A_X #F1948A
 }
 package "DELETE (red #b83a3a)" #FDEDEC {
-  rectangle "delete ≫ take-Local\ndeleteTakeLocal [fd08c146]\nEXP: RE-ADD the deleted line\nACT: pick=a.len?'a':'b' → re-adds ✔" as D_TL #ABEBC9
-  rectangle "delete ≪ take-Repo\ndeleteTakeRepo [98c235e0]\nEXP: repo's version (re-add if repo kept it)\nACT: pick='b' → re-add(local-del)/keep-deleted(repo-del) ✔" as D_TR #ABEBC9
-  rectangle "delete ✕ dismiss\ndeleteDismiss [74167c20]\nEXP: reject delete → line returns / block gone from center\nACT: overlay hidden; region STAYS deleted" as D_X #F1948A
+  rectangle "delete ≫ take-Local\ndeletePutLeft [fd08c146]\nEXP: RE-ADD the deleted line\nACT: pick=a.len?'a':'b' → re-adds ✔" as D_TL #ABEBC9
+  rectangle "delete ≪ take-Repo\ndeletePutRight [98c235e0]\nEXP: repo's version (re-add if repo kept it)\nACT: pick='b' → re-add(local-del)/keep-deleted(repo-del) ✔" as D_TR #ABEBC9
+  rectangle "delete ✕ dismiss\ndeleteRemoveLine [74167c20]\nEXP: reject delete → line returns / block gone from center\nACT: overlay hidden; region STAYS deleted" as D_X #F1948A
 }
 package "MODIFY (blue #3a6ea5)" #EBF0F8 {
-  rectangle "modify ≫ take-Local\nmodifyTakeLocal [33ade681]\nEXP: result = Local's version\nACT: pick='a' — inert if local-modified (already)\nWORKS (reverts) if repo-modified" as M_TL #F5B041
-  rectangle "modify ≪ take-Repo\nmodifyTakeRepo [352b05ec]\nEXP: result = Repo's version\nACT: pick='b' → reverts(local-mod)/inert(repo-mod)" as M_TR #ABEBC9
-  rectangle "modify ✕ dismiss\nmodifyDismiss [c014b832]\nEXP: remove the modification from center\nACT: overlay hidden; modified content STAYS" as M_X #F1948A
+  rectangle "modify ≫ take-Local\nmodifyPutLeft [33ade681]\nEXP: result = Local's version\nACT: pick='a' — inert if local-modified (already)\nWORKS (reverts) if repo-modified" as M_TL #F5B041
+  rectangle "modify ≪ take-Repo\nmodifyPutRight [352b05ec]\nEXP: result = Repo's version\nACT: pick='b' → reverts(local-mod)/inert(repo-mod)" as M_TR #ABEBC9
+  rectangle "modify ✕ dismiss\nmodifyRemoveLine [c014b832]\nEXP: remove the modification from center\nACT: overlay hidden; modified content STAYS" as M_X #F1948A
 }
 package "CONFLICT (brown #a5603a)" #FBF3EA {
-  rectangle "conflict ≫ take-Local\nconflictTakeLocal [b934da9e]\nEXP: result = Local\nACT: pick='a' — INERT (default already 'a')" as C_TL #F5B041
-  rectangle "conflict ≪ take-Repo\nconflictTakeRepo [72668662]\nEXP: result = Repo\nACT: pick='b' → center=Repo ✔" as C_TR #ABEBC9
-  rectangle "conflict ✕ dismiss\nconflictDismiss [a328ddac]\nEXP: resolve/remove conflict from center\nACT: overlay hidden; conflict content STAYS" as C_X #F1948A
+  rectangle "conflict ≫ take-Local\nconflictPutLeft [b934da9e]\nEXP: result = Local\nACT: pick='a' — INERT (default already 'a')" as C_TL #F5B041
+  rectangle "conflict ≪ take-Repo\nconflictPutRight [72668662]\nEXP: result = Repo\nACT: pick='b' → center=Repo ✔" as C_TR #ABEBC9
+  rectangle "conflict ✕ dismiss\nconflictRemoveLine [a328ddac]\nEXP: resolve/remove conflict from center\nACT: overlay hidden; conflict content STAYS" as C_X #F1948A
 }
 package "EDGE STATES" #F4F6F7 {
-  rectangle "oneSided LEFT-empty (a=[])\nedgeOneSidedLeftEmpty [45cac75f]\n≫ picks 'a'=[] → empty; origin-asymmetry" as E_LE #F5B041
-  rectangle "oneSided RIGHT-empty (b=[])\nedgeOneSidedRightEmpty [bc52e3ed]\n≪ picks 'b'=[] → empty; origin-asymmetry" as E_RE #F5B041
-  rectangle "re-add after delete\nedgeReAddAfterDelete [c4ecb985]\n≫ on delete re-adds; stable on repeat ✔" as E_RA #ABEBC9
-  rectangle "already-applied (pick==side)\nedgeAlreadyApplied [e11a2842]\n★ ROOT: button is a NO-OP when result already = that side" as E_AA #F1948A
+  rectangle "oneSided LEFT-empty (a=[])\nedgeBothVersionsInCenter [45cac75f]\n≫ picks 'a'=[] → empty; origin-asymmetry" as E_LE #F5B041
+  rectangle "oneSided RIGHT-empty (b=[])\nedgeCenterShowsBothVersions [bc52e3ed]\n≪ picks 'b'=[] → empty; origin-asymmetry" as E_RE #F5B041
+  rectangle "re-add after delete\nedgeReAddAfterRemove [c4ecb985]\n≫ on delete re-adds; stable on repeat ✔" as E_RA #ABEBC9
+  rectangle "already-applied (pick==side)\nedgeRemoveIsAlways [e11a2842]\n★ ROOT: button is a NO-OP when result already = that side" as E_AA #F1948A
 }
 
 ' ---- dual links: cell ⟷ impl (bidirectional) ----
