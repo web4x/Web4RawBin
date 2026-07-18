@@ -39,14 +39,14 @@ Replace the single Local→Center→Repo band with, for a both-versions change, 
 - **One-sided change:** a single half-ribbon (existing origin-gate) — unchanged.
 Each ribbon links exactly ONE source side to ITS OWN center sub-span (NOT across all three). `Lr/Rl/Rr/Sl/mL/mR` as today (`:490-503`).
 
-## Chain to mint (req R30.38, scenario-first). RbDiffEditor 18165081 REUSE, impl-edit.
+## Chain — R30.35 AC-two-per-side-blocks (req 35d80847d) — NO separate R30.38 req (PO ruling + Rule 9)
+This is a RENDERING detail of the R30.35 both-versions model, not a distinct capability. SINGLE REF = **R30.35 AC-two-per-side-blocks**. Realized entirely by impl-edit of two EXISTING methods under R30.35 `96634144` — no new UC/Method/Impl units.
 | Hop | Unit | name (EXACT) |
 |-----|------|--------------|
-| Req  | new R30.38 | Both-versions change renders as two per-side blocks — LEFT⟷its-center (older) + RIGHT⟷its-center (newer) |
-| UC   | new | `merge.perSideVersionBlocks` |
+| Req  | R30.35 (96634144) | + AC-two-per-side-blocks (enriched with the mechanism below) |
 | Class| REUSE | `RbDiffEditor` (18165081) |
 | Method | impl-edit | `renderCenterChangeBlocks` [37c9694c] (split older/newer) · `renderConnectorRibbons` [5051b2a4] (2 half-ribbons per side→its center) |
-| Test | new | per-side-block DET (AC below) |
+| Test | REUSE | `8a2f7d6c` (R30.35 both-versions + per-side) |
 Markers STAY, no new units.
 
 ## LOCKED AC (DET-3x + Tron visual, ref line 73/74)
@@ -57,4 +57,4 @@ Markers STAY, no new units.
 5. Kind identity preserved (add=green/delete=red/modify=blue/conflict=brown); scroll-tracked; pointer-events:none.
 
 ## Handoff
-Depends on R30.35 both-versions center landing. req mints R30.38 → I derive-confirm (impl-edit; markers 37c9694c/5051b2a4 stay; no new units) → PO build-go → expert → I backstop (2 blocks + 2 side→center ribbons + older/newer styling) → tester DET + Tron on line 73/74.
+Depends on the R30.35 both-versions center landing. This AC is part of R30.35 (single ref) → I derive-confirm the impl-edit reuse (markers 37c9694c/5051b2a4 stay; no new units) → PO build-go with R30.35 → expert → I backstop (2 blocks + 2 side→center ribbons + older/newer styling) → tester DET + Tron on line 73/74.
