@@ -106,6 +106,7 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
     '',
     `**Status:** ${m.status || 'PLANNED'}`,
     '',
+    // [impl:uuid:72c57f72-9609-4272-8738-d7548659ceb3] R30.18 SprintViewGenerator — Task Ordering header (planning.md, folded under R30.18 per PO); emits ONLY when sprint.orderingRationale is set (no-op for other sprints). Chain-to-Test PENDING (tester 0.5, low-pri, after R30.35/R30.36 gates).
     ...(m.orderingRationale ? ['## Task Ordering', '', String(m.orderingRationale), ''] : []),
     '## Tasks',
     '',

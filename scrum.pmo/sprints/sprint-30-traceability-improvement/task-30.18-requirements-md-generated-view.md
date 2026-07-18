@@ -47,7 +47,7 @@ S30 #126 gap-closure backfill (PO-approved gap audit): give the gated req its sc
 
 ## Implementation
 
-DONE #126 backfill. generate-sprint-md extended to emit requirements.md (d0f591ea8); chain tests pass/GREEN. Class 93f9afc7. law#100 by-construction (a minted Requirement appears on next regen). served==gated. Retroactive #126 completion — status-sync to the gated reality; chain-to-Test verified before Done.
+DONE #126 backfill. generate-sprint-md extended to emit requirements.md (d0f591ea8); chain tests pass/GREEN. Class 93f9afc7. law#100 by-construction (a minted Requirement appears on next regen). served==gated. Retroactive #126 completion — status-sync to the gated reality; chain-to-Test verified before Done. | FOLD (2026-07-18, PO): the S30 Task-Ordering header emit (planning.md, orderingRationale field) is FOLDED under this R30.18 SprintViewGenerator impl 72c57f72 (marker placed in generate-sprint-md.ts) — no untracked code. ⚠ chain-to-Test PENDING: a Test for the Task-Ordering emit (tester 0.5, LOW priority — after R30.35/R30.36 gates own the tester). Until then T30.18 carries this as a known open coverage sliver (honest, not green-washed).
 
 ## Subtasks
 
