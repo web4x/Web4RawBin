@@ -1,0 +1,45 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "16379ac9-889f-43b6-96da-c24f5505f7ab",
+    "name": "Task 30.35: Diff coloring by kind + per-block merge-action MATRIX (WORKS/BROKEN validation)",
+    "slug": "task-30.35-coloring-and-merge-action-matrix",
+    "description": "Two parts: (A) diff COLORING by kind (add=green/delete=red/modify=blue/conflict=brown, kind derived in computeMergedCenter) - GATED GREEN. (B) per-block IntelliJ MERGE-ACTIONS matrix: for every {ADD/DELETE/MODIFY/CONFLICT} x {x dismiss / >> take-Local / << take-Repo} combination + edge states, track a WORKS/BROKEN status (architect validates each vs live v0.7.51). '>>' on a DELETION RE-ADDS the deleted line.",
+    "intention": "S30 diff/merge editor, R30.35 (Tron scenario-first: plan x/>> merge-actions with req+planner, sync architect). Systematic per-combination correctness, not ad-hoc.",
+    "context": "Covers R30.35 (96634144) - 18 UCs = coloring (9c41a415) + per-block actions (d7493e80) + 16 combination cells (the matrix). Class RbDiffEditor 18165081. Architect design c37d98c18 (kind-derive a0b30550 + per-kind acceptChange 843d79d4). ★ HARD GATE (Tron): Tron approves the matrix DIAGRAM before ANY fix-implementation - this task stays PRE-IMPLEMENTATION (of fixes) until then. Sync: req (0.4) mints combination units, architect (0.3) validates each cell vs live v0.7.51.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (diagram approval before any fix). PART A COLORING = GATED GREEN DET-3x v0.7.51 (Test 5d8b3f47, delete=red FIXED - was blue; 32f976921). PART B ACTIONS MATRIX = being validated by architect vs live v0.7.51 (per-cell WORKS/BROKEN below). acceptChange 843d79d4 built (>> take-Local/DELETE re-adds, << take-Repo, x dismiss). NEXT: architect fills the matrix WORKS/BROKEN -> matrix diagram -> TRON APPROVES DIAGRAM (hard gate) -> THEN expert implements fixes for BROKEN cells. NO implementation of fixes until Tron approves. \n\nMERGE-ACTION MATRIX (WORKS/BROKEN per combination — architect validates each vs LIVE v0.7.51; ? = pending architect validation):\n| KIND \\ ACTION | x (dismiss) | >> (take Local->Result) | << (take Repo->Result) |\n|---|---|---|---|\n| ADD (oLength==0, green)      | ? | ? | ? |\n| DELETE (abLength==0, red)    | ? | ? (RE-ADDS deleted line) | ? |\n| MODIFY (both>0, blue)        | ? | ? | ? |\n| CONFLICT (stable:false, brown)| ? | ? | ? |\nEDGE STATES (each ?): empty-opposite-side / no-base 2-way fallback / first-line / last-line / adjacent-blocks / already-accepted re-click / dismiss-then-reaccept.\nEach cell + edge = a combination UC under R30.35 (18 UCs minted by req). Architect fills WORKS/BROKEN; BROKEN cells -> fix only AFTER Tron approves the matrix DIAGRAM (HARD GATE).",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement R30.35 `[requirement:uuid:96634144-2069-4d3d-809c-f804873d7401]`\n  - hard-gate\n    - Tron approves the merge-action matrix DIAGRAM before ANY fix-implementation\n  - down\n    - 18 combination UCs (coloring + per-block actions + matrix cells) - tracked WORKS/BROKEN",
+    "acceptanceCriteria": "- [x] (color-kind) KIND derived in computeMergedCenter (oLength==0 ADD / abLength==0 DELETE / both>0 MODIFY / stable:false CONFLICT); CONFLICT_PALETTE add=green/delete=red/modify=blue/conflict=brown [GATED v0.7.51]\n- [x] (color-delete) DELETION renders RED (fixes the defect where one-sided changes rendered BLUE) [GATED v0.7.51 Test 5d8b3f47]\n- [ ] (actions-matrix) EVERY {ADD/DELETE/MODIFY/CONFLICT} x {x / >> / <<} combination + edge states validated WORKS on live v0.7.51 (architect-measured); '>>' on a DELETION RE-ADDS the deleted line\n- [ ] (diagram-gate) ★ Tron APPROVES the matrix DIAGRAM before ANY fix-implementation (HARD GATE - task pre-implementation until then)\n- [ ] (gate) GATE = SCREENSHOT the 4 kinds show correct colors AND each action does the right thing per kind (esp >> re-adds a deleted line); pixel/screenshot NEVER DOM-count",
+    "subtasks": "The 18 combination UCs are the matrix cells (see matrix in implementation). Each = WORKS/BROKEN, architect-validated vs live v0.7.51.",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+    ],
+    "useCases": [
+      "ior:instance:9c41a415-a96a-4bd1-adca-5c6c1b7391b6",
+      "ior:instance:d7493e80-83f6-46d7-b320-00876be7d387",
+      "ior:instance:1eed3029-0017-41c2-ba2d-a6125ebe9da1",
+      "ior:instance:4b47be33-0fcf-47b1-9c5c-c3de1b842d40",
+      "ior:instance:3662f00b-0571-4240-9345-40109b13ab37",
+      "ior:instance:fd08c146-277a-4bf4-bd35-3c88e3228b85",
+      "ior:instance:98c235e0-1c5b-4757-bbe7-1eaeebe3526a",
+      "ior:instance:74167c20-2adc-437a-aef5-54354c8c8210",
+      "ior:instance:33ade681-7d78-4c94-b5ab-ec6a84e131aa",
+      "ior:instance:352b05ec-f18c-4c71-aa86-29a1da9226db",
+      "ior:instance:c014b832-22fe-4386-8171-21db7eb3e6c6",
+      "ior:instance:b934da9e-f4e1-4fb2-927b-91e57c29bad9",
+      "ior:instance:72668662-5aa8-412d-a005-f1a60b1076db",
+      "ior:instance:a328ddac-8918-47f0-9942-b7cc063daec4",
+      "ior:instance:45cac75f-8645-4519-8a87-337d643717ac",
+      "ior:instance:bc52e3ed-d45d-4d1c-a4a6-e501119afa03",
+      "ior:instance:e11a2842-a27b-4dd4-bdaf-6b81b5895476",
+      "ior:instance:c4ecb985-9749-4d80-8aaa-f7463fda1bb2"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-18"
+  },
+  "ownerIor": null
+}

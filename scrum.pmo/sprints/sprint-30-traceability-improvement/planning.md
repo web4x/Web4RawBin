@@ -49,3 +49,4 @@ Traceability tree — exactly TWO top-level nodes: 'CurrentSprint: Sprint <N>' w
 - [x] [Task 30.20: Detail-drawer mode-aware close (in-room X->chat, trace X->minimize)](./task-30.20-drawer-mode-aware-close.md)
 - [x] [Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)](./task-30.28-atomic-deploy-invariant.md)
 - [x] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)
+- [ ] [Task 30.35: Diff coloring by kind + per-block merge-action MATRIX (WORKS/BROKEN validation)](./task-30.35-coloring-and-merge-action-matrix.md)

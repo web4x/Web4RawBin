@@ -7,8 +7,8 @@
       "ior:instance:7c2e9b41-4d68-4a03-9f15-3e8b6c07d2a9"
     ],
     "sourceFile": "ior:file:src/public/sw.js",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD: sw.js network-first shell/navigation strategy (fresh fetch, cache-fallback offline). Expert builds + tags [impl] marker (=this Impl uuid)."
+    "designAhead": false,
+    "description": "DESIGN-AHEAD: sw.js network-first shell/navigation strategy (fresh fetch, cache-fallback offline). Expert builds + tags [impl] marker (=this Impl uuid). | MARKER PLACED + BUILT v0.7.50/51 (expert 0cfc28c13); Test 7c2e9b41 wired (chain-complete, check-x5). designAhead->false."
   },
   "ownerIor": "ior:instance:f819f252-8e9e-4f90-a82b-48a7290a6f39"
 }

@@ -1,0 +1,89 @@
+@startuml R30.35-merge-actions-matrix
+title R30.35 — Merge Actions x ConflictKind — Behaviour Matrix + v0.7.51 Validation (HARD GATE: Tron approves before ANY impl)
+
+skinparam rectangle {
+  BorderColor #333
+  FontSize 11
+}
+skinparam packageStyle rectangle
+' verdict colours: GREEN=works  RED=broken  ORANGE=inert/partial (button appears dead)
+
+legend top
+  DUAL LINKS (bidirectional): each cell node ⟷ its req-minted mergeAction scenario unit (uuid shown in node)
+  and ⟷ the impl that realises it (acceptChange 843d79d4 / dismissed-set / computeMergedCenter kind-derive a0b30550).
+  Scenario unit.diagramRef ⟷ this .puml (req/planner wire the reverse edge).
+  GREEN = works as expected · RED = BROKEN · ORANGE = INERT (no-op: result already = that side → button does nothing visible)
+endlegend
+
+package "USE CASES (parent, R30.35 req 96634144)" #EEE {
+  usecase "merge.kindColoring\n[9c41a415]" as UCK
+  usecase "merge.blockActions\n[d7493e80]" as UCB
+}
+
+package "IMPL (v0.7.51 — already built)" #EEE {
+  rectangle "computeMergedCenter.kind-derive\n[a0b30550] :272\no==0→add / ab==0→delete / both→modify / stable:false→conflict" as KIND
+  rectangle "acceptChange(id,side)\n[843d79d4] :526-535\ndelete+≫: pick=a.len?'a':'b' (re-add)\nelse pick=side==left?'a':'b'\n→ rebuildCenter (mutates center)" as ACC
+  rectangle "≡ dismiss / ✕ (act='ignore') :157\ndismissed.add(id) + re-render overlays\n★ NO rebuildCenter → CENTER UNCHANGED" as DIS #FADBD8
+}
+
+package "ADD (green #3a8a5a)" #EAF7EF {
+  rectangle "add ≫ take-Local\n[1eed3029]\nEXP: result keeps the added line\nACT: pick='a' — inert if local-added (already there)\nWORKS only if repo-added (drops it)" as A_TL #F5B041
+  rectangle "add ≪ take-Repo\n[4b47be33]\nEXP: result drops the add (repo has none)\nACT: pick='b'=[] → drops add (local-added)\ninert if repo-added" as A_TR #ABEBC9
+  rectangle "add ✕ dismiss\n[3662f00b]\nEXP: remove the add from CENTER\nACT: overlay hidden; added line STAYS in center" as A_X #F1948A
+}
+package "DELETE (red #b83a3a)" #FDEDEC {
+  rectangle "delete ≫ take-Local\n[fd08c146]\nEXP: RE-ADD the deleted line\nACT: pick=a.len?'a':'b' → re-adds ✔" as D_TL #ABEBC9
+  rectangle "delete ≪ take-Repo\n[98c235e0]\nEXP: repo's version (re-add if repo kept it)\nACT: pick='b' → re-add(local-del)/keep-deleted(repo-del) ✔" as D_TR #ABEBC9
+  rectangle "delete ✕ dismiss\n[74167c20]\nEXP: reject delete → line returns / block gone from center\nACT: overlay hidden; region STAYS deleted" as D_X #F1948A
+}
+package "MODIFY (blue #3a6ea5)" #EBF0F8 {
+  rectangle "modify ≫ take-Local\n[33ade681]\nEXP: result = Local's version\nACT: pick='a' — inert if local-modified (already)\nWORKS (reverts) if repo-modified" as M_TL #F5B041
+  rectangle "modify ≪ take-Repo\n[352b05ec]\nEXP: result = Repo's version\nACT: pick='b' → reverts(local-mod)/inert(repo-mod)" as M_TR #ABEBC9
+  rectangle "modify ✕ dismiss\n[c014b832]\nEXP: remove the modification from center\nACT: overlay hidden; modified content STAYS" as M_X #F1948A
+}
+package "CONFLICT (brown #a5603a)" #FBF3EA {
+  rectangle "conflict ≫ take-Local\n[b934da9e]\nEXP: result = Local\nACT: pick='a' — INERT (default already 'a')" as C_TL #F5B041
+  rectangle "conflict ≪ take-Repo\n[72668662]\nEXP: result = Repo\nACT: pick='b' → center=Repo ✔" as C_TR #ABEBC9
+  rectangle "conflict ✕ dismiss\n[a328ddac]\nEXP: resolve/remove conflict from center\nACT: overlay hidden; conflict content STAYS" as C_X #F1948A
+}
+package "EDGE STATES" #F4F6F7 {
+  rectangle "oneSided LEFT-empty (a=[])\n[45cac75f]\n≫ picks 'a'=[] → empty; origin-asymmetry" as E_LE #F5B041
+  rectangle "oneSided RIGHT-empty (b=[])\n[bc52e3ed]\n≪ picks 'b'=[] → empty; origin-asymmetry" as E_RE #F5B041
+  rectangle "re-add after delete\n[c4ecb985]\n≫ on delete re-adds; stable on repeat ✔" as E_RA #ABEBC9
+  rectangle "already-applied (pick==side)\n[e11a2842]\n★ ROOT: button is a NO-OP when result already = that side" as E_AA #F1948A
+}
+
+' ---- dual links: cell ⟷ impl (bidirectional) ----
+UCK <--> KIND
+UCB <--> ACC
+UCB <--> DIS
+A_TL <--> ACC
+A_TR <--> ACC
+D_TL <--> ACC
+D_TR <--> ACC
+M_TL <--> ACC
+M_TR <--> ACC
+C_TL <--> ACC
+C_TR <--> ACC
+E_RA <--> ACC
+A_X <--> DIS
+D_X <--> DIS
+M_X <--> DIS
+C_X <--> DIS
+E_AA <--> ACC
+E_LE <--> ACC
+E_RE <--> ACC
+KIND <--> ACC
+
+note bottom
+  ROOT CAUSES of "many do NOT work" (v0.7.51):
+  RC1 — ✕ dismiss (act='ignore', :157) only hides the overlay (dismissed set); NO rebuildCenter →
+        the change STAYS in center. ALL 4 dismiss cells BROKEN (add/delete/modify/conflict ✕).
+  RC2 — ≫/≪ are INERT when the default pick already = that side (default pick = the change's ORIGIN side):
+        add≫(local-add), modify≫(local-mod), conflict≫(default 'a'), left/right-empty edges → NO-OP.
+  WORKS (6): delete≫, delete≪, add≪(local-add), modify≪(local-mod), conflict≪, re-add-after-delete.
+  BROKEN/INERT (10): 4× ✕ dismiss + add≫ + modify≫ + conflict≫ + 2× oneSided edges + already-applied.
+  HARD GATE: NO implementation until Tron approves this SVG. Fix design follows approval (RC1: ✕→rebuild/revert;
+  RC2: make ≫/≪ origin-aware or force a distinct outcome so the button is never a no-op).
+end note
+@enduml
