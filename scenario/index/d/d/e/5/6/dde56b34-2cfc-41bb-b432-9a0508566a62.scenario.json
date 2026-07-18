@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "dde56b34-2cfc-41bb-b432-9a0508566a62",
+  "name": "Diff-nav aids: brighter current-change on up/down + open-changes-remaining count",
+  "altId": "R30.36",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:17700deb-dfbc-46dc-bd44-e0f01adceb40",
+   "ior:instance:cb29d749-6d9c-443b-8a64-8d8e674cdec2"
+  ],
+  "description": "Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the count DECREMENTS as changes are resolved via '>>' / '<<' / 'x', reaching 0 when all are handled. Client-facing -> version-bump.",
+  "tronQuote": "> TRON (scenario-first): highlight the CURRENT change brighter as I step up/down through changes; and show a COUNT of open changes that still need to be acted on (that decrements as I resolve them).",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-18",
+   "note": "Diff-navigation aids. (a) brighter current on jumpToChange nav; (b) open-changes-remaining count that decrements on >>/<</x. IMPL-EDIT to jumpToChange (brighter current) + NEW Method for the open count. Architect designs AFTER the x/>> merge-action diagram. Sync planner 0.6. Sole-minter."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+  ],
+  "crossRefNote": "Navigation aids for the R30.9 merge. (a) IMPL-EDIT to RbDiffEditor.jumpToChange (brighter current-change highlight on up/down). (b) NEW open-changes count (decrements as the R30.35 merge actions >>/<</x resolve blocks). crossRef R30.35 (the actions that decrement the count) + R30.16 (palette/blocks). Architect designs the method-set AFTER the x/>> diagram; I re-point to built.",
+  "implEdit": "(a) jumpToChange 6a4b95fe impl-edit (brighter current). (b) NEW Method for open-count (proposed openChangeCount 643de373) - architect derive-confirms name/shape.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-brighter-current",
+    "group": "nav-highlight",
+    "text": "During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer)."
+   },
+   {
+    "id": "AC-nav-steps",
+    "group": "nav-highlight",
+    "text": "Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time)."
+   },
+   {
+    "id": "AC-open-count",
+    "group": "count",
+    "text": "An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones."
+   },
+   {
+    "id": "AC-count-decrements",
+    "group": "count",
+    "text": "The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

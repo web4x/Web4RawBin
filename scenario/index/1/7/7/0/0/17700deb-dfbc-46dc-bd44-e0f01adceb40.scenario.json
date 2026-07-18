@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "17700deb-dfbc-46dc-bd44-e0f01adceb40",
+  "name": "diffNav.highlightCurrentChange",
+  "description": "On up/down navigation, jumpToChange highlights the focused change with a brighter color, pixel-distinguishable from non-current same-kind changes; the highlight moves to the newly-focused change each step. Impl-edit to jumpToChange.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:6a4b95fe-d569-4b02-8ea4-2e266e6125e4",
+  "coveredRequirement": "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+ },
+ "ownerIor": "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+}

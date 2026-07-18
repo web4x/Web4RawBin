@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cb29d749-6d9c-443b-8a64-8d8e674cdec2",
+  "name": "diffNav.openChangeCount",
+  "description": "A count of OPEN (unresolved / not-yet-acted) changes is shown and decrements as blocks are resolved via >>/<</x, reaching 0 when all handled. New method (counts unresolved conflicts[]). Architect derive-confirms name/shape.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:643de373-b376-44f6-9b94-540aad35f8d0",
+  "coveredRequirement": "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+ },
+ "ownerIor": "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+}

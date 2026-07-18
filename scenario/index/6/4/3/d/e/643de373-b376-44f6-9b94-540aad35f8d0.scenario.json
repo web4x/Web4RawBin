@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "643de373-b376-44f6-9b94-540aad35f8d0",
+  "name": "RbDiffEditor.openChangeCount",
+  "implementations": [
+   "ior:instance:8b6abf77-b1d7-4eca-a0cd-a90b41372495"
+  ],
+  "tests": [],
+  "note": "R30.36 (b). PROPOSED name - architect derive-confirms. Count the OPEN/unresolved changes (conflicts[] not yet acted); recompute + decrement on each acceptChange/dismiss; render the count. Name EXACT for [impl] AST-attach once confirmed."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

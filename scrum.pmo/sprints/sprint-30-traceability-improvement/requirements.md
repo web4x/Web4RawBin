@@ -520,3 +520,16 @@
   -> mergeAction.edge_oneSidedRightEmpty [uc:uuid:bc52e3ed-d45d-4d1c-a4a6-e501119afa03]
   -> mergeAction.edge_alreadyApplied [uc:uuid:e11a2842-a27b-4dd4-bdaf-6b81b5895476]
   -> mergeAction.edge_reAddAfterDelete [uc:uuid:c4ecb985-9749-4d80-8aaa-f7463fda1bb2]
+
+- [ ] **R30.36 — Diff-nav aids: brighter current-change on up/down + open-changes-remaining count**
+  [requirement:uuid:dde56b34-2cfc-41bb-b432-9a0508566a62]
+  > TRON (scenario-first): highlight the CURRENT change brighter as I step up/down through changes; and show a COUNT of open changes that still need to be acted on (that decrements as I resolve them).
+  Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the count DECREMENTS as changes are resolved via '>>' / '<<' / 'x', reaching 0 when all are handled. Client-facing -> version-bump.
+  **Acceptance criteria:**
+  - [ ] **(nav-highlight)** During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer).
+  - [ ] **(nav-highlight)** Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time).
+  - [ ] **(count)** An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones.
+  - [ ] **(count)** The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled.
+  - [ ] **(verify)** GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump.
+  -> diffNav.highlightCurrentChange [uc:uuid:17700deb-dfbc-46dc-bd44-e0f01adceb40]
+  -> diffNav.openChangeCount [uc:uuid:cb29d749-6d9c-443b-8a64-8d8e674cdec2]
