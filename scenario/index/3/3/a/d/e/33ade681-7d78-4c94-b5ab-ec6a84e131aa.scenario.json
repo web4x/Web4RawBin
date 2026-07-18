@@ -2,17 +2,17 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "33ade681-7d78-4c94-b5ab-ec6a84e131aa",
-  "name": "mergeAction.modifyTakeLocal",
-  "description": "BEHAVIOUR (MODIFY block (both sides present, changed), '>>' take-Local): The Result gets the LOCAL version of the modified region. Block resolves.",
-  "given": "MODIFY block (both sides present, changed), '>>' take-Local",
-  "expectedBehaviour": "The Result gets the LOCAL version of the modified region. Block resolves.",
+  "name": "mergeAction.modifyPutLeft",
+  "description": "BEHAVIOUR (MODIFY region (both sides changed, both present), '>>' (left) clicked): PUTS the LEFT version INTO the center.",
+  "given": "MODIFY region (both sides changed, both present), '>>' (left) clicked",
+  "expectedBehaviour": "PUTS the LEFT version INTO the center.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
   "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
   "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
-  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+  "matrixOf": "R30.35 merge-action matrix (REWORKED to ADD(>>/<<)/REMOVE(x) on a BOTH-VERSIONS center; NO ignore/dismiss/pick-side). Dual-link source of truth for architect PUML/SVG."
  },
  "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
 }

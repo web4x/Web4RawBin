@@ -2,17 +2,17 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "bc52e3ed-d45d-4d1c-a4a6-e501119afa03",
-  "name": "mergeAction.edgeOneSidedRightEmpty",
-  "description": "BEHAVIOUR (EDGE: a one-sided change where REPO is empty (local-only)): The block renders on the Local (retaining) side only; '>>' keeps the local content, '<<' removes it (repo empty), 'x' dismisses. No spurious block on the empty Repo side.",
-  "given": "EDGE: a one-sided change where REPO is empty (local-only)",
-  "expectedBehaviour": "The block renders on the Local (retaining) side only; '>>' keeps the local content, '<<' removes it (repo empty), 'x' dismisses. No spurious block on the empty Repo side.",
+  "name": "mergeAction.edgeCenterShowsBothVersions",
+  "description": "BEHAVIOUR (A changed region is displayed in the center): The center DISPLAYS BOTH versions - the LEFT line AND the RIGHT line - with the OLDER version in a DARK color and the NEWER version in a HIGHLIGHTED color.",
+  "given": "A changed region is displayed in the center",
+  "expectedBehaviour": "The center DISPLAYS BOTH versions - the LEFT line AND the RIGHT line - with the OLDER version in a DARK color and the NEWER version in a HIGHLIGHTED color.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
   "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
   "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
-  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+  "matrixOf": "R30.35 merge-action matrix (REWORKED to ADD(>>/<<)/REMOVE(x) on a BOTH-VERSIONS center; NO ignore/dismiss/pick-side). Dual-link source of truth for architect PUML/SVG."
  },
  "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
 }

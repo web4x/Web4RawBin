@@ -2,17 +2,17 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "c4ecb985-9749-4d80-8aaa-f7463fda1bb2",
-  "name": "mergeAction.edgeReAddAfterDelete",
-  "description": "BEHAVIOUR (EDGE: after DELETE+'>>' re-adds the line, re-acting on the block): After the delete+'>>' re-add, the block is resolved (line present in Result); a further action is idempotent and does not duplicate the re-added line.",
-  "given": "EDGE: after DELETE+'>>' re-adds the line, re-acting on the block",
-  "expectedBehaviour": "After the delete+'>>' re-add, the block is resolved (line present in Result); a further action is idempotent and does not duplicate the re-added line.",
+  "name": "mergeAction.edgeReAddAfterRemove",
+  "description": "BEHAVIOUR (After 'x' removed a line, '>>' or '<<' clicked): PUTS a version back into the center - re-adds it (removal is not final; you can add either side afterward).",
+  "given": "After 'x' removed a line, '>>' or '<<' clicked",
+  "expectedBehaviour": "PUTS a version back into the center - re-adds it (removal is not final; you can add either side afterward).",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
   "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
   "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
-  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+  "matrixOf": "R30.35 merge-action matrix (REWORKED to ADD(>>/<<)/REMOVE(x) on a BOTH-VERSIONS center; NO ignore/dismiss/pick-side). Dual-link source of truth for architect PUML/SVG."
  },
  "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
 }

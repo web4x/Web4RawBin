@@ -2,17 +2,17 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "c014b832-22fe-4386-8171-21db7eb3e6c6",
-  "name": "mergeAction.modifyDismiss",
-  "description": "BEHAVIOUR (MODIFY block, 'x' dismiss): Dismisses the block (keep the current center, no side applied). Block removed from center.",
-  "given": "MODIFY block, 'x' dismiss",
-  "expectedBehaviour": "Dismisses the block (keep the current center, no side applied). Block removed from center.",
+  "name": "mergeAction.modifyRemoveLine",
+  "description": "BEHAVIOUR (MODIFY region, 'x' clicked): REMOVES the line FROM the center (ALWAYS).",
+  "given": "MODIFY region, 'x' clicked",
+  "expectedBehaviour": "REMOVES the line FROM the center (ALWAYS).",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
   "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
   "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
-  "matrixOf": "R30.35 merge-action behaviour matrix (ConflictKind x action + edges); dual-link source of truth for the architect PUML/SVG. Method acceptChange dispatches (dismiss variant per architect)."
+  "matrixOf": "R30.35 merge-action matrix (REWORKED to ADD(>>/<<)/REMOVE(x) on a BOTH-VERSIONS center; NO ignore/dismiss/pick-side). Dual-link source of truth for architect PUML/SVG."
  },
  "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
 }

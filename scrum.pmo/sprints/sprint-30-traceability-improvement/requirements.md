@@ -493,33 +493,33 @@
 - [ ] **R30.35 — Diff coloring by kind (add=green/delete=red/modify=blue/conflict=brown) + per-block IntelliJ merge actions**
   [requirement:uuid:96634144-2069-4d3d-809c-f804873d7401]
   > TRON (tested): coloring is all one-sided=BLUE=WRONG. ADDITION=green; DELETION (line removed from result, e.g. local-only line dropped in dev)=red (currently blue=the bug); MODIFICATION (both present)=blue; CONFLICT (both diverge)=red/brown. Merge actions per block: '>>' take Local->Result (a DELETION re-adds the deleted line), '<<' take Repo->Result, 'x' dismiss/delete the block from center.
-  The 3-way merge colors each change block by its true diff3 KIND and offers per-block IntelliJ merge actions - fixing the current bug where ALL one-sided changes render BLUE. KIND is derivable in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. COLORS (extend ConflictKind + CONFLICT_PALETTE): ADDITION=GREEN, DELETION=RED (currently wrongly BLUE - the core bug: a local-only line dropped in dev reads as an addition), MODIFICATION=BLUE, CONFLICT=RED/BROWN. Per-block MERGE ACTIONS (IntelliJ, Tron-tested): '>>' take Local->Result (for a DELETION this RE-ADDS the deleted line), '<<' take Repo->Result, 'x' dismiss/delete the block FROM center - via acceptChange + a dismiss, dispatched per kind. Client-facing -> version-bump + atomic deploy (R30.28).
+  The 3-way merge colors each change block by its true diff3 KIND and offers per-block IntelliJ merge actions - fixing the current bug where ALL one-sided changes render BLUE. KIND is derivable in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. COLORS (extend ConflictKind + CONFLICT_PALETTE): ADDITION=GREEN, DELETION=RED (currently wrongly BLUE - the core bug: a local-only line dropped in dev reads as an addition), MODIFICATION=BLUE, CONFLICT=RED/BROWN. Per changed region the CENTER shows BOTH versions (left+right; older=dark, newer=highlighted); actions are ADD/REMOVE: '>>' puts the LEFT version into center, '<<' puts the RIGHT version into center (both can coexist), 'x' REMOVES the line from center (ALWAYS - no ignore/dismiss/pick-side). Client-facing -> version-bump + atomic deploy (R30.28).
   **Acceptance criteria:**
   - [ ] **(kind)** KIND is derived in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. ConflictKind is extended and CONFLICT_PALETTE maps add=green / delete=red / modify=blue / conflict=brown (one place, pure fn of the block).
   - [ ] **(color)** ADDITION (one side adds lines, oLength==0) renders GREEN.
   - [ ] **(color)** DELETION (a line removed from the result - e.g. a local-only line dropped in dev, abLength==0) renders RED. This FIXES the current defect where every one-sided change rendered BLUE (a deletion looked like an addition).
   - [ ] **(color)** MODIFICATION (changed, both sides present, both>0) renders BLUE.
   - [ ] **(color)** CONFLICT (both sides diverge, stable:false) renders RED/BROWN (brown, visually distinct from delete-red).
-  - [ ] **(block)** Per change block (IntelliJ): '>>' takes Local -> Result (for a DELETION block, '>>' RE-ADDS the deleted line); '<<' takes Repository -> Result; 'x' dismisses/deletes the block FROM the center. Dispatched via acceptChange (+ a dismiss) per kind.
+  - [ ] **(block)** Per changed region the CENTER shows BOTH versions (left line + right line; older=dark, newer=highlighted). Actions are ADD/REMOVE (NO ignore/dismiss/pick-side): '>>' PUTS the LEFT version into the center, '<<' PUTS the RIGHT version into the center (BOTH can be in the center at once), 'x' REMOVES that line from the center (ALWAYS). See the 16-cell behaviour matrix (mergeAction.* UCs).
   - [ ] **(gate)** GATE = SCREENSHOT the 4 kinds show the CORRECT colors (add=green / delete=red / modify=blue / conflict=brown) AND each action (>> / << / x) does the right thing per kind - especially '>>' RE-ADDS a deleted line on a DELETION block. Pixel/screenshot, NEVER DOM/element-count. Client-facing -> version-bump + atomic deploy (R30.28).
   -> merge.kindColoring [uc:uuid:9c41a415-a96a-4bd1-adca-5c6c1b7391b6]
   -> merge.blockActions [uc:uuid:d7493e80-83f6-46d7-b320-00876be7d387]
-  -> mergeAction.addTakeLocal [uc:uuid:1eed3029-0017-41c2-ba2d-a6125ebe9da1]
-  -> mergeAction.addTakeRepo [uc:uuid:4b47be33-0fcf-47b1-9c5c-c3de1b842d40]
-  -> mergeAction.addDismiss [uc:uuid:3662f00b-0571-4240-9345-40109b13ab37]
-  -> mergeAction.deleteTakeLocal [uc:uuid:fd08c146-277a-4bf4-bd35-3c88e3228b85]
-  -> mergeAction.deleteTakeRepo [uc:uuid:98c235e0-1c5b-4757-bbe7-1eaeebe3526a]
-  -> mergeAction.deleteDismiss [uc:uuid:74167c20-2adc-437a-aef5-54354c8c8210]
-  -> mergeAction.modifyTakeLocal [uc:uuid:33ade681-7d78-4c94-b5ab-ec6a84e131aa]
-  -> mergeAction.modifyTakeRepo [uc:uuid:352b05ec-f18c-4c71-aa86-29a1da9226db]
-  -> mergeAction.modifyDismiss [uc:uuid:c014b832-22fe-4386-8171-21db7eb3e6c6]
-  -> mergeAction.conflictTakeLocal [uc:uuid:b934da9e-f4e1-4fb2-927b-91e57c29bad9]
-  -> mergeAction.conflictTakeRepo [uc:uuid:72668662-5aa8-412d-a005-f1a60b1076db]
-  -> mergeAction.conflictDismiss [uc:uuid:a328ddac-8918-47f0-9942-b7cc063daec4]
-  -> mergeAction.edgeOneSidedLeftEmpty [uc:uuid:45cac75f-8645-4519-8a87-337d643717ac]
-  -> mergeAction.edgeOneSidedRightEmpty [uc:uuid:bc52e3ed-d45d-4d1c-a4a6-e501119afa03]
-  -> mergeAction.edgeAlreadyApplied [uc:uuid:e11a2842-a27b-4dd4-bdaf-6b81b5895476]
-  -> mergeAction.edgeReAddAfterDelete [uc:uuid:c4ecb985-9749-4d80-8aaa-f7463fda1bb2]
+  -> mergeAction.addPutLeft [uc:uuid:1eed3029-0017-41c2-ba2d-a6125ebe9da1]
+  -> mergeAction.addPutRight [uc:uuid:4b47be33-0fcf-47b1-9c5c-c3de1b842d40]
+  -> mergeAction.addRemoveLine [uc:uuid:3662f00b-0571-4240-9345-40109b13ab37]
+  -> mergeAction.deletePutLeft [uc:uuid:fd08c146-277a-4bf4-bd35-3c88e3228b85]
+  -> mergeAction.deletePutRight [uc:uuid:98c235e0-1c5b-4757-bbe7-1eaeebe3526a]
+  -> mergeAction.deleteRemoveLine [uc:uuid:74167c20-2adc-437a-aef5-54354c8c8210]
+  -> mergeAction.modifyPutLeft [uc:uuid:33ade681-7d78-4c94-b5ab-ec6a84e131aa]
+  -> mergeAction.modifyPutRight [uc:uuid:352b05ec-f18c-4c71-aa86-29a1da9226db]
+  -> mergeAction.modifyRemoveLine [uc:uuid:c014b832-22fe-4386-8171-21db7eb3e6c6]
+  -> mergeAction.conflictPutLeft [uc:uuid:b934da9e-f4e1-4fb2-927b-91e57c29bad9]
+  -> mergeAction.conflictPutRight [uc:uuid:72668662-5aa8-412d-a005-f1a60b1076db]
+  -> mergeAction.conflictRemoveLine [uc:uuid:a328ddac-8918-47f0-9942-b7cc063daec4]
+  -> mergeAction.edgeBothVersionsInCenter [uc:uuid:45cac75f-8645-4519-8a87-337d643717ac]
+  -> mergeAction.edgeCenterShowsBothVersions [uc:uuid:bc52e3ed-d45d-4d1c-a4a6-e501119afa03]
+  -> mergeAction.edgeRemoveIsAlways [uc:uuid:e11a2842-a27b-4dd4-bdaf-6b81b5895476]
+  -> mergeAction.edgeReAddAfterRemove [uc:uuid:c4ecb985-9749-4d80-8aaa-f7463fda1bb2]
 
 - [ ] **R30.36 — Diff-nav aids: brighter current-change on up/down + open-changes-remaining count**
   [requirement:uuid:dde56b34-2cfc-41bb-b432-9a0508566a62]
