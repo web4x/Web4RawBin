@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6d2b9f84-3a17-4c50-b8e1-9f4c7a06e253",
+    "name": "test:R30.37 explicit resolution toggle (✓ resolves / action resets / unresolved-count)",
+    "description": "Bridged to test/visual/r3037-resolution-toggle-gate.mjs (DET-3x GREEN on v0.7.55, PRIMARY independent verify — expert verify was context-wall-interrupted). Screenshot+pixel for the ✓ button state + the feature displayed count, NEVER DOM element-count. (1) ✓ de-resolve toggles the current change OUTLINED→SOLID green (pixel [37,37,38]→[46,204,113]); (2) openChangeCount K-to-resolve DECREMENTS on ✓ (61→60); (3) ≫/≪/✕ RESET the change to unresolved (button outlined + count 60→61). Two-key: toggleResolved + openChangeCount.",
+    "sourceFile": "ior:file:test/visual/r3037-resolution-toggle-gate.mjs",
+    "implementations": [
+      "ior:instance:c86a104d-9777-4e00-a7d9-891e1a69334c",
+      "ior:instance:8b6abf77-b1d7-4eca-a0cd-a90b41372495"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c86a104d-9777-4e00-a7d9-891e1a69334c"
+}
