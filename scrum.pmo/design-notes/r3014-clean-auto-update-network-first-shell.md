@@ -1,7 +1,7 @@
-# R30.33 — Clean auto-update: a manual hard-reload must NEVER be required (P0)
+# R30.14 (EXTEND) — Clean auto-update: NETWORK-FIRST shell — a manual hard-reload must NEVER be required (P0)
 
-**Author:** robbin-architect @ robbinTeam2:0.3 · **Status:** root-cause + design → req mints R30.33 · **Date:** 2026-07-18
-**crossRef:** R30.14 sw-auto-update (rb-update-banner 18ebf760 / pollForWorkerUpdate f1456992) · R30.28 deploy-atomicity · sw.js.
+**Author:** robbin-architect @ robbinTeam2:0.3 · **Status:** root-cause + design → FOLD the network-first-shell into R30.14's AC (req refined it at 2af4839b0; this is the missing piece) · **Date:** 2026-07-18
+**This IS R30.14** (existing sw-auto-update — rb-update-banner 18ebf760 / pollForWorkerUpdate f1456992), NOT a new number (R30.33 = deletion-emit, was a mis-reference). R30.14's first refinement (poll + claimClients) could NOT beat a CACHE-FIRST shell — network-first-shell is what it missed. **crossRef:** R30.28 deploy-atomicity · sw.js.
 
 ## Measured state (R30.14 IS built — and here's why it still needs a hard reload)
 - Build DOES stamp `sw.js` per version (build.mjs:53-76 → `CACHE_NAME='rawbin-v{version}'` + `STATIC_SHELL` hashed bundles). `sw.js` served `no-cache`. `<rb-update-banner>` IS on `/edit` (edit.ts) and `/app`.
@@ -26,10 +26,10 @@ Three changes, each independently correct; together they make hard-reload imposs
 
 **D. Deploy-atomic (R30.28 tie-in).** `sw.js` + shell HTML + hashed bundles + `/api/config` version must flip together so the version poll never sees a half-deployed state. Ride R30.28's commitBeforeServe/assertVersionAtHead.
 
-## Chain to mint (req R30.33, scenario-first)
+## Chain — FOLD into R30.14 (req refined at 2af4839b0; add the network-first-shell AC + UC)
 | Hop | Unit | name (EXACT) |
 |-----|------|--------------|
-| Req  | new R30.33 | Client auto-updates on deploy — a manual hard-reload is NEVER required (network-first shell + continuous version poll + one-click prompt) |
+| Req  | **R30.14** (existing) | sw-auto-update — client auto-updates on deploy, manual hard-reload NEVER required. **ADD to AC: network-first HTML shell** (the piece the first refinement missed) + continuous version poll + one-click prompt |
 | UC   | new | `serviceWorker.networkFirstShell` (A) · `updateBanner.continuousVersionPoll` (B) · `updateBanner.oneClickUpdate` (C) |
 | Class| — | `ServiceWorker` (sw.js) + `RbUpdateBanner` (18ebf760) REUSE |
 | Method | mix | NEW/edit `ServiceWorker` navigation→networkFirst (sw.js cacheFirst/networkFirst handlers) · impl-edit `RbUpdateBanner.checkForUpdate`→periodic + `showBanner` one-click (marker 18ebf760/f1456992 region) |
@@ -45,4 +45,4 @@ Architect will re-derive exact new-Method vs impl-edit split once req drafts (sw
 6. Version compare is against the RUNNING build (`__BUILD_VERSION__`), not a drifting localStorage baseline.
 
 ## Handoff
-req mints R30.33 → I derive-confirm (ServiceWorker navigation-strategy + RbUpdateBanner impl-edits; markers) → PO build-go → expert (sw.js + banner + version-bump atomic) → tester DET (left-open deploy → prompt → one-click, no hard reload) + Tron. **R30.31/R30.32 unaffected.**
+req folds NETWORK-FIRST-SHELL into R30.14's AC (+ the network-first UC/method) → I derive-confirm against R30.14 (ServiceWorker navigation-strategy + RbUpdateBanner impl-edits; markers) → PO build-go → expert (sw.js + banner + version-bump atomic) → tester DET (left-open deploy → prompt ≤60s → one-click, no hard reload) + Tron. **R30.31/R30.32 unaffected.**
