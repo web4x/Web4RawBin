@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "bc52e3ed-d45d-4d1c-a4a6-e501119afa03",
-  "name": "mergeAction.edge_oneSidedRightEmpty",
+  "name": "mergeAction.edgeOneSidedRightEmpty",
   "description": "BEHAVIOUR (EDGE: a one-sided change where REPO is empty (local-only)): The block renders on the Local (retaining) side only; '>>' keeps the local content, '<<' removes it (repo empty), 'x' dismisses. No spurious block on the empty Repo side.",
   "given": "EDGE: a one-sided change where REPO is empty (local-only)",
   "expectedBehaviour": "The block renders on the Local (retaining) side only; '>>' keeps the local content, '<<' removes it (repo empty), 'x' dismisses. No spurious block on the empty Repo side.",

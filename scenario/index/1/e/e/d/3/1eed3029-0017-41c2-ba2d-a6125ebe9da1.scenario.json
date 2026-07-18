@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "1eed3029-0017-41c2-ba2d-a6125ebe9da1",
-  "name": "mergeAction.add_takeLocal",
+  "name": "mergeAction.addTakeLocal",
   "description": "BEHAVIOUR (ADD block (one side adds lines), '>>' take-Local): The added lines are APPLIED/kept into the Result on the side they were added; Result now contains them. Block resolves.",
   "given": "ADD block (one side adds lines), '>>' take-Local",
   "expectedBehaviour": "The added lines are APPLIED/kept into the Result on the side they were added; Result now contains them. Block resolves.",

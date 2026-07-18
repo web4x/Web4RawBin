@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "e11a2842-a27b-4dd4-bdaf-6b81b5895476",
-  "name": "mergeAction.edge_alreadyApplied",
+  "name": "mergeAction.edgeAlreadyApplied",
   "description": "BEHAVIOUR (EDGE: applying an action to an already-applied / resolved block): IDEMPOTENT no-op: re-applying '>>'/'<<'/'x' to a resolved block does not double-apply, corrupt the Result, or error - the block stays resolved.",
   "given": "EDGE: applying an action to an already-applied / resolved block",
   "expectedBehaviour": "IDEMPOTENT no-op: re-applying '>>'/'<<'/'x' to a resolved block does not double-apply, corrupt the Result, or error - the block stays resolved.",

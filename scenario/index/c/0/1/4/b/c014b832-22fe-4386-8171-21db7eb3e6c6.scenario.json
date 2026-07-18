@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "c014b832-22fe-4386-8171-21db7eb3e6c6",
-  "name": "mergeAction.modify_dismiss",
+  "name": "mergeAction.modifyDismiss",
   "description": "BEHAVIOUR (MODIFY block, 'x' dismiss): Dismisses the block (keep the current center, no side applied). Block removed from center.",
   "given": "MODIFY block, 'x' dismiss",
   "expectedBehaviour": "Dismisses the block (keep the current center, no side applied). Block removed from center.",

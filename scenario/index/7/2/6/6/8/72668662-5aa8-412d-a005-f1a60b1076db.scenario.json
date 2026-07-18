@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "72668662-5aa8-412d-a005-f1a60b1076db",
-  "name": "mergeAction.conflict_takeRepo",
+  "name": "mergeAction.conflictTakeRepo",
   "description": "BEHAVIOUR (CONFLICT block, '<<' take-Repo): The Result takes the REPO side of the conflict. Conflict marked resolved.",
   "given": "CONFLICT block, '<<' take-Repo",
   "expectedBehaviour": "The Result takes the REPO side of the conflict. Conflict marked resolved.",

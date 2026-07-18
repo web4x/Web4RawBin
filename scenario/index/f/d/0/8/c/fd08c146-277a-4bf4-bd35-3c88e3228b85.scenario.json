@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "fd08c146-277a-4bf4-bd35-3c88e3228b85",
-  "name": "mergeAction.delete_takeLocal",
+  "name": "mergeAction.deleteTakeLocal",
   "description": "BEHAVIOUR (DELETE block (a line removed from Result, local still has it), '>>' take-Local): RE-ADDS the deleted line into the Result (the local side still has it; '>>' brings it back). The key Tron case. Block resolves with the line present.",
   "given": "DELETE block (a line removed from Result, local still has it), '>>' take-Local",
   "expectedBehaviour": "RE-ADDS the deleted line into the Result (the local side still has it; '>>' brings it back). The key Tron case. Block resolves with the line present.",

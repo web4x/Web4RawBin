@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "a328ddac-8918-47f0-9942-b7cc063daec4",
-  "name": "mergeAction.conflict_dismiss",
+  "name": "mergeAction.conflictDismiss",
   "description": "BEHAVIOUR (CONFLICT block, 'x' dismiss): Dismisses the conflict block (resolve to the current center / mark resolved without taking a side). Block removed from center.",
   "given": "CONFLICT block, 'x' dismiss",
   "expectedBehaviour": "Dismisses the conflict block (resolve to the current center / mark resolved without taking a side). Block removed from center.",

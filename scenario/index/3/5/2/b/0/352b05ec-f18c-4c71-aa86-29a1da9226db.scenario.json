@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "352b05ec-f18c-4c71-aa86-29a1da9226db",
-  "name": "mergeAction.modify_takeRepo",
+  "name": "mergeAction.modifyTakeRepo",
   "description": "BEHAVIOUR (MODIFY block, '<<' take-Repo): The Result gets the REPO version of the modified region. Block resolves.",
   "given": "MODIFY block, '<<' take-Repo",
   "expectedBehaviour": "The Result gets the REPO version of the modified region. Block resolves.",

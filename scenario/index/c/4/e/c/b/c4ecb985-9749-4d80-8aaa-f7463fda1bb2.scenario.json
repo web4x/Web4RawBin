@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "c4ecb985-9749-4d80-8aaa-f7463fda1bb2",
-  "name": "mergeAction.edge_reAddAfterDelete",
+  "name": "mergeAction.edgeReAddAfterDelete",
   "description": "BEHAVIOUR (EDGE: after DELETE+'>>' re-adds the line, re-acting on the block): After the delete+'>>' re-add, the block is resolved (line present in Result); a further action is idempotent and does not duplicate the re-added line.",
   "given": "EDGE: after DELETE+'>>' re-adds the line, re-acting on the block",
   "expectedBehaviour": "After the delete+'>>' re-add, the block is resolved (line present in Result); a further action is idempotent and does not duplicate the re-added line.",

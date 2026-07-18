@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "33ade681-7d78-4c94-b5ab-ec6a84e131aa",
-  "name": "mergeAction.modify_takeLocal",
+  "name": "mergeAction.modifyTakeLocal",
   "description": "BEHAVIOUR (MODIFY block (both sides present, changed), '>>' take-Local): The Result gets the LOCAL version of the modified region. Block resolves.",
   "given": "MODIFY block (both sides present, changed), '>>' take-Local",
   "expectedBehaviour": "The Result gets the LOCAL version of the modified region. Block resolves.",

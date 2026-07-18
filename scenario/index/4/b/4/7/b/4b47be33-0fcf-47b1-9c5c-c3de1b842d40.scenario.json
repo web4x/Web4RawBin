@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "4b47be33-0fcf-47b1-9c5c-c3de1b842d40",
-  "name": "mergeAction.add_takeRepo",
+  "name": "mergeAction.addTakeRepo",
   "description": "BEHAVIOUR (ADD block, '<<' take-Repo): The Repo side has nothing there, so '<<' REMOVES the added lines from the Result (equivalent to rejecting the addition). Block resolves.",
   "given": "ADD block, '<<' take-Repo",
   "expectedBehaviour": "The Repo side has nothing there, so '<<' REMOVES the added lines from the Result (equivalent to rejecting the addition). Block resolves.",

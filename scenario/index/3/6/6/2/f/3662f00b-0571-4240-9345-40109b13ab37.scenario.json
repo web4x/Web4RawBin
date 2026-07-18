@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "3662f00b-0571-4240-9345-40109b13ab37",
-  "name": "mergeAction.add_dismiss",
+  "name": "mergeAction.addDismiss",
   "description": "BEHAVIOUR (ADD block, 'x' dismiss): The added lines are dismissed/removed from the center; Result is as if the addition was not made. Block removed from center.",
   "given": "ADD block, 'x' dismiss",
   "expectedBehaviour": "The added lines are dismissed/removed from the center; Result is as if the addition was not made. Block removed from center.",

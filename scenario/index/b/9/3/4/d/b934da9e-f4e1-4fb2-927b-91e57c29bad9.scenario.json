@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "b934da9e-f4e1-4fb2-927b-91e57c29bad9",
-  "name": "mergeAction.conflict_takeLocal",
+  "name": "mergeAction.conflictTakeLocal",
   "description": "BEHAVIOUR (CONFLICT block (both sides diverge), '>>' take-Local): The Result takes the LOCAL side of the conflict. Conflict marked resolved.",
   "given": "CONFLICT block (both sides diverge), '>>' take-Local",
   "expectedBehaviour": "The Result takes the LOCAL side of the conflict. Conflict marked resolved.",

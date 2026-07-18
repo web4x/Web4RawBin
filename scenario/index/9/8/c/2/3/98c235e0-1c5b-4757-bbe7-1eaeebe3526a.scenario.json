@@ -2,7 +2,7 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "98c235e0-1c5b-4757-bbe7-1eaeebe3526a",
-  "name": "mergeAction.delete_takeRepo",
+  "name": "mergeAction.deleteTakeRepo",
   "description": "BEHAVIOUR (DELETE block, '<<' take-Repo): KEEPS the deletion (the Repo side dropped it; '<<' confirms removal). Result stays without the line. Block resolves.",
   "given": "DELETE block, '<<' take-Repo",
   "expectedBehaviour": "KEEPS the deletion (the Repo side dropped it; '<<' confirms removal). Result stays without the line. Block resolves.",
