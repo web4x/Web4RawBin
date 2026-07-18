@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9c41a415-a96a-4bd1-adca-5c6c1b7391b6",
+  "name": "merge.kindColoring",
+  "description": "computeMergedCenter derives each block's kind from the diff3 region (oLength/abLength/stable) and CONFLICT_PALETTE colors it add=green/delete=red/modify=blue/conflict=brown - fixing the all-one-sided=blue bug. Impl-edit; marker a0b30550 stays.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:09af8c8d-591f-4746-8f2a-8bba5c1e682a",
+  "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+ },
+ "ownerIor": "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+}

@@ -1,0 +1,73 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "96634144-2069-4d3d-809c-f804873d7401",
+  "name": "Diff coloring by kind (add=green/delete=red/modify=blue/conflict=brown) + per-block IntelliJ merge actions",
+  "altId": "R30.35",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:9c41a415-a96a-4bd1-adca-5c6c1b7391b6",
+   "ior:instance:d7493e80-83f6-46d7-b320-00876be7d387"
+  ],
+  "description": "The 3-way merge colors each change block by its true diff3 KIND and offers per-block IntelliJ merge actions - fixing the current bug where ALL one-sided changes render BLUE. KIND is derivable in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. COLORS (extend ConflictKind + CONFLICT_PALETTE): ADDITION=GREEN, DELETION=RED (currently wrongly BLUE - the core bug: a local-only line dropped in dev reads as an addition), MODIFICATION=BLUE, CONFLICT=RED/BROWN. Per-block MERGE ACTIONS (IntelliJ, Tron-tested): '>>' take Local->Result (for a DELETION this RE-ADDS the deleted line), '<<' take Repo->Result, 'x' dismiss/delete the block FROM center - via acceptChange + a dismiss, dispatched per kind. Client-facing -> version-bump + atomic deploy (R30.28).",
+  "tronQuote": "> TRON (tested): coloring is all one-sided=BLUE=WRONG. ADDITION=green; DELETION (line removed from result, e.g. local-only line dropped in dev)=red (currently blue=the bug); MODIFICATION (both present)=blue; CONFLICT (both diverge)=red/brown. Merge actions per block: '>>' take Local->Result (a DELETION re-adds the deleted line), '<<' take Repo->Result, 'x' dismiss/delete the block from center.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (tested) via robbin-po",
+   "date": "2026-07-18",
+   "note": "Diff coloring semantics + merge actions. Technical (expert input, makes ACs testable): kind derivable in computeMergedCenter a0b30550 from diff3 region (oLength/abLength/stable); extend ConflictKind + CONFLICT_PALETTE; confirm acceptChange 843d79d4 + dismiss per kind. IMPL-EDIT to computeMergedCenter (kind+palette) + acceptChange (actions), markers STAY, no new units. Architect designs AFTER R30.14 root-cause. Sole-minter."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
+  ],
+  "crossRefNote": "Colors + actions for the R30.9 3-way merge. IMPL-EDIT: RbDiffEditor.computeMergedCenter (Impl-marker a0b30550, derive kind + extend ConflictKind/CONFLICT_PALETTE) + RbDiffEditor.acceptChange (Impl-marker 843d79d4, per-block >>/<</x per kind). renderCenterChangeBlocks/renderConnectorRibbons read conflictColor(kind) so colors flow through (crossRef R30.16 palette). markers STAY, no new units. Architect derive-confirms.",
+  "implEdit": "markers STAY: computeMergedCenter a0b30550-71c8-4497-9eaf-f73551f7bb0f (Method 09af8c8d, kind-derive + palette) + acceptChange 843d79d4-b07a-4f8c-8f15-297211017cb4 (Method dfbbd057, >>/<</x per kind). ConflictKind + CONFLICT_PALETTE extended (infra under a0b30550). NO new units.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-kind-derive",
+    "group": "kind",
+    "text": "KIND is derived in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. ConflictKind is extended and CONFLICT_PALETTE maps add=green / delete=red / modify=blue / conflict=brown (one place, pure fn of the block)."
+   },
+   {
+    "id": "AC-color-add",
+    "group": "color",
+    "text": "ADDITION (one side adds lines, oLength==0) renders GREEN."
+   },
+   {
+    "id": "AC-color-delete",
+    "group": "color",
+    "text": "DELETION (a line removed from the result - e.g. a local-only line dropped in dev, abLength==0) renders RED. This FIXES the current defect where every one-sided change rendered BLUE (a deletion looked like an addition)."
+   },
+   {
+    "id": "AC-color-modify",
+    "group": "color",
+    "text": "MODIFICATION (changed, both sides present, both>0) renders BLUE."
+   },
+   {
+    "id": "AC-color-conflict",
+    "group": "color",
+    "text": "CONFLICT (both sides diverge, stable:false) renders RED/BROWN (brown, visually distinct from delete-red)."
+   },
+   {
+    "id": "AC-block-actions",
+    "group": "block",
+    "text": "Per change block (IntelliJ): '>>' takes Local -> Result (for a DELETION block, '>>' RE-ADDS the deleted line); '<<' takes Repository -> Result; 'x' dismisses/deletes the block FROM the center. Dispatched via acceptChange (+ a dismiss) per kind."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE = SCREENSHOT the 4 kinds show the CORRECT colors (add=green / delete=red / modify=blue / conflict=brown) AND each action (>> / << / x) does the right thing per kind - especially '>>' RE-ADDS a deleted line on a DELETION block. Pixel/screenshot, NEVER DOM/element-count. Client-facing -> version-bump + atomic deploy (R30.28)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
