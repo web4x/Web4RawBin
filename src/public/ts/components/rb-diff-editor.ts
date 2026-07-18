@@ -65,6 +65,12 @@ export class RbDiffEditor extends HTMLElement {
         .de-newer-delete { background: rgba(184,58,58,0.36) !important; box-shadow: inset 2px 0 0 #b83a3a; }
         .de-newer-modify { background: rgba(58,110,165,0.36) !important; box-shadow: inset 2px 0 0 #3a6ea5; }
         .de-newer-conflict { background: rgba(165,96,58,0.36) !important; box-shadow: inset 2px 0 0 #a5603a; }
+        /* R30.37: resolution checkmark — OUTLINED-green = unresolved / SOLID-green = resolved (one per CHANGE). */
+        rb-diff-editor .de-resolve { border: 2px solid #2ecc71 !important; color: #2ecc71 !important; background: transparent !important; font-weight: 800; }
+        rb-diff-editor .de-resolve.resolved { background: #2ecc71 !important; color: #fff !important; }
+        rb-diff-editor .de-resolve:disabled { opacity: 0.35; cursor: default; }
+        .de-resolved-badge { width: 14px !important; }
+        .de-resolved-badge::before { content: '✓'; color: #2ecc71; font-weight: 800; font-size: 0.8rem; }
         /* R30.34-revert (Tron: ALWAYS 3 columns, no matter what): the 3 panes stay side-by-side at EVERY width — no
            stacking media query. Row is pinned on .de-panes below; on a narrow phone the panes just get narrow
            (scroll/zoom), never stack. The req/architect formalize 'always 3 columns' as the AC; this revert is it. */
@@ -80,6 +86,7 @@ export class RbDiffEditor extends HTMLElement {
         <span class="de-count" style="font-size:0.7rem;opacity:0.85" title="changes / conflicts"></span>
         <button class="de-jump-prev" title="Previous change">▲</button>
         <button class="de-jump-next" title="Next change">▼</button>
+        <button class="de-resolve" title="Mark this change resolved (outlined = unresolved, solid = resolved)">✓</button>
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
         <button class="de-share" title="Copy a shareable deep-link to this exact diff">🔗</button>
@@ -109,6 +116,7 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-apply-all')?.addEventListener('click', () => this.applyAllNonConflicting());
     this.querySelector('.de-jump-prev')?.addEventListener('click', () => this.jumpToChange(-1));
     this.querySelector('.de-jump-next')?.addEventListener('click', () => this.jumpToChange(1));
+    this.querySelector('.de-resolve')?.addEventListener('click', () => this.toggleResolved());
     void this.mountThreePane();
     void this.populateRepos();
     this.wireResponsive();
@@ -167,8 +175,8 @@ export class RbDiffEditor extends HTMLElement {
       if (!b || !this.contains(b)) return;
       const id = Number(b.dataset.cid); const act = b.dataset.act;
       // R30.35: ≫ add-Local / ≪ add-Right (acceptChange, additive+coexist) · ✕ remove that side ALWAYS (removeLine)
-      if (act === 'add-left') this.acceptChange(id, 'left');
-      else if (act === 'add-right') this.acceptChange(id, 'right');
+      if (act === 'add-left') this.addSide(id, 'left');
+      else if (act === 'add-right') this.addSide(id, 'right');
       else if (act === 'rm-left') this.removeLine(id, 'left');
       else if (act === 'rm-right') this.removeLine(id, 'right');
     });
@@ -363,7 +371,7 @@ export class RbDiffEditor extends HTMLElement {
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
     const nc2 = this.conflicts.filter(c => (this.twoWay || c.kind === 'conflict') && !this.dismissed.has(c.id)).length; // R30.23.1: M = TRUE conflicts (3-way); in 2-way every hunk is a take-over so count all
     const cnt = this.querySelector('.de-count') as HTMLElement;
-    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'}, ${nc2} ${this.twoWay ? 'take-over' : 'conflict'}${nc2 === 1 ? '' : 's'} · ${this.openChangeCount()} open`; // R30.36: live open-change count → 0 as the user acts
+    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'} · ${this.openChangeCount()} to resolve`; // R30.37: live UNRESOLVED count → decrements on ✓, increments when an action resets a resolved change, 0 when all checkmarked
   }
 
   private _maxH(c: Conflict): number { return Math.max(c.a.length, c.b.length, 1); } // aligned block height (rows) across all 3 panes
@@ -423,8 +431,10 @@ export class RbDiffEditor extends HTMLElement {
     const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).flatMap(c => {
       const oEnd = c.span[0] + c.olderLen; const out: any[] = [];
       const cur = c.id === this._currentId ? ' de-block-current' : ''; // R30.36: brighter same-hue emphasis for the nav-current change
-      if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined } });
+      if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
       if (c.span[1] > oEnd) out.push({ range: new m.Range(oEnd + 1, 1, c.span[1], 1), options: { isWholeLine: true, className: `de-block-${c.kind} de-newer-${c.kind}${cur}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
+      // R30.37: ONE glyph per CHANGE on its first block — solid-green ✓ badge when RESOLVED, else the conflict ⚠ (if any).
+      if (out.length) out[0].options.glyphMarginClassName = this._resolved.has(c.id) ? 'de-resolved-badge' : (c.kind === 'conflict' ? 'de-conflict-glyph' : undefined);
       return out;
     });
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
@@ -549,21 +559,40 @@ export class RbDiffEditor extends HTMLElement {
     this.edCenter.revealLineInCenter(c.span[0] + 1);
     this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
     this.renderMergeGutter(); // re-render blocks+ribbons with the current one emphasised
+    this.updateResolveButton(); // R30.37: reflect the new current change's resolved state on the ✓ button
   }
 
-  // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.acceptChange — R30.35 REWORK = ADD-SIDE semantic.
+  // [impl:uuid:c86a104d-9777-4e00-a7d9-891e1a69334c] RbDiffEditor.toggleResolved — R30.37: the green-✓ toggles the
+  // CURRENT (nav-focused) change RESOLVED ⇄ unresolved. Resolution is EXPLICIT (only this checkmark, never an action)
+  // and ONE per CHANGE (by id — a change that later renders as 2 side-blocks still has ONE resolved-state).
+  toggleResolved(): void {
+    if (this._currentId == null) return;
+    if (this._resolved.has(this._currentId)) this._resolved.delete(this._currentId); // solid → outlined
+    else this._resolved.add(this._currentId);                                        // outlined → solid
+    this.updateResolveButton();
+    this.renderMergeGutter(); // refresh the 'K to resolve' counter + the per-change resolved badge
+  }
+
+  // R30.37: reflect the CURRENT change's resolved flag on the toolbar ✓ (solid=resolved / outlined=unresolved;
+  // disabled when no current change). Called from jumpToChange, toggleResolved, and after every ≫/≪/✕ action.
+  private updateResolveButton(): void {
+    const el = this.querySelector('.de-resolve') as HTMLButtonElement | null; if (!el) return;
+    el.disabled = this._currentId == null;
+    el.classList.toggle('resolved', this._currentId != null && this._resolved.has(this._currentId));
+  }
+
+  // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.addSide — R30.35 REWORK = ADD-SIDE semantic.
   // ≫ (side='left') ADDS Local(older) lines into the region's center; ≪ (side='right') ADDS Repo(newer). ADDITIVE +
   // idempotent — click both → BOTH versions coexist in center. NOT a pick (no longer replaces/kills the other side).
-  // (Method name kept as acceptChange so the minted unit 843d79d4 'RbDiffEditor.acceptChange' still name-matches +
-  // credits; the R30.35 intent-name is addSide — req to re-point 843d79d4.name→addSide if the rename is wanted.)
-  acceptChange(changeId: number, side: 'left' | 'right'): void {
+  // R30.37: renamed acceptChange→addSide (accurate: it ADDS a side, not a pick) — req flips scenario 843d79d4.name→addSide
+  // simultaneously so the marker keeps name-matching + crediting.
+  addSide(changeId: number, side: 'left' | 'right'): void {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = true; else c.incl.b = true;
-    // R30.36 REWORK (Tron): resolution is an EXPLICIT green-checkmark toggle, NOT auto-on-action. A ≫/≪/✕ must RESET
-    // the change to unresolved (checkmark model, req/architect designing). So no _resolved.add here (the auto-resolve
-    // model was wrong); the reset-on-action + checkmark toggle are built once the design lands.
+    this._resolved.delete(changeId); // R30.37: any ≫/≪ RESETS the change to UNRESOLVED (composition changed → re-confirm via ✓)
     this.rebuildCenter(); // re-flatten center from the included sets, re-render blocks+ribbons+counter
+    this.updateResolveButton();
     this.dirty = true;
   }
 
@@ -574,13 +603,15 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = false; else c.incl.b = false;
-    // R30.36 REWORK (Tron): ✕ is an action → must RESET to unresolved, NOT auto-resolve (checkmark model pending design).
+    this._resolved.delete(changeId); // R30.37: ✕ is an action → RESETS the change to UNRESOLVED
     this.rebuildCenter();
+    this.updateResolveButton();
     this.dirty = true;
   }
 
-  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.36: # of changes the user has
-  // NOT yet acted on (≫/≪/✕). = total at load, −1 per distinct action (Set → no double-count), = 0 when all reviewed.
+  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.37: # of UNRESOLVED changes
+  // (resolved ONLY via the green ✓ toggleResolved). = total at load; −1 when a change is checkmarked; +1 when a ≫/≪/✕
+  // action resets a resolved change; = 0 only when the user has checkmarked EVERY change.
   openChangeCount(): number {
     return this.conflicts.filter(c => !this._resolved.has(c.id)).length;
   }
