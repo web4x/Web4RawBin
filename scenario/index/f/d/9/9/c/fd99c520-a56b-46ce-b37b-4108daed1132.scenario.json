@@ -5,7 +5,8 @@
     "name": "RbDiffEditor.renderInterPaneGutters impl",
     "tests": [
       "ior:instance:79bb0097-6735-4dab-acd0-c61583266395",
-      "ior:instance:9f755c32-12da-4d24-bc39-8e0c0a775120"
+      "ior:instance:9f755c32-12da-4d24-bc39-8e0c0a775120",
+      "ior:instance:1e6a4c93-7d25-4b80-9f31-6c08e5b2a4f7"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

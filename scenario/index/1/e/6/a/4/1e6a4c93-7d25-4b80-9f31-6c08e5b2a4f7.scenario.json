@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1e6a4c93-7d25-4b80-9f31-6c08e5b2a4f7",
+    "name": "test:R30.35 six polish fixes (A/B/C/D/E/F — content-bounded ribbons / walk-all / no-FileNotFound / single-count / one-sided ✕+add-back)",
+    "description": "Bridged to test/visual/r3035-six-polish-gate.mjs (DET-3x GREEN on v0.7.59). Real otmux deep-link + synthetic fixture. (A+D) ribbon Y-height content-bounded (≤1.6x rows, no blank-row spanning); (B) jumpToChange walks ALL kinds [modify,delete,add,conflict] no skip; (C) no false File-not-found in 3-way (isDiffMode); (E) de-count single X/Y open conflicts (real 49/61); (F) one-sided change ✕ then ≫/≪ add-back. Screenshot+SVG-geometry+pixel+displayed-text, NOT DOM-count. Keys: renderConnectorRibbons + jumpToChange + renderInterPaneGutters.",
+    "sourceFile": "ior:file:test/visual/r3035-six-polish-gate.mjs",
+    "implementations": [
+      "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e",
+      "ior:instance:65c465fa-1c45-497c-a3f9-f95829cff06d",
+      "ior:instance:fd99c520-a56b-46ce-b37b-4108daed1132"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+}

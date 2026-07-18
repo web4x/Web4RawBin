@@ -8,7 +8,8 @@
       "ior:instance:6b1d4e83-5a29-4c7f-9e14-8d3f0a72c561",
       "ior:instance:9e4c1a67-3b82-4d05-a1f6-2c7e5b90d834",
       "ior:instance:2a7f5c94-8e13-4b6d-9f02-1c6e3a85d7b0",
-      "ior:instance:5c9e2a71-8d34-4b0f-a6e2-3f71c085d946"
+      "ior:instance:5c9e2a71-8d34-4b0f-a6e2-3f71c085d946",
+      "ior:instance:1e6a4c93-7d25-4b80-9f31-6c08e5b2a4f7"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
