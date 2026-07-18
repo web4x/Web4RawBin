@@ -31,7 +31,7 @@
    "ior:instance:e11a2842-a27b-4dd4-bdaf-6b81b5895476",
    "ior:instance:c4ecb985-9749-4d80-8aaa-f7463fda1bb2"
   ],
-  "description": "The 3-way merge colors each change block by its true diff3 KIND and offers per-block IntelliJ merge actions - fixing the current bug where ALL one-sided changes render BLUE. KIND is derivable in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. COLORS (extend ConflictKind + CONFLICT_PALETTE): ADDITION=GREEN, DELETION=RED (currently wrongly BLUE - the core bug: a local-only line dropped in dev reads as an addition), MODIFICATION=BLUE, CONFLICT=RED/BROWN. Per changed region the CENTER shows BOTH versions (left+right; older=dark, newer=highlighted); actions are ADD/REMOVE: '>>' puts the LEFT version into center, '<<' puts the RIGHT version into center (both can coexist), 'x' REMOVES the line from center (ALWAYS - no ignore/dismiss/pick-side). Client-facing -> version-bump + atomic deploy (R30.28).",
+  "description": "The 3-way merge colors each change block by its true diff3 KIND and offers per-block IntelliJ merge actions - fixing the current bug where ALL one-sided changes render BLUE. KIND is derivable in computeMergedCenter from the diff3 region: oLength==0 -> ADDITION, abLength==0 -> DELETION, both>0 -> MODIFICATION, stable:false -> CONFLICT. COLORS (extend ConflictKind + CONFLICT_PALETTE): ADDITION=GREEN, DELETION=RED (currently wrongly BLUE - the core bug: a local-only line dropped in dev reads as an addition), MODIFICATION=BLUE, CONFLICT=RED/BROWN. Per changed region the CENTER shows BOTH versions (left+right; older=dark, newer=highlighted); actions are ADD/REMOVE: '>>' puts the LEFT version into center, '<<' puts the RIGHT version into center (both can coexist), 'x' REMOVES the line from center (ALWAYS - no ignore/dismiss/pick-side). Client-facing -> version-bump + atomic deploy (R30.28). RENDERING: a both-versions change renders as TWO per-side blocks (left changed line to its center line; right changed line to its center line), each linking ONE side to its specific center line - never one merged block spanning both.",
   "tronQuote": "> TRON (tested): coloring is all one-sided=BLUE=WRONG. ADDITION=green; DELETION (line removed from result, e.g. local-only line dropped in dev)=red (currently blue=the bug); MODIFICATION (both present)=blue; CONFLICT (both diverge)=red/brown. Merge actions per block: '>>' take Local->Result (a DELETION re-adds the deleted line), '<<' take Repo->Result, 'x' dismiss/delete the block from center.",
   "discoverySource": {
    "type": "tron-directive",
@@ -77,6 +77,11 @@
     "id": "AC-block-actions",
     "group": "block",
     "text": "Per changed region the CENTER shows BOTH versions (left line + right line; older=dark, newer=highlighted). Actions are ADD/REMOVE (NO ignore/dismiss/pick-side): '>>' PUTS the LEFT version into the center, '<<' PUTS the RIGHT version into the center (BOTH can be in the center at once), 'x' REMOVES that line from the center (ALWAYS). See the 16-cell behaviour matrix (mergeAction.* UCs)."
+   },
+   {
+    "id": "AC-two-per-side-blocks",
+    "group": "rendering",
+    "text": "A both-versions change (both sides shown in the center) renders as TWO PER-SIDE blocks, NOT one merged block spanning both center lines: (A) the LEFT pane's changed line linked to ITS specific center line (the left/older version); (B) the RIGHT pane's changed line linked to ITS specific center line (the right/newer version). Each block/connector links ONE side to ITS center line only. Applies to ALL changes where both versions are in the center (ref: line 73 left / center 74+75 / right 74 -> 2 blocks, not 1). Impl-edit to renderCenterChangeBlocks + renderConnectorRibbons (per-side, not merged) - architect derive-confirms."
    },
    {
     "id": "AC-gate",
