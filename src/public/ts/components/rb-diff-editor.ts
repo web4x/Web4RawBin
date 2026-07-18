@@ -560,7 +560,9 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = true; else c.incl.b = true;
-    this._resolved.add(changeId); // R30.36: acting on a change marks it resolved → openChangeCount decrements
+    // R30.36 REWORK (Tron): resolution is an EXPLICIT green-checkmark toggle, NOT auto-on-action. A ≫/≪/✕ must RESET
+    // the change to unresolved (checkmark model, req/architect designing). So no _resolved.add here (the auto-resolve
+    // model was wrong); the reset-on-action + checkmark toggle are built once the design lands.
     this.rebuildCenter(); // re-flatten center from the included sets, re-render blocks+ribbons+counter
     this.dirty = true;
   }
@@ -572,7 +574,7 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = false; else c.incl.b = false;
-    this._resolved.add(changeId); // R30.36: ✕ is an action → resolves the change
+    // R30.36 REWORK (Tron): ✕ is an action → must RESET to unresolved, NOT auto-resolve (checkmark model pending design).
     this.rebuildCenter();
     this.dirty = true;
   }
