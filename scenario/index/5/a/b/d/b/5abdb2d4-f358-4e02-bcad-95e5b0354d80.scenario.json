@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5abdb2d4-f358-4e02-bcad-95e5b0354d80",
+  "name": "Per-change resolved-state toggle (green checkmark: outlined=unresolved / solid=resolved)",
+  "altId": "R30.37",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:fa87d094-a723-443c-8f71-b4a1ce54ba24"
+  ],
+  "description": "A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK ('commit change') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28).",
+  "tronQuote": "> TRON: a green checkmark ('commit change') per change next to the up/down nav - outlined-green = unresolved, solid-green = resolved; clicking toggles resolved; clicking any x/>>/<< on that change resets it to unresolved. Resolution is via the checkmark, not automatic.",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-18",
+   "note": "Resolution model. Per-change checkmark toggle (outlined=unresolved/solid=resolved) next to up/down nav; action (x/>>/<<) RESETS to unresolved. NEW Method for the toggle. crossRef R30.36 (open-count = unresolved) + R30.35 (actions reset). Architect designs; sync expert. Sole-minter."
+  },
+  "crossRef": [
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
+   "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62"
+  ],
+  "crossRefNote": "Resolution toggle drives the R30.36 open-count (open = UNRESOLVED). Clicking an R30.35 action (x/>>/<<) resets the change to unresolved. NEW Method RbDiffEditor.toggleResolved. Architect derive-confirms.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-checkmark",
+    "group": "toggle",
+    "text": "Each change shows a GREEN CHECKMARK ('commit change') next to the up/down nav in the 3-Way Merge toolbar for the current change."
+   },
+   {
+    "id": "AC-states",
+    "group": "toggle",
+    "text": "OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. The checkmark's fill visually distinguishes the two states (pixel-distinguishable)."
+   },
+   {
+    "id": "AC-toggle",
+    "group": "toggle",
+    "text": "Clicking the checkmark TOGGLES the change between resolved and unresolved. Resolution is EXPLICIT via the checkmark - it is NOT auto-set by a merge action."
+   },
+   {
+    "id": "AC-reset-on-action",
+    "group": "reset",
+    "text": "Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (re-working the change un-resolves it)."
+   },
+   {
+    "id": "AC-drives-count",
+    "group": "count",
+    "text": "The resolved state drives R30.36's open-count (open = unresolved): resolving via checkmark decrements it, an action resetting a resolved change increments it."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "GATE: checkmark toggles resolved (outlined<->solid, pixel-distinguishable); an action resets to unresolved; the open-count tracks accordingly. Client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

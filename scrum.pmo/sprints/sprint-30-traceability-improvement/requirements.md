@@ -524,12 +524,25 @@
 - [ ] **R30.36 — Diff-nav aids: brighter current-change on up/down + open-changes-remaining count**
   [requirement:uuid:dde56b34-2cfc-41bb-b432-9a0508566a62]
   > TRON (scenario-first): highlight the CURRENT change brighter as I step up/down through changes; and show a COUNT of open changes that still need to be acted on (that decrements as I resolve them).
-  Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the count DECREMENTS as changes are resolved via '>>' / '<<' / 'x', reaching 0 when all are handled. Client-facing -> version-bump.
+  Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the 'N conflicts to resolve' count = OPEN (UNRESOLVED) changes; a change is resolved ONLY via the R30.37 green checkmark (NOT auto on a merge action). The count decrements on checkmark-resolve and increments when a merge action resets a resolved change to unresolved.
   **Acceptance criteria:**
   - [ ] **(nav-highlight)** During UP/DOWN diff navigation (jumpToChange), the CURRENTLY-FOCUSED change is highlighted with a BRIGHTER color that is PIXEL-DISTINGUISHABLE from a non-current change of the SAME kind (a same-kind non-focused change is visibly dimmer).
   - [ ] **(nav-highlight)** Stepping up/down focuses the next/previous change and MOVES the brighter highlight to it (only one change is 'current' at a time).
-  - [ ] **(count)** An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones.
-  - [ ] **(count)** The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled.
+  - [ ] **(count)** An accurate 'N conflicts to resolve' COUNT of OPEN = UNRESOLVED changes is shown (a change is resolved ONLY via the R30.37 green checkmark, NOT automatically on a merge action).
+  - [ ] **(count)** The count DECREMENTS when a change is resolved via the R30.37 checkmark (12->11) and INCREMENTS when a merge action (x/>>/<<) RESETS a resolved change back to unresolved. It does NOT auto-decrement on a merge action (that was the expert's inverted build - corrected here to Tron's model).
   - [ ] **(verify)** GATE: (a) the brighter current-change is PIXEL-DISTINGUISHABLE from non-current same-kind (screenshot at each nav step); (b) the open-count is accurate and decrements on each >>/<</x to 0. Client-facing -> version-bump.
   -> diffNav.highlightCurrentChange [uc:uuid:17700deb-dfbc-46dc-bd44-e0f01adceb40]
   -> diffNav.openChangeCount [uc:uuid:cb29d749-6d9c-443b-8a64-8d8e674cdec2]
+
+- [ ] **R30.37 — Per-change resolved-state toggle (green checkmark: outlined=unresolved / solid=resolved)**
+  [requirement:uuid:5abdb2d4-f358-4e02-bcad-95e5b0354d80]
+  > TRON: a green checkmark ('commit change') per change next to the up/down nav - outlined-green = unresolved, solid-green = resolved; clicking toggles resolved; clicking any x/>>/<< on that change resets it to unresolved. Resolution is via the checkmark, not automatic.
+  A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK ('commit change') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28).
+  **Acceptance criteria:**
+  - [ ] **(toggle)** Each change shows a GREEN CHECKMARK ('commit change') next to the up/down nav in the 3-Way Merge toolbar for the current change.
+  - [ ] **(toggle)** OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. The checkmark's fill visually distinguishes the two states (pixel-distinguishable).
+  - [ ] **(toggle)** Clicking the checkmark TOGGLES the change between resolved and unresolved. Resolution is EXPLICIT via the checkmark - it is NOT auto-set by a merge action.
+  - [ ] **(reset)** Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (re-working the change un-resolves it).
+  - [ ] **(count)** The resolved state drives R30.36's open-count (open = unresolved): resolving via checkmark decrements it, an action resetting a resolved change increments it.
+  - [ ] **(verify)** GATE: checkmark toggles resolved (outlined<->solid, pixel-distinguishable); an action resets to unresolved; the open-count tracks accordingly. Client-facing -> version-bump.
+  -> merge.toggleResolved [uc:uuid:fa87d094-a723-443c-8f71-b4a1ce54ba24]

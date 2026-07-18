@@ -2,12 +2,12 @@
  "ior": "ior:class:Method",
  "model": {
   "uuid": "dfbbd057-a492-4760-a3a1-78e31de894a6",
-  "name": "RbDiffEditor.addSide",
+  "name": "RbDiffEditor.acceptChange",
   "implementations": [
    "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
   ],
   "tests": [],
-  "note": "R30.9. Name EXACT. Apply a side's chunk into CENTER at aligned range. RE-SCOPES R30.6.3 takeHunk (now base-aware + IntelliJ-styled). | RE-POINTED acceptChange->addSide (R30.11 pattern): built reality does ADD-SIDE semantics ('>>' includes the .a/left version, '<<' includes the .b/right version into the center). Marker 843d79d4 STAYS (credit kept)."
+  "note": "R30.9. Name EXACT. Apply a side's chunk into CENTER at aligned range. RE-SCOPES R30.6.3 takeHunk (now base-aware + IntelliJ-styled). | RE-POINTED acceptChange->addSide (R30.11 pattern): built reality does ADD-SIDE semantics ('>>' includes the .a/left version, '<<' includes the .b/right version into the center). Marker 843d79d4 STAYS (credit kept). | NAME reverted addSide->acceptChange: the expert KEPT the code symbol 'acceptChange' (marker 843d79d4, add-side semantic in the decl comment), so the scenario name matches the code decl for name-match/AST-attach. Semantics = ADD-SIDE (>> incl.a / << incl.b)."
  },
  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

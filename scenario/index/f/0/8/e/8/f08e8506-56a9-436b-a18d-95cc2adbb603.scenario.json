@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "f08e8506-56a9-436b-a18d-95cc2adbb603",
+  "name": "RbDiffEditor.toggleResolved",
+  "implementations": [
+   "ior:instance:c86a104d-9777-4e00-a7d9-891e1a69334c"
+  ],
+  "tests": [],
+  "note": "R30.37. Name EXACT for [impl] AST-attach. Toggle a change's resolved state (outlined<->solid checkmark); a merge action (acceptChange/removeLine) RESETS it to unresolved. Explicit, not auto. Architect derive-confirm."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

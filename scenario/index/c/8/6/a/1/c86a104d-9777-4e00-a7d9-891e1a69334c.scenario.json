@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "c86a104d-9777-4e00-a7d9-891e1a69334c",
+  "name": "RbDiffEditor.toggleResolved impl",
+  "tests": [],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": true,
+  "description": "DESIGN-AHEAD: per-change resolved toggle (checkmark), action resets to unresolved. Expert builds + tags [impl] marker (=this Impl uuid)."
+ },
+ "ownerIor": "ior:instance:f08e8506-56a9-436b-a18d-95cc2adbb603"
+}

@@ -15,7 +15,7 @@
    "ior:instance:17700deb-dfbc-46dc-bd44-e0f01adceb40",
    "ior:instance:cb29d749-6d9c-443b-8a64-8d8e674cdec2"
   ],
-  "description": "Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the count DECREMENTS as changes are resolved via '>>' / '<<' / 'x', reaching 0 when all are handled. Client-facing -> version-bump.",
+  "description": "Two diff-navigation aids for the 3-way merge: (a) HIGHLIGHT the CURRENT change with a BRIGHTER color during up/down navigation - as you step through changes (jumpToChange), the focused change stands out brighter than the others, pixel-distinguishable from a non-current change of the SAME kind; (b) show a COUNT of OPEN changes still needing to be ACTED ON (unresolved / not yet handled) - the 'N conflicts to resolve' count = OPEN (UNRESOLVED) changes; a change is resolved ONLY via the R30.37 green checkmark (NOT auto on a merge action). The count decrements on checkmark-resolve and increments when a merge action resets a resolved change to unresolved.",
   "tronQuote": "> TRON (scenario-first): highlight the CURRENT change brighter as I step up/down through changes; and show a COUNT of open changes that still need to be acted on (that decrements as I resolve them).",
   "discoverySource": {
    "type": "tron-directive",
@@ -27,7 +27,8 @@
    "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
    "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
    "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
-   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:5abdb2d4-f358-4e02-bcad-95e5b0354d80"
   ],
   "crossRefNote": "Navigation aids for the R30.9 merge. (a) IMPL-EDIT to RbDiffEditor.jumpToChange (brighter current-change highlight on up/down). (b) NEW open-changes count (decrements as the R30.35 merge actions >>/<</x resolve blocks). crossRef R30.35 (the actions that decrement the count) + R30.16 (palette/blocks). Architect designs the method-set AFTER the x/>> diagram; I re-point to built.",
   "implEdit": "(a) jumpToChange 6a4b95fe impl-edit (brighter current). (b) NEW Method for open-count (proposed openChangeCount 643de373) - architect derive-confirms name/shape.",
@@ -45,12 +46,12 @@
    {
     "id": "AC-open-count",
     "group": "count",
-    "text": "An accurate COUNT of OPEN changes (unresolved / not yet acted on) is shown; it counts only blocks that still NEED an action (>>/<</x), not already-resolved ones."
+    "text": "An accurate 'N conflicts to resolve' COUNT of OPEN = UNRESOLVED changes is shown (a change is resolved ONLY via the R30.37 green checkmark, NOT automatically on a merge action)."
    },
    {
     "id": "AC-count-decrements",
     "group": "count",
-    "text": "The open-count DECREMENTS as changes are acted on via '>>' / '<<' / 'x' (each resolve reduces it by one), and reaches 0 when all changes are handled."
+    "text": "The count DECREMENTS when a change is resolved via the R30.37 checkmark (12->11) and INCREMENTS when a merge action (x/>>/<<) RESETS a resolved change back to unresolved. It does NOT auto-decrement on a merge action (that was the expert's inverted build - corrected here to Tron's model)."
    },
    {
     "id": "AC-verify",
