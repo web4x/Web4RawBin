@@ -26,6 +26,11 @@
     "date": "2026-07-18",
     "by": "robbin-req per robbin-po (Tron: clean releases, version bump, no hard reloads)",
     "reason": "R30.14 already built+closed (code-complete: pollForWorkerUpdate 82e5ba83 + claimClients 55ca881d, on origin). ACs described the MECHANISM but did not PIN the invariant as a hard testable rule. Refined scenario-first: leading INVARIANT (version bump MUST auto-propagate to running clients; manual hard-reload NEVER required = hard fail) + strengthened GATE (bump on a REAL long-open running client, no reload, confirm auto-update within poll interval). Pairs with R30.28 (deploy atomicity) - the phantom-version pair (R30.14=client auto-update, R30.28=server served==committed)."
+   },
+   "refined2": {
+    "date": "2026-07-18",
+    "by": "robbin-req per robbin-po (architect root-caused R30.14 clean-release)",
+    "reason": "Architect ROOT-CAUSE: the SHELL/index.html was served CACHE-FIRST, so the client served a STALE shell+bundle until a manual hard-reload - which DEFEATED the existing pollForWorkerUpdate+claimClients (SW swapped but cache-first shell kept serving the old bundle). Added the missing root-cause AC: NETWORK-FIRST shell (fresh fetch, cache-fallback offline) + atomic deploy (sw.js+shell+bundles+config flip together, R30.28) so a left-open client picks up a new deploy in <=60s with NO hard-reload. R30.14 was NOT truly done (the mechanism existed but the cache-first shell defeated it) - this AC pins the remaining fix the architect will build."
    }
   },
   "designRef": "scrum.pmo/design-notes/r30x-sw-auto-update-design.md (ac6f245cb)",
@@ -38,32 +43,32 @@
    {
     "id": "AC-invariant",
     "group": "invariant",
-    "text": "INVARIANT (Tron: clean releases, NO hard reloads): a version bump MUST auto-propagate to EVERY running client, and a manual HARD-RELOAD (Ctrl+Shift+R / cache-clear / close+reopen) must NEVER be required to receive the new version. A running client that only gets the new version after a manual hard-reload is a HARD FAIL."
+    "text": "INVARIANT (Tron: clean releases, NO hard reloads): a version bump MUST auto-propagate to EVERY running client; a manual HARD-RELOAD must NEVER be required to receive the new version. A running client that only updates after a manual hard-reload is a HARD FAIL."
    },
    {
-    "id": "AC-auto-pickup",
-    "group": "auto",
-    "text": "Deploying a new version -> each running client picks it up AUTOMATICALLY within the poll interval: either a seamless hot-swap or a one-click 'New version - reload' prompt the user taps (that single tap REPLACES the manual hard-reload). No user action beyond at most one tap."
+    "id": "AC-network-first-shell",
+    "group": "network",
+    "text": "ROOT-CAUSE FIX (architect-measured): the SW fetch handler serves the app SHELL (index.html) + bundles NETWORK-FIRST - fetch fresh, fall back to cache ONLY when offline. The prior CACHE-FIRST shell served a STALE shell+bundle until a manual hard-reload and DEFEATED pollForWorkerUpdate + claimClients (they swapped the SW, but the cache-first shell kept serving the old bundle). Network-first is the missing piece that makes a deploy actually reach the running client."
    },
    {
-    "id": "AC-detect",
-    "group": "detect",
-    "text": "ServiceWorker.pollForWorkerUpdate: while the app is open, periodically (setInterval ~60s + on visibilitychange/focus) reg.update() re-fetches sw.js and re-runs the /api/config version compare, so a deploy is detected without a navigation/hard-refresh."
+    "id": "AC-poll",
+    "group": "poll",
+    "text": "CONTINUOUS version poll: ServiceWorker.pollForWorkerUpdate periodically (setInterval ~60s + on visibilitychange/focus) reg.update() + /api/config version compare - detects a deploy without a navigation/hard-refresh."
    },
    {
-    "id": "AC-takeover",
-    "group": "takeover",
-    "text": "ServiceWorker.claimClients: the sw.js activate handler calls self.clients.claim() (after old-cache cleanup) so the newly-activated SW controls open pages -> controllerchange -> reload runs; skipWaiting + claim = reliable takeover."
+    "id": "AC-banner-takeover",
+    "group": "banner",
+    "text": "One-click 'New version - reload' banner is the auto-pickup UX (no surprise auto-reload mid-edit, never nuke unsaved merge state); ServiceWorker.claimClients (skipWaiting + clients.claim in the sw.js activate) gives reliable takeover so the pending version applies on the one tap."
    },
    {
-    "id": "AC-ux-no-surprise",
-    "group": "ux",
-    "text": "Primary UX = the existing one-tap banner ('New version - reload'); NO surprise auto-reload mid-edit (never nuke unsaved merge-editor state). Detection is automatic; the user chooses when to apply the pending version with one tap."
+    "id": "AC-atomic-deploy",
+    "group": "atomic",
+    "text": "ATOMIC deploy: sw.js + shell + bundles + the /api/config version flip land TOGETHER (R30.28, served==committed==HEAD) so a running client never fetches a MISMATCHED shell / bundle / version during the swap."
    },
    {
     "id": "AC-gate",
     "group": "gate",
-    "text": "GATE (verified on a REAL long-open running client, NOT a fresh navigation): bump the version + deploy -> WITHOUT any manual hard-reload/cache-clear, the running client auto-updates to the new version (hot-swap or one-click banner) within the poll interval. Confirm the client now reports the new version. Pairs with R30.28 (served==committed==HEAD) so the bumped version IS what the client receives."
+    "text": "GATE (verified on a REAL long-open running client, NOT a fresh navigation): deploy a new version -> the left-open client picks it up within <=60s with NO manual hard-reload (network-first shell serves the fresh bundle + poll detects + one-click banner) and then reports the new version. Confirm across a deploy; version-confirm/screenshot, NEVER DOM/element-count."
    }
   ]
  },
