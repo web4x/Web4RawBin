@@ -42,11 +42,26 @@ Two different denominators (all-changes 78 vs true-conflicts 12) in two spots = 
 - `.de-status` (`computeMergedCenter`, `:276-277`): **REMOVE the `${nc} conflict…to resolve`** — keep only the mode/dirty note (`2-way …` when `twoWay`, else nothing / `• modified`). No second count.
 Single source of truth = `openChangeCount()` (derived-unresolved) over `conflicts.length` (total changes).
 
+## (F) UNIFIED per-line button visibility (Tron refine) — supersedes "✕ only when both in center"
+Old rule (`✕` iff both versions in center, `:502-504`) is wrong: a ONE-SIDED change also needs `✕` to un-merge, then `≫`/`≪` to re-add. UNIFIED rule = **per side, keyed on whether THAT side's line is in center** (one-sided 1 line AND conflicts 2 lines):
+- side has content AND **in center** → `✕` (REMOVE that side).
+- side has content AND **not in center** → add (`≫` left / `≪` right).
+- side has NO content (that version empty) → NO button.
+Flow (one-sided): line in center by default → `✕` un-merges → `≫`/`≪` re-adds. Flow (conflict): both `✕`; remove either → that side flips to add.
+
+### Reconcile with derived-resolution — derive from SIDES-IN-CENTER (content), not flags
+`sidesInCenter(c) = (c.incl.a && c.a.length>0 ? 1:0) + (c.incl.b && c.b.length>0 ? 1:0)`.
+- **2 → UNRESOLVED** (both versions coexist, deciding) · **1 → RESOLVED** (one chosen) · **0 → RESOLVED (REJECTED)**.
+★ Answer to Tron: a one-sided line REMOVED (0 in center) = deliberate rejection = **RESOLVED**, not pending (only "both still present" is pending).
+`isResolved(c) = c._override ?? (sidesInCenter(c) !== 2)`. `openChangeCount()` = # with both sides in center. Fixes the flag-based `incl.a !== incl.b` (which wrongly marked 0-sides unresolved + ignored empty sides).
+**Fix (F):** `renderInterPaneGutters [fd99c520]` `:502-504` — replace the `both`-gate with the per-side content+in-center rule; `openChangeCount [8b6abf77]`/`isResolved` derive from `sidesInCenter`.
+
 ## Consolidated impl targets (expert builds all atomically)
 - **A+D** — `alignPaneRows [17c71adf]` (both-versions padding: Local→older-top, Repo→newer-bottom, height=olderLen+newerLen, `_maxH` centerLen-aware) **AND** `renderConnectorRibbons [5051b2a4]` (half-ribbon Y-extent bounded to REAL content sub-spans — `cLT/cLB`=older content, `cRT/cRB`=newer content; never the padded full span / blank rows). Both together = clean, content-bounded, one-per-side.
 - **B** — `removeLine [af887908]` `:626`: auto-resolve jump `jumpToNextUnresolved()` → **`jumpToChange(1)`** (walk ALL kinds, drop the resolved-filter). `jumpToChange [65c465fa]` nav already correct (no kind filter — confirmed with expert).
 - **C** — `edit.ts:97/:138`: guard `File not found` with `&& !isDiffMode()` (URL has `left`/`right`/`repo`/`3way`, or diff overlay shown).
 - **E** — `renderMergeGutter` `.de-count` `:374` → single `X/Y open conflicts`; `computeMergedCenter [a0b30550]` status `:277` → drop the `nc conflicts to resolve`.
+- **F** — `renderInterPaneGutters [fd99c520]` `:502-504` per-side content+in-center gate (`✕` if in-center / add if not / none if empty) + `openChangeCount [8b6abf77]`/`isResolved` derive from `sidesInCenter` (0-or-1 resolved, 2 unresolved).
 
 ## Handoff
 Build directly (Tron reviews at QA) → tester DET-gate → QA. Impl-edit, markers stay, no new units. I derive-confirm (no new units) + backstop each of A+D / B / C.
