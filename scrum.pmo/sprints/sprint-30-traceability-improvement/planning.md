@@ -36,7 +36,6 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [x] [Task 30.7: Uniform ref-guard across editor targeting](./task-30.7-uniform-ref-guard.md)
 - [ ] [Task 30.9: IntelliJ-faithful base-aware 3-way merge view](./task-30.9-intellij-3way-merge.md)
 - [x] [Task 30.10: Right pane defaults to the files git history](./task-30.10-right-git-history-default.md)
-- [x] [Task 30.11: Scoreboard measures the walked chain](./task-30.11-scoreboard-walked-chain.md)
 - [x] [Task 30.12: 2-way take-over (no-base fallback)](./task-30.12-2way-takeover.md)
 - [x] [Task 30.13: IntelliJ inter-pane merge gutters + connectors](./task-30.13-gutters-connectors.md)
 - [ ] [Task 30.14: Service-Worker auto-update (visible deploys)](./task-30.14-sw-auto-update.md)
@@ -60,3 +59,5 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [x] [Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines](./task-30.34-always-3-columns-spline.md)
 - [ ] [Task 30.35: Diff coloring by kind + per-block merge-action MATRIX (WORKS/BROKEN validation)](./task-30.35-coloring-and-merge-action-matrix.md)
 - [ ] [Task 30.36: Diff-nav aids — brighter current-change on up/down + open-changes count](./task-30.36-diff-nav-aids.md)
+- [ ] [Task 30.37: Per-change RESOLVED-state toggle (green checkmark, outlined=unresolved / solid=resolved)](./task-30.37-resolved-state-toggle.md)
+- [x] [Task 30.11: Scoreboard measures the walked chain](./task-30.11-scoreboard-walked-chain.md)
