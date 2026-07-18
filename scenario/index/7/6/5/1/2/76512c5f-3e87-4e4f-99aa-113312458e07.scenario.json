@@ -21,38 +21,49 @@
    "type": "team-discovery",
    "discoveredBy": "robbin-po (measured stale-SW-cache: PO merge header old vs tester fresh-browser R30.13 live) + robbin-architect (root-cause: detection only fires on load)",
    "date": "2026-07-14",
-   "note": "SW auto-update. Architect design ac6f245cb (r30x-sw-auto-update-design.md). MEASURE-BEFORE-MINT: RbUpdateBanner Class = 0 units (does NOT exist); the banner concern is modeled under Class ServiceWorker 8bd3bd6b (3m). Both new methods go on ServiceWorker REUSE (3->5m). Sole-minter; pure client."
+   "note": "SW auto-update. Architect design ac6f245cb (r30x-sw-auto-update-design.md). MEASURE-BEFORE-MINT: RbUpdateBanner Class = 0 units (does NOT exist); the banner concern is modeled under Class ServiceWorker 8bd3bd6b (3m). Both new methods go on ServiceWorker REUSE (3->5m). Sole-minter; pure client.",
+   "refined": {
+    "date": "2026-07-18",
+    "by": "robbin-req per robbin-po (Tron: clean releases, version bump, no hard reloads)",
+    "reason": "R30.14 already built+closed (code-complete: pollForWorkerUpdate 82e5ba83 + claimClients 55ca881d, on origin). ACs described the MECHANISM but did not PIN the invariant as a hard testable rule. Refined scenario-first: leading INVARIANT (version bump MUST auto-propagate to running clients; manual hard-reload NEVER required = hard fail) + strengthened GATE (bump on a REAL long-open running client, no reload, confirm auto-update within poll interval). Pairs with R30.28 (deploy atomicity) - the phantom-version pair (R30.14=client auto-update, R30.28=server served==committed)."
+   }
   },
   "designRef": "scrum.pmo/design-notes/r30x-sw-auto-update-design.md (ac6f245cb)",
   "crossRef": [
-   "ior:instance:b054dfca-951d-4355-8d59-24d3f61c3665"
+   "ior:instance:b054dfca-951d-4355-8d59-24d3f61c3665",
+   "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915"
   ],
   "crossRefNote": "crossRef T39 (ServiceWorker.updateBanner original). Class ServiceWorker 8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133 REUSE (NOT a new RbUpdateBanner Class \u2014 that has 0 units; the banner is already modeled under ServiceWorker). 2 new Methods; the fix ALSO impl-edits EXISTING pieces (markers STAY): sw.js activate gains clients.claim (in claimClients), checkForUpdate/registerServiceWorker (ServiceWorker.updateBanner) re-scoped callable-periodically; SKIP_WAITING handler + showBanner + controllerchange->reload + ignoreSearchNav/flushAndReload REUSED unchanged.",
   "acceptanceCriteria": [
    {
-    "id": "AC-poll",
+    "id": "AC-invariant",
+    "group": "invariant",
+    "text": "INVARIANT (Tron: clean releases, NO hard reloads): a version bump MUST auto-propagate to EVERY running client, and a manual HARD-RELOAD (Ctrl+Shift+R / cache-clear / close+reopen) must NEVER be required to receive the new version. A running client that only gets the new version after a manual hard-reload is a HARD FAIL."
+   },
+   {
+    "id": "AC-auto-pickup",
+    "group": "auto",
+    "text": "Deploying a new version -> each running client picks it up AUTOMATICALLY within the poll interval: either a seamless hot-swap or a one-click 'New version - reload' prompt the user taps (that single tap REPLACES the manual hard-reload). No user action beyond at most one tap."
+   },
+   {
+    "id": "AC-detect",
     "group": "detect",
-    "text": "ServiceWorker.pollForWorkerUpdate: while the app is open, periodically (setInterval ~60s + on visibilitychange-visible / focus, debounced) calls registration.update() AND re-runs the /api/config version compare -> a new deploy triggers updatefound / the version-mismatch -> the EXISTING banner, WITHOUT a hard-refresh."
+    "text": "ServiceWorker.pollForWorkerUpdate: while the app is open, periodically (setInterval ~60s + on visibilitychange/focus) reg.update() re-fetches sw.js and re-runs the /api/config version compare, so a deploy is detected without a navigation/hard-refresh."
    },
    {
-    "id": "AC-claim",
+    "id": "AC-takeover",
     "group": "takeover",
-    "text": "ServiceWorker.claimClients: the sw.js activate handler calls self.clients.claim() (after old-cache cleanup) so the newly-activated SW controls open pages -> the existing controllerchange -> location.reload() fires (with the existing SKIP_WAITING = reliable takeover)."
+    "text": "ServiceWorker.claimClients: the sw.js activate handler calls self.clients.claim() (after old-cache cleanup) so the newly-activated SW controls open pages -> controllerchange -> reload runs; skipWaiting + claim = reliable takeover."
    },
    {
-    "id": "AC-reuse",
-    "group": "reuse",
-    "text": "The existing flow is reused UNCHANGED (markers stay): registerServiceWorker updatefound wiring, showBanner + SKIP_WAITING post, controllerchange->reload, the sw.js SKIP_WAITING handler; checkForUpdate re-scoped to be callable periodically (impl-edit); ignoreSearchNav/flushAndReload untouched."
-   },
-   {
-    "id": "AC-ux",
+    "id": "AC-ux-no-surprise",
     "group": "ux",
-    "text": "Primary UX = the existing one-tap banner ('New version - reload') \u2014 no surprise reload mid-edit. (Auto-reload-on-idle is a flagged nice-to-have follow-up, NOT in this scope.)"
+    "text": "Primary UX = the existing one-tap banner ('New version - reload'); NO surprise auto-reload mid-edit (never nuke unsaved merge-editor state). Detection is automatic; the user chooses when to apply the pending version with one tap."
    },
    {
-    "id": "AC-verify",
-    "group": "verify",
-    "text": "Tron deploy-visibility re-check: after a deploy, the banner appears within the poll interval WITHOUT a hard-refresh; DET-3x on the poll/claim behavior."
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (verified on a REAL long-open running client, NOT a fresh navigation): bump the version + deploy -> WITHOUT any manual hard-reload/cache-clear, the running client auto-updates to the new version (hot-swap or one-click banner) within the poll interval. Confirm the client now reports the new version. Pairs with R30.28 (served==committed==HEAD) so the bumped version IS what the client receives."
    }
   ]
  },
