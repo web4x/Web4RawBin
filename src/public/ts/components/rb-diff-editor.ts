@@ -51,11 +51,9 @@ export class RbDiffEditor extends HTMLElement {
         .de-block-conflict { background: rgba(165,96,58,0.16); }
         .de-block-resolvable { background: rgba(58,138,90,0.15); }
         .de-block-change { background: rgba(58,110,165,0.15); }
-        /* R30.34: responsive — stack the 3 panes vertically on mobile (≤820px), spline flows DOWN in the vertical gaps. */
-        @media (max-width: 819.98px) {
-          rb-diff-editor .de-panes { flex-direction: column !important; gap: 28px !important; }
-          rb-diff-editor .de-pane { flex: 1 1 0; min-height: 32vh; }
-        }
+        /* R30.34-revert (Tron: ALWAYS 3 columns, no matter what): the 3 panes stay side-by-side at EVERY width — no
+           stacking media query. Row is pinned on .de-panes below; on a narrow phone the panes just get narrow
+           (scroll/zoom), never stack. The req/architect formalize 'always 3 columns' as the AC; this revert is it. */
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         .de-gutter-resolvable { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
         .de-gutter-change { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
@@ -71,7 +69,7 @@ export class RbDiffEditor extends HTMLElement {
         <button class="de-save" title="Save merged Result">💾 Save</button>
         <button class="de-share" title="Copy a shareable deep-link to this exact diff">🔗</button>
       </div>
-      <div class="de-panes" style="display:flex;flex:1;min-height:0;gap:34px;background:#111;position:relative">
+      <div class="de-panes" style="display:flex;flex-direction:row;flex:1;min-height:0;gap:34px;background:#111;position:relative">
         ${(['local', 'center', 'remote'] as const).map(s => `
           <div class="de-pane de-${s}" style="display:flex;flex-direction:column;flex:1;min-width:0;background:#1e1e1e">
             <div class="de-sub" style="display:flex;gap:4px;align-items:center;padding:3px 5px;background:#2d2d2d;border-bottom:1px solid #333;font-size:0.7rem">
@@ -101,17 +99,13 @@ export class RbDiffEditor extends HTMLElement {
     this.wireResponsive();
   }
 
-  // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] R30.34: responsive layout register (under connectedCallback's concern).
-  // The CSS media query flips .de-panes flex row↔column at 820px; this sets data-orient + re-lays-out Monaco and
-  // re-renders the orientation-aware ribbon/gutters on breakpoint-cross and resize (the SVG ribbons are pixel-positioned
-  // so they must recompute). syncScroll3 already keeps the 3 editors in register in both orientations.
+  // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] R30.34-revert: layout is ALWAYS side-by-side (Tron: 3 columns no
+  // matter what) — NO orientation flip, NO stacking media query. This only re-lays-out Monaco + re-renders the
+  // (always-horizontal) pixel-positioned ribbons/gutters on a window RESIZE so they track the panes' new geometry.
   private wireResponsive(): void {
     const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
-    const mq = matchMedia('(max-width: 819.98px)');
-    const apply = () => { panes.dataset.orient = mq.matches ? 'v' : 'h'; };
+    panes.dataset.orient = 'h';
     const rerender = () => { if (!this.edCenter) return; [this.edLocal, this.edCenter, this.edRemote].forEach(e => e?.layout?.()); this.renderMergeGutter(); };
-    apply();
-    mq.addEventListener('change', () => { apply(); rerender(); });
     let t: any = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(rerender, 120); }); // debounced: reposition pixel overlays after a resize
   }
 
@@ -471,12 +465,11 @@ export class RbDiffEditor extends HTMLElement {
   }
 
   // [impl:uuid:5051b2a4-6102-41fe-a352-a50e6b8ae03e] RbDiffEditor.renderConnectorRibbons
-  // R30.34 (Tron/Rider): ONE continuous cubic-Bézier ribbon PER change spanning Local→Result→Repository as a single
-  // SVG <path> — no boxes, no disjoint per-gutter bands. Orientation-aware from the same per-change data (3 pane
-  // Y-ranges + kind): HORIZONTAL when side-by-side (>820px, spline sweeps ACROSS the 2 column gutters, curve absorbs
-  // the Y-offset via horizontal tangents at the gutter midlines) or VERTICAL when stacked (≤820px, a left-margin
-  // ribbon flows DOWN with necks in the 2 vertical gaps). Origin-gated (a>0 left / b>0 right), color by kind,
-  // translucent so code reads through. syncScroll3 keeps all 3 in register in BOTH layouts. z-5, pointer-events:none.
+  // R30.34-revert (Tron/Rider): ONE continuous cubic-Bézier ribbon PER change spanning Local→Result→Repository as a
+  // single SVG <path> that sweeps ACROSS the 2 column gutters — no boxes, no disjoint bands, no stacked variant. Layout
+  // is ALWAYS 3 side-by-side columns, so the spline is always horizontal; the curve absorbs each pane's Y-offset via
+  // horizontal tangents at the gutter midlines (the Rider S-curve). Origin-gated (a>0 left / b>0 right), color by kind,
+  // translucent so code reads through. syncScroll3 keeps all 3 in register. z-5, pointer-events:none.
   private renderConnectorRibbons(): void {
     if (!this.edCenter || !this.edLocal || !this.edRemote) return;
     const panes = this.querySelector('.de-panes') as HTMLElement; if (!panes) return;
@@ -489,7 +482,6 @@ export class RbDiffEditor extends HTMLElement {
       this._ribbonSvg = svg;
     }
     const lm = this.mount('local').getBoundingClientRect(), cm = this.mount('center').getBoundingClientRect(), rm = this.mount('remote').getBoundingClientRect();
-    const vertical = cm.top > lm.bottom - 2; // stacked when Result sits below Local
     const n = (v: number) => v.toFixed(1);
     const parts: string[] = [];
     for (const c of this.conflicts.filter(x => !this.dismissed.has(x.id))) {
@@ -498,20 +490,14 @@ export class RbDiffEditor extends HTMLElement {
       const aT = this.lineY(this.edLocal, c.aStart), aB = this.lineY(this.edLocal, c.aStart + Math.max(c.a.length, 1));
       const cT = this.lineY(this.edCenter, c.span[0]), cB = this.lineY(this.edCenter, c.span[1]);
       const bT = this.lineY(this.edRemote, c.bStart), bB = this.lineY(this.edRemote, c.bStart + Math.max(c.b.length, 1));
+      // R30.34-revert: ALWAYS the ACROSS spline (Tron: alignment always Left→Center→Right as ONE SVG overlay). The
+      // stacked/vertical variant is removed — layout is always 3 side-by-side columns, so this is the only path.
       let d = '';
-      if (!vertical) {
-        const Lr = lm.right - pr.left, Rl = cm.left - pr.left, Rr = cm.right - pr.left, Sl = rm.left - pr.left;
-        const mL = (Lr + Rl) / 2, mR = (Rr + Sl) / 2; // gutter midlines — control X → horizontal tangents (Rider S-curve)
-        if (left && right) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
-        else if (left) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
-        else if (right) d = `M${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} Z`;
-      } else {
-        const W = 12, x0 = Math.max(2, lm.left - pr.left + 2), x1 = x0 + W; // left-margin ribbon, necks bow inward by W
-        const g1 = (aB + cT) / 2, g2 = (cB + bT) / 2; // vertical gap midlines
-        if (left && right) d = `M${n(x1)},${n(aT)} L${n(x1)},${n(aB)} C${n(x1 - W)},${n(g1)} ${n(x1 - W)},${n(g1)} ${n(x1)},${n(cT)} L${n(x1)},${n(cB)} C${n(x1 - W)},${n(g2)} ${n(x1 - W)},${n(g2)} ${n(x1)},${n(bT)} L${n(x1)},${n(bB)} L${n(x0)},${n(bB)} L${n(x0)},${n(bT)} C${n(x0 + W)},${n(g2)} ${n(x0 + W)},${n(g2)} ${n(x0)},${n(cB)} L${n(x0)},${n(cT)} C${n(x0 + W)},${n(g1)} ${n(x0 + W)},${n(g1)} ${n(x0)},${n(aT)} Z`;
-        else if (left) d = `M${n(x1)},${n(aT)} L${n(x1)},${n(aB)} C${n(x1 - W)},${n(g1)} ${n(x1 - W)},${n(g1)} ${n(x1)},${n(cT)} L${n(x1)},${n(cB)} L${n(x0)},${n(cB)} L${n(x0)},${n(cT)} C${n(x0 + W)},${n(g1)} ${n(x0 + W)},${n(g1)} ${n(x0)},${n(aT)} Z`;
-        else if (right) d = `M${n(x1)},${n(cT)} L${n(x1)},${n(cB)} C${n(x1 - W)},${n(g2)} ${n(x1 - W)},${n(g2)} ${n(x1)},${n(bT)} L${n(x1)},${n(bB)} L${n(x0)},${n(bB)} L${n(x0)},${n(bT)} C${n(x0 + W)},${n(g2)} ${n(x0 + W)},${n(g2)} ${n(x0)},${n(cB)} Z`;
-      }
+      const Lr = lm.right - pr.left, Rl = cm.left - pr.left, Rr = cm.right - pr.left, Sl = rm.left - pr.left;
+      const mL = (Lr + Rl) / 2, mR = (Rr + Sl) / 2; // gutter midlines — control X → horizontal tangents (Rider S-curve)
+      if (left && right) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
+      else if (left) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
+      else if (right) d = `M${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} Z`;
       if (d) parts.push(`<path d="${d}" fill="${color}" fill-opacity="0.30" stroke="${color}" stroke-opacity="0.85" stroke-width="1.5"/>`);
     }
     this._ribbonSvg.innerHTML = parts.join('');
