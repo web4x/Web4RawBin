@@ -37,7 +37,7 @@
    {
     "id": "AC-states",
     "group": "toggle",
-    "text": "The checkmark REFLECTS the DERIVED resolved-state: SOLID-green when the center holds ONE version (resolved), OUTLINED-green when it holds BOTH (unresolved) - auto-updating from the center line-count. Pixel-distinguishable states."
+    "text": "The checkmark REFLECTS the DERIVED resolved-state: SOLID-green when the center holds <=1 version (RESOLVED - 1 line=chosen, 0 lines=removed), OUTLINED-green when it holds 2 versions (UNRESOLVED - both present, undecided) - auto-updating from the center line-count. Pixel-distinguishable. Unresolved ONLY when 2 lines."
    },
    {
     "id": "AC-toggle",

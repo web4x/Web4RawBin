@@ -81,12 +81,12 @@
    {
     "id": "AC-x-visibility",
     "group": "action-visibility",
-    "text": "The 'x' (remove) action shows ONLY when the center holds BOTH versions (2 lines) - PER SIDE: a left-x on the left version and a right-x on the right version. No 'x' when the center already holds one version."
+    "text": "UNIFIED per-line button-visibility (supersedes 'x only when both versions'): for EACH side, PER LINE-IN-CENTER - if that side's line IS in the center, show 'x' (remove that side); if it is NOT in the center, show '>>' (left) / '<<' (right) (add that side). Applies uniformly to BOTH one-sided changes AND conflicts."
    },
    {
     "id": "AC-x-auto-resolve",
     "group": "action-visibility",
-    "text": "Pressing left-x or right-x REMOVES that side from the center, leaving ONE version -> the change AUTO-RESOLVES (derived) and the editor JUMPS to the next change (jumpToChange)."
+    "text": "Pressing 'x' on a side REMOVES that side's line from the center. From 2 lines -> 1 line (the change AUTO-RESOLVES to the remaining version and the editor JUMPS to the next change via jumpToChange). From 1 line -> 0 lines (the region is un-merged/removed - a deliberate resolved outcome; '>>'/'<<' then show on both sides to re-add either)."
    },
    {
     "id": "AC-addside-visibility",
@@ -94,9 +94,14 @@
     "text": "The '>>' (left) / '<<' (right) add-side action shows when that side's line is NOT currently in the center."
    },
    {
+    "id": "AC-one-sided-unmerge",
+    "group": "action-visibility",
+    "text": "A ONE-SIDED change (1 line in center) follows the same per-line rule: 'x' on the present side removes it (-> 0 lines, un-merged) and '>>'/'<<' shows on the absent side; after removing to 0 lines, BOTH '>>'/'<<' show so either side can be re-added. No special-case - the per-line rule covers one-sided and conflicts identically."
+   },
+   {
     "id": "AC-resolution-derives",
     "group": "resolution",
-    "text": "The resolved-state DERIVES from the center line-count: 1 line in center = RESOLVED, 2 lines = UNRESOLVED. '>>'/'<<' adds that side (2 lines -> unresolved; 1 line -> resolved); 'x' removes a side (-> 1 line -> resolved). The R30.37 checkmark REFLECTS this derived state and can MANUALLY OVERRIDE it."
+    "text": "The resolved-state DERIVES from the center line-count: 2 lines = UNRESOLVED (both versions present, undecided); 1 line = RESOLVED (one version chosen); 0 lines = RESOLVED (region removed / neither - a deliberate choice, re-openable via '>>'/'<<'). Unresolved ONLY when the center holds 2 versions. The R30.37 checkmark reflects this derived state and can manually override it."
    },
    {
     "id": "AC-two-per-side-blocks",
