@@ -236,7 +236,7 @@ export class RbDiffEditor extends HTMLElement {
     this.twoWay = this.base === '' && !!(this.left.ref && this.right.ref) ? false : this.base === '';
     this.conflicts = [];
     this.centerSeq = [];
-    this.dismissed.clear(); this._jumpIdx = -1; this._currentId = null; // R30.13/36: fresh merge → clear jump cursor + current-change emphasis (resolution is derived, no set to clear)
+    this.dismissed.clear(); this._jumpIdx = -1; this._currentId = null; this._override.clear(); // R30.13/36: fresh merge → clear jump cursor + emphasis + manual resolve-overrides
     if (this.base === '') {
       // R30.12: no merge-base → 2-way TAKE-OVER. LCS(local,remote) → conflicts[] as take-over hunks so the gutter
       // renders ◄/► (pick='a' keep Local default, ► take Version). Previously centerSeq was flat local → no arrows.
@@ -575,12 +575,15 @@ export class RbDiffEditor extends HTMLElement {
     this.updateResolveButton(); // R30.37: reflect the new current change's resolved state on the ✓ button
   }
 
-  // [impl:uuid:c86a104d-9777-4e00-a7d9-891e1a69334c] RbDiffEditor.toggleResolved — R30.35/37 OPTION A: resolution is now
-  // PURELY DERIVED from center inclusion (isResolved), so the green ✓ is a READ-ONLY indicator — this refreshes the
-  // indicator and mutates NO state (kept as the named entry point; the checkmark is non-interactive). Tron may layer a
-  // manual override at QA review; if so it re-enters here.
+  // [impl:uuid:c86a104d-9777-4e00-a7d9-891e1a69334c] RbDiffEditor.toggleResolved — req 2f7e1606e: the green ✓ is a derived
+  // indicator AND a MANUAL OVERRIDE. Clicking it FLIPS the CURRENT change's EFFECTIVE resolved-state and pins that as an
+  // override (force-resolve a 2-line KEEP-BOTH, or re-open a 1-line). Sticky until any ≫/≪/✕ on that change re-derives.
   toggleResolved(): void {
-    this.updateResolveButton(); // derived-indicator refresh only — no state change
+    if (this._currentId == null) return;
+    const c = this.conflicts.find(x => x.id === this._currentId); if (!c) return;
+    this._override.set(c.id, !this.isResolved(c)); // pin the flipped effective state
+    this.updateResolveButton();
+    this.renderMergeGutter(); // refresh the 'K to resolve' counter + per-change resolved badge
   }
 
   // R30.37: reflect the CURRENT change's resolved flag on the toolbar ✓ (solid=resolved / outlined=unresolved;
@@ -601,7 +604,8 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = true; else c.incl.b = true;
-    this.rebuildCenter(); // re-flatten center from the included sets → blocks+ribbons+counter re-derive (resolution derives from inclusion, no jump)
+    this._currentId = changeId; this._override.delete(changeId); // acted change becomes focus; action RE-DERIVES (clears any manual override)
+    this.rebuildCenter(); // re-flatten center from the included sets → blocks+ribbons+counter re-derive (no jump)
     this.updateResolveButton();
     this.dirty = true;
   }
@@ -613,10 +617,12 @@ export class RbDiffEditor extends HTMLElement {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
     if (side === 'left') c.incl.a = false; else c.incl.b = false;
+    this._currentId = changeId; this._override.delete(changeId); // acted change becomes focus; action RE-DERIVES (clears any manual override) → drives the ✓ indicator
     this.rebuildCenter();
     this.updateResolveButton();
     this.dirty = true;
-    // R30.35/37 OPTION A: dropping a side leaves one version → the change is now RESOLVED → advance to the next UNRESOLVED change.
+    // R30.35/37 OPTION A: dropping a side leaves one version → the change is now RESOLVED → advance to the next UNRESOLVED change
+    // (if one exists; else current stays on this now-resolved change so the ✓ reads solid).
     if (this.isResolved(c)) { this._jumpIdx = this.conflicts.findIndex(x => x.id === changeId); this.jumpToNextUnresolved(); }
   }
 
@@ -637,17 +643,21 @@ export class RbDiffEditor extends HTMLElement {
     }
   }
 
-  // R30.35/37 OPTION A (architect design decision, Tron-directed): resolution DERIVES from center inclusion — no stored
-  // _resolved set. Content-aware (a side only "counts" if it is included AND has lines) so a genuine one-sided change
-  // (only one version exists) is RESOLVED, not perpetually open — the raw incl.a&&incl.b would wrongly count it unresolved.
+  // R30.35/37 (req 2f7e1606e): resolution is DERIVED-PRIMARY with a MANUAL OVERRIDE. Derived = center inclusion,
+  // content-aware (a side counts only if included AND has lines) so a genuine one-sided change is derived-resolved,
+  // not perpetually open. The green ✓ is BOTH a derived indicator AND a manual override: it can force-RESOLVE a 2-line
+  // KEEP-BOTH change (both versions genuinely wanted in the result — the gap pure-derive can't express) or re-OPEN a
+  // 1-line change. _override pins the flipped effective state per change; ANY ≫/≪/✕ action re-derives (clears it).
+  private _override = new Map<number, boolean>(); // id → forced resolved-state, overriding the derived value
   private leftIn(c: Conflict): boolean { return c.incl.a && c.a.length > 0; }   // Local(older) version present in center
   private rightIn(c: Conflict): boolean { return c.incl.b && c.b.length > 0; }  // Repository(newer) version present in center
-  private isResolved(c: Conflict): boolean { return !(this.leftIn(c) && this.rightIn(c)); } // resolved UNLESS both versions coexist
-  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — R30.35/37 OPTION A: # of UNRESOLVED
-  // changes = # with BOTH versions still in center (leftIn && rightIn). Derived, not stored; auto-decrements when a ✕ drops
-  // a side (→ one version → resolved), increments when a ≫/≪ re-adds the second version. 0 when every change holds one version.
+  private isResolvedDerived(c: Conflict): boolean { return !(this.leftIn(c) && this.rightIn(c)); } // derived: resolved UNLESS both versions coexist
+  private isResolved(c: Conflict): boolean { return this._override.has(c.id) ? this._override.get(c.id)! : this.isResolvedDerived(c); } // effective = override ?? derived
+  // [impl:uuid:8b6abf77-b1d7-4eca-a0cd-a90b41372495] RbDiffEditor.openChangeCount — # EFFECTIVELY-unresolved = derived-unresolved
+  // (both versions in center) MINUS manual force-resolves (+ manual re-opens). Auto-decrements on ✕ (→ one version) or a
+  // force-resolve override; increments on ≫/≪ back to both or a re-open. 0 when every change is effectively resolved.
   openChangeCount(): number {
-    return this.conflicts.filter(c => this.leftIn(c) && this.rightIn(c)).length;
+    return this.conflicts.filter(c => !this.isResolved(c)).length;
   }
 
   // [impl:uuid:91c452ae-d41c-49bc-8efe-f656d628fd62] RbDiffEditor.applyAllNonConflicting
