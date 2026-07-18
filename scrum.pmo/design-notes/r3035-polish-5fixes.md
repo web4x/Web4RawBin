@@ -29,12 +29,24 @@ Tron: "skip-to-next NEVER skips to RED or GREEN — that's a bug." Two filters e
 1. A 2-line both-versions change → TWO CLEAN per-side connectors (Local↔centerLeft top, Repo↔centerRight bottom), **bounded to the change content — spanning NO blank/empty lines**, no diagonal/skew — as clean as the single-line change (line 138). One-sided unchanged.
 2. ▲/▼ nav AND the ✕ auto-resolve jump land on EVERY change of ALL kinds — add(green), delete(red), modify(blue), conflict(brown); none skipped.
 3. Opening a 3-way diff (`?left&right&repo&3way`) shows NO "File not found"; it renders clean. A genuine missing single file still shows it.
-4. No regression: resolution derive/override, ✕-auto-resolve, counter, per-side buttons all unchanged.
+4. Toolbar shows ONE count `31/78 open conflicts` (openChangeCount/total); the separate "N conflicts to resolve" is gone; 0 changes → "clean auto-merge".
+5. No regression: resolution derive/override, ✕-auto-resolve, per-side buttons all unchanged.
+
+## (E) Confusing dual counter — ROOT CAUSE: TWO separate counts rendered in two places
+- `.de-count` (`:374`): `${conflicts.length} changes · ${openChangeCount()} to resolve` → "78 changes · 31 to resolve".
+- `.de-status` (`:277`, via `status()`): `${nc} conflicts to resolve` where `nc` = TRUE conflicts only (`kind==='conflict'`) → "12 conflicts to resolve".
+Two different denominators (all-changes 78 vs true-conflicts 12) in two spots = confusing, doesn't add up.
+
+**FIX (E) — ONE clean count `31/78 open conflicts` (openChangeCount / total-changes):**
+- `.de-count` (`renderMergeGutter`, `:374`): `` `${this.openChangeCount()}/${this.conflicts.length} open conflicts` `` (0 changes → `clean auto-merge`; add `• modified` if dirty). Drop the now-unused `nc2` (`:372`).
+- `.de-status` (`computeMergedCenter`, `:276-277`): **REMOVE the `${nc} conflict…to resolve`** — keep only the mode/dirty note (`2-way …` when `twoWay`, else nothing / `• modified`). No second count.
+Single source of truth = `openChangeCount()` (derived-unresolved) over `conflicts.length` (total changes).
 
 ## Consolidated impl targets (expert builds all atomically)
 - **A+D** — `alignPaneRows [17c71adf]` (both-versions padding: Local→older-top, Repo→newer-bottom, height=olderLen+newerLen, `_maxH` centerLen-aware) **AND** `renderConnectorRibbons [5051b2a4]` (half-ribbon Y-extent bounded to REAL content sub-spans — `cLT/cLB`=older content, `cRT/cRB`=newer content; never the padded full span / blank rows). Both together = clean, content-bounded, one-per-side.
 - **B** — `removeLine [af887908]` `:626`: auto-resolve jump `jumpToNextUnresolved()` → **`jumpToChange(1)`** (walk ALL kinds, drop the resolved-filter). `jumpToChange [65c465fa]` nav already correct (no kind filter — confirmed with expert).
 - **C** — `edit.ts:97/:138`: guard `File not found` with `&& !isDiffMode()` (URL has `left`/`right`/`repo`/`3way`, or diff overlay shown).
+- **E** — `renderMergeGutter` `.de-count` `:374` → single `X/Y open conflicts`; `computeMergedCenter [a0b30550]` status `:277` → drop the `nc conflicts to resolve`.
 
 ## Handoff
 Build directly (Tron reviews at QA) → tester DET-gate → QA. Impl-edit, markers stay, no new units. I derive-confirm (no new units) + backstop each of A+D / B / C.
