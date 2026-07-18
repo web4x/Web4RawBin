@@ -25,6 +25,16 @@ const rawPath = location.pathname.replace(/^\/edit\/?/, '');
 let filePath = decodeURIComponent(rawPath);
 let currentMtime = '';
 
+// R30.35 C: in 3-way diff/merge mode the URL carries left/right/repo/3way refs — there is NO single working-file, so the
+// !file check would fire a FALSE "File not found" even though the diff renders fine. isDiffMode() = those params present
+// (same trigger as openFromParams) OR the diff overlay is displayed → suppress the single-file error only then.
+function isDiffMode(): boolean {
+  const sp = new URLSearchParams(location.search);
+  if (sp.has('left') || sp.has('right') || sp.has('repo') || sp.has('3way')) return true;
+  const ov = document.querySelector('.el-diff') as HTMLElement | null;
+  return !!ov && ov.style.display !== 'none';
+}
+
 let codeEditor: RbCodeEditor | null = null;
 let preview: RbPreview | null = null;
 
@@ -94,7 +104,7 @@ async function openFile(path: string): Promise<void> {
   } else if (preview) { preview.clear(); }
   const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
   if (fileTree) fileTree.setActive(path);
-  if (!file) toolbar.setStatus('File not found', '#e74c3c');
+  if (!file && !isDiffMode()) toolbar.setStatus('File not found', '#e74c3c'); // R30.35 C: not in 3-way diff mode (no single file there)
 }
 
 // Toolbar events
@@ -135,7 +145,7 @@ async function init(): Promise<void> {
     if (hasPreview(filePath) && file && preview) preview.setContentImmediate(file.content, filePath);
     const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
     if (fileTree) fileTree.setActive(filePath);
-    if (!file) toolbar.setStatus('File not found', '#e74c3c');
+    if (!file && !isDiffMode()) toolbar.setStatus('File not found', '#e74c3c'); // R30.35 C: not in 3-way diff mode (no single file there)
   } else { toolbar.setStatus('Select a file from the tree'); }
 
   // R30.24: deep-linkable diffs — if the URL carries diff params (repo/left/right/3way), mount the diff overlay and

@@ -273,8 +273,9 @@ export class RbDiffEditor extends HTMLElement {
     this.rebuildCenter();
     const ct = this.querySelector('.de-center .de-title') as HTMLElement;
     if (ct) ct.textContent = this.left.path ? `merged: ${this.left.path}` : 'merged';
-    const nc = this.conflicts.filter(c => c.kind === 'conflict').length; // R30.23.1: TRUE conflicts only — kind:'change' (one-sided, auto-applied) is not something "to resolve"
-    this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : `${nc} conflict${nc === 1 ? '' : 's'} to resolve${nc ? '' : ' — clean auto-merge'}${this.dirty ? ' • modified' : ''}`);
+    // R30.35 E: single source of truth for the count lives in .de-count ('X/Y open conflicts'). Status keeps ONLY the
+    // mode/dirty note — the second "N conflicts to resolve" denominator is removed (was confusing vs the de-count total).
+    this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : (this.dirty ? '• modified' : ''));
   }
 
   // R30.23 private helper (traceability stays on computeMergedCenter's a0b30550 — one-sided detection is the same
@@ -369,12 +370,12 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-accept-bar')?.remove();
     this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
-    const nc2 = this.conflicts.filter(c => (this.twoWay || c.kind === 'conflict') && !this.dismissed.has(c.id)).length; // R30.23.1: M = TRUE conflicts (3-way); in 2-way every hunk is a take-over so count all
     const cnt = this.querySelector('.de-count') as HTMLElement;
-    if (cnt) cnt.textContent = `${this.conflicts.length} change${this.conflicts.length === 1 ? '' : 's'} · ${this.openChangeCount()} to resolve`; // R30.37: live UNRESOLVED count → decrements on ✓, increments when an action resets a resolved change, 0 when all checkmarked
+    // R30.35 E: ONE count = openChangeCount (derived-unresolved) / total changes → 'X/Y open conflicts'. 0 changes → clean auto-merge.
+    if (cnt) cnt.textContent = (this.conflicts.length === 0 ? 'clean auto-merge' : `${this.openChangeCount()}/${this.conflicts.length} open conflict${this.conflicts.length === 1 ? '' : 's'}`) + (this.dirty ? ' • modified' : '');
   }
 
-  private _maxH(c: Conflict): number { return Math.max(c.a.length, c.b.length, 1); } // aligned block height (rows) across all 3 panes
+  private _maxH(c: Conflict): number { const centerLen = (c.incl.a ? c.a.length : 0) + (c.incl.b ? c.b.length : 0); return Math.max(c.a.length, c.b.length, centerLen, 1); } // R30.35 A+D: centerLen-aware (both-versions center = older+newer rows), matching alignPaneRows/renderCenterChangeBlocks
 
   // [impl:uuid:17c71adf-7b69-4081-98aa-0e687747a4d5] RbDiffEditor.alignPaneRows
   // R30.16: Monaco viewZone BLANK-ROW spacers so each conflict block occupies maxH=max(a,b) rows in ALL 3 panes →
@@ -401,11 +402,19 @@ export class RbDiffEditor extends HTMLElement {
         const c = this.conflicts.find(x => x.id === seg.cid);
         if (!c) continue;
         // R30.35: center block = the INCLUDED sides (older+newer), can be taller than either side → maxH spans all 3.
-        const centerLen = (c.incl.a ? c.a.length : 0) + (c.incl.b ? c.b.length : 0);
+        const older = c.incl.a ? c.a.length : 0;    // center's older(Local) sub-span height
+        const newer = c.incl.b ? c.b.length : 0;    // center's newer(Repo) sub-span height
+        const centerLen = older + newer;
         const maxH = Math.max(c.a.length, c.b.length, centerLen, 1);
-        push('local', rL + c.a.length, maxH - c.a.length);                     // pad each pane's block up to maxH
+        // R30.35 A+D: Local(older) aligns to the block TOP (real rows + pad BELOW); Repo(newer) aligns to CENTER's newer
+        // sub-span (pad ABOVE by the older-portion, only when both coexist) so its content sits on the SAME visual rows as
+        // center's newer band → the Repo↔centerRight half-ribbon is a clean horizontal rectangle bounded to real content,
+        // spanning NO blank spacer rows (fixes the diagonal skew + empty-line spanning; one-sided has older=0 → unchanged).
+        const padAbove = c.incl.b ? older : 0;
+        push('local', rL + c.a.length, maxH - c.a.length);
         push('center', rC + centerLen, maxH - centerLen);
-        push('remote', rR + c.b.length, maxH - c.b.length);
+        push('remote', rR, padAbove);                                          // pad ABOVE = center's older-sub-span rows
+        push('remote', rR + c.b.length, Math.max(0, maxH - padAbove - c.b.length)); // pad BELOW to fill maxH
         rL += c.a.length; rC += centerLen; rR += c.b.length; vL += maxH; vC += maxH; vR += maxH;
       }
     }
@@ -494,17 +503,16 @@ export class RbDiffEditor extends HTMLElement {
     const rightStrip = mk('de-gutter-right', remoteLeft);
     const btn = (act: string, id: number, glyph: string, title: string) =>
       `<button data-cid="${id}" data-act="${act}" title="${title}" style="pointer-events:auto;display:block;width:20px;height:15px;line-height:13px;margin:1px 0;padding:0;font-size:0.65rem;background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer">${glyph}</button>`;
-    // R30.35/37 OPTION A: per-side control keyed on center-INCLUSION (content-aware), not a fixed add+remove pair —
-    //   BOTH versions in center → ✕ (remove this side) · this side NOT in center → add(≫/≪) · this side is the SOLE version → nothing.
-    // Outer gate: a side only shows controls if it HAS a version (a>0 left / b>0 right). Matches the AC visibility table.
+    // R30.35 F (UNIFIED per-line visibility, supersedes "✕ only when both in center"): per side, keyed on whether THAT
+    // side's line is in center — content + in-center → ✕ (remove it); content + NOT in-center → add(≫/≪); no content → no
+    // button (outer filter). So a ONE-SIDED change also gets ✕ (un-merge), then ≫/≪ to re-add — not just 2-version changes.
     const rows = (side: 'left' | 'right') => this.conflicts.filter(c => (side === 'left' ? c.a.length > 0 : c.b.length > 0)).map(c => {
       const y = Math.max(0, this.lineY(this.edCenter, c.span[0]));
-      const both = this.leftIn(c) && this.rightIn(c), thisIn = side === 'left' ? this.leftIn(c) : this.rightIn(c);
-      let ctrl = '';
-      if (both) ctrl = side === 'left' ? btn('rm-left', c.id, '✕', 'Remove Local from Result') : btn('rm-right', c.id, '✕', 'Remove Repository from Result');
-      else if (!thisIn) ctrl = side === 'left' ? btn('add-left', c.id, '≫', 'Add Local → Result') : btn('add-right', c.id, '≪', 'Add Repository → Result');
-      // else: this side is the SOLE version in center → no control (nothing to add, can't drop the only version)
-      return ctrl ? `<div style="position:absolute;top:${y}px;left:0;right:0">${ctrl}</div>` : '';
+      const thisIn = side === 'left' ? this.leftIn(c) : this.rightIn(c);
+      const ctrl = thisIn
+        ? (side === 'left' ? btn('rm-left', c.id, '✕', 'Remove Local from Result') : btn('rm-right', c.id, '✕', 'Remove Repository from Result'))
+        : (side === 'left' ? btn('add-left', c.id, '≫', 'Add Local → Result') : btn('add-right', c.id, '≪', 'Add Repository → Result'));
+      return `<div style="position:absolute;top:${y}px;left:0;right:0">${ctrl}</div>`;
     }).join('');
     leftStrip.innerHTML = rows('left');
     rightStrip.innerHTML = rows('right');
@@ -621,26 +629,10 @@ export class RbDiffEditor extends HTMLElement {
     this.rebuildCenter();
     this.updateResolveButton();
     this.dirty = true;
-    // R30.35/37 OPTION A: dropping a side leaves one version → the change is now RESOLVED → advance to the next UNRESOLVED change
-    // (if one exists; else current stays on this now-resolved change so the ✓ reads solid).
-    if (this.isResolved(c)) { this._jumpIdx = this.conflicts.findIndex(x => x.id === changeId); this.jumpToNextUnresolved(); }
-  }
-
-  // R30.35/37 OPTION A: after a ✕ resolves the current change, jump to the next change that still holds BOTH versions
-  // (unresolved), searching forward from the acted-on change and wrapping. No-op if none remain unresolved.
-  private jumpToNextUnresolved(): void {
-    const list = this.conflicts; if (!list.length || !this.edCenter) return;
-    for (let k = 1; k <= list.length; k++) {
-      const idx = (((this._jumpIdx + k) % list.length) + list.length) % list.length;
-      const c = list[idx];
-      if (!this.isResolved(c)) {
-        this._jumpIdx = idx; this._currentId = c.id;
-        this.edCenter.revealLineInCenter(c.span[0] + 1);
-        this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
-        this.renderMergeGutter(); this.updateResolveButton();
-        return;
-      }
-    }
+    // R30.35 B: dropping a side resolves this change → advance to the NEXT change in sequence of ANY kind (add/delete/
+    // modify/conflict) via jumpToChange(1) — NOT jumpToNextUnresolved, which filtered to !isResolved and so SKIPPED every
+    // one-sided green(add)/red(delete) change (they derive as resolved). Keep the resolve-on-✕ behaviour; only the target changes.
+    if (this.isResolved(c)) { this._jumpIdx = this.conflicts.findIndex(x => x.id === changeId); this.jumpToChange(1); }
   }
 
   // R30.35/37 (req 2f7e1606e): resolution is DERIVED-PRIMARY with a MANUAL OVERRIDE. Derived = center inclusion,
