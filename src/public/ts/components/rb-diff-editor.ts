@@ -538,7 +538,17 @@ export class RbDiffEditor extends HTMLElement {
       let d = '';
       const Lr = lm.right - pr.left, Rl = cm.left - pr.left, Rr = cm.right - pr.left, Sl = rm.left - pr.left;
       const mL = (Lr + Rl) / 2, mR = (Rr + Sl) / 2; // gutter midlines — control X → horizontal tangents (Rider S-curve)
-      if (left && right) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
+      if (left && right) {
+        // R30.35 AC-two-per-side-blocks: a both-versions change draws TWO HALF-ribbons — Local↔centerLeft(older) and
+        // Repository↔centerRight(newer), each side connecting to ITS specific center sub-span, NEVER one merged ribbon
+        // spanning both. centerLeft = [span0, span0+olderLen] (older/dark), centerRight = [span0+olderLen, span1] (newer).
+        const oEnd = c.span[0] + c.olderLen;
+        const cLT = this.lineY(this.edCenter, c.span[0]), cLB = this.lineY(this.edCenter, oEnd); // centerLeft (older) Y-range
+        const cRT = this.lineY(this.edCenter, oEnd), cRB = this.lineY(this.edCenter, c.span[1]); // centerRight (newer) Y-range
+        const half1 = c.olderLen > 0 ? `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cLT)} ${n(Rl)},${n(cLT)} L${n(Rl)},${n(cLB)} C${n(mL)},${n(cLB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z` : ''; // Local → centerLeft
+        const half2 = c.span[1] > oEnd ? `M${n(Rr)},${n(cRT)} C${n(mR)},${n(cRT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cRB)} ${n(Rr)},${n(cRB)} Z` : ''; // centerRight → Repository
+        d = `${half1} ${half2}`.trim();
+      }
       else if (left) d = `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cT)} ${n(Rl)},${n(cT)} L${n(Rl)},${n(cB)} C${n(mL)},${n(cB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z`;
       else if (right) d = `M${n(Rr)},${n(cT)} C${n(mR)},${n(cT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cB)} ${n(Rr)},${n(cB)} Z`;
       const isCur = c.id === this._currentId; // R30.36: current change's ribbon brighter (same kind hue)
