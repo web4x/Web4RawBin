@@ -1,0 +1,56 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines
+
+[task:uuid:b6effc2c-71f3-4c24-834d-fc5f92e43d18]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 30 Planning](./planning.md)
+    - Requirement R30.34 `[requirement:uuid:53ab62ed-7ced-429a-945f-8b639faa4237]`
+  - supersedes
+    - R30.32 (4e0b50f2 SVG connector boxes — Tron-rejected, deleted)
+  - down
+    - [UC merge.responsiveSplineRibbon](./planning.md) `[uc:uuid:c3f9ea4c-9de5-41c8-9371-986e9453b066]`
+
+## Task Description
+
+The 3-way merge is ALWAYS three side-by-side columns (Local | Result | Repository) at EVERY viewport width — NEVER stacked, no orientation switch, no media-query breakpoint. A narrow phone viewport is handled by HORIZONTAL SCROLL/ZOOM within the 3 columns (the layout is unchanged; only the viewport pans). ONE continuous cubic-bezier spline ribbon per change flows Local→Result→Repository. Matches the IntelliJ Rider target picture.
+
+## Context
+
+Covers R30.34 (53ab62ed, req REFINED 42e98e4dc) → UC merge.responsiveSplineRibbon (c3f9ea4c) → Class RbDiffEditor 18165081. ⚠ DESIGN REVERTED (v0.7.48): stacked-mobile ≤820px REMOVED (it caused the desktop regression); now ALWAYS-3-col + horizontal-scroll, media-query REMOVED-IN-SOURCE (0 matches = correct-by-construction). SUPERSEDES R30.32 (boxes deleted). Target = scrum.pmo/.../diagrams/R30.32-TARGET-rider-merge-connectors.png. ⚠ AC-RE-SYNC (2026-07-18): task ACs updated from the old stacked-mobile premise to the refined always-3-col req.
+
+## Intention
+
+S30 diff/merge editor, R30.34 REVISED (Tron 'ALWAYS 3 columns, no matter what'): the earlier mobile-first-STACKING premise caused a desktop regression → REVERTED to always-3-col + horizontal-scroll. Rider 'Merge Revisions' fidelity.
+
+## Acceptance Criteria
+
+- [x] (always) INVARIANT (Tron 'ALWAYS 3 columns, no matter what'): the 3-way merge is ALWAYS three SIDE-BY-SIDE COLUMNS (Local | Result | Repository) at EVERY viewport width — NEVER stacked, NO orientation switch, NO media-query breakpoint; a rendering that stacks/reflows at any width is a HARD FAIL. Matches the IntelliJ target picture.
+- [x] (narrow) A narrow (phone) viewport is handled by HORIZONTAL SCROLL / ZOOM WITHIN the 3 columns — the 3-column layout is unchanged; only the viewport pans/zooms. NO responsive stacking, NO breakpoint (removes the earlier mobile-first-stacking premise that caused the desktop regression).
+- [x] (one) ONE continuous filled cubic-bezier spline ribbon per change flows Local→Result→Repository as a SINGLE SVG path across the gutters (absorbing per-pane Y offset), translucent by kind (change=blue/conflict=red-pink/active=green), NO per-pane boxes/bands/hard-outlines. Supersedes R30.32 (boxes deleted).
+- [x] (target) The rendered 3-way merge MATCHES the IntelliJ target picture (R30.32-TARGET-rider-merge-connectors.png): desktop side-by-side columns with continuous curved splines across. Matching the target IS the requirement (Rider fidelity).
+- [x] (legible) At a glance ANY change is traceable Local→merged Result→Repository; inline accept controls (x reject / >> accept-toward-result / <<) sit ON the ribbon edge without occluding it.
+- [x] (gate) GATE = 3 COLUMNS + continuous splines verified by SCREENSHOT + PIXEL vs the target across the REAL DESKTOP WIDTH RANGE — MULTIPLE widths (1920/1440/1280) AND windowed 700-819px AND phone 390px ALL render 3 side-by-side columns (never stacked). A single headless width is NOT acceptance; NEVER DOM/element-count. Client-facing → version-bump + atomic deploy (R30.28).
+
+## Implementation
+
+QA-REVIEW / AWAITING-TRON final visual confirm (rule#9 hold). DESIGN REVERTED to always-3-col (v0.7.48): the mobile-first stacking caused a desktop regression, reverted per Tron. Gate GREEN + chain-complete (verified, not relayed): pixel-gate 50f282076 'ALWAYS-3-columns + across-overlay spline range gate — GREEN DET-3x on v0.7.48 (revert)' — 3 columns at EVERY width 1920-390 incl the 700-819 regression band + 390px, across-spline + horizontal-scroll-track; media-query REMOVED-IN-SOURCE = 0 matches (correct-by-construction, not just tested). Test 2a7f5c94 status=pass, wired onto Impl 5051b2a4 renderConnectorRibbons (designAhead=false, the marker-reconciled unit). served==gated v0.7.48 (verified gate cites the served revert bundle). 6/6 ACs gate-proven. On TRON final visual confirm → DONE + R30.31 line-mapping UNHOLDS.
+
+## Subtasks
+
+None (atomic task).
