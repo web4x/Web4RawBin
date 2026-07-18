@@ -38,30 +38,31 @@ try {
       return { ok: bothText, centerLines: center.split('\n').length };
     });
 
-    // (2)-(4) ≫ adds-Left, ≪ adds-Right, COEXIST — on the conflict block
+    // buttons (v0.7.52 both-versions model): ≫=add-left, ≪=add-right, ✕=rm-left / rm-right (per side)
+    // (2) COEXIST: after ✕rm-left (drop local) then ≫add-left (re-add), BOTH local+repo present again in center
     await inject(); await sleep(500);
     const coexist = await page.evaluate(async () => {
-      const e = document.querySelector('rb-diff-editor'); const live = () => (e['conflicts'] || []); const c = live().find(x => /conflict/i.test(x.kind)) || live()[0]; if (!c) return { ok: false };
-      const clickAct = (a) => { const btn = e.querySelector(`[data-cid="${c.id}"][data-act="${a}"]`); if (btn) { btn.click(); return true; } return false; };
-      const hadL = clickAct('left'); await new Promise(z => setTimeout(z, 350)); const afterL = e['edCenter'].getValue();
-      const hadR = clickAct('right'); await new Promise(z => setTimeout(z, 350)); const afterLR = e['edCenter'].getValue();
-      const leftIn = afterLR.includes('line-conflict-LEFTSIDE'), rightIn = afterLR.includes('line-conflict-RIGHTSIDE');
-      return { hadL, hadR, addsLeft: afterL.includes('line-conflict-LEFTSIDE'), coexist: leftIn && rightIn };
+      const e = document.querySelector('rb-diff-editor'); const c = (e['conflicts'] || []).find(x => /conflict/i.test(x.kind)) || (e['conflicts'] || [])[0]; if (!c) return { ok: false };
+      const click = (a) => { const b = e.querySelector(`[data-cid="${c.id}"][data-act="${a}"]`); if (b) { b.click(); return true; } return false; };
+      const rmL = click('rm-left'); await new Promise(z => setTimeout(z, 350)); const afterRm = e['edCenter'].getValue();       // local dropped
+      const addL = click('add-left'); await new Promise(z => setTimeout(z, 350)); const afterAdd = e['edCenter'].getValue();   // local re-added
+      const bothBack = afterAdd.includes('line-conflict-LEFTSIDE') && afterAdd.includes('line-conflict-RIGHTSIDE');
+      return { hadRmL: rmL, hadAddL: addL, dropped: !afterRm.includes('line-conflict-LEFTSIDE'), reAdded: afterAdd.includes('line-conflict-LEFTSIDE'), coexist: bothBack };
     });
 
-    // (5) ✕ REMOVES a line ALWAYS — line count strictly decreases
+    // (3) ✕ REMOVES a line ALWAYS — rm-left drops the local version + line count strictly decreases (and rm-right drops repo)
     await inject(); await sleep(500);
     const removes = await page.evaluate(async () => {
-      const e = document.querySelector('rb-diff-editor'); const c = (e['conflicts'] || []).find(x => /modif|conflict/i.test(x.kind)) || (e['conflicts'] || [])[0]; if (!c) return { ok: false };
-      const before = e['edCenter'].getValue().split('\n').length;
-      const btn = e.querySelector(`[data-cid="${c.id}"][data-act="ignore"]`); if (btn) btn.click(); await new Promise(z => setTimeout(z, 400));
-      const after = e['edCenter'].getValue().split('\n').length;
-      return { removedLine: after < before, before, after };
+      const e = document.querySelector('rb-diff-editor'); const c = (e['conflicts'] || []).find(x => /conflict/i.test(x.kind)) || (e['conflicts'] || [])[0]; if (!c) return { ok: false };
+      const before = e['edCenter'].getValue(); const bl = before.split('\n').length;
+      const btn = e.querySelector(`[data-cid="${c.id}"][data-act="rm-left"]`); const had = !!btn; if (btn) btn.click(); await new Promise(z => setTimeout(z, 400));
+      const after = e['edCenter'].getValue(); const al = after.split('\n').length;
+      return { had, before: bl, after: al, removedLine: al < bl, localGone: before.includes('line-conflict-LEFTSIDE') && !after.includes('line-conflict-LEFTSIDE') };
     });
 
-    const pass = bothVer.ok && coexist.addsLeft && coexist.coexist && removes.removedLine;
+    const pass = bothVer.ok && coexist.dropped && coexist.reAdded && coexist.coexist && removes.removedLine && removes.localGone;
     results.push(pass);
-    console.log(`iter ${i}: both-versions=${bothVer.ok} | ≫adds-left=${coexist.addsLeft} ≪adds-right+COEXIST=${coexist.coexist} | ✕removes-line=${removes.removedLine}(${removes.before}→${removes.after}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: both-versions=${bothVer.ok} | ✕rm-left→dropped=${coexist.dropped} ≫add-left→re-added=${coexist.reAdded} COEXIST=${coexist.coexist} | ✕removes-line=${removes.removedLine}(${removes.before}→${removes.after}) local-gone=${removes.localGone} => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { await browser.close(); }
