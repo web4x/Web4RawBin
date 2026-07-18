@@ -2,7 +2,7 @@
  "ior": "ior:class:Requirement",
  "model": {
   "uuid": "5abdb2d4-f358-4e02-bcad-95e5b0354d80",
-  "name": "Per-change resolved-state toggle (green checkmark: outlined=unresolved / solid=resolved)",
+  "name": "Per-change RESOLVED-state toggle (green checkmark: outlined=unresolved / solid=resolved)",
   "altId": "R30.37",
   "tasks": [],
   "tests": [],
@@ -14,8 +14,8 @@
   "useCases": [
    "ior:instance:fa87d094-a723-443c-8f71-b4a1ce54ba24"
   ],
-  "description": "A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK ('commit change') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28).",
-  "tronQuote": "> TRON: a green checkmark ('commit change') per change next to the up/down nav - outlined-green = unresolved, solid-green = resolved; clicking toggles resolved; clicking any x/>>/<< on that change resets it to unresolved. Resolution is via the checkmark, not automatic.",
+  "description": "A per-change RESOLVED-STATE toggle: a GREEN CHECKMARK (labelled 'RESOLVED') sits next to the up/down nav in the 3-Way Merge toolbar for the current change. OUTLINED-green = UNRESOLVED; SOLID-green = RESOLVED. Clicking the checkmark TOGGLES the change's resolved state. Clicking ANY merge action (x / >> / <<) on that change RESETS it to UNRESOLVED (an action means you're re-working it). Resolution is EXPLICIT via the checkmark - it is NOT auto-set by an action. Drives the R30.36 open-count (open = unresolved). Client-facing -> version-bump + atomic deploy (R30.28). WORDING is 'RESOLVED' (button/label/tooltip) - never 'commit'/'committed'. There is ONE resolved-state per CHANGE: even when a change renders as 2 SVG blocks (R30.35 two-per-side rendering), it is ONE change with ONE checkmark and ONE resolved-state - resolve/unresolve applies to the whole change, not per-block.",
+  "tronQuote": "> TRON: a green checkmark per change (labelled 'RESOLVED', not 'commit') next to the up/down nav - outlined-green = unresolved, solid-green = resolved; clicking toggles resolved; clicking any x/>>/<< on that change resets it to unresolved. ONE resolved-state per change even if it renders as 2 blocks.",
   "discoverySource": {
    "type": "tron-directive",
    "flaggedBy": "Tron via robbin-po",
@@ -32,7 +32,7 @@
    {
     "id": "AC-checkmark",
     "group": "toggle",
-    "text": "Each change shows a GREEN CHECKMARK ('commit change') next to the up/down nav in the 3-Way Merge toolbar for the current change."
+    "text": "Each change shows a GREEN CHECKMARK labelled 'RESOLVED' (button/label/tooltip say 'RESOLVED' - NEVER 'commit'/'committed') next to the up/down nav in the 3-Way Merge toolbar for the current change."
    },
    {
     "id": "AC-states",
@@ -43,6 +43,11 @@
     "id": "AC-toggle",
     "group": "toggle",
     "text": "Clicking the checkmark TOGGLES the change between resolved and unresolved. Resolution is EXPLICIT via the checkmark - it is NOT auto-set by a merge action."
+   },
+   {
+    "id": "AC-one-state-per-change",
+    "group": "toggle",
+    "text": "There is ONE resolved-state per CHANGE. Even when a change renders as TWO SVG blocks (the R30.35 two-per-side rendering), it is ONE change with ONE checkmark and ONE resolved-state - resolving/unresolving applies to the whole change, NOT per block. 2 blocks = VISUAL only, not 2 resolve targets."
    },
    {
     "id": "AC-reset-on-action",

@@ -81,7 +81,7 @@
    {
     "id": "AC-two-per-side-blocks",
     "group": "rendering",
-    "text": "A both-versions change (both sides shown in the center) renders as TWO PER-SIDE blocks, NOT one merged block spanning both center lines: (A) the LEFT pane's changed line linked to ITS specific center line (the left/older version); (B) the RIGHT pane's changed line linked to ITS specific center line (the right/newer version). Each block/connector links ONE side to ITS center line only. Applies to ALL changes where both versions are in the center (ref: line 73 left / center 74+75 / right 74 -> 2 blocks, not 1). Impl-edit to renderCenterChangeBlocks + renderConnectorRibbons (per-side, not merged) - architect derive-confirms."
+    "text": "A both-versions change (both sides shown in the center) renders as TWO PER-SIDE blocks, NOT one merged block spanning both center lines: (A) the LEFT pane's changed line linked to ITS specific center line (the left/older version); (B) the RIGHT pane's changed line linked to ITS specific center line (the right/newer version). Each block/connector links ONE side to ITS center line only. Applies to ALL changes where both versions are in the center (ref: line 73 left / center 74+75 / right 74 -> 2 blocks, not 1). Impl-edit to renderCenterChangeBlocks + renderConnectorRibbons (per-side, not merged) - architect derive-confirms. The 2 blocks are VISUAL ONLY: the change remains ONE unit for resolution (one R30.37 'RESOLVED' checkmark, one resolved-state) - 2 blocks does NOT mean 2 resolve targets."
    },
    {
     "id": "AC-gate",
