@@ -10,7 +10,7 @@
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
-  "method": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6",
+  "method": "ior:instance:03c84f3a-ea70-4407-aab8-ce7f846f89f2",
   "coveredRequirement": "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
   "matrixOf": "R30.35 merge-action matrix (REWORKED to ADD(>>/<<)/REMOVE(x) on a BOTH-VERSIONS center; NO ignore/dismiss/pick-side). Dual-link source of truth for architect PUML/SVG."
  },

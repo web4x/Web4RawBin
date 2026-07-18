@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "03c84f3a-ea70-4407-aab8-ce7f846f89f2",
+  "name": "RbDiffEditor.removeLine",
+  "implementations": [
+   "ior:instance:af887908-0d9a-4d44-beda-8c1ebc7fa695"
+  ],
+  "tests": [],
+  "note": "R30.35 merge-action model. Name EXACT for [impl] AST-attach. 'x' action: ALWAYS removes the line from the center (no ignore/dismiss). Distinct from addSide (>>/<<). Expert places the [impl:uuid] marker (currently TBD)."
+ },
+ "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}
