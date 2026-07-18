@@ -1,4 +1,5 @@
 // [impl:uuid:18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3] T39 update banner
+declare const __BUILD_VERSION__: string; // compiled in by build.mjs (define) = the version of THIS running bundle
 class RbUpdateBanner extends HTMLElement {
   private version: string = '';
 
@@ -39,20 +40,21 @@ class RbUpdateBanner extends HTMLElement {
     window.addEventListener('focus', check);
   }
 
-  private async checkForUpdate(): Promise<void> {
-    try {
-      const res = await fetch('/api/config');
-      const config = await res.json();
-      const cachedVersion = localStorage.getItem('rawbin-version');
-      if (!cachedVersion) {
-        localStorage.setItem('rawbin-version', config.version);
-        return;
-      }
-      if (cachedVersion !== config.version) {
-        this.version = config.version;
-        this.showBanner(config.version);
-      }
-    } catch {}
+  // R30.14 network-first shell (B): CONTINUOUS, SW-independent version poll. Poll /api/config (no-cache) every 60s +
+  // on focus/visibility, compare the SERVER version to __BUILD_VERSION__ (the version of THIS running bundle) — NOT a
+  // drifting localStorage baseline. A deploy to a left-open tab is caught ≤60s → the one-click prompt (the reload then
+  // lands fresh because the SW shell is network-first). Independent of the SW updatefound path (which stays secondary).
+  private checkForUpdate(): void {
+    const check = async () => {
+      try {
+        const config = await (await fetch('/api/config', { cache: 'no-store' })).json();
+        if (config.version && config.version !== __BUILD_VERSION__) { this.version = config.version; this.showBanner(config.version); }
+      } catch {}
+    };
+    void check();
+    setInterval(() => void check(), 60_000);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') void check(); });
+    window.addEventListener('focus', () => void check());
   }
 
   private showBanner(version?: string): void {
@@ -77,14 +79,11 @@ class RbUpdateBanner extends HTMLElement {
       </div>`;
 
     shadow.getElementById('update-now')?.addEventListener('click', async () => {
-      if (v) localStorage.setItem('rawbin-version', v);
-      this.remove();
+      // R30.14 one-click (C): swap the waiting SW if present, then reload. The network-first shell guarantees this
+      // reload fetches the CURRENT html + bundle hashes → fresh app in a SINGLE click, no manual hard-reload ever.
       const reg = await navigator.serviceWorker?.getRegistration?.();
-      if (reg?.waiting) {
-        reg.waiting.postMessage('SKIP_WAITING');
-      } else {
-        location.reload();
-      }
+      if (reg?.waiting) reg.waiting.postMessage('SKIP_WAITING');
+      location.reload();
     });
   }
 }
