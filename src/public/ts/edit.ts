@@ -139,14 +139,18 @@ async function init(): Promise<void> {
     previewPanel.appendChild(preview);
   }
 
-  if (filePath) {
+  // R30.35 C (real fix): in 3-way diff/merge mode the URL path (e.g. /edit/otmux) is NOT a single working-file in the
+  // MAIN repo — it lives in the diff's repo (?repo=oosh) and is fetched via /api/git/file. Fetching it as a working file
+  // (GET /api/files/otmux) 404s → fetchFile (:47, UNGUARDED) set the toolbar to the server's 'Not found'. So SKIP the whole
+  // single-file load in diff mode; openFromParams (below) drives everything. Genuine single-file opens still fetch+report.
+  if (filePath && !isDiffMode()) {
     const file = await fetchFile(filePath);
     if (codeEditor) await codeEditor.loadFile(filePath, file?.content || '');
     if (hasPreview(filePath) && file && preview) preview.setContentImmediate(file.content, filePath);
     const fileTree = document.querySelector('rb-file-tree') as RbFileTree | null;
     if (fileTree) fileTree.setActive(filePath);
-    if (!file && !isDiffMode()) toolbar.setStatus('File not found', '#e74c3c'); // R30.35 C: not in 3-way diff mode (no single file there)
-  } else { toolbar.setStatus('Select a file from the tree'); }
+    if (!file) toolbar.setStatus('File not found', '#e74c3c');
+  } else if (!isDiffMode()) { toolbar.setStatus('Select a file from the tree'); }
 
   // R30.24: deep-linkable diffs — if the URL carries diff params (repo/left/right/3way), mount the diff overlay and
   // restore the EXACT diff (e.g. /edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1 → the IMG_4522 diff). preselect:false

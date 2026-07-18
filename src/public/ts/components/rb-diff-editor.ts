@@ -556,7 +556,12 @@ export class RbDiffEditor extends HTMLElement {
         const oEnd = c.span[0] + c.olderLen;
         const cLT = this.lineY(this.edCenter, c.span[0]), cLB = this.lineY(this.edCenter, oEnd); // centerLeft (older) Y-range
         const cRT = this.lineY(this.edCenter, oEnd), cRB = this.lineY(this.edCenter, c.span[1]); // centerRight (newer) Y-range
-        const half1 = c.olderLen > 0 ? `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cLT)} ${n(Rl)},${n(cLT)} L${n(Rl)},${n(cLB)} C${n(mL)},${n(cLB)} ${n(mL)},${n(aB)} ${n(Lr)},${n(aB)} Z` : ''; // Local → centerLeft
+        // R30.35 A+D-left: Local(older) top-aligns to centerLeft with the SAME row count (olderLen === a.length), but the
+        // local pad-BELOW viewzone makes aB=lineY(aStart+a.length) overshoot INTO that blank pad → the left half-ribbon
+        // spanned content+1 empty row (Tron). Bound the local bottom to the older CONTENT span (aT + centerLeft height) so
+        // it maps ONLY real content — symmetric with half2's clean bT/bB (the repo pad-above leaves no trailing pad).
+        const aBc = aT + (cLB - cLT);
+        const half1 = c.olderLen > 0 ? `M${n(Lr)},${n(aT)} C${n(mL)},${n(aT)} ${n(mL)},${n(cLT)} ${n(Rl)},${n(cLT)} L${n(Rl)},${n(cLB)} C${n(mL)},${n(cLB)} ${n(mL)},${n(aBc)} ${n(Lr)},${n(aBc)} Z` : ''; // Local → centerLeft
         const half2 = c.span[1] > oEnd ? `M${n(Rr)},${n(cRT)} C${n(mR)},${n(cRT)} ${n(mR)},${n(bT)} ${n(Sl)},${n(bT)} L${n(Sl)},${n(bB)} C${n(mR)},${n(bB)} ${n(mR)},${n(cRB)} ${n(Rr)},${n(cRB)} Z` : ''; // centerRight → Repository
         d = `${half1} ${half2}`.trim();
       }
