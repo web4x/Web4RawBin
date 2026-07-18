@@ -1,7 +1,21 @@
-# R30.35 POLISH — 3 root-causes + fixes (Tron: "landed well, world class" + 3 polish bugs) — expert build spec
+# R30.35 POLISH — root-causes + fixes (Tron polish; v0.7.59 REOPENS A+D-left, C) — expert build spec
 
 **Author:** robbin-architect @ robbinTeam2:0.3 · **Status:** root-cause + fix → build (Tron reviews at QA) · **Date:** 2026-07-18
 **Class:** RbDiffEditor `18165081` (+ edit.ts glue for C). Impl-edit, markers stay, no new units.
+
+## ★ v0.7.59 REOPENS
+
+### (A+D-LEFT) Local↔centerLeft STILL maps empty lines — ROOT CAUSE: the fix was applied to the RIGHT only
+v0.7.59 gave the REPO side a dedicated content-band alignment (`padAbove = older`, `:413-417` — Repo's newer content shifted onto center's newer band → clean). The LOCAL side got only a generic below-pad (`push('local', rL+a.length, maxH-a.length)`, `:414`) and its half-ribbon reuses the SHARED `aB = lineY(edLocal, c.aStart + max(c.a.length,1))` (`:536`) — which is NOT bounded to the older sub-span the way the Repo half is bounded to the newer sub-span. **For a 1+1 (older+newer) change the Local block = [1 older][1 blank pad below]; the shared `aB` + the below-pad leave the Local↔centerLeft half-ribbon's lower extent reaching the blank pad row / center's newer band** → the LEFT maps empty lines. The RIGHT is clean because `padAbove` explicitly binds it; the LEFT never got that mirror.
+**FIX (symmetric — `alignPaneRows [17c71adf]` + `renderConnectorRibbons [5051b2a4]`):** give the LEFT the mirror of the RIGHT's treatment —
+- Local half-ribbon anchors bound to the OLDER sub-span: `aT = lineY(edLocal, c.aStart)`, `aB = lineY(edLocal, c.aStart + c.olderLen)` (use `olderLen`, NOT the shared `max(c.a.length,1)`), matching `cLT=span0`, `cLB=span0+olderLen`.
+- Ensure Local's older content occupies EXACTLY center's older rows `[0, olderLen]` (top) — mirror of Repo→newer band. The Local pad-below is fine as long as the ribbon anchor stops at `olderLen`.
+- Net: half1 (Local↔centerLeft) is a clean rectangle bounded to the real older content, spanning NO blank rows — symmetric to the fixed RIGHT. **VERIFY on Tron's repro (line 143++, center 159/160); if any residual, log the actual `aT/aB/cLT/cLB` Y for one LEFT-empty change (measure, don't guess).**
+
+### (C-REAL) "File not found" STILL shows — WHAT was not found + why the guard misses
+**WHAT: the file `otmux` (the URL path segment).** The /edit single-file editor calls `fetchFile('otmux')` → `GET /api/files/otmux` → **404**, because `otmux` is NOT a file in the rawbin repo — it's the DIFF's path in the `oosh` repo (`repo=oosh`). The 3-way diff renders fine (separate path); the single-file editor's load of `otmux` against the wrong (default) repo fails.
+**WHY the `!isDiffMode()` guard misses:** `isDiffMode()` (`:31-36`) checks `location.search` for `left/right/repo/3way` OR a visible `.el-diff` overlay. BUT `openFile` (`:98`) does `history.replaceState({}, '', '/edit/otmux')` — **STRIPPING the query params.** After that, `isDiffMode()`'s URL check finds nothing, and if the `.el-diff` overlay isn't visible/mounted at that moment (timing), it returns FALSE → the guard doesn't fire → "File not found" shows. The guard is defeated by the code's own URL rewrite.
+**FIX (edit.ts):** don't rely on the mutable URL/overlay — use a **persistent module flag `diffActive`** set `true` when the deep-link diff mounts (`openFromParams` at `:145-147`) and never re-derived; `isDiffMode()` returns `diffActive || <existing checks>`. BETTER: when `diffActive`, **skip the single-file `fetchFile`+status entirely** (the single-file editor is irrelevant in 3-way mode) — no 404 attempt, no error. Then "File not found" only ever shows for a genuine single-file open. (Optionally: `openFile`'s `replaceState` should preserve the diff query when a diff is active.)
 
 ## (A+D) Messy ribbons + ribbon SPANS EMPTY LINES on 2-line both-versions changes — SHARED ROOT: alignPaneRows mis-pads → ribbon anchors span blank rows
 `_maxH` (`:377`) = `max(c.a.length, c.b.length, 1)` — the SINGLE-PICK-era height. In the both-versions model the CENTER block is `olderLen + newerLen` rows (both sides). `renderCenterChangeBlocks` (`:405`) already uses `max(a, b, centerLen, 1)` — but **`alignPaneRows`'s `_maxH` does NOT**, so:
