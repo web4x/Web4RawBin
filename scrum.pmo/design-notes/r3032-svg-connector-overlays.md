@@ -40,39 +40,26 @@ This fills BOTH gutters + the Result band as one shape and ties into the Local/R
 
 **Color by kind** (reuse `conflictColor(c)`/`CONFLICT_PALETTE`): `change` #3a6ea5 (blue), `conflict` #a5603a (red/brown), `resolvable` #3a8a5a (green/active). SVG `z-5`, `pointer-events:none`, under the `z-6` accept-icon strips (unchanged). Re-render on scroll (already wired :534).
 
-## ★ RESPONSIVE — MOBILE-FIRST + DESKTOP-RELIABLE (Tron LOCKED — ONE unified feature)
-Same per-change data (3 pane Y-ranges + kind), rendered as a horizontal ribbon (desktop) or a vertical ribbon (mobile) by an ORIENTATION flag. `syncScroll3` keeps all 3 editors in register (same `scrollTop` → same lines visible) in BOTH layouts; `lineY(ed, line)` (:414) already returns Y relative to `.de-panes` and works for stacked OR side-by-side (it reads each editor's live bounding rect). Breakpoint **~820px**.
+## ★ ALWAYS 3 COLUMNS — no orientation switch (Tron ruled)
+**THE SPEC IS `diagrams/R30.32-TARGET-rider-merge-connectors.png`: 3 side-by-side COLUMNS with continuous curved splines sweeping ACROSS — ALWAYS, no matter the width.** There is NO responsive stacking, NO media query, NO `data-orient`, NO vertical spline. The layout is fixed 3-column; the spline always sweeps ACROSS (the approved v0.7.47 quality). Delete any stacking code (that revert is exactly the fix).
 
-### Layout (connectedCallback `ef6708f6` impl-edit)
-Inject a `<style>` (or class toggle) + a `matchMedia('(max-width: 819.98px)')` listener that sets `de-panes[data-orient="h|v"]` and re-runs `renderMergeGutter` + `editor.layout()` on change:
-- **Desktop (>820px):** `.de-panes{ flex-direction:row; gap:34px }` (current) — 34px column gutters.
-- **Mobile (≤820px):** `.de-panes{ flex-direction:column; gap:28px }`; each `.de-pane{ flex:1; min-height:40vh }` so all 3 stack full-width, readable, with 28px VERTICAL gaps. Pane order top→bottom = Local / Result / Repository.
-
-### Spline — VERTICAL (mobile) exact control-points
-Stacked full-width panes; per change `c`, left-margin ribbon width `W≈10`, `xr0 = X0` (pane left), `xr1 = X0 + W`. Y-bands (absolute in `.de-panes`, each in its own stacked pane via `lineY`):
-`laT/laB` = Local @ `c.aStart` · `lcT/lcB` = Result @ `c.span` · `lbT/lbB` = Repo @ `c.bStart`.
-Gap midlines `g1 = (laB+lcT)/2`, `g2 = (lcB+lbT)/2`. Single closed path (fill kind@0.22, stroke kind@0.6), cubic necks in the vertical gaps (control X bowed inward by `W` → smooth S, reads as continuous flow not stacked rects):
+**Layout (`connectedCallback` `ef6708f6` impl-edit):** the fixed 3-column row, with a readable min-width per column so a narrow viewport SCROLLS horizontally instead of stacking:
 ```
-M xr1,laT
-L xr1,laB
-C xr1-W,g1  xr1-W,g1  xr1,lcT      // neck DOWN Local→Result gap
-L xr1,lcB
-C xr1-W,g2  xr1-W,g2  xr1,lbT      // neck DOWN Result→Repo gap
-L xr1,lbB
-L xr0,lbB
-L xr0,lbT
-C xr0+W,g2  xr0+W,g2  xr0,lcB      // mirror UP
-L xr0,lcT
-C xr0+W,g1  xr0+W,g1  xr0,laT      // mirror UP
-Z
+.de-panes{ display:flex; flex-direction:row; gap:34px; overflow-x:auto; }   /* fixed 3 columns; narrow → horizontal scroll */
+.de-pane{ flex:1 0 300px; min-width:300px; }                                /* each column stays readable; never collapses/stacks */
 ```
-Origin-gate (vertical): draw Local→Result neck only if `a.length>0`; Result→Repo neck only if `b.length>0` (one-sided → half the vertical ribbon). Same `conflictColor(c)`.
+No media query anywhere. On a phone you see part of the 3-column layout and scroll/pinch-zoom ACROSS it — the columns never reflow.
 
-### Orientation switch in `renderConnectorRibbons` [5051b2a4]
-`const vertical = (this.querySelector('.de-panes') as HTMLElement)?.dataset.orient === 'v'` (or measure: `mount('center').getBoundingClientRect().top > mount('local').getBoundingClientRect().bottom - 2`). Branch to the vertical path builder (above) or the horizontal one (below). Everything else — `_ribbonSvg` z-5/pointer-events:none, re-render on scroll, origin-gate, palette — shared.
+### Mobile handling = scroll + zoom WITHIN the fixed columns (never stack)
+- **Horizontal scroll:** `.de-panes{ overflow-x:auto }` + per-column `min-width:300px` → total content width `≈ 3×300 + 2×34 ≈ 968px`; narrower viewports pan across. Native momentum scroll.
+- **Zoom:** native pinch-zoom preserved (do NOT set `user-scalable=no` in the viewport meta) — the user zooms into a column to read.
+- **Spline follows the scroll content:** `_ribbonSvg` must cover the `.de-panes` SCROLL width (`scrollWidth`, not clientWidth) and its x-coords come from `mount(...).getBoundingClientRect()` which already reflect horizontal scroll → the ribbons stay anchored to their columns while panning. Set the SVG `width` to `panes.scrollWidth` (or `100%` with the SVG inside the scrolled content) and re-render on horizontal scroll as well as vertical.
+- `syncScroll3` (vertical) unchanged — the 3 columns stay line-registered; `lineY` (:414) already viewZone-aware.
+
+The regression is impossible by construction: there is no stacking code path at all. There is ONE spline model — the horizontal across-overlay (Local→Result→Repo) defined above. No vertical/down variant exists.
 
 ## Chain (already minted — req 4e0b50f2, DESIGN superseded, NO re-mint)
-Req `4e0b50f2` (R30.32) → UC `3f641eb5` (diffEditor.connectorOverlays) → RbDiffEditor `18165081` REUSE → **impl-edit `renderConnectorRibbons` [5051b2a4]** (single-ribbon rewrite, orientation-aware H/V) + **`connectedCallback` [ef6708f6]** (responsive layout: media-query flex row↔column + `data-orient` + resize re-render) + **`renderCenterChangeBlocks` [37c9694c] / `renderSideChangeBlocks` [eb994dcd]** (DELETE box-outlines, keep SUBTLE line-tint) → Test. Markers STAY, no new units. Version-bump + atomic (R30.28).
+Req `4e0b50f2` (R30.32) → UC `3f641eb5` (diffEditor.connectorOverlays) → RbDiffEditor `18165081` REUSE → **impl-edit `renderConnectorRibbons` [5051b2a4]** (ONE across-overlay spline per change, Local→Result→Repo; delete the old 2-band renderer) + **`connectedCallback` [ef6708f6]** (fixed 3-column CSS + per-column `min-width:300px` + `overflow-x:auto`; DELETE any media-query/stacking) + **`renderCenterChangeBlocks` [37c9694c] / `renderSideChangeBlocks` [eb994dcd]** (DELETE box-outlines, keep SUBTLE line-tint) → Test. Markers STAY, no new units. Version-bump + atomic (R30.28).
 
 ## LOCKED AC — GATE BY PIXEL vs target image (never element-count; a 3rd false-green is unacceptable)
 1. ONE continuous filled ribbon per change spanning Local→Result→Repo (single `<path>`), curve absorbs Y-offset — screenshot matches `R30.32-TARGET-rider-merge-connectors.png` layout.
@@ -80,7 +67,7 @@ Req `4e0b50f2` (R30.32) → UC `3f641eb5` (diffEditor.connectorOverlays) → RbD
 3. Modification → full 3-pane ribbon; one-sided → half ribbon (origin-exact).
 4. NO box-outlines remain; accept icons on the edge don't occlude the ribbon.
 5. Ribbon tracks aligned rows on scroll; pointer-events:none. Pixel-diff gate vs target, not element count.
-6. **RESPONSIVE:** ≤820px → 3 panes STACKED VERTICAL full-width, ONE spline flowing DOWN per change (vertical necks in the gaps); >820px → side-by-side, spline ACROSS (desktop path). `syncScroll3` keeps all 3 in register in BOTH; crossing the breakpoint re-lays-out + re-renders (no reload). Mobile-first readable code; desktop reliable.
+6. **ALWAYS 3 COLUMNS:** no stacking at any width; no media query; ONE across-overlay spline (Local→Result→Repo) always. Narrow viewport → horizontal scroll + native pinch-zoom WITHIN the 3 columns; the SVG overlay spans the scroll width and stays anchored to its columns while panning.
 
 ## Handoff
 Design superseded (no re-mint) → PO build-go → expert (single-ribbon rewrite + delete boxes, pure client, version-bump) → I backstop (markers stay + single path per change + offset-absorbing curve + origin-gate) → tester PIXEL gate vs target + Tron. **R30.31 STAYS held.**
