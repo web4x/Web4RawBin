@@ -19,10 +19,11 @@ const emptySide = (): SideState => ({ path: '', ref: '', repo: '', content: '' }
 // R30.16: `kind` set ONCE at hunk creation (classify-at-source) → conflictColor() is a pure fn; center-blocks +
 // ribbons read the SAME Conflict → same color by construction. aStart/bStart = the hunk's start line in Local/Repository
 // (for viewZone row-alignment + ribbon endpoints).
-type ConflictKind = 'conflict' | 'resolvable' | 'change';
+type ConflictKind = 'add' | 'delete' | 'modify' | 'conflict';
 interface Conflict { id: number; a: string[]; b: string[]; pick: 'a' | 'b'; span: [number, number]; kind: ConflictKind; aStart: number; bStart: number }
-// R30.16 shared palette (DRY, single source for center-blocks + ribbons): blue=one-side change / green=cleanly-resolvable / brown=conflict.
-const CONFLICT_PALETTE: Record<ConflictKind, string> = { conflict: '#a5603a', resolvable: '#3a8a5a', change: '#3a6ea5' };
+// R30.35 shared palette (DRY, single source for center-blocks + side-blocks + ribbons): green=add / red=delete /
+// blue=modify / brown=conflict — semantic, IntelliJ-like (Tron). One color source → blocks+ribbons match by construction.
+const CONFLICT_PALETTE: Record<ConflictKind, string> = { add: '#3a8a5a', delete: '#b83a3a', modify: '#3a6ea5', conflict: '#a5603a' };
 const conflictColor = (c: Conflict): string => CONFLICT_PALETTE[c.kind];
 // CENTER is a deterministic flatten of this sequence: literal ok-runs + conflict placeholders (by id). Rebuilding
 // from the sequence (never by splicing the live buffer) means resolving one conflict can't drift another's offsets.
@@ -48,15 +49,17 @@ export class RbDiffEditor extends HTMLElement {
         .de-conflict-glyph::before { content: '⚠'; color: #e66; font-size: 0.7rem; }
         /* R30.34: SUBTLE line-tint only (NO box-outline, NO border-radius — Tron rejected boxes). The changed lines
            get a translucent kind-colored background that the continuous spline ribbon ties into at the pane edges. */
+        .de-block-add { background: rgba(58,138,90,0.16); }
+        .de-block-delete { background: rgba(184,58,58,0.16); }
+        .de-block-modify { background: rgba(58,110,165,0.15); }
         .de-block-conflict { background: rgba(165,96,58,0.16); }
-        .de-block-resolvable { background: rgba(58,138,90,0.15); }
-        .de-block-change { background: rgba(58,110,165,0.15); }
         /* R30.34-revert (Tron: ALWAYS 3 columns, no matter what): the 3 panes stay side-by-side at EVERY width — no
            stacking media query. Row is pinned on .de-panes below; on a narrow phone the panes just get narrow
            (scroll/zoom), never stack. The req/architect formalize 'always 3 columns' as the AC; this revert is it. */
+        .de-gutter-add { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
+        .de-gutter-delete { background: #b83a3a; width: 3px !important; margin-left: 2px; }
+        .de-gutter-modify { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
-        .de-gutter-resolvable { background: #3a8a5a; width: 3px !important; margin-left: 2px; }
-        .de-gutter-change { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
       </style>
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
@@ -264,13 +267,16 @@ export class RbDiffEditor extends HTMLElement {
     // insertion (oLength=0 → one-sided, R30.23/27 preserved); the M base lines for a modification → both panes align
     // (maxH = max(N,M)) + both highlight. The changed side stays bufferContent → CENTER pick unchanged → byte-identical.
     const baseSlice = baseLines.slice(region.oStart, region.oStart + region.oLength);
+    // R30.35: derive the semantic kind — oLength=0 → ADD (green, inserted, base had none); bufferLength=0 → DELETE
+    // (red, the changed side removed the M base lines); both>0 → MODIFY (blue). (Conflicts are the stable:false path.)
+    const kind: ConflictKind = region.oLength === 0 ? 'add' : region.bufferLength === 0 ? 'delete' : 'modify';
     return {
       id: cid,
       a: local ? region.bufferContent : baseSlice,
       b: local ? baseSlice : region.bufferContent,
       pick: local ? 'a' : 'b',
       span: [0, 0],
-      kind: 'change',
+      kind,
       // R30.27: aligned per-pane line positions threaded from the region loop (StableRegion only carries the CHANGED
       // buffer's start). For the changed side la/lb == bufferStart; for the opposite side it's the running counter —
       // so alignPaneRows places the opposite pane's spacer rows AT the change position, not piled at line 0.
@@ -289,7 +295,7 @@ export class RbDiffEditor extends HTMLElement {
       const [lStart, lLen] = d.buffer1; // local chunk
       const [rStart, rLen] = d.buffer2; // version chunk
       if (lStart > cursor) this.centerSeq.push({ ok: localLines.slice(cursor, lStart) }); // equal run (local==version here)
-      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0], kind: 'change', aStart: lStart, bStart: rStart }); // R30.16: 2-way take-over → blue; lStart/rStart = Local/Repo start lines
+      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0], kind: 'modify', aStart: lStart, bStart: rStart }); // R30.35: 2-way take-over = modify (blue); lStart/rStart = Local/Repo start lines
       this.centerSeq.push({ cid });
       cid++;
       cursor = lStart + lLen;
@@ -520,8 +526,11 @@ export class RbDiffEditor extends HTMLElement {
   acceptChange(changeId: number, side: 'left' | 'right'): void {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
-    c.pick = side === 'left' ? 'a' : 'b';
-    this.rebuildCenter(); // deterministic re-flatten (recomputes all spans; no drift), re-renders the gutter
+    // R30.35 per-kind: for a DELETE, ≫ (take-Local) RE-ADDS the deleted line → pick whichever side RETAINS the content
+    // (the non-empty side); ≪ keeps it deleted (picks the empty side). For add/modify/conflict ≫=Local('a') / ≪=Repo('b').
+    if (c.kind === 'delete' && side === 'left') c.pick = c.a.length ? 'a' : 'b';
+    else c.pick = side === 'left' ? 'a' : 'b';
+    this.rebuildCenter(); // deterministic re-flatten (recomputes all spans; no drift), re-renders blocks+ribbons+counter
     this.dirty = true;
   }
 

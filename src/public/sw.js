@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.7.50';
+const CACHE_NAME = 'rawbin-v0.7.51';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -13,7 +13,7 @@ const STATIC_SHELL = [
   '/dist/trace-page-YUFLFYSM.js',
   '/scenario',
   '/dist/scenario-view-KYRV3CHX.js',
-  '/dist/app-D37UR4ON.js',
+  '/dist/app-YCAK6MU4.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -67,9 +67,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(navigationStrategy(event.request, url));
 });
 
-// [impl:uuid:TBD-REQ-MINT ServiceWorker.navigationStrategy] R30.14 network-first shell — the clean-auto-update fix.
-// (marker uuid pending req mint of the serviceWorker.networkFirstShell UC/Method — architect derive FAILed on the
-// cross-wired R30.14 req; functional fix shipped now for the P0, real [impl:uuid] placed once req mints it.)
+// [impl:uuid:769bc9bc-61aa-4ed4-8012-04b45d1e49a9] ServiceWorker.navigationStrategy — R30.14 network-first shell.
 // The mutable HTML shell + hashed bundles are fetched NETWORK-FIRST so ANY reload (even a soft location.reload)
 // gets the CURRENT html → current bundle hashes → fresh app; offline stays intact BY CONSTRUCTION because
 // networkFirst falls back to caches.match when the network is down. Immutable static (icons/css) stays cache-first.
