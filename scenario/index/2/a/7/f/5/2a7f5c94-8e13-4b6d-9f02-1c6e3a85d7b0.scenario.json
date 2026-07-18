@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2a7f5c94-8e13-4b6d-9f02-1c6e3a85d7b0",
+    "name": "test:R30.34 AC-6 ALWAYS-3-columns + across-overlay spline (width-range, scroll-tracked)",
+    "description": "Bridged to test/visual/r3034-responsive-widths-gate.mjs (STANDING R30.34 gate, DET-3x GREEN on v0.7.48 5dc9801d2, media query REMOVED = correct-by-construction). INDEPENDENT verify (mount-geometry + SVG-path parse + real horizontal scroll ≠ expert flex-read). Per width 1920/1600/1440/1280/1024/900/800/700/390 (incl the 700-819 scaled band that regressed Tron desktop + 390 phone): 3 side-by-side columns NEVER stacked; one .de-ribbons spline overlay sweeps ACROSS both gutters (L→C→R); spline still overlays across after horizontal column scroll. Replaces the single-1600px gate that missed the scaled band (3 verification misses). Screenshots test-results/r3034-widths/.",
+    "sourceFile": "ior:file:test/visual/r3034-responsive-widths-gate.mjs",
+    "implementations": [
+      "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5051b2a4-6102-41fe-a352-a50e6b8ae03e"
+}
