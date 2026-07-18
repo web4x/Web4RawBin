@@ -10,8 +10,8 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+  - [~] creating test cases
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -59,7 +59,7 @@ MERGE-ACTION MATRIX — WORKS/BROKEN per combination UC (architect validates eac
 | CONFLICT | b934da9e conflictPutLeft ? | 72668662 conflictPutRight ? | a328ddac conflictRemoveLine ? |
 EDGES (4): edgeBothVersionsInCenter 45cac75f ? / edgeCenterShowsBothVersions bc52e3ed ? / edgeRemoveIsAlways e11a2842 ? / edgeReAddAfterRemove c4ecb985 ?
 (non-matrix UCs on R30.35: kindColoring 9c41a415 + blockActions d7493e80 = coloring, GATED GREEN.)
-HARD GATE: architect fills WORKS/BROKEN -> PUML/SVG matrix DIAGRAM -> TRON APPROVES DIAGRAM -> only THEN expert fixes BROKEN cells. Task PRE-IMPLEMENTATION until Tron signs the diagram. ⚠ SEMANTICS REWORKED 2bdbab817 (put-left/put-right/remove-always); the 16 uuids + WORKS/BROKEN grid are UNAFFECTED (only cell labels re-synced).
+HARD GATE: architect fills WORKS/BROKEN -> PUML/SVG matrix DIAGRAM -> TRON APPROVES DIAGRAM -> only THEN expert fixes BROKEN cells. Task PRE-IMPLEMENTATION until Tron signs the diagram. ⚠ SEMANTICS REWORKED 2bdbab817 (put-left/put-right/remove-always); the 16 uuids + WORKS/BROKEN grid are UNAFFECTED (only cell labels re-synced). | ★ HARD GATE SATISFIED (2026-07-18): TRON APPROVED the architect diagram ("implement them all") — the diagram sign-off HAPPENED. No longer pre-implementation. EXPERT BUILDING NOW. Next Tron touchpoint = FINAL VISUAL VERIFY after the builds+gates land. On expert deploy -> gate (per-cell/behaviour) -> chain-to-Test + served==gated -> QA-Review -> Tron final verify -> Done.
 
 ## Subtasks
 

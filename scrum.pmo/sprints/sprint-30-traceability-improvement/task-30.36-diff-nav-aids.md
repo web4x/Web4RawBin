@@ -10,8 +10,8 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+  - [~] creating test cases
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -48,7 +48,7 @@ S30 diff/merge editor, R30.36 (Tron scenario-first): make navigation legible —
 
 ## Implementation
 
-IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (architect diagram approval before any impl). (A) brighter-current = jumpToChange impl-edit (highlight the focused change brighter than non-current same-kind; move highlight on step). (B) open-count = NEW openChangeCount method (count unresolved change blocks; decrement on each >>/<</x resolve). NO implementation until Tron signs the architect diagram. Then expert builds -> gate (pixel-distinguishable current + count-accurate) -> chain-to-Test + served==gated -> Done.
+IN PROGRESS - PRE-IMPLEMENTATION per Tron HARD GATE (architect diagram approval before any impl). (A) brighter-current = jumpToChange impl-edit (highlight the focused change brighter than non-current same-kind; move highlight on step). (B) open-count = NEW openChangeCount method (count unresolved change blocks; decrement on each >>/<</x resolve). NO implementation until Tron signs the architect diagram. Then expert builds -> gate (pixel-distinguishable current + count-accurate) -> chain-to-Test + served==gated -> Done. | ★ HARD GATE SATISFIED (2026-07-18): TRON APPROVED the architect diagram ("implement them all") — the diagram sign-off HAPPENED. No longer pre-implementation. EXPERT BUILDING NOW. Next Tron touchpoint = FINAL VISUAL VERIFY after the builds+gates land. On expert deploy -> gate (per-cell/behaviour) -> chain-to-Test + served==gated -> QA-Review -> Tron final verify -> Done.
 
 ## Subtasks
 
