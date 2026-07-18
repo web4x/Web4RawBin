@@ -1,15 +1,16 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "843d79d4-b07a-4f8c-8f15-297211017cb4",
-  "name": "RbDiffEditor.addSide impl",
-  "tests": [
-   "ior:instance:555a3077-104a-4535-a8dc-4e4815d5a14e",
-   "ior:instance:5d8b3f47-1a29-4e6c-b0d4-7f2e9a63c815"
-  ],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": true,
-  "description": "DESIGN-AHEAD: accept a change into CENTER. Expert builds + tags [impl] marker (=this Impl uuid). RE-POINTED acceptChange->addSide (add-side semantics, >> incl.a / << incl.b). Marker unchanged."
- },
- "ownerIor": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "843d79d4-b07a-4f8c-8f15-297211017cb4",
+    "name": "RbDiffEditor.addSide impl",
+    "tests": [
+      "ior:instance:555a3077-104a-4535-a8dc-4e4815d5a14e",
+      "ior:instance:5d8b3f47-1a29-4e6c-b0d4-7f2e9a63c815",
+      "ior:instance:8a2f7d6c-4b91-4e05-a3d7-1f6c9e28b504"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: accept a change into CENTER. Expert builds + tags [impl] marker (=this Impl uuid). RE-POINTED acceptChange->addSide (add-side semantics, >> incl.a / << incl.b). Marker unchanged."
+  },
+  "ownerIor": "ior:instance:dfbbd057-a492-4760-a3a1-78e31de894a6"
 }

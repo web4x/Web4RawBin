@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8a2f7d6c-4b91-4e05-a3d7-1f6c9e28b504",
+    "name": "test:R30.35 both-versions center + per-side ≫add/≪add/✕remove (coexist)",
+    "description": "Bridged to test/visual/r3035-both-versions-gate.mjs (DET-3x GREEN on v0.7.52). Screenshot+pixel, NEVER DOM-count. Synthetic all-4-kinds fixture + otmux line-38 spot-check on the real diff: CENTER shows BOTH old(dark)/new(highlight); per-side buttons ≫=add-left, ≪=add-right, ✕=rm-left/rm-right; ✕ REMOVES a line ALWAYS (line-count strictly drops 11→10, real diff 3903→3902); ✕rm-left drops local then ≫add-left re-adds → BOTH COEXIST. Two-key: computeMergedCenter(both-versions model) + acceptChange(additive add/remove per side).",
+    "sourceFile": "ior:file:test/visual/r3035-both-versions-gate.mjs",
+    "implementations": [
+      "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f",
+      "ior:instance:843d79d4-b07a-4f8c-8f15-297211017cb4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a0b30550-71c8-4497-9eaf-f73551f7bb0f"
+}
