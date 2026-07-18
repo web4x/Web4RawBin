@@ -20,7 +20,11 @@ const emptySide = (): SideState => ({ path: '', ref: '', repo: '', content: '' }
 // ribbons read the SAME Conflict → same color by construction. aStart/bStart = the hunk's start line in Local/Repository
 // (for viewZone row-alignment + ribbon endpoints).
 type ConflictKind = 'add' | 'delete' | 'modify' | 'conflict';
-interface Conflict { id: number; a: string[]; b: string[]; pick: 'a' | 'b'; span: [number, number]; kind: ConflictKind; aStart: number; bStart: number }
+// R30.35 REWORK (Tron both-versions-center): a changed region's CENTER content = the INCLUDED sides, not one pick.
+// incl.a = Local(older) lines are in center, incl.b = Repo(newer) lines are in center. Default BOTH true → center shows
+// both versions (older dark / newer highlighted). ≫ add-left → incl.a=true · ≪ add-right → incl.b=true (coexist,
+// idempotent) · ✕ remove → incl.<side>=false (always). olderLen = # of older(a) lines in the emitted span (for age styling).
+interface Conflict { id: number; a: string[]; b: string[]; incl: { a: boolean; b: boolean }; span: [number, number]; olderLen: number; kind: ConflictKind; aStart: number; bStart: number }
 // R30.35 shared palette (DRY, single source for center-blocks + side-blocks + ribbons): green=add / red=delete /
 // blue=modify / brown=conflict — semantic, IntelliJ-like (Tron). One color source → blocks+ribbons match by construction.
 const CONFLICT_PALETTE: Record<ConflictKind, string> = { add: '#3a8a5a', delete: '#b83a3a', modify: '#3a6ea5', conflict: '#a5603a' };
@@ -53,6 +57,11 @@ export class RbDiffEditor extends HTMLElement {
         .de-block-delete { background: rgba(184,58,58,0.16); }
         .de-block-modify { background: rgba(58,110,165,0.15); }
         .de-block-conflict { background: rgba(165,96,58,0.16); }
+        /* R30.35: NEWER (b/Repo) lines highlighted = brighter kind fill + left accent bar; OLDER (a/Local) keep the subtle de-block tint (reads dark). */
+        .de-newer-add { background: rgba(58,138,90,0.36) !important; box-shadow: inset 2px 0 0 #3a8a5a; }
+        .de-newer-delete { background: rgba(184,58,58,0.36) !important; box-shadow: inset 2px 0 0 #b83a3a; }
+        .de-newer-modify { background: rgba(58,110,165,0.36) !important; box-shadow: inset 2px 0 0 #3a6ea5; }
+        .de-newer-conflict { background: rgba(165,96,58,0.36) !important; box-shadow: inset 2px 0 0 #a5603a; }
         /* R30.34-revert (Tron: ALWAYS 3 columns, no matter what): the 3 panes stay side-by-side at EVERY width — no
            stacking media query. Row is pinned on .de-panes below; on a narrow phone the panes just get narrow
            (scroll/zoom), never stack. The req/architect formalize 'always 3 columns' as the AC; this revert is it. */
@@ -154,8 +163,11 @@ export class RbDiffEditor extends HTMLElement {
       const b = (e.target as HTMLElement).closest('[data-cid]') as HTMLElement | null;
       if (!b || !this.contains(b)) return;
       const id = Number(b.dataset.cid); const act = b.dataset.act;
-      if (act === 'ignore') { this.dismissed.add(id); this.renderInterPaneGutters(); this.renderConnectorRibbons(); }
-      else if (act === 'left' || act === 'right') this.acceptChange(id, act); // ►►/◄◄ → center CONTENT mutates (rebuildCenter setValue)
+      // R30.35: ≫ add-Local / ≪ add-Right (acceptChange, additive+coexist) · ✕ remove that side ALWAYS (removeLine)
+      if (act === 'add-left') this.acceptChange(id, 'left');
+      else if (act === 'add-right') this.acceptChange(id, 'right');
+      else if (act === 'rm-left') this.removeLine(id, 'left');
+      else if (act === 'rm-right') this.removeLine(id, 'right');
     });
     this.syncScroll3();
     void this.computeMergedCenter();
@@ -240,7 +252,7 @@ export class RbDiffEditor extends HTMLElement {
         } else if (region.aContent.length === region.bContent.length && region.aContent.every((x, i) => x === region.bContent[i])) {
           this.centerSeq.push({ ok: region.aContent }); la += region.aContent.length; lb += region.bContent.length; // false conflict: both sides made the SAME change → agreed ok-run; advances BOTH
         } else {
-          this.conflicts.push({ id: cid, a: region.aContent, b: region.bContent, pick: 'a', span: [0, 0], kind: 'conflict', aStart: region.aStart, bStart: region.bStart }); // R30.16: 3-way true divergence → brown; aStart/bStart = Local/Repo start lines
+          this.conflicts.push({ id: cid, a: region.aContent, b: region.bContent, incl: { a: true, b: true }, span: [0, 0], olderLen: 0, kind: 'conflict', aStart: region.aStart, bStart: region.bStart }); // R30.16/35: 3-way divergence → brown; default both included (center shows both versions)
           la = region.aStart + region.aContent.length; lb = region.bStart + region.bContent.length; // R30.27: conflict carries REAL indices → resync the counters (regression guard: conflict path untouched otherwise)
           this.centerSeq.push({ cid: cid });
           cid++;
@@ -274,8 +286,9 @@ export class RbDiffEditor extends HTMLElement {
       id: cid,
       a: local ? region.bufferContent : baseSlice,
       b: local ? baseSlice : region.bufferContent,
-      pick: local ? 'a' : 'b',
+      incl: { a: true, b: true }, // R30.35: default both sides in center (older dark / newer highlighted)
       span: [0, 0],
+      olderLen: 0,
       kind,
       // R30.27: aligned per-pane line positions threaded from the region loop (StableRegion only carries the CHANGED
       // buffer's start). For the changed side la/lb == bufferStart; for the opposite side it's the running counter —
@@ -295,7 +308,7 @@ export class RbDiffEditor extends HTMLElement {
       const [lStart, lLen] = d.buffer1; // local chunk
       const [rStart, rLen] = d.buffer2; // version chunk
       if (lStart > cursor) this.centerSeq.push({ ok: localLines.slice(cursor, lStart) }); // equal run (local==version here)
-      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), pick: 'a', span: [0, 0], kind: 'modify', aStart: lStart, bStart: rStart }); // R30.35: 2-way take-over = modify (blue); lStart/rStart = Local/Repo start lines
+      this.conflicts.push({ id: cid, a: localLines.slice(lStart, lStart + lLen), b: remoteLines.slice(rStart, rStart + rLen), incl: { a: true, b: true }, span: [0, 0], olderLen: 0, kind: 'modify', aStart: lStart, bStart: rStart }); // R30.35: 2-way take-over = modify (blue), both included
       this.centerSeq.push({ cid });
       cid++;
       cursor = lStart + lLen;
@@ -310,9 +323,12 @@ export class RbDiffEditor extends HTMLElement {
       if ('ok' in seg) { lines.push(...seg.ok); continue; }
       const c = this.conflicts.find(x => x.id === seg.cid);
       if (!c) continue;
-      const picked = c.pick === 'b' ? c.b : c.a;
-      c.span = [lines.length, lines.length + picked.length];
-      lines.push(...picked);
+      // R30.35: emit the INCLUDED sides — older(a/Local) first then newer(b/Repo). Both by default → center shows both
+      // versions; ✕ drops a side, ≫/≪ re-add. olderLen = # older lines emitted (for the dark/highlighted age styling).
+      const older = c.incl.a ? c.a : [], newer = c.incl.b ? c.b : [];
+      c.olderLen = older.length;
+      c.span = [lines.length, lines.length + older.length + newer.length];
+      lines.push(...older, ...newer);
     }
     if (this.edCenter) this.edCenter.setValue(lines.join('\n'));
     this.renderMergeGutter();
@@ -373,11 +389,13 @@ export class RbDiffEditor extends HTMLElement {
       } else {
         const c = this.conflicts.find(x => x.id === seg.cid);
         if (!c) continue;
-        const picked = c.pick === 'b' ? c.b.length : c.a.length, maxH = this._maxH(c);
+        // R30.35: center block = the INCLUDED sides (older+newer), can be taller than either side → maxH spans all 3.
+        const centerLen = (c.incl.a ? c.a.length : 0) + (c.incl.b ? c.b.length : 0);
+        const maxH = Math.max(c.a.length, c.b.length, centerLen, 1);
         push('local', rL + c.a.length, maxH - c.a.length);                     // pad each pane's block up to maxH
-        push('center', rC + picked, maxH - picked);
+        push('center', rC + centerLen, maxH - centerLen);
         push('remote', rR + c.b.length, maxH - c.b.length);
-        rL += c.a.length; rC += picked; rR += c.b.length; vL += maxH; vC += maxH; vR += maxH;
+        rL += c.a.length; rC += centerLen; rR += c.b.length; vL += maxH; vC += maxH; vR += maxH;
       }
     }
     const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
@@ -397,10 +415,14 @@ export class RbDiffEditor extends HTMLElement {
   private renderCenterChangeBlocks(): void {
     if (!this.edCenter || !this.monaco) return;
     const m = this.monaco;
-    const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).map(c => ({
-      range: new m.Range(c.span[0] + 1, 1, Math.max(c.span[0] + 1, c.span[1]), 1),
-      options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined }, // R30.34: subtle line-tint (boxes dropped)
-    }));
+    // R30.35: two decorations per region — OLDER (a/Local) lines get the subtle kind tint (dark), NEWER (b/Repo) lines
+    // get the brighter de-newer-<kind> (highlighted). Both share the kind gutter bar → age is visible, kind preserved.
+    const decos = this.conflicts.filter(c => !this.dismissed.has(c.id)).flatMap(c => {
+      const oEnd = c.span[0] + c.olderLen; const out: any[] = [];
+      if (c.olderLen > 0) out.push({ range: new m.Range(c.span[0] + 1, 1, oEnd, 1), options: { isWholeLine: true, className: `de-block-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}`, glyphMarginClassName: c.kind === 'conflict' ? 'de-conflict-glyph' : undefined } });
+      if (c.span[1] > oEnd) out.push({ range: new m.Range(oEnd + 1, 1, c.span[1], 1), options: { isWholeLine: true, className: `de-block-${c.kind} de-newer-${c.kind}`, linesDecorationsClassName: `de-gutter-${c.kind}` } });
+      return out;
+    });
     this._blockDecoIds = this.edCenter.deltaDecorations(this._blockDecoIds, decos);
   }
   private _blockDecoIds: string[] = [];
@@ -457,14 +479,13 @@ export class RbDiffEditor extends HTMLElement {
     const rightStrip = mk('de-gutter-right', remoteLeft);
     const btn = (act: string, id: number, glyph: string, title: string) =>
       `<button data-cid="${id}" data-act="${act}" title="${title}" style="pointer-events:auto;display:block;width:20px;height:15px;line-height:13px;margin:1px 0;padding:0;font-size:0.65rem;background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer">${glyph}</button>`;
-    // R30.17 (TRON2/3): gate each strip's arrows by ORIGIN — Local ≫ only where the change has local lines (a>0),
-    // Repository ≪ only where it has repo lines (b>0) → a one-sided change shows an arrow on ONE side only.
-    const rows = (side: 'left' | 'right') => this.conflicts.filter(c => !this.dismissed.has(c.id) && (side === 'left' ? c.a.length > 0 : c.b.length > 0)).map(c => {
+    // R30.35: each strip gets ADD + REMOVE for ITS side — left ≫=add-Local / ✕=remove-Local · right ≪=add-Repo / ✕=remove-Repo.
+    // Gated by side origin (a>0 left / b>0 right) so a pure one-sided change only shows controls where that side has lines.
+    const rows = (side: 'left' | 'right') => this.conflicts.filter(c => (side === 'left' ? c.a.length > 0 : c.b.length > 0)).map(c => {
       const y = Math.max(0, this.lineY(this.edCenter, c.span[0]));
-      const take = side === 'left' ? btn('left', c.id, '≫', 'Take Local → Result') : btn('right', c.id, '≪', 'Take Repository → Result');
-      const ignore = btn('ignore', c.id, '✕', 'Ignore this change');
-      const wand = (c.a.length && c.b.length) ? `<div style="text-align:center;font-size:0.65rem" title="conflict — resolve">🪄</div>` : '';
-      return `<div style="position:absolute;top:${y}px;left:0;right:0">${side === 'left' ? take + ignore : ignore + take}${wand}</div>`;
+      const add = side === 'left' ? btn('add-left', c.id, '≫', 'Add Local → Result') : btn('add-right', c.id, '≪', 'Add Repository → Result');
+      const rm = side === 'left' ? btn('rm-left', c.id, '✕', 'Remove Local from Result') : btn('rm-right', c.id, '✕', 'Remove Repository from Result');
+      return `<div style="position:absolute;top:${y}px;left:0;right:0">${side === 'left' ? add + rm : rm + add}</div>`;
     }).join('');
     leftStrip.innerHTML = rows('left');
     rightStrip.innerHTML = rows('right');
@@ -520,17 +541,27 @@ export class RbDiffEditor extends HTMLElement {
     this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
   }
 
-  // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.acceptChange
-  // Apply one side's chunk of a conflict into CENTER at its aligned range (the ◄/► gutter action). Re-scopes the old
-  // takeHunk, now base-aware + IntelliJ-styled. Rebuilds CENTER text + re-renders the gutter, marks dirty.
+  // [impl:uuid:843d79d4-b07a-4f8c-8f15-297211017cb4] RbDiffEditor.acceptChange — R30.35 REWORK = ADD-SIDE semantic.
+  // ≫ (side='left') ADDS Local(older) lines into the region's center; ≪ (side='right') ADDS Repo(newer). ADDITIVE +
+  // idempotent — click both → BOTH versions coexist in center. NOT a pick (no longer replaces/kills the other side).
+  // (Method name kept as acceptChange so the minted unit 843d79d4 'RbDiffEditor.acceptChange' still name-matches +
+  // credits; the R30.35 intent-name is addSide — req to re-point 843d79d4.name→addSide if the rename is wanted.)
   acceptChange(changeId: number, side: 'left' | 'right'): void {
     const c = this.conflicts.find(x => x.id === changeId);
     if (!c) return;
-    // R30.35 per-kind: for a DELETE, ≫ (take-Local) RE-ADDS the deleted line → pick whichever side RETAINS the content
-    // (the non-empty side); ≪ keeps it deleted (picks the empty side). For add/modify/conflict ≫=Local('a') / ≪=Repo('b').
-    if (c.kind === 'delete' && side === 'left') c.pick = c.a.length ? 'a' : 'b';
-    else c.pick = side === 'left' ? 'a' : 'b';
-    this.rebuildCenter(); // deterministic re-flatten (recomputes all spans; no drift), re-renders blocks+ribbons+counter
+    if (side === 'left') c.incl.a = true; else c.incl.b = true;
+    this.rebuildCenter(); // re-flatten center from the included sets, re-render blocks+ribbons+counter
+    this.dirty = true;
+  }
+
+  // [impl:uuid:TBD-REQ-MINT RbDiffEditor.removeLine] — R30.35: ✕ REMOVES a side's lines from center, ALWAYS (drop the
+  // version you don't want). left=drop Local(older), right=drop Repo(newer). (marker pending req mint of the removeLine
+  // Method/Impl for the *RemoveLine UCs — 3662f00b/74167c20/c014b832/a328ddac; functional per Tron's model, real uuid later.)
+  removeLine(changeId: number, side: 'left' | 'right'): void {
+    const c = this.conflicts.find(x => x.id === changeId);
+    if (!c) return;
+    if (side === 'left') c.incl.a = false; else c.incl.b = false;
+    this.rebuildCenter();
     this.dirty = true;
   }
 
