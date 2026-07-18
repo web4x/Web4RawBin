@@ -50,7 +50,7 @@ S30 diff/merge editor, R30.37 (Tron): an explicit per-change resolution model (g
 
 ## Implementation
 
-QA-REVIEW (merge-editor arc, prod v0.7.55/56). Gate GREEN DET-3x v0.7.55 (08f2e05e1 resolution-toggle primary independent verify; expert d555b4c65 green-check resolve, action un-resolves). Chain-to-Test CLOSED: Test 6d2b9f84 wired onto Impl toggleResolved c86a104d + openChangeCount 8b6abf77 (d8332cbab). served==gated. 7/7 ACs gate-proven. HELD per rule#9 - AWAITING Tron VISUAL verify (screenshots) -> Done.
+QA-REVIEW (merge-editor arc, prod v0.7.55/56). Gate GREEN DET-3x v0.7.55 (08f2e05e1 resolution-toggle primary independent verify; expert d555b4c65 green-check resolve, action un-resolves). Chain-to-Test CLOSED: Test 6d2b9f84 wired onto Impl toggleResolved c86a104d + openChangeCount 8b6abf77 (d8332cbab). served==gated. 7/7 ACs gate-proven. HELD per rule#9 - AWAITING Tron VISUAL verify (screenshots) -> Done. | POLISH+OPT (prod v0.7.59): served==gated -> v0.7.59; derived+override optimization gated (Test 9b4e7c25 on openChangeCount 8b6abf77 + toggleResolved c86a104d) + arc polish v0.7.59 (Test 1e6a4c93). Still QA-Review AWAITING Tron VISUAL verify.
 
 ## Subtasks
 
