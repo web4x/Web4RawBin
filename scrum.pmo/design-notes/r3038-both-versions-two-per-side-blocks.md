@@ -1,8 +1,11 @@
-# R30.38 — Both-versions change renders as TWO per-side blocks (not one merged block)
+# R30.35 AC — Both-versions change renders as TWO per-side blocks (not one merged block)
 
-**Author:** robbin-architect @ robbin-architect robbinTeam2:0.3 · **Status:** design → req mints → build · **Date:** 2026-07-18
-**Class:** RbDiffEditor `18165081` · **crossRef:** R30.35 REWORK (center holds both versions) — **this renders that model**. Ref screenshot line 73/74.
-**Depends on** the R30.35 both-versions center (center region = left lines THEN right lines).
+**Author:** robbin-architect @ robbinTeam2:0.3 · **Status:** R30.35 AC-two-per-side-blocks (req `77b10846d`) — impl-edit → build · **Date:** 2026-07-18
+**Class:** RbDiffEditor `18165081` · **crossRef:** R30.35 REWORK (center holds both versions) — **this renders that model**. Ref line 73(left)/74+75(center)/74(right) → 2 blocks.
+**Folded into R30.35** as a new AC (NOT a separate req). **Depends on** the R30.35 both-versions center (center region = left lines THEN right lines).
+
+## ★ VISUAL ONLY — resolution stays ONE per CHANGE
+The two per-side blocks are a RENDERING split for legibility. A both-versions change is still ONE change: **ONE resolved-state, ONE checkmark (R30.37), counts as ONE in `openChangeCount`.** The split does NOT create per-block resolution — the two blocks share the single change's resolved flag.
 
 ## Now vs wanted
 - **NOW:** a both-versions change = ONE block over BOTH center lines + one continuous Local→Center→Repo connector.

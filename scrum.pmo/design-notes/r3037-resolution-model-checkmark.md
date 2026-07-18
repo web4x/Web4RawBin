@@ -4,7 +4,7 @@
 **Class:** RbDiffEditor `18165081` · **crossRef:** R30.36 nav-aids (`_resolved` `:454`, `openChangeCount` `:583`, jump nav `:81-82`).
 
 ## The model (Tron)
-A change is RESOLVED only when the user explicitly commits it via a **green checkmark** ("commit change") next to the up/down nav. Any edit to the change (≫/≪/✕) makes it UNRESOLVED again.
+A change is RESOLVED only when the user explicitly marks it via a **green checkmark** (wording: **"resolved"**, NOT "commit change") next to the up/down nav. Any edit to the change (≫/≪/✕) makes it UNRESOLVED again. **Resolution is ONE per CHANGE — one resolved-state, one checkmark** (a both-versions change rendered as two per-side blocks per R30.38 is still ONE change with ONE resolved flag).
 - **Green checkmark toggle** in the 3-Way Merge toolbar, beside ▲/▼ nav. Reflects/toggles the CURRENT (nav-focused) change.
 - **OUTLINED-green = unresolved · SOLID-green = resolved.**
 - **Clicking ANY action (≫ addLeft / ≪ addRight / ✕ removeLine) RESETS that change to UNRESOLVED** (you changed the composition → must re-confirm).
@@ -16,7 +16,7 @@ Built code AUTO-resolves on action: `acceptChange` `:563` and `✕` `:575` both 
 ## EXPERT IMPL SPEC (exact)
 **1. Toolbar button** (impl-edit connectedCallback toolbar `:77-85`, insert after `.de-jump-next` `:82`):
 ```
-<button class="de-resolve" title="Commit / resolve this change">✓</button>
+<button class="de-resolve" title="Mark resolved">✓</button>
 ```
 CSS — reflects the CURRENT change's flag:
 ```
