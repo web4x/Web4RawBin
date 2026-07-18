@@ -4,7 +4,8 @@
     "uuid": "8b6abf77-b1d7-4eca-a0cd-a90b41372495",
     "name": "RbDiffEditor.openChangeCount impl",
     "tests": [
-      "ior:instance:6d2b9f84-3a17-4c50-b8e1-9f4c7a06e253"
+      "ior:instance:6d2b9f84-3a17-4c50-b8e1-9f4c7a06e253",
+      "ior:instance:9b4e7c25-6f81-4a30-b5d2-8c1f3e07a964"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,

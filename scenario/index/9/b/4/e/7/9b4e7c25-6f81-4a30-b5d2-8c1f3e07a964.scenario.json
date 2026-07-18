@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9b4e7c25-6f81-4a30-b5d2-8c1f3e07a964",
+    "name": "test:conflict-merge derived+override (2-line both-✕ / drop→auto-jump / add-back / count / keep-both override)",
+    "description": "Bridged to test/visual/r3037-derived-override-gate.mjs (DET-3x GREEN on v0.7.58). Screenshot+pixel(✓ solid) + feature model/count, NEVER DOM element-count. Synthetic all-4-kinds fixture: (1) 2-line both-versions shows both ✕, no ≫/≪; (2) ✕ drops a side → derived-RESOLVED + jumpToNextUnresolved auto-jump; (3) dropped side shows ≫ add-back; (4) openChangeCount derived-unresolved minus overrides, 2→1; (5) OVERRIDE toggleResolved on a 2-line KEEP-BOTH → both lines remain + ✓ solid + count 2→1. Keys: removeLine + toggleResolved + openChangeCount.",
+    "sourceFile": "ior:file:test/visual/r3037-derived-override-gate.mjs",
+    "implementations": [
+      "ior:instance:af887908-0d9a-4d44-beda-8c1ebc7fa695",
+      "ior:instance:c86a104d-9777-4e00-a7d9-891e1a69334c",
+      "ior:instance:8b6abf77-b1d7-4eca-a0cd-a90b41372495"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:af887908-0d9a-4d44-beda-8c1ebc7fa695"
+}

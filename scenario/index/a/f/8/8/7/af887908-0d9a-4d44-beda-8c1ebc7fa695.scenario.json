@@ -1,12 +1,14 @@
 {
- "ior": "ior:class:Implementation",
- "model": {
-  "uuid": "af887908-0d9a-4d44-beda-8c1ebc7fa695",
-  "name": "RbDiffEditor.removeLine impl",
-  "tests": [],
-  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-  "designAhead": false,
-  "description": "Built (v0.7.52): 'x' removes the line from the center, always. Expert to place [impl:uuid:af887908...] on the removeLine decl."
- },
- "ownerIor": "ior:instance:03c84f3a-ea70-4407-aab8-ce7f846f89f2"
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "af887908-0d9a-4d44-beda-8c1ebc7fa695",
+    "name": "RbDiffEditor.removeLine impl",
+    "tests": [
+      "ior:instance:9b4e7c25-6f81-4a30-b5d2-8c1f3e07a964"
+    ],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": false,
+    "description": "Built (v0.7.52): 'x' removes the line from the center, always. Expert to place [impl:uuid:af887908...] on the removeLine decl."
+  },
+  "ownerIor": "ior:instance:03c84f3a-ea70-4407-aab8-ce7f846f89f2"
 }
