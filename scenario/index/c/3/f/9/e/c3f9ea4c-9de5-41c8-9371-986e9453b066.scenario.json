@@ -2,8 +2,8 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "c3f9ea4c-9de5-41c8-9371-986e9453b066",
-  "name": "merge.responsiveSplineRibbon",
-  "description": "One continuous cubic-bezier spline ribbon per change flows across the 3 editors (Local->Result->Repository), absorbing per-pane Y offsets; responsive - mobile stacks the panes (spline flows down), desktop is side-by-side (spline across); subtle kind-colored shading, no boxes. Impl-edit anchor renderConnectorRibbons (replace boxes/bands); architect adds the responsive-layout method-set (re-point to built).",
+  "name": "merge.threeColumnSplineRibbon",
+  "description": "The 3-way merge is always 3 side-by-side columns (never stacked, no breakpoint); one continuous cubic-bezier spline per change flows across the gutters (Local->Result->Repository), matching the IntelliJ target. Narrow viewport = horizontal scroll/zoom within the columns. Impl-edit anchor renderConnectorRibbons (boxes->spline); architect designs the spline geometry.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
