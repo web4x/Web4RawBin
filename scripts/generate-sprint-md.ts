@@ -208,10 +208,26 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
   if (!fs.existsSync(sprintDir)) fs.mkdirSync(sprintDir, { recursive: true });
   console.log(`\nGenerating: ${out.sprintSlug}`);
+  // OWNED-OUTPUT GUARD (correct-by-construction, TRON via robbin-po 2026-07-19): the generator
+  // OWNS only the files it emits — every generated file carries GENERATED_HEADER. NEVER clobber a
+  // file that exists WITHOUT that header: it is hand-authored (diagnosis brief, design doc, *.png)
+  // and lives outside the unit-derived output. This makes the DATA-LOSS hazard (a task slug colliding
+  // with a hand-authored filename) structurally impossible — the generator can only overwrite its own prior output.
+  let written = 0, skipped = 0;
   for (const [name, content] of out.files) {
-    fs.writeFileSync(path.join(sprintDir, name), content);
+    const fp = path.join(sprintDir, name);
+    if (fs.existsSync(fp)) {
+      const existing = fs.readFileSync(fp, 'utf-8');
+      if (!existing.startsWith(GENERATED_HEADER)) {
+        console.log(`  ⚠ SKIP (hand-authored, not generator-owned): ${name}`);
+        skipped++;
+        continue;
+      }
+    }
+    fs.writeFileSync(fp, content);
+    written++;
   }
-  console.log(`  ✓ ${out.files.size} files`);
+  console.log(`  ✓ ${written} files${skipped ? ` (${skipped} hand-authored preserved)` : ''}`);
 }
 
 interface CheckResult { sprintSlug: string; missing: string[]; extra: string[]; mismatched: string[]; ok: boolean; }
