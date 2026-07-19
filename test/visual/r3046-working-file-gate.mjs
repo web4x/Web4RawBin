@@ -4,7 +4,10 @@
 // [test:uuid:53d94d46-0fb6-4619-ba36-35897ec254a8] R30.46 W3 RbDiffEditor.openFromParams default-working-left 0eb17ebd —
 // a bare open (no left param) DEFAULTS left=WORKING (pinned) + right=HEAD, NO R30.17 promote (_pinnedLeft): the working file
 // STAYS on the left (not moved to the right), right.ref==='HEAD'.
-// W2 (locking, no marker — reuses R30.38 save at ref=''): edit CENTER → Save → the on-disk WORKING file round-trips (persists).
+// [test:uuid:7a0dc2b6-7023-49fd-8def-2b60e45d0098] R30.46 W2 working-file save ROUND-TRIP (locking) — edit CENTER → Save →
+// the on-disk WORKING file at ref='' round-trips (change persists to disk, fs-verified). Distinct intent from R30.38 diff-repo
+// save (4e2c8f10 is NON-writing 409-probe → does NOT cover real disk persistence); this asserts the actual round-trip. Bridges
+// the shared save Impl a88b2b53 (2nd distinct Test). Pollution-safe: fs byte-perfect backup/restore, never git checkout.
 // POLLUTION-SAFE: fs byte-perfect backup BEFORE + restore AFTER (NOT git checkout — the working file may hold uncommitted
 // changes git checkout would destroy); verify git-clean + byte-identical after. v0.7.68 (edit-IH43EFGH.js). DET-3x. SystemTester.
 import { chromium } from '@playwright/test';
