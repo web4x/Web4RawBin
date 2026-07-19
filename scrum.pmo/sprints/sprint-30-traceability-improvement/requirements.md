@@ -772,6 +772,7 @@
   - [ ] **(fold)** Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines).
   - [ ] **(fold)** Foldable regions are the METHOD boundaries - folding collapses a whole method block.
   - [ ] **(sync)** Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED.
+  - [ ] **(fold)** Collapsing a method PRESERVES the scroll position — the editor does NOT jump to line 1 (smooth collapse). (Tron: fold render works via FIX-A+B, but collapse must not scroll-to-top.)
   - [ ] **(impl)** Native Monaco folding (folding:true) + custom FoldingRangeProvider at method boundaries; collapse programmatic via editor.getContribution('editor.contrib.folding').getFoldingModel().setCollapsed (pinned monaco 0.52.2). Chevron + collapsed '…' placeholder — NOT setHiddenAreas.
   - [ ] **(impl)** Unchanged method-block collapse-state mirrored across all 3 (initial + foldingModel.onDidChange propagate, re-entrancy-guarded); spline/gutters reflow after (getTopForLineNumber fold-aware).
   - [ ] **(impl)** Methods overlapping conflicts[] excluded from collapse -> change-methods stay expanded+contiguous (why v2 ribbons stay clean vs v1).
