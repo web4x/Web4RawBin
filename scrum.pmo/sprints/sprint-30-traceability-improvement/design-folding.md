@@ -87,3 +87,43 @@ Verified impl line-by-line vs LOCKED spec (git show d893b1de1):
 2. CENTER both-versions yields TWO same-sig ranges for a CHANGED method — but change-methods overlap the conflict → excluded by keepChangeMethodsExpanded → never folded/mirrored. The 55 restored methods are UNCHANGED (single copy, unique sig) → no INV-3/mirror ambiguity for the actual fold set. Clean.
 
 **Marker call:** foldByMethodBoundaries 2de3411f — decl+body unchanged → RIDES, **no new uuid**. Confirmed. BUT the BUG-2 logic physically lives in the uncredited `computeMethodRanges`. If the dup-brace DET-3x gets a champagne Test (recommended), the honest Impl site = `computeMethodRanges` → mint a FRESH [impl:uuid] there + wire the Test to it (NOT to 2de3411f, which didn't change). Architect to mint the Method/Impl unit on req/planner Test-mint; deferred to chain, flagged to req(0.4)/planner(0.6).
+
+## R30.53 PARITY RESIDUAL — FIX-A2 (LOCKED, robbin-architect 2026-07-19, robbin-po directive)
+**In-scope** — same class as BUG-1 (real left-pane fold-parity defect). Do NOT close R30.53 with it. RED baseline r3053b 1/79 (`private.complete.panes()` COLLAPSED LEFT(86-88), EXPANDED C(89-95)/R(85-91)). BUG-2 r3053c stays 104/104 GREEN — this is a pre-existing FIX-A residual EXPOSED (not caused) by BUG-2 restoring ranges below the old brace-desync boundary.
+
+**ROOT CAUSE (measured, rb-diff-editor.ts:330-341):** `keepChangeMethodsExpanded` classifies change-vs-unchanged INDEPENDENTLY PER PANE from that pane's own conflict coords: center `[span0+1,span1]`, local `[aStart+1, aStart+a.length]`, remote `[bStart+1, bStart+b.length]`. For a GREEN-ADD conflict the added lines exist in center+remote but are ABSENT from local (`c.a.length`→0, per the fix-2 no-floor). LEFT's change-range is then empty/short → UNDER-COVERS `panes()` (86-88) → LEFT alone judges it unchanged → collapses, while C/R cover it and keep it expanded → parity break. `panes()` being 7 rows in C/R but 3 in LEFT confirms center/remote carry added lines local lacks.
+
+**Tester nuance (correct, incorporated):** INV-2 (identical RANGES across panes) holds only for UNCHANGED methods. A change-method has different per-side content/length → parity for it is NOT identical ranges but **CONSISTENT CLASSIFICATION (expanded ×3)**. LEFT under-classifies.
+
+**FIX-A2 — classify ONCE, mirror by SIGNATURE (same theme as FIX-B):** the change-method decision must be made ONCE across all 3 panes and applied by signature, so LEFT cannot independently under-classify. This is my FIX-A `computeSharedUnchangedFoldSet` (5d1ee46c0) direction, now required — the minimal split-floor (bec403023) left this residual.
+
+### EXACT SPEC (hand to robbin-expert) — refactor classification to a signature-union; keep per-side chRange FORMULA (incl. fix-2 no-floor)
+1. NEW helper `private changeMethodSigs(): Set<string>` — for each `[side, ed]` of `{local:edLocal, center:edCenter, remote:edRemote}`:
+   - `ranges = this.computeMethodRanges(ed.getModel())` (carries sig, BUG-2).
+   - `chRanges` = the EXISTING per-side formula (:336-339 verbatim — center `[span0+1,span1]`, local `[aStart+1,aStart+a.length]`, remote `[bStart+1,bStart+b.length]`; **do NOT reintroduce Math.max floor**).
+   - add `r.sig` to the set for every range `r` that overlaps any chRange (same `overlaps` predicate).
+   - RETURN the unioned `Set<string>`.
+2. CHANGE `keepChangeMethodsExpanded(ranges: {start;end;sig}[], changeSigs: Set<string>)` → `return ranges.filter(r => !changeSigs.has(r.sig));` (collapse only methods unchanged in ALL panes). Drop the `side` param + the internal per-side chRanges (moved into the helper). Widen `ranges` type to include `sig` (computeMethodRanges already returns it).
+3. `syncNativeFold` (:360, before the fold loop): `const changeSigs = this.changeMethodSigs();` ONCE. In the loop (:366): `const unchanged = this.keepChangeMethodsExpanded(this.computeMethodRanges(ed.getModel()), changeSigs);`.
+
+### Why correct-by-construction
+Membership in the change-set is by SIGNATURE-UNION across panes, not per-side coordinate. A method any pane classifies as change (e.g. `panes()` via C/R) is in `changeSigs` → stays expanded in ALL 3 → LEFT physically cannot under-classify it. The collapsible (unchanged) set is IDENTICAL BY SIGNATURE across L/C/R = fold-parity by construction.
+
+### Composition with fix-2 (no regression)
+fix-2 stops OVER-classification of the FOLLOWING method (zero-length local add must not clip the next unchanged method). FIX-A2 stops UNDER-classification of the change-method ITSELF. They compose: a genuinely-unchanged method overlaps NO pane's chRange → sig ∉ changeSigs → collapses ×3 (fix-2 intent preserved, NO floor). No conflict.
+
+### Invariants
+- INV-A2 (parity): the collapsible set filtered by `changeSigs` is IDENTICAL by signature across L/C/R (assert in r3053b gate).
+- Regression: r3053c 104/104 (BUG-2 sig ranges reused, untouched); R30.53 FIX-A/FIX-B parity Tests green (_mirrorFold already sig-keys @:397 → now consistent with initial classification).
+
+### Accepted tradeoff
+Signature collision (two DISTINCT methods with identical normalized def-line — same name+params, rare) → both over-expand if one is a change-method. Conservative (over-expand never wrongly-collapses; cosmetic only). Center dup-version copies share sig → both correctly in changeSigs → both expanded. Fine.
+
+### Do-NOT-touch (regression guard)
+`_maxH`(:576)/`alignPaneRows`/`renderCenterChangeBlocks`/R30.35 centerLen (BUG-1 device-validated alignment); the per-side chRange FORMULA incl. fix-2 no-floor; `computeMethodRanges` body (BUG-2/r3053c); `foldByMethodBoundaries` 2de3411f. FIX-A2 is confined to `keepChangeMethodsExpanded` + the new `changeMethodSigs` helper + the one call-site wire in `syncNativeFold`.
+
+### Marker call
+Logic lives in `keepChangeMethodsExpanded` — RIDES on existing **640f8428** (classification refined, same method+purpose); `changeMethodSigs` = its private supporting helper (uncredited). **No new uuid.** If r3053b gets a champagne Test, wire it to 640f8428 (honest classification site). Deferred to req/planner mint.
+
+### Gate
+r3053b 79/79 (panes() expanded ×3; INV-A2 identical-by-sig collapsible set) + r3053c 104/104 unregressed + R30.53 FIX-A/FIX-B parity green + BUG-1 alignment intact → DET-3x at Tron viewport → device chevron render.
