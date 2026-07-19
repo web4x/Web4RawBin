@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.applyAllFromSide impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD: Popup with 2 modes; each bulk-applies a side so CENTER matches LEFT (left wins) or RIGHT (right wins), iterating changes via the R30.35 addSide mechanism. Scope (non-conflicting-only vs all) per architect ruling. Architect derives the method-set; expert builds + tags [impl] marker."
+    "designAhead": false,
+    "description": "BUILT v0.7.73 (rb-diff-editor.ts:756, marker :755): RbDiffEditor.applyAllFromSide - auto-resolve EVERY change to one side so CENTER matches the LEFT (Local wins) or RIGHT (Repo wins) file; rides R30.35 addSide. Marker [impl:uuid:6f5bd6a1] name-match verified."
   },
   "ownerIor": "ior:instance:5fa11089-2350-413c-8264-f4a817654a82"
 }

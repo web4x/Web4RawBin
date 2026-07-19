@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.openApplyAllMenu impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD: popup menu offering 3 apply-all modes (non-conflicting-only / All-Local-wins / All-Repo-wins); dispatches to applyAllNonConflicting (existing) or applyAllFromSide(side) (R30.50). Expert builds + tags [impl] marker."
+    "designAhead": false,
+    "description": "BUILT v0.7.73 (rb-diff-editor.ts:745, marker :744): RbDiffEditor.openApplyAllMenu - 3-mode Apply-All popup ('Non-conflicting only'->applyAllNonConflicting existing / 'All-Local wins' + 'All-Repo wins'->applyAllFromSide). Button relabelled 'Apply All'. Marker [impl:uuid:288f469c] name-match verified."
   },
   "ownerIor": "ior:instance:8ea1cc48-f247-465e-bfad-37d71718cf18"
 }
