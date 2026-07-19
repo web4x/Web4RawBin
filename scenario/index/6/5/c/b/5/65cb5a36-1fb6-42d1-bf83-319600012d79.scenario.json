@@ -8,9 +8,11 @@
     "implementations": [
       "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
     ],
-    "status": "reverted",
+    "status": "superseded",
     "unitLinks": [],
-    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code.",
+    "supersededBy": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8",
+    "supersededNote": "R30.51 setHiddenAreas folding Tron-REJECTED + reverted; superseded by R30.53 (native Monaco folding). This Test's r3051 GREEN was on the prior REVERTED edit-MFCKJPNK.js bundle -> NOT active/valid. Fresh R30.53 Tests will gate the native build (v0.7.77+)."
   },
   "ownerIor": "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
 }
