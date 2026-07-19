@@ -538,7 +538,8 @@ class GitApi {
   }
 
   // R30.45 UC6 manageInfo — `git worktree list --porcelain` → [{path,branch,head,bare}]. Read-only, execFile array-args.
-  // Surfaces oo-mode sibling worktrees (HOME/oosh symlink target's siblings) for the manage panel. [chain: req mints GitApi.worktrees Impl — ping per method]
+  // Surfaces oo-mode sibling worktrees (HOME/oosh symlink target's siblings) for the manage panel.
+  // [impl:uuid:dceff494-d684-486e-8204-b5c6f3ceb04f] GitApi.worktrees — R30.45 UC6 manageInfo (Method 07760462; repo-info handler = endpoint glue)
   static async worktrees(root: string): Promise<{ path: string; branch: string; head: string; bare: boolean }[]> {
     try {
       const { stdout } = await execFileAsync('git', ['worktree', 'list', '--porcelain'], GitApi.opts(root));
