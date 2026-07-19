@@ -80,8 +80,10 @@ export class RbDiffEditor extends HTMLElement {
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
         rb-diff-editor .de-save.de-saved { background:#2e7d32;border-color:#4caf50;color:#fff } /* R30.50 C2: green when saved (clean); resets to default on any change */
-        /* R30.53 mobile: bump the native fold-chevron tap-target + keep it always-visible on touch (no hover-only). */
-        @media (pointer: coarse) { rb-diff-editor .monaco-editor .codicon-folding-expanded, rb-diff-editor .monaco-editor .codicon-folding-collapsed, rb-diff-editor .monaco-editor .codicon-folding-manual-expanded, rb-diff-editor .monaco-editor .codicon-folding-manual-collapsed { font-size:20px !important; opacity:1 !important; } }
+        /* R30.53 FIX-A (architect, DEFINITE): editor.main.css defaults fold chevrons to opacity:0 (hover-reveal). Force them
+           VISIBLE UNCONDITIONALLY (my prior override was @media coarse = mobile-only → chevrons rendered at opacity:0 on desktop). */
+        rb-diff-editor .monaco-editor .margin-view-overlays [class*="codicon-folding"] { opacity: 1 !important; }
+        @media (pointer: coarse) { rb-diff-editor .monaco-editor .margin-view-overlays [class*="codicon-folding"] { font-size: 20px !important; } } /* mobile tap-target */
       </style>
       <div class="de-toolbar" style="display:flex;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
