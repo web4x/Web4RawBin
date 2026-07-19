@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Traceability
 
@@ -54,7 +54,7 @@ S30 diff/merge editor — R30.47 RepoRegistry foundation: the dynamic/persisted/
 
 ## Implementation
 
-QA-REVIEW: R30.47 pure-mechanism spine. Chain-to-Test COMPLETE both-directions — register c8529e2a / persist 09c60094 / load 91da80e8 / unregister 6f6edecd (correct-by-construction off gate 8269634c0). ✓ SERVED==GATED RESOLVED: fresh-tester re-gated r3047 GREEN DET-3x at served v0.7.71 (1e6ffa99f, current-module re-import; §10.1 .git-stale-drop + D1-dormant captured). 5/5 ACs honest (D1 enforcement deferred to R30.48 per AC3, tracked BH-3). Internal-foundation gate (DET-3x, not Tron-visual) -> Done via architect+PO.
+✓ DONE (2026-07-19, architect co-sign + PO sign — internal foundation gate, correctly NOT Tron-visual): shipped repo-registry.ts verified vs §10.1 (dormant guards REAL + re-wire-commented, 8 name-matched impl markers chain-complete, builtins protected + server-derived keys, ZERO client add/delete exposure = no V1 attack surface, Tron-ratified trusted-local scope). Guards dormant-not-ripped = clean R30.48 re-entry, no false-credit. QA-REVIEW: R30.47 pure-mechanism spine. Chain-to-Test COMPLETE both-directions — register c8529e2a / persist 09c60094 / load 91da80e8 / unregister 6f6edecd (correct-by-construction off gate 8269634c0). ✓ SERVED==GATED RESOLVED: fresh-tester re-gated r3047 GREEN DET-3x at served v0.7.71 (1e6ffa99f, current-module re-import; §10.1 .git-stale-drop + D1-dormant captured). 5/5 ACs honest (D1 enforcement deferred to R30.48 per AC3, tracked BH-3). Internal-foundation gate (DET-3x, not Tron-visual) -> Done via architect+PO.
 
 ## Subtasks
 
