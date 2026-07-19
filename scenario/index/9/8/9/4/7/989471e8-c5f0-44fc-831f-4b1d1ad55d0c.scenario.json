@@ -47,7 +47,8 @@
     "text": "GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent."
    }
   ],
-  "correctionNote": "AC-1 (AC-n-selected-line) CORRECTED 2026-07-19 (Tron via robbin-po): the toolbar is HORIZONTAL, so 'N selected on its own line under Apply All' was a mis-read of Tron's ASCII stack (would be a bad linebreak). Correct = 'N selected' INLINE, same row as Apply All + nav, NOT wrapped. 'X/Y open conflicts' between ▼/✓ unchanged (correct). R30.52 In-Progress -> AMEND (not a new req)."
+  "correctionNote": "AC-1 (AC-n-selected-line) CORRECTED 2026-07-19 (Tron via robbin-po): the toolbar is HORIZONTAL, so 'N selected on its own line under Apply All' was a mis-read of Tron's ASCII stack (would be a bad linebreak). Correct = 'N selected' INLINE, same row as Apply All + nav, NOT wrapped. 'X/Y open conflicts' between ▼/✓ unchanged (correct). R30.52 In-Progress -> AMEND (not a new req).",
+  "mobileNote": "R30.52 P0 MOBILE fix (v0.7.76, expert d467ff6f5): mobile-CSS ensures the inline 'N selected' (AC-1) stays SINGLE-LINE no-wrap and the Apply-All state stays visible at 390 mobile / iPhone-12 (the horizontal-row layout must not overflow/wrap on narrow width). Impl-edit on renderMergeGutter e24dc98a - NO new Method/Impl/chain. Covered by Test 53731d96 (mobile-visibility, GREEN DET-3x @390, CLOSED). Back-filled so the mobile requirement is captured on the chain (not a champagne gap)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }
