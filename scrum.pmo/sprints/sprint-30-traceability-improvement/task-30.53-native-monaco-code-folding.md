@@ -10,9 +10,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [x] implementing (deployed edit-ZGIJZW7E.js)
-  - [~] testing — Tron device-QA BUG open
+  - [x] creating test cases
+  - [x] implementing (native Monaco fold, v0.7.81 edit-ZGIJZW7E.js)
+  - [x] testing - model-side GREEN DET-3x (FIX-A2 r3053b RED->GREEN 79/79 + r3053c 104/104 + INV-A2)
 - [ ] QA Review
 - [ ] Done
 
@@ -42,15 +42,15 @@ S30 diff/merge editor — R30.53 native-Monaco code-folding (supersedes R30.51 a
 
 ## Acceptance Criteria
 
-- [ ] Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines).
-- [ ] Foldable regions are the METHOD boundaries - folding collapses a whole method block.
-- [ ] Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED.
-- [ ] [DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation.
-- [ ] GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)
+- [x] Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines). - model-side GREEN (r3053c fold-affordance 104/104)
+- [x] Foldable regions are the METHOD boundaries - folding collapses a whole method block. - GREEN (foldByMethodBoundaries 2de3411f, r3053c)
+- [x] Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED. - GREEN (r3053b left-pane parity RED->GREEN 79/79 + INV-A2)
+- [x] [DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm. - CONFIRMED (architect backstop e5c46cb99 PASS vs LOCKED spec)
+- [ ] GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work.) - automated DET-3x GREEN model-side (r3053b/r3053c/INV-A2); FINAL Tron device webkit-visual (real 390 mobile) PENDING = held rule#9 Done gate (batched R30.53+R30.34+R30.41)
 
 ## Implementation
 
-IN PROGRESS @ BUG-OPEN — Tron device-QA found a REAL bug: LEFT-pane fold DESYNC after a green block -> misalignment (R30.53-bug-left-fold-desync.md, be370d4c2). NOT closeable. Native Monaco folding deployed (edit-ZGIJZW7E.js) but left-fold sync broken. Lesson #78 pattern again: real-device QA (independent) caught what a gate would not. Wait for architect diagnosis + req AC-sharpen -> sync task ACs + new gate step. Supersedes R30.51.
+MODEL-SIDE COMPLETE + triple-verified (v0.7.81) - awaiting ONLY Tron device webkit-visual (held rule#9). Full chain: BUG-1 left-fold-desync (v0.7.79) + BUG-2 fold-affordance (v0.7.80) + FIX-A2 left-pane parity (v0.7.81, 6517825bf change-method classification by signature-union, parity x3). Triple-verified: expert CBC + architect backstop (e5c46cb99 vs LOCKED spec) + tester gate. Gates GREEN DET-3x: r3053b left-pane-parity RED->GREEN 79/79 (f0d21d7fa, panes() residual CLOSED), r3053c fold-affordance 104/104, INV-A2. Native Monaco folding deployed (edit-ZGIJZW7E.js). Batched into ONE Tron device-check = R30.53 fold-chevron+left-parity + R30.34 spline + R30.41 syntax. r3053c fold-affordance Test unit being minted from marker 1dfe3d0f->foldByMethodBoundaries 2de3411f (90cf08562, #126 chain-honesty, req) - finishing residual, not a functional gap. Supersedes R30.51 (setHiddenAreas, Tron-rejected).
 
 ## Subtasks
 
