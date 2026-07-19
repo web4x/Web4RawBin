@@ -12,9 +12,9 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [x] testing
-- [x] QA Review
-- [x] Done
+  - [~] testing — REOPENED: r3053b left-pane parity RE-RED v0.7.80
+- [ ] QA Review
+- [ ] Done
 
 ## Traceability
 
@@ -49,7 +49,7 @@ S30 diff/merge editor (R30.27, Tron live-confirmed): 3-pane rows were mis-aligni
 
 ## Implementation
 
-IN PROGRESS — architect derive/spec 8f6884af3 (root-cause+fix), EXPERT BUILDING now (impl-edit RbDiffEditor: thread per-buffer line counters la/lb through the region loop; computeOneSidedHunks(region,cid,la,lb) sets aStart:la / bStart:lb, 0 fallbacks removed; ok-runs la+=len/lb+=len + conflict path advance the counters; alignPaneRows/renderCenterChangeBlocks/renderSideChangeBlocks/ribbons unchanged). RED baseline gate 7a4f9fbc6 (DET-3x, spacers at line 0 reproduces). → expert deploy → QA-Review → tester DET-3x GREEN (getTopForLineNumber equal ±0 across edLocal/edCenter/edRemote per stable line) → Done. ⚠ before Done: chain-to-Test wired + served==gated (verify gate cites the served bundle) — the R30.25 lessons. | CLOSED -> DONE (PO decision + correct-by-construction VERIFIED, expert+architect measured IDLE = stale-In-Progress not active). READ the gate test/visual/r3027-three-pane-alignment-gate.mjs: PASS condition = nMisaligned===0 (line 61) = EVERY corresponding anchor aligns (getTopForLineNumber equal across all 3 panes) = R30.27 distinct AC (aligned/verify); the gate is literally the r3027 gate (RED->GREEN v0.7.40 on R30.27 spacer-at-0 fix), extended for R30.29 post-blank witnesses. GREEN DET-3x v0.7.47. Chain-to-Test via SHARED impl (R30.11 pattern): computeMergedCenter a0b30550 + alignPaneRows 17c71adf + Test 3c8a5f19. AC-coverage: aligned/no-regression-align/fix(via outcome)/verify all asserted (misaligned=0); AC-4 (result byte-identical) is STRUCTURAL (spacer-only impl-edit, no content change) + covered by the merge functional gates (R30.16/R30.17), not the alignment gate. NOT green-wash (independently measured GREEN + AC-specific pass condition).
+REOPENED (Done->In-Progress, PO directive) — COVERED-EXCEPT-r3053b-OPEN. gate 3c8a5f19 SEPARATELY asserts R30.27's OWN AC (nMisaligned===0 all-anchors-align, RED->GREEN v0.7.40, anchor-recorded) = COVERED. BUT does NOT capture the r3053b LEFT-PANE PARITY defect (r3053b-leftpane-parity-gate.mjs RE-RED v0.7.80, 6d2f0ba44) surfaced by R30.53 folding on the SHARED alignment; architect LOCKED FIX-A2 (c1fe99640 signature-union classification). HOLD until FIX-A2 + r3053b RED->GREEN + CBC-confirm. NOT a false close. r3053b scope w/ SM/tester. | IN PROGRESS — architect derive/spec 8f6884af3 (root-cause+fix), EXPERT BUILDING now (impl-edit RbDiffEditor: thread per-buffer line counters la/lb through the region loop; computeOneSidedHunks(region,cid,la,lb) sets aStart:la / bStart:lb, 0 fallbacks removed; ok-runs la+=len/lb+=len + conflict path advance the counters; alignPaneRows/renderCenterChangeBlocks/renderSideChangeBlocks/ribbons unchanged). RED baseline gate 7a4f9fbc6 (DET-3x, spacers at line 0 reproduces). → expert deploy → QA-Review → tester DET-3x GREEN (getTopForLineNumber equal ±0 across edLocal/edCenter/edRemote per stable line) → Done. ⚠ before Done: chain-to-Test wired + served==gated (verify gate cites the served bundle) — the R30.25 lessons. | CLOSED -> DONE (PO decision + correct-by-construction VERIFIED, expert+architect measured IDLE = stale-In-Progress not active). READ the gate test/visual/r3027-three-pane-alignment-gate.mjs: PASS condition = nMisaligned===0 (line 61) = EVERY corresponding anchor aligns (getTopForLineNumber equal across all 3 panes) = R30.27 distinct AC (aligned/verify); the gate is literally the r3027 gate (RED->GREEN v0.7.40 on R30.27 spacer-at-0 fix), extended for R30.29 post-blank witnesses. GREEN DET-3x v0.7.47. Chain-to-Test via SHARED impl (R30.11 pattern): computeMergedCenter a0b30550 + alignPaneRows 17c71adf + Test 3c8a5f19. AC-coverage: aligned/no-regression-align/fix(via outcome)/verify all asserted (misaligned=0); AC-4 (result byte-identical) is STRUCTURAL (spacer-only impl-edit, no content change) + covered by the merge functional gates (R30.16/R30.17), not the alignment gate. NOT green-wash (independently measured GREEN + AC-specific pass condition).
 
 ## Subtasks
 

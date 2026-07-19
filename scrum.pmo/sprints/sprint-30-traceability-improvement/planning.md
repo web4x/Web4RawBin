@@ -52,7 +52,7 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [x] [Task 30.24: 3-way diff is URL-addressable (deep-linkable + shareable)](./task-30.24-url-addressable-diff.md)
 - [x] [Task 30.25: Picking a RIGHT ref preserves the LEFT side (no blanking)](./task-30.25-right-pick-preserves-left.md)
 - [x] [Task 30.26: Deep-link right-pick preserves the user's pick (BUG-1)](./task-30.26-deeplink-right-pick-preserved.md)
-- [x] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
+- [ ] [Task 30.27: 3-pane rows align — corresponding lines share one visual row](./task-30.27-three-pane-row-alignment.md)
 - [x] [Task 30.28: Deploy commits atomically - served == committed == HEAD (no phantom-version window)](./task-30.28-atomic-deploy-invariant.md)
 - [x] [Task 30.29: 3-pane rows resync at modification regions (non-changed side = base slice, no cumulative drift)](./task-30.29-modification-region-resync.md)
 - [x] [Task 30.30: 3-pane rows re-anchor to 0px at every blank/stable line (no persistent residual)](./task-30.30-absolute-blank-reanchor.md)
