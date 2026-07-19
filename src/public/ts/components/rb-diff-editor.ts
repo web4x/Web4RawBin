@@ -324,21 +324,34 @@ export class RbDiffEditor extends HTMLElement {
     return ranges;
   }
 
-  // [impl:uuid:640f8428-2797-41e8-9951-3f8e05e6bd0e] RbDiffEditor.keepChangeMethodsExpanded — R30.53: from a pane's method
-  // ranges, return ONLY the UNCHANGED ones (safe to collapse). A method is a CHANGE-method (stays EXPANDED) if its [start,end]
-  // overlaps ANY conflict's per-editor range (CENTER c.span / LEFT c.aStart+a / RIGHT c.bStart+b) → change-methods excluded.
-  private keepChangeMethodsExpanded(ranges: Array<{ start: number; end: number }>, side: 'local' | 'center' | 'remote'): Array<{ start: number; end: number }> {
-    // R30.53 fix-2 (architect diag 4fc591b19): use the REAL per-side length — NO Math.max(...,1) floor. A zero-length
-    // side (a green add absent in this pane changes 0 lines here) → EMPTY range [start+1,start] → overlaps/clips NOTHING,
-    // so the following unchanged method is not wrongly excluded from THIS pane's initial collapse (was the left-desync).
-    // (Insertion INSIDE a method stays symmetric — center splits it too.) The 1-line floor, if needed for the gutter
-    // DECORATION marker, lives at the render sites — it must not drive fold exclusion here.
-    const chRanges: Array<[number, number]> = this.conflicts.map(c =>
-      side === 'center' ? [c.span[0] + 1, c.span[1]]
-        : side === 'local' ? [c.aStart + 1, c.aStart + c.a.length]
-          : [c.bStart + 1, c.bStart + c.b.length]);
-    const overlaps = (r: { start: number; end: number }) => chRanges.some(([s, e]) => r.start <= e && s <= r.end);
-    return ranges.filter(r => !overlaps(r)); // unchanged = no conflict overlap
+  // R30.53 FIX-A2 (architect LOCKED spec — design-folding.md ## R30.53 PARITY RESIDUAL, commit c1fe99640): the
+  // change-vs-unchanged decision must be made ONCE across all 3 panes + applied by SIGNATURE, else LEFT under-classifies
+  // a change-method whose per-side chRange under-covers it (a green add is zero-length on local → local's chRange
+  // under-covers panes() → LEFT alone collapses it while C/R keep it expanded = parity break). Union every pane's
+  // change-method signatures: a method ANY pane sees as change is in the set → stays expanded in ALL 3 → the collapsible
+  // set is identical-by-sig across L/C/R = fold-parity by construction (INV-A2). Composes with fix-2 (no floor back).
+  private changeMethodSigs(): Set<string> {
+    const set = new Set<string>();
+    const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
+    for (const [side, ed] of specs) {
+      if (!ed) continue;
+      const ranges = this.computeMethodRanges(ed.getModel()); // carries sig (BUG-2)
+      // per-side chRange FORMULA VERBATIM (incl. fix-2 no-Math.max-floor — do NOT reintroduce the floor).
+      const chRanges: Array<[number, number]> = this.conflicts.map(c =>
+        side === 'center' ? [c.span[0] + 1, c.span[1]]
+          : side === 'local' ? [c.aStart + 1, c.aStart + c.a.length]
+            : [c.bStart + 1, c.bStart + c.b.length]);
+      const overlaps = (r: { start: number; end: number }) => chRanges.some(([s, e]) => r.start <= e && s <= r.end);
+      for (const r of ranges) if (overlaps(r)) set.add(r.sig); // change-method on THIS pane → union its sig
+    }
+    return set;
+  }
+
+  // [impl:uuid:640f8428-2797-41e8-9951-3f8e05e6bd0e] RbDiffEditor.keepChangeMethodsExpanded — R30.53: return ONLY the
+  // methods safe to collapse = UNCHANGED in ALL panes. Change-membership is the signature-union from changeMethodSigs()
+  // (classify ONCE, by sig) so a change-method stays expanded consistently ×3 (FIX-A2) — no per-pane under-classification.
+  private keepChangeMethodsExpanded(ranges: Array<{ start: number; end: number; sig: string }>, changeSigs: Set<string>): Array<{ start: number; end: number; sig: string }> {
+    return ranges.filter(r => !changeSigs.has(r.sig)); // collapse only methods unchanged in EVERY pane
   }
 
   private async _foldingModel(ed: any): Promise<any> {
@@ -359,11 +372,12 @@ export class RbDiffEditor extends HTMLElement {
       // else the initial collapse no-ops (the R30.53 first-build timing bug: syncNativeFold fired before regions were ready).
       let cfm = await this._foldingModel(this.edCenter);
       for (let t = 0; t < 25 && (!cfm || (cfm.regions?.length ?? 0) === 0); t++) { await new Promise(res => setTimeout(res, 100)); cfm = await this._foldingModel(this.edCenter); }
-      for (const [side, ed] of specs) {
+      const changeSigs = this.changeMethodSigs(); // R30.53 FIX-A2: classify the change-set ONCE (sig-union ×3) before collapsing → identical collapsible set per pane
+      for (const [, ed] of specs) {
         if (!ed) continue;
         try { ed.updateOptions({ folding: false }); ed.updateOptions({ folding: true }); } catch { /* R30.53 fix#2 (architect): force the FoldingController to re-init its view-render pipeline against the now-loaded editor.main.css + registered provider before we collapse */ }
         const fm = await this._foldingModel(ed); if (!fm?.getRegionAtLine) continue;
-        const unchanged = this.keepChangeMethodsExpanded(this.computeMethodRanges(ed.getModel()), side);
+        const unchanged = this.keepChangeMethodsExpanded(this.computeMethodRanges(ed.getModel()), changeSigs);
         // Fold via the editor ACTION (controller-driven → renders the chevron + '⋯' placeholder + hides lines). Toggling the
         // FoldingModel directly changes state but does NOT reconcile the view (measured). 'editor.fold' is idempotent (a
         // re-fold of an already-folded region is a no-op) so re-running on each merge keeps unchanged methods folded.
