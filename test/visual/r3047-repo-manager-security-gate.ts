@@ -1,9 +1,13 @@
-// R30.47 repo-manager FOUNDATION security gate (UC3 registry + UC8 guards D1/D2/D4) — v0.7.67 (cfb8ba85c).
-// Measured DIFFERENTLY than the expert's tsx: (a) imports the REAL RepoRegistry module + drives its actual functions with
-// attack vectors, (b) cross-checks the LIVE running server's /api/git/repos, (c) for the not-yet-exposed/unexported server.ts
-// guards (assertAllowedUrl D2, requireAdmin D4) it runs the EXACT source logic on all vectors AND source-audits the real
-// function bodies + confirms the WHATWG new URL() primitive they depend on. POLLUTION-SAFE: data/repos.json backup/restore
-// (currently absent → deleted after); any registered test repo unregistered. DET-3x.
+// R30.47 repo-manager FOUNDATION security gate (UC3 registry + UC8 guards D2/D4) — RE-GATED at v0.7.71 (edit-CFIREFTX.js).
+// ★ SPINE CHANGED since the v0.7.67 gate (V1 §10/§10.1 simplification — re-gated to the SERVED code, served==gated law):
+//   • D1 assertAllowedRoot is now DORMANT — the FUNCTION still exists (logic preserved for backlog D1) but register/resolve/load
+//     NO LONGER call it (repo-registry.ts:92/128). So the gate now PROVES BOTH: (B-logic) the guard logic is intact, AND
+//     (B-dormant) it is NOT enforced — register() accepts a real .git repo OUTSIDE the old allowlist that the D1 logic rejects.
+//   • §10.1 validate-on-load now drops by .git-EXISTENCE (fs.stat root/.git), not the allowlist — a moved/deleted repo drops on reload.
+// Measured DIFFERENTLY than the expert's tsx: imports the REAL RepoRegistry module + drives its actual functions; for the
+// unexported server.ts guards (assertAllowedUrl D2, requireAdmin D4) runs the EXACT source logic on all vectors + source-audits
+// the real bodies + confirms the WHATWG new URL() primitive. POLLUTION-SAFE: data/repos.json backup/restore + all test repos
+// unregistered + LIVE /api/git/repos asserted builtins-only after. DET-3x.
 import { chromium } from '@playwright/test';
 import { RepoRegistry } from '../../src/ts/server/repo-registry.ts';
 import fs from 'node:fs';
@@ -40,8 +44,10 @@ function suite(round: number): void {
   const rawbin = list.find(r => r.key === 'rawbin'), oosh = list.find(r => r.key === 'oosh');
   chk('A.builtins-present', !!rawbin && !!oosh);
   chk('A.builtins-non-removable', !!rawbin && rawbin.builtin && !rawbin.removable && !!oosh && oosh.builtin && !oosh.removable);
-  // dynamic register → SERVER-DERIVED slug (I pass NO key); root routed through the D1 choke point
-  const testRoot = path.join(OOSH_PARENT, 'prod'); // a real oosh sibling worktree → under REPO_ALLOW
+  // dynamic register → SERVER-DERIVED slug (I pass NO key). V1 §10: register takes ANY root (D1 dormant); .git is the UC4 caller's job.
+  const testRoot = path.join(OOSH_PARENT, 'prod');   // a real oosh sibling worktree (has .git)
+  const OUTSIDE_GIT = path.resolve('.');             // the Web4RawBin repo — HAS .git but OUTSIDE the old D1 allowlist (HOME + oosh-parent)
+  const NO_GIT = os.tmpdir();                         // /tmp — no .git at root
   const key = RepoRegistry.register({ root: testRoot, label: 'RB Sec Probe', addedBy: 'r3047' });
   chk('A.register-derives-slug', typeof key === 'string' && key.length > 0 && !RepoRegistry.list().filter(r => r.builtin).some(b => b.key === key)); // never a builtin
   chk('A.register-persists', fs.existsSync(REPOS_PATH) && JSON.parse(fs.readFileSync(REPOS_PATH, 'utf-8'))[key]);
@@ -51,33 +57,39 @@ function suite(round: number): void {
   // unregister: dynamic removable, builtin NOT
   chk('A.unregister-dynamic', RepoRegistry.unregister(key) === true && RepoRegistry.unregister(collideKey) === true);
   chk('A.unregister-builtin-false', RepoRegistry.unregister('rawbin') === false && RepoRegistry.unregister('oosh') === false);
-  // VALIDATE-ON-LOAD: malformed + builtin-collision + outside-allowlist dropped; valid kept
+  // §10.1 VALIDATE-ON-LOAD (V1): drop builtin-collision + malformed + .git-MISSING; KEEP a real .git root EVEN outside the old allowlist.
   fs.writeFileSync(REPOS_PATH, JSON.stringify({
-    rawbin: { root: testRoot, label: 'evil-override' },        // collides builtin → drop
-    malformed: { label: 'no-root' },                            // no root → drop
-    escaped: { root: '/etc', label: 'outside-allow' },          // fails D1 → drop
-    goodrepo: { root: testRoot, label: 'valid' },               // valid → keep
+    rawbin: { root: testRoot, label: 'evil-override' },                 // collides builtin → drop
+    malformed: { label: 'no-root' },                                     // no root → drop
+    nogit: { root: NO_GIT, label: 'no-dot-git' },                        // §10.1: no .git at root → drop
+    outsidegit: { root: OUTSIDE_GIT, label: 'outside-allow-has-git' },   // has .git, outside old allowlist → KEPT (D1 dormant)
   }, null, 2));
   RepoRegistry['loaded'] = false; RepoRegistry.load();
   const afterLoad = RepoRegistry.list().filter(r => !r.builtin).map(r => r.key);
-  chk('A.validate-on-load-drops', !afterLoad.includes('rawbin') && !afterLoad.includes('malformed') && !afterLoad.includes('escaped') && afterLoad.includes('goodrepo'));
-  RepoRegistry.unregister('goodrepo');
+  chk('A.load-drops-builtin-collision', !afterLoad.includes('rawbin'));
+  chk('A.load-drops-malformed', !afterLoad.includes('malformed'));
+  chk('A.load-drops-nogit-§10.1', !afterLoad.includes('nogit'));                     // dropped by .git-EXISTENCE, not the allowlist
+  chk('A.load-keeps-outside-allowlist-git', afterLoad.includes('outsidegit'));        // KEPT → proves the allowlist is NOT applied on load (D1 dormant)
+  RepoRegistry.unregister('outsidegit');
 
-  // ═══ (B) D1 assertAllowedRoot — realpath allowlist, symlink-escape-proof ═══
-  chk('B.allow-home-oosh', RepoRegistry.assertAllowedRoot(path.join(os.homedir(), 'oosh')) !== null);
-  chk('B.allow-worktree-sibling', RepoRegistry.assertAllowedRoot(testRoot) !== null);
-  chk('B.reject-etc-passwd', RepoRegistry.assertAllowedRoot('/etc/passwd') === null);
-  chk('B.reject-tmp', RepoRegistry.assertAllowedRoot('/tmp') === null);
-  chk('B.reject-traversal', RepoRegistry.assertAllowedRoot(path.join(os.homedir(), '../../etc')) === null);
-  chk('B.reject-nonexistent', RepoRegistry.assertAllowedRoot(path.join(os.homedir(), 'no-such-dir-xyz-' + round)) === null);
-  chk('B.reject-empty', RepoRegistry.assertAllowedRoot('') === null);
-  // symlink UNDER an allowed root pointing OUTSIDE → realpath escapes → reject (proves realpath, not path, is checked)
+  // ═══ (B) D1 assertAllowedRoot — DORMANT in V1 §10: FUNCTION logic intact (backlog D1) but NOT enforced at register/load ═══
+  // (B-logic) the pure guard logic is preserved (realpath allowlist, symlink-escape-proof) — ready to re-activate for the backlog:
+  chk('B-logic.allow-home-oosh', RepoRegistry.assertAllowedRoot(path.join(os.homedir(), 'oosh')) !== null);
+  chk('B-logic.reject-etc-passwd', RepoRegistry.assertAllowedRoot('/etc/passwd') === null);
+  chk('B-logic.reject-tmp', RepoRegistry.assertAllowedRoot('/tmp') === null);
+  chk('B-logic.reject-traversal', RepoRegistry.assertAllowedRoot(path.join(os.homedir(), '../../etc')) === null);
+  chk('B-logic.reject-empty', RepoRegistry.assertAllowedRoot('') === null);
   const linkPath = path.join(os.homedir(), `.rb-sec-escape-${round}`);
   try {
     try { fs.unlinkSync(linkPath); } catch {}
     fs.symlinkSync('/etc', linkPath);
-    chk('B.reject-symlink-escape', RepoRegistry.assertAllowedRoot(linkPath) === null);
+    chk('B-logic.reject-symlink-escape', RepoRegistry.assertAllowedRoot(linkPath) === null);
   } finally { try { fs.unlinkSync(linkPath); } catch {} }
+  // (B-dormant) PROOF the guard is NOT enforced in V1 §10: register() ACCEPTS a real .git repo that assertAllowedRoot REJECTS.
+  chk('B-dormant.D1-would-reject-outsidegit', RepoRegistry.assertAllowedRoot(OUTSIDE_GIT) === null); // D1 logic rejects it (outside allowlist)
+  const dk = RepoRegistry.register({ root: OUTSIDE_GIT, label: 'dormant-proof' });
+  chk('B-dormant.register-accepts-anyway', typeof dk === 'string' && RepoRegistry.list().some(r => r.key === dk)); // registered despite D1 rejection → DORMANT
+  RepoRegistry.unregister(dk);
 
   // ═══ (C) D2 assertAllowedUrl — clone-URL allowlist ═══
   chk('C.allow-ssh-git', assertAllowedUrl('ssh://git@github.com/web4x/x.git') === true);
@@ -131,10 +143,10 @@ try {
   if (backup) fs.writeFileSync(REPOS_PATH, backup); else { try { fs.unlinkSync(REPOS_PATH); } catch {} }
 }
 
-console.log('\n===== R30.47 repo-manager security spine (DET-3x, v0.7.67) =====');
+console.log('\n===== R30.47 repo-manager security spine (DET-3x, v0.7.71 — V1 §10/§10.1) =====');
 const green = results.length === 3 && results.every(Boolean) && !fails.includes('live-builtins');
 console.log(`  suite DET-3x: ${results.map((p, i) => `${i + 1}:${p ? 'G' : 'R'}`).join(' ')}`);
 console.log(`  post-run data/repos.json restored: ${(!preExisted && !fs.existsSync(REPOS_PATH)) || (preExisted && fs.existsSync(REPOS_PATH))}`);
 console.log(`  total distinct failures: ${[...new Set(fails)].length}${fails.length ? ' → ' + [...new Set(fails)].join(', ') : ''}`);
-console.log('OVERALL:', green ? 'GREEN DET-3x (UC3 registry + D1 realpath + D2 url-allowlist + D4 admin-auth, pollution-safe)' : 'RED');
+console.log('OVERALL:', green ? 'GREEN DET-3x (UC3 registry + §10.1 .git-existence load-drop + D1 DORMANT[logic-intact,not-enforced] + D2 url-allowlist + D4 admin-auth, pollution-safe)' : 'RED');
 process.exitCode = green ? 0 : 1;
