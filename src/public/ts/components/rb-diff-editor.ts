@@ -961,7 +961,8 @@ export class RbDiffEditor extends HTMLElement {
 
   // R30.44 UC1/UC2 Repo Manager dialog (V1) — opened by the '➕ Add repository' sentinel. Reuses the overlay() shell (design §1).
   // V1 sections: ADD LOCAL (active) → POST /api/git/repos {method:'local'} → refresh selector + select the new repo; MANAGE
-  // (repo-info: path+branch+worktrees). CLONE section HIDDEN for V1 (UC5 backlog). [chain: req mints RbDiffEditor.openRepoManager Impl — ping per method]
+  // (repo-info: path+branch+worktrees). CLONE section HIDDEN for V1 (UC5 backlog).
+  // [impl:uuid:bfb92645-8a85-4412-a729-c29b6c62e8a7] RbDiffEditor.openRepoManager — R30.42 UC2 dialog (Method 971a12ed; UC1 sentinel rides populateRepos)
   async openRepoManager(side: 'left' | 'right' = 'left'): Promise<void> {
     const box = this.overlay('Repositories', []);
     const wrap = document.createElement('div');
