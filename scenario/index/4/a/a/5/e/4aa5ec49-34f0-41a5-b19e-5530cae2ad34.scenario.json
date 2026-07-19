@@ -14,7 +14,8 @@
   "useCases": [
    "ior:instance:bcc27da9-21da-421e-8d22-f3403d6100f5",
    "ior:instance:abad9982-86de-4962-988f-5957ab96d288",
-   "ior:instance:9757bf00-1395-4bb3-935b-8e1ca1a2a905"
+   "ior:instance:9757bf00-1395-4bb3-935b-8e1ca1a2a905",
+   "ior:instance:c76c6b3a-4fe7-4e66-8380-1cc27196c3db"
   ],
   "description": "The 3-way merge SAVE writes to the file in the DIFF'S repo on the CURRENT CHECKED-OUT branch/commit - no 404. BUG (v0.7.60): with all conflicts resolved ('0/61 open conflicts, modified'), Save -> 'save failed (404)'. ROOT (expert-measured): the save PUT hits the MAIN/rawbin repo while the diff file (e.g. otmux) lives in the OOSH repo -> the write path does not exist -> 404. This is the SAME wrong-repo root as the C read-fix (R30.6.7). FIX: route the save PUT through the diff's repo KEY (RepoRegistry, mirroring the read path) so it writes to the correct repo/branch; the server /api/files PUT endpoint accepts ?repo=<key> and resolves the write there (server-side - needs a restart). ALSO: the CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<branch>) reflecting WHERE the save writes. Client-facing -> version-bump + atomic deploy (R30.28).",
   "tronQuote": "> TRON (v0.7.60): all conflicts resolved ('0/61 open, modified') but Save -> 'save failed (404)'. FIX: Save ALWAYS writes to the file in the CURRENT CHECKED-OUT branch/commit (correct repo/branch, no 404); the CENTER pane header shows filename@currentBranch (e.g. otmux@<branch>).",

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "00d63275-37c0-4d74-8ab8-d2bd9643ed2b",
+    "name": "FileApi.writeFile",
+    "implementations": [
+      "ior:instance:a28cea0d-49f5-4d3d-be28-97377800d07a"
+    ],
+    "tests": [],
+    "note": "R30.38 save-404 WRITE-half. Name EXACT for [impl] AST-attach. writeFile(relPath,content,expectedMtime?,root?) - the root? param (R30.38) routes the bounded write into the RepoRegistry-resolved root (default rawbin) via sanitizePath(relPath,root); dropped the old rawbin-403. DISTINCT from RepoRegistry.resolve (d7dc0059=picks the root; writeFile=writes within it). BUILT v0.7.61 (FileApi.ts:91); expert places [impl] marker on decl, source-only."
+  },
+  "ownerIor": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c76c6b3a-4fe7-4e66-8380-1cc27196c3db",
+  "name": "merge.saveWriteBounded",
+  "description": "The server writes the merged Save into the file within the RepoRegistry-resolved repo root (bounded by sanitizePath), so a diff/merge Save targets the correct repo/branch and cannot escape the root - no 404, no path traversal. Server WRITE-half of merge.saveToCurrentBranch (bcc27da9=client POST). Minted 2026-07-19 (architect backstop) to give FileApi.writeFile its own R30.38 chain hop, distinct from the R30.6.7 read-path (RepoRegistry.resolve d7dc0059).",
+  "class": "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94",
+  "classes": [
+   "ior:instance:2592c3c9-24e1-4d6a-bce7-79f129b1df94"
+  ],
+  "method": "ior:instance:00d63275-37c0-4d74-8ab8-d2bd9643ed2b",
+  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+ },
+ "ownerIor": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a28cea0d-49f5-4d3d-be28-97377800d07a",
+    "name": "FileApi.writeFile R30.38 bounded-write impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/FileApi.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.61 (FileApi.ts:91-110): the security-critical bounded WRITE of the save-404 fix. writeFile gained a root? param; sanitizePath(relPath,root) guards the write within the RepoRegistry-resolved root so a diff/merge Save targets the CORRECT repo (e.g. oosh for otmux) instead of always rawbin; the old rawbin-403 was dropped. DISTINCT from RepoRegistry.resolve impl d7dc0059 (R30.6.7 read-path, which only picks the root). Expert places [impl:uuid:a28cea0d-49f5-4d3d-be28-97377800d07a] on the writeFile decl, source-only (name-match verified). Architect backstop caught the missing write-half marker."
+  },
+  "ownerIor": "ior:instance:00d63275-37c0-4d74-8ab8-d2bd9643ed2b"
+}
