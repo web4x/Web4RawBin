@@ -4,8 +4,8 @@
   "uuid": "989471e8-c5f0-44fc-831f-4b1d1ad55d0c",
   "altId": "R30.52",
   "name": "3-way merge toolbar re-layout: 'N selected' own line, 'X/Y open' buffer between ▼ and ✓ (mis-click prevention)",
-  "description": "Re-layout the 3-way merge toolbar so a wrong click is harder. Currently the compose 'N selected . X/Y open conflicts' sits on one line under 'Apply All', then ▲ ▼ ✓ - so ▼ and ✓ are adjacent (mis-click ✓ when aiming ▼). CHANGE: (1) split the compose - 'N selected' stays on its own line under Apply All; (2) MOVE the 'X/Y open conflicts' text DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. Refines R30.50-A (renderMergeGutter/toolbar DOM order); impl-edit on the built renderMergeGutter (Impl e24dc98a). R30.50 stays closed (closure-freeze); this is a distinct new atom.",
-  "tronQuote": "> TRON (via robbin-po): R30.50 toolbar re-layout to make a wrong click harder - (1) 'N selected' stays on its own line under Apply All; (2) MOVE 'X/Y open conflicts' DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. (▼ and ✓ currently adjacent -> mis-click ✓ when aiming ▼.)",
+  "description": "Re-layout the 3-way merge toolbar so a wrong click is harder. Currently the compose 'N selected . X/Y open conflicts' sits on one line under 'Apply All', then ▲ ▼ ✓ - so ▼ and ✓ are adjacent (mis-click ✓ when aiming ▼). CHANGE: (1) 'N selected' renders INLINE (same horizontal row as Apply All + nav controls), NOT wrapped onto its own line; (2) MOVE the 'X/Y open conflicts' text DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. Refines R30.50-A (renderMergeGutter/toolbar DOM order); impl-edit on the built renderMergeGutter (Impl e24dc98a). R30.50 stays closed (closure-freeze); this is a distinct new atom.",
+  "tronQuote": "> TRON (via robbin-po): R30.50 toolbar re-layout to make a wrong click harder - (1) 'N selected' stays INLINE (same row as Apply All + nav), NOT wrapped; (2) MOVE 'X/Y open conflicts' DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. (▼ and ✓ currently adjacent -> mis-click ✓ when aiming ▼.)",
   "tasks": [],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
@@ -29,7 +29,7 @@
    {
     "id": "AC-n-selected-line",
     "group": "layout",
-    "text": "'N selected' stays on its OWN line directly under the 'Apply All' button (split from the compose)."
+    "text": "'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]"
    },
    {
     "id": "AC-open-buffer",
@@ -44,9 +44,10 @@
    {
     "id": "AC-gate",
     "group": "gate",
-    "text": "GATE (screenshot+behavior): 'N selected' on its own line under Apply All; 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent."
+    "text": "GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent."
    }
-  ]
+  ],
+  "correctionNote": "AC-1 (AC-n-selected-line) CORRECTED 2026-07-19 (Tron via robbin-po): the toolbar is HORIZONTAL, so 'N selected on its own line under Apply All' was a mis-read of Tron's ASCII stack (would be a bad linebreak). Correct = 'N selected' INLINE, same row as Apply All + nav, NOT wrapped. 'X/Y open conflicts' between ▼/✓ unchanged (correct). R30.52 In-Progress -> AMEND (not a new req)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }
