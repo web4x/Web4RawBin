@@ -1,0 +1,52 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "c5869b0a-8592-4d86-9250-9034a75e137c",
+  "altId": "R30.40",
+  "name": "Center Result header shows the targeted repo's ACTUAL current branch, resolved dynamically",
+  "description": "The center Result header (filename@branch) MUST show the ACTUAL current checked-out branch of the repo the diff TARGETS, resolved dynamically at request time - never a stale/other-clone/hardcoded branch. BUG (v0.7.61, Tron screenshot): Tron's working repo is on branch 'mcdonges.latest' but the center header reads 'otmux@dev-teampush-astray'. ROOT (expert-measured, emerging): the server's 'oosh' RepoRegistry key resolves to a DIFFERENT clone (the EAMD clone at /home/shared/EAMD.ucp/.../Once.sh/dev, whose HEAD=dev-teampush-astray) than the user's working clone (/root/oosh, mcdonges.latest) - so GitApi.currentBranch returns that other clone's HEAD. AC aligns to the confirmed root once expert posts it. crossRef R30.38 (centerHeaderBranch + currentBranch chain) + R30.6.7 (RepoRegistry clone resolution).",
+  "tronQuote": "> TRON (v0.7.61, screenshot): the center Result header must show the CORRECT current branch of the selected repo - my git status is 'mcdonges.latest' but center shows 'otmux@dev-teampush-astray' which is NOT the current branch. it must match the repo's real current branch dynamically, not a hardcoded/stale name.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:90f5e309-7ab2-49c6-b679-3ad891d5ab2f"
+  ],
+  "crossRef": [
+   "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+  ],
+  "crossRefNote": "R30.38 established the center header = filename@currentBranch (setCenterTitle 41504f5f <- currentBranch a2cbd78e/b9e8ba29). R30.40 is the CORRECTNESS follow-up: the branch value is WRONG (other clone's HEAD). Emerging root is R30.6.7 RepoRegistry: the 'oosh' key -> wrong clone. Distinct new bug -> next-free R30.40.",
+  "discoverySource": {
+   "type": "tron-bug",
+   "flaggedBy": "Tron (v0.7.61 screenshot) via robbin-po; expert root-causing in parallel",
+   "date": "2026-07-19",
+   "note": "3-way editor bug B: center header otmux@dev-teampush-astray != the repo's real branch (mcdonges.latest). Expert (0.1) found the server's oosh root = the EAMD clone /home/shared/.../Once.sh/dev (HEAD dev-teampush-astray), not /root/oosh (mcdonges.latest). ROOT-CAUSE ALIGNMENT PENDING: expert confirms whether the 'oosh' RepoRegistry key must target the user's clone, or currentBranch must resolve against the right root. I re-point the impl-AC on confirm."
+  },
+  "rootCausePending": "Emerging: RepoRegistry 'oosh' key resolves to the EAMD clone (HEAD dev-teampush-astray) not the user's /root/oosh (mcdonges.latest). Confirm whether fix = RepoRegistry.resolve 6f954137 (key -> correct clone) or GitApi.currentBranch b9e8ba29 (resolve branch of the actually-targeted root). I align the impl-AC + re-point on expert confirm.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-dynamic-branch",
+    "group": "header",
+    "text": "The center Result header shows the ACTUAL current checked-out branch of the repo the diff targets, resolved dynamically (git) at request time - matching the user's `git -C <repo> branch --show-current`."
+   },
+   {
+    "id": "AC-not-stale",
+    "group": "header",
+    "text": "The header is NEVER a stale, cached, hardcoded, or other-clone branch name; if the targeted repo is on 'mcdonges.latest', the header reads otmux@mcdonges.latest (not dev-teampush-astray)."
+   },
+   {
+    "id": "AC-correct-clone",
+    "group": "root",
+    "text": "[PENDING expert root-cause] The 'oosh' (and every) RepoRegistry key resolves to the repo clone the diff actually targets, so GitApi.currentBranch reports THAT clone's HEAD - not a different clone's. Final AC wording aligns to the confirmed root-cause."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

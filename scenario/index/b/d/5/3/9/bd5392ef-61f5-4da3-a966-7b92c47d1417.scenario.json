@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bd5392ef-61f5-4da3-a966-7b92c47d1417",
+  "name": "diffEditor.seedBothRepoSelectors",
+  "description": "On deep-link load, seed BOTH the left and right repo selectors from ?repo=<key> so neither stays at the default. Realized in the deep-link restore path (openFromParams best-guess); impl-site pending expert derive-confirm (a later populateRepos may re-default the right selector).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0",
+  "coveredRequirement": "ior:instance:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff"
+ },
+ "ownerIor": "ior:instance:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "90f5e309-7ab2-49c6-b679-3ad891d5ab2f",
+  "name": "diffEditor.headerShowsTargetedRepoBranch",
+  "description": "The center header resolves and shows the ACTUAL current branch of the repo the diff targets (dynamic git), not a stale/other-clone name. Observable producer = GitApi.currentBranch; emerging root = RepoRegistry clone resolution (crossRef). Impl-site pending expert root-cause confirm - re-point on confirm.",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:b9e8ba29-ff9a-4051-867a-5355c9ce7429",
+  "coveredRequirement": "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c"
+ },
+ "ownerIor": "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c"
+}

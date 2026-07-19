@@ -1,0 +1,52 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "95ebc2ed-ff7a-4979-9df8-15cb4d74ebff",
+  "altId": "R30.39",
+  "name": "Deep-link ?repo seeds BOTH left and right repo selectors on load",
+  "description": "When the 3-way diff/merge editor opens from a deep-link with ?repo=<key>, BOTH the left AND the right repo selectors MUST be seeded to that repo on load. BUG (v0.7.61, Tron screenshot): neither selector is seeded from ?repo - both stay at the default (RawBin), so Tron had to set BOTH manually. openFromParams (rb-diff-editor.ts:771) sets this.left.repo + this.right.repo from the key and runs a .de-repo forEach, yet the selectors still show the default on load - so the fix-site is NOT the naive data-set (a later populateRepos, or a distinct right selector, re-defaults them). Impl-site pending expert+architect derive-confirm. crossRef R30.24 (openFromParams deep-link seeding) + R30.6.7 (RepoRegistry key resolution).",
+  "tronQuote": "> TRON (v0.7.61, screenshot): the ?repo query param must seed BOTH left AND right repo selectors on load - i had to set BOTH manually, neither was seeded (only default RawBin).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:bd5392ef-61f5-4da3-a966-7b92c47d1417"
+  ],
+  "crossRef": [
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44"
+  ],
+  "crossRefNote": "Refines the R30.24 deep-link seeding (openFromParams f52b6941, marker dc236c19): the URL restore seeds left but the RIGHT selector still shows default RawBin (Tron: neither seeded). R30.6.7 RepoRegistry resolves the ?repo KEY. Distinct new bug -> next-free R30.39, not a silent edit to R30.24.",
+  "discoverySource": {
+   "type": "tron-bug",
+   "flaggedBy": "Tron (v0.7.61 screenshot) via robbin-po",
+   "date": "2026-07-19",
+   "note": "3-way editor bug A: ?repo seeds neither left nor right selector; both default RawBin; user forced to set both by hand. Expert to root-cause the actual seed/reset site (openFromParams .de-repo forEach vs populateRepos)."
+  },
+  "implSitePending": "openFromParams f52b6941 sets left/right st.repo + a .de-repo forEach but selectors still default -> real fix may be in populateRepos / per-side selector init. Expert+architect derive-confirm; I mint/re-point the Impl to the built decl.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-seed-both",
+    "group": "seed",
+    "text": "Opening the editor from a deep-link with ?repo=<key> seeds BOTH the left AND the right repo selectors to that repo on load - neither is left at the default (RawBin)."
+   },
+   {
+    "id": "AC-no-manual",
+    "group": "seed",
+    "text": "The user does NOT have to set either selector manually after a ?repo deep-link; both reflect the URL's repo immediately."
+   },
+   {
+    "id": "AC-key-resolve",
+    "group": "security",
+    "text": "The ?repo value is a KEY resolved via R30.6.7 RepoRegistry (no client absolute-path abuse); an unknown/absent key falls back to the default (rawbin) for BOTH selectors."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

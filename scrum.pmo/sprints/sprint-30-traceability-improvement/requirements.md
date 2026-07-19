@@ -568,3 +568,25 @@
   -> merge.centerHeaderBranch [uc:uuid:abad9982-86de-4962-988f-5957ab96d288]
   -> merge.currentBranchApi [uc:uuid:9757bf00-1395-4bb3-935b-8e1ca1a2a905]
   -> merge.saveWriteBounded [uc:uuid:c76c6b3a-4fe7-4e66-8380-1cc27196c3db]
+
+- [ ] **R30.39 — Deep-link ?repo seeds BOTH left and right repo selectors on load**
+  [requirement:uuid:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff]
+  > TRON (v0.7.61, screenshot): the ?repo query param must seed BOTH left AND right repo selectors on load - i had to set BOTH manually, neither was seeded (only default RawBin).
+  When the 3-way diff/merge editor opens from a deep-link with ?repo=<key>, BOTH the left AND the right repo selectors MUST be seeded to that repo on load. BUG (v0.7.61, Tron screenshot): neither selector is seeded from ?repo - both stay at the default (RawBin), so Tron had to set BOTH manually. openFromParams (rb-diff-editor.ts:771) sets this.left.repo + this.right.repo from the key and runs a .de-repo forEach, yet the selectors still show the default on load - so the fix-site is NOT the naive data-set (a later populateRepos, or a distinct right selector, re-defaults them). Impl-site pending expert+architect derive-confirm. crossRef R30.24 (openFromParams deep-link seeding) + R30.6.7 (RepoRegistry key resolution).
+  **Acceptance criteria:**
+  - [ ] **(seed)** Opening the editor from a deep-link with ?repo=<key> seeds BOTH the left AND the right repo selectors to that repo on load - neither is left at the default (RawBin).
+  - [ ] **(seed)** The user does NOT have to set either selector manually after a ?repo deep-link; both reflect the URL's repo immediately.
+  - [ ] **(security)** The ?repo value is a KEY resolved via R30.6.7 RepoRegistry (no client absolute-path abuse); an unknown/absent key falls back to the default (rawbin) for BOTH selectors.
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28).
+  -> diffEditor.seedBothRepoSelectors [uc:uuid:bd5392ef-61f5-4da3-a966-7b92c47d1417]
+
+- [ ] **R30.40 — Center Result header shows the targeted repo's ACTUAL current branch, resolved dynamically**
+  [requirement:uuid:c5869b0a-8592-4d86-9250-9034a75e137c]
+  > TRON (v0.7.61, screenshot): the center Result header must show the CORRECT current branch of the selected repo - my git status is 'mcdonges.latest' but center shows 'otmux@dev-teampush-astray' which is NOT the current branch. it must match the repo's real current branch dynamically, not a hardcoded/stale name.
+  The center Result header (filename@branch) MUST show the ACTUAL current checked-out branch of the repo the diff TARGETS, resolved dynamically at request time - never a stale/other-clone/hardcoded branch. BUG (v0.7.61, Tron screenshot): Tron's working repo is on branch 'mcdonges.latest' but the center header reads 'otmux@dev-teampush-astray'. ROOT (expert-measured, emerging): the server's 'oosh' RepoRegistry key resolves to a DIFFERENT clone (the EAMD clone at /home/shared/EAMD.ucp/.../Once.sh/dev, whose HEAD=dev-teampush-astray) than the user's working clone (/root/oosh, mcdonges.latest) - so GitApi.currentBranch returns that other clone's HEAD. AC aligns to the confirmed root once expert posts it. crossRef R30.38 (centerHeaderBranch + currentBranch chain) + R30.6.7 (RepoRegistry clone resolution).
+  **Acceptance criteria:**
+  - [ ] **(header)** The center Result header shows the ACTUAL current checked-out branch of the repo the diff targets, resolved dynamically (git) at request time - matching the user's `git -C <repo> branch --show-current`.
+  - [ ] **(header)** The header is NEVER a stale, cached, hardcoded, or other-clone branch name; if the targeted repo is on 'mcdonges.latest', the header reads otmux@mcdonges.latest (not dev-teampush-astray).
+  - [ ] **(root)** [PENDING expert root-cause] The 'oosh' (and every) RepoRegistry key resolves to the repo clone the diff actually targets, so GitApi.currentBranch reports THAT clone's HEAD - not a different clone's. Final AC wording aligns to the confirmed root-cause.
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28).
+  -> diffEditor.headerShowsTargetedRepoBranch [uc:uuid:90f5e309-7ab2-49c6-b679-3ad891d5ab2f]
