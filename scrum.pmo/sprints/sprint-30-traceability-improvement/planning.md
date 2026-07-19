@@ -75,3 +75,4 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [ ] [Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save](./task-30.50-merge-toolbar-optimization.md)
 - [ ] [Task 30.51: Changes-focused code-folding in the 3-way merge editors](./task-30.51-changes-focused-code-folding.md)
 - [ ] [Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)](./task-30.52-toolbar-misclick-relayout.md)
+- [ ] [Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)](./task-30.53-native-monaco-code-folding.md)

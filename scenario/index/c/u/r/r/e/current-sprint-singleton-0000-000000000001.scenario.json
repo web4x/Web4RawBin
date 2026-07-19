@@ -2,43 +2,43 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.51: Changes-focused code-folding in the 3-way merge editors",
+    "name": "Current: Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
     "chain": {
-      "req": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
-      "uc": "5dedb343-9457-4f02-bbc6-023f8fe42c78",
+      "req": "ac3338b6-07a1-4fa6-9040-d9144db16ee8",
+      "uc": "fcf8b48f-8e84-47d4-905b-4cdfb355e528",
       "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
-      "method": "2865493c-bac0-43dd-9b9f-12d81d899a3d",
-      "impl": "2d7a0103-9ffb-4c1a-bcd9-16114a174719",
+      "method": "ddc5ea1c-e8a8-4b49-b6bd-2e30c6de721a",
+      "impl": "2de3411f-aaf8-4ea6-a249-a41d99320b3d",
       "test": ""
     },
     "activeHop": 5,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
+    "taskName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:52:17.400Z"
+        "updatedAt": "2026-07-19T19:11:14.359Z"
       },
       "uc": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:52:18.209Z"
+        "updatedAt": "2026-07-19T19:11:15.145Z"
       },
       "method": {
-        "status": "done",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:52:19.011Z"
+        "updatedAt": "2026-07-19T19:11:16.011Z"
       },
       "impl": {
-        "status": "done",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:52:19.886Z"
+        "updatedAt": "2026-07-19T19:11:16.810Z"
       },
       "test": {
-        "status": "gate-proven",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T18:03:56.457Z"
+        "updatedAt": "2026-07-19T19:11:17.571Z"
       }
     },
     "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
@@ -47,9 +47,9 @@
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "4165a551-b7e0-4f43-b053-a70ef4c78c6c",
-        "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
-        "reqUuid": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+        "taskUuid": "183475f6-400a-47f3-927a-620185798c22",
+        "taskName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
+        "reqUuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8"
       },
       "lastCompleted": {
         "taskUuid": "97c00946-a4aa-4ae1-9b8b-3bfec89b7fbd",

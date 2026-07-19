@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "183475f6-400a-47f3-927a-620185798c22",
+    "name": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
+    "slug": "task-30.53-native-monaco-code-folding",
+    "description": "REDESIGN of code-folding using Monaco's NATIVE folding (standard chevron collapse/expand + '...' placeholder), foldable regions = METHOD boundaries; collapsing an unchanged method-block syncs across all 3 editors; change-holding method-blocks stay expanded. Replaces the Tron-rejected setHiddenAreas mechanism (R30.51).",
+    "intention": "S30 diff/merge editor — R30.53 native-Monaco code-folding (supersedes R30.51 after Tron rejection).",
+    "context": "Covers R30.53 (ac3338b6, supersedes R30.51 41a6ab2c) → 3 UCs (fcf8b48f/8451731c/48d56602) → RbDiffEditor. Architect REDESIGNING a native FoldingController (foldByMethodBoundaries / syncNativeFold / keepChangeMethodsExpanded). AC4 = the native-Monaco approach design-flag. Gate = screenshot+behavior DET-3x incl 390 mobile (Tron-visual).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [~] refinement (architect REDESIGNING native FoldingController)\n  - [ ] creating test cases\n  - [ ] implementing (build after architect confirm → correct v0.7.77)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN PROGRESS @ DESIGN (architect redesigning native FoldingController: foldByMethodBoundaries / syncNativeFold / keepChangeMethodsExpanded). ⛔ BUILD pending architect confirm → expert builds the correct v0.7.77. Supersedes R30.51 (Tron-rejected setHiddenAreas). Gate = screenshot DET-3x incl 390 mobile at Tron viewport.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:ac3338b6-07a1-4fa6-9040-d9144db16ee8]`\n  - supersedes\n    - R30.51 (41a6ab2c) setHiddenAreas — Tron-rejected + reverted\n  - down\n    - [UC](./planning.md) `[uc:uuid:fcf8b48f-8e84-47d4-905b-4cdfb355e528]`\n    - [UC](./planning.md) `[uc:uuid:8451731c-bb67-43ab-9a40-27a43e817d77]`\n    - [UC](./planning.md) `[uc:uuid:48d56602-bfa0-4df3-ae48-81f65e936430]`",
+    "acceptanceCriteria": "- [ ] Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines).\n- [ ] Foldable regions are the METHOD boundaries - folding collapses a whole method block.\n- [ ] Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED.\n- [ ] [DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation.\n- [ ] GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+    ],
+    "useCases": [
+      "ior:instance:fcf8b48f-8e84-47d4-905b-4cdfb355e528",
+      "ior:instance:8451731c-bb67-43ab-9a40-27a43e817d77",
+      "ior:instance:48d56602-bfa0-4df3-ae48-81f65e936430"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19",
+    "focus": true
+  }
+}

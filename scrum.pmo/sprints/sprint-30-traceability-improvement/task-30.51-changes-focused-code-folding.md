@@ -8,13 +8,10 @@
 
 ## Status
 - [x] Planned
-- [x] In Progress
-  - [x] refinement
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing
-- [x] QA Review
+- [x] In Progress (built v0.7.77)
+- [~] QA Review — TRON-REJECTED (setHiddenAreas approach)
 - [ ] Done
+- ⊘ SUPERSEDED by R30.53 (native Monaco); mechanism REVERTED prod v0.7.77→v0.7.76
 
 ## Traceability
 
@@ -42,18 +39,18 @@ S30 diff/merge editor — R30.51 changes-focused code-folding (Tron feature): ke
 
 ## Acceptance Criteria
 
-- [x] Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
-- [x] A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
-- [x] On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
-- [x] Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after.
-- [x] Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction.  [GREEN DET-3x @390 MOBILE Tron-viewport, anti-circular ruler-measure (9fae1c617); Tron final visual -> Done]
-- [x] On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand').
-- [x] [DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries.
-- [x] GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
+- [ ] Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
+- [ ] A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
+- [ ] On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
+- [ ] Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after.
+- [ ] Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction.  [GREEN DET-3x @390 MOBILE Tron-viewport, anti-circular ruler-measure (9fae1c617); Tron final visual -> Done]
+- [ ] On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand').
+- [ ] [DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries.
+- [ ] GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
 
 ## Implementation
 
-QA-REVIEW: changes-focused code-folding BUILT+GATED (v0.7.77, K=0). Gate r3051 GREEN DET-3x @390 MOBILE at Tron's viewport, ANTI-CIRCULAR ruler-measure (9fae1c617), served==gated (folding code unchanged since gate). Chain both-directions: Fold1 changes-only 65cb5a36<->9493c08a / Fold2 sync-across-3 c42fceb6<->2d7a0103 / Fold3 not-collapsible 6259acfb<->23b416c2. AC4 Monaco-approach design-flag resolved (setHiddenAreas + chevron). 5/5 ACs. HELD rule#9 -> Tron final visual -> Done. ★ S30 3-way-merge-editor + folding wave now CHAIN-COMPLETE.
+⊘ SUPERSEDED by R30.53 (ac3338b6) + REVERTED. Tron REJECTED the setHiddenAreas mechanism at VISUAL review → reverted (prod v0.7.77→v0.7.76, expert 7b511246b). NOT Done — held rule#9 held (QA-Review was correct; Tron's visual is the real gate, and it rejected). The Fold Tests/impls (setHiddenAreas 9493c08a/2d7a0103/23b416c2) are for the rejected mechanism. R30.53 rebuilds via NATIVE Monaco folding.
 
 ## Subtasks
 
