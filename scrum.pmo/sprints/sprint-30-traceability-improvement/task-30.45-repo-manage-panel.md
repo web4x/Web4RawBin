@@ -11,9 +11,9 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -43,16 +43,16 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [ ] (manage) The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
-- [ ] (manage) Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow).
-- [ ] (manage) After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
-- [ ] (security) [PENDING Tron ratify] Worktree switching only repoints among the repo OWN ratified worktrees (bounded) - not an arbitrary path; consistent with R30.40 HOME/oosh symlink-follow.
-- [ ] (security) [PENDING Tron ratify] Managing/switching is gated by the ratified authorization model.
-- [ ] (gate) GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
+- [x] (manage) The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
+- [x] (D3 read-key) Each worktree is SELECTABLE as a READ-ONLY key (worktree-as-key) — selecting one repoints the READ key so diff/header read that worktree ref; server performs NO checkout, mutates NO working tree.
+- [x] (switch) After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
+- [x] (D3 bounded) Switching selects only among the repo's OWN worktrees as read keys (bounded) — no server checkout, no arbitrary path.
+- [x] (D3/D4) A worktree SWITCH is READ-ONLY (D3) so requires NO admin-key — gated. [D4: mutating manage actions (register/remove) require admin-key — DEFERRED R30.48/BH-3.]
+- [ ] (gate) GATE — DET-3x GREEN ✓ (r3045-uc7 ebdf8b080 v0.7.72, Test 771e2e83->Impl switchWorktree 1a86a852, served==gated); Tron VISUAL pending. Full: open manage -> path+branch+worktrees; switch -> header/diff track it; version-bump.
 
 ## Implementation
 
-V1-ACTIVE (architect §10 — UC6 manageInfo + UC7 worktree-switch; safe subset). DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
+QA-REVIEW: manage panel — UC6 manageInfo (path/branch/worktrees, v0.7.70) + UC7 worktree-switch (D3 read-only-key, v0.7.72). Gate r3045-uc7 GREEN DET-3x (ebdf8b080), chain both-directions (switchWorktree 1a86a852<->Test 771e2e83), served==gated v0.7.72. D4 admin-key (mutating) deferred R30.48. 5/6 ACs (gate Tron-visual pending). HELD rule#9 -> Tron VISUAL -> Done.
 
 ## Subtasks
 

@@ -11,9 +11,9 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [ ] implementing (BLOCKED-ON-BUILD — delete-UI wiring, expert builds with UC7 on final-matrix green-light)
-  - [ ] testing
-- [ ] QA Review
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -40,14 +40,14 @@ S30 diff/merge editor — R30.49 delete-for-removable (Tron-approved, V1 push): 
 
 ## Acceptance Criteria
 
-- [ ] (delete) A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister — after delete it is gone from the selector + registry. (mechanism Tested 6f6edecd; UI wiring pending build.)
-- [ ] (protect) A BUILTIN repo (rawbin, oosh) is NEVER removable — the delete affordance is absent/disabled + unregister refuses builtins (A.unregister-builtin-false).
-- [ ] (V1-auth) V1 delete uses read-auth only (no admin-key); D4 requireAdmin stays deferred (R30.48 backlog) until multi-user.
-- [ ] (gate) GATE: add a dynamic repo → delete it from the manage panel → gone from selector + registry; attempt to delete a builtin → refused. (Pending build.)
+- [x] (delete) A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister — after delete it is gone from the selector + registry. Tested e4741c65 (r3049) + 6f6edecd (unregister spine).
+- [x] (protect) A BUILTIN repo (rawbin, oosh) is NEVER removable — delete affordance absent/disabled + unregister refuses builtins (gate A.unregister-builtin-false + r3049).
+- [x] (V1-auth) V1 delete uses read-auth only (no admin-key); D4 requireAdmin deferred (R30.48 backlog) until multi-user.
+- [x] (gate) GATE GREEN DET-3x (r3049-delete-repo-gate.mjs, ebdf8b080 v0.7.72, served==gated): add dynamic -> delete from manage panel -> gone from selector+registry; delete builtin -> refused.
 
 ## Implementation
 
-IN PROGRESS @ BLOCKED-ON-BUILD (Tron-approved, V1 push — NOT backlog). Chain complete-to-Test BY REUSE (unregister Impl 559b508b ↔ Test 6f6edecd, r3047 gate GREEN). Pending = delete-UI → unregister wiring (expert builds WITH T30.45/UC7 on architect final-matrix green-light, imminent). D4 admin-auth deferred R30.48.
+QA-REVIEW: delete-for-removable BUILT+GATED v0.7.72. Gate r3049 GREEN DET-3x (ebdf8b080), chain both-directions (delete->unregister 559b508b<->Test e4741c65 + reuse 6f6edecd), served==gated. D4 admin-auth deferred R30.48. 4/4 ACs. -> Tron visual/PO -> Done.
 
 ## Subtasks
 

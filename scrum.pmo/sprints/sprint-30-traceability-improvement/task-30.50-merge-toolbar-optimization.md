@@ -8,10 +8,10 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -55,7 +55,7 @@ S30 diff/merge editor — R30.50 merge-toolbar optimization (Tron feature): chan
 
 ## Implementation
 
-PLANNED / build-after (PO 2026-07-19). Scenario-first stand-up so the task EXISTS before build (#126). Builds AFTER the UC7+delete push + AFTER the architect design lands (design-derive pending). NOT In-Progress — current focus stays UC7/delete. AC6 = architect design-flag. Gate = screenshot+behavior DET-3x at Tron's viewport.
+IN PROGRESS @ BUILDING (PO green-lit expert A->C2->C1->B, 2026-07-19). Architect design derived. Building the merge-toolbar: change-# indicator + apply-all-non-conflicting popup (2 modes) + guarded save + save-indicator. AC6 design-flag resolved by architect. Gate = screenshot DET-3x at Tron viewport.
 
 ## Subtasks
 
