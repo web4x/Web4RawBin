@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7681caa6-c04e-4f0e-b1af-e6ca0b9311eb",
+    "name": "RepoRegistry.register",
+    "implementations": [
+      "ior:instance:6c408f9b-0354-4732-8d7a-bccd3a6cb027"
+    ],
+    "tests": [],
+    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. BUILT v0.7.66 (8b4f36893): register a candidate root in the dynamic registry (routes through assertAllowedRoot choke), returns a stable key (uniqueSlug). Expert marks name-matched."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

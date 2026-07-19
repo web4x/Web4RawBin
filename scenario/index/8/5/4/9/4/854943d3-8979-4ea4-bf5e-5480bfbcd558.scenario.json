@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "854943d3-8979-4ea4-bf5e-5480bfbcd558",
+    "name": "RepoRegistry.persist impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+    "description": "BUILT v0.7.66: persist the dynamic registry to disk (survives restart). Expert marks name-matched.",
+    "designAhead": false
+  },
+  "ownerIor": "ior:instance:1c1ebda4-5260-4850-9ce7-d496ca6ebfb5"
+}

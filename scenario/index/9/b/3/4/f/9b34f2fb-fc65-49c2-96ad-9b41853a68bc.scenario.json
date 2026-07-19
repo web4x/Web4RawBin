@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9b34f2fb-fc65-49c2-96ad-9b41853a68bc",
+  "name": "repoRegistry.register",
+  "description": "BUILT v0.7.66 (8b4f36893): register a candidate root in the dynamic registry (routes through assertAllowedRoot choke), returns a stable key (uniqueSlug). Expert marks name-matched.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:7681caa6-c04e-4f0e-b1af-e6ca0b9311eb",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

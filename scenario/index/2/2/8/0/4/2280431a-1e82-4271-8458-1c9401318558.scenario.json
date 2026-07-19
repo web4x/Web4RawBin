@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2280431a-1e82-4271-8458-1c9401318558",
+  "name": "repoRegistry.load",
+  "description": "BUILT v0.7.66: load the persisted registry on startup (each root re-validated through assertAllowedRoot). Expert marks name-matched.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:f3d1fe64-8e5d-4dea-84cd-bb977409df8b",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

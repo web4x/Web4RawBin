@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6c408f9b-0354-4732-8d7a-bccd3a6cb027",
+    "name": "RepoRegistry.register impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+    "description": "BUILT v0.7.66 (8b4f36893): register a candidate root in the dynamic registry (routes through assertAllowedRoot choke), returns a stable key (uniqueSlug). Expert marks name-matched.",
+    "designAhead": false
+  },
+  "ownerIor": "ior:instance:7681caa6-c04e-4f0e-b1af-e6ca0b9311eb"
+}

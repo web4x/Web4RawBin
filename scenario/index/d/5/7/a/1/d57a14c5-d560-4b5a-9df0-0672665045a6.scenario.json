@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d57a14c5-d560-4b5a-9df0-0672665045a6",
+    "name": "RepoRegistry.assertAllowedRoot",
+    "implementations": [
+      "ior:instance:90569c5e-c931-4d9b-9e2b-d3a0ca6a2788"
+    ],
+    "tests": [],
+    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. UC8 D1 choke point. BUILT as a PLUGGABLE SCAFFOLD stub v0.7.66 (register()+load() route every candidate root through here). The REAL D1 bounds (HOME-subtree + REPO_ALLOW, realpath-checked) land in the UC8 real-bounds pass - I update this Impl then. Expert marks the scaffold decl name-matched now."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b87eb99a-c83e-4745-9948-a84a1bb3ea00",
+  "altId": "R30.47",
+  "name": "RepoRegistry is a dynamic, persisted, bounds-checked registry (foundation for repo add/manage)",
+  "description": "The RepoRegistry is DYNAMIC (runtime register/unregister), PERSISTED (survives restart via load/persist), and every candidate root routes through a bounds CHOKE POINT (assertAllowedRoot, D1) - superseding the R30.40 static ROOTS allowlist. This is the architect's UC3 spine + UC8 guard-foundation (design-repo-manager.md §9); the R30.42-R30.45 observable endpoints (add-option/add-local/add-clone/manage) build ON it. UC3 register/unregister/persist/load BUILT v0.7.66 (8b4f36893); UC8 guards: assertAllowedRoot scaffold now (real D1 bounds next), assertAllowedUrl (D2) + requireAdmin (D4) land with the UC8 real-bounds pass.",
+  "tronQuote": "> (Foundation for Tron's repo add/manage feature; D1-D4 ratified. Covering req for the built UC3 spine + UC8 guards per architect design-repo-manager.md §9.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:9b34f2fb-fc65-49c2-96ad-9b41853a68bc",
+   "ior:instance:3b5ff9d1-747a-4c9f-a160-929e9ad77ef0",
+   "ior:instance:b27eecb3-c758-4f30-9fe7-c7f2b5012d02",
+   "ior:instance:2280431a-1e82-4271-8458-1c9401318558",
+   "ior:instance:f3f052a5-16e3-46e6-98df-d07c9ac63786"
+  ],
+  "crossRef": [
+   "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d",
+   "ior:instance:96945512-3dbf-413d-ae26-734489ad8c0c",
+   "ior:instance:3c9f69c1-8bee-4309-9e30-df61cea34de3",
+   "ior:instance:b6b21710-bee6-4f6e-b382-3578643da85a",
+   "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c"
+  ],
+  "crossRefNote": "Foundation under R30.42-R30.45 (add-option/add-local/add-clone/manage endpoints build on this registry). SUPERSEDES R30.40 static ROOTS (c5869b0a) - the oosh root that R30.40 pinned now lives in the dynamic+persisted registry, still HOME/oosh symlink-follow by construction.",
+  "discoverySource": {
+   "type": "architect-decomposition",
+   "flaggedBy": "robbin-architect design-repo-manager.md §9 (8 UCs) + robbin-expert built UC3 spine v0.7.66; via robbin-po",
+   "date": "2026-07-19",
+   "note": "Covering req for the dynamic-registry foundation (UC3 spine + UC8 guards) - the shared enabler I flagged, now built + given a traceable home. Endpoint UCs (UC1/2/4/5/6/7) attach to R30.42-45; I re-point those as the expert builds them."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-dynamic",
+    "group": "registry",
+    "text": "The registry supports runtime register/unregister (not a fixed compile-time allowlist)."
+   },
+   {
+    "id": "AC-persisted",
+    "group": "registry",
+    "text": "The registry persists (persist) + reloads on startup (load) so registered repos survive a restart."
+   },
+   {
+    "id": "AC-choke",
+    "group": "security",
+    "text": "Every candidate root routes through the assertAllowedRoot choke point (register + load) so bounds are enforced at ONE wired place (D1)."
+   },
+   {
+    "id": "AC-supersedes-roots",
+    "group": "registry",
+    "text": "Supersedes the R30.40 static ROOTS: the oosh root now lives in the dynamic registry, still resolving HOME/oosh by construction (R30.40 symlink-follow preserved)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x): register a root -> appears + persists across restart (load); an out-of-bounds root is rejected at the choke; version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

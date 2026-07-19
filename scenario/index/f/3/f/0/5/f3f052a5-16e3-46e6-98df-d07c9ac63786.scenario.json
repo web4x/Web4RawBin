@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f3f052a5-16e3-46e6-98df-d07c9ac63786",
+  "name": "repoRegistry.assertAllowedRoot",
+  "description": "UC8 D1 choke point. BUILT as a PLUGGABLE SCAFFOLD stub v0.7.66 (register()+load() route every candidate root through here). The REAL D1 bounds (HOME-subtree + REPO_ALLOW, realpath-checked) land in the UC8 real-bounds pass - I update this Impl then. Expert marks the scaffold decl name-matched now.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:d57a14c5-d560-4b5a-9df0-0672665045a6",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

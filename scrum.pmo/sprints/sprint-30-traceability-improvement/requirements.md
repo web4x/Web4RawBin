@@ -656,3 +656,19 @@
   - [ ] **(security)** RATIFIED D3+D4: a worktree SWITCH is READ-ONLY (D3) so requires NO admin-key; any MUTATING manage action (register/remove from the registry) requires the admin-key (D4).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
   -> repoManage.worktreeSwitch [uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]
+
+- [ ] **R30.47 — RepoRegistry is a dynamic, persisted, bounds-checked registry (foundation for repo add/manage)**
+  [requirement:uuid:b87eb99a-c83e-4745-9948-a84a1bb3ea00]
+  > (Foundation for Tron's repo add/manage feature; D1-D4 ratified. Covering req for the built UC3 spine + UC8 guards per architect design-repo-manager.md §9.)
+  The RepoRegistry is DYNAMIC (runtime register/unregister), PERSISTED (survives restart via load/persist), and every candidate root routes through a bounds CHOKE POINT (assertAllowedRoot, D1) - superseding the R30.40 static ROOTS allowlist. This is the architect's UC3 spine + UC8 guard-foundation (design-repo-manager.md §9); the R30.42-R30.45 observable endpoints (add-option/add-local/add-clone/manage) build ON it. UC3 register/unregister/persist/load BUILT v0.7.66 (8b4f36893); UC8 guards: assertAllowedRoot scaffold now (real D1 bounds next), assertAllowedUrl (D2) + requireAdmin (D4) land with the UC8 real-bounds pass.
+  **Acceptance criteria:**
+  - [ ] **(registry)** The registry supports runtime register/unregister (not a fixed compile-time allowlist).
+  - [ ] **(registry)** The registry persists (persist) + reloads on startup (load) so registered repos survive a restart.
+  - [ ] **(security)** Every candidate root routes through the assertAllowedRoot choke point (register + load) so bounds are enforced at ONE wired place (D1).
+  - [ ] **(registry)** Supersedes the R30.40 static ROOTS: the oosh root now lives in the dynamic registry, still resolving HOME/oosh by construction (R30.40 symlink-follow preserved).
+  - [ ] **(gate)** GATE (DET-3x): register a root -> appears + persists across restart (load); an out-of-bounds root is rejected at the choke; version-bump.
+  -> repoRegistry.register [uc:uuid:9b34f2fb-fc65-49c2-96ad-9b41853a68bc]
+  -> repoRegistry.unregister [uc:uuid:3b5ff9d1-747a-4c9f-a160-929e9ad77ef0]
+  -> repoRegistry.persist [uc:uuid:b27eecb3-c758-4f30-9fe7-c7f2b5012d02]
+  -> repoRegistry.load [uc:uuid:2280431a-1e82-4271-8458-1c9401318558]
+  -> repoRegistry.assertAllowedRoot [uc:uuid:f3f052a5-16e3-46e6-98df-d07c9ac63786]

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f3d1fe64-8e5d-4dea-84cd-bb977409df8b",
+    "name": "RepoRegistry.load",
+    "implementations": [
+      "ior:instance:2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08"
+    ],
+    "tests": [],
+    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. BUILT v0.7.66: load the persisted registry on startup (each root re-validated through assertAllowedRoot). Expert marks name-matched."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

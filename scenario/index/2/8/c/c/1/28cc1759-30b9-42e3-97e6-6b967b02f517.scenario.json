@@ -9,7 +9,12 @@
       "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add",
       "ior:instance:867c1945-33d5-45cf-bd8d-d4044a0c2db8",
       "ior:instance:9757fe86-bb5d-4041-b573-96b1e1120491",
-      "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d"
+      "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d",
+      "ior:instance:7681caa6-c04e-4f0e-b1af-e6ca0b9311eb",
+      "ior:instance:8611520d-a470-44ff-8460-25eed7d72f0f",
+      "ior:instance:1c1ebda4-5260-4850-9ce7-d496ca6ebfb5",
+      "ior:instance:f3d1fe64-8e5d-4dea-84cd-bb977409df8b",
+      "ior:instance:d57a14c5-d560-4b5a-9df0-0672665045a6"
     ],
     "note": "NEW (0 existing, MINT-NEW confirmed). Server-side security-critical repo key->abs-root allowlist, shared by GitApi + files handler. One-concern-per-Class (repo-safety predicate, distinct from GitApi git-commands; PO-ruled own-Class 2026-07-13, same pattern as ProxyFetch.guardUrl). R30.6.7. Sole-minter."
   },

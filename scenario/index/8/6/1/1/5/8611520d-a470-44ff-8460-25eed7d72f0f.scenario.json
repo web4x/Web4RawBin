@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8611520d-a470-44ff-8460-25eed7d72f0f",
+    "name": "RepoRegistry.unregister",
+    "implementations": [
+      "ior:instance:559b508b-91e7-4961-8b62-1bc531d3df94"
+    ],
+    "tests": [],
+    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. BUILT v0.7.66: remove a repo from the dynamic registry by key. Expert marks name-matched. (D4 admin-key gates this write.)"
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

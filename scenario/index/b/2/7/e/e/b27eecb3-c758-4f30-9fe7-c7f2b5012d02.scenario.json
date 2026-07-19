@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b27eecb3-c758-4f30-9fe7-c7f2b5012d02",
+  "name": "repoRegistry.persist",
+  "description": "BUILT v0.7.66: persist the dynamic registry to disk (survives restart). Expert marks name-matched.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:1c1ebda4-5260-4850-9ce7-d496ca6ebfb5",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "90569c5e-c931-4d9b-9e2b-d3a0ca6a2788",
+    "name": "RepoRegistry.assertAllowedRoot impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+    "description": "UC8 D1 choke point. BUILT as a PLUGGABLE SCAFFOLD stub v0.7.66 (register()+load() route every candidate root through here). The REAL D1 bounds (HOME-subtree + REPO_ALLOW, realpath-checked) land in the UC8 real-bounds pass - I update this Impl then. Expert marks the scaffold decl name-matched now.",
+    "designAhead": false
+  },
+  "ownerIor": "ior:instance:d57a14c5-d560-4b5a-9df0-0672665045a6"
+}

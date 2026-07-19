@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1c1ebda4-5260-4850-9ce7-d496ca6ebfb5",
+    "name": "RepoRegistry.persist",
+    "implementations": [
+      "ior:instance:854943d3-8979-4ea4-bf5e-5480bfbcd558"
+    ],
+    "tests": [],
+    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. BUILT v0.7.66: persist the dynamic registry to disk (survives restart). Expert marks name-matched."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}
