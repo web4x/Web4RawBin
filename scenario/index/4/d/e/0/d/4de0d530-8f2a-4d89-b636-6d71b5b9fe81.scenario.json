@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4de0d530-8f2a-4d89-b636-6d71b5b9fe81",
+    "name": "RbDiffEditor.setCenterTitle",
+    "implementations": [
+      "ior:instance:41504f5f-136b-4bfd-8dd5-2d02a345fa0d"
+    ],
+    "tests": [],
+    "note": "R30.38 header. Name EXACT for [impl] AST-attach. Renders '.de-center .de-title' = filename@currentBranch (THE renderCenterHeader). Called from computeMergedCenter; branch via loadCurrentBranch (client fetch, cached). BUILT v0.7.61 (rb-diff-editor.ts); expert places [impl] marker on decl. RE-POINTED here from mountThreePane d9223804 (false-credit: header not built in mountThreePane) per expert+PO 2026-07-19."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

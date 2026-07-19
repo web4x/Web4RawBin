@@ -3,13 +3,14 @@
  "model": {
   "uuid": "abad9982-86de-4962-988f-5957ab96d288",
   "name": "merge.centerHeaderBranch",
-  "description": "The center pane header shows filename@currentBranch (e.g. otmux@<branch>) reflecting where Save writes. Impl-edit to the center-pane mount/header (mountThreePane, or a new renderCenterHeader - architect derive-confirms).",
+  "description": "The center pane header shows filename@currentBranch (e.g. otmux@<branch>) reflecting where Save writes. Realized by RbDiffEditor.setCenterTitle (renders '.de-center .de-title'), branch via loadCurrentBranch (client fetch, cached) <- GET /api/git/current-branch (server, merge.currentBranchApi). RE-POINTED 2026-07-19 off mountThreePane d9223804 (false-credit: header not built there) onto the built setCenterTitle per expert+PO.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
-  "method": "ior:instance:d9223804-e123-4632-8b92-d38421c0dd16",
-  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+  "method": "ior:instance:4de0d530-8f2a-4d89-b636-6d71b5b9fe81",
+  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34",
+  "repointNote": "method d9223804 (mountThreePane) -> 4de0d530 (setCenterTitle); mountThreePane never rendered the header (expert commit e98a18cea era). Built reality = data=truth (R30.11 pattern)."
  },
  "ownerIor": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
 }

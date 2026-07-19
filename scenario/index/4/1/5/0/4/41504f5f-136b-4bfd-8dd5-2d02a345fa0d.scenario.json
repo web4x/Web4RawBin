@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "41504f5f-136b-4bfd-8dd5-2d02a345fa0d",
+    "name": "RbDiffEditor.setCenterTitle impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.61: setCenterTitle renders '.de-center .de-title' = filename@currentBranch; loadCurrentBranch fetches+caches the branch (GET /api/git/current-branch). Expert places [impl] marker on the setCenterTitle decl (name-match verified). Re-pointed from the false-credit mountThreePane path."
+  },
+  "ownerIor": "ior:instance:4de0d530-8f2a-4d89-b636-6d71b5b9fe81"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b9e8ba29-ff9a-4051-867a-5355c9ce7429",
+    "name": "GitApi.currentBranch",
+    "implementations": [
+      "ior:instance:a2cbd78e-b127-4d60-886b-6b137943758d"
+    ],
+    "tests": [],
+    "note": "R30.38 header server-side. Name EXACT for [impl] AST-attach. git rev-parse --abbrev-ref HEAD; served via GET /api/git/current-branch. BUILT v0.7.61 (server.ts); expert places [impl] marker on decl."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

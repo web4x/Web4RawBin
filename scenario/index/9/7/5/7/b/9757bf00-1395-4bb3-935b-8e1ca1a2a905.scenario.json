@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9757bf00-1395-4bb3-935b-8e1ca1a2a905",
+  "name": "merge.currentBranchApi",
+  "description": "The server resolves the current checked-out branch (git rev-parse --abbrev-ref HEAD) and serves it via GET /api/git/current-branch, so the center header (setCenterTitle) can show filename@currentBranch. Server side of R30.38 centerHeaderBranch; sibling of merge.centerHeaderBranch (abad9982=client render). Minted 2026-07-19 to keep the built server method chain-reachable under the locked one-UC-one-method walker (not orphaned).",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:b9e8ba29-ff9a-4051-867a-5355c9ce7429",
+  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+ },
+ "ownerIor": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+}
