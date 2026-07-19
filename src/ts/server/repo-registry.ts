@@ -4,6 +4,7 @@
 // unchanged). Consumed by GitApi + /api/files; safePath still guards WITHIN the resolved root. Add a key here (with
 // its configured absolute root) to expose a new repo — never accept a client-supplied path.
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,7 +12,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export class RepoRegistry {
   private static readonly ROOTS: Record<string, { root: string; label: string }> = {
     rawbin: { root: path.resolve(__dirname, '../../../'), label: 'RawBin' },
-    oosh: { root: path.resolve(process.env.OOSH_DIR || '/root/oosh'), label: 'OOSH' },
+    // R30.40 (Tron): HOME/oosh is ALWAYS the ground-truth oosh — resolve to os.homedir()+'/oosh' and DROP the OOSH_DIR
+    // override (it had been misconfigured to the FIXED Once.sh/dev worktree on dev-teampush-astray → center showed the wrong
+    // branch + Save targeted the wrong worktree). Correct-by-construction: never rely on a misconfigurable env for ground truth.
+    // HOME/oosh is a SYMLINK that `oo` mode-switch repoints to a worktree (dev/macos/mcdonges.latest/prod); path.resolve keeps
+    // it as the symlink PATH (does NOT realpath/canonicalize) so git FOLLOWS it to the CURRENT oo-mode dynamically. Drives
+    // diff + header + save consistently against whatever HOME/oosh points at right now (currently mcdonges.latest).
+    oosh: { root: path.resolve(os.homedir(), 'oosh'), label: 'OOSH' },
   };
 
   // [impl:uuid:d7dc0059-b300-4469-9518-1cfaf07599f6] RepoRegistry.resolve

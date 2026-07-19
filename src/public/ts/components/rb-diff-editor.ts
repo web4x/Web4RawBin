@@ -860,6 +860,10 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelectorAll('.de-repo').forEach(el => {
       const sel = el as HTMLSelectElement;
       sel.innerHTML = repos.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
+      // R30.39 BUG-A: seed BOTH selectors from the side's current repo (set by openFromParams from ?repo) AFTER the options
+      // exist — fixes the race where openFromParams set sel.value BEFORE populateRepos' async fetch filled the <option>s
+      // (value didn't stick → both defaulted to RawBin). '' (rawbin) → 'rawbin'.
+      sel.value = (sel.dataset.side === 'left' ? this.left.repo : this.right.repo) || 'rawbin';
       sel.addEventListener('change', () => {
         const st = sel.dataset.side === 'left' ? this.left : this.right;
         st.repo = sel.value === 'rawbin' ? '' : sel.value;
