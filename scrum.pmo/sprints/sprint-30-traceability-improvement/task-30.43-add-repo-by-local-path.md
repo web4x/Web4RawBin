@@ -34,7 +34,7 @@ The add dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh), server-side-valida
 
 ## Context
 
-Covers R30.43 (96945512) -> UC 759c5f32 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron).
+Covers R30.43 (96945512) -> UC 759c5f32 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron). ⚠ V1 SIMPLIFIED to .git-present-only (architect §10); D2 path-traversal guard backlogged.
 
 ## Intention
 
@@ -52,7 +52,7 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Implementation
 
-DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
+V1-ACTIVE, SIMPLIFIED (architect §10) → .git-PRESENT-only add-local (accept a server path that ALREADY contains .git; NO arbitrary-path handling in V1). D2 path-traversal hardening guard DEFERRED to backlog (re-activate before exposed/multi-user deploy). DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
 
 ## Subtasks
 

@@ -622,14 +622,14 @@
   **Acceptance criteria:**
   - [ ] **(add)** The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
   - [ ] **(add)** After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
-  - [ ] **(security)** The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse).
-  - [ ] **(security)** RATIFIED D1: the server-local path, after realpath (symlinks resolved), MUST be within the HOME subtree OR the REPO_ALLOW allowlist; a realpath outside those bounds is REJECTED (symlink-escape blocked).
-  - [ ] **(security)** RATIFIED D4: registering a repo requires the admin-key (all writes are admin-key-gated); missing/invalid admin-key -> rejected, nothing registered.
-  - [ ] **(security)** RATIFIED D4: the registration persists in the dynamic registry (survives restart) via an admin-key-gated write; no secret/path leakage.
+  - [ ] **(security)** V1 (Tron scope-simplification 2026-07-19): the chosen directory MUST contain a .git (a FILE or a FOLDER = a git checkout or worktree) - this is the SOLE validation. NO REPO_ALLOW allowlist, NO admin-auth for v1. An invalid dir (no .git) is rejected with a clear error.
+  - [ ] **(security)** [BACKLOG v1 - deferred, NOT lost; rationale: path traversal / info-disclosure defense] RATIFIED D1 (deferred to a post-v1 admin-endpoint): the server-local path, after realpath, within HOME subtree OR REPO_ALLOW allowlist. V1 drops this - sole check is .git-present (AC-validate).
+  - [ ] **(security)** [BACKLOG v1 - deferred, NOT lost; rationale: write-auth] RATIFIED D4 (deferred): register requires admin-key. V1 drops admin-auth for add-local.
+  - [ ] **(security)** V1: the registration persists in the dynamic registry (survives restart). [BACKLOG v1: the admin-key gating of that write is deferred with D4.]
   - [ ] **(gate)** GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
-  -> repoManage.addByLocalPath [uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]
+  -> repoManage.addByLocalPathV1 [uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]
 
-- [ ] **R30.44 — Add a repository by entering a git clone URL then picking a checkout location to clone and register**
+- [ ] **R30.44 — [BACKLOG v1] Add a repository by entering a git clone URL then picking a checkout location to clone and register**
   [requirement:uuid:3c9f69c1-8bee-4309-9e30-df61cea34de3]
   > TRON (v0.7.65): add a repo by entering a git clone URL, then pick a checkout location -> clone + register.
   In the add dialog, entering a GIT CLONE URL then choosing a CHECKOUT LOCATION clones the repo to that location and registers it in the dynamic registry. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
@@ -690,3 +690,13 @@
   -> diff.workingRef [uc:uuid:6c46d917-2973-42fd-8b16-de3f776eac72]
   -> diff.workingSaveRoundtrip [uc:uuid:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e]
   -> diff.defaultWorkingLeft [uc:uuid:3fcf6237-fa79-4764-8653-e347129a3d74]
+
+- [ ] **R30.48 — BACKLOG: re-activate repo-manager security hardening before multi-user / exposed deployment**
+  [requirement:uuid:f06068ff-4b65-4f35-ad48-8864b8caf02f]
+  > (Architect §10 deferred-risk, captured per robbin-po: V1=trusted-local; re-activate assertAllowedRoot+requireAdmin (+assertAllowedUrl if clone ships) before multi-user/exposed hardening.)
+  DEFERRED-RISK (architect §10, Tron V1 scope): V1 repo-manager is TRUSTED-LOCAL - any same-origin/token client can register + read/save ANY server .git dir (add-local has ONLY the .git-present check; no path-allowlist, no admin-auth; clone is hidden). This is acceptable for the current single-trusted-user local deployment. BEFORE any multi-user / network-exposed / untrusted deployment, RE-ACTIVATE the built-but-deferred guards: assertAllowedRoot (D1 HOME-subtree+REPO_ALLOW realpath) + requireAdmin (D4 admin-key on all writes) + assertAllowedUrl (D2 clone-URL SSRF host-allowlist, if/when clone ships). The guard code is BUILT + gated (v0.7.67) - re-activation = wiring, not re-implementation.
+  **Acceptance criteria:**
+  - [ ] **(backlog)** [BACKLOG] Before exposed deployment: re-activate assertAllowedRoot (D1) so add-local paths are bounded to HOME-subtree + REPO_ALLOW (realpath-checked).
+  - [ ] **(backlog)** [BACKLOG] Before exposed deployment: re-activate requireAdmin (D4) so all registry writes (register/unregister/clone) require the admin-key.
+  - [ ] **(backlog)** [BACKLOG] If/when clone (R30.44) ships: re-activate assertAllowedUrl (D2) clone-URL SSRF host-allowlist (WHATWG new URL, https/ssh, no-password, username empty-or-git, exact-host).
+  - [ ] **(backlog)** [BACKLOG] The V1=trusted-local posture is documented so the exposed-deployment transition cannot silently skip re-activation.

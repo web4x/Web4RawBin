@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [x] In Progress
-  - [x] refinement
+- [ ] In Progress
+  - [ ] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -34,7 +34,7 @@ The add dialog accepts a GIT CLONE URL + a CHECKOUT LOCATION (server path); clon
 
 ## Context
 
-Covers R30.44 (3c9f69c1) -> UC eb0902d5 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron).
+Covers R30.44 (3c9f69c1) -> UC eb0902d5 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron). ⚠ V1 BACKLOG — clone-by-URL deferred (arbitrary-clone surface); re-activate with D-guards before exposed/multi-user deploy.
 
 ## Intention
 
@@ -53,7 +53,7 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Implementation
 
-DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
+V1 BACKLOG — DEFERRED, NOT CANCELLED (architect §10 + PO 2026-07-19). UC5 clone-by-URL is the arbitrary-clone attack surface → EXCLUDED from V1. Re-activates POST-V1 WITH the D1/D2/D4 clone guards + multi-user auth hardening, BEFORE any exposed/multi-user deploy. Design was ratified (Tron D1-D4 + §9); the BUILD is deferred. See backlog BH-3 (deferred-risk security).
 
 ## Subtasks
 
