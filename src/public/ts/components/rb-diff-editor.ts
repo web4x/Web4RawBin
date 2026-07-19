@@ -80,6 +80,8 @@ export class RbDiffEditor extends HTMLElement {
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
         rb-diff-editor .de-save.de-saved { background:#2e7d32;border-color:#4caf50;color:#fff } /* R30.50 C2: green when saved (clean); resets to default on any change */
+        /* R30.53 mobile: bump the native fold-chevron tap-target + keep it always-visible on touch (no hover-only). */
+        @media (pointer: coarse) { rb-diff-editor .monaco-editor .codicon-folding-expanded, rb-diff-editor .monaco-editor .codicon-folding-collapsed, rb-diff-editor .monaco-editor .codicon-folding-manual-expanded, rb-diff-editor .monaco-editor .codicon-folding-manual-collapsed { font-size:20px !important; opacity:1 !important; } }
       </style>
       <div class="de-toolbar" style="display:flex;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
@@ -165,7 +167,7 @@ export class RbDiffEditor extends HTMLElement {
   async mountThreePane(): Promise<void> {
     this.monaco = await RbDiffEditor.monacoLoader();
     const m = this.monaco;
-    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const }; // R30.16: scrollBeyondLastLine → last line can reach the top. R30.30: pin lineHeight+wordWrap on ALL 3 panes so a font-load/wrap variance can never add a per-row px delta (0px by construction, complements the row re-anchor).
+    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const, folding: true, showFoldingControls: 'always' as const }; // R30.16/30. R30.53: folding:true (NATIVE Monaco folding — chevron + '⋯' placeholder, NOT setHiddenAreas) + showFoldingControls:'always' so the fold gutter is visible/tappable on mobile (no hover-only).
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
@@ -185,6 +187,7 @@ export class RbDiffEditor extends HTMLElement {
     this.syncScroll3();
     void this.computeMergedCenter();
     this.applyLanguage(); // R30.41: also apply here — loadSide (openFromParams) can race AHEAD of this async mount (Monaco loader await), so its applyLanguage no-ops on not-yet-created editors; this deterministic call runs after the 3 models exist.
+    this.foldByMethodBoundaries(); // R30.53: register the native method-boundary FoldingRangeProvider (initial synced collapse fires at computeMergedCenter tail)
   }
 
   // [impl:uuid:c4da837c-b59f-4c02-9522-2e8599206abf] RbDiffEditor.loadSide
@@ -259,6 +262,122 @@ export class RbDiffEditor extends HTMLElement {
     return null;
   }
 
+  // ===== R30.53 NATIVE Monaco folding (design-folding.md v2 ac6d91a6a; supersedes R30.51 setHiddenAreas — Tron override) =====
+  private _foldProviderLangs = new Set<string>();
+  private _foldSyncing = false; private _foldWired = false;
+
+  // [impl:uuid:2de3411f-aaf8-4ea6-a249-a41d99320b3d] RbDiffEditor.foldByMethodBoundaries — R30.53: register a native Monaco
+  // FoldingRangeProvider (once per language) yielding WHOLE-METHOD ranges (computeMethodRanges) → the standard fold gutter
+  // chevron + collapsed '⋯' placeholder (folding:true). NOT setHiddenAreas: lines stay in the model (contiguous) so
+  // ribbons/decorations/highlight track via getTopForLineNumber. This is why v2 is clean where v1 (yanked gaps) was chaotic.
+  foldByMethodBoundaries(): void {
+    const m = this.monaco; if (!m?.languages?.registerFoldingRangeProvider) return;
+    const langId = this.languageForPath(this.left.path, this.left.content) || 'plaintext';
+    if (this._foldProviderLangs.has(langId)) return; // global-per-language: register ONCE
+    this._foldProviderLangs.add(langId);
+    m.languages.registerFoldingRangeProvider(langId, {
+      provideFoldingRanges: (model: any) => this.computeMethodRanges(model).map(r => ({ start: r.start, end: r.end })),
+    });
+  }
+
+  // R30.53 uncredited helper (supports foldByMethodBoundaries): scan a model for TOP-LEVEL method/function defs → 1-based
+  // [start,end] (def-line → matching close brace at depth 0). Per-language def-line regex; naive brace-depth (fold boundary
+  // only, string/comment braces are an acceptable approximation for a fold hint).
+  private computeMethodRanges(model: any): Array<{ start: number; end: number }> {
+    const lines: string[] = model?.getLinesContent ? model.getLinesContent() : String(model?.getValue?.() || '').split('\n');
+    const langId = model?.getLanguageId ? model.getLanguageId() : '';
+    const defRe = /shell|bash|python/.test(langId)
+      ? /^\s*(private\.|public\.)?[\w.]+\s*\(\)\s*\{/                                                   // oosh/bash: name() {
+      : /^\s*(export\s+|public\s+|private\s+|protected\s+|static\s+|async\s+|get\s+|set\s+)*[\w$]+\s*\([^)]*\)\s*(:\s*[^={;]+)?\{\s*$/; // ts/js
+    const ranges: Array<{ start: number; end: number }> = [];
+    let depth = 0, openLine = -1;
+    for (let i = 0; i < lines.length; i++) {
+      const ln = lines[i];
+      if (depth === 0 && openLine < 0 && defRe.test(ln)) openLine = i;
+      for (const ch of ln) {
+        if (ch === '{') depth++;
+        else if (ch === '}') { depth = Math.max(0, depth - 1); if (depth === 0 && openLine >= 0) { if (i > openLine) ranges.push({ start: openLine + 1, end: i + 1 }); openLine = -1; } }
+      }
+    }
+    return ranges;
+  }
+
+  // [impl:uuid:640f8428-2797-41e8-9951-3f8e05e6bd0e] RbDiffEditor.keepChangeMethodsExpanded — R30.53: from a pane's method
+  // ranges, return ONLY the UNCHANGED ones (safe to collapse). A method is a CHANGE-method (stays EXPANDED) if its [start,end]
+  // overlaps ANY conflict's per-editor range (CENTER c.span / LEFT c.aStart+a / RIGHT c.bStart+b) → change-methods excluded.
+  private keepChangeMethodsExpanded(ranges: Array<{ start: number; end: number }>, side: 'local' | 'center' | 'remote'): Array<{ start: number; end: number }> {
+    const chRanges: Array<[number, number]> = this.conflicts.map(c =>
+      side === 'center' ? [c.span[0] + 1, c.span[1]]
+        : side === 'local' ? [c.aStart + 1, c.aStart + Math.max(c.a.length, 1)]
+          : [c.bStart + 1, c.bStart + Math.max(c.b.length, 1)]);
+    const overlaps = (r: { start: number; end: number }) => chRanges.some(([s, e]) => r.start <= e && s <= r.end);
+    return ranges.filter(r => !overlaps(r)); // unchanged = no conflict overlap
+  }
+
+  private async _foldingModel(ed: any): Promise<any> {
+    try { const fc = ed?.getContribution?.('editor.contrib.folding'); return fc?.getFoldingModel ? await fc.getFoldingModel() : null; } catch { return null; }
+  }
+
+  // [impl:uuid:b629c015-456d-4e54-b300-5efd418696b8] RbDiffEditor.syncNativeFold — R30.53: (INITIAL) collapse every UNCHANGED
+  // method in ALL 3 editors via the native FoldingController (getFoldingModel → toggleCollapseState) so unchanged blocks
+  // fold synced + change-methods stay expanded; (ONGOING) wire foldingModel.onDidChange (once) to MIRROR a manually-toggled
+  // method to the corresponding method (aligned by unchanged-sequence index) in the other 2, re-entrancy-guarded. Reflow after.
+  async syncNativeFold(): Promise<void> {
+    if (!this.monaco || !this.edCenter || this._foldSyncing) return;
+    const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
+    this._foldSyncing = true;
+    try {
+      // Monaco computes the provider's fold ranges ASYNC (after register + content); poll ~2.5s until regions exist,
+      // else the initial collapse no-ops (the R30.53 first-build timing bug: syncNativeFold fired before regions were ready).
+      let cfm = await this._foldingModel(this.edCenter);
+      for (let t = 0; t < 25 && (!cfm || (cfm.regions?.length ?? 0) === 0); t++) { await new Promise(res => setTimeout(res, 100)); cfm = await this._foldingModel(this.edCenter); }
+      for (const [side, ed] of specs) {
+        if (!ed) continue;
+        const fm = await this._foldingModel(ed); if (!fm?.getRegionAtLine) continue;
+        const unchanged = this.keepChangeMethodsExpanded(this.computeMethodRanges(ed.getModel()), side);
+        // Fold via the editor ACTION (controller-driven → renders the chevron + '⋯' placeholder + hides lines). Toggling the
+        // FoldingModel directly changes state but does NOT reconcile the view (measured). 'editor.fold' is idempotent (a
+        // re-fold of an already-folded region is a no-op) so re-running on each merge keeps unchanged methods folded.
+        for (const r of unchanged) { const reg = fm.getRegionAtLine(r.start); if (reg && !reg.isCollapsed) ed.trigger('r3053-fold', 'editor.fold', { selectionLines: [r.start] }); }
+      }
+    } finally { this._foldSyncing = false; }
+    if (!this._foldWired) { // ONGOING mirror — wire once
+      this._foldWired = true;
+      for (const [side, ed] of specs) {
+        if (!ed) continue;
+        const fm = await this._foldingModel(ed); if (!fm?.onDidChange) continue;
+        fm.onDidChange(() => { if (this._foldSyncing) return; void this._mirrorFold(side); });
+      }
+    }
+    this.renderInterPaneGutters(); this.renderConnectorRibbons();
+  }
+
+  // R30.53 uncredited helper (ongoing mirror for syncNativeFold): a fold toggled in editor `src`; mirror each method's
+  // collapse-state to the SAME unchanged-sequence-index method in the other 2 editors (unchanged methods appear in identical
+  // order across all 3). Re-entrancy-guarded via _foldSyncing so the mirrored toggles don't re-fire the sync.
+  private async _mirrorFold(src: 'local' | 'center' | 'remote'): Promise<void> {
+    if (this._foldSyncing) return;
+    const specs: Record<string, any> = { local: this.edLocal, center: this.edCenter, remote: this.edRemote };
+    const srcEd = specs[src]; if (!srcEd) return;
+    const srcFm = await this._foldingModel(srcEd); if (!srcFm?.getRegionAtLine) return;
+    const srcRanges = this.computeMethodRanges(srcEd.getModel());
+    const seq = srcRanges.map((r, i) => ({ i, collapsed: !!srcFm.getRegionAtLine(r.start)?.isCollapsed }));
+    this._foldSyncing = true;
+    try {
+      for (const side of ['local', 'center', 'remote'] as const) {
+        if (side === src) continue; const ed = specs[side]; if (!ed) continue;
+        const fm = await this._foldingModel(ed); if (!fm?.getRegionAtLine) continue;
+        const ranges = this.computeMethodRanges(ed.getModel());
+        for (const { i, collapsed } of seq) {
+          const r = ranges[i]; if (!r) continue;
+          const cur = !!fm.getRegionAtLine(r.start)?.isCollapsed;
+          if (cur !== collapsed) ed.trigger('r3053-mirror', collapsed ? 'editor.fold' : 'editor.unfold', { selectionLines: [r.start] }); // action → view reconciles (chevron/'⋯')
+        }
+      }
+    } finally { setTimeout(() => { this._foldSyncing = false; }, 60); } // delayed reset: swallow the async onDidChange the mirrored fold/unfold fires (else it re-mirrors → loop)
+    this.renderInterPaneGutters(); this.renderConnectorRibbons();
+  }
+
   // [impl:uuid:a0b30550-71c8-4497-9eaf-f73551f7bb0f] RbDiffEditor.computeMergedCenter
   // Base-aware: BASE = GitApi.mergeBase(leftRef,rightRef) content; diff3Merge(local, base, remote) → CENTER starts as
   // the auto-merge (every non-conflicting change applied) + tracks true conflict regions for the gutter. The diff3
@@ -311,6 +430,7 @@ export class RbDiffEditor extends HTMLElement {
     // (updateSaveButtonState: '✓ Saved' green / '💾 Save'). de-status shows ONLY the 2-way mode note — no '• modified'
     // (dropping it removes the double-signal the architect flagged; corrects my earlier mis-report that it was already gone).
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : '');
+    setTimeout(() => void this.syncNativeFold(), 120); // R30.53: after conflicts[] + content settle, collapse UNCHANGED methods synced across 3 (native fold); delay lets Monaco compute the provider's fold ranges
   }
 
   // R30.23 private helper (traceability stays on computeMergedCenter's a0b30550 — one-sided detection is the same
