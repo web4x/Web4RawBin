@@ -592,3 +592,15 @@
   - [ ] **(root)** The 'oosh' RepoRegistry root resolves BY CONSTRUCTION to os.homedir()+'/oosh' - the HOME/oosh SYMLINK path (path.resolve, NOT realpath'd/canonicalized to a fixed worktree), NOT an OOSH_DIR env override. Git FOLLOWS the symlink live, so the header reflects the branch of WHATEVER worktree HOME/oosh currently points to (now mcdonges.latest); if `oo` mode-switch repoints the symlink (dev/macos/prod/mcdonges.latest), the header tracks it DYNAMICALLY. Never a misconfigurable env, never a canonicalized fixed worktree.
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28).
   -> repoRegistry.ooshRootFollowsHomeSymlink [uc:uuid:90f5e309-7ab2-49c6-b679-3ad891d5ab2f]
+
+- [ ] **R30.41 — 3-way merge editor shows per-filetype syntax highlighting in all three panes**
+  [requirement:uuid:b0c21990-3cf5-4e39-8d27-7f00afe688b3]
+  > TRON (v0.7.63): the 3-way merge editors must show correct per-filetype syntax highlighting in all three panes (Local/Result/Repository), driven by the file language, coexisting with the diff/merge change-coloring + spline.
+  The 3-way merge editor shows correct per-filetype SYNTAX HIGHLIGHTING in all three panes (Local/Result/Repository), driven by the file's language, COEXISTING with the diff/merge change-coloring (R30.35 add/delete/modify/conflict) + the continuous spline (R30.34) - neither overrides the other. Language derives from the file's path/extension (otmux=bash, .cs=C#, .ts=typescript). Architect derives the impl approach + current-state in parallel; impl-AC aligns on confirm. crossRef R30.34 (spline) + R30.35 (change-coloring).
+  **Acceptance criteria:**
+  - [ ] **(highlight)** Opening a known filetype highlights keywords/strings/comments CORRECTLY in ALL THREE panes (Local / Result / Repository), driven by the file language (otmux -> bash, .cs -> C#, .ts -> typescript).
+  - [ ] **(highlight)** The language is derived from the file path/extension (per-filetype), not a fixed default; each of the 3 editor models is set to that language.
+  - [ ] **(coexist)** Syntax highlighting COEXISTS with the diff/merge change-block coloring (R30.35 add/delete/modify/conflict) AND the continuous spline (R30.34): all render intact together, neither the tokenizer nor the diff decorations override the other.
+  - [ ] **(impl)** applyLanguage derives the Monaco language id from the left.path extension and calls setModelLanguage(model,id) on all 3 editors at the END of loadSide, mutating the SAME model so R30.35 decorations + R30.34 spline persist (architect-confirmed).
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): open otmux (bash) / a .cs (C#) / a .ts (typescript) -> all 3 panes highlight keywords/strings/comments AND the change-blocks + spline still render intact; client-facing -> version-bump + atomic deploy (R30.28).
+  -> merge.syntaxHighlight [uc:uuid:53400884-78b5-477b-a8fa-945888c26f16]

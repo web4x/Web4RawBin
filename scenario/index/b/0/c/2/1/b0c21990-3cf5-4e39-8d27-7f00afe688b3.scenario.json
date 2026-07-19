@@ -1,0 +1,57 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b0c21990-3cf5-4e39-8d27-7f00afe688b3",
+  "altId": "R30.41",
+  "name": "3-way merge editor shows per-filetype syntax highlighting in all three panes",
+  "description": "The 3-way merge editor shows correct per-filetype SYNTAX HIGHLIGHTING in all three panes (Local/Result/Repository), driven by the file's language, COEXISTING with the diff/merge change-coloring (R30.35 add/delete/modify/conflict) + the continuous spline (R30.34) - neither overrides the other. Language derives from the file's path/extension (otmux=bash, .cs=C#, .ts=typescript). Architect derives the impl approach + current-state in parallel; impl-AC aligns on confirm. crossRef R30.34 (spline) + R30.35 (change-coloring).",
+  "tronQuote": "> TRON (v0.7.63): the 3-way merge editors must show correct per-filetype syntax highlighting in all three panes (Local/Result/Repository), driven by the file language, coexisting with the diff/merge change-coloring + spline.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:53400884-78b5-477b-a8fa-945888c26f16"
+  ],
+  "crossRef": [
+   "ior:instance:53ab62ed-7ced-429a-945f-8b639faa4237",
+   "ior:instance:96634144-2069-4d3d-809c-f804873d7401"
+  ],
+  "crossRefNote": "Syntax highlighting must COEXIST with R30.34 (always-3-columns + spline) and R30.35 (change-block kind-coloring): the Monaco per-language tokenization and the diff decorations render together, neither clobbering the other. New feature -> next-free R30.41.",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron (v0.7.63) via robbin-po; architect deriving impl in parallel",
+   "date": "2026-07-19",
+   "note": "Per-filetype syntax highlighting across all 3 merge panes. Observable ACs from Tron; impl approach (Monaco model language per extension across the 3 editors) + current-state PENDING architect derive - align impl-AC on confirm."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-highlight-3panes",
+    "group": "highlight",
+    "text": "Opening a known filetype highlights keywords/strings/comments CORRECTLY in ALL THREE panes (Local / Result / Repository), driven by the file language (otmux -> bash, .cs -> C#, .ts -> typescript)."
+   },
+   {
+    "id": "AC-language-from-ext",
+    "group": "highlight",
+    "text": "The language is derived from the file path/extension (per-filetype), not a fixed default; each of the 3 editor models is set to that language."
+   },
+   {
+    "id": "AC-coexist",
+    "group": "coexist",
+    "text": "Syntax highlighting COEXISTS with the diff/merge change-block coloring (R30.35 add/delete/modify/conflict) AND the continuous spline (R30.34): all render intact together, neither the tokenizer nor the diff decorations override the other."
+   },
+   {
+    "id": "AC-impl",
+    "group": "impl",
+    "text": "applyLanguage derives the Monaco language id from the left.path extension and calls setModelLanguage(model,id) on all 3 editors at the END of loadSide, mutating the SAME model so R30.35 decorations + R30.34 spline persist (architect-confirmed)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): open otmux (bash) / a .cs (C#) / a .ts (typescript) -> all 3 panes highlight keywords/strings/comments AND the change-blocks + spline still render intact; client-facing -> version-bump + atomic deploy (R30.28)."
+   }
+  ],
+  "implSiteConfirmed": "RbDiffEditor.applyLanguage cd0599ab / Impl 5e0e5cd5: language id from left.path ext -> setModelLanguage on all 3 editors at END of loadSide (same model -> decorations+spline persist). Architect-confirmed."
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

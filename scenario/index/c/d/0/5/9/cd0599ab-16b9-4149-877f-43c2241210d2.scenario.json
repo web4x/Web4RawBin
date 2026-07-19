@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "cd0599ab-16b9-4149-877f-43c2241210d2",
+    "name": "RbDiffEditor.applyLanguage",
+    "implementations": [
+      "ior:instance:5e0e5cd5-bd49-4594-9618-8560e27143c1"
+    ],
+    "tests": [],
+    "designAhead": true,
+    "note": "R30.41 syntax-highlight. Name EXACT for [impl] AST-attach. Architect-confirmed approach: derive the Monaco language id from left.path extension and call m.editor.setModelLanguage(model,id) on all 3 editors at the END of loadSide - mutating the SAME model so the diff decorations (R30.35) + spline (R30.34) PERSIST. Expert builds + tags [impl]; I confirm/re-point name on build."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

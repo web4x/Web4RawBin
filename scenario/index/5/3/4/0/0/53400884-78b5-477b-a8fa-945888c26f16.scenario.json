@@ -1,0 +1,16 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "53400884-78b5-477b-a8fa-945888c26f16",
+  "name": "merge.syntaxHighlight",
+  "description": "Each of the 3 merge panes highlights by the file language via RbDiffEditor.applyLanguage: derive the Monaco language id from left.path extension, setModelLanguage on all 3 editors at the END of loadSide (same model -> diff decorations + spline persist). Architect-confirmed approach.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:cd0599ab-16b9-4149-877f-43c2241210d2",
+  "coveredRequirement": "ior:instance:b0c21990-3cf5-4e39-8d27-7f00afe688b3",
+  "repointNote": "method d9223804 (mountThreePane best-guess) -> cd0599ab (applyLanguage, architect-confirmed impl-site) 2026-07-19; UC renamed diffEditor.perFiletypeSyntaxHighlight -> merge.syntaxHighlight per architect."
+ },
+ "ownerIor": "ior:instance:b0c21990-3cf5-4e39-8d27-7f00afe688b3"
+}
