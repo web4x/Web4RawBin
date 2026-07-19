@@ -2,7 +2,7 @@
 // [test:uuid:4d2260ea-5164-4171-a235-a37b6069263a] R30.50 B RbDiffEditor.applyAllFromSide (Impl 6f5bd6a1) — Local wins → CENTER==Local, Repo wins → CENTER==Repo, openChangeCount→0.
 // [test:uuid:690f963c-f274-4ccd-8a68-781497a802c1] R30.50 C1 RbDiffEditor.saveOrJumpToConflict (Impl b741580e) — open>0 → jump next UNRESOLVED + 'resolve before saving' status, NO write.
 // [test:uuid:5296e852-8b5e-4d7a-88e4-015e6f772e3a] R30.50 C2 RbDiffEditor.updateSaveButtonState (Impl 78f75ba0) — '✓ Saved' green when clean-after-save, resets to '💾 Save' on any edit.
-// [test:uuid:0866205d-5bb6-4dcb-8273-67b0b8843f9a] R30.50 A de-count COMPOSE (impl-edit on renderMergeGutter e24dc98a) — the count composes '(N selected · )?X/Y open conflicts' (N=_jumpIdx+1 on nav, omitted when none). Gate asserts the exact compose text pristine ('X/Y open conflicts') AND after nav ('N selected · X/Y open conflicts'). Distinct R30.50-A-intention Test on e24dc98a alongside the structural 8fa42d89.
+// [test:uuid:0866205d-5bb6-4dcb-8273-67b0b8843f9a] R30.50 A both-counts-shown (impl-edit on renderMergeGutter e24dc98a) — 'N selected' (nav position) + 'X/Y open conflicts' both shown with real values; N=_jumpIdx+1 on nav. NOTE: R30.52 (v0.7.74) RE-LAID this out — the R30.50 COMPOSED single .de-count was SPLIT into .de-selected + .de-open-count (see r3052-toolbar-layout-gate.mjs for the DOM-order/mis-click-buffer assertions). Section A here now asserts the SPLIT (intention preserved: both real, N reflects nav). Distinct R30.50-A-intention Test on e24dc98a alongside structural 8fa42d89. (req: R30.52 supersedes the A COMPOSE rendering — annotate/refresh 0866205d desc if desired.)
 // (applyAllNonConflicting 91c452ae also exercised — rides its existing Test 79139c01.)
 // R30.50 merge-actions gate — v0.7.73 (edit-UQJUZB6W.js), Tron's real 3-way deep-link. DET-3x, screenshot.
 // (A) de-count composes '(N selected · )?X/Y open conflicts' (real openChangeCount/conflicts.length; N=_jumpIdx+1 on nav).
@@ -26,7 +26,7 @@ const clickApplyMode = async (page, rx) => {
   await page.evaluate((r) => { const b = [...document.querySelectorAll('.de-overlay button')].find(x => new RegExp(r, 'i').test(x.textContent || '')); b?.click(); }, rx);
   await sleep(900);
 };
-const read = (page) => page.evaluate(() => { const e = document.querySelector('rb-diff-editor'); return { count: e?.querySelector('.de-count')?.textContent || '', center: e?.edCenter?.getValue?.() ?? '', local: e?.edLocal?.getValue?.() ?? '', remote: e?.edRemote?.getValue?.() ?? '', open: e?.openChangeCount?.() ?? -1, jumpIdx: e?._jumpIdx, saveTxt: e?.querySelector('.de-save')?.textContent || '', saveGreen: e?.querySelector('.de-save')?.classList.contains('de-saved'), status: e?.querySelector('.de-status')?.textContent || '' }; });
+const read = (page) => page.evaluate(() => { const e = document.querySelector('rb-diff-editor'); return { sel: (e?.querySelector('.de-selected')?.textContent || '').trim(), oc: (e?.querySelector('.de-open-count')?.textContent || '').trim(), center: e?.edCenter?.getValue?.() ?? '', local: e?.edLocal?.getValue?.() ?? '', remote: e?.edRemote?.getValue?.() ?? '', open: e?.openChangeCount?.() ?? -1, jumpIdx: e?._jumpIdx, saveTxt: e?.querySelector('.de-save')?.textContent || '', saveGreen: e?.querySelector('.de-save')?.classList.contains('de-saved'), status: e?.querySelector('.de-status')?.textContent || '' }; });
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
 const rows = [];
@@ -43,14 +43,14 @@ try {
     await page.waitForFunction(() => { const e = document.querySelector('rb-diff-editor'); return e?.edCenter?.getValue && (e?.conflicts?.length > 0); }, { timeout: 20000 }).catch(() => {});
     await sleep(600);
 
-    // ── (A) de-count composes '(N selected · )?X/Y open conflicts' ──
+    // ── (A) both counts shown, real (R30.52 re-layout SPLIT them: .de-selected 'N selected' + .de-open-count 'X/Y open conflicts';
+    //     was the R30.50-A composed .de-count — layout retargeted, intention preserved: both counts real, N reflects nav) ──
     const a0 = await read(page);
-    const mNoSel = a0.count.match(/^(\d+)\/(\d+) open conflicts?$/);
-    const aBase = !!mNoSel && Number(mNoSel[1]) === a0.open && Number(mNoSel[2]) > 0;      // pristine: X/Y, real values
-    await page.evaluate(() => document.querySelector('rb-diff-editor')?.jumpToChange?.(1));  // nav → N selected
+    const aBase = /^\d+\/\d+ open conflicts?$/.test(a0.oc) && a0.oc.startsWith(`${a0.open}/`) && a0.sel === ''; // pristine: open-count real, no 'selected' yet
+    await page.evaluate(() => document.querySelector('rb-diff-editor')?.jumpToChange?.(1));  // nav → 'N selected' appears
     await sleep(500);
     const a1 = await read(page);
-    const aNav = /^\d+ selected · \d+\/\d+ open conflicts?$/.test(a1.count) && a1.count.startsWith(`${a1.jumpIdx + 1} selected · `);
+    const aNav = a1.sel === `${a1.jumpIdx + 1} selected` && /^\d+\/\d+ open conflicts?$/.test(a1.oc); // split: N selected + X/Y both shown
     const A = aBase && aNav;
 
     // ── (C1) guarded save: open>0 → jump + status, NO write ──
@@ -89,7 +89,7 @@ try {
 
     const pass = A && B && C1 && C2;
     rows.push(pass);
-    console.log(`iter ${i}: A-count=${A}("${a0.count}"→"${a1.count}") | B-modes=${B}(L=${bModeLocal} R=${bModeRepo} NC=${bModeNC}) | C1-guarded=${C1}(open=${c1.open} jumped status="${c1.status.slice(0, 40)}") | C2-green=${C2}(green=${c2Green} reset=${c2Reset} puts=${putCount}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: A-split=${A}(pristine oc="${a0.oc}" → nav sel="${a1.sel}" oc="${a1.oc}") | B-modes=${B}(L=${bModeLocal} R=${bModeRepo} NC=${bModeNC}) | C1-guarded=${C1}(open=${c1.open} jumped status="${c1.status.slice(0, 40)}") | C2-green=${C2}(green=${c2Green} reset=${c2Reset} puts=${putCount}) => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { await browser.close(); }
