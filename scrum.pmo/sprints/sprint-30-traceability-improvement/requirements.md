@@ -566,3 +566,4 @@
   - [ ] **(gate)** GATE on the REAL deep-link (e.g. /edit/otmux?repo=oosh&left=<ref>&right=<ref>&3way=1): resolve conflicts -> Save succeeds (no 404), the file is written to the OOSH repo's checked-out branch, and the center header reads otmux@<branch>. Verified live; version-bump + atomic deploy (R30.28).
   -> merge.saveToCurrentBranch [uc:uuid:bcc27da9-21da-421e-8d22-f3403d6100f5]
   -> merge.centerHeaderBranch [uc:uuid:abad9982-86de-4962-988f-5957ab96d288]
+  -> merge.currentBranchApi [uc:uuid:9757bf00-1395-4bb3-935b-8e1ca1a2a905]
