@@ -3,7 +3,7 @@
  "model": {
   "uuid": "91da80e8-7365-477b-8570-ef7df7be6b42",
   "name": "test:R30.47 RepoRegistry.load validates-on-load, drops invalid + keeps valid",
-  "description": "Bridged to r3047 gate (DET-3x 8269634c0 GREEN v0.7.67). Gate A.validate-on-load-drops: writes builtin-collision + malformed + out-of-bounds + valid; load() drops the 3 invalid, keeps the valid. Drops-invalid/keeps-valid behavior PRESERVED. \u26a0 load() REWRITTEN v0.7.70 (\u00a710.1 .git-existence stale-drop REPLACES the allowlist drop) -> re-gate at served v0.7.71 recommended before formal credit. Covers R30.47 load.",
+  "description": "Bridged to r3047-repo-manager-security-gate.ts. Gate A.validate-on-load-drops: writes builtin-collision + malformed + out-of-bounds + valid; load() drops the 3 invalid, keeps the valid. \u2713 RE-GATED at served v0.7.71 (commit 1e6ffa99f, GREEN DET-3x) \u2014 gate UPDATED to the \u00a710.1 .git-existence stale-drop; served==gated RESOLVED. Covers R30.47 load.",
   "sourceFile": "ior:file:test/visual/r3047-repo-manager-security-gate.ts",
   "implementations": [
    "ior:instance:2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08"

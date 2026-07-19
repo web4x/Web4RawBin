@@ -12,8 +12,8 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -46,15 +46,15 @@ S30 diff/merge editor — R30.47 RepoRegistry foundation: the dynamic/persisted/
 
 ## Acceptance Criteria
 
-- [ ] (D1) The registry supports runtime register/unregister (not a fixed compile-time allowlist).
-- [ ] (D1) The registry persists (persist) + reloads on startup (load) so registered repos survive a restart.
-- [ ] (D1) Every candidate root routes through the assertAllowedRoot choke point (register + load) — bounds enforced at ONE wired place.
-- [ ] (D1) Supersedes the R30.40 static ROOTS: the oosh root now lives in the dynamic registry, still resolving HOME/oosh by construction (symlink-follow preserved).
-- [ ] (gate) GATE (DET-3x): register a root → appears + persists across restart (load); an out-of-bounds root is rejected at the choke; version-bump.
+- [x] (mechanism) Runtime register/unregister (not a compile-time allowlist) — Tested (register c8529e2a + unregister 6f6edecd via module-import builtin-refused), r3047 re-gate GREEN v0.7.71.
+- [x] (mechanism) Persists + reloads on startup (persist/load) so repos survive restart — Tested (persist 09c60094 + load 91da80e8), re-gate GREEN.
+- [x] (§10.1 mechanism/policy separation) Spine is PURE MECHANISM: register=pure store (no policy throw), load=keep-iff-.git-present (stale-drop by existence, NOT an allowlist), resolve=pure lookup (no TOCTOU). The D1 bounds policy (assertAllowedRoot) is a BACKLOG endpoint-guard (R30.48/BH-3), NOT in the registry mechanism — separation achieved.
+- [x] (supersede) Supersedes R30.40 static ROOTS: oosh root lives in the dynamic registry, still resolving HOME/oosh by construction (symlink-follow preserved) — gated.
+- [x] (gate) DET-3x GREEN at SERVED v0.7.71 (re-gate 1e6ffa99f, served==gated): register->appears+persists across restart (load); assertAllowedRoot choke-LOGIC rejects out-of-bounds (gate B; enforcement deferred to R30.48); version-bump.
 
 ## Implementation
 
-BUILT v0.7.67 (cfb8ba85c), 7 methods marked — implementing done, TESTING in flight. No tester DET-3x GREEN cited yet → stays In Progress (NOT QA-Review) until the gate lands. Foundation for R30.42-45 (whose observable endpoints remain Tron-ratify HARD-gated).
+QA-REVIEW: R30.47 pure-mechanism spine. Chain-to-Test COMPLETE both-directions — register c8529e2a / persist 09c60094 / load 91da80e8 / unregister 6f6edecd (correct-by-construction off gate 8269634c0). ✓ SERVED==GATED RESOLVED: fresh-tester re-gated r3047 GREEN DET-3x at served v0.7.71 (1e6ffa99f, current-module re-import; §10.1 .git-stale-drop + D1-dormant captured). 5/5 ACs honest (D1 enforcement deferred to R30.48 per AC3, tracked BH-3). Internal-foundation gate (DET-3x, not Tron-visual) -> Done via architect+PO.
 
 ## Subtasks
 
