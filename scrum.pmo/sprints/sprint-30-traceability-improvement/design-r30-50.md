@@ -14,6 +14,7 @@
 - **EDGE:** `_jumpIdx=-1` (nothing navigated) → omit the `N selected · ` prefix (show the open-count alone).
 - **openChangeCount VALUE + DISPLAY both RETAINED** (Tron: keep both counts). The old `• modified` dirty suffix MIGRATES to the Save button (C2 owns saved/unsaved via green/default) — removed from .de-count to avoid duplicating C2's signal.
 - Marker: **impl-edit e24dc98a**. (req dropped the proposed updateChangeIndicator 0bf3581c — correct, not an extract.)
+- **⚠ SUPERSEDED BY R30.52 (v0.7.74) — UC-A is DONE, do NOT build it here.** R30.52 already realized A on the SAME e24dc98a chain, but as a **2-element SPLIT** (renderMergeGutter :409-412): `.de-selected` = `N selected` (when `_jumpIdx>=0`) + `.de-open-count` = `X/Y open conflicts`, repositioned (open-count as an anti-mis-click buffer between ▼ and ✓). Both counts kept = A's Tron-ruled deliverable. **The R30.50 build must SKIP UC-A** — building the single-`.de-count` compose above would DELETE R30.52's split + buffer (regression). A's AC is satisfied via R30.52. **C2 reconcile:** confirm where `• modified` lives after the split so the Save-button green/default doesn't double-signal. → R30.50 build scope = C2 + C1 + B only.
 
 ### UC-B merge.applyAllBySide — NEW openApplyAllMenu + NEW applyAllFromSide(side)
 - **ACs:** AC-B-popup (button opens a popup with 2 modes), AC-B-left-wins (CENTER matches LEFT file = LEFT wins), AC-B-right-wins (CENTER matches RIGHT file = RIGHT wins), AC-B-scope-flag (reconcile label — PO ruling).
