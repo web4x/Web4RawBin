@@ -1,0 +1,55 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 30.38: Merge Save writes to the diff's repo / current branch (no save-404)
+
+[task:uuid:87e61eb9-b9c5-470b-a989-b209ec8414bb]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 30 Planning](./planning.md)
+    - Requirement R30.38 `[requirement:uuid:4aa5ec49-34f0-41a5-b19e-5530cae2ad34]`
+  - crossRef
+    - R30.6.7 RepoRegistry (repo KEY) + T30.9 (save-test, deferred pollution-safe)
+  - down
+    - [UC saveToCurrentBranch](./planning.md) `[uc:uuid:bcc27da9-21da-421e-8d22-f3403d6100f5]` + [UC centerHeaderBranch](./planning.md) `[uc:uuid:abad9982-86de-4962-988f-5957ab96d288]` + [UC currentBranchApi](./planning.md) `[uc:uuid:9757bf00-1395-4bb3-935b-8e1ca1a2a905]`
+
+## Task Description
+
+The merge Save routes the PUT through the DIFF'S repo (the repo the file lives in, e.g. OOSH), not always rawbin — fixing the save-404. The server /api/files PUT accepts the repo KEY (?repo=<key>, R30.6.7 RepoRegistry allowlist) + writes the file (writeFile write-half). The CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<currentBranch>). With all conflicts resolved, Save SUCCEEDS (HTTP 200) — no 'save failed' 404.
+
+## Context
+
+Covers R30.38 (4aa5ec49) -> 3 UCs: merge.saveToCurrentBranch (bcc27da9 -> save 11a8ea6e -> Impl a88b2b53) + centerHeaderBranch (abad9982 -> setCenterTitle 41504f5f) + currentBranchApi (9757bf00 -> GitApi.currentBranch a2cbd78e). Class RbDiffEditor 18165081 + GitApi. ⚠ WRITE-HALF: architect caught 1 more marker being minted — the server-side writeFile (the PUT /api/files write half); FOLD IT IN when it lands (repo-key-routed writeFile). ⚠ NOTE: save() a88b2b53 now carries Test 4e2c8f10 (the save-404 gate on Tron's real deep-link) — may relate to T30.9's deferred pollution-safe save-test (flag PO).
+
+## Intention
+
+S30 diff/merge editor, R30.38 (Tron post-arc: the deep-linked merge Save was 404ing because it routed to the wrong repo). Save must land in the diff's own repo/branch.
+
+## Acceptance Criteria
+
+- [x] (repo-route) The merge Save routes the PUT through the DIFF'S repo (the repo the file lives in, e.g. OOSH), not always rawbin
+- [x] (repo-key) The server save PUT endpoint (/api/files PUT) accepts the repo KEY (?repo=<key>, R30.6.7 RepoRegistry allowlist) + writes the file (writeFile)
+- [x] (header) The CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<currentBranch>) reflecting the diff's repo/branch
+- [x] (succeeds) With all conflicts resolved, pressing Save SUCCEEDS (HTTP 200, file written) - no 'save failed' 404
+- [x] (gate) GATE on the REAL deep-link (e.g. /edit/otmux?repo=oosh&left=<ref>&right=<ref>&3way=1): resolve + Save -> 200, correct repo/branch; DET-3x [bee2ce7c0 v0.7.61]
+
+## Implementation
+
+QA-REVIEW (prod v0.7.61, gate-GREEN + chain-complete). Gate: save-404 fix GREEN DET-3x on Tron's REAL deep-link (bee2ce7c0, /edit/otmux?repo=oosh&...&3way=1: save succeeds 200, correct repo). Chain-to-Test CLOSED (verified, not relayed): save Impl a88b2b53 -> Test 4e2c8f10; setCenterTitle Impl 41504f5f -> Test 8c68c361; GitApi.currentBranch Impl a2cbd78e -> Test 3d82c2c8 (2 header Test hops wired 425a012a8, chain 100%). Markers source-only (comment markers, dist stays edit-CYBX5O6I.js, gated hash intact — 74a48d17a; e98a18cea restored [impl a88b2b53] onto save() after an orphan). ⚠ WRITE-HALF marker (server writeFile) being minted (architect-caught) — fold in when it lands. served==gated v0.7.61. 5/5 ACs gate-proven. HELD per rule#9 -> AWAITING Tron VISUAL verify -> Done.
+
+## Subtasks
+
+None (atomic task). Write-half (server writeFile) marker folds in when architect/expert land it.

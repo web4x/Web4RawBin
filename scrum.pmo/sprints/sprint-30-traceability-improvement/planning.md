@@ -61,3 +61,4 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [ ] [Task 30.35: Diff coloring by kind + per-block merge-action MATRIX (WORKS/BROKEN validation)](./task-30.35-coloring-and-merge-action-matrix.md)
 - [ ] [Task 30.36: Diff-nav aids — brighter current-change on up/down + open-changes count](./task-30.36-diff-nav-aids.md)
 - [ ] [Task 30.37: Per-change RESOLVED-state toggle (green checkmark, outlined=unresolved / solid=resolved)](./task-30.37-resolved-state-toggle.md)
+- [ ] [Task 30.38: Merge Save writes to the diff's repo / current branch (no save-404)](./task-30.38-merge-save-repo-routing.md)
