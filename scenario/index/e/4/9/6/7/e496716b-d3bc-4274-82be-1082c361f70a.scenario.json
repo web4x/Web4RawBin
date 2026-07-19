@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e496716b-d3bc-4274-82be-1082c361f70a",
+  "name": "repoManage.deleteRemovable",
+  "description": "From the repo manage panel, a DYNAMIC (user-added) repo can be deleted: it is removed from the RepoRegistry (RepoRegistry.unregister, pure-mechanism dynamic-only) and disappears from the repo selector. A BUILTIN (rawbin, oosh) is NEVER removable (no delete affordance; unregister no-ops/rejects a builtin key). V1 read-auth only (no admin-key; D4 requireAdmin stays deferred, R30.48). Server mechanism REUSES the built RepoRegistry.unregister (Impl 559b508b); the remaining build is UI wiring (delete button -> unregister), which holds for PO green-light.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:8611520d-a470-44ff-8460-25eed7d72f0f",
+  "coveredRequirement": "ior:instance:37b58836-2e9c-4de3-ac53-6e3289b48203"
+ },
+ "ownerIor": "ior:instance:37b58836-2e9c-4de3-ac53-6e3289b48203"
+}

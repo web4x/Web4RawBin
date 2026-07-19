@@ -1,0 +1,51 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "37b58836-2e9c-4de3-ac53-6e3289b48203",
+  "altId": "R30.49",
+  "name": "A dynamic repo is deletable from the manage panel; builtins are never removable",
+  "description": "In the repo-manager manage panel, a DYNAMIC (user-added) repo MUST be deletable: deleting it removes it from the RepoRegistry (reusing the built pure-mechanism RepoRegistry.unregister) so it disappears from the repo selector. A BUILTIN repo (rawbin, oosh) MUST NEVER be removable - the delete affordance is absent/disabled for builtins and unregister no-ops/rejects a builtin key. V1 uses read-auth only (no admin-key); D4 requireAdmin stays deferred (R30.48 backlog) until multi-user/exposed. The server mechanism is already BUILT + gated (RepoRegistry.unregister, Impl 559b508b, R30.47 spine); re-activation = wiring the manage-panel delete button to unregister. BUILD holds for PO green-light to expert.",
+  "tronQuote": "> (Repo-manager V1 manage-panel delete, approved by robbin-po: a dynamic repo is deletable from the manage panel and disappears from the selector; a builtin is never removable; V1 read-auth, D4 deferred.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:e496716b-d3bc-4274-82be-1082c361f70a"
+  ],
+  "crossRef": [
+   "ior:instance:b6b21710",
+   "ior:instance:b87eb99a"
+  ],
+  "crossRefNote": "REUSES built pure-mechanism RepoRegistry.unregister (Method 8611520d / Impl 559b508b, R30.47 spine b87eb99a). Manage-panel host = R30.45 (b6b21710). Delete is dynamic-only by construction (unregister drops dynamic keys; builtins are static in the registry seed). D4 admin-auth deferred (R30.48).",
+  "discoverySource": {
+   "type": "po-approved-feature",
+   "flaggedBy": "robbin-po (repo-manager V1 wave)",
+   "date": "2026-07-19",
+   "note": "Manage-panel delete for dynamic repos, approved by robbin-po. Minted scenario-first for the refreshed team; REUSES the built RepoRegistry.unregister mechanism. BUILD (wire delete UI) holds for PO green-light to expert."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-delete-dynamic",
+    "group": "delete",
+    "text": "A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister; after delete it is gone from the RepoRegistry AND from the repo selector."
+   },
+   {
+    "id": "AC-builtin-safe",
+    "group": "guard",
+    "text": "A BUILTIN repo (rawbin, oosh) is NEVER removable: the delete affordance is absent/disabled for builtins, and unregister no-ops/rejects a builtin key (builtins stay in the selector)."
+   },
+   {
+    "id": "AC-readauth",
+    "group": "auth",
+    "text": "V1 delete uses read-auth only (no admin-key). D4 requireAdmin stays deferred (R30.48 backlog) until multi-user / exposed deployment."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE: add a dynamic repo -> delete it from the manage panel -> it is gone from selector + registry; attempt to delete a builtin -> rejected/absent (builtin still listed). Verified live."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

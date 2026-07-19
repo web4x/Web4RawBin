@@ -702,3 +702,14 @@
   - [ ] **(backlog)** [BACKLOG] Before exposed deployment: re-activate requireAdmin (D4) so all registry writes (register/unregister/clone) require the admin-key.
   - [ ] **(backlog)** [BACKLOG] If/when clone (R30.44) ships: re-activate assertAllowedUrl (D2) clone-URL SSRF host-allowlist (WHATWG new URL, https/ssh, no-password, username empty-or-git, exact-host).
   - [ ] **(backlog)** [BACKLOG] The V1=trusted-local posture is documented so the exposed-deployment transition cannot silently skip re-activation.
+
+- [ ] **R30.49 — A dynamic repo is deletable from the manage panel; builtins are never removable**
+  [requirement:uuid:37b58836-2e9c-4de3-ac53-6e3289b48203]
+  > (Repo-manager V1 manage-panel delete, approved by robbin-po: a dynamic repo is deletable from the manage panel and disappears from the selector; a builtin is never removable; V1 read-auth, D4 deferred.)
+  In the repo-manager manage panel, a DYNAMIC (user-added) repo MUST be deletable: deleting it removes it from the RepoRegistry (reusing the built pure-mechanism RepoRegistry.unregister) so it disappears from the repo selector. A BUILTIN repo (rawbin, oosh) MUST NEVER be removable - the delete affordance is absent/disabled for builtins and unregister no-ops/rejects a builtin key. V1 uses read-auth only (no admin-key); D4 requireAdmin stays deferred (R30.48 backlog) until multi-user/exposed. The server mechanism is already BUILT + gated (RepoRegistry.unregister, Impl 559b508b, R30.47 spine); re-activation = wiring the manage-panel delete button to unregister. BUILD holds for PO green-light to expert.
+  **Acceptance criteria:**
+  - [ ] **(delete)** A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister; after delete it is gone from the RepoRegistry AND from the repo selector.
+  - [ ] **(guard)** A BUILTIN repo (rawbin, oosh) is NEVER removable: the delete affordance is absent/disabled for builtins, and unregister no-ops/rejects a builtin key (builtins stay in the selector).
+  - [ ] **(auth)** V1 delete uses read-auth only (no admin-key). D4 requireAdmin stays deferred (R30.48 backlog) until multi-user / exposed deployment.
+  - [ ] **(gate)** GATE: add a dynamic repo -> delete it from the manage panel -> it is gone from selector + registry; attempt to delete a builtin -> rejected/absent (builtin still listed). Verified live.
+  -> repoManage.deleteRemovable [uc:uuid:e496716b-d3bc-4274-82be-1082c361f70a]
