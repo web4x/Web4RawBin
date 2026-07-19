@@ -45,14 +45,14 @@ S30 diff/merge editor — R30.46 working-file-as-left (Tron #1): the diff's left
 ## Acceptance Criteria
 
 - [x] (W1) A 'latest'/'working' pseudo-ref resolves to the current on-disk working file (incl uncommitted) — loadSide reads raw via /api/files, not git show; resolveBase treats working/'' as no-ref (2-way).
-- [x] (W2) Saving with left=working writes the on-disk working file (reuses R30.38 save PUT) — round-trips to disk, locked by a Test.
+- [x] (W2) Saving with left=working writes the on-disk working file — round-trips to disk, locked by Test 7a0dc2b6 (real edit->Save->fs-read persistence; 4e2c8f10 = R30.38 routing probe).
 - [x] (W3 flip) Opening a diff DEFAULTS left=working + right=HEAD, pinned + shown first (openFromParams/showDiff; _pinnedLeft suppresses the R30.17 promote).
 - [ ] (W4 optional — PARKED, out-of-scope) The left picker is repurposed to choose the RIGHT compare-ref — DEFERRED (f2bdca27 design-ahead, no code).
 - [ ] (gate) GATE — DET-3x GREEN ✓ (r3046-working-file-gate.mjs, tester 6213d022a, served==gated v0.7.68); Tron VISUAL pending. Full gate: /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 → left shows the live working file, edit+save round-trips, bare open defaults left=working; client-facing → version-bump.
 
 ## Implementation
 
-QA-REVIEW: r3046-working-file-gate.mjs GREEN DET-3x (tester 6213d022a). Chain-to-Test complete BOTH-directions: W1 loadSide b7b6fcb6<->eaaa2469 / W2 save rides R30.38 a88b2b53<->4e2c8f10 (no-code confirm) / W3 openFromParams 0eb17ebd<->53d94d46. served==gated v0.7.68. W4 refPickerLatest PARKED (optional/out-of-scope; f2bdca27 design-ahead, no code). HELD rule#9 -> awaiting Tron VISUAL (left=latest working-file diff) -> Done.
+QA-REVIEW: r3046-working-file-gate.mjs GREEN DET-3x (tester 6213d022a). Chain-to-Test complete BOTH-directions: W1 loadSide b7b6fcb6<->eaaa2469 / W2 save round-trip a88b2b53<->7a0dc2b6 (real edit->Save->fs-read persistence lock, r3046; 4e2c8f10 = R30.38 non-writing routing probe, both wired on the save Impl) / W3 openFromParams 0eb17ebd<->53d94d46. served==gated v0.7.68. W4 refPickerLatest PARKED (optional/out-of-scope; f2bdca27 design-ahead, no code). HELD rule#9 -> awaiting Tron VISUAL (left=latest working-file diff) -> Done.
 
 ## Subtasks
 
