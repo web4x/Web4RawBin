@@ -3,7 +3,9 @@
   "model": {
     "uuid": "0360d7e2-9962-4976-b60a-a026b821bb6e",
     "name": "RbDiffEditor.populateHistory R30.39 repo-aware history-fill impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:48cf6080-491c-4b5c-ab6c-ed4e0d5dde17"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.63 (5de695c89): private async populateHistory() (rb-diff-editor.ts:855) fetches git log --follow + fills the .de-history <option>s, WITHOUT the promote-to-right or auto-load-default -> deep-link refs stay INTACT. Called from openFromParams:790 so a ?repo URL preselect drives the SAME file-history update path as a manual selector switch (AC-behavior-identical). Marker [impl:uuid:0360d7e2] on the decl (verified name-match, heads decl). populateLeftHistory 751934c1 kept INTACT (mild fill duplication; caller-refactor is an optional follow-up)."

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "48cf6080-491c-4b5c-ab6c-ed4e0d5dde17",
+    "name": "test:R30.39 deep-link history-fill parity (populateHistory)",
+    "description": "Bridged to test/visual/r3041-repo-seed-branch-gate.mjs (DET-3x, commit 99fe03e46). On the ?repo deep-link the LEFT .de-history filled 80 oosh git-log --follow entries AND the deep-link refs stayed INTACT (L=516ebb3 R=dev, no promote/auto-load clobber) - identical to a manual switch (AC-behavior-identical history path).",
+    "sourceFile": "ior:file:test/visual/r3041-repo-seed-branch-gate.mjs",
+    "implementations": [
+      "ior:instance:0360d7e2-9962-4976-b60a-a026b821bb6e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0360d7e2-9962-4976-b60a-a026b821bb6e"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d3d9f8f5-c85b-487a-baa7-c276ec0ee4ee",
+    "name": "test:R30.39 ?repo seeds BOTH repo selectors (populateRepos)",
+    "description": "Bridged to test/visual/r3041-repo-seed-branch-gate.mjs (DET-3x, commit 99fe03e46, RED->GREEN). Deep-link ?repo=oosh -> BOTH .de-repo selectors read oosh on load (verified L=oosh R=oosh), no manual set. Covers AC-seed-both/AC-no-manual + AC-behavior-identical (preselect reaches the same de-repo value as a manual switch).",
+    "sourceFile": "ior:file:test/visual/r3041-repo-seed-branch-gate.mjs",
+    "implementations": [
+      "ior:instance:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3"
+}

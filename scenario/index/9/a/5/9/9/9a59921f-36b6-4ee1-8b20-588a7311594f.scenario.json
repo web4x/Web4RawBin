@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9a59921f-36b6-4ee1-8b20-588a7311594f",
+    "name": "test:R30.40 center header = HOME/oosh actual branch, dynamic (ROOTS.oosh)",
+    "description": "Bridged to test/visual/r3041-repo-seed-branch-gate.mjs (DET-3x, commit 99fe03e46). Center header = otmux@mcdonges.latest, asserted DYNAMICALLY == git -C $(readlink -f ~/oosh) branch --show-current - the HOME/oosh symlink current worktree, NOT hardcoded, NOT dev-teampush-astray. Covers AC-correct-clone/AC-dynamic-branch/AC-not-stale.",
+    "sourceFile": "ior:file:test/visual/r3041-repo-seed-branch-gate.mjs",
+    "implementations": [
+      "ior:instance:9b95b458-9118-44cc-959d-870c6fe1f9d0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9b95b458-9118-44cc-959d-870c6fe1f9d0"
+}
