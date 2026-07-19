@@ -1,3 +1,4 @@
+// [test:uuid:1dfe3d0f-6193-4525-b6f1-b63cebfd1812] R30.53 BUG-2 fold-affordance (Impl 2de3411f foldByMethodBoundaries) — every method-def at ALL scroll positions (incl the all-unchanged tail below the last change) has a foldable range: computeMethodRanges (its FoldingRangeProvider helper) must NOT desync the brace-parser on the CENTER both-versions duplication. Measured via the folding MODEL (engine-independent): detection reaches the tail, gap(methods−foldRanges)≤50 all panes. RED v0.7.79 (CENTER 20/104, gap 2528) → GREEN v0.7.81 (104/104, gap 0, signature/indent boundaries). Codicon chevron RENDER → Tron real-WebKit device.
 // R30.53 BUG-2 — fold affordance MISSING for methods below a boundary (Tron device-QA v0.7.79).
 // Root (measured DET): computeMethodRanges' NAIVE brace-depth parser desyncs on the CENTER both-versions render
 // (a changed method shows its signature-open line TWICE = two '{' but one '}', e.g. L1326/1328 currentSession) → depth
