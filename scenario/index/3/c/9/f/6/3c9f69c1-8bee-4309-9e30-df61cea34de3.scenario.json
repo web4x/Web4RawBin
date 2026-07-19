@@ -50,7 +50,7 @@
    {
     "id": "AC-sec-clone-url",
     "group": "security",
-    "text": "RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport). [REFINEMENT pending architect ratify, expert §9 correction v0.7.67]: additionally reject credential/password-embedding URLs and allow only the git username (ssh://git@github.com OK) - align on ratify."
+    "text": "RATIFIED D2 (architect §9 Guard-2, built GitApi.assertAllowedUrl v0.7.67): The clone URL is validated by GitApi.assertAllowedUrl using the WHATWG URL parser (new URL(); NEVER legacy url.parse - its authority split is @-confusion-prone). ACCEPTED iff ALL hold: (a) scheme in {https, ssh} only (reject http/file/git/ext); (b) NO password component; (c) username is EMPTY (anonymous https) OR exactly \"git\" (ssh) - any other username rejected; (d) hostname EXACTLY matches an entry in HOST_ALLOW {github.com, <TEAM_GIT_HOST>}. Otherwise -> 400. The clone subprocess additionally runs env GIT_ALLOW_PROTOCOL=https:ssh + -c protocol.file.allow=never (defense-in-depth vs redirect/submodule escape). Exact-host is the PRIMARY @-confusion/SSRF defense: WHATWG sets host = substring after the LAST @, so credential-confusion forms (e.g. https://github.com@evil.com) resolve host=evil.com and are rejected."
    },
    {
     "id": "AC-sec-auth",
@@ -63,12 +63,22 @@
     "text": "RATIFIED D4: registration is an admin-key-gated write; a failed clone leaves NOTHING half-registered (atomic)."
    },
    {
+    "id": "AC-sec-url-empty-username",
+    "group": "security",
+    "text": "RATIFIED D2 invariant (must-hold, mirror of the R30.39 over-reject bug): EMPTY username MUST remain ALLOWED - the rule is \"reject if username && username!==git\", NOT \"require username===git\" (else it re-breaks anonymous https clones). An anonymous https URL (no username) is ACCEPTED."
+   },
+   {
+    "id": "AC-sec-url-whatwg-parser",
+    "group": "security",
+    "text": "RATIFIED D2 invariant (must-hold): the URL parser MUST be WHATWG new URL() (never legacy url.parse) - with both invariants held there is NO residual SSRF hole."
+   },
+   {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key. D2 URL-guard RATIFIED verbatim by architect §9 (WHATWG new URL, scheme https/ssh, no-password, username empty-or-git, exact-host allowlist; +GIT_ALLOW_PROTOCOL/protocol.file.allow=never)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

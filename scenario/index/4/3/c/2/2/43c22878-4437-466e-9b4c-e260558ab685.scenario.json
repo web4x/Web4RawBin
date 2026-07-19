@@ -7,7 +7,7 @@
       "ior:instance:4fb69bb5-fc16-46ea-b3ae-a81318ca7b66"
     ],
     "tests": [],
-    "note": "R30.47 UC8 D2 guard. Name EXACT for [impl] AST-attach. BUILT v0.7.67 (cfb8ba85c, server.ts): GitApi.assertAllowedUrl = UC8 D2 clone-URL guard - host-allowlist (github.com+team) + https/ssh only (reject file/git/ext). EXPERT §9 CORRECTION (flagged to architect to RATIFY): reject-password + allow-only-git-username, so ssh://git@github.com works but credential-embedding URLs are rejected. Name-matched decl (server.ts:519). Marker on the decl source-only."
+    "note": "R30.47 UC8 D2 guard. Name EXACT for [impl] AST-attach. RATIFIED verbatim (architect §9): WHATWG new URL; scheme https/ssh; no password; username empty-or-exactly-git; exact-host HOST_ALLOW; +GIT_ALLOW_PROTOCOL=https:ssh, protocol.file.allow=never. Empty-username MUST stay allowed (R30.39 over-reject mirror)."
   },
   "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
 }
