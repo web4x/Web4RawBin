@@ -62,18 +62,29 @@ try {
     const driftOk = driftPx !== null && driftPx >= 0 && driftPx <= 1;
 
     if (it === 1) { await page.screenshot({ path: `${OUT}/parity-iter1.png` }).catch(() => {}); }
-    const pass = parityOk && driftOk;
-    rows.push({ pass, parityOk, driftOk, shared: shared.length, desyncN: desyncs.length, sampleDesync: desyncs.slice(0, 3).map(x => x.slice(0, 32)), addLine, driftPx });
-    console.log(`iter ${it}: parity=${parityOk}(${desyncs.length}/${shared.length} desync) | downstream-drift=${driftOk}(${driftPx}px, addLine=${addLine}) | desync-ex=${JSON.stringify(desyncs.slice(0, 2).map(x => x.slice(0, 28)))} => ${pass ? 'GREEN' : 'RED'}`);
+
+    // FIX-B lever: after a manual toggle the raw-index _mirrorFold must NOT add desync → re-measure parity post-toggle
+    await page.evaluate(async () => { const e = document.querySelector('rb-diff-editor'); const fm = await e.edCenter.getContribution('editor.contrib.folding').getFoldingModel(); for (let i = 0; i < fm.regions.length; i++) { if (fm.regions.isCollapsed(i)) { const ln = fm.regions.getStartLineNumber(i); e.edCenter.setPosition({ lineNumber: ln, column: 1 }); e.edCenter.getAction('editor.unfold').run(); break; } } });
+    await sleep(800);
+    const s2 = await page.evaluate(PROBE);
+    const L2 = bySig(s2.L), C2 = bySig(s2.C), R2 = bySig(s2.R);
+    const shared2 = [...C2.keys()].filter(sig => L2.has(sig) && R2.has(sig));
+    const desyncs2 = shared2.filter(sig => { const l = L2.get(sig).collapsed, c = C2.get(sig).collapsed, r = R2.get(sig).collapsed; return !(l === c && c === r); });
+    const parityAfterToggleOk = desyncs2.length === 0;
+
+    const pass = parityOk && driftOk && parityAfterToggleOk;                 // FIX-A (initial) + row-drift + FIX-B (toggle)
+    rows.push({ pass, parityOk, driftOk, parityAfterToggleOk, shared: shared.length, desyncN: desyncs.length, desyncN2: desyncs2.length, sampleDesync: desyncs.slice(0, 3).map(x => x.slice(0, 32)), addLine, driftPx });
+    console.log(`iter ${it}: INITIAL-parity=${parityOk}(${desyncs.length}/${shared.length}) [FIX-A] | downstream-drift=${driftOk}(${driftPx}px) | POST-TOGGLE-parity=${parityAfterToggleOk}(${desyncs2.length}/${shared2.length}) [FIX-B] | desync-ex=${JSON.stringify(desyncs.slice(0, 2).map(x => x.slice(0, 28)))} => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { await browser.close(); }
 
 console.log('\n===== R30.53b left-pane fold PARITY after add-block (@iPhone-12, DET-3x, v0.7.78) =====');
 console.log(`  DET-3x: ${rows.map((r, i) => `${i + 1}:${r.pass ? 'G' : 'R'}`).join(' ')}`);
-console.log(`  fold-state PARITY L/C/R (all shared unchanged methods): ${rows.every(r => r.parityOk) ? 'GREEN' : 'RED (' + rows[0].desyncN + '/' + rows[0].shared + ' desync)'}`);
-console.log(`  downstream 0px row-drift:                                ${rows.every(r => r.driftOk) ? 'GREEN' : 'RED (' + rows[0].driftPx + 'px)'}`);
+console.log(`  [FIX-A] INITIAL-load parity L/C/R (no interaction): ${rows.every(r => r.parityOk) ? 'GREEN' : 'RED (' + rows[0].desyncN + '/' + rows[0].shared + ' desync — keepChangeMethodsExpanded per-pane clip)'}`);
+console.log(`  downstream 0px row-drift:                            ${rows.every(r => r.driftOk) ? 'GREEN' : 'RED (' + rows[0].driftPx + 'px)'}`);
+console.log(`  [FIX-B] POST-TOGGLE parity L/C/R (mirror):           ${rows.every(r => r.parityAfterToggleOk) ? 'GREEN' : 'RED (' + rows[0].desyncN2 + ' desync — _mirrorFold raw-index :389)'}`);
 console.log('  ⚠ pure codicon RENDER still → Tron real-WebKit (chromium renders 0 fold chevrons).');
 const green = rows.length === 3 && rows.every(r => r.pass);
-console.log('OVERALL:', green ? 'GREEN DET-3x (left-pane fold parity + downstream 0px)' : 'RED (bug reproduces — left-pane fold desync after add-block)');
+console.log('OVERALL:', green ? 'GREEN DET-3x (initial+toggle parity + downstream 0px)' : 'RED (two-mechanism desync: FIX-A initial-clip + FIX-B mirror-index)');
 process.exitCode = green ? 0 : 1;
