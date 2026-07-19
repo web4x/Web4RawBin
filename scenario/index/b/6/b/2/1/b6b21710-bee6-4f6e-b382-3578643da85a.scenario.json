@@ -43,11 +43,22 @@
     "text": "After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40)."
    },
    {
+    "id": "AC-sec-switch-bounds",
+    "group": "security",
+    "text": "[PENDING Tron ratify] Worktree switching only repoints among the repo OWN ratified worktrees (bounded) - not an arbitrary path; consistent with R30.40 HOME/oosh symlink-follow."
+   },
+   {
+    "id": "AC-sec-auth",
+    "group": "security",
+    "text": "[PENDING Tron ratify] Managing/switching is gated by the ratified authorization model."
+   },
+   {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump."
    }
-  ]
+  ],
+  "securitySurface": "SECURITY SURFACE (PO -> Tron ratify BEFORE expert build; ACs below are [PENDING Tron ratify] - the surface is enumerated correct-by-construction so nothing is missed; specific decisions align to Tron ratification): path-bounds, auth, clone-location, persistence."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

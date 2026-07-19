@@ -43,11 +43,32 @@
     "text": "Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered)."
    },
    {
+    "id": "AC-sec-clone-location",
+    "group": "security",
+    "text": "[PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning."
+   },
+   {
+    "id": "AC-sec-clone-url",
+    "group": "security",
+    "text": "[PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface."
+   },
+   {
+    "id": "AC-sec-auth",
+    "group": "security",
+    "text": "[PENDING Tron ratify] Cloning is gated by the ratified authorization model."
+   },
+   {
+    "id": "AC-sec-persistence",
+    "group": "security",
+    "text": "[PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered."
+   },
+   {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump."
    }
-  ]
+  ],
+  "securitySurface": "SECURITY SURFACE (PO -> Tron ratify BEFORE expert build; ACs below are [PENDING Tron ratify] - the surface is enumerated correct-by-construction so nothing is missed; specific decisions align to Tron ratification): path-bounds, auth, clone-location, persistence."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

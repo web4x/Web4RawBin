@@ -623,6 +623,9 @@
   - [ ] **(add)** The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
   - [ ] **(add)** After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
   - [ ] **(security)** The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse).
+  - [ ] **(security)** [PENDING Tron ratify] The server-local path a user may register is BOUNDED (allowlist / root-confinement per Tron ratify) - not arbitrary server filesystem access; a path outside the ratified bounds is rejected.
+  - [ ] **(security)** [PENDING Tron ratify] Adding/registering a repo is gated by the ratified authorization model (who may add repos) - not open to any client.
+  - [ ] **(security)** [PENDING Tron ratify] The registered repo persists in the dynamic registry per the ratified persistence mechanism (where/how, survives restart) with no secret/path leakage.
   - [ ] **(gate)** GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
   -> repoManage.addByLocalPath [uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]
 
@@ -634,6 +637,10 @@
   - [ ] **(add)** The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.
   - [ ] **(add)** After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
   - [ ] **(add)** Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
+  - [ ] **(security)** [PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning.
+  - [ ] **(security)** [PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface.
+  - [ ] **(security)** [PENDING Tron ratify] Cloning is gated by the ratified authorization model.
+  - [ ] **(security)** [PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered.
   - [ ] **(gate)** GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
   -> repoManage.addByCloneUrl [uc:uuid:eb0902d5-b5f8-4c45-b27a-c89287e89a64]
 
@@ -645,5 +652,7 @@
   - [ ] **(manage)** The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
   - [ ] **(manage)** Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow).
   - [ ] **(manage)** After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
+  - [ ] **(security)** [PENDING Tron ratify] Worktree switching only repoints among the repo OWN ratified worktrees (bounded) - not an arbitrary path; consistent with R30.40 HOME/oosh symlink-follow.
+  - [ ] **(security)** [PENDING Tron ratify] Managing/switching is gated by the ratified authorization model.
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
   -> repoManage.worktreeSwitch [uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]
