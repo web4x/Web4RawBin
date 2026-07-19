@@ -88,6 +88,9 @@ export function readFile(relPath: string, root?: string): { path: string; conten
   return { path: relPath, content, size: stat.size, mtime: stat.mtime.toISOString() };
 }
 
+// [impl:uuid:a28cea0d-49f5-4d3d-be28-97377800d07a] FileApi.writeFile — R30.38 security-critical bounded WRITE (merge.saveWriteBounded
+// c76c6b3a → Method writeFile 00d63275): root? param + sanitizePath(relPath,root) confines the write to the RepoRegistry-resolved
+// root (dropped the rawbin-403) so a diff/merge Save targets the CORRECT repo. DISTINCT from RepoRegistry.resolve d7dc0059 (read-path root pick).
 export function writeFile(relPath: string, content: string, expectedMtime?: string, root?: string): { ok: true; mtime: string; size: number } | { error: string; status: number; conflict?: boolean; serverMtime?: string } {
   let absPath = sanitizePath(relPath, root); // R30.x save-404: write within the RepoRegistry-resolved root (default rawbin), mirroring readFile — so a diff/merge Save targets the CORRECT repo (e.g. oosh) instead of always rawbin
   if (absPath) { try { const ls = fs.lstatSync(absPath); if (ls.isSymbolicLink()) absPath = fs.realpathSync(absPath); } catch {} }
