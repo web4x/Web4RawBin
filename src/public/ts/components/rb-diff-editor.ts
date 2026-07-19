@@ -1001,13 +1001,55 @@ export class RbDiffEditor extends HTMLElement {
         setTimeout(() => this.closeOverlay(), 700);
       } catch { status.textContent = '✗ error'; }
     });
-    // MANAGE: repo-info for the current side's repo
+    // MANAGE: repo-info + removable flag → interactive panel (R30.49 delete-for-removable + R30.45/UC7 worktree switch)
     const mkey = (side === 'left' ? this.left.repo : this.right.repo) || 'rawbin';
+    const mng = q<HTMLElement>('.rm-manage'); const status = q<HTMLElement>('.rm-status');
     try {
-      const info = await (await fetch(`/api/git/repo-info?repo=${encodeURIComponent(mkey)}`)).json();
-      const wt = (info.worktrees || []).map((w: { branch: string; head: string; path: string }) => `  · ${w.branch || w.head} — ${w.path}`).join('\n');
-      q<HTMLElement>('.rm-manage').textContent = `${info.key} @ ${info.currentBranch}\n${info.path}` + (wt ? `\nworktrees:\n${wt}` : '');
-    } catch { q<HTMLElement>('.rm-manage').textContent = '(no info)'; }
+      const [info, repos] = await Promise.all([
+        (await fetch(`/api/git/repo-info?repo=${encodeURIComponent(mkey)}`)).json(),
+        (await fetch('/api/git/repos')).json().then((j: { repos?: { key: string; removable: boolean }[] }) => j.repos || []),
+      ]);
+      const removable = !!repos.find((r: { key: string; removable: boolean }) => r.key === mkey)?.removable; // R30.49: builtins are never removable → no Delete affordance
+      const wts: { branch: string; head: string; path: string }[] = info.worktrees || [];
+      const wbtn = 'background:#333;border:1px solid #666;color:#ddd;border-radius:3px;cursor:pointer;font-size:0.65rem;padding:1px 6px;margin-right:6px';
+      mng.innerHTML =
+        `<div style="margin-bottom:4px"><b>${info.key}</b> @ ${info.currentBranch}` +
+        (removable
+          ? ` <button class="rm-del" title="Delete this repository from the registry" style="background:#7a2e2e;border:1px solid #a55;color:#fff;border-radius:3px;cursor:pointer;font-size:0.65rem;padding:1px 6px;float:right">🗑 Delete</button>`
+          : ` <span style="opacity:0.5;float:right">builtin (protected)</span>`) +
+        `</div><div style="opacity:0.7">${info.path}</div>` +
+        (wts.length
+          ? `<div style="margin-top:6px;opacity:0.8">worktrees (read-only switch):</div>` +
+            wts.map(w => `<div style="margin-top:3px"><button class="rm-wt" data-ref="${w.branch || w.head}" style="${wbtn}">use</button>${w.branch || w.head} — ${w.path}</div>`).join('')
+          : '');
+      mng.querySelector('.rm-del')?.addEventListener('click', async () => {           // R30.49: DELETE → RepoRegistry.unregister (559b508b); server rejects builtins
+        status.textContent = 'deleting…';
+        try {
+          const res = await fetch(`/api/git/repos?key=${encodeURIComponent(mkey)}`, { method: 'DELETE' });
+          const j = await res.json();
+          if (!res.ok) { status.textContent = '✗ ' + (j.error || 'delete failed'); return; }
+          await this.populateRepos();                                                  // refresh selector → deleted repo gone
+          const st = side === 'left' ? this.left : this.right;
+          if (st.repo === mkey) { st.repo = ''; st.ref = ''; const sel = this.querySelector(`.de-repo[data-side="${side}"]`) as HTMLSelectElement | null; if (sel) sel.value = 'rawbin'; if (st.path) void this.loadSide(side, { path: st.path }); }
+          this.closeOverlay();
+        } catch { status.textContent = '✗ error'; }
+      });
+      mng.querySelectorAll('.rm-wt').forEach(b => b.addEventListener('click', () => this.switchWorktree(side, (b as HTMLElement).dataset.ref || '')));
+    } catch { mng.textContent = '(no info)'; }
+  }
+
+  // [impl:uuid:1a86a852-c873-4f35-bb0f-779a9264a673] RbDiffEditor.switchWorktree — R30.45/UC7 (Method 43b1ff0c; req re-points
+  // owner RepoRegistry→RbDiffEditor name-matched on this build). RATIFIED D3: a READ-ONLY worktree-as-key ref-pick — repoint
+  // the active side's READ ref to the selected worktree's branch so diff/header read THAT worktree; the server performs NO
+  // checkout and mutates NO working tree (loadSide → /api/git/file?ref=<branch> reads via the shared git objects). Mirrors
+  // setSideRef's _leftUserPicked pin so the pick wins the async older-default race.
+  switchWorktree(side: 'left' | 'right', ref: string): void {
+    if (!ref) return;
+    const st = side === 'left' ? this.left : this.right;
+    if (!st.path) { this.status('open a file first'); return; }
+    if (side === 'left') this._leftUserPicked = true;
+    void this.loadSide(side, { path: st.path, ref });
+    this.closeOverlay();
   }
 }
 

@@ -1486,6 +1486,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             });
             return;
           }
+          if (req.method === 'DELETE') { // R30.49 delete-for-removable — read-auth (V1 §10.1, D4 admin deferred); BUILTIN-PROTECTED inside RepoRegistry.unregister (559b508b): builtin/unknown key → false → 400.
+            const delKey = urlParams.get('key') || '';
+            if (!delKey) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing key' })); return; }
+            const ok = RepoRegistry.unregister(delKey); // dynamic-only; a builtin (rawbin/oosh) is NEVER removable
+            res.writeHead(ok ? 200 : 400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(ok ? { ok: true, key: delKey } : { error: 'Not removable (builtin or unknown key)' }));
+            return;
+          }
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ repos: RepoRegistry.list() })); return; // GET: repo picker source (key+label+builtin/removable)
         }
         // R30.6.7: resolve the repo KEY → allowlisted abs root (default rawbin); unknown key → 400 (never a client path).
