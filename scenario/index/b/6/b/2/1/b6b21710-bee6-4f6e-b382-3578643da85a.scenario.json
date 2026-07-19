@@ -4,7 +4,7 @@
   "uuid": "b6b21710-bee6-4f6e-b382-3578643da85a",
   "altId": "R30.45",
   "name": "Manage panel shows current repo, local path, current branch and available worktrees, each switchable",
-  "description": "The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees - each SWITCHABLE (switching repoints the active checkout/worktree). Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
+  "description": "The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees. RATIFIED D3: selecting a worktree is a READ-ONLY ref-pick (worktree-as-key) - the server does NOT checkout or mutate any working tree; the pick repoints the READ key so diff/header read that worktree's ref. Consistent with R30.40 (the oosh root follows HOME/oosh). Shared enabler = dynamic/persisted RepoRegistry; architect derives impl-units.",
   "tronQuote": "> TRON (v0.7.65): a manage panel showing the current repo + local server path + current branch + available worktrees, each switchable.",
   "tasks": [],
   "tests": [],
@@ -35,7 +35,7 @@
    {
     "id": "AC-switchable",
     "group": "manage",
-    "text": "Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow)."
+    "text": "RATIFIED D3: each worktree is SELECTABLE as a READ-ONLY key (worktree-as-key) - selecting one repoints the READ key so diff/header read that worktree ref; the server performs NO checkout and mutates NO working tree."
    },
    {
     "id": "AC-reflects",
@@ -45,12 +45,12 @@
    {
     "id": "AC-sec-switch-bounds",
     "group": "security",
-    "text": "[PENDING Tron ratify] Worktree switching only repoints among the repo OWN ratified worktrees (bounded) - not an arbitrary path; consistent with R30.40 HOME/oosh symlink-follow."
+    "text": "RATIFIED D3: switching only selects among the repo OWN worktrees as read keys (bounded) - no server checkout, no arbitrary path."
    },
    {
     "id": "AC-sec-auth",
     "group": "security",
-    "text": "[PENDING Tron ratify] Managing/switching is gated by the ratified authorization model."
+    "text": "RATIFIED D3+D4: a worktree SWITCH is READ-ONLY (D3) so requires NO admin-key; any MUTATING manage action (register/remove from the registry) requires the admin-key (D4)."
    },
    {
     "id": "AC-gate",
@@ -58,7 +58,7 @@
     "text": "GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE (PO -> Tron ratify BEFORE expert build; ACs below are [PENDING Tron ratify] - the surface is enumerated correct-by-construction so nothing is missed; specific decisions align to Tron ratification): path-bounds, auth, clone-location, persistence."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

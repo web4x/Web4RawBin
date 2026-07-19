@@ -623,9 +623,9 @@
   - [ ] **(add)** The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
   - [ ] **(add)** After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
   - [ ] **(security)** The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse).
-  - [ ] **(security)** [PENDING Tron ratify] The server-local path a user may register is BOUNDED (allowlist / root-confinement per Tron ratify) - not arbitrary server filesystem access; a path outside the ratified bounds is rejected.
-  - [ ] **(security)** [PENDING Tron ratify] Adding/registering a repo is gated by the ratified authorization model (who may add repos) - not open to any client.
-  - [ ] **(security)** [PENDING Tron ratify] The registered repo persists in the dynamic registry per the ratified persistence mechanism (where/how, survives restart) with no secret/path leakage.
+  - [ ] **(security)** RATIFIED D1: the server-local path, after realpath (symlinks resolved), MUST be within the HOME subtree OR the REPO_ALLOW allowlist; a realpath outside those bounds is REJECTED (symlink-escape blocked).
+  - [ ] **(security)** RATIFIED D4: registering a repo requires the admin-key (all writes are admin-key-gated); missing/invalid admin-key -> rejected, nothing registered.
+  - [ ] **(security)** RATIFIED D4: the registration persists in the dynamic registry (survives restart) via an admin-key-gated write; no secret/path leakage.
   - [ ] **(gate)** GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
   -> repoManage.addByLocalPath [uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]
 
@@ -637,22 +637,22 @@
   - [ ] **(add)** The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.
   - [ ] **(add)** After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
   - [ ] **(add)** Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
-  - [ ] **(security)** [PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning.
-  - [ ] **(security)** [PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface.
-  - [ ] **(security)** [PENDING Tron ratify] Cloning is gated by the ratified authorization model.
-  - [ ] **(security)** [PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered.
+  - [ ] **(security)** RATIFIED D1: the clone CHECKOUT LOCATION, after realpath, MUST be within the HOME subtree OR REPO_ALLOW; a location outside those bounds is REJECTED before cloning.
+  - [ ] **(security)** RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport).
+  - [ ] **(security)** RATIFIED D4: cloning requires the admin-key (all writes admin-key-gated).
+  - [ ] **(security)** RATIFIED D4: registration is an admin-key-gated write; a failed clone leaves NOTHING half-registered (atomic).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
   -> repoManage.addByCloneUrl [uc:uuid:eb0902d5-b5f8-4c45-b27a-c89287e89a64]
 
 - [ ] **R30.45 — Manage panel shows current repo, local path, current branch and available worktrees, each switchable**
   [requirement:uuid:b6b21710-bee6-4f6e-b382-3578643da85a]
   > TRON (v0.7.65): a manage panel showing the current repo + local server path + current branch + available worktrees, each switchable.
-  The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees - each SWITCHABLE (switching repoints the active checkout/worktree). Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
+  The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees. RATIFIED D3: selecting a worktree is a READ-ONLY ref-pick (worktree-as-key) - the server does NOT checkout or mutate any working tree; the pick repoints the READ key so diff/header read that worktree's ref. Consistent with R30.40 (the oosh root follows HOME/oosh). Shared enabler = dynamic/persisted RepoRegistry; architect derives impl-units.
   **Acceptance criteria:**
   - [ ] **(manage)** The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
-  - [ ] **(manage)** Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow).
+  - [ ] **(manage)** RATIFIED D3: each worktree is SELECTABLE as a READ-ONLY key (worktree-as-key) - selecting one repoints the READ key so diff/header read that worktree ref; the server performs NO checkout and mutates NO working tree.
   - [ ] **(manage)** After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
-  - [ ] **(security)** [PENDING Tron ratify] Worktree switching only repoints among the repo OWN ratified worktrees (bounded) - not an arbitrary path; consistent with R30.40 HOME/oosh symlink-follow.
-  - [ ] **(security)** [PENDING Tron ratify] Managing/switching is gated by the ratified authorization model.
+  - [ ] **(security)** RATIFIED D3: switching only selects among the repo OWN worktrees as read keys (bounded) - no server checkout, no arbitrary path.
+  - [ ] **(security)** RATIFIED D3+D4: a worktree SWITCH is READ-ONLY (D3) so requires NO admin-key; any MUTATING manage action (register/remove from the registry) requires the admin-key (D4).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
   -> repoManage.worktreeSwitch [uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]

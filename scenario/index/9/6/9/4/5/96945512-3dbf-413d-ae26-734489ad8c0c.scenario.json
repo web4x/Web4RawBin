@@ -45,17 +45,17 @@
    {
     "id": "AC-sec-path-bounds",
     "group": "security",
-    "text": "[PENDING Tron ratify] The server-local path a user may register is BOUNDED (allowlist / root-confinement per Tron ratify) - not arbitrary server filesystem access; a path outside the ratified bounds is rejected."
+    "text": "RATIFIED D1: the server-local path, after realpath (symlinks resolved), MUST be within the HOME subtree OR the REPO_ALLOW allowlist; a realpath outside those bounds is REJECTED (symlink-escape blocked)."
    },
    {
     "id": "AC-sec-auth",
     "group": "security",
-    "text": "[PENDING Tron ratify] Adding/registering a repo is gated by the ratified authorization model (who may add repos) - not open to any client."
+    "text": "RATIFIED D4: registering a repo requires the admin-key (all writes are admin-key-gated); missing/invalid admin-key -> rejected, nothing registered."
    },
    {
     "id": "AC-sec-persistence",
     "group": "security",
-    "text": "[PENDING Tron ratify] The registered repo persists in the dynamic registry per the ratified persistence mechanism (where/how, survives restart) with no secret/path leakage."
+    "text": "RATIFIED D4: the registration persists in the dynamic registry (survives restart) via an admin-key-gated write; no secret/path leakage."
    },
    {
     "id": "AC-gate",
@@ -63,7 +63,7 @@
     "text": "GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE (PO -> Tron ratify BEFORE expert build; ACs below are [PENDING Tron ratify] - the surface is enumerated correct-by-construction so nothing is missed; specific decisions align to Tron ratification): path-bounds, auth, clone-location, persistence."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

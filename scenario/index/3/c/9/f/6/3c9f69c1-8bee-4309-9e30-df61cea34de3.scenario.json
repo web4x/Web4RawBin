@@ -45,22 +45,22 @@
    {
     "id": "AC-sec-clone-location",
     "group": "security",
-    "text": "[PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning."
+    "text": "RATIFIED D1: the clone CHECKOUT LOCATION, after realpath, MUST be within the HOME subtree OR REPO_ALLOW; a location outside those bounds is REJECTED before cloning."
    },
    {
     "id": "AC-sec-clone-url",
     "group": "security",
-    "text": "[PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface."
+    "text": "RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport)."
    },
    {
     "id": "AC-sec-auth",
     "group": "security",
-    "text": "[PENDING Tron ratify] Cloning is gated by the ratified authorization model."
+    "text": "RATIFIED D4: cloning requires the admin-key (all writes admin-key-gated)."
    },
    {
     "id": "AC-sec-persistence",
     "group": "security",
-    "text": "[PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered."
+    "text": "RATIFIED D4: registration is an admin-key-gated write; a failed clone leaves NOTHING half-registered (atomic)."
    },
    {
     "id": "AC-gate",
@@ -68,7 +68,7 @@
     "text": "GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE (PO -> Tron ratify BEFORE expert build; ACs below are [PENDING Tron ratify] - the surface is enumerated correct-by-construction so nothing is missed; specific decisions align to Tron ratification): path-bounds, auth, clone-location, persistence."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

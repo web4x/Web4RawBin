@@ -3,7 +3,7 @@
  "model": {
   "uuid": "3a17f2e5-1093-4c96-aaa9-33aaad92de54",
   "name": "repoManage.worktreeSwitch",
-  "description": "The manage panel lists a repo's worktrees (path/branch) and switches the active one, repointing the checkout (consistent with R30.40 symlink-follow). Proposed server method RepoRegistry.switchWorktree; architect confirms.",
+  "description": "The manage panel lists a repo worktrees (path/branch) and selects the active one as a READ-ONLY key (worktree-as-key, RATIFIED D3 - NO server checkout); diff/header read the picked worktree ref. Proposed server method RepoRegistry.switchWorktree (read-only key select); architect confirms.",
   "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
   "classes": [
    "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
