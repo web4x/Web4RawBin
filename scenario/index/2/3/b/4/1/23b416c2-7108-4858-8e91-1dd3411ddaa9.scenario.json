@@ -1,16 +1,17 @@
 {
-  "ior": "ior:class:Implementation",
-  "model": {
-    "uuid": "23b416c2-7108-4858-8e91-1dd3411ddaa9",
-    "name": "RbDiffEditor.computeFoldRegions impl",
-    "tests": [
-      "ior:instance:6259acfb-c6ed-4de7-a543-f8299dbf169f"
-    ],
-    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": false,
-    "description": "BUILT v0.7.76 (rb-diff-editor.ts:777, marker :776): RbDiffEditor.computeFoldRegions — R30.51 Fold3(guard)+Fold1(regions): folding:false + emit collapsible gaps = COMPLEMENT of conflicts[] change-ranges, so change regions are non-collapsible by construction. Marker [impl:uuid:23b416c2] name-match verified.",
-    "status": "reverted",
-    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
-  },
-  "ownerIor": "ior:instance:29009077-2782-4938-85e4-c43f2f61a432"
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "23b416c2-7108-4858-8e91-1dd3411ddaa9",
+  "name": "RbDiffEditor.computeFoldRegions impl",
+  "tests": [
+   "ior:instance:6259acfb-c6ed-4de7-a543-f8299dbf169f"
+  ],
+  "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+  "designAhead": false,
+  "description": "BUILT v0.7.76 (rb-diff-editor.ts:777, marker :776): RbDiffEditor.computeFoldRegions \u2014 R30.51 Fold3(guard)+Fold1(regions): folding:false + emit collapsible gaps = COMPLEMENT of conflicts[] change-ranges, so change regions are non-collapsible by construction. Marker [impl:uuid:23b416c2] name-match verified.",
+  "status": "superseded",
+  "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code.",
+  "supersededBy": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+ },
+ "ownerIor": "ior:instance:29009077-2782-4938-85e4-c43f2f61a432"
 }
