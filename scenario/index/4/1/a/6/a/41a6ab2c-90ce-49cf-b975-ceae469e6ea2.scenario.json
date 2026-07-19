@@ -1,0 +1,59 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
+  "altId": "R30.51",
+  "name": "Changes-focused code-folding in the 3-way merge editors",
+  "description": "Tron feature: changes-focused CODE-FOLDING in the 3-way merge editors. (1) Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository) - fold a region in one, all three fold aligned. (2) A foldable region that CONTAINS a change/conflict CANNOT be collapsed (stays expanded - changes are never hidden). (3) Initial state on open = FULLY auto-collapsed EXCEPT the change-holding regions are expanded (a changes-only view). Minted scenario-first; Monaco-folding method-set is DESIGN-AHEAD PROPOSED on RbDiffEditor - the architect is deriving the Monaco-folding impl approach in parallel; align the impl-AC on their confirm (re-point R30.11).",
+  "tronQuote": "> TRON (via robbin-po): CHANGES-FOCUSED CODE-FOLDING in the 3-way merge editors - (1) expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository), fold a region in one -> all three fold aligned; (2) a foldable region that CONTAINS a change/conflict CANNOT be collapsed (stays expanded); (3) initial state on open = FULLY auto-collapsed EXCEPT the change-holding regions are expanded (changes-only view).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:5dedb343-9457-4f02-bbc6-023f8fe42c78",
+   "ior:instance:d5534ec3-c61b-4a70-b63b-fd4010947d02",
+   "ior:instance:47fbd1d7-9890-484c-b1ae-d13947f5a3a0"
+  ],
+  "crossRef": [
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f",
+   "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+  ],
+  "crossRefNote": "Builds on the 3-way merge editor: R30.9 (3-way base + conflicts[] regions - the change-holding regions to keep expanded), R30.16 (3-pane row alignment - folds must stay aligned across panes), R30.50 (merge toolbar). Method-set PROPOSED design-ahead (syncFoldState / guardChangeRegionFold / applyChangesOnlyFolding on RbDiffEditor) - architect derives the Monaco-folding approach (folding model listeners, foldingRangeProvider exclusion, initial-fold timing); I re-point on confirm.",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-19",
+   "note": "Changes-focused code-folding (3 ACs). Captured scenario-first; architect deriving Monaco-folding impl approach in parallel - align impl-AC on confirm."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-fold-sync",
+    "group": "fold",
+    "text": "Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three."
+   },
+   {
+    "id": "AC-change-noncollapse",
+    "group": "guard",
+    "text": "A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding)."
+   },
+   {
+    "id": "AC-changes-only-initial",
+    "group": "initial",
+    "text": "On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view)."
+   },
+   {
+    "id": "AC-impl-monaco",
+    "group": "impl",
+    "text": "[DESIGN-FLAG] The Monaco-folding impl approach (folding-model sync / foldingRangeProvider exclusion of change regions / initial-fold timing) per architect derive-confirm; align this impl-AC on their confirmation."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

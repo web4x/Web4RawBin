@@ -735,3 +735,17 @@
   -> merge.saveGuardedOrJump [uc:uuid:787e7755-4529-459e-9c53-803301d4b3cb]
   -> merge.saveButtonState [uc:uuid:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b]
   -> merge.applyAllMenu [uc:uuid:6780cb2e-42fb-46d8-9061-05d117304d47]
+
+- [ ] **R30.51 — Changes-focused code-folding in the 3-way merge editors**
+  [requirement:uuid:41a6ab2c-90ce-49cf-b975-ceae469e6ea2]
+  > TRON (via robbin-po): CHANGES-FOCUSED CODE-FOLDING in the 3-way merge editors - (1) expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository), fold a region in one -> all three fold aligned; (2) a foldable region that CONTAINS a change/conflict CANNOT be collapsed (stays expanded); (3) initial state on open = FULLY auto-collapsed EXCEPT the change-holding regions are expanded (changes-only view).
+  Tron feature: changes-focused CODE-FOLDING in the 3-way merge editors. (1) Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository) - fold a region in one, all three fold aligned. (2) A foldable region that CONTAINS a change/conflict CANNOT be collapsed (stays expanded - changes are never hidden). (3) Initial state on open = FULLY auto-collapsed EXCEPT the change-holding regions are expanded (a changes-only view). Minted scenario-first; Monaco-folding method-set is DESIGN-AHEAD PROPOSED on RbDiffEditor - the architect is deriving the Monaco-folding impl approach in parallel; align the impl-AC on their confirm (re-point R30.11).
+  **Acceptance criteria:**
+  - [ ] **(fold)** Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
+  - [ ] **(guard)** A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
+  - [ ] **(initial)** On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
+  - [ ] **(impl)** [DESIGN-FLAG] The Monaco-folding impl approach (folding-model sync / foldingRangeProvider exclusion of change regions / initial-fold timing) per architect derive-confirm; align this impl-AC on their confirmation.
+  - [ ] **(gate)** GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
+  -> merge.foldSyncAcrossPanes [uc:uuid:5dedb343-9457-4f02-bbc6-023f8fe42c78]
+  -> merge.changeRegionNotCollapsible [uc:uuid:d5534ec3-c61b-4a70-b63b-fd4010947d02]
+  -> merge.changesOnlyInitialFold [uc:uuid:47fbd1d7-9890-484c-b1ae-d13947f5a3a0]

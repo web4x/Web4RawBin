@@ -45,7 +45,10 @@
    "ior:instance:76e3ab69-b3ed-4301-9cdf-add24bc0a7bf",
    "ior:instance:d84c5886-9324-4b97-931e-3874f2fec076",
    "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d",
-   "ior:instance:8ea1cc48-f247-465e-bfad-37d71718cf18"
+   "ior:instance:8ea1cc48-f247-465e-bfad-37d71718cf18",
+   "ior:instance:2865493c-bac0-43dd-9b9f-12d81d899a3d",
+   "ior:instance:29009077-2782-4938-85e4-c43f2f61a432",
+   "ior:instance:a78c7d35-9961-4be9-92b2-ebf4e0eec41f"
   ],
   "note": "NEW (0 existing). Name = code component rb-diff-editor.ts (RbFileTree/RbTraceTree convention), NOT DiffMergeEditor. R30.6 3-pane diff/merge editor. Sole-minter."
  },

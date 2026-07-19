@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "29009077-2782-4938-85e4-c43f2f61a432",
+    "name": "RbDiffEditor.guardChangeRegionFold",
+    "implementations": [
+      "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.51, architect Monaco-folding derive PENDING; re-point on confirm - R30.11). camelCase for [impl] AST-attach. Folding-range provider / guard: exclude (or re-expand) any region that overlaps a change/conflict from conflicts[] so it cannot be collapsed. May be a foldingRangeProvider filter - architect confirms."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

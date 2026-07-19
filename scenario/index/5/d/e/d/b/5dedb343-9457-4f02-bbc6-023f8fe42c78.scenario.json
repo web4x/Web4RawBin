@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5dedb343-9457-4f02-bbc6-023f8fe42c78",
+  "name": "merge.foldSyncAcrossPanes",
+  "description": "Expand/collapse folding SYNCS across all THREE merge editors (Local / Center / Repository): folding a region in one pane folds the ALIGNED region in all three (the 3 panes stay row-aligned per R30.16). Monaco folding-model sync - architect derives.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:2865493c-bac0-43dd-9b9f-12d81d899a3d",
+  "coveredRequirement": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+ },
+ "ownerIor": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+}

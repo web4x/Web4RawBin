@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9493c08a-0f85-45ae-841e-0903d3d4fc68",
+    "name": "RbDiffEditor.applyChangesOnlyFolding impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: After the 3-way diff opens and conflicts[] are computed, fold every non-change region and leave change-holding regions expanded (changes-only initial state). Architect derives the Monaco-folding method-set; expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:a78c7d35-9961-4be9-92b2-ebf4e0eec41f"
+}

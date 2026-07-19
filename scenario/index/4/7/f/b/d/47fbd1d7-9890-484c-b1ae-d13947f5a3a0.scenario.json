@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "47fbd1d7-9890-484c-b1ae-d13947f5a3a0",
+  "name": "merge.changesOnlyInitialFold",
+  "description": "On open, the INITIAL fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded - a changes-only view (the user sees only the changes + minimal context, everything else folded). Architect derives the initial-fold application.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:a78c7d35-9961-4be9-92b2-ebf4e0eec41f",
+  "coveredRequirement": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+ },
+ "ownerIor": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+}

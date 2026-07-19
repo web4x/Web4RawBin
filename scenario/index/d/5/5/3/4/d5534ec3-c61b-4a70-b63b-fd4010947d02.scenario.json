@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "d5534ec3-c61b-4a70-b63b-fd4010947d02",
+  "name": "merge.changeRegionNotCollapsible",
+  "description": "A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (folding is blocked/disabled for change-holding regions, so changes are never hidden). Derived from the conflicts[] regions (R30.9/R30.23). Architect derives the folding-range exclusion.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:29009077-2782-4938-85e4-c43f2f61a432",
+  "coveredRequirement": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+ },
+ "ownerIor": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+}
