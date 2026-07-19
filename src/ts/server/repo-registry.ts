@@ -16,6 +16,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // data/repos.json — dynamic-layer persistence (PAIRING_PATH writeFileSync precedent; data/*.json gitignored = runtime state).
 const REPOS_PATH = path.resolve(__dirname, '../../../data/repos.json');
 
+// R30.42 UC8 config (design §9, D1). REPO_ALLOW = permitted base roots for add-local/worktree-register. The 2nd term is the
+// oosh worktrees' SHARED PARENT (dirname of realpath(HOME/oosh)) → auto-covers ALL oo-mode sibling worktrees
+// (dev/macos/mcdonges.latest/prod) correct-by-construction (R30.40 spirit) without hardcoding paths. Extra roots via
+// REPO_ALLOW_ENV (path-delimiter list). Guarded realpathSync (HOME/oosh may be absent in some envs → term dropped).
+function ooshWorktreeParent(): string | null {
+  try { return path.dirname(fs.realpathSync(path.join(os.homedir(), 'oosh'))); } catch { return null; }
+}
+const REPO_ALLOW: string[] = [
+  os.homedir(),
+  ooshWorktreeParent(),
+  ...(process.env.REPO_ALLOW_ENV ? process.env.REPO_ALLOW_ENV.split(path.delimiter).filter(Boolean) : []),
+].filter((x): x is string => !!x);
+
 type DynEntry = { root: string; label: string; addedBy?: string; addedAt?: string };
 
 export class RepoRegistry {
@@ -35,14 +48,19 @@ export class RepoRegistry {
   private static dynamic: Record<string, DynEntry> = {};
   private static loaded = false;
 
-  // R30.42 UC8 SCAFFOLD (security choke-point) — PLUGGABLE bound, HELD for Tron's DECISION-1 (allowed base roots).
-  // register() + load() route every candidate root through here so the choke point is WIRED; the specific allowlist is
-  // pluggable (swap in the real check — realpath(root) under os.homedir() subtree + REPO_ALLOW — on D1 ratify). Until then
-  // this is only reachable via register(), which has NO endpoint yet (UC4/5 held) → not yet exposed to untrusted input.
-  // [chain: UC8 security.bounds — req mints RepoRegistry.assertAllowedRoot Impl; place [impl] marker when handed]
-  static assertAllowedRoot(root: string): boolean {
-    // TODO(DECISION-1, HELD): confirm fs.realpathSync(root) falls under an allowed base (HOME subtree + REPO_ALLOW config).
-    return typeof root === 'string' && root.length > 0;
+  // R30.42 UC8 GUARD 1 (design §9, D1) — SOLE add-local/worktree path choke point. realpath(input) MUST fall under an
+  // allowed base (REPO_ALLOW, also realpath'd) → defeats symlink escape. Returns the ORIGINAL input on success (stored
+  // as-is so a dynamic symlink like HOME/oosh keeps oo-mode follow; the CHECK used the realpath). null → reject (→ 400).
+  // [impl:uuid:90569c5e-c931-4d9b-9e2b-d3a0ca6a2788] RepoRegistry.assertAllowedRoot — R30.42 UC8 GUARD 1 / D1 realpath allowlist (Method d57a14c5)
+  static assertAllowedRoot(input: string): string | null {
+    if (typeof input !== 'string' || !input) return null;
+    try {
+      const real = fs.realpathSync(input); // follow symlinks to the TRUE target
+      const ok = REPO_ALLOW.some(b => {
+        try { const rb = fs.realpathSync(b); return real === rb || real.startsWith(rb + path.sep); } catch { return false; }
+      });
+      return ok ? input : null;
+    } catch { return null; } // realpath fails (nonexistent path) → reject
   }
 
   private static ensureLoaded(): void { if (!RepoRegistry.loaded) RepoRegistry.load(); }
@@ -50,8 +68,12 @@ export class RepoRegistry {
   // [impl:uuid:d7dc0059-b300-4469-9518-1cfaf07599f6] RepoRegistry.resolve
   static resolve(key: string | null | undefined): string | null {
     RepoRegistry.ensureLoaded();
-    const entry = RepoRegistry.ROOTS[key || 'rawbin'] || RepoRegistry.dynamic[key || '']; // builtin wins; else dynamic
-    return entry ? path.resolve(entry.root) : null;    // unknown key → null; a client abs path is never a key → null
+    const builtin = RepoRegistry.ROOTS[key || 'rawbin']; // builtin wins + exempt from the re-check (trusted, hardcoded)
+    if (builtin) return path.resolve(builtin.root);
+    const dyn = RepoRegistry.dynamic[key || ''];
+    if (!dyn) return null;                                // unknown key → null; a client abs path is never a key → null
+    if (!RepoRegistry.assertAllowedRoot(dyn.root)) return null; // R30.42 UC8 TOCTOU: a dynamic symlink could be repointed post-register → re-assert allowlist here
+    return path.resolve(dyn.root);
   }
 
   // [impl:uuid:ef022b16-b998-4d82-84a0-6ad51c94c1e5] RepoRegistry.list
@@ -63,7 +85,7 @@ export class RepoRegistry {
     ];
   }
 
-  // R30.42 UC3 — chain pending req mint (Method RepoRegistry.register); place [impl] when handed. Server-DERIVED slug key
+  // [impl:uuid:6c408f9b-0354-4732-8d7a-bccd3a6cb027] RepoRegistry.register (Method 7681caa6) — R30.42 UC3. Server-DERIVED slug key
   // (never a builtin, uniqueness-checked). Routes root through the UC8 choke point. Persists. Returns the derived key.
   static register(input: { root: string; label?: string; addedBy?: string }): string {
     RepoRegistry.ensureLoaded();
@@ -74,7 +96,7 @@ export class RepoRegistry {
     return key;
   }
 
-  // R30.42 UC3 — chain pending req mint (Method RepoRegistry.unregister). Dynamic-only; a builtin is NEVER removable.
+  // [impl:uuid:559b508b-91e7-4961-8b62-1bc531d3df94] RepoRegistry.unregister (Method 8611520d) — R30.42 UC3. Dynamic-only; a builtin is NEVER removable.
   static unregister(key: string): boolean {
     RepoRegistry.ensureLoaded();
     if (RepoRegistry.ROOTS[key]) return false;      // builtin → non-removable
@@ -84,7 +106,7 @@ export class RepoRegistry {
     return true;
   }
 
-  // R30.42 UC3 — chain pending req mint (Method RepoRegistry.persist). Server-only write (data/repos.json). Best-effort.
+  // [impl:uuid:854943d3-8979-4ea4-bf5e-5480bfbcd558] RepoRegistry.persist (Method 1c1ebda4) — R30.42 UC3. Server-only write (data/repos.json). Best-effort.
   static persist(): void {
     try {
       fs.mkdirSync(path.dirname(REPOS_PATH), { recursive: true });
@@ -92,7 +114,7 @@ export class RepoRegistry {
     } catch { /* best-effort persistence, mirrors PAIRING_PATH */ }
   }
 
-  // R30.42 UC3 — chain pending req mint (Method RepoRegistry.load). VALIDATE-ON-LOAD: drop entries that collide a builtin,
+  // [impl:uuid:2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08] RepoRegistry.load (Method f3d1fe64) — R30.42 UC3. VALIDATE-ON-LOAD: drop entries that collide a builtin,
   // are malformed, or fail the UC8 allowlist re-check. (is-git-repo re-check needs GitApi.isGitRepo = UC4 → wired in then.)
   static load(): void {
     RepoRegistry.loaded = true;

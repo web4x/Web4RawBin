@@ -492,6 +492,18 @@ function generateSecretCode(): string {
 // Bug report forwarding
 const execFileAsync = promisify(execFile);
 
+// R30.42 UC8 config + guards (design §9) — SOLE choke points (UC4/5/7 route through these; NO inline url/auth checks elsewhere).
+const SCHEME_ALLOW = new Set(['https', 'ssh']);            // D2: https|ssh ONLY (rejects http/file/git/ext)
+// D2: EXACT-host allowlist. github.com covers both team orgs (web4x + Cerulean-Circle-GmbH); extra hosts via GIT_HOST_ALLOW env (comma-list).
+const HOST_ALLOW = new Set(['github.com', ...(process.env.GIT_HOST_ALLOW ? process.env.GIT_HOST_ALLOW.split(',').map(s => s.trim()).filter(Boolean) : [])]);
+const CLONE_ROOT: Record<string, string> = { repos: path.join(os.homedir(), 'repos') }; // D2: allowlisted clone-parent dirs (UC5); extra via config
+
+// R30.42 UC8 GUARD 3 (D4) — SOLE write-auth choke point: registry-mutating/clone ops require the ADMIN KEY (NOT same-origin,
+// NOT playerToken). Used by POST/DELETE /api/git/repos + worktree-register (UC4/5/7). Read ops keep same-origin/playerToken.
+function requireAdmin(req: http.IncomingMessage): boolean {
+  return ((req.headers['x-admin-key'] as string) || '') === ADMIN_KEY;
+}
+
 // R30.6 — GitApi: read-only git endpoints for the diff/merge editor. SECURITY: execFile with ARRAY args only
 // (never exec/shell → no injection), ref validated against an allowlist, path resolved within the per-request repo
 // ROOT (R30.6.7: RepoRegistry.resolve, no `..`), read-only verbs (branch/log/show) only, timeout + maxBuffer.
@@ -499,6 +511,23 @@ const execFileAsync = promisify(execFile);
 class GitApi {
   private static readonly REF_RE = /^[\w./-]+$/;
   private static opts(root: string) { return { cwd: root, timeout: 15000, maxBuffer: 8 * 1024 * 1024 }; }
+
+  // R30.42 UC8 GUARD 2 (design §9, D2) — SOLE clone-URL choke point (UC5). WHATWG parse; reject embedded creds (@-host
+  // confusion), non-https/ssh schemes (file/git/ext → SSRF/RCE), and any host not EXACTLY allowlisted (no subdomain trick).
+  // The clone execFile additionally pins env GIT_ALLOW_PROTOCOL=https:ssh + -c protocol.file.allow=never (defense-in-depth).
+  // [chain: UC8 security.bounds — req mints GitApi.assertAllowedUrl Impl; place [impl] marker when handed]
+  static assertAllowedUrl(url: string): boolean {
+    try {
+      const u = new URL(url);
+      // §9 CORRECTION (flagged to architect): §9's `u.username||u.password` rejects the STANDARD ssh user (ssh://git@github.com
+      // → username='git') → would break ALL ssh clones. Real risks: embedded PASSWORD (secret leak) + @-host confusion.
+      // → reject any password, and allow only the conventional 'git' username; EXACT-host check below is the primary @-confusion defense.
+      if (u.password) return false;
+      if (u.username && u.username !== 'git') return false;
+      if (!SCHEME_ALLOW.has(u.protocol.replace(':', ''))) return false;
+      return HOST_ALLOW.has(u.hostname);
+    } catch { return false; }
+  }
 
   // path must be relative, within the resolved repo root, no traversal — returns the safe rel path or null.
   private static safeRelPath(root: string, p: string): string | null {
