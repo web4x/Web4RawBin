@@ -8,6 +8,10 @@
 // unexported server.ts guards (assertAllowedUrl D2, requireAdmin D4) runs the EXACT source logic on all vectors + source-audits
 // the real bodies + confirms the WHATWG new URL() primitive. POLLUTION-SAFE: data/repos.json backup/restore + all test repos
 // unregistered + LIVE /api/git/repos asserted builtins-only after. DET-3x.
+// [test:uuid:6f6edecd-da61-423b-b535-815df1981732] R30.47 RepoRegistry.unregister (Impl 559b508b) — A.unregister-dynamic (unregister(dynamicKey)===true) + A.unregister-builtin-false (unregister('rawbin'/'oosh')===false) via REAL module import: builtin removal refused.
+// [test:uuid:c8529e2a-7500-49a3-8949-ed9bdcb5f78b] R30.47 RepoRegistry.register (Impl 6c408f9b) — A.register-derives-slug (server-side slug, never a builtin) + A.register-persists.
+// [test:uuid:09c60094-6963-46d2-902e-1d7f5d6f035d] R30.47 RepoRegistry.persist (Impl 854943d3) — A.register-persists writes the dynamic registry to data/repos.json.
+// [test:uuid:91da80e8-7365-477b-8570-ef7df7be6b42] R30.47 RepoRegistry.load (Impl 2c67c8d1) — A.load-drops-* validate-on-load (builtin-collision + malformed + .git-missing §10.1 dropped, valid kept).
 import { chromium } from '@playwright/test';
 import { RepoRegistry } from '../../src/ts/server/repo-registry.ts';
 import fs from 'node:fs';

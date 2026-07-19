@@ -1,4 +1,5 @@
 // [test:uuid:771e2e83-9109-4dc4-8d1f-70c2b4016d29] R30.45/UC7 RbDiffEditor.switchWorktree (Impl 1a86a852) — D3 no-checkout: a worktree 'use' ref-pick switches the active side's READ ref + header tracks otmux@<branch>, server does NO checkout / NO HEAD mutation (oosh `git worktree list` byte-identical before/after). GREEN DET-3x v0.7.72.
+// [test:uuid:73886c4b-c95f-4c06-849a-dd3f1052fbf7] R30.45/UC6 GitApi.worktrees (Impl dceff494) — the Manage panel renders the repo's worktree list (path+branch) from GET /api/git/repo-info worktrees[]; this gate reads + drives those .rm-wt 'use' buttons (5 oosh worktrees: dev/macos/macos.latest/mcdonges.latest/prod). READY for req mint (UC6 manageInfo worktrees).
 // R30.45/UC7 worktree-switch gate (D3) — v0.7.72, Tron's real deep-link. Impl RbDiffEditor.switchWorktree (1a86a852).
 // FLOW: open Repo Manager → Manage panel lists the repo's worktrees with a 'use' (.rm-wt) button → click switches the
 // active side's READ ref to that worktree's branch → diff loads THAT worktree's content + header tracks (otmux@<branch>).
