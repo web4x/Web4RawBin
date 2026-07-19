@@ -7,8 +7,12 @@
 // method present in all 3 panes (MATCHED BY CONTENT/signature, not index — index-matching is exactly what the bug relies on);
 // (2) 0px downstream row-drift (getTopForLineNumber equal across L/C/R for a unique anchor line after an add-block). Measurable in
 // chromium (folding MODEL + layout getTopForLineNumber — engine-independent); pure codicon RENDER still → Tron's real WebKit device.
-// STATUS: RED baseline v0.7.78 (1/19 initial + 3/19 toggle) → GREEN v0.7.79 (edit-6UCG6VBB.js): FIX-A split-floor
-// keepChangeMethodsExpanded classify-parity + FIX-B _mirrorFold by signature → initial 0/19 + toggle 0/19 + 0px drift. DET-3x.
+// STATUS: RED v0.7.78 (1/19 init + 3/19 toggle) → GREEN v0.7.79 (19-method scope: FIX-A classify-parity + FIX-B mirror-by-sig).
+// ★ RE-RED v0.7.80 (edit-UF6QQZ7E.js): the BUG-2 tail-detection fix (r3053c, 20→104 methods) EXPOSED a PRE-EXISTING FIX-A
+// per-pane-clip residual → INITIAL parity RED 1/79, offender `private.complete.panes()` (change-method overlapping a conflict
+// in all 3 → must stay EXPANDED, but LEFT collapsed it 86-88 vs C 89-95 / R 85-91 expanded). FIX-B toggle-mirror STAYS GREEN 0/79.
+// ★ PINNED RED BASELINE (buffers()-class, newly visible) — flips GREEN when keepChangeMethodsExpanded classifies a conflict-
+// overlapping method as expanded CONSISTENTLY across L/C/R (per-pane clip is the bug). DET-3x. Codicon RENDER → Tron device.
 import { chromium, devices } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
