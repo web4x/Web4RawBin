@@ -3,7 +3,9 @@
   "model": {
     "uuid": "6f5bd6a1-7eac-4907-8812-72101505c4ff",
     "name": "RbDiffEditor.applyAllFromSide impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:4d2260ea-5164-4171-a235-a37b6069263a"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.73 (rb-diff-editor.ts:756, marker :755): RbDiffEditor.applyAllFromSide - auto-resolve EVERY change to one side so CENTER matches the LEFT (Local wins) or RIGHT (Repo wins) file; rides R30.35 addSide. Marker [impl:uuid:6f5bd6a1] name-match verified."

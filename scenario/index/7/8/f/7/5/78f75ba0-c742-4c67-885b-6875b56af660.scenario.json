@@ -3,7 +3,9 @@
   "model": {
     "uuid": "78f75ba0-c742-4c67-885b-6875b56af660",
     "name": "RbDiffEditor.updateSaveButtonState impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:5296e852-8b5e-4d7a-88e4-015e6f772e3a"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.73 (rb-diff-editor.ts:707, marker :706): RbDiffEditor.updateSaveButtonState - Save button GREEN after successful save, DEFAULT (unsaved) on any subsequent change; mirrors updateResolveButton, called from renderMergeGutter + after add/remove/toggle. Marker [impl:uuid:78f75ba0] name-match verified. Expert self-verified zero-writes (398ddd14e)."

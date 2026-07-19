@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5296e852-8b5e-4d7a-88e4-015e6f772e3a",
+    "name": "test:R30.50 C2 updateSaveButtonState (GREEN on save, DEFAULT on change)",
+    "description": "Bridged to r3050-merge-actions-gate.mjs (GREEN v0.7.73). Verifies R30.50 C2 RbDiffEditor.updateSaveButtonState: Save button turns GREEN after a successful save and returns to DEFAULT (unsaved) on any subsequent change.",
+    "sourceFile": "ior:file:test/visual/r3050-merge-actions-gate.mjs",
+    "implementations": [
+      "ior:instance:78f75ba0-c742-4c67-885b-6875b56af660"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:78f75ba0-c742-4c67-885b-6875b56af660"
+}

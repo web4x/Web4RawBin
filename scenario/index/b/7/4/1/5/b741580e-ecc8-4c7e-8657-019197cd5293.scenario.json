@@ -3,7 +3,9 @@
   "model": {
     "uuid": "b741580e-ecc8-4c7e-8657-019197cd5293",
     "name": "RbDiffEditor.saveOrJumpToConflict impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:690f963c-f274-4ccd-8a68-781497a802c1"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.73 (rb-diff-editor.ts:718, marker :717): RbDiffEditor.saveOrJumpToConflict - GUARDED save: openChangeCount>0 -> jumpToChange to next unresolved (NO save); else save() (R30.38). .de-save click re-pointed here; save() stays pure. Marker [impl:uuid:b741580e] name-match verified."

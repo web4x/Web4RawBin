@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9e1bfc3d-4a8a-45d5-8d7c-ffa19217ca7a",
+    "name": "test:R30.50 B openApplyAllMenu (3-mode Apply-All popup)",
+    "description": "Bridged to r3050-merge-actions-gate.mjs (GREEN v0.7.73, commit 168569823). Verifies R30.50 B RbDiffEditor.openApplyAllMenu: the 'Apply All' button opens a popup with 3 modes ('Non-conflicting only' / 'All-Local wins' / 'All-Repo wins').",
+    "sourceFile": "ior:file:test/visual/r3050-merge-actions-gate.mjs",
+    "implementations": [
+      "ior:instance:288f469c-604c-4e03-bae2-01a43c735c76"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:288f469c-604c-4e03-bae2-01a43c735c76"
+}

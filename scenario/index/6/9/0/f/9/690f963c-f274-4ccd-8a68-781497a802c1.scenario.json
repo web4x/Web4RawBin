@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "690f963c-f274-4ccd-8a68-781497a802c1",
+    "name": "test:R30.50 C1 saveOrJumpToConflict (guarded save / jump-to-unresolved)",
+    "description": "Bridged to r3050-merge-actions-gate.mjs (GREEN v0.7.73). Verifies R30.50 C1 RbDiffEditor.saveOrJumpToConflict: with open conflicts, Save jumps to the next unresolved change (no save); at 0 open, Save writes.",
+    "sourceFile": "ior:file:test/visual/r3050-merge-actions-gate.mjs",
+    "implementations": [
+      "ior:instance:b741580e-ecc8-4c7e-8657-019197cd5293"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b741580e-ecc8-4c7e-8657-019197cd5293"
+}
