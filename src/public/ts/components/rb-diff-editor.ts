@@ -165,7 +165,7 @@ export class RbDiffEditor extends HTMLElement {
   async mountThreePane(): Promise<void> {
     this.monaco = await RbDiffEditor.monacoLoader();
     const m = this.monaco;
-    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const }; // R30.16: scrollBeyondLastLine → last line can reach the top. R30.30: pin lineHeight+wordWrap on ALL 3 panes so a font-load/wrap variance can never add a per-row px delta (0px by construction, complements the row re-anchor).
+    const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const, folding: false }; // R30.16: scrollBeyondLastLine → last line can reach the top. R30.30: pin lineHeight+wordWrap on ALL 3 panes. R30.51 Fold3 (guardChangeRegions): folding:false disables native folding — setHiddenAreas drives ALL folding, so ONLY computeFoldRegions gaps (never change lines) are collapsible = change regions structurally uncollapsible.
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
@@ -311,6 +311,7 @@ export class RbDiffEditor extends HTMLElement {
     // (updateSaveButtonState: '✓ Saved' green / '💾 Save'). de-status shows ONLY the 2-way mode note — no '• modified'
     // (dropping it removes the double-signal the architect flagged; corrects my earlier mis-report that it was already gone).
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : '');
+    this.applyChangesOnlyFolding(); // R30.51 Fold1: a fresh merge → changes-only initial view (seed all gaps collapsed → applyFold)
   }
 
   // R30.23 private helper (traceability stays on computeMergedCenter's a0b30550 — one-sided detection is the same
@@ -379,6 +380,7 @@ export class RbDiffEditor extends HTMLElement {
     }
     if (this.edCenter) this.edCenter.setValue(lines.join('\n'));
     this.renderMergeGutter();
+    if (this._collapsedGaps.size) this.applyFold(); // R30.51: re-project the active fold after a center edit (addSide/removeLine) so hidden gaps track the new line spans
   }
 
   // BASE content: git merge-base(leftRef,rightRef) → fileAtRef(base, path). Only when BOTH sides are git refs.
@@ -764,6 +766,103 @@ export class RbDiffEditor extends HTMLElement {
     this.dirty = true; this._saved = false;
     this.updateResolveButton();
     this.status(`applied all — ${side === 'left' ? 'Local' : 'Repository'} wins`);
+  }
+
+  // ===== R30.51 changes-focused code-folding (design-folding.md 905ed2e98/33ea36815; Tron K=0 pure changes-only) =====
+  private _collapsedGaps = new Set<number>(); // R30.51 Fold2: SHARED fold state (collapsed gap indices) — ONE set → 3 editor projections = inherent sync (no listener)
+  private _foldRegions: { gaps: Array<{ local: [number, number] | null; center: [number, number] | null; remote: [number, number] | null }> } | null = null;
+  private _foldZoneIds: string[] = []; // gap chevron view-zone ids (center pane; distinct from alignPaneRows _zoneIds)
+
+  // [impl:uuid:23b416c2-7108-4858-8e91-1dd3411ddaa9] RbDiffEditor.computeFoldRegions — R30.51 Fold3 (guard) + Fold1 (regions).
+  // PURE: from conflicts[] → the N+1 GAPS = the complement of the per-editor change-ranges, each a 1-based inclusive [start,end]
+  // line-range per editor (null if empty there), shrunk by context margin K. Tron ruled K=0 (pure changes-only: gaps are the
+  // FULL complement, zero context). Gap index k is SHARED across the 3 editors (k-th gap = between change k-1 and k) → one
+  // gap-set, 3 projections. Change lines are NEVER inside a gap → structurally uncollapsible (the guard, by construction).
+  private computeFoldRegions(): { gaps: Array<{ local: [number, number] | null; center: [number, number] | null; remote: [number, number] | null }> } {
+    const K = 0; // Tron: pure changes-only, zero context margin
+    const cs = [...this.conflicts].sort((a, b) => a.span[0] - b.span[0]);
+    const N = cs.length;
+    const perEd = (pos: (c: Conflict) => number, len: (c: Conflict) => number, total: number): Array<[number, number] | null> => {
+      const gaps: Array<[number, number] | null> = [];
+      for (let k = 0; k <= N; k++) {
+        const prevEnd = k === 0 ? 0 : pos(cs[k - 1]) + len(cs[k - 1]); // 0-based end (exclusive) of prev change
+        const curStart = k === N ? total : pos(cs[k]);                 // 0-based start of next change (or EOF)
+        const s = prevEnd + K, e = curStart - K;                        // 0-based [s, e)
+        gaps.push(s < e ? [s + 1, e] : null);                          // 1-based Monaco inclusive [s+1, e], or null if empty
+      }
+      return gaps;
+    };
+    const local = perEd(c => c.aStart, c => c.a.length, this.edLocal?.getModel()?.getLineCount() ?? 0);
+    const center = perEd(c => c.span[0], c => c.span[1] - c.span[0], this.edCenter?.getModel()?.getLineCount() ?? 0);
+    const remote = perEd(c => c.bStart, c => c.b.length, this.edRemote?.getModel()?.getLineCount() ?? 0);
+    const gaps = [];
+    for (let k = 0; k <= N; k++) gaps.push({ local: local[k], center: center[k], remote: remote[k] });
+    this._foldRegions = { gaps };
+    return this._foldRegions;
+  }
+
+  // [impl:uuid:2d7a0103-9ffb-4c1a-bcd9-16114a174719] RbDiffEditor.applyFold — R30.51 Fold2 (sync) + Fold4 (reflow). Recompute
+  // regions, then project the ONE _collapsedGaps set → each editor's hidden line-ranges → setHiddenAreas ×3 (one state, 3
+  // projections = inherent sync, NO cross-editor listener). Then render the gap chevron view-zones + reflow gutters/ribbons
+  // (lineY/getTopForLineNumber are hidden-area-aware; change endpoints always visible → valid Y). setHiddenAreas gives the
+  // native collapsed-line-jump look; the chevron makes a collapsed region VISIBLY foldable.
+  applyFold(): void {
+    if (!this.monaco) return;
+    const fr = this.computeFoldRegions();
+    const m = this.monaco;
+    const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
+    for (const [key, ed] of specs) {
+      if (!ed) continue;
+      const ranges: any[] = [];
+      for (const idx of this._collapsedGaps) { const g = fr.gaps[idx]?.[key]; if (g) ranges.push(new m.Range(g[0], 1, g[1], 1)); }
+      ed.setHiddenAreas(ranges);
+    }
+    this.renderGapZones();
+    this.renderInterPaneGutters();
+    this.renderConnectorRibbons();
+  }
+
+  // R30.51 Fold2 helper (uncredited — UC1's Method is applyFold; toggleGap is the thin trigger glue, one-Method-per-UC per
+  // architect): flip gap idx in _collapsedGaps then re-project via applyFold → all 3 panes fold/unfold together.
+  private toggleGap(idx: number): void {
+    if (this._collapsedGaps.has(idx)) this._collapsedGaps.delete(idx); else this._collapsedGaps.add(idx);
+    this.applyFold();
+  }
+
+  // R30.51 Fold2 affordance (IMG_4571 native-fold look, design 33ea36815): a CENTER view-zone per gap = a clickable bar with
+  // a LEFT-aligned chevron in the gutter column — collapsed → '▸ ⋯ N lines' (Monaco collapsed-fold marker); expanded → '▾'
+  // re-collapse at the gap top. Click → toggleGap(idx) (mutates shared state → syncs 3). Change regions carry NO chevron =
+  // visibly non-collapsible (the guard, made visible). Own _foldZoneIds (separate from alignPaneRows' _zoneIds).
+  private renderGapZones(): void {
+    if (!this.edCenter || !this._foldRegions) return;
+    const fr = this._foldRegions;
+    this.edCenter.changeViewZones((acc: any) => {
+      for (const id of this._foldZoneIds) acc.removeZone(id);
+      this._foldZoneIds = [];
+      fr.gaps.forEach((g, idx) => {
+        const cg = g.center; if (!cg) return; // no center lines in this gap → no affordance
+        const collapsed = this._collapsedGaps.has(idx);
+        const n = cg[1] - cg[0] + 1;
+        const dom = document.createElement('div');
+        dom.style.cssText = 'cursor:pointer;font-size:0.72rem;color:#8aa;display:flex;align-items:center;gap:6px;padding:0 6px';
+        dom.onmouseenter = () => { dom.style.color = '#cde'; dom.style.background = 'rgba(58,110,165,0.14)'; };
+        dom.onmouseleave = () => { dom.style.color = '#8aa'; dom.style.background = 'transparent'; };
+        dom.innerHTML = collapsed
+          ? `<span style="width:16px;text-align:center;color:#6ea5d9">▸</span><span>⋯ ${n} line${n === 1 ? '' : 's'}</span>`
+          : `<span style="width:16px;text-align:center;color:#6ea5d9">▾</span><span style="opacity:0.6">${n} line${n === 1 ? '' : 's'}</span>`;
+        dom.addEventListener('click', () => this.toggleGap(idx));
+        this._foldZoneIds.push(acc.addZone({ afterLineNumber: Math.max(0, cg[0] - 1), heightInLines: 1, domNode: dom }));
+      });
+    });
+  }
+
+  // [impl:uuid:9493c08a-0f85-45ae-841e-0903d3d4fc68] RbDiffEditor.applyChangesOnlyFolding — R30.51 Fold1: the CHANGES-ONLY
+  // initial view. computeFoldRegions() → seed _collapsedGaps = ALL gap indices → applyFold() → every non-change region
+  // collapsed, only change regions visible (K=0). Called at the computeMergedCenter TAIL (conflicts[] ready + editors exist).
+  applyChangesOnlyFolding(): void {
+    const fr = this.computeFoldRegions();
+    this._collapsedGaps = new Set(fr.gaps.map((_, k) => k)); // all gaps collapsed = changes-only
+    this.applyFold();
   }
 
   // [impl:uuid:e3431e87-2312-4679-bd98-6258b43ce6f3] RbDiffEditor.syncScroll3
