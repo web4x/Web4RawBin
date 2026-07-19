@@ -530,6 +530,13 @@ class GitApi {
     } catch { return false; }
   }
 
+  // [impl:uuid:3d1b156d-abf9-4182-935c-12290910b1c2] GitApi.isGitRepo — R30.43 UC4 V1 SOLE add-local check (Method 153c01f0):
+  // the dir contains a .git ENTRY — FOLDER (normal checkout) OR FILE (git worktree's gitdir pointer). fs stat, no shell,
+  // no allowlist (V1 §10 = trusted-local convenience; assertAllowedRoot stays DORMANT for the backlog).
+  static isGitRepo(dir: string): boolean {
+    try { fsSync.statSync(path.join(dir, '.git')); return true; } catch { return false; }
+  }
+
   // path must be relative, within the resolved repo root, no traversal — returns the safe rel path or null.
   private static safeRelPath(root: string, p: string): string | null {
     if (!p || p.includes('..') || p.startsWith('/')) return null;
@@ -1445,8 +1452,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthorized' })); return;
       }
       try {
-        if (filepath === '/api/git/repos') { // R30.6.7: repo picker source (key+label allowlist)
-          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ repos: RepoRegistry.list() })); return;
+        if (filepath === '/api/git/repos') {
+          if (req.method === 'POST') { // R30.43 UC4 V1 add-local — read-auth (NOT admin per §10 V1); SOLE check = isGitRepo (.git present); NO allowlist (assertAllowedRoot DORMANT).
+            let body = '';
+            req.on('data', (c: Buffer) => { body += c; if (body.length > 100000) { res.writeHead(413); res.end('Too large'); } });
+            req.on('end', () => {
+              try {
+                const { method, path: repoPath, label } = JSON.parse(body || '{}');
+                if (method !== 'local' || typeof repoPath !== 'string' || !repoPath) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Bad request: expected {method:"local", path, label}' })); return; }
+                if (!GitApi.isGitRepo(repoPath)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Not a git repository — no .git found in ' + repoPath })); return; }
+                const key = RepoRegistry.register({ root: repoPath, label: (typeof label === 'string' && label) ? label : undefined });
+                const entry = RepoRegistry.list().find(r => r.key === key);
+                res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ key, label: entry?.label }));
+              } catch { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Bad request' })); }
+            });
+            return;
+          }
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ repos: RepoRegistry.list() })); return; // GET: repo picker source (key+label+builtin/removable)
         }
         // R30.6.7: resolve the repo KEY → allowlisted abs root (default rawbin); unknown key → 400 (never a client path).
         const root = RepoRegistry.resolve(urlParams.get('repo'));

@@ -72,7 +72,7 @@ export class RepoRegistry {
     if (builtin) return path.resolve(builtin.root);
     const dyn = RepoRegistry.dynamic[key || ''];
     if (!dyn) return null;                                // unknown key → null; a client abs path is never a key → null
-    if (!RepoRegistry.assertAllowedRoot(dyn.root)) return null; // R30.42 UC8 TOCTOU: a dynamic symlink could be repointed post-register → re-assert allowlist here
+    // R30.43 V1 §10: assertAllowedRoot allowlist is DORMANT (deferred → backlog D1) — no TOCTOU re-assert in V1; re-wire this line to re-activate.
     return path.resolve(dyn.root);
   }
 
@@ -89,7 +89,7 @@ export class RepoRegistry {
   // (never a builtin, uniqueness-checked). Routes root through the UC8 choke point. Persists. Returns the derived key.
   static register(input: { root: string; label?: string; addedBy?: string }): string {
     RepoRegistry.ensureLoaded();
-    if (!RepoRegistry.assertAllowedRoot(input.root)) throw new Error('root not permitted'); // UC8 choke point
+    // R30.43 V1 §10: NO allowlist — assertAllowedRoot is DORMANT (backlog D1); re-wire this guard to re-activate. V1 accepts any .git dir (caller UC4 = isGitRepo check only).
     const key = RepoRegistry.uniqueSlug(input.label || input.root);
     RepoRegistry.dynamic[key] = { root: input.root, label: input.label || key, addedBy: input.addedBy, addedAt: new Date().toISOString() };
     RepoRegistry.persist();
@@ -124,7 +124,7 @@ export class RepoRegistry {
     for (const [key, e] of Object.entries(raw)) {
       if (RepoRegistry.ROOTS[key]) continue;                        // never override a builtin
       if (!e || typeof e.root !== 'string' || !e.root) continue;    // malformed
-      if (!RepoRegistry.assertAllowedRoot(e.root)) continue;        // UC8 validate-on-load choke point
+      // R30.43 V1 §10: assertAllowedRoot DORMANT — no allowlist drop-on-load (re-wire to re-activate D1); builtin-collision/malformed still dropped above.
       valid[key] = { root: e.root, label: e.label || key, addedBy: e.addedBy, addedAt: e.addedAt };
     }
     RepoRegistry.dynamic = valid;
