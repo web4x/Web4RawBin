@@ -1,0 +1,56 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "f06068ff-4b65-4f35-ad48-8864b8caf02f",
+  "altId": "R30.48",
+  "name": "BACKLOG: re-activate repo-manager security hardening before multi-user / exposed deployment",
+  "description": "DEFERRED-RISK (architect §10, Tron V1 scope): V1 repo-manager is TRUSTED-LOCAL - any same-origin/token client can register + read/save ANY server .git dir (add-local has ONLY the .git-present check; no path-allowlist, no admin-auth; clone is hidden). This is acceptable for the current single-trusted-user local deployment. BEFORE any multi-user / network-exposed / untrusted deployment, RE-ACTIVATE the built-but-deferred guards: assertAllowedRoot (D1 HOME-subtree+REPO_ALLOW realpath) + requireAdmin (D4 admin-key on all writes) + assertAllowedUrl (D2 clone-URL SSRF host-allowlist, if/when clone ships). The guard code is BUILT + gated (v0.7.67) - re-activation = wiring, not re-implementation.",
+  "tronQuote": "> (Architect §10 deferred-risk, captured per robbin-po: V1=trusted-local; re-activate assertAllowedRoot+requireAdmin (+assertAllowedUrl if clone ships) before multi-user/exposed hardening.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [],
+  "status": "backlog",
+  "backlog": {
+   "reason": "Tron V1 keep-it-simple; security-hardening deferred (built+gated, re-activation=wiring). NOT lost - explicit re-activation checklist for the exposed-deployment transition."
+  },
+  "crossRef": [
+   "ior:instance:90569c5e-c931-4d9b-9e2b-d3a0ca6a2788",
+   "ior:instance:4fb69bb5-fc16-46ea-b3ae-a81318ca7b66",
+   "ior:instance:54a1a5c7-5c21-4430-b943-e6cc43303123",
+   "ior:instance:96945512-3dbf-413d-ae26-734489ad8c0c",
+   "ior:instance:3c9f69c1-8bee-4309-9e30-df61cea34de3"
+  ],
+  "crossRefNote": "Re-activation targets (built, deferred): assertAllowedRoot impl 90569c5e (D1), assertAllowedUrl impl 4fb69bb5 (D2), requireAdmin impl 54a1a5c7 (D4). Guards R30.43 (add-local path-bounds/auth) + R30.44 (clone SSRF).",
+  "discoverySource": {
+   "type": "architect-deferred-risk",
+   "flaggedBy": "robbin-architect §10 via robbin-po",
+   "date": "2026-07-19",
+   "note": "Explicit backlog capture of the V1=trusted-local security posture + the re-activation checklist. Deferred NOT lost."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-reactivate-d1",
+    "group": "backlog",
+    "text": "[BACKLOG] Before exposed deployment: re-activate assertAllowedRoot (D1) so add-local paths are bounded to HOME-subtree + REPO_ALLOW (realpath-checked)."
+   },
+   {
+    "id": "AC-reactivate-d4",
+    "group": "backlog",
+    "text": "[BACKLOG] Before exposed deployment: re-activate requireAdmin (D4) so all registry writes (register/unregister/clone) require the admin-key."
+   },
+   {
+    "id": "AC-reactivate-d2",
+    "group": "backlog",
+    "text": "[BACKLOG] If/when clone (R30.44) ships: re-activate assertAllowedUrl (D2) clone-URL SSRF host-allowlist (WHATWG new URL, https/ssh, no-password, username empty-or-git, exact-host)."
+   },
+   {
+    "id": "AC-posture-documented",
+    "group": "backlog",
+    "text": "[BACKLOG] The V1=trusted-local posture is documented so the exposed-deployment transition cannot silently skip re-activation."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

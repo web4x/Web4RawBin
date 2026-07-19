@@ -40,22 +40,22 @@
    {
     "id": "AC-validate",
     "group": "security",
-    "text": "The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse)."
+    "text": "V1 (Tron scope-simplification 2026-07-19): the chosen directory MUST contain a .git (a FILE or a FOLDER = a git checkout or worktree) - this is the SOLE validation. NO REPO_ALLOW allowlist, NO admin-auth for v1. An invalid dir (no .git) is rejected with a clear error."
    },
    {
     "id": "AC-sec-path-bounds",
     "group": "security",
-    "text": "RATIFIED D1: the server-local path, after realpath (symlinks resolved), MUST be within the HOME subtree OR the REPO_ALLOW allowlist; a realpath outside those bounds is REJECTED (symlink-escape blocked)."
+    "text": "[BACKLOG v1 - deferred, NOT lost; rationale: path traversal / info-disclosure defense] RATIFIED D1 (deferred to a post-v1 admin-endpoint): the server-local path, after realpath, within HOME subtree OR REPO_ALLOW allowlist. V1 drops this - sole check is .git-present (AC-validate)."
    },
    {
     "id": "AC-sec-auth",
     "group": "security",
-    "text": "RATIFIED D4: registering a repo requires the admin-key (all writes are admin-key-gated); missing/invalid admin-key -> rejected, nothing registered."
+    "text": "[BACKLOG v1 - deferred, NOT lost; rationale: write-auth] RATIFIED D4 (deferred): register requires admin-key. V1 drops admin-auth for add-local."
    },
    {
     "id": "AC-sec-persistence",
     "group": "security",
-    "text": "RATIFIED D4: the registration persists in the dynamic registry (survives restart) via an admin-key-gated write; no secret/path leakage."
+    "text": "V1: the registration persists in the dynamic registry (survives restart). [BACKLOG v1: the admin-key gating of that write is deferred with D4.]"
    },
    {
     "id": "AC-gate",
@@ -63,7 +63,15 @@
     "text": "GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key.",
+  "v1Scope": "V1 (Tron 2026-07-19 scope-simplification): add-local sole validation = directory contains a .git (file or folder). Security elaborate (D1 REPO_ALLOW path-allowlist + D4 admin-auth) -> BACKLOG (tracked, deferred not lost, rationale kept). Pending architect REVISED V1 spine units (allowlist enforcement dropped from register/load/resolve; V1 sole check = .git-present) - I fold those into R30.47/R30.43 when they land.",
+  "backlog": {
+   "deferred": [
+    "AC-sec-path-bounds (D1 REPO_ALLOW)",
+    "AC-sec-auth (D4 admin)"
+   ],
+   "reason": "Tron V1 simplification - keep it simple first; security features backlogged (info-disclosure/path-bounds rationale), revisit post-v1 via admin-endpoint."
+  }
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

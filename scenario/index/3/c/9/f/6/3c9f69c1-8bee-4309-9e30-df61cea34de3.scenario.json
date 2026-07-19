@@ -3,7 +3,7 @@
  "model": {
   "uuid": "3c9f69c1-8bee-4309-9e30-df61cea34de3",
   "altId": "R30.44",
-  "name": "Add a repository by entering a git clone URL then picking a checkout location to clone and register",
+  "name": "[BACKLOG v1] Add a repository by entering a git clone URL then picking a checkout location to clone and register",
   "description": "In the add dialog, entering a GIT CLONE URL then choosing a CHECKOUT LOCATION clones the repo to that location and registers it in the dynamic registry. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
   "tronQuote": "> TRON (v0.7.65): add a repo by entering a git clone URL, then pick a checkout location -> clone + register.",
   "tasks": [],
@@ -78,7 +78,12 @@
     "text": "GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump."
    }
   ],
-  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key. D2 URL-guard RATIFIED verbatim by architect §9 (WHATWG new URL, scheme https/ssh, no-password, username empty-or-git, exact-host allowlist; +GIT_ALLOW_PROTOCOL/protocol.file.allow=never)."
+  "securitySurface": "SECURITY SURFACE RATIFIED by Tron D1-D4 (2026-07-19): D1 path-bounds = HOME-subtree + REPO_ALLOW, realpath-checked; D2 clone SSRF = host-allowlist (github.com+team) + https/ssh only (reject file/git/ext); D3 worktree switch = READ-ONLY ref-pick, worktree-as-key, NO server checkout; D4 auth = admin-key for ALL writes (register/clone/registry-mutation). Read-only actions need no admin-key. D2 URL-guard RATIFIED verbatim by architect §9 (WHATWG new URL, scheme https/ssh, no-password, username empty-or-git, exact-host allowlist; +GIT_ALLOW_PROTOCOL/protocol.file.allow=never).",
+  "status": "backlog",
+  "backlog": {
+   "v1": false,
+   "reason": "Tron V1 scope-simplification 2026-07-19: clone (add-by-URL) DEFERRED to backlog - needs the D2 clone-URL SSRF host-allowlist security (assertAllowedUrl) which is itself backlogged. Rationale kept: SSRF/@-confusion. V1 = add-local (.git-check) only; clone revisits post-v1 with the ratified D2 guard."
+  }
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3d1b156d-abf9-4182-935c-12290910b1c2",
+    "name": "GitApi.isGitRepo impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD (architect §10 V1; expert builds): R30.42 UC4 V1 (architect §10): the SOLE add-local validation - GitApi.isGitRepo(dir) = the directory contains a .git (a FILE or a FOLDER = git checkout or worktree). NO allowlist, NO admin-auth for v1. Design-ahead; expert builds + marks name-matched. Expert places [impl:uuid:3d1b156d-abf9-4182-935c-12290910b1c2] on the isGitRepo decl."
+  },
+  "ownerIor": "ior:instance:153c01f0-20dc-4933-8dae-4eaef3e86266"
+}

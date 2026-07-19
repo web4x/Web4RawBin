@@ -9,7 +9,10 @@
    "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
   ],
   "method": "ior:instance:defe4e43-9cef-490f-8276-2b6ed4e28de9",
-  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00",
+  "backlog": {
+   "reason": "Tron V1 scope-simplification 2026-07-19: elaborate security guard deferred to backlog (revisit with the post-v1 admin-endpoint / clone). Built code stays; the REQUIREMENT is deferred. Rationale kept."
+  }
  },
  "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
 }

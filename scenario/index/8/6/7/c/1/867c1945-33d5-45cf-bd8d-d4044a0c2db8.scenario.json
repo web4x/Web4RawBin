@@ -6,7 +6,9 @@
     "implementations": [],
     "tests": [],
     "designAhead": true,
-    "note": "R30.43 PROPOSED (architect derive-confirm). Server: validate a local path is a git checkout + register it in the dynamic registry (persisted). Expert builds + I re-point on confirm."
+    "note": "R30.43 PROPOSED (architect derive-confirm). Server: validate a local path is a git checkout + register it in the dynamic registry (persisted). Expert builds + I re-point on confirm.",
+    "deferred": true,
+    "deferredReason": "Placeholder superseded by architect §10 V1: add-local uses GitApi.isGitRepo (check) + R30.47 register (foundation). Parked - never built as a distinct 'registerLocal'."
   },
   "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
 }

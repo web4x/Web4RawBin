@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "153c01f0-20dc-4933-8dae-4eaef3e86266",
+    "name": "GitApi.isGitRepo",
+    "implementations": [
+      "ior:instance:3d1b156d-abf9-4182-935c-12290910b1c2"
+    ],
+    "tests": [],
+    "designAhead": true,
+    "note": "Name EXACT for [impl] AST-attach. R30.42 UC4 V1 (architect §10): the SOLE add-local validation - GitApi.isGitRepo(dir) = the directory contains a .git (a FILE or a FOLDER = git checkout or worktree). NO allowlist, NO admin-auth for v1. Design-ahead; expert builds + marks name-matched."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

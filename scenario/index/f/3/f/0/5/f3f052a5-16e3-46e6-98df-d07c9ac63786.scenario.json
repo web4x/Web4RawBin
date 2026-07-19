@@ -9,7 +9,10 @@
    "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
   ],
   "method": "ior:instance:d57a14c5-d560-4b5a-9df0-0672665045a6",
-  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00",
+  "backlog": {
+   "reason": "Tron V1 scope-simplification 2026-07-19 (architect §10): elaborate security DEFERRED to backlog - NOT cancelled. Built+gated code stays; re-activation = wiring. Rationale kept (info-disclosure/path-traversal/SSRF/write-auth). Re-activate before multi-user/exposed hardening (see R30.48 deferred-risk req)."
+  }
  },
  "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
 }
