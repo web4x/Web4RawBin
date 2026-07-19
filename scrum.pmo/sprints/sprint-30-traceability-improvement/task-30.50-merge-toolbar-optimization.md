@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -26,6 +26,7 @@
     - [UC](./planning.md) `[uc:uuid:f27ee373-4bb4-4913-88ec-9855d5c3523f]`
     - [UC](./planning.md) `[uc:uuid:787e7755-4529-459e-9c53-803301d4b3cb]`
     - [UC](./planning.md) `[uc:uuid:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b]`
+    - [UC](./planning.md) `[uc:uuid:6780cb2e-42fb-46d8-9061-05d117304d47]`
 
 ## Task Description
 
@@ -41,21 +42,21 @@ S30 diff/merge editor — R30.50 merge-toolbar optimization (Tron feature): chan
 
 ## Acceptance Criteria
 
-- [ ] The toolbar shows '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), replacing 'X/Y open conflicts - modified'.
-- [ ] N live-updates as the user navigates changes up/down.
-- [ ] 'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes.
-- [ ] Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins).
-- [ ] Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins).
-- [ ] [DESIGN-FLAG] Reconcile the 'Non-Conflicting' label with the accept-all-by-side modes (only-non-conflicting vs all-including-conflicts) at architect design-derive + PO ruling.
-- [ ] Save only actually SAVES when there are 0 open conflicts (all resolved).
-- [ ] If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
-- [ ] After a successful save, the Save button turns GREEN (saved indicator).
-- [ ] On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator).
-- [ ] GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual.
+- [x] The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position).
+- [x] N live-updates as the user navigates changes up/down.
+- [x] 'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes.
+- [x] Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins).
+- [x] Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins).
+- [x] [RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'. (architect reconciled the label in the design derivation; shipped build A→C2→C1→B, r3050 GREEN.)
+- [x] Save only actually SAVES when there are 0 open conflicts (all resolved).
+- [x] If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
+- [x] After a successful save, the Save button turns GREEN (saved indicator).
+- [x] On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator).
+- [ ] GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual. — DET-3x GREEN ✓ (r3050 522c34b01 v0.7.73, 4 method-Tests + rides 8fa42d89/79139c01, served==gated); Tron VISUAL (screenshot at Tron viewport) pending.
 
 ## Implementation
 
-IN PROGRESS @ BUILDING (PO green-lit expert A->C2->C1->B, 2026-07-19). Architect design derived. Building the merge-toolbar: change-# indicator + apply-all-non-conflicting popup (2 modes) + guarded save + save-indicator. AC6 design-flag resolved by architect. Gate = screenshot DET-3x at Tron viewport.
+QA-REVIEW: merge-toolbar BUILT+GATED v0.7.73. Gate r3050 GREEN DET-3x (522c34b01), chain both-directions — 4 new-method Tests (openApplyAllMenu 9e1bfc3d/applyAllFromSide 4d2260ea/saveOrJumpToConflict 690f963c/updateSaveButtonState 5296e852) + A rides renderMergeGutter 8fa42d89 + non-conflicting rides 79139c01. served==gated. 10/11 ACs (AC11 gate Tron-visual pending). HELD rule#9 -> Tron VISUAL (screenshot at viewport) -> Done.
 
 ## Subtasks
 

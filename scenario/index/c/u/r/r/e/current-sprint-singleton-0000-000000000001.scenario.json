@@ -11,7 +11,7 @@
       "impl": "e24dc98a-bbea-4e9b-9960-5f59db8bf6b1",
       "test": "8fa42d89-0e86-45c4-b88b-f0a978782da0"
     },
-    "activeHop": 4,
+    "activeHop": 5,
     "sprintName": "Sprint 30",
     "taskName": "Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save",
     "hopStates": {
@@ -39,6 +39,11 @@
         "status": "in-progress",
         "owner": "planner",
         "updatedAt": "2026-07-19T16:30:49.542Z"
+      },
+      "test": {
+        "status": "gate-proven",
+        "owner": "planner",
+        "updatedAt": "2026-07-19T16:48:05.885Z"
       }
     },
     "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
