@@ -2,6 +2,7 @@
 // /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 (v0.7.61, edit-CYBX5O6I.js). The diff/merge Save
 // [test:uuid:8c68c361-86c3-4fb0-8a04-bb311b432149] R30.38 setCenterTitle 41504f5f - center header renders filename@currentBranch (otmux@<branch>), asserted in M3.
 // [test:uuid:3d82c2c8-d896-4fac-85c6-202178f4b186] R30.38 GitApi.currentBranch a2cbd78e - /api/git/current-branch?repo=oosh resolves the Save target branch (feeds the header).
+// [test:uuid:5968fda1-b24b-4b23-bc4a-108e86610030] R30.38 FileApi.writeFile a28cea0d (merge.saveWriteBounded) - security-critical bounded WRITE: ?repo=oosh resolves to the real oosh otmux (409 non-writing probe = would 200, no 404) AND a path escaping the repo root is REJECTED by sanitizePath (403, no write). Non-destructive by construction (ready marker; req mints the Test).
 // (RbDiffEditor.save a88b2b53) now writes the merged Result to the DIFF'S repo (?repo=oosh), not rawbin → no 404.
 // ANTI-CIRCULAR (measured DIFFERENTLY than the expert's curl/playwright proof) + STRICTLY NON-DESTRUCTIVE (a real save
 // WRITES the served oosh working tree — the server even appends a byte per write — so this gate NEVER does a real save):
@@ -38,7 +39,12 @@ try {
     const STALE = '1970-01-01T00:00:00.000Z';
     const m1 = await page.evaluate(async (stale) => {
       const put = async (u) => { try { const r = await fetch(u, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: '__RB_SAVE_PROBE__DO_NOT_WRITE__', expectedMtime: stale }) }); return r.status; } catch { return 0; } };
-      return { putRepoStatus: await put('/api/files/otmux?repo=oosh'), putNoRepoStatus: await put('/api/files/otmux') };
+      // a28cea0d sanitizePath: a path escaping the repo root ('..') is rejected BEFORE any write (403) → non-destructive
+      const trav = '/api/files/' + encodeURIComponent('../../../../etc/rb-save-probe') + '?repo=oosh';
+      const putTrav = async () => { try { const r = await fetch(trav, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ content: '__RB_TRAVERSAL_PROBE__DO_NOT_WRITE__' }) }); return r.status; } catch { return 0; } };
+      // a2cbd78e GitApi.currentBranch: direct endpoint (git rev-parse --abbrev-ref HEAD for the resolved repo)
+      const branch = async () => { try { return ((await (await fetch('/api/git/current-branch?repo=oosh')).json()).branch || '').trim(); } catch { return ''; } };
+      return { putRepoStatus: await put('/api/files/otmux?repo=oosh'), putNoRepoStatus: await put('/api/files/otmux'), traversalStatus: await putTrav(), currentBranch: await branch() };
     }, STALE);
 
     // ── M2: BOTH buttons thread ?repo=oosh + 'saved' — route-intercept so no real merged write lands ──
@@ -68,11 +74,13 @@ try {
     const okRepo = (u) => !!u && /[?&]repo=oosh/.test(u);
     const savedTxt = (s) => /saved/i.test(s) && !/fail|not found|404/i.test(s);
     const serverOk = m1.putRepoStatus === 409 && m1.putNoRepoStatus === 404; // repo=oosh resolves to the real otmux (409, no write); no-repo → 404
+    const traversalRejected = m1.traversalStatus === 403;                    // a28cea0d sanitizePath: escaping path → 403 (no write)
+    const currentBranchOk = /\S/.test(m1.currentBranch);                     // a2cbd78e: current-branch endpoint returns a branch
     const bothButtons = okRepo(btnDiff.url) && savedTxt(btnDiff.status) && okRepo(btnToolbar.url) && savedTxt(btnToolbar.status);
-    const headerOk = /otmux@\S+/.test(centerTitle);
-    const pass = serverOk && bothButtons && headerOk;
+    const headerOk = /otmux@\S+/.test(centerTitle) && centerTitle.includes(m1.currentBranch); // header branch == the currentBranch endpoint's answer
+    const pass = serverOk && traversalRejected && currentBranchOk && bothButtons && headerOk;
     rows.push(pass);
-    console.log(`iter ${i}: SERVER(repo→409 norepo→404, non-writing)=${serverOk}(${m1.putRepoStatus}/${m1.putNoRepoStatus}) | 💾=${okRepo(btnDiff.url)}+"${btnDiff.status}" | toolbar=${okRepo(btnToolbar.url)}+"${btnToolbar.status}" | header="${centerTitle}"(${headerOk}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: SERVER(409/404)=${serverOk} traversal→${m1.traversalStatus}(${traversalRejected}) branch="${m1.currentBranch}"(${currentBranchOk}) | 💾=${okRepo(btnDiff.url)}+"${btnDiff.status}" | toolbar=${okRepo(btnToolbar.url)}+"${btnToolbar.status}" | header="${centerTitle}"(${headerOk}) => ${pass ? 'GREEN' : 'RED'}`);
     await page.unroute('**/api/files/otmux**').catch(() => {});
     await ctx.close();
   }
