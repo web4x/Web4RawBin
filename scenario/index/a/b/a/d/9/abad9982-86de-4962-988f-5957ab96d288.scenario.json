@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "abad9982-86de-4962-988f-5957ab96d288",
+  "name": "merge.centerHeaderBranch",
+  "description": "The center pane header shows filename@currentBranch (e.g. otmux@<branch>) reflecting where Save writes. Impl-edit to the center-pane mount/header (mountThreePane, or a new renderCenterHeader - architect derive-confirms).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:d9223804-e123-4632-8b92-d38421c0dd16",
+  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+ },
+ "ownerIor": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+}

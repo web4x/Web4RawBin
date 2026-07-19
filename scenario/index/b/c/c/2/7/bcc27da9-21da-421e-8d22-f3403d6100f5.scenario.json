@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bcc27da9-21da-421e-8d22-f3403d6100f5",
+  "name": "merge.saveToCurrentBranch",
+  "description": "Save routes the PUT through the diff's repo key (RepoRegistry) so it writes to the file in the current checked-out branch of the CORRECT repo (OOSH for otmux), no 404; the server /api/files PUT accepts ?repo=<key>. Impl-edit to save (+ server endpoint); architect derive-confirms.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:11a8ea6e-8797-4aaf-8549-8958cd138ce5",
+  "coveredRequirement": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+ },
+ "ownerIor": "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+}

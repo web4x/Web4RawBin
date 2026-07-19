@@ -553,3 +553,16 @@
   - [ ] **(count)** The resolved state drives R30.36's open-count (open = unresolved): resolving via checkmark decrements it, an action resetting a resolved change increments it.
   - [ ] **(verify)** GATE: checkmark toggles resolved (outlined<->solid, pixel-distinguishable); an action resets to unresolved; the open-count tracks accordingly. Client-facing -> version-bump.
   -> merge.toggleResolved [uc:uuid:fa87d094-a723-443c-8f71-b4a1ce54ba24]
+
+- [ ] **R30.38 — Merge Save writes to the diff's repo/current branch (no 404) + center header shows filename@currentBranch**
+  [requirement:uuid:4aa5ec49-34f0-41a5-b19e-5530cae2ad34]
+  > TRON (v0.7.60): all conflicts resolved ('0/61 open, modified') but Save -> 'save failed (404)'. FIX: Save ALWAYS writes to the file in the CURRENT CHECKED-OUT branch/commit (correct repo/branch, no 404); the CENTER pane header shows filename@currentBranch (e.g. otmux@<branch>).
+  The 3-way merge SAVE writes to the file in the DIFF'S repo on the CURRENT CHECKED-OUT branch/commit - no 404. BUG (v0.7.60): with all conflicts resolved ('0/61 open conflicts, modified'), Save -> 'save failed (404)'. ROOT (expert-measured): the save PUT hits the MAIN/rawbin repo while the diff file (e.g. otmux) lives in the OOSH repo -> the write path does not exist -> 404. This is the SAME wrong-repo root as the C read-fix (R30.6.7). FIX: route the save PUT through the diff's repo KEY (RepoRegistry, mirroring the read path) so it writes to the correct repo/branch; the server /api/files PUT endpoint accepts ?repo=<key> and resolves the write there (server-side - needs a restart). ALSO: the CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<branch>) reflecting WHERE the save writes. Client-facing -> version-bump + atomic deploy (R30.28).
+  **Acceptance criteria:**
+  - [ ] **(save)** The merge Save routes the PUT through the DIFF'S repo (the repo the file lives in, e.g. OOSH for 'otmux'), NOT the main/rawbin repo, writing to the file in the CURRENT CHECKED-OUT branch/commit. A file in a non-rawbin repo saves WITHOUT a 404.
+  - [ ] **(save)** The server save PUT endpoint (/api/files PUT) accepts the repo KEY (?repo=<key>, R30.6.7 RepoRegistry) and resolves the write path in that repo - mirroring the C read-path fix. (Server-side change -> requires a server restart; expert authority.)
+  - [ ] **(header)** The CENTER pane header shows 'filename@currentBranch' (e.g. otmux@<currentBranch>) reflecting WHERE the save writes.
+  - [ ] **(gate)** With all conflicts resolved, pressing Save SUCCEEDS (HTTP 200, file written) - no 'save failed (404)'.
+  - [ ] **(gate)** GATE on the REAL deep-link (e.g. /edit/otmux?repo=oosh&left=<ref>&right=<ref>&3way=1): resolve conflicts -> Save succeeds (no 404), the file is written to the OOSH repo's checked-out branch, and the center header reads otmux@<branch>. Verified live; version-bump + atomic deploy (R30.28).
+  -> merge.saveToCurrentBranch [uc:uuid:bcc27da9-21da-421e-8d22-f3403d6100f5]
+  -> merge.centerHeaderBranch [uc:uuid:abad9982-86de-4962-988f-5957ab96d288]
