@@ -537,6 +537,23 @@ class GitApi {
     try { fsSync.statSync(path.join(dir, '.git')); return true; } catch { return false; }
   }
 
+  // R30.45 UC6 manageInfo — `git worktree list --porcelain` → [{path,branch,head,bare}]. Read-only, execFile array-args.
+  // Surfaces oo-mode sibling worktrees (HOME/oosh symlink target's siblings) for the manage panel. [chain: req mints GitApi.worktrees Impl — ping per method]
+  static async worktrees(root: string): Promise<{ path: string; branch: string; head: string; bare: boolean }[]> {
+    try {
+      const { stdout } = await execFileAsync('git', ['worktree', 'list', '--porcelain'], GitApi.opts(root));
+      const out: { path: string; branch: string; head: string; bare: boolean }[] = [];
+      let cur: { path: string; branch: string; head: string; bare: boolean } | null = null;
+      for (const line of stdout.split('\n')) {
+        if (line.startsWith('worktree ')) { cur = { path: line.slice(9), branch: '', head: '', bare: false }; out.push(cur); }
+        else if (cur && line.startsWith('HEAD ')) cur.head = line.slice(5, 12);
+        else if (cur && line.startsWith('branch ')) cur.branch = line.slice(7).replace('refs/heads/', '');
+        else if (cur && line === 'bare') cur.bare = true;
+      }
+      return out;
+    } catch { return []; }
+  }
+
   // path must be relative, within the resolved repo root, no traversal — returns the safe rel path or null.
   private static safeRelPath(root: string, p: string): string | null {
     if (!p || p.includes('..') || p.startsWith('/')) return null;
@@ -1475,6 +1492,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (!root) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown repo' })); return; }
         if (filepath === '/api/git/current-branch') { // R30.x save-404: the working-tree branch a Save targets (for the center header 'file@branch')
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branch: await GitApi.currentBranch(root) })); return;
+        }
+        if (filepath === '/api/git/repo-info') { // R30.45 UC6 manageInfo — key+label+resolved path+currentBranch+worktrees (manage panel); read-auth
+          const infoKey = urlParams.get('repo') || 'rawbin';
+          const infoLabel = RepoRegistry.list().find(r => r.key === infoKey)?.label || infoKey;
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ key: infoKey, label: infoLabel, path: root, currentBranch: await GitApi.currentBranch(root), worktrees: await GitApi.worktrees(root) }));
+          return;
         }
         if (filepath === '/api/git/branches') {
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches(root) })); return;

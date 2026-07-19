@@ -124,7 +124,9 @@ export class RepoRegistry {
     for (const [key, e] of Object.entries(raw)) {
       if (RepoRegistry.ROOTS[key]) continue;                        // never override a builtin
       if (!e || typeof e.root !== 'string' || !e.root) continue;    // malformed
-      // R30.43 V1 §10: assertAllowedRoot DORMANT — no allowlist drop-on-load (re-wire to re-activate D1); builtin-collision/malformed still dropped above.
+      // R30.43 V1 §10.1: STALE-DROP by EXISTENCE — keep IFF .git is STILL present at the root (a deleted/moved repo drops on
+      // reload). This is the V1 validate-on-load (mirrors isGitRepo). assertAllowedRoot allowlist stays DORMANT (re-wire to re-activate D1).
+      try { fs.statSync(path.join(e.root, '.git')); } catch { continue; }
       valid[key] = { root: e.root, label: e.label || key, addedBy: e.addedBy, addedAt: e.addedAt };
     }
     RepoRegistry.dynamic = valid;
