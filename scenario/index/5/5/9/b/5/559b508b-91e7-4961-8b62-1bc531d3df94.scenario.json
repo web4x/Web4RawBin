@@ -1,12 +1,14 @@
 {
-  "ior": "ior:class:Implementation",
-  "model": {
-    "uuid": "559b508b-91e7-4961-8b62-1bc531d3df94",
-    "name": "RepoRegistry.unregister impl",
-    "tests": [],
-    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
-    "description": "BUILT v0.7.66: remove a repo from the dynamic registry by key. Expert marks name-matched. (D4 admin-key gates this write.)",
-    "designAhead": false
-  },
-  "ownerIor": "ior:instance:8611520d-a470-44ff-8460-25eed7d72f0f"
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "559b508b-91e7-4961-8b62-1bc531d3df94",
+  "name": "RepoRegistry.unregister impl",
+  "tests": [
+   "ior:instance:6f6edecd-da61-423b-b535-815df1981732"
+  ],
+  "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+  "description": "BUILT v0.7.66: remove a repo from the dynamic registry by key. Expert marks name-matched. (D4 admin-key gates this write.)",
+  "designAhead": false
+ },
+ "ownerIor": "ior:instance:8611520d-a470-44ff-8460-25eed7d72f0f"
 }

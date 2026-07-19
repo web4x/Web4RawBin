@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "6f6edecd-da61-423b-b535-815df1981732",
+  "name": "test:R30.47 RepoRegistry.unregister removes dynamic, refuses builtins",
+  "description": "Bridged to r3047 gate (DET-3x 8269634c0 GREEN). Gate A.unregister-dynamic (unregister(dynamicKey)===true) + A.unregister-builtin-false (unregister('rawbin')/'oosh')===false, via REAL module-import \u2014 builtin removal refused. unregister() UNCHANGED since gate. Covers R30.47 unregister.",
+  "sourceFile": "ior:file:test/visual/r3047-repo-manager-security-gate.ts",
+  "implementations": [
+   "ior:instance:559b508b-91e7-4961-8b62-1bc531d3df94"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:559b508b-91e7-4961-8b62-1bc531d3df94"
+}

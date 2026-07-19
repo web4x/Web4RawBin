@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "09c60094-6963-46d2-902e-1d7f5d6f035d",
+  "name": "test:R30.47 RepoRegistry.persist writes the dynamic registry to data/repos.json",
+  "description": "Bridged to r3047 gate (DET-3x 8269634c0 GREEN). Gate A.register-persists: after register(), data/repos.json exists + contains [key]. persist() UNCHANGED since gate (not in the v0.7.69/70 diff). Covers R30.47 persist.",
+  "sourceFile": "ior:file:test/visual/r3047-repo-manager-security-gate.ts",
+  "implementations": [
+   "ior:instance:854943d3-8979-4ea4-bf5e-5480bfbcd558"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:854943d3-8979-4ea4-bf5e-5480bfbcd558"
+}

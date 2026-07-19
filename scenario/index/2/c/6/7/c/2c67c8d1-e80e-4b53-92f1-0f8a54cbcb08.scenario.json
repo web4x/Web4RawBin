@@ -1,12 +1,14 @@
 {
-  "ior": "ior:class:Implementation",
-  "model": {
-    "uuid": "2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08",
-    "name": "RepoRegistry.load impl",
-    "tests": [],
-    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
-    "description": "BUILT v0.7.66/69 (§10.1 PURE MECHANISM): RepoRegistry.load = reload the persisted registry on startup; keep an entry IFF its .git is STILL present at the root (stale-drop by EXISTENCE - a MECHANISM integrity check, NOT the assertAllowedRoot allowlist/policy). No policy re-assert. Marker name-match.",
-    "designAhead": false
-  },
-  "ownerIor": "ior:instance:f3d1fe64-8e5d-4dea-84cd-bb977409df8b"
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08",
+  "name": "RepoRegistry.load impl",
+  "tests": [
+   "ior:instance:91da80e8-7365-477b-8570-ef7df7be6b42"
+  ],
+  "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+  "description": "BUILT v0.7.66/69 (\u00a710.1 PURE MECHANISM): RepoRegistry.load = reload the persisted registry on startup; keep an entry IFF its .git is STILL present at the root (stale-drop by EXISTENCE - a MECHANISM integrity check, NOT the assertAllowedRoot allowlist/policy). No policy re-assert. Marker name-match.",
+  "designAhead": false
+ },
+ "ownerIor": "ior:instance:f3d1fe64-8e5d-4dea-84cd-bb977409df8b"
 }

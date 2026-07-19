@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:Test",
+ "model": {
+  "uuid": "c8529e2a-7500-49a3-8949-ed9bdcb5f78b",
+  "name": "test:R30.47 RepoRegistry.register derives a server-side slug + persists (never a builtin)",
+  "description": "Bridged to r3047-repo-manager-security-gate.ts (DET-3x, commit 8269634c0, GREEN). Gate A.register-derives-slug (server-derived key, never a builtin) + A.register-persists (data/repos.json[key] written) + A.win-collision-builtin (label 'rawbin' -> non-builtin slug). Mechanism UNCHANGED since gate (only the D1 assertAllowedRoot guard line removed -> dormant/R30.48). Covers R30.47 register.",
+  "sourceFile": "ior:file:test/visual/r3047-repo-manager-security-gate.ts",
+  "implementations": [
+   "ior:instance:6c408f9b-0354-4732-8d7a-bccd3a6cb027"
+  ],
+  "status": "pass",
+  "unitLinks": []
+ },
+ "ownerIor": "ior:instance:6c408f9b-0354-4732-8d7a-bccd3a6cb027"
+}
