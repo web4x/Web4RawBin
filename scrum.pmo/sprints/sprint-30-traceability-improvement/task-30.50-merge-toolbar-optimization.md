@@ -44,7 +44,7 @@ S30 diff/merge editor — R30.50 merge-toolbar optimization (Tron feature): chan
 
 - [x] The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position).
 - [x] N live-updates as the user navigates changes up/down.
-- [x] 'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes.
+- [x] '✨ Apply All' opens a popup offering 3 auto-resolve modes (Tron ruling, AC6 — 3-MODE ADD not replace): (1) Non-conflicting only, (2) All-Local wins, (3) All-Repo wins — each drives CENTER.
 - [x] Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins).
 - [x] Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins).
 - [x] [RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'. (architect reconciled the label in the design derivation; shipped build A→C2→C1→B, r3050 GREEN.)
