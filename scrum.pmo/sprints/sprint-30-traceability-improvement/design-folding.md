@@ -74,3 +74,16 @@ Signature UNCHANGED: `private computeMethodRanges(model): Array<{start,end,sig}>
 
 ### Gate
 DET-3x at Tron's iPhone viewport on a merge whose CENTER has a both-versions (dup-brace) block: center unchanged methods fold on correct boundaries + synced L/C/R + change-methods expanded + ribbons/decorations intact + R30.53 left-parity Tests still GREEN. Assert INV-1/2/3 in the automated gate before the device pass.
+
+### ARCHITECT BACKSTOP — v0.7.80 / d893b1de1 (robbin-architect 2026-07-19): **PASS**
+Verified impl line-by-line vs LOCKED spec (git show d893b1de1):
+- defRe UNCHANGED; brace-loop DELETED; Pass-1 `bounds{line,indent,sig}` filtered by defRe; top-level gate `methodIndent=Math.min(indent)` keep `indent===methodIndent`; range `[b[k].line+1 .. b[k+1].line/EOF]` + trailing-blank trim; return `{start,end,sig}`. Matches spec exactly.
+- INV-1 ✅ end_k ≤ b[k+1].line < b[k+1].line+1 = start_{k+1} (holds even pre-trim; trim only lowers end). INV-2 ✅ pane-agnostic fn → CENTER parity by construction (center dup-braces no longer desync depth). INV-3 ✅ per-range sig = normalized def-line (same normalization) → `_mirrorFold` + R30.53 parity keys intact.
+- Do-NOT-touch ✅ single hunk within computeMethodRanges (:300-325); `_maxH`(:567)/`keepChangeMethodsExpanded` no-floor(:327)/`foldByMethodBoundaries`(:278) untouched. Stat: only rb-diff-editor.ts source (+dist/manifest/sw/pkg build outputs).
+- Extra `if (bounds.length===0) return []` = CORRECT defensive add (guards `Math.min(...[])→Infinity`). Approved.
+
+**Two observations (non-blocking, safe-direction):**
+1. `methodIndent` is a GLOBAL-file min. A file mixing indent-0 top-level fns + a nested class → deeper-indent class methods excluded from folding. NOT a regression (old depth===0 gate likewise captured only top-level); exactly right for RawBin's oosh/bash flat-indent-0 primary target. Note for future TS-class merges.
+2. CENTER both-versions yields TWO same-sig ranges for a CHANGED method — but change-methods overlap the conflict → excluded by keepChangeMethodsExpanded → never folded/mirrored. The 55 restored methods are UNCHANGED (single copy, unique sig) → no INV-3/mirror ambiguity for the actual fold set. Clean.
+
+**Marker call:** foldByMethodBoundaries 2de3411f — decl+body unchanged → RIDES, **no new uuid**. Confirmed. BUT the BUG-2 logic physically lives in the uncredited `computeMethodRanges`. If the dup-brace DET-3x gets a champagne Test (recommended), the honest Impl site = `computeMethodRanges` → mint a FRESH [impl:uuid] there + wire the Test to it (NOT to 2de3411f, which didn't change). Architect to mint the Method/Impl unit on req/planner Test-mint; deferred to chain, flagged to req(0.4)/planner(0.6).
