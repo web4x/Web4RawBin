@@ -1,3 +1,4 @@
+// [test:uuid:158bdfc7-eef1-4ee3-9899-96fc521e69c9] R30.42 UC1 sentinel + UC2 openRepoManager (Impl bfb92645) — add-via-dialog UI flow: ➕ Add repository FIRST option opens the Repo Manager → add-local(.git)→registers+selects→Manage(repo@branch/path/worktrees)→Clone HIDDEN. GREEN DET-3x v0.7.71, pollution-safe (POST route-intercepted, live registry builtins-only).
 // R30.42 add-via-dialog UI FLOW gate (UC1 sentinel + UC2 dialog), v0.7.71, on Tron's real deep-link.
 // FLOW: .de-repo select → '➕ Add repository…' is the FIRST option (__add__) → opens the Repo Manager dialog →
 //   ➕ Add local repository (.rm-path .git input + Validate&Add) → registers + SELECTS the new repo → Manage panel
