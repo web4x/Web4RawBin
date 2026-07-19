@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6ef3bee2-7f4c-4bf8-91cc-98b231e4d613",
+  "name": "repoRegistry.requireAdmin",
+  "description": "UC8 D4: admin-key gates ALL registry writes (register/unregister/clone). Read-only actions need none.",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:defe4e43-9cef-490f-8276-2b6ed4e28de9",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

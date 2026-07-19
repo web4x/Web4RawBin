@@ -638,7 +638,7 @@
   - [ ] **(add)** After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
   - [ ] **(add)** Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
   - [ ] **(security)** RATIFIED D1: the clone CHECKOUT LOCATION, after realpath, MUST be within the HOME subtree OR REPO_ALLOW; a location outside those bounds is REJECTED before cloning.
-  - [ ] **(security)** RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport).
+  - [ ] **(security)** RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport). [REFINEMENT pending architect ratify, expert §9 correction v0.7.67]: additionally reject credential/password-embedding URLs and allow only the git username (ssh://git@github.com OK) - align on ratify.
   - [ ] **(security)** RATIFIED D4: cloning requires the admin-key (all writes admin-key-gated).
   - [ ] **(security)** RATIFIED D4: registration is an admin-key-gated write; a failed clone leaves NOTHING half-registered (atomic).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
@@ -672,6 +672,8 @@
   -> repoRegistry.persist [uc:uuid:b27eecb3-c758-4f30-9fe7-c7f2b5012d02]
   -> repoRegistry.load [uc:uuid:2280431a-1e82-4271-8458-1c9401318558]
   -> repoRegistry.assertAllowedRoot [uc:uuid:f3f052a5-16e3-46e6-98df-d07c9ac63786]
+  -> repoRegistry.assertAllowedUrl [uc:uuid:490aaaf7-69fb-4569-99cb-d8217aa89f63]
+  -> repoRegistry.requireAdmin [uc:uuid:6ef3bee2-7f4c-4bf8-91cc-98b231e4d613]
 
 - [ ] **R30.46 — Working-file diff: left=latest resolves to the on-disk working file (uncommitted), written on save, default-shown**
   [requirement:uuid:88e97c14-59cb-4223-a28b-b043d7bea6e2]

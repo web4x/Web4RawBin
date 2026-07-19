@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "defe4e43-9cef-490f-8276-2b6ed4e28de9",
+    "name": "requireAdmin",
+    "implementations": [
+      "ior:instance:54a1a5c7-5c21-4430-b943-e6cc43303123"
+    ],
+    "tests": [],
+    "note": "R30.47 UC8 D4 guard. Name EXACT for [impl] AST-attach (module-level fn). BUILT v0.7.67 (cfb8ba85c, server.ts:503): requireAdmin = UC8 D4 admin-auth guard (module-level function, gates ALL registry writes register/unregister/clone). NOTE: module-level fn (not a static method) - attached to GitApi for traceability; [impl] marker name-matches the requireAdmin decl."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

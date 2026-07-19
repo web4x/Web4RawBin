@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4fb69bb5-fc16-46ea-b3ae-a81318ca7b66",
+    "name": "GitApi.assertAllowedUrl impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.67 (cfb8ba85c, server.ts): GitApi.assertAllowedUrl = UC8 D2 clone-URL guard - host-allowlist (github.com+team) + https/ssh only (reject file/git/ext). EXPERT §9 CORRECTION (flagged to architect to RATIFY): reject-password + allow-only-git-username, so ssh://git@github.com works but credential-embedding URLs are rejected. Name-matched decl (server.ts:519). Marker on the decl source-only."
+  },
+  "ownerIor": "ior:instance:43c22878-4437-466e-9b4c-e260558ab685"
+}

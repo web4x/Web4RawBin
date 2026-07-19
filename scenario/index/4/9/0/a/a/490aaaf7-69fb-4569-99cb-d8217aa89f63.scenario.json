@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "490aaaf7-69fb-4569-99cb-d8217aa89f63",
+  "name": "repoRegistry.assertAllowedUrl",
+  "description": "UC8 D2: clone-URL guard - host-allowlist + https/ssh only, reject file/git/ext (+ expert §9 correction reject-password/allow-only-git-username, architect to ratify).",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:43c22878-4437-466e-9b4c-e260558ab685",
+  "coveredRequirement": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+ },
+ "ownerIor": "ior:instance:b87eb99a-c83e-4745-9948-a84a1bb3ea00"
+}

@@ -1,19 +1,21 @@
 {
- "ior": "ior:class:Class",
- "model": {
-  "uuid": "795e328d-2b8e-439f-9514-1c54c4caaf04",
-  "name": "GitApi",
-  "sourceFile": "ior:file:src/ts/server/server.ts",
-  "methods": [
-   "ior:instance:34cf3b1a-124b-403d-8fa7-281334f7bc90",
-   "ior:instance:e2759591-0744-4683-ae98-052bd81d9f9e",
-   "ior:instance:57ddbeda-4ef3-4916-a897-b7bbdbe861e2",
-   "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31",
-   "ior:instance:f3176c22-4202-476b-89df-703321134e30",
-   "ior:instance:0e3f8c07-4ef3-48f7-abc2-f19914d2f167",
-   "ior:instance:b9e8ba29-ff9a-4051-867a-5355c9ce7429"
-  ],
-  "note": "NEW (0 existing). Read-only git endpoints (branches/commits/fileAtRef) in server.ts monolith, allowlisted (R27.5 axis-3). R30.6."
- },
- "ownerIor": null
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "795e328d-2b8e-439f-9514-1c54c4caaf04",
+    "name": "GitApi",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:34cf3b1a-124b-403d-8fa7-281334f7bc90",
+      "ior:instance:e2759591-0744-4683-ae98-052bd81d9f9e",
+      "ior:instance:57ddbeda-4ef3-4916-a897-b7bbdbe861e2",
+      "ior:instance:a251e9a9-2ec0-47bc-b956-a0a38e153c31",
+      "ior:instance:f3176c22-4202-476b-89df-703321134e30",
+      "ior:instance:0e3f8c07-4ef3-48f7-abc2-f19914d2f167",
+      "ior:instance:b9e8ba29-ff9a-4051-867a-5355c9ce7429",
+      "ior:instance:43c22878-4437-466e-9b4c-e260558ab685",
+      "ior:instance:defe4e43-9cef-490f-8276-2b6ed4e28de9"
+    ],
+    "note": "NEW (0 existing). Read-only git endpoints (branches/commits/fileAtRef) in server.ts monolith, allowlisted (R27.5 axis-3). R30.6."
+  },
+  "ownerIor": null
 }

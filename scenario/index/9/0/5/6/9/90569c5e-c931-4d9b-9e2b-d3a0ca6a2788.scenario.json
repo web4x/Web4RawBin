@@ -5,7 +5,7 @@
     "name": "RepoRegistry.assertAllowedRoot impl",
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
-    "description": "UC8 D1 choke point. BUILT as a PLUGGABLE SCAFFOLD stub v0.7.66 (register()+load() route every candidate root through here). The REAL D1 bounds (HOME-subtree + REPO_ALLOW, realpath-checked) land in the UC8 real-bounds pass - I update this Impl then. Expert marks the scaffold decl name-matched now.",
+    "description": "BUILT v0.7.67 (cfb8ba85c): GitApi/RepoRegistry.assertAllowedRoot = the REAL UC8 D1 bounds (NOT scaffold anymore) - realpath the candidate root (symlinks resolved) + require it within the HOME subtree OR the REPO_ALLOW allowlist; out-of-bounds rejected. register()+load() route every root through this choke. Marker 90569c5e on the decl (name-match, heads decl).",
     "designAhead": false
   },
   "ownerIor": "ior:instance:d57a14c5-d560-4b5a-9df0-0672665045a6"

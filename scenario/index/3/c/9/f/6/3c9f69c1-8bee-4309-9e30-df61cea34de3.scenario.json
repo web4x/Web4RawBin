@@ -50,7 +50,7 @@
    {
     "id": "AC-sec-clone-url",
     "group": "security",
-    "text": "RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport)."
+    "text": "RATIFIED D2: the clone URL host is on the allowlist (github.com + team hosts) AND the scheme is https or ssh ONLY; file:/ git:/ external(ext) schemes are REJECTED (no SSRF / arbitrary transport). [REFINEMENT pending architect ratify, expert §9 correction v0.7.67]: additionally reject credential/password-embedding URLs and allow only the git username (ssh://git@github.com OK) - align on ratify."
    },
    {
     "id": "AC-sec-auth",
