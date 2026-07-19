@@ -294,20 +294,22 @@ export class RbDiffEditor extends HTMLElement {
   // R30.53 uncredited helper (supports foldByMethodBoundaries): scan a model for TOP-LEVEL method/function defs → 1-based
   // [start,end] (def-line → matching close brace at depth 0). Per-language def-line regex; naive brace-depth (fold boundary
   // only, string/comment braces are an acceptable approximation for a fold hint).
-  private computeMethodRanges(model: any): Array<{ start: number; end: number }> {
+  private computeMethodRanges(model: any): Array<{ start: number; end: number; sig: string }> {
     const lines: string[] = model?.getLinesContent ? model.getLinesContent() : String(model?.getValue?.() || '').split('\n');
     const langId = model?.getLanguageId ? model.getLanguageId() : '';
     const defRe = /shell|bash|python/.test(langId)
       ? /^\s*(private\.|public\.)?[\w.]+\s*\(\)\s*\{/                                                   // oosh/bash: name() {
       : /^\s*(export\s+|public\s+|private\s+|protected\s+|static\s+|async\s+|get\s+|set\s+)*[\w$]+\s*\([^)]*\)\s*(:\s*[^={;]+)?\{\s*$/; // ts/js
-    const ranges: Array<{ start: number; end: number }> = [];
+    // R30.53 bug-fix (architect): also return the def-line SIGNATURE per range (normalized text at the def line,
+    // e.g. 'private.complete.buffers() {') so _mirrorFold can key fold-correspondence by signature not raw index.
+    const ranges: Array<{ start: number; end: number; sig: string }> = [];
     let depth = 0, openLine = -1;
     for (let i = 0; i < lines.length; i++) {
       const ln = lines[i];
       if (depth === 0 && openLine < 0 && defRe.test(ln)) openLine = i;
       for (const ch of ln) {
         if (ch === '{') depth++;
-        else if (ch === '}') { depth = Math.max(0, depth - 1); if (depth === 0 && openLine >= 0) { if (i > openLine) ranges.push({ start: openLine + 1, end: i + 1 }); openLine = -1; } }
+        else if (ch === '}') { depth = Math.max(0, depth - 1); if (depth === 0 && openLine >= 0) { if (i > openLine) ranges.push({ start: openLine + 1, end: i + 1, sig: (lines[openLine] || '').trim().replace(/\s+/g, ' ') }); openLine = -1; } }
       }
     }
     return ranges;
@@ -317,10 +319,15 @@ export class RbDiffEditor extends HTMLElement {
   // ranges, return ONLY the UNCHANGED ones (safe to collapse). A method is a CHANGE-method (stays EXPANDED) if its [start,end]
   // overlaps ANY conflict's per-editor range (CENTER c.span / LEFT c.aStart+a / RIGHT c.bStart+b) → change-methods excluded.
   private keepChangeMethodsExpanded(ranges: Array<{ start: number; end: number }>, side: 'local' | 'center' | 'remote'): Array<{ start: number; end: number }> {
+    // R30.53 fix-2 (architect diag 4fc591b19): use the REAL per-side length — NO Math.max(...,1) floor. A zero-length
+    // side (a green add absent in this pane changes 0 lines here) → EMPTY range [start+1,start] → overlaps/clips NOTHING,
+    // so the following unchanged method is not wrongly excluded from THIS pane's initial collapse (was the left-desync).
+    // (Insertion INSIDE a method stays symmetric — center splits it too.) The 1-line floor, if needed for the gutter
+    // DECORATION marker, lives at the render sites — it must not drive fold exclusion here.
     const chRanges: Array<[number, number]> = this.conflicts.map(c =>
       side === 'center' ? [c.span[0] + 1, c.span[1]]
-        : side === 'local' ? [c.aStart + 1, c.aStart + Math.max(c.a.length, 1)]
-          : [c.bStart + 1, c.bStart + Math.max(c.b.length, 1)]);
+        : side === 'local' ? [c.aStart + 1, c.aStart + c.a.length]
+          : [c.bStart + 1, c.bStart + c.b.length]);
     const overlaps = (r: { start: number; end: number }) => chRanges.some(([s, e]) => r.start <= e && s <= r.end);
     return ranges.filter(r => !overlaps(r)); // unchanged = no conflict overlap
   }
@@ -378,15 +385,20 @@ export class RbDiffEditor extends HTMLElement {
     const srcEd = specs[src]; if (!srcEd) return;
     const srcFm = await this._foldingModel(srcEd); if (!srcFm?.getRegionAtLine) return;
     const srcRanges = this.computeMethodRanges(srcEd.getModel());
-    const seq = srcRanges.map((r, i) => ({ i, collapsed: !!srcFm.getRegionAtLine(r.start)?.isCollapsed }));
+    // R30.53 bug-fix (architect diagnosis / gate ba0a2734e): key fold-correspondence by method SIGNATURE, not raw
+    // index. A green add-block present in only some panes shifts the index of every DOWNSTREAM method (buffers()
+    // desync) → ranges[i] mis-maps → LEFT stays expanded → 3-pane row-drift. Signature is offset-proof; ord
+    // disambiguates the rare same-signature case (oosh names are unique, but guard it). Correct-by-construction.
+    const ordOf = (arr: Array<{ sig: string }>, upto: number) => { let n = 0; for (let k = 0; k < upto; k++) if (arr[k].sig === arr[upto].sig) n++; return n; };
+    const seq = srcRanges.map((r, i) => ({ sig: r.sig, ord: ordOf(srcRanges, i), collapsed: !!srcFm.getRegionAtLine(r.start)?.isCollapsed }));
     this._foldSyncing = true;
     try {
       for (const side of ['local', 'center', 'remote'] as const) {
         if (side === src) continue; const ed = specs[side]; if (!ed) continue;
         const fm = await this._foldingModel(ed); if (!fm?.getRegionAtLine) continue;
         const ranges = this.computeMethodRanges(ed.getModel());
-        for (const { i, collapsed } of seq) {
-          const r = ranges[i]; if (!r) continue;
+        for (const { sig, ord, collapsed } of seq) {
+          const r = ranges.filter(x => x.sig === sig)[ord]; if (!r) continue; // no match = method absent in this pane (the add-block) → skip
           const cur = !!fm.getRegionAtLine(r.start)?.isCollapsed;
           if (cur !== collapsed) ed.trigger('r3053-mirror', collapsed ? 'editor.fold' : 'editor.unfold', { selectionLines: [r.start] }); // action → view reconciles (chevron/'⋯')
         }
