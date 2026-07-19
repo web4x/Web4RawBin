@@ -919,16 +919,19 @@ export class RbDiffEditor extends HTMLElement {
     if (!repos.length) return;
     this.querySelectorAll('.de-repo').forEach(el => {
       const sel = el as HTMLSelectElement;
-      sel.innerHTML = repos.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
+      // R30.44 UC1 sentinel: '➕ Add repository…' as the FIRST option (opens the Repo Manager; reverts the select so it never parks on the sentinel).
+      sel.innerHTML = '<option value="__add__">➕ Add repository…</option>' + repos.map(r => `<option value="${r.key}">${r.label}</option>`).join('');
       // R30.39 BUG-A: seed BOTH selectors from the side's current repo (set by openFromParams from ?repo) AFTER the options
       // exist — fixes the race where openFromParams set sel.value BEFORE populateRepos' async fetch filled the <option>s
       // (value didn't stick → both defaulted to RawBin). '' (rawbin) → 'rawbin'.
       sel.value = (sel.dataset.side === 'left' ? this.left.repo : this.right.repo) || 'rawbin';
       sel.addEventListener('change', () => {
-        const st = sel.dataset.side === 'left' ? this.left : this.right;
+        const side = sel.dataset.side as 'left' | 'right';
+        const st = side === 'left' ? this.left : this.right;
+        if (sel.value === '__add__') { sel.value = st.repo || 'rawbin'; void this.openRepoManager(side); return; } // R30.44 UC1: open manager, revert
         st.repo = sel.value === 'rawbin' ? '' : sel.value;
         st.ref = '';
-        if (st.path) void this.loadSide(sel.dataset.side as 'left' | 'right', { path: st.path });
+        if (st.path) void this.loadSide(side, { path: st.path });
       });
     });
   }
@@ -955,6 +958,56 @@ export class RbDiffEditor extends HTMLElement {
     return box;
   }
   private closeOverlay(): void { document.querySelector('.de-overlay')?.remove(); }
+
+  // R30.44 UC1/UC2 Repo Manager dialog (V1) — opened by the '➕ Add repository' sentinel. Reuses the overlay() shell (design §1).
+  // V1 sections: ADD LOCAL (active) → POST /api/git/repos {method:'local'} → refresh selector + select the new repo; MANAGE
+  // (repo-info: path+branch+worktrees). CLONE section HIDDEN for V1 (UC5 backlog). [chain: req mints RbDiffEditor.openRepoManager Impl — ping per method]
+  async openRepoManager(side: 'left' | 'right' = 'left'): Promise<void> {
+    const box = this.overlay('Repositories', []);
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-direction:column;gap:12px;min-width:400px;font-size:0.8rem;color:#ddd';
+    wrap.innerHTML = `
+      <div>
+        <div style="font-weight:bold;margin-bottom:5px">➕ Add local repository</div>
+        <div style="display:flex;gap:6px">
+          <input class="rm-path" placeholder="/absolute/path (must contain .git)" style="flex:1;background:#1e1e1e;color:#ddd;border:1px solid #444;border-radius:3px;padding:4px">
+          <input class="rm-label" placeholder="label" style="width:100px;background:#1e1e1e;color:#ddd;border:1px solid #444;border-radius:3px;padding:4px">
+          <button class="rm-add" style="background:#3a6ea5;color:#fff;border:none;border-radius:3px;padding:4px 10px;cursor:pointer">Validate & Add</button>
+        </div>
+        <div class="rm-status" style="margin-top:5px;opacity:0.85;min-height:1em"></div>
+      </div>
+      <div style="border-top:1px solid #333;padding-top:9px">
+        <div style="font-weight:bold;margin-bottom:5px">Manage</div>
+        <div class="rm-manage" style="opacity:0.85;font-family:monospace;font-size:0.7rem;white-space:pre-wrap">loading…</div>
+      </div>`;
+    box.appendChild(wrap);
+    const q = <T extends Element>(s: string): T => wrap.querySelector(s) as T;
+    q<HTMLButtonElement>('.rm-add').addEventListener('click', async () => {
+      const p = q<HTMLInputElement>('.rm-path').value.trim(), label = q<HTMLInputElement>('.rm-label').value.trim();
+      const status = q<HTMLElement>('.rm-status');
+      if (!p) { status.textContent = 'enter an absolute path'; return; }
+      status.textContent = 'validating…';
+      try {
+        const res = await fetch('/api/git/repos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ method: 'local', path: p, label: label || undefined }) });
+        const j = await res.json();
+        if (!res.ok) { status.textContent = '✗ ' + (j.error || 'failed'); return; }
+        status.textContent = '✓ added: ' + j.key;
+        await this.populateRepos();                                  // refresh selector options → the new repo appears
+        const st = side === 'left' ? this.left : this.right;
+        st.repo = j.key; st.ref = '';                                // select the new repo on this side + reseed
+        const sel = this.querySelector(`.de-repo[data-side="${side}"]`) as HTMLSelectElement | null; if (sel) sel.value = j.key;
+        if (st.path) void this.loadSide(side, { path: st.path });
+        setTimeout(() => this.closeOverlay(), 700);
+      } catch { status.textContent = '✗ error'; }
+    });
+    // MANAGE: repo-info for the current side's repo
+    const mkey = (side === 'left' ? this.left.repo : this.right.repo) || 'rawbin';
+    try {
+      const info = await (await fetch(`/api/git/repo-info?repo=${encodeURIComponent(mkey)}`)).json();
+      const wt = (info.worktrees || []).map((w: { branch: string; head: string; path: string }) => `  · ${w.branch || w.head} — ${w.path}`).join('\n');
+      q<HTMLElement>('.rm-manage').textContent = `${info.key} @ ${info.currentBranch}\n${info.path}` + (wt ? `\nworktrees:\n${wt}` : '');
+    } catch { q<HTMLElement>('.rm-manage').textContent = '(no info)'; }
+  }
 }
 
 customElements.define('rb-diff-editor', RbDiffEditor);
