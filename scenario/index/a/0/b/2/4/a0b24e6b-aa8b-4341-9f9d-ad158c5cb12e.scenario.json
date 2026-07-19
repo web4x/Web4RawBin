@@ -1,29 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "a0b24e6b-aa8b-4341-9f9d-ad158c5cb12e",
-  "name": "Task 30.52: 3-way merge toolbar re-layout \u2014 mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
-  "slug": "task-30.52-toolbar-misclick-relayout",
-  "description": "Re-layout the 3-way merge toolbar to prevent mis-clicks: 'N selected' moves to its OWN line directly under the '\u2728 Apply All' button (split from the compose), and the 'X/Y open conflicts' text moves DOWN to render BETWEEN the \u25bc (down-nav) and \u2713 (resolve) controls as a buffer. Both counts stay shown \u2014 repositioned, not removed.",
-  "intention": "S30 diff/merge editor \u2014 R30.52 toolbar mis-click re-layout (refines R30.50-A after closure-freeze).",
-  "context": "Covers R30.52 (989471e8, refinementOf R30.50 32abea56 \u2014 NEW req per closure-freeze, R30.50 closed) \u2192 UC merge.toolbarMisclickLayout dce46e2a \u2192 RbDiffEditor. IMPL-EDIT on renderMergeGutter e24dc98a (NO new Method/Impl \u2014 a layout edit on the existing gutter impl). Gate = screenshot+behavior (Tron-visual).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [~] implementing (expert RE-FIXING the N=14 regression)\n  - [ ] testing (re-baselining at Tron's N=14 state, expect RED)\n- [ ] QA Review\n- [ ] Done",
-  "implementation": "IN PROGRESS @ RE-FIXING \u2014 \u26d4 HOLD flip (PO+SM). v0.7.75 gate r3052 was a WRONG-STATE FALSE-GREEN: tester gated at N=1 ('1 selected' shown), but Tron reports '14 selected' MISSING at N=14 AFTER 'Apply All -> Repository wins' \u2014 the inline fix introduced a NEW regression (missing '.de-selected'; AC3 counts-still-shown FAILS at Tron's N=14 state). Expert re-fixing + tester re-baselining at Tron's EXACT N=14 post-Apply-All state (expect RED). AC1 amended own-line->INLINE (Tron correction b1c489d8c). Flip only when the CORRECTED fix gates GREEN at the RIGHT state. Chain wired (Test 919d290d<->Impl renderMergeGutter e24dc98a) but the current gate tests the wrong state.",
-  "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:989471e8-c5f0-44fc-831f-4b1d1ad55d0c]`\n  - refines\n    - R30.50 (32abea56) toolbar-A \u2014 mis-click re-layout, new req per closure-freeze\n  - impl-edit\n    - renderMergeGutter e24dc98a (existing impl, no new Method/Impl)\n  - down\n    - [UC](./planning.md) `[uc:uuid:dce46e2a-c341-4251-be26-40497877e407]`",
-  "acceptanceCriteria": "- [ ] 'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]\n- [ ] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the \u25bc (down-nav) and \u2713 (resolve) controls, as a NON-CLICKABLE buffer above \u2713 (so a \u25bc mis-click does not hit \u2713).\n- [ ] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.\n- [ ] GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between \u25bc and \u2713 as a non-clickable buffer; both counts visible; \u25bc and \u2713 no longer adjacent.",
-  "subtasks": "None (atomic task).",
-  "status": "In Progress",
-  "coveredRequirements": [
-   "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
-  ],
-  "useCases": [
-   "ior:instance:dce46e2a-c341-4251-be26-40497877e407"
-  ],
-  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
-  "sprintName": "Sprint 30",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-19",
-  "focus": true
- }
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a0b24e6b-aa8b-4341-9f9d-ad158c5cb12e",
+    "name": "Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
+    "slug": "task-30.52-toolbar-misclick-relayout",
+    "description": "Re-layout the 3-way merge toolbar to prevent mis-clicks: 'N selected' moves to its OWN line directly under the '✨ Apply All' button (split from the compose), and the 'X/Y open conflicts' text moves DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls as a buffer. Both counts stay shown — repositioned, not removed.",
+    "intention": "S30 diff/merge editor — R30.52 toolbar mis-click re-layout (refines R30.50-A after closure-freeze).",
+    "context": "Covers R30.52 (989471e8, refinementOf R30.50 32abea56 — NEW req per closure-freeze, R30.50 closed) → UC merge.toolbarMisclickLayout dce46e2a → RbDiffEditor. IMPL-EDIT on renderMergeGutter e24dc98a (NO new Method/Impl — a layout edit on the existing gutter impl). Gate = screenshot+behavior (Tron-visual).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "implementation": "QA-REVIEW: toolbar re-layout CORRECTED + re-gated. Gate r3052 GREEN DET-3x at TRON'S REAL mobile state (96fe09d80 v0.7.76, iPhone-12/390px, N=14 post-Apply-All — '14 selected' visible inline, one-row h=32, open-count between ▼/✓). Chain both-directions: Test 53731d96 mobile-visibility + 919d290d inline <-> Impl renderMergeGutter e24dc98a. served==gated (toolbar code unchanged v0.7.76->v0.7.77; v0.7.77 bump = R30.51 folding, not toolbar). The N=1 false-green VOIDED. 4/4 ACs. HELD rule#9 -> Tron final visual -> Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:989471e8-c5f0-44fc-831f-4b1d1ad55d0c]`\n  - refines\n    - R30.50 (32abea56) toolbar-A — mis-click re-layout, new req per closure-freeze\n  - impl-edit\n    - renderMergeGutter e24dc98a (existing impl, no new Method/Impl)\n  - down\n    - [UC](./planning.md) `[uc:uuid:dce46e2a-c341-4251-be26-40497877e407]`",
+    "acceptanceCriteria": "- [x] 'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]\n- [x] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).\n- [x] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.\n- [x] GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.  [GREEN DET-3x at TRON'S REAL state: iPhone-12/390px, N=14 post-'Apply All->Repo wins', '14 selected' visible single-line inline, toolbar one-row h=32, open-count between ▼/✓ (96fe09d80 v0.7.76); served==gated (toolbar unchanged v0.7.77)]",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
+    ],
+    "useCases": [
+      "ior:instance:dce46e2a-c341-4251-be26-40497877e407"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19"
+  }
 }

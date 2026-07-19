@@ -11,9 +11,9 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing (expert RE-FIXING the N=14 regression)
-  - [ ] testing (re-baselining at Tron's N=14 state, expect RED)
-- [ ] QA Review
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -42,14 +42,14 @@ S30 diff/merge editor — R30.52 toolbar mis-click re-layout (refines R30.50-A a
 
 ## Acceptance Criteria
 
-- [ ] 'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]
-- [ ] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).
-- [ ] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.
-- [ ] GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.
+- [x] 'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]
+- [x] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).
+- [x] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.
+- [x] GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.  [GREEN DET-3x at TRON'S REAL state: iPhone-12/390px, N=14 post-'Apply All->Repo wins', '14 selected' visible single-line inline, toolbar one-row h=32, open-count between ▼/✓ (96fe09d80 v0.7.76); served==gated (toolbar unchanged v0.7.77)]
 
 ## Implementation
 
-IN PROGRESS @ RE-FIXING — ⛔ HOLD flip (PO+SM). v0.7.75 gate r3052 was a WRONG-STATE FALSE-GREEN: tester gated at N=1 ('1 selected' shown), but Tron reports '14 selected' MISSING at N=14 AFTER 'Apply All -> Repository wins' — the inline fix introduced a NEW regression (missing '.de-selected'; AC3 counts-still-shown FAILS at Tron's N=14 state). Expert re-fixing + tester re-baselining at Tron's EXACT N=14 post-Apply-All state (expect RED). AC1 amended own-line->INLINE (Tron correction b1c489d8c). Flip only when the CORRECTED fix gates GREEN at the RIGHT state. Chain wired (Test 919d290d<->Impl renderMergeGutter e24dc98a) but the current gate tests the wrong state.
+QA-REVIEW: toolbar re-layout CORRECTED + re-gated. Gate r3052 GREEN DET-3x at TRON'S REAL mobile state (96fe09d80 v0.7.76, iPhone-12/390px, N=14 post-Apply-All — '14 selected' visible inline, one-row h=32, open-count between ▼/✓). Chain both-directions: Test 53731d96 mobile-visibility + 919d290d inline <-> Impl renderMergeGutter e24dc98a. served==gated (toolbar code unchanged v0.7.76->v0.7.77; v0.7.77 bump = R30.51 folding, not toolbar). The N=1 false-green VOIDED. 4/4 ACs. HELD rule#9 -> Tron final visual -> Done.
 
 ## Subtasks
 

@@ -9,9 +9,9 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (architect design DONE — design-folding.md, setHiddenAreas, Fold1-4)
-  - [ ] creating test cases
-  - [ ] implementing (BLOCKED — pending Tron context-margin K ruling + PO green-light)
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing (BUILT v0.7.77, K=0 — setHiddenAreas + chevron affordance)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -50,7 +50,7 @@ S30 diff/merge editor — R30.51 changes-focused code-folding (Tron feature): ke
 
 ## Implementation
 
-IN PROGRESS @ DESIGN-COMPLETE (architect design DONE: design-folding.md, Monaco setHiddenAreas approach, UCs Fold1-4, build order Fold3+Fold1→Fold2→Fold4). ⛔ BUILD pending Tron's context-margin K ruling + PO green-light — NOT building yet. AC4 Monaco-folding-approach design-flag resolved by architect. Gate = screenshot DET-3x at Tron's viewport (Tron-visual feature).
+IN PROGRESS @ BUILT (expert 167c308da v0.7.77): changes-focused code-folding via Monaco setHiddenAreas, K=0 (Tron context-margin ruling landed), chevron affordance. Fold1-4 built per design-folding.md. ▶ Awaiting tester gate (screenshot DET-3x at Tron viewport) + chain-to-Test wire -> QA-Review.
 
 ## Subtasks
 
