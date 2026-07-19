@@ -7,8 +7,7 @@
       "ior:instance:3d1b156d-abf9-4182-935c-12290910b1c2"
     ],
     "tests": [],
-    "designAhead": true,
-    "note": "Name EXACT for [impl] AST-attach. R30.42 UC4 V1 (architect §10): the SOLE add-local validation - GitApi.isGitRepo(dir) = the directory contains a .git (a FILE or a FOLDER = git checkout or worktree). NO allowlist, NO admin-auth for v1. Design-ahead; expert builds + marks name-matched."
+    "note": "R30.43 UC4 V1 BUILT v0.7.69 (8143a1f07). GitApi.isGitRepo(dir) = SOLE add-local check (dir contains .git file/folder). POST /api/git/repos add-local: read-auth (NOT admin per §10 V1), no allowlist (assertAllowedRoot DORMANT). Marker 3d1b156d name-match, heads decl. VERIFIED: .git registers+resolves, non-git->400."
   },
   "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
 }
