@@ -3,7 +3,9 @@
   "model": {
     "uuid": "3d1b156d-abf9-4182-935c-12290910b1c2",
     "name": "GitApi.isGitRepo impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:4a253cea-8981-4804-9a6d-2255980fc3a2"
+    ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": false,
     "description": "BUILT v0.7.69 (8143a1f07, server.ts:536): GitApi.isGitRepo(dir) returns true iff dir contains a .git (file or folder). SOLE v1 add-local validation via POST /api/git/repos (read-auth, no admin, no allowlist). non-git -> 400. Marker 3d1b156d placed name-match, heads decl."

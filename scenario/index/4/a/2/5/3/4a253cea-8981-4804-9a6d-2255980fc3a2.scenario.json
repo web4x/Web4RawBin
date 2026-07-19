@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4a253cea-8981-4804-9a6d-2255980fc3a2",
+    "name": "test:R30.43 UC4 add-local: .git-present dir registers via GitApi.isGitRepo",
+    "description": "Bridged to test/visual/r3043-uc4-add-local-gate.mjs (GREEN, commit 50cc4295e; multi-worker DISPROVEN). Verifies R30.43 UC4 V1 add-local: GitApi.isGitRepo checks the target dir has a .git file/folder -> register into RepoRegistry (SOLE check; no path-allowlist/auth in V1 - assertAllowedRoot DORMANT, R30.48 backlog).",
+    "sourceFile": "ior:file:test/visual/r3043-uc4-add-local-gate.mjs",
+    "implementations": [
+      "ior:instance:3d1b156d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3d1b156d"
+}

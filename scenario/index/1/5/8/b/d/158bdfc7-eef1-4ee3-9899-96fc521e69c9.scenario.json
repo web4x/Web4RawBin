@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "158bdfc7-eef1-4ee3-9899-96fc521e69c9",
+    "name": "test:R30.42 add-repo dialog: +Add first-option opens dialog, add-local registers+selects, Manage, Clone hidden",
+    "description": "Bridged to test/visual/r3042-add-repo-dialog-gate.mjs (GREEN DET-3x v0.7.71, commit 42235f1bf on origin). Verifies R30.42 UC2 RbDiffEditor.openRepoManager: the '+ Add repository' first selector option opens the dialog -> add-local -> registers + selects the repo -> Manage panel present -> Clone HIDDEN (V1). UC1 sentinel rides populateRepos (glue, no separate marker).",
+    "sourceFile": "ior:file:test/visual/r3042-add-repo-dialog-gate.mjs",
+    "implementations": [
+      "ior:instance:bfb92645"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bfb92645"
+}
