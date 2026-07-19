@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e4741c65-67a9-4bb1-beb0-5f1a82c84d7a",
+    "name": "test:R30.49 delete-for-removable (DELETE /api/git/repos?key= + builtin-protection)",
+    "description": "Bridged to test/visual/r3049-delete-repo-gate.mjs (GREEN DET-3x v0.7.72, commit ebdf8b080). Verifies R30.49: DELETE /api/git/repos?key= removes a DYNAMIC repo (gone from selector); a BUILTIN (rawbin/oosh) is NEVER removable (unregister no-ops builtins, no delete affordance). Distinct R30.49 delete-behaviour Test on the canonical unregister Impl 559b508b (DELETE handler server.ts:1489), alongside the R30.47 mechanism Test 6f6edecd.",
+    "sourceFile": "ior:file:test/visual/r3049-delete-repo-gate.mjs",
+    "implementations": [
+      "ior:instance:559b508b-91e7-4961-8b62-1bc531d3df94"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:559b508b-91e7-4961-8b62-1bc531d3df94"
+}

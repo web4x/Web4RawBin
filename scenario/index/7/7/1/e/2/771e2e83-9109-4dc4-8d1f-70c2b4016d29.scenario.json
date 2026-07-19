@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "771e2e83-9109-4dc4-8d1f-70c2b4016d29",
+    "name": "test:R30.45 UC7 worktree switch (client ref-pick, no checkout, header tracks live)",
+    "description": "Bridged to test/visual/r3045-uc7-worktree-switch-gate.mjs (GREEN DET-3x v0.7.72, commit ebdf8b080 on origin). Verifies UC7 RbDiffEditor.switchWorktree(side,ref): D3 read-only worktree-as-key ref-pick (loadSide ref=<worktree branch>, NO server checkout); the center header tracks the picked worktree branch live.",
+    "sourceFile": "ior:file:test/visual/r3045-uc7-worktree-switch-gate.mjs",
+    "implementations": [
+      "ior:instance:1a86a852-c873-4f35-bb0f-779a9264a673"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1a86a852-c873-4f35-bb0f-779a9264a673"
+}

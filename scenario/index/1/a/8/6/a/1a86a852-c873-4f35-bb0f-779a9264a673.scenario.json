@@ -3,7 +3,9 @@
   "model": {
     "uuid": "1a86a852-c873-4f35-bb0f-779a9264a673",
     "name": "RbDiffEditor.switchWorktree impl (UC7 D3)",
-    "tests": [],
+    "tests": [
+      "ior:instance:771e2e83-9109-4dc4-8d1f-70c2b4016d29"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.72 (rb-diff-editor.ts:1046): RbDiffEditor.switchWorktree(side,ref) - D3 client read-only worktree-as-key ref-pick (loadSide ref=<worktree branch>, NO server checkout; header tracks live). Marker [impl:uuid:1a86a852] on the decl (:1041), name-match verified. Expert commit anchor b2f6ebaa5."
