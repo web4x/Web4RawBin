@@ -46,16 +46,32 @@
     "text": "Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED."
    },
    {
-    "id": "AC-impl-native",
+    "id": "AC-impl-fold-by-method",
     "group": "impl",
-    "text": "[DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation."
+    "text": "Native Monaco folding (folding:true) + custom FoldingRangeProvider at method boundaries; collapse programmatic via editor.getContribution('editor.contrib.folding').getFoldingModel().setCollapsed (pinned monaco 0.52.2). Chevron + collapsed '…' placeholder — NOT setHiddenAreas."
+   },
+   {
+    "id": "AC-impl-sync-native",
+    "group": "impl",
+    "text": "Unchanged method-block collapse-state mirrored across all 3 (initial + foldingModel.onDidChange propagate, re-entrancy-guarded); spline/gutters reflow after (getTopForLineNumber fold-aware)."
+   },
+   {
+    "id": "AC-impl-keep-expanded",
+    "group": "impl",
+    "text": "Methods overlapping conflicts[] excluded from collapse -> change-methods stay expanded+contiguous (why v2 ribbons stay clean vs v1)."
+   },
+   {
+    "id": "AC-impl-mobile",
+    "group": "impl",
+    "text": "Native fold chevron + '…' are TOUCH-tappable (no hover-only); tap-to-fold/unfold + synced unchanged-collapse work on the mobile viewport across the 3 panes. Gate on device (the setHiddenAreas mobile break is why v2 exists)."
    },
    {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)"
    }
-  ]
+  ],
+  "architectDerive": "Architect native-folding design v2 (design-folding.md v2, 2026-07-19): NATIVE Monaco folding (folding:true, REVERT R30.51 folding:false) + custom FoldingRangeProvider by method + programmatic collapse via FoldingController.setCollapsed; change-methods excluded (conflicts[] overlap). Methods: foldByMethodBoundaries ddc5ea1c (registerMethodFoldingProvider) / syncNativeFold e64924cb (initial setCollapsed + onDidChange mirror) / keepChangeMethodsExpanded fca7b5f7 (unchangedMethods filter). FLAG: FoldingController is INTERNAL API (Tron-mandated, pinned monaco 0.52.2 - single revisit on any bump). R30.51 setHiddenAreas markers (23b416c2/2d7a0103/9493c08a) superseded, do NOT reuse - native bodies, not renames. MOBILE = touch-tappable, gate on device."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

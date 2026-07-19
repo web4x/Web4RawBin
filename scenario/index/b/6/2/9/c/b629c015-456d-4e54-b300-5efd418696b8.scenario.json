@@ -6,7 +6,7 @@
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
-    "description": "DESIGN-AHEAD: On native collapse/expand of an unchanged method-block, mirror to the corresponding blocks in the other 2 editors (synced native fold state). Architect derives the NATIVE Monaco folding method-set; expert builds v0.7.77 + tags [impl] marker."
+    "description": "DESIGN-AHEAD (architect v2 native): initial collapse of unchanged methods via FoldingController.getFoldingModel().setCollapsed in all 3; foldingModel.onDidChange mirrors collapse-state across the 3 (re-entrancy-guarded); getTopForLineNumber fold-aware reflow. Expert builds v0.7.77 + tags [impl]."
   },
   "ownerIor": "ior:instance:e64924cb-6502-446f-b560-8236977f322f"
 }

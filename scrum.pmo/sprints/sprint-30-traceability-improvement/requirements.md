@@ -772,7 +772,10 @@
   - [ ] **(fold)** Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines).
   - [ ] **(fold)** Foldable regions are the METHOD boundaries - folding collapses a whole method block.
   - [ ] **(sync)** Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED.
-  - [ ] **(impl)** [DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation.
+  - [ ] **(impl)** Native Monaco folding (folding:true) + custom FoldingRangeProvider at method boundaries; collapse programmatic via editor.getContribution('editor.contrib.folding').getFoldingModel().setCollapsed (pinned monaco 0.52.2). Chevron + collapsed '…' placeholder — NOT setHiddenAreas.
+  - [ ] **(impl)** Unchanged method-block collapse-state mirrored across all 3 (initial + foldingModel.onDidChange propagate, re-entrancy-guarded); spline/gutters reflow after (getTopForLineNumber fold-aware).
+  - [ ] **(impl)** Methods overlapping conflicts[] excluded from collapse -> change-methods stay expanded+contiguous (why v2 ribbons stay clean vs v1).
+  - [ ] **(impl)** Native fold chevron + '…' are TOUCH-tappable (no hover-only); tap-to-fold/unfold + synced unchanged-collapse work on the mobile viewport across the 3 panes. Gate on device (the setHiddenAreas mobile break is why v2 exists).
   - [ ] **(gate)** GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)
   -> merge.nativeFoldByMethod [uc:uuid:fcf8b48f-8e84-47d4-905b-4cdfb355e528]
   -> merge.syncUnchangedCollapse [uc:uuid:8451731c-bb67-43ab-9a40-27a43e817d77]

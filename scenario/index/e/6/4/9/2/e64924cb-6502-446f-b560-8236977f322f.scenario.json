@@ -7,7 +7,7 @@
       "ior:instance:b629c015-456d-4e54-b300-5efd418696b8"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.53 native-Monaco-folding redesign; architect deriving; re-point on confirm - R30.11). camelCase for [impl]. Mirror a native Monaco fold/unfold of an unchanged method-block to the corresponding blocks in the other 2 editors (native fold state, not setHiddenAreas). Aligned across the 3 editors by method/conflicts[] mapping."
+    "note": "R30.53 native (architect v2). camelCase for [impl]. applyChangesOnlyFolding() [initial: FoldingController.getFoldingModel().setCollapsed(unchanged methods) in all 3] + syncNativeFold() [foldingModel.onDidChange -> mirror a method's collapse-state to the corresponding method (1:1 by seq/name) in the other 2, re-entrancy-guarded like syncScroll3]. Reflow gutters/ribbons after."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

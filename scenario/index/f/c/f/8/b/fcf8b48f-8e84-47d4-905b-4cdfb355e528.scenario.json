@@ -3,7 +3,7 @@
  "model": {
   "uuid": "fcf8b48f-8e84-47d4-905b-4cdfb355e528",
   "name": "merge.nativeFoldByMethod",
-  "description": "Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand controls in the gutter + a '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines, which Tron REJECTED - broke mobile). Foldable regions are the METHOD boundaries (fold a whole method block). Architect derives the native FoldingController approach.",
+  "description": "Code-folding uses Monaco NATIVE folding (folding:true + a custom FoldingRangeProvider at METHOD boundaries): standard chevron collapse/expand + '…' collapsed placeholder (native affordance, Tron IMG_4571). REVERTS the Tron-rejected R30.51 setHiddenAreas. Architect v2 = registerMethodFoldingProvider.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

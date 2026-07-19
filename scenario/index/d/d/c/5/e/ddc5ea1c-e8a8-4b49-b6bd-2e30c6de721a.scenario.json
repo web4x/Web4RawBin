@@ -7,7 +7,7 @@
       "ior:instance:2de3411f-aaf8-4ea6-a249-a41d99320b3d"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.53 native-Monaco-folding redesign; architect deriving; re-point on confirm - R30.11). camelCase for [impl]. Configure Monaco native folding (folding:true / a folding-range provider by method boundaries) so each method block folds with the standard chevron + '...' placeholder. Replaces the REVERTED setHiddenAreas approach."
+    "note": "R30.53 native (architect v2, design-folding.md v2). camelCase for [impl]. registerMethodFoldingProvider() [monaco.languages.registerFoldingRangeProvider by method DEF-line + matching-close brace-depth] + folding:true (common:166, REVERT R30.51 folding:false). Native chevron+'…' free."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

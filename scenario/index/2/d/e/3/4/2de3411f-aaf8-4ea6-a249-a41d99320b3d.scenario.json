@@ -6,7 +6,7 @@
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
-    "description": "DESIGN-AHEAD: Native Monaco folding by method boundaries (chevron collapse/expand + '...' placeholder); method-block fold ranges. Architect derives the NATIVE Monaco folding method-set; expert builds v0.7.77 + tags [impl] marker."
+    "description": "DESIGN-AHEAD (architect v2 native): monaco.languages.registerFoldingRangeProvider at method boundaries + folding:true; native chevron + '…' collapsed placeholder. Expert builds v0.7.77 + tags [impl] (resolves Method.implementations[0] uuid, name-match)."
   },
   "ownerIor": "ior:instance:ddc5ea1c-e8a8-4b49-b6bd-2e30c6de721a"
 }

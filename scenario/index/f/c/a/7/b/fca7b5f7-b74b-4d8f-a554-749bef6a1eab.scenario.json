@@ -7,7 +7,7 @@
       "ior:instance:640f8428-2797-41e8-9951-3f8e05e6bd0e"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.53 native-Monaco-folding redesign; architect deriving; re-point on confirm - R30.11). camelCase for [impl]. Exclude any method-block overlapping conflicts[] from the collapse so change-regions stay expanded; only unchanged method-blocks fold. Native-folding equivalent of the changes-only view."
+    "note": "R30.53 native (architect v2). camelCase for [impl]. unchangedMethods() filter: a method whose [start,end] OVERLAPS any conflict per-editor range (CENTER span/LEFT aStart+a/RIGHT bStart+b) is EXCLUDED from collapse -> change-methods never programmatically folded = expanded by construction."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

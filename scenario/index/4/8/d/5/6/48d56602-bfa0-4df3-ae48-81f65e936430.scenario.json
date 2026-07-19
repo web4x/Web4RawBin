@@ -3,7 +3,7 @@
  "model": {
   "uuid": "48d56602-bfa0-4df3-ae48-81f65e936430",
   "name": "merge.changeMethodsStayExpanded",
-  "description": "Method-blocks that CONTAIN a change/conflict STAY EXPANDED (never auto-collapsed); only UNCHANGED method-blocks collapse (the changes-focused view). Architect derives how change-containing method-blocks are excluded from the initial/synced collapse.",
+  "description": "Method-blocks CONTAINING a change/conflict STAY EXPANDED (never programmatically folded): unchangedMethods() excludes any method overlapping conflicts[] per-editor range from the collapse set. Only unchanged method-blocks fold = the changes-focused view; change-methods contiguous (clean v2 ribbons).",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

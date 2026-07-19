@@ -3,7 +3,7 @@
  "model": {
   "uuid": "8451731c-bb67-43ab-9a40-27a43e817d77",
   "name": "merge.syncUnchangedCollapse",
-  "description": "Collapsing an UNCHANGED method-block collapses the CORRESPONDING block SYNCED across all THREE editors (Local/Center/Repository) - via native Monaco fold state mirrored across the 3 editors (aligned by conflicts[]/method mapping). Architect derives the native fold-state sync.",
+  "description": "Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors: initial FoldingController.setCollapsed(unchanged) in all 3 + foldingModel.onDidChange mirrors collapse-state 1:1 (by seq/name), re-entrancy-guarded. Gutters/ribbons reflow after (fold-aware getTopForLineNumber).",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
