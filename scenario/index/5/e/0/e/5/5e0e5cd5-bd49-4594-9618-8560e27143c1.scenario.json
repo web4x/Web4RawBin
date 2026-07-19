@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.applyLanguage R30.41 per-filetype highlight impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect-confirmed; expert builds): applyLanguage derives the Monaco language id from the left.path file extension (otmux->bash, .cs->csharp, .ts->typescript) and calls m.editor.setModelLanguage(model,id) on all 3 editors (Local/Result/Repository) at the END of loadSide. Mutates the SAME model instance so the change-block decorations (R30.35) + continuous spline (R30.34) PERSIST - highlighting coexists with, does not override, the diff coloring. Expert places [impl:uuid:5e0e5cd5-bd49-4594-9618-8560e27143c1] on the applyLanguage decl (source-only, name-match)."
+    "designAhead": false,
+    "description": "BUILT v0.7.64: RbDiffEditor.applyLanguage derives the Monaco language id from this.left.path extension (matched against getLanguages().extensions) with a SHEBANG fallback for extensionless scripts (e.g. otmux -> shell), and calls m.editor.setModelLanguage on all 3 models (Local/Result/Repository). Mutates the SAME model instance so the R30.35 change decorations + R30.34 spline PERSIST (coexist, no override); called at the END of loadSide, idempotent. Private helper languageForPath performs the ext/shebang -> language mapping (uncredited support). Expert places [impl:uuid:5e0e5cd5] on the applyLanguage decl source-only (name-match)."
   },
   "ownerIor": "ior:instance:cd0599ab-16b9-4149-877f-43c2241210d2"
 }
