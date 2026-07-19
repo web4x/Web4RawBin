@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.syncNativeFold impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect v2 native): initial collapse of unchanged methods via FoldingController.getFoldingModel().setCollapsed in all 3; foldingModel.onDidChange mirrors collapse-state across the 3 (re-entrancy-guarded); getTopForLineNumber fold-aware reflow. Expert builds v0.7.77 + tags [impl]."
+    "designAhead": false,
+    "description": "BUILT v0.7.78 (rb-diff-editor.ts:333, marker :332): RbDiffEditor.syncNativeFold — INITIAL collapse of unchanged methods + onDidChange mirror across 3 panes (re-entrancy-guarded); scroll stays ANCHORED after collapse (no jump to line 1). Marker name-match verified."
   },
   "ownerIor": "ior:instance:e64924cb-6502-446f-b560-8236977f322f"
 }
