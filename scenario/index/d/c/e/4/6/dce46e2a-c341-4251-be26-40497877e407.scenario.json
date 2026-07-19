@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "dce46e2a-c341-4251-be26-40497877e407",
+  "name": "merge.toolbarMisclickLayout",
+  "description": "Re-layout the merge toolbar to make a wrong click harder: 'N selected' stays on its OWN line directly under the 'Apply All' button, and the 'X/Y open conflicts' text moves DOWN to BETWEEN the down-nav (▼) and resolve (✓) controls as a NON-CLICKABLE buffer above ✓ (so aiming ▼ can't mis-hit ✓). Both counts still shown, just repositioned. IMPL-EDIT to renderMergeGutter DOM order (Impl e24dc98a) - refines R30.50-A compose.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:e5540621-6e90-4553-aa56-2d17d68b0e57",
+  "coveredRequirement": "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
+ },
+ "ownerIor": "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
+}

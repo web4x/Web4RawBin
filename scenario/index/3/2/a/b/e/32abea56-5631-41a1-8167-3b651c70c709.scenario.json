@@ -87,7 +87,11 @@
     "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual."
    }
   ],
-  "tronRuling": "Tron 2026-07-19 (resolves req-eng escalation via robbin-po): (B) 3-MODE ADD side-wins, do NOT replace - openApplyAllMenu popup offers 'Non-conflicting only' (existing applyAllNonConflicting 91c452ae STAYS as a mode) + 'All-Local wins' + 'All-Repo wins'; relabel button 'Apply All'. (A) COMPOSE '- N selected . X/Y open' - KEEP the open-conflict count, do not drop it."
+  "tronRuling": "Tron 2026-07-19 (resolves req-eng escalation via robbin-po): (B) 3-MODE ADD side-wins, do NOT replace - openApplyAllMenu popup offers 'Non-conflicting only' (existing applyAllNonConflicting 91c452ae STAYS as a mode) + 'All-Local wins' + 'All-Repo wins'; relabel button 'Apply All'. (A) COMPOSE '- N selected . X/Y open' - KEEP the open-conflict count, do not drop it.",
+  "refinedBy": [
+   "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
+  ],
+  "refinedByNote": "Refined by R30.52 (toolbar re-layout / mis-click prevention) - DOM-order impl-edit on renderMergeGutter, R30.50 stays closed."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

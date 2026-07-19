@@ -752,3 +752,14 @@
   -> merge.foldSyncAcrossPanes [uc:uuid:5dedb343-9457-4f02-bbc6-023f8fe42c78]
   -> merge.changeRegionNotCollapsible [uc:uuid:d5534ec3-c61b-4a70-b63b-fd4010947d02]
   -> merge.changesOnlyInitialFold [uc:uuid:47fbd1d7-9890-484c-b1ae-d13947f5a3a0]
+
+- [ ] **R30.52 — 3-way merge toolbar re-layout: 'N selected' own line, 'X/Y open' buffer between ▼ and ✓ (mis-click prevention)**
+  [requirement:uuid:989471e8-c5f0-44fc-831f-4b1d1ad55d0c]
+  > TRON (via robbin-po): R30.50 toolbar re-layout to make a wrong click harder - (1) 'N selected' stays on its own line under Apply All; (2) MOVE 'X/Y open conflicts' DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. (▼ and ✓ currently adjacent -> mis-click ✓ when aiming ▼.)
+  Re-layout the 3-way merge toolbar so a wrong click is harder. Currently the compose 'N selected . X/Y open conflicts' sits on one line under 'Apply All', then ▲ ▼ ✓ - so ▼ and ✓ are adjacent (mis-click ✓ when aiming ▼). CHANGE: (1) split the compose - 'N selected' stays on its own line under Apply All; (2) MOVE the 'X/Y open conflicts' text DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. Refines R30.50-A (renderMergeGutter/toolbar DOM order); impl-edit on the built renderMergeGutter (Impl e24dc98a). R30.50 stays closed (closure-freeze); this is a distinct new atom.
+  **Acceptance criteria:**
+  - [ ] **(layout)** 'N selected' stays on its OWN line directly under the 'Apply All' button (split from the compose).
+  - [ ] **(layout)** The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).
+  - [ ] **(layout)** Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.
+  - [ ] **(gate)** GATE (screenshot+behavior): 'N selected' on its own line under Apply All; 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.
+  -> merge.toolbarMisclickLayout [uc:uuid:dce46e2a-c341-4251-be26-40497877e407]

@@ -1,0 +1,52 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "989471e8-c5f0-44fc-831f-4b1d1ad55d0c",
+  "altId": "R30.52",
+  "name": "3-way merge toolbar re-layout: 'N selected' own line, 'X/Y open' buffer between ▼ and ✓ (mis-click prevention)",
+  "description": "Re-layout the 3-way merge toolbar so a wrong click is harder. Currently the compose 'N selected . X/Y open conflicts' sits on one line under 'Apply All', then ▲ ▼ ✓ - so ▼ and ✓ are adjacent (mis-click ✓ when aiming ▼). CHANGE: (1) split the compose - 'N selected' stays on its own line under Apply All; (2) MOVE the 'X/Y open conflicts' text DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. Refines R30.50-A (renderMergeGutter/toolbar DOM order); impl-edit on the built renderMergeGutter (Impl e24dc98a). R30.50 stays closed (closure-freeze); this is a distinct new atom.",
+  "tronQuote": "> TRON (via robbin-po): R30.50 toolbar re-layout to make a wrong click harder - (1) 'N selected' stays on its own line under Apply All; (2) MOVE 'X/Y open conflicts' DOWN to BETWEEN ▼ and ✓ as a non-clickable buffer above ✓. Both counts still shown, repositioned. (▼ and ✓ currently adjacent -> mis-click ✓ when aiming ▼.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:dce46e2a-c341-4251-be26-40497877e407"
+  ],
+  "refinementOf": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709",
+  "refinementOfNote": "Refines R30.50-A (change-number indicator compose on renderMergeGutter e24dc98a) with a DOM-order re-layout for mis-click prevention. R30.50 is closed (built+gated+chain-complete-to-Test) - per closure-freeze this is a NEW atom, not an amend. Same Impl e24dc98a (impl-edit).",
+  "crossRef": [
+   "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+  ],
+  "crossRefNote": "Impl-edit on the R30.50-A renderMergeGutter (Method e5540621 / Impl e24dc98a) - DOM order only, both counts kept. No new Method/Impl.",
+  "discoverySource": {
+   "type": "tron-ux",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-19",
+   "note": "Small toolbar re-layout for mis-click prevention. Minted scenario-first as a distinct atom (R30.50 closure-freeze). Impl-edit on renderMergeGutter."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-n-selected-line",
+    "group": "layout",
+    "text": "'N selected' stays on its OWN line directly under the 'Apply All' button (split from the compose)."
+   },
+   {
+    "id": "AC-open-buffer",
+    "group": "layout",
+    "text": "The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓)."
+   },
+   {
+    "id": "AC-both-shown",
+    "group": "layout",
+    "text": "Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (screenshot+behavior): 'N selected' on its own line under Apply All; 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}
