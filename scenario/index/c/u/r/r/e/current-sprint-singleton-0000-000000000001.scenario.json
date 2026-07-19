@@ -2,59 +2,34 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
+    "name": "Current: Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees",
     "chain": {
-      "req": "7d6e15c0-7f8e-41a5-b204-01008a67b78d",
-      "uc": "6716c678-f652-4ec3-a2d7-01493c8ea0eb",
-      "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
-      "method": "e8cc281b-187e-477a-bdf9-e167aec639f5",
-      "impl": "2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3",
-      "test": "d3d9f8f5-c85b-487a-baa7-c276ec0ee4ee"
+      "req": "b6b21710-bee6-4f6e-b382-3578643da85a",
+      "uc": "3a17f2e5-1093-4c96-aaa9-33aaad92de54",
+      "class": "28cc1759-30b9-42e3-97e6-6b967b02f517",
+      "method": "43b1ff0c-49e3-4c36-b64d-23151296e77d",
+      "impl": "",
+      "test": ""
     },
-    "activeHop": 5,
+    "activeHop": 4,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
+    "taskName": "Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees",
     "hopStates": {
       "req": {
         "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:04.568Z"
-      },
-      "uc": {
-        "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:05.522Z"
-      },
-      "class": {
-        "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:06.365Z"
-      },
-      "method": {
-        "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:07.189Z"
-      },
-      "impl": {
-        "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:08.121Z"
-      },
-      "test": {
-        "status": "in-progress",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T15:22:09.043Z"
+        "owner": "req-eng",
+        "updatedAt": "2026-07-19T15:37:20.797Z"
       }
     },
-    "nextBacklogOverride": "50ce893e-91a9-4a1e-894e-63c669e1af37",
+    "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
     "lastCompletedUuid": "",
     "lastCompletedName": "",
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "255ac5c1-0328-480f-bc75-d38aada20e9f",
-        "taskName": "Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
-        "reqUuid": "7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+        "taskUuid": "50ce893e-91a9-4a1e-894e-63c669e1af37",
+        "taskName": "Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees",
+        "reqUuid": "b6b21710-bee6-4f6e-b382-3578643da85a"
       },
       "lastCompleted": {
         "taskUuid": "b6effc2c-71f3-4c24-834d-fc5f92e43d18",
@@ -62,9 +37,9 @@
         "reqUuid": "53ab62ed-7ced-429a-945f-8b639faa4237"
       },
       "nextBacklog": {
-        "taskUuid": "50ce893e-91a9-4a1e-894e-63c669e1af37",
-        "taskName": "Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees",
-        "reqUuid": "b6b21710-bee6-4f6e-b382-3578643da85a"
+        "taskUuid": "06623fea-ad42-4635-8b7e-bef5f216462f",
+        "taskName": "Task 30.44: Add a repository by clone URL + checkout location",
+        "reqUuid": "3c9f69c1-8bee-4309-9e30-df61cea34de3"
       }
     }
   },

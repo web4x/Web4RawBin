@@ -12,8 +12,8 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -42,17 +42,17 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Acceptance Criteria
 
-- [ ] (add) The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
-- [ ] (add) After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
-- [ ] (security) The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse).
-- [ ] (security) [PENDING Tron ratify] The server-local path a user may register is BOUNDED (allowlist / root-confinement per Tron ratify) - not arbitrary server filesystem access; a path outside the ratified bounds is rejected.
-- [ ] (security) [PENDING Tron ratify] Adding/registering a repo is gated by the ratified authorization model (who may add repos) - not open to any client.
-- [ ] (security) [PENDING Tron ratify] The registered repo persists in the dynamic registry per the ratified persistence mechanism (where/how, survives restart) with no secret/path leakage.
-- [ ] (gate) GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
+- [x] (add) The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout in the dynamic registry.
+- [x] (add) After registering, the new repo APPEARS in the selector + is usable for diffs/merges (resolves via RepoRegistry).
+- [x] (V1-validate) The chosen dir MUST contain a .git (file or folder) — the SOLE validation; no REPO_ALLOW allowlist, no admin-auth for V1; invalid dir rejected with a clear error.
+- [ ] (BACKLOG D1) [deferred, NOT lost — path-traversal/info-disclosure] realpath within HOME subtree OR REPO_ALLOW — V1 drops this (sole check = .git-present). R30.48/BH-3.
+- [ ] (BACKLOG D4) [deferred, NOT lost — write-auth] register requires admin-key — V1 drops admin-auth for add-local. R30.48/BH-3.
+- [x] (V1-persist) The registration persists in the dynamic registry (survives restart). [BACKLOG: admin-key gating of that write deferred with D4.]
+- [ ] (gate) GATE — DET-3x GREEN ✓ (r3043 50cc4295e 'criteria GREEN, multi-worker DISPROVEN', Test 4a253cea->Impl isGitRepo 3d1b156d, served==gated v0.7.71); Tron VISUAL pending. Full: register /root/oosh -> appears + opens a diff; version-bump.
 
 ## Implementation
 
-V1-ACTIVE, SIMPLIFIED (architect §10) → .git-PRESENT-only add-local (accept a server path that ALREADY contains .git; NO arbitrary-path handling in V1). D2 path-traversal hardening guard DEFERRED to backlog (re-activate before exposed/multi-user deploy). DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
+QA-REVIEW: V1 add-local (.git-present -> register). Gate r3043 GREEN DET-3x (50cc4295e), chain-to-Test both-directions (isGitRepo 3d1b156d<->Test 4a253cea), served==gated v0.7.71. V1 SIMPLIFIED: .git-present SOLE validation; D1 allowlist + D4 admin-key BACKLOG (AC4/5 -> R30.48/BH-3). 4/7 ACs (AC4/5 deferred, AC7 Tron-visual pending). HELD rule#9 -> Tron VISUAL -> Done.
 
 ## Subtasks
 
