@@ -221,8 +221,38 @@ export class RbDiffEditor extends HTMLElement {
       const title = this.querySelector(`.de-${side === 'left' ? 'local' : 'remote'} .de-title`) as HTMLElement;
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
+      this.applyLanguage(); // R30.41: derive Monaco language from path ext → setModelLanguage on all 3 models (content now set everywhere); idempotent
       if (side === 'left' && !st.ref && !this._deepLink) await this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore. R30.25: AWAIT (serialize) so the promote's async tail can't race a later RIGHT ref-pick and blank LEFT.
     } catch { this.status(`load ${side} error`); }
+  }
+
+  // [impl:uuid:5e0e5cd5-bd49-4594-9618-8560e27143c1] RbDiffEditor.applyLanguage — R30.41 per-filetype syntax highlighting (Method cd0599ab).
+  // Derive the Monaco language id from this.left.path's extension (match m.languages.getLanguages().extensions), with a shebang
+  // fallback for extensionless scripts (e.g. 'otmux' → shell). setModelLanguage MUTATES the SAME model on all 3 editors —
+  // NEVER setModel(new), which would DROP the diff decorations/spline. Idempotent; called at the end of loadSide.
+  private applyLanguage(): void {
+    const m = this.monaco; if (!m || !this.left.path) return;
+    const id = this.languageForPath(this.left.path, this.left.content);
+    if (!id) return;
+    for (const ed of [this.edLocal, this.edCenter, this.edRemote]) {
+      const model = ed?.getModel?.(); if (model && model.getLanguageId?.() !== id) m.editor.setModelLanguage(model, id);
+    }
+  }
+  private languageForPath(p: string, content?: string): string | null {
+    const m = this.monaco; if (!m) return null;
+    const slash = p.lastIndexOf('/'), dot = p.lastIndexOf('.');
+    const ext = dot > slash ? p.slice(dot).toLowerCase() : '';
+    if (ext) {
+      for (const lang of m.languages.getLanguages()) {
+        if ((lang.extensions || []).some((e: string) => e.toLowerCase() === ext)) return lang.id;
+      }
+    }
+    // extensionless (e.g. 'otmux') → shebang heuristic
+    const first = (content || '').split('\n', 1)[0] || '';
+    if (/^#!.*(bash|zsh|\bsh\b|dash|ksh)/.test(first)) return 'shell';
+    if (/^#!.*\bpython/.test(first)) return 'python';
+    if (/^#!.*\bnode/.test(first)) return 'javascript';
+    return null;
   }
 
   // [impl:uuid:a0b30550-71c8-4497-9eaf-f73551f7bb0f] RbDiffEditor.computeMergedCenter
