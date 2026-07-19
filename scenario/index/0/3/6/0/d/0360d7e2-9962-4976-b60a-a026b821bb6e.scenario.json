@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.populateHistory R30.39 repo-aware history-fill impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect derive; expert builds): extract the repo-aware history-fill (git log --follow fetch + .de-history option fill) OUT of populateLeftHistory 751934c1, dropping the promote-to-right + auto-load-default, so both a manual selector change AND a ?repo URL preselect drive the identical file-history update path (AC-behavior-identical). Expert builds the extraction + places [impl:uuid:0360d7e2-9962-4976-b60a-a026b821bb6e] on the extracted decl (name-match) + confirms/corrects the method name; I re-point Method 4db27a4a on confirm. populateLeftHistory 751934c1 becomes a caller."
+    "designAhead": false,
+    "description": "BUILT v0.7.63 (5de695c89): private async populateHistory() (rb-diff-editor.ts:855) fetches git log --follow + fills the .de-history <option>s, WITHOUT the promote-to-right or auto-load-default -> deep-link refs stay INTACT. Called from openFromParams:790 so a ?repo URL preselect drives the SAME file-history update path as a manual selector switch (AC-behavior-identical). Marker [impl:uuid:0360d7e2] on the decl (verified name-match, heads decl). populateLeftHistory 751934c1 kept INTACT (mild fill duplication; caller-refactor is an optional follow-up)."
   },
   "ownerIor": "ior:instance:4db27a4a-3473-402d-be14-f807a82c6d88"
 }

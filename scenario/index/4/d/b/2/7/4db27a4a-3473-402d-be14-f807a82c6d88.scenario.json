@@ -7,8 +7,7 @@
       "ior:instance:0360d7e2-9962-4976-b60a-a026b821bb6e"
     ],
     "tests": [],
-    "designAhead": true,
-    "note": "R30.39 file-history parity. PROPOSED NAME - expert confirms the extracted decl name on build (name-match for [impl] AST-attach); I re-point if different. DESIGN (architect derive): extract a repo-aware history-fill method from populateLeftHistory 751934c1 = the git-log --follow fetch + .de-history <option> fill, MINUS the promote-to-right + auto-load-default. So a ?repo preselect fires the SAME history-fill path as a manual selector change (AC-behavior-identical). Co-sites: populateLeftHistory 751934c1 (calls it) + populateRepos e8cc281b (selector :866 seed)."
+    "note": "R30.39 file-history parity. BUILT v0.7.63 (5de695c89); decl name CONFIRMED = populateHistory (matched the mint, no re-point). private async populateHistory() (rb-diff-editor.ts:855) = the extracted git-log-follow fetch + .de-history fill, MINUS promote-to-right + auto-load-default; called from the deep-link path (openFromParams:790) so a ?repo preselect fills history identically to a manual switch. NOTE: populateLeftHistory 751934c1 was kept INTACT (NOT refactored into a caller) to protect its token/promote invariants -> mild fill duplication (flagged to PO as optional follow-up). Impl 0360d7e2 [marker placed]."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }
