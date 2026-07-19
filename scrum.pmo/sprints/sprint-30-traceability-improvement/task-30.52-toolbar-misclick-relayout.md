@@ -10,9 +10,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing (expert building — impl-edit renderMergeGutter e24dc98a)
-  - [ ] testing
+  - [x] creating test cases
+  - [~] implementing (expert RE-FIXING the N=14 regression)
+  - [ ] testing (re-baselining at Tron's N=14 state, expect RED)
 - [ ] QA Review
 - [ ] Done
 
@@ -42,14 +42,14 @@ S30 diff/merge editor — R30.52 toolbar mis-click re-layout (refines R30.50-A a
 
 ## Acceptance Criteria
 
-- [ ] 'N selected' stays on its OWN line directly under the 'Apply All' button (split from the compose).
+- [ ] 'N selected' renders INLINE on the SAME horizontal row as 'Apply All' + the nav controls (not wrapped onto its own line). [CORRECTED 2026-07-19: 'own line' was a mis-read of Tron's horizontal-toolbar ASCII stack.]
 - [ ] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).
 - [ ] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.
-- [ ] GATE (screenshot+behavior): 'N selected' on its own line under Apply All; 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.
+- [ ] GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.
 
 ## Implementation
 
-IN PROGRESS @ IMPLEMENTING (expert building now, PO green-lit). IMPL-EDIT on renderMergeGutter e24dc98a (no new Method/Impl — repositions 'N selected' + 'X/Y open' in the toolbar). refines R30.50-A (closure-freeze → new req R30.52). On tester gate → QA-Review. Gate = screenshot+behavior at Tron viewport.
+IN PROGRESS @ RE-FIXING — ⛔ HOLD flip (PO+SM). v0.7.75 gate r3052 was a WRONG-STATE FALSE-GREEN: tester gated at N=1 ('1 selected' shown), but Tron reports '14 selected' MISSING at N=14 AFTER 'Apply All -> Repository wins' — the inline fix introduced a NEW regression (missing '.de-selected'; AC3 counts-still-shown FAILS at Tron's N=14 state). Expert re-fixing + tester re-baselining at Tron's EXACT N=14 post-Apply-All state (expect RED). AC1 amended own-line->INLINE (Tron correction b1c489d8c). Flip only when the CORRECTED fix gates GREEN at the RIGHT state. Chain wired (Test 919d290d<->Impl renderMergeGutter e24dc98a) but the current gate tests the wrong state.
 
 ## Subtasks
 
