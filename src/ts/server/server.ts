@@ -522,9 +522,9 @@ class GitApi {
     return stdout.split('\n').map(s => s.trim()).filter(Boolean);
   }
 
-  // R30.x save-404: the repo's currently checked-out branch (git rev-parse --abbrev-ref HEAD) — the working tree a diff/
-  // merge Save writes to. Read-only, execFile array-args (no shell). CHAIN PENDING: req to mint the Method/Impl (build-it
-  // mode, formalize + [impl] marker after refresh — R30.11 re-point to built reality). Detached HEAD → 'HEAD'.
+  // R30.38 save-404: the repo's currently checked-out branch (git rev-parse --abbrev-ref HEAD) — the working tree a diff/
+  // merge Save writes to. Read-only, execFile array-args (no shell). Detached HEAD → 'HEAD'.
+  // [impl:uuid:a2cbd78e-b127-4d60-886b-6b137943758d] GitApi.currentBranch (R30.38 merge.currentBranchApi 9757bf00 → Method currentBranch b9e8ba29)
   static async currentBranch(root: string): Promise<string> {
     const { stdout } = await execFileAsync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], GitApi.opts(root));
     return stdout.trim();

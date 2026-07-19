@@ -733,6 +733,7 @@ export class RbDiffEditor extends HTMLElement {
 
   // R30.38 save-404 (item 2): center header shows 'file@currentBranch' — the working-tree branch the merged Save writes to.
   private _branch = ''; private _branchRepo: string | null = null;
+  // [impl:uuid:41504f5f-136b-4bfd-8dd5-2d02a345fa0d] RbDiffEditor.setCenterTitle — renders '.de-center .de-title' = filename@currentBranch (R30.38 merge.centerHeaderBranch abad9982 → Method setCenterTitle 4de0d530; re-pointed off the false-credit mountThreePane)
   private setCenterTitle(): void {
     const ct = this.querySelector('.de-center .de-title') as HTMLElement; if (!ct) return;
     ct.textContent = this.left.path ? (this._branch ? `${this.left.path}@${this._branch}` : `merged: ${this.left.path}`) : 'merged';
