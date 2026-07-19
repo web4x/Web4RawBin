@@ -731,8 +731,7 @@ export class RbDiffEditor extends HTMLElement {
     });
   }
 
-  // [impl:uuid:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9] RbDiffEditor.save — write CENTER via /api/files (mtime-guarded).
-  // R30.x save-404 (item 2): center header shows 'file@currentBranch' — the working-tree branch the merged Save writes to.
+  // R30.38 save-404 (item 2): center header shows 'file@currentBranch' — the working-tree branch the merged Save writes to.
   private _branch = ''; private _branchRepo: string | null = null;
   private setCenterTitle(): void {
     const ct = this.querySelector('.de-center .de-title') as HTMLElement; if (!ct) return;
@@ -746,6 +745,8 @@ export class RbDiffEditor extends HTMLElement {
     this._branchRepo = this.left.repo; this.setCenterTitle();
   }
 
+  // [impl:uuid:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9] RbDiffEditor.save — write CENTER via /api/files (mtime-guarded).
+  // R30.38 (merge.saveToCurrentBranch bcc27da9 → Method save 11a8ea6e): ?repo routes the write to the DIFF'S repo (oosh), no 404.
   async save(): Promise<void> {
     if (!this.left.path) { this.status('nothing to save (no target path)'); return; }
     try {
