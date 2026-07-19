@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e8cc281b-187e-477a-bdf9-e167aec639f5",
+    "name": "RbDiffEditor.populateRepos",
+    "implementations": [
+      "ior:instance:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3"
+    ],
+    "tests": [],
+    "note": "R30.39 seed-site. Name EXACT for [impl] AST-attach. Fills the <option>s from /api/git/repos (async), THEN seeds each .de-repo selector's sel.value from its side's st.repo. Fixes the RACE where openFromParams set sel.value BEFORE the options existed (so neither stuck -> both defaulted RawBin). BUILT v0.7.61+ (rb-diff-editor.ts); expert places [impl] marker on the populateRepos decl."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

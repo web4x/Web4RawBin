@@ -3,13 +3,14 @@
  "model": {
   "uuid": "bd5392ef-61f5-4da3-a966-7b92c47d1417",
   "name": "diffEditor.seedBothRepoSelectors",
-  "description": "On deep-link load, seed BOTH the left and right repo selectors from ?repo=<key> so neither stays at the default. Realized in the deep-link restore path (openFromParams best-guess); impl-site pending expert derive-confirm (a later populateRepos may re-default the right selector).",
+  "description": "On deep-link load, seed BOTH the left and right repo selectors from ?repo. CONFIRMED fix-site (expert): RbDiffEditor.populateRepos seeds each selector's sel.value from its st.repo AFTER filling the async /api/git/repos options - fixing the race where openFromParams set sel.value before the options existed (both reverted to RawBin). openFromParams sets the intent; the DOM-seed lives in populateRepos.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
-  "method": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0",
-  "coveredRequirement": "ior:instance:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff"
+  "method": "ior:instance:e8cc281b-187e-477a-bdf9-e167aec639f5",
+  "coveredRequirement": "ior:instance:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff",
+  "repointNote": "method f52b6941 (openFromParams, intent) -> e8cc281b (populateRepos, the built DOM-seed fix-site) per expert root-cause 2026-07-19 (async-race)."
  },
  "ownerIor": "ior:instance:95ebc2ed-ff7a-4979-9df8-15cb4d74ebff"
 }

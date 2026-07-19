@@ -6,7 +6,9 @@
   "name": "Deep-link ?repo seeds BOTH left and right repo selectors on load",
   "description": "When the 3-way diff/merge editor opens from a deep-link with ?repo=<key>, BOTH the left AND the right repo selectors MUST be seeded to that repo on load. BUG (v0.7.61, Tron screenshot): neither selector is seeded from ?repo - both stay at the default (RawBin), so Tron had to set BOTH manually. openFromParams (rb-diff-editor.ts:771) sets this.left.repo + this.right.repo from the key and runs a .de-repo forEach, yet the selectors still show the default on load - so the fix-site is NOT the naive data-set (a later populateRepos, or a distinct right selector, re-defaults them). Impl-site pending expert+architect derive-confirm. crossRef R30.24 (openFromParams deep-link seeding) + R30.6.7 (RepoRegistry key resolution).",
   "tronQuote": "> TRON (v0.7.61, screenshot): the ?repo query param must seed BOTH left AND right repo selectors on load - i had to set BOTH manually, neither was seeded (only default RawBin).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:079e3a17-1547-4773-b0e4-635665ffc39e"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
   "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
@@ -24,7 +26,6 @@
    "date": "2026-07-19",
    "note": "3-way editor bug A: ?repo seeds neither left nor right selector; both default RawBin; user forced to set both by hand. Expert to root-cause the actual seed/reset site (openFromParams .de-repo forEach vs populateRepos)."
   },
-  "implSitePending": "openFromParams f52b6941 sets left/right st.repo + a .de-repo forEach but selectors still default -> real fix may be in populateRepos / per-side selector init. Expert+architect derive-confirm; I mint/re-point the Impl to the built decl.",
   "acceptanceCriteria": [
    {
     "id": "AC-seed-both",
@@ -42,11 +43,18 @@
     "text": "The ?repo value is a KEY resolved via R30.6.7 RepoRegistry (no client absolute-path abuse); an unknown/absent key falls back to the default (rawbin) for BOTH selectors."
    },
    {
+    "id": "AC-behavior-identical",
+    "group": "seed",
+    "text": "Preselecting a repo via ?repo=<key> is behaviorally IDENTICAL to a MANUAL selector change: the SAME downstream update path fires either way - the file-history selector updates AND all dependent state refresh, not merely the selector value being set. populateRepos must drive the same change/update flow a manual pick triggers (dispatch the change handler, not just assign sel.value)."
+   },
+   {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28)."
    }
-  ]
+  ],
+  "implSiteConfirmed": "populateRepos e8cc281b (async-race fix): seed sel.value from st.repo AFTER options fill. Impl 2b7edf20 (expert marker). openFromParams sets intent.",
+  "acExtensionNote": "AC-behavior-identical added per Tron 2026-07-19: URL preselect === manual switch (same downstream update path); covered by the populateRepos seed-fix dispatching the manual-change flow."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

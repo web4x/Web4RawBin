@@ -2,14 +2,15 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "90f5e309-7ab2-49c6-b679-3ad891d5ab2f",
-  "name": "diffEditor.headerShowsTargetedRepoBranch",
-  "description": "The center header resolves and shows the ACTUAL current branch of the repo the diff targets (dynamic git), not a stale/other-clone name. Observable producer = GitApi.currentBranch; emerging root = RepoRegistry clone resolution (crossRef). Impl-site pending expert root-cause confirm - re-point on confirm.",
-  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "name": "repoRegistry.ooshRootFollowsHomeSymlink",
+  "description": "The 'oosh' RepoRegistry root resolves by construction to os.homedir()+'/oosh' (the HOME/oosh SYMLINK path, NOT canonicalized), so git follows the symlink to the CURRENT oo-mode worktree dynamically - the center header (and diff + save) reflect the branch of whatever HOME/oosh points at now (mcdonges.latest). OOSH_DIR override dropped. Realized in RepoRegistry.resolve reading the pinned ROOTS.oosh. This makes R30.38's currentBranch/setCenterTitle chain show the CORRECT branch.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
   "classes": [
-   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
   ],
-  "method": "ior:instance:b9e8ba29-ff9a-4051-867a-5355c9ce7429",
-  "coveredRequirement": "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c"
+  "method": "ior:instance:6f954137-200e-4ef0-9ece-85a991f23232",
+  "coveredRequirement": "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",
+  "repointNote": "method b9e8ba29 (GitApi.currentBranch, observable producer) -> 6f954137 (RepoRegistry.resolve, the confirmed correct-by-construction fix-site: oosh root = HOME/oosh symlink, drop OOSH_DIR). Renamed UC to the confirmed mechanism. currentBranch code was already correct (expert); the root resolution was the bug."
  },
  "ownerIor": "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c"
 }

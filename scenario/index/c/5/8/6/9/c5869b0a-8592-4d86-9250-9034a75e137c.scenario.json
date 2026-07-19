@@ -6,7 +6,9 @@
   "name": "Center Result header shows the targeted repo's ACTUAL current branch, resolved dynamically",
   "description": "The center Result header (filename@branch) MUST show the ACTUAL current checked-out branch of the repo the diff TARGETS, resolved dynamically at request time - never a stale/other-clone/hardcoded branch. BUG (v0.7.61, Tron screenshot): Tron's working repo is on branch 'mcdonges.latest' but the center header reads 'otmux@dev-teampush-astray'. ROOT (expert-measured, emerging): the server's 'oosh' RepoRegistry key resolves to a DIFFERENT clone (the EAMD clone at /home/shared/EAMD.ucp/.../Once.sh/dev, whose HEAD=dev-teampush-astray) than the user's working clone (/root/oosh, mcdonges.latest) - so GitApi.currentBranch returns that other clone's HEAD. AC aligns to the confirmed root once expert posts it. crossRef R30.38 (centerHeaderBranch + currentBranch chain) + R30.6.7 (RepoRegistry clone resolution).",
   "tronQuote": "> TRON (v0.7.61, screenshot): the center Result header must show the CORRECT current branch of the selected repo - my git status is 'mcdonges.latest' but center shows 'otmux@dev-teampush-astray' which is NOT the current branch. it must match the repo's real current branch dynamically, not a hardcoded/stale name.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:34d3439e-31de-4e21-87d2-2a54b12eac9f"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
   "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
@@ -24,7 +26,6 @@
    "date": "2026-07-19",
    "note": "3-way editor bug B: center header otmux@dev-teampush-astray != the repo's real branch (mcdonges.latest). Expert (0.1) found the server's oosh root = the EAMD clone /home/shared/.../Once.sh/dev (HEAD dev-teampush-astray), not /root/oosh (mcdonges.latest). ROOT-CAUSE ALIGNMENT PENDING: expert confirms whether the 'oosh' RepoRegistry key must target the user's clone, or currentBranch must resolve against the right root. I re-point the impl-AC on confirm."
   },
-  "rootCausePending": "Emerging: RepoRegistry 'oosh' key resolves to the EAMD clone (HEAD dev-teampush-astray) not the user's /root/oosh (mcdonges.latest). Confirm whether fix = RepoRegistry.resolve 6f954137 (key -> correct clone) or GitApi.currentBranch b9e8ba29 (resolve branch of the actually-targeted root). I align the impl-AC + re-point on expert confirm.",
   "acceptanceCriteria": [
    {
     "id": "AC-dynamic-branch",
@@ -34,19 +35,20 @@
    {
     "id": "AC-not-stale",
     "group": "header",
-    "text": "The header is NEVER a stale, cached, hardcoded, or other-clone branch name; if the targeted repo is on 'mcdonges.latest', the header reads otmux@mcdonges.latest (not dev-teampush-astray)."
+    "text": "The header is NEVER a stale, cached, hardcoded, canonicalized, or OOSH_DIR-overridden branch; when HOME/oosh points to the mcdonges.latest worktree the header reads otmux@mcdonges.latest (not dev-teampush-astray)."
    },
    {
     "id": "AC-correct-clone",
     "group": "root",
-    "text": "[PENDING expert root-cause] The 'oosh' (and every) RepoRegistry key resolves to the repo clone the diff actually targets, so GitApi.currentBranch reports THAT clone's HEAD - not a different clone's. Final AC wording aligns to the confirmed root-cause."
+    "text": "The 'oosh' RepoRegistry root resolves BY CONSTRUCTION to os.homedir()+'/oosh' - the HOME/oosh SYMLINK path (path.resolve, NOT realpath'd/canonicalized to a fixed worktree), NOT an OOSH_DIR env override. Git FOLLOWS the symlink live, so the header reflects the branch of WHATEVER worktree HOME/oosh currently points to (now mcdonges.latest); if `oo` mode-switch repoints the symlink (dev/macos/prod/mcdonges.latest), the header tracks it DYNAMICALLY. Never a misconfigurable env, never a canonicalized fixed worktree."
    },
    {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): open the real deep-link -> the center header branch == the git current-branch of the targeted repo clone (dynamic); client-facing -> version-bump + atomic deploy (R30.28)."
    }
-  ]
+  ],
+  "rootCauseConfirmed": "OOSH_DIR env override had 'oosh' -> the FIXED Once.sh/dev worktree (HEAD dev-teampush-astray) instead of the user's HOME/oosh. FIX (built, repo-registry.ts ROOTS.oosh): resolve 'oosh' to path.resolve(os.homedir(),'oosh') - the HOME/oosh symlink kept as-is (NOT canonicalized) so git follows it to the current oo-mode worktree; OOSH_DIR override dropped. Correct-by-construction (never a misconfigurable env). Impl 9b95b458 on RepoRegistry.resolve (distinct from d7dc0059). currentBranch/resolve code was already correct."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

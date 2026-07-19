@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9b95b458-9118-44cc-959d-870c6fe1f9d0",
+    "name": "RepoRegistry oosh-root = HOME/oosh symlink (R30.40 correct-by-construction) impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+    "designAhead": false,
+    "description": "BUILT (repo-registry.ts ROOTS.oosh): the 'oosh' root resolves BY CONSTRUCTION to path.resolve(os.homedir(),'oosh') - the HOME/oosh SYMLINK path, NOT realpath'd/canonicalized, and the OOSH_DIR env override is DROPPED. HOME/oosh is a symlink that `oo` mode-switch repoints to a worktree; keeping the symlink path (not canonicalizing) makes git FOLLOW it to the CURRENT oo-mode dynamically, so diff+header+save all use whatever HOME/oosh points at now (currently mcdonges.latest). ROOT: OOSH_DIR had been misconfigured to the FIXED Once.sh/dev worktree (HEAD dev-teampush-astray) -> center header showed the wrong branch. Correct-by-construction: never rely on a misconfigurable env for ground truth. DISTINCT from d7dc0059 (RepoRegistry.resolve for R30.6.7 read-path key allowlist); this Impl credits the R30.40 oosh-root pinning. Expert places [impl:uuid:9b95b458-9118-44cc-959d-870c6fe1f9d0] on the ROOTS.oosh decl (source-only)."
+  },
+  "ownerIor": "ior:instance:6f954137-200e-4ef0-9ece-85a991f23232"
+}

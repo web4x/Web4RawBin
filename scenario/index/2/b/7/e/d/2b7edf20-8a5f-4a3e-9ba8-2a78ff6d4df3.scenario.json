@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3",
+    "name": "RbDiffEditor.populateRepos R30.39 seed-both-selectors impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": false,
+    "description": "BUILT: populateRepos seeds each repo selector's sel.value from its side's st.repo AFTER filling the async-fetched <option>s. Root cause = RACE: openFromParams (f52b6941) set left+right st.repo + ran a .de-repo forEach, but populateRepos fills options async (fetch /api/git/repos) AFTER, so the pre-set sel.value had no matching option and reverted to default RawBin -> Tron saw NEITHER selector seeded. Fix seeds after options exist. Expert places [impl:uuid:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3] on the populateRepos decl (source-only, name-match). openFromParams sets the intent; the DOM-seed fix lives here."
+  },
+  "ownerIor": "ior:instance:e8cc281b-187e-477a-bdf9-e167aec639f5"
+}
