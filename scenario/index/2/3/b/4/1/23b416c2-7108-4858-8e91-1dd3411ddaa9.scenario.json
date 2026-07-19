@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.computeFoldRegions impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect setHiddenAreas): folding:false + emit collapsible gaps = COMPLEMENT of conflicts[] change-ranges, so change regions have no collapse control (non-collapsible by construction). Context margin K around changes (PO/Tron flag). Expert builds + tags [impl] marker."
+    "designAhead": false,
+    "description": "BUILT v0.7.76 (rb-diff-editor.ts:777, marker :776): RbDiffEditor.computeFoldRegions — R30.51 Fold3(guard)+Fold1(regions): folding:false + emit collapsible gaps = COMPLEMENT of conflicts[] change-ranges, so change regions are non-collapsible by construction. Marker [impl:uuid:23b416c2] name-match verified."
   },
   "ownerIor": "ior:instance:29009077-2782-4938-85e4-c43f2f61a432"
 }

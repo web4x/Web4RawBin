@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.applyFold impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect setHiddenAreas): project _collapsedGaps to each of the 3 editors' hidden line-ranges via editor.setHiddenAreas() (state-driven, one Set -> 3 projections, aligned by conflicts[] per-editor ranges); reflow spline+gutters (getTopForLineNumber, R30.16) after. Expert builds + tags [impl] marker."
+    "designAhead": false,
+    "description": "BUILT v0.7.76 (rb-diff-editor.ts:805, marker :804): RbDiffEditor.applyFold — R30.51 Fold2(sync)+Fold4(reflow): projects _collapsedGaps to each of the 3 editors via editor.setHiddenAreas() (state-driven, aligned by conflicts[]); recomputes spline+gutters. Marker [impl:uuid:2d7a0103] name-match verified. Expert commit 167c308da."
   },
   "ownerIor": "ior:instance:2865493c-bac0-43dd-9b9f-12d81d899a3d"
 }

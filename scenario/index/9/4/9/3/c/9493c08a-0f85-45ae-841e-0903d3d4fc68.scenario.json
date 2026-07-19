@@ -5,8 +5,8 @@
     "name": "RbDiffEditor.applyChangesOnlyFolding impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (architect setHiddenAreas): at computeMergedCenter tail (conflicts[] ready) seed _collapsedGaps=all gaps -> applyFold -> changes-only initial view; expand reveals context on demand (view-zone '... N lines . expand'). Expert builds + tags [impl] marker."
+    "designAhead": false,
+    "description": "BUILT v0.7.76 (rb-diff-editor.ts:860, marker :859): RbDiffEditor.applyChangesOnlyFolding — R30.51 Fold1 changes-only initial: at computeMergedCenter tail (conflicts[] ready) seed _collapsedGaps=all gaps -> applyFold. Marker [impl:uuid:9493c08a] name-match verified."
   },
   "ownerIor": "ior:instance:a78c7d35-9961-4be9-92b2-ebf4e0eec41f"
 }
