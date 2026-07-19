@@ -2,49 +2,69 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.17: 3-pane merge functional correctness",
+    "name": "Current: Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
     "chain": {
-      "req": "5aa71554-03ee-410f-b0d4-d00e9a7f2efa",
-      "uc": "e322c683-0c92-406e-abb4-322390b1a973",
+      "req": "7d6e15c0-7f8e-41a5-b204-01008a67b78d",
+      "uc": "6716c678-f652-4ec3-a2d7-01493c8ea0eb",
       "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
-      "method": "af9bcfef-384a-4639-9527-06b6f8853ab7",
-      "impl": "751934c1-96d7-4d9b-ab64-4882b7b6e042",
-      "test": "4dca421e-1702-4ecd-bb5a-3e2dc3ebd7a9"
+      "method": "e8cc281b-187e-477a-bdf9-e167aec639f5",
+      "impl": "2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3",
+      "test": "d3d9f8f5-c85b-487a-baa7-c276ec0ee4ee"
     },
     "activeHop": 5,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.17: 3-pane merge functional correctness",
+    "taskName": "Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
     "hopStates": {
       "req": {
         "status": "done",
-        "owner": "req-eng",
-        "updatedAt": "2026-07-14T19:26:35.808Z"
+        "owner": "planner",
+        "updatedAt": "2026-07-19T15:22:04.568Z"
+      },
+      "uc": {
+        "status": "done",
+        "owner": "planner",
+        "updatedAt": "2026-07-19T15:22:05.522Z"
+      },
+      "class": {
+        "status": "done",
+        "owner": "planner",
+        "updatedAt": "2026-07-19T15:22:06.365Z"
+      },
+      "method": {
+        "status": "done",
+        "owner": "planner",
+        "updatedAt": "2026-07-19T15:22:07.189Z"
+      },
+      "impl": {
+        "status": "done",
+        "owner": "planner",
+        "updatedAt": "2026-07-19T15:22:08.121Z"
       },
       "test": {
-        "status": "gate-proven",
+        "status": "in-progress",
         "owner": "planner",
-        "updatedAt": "2026-07-14T19:27:50.961Z"
+        "updatedAt": "2026-07-19T15:22:09.043Z"
       }
     },
-    "nextBacklogOverride": "600fa089-c8a4-4977-a89b-504969e78170",
+    "nextBacklogOverride": "50ce893e-91a9-4a1e-894e-63c669e1af37",
     "lastCompletedUuid": "",
     "lastCompletedName": "",
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "b74f8023-b501-426a-af6f-86d0d9f378f8",
-        "taskName": "Task 30.17: 3-pane merge functional correctness",
-        "reqUuid": "5aa71554-03ee-410f-b0d4-d00e9a7f2efa"
+        "taskUuid": "255ac5c1-0328-480f-bc75-d38aada20e9f",
+        "taskName": "Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
+        "reqUuid": "7d6e15c0-7f8e-41a5-b204-01008a67b78d"
       },
       "lastCompleted": {
-        "taskUuid": "60cc5603-7fac-4021-abcf-af1684d5fd84",
-        "taskName": "Task 30.16: IntelliJ 3-pane line alignment + center",
-        "reqUuid": "6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+        "taskUuid": "b6effc2c-71f3-4c24-834d-fc5f92e43d18",
+        "taskName": "Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines",
+        "reqUuid": "53ab62ed-7ced-429a-945f-8b639faa4237"
       },
       "nextBacklog": {
-        "taskUuid": "600fa089-c8a4-4977-a89b-504969e78170",
-        "taskName": "Task 27.6: Repair the true-dangling refs surfaced by the ref-slot registry",
-        "reqUuid": "3a7d4df2-7588-4b09-a959-21708d68b8b1"
+        "taskUuid": "50ce893e-91a9-4a1e-894e-63c669e1af37",
+        "taskName": "Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees",
+        "reqUuid": "b6b21710-bee6-4f6e-b382-3578643da85a"
       }
     }
   },

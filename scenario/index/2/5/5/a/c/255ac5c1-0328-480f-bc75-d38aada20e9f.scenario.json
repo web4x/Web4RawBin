@@ -1,28 +1,29 @@
 {
- "ior": "ior:class:Task",
- "model": {
-  "uuid": "255ac5c1-0328-480f-bc75-d38aada20e9f",
-  "name": "Task 30.42: Repo selector first option is 'Add repository' \u2192 opens add/manage dialog",
-  "slug": "task-30.42-add-repository-option",
-  "description": "The repo selector's FIRST option reads 'Add repository' (above the actual repos); selecting it opens the add/manage dialog (does not try to load a repo named that).",
-  "intention": "S30 diff/merge editor \u2014 R30.42-45 repo add/manage feature (Tron): register/manage repos dynamically (add by path, add by clone, manage worktrees) instead of a static ROOTS list.",
-  "context": "Covers R30.42 (7d6e15c0) -> UC 6716c678 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted \u2014 supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). \u2605 HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build \u2014 task stays DESIGN-stage (refinement), NO implementation until ratified. \u26a0 SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface \u2014 PO taking security decisions to Tron).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-  "implementation": "V1-ACTIVE (architect \u00a710 \u2014 UC2 dialog + UC1 sentinel; safe subset, no risky surface). DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + \u00a79 refinement, 2026-07-19) \u2014 UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted \u2014 supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). \u2713 RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + \u00a79); task now build-QUEUED \u2014 builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. \u26a0 SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface \u2014 Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.",
-  "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:7d6e15c0-7f8e-41a5-b204-01008a67b78d]`\n  - shared-enabler\n    - Dynamic RepoRegistry (mutable/persisted) \u2014 supersedes R30.40 static ROOTS; shared across R30.42-45\n  - ratified\n    - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + \u00a79, 2026-07-19) \u2014 un-gated, build queued after R30.46\n  - down\n    - [UC](./planning.md) `[uc:uuid:6716c678-f652-4ec3-a2d7-01493c8ea0eb]`",
-  "acceptanceCriteria": "- [ ] (ui) The repo selector's FIRST option reads 'Add repository' (above the actual repos).\n- [ ] (ui) Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository').\n- [ ] (gate) GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump.",
-  "subtasks": "None (atomic task, design-stage).",
-  "status": "In Progress",
-  "coveredRequirements": [
-   "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
-  ],
-  "useCases": [
-   "ior:instance:6716c678-f652-4ec3-a2d7-01493c8ea0eb"
-  ],
-  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
-  "sprintName": "Sprint 30",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-19"
- },
- "ownerIor": null
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "255ac5c1-0328-480f-bc75-d38aada20e9f",
+    "name": "Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog",
+    "slug": "task-30.42-add-repository-option",
+    "description": "The repo selector's FIRST option reads 'Add repository' (above the actual repos); selecting it opens the add/manage dialog (does not try to load a repo named that).",
+    "intention": "S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/manage repos dynamically (add by path, add by clone, manage worktrees) instead of a static ROOTS list.",
+    "context": "Covers R30.42 (7d6e15c0) -> UC 6716c678 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [~] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "V1-ACTIVE (architect §10 — UC2 dialog + UC1 sentinel; safe subset, no risky surface). DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:7d6e15c0-7f8e-41a5-b204-01008a67b78d]`\n  - shared-enabler\n    - Dynamic RepoRegistry (mutable/persisted) — supersedes R30.40 static ROOTS; shared across R30.42-45\n  - ratified\n    - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + §9, 2026-07-19) — un-gated, build queued after R30.46\n  - down\n    - [UC](./planning.md) `[uc:uuid:6716c678-f652-4ec3-a2d7-01493c8ea0eb]`",
+    "acceptanceCriteria": "- [ ] (ui) The repo selector's FIRST option reads 'Add repository' (above the actual repos).\n- [ ] (ui) Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository').\n- [ ] (gate) GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump.",
+    "subtasks": "None (atomic task, design-stage).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+    ],
+    "useCases": [
+      "ior:instance:6716c678-f652-4ec3-a2d7-01493c8ea0eb"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19",
+    "focus": true
+  },
+  "ownerIor": null
 }

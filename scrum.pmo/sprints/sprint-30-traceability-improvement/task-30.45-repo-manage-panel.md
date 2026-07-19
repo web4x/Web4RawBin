@@ -10,8 +10,8 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+  - [x] creating test cases
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
