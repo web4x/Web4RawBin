@@ -62,3 +62,5 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [ ] [Task 30.36: Diff-nav aids — brighter current-change on up/down + open-changes count](./task-30.36-diff-nav-aids.md)
 - [ ] [Task 30.37: Per-change RESOLVED-state toggle (green checkmark, outlined=unresolved / solid=resolved)](./task-30.37-resolved-state-toggle.md)
 - [ ] [Task 30.38: Merge Save writes to the diff's repo / current branch (no save-404)](./task-30.38-merge-save-repo-routing.md)
+- [ ] [Task 30.39: Deep-link ?repo seeds BOTH left and right repo selectors on load](./task-30.39-deeplink-seeds-both-selectors.md)
+- [ ] [Task 30.40: Center Result header = targeted repo's ACTUAL current branch (dynamic)](./task-30.40-center-header-actual-branch.md)
