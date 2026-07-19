@@ -1,0 +1,31 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "e545614d-c7b3-4832-a681-e850bc81f1d0",
+  "name": "Task 30.46: Working-file diff \u2014 left=latest resolves to the on-disk working file (uncommitted)",
+  "slug": "task-30.46-working-file-left-latest",
+  "description": "The diff editor's LEFT side supports the live on-disk working file. A 'latest'/'working' pseudo-ref makes loadSide read the raw uncommitted file via /api/files (NOT git show <ref>:file), resolveBase treats working/'' as no-ref (2-way); saving with left=working round-trips that same file to disk (reuses R30.38 save PUT, no code change); opening a diff DEFAULTS left=working pinned + right=HEAD (a _pinnedLeft flag suppresses the R30.17 auto-promote); the left picker is repurposed to pick the RIGHT compare-ref.",
+  "intention": "S30 diff/merge editor \u2014 R30.46 working-file-as-left (Tron #1): the diff's left side is the live on-disk working file, not only a committed ref.",
+  "context": "Covers R30.46 (88e97c14) \u2192 UC-W1..W4 (6c46d917/eaf0cecc/3fcf6237/98173cd4) \u2192 Class RbDiffEditor + loadSide/resolveBase/openFromParams. Reuses R30.38 save (confirmed no code change). Impls b7b6fcb6/0eb17ebd/f2bdca27 \u2014 expert building.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [~] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "implementation": "IN PROGRESS @ IMPLEMENTING (expert building; impls b7b6fcb6/0eb17ebd/f2bdca27). W2 confirmed no-code-change (R30.38 save PUTs the same file), to be locked by a Test. Not gated yet \u2014 no tester GREEN; stays In Progress until DET-3x + Tron visual.",
+  "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:88e97c14-59cb-4223-a28b-b043d7bea6e2]`\n  - reuse\n    - R30.38 save PUT (left=working writes the same on-disk file \u2014 no code change, confirmed)\n  - down\n    - [UC](./planning.md) `[uc:uuid:6c46d917-2973-42fd-8b16-de3f776eac72]`\n    - [UC](./planning.md) `[uc:uuid:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e]`\n    - [UC](./planning.md) `[uc:uuid:3fcf6237-fa79-4764-8653-e347129a3d74]`\n    - [UC](./planning.md) `[uc:uuid:98173cd4-cb64-417a-bb77-cfd2201bd372]`",
+  "acceptanceCriteria": "- [ ] (W1) A 'latest'/'working' pseudo-ref resolves to the current on-disk working file (incl uncommitted) \u2014 loadSide reads raw via /api/files, not git show; resolveBase treats working/'' as no-ref (2-way).\n- [ ] (W2) Saving with left=working writes the on-disk working file (reuses R30.38 save PUT) \u2014 round-trips to disk, locked by a Test.\n- [ ] (W3 flip) Opening a diff DEFAULTS left=working + right=HEAD, pinned + shown first (openFromParams/showDiff; _pinnedLeft suppresses the R30.17 promote).\n- [ ] (W4 optional) The left picker is repurposed to choose the RIGHT compare-ref (left pinned to working).\n- [ ] (gate) GATE (DET-3x + Tron visual): /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 \u2192 left shows the live working file, edit+save round-trips, bare open defaults left=working; client-facing \u2192 version-bump.",
+  "subtasks": "None (atomic task).",
+  "status": "In Progress",
+  "coveredRequirements": [
+   "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+  ],
+  "useCases": [
+   "ior:instance:6c46d917-2973-42fd-8b16-de3f776eac72",
+   "ior:instance:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e",
+   "ior:instance:3fcf6237-fa79-4764-8653-e347129a3d74",
+   "ior:instance:98173cd4-cb64-417a-bb77-cfd2201bd372"
+  ],
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "sprintName": "Sprint 30",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-19"
+ }
+}

@@ -69,3 +69,5 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [ ] [Task 30.43: Add a repository by server-local path](./task-30.43-add-repo-by-local-path.md)
 - [ ] [Task 30.44: Add a repository by clone URL + checkout location](./task-30.44-add-repo-by-clone-url.md)
 - [ ] [Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees](./task-30.45-repo-manage-panel.md)
+- [ ] [Task 30.46: Working-file diff — left=latest resolves to the on-disk working file (uncommitted)](./task-30.46-working-file-left-latest.md)
+- [ ] [Task 30.47: RepoRegistry — dynamic, persisted, bounds-checked registry (repo add/manage foundation)](./task-30.47-repo-registry-foundation.md)
