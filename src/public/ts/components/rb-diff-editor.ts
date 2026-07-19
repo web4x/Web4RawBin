@@ -83,10 +83,8 @@ export class RbDiffEditor extends HTMLElement {
       </style>
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:1px">
-          <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
-          <span class="de-selected" style="font-size:0.65rem;opacity:0.85" title="current change # (nav position)"></span>
-        </div>
+        <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
+        <span class="de-selected" style="font-size:0.7rem;opacity:0.85" title="current change # (nav position)"></span>
         <button class="de-jump-prev" title="Previous change">▲</button>
         <button class="de-jump-next" title="Next change">▼</button>
         <span class="de-open-count" style="font-size:0.7rem;opacity:0.85;padding:0 4px" title="open conflicts / total changes"></span>
