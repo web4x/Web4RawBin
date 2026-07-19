@@ -6,10 +6,10 @@
     "description": "Bridged to test/visual/r3043-uc4-add-local-gate.mjs (GREEN, commit 50cc4295e; multi-worker DISPROVEN). Verifies R30.43 UC4 V1 add-local: GitApi.isGitRepo checks the target dir has a .git file/folder -> register into RepoRegistry (SOLE check; no path-allowlist/auth in V1 - assertAllowedRoot DORMANT, R30.48 backlog).",
     "sourceFile": "ior:file:test/visual/r3043-uc4-add-local-gate.mjs",
     "implementations": [
-      "ior:instance:3d1b156d"
+      "ior:instance:3d1b156d-abf9-4182-935c-12290910b1c2"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:3d1b156d"
+  "ownerIor": "ior:instance:3d1b156d-abf9-4182-935c-12290910b1c2"
 }
