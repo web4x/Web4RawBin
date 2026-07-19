@@ -1,0 +1,48 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "7d6e15c0-7f8e-41a5-b204-01008a67b78d",
+  "altId": "R30.42",
+  "name": "Repo selector first option is 'Add repository' and opens the add/manage dialog",
+  "description": "The repo selector's FIRST option is 'Add repository'; selecting/clicking it opens a dialog to add or manage repositories. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
+  "tronQuote": "> TRON (v0.7.65): the repo selector's first entry should be 'Add repository' - clicking it opens a dialog to add a repo (by local path or clone URL) and manage existing repos.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:6716c678-f652-4ec3-a2d7-01493c8ea0eb"
+  ],
+  "crossRef": [
+   "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+  ],
+  "crossRefNote": "Repo add/manage feature. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm. crossRef R30.40 (static ROOTS -> dynamic), R30.6.7 (key resolution), R30.24 (selector/deep-link).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po; architect deriving decomposition in parallel",
+   "date": "2026-07-19",
+   "note": "Add/manage git repositories via the repo selector. Observable ACs from Tron; impl-units PENDING architect derive."
+  },
+  "implSitePending": "Architect derives the impl-unit(s) for this observable; method(s) below are BEST-GUESS proposed names on RepoRegistry (dynamic) - re-point on architect confirm.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-first-option",
+    "group": "ui",
+    "text": "The repo selector's FIRST option reads 'Add repository' (above the actual repos)."
+   },
+   {
+    "id": "AC-opens-dialog",
+    "group": "ui",
+    "text": "Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository')."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

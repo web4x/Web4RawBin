@@ -1,14 +1,17 @@
 {
- "ior": "ior:class:Class",
- "model": {
-  "uuid": "28cc1759-30b9-42e3-97e6-6b967b02f517",
-  "name": "RepoRegistry",
-  "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
-  "methods": [
-   "ior:instance:6f954137-200e-4ef0-9ece-85a991f23232",
-   "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add"
-  ],
-  "note": "NEW (0 existing, MINT-NEW confirmed). Server-side security-critical repo key->abs-root allowlist, shared by GitApi + files handler. One-concern-per-Class (repo-safety predicate, distinct from GitApi git-commands; PO-ruled own-Class 2026-07-13, same pattern as ProxyFetch.guardUrl). R30.6.7. Sole-minter."
- },
- "ownerIor": null
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "28cc1759-30b9-42e3-97e6-6b967b02f517",
+    "name": "RepoRegistry",
+    "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
+    "methods": [
+      "ior:instance:6f954137-200e-4ef0-9ece-85a991f23232",
+      "ior:instance:2368167a-6efd-4079-aaab-cd41705d6add",
+      "ior:instance:867c1945-33d5-45cf-bd8d-d4044a0c2db8",
+      "ior:instance:9757fe86-bb5d-4041-b573-96b1e1120491",
+      "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d"
+    ],
+    "note": "NEW (0 existing, MINT-NEW confirmed). Server-side security-critical repo key->abs-root allowlist, shared by GitApi + files handler. One-concern-per-Class (repo-safety predicate, distinct from GitApi git-commands; PO-ruled own-Class 2026-07-13, same pattern as ProxyFetch.guardUrl). R30.6.7. Sole-minter."
+  },
+  "ownerIor": null
 }

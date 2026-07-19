@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "3c9f69c1-8bee-4309-9e30-df61cea34de3",
+  "altId": "R30.44",
+  "name": "Add a repository by entering a git clone URL then picking a checkout location to clone and register",
+  "description": "In the add dialog, entering a GIT CLONE URL then choosing a CHECKOUT LOCATION clones the repo to that location and registers it in the dynamic registry. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
+  "tronQuote": "> TRON (v0.7.65): add a repo by entering a git clone URL, then pick a checkout location -> clone + register.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:eb0902d5-b5f8-4c45-b27a-c89287e89a64"
+  ],
+  "crossRef": [
+   "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+  ],
+  "crossRefNote": "Repo add/manage feature. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm. crossRef R30.40 (static ROOTS -> dynamic), R30.6.7 (key resolution), R30.24 (selector/deep-link).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po; architect deriving decomposition in parallel",
+   "date": "2026-07-19",
+   "note": "Add/manage git repositories via the repo selector. Observable ACs from Tron; impl-units PENDING architect derive."
+  },
+  "implSitePending": "Architect derives the impl-unit(s) for this observable; method(s) below are BEST-GUESS proposed names on RepoRegistry (dynamic) - re-point on architect confirm.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-enter-url",
+    "group": "add",
+    "text": "The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location."
+   },
+   {
+    "id": "AC-clone-register",
+    "group": "add",
+    "text": "After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector."
+   },
+   {
+    "id": "AC-clone-feedback",
+    "group": "add",
+    "text": "Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "eb0902d5-b5f8-4c45-b27a-c89287e89a64",
+  "name": "repoManage.addByCloneUrl",
+  "description": "Clone a git URL to a chosen checkout location and register it (dynamic registry). Proposed server method RepoRegistry.cloneAndRegister; architect confirms.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:9757fe86-bb5d-4041-b573-96b1e1120491",
+  "coveredRequirement": "ior:instance:3c9f69c1-8bee-4309-9e30-df61cea34de3"
+ },
+ "ownerIor": "ior:instance:3c9f69c1-8bee-4309-9e30-df61cea34de3"
+}

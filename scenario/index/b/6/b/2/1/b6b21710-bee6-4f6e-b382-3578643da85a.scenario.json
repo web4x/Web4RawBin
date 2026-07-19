@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b6b21710-bee6-4f6e-b382-3578643da85a",
+  "altId": "R30.45",
+  "name": "Manage panel shows current repo, local path, current branch and available worktrees, each switchable",
+  "description": "The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees - each SWITCHABLE (switching repoints the active checkout/worktree). Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
+  "tronQuote": "> TRON (v0.7.65): a manage panel showing the current repo + local server path + current branch + available worktrees, each switchable.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:3a17f2e5-1093-4c96-aaa9-33aaad92de54"
+  ],
+  "crossRef": [
+   "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+  ],
+  "crossRefNote": "Repo add/manage feature. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm. crossRef R30.40 (static ROOTS -> dynamic), R30.6.7 (key resolution), R30.24 (selector/deep-link).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po; architect deriving decomposition in parallel",
+   "date": "2026-07-19",
+   "note": "Add/manage git repositories via the repo selector. Observable ACs from Tron; impl-units PENDING architect derive."
+  },
+  "implSitePending": "Architect derives the impl-unit(s) for this observable; method(s) below are BEST-GUESS proposed names on RepoRegistry (dynamic) - re-point on architect confirm.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-manage-shows",
+    "group": "manage",
+    "text": "The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees."
+   },
+   {
+    "id": "AC-switchable",
+    "group": "manage",
+    "text": "Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow)."
+   },
+   {
+    "id": "AC-reflects",
+    "group": "manage",
+    "text": "After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

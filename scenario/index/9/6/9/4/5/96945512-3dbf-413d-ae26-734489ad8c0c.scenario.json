@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "96945512-3dbf-413d-ae26-734489ad8c0c",
+  "altId": "R30.43",
+  "name": "Add a repository by entering a server-local path to register an existing checkout",
+  "description": "In the add dialog, entering a SERVER-LOCAL PATH (e.g. /root/oosh) registers that existing checkout as a repo in the dynamic registry, usable in the selector. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.",
+  "tronQuote": "> TRON (v0.7.65): add a repo by entering a server-local path (e.g. /root/oosh) to register an existing checkout.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:759c5f32-59da-424e-ba7f-8189b2162007"
+  ],
+  "crossRef": [
+   "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",
+   "ior:instance:12922d5d-470c-4044-a3a2-2f1248169b44",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+  ],
+  "crossRefNote": "Repo add/manage feature. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm. crossRef R30.40 (static ROOTS -> dynamic), R30.6.7 (key resolution), R30.24 (selector/deep-link).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po; architect deriving decomposition in parallel",
+   "date": "2026-07-19",
+   "note": "Add/manage git repositories via the repo selector. Observable ACs from Tron; impl-units PENDING architect derive."
+  },
+  "implSitePending": "Architect derives the impl-unit(s) for this observable; method(s) below are BEST-GUESS proposed names on RepoRegistry (dynamic) - re-point on architect confirm.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-enter-path",
+    "group": "add",
+    "text": "The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry."
+   },
+   {
+    "id": "AC-appears",
+    "group": "add",
+    "text": "After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry)."
+   },
+   {
+    "id": "AC-validate",
+    "group": "security",
+    "text": "The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

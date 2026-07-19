@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6716c678-f652-4ec3-a2d7-01493c8ea0eb",
+  "name": "repoManage.addRepositoryOption",
+  "description": "The repo selector renders 'Add repository' as its first option and opens the add/manage dialog on select. Rendered in populateRepos (best-guess); architect confirms.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:e8cc281b-187e-477a-bdf9-e167aec639f5",
+  "coveredRequirement": "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+ },
+ "ownerIor": "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+}

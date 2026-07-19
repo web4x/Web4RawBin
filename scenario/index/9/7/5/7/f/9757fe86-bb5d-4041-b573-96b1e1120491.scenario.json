@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9757fe86-bb5d-4041-b573-96b1e1120491",
+    "name": "RepoRegistry.cloneAndRegister",
+    "implementations": [],
+    "tests": [],
+    "designAhead": true,
+    "note": "R30.44 PROPOSED (architect derive-confirm). Server: git clone <url> to a chosen location + register in the dynamic registry (persisted); surface progress/failure. Expert builds + I re-point on confirm."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

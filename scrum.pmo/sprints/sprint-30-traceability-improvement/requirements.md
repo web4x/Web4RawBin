@@ -604,3 +604,46 @@
   - [ ] **(impl)** applyLanguage derives the Monaco language id from the left.path extension and calls setModelLanguage(model,id) on all 3 editors at the END of loadSide, mutating the SAME model so R30.35 decorations + R30.34 spline persist (architect-confirmed).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open otmux (bash) / a .cs (C#) / a .ts (typescript) -> all 3 panes highlight keywords/strings/comments AND the change-blocks + spline still render intact; client-facing -> version-bump + atomic deploy (R30.28).
   -> merge.syntaxHighlight [uc:uuid:53400884-78b5-477b-a8fa-945888c26f16]
+
+- [ ] **R30.42 — Repo selector first option is 'Add repository' and opens the add/manage dialog**
+  [requirement:uuid:7d6e15c0-7f8e-41a5-b204-01008a67b78d]
+  > TRON (v0.7.65): the repo selector's first entry should be 'Add repository' - clicking it opens a dialog to add a repo (by local path or clone URL) and manage existing repos.
+  The repo selector's FIRST option is 'Add repository'; selecting/clicking it opens a dialog to add or manage repositories. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
+  **Acceptance criteria:**
+  - [ ] **(ui)** The repo selector's FIRST option reads 'Add repository' (above the actual repos).
+  - [ ] **(ui)** Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository').
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump.
+  -> repoManage.addRepositoryOption [uc:uuid:6716c678-f652-4ec3-a2d7-01493c8ea0eb]
+
+- [ ] **R30.43 — Add a repository by entering a server-local path to register an existing checkout**
+  [requirement:uuid:96945512-3dbf-413d-ae26-734489ad8c0c]
+  > TRON (v0.7.65): add a repo by entering a server-local path (e.g. /root/oosh) to register an existing checkout.
+  In the add dialog, entering a SERVER-LOCAL PATH (e.g. /root/oosh) registers that existing checkout as a repo in the dynamic registry, usable in the selector. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
+  **Acceptance criteria:**
+  - [ ] **(add)** The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout as a repo in the dynamic registry.
+  - [ ] **(add)** After registering, the new repo APPEARS in the repo selector and is usable for diffs/merges (resolves via the dynamic RepoRegistry).
+  - [ ] **(security)** The path is validated server-side (exists + is a git checkout); an invalid path is rejected with a clear error (no path abuse).
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): register /root/oosh -> it appears in the selector + opens a diff; client-facing -> version-bump.
+  -> repoManage.addByLocalPath [uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]
+
+- [ ] **R30.44 — Add a repository by entering a git clone URL then picking a checkout location to clone and register**
+  [requirement:uuid:3c9f69c1-8bee-4309-9e30-df61cea34de3]
+  > TRON (v0.7.65): add a repo by entering a git clone URL, then pick a checkout location -> clone + register.
+  In the add dialog, entering a GIT CLONE URL then choosing a CHECKOUT LOCATION clones the repo to that location and registers it in the dynamic registry. Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
+  **Acceptance criteria:**
+  - [ ] **(add)** The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.
+  - [ ] **(add)** After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.
+  - [ ] **(add)** Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.
+  -> repoManage.addByCloneUrl [uc:uuid:eb0902d5-b5f8-4c45-b27a-c89287e89a64]
+
+- [ ] **R30.45 — Manage panel shows current repo, local path, current branch and available worktrees, each switchable**
+  [requirement:uuid:b6b21710-bee6-4f6e-b382-3578643da85a]
+  > TRON (v0.7.65): a manage panel showing the current repo + local server path + current branch + available worktrees, each switchable.
+  The dialog's MANAGE panel shows, for the current repo: the local server path, the current branch, and the available worktrees - each SWITCHABLE (switching repoints the active checkout/worktree). Shared IMPL-ENABLER (architect's decomposition, NOT a separate Tron-observable): the RepoRegistry becomes a DYNAMIC, mutable, persisted registry (add/register/clone/switch at runtime) - superseding the R30.40 static ROOTS allowlist. Architect derives the impl-units (dynamic-registry / add-local / add-clone / manage-switch); I mint/re-point methods+impls on confirm.
+  **Acceptance criteria:**
+  - [ ] **(manage)** The MANAGE panel shows, for the current repo: local server path, current branch, and the list of available worktrees.
+  - [ ] **(manage)** Each worktree is SWITCHABLE: selecting one repoints the active checkout/worktree so diff/header/save use it (consistent with R30.40 HOME/oosh symlink-follow).
+  - [ ] **(manage)** After a switch, the center header + diff reflect the newly-selected worktree's branch (dynamic, per R30.40).
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
+  -> repoManage.worktreeSwitch [uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]

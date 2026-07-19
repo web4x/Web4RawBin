@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "43b1ff0c-49e3-4c36-b64d-23151296e77d",
+    "name": "RepoRegistry.switchWorktree",
+    "implementations": [],
+    "tests": [],
+    "designAhead": true,
+    "note": "R30.45 PROPOSED (architect derive-confirm). Server: list a repo's worktrees (path+branch) + switch the active one (repoint checkout/symlink), consistent with R30.40 HOME/oosh follow. Expert builds + I re-point on confirm."
+  },
+  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+}

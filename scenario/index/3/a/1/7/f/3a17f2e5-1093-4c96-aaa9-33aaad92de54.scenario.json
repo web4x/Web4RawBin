@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3a17f2e5-1093-4c96-aaa9-33aaad92de54",
+  "name": "repoManage.worktreeSwitch",
+  "description": "The manage panel lists a repo's worktrees (path/branch) and switches the active one, repointing the checkout (consistent with R30.40 symlink-follow). Proposed server method RepoRegistry.switchWorktree; architect confirms.",
+  "class": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517",
+  "classes": [
+   "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  ],
+  "method": "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d",
+  "coveredRequirement": "ior:instance:b6b21710-bee6-4f6e-b382-3578643da85a"
+ },
+ "ownerIor": "ior:instance:b6b21710-bee6-4f6e-b382-3578643da85a"
+}
