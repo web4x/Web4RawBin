@@ -167,6 +167,7 @@ export class RbDiffEditor extends HTMLElement {
   async mountThreePane(): Promise<void> {
     this.monaco = await RbDiffEditor.monacoLoader();
     const m = this.monaco;
+    this.foldByMethodBoundaries(); // R30.53 fix#1: register the FoldingRangeProvider BEFORE editor.create so each FoldingController wires its render pipeline at init
     const common = { automaticLayout: true, minimap: { enabled: false }, fontSize: 12, lineHeight: 19, wordWrap: 'off' as const, scrollBeyondLastLine: true, renderLineHighlight: 'none' as const, folding: true, showFoldingControls: 'always' as const }; // R30.16/30. R30.53: folding:true (NATIVE Monaco folding — chevron + '⋯' placeholder, NOT setHiddenAreas) + showFoldingControls:'always' so the fold gutter is visible/tappable on mobile (no hover-only).
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
@@ -187,7 +188,6 @@ export class RbDiffEditor extends HTMLElement {
     this.syncScroll3();
     void this.computeMergedCenter();
     this.applyLanguage(); // R30.41: also apply here — loadSide (openFromParams) can race AHEAD of this async mount (Monaco loader await), so its applyLanguage no-ops on not-yet-created editors; this deterministic call runs after the 3 models exist.
-    this.foldByMethodBoundaries(); // R30.53: register the native method-boundary FoldingRangeProvider (initial synced collapse fires at computeMergedCenter tail)
   }
 
   // [impl:uuid:c4da837c-b59f-4c02-9522-2e8599206abf] RbDiffEditor.loadSide
@@ -272,12 +272,14 @@ export class RbDiffEditor extends HTMLElement {
   // ribbons/decorations/highlight track via getTopForLineNumber. This is why v2 is clean where v1 (yanked gaps) was chaotic.
   foldByMethodBoundaries(): void {
     const m = this.monaco; if (!m?.languages?.registerFoldingRangeProvider) return;
-    const langId = this.languageForPath(this.left.path, this.left.content) || 'plaintext';
-    if (this._foldProviderLangs.has(langId)) return; // global-per-language: register ONCE
-    this._foldProviderLangs.add(langId);
-    m.languages.registerFoldingRangeProvider(langId, {
-      provideFoldingRanges: (model: any) => this.computeMethodRanges(model).map(r => ({ start: r.start, end: r.end })),
-    });
+    // R30.53 fix#1 (architect): register the provider for ALL likely diff languages BEFORE editor.create — so each
+    // FoldingController wires its decoration/reconcile pipeline against a NON-empty provider at init (a post-create register
+    // left the controller with an EMPTY range set + never rendered = the 0-chevrons anchor fact). Guard once per language.
+    for (const langId of ['shell', 'bash', 'typescript', 'javascript', 'python', 'plaintext']) {
+      if (this._foldProviderLangs.has(langId)) continue;
+      this._foldProviderLangs.add(langId);
+      m.languages.registerFoldingRangeProvider(langId, { provideFoldingRanges: (model: any) => this.computeMethodRanges(model).map(r => ({ start: r.start, end: r.end })) });
+    }
   }
 
   // R30.53 uncredited helper (supports foldByMethodBoundaries): scan a model for TOP-LEVEL method/function defs → 1-based
