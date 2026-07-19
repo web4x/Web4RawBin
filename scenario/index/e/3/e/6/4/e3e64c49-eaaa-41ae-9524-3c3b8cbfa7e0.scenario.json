@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e3e64c49-eaaa-41ae-9524-3c3b8cbfa7e0",
+    "name": "test:R30.53 FIX-B mirror-by-signature left-parity (syncNativeFold)",
+    "description": "Bridged to r3053b-leftpane-parity-gate.mjs (GREEN DET-3x v0.7.79, commit 8a9c0a52f on origin). Verifies R30.53 AC-sync-left-parity-add FIX-B: after a green ADD, toggling a shared unchanged method mirrors across L/C/R BY SIGNATURE (not raw index) + 0px row-drift. Measured via the folding MODEL, engine-independent; DISCRIMINATES RED 3/19 -> GREEN 0/19 (v0.7.79).",
+    "sourceFile": "ior:file:test/visual/r3053b-leftpane-parity-gate.mjs",
+    "implementations": [
+      "ior:instance:b629c015-456d-4e54-b300-5efd418696b8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b629c015-456d-4e54-b300-5efd418696b8"
+}

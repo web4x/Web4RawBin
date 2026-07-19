@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a3adc5cf-83ac-4b30-b242-8d754211ce91",
+    "name": "test:R30.53 FIX-A initial-render left-parity (keepChangeMethodsExpanded)",
+    "description": "Bridged to r3053b-leftpane-parity-gate.mjs (GREEN DET-3x v0.7.79, commit 8a9c0a52f on origin). Verifies R30.53 AC-sync-left-parity-add FIX-A: at INITIAL render (no toggle), an UNCHANGED method DOWNSTREAM of a green ADD collapses in ALL 3 panes incl LEFT (no Math.max split-floor leaves it expanded on the left) + 0px downstream row-drift. Measured via the folding MODEL (isCollapsed), ENGINE-INDEPENDENT; DISCRIMINATES RED 1/19 (v0.7.78) -> GREEN 0/19 (v0.7.79) = real parity, not a codicon false-negative. Codicon chevron RENDER (AC-a) = SEPARATE Tron real-WebKit acceptance.",
+    "sourceFile": "ior:file:test/visual/r3053b-leftpane-parity-gate.mjs",
+    "implementations": [
+      "ior:instance:640f8428-2797-41e8-9951-3f8e05e6bd0e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:640f8428-2797-41e8-9951-3f8e05e6bd0e"
+}

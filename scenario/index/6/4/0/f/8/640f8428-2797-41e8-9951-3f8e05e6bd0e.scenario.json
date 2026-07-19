@@ -3,7 +3,9 @@
   "model": {
     "uuid": "640f8428-2797-41e8-9951-3f8e05e6bd0e",
     "name": "RbDiffEditor.keepChangeMethodsExpanded impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:a3adc5cf-83ac-4b30-b242-8d754211ce91"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.78 (rb-diff-editor.ts:317, marker :316): RbDiffEditor.keepChangeMethodsExpanded — a method overlapping conflicts[] stays EXPANDED; unchanged (no-overlap) methods collapse. Marker name-match verified."

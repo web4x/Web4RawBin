@@ -3,7 +3,9 @@
   "model": {
     "uuid": "b629c015-456d-4e54-b300-5efd418696b8",
     "name": "RbDiffEditor.syncNativeFold impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:e3e64c49-eaaa-41ae-9524-3c3b8cbfa7e0"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.78 (rb-diff-editor.ts:333, marker :332): RbDiffEditor.syncNativeFold — INITIAL collapse of unchanged methods + onDidChange mirror across 3 panes (re-entrancy-guarded); scroll stays ANCHORED after collapse (no jump to line 1). Marker name-match verified."
