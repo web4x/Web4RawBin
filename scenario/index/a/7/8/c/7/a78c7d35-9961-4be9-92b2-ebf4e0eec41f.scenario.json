@@ -7,7 +7,9 @@
       "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
     ],
     "tests": [],
-    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. On computeMergedCenter TAIL (when conflicts[] is populated - NOT a folding-model event, native OFF): seed _collapsedGaps = ALL gaps -> applyFold -> changes-only view. Realizes UC merge.changesOnlyInitialFold."
+    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. On computeMergedCenter TAIL (when conflicts[] is populated - NOT a folding-model event, native OFF): seed _collapsedGaps = ALL gaps -> applyFold -> changes-only view. Realizes UC merge.changesOnlyInitialFold.",
+    "status": "reverted",
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

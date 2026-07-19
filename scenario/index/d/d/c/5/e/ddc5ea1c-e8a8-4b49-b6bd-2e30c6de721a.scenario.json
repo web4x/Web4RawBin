@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ddc5ea1c-e8a8-4b49-b6bd-2e30c6de721a",
+    "name": "RbDiffEditor.foldByMethodBoundaries",
+    "implementations": [
+      "ior:instance:2de3411f-aaf8-4ea6-a249-a41d99320b3d"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.53 native-Monaco-folding redesign; architect deriving; re-point on confirm - R30.11). camelCase for [impl]. Configure Monaco native folding (folding:true / a folding-range provider by method boundaries) so each method block folds with the standard chevron + '...' placeholder. Replaces the REVERTED setHiddenAreas approach."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

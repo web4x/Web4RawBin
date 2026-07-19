@@ -763,3 +763,17 @@
   - [ ] **(layout)** Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.
   - [ ] **(gate)** GATE (screenshot+behavior): 'N selected' INLINE on the same row as Apply All + nav (not wrapped); 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.
   -> merge.toolbarMisclickLayout [uc:uuid:dce46e2a-c341-4251-be26-40497877e407]
+
+- [ ] **R30.53 — Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)**
+  [requirement:uuid:ac3338b6-07a1-4fa6-9040-d9144db16ee8]
+  > TRON (via robbin-po): R30.51 folding was BAD+BROKEN (setHiddenAreas hide-lines REJECTED) - revert + redesign on STANDARD Monaco collapse/expand: (1) Monaco NATIVE folding (chevron collapse/expand + '...' placeholder, NOT setHiddenAreas); (2) fold by METHOD boundaries; (3) collapse corresponding UNCHANGED method-blocks SYNCED across all 3 editors, change-regions stay expanded.
+  Tron REDESIGN of R30.51 (which used setHiddenAreas hide-lines - REJECTED, broke mobile, reverted to v0.7.76). Same changes-focused-folding INTENT, correct mechanism: (1) Monaco NATIVE folding - standard chevron collapse/expand + '...' placeholder (NOT setHiddenAreas); (2) fold by METHOD boundaries; (3) collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors, change-containing method-blocks STAY EXPANDED. Native-Monaco method-set is DESIGN-AHEAD PROPOSED on RbDiffEditor - architect redesigning the impl approach in parallel; align the impl-AC on confirm (re-point R30.11). SUPERSEDES R30.51 (rejected setHiddenAreas chain).
+  **Acceptance criteria:**
+  - [ ] **(fold)** Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines).
+  - [ ] **(fold)** Foldable regions are the METHOD boundaries - folding collapses a whole method block.
+  - [ ] **(sync)** Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED.
+  - [ ] **(impl)** [DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation.
+  - [ ] **(gate)** GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)
+  -> merge.nativeFoldByMethod [uc:uuid:fcf8b48f-8e84-47d4-905b-4cdfb355e528]
+  -> merge.syncUnchangedCollapse [uc:uuid:8451731c-bb67-43ab-9a40-27a43e817d77]
+  -> merge.changeMethodsStayExpanded [uc:uuid:48d56602-bfa0-4df3-ae48-81f65e936430]

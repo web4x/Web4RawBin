@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b629c015-456d-4e54-b300-5efd418696b8",
+    "name": "RbDiffEditor.syncNativeFold impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: On native collapse/expand of an unchanged method-block, mirror to the corresponding blocks in the other 2 editors (synced native fold state). Architect derives the NATIVE Monaco folding method-set; expert builds v0.7.77 + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:e64924cb-6502-446f-b560-8236977f322f"
+}

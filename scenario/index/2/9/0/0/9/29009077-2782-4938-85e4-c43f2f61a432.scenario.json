@@ -7,7 +7,9 @@
       "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
     ],
     "tests": [],
-    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. STRUCTURAL non-collapsibility: editor option folding:false (native OFF) + computeFoldRegions() emits gaps as the COMPLEMENT of conflicts[] change-ranges (CENTER span / LEFT aStart+a / RIGHT bStart+b). A change line is NEVER in a hidden range -> non-collapsible BY CONSTRUCTION (no foldingRangeProvider, no re-expand handler). Realizes UC merge.changeRegionNotCollapsible."
+    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. STRUCTURAL non-collapsibility: editor option folding:false (native OFF) + computeFoldRegions() emits gaps as the COMPLEMENT of conflicts[] change-ranges (CENTER span / LEFT aStart+a / RIGHT bStart+b). A change line is NEVER in a hidden range -> non-collapsible BY CONSTRUCTION (no foldingRangeProvider, no re-expand handler). Realizes UC merge.changeRegionNotCollapsible.",
+    "status": "reverted",
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

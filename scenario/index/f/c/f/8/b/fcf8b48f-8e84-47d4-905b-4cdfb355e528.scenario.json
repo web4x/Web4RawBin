@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fcf8b48f-8e84-47d4-905b-4cdfb355e528",
+  "name": "merge.nativeFoldByMethod",
+  "description": "Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand controls in the gutter + a '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines, which Tron REJECTED - broke mobile). Foldable regions are the METHOD boundaries (fold a whole method block). Architect derives the native FoldingController approach.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:ddc5ea1c-e8a8-4b49-b6bd-2e30c6de721a",
+  "coveredRequirement": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+ },
+ "ownerIor": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+}

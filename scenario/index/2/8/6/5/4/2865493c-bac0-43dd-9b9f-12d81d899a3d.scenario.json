@@ -7,7 +7,9 @@
       "ior:instance:2d7a0103-9ffb-4c1a-bcd9-16114a174719"
     ],
     "tests": [],
-    "note": "R30.51 (architect setHiddenAreas design, design-folding.md). camelCase for [impl]. applyFold(): projects the SHARED _collapsedGaps:Set<gapIdx> to each editor's line-ranges -> editor.setHiddenAreas() x3 (one state -> 3 projections; NO FoldingController listener / no cross-editor event mirror). toggleGap(idx) affordance mutates the set -> applyFold. Post-apply: renderInterPaneGutters + renderConnectorRibbons (spline reflows via getTopForLineNumber, R30.16). Realizes UC merge.foldSyncAcrossPanes."
+    "note": "R30.51 (architect setHiddenAreas design, design-folding.md). camelCase for [impl]. applyFold(): projects the SHARED _collapsedGaps:Set<gapIdx> to each editor's line-ranges -> editor.setHiddenAreas() x3 (one state -> 3 projections; NO FoldingController listener / no cross-editor event mirror). toggleGap(idx) affordance mutates the set -> applyFold. Post-apply: renderInterPaneGutters + renderConnectorRibbons (spline reflows via getTopForLineNumber, R30.16). Realizes UC merge.foldSyncAcrossPanes.",
+    "status": "reverted",
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

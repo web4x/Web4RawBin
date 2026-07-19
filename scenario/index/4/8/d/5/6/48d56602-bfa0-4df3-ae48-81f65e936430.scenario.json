@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "48d56602-bfa0-4df3-ae48-81f65e936430",
+  "name": "merge.changeMethodsStayExpanded",
+  "description": "Method-blocks that CONTAIN a change/conflict STAY EXPANDED (never auto-collapsed); only UNCHANGED method-blocks collapse (the changes-focused view). Architect derives how change-containing method-blocks are excluded from the initial/synced collapse.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:fca7b5f7-b74b-4d8f-a554-749bef6a1eab",
+  "coveredRequirement": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+ },
+ "ownerIor": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+}

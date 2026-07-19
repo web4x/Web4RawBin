@@ -69,7 +69,10 @@
     "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded."
    }
   ],
-  "architectDerive": "Architect setHiddenAreas design (design-folding.md, 2026-07-19): re-pointed OFF Monaco internal folding model (FoldingController/foldingRangeProvider, version-fragile monaco 0.52.2) ONTO editor.setHiddenAreas() + shared _collapsedGaps state - makes all 3 asks structural. Methods: applyFold(=syncFoldState 2865493c) + computeFoldRegions(=guardChangeRegionFold 29009077, folding:false) + applyChangesOnlyFolding(a78c7d35) + toggleGap affordance. OPEN: context-margin K (PO/Tron, architect rec K=3)."
+  "architectDerive": "Architect setHiddenAreas design (design-folding.md, 2026-07-19): re-pointed OFF Monaco internal folding model (FoldingController/foldingRangeProvider, version-fragile monaco 0.52.2) ONTO editor.setHiddenAreas() + shared _collapsedGaps state - makes all 3 asks structural. Methods: applyFold(=syncFoldState 2865493c) + computeFoldRegions(=guardChangeRegionFold 29009077, folding:false) + applyChangesOnlyFolding(a78c7d35) + toggleGap affordance. OPEN: context-margin K (PO/Tron, architect rec K=3).",
+  "status": "superseded",
+  "supersededBy": "ior:instance:ac3338b6-07a1-4fa6-9040-d9144db16ee8",
+  "supersededNote": "Tron REJECTED the setHiddenAreas hide-lines approach (broke mobile); reverted to v0.7.76 (7b511246b, fold code removed). Superseded by R30.53 (native Monaco folding). R30.51's chain (Methods applyFold 2865493c/computeFoldRegions 29009077/applyChangesOnlyFolding a78c7d35, Impls 2d7a0103/23b416c2/9493c08a, Tests c42fceb6/6259acfb/65cb5a36) is REVERTED (setHiddenAreas code removed from source)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

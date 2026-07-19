@@ -1,0 +1,61 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8",
+  "altId": "R30.53",
+  "name": "Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
+  "description": "Tron REDESIGN of R30.51 (which used setHiddenAreas hide-lines - REJECTED, broke mobile, reverted to v0.7.76). Same changes-focused-folding INTENT, correct mechanism: (1) Monaco NATIVE folding - standard chevron collapse/expand + '...' placeholder (NOT setHiddenAreas); (2) fold by METHOD boundaries; (3) collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors, change-containing method-blocks STAY EXPANDED. Native-Monaco method-set is DESIGN-AHEAD PROPOSED on RbDiffEditor - architect redesigning the impl approach in parallel; align the impl-AC on confirm (re-point R30.11). SUPERSEDES R30.51 (rejected setHiddenAreas chain).",
+  "tronQuote": "> TRON (via robbin-po): R30.51 folding was BAD+BROKEN (setHiddenAreas hide-lines REJECTED) - revert + redesign on STANDARD Monaco collapse/expand: (1) Monaco NATIVE folding (chevron collapse/expand + '...' placeholder, NOT setHiddenAreas); (2) fold by METHOD boundaries; (3) collapse corresponding UNCHANGED method-blocks SYNCED across all 3 editors, change-regions stay expanded.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:fcf8b48f-8e84-47d4-905b-4cdfb355e528",
+   "ior:instance:8451731c-bb67-43ab-9a40-27a43e817d77",
+   "ior:instance:48d56602-bfa0-4df3-ae48-81f65e936430"
+  ],
+  "refinementOf": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
+  "refinementOfNote": "Redesign of R30.51 (changes-focused folding) - SAME intent, DIFFERENT mechanism: R30.51 setHiddenAreas hide-lines was Tron-REJECTED (broke mobile) + reverted (v0.7.76, 7b511246b, fold code removed). R30.53 = native Monaco folding by method boundaries. Per R30.32->R30.34 precedent (Tron-rejected -> new # supersedes), R30.53 SUPERSEDES R30.51; R30.51's setHiddenAreas chain (methods/impls/tests) is reverted/superseded.",
+  "supersedes": "ior:instance:41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
+  "crossRef": [
+   "ior:instance:0d6f18cd-1496-4672-8fee-5a38eeb728dc",
+   "ior:instance:6d6fa7c8-8637-4c10-9366-b1d8536d7c9f"
+  ],
+  "crossRefNote": "R30.9 (conflicts[] = change-containing method-blocks to keep expanded), R30.16 (3-pane alignment). Native-Monaco method-set PROPOSED (foldByMethodBoundaries/syncNativeFold/keepChangeMethodsExpanded) - architect redesigns.",
+  "discoverySource": {
+   "type": "tron-redesign",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-19",
+   "note": "R30.51 setHiddenAreas folding REJECTED (broke mobile) -> Tron ordered revert + redesign on native Monaco collapse/expand. Captured scenario-first as R30.53 (supersedes R30.51); architect redesigning impl in parallel."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-native-folding",
+    "group": "fold",
+    "text": "Code-folding uses Monaco NATIVE folding: standard chevron collapse/expand + '...' placeholder for a collapsed region (NOT setHiddenAreas hide-lines)."
+   },
+   {
+    "id": "AC-method-boundaries",
+    "group": "fold",
+    "text": "Foldable regions are the METHOD boundaries - folding collapses a whole method block."
+   },
+   {
+    "id": "AC-sync-unchanged",
+    "group": "sync",
+    "text": "Collapsing an UNCHANGED method-block collapses the corresponding block SYNCED across all 3 editors (Local/Center/Repository); method-blocks containing a change/conflict STAY EXPANDED."
+   },
+   {
+    "id": "AC-impl-native",
+    "group": "impl",
+    "text": "[DESIGN-FLAG] The native-Monaco folding impl approach (FoldingController / folding-range provider by method / native fold-state sync) per architect derive-confirm; align this impl-AC on their confirmation."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (screenshot+behavior, DET-3x incl 390 mobile): native chevrons collapse/expand method-blocks with '...' placeholder; collapse an unchanged method-block -> all 3 collapse synced; change-containing method-blocks stay expanded. (Mobile MUST work - the setHiddenAreas regression that broke mobile is the reason for the redesign.)"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

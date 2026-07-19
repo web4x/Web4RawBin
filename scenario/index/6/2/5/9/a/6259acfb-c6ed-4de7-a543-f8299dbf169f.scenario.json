@@ -8,8 +8,9 @@
     "implementations": [
       "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
     ],
-    "status": "pass",
-    "unitLinks": []
+    "status": "reverted",
+    "unitLinks": [],
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
   },
   "ownerIor": "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
 }

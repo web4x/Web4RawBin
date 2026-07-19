@@ -8,7 +8,9 @@
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
-    "description": "BUILT v0.7.76 (rb-diff-editor.ts:805, marker :804): RbDiffEditor.applyFold — R30.51 Fold2(sync)+Fold4(reflow): projects _collapsedGaps to each of the 3 editors via editor.setHiddenAreas() (state-driven, aligned by conflicts[]); recomputes spline+gutters. Marker [impl:uuid:2d7a0103] name-match verified. Expert commit 167c308da."
+    "description": "BUILT v0.7.76 (rb-diff-editor.ts:805, marker :804): RbDiffEditor.applyFold — R30.51 Fold2(sync)+Fold4(reflow): projects _collapsedGaps to each of the 3 editors via editor.setHiddenAreas() (state-driven, aligned by conflicts[]); recomputes spline+gutters. Marker [impl:uuid:2d7a0103] name-match verified. Expert commit 167c308da.",
+    "status": "reverted",
+    "revertedNote": "REVERTED v0.7.76 (7b511246b): the setHiddenAreas folding was Tron-REJECTED (broke mobile) + removed from source. Superseded by R30.53 (native Monaco). No live code."
   },
   "ownerIor": "ior:instance:2865493c-bac0-43dd-9b9f-12d81d899a3d"
 }

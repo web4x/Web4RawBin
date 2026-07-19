@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e64924cb-6502-446f-b560-8236977f322f",
+    "name": "RbDiffEditor.syncNativeFold",
+    "implementations": [
+      "ior:instance:b629c015-456d-4e54-b300-5efd418696b8"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.53 native-Monaco-folding redesign; architect deriving; re-point on confirm - R30.11). camelCase for [impl]. Mirror a native Monaco fold/unfold of an unchanged method-block to the corresponding blocks in the other 2 editors (native fold state, not setHiddenAreas). Aligned across the 3 editors by method/conflicts[] mapping."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}
