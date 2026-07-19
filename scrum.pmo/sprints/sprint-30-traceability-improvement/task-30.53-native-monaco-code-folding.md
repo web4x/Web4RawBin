@@ -9,9 +9,9 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [~] refinement (architect REDESIGNING native FoldingController)
+  - [x] refinement (architect CONFIRMED design-folding.md v2, ac6d91a6a)
   - [ ] creating test cases
-  - [ ] implementing (build after architect confirm → correct v0.7.77)
+  - [~] implementing (expert building v0.7.77; req minting 3 impls)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
@@ -50,7 +50,7 @@ S30 diff/merge editor — R30.53 native-Monaco code-folding (supersedes R30.51 a
 
 ## Implementation
 
-IN PROGRESS @ DESIGN (architect redesigning native FoldingController: foldByMethodBoundaries / syncNativeFold / keepChangeMethodsExpanded). ⛔ BUILD pending architect confirm → expert builds the correct v0.7.77. Supersedes R30.51 (Tron-rejected setHiddenAreas). Gate = screenshot DET-3x incl 390 mobile at Tron viewport.
+IN PROGRESS @ BUILD (expert building v0.7.77, PO BUILD-GO). Architect CONFIRMED native design (design-folding.md v2 ac6d91a6a: foldByMethodBoundaries / keepChangeMethodsExpanded / syncNativeFold). req minting the 3 impls. Supersedes R30.51 (Tron-rejected setHiddenAreas). expert deploy v0.7.77 -> tester mobile-gate -> Tron visual. Gate = screenshot DET-3x incl 390 mobile.
 
 ## Subtasks
 
