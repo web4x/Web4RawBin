@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "db352d49-0850-4ddc-a077-ecaca77f3ef3",
+    "name": "test:R30.41 per-filetype syntax highlighting in all 3 panes (applyLanguage)",
+    "description": "Bridged to test/visual/r3043-syntax-highlight-gate.mjs (DET-3x, commit 85379e145, GREEN). Asserts all-3-panes highlight per filetype: otmux->shell (shebang fallback), FileApi.ts->typescript, across L/C/R (distinct .mtkN token colors); R30.35 change-blocks + R30.34 spline COEXIST intact; no r3041 regression; race-fix deterministic 3/3 (.ts never plaintext). Covers AC-highlight-3panes/AC-language-from-ext/AC-coexist/AC-gate.",
+    "sourceFile": "ior:file:test/visual/r3043-syntax-highlight-gate.mjs",
+    "implementations": [
+      "ior:instance:5e0e5cd5-bd49-4594-9618-8560e27143c1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5e0e5cd5-bd49-4594-9618-8560e27143c1"
+}
