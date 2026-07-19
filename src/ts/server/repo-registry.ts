@@ -18,6 +18,7 @@ export class RepoRegistry {
     // HOME/oosh is a SYMLINK that `oo` mode-switch repoints to a worktree (dev/macos/mcdonges.latest/prod); path.resolve keeps
     // it as the symlink PATH (does NOT realpath/canonicalize) so git FOLLOWS it to the CURRENT oo-mode dynamically. Drives
     // diff + header + save consistently against whatever HOME/oosh points at right now (currently mcdonges.latest).
+    // [impl:uuid:9b95b458-9118-44cc-959d-870c6fe1f9d0] RepoRegistry oosh-root = HOME/oosh symlink (R30.40 correct-by-construction; DISTINCT from resolve's read-path impl d7dc0059)
     oosh: { root: path.resolve(os.homedir(), 'oosh'), label: 'OOSH' },
   };
 

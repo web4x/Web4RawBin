@@ -787,6 +787,7 @@ export class RbDiffEditor extends HTMLElement {
       // (don't let the deep-link's in-flight right-load resolve last and clobber the user's pick / corrupt RIGHT).
       if (token !== this._promoteToken || this._rightUserPicked) return;
       await this.loadSide('right', { path, ref: right });      // no pick intervened → authoritative RIGHT from the deep-link
+      void this.populateHistory();                             // R30.39: fill LEFT .de-history for the deep-link repo (no promote/auto-load → deep-link refs INTACT), parity with a manual switch
     } finally { this._deepLink = false; }
   }
 
@@ -846,6 +847,27 @@ export class RbDiffEditor extends HTMLElement {
     sel.innerHTML = history.map((h, i) => `<option value="${h.hash}"${i === defaultIdx ? ' selected' : ''}>${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
     if (!this._leftUserPicked) void this.loadSide('left', { path, ref: history[defaultIdx].hash }); // PICK-WINS guard (LEFT); _rightUserPicked/token already re-checked above
   }
+
+  // [impl:uuid:0360d7e2-9962-4976-b60a-a026b821bb6e] RbDiffEditor.populateHistory — R30.39 (repoAwareHistoryFillParity): fill the
+  // LEFT .de-history dropdown (git log --follow for the current file+repo) WITHOUT the promote-to-right or auto-load-default
+  // (those stay in populateLeftHistory's working-file path). Lets a URL deep-link show the SAME history list as a manual repo
+  // switch, WITHOUT touching the deep-link's left/right refs. Selects the entry matching the current LEFT ref; never auto-loads.
+  private async populateHistory(): Promise<void> {
+    const sel = this.querySelector('.de-history') as HTMLSelectElement | null;
+    const path = this.left.path;
+    if (!sel || !path) return;
+    const rq = this.left.repo ? `&repo=${encodeURIComponent(this.left.repo)}` : '';
+    let history: { hash: string; subject: string }[] = [];
+    try { history = (await (await fetch(`/api/git/file-history?path=${encodeURIComponent(path)}${rq}`)).json()).history ?? []; } catch { /* non-git → leave as-is */ }
+    if (!history.length) { sel.innerHTML = '<option>no history</option>'; sel.disabled = true; return; }
+    sel.disabled = false;
+    if (!this._historyWired) {
+      this._historyWired = true;
+      sel.addEventListener('change', () => { if (sel.value) { this._leftUserPicked = true; void this.loadSide('left', { path: this.left.path, ref: sel.value }); } });
+    }
+    // select the entry matching the current LEFT ref (the deep-link's left, e.g. 516ebb3), else latest; NEVER auto-load (refs already set)
+    sel.innerHTML = history.map((h, i) => `<option value="${h.hash}"${(this.left.ref && h.hash.startsWith(this.left.ref)) ? ' selected' : ''}>${i === 0 ? '● latest ' : ''}${h.hash.slice(0, 7)} ${h.subject}</option>`).join('');
+  }
   private _historyWired = false;
   private _leftUserPicked = false;
   private _rightUserPicked = false; // R30.25: symmetric to _leftUserPicked — a user-driven RIGHT ref-pick wins over the auto-promote (populateLeftHistory won't reload LEFT while set)
@@ -853,6 +875,9 @@ export class RbDiffEditor extends HTMLElement {
   private _rightLoadSeq = 0;         // R30.25.2: RIGHT-load generation — each loadSide('right') bumps it; a superseded in-flight right-load discards its result (last right-load wins, no ref/content mismatch)
   private _deepLink = false; // R30.24: true while openFromParams restores a URL-linked diff (suppresses auto left-history promote)
 
+  // [impl:uuid:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3] RbDiffEditor.populateRepos — R30.39 seed-both-selectors: after filling the
+  // async-fetched <option>s, seed each selector's value from its side's st.repo (fixes the race where openFromParams set the
+  // value before the options existed → reverted to RawBin). openFromParams sets the intent; the DOM-seed fix lives here.
   private async populateRepos(): Promise<void> {
     let repos: { key: string; label: string }[] = [];
     try { repos = (await (await fetch('/api/git/repos')).json()).repos ?? []; } catch { return; }
