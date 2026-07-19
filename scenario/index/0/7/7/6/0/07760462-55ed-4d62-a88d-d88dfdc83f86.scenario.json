@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "07760462-55ed-4d62-a88d-d88dfdc83f86",
+    "name": "GitApi.worktrees",
+    "implementations": [
+      "ior:instance:dceff494-d684-486e-8204-b5c6f3ceb04f"
+    ],
+    "tests": [],
+    "note": "Name EXACT for [impl] AST-attach. R30.45 UC6 manageInfo V1 BUILT v0.7.70 (0fb85336a): GitApi.worktrees = git worktree list --porcelain parse -> the repo's worktrees (path+branch, oo-mode siblings). Served via GET /api/git/repo-info?repo=<key> -> the manage panel shows the repo's local path + current branch + available worktrees. Read-only (no auth). Marker name-match."
+  },
+  "ownerIor": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+}

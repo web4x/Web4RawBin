@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dceff494-d684-486e-8204-b5c6f3ceb04f",
+    "name": "GitApi.worktrees impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.70 (0fb85336a): R30.45 UC6 manageInfo V1 BUILT v0.7.70 (0fb85336a): GitApi.worktrees = git worktree list --porcelain parse -> the repo's worktrees (path+branch, oo-mode siblings). Served via GET /api/git/repo-info?repo=<key> -> the manage panel shows the repo's local path + current branch + available worktrees. Read-only (no auth). Marker name-match. Expert places [impl:uuid:dceff494-d684-486e-8204-b5c6f3ceb04f] on the worktrees decl (verified repo-info?repo=oosh -> worktrees list, oo-mode siblings)."
+  },
+  "ownerIor": "ior:instance:07760462-55ed-4d62-a88d-d88dfdc83f86"
+}

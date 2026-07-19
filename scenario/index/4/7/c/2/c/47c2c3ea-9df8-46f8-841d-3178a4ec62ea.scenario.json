@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "47c2c3ea-9df8-46f8-841d-3178a4ec62ea",
+  "name": "repoManage.manageInfo",
+  "description": "UC6: the manage panel shows the current repo's local server path, current branch, and available worktrees (via GitApi.worktrees = git worktree list --porcelain). Read-only info. V1 built v0.7.70.",
+  "class": "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04",
+  "classes": [
+   "ior:instance:795e328d-2b8e-439f-9514-1c54c4caaf04"
+  ],
+  "method": "ior:instance:07760462-55ed-4d62-a88d-d88dfdc83f86",
+  "coveredRequirement": "ior:instance:b6b21710-bee6-4f6e-b382-3578643da85a"
+ },
+ "ownerIor": "ior:instance:b6b21710-bee6-4f6e-b382-3578643da85a"
+}

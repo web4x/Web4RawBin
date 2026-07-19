@@ -658,6 +658,7 @@
   - [ ] **(security)** RATIFIED D3+D4: a worktree SWITCH is READ-ONLY (D3) so requires NO admin-key; any MUTATING manage action (register/remove from the registry) requires the admin-key (D4).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open manage -> shows path+branch+worktrees; switch a worktree -> header/diff track it; client-facing -> version-bump.
   -> repoManage.worktreeSwitch [uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]
+  -> repoManage.manageInfo [uc:uuid:47c2c3ea-9df8-46f8-841d-3178a4ec62ea]
 
 - [ ] **R30.47 — RepoRegistry is a dynamic, persisted, bounds-checked registry (foundation for repo add/manage)**
   [requirement:uuid:b87eb99a-c83e-4745-9948-a84a1bb3ea00]
