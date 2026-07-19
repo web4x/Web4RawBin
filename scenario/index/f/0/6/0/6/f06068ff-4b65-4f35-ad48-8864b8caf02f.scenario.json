@@ -50,7 +50,8 @@
     "group": "backlog",
     "text": "[BACKLOG] The V1=trusted-local posture is documented so the exposed-deployment transition cannot silently skip re-activation."
    }
-  ]
+  ],
+  "guardTestsDeferred": "PO ruling 2026-07-19 (tester R30.47 residual flag): the D1/D2/D4 guard Impls (assertAllowedRoot 90569c5e, assertAllowedUrl 4fb69bb5, requireAdmin 54a1a5c7) are BUILT+gated but DORMANT (NOT wired into the active endpoint path in V1 per §10.1). Their scenario Tests are DEFERRED to R30.48 re-activation - do NOT false-credit dormant guards as tested-active. When re-activation wires them onto a live chain, mint their Tests (test security when LIVE). The r3047 B/C/D gate sections may still exercise the guard logic for regression, but no scenario-Test credit until wired."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

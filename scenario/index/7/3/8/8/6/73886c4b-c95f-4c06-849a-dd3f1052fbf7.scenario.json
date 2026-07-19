@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "73886c4b-c95f-4c06-849a-dd3f1052fbf7",
+    "name": "test:R30.45 UC6 GitApi.worktrees (list repo worktrees path+branch)",
+    "description": "Bridged to test/visual/r3045-uc7-worktree-switch-gate.mjs (GREEN DET-3x v0.7.72). Verifies R30.45 UC6 GitApi.worktrees: the manage panel renders the repo's worktree list (path + branch) and drives the switch from it.",
+    "sourceFile": "ior:file:test/visual/r3045-uc7-worktree-switch-gate.mjs",
+    "implementations": [
+      "ior:instance:dceff494-d684-486e-8204-b5c6f3ceb04f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:dceff494-d684-486e-8204-b5c6f3ceb04f"
+}
