@@ -13,8 +13,7 @@
   "useCases": [
    "ior:instance:6c46d917-2973-42fd-8b16-de3f776eac72",
    "ior:instance:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e",
-   "ior:instance:3fcf6237-fa79-4764-8653-e347129a3d74",
-   "ior:instance:98173cd4-cb64-417a-bb77-cfd2201bd372"
+   "ior:instance:3fcf6237-fa79-4764-8653-e347129a3d74"
   ],
   "crossRef": [
    "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34",
@@ -46,14 +45,15 @@
    {
     "id": "AC-w4-ref-picker",
     "group": "picker",
-    "text": "W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working)."
+    "text": "[DEFERRED - optional, SKIPPED out-of-scope v0.7.68] W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working)."
    },
    {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 -> left shows the live working file (uncommitted visible), edit+save round-trips to disk, and a bare open defaults left=working; client-facing -> version-bump."
    }
-  ]
+  ],
+  "w4Note": "W4 (refPickerLatest) DEFERRED/parked per expert v0.7.68 - optional, out of scope; UC 98173cd4 removed from useCases[] (units parked on disk). W1+W2+W3 are the active R30.46 chain."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

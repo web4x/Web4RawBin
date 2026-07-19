@@ -685,9 +685,8 @@
   - [ ] **(resolve)** W1: a 'latest'/'working' pseudo-ref resolves to the CURRENT on-disk working file (incl uncommitted changes) - loadSide reads it raw via /api/files, NOT git show <ref>:file; resolveBase treats WORKING/'' as no-ref (2-way).
   - [ ] **(save)** W2: saving with left=working writes the on-disk working file (R30.38 save PUTs the same file) - the edit round-trips to disk. CONFIRMED no code change; locked by a TEST.
   - [ ] **(default)** W3 (THE FLIP): opening a diff DEFAULTS left=WORKING (+ right=HEAD), pinned and shown first - openFromParams/showDiff default-open left=working with NO auto-promote (a _pinnedLeft flag suppresses the R30.17 promote when left=working).
-  - [ ] **(picker)** W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working).
+  - [ ] **(picker)** [DEFERRED - optional, SKIPPED out-of-scope v0.7.68] W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 -> left shows the live working file (uncommitted visible), edit+save round-trips to disk, and a bare open defaults left=working; client-facing -> version-bump.
   -> diff.workingRef [uc:uuid:6c46d917-2973-42fd-8b16-de3f776eac72]
   -> diff.workingSaveRoundtrip [uc:uuid:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e]
   -> diff.defaultWorkingLeft [uc:uuid:3fcf6237-fa79-4764-8653-e347129a3d74]
-  -> diff.refPickerLatest [uc:uuid:98173cd4-cb64-417a-bb77-cfd2201bd372]

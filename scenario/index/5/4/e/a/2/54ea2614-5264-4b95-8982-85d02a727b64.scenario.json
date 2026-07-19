@@ -8,7 +8,9 @@
     ],
     "tests": [],
     "designAhead": true,
-    "note": "R30.46 W4 (OPTIONAL) PROPOSED. Repurpose the left ref-picker to choose the RIGHT compare-ref (left pinned to working). Expert builds if W4 is in scope + I confirm/re-point the name."
+    "note": "R30.46 W4 (OPTIONAL) PROPOSED. Repurpose the left ref-picker to choose the RIGHT compare-ref (left pinned to working). Expert builds if W4 is in scope + I confirm/re-point the name.",
+    "deferred": true,
+    "deferredReason": "W4 refPickerLatest OPTIONAL, SKIPPED out-of-scope per expert v0.7.68 (8860404bf). Parked - not built, not a gap. Revisit if Tron wants the ref-picker repurpose."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

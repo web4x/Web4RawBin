@@ -9,7 +9,9 @@
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
   "method": "ior:instance:54ea2614-5264-4b95-8982-85d02a727b64",
-  "coveredRequirement": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+  "coveredRequirement": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2",
+  "deferred": true,
+  "deferredReason": "W4 refPickerLatest OPTIONAL, SKIPPED out-of-scope per expert v0.7.68 (8860404bf). Parked - not built, not a gap. Revisit if Tron wants the ref-picker repurpose."
  },
  "ownerIor": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
 }
