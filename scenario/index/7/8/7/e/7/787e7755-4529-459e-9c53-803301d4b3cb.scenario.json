@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "787e7755-4529-459e-9c53-803301d4b3cb",
+  "name": "merge.saveGuardedOrJump",
+  "description": "Save only actually SAVES when there are 0 open conflicts (all resolved). If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (guides the user), NOT saving. Rides RbDiffEditor.save (R30.38 Method 11a8ea6e / Impl a88b2b53) + jumpToChange (R30.36 6a4b95fe) + the unresolved count (R30.36 openChangeCount / R30.37 resolved-state 5abdb2d4).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:76e3ab69-b3ed-4301-9cdf-add24bc0a7bf",
+  "coveredRequirement": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+ },
+ "ownerIor": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+}

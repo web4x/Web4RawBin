@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "78f75ba0-c742-4c67-885b-6875b56af660",
+    "name": "RbDiffEditor.updateSaveButtonState impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: Set Save button GREEN on save success; reset to DEFAULT on the next change event (add/remove/edit). Architect derives the method-set; expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:d84c5886-9324-4b97-931e-3874f2fec076"
+}

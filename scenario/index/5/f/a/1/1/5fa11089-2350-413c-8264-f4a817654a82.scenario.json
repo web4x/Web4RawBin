@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5fa11089-2350-413c-8264-f4a817654a82",
+    "name": "RbDiffEditor.applyAllFromSide",
+    "implementations": [
+      "ior:instance:6f5bd6a1-7eac-4907-8812-72101505c4ff"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect design-derive pending; re-point on confirm - R30.11 pattern). Name camelCase for [impl] AST-attach. Open the Apply-All popup + bulk-apply one side into CENTER (side=left|right wins). Rides R30.35 addSide 843d79d4. Popup-open may split into its own method - architect derives."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0bf3581c-73ba-470b-89ec-4f619d520371",
+    "name": "RbDiffEditor.updateChangeIndicator",
+    "implementations": [
+      "ior:instance:dbf8c6c7-60ec-4f77-a885-d1274f9ad1c3"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect design-derive pending; re-point on confirm - R30.11 pattern). Name camelCase for [impl] AST-attach. Toolbar text = current nav change# ('- N selected'), live on up/down. LIKELY re-points to an impl-edit on openChangeCount 643de373 (R30.36) - flagged."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

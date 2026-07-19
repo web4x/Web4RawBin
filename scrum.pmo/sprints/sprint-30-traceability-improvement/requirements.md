@@ -713,3 +713,24 @@
   - [ ] **(auth)** V1 delete uses read-auth only (no admin-key). D4 requireAdmin stays deferred (R30.48 backlog) until multi-user / exposed deployment.
   - [ ] **(gate)** GATE: add a dynamic repo -> delete it from the manage panel -> it is gone from selector + registry; attempt to delete a builtin -> rejected/absent (builtin still listed). Verified live.
   -> repoManage.deleteRemovable [uc:uuid:e496716b-d3bc-4274-82be-1082c361f70a]
+
+- [ ] **R30.50 — 3-way merge toolbar: change-number indicator, apply-all-non-conflicting popup, guarded save**
+  [requirement:uuid:32abea56-5631-41a1-8167-3b651c70c709]
+  > TRON (via robbin-po): 3-WAY MERGE TOOLBAR optimization - (A) change-number indicator: replace 'X/Y open conflicts - modified' with '- N selected' = the current change/conflict number navigated to, live as he navigates. (B) 'Apply All Non-Conflicting' -> popup (automagic) with 2 modes: accept-all so CENTER matches the LEFT file (left wins) / accept-all so CENTER matches the RIGHT file (right wins). (C) Save only saves when 0 open conflicts; if conflicts remain Save jumps to the next unresolved conflict; after a successful save the Save button turns GREEN; on any subsequent change it returns to DEFAULT.
+  Tron 3-way-merge TOOLBAR optimization, 3 sub-features. (A) CHANGE-NUMBER INDICATOR: replace the toolbar 'X/Y open conflicts - modified' with '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), so the user sees WHICH change# he is on; live-updates as he navigates. (B) APPLY-ALL-NON-CONFLICTING POPUP: the 'Apply All Non-Conflicting' action opens a popup (automagic) with 2 auto-resolve modes - (1) accept-all so CENTER matches the LEFT file (LEFT wins), (2) accept-all so CENTER matches the RIGHT file (RIGHT wins). (C) GUARDED SAVE: Save only actually saves when 0 open conflicts; if conflicts remain, Save instead JUMPS to the next unresolved conflict (guides the user); after a successful save the Save button turns GREEN; on any subsequent change it returns to DEFAULT (unsaved). Minted scenario-first (capture-now, build-after UC7/delete). Methods design-ahead PROPOSED on RbDiffEditor - FLAGGED for architect design-derive (A may impl-edit openChangeCount; B naming-tension non-conflicting-vs-all-by-side; C1 wraps save+jump).
+  **Acceptance criteria:**
+  - [ ] **(indicator)** The toolbar shows '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), replacing 'X/Y open conflicts - modified'.
+  - [ ] **(indicator)** N live-updates as the user navigates changes up/down.
+  - [ ] **(applyall)** 'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes.
+  - [ ] **(applyall)** Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins).
+  - [ ] **(applyall)** Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins).
+  - [ ] **(applyall)** [DESIGN-FLAG] Reconcile the 'Non-Conflicting' label with the accept-all-by-side modes (only-non-conflicting vs all-including-conflicts) at architect design-derive + PO ruling.
+  - [ ] **(save)** Save only actually SAVES when there are 0 open conflicts (all resolved).
+  - [ ] **(save)** If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
+  - [ ] **(save)** After a successful save, the Save button turns GREEN (saved indicator).
+  - [ ] **(save)** On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator).
+  - [ ] **(gate)** GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual.
+  -> merge.changeNumberIndicator [uc:uuid:0feaff70-e51d-464c-8874-f5ca16966094]
+  -> merge.applyAllNonConflicting [uc:uuid:f27ee373-4bb4-4913-88ec-9855d5c3523f]
+  -> merge.saveGuardedOrJump [uc:uuid:787e7755-4529-459e-9c53-803301d4b3cb]
+  -> merge.saveButtonState [uc:uuid:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b]

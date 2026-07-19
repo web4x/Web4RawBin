@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d84c5886-9324-4b97-931e-3874f2fec076",
+    "name": "RbDiffEditor.updateSaveButtonState",
+    "implementations": [
+      "ior:instance:78f75ba0-c742-4c67-885b-6875b56af660"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect design-derive pending; re-point on confirm - R30.11 pattern). Name camelCase for [impl] AST-attach. Save button = GREEN after successful save; DEFAULT after any subsequent change. Render/state method; hooks the save-success (R30.38) + change events (R30.35)."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b",
+  "name": "merge.saveButtonState",
+  "description": "After a SUCCESSFUL save the Save button turns GREEN (saved indicator). On ANY subsequent change (add/remove side, edit) the Save button returns to DEFAULT (unsaved indicator). Reflects the R30.35 change model (any addSide/removeLine = a change) + the R30.38 save success.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:d84c5886-9324-4b97-931e-3874f2fec076",
+  "coveredRequirement": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+ },
+ "ownerIor": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+}

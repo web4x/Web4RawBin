@@ -1,0 +1,91 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "32abea56-5631-41a1-8167-3b651c70c709",
+  "altId": "R30.50",
+  "name": "3-way merge toolbar: change-number indicator, apply-all-non-conflicting popup, guarded save",
+  "description": "Tron 3-way-merge TOOLBAR optimization, 3 sub-features. (A) CHANGE-NUMBER INDICATOR: replace the toolbar 'X/Y open conflicts - modified' with '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), so the user sees WHICH change# he is on; live-updates as he navigates. (B) APPLY-ALL-NON-CONFLICTING POPUP: the 'Apply All Non-Conflicting' action opens a popup (automagic) with 2 auto-resolve modes - (1) accept-all so CENTER matches the LEFT file (LEFT wins), (2) accept-all so CENTER matches the RIGHT file (RIGHT wins). (C) GUARDED SAVE: Save only actually saves when 0 open conflicts; if conflicts remain, Save instead JUMPS to the next unresolved conflict (guides the user); after a successful save the Save button turns GREEN; on any subsequent change it returns to DEFAULT (unsaved). Minted scenario-first (capture-now, build-after UC7/delete). Methods design-ahead PROPOSED on RbDiffEditor - FLAGGED for architect design-derive (A may impl-edit openChangeCount; B naming-tension non-conflicting-vs-all-by-side; C1 wraps save+jump).",
+  "tronQuote": "> TRON (via robbin-po): 3-WAY MERGE TOOLBAR optimization - (A) change-number indicator: replace 'X/Y open conflicts - modified' with '- N selected' = the current change/conflict number navigated to, live as he navigates. (B) 'Apply All Non-Conflicting' -> popup (automagic) with 2 modes: accept-all so CENTER matches the LEFT file (left wins) / accept-all so CENTER matches the RIGHT file (right wins). (C) Save only saves when 0 open conflicts; if conflicts remain Save jumps to the next unresolved conflict; after a successful save the Save button turns GREEN; on any subsequent change it returns to DEFAULT.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:0feaff70-e51d-464c-8874-f5ca16966094",
+   "ior:instance:f27ee373-4bb4-4913-88ec-9855d5c3523f",
+   "ior:instance:787e7755-4529-459e-9c53-803301d4b3cb",
+   "ior:instance:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b"
+  ],
+  "crossRef": [
+   "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
+   "ior:instance:dde56b34-2cfc-41bb-b432-9a0508566a62",
+   "ior:instance:5abdb2d4-f358-4e02-bcad-95e5b0354d80",
+   "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
+  ],
+  "crossRefNote": "Builds on the merge-editor toolbar arc: R30.35 (add/remove side-into-center model: addSide 843d79d4 / removeLine af887908) for B apply-all; R30.36 (openChangeCount 643de373/8b6abf77 toolbar count + jumpToChange 6a4b95fe nav) for A indicator + C1 jump; R30.37 (resolved-state 5abdb2d4) for the open/unresolved count; R30.38 (save 11a8ea6e/a88b2b53) for C1 guarded-save + C2 button-state. Method-set PROPOSED design-ahead - architect derive-confirms (A impl-edit-vs-new, B popup-split + non-conflicting scope, C1 wrap-vs-impl-edit).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-19",
+   "note": "3-way merge toolbar optimization (3 sub-features A/B/C). Captured scenario-first; QUEUED NEXT after the UC7/delete build push. Methods design-ahead, flagged for architect design-derive."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-A-indicator-number",
+    "group": "indicator",
+    "text": "The toolbar shows '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), replacing 'X/Y open conflicts - modified'."
+   },
+   {
+    "id": "AC-A-indicator-live",
+    "group": "indicator",
+    "text": "N live-updates as the user navigates changes up/down."
+   },
+   {
+    "id": "AC-B-popup",
+    "group": "applyall",
+    "text": "'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes."
+   },
+   {
+    "id": "AC-B-left-wins",
+    "group": "applyall",
+    "text": "Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins)."
+   },
+   {
+    "id": "AC-B-right-wins",
+    "group": "applyall",
+    "text": "Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins)."
+   },
+   {
+    "id": "AC-B-scope-flag",
+    "group": "applyall",
+    "text": "[DESIGN-FLAG] Reconcile the 'Non-Conflicting' label with the accept-all-by-side modes (only-non-conflicting vs all-including-conflicts) at architect design-derive + PO ruling."
+   },
+   {
+    "id": "AC-C-save-guard",
+    "group": "save",
+    "text": "Save only actually SAVES when there are 0 open conflicts (all resolved)."
+   },
+   {
+    "id": "AC-C-save-jump",
+    "group": "save",
+    "text": "If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save)."
+   },
+   {
+    "id": "AC-C-save-green",
+    "group": "save",
+    "text": "After a successful save, the Save button turns GREEN (saved indicator)."
+   },
+   {
+    "id": "AC-C-save-default",
+    "group": "save",
+    "text": "On ANY subsequent change, the Save button returns to DEFAULT (unsaved indicator)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

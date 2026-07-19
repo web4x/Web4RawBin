@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b741580e-ecc8-4c7e-8657-019197cd5293",
+    "name": "RbDiffEditor.saveOrJumpToConflict impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: Gate Save on 0 open conflicts: 0 -> perform the real save (rides R30.38); >0 -> jump to the next unresolved conflict and do not save. Architect derives the method-set; expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:76e3ab69-b3ed-4301-9cdf-add24bc0a7bf"
+}
