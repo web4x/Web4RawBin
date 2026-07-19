@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5968fda1-b24b-4b23-bc4a-108e86610030",
+    "name": "test:R30.38 FileApi.writeFile bounded write (repo-resolved, no traversal, no 404)",
+    "description": "Bridged to test/visual/r3035-save404-deeplink-gate.mjs (DET-3x, commit abac278e9) - the security-critical bounded WRITE of save-404. Asserts: a path escaping the repo root is REJECTED 403 (sanitizePath, no write) + ?repo=oosh resolves to the real otmux (409 non-writing probe = would-200, NO 404). Pollution-safe: no literal in-gate 200 write on the real otmux (server appends per write); the literal Save-200 is covered by the GRAND deep-link gate on the safe r3035 file + client 'saved' + sanctioned curl-200. Verifies R30.38 write-half intent: bounded-to-resolved-root, traversal-rejected, correct-repo (no 404).",
+    "sourceFile": "ior:file:test/visual/r3035-save404-deeplink-gate.mjs",
+    "implementations": [
+      "ior:instance:a28cea0d-49f5-4d3d-be28-97377800d07a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a28cea0d-49f5-4d3d-be28-97377800d07a"
+}
