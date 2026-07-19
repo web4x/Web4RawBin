@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "288f469c-604c-4e03-bae2-01a43c735c76",
+    "name": "RbDiffEditor.openApplyAllMenu impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: popup menu offering 3 apply-all modes (non-conflicting-only / All-Local-wins / All-Repo-wins); dispatches to applyAllNonConflicting (existing) or applyAllFromSide(side) (R30.50). Expert builds + tags [impl] marker."
+  },
+  "ownerIor": "ior:instance:8ea1cc48-f247-465e-bfad-37d71718cf18"
+}

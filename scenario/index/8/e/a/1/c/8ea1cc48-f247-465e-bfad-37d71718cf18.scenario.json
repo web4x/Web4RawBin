@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8ea1cc48-f247-465e-bfad-37d71718cf18",
+    "name": "RbDiffEditor.openApplyAllMenu",
+    "implementations": [
+      "ior:instance:288f469c-604c-4e03-bae2-01a43c735c76"
+    ],
+    "tests": [],
+    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect-derived + Tron-ruled 3-mode). camelCase for [impl] AST-attach. Popup with 3 modes: 'Non-conflicting only'->applyAllNonConflicting 2b630af1; 'All-Local wins'/'All-Repo wins'->applyAllFromSide 5fa11089(side). Button relabel 'Apply All'. Expert builds + tags [impl]; I re-point on build."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

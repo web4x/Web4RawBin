@@ -7,7 +7,7 @@
       "ior:instance:b741580e-ecc8-4c7e-8657-019197cd5293"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect design-derive pending; re-point on confirm - R30.11 pattern). Name camelCase for [impl] AST-attach. If openChangeCount==0 -> RbDiffEditor.save (R30.38 11a8ea6e); else jumpToChange to the next unresolved (R30.36). Wraps save; may be an impl-edit to save's entry - architect derives."
+    "note": "R30.50 NEW WRAPPER (architect-derived). camelCase for [impl]. If openChangeCount()>0 -> jumpToChange(1) + status 'resolve N first' (NO save); else save() (R30.38 11a8ea6e). Composes openChangeCount+jumpToChange+save; re-point the .de-save click (:114) from save() to this. save() stays the pure write. Expert builds + tags [impl]."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

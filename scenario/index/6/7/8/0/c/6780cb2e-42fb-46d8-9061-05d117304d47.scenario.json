@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6780cb2e-42fb-46d8-9061-05d117304d47",
+  "name": "merge.applyAllMenu",
+  "description": "The 'Apply All' toolbar button (relabelled from 'Apply All Non-Conflicting' per Tron) opens a popup (openApplyAllMenu) offering 3 auto-resolve modes: 'Non-conflicting only' (existing applyAllNonConflicting 2b630af1/91c452ae - non-conflicting changes, conflicts remain), 'All - Local wins' + 'All - Repo wins' (applyAllFromSide 5fa11089). Tron ruling: 3-mode ADD, existing non-conflicting mode STAYS (not dead).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:8ea1cc48-f247-465e-bfad-37d71718cf18",
+  "coveredRequirement": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+ },
+ "ownerIor": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
+}

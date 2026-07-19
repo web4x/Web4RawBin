@@ -14,7 +14,8 @@
    "ior:instance:0feaff70-e51d-464c-8874-f5ca16966094",
    "ior:instance:f27ee373-4bb4-4913-88ec-9855d5c3523f",
    "ior:instance:787e7755-4529-459e-9c53-803301d4b3cb",
-   "ior:instance:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b"
+   "ior:instance:3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b",
+   "ior:instance:6780cb2e-42fb-46d8-9061-05d117304d47"
   ],
   "crossRef": [
    "ior:instance:96634144-2069-4d3d-809c-f804873d7401",
@@ -22,7 +23,7 @@
    "ior:instance:5abdb2d4-f358-4e02-bcad-95e5b0354d80",
    "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34"
   ],
-  "crossRefNote": "Builds on the merge-editor toolbar arc: R30.35 (add/remove side-into-center model: addSide 843d79d4 / removeLine af887908) for B apply-all; R30.36 (openChangeCount 643de373/8b6abf77 toolbar count + jumpToChange 6a4b95fe nav) for A indicator + C1 jump; R30.37 (resolved-state 5abdb2d4) for the open/unresolved count; R30.38 (save 11a8ea6e/a88b2b53) for C1 guarded-save + C2 button-state. Method-set PROPOSED design-ahead - architect derive-confirms (A impl-edit-vs-new, B popup-split + non-conflicting scope, C1 wrap-vs-impl-edit).",
+  "crossRefNote": "Builds on the merge-editor toolbar arc: R30.35 (add/remove side-into-center model: addSide 843d79d4 / removeLine af887908) for B apply-all; R30.36 (openChangeCount 643de373/8b6abf77 toolbar count + jumpToChange 6a4b95fe nav) for A indicator + C1 jump; R30.37 (resolved-state 5abdb2d4) for the open/unresolved count; R30.38 (save 11a8ea6e/a88b2b53) for C1 guarded-save + C2 button-state. Method-set PROPOSED design-ahead - architect derive-confirms (A impl-edit-vs-new, B popup-split + non-conflicting scope, C1 wrap-vs-impl-edit). [Tron-ruled] B = ADD 3-mode: openApplyAllMenu 8ea1cc48 (NEW popup) + applyAllFromSide 5fa11089 (NEW side-wins) + applyAllNonConflicting 2b630af1/91c452ae (EXISTING, kept as 'Non-conflicting only' mode). A = impl-edit renderMergeGutter e5540621/e24dc98a (compose, keep open count); updateChangeIndicator 0bf3581c DROPPED.",
   "discoverySource": {
    "type": "tron-feature",
    "flaggedBy": "Tron via robbin-po",
@@ -33,7 +34,7 @@
    {
     "id": "AC-A-indicator-number",
     "group": "indicator",
-    "text": "The toolbar shows '- N selected' where N is the CURRENT change/conflict number navigated to (up/down nav position), replacing 'X/Y open conflicts - modified'."
+    "text": "The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position)."
    },
    {
     "id": "AC-A-indicator-live",
@@ -58,7 +59,7 @@
    {
     "id": "AC-B-scope-flag",
     "group": "applyall",
-    "text": "[DESIGN-FLAG] Reconcile the 'Non-Conflicting' label with the accept-all-by-side modes (only-non-conflicting vs all-including-conflicts) at architect design-derive + PO ruling."
+    "text": "[RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'."
    },
    {
     "id": "AC-C-save-guard",
@@ -85,7 +86,8 @@
     "group": "gate",
     "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): navigate -> indicator shows current change#; apply-all left/right -> CENTER matches that side; Save with conflicts -> jumps to next unresolved; Save at 0 conflicts -> saves + button GREEN; then edit -> button DEFAULT. Per architect design + Tron visual."
    }
-  ]
+  ],
+  "tronRuling": "Tron 2026-07-19 (resolves req-eng escalation via robbin-po): (B) 3-MODE ADD side-wins, do NOT replace - openApplyAllMenu popup offers 'Non-conflicting only' (existing applyAllNonConflicting 91c452ae STAYS as a mode) + 'All-Local wins' + 'All-Repo wins'; relabel button 'Apply All'. (A) COMPOSE '- N selected . X/Y open' - KEEP the open-conflict count, do not drop it."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

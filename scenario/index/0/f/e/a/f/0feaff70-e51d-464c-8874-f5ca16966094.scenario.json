@@ -3,12 +3,12 @@
  "model": {
   "uuid": "0feaff70-e51d-464c-8874-f5ca16966094",
   "name": "merge.changeNumberIndicator",
-  "description": "The toolbar replaces 'X/Y open conflicts - modified' with '- N selected' where N is the CURRENT change/conflict NUMBER navigated to (up/down nav position); N live-updates as the user navigates. RE-POINT FLAG: may be an impl-edit to the existing openChangeCount (R30.36 Method 643de373 / marker 8b6abf77) that renders the toolbar count, rather than a new method - architect derives.",
+  "description": "The toolbar composes '- N selected . X/Y open' - N = the CURRENT change/conflict number navigated to (nav position, N=_jumpIdx+1), live on up/down; X/Y open-conflict count is KEPT (Tron ruling: compose, don't drop). IMPL-EDIT to renderMergeGutter (Method e5540621 / Impl e24dc98a, sets .de-count :405-407) - NOT a new method (updateChangeIndicator 0bf3581c dropped per architect). EDGE: _jumpIdx=-1 before first jump -> omit '- N selected' or show '-'.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
   ],
-  "method": "ior:instance:0bf3581c-73ba-470b-89ec-4f619d520371",
+  "method": "ior:instance:e5540621-6e90-4553-aa56-2d17d68b0e57",
   "coveredRequirement": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"
  },
  "ownerIor": "ior:instance:32abea56-5631-41a1-8167-3b651c70c709"

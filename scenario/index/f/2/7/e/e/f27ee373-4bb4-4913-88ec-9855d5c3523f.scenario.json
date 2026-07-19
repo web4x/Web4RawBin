@@ -2,8 +2,8 @@
  "ior": "ior:class:UseCase",
  "model": {
   "uuid": "f27ee373-4bb4-4913-88ec-9855d5c3523f",
-  "name": "merge.applyAllNonConflicting",
-  "description": "The 'Apply All Non-Conflicting' toolbar action opens a popup (automagic) offering 2 auto-resolve modes: (1) accept-all so CENTER matches the LEFT file (LEFT wins); (2) accept-all so CENTER matches the RIGHT file (RIGHT wins). NAMING-TENSION FLAG for architect+PO: the label says 'Non-Conflicting' but the 2 modes describe accept-ALL-by-side (left/right wins, which also resolves true conflicts) - clarify scope (only-non-conflicting vs all-by-side) at design-derive. Rides the R30.35 add/remove side-into-center model (addSide 843d79d4 / removeLine af887908).",
+  "name": "merge.applyAllFromSide",
+  "description": "One of the 3 modes of the 'Apply All' popup: bulk-apply one side into CENTER so CENTER matches the LEFT file (Local wins) or the RIGHT file (Repo wins) - resolves conflicts too. Method applyAllFromSide(side) (NEW 5fa11089), DISTINCT from the existing applyAllNonConflicting (Method 2b630af1 / Impl 91c452ae, non-conflicting-only, KEPT as the 3rd mode). Rides R30.35 addSide 843d79d4. Tron ruling: ADD side-wins, do NOT replace.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

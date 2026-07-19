@@ -7,7 +7,7 @@
       "ior:instance:78f75ba0-c742-4c67-885b-6875b56af660"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.50, architect design-derive pending; re-point on confirm - R30.11 pattern). Name camelCase for [impl] AST-attach. Save button = GREEN after successful save; DEFAULT after any subsequent change. Render/state method; hooks the save-success (R30.38) + change events (R30.35)."
+    "note": "R30.50 NEW method (architect-derived), MIRRORS updateResolveButton (:636). camelCase for [impl]. Sets .de-save enabled/label GREEN after successful save; DEFAULT (unsaved) on any subsequent change; called from renderMergeGutter + after every add/remove/toggle (same call-sites as updateResolveButton). Expert builds + tags [impl]."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }
