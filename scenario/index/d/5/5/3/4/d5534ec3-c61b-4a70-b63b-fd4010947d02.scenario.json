@@ -3,7 +3,7 @@
  "model": {
   "uuid": "d5534ec3-c61b-4a70-b63b-fd4010947d02",
   "name": "merge.changeRegionNotCollapsible",
-  "description": "A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (folding is blocked/disabled for change-holding regions, so changes are never hidden). Derived from the conflicts[] regions (R30.9/R30.23). Architect derives the folding-range exclusion.",
+  "description": "A foldable region that CONTAINS a change/conflict CANNOT be collapsed - STRUCTURAL: native folding is DISABLED (folding:false) and computeFoldRegions emits collapsible gaps as the COMPLEMENT of conflicts[], so a change region simply has no collapse control (non-collapsible by construction, never hidden). No foldingRangeProvider/re-expand handler.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

@@ -44,16 +44,32 @@
     "text": "On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view)."
    },
    {
-    "id": "AC-impl-monaco",
+    "id": "AC-impl-sync",
     "group": "impl",
-    "text": "[DESIGN-FLAG] The Monaco-folding impl approach (folding-model sync / foldingRangeProvider exclusion of change regions / initial-fold timing) per architect derive-confirm; align this impl-AC on their confirmation."
+    "text": "Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after."
+   },
+   {
+    "id": "AC-impl-guard",
+    "group": "impl",
+    "text": "Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction."
+   },
+   {
+    "id": "AC-impl-initial",
+    "group": "impl",
+    "text": "On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand')."
+   },
+   {
+    "id": "AC-context-margin",
+    "group": "flag",
+    "text": "[DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries."
    },
    {
     "id": "AC-gate",
     "group": "gate",
     "text": "GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded."
    }
-  ]
+  ],
+  "architectDerive": "Architect setHiddenAreas design (design-folding.md, 2026-07-19): re-pointed OFF Monaco internal folding model (FoldingController/foldingRangeProvider, version-fragile monaco 0.52.2) ONTO editor.setHiddenAreas() + shared _collapsedGaps state - makes all 3 asks structural. Methods: applyFold(=syncFoldState 2865493c) + computeFoldRegions(=guardChangeRegionFold 29009077, folding:false) + applyChangesOnlyFolding(a78c7d35) + toggleGap affordance. OPEN: context-margin K (PO/Tron, architect rec K=3)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

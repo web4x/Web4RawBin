@@ -2,12 +2,12 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "2865493c-bac0-43dd-9b9f-12d81d899a3d",
-    "name": "RbDiffEditor.syncFoldState",
+    "name": "RbDiffEditor.applyFold",
     "implementations": [
       "ior:instance:2d7a0103-9ffb-4c1a-bcd9-16114a174719"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.51, architect Monaco-folding derive PENDING; re-point on confirm - R30.11). camelCase for [impl] AST-attach. Listen to fold/unfold on each of the 3 Monaco editors; apply the same collapse/expand to the aligned regions in the other 2 (respect R30.16 row-alignment). Likely a shared FoldingController listener - architect confirms."
+    "note": "R30.51 (architect setHiddenAreas design, design-folding.md). camelCase for [impl]. applyFold(): projects the SHARED _collapsedGaps:Set<gapIdx> to each editor's line-ranges -> editor.setHiddenAreas() x3 (one state -> 3 projections; NO FoldingController listener / no cross-editor event mirror). toggleGap(idx) affordance mutates the set -> applyFold. Post-apply: renderInterPaneGutters + renderConnectorRibbons (spline reflows via getTopForLineNumber, R30.16). Realizes UC merge.foldSyncAcrossPanes."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

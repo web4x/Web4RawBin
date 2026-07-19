@@ -7,7 +7,7 @@
       "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.51, architect Monaco-folding derive PENDING; re-point on confirm - R30.11). camelCase for [impl] AST-attach. On diff open: collapse ALL foldable regions except those containing a change/conflict (which stay expanded) - the changes-only initial view. Applied once after the folding model + conflicts[] are ready. Architect confirms timing/approach."
+    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. On computeMergedCenter TAIL (when conflicts[] is populated - NOT a folding-model event, native OFF): seed _collapsedGaps = ALL gaps -> applyFold -> changes-only view. Realizes UC merge.changesOnlyInitialFold."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

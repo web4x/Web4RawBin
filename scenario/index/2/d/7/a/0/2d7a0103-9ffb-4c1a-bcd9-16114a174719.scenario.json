@@ -2,11 +2,11 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "2d7a0103-9ffb-4c1a-bcd9-16114a174719",
-    "name": "RbDiffEditor.syncFoldState impl",
+    "name": "RbDiffEditor.applyFold impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
-    "description": "DESIGN-AHEAD: On a fold/unfold in any of the 3 editors (Local/Center/Repository), mirror the collapse/expand to the aligned regions in the other two so all three stay folded in sync. Architect derives the Monaco-folding method-set; expert builds + tags [impl] marker."
+    "description": "DESIGN-AHEAD (architect setHiddenAreas): project _collapsedGaps to each of the 3 editors' hidden line-ranges via editor.setHiddenAreas() (state-driven, one Set -> 3 projections, aligned by conflicts[] per-editor ranges); reflow spline+gutters (getTopForLineNumber, R30.16) after. Expert builds + tags [impl] marker."
   },
   "ownerIor": "ior:instance:2865493c-bac0-43dd-9b9f-12d81d899a3d"
 }

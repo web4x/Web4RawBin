@@ -73,3 +73,4 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [x] [Task 30.47: RepoRegistry — dynamic, persisted, bounds-checked registry (repo add/manage foundation)](./task-30.47-repo-registry-foundation.md)
 - [ ] [Task 30.49: Delete a dynamic repo from the manage panel (builtins never removable)](./task-30.49-delete-dynamic-repo.md)
 - [ ] [Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save](./task-30.50-merge-toolbar-optimization.md)
+- [ ] [Task 30.51: Changes-focused code-folding in the 3-way merge editors](./task-30.51-changes-focused-code-folding.md)

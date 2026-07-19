@@ -744,7 +744,10 @@
   - [ ] **(fold)** Expand/collapse folding SYNCS across all THREE editors (Local/Center/Repository): folding a region in one pane folds the ALIGNED region in all three.
   - [ ] **(guard)** A foldable region that CONTAINS a change/conflict CANNOT be collapsed - it stays expanded (changes are never hidden by folding).
   - [ ] **(initial)** On open, the initial fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded (a changes-only view).
-  - [ ] **(impl)** [DESIGN-FLAG] The Monaco-folding impl approach (folding-model sync / foldingRangeProvider exclusion of change regions / initial-fold timing) per architect derive-confirm; align this impl-AC on their confirmation.
+  - [ ] **(impl)** Fold state = single shared _collapsedGaps Set; applyFold projects it via editor.setHiddenAreas() on all 3 editors (one state -> 3 projections; no per-editor folding model). Aligned by conflicts[] per-editor ranges (R30.16 row-alignment via getTopForLineNumber). Reflows spline+gutters after.
+  - [ ] **(impl)** Native folding DISABLED (folding:false). Only computeFoldRegions gaps (complement of conflicts[]) are collapsible; a change region has no collapse control = non-collapsible by construction.
+  - [ ] **(impl)** On computeMergedCenter tail (conflicts[] ready): _collapsedGaps=all gaps -> applyFold -> changes-only view; expand reveals context on demand (view-zone '... N lines . expand').
+  - [ ] **(flag)** [DESIGN-FLAG - PO/Tron] Context margin K around each change region in computeFoldRegions: K=0 (pure changes-only) .. K=3 (GitHub-like context). Architect recommends K=3. Ruling affects computeFoldRegions gap boundaries.
   - [ ] **(gate)** GATE (screenshot + behavior, DET-3x, at Tron's viewport): open a 3-way diff with changes -> only change regions expanded (rest collapsed); fold a NON-change region in one pane -> all 3 fold aligned; attempt to collapse a CHANGE region -> stays expanded.
   -> merge.foldSyncAcrossPanes [uc:uuid:5dedb343-9457-4f02-bbc6-023f8fe42c78]
   -> merge.changeRegionNotCollapsible [uc:uuid:d5534ec3-c61b-4a70-b63b-fd4010947d02]

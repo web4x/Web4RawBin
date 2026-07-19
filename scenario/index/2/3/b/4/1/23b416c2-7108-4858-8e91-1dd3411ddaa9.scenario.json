@@ -2,11 +2,11 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "23b416c2-7108-4858-8e91-1dd3411ddaa9",
-    "name": "RbDiffEditor.guardChangeRegionFold impl",
+    "name": "RbDiffEditor.computeFoldRegions impl",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
-    "description": "DESIGN-AHEAD: Compute foldable ranges excluding any range that contains a change/conflict (from conflicts[]); block collapse on change-holding regions so they stay expanded. Architect derives the Monaco-folding method-set; expert builds + tags [impl] marker."
+    "description": "DESIGN-AHEAD (architect setHiddenAreas): folding:false + emit collapsible gaps = COMPLEMENT of conflicts[] change-ranges, so change regions have no collapse control (non-collapsible by construction). Context margin K around changes (PO/Tron flag). Expert builds + tags [impl] marker."
   },
   "ownerIor": "ior:instance:29009077-2782-4938-85e4-c43f2f61a432"
 }

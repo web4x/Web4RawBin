@@ -3,7 +3,7 @@
  "model": {
   "uuid": "47fbd1d7-9890-484c-b1ae-d13947f5a3a0",
   "name": "merge.changesOnlyInitialFold",
-  "description": "On open, the INITIAL fold state is FULLY auto-collapsed EXCEPT the change-holding regions, which are expanded - a changes-only view (the user sees only the changes + minimal context, everything else folded). Architect derives the initial-fold application.",
+  "description": "On open, the INITIAL fold state is FULLY auto-collapsed EXCEPT change-holding regions (changes-only view): at the computeMergedCenter tail (conflicts[] ready), seed _collapsedGaps=all gaps -> applyFold. Expand reveals context on demand (view-zone '... N lines . expand').",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

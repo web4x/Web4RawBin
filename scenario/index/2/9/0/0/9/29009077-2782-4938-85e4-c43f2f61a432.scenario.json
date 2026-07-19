@@ -2,12 +2,12 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "29009077-2782-4938-85e4-c43f2f61a432",
-    "name": "RbDiffEditor.guardChangeRegionFold",
+    "name": "RbDiffEditor.computeFoldRegions",
     "implementations": [
       "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
     ],
     "tests": [],
-    "note": "DESIGN-AHEAD PROPOSED (R30.51, architect Monaco-folding derive PENDING; re-point on confirm - R30.11). camelCase for [impl] AST-attach. Folding-range provider / guard: exclude (or re-expand) any region that overlaps a change/conflict from conflicts[] so it cannot be collapsed. May be a foldingRangeProvider filter - architect confirms."
+    "note": "R30.51 (architect setHiddenAreas design). camelCase for [impl]. STRUCTURAL non-collapsibility: editor option folding:false (native OFF) + computeFoldRegions() emits gaps as the COMPLEMENT of conflicts[] change-ranges (CENTER span / LEFT aStart+a / RIGHT bStart+b). A change line is NEVER in a hidden range -> non-collapsible BY CONSTRUCTION (no foldingRangeProvider, no re-expand handler). Realizes UC merge.changeRegionNotCollapsible."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

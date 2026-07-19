@@ -3,7 +3,7 @@
  "model": {
   "uuid": "5dedb343-9457-4f02-bbc6-023f8fe42c78",
   "name": "merge.foldSyncAcrossPanes",
-  "description": "Expand/collapse folding SYNCS across all THREE merge editors (Local / Center / Repository): folding a region in one pane folds the ALIGNED region in all three (the 3 panes stay row-aligned per R30.16). Monaco folding-model sync - architect derives.",
+  "description": "Expand/collapse folding SYNCS across all THREE merge editors (Local/Center/Repository): a SHARED _collapsedGaps Set is projected to each editor via editor.setHiddenAreas() (one state -> 3 aligned projections, NOT a per-editor folding-model event mirror). toggleGap(idx) is the user affordance -> applyFold. Aligned by conflicts[] per-editor ranges (R30.16 via getTopForLineNumber); spline+gutters reflow after.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

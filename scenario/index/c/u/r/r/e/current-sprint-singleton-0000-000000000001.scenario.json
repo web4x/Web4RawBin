@@ -2,48 +2,43 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save",
+    "name": "Current: Task 30.51: Changes-focused code-folding in the 3-way merge editors",
     "chain": {
-      "req": "32abea56-5631-41a1-8167-3b651c70c709",
-      "uc": "0feaff70-e51d-464c-8874-f5ca16966094",
+      "req": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
+      "uc": "5dedb343-9457-4f02-bbc6-023f8fe42c78",
       "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
-      "method": "e5540621-6e90-4553-aa56-2d17d68b0e57",
-      "impl": "e24dc98a-bbea-4e9b-9960-5f59db8bf6b1",
-      "test": "8fa42d89-0e86-45c4-b88b-f0a978782da0"
+      "method": "2865493c-bac0-43dd-9b9f-12d81d899a3d",
+      "impl": "2d7a0103-9ffb-4c1a-bcd9-16114a174719",
+      "test": ""
     },
     "activeHop": 5,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save",
+    "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T16:30:46.197Z"
+        "updatedAt": "2026-07-19T17:05:30.169Z"
       },
       "uc": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T16:30:47.185Z"
-      },
-      "class": {
-        "status": "done",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T16:30:47.961Z"
+        "updatedAt": "2026-07-19T17:05:30.973Z"
       },
       "method": {
-        "status": "done",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T16:30:48.743Z"
+        "updatedAt": "2026-07-19T17:06:06.912Z"
       },
       "impl": {
-        "status": "in-progress",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T16:30:49.542Z"
+        "updatedAt": "2026-07-19T17:06:07.828Z"
       },
       "test": {
-        "status": "gate-proven",
+        "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T16:48:05.885Z"
+        "updatedAt": "2026-07-19T17:06:08.638Z"
       }
     },
     "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
@@ -52,14 +47,14 @@
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "7ed31b36-ba6f-4d25-8f22-7da1f74dbbb2",
-        "taskName": "Task 30.50: 3-way merge toolbar — change-# indicator, apply-all-non-conflicting popup, guarded save",
-        "reqUuid": "32abea56-5631-41a1-8167-3b651c70c709"
+        "taskUuid": "4165a551-b7e0-4f43-b053-a70ef4c78c6c",
+        "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
+        "reqUuid": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
       },
       "lastCompleted": {
-        "taskUuid": "b6effc2c-71f3-4c24-834d-fc5f92e43d18",
-        "taskName": "Task 30.34: 3-way merge is ALWAYS 3 side-by-side columns with continuous splines",
-        "reqUuid": "53ab62ed-7ced-429a-945f-8b639faa4237"
+        "taskUuid": "97c00946-a4aa-4ae1-9b8b-3bfec89b7fbd",
+        "taskName": "Task 30.47: RepoRegistry — dynamic, persisted, bounds-checked registry (repo add/manage foundation)",
+        "reqUuid": "b87eb99a-c83e-4745-9948-a84a1bb3ea00"
       },
       "nextBacklog": {
         "taskUuid": "06623fea-ad42-4635-8b7e-bef5f216462f",
