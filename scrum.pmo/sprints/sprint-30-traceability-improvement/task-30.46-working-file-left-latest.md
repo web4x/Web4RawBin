@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Traceability
@@ -23,11 +23,12 @@
     - Requirement `[requirement:uuid:88e97c14-59cb-4223-a28b-b043d7bea6e2]`
   - reuse
     - R30.38 save PUT (left=working writes the same on-disk file — no code change, confirmed)
+  - gate
+    - r3046-working-file-gate.mjs GREEN DET-3x (tester 6213d022a); served==gated v0.7.68; W4 parked
   - down
     - [UC](./planning.md) `[uc:uuid:6c46d917-2973-42fd-8b16-de3f776eac72]`
     - [UC](./planning.md) `[uc:uuid:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e]`
     - [UC](./planning.md) `[uc:uuid:3fcf6237-fa79-4764-8653-e347129a3d74]`
-    - [UC](./planning.md) `[uc:uuid:98173cd4-cb64-417a-bb77-cfd2201bd372]`
 
 ## Task Description
 
@@ -43,15 +44,15 @@ S30 diff/merge editor — R30.46 working-file-as-left (Tron #1): the diff's left
 
 ## Acceptance Criteria
 
-- [ ] (W1) A 'latest'/'working' pseudo-ref resolves to the current on-disk working file (incl uncommitted) — loadSide reads raw via /api/files, not git show; resolveBase treats working/'' as no-ref (2-way).
-- [ ] (W2) Saving with left=working writes the on-disk working file (reuses R30.38 save PUT) — round-trips to disk, locked by a Test.
-- [ ] (W3 flip) Opening a diff DEFAULTS left=working + right=HEAD, pinned + shown first (openFromParams/showDiff; _pinnedLeft suppresses the R30.17 promote).
-- [ ] (W4 optional) The left picker is repurposed to choose the RIGHT compare-ref (left pinned to working).
-- [ ] (gate) GATE (DET-3x + Tron visual): /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 → left shows the live working file, edit+save round-trips, bare open defaults left=working; client-facing → version-bump.
+- [x] (W1) A 'latest'/'working' pseudo-ref resolves to the current on-disk working file (incl uncommitted) — loadSide reads raw via /api/files, not git show; resolveBase treats working/'' as no-ref (2-way).
+- [x] (W2) Saving with left=working writes the on-disk working file (reuses R30.38 save PUT) — round-trips to disk, locked by a Test.
+- [x] (W3 flip) Opening a diff DEFAULTS left=working + right=HEAD, pinned + shown first (openFromParams/showDiff; _pinnedLeft suppresses the R30.17 promote).
+- [ ] (W4 optional — PARKED, out-of-scope) The left picker is repurposed to choose the RIGHT compare-ref — DEFERRED (f2bdca27 design-ahead, no code).
+- [ ] (gate) GATE — DET-3x GREEN ✓ (r3046-working-file-gate.mjs, tester 6213d022a, served==gated v0.7.68); Tron VISUAL pending. Full gate: /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 → left shows the live working file, edit+save round-trips, bare open defaults left=working; client-facing → version-bump.
 
 ## Implementation
 
-IN PROGRESS @ IMPLEMENTING (expert building; impls b7b6fcb6/0eb17ebd/f2bdca27). W2 confirmed no-code-change (R30.38 save PUTs the same file), to be locked by a Test. Not gated yet — no tester GREEN; stays In Progress until DET-3x + Tron visual.
+QA-REVIEW: r3046-working-file-gate.mjs GREEN DET-3x (tester 6213d022a). Chain-to-Test complete BOTH-directions: W1 loadSide b7b6fcb6<->eaaa2469 / W2 save rides R30.38 a88b2b53<->4e2c8f10 (no-code confirm) / W3 openFromParams 0eb17ebd<->53d94d46. served==gated v0.7.68. W4 refPickerLatest PARKED (optional/out-of-scope; f2bdca27 design-ahead, no code). HELD rule#9 -> awaiting Tron VISUAL (left=latest working-file diff) -> Done.
 
 ## Subtasks
 
