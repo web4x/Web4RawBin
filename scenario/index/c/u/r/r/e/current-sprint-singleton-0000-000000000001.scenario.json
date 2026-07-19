@@ -36,9 +36,9 @@
         "updatedAt": "2026-07-19T17:52:19.886Z"
       },
       "test": {
-        "status": "pending",
+        "status": "gate-proven",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:52:20.694Z"
+        "updatedAt": "2026-07-19T18:03:56.457Z"
       }
     },
     "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
