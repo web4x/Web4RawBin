@@ -44,17 +44,17 @@
    {
     "id": "AC-B-popup",
     "group": "applyall",
-    "text": "'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes."
+    "text": "The '✨ Apply All' button (relabelled from 'Apply All Non-Conflicting' per Tron ruling) opens a popup (automagic) offering 3 auto-resolve modes: 'Non-conflicting only' (existing applyAllNonConflicting - conflicts remain), 'All - Local wins', and 'All - Repo wins'."
    },
    {
     "id": "AC-B-left-wins",
     "group": "applyall",
-    "text": "Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins)."
+    "text": "Mode 'All - Local wins': accept-all so CENTER matches the LEFT file (Local/left wins - resolves conflicts too, via applyAllFromSide)."
    },
    {
     "id": "AC-B-right-wins",
     "group": "applyall",
-    "text": "Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins)."
+    "text": "Mode 'All - Repo wins': accept-all so CENTER matches the RIGHT file (Repo/right wins - resolves conflicts too, via applyAllFromSide)."
    },
    {
     "id": "AC-B-scope-flag",

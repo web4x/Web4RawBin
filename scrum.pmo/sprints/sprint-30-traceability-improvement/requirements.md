@@ -721,9 +721,9 @@
   **Acceptance criteria:**
   - [ ] **(indicator)** The toolbar composes '- N selected . X/Y open' (KEEP the open-conflict count per Tron) where N is the CURRENT change/conflict number navigated to (nav position).
   - [ ] **(indicator)** N live-updates as the user navigates changes up/down.
-  - [ ] **(applyall)** 'Apply All Non-Conflicting' opens a popup (automagic) offering 2 auto-resolve modes.
-  - [ ] **(applyall)** Mode 1: accept-all so CENTER matches the LEFT file (LEFT wins).
-  - [ ] **(applyall)** Mode 2: accept-all so CENTER matches the RIGHT file (RIGHT wins).
+  - [ ] **(applyall)** The '✨ Apply All' button (relabelled from 'Apply All Non-Conflicting' per Tron ruling) opens a popup (automagic) offering 3 auto-resolve modes: 'Non-conflicting only' (existing applyAllNonConflicting - conflicts remain), 'All - Local wins', and 'All - Repo wins'.
+  - [ ] **(applyall)** Mode 'All - Local wins': accept-all so CENTER matches the LEFT file (Local/left wins - resolves conflicts too, via applyAllFromSide).
+  - [ ] **(applyall)** Mode 'All - Repo wins': accept-all so CENTER matches the RIGHT file (Repo/right wins - resolves conflicts too, via applyAllFromSide).
   - [ ] **(applyall)** [RESOLVED - Tron ruling] 3-MODE ADD (not replace): the 'Apply All' popup offers 'Non-conflicting only' (existing 91c452ae kept) + 'All-Local wins' + 'All-Repo wins'; button relabelled 'Apply All'.
   - [ ] **(save)** Save only actually SAVES when there are 0 open conflicts (all resolved).
   - [ ] **(save)** If conflicts REMAIN, pressing Save instead JUMPS to the next UNRESOLVED conflict (and does not save).
