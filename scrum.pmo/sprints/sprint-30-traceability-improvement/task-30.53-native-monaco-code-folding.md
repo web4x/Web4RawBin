@@ -9,10 +9,10 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement (architect CONFIRMED design-folding.md v2, ac6d91a6a)
+  - [x] refinement
   - [ ] creating test cases
-  - [~] implementing (expert building v0.7.77; req minting 3 impls)
-  - [ ] testing
+  - [x] implementing (deployed edit-ZGIJZW7E.js)
+  - [~] testing — Tron device-QA BUG open
 - [ ] QA Review
 - [ ] Done
 
@@ -50,7 +50,7 @@ S30 diff/merge editor — R30.53 native-Monaco code-folding (supersedes R30.51 a
 
 ## Implementation
 
-IN PROGRESS @ BUILD (expert building v0.7.77, PO BUILD-GO). Architect CONFIRMED native design (design-folding.md v2 ac6d91a6a: foldByMethodBoundaries / keepChangeMethodsExpanded / syncNativeFold). req minting the 3 impls. Supersedes R30.51 (Tron-rejected setHiddenAreas). expert deploy v0.7.77 -> tester mobile-gate -> Tron visual. Gate = screenshot DET-3x incl 390 mobile.
+IN PROGRESS @ BUG-OPEN — Tron device-QA found a REAL bug: LEFT-pane fold DESYNC after a green block -> misalignment (R30.53-bug-left-fold-desync.md, be370d4c2). NOT closeable. Native Monaco folding deployed (edit-ZGIJZW7E.js) but left-fold sync broken. Lesson #78 pattern again: real-device QA (independent) caught what a gate would not. Wait for architect diagnosis + req AC-sharpen -> sync task ACs + new gate step. Supersedes R30.51.
 
 ## Subtasks
 
