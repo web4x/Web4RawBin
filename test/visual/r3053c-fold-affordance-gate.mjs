@@ -5,8 +5,9 @@
 // computeMethodRanges (FIX-A never touched it), newly visible now alignment lets scrolling into the all-unchanged tail.
 // GATE: every REAL method-def line must have a fold range — i.e. detection must REACH the last method-def (fold boundary
 // must not stop early). Measured via the folding MODEL @iPhone-12 (engine-independent; the codicon RENDER is Tron's device).
-// STATUS: RED on v0.7.79 (CENTER detects to ~L1308 of 4004; 55 defs below unfolded) → GREEN when the parser stops desyncing
-// on the both-versions duplication (parse per-side model / signature-regex-per-line / balance the render). DET-3x.
+// STATUS: RED v0.7.79 (CENTER 20/104, folds stop L1308) → GREEN v0.7.80 (edit-UF6QQZ7E.js): computeMethodRanges by
+// SIGNATURE/INDENT (not brace-depth) → CENTER 104/104, gap 0 all panes. DET-3x. (NOTE: the fix EXPOSED a pre-existing
+// FIX-A residual parity desync in r3053b — a change-method 'private.complete.panes()' collapsed-in-LEFT below the old boundary.)
 import { chromium, devices } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
