@@ -3,7 +3,9 @@
   "model": {
     "uuid": "2de3411f-aaf8-4ea6-a249-a41d99320b3d",
     "name": "RbDiffEditor.foldByMethodBoundaries impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:1dfe3d0f-6193-4525-b6f1-b63cebfd1812"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.78 (rb-diff-editor.ts:279, marker :278): RbDiffEditor.foldByMethodBoundaries — native Monaco FoldingRangeProvider at method boundaries + folding:true; native fold-gutter chevrons + '…' placeholder. Marker name-match verified. Architect audit PASS."

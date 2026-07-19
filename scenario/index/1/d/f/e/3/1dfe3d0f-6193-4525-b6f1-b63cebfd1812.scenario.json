@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1dfe3d0f-6193-4525-b6f1-b63cebfd1812",
+    "name": "test:R30.53 BUG-2 fold-affordance every-method-incl-tail (foldByMethodBoundaries)",
+    "description": "Bridged to r3053c-fold-affordance-gate.mjs (GREEN DET v0.7.81, commit 90cf08562 on origin). Verifies R30.53 AC-fold-affordance-tail: EVERY method-def at ALL scroll positions - incl the all-unchanged TAIL below the last change - has a foldable range; computeMethodRanges (the FoldingRangeProvider helper) must NOT desync the brace-parser on the CENTER both-versions duplication. Measured via the folding MODEL (ENGINE-INDEPENDENT): detection reaches the tail, gap(methods - foldRanges) <= 50 all panes. RED v0.7.79 (CENTER 20/104, gap 2528) -> GREEN v0.7.81 (104/104, gap 0, signature/indent boundaries). Codicon chevron RENDER (AC-a) = SEPARATE Tron real-WebKit acceptance.",
+    "sourceFile": "ior:file:test/visual/r3053c-fold-affordance-gate.mjs",
+    "implementations": [
+      "ior:instance:2de3411f-aaf8-4ea6-a249-a41d99320b3d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2de3411f-aaf8-4ea6-a249-a41d99320b3d"
+}
