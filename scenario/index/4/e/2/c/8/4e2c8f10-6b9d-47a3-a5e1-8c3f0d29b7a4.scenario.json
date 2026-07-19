@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4e2c8f10-6b9d-47a3-a5e1-8c3f0d29b7a4",
+    "name": "test:R30.38 merge Save writes to the diff repo (no 404) + header@currentBranch",
+    "description": "Bridged to test/visual/r3035-save404-deeplink-gate.mjs (DET-3x, NON-DESTRUCTIVE) on Tron's REAL deep-link /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 (v0.7.61 fix). Server: ?repo=oosh PUT with stale mtime → 409 (otmux exists in oosh, resolves, NO write) vs no-repo → 404 control = the save routes to the correct repo. Both buttons (#tb-save + .de-save 💾) thread ?repo=oosh + show 'saved otmux'. Center header shows otmux@currentBranch. Anti-circular (measured differently than the expert curl/playwright). Header hop (d9223804) pending its impl marker.",
+    "sourceFile": "ior:file:test/visual/r3035-save404-deeplink-gate.mjs",
+    "implementations": [
+      "ior:instance:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9"
+}

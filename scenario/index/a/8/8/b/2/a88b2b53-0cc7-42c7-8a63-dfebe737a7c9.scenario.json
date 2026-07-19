@@ -3,7 +3,9 @@
   "model": {
     "uuid": "a88b2b53-0cc7-42c7-8a63-dfebe737a7c9",
     "name": "RbDiffEditor.save impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:4e2c8f10-6b9d-47a3-a5e1-8c3f0d29b7a4"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": true,
     "description": "DESIGN-AHEAD: POST the Center merged content via /api/files (mtime-guarded). Expert builds + tags [impl] marker."

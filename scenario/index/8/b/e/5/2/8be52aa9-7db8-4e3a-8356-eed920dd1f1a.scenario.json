@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1783985870269,
+    "createdAt": 1784456442216,
     "sshKeysGenerated": false,
     "sshPublicKey": "",
     "chatHistory": [
@@ -27,56 +27,63 @@
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:2a244a61-0892-4071-a479-87b2c6134056",
         "name": "Sebastian Roscher",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:a398945a-4bb1-4400-bf77-40d1a3a735d9",
         "name": "Werner Hölzl",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:e9bf96f8-32cd-4af0-9a42-7b20b8bb2cd7",
         "name": "Amos",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
         "name": "Test Amos",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
       },
       {
         "ior": "ior:instance:4824c4ea-1cc8-41ae-8bda-ef00809e757a",
         "name": "Lindar Winnie Otieno",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784307679675
+        "joinedAt": 1784456442216
+      },
+      {
+        "ior": "ior:instance:3effa1fc-a548-4619-a3ff-fb96382eca22",
+        "name": "",
+        "role": "member",
+        "status": "online",
+        "joinedAt": 1784456442216
       }
     ],
     "files": [
@@ -86,9 +93,9 @@
       "ior:instance:e194f914-2f17-4372-9bc1-4cea694d60d2",
       "ior:instance:d5d8989f-7cf3-40a2-bbd9-19b409b5a9c2"
     ],
-    "lastMessageIor": "ior:instance:b364bbb8-4af1-4f95-983c-55b00cbc2434",
-    "firstMessageIor": "ior:instance:b364bbb8-4af1-4f95-983c-55b00cbc2434",
-    "messageCount": 1,
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
     "sourceFile": "scenario/index/8/b/e/5/2/8be52aa9-7db8-4e3a-8356-eed920dd1f1a.scenario.json",
     "unitLinks": [
       "sprints.json/rooms/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/8be52aa9-7db8-4e3a-8356-eed920dd1f1a.json"
