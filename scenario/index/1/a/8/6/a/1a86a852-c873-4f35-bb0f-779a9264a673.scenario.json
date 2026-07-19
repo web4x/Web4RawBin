@@ -2,11 +2,11 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "1a86a852-c873-4f35-bb0f-779a9264a673",
-    "name": "RepoRegistry.switchWorktree impl (UC7 D3)",
+    "name": "RbDiffEditor.switchWorktree impl (UC7 D3)",
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (UC7 switchTarget, R30.45 b6b21710). D3: worktree switch = READ-ONLY client ref-pick, worktree-as-key, NO checkout (the active repo/ref becomes the diff key; no server git checkout). Expert builds per D3 + tags [impl] marker; I RE-POINT name-matched on build (Method 43b1ff0c may RENAME/MOVE to a client method e.g. RbDiffEditor.switchTarget if the built decl is client-side - R30.11 pattern). File is a best-guess (client); expert confirms."
+    "designAhead": false,
+    "description": "BUILT v0.7.72 (rb-diff-editor.ts:1046): RbDiffEditor.switchWorktree(side,ref) - D3 client read-only worktree-as-key ref-pick (loadSide ref=<worktree branch>, NO server checkout; header tracks live). Marker [impl:uuid:1a86a852] on the decl (:1041), name-match verified. Expert commit anchor b2f6ebaa5."
   },
   "ownerIor": "ior:instance:43b1ff0c-49e3-4c36-b64d-23151296e77d"
 }

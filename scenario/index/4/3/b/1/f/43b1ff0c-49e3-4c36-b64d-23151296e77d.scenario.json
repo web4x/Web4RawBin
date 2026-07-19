@@ -2,13 +2,13 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "43b1ff0c-49e3-4c36-b64d-23151296e77d",
-    "name": "RepoRegistry.switchWorktree",
+    "name": "RbDiffEditor.switchWorktree",
     "implementations": [
       "ior:instance:1a86a852-c873-4f35-bb0f-779a9264a673"
     ],
     "tests": [],
-    "designAhead": true,
-    "note": "R30.45 PROPOSED (architect derive-confirm). Server: list a repo worktrees (path+branch) + select the active one as a READ-ONLY key (worktree-as-key, RATIFIED Tron D3 - NO server checkout, mutates nothing); diff/header read the picked worktree ref. Consistent with R30.40 HOME/oosh follow. Expert builds + I re-point on confirm."
+    "designAhead": false,
+    "note": "R30.45/UC7 BUILT v0.7.72 (CLIENT). RE-POINTED owner RepoRegistry->RbDiffEditor (R30.11 name-matched: built decl RbDiffEditor.switchWorktree(side,ref) client, NOT server). D3 = READ-ONLY worktree-as-key ref-pick (loadSide ref=<worktree branch>, NO server checkout). Marker [impl 1a86a852] on the decl (:1046)."
   },
-  "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }
