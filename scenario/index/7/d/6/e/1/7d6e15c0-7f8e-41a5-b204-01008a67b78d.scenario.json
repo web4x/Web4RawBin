@@ -11,7 +11,8 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
   "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
   "useCases": [
-   "ior:instance:6716c678-f652-4ec3-a2d7-01493c8ea0eb"
+   "ior:instance:6716c678-f652-4ec3-a2d7-01493c8ea0eb",
+   "ior:instance:2c447645-9b02-42cd-9d9d-98d737477264"
   ],
   "crossRef": [
    "ior:instance:c5869b0a-8592-4d86-9250-9034a75e137c",

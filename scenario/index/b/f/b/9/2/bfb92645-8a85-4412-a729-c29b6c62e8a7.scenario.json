@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bfb92645-8a85-4412-a729-c29b6c62e8a7",
+    "name": "RbDiffEditor.openRepoManager impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.71 (00bed95b0, rb-diff-editor.ts:965): R30.42 UC2 dialog V1 BUILT v0.7.71 (00bed95b0): RbDiffEditor.openRepoManager(side) renders the add/manage dialog INLINE by reusing overlay() (NOT a separate rb-repo-manager component). Shows add-local (path -> isGitRepo) + manage (worktrees). Clone section HIDDEN per §10 V1. Marker name-match, heads decl (rb-diff-editor.ts:965). Expert places [impl:uuid:bfb92645-8a85-4412-a729-c29b6c62e8a7] on the openRepoManager decl."
+  },
+  "ownerIor": "ior:instance:971a12ed-c28a-4c5b-9384-c3163114b87b"
+}

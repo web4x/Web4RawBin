@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2c447645-9b02-42cd-9d9d-98d737477264",
+  "name": "repoManage.openDialog",
+  "description": "UC2: selecting 'Add repository' opens the add/manage dialog - RbDiffEditor.openRepoManager renders it inline via overlay() (add-local + manage/worktrees; clone hidden v1).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:971a12ed-c28a-4c5b-9384-c3163114b87b",
+  "coveredRequirement": "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+ },
+ "ownerIor": "ior:instance:7d6e15c0-7f8e-41a5-b204-01008a67b78d"
+}

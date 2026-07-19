@@ -3,7 +3,7 @@
  "model": {
   "uuid": "6716c678-f652-4ec3-a2d7-01493c8ea0eb",
   "name": "repoManage.addRepositoryOption",
-  "description": "The repo selector renders 'Add repository' as its first option and opens the add/manage dialog on select. Rendered in populateRepos (best-guess); architect confirms.",
+  "description": "UC1 sentinel: the repo selector's FIRST option is 'Add repository' (rendered by populateRepos); selecting it (a 2-line __add__ handler in populateRepos) calls RbDiffEditor.openRepoManager (UC2 dialog). BUILT v0.7.71. The sentinel handler is glue in populateRepos; the credited dialog method is openRepoManager (UC2).",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"

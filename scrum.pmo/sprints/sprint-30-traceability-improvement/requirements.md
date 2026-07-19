@@ -614,6 +614,7 @@
   - [ ] **(ui)** Selecting/clicking 'Add repository' opens the add/manage dialog (does not try to load a repo named 'Add repository').
   - [ ] **(gate)** GATE (DET-3x + Tron visual): the selector shows 'Add repository' first; clicking opens the dialog; client-facing -> version-bump.
   -> repoManage.addRepositoryOption [uc:uuid:6716c678-f652-4ec3-a2d7-01493c8ea0eb]
+  -> repoManage.openDialog [uc:uuid:2c447645-9b02-42cd-9d9d-98d737477264]
 
 - [ ] **R30.43 — Add a repository by entering a server-local path to register an existing checkout**
   [requirement:uuid:96945512-3dbf-413d-ae26-734489ad8c0c]
