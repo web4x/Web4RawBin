@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c42fceb6-01d5-470d-9969-2b369e5e15bf",
+    "name": "test:R30.51 Fold2 fold sync across 3 editors (applyFold)",
+    "description": "Bridged to r3051-changes-folding-gate.mjs (GREEN DET-3x @390, 9fae1c617). Verifies R30.51 Fold2: applyFold projects the shared _collapsedGaps via setHiddenAreas() on all 3 editors (Local/Center/Repository) - fold in one -> all 3 fold aligned.",
+    "sourceFile": "ior:file:test/visual/r3051-changes-folding-gate.mjs",
+    "implementations": [
+      "ior:instance:2d7a0103-9ffb-4c1a-bcd9-16114a174719"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2d7a0103-9ffb-4c1a-bcd9-16114a174719"
+}

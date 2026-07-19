@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "65cb5a36-1fb6-42d1-bf83-319600012d79",
+    "name": "test:R30.51 Fold1 changes-only initial (applyChangesOnlyFolding)",
+    "description": "Bridged to r3051-changes-folding-gate.mjs (GREEN DET-3x @390 mobile, commit 9fae1c617). Verifies R30.51 Fold1: on open, applyChangesOnlyFolding seeds _collapsedGaps=all gaps -> changes-only initial view (non-change regions collapsed, change regions expanded).",
+    "sourceFile": "ior:file:test/visual/r3051-changes-folding-gate.mjs",
+    "implementations": [
+      "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9493c08a-0f85-45ae-841e-0903d3d4fc68"
+}

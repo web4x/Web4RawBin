@@ -3,7 +3,9 @@
   "model": {
     "uuid": "9493c08a-0f85-45ae-841e-0903d3d4fc68",
     "name": "RbDiffEditor.applyChangesOnlyFolding impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:65cb5a36-1fb6-42d1-bf83-319600012d79"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.76 (rb-diff-editor.ts:860, marker :859): RbDiffEditor.applyChangesOnlyFolding — R30.51 Fold1 changes-only initial: at computeMergedCenter tail (conflicts[] ready) seed _collapsedGaps=all gaps -> applyFold. Marker [impl:uuid:9493c08a] name-match verified."

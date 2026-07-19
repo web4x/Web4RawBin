@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6259acfb-c6ed-4de7-a543-f8299dbf169f",
+    "name": "test:R30.51 Fold3 change-region non-collapsible (computeFoldRegions)",
+    "description": "Bridged to r3051-changes-folding-gate.mjs (GREEN DET-3x @390, 9fae1c617). Verifies R30.51 Fold3: computeFoldRegions emits gaps = complement of conflicts[] + folding:false, so a change/conflict region cannot be collapsed (non-collapsible by construction).",
+    "sourceFile": "ior:file:test/visual/r3051-changes-folding-gate.mjs",
+    "implementations": [
+      "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:23b416c2-7108-4858-8e91-1dd3411ddaa9"
+}
