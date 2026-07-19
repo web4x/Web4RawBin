@@ -3,7 +3,9 @@
   "model": {
     "uuid": "b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d",
     "name": "RbDiffEditor.loadSide R30.46 working-ref routing impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:eaaa2469-e73b-4efb-8790-530f2f388915"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.68 (8860404bf): loadSide:191 routes the WORKING/latest/no-ref side to the raw on-disk file (/api/files), NOT git-show; distinct R30.46 impl alongside c4da837c. Marker name-match, heads decl. VERIFIED left=latest->working."

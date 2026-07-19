@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "eaaa2469-e73b-4efb-8790-530f2f388915",
+    "name": "test:R30.46 W1 left=latest resolves to raw working file (loadSide)",
+    "description": "Bridged to test/visual/r3046-working-file-gate.mjs (DET-3x, commit 6213d022a, GREEN). left=latest -> raw on-disk working file via /api/files (leftRef=empty), content==fs working incl uncommitted line, working!=HEAD, right=dev. Covers AC-w1-working-ref.",
+    "sourceFile": "ior:file:test/visual/r3046-working-file-gate.mjs",
+    "implementations": [
+      "ior:instance:b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d"
+}

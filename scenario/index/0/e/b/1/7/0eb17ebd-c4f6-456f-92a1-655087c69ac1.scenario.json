@@ -3,7 +3,9 @@
   "model": {
     "uuid": "0eb17ebd-c4f6-456f-92a1-655087c69ac1",
     "name": "RbDiffEditor.openFromParams R30.46 default-working-left impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:53d94d46-0fb6-4619-ba36-35897ec254a8"
+    ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
     "description": "BUILT v0.7.68 (8860404bf): openFromParams:803 defaults left=WORKING + right=HEAD; _pinnedLeft suppresses the R30.17 promote; distinct R30.46 impl alongside dc236c19. Marker name-match, heads decl."
