@@ -1,3 +1,4 @@
+// [test:uuid:919d290d-e917-4cd1-a927-48470b582469] R30.52 toolbar re-layout (impl-edit on renderMergeGutter e24dc98a) — 'N selected' INLINE same row as ✨ Apply All + ▲▼ (no wrap), 'X/Y open conflicts' SPAN buffer between ▼ and ✓ (non-adjacent), whole toolbar ONE row (~32px). GREEN DET-3x v0.7.75 (RED→GREEN from the rejected v0.7.74 wrap). Distinct R30.52-layout Test on e24dc98a alongside 8fa42d89 (structural) + 0866205d (R30.50-A).
 // R30.52 toolbar re-layout gate — REFINED AC (Tron REJECTED v0.7.74: 'N selected' WRAPPED to a 2nd line under Apply All).
 // Tron's real 3-way deep-link, DOM-order + geometry at Tron viewport, DET-3x, screenshot. Impl-edit on renderMergeGutter e24dc98a.
 //  (1) 'N selected' is INLINE — same ROW as ✨ Apply All + ▲▼ (vertically aligned, NOT a 2nd line under Apply All / no wrap).
