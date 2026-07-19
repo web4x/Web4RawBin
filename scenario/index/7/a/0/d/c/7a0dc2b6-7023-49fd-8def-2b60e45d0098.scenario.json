@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7a0dc2b6-7023-49fd-8def-2b60e45d0098",
+    "name": "test:R30.46 W2 working-file save round-trip (real disk persistence)",
+    "description": "Bridged to test/visual/r3046-working-file-gate.mjs (DET-3x, commit 45ed51ba8). The REAL edit CENTER->Save->fs-read round-trip: saving with left=working (ref=empty) WRITES the on-disk working file and the change PERSISTS to disk (pollution-safe fs restore). DISTINCT 2nd Test on the shared save Impl a88b2b53 alongside 4e2c8f10 - because 4e2c8f10 (r3035 gate) is NON-writing (409-probe/route-intercept, no real disk write) so it does NOT cover real persistence; this is the actual disk-persistence lock for R30.46 W2. Covers AC-w2-save-roundtrip.",
+    "sourceFile": "ior:file:test/visual/r3046-working-file-gate.mjs",
+    "implementations": [
+      "ior:instance:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9"
+}
