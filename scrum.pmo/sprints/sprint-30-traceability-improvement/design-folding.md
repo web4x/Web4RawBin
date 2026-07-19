@@ -38,3 +38,39 @@ Fold order: `folding:true` + registerMethodFoldingProvider (ddc5ea1c) → unchan
 - **Method-boundary detection** is language-dependent: brace-depth scanner keyed on a per-language def-line regex (oosh/bash `^\s*[\w.]+\s*\(\)\s*\{`, ts/js `\)\s*\{$`), fallback to Monaco's BUILT-IN language folding when available. Confirm target langs (oosh/bash + ts primary).
 - **FoldingController internal API** — Tron-mandated, pinned monaco 0.52.2; single revisit point on a Monaco bump.
 Behavior/visual → commit+bump+rebuild+deploy + DET-3x gate at Tron's viewport (native chevron+`⋯`; unchanged methods collapsed synced across 3; change-methods expanded; MOBILE tap works; ribbons/decorations/highlight intact).
+
+## BUG-2 — center-pane folds break (LOCKED FIX, robbin-po pick 2026-07-19)
+
+**Root cause (measured, rb-diff-editor.ts:297-315):** `computeMethodRanges` derives `end` from a NAIVE brace-depth scan (`depth++/--` on every `{`/`}`, incl. string/comment braces — self-labelled "acceptable approximation"). The CENTER both-versions pane emits DUPLICATED older+newer rows (R30.35 `_maxH` centerLen path) → duplicate/imbalanced braces → depth never returns to 0 at the true close → method `[start,end]` land on wrong lines → center folds land wrong / swallow following methods.
+
+**Feasibility (expert-costed, po-decided):**
+- SIGNATURE-REGEX — most LOCALIZED (only `computeMethodRanges`), robust to ANY brace imbalance BY CONSTRUCTION. Minor: fold-end = next-boundary−1, not exact close-brace. **Small.** ← **LOCKED**
+- PER-SIDE-MODEL — correct for L/R but CENTER duplication still needs its own answer. **Medium, insufficient alone.** Rejected as primary.
+- BALANCE-RENDER (fix R30.35 dup-brace emission at source) — touches the both-versions render path = the alignment JUST device-validated → regression risk. **Larger blast radius.** Rejected.
+
+**Why correct-by-construction (R27.2 / [[correct-by-construction]]):** brace-depth is the incidental heuristic that happens to work only while braces balance. Boundary-by-def-line NEVER counts braces, so brace imbalance cannot corrupt it — correctness is pinned by construction, not by an approximation that happens to hold.
+
+### EXACT SPEC (hand to robbin-expert) — replace the body of `computeMethodRanges` only
+Signature UNCHANGED: `private computeMethodRanges(model): Array<{start,end,sig}>` (1-based; keep `sig` — `_mirrorFold` + R30.53 parity key on it).
+1. `lines`, `langId`, `defRe` — KEEP as-is (def-line detection unchanged).
+2. DELETE the `depth`/`openLine` brace loop (lines 306-314).
+3. Pass 1 — collect boundaries: for each line `i`, if `defRe.test(lines[i])`, record `{ line:i, indent:(lines[i].match(/^\s*)/)[0].length), sig:lines[i].trim().replace(/\s+/g,' ') }`.
+4. Top-level gate BY INDENT (replaces the depth===0 gate): `methodIndent = min(indent over all matches)`; keep only boundaries whose `indent === methodIndent`. (Nested defs sit deeper → excluded. No brace counting.)
+5. Ranges: for kept boundaries `b[k]`, `start = b[k].line+1`, `end = (b[k+1] ? b[k+1].line : lines.length)`; then trim trailing blank lines: while `end>start && lines[end-1].trim()===''` → `end--`. `sig = b[k].sig`.
+6. Return `{start,end,sig}[]`.
+
+### Invariants (make them assertable — don't rely on eyeballing)
+- INV-1 monotonic non-overlap: `ranges[k].end < ranges[k+1].start` for all k (boundary construction guarantees; assert in the R30.53b gate).
+- INV-2 identical-by-construction across panes: L/C/R all run the SAME boundary algo → CENTER parity holds even with dup braces (this is the fix).
+- INV-3 sig preserved: every range carries the normalized def-line sig (keeps `_mirrorFold` signature-keying + the R30.53 parity Tests green — DO NOT regress).
+
+### Accepted tradeoffs (documented, safe-direction)
+- Fold-end may include inter-method gap lines (up to next def−1, trailing blanks trimmed) rather than the exact `}`. Cosmetic only.
+- A conflict living in an inter-method gap now attributes to the PRECEDING method in `keepChangeMethodsExpanded` overlap → that method stays EXPANDED (conservative; never wrongly collapses a changed region). Parity preserved because all 3 panes share the construction.
+- Multi-line signatures (params spanning lines) still undetected — pre-existing `defRe` limitation, NOT a regression.
+
+### Do-NOT-touch (regression guard)
+`_maxH` (:567), `alignPaneRows`/`renderCenterChangeBlocks`, the R30.35 A+D centerLen path, and `keepChangeMethodsExpanded`'s no-Math.max-floor fix (:322, R30.53 fix-2) — all device-validated. BUG-2 fix is confined to `computeMethodRanges`.
+
+### Gate
+DET-3x at Tron's iPhone viewport on a merge whose CENTER has a both-versions (dup-brace) block: center unchanged methods fold on correct boundaries + synced L/C/R + change-methods expanded + ribbons/decorations intact + R30.53 left-parity Tests still GREEN. Assert INV-1/2/3 in the automated gate before the device pass.
