@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8c68c361-86c3-4fb0-8a04-bb311b432149",
+    "name": "test:R30.38 center header filename@currentBranch (setCenterTitle)",
+    "description": "Bridged to test/visual/r3035-save404-deeplink-gate.mjs (DET-3x) - RbDiffEditor.setCenterTitle renders .de-center .de-title = otmux@currentBranch (measured otmux@dev-teampush-astray). Already gated GREEN in the save-404 run.",
+    "sourceFile": "ior:file:test/visual/r3035-save404-deeplink-gate.mjs",
+    "implementations": [
+      "ior:instance:41504f5f-136b-4bfd-8dd5-2d02a345fa0d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:41504f5f-136b-4bfd-8dd5-2d02a345fa0d"
+}

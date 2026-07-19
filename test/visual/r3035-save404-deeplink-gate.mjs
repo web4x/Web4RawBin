@@ -1,12 +1,15 @@
 // [test:uuid:4e2c8f10-6b9d-47a3-a5e1-8c3f0d29b7a4] R30.35 save-404 FIX on Tron's REAL deep-link
 // /edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1 (v0.7.61, edit-CYBX5O6I.js). The diff/merge Save
+// [test:uuid:8c68c361-86c3-4fb0-8a04-bb311b432149] R30.38 setCenterTitle 41504f5f - center header renders filename@currentBranch (otmux@<branch>), asserted in M3.
+// [test:uuid:3d82c2c8-d896-4fac-85c6-202178f4b186] R30.38 GitApi.currentBranch a2cbd78e - /api/git/current-branch?repo=oosh resolves the Save target branch (feeds the header).
 // (RbDiffEditor.save a88b2b53) now writes the merged Result to the DIFF'S repo (?repo=oosh), not rawbin → no 404.
-// ANTI-CIRCULAR (measured DIFFERENTLY than the expert's curl/playwright proof) + NON-DESTRUCTIVE:
-//   M1 SERVER-200 (real, in-browser, non-destructive): GET working otmux@oosh = C0 → PUT it back BYTE-IDENTICAL
-//      with ?repo=oosh → 200 (idempotent no-op, read-back==C0 proves nothing changed); control PUT with NO ?repo → 404.
+// ANTI-CIRCULAR (measured DIFFERENTLY than the expert's curl/playwright proof) + STRICTLY NON-DESTRUCTIVE (a real save
+// WRITES the served oosh working tree — the server even appends a byte per write — so this gate NEVER does a real save):
+//   M1 SERVER repo-resolution (NON-WRITING): PUT ?repo=oosh with a STALE expectedMtime → 409 (otmux exists in oosh, the
+//      mtime guard aborts BEFORE any write) vs no-repo → 404 control. 409-not-404 proves the save routes to the correct repo.
 //   M2 BOTH BUTTONS (#tb-save toolbar + .de-save 3-Way 💾) thread ?repo=oosh + show 'saved' — via route-intercept so the
 //      real merged-content write never hits disk (non-destructive by construction); assert the captured PUT url carries repo=oosh.
-//   M3 center header shows 'otmux@<currentBranch>'.
+//   M3 center header shows 'otmux@<currentBranch>' (setCenterTitle 41504f5f + GitApi.currentBranch a2cbd78e).
 // DET-3x, screenshot the toolbar. SystemTester-only.
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "a2cbd78e-b127-4d60-886b-6b137943758d",
     "name": "GitApi.currentBranch impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:3d82c2c8-d896-4fac-85c6-202178f4b186"
+    ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": false,
     "description": "BUILT v0.7.61: GitApi.currentBranch = git rev-parse --abbrev-ref HEAD; GET /api/git/current-branch endpoint returns it (cached client-side by loadCurrentBranch). Expert places [impl] marker on the currentBranch decl (name-match verified)."

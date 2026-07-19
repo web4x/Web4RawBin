@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3d82c2c8-d896-4fac-85c6-202178f4b186",
+    "name": "test:R30.38 GitApi.currentBranch server endpoint",
+    "description": "Bridged to test/visual/r3035-save404-deeplink-gate.mjs (DET-3x) - /api/git/current-branch?repo=oosh resolves the working-tree branch the Save targets (feeds the header). Already gated GREEN in the save-404 run.",
+    "sourceFile": "ior:file:test/visual/r3035-save404-deeplink-gate.mjs",
+    "implementations": [
+      "ior:instance:a2cbd78e-b127-4d60-886b-6b137943758d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a2cbd78e-b127-4d60-886b-6b137943758d"
+}
