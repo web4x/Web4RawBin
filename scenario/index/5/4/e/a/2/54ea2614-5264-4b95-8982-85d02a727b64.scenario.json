@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "54ea2614-5264-4b95-8982-85d02a727b64",
+    "name": "RbDiffEditor.refPickerLatest",
+    "implementations": [
+      "ior:instance:f2bdca27-952d-4016-a271-f7c7621d0f23"
+    ],
+    "tests": [],
+    "designAhead": true,
+    "note": "R30.46 W4 (OPTIONAL) PROPOSED. Repurpose the left ref-picker to choose the RIGHT compare-ref (left pinned to working). Expert builds if W4 is in scope + I confirm/re-point the name."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+}

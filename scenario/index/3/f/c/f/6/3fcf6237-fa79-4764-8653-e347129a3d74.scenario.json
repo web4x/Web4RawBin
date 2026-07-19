@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3fcf6237-fa79-4764-8653-e347129a3d74",
+  "name": "diff.defaultWorkingLeft",
+  "description": "W3 THE FLIP: default the diff-open left=WORKING (+right=HEAD), pinned, no auto-promote (a _pinnedLeft flag suppresses the R30.17 promote when left=working). Impl-edit to openFromParams (+showDiff/edit.ts co-site).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0",
+  "coveredRequirement": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+ },
+ "ownerIor": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+}

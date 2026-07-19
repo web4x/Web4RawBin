@@ -1,0 +1,59 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "88e97c14-59cb-4223-a28b-b043d7bea6e2",
+  "altId": "R30.46",
+  "name": "Working-file diff: left=latest resolves to the on-disk working file (uncommitted), written on save, default-shown",
+  "description": "The 3-way/2-way diff supports the WORKING FILE as the left side. A 'latest'/'working' pseudo-ref resolves to the CURRENT ON-DISK working file (incl UNCOMMITTED changes) - read raw via /api/files, NOT git show <ref>:file; that file is WRITTEN on save (R30.38 save already PUTs the same file - CONFIRMED, no code change); and opening a diff DEFAULTS to comparing against the real working file (left=WORKING pinned, first thing shown). Architect design-working-file.md; read+write already exist so the req is small. Order W1->W2->W3->W4.",
+  "tronQuote": "> TRON (v0.7.66, 'most important currently'): prod.wo-da.de:4444/edit/otmux?repo=oosh&left=latest&right=dev&3way=1 - left=latest is UNSUPPORTED. left=latest must resolve to the current on-disk working file (uncommitted), be written on save, and be the default left shown when a diff opens.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
+  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+  "useCases": [
+   "ior:instance:6c46d917-2973-42fd-8b16-de3f776eac72",
+   "ior:instance:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e",
+   "ior:instance:3fcf6237-fa79-4764-8653-e347129a3d74",
+   "ior:instance:98173cd4-cb64-417a-bb77-cfd2201bd372"
+  ],
+  "crossRef": [
+   "ior:instance:4aa5ec49-34f0-41a5-b19e-5530cae2ad34",
+   "ior:instance:9a2c9c46-4def-4273-b896-60ad17b79a6a"
+  ],
+  "crossRefNote": "Builds on R30.38 (save PUTs the working file - W2 confirms the round-trip, no code change) + R30.24 (deep-link openFromParams - W3 flips the default left). Reconciles R30.17 promote via a _pinnedLeft flag (suppress promote when left=working).",
+  "discoverySource": {
+   "type": "tron-feature",
+   "flaggedBy": "Tron #1 'most important currently' via robbin-po; architect design-working-file.md",
+   "date": "2026-07-19",
+   "note": "left=latest working-file support. read (loadSide fs-read) + write (R30.38 save) ALREADY EXIST -> small req. Expert builds right after UC8 (repo-manager). Impl-sites are impl-edits to loadSide/resolveBase (W1) + openFromParams/showDiff+_pinnedLeft (W3); W2 = locking test only; W4 optional ref-picker."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-w1-working-ref",
+    "group": "resolve",
+    "text": "W1: a 'latest'/'working' pseudo-ref resolves to the CURRENT on-disk working file (incl uncommitted changes) - loadSide reads it raw via /api/files, NOT git show <ref>:file; resolveBase treats WORKING/'' as no-ref (2-way)."
+   },
+   {
+    "id": "AC-w2-save-roundtrip",
+    "group": "save",
+    "text": "W2: saving with left=working writes the on-disk working file (R30.38 save PUTs the same file) - the edit round-trips to disk. CONFIRMED no code change; locked by a TEST."
+   },
+   {
+    "id": "AC-w3-default-left",
+    "group": "default",
+    "text": "W3 (THE FLIP): opening a diff DEFAULTS left=WORKING (+ right=HEAD), pinned and shown first - openFromParams/showDiff default-open left=working with NO auto-promote (a _pinnedLeft flag suppresses the R30.17 promote when left=working)."
+   },
+   {
+    "id": "AC-w4-ref-picker",
+    "group": "picker",
+    "text": "W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 -> left shows the live working file (uncommitted visible), edit+save round-trips to disk, and a bare open defaults left=working; client-facing -> version-bump."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
+}

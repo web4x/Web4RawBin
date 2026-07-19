@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0eb17ebd-c4f6-456f-92a1-655087c69ac1",
+    "name": "RbDiffEditor.openFromParams R30.46 default-working-left impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD: openFromParams:811 defaults left=WORKING + right=HEAD; showDiff:69/edit.ts:118 default-open left=working pinned; a _pinnedLeft flag suppresses the R30.17 auto-promote when left=working. Distinct R30.46 impl on the existing openFromParams (alongside dc236c19). Expert places [impl:uuid:0eb17ebd-c4f6-456f-92a1-655087c69ac1] name-matched."
+  },
+  "ownerIor": "ior:instance:f52b6941-7c1d-4f44-8bfe-1df5208336d0"
+}

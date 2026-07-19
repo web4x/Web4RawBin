@@ -1,13 +1,14 @@
 {
- "ior": "ior:class:Method",
- "model": {
-  "uuid": "f52b6941-7c1d-4f44-8bfe-1df5208336d0",
-  "name": "RbDiffEditor.openFromParams",
-  "implementations": [
-   "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a"
-  ],
-  "tests": [],
-  "note": "R30.24. Name EXACT for AST-attach (architect derive-confirm the name/owner). Parse repo/path/left/right/3way -> loadSide left+right (fileAtRef/working), set 3-way -> restore the exact diff. edit.ts glue reads the URL on load (same shape as R30.6.6 toolbar-open-diff)."
- },
- "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f52b6941-7c1d-4f44-8bfe-1df5208336d0",
+    "name": "RbDiffEditor.openFromParams",
+    "implementations": [
+      "ior:instance:dc236c19-be03-42df-9c52-4346fb76144a",
+      "ior:instance:0eb17ebd-c4f6-456f-92a1-655087c69ac1"
+    ],
+    "tests": [],
+    "note": "R30.24. Name EXACT for AST-attach (architect derive-confirm the name/owner). Parse repo/path/left/right/3way -> loadSide left+right (fileAtRef/working), set 3-way -> restore the exact diff. edit.ts glue reads the URL on load (same shape as R30.6.6 toolbar-open-diff)."
+  },
+  "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f2bdca27-952d-4016-a271-f7c7621d0f23",
+    "name": "RbDiffEditor.refPickerLatest impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD (OPTIONAL W4): the left picker chooses the RIGHT compare-ref. Expert builds if in scope; [impl:uuid:f2bdca27-952d-4016-a271-f7c7621d0f23] name-matched."
+  },
+  "ownerIor": "ior:instance:54ea2614-5264-4b95-8982-85d02a727b64"
+}

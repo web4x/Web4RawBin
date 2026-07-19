@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6c46d917-2973-42fd-8b16-de3f776eac72",
+  "name": "diff.workingRef",
+  "description": "W1: route the WORKING/'latest' pseudo-ref to the raw on-disk file (/api/files, not git-show); resolveBase treats it as no-ref (2-way). Impl-edit to loadSide (+resolveBase co-site).",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:19c40143-deeb-477a-9e35-66ff38f3a641",
+  "coveredRequirement": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+ },
+ "ownerIor": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+}

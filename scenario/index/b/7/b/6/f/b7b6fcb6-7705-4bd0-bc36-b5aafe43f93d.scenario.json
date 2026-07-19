@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d",
+    "name": "RbDiffEditor.loadSide R30.46 working-ref routing impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD (architect design-working-file.md; expert builds after UC8): loadSide:202 routes the WORKING/'latest' ref to /api/files (raw on-disk file, uncommitted) instead of git-show; resolveBase:382 treats WORKING/'' as no-ref -> 2-way. Distinct R30.46 impl on the existing loadSide (alongside c4da837c). Expert places [impl:uuid:b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d] name-matched."
+  },
+  "ownerIor": "ior:instance:19c40143-deeb-477a-9e35-66ff38f3a641"
+}

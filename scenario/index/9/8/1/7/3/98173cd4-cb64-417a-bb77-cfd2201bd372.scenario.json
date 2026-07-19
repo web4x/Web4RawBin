@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "98173cd4-cb64-417a-bb77-cfd2201bd372",
+  "name": "diff.refPickerLatest",
+  "description": "W4 (optional): repurpose the left picker to choose the RIGHT compare-ref (left pinned to working). New method.",
+  "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
+  "classes": [
+   "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
+  ],
+  "method": "ior:instance:54ea2614-5264-4b95-8982-85d02a727b64",
+  "coveredRequirement": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+ },
+ "ownerIor": "ior:instance:88e97c14-59cb-4223-a28b-b043d7bea6e2"
+}

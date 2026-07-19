@@ -672,3 +672,18 @@
   -> repoRegistry.persist [uc:uuid:b27eecb3-c758-4f30-9fe7-c7f2b5012d02]
   -> repoRegistry.load [uc:uuid:2280431a-1e82-4271-8458-1c9401318558]
   -> repoRegistry.assertAllowedRoot [uc:uuid:f3f052a5-16e3-46e6-98df-d07c9ac63786]
+
+- [ ] **R30.46 — Working-file diff: left=latest resolves to the on-disk working file (uncommitted), written on save, default-shown**
+  [requirement:uuid:88e97c14-59cb-4223-a28b-b043d7bea6e2]
+  > TRON (v0.7.66, 'most important currently'): prod.wo-da.de:4444/edit/otmux?repo=oosh&left=latest&right=dev&3way=1 - left=latest is UNSUPPORTED. left=latest must resolve to the current on-disk working file (uncommitted), be written on save, and be the default left shown when a diff opens.
+  The 3-way/2-way diff supports the WORKING FILE as the left side. A 'latest'/'working' pseudo-ref resolves to the CURRENT ON-DISK working file (incl UNCOMMITTED changes) - read raw via /api/files, NOT git show <ref>:file; that file is WRITTEN on save (R30.38 save already PUTs the same file - CONFIRMED, no code change); and opening a diff DEFAULTS to comparing against the real working file (left=WORKING pinned, first thing shown). Architect design-working-file.md; read+write already exist so the req is small. Order W1->W2->W3->W4.
+  **Acceptance criteria:**
+  - [ ] **(resolve)** W1: a 'latest'/'working' pseudo-ref resolves to the CURRENT on-disk working file (incl uncommitted changes) - loadSide reads it raw via /api/files, NOT git show <ref>:file; resolveBase treats WORKING/'' as no-ref (2-way).
+  - [ ] **(save)** W2: saving with left=working writes the on-disk working file (R30.38 save PUTs the same file) - the edit round-trips to disk. CONFIRMED no code change; locked by a TEST.
+  - [ ] **(default)** W3 (THE FLIP): opening a diff DEFAULTS left=WORKING (+ right=HEAD), pinned and shown first - openFromParams/showDiff default-open left=working with NO auto-promote (a _pinnedLeft flag suppresses the R30.17 promote when left=working).
+  - [ ] **(picker)** W4 (optional): the left picker is repurposed to choose the RIGHT compare-ref (since left is pinned to working).
+  - [ ] **(gate)** GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=latest&right=dev&3way=1 -> left shows the live working file (uncommitted visible), edit+save round-trips to disk, and a bare open defaults left=working; client-facing -> version-bump.
+  -> diff.workingRef [uc:uuid:6c46d917-2973-42fd-8b16-de3f776eac72]
+  -> diff.workingSaveRoundtrip [uc:uuid:eaf0cecc-42b0-42f1-b99c-e3c643df2a1e]
+  -> diff.defaultWorkingLeft [uc:uuid:3fcf6237-fa79-4764-8653-e347129a3d74]
+  -> diff.refPickerLatest [uc:uuid:98173cd4-cb64-417a-bb77-cfd2201bd372]
