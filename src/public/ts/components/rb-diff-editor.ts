@@ -145,6 +145,13 @@ export class RbDiffEditor extends HTMLElement {
   static monacoLoader(): Promise<any> {
     if (_monacoPromise) return _monacoPromise;
     _monacoPromise = new Promise<any>((resolve) => {
+      // R30.53 asset fix (architect): the AMD require injects editor.main.css INLINE (token/theme colors → highlight works),
+      // but the codicon @font-face src:url(codicon.ttf) is RELATIVE → resolves against the PAGE origin → 404 → NO codicon
+      // glyphs (fold chevrons + '⋯' + find/suggest icons; anyCodiconInApp=0). Inject a REAL <link> to the CDN editor.main.css
+      // so the @font-face url() resolves against the CDN base (path-agnostic). Shared by the 3 diff editors + rb-code-editor.
+      if (!document.querySelector('link[data-monaco-css]')) {
+        const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = `${MONACO_VS}/editor/editor.main.css`; l.setAttribute('data-monaco-css', ''); document.head.appendChild(l);
+      }
       const w = window as any;
       if (w.monaco) { resolve(w.monaco); return; }
       const boot = () => {
@@ -335,6 +342,7 @@ export class RbDiffEditor extends HTMLElement {
       for (let t = 0; t < 25 && (!cfm || (cfm.regions?.length ?? 0) === 0); t++) { await new Promise(res => setTimeout(res, 100)); cfm = await this._foldingModel(this.edCenter); }
       for (const [side, ed] of specs) {
         if (!ed) continue;
+        try { ed.updateOptions({ folding: false }); ed.updateOptions({ folding: true }); } catch { /* R30.53 fix#2 (architect): force the FoldingController to re-init its view-render pipeline against the now-loaded editor.main.css + registered provider before we collapse */ }
         const fm = await this._foldingModel(ed); if (!fm?.getRegionAtLine) continue;
         const unchanged = this.keepChangeMethodsExpanded(this.computeMethodRanges(ed.getModel()), side);
         // Fold via the editor ACTION (controller-driven → renders the chevron + '⋯' placeholder + hides lines). Toggling the
