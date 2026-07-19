@@ -88,8 +88,8 @@ export function readFile(relPath: string, root?: string): { path: string; conten
   return { path: relPath, content, size: stat.size, mtime: stat.mtime.toISOString() };
 }
 
-export function writeFile(relPath: string, content: string, expectedMtime?: string): { ok: true; mtime: string; size: number } | { error: string; status: number; conflict?: boolean; serverMtime?: string } {
-  let absPath = sanitizePath(relPath);
+export function writeFile(relPath: string, content: string, expectedMtime?: string, root?: string): { ok: true; mtime: string; size: number } | { error: string; status: number; conflict?: boolean; serverMtime?: string } {
+  let absPath = sanitizePath(relPath, root); // R30.x save-404: write within the RepoRegistry-resolved root (default rawbin), mirroring readFile — so a diff/merge Save targets the CORRECT repo (e.g. oosh) instead of always rawbin
   if (absPath) { try { const ls = fs.lstatSync(absPath); if (ls.isSymbolicLink()) absPath = fs.realpathSync(absPath); } catch {} }
   if (!absPath) return { error: 'Forbidden', status: 403 };
   if (!fs.existsSync(absPath)) return { error: 'File not found — cannot create new files', status: 404 };

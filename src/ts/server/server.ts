@@ -522,6 +522,14 @@ class GitApi {
     return stdout.split('\n').map(s => s.trim()).filter(Boolean);
   }
 
+  // R30.x save-404: the repo's currently checked-out branch (git rev-parse --abbrev-ref HEAD) — the working tree a diff/
+  // merge Save writes to. Read-only, execFile array-args (no shell). CHAIN PENDING: req to mint the Method/Impl (build-it
+  // mode, formalize + [impl] marker after refresh — R30.11 re-point to built reality). Detached HEAD → 'HEAD'.
+  static async currentBranch(root: string): Promise<string> {
+    const { stdout } = await execFileAsync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], GitApi.opts(root));
+    return stdout.trim();
+  }
+
   // [impl:uuid:e2c70b0f-a4de-4ac8-8d35-d72890327d47] GitApi.commits
   static async commits(root: string, ref: string, pathArg: string, limit: number): Promise<{ hash: string; subject: string; author: string; date: string }[]> {
     const n = String(Math.max(1, Math.min(200, Math.floor(limit) || 20)));
@@ -1362,16 +1370,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
 
       if (req.method === 'PUT') {
-        // R30.6.7: writes target the DEFAULT repo only (read-only across other repos) — reject ?repo=<non-rawbin>.
-        const wRepo = urlParams.get('repo');
-        if (wRepo && wRepo !== 'rawbin') { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Read-only repo' })); return; }
+        // R30.x save-404: writes route to the ALLOWLISTED repo root (RepoRegistry), mirroring the read path — so a diff/
+        // merge Save targets the CORRECT repo (?repo=oosh → /root/oosh/<file>), not always rawbin (which 404'd 'cannot
+        // create new files' since the file only exists in oosh). Safe: only the 2 allowlisted roots, sanitizePath guards
+        // traversal, writeFile still refuses to CREATE new files (overwrite-only). Unknown key → 400.
+        const wRoot = RepoRegistry.resolve(urlParams.get('repo'));
+        if (!wRoot) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown repo' })); return; }
         let body = '';
         req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 1100000) { res.writeHead(413); res.end('Too large'); } });
         req.on('end', () => {
           try {
             const { content, expectedMtime } = JSON.parse(body);
             if (typeof content !== 'string') { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Missing content' })); return; }
-            const result = writeFile(relPath, content, expectedMtime);
+            const result = writeFile(relPath, content, expectedMtime, wRoot);
             const status = 'ok' in result ? 200 : result.status;
             res.writeHead(status, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(result));
@@ -1410,6 +1421,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R30.6.7: resolve the repo KEY → allowlisted abs root (default rawbin); unknown key → 400 (never a client path).
         const root = RepoRegistry.resolve(urlParams.get('repo'));
         if (!root) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unknown repo' })); return; }
+        if (filepath === '/api/git/current-branch') { // R30.x save-404: the working-tree branch a Save targets (for the center header 'file@branch')
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branch: await GitApi.currentBranch(root) })); return;
+        }
         if (filepath === '/api/git/branches') {
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ branches: await GitApi.branches(root) })); return;
         }

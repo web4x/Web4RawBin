@@ -271,8 +271,8 @@ export class RbDiffEditor extends HTMLElement {
       }
     }
     this.rebuildCenter();
-    const ct = this.querySelector('.de-center .de-title') as HTMLElement;
-    if (ct) ct.textContent = this.left.path ? `merged: ${this.left.path}` : 'merged';
+    this.setCenterTitle();          // R30.x save-404: 'file@currentBranch' when known, else 'merged: file'
+    void this.loadCurrentBranch();  // fetch the working-tree branch the Save targets (async, cached per repo) → refresh header
     // R30.35 E: single source of truth for the count lives in .de-count ('X/Y open conflicts'). Status keeps ONLY the
     // mode/dirty note — the second "N conflicts to resolve" denominator is removed (was confusing vs the de-count total).
     this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : (this.dirty ? '• modified' : ''));
@@ -732,10 +732,25 @@ export class RbDiffEditor extends HTMLElement {
   }
 
   // [impl:uuid:a88b2b53-0cc7-42c7-8a63-dfebe737a7c9] RbDiffEditor.save — write CENTER via /api/files (mtime-guarded).
+  // R30.x save-404 (item 2): center header shows 'file@currentBranch' — the working-tree branch the merged Save writes to.
+  private _branch = ''; private _branchRepo: string | null = null;
+  private setCenterTitle(): void {
+    const ct = this.querySelector('.de-center .de-title') as HTMLElement; if (!ct) return;
+    ct.textContent = this.left.path ? (this._branch ? `${this.left.path}@${this._branch}` : `merged: ${this.left.path}`) : 'merged';
+  }
+  private async loadCurrentBranch(): Promise<void> {
+    if (!this.left.ref || !this.right.ref) { this._branch = ''; this._branchRepo = this.left.repo; return; } // only meaningful for a git-ref diff
+    if (this._branchRepo === this.left.repo && this._branch) return;                                          // cached per repo
+    const rq = this.left.repo ? `?repo=${encodeURIComponent(this.left.repo)}` : '';
+    try { const r = await (await fetch(`/api/git/current-branch${rq}`)).json(); this._branch = (r.branch || '').trim(); } catch { this._branch = ''; }
+    this._branchRepo = this.left.repo; this.setCenterTitle();
+  }
+
   async save(): Promise<void> {
     if (!this.left.path) { this.status('nothing to save (no target path)'); return; }
     try {
-      const res = await fetch(`/api/files/${encodeURIComponent(this.left.path)}`, {
+      const rq = this.left.repo ? `?repo=${encodeURIComponent(this.left.repo)}` : ''; // R30.x save-404: write the merged Result to the DIFF'S repo (e.g. oosh), not rawbin (was 404 'cannot create new files')
+      const res = await fetch(`/api/files/${encodeURIComponent(this.left.path)}${rq}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: this.edCenter ? this.edCenter.getValue() : '' }),
       });

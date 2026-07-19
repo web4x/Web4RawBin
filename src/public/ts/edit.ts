@@ -108,7 +108,12 @@ async function openFile(path: string): Promise<void> {
 }
 
 // Toolbar events
-document.addEventListener('toolbar-save', () => { if (filePath) saveFile(filePath, codeEditor?.getValue() || ''); });
+document.addEventListener('toolbar-save', () => {
+  // R30.x save-404: when a diff/merge is active, the toolbar 💾 saves the MERGED Result via the diff editor (→ correct
+  // repo, no 404) — same as the 3-Way Merge 💾. Both save buttons thus route through RbDiffEditor.save. Else normal file save.
+  if (isDiffMode()) { const diff = layout.querySelector('.el-diff rb-diff-editor') as unknown as { save?(): void } | null; if (diff?.save) { void diff.save(); return; } }
+  if (filePath) saveFile(filePath, codeEditor?.getValue() || '');
+});
 // R30.6.6: [Open Diff] → mount the diff/merge editor with LEFT preselected to the current file.
 document.addEventListener('toolbar-open-diff', () => { if (filePath) layout.showDiff(filePath); });
 document.addEventListener('mode-change', ((e: CustomEvent) => applyMode(e.detail.mode)) as EventListener);
