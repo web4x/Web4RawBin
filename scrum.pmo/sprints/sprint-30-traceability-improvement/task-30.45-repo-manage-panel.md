@@ -27,6 +27,7 @@
     - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + §9, 2026-07-19) — un-gated, build queued after R30.46
   - down
     - [UC](./planning.md) `[uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]`
+    - [UC](./planning.md) `[uc:uuid:47c2c3ea-9df8-46f8-841d-3178a4ec62ea]`
 
 ## Task Description
 
