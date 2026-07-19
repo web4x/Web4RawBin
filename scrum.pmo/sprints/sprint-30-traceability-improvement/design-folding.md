@@ -127,3 +127,16 @@ Logic lives in `keepChangeMethodsExpanded` — RIDES on existing **640f8428** (c
 
 ### Gate
 r3053b 79/79 (panes() expanded ×3; INV-A2 identical-by-sig collapsible set) + r3053c 104/104 unregressed + R30.53 FIX-A/FIX-B parity green + BUG-1 alignment intact → DET-3x at Tron viewport → device chevron render.
+
+### ARCHITECT BACKSTOP — v0.7.81 / 6517825bf (robbin-architect 2026-07-19): **PASS**
+Verified impl line-by-line vs LOCKED spec (git show 6517825bf):
+- (1) NEW `changeMethodSigs()` ✅ iterates local/center/remote; `computeMethodRanges` (sig); per-side chRange formula VERBATIM (center `[span0+1,span1]` / local `[aStart+1,aStart+a.length]` / remote `[bStart+1,bStart+b.length]`, NO Math.max floor); `set.add(r.sig)` for overlapping ranges; returns Set. `if(!ed) continue` guard = correct.
+- (2) `keepChangeMethodsExpanded(ranges{start,end,sig}, changeSigs)` ✅ = `ranges.filter(r => !changeSigs.has(r.sig))`; side param dropped; type widened; marker 640f8428 rides (comment updated).
+- (3) `syncNativeFold` ✅ `changeSigs` computed ONCE before the loop; `[side]`→`[,ed]`; call-site passes `changeSigs`.
+- **INV-A2 ✅ by construction:** `changeSigs` is pane-independent; every pane filters by the SAME set → collapsed-signature set identical ×3. Unchanged method (INV-2 identical range) sig∉set → collapsed ×3 at same lines; change-method (panes() via C/R) sig∈set → expanded ×3 incl LEFT. Bug fixed.
+- **fix-2 composition ✅:** genuinely-unchanged method overlaps no pane's chRange → sig never unioned → collapses ×3; zero-length local add never adds the FOLLOWING method's sig. No floor reintroduced.
+- **Do-NOT-touch ✅:** stat = only rb-diff-editor.ts source (48L, 3 hunks); `_maxH`/R30.35/`computeMethodRanges`(BUG-2)/no-floor formula/`foldByMethodBoundaries` untouched.
+
+**Sig-collision tradeoff — backstopped PARITY-SAFE:** if two DISTINCT methods share a normalized def-line sig and one is a change-method, the other over-expands — BUT it over-expands in ALL 3 panes (same sig∈set everywhere) → **parity (INV-A2) still holds**; cost is only a cosmetic un-collapsed unchanged method, NEVER a wrong-collapse or an L/C/R divergence. Center dup-version copies intentionally share sig → both expand (correct). Real distinct-method sig collision is vanishingly rare (TS forbids dup names; overloads differ in params). Accepted.
+
+**Marker:** 640f8428 rides `keepChangeMethodsExpanded` (classification refined, same method+purpose) — no new uuid, confirmed. `changeMethodSigs` = its private supporting helper (uncredited). If r3053b gets a champagne Test → wire to 640f8428 (honest classification site).
