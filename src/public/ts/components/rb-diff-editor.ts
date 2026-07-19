@@ -83,10 +83,13 @@ export class RbDiffEditor extends HTMLElement {
       </style>
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
-        <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
-        <span class="de-count" style="font-size:0.7rem;opacity:0.85" title="changes / conflicts"></span>
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:1px">
+          <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
+          <span class="de-selected" style="font-size:0.65rem;opacity:0.85" title="current change # (nav position)"></span>
+        </div>
         <button class="de-jump-prev" title="Previous change">▲</button>
         <button class="de-jump-next" title="Next change">▼</button>
+        <span class="de-open-count" style="font-size:0.7rem;opacity:0.85;padding:0 4px" title="open conflicts / total changes"></span>
         <button class="de-resolve" title="Mark this change resolved (outlined = unresolved, solid = resolved)">✓</button>
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
@@ -403,11 +406,12 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelector('.de-accept-bar')?.remove();
     this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
-    const cnt = this.querySelector('.de-count') as HTMLElement;
-    // R30.50 A: COMPOSE = (N selected · )? + (clean auto-merge | X/Y open conflicts). N = the current nav change# (_jumpIdx+1),
-    // omitted when none selected. KEEP the open-count (R30.35 E). The '• modified' suffix migrated to the Save button (C2).
-    if (cnt) cnt.textContent = (this._jumpIdx >= 0 ? `${this._jumpIdx + 1} selected · ` : '')
-      + (this.conflicts.length === 0 ? 'clean auto-merge' : `${this.openChangeCount()}/${this.conflicts.length} open conflict${this.conflicts.length === 1 ? '' : 's'}`);
+    // R30.52 layout (DOM-order/split only, no logic): 'N selected' → de-selected (under Apply All); 'X/Y open conflicts' →
+    // de-open-count (between ▼ and ✓, a non-clickable buffer so ▼/✓ are no longer adjacent — harder to mis-click ✓). Both kept.
+    const selEl = this.querySelector('.de-selected') as HTMLElement;
+    if (selEl) selEl.textContent = this._jumpIdx >= 0 ? `${this._jumpIdx + 1} selected` : '';
+    const ocEl = this.querySelector('.de-open-count') as HTMLElement;
+    if (ocEl) ocEl.textContent = this.conflicts.length === 0 ? 'clean auto-merge' : `${this.openChangeCount()}/${this.conflicts.length} open conflict${this.conflicts.length === 1 ? '' : 's'}`;
     this.updateSaveButtonState(); // R30.50 C2: keep the Save button's saved/unsaved indicator in sync
   }
 
