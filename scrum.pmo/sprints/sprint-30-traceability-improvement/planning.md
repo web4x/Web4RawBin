@@ -65,3 +65,7 @@ Tasks are listed in **numeric order** (T30.1 -> T30.36). Intentional gaps + note
 - [ ] [Task 30.39: Deep-link ?repo seeds BOTH left and right repo selectors on load](./task-30.39-deeplink-seeds-both-selectors.md)
 - [ ] [Task 30.40: Center Result header = targeted repo's ACTUAL current branch (dynamic)](./task-30.40-center-header-actual-branch.md)
 - [ ] [Task 30.41: 3-way merge editor shows per-filetype syntax highlighting](./task-30.41-per-filetype-syntax-highlight.md)
+- [ ] [Task 30.42: Repo selector first option is 'Add repository' → opens add/manage dialog](./task-30.42-add-repository-option.md)
+- [ ] [Task 30.43: Add a repository by server-local path](./task-30.43-add-repo-by-local-path.md)
+- [ ] [Task 30.44: Add a repository by clone URL + checkout location](./task-30.44-add-repo-by-clone-url.md)
+- [ ] [Task 30.45: Manage panel — repo / local path / current branch / switchable worktrees](./task-30.45-repo-manage-panel.md)
