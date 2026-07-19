@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0360d7e2-9962-4976-b60a-a026b821bb6e",
+    "name": "RbDiffEditor.populateHistory R30.39 repo-aware history-fill impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
+    "designAhead": true,
+    "description": "DESIGN-AHEAD (architect derive; expert builds): extract the repo-aware history-fill (git log --follow fetch + .de-history option fill) OUT of populateLeftHistory 751934c1, dropping the promote-to-right + auto-load-default, so both a manual selector change AND a ?repo URL preselect drive the identical file-history update path (AC-behavior-identical). Expert builds the extraction + places [impl:uuid:0360d7e2-9962-4976-b60a-a026b821bb6e] on the extracted decl (name-match) + confirms/corrects the method name; I re-point Method 4db27a4a on confirm. populateLeftHistory 751934c1 becomes a caller."
+  },
+  "ownerIor": "ior:instance:4db27a4a-3473-402d-be14-f807a82c6d88"
+}

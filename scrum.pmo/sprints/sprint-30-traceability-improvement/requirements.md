@@ -580,6 +580,7 @@
   - [ ] **(seed)** Preselecting a repo via ?repo=<key> is behaviorally IDENTICAL to a MANUAL selector change: the SAME downstream update path fires either way - the file-history selector updates AND all dependent state refresh, not merely the selector value being set. populateRepos must drive the same change/update flow a manual pick triggers (dispatch the change handler, not just assign sel.value).
   - [ ] **(gate)** GATE (DET-3x + Tron visual): open /edit/otmux?repo=oosh&left=..&right=..&3way=1 -> both left and right selectors read 'oosh' on load, no manual setting; client-facing -> version-bump + atomic deploy (R30.28).
   -> diffEditor.seedBothRepoSelectors [uc:uuid:bd5392ef-61f5-4da3-a966-7b92c47d1417]
+  -> diffEditor.repoAwareHistoryFillParity [uc:uuid:246a3649-d4ec-4c82-995f-c62efb99981e]
 
 - [ ] **R30.40 — Center Result header shows the targeted repo's ACTUAL current branch, resolved dynamically**
   [requirement:uuid:c5869b0a-8592-4d86-9250-9034a75e137c]
