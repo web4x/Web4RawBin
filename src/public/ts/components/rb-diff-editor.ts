@@ -182,6 +182,7 @@ export class RbDiffEditor extends HTMLElement {
     });
     this.syncScroll3();
     void this.computeMergedCenter();
+    this.applyLanguage(); // R30.41: also apply here — loadSide (openFromParams) can race AHEAD of this async mount (Monaco loader await), so its applyLanguage no-ops on not-yet-created editors; this deterministic call runs after the 3 models exist.
   }
 
   // [impl:uuid:c4da837c-b59f-4c02-9522-2e8599206abf] RbDiffEditor.loadSide
