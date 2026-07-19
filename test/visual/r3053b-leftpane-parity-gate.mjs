@@ -11,8 +11,9 @@
 // ★ RE-RED v0.7.80 (edit-UF6QQZ7E.js): the BUG-2 tail-detection fix (r3053c, 20→104 methods) EXPOSED a PRE-EXISTING FIX-A
 // per-pane-clip residual → INITIAL parity RED 1/79, offender `private.complete.panes()` (change-method overlapping a conflict
 // in all 3 → must stay EXPANDED, but LEFT collapsed it 86-88 vs C 89-95 / R 85-91 expanded). FIX-B toggle-mirror STAYS GREEN 0/79.
-// ★ PINNED RED BASELINE (buffers()-class, newly visible) — flips GREEN when keepChangeMethodsExpanded classifies a conflict-
-// overlapping method as expanded CONSISTENTLY across L/C/R (per-pane clip is the bug). DET-3x. Codicon RENDER → Tron device.
+// ★ FLIPPED GREEN v0.7.81 (edit-5RVLY3DA.js, FIX-A2): keepChangeMethodsExpanded now classifies the change-set ONCE by
+// signature-UNION across panes → panes() expanded ×3, INITIAL parity 0/79 + toggle 0/79 + 0px drift, DET-3x. INV-A2 verified
+// (collapsed-set-by-sig identical L/C/R = 51/51/51). r3053c unregressed 104/104. R30.53 parity DONE; codicon RENDER → Tron device.
 import { chromium, devices } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
