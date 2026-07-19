@@ -2,7 +2,8 @@
 // [test:uuid:4d2260ea-5164-4171-a235-a37b6069263a] R30.50 B RbDiffEditor.applyAllFromSide (Impl 6f5bd6a1) — Local wins → CENTER==Local, Repo wins → CENTER==Repo, openChangeCount→0.
 // [test:uuid:690f963c-f274-4ccd-8a68-781497a802c1] R30.50 C1 RbDiffEditor.saveOrJumpToConflict (Impl b741580e) — open>0 → jump next UNRESOLVED + 'resolve before saving' status, NO write.
 // [test:uuid:5296e852-8b5e-4d7a-88e4-015e6f772e3a] R30.50 C2 RbDiffEditor.updateSaveButtonState (Impl 78f75ba0) — '✓ Saved' green when clean-after-save, resets to '💾 Save' on any edit.
-// (A de-count compose + applyAllNonConflicting 91c452ae also exercised; req maps A/91c452ae. All GREEN DET-3x v0.7.73.)
+// [test:uuid:0866205d-5bb6-4dcb-8273-67b0b8843f9a] R30.50 A de-count COMPOSE (impl-edit on renderMergeGutter e24dc98a) — the count composes '(N selected · )?X/Y open conflicts' (N=_jumpIdx+1 on nav, omitted when none). Gate asserts the exact compose text pristine ('X/Y open conflicts') AND after nav ('N selected · X/Y open conflicts'). Distinct R30.50-A-intention Test on e24dc98a alongside the structural 8fa42d89.
+// (applyAllNonConflicting 91c452ae also exercised — rides its existing Test 79139c01.)
 // R30.50 merge-actions gate — v0.7.73 (edit-UQJUZB6W.js), Tron's real 3-way deep-link. DET-3x, screenshot.
 // (A) de-count composes '(N selected · )?X/Y open conflicts' (real openChangeCount/conflicts.length; N=_jumpIdx+1 on nav).
 // (B) '✨ Apply All' 3-mode popup — assert EACH drives the correct CENTER mutation (not just popup-opens):
