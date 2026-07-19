@@ -8,7 +8,7 @@
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
-    "description": "BUILT v0.7.73 (rb-diff-editor.ts:707, marker :706): RbDiffEditor.updateSaveButtonState - Save button GREEN after successful save, DEFAULT (unsaved) on any subsequent change; mirrors updateResolveButton, called from renderMergeGutter + after add/remove/toggle. Marker [impl:uuid:78f75ba0] name-match verified. Expert self-verified zero-writes (398ddd14e)."
+    "description": "BUILT v0.7.73 (rb-diff-editor.ts:707, marker :706): RbDiffEditor.updateSaveButtonState - Save button GREEN after successful save, DEFAULT (unsaved) on any subsequent change; mirrors updateResolveButton, called from renderMergeGutter + after add/remove/toggle. Marker [impl:uuid:78f75ba0] name-match verified. Expert self-verified zero-writes (398ddd14e). v0.7.76 RECONCILE: '• modified' text dropped from de-status — the Save button ('✓ Saved' / '💾 Save') is now the SOLE saved-signal (removes the double-signal the architect flagged). Behavior (GREEN-on-save / DEFAULT-on-change) unchanged; the redundant status text is gone."
   },
   "ownerIor": "ior:instance:d84c5886-9324-4b97-931e-3874f2fec076"
 }

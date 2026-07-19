@@ -3,7 +3,7 @@
  "model": {
   "uuid": "3b9c1f72-50dd-44f4-9bb0-0a8fcb5b069b",
   "name": "merge.saveButtonState",
-  "description": "After a SUCCESSFUL save the Save button turns GREEN (saved indicator). On ANY subsequent change (add/remove side, edit) the Save button returns to DEFAULT (unsaved indicator). Reflects the R30.35 change model (any addSide/removeLine = a change) + the R30.38 save success.",
+  "description": "After a SUCCESSFUL save the Save button turns GREEN (saved indicator). On ANY subsequent change (add/remove side, edit) the Save button returns to DEFAULT (unsaved indicator). Reflects the R30.35 change model (any addSide/removeLine = a change) + the R30.38 save success. v0.7.76 RECONCILE: '• modified' text dropped from de-status — the Save button ('✓ Saved' / '💾 Save') is now the SOLE saved-signal (removes the double-signal the architect flagged). Behavior (GREEN-on-save / DEFAULT-on-change) unchanged; the redundant status text is gone.",
   "class": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886",
   "classes": [
    "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
