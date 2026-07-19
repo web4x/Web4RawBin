@@ -9,7 +9,7 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [~] refinement
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -23,8 +23,8 @@
     - Requirement `[requirement:uuid:b6b21710-bee6-4f6e-b382-3578643da85a]`
   - shared-enabler
     - Dynamic RepoRegistry (mutable/persisted) — supersedes R30.40 static ROOTS; shared across R30.42-45
-  - hard-gate
-    - Tron ratifies DESIGN + SECURITY before ANY build
+  - ratified
+    - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + §9, 2026-07-19) — un-gated, build queued after R30.46
   - down
     - [UC](./planning.md) `[uc:uuid:3a17f2e5-1093-4c96-aaa9-33aaad92de54]`
 
@@ -51,7 +51,7 @@ S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/man
 
 ## Implementation
 
-IN PROGRESS @ DESIGN STAGE (architect decomposing; PO bringing DESIGN + SECURITY decisions to Tron for RATIFY). ★ HARD GATE: NO build until Tron ratifies. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron). -> Tron ratify -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
+DESIGN RATIFIED (Tron approved the architect decomposition + PO security decisions: D1-D4 safe options + §9 refinement, 2026-07-19) — UN-GATED, QUEUED for build. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ✓ RATIFIED: Tron approved DESIGN + SECURITY (D1-D4 + §9); task now build-QUEUED — builds AFTER R30.46 working-file; expert ping-per-method as endpoint UCs ship. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — Tron RATIFIED the security model (D1-D4 safe options)). -> expert build -> deploy -> QA-Review -> gate + chain-to-Test + served==gated -> Tron visual -> Done.
 
 ## Subtasks
 
