@@ -9,8 +9,9 @@
     "tests": [],
     "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. UC8 D1 choke point. BUILT as a PLUGGABLE SCAFFOLD stub v0.7.66 (register()+load() route every candidate root through here). The REAL D1 bounds (HOME-subtree + REPO_ALLOW, realpath-checked) land in the UC8 real-bounds pass - I update this Impl then. Expert marks the scaffold decl name-matched now.",
     "backlog": {
-      "reason": "Tron V1 scope-simplification 2026-07-19 (architect §10): elaborate security DEFERRED to backlog - NOT cancelled. Built+gated code stays; re-activation = wiring. Rationale kept (info-disclosure/path-traversal/SSRF/write-auth). Re-activate before multi-user/exposed hardening (see R30.48 deferred-risk req)."
-    }
+      "reason": "§10.1 (v0.7.69): assertAllowedRoot is endpoint POLICY (was over-coupled into the registry mechanism, now separated out). BACKLOG endpoint-guard - deferred NOT cancelled; code stays. RE-WIRE = requireAdmin + assertAllowedRoot at the ADD endpoint (symmetric), per R30.48. Not enforcing in v1."
+    },
+    "endpointPolicy": true
   },
   "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
 }

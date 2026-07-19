@@ -4,7 +4,7 @@
   "uuid": "b87eb99a-c83e-4745-9948-a84a1bb3ea00",
   "altId": "R30.47",
   "name": "RepoRegistry is a dynamic, persisted, bounds-checked registry (foundation for repo add/manage)",
-  "description": "The RepoRegistry is DYNAMIC (runtime register/unregister), PERSISTED (survives restart via load/persist), and every candidate root routes through a bounds CHOKE POINT (assertAllowedRoot, D1) - superseding the R30.40 static ROOTS allowlist. This is the architect's UC3 spine + UC8 guard-foundation (design-repo-manager.md §9); the R30.42-R30.45 observable endpoints (add-option/add-local/add-clone/manage) build ON it. UC3 register/unregister/persist/load BUILT v0.7.66 (8b4f36893); UC8 guards: assertAllowedRoot scaffold now (real D1 bounds next), assertAllowedUrl (D2) + requireAdmin (D4) land with the UC8 real-bounds pass.",
+  "description": "The RepoRegistry is DYNAMIC (runtime register/unregister), PERSISTED (survives restart via load/persist), and is a PURE MECHANISM (register=pure store, load=stale-drop by .git existence, resolve=pure lookup); the D1 bounds POLICY (assertAllowedRoot) is a BACKLOG endpoint-guard (§10.1 mechanism/policy separation) - superseding the R30.40 static ROOTS allowlist. This is the architect's UC3 spine + UC8 guard-foundation (design-repo-manager.md §9); the R30.42-R30.45 observable endpoints (add-option/add-local/add-clone/manage) build ON it. UC3 register/unregister/persist/load BUILT v0.7.66 (8b4f36893); UC8 guards: assertAllowedRoot scaffold now (real D1 bounds next), assertAllowedUrl (D2) + requireAdmin (D4) land with the UC8 real-bounds pass.",
   "tronQuote": "> (Foundation for Tron's repo add/manage feature; D1-D4 ratified. Covering req for the built UC3 spine + UC8 guards per architect design-repo-manager.md §9.)",
   "tasks": [],
   "tests": [],
@@ -47,7 +47,7 @@
    {
     "id": "AC-choke",
     "group": "security",
-    "text": "Every candidate root routes through the assertAllowedRoot choke point (register + load) so bounds are enforced at ONE wired place (D1)."
+    "text": "§10.1 MECHANISM/POLICY SEPARATION: the spine is PURE MECHANISM - register = pure store (no policy throw); load = keep entry IFF .git STILL present at root (stale-drop by EXISTENCE, a mechanism integrity check, NOT an allowlist); resolve = pure lookup (no TOCTOU re-assert). The D1 bounds POLICY (assertAllowedRoot) is a BACKLOG endpoint-guard - re-wired at the ADD endpoint alongside requireAdmin (symmetric), NOT inside the registry mechanism."
    },
    {
     "id": "AC-supersedes-roots",
@@ -59,7 +59,8 @@
     "group": "gate",
     "text": "GATE (DET-3x): register a root -> appears + persists across restart (load); an out-of-bounds root is rejected at the choke; version-bump."
    }
-  ]
+  ],
+  "mechanismPolicyNote": "§10.1 (v0.7.69): assertAllowedRoot was over-coupled into the registry MECHANISM; it is POLICY and belongs at the endpoint (like requireAdmin). Spine now pure-mechanism; D1 re-activation = re-wire requireAdmin+assertAllowedRoot at the add endpoint, symmetric (R30.48 backlog)."
  },
  "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

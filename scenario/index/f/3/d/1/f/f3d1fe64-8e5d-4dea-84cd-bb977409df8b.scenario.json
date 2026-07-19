@@ -7,7 +7,7 @@
       "ior:instance:2c67c8d1-e80e-4b53-92f1-0f8a54cbcb08"
     ],
     "tests": [],
-    "note": "R30.47 foundation. Name EXACT for [impl] AST-attach. BUILT v0.7.66: load the persisted registry on startup (each root re-validated through assertAllowedRoot). Expert marks name-matched."
+    "note": "R30.47 UC3 PURE MECHANISM. Name EXACT for [impl] AST-attach. load = reload persisted registry; keep entry IFF .git still present (stale-drop by existence = mechanism, NOT the allowlist policy which is endpoint-backlog per §10.1)."
   },
   "ownerIor": "ior:instance:28cc1759-30b9-42e3-97e6-6b967b02f517"
 }

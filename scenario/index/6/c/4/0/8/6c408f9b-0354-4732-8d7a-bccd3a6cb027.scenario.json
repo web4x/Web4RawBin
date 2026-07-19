@@ -5,7 +5,7 @@
     "name": "RepoRegistry.register impl",
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/repo-registry.ts",
-    "description": "BUILT v0.7.66 (8b4f36893): register a candidate root in the dynamic registry (routes through assertAllowedRoot choke), returns a stable key (uniqueSlug). Expert marks name-matched.",
+    "description": "BUILT v0.7.66/69 (§10.1 PURE MECHANISM): RepoRegistry.register = pure store of a candidate root, returns a server-derived slug key. NO assertAllowedRoot throw (that D1 policy moved to a BACKLOG endpoint-guard - mechanism/policy separation). Marker name-match.",
     "designAhead": false
   },
   "ownerIor": "ior:instance:7681caa6-c04e-4f0e-b1af-e6ca0b9311eb"
