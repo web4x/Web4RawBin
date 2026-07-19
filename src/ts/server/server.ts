@@ -500,6 +500,7 @@ const CLONE_ROOT: Record<string, string> = { repos: path.join(os.homedir(), 'rep
 
 // R30.42 UC8 GUARD 3 (D4) — SOLE write-auth choke point: registry-mutating/clone ops require the ADMIN KEY (NOT same-origin,
 // NOT playerToken). Used by POST/DELETE /api/git/repos + worktree-register (UC4/5/7). Read ops keep same-origin/playerToken.
+// [impl:uuid:54a1a5c7-5c21-4430-b943-e6cc43303123] requireAdmin — R30.42 UC8 GUARD 3 / D4 admin-auth (Method defe4e43)
 function requireAdmin(req: http.IncomingMessage): boolean {
   return ((req.headers['x-admin-key'] as string) || '') === ADMIN_KEY;
 }
@@ -515,7 +516,7 @@ class GitApi {
   // R30.42 UC8 GUARD 2 (design §9, D2) — SOLE clone-URL choke point (UC5). WHATWG parse; reject embedded creds (@-host
   // confusion), non-https/ssh schemes (file/git/ext → SSRF/RCE), and any host not EXACTLY allowlisted (no subdomain trick).
   // The clone execFile additionally pins env GIT_ALLOW_PROTOCOL=https:ssh + -c protocol.file.allow=never (defense-in-depth).
-  // [chain: UC8 security.bounds — req mints GitApi.assertAllowedUrl Impl; place [impl] marker when handed]
+  // [impl:uuid:4fb69bb5-fc16-46ea-b3ae-a81318ca7b66] GitApi.assertAllowedUrl — R30.42 UC8 GUARD 2 / D2 clone-URL allowlist (Method 43c22878)
   static assertAllowedUrl(url: string): boolean {
     try {
       const u = new URL(url);

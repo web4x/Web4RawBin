@@ -188,9 +188,10 @@ export class RbDiffEditor extends HTMLElement {
   // [impl:uuid:c4da837c-b59f-4c02-9522-2e8599206abf] RbDiffEditor.loadSide
   // Re-scoped (R30.9): load LOCAL (side='left') or REMOTE (side='right') content — working file (/api/files),
   // file@ref (/api/git/file), or preloaded buffer (src.content) — into the side + its Monaco editor, then recompute.
+  // [impl:uuid:b7b6fcb6-7705-4bd0-bc36-b5aafe43f93d] RbDiffEditor.loadSide — R30.46 W1 working-ref routing: 'latest'/no-ref → WORKING file (/api/files raw), not git-show (distinct R30.46 impl alongside c4da837c)
   async loadSide(side: 'left' | 'right', src: { path: string; ref?: string; content?: string }): Promise<void> {
     const st = side === 'left' ? this.left : this.right;
-    st.path = src.path; st.ref = src.ref || '';
+    st.path = src.path; st.ref = (src.ref && src.ref !== 'latest') ? src.ref : ''; // R30.46 W1: the 'latest' sentinel = the on-disk WORKING file → ref='' routes to /api/files raw (uncommitted changes), NOT git-show; resolveBase then returns '' (no-ref → 2-way)
     // R30.25: a fresh LEFT working-file load = a new diff context → re-enable the auto-promote for it (clears any prior
     // RIGHT-pick flag). Done HERE (before the content-load awaits) so a subsequent user RIGHT-pick — which fires as a
     // later event — re-sets the flag and WINS over the promote (populateLeftHistory's early-guard then aborts).
@@ -223,7 +224,7 @@ export class RbDiffEditor extends HTMLElement {
       if (title) title.textContent = st.ref ? `${st.path}@${st.ref}` : st.path;
       await this.computeMergedCenter();
       this.applyLanguage(); // R30.41: derive Monaco language from path ext → setModelLanguage on all 3 models (content now set everywhere); idempotent
-      if (side === 'left' && !st.ref && !this._deepLink) await this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore. R30.25: AWAIT (serialize) so the promote's async tail can't race a later RIGHT ref-pick and blank LEFT.
+      if (side === 'left' && !st.ref && !this._deepLink && !this._pinnedLeft) await this.populateLeftHistory(); // R30.17 (TRON4): working-file load (no ref) → promote to RIGHT + fill LEFT history (older-left); guard !st.ref so the older-ref reload doesn't recurse. R30.24: skip during a deep-link restore. R30.25: AWAIT (serialize) so the promote's async tail can't race a later RIGHT ref-pick and blank LEFT. R30.46 W3: skip when left is a PINNED working file (the FLIP keeps WORKING on the left, does not promote it to the right).
     } catch { this.status(`load ${side} error`); }
   }
 
@@ -799,13 +800,15 @@ export class RbDiffEditor extends HTMLElement {
   // path may come from ?path= or the /edit/<path> pathname (fallbackPath). left/right are git refs ('' = the working file).
   // repo key maps to SideState.repo exactly like the .de-repo <select> ('rawbin' → '', else the key), so R30.6.7 repo-safety
   // (server-side allow-list on ?repo=) is reused unchanged. Loads both sides; 3-way vs 2-way then emerges from resolveBase.
+  // [impl:uuid:0eb17ebd-c4f6-456f-92a1-655087c69ac1] RbDiffEditor.openFromParams — R30.46 W3 default-working-left FLIP: default left=WORKING + right=HEAD, _pinnedLeft suppresses the R30.17 promote (distinct R30.46 impl alongside dc236c19)
   async openFromParams(params: URLSearchParams, fallbackPath?: string): Promise<void> {
     const key = params.get('repo') || '';
     const repo = key && key !== 'rawbin' ? key : '';           // mirror populateRepos: 'rawbin'/empty = the primary repo ('')
     const path = params.get('path') || fallbackPath || '';
     if (!path) { this.status('deep-link: missing path'); return; }
-    const left = params.get('left') || '';                     // git ref, or '' = working file
-    const right = params.get('right') || '';
+    const left = params.get('left') || '';                     // '' or 'latest' = the on-disk WORKING file (W1 normalizes 'latest'→'')
+    const right = params.get('right') || 'HEAD';               // R30.46 W3 FLIP: default right=HEAD → a bare/left-only deep-link diffs WORKING-left vs HEAD
+    this._pinnedLeft = !left || left === 'latest';             // R30.46 W3: left is the pinned WORKING file → suppress the R30.17 promote-to-right (would clobber it)
     this._deepLink = true;                                      // suppress the auto left-history promote (would clobber RIGHT)
     this._rightUserPicked = false;                             // R30.25.1: fresh deep-link context (no user pick yet)
     const token = ++this._promoteToken;                        // R30.25.1: our generation — a user RIGHT-pick during the loads bumps this
@@ -905,6 +908,7 @@ export class RbDiffEditor extends HTMLElement {
   private _promoteToken = 0;         // R30.25: generation token — a stale in-flight promote aborts its LEFT-reload tail when this no longer matches (bumped by a RIGHT ref-pick / each new promote)
   private _rightLoadSeq = 0;         // R30.25.2: RIGHT-load generation — each loadSide('right') bumps it; a superseded in-flight right-load discards its result (last right-load wins, no ref/content mismatch)
   private _deepLink = false; // R30.24: true while openFromParams restores a URL-linked diff (suppresses auto left-history promote)
+  private _pinnedLeft = false; // R30.46 W3: left is a PINNED working file (the FLIP) → durably suppress the R30.17 promote-to-right (persists past _deepLink reset)
 
   // [impl:uuid:2b7edf20-8a5f-4a3e-9ba8-2a78ff6d4df3] RbDiffEditor.populateRepos — R30.39 seed-both-selectors: after filling the
   // async-fetched <option>s, seed each selector's value from its side's st.repo (fixes the race where openFromParams set the
