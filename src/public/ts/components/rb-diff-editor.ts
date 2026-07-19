@@ -300,17 +300,26 @@ export class RbDiffEditor extends HTMLElement {
     const defRe = /shell|bash|python/.test(langId)
       ? /^\s*(private\.|public\.)?[\w.]+\s*\(\)\s*\{/                                                   // oosh/bash: name() {
       : /^\s*(export\s+|public\s+|private\s+|protected\s+|static\s+|async\s+|get\s+|set\s+)*[\w$]+\s*\([^)]*\)\s*(:\s*[^={;]+)?\{\s*$/; // ts/js
-    // R30.53 bug-fix (architect): also return the def-line SIGNATURE per range (normalized text at the def line,
-    // e.g. 'private.complete.buffers() {') so _mirrorFold can key fold-correspondence by signature not raw index.
+    // R30.53 BUG-2 fix (architect LOCKED spec — design-folding.md ## BUG-2, commit 4c23045c1): boundaries by
+    // SIGNATURE/INDENT, NOT brace-depth. The CENTER both-versions pane duplicates older+newer rows (R30.35 _maxH
+    // centerLen path) → duplicate/imbalanced braces → a naive depth scan never returns to 0 → method ends land wrong
+    // and every method below loses its fold range. Def-line boundaries never count braces, so brace imbalance cannot
+    // corrupt them = correct-by-construction ([[correct-by-construction]] / R27.2). fold-end = next-boundary−1
+    // (trailing blanks trimmed) — cosmetic vs the exact '}'. sig kept per-range (INV-3: _mirrorFold + R30.53 parity).
+    // Pass 1 — every def-line boundary with its indent + normalized sig.
+    const bounds = lines
+      .map((ln, i) => ({ line: i, indent: (ln.match(/^\s*/)?.[0].length ?? 0), sig: ln.trim().replace(/\s+/g, ' '), isDef: defRe.test(ln) }))
+      .filter(b => b.isDef);
+    if (bounds.length === 0) return [];
+    // Top-level gate BY INDENT (replaces the depth===0 gate): keep only the shallowest defs; nested defs sit deeper.
+    const methodIndent = Math.min(...bounds.map(b => b.indent));
+    const tops = bounds.filter(b => b.indent === methodIndent);
     const ranges: Array<{ start: number; end: number; sig: string }> = [];
-    let depth = 0, openLine = -1;
-    for (let i = 0; i < lines.length; i++) {
-      const ln = lines[i];
-      if (depth === 0 && openLine < 0 && defRe.test(ln)) openLine = i;
-      for (const ch of ln) {
-        if (ch === '{') depth++;
-        else if (ch === '}') { depth = Math.max(0, depth - 1); if (depth === 0 && openLine >= 0) { if (i > openLine) ranges.push({ start: openLine + 1, end: i + 1, sig: (lines[openLine] || '').trim().replace(/\s+/g, ' ') }); openLine = -1; } }
-      }
+    for (let k = 0; k < tops.length; k++) {
+      const start = tops[k].line + 1;                                   // 1-based def line
+      let end = k + 1 < tops.length ? tops[k + 1].line : lines.length;  // up to the line before the next boundary / EOF
+      while (end > start && lines[end - 1].trim() === '') end--;        // trim trailing blank lines
+      ranges.push({ start, end, sig: tops[k].sig });                    // INV-1: end < next start by construction
     }
     return ranges;
   }
