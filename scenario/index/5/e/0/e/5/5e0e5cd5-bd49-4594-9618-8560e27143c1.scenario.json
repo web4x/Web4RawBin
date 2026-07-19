@@ -6,7 +6,8 @@
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,
-    "description": "BUILT v0.7.64: RbDiffEditor.applyLanguage derives the Monaco language id from this.left.path extension (matched against getLanguages().extensions) with a SHEBANG fallback for extensionless scripts (e.g. otmux -> shell), and calls m.editor.setModelLanguage on all 3 models (Local/Result/Repository). Mutates the SAME model instance so the R30.35 change decorations + R30.34 spline PERSIST (coexist, no override); called at the END of loadSide, idempotent. Private helper languageForPath performs the ext/shebang -> language mapping (uncredited support). Expert places [impl:uuid:5e0e5cd5] on the applyLanguage decl source-only (name-match)."
+    "description": "BUILT v0.7.64: RbDiffEditor.applyLanguage derives the Monaco language id from this.left.path extension (matched against getLanguages().extensions) with a SHEBANG fallback for extensionless scripts (e.g. otmux -> shell), and calls m.editor.setModelLanguage on all 3 models (Local/Result/Repository). Mutates the SAME model instance so the R30.35 change decorations + R30.34 spline PERSIST (coexist, no override); called at the END of BOTH mountThreePane (after the 3 Monaco models exist) AND loadSide - idempotent. The dual call-site fixes a MOUNT RACE: loadSide (via openFromParams) can run AHEAD of the async Monaco mount, so a loadSide-only applyLanguage no-ops on not-yet-created editors (otmux won the race, .ts fell back to plaintext); the mountThreePane call is deterministic after the models exist. Private helper languageForPath performs the ext/shebang -> language mapping (uncredited support). Expert places [impl:uuid:5e0e5cd5] on the applyLanguage decl source-only (name-match).",
+    "servedVersion": "v0.7.65 (edit-YLYSV5RK.js, commit e00395dd9)"
   },
   "ownerIor": "ior:instance:cd0599ab-16b9-4149-877f-43c2241210d2"
 }

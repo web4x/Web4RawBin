@@ -7,7 +7,7 @@
       "ior:instance:5e0e5cd5-bd49-4594-9618-8560e27143c1"
     ],
     "tests": [],
-    "note": "R30.41 syntax-highlight. BUILT v0.7.64; decl name CONFIRMED = applyLanguage (matched the mint, no re-point). Derives the Monaco language from this.left.path ext (via getLanguages().extensions) + a shebang fallback for extensionless scripts (otmux->shell), calls setModelLanguage on all 3 models (mutates the SAME model -> R30.35 decorations + R30.34 spline preserved), called at END of loadSide, idempotent. Private helper languageForPath does the ext/shebang->language id (uncredited support). Impl 5e0e5cd5 [marker]."
+    "note": "R30.41 syntax-highlight. BUILT v0.7.64; decl name CONFIRMED = applyLanguage (matched the mint, no re-point). Derives the Monaco language from this.left.path ext (via getLanguages().extensions) + a shebang fallback for extensionless scripts (otmux->shell), calls setModelLanguage on all 3 models (mutates the SAME model -> R30.35 decorations + R30.34 spline preserved), called at END of BOTH mountThreePane AND loadSide (idempotent) - dual site fixes a mount race where loadSide ran ahead of the async Monaco mount. Served v0.7.65. Private helper languageForPath does the ext/shebang->language id (uncredited support). Impl 5e0e5cd5 [marker]."
   },
   "ownerIor": "ior:instance:18165081-16d4-4b3b-9e9f-047f304d5886"
 }
