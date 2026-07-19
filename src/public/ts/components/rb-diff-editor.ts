@@ -81,13 +81,13 @@ export class RbDiffEditor extends HTMLElement {
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
         rb-diff-editor .de-save.de-saved { background:#2e7d32;border-color:#4caf50;color:#fff } /* R30.50 C2: green when saved (clean); resets to default on any change */
       </style>
-      <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
+      <div class="de-toolbar" style="display:flex;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
         <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
-        <span class="de-selected" style="font-size:0.7rem;opacity:0.85" title="current change # (nav position)"></span>
+        <span class="de-selected" style="font-size:0.7rem;opacity:0.85;white-space:nowrap;flex-shrink:0" title="current change # (nav position)"></span>
         <button class="de-jump-prev" title="Previous change">▲</button>
         <button class="de-jump-next" title="Next change">▼</button>
-        <span class="de-open-count" style="font-size:0.7rem;opacity:0.85;padding:0 4px" title="open conflicts / total changes"></span>
+        <span class="de-open-count" style="font-size:0.7rem;opacity:0.85;padding:0 4px;white-space:nowrap;flex-shrink:0" title="open conflicts / total changes"></span>
         <button class="de-resolve" title="Mark this change resolved (outlined = unresolved, solid = resolved)">✓</button>
         <span class="de-status" style="flex:1;font-size:0.7rem;opacity:0.7"></span>
         <button class="de-save" title="Save merged Result">💾 Save</button>
@@ -307,9 +307,10 @@ export class RbDiffEditor extends HTMLElement {
     this.rebuildCenter();
     this.setCenterTitle();          // R30.x save-404: 'file@currentBranch' when known, else 'merged: file'
     void this.loadCurrentBranch();  // fetch the working-tree branch the Save targets (async, cached per repo) → refresh header
-    // R30.35 E: single source of truth for the count lives in .de-count ('X/Y open conflicts'). Status keeps ONLY the
-    // mode/dirty note — the second "N conflicts to resolve" denominator is removed (was confusing vs the de-count total).
-    this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : (this.dirty ? '• modified' : ''));
+    // R30.35 E / R30.50-C2: the count lives in .de-open-count; the dirty/saved signal is SOLELY the Save button
+    // (updateSaveButtonState: '✓ Saved' green / '💾 Save'). de-status shows ONLY the 2-way mode note — no '• modified'
+    // (dropping it removes the double-signal the architect flagged; corrects my earlier mis-report that it was already gone).
+    this.status(this.twoWay ? '2-way (no merge-base) — accept ◄/► as take-over' : '');
   }
 
   // R30.23 private helper (traceability stays on computeMergedCenter's a0b30550 — one-sided detection is the same
