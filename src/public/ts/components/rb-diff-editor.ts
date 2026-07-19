@@ -79,10 +79,11 @@ export class RbDiffEditor extends HTMLElement {
         .de-gutter-modify { background: #3a6ea5; width: 3px !important; margin-left: 2px; }
         .de-gutter-conflict { background: #a5603a; width: 3px !important; margin-left: 2px; }
         rb-diff-editor .de-toolbar button, rb-diff-editor .de-sub button, rb-diff-editor .de-accept-bar button { background:#333;border:1px solid #555;color:#ccc;border-radius:4px;cursor:pointer;font-size:0.7rem;padding:2px 6px }
+        rb-diff-editor .de-save.de-saved { background:#2e7d32;border-color:#4caf50;color:#fff } /* R30.50 C2: green when saved (clean); resets to default on any change */
       </style>
       <div class="de-toolbar" style="display:flex;gap:6px;align-items:center;padding:5px 8px;background:#252526;border-bottom:1px solid #333">
         <b style="font-size:0.75rem">🔀 3-Way Merge</b>
-        <button class="de-apply-all" title="Apply All Non-Conflicting Changes">✨ Apply All Non-Conflicting</button>
+        <button class="de-apply-all" title="Apply All Changes… (non-conflicting / Local wins / Repo wins)">✨ Apply All</button>
         <span class="de-count" style="font-size:0.7rem;opacity:0.85" title="changes / conflicts"></span>
         <button class="de-jump-prev" title="Previous change">▲</button>
         <button class="de-jump-next" title="Next change">▼</button>
@@ -111,9 +112,9 @@ export class RbDiffEditor extends HTMLElement {
     this.querySelectorAll('.de-file').forEach(b => b.addEventListener('click', () => this.pickFile((b as HTMLElement).dataset.side as 'left' | 'right')));
     this.querySelectorAll('.de-ref').forEach(b => b.addEventListener('click', () => this.pickRef((b as HTMLElement).dataset.side as 'left' | 'right')));
     this.querySelector('.de-swap')?.addEventListener('click', () => this.swapSides());
-    this.querySelector('.de-save')?.addEventListener('click', () => void this.save());
+    this.querySelector('.de-save')?.addEventListener('click', () => void this.saveOrJumpToConflict()); // R30.50 C1: guarded save (jump to next unresolved if open>0)
     this.querySelector('.de-share')?.addEventListener('click', () => void this.buildShareLink());
-    this.querySelector('.de-apply-all')?.addEventListener('click', () => this.applyAllNonConflicting());
+    this.querySelector('.de-apply-all')?.addEventListener('click', () => this.openApplyAllMenu()); // R30.50 B: 3-mode Apply-All popup
     this.querySelector('.de-jump-prev')?.addEventListener('click', () => this.jumpToChange(-1));
     this.querySelector('.de-jump-next')?.addEventListener('click', () => this.jumpToChange(1));
     this.querySelector('.de-resolve')?.addEventListener('click', () => this.toggleResolved());
@@ -167,7 +168,7 @@ export class RbDiffEditor extends HTMLElement {
     this.edLocal = m.editor.create(this.mount('local'), { ...common, value: this.left.content, readOnly: true, theme: 'vs-dark' });
     this.edCenter = m.editor.create(this.mount('center'), { ...common, value: '', readOnly: false, theme: 'vs-dark' });
     this.edRemote = m.editor.create(this.mount('remote'), { ...common, value: this.right.content, readOnly: true, theme: 'vs-dark' });
-    this.edCenter.onDidChangeModelContent(() => { this.dirty = true; });
+    this.edCenter.onDidChangeModelContent(() => { this.dirty = true; this._saved = false; this.updateSaveButtonState(); }); // R30.50 C2: any edit resets the Save button to unsaved
     // R30.17 (TRON1): delegate the gutter-icon clicks from the STABLE component root (attached ONCE) — the old
     // per-strip listener was orphaned each time renderInterPaneGutters re-rendered the strip's innerHTML → accept did nothing.
     this.addEventListener('click', (e) => {
@@ -403,8 +404,11 @@ export class RbDiffEditor extends HTMLElement {
     this.renderInterPaneGutters();   // (4) ≫/≪/✕ icons in the widened gutter
     this.renderConnectorRibbons();   // (5) SVG ribbons, palette-matched to the blocks
     const cnt = this.querySelector('.de-count') as HTMLElement;
-    // R30.35 E: ONE count = openChangeCount (derived-unresolved) / total changes → 'X/Y open conflicts'. 0 changes → clean auto-merge.
-    if (cnt) cnt.textContent = (this.conflicts.length === 0 ? 'clean auto-merge' : `${this.openChangeCount()}/${this.conflicts.length} open conflict${this.conflicts.length === 1 ? '' : 's'}`) + (this.dirty ? ' • modified' : '');
+    // R30.50 A: COMPOSE = (N selected · )? + (clean auto-merge | X/Y open conflicts). N = the current nav change# (_jumpIdx+1),
+    // omitted when none selected. KEEP the open-count (R30.35 E). The '• modified' suffix migrated to the Save button (C2).
+    if (cnt) cnt.textContent = (this._jumpIdx >= 0 ? `${this._jumpIdx + 1} selected · ` : '')
+      + (this.conflicts.length === 0 ? 'clean auto-merge' : `${this.openChangeCount()}/${this.conflicts.length} open conflict${this.conflicts.length === 1 ? '' : 's'}`);
+    this.updateSaveButtonState(); // R30.50 C2: keep the Save button's saved/unsaved indicator in sync
   }
 
   private _maxH(c: Conflict): number { const centerLen = (c.incl.a ? c.a.length : 0) + (c.incl.b ? c.b.length : 0); return Math.max(c.a.length, c.b.length, centerLen, 1); } // R30.35 A+D: centerLen-aware (both-versions center = older+newer rows), matching alignPaneRows/renderCenterChangeBlocks
@@ -652,7 +656,7 @@ export class RbDiffEditor extends HTMLElement {
     this._currentId = changeId; this._override.delete(changeId); // acted change becomes focus; action RE-DERIVES (clears any manual override)
     this.rebuildCenter(); // re-flatten center from the included sets → blocks+ribbons+counter re-derive (no jump)
     this.updateResolveButton();
-    this.dirty = true;
+    this.dirty = true; this._saved = false; // R30.50 C2: an add resets the Save button (renderMergeGutter refreshes it)
   }
 
   // [impl:uuid:af887908-0d9a-4d44-beda-8c1ebc7fa695] RbDiffEditor.removeLine — R30.35: ✕ REMOVES a side's lines from
@@ -665,7 +669,7 @@ export class RbDiffEditor extends HTMLElement {
     this._currentId = changeId; this._override.delete(changeId); // acted change becomes focus; action RE-DERIVES (clears any manual override) → drives the ✓ indicator
     this.rebuildCenter();
     this.updateResolveButton();
-    this.dirty = true;
+    this.dirty = true; this._saved = false; // R30.50 C2: a remove resets the Save button
     // R30.35 B: dropping a side resolves this change → advance to the NEXT change in sequence of ANY kind (add/delete/
     // modify/conflict) via jumpToChange(1) — NOT jumpToNextUnresolved, which filtered to !isResolved and so SKIPPED every
     // one-sided green(add)/red(delete) change (they derive as resolved). Keep the resolve-on-✕ behaviour; only the target changes.
@@ -695,6 +699,68 @@ export class RbDiffEditor extends HTMLElement {
   applyAllNonConflicting(): void {
     void this.computeMergedCenter();
     this.status(`applied all non-conflicting; ${this.conflicts.length} conflict(s) remain`);
+  }
+
+  private _saved = false; // R30.50 C2: true while CENTER is clean since the last successful save (drives the green Save button)
+
+  // [impl:uuid:78f75ba0-c742-4c67-885b-6875b56af660] RbDiffEditor.updateSaveButtonState — R30.50 C2: the Save button now
+  // carries the dirty/saved indicator (migrated off the de-count '• modified'). GREEN ('✓ Saved') when _saved (clean since
+  // the last save); DEFAULT ('💾 Save') otherwise. Every dirty site (edCenter edit / addSide / removeLine / applyAllFromSide)
+  // sets _saved=false; a successful save() sets _saved=true. Called from renderMergeGutter + each mutation.
+  private updateSaveButtonState(): void {
+    const el = this.querySelector('.de-save') as HTMLButtonElement | null; if (!el) return;
+    el.classList.toggle('de-saved', this._saved);
+    el.textContent = this._saved ? '✓ Saved' : '💾 Save';
+    el.title = this._saved ? 'Saved — no unsaved changes' : 'Save merged Result (guarded: jumps to the next conflict if any remain)';
+  }
+
+  // [impl:uuid:b741580e-ecc8-4c7e-8657-019197cd5293] RbDiffEditor.saveOrJumpToConflict — R30.50 C1: GUARDED save. Save only
+  // actually writes when there are 0 open conflicts; if any remain, it instead JUMPS to the next UNRESOLVED conflict
+  // (filtered — guides the user to what still needs deciding) + a status hint, and does NOT save. When clean, save() runs
+  // (→ _saved=true → green). Distinct from the R30.35-B ✕ auto-jump (which walks ALL kinds); this one is unresolved-filtered.
+  async saveOrJumpToConflict(): Promise<void> {
+    const open = this.openChangeCount();
+    if (open > 0) { this.jumpToNextUnresolved(); this.status(`${open} open conflict${open === 1 ? '' : 's'} — resolve before saving`); return; }
+    await this.save(); // success → _saved=true + green (save() owns that)
+  }
+
+  // R30.50 C1 helper (re-added; R30.35-B removed it for the ✕ path which wants ANY-kind): jump forward to the next
+  // change that is still UNRESOLVED (filtered), wrapping. No marker — glue used only by saveOrJumpToConflict.
+  private jumpToNextUnresolved(): void {
+    const list = this.conflicts; if (!list.length || !this.edCenter) return;
+    for (let k = 1; k <= list.length; k++) {
+      const idx = (((this._jumpIdx + k) % list.length) + list.length) % list.length;
+      const c = list[idx];
+      if (!this.isResolved(c)) {
+        this._jumpIdx = idx; this._currentId = c.id;
+        this.edCenter.revealLineInCenter(c.span[0] + 1);
+        this.edCenter.setPosition({ lineNumber: c.span[0] + 1, column: 1 });
+        this.renderMergeGutter(); this.updateResolveButton();
+        return;
+      }
+    }
+  }
+
+  // [impl:uuid:288f469c-604c-4e03-bae2-01a43c735c76] RbDiffEditor.openApplyAllMenu — R30.50 B: 3-mode Apply-All popup (reuses
+  // overlay()). 'Non-conflicting only' = the KEPT applyAllNonConflicting (91c452ae, diff3 auto-merge); 'Local wins' / 'Repo
+  // wins' = applyAllFromSide → CENTER matches that whole file. Wired to the relabelled '✨ Apply All' toolbar button.
+  openApplyAllMenu(): void {
+    this.overlay('Apply All', [
+      { label: '✨ Non-conflicting only (auto-merge)', onPick: () => { this.applyAllNonConflicting(); this.closeOverlay(); } },
+      { label: '◀ All — Local wins (Result = Local)', onPick: () => { this.applyAllFromSide('left'); this.closeOverlay(); } },
+      { label: 'All — Repository wins (Result = Repo) ▶', onPick: () => { this.applyAllFromSide('right'); this.closeOverlay(); } },
+    ]);
+  }
+
+  // [impl:uuid:6f5bd6a1-7eac-4907-8812-72101505c4ff] RbDiffEditor.applyAllFromSide — R30.50 B: auto-resolve EVERY change to
+  // one side so CENTER matches that whole file — side='left' → Local wins (include only Local per change), side='right' →
+  // Repo wins. Clears manual overrides + rebuilds center → all changes derive-resolved (openChangeCount→0). Marks dirty.
+  applyAllFromSide(side: 'left' | 'right'): void {
+    for (const c of this.conflicts) { c.incl.a = side === 'left'; c.incl.b = side === 'right'; this._override.delete(c.id); }
+    this.rebuildCenter();
+    this.dirty = true; this._saved = false;
+    this.updateResolveButton();
+    this.status(`applied all — ${side === 'left' ? 'Local' : 'Repository'} wins`);
   }
 
   // [impl:uuid:e3431e87-2312-4679-bd98-6258b43ce6f3] RbDiffEditor.syncScroll3
@@ -791,6 +857,7 @@ export class RbDiffEditor extends HTMLElement {
       if (res.status === 409) { this.status('save conflict — file changed on disk'); return; }
       if (!res.ok) { this.status(`save failed (${res.status})`); return; }
       this.dirty = false;
+      this._saved = true; this.updateSaveButtonState(); // R30.50 C2: successful save → Save button turns green
       this.status(`saved ${this.left.path}`);
     } catch { this.status('save error'); }
   }
