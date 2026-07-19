@@ -5,7 +5,8 @@
     "name": "RbDiffEditor.renderMergeGutter impl",
     "tests": [
       "ior:instance:8fa42d89-0e86-45c4-b88b-f0a978782da0",
-      "ior:instance:0866205d-5bb6-4dcb-8273-67b0b8843f9a"
+      "ior:instance:0866205d-5bb6-4dcb-8273-67b0b8843f9a",
+      "ior:instance:919d290d-e917-4cd1-a927-48470b582469"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-diff-editor.ts",
     "designAhead": false,

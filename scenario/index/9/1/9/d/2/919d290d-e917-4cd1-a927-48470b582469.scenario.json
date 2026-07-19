@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "919d290d-e917-4cd1-a927-48470b582469",
+    "name": "test:R30.52 toolbar layout (N-selected inline one-row, open-count between arrows)",
+    "description": "Bridged to r3052-toolbar-layout-gate.mjs (GREEN DET-3x v0.7.75, commit 3ec5b0e54 on origin). Verifies R30.52: 'N selected' renders INLINE on the same horizontal row as Apply All + nav (one row, not wrapped) via .de-selected; 'X/Y open conflicts' renders BETWEEN the down-nav and resolve controls as a non-clickable buffer via .de-open-count; both counts shown. Distinct R30.52-layout Test on renderMergeGutter e24dc98a alongside 8fa42d89 (structural) + 0866205d (R30.50-A, compose->split).",
+    "sourceFile": "ior:file:test/visual/r3052-toolbar-layout-gate.mjs",
+    "implementations": [
+      "ior:instance:e24dc98a-bbea-4e9b-9960-5f59db8bf6b1"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e24dc98a-bbea-4e9b-9960-5f59db8bf6b1"
+}

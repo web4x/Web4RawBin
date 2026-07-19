@@ -3,7 +3,7 @@
   "model": {
     "uuid": "0866205d-5bb6-4dcb-8273-67b0b8843f9a",
     "name": "test:R30.50 A change-number indicator compose ('N selected . X/Y open')",
-    "description": "Bridged to r3050-merge-actions-gate.mjs (GREEN v0.7.73, commit a4e85c971). Verifies R30.50 A intention on renderMergeGutter: pristine toolbar reads 'X/Y open conflicts' and after navigation reads 'N selected . X/Y open conflicts' (regex-exact) - the current nav change# composed WITH the kept open-conflict count (Tron ruling). 2nd distinct Test on e24dc98a alongside the structural gutter Test 8fa42d89.",
+    "description": "Bridged to r3050-merge-actions-gate.mjs (GREEN v0.7.73, commit a4e85c971). Verifies R30.50 A intention on renderMergeGutter: pristine toolbar reads 'X/Y open conflicts' and after navigation reads 'N selected . X/Y open conflicts' (regex-exact) - the current nav change# composed WITH the kept open-conflict count (Tron ruling). 2nd distinct Test on e24dc98a alongside the structural gutter Test 8fa42d89. [R30.52 note: the single composed string was SPLIT by R30.52 into .de-selected (inline) + .de-open-count (between the nav arrows); this Test's INTENTION (both counts shown) is PRESERVED, and the r3050 section-A assertion was retargeted to the split.]",
     "sourceFile": "ior:file:test/visual/r3050-merge-actions-gate.mjs",
     "implementations": [
       "ior:instance:e24dc98a-bbea-4e9b-9960-5f59db8bf6b1"
