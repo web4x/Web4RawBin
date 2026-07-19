@@ -5,7 +5,8 @@
 // method present in all 3 panes (MATCHED BY CONTENT/signature, not index — index-matching is exactly what the bug relies on);
 // (2) 0px downstream row-drift (getTopForLineNumber equal across L/C/R for a unique anchor line after an add-block). Measurable in
 // chromium (folding MODEL + layout getTopForLineNumber — engine-independent); pure codicon RENDER still → Tron's real WebKit device.
-// STATUS: expect RED on v0.7.78 (index-mirror desyncs) → GREEN when the mirror is re-keyed by content/signature. DET-3x.
+// STATUS: RED baseline v0.7.78 (1/19 initial + 3/19 toggle) → GREEN v0.7.79 (edit-6UCG6VBB.js): FIX-A split-floor
+// keepChangeMethodsExpanded classify-parity + FIX-B _mirrorFold by signature → initial 0/19 + toggle 0/19 + 0px drift. DET-3x.
 import { chromium, devices } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const DEEP = `${BASE}/edit/otmux?repo=oosh&left=mcdonges.latest&right=dev&3way=1`;
