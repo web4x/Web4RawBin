@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a0b24e6b-aa8b-4341-9f9d-ad158c5cb12e",
+    "name": "Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
+    "slug": "task-30.52-toolbar-misclick-relayout",
+    "description": "Re-layout the 3-way merge toolbar to prevent mis-clicks: 'N selected' moves to its OWN line directly under the '✨ Apply All' button (split from the compose), and the 'X/Y open conflicts' text moves DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls as a buffer. Both counts stay shown — repositioned, not removed.",
+    "intention": "S30 diff/merge editor — R30.52 toolbar mis-click re-layout (refines R30.50-A after closure-freeze).",
+    "context": "Covers R30.52 (989471e8, refinementOf R30.50 32abea56 — NEW req per closure-freeze, R30.50 closed) → UC merge.toolbarMisclickLayout dce46e2a → RbDiffEditor. IMPL-EDIT on renderMergeGutter e24dc98a (NO new Method/Impl — a layout edit on the existing gutter impl). Gate = screenshot+behavior (Tron-visual).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing (expert building — impl-edit renderMergeGutter e24dc98a)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "IN PROGRESS @ IMPLEMENTING (expert building now, PO green-lit). IMPL-EDIT on renderMergeGutter e24dc98a (no new Method/Impl — repositions 'N selected' + 'X/Y open' in the toolbar). refines R30.50-A (closure-freeze → new req R30.52). On tester gate → QA-Review. Gate = screenshot+behavior at Tron viewport.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:989471e8-c5f0-44fc-831f-4b1d1ad55d0c]`\n  - refines\n    - R30.50 (32abea56) toolbar-A — mis-click re-layout, new req per closure-freeze\n  - impl-edit\n    - renderMergeGutter e24dc98a (existing impl, no new Method/Impl)\n  - down\n    - [UC](./planning.md) `[uc:uuid:dce46e2a-c341-4251-be26-40497877e407]`",
+    "acceptanceCriteria": "- [ ] 'N selected' stays on its OWN line directly under the 'Apply All' button (split from the compose).\n- [ ] The 'X/Y open conflicts' text is MOVED DOWN to render BETWEEN the ▼ (down-nav) and ✓ (resolve) controls, as a NON-CLICKABLE buffer above ✓ (so a ▼ mis-click does not hit ✓).\n- [ ] Both counts (N selected + X/Y open conflicts) are still shown - repositioned, not removed.\n- [ ] GATE (screenshot+behavior): 'N selected' on its own line under Apply All; 'X/Y open conflicts' between ▼ and ✓ as a non-clickable buffer; both counts visible; ▼ and ✓ no longer adjacent.",
+    "subtasks": "None (atomic task).",
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
+    ],
+    "useCases": [
+      "ior:instance:dce46e2a-c341-4251-be26-40497877e407"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19",
+    "focus": true
+  }
+}

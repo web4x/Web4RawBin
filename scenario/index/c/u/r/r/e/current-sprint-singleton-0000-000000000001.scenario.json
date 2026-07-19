@@ -2,43 +2,38 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 30.51: Changes-focused code-folding in the 3-way merge editors",
+    "name": "Current: Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
     "chain": {
-      "req": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2",
-      "uc": "5dedb343-9457-4f02-bbc6-023f8fe42c78",
+      "req": "989471e8-c5f0-44fc-831f-4b1d1ad55d0c",
+      "uc": "dce46e2a-c341-4251-be26-40497877e407",
       "class": "18165081-16d4-4b3b-9e9f-047f304d5886",
-      "method": "2865493c-bac0-43dd-9b9f-12d81d899a3d",
-      "impl": "2d7a0103-9ffb-4c1a-bcd9-16114a174719",
-      "test": ""
+      "method": "e5540621-6e90-4553-aa56-2d17d68b0e57",
+      "impl": "e24dc98a-bbea-4e9b-9960-5f59db8bf6b1",
+      "test": "8fa42d89-0e86-45c4-b88b-f0a978782da0"
     },
-    "activeHop": 5,
+    "activeHop": 2,
     "sprintName": "Sprint 30",
-    "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
+    "taskName": "Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:05:30.169Z"
+        "updatedAt": "2026-07-19T17:21:37.604Z"
       },
       "uc": {
         "status": "done",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:05:30.973Z"
-      },
-      "method": {
-        "status": "pending",
-        "owner": "planner",
-        "updatedAt": "2026-07-19T17:06:06.912Z"
+        "updatedAt": "2026-07-19T17:21:38.468Z"
       },
       "impl": {
-        "status": "pending",
+        "status": "in-progress",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:06:07.828Z"
+        "updatedAt": "2026-07-19T17:21:39.281Z"
       },
       "test": {
         "status": "pending",
         "owner": "planner",
-        "updatedAt": "2026-07-19T17:06:08.638Z"
+        "updatedAt": "2026-07-19T17:21:40.091Z"
       }
     },
     "nextBacklogOverride": "06623fea-ad42-4635-8b7e-bef5f216462f",
@@ -47,9 +42,9 @@
     "lastCompletedReqUuid": "",
     "slots": {
       "current": {
-        "taskUuid": "4165a551-b7e0-4f43-b053-a70ef4c78c6c",
-        "taskName": "Task 30.51: Changes-focused code-folding in the 3-way merge editors",
-        "reqUuid": "41a6ab2c-90ce-49cf-b975-ceae469e6ea2"
+        "taskUuid": "a0b24e6b-aa8b-4341-9f9d-ad158c5cb12e",
+        "taskName": "Task 30.52: 3-way merge toolbar re-layout — mis-click prevention ('N selected' own line, 'X/Y open' buffer)",
+        "reqUuid": "989471e8-c5f0-44fc-831f-4b1d1ad55d0c"
       },
       "lastCompleted": {
         "taskUuid": "97c00946-a4aa-4ae1-9b8b-3bfec89b7fbd",
