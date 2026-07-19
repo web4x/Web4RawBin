@@ -336,6 +336,7 @@ export class RbDiffEditor extends HTMLElement {
   async syncNativeFold(): Promise<void> {
     if (!this.monaco || !this.edCenter || this._foldSyncing) return;
     const specs: Array<['local' | 'center' | 'remote', any]> = [['local', this.edLocal], ['center', this.edCenter], ['remote', this.edRemote]];
+    const anchor0 = specs.map(([, ed]) => ed?.getVisibleRanges?.()?.[0]?.startLineNumber ?? 1); // R30.53 scroll-stable (architect): capture the TOP VISIBLE LINE (fold-stable), not raw scrollTop px; the updateOptions(folding) toggle + collapse-all-on-open otherwise jumps to line 1
     this._foldSyncing = true;
     try {
       // Monaco computes the provider's fold ranges ASYNC (after register + content); poll ~2.5s until regions exist,
@@ -361,6 +362,7 @@ export class RbDiffEditor extends HTMLElement {
         fm.onDidChange(() => { if (this._foldSyncing) return; void this._mirrorFold(side); });
       }
     }
+    requestAnimationFrame(() => { this._foldSyncing = true; specs.forEach(([, ed], i) => { if (ed?.getTopForLineNumber && ed?.setScrollTop) ed.setScrollTop(ed.getTopForLineNumber(anchor0[i])); }); setTimeout(() => { this._foldSyncing = false; }, 30); }); // R30.53 scroll-stable: restore by fold-aware top-anchor-line, guarded so syncScroll3 doesn't ping-pong the 3-way locked scroll
     this.renderInterPaneGutters(); this.renderConnectorRibbons();
   }
 
@@ -370,6 +372,9 @@ export class RbDiffEditor extends HTMLElement {
   private async _mirrorFold(src: 'local' | 'center' | 'remote'): Promise<void> {
     if (this._foldSyncing) return;
     const specs: Record<string, any> = { local: this.edLocal, center: this.edCenter, remote: this.edRemote };
+    // R30.53 scroll-stable (architect): capture the TOP VISIBLE LINE per editor (not raw scrollTop px — folding changes the
+    // line→pixel map, so px drifts; anchor-line is stable). Restore via getTopForLineNumber (fold-aware) after settle.
+    const anchor: Record<string, number> = { local: this.edLocal?.getVisibleRanges?.()?.[0]?.startLineNumber ?? 1, center: this.edCenter?.getVisibleRanges?.()?.[0]?.startLineNumber ?? 1, remote: this.edRemote?.getVisibleRanges?.()?.[0]?.startLineNumber ?? 1 };
     const srcEd = specs[src]; if (!srcEd) return;
     const srcFm = await this._foldingModel(srcEd); if (!srcFm?.getRegionAtLine) return;
     const srcRanges = this.computeMethodRanges(srcEd.getModel());
@@ -387,6 +392,7 @@ export class RbDiffEditor extends HTMLElement {
         }
       }
     } finally { setTimeout(() => { this._foldSyncing = false; }, 60); } // delayed reset: swallow the async onDidChange the mirrored fold/unfold fires (else it re-mirrors → loop)
+    requestAnimationFrame(() => { for (const k of ['local', 'center', 'remote'] as const) { const ed = specs[k]; if (ed?.getTopForLineNumber && ed?.setScrollTop) ed.setScrollTop(ed.getTopForLineNumber(anchor[k])); } }); // R30.53 scroll-stable: restore by fold-aware top-anchor-line (still inside the _foldSyncing window → syncScroll3 won't ping-pong)
     this.renderInterPaneGutters(); this.renderConnectorRibbons();
   }
 
@@ -906,7 +912,7 @@ export class RbDiffEditor extends HTMLElement {
     let syncing = false;
     for (const src of eds) {
       src.onDidScrollChange((e: any) => {
-        if (syncing) return;
+        if (syncing || this._foldSyncing) return; // R30.53 scroll-stable: don't propagate a FOLD-induced scroll across panes (would jump to line 1); the fold path restores scroll itself
         syncing = true;
         for (const dst of eds) if (dst !== src) dst.setScrollTop(e.scrollTop);
         syncing = false;
