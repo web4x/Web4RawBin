@@ -2,9 +2,9 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "b4f03947-4496-48b0-9ee1-83f17e0f8d79",
-    "name": "ProfileEditor.renderFeatureGrants",
-    "description": "Render the per-user Feature-access section at the profile bottom; the Server Manager entry is shown only when GET /api/server-manager/whoami returns 200 for the viewing token (server-proven, NOT UI-hidden; non-owner 403 -> absent). R31.1. BUILT v0.7.84 (ProfileEditor.ts:95). NOTE: design/UC proposed class RbProfileView; expert built into existing ProfileEditor — unit name aligned to built reality (UUID unchanged, UC pointer intact).",
-    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "name": "ProfilePage.renderFeatureGrants",
+    "description": "Render the per-user Feature-access section at the BOTTOM of the read-only /profile page; Server Manager entry shown only on GET /api/server-manager/whoami 200 (server-proven, non-owner 403 -> absent, NOT UI-hidden). R31.1. BUILT v0.7.86 (server.ts:874). MOVED from ProfileEditor (edit overlay) to the /profile viewer per Tron placement bug. NOTE: design/UC proposed RbProfileView; final built site = server /profile render (UUID unchanged, UC pointer intact).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
       "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
     ],
