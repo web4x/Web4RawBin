@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.7.92';
+const CACHE_NAME = 'rawbin-v0.7.93';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -13,7 +13,7 @@ const STATIC_SHELL = [
   '/dist/trace-page-6NGXWVY5.js',
   '/scenario',
   '/dist/scenario-view-YCVUT64P.js',
-  '/dist/app-ZB5GGNUK.js',
+  '/dist/app-47KRKULH.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -74,7 +74,7 @@ self.addEventListener('fetch', (event) => {
 function navigationStrategy(request, url) {
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/md/')) return networkFirst(request);
   if (request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.startsWith('/dist/')
-      || ['/app', '/edit', '/trace', '/scenario'].includes(url.pathname)) return networkFirst(request);
+      || ['/app', '/edit', '/trace', '/scenario', '/server-manager', '/profile'].includes(url.pathname)) return networkFirst(request);
   return cacheFirst(request); // icons/css/other immutable static — fast; still refreshed via networkFirst's cache.put elsewhere
 }
 
