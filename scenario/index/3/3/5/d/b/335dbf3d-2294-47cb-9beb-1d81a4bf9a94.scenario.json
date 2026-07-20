@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "335dbf3d-2294-47cb-9beb-1d81a4bf9a94",
+    "name": "ServerManagerGuard.assertOwner impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.83 (commit 196917b4c): ServerManagerGuard.assertOwner @ src/ts/server/ServerManagerGuard.ts:26 — the SINGLE shared server-side owner-gate. OWNER_TOKEN literal lives ONLY at ServerManagerGuard.ts:12 (INV-G2==1); constant-time timingSafeEqual; fail-closed (rejects missing/unknown/non-live/redirected token). server.ts thin-wraps it for every /api/server-manager/* route (prefix choke-point, INV-G1) + the terminal ws upgrade (socket.destroy w/o handleUpgrade, INV-G3). Backstop PASS static+live (v0.7.82: non-owner 403 incl nonexistent sub-route). R31.2. Marker [impl:uuid:335dbf3d-2294-47cb-9beb-1d81a4bf9a94] to be placed on assertOwner by expert."
+  },
+  "ownerIor": "ior:instance:8bb1842f-1ced-4216-a391-f4ee5465e19c"
+}
