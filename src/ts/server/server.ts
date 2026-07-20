@@ -26,6 +26,7 @@ import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
+import { OtmuxBridge } from './OtmuxBridge.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
@@ -809,6 +810,60 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
   return false;
 }
 
+// R31.3 owner-only Server-Manager PAGE shell (served ONLY after requireOwnerHttp passes — 6th AC). Static HTML +
+// inline renderer that fetches the owner-gated /api/server-manager/tree (x-player-token header) and draws the
+// sessions→windows→panes tree. Token comes from ?token= (browser nav) or localStorage. No backticks/${} inside.
+const SERVER_MANAGER_PAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Server Manager</title><style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
+header{padding:12px 16px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
+h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+.session{margin:12px 16px;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+.session>.hd{background:#161b22;padding:8px 12px;font-weight:600}
+.window{padding:6px 12px 6px 24px;border-top:1px solid #21262d}
+.pane{padding:4px 12px 4px 40px;font-size:.85rem;display:flex;gap:8px;align-items:center}
+.pid{color:#58a6ff;font-family:monospace}.active{color:#3fb950}.title{opacity:.8}
+#err{color:#f85149;padding:12px 16px}
+</style></head><body>
+<header><h1>&#128421;&#65039; Server Manager &mdash; otmux tree</h1><button id="refresh">Refresh</button></header>
+<div id="tree"></div><div id="err"></div>
+<script>
+(function(){
+  var qp=new URLSearchParams(location.search);
+  var token=qp.get('token')||localStorage.getItem('rawbin-player-id')||'';
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function render(sessions){
+    var t=document.getElementById('tree');t.innerHTML='';
+    if(!sessions.length){t.innerHTML='<p style="padding:16px;opacity:.6">No tmux sessions.</p>';return;}
+    sessions.forEach(function(s){
+      var sd=document.createElement('div');sd.className='session';
+      sd.innerHTML='<div class="hd">'+esc(s.name)+'</div>';
+      (s.windows||[]).forEach(function(w){
+        var wd=document.createElement('div');wd.className='window';
+        wd.innerHTML='<span'+(w.active?' class="active"':'')+'>'+esc(w.index)+': '+esc(w.name)+'</span>';
+        (w.panes||[]).forEach(function(p){
+          var pd=document.createElement('div');pd.className='pane';
+          pd.innerHTML='<span class="pid'+(p.active?' active':'')+'">'+esc(p.paneId)+'</span><span>'+esc(p.label)+'</span><span class="title">'+esc(p.title)+'</span>';
+          wd.appendChild(pd);
+        });
+        sd.appendChild(wd);
+      });
+      t.appendChild(sd);
+    });
+  }
+  function load(){
+    document.getElementById('err').textContent='';
+    fetch('/api/server-manager/tree',{headers:{'x-player-token':token}}).then(function(r){
+      if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
+    }).then(function(d){render(d.sessions||[]);}).catch(function(e){
+      document.getElementById('err').textContent='Failed to load tree: '+e.message;
+    });
+  }
+  document.getElementById('refresh').addEventListener('click',load);
+  load();
+})();
+</script></body></html>`;
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
@@ -826,7 +881,25 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.end(JSON.stringify({ ok: true, owner: true, token8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8) }));
         return;
       }
+      if (req.method === 'GET' && filepath === '/api/server-manager/tree') { // R31.3 read-only otmux tree (sessions→windows→panes)
+        const sessions = await OtmuxBridge.readSessionTree();
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, sessions }));
+        return;
+      }
       res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"not-found"}');
+      return;
+    }
+
+    // R31.3 /server-manager PAGE route — gated SERVER-SIDE by the SAME assertOwner guard (6th AC): a non-owner gets
+    // 403 and NEVER receives the page shell (defense beyond hiding the R31.1 grant). Browser navigation can't set
+    // headers, so the owner presents the token via ?token= (or x-player-token); the shell then fetches the
+    // owner-gated /api/server-manager/tree. NOTE (flagged): ?token= puts the owner token in the URL — R31.4-era
+    // hardening should move this to the single-use ticket / a cookie (design B1).
+    if (req.method === 'GET' && filepath === '/server-manager') {
+      if (!requireOwnerHttp(req, res)) return;
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      res.end(SERVER_MANAGER_PAGE);
       return;
     }
 

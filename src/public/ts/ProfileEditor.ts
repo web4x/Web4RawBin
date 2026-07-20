@@ -96,7 +96,7 @@ export class ProfileEditor {
     const grants: Array<{ icon: string; label: string; href: string }> = [];
     try {
       const res = await fetch('/api/server-manager/whoami', { headers: { 'x-player-token': this.client.playerToken } });
-      if (res.ok) grants.push({ icon: '🖥️', label: 'Server Manager', href: '/server-manager' }); // owner-only, proven by 200
+      if (res.ok) grants.push({ icon: '🖥️', label: 'Server Manager', href: '/server-manager?token=' + encodeURIComponent(this.client.playerToken) }); // owner-only (proven by 200); token authenticates the gated page route on browser nav (R31.3)
     } catch { /* pre-restart / offline → fail-closed, no grant */ }
     host.innerHTML = grants.length
       ? `<div class="profile-grants-title" style="margin-top:16px;font-size:0.8rem;opacity:0.6;text-transform:uppercase;letter-spacing:0.5px">Feature access</div>`
