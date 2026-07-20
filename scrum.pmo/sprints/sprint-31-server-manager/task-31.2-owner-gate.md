@@ -11,10 +11,10 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [x] implementing
-  - [x] testing
-- [x] QA Review
-- [x] Done
+  - [~] implementing
+  - [~] testing
+- [ ] QA Review
+- [ ] Done
 
 ## Remaining Issues
 
