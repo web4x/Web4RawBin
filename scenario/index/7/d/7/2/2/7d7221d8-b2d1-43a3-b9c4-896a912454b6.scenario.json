@@ -5,7 +5,9 @@
     "name": "OtmuxBridge.readSessionTree",
     "description": "execFile('tmux',['list-panes','-a','-F', ...]) (args array, no shell — injection-safe), parse into nested sessions/windows/panes JSON with pane_id + human label session:win.pane so the owner IDs the agent pane. Read-only, never mutates tmux; refreshable via re-call. Owner-gated (R31.2). R31.3. Design-ahead, no impl yet.",
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
