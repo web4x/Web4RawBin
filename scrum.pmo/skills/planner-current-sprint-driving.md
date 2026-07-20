@@ -16,7 +16,9 @@ CurrentSprint maintains 3 task slots, always synced to disk:
 
 `pinCurrent()` returns all 3 slots + chain state. `/trace` renders the 3-slot pin.
 
-## Full drive API — `npx tsx scripts/planner-drive.ts <verb> [args]`
+## Full drive API — `node scripts/drive.mjs <verb> [args]`
+
+> Launcher `scripts/drive.mjs` (#102) self-heals to node18+, so it runs from ANY default node (the old `npx tsx scripts/planner-drive.ts` broke on default node16).
 
 **CRITICAL: all uuid arguments require the FULL 36-character uuid.**
 A short 8-char prefix returns a MISLEADING "BLOCKED: gate not proven" even when the

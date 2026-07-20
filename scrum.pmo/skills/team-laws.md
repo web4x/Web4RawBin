@@ -57,7 +57,7 @@ Tron hasn't signalled. gate-proven + QA ≠ Tron-done if a visible gap remains.
 
 ## L9. SWITCH ONLY WHEN TEST-GATE-PROVEN + PER-AGENT SELF-MARK HOPS (#102)
 setFocus BLOCKED unless test = gate-proven. Each agent marks THEIR hop in realtime
-via `planner-drive.ts hop <hop> <status>`. WIP=1 = proven-or-stay. --force = escape hatch.
+via `node scripts/drive.mjs hop <hop> <status>`. WIP=1 = proven-or-stay. --force = escape hatch.
 - **Skills:** realtime-traceability.md (hopUpdate, isGateProven, setFocus gate),
   planner-current-sprint-driving.md (focus/hop/gate verbs)
 
