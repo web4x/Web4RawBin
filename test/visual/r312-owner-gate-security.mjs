@@ -87,7 +87,7 @@ async function browserChecks() {
 }
 
 // PHANTOM-GUARD: I verify served==target MYSELF before gating (never certify served!=HEAD).
-const TARGET_VERSION = '0.7.92';
+const TARGET_VERSION = '0.7.101'; // R31.2 AC-cookie-only fix (playerTokenFrom header-only, 730b57e2f)
 const cfg = await httpGet('/api/config');
 let servedVersion = null; try { servedVersion = JSON.parse(cfg.body).version; } catch { /* noop */ }
 if (servedVersion !== TARGET_VERSION) {
@@ -117,6 +117,12 @@ for (let i = 1; i <= 3; i++) {
   }
   const routesAll403 = routeRej.every(([, s]) => s === 403);
 
+  // [test:uuid:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb] R31.2 cookie-only ?token=->403 — query-auth grants NO auth:
+  // resolveOwner reads the sm_session cookie + x-player-token header ONLY (the :917 ?token= fallback was removed).
+  // GET /server-manager?token=<OWNER literal>, NO cookie / NO header → 403 AND the body must NOT leak the page shell.
+  const qtok = await httpGet(`/server-manager?token=${OWNER}`, {});
+  const queryAuthRejected = qtok.status === 403 && !/server manager|sessions|<script|<div id="sm/i.test(qtok.body);
+
   // (4) ws INV-G3 — non-owner upgrade rejected, socket never opens
   const wsNo = await wsProbe({});
   const wsUnknown = await wsProbe({ 'x-player-token': UNKNOWN });
@@ -137,9 +143,9 @@ for (let i = 1; i <= 3; i++) {
   const sessLit = await postSessionNoToken({ 'x-player-token': OWNER });   // leaked owner literal, not live → still no cookie
   const cookieGuard = sess.status === 403 && !sess.setCookie && sessLit.status === 403 && !sessLit.setCookie;
 
-  const pass = httpAll403 && servedConfirm && routesAll403 && neverShell && wsNeverOpens && wsRejected && invG2ok && uiAll403 && cookieGuard;
+  const pass = httpAll403 && servedConfirm && routesAll403 && neverShell && wsNeverOpens && wsRejected && invG2ok && uiAll403 && cookieGuard && queryAuthRejected;
   results.push(pass);
-  console.log(`iter ${i}: httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] neverShell=${neverShell} wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403}(own=${b.withOwnHeader} none=${b.noHeader} lit=${b.withOwnerLiteral}) cookieGuard=${cookieGuard}(sess=${sess.status}/cookie=${!!sess.setCookie} lit=${sessLit.status}) => ${pass ? 'GREEN' : 'RED'}`);
+  console.log(`iter ${i}: httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] neverShell=${neverShell} wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403} cookieGuard=${cookieGuard}(sess=${sess.status} lit=${sessLit.status}) queryAuth403(b0ee7dc6)=${queryAuthRejected}(${qtok.status}) => ${pass ? 'GREEN' : 'RED'}`);
 }
 
 console.log('\n===== R31.2 owner-gate security (REJECT foundation, DET-3x) =====');
