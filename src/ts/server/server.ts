@@ -837,17 +837,15 @@ function serverManagerPage(): string {
   const termCss = getBundleScript('server-manager.css', 'server-manager.css'); // R31.4: bundled xterm.css for the terminal overlay
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Server Manager</title><link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="${termCss}"><style>
-body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
+/* R31.4 ITEM1: SM-page-local viewport flex column so the shared .trace-page fills below the natural-height header (the SM header != /trace's 44px pageNav, so the shared calc(100vh-44px) is wrong here). Positioning-only; touches NO shared rule. */
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
 header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
 h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
-#sm-tree{display:block;padding:8px 12px}
+.trace-page{height:auto;flex:1;min-height:0}
 #err{color:#f85149;padding:12px 16px}
-.sm-term-overlay{position:fixed;inset:0;background:#000;color:#e6edf3;display:flex;flex-direction:column;z-index:1000}
-.sm-term-overlay .bar{display:flex;align-items:center;gap:12px;padding:max(env(safe-area-inset-top),10px) 14px 10px;background:#161b22;border-bottom:1px solid #30363d}
-.sm-term-overlay .body{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;opacity:.8;font-family:monospace}
 </style></head><body>
 <header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128421;&#65039; Server Manager &mdash; otmux tree</h1><button id="refresh">Refresh</button></header>
-<rb-trace-tree id="sm-tree" data-always-expanded></rb-trace-tree><div id="err"></div>
+<div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="sm-tree"></rb-trace-tree><div id="err"></div></div></div>
 <script type="module" src="${script}"></script></body></html>`;
 }
 
@@ -906,7 +904,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
         // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
         const roots = sessions.map((s) => ({
-          uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name,
+          // R31.3 badge-via-references: session carries hasChildren too (windows/panes already do) — parity with the
+          // scenario tree so the chevron/count is deterministic (client stamps dataset.childRefCount from children.length).
+          uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
           children: s.windows.map((w) => ({
             // R31.3: real window label 'window N' (NOT the active-command placebo w.name) + explicit hasChildren
             // (belt-and-suspenders; the client also derives the chevron from children.length).

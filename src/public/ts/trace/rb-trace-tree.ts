@@ -35,7 +35,7 @@ const LS_KEY = 'rawbin-trace-expanded';
 // R31.3: RECURSIVE N-level itemView node (was ~2-level: child had no nested `children`). children?:TreeNode[] at
 // EVERY depth → windows/panes (and any deep chain) are first-class. Backward-compat: a 2-level /trace payload just
 // omits deeper `children` (hasChildren still drives lazy API fetch). Chevron per (children.length || hasChildren).
-type TreeNode = { uuid: string; type: string; name: string; description?: string; hasChildren?: boolean; children?: TreeNode[]; chainMethod?: { uuid: string; type: string; name: string }; status?: string };
+type TreeNode = { uuid: string; type: string; name: string; description?: string; hasChildren?: boolean; children?: TreeNode[]; childCount?: number; chainMethod?: { uuid: string; type: string; name: string }; status?: string };
 
 export class RbTraceTree extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -45,8 +45,8 @@ export class RbTraceTree extends HTMLElement {
   private pendingReveal: string | null = null;
   private prefetchCache = new Map<string, any[]>();
   private prefetchInFlight = new Set<string>();
-  // R30.2: eager child-count from server metadata (badge shows real count before children load; structure+count eager / payload lazy)
-  private nodeChildCount = new Map<string, number>();
+  // R31.3 BADGE-via-REFERENCES: the eager nodeChildCount side-map is RETIRED — the badge count now lives on each
+  // node's dataset.childRefCount (an array length stamped at build), so there is no colon-keyed map to diverge.
   private _items: TreeNode[] | null = null;
   private _seedRafId = 0;
   private _seedAbort: AbortController | null = null;
@@ -249,7 +249,8 @@ export class RbTraceTree extends HTMLElement {
     const row = document.createElement('div');
     row.className = 'tt-row';
     const item = document.createElement('rb-object-item') as any;
-    const nodeCount = this.nodeChildCount.get(refUuid(ref)) || 0; // R31.3 BADGE: eager server child-count for the /trace graph path
+    const nodeCount = childRefs.length; // R31.3 BADGE-via-REFERENCES: the count IS the child-reference array length (obj.children) — the scenario tree's native pattern; stamp it on the node like buildSeedNode
+    node.dataset.childRefCount = String(nodeCount);
     item.data = { ref, type: obj ? obj.type : ref.split(':')[0], title: obj ? obj.title : ref, ...(obj?.title ? { description: obj.title } : {}), ...(obj?.status ? { status: obj.status } : {}), ...(hasChildren ? { 'has-children': '' } : {}), ...(hasChildren && nodeCount ? { 'child-count': String(nodeCount) } : {}), ...(hasChildren && isOpen ? { 'children-open': '' } : {}) };
     if (this.brokenUuids.has(refUuid(ref))) {
       const warn = document.createElement('span');
@@ -322,7 +323,7 @@ export class RbTraceTree extends HTMLElement {
   // settle). Each direct child is itself collapsed with its own chevron. Backward-compat with /trace: an API-backed
   // node (no inline children, hasChildren:true) still lazy-fetches on open. data-always-expanded/shouldStartOpen/
   // persisted-expanded drive initial open state per level.
-  private buildSeedNode(uuid: string, type: string, name: string, children: TreeNode[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean, status?: string): HTMLElement {
+  private buildSeedNode(uuid: string, type: string, name: string, children: TreeNode[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean, status?: string, serverChildCount?: number): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -332,14 +333,12 @@ export class RbTraceTree extends HTMLElement {
     const showExpander = children.length > 0 || hasChildren === true;
     const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
     const forceOpen = this.hasAttribute('data-always-expanded');
-    // R31.3 BADGE fix: thread child-count (inline children.length, else eager server metadata nodeChildCount) so the
-    // rb-object-item badge shows the real N BEFORE the layer is lazily built (was 0 — has-children set but no count).
-    const childCount = (children && children.length) || this.nodeChildCount.get(uuid) || 0;
-    // SESSION-BADGE fix: record THIS node's OWN inline count in nodeChildCount (roots/sessions too — was only done for
-    // a node's children at :355, so root sessions had no entry → computeBadges' eager lookup overwrote the badge to 0
-    // once collapsed). Guarded by !has so an authoritative server childCount (prefetch / :413 / :560) still wins.
-    if (children && children.length && !this.nodeChildCount.has(uuid)) this.nodeChildCount.set(uuid, children.length);
-    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(showExpander && childCount ? { 'child-count': String(childCount) } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
+    // R31.3 BADGE-via-REFERENCES: the badge SOURCE OF TRUTH is the node's own child-REFERENCE count (an array length,
+    // NOT a colon-keyed side map) — stamp it on the node element. Inline children → children.length; else an API-lazy
+    // node uses the server's per-node count. NO nodeChildCount map, NO refUuid/split — colon-immune by construction.
+    const childRefCount = (children && children.length) || (hasChildren ? (serverChildCount ?? '') : 0);
+    node.dataset.childRefCount = String(childRefCount);
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(showExpander && childRefCount ? { 'child-count': String(childRefCount) } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
@@ -356,13 +355,12 @@ export class RbTraceTree extends HTMLElement {
       // chevron (recursively storing ITS inline children) → N levels reveal one layer per expand. Record child counts
       // so badges show real numbers before a layer is built.
       const inlineKids = children || [];
-      inlineKids.forEach(c => { if (c.children && c.children.length) this.nodeChildCount.set(c.uuid, c.children.length); });
       let loaded = false;
       const buildDirectLayer = (): void => {
         if (loaded) return; loaded = true;
         for (const child of inlineKids) {
           const gk = child.children || [];
-          kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, gk, gk.length > 0 || child.hasChildren === true, new Set(branchPath), child.chainMethod, child.description, alwaysExpanded, child.status));
+          kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, gk, gk.length > 0 || child.hasChildren === true, new Set(branchPath), child.chainMethod, child.description, alwaysExpanded, child.status, child.childCount)); // R31.3: pass the child's server count → stamped on ITS node (badge before its layer builds)
         }
       };
       if (startOpen && inlineKids.length) buildDirectLayer();
@@ -413,9 +411,9 @@ export class RbTraceTree extends HTMLElement {
     const csKids = slots.map(s => ({ uuid: s.uuid, type: s.type || 'Task', name: s.name, hasChildren: s.hasChildren !== false, status: s.status }));
     this.appendChild(this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true));
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
-    // R30.2: record each sprint's eager task-count so its badge shows the real number before its tasks lazy-load
-    sprints.forEach(sp => { if (typeof sp.childCount === 'number') this.nodeChildCount.set(sp.uuid, sp.childCount); });
-    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false }));
+    // R31.3 BADGE-via-REFERENCES: carry each sprint's server task-count as childCount → buildSeedNode stamps it on the
+    // node's dataset.childRefCount so the badge shows the real N before its tasks lazy-load (no nodeChildCount map).
+    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false, childCount: sp.childCount }));
     this.appendChild(this.buildSeedNode('sprints-collection-30-1', 'collection', `Sprints 01-${pad2(N)}`, spKids, true, undefined, undefined, undefined, false));
     this.computeBadges();
   }
@@ -507,23 +505,20 @@ export class RbTraceTree extends HTMLElement {
     if (m) this.revealNode(m[1]);
   };
 
+  // R31.3 BADGE-via-REFERENCES: badge = max(real built rows once a layer exists, the node's stamped child-REFERENCE
+  // count). The count lives on node.dataset.childRefCount (an array length stamped at build in buildSeedNode) — NO
+  // nodeChildCount map, NO refUuid/split(':'). Colon-immune by construction (session uuids like 'sess:NAME' no longer
+  // break the lookup). [R31.3: eagerChildCountBadges RETIRED — its Impl d28ee95a is now orphaned, req to retire it.]
+  // Marker for this method = 7e43dda4 (top of file).
   computeBadges(root?: HTMLElement): void {
     const scope = root || this;
     scope.querySelectorAll('rb-object-item[has-children]').forEach(item => {
-      const node = item.closest('.tt-node');
+      const node = item.closest('.tt-node') as HTMLElement | null;
       const children = node?.querySelector(':scope > .tt-children');
-      const count = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
-      const uuid = refUuid(item.getAttribute('ref') || ''); // SESSION-BADGE: a session ref is 'otmuxsession:sess:NAME' and the UUID itself ('sess:NAME') contains a colon → split(':')[1]='sess' MISSES the nodeChildCount key; refUuid slices after the FIRST colon = the full uuid
-      const cached = this.prefetchCache.get(uuid);
-      item.setAttribute('child-count', String(this.eagerChildCountBadges(uuid, count, cached?.length)));
+      const domCount = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
+      const refCount = Number(node?.dataset.childRefCount) || 0;
+      item.setAttribute('child-count', String(Math.max(domCount, refCount)));
     });
-  }
-
-  // [impl:uuid:d28ee95a-1135-4e1c-be50-fe2368614171] RbTraceTree.eagerChildCountBadges — R30.2 eager child-count badge (structure+count eager / payload lazy)
-  // R30.2: prefer the eager server childCount (known before children load) so the badge is never a false 0
-  private eagerChildCountBadges(uuid: string, domCount: number, cachedLen?: number): number {
-    const eager = this.nodeChildCount.get(uuid);
-    return domCount > 0 ? domCount : (cachedLen ?? eager ?? domCount);
   }
 
   private prefetchLayer(node: HTMLElement): Promise<void> {
@@ -533,7 +528,7 @@ export class RbTraceTree extends HTMLElement {
     this.prefetchInFlight.add(uuid);
     return fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); if (item) item.setAttribute('child-count', String((data.children || []).length)); } })
+      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); node.dataset.childRefCount = String((data.children || []).length); if (item) item.setAttribute('child-count', String((data.children || []).length)); } }) // R31.3: stamp the actual prefetched count on the node → computeBadges' single source
       .catch(() => {})
       .finally(() => this.prefetchInFlight.delete(uuid));
   }
@@ -560,9 +555,8 @@ export class RbTraceTree extends HTMLElement {
         children = data.children || [];
       }
       for (const child of children) {
-        // R30.2: record the child's eager count (level-by-level) so its badge is correct before ITS children load
-        if (typeof (child as any).childCount === 'number') this.nodeChildCount.set(child.uuid, (child as any).childCount);
-        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description, false, (child as any).status));
+        // R31.3 BADGE-via-REFERENCES: pass the child's server count → buildSeedNode stamps node.dataset.childRefCount (no map, level-by-level badge correct before ITS children load)
+        container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description, false, (child as any).status, (child as any).childCount));
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));

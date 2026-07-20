@@ -18,7 +18,9 @@ const tree = document.getElementById('sm-tree') as (HTMLElement & { items?: Root
 // R31.4 DRY: the shared default drawer renders the selected pane's terminal via the standard detail path. Created
 // here (client-only, no page-shell edit) so it's in the DOM to listen for selection-changed + render rb-terminal-detail.
 if (!document.getElementById('sm-drawer')) {
-  const d = document.createElement('rb-detail-drawer'); d.id = 'sm-drawer'; document.body.appendChild(d);
+  const d = document.createElement('rb-detail-drawer'); d.id = 'sm-drawer';
+  const host = document.querySelector('.trace-page') || document.body; // R31.4 ITEM1: flex child of .trace-page = /trace-identical bottom-drawer (portrait) / side Details panel (landscape) by shared CSS — positioning != function
+  host.appendChild(d);
 }
 
 async function load(): Promise<void> {
