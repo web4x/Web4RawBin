@@ -5,7 +5,9 @@
     "name": "RbTraceTree.buildSeedNode",
     "description": "Recursive N-level node builder for the shared rb-trace-tree (src/public/ts/trace/rb-trace-tree.ts:317). FIX (architect design): (a) recursive node type at EVERY depth; per-node chevron = hasChildren===true || (children?.length ?? 0) > 0, so WINDOW nodes get their own expand/collapse; (b) kill the eager recursion (the :339 self-call that explodes the whole subtree) — build ONLY the node + its chevron, STORE inline children on the element, defer child-build to onToggleChildren OPEN which builds ONE layer (each child collapsed with its own chevron). Correct initial collapsed state; window label != active-command placebo. Backward-compatible (children already optional) so /trace's 2-level trees still render. Design-ahead — expert points its impl here (marker on the buildSeedNode decl); NOT self-minted (#126). R31.3 render chain.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"

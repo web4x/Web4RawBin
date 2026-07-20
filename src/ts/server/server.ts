@@ -908,7 +908,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const roots = sessions.map((s) => ({
           uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name,
           children: s.windows.map((w) => ({
-            uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: w.index + ': ' + w.name,
+            // R31.3: real window label 'window N' (NOT the active-command placebo w.name) + explicit hasChildren
+            // (belt-and-suspenders; the client also derives the chevron from children.length).
+            uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: 'window ' + w.index, hasChildren: true,
             children: w.panes.map((p) => ({
               uuid: p.paneId, type: 'otmuxPane', name: p.label + (p.title ? '  —  ' + p.title : ''), hasChildren: false,
             })),

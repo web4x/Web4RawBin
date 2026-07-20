@@ -242,7 +242,12 @@ export class RbDetailDrawer extends HTMLElement {
   private _onClose: (() => void) | null = null;
   showElement(el: HTMLElement, opts?: { title?: string; onClose?: () => void }): void {
     if (this._onClose) { const prev = this._onClose; this._onClose = null; try { prev(); } catch { /* */ } } // teardown any previously-hosted content (e.g. switching panes)
-    const panel = this.detailPanel; if (!panel) return;
+    // R31.4 regression fix (v0.7.94→): a FRESH drawer (createElement+appendChild on /server-manager, where showElement
+    // is its FIRST interaction) may lack its chrome, and detailPanel (unlike body) does NOT lazy-render → showElement
+    // silently no-op'd → pane-tap did nothing. Ensure the structure + detail panel EXIST; NEVER silent-return.
+    if (!this.querySelector('.drawer-header')) this.render();
+    let panel = this.detailPanel;
+    if (!panel) { const body = this.body; panel = document.createElement('div'); panel.className = 'drawer-panel-detail'; body.appendChild(panel); }
     panel.innerHTML = '';
     panel.dataset.currentRef = '';
     this.setMode('detail');

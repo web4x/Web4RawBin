@@ -32,6 +32,11 @@ import { ViewBus } from './ViewBus.js';
 
 const LS_KEY = 'rawbin-trace-expanded';
 
+// R31.3: RECURSIVE N-level itemView node (was ~2-level: child had no nested `children`). children?:TreeNode[] at
+// EVERY depth → windows/panes (and any deep chain) are first-class. Backward-compat: a 2-level /trace payload just
+// omits deeper `children` (hasChildren still drives lazy API fetch). Chevron per (children.length || hasChildren).
+type TreeNode = { uuid: string; type: string; name: string; description?: string; hasChildren?: boolean; children?: TreeNode[]; chainMethod?: { uuid: string; type: string; name: string }; status?: string };
+
 export class RbTraceTree extends HTMLElement {
   graph: TraceGraph | null = null;
   brokenUuids = new Set<string>();
@@ -42,7 +47,7 @@ export class RbTraceTree extends HTMLElement {
   private prefetchInFlight = new Set<string>();
   // R30.2: eager child-count from server metadata (badge shows real count before children load; structure+count eager / payload lazy)
   private nodeChildCount = new Map<string, number>();
-  private _items: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[] | null = null;
+  private _items: TreeNode[] | null = null;
   private _seedRafId = 0;
   private _seedAbort: AbortController | null = null;
 
@@ -52,7 +57,7 @@ export class RbTraceTree extends HTMLElement {
   private get modeParam(): string { return this.mode === 'trace' ? '?mode=trace' : ''; }
 
   // [impl:uuid:c5b331a7-d844-4cea-a7a4-1e5eebceec37] R19.90 setItems (split)
-  set items(roots: { uuid: string; type: string; name: string; description?: string; children?: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean }[] }[]) {
+  set items(roots: TreeNode[]) {
     this._items = roots;
     if (this.isConnected) this.renderItems();
   }
@@ -171,7 +176,7 @@ export class RbTraceTree extends HTMLElement {
               const ci = cex.querySelector('rb-object-item') as any;
               if (ci) ci.data = { ref: cref, type: (child.type || 'task').toLowerCase(), title: child.name, ...(child.description ? { description: child.description } : {}) };
             } else {
-              kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, undefined, undefined, child.description));
+              kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, child.children || [], (child.children || []).length > 0 || child.hasChildren === true, undefined, undefined, child.description)); // R31.3: pass inline children (windows keep their panes + chevron on re-render)
             }
           }
           for (const [cr, cn] of existingChildren) { if (!wantedChildren.has(cr)) cn.remove(); }
@@ -180,12 +185,8 @@ export class RbTraceTree extends HTMLElement {
         console.log(`[renderItems] PATH-B(new) ref=${ref} children=${(root.children||[]).length}`);
         const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
         this.appendChild(node);
-        const item = node.querySelector('rb-object-item');
-        if (item && !item.hasAttribute('children-open')) {
-          item.setAttribute('children-open', '');
-          const kids = node.querySelector('.tt-children') as HTMLElement;
-          if (kids) kids.style.display = '';
-        }
+        // R31.3: NO force-open — roots start COLLAPSED (layer-by-layer); buildSeedNode opens a level only per
+        // data-always-expanded / persisted-expanded, so a fresh multi-level tree no longer explodes-then-settles.
       }
     }
     for (const [ref, n] of existingRoots) { if (!wantedRefs.has(ref)) n.remove(); }
@@ -314,7 +315,13 @@ export class RbTraceTree extends HTMLElement {
     } catch (e: any) { if (e?.name !== 'AbortError') { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; this._seedAbort = null; } }
   }
 
-  private buildSeedNode(uuid: string, type: string, name: string, children: { uuid: string; type: string; name: string; description?: string; hasChildren: boolean; chainMethod?: { uuid: string; type: string; name: string }; status?: string }[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean, status?: string): HTMLElement {
+  // [impl:uuid:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c] R31.3 RbTraceTree.buildSeedNode (Method 08ad3bdd, off UC 6b1132ce)
+  // N-LEVEL LAYER-BY-LAYER: build a node + expander from (children.length || hasChildren); STORE the inline children
+  // and build ONLY the direct child layer, lazily on first open (no eager grandchild recursion = kills explode-then-
+  // settle). Each direct child is itself collapsed with its own chevron. Backward-compat with /trace: an API-backed
+  // node (no inline children, hasChildren:true) still lazy-fetches on open. data-always-expanded/shouldStartOpen/
+  // persisted-expanded drive initial open state per level.
+  private buildSeedNode(uuid: string, type: string, name: string, children: TreeNode[], hasChildren?: boolean, ancestors?: Set<string>, chainMethod?: { uuid: string; type: string; name: string }, description?: string, shouldStartOpen?: boolean, status?: string): HTMLElement {
     const node = document.createElement('div');
     node.className = 'tt-node';
     if (ancestors && ancestors.has(uuid)) return node;
@@ -332,12 +339,25 @@ export class RbTraceTree extends HTMLElement {
       const kids = document.createElement('div');
       kids.className = 'tt-children';
       const alwaysExpanded = this.hasAttribute('data-always-expanded');
-      kids.style.display = (alwaysExpanded || shouldStartOpen) ? '' : 'none';
-      let loaded = children.length > 0;
+      // R31.3: per-level initial open = data-always-expanded OR caller shouldStartOpen OR persisted expanded-set.
+      const startOpen = alwaysExpanded || shouldStartOpen === true || this.expanded.has(itemRef);
+      kids.style.display = startOpen ? '' : 'none';
       const branchPath = new Set(ancestors || []); branchPath.add(uuid);
-      for (const child of children) {
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, (child as any).children || [], child.hasChildren, new Set(branchPath), (child as any).chainMethod, (child as any).description, shouldStartOpen, (child as any).status));
-      }
+      // R31.3 LAYER-BY-LAYER: STORE the inline children; build ONLY the DIRECT layer, and only when opened — NO eager
+      // grandchild recursion (killed the :339 explode-then-settle). Each direct child is itself collapsed with its own
+      // chevron (recursively storing ITS inline children) → N levels reveal one layer per expand. Record child counts
+      // so badges show real numbers before a layer is built.
+      const inlineKids = children || [];
+      inlineKids.forEach(c => { if (c.children && c.children.length) this.nodeChildCount.set(c.uuid, c.children.length); });
+      let loaded = false;
+      const buildDirectLayer = (): void => {
+        if (loaded) return; loaded = true;
+        for (const child of inlineKids) {
+          const gk = child.children || [];
+          kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, gk, gk.length > 0 || child.hasChildren === true, new Set(branchPath), child.chainMethod, child.description, alwaysExpanded, child.status));
+        }
+      };
+      if (startOpen && inlineKids.length) buildDirectLayer();
       node.appendChild(kids);
       item.addEventListener('toggle-children', ((e: CustomEvent) => {
         e.stopPropagation();
@@ -345,12 +365,9 @@ export class RbTraceTree extends HTMLElement {
         kids.style.display = open ? '' : 'none';
         this.toggleSeedExpanded(uuid, open);
         if (open && !loaded) {
-          loaded = true;
-          if (chainMethod) {
-            kids.appendChild(this.buildSeedNode(chainMethod.uuid, chainMethod.type, chainMethod.name, [], true, new Set(branchPath)));
-          } else {
-            this.fetchAndRenderChildren(uuid, kids, branchPath);
-          }
+          if (inlineKids.length) buildDirectLayer();                                   // inline data (e.g. server-manager) → build the direct layer
+          else if (chainMethod) { loaded = true; kids.appendChild(this.buildSeedNode(chainMethod.uuid, chainMethod.type, chainMethod.name, [], true, new Set(branchPath))); }
+          else { loaded = true; this.fetchAndRenderChildren(uuid, kids, branchPath); }  // API-backed (e.g. /trace deep layers) → lazy fetch
         }
         if (open) requestAnimationFrame(() => node.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
       }) as EventListener);

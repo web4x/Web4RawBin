@@ -76,6 +76,7 @@ function openTerminal(paneId: string): void {
 
 async function load(): Promise<void> {
   if (!tree) return;
+  tree.removeAttribute('data-always-expanded'); // R31.3: layer-by-layer collapsed-initial (the page-shell attr was exploding all 3 levels at once) — client-only, no page-shell/server edit
   if (err) err.textContent = '';
   try {
     const r = await fetch('/api/server-manager/tree', { credentials: 'same-origin' });
