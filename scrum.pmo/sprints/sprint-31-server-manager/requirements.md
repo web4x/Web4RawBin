@@ -65,6 +65,7 @@
   - [ ] **(functional)** Attaching a pane MUST NOT disrupt other viewers of that pane: the grouped/size-independent attach leaves Tron's other agents' view of the pane unchanged (no resize, no steal); detach cleans up the sm_ session.
   - [ ] **(functional)** The terminal is a FULL read-write INTERACTIVE ssh session BY DEFAULT - no read-only mode, no Take-Control gate (Tron correction 2026-07-20 of the earlier B4 read-only-default). Owner-gated by the sm_session COOKIE at the ws upgrade (browser auto-sends it same-origin; NO separate ticket), node-pty attach to the tmux pane, xterm.js mounted in the expanded default drawer; keystrokes reach the pane immediately from open.
   -> paneTerminal.attach [uc:uuid:fa1845d3-88e2-4c9b-9618-f427fc262b56]
+  -> paneTerminal.mount [uc:uuid:8f3bf119-ce4d-4d42-821c-f1b04d608768]
 
 - [ ] **R31.5 — Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)**
   [requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]

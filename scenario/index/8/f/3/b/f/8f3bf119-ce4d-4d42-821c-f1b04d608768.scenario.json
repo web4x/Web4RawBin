@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8f3bf119-ce4d-4d42-821c-f1b04d608768",
+  "name": "paneTerminal.mount",
+  "description": "Client-render counterpart of paneTerminal.attach (server PtyBridge.attachPane). RbTerminalDetail.mount renders the xterm.js terminal for the selected pane INSIDE the shared rb-detail-drawer detail flow (R31.4 DRY: same scroll / grab-bar / expand / minimize as /trace, showElement retired) and opens the ws to the owner-gated PtyBridge. SINGULAR-CHAIN decision (req-eng, #27/#38 one-class-one-method-per-UC): distinct from paneTerminal.attach fa1845d3, which is singular-bound to PtyBridge.attachPane 6fc43b8e (server) — so R31.4 has TWO UCs (server attach + client mount/render), like R31.3's data+render split. Expert set Class.ownerIor placeholder -> fa1845d3; req-eng re-pointed Class.ownerIor -> this UC and added the forward UC.class/UC.method binding.",
+  "class": "ior:instance:1d632082-f9a3-48f5-b944-e93c323217f7",
+  "method": "ior:instance:386cc4e4-7dfa-464d-8a5e-43f0ea7d69bd",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

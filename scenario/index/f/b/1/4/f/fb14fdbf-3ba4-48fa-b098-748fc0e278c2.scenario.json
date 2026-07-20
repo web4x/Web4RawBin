@@ -12,7 +12,8 @@
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
   "useCases": [
-   "ior:instance:fa1845d3-88e2-4c9b-9618-f427fc262b56"
+   "ior:instance:fa1845d3-88e2-4c9b-9618-f427fc262b56",
+   "ior:instance:8f3bf119-ce4d-4d42-821c-f1b04d608768"
   ],
   "unitLinks": [],
   "discoverySource": {
