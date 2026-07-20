@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b0ee7dc6-68a4-4908-b72f-594a5e6a3deb",
+    "name": "test:R31.2 cookie-only — ?token= URL grants NO auth (ServerManagerGuard.assertOwner)",
+    "description": "Bridged to test/visual/r312-owner-gate-security.mjs (line 120, DET-3x GREEN, served==HEAD==v0.7.101). Verifies R31.2 AC-cookie-only: GET /server-manager?token=<OWNER literal> with NO sm_session cookie and NO x-player-token header -> 403 AND the body does NOT leak the page shell. RED baseline proven non-vacuously at SOURCE: pre-fix ServerManagerGuard.playerTokenFrom (730b57e2f^) had q.get(token)||q.get(playerToken) query fallback = the leak; post-fix (730b57e2f) header-only. Marker b0ee7dc6 STAGED by req (PO-directed) + written+run by tester -> now minted. Proves the URL ?token= query-auth path grants no access = cookie-only enforced; guards a future ?token= regression. Chain: R31.2 req 5bc9683e -> UC 40802701 -> ServerManagerGuard.assertOwner -> Impl 335dbf3d -> this Test (alongside owner-gate Test 87b040ee).",
+    "sourceFile": "ior:file:test/visual/r312-owner-gate-security.mjs",
+    "implementations": [
+      "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94"
+}

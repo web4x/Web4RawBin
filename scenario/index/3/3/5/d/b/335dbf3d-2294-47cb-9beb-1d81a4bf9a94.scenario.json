@@ -4,7 +4,8 @@
     "uuid": "335dbf3d-2294-47cb-9beb-1d81a4bf9a94",
     "name": "ServerManagerGuard.assertOwner impl",
     "tests": [
-      "ior:instance:87b040ee-08b2-44ea-a832-52da08f1fef9"
+      "ior:instance:87b040ee-08b2-44ea-a832-52da08f1fef9",
+      "ior:instance:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb"
     ],
     "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
     "designAhead": false,

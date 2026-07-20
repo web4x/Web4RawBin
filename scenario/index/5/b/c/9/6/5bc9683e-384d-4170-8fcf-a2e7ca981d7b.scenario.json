@@ -65,10 +65,8 @@
     "coveredBy": [
      "ior:instance:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb"
     ],
-    "stagedTestMarker": "b0ee7dc6-68a4-4908-b72f-594a5e6a3deb",
-    "stagedNote": "Explicit /server-manager?token=<owner> -> 403 (+no shell leak) slice STAGED (marker b0ee7dc6). RED on current origin (query path authenticates), GREEN after the expert header-only fix — a proper regression gate for the fix (correct-by-construction).",
-    "closed": false,
-    "gapNote": "CORRECTION 2026-07-20 (PO/expert caught my miss): NOT code-complete. I measured resolveOwner (server.ts:817) but MISSED that ServerManagerGuard.playerTokenFrom (:19, origin) has its OWN query path — x-player-token header ELSE ?token/?playerToken QUERY — so a bare ?token=<owner> URL STILL AUTHENTICATES = real cookie-only violation. 87b040ee does NOT cover this (its 403-enum uses HEADER variants; a URL ?token= would authenticate, not 403). Expert building the 1-line header-only fix (drop the query fallback from playerTokenFrom). AC stays OPEN until: (1) expert fix lands (header-only), (2) tester ?token=->403 slice b0ee7dc6 GREEN (RED on current origin, GREEN post-fix). THEN req mints the slice Test onto Impl 335dbf3d + wires -> AC closes."
+    "closed": true,
+    "resolvedNote": "CLOSED 2026-07-20: expert header-only fix landed (730b57e2f, playerTokenFrom drops the ?token/?playerToken query fallback, header-only); tester slice b0ee7dc6 GREEN DET-3x @ served 0.7.101 (RED non-vacuous at source pre-fix). Slice Test b0ee7dc6 minted onto Impl 335dbf3d + wired. ?token= URL now grants no auth = cookie-only enforced."
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
@@ -87,7 +85,7 @@
    }
   ],
   "constructionInvariantsNote": "Architect INV-G1/INV-G2 (2026-07-20), pinned scenario-first (correct-by-construction): the expert EXTENDS the existing choke-point to cover both '/server-manager' + '/api/server-manager/*' via the one assertOwner guard, single OWNER_TOKEN literal. Architect verifies the choke-point extension when the expert ships the page. These back AC-shared-guard + AC-page-route; the tester asserts non-owner-403 on ALL surfaces (page + api + ws) against the single guard.",
-  "_r312DriveNote": "PO-resolved+CORRECTED 2026-07-20: AC-page-route WIRED->87b040ee (closed, genuinely covered). AC-cookie-only = REAL GAP (I missed playerTokenFrom:19 query path); expert header-only fix in flight; staged slice b0ee7dc6 verifies ?token=->403 post-fix; AC OPEN until fix+slice GREEN. R31.2 stays In-Progress until then."
+  "_r312DriveNote": "R31.2 RESOLVED 2026-07-20: AC-page-route covered by 87b040ee (closed); AC-cookie-only real-gap FIXED (730b57e2f header-only) + explicit slice b0ee7dc6 GREEN -> closed. Both ACs explicitly closed -> R31.2 returns to Done."
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
