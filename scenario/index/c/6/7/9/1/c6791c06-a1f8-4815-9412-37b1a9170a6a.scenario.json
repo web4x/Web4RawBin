@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c6791c06-a1f8-4815-9412-37b1a9170a6a",
+    "name": "test:R31.4 CLIENT terminal mounts in default drawer via /trace detail flow (RbTerminalDetail.mount)",
+    "description": "Bridged to test/visual/r316-select-open-flow-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.96, commit 4aa69927a). AC-SURFACE test (not static): route-intercepts the served /server-manager (whoami / tree / page 200 with real-shape roots otmuxSession->Window->Pane) so the REAL server-manager bundle runs, then ACTUALLY CLICKS a rendered pane node -> rb-terminal-detail MOUNTS in the DEFAULT #sm-drawer via the shared /trace detail flow (grab-bar / scroll / minimize identical, showElement fork retired = R31.4 DRY AC-dry-detail-flow), content LEFT-ALIGNED (AC-drawer-left-aligned), X->minimize KEEPS the terminal (AC-close-returns standard affordance), ESC closes, and /trace is UNREGRESSED. Also asserts badge==real child count (R31.3 fix). Interactive RW / pty round-trip = Tron device (owner-gate/node-pty/full-interactive already device-PASSED). Marker c6791c06 adopted from origin 4aa69927a (measured line 1, not invented). CLIENT render Test - SEPARATE from the server PtyBridge.attachPane chain. Chain: R31.4 req fb14fdbf -> UC 8f3bf119 paneTerminal.mount -> Class RbTerminalDetail 1d632082 -> Method 386cc4e4 RbTerminalDetail.mount -> Impl 79a1ce7c -> this Test.",
+    "sourceFile": "ior:file:test/visual/r316-select-open-flow-gate.mjs",
+    "implementations": [
+      "ior:instance:79a1ce7c-2e27-4f60-87b7-3bd19ae32953"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79a1ce7c-2e27-4f60-87b7-3bd19ae32953"
+}
