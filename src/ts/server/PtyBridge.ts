@@ -69,4 +69,18 @@ export class PtyBridge {
     ws.on('error', cleanup);
     try { ws.send(JSON.stringify({ t: 'ready', pane: paneId })); } catch { /* */ }
   }
+
+  // [impl:uuid:5d313828-1525-4748-a201-6553ee72f044] PtyBridge.reapOrphans (Method 28d8158b, off UC 8bd83486) —
+  // boot-sweep: kill every stale `sm_*` grouped tmux session. Per-ws cleanup (attachPane) handles normal closes, but
+  // a server restart/crash with an attached terminal orphans the grouped session (it outlives the node process, so
+  // cleanup never fires) → accumulation over deploys (the sm_p* clutter). Called ONCE at server boot: at boot NO pty
+  // is attached (the prior process died), so EVERY sm_* is an orphan → safe to kill-session. Leaves zero orphans.
+  static async reapOrphans(log: (m: string) => void = () => { /* */ }): Promise<void> {
+    let out = '';
+    try { out = (await execFileAsync('tmux', ['list-sessions', '-F', '#{session_name}'], { timeout: 5000 })).stdout; }
+    catch { return; } // no tmux server / no sessions → nothing to reap
+    const orphans = out.split('\n').map((s) => s.trim()).filter((s) => /^sm_/.test(s));
+    for (const s of orphans) { try { await execFileAsync('tmux', ['kill-session', '-t', s], { timeout: 3000 }); } catch { /* already gone */ } }
+    if (orphans.length) log(`[server-manager] reaped ${orphans.length} orphan PTY session(s) at boot: ${orphans.join(', ')}`);
+  }
 }

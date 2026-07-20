@@ -2209,6 +2209,7 @@ async function startServers(httpOnly: boolean = false): Promise<void> {
       const httpsServer = https.createServer({ key, cert }, (req, res) => { handleRequest(req, res); });
       httpsServer.listen(HTTPS_PORT);
       setupWebSocketServer(httpsServer);
+      void PtyBridge.reapOrphans(addLog); // R31.4 boot-sweep: kill stale sm_* grouped sessions orphaned by a prior restart/crash (none attached at boot → safe)
     } catch { await startServers(true); }
   }
 }

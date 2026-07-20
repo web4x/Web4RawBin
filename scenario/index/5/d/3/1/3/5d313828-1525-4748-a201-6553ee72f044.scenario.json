@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5d313828-1525-4748-a201-6553ee72f044",
+    "name": "PtyBridge.reapOrphans impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
+    "designAhead": false,
+    "description": "BUILT (v0.7.102): PtyBridge.reapOrphans @ src/ts/server/PtyBridge.ts — boot-sweep. `tmux list-sessions -F #{session_name}` → kill-session every ^sm_ (execFile ARRAY args, no shell; per-session try/catch). Called ONCE at server boot — server.ts startServers, `void PtyBridge.reapOrphans(addLog)` right after setupWebSocketServer(httpsServer) — at boot NO pty is attached (prior process died) so every sm_* is an orphan → safe; leaves zero orphans. Closes the restart/crash orphan-accumulation gap (expert self-audit, the sm_p* clutter). Marker [impl:uuid:5d313828-...] on the reapOrphans decl. R31.4 AC-boot-sweep-orphans."
+  },
+  "ownerIor": "ior:instance:28d8158b-18d0-47ec-9650-48f2e81a6a99"
+}
