@@ -5,8 +5,8 @@
     "name": "PtyBridge.attachPane impl",
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
-    "designAhead": true,
-    "description": "DESIGN-AHEAD (expert building R31.4 step-4; PtyBridge.ts pending): PtyBridge.attachPane — on otmuxPane select, node-pty spawns a tmux client on a GROUPED session (no-disrupt to other viewers) attached FULL READ-WRITE (Tron override — NOT read-only, no -r, no Take-Control); bidirectional PTY<->ws binary frames to xterm.js fullscreen; resize via pty.resize; scrollback = xterm buffer + capture-pane preamble. Owner-gated ws UPGRADE via the sm_session COOKIE (INV-G3: absent/invalid/non-owner -> socket.destroy BEFORE handleUpgrade, socket never opens, no pty spawns). ATTACH/DETACH audit. Close -> kill pty + grouped session (no orphan). Deps node-pty ^1.1.0 + xterm ^5.3.0 added. R31.4. Marker [impl:uuid:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05] to be placed on attachPane by expert; architect flips designAhead->false + BUILT on backstop."
+    "designAhead": false,
+    "description": "BUILT v0.7.92 (commit 6934ad441): PtyBridge.attachPane @ src/ts/server/PtyBridge.ts:19 — on otmuxPane select, node-pty pty.spawn('tmux',['attach-session','-t',sm]) on a GROUPED session (new-session -d -t sessionName, shares windows/own view, no-disrupt) attached FULL READ-WRITE (Tron override — NO -r, no Take-Control); bidirectional PTY<->ws BINARY frames to xterm.js fullscreen; {t:resize}->pty.resize; execFile ARRAY args (no shell). Owner-gated ws UPGRADE via sm_session COOKIE (INV-G3: non-owner -> socket.destroy BEFORE handleUpgrade @server.ts:2300, never opens, no pty). ATTACH/DETACH audit (:44/:52). Close -> term.kill + kill grouped session (no orphan). Static backstop PASS. NATIVE-ABI CAVEAT: node-pty compiled node16, server runs node22 (start.mjs self-heal) -> rebuild node-pty under node22 at restart. Deps node-pty ^1.1.0 + xterm ^5.3.0. R31.4. Marker [impl:uuid:394eac63-...] placed on attachPane."
   },
   "ownerIor": "ior:instance:6fc43b8e-7c94-42af-baf2-c611a84793e7"
 }
