@@ -10,7 +10,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.96';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.97';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f)); // content-hashed, matches served
@@ -37,6 +37,7 @@ try {
     const ctx = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block', viewport: { width: 1200, height: 900 } });
     await seedSystemTester(ctx);
     const page = await ctx.newPage();
+    if (i === 1) page.on('console', (m) => { const t = m.text(); if (/renderItems\].*otmuxsession|buildSeedNode\] ref=otmuxsession/.test(t)) console.log('  BROWSER:', t); });
     // route-intercept: serve the real shell + owner endpoints 200 so the REAL bundle wiring runs (no owner cookie needed for the CLICK logic)
     await page.route((u) => u.pathname === '/server-manager', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: SHELL }));
     await page.route('**/api/server-manager/whoami**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"ok":true,"owner":true}' }));
@@ -47,7 +48,7 @@ try {
     await sleep(600);
 
     // (BADGE, R31.3 fix) session badge = 2 windows (accurate, NOT 0)
-    if (i === 1) { const diag = await page.evaluate(() => { const it = document.querySelector('rb-object-item[ref^="otmuxsession:"]'); return { ref: it?.getAttribute('ref'), childCountAttr: it?.getAttribute('child-count'), hasChildrenAttr: it?.hasAttribute('has-children'), badge: it?.querySelector('.oi-badge')?.textContent, badgeCount: it?.querySelectorAll('.oi-badge').length, outer: (it?.outerHTML || '').slice(0, 220) }; }); console.log('  DIAG session:', JSON.stringify(diag)); }
+    if (i === 1) { const diag = await page.evaluate(() => { const t = document.getElementById('sm-tree'); const it = document.querySelector('rb-object-item[ref^="otmuxsession:"]'); return { itemsRootChildren: t?.items?.[0]?.children?.length, childCountAttr: it?.getAttribute('child-count'), badge: it?.querySelector('.oi-badge')?.textContent }; }); console.log('  DIAG session:', JSON.stringify(diag)); }
     const sessBadge = await badge(page, 'otmuxsession:');
     // expand session → windows (each with its own accurate badge = pane count = the demonstrated 'real N' fix)
     await clickExpand(page, 'otmuxsession:'); await sleep(400);
