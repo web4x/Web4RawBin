@@ -128,5 +128,37 @@ INTERACTIVE SELECTOR (PO ask 2): the current tree (server.ts:835-853) renders se
 
 GATE: owner (real live session) loads /server-manager → session cookie set → tree renders (sessions→windows→panes) with NO ?token= in URL; non-owner still 403 on page+api+ws; INV-G2==1; pane nodes selectable. Requires a REAL-session owner-accept test (the recurring gap).
 
+## R31.4 RE-ARCHITECTURE (Tron directive 2026-07-20) — scenario-unit tree via the SHARED traceability itemView
+Replaces the bespoke inline SERVER_MANAGER_PAGE tree renderer (server.ts:816-865, display-only) with the SHARED itemView (`rb-trace-tree`/`rb-object-item`) rendering tmux state as SCENARIO-SHAPED units. Each PANE = a single clickable item; select a pane → open its terminal FULLSCREEN.
+
+### Measured reuse surface (rb-trace-tree.ts)
+- `RbTraceTree extends HTMLElement` (`<rb-trace-tree>`); renders children as `rb-object-item`.
+- CLEAN REUSE ENTRY = the `.items` setter (:55): `items = [{uuid,type,name,description?,children?:[{uuid,type,name,description?,hasChildren}]}]`. Renders clickable nodes; children provided INLINE are drawn directly (lazy `/api/trace/children/` fetch fires ONLY when a node has hasChildren but no inline children).
+- COUPLING to decouple: node-select currently routes to the traceability detail-views / TraceRouter / ViewBus. For Server Manager we must intercept select (Terminal → open terminal, not a detail-view).
+
+### Session / Terminal units (TRANSIENT, itemView-shaped — NOT persisted)
+tmux panes are LIVE/volatile → do NOT write Session/Terminal to scenario/index (would churn + go stale). "Scenario-first" here = the itemView UNIT SHAPE (`ior` + `model`), built on-the-fly from `OtmuxBridge.readSessionTree`, served by `/api/server-manager/tree` — NOT persisted champagne units. (The champagne chain for R31.4 stays: UC paneTerminal.attach → Class PtyBridge → Method attachPane 6fc43b8e → Impl → Test — those ARE persisted; the live Session/Terminal nodes are runtime data the tree renders.)
+- `ior:class:Session` — one per tmux session. node `{uuid: sessionName, type:'Session', name, children:[Terminal…]}`. (Windows fold into the label or an intermediate level; keep shallow.)
+- `ior:class:Terminal` — one per pane (the clickable leaf). node `{uuid: paneId(%N stable), type:'Terminal', name: label 'session:win.pane', description: title+currentCommand, hasChildren:false}`.
+- `/api/server-manager/tree` (owner-gated, cookie) returns these roots in the `.items` shape (sessions→terminals, shallow → all INLINE, no lazy `/api/trace/children` call).
+
+### itemView reuse — what's needed (design for the fresh team)
+1. `/server-manager` STOPS being an inline-JS string; becomes a bundled CLIENT page (esbuild entry `src/public/ts/server-manager.ts`) that imports `rb-trace-tree` + `rb-object-item` (+ minimal deps) and mounts `<rb-trace-tree>`. Page still owner-gated + cookie (R31.2/B1). Load the bundle in the page shell served by the (owner-gated) `/server-manager` route.
+2. Entry: fetch `/api/server-manager/tree` (cookie auto-sent) → `treeEl.items = roots`. Add a "Refresh" that re-fetches + re-sets `.items`.
+3. SELECT HOOK (small generalization of rb-trace-tree): emit a `node-select` CustomEvent `{uuid,type}` on item click, OR mount the tree WITHOUT the trace router and let the consumer listen on the container. Server-Manager entry: on select, if `type==='Terminal'` → `openTerminal(paneId)`; `Session` → expand (default). Traceability keeps its detail-view consumer unchanged. Keeps the itemView GENERIC (tree of clickable items; consumer owns the action).
+4. Type icons: add `Session`/`Terminal` to the itemView icon map (icons.ts). NO new detail-view components needed (Terminal = action-on-click; Session = expand).
+
+### Fullscreen terminal (the R31.4 core — see ## R31.4 above for full PTY design)
+On Terminal select → fullscreen xterm.js bound to the pane via the ws PTY bridge (`PtyBridge.attachPane`, Method 6fc43b8e): node-pty attaches a GROUPED tmux session (no-disrupt), READ-ONLY default (tmux `-r` + server drops keys) + owner-gated Take-Control (respawn read-write), audit quad ATTACH/CONTROL_TAKEN/DETACH/DENY. **ws auth = the sm_session COOKIE** (built v0.7.89; browser sends it on the same-origin ws upgrade — NO ?ticket=/?token=). Close → back to the tree. node-pty is a NEW native dep (WODA.prod build vet). Scrollback: xterm buffer + capture-pane preamble.
+
+### Finish ?token= removal (carried from B1)
+Remove the residual: page shell drops `qp.get('token')`; the `/server-manager` route accepts ONLY the sm_session cookie (drop the ?token= acceptance @server.ts:917); grant href drops the ?token= fallback (onclick POST /session → cookie → nav is the sole path). Cookie is the sole Server-Manager credential (page + /tree + ws).
+
+### INV / build order / gate
+- INV-G1/G2/G3 unchanged (same choke-point + single OWNER_TOKEN + ws-destroy; the tree/terminal are behind the gate). Cookie is the credential.
+- Build order (fresh team): (a) server-manager client bundle mounting rb-trace-tree via `.items`; (b) /api/server-manager/tree returns Session/Terminal node shape; (c) select-hook generalization + openTerminal; (d) node-pty PtyBridge.attachPane (read-only default + Take-Control + audit, cookie ws-auth); (e) finish ?token= removal.
+- SCENARIO-FIRST: fresh team MINTS any needed units (the persisted chain is UC→Class PtyBridge→Method attachPane 6fc43b8e→Impl→Test; Session/Terminal are transient runtime nodes, not minted). Architect (me) backstops each ship + mints the PtyBridge.attachPane Impl.
+- GATE: owner → /server-manager → itemView tree of Sessions→Terminals (clickable panes); click a Terminal → fullscreen terminal (read-only, Take-Control works); non-owner 403 on page+tree+ws; ?token= fully gone; INV-G2==1. Real-session owner test (recurring gap).
+
 ### R31.2 RE-CONFIRM — v0.7.83 / 196917b4c (guard extraction): **PASS holds**
 Expert extracted the guard to `ServerManagerGuard.assertOwner` (ServerManagerGuard.ts:26); server.ts `resolveOwner` thin-wraps it (`ServerManagerGuard.assertOwner(req, t=>tokenToClient.has(t))` :802) — behavior-preserving DI. Restarted remoteShells:0.2 → served `/api/config` = **0.7.83** (==HEAD, phantom-guard OK). INV-G2 ✓ literal now lives ONLY at ServerManagerGuard.ts:12 (grep count==1). INV-G1 ✓ live (no/unknown/nonexistent-subroute → 403). INV-G3 ✓ ws upgrade :2195-2201 still `socket.destroy()` w/o `handleUpgrade` for non-owner. **Impl unit MINTED: ServerManagerGuard.assertOwner impl = 335dbf3d-2294-47cb-9beb-1d81a4bf9a94** (ownerIor→Method 8bb1842f; Method.implementations[] wired). Expert places `[impl:uuid:335dbf3d…]` on assertOwner. Chain R31.2 now Req→UC→Class→Method→Impl (Test next).
