@@ -53,7 +53,18 @@
     "text": "The Server Manager PAGE route (e.g. /server-manager) is owner-gated SERVER-SIDE by the SAME shared assertOwner guard (single-literal): a non-owner request to the page route gets 403 (or a redirect away) and NEVER receives the page shell. Gating /api/server-manager/* + the ws ticket ALONE is NOT acceptance - the page itself is owner-only (Tron: 'ONLY this user will have access'). Client-side route-guarding / UI-hiding alone is NOT acceptance."
    }
   ],
-  "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832"
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
+  "constructionInvariants": [
+   {
+    "id": "INV-G1",
+    "text": "SINGLE guard, NO bypass: every Server Manager surface (page route /server-manager, /api/server-manager/*, and the ws ticket) passes through ONE choke-point (requireOwnerHttp/assertOwner). The page route has NO /api/ prefix, so the existing startsWith('/api/server-manager/') choke-point MUST be EXTENDED to also match '/server-manager' (gate both prefixes through the one guard) - NOT a second ad-hoc check. Stays on Impl 335dbf3d."
+   },
+   {
+    "id": "INV-G2",
+    "text": "SINGLE OWNER_TOKEN literal: the owner token 41ad88c4-4dee-49ac-afcb-8a2026657b2d appears exactly ONCE (one shared constant the guard reads); no per-call/per-route re-literal of the token."
+   }
+  ],
+  "constructionInvariantsNote": "Architect INV-G1/INV-G2 (2026-07-20), pinned scenario-first (correct-by-construction): the expert EXTENDS the existing choke-point to cover both '/server-manager' + '/api/server-manager/*' via the one assertOwner guard, single OWNER_TOKEN literal. Architect verifies the choke-point extension when the expert ships the page. These back AC-shared-guard + AC-page-route; the tester asserts non-owner-403 on ALL surfaces (page + api + ws) against the single guard."
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
