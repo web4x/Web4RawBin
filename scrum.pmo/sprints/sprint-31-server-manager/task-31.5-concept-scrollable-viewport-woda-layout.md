@@ -10,8 +10,8 @@
 - [x] Planned
 - [x] In Progress (CONCEPT — design artifact only, NO build)
   - [x] req captures the concept scenario-first (requirement R31.5 7bb01a7b, canonical, facet-ACs)
-  - [ ] architect designs the component architecture (bar<->compartment generalization, viewport, scroll-snap, nav bar, drawer=Details one-function-two-positions)
-  - [ ] concept design artifact consolidated + coherent
+  - [x] architect designs the component architecture (CONCEPT-scrollable-viewport-architecture.md, commit 5bce382b7 — rb-compartment/rb-strip/rb-snap-nav/viewport, one-model-two-instances, drawer=Details position-only; presentation!=function)
+  - [x] concept design artifact consolidated + coherent (COMPANION: Tron spec woda-layout.md + architect architecture.md cover all concept facets §1-7)
 - [ ] QA Review (Tron ratifies the concept)
 - [ ] Done (Tron-authorizes implementation as a LATER step)
 
@@ -20,8 +20,9 @@
   - up
     - [Sprint 31 Planning](./planning.md)
     - Requirement R31.5 (CONCEPT) `[requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]` (canonical, robbin-req)
-  - artifact
-    - [CONCEPT-scrollable-viewport-woda-layout.md](./CONCEPT-scrollable-viewport-woda-layout.md) (the design deliverable; committed a8f7cfa91)
+  - artifact (CONCEPT deliverable — companion pair)
+    - [CONCEPT-scrollable-viewport-woda-layout.md](./CONCEPT-scrollable-viewport-woda-layout.md) — Tron SPEC (committed a8f7cfa91)
+    - [CONCEPT-scrollable-viewport-architecture.md](./CONCEPT-scrollable-viewport-architecture.md) — architect DESIGN companion (committed 5bce382b7)
   - down
     - implementation DEFERRED — LATER Tron-authorized step (separate build task/sprint)
 
