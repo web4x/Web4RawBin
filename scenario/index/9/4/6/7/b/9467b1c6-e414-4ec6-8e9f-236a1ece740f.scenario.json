@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9467b1c6-e414-4ec6-8e9f-236a1ece740f",
+    "name": "test:R31.3 otmux tree parse-match + reject (OtmuxBridge.readSessionTree)",
+    "description": "Bridged to test/visual/r313-otmux-tree-parse-gate.ts (DET-3x GREEN). Verifies R31.3 OtmuxBridge.readSessionTree: IMPORTS the real readSessionTree and parse-matches the raw 'tmux list-panes -a -F' output 35/35 EXACT (session/window/pane rows) plus rejects malformed lines. iOS-PWA visual AC (the itemView tree renders on device - Tron 'amazing') rides Tron's device confirm IMG_4597. Marker 9467b1c6 adopted from origin 87f5d5ef6 (measured, not invented). Chain: R31.3 req 168e6d2b -> UC 742aa04d -> Method 7d7221d8 (OtmuxBridge.readSessionTree) -> Impl 5c1701bc -> this Test.",
+    "sourceFile": "ior:file:test/visual/r313-otmux-tree-parse-gate.ts",
+    "implementations": [
+      "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a"
+}

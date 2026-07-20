@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a",
     "name": "OtmuxBridge.readSessionTree impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:9467b1c6-e414-4ec6-8e9f-236a1ece740f"
+    ],
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
     "designAhead": false,
     "description": "BUILT v0.7.85 (commit eae839200): OtmuxBridge.readSessionTree @ src/ts/server/OtmuxBridge.ts:19 — RAW `tmux list-panes -a -F` via execFileAsync (ARRAY args, no shell = injection-safe; timeout 5s), parsed into nested sessions/windows/panes; pane_id %N stable target + label session:win.pane + title. READ-ONLY (no kill/send-keys/mutate). Served by GET /api/server-manager/tree (server.ts:884), auto-gated by the R31.2 owner choke-point. R31.3. Marker [impl:uuid:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a] to be placed on readSessionTree by expert."
