@@ -2,10 +2,12 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "b4f03947-4496-48b0-9ee1-83f17e0f8d79",
-    "name": "RbProfileView.renderFeatureGrants",
-    "description": "Render the per-user feature-grant section at the profile bottom; show only features granted to the viewing token (first entry Server Manager, granted only to owner 41ad88c4). Absent entirely for non-granted users. UI-hiding is convenience only — the real gate is server-side (R31.2). R31.1. Design-ahead, no impl yet.",
-    "sourceFile": "ior:file:src/public/ts/ProfileSheet.ts",
-    "implementations": [],
+    "name": "ProfileEditor.renderFeatureGrants",
+    "description": "Render the per-user Feature-access section at the profile bottom; the Server Manager entry is shown only when GET /api/server-manager/whoami returns 200 for the viewing token (server-proven, NOT UI-hidden; non-owner 403 -> absent). R31.1. BUILT v0.7.84 (ProfileEditor.ts:95). NOTE: design/UC proposed class RbProfileView; expert built into existing ProfileEditor — unit name aligned to built reality (UUID unchanged, UC pointer intact).",
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "implementations": [
+      "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:a3958f85-2735-4356-82f8-d2e9ce27a7d8"

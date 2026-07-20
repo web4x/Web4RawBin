@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f345b8ed-c853-46c8-8b3c-102375f528dc",
+    "name": "ProfileEditor.renderFeatureGrants impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.84 (commit 585714ddd): ProfileEditor.renderFeatureGrants @ src/public/ts/ProfileEditor.ts:95 — renders the per-user Feature-access section at the profile bottom; the 'Server Manager' entry is SERVER-gated (shown only when GET /api/server-manager/whoami returns 200 for the viewing token — proven by 200, NOT UI-hidden; non-owner 403 -> entry absent). R31.1. NOTE class-name divergence: design/UC proposed RbProfileView; expert built into existing ProfileEditor — units aligned to built reality (UUIDs unchanged). Marker [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] to be placed on renderFeatureGrants by expert."
+  },
+  "ownerIor": "ior:instance:b4f03947-4496-48b0-9ee1-83f17e0f8d79"
+}

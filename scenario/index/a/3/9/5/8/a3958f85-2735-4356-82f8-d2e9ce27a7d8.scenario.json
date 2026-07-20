@@ -2,9 +2,9 @@
   "ior": "ior:class:Class",
   "model": {
     "uuid": "a3958f85-2735-4356-82f8-d2e9ce27a7d8",
-    "name": "RbProfileView",
-    "description": "Profile view rendering the per-user feature-grant section at the BOTTOM of the profile (R31.1), entries filtered by the viewing token (owner sees Server Manager; others see nothing). Design-ahead; intended impl src/public/ts/ProfileSheet.ts. See design-server-manager.md.",
-    "sourceFile": "ior:file:src/public/ts/ProfileSheet.ts",
+    "name": "ProfileEditor",
+    "description": "Profile view rendering the per-user Feature-access section at the BOTTOM of the profile (R31.1); the Server Manager entry is server-gated (whoami 200) not UI-hidden. BUILT src/public/ts/ProfileEditor.ts. NOTE: design/UC proposed RbProfileView; expert built into existing ProfileEditor — unit aligned to built reality (UUID unchanged). See design-server-manager.md.",
+    "sourceFile": "ior:file:src/public/ts/ProfileEditor.ts",
     "methods": [
       "ior:instance:b4f03947-4496-48b0-9ee1-83f17e0f8d79"
     ]
