@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing - REOPENED (Tron placement bug: section landed in profile EDITOR not VIEWER)
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [~] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-REOPENED In-Progress (Tron placement bug, PO 2026-07-20): the Server Manager feature-grants section rendered in the profile EDITOR, not the profile VIEWER Tron screenshoted. R31.1 AC-1 (section AFTER 'My Bug Reports' in the profile VIEW) is NOT met on the correct surface. Expert moving the section to the viewer. Flip implementing[x] when the moved section commits (source-verify); back to Planned/QA per PO signal when the placement is corrected.
+Placement bug RESOLVED (moved to /profile viewer, v0.7.88/89). Remaining: r311a real-owner gate verification.
 
 ## Traceability
 
@@ -46,6 +46,10 @@ R31.1 = the profile surface that renders the Server Manager entry (build after t
 - [ ] Feature grants are keyed to the user token/UUID; the model is generic+extensible (a grants map, not a hardcoded single feature).
 - [ ] The 'Server Manager' entry renders ONLY when the viewing token === 41ad88c4-4dee-49ac-afcb-8a2026657b2d; for any other user the section renders no entries (and is absent if empty).
 - [ ] A non-owner viewing their own profile sees NO Server Manager entry and NO empty affordance hinting at it.
+
+## Implementation
+
+PLACEMENT BUG FIXED (v0.7.88 owner-accept entry + v0.7.89 cookie): the Server Manager feature-grants section moved from the profile EDITOR to the /profile VIEWER (Tron's screenshot surface). Pending r311a real-owner gate (owner sees entry / non-owner does not, on the viewer). testing[~] = r311a gate pending.
 
 ## Subtasks
 

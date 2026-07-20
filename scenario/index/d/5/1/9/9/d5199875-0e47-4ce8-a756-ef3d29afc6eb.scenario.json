@@ -8,11 +8,11 @@
   "description": "The Server Manager main view is a live tree of sessions -> windows -> panes mirroring 'otmux tree', read SERVER-SIDE via otmux (behind the R31.2 owner-guard). Refreshable; each pane node selectable + shows title/target so the owner identifies the agent pane.",
   "intention": "R31.3 = read-only tree (lower risk; build after gate+section, before the terminal).",
   "context": "designRef: scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md (architect 9920f6832 + d4f7fee8c). Owner token 41ad88c4-4dee-49ac-afcb-8a2026657b2d (Marcel Donges). Sprint 31 Server Manager = owner-gated infra console (otmux tree + xterm.js terminal).",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement `[requirement:uuid:168e6d2b-439f-4c90-ab0c-47b2a10ccae0]`\n  - down\n    - [UC](./planning.md) `[uc:uuid:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552]`",
   "acceptanceCriteria": "- [ ] The view renders sessions -> windows -> panes hierarchically, matching the structure of 'otmux tree'.\n- [ ] The tree is read SERVER-SIDE via otmux (behind the owner-guard R31.2), not from any client-side enumeration.\n- [ ] The tree is refreshable and reflects the current live session/pane state on refresh.\n- [ ] Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane.",
   "subtasks": "None (atomic task).",
-  "status": "Planned",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:168e6d2b-439f-4c90-ab0c-47b2a10ccae0"
   ],
@@ -22,6 +22,8 @@
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
   "createdBy": "robbin-planner",
-  "createdAt": "2026-07-20"
+  "createdAt": "2026-07-20",
+  "remainingIssues": "In Progress (PO 2026-07-20): otmux session/pane tree BUILT + renders server-side via otmux behind owner-guard (v0.7.85 eae839200, v0.7.89 12d4a1a0c). RE-ARCHITECTURE underway (Tron directive, architect 7c43178cc + 13a79ee2b): scenario-unit tree via shared traceability itemView - typed nodes otmuxSession -> otmuxWindow -> otmuxPane.",
+  "implementation": "v0.7.85/89: otmux session/pane tree BUILT + renders (sessions -> windows -> panes, server-side via otmux behind the owner-guard). Being RE-ARCHITECTED to itemView typed-nodes (implementing[~]). Refresh + selectable-pane pending the re-architecture settle."
  }
 }

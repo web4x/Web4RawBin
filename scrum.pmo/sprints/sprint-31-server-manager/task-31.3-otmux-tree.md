@@ -8,13 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+In Progress (PO 2026-07-20): otmux session/pane tree BUILT + renders server-side via otmux behind owner-guard (v0.7.85 eae839200, v0.7.89 12d4a1a0c). RE-ARCHITECTURE underway (Tron directive, architect 7c43178cc + 13a79ee2b): scenario-unit tree via shared traceability itemView - typed nodes otmuxSession -> otmuxWindow -> otmuxPane.
 
 ## Traceability
 
@@ -42,6 +46,10 @@ R31.3 = read-only tree (lower risk; build after gate+section, before the termina
 - [ ] The tree is read SERVER-SIDE via otmux (behind the owner-guard R31.2), not from any client-side enumeration.
 - [ ] The tree is refreshable and reflects the current live session/pane state on refresh.
 - [ ] Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane.
+
+## Implementation
+
+v0.7.85/89: otmux session/pane tree BUILT + renders (sessions -> windows -> panes, server-side via otmux behind the owner-guard). Being RE-ARCHITECTED to itemView typed-nodes (implementing[~]). Refresh + selectable-pane pending the re-architecture settle.
 
 ## Subtasks
 

@@ -10,11 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [~] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Owner-gate GATED-GREEN (PO 2026-07-20): single shared server-side guard - non-owner 403 on every endpoint + ws UPGRADE, reject-dir; batch security re-gate ALL GREEN DET-3x (v0.7.86, test 87f5d5ef6). PENDING 2 ACs: (a) /server-manager PAGE route owner-gated server-side (AC-page-route, req 7f09f2d5c); (b) cookie-only ?token= removal - page route rejects, href clean, cookie-only (AC-cookie-only, req ba5011dc9).
 
 ## Traceability
 
@@ -43,6 +47,10 @@ R31.2 = the security FOUNDATION (build first; nothing ships without it). Correct
 - [ ] Requests from ANY other authenticated token to every Server Manager endpoint AND the ws handshake return 403 and never reach otmux/terminal APIs.
 - [ ] A SINGLE shared owner-guard (one function/middleware) gates all endpoints + the ws handshake - correct-by-construction, not per-call ad-hoc checks.
 - [ ] The websocket is gated at the UPGRADE: an owner-gated HTTP endpoint issues a single-use ~30s owner-bound TICKET; the ws upgrade validates ?ticket= and a non-owner (invalid/absent/expired/reused) gets 403 with the socket NEVER opening. Post-connect token checks are NOT acceptance. Per architect 9920f6832.
+
+## Implementation
+
+v0.7.85-89: shared owner-guard built; gate GREEN on reject-dir (non-owner 403 on Server Manager endpoints). 2 PENDING ACs: (page-route) owner-gate the page route + (cookie-only) auth from the httpOnly cookie, NOT ?token= query - ?token= removal underway. testing[~] = partial (reject-dir GREEN, page-route+cookie-only pending).
 
 ## Subtasks
 

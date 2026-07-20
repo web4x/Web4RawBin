@@ -8,13 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+In Progress (PO 2026-07-20): DESIGN COMPLETE + STEP-1 BUILT - /tree emits 3-level itemView roots otmuxSession->otmuxWindow->otmuxPane (expert cc76c1104 v0.7.90). SCOPE CHANGE (Tron): terminal is now FULL-INTERACTIVE ssh - the READ-ONLY-by-construction default is REMOVED (read-only ACs + 'Take Control' toggle no longer apply; ACs need req re-refine). Remaining: full xterm.js interactive PTY bridge over owner-gated ws (R31.2 ticket).
 
 ## Traceability
 
@@ -48,6 +52,10 @@ R31.4 = the interactive terminal (highest risk: ws PTY + xterm.js). Build LAST, 
 - [ ] Attaching a pane MUST NOT disrupt other viewers of that pane: the grouped/size-independent attach leaves other agents' view unchanged; detach cleans up the sm_ session.
 - [ ] Terminal DEFAULT attach is READ-ONLY BY CONSTRUCTION: tmux attach -r AND the server drops inbound key frames - key frames MUST NOT reach the pane in read-only mode. Testable: read-only-blocks-input.
 - [ ] 'Take Control' is an owner-gated toggle that respawns the attach READ-WRITE on the SAME grouped session (echo-roundtrip, resize, history); the transition is audit-logged CONTROL_TAKEN. Interactive keystrokes reach the pane ONLY after Take Control.
+
+## Implementation
+
+DESIGN COMPLETE (design-server-manager.md ## R31.4: 3-type otmuxSession/otmuxWindow/otmuxPane model + fullscreen terminal). BUILD IN PROGRESS (expert building now, implementing[~]): node-pty grouped-session PTY bridge + xterm.js frontend + ticket-gated ws UPGRADE + read-only-default. Highest design risk (owner-gated interactive terminal).
 
 ## Subtasks
 
