@@ -927,10 +927,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.end(JSON.stringify({ ok: true, owner: true, token8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8) }));
         return;
       }
-      if (req.method === 'GET' && filepath === '/api/server-manager/tree') { // R31.3 read-only otmux tree (sessions→windows→panes)
+      if (req.method === 'GET' && filepath === '/api/server-manager/tree') { // R31.3/R31.4 read-only otmux tree
         const sessions = await OtmuxBridge.readSessionTree();
+        // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
+        // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
+        const roots = sessions.map((s) => ({
+          uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name,
+          children: s.windows.map((w) => ({
+            uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: w.index + ': ' + w.name,
+            children: w.panes.map((p) => ({
+              uuid: p.paneId, type: 'otmuxPane', name: p.label + (p.title ? '  —  ' + p.title : ''), hasChildren: false,
+            })),
+          })),
+        }));
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-        res.end(JSON.stringify({ ok: true, sessions }));
+        res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;
       }
       if (req.method === 'POST' && filepath === '/api/server-manager/session') { // R31.4-PRE/B1: mint the httpOnly owner cookie (caller already owner-gated above via the LIVE x-player-token)
