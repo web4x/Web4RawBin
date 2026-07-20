@@ -1,3 +1,5 @@
+// [test:uuid:0c0a69ad-d113-40f3-ae83-db9fc7fa9844] R31.4 RbTerminalDetail interactive-RW (Impl 79a1ce7c) — end-to-end owner cookie→ws→xterm attach→keystroke→ECHO roundtrip (distinct from c6791c06 mount): READY banner rendered, 5 keystrokes reach the ws, 'lsCMD' echo renders in .xterm-rows. Mocked-pty by construction (routeWebSocket echo); node-pty REALNESS = architect, keystroke VISUAL = Tron device.
+// [test:uuid:a52393fb-acca-4a84-89f0-89f01f1bab57] R31.1 renderFeatureGrants owner-entry (Impl f345b8ed) — CURRENT serverManager mechanism (server.ts:862, server-computed m.serverManager, NO whoami): owner (serverManager=true via app-ws MITM) → #feature-grants shows 'Server Manager'; real non-owner (serverManager=false) → ABSENT. SUPERSEDES the stale whoami-based Test baee3c82 (r311v tested the removed whoami round-trip).
 // R31.4 interactive RW + R31.1 owner-entry — BY-CONSTRUCTION owner-session gate (DET-3x @390 iPhone-12).
 // Mocks the owner WITHOUT touching Tron's real session (won't evict him): route-intercept whoami→200 + a test
 // sm_session cookie + a MOCKED terminal ws that ECHOES like a pty. Gates the FULL client flow end-to-end
@@ -9,7 +11,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.100';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.101';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f));

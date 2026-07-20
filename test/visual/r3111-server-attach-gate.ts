@@ -1,3 +1,4 @@
+// [test:uuid:b395a272-7060-46ca-9942-22bc29a3b7a4] R31.4 PtyBridge.attachPane (Impl 394eac63) — grouped-session lifecycle: (a) grouped tmux sm_<pane>_<ts> SPAWNS on attach; (b) NO-DISRUPT (pre-existing non-sm sessions unchanged incl size — grouped attach size-independent); (c) DETACH-CLEANUP on ws.close → pty + grouped session killed, zero leak. Headless-mockable slice (mock ws + real tmux); interactive keystroke VISUAL = Tron device.
 // R31.4 SERVER-ATTACH slice — PtyBridge.attachPane (Impl 394eac63, Method 6fc43b8e). Headless-mockable, DET-3x.
 // Drives the REAL PtyBridge against real tmux with a MOCK ws (no browser, no owner cookie — the interactive RW visual
 // stays Tron-device). Asserts the grouped-session lifecycle: (a) grouped tmux session sm_<pane>_<ts> SPAWNS on attach;
