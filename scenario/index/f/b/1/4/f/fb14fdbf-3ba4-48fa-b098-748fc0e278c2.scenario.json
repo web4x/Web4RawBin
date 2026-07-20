@@ -4,7 +4,7 @@
   "uuid": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2",
   "altId": "R31.4",
   "name": "Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated websocket PTY bridge)",
-  "description": "Selecting a pane opens a FULLSCREEN interactive terminal bound to that pane with real bidirectional I/O (type + live output), keys, resize and scrollback. Frontend = xterm.js (the engine VS Code's terminal uses); backend = a PTY bridge over a websocket that attaches to the tmux pane (e.g. tmux attach -t <target> / pipe-pane), owner-gated at the handshake (R31.2). Close returns to the tree. HIGH-privilege capability - architect owns the auth + PTY bridge model; consider audit-logging attach/detach. ACs marked (arch) pending architect terminal-bridge feasibility confirmation.",
+  "description": "Selecting a pane opens a FULLSCREEN interactive terminal bound to that pane with real bidirectional I/O (type + live output), keys, resize and scrollback. Frontend = xterm.js (the engine VS Code's terminal uses); backend = a PTY bridge over a websocket that attaches to the tmux pane (e.g. tmux attach -t <target> / pipe-pane), owner-gated at the handshake (R31.2). Close returns to the tree. HIGH-privilege capability - architect owns the auth + PTY bridge model; consider audit-logging attach/detach. ACs marked (arch) pending architect terminal-bridge feasibility confirmation. ARCHITECT FEASIBILITY (design-server-manager.md, 9920f6832): PTY = node-pty spawning a tmux client via a GROUPED session (not pipe-pane); ws gated at UPGRADE by a single-use ~30s owner-bound ticket (browsers cannot set ws headers + auth is post-connect IDENTIFY, so connect-time ticket gating is mandatory - B1); node-pty is a NEW native dep to vet on the WODA.prod build (B2); grouped attach is size-independent so it never disrupts other viewers (B3); architect recommends READ-ONLY default + take-control toggle (B4, PO to confirm). ACs updated accordingly.",
   "tronQuote": "> TRON (2026-07-20): opens it in an interactive fullscreen SSH terminal (leverage the VS Code / xterm.js terminal engine)",
   "tasks": [],
   "tests": [],
@@ -35,12 +35,12 @@
    {
     "id": "AC-keys-resize-scrollback",
     "group": "functional",
-    "text": "Keystrokes, terminal resize, and scrollback all work (fidelity target: usable interactive shell)."
+    "text": "Keystrokes, resize and scrollback all work: resize is native (xterm onResize -> ws -> pty.resize) and size-independent (grouped attach does not clobber other viewers); live scrollback = xterm's own buffer (~5000 lines) plus a one-shot capture-pane -S preamble for pre-attach history (NOT infinite copy-mode)."
    },
    {
     "id": "AC-ws-owner-gated",
     "group": "security",
-    "text": "The PTY websocket is owner-gated at the HANDSHAKE (R31.2 AC-ws-handshake); a non-owner cannot attach to any pane."
+    "text": "The PTY websocket is owner-gated at the UPGRADE via a single-use ~30s TICKET: an owner-gated HTTP endpoint (R31.2 guard) issues an owner-bound single-use ticket; the ws upgrade validates ?ticket=<t>; an invalid/absent/expired/reused ticket returns 403 and the socket NEVER opens. NOT a post-connect token check (browsers cannot set ws auth headers; connect-time gating is mandatory)."
    },
    {
     "id": "AC-close-returns",
@@ -48,16 +48,26 @@
     "text": "Closing the terminal detaches cleanly and returns to the otmux tree (R31.3)."
    },
    {
-    "id": "AC-audit-arch",
+    "id": "AC-audit",
     "group": "security",
-    "text": "(arch) Attach/detach is audit-logged (owner token, pane target, timestamp) - final shape pending architect design."
+    "text": "Attach/detach/deny are audit-logged via addLog + data/logs/server-manager-<date>.log as ONE structured line each: ATTACH, DETACH(duration,bytes), DENY(kind,path,tok8,ip). Denials are ALWAYS logged. Per architect design (9920f6832)."
    },
    {
-    "id": "AC-bridge-arch",
+    "id": "AC-bridge-nodepty",
+    "text": "The PTY bridge is node-pty spawning a tmux CLIENT (the PTY is the tmux client, so keys/resize/TUI are native) attaching via a GROUPED session (tmux new-session -t <target> + select-pane) so it does NOT resize or steal the primary view from other agents; the sm_ grouped session is killed on detach. pipe-pane (output-tee only) does NOT satisfy interactive and is rejected. Per architect design-server-manager.md (9920f6832)."
+   },
+   {
+    "id": "AC-no-disrupt",
     "group": "functional",
-    "text": "(arch) PTY bridge mechanism (node-pty tmux attach vs pipe-pane+send-keys) and resize/scrollback fidelity - final ACs pending architect feasibility confirm."
+    "text": "Attaching a pane MUST NOT disrupt other viewers of that pane: the grouped/size-independent attach leaves Tron's other agents' view of the pane unchanged (no resize, no steal); detach cleans up the sm_ session."
+   },
+   {
+    "id": "AC-readonly-default",
+    "group": "security",
+    "text": "Terminal DEFAULT attach is READ-ONLY (live output + scrollback, no keystrokes reach the pane). An explicit 'Take Control' affordance is clearly presented; interactive keystroke I/O flows to the pane ONLY after the owner enables Take Control. The owner-gate (R31.2 + the ws ticket) applies to BOTH modes equally. PO ruling 2026-07-20 (bounds blast radius of an interactive server terminal)."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832"
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
