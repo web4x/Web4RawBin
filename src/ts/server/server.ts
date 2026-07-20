@@ -25,6 +25,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
+import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
@@ -793,30 +794,17 @@ function trackClient(req: http.IncomingMessage): void {
 
 // --- HTTP Request Handler ---
 
-// ── R31.2 Server-Manager OWNER-GATE (correct-by-construction — design-server-manager.md ## R31.2) ──────
-// ONE owner constant + ONE resolveOwner, used by EVERY /api/server-manager/* route (via the prefix choke-point
-// in handleRequest) AND the terminal ws upgrade. Fail-closed. INV-G1 (non-owner 403 on every route + ws),
-// INV-G2 (OWNER_TOKEN literal appears EXACTLY once — grep-guardable), INV-G3 (rejected ws upgrade never opens
-// the socket). IMPL MARKER PENDING: align to architect's serverManager.ownerGuard Method/Impl uuid (off UC
-// 40802701) when it lands — do NOT mint/fabricate here (scenario-first #126).
-const OWNER_TOKEN = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
-function playerTokenFrom(req: http.IncomingMessage): string {
-  const h = (req.headers['x-player-token'] as string) || '';
-  if (h) return h;
-  const q = new URLSearchParams((req.url || '').split('?')[1] || '');
-  return q.get('token') || q.get('playerToken') || '';
-}
+// ── R31.2 Server-Manager OWNER-GATE — thin server-side wrappers over the SINGLE shared guard
+// ServerManagerGuard.assertOwner (architect Method 8bb1842f). The OWNER_TOKEN literal lives ONLY in
+// ServerManagerGuard.ts (INV-G2). resolveOwner injects the live-session check (tokenToClient) to keep that
+// module decoupled (no import cycle). Used by the /api/server-manager/* choke-point AND the terminal ws upgrade.
 function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | { ok: false } {
-  const token = playerTokenFrom(req);
-  if (!token || !tokenToClient.has(token)) return { ok: false };                    // must be a LIVE authenticated session
-  const a = Buffer.from(token), b = Buffer.from(OWNER_TOKEN);
-  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return { ok: false };  // and THE owner (constant-time)
-  return { ok: true, token };
+  return ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
 }
 function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
   if (resolveOwner(req).ok) return true;
   const ip = req.socket.remoteAddress || 'unknown';
-  addLog(`[server-manager] DENY kind=http path=${req.url} token=${(playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+  addLog(`[server-manager] DENY kind=http path=${req.url} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
   res.writeHead(403, { 'Content-Type': 'application/json' }); res.end('{"error":"forbidden"}');
   return false;
 }
@@ -835,7 +823,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!requireOwnerHttp(req, res)) return;
       if (req.method === 'GET' && filepath === '/api/server-manager/whoami') { // minimal gated endpoint (exercises the gate)
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: true, owner: true, token8: playerTokenFrom(req).slice(0, 8) }));
+        res.end(JSON.stringify({ ok: true, owner: true, token8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8) }));
         return;
       }
       res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"not-found"}');
@@ -2207,7 +2195,7 @@ function setupWebSocketServer(server: https.Server): void {
     if (path === '/api/server-manager/terminal') {
       if (!resolveOwner(req).ok) { // SAME resolveOwner as HTTP — fail-closed
         const ip = req.socket.remoteAddress || 'unknown';
-        addLog(`[server-manager] DENY kind=ws path=${path} token=${(playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+        addLog(`[server-manager] DENY kind=ws path=${path} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
         socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
       }
       termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
