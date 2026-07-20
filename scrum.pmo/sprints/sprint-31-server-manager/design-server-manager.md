@@ -90,3 +90,15 @@ R31.2 gate → R31.1 section → R31.3 tree → R31.4 terminal. Nothing ships be
 - R31.2 → security Test: owner 200 / non-owner 403 on EVERY endpoint + ws upgrade (INV-G1/2/3). Correct-by-construction (single guard) = the champagne.
 - R31.3 → functional Test: tree matches `tmux list-panes`.
 - R31.4 → functional Test: (a) read-only default — key frames do NOT reach the pane (tmux `-r` + server drop); (b) Take-Control → echo round-trip (type→appears), resize→reflow, history-primed; (c) CONTROL_TAKEN audited. + Tron device visual confirm (like R30.53).
+
+## ARCHITECT BACKSTOP — R31.2 v0.7.82 / 99652464b (robbin-architect 2026-07-20): **PASS**
+Restarted remoteShells:0.2 (Ctrl-C → npm start); served `/api/config` version = **0.7.82**.
+STATIC (read server.ts:796-843, 2200-2222):
+- INV-G1 ✓ — HTTP choke-point `if(filepath.startsWith('/api/server-manager/')){ if(!requireOwnerHttp)return; … }` (:834) gates EVERY sub-route before any handler; a new route physically can't bypass. Terminal ws path gated at :2208 via the SAME `resolveOwner`.
+- INV-G2 ✓ — `OWNER_TOKEN` literal appears EXACTLY once (grep: server.ts:802).
+- INV-G3 ✓ — non-owner ws upgrade `socket.write(403)+socket.destroy(); return;` WITHOUT `handleUpgrade` (:2211); `noServer:true` dispatcher → `connection` never fires → no PTY.
+- Fail-closed ✓ — `resolveOwner` rejects missing / not-in-tokenToClient (unknown/redirected/not-live) / length-mismatch / non-timing-safe-equal; constant-time compare (:812-813).
+LIVE (curl https://localhost:4444):
+- no token → 403 · unknown token → 403 · nonexistent sub-route `/api/server-manager/tree` → 403 (choke-point proven — can't probe past the gate) · body `{"error":"forbidden"}`.
+NOT fully testable now: owner-200 positive path needs the owner's LIVE session token in tokenToClient (Tron's device) — security-critical NEGATIVE direction is proven.
+FOLLOW-UPS (non-blocking): (1) IMPL MARKER still PENDING (server.ts:800) — now unblocked: add `[impl:uuid]` under my Method assertOwner 8bb1842f + mint the Impl unit (champagne). (2) R31.4 refinement: terminal ws currently reads owner token from `?token=` query; switch to the single-use TICKET (design B1) so the long-lived token isn't in the ws URL/proxy logs. Gate itself is correct for R31.2.
