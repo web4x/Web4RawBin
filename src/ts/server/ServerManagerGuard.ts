@@ -19,10 +19,10 @@ export class ServerManagerGuard {
     return q.get('token') || q.get('playerToken') || '';
   }
 
-  // [impl marker PENDING] — Method 8bb1842f has implementations:[] EMPTY. An [impl:uuid:…] marker credits ONLY off an
-  // ior:class:Implementation unit (cf. 640f8428/2de3411f = "…impl"), NEVER a Method uuid. Once an Impl unit is minted
-  // + wired under Method 8bb1842f, place [impl:uuid:<that Impl>] on the line below. Do NOT use 8bb1842f (the Method).
-  // The single shared owner guard: caller must be a LIVE authenticated session AND constant-time-equal THE owner. Fail-closed.
+  // [impl:uuid:335dbf3d-2294-47cb-9beb-1d81a4bf9a94] ServerManagerGuard.assertOwner — the SINGLE shared owner guard
+  // (Method 8bb1842f, off UC serverManager.ownerGuard 40802701). Caller must be a LIVE authenticated session AND
+  // constant-time-equal THE owner; fail-closed. INV-G1/G2/G3 by construction — used by the /api/server-manager/*
+  // HTTP choke-point AND the terminal ws upgrade (one guard, one owner constant).
   static assertOwner(req: http.IncomingMessage, isLiveSession: (token: string) => boolean): { ok: true; token: string } | { ok: false } {
     const token = ServerManagerGuard.playerTokenFrom(req);
     if (!token || !isLiveSession(token)) return { ok: false };                        // must be a LIVE authenticated session
