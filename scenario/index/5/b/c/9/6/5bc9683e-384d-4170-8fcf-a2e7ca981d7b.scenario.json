@@ -63,12 +63,12 @@
     "text": "Server Manager auth is COOKIE-ONLY - no token-in-URL anywhere: (a) the /server-manager PAGE route REJECTS ?token= (the server.ts:917 query-token fallback removed - cookie is the sole auth path); (b) the profile entry href fallback carrying ?token= is removed (R31.1 renderFeatureGrants emits a CLEAN /server-manager href, no ?token=); (c) ?token= is GONE EVERYWHERE for Server Manager. Token-in-URL is a leak (server logs / browser history / referrer) and is rejected. Finishes the v0.7.89 cookie-primary move. Rides the same assertOwner guard (INV-G1) reading the cookie, single OWNER_TOKEN literal (INV-G2).",
     "coverageNote": "CODE-COMPLETE (measured, NOT a build item): resolveOwner (server.ts:817-820) auths via sm_session COOKIE + x-player-token HEADER only - NO ?token= query-auth path (the :917 fallback is removed); profile onclick navigates to a CLEAN /server-manager (line 874, cookie minted via header POST first, no ?token= in URL). All 3 sub-clauses (a page rejects ?token=, b clean href, c gone-everywhere) satisfied in code. Behaviorally covered by Test 87b040ee 403-enum (any request lacking a valid cookie/header -> 403 regardless of a URL ?token=). OPTIONAL: an explicit /server-manager?token=<owner> -> 403 assertion is a small tester slice - flag if PO wants it named; security property already enforced.",
     "coveredBy": [
-     "ior:instance:87b040ee-08b2-44ea-a832-52da08f1fef9",
      "ior:instance:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb"
     ],
     "stagedTestMarker": "b0ee7dc6-68a4-4908-b72f-594a5e6a3deb",
-    "stagedNote": "Explicit /server-manager?token=<owner> -> 403 (+ no shell leak) slice STAGED (marker b0ee7dc6) per PO 2026-07-20 — a security no-query-auth property gets an EXPLICIT test (correct-by-construction, guards a future ?token= regression), not just the behavioral 403-enum implication. Tester runs the slice with this marker; on GREEN req mints the slice Test onto Impl 335dbf3d (assertOwner, the guard that ignores URL tokens) + wires -> AC closes.",
-    "closed": false
+    "stagedNote": "Explicit /server-manager?token=<owner> -> 403 (+no shell leak) slice STAGED (marker b0ee7dc6). RED on current origin (query path authenticates), GREEN after the expert header-only fix — a proper regression gate for the fix (correct-by-construction).",
+    "closed": false,
+    "gapNote": "CORRECTION 2026-07-20 (PO/expert caught my miss): NOT code-complete. I measured resolveOwner (server.ts:817) but MISSED that ServerManagerGuard.playerTokenFrom (:19, origin) has its OWN query path — x-player-token header ELSE ?token/?playerToken QUERY — so a bare ?token=<owner> URL STILL AUTHENTICATES = real cookie-only violation. 87b040ee does NOT cover this (its 403-enum uses HEADER variants; a URL ?token= would authenticate, not 403). Expert building the 1-line header-only fix (drop the query fallback from playerTokenFrom). AC stays OPEN until: (1) expert fix lands (header-only), (2) tester ?token=->403 slice b0ee7dc6 GREEN (RED on current origin, GREEN post-fix). THEN req mints the slice Test onto Impl 335dbf3d + wires -> AC closes."
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
@@ -87,7 +87,7 @@
    }
   ],
   "constructionInvariantsNote": "Architect INV-G1/INV-G2 (2026-07-20), pinned scenario-first (correct-by-construction): the expert EXTENDS the existing choke-point to cover both '/server-manager' + '/api/server-manager/*' via the one assertOwner guard, single OWNER_TOKEN literal. Architect verifies the choke-point extension when the expert ships the page. These back AC-shared-guard + AC-page-route; the tester asserts non-owner-403 on ALL surfaces (page + api + ws) against the single guard.",
-  "_r312DriveNote": "PO-resolved 2026-07-20: AC-page-route WIRED->87b040ee (closed). AC-cookie-only WIRED->87b040ee (behavioral 403) + staged explicit ?token=->403 slice b0ee7dc6 (pending tester run). R31.2 returns to Done once the slice runs GREEN + is minted."
+  "_r312DriveNote": "PO-resolved+CORRECTED 2026-07-20: AC-page-route WIRED->87b040ee (closed, genuinely covered). AC-cookie-only = REAL GAP (I missed playerTokenFrom:19 query path); expert header-only fix in flight; staged slice b0ee7dc6 verifies ?token=->403 post-fix; AC OPEN until fix+slice GREEN. R31.2 stays In-Progress until then."
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
