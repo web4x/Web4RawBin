@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b395a272-7060-46ca-9942-22bc29a3b7a4",
+    "name": "test:R31.4 PtyBridge.attachPane grouped-session lifecycle (spawn / no-disrupt / detach-cleanup)",
+    "description": "Bridged to test/visual/r3111-server-attach-gate.ts (DET-3x GREEN, served==HEAD==v0.7.101, mock-owner gate). (a) grouped tmux sm_<pane>_<ts> SPAWNS on attach; (b) NO-DISRUPT — pre-existing non-sm sessions unchanged incl size (grouped attach size-independent); (c) DETACH-CLEANUP on ws.close -> pty + grouped session killed, zero leak. Headless-mockable slice (mock ws + real tmux). CLOSES the req-eng self-audit finding that Impl 394eac63 (server attach) was Test-less; interactive keystroke VISUAL = Tron device. Marker adopted from origin (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r3111-server-attach-gate.ts",
+    "implementations": [
+      "ior:instance:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05"
+}

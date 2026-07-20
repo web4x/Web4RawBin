@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a52393fb-acca-4a84-89f0-89f01f1bab57",
+    "name": "test:R31.1 renderFeatureGrants owner-entry via server-computed serverManager (current mechanism)",
+    "description": "Bridged to test/visual/r3110-owner-interactive-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.101, mock-owner gate). owner (m.serverManager=true, server-computed server.ts:862, NO whoami round-trip) -> #feature-grants shows 'Server Manager'; real non-owner (serverManager=false) -> ABSENT. SUPERSEDES the stale whoami-based marker baee3c82 (r311v tested the REMOVED whoami round-trip; baee3c82 is marker-only, no scenario unit — the stale test should be removed code-side, a52393fb is its replacement). Alongside the render+filter Test 96d0d227. Marker adopted from origin (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r3110-owner-interactive-gate.mjs",
+    "implementations": [
+      "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+}

@@ -4,7 +4,8 @@
     "uuid": "f345b8ed-c853-46c8-8b3c-102375f528dc",
     "name": "ProfilePage.renderFeatureGrants impl",
     "tests": [
-      "ior:instance:96d0d227-2ac0-468b-8bb7-b3d3a0438fc7"
+      "ior:instance:96d0d227-2ac0-468b-8bb7-b3d3a0438fc7",
+      "ior:instance:a52393fb-acca-4a84-89f0-89f01f1bab57"
     ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": false,

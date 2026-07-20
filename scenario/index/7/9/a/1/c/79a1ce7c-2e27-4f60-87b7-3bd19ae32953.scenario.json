@@ -4,7 +4,8 @@
     "uuid": "79a1ce7c-2e27-4f60-87b7-3bd19ae32953",
     "name": "RbTerminalDetail.mount impl",
     "tests": [
-      "ior:instance:c6791c06-a1f8-4815-9412-37b1a9170a6a"
+      "ior:instance:c6791c06-a1f8-4815-9412-37b1a9170a6a",
+      "ior:instance:0c0a69ad-d113-40f3-ae83-db9fc7fa9844"
     ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
     "designAhead": false,

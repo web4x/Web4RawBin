@@ -3,7 +3,9 @@
   "model": {
     "uuid": "394eac63-aa3a-4ee6-a2dc-6a5ac9204a05",
     "name": "PtyBridge.attachPane impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:b395a272-7060-46ca-9942-22bc29a3b7a4"
+    ],
     "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
     "designAhead": false,
     "description": "BUILT v0.7.92 (commit 6934ad441): PtyBridge.attachPane @ src/ts/server/PtyBridge.ts:19 — on otmuxPane select, node-pty pty.spawn('tmux',['attach-session','-t',sm]) on a GROUPED session (new-session -d -t sessionName, shares windows/own view, no-disrupt) attached FULL READ-WRITE (Tron override — NO -r, no Take-Control); bidirectional PTY<->ws BINARY frames to xterm.js fullscreen; {t:resize}->pty.resize; execFile ARRAY args (no shell). Owner-gated ws UPGRADE via sm_session COOKIE (INV-G3: non-owner -> socket.destroy BEFORE handleUpgrade @server.ts:2300, never opens, no pty). ATTACH/DETACH audit (:44/:52). Close -> term.kill + kill grouped session (no orphan). Static backstop PASS. NATIVE-ABI CAVEAT: node-pty compiled node16, server runs node22 (start.mjs self-heal) -> rebuild node-pty under node22 at restart. Deps node-pty ^1.1.0 + xterm ^5.3.0. R31.4. Marker [impl:uuid:394eac63-...] placed on attachPane."
