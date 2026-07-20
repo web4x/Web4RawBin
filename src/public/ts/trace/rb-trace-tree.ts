@@ -335,6 +335,10 @@ export class RbTraceTree extends HTMLElement {
     // R31.3 BADGE fix: thread child-count (inline children.length, else eager server metadata nodeChildCount) so the
     // rb-object-item badge shows the real N BEFORE the layer is lazily built (was 0 — has-children set but no count).
     const childCount = (children && children.length) || this.nodeChildCount.get(uuid) || 0;
+    // SESSION-BADGE fix: record THIS node's OWN inline count in nodeChildCount (roots/sessions too — was only done for
+    // a node's children at :355, so root sessions had no entry → computeBadges' eager lookup overwrote the badge to 0
+    // once collapsed). Guarded by !has so an authoritative server childCount (prefetch / :413 / :560) still wins.
+    if (children && children.length && !this.nodeChildCount.has(uuid)) this.nodeChildCount.set(uuid, children.length);
     item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(showExpander && childCount ? { 'child-count': String(childCount) } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
