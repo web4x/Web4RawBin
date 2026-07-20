@@ -797,9 +797,24 @@ function trackClient(req: http.IncomingMessage): void {
 
 // ── R31.2 Server-Manager OWNER-GATE — thin server-side wrappers over the SINGLE shared guard
 // ServerManagerGuard.assertOwner (architect Method 8bb1842f). The OWNER_TOKEN literal lives ONLY in
-// ServerManagerGuard.ts (INV-G2). resolveOwner injects the live-session check (tokenToClient) to keep that
-// module decoupled (no import cycle). Used by the /api/server-manager/* choke-point AND the terminal ws upgrade.
+// ServerManagerGuard.ts (INV-G2). resolveOwner stays the ONE guard (INV-G1) — used by the /api/server-manager/*
+// choke-point, the /server-manager page, AND the terminal ws upgrade.
+// R31.4-PRE/B1: httpOnly Server-Manager session cookie. Minted by POST /api/server-manager/session (owner-gated via
+// the live x-player-token) so the cookie-less /server-manager page + its /tree fetch + the terminal ws all
+// authenticate WITHOUT a live ws session or a token-in-URL. The id is RANDOM (crypto.randomUUID, NOT OWNER_TOKEN →
+// INV-G2 stays 1).
+const smSessions = new Map<string, { owner: boolean; expiresAt: number }>();
+function cookieFrom(req: http.IncomingMessage, name: string): string {
+  const raw = (req.headers['cookie'] as string) || '';
+  for (const part of raw.split(';')) { const i = part.indexOf('='); if (i > 0 && part.slice(0, i).trim() === name) return part.slice(i + 1).trim(); }
+  return '';
+}
 function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | { ok: false } {
+  // Cookie path: a valid sm_session IS the proof (minted after an owner-gated POST) — no tokenToClient live-session
+  // needed (the standalone /server-manager page holds no ws). Prune expired on read.
+  const sid = cookieFrom(req, 'sm_session');
+  if (sid) { const s = smSessions.get(sid); if (s && s.owner && s.expiresAt > Date.now()) return { ok: true, token: 'sm_session' }; if (s) smSessions.delete(sid); }
+  // Token path (unchanged): live authenticated OWNER session via x-player-token / ?token (used by the /session mint).
   return ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
 }
 function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
@@ -829,8 +844,6 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 <div id="tree"></div><div id="err"></div>
 <script>
 (function(){
-  var qp=new URLSearchParams(location.search);
-  var token=qp.get('token')||localStorage.getItem('rawbin-player-id')||'';
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
   function render(sessions){
     var t=document.getElementById('tree');t.innerHTML='';
@@ -853,7 +866,7 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
   }
   function load(){
     document.getElementById('err').textContent='';
-    fetch('/api/server-manager/tree',{headers:{'x-player-token':token}}).then(function(r){
+    fetch('/api/server-manager/tree',{credentials:'same-origin'}).then(function(r){
       if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
     }).then(function(d){render(d.sessions||[]);}).catch(function(e){
       document.getElementById('err').textContent='Failed to load tree: '+e.message;
@@ -882,9 +895,10 @@ function renderFeatureGrants(): string {
         if(fg){
           fg.innerHTML='<h3>Feature access</h3>';
           var sm=document.createElement('a');
-          sm.href='/server-manager?token='+encodeURIComponent(token);
+          sm.href='#';
           sm.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
           sm.textContent='\u{1F5A5}\u{FE0F} Server Manager';
+          sm.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href='/server-manager';}).catch(function(){});}; // B1: mint httpOnly cookie via live-owner token, THEN nav (no ?token= in URL)
           fg.appendChild(sm);
         }
       }`;
@@ -917,6 +931,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sessions = await OtmuxBridge.readSessionTree();
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, sessions }));
+        return;
+      }
+      if (req.method === 'POST' && filepath === '/api/server-manager/session') { // R31.4-PRE/B1: mint the httpOnly owner cookie (caller already owner-gated above via the LIVE x-player-token)
+        const sid = crypto.randomUUID(); // RANDOM — NOT OWNER_TOKEN (INV-G2 stays 1)
+        smSessions.set(sid, { owner: true, expiresAt: Date.now() + 30 * 60 * 1000 });
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Set-Cookie': `sm_session=${sid}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=1800` });
+        res.end('{"ok":true}');
         return;
       }
       res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"not-found"}');
