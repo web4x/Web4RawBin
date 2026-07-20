@@ -163,6 +163,7 @@ export class RbDetailDrawer extends HTMLElement {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
       test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
+      otmuxpane: 'rb-terminal-detail', // R31.4 DRY: Server Manager terminal = a detail-view (defined by the server-manager bundle; tag string only → no xterm in /trace bundles)
     };
     const tag = tagMap[type] || 'rb-detail-view';
     // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,
@@ -230,35 +231,7 @@ export class RbDetailDrawer extends HTMLElement {
     this.style.maxHeight = '';
     const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';        // R27.8(b): so a later reopen RE-RENDERS (not the stale-ref no-op)
     const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'flex'; // R27.8(b): restore body (minimize set it none)
-    if (this._onClose) { const cb = this._onClose; this._onClose = null; try { cb(); } catch { /* */ } } // R31.4: FULL close tears down hosted content (terminal ws→server kills pty+grouped session). minimize() does NOT → peek keeps the ws.
-    if (dp) { dp.style.flex = ''; dp.style.minHeight = ''; dp.style.display = ''; dp.style.flexDirection = ''; } // R31.4: reset the generic-host fill layout so a later type-map detail view is unaffected
     selectionModel.clear();
-  }
-
-  // R31.4 UX: GENERIC host — mount arbitrary content (e.g. the Server Manager xterm terminal) in the drawer's
-  // detail panel, reusing the grab-bar / close / minimize / expand chrome. Distinct from renderDetailForRef's
-  // type-map path (currentRef='' so a later detail-select re-renders cleanly). onClose fires ONLY on FULL close()
-  // (ESC / programmatic) — NOT on minimize-peek — so the terminal ws survives a peek and resumes on re-expand.
-  private _onClose: (() => void) | null = null;
-  showElement(el: HTMLElement, opts?: { title?: string; onClose?: () => void }): void {
-    if (this._onClose) { const prev = this._onClose; this._onClose = null; try { prev(); } catch { /* */ } } // teardown any previously-hosted content (e.g. switching panes)
-    // R31.4 regression fix (v0.7.94→): a FRESH drawer (createElement+appendChild on /server-manager, where showElement
-    // is its FIRST interaction) may lack its chrome, and detailPanel (unlike body) does NOT lazy-render → showElement
-    // silently no-op'd → pane-tap did nothing. Ensure the structure + detail panel EXIST; NEVER silent-return.
-    if (!this.querySelector('.drawer-header')) this.render();
-    let panel = this.detailPanel;
-    if (!panel) { const body = this.body; panel = document.createElement('div'); panel.className = 'drawer-panel-detail'; body.appendChild(panel); }
-    panel.innerHTML = '';
-    panel.dataset.currentRef = '';
-    this.setMode('detail');
-    panel.style.display = 'flex'; panel.style.flexDirection = 'column'; panel.style.flex = '1'; panel.style.minHeight = '0'; // fill the drawer body (override setMode's block)
-    if (opts?.title) { const h = document.createElement('div'); h.textContent = opts.title; h.style.cssText = 'color:#ccc;font:600 0.8rem monospace;padding:2px 4px 6px;flex:0 0 auto'; panel.appendChild(h); }
-    panel.appendChild(el);
-    this._onClose = opts?.onClose || null;
-    this.setAttribute('open', '');
-    this.removeAttribute('minimized');
-    this.openExpanded();
-    if (!this.style.height) this.style.height = '75vh'; // give hosted content (terminal) room; user can still drag-resize
   }
 
 // [impl:uuid:b53858c3-89ba-48ee-a659-2d03a3c88e51] impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.c

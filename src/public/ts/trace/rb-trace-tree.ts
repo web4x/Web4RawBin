@@ -150,7 +150,7 @@ export class RbTraceTree extends HTMLElement {
       if (ex) {
         console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
-        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 ? { 'has-children': '' } : {}) };
+        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 ? { 'has-children': '' } : {}), ...((root.children || []).length ? { 'child-count': String((root.children || []).length) } : {}) }; // R31.3 BADGE: real N on re-render
         let kids = ex.querySelector('.tt-children') as HTMLElement;
         if (!kids && root.children && root.children.length > 0) {
           kids = document.createElement('div');
@@ -174,7 +174,7 @@ export class RbTraceTree extends HTMLElement {
             const cex = existingChildren.get(cref);
             if (cex) {
               const ci = cex.querySelector('rb-object-item') as any;
-              if (ci) ci.data = { ref: cref, type: (child.type || 'task').toLowerCase(), title: child.name, ...(child.description ? { description: child.description } : {}) };
+              if (ci) ci.data = { ref: cref, type: (child.type || 'task').toLowerCase(), title: child.name, ...(child.description ? { description: child.description } : {}), ...((child.children || []).length || child.hasChildren ? { 'has-children': '' } : {}), ...((child.children || []).length ? { 'child-count': String((child.children || []).length) } : {}) }; // R31.3 BADGE + keep chevron on re-render
             } else {
               kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, child.children || [], (child.children || []).length > 0 || child.hasChildren === true, undefined, undefined, child.description)); // R31.3: pass inline children (windows keep their panes + chevron on re-render)
             }
@@ -249,7 +249,8 @@ export class RbTraceTree extends HTMLElement {
     const row = document.createElement('div');
     row.className = 'tt-row';
     const item = document.createElement('rb-object-item') as any;
-    item.data = { ref, type: obj ? obj.type : ref.split(':')[0], title: obj ? obj.title : ref, ...(obj?.title ? { description: obj.title } : {}), ...(obj?.status ? { status: obj.status } : {}), ...(hasChildren ? { 'has-children': '' } : {}), ...(hasChildren && isOpen ? { 'children-open': '' } : {}) };
+    const nodeCount = this.nodeChildCount.get(refUuid(ref)) || 0; // R31.3 BADGE: eager server child-count for the /trace graph path
+    item.data = { ref, type: obj ? obj.type : ref.split(':')[0], title: obj ? obj.title : ref, ...(obj?.title ? { description: obj.title } : {}), ...(obj?.status ? { status: obj.status } : {}), ...(hasChildren ? { 'has-children': '' } : {}), ...(hasChildren && nodeCount ? { 'child-count': String(nodeCount) } : {}), ...(hasChildren && isOpen ? { 'children-open': '' } : {}) };
     if (this.brokenUuids.has(refUuid(ref))) {
       const warn = document.createElement('span');
       warn.className = 'tt-warn'; warn.title = 'traceability issue (T102)'; warn.textContent = '⚠️';
@@ -331,7 +332,10 @@ export class RbTraceTree extends HTMLElement {
     const showExpander = children.length > 0 || hasChildren === true;
     const itemRef = `${(type || 'task').toLowerCase()}:${uuid}`;
     const forceOpen = this.hasAttribute('data-always-expanded');
-    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
+    // R31.3 BADGE fix: thread child-count (inline children.length, else eager server metadata nodeChildCount) so the
+    // rb-object-item badge shows the real N BEFORE the layer is lazily built (was 0 — has-children set but no count).
+    const childCount = (children && children.length) || this.nodeChildCount.get(uuid) || 0;
+    item.data = { ref: itemRef, type: (type || 'task').toLowerCase(), title: name || uuid, ...(description ? { description } : {}), ...(status ? { status } : {}), ...(showExpander ? { 'has-children': '' } : {}), ...(showExpander && childCount ? { 'child-count': String(childCount) } : {}), ...((forceOpen || shouldStartOpen) && showExpander ? { 'children-open': '' } : {}) };
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
