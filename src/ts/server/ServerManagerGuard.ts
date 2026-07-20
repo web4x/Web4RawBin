@@ -30,4 +30,14 @@ export class ServerManagerGuard {
     if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return { ok: false };  // and THE owner (constant-time)
     return { ok: true, token };
   }
+
+  // R31.1 owner-accept (architect-locked): constant-time owner check for a token the server has ALREADY verified as
+  // a live session (it holds the identified token when building the owner's PROFILE ws message → sets serverManager).
+  // Reuses the ONE OWNER_TOKEN literal (INV-G2 =1); no live-session re-check (caller already holds it). This is what
+  // fixes the owner-accept RACE — no client whoami round-trip that could fire before the /profile ws identifies.
+  static isOwner(token: string): boolean {
+    if (!token) return false;
+    const a = Buffer.from(token), b = Buffer.from(ServerManagerGuard.OWNER_TOKEN);
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+  }
 }

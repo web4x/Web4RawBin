@@ -766,7 +766,7 @@ function getBundleScript(key: string, fallback: string): string {
 }
 
 function pageHead(title: string): string {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script></head><body><rb-update-banner></rb-update-banner><button onclick="history.back()" style="position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));right:20px;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);color:white;border:none;font-size:1.5rem;cursor:pointer;z-index:100">✕</button>`;
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>${title} — RawBin</title><link rel="stylesheet" href="/app.css"><script type="module" src="${getBannerScript()}"></script></head><body style="padding-top:max(env(safe-area-inset-top),12px)"><rb-update-banner></rb-update-banner><button onclick="history.back()" style="position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));right:20px;width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);color:white;border:none;font-size:1.5rem;cursor:pointer;z-index:100">✕</button>`;
 }
 
 function pageNav(backHref: string = '/', backLabel: string = 'Home', editPath?: string): string {
@@ -816,7 +816,7 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
 const SERVER_MANAGER_PAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Server Manager</title><style>
 body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
-header{padding:12px 16px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
+header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
 h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
 .session{margin:12px 16px;border:1px solid #30363d;border-radius:8px;overflow:hidden}
 .session>.hd{background:#161b22;padding:8px 12px;font-weight:600}
@@ -872,21 +872,22 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 // (NOTE to req/architect: the unit name still says ProfileEditor.* — please re-point to the viewer; token-match
 // on renderFeatureGrants holds.)
 function renderFeatureGrants(): string {
-  return `<script>
-(function(){
-  var token=localStorage.getItem('rawbin-player-id')||'';
-  if(!token)return;
-  fetch('/api/server-manager/whoami',{headers:{'x-player-token':token}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(!d)return; var host=document.getElementById('feature-grants'); if(!host)return;
-    host.innerHTML='<h3>Feature access</h3>';
-    var a=document.createElement('a');
-    a.href='/server-manager?token='+encodeURIComponent(token);
-    a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
-    a.textContent='\u{1F5A5}\u{FE0F} Server Manager';
-    host.appendChild(a);
-  }).catch(function(){});
-})();
-</script>`;
+  // Inserted INSIDE the /profile PROFILE ws handler (m = message, token = the identified token, both in scope).
+  // Renders the owner-only 'Server Manager' entry IFF the server-computed m.serverManager flag is set — NO whoami
+  // round-trip (kills the owner-accept race + the client can't self-grant). Href keeps ?token= so the owner reaches
+  // the assertOwner-gated /server-manager page on browser-nav (R31.4 ticket/cookie hardens the URL token).
+  return `
+      if(m.serverManager){
+        var fg=document.getElementById('feature-grants');
+        if(fg){
+          fg.innerHTML='<h3>Feature access</h3>';
+          var sm=document.createElement('a');
+          sm.href='/server-manager?token='+encodeURIComponent(token);
+          sm.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
+          sm.textContent='\u{1F5A5}\u{FE0F} Server Manager';
+          fg.appendChild(sm);
+        }
+      }`;
 }
 
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
@@ -2127,11 +2128,12 @@ else{
           var statusColor=b.status==='FIXED'?'#4CAF50':b.status==='IN PROGRESS'?'#ff9800':'#999';
           return '<div class="device"><span style="color:'+statusColor+';font-weight:600">'+b.status+'</span> <span style="opacity:0.5;font-size:0.7rem">'+new Date(b.date).toLocaleDateString()+'</span><div class="dmeta">'+b.text+'</div></div>'
         }).join(''):'<p class="empty">No bug reports filed</p>');
+      ${renderFeatureGrants()}
     }
   };
 }
 fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(()=>{});
-</script>${renderFeatureGrants()}</body></html>`);
+</script></body></html>`);
       return;
     }
 
@@ -2608,7 +2610,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds });
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token) }); // R31.1 owner-accept: server-computed owner flag (verified live token) → /profile renders the Server Manager entry off THIS, no client whoami race
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's
