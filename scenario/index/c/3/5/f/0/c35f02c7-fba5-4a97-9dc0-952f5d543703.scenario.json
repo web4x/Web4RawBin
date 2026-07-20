@@ -10,13 +10,19 @@
     ],
     "status": "pass",
     "unitLinks": [],
-    "liveValidationPending": true,
+    "liveValidationPending": false,
     "verificationHistory": [
       {
         "date": "2026-07-20",
         "hop": "live-deployment CONFOUNDED (code GREEN, live unverified)",
         "reason": "CONFOUNDED-SERVER (architect 4f35bc15a): this GREEN verified the CODE (in-process/intercept, v0.7.101/102) but NOT the LIVE deployment — the node process was 3.5h old (r=rebuild != process restart, no tsx watch); /api/config reads package.json per-request so the version STRING lied. chain-complete-to-Test != verified-live when undeployed. RE-VALIDATE pending a REAL restart (Ctrl-C -> npm start) + architect re-validation + tester re-gate.",
         "reportedVia": "robbin-po (architect 4f35bc15a)"
+      },
+      {
+        "date": "2026-07-20",
+        "hop": "live-deployment RE-VALIDATED (PROVEN LIVE)",
+        "reason": "REAL restart fired — server PID 683493->1217320 (etime ~83s, genuine process restart, NOT the 3.5h confound). Boot-sweep PROVEN LIVE: the architect seeded orphan sm_archbackstop was REAPED at THIS real boot (reapOrphans ran on the actual restart). liveValidationPending cleared.",
+        "reportedVia": "robbin-po (expert PID + architect seeded-orphan)"
       }
     ]
   },

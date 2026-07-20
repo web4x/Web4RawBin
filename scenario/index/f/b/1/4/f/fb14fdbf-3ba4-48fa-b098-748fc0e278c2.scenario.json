@@ -87,12 +87,11 @@
     "id": "AC-boot-sweep-orphans",
     "group": "functional",
     "text": "On server BOOT, PtyBridge reaps ALL stale sm_* grouped tmux sessions — at boot NO pty is attached (the prior process died), so every sm_* is an orphan and safe to kill-session; a fresh boot leaves ZERO orphan sm_* sessions. (Expert verbatim proposal.) Complements the per-ws detach-cleanup which cannot fire on a restart/crash with an attached terminal (tmux session outlives the node process).",
-    "closed": false,
+    "closed": true,
     "coveredBy": [
      "ior:instance:c35f02c7-fba5-4a97-9dc0-952f5d543703"
     ],
-    "resolvedNote": "CLOSED 2026-07-20: expert built PtyBridge.reapOrphans (Impl 5d313828, boot-wired server.ts:2212, v0.7.102); tester boot-sweep gate c35f02c7 GREEN DET-3x (LIVE 0-orphan post-restart + injected-orphan sweep-to-0 + non-sm untouched + boot-wired-by-source, build-safe). Test minted onto 5d313828 + wired. Zero orphan sm_* accumulation.",
-    "reValidateNote": "RE-OPENED 2026-07-20 (confounded server, architect 4f35bc15a): code verified GREEN but NOT live-deployed (server not restarted). closes again after a REAL restart + architect re-validation + tester re-gate confirm the LIVE server behavior."
+    "resolvedNote": "CLOSED 2026-07-20: expert built PtyBridge.reapOrphans (Impl 5d313828, boot-wired server.ts:2212, v0.7.102); tester boot-sweep gate c35f02c7 GREEN DET-3x (LIVE 0-orphan post-restart + injected-orphan sweep-to-0 + non-sm untouched + boot-wired-by-source, build-safe). Test minted onto 5d313828 + wired. Zero orphan sm_* accumulation. RE-CLOSED 2026-07-20 (LIVE-PROVEN): real restart PID 683493->1217320; seeded orphan sm_archbackstop reaped at boot. Confound cleared — now verified-live."
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832"
