@@ -1,0 +1,55 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "57225ee8-cb9d-46cc-9af3-0167855999e2",
+  "altId": "R31.6",
+  "name": "Shared pan/zoom viewer capability for EVERY embedded format (FUTURE / concept)",
+  "description": "FUTURE / CONCEPT ONLY (Tron 2026-07-20 - do NOT implement now; deferred until Tron authorizes build). The drawer embeds VIEWERS (detail-view types) for many content formats. TODAY only the SVG viewer has rich pan/zoom (RbPanZoom, src/public/ts/trace/pan-zoom.ts:14); other viewers (terminal rb-terminal-detail, images, html, ...) do not, or reimplement ad-hoc. CONCEPT: generalize the SVG viewer's pan/zoom (RbPanZoom) into ONE SHARED viewer base/mixin so EVERY embedded-format viewer pans + zooms CONSISTENTLY - across ALL embeddable content types: pictures (png, gif, webp), svg, html, and 'you name it' (every embeddable format), NOT a subset. A new embeddable format viewer INHERITS pan/zoom for free from the shared base (extensible to future formats). DRY - pan/zoom is NOT reimplemented per viewer/format, exactly the same shared-mechanism doctrine as drawer (R31.4 /trace detail flow), tree (R31.3 rb-trace-tree), template, and badges. Related to R31.5 (shared-mechanism concept) on a DIFFERENT axis: R31.5 = layout/positioning of the drawer/compartments; R31.6 = the pan/zoom CAPABILITY of whatever viewer sits inside. Acceptance = a coherent CONCEPT, not code; each facet decomposes into atomic build-requirements when Tron authorizes implementation (Rule 10/11).",
+  "tronQuote": "> TRON (2026-07-20): all viewers should have the SAME pan/zoom the SVG viewer has - generalize RbPanZoom into a shared viewer base so every drawer viewer pans+zooms; DRY, don't reimplement per viewer. EXTEND: it covers ALL embedded formats - pictures (png, gif, webp), svg, html, 'you name it' - every embeddable content type, extensible to future formats.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/requirements.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "conceptOnly": true,
+  "future": true,
+  "conceptNote": "FUTURE / PLAN-only: NO chain minted yet (acceptance = coherent concept, not code). Deferred until Tron authorizes build; then the facet-ACs decompose into atomic build-requirements (each with its own chain). Planner: keep as a FUTURE/concept item, NOT a build task.",
+  "status": "concept",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-20) via robbin-po (two messages: base capability + all-formats scope extension)",
+   "date": "2026-07-20",
+   "note": "Shared pan/zoom viewer base generalizing RbPanZoom (pan-zoom.ts:14) so every embedded-format viewer (png/gif/webp/svg/html/... + future) pans+zooms consistently. Captured scenario-first; FUTURE, deferred."
+  },
+  "crossRef": [
+   "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+   "ior:instance:fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+  ],
+  "crossRefNote": "R31.5 = shared-mechanism/DRY concept sibling (layout axis; R31.6 = viewer-capability axis). R31.4 (rb-terminal-detail) is a drawer viewer that would GAIN pan/zoom from the shared base. Prior per-feature pan/zoom uses exist (S21 contact media, S22 traceability-view, S25 apple-dnd, S27 detail-view via RbPanZoom in rb-detail-view / rb-webitem-detail / rb-preview-pane) - R31.6 GENERALIZES those into ONE shared base instead of per-viewer wiring.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-shared-panzoom-base",
+    "group": "concept",
+    "text": "The concept establishes pan/zoom as a SHARED viewer capability: the SVG viewer's RbPanZoom (src/public/ts/trace/pan-zoom.ts) is generalized into ONE shared viewer base/mixin, NOT reimplemented per viewer or per format."
+   },
+   {
+    "id": "AC-all-formats-panzoom",
+    "group": "concept",
+    "text": "EVERY embedded-format viewer pans + zooms CONSISTENTLY via that shared base - across ALL embeddable content types: pictures (png, gif, webp), svg, html, and 'you name it' (every embeddable format), NOT a subset. Same gestures / affordances / zoom limits across formats."
+   },
+   {
+    "id": "AC-extensible-future-formats",
+    "group": "concept",
+    "text": "A NEW embeddable-format viewer INHERITS pan/zoom for FREE from the shared base - the capability is extensible to future formats with no per-format reimplementation (same shared-mechanism doctrine as drawer / tree / template / badges)."
+   },
+   {
+    "id": "AC-concept-future",
+    "group": "concept",
+    "text": "FUTURE / concept: acceptance is a coherent CONCEPT (this captured model + the architect's shared-viewer-base design), NOT an implementation. Deferred until Tron authorizes build; each facet then decomposes into atomic build-requirements."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
