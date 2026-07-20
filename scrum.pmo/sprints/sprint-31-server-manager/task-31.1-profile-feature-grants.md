@@ -8,13 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing - REOPENED (Tron placement bug: section landed in profile EDITOR not VIEWER)
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+REOPENED In-Progress (Tron placement bug, PO 2026-07-20): the Server Manager feature-grants section rendered in the profile EDITOR, not the profile VIEWER Tron screenshoted. R31.1 AC-1 (section AFTER 'My Bug Reports' in the profile VIEW) is NOT met on the correct surface. Expert moving the section to the viewer. Flip implementing[x] when the moved section commits (source-verify); back to Planned/QA per PO signal when the placement is corrected.
 
 ## Traceability
 
