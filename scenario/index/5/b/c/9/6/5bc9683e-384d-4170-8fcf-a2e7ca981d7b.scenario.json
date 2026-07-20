@@ -51,13 +51,24 @@
     "id": "AC-page-route",
     "group": "security",
     "text": "The Server Manager PAGE route (e.g. /server-manager) is owner-gated SERVER-SIDE by the SAME shared assertOwner guard (single-literal): a non-owner request to the page route gets 403 (or a redirect away) and NEVER receives the page shell. Gating /api/server-manager/* + the ws ticket ALONE is NOT acceptance - the page itself is owner-only (Tron: 'ONLY this user will have access'). Client-side route-guarding / UI-hiding alone is NOT acceptance.",
-    "coverageNote": "COVERED by Test 87b040ee (r312-owner-gate-security.mjs): /server-manager PAGE is in the shared assertOwner choke (server.ts:891-895, requireOwnerHttp gates the page before serving the shell) and the route-enumeration asserts /server-manager -> 403 non-owner + NEVER-leaks-shell (r312 lines 57,113-116). Same guard/Impl 335dbf3d as the APIs (INV-G1) - no separate hop. Coverable NOW, not a build item."
+    "coverageNote": "COVERED by Test 87b040ee (r312-owner-gate-security.mjs): /server-manager PAGE is in the shared assertOwner choke (server.ts:891-895, requireOwnerHttp gates the page before serving the shell) and the route-enumeration asserts /server-manager -> 403 non-owner + NEVER-leaks-shell (r312 lines 57,113-116). Same guard/Impl 335dbf3d as the APIs (INV-G1) - no separate hop. Coverable NOW, not a build item.",
+    "coveredBy": [
+     "ior:instance:87b040ee-08b2-44ea-a832-52da08f1fef9"
+    ],
+    "closed": true
    },
    {
     "id": "AC-cookie-only-no-token-url",
     "group": "security",
     "text": "Server Manager auth is COOKIE-ONLY - no token-in-URL anywhere: (a) the /server-manager PAGE route REJECTS ?token= (the server.ts:917 query-token fallback removed - cookie is the sole auth path); (b) the profile entry href fallback carrying ?token= is removed (R31.1 renderFeatureGrants emits a CLEAN /server-manager href, no ?token=); (c) ?token= is GONE EVERYWHERE for Server Manager. Token-in-URL is a leak (server logs / browser history / referrer) and is rejected. Finishes the v0.7.89 cookie-primary move. Rides the same assertOwner guard (INV-G1) reading the cookie, single OWNER_TOKEN literal (INV-G2).",
-    "coverageNote": "CODE-COMPLETE (measured, NOT a build item): resolveOwner (server.ts:817-820) auths via sm_session COOKIE + x-player-token HEADER only - NO ?token= query-auth path (the :917 fallback is removed); profile onclick navigates to a CLEAN /server-manager (line 874, cookie minted via header POST first, no ?token= in URL). All 3 sub-clauses (a page rejects ?token=, b clean href, c gone-everywhere) satisfied in code. Behaviorally covered by Test 87b040ee 403-enum (any request lacking a valid cookie/header -> 403 regardless of a URL ?token=). OPTIONAL: an explicit /server-manager?token=<owner> -> 403 assertion is a small tester slice - flag if PO wants it named; security property already enforced."
+    "coverageNote": "CODE-COMPLETE (measured, NOT a build item): resolveOwner (server.ts:817-820) auths via sm_session COOKIE + x-player-token HEADER only - NO ?token= query-auth path (the :917 fallback is removed); profile onclick navigates to a CLEAN /server-manager (line 874, cookie minted via header POST first, no ?token= in URL). All 3 sub-clauses (a page rejects ?token=, b clean href, c gone-everywhere) satisfied in code. Behaviorally covered by Test 87b040ee 403-enum (any request lacking a valid cookie/header -> 403 regardless of a URL ?token=). OPTIONAL: an explicit /server-manager?token=<owner> -> 403 assertion is a small tester slice - flag if PO wants it named; security property already enforced.",
+    "coveredBy": [
+     "ior:instance:87b040ee-08b2-44ea-a832-52da08f1fef9",
+     "ior:instance:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb"
+    ],
+    "stagedTestMarker": "b0ee7dc6-68a4-4908-b72f-594a5e6a3deb",
+    "stagedNote": "Explicit /server-manager?token=<owner> -> 403 (+ no shell leak) slice STAGED (marker b0ee7dc6) per PO 2026-07-20 — a security no-query-auth property gets an EXPLICIT test (correct-by-construction, guards a future ?token= regression), not just the behavioral 403-enum implication. Tester runs the slice with this marker; on GREEN req mints the slice Test onto Impl 335dbf3d (assertOwner, the guard that ignores URL tokens) + wires -> AC closes.",
+    "closed": false
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
@@ -76,7 +87,7 @@
    }
   ],
   "constructionInvariantsNote": "Architect INV-G1/INV-G2 (2026-07-20), pinned scenario-first (correct-by-construction): the expert EXTENDS the existing choke-point to cover both '/server-manager' + '/api/server-manager/*' via the one assertOwner guard, single OWNER_TOKEN literal. Architect verifies the choke-point extension when the expert ships the page. These back AC-shared-guard + AC-page-route; the tester asserts non-owner-403 on ALL surfaces (page + api + ws) against the single guard.",
-  "_r312DriveNote": "PO-driven 2026-07-20: both open ACs measured. AC-page-route fully covered by wired Test 87b040ee; AC-cookie-only code-complete + 403-covered. Neither a build item. R31.2 returnable to Done."
+  "_r312DriveNote": "PO-resolved 2026-07-20: AC-page-route WIRED->87b040ee (closed). AC-cookie-only WIRED->87b040ee (behavioral 403) + staged explicit ?token=->403 slice b0ee7dc6 (pending tester run). R31.2 returns to Done once the slice runs GREEN + is minted."
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
