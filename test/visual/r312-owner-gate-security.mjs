@@ -53,41 +53,32 @@ const TOKEN_VARIANTS = [
   ['empty', { 'x-player-token': '' }],
   ['owner-literal-NOT-live', { 'x-player-token': OWNER }],   // ★ depth: correct constant, no live session → must 403
 ];
-const ROUTES = ['/api/server-manager/whoami', '/api/server-manager/terminal', '/api/server-manager/foo', '/api/server-manager/', '/api/server-manager/x/y'];
+// v0.7.86 INV-G1 FOLD: the /server-manager PAGE folded into the SAME choke (server.ts:903) as the APIs — enumerate both.
+const ROUTES = ['/server-manager', '/api/server-manager/whoami', '/api/server-manager/tree', '/api/server-manager/terminal', '/api/server-manager/foo', '/api/server-manager/', '/api/server-manager/x/y'];
 
 async function browserChecks() {
   // (A#6) UI-hiding-is-NOT-the-gate: a LIVE authenticated SystemTester (non-owner) forces the gated endpoint from the app.
-  // (B) R31.1: the profile's 'Server Manager' feature-grant is SERVER-gated (renders only if whoami→200) — for a non-owner
-  //     it is ABSENT, and FORCING the entry markup grants nothing (the resource itself stays 403). /app?editProfile=1
-  //     auto-opens the profile editor (app.ts:51) → renderFeatureGrants runs → #pe-feature-grants populated by the gate.
+  // (R31.1 render/filter moved to the /profile VIEWER at v0.7.86 → gated separately in r311v; r312 stays PURE R31.2 security.)
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
   try {
     const ctx = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block' });
     await seedSystemTester(ctx);
     const page = await ctx.newPage();
-    await page.goto(`${BASE}/app?editProfile=1`, { waitUntil: 'networkidle' });
-    await sleep(3000); // live ws session + profile editor open + renderFeatureGrants' whoami fetch settle
+    await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
+    await sleep(1500); // app ws connect → SystemTester becomes a LIVE session (isLiveSession true, still non-owner)
     return await page.evaluate(async (st) => {
       const s = async (h) => (await fetch('/api/server-manager/whoami', { headers: h })).status;
-      const withOwnHeader = await s({ 'x-player-token': st });
-      const noHeader = await s({});
-      const withOwnerLiteral = await s({ 'x-player-token': '41ad88c4-4dee-49ac-afcb-8a2026657b2d' });
-      // R31.1 entry-absent: the profile editor rendered its grants host, but NO 'Server Manager' grant for a non-owner
-      const grantsHost = document.querySelector('#pe-feature-grants');
-      const grantsRendered = !!grantsHost;
-      const smEntries = Array.from(document.querySelectorAll('a.profile-grant')).filter(a => /server manager/i.test(a.textContent || ''));
-      const entryAbsent = smEntries.length === 0;
-      // markup FORCED: inject the exact owner entry — prove the server still gates the resource (forcing markup ≠ access)
-      const forced = document.createElement('a'); forced.className = 'profile-grant'; forced.href = '/server-manager'; forced.textContent = '🖥️ Server Manager';
-      (grantsHost || document.body).appendChild(forced);
-      const afterForceWhoami = await s({ 'x-player-token': st });
-      return { withOwnHeader, noHeader, withOwnerLiteral, grantsRendered, entryCount: smEntries.length, entryAbsent, afterForceWhoami };
+      return {
+        withOwnHeader: await s({ 'x-player-token': st }),
+        noHeader: await s({}),
+        withOwnerLiteral: await s({ 'x-player-token': '41ad88c4-4dee-49ac-afcb-8a2026657b2d' }),
+      };
     }, ST).finally(() => ctx.close());
   } finally { await browser.close(); }
 }
 
 // PHANTOM-GUARD: I verify served==target MYSELF before gating (never certify served!=HEAD).
-const TARGET_VERSION = '0.7.84';
+const TARGET_VERSION = '0.7.86';
 const cfg = await httpGet('/api/config');
 let servedVersion = null; try { servedVersion = JSON.parse(cfg.body).version; } catch { /* noop */ }
 if (servedVersion !== TARGET_VERSION) {
@@ -104,9 +95,17 @@ for (let i = 1; i <= 3; i++) {
   const httpAll403 = httpRej.every(([, s]) => s === 403);
   const servedConfirm = httpRej[0][1] === 403;   // no-token → 403 (NOT 404) = R31.2 guard deployed
 
-  // (3) route enumeration — every sub-route, no token → 403 (INV-G1 choke-point)
+  // (3) route enumeration — every sub-route (incl the folded PAGE + tree), no token → 403 (INV-G1 choke-point)
   const routeRej = [];
-  for (const p of ROUTES) { const r = await httpGet(p, {}); routeRej.push([p, r.status]); }
+  let neverShell = true;
+  for (const p of ROUTES) {
+    const r = await httpGet(p, {});
+    routeRej.push([p, r.status]);
+    // A2 / 6th-AC: a rejected /server-manager PAGE or /tree must NEVER leak the shell / session tree in its body
+    if (p === '/server-manager' || p === '/api/server-manager/tree') {
+      if (/server manager|sessions|window_index|panes|<script|<div id="sm/i.test(r.body)) neverShell = false;
+    }
+  }
   const routesAll403 = routeRej.every(([, s]) => s === 403);
 
   // (4) ws INV-G3 — non-owner upgrade rejected, socket never opens
@@ -120,15 +119,13 @@ for (let i = 1; i <= 3; i++) {
   const g2 = invG2();
   const invG2ok = g2.count === 1;
 
-  // (6) UI-hiding-is-NOT-the-gate (live non-owner browser) + (B) R31.1 Server-Manager entry ABSENT (markup forced)
+  // (6) UI-hiding-is-NOT-the-gate (live non-owner browser)
   const b = await browserChecks();
   const uiAll403 = b.withOwnHeader === 403 && b.noHeader === 403 && b.withOwnerLiteral === 403;
-  const r31_1_entryAbsent = b.grantsRendered && b.entryAbsent;         // profile editor opened + NO Server Manager grant
-  const r31_1_forcedNoAccess = b.afterForceWhoami === 403;            // forcing the entry markup grants no access (server-gated)
 
-  const pass = httpAll403 && servedConfirm && routesAll403 && wsNeverOpens && wsRejected && invG2ok && uiAll403 && r31_1_entryAbsent && r31_1_forcedNoAccess;
+  const pass = httpAll403 && servedConfirm && routesAll403 && neverShell && wsNeverOpens && wsRejected && invG2ok && uiAll403;
   results.push(pass);
-  console.log(`iter ${i}: [A]httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403}(own=${b.withOwnHeader} none=${b.noHeader} lit=${b.withOwnerLiteral}) | [B]R31.1-entryAbsent=${r31_1_entryAbsent}(rendered=${b.grantsRendered} smCount=${b.entryCount}) forcedNoAccess=${r31_1_forcedNoAccess}(${b.afterForceWhoami}) => ${pass ? 'GREEN' : 'RED'}`);
+  console.log(`iter ${i}: httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] neverShell=${neverShell} wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403}(own=${b.withOwnHeader} none=${b.noHeader} lit=${b.withOwnerLiteral}) => ${pass ? 'GREEN' : 'RED'}`);
 }
 
 console.log('\n===== R31.2 owner-gate security (REJECT foundation, DET-3x) =====');
