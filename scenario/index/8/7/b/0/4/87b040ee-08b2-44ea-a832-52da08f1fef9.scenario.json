@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "87b040ee-08b2-44ea-a832-52da08f1fef9",
+    "name": "test:R31.2 owner-gate reject foundation (assertOwner - api+ws 403, INV-G1/G2/G3)",
+    "description": "Bridged to r312-owner-gate-security.mjs (DET-3x GREEN, served==HEAD==v0.7.84). Verifies R31.2 owner-gate REJECT foundation: non-owner / no-token / malformed / empty + LEAKED-owner-literal-not-live -> 403 across ALL /api/server-manager/* (INV-G1 single choke), ws terminal upgrade rejected socket-NEVER-opens (INV-G3), OWNER_TOKEN literal ==1 (INV-G2), fail-closed, UI-force live-non-owner -> 403. ALSO cross-covers R31.1 AC-nonowner-absent: Server-Manager feature-grant ABSENT for non-owner (markup FORCED, server-gated). PENDING: AC-page-route awaits R31.3 page build (the /server-manager route does not exist yet); R31.1 POSITIVE render (owner SEES the granted entry via renderFeatureGrants f345b8ed) awaits its OWN render marker.",
+    "sourceFile": "ior:file:test/visual/r312-owner-gate-security.mjs",
+    "implementations": [
+      "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94"
+}
