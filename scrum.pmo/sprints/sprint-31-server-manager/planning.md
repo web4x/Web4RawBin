@@ -20,4 +20,4 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
 - [ ] [Task 31.1: User-specific profile features section (per-user grants, owner-only entries, profile bottom)](./task-31.1-profile-feature-grants.md)
 - [ ] [Task 31.3: otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)](./task-31.3-otmux-tree.md)
 - [ ] [Task 31.4: Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated ws PTY bridge, read-only default)](./task-31.4-xterm-terminal.md)
-- [ ] [Task 31.5 (CONCEPT): Responsive scrollable viewport + WODA bar/compartment layout — DESIGN ARTIFACT, not a build](./task-31.5-concept-scrollable-viewport-woda-layout.md)
+- [ ] [Task 31.5: Responsive scrollable viewport + WODA bar/compartment layout (CONCEPT — plan only, no build)](./task-31.5-concept-scrollable-viewport-woda-layout.md)
