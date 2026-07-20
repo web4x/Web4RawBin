@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "1d6933c7-63a9-4487-b177-44b403a8e45e",
+    "name": "ServerManagerGuard",
+    "description": "Single shared server-side owner-gate for ALL Server Manager endpoints + the terminal ws upgrade (R31.2). Correct-by-construction: one OWNER_TOKEN literal (grep-guard), INV-G1 (403 on every route+ws for non-owner) / INV-G2 (single literal) / INV-G3 (rejected upgrade never opens socket). Design-ahead; intended impl src/ts/server/ServerManagerGuard.ts. See scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md.",
+    "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
+    "methods": [
+      "ior:instance:8bb1842f-1ced-4216-a391-f4ee5465e19c"
+    ]
+  },
+  "ownerIor": "ior:instance:40802701-db2c-49d4-85cd-aa421f06e61d"
+}

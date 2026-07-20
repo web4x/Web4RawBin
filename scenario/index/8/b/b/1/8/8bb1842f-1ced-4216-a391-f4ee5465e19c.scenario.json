@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8bb1842f-1ced-4216-a391-f4ee5465e19c",
+    "name": "ServerManagerGuard.assertOwner",
+    "description": "Resolve the caller token (must be in the live tokenToClient map) + constant-time compare to OWNER_TOKEN 41ad88c4-4dee-49ac-afcb-8a2026657b2d; fail-closed 403 (HTTP) / refuse handshake (ws) otherwise. Shared by every /api/server-manager/* handler AND the terminal ws upgrade (R31.2). Design-ahead, no impl yet. See design-server-manager.md.",
+    "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e"
+}

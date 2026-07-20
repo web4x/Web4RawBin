@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "34c7dfe6-cfde-4656-ad6a-80aeea073006",
+    "name": "OtmuxBridge",
+    "description": "Server-side read of the otmux/tmux session/window/pane tree for the Server Manager view (R31.3). Read-only: raw `tmux list-panes -a -F` (NOT the OOSH otmux wrapper — avoids server-ctx tty/classifier gates), parsed to sessions -> windows -> panes with pane_id (%N) as the stable attach target. Owner-gated via ServerManagerGuard. Design-ahead; intended impl src/ts/server/OtmuxBridge.ts. See design-server-manager.md.",
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
+    "methods": [
+      "ior:instance:7d7221d8-b2d1-43a3-b9c4-896a912454b6"
+    ]
+  },
+  "ownerIor": "ior:instance:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552"
+}

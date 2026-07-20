@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6fc43b8e-7c94-42af-baf2-c611a84793e7",
+    "name": "PtyBridge.attachPane",
+    "description": "On owner-verified ticket at ws upgrade: node-pty spawns a tmux client on a grouped session (tmux new-session -t <target> + select-pane) attached READ-ONLY (-r); stream PTY bytes as binary ws frames to xterm; prime pre-attach history via one-shot capture-pane -S -N; xterm onResize -> pty.resize (native, grouped=no clobber). Take-Control respawns read-write + forwards keys (audit CONTROL_TAKEN). Detach kills pty + grouped session (no orphan). NOT pipe-pane+send-keys. R31.4. Design-ahead, no impl yet.",
+    "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:59648f26-3dd6-4f05-9572-17b9f65b8e56"
+}

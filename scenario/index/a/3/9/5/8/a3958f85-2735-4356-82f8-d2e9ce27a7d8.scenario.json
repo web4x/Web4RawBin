@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a3958f85-2735-4356-82f8-d2e9ce27a7d8",
+    "name": "RbProfileView",
+    "description": "Profile view rendering the per-user feature-grant section at the BOTTOM of the profile (R31.1), entries filtered by the viewing token (owner sees Server Manager; others see nothing). Design-ahead; intended impl src/public/ts/ProfileSheet.ts. See design-server-manager.md.",
+    "sourceFile": "ior:file:src/public/ts/ProfileSheet.ts",
+    "methods": [
+      "ior:instance:b4f03947-4496-48b0-9ee1-83f17e0f8d79"
+    ]
+  },
+  "ownerIor": "ior:instance:aa6b0299-35f7-4929-ba9d-f0b028adc3de"
+}
