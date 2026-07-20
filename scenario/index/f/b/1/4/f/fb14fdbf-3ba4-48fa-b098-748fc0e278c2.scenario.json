@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2",
+  "altId": "R31.4",
+  "name": "Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated websocket PTY bridge)",
+  "description": "Selecting a pane opens a FULLSCREEN interactive terminal bound to that pane with real bidirectional I/O (type + live output), keys, resize and scrollback. Frontend = xterm.js (the engine VS Code's terminal uses); backend = a PTY bridge over a websocket that attaches to the tmux pane (e.g. tmux attach -t <target> / pipe-pane), owner-gated at the handshake (R31.2). Close returns to the tree. HIGH-privilege capability - architect owns the auth + PTY bridge model; consider audit-logging attach/detach. ACs marked (arch) pending architect terminal-bridge feasibility confirmation.",
+  "tronQuote": "> TRON (2026-07-20): opens it in an interactive fullscreen SSH terminal (leverage the VS Code / xterm.js terminal engine)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [
+   "ior:instance:fa1845d3-88e2-4c9b-9618-f427fc262b56"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (Sprint 31 PO-vision)",
+   "date": "2026-07-20",
+   "note": "Sprint 31 Server Manager (owner-gated infra console), Tron-authorized. Minted scenario-first. UC method-set design-ahead PROPOSED; architect confirms the hard parts (esp. R31.4 PTY bridge + auth). #126 scenario-first."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-fullscreen-open",
+    "group": "functional",
+    "text": "Selecting a pane node opens a FULLSCREEN terminal bound to that pane's tmux target."
+   },
+   {
+    "id": "AC-bidirectional",
+    "group": "functional",
+    "text": "The terminal has real bidirectional I/O: typed input reaches the pane and the pane's live output streams back (xterm.js frontend over a websocket PTY bridge)."
+   },
+   {
+    "id": "AC-keys-resize-scrollback",
+    "group": "functional",
+    "text": "Keystrokes, terminal resize, and scrollback all work (fidelity target: usable interactive shell)."
+   },
+   {
+    "id": "AC-ws-owner-gated",
+    "group": "security",
+    "text": "The PTY websocket is owner-gated at the HANDSHAKE (R31.2 AC-ws-handshake); a non-owner cannot attach to any pane."
+   },
+   {
+    "id": "AC-close-returns",
+    "group": "functional",
+    "text": "Closing the terminal detaches cleanly and returns to the otmux tree (R31.3)."
+   },
+   {
+    "id": "AC-audit-arch",
+    "group": "security",
+    "text": "(arch) Attach/detach is audit-logged (owner token, pane target, timestamp) - final shape pending architect design."
+   },
+   {
+    "id": "AC-bridge-arch",
+    "group": "functional",
+    "text": "(arch) PTY bridge mechanism (node-pty tmux attach vs pipe-pane+send-keys) and resize/scrollback fidelity - final ACs pending architect feasibility confirm."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

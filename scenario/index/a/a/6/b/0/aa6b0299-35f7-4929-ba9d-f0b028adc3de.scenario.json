@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "aa6b0299-35f7-4929-ba9d-f0b028adc3de",
+  "name": "profileFeatures.render",
+  "class": null,
+  "method": null,
+  "designAhead": true,
+  "proposedClass": "RbProfileView",
+  "proposedMethod": "renderFeatureGrants",
+  "designAheadNote": "Render the per-user feature-grant section at the bottom of the profile; entries filtered by viewing token. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,48 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "f032af09-8448-4d03-8cdd-abf6b12feaf1",
+  "altId": "R31.1",
+  "name": "User-specific profile features section (per-user grants, owner-only entries, at profile bottom)",
+  "description": "A NEW section at the BOTTOM of the profile view (after 'My Bug Reports') driven by per-user feature grants keyed to the user token/UUID. Generic + extensible so future owner-features slot in. Renders ONLY the features granted to the VIEWING user; for non-owners the section is absent entirely. First feature entry = 'Server Manager', granted only to 41ad88c4-4dee-49ac-afcb-8a2026657b2d.",
+  "tronQuote": "> TRON (2026-07-20): user-specific features at the BOTTOM of the profile for user 41ad88c4-4dee-49ac-afcb-8a2026657b2d (Marcel Donges) ... a new 'Server Manager'",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [
+   "ior:instance:aa6b0299-35f7-4929-ba9d-f0b028adc3de"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (Sprint 31 PO-vision)",
+   "date": "2026-07-20",
+   "note": "Sprint 31 Server Manager (owner-gated infra console), Tron-authorized. Minted scenario-first. UC method-set design-ahead PROPOSED; architect confirms the hard parts (esp. R31.4 PTY bridge + auth). #126 scenario-first."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-section-bottom",
+    "group": "ui",
+    "text": "The profile view renders a feature-grants section AFTER 'My Bug Reports' (bottom of profile)."
+   },
+   {
+    "id": "AC-per-user-grant",
+    "group": "data",
+    "text": "Feature grants are keyed to the user token/UUID; the model is generic+extensible (a grants map, not a hardcoded single feature)."
+   },
+   {
+    "id": "AC-owner-only-entry",
+    "group": "ui",
+    "text": "The 'Server Manager' entry renders ONLY when the viewing token === 41ad88c4-4dee-49ac-afcb-8a2026657b2d; for any other user the section renders no entries (and is absent if empty)."
+   },
+   {
+    "id": "AC-nonowner-absent",
+    "group": "ui",
+    "text": "A non-owner viewing their own profile sees NO Server Manager entry and NO empty affordance hinting at it."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

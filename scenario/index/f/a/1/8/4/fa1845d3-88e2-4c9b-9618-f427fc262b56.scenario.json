@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fa1845d3-88e2-4c9b-9618-f427fc262b56",
+  "name": "paneTerminal.attach",
+  "class": null,
+  "method": null,
+  "designAhead": true,
+  "proposedClass": "PtyBridge",
+  "proposedMethod": "attachPane",
+  "designAheadNote": "Owner-gated websocket PTY bridge attaching to a tmux pane (xterm.js frontend); bidirectional I/O + resize + scrollback; detach on close. Architect owns the bridge+auth design. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

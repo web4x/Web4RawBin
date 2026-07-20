@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "742aa04d-4dd8-46a6-bee1-f1b8ab9fa552",
+  "name": "otmuxTree.read",
+  "class": null,
+  "method": null,
+  "designAhead": true,
+  "proposedClass": "OtmuxBridge",
+  "proposedMethod": "readSessionTree",
+  "designAheadNote": "Read otmux session/window/pane tree server-side (mirrors otmux tree); return selectable pane nodes with title+target. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "40802701-db2c-49d4-85cd-aa421f06e61d",
+  "name": "serverManager.ownerGuard",
+  "class": null,
+  "method": null,
+  "designAhead": true,
+  "proposedClass": "ServerManagerGuard",
+  "proposedMethod": "assertOwner",
+  "designAheadNote": "Single shared server-side guard on every Server Manager endpoint + ws handshake; 403 unless token===owner. Correct-by-construction. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

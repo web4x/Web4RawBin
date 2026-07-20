@@ -1,0 +1,48 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "168e6d2b-439f-4c90-ab0c-47b2a10ccae0",
+  "altId": "R31.3",
+  "name": "otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)",
+  "description": "The Server Manager main view is a live tree of sessions -> windows -> panes mirroring 'otmux tree', read SERVER-SIDE via otmux. It is refreshable; each pane node is selectable and shows the pane title/target so the owner knows which agent pane it is.",
+  "tronQuote": "> TRON (2026-07-20): shows otmux sessions+panes as a tree (like otmux tree), lets you select a pane",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [
+   "ior:instance:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (Sprint 31 PO-vision)",
+   "date": "2026-07-20",
+   "note": "Sprint 31 Server Manager (owner-gated infra console), Tron-authorized. Minted scenario-first. UC method-set design-ahead PROPOSED; architect confirms the hard parts (esp. R31.4 PTY bridge + auth). #126 scenario-first."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-tree-structure",
+    "group": "functional",
+    "text": "The view renders sessions -> windows -> panes hierarchically, matching the structure of 'otmux tree'."
+   },
+   {
+    "id": "AC-server-read",
+    "group": "functional",
+    "text": "The tree is read SERVER-SIDE via otmux (behind the owner-guard R31.2), not from any client-side enumeration."
+   },
+   {
+    "id": "AC-refresh",
+    "group": "functional",
+    "text": "The tree is refreshable and reflects the current live session/pane state on refresh."
+   },
+   {
+    "id": "AC-pane-selectable",
+    "group": "functional",
+    "text": "Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

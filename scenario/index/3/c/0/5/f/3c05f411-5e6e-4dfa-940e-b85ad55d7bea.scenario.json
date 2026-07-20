@@ -1,0 +1,26 @@
+{
+ "ior": "ior:class:Sprint",
+ "model": {
+  "uuid": "3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "name": "Sprint 31 - Server Manager",
+  "number": 31,
+  "goal": "Owner-gated infra console. A user-specific feature-grants section at the bottom of the profile (per-user, keyed to token) surfaces a 'Server Manager' ONLY for owner token 41ad88c4-4dee-49ac-afcb-8a2026657b2d. Server Manager = a live otmux session/pane tree (like otmux tree) where selecting a pane opens a fullscreen interactive xterm.js SSH terminal over an owner-gated websocket PTY bridge attaching to that tmux pane. Owner-guard is server-side by-construction (owner 200 / non-owner 403 on every endpoint + ws handshake). Scenario-first.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "requirements": [
+   "ior:instance:f032af09-8448-4d03-8cdd-abf6b12feaf1",
+   "ior:instance:5bc9683e-384d-4170-8fcf-a2e7ca981d7b",
+   "ior:instance:168e6d2b-439f-4c90-ab0c-47b2a10ccae0",
+   "ior:instance:fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+  ],
+  "tasks": [],
+  "createdAt": "2026-07-20",
+  "createdBy": "robbin-req",
+  "joint": [
+   "robbin-req",
+   "robbin-architect",
+   "robbin-planner"
+  ]
+ },
+ "ownerIor": null
+}

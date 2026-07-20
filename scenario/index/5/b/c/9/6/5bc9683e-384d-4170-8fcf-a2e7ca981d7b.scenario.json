@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5bc9683e-384d-4170-8fcf-a2e7ca981d7b",
+  "altId": "R31.2",
+  "name": "Owner-only access gate for Server Manager - server-side by-construction (owner 200 / non-owner 403, incl websocket)",
+  "description": "The Server Manager UI AND every backing API/websocket are restricted to token 41ad88c4-4dee-49ac-afcb-8a2026657b2d, enforced SERVER-SIDE on every endpoint AND on the websocket handshake - the authenticated user's token is checked; anyone else gets 403 and never reaches the otmux/terminal APIs. UI-hiding alone is NOT acceptance. Correct-by-construction: a SINGLE owner-guard the endpoints share, not per-call ad-hoc checks.",
+  "tronQuote": "> TRON (2026-07-20): ONLY this user gets a new Server Manager ... owner-token-gated at the websocket handshake, not just the page; no path to the APIs for any other user",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [
+   "ior:instance:40802701-db2c-49d4-85cd-aa421f06e61d"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron via robbin-po (Sprint 31 PO-vision)",
+   "date": "2026-07-20",
+   "note": "Sprint 31 Server Manager (owner-gated infra console), Tron-authorized. Minted scenario-first. UC method-set design-ahead PROPOSED; architect confirms the hard parts (esp. R31.4 PTY bridge + auth). #126 scenario-first."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-server-side",
+    "group": "security",
+    "text": "Owner check is SERVER-SIDE on every Server Manager endpoint; the authenticated token is the source of truth (not a client flag)."
+   },
+   {
+    "id": "AC-owner-200",
+    "group": "security",
+    "text": "Requests from token 41ad88c4-4dee-49ac-afcb-8a2026657b2d to every Server Manager endpoint + ws handshake succeed (200 / ws upgrade)."
+   },
+   {
+    "id": "AC-nonowner-403",
+    "group": "security",
+    "text": "Requests from ANY other authenticated token to every Server Manager endpoint AND the ws handshake return 403 and never reach otmux/terminal APIs."
+   },
+   {
+    "id": "AC-shared-guard",
+    "group": "security",
+    "text": "A SINGLE shared owner-guard (one function/middleware) gates all endpoints + the ws handshake - correct-by-construction, not per-call ad-hoc checks."
+   },
+   {
+    "id": "AC-ws-handshake",
+    "group": "security",
+    "text": "The websocket PTY handshake itself is gated (a non-owner cannot open the socket), not merely the HTTP page that hosts it."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
