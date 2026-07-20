@@ -54,7 +54,16 @@ const TOKEN_VARIANTS = [
   ['owner-literal-NOT-live', { 'x-player-token': OWNER }],   // ★ depth: correct constant, no live session → must 403
 ];
 // v0.7.86 INV-G1 FOLD: the /server-manager PAGE folded into the SAME choke (server.ts:903) as the APIs — enumerate both.
-const ROUTES = ['/server-manager', '/api/server-manager/whoami', '/api/server-manager/tree', '/api/server-manager/terminal', '/api/server-manager/foo', '/api/server-manager/', '/api/server-manager/x/y'];
+const ROUTES = ['/server-manager', '/api/server-manager/whoami', '/api/server-manager/tree', '/api/server-manager/session', '/api/server-manager/terminal', '/api/server-manager/foo', '/api/server-manager/', '/api/server-manager/x/y'];
+
+// v0.7.92 NEW: POST /api/server-manager/session mints the httpOnly OWNER cookie. Security-critical — a non-owner
+// must NOT mint one. The choke (requireOwnerHttp) runs before the handler → non-owner POST → 403 + NO Set-Cookie.
+const postSessionNoToken = (headers = {}) => new Promise((resolve) => {
+  const req = https.request({ host: HOST, port: PORT, path: '/api/server-manager/session', method: 'POST', headers, rejectUnauthorized: false }, (res) => {
+    res.on('data', () => {}); res.on('end', () => resolve({ status: res.statusCode, setCookie: res.headers['set-cookie'] || null }));
+  });
+  req.on('error', () => resolve({ status: 0, setCookie: null })); req.end();
+});
 
 async function browserChecks() {
   // (A#6) UI-hiding-is-NOT-the-gate: a LIVE authenticated SystemTester (non-owner) forces the gated endpoint from the app.
@@ -78,7 +87,7 @@ async function browserChecks() {
 }
 
 // PHANTOM-GUARD: I verify served==target MYSELF before gating (never certify served!=HEAD).
-const TARGET_VERSION = '0.7.86';
+const TARGET_VERSION = '0.7.92';
 const cfg = await httpGet('/api/config');
 let servedVersion = null; try { servedVersion = JSON.parse(cfg.body).version; } catch { /* noop */ }
 if (servedVersion !== TARGET_VERSION) {
@@ -123,9 +132,14 @@ for (let i = 1; i <= 3; i++) {
   const b = await browserChecks();
   const uiAll403 = b.withOwnHeader === 403 && b.noHeader === 403 && b.withOwnerLiteral === 403;
 
-  const pass = httpAll403 && servedConfirm && routesAll403 && neverShell && wsNeverOpens && wsRejected && invG2ok && uiAll403;
+  // (7) v0.7.92 cookie-mint guard: non-owner POST /session → 403 + NO owner cookie minted
+  const sess = await postSessionNoToken({});
+  const sessLit = await postSessionNoToken({ 'x-player-token': OWNER });   // leaked owner literal, not live → still no cookie
+  const cookieGuard = sess.status === 403 && !sess.setCookie && sessLit.status === 403 && !sessLit.setCookie;
+
+  const pass = httpAll403 && servedConfirm && routesAll403 && neverShell && wsNeverOpens && wsRejected && invG2ok && uiAll403 && cookieGuard;
   results.push(pass);
-  console.log(`iter ${i}: httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] neverShell=${neverShell} wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403}(own=${b.withOwnHeader} none=${b.noHeader} lit=${b.withOwnerLiteral}) => ${pass ? 'GREEN' : 'RED'}`);
+  console.log(`iter ${i}: httpReject=${httpAll403}[${httpRej.map(x => x[1]).join(',')}] served=${servedConfirm} routes403=${routesAll403}[${routeRej.map(x => x[1]).join(',')}] neverShell=${neverShell} wsNeverOpens=${wsNeverOpens}(no=${wsNo.rejectCode} unk=${wsUnknown.rejectCode} ownerNotLive=${wsOwnerNotLive.rejectCode}) INV-G2=${invG2ok}(${g2.count}) UI-force403=${uiAll403}(own=${b.withOwnHeader} none=${b.noHeader} lit=${b.withOwnerLiteral}) cookieGuard=${cookieGuard}(sess=${sess.status}/cookie=${!!sess.setCookie} lit=${sessLit.status}) => ${pass ? 'GREEN' : 'RED'}`);
 }
 
 console.log('\n===== R31.2 owner-gate security (REJECT foundation, DET-3x) =====');
