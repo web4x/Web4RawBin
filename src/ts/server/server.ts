@@ -27,6 +27,7 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
+import { PtyBridge } from './PtyBridge.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
@@ -833,8 +834,9 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
 // bespoke inline tree is retired. Page is owner-only (choke-point 403s non-owners before this shell).
 function serverManagerPage(): string {
   const script = getBundleScript('server-manager.js', 'server-manager.js');
+  const termCss = getBundleScript('server-manager.css', 'server-manager.css'); // R31.4: bundled xterm.css for the terminal overlay
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Server Manager</title><link rel="stylesheet" href="/app.css"><style>
+<title>Server Manager</title><link rel="stylesheet" href="/app.css"><link rel="stylesheet" href="${termCss}"><style>
 body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
 header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
 h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
@@ -2302,10 +2304,10 @@ function setupWebSocketServer(server: https.Server): void {
     }
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)); // app ws (post-connect IDENTIFY auth) — unchanged
   });
-  termWss.on('connection', (ws: WebSocket) => { // R31.2: owner-gated OPEN; R31.4 wires the PTY bridge here
-    addLog(`[server-manager] terminal ws OPEN (owner) — R31.4 PTY bridge pending`);
-    try { ws.send(JSON.stringify({ t: 'info', msg: 'terminal bridge not yet implemented (R31.4)' })); } catch { /* noop */ }
-    ws.close(1011, 'terminal-not-implemented');
+  termWss.on('connection', (ws: WebSocket, req: http.IncomingMessage) => { // R31.2 owner-gated OPEN → R31.4 PTY bridge
+    const pane = new URLSearchParams((req.url || '').split('?')[1] || '').get('pane') || '';
+    addLog(`[server-manager] terminal ws OPEN (owner) pane=${pane}`);
+    void PtyBridge.attachPane(ws, pane, addLog);
   });
   wss.on('connection', async (ws: WebSocket, req: http.IncomingMessage) => {
     const ip = req.socket.remoteAddress || 'unknown';

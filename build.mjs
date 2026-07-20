@@ -37,12 +37,15 @@ const traceFile = outputs.find(f => path.basename(f).startsWith('trace-page-'));
 const scenarioFile = outputs.find(f => path.basename(f).startsWith('scenario-view-'));
 const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-banner-'));
 const smFile = outputs.find(f => path.basename(f).startsWith('server-manager-'));
+// R31.4 step-4: the server-manager bundle imports xterm.css → esbuild emits a sibling server-manager-<hash>.css
+const smCssFile = Object.keys(result.metafile.outputs).find(f => f.endsWith('.css') && path.basename(f).startsWith('server-manager-'));
 const jsBasename = path.basename(jsFile);
 const editBasename = editFile ? path.basename(editFile) : null;
 const traceBasename = traceFile ? path.basename(traceFile) : null;
 const scenarioBasename = scenarioFile ? path.basename(scenarioFile) : null;
 const bannerBasename = bannerFile ? path.basename(bannerFile) : null;
 const smBasename = smFile ? path.basename(smFile) : null;
+const smCssBasename = smCssFile ? path.basename(smCssFile) : null;
 
 // Write build manifest for server to read
 const manifest = { 'app.js': jsBasename, built: new Date().toISOString() };
@@ -51,6 +54,7 @@ if (traceBasename) manifest['trace-page.js'] = traceBasename;
 if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
 if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
 if (smBasename) manifest['server-manager.js'] = smBasename;
+if (smCssBasename) manifest['server-manager.css'] = smCssBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
