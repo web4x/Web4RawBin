@@ -11,14 +11,14 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-30-traceability-improvement/requirements.md",
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "useCases": [
-      "ior:instance:80cb8336-c758-49f6-80d9-dafe068ad71f"
+      "ior:instance:8c9d0e1f-2a3b-4c4d-5e6f-7a8b9c0d1e2f"
     ],
     "description": "Every collapsed trace-tree node shows a child-count BADGE reflecting its real childCount from server metadata BEFORE its children are loaded (structure+count eager, payload lazy). The CurrentSprint node and each Sprint node in the Sprints collection carry a badge = their true child count without expanding. Impl: RbTraceTree.computeBadges + renderCurrentSprintEagerLazy (nodeChildCount from server metadata), deployed v0.7.11.",
     "discoverySource": {
       "type": "tron-directive",
       "flaggedBy": "Tron via robbin-architect",
       "date": "2026-07-13",
-      "note": "S30 traceability improvement \u2014 eager child-count badges; minted by skill-expert (drive: req/planner rate-limited) to trace deployed v0.7.11 fix."
+      "note": "S30 traceability improvement — eager child-count badges; minted by skill-expert (drive: req/planner rate-limited) to trace deployed v0.7.11 fix."
     },
     "acceptanceCriteria": [
       {
@@ -48,7 +48,8 @@
       }
     ],
     "sprintName": "Sprint 30",
-    "reconcileNote": "CANONICAL (task-covered). Un-tombstoned + ACs enriched to the full Tron set 2026-07-13 by robbin-req; the parallel-mint dup (my 15c8fe45/c1a0b382) was deleted. v0.7.11 retroactive #126."
+    "reconcileNote": "CANONICAL (task-covered). Un-tombstoned + ACs enriched to the full Tron set 2026-07-13 by robbin-req; the parallel-mint dup (my 15c8fe45/c1a0b382) was deleted. v0.7.11 retroactive #126.",
+    "_retireNote": "R30.2 badge intent survives (badges show child count); the MECHANISM moved eager->references in R31.3. useCases re-pointed off the retired eager UC onto the live computeBadges UC (chain-complete-to-Test via computeBadges Test c20ea27f). robbin-req 2026-07-20."
   },
   "ownerIor": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13"
 }

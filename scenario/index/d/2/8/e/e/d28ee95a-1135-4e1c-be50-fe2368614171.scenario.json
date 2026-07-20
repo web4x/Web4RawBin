@@ -7,7 +7,9 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": [
       "ior:instance:c470b1c1-856b-484a-b777-17be1a600e8b"
-    ]
+    ],
+    "supersededBy": "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5",
+    "supersededNote": "Eager child-count badges retired R31.3 (badge now derives from STANDARD parent/children scenario references via computeBadges + buildSeedNode, AC-badge-std-refs) - expert shipped 86c4033fb v0.7.99, deleting the eagerChildCountBadges method + nodeChildCount side-map. Retired-not-open (one-uuid=one-identity). Code decl deleted (no marker in source); superseded by the computeBadges impl."
   },
   "ownerIor": "ior:instance:baf91567-048c-4610-860c-5ad08a6ffc55"
 }

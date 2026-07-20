@@ -28,7 +28,7 @@
   - [ ] **(loading)** Lazy level-by-level: expanding a node loads its children WITH their own child-counts (next level badges correct); deeper content on further expand.
   - [ ] **(bug)** THE BUG: all sprint nodes showed badge=0 initially - must show the real task-count before expand.
   - [ ] **(loading)** Still PAYLOAD-LAZY: children CONTENT loads on expand; only COUNTS are eager (structure+count eager / payload lazy - R26 pattern).
-  -> traceTree.eagerChildCountBadges [uc:uuid:80cb8336-c758-49f6-80d9-dafe068ad71f]
+  -> traceTree.computeBadges [uc:uuid:8c9d0e1f-2a3b-4c4d-5e6f-7a8b9c0d1e2f]
 
 - [ ] **R30.3 — Sprint selection populates detail drawer**
   [requirement:uuid:6cd770df-0034-406e-b20c-bb8bddaadbf7]

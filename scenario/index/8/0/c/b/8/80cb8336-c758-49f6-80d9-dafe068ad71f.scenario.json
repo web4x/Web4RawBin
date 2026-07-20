@@ -13,7 +13,9 @@
       "ior:instance:fc744c38-1c7f-4855-a8fe-b48a5545285f"
     ],
     "implementations": [],
-    "tests": []
+    "tests": [],
+    "supersededBy": "ior:instance:8c9d0e1f-2a3b-4c4d-5e6f-7a8b9c0d1e2f",
+    "supersededNote": "Eager child-count badges retired R31.3 (badge now derives from STANDARD parent/children scenario references via computeBadges + buildSeedNode, AC-badge-std-refs) - expert shipped 86c4033fb v0.7.99, deleting the eagerChildCountBadges method + nodeChildCount side-map. Retired-not-open (one-uuid=one-identity). Superseded by UC traceTree.computeBadges."
   },
   "ownerIor": "ior:instance:850a339d-c7e5-4308-b2c7-65536bd5271e"
 }

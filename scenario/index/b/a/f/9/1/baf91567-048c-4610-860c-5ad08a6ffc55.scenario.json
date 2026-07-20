@@ -5,10 +5,10 @@
     "name": "RbTraceTree.eagerChildCountBadges",
     "description": "Eager child-count badges: /api/trace/sprints returns childCount per child; client nodeChildCount map -> computeBadges sets the badge even when children[] empty (lazy). Structure+count eager, content lazy.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "implementations": [
-      "ior:instance:d28ee95a-1135-4e1c-be50-fe2368614171"
-    ],
-    "tests": []
+    "implementations": [],
+    "tests": [],
+    "supersededBy": "ior:instance:9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a",
+    "supersededNote": "Eager child-count badges retired R31.3 (badge now derives from STANDARD parent/children scenario references via computeBadges + buildSeedNode, AC-badge-std-refs) - expert shipped 86c4033fb v0.7.99, deleting the eagerChildCountBadges method + nodeChildCount side-map. Retired-not-open (one-uuid=one-identity). Method decl deleted; superseded by RbTraceTree.computeBadges."
   },
   "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
 }
