@@ -825,7 +825,7 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 .pid{color:#58a6ff;font-family:monospace}.active{color:#3fb950}.title{opacity:.8}
 #err{color:#f85149;padding:12px 16px}
 </style></head><body>
-<header><h1>&#128421;&#65039; Server Manager &mdash; otmux tree</h1><button id="refresh">Refresh</button></header>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128421;&#65039; Server Manager &mdash; otmux tree</h1><button id="refresh">Refresh</button></header>
 <div id="tree"></div><div id="err"></div>
 <script>
 (function(){
