@@ -87,7 +87,7 @@ async function browserChecks() {
 }
 
 // PHANTOM-GUARD: I verify served==target MYSELF before gating (never certify served!=HEAD).
-const TARGET_VERSION = '0.7.101'; // R31.2 AC-cookie-only fix (playerTokenFrom header-only, 730b57e2f)
+const TARGET_VERSION = '0.7.102'; // live-re-gated on the genuinely-fresh server (pid 1231421, Ctrl-C→npm start) — /api/config .version was proven UNRELIABLE ('[r]' bumps it without a restart); corroborate with server-pid freshness + the reapOrphans-boot fingerprint
 const cfg = await httpGet('/api/config');
 let servedVersion = null; try { servedVersion = JSON.parse(cfg.body).version; } catch { /* noop */ }
 if (servedVersion !== TARGET_VERSION) {

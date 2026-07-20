@@ -1,4 +1,9 @@
 // [test:uuid:c35f02c7-fba5-4a97-9dc0-952f5d543703] R31.4 boot-sweep-orphans — PtyBridge.reapOrphans (Impl 5d313828, Method 28d8158b). At boot (nothing attached) every sm_* grouped session is an orphan → reaped, zero left. GREEN DET-3x served==0.7.102: LIVE fresh-boot 0 stale sm_* (architect restart reaped) + attachPane spawns grouped sm_* → reapOrphans sweeps ALL injected orphans to 0 + non-sm sessions untouched (clean live tree) + boot-wired (server.ts:2212). Build-safe (no prod restart).
+// ★ LIVE EMPIRICAL PROOF (controlled experiment, expert+tester): seeded orphan sm_bootcheck_marker → RED-baseline: a
+//   '[r]' press = CLIENT rebuild only (server pid UNCHANGED 1217320, marker SURVIVES, reapOrphans did NOT run). GREEN:
+//   a REAL restart (Ctrl-C→npm start, pid CHANGED 1217320→1231421) → marker REAPED = reapOrphans ran at the real boot
+//   (also sm_archbackstop reaped). ★★ VERSION-LIE LESSON: /api/config .version is UNRELIABLE ('[r]' bumps it with NO
+//   server restart) → anchor "live" to the server PID + reapOrphans-boot behavior, NOT the version string.
 // R31.4 boot-sweep-orphans — PtyBridge.reapOrphans (Impl 5d313828, Method 28d8158b, Class PtyBridge 59648f26,
 // UC ptyBridge.reapOrphans 8bd83486). served==0.7.102 (self-verified, phantom-guard). Build-safe DET-3x — proves the
 // AC without a Tron-disrupting prod restart:
