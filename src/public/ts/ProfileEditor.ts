@@ -77,11 +77,33 @@ export class ProfileEditor {
           ${mode !== 'gate' ? `<label style="margin-top:8px">Your UUID</label><code style="display:block;padding:8px;background:rgba(0,0,0,0.05);border-radius:6px;font-size:0.75rem;word-break:break-all;user-select:all">${this.client.playerToken}</code>` : ''}
         </div>
         <button class="btn btn-primary profile-save" id="pe-save" ${mode === 'gate' && !initial.name ? 'disabled' : ''}>${mode === 'gate' ? 'Continue' : 'Save'}</button>
+        ${mode !== 'gate' ? '<div id="pe-feature-grants" class="profile-grants"></div>' : ''}
       </div>`;
 
     this.avatarUrl = initial.avatar || '';
     document.body.appendChild(this.overlay);
     this.setupEvents();
+    void this.renderFeatureGrants(); // R31.1: server-gated feature-grants section (owner-only Server Manager entry)
+  }
+
+  // [impl marker PENDING] — architect Method RbProfileView.renderFeatureGrants b4f03947 has NO Impl unit yet (like
+  // R31.2/8bb1842f). Place [impl:uuid:<Impl>] here once the architect mints+wires the Impl — NOT the Method uuid
+  // (markers credit off ior:class:Implementation only). R31.1: render per-user feature-grant entries at the BOTTOM
+  // of the profile. Entry presence is SERVER-gated, NOT UI-hidden — the 'Server Manager' grant renders only when the
+  // owner-gated /api/server-manager/whoami (assertOwner, R31.2) returns 200; non-owner → 403 → no entry even if the
+  // markup is forced. Fail-closed on network error (e.g. pre-restart → 404 → no grant).
+  private async renderFeatureGrants(): Promise<void> {
+    const host = this.overlay?.querySelector('#pe-feature-grants') as HTMLElement | null;
+    if (!host) return;
+    const grants: Array<{ icon: string; label: string; href: string }> = [];
+    try {
+      const res = await fetch('/api/server-manager/whoami', { headers: { 'x-player-token': this.client.playerToken } });
+      if (res.ok) grants.push({ icon: '🖥️', label: 'Server Manager', href: '/server-manager' }); // owner-only, proven by 200
+    } catch { /* pre-restart / offline → fail-closed, no grant */ }
+    host.innerHTML = grants.length
+      ? `<div class="profile-grants-title" style="margin-top:16px;font-size:0.8rem;opacity:0.6;text-transform:uppercase;letter-spacing:0.5px">Feature access</div>`
+        + grants.map(g => `<a class="profile-grant" href="${g.href}" style="display:flex;align-items:center;gap:8px;padding:10px 0;color:#4a9eff;text-decoration:none;border-top:1px solid rgba(0,0,0,0.06)"><span>${g.icon}</span><span>${g.label}</span></a>`).join('')
+      : '';
   }
 
   close(): void {
