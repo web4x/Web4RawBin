@@ -86,12 +86,10 @@ export class ProfileEditor {
     void this.renderFeatureGrants(); // R31.1: server-gated feature-grants section (owner-only Server Manager entry)
   }
 
-  // [impl marker PENDING] — architect Method RbProfileView.renderFeatureGrants b4f03947 has NO Impl unit yet (like
-  // R31.2/8bb1842f). Place [impl:uuid:<Impl>] here once the architect mints+wires the Impl — NOT the Method uuid
-  // (markers credit off ior:class:Implementation only). R31.1: render per-user feature-grant entries at the BOTTOM
-  // of the profile. Entry presence is SERVER-gated, NOT UI-hidden — the 'Server Manager' grant renders only when the
-  // owner-gated /api/server-manager/whoami (assertOwner, R31.2) returns 200; non-owner → 403 → no entry even if the
-  // markup is forced. Fail-closed on network error (e.g. pre-restart → 404 → no grant).
+  // [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] ProfileEditor.renderFeatureGrants (Method b4f03947, off UC
+  // a3958f85) — R31.1: per-user feature-grant entries at the BOTTOM of the profile. Entry presence is SERVER-gated,
+  // NOT UI-hidden: the 'Server Manager' grant renders only when the owner-gated /api/server-manager/whoami
+  // (assertOwner, R31.2) returns 200; non-owner → 403 → absent even if markup forced; fail-closed on network error.
   private async renderFeatureGrants(): Promise<void> {
     const host = this.overlay?.querySelector('#pe-feature-grants') as HTMLElement | null;
     if (!host) return;
