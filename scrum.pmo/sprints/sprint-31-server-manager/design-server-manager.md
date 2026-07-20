@@ -292,3 +292,10 @@ MEASURED the SERVED/built bundle `src/public/dist/server-manager-MHRYENK4.js` (o
 3. **Selectable-pane → openTerminal (DRY path):** bundle `startsWith("otmuxpane:")&&(oe.clear(),oe.select(h))` → `selection-changed` → drawer tagMap `otmuxpane:"rb-terminal-detail"` mounts the terminal detail-view (the retired-showElement DRY path). ✓
 - **Cannot solo-verify (403, owner-gated /server-manager):** authed RUNTIME visuals (pane-tap opens terminal on-screen, refresh repaints, badge N renders). Already device-proven historically (IMG_4597 terminal end-to-end; v0.7.95 select-regression + v0.7.96 DRY backstops). Remaining = Tron authed visual confirm on v0.7.100.
 - **VERDICT:** no open BUILD — all 3 code-complete + served. → hand expert to CLOSE (nothing to build) + tester to gate (chromium-owner authed) + Tron device. Planner → QA-Review (only Tron-visual left). INV-G unchanged; /trace+/scenario 200.
+
+## ARCHITECT BACKSTOP — R31.2 AC-cookie-only v0.7.101 / 730b57e2f (robbin-architect 2026-07-20): **PASS**
+Expert closed the query-auth leak; I restarted remoteShells:0.2 → served 0.7.101.
+- **STATIC:** `ServerManagerGuard.playerTokenFrom` (ServerManagerGuard.ts:19) = `req.headers['x-player-token'] || ''` — HEADER-ONLY; the `?token`/`?playerToken` query fallback is GONE. Cookie path (resolveOwner sm_session) + the /session mint (x-player-token header) unaffected. INV-G2 literal ==**1**.
+- **LIVE (solo-verifiable via the known owner literal):** query-auth CLOSED — `GET /server-manager?token=<owner>`, `/api/server-manager/tree?token=<owner>`, `/api/server-manager/whoami?token=<owner>`, `/server-manager?playerToken=<owner>` ALL → **403** (were 200 pre-fix). No-token /server-manager → 403 (reject-direction intact). `/trace`+`/scenario` → 200 (unregressed).
+- **Tron/tester-only:** cookie-path owner → 200 (needs a live owner sm_session, un-mockable solo). ws `?token=` closed by the same header-only change (shared playerTokenFrom). Tester's explicit `?token=→403` assertion (slice b0ee7dc6) will pass.
+- **VERDICT:** query-auth leak CLOSED; cookie-only enforced by construction. R31.2 security AC holds. No regression.
