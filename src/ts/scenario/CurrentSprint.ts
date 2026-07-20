@@ -81,6 +81,13 @@ export class CurrentSprint {
     return CurrentSprint.instance;
   }
 
+  // PIN-KEEP (recompute-on-read): stateless — build a throwaway instance bound to the FRESH per-request index
+  // (load()s the singleton unit's hints live) and derive slots from LIVE task state. NOT the cached getInstance
+  // (which binds one stale index) → the served pin self-heals on every read, no persist() dependency (ROOT-1 fix).
+  static slotsFrom(index: ScenarioIndex): ThreeSlots {
+    return new CurrentSprint(index).getThreeSlots();
+  }
+
   private load(): void {
     const unit = this.index.get(CURRENT_UUID);
     if (unit?.model) {
@@ -200,14 +207,18 @@ export class CurrentSprint {
     }
     const sprintTasks = sprintTaskUuids.map(slotInfo).filter((t): t is Slot => !!t);
 
-    // 2) current = focused sprint task, else the sprint task covering the WIP chain req.
-    let i = sprintTasks.findIndex(t => t.focus);
-    if (i < 0 && this.chain?.req) i = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req);
+    // 2) current = the WIP by construction (PIN-KEEP): a VALID focus wins (in-sprint — sprintTasks already is — AND
+    //    not-done), else the in-sprint task covering the WIP chain req (also not-done), else forward-fall to the
+    //    FIRST NOT-DONE in-sprint task. NEVER a done task; a stale/done/out-of-sprint focus is rejected (ROOT-2).
+    let i = sprintTasks.findIndex(t => t.focus && !t.done);
+    if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].done) i = j; }
+    if (i < 0) i = sprintTasks.findIndex(t => !t.done); // forward-fall: current = first NOT-DONE WIP in-sprint
     let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
     if (!current && this.chain?.req) {
-      // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot
+      // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
       const cu = this.index.get(this.chain.req);
-      if (cu) current = { uuid: this.chain.req, name: this.taskName || String(cu.model?.name || ''), reqUuid: this.chain.req, focus: true, done: false };
+      const cuDone = String((cu?.model as Record<string, unknown>)?.status || '').toLowerCase() === 'done';
+      if (cu && !cuDone) current = { uuid: this.chain.req, name: String(cu.model?.name || this.taskName || ''), reqUuid: this.chain.req, focus: true, done: false };
     }
     const currentUuid = current?.uuid || '';
 

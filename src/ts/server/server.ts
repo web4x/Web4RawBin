@@ -38,6 +38,7 @@ import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, cr
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
+import { CurrentSprint } from '../scenario/CurrentSprint.js'; // PIN-KEEP: recompute-on-read for the /trace CurrentSprint node
 import { readDir, readFile, writeFile } from './FileApi.js';
 import { RepoRegistry } from './repo-registry.js'; // R30.6.7 repo key→root allowlist
 
@@ -1368,7 +1369,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R20.22: CurrentSprint → 3 task children from slots
         if (type === 'CurrentSprint') {
           const model = unit.model as Record<string, unknown>;
-          const slots = (model.slots as any) || {};
+          // PIN-KEEP (ROOT-1): recompute the three slots from LIVE task state each read — never the frozen
+          // model.slots snapshot (which froze to whenever persist() last ran → stale current/last/next). Self-healing.
+          const slots = CurrentSprint.slotsFrom(idx) as any;
           const slotEntries: Array<{ label: string; slot: any }> = [
             { label: '📌 Current', slot: slots.current },
             { label: '✅ Last Completed', slot: slots.lastCompleted },
