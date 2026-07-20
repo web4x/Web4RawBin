@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "eea279e4-1bae-4119-89e3-307bb252f8b2",
+    "name": "test:R31.3 STD-REF child-ref badge, colon-immune (RbTraceTree.computeBadges)",
+    "description": "Bridged to test/visual/r319-dry-drawer-badge-gate.mjs (DET-3x GREEN @390, served==HEAD==v0.7.99, commit fc67a44c6). Verifies R31.3 AC-badge-std-refs on RbTraceTree.computeBadges (Impl 7e43dda4): the node badge reads node.dataset.childRefCount (stamped at build from STANDARD parent/children scenario refs) - colon-immune BY CONSTRUCTION (NO nodeChildCount side-map, NO split(':')). Asserts SESSION badge == '2' for 'otmuxsession:sess:robbinTeam2' (the colon-in-uuid case that read 0 under the RETIRED split patch) AND WINDOW badges 2/1 == real child count. NOT the retired split patch (eagerChildCountBadges d28ee95a, retired -> supersededBy 7e43dda4 at 4c571e2fc). Marker eea279e4 adopted from origin fc67a44c6 (measured line 1, not invented). Authed interactive VISUALS = Tron device. Chain: R30.2/R31.3 badge -> UC traceTree.computeBadges 8c9d0e1f -> Method computeBadges 9d0e1f2a -> Impl 7e43dda4 -> this Test (alongside existing Test c20ea27f).",
+    "sourceFile": "ior:file:test/visual/r319-dry-drawer-badge-gate.mjs",
+    "implementations": [
+      "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7e43dda4-d7fd-45db-98b5-0e7a72d222c5"
+}

@@ -5,7 +5,8 @@
     "name": "RbTraceTree.computeBadges",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": [
-      "ior:instance:c20ea27f-6659-4e95-9f95-985dc530d80f"
+      "ior:instance:c20ea27f-6659-4e95-9f95-985dc530d80f",
+      "ior:instance:eea279e4-1bae-4119-89e3-307bb252f8b2"
     ]
   },
   "ownerIor": null
