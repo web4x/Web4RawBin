@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8bd83486-2013-4560-93e4-eb934a94102e",
+  "name": "ptyBridge.reapOrphans",
+  "description": "Server-boot lifecycle: PtyBridge reaps ALL stale sm_* grouped tmux sessions at boot. At boot NO pty is attached (the prior node process died), so every sm_* grouped session is an orphan and safe to kill-session. Complement of the per-ws detach-cleanup (AC-no-disrupt) for the restart/crash case where cleanup never fires (tmux session outlives the node process). Third R31.4 UC (server lifecycle) alongside paneTerminal.attach (fa1845d3) + paneTerminal.mount (8f3bf119). Rides Class PtyBridge 59648f26. Expert self-audit finding.",
+  "class": "ior:instance:59648f26-3dd6-4f05-9572-17b9f65b8e56",
+  "method": "ior:instance:28d8158b-18d0-47ec-9650-48f2e81a6a99",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/requirements.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

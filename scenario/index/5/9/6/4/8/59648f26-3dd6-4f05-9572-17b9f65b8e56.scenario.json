@@ -6,7 +6,8 @@
     "description": "Owner-gated websocket PTY bridge: xterm.js <-> ws <-> node-pty attaching a GROUPED tmux session (no-disrupt to other viewers) bound to the selected pane (R31.4). Handshake gated by an owner-bound single-use ~30s ticket (browsers can't set ws headers; app auth is post-connect). READ-ONLY default (tmux attach -r + server drops key frames); interactive only on owner-gated Take-Control (respawn read-write, same grouped session). Audit quad ATTACH/CONTROL_TAKEN/DETACH/DENY. Design-ahead; intended impl src/ts/server/PtyBridge.ts. See design-server-manager.md.",
     "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
     "methods": [
-      "ior:instance:6fc43b8e-7c94-42af-baf2-c611a84793e7"
+      "ior:instance:6fc43b8e-7c94-42af-baf2-c611a84793e7",
+      "ior:instance:28d8158b-18d0-47ec-9650-48f2e81a6a99"
     ]
   },
   "ownerIor": "ior:instance:fa1845d3-88e2-4c9b-9618-f427fc262b56"

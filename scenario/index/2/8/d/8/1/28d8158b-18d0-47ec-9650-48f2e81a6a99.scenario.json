@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "28d8158b-18d0-47ec-9650-48f2e81a6a99",
+    "name": "PtyBridge.reapOrphans",
+    "description": "At server boot, enumerate all tmux sessions matching the sm_* grouped-session prefix and kill-session each — at boot no PTY is attached (prior process died) so every sm_* is a safe-to-reap orphan; a fresh boot leaves zero orphan sm_* sessions. Confined to PtyBridge.ts + a server-boot hook. Design-ahead (expert self-audit root-cause): per-ws cleanup kills sm_* on onExit/close/error (0 in-session orphans) but a restart/crash WITH an attached terminal orphans the session (tmux outlives node -> cleanup never runs) -> accumulation over deploys (the sm_p* in Tron IMG_4605). Expert points its impl here (marker on the reapOrphans decl); NOT self-minted (#126).",
+    "sourceFile": "ior:file:src/ts/server/PtyBridge.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:59648f26-3dd6-4f05-9572-17b9f65b8e56"
+}

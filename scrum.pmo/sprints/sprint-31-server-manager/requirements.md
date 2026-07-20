@@ -66,8 +66,10 @@
   - [ ] **(AC-bridge-nodepty)** The PTY bridge is node-pty spawning a tmux CLIENT (the PTY is the tmux client, so keys/resize/TUI are native) attaching via a GROUPED session (tmux new-session -t <target> + select-pane) so it does NOT resize or steal the primary view from other agents; the sm_ grouped session is killed on detach. pipe-pane (output-tee only) does NOT satisfy interactive and is rejected. Per architect design-server-manager.md (9920f6832).
   - [ ] **(functional)** Attaching a pane MUST NOT disrupt other viewers of that pane: the grouped/size-independent attach leaves Tron's other agents' view of the pane unchanged (no resize, no steal); detach cleans up the sm_ session.
   - [ ] **(functional)** The terminal is a FULL read-write INTERACTIVE ssh session BY DEFAULT - no read-only mode, no Take-Control gate (Tron correction 2026-07-20 of the earlier B4 read-only-default). Owner-gated by the sm_session COOKIE at the ws upgrade (browser auto-sends it same-origin; NO separate ticket), node-pty attach to the tmux pane, xterm.js mounted in the expanded default drawer; keystrokes reach the pane immediately from open.
+  - [ ] **(functional)** On server BOOT, PtyBridge reaps ALL stale sm_* grouped tmux sessions — at boot NO pty is attached (the prior process died), so every sm_* is an orphan and safe to kill-session; a fresh boot leaves ZERO orphan sm_* sessions. (Expert verbatim proposal.) Complements the per-ws detach-cleanup which cannot fire on a restart/crash with an attached terminal (tmux session outlives the node process).
   -> paneTerminal.attach [uc:uuid:fa1845d3-88e2-4c9b-9618-f427fc262b56]
   -> paneTerminal.mount [uc:uuid:8f3bf119-ce4d-4d42-821c-f1b04d608768]
+  -> ptyBridge.reapOrphans [uc:uuid:8bd83486-2013-4560-93e4-eb934a94102e]
 
 - [ ] **R31.5 — Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)**
   [requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]
