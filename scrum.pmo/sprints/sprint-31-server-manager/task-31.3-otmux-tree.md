@@ -11,8 +11,8 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
