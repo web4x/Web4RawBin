@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Task 31.1: User-specific profile features section (per-user grants, owner-only entries, profile bottom)
+# Task 31.1: User-specific profile features section (per-user grants, owner-only entries, at profile bottom)
 
 [task:uuid:5be03af7-6acf-40cb-a9dd-b324afdec217]
 
@@ -30,7 +30,7 @@ Placement bug RESOLVED (moved to /profile viewer, v0.7.88/89). Remaining: r311a 
 
 ## Task Description
 
-A NEW section at the BOTTOM of the profile view (after 'My Bug Reports') driven by per-user feature grants keyed to the user token/UUID (generic + extensible grants map). Renders ONLY the features granted to the viewing user; for non-owners it is absent entirely. First entry = 'Server Manager' (granted only to 41ad88c4-...).
+A NEW section at the BOTTOM of the profile view (after 'My Bug Reports') driven by per-user feature grants keyed to the user token/UUID. Generic + extensible so future owner-features slot in. Renders ONLY the features granted to the VIEWING user; for non-owners the section is absent entirely. First feature entry = 'Server Manager', granted only to 41ad88c4-4dee-49ac-afcb-8a2026657b2d.
 
 ## Context
 

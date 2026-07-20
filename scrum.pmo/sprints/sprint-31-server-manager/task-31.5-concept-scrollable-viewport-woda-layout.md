@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Task 31.5: Responsive scrollable viewport + WODA bar/compartment layout (CONCEPT — plan only, no build)
+# Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)
 
 [task:uuid:3b60b587-9dac-48ee-b5f2-b3a25d296dc0]
 
@@ -10,9 +10,9 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
@@ -20,13 +20,14 @@
 
   - up
     - [Sprint 31 Planning](./planning.md)
-    - Requirement `[requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]`
-  - down
-    - None (atomic task)
+    - Requirement R31.5 `[requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]` (conceptOnly)
+  - concept traceability (NO build chain yet — deferred until Tron authorizes build)
+    - facet-ACs (decomposition candidates for the later build-requirements): AC-bar-compartment-model, AC-woda-layout, AC-editor-is-instance, AC-scrollable-viewport-snap, AC-scroll-snap-nav-bar, AC-drawer-positioning-not-function, AC-concept-not-code
+    - design docs: [CONCEPT-scrollable-viewport-woda-layout.md](./CONCEPT-scrollable-viewport-woda-layout.md) (Tron spec) + [CONCEPT-scrollable-viewport-architecture.md](./CONCEPT-scrollable-viewport-architecture.md) (architect design)
 
 ## Task Description
 
-PLAN a coherent CONCEPT for the responsive bar '|' / compartment '[]' layout model — WODA W|[O][D]|A, the 3-way diff editor [L]|[C]|[R] as an instance of the same model, portrait horizontally-scrollable viewport with scroll-snap at compartment boundaries, a bottom scroll-snap nav bar, and drawer=Details-compartment where POSITIONING must NOT change FUNCTION (one function, two positions). Deliverable = a coherent concept (Tron spec + architect component-architecture design), NOT code. This is PLAN-only; implementation is a LATER Tron-authorized step, and is kept SEPARATE from the priority-1 R31.1-R31.4 server-manager work.
+CONCEPT / PLAN ONLY (Tron 2026-07-20 - do NOT implement; implementation is a later Tron-authorized step). A foundational responsive-layout architecture generalizing the app's viewports as BARS '|' and COMPARTMENTS '[]'. A bar is a thin strip of COLLAPSED content (a 'What' bar = itemView ICONS, an 'Actions' bar = object.verb no-parameter buttons, the 3-way editor's changebar); a compartment is EXPANDED full content (What / Overview / Details compartments; each diff editor). A bar EXPANDS into a compartment and a compartment COLLAPSES into a bar (the duality is the generalization). WODA layout = W|[O][D]|A (What bar | Overview + Details compartments | Actions bar). The 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (editors are compartments, changebars are bars). Responsive: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next) freely scrollable left<->right WITH scroll-snap at compartment boundaries, plus a bottom scroll-snap NAV bar snapping to a compartment's left edge (buttons per instance: {Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA). The drawer = the 'Details' compartment: landscape it becomes the inline [D] compartment, portrait it is the bottom drawer as today - and POSITIONING != FUNCTION (Tron's law): the two positions have IDENTICAL function, one component not two forks (same DRY root as the R31.4 /trace-detail-flow drawer reuse, which this concept GENERALIZES). Acceptance = a coherent CONCEPT (this captured model + architect component-architecture design + planner CONCEPT task), NOT code. This is PARALLEL/AFTER the current R31.1-R31.4 server-manager bug fixes (select->open / drawer / badge stay PRIORITY-1). Each acceptance facet below is a DECOMPOSITION CANDIDATE for atomic build-requirements when Tron authorizes implementation (Rule 10/11 - decompose then).
 
 ## Context
 
