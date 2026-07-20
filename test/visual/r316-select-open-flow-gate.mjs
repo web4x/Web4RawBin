@@ -53,9 +53,10 @@ try {
     await clickExpand(page, 'otmuxsession:'); await sleep(400);
     const win0Badge = await badge(page, 'otmuxwindow:', 0), win1Badge = await badge(page, 'otmuxwindow:', 1);
     const windowBadgesOk = win0Badge === '2' && win1Badge === '1';
-    // ⚠ RESIDUAL (flagged, NOT blocking R31.4 mount): root SESSION badge shows 0 (computeBadges reads nodeChildCount,
-    // populated for inline kids/windows at :355 but NOT for root sessions). Separate R31.3-badge chain, not R31.4.
-    const sessionBadgeResidual = sessBadge !== '2';
+    // R31.3 badge IN-SCOPE (PO, Tron IMG_4598): EVERY node shows its real child-count N, not 0 — incl the root SESSION
+    // (its window count). Pre-fix RED here = the known residual (computeBadges/nodeChildCount not threaded for roots,
+    // rb-trace-tree.ts:193/:355). Flips GREEN when the expert threads nodeChildCount for roots (session badge 0→2).
+    const badgesOk = windowBadgesOk && sessBadge === '2';
 
     // expand window 0 → panes
     await clickExpand(page, 'otmuxwindow:', 0); await sleep(400);
@@ -81,9 +82,9 @@ try {
     }).catch(() => false);
 
     await ctx.close();
-    const pass = versionOk && windowBadgesOk && panesShown >= 2 && selectOpenFires && traceOk;
+    const pass = versionOk && badgesOk && panesShown >= 2 && selectOpenFires && traceOk;
     results.push(pass);
-    console.log(`iter ${i}: version=${versionOk} windowBadges=${windowBadgesOk}(w0=${win0Badge} w1=${win1Badge}) panes=${panesShown} | ★R31.4 CLICK→mount+left+close=${selectOpenFires}(termDetail=${opened.hasTerminalDetail} open=${opened.drawerOpen} grab=${opened.grabBar} left=${opened.leftAligned} minKeeps=${minimizeKeeps} closes=${closes}) trace=${traceOk} => ${pass ? 'GREEN' : 'RED'} | ⚠sessionBadgeResidual=${sessionBadgeResidual}(sess=${sessBadge})`);
+    console.log(`iter ${i}: version=${versionOk} badges=${badgesOk}(sess=${sessBadge} w0=${win0Badge} w1=${win1Badge}) panes=${panesShown} | ★R31.4 CLICK→mount+left+close=${selectOpenFires}(termDetail=${opened.hasTerminalDetail} open=${opened.drawerOpen} grab=${opened.grabBar} left=${opened.leftAligned} minKeeps=${minimizeKeeps} closes=${closes}) trace=${traceOk} => ${pass ? 'GREEN' : 'RED'}`);
   }
   // /trace unregressed — deeper: detail-drawer handle + rb-object-item badges render
   const ctx = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block' });
