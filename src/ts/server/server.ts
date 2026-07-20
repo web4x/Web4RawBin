@@ -864,6 +864,31 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 })();
 </script></body></html>`;
 
+// [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] renderFeatureGrants (Method b4f03947, off UC a3958f85) — R31.1,
+// MOVED to the read-only /profile VIEWER per Tron (was ProfileEditor edit-form). Returns the inline client JS that,
+// at the BOTTOM of 'My Profile' (after My Bug Reports, into #feature-grants), fetches the owner-gated
+// /api/server-manager/whoami (assertOwner, R31.2) and on 200 appends the owner-only 'Server Manager' entry.
+// SERVER-gated (whoami 200/403), NOT UI-hidden: non-owner → 403 → no entry even if markup forced; fail-closed.
+// (NOTE to req/architect: the unit name still says ProfileEditor.* — please re-point to the viewer; token-match
+// on renderFeatureGrants holds.)
+function renderFeatureGrants(): string {
+  return `<script>
+(function(){
+  var token=localStorage.getItem('rawbin-player-id')||'';
+  if(!token)return;
+  fetch('/api/server-manager/whoami',{headers:{'x-player-token':token}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d)return; var host=document.getElementById('feature-grants'); if(!host)return;
+    host.innerHTML='<h3>Feature access</h3>';
+    var a=document.createElement('a');
+    a.href='/server-manager?token='+encodeURIComponent(token);
+    a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
+    a.textContent='\u{1F5A5}\u{FE0F} Server Manager';
+    host.appendChild(a);
+  }).catch(function(){});
+})();
+</script>`;
+}
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
@@ -871,11 +896,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     let filepath = rawUrl.split('?')[0];
     const urlParams = new URLSearchParams(rawUrl.includes('?') ? rawUrl.split('?')[1] : '');
 
-    // R31.2 server-manager OWNER-GATE choke-point (by construction): every /api/server-manager/* path is gated
-    // HERE first via the SOLE resolveOwner guard — a new sub-route physically cannot bypass it (INV-G1). Handlers
-    // below this block run only for an authenticated OWNER; add R31.3/R31.4 routes inside this block.
-    if (filepath.startsWith('/api/server-manager/')) {
+    // R31.2/R31.3 server-manager OWNER-GATE choke-point (by construction, INV-G1): the /server-manager PAGE AND
+    // every /api/server-manager/* route are gated HERE first by the SOLE assertOwner guard — no route (page or API)
+    // can bypass it, and a future sub-route added inside this block inherits the gate. Handlers below run ONLY for
+    // an authenticated OWNER; add R31.4 routes inside this block. (Page-route ?token= = flagged R31.4 hardening.)
+    if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/')) {
       if (!requireOwnerHttp(req, res)) return;
+      if (req.method === 'GET' && filepath === '/server-manager') { // R31.3 owner-only page shell (6th AC: non-owner already 403'd above, shell never leaks)
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+        res.end(SERVER_MANAGER_PAGE);
+        return;
+      }
       if (req.method === 'GET' && filepath === '/api/server-manager/whoami') { // minimal gated endpoint (exercises the gate)
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, owner: true, token8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8) }));
@@ -888,18 +919,6 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
       res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"not-found"}');
-      return;
-    }
-
-    // R31.3 /server-manager PAGE route — gated SERVER-SIDE by the SAME assertOwner guard (6th AC): a non-owner gets
-    // 403 and NEVER receives the page shell (defense beyond hiding the R31.1 grant). Browser navigation can't set
-    // headers, so the owner presents the token via ?token= (or x-player-token); the shell then fetches the
-    // owner-gated /api/server-manager/tree. NOTE (flagged): ?token= puts the owner token in the URL — R31.4-era
-    // hardening should move this to the single-use ticket / a cookie (design B1).
-    if (req.method === 'GET' && filepath === '/server-manager') {
-      if (!requireOwnerHttp(req, res)) return;
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-      res.end(SERVER_MANAGER_PAGE);
       return;
     }
 
@@ -2075,6 +2094,7 @@ h3{font-size:1rem;margin:16px 0 8px;border-bottom:1px solid #eee;padding-bottom:
 <h1>My Profile</h1>
 <div style="text-align:center;margin-bottom:12px"><a href="/app?editProfile=1" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;border-radius:10px;text-decoration:none;font-weight:600;font-size:0.95rem">Edit Profile</a></div>
 <div id="profile"><p class="empty">Connecting...</p></div>
+<div id="feature-grants"></div>
 <p class="ver" id="ver"></p>
 </div>
 <script>
@@ -2111,7 +2131,7 @@ else{
   };
 }
 fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(()=>{});
-</script></body></html>`);
+</script>${renderFeatureGrants()}</body></html>`);
       return;
     }
 

@@ -11,11 +11,10 @@ export interface SmSession { name: string; windows: SmWindow[]; }
 // off UC 168e6d2b, design-server-manager.md ## R31.3). Read-only, owner-gated at the callers (API + page route via
 // R31.2 assertOwner). Uses RAW `tmux list-panes -a -F` (NOT the OOSH otmux wrapper) so parsing is deterministic.
 export class OtmuxBridge {
-  // [impl marker PENDING] — architect to mint+wire the Impl under Method 7d7221d8 (ior:class:Implementation), then
-  // place [impl:uuid:<Impl>] here (NOT the Method uuid). Env can't wireImplNode; architect mints on ship.
-  // Parse the flat -F output into nested sessions[] → windows[] → panes[]. pane_id (%N) is the STABLE target
-  // (survives window/pane renumbering); label `session:win.pane` is the human ID. execFile ARRAY args = no shell
-  // (no injection), read-only verb, bounded timeout + maxBuffer.
+  // [impl:uuid:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a] OtmuxBridge.readSessionTree (Method 7d7221d8, off UC 168e6d2b)
+  // — parse the flat `tmux list-panes -a -F` output into nested sessions[] → windows[] → panes[]. pane_id (%N) is
+  // the STABLE target (survives renumbering); label `session:win.pane` is the human ID. execFile ARRAY args = no
+  // shell (no injection), read-only verb, bounded timeout + maxBuffer.
   static async readSessionTree(): Promise<SmSession[]> {
     const FMT = ['#{session_name}', '#{window_index}', '#{window_name}', '#{window_active}',
       '#{pane_index}', '#{pane_id}', '#{pane_active}', '#{pane_title}'].join('\t');
