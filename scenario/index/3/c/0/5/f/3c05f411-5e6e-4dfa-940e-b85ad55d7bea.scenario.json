@@ -13,14 +13,20 @@
    "ior:instance:168e6d2b-439f-4c90-ab0c-47b2a10ccae0",
    "ior:instance:fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:d4a153d7-918a-402c-b088-345c86802537",
+   "ior:instance:5be03af7-6acf-40cb-a9dd-b324afdec217",
+   "ior:instance:d5199875-0e47-4ce8-a756-ef3d29afc6eb",
+   "ior:instance:78dc780b-4301-454c-ac56-bf1fca3ce06d"
+  ],
   "createdAt": "2026-07-20",
   "createdBy": "robbin-req",
   "joint": [
    "robbin-req",
    "robbin-architect",
    "robbin-planner"
-  ]
+  ],
+  "orderingRationale": "Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate -> R31.1 profile section -> R31.3 otmux tree -> R31.4 xterm.js terminal. Task IDENTITY is numeric (T31.1-4 = R31.1-4); array POSITION = build sequence (identity != position)."
  },
  "ownerIor": null
 }
