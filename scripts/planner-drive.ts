@@ -1,9 +1,12 @@
 // Planner driving tool (R20.13) — drive the WIP=1 chain THROUGH the live CurrentSprint instrument.
-// Usage: npx tsx scripts/planner-drive.ts focus <task-uuid>     ← auto-derive chain from focused task (PREFERRED)
-//        npx tsx scripts/planner-drive.ts hop <hop> <status> [agent]  ← per-agent realtime hop update
-//        npx tsx scripts/planner-drive.ts gate                ← check if task-switch gate is proven
-//        npx tsx scripts/planner-drive.ts setChain <req> <uc> <class> <method> <impl> <test> "<sprint>" "<task>"
-//        npx tsx scripts/planner-drive.ts pin | advance | status
+// RUN VIA THE LAUNCHER (#102): `node scripts/drive.mjs <verb> [args…]` — self-heals to node18+ so it works from any
+// default node. Do NOT run `npx tsx scripts/planner-drive.ts …` directly: on the repo default node16 that throws
+// ERR_UNKNOWN_FILE_EXTENSION (tsx 4.x's loader needs node18+). The launcher runs this file under node18+ via the tsx CLI.
+// Usage: node scripts/drive.mjs focus <task-uuid>     ← auto-derive chain from focused task (PREFERRED)
+//        node scripts/drive.mjs hop <hop> <status> [agent]  ← per-agent realtime hop update (self-mark)
+//        node scripts/drive.mjs gate                ← check if task-switch gate is proven
+//        node scripts/drive.mjs setChain <req> <uc> <class> <method> <impl> <test> "<sprint>" "<task>"
+//        node scripts/drive.mjs pin | advance | status
 // Hops: req|uc|class|method|impl|test   Statuses: pending|in-progress|done|gate-proven
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

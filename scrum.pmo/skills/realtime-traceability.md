@@ -88,14 +88,18 @@ Short 8-char prefixes cause misleading "BLOCKED" errors. Copy verbatim, never tr
 **Per-agent realtime hop marking** (Tron directive — every agent, on YOUR hop):
 
 ```bash
+# Use the LAUNCHER `node scripts/drive.mjs …` (#102) — self-heals to node18+ so it works from ANY default node.
+# Do NOT `npx tsx scripts/planner-drive.ts …`: on the repo default node16 that throws ERR_UNKNOWN_FILE_EXTENSION
+# (tsx 4.x needs node18+). The launcher runs planner-drive.ts under node18+ via the tsx CLI.
+
 # As you START your hop:
-npx tsx scripts/planner-drive.ts hop impl in-progress expert
+node scripts/drive.mjs hop impl in-progress expert
 
 # When you FINISH (commit + marker):
-npx tsx scripts/planner-drive.ts hop impl done expert
+node scripts/drive.mjs hop impl done expert
 
 # Tester after det-3x + deploy:
-npx tsx scripts/planner-drive.ts hop test gate-proven tester
+node scripts/drive.mjs hop test gate-proven tester
 ```
 
 **Planner drives the 3-slot pin:**
