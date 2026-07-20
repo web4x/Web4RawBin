@@ -828,8 +828,8 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
 }
 
 // R31.3 owner-only Server-Manager PAGE shell (served ONLY after requireOwnerHttp passes — 6th AC). Static HTML +
-// inline renderer that fetches the owner-gated /api/server-manager/tree (x-player-token header) and draws the
-// sessions→windows→panes tree. Token comes from ?token= (browser nav) or localStorage. No backticks/${} inside.
+// inline renderer that fetches the owner-gated /api/server-manager/tree (same-origin sm_session cookie auto-sent) and
+// draws the sessions→windows→panes tree. R31.2 cookie-only: auth = the sm_session cookie, NOT ?token= (removed). No backticks/${} inside.
 // R31.4 step-2/3: the Server Manager page mounts the SHARED rb-trace-tree renderer (bundled esbuild
 // module) fed by /api/server-manager/tree `roots` (typed otmuxSession→otmuxWindow→otmuxPane). The old
 // bespoke inline tree is retired. Page is owner-only (choke-point 403s non-owners before this shell).
@@ -860,8 +860,8 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 function renderFeatureGrants(): string {
   // Inserted INSIDE the /profile PROFILE ws handler (m = message, token = the identified token, both in scope).
   // Renders the owner-only 'Server Manager' entry IFF the server-computed m.serverManager flag is set — NO whoami
-  // round-trip (kills the owner-accept race + the client can't self-grant). Href keeps ?token= so the owner reaches
-  // the assertOwner-gated /server-manager page on browser-nav (R31.4 ticket/cookie hardens the URL token).
+  // round-trip (kills the owner-accept race + the client can't self-grant). R31.2 cookie-only: the entry mints the
+  // sm_session cookie (onclick POST /session with the x-player-token HEADER) then navigates — NO ?token= in the URL.
   return `
       if(m.serverManager){
         var fg=document.getElementById('feature-grants');

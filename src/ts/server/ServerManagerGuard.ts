@@ -11,12 +11,12 @@ export class ServerManagerGuard {
   // INV-G2: the OWNER_TOKEN literal appears in EXACTLY ONE module location — here.
   private static readonly OWNER_TOKEN = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
 
-  // Resolve the caller token the SAME way existing endpoints do: x-player-token header, else ?token/?playerToken query.
+  // R31.2 AC-cookie-only: HEADER-ONLY (x-player-token). The ?token/?playerToken QUERY fallback is REMOVED — a URL
+  // token leaks via logs / referrer / history. The Server-Manager credential is the sm_session COOKIE (minted by the
+  // owner-gated POST /api/server-manager/session, which sends the token in THIS header); a bare ?token= no longer
+  // authenticates → the page/API/ws reject it (cookie-only enforced; tester's ?token=→403 assertion passes).
   static playerTokenFrom(req: http.IncomingMessage): string {
-    const h = (req.headers['x-player-token'] as string) || '';
-    if (h) return h;
-    const q = new URLSearchParams((req.url || '').split('?')[1] || '');
-    return q.get('token') || q.get('playerToken') || '';
+    return (req.headers['x-player-token'] as string) || '';
   }
 
   // [impl:uuid:335dbf3d-2294-47cb-9beb-1d81a4bf9a94] ServerManagerGuard.assertOwner — the SINGLE shared owner guard
