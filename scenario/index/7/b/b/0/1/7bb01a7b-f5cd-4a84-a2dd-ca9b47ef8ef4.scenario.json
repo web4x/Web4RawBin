@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+  "altId": "R31.5",
+  "name": "Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)",
+  "description": "CONCEPT / PLAN ONLY (Tron 2026-07-20 - do NOT implement; implementation is a later Tron-authorized step). A foundational responsive-layout architecture generalizing the app's viewports as BARS '|' and COMPARTMENTS '[]'. A bar is a thin strip of COLLAPSED content (a 'What' bar = itemView ICONS, an 'Actions' bar = object.verb no-parameter buttons, the 3-way editor's changebar); a compartment is EXPANDED full content (What / Overview / Details compartments; each diff editor). A bar EXPANDS into a compartment and a compartment COLLAPSES into a bar (the duality is the generalization). WODA layout = W|[O][D]|A (What bar | Overview + Details compartments | Actions bar). The 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (editors are compartments, changebars are bars). Responsive: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next) freely scrollable left<->right WITH scroll-snap at compartment boundaries, plus a bottom scroll-snap NAV bar snapping to a compartment's left edge (buttons per instance: {Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA). The drawer = the 'Details' compartment: landscape it becomes the inline [D] compartment, portrait it is the bottom drawer as today - and POSITIONING != FUNCTION (Tron's law): the two positions have IDENTICAL function, one component not two forks (same DRY root as the R31.4 /trace-detail-flow drawer reuse, which this concept GENERALIZES). Acceptance = a coherent CONCEPT (this captured model + architect component-architecture design + planner CONCEPT task), NOT code. This is PARALLEL/AFTER the current R31.1-R31.4 server-manager bug fixes (select->open / drawer / badge stay PRIORITY-1). Each acceptance facet below is a DECOMPOSITION CANDIDATE for atomic build-requirements when Tron authorizes implementation (Rule 10/11 - decompose then).",
+  "tronQuote": "> TRON (2026-07-20): PLAN a detailed CONCEPT (req + architect + planner). DO NOT IMPLEMENT yet. Everything is BARS | and COMPARTMENTS []; WODA = W|[O][D]|A; the 3-way editor is an instance [L]|[C]|[R]; portrait = a horizontally scrollable viewport with scroll-snap + a bottom nav bar; the drawer becomes the Details compartment in landscape and the bottom drawer in portrait - why should a different positioning format change function! (positioning != function).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/CONCEPT-scrollable-viewport-woda-layout.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "conceptOnly": true,
+  "conceptNote": "PLAN-only requirement: NO chain (no UC/Class/Method) is minted yet - acceptance is a coherent concept, not code. When Tron authorizes implementation, the facet-ACs decompose into atomic build-requirements (each with its own chain). Do NOT flip to a build task; planner structures this as a CONCEPT (design) task per PO 2026-07-20.",
+  "status": "concept",
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-20) via robbin-po",
+   "date": "2026-07-20",
+   "note": "Concept directive to PLAN a responsive bar/compartment WODA scrollable-viewport layout. Source: CONCEPT-scrollable-viewport-woda-layout.md. Generalizes the R31.4 DRY drawer-function-consistency fix (positioning != function). Captured scenario-first; architect designs the component architecture, planner makes a CONCEPT task. Implementation deferred to a later Tron authorization."
+  },
+  "crossRef": [
+   "ior:instance:fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+  ],
+  "crossRefNote": "R31.4 (terminal-in-drawer DRY, /trace-detail-flow reuse) is the immediate drawer-function-consistency fix; R31.5 GENERALIZES its POSITIONING != FUNCTION principle across the whole responsive layout.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-bar-compartment-model",
+    "group": "concept",
+    "text": "The concept defines the bar '|' / compartment '[]' duality: a bar is a thin strip of COLLAPSED content (What-bar = itemView icons; Actions-bar = object.verb no-parameter buttons; the diff changebar), a compartment is EXPANDED full content (What / Overview / Details; each editor); a bar EXPANDS into a compartment and a compartment COLLAPSES into a bar. This duality is the generalization."
+   },
+   {
+    "id": "AC-woda-layout",
+    "group": "concept",
+    "text": "The concept specifies the WODA layout W|[O][D]|A - What(bar, expandable) | Overview[O] + Details[D] compartments | Actions(bar) - with a bottom nav of 4 buttons: What / Overview / Details / Actions."
+   },
+   {
+    "id": "AC-editor-is-instance",
+    "group": "concept",
+    "text": "The concept shows the 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (left/center/right editors are compartments, framed by left/right changebars which are bars) with a bottom nav of 3 buttons Left / Center / Right; one bar/compartment machinery instantiates BOTH WODA and the editor."
+   },
+   {
+    "id": "AC-scrollable-viewport-snap",
+    "group": "concept",
+    "text": "The concept defines responsive behavior: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next), freely scrollable left<->right WITH scroll-snap at each compartment boundary (editor snaps: LEFT '[]|[', CENTER ']|[]|[', RIGHT ']|[]')."
+   },
+   {
+    "id": "AC-scroll-snap-nav-bar",
+    "group": "concept",
+    "text": "The concept defines a bottom scroll-snap NAV bar that snaps the horizontal scroll to the LEFT edge of a compartment, with a button set that depends on the layout instance ({Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA)."
+   },
+   {
+    "id": "AC-drawer-positioning-not-function",
+    "group": "concept",
+    "text": "The concept establishes drawer = the Details compartment with the POSITIONING != FUNCTION invariant (Tron's law): landscape - the drawer BECOMES the inline [D] Details compartment; portrait - the drawer is the bottom drawer as today; the two positions have IDENTICAL function via ONE component, not two forks (same DRY root as the R31.4 /trace-detail-flow reuse). This is the crux facet."
+   },
+   {
+    "id": "AC-concept-not-code",
+    "group": "concept",
+    "text": "Acceptance is a COHERENT CONCEPT (this captured model + the architect's component-architecture design of how bar<->compartment / scrollable viewport / scroll-snap / nav bar GENERALIZE, how the editor AND WODA both instantiate it, and how the drawer becomes the Details compartment in landscape with identical function via one component), NOT an implementation. Implementation is a LATER Tron-authorized step; each facet above then decomposes into atomic build-requirements."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
