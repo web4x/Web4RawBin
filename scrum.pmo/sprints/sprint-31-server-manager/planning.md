@@ -16,8 +16,9 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
 
 ## Tasks
 
-- [ ] [Task 31.2: Owner-only access gate for Server Manager - server-side by-construction (owner 200 / non-owner 403, incl websocket)](./task-31.2-owner-gate.md)
+- [x] [Task 31.2: Owner-only access gate for Server Manager - server-side by-construction (owner 200 / non-owner 403, incl websocket)](./task-31.2-owner-gate.md)
 - [ ] [Task 31.1: User-specific profile features section (per-user grants, owner-only entries, at profile bottom)](./task-31.1-profile-feature-grants.md)
 - [ ] [Task 31.3: otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)](./task-31.3-otmux-tree.md)
 - [ ] [Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)](./task-31.4-xterm-terminal.md)
 - [ ] [Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)](./task-31.5-concept-scrollable-viewport-woda-layout.md)
+- [ ] [Task 31.6: Shared pan/zoom viewer capability for EVERY embedded format (FUTURE / concept)](./task-31.6-concept-shared-panzoom-viewer.md)

@@ -12,9 +12,9 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 

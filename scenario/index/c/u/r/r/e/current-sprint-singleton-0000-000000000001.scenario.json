@@ -1,67 +1,67 @@
 {
-  "ior": "ior:class:CurrentSprint",
-  "model": {
-    "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 31.4: Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated ws PTY bridge)",
-    "chain": {
-      "req": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2",
-      "uc": "fa1845d3-88e2-4c9b-9618-f427fc262b56",
-      "class": "",
-      "method": "",
-      "impl": "",
-      "test": ""
-    },
-    "activeHop": 4,
-    "sprintName": "Sprint 31",
-    "taskName": "Task 31.4: Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated ws PTY bridge, read-only default)",
-    "hopStates": {
-      "req": {
-        "status": "done",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-07-20"
-      },
-      "uc": {
-        "status": "done",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-07-20"
-      },
-      "method": {
-        "status": "in-progress",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-07-20"
-      },
-      "impl": {
-        "status": "in-progress",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-07-20"
-      },
-      "test": {
-        "status": "pending",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-07-20"
-      }
-    },
-    "nextBacklogOverride": "",
-    "lastCompletedUuid": "183475f6-400a-47f3-927a-620185798c22",
-    "lastCompletedName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
-    "lastCompletedReqUuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8",
-    "slots": {
-      "current": {
-        "taskUuid": "78dc780b-4301-454c-ac56-bf1fca3ce06d",
-        "taskName": "Task 31.4: Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated ws PTY bridge, read-only default)",
-        "reqUuid": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
-      },
-      "lastCompleted": {
-        "taskUuid": "183475f6-400a-47f3-927a-620185798c22",
-        "taskName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
-        "reqUuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8"
-      },
-      "nextBacklog": {
-        "taskUuid": "d5199875-0e47-4ce8-a756-ef3d29afc6eb",
-        "taskName": "Task 31.3: otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)",
-        "reqUuid": "168e6d2b-439f-4c90-ab0c-47b2a10ccae0"
-      }
-    }
+ "ior": "ior:class:CurrentSprint",
+ "model": {
+  "uuid": "current-sprint-singleton-0000-000000000001",
+  "name": "Current: Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)",
+  "chain": {
+   "req": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2",
+   "uc": "fa1845d3-88e2-4c9b-9618-f427fc262b56",
+   "class": "",
+   "method": "",
+   "impl": "",
+   "test": ""
   },
-  "ownerIor": null
+  "activeHop": 4,
+  "sprintName": "Sprint 31",
+  "taskName": "Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)",
+  "hopStates": {
+   "req": {
+    "status": "done",
+    "owner": "robbin-skill-expert",
+    "updatedAt": "2026-07-20"
+   },
+   "uc": {
+    "status": "done",
+    "owner": "robbin-skill-expert",
+    "updatedAt": "2026-07-20"
+   },
+   "method": {
+    "status": "in-progress",
+    "owner": "robbin-skill-expert",
+    "updatedAt": "2026-07-20"
+   },
+   "impl": {
+    "status": "in-progress",
+    "owner": "robbin-skill-expert",
+    "updatedAt": "2026-07-20"
+   },
+   "test": {
+    "status": "pending",
+    "owner": "robbin-skill-expert",
+    "updatedAt": "2026-07-20"
+   }
+  },
+  "nextBacklogOverride": "",
+  "lastCompletedUuid": "183475f6-400a-47f3-927a-620185798c22",
+  "lastCompletedName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
+  "lastCompletedReqUuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8",
+  "slots": {
+   "current": {
+    "taskUuid": "78dc780b-4301-454c-ac56-bf1fca3ce06d",
+    "taskName": "Task 31.4: Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated ws PTY bridge, read-only default)",
+    "reqUuid": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+   },
+   "lastCompleted": {
+    "taskUuid": "183475f6-400a-47f3-927a-620185798c22",
+    "taskName": "Task 30.53: Changes-focused code-folding via NATIVE Monaco collapse/expand (fold by method boundaries)",
+    "reqUuid": "ac3338b6-07a1-4fa6-9040-d9144db16ee8"
+   },
+   "nextBacklog": {
+    "taskUuid": "d5199875-0e47-4ce8-a756-ef3d29afc6eb",
+    "taskName": "Task 31.3: otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)",
+    "reqUuid": "168e6d2b-439f-4c90-ab0c-47b2a10ccae0"
+   }
+  }
+ },
+ "ownerIor": null
 }
