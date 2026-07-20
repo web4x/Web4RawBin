@@ -23,6 +23,12 @@
         "hop": "live-deployment RE-VALIDATED (PROVEN LIVE)",
         "reason": "Architect control-based re-validation (651aec409) on the real restart (pid 683493->1217331, etime ~21s): owner seeded live in tokenToClient -> header 200 + ?token=/?playerToken query 403 = query-auth closed, confound DEFEATED. cookie-only verified-LIVE.",
         "reportedVia": "robbin-po (architect 651aec409)"
+      },
+      {
+        "date": "2026-07-20",
+        "hop": "live-deployment 2nd INDEPENDENT proof (tester re-gate)",
+        "reason": "Tester re-ran r312 retargeted to 0.7.102 on the fresh server pid (2c0b224ec): ?token= queryAuth403 + all reject checks GREEN DET-3x on the LIVE restarted process. Second independent live-proof (complements architect control 651aec409, owner-live header-200/query-403).",
+        "reportedVia": "robbin-tester"
       }
     ]
   },

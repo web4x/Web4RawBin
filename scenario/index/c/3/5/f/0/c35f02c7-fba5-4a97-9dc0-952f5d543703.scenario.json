@@ -23,6 +23,12 @@
         "hop": "live-deployment RE-VALIDATED (PROVEN LIVE)",
         "reason": "REAL restart fired — server PID 683493->1217320 (etime ~83s, genuine process restart, NOT the 3.5h confound). Boot-sweep PROVEN LIVE: the architect seeded orphan sm_archbackstop was REAPED at THIS real boot (reapOrphans ran on the actual restart). liveValidationPending cleared.",
         "reportedVia": "robbin-po (expert PID + architect seeded-orphan)"
+      },
+      {
+        "date": "2026-07-20",
+        "hop": "live-deployment 2nd INDEPENDENT proof (tester controlled experiment)",
+        "reason": "Tester empirical controlled experiment (2c0b224ec): RED baseline = [r] rebuild alone (pid UNCHANGED 1217320, seeded sm_bootcheck_marker SURVIVES) vs GREEN = real restart (pid 1217320->1231421, marker REAPED by reapOrphans-at-boot). Non-vacuous RED + live GREEN on the fresh pid = second independent live-proof (complements architect control 651aec409).",
+        "reportedVia": "robbin-tester"
       }
     ]
   },
