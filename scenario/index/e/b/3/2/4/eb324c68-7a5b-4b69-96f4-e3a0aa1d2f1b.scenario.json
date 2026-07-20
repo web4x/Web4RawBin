@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "eb324c68-7a5b-4b69-96f4-e3a0aa1d2f1b",
+    "name": "test:R31.3 tree RENDER layer-by-layer + window chevron/label + initial-collapsed (RbTraceTree.buildSeedNode)",
+    "description": "Bridged to test/visual/r3195-tree-render-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.95, commit 5cb1396b5). Drives the served rb-trace-tree with an otmux fixture (engine-independent, no owner). Verifies R31.3 tree RENDER behavior (architect design-server-manager.md:213 + IMG_4598): correct INITIAL-COLLAPSED with NO explode-then-settle (only session nodes render at start); 3-level LAYER-BY-LAYER expand (session -> 2 windows collapsed -> panes); the WINDOW node has its own chevron AND its own proper label (distinct '0: bash' / '1: vim', NOT a shared placebo); independent per-node collapse; and /trace's 2-level graph tree is UNREGRESSED (backward-compatible recursive type). Interactive visual rides Tron device. Marker eb324c68 adopted from origin 5cb1396b5 (measured on line 1, not invented). SEPARATE from the data Test 9467b1c6 (readSessionTree). Tester caught+fixed own false-RED: collapse HIDES children in DOM -> count VISIBLE not DOM-present. Chain: R31.3 req 168e6d2b -> UC 6b1132ce traceTree.expandPerLevel -> Class RbTraceTree 5a057914 -> Method 08ad3bdd RbTraceTree.buildSeedNode -> Impl 5b3d9f1a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3195-tree-render-gate.mjs",
+    "implementations": [
+      "ior:instance:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c"
+}

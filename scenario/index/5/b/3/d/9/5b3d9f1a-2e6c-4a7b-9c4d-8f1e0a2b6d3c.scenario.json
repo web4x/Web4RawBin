@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c",
     "name": "RbTraceTree.buildSeedNode impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:eb324c68-7a5b-4b69-96f4-e3a0aa1d2f1b"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "designAhead": false,
     "description": "BUILT v0.7.95: R31.3 N-level layer-by-layer tree in the SHARED rb-trace-tree. (a) recursive TreeNode type at every depth; per-node chevron = hasChildren||children.length>0 so WINDOW nodes are first-class expandable. (b) killed the eager :339 grandchild recursion — buildSeedNode now STORES inline children + builds ONLY the direct layer, lazily on first open (buildDirectLayer), each child collapsed with its own chevron → N levels reveal one layer per expand (no explode-then-settle). (c) per-level initial open = data-always-expanded||shouldStartOpen||persisted-expanded; renderItems no longer force-opens roots; PATH-A passes child.children (windows keep panes on re-render). Backward-compat: API-backed nodes (no inline children, hasChildren:true) still lazy-fetch on open → /trace 2-level trees render+expand unchanged. Marker [impl:uuid:5b3d9f1a-...] on the buildSeedNode decl. R31.3."
