@@ -513,7 +513,7 @@ export class RbTraceTree extends HTMLElement {
       const node = item.closest('.tt-node');
       const children = node?.querySelector(':scope > .tt-children');
       const count = children ? children.querySelectorAll(':scope > .tt-node').length : 0;
-      const uuid = item.getAttribute('ref')?.split(':')[1] || '';
+      const uuid = refUuid(item.getAttribute('ref') || ''); // SESSION-BADGE: a session ref is 'otmuxsession:sess:NAME' and the UUID itself ('sess:NAME') contains a colon → split(':')[1]='sess' MISSES the nodeChildCount key; refUuid slices after the FIRST colon = the full uuid
       const cached = this.prefetchCache.get(uuid);
       item.setAttribute('child-count', String(this.eagerChildCountBadges(uuid, count, cached?.length)));
     });
@@ -528,7 +528,7 @@ export class RbTraceTree extends HTMLElement {
 
   private prefetchLayer(node: HTMLElement): Promise<void> {
     const item = node.querySelector(':scope > .tt-row rb-object-item');
-    const uuid = item?.getAttribute('ref')?.split(':')[1] || '';
+    const uuid = refUuid(item?.getAttribute('ref') || ''); // same colon-in-uuid safety as computeBadges (refUuid = after the FIRST colon)
     if (!uuid || this.prefetchCache.has(uuid) || this.prefetchInFlight.has(uuid)) return Promise.resolve();
     this.prefetchInFlight.add(uuid);
     return fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
