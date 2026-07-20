@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6b1132ce-a213-48d1-bbb5-01e6047cb06b",
+  "name": "traceTree.expandPerLevel",
+  "description": "Shared rb-trace-tree N-level render behavior (GENERIC — /trace benefits too, correct-by-construction). Every node type is recursive at every depth; a per-node chevron shows when hasChildren || children.length>0 (WINDOW nodes now first-class expandable, not a placebo); expanding a node reveals ONLY its direct children, themselves collapsed (layer-by-layer / lazy, no eager subtree explosion); correct initial collapsed state. Distinct from otmuxTree.read (data). Architect design design-server-manager.md sec 'FIX — generic N-level, layer-by-layer, in the SHARED component' (buildSeedNode made recursive+lazy; onToggleChildren builds one layer from stored inline children). R31.3.",
+  "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+  "method": "ior:instance:08ad3bdd-2cfb-4c7a-bcfc-c4669cd6deda",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

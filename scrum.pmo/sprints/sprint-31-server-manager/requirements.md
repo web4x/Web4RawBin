@@ -46,6 +46,7 @@
   - [ ] **(functional)** The window node is labeled by its window index/name (e.g. 'window 0'), NOT the active-command placebo (e.g. '0: bash'). BUG (IMG_4598): the middle level shows the active command instead of a clear window label.
   - [ ] **(functional)** The tree's INITIAL state is correctly collapsed (sessions collapsed, or a clear sensible default) - no 'open yet closed' mixed/indeterminate state on first render that only corrects after manual toggling. BUG (IMG_4598): initial state was closed-yet-open and behaved naturally only after each session was manually opened+closed once.
   -> otmuxTree.read [uc:uuid:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552]
+  -> traceTree.expandPerLevel [uc:uuid:6b1132ce-a213-48d1-bbb5-01e6047cb06b]
 
 - [ ] **R31.4 — Pane -> interactive fullscreen xterm.js SSH terminal (owner-gated websocket PTY bridge)**
   [requirement:uuid:fb14fdbf-3ba4-48fa-b098-748fc0e278c2]

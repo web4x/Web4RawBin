@@ -23,7 +23,8 @@
       "ior:instance:e2d6db4c-0da7-43ed-bd32-55e1b65a6992",
       "ior:instance:f8737405-03c4-439d-b76c-9ecc734b3d0b",
       "ior:instance:eeba826d-8a2f-486f-b1d1-fe8bfbc42c61",
-      "ior:instance:baf91567-048c-4610-860c-5ad08a6ffc55"
+      "ior:instance:baf91567-048c-4610-860c-5ad08a6ffc55",
+      "ior:instance:08ad3bdd-2cfb-4c7a-bcfc-c4669cd6deda"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
