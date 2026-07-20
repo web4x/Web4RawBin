@@ -793,12 +793,54 @@ function trackClient(req: http.IncomingMessage): void {
 
 // --- HTTP Request Handler ---
 
+// ── R31.2 Server-Manager OWNER-GATE (correct-by-construction — design-server-manager.md ## R31.2) ──────
+// ONE owner constant + ONE resolveOwner, used by EVERY /api/server-manager/* route (via the prefix choke-point
+// in handleRequest) AND the terminal ws upgrade. Fail-closed. INV-G1 (non-owner 403 on every route + ws),
+// INV-G2 (OWNER_TOKEN literal appears EXACTLY once — grep-guardable), INV-G3 (rejected ws upgrade never opens
+// the socket). IMPL MARKER PENDING: align to architect's serverManager.ownerGuard Method/Impl uuid (off UC
+// 40802701) when it lands — do NOT mint/fabricate here (scenario-first #126).
+const OWNER_TOKEN = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+function playerTokenFrom(req: http.IncomingMessage): string {
+  const h = (req.headers['x-player-token'] as string) || '';
+  if (h) return h;
+  const q = new URLSearchParams((req.url || '').split('?')[1] || '');
+  return q.get('token') || q.get('playerToken') || '';
+}
+function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | { ok: false } {
+  const token = playerTokenFrom(req);
+  if (!token || !tokenToClient.has(token)) return { ok: false };                    // must be a LIVE authenticated session
+  const a = Buffer.from(token), b = Buffer.from(OWNER_TOKEN);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return { ok: false };  // and THE owner (constant-time)
+  return { ok: true, token };
+}
+function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
+  if (resolveOwner(req).ok) return true;
+  const ip = req.socket.remoteAddress || 'unknown';
+  addLog(`[server-manager] DENY kind=http path=${req.url} token=${(playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+  res.writeHead(403, { 'Content-Type': 'application/json' }); res.end('{"error":"forbidden"}');
+  return false;
+}
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
     const rawUrl = req.url || '/';
     let filepath = rawUrl.split('?')[0];
     const urlParams = new URLSearchParams(rawUrl.includes('?') ? rawUrl.split('?')[1] : '');
+
+    // R31.2 server-manager OWNER-GATE choke-point (by construction): every /api/server-manager/* path is gated
+    // HERE first via the SOLE resolveOwner guard — a new sub-route physically cannot bypass it (INV-G1). Handlers
+    // below this block run only for an authenticated OWNER; add R31.3/R31.4 routes inside this block.
+    if (filepath.startsWith('/api/server-manager/')) {
+      if (!requireOwnerHttp(req, res)) return;
+      if (req.method === 'GET' && filepath === '/api/server-manager/whoami') { // minimal gated endpoint (exercises the gate)
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, owner: true, token8: playerTokenFrom(req).slice(0, 8) }));
+        return;
+      }
+      res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"not-found"}');
+      return;
+    }
 
     // API: bug status update
     if (req.method === 'POST' && filepath === '/api/bug-status') {
@@ -2156,7 +2198,28 @@ async function ensureAvatar(profile: UserProfile): Promise<void> {
 // --- WebSocket ---
 
 function setupWebSocketServer(server: https.Server): void {
-  const wss = new WebSocketServer({ server });
+  // R31.2: app ws + terminal ws share ONE upgrade dispatcher (noServer) so the terminal handshake is owner-gated
+  // BEFORE the socket opens (INV-G3: a rejected upgrade is destroyed, `connection` never fires, no PTY spawns).
+  const wss = new WebSocketServer({ noServer: true });
+  const termWss = new WebSocketServer({ noServer: true });
+  server.on('upgrade', (req, socket, head) => {
+    const path = (req.url || '/').split('?')[0];
+    if (path === '/api/server-manager/terminal') {
+      if (!resolveOwner(req).ok) { // SAME resolveOwner as HTTP — fail-closed
+        const ip = req.socket.remoteAddress || 'unknown';
+        addLog(`[server-manager] DENY kind=ws path=${path} token=${(playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+        socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
+      }
+      termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
+      return;
+    }
+    wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)); // app ws (post-connect IDENTIFY auth) — unchanged
+  });
+  termWss.on('connection', (ws: WebSocket) => { // R31.2: owner-gated OPEN; R31.4 wires the PTY bridge here
+    addLog(`[server-manager] terminal ws OPEN (owner) — R31.4 PTY bridge pending`);
+    try { ws.send(JSON.stringify({ t: 'info', msg: 'terminal bridge not yet implemented (R31.4)' })); } catch { /* noop */ }
+    ws.close(1011, 'terminal-not-implemented');
+  });
   wss.on('connection', async (ws: WebSocket, req: http.IncomingMessage) => {
     const ip = req.socket.remoteAddress || 'unknown';
     const clientId = `${ip}-${Date.now()}`;
