@@ -49,8 +49,13 @@ Browsers CANNOT set arbitrary headers on `new WebSocket()`. And current auth is 
 - **Ticket pattern (RECOMMENDED):** owner-gated `POST /api/server-manager/terminal-ticket` (requireOwnerHttp) issues a single-use, ~30s-TTL `ticket` bound to OWNER_TOKEN + target pane_id. Client opens `wss://…/api/server-manager/terminal?ticket=<t>`. A dedicated `WebSocketServer({noServer:true})` + `httpServer.on('upgrade')`: if `req.url` is the terminal path → validate ticket (owner-bound, unused, unexpired, matches a target) → `handleUpgrade` → open; else `socket.destroy(403)`. Ticket keeps the long-lived OWNER_TOKEN out of URLs/logs and makes the handshake single-use + auditable.
 - The EXISTING `WebSocketServer({server})` must switch to `{noServer:true}` too (or path-filter in one `upgrade` handler) so the terminal path is routed to its own server and the app ws is unaffected. One `upgrade` handler, path-dispatch, owner-check for the terminal branch = by-construction (R31.2).
 
+### Mode: READ-ONLY default + Take-Control (PO B4 decision 2026-07-20)
+Live agent panes — an accidental keystroke could disrupt an agent mid-generation. So the terminal **defaults to READ-ONLY**; interactive I/O is delivered on an explicit **"Take Control"** toggle (interactive-ON-ENABLE, not removed). Correct-by-construction, two layers:
+- **Read-only attach:** node-pty runs `tmux attach-session -t sm_<rand> -r` — the `-r` flag makes tmux itself REJECT input (not just the app declining to forward). Output streams normally. Defense-in-depth: the server ALSO drops any inbound ws key frames while in read-only mode.
+- **Take Control** (owner-gated, same socket, audited): client sends `{t:'take-control'}` → server kills the `-r` pty and respawns `tmux attach-session -t sm_<rand>` (read-write) on the SAME grouped session, resumes streaming, and begins forwarding key frames. A `CONTROL_TAKEN` audit line is emitted. (Return-to-read-only = respawn with `-r` again.) The gate (R31.2) covers BOTH modes and the grouped attach.
+
 ### PTY bridge (Q1 answer)
-- **node-pty spawning a tmux client — NOT pipe-pane+send-keys.** The PTY *is* a tmux client → keystrokes flow natively (no send-keys injection races), resize is native, control chars/TUI apps work. pipe-pane+send-keys = output-tee + injected keys: no native resize, key races, degraded — **does not satisfy "interactive."** Use it only as a read-only fallback, explicitly out-of-AC for interactivity.
+- **node-pty spawning a tmux client — NOT pipe-pane+send-keys.** The PTY *is* a tmux client → keystrokes flow natively (no send-keys injection races), resize is native, control chars/TUI apps work. pipe-pane+send-keys = output-tee + injected keys: no native resize, key races, degraded — **does not satisfy "interactive."**
 - **Isolation (Q1 blocker B3):** a plain `tmux attach -t <session>` resizes/steals the primary view → disrupts Tron's OTHER agents in that session. Use a **grouped session**: `tmux new-session -d -s sm_<rand> -t <target-session> \; select-pane -t <pane_id>` then attach the PTY to `sm_<rand>`. Grouped sessions share windows but have INDEPENDENT active-window + size → this client resizes only its own view; killed on detach. (Pane-level isolation: grouped session + select-pane; if a truly single-pane surface is needed, `break-pane`/linked window is a follow-up.)
 - PTY: `node-pty.spawn('tmux',['attach-session','-t','sm_<rand>'],{name:'xterm-256color',cols,rows})`. On ws close → `ptyProcess.kill()` + `tmux kill-session -t sm_<rand>` (cleanup, no orphan clients).
 
@@ -61,10 +66,11 @@ Browsers CANNOT set arbitrary headers on `new WebSocket()`. And current auth is 
 
 ### Audit logging (Q3 answer)
 Reuse `addLog()` + a dedicated `data/logs/server-manager-<date>.log`. One structured line per event:
-- `ATTACH owner=<tok8> target=<sess:win.pane/%id> sm=sm_<rand> client=<id> ip=<ip> ts=<iso>`
+- `ATTACH mode=read-only owner=<tok8> target=<sess:win.pane/%id> sm=sm_<rand> client=<id> ip=<ip> ts=<iso>`
+- `CONTROL_TAKEN owner=<tok8> target=<…> ts=<iso>` (read-only → interactive transition — a security-relevant event)
 - `DETACH … durationMs=<> bytesIn=<> bytesOut=<>`
 - `DENY kind=http|ws path=<> token=<tok8|none> ip=<ip> ts=<iso>` (denials are the security events — always logged).
-Attach/detach/deny are the audit triple. Greppable key=val.
+Attach/control-taken/detach/deny are the audit quad. Greppable key=val.
 
 ### Feasibility verdict
 - R31.2 gate: **LOW** risk, do first (foundation).
@@ -75,7 +81,7 @@ Attach/detach/deny are the audit triple. Greppable key=val.
 - **B1 handshake auth:** browsers can't set ws headers; current auth is post-connect. AC MUST say: *"handshake gated BEFORE the socket opens via an owner-bound single-use ~30s ticket (issued by an owner-gated HTTP endpoint) presented as a ws query param; invalid/expired/non-owner → upgrade refused (403), socket never opens."* NOT "check token after connect."
 - **B2 node-pty native dep:** new compiled dependency — build/deploy vetting on WODA.prod. AC: *"interactive = real bidirectional PTY + native resize (node-pty or equiv); pipe-pane output-tee does NOT satisfy."*
 - **B3 attach isolation:** naive attach disrupts other viewers. AC: *"attaching MUST NOT resize/steal the target session for other clients (grouped/size-independent attach); detach cleans up its client/session with no orphan."*
-- **B4 privilege posture:** terminal = shell-into-live-agent-panes = RCE-equivalent, owner-only by design. AC: *"owner-gate is server-side at BOTH handshake and every endpoint; all attach/detach/deny audit-logged."* **Recommend to PO:** default **read-only attach** with an explicit "take control" toggle (watch-vs-type) to shrink blast radius — PO to confirm (vision says interactive; read-only-first is a safer default, interactive on explicit enable).
+- **B4 privilege posture — PO DECIDED (2026-07-20): read-only default + Take-Control.** AC: *"terminal attaches READ-ONLY by default (tmux `-r`, input rejected by tmux + dropped by server); full interactive I/O only after an explicit owner-gated 'Take Control' toggle (respawns read-write on the same grouped session), which is audit-logged (CONTROL_TAKEN). Owner-gate + grouped-session isolation apply to BOTH modes. Owner-gate is server-side at handshake AND every endpoint; attach/control-taken/detach/deny all audit-logged."*
 
 ## Suggested build order (confirms PO)
 R31.2 gate → R31.1 section → R31.3 tree → R31.4 terminal. Nothing ships before scenario units land (#126).
@@ -83,4 +89,4 @@ R31.2 gate → R31.1 section → R31.3 tree → R31.4 terminal. Nothing ships be
 ## Chain / Test posture
 - R31.2 → security Test: owner 200 / non-owner 403 on EVERY endpoint + ws upgrade (INV-G1/2/3). Correct-by-construction (single guard) = the champagne.
 - R31.3 → functional Test: tree matches `tmux list-panes`.
-- R31.4 → functional Test (echo round-trip: type→appears, resize→reflow, history-primed) + Tron device visual confirm (like R30.53).
+- R31.4 → functional Test: (a) read-only default — key frames do NOT reach the pane (tmux `-r` + server drop); (b) Take-Control → echo round-trip (type→appears), resize→reflow, history-primed; (c) CONTROL_TAKEN audited. + Tron device visual confirm (like R30.53).
