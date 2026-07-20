@@ -1,0 +1,38 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "15aab895-a792-45a1-b9b5-923fd6f728a0",
+  "altId": "R31.7",
+  "name": "Deploy runbook hardening — split client-rebuild vs server-restart; verify server deploy by PID not version",
+  "description": "Process-hardening requirement from the 2026-07-20 CONFOUND (architect 4f35bc15a->651aec409): a deploy has TWO DISTINCT steps — (a) rebuild CLIENT bundles ([r]/esbuild, live immediately) and (b) restart SERVER (Ctrl-C->npm start, REQUIRED for .ts server logic to go live). A server-side ship is NOT deployed until the node process restarts. Server-side deploy MUST be verified by the node process PID CHANGE (+ etime), NOT /api/config .version — which reads package.json per-request, is updated by a client rebuild, and is NOT restart-proof (it LIED during the confound, showing v0.7.101/102 while the 3.5h-old process ran old logic). Real improvement banked from tonight: version-string != deployed-logic.",
+  "tronQuote": "",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/DEPLOY-FINDING-server-not-restarting.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-architect",
+   "diagnosisCommit": "4f35bc15a->651aec409",
+   "date": "2026-07-20",
+   "note": "r=rebuild != process restart; /api/config version-string lied (per-request package.json read); server-side ships confounded until a REAL restart. Runbook hardening recommended by architect + PO capture-gate.",
+   "canonicalizedBy": "robbin-req via robbin-po directive 2026-07-20"
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-deploy-split",
+    "group": "process",
+    "text": "The deploy runbook documents/enforces TWO distinct steps: (a) rebuild CLIENT bundles ([r]/esbuild — live immediately); (b) restart SERVER (Ctrl-C->npm start — required for .ts server logic to go live). A server-side ship is NOT considered deployed until the node process actually restarts."
+   },
+   {
+    "id": "AC-verify-by-pid",
+    "group": "process",
+    "text": "Server-side deploy verification uses the node process PID CHANGE (and etime), NOT the /api/config .version string — the version reads package.json per-request, is bumped by a client rebuild, and is NOT restart-proof (it reported v0.7.101/102 while a 3.5h-old process ran old logic during the confound)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

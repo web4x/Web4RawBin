@@ -65,9 +65,8 @@
     "coveredBy": [
      "ior:instance:b0ee7dc6-68a4-4908-b72f-594a5e6a3deb"
     ],
-    "closed": false,
-    "resolvedNote": "CLOSED 2026-07-20: expert header-only fix landed (730b57e2f, playerTokenFrom drops the ?token/?playerToken query fallback, header-only); tester slice b0ee7dc6 GREEN DET-3x @ served 0.7.101 (RED non-vacuous at source pre-fix). Slice Test b0ee7dc6 minted onto Impl 335dbf3d + wired. ?token= URL now grants no auth = cookie-only enforced.",
-    "reValidateNote": "RE-OPENED 2026-07-20 (confounded server, architect 4f35bc15a): code verified GREEN but NOT live-deployed (server not restarted). closes again after a REAL restart + architect re-validation + tester re-gate confirm the LIVE server behavior."
+    "closed": true,
+    "resolvedNote": "CLOSED 2026-07-20: expert header-only fix landed (730b57e2f, playerTokenFrom drops the ?token/?playerToken query fallback, header-only); tester slice b0ee7dc6 GREEN DET-3x @ served 0.7.101 (RED non-vacuous at source pre-fix). Slice Test b0ee7dc6 minted onto Impl 335dbf3d + wired. ?token= URL now grants no auth = cookie-only enforced. RE-CLOSED 2026-07-20 (LIVE-PROVEN): architect 651aec409 real-restart control re-validation (owner-live -> header 200 + query 403). Confound defeated, verified-live."
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
