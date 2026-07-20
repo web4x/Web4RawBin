@@ -3,15 +3,12 @@
  "model": {
   "uuid": "742aa04d-4dd8-46a6-bee1-f1b8ab9fa552",
   "name": "otmuxTree.read",
-  "class": null,
-  "method": null,
-  "designAhead": true,
-  "proposedClass": "OtmuxBridge",
-  "proposedMethod": "readSessionTree",
-  "designAheadNote": "Read otmux session/window/pane tree server-side (mirrors otmux tree); return selectable pane nodes with title+target. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "class": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006",
+  "method": "ior:instance:7d7221d8-b2d1-43a3-b9c4-896a912454b6",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "repointNote": "Re-pointed off design-ahead PROPOSED onto architect-built Class+Method (commit 57c23ec1f); architect used my proposed class/method names verbatim (zero drift). Reverse links Class.methods[]/Method.ownerIor->Class/Class.ownerIor->UC wired architect-side."
  },
  "ownerIor": null
 }

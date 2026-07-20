@@ -3,15 +3,12 @@
  "model": {
   "uuid": "aa6b0299-35f7-4929-ba9d-f0b028adc3de",
   "name": "profileFeatures.render",
-  "class": null,
-  "method": null,
-  "designAhead": true,
-  "proposedClass": "RbProfileView",
-  "proposedMethod": "renderFeatureGrants",
-  "designAheadNote": "Render the per-user feature-grant section at the bottom of the profile; entries filtered by viewing token. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "class": "ior:instance:a3958f85-2735-4356-82f8-d2e9ce27a7d8",
+  "method": "ior:instance:b4f03947-4496-48b0-9ee1-83f17e0f8d79",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "repointNote": "Re-pointed off design-ahead PROPOSED onto architect-built Class+Method (commit 57c23ec1f); architect used my proposed class/method names verbatim (zero drift). Reverse links Class.methods[]/Method.ownerIor->Class/Class.ownerIor->UC wired architect-side."
  },
  "ownerIor": null
 }

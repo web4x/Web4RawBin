@@ -3,15 +3,12 @@
  "model": {
   "uuid": "40802701-db2c-49d4-85cd-aa421f06e61d",
   "name": "serverManager.ownerGuard",
-  "class": null,
-  "method": null,
-  "designAhead": true,
-  "proposedClass": "ServerManagerGuard",
-  "proposedMethod": "assertOwner",
-  "designAheadNote": "Single shared server-side guard on every Server Manager endpoint + ws handshake; 403 unless token===owner. Correct-by-construction. Class/Method design-ahead PROPOSED - architect confirms + creates the Class/Method units; I re-point.",
+  "class": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e",
+  "method": "ior:instance:8bb1842f-1ced-4216-a391-f4ee5465e19c",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/PO-vision.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "repointNote": "Re-pointed off design-ahead PROPOSED onto architect-built Class+Method (commit 57c23ec1f); architect used my proposed class/method names verbatim (zero drift). Reverse links Class.methods[]/Method.ownerIor->Class/Class.ownerIor->UC wired architect-side."
  },
  "ownerIor": null
 }
