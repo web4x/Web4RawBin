@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "386cc4e4-7dfa-464d-8a5e-43f0ea7d69bd",
+    "name": "RbTerminalDetail.mount",
+    "description": "connectedCallback->mount: read uuid=pane_id, build xterm.js + a binary ws to /api/server-manager/terminal?pane=%N (owner-gated PtyBridge), pipe pty<->xterm (binary), {t:resize}->ws, ResizeObserver fit; teardown in disconnectedCallback (ws.close -> server kills pty+grouped session, term.dispose, RO disconnect). CLIENT counterpart of server PtyBridge.attachPane (6fc43b8e). R31.4 DRAWER-DRY.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
+    "implementations": [
+      "ior:instance:79a1ce7c-2e27-4f60-87b7-3bd19ae32953"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1d632082-f9a3-48f5-b944-e93c323217f7"
+}

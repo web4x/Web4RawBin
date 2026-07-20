@@ -19,6 +19,9 @@ export class RbTerminalDetail extends HTMLElement {
   disconnectedCallback(): void { this.teardown(); }
   attributeChangedCallback(): void { if (this.isConnected && (this.getAttribute('uuid') || '') !== this.paneId) { this.teardown(); this.mount(); } }
 
+  // [impl:uuid:79a1ce7c-2e27-4f60-87b7-3bd19ae32953] RbTerminalDetail.mount (Method 386cc4e4, off Class 1d632082) —
+  // connectedCallback→mount: attach xterm + binary ws to the owner-gated PtyBridge for the selected pane. CLIENT
+  // counterpart of the server PtyBridge.attachPane (6fc43b8e). Teardown in disconnectedCallback.
   private mount(): void {
     const paneId = this.getAttribute('uuid') || '';
     if (!paneId) { this.innerHTML = '<div class="dv-empty">no pane</div>'; return; }

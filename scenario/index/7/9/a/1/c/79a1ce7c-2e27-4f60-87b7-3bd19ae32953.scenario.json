@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "79a1ce7c-2e27-4f60-87b7-3bd19ae32953",
+    "name": "RbTerminalDetail.mount impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.96 (commit 668d033b1): RbTerminalDetail.mount @ rb-terminal-detail.ts — connectedCallback attaches xterm.js + binary ws to /api/server-manager/terminal?pane=%N (owner-gated PtyBridge); pty output->term.write, keystrokes->binary->pty, {t:resize}->pty.resize, ResizeObserver fit; disconnectedCallback teardown (ws.close->server kills pty+grouped tmux session, term.dispose). Reached via the STANDARD selection->renderDetailForRef path (tagMap otmuxpane->rb-terminal-detail, tag-string only so xterm stays out of /trace). Marker [impl:uuid:79a1ce7c-...] on the mount() decl. R31.4 DRAWER-DRY, client counterpart of PtyBridge.attachPane 6fc43b8e."
+  },
+  "ownerIor": "ior:instance:386cc4e4-7dfa-464d-8a5e-43f0ea7d69bd"
+}
