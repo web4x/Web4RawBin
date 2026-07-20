@@ -12,7 +12,7 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
