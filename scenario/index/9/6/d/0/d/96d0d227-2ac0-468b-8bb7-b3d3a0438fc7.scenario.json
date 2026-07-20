@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "96d0d227-2ac0-468b-8bb7-b3d3a0438fc7",
+    "name": "test:R31.1 feature-grants POSITIVE render + FILTER (renderFeatureGrants)",
+    "description": "Bridged to r311-feature-grants-render-gate.mjs (DET-3x GREEN, served==v0.7.84, commit 7b09f7d56). Verifies R31.1 renderFeatureGrants render+filter logic, ISOLATED from the auth gate via whoami route-intercept: (a) AUTHORIZED (whoami 200) -> profile renders the 'Server Manager' entry (icon + href /server-manager?token=..) under the 'Feature access' title (AC-section-bottom + AC-owner-only-entry positive side); (b) real NON-OWNER (whoami 403) -> renderFeatureGrants FILTERS it: section present, 0 grants, no entry (AC-nonowner-absent via the FILTER, distinct from the r312/335dbf3d 403 auth gate). Pollution-safe (route-intercept only, no owner impersonation/writes). NOTE: true end-to-end owner-VISIBLE (real owner live session, in the VIEWER post placement-fix) stays Tron device-facing - separate acceptance.",
+    "sourceFile": "ior:file:test/visual/r311-feature-grants-render-gate.mjs",
+    "implementations": [
+      "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+}
