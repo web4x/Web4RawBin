@@ -8,8 +8,10 @@
     "verifies": [
       "ior:instance:d28ee95a-1135-4e1c-be50-fe2368614171"
     ],
-    "status": "pass",
-    "unitLinks": []
+    "status": "superseded",
+    "unitLinks": [],
+    "supersededBy": "ior:instance:eea279e4-1bae-4119-89e3-307bb252f8b2",
+    "supersededNote": "R30.2 eager-badge gate retired R31.3 (badge moved eager->STD-REF child-refs, colon-immune). Superseded by the std-ref badge Test eea279e4 on computeBadges 7e43dda4. Retired-not-open (one-uuid=one-identity); completes the eagerChildCountBadges cluster retirement (4c571e2fc missed this Test hop). robbin-req 2026-07-20."
   },
   "ownerIor": "ior:instance:d28ee95a-1135-4e1c-be50-fe2368614171"
 }
