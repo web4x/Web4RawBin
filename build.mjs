@@ -8,7 +8,7 @@ const distDir = 'src/public/dist';
 // Clean old hashed builds
 if (fs.existsSync(distDir)) {
   for (const f of fs.readdirSync(distDir)) {
-    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
+    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f.startsWith('server-manager-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
       fs.unlinkSync(path.join(distDir, f));
     }
   }
@@ -17,7 +17,7 @@ if (fs.existsSync(distDir)) {
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 
 const result = await esbuild.build({
-  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts'],
+  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts'],
   bundle: true,
   format: 'esm',
   target: 'es2020',
@@ -36,11 +36,13 @@ const editFile = outputs.find(f => path.basename(f).startsWith('edit-'));
 const traceFile = outputs.find(f => path.basename(f).startsWith('trace-page-'));
 const scenarioFile = outputs.find(f => path.basename(f).startsWith('scenario-view-'));
 const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-banner-'));
+const smFile = outputs.find(f => path.basename(f).startsWith('server-manager-'));
 const jsBasename = path.basename(jsFile);
 const editBasename = editFile ? path.basename(editFile) : null;
 const traceBasename = traceFile ? path.basename(traceFile) : null;
 const scenarioBasename = scenarioFile ? path.basename(scenarioFile) : null;
 const bannerBasename = bannerFile ? path.basename(bannerFile) : null;
+const smBasename = smFile ? path.basename(smFile) : null;
 
 // Write build manifest for server to read
 const manifest = { 'app.js': jsBasename, built: new Date().toISOString() };
@@ -48,6 +50,7 @@ if (editBasename) manifest['edit.js'] = editBasename;
 if (traceBasename) manifest['trace-page.js'] = traceBasename;
 if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
 if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
+if (smBasename) manifest['server-manager.js'] = smBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles

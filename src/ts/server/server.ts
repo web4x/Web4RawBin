@@ -828,54 +828,26 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
 // R31.3 owner-only Server-Manager PAGE shell (served ONLY after requireOwnerHttp passes — 6th AC). Static HTML +
 // inline renderer that fetches the owner-gated /api/server-manager/tree (x-player-token header) and draws the
 // sessions→windows→panes tree. Token comes from ?token= (browser nav) or localStorage. No backticks/${} inside.
-const SERVER_MANAGER_PAGE = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Server Manager</title><style>
+// R31.4 step-2/3: the Server Manager page mounts the SHARED rb-trace-tree renderer (bundled esbuild
+// module) fed by /api/server-manager/tree `roots` (typed otmuxSession→otmuxWindow→otmuxPane). The old
+// bespoke inline tree is retired. Page is owner-only (choke-point 403s non-owners before this shell).
+function serverManagerPage(): string {
+  const script = getBundleScript('server-manager.js', 'server-manager.js');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Server Manager</title><link rel="stylesheet" href="/app.css"><style>
 body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
 header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
 h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
-.session{margin:12px 16px;border:1px solid #30363d;border-radius:8px;overflow:hidden}
-.session>.hd{background:#161b22;padding:8px 12px;font-weight:600}
-.window{padding:6px 12px 6px 24px;border-top:1px solid #21262d}
-.pane{padding:4px 12px 4px 40px;font-size:.85rem;display:flex;gap:8px;align-items:center}
-.pid{color:#58a6ff;font-family:monospace}.active{color:#3fb950}.title{opacity:.8}
+#sm-tree{display:block;padding:8px 12px}
 #err{color:#f85149;padding:12px 16px}
+.sm-term-overlay{position:fixed;inset:0;background:#000;color:#e6edf3;display:flex;flex-direction:column;z-index:1000}
+.sm-term-overlay .bar{display:flex;align-items:center;gap:12px;padding:max(env(safe-area-inset-top),10px) 14px 10px;background:#161b22;border-bottom:1px solid #30363d}
+.sm-term-overlay .body{flex:1;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;opacity:.8;font-family:monospace}
 </style></head><body>
 <header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128421;&#65039; Server Manager &mdash; otmux tree</h1><button id="refresh">Refresh</button></header>
-<div id="tree"></div><div id="err"></div>
-<script>
-(function(){
-  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
-  function render(sessions){
-    var t=document.getElementById('tree');t.innerHTML='';
-    if(!sessions.length){t.innerHTML='<p style="padding:16px;opacity:.6">No tmux sessions.</p>';return;}
-    sessions.forEach(function(s){
-      var sd=document.createElement('div');sd.className='session';
-      sd.innerHTML='<div class="hd">'+esc(s.name)+'</div>';
-      (s.windows||[]).forEach(function(w){
-        var wd=document.createElement('div');wd.className='window';
-        wd.innerHTML='<span'+(w.active?' class="active"':'')+'>'+esc(w.index)+': '+esc(w.name)+'</span>';
-        (w.panes||[]).forEach(function(p){
-          var pd=document.createElement('div');pd.className='pane';
-          pd.innerHTML='<span class="pid'+(p.active?' active':'')+'">'+esc(p.paneId)+'</span><span>'+esc(p.label)+'</span><span class="title">'+esc(p.title)+'</span>';
-          wd.appendChild(pd);
-        });
-        sd.appendChild(wd);
-      });
-      t.appendChild(sd);
-    });
-  }
-  function load(){
-    document.getElementById('err').textContent='';
-    fetch('/api/server-manager/tree',{credentials:'same-origin'}).then(function(r){
-      if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
-    }).then(function(d){render(d.sessions||[]);}).catch(function(e){
-      document.getElementById('err').textContent='Failed to load tree: '+e.message;
-    });
-  }
-  document.getElementById('refresh').addEventListener('click',load);
-  load();
-})();
-</script></body></html>`;
+<rb-trace-tree id="sm-tree" data-always-expanded></rb-trace-tree><div id="err"></div>
+<script type="module" src="${script}"></script></body></html>`;
+}
 
 // [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] renderFeatureGrants (Method b4f03947, off UC a3958f85) — R31.1,
 // MOVED to the read-only /profile VIEWER per Tron (was ProfileEditor edit-form). Returns the inline client JS that,
@@ -919,7 +891,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       if (!requireOwnerHttp(req, res)) return;
       if (req.method === 'GET' && filepath === '/server-manager') { // R31.3 owner-only page shell (6th AC: non-owner already 403'd above, shell never leaks)
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
-        res.end(SERVER_MANAGER_PAGE);
+        res.end(serverManagerPage());
         return;
       }
       if (req.method === 'GET' && filepath === '/api/server-manager/whoami') { // minimal gated endpoint (exercises the gate)
