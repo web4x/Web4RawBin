@@ -41,6 +41,11 @@
     "id": "AC-pane-selectable",
     "group": "functional",
     "text": "Each pane node is selectable and displays its title/target (e.g. robbinTeam2:0.4 = robbin-req@...) so the owner can identify the agent pane."
+   },
+   {
+    "id": "AC-back-to-profile",
+    "group": "ui",
+    "text": "The /server-manager page has a 'Back to Profile' exit link/affordance that navigates to /profile. (Tron 2026-07-20 - page navigation/exit affordance.)"
    }
   ]
  },
