@@ -4,7 +4,7 @@
   "uuid": "168e6d2b-439f-4c90-ab0c-47b2a10ccae0",
   "altId": "R31.3",
   "name": "otmux session/pane tree in Server Manager (live, refreshable, selectable pane nodes)",
-  "description": "The Server Manager main view is a live tree of sessions -> windows -> panes mirroring 'otmux tree', read SERVER-SIDE via otmux. It is refreshable; each pane node is selectable and shows the pane title/target so the owner knows which agent pane it is. TRON DEVICE-FEEDBACK #2 2026-07-20 (IMG_4598): readSessionTree DATA is correct (chain-complete-to-Test 9467b1c6, 5a9f00a71) but the SHARED rb-trace-tree RENDER/INTERACTION layer has 2 behavior bugs - (1) the window node is a placebo '0: bash' with NO chevron (should be 'window 0' with its own expand/collapse children), (2) expansion is not layer-by-layer (explodes the whole subtree; only settles after manual per-session toggling). SHARPEN (render-behavior, GENERIC in rb-trace-tree, DISTINCT from the readSessionTree data chain): +AC-perlevel-expand-collapse, +AC-layer-by-layer, +AC-window-label, +AC-initial-collapsed. These need their OWN chain (a tree-render UC->Method on the shared rb-trace-tree component) - architect is diagnosing the shared-component fix; req mints that render chain scenario-first from the design (readSessionTree data chain UNCHANGED). R31.3 req STAYS In-Progress (do NOT flip Done). Route: architect (0.3) -> expert (0.1) -> tester (0.5, chromium logic + iOS visual to Tron).",
+  "description": "The Server Manager main view is a live tree of sessions -> windows -> panes mirroring 'otmux tree', read SERVER-SIDE via otmux. It is refreshable; each pane node is selectable and shows the pane title/target so the owner knows which agent pane it is. TRON DEVICE-FEEDBACK #2 2026-07-20 (IMG_4598): readSessionTree DATA is correct (chain-complete-to-Test 9467b1c6, 5a9f00a71) but the SHARED rb-trace-tree RENDER/INTERACTION layer has 2 behavior bugs - (1) the window node is a placebo '0: bash' with NO chevron (should be 'window 0' with its own expand/collapse children), (2) expansion is not layer-by-layer (explodes the whole subtree; only settles after manual per-session toggling). SHARPEN (render-behavior, GENERIC in rb-trace-tree, DISTINCT from the readSessionTree data chain): +AC-perlevel-expand-collapse, +AC-layer-by-layer, +AC-window-label, +AC-initial-collapsed. These need their OWN chain (a tree-render UC->Method on the shared rb-trace-tree component) - architect is diagnosing the shared-component fix; req mints that render chain scenario-first from the design (readSessionTree data chain UNCHANGED). R31.3 req STAYS In-Progress (do NOT flip Done). Route: architect (0.3) -> expert (0.1) -> tester (0.5, chromium logic + iOS visual to Tron). TRON CLARIFICATION 2026-07-20 (scenario-first gap - reached architect as a design dispatch but was never in the ACs; captured now): the badge must come via STANDARD parent/children REFERENCES (OO-referenced tree like /trace scenario badges), RETIRING the bespoke nodeChildCount fork (split(':') colon bug). +AC-badge-std-refs.",
   "tronQuote": "> TRON (2026-07-20): shows otmux sessions+panes as a tree (like otmux tree), lets you select a pane",
   "tasks": [],
   "tests": [],
@@ -67,6 +67,11 @@
     "id": "AC-initial-collapsed",
     "group": "functional",
     "text": "The tree's INITIAL state is correctly collapsed (sessions collapsed, or a clear sensible default) - no 'open yet closed' mixed/indeterminate state on first render that only corrects after manual toggling. BUG (IMG_4598): initial state was closed-yet-open and behaved naturally only after each session was manually opened+closed once."
+   },
+   {
+    "id": "AC-badge-std-refs",
+    "group": "functional",
+    "text": "The tree node child-count BADGE is derived from the node's STANDARD parent/children scenario REFERENCES (the OO-referenced tree - exactly as /trace's scenario badges derive their count from children refs), NOT a bespoke per-node count fork. RETIRE nodeChildCount (the bespoke fork whose split(':') colon-parsing miscounts - the colon bug). The badge == the real referenced child count at EVERY level (session/window/pane)."
    }
   ]
  },
