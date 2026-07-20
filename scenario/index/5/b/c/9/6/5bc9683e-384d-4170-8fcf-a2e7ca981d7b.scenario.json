@@ -4,7 +4,7 @@
   "uuid": "5bc9683e-384d-4170-8fcf-a2e7ca981d7b",
   "altId": "R31.2",
   "name": "Owner-only access gate for Server Manager - server-side by-construction (owner 200 / non-owner 403, incl websocket)",
-  "description": "The Server Manager UI AND every backing API/websocket are restricted to token 41ad88c4-4dee-49ac-afcb-8a2026657b2d, enforced SERVER-SIDE on every endpoint AND on the websocket handshake - the authenticated user's token is checked; anyone else gets 403 and never reaches the otmux/terminal APIs. UI-hiding alone is NOT acceptance. Correct-by-construction: a SINGLE owner-guard the endpoints share, not per-call ad-hoc checks.",
+  "description": "The Server Manager UI AND every backing API/websocket are restricted to token 41ad88c4-4dee-49ac-afcb-8a2026657b2d, enforced SERVER-SIDE on every endpoint AND on the websocket handshake - the authenticated user's token is checked; anyone else gets 403 and never reaches the otmux/terminal APIs. UI-hiding alone is NOT acceptance. Correct-by-construction: a SINGLE owner-guard the endpoints share, not per-call ad-hoc checks. PAGE-ROUTE SCOPE (PO add 2026-07-20, architect forward-flag): R31.2's server-side owner-gate covers the /server-manager PAGE route itself (403/redirect for non-owner), not only /api/server-manager/* + the ws - the same shared assertOwner guard gates the page shell. Locked before R31.3/R31.4 build so the expert gates the page.",
   "tronQuote": "> TRON (2026-07-20): ONLY this user gets a new Server Manager ... owner-token-gated at the websocket handshake, not just the page; no path to the APIs for any other user",
   "tasks": [],
   "tests": [],
@@ -46,6 +46,11 @@
     "id": "AC-ws-handshake",
     "group": "security",
     "text": "The websocket is gated at the UPGRADE, not merely the HTTP page: the shared owner-guard exposes an owner-gated HTTP endpoint that issues a single-use ~30s owner-bound TICKET; the ws upgrade validates ?ticket= and a non-owner (invalid/absent/expired/reused) gets 403 with the socket NEVER opening. Post-connect token checks are NOT acceptance (browsers cannot set ws auth headers). Per architect design 9920f6832."
+   },
+   {
+    "id": "AC-page-route",
+    "group": "security",
+    "text": "The Server Manager PAGE route (e.g. /server-manager) is owner-gated SERVER-SIDE by the SAME shared assertOwner guard (single-literal): a non-owner request to the page route gets 403 (or a redirect away) and NEVER receives the page shell. Gating /api/server-manager/* + the ws ticket ALONE is NOT acceptance - the page itself is owner-only (Tron: 'ONLY this user will have access'). Client-side route-guarding / UI-hiding alone is NOT acceptance."
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832"
