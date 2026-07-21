@@ -67,6 +67,11 @@
     ],
     "closed": true,
     "resolvedNote": "CLOSED 2026-07-20: expert header-only fix landed (730b57e2f, playerTokenFrom drops the ?token/?playerToken query fallback, header-only); tester slice b0ee7dc6 GREEN DET-3x @ served 0.7.101 (RED non-vacuous at source pre-fix). Slice Test b0ee7dc6 minted onto Impl 335dbf3d + wired. ?token= URL now grants no auth = cookie-only enforced. RE-CLOSED 2026-07-20 (LIVE-PROVEN): architect 651aec409 real-restart control re-validation (owner-live -> header 200 + query 403). Confound defeated, verified-live."
+   },
+   {
+    "id": "AC-access-data-driven-feature",
+    "group": "security",
+    "text": "Feature access generalizes from is-caller-THE-owner to requireFeatureAccess(feature) = isLiveSession(token) AND token in Feature.allowedUsers (data-driven, AND-composed, fail-closed). INV-G1 stays ONE choke (now requireFeatureAccess, not requireOwnerHttp); INV-G2 OWNER_TOKEN literal ==1 preserved (only FeatureManager root-of-trust + bootstrap seed use it, NOT OR'd into feature-access — owner enters via seeded allowedUsers membership); INV-G3 ws requireFeatureAccess before handleUpgrade. Grants only ADD checks, never open a hole. (R31.8 reframe in place, architect 83836631a.)"
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
@@ -85,7 +90,8 @@
    }
   ],
   "constructionInvariantsNote": "Architect INV-G1/INV-G2 (2026-07-20), pinned scenario-first (correct-by-construction): the expert EXTENDS the existing choke-point to cover both '/server-manager' + '/api/server-manager/*' via the one assertOwner guard, single OWNER_TOKEN literal. Architect verifies the choke-point extension when the expert ships the page. These back AC-shared-guard + AC-page-route; the tester asserts non-owner-403 on ALL surfaces (page + api + ws) against the single guard.",
-  "_r312DriveNote": "R31.2 RESOLVED 2026-07-20: AC-page-route covered by 87b040ee (closed); AC-cookie-only real-gap FIXED (730b57e2f header-only) + explicit slice b0ee7dc6 GREEN -> closed. Both ACs explicitly closed -> R31.2 returns to Done."
+  "_r312DriveNote": "R31.2 RESOLVED 2026-07-20: AC-page-route covered by 87b040ee (closed); AC-cookie-only real-gap FIXED (730b57e2f header-only) + explicit slice b0ee7dc6 GREEN -> closed. Both ACs explicitly closed -> R31.2 returns to Done.",
+  "reframedBy": "R31.8 (a93f5fce) — data-driven requireFeatureAccess, INV-G preserved (architect 83836631a)"
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }

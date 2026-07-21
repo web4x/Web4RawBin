@@ -41,8 +41,14 @@
     "id": "AC-nonowner-absent",
     "group": "ui",
     "text": "A non-owner viewing their own profile sees NO Server Manager entry and NO empty affordance hinting at it."
+   },
+   {
+    "id": "AC-render-off-feature-model",
+    "group": "model",
+    "text": "The profile granted-feature section renders the LIST of Features the viewing user is in Feature.allowedUsers for (server-computed m.features), DRIVEN BY the R31.8 Feature model — not an ad-hoc per-feature grant. Tron -> Server Manager + Feature Manager; non-granted -> section absent by construction. (R31.8 reframe in place.)"
    }
-  ]
+  ],
+  "reframedBy": "R31.8 (a93f5fce) — Feature model drives the profile granted-feature list"
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
