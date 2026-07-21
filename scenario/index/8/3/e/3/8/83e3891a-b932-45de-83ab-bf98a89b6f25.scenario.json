@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "83e3891a-b932-45de-83ab-bf98a89b6f25",
+  "name": "config.singleSourceVersion",
+  "description": "The app version derives from ONE typed ior:class:Config scenario unit: build.mjs reads unit.version and ATOMICALLY stamps every consumer (package.json version, sw.js CACHE_NAME, build-manifest, __BUILD_VERSION__) from it — no hand-copied version, cannot desync by construction. R31.7 core (AC-typed-version-source + AC-build-generates + INV-V1/V2). Guard (INV-V3 tree-clean) + /api/config __BUILD_VERSION__ read bind when the expert builds start.mjs/server.ts.",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "method": "ior:instance:dee42cc1-b8b4-4730-a01b-f8e8fbb6d8ac",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.7-typed-version-config.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
