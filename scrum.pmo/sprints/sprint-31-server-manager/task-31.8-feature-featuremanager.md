@@ -16,6 +16,10 @@
 - [ ] QA Review
 - [ ] Done
 
+## Remaining Issues
+
+In-Progress = IMPL-COMPLETE, FUNCTIONAL-PENDING (req correction, withdrew earlier fully-built framing). FeatureManager-view reframe (R31.8c phase) is chain-complete-to-Impl (5 Impls verified) but NOT functional/Done. Expert caught 2 FUNCTIONAL gaps: (A) server token->user-node resolver + Feature-roots source; (B) client renders a SYNTHETIC root, not the real Feature units. Fresh-expert building A+B. Needs a FUNCTIONAL tester gate (real Feature roots + granted-user children render LIVE) before -> QA-Review/Done. Also open: FeatureManager grant/revoke owner-gated + bootstrap seed + profile.features both-way (per R31.8 ACs).
+
 ## Traceability
 
   - up
