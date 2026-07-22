@@ -1024,6 +1024,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
     }
+    // R31.8c NODE-1: owner-gated user search for granting — search live profiles + alt-identity units → masked/ranked
+    // hits (each carries the REAL token = the grant key). HARDCODED owner (requireOwnerHttp, INV-F4) — it exposes tokens
+    // to the admin, so it is a root-of-trust read, NOT the data-driven membership gate.
+    if (req.method === 'GET' && filepath === '/api/feature-manager/users') {
+      if (!requireOwnerHttp(req, res)) return;
+      const q = new URLSearchParams((req.url || '').split('?')[1] || '').get('q') || '';
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify({ ok: true, ...FeatureManager.searchUsers(q, userProfiles) }));
+      return;
+    }
     // R31.8 FeatureManager grant/revoke — ROOT-OF-TRUST (INV-F4): HARDCODED owner gate (requireOwnerHttp→assertOwner),
     // NOT the data-driven feature gate → a non-owner (even a ServerManager member) CANNOT self-grant/escalate. Mirrors
     // Feature.allowedUsers[] ↔ profile.features[] both sides atomically. Distinct path (/api/feature-manager) so it is

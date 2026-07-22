@@ -13,6 +13,10 @@ import { ScenarioIndex } from '../scenario/index.js';
 const SCENARIO_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index');
 
 type MinProfile = { token: string; features?: string[] };
+// R31.8c searchUsers I/O: SearchProfile = the live-profile fields it reads (UserProfile is assignable); UserHit = a
+// masked search result carrying the REAL token (the grant key) + masked identifiers for display.
+type SearchProfile = { token: string; name?: string; phone?: string; avatar?: string };
+type UserHit = { token: string; name: string; avatar?: string; uuid?: string; identifiers: string[] };
 
 function featurePath(featureUuid: string): string {
   const c = featureUuid;
@@ -58,6 +62,65 @@ export class FeatureManager {
       }
     } catch { /* fail-closed → empty */ }
     return out;
+  }
+
+  // [impl:uuid:cb20fd6e-a5e3-4dd3-a942-62724ddbddf8] FeatureManager.searchUsers (Method 1e75e388, Class 9f7f345a) —
+  // R31.8c NODE-1 owner-gated user search (caller GET /api/feature-manager/users = requireOwnerHttp, INV-F4). Matches
+  // the query against LIVE profiles (name/phone/token) + ALT-IDENTITY Profile units (scenario/alt/{phone,email,company}
+  // keyed by identifier, model.uuid = the token). Resolves to a token → returns the REAL token (the grant key) with
+  // MASKED identifiers (privacy), RANKED exact→prefix→substring, capped at 10 (truncated flag). mask/rank = private.
+  static searchUsers(query: string, profiles: Map<string, SearchProfile>): { results: UserHit[]; truncated: boolean } {
+    const q = String(query || '').trim().toLowerCase();
+    if (!q) return { results: [], truncated: false };
+    const cand = new Map<string, UserHit & { rank: number }>();
+    const consider = (token: string, name: string, avatar: string | undefined, uuid: string | undefined, ids: string[], hays: string[]): void => {
+      if (!token) return;
+      const rank = FeatureManager.rankMatch(q, hays);
+      if (rank < 0) return;
+      const ex = cand.get(token);
+      if (!ex) { cand.set(token, { token, name, avatar, uuid, identifiers: ids, rank }); return; }
+      if (rank < ex.rank) ex.rank = rank;
+      for (const id of ids) if (!ex.identifiers.includes(id)) ex.identifiers.push(id);
+      if (!ex.name && name) ex.name = name;
+      if (!ex.uuid && uuid) ex.uuid = uuid;
+    };
+    // (1) LIVE profiles
+    for (const [token, p] of profiles) consider(token, p.name || '', p.avatar || undefined, undefined, [FeatureManager.maskToken(token)], [p.name || '', p.phone || '', token]);
+    // (2) ALT-IDENTITY Profile units (keyed by identifier; model.uuid = the token/identity)
+    for (const kind of ['phone', 'email', 'company']) {
+      const dir = path.join(SCENARIO_DIR, '..', 'alt', kind);
+      let files: string[] = [];
+      try { files = fs.readdirSync(dir).filter(f => f.endsWith('.scenario.json')); } catch { continue; }
+      for (const file of files) {
+        const identifier = file.replace(/\.scenario\.json$/, '');
+        let unit: { ior?: string; model?: { uuid?: string; name?: string } };
+        try { unit = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8')); } catch { continue; }
+        if (unit?.ior !== 'ior:class:Profile') continue;
+        const token = String(unit.model?.uuid || '');
+        consider(token, String(unit.model?.name || ''), undefined, token, [FeatureManager.maskIdentifier(kind, identifier)], [String(unit.model?.name || ''), identifier]);
+      }
+    }
+    const sorted = [...cand.values()].sort((a, b) => a.rank - b.rank || (a.name || '').localeCompare(b.name || ''));
+    const CAP = 10;
+    const results = sorted.slice(0, CAP).map(({ rank, ...hit }) => hit); // strip the internal rank
+    return { results, truncated: sorted.length > CAP };
+  }
+
+  // R31.8c private helpers for searchUsers — rank (exact 0 < prefix 1 < substring 2 < no-match -1) + identifier masking.
+  private static rankMatch(q: string, hays: string[]): number {
+    let best = -1;
+    for (const h of hays) {
+      const s = String(h || '').toLowerCase(); if (!s) continue;
+      const r = s === q ? 0 : s.startsWith(q) ? 1 : s.includes(q) ? 2 : -1;
+      if (r >= 0 && (best < 0 || r < best)) best = r;
+    }
+    return best;
+  }
+  private static maskToken(t: string): string { return t.length <= 8 ? t : t.slice(0, 4) + '…' + t.slice(-2); }
+  private static maskIdentifier(kind: string, v: string): string {
+    if (kind === 'phone') return v.length <= 5 ? v : v.slice(0, 3) + '••••' + v.slice(-3);
+    if (kind === 'email') { const [u, d] = v.split('@'); return d ? (u.slice(0, 1) + '•••@' + d) : v; }
+    return v; // company (name-ish) — no mask
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).

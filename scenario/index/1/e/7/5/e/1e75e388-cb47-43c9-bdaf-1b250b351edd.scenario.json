@@ -5,7 +5,9 @@
     "name": "FeatureManager.searchUsers",
     "description": "searchUsers(query): owner-gated user search for the FeatureManager grant c2-completion. Matches query across userProfiles (name/phone/token) + alt-identity units (scenario/alt/phone|email|company) -> resolves the token -> returns [{token, name, avatar?, uuid?, identifiers[]}] with MASKED identifiers, RANKED exact->prefix->substring, capped-10 flag-if-truncated. Sibling to grantFeature/revokeFeature/bootstrapSeed (listFeatures RETIRED/superseded). Owner-gated at the GET /api/feature-manager/users wrapper (requireOwnerHttp, INV-F4). mask/rank = private helpers. LOAD-BEARING marked decl (expert marks, #126). Architect topology 8916e33a5.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:cb20fd6e-a5e3-4dd3-a942-62724ddbddf8"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"

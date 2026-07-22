@@ -4,7 +4,7 @@
 // rb-feature-manager-detail is imported HERE (defines the element + keeps its code out of /trace); its mount() lists
 // ALL Features via GET /api/feature-manager (the synthetic 'manager' uuid is just the drawer anchor).
 import '../trace/rb-detail-drawer.js';
-import '../trace/rb-feature-manager-detail.js';
+import '../trace/rb-feature-detail.js';
 import { selectionModel } from '../trace/selection-model.js';
 
 if (!document.getElementById('fm-drawer')) {

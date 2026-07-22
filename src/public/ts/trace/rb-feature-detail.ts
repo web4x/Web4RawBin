@@ -6,7 +6,7 @@
 type Feature = { uuid: string; name: string; icon: string; allowedUsers: string[] };
 const esc = (s: string): string => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] as string));
 
-export class RbFeatureManagerDetail extends HTMLElement {
+export class RbFeatureDetail extends HTMLElement {
   static get observedAttributes() { return ['uuid']; }
   connectedCallback(): void { void this.mount(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.mount(); }
@@ -67,4 +67,4 @@ export class RbFeatureManagerDetail extends HTMLElement {
     setTimeout(() => el.remove(), 2600);
   }
 }
-customElements.define('rb-feature-manager-detail', RbFeatureManagerDetail);
+customElements.define('rb-feature-detail', RbFeatureDetail);
