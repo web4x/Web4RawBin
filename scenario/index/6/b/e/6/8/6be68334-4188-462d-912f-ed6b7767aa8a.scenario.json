@@ -1,0 +1,40 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "6be68334-4188-462d-912f-ed6b7767aa8a",
+  "altId": "R31.5.1",
+  "name": "rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip",
+  "description": "rb-compartment hosts content; a single presentation=expanded|bar attr flips EXPANDED (full content []) <-> BAR (collapsed strip | of icons/verb-buttons). Content+behavior are FIXED; only the presentation CSS + what's-shown branches — NOT two components. What-bar, changebar, Actions-bar are all rb-compartment[presentation=bar]. FOUNDATION piece (build order 1).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "designRef": "ior:git:commit:b3f30491f",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+  "refinementOfNote": "Atomic build-req decomposed from the R31.5 concept (Rule 10, architect design b3f30491f). R31.5.1.",
+  "buildOrder": 1,
+  "buildOrderNote": "Dependency/scheduling (NOT chain): foundation 5.1/5.2/5.4 -> 5.7 drawer (crux, early) -> 5.3 snap-nav -> 5.5/5.6 instances. Each ships behind AC-INV-PRESENTATION; /trace+editor unregressed.",
+  "dependsOn": [],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-presentation-flip",
+    "group": "functional",
+    "text": "presentation=expanded|bar on ONE rb-compartment flips full-content <-> collapsed | strip (icons/verb-buttons); content+behavior fixed, only presentation CSS + what's-shown branches. What-bar/changebar/Actions-bar = rb-compartment[presentation=bar]. NOT a second component."
+   },
+   {
+    "id": "AC-compartment-peek-width",
+    "group": "functional",
+    "text": "In portrait, a compartment's min-width is 88vw (via a single CSS var --rb-peek:12vw for the ~12% peek of the next compartment) — tunable, not per-snap logic (architect decision)."
+   },
+   {
+    "id": "AC-INV-PRESENTATION",
+    "group": "invariant",
+    "text": "POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

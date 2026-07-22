@@ -1,0 +1,45 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "be4e57a6-d685-4484-8901-a17cd99776d9",
+  "altId": "R31.5.4",
+  "name": "viewport responsive mode: landscape flex all-visible, portrait native scroll-snap scroller, container-query driven",
+  "description": "The viewport is a CSS presentation MODE of rb-strip (not a separate element): a CONTAINER-QUERY (@container, orientation media-query fallback) sets rb-strip[data-mode=landscape|portrait]. Landscape = display:flex; overflow:visible (all compartments expanded, bars visible, side-by-side). Portrait = overflow-x:auto; scroll-snap-type:x mandatory — a horizontally-scrollable viewport; COMPARTMENTS are the snap targets (scroll-snap-align:start), BARS ride at a compartment's leading edge (NOT independent snap points). Native CSS scroll-snap, no JS scroll math; the editor snaps ([]|[ / ]|[]|[ / ]|[]) fall out of compartment-align + peek. The active compartment is preserved across landscape<->portrait flip (scrollIntoView on flip). FOUNDATION piece (build order 1).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "designRef": "ior:git:commit:b3f30491f",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+  "refinementOfNote": "Atomic build-req decomposed from the R31.5 concept (Rule 10, architect design b3f30491f). R31.5.4.",
+  "buildOrder": 1,
+  "buildOrderNote": "Dependency/scheduling (NOT chain): foundation 5.1/5.2/5.4 -> 5.7 drawer (crux, early) -> 5.3 snap-nav -> 5.5/5.6 instances. Each ships behind AC-INV-PRESENTATION; /trace+editor unregressed.",
+  "dependsOn": [],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-responsive-mode",
+    "group": "functional",
+    "text": "data-mode set by CONTAINER-QUERY (@container on the strip container; orientation media-query fallback), NOT a top-level media query — composes when nested. Landscape=display:flex;overflow:visible all-visible; portrait=overflow-x:auto;scroll-snap-type:x mandatory scroller."
+   },
+   {
+    "id": "AC-snap-targets-compartments",
+    "group": "functional",
+    "text": "COMPARTMENTS are the scroll-snap targets (scroll-snap-align:start); BARS are inter-compartment, NOT independent snap points (they ride at a compartment's leading edge). Snaps land on meaningful content; editor []|[ / ]|[]|[ / ]|[] fall out of compartment-align + peek — no bespoke per-snap JS."
+   },
+   {
+    "id": "AC-focus-restore-on-flip",
+    "group": "functional",
+    "text": "The ACTIVE compartment (last-snapped/focused, id stored on the strip) is PRESERVED across landscape<->portrait flip: on flip, scrollIntoView the previously-active compartment."
+   },
+   {
+    "id": "AC-INV-PRESENTATION",
+    "group": "invariant",
+    "text": "POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

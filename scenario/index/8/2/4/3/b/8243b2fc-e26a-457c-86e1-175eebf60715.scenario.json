@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8243b2fc-e26a-457c-86e1-175eebf60715",
+  "altId": "R31.5.7",
+  "name": "drawer = Details compartment: data-position inline|bottom branches ONLY layout CSS, function fully shared",
+  "description": "THE CRUX (build EARLY, right after the strip foundation — lowest-risk highest-value; rides the in-flight R31.4 DRY drawer fix = step 0). Generalize rb-detail-drawer: a data-position attr branches ONLY layout CSS — landscape = INLINE as the [D] strip segment (position:static, in-flow, sized by the strip); portrait = BOTTOM drawer (position:fixed; bottom:0) exactly as today. HARD invariant: the detail-render flow, content, scroll, grab-bar, expand/minimize, in-room R30.20 X->chat are ALL SHARED, untouched by position. There is NO 'full-width drawer' second component (that fork = the regression Tron flagged). Depends on 5.1-5.4; crossRef R31.4.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "designRef": "ior:git:commit:b3f30491f",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+  "refinementOfNote": "Atomic build-req decomposed from the R31.5 concept (Rule 10, architect design b3f30491f). R31.5.7.",
+  "buildOrder": 2,
+  "buildOrderNote": "Dependency/scheduling (NOT chain): foundation 5.1/5.2/5.4 -> 5.7 drawer (crux, early) -> 5.3 snap-nav -> 5.5/5.6 instances. Each ships behind AC-INV-PRESENTATION; /trace+editor unregressed.",
+  "dependsOn": [
+   "R31.5-atom:R31.5.1",
+   "R31.5-atom:R31.5.2",
+   "R31.5-atom:R31.5.3",
+   "R31.5-atom:R31.5.4"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drawer-data-position",
+    "group": "functional",
+    "text": "rb-detail-drawer gains a data-position=inline|bottom attr that branches ONLY layout CSS: landscape=inline [D] strip segment (position:static, in-flow); portrait=bottom drawer (position:fixed;bottom:0, as today). Same instance, position is a presentation mode."
+   },
+   {
+    "id": "AC-drawer-shared-function-HARD",
+    "group": "functional",
+    "text": "HARD invariant: the detail-render flow / scroll / grab-bar / expand-minimize / in-room R30.20 X->chat are ALL SHARED and UNTOUCHED by position (data-position branches ONLY layout CSS). There is NO second 'full-width drawer' component — that fork is the regression Tron flagged. Continues the in-flight R31.4 DRY drawer fix (terminal via the shared detail flow) = step 0, generalized to position."
+   },
+   {
+    "id": "AC-INV-PRESENTATION",
+    "group": "invariant",
+    "text": "POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side)."
+   }
+  ],
+  "crossRef": [
+   "ior:instance:fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+  ],
+  "crossRefNote": "R31.5.7 rides + generalizes the R31.4 DRY drawer fix (shared detail flow) to the position level."
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

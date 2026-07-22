@@ -1,0 +1,37 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "0a24ac9e-1b58-4be4-bdef-060deb6ec6a0",
+  "altId": "R31.5.3",
+  "name": "rb-snap-nav: data-driven bottom nav, one button per compartment, click snaps the viewport to its left edge",
+  "description": "rb-snap-nav is a data-driven bottom nav: one button per COMPARTMENT segment (labels from the strip descriptors); click -> scrollIntoView that compartment's snap point (native, no JS scroll math). {L,C,R} for the editor / {What,Overview,Details,Actions} for WODA — ONE component, labels from the strip. BARS are NOT nav buttons (compartments are the snap targets). Depends on rb-strip (5.2).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "designRef": "ior:git:commit:b3f30491f",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
+  "refinementOfNote": "Atomic build-req decomposed from the R31.5 concept (Rule 10, architect design b3f30491f). R31.5.3.",
+  "buildOrder": 4,
+  "buildOrderNote": "Dependency/scheduling (NOT chain): foundation 5.1/5.2/5.4 -> 5.7 drawer (crux, early) -> 5.3 snap-nav -> 5.5/5.6 instances. Each ships behind AC-INV-PRESENTATION; /trace+editor unregressed.",
+  "dependsOn": [
+   "R31.5-atom:R31.5.2"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-snap-nav-data-driven",
+    "group": "functional",
+    "text": "rb-snap-nav renders one button per COMPARTMENT segment (labels from the strip descriptors — {L,C,R} editor / {What,Overview,Details,Actions} WODA, one component); click -> scrollIntoView that compartment's snap point (native CSS, no JS scroll math). BARS are NOT nav buttons."
+   },
+   {
+    "id": "AC-INV-PRESENTATION",
+    "group": "invariant",
+    "text": "POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
