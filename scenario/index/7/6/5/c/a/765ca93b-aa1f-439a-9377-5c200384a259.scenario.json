@@ -3,7 +3,9 @@
   "model": {
     "uuid": "765ca93b-aa1f-439a-9377-5c200384a259",
     "name": "ServerManagerGuard.requireFeatureAccess impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:672a841a-2d7e-40cc-b33f-db7a0a16afb7"
+    ],
     "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
     "designAhead": false,
     "description": "BUILT (R31.8 slice-a): ServerManagerGuard.requireFeatureAccess(req, featureName, resolveToken, allowedUsersOf) — data-driven feature gate generalizing assertOwner. Resolves the caller's REAL token via injected resolveToken (server.ts resolveSessionToken: sm_session cookie sid→stored token OR live header session; cookie value stays opaque sid, token in smSessions Map value) then requires token ∈ Feature.allowedUsers (server.ts featureAllowedUsers scans ior:class:Feature units). Fail-closed (INV-F5). ★ INV-F6: access by MEMBERSHIP only — never s.owner, never mere session-presence. Wired at the /api/server-manager/* + /server-manager HTTP choke-point (requireFeatureAccessHttp, 'Server Manager') AND the terminal ws upgrade (INV-G3 destroy-before-open preserved). ServerManager Feature 16604eee allowedUsers=[Tron] → owner 200 / non-owner 403 by membership. assertOwner retained = FeatureManager write-gate root-of-trust (slice-b). Marker [impl:uuid:765ca93b-...] on the requireFeatureAccess decl."

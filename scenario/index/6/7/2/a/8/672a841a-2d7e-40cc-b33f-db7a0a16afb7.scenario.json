@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "672a841a-2d7e-40cc-b33f-db7a0a16afb7",
+    "name": "test:R31.8 requireFeatureAccess REJECT direction (INV-F1/F3/F5/F6/G2)",
+    "description": "Bridged to test/visual/r318-feature-access-gate.mjs (DET-3x GREEN, served==local-HEAD f5a87d5f6, verify-by-pid fresh 642986 — origin EKEYREVOKED so gated local/served). Verifies R31.8 ServerManagerGuard.requireFeatureAccess REJECT direction (the data-driven feature gate): INV-F1 = a non-member (no-token / unknown / malformed / owner-literal) -> 403 on ALL feature routes at the ONE server-side choke (server.ts:929); INV-F3 = a feature ws upgrade is destroyed BEFORE open (never reaches 'open'); INV-F6 = a LIVE authenticated NON-MEMBER (SystemTester) AND the OWNER_TOKEN literal -> 403 (membership only; owner is NOT OR-d into access - closes the literal-bypass); INV-F5 = fail-closed on empty/malformed allowedUsers; INV-G2 = OWNER_TOKEN literal ==1. The member->200 flip is slice-(b) grant/revoke (Tron-facing, separate). Marker 672a841a adopted from local HEAD (measured line 1, not invented). Chain: R31.8 -> UC featureAccess.require f18de1ce -> Class ServerManagerGuard 1d6933c7 -> Method requireFeatureAccess 35e91ba7 -> Impl 765ca93b -> this Test.",
+    "sourceFile": "ior:file:test/visual/r318-feature-access-gate.mjs",
+    "implementations": [
+      "ior:instance:765ca93b-aa1f-439a-9377-5c200384a259"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:765ca93b-aa1f-439a-9377-5c200384a259"
+}
