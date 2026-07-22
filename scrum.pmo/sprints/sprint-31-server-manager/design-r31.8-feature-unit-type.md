@@ -53,3 +53,22 @@ Replace the single `serverManager: isOwner(token)` flag (server.ts:2625) with **
 
 ## Route / handoff
 Design-only (architect). req: formalize `ior:class:Feature` + `Impl.feature` back-ref + `profile.features` field + mint ServerManager & FeatureManager instances + reframe R31.1/R31.2 as Feature-model instances (in place, same altIds). expert: implement the Feature units + mirror-maintained back-refs + `requireFeatureAccess` gate (ServerManager switches to it) + FeatureManager grant/revoke (hardcoded-owner-gated, writes both mirror sides) + bootstrap seed + profile `m.features` render. tester: gate — both-way nav resolves (Feature↔Impl, Feature↔profile); grant via FeatureManager (owner) flips a user's access member-200/non-member-403; revoke flips back; profile lists exactly the granted features; INV-F1..5 hold (non-owner grant→403, feature routes/ws 403 for non-members, OWNER_TOKEN literal==1, empty allowedUsers fails-closed). I backstop the security invariants (INV-F, esp. the root-of-trust) + a real restart on ship. Composes with R31.7 (Feature/profile grants are typed scenario units = data-on-disk-is-truth).
+
+## SESSION/COOKIE + MINT GENERALIZATION + INV-F6 (PO-approved security, 2026-07-22) — the access token source
+Measured: `smSessions = Map<sid,{owner,expiresAt}>` (server.ts:811), cookie = random `sm_session` sid (crypto.randomUUID); resolveOwner cookie path returns placeholder `token:'sm_session'` + checks the `owner` boolean — cannot ID the user for `allowedUsers`. Fix (PO-approved):
+
+### slice-(a) EXACT SPEC (relay verbatim to the expert)
+- Store the TOKEN in the smSessions Map **VALUE**: `{ owner, expiresAt, token }`, keyed by the random `sid`. The cookie VALUE stays the opaque random `sid` — NOT the token. **That distinction IS the security:** httpOnly holds, the token is never JS-exposed, a stolen cookie = an expiring/revocable `sid` (NOT the raw token). No new exposure — the token already lives in server memory (tokenToClient).
+- `requireFeatureAccess` resolves the token via cookie→`smSessions.get(sid).token` (or the header path), then checks `token ∈ Feature.allowedUsers`. Returns the REAL token, not the `'sm_session'` placeholder. Membership check UNCHANGED (INV-F). Cookie validity = the liveness proof (minted post-auth, R31.2-consistent).
+- slice-(a) is owner-only (allowedUsers=[owner]): owner mints → session token=owner → ServerManager membership → 200; non-owner has no session → 403.
+
+### slice-(b+) MINT GENERALIZATION (PO-approved) — required for data-driven access to be non-inert
+- `/session` mint GENERALIZES from owner-only to **any LIVE authenticated user binds THEIR OWN token to a session** (minting is NON-privileged — it just binds your already-authenticated live token to a cookie). 
+- `FeatureManager` grant/revoke (who is IN `allowedUsers`) STAYS **hardcoded-owner** (root-of-trust, INV-F4). Access = per-feature `allowedUsers` membership.
+- Triad: **mint = any-live-user(own token) / grant-revoke = hardcoded-owner / access = per-feature allowedUsers**.
+
+### ★ INV-F6 (membership-NOT-session-absence) — the invariant SHIFT the generalized mint forces
+Under slice-(a), a non-owner is 403 because they have NO session. Under slice-(b+), a non-owner CAN mint a valid OWN session — so the 403 MUST rest on the **allowedUsers-MEMBERSHIP check, NEVER on session-absence**. 
+- **The gate MUST re-derive access per-request from `token ∈ Feature.allowedUsers` — it must NOT shortcut on `s.owner` or on "has a valid sm_session ⇒ authorized".** The current resolveOwner cookie path (`if s.owner → ok`) is R31.2-owner-semantics; for FEATURE access it must become `token = s.token; ok = token ∈ feature.allowedUsers`. The `owner` boolean is ONLY for the FeatureManager write-gate (root-of-trust), NEVER for feature access.
+- **Test (tester gates slice-b+):** a non-owner holding a VALID own-session STILL gets **403 on ServerManager** (token ∉ ServerManager.allowedUsers) — proving the gate is membership-driven, not session-presence-driven. Grant that user via FeatureManager (owner) → their SAME session now → 200. Revoke → 403 again. Access flips with MEMBERSHIP, session unchanged.
+- Composes with INV-F1 (every feature route/ws gated by requireFeatureAccess) + INV-F5 (empty allowedUsers fails-closed). Correct-by-construction: authorization = membership, authentication = session; never conflate them.
