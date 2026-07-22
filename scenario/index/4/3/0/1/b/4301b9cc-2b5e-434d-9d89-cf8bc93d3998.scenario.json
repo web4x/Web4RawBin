@@ -5,7 +5,9 @@
     "name": "RbSnapNav.render",
     "description": "render(): R31.5.3 PRIMARY lifecycle method — builds the data-driven bottom nav. Reads the rb-strip COMPARTMENT segments (from the strip descriptors) and emits ONE button per COMPARTMENT (labels from descriptors: {L,C,R} for the 3-way editor / {What,Overview,Details,Actions} for WODA — one component, data-driven); each button click -> scrollIntoView(that compartment snap point) = NATIVE CSS scroll-snap, NO JS scroll math. BARS are NOT buttons (only compartments are snap targets, consistent w/ 5.4). Depends on rb-strip 5.2 (built). Bottom-anchored. button-build/click-wire = private helpers. LOAD-BEARING marked decl (expert marks, #126). AC-INV-PRESENTATION (R31.5.8) cross-cutting. Architect topology (R31.5 5.3).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-snap-nav.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:7c1f9a3e-5d84-42b6-a9e1-0f8c2b6d4e37"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:e0cead14-6cf3-49c0-b2cd-7414f93550ac"

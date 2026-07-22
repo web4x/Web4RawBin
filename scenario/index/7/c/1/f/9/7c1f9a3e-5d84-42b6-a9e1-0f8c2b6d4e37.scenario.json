@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7c1f9a3e-5d84-42b6-a9e1-0f8c2b6d4e37",
+    "name": "RbSnapNav.render impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-snap-nav.ts",
+    "designAhead": false,
+    "description": "R31.5.3: RbSnapNav.render @ rb-snap-nav.ts. Reads the bound rb-strip's COMPARTMENT segments (.rb-seg-compartment) → one button per compartment (label = descriptor label via data-label, fallback data-id); click → seg.scrollIntoView({inline:'start'}) native CSS scroll-snap (NO JS scroll math) + strip.setActive(id) for focus-restore across landscape↔portrait flips. BARS are NOT buttons (compartments-only snap targets). buildButton + wireClick = private helpers. Depends on rb-strip 5.2. Net-new component, wired at instance step. Marker [impl:uuid:7c1f9a3e-...] on the render decl (#126). R31.5.3."
+  },
+  "ownerIor": "ior:instance:4301b9cc-2b5e-434d-9d89-cf8bc93d3998"
+}

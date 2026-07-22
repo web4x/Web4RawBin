@@ -5,7 +5,7 @@
 import './rb-compartment.js';
 
 // StripDescriptor = the layer-3 DATA CONTRACT (an interface, NOT a chain Method): one entry per row segment.
-export interface StripDescriptor { id: string; kind: 'compartment' | 'bar'; content?: Node | string; }
+export interface StripDescriptor { id: string; kind: 'compartment' | 'bar'; content?: Node | string; label?: string; }
 
 export class RbStrip extends HTMLElement {
   private _descriptors: StripDescriptor[] | null = null;
@@ -48,7 +48,7 @@ export class RbStrip extends HTMLElement {
   private buildSegment(d: StripDescriptor): HTMLElement {
     const seg = document.createElement('div');
     seg.className = 'rb-seg rb-seg-' + d.kind;
-    seg.dataset.id = d.id; seg.dataset.kind = d.kind;
+    seg.dataset.id = d.id; seg.dataset.kind = d.kind; if (d.label) seg.dataset.label = d.label; // R31.5.3: label for rb-snap-nav buttons
     if (d.kind === 'compartment') {
       const c = document.createElement('rb-compartment');
       c.setAttribute('presentation', 'expanded');
