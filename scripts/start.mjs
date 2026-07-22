@@ -10,7 +10,7 @@
  * One-shot; only prereq = npm exists. Works with no prior `npm i` or build.
  */
 import { spawnSync, execSync } from 'node:child_process';
-import { existsSync, readdirSync, realpathSync } from 'node:fs';
+import { existsSync, readdirSync, realpathSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -63,11 +63,50 @@ function selfHealingStart() {
   }
   try { execSync('sleep 1'); } catch { /* let the ports free (server uses SO_REUSEADDR anyway) */ }
 
-  // (4) build
+  // (4-pre) R31.7 INV-V3 (tree-clean landmine guard): the deploy-critical generator input+outputs MUST equal HEAD.
+  versionGuardTreeClean(env);
+
+  // (4) build — regenerates package.json/sw.js/manifest/__BUILD_VERSION__ from the ONE typed Config unit (R31.7)
   console.log('▸ build'); run(node18, [path.join(ROOT, 'build.mjs')]);
+
+  // (4-post) R31.7 INV-V1 (derive-equal): every version consumer must agree with the Config unit after the build.
+  versionGuardAgreement();
 
   // (5) foreground server (holds the pane TTY)
   runServerForeground(node18, env);
+}
+
+const CONFIG_UNIT_REL = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';
+
+// R31.7 INV-V3: a reverted/stray per-file `git checkout <ref> -- <file>` (the phantom-7.99 incident — no reflog)
+// fails LOUDLY here BEFORE deploy. SCOPED to the deploy-critical generator input+outputs ONLY — this shared repo
+// always carries unrelated churn, so a whole-tree guard would false-positive every deploy and get disabled.
+function versionGuardTreeClean(env) {
+  const files = ['src/ts/server/server.ts', 'package.json', 'src/public/sw.js', CONFIG_UNIT_REL];
+  try {
+    const r = spawnSync('git', ['diff', '--quiet', 'HEAD', '--', ...files], { cwd: ROOT, env });
+    if (r.status && r.status !== 0) {
+      console.error('✗ R31.7 INV-V3: deploy-critical file(s) diverge from HEAD (stray edit/checkout = the version-desync landmine):');
+      try { console.error(spawnSync('git', ['diff', '--name-only', 'HEAD', '--', ...files], { cwd: ROOT, env }).stdout.toString()); } catch { /* */ }
+      console.error('  Fix: commit them, or `git checkout HEAD -- <file>`. Inspect old versions with `git show <ref>:<file>` (NEVER `git checkout <ref> -- <file>` — mutates the tree = the landmine).');
+      process.exit(1);
+    }
+  } catch { /* no git → skip (dev without a repo) */ }
+}
+
+// R31.7 INV-V1: after the build, every version consumer must derive-equal from the ONE Config unit.
+function versionGuardAgreement() {
+  try {
+    const unit = JSON.parse(readFileSync(path.join(ROOT, CONFIG_UNIT_REL), 'utf-8')).model.version;
+    const pkg = JSON.parse(readFileSync(path.join(ROOT, 'package.json'), 'utf-8')).version;
+    const sw = (readFileSync(path.join(ROOT, 'src/public/sw.js'), 'utf-8').match(/CACHE_NAME = 'rawbin-v([^']*)'/) || [])[1];
+    const mf = JSON.parse(readFileSync(path.join(ROOT, 'src/public/dist/build-manifest.json'), 'utf-8')).version;
+    if (!(unit === pkg && unit === sw && unit === mf)) {
+      console.error(`✗ R31.7 INV-V1: version consumers disagree — unit=${unit} package.json=${pkg} sw.js=${sw} manifest=${mf}. Generator failed; refusing to serve a desynced version.`);
+      process.exit(1);
+    }
+    console.log(`✓ R31.7 version-integrity: unit == package.json == sw.js == manifest == ${unit}`);
+  } catch (e) { console.error(`✗ R31.7 INV-V1: could not verify version agreement (${e && e.message ? e.message : e})`); process.exit(1); }
 }
 
 // [impl:uuid:fbef44bc-efea-42b2-aab0-7fef82afd41e] R29.1 ServerLauncher.runServerForeground — blocking foreground server spawn (holds pane TTY)

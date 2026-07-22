@@ -46,13 +46,16 @@ const execAsync = promisify(exec);
 const ADMIN_KEY = process.env.ADMIN_KEY || crypto.randomUUID();
 const PKG_VERSION = JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../package.json'), 'utf-8')).version;
 
-// T94: read the version PER REQUEST, not frozen at module load. `tsx watch` only restarts on
-// server.ts changes, so a version-only bump (+client rebuild) leaves the process serving a stale
-// frozen version → the PWA update banner never fires. Reading package.json (tiny file) per
-// request keeps /api/config + /api/health in sync with the deployed bundle without a restart.
+// R31.7 SINGLE-SOURCE VERSION: read the BUILD-STAMPED version from build-manifest.json (generated from the ONE typed
+// ior:class:Config unit at build time), NOT a per-request package.json read. Served == what was actually BUILT +
+// deployed BY CONSTRUCTION, so a stray package.json edit can no longer make /api/config lie (the phantom-7.99 root:
+// the per-request package.json read was exactly what let a hand-edit desync served-vs-built). A version change now
+// requires a rebuild — which it did anyway, to re-stamp sw.js; a bump without a rebuild WAS the desync we kill here.
+// Manifest is still per-request (picks up a rebuild without a server restart) but its value is build-stamped, not editable.
 function getVersion(): string {
   try {
-    return JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../package.json'), 'utf-8')).version;
+    const mf = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../src/public/dist/build-manifest.json');
+    return JSON.parse(fsSync.readFileSync(mf, 'utf-8')).version || PKG_VERSION;
   } catch { return PKG_VERSION; }
 }
 

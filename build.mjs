@@ -14,7 +14,18 @@ if (fs.existsSync(distDir)) {
   }
 }
 
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+// R31.7 SINGLE-SOURCE VERSION: the version's ONE source of truth is the typed ior:class:Config singleton.
+// build.mjs GENERATES every consumer from it — package.json (surgical write-back), sw.js CACHE_NAME, build-manifest,
+// and the __BUILD_VERSION__ bundle const — so no hand-maintained copy can desync (the phantom-7.99 root). Bump the
+// version by editing the Config unit's `version` field ONLY, then build.
+const CONFIG_UNIT = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';
+const version = JSON.parse(fs.readFileSync(CONFIG_UNIT, 'utf-8')).model.version;
+if (!/^\d+\.\d+\.\d+$/.test(String(version))) throw new Error(`R31.7: Config unit version "${version}" is not semver — refusing to build (${CONFIG_UNIT})`);
+// package.json is now a GENERATED DERIVATIVE: surgical regex write-back of ONLY the version field (preserve all other
+// keys + exact formatting, same discipline as the sw.js stamp) — a hand-edit is overwritten on the next build.
+let pkgRaw = fs.readFileSync('package.json', 'utf-8');
+const pkg = JSON.parse(pkgRaw);
+if (pkg.version !== version) { fs.writeFileSync('package.json', pkgRaw.replace(/("version":\s*")[^"]*(")/, `$1${version}$2`)); }
 
 const result = await esbuild.build({
   entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts'],
@@ -26,7 +37,7 @@ const result = await esbuild.build({
   minify: true,
   sourcemap: !isProduction,
   metafile: true,
-  define: { '__BUILD_VERSION__': JSON.stringify(pkg.version) },
+  define: { '__BUILD_VERSION__': JSON.stringify(version) }, // R31.7: from the Config unit, not pkg
 });
 
 // Find output filenames
@@ -48,7 +59,7 @@ const smBasename = smFile ? path.basename(smFile) : null;
 const smCssBasename = smCssFile ? path.basename(smCssFile) : null;
 
 // Write build manifest for server to read
-const manifest = { 'app.js': jsBasename, built: new Date().toISOString() };
+const manifest = { version, 'app.js': jsBasename, built: new Date().toISOString() }; // R31.7: version field (build-stamped from the Config unit) — /api/config reads THIS, not a live package.json read
 if (editBasename) manifest['edit.js'] = editBasename;
 if (traceBasename) manifest['trace-page.js'] = traceBasename;
 if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
@@ -65,7 +76,7 @@ let swContent = fs.readFileSync(swPath, 'utf-8');
 if (!swContent.includes('CACHE_NAME') || !swContent.includes('STATIC_SHELL')) {
   throw new Error(`sw.js is empty or malformed (${swContent.length} bytes) — cannot stamp. Restore from a known-good commit.`);
 }
-swContent = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${pkg.version}';`);
+swContent = swContent.replace(/const CACHE_NAME = 'rawbin-v[^']*';/, `const CACHE_NAME = 'rawbin-v${version}';`);
 const shellEntries = [
   '/app', '/app.css', '/manifest.json', '/icon-180.png', '/icon-192.png', '/icon-512.png',
   '/trace', `/dist/${traceBasename}`,
@@ -80,4 +91,4 @@ const size = (fs.statSync(jsFile).size / 1024).toFixed(1);
 console.log(`  ${jsFile}  ${size}kb`);
 if (!isProduction) console.log(`  ${jsFile}.map`);
 console.log(`  ${distDir}/build-manifest.json → ${jsBasename}`);
-console.log(`  sw.js CACHE_NAME → rawbin-v${pkg.version}`);
+console.log(`  sw.js CACHE_NAME → rawbin-v${version}`);
