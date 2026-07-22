@@ -5,7 +5,9 @@
     "name": "FeatureManager.bootstrapSeed",
     "description": "bootstrapSeed(): at first run, idempotent-seeds FeatureManager.allowedUsers=[OWNER_TOKEN] AND ServerManager.allowedUsers=[OWNER_TOKEN] from the hardcoded OWNER_TOKEN (Tron) — the bootstrap root-of-trust. From there Tron grants everyone else via FeatureManager; NO grant path exists that doesn't originate at the hardcoded owner. INV-G2: OWNER_TOKEN literal ==1 preserved (used ONLY here + the root-of-trust gate). INV-F5: empty/malformed allowedUsers FAILS CLOSED. Idempotent (safe to re-run). LOAD-BEARING marked decl. Architect design 83836631a.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:03b2b1db-b2ba-44d4-a3f2-eeb9215540ad"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"

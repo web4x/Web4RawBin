@@ -2270,6 +2270,7 @@ async function startServers(httpOnly: boolean = false): Promise<void> {
       httpsServer.listen(HTTPS_PORT);
       setupWebSocketServer(httpsServer);
       void PtyBridge.reapOrphans(addLog); // R31.4 boot-sweep: kill stale sm_* grouped sessions orphaned by a prior restart/crash (none attached at boot → safe)
+      FeatureManager.bootstrapSeed(); // R31.8 boot: idempotently seed the hardcoded owner into ServerManager+FeatureManager allowedUsers (seeded membership, INV-G2==1) — no grant path exists that doesn't originate at the owner
     } catch { await startServers(true); }
   }
 }

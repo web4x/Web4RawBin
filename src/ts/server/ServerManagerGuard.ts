@@ -59,4 +59,15 @@ export class ServerManagerGuard {
     if (!allowedUsersOf(featureName).includes(token)) return { ok: false };
     return { ok: true, token };
   }
+
+  // [impl:uuid:a2b8373a-2165-4563-b372-8d4c369cea4b] ServerManagerGuard.seedOwnerInto (Method ba2e94ec, off Class
+  // 1d6933c7, UC guard.seedOwnerInto 0f5dc242) — R31.8 bootstrap root-of-trust: idempotently ADD the hardcoded owner
+  // token INTO the passed allowedUsers[] in-place and RETURN the array. The token value is NEVER returned bare
+  // (least-exposure); co-located with the ONE OWNER_TOKEN literal so the grep-guard stays INV-G2==1. Called by
+  // FeatureManager.bootstrapSeed per feature so the owner enters via SEEDED MEMBERSHIP (not a literal-bypass into the
+  // data-driven gate). The hardcoded owner is the bootstrap root; from there Tron grants everyone else via FeatureManager.
+  static seedOwnerInto(allowedUsers: string[]): string[] {
+    if (!allowedUsers.includes(ServerManagerGuard.OWNER_TOKEN)) allowedUsers.push(ServerManagerGuard.OWNER_TOKEN);
+    return allowedUsers;
+  }
 }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a2b8373a-2165-4563-b372-8d4c369cea4b",
+    "name": "ServerManagerGuard.seedOwnerInto impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
+    "designAhead": false,
+    "description": "BUILT (R31.8 slice-c): ServerManagerGuard.seedOwnerInto(allowedUsers) — idempotently pushes the hardcoded OWNER_TOKEN into the passed allowedUsers[] in-place and returns the array; token value never returned bare (least-exposure). Co-located with the ONE OWNER_TOKEN literal → grep-guard INV-G2==1. Called by FeatureManager.bootstrapSeed per feature so the owner enters the data-driven gate by SEEDED MEMBERSHIP, not a literal-bypass. Marker [impl:uuid:a2b8373a-...] on the seedOwnerInto decl."
+  },
+  "ownerIor": "ior:instance:ba2e94ec-13b2-47db-a878-5e309b483a78"
+}
