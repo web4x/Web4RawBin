@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "317b67d0-7416-4cde-9537-e351ae618ca7",
+    "name": "test:R31.7 single-source typed version — mutate one Config unit, all consumers change (Build.generateVersion)",
+    "description": "Bridged to test/visual/r317-single-source-version-gate.mjs (GREEN 7/7 DET-3x, worktree-isolated, live server pid 498575 v0.7.103 untouched, self-verified FRESH pid = verify-by-pid per R31.7 AC-verify-by-pid). Proves AC-build-generates + INV-V1: editing ONLY the config-singleton unit .model.version + build drives ALL consumers together (package.json version + sw.js CACHE_NAME + build-manifest.version + __BUILD_VERSION__) — version cannot desync BY CONSTRUCTION. ALSO exercises the guards: INV-V3 (start.mjs:86 catches a lone deploy-critical hand-edit) + INV-V1 (start.mjs:98 catches a post-build consumer desync), 3/3 caught. Marker 317b67d0 adopted from origin (measured line 1, not invented). Chain: R31.7 req 15aab895 -> UC config.singleSourceVersion 83e3891a -> Class Build b6946e59 -> Method Build.generateVersion dee42cc1 -> Impl b5eb6953 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r317-single-source-version-gate.mjs",
+    "implementations": [
+      "ior:instance:b5eb6953-24e0-4213-8fe9-dd1b48b8099c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b5eb6953-24e0-4213-8fe9-dd1b48b8099c"
+}
