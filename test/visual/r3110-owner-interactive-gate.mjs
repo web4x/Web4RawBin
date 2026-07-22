@@ -1,17 +1,16 @@
 // [test:uuid:0c0a69ad-d113-40f3-ae83-db9fc7fa9844] R31.4 RbTerminalDetail interactive-RW (Impl 79a1ce7c) — end-to-end owner cookie→ws→xterm attach→keystroke→ECHO roundtrip (distinct from c6791c06 mount): READY banner rendered, 5 keystrokes reach the ws, 'lsCMD' echo renders in .xterm-rows. Mocked-pty by construction (routeWebSocket echo); node-pty REALNESS = architect, keystroke VISUAL = Tron device.
-// [test:uuid:a52393fb-acca-4a84-89f0-89f01f1bab57] R31.1 renderFeatureGrants owner-entry (Impl f345b8ed) — CURRENT serverManager mechanism (server.ts:862, server-computed m.serverManager, NO whoami): owner (serverManager=true via app-ws MITM) → #feature-grants shows 'Server Manager'; real non-owner (serverManager=false) → ABSENT. SUPERSEDES the stale whoami-based Test baee3c82 (r311v tested the removed whoami round-trip).
-// R31.4 interactive RW + R31.1 owner-entry — BY-CONSTRUCTION owner-session gate (DET-3x @390 iPhone-12).
+// (R31.1 owner-entry Test a52393fb was RETIRED here — superseded by slice-d b70aa99f (m.features render, r31sliced-feature-grants-gate.mjs); the serverManager-boolean assertion this file carried is dropped so the gate stays honest.)
+// R31.4 interactive RW — BY-CONSTRUCTION owner-session gate (DET-3x @390 iPhone-12).
 // Mocks the owner WITHOUT touching Tron's real session (won't evict him): route-intercept whoami→200 + a test
 // sm_session cookie + a MOCKED terminal ws that ECHOES like a pty. Gates the FULL client flow end-to-end
 // (owner cookie → drawer mount → ws connect → xterm attach → keystroke → RW echo roundtrip). node-pty REALNESS
 // is proven separately by the architect; this closes the parked 'device-only' logic ACs. Tron's device = FINAL visual.
 // (1) mock-owner → click pane → rb-terminal-detail mounts in the /trace drawer → xterm renders → type → echo seen (RW).
-// (2) mock-owner → /profile bottom shows the Server Manager entry; real non-owner (403) → entry ABSENT (server-gated).
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.101';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r(b)); }); q.on('error', () => r('')); q.end(); });
 const smBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^server-manager-.*\.js$/.test(f));
@@ -77,35 +76,14 @@ try {
 
     await ctx.close();
 
-    // (2) R31.1 owner-entry — the entry renders IFF m.serverManager (server-computed, NO whoami; server.ts:862/2624).
-    // BY-CONSTRUCTION owner: MITM the REAL app ws (wss://host/) and flip serverManager=true on the PROFILE frame — no
-    // eviction of Tron, no full-protocol mock. This isolates the RENDER (given owner flag) from the server auth (gated
-    // by r312). Different context from part (1) so the terminal-ws route can't collide with the app-ws MITM.
-    const octx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
-    await seedSystemTester(octx); const op = await octx.newPage();
-    await op.routeWebSocket(/:4444\/$|:4444$/, (wsr) => {
-      const server = wsr.connectToServer();
-      wsr.onMessage((m) => server.send(m)); // client → server passthrough
-      server.onMessage((m) => { // server → client: flip the owner flag on the PROFILE frame
-        if (typeof m === 'string' && m.includes('"serverManager"')) { try { const o = JSON.parse(m); o.serverManager = true; wsr.send(JSON.stringify(o)); return; } catch { /* */ } }
-        wsr.send(m);
-      });
-    });
-    await op.goto(`${BASE}/profile`, { waitUntil: 'networkidle' }); await sleep(2500);
-    const ownerEntry = await op.evaluate(() => { const fg = document.getElementById('feature-grants'); return !!(fg && /server manager/i.test(fg.textContent || '')); });
-    if (i === 1) await op.screenshot({ path: `${REPO}/test-results/r3110/owner-entry-390.png` });
-    await octx.close();
+    // (2) R31.1 owner-entry (a52393fb, serverManager-boolean MITM) was RETIRED — the render moved to m.features
+    // (server.ts:940) so injecting serverManager=true no longer produces an entry (would false-RED). Superseded by
+    // slice-d (b70aa99f, r31sliced-feature-grants-gate.mjs) which gates the generalized m.features render. Removed here
+    // to keep this standing gate honest. This gate = R31.4 interactive-RW ONLY (Test 0c0a69ad).
 
-    // (2b) real NON-owner (no MITM) → serverManager=false → entry ABSENT
-    const nctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
-    await seedSystemTester(nctx); const np = await nctx.newPage();
-    await np.goto(`${BASE}/profile`, { waitUntil: 'networkidle' }); await sleep(2000);
-    const nonOwnerAbsent = await np.evaluate(() => { const fg = document.getElementById('feature-grants'); return !fg || !/server manager/i.test(fg.textContent || ''); });
-    await nctx.close();
-
-    const pass = interactiveOk && ownerEntry && nonOwnerAbsent;
+    const pass = interactiveOk;
     results.push(pass);
-    console.log(`iter ${i}: [R31.4 RW] mount=${mounted.hasDetail} xterm=${mounted.hasXterm}(sized=${mounted.xtermSized}) banner=${mounted.banner} ws=${wsConnected} recv=${received} echo(lsCMD)=${/lsCMD/.test(echoed)} => interactive=${interactiveOk} | [R31.1] ownerEntry=${ownerEntry} nonOwnerAbsent=${nonOwnerAbsent} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: [R31.4 RW] mount=${mounted.hasDetail} xterm=${mounted.hasXterm}(sized=${mounted.xtermSized}) banner=${mounted.banner} ws=${wsConnected} recv=${received} echo(lsCMD)=${/lsCMD/.test(echoed)} => ${pass ? 'GREEN' : 'RED'}`);
   }
   }
 } finally { await browser.close(); }
