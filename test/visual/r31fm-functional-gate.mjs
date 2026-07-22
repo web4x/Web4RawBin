@@ -1,3 +1,4 @@
+// [test:uuid:3a571c7e-04d0-4bbd-89ec-58b635e27866] R31.8c FeatureManager.featureRoots (Impl 79b22596) — FUNCTIONAL reframe AC surface, GREEN DET-3x @390 v0.7.119: real Feature scenario-unit ROOTS render in the shared rb-trace-tree + expand → allowedUsers LIVE granted-user child-nodes (opaque <featureUuid>:<16-hex> ref, no raw token) + Feature-select→rb-feature-detail grant (POST fires) + child-select→rb-profile-detail revoke (POST fires) + non-owner→403. Complements the data/security Tests (55d125ee opaque + f38f87af completeness on ad622052).
 // R31.8c FUNCTIONAL reframe — GATE-THE-WORKING-THING @390 iPhone-12, DET-3x, verify-by-PID. served v0.7.118.
 // The data/security axis is already Tested (55d125ee opaque + f38f87af completeness on allowedUsersChildren ad622052).
 // THIS gate = the LIVE UI render + interaction of the reframe: real Feature scenario-unit ROOTS (featureRoots 79b22596)
@@ -9,7 +10,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.118';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.119';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, headers = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f));
@@ -70,10 +71,11 @@ try {
     const featureDetail = await page.evaluate(() => !!document.querySelector('#fm-drawer rb-feature-detail, rb-detail-drawer rb-feature-detail'));
 
     // (F) grant: type in the search → users?q → hit → click → POST {action:grant,feature,token}
-    await page.evaluate(() => { const inp = document.querySelector('rb-feature-detail input'); if (inp) { inp.value = 'cer'; inp.dispatchEvent(new Event('input', { bubbles: true })); } });
-    await sleep(600);
-    await page.evaluate(() => { const hit = document.querySelector('rb-feature-detail [data-hit="0"]'); if (hit) hit.click(); });
-    await sleep(500);
+    await page.evaluate(() => { const inp = document.querySelector('rb-feature-detail input'); if (inp) { inp.focus(); inp.value = 'cer'; inp.dispatchEvent(new Event('input', { bubbles: true })); inp.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'r' })); } });
+    await page.waitForFunction(() => !!document.querySelector('rb-feature-detail [data-hit="0"]'), { timeout: 5000 }).catch(() => {});
+    await sleep(300);
+    await page.evaluate(() => { const hit = document.querySelector('rb-feature-detail [data-hit="0"]'); if (hit) hit.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true })); });
+    await sleep(700);
     const grantPost = posts.find(p => p.action === 'grant');
     const grantOk = !!grantPost && grantPost.feature === FEAT_SM && grantPost.token === CER_TOKEN;
 
