@@ -5,7 +5,9 @@
     "name": "RbEditorLayout.editorStripDescriptor",
     "description": "editorStripDescriptor(): R31.5.5 editor-instance — builds the rb-strip descriptor for the 3-way editor [{C:left-editor},{bar:leftChangebar},{C:center-editor},{bar:rightChangebar},{C:right-editor}] + nav {Left,Center,Right}, feeds rb-strip.items. Proves one-model-two-instances: the [L]|[C]|[R] editor is an INSTANCE of the rb-strip model, pure descriptor wiring on 5.1-5.4 (zero new infra). The existing editor STAYS FUNCTIONAL — rb-strip added AROUND, not replacing. On EXISTING Class RbEditorLayout (reuse). LOAD-BEARING marked decl (expert marks, #126). AC-INV-PRESENTATION. Architect topology (R31.5 5.5).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-editor-layout.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4"

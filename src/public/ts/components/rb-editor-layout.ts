@@ -163,6 +163,21 @@ export class RbEditorLayout extends HTMLElement {
       (btn as HTMLElement).style.color = active ? 'white' : '#ccc';
     });
   }
+
+  // [impl:uuid:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73] RbEditorLayout.editorStripDescriptor (Method c9cf2a82, Class 94e7bf82)
+  // R31.5.5 editor-INSTANCE: express the existing 3-way editor as an rb-strip descriptor array
+  // [{C:left},{bar:leftChangebar},{C:center},{bar:rightChangebar},{C:right}] (nav {Left,Center,Right}) — PURE
+  // descriptor wiring on 5.1-5.4 (zero new infra), proving one-model-two-instances alongside RbWoda (5.6). The
+  // existing editor STAYS FUNCTIONAL — rb-strip is fed this AROUND it, not replacing it. Marker on this decl (#126).
+  editorStripDescriptor(): { id: string; kind: 'compartment' | 'bar'; label?: string }[] {
+    return [
+      { id: 'left', kind: 'compartment', label: 'Left' },
+      { id: 'leftCB', kind: 'bar' },
+      { id: 'center', kind: 'compartment', label: 'Center' },
+      { id: 'rightCB', kind: 'bar' },
+      { id: 'right', kind: 'compartment', label: 'Right' },
+    ];
+  }
 }
 
 customElements.define('rb-editor-layout', RbEditorLayout);

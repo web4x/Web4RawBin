@@ -5,7 +5,9 @@
     "name": "RbWoda.wodaStripDescriptor",
     "description": "wodaStripDescriptor(): R31.5.6 WODA-instance — builds the rb-strip descriptor for WODA [{bar-expandable:What},{C:Overview},{C:Details},{bar:Actions}] + nav {What,Overview,Details,Actions}; the What bar EXPANDS to a What compartment. Pure descriptor wiring on rb-strip (proves one-model-two-instances alongside 5.5 editor). On FRESH thin host Class RbWoda. LOAD-BEARING marked decl (expert marks, #126). AC-INV-PRESENTATION. Architect topology (R31.5 5.6).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-woda.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5f9d2a7c-1e63-48b0-b4a7-9c3e0d6f251b"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:67852ca8-4561-41e1-a00b-f3e8c6604880"

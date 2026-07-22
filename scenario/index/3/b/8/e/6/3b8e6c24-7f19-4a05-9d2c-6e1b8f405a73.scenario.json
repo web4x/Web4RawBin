@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73",
+    "name": "RbEditorLayout.editorStripDescriptor impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "designAhead": false,
+    "description": "R31.5.5 editor-instance: RbEditorLayout.editorStripDescriptor() @ src/public/ts/components/rb-editor-layout.ts (the EXISTING class). ⚠ the Method c9cf2a82 sourceFile says 'trace/rb-editor-layout.ts' — a path typo; the real class is components/rb-editor-layout.ts (flagged to req). Returns the 3-way-editor rb-strip descriptor [{C:left},{bar:leftCB},{C:center},{bar:rightCB},{C:right}] + labels {Left,Center,Right}. PURE descriptor wiring (zero new infra) — the existing editor STAYS FUNCTIONAL, rb-strip is fed this AROUND it. Proves one-model-two-instances. Marker [impl:uuid:3b8e6c24-...] on the editorStripDescriptor decl (#126). R31.5.5."
+  },
+  "ownerIor": "ior:instance:c9cf2a82-f656-4980-836c-50430c5b7dc7"
+}
