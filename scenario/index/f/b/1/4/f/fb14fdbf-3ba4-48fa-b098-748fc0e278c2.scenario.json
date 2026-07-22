@@ -92,9 +92,20 @@
      "ior:instance:c35f02c7-fba5-4a97-9dc0-952f5d543703"
     ],
     "resolvedNote": "CLOSED 2026-07-20: expert built PtyBridge.reapOrphans (Impl 5d313828, boot-wired server.ts:2212, v0.7.102); tester boot-sweep gate c35f02c7 GREEN DET-3x (LIVE 0-orphan post-restart + injected-orphan sweep-to-0 + non-sm untouched + boot-wired-by-source, build-safe). Test minted onto 5d313828 + wired. Zero orphan sm_* accumulation. RE-CLOSED 2026-07-20 (LIVE-PROVEN): real restart PID 683493->1217320; seeded orphan sm_archbackstop reaped at boot. Confound cleared — now verified-live."
+   },
+   {
+    "id": "AC-auto-close",
+    "group": "functional",
+    "text": "INV-T1 (no hidden pty): the terminal ws/session tears down on ANY selection-change-away — drawer minimize/peek, select-other-pane, select-non-pane node, drawer close — NOT just DOM removal. A pty lives ONLY while the terminal is VISIBLE+selected; at no time is an sm_* grouped session alive while its terminal is not the visible+selected pane. Client-only (server PtyBridge kill-session already fires on ws.close): rb-terminal-detail listens document selection-changed (ref != otmuxpane:<this.paneId> -> teardown) + MutationObserver on the host rb-detail-drawer minimized/open attrs (minimized set OR open removed -> teardown); rb-detail-drawer minimize()/close() ensure teardown when the panel holds a terminal. Gate: open terminal -> minimize/peek -> sm_* session GONE (was: stayed = the leak); switch pane -> old session GONE; non-pane/close -> GONE."
+   },
+   {
+    "id": "AC-maximize",
+    "group": "functional",
+    "text": "Option A (PO-endorsed 2026-07-22): when a terminal MOUNTS, the drawer MAXIMIZES to full-viewport (height:100dvh; max-height:100dvh, + safe-area insets) for maximum terminal space — the drawer IS the mount, maximize = a full-viewport expand mode distinct from peek/expand; xterm fit() refits to the maximized container via ResizeObserver. NON-disruptive (NOT tmux zoom — measured window-shared/disrupts other viewers). rb-detail-drawer adds a maximized mode (maximize()/restore() or maximized attr, app.css rb-detail-drawer[maximized]); rb-terminal-detail requests maximize() on mount(), restore() on teardown(). NOTE: this is whole-window maximized, NOT true single-pane isolation (C/D) — those are HELD for Tron, do NOT build."
    }
   ],
-  "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832"
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md?commit=9920f6832",
+  "_r314SharpenNote": "R31.4 AC-sharpen (architect design ac36618ec, PO-approved Option A 2026-07-22): +AC-auto-close (INV-T1) + AC-maximize folded into the ONE coherent R31.4 (drawer-mount + left-align + closeable + auto-close-on-switch + maximize). C/D single-pane isolation HELD for Tron."
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
