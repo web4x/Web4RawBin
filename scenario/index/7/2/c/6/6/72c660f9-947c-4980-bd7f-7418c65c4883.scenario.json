@@ -3,7 +3,7 @@
   "model": {
     "uuid": "72c660f9-947c-4980-bd7f-7418c65c4883",
     "name": "FeatureManager.allowedUsersChildren",
-    "description": "allowedUsersChildren(featureUuid): NODE-B (gap A fix) — resolves a Feature allowedUsers TOKENS into user CHILD-nodes [{uuid:\"profile:<featureUuid>:<token>\" (COMPOSITE ref — carries the feature context so rb-profile-detail can parse feature=middle/token=tail for revoke; solves tokens-are-not-ior-refs), type:\"profile\", name: masked-resolved}]. Called by /api/trace/children on Feature units (native itemView child-resolution). Owner-gated. LOAD-BEARING marked decl (expert marks, #126). Architect topology 94514b005.",
+    "description": "allowedUsersChildren(featureUuid): resolves a Feature allowedUsers into user CHILD-nodes [{uuid:\"profile:<featureUuid>:<userId>\" COMPOSITE ref where userId is a STABLE NON-TOKEN id (architect 2919770c3 defense-in-depth — the raw AUTH TOKEN NEVER rides a URL-addressable ref; server resolves userId->token for display + revoke), type:\"profile\", name: masked-resolved, hasChildren:false}]. Called by /api/trace/children on Feature units, which is OWNER-GATED (requireFeatureAccess wired into the Feature branch, non-owner->403). userId source = expert call (UserProfile non-token uuid, or an opaque token->id map, or linked alt-identity Profile uuid). LOAD-BEARING; expert marks. Impl ad622052 (impl-edit to non-token ref). Architect topology 94514b005 + security ruling 2919770c3.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "implementations": [
       "ior:instance:ad622052-baee-4ff7-9258-d4d66b46f638"
