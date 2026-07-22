@@ -6,7 +6,8 @@
     "file": "src/public/ts/trace/rb-feature-detail.ts",
     "methods": [
       "ior:instance:ee4143df-4dba-4c35-b7a4-73dd3c22be75",
-      "ior:instance:ca286163-831c-49f8-aaa7-7f515d6fa74b"
+      "ior:instance:ca286163-831c-49f8-aaa7-7f515d6fa74b",
+      "ior:instance:29130d6e-746f-46cb-abdf-95837104bd76"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",

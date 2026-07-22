@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1363a806-7383-47e3-9b3e-67663010cfd8",
+  "name": "featureManager.mount",
+  "description": "R31.8c NODE-3 — RbFeatureDetail.mount: the feature-DETAIL render (Feature unit info + grant input container that node-2 userComplete populates). NEW uuid — the retired d0e085ac was the LIST-mount (superseded by the native tree); this is the feature-detail mount. Singular-chain. Architect topology a4a72164a.",
+  "class": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e",
+  "method": "ior:instance:29130d6e-746f-46cb-abdf-95837104bd76",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

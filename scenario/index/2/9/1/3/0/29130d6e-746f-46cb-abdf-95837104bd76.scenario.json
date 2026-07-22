@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "29130d6e-746f-46cb-abdf-95837104bd76",
+    "name": "RbFeatureDetail.mount",
+    "description": "mount(): NODE-3 LOAD-BEARING feature-detail render (connectedCallback). Renders the FEATURE-node detail = the Feature unit info (name/icon/description) + the GRANT INPUT CONTAINER (text input + an empty dropdown container that node-2 userComplete populates). teardown in disconnectedCallback. The 3 methods (mount + userComplete + applyGrant) compose the feature-detail-view on RbFeatureDetail a085d2d1. feature-info-render / input-container = private helpers. DISTINCT from the RETIRED list-mount b7d6ca6a (RbFeatureManagerDetail.mount, superseded) — this is the feature-DETAIL mount. Expert marks [impl:uuid] on the mount decl (#126). Architect topology a4a72164a.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e"
+}
