@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "db12e833-5d6a-4e17-a95d-16a5aed2cde8",
+    "name": "test:R31.5.7 applyPosition one-instance inline<->bottom no-2nd-fork (RbDetailDrawer.applyPosition)",
+    "description": "Bridged to test/visual/r3157-drawer-position-gate.mjs. Verifies AC-INV-PRESENTATION (GREEN DET-3x @390 v0.7.119): ONE drawer instance, applyPosition(inline)->data-position=inline->position:static (in-flow [D] segment) + applyPosition(bottom)->data-position=bottom->position:fixed;bottom:0; SAME instance both positions, functional shell (grab-bar/.drawer-handle + X/.drawer-close + .drawer-body) intact in both; HARD-AC NO 2nd full-width fork. positioning!=function. Marker db12e833 adopted from origin (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r3157-drawer-position-gate.mjs",
+    "implementations": [
+      "ior:instance:6e2d4b81-9a3c-4f57-b8e0-1d7c3a5f9e26"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6e2d4b81-9a3c-4f57-b8e0-1d7c3a5f9e26"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3a571c7e-04d0-4bbd-89ec-58b635e27866",
+    "name": "test:R31.8c FUNCTIONAL reframe — real Feature roots render + live children + grant/revoke fire (FeatureManager.featureRoots)",
+    "description": "Bridged to test/visual/r31fm-functional-gate.mjs. Verifies THE FUNCTIONAL/UI reframe gate (GREEN DET-3x @390 v0.7.119, tester bug-find RED->GREEN after expert rb-trace-tree:186 fix): real Feature scenario-unit ROOTS render in the shared rb-trace-tree + expand -> allowedUsers LIVE granted-user child-nodes (opaque <featureUuid>:<16-hex>, no raw token) + Feature-select -> rb-feature-detail grant (POST fires) + child-select -> rb-profile-detail revoke (POST fires) + non-owner -> 403. Complements the data/security Tests (55d125ee opaque + f38f87af completeness on ad622052). Closes the R31.8c FUNCTIONAL axis (the UI, NOT just chain-presence). Marker 3a571c7e adopted from origin (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r31fm-functional-gate.mjs",
+    "implementations": [
+      "ior:instance:79b22596-e108-4075-a924-78d8c0a81cab"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79b22596-e108-4075-a924-78d8c0a81cab"
+}

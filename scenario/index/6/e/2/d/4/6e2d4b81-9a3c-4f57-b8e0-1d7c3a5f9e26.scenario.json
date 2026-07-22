@@ -3,7 +3,9 @@
   "model": {
     "uuid": "6e2d4b81-9a3c-4f57-b8e0-1d7c3a5f9e26",
     "name": "RbDetailDrawer.applyPosition impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:db12e833-5d6a-4e17-a95d-16a5aed2cde8"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "designAhead": false,
     "description": "R31.5.7 (drawer=Details compartment, THE CRUX): thin applyPosition(pos:'inline'|'bottom') on the EXISTING RbDetailDrawer. Sets the data-position attr → app.css branches (inline=position:static in-flow [D] strip segment / bottom=position:fixed;bottom:0 as today); data-position ADDED to observedAttributes → attributeChangedCallback route (reactive); re-fit rides the EXISTING ResizeObserver/attributeChangedCallback. Touches NOTHING in detail-render flow / scroll / grab-bar / expand-minimize / in-room R30.20 X→chat. Default (NO attr) = today's bottom → /trace + room + server-manager drawers UNREGRESSED. ONE component, position=mode (NO 2nd full-width-drawer fork = the regression Tron flagged). Driven by the same container-query as 5.4 (landscape→inline / portrait→bottom). Marker [impl:uuid:6e2d4b81-...] on the applyPosition decl (#126). AC-INV-PRESENTATION (5.8) + HARD-AC (no 2nd component) gate. R31.5.7."
