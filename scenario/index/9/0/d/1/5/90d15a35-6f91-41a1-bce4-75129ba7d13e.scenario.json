@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "90d15a35-6f91-41a1-bce4-75129ba7d13e",
+    "name": "RbFeatureManagerDetail.mount impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-manager-detail.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.108: RbFeatureManagerDetail.mount @ src/public/ts/trace/rb-feature-manager-detail.ts — connectedCallback→GET /api/feature-manager → render each Feature + its allowedUsers (each with a revoke ✕) + a per-feature grant-token input. First-class drawer detail-view (tagMap feature→rb-feature-manager-detail, reached via selectionModel.select → renderDetailForRef; REUSES shared RbDetailDrawer, NO fork). Defined only in the feature-manager bundle (kept out of /trace). Marker [impl:uuid:90d15a35-...] on the mount() decl. R31.8b."
+  },
+  "ownerIor": "ior:instance:b7d6ca6a-7e91-4ebc-acc1-d19f97b6479a"
+}

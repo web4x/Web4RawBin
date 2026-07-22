@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
+import { ScenarioIndex } from '../scenario/index.js';
 
 // R31.8 FeatureManager (Class 9f7f345a) — grant/revoke a Feature to a user, mirror-maintained BOTH sides atomically:
 // Feature.allowedUsers[] (scenario unit on disk) ↔ profile.features[] (UserProfile). ★ ROOT-OF-TRUST (INV-F4): these
@@ -39,6 +40,24 @@ export class FeatureManager {
       ServerManagerGuard.seedOwnerInto(au);
       if (au.length !== before) { f.unit.model.allowedUsers = au; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
     }
+  }
+
+  // [impl:uuid:4fa93651-1e42-4306-842a-33d65385ca6f] FeatureManager.listFeatures (Method 5e338054, Class 9f7f345a) —
+  // R31.8b VIEW read: scan ior:class:Feature → [{uuid,name,icon,allowedUsers}] for the FeatureManager management view
+  // (GET /api/feature-manager, owner/membership-gated at the caller). Fresh ScenarioIndex per call so a grant/revoke
+  // is reflected at once. Read-only (no mutation → not a root-of-trust write path). Fail-closed to [] on any error.
+  static listFeatures(): { uuid: string; name: string; icon: string; allowedUsers: string[] }[] {
+    const out: { uuid: string; name: string; icon: string; allowedUsers: string[] }[] = [];
+    try {
+      const idx = new ScenarioIndex(SCENARIO_DIR);
+      for (const uuid of idx.list()) {
+        const u = idx.get(uuid);
+        if (u?.ior !== 'ior:class:Feature') continue;
+        const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
+        out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || ''), allowedUsers: Array.isArray(m.allowedUsers) ? (m.allowedUsers as string[]) : [] });
+      }
+    } catch { /* fail-closed → empty */ }
+    return out;
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).

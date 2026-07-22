@@ -5,7 +5,9 @@
     "name": "FeatureManager.listFeatures",
     "description": "listFeatures(): the admin READ — scans ior:class:Feature units and returns [{uuid, name, icon, allowedUsers}] for the FeatureManager view. Read-only (no mutation, no owner-gate in the method itself — the HTTP GET /api/feature-manager wrapper is owner-gated via requireFeatureAccess). Sibling to grantFeature/revokeFeature/bootstrapSeed on FeatureManager 9f7f345a. LOAD-BEARING marked decl for the GET read (the HTTP handler is a thin wrapper, NOT a node — serverManagerPage precedent). Expert marks [impl:uuid] on the listFeatures decl (#126). Architect ruling 4e713fb6b.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:4fa93651-1e42-4306-842a-33d65385ca6f"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"

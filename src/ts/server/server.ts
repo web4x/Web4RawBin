@@ -905,6 +905,20 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 <script type="module" src="${script}"></script></body></html>`;
 }
 
+// R31.8b Feature-Manager PAGE shell — membership-gated (requireFeatureAccess 'Feature Manager') at the route. Loads the
+// feature-manager bundle, which mounts rb-feature-manager-detail in the SHARED drawer (DRY, like /server-manager).
+function featureManagerPage(): string {
+  const script = getBundleScript('feature-manager.js', 'feature-manager.js');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feature Manager</title><link rel="stylesheet" href="/app.css"><style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;min-height:100dvh}
+header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
+h1{font-size:1rem;margin:0;flex:1}
+</style></head><body>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128273; Feature Manager</h1></header>
+<script type="module" src="${script}"></script></body></html>`;
+}
+
 // [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] renderFeatureGrants (Method b4f03947, off UC a3958f85) — R31.1,
 // MOVED to the read-only /profile VIEWER per Tron (was ProfileEditor edit-form). Returns the inline client JS that,
 // at the BOTTOM of 'My Profile' (after My Bug Reports, into #feature-grants), fetches the owner-gated
@@ -930,8 +944,8 @@ function renderFeatureGrants(): string {
             a.href='#';
             a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;margin-top:6px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
             a.textContent=(f.name==='Server Manager'?'\u{1F5A5}\u{FE0F} ':'\u{1F511} ')+f.name;
-            if(f.name==='Server Manager'){ a.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href='/server-manager';}).catch(function(){});}; } // B1: mint httpOnly cookie via live-owner token, THEN nav
-            else { a.onclick=function(ev){ev.preventDefault();}; } // future: per-feature page
+            var page=(f.name==='Server Manager'?'/server-manager':'/feature-manager');
+            a.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href=page;}).catch(function(){});}; // R31.8b: mint the sm_session cookie (carries the live owner token) THEN navigate to the feature's page — FIXES the dead else-branch (Tron 'renders but does not open'); Server Manager→/server-manager, every other feature (Feature Manager, …)→/feature-manager
             fg.appendChild(a);
           });
         }
@@ -994,6 +1008,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // API: bug status update
+    // R31.8b FeatureManager VIEW — membership-gated (requireFeatureAccess 'Feature Manager', INV-F6): the page shell +
+    // the read-only listFeatures. Distinct from the WRITE below (POST, HARDCODED owner). The condition matches only the
+    // page + the GET api, so POST /api/feature-manager falls through to the owner-gated writer.
+    if (filepath === '/feature-manager' || (req.method === 'GET' && filepath === '/api/feature-manager')) {
+      if (!requireFeatureAccessHttp(req, res, 'Feature Manager')) return; // VIEW-open = membership
+      if (req.method === 'GET' && filepath === '/feature-manager') {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+        res.end(featureManagerPage());
+        return;
+      }
+      if (req.method === 'GET' && filepath === '/api/feature-manager') {
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, features: FeatureManager.listFeatures() }));
+        return;
+      }
+    }
     // R31.8 FeatureManager grant/revoke — ROOT-OF-TRUST (INV-F4): HARDCODED owner gate (requireOwnerHttp→assertOwner),
     // NOT the data-driven feature gate → a non-owner (even a ServerManager member) CANNOT self-grant/escalate. Mirrors
     // Feature.allowedUsers[] ↔ profile.features[] both sides atomically. Distinct path (/api/feature-manager) so it is
