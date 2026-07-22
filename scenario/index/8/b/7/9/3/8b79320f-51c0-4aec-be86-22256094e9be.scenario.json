@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8b79320f-51c0-4aec-be86-22256094e9be",
+    "name": "test:R31.8 revokeFeature FLIP 200->403 + mirror-remove + INV-F4 no-self-grant (FeatureManager.revokeFeature)",
+    "description": "Bridged to test/visual/r318b-feature-flip-gate.ts (GREEN DET-3x, served v0.7.105, verify-by-pid 667508). Verifies R31.8 FeatureManager.revokeFeature: revoke flips the SAME session 200 -> 403; the MIRROR removes from BOTH sides (Feature.allowedUsers + profile.features); PLUS INV-F4 root-of-trust — a non-owner POST /api/feature-manager {grant} -> 403 with allowedUsers UNCHANGED (no self-grant / escalation). Complements the grant flip Test ebf52aa4 (one-intent-per-Test: this is the revoke flip + INV-F4). Marker 8b79320f adopted from HEAD (measured line 2, not invented). Chain: R31.8 -> UC featureManager.revoke e5ce2a18 -> Class FeatureManager 9f7f345a -> Method revokeFeature 0c63bacc -> Impl 987a31a9 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r318b-feature-flip-gate.ts",
+    "implementations": [
+      "ior:instance:987a31a9-cd73-43cd-997d-f58f50f6a4e3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:987a31a9-cd73-43cd-997d-f58f50f6a4e3"
+}

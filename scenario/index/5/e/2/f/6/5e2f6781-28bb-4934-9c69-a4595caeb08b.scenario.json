@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5e2f6781-28bb-4934-9c69-a4595caeb08b",
     "name": "FeatureManager.grantFeature impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:ebf52aa4-a8d1-47d1-91fa-e18745af3d3b"
+    ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
     "description": "BUILT (R31.8 slice-b): FeatureManager.grantFeature(featureUuid, token, profiles, saveProfiles) — idempotently adds token→Feature.allowedUsers[] (scenario unit on disk, written fresh so featureAllowedUsers sees it at once) AND featureUuid→profile.features[], mirror BOTH sides atomically. Owner-gated at the caller: POST /api/feature-manager (requireOwnerHttp→assertOwner, HARDCODED owner root-of-trust INV-F4, distinct path from the data-driven /api/server-manager/* choke-point so a member cannot self-grant). Marker [impl:uuid:5e2f6781-...] on the grantFeature decl. No OWNER_TOKEN literal (INV-G2==1). Live effect: grant flips a live non-owner ServerManager 403→200 by membership (INV-F6)."

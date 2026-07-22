@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ebf52aa4-a8d1-47d1-91fa-e18745af3d3b",
+    "name": "test:R31.8 grantFeature FLIP 403->200 + mirror-add (FeatureManager.grantFeature)",
+    "description": "Bridged to test/visual/r318b-feature-flip-gate.ts (GREEN DET-3x, served v0.7.105, verify-by-pid 667508, pollution-safe — Feature unit byte-restored to [OWNER]). Verifies R31.8 FeatureManager.grantFeature ACCEPT/FLIP direction: the owner grants a LIVE non-owner the ServerManager Feature -> the SAME session flips 403 -> 200 on ServerManager; the MIRROR adds to BOTH sides (Feature.allowedUsers on disk + profile.features). Complements the reject Test 672a841a (one-intent-per-Test: this is the grant flip only). Marker ebf52aa4 adopted from HEAD (measured line 1, not invented). Chain: R31.8 -> UC featureManager.grant 5bd4e70e -> Class FeatureManager 9f7f345a -> Method grantFeature ac522b4f -> Impl 5e2f6781 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r318b-feature-flip-gate.ts",
+    "implementations": [
+      "ior:instance:5e2f6781-28bb-4934-9c69-a4595caeb08b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5e2f6781-28bb-4934-9c69-a4595caeb08b"
+}

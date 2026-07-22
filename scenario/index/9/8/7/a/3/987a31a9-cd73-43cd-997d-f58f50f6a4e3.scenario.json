@@ -3,7 +3,9 @@
   "model": {
     "uuid": "987a31a9-cd73-43cd-997d-f58f50f6a4e3",
     "name": "FeatureManager.revokeFeature impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:8b79320f-51c0-4aec-be86-22256094e9be"
+    ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
     "description": "BUILT (R31.8 slice-b): FeatureManager.revokeFeature(featureUuid, token, profiles, saveProfiles) — removes token from Feature.allowedUsers[] (disk) AND featureUuid from profile.features[], mirror BOTH sides atomically. Owner-gated at the caller (POST /api/feature-manager action=revoke, requireOwnerHttp→assertOwner, INV-F4 root-of-trust). The data-driven gate (requireFeatureAccess) then denies the revoked user by membership immediately (revoke-immediate: featureAllowedUsers reads fresh from disk). Marker [impl:uuid:987a31a9-...] on the revokeFeature decl. Live effect: revoke flips a live non-owner 200→403 by membership (INV-F6)."
