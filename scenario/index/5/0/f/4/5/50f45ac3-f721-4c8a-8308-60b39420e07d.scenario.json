@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "50f45ac3-f721-4c8a-8308-60b39420e07d",
+    "name": "RbProfileDetail",
+    "file": "src/public/ts/trace/rb-profile-detail.ts",
+    "methods": [
+      "ior:instance:e809f03a-e781-486d-a438-e658f5565b41"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-profile-detail.ts",
+    "unitLinks": [],
+    "note": "Custom element <rb-profile-detail> — the granted-USER profile detail-view in the shared rb-detail-drawer (tagMap profile:<token/uuid>->rb-profile-detail, NO overlay — RETIRES the ProfileSheet fork). R31.8c NODE-4, fresh uuid per architect 2864dd8d5. One method mount (render masked profile + context-revoke). Expert builds rb-profile-detail.ts."
+  },
+  "ownerIor": "ior:instance:236217d8-d6fa-4f32-ad71-11401e8555c1"
+}

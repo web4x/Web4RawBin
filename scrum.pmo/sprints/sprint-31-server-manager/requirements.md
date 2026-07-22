@@ -141,6 +141,7 @@
   -> featureManager.searchUsers [uc:uuid:78cf6eab-0cfc-42dc-b7e5-163bb40efeb7]
   -> featureManager.userComplete [uc:uuid:c823aa11-cda4-4b5e-91ef-b7ab2d500819]
   -> featureManager.mount [uc:uuid:1363a806-7383-47e3-9b3e-67663010cfd8]
+  -> profile.mount [uc:uuid:236217d8-d6fa-4f32-ad71-11401e8555c1]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]

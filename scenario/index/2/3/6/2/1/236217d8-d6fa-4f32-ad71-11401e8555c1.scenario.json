@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "236217d8-d6fa-4f32-ad71-11401e8555c1",
+  "name": "profile.mount",
+  "description": "R31.8c NODE-4 — RbProfileDetail.mount: the granted-user profile detail in the shared drawer (avatar/name/MASKED ids/memberships + a context REVOKE control -> applyGrant/revoke via the proven POST). Object=profile (distinct from featureManager.mount node-3 = feature-detail). Reuses RbDetailDrawer, retires ProfileSheet fork. Singular-chain. Architect 2864dd8d5.",
+  "class": "ior:instance:50f45ac3-f721-4c8a-8308-60b39420e07d",
+  "method": "ior:instance:e809f03a-e781-486d-a438-e658f5565b41",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
