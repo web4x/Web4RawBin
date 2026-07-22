@@ -10,7 +10,8 @@
       "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18",
       "ior:instance:1e75e388-cb47-43c9-bdaf-1b250b351edd",
       "ior:instance:e07352c9-1228-481b-ac11-33000c5caba1",
-      "ior:instance:72c660f9-947c-4980-bd7f-7418c65c4883"
+      "ior:instance:72c660f9-947c-4980-bd7f-7418c65c4883",
+      "ior:instance:218b4733-c630-46b7-9801-4f7fa46a32db"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",

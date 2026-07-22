@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9abbf7d9-1215-446e-8029-12f4abf70bd8",
+  "name": "featureManager.viewGrantedUser",
+  "description": "R31.8c — tapping a granted-user child in the FeatureManager tree opens that user's FULL MASKED profile (RbProfileDetail). Server-resolved by opaque id: FeatureManager.grantedUserProfile(featureUuid, userId, profiles) matches userId (sha256[:16]) against the feature's allowedUsers token-hashes -> userProfiles.get(token) -> returns a MASKED FULL PROFILE {name, avatar, identifiers:[maskIdentifier...], grantedFeatureCount?, deviceCount?} — NO token, NO secretCode, NO raw PII (INV-F7). Backs the thin owner-gated GET /api/feature-manager/granted-user endpoint that RbProfileDetail.mount fetches. Singular-chain. Architect design 4e713fb6b / design-r31.8c-fm-detail-refine.md.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:218b4733-c630-46b7-9801-4f7fa46a32db",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-fm-detail-refine.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
