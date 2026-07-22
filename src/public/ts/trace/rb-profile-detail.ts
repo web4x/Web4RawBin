@@ -26,7 +26,10 @@ export class RbProfileDetail extends HTMLElement {
     const token = sep >= 0 ? raw.slice(sep + 1) : raw;
     this.style.cssText = 'display:block;text-align:left;padding:12px 8px';
     this.innerHTML = '<div class="dv-loading">Loading…</div>';
-    const hit = await this.fetchUser(token);
+    // R31.8c FIX-2: in FeatureManager context the ref's id is now the OPAQUE userId (sha256[:16]), NOT a token —
+    // searchUsers can't match it. Resolve the display SERVER-side via the (owner-gated) /api/trace/children of the
+    // feature, whose allowedUsers child-nodes carry the server-resolved name for this exact composite ref.
+    const hit = feature ? await this.resolveGranted(feature, raw) : await this.fetchUser(token);
     this.innerHTML = '';
     const head = document.createElement('div');
     head.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px';
@@ -42,6 +45,18 @@ export class RbProfileDetail extends HTMLElement {
       btn.addEventListener('click', () => void this.revoke(feature, token));
       this.appendChild(btn);
     }
+  }
+
+  // R31.8c FIX-2: resolve a granted user's masked display from the feature's owner-gated child nodes (server-resolved
+  // name for the composite ref 'featureUuid:userId'). No token ever reaches the client.
+  private async resolveGranted(feature: string, ref: string): Promise<Hit | null> {
+    try {
+      const r = await fetch(`/api/trace/children/${encodeURIComponent(feature)}`, { credentials: 'same-origin' });
+      if (!r.ok) return null;
+      const d = (await r.json()) as { children?: { uuid: string; name: string }[] };
+      const c = (d.children || []).find(k => k.uuid === ref);
+      return c ? { token: '', name: c.name, identifiers: [] } : null;
+    } catch { return null; }
   }
 
   private async fetchUser(token: string): Promise<Hit | null> {

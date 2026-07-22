@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { ScenarioIndex } from '../scenario/index.js';
 
@@ -117,6 +118,11 @@ export class FeatureManager {
     return best;
   }
   private static maskToken(t: string): string { return t.length <= 8 ? t : t.slice(0, 4) + '…' + t.slice(-2); }
+  // R31.8c FIX-2 (defense-in-depth): an OPAQUE, deterministic, NON-reversible id for a user WITHIN the itemView tree —
+  // sha256(token) first 16 hex chars. Replaces the raw auth-token in the composite child ref so /api/trace/children can
+  // NEVER surface a live credential (even to the owner / even if a future gate regresses). No stored map: revoke re-hashes
+  // each allowedUsers token and matches. The token stays the source-of-truth in Feature.allowedUsers[] + profile.features[].
+  static userIdOf(token: string): string { return createHash('sha256').update(token).digest('hex').slice(0, 16); }
   private static maskIdentifier(kind: string, v: string): string {
     if (kind === 'phone') return v.length <= 5 ? v : v.slice(0, 3) + '••••' + v.slice(-3);
     if (kind === 'email') { const [u, d] = v.split('@'); return d ? (u.slice(0, 1) + '•••@' + d) : v; }
@@ -150,7 +156,9 @@ export class FeatureManager {
   static allowedUsersChildren(featureUuid: string, profiles: Map<string, SearchProfile>): { uuid: string; type: string; name: string; hasChildren: boolean }[] {
     const f = readFeature(featureUuid);
     const au = f && Array.isArray(f.unit.model.allowedUsers) ? (f.unit.model.allowedUsers as string[]) : [];
-    return au.map(token => ({ uuid: `${featureUuid}:${token}`, type: 'profile', name: (profiles.get(token)?.name || FeatureManager.maskToken(token)), hasChildren: false }));
+    // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
+    // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
+    return au.map(token => ({ uuid: `${featureUuid}:${FeatureManager.userIdOf(token)}`, type: 'profile', name: (profiles.get(token)?.name || FeatureManager.maskToken(token)), hasChildren: false }));
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
@@ -168,10 +176,14 @@ export class FeatureManager {
   // [impl:uuid:987a31a9-cd73-43cd-997d-f58f50f6a4e3] FeatureManager.revokeFeature (Method 0c63bacc, Class 9f7f345a) —
   // REMOVE `token` from Feature.allowedUsers AND `featureUuid` from profile.features (BOTH sides, atomic). Owner-gated
   // at the caller (INV-F4). The gate (requireFeatureAccess) then denies the revoked user by membership immediately.
-  static revokeFeature(featureUuid: string, token: string, profiles: Map<string, MinProfile>, saveProfiles: () => void): { ok: boolean; error?: string } {
+  static revokeFeature(featureUuid: string, tokenOrId: string, profiles: Map<string, MinProfile>, saveProfiles: () => void): { ok: boolean; error?: string } {
     const f = readFeature(featureUuid);
     if (!f) return { ok: false, error: 'feature-not-found' };
     const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
+    // R31.8c FIX-2: the id from the tree ref is now the OPAQUE userId (sha256[:16]), not the token. Resolve the REAL
+    // token by matching either the raw token (backward-compat / grant path) or its hash → then remove that token.
+    const token = au.find((t) => t === tokenOrId || FeatureManager.userIdOf(t) === tokenOrId);
+    if (!token) return { ok: true }; // already absent → idempotent no-op
     const next = au.filter((t) => t !== token);
     if (next.length !== au.length) { f.unit.model.allowedUsers = next; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
     const p = profiles.get(token);
