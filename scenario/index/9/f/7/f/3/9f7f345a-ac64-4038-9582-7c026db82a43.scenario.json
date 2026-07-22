@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "9f7f345a-ac64-4038-9582-7c026db82a43",
+    "name": "FeatureManager",
+    "file": "src/ts/server/FeatureManager.ts",
+    "methods": [
+      "ior:instance:ac522b4f-8951-456d-9756-3f565040c941",
+      "ior:instance:0c63bacc-ef03-4e3b-9801-9de9f1d501ff",
+      "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "unitLinks": [],
+    "note": "Root-of-trust code class for R31.8 Feature grants: grant/revoke/bootstrap. Grant-editing is HARDCODED-owner-gated (ServerManagerGuard.assertOwner), NOT data-driven — closes self-grant escalation. Distinct from the FeatureManager Feature INSTANCE unit (2980b7d9, ior:class:Feature, the product-layer). Fresh uuid minted by req-eng per architect. Expert builds FeatureManager.ts."
+  },
+  "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
+}

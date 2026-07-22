@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f18de1ce-cf9c-4aa4-8151-11f5e731858d",
+  "name": "featureAccess.require",
+  "description": "R31.8 FeatureManager: ServerManagerGuard.requireFeatureAccess — see Method. Singular-chain (one method -> one UC). Architect design 83836631a.",
+  "class": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e",
+  "method": "ior:instance:35e91ba7-5431-4a2a-8834-022ceaf5dd8d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -4,7 +4,7 @@
   "uuid": "a93f5fce-e55a-4d42-9d4d-976a7b892523",
   "altId": "R31.8",
   "name": "Feature typed unit type + FeatureManager root-of-trust — product layer linking implementations to user grants",
-  "description": "Tron model (2026-07-21, brief 0427d264f) + architect security design 83836631a (APPROVED rulings). ior:class:Feature is a first-class TYPED scenario unit = the PRODUCT layer: {name, description, icon, implementations[] (BOTH-WAY: Impl.feature back-ref, mirror-maintained), allowedUsers[] (-> profile TOKENS, BOTH-WAY with profile.features)}. Two instances: ServerManager (the R31.1-R31.4 feature) + FeatureManager (grant/revoke Features on profiles, root-of-trust). Generalizes R31.1 (profile renders granted-Feature list off m.features, server-computed) + R31.2 (access = requireFeatureAccess = isLiveSession AND user-in-Feature.allowedUsers, data-driven). SECURITY (architect-owned, finalized off 83836631a): FeatureManager grant-editing = HARDCODED owner-gate (root-of-trust, NOT data-driven = closes self-grant escalation); feature ACCESS = data-driven allowedUsers, AND-composed with isLiveSession; OWNER_TOKEN literal used ONLY for root-of-trust + bootstrap seed (==1 preserved, no literal-bypass into feature-access — owner enters via seeded membership); bootstrap idempotent-seeds OWNER_TOKEN into ServerManager+FeatureManager allowedUsers; INV-F5 empty/malformed allowedUsers FAILS CLOSED. Preserves R31.2 INV-G1/G2/G3 (grants only ADD checks). Route: req formalizes (this) -> expert implements (Feature units + Impl.feature back-refs + profile.features + requireFeatureAccess + FeatureManager grant/revoke owner-gated + bootstrap seed + m.features render) -> tester gates (both-way nav; grant/revoke flips member-200/non-member-403; profile lists granted; INV-F1..5 hold).",
+  "description": "Tron model (2026-07-21, brief 0427d264f) + architect security design 83836631a (APPROVED rulings). ior:class:Feature is a first-class TYPED scenario unit = the PRODUCT layer: {name, description, icon, implementations[] (BOTH-WAY: Impl.feature back-ref, mirror-maintained), allowedUsers[] (-> profile TOKENS, BOTH-WAY with profile.features)}. Two instances: ServerManager (the R31.1-R31.4 feature) + FeatureManager (grant/revoke Features on profiles, root-of-trust). Generalizes R31.1 (profile renders granted-Feature list off m.features, server-computed) + R31.2 (access = requireFeatureAccess = isLiveSession AND user-in-Feature.allowedUsers, data-driven). SECURITY (architect-owned, finalized off 83836631a): FeatureManager grant-editing = HARDCODED owner-gate (root-of-trust, NOT data-driven = closes self-grant escalation); feature ACCESS = data-driven allowedUsers, AND-composed with isLiveSession; OWNER_TOKEN literal used ONLY for root-of-trust + bootstrap seed (==1 preserved, no literal-bypass into feature-access — owner enters via seeded membership); bootstrap idempotent-seeds OWNER_TOKEN into ServerManager+FeatureManager allowedUsers; INV-F5 empty/malformed allowedUsers FAILS CLOSED. Preserves R31.2 INV-G1/G2/G3 (grants only ADD checks). Route: req formalizes (this) -> expert implements (Feature units + Impl.feature back-refs + profile.features + requireFeatureAccess + FeatureManager grant/revoke owner-gated + bootstrap seed + m.features render) -> tester gates (both-way nav; grant/revoke flips member-200/non-member-403; profile lists granted; INV-F1..5 hold). TRON CLARIFICATION 2026-07-22 (capture-gate, architect-confirmed 83836631a, PO-approved): slice-(b+) MINT-GENERALIZATION — /session mint generalizes to 'any LIVE authenticated user mints a session carrying THEIR OWN token' (non-privileged binding); grant/revoke stays hardcoded-owner (root-of-trust); access = per-feature allowedUsers; INV-G re-verified under generalized mint (non-owner-WITH-session STILL 403 on ServerManager, gated by allowedUsers not session-absence). Without this, allowedUsers is inert (no non-owner could hold a session to be checked) — the Feature model wouldn't actually work for non-owners. +AC-mint-generalization.",
   "tronQuote": "> TRON (2026-07-21): \"model a scenario-first unit type Feature. it is referenced by all implementations. so ServerManager is a feature and itself references all implementations belonging to it… so both-way consistent navigation. additionally it references the user's scenarios that are allowed to use it from the user profile. a second feature on the same rights as the server manager is the FeatureManager, that allows to enable and disable features on user profiles. add a list of features to my profile this way where the server manager is currently.\"",
   "tasks": [
    "ior:instance:71aeff3c-797a-4fcc-9abe-5fb6b5db0d31"
@@ -14,7 +14,12 @@
   "designRef": "ior:git:commit:83836631a",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:f18de1ce-cf9c-4aa4-8151-11f5e731858d",
+   "ior:instance:5bd4e70e-bac8-4028-a1c9-a7c1158ed560",
+   "ior:instance:e5ce2a18-c6d6-4073-84ca-81d5753eadc0",
+   "ior:instance:5ec4911b-0e9b-4287-828f-3897465303e0"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-directive",
@@ -71,6 +76,11 @@
     "id": "AC-inv-g-preserved",
     "group": "security",
     "text": "R31.2 INV-G preserved, NOT weakened: INV-G1 stays ONE server-side choke (now calls requireFeatureAccess(feature), not requireOwnerHttp); INV-G2 the OWNER_TOKEN literal stays ==1 (used ONLY for the FeatureManager root-of-trust + bootstrap seed; feature access adds NO new literals, uses allowedUsers data; grep-guard still ==1); INV-F3 (=INV-G3) a feature ws upgrade checks requireFeatureAccess BEFORE handleUpgrade, non-member -> socket.destroy before open. The OWNER reaches ServerManager via seeded allowedUsers MEMBERSHIP (same data path as any grantee) — NO literal-bypass OR into feature-access."
+   },
+   {
+    "id": "AC-mint-generalization",
+    "group": "security",
+    "text": "The /session mint GENERALIZES: any LIVE authenticated user mints a session carrying THEIR OWN token (non-privileged binding — the session binds the caller's own identity, NOT an owner privilege). Grant/revoke stays HARDCODED-owner (root-of-trust, INV-F4); feature ACCESS = per-feature allowedUsers (requireFeatureAccess). INV-G RE-VERIFIED under the generalized mint: a non-owner WITH a live session is STILL 403 on ServerManager — gated by allowedUsers MEMBERSHIP, NOT by session-absence (the session existing does not grant access; allowedUsers does). This makes the Feature model actually WORK for non-owners (else allowedUsers is inert — no non-owner could ever hold a session to be membership-checked)."
    }
   ],
   "reframes": [

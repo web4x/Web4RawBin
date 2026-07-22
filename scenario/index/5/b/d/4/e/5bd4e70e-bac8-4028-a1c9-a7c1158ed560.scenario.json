@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5bd4e70e-bac8-4028-a1c9-a7c1158ed560",
+  "name": "featureManager.grant",
+  "description": "R31.8 FeatureManager: FeatureManager.grantFeature — see Method. Singular-chain (one method -> one UC). Architect design 83836631a.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:ac522b4f-8951-456d-9756-3f565040c941",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

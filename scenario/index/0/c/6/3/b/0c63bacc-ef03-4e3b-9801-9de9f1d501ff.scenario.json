@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0c63bacc-ef03-4e3b-9801-9de9f1d501ff",
+    "name": "FeatureManager.revokeFeature",
+    "description": "revokeFeature(featureName, token): HARDCODED-owner-gated write (root-of-trust). Removes token from Feature.allowedUsers AND mirror-maintains profile.features (both sides). Gated by ServerManagerGuard.assertOwner. INV-F4: non-owner revoke -> 403, never mutates. Flips the grantee's access back to non-member-403. LOAD-BEARING marked decl. Architect design 83836631a.",
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
+}

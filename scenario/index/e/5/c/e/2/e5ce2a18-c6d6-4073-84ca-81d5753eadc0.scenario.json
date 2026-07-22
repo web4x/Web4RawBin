@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e5ce2a18-c6d6-4073-84ca-81d5753eadc0",
+  "name": "featureManager.revoke",
+  "description": "R31.8 FeatureManager: FeatureManager.revokeFeature — see Method. Singular-chain (one method -> one UC). Architect design 83836631a.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:0c63bacc-ef03-4e3b-9801-9de9f1d501ff",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

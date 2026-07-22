@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5ec4911b-0e9b-4287-828f-3897465303e0",
+  "name": "featureManager.bootstrap",
+  "description": "R31.8 FeatureManager: FeatureManager.bootstrapSeed — see Method. Singular-chain (one method -> one UC). Architect design 83836631a.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
