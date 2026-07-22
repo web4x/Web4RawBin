@@ -11,10 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Tron AUTHORIZED BUILD (2026-07-22) — was conceptOnly, now a BUILD task. Concept designed (refinement[x]: Tron spec woda-layout.md + architect architecture.md rb-compartment/rb-strip/rb-snap-nav/viewport). BUILD STARTING. req to formalize R31.5 as a build requirement + decompose the 7 facet-ACs into atomic build-ACs (Rule 10/11).
 
 ## Traceability
 

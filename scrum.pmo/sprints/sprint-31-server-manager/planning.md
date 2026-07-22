@@ -22,3 +22,5 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
 - [ ] [Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)](./task-31.4-xterm-terminal.md)
 - [ ] [Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)](./task-31.5-concept-scrollable-viewport-woda-layout.md)
 - [ ] [Task 31.6: Shared pan/zoom viewer capability for EVERY embedded format (FUTURE / concept)](./task-31.6-concept-shared-panzoom-viewer.md)
+- [x] [Task 31.7: DRY single-source app version via ONE typed Config scenario unit — all consumers generated/derived, never hand-copied](./task-31.7-single-source-version.md)
+- [ ] [Task 31.8: Feature typed unit type + FeatureManager root-of-trust — product layer linking implementations to user grants](./task-31.8-feature-featuremanager.md)

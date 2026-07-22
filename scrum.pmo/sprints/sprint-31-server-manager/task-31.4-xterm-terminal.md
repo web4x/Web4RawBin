@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [x] implementing
-  - [x] testing
+  - [~] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress (PO 2026-07-20): DESIGN COMPLETE + STEP-1 BUILT - /tree emits 3-level itemView roots otmuxSession->otmuxWindow->otmuxPane (expert cc76c1104 v0.7.90). SCOPE CHANGE (Tron): terminal is now FULL-INTERACTIVE ssh - the READ-ONLY-by-construction default is REMOVED (read-only ACs + 'Take Control' toggle no longer apply; ACs need req re-refine). Remaining: full xterm.js interactive PTY bridge over owner-gated ws (R31.2 ticket).
+Terminal MECHANISM device-proven (interactive-RW + server-attach + node-pty). DRAWER UX FIX IN FLIGHT (architect ac36618ec/aac9b5391, PO-approved): AC-auto-close (INV-T1 terminal tears down on ANY selection-change-away incl minimize/peek/non-pane — client teardown leaks 14 live sm_ today) + AC-maximize (Option A full-viewport drawer). Folds into the ONE R31.4 drawer build. -> QA-Review when the drawer UX fix gates.
 
 ## Traceability
 
