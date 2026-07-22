@@ -7,7 +7,8 @@
     "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
     "methods": [
       "ior:instance:8bb1842f-1ced-4216-a391-f4ee5465e19c",
-      "ior:instance:35e91ba7-5431-4a2a-8834-022ceaf5dd8d"
+      "ior:instance:35e91ba7-5431-4a2a-8834-022ceaf5dd8d",
+      "ior:instance:ba2e94ec-13b2-47db-a878-5e309b483a78"
     ]
   },
   "ownerIor": "ior:instance:40802701-db2c-49d4-85cd-aa421f06e61d"

@@ -134,6 +134,7 @@
   -> featureManager.grant [uc:uuid:5bd4e70e-bac8-4028-a1c9-a7c1158ed560]
   -> featureManager.revoke [uc:uuid:e5ce2a18-c6d6-4073-84ca-81d5753eadc0]
   -> featureManager.bootstrap [uc:uuid:5ec4911b-0e9b-4287-828f-3897465303e0]
+  -> guard.seedOwnerInto [uc:uuid:0f5dc242-b586-401c-a698-dd5fec10e7e3]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]

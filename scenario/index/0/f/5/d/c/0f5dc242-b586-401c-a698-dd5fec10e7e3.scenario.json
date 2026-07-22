@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "0f5dc242-b586-401c-a698-dd5fec10e7e3",
+  "name": "guard.seedOwnerInto",
+  "description": "R31.8 slice-(c) sub-mechanism — ServerManagerGuard.seedOwnerInto(allowedUsers: string[]): string[] ADDS the hardcoded OWNER_TOKEN to the given allowedUsers array and RETURNS it; the OWNER_TOKEN value is NEVER returned bare (the guard adds it internally = LEAST-EXPOSURE; NOT a getOwnerToken accessor). A NAMED, traceable, testable, greppable SECURITY-SURFACE node (architect ruling: a root-of-trust surface deserves an explicit chain node, unlike a pure-layout private helper). Correct-by-construction: the OWNER_TOKEN literal AND its sole seed-use both live in ServerManagerGuard -> grep still ==1 literal (INV-G2 holds), the seed surface is explicit not buried. bootstrapSeed (FeatureManager 8762a0d5) CALLS this per feature (ServerManager + FeatureManager) — a runtime call-dependency, NOT a chain edge. Singular-chain. Architect ruling this turn.",
+  "class": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e",
+  "method": "ior:instance:ba2e94ec-13b2-47db-a878-5e309b483a78",
+  "parent": null,
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

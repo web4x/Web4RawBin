@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ba2e94ec-13b2-47db-a878-5e309b483a78",
+    "name": "ServerManagerGuard.seedOwnerInto",
+    "description": "seedOwnerInto(allowedUsers: string[]): string[] — ADDS the hardcoded OWNER_TOKEN to the passed allowedUsers array (idempotent — units already carry [41ad88c4]) and RETURNS the array. The OWNER_TOKEN value is NEVER returned bare / NEVER exposed to callers (least-exposure; the guard does the add internally). NOT a getOwnerToken() accessor. Lives on ServerManagerGuard next to assertOwner so the OWNER_TOKEN literal AND its sole seed-use are co-located = grep-guard still ==1 (INV-G2). LOAD-BEARING marked decl — expert places [impl:uuid] on the seedOwnerInto decl (#126). Called by FeatureManager.bootstrapSeed (8762a0d5) per feature. Security-surface node (architect ruling: named/traceable/testable, not a buried helper). R31.8 slice-(c).",
+    "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e"
+}
