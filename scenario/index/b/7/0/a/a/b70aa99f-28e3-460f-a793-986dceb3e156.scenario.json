@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b70aa99f-28e3-460f-a793-986dceb3e156",
+    "name": "test:R31.8 slice-d generalized renderFeatureGrants data-driven m.features (all memberships)",
+    "description": "Bridged to test/visual/r31sliced-feature-grants-gate.mjs (GREEN DET-3x @390 v0.7.119, MITM the app ws PROFILE frame). Verifies R31.8 slice-d: /profile #feature-grants is DATA-DRIVEN by m.features — renders EVERY membership (Server Manager -> /server-manager + Feature Manager -> /feature-manager, each interactive cookie-mint->nav) + empty m.features -> 0 entries (fail-closed, server-gated). GENERALIZES the R31.1 SM-only boolean (serverManager:isOwner) to the Feature model. SUPERSEDES the stale a52393fb (SM-boolean MITM). Marker b70aa99f adopted from origin (measured line 1). Chain: R31.8 -> renderFeatureGrants b4f03947 -> Impl f345b8ed -> this Test.",
+    "sourceFile": "ior:file:test/visual/r31sliced-feature-grants-gate.mjs",
+    "implementations": [
+      "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
+}

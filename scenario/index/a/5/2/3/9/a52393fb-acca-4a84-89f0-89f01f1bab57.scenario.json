@@ -8,8 +8,10 @@
     "implementations": [
       "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
     ],
-    "status": "pass",
-    "unitLinks": []
+    "status": "superseded",
+    "unitLinks": [],
+    "supersededBy": "ior:instance:b70aa99f-28e3-460f-a793-986dceb3e156",
+    "supersededNote": "Superseded by b70aa99f (slice-d generalized renderFeatureGrants): the R31.1 SM-only boolean (serverManager:isOwner) this Test asserted was GENERALIZED to data-driven m.features (all Feature memberships). Per the tester test-file comment (a52393fb STALE for the generalized render) + one-uuid-one-identity retire. Kept on disk, removed from f345b8ed live tests[]."
   },
   "ownerIor": "ior:instance:f345b8ed-c853-46c8-8b3c-102375f528dc"
 }
