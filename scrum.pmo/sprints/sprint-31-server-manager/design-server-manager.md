@@ -316,3 +316,31 @@ OPTIONS (need Tron's call):
 - **C — single-pane PIPE bridge** (`pipe-pane` output + `send-keys` input to the ONE pane: isolated + full-size + NON-disruptive, but degraded interactivity — no native resize/TUI/control-chars; a different bridge than PtyBridge, which we rejected earlier for "not truly interactive").
 - **D — restructure targets to single-pane windows** (each agent = its own window/session → grouped-attach naturally shows one pane full; heavy, changes the hiveMind layout).
 RECOMMENDATION: (1) ship the auto-close-on-switch lifecycle fix now (clear, wanted, fixes the leak). (2) For single-pane: A (maximize drawer) is the non-disruptive quick win; true one-pane isolation needs C (accept degraded interactivity) or D (layout change) — Tron/PO decide the tradeoff. Full interactive + single-pane-isolated + no-disrupt is NOT simultaneously achievable with tmux grouped sessions (zoom is shared).
+
+## R31.4 AC SHARPEN — auto-close-on-switch + maximize-drawer (PO-approved 2026-07-22; req formalizes, folds into the ONE R31.4 drawer build)
+PO rulings: auto-close = APPROVED (fold into R31.4); space = A maximize-drawer ENDORSED (fold in); C/D single-pane isolation = escalated to Tron, DO NOT build. Below = the sharpened behavior + per-file fix table for req→expert. Client-only; server `PtyBridge` kill-session is already sound (fires on ws close) — the fix guarantees the ws CLOSES on every exit path.
+
+### AC-auto-close (sharpen R31.4): the terminal ws/session tears down on ANY selection-change-away
+Root: `rb-terminal-detail.teardown()` fires only on `disconnectedCallback` (DOM removal) + `attributeChangedCallback` (uuid pane→pane). GAPS that leak (a live pty while hidden): drawer **minimize/peek** (element stays connected, ws open → session alive), select a **non-pane** node, drawer **close** without element removal. The pty must live ONLY while the terminal is VISIBLE + selected.
+
+| File | Trigger to add | Behavior |
+|------|----------------|----------|
+| `src/public/ts/trace/rb-terminal-detail.ts` | listen `document 'selection-changed'` | if the selected ref is not `otmuxpane:<this.paneId>` (other pane / non-pane / empty) → `teardown()` (ws.close → server kill-session). Belt-and-suspenders over the drawer's innerHTML-clear. |
+| `src/public/ts/trace/rb-terminal-detail.ts` | observe the host drawer's `minimized`/`open` attrs (MutationObserver on `closest('rb-detail-drawer')`) | on `minimized` set OR `open` removed → `teardown()`. A terminal does NOT persist a live pty across peek/close (unlike a static detail). Optional: re-`mount()` on un-minimize (re-attach) if the same pane is still selected. |
+| `src/public/ts/trace/rb-detail-drawer.ts` | `minimize()` + `close()` | when the detail panel holds a terminal, ensure teardown runs (either the MutationObserver above fires, or clear `.drawer-panel-detail` on minimize for the terminal case). One path, no silent-keep. |
+
+INV-T1 (no hidden pty): at no time is an `sm_*` grouped session alive while its terminal is not the visible+selected pane. Tester gate: open terminal → minimize/peek → the `sm_*` session is GONE (was: stayed); switch pane → old session GONE; select a non-pane / close → GONE. (Reduces the mid-run leak to ~one live session = the currently-open terminal.)
+
+### AC-maximize (Option A): the terminal drawer maximizes to full-viewport for max space (no-disrupt)
+`rb-terminal-detail` currently fixes `height:60vh`. Maximize = the DRAWER expands to full-viewport when a terminal mounts (the drawer IS the mount; "maximize" = a full-viewport expand mode), so the (whole-window) terminal gets maximum space. NON-disruptive (no tmux zoom — measured window-shared). 
+
+| File | Change |
+|------|--------|
+| `src/public/ts/trace/rb-detail-drawer.ts` | add a `maximized` mode (full-viewport height: `height:100dvh;max-height:100dvh`) — a public `maximize()`/`restore()` or a `maximized` attr, styled in app.css. Distinct from the peek/expand states. |
+| `src/public/ts/trace/rb-terminal-detail.ts` | on `mount()` request the host drawer `maximize()` (terminal wants full space); on `teardown()` `restore()`. `fit()` already refits xterm to the container via ResizeObserver → fills the maximized drawer. |
+| `src/public/app.css` | `rb-detail-drawer[maximized]{height:100dvh;max-height:100dvh;border-radius:0}` (+ safe-area insets). |
+
+NOTE (Tron-pending, C/D): true single-pane ISOLATION (one pane full, others hidden) is NOT this — A shows the whole window maximized. C (pipe/send-keys single-pane, degraded interactivity) or D (single-pane-window layout) await Tron's ruling; DO NOT build until he decides.
+
+### Handoff
+req: sharpen R31.4 ACs = AC-auto-close (INV-T1) + AC-maximize (Option A), fold into the existing R31.4 drawer task (ONE coherent R31.4: drawer-mount + left-align + closeable + auto-close-on-switch + maximize). expert: build folded into R31.4 (after R31.7, parallel to R31.7/R31.8). tester: gate INV-T1 (no hidden pty on minimize/switch/close) + maximize (drawer full-viewport on terminal open, xterm refits) + /trace drawer unregressed (shared component). I backstop on ship (verify no `sm_*` survives a minimize/switch + drawer maximizes) + a real restart. C/D held for Tron.
