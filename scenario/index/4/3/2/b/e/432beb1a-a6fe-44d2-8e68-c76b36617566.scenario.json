@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "432beb1a-a6fe-44d2-8e68-c76b36617566",
+    "name": "test:R31.5.5 editorStripDescriptor -> rb-strip instance 3C+2bar (RbEditorLayout.editorStripDescriptor)",
+    "description": "Bridged to test/visual/r5356-woda-snapnav-gate.mjs (GREEN DET-3x @390 v0.7.119). Verifies R31.5.5: pure descriptor [C:Left, bar:leftCB, C:Center, bar:rightCB, C:Right] (nav {Left,Center,Right}) drives an rb-strip INSTANCE -> 3 compartments + 2 bars (the 3-way editor as an rb-strip instance, one-model-two-instances alongside WODA 5.6). AC-INV-PRESENTATION. Marker 432beb1a adopted from origin (measured line 1, not invented). Chain: R31.5.5 -> UC editor.asStripInstance 1db93cb3 -> Class RbEditorLayout 94e7bf82 -> Method c9cf2a82 -> Impl 3b8e6c24 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r5356-woda-snapnav-gate.mjs",
+    "implementations": [
+      "ior:instance:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73"
+}
