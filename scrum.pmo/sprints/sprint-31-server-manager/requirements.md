@@ -137,6 +137,7 @@
   - [ ] **(functional)** presentation=expanded|bar on ONE rb-compartment flips full-content <-> collapsed | strip (icons/verb-buttons); content+behavior fixed, only presentation CSS + what's-shown branches. What-bar/changebar/Actions-bar = rb-compartment[presentation=bar]. NOT a second component.
   - [ ] **(functional)** In portrait, a compartment's min-width is 88vw (via a single CSS var --rb-peek:12vw for the ~12% peek of the next compartment) — tunable, not per-snap logic (architect decision).
   - [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
+  -> compartment.applyPresentation [uc:uuid:b49b5506-3603-4a70-93bd-f73d08513309]
 
 - [ ] **R31.5.2 — rb-strip: ordered row rendered from a descriptor array; owns layout+scroll+snap, no content logic**
   [requirement:uuid:86d72090-6c58-4892-bb9d-3021e4830c11]

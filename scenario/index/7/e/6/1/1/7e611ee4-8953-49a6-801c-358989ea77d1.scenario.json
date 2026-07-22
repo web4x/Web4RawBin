@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7e611ee4-8953-49a6-801c-358989ea77d1",
+    "name": "RbCompartment.applyPresentation",
+    "description": "applyPresentation(mode: 'expanded' | 'bar'): the bar <-> compartment flip on ONE component - expanded = full content []; bar = collapsed strip | of icons/verb-buttons from the SAME content. Branches ONLY presentation CSS; content + behavior FIXED (NOT two components). Reactive on the 'presentation' attr; bar-render is a private helper INSIDE this method (not its own Method); content hosted via slot/children (not a Method). LOAD-BEARING marked decl for R31.5.1 - the expert places [impl:uuid] on the applyPresentation decl (#126). AC-INV-PRESENTATION (R31.5.8) gates it: same instance both modes = same functional tests. Architect topology commit 7d5511b71.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-compartment.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eea850ba-3c99-4bd0-b9e1-3a99984677f9"
+}

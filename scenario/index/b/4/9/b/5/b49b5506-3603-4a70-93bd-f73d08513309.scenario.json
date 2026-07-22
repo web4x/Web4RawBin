@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b49b5506-3603-4a70-93bd-f73d08513309",
+  "name": "compartment.applyPresentation",
+  "description": "R31.5.1 (rb-compartment) — RbCompartment.applyPresentation(mode: 'expanded' | 'bar') is the bar <-> compartment flip on ONE component: expanded = full content [] ; bar = collapsed strip | of icons / verb-buttons derived from the SAME content. Branches ONLY presentation CSS - content + behavior are FIXED (NOT two components; the What-bar / changebar / Actions-bar are all rb-compartment[presentation=bar]). Reactive on the 'presentation' attr. Content is HOSTED via slot/children (not a Method); bar-render is a private helper (not a Method). Singular-chain (#27/#38): ONE public method -> ONE UC. AC-INV-PRESENTATION (R31.5.8): the SAME instance in either mode passes the SAME functional tests. Architect topology commit 7d5511b71.",
+  "class": "ior:instance:eea850ba-3c99-4bd0-b9e1-3a99984677f9",
+  "method": "ior:instance:7e611ee4-8953-49a6-801c-358989ea77d1",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

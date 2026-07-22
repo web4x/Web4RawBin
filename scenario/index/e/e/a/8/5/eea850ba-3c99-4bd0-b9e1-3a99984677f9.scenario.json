@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "eea850ba-3c99-4bd0-b9e1-3a99984677f9",
+    "name": "RbCompartment",
+    "file": "src/public/ts/trace/rb-compartment.ts",
+    "methods": [
+      "ior:instance:7e611ee4-8953-49a6-801c-358989ea77d1"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-compartment.ts",
+    "unitLinks": [],
+    "note": "Custom element <rb-compartment> — hosts content; presentation attr flips full-content [] <-> collapsed strip | (bar). Content + behavior FIXED, only presentation CSS + what's shown branches. R31.5.1 = applyPresentation (this chain). Fresh uuid minted by req-eng per architect (holds none). Expert builds rb-compartment.ts; re-point file if the path differs."
+  },
+  "ownerIor": "ior:instance:b49b5506-3603-4a70-93bd-f73d08513309"
+}
