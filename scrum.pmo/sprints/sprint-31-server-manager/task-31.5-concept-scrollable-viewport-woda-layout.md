@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Decomposed into 7 atomic build tasks T31.5.1-T31.5.7 (children). Build in dependency order. Umbrella -> QA-Review when all 7 children reach QA-Review; each child gates independently. Architect supplies per-piece method topology on request.
+Decomposed into 7 atomic build tasks T31.5.1-T31.5.7 (children), build in dependency order (foundation 5.1/5.2/5.4 -> 5.7 drawer crux -> 5.3 -> 5.5/5.6). ROLLUP RULE (req-confirmed): umbrella -> QA-Review when ALL 7 children are chain-complete-to-Test AND AC-INV-PRESENTATION gated per piece at Tron real viewport (portrait scroll-snap + landscape side-by-side); DONE only after Tron visual on the composed WODA/editor. req mints per-piece Req->UC->Class->Method chains as the expert starts each piece (#126, foundation 5.1/5.2/5.4 first); architect supplies per-piece method topology on request.
 
 ## Traceability
 
