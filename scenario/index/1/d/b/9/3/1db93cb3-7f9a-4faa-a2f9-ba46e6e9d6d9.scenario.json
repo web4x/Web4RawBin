@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1db93cb3-7f9a-4faa-a2f9-ba46e6e9d6d9",
+  "name": "editor.asStripInstance",
+  "description": "R31.5.5 — the 3-way diff editor as an rb-strip INSTANCE (RbEditorLayout.editorStripDescriptor builds [C]|[bar]|[C]|[bar]|[C] + nav {Left,Center,Right}, feeds rb-strip.items; editor stays functional, rb-strip added around). Reuses RbEditorLayout (existing) + rb-strip infra. Singular-chain. Architect topology (R31.5 5.5).",
+  "class": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4",
+  "method": "ior:instance:c9cf2a82-f656-4980-836c-50430c5b7dc7",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

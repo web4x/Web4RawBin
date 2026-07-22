@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "201ef8fa-c864-46b9-8edb-2fb2dab44969",
+  "name": "woda.asStripInstance",
+  "description": "R31.5.6 — WODA (W|[O][D]|A) as an rb-strip INSTANCE (RbWoda.wodaStripDescriptor builds [bar:What]|[C:Overview]|[C:Details]|[bar:Actions] + nav {What,Overview,Details,Actions}, What bar expands). Fresh thin host RbWoda + reused rb-strip infra. Singular-chain. Architect topology (R31.5 5.6).",
+  "class": "ior:instance:67852ca8-4561-41e1-a00b-f3e8c6604880",
+  "method": "ior:instance:4e26dedb-9b0e-427d-9330-879b0bd3e39e",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

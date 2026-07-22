@@ -13,7 +13,9 @@
   "designRef": "ior:git:commit:b3f30491f",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:1db93cb3-7f9a-4faa-a2f9-ba46e6e9d6d9"
+  ],
   "unitLinks": [],
   "refinementOf": "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4",
   "refinementOfNote": "Atomic build-req decomposed from the R31.5 concept (Rule 10, architect design b3f30491f). R31.5.5.",

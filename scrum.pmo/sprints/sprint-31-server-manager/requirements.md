@@ -189,6 +189,7 @@
   **Acceptance criteria:**
   - [ ] **(functional)** The 3-way editor = rb-strip descriptor [{C:L},{bar:leftChangebar},{C:C},{bar:rightChangebar},{C:R}] with nav {Left,Center,Right}. Pure descriptor wiring on the existing infra (5.1-5.4), zero new infra; editor stays functional throughout.
   - [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
+  -> editor.asStripInstance [uc:uuid:1db93cb3-7f9a-4faa-a2f9-ba46e6e9d6d9]
 
 - [ ] **R31.5.6 — WODA is an rb-strip instance: descriptor W|[O][D]|A + nav {What,Overview,Details,Actions}**
   [requirement:uuid:2f707d67-f77e-4d6c-8b13-1fd4fb7a433b]
@@ -196,6 +197,7 @@
   **Acceptance criteria:**
   - [ ] **(functional)** WODA = rb-strip descriptor [{bar-expandable:What},{C:Overview},{C:Details},{bar:Actions}] with nav {What,Overview,Details,Actions}; What bar expands to a What compartment. Pure descriptor wiring on the existing infra (5.1-5.4), zero new infra.
   - [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
+  -> woda.asStripInstance [uc:uuid:201ef8fa-c864-46b9-8edb-2fb2dab44969]
 
 - [ ] **R31.5.7 — drawer = Details compartment: data-position inline|bottom branches ONLY layout CSS, function fully shared**
   [requirement:uuid:8243b2fc-e26a-457c-86e1-175eebf60715]
