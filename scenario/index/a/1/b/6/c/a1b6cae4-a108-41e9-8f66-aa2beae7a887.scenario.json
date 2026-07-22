@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1b6cae4-a108-41e9-8f66-aa2beae7a887",
+    "name": "test:R31.8 seedOwnerInto idempotent add + returns-array-not-bare + INV-G2==1 (ServerManagerGuard.seedOwnerInto)",
+    "description": "Bridged to test/visual/r318c-bootstrap-seed-gate.ts (GREEN DET-3x, fresh pid 698674, pollution-safe — SM+FM units restored to [OWNER]). Verifies R31.8 ServerManagerGuard.seedOwnerInto: idempotently ADDS the OWNER_TOKEN ([]->[OWNER]; [OWNER]->[OWNER] no dup; [xyz]->adds-alongside) and RETURNS the ARRAY, NOT the bare token (least-exposure); sourced from the ONE OWNER_TOKEN literal (INV-G2 grep ==1, co-located, no 2nd literal). Marker a1b6cae4 adopted from HEAD (measured line 1, not invented). Chain: R31.8 -> UC guard.seedOwnerInto 0f5dc242 -> Class ServerManagerGuard 1d6933c7 -> Method seedOwnerInto ba2e94ec -> Impl a2b8373a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r318c-bootstrap-seed-gate.ts",
+    "implementations": [
+      "ior:instance:a2b8373a-2165-4563-b372-8d4c369cea4b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a2b8373a-2165-4563-b372-8d4c369cea4b"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "095ed0c9-d1a1-4c74-bf3f-92fb905dbc87",
+    "name": "test:R31.8 bootstrapSeed idempotent-on-seeded + re-seed-when-absent (FeatureManager.bootstrapSeed)",
+    "description": "Bridged to test/visual/r318c-bootstrap-seed-gate.ts (GREEN DET-3x, fresh pid 698674). Verifies R31.8 FeatureManager.bootstrapSeed: idempotently seeds OWNER_TOKEN into ServerManager + FeatureManager allowedUsers (idempotent when already seeded — re-run safe; RE-SEEDS when ABSENT — empty SM allowedUsers -> bootstrapSeed re-adds the owner). Calls ServerManagerGuard.seedOwnerInto per feature (runtime dep). Marker 095ed0c9 adopted from HEAD (measured line 4, not invented). Chain: R31.8 -> UC featureManager.bootstrap 5ec4911b -> Class FeatureManager 9f7f345a -> Method bootstrapSeed 8762a0d5 -> Impl 03b2b1db -> this Test.",
+    "sourceFile": "ior:file:test/visual/r318c-bootstrap-seed-gate.ts",
+    "implementations": [
+      "ior:instance:03b2b1db-b2ba-44d4-a3f2-eeb9215540ad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:03b2b1db-b2ba-44d4-a3f2-eeb9215540ad"
+}
