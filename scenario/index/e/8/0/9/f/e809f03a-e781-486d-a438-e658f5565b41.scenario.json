@@ -5,7 +5,9 @@
     "name": "RbProfileDetail.mount",
     "description": "mount(): NODE-4 LOAD-BEARING granted-user profile render (connectedCallback). Renders avatar + name + MASKED identifiers (partial phone/email) + memberships. In FeatureManager context (opened from a Feature allowedUsers child, parent-featureUuid + token in scope) ALSO renders a REVOKE control -> POST /api/feature-manager {action:revoke, feature:parentFeatureUuid, token:thisUserToken} (owner-gated, reuses the SAME server revokeFeature slice-b) -> re-render/close. MASKED PII, owner-gated read. revoke-handler / profile-render (reuse ProfileSheet markup where practical) = private helpers. Mounts in the shared RbDetailDrawer (no overlay). Expert marks [impl:uuid] on the mount decl (#126). Architect topology 2864dd8d5.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-profile-detail.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:3f61d7d8-041b-45ae-a09e-b5bb0a5cafd9"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:50f45ac3-f721-4c8a-8308-60b39420e07d"

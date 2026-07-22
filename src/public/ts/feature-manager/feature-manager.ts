@@ -5,6 +5,7 @@
 // ALL Features via GET /api/feature-manager (the synthetic 'manager' uuid is just the drawer anchor).
 import '../trace/rb-detail-drawer.js';
 import '../trace/rb-feature-detail.js';
+import '../trace/rb-profile-detail.js'; // R31.8c NODE-4: defines <rb-profile-detail> (tagMap profile→it) for granted-user revoke
 import { selectionModel } from '../trace/selection-model.js';
 
 if (!document.getElementById('fm-drawer')) {

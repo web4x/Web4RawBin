@@ -165,6 +165,7 @@ export class RbDetailDrawer extends HTMLElement {
       test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
       otmuxpane: 'rb-terminal-detail', // R31.4 DRY: Server Manager terminal = a detail-view (defined by the server-manager bundle; tag string only → no xterm in /trace bundles)
       feature: 'rb-feature-detail', // R31.8b/c: FeatureManager view = a detail-view (defined by the feature-manager bundle; tag string only → stays out of /trace)
+      profile: 'rb-profile-detail', // R31.8c NODE-4: granted-user detail (revoke); tag string only, defined by the feature-manager bundle
     };
     const tag = tagMap[type] || 'rb-detail-view';
     // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,

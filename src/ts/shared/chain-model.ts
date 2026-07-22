@@ -26,6 +26,7 @@ export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
   Test:           { scenarioFwd: ['testCases', 'gates'],                                  traceFwd: ['testCases', 'gates'],          expectedChildren: ['TestCase', 'Gate'],   clientFwd: ['testCases', 'gates'] },
   TestCase:       { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
   Gate:           { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
+  Feature:        { scenarioFwd: ['allowedUsers'],                                       traceFwd: ['allowedUsers'],                expectedChildren: ['Profile'],            clientFwd: ['allowedUsers'] }, // R31.8c: FeatureManager native tree — a Feature's allowedUsers render as granted-user child-nodes (server resolver maps each token→a profile node)
   CurrentSprint:  { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: ['Task'],               clientFwd: [] },
 };
 
