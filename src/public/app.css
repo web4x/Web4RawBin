@@ -386,3 +386,6 @@ rb-compartment[presentation='expanded'] > .rbc-bar { display: none; }
 rb-compartment[presentation='bar'] > .rbc-content { display: none; }
 rb-compartment[presentation='bar'] > .rbc-bar { display: flex; gap: 4px; align-items: center; padding: 4px; }
 .rbc-bar-item { background: #21262d; color: #e6edf3; border: 1px solid #30363d; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; }
+/* R31.5.7 drawer = Details position (thin, layout-only; default/no-attr = today's behavior, only [data-position] branches) */
+rb-detail-drawer[data-position='inline'] { position: static; }
+rb-detail-drawer[data-position='bottom'] { position: fixed; bottom: 0; }

@@ -36,7 +36,7 @@ import './rb-test-detail.js';
 import './rb-detail-view.js';
 
 export class RbDetailDrawer extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'open']; }
+  static get observedAttributes() { return ['ref', 'open', 'data-position']; }
   private startY = 0;
   private startHeight = 0;
   private dragging: 'resize' | 'dismiss' | false = false;
@@ -119,7 +119,21 @@ export class RbDetailDrawer extends HTMLElement {
       } else {
         this.removeAttribute('open');
       }
+    } else if (name === 'data-position') { // R31.5.7: reactive position flip (inline↔bottom)
+      this.applyPosition((this.getAttribute('data-position') as 'inline' | 'bottom') || 'bottom');
     }
+  }
+
+  // [impl:uuid:6e2d4b81-9a3c-4f57-b8e0-1d7c3a5f9e26] RbDetailDrawer.applyPosition (Method d48cc0ce, off UC 0f08964b, Class d86af73d)
+  // R31.5.7 (drawer = Details compartment, THE CRUX): thin PRESENTATION-APPLICATION method, LAYOUT-ONLY. Sets the
+  // data-position attr → app.css branches (inline = position:static in-flow [D] strip segment / bottom = position:fixed
+  // as today); re-fit rides the EXISTING ResizeObserver / attributeChangedCallback. Touches NOTHING in the detail-render
+  // flow / scroll / grab-bar / expand-minimize / in-room R30.20 X→chat — ONE component, position=mode (NO 2nd
+  // full-width-drawer fork = the regression Tron flagged). Default (no attr) = today's bottom. Driven by the SAME
+  // container-query as 5.4 (landscape→inline / portrait→bottom). AC-INV-PRESENTATION: same instance, both positions,
+  // same functional tests — only computed layout differs.
+  applyPosition(pos: 'inline' | 'bottom'): void {
+    if (this.getAttribute('data-position') !== pos) this.setAttribute('data-position', pos);
   }
 
   private _graph: any = null;
