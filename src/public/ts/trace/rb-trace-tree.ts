@@ -150,7 +150,7 @@ export class RbTraceTree extends HTMLElement {
       if (ex) {
         console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
-        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 ? { 'has-children': '' } : {}), ...((root.children || []).length ? { 'child-count': String((root.children || []).length) } : {}) }; // R31.3 BADGE: real N on re-render
+        if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 || root.hasChildren === true ? { 'has-children': '' } : {}), ...((root.children || []).length ? { 'child-count': String((root.children || []).length) } : {}) }; // R31.3 BADGE + R31.8c: honor root.hasChildren (lazy roots keep the expander on re-render)
         let kids = ex.querySelector('.tt-children') as HTMLElement;
         if (!kids && root.children && root.children.length > 0) {
           kids = document.createElement('div');
@@ -183,7 +183,7 @@ export class RbTraceTree extends HTMLElement {
         }
       } else {
         console.log(`[renderItems] PATH-B(new) ref=${ref} children=${(root.children||[]).length}`);
-        const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0, undefined, undefined, root.description);
+        const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0 || root.hasChildren === true, undefined, undefined, root.description); // R31.8c fix: honor root.hasChildren for LAZY top-level roots (featureRoots: hasChildren:true, no inline children) → expander renders → children reachable
         this.appendChild(node);
         // R31.3: NO force-open — roots start COLLAPSED (layer-by-layer); buildSeedNode opens a level only per
         // data-always-expanded / persisted-expanded, so a fresh multi-level tree no longer explodes-then-settles.
