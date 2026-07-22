@@ -7,7 +7,8 @@
     "methods": [
       "ior:instance:ac522b4f-8951-456d-9756-3f565040c941",
       "ior:instance:0c63bacc-ef03-4e3b-9801-9de9f1d501ff",
-      "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18"
+      "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18",
+      "ior:instance:5e338054-4973-45b4-9d73-26ae3e33f02f"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",

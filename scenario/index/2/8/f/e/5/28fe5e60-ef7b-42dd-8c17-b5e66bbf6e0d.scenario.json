@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "28fe5e60-ef7b-42dd-8c17-b5e66bbf6e0d",
+  "name": "featureManager.listFeatures",
+  "description": "R31.8b server READ for the FeatureManager view — FeatureManager.listFeatures() scans ior:class:Feature units and returns [{uuid, name, icon, allowedUsers}]. The admin READ sibling to grantFeature/revokeFeature (already Methods on FeatureManager 9f7f345a); backs the GET /api/feature-manager thin handler that the client RbFeatureManagerDetail.mount fetches to render each Feature + its allowedUsers. Distinct + tester-gated (view lists Features+allowedUsers). Singular-chain. Architect ruling 4e713fb6b.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:5e338054-4973-45b4-9d73-26ae3e33f02f",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

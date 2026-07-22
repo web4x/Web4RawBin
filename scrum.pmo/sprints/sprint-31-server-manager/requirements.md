@@ -138,6 +138,7 @@
   -> guard.seedOwnerInto [uc:uuid:0f5dc242-b586-401c-a698-dd5fec10e7e3]
   -> featureManager.mount [uc:uuid:d0e085ac-add5-4b42-85ae-776ebd02f3b4]
   -> featureManager.applyGrant [uc:uuid:d88b965b-2e13-4d99-acf4-53955262080c]
+  -> featureManager.listFeatures [uc:uuid:28fe5e60-ef7b-42dd-8c17-b5e66bbf6e0d]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]
