@@ -37,3 +37,23 @@ MEASURED: 11 drawer detail-views exist (requirement…test/file/webitem/terminal
 
 ## Chain / handoff (updated for the profile detail)
 Add to R31.8c: CLIENT — NEW Class `RbProfileDetail` (custom element `rb-profile-detail`, drawer detail-view, mint fresh) + Method `mount()` (fetch the picked profile's detail + render, reuse ProfileSheet render where practical) — own node, reuses RbDetailDrawer via the `profile:` tagMap (NO new drawer/overlay). req mints it alongside `FeatureManager.searchUsers` + `RbFeatureManagerDetail.userComplete`. Net R31.8c new nodes: `FeatureManager.searchUsers` (backend) + `RbFeatureManagerDetail.userComplete` (client c2 completion) + `RbProfileDetail.mount` (client profile detail in the shared drawer); the GET handlers + tagMap wiring are thin (no node). tester also gates: pick a user → their detailed profile renders in the SHARED drawer (not a separate overlay) with masked identifiers; grant from there flips access.
+
+## ★ REFRAME (Tron/PO 2026-07-22) — FeatureManager view = the SHARED item-TREE, not a bespoke list
+Tron: REPLACE the bespoke FeatureManager card-list with the SHARED `rb-trace-tree`/itemView (the SAME one ServerManager's otmux tree uses). Model: **Features = top-level items; each granted user = a CHILD item under its feature** (`Feature.allowedUsers` → user child-items). This makes FeatureManager IDENTICAL in shape to ServerManager (shared tree + shared drawer) — everything DRY: items+tree+drawer+completion reused. NO bespoke list/cards, NO new tree. **This SUPERSEDES the card-list render** (retire the bespoke `rb-feature-manager-detail` list; the tree IS the list).
+
+### The view (mirrors /server-manager exactly)
+`/feature-manager` page hosts the SHARED `rb-trace-tree` + the SHARED `rb-detail-drawer` (same as `/server-manager` hosts the otmux tree + drawer). No bespoke components.
+- **Tree data:** `GET /api/feature-manager` returns itemView `roots` (NOT a flat list): each Feature = a node `{ uuid, type:'feature', name, icon, hasChildren, children:[ { uuid:<userToken>, type:'profile', name:<userName> } … from allowedUsers ] }`. So `Feature.allowedUsers` → granted-user child-items. `FeatureManager.listFeatures` (already minted 5e338054) reshapes to this itemView roots form.
+- **Details in the shared drawer** (tagMap entries, DRY — one drawer for all):
+  - `feature` node select → **`rb-feature-detail`** (feature info + the c2 user-selector GRANT control). (feature→rb-feature-detail; note: this REPLACES the `feature`→`rb-feature-manager-detail` list mapping — the detail is now a feature-info+grant view, not a list.)
+  - `profile` (user child) node select → **`rb-profile-detail`** (masked profile detail + a REVOKE control).
+- **Grant = ADD a child item:** the c2 user-selector (in the feature detail) → `applyGrant(featureUuid, token, 'grant')` (kept) → POST → re-fetch the tree → the user appears as a child of that feature (access flips live, slice-b). **Revoke = REMOVE the child item:** the revoke control (on the user node / in rb-profile-detail) → `applyGrant(featureUuid, token, 'revoke')` → re-fetch → child gone.
+- **User-search + c2 completion + profile-detail** (sections 1-3 above) are UNCHANGED — they feed the grant (c2 selector) + render the user detail; only the FeatureManager LIST becomes the shared tree.
+
+### DRY summary (everything reused)
+`rb-trace-tree` (the view) + `rb-detail-drawer` (feature-detail + profile-detail) + c2 completion (grant selector) + itemView data shape + `applyGrant`/`searchUsers`/`listFeatures` — all reused. FeatureManager ≡ ServerManager in shape.
+
+### Chain reconciliation (req)
+- **RETIRE** the bespoke card-list render: `RbFeatureManagerDetail.mount` (b7d6ca6a) as a LIST is superseded by `rb-trace-tree`; either retire the Class or repoint `mount` → the feature-detail (`rb-feature-detail`) render. **KEEP** `applyGrant` (ee4143df) + `userComplete` (c2). 
+- **NEW/repoint:** `feature`→`rb-feature-detail` (feature info + grant c2 selector) — repoint the tagMap from `rb-feature-manager-detail`; `profile`→`rb-profile-detail` (`RbProfileDetail.mount`, from the PO add). `FeatureManager.listFeatures` (5e338054) reshapes to itemView roots (Feature + user children).
+- Net: reuse rb-trace-tree (no new tree) + rb-detail-drawer; retire the bespoke list; the detail-views (rb-feature-detail + rb-profile-detail) + c2 selector + searchUsers are the R31.8c build. tester: /feature-manager renders the SHARED tree (Features→granted-users), select feature→detail+grant, select user→profile-detail+revoke, grant/revoke add/remove the child + flip access, all in the shared drawer/tree (no bespoke list/overlay).
