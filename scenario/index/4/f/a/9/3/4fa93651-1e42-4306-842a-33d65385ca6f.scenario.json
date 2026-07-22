@@ -6,7 +6,10 @@
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
-    "description": "BUILT v0.7.108: FeatureManager.listFeatures @ src/ts/server/FeatureManager.ts — scans ior:class:Feature via a fresh ScenarioIndex → [{uuid,name,icon,allowedUsers}] for the R31.8b FeatureManager VIEW (served by GET /api/feature-manager, membership-gated requireFeatureAccess 'Feature Manager'). Read-only, fail-closed to [] on error. Marker [impl:uuid:4fa93651-...] on the listFeatures decl (name-matches). R31.8b."
+    "description": "BUILT v0.7.108: FeatureManager.listFeatures @ src/ts/server/FeatureManager.ts — scans ior:class:Feature via a fresh ScenarioIndex → [{uuid,name,icon,allowedUsers}] for the R31.8b FeatureManager VIEW (served by GET /api/feature-manager, membership-gated requireFeatureAccess 'Feature Manager'). Read-only, fail-closed to [] on error. Marker [impl:uuid:4fa93651-...] on the listFeatures decl (name-matches). R31.8b.",
+    "supersededBy": "native-itemView-tree (CHAIN_TYPE_CONFIG Feature.scenarioFwd=[allowedUsers])",
+    "supersededNote": "Superseded by the native scenario-unit itemView tree (Tron maximally-DRY reframe, R31.8 AC-featuremanager-view): Features render via the EXISTING itemView by a thin CHAIN_TYPE_CONFIG Feature entry (scenarioFwd:['allowedUsers']) -> /api/trace/children resolves allowedUsers as child nodes natively — no bespoke mount-as-list, no listFeatures API-reshape. Retired one-uuid-one-identity (kept on disk, removed from live arrays). Architect reconciliation 8916e33a5.",
+    "status": "superseded"
   },
   "ownerIor": "ior:instance:5e338054-4973-45b4-9d73-26ae3e33f02f"
 }

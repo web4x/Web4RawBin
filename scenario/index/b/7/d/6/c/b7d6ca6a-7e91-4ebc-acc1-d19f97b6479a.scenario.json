@@ -8,7 +8,10 @@
     "implementations": [
       "ior:instance:90d15a35-6f91-41a1-bce4-75129ba7d13e"
     ],
-    "tests": []
+    "tests": [],
+    "supersededBy": "native-itemView-tree (CHAIN_TYPE_CONFIG Feature.scenarioFwd=[allowedUsers])",
+    "supersededNote": "Superseded by the native scenario-unit itemView tree (Tron maximally-DRY reframe, R31.8 AC-featuremanager-view): Features render via the EXISTING itemView by a thin CHAIN_TYPE_CONFIG Feature entry (scenarioFwd:['allowedUsers']) -> /api/trace/children resolves allowedUsers as child nodes natively — no bespoke mount-as-list, no listFeatures API-reshape. Retired one-uuid-one-identity (kept on disk, removed from live arrays). Architect reconciliation 8916e33a5.",
+    "status": "superseded"
   },
   "ownerIor": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e"
 }

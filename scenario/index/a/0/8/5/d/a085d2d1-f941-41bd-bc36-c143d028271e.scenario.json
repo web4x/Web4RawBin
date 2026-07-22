@@ -5,7 +5,6 @@
     "name": "RbFeatureManagerDetail",
     "file": "src/public/ts/trace/rb-feature-manager-detail.ts",
     "methods": [
-      "ior:instance:b7d6ca6a-7e91-4ebc-acc1-d19f97b6479a",
       "ior:instance:ee4143df-4dba-4c35-b7a4-73dd3c22be75"
     ],
     "useCases": [],

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "78cf6eab-0cfc-42dc-b7e5-163bb40efeb7",
+  "name": "featureManager.searchUsers",
+  "description": "R31.8c NODE-1 (unblocks the c2 user selector) — FeatureManager.searchUsers(query) matches the query across userProfiles (name/phone/token) + alt-identity units (scenario/alt/phone|email|company: name/phone/email/uuid), resolves the user TOKEN, and returns [{token, name, avatar?, uuid?, identifiers[]}] with MASKED identifiers, RANKED exact->prefix->substring, capped-10 (flag-if-truncated). Owner-gated at the GET wrapper (requireOwnerHttp, INV-F4 — never leaks profiles to non-owners). mask/rank = private helpers. Singular-chain. Architect topology 8916e33a5.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:1e75e388-cb47-43c9-bdaf-1b250b351edd",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
