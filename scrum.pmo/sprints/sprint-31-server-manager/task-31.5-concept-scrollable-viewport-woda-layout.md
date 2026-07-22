@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Tron AUTHORIZED BUILD (2026-07-22) — was conceptOnly, now a BUILD task. Concept designed (refinement[x]: Tron spec woda-layout.md + architect architecture.md rb-compartment/rb-strip/rb-snap-nav/viewport). BUILD STARTING. req to formalize R31.5 as a build requirement + decompose the 7 facet-ACs into atomic build-ACs (Rule 10/11).
+Decomposed into 7 atomic build tasks T31.5.1-T31.5.7 (children). Build in dependency order. Umbrella -> QA-Review when all 7 children reach QA-Review; each child gates independently. Architect supplies per-piece method topology on request.
 
 ## Traceability
 
@@ -31,7 +31,7 @@ Tron AUTHORIZED BUILD (2026-07-22) — was conceptOnly, now a BUILD task. Concep
 
 ## Task Description
 
-CONCEPT / PLAN ONLY (Tron 2026-07-20 - do NOT implement; implementation is a later Tron-authorized step). A foundational responsive-layout architecture generalizing the app's viewports as BARS '|' and COMPARTMENTS '[]'. A bar is a thin strip of COLLAPSED content (a 'What' bar = itemView ICONS, an 'Actions' bar = object.verb no-parameter buttons, the 3-way editor's changebar); a compartment is EXPANDED full content (What / Overview / Details compartments; each diff editor). A bar EXPANDS into a compartment and a compartment COLLAPSES into a bar (the duality is the generalization). WODA layout = W|[O][D]|A (What bar | Overview + Details compartments | Actions bar). The 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (editors are compartments, changebars are bars). Responsive: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next) freely scrollable left<->right WITH scroll-snap at compartment boundaries, plus a bottom scroll-snap NAV bar snapping to a compartment's left edge (buttons per instance: {Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA). The drawer = the 'Details' compartment: landscape it becomes the inline [D] compartment, portrait it is the bottom drawer as today - and POSITIONING != FUNCTION (Tron's law): the two positions have IDENTICAL function, one component not two forks (same DRY root as the R31.4 /trace-detail-flow drawer reuse, which this concept GENERALIZES). Acceptance = a coherent CONCEPT (this captured model + architect component-architecture design + planner CONCEPT task), NOT code. This is PARALLEL/AFTER the current R31.1-R31.4 server-manager bug fixes (select->open / drawer / badge stay PRIORITY-1). Each acceptance facet below is a DECOMPOSITION CANDIDATE for atomic build-requirements when Tron authorizes implementation (Rule 10/11 - decompose then).
+UMBRELLA — the R31.5 WODA bar/compartment layout concept, decomposed into 7 ATOMIC build tasks (req decomposition bf73baec2, architect-confirmed b3f30491f; Tron AUTHORIZED BUILD 2026-07-22). Each child is its own chain-root (Req->UC->Class->Method->Impl->Test). BUILD ORDER (dependency metadata, NOT chain): FOUNDATION 5.1 rb-compartment + 5.2 rb-strip + 5.4 viewport-mode -> 5.7 drawer=Details (CRUX, early, rides the R31.4 DRY drawer fix) -> 5.3 rb-snap-nav -> 5.5 editor-instance + 5.6 WODA-instance. AC-INV-PRESENTATION (5.8 positioning!=function) cross-cuts EVERY piece (not a separate task).
 
 ## Context
 

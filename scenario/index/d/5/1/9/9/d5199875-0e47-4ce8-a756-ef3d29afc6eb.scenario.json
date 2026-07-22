@@ -24,6 +24,7 @@
   "createdBy": "robbin-planner",
   "createdAt": "2026-07-20",
   "remainingIssues": "In Progress (PO 2026-07-20): otmux session/pane tree BUILT + renders server-side via otmux behind owner-guard (v0.7.85 eae839200, v0.7.89 12d4a1a0c). RE-ARCHITECTURE underway (Tron directive, architect 7c43178cc + 13a79ee2b): scenario-unit tree via shared traceability itemView - typed nodes otmuxSession -> otmuxWindow -> otmuxPane.",
-  "implementation": "v0.7.85/89: otmux session/pane tree BUILT + renders (sessions -> windows -> panes, server-side via otmux behind the owner-guard). Being RE-ARCHITECTED to itemView typed-nodes (implementing[~]). Refresh + selectable-pane pending the re-architecture settle."
+  "implementation": "v0.7.85/89: otmux session/pane tree BUILT + renders (sessions -> windows -> panes, server-side via otmux behind the owner-guard). Being RE-ARCHITECTED to itemView typed-nodes (implementing[~]). Refresh + selectable-pane pending the re-architecture settle.",
+  "gateProof": "RENDER GATE GREEN: tester c35ae0f67 r314-sw-tree-render-gate.mjs (r314 name = MISNOMER, it IS the R31.3 rb-trace-tree render + network-first gate). TRON DEVICE-CONFIRM: fb477ce9f R31.4-terminal-ux-feedback.md IMG_4597 -- itemView tree = amazing, R31.3 rb-trace-tree renders on device. QA-Review held awaiting Tron explicit Done-ratify (honest: amazing device-confirm != explicit Done)."
  }
 }

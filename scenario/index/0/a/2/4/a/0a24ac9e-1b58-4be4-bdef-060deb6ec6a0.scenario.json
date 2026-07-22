@@ -5,7 +5,9 @@
   "altId": "R31.5.3",
   "name": "rb-snap-nav: data-driven bottom nav, one button per compartment, click snaps the viewport to its left edge",
   "description": "rb-snap-nav is a data-driven bottom nav: one button per COMPARTMENT segment (labels from the strip descriptors); click -> scrollIntoView that compartment's snap point (native, no JS scroll math). {L,C,R} for the editor / {What,Overview,Details,Actions} for WODA — ONE component, labels from the strip. BARS are NOT nav buttons (compartments are the snap targets). Depends on rb-strip (5.2).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:d871ae32-a05b-432d-b6df-8d5196fae126"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

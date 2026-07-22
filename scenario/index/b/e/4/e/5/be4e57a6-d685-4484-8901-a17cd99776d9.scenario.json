@@ -5,7 +5,9 @@
   "altId": "R31.5.4",
   "name": "viewport responsive mode: landscape flex all-visible, portrait native scroll-snap scroller, container-query driven",
   "description": "The viewport is a CSS presentation MODE of rb-strip (not a separate element): a CONTAINER-QUERY (@container, orientation media-query fallback) sets rb-strip[data-mode=landscape|portrait]. Landscape = display:flex; overflow:visible (all compartments expanded, bars visible, side-by-side). Portrait = overflow-x:auto; scroll-snap-type:x mandatory — a horizontally-scrollable viewport; COMPARTMENTS are the snap targets (scroll-snap-align:start), BARS ride at a compartment's leading edge (NOT independent snap points). Native CSS scroll-snap, no JS scroll math; the editor snaps ([]|[ / ]|[]|[ / ]|[]) fall out of compartment-align + peek. The active compartment is preserved across landscape<->portrait flip (scrollIntoView on flip). FOUNDATION piece (build order 1).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:5dc15076-f6e6-4ff0-87bd-23b9b6924bd8"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

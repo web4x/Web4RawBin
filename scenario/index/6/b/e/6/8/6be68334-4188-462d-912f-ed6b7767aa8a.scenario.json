@@ -5,7 +5,9 @@
   "altId": "R31.5.1",
   "name": "rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip",
   "description": "rb-compartment hosts content; a single presentation=expanded|bar attr flips EXPANDED (full content []) <-> BAR (collapsed strip | of icons/verb-buttons). Content+behavior are FIXED; only the presentation CSS + what's-shown branches — NOT two components. What-bar, changebar, Actions-bar are all rb-compartment[presentation=bar]. FOUNDATION piece (build order 1).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:b9e529ec-2788-4cb3-accb-7682f48be509"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "5dc15076-f6e6-4ff0-87bd-23b9b6924bd8",
+  "name": "Task 31.5.4: viewport responsive mode: landscape flex all-visible, portrait native scroll-snap scroller, container-query driven",
+  "slug": "task-31.5.4-viewport-mode",
+  "description": "The viewport is a CSS presentation MODE of rb-strip (not a separate element): a CONTAINER-QUERY (@container, orientation media-query fallback) sets rb-strip[data-mode=landscape|portrait]. Landscape = display:flex; overflow:visible (all compartments expanded, bars visible, side-by-side). Portrait = overflow-x:auto; scroll-snap-type:x mandatory — a horizontally-scrollable viewport; COMPARTMENTS are the snap targets (scroll-snap-align:start), BARS ride at a compartment's leading edge (NOT independent snap points). Native CSS scroll-snap, no JS scroll math; the editor snaps ([]|[ / ]|[]|[ / ]|[]) fall out of compartment-align + peek. The active compartment is preserved across landscape<->portrait flip (scrollIntoView on flip). FOUNDATION piece (build order 1).",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Task 31.5 (umbrella)](./task-31.5-concept-scrollable-viewport-woda-layout.md)\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5.4 `[requirement:uuid:be4e57a6-d685-4484-8901-a17cd99776d9]`\n  - down\n    - None (atomic build task)",
+  "acceptanceCriteria": "- [ ] data-mode set by CONTAINER-QUERY (@container on the strip container; orientation media-query fallback), NOT a top-level media query — composes when nested. Landscape=display:flex;overflow:visible all-visible; portrait=overflow-x:auto;scroll-snap-type:x mandatory scroller.\n- [ ] COMPARTMENTS are the scroll-snap targets (scroll-snap-align:start); BARS are inter-compartment, NOT independent snap points (they ride at a compartment's leading edge). Snaps land on meaningful content; editor []|[ / ]|[]|[ / ]|[] fall out of compartment-align + peek — no bespoke per-snap JS.\n- [ ] The ACTIVE compartment (last-snapped/focused, id stored on the strip) is PRESERVED across landscape<->portrait flip: on flip, scrollIntoView the previously-active compartment.\n- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).\n- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.",
+  "subtasks": "None (atomic build task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:be4e57a6-d685-4484-8901-a17cd99776d9"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:3b60b587-9dac-48ee-b5f2-b3a25d296dc0",
+  "sprintName": "Sprint 31",
+  "buildOrder": 1,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-22"
+ }
+}

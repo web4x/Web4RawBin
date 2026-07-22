@@ -5,7 +5,9 @@
   "altId": "R31.5.6",
   "name": "WODA is an rb-strip instance: descriptor W|[O][D]|A + nav {What,Overview,Details,Actions}",
   "description": "WODA is an INSTANCE of the rb-strip model: descriptor [{bar-expandable:What},{C:Overview},{C:Details},{bar:Actions}], nav {What,Overview,Details,Actions}. The What bar expands to a What compartment; Overview+Details are compartments; Actions is a bar. Pure descriptor wiring on the existing infra (5.1-5.4), zero new infra. Build order 5.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:8efd4fcb-ebe2-4bb0-bf6d-ded7de2d788e"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

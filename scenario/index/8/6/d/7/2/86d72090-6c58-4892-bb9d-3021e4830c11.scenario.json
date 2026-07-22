@@ -5,7 +5,9 @@
   "altId": "R31.5.2",
   "name": "rb-strip: ordered row rendered from a descriptor array; owns layout+scroll+snap, no content logic",
   "description": "rb-strip renders an ordered row from a descriptor array [{id,kind:'compartment'|'bar',content}]; it owns layout + scroll + snap and hosts whatever the descriptors give (NO content logic). The SAME rb-strip instantiates BOTH the editor and WODA — only the descriptor array differs; adding a new layout = a new descriptor array, zero new infra. FOUNDATION piece (build order 1).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:03ab7342-ab45-4383-8f25-bdd1f1013dc4"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

@@ -5,7 +5,9 @@
   "altId": "R31.5.5",
   "name": "the 3-way editor is an rb-strip instance: descriptor [L]|[C]|[R] + nav {Left,Center,Right}",
   "description": "The 3-way diff editor is an INSTANCE of the rb-strip model: descriptor [{C:L},{bar:leftChangebar},{C:C},{bar:rightChangebar},{C:R}], nav {Left,Center,Right}. Pure descriptor wiring once rb-strip/rb-compartment/viewport (5.1-5.4) exist — zero new infra; the existing editor stays functional (components added around, not replacing). Build order 5.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:00c67a73-be6c-42ed-9836-82d6aafb5d88"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

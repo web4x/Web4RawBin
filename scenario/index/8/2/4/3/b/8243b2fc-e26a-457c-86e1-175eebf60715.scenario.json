@@ -5,7 +5,9 @@
   "altId": "R31.5.7",
   "name": "drawer = Details compartment: data-position inline|bottom branches ONLY layout CSS, function fully shared",
   "description": "THE CRUX (build EARLY, right after the strip foundation — lowest-risk highest-value; rides the in-flight R31.4 DRY drawer fix = step 0). Generalize rb-detail-drawer: a data-position attr branches ONLY layout CSS — landscape = INLINE as the [D] strip segment (position:static, in-flow, sized by the strip); portrait = BOTTOM drawer (position:fixed; bottom:0) exactly as today. HARD invariant: the detail-render flow, content, scroll, grab-bar, expand/minimize, in-room R30.20 X->chat are ALL SHARED, untouched by position. There is NO 'full-width drawer' second component (that fork = the regression Tron flagged). Depends on 5.1-5.4; crossRef R31.4.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:1ca14378-4800-4150-a2e0-f3ae4c5910ad"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
   "designRef": "ior:git:commit:b3f30491f",

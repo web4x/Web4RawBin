@@ -5,7 +5,7 @@
   "uuid": "3b60b587-9dac-48ee-b5f2-b3a25d296dc0",
   "name": "Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)",
   "slug": "task-31.5-concept-scrollable-viewport-woda-layout",
-  "description": "CONCEPT / PLAN ONLY (Tron 2026-07-20 - do NOT implement; implementation is a later Tron-authorized step). A foundational responsive-layout architecture generalizing the app's viewports as BARS '|' and COMPARTMENTS '[]'. A bar is a thin strip of COLLAPSED content (a 'What' bar = itemView ICONS, an 'Actions' bar = object.verb no-parameter buttons, the 3-way editor's changebar); a compartment is EXPANDED full content (What / Overview / Details compartments; each diff editor). A bar EXPANDS into a compartment and a compartment COLLAPSES into a bar (the duality is the generalization). WODA layout = W|[O][D]|A (What bar | Overview + Details compartments | Actions bar). The 3-way diff editor is an INSTANCE of the same model: [L]|[C]|[R] (editors are compartments, changebars are bars). Responsive: landscape/16:9 shows all bars+compartments side-by-side; portrait uses a horizontally-scrollable viewport (~one compartment + inter-bar + a few chars of the next) freely scrollable left<->right WITH scroll-snap at compartment boundaries, plus a bottom scroll-snap NAV bar snapping to a compartment's left edge (buttons per instance: {Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA). The drawer = the 'Details' compartment: landscape it becomes the inline [D] compartment, portrait it is the bottom drawer as today - and POSITIONING != FUNCTION (Tron's law): the two positions have IDENTICAL function, one component not two forks (same DRY root as the R31.4 /trace-detail-flow drawer reuse, which this concept GENERALIZES). Acceptance = a coherent CONCEPT (this captured model + architect component-architecture design + planner CONCEPT task), NOT code. This is PARALLEL/AFTER the current R31.1-R31.4 server-manager bug fixes (select->open / drawer / badge stay PRIORITY-1). Each acceptance facet below is a DECOMPOSITION CANDIDATE for atomic build-requirements when Tron authorizes implementation (Rule 10/11 - decompose then).",
+  "description": "UMBRELLA — the R31.5 WODA bar/compartment layout concept, decomposed into 7 ATOMIC build tasks (req decomposition bf73baec2, architect-confirmed b3f30491f; Tron AUTHORIZED BUILD 2026-07-22). Each child is its own chain-root (Req->UC->Class->Method->Impl->Test). BUILD ORDER (dependency metadata, NOT chain): FOUNDATION 5.1 rb-compartment + 5.2 rb-strip + 5.4 viewport-mode -> 5.7 drawer=Details (CRUX, early, rides the R31.4 DRY drawer fix) -> 5.3 rb-snap-nav -> 5.5 editor-instance + 5.6 WODA-instance. AC-INV-PRESENTATION (5.8 positioning!=function) cross-cuts EVERY piece (not a separate task).",
   "intention": "Tron directive (2026-07-20): PLAN a detailed CONCEPT (req + architect + planner). DO NOT IMPLEMENT yet. Generalizes the R31.4 DRY drawer fix (positioning != function) across the whole responsive layout.",
   "context": "Motivated by the full-width-drawer regression: a positioning-format change wrongly changed drawer FUNCTION. The concept must guarantee one function across landscape (Details compartment [D] inline) and portrait (bottom drawer) positions. Tron SPEC: CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91).",
   "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
@@ -22,6 +22,15 @@
   "createdBy": "robbin-planner",
   "createdAt": "2026-07-20",
   "implementation": "PLAN-ONLY (no code). The concept 'implementation' is the design-artifact pair: Tron SPEC CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91) + architect DESIGN companion CONCEPT-scrollable-viewport-architecture.md (5bce382b7 — rb-compartment/rb-strip/rb-snap-nav/viewport primitives, one-model-two-instances, drawer=Details position-only, presentation != function). Both cover Tron concept facets. Code implementation is a LATER Tron-authorized step (separate build task/sprint).",
-  "remainingIssues": "Tron AUTHORIZED BUILD (2026-07-22) — was conceptOnly, now a BUILD task. Concept designed (refinement[x]: Tron spec woda-layout.md + architect architecture.md rb-compartment/rb-strip/rb-snap-nav/viewport). BUILD STARTING. req to formalize R31.5 as a build requirement + decompose the 7 facet-ACs into atomic build-ACs (Rule 10/11)."
+  "remainingIssues": "Decomposed into 7 atomic build tasks T31.5.1-T31.5.7 (children). Build in dependency order. Umbrella -> QA-Review when all 7 children reach QA-Review; each child gates independently. Architect supplies per-piece method topology on request.",
+  "children": [
+   "ior:instance:b9e529ec-2788-4cb3-accb-7682f48be509",
+   "ior:instance:03ab7342-ab45-4383-8f25-bdd1f1013dc4",
+   "ior:instance:d871ae32-a05b-432d-b6df-8d5196fae126",
+   "ior:instance:5dc15076-f6e6-4ff0-87bd-23b9b6924bd8",
+   "ior:instance:00c67a73-be6c-42ed-9836-82d6aafb5d88",
+   "ior:instance:8efd4fcb-ebe2-4bb0-bf6d-ded7de2d788e",
+   "ior:instance:1ca14378-4800-4150-a2e0-f3ae4c5910ad"
+  ]
  }
 }
