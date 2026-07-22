@@ -5,7 +5,9 @@
     "name": "RbStrip.applyViewportMode",
     "description": "applyViewportMode(): R31.5.4 responsive MODE on the SHARED RbStrip (NOT a new component — same class as 5.2 renderDescriptors). A container-query @container observer sets rb-strip[data-mode=landscape|portrait]: LANDSCAPE = display:flex;overflow:visible (all compartments+bars visible side-by-side); PORTRAIT = overflow-x:auto;scroll-snap-type:x mandatory, COMPARTMENTS are snap-targets (scroll-snap-align:start), BARS ride the leading edge (NOT snap-points). Focus-restore: on landscape<->portrait flip, scrollIntoView the ACTIVE compartment (its id stored on the strip). Paired with app.css rb-strip[data-mode] rules + --rb-peek:12vw (88vw compartment min-width). observer/mode-css-apply = private helpers. LOAD-BEARING marked decl (expert marks, #126). Architect topology (R31.5 5.4).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:2a9c5e17-3d8b-46f1-a0c4-7b2e5d9f14a3"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:91d575d0-9e7a-4e5c-8269-02a3af0eda1a"

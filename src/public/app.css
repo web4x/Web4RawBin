@@ -367,3 +367,22 @@ rb-detail-drawer pre, rb-detail-drawer code { font-size: 0.75rem; }
 .rrc-upload-complete { background: rgba(76,175,80,0.15); color: #66bb6a; }
 .rrc-upload-error { background: rgba(244,67,54,0.15); color: #ef5350; }
 .rrc .trace-tree { background: #1a1a2e; border-radius: 12px; padding: 8px; margin-top: 12px; }
+
+/* ── R31.5 foundation: bars '|' + compartments '[]' responsive strip (design-r31.5-build-decomposition.md) ── */
+:root { --rb-peek: 12vw; }
+rb-strip { display: flex; min-height: 0; }
+rb-strip[data-mode='landscape'] { flex-direction: row; overflow: visible; align-items: stretch; }
+rb-strip[data-mode='portrait'] { flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+rb-strip > .rb-seg { min-height: 0; display: flex; }
+rb-strip > .rb-seg-compartment { flex: 1 1 auto; }
+rb-strip > .rb-seg-bar { flex: 0 0 auto; }
+/* portrait: COMPARTMENTS are the snap-targets (peek the next); BARS ride the leading edge, not snap points */
+rb-strip[data-mode='portrait'] > .rb-seg-compartment { scroll-snap-align: start; flex: 0 0 auto; min-width: calc(100vw - var(--rb-peek)); }
+rb-strip[data-mode='portrait'] > .rb-seg-bar { scroll-snap-align: none; }
+/* rb-compartment: presentation duality (expanded [] ↔ bar |) — content FIXED, only presentation branches */
+rb-compartment { display: block; min-width: 0; }
+rb-compartment[presentation='expanded'] > .rbc-content { display: block; }
+rb-compartment[presentation='expanded'] > .rbc-bar { display: none; }
+rb-compartment[presentation='bar'] > .rbc-content { display: none; }
+rb-compartment[presentation='bar'] > .rbc-bar { display: flex; gap: 4px; align-items: center; padding: 4px; }
+.rbc-bar-item { background: #21262d; color: #e6edf3; border: 1px solid #30363d; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; }

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4d7e2a91-6b3c-4f8a-9e1d-2c5b7a0f3e64",
+    "name": "RbCompartment.applyPresentation impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-compartment.ts",
+    "designAhead": false,
+    "description": "R31.5.1: RbCompartment.applyPresentation(mode:'expanded'|'bar') @ rb-compartment.ts. Branches ONLY presentation (the 'presentation' attr → app.css) + builds/hides the .rbc-bar strip; content moved ONCE into .rbc-content so its DOM+listeners are fixed across flips. renderBar (private helper) derives icon/verb/label proxies that re-dispatch click to the source element → shared behavior (AC-INV-PRESENTATION 5.8). Reactive via observedAttributes+attributeChangedCallback. Marker [impl:uuid:4d7e2a91-...] on the applyPresentation decl (#126)."
+  },
+  "ownerIor": "ior:instance:7e611ee4-8953-49a6-801c-358989ea77d1"
+}
