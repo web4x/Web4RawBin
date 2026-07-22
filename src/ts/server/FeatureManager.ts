@@ -153,12 +153,13 @@ export class FeatureManager {
   // '<featureUuid>:<token>' (the ref becomes 'profile:<featureUuid>:<token>' → rb-profile-detail parses the feature
   // context for REVOKE). name = live-profile name or masked token. Called by /api/trace/children on a Feature unit
   // (the raw tokens aren't ior:instance refs, so the default forward-ref resolver can't build these).
-  static allowedUsersChildren(featureUuid: string, profiles: Map<string, SearchProfile>): { uuid: string; type: string; name: string; hasChildren: boolean }[] {
+  static allowedUsersChildren(featureUuid: string, profiles: Map<string, SearchProfile>): { uuid: string; type: string; name: string; description?: string; avatar?: string; hasChildren: boolean }[] {
     const f = readFeature(featureUuid);
     const au = f && Array.isArray(f.unit.model.allowedUsers) ? (f.unit.model.allowedUsers as string[]) : [];
     // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
     // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
-    return au.map(token => ({ uuid: `${featureUuid}:${FeatureManager.userIdOf(token)}`, type: 'profile', name: (profiles.get(token)?.name || FeatureManager.maskToken(token)), hasChildren: false }));
+    // R31.8c enrich: masked subtitle (description) + avatar per granted-user node (still NO raw token in the ref/payload).
+    return au.map(token => { const p = profiles.get(token); return { uuid: `${featureUuid}:${FeatureManager.userIdOf(token)}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: (p?.phone ? FeatureManager.maskIdentifier('phone', p.phone) : FeatureManager.maskToken(token)), ...(p?.avatar ? { avatar: p.avatar } : {}), hasChildren: false }; });
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
@@ -189,5 +190,29 @@ export class FeatureManager {
     const p = profiles.get(token);
     if (p && Array.isArray(p.features)) { const feats = p.features.filter((u) => u !== featureUuid); if (feats.length !== p.features.length) { p.features = feats; saveProfiles(); } }
     return { ok: true };
+  }
+
+  // [impl:uuid:8a3f6d21-4c9e-4b70-9f52-1e7d0a4c86b3] FeatureManager.grantedUserProfile (Method 218b4733, Class 9f7f345a)
+  // R31.8c: owner-gated MASKED-full-profile resolver by OPAQUE id — match userId (sha256[:16]) vs the feature's
+  // allowedUsers token-hashes (like revokeFeature's token-OR-hash) → userProfiles.get(token) → MASKED profile.
+  // INV-F7: resolves userId→token→profile SERVER-SIDE; the response carries ONLY masked display data — NEVER the raw
+  // token or secretCode. Backs GET /api/feature-manager/granted-user (owner/membership-gated at the caller).
+  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number } | null {
+    const f = readFeature(featureUuid);
+    const au: string[] = f && Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
+    const token = au.find((t) => t === userId || FeatureManager.userIdOf(t) === userId);
+    if (!token) return null;
+    const p = profiles.get(token);
+    if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
+    const identifiers: string[] = [];
+    if (p.phone) identifiers.push(FeatureManager.maskIdentifier('phone', p.phone));
+    const pp = p as SearchProfile & { features?: string[]; devices?: unknown[] };
+    return {
+      name: p.name || FeatureManager.maskToken(token),
+      ...(p.avatar ? { avatar: p.avatar } : {}),
+      identifiers,
+      ...(Array.isArray(pp.features) ? { grantedFeatureCount: pp.features.length } : {}),
+      ...(Array.isArray(pp.devices) ? { deviceCount: pp.devices.length } : {}),
+    };
   }
 }

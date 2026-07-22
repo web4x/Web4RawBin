@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a3f6d21-4c9e-4b70-9f52-1e7d0a4c86b3",
+    "name": "FeatureManager.grantedUserProfile impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "designAhead": false,
+    "description": "R31.8c: FeatureManager.grantedUserProfile(featureUuid,userId,profiles) @ src/ts/server/FeatureManager.ts — owner-gated MASKED-full-profile resolver by OPAQUE id: match userId (userIdOf sha256[:16]) vs the feature's allowedUsers token-hashes (token-OR-hash, like revokeFeature) → userProfiles.get(token) → {name, avatar, identifiers:[maskIdentifier('phone',...)], grantedFeatureCount?, deviceCount?}. INV-F7: resolves userId→token→profile SERVER-SIDE; the response carries ONLY masked display — NEVER raw token/secretCode. Backs the thin owner-gated GET /api/feature-manager/granted-user (server.ts). Marker [impl:uuid:8a3f6d21-...] on the grantedUserProfile decl (#126). Sibling to grant/revoke on Class FeatureManager 9f7f345a. R31.8c."
+  },
+  "ownerIor": "ior:instance:218b4733-c630-46b7-9801-4f7fa46a32db"
+}

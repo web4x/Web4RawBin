@@ -2,7 +2,7 @@
 // allowedUsers child-node in the native itemView tree; tagMap profile→rb-profile-detail; REUSES the shared
 // RbDetailDrawer, NO ProfileSheet overlay). uuid attr carries the context: 'feature:token' (opened under a Feature →
 // REVOKE shown) or plain 'token'. Owner-gated, MASKED PII (data via the owner-gated searchUsers exact-match).
-type Hit = { token: string; name: string; avatar?: string; uuid?: string; identifiers: string[] };
+type Hit = { token: string; name: string; avatar?: string; uuid?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number };
 const esc = (s: string): string => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] as string));
 
 export class RbProfileDetail extends HTMLElement {
@@ -26,19 +26,22 @@ export class RbProfileDetail extends HTMLElement {
     const token = sep >= 0 ? raw.slice(sep + 1) : raw;
     this.style.cssText = 'display:block;text-align:left;padding:12px 8px';
     this.innerHTML = '<div class="dv-loading">Loading…</div>';
-    // R31.8c FIX-2: in FeatureManager context the ref's id is now the OPAQUE userId (sha256[:16]), NOT a token —
-    // searchUsers can't match it. Resolve the display SERVER-side via the (owner-gated) /api/trace/children of the
-    // feature, whose allowedUsers child-nodes carry the server-resolved name for this exact composite ref.
-    const hit = feature ? await this.resolveGranted(feature, raw) : await this.fetchUser(token);
+    // R31.8c: in FeatureManager context the ref's id is the OPAQUE userId (FIX-2 sha256[:16]). Resolve the MASKED FULL
+    // profile SERVER-side via the owner-gated GET /api/feature-manager/granted-user (grantedUserProfile) — name, avatar,
+    // masked identifiers, counts; no token ever reaches the client.
+    const hit = feature ? await this.resolveGranted(feature, token) : await this.fetchUser(token);
     this.innerHTML = '';
     const head = document.createElement('div');
     head.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px';
+    const counts = [hit?.grantedFeatureCount != null ? `${hit.grantedFeatureCount} feature${hit.grantedFeatureCount === 1 ? '' : 's'}` : '', hit?.deviceCount != null ? `${hit.deviceCount} device${hit.deviceCount === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ');
     head.innerHTML =
       (hit?.avatar ? `<img src="${esc(hit.avatar)}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover"/>` : `<div style="width:48px;height:48px;border-radius:50%;background:#30363d;display:flex;align-items:center;justify-content:center;font-size:1.2rem">👤</div>`)
       + `<div><div style="color:#fff;font-weight:600;font-size:1rem">${esc(hit?.name || '(unknown user)')}</div>`
-      + `<div style="color:rgba(255,255,255,0.55);font:11px monospace;margin-top:2px">${esc((hit?.identifiers || []).join(' · ') || token.slice(0, 8) + '…')}</div></div>`;
+      + `<div style="color:rgba(255,255,255,0.55);font:11px monospace;margin-top:2px">${esc((hit?.identifiers || []).join(' · ') || token.slice(0, 8) + '…')}</div>`
+      + (counts ? `<div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:2px">${esc(counts)}</div>` : '')
+      + `</div>`;
     this.appendChild(head);
-    if (feature) {
+    if (feature) { // Revoke control at the TOP (under the drawer grab-bar), not buried at the bottom
       const btn = document.createElement('button');
       btn.textContent = 'Revoke access';
       btn.style.cssText = 'background:#b62324;color:#fff;border:0;border-radius:6px;padding:7px 14px;cursor:pointer;font-size:0.85rem';
@@ -47,15 +50,14 @@ export class RbProfileDetail extends HTMLElement {
     }
   }
 
-  // R31.8c FIX-2: resolve a granted user's masked display from the feature's owner-gated child nodes (server-resolved
-  // name for the composite ref 'featureUuid:userId'). No token ever reaches the client.
-  private async resolveGranted(feature: string, ref: string): Promise<Hit | null> {
+  // R31.8c: resolve a granted user's MASKED FULL profile server-side by opaque id (owner-gated grantedUserProfile).
+  // No token ever reaches the client — the response is masked display only (INV-F7).
+  private async resolveGranted(feature: string, id: string): Promise<Hit | null> {
     try {
-      const r = await fetch(`/api/trace/children/${encodeURIComponent(feature)}`, { credentials: 'same-origin' });
+      const r = await fetch(`/api/feature-manager/granted-user?feature=${encodeURIComponent(feature)}&id=${encodeURIComponent(id)}`, { credentials: 'same-origin' });
       if (!r.ok) return null;
-      const d = (await r.json()) as { children?: { uuid: string; name: string }[] };
-      const c = (d.children || []).find(k => k.uuid === ref);
-      return c ? { token: '', name: c.name, identifiers: [] } : null;
+      const d = (await r.json()) as { name?: string; avatar?: string; identifiers?: string[]; grantedFeatureCount?: number; deviceCount?: number };
+      return { token: '', name: d.name || '(unknown user)', avatar: d.avatar, identifiers: d.identifiers || [], grantedFeatureCount: d.grantedFeatureCount, deviceCount: d.deviceCount };
     } catch { return null; }
   }
 

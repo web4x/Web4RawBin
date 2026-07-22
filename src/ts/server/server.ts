@@ -1060,6 +1060,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    // R31.8c: owner-gated GET → MASKED full profile of a granted user by OPAQUE id (FIX-2 sha256[:16]) → backs
+    // rb-profile-detail. INV-F7: server resolves id→token→profile; response carries ONLY masked display, no raw token.
+    if (req.method === 'GET' && filepath === '/api/feature-manager/granted-user') {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated (consistent with the owner-gated Feature tree it backs)
+      const q = new URLSearchParams((req.url || '').split('?')[1] || '');
+      const feature = q.get('feature') || '', id = q.get('id') || '';
+      if (!feature || !id) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-request"}'); return; }
+      const profile = FeatureManager.grantedUserProfile(String(feature), String(id), userProfiles as unknown as Map<string, { token: string; name?: string; phone?: string; avatar?: string }>);
+      res.writeHead(profile ? 200 : 404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(profile || { error: 'not-found' }));
+      return;
+    }
     if (req.method === 'POST' && filepath === '/api/bug-status') {
       let body = '';
       req.on('data', (chunk: Buffer) => body += chunk);
