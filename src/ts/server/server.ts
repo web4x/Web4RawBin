@@ -1071,6 +1071,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       res.writeHead(profile ? 200 : 404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(profile || { error: 'not-found' }));
       return;
     }
+    // R31.8c INV-F7 fix: OPAQUE granted-user avatar — resolve userId→token SERVER-side, then SERVE the decrypted bytes
+    // directly (NEVER a 302 to /api/avatar/<token> — that would leak the token in the Location header). No token in
+    // the URL, headers, or body. Owner-gated (consistent with the granted-user profile route).
+    if (req.method === 'GET' && filepath === '/api/feature-manager/granted-user/avatar') {
+      if (!requireOwnerHttp(req, res)) return;
+      const q = new URLSearchParams((req.url || '').split('?')[1] || '');
+      const feature = q.get('feature') || '', id = q.get('id') || '';
+      const token = FeatureManager.resolveGrantedToken(String(feature), String(id));
+      if (!token || !fileExists(token, 'avatar')) {
+        try { const data = await fs.readFile(path.join(PUBLIC_DIR, 'icon-192.png')); res.writeHead(200, { 'Content-Type': 'image/png', 'Cache-Control': 'no-store' }); res.end(data); } catch { res.writeHead(404); res.end('Not found'); }
+        return;
+      }
+      try { const { data, mimeType } = decryptFile(token, 'avatar'); res.writeHead(200, { 'Content-Type': mimeType, 'Cache-Control': 'no-store' }); res.end(data); } catch { res.writeHead(500); res.end('Decrypt error'); }
+      return;
+    }
     if (req.method === 'POST' && filepath === '/api/bug-status') {
       let body = '';
       req.on('data', (chunk: Buffer) => body += chunk);

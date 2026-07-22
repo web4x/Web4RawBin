@@ -159,7 +159,7 @@ export class FeatureManager {
     // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
     // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
     // R31.8c enrich: masked subtitle (description) + avatar per granted-user node (still NO raw token in the ref/payload).
-    return au.map(token => { const p = profiles.get(token); return { uuid: `${featureUuid}:${FeatureManager.userIdOf(token)}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: (p?.phone ? FeatureManager.maskIdentifier('phone', p.phone) : FeatureManager.maskToken(token)), ...(p?.avatar ? { avatar: p.avatar } : {}), hasChildren: false }; });
+    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: (p?.phone ? FeatureManager.maskIdentifier('phone', p.phone) : FeatureManager.maskToken(token)), ...(p?.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, uid) } : {}), hasChildren: false }; }); // R31.8c INV-F7: OPAQUE avatar url, never p.avatar(/api/avatar/<token>)
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
@@ -183,7 +183,7 @@ export class FeatureManager {
     const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
     // R31.8c FIX-2: the id from the tree ref is now the OPAQUE userId (sha256[:16]), not the token. Resolve the REAL
     // token by matching either the raw token (backward-compat / grant path) or its hash → then remove that token.
-    const token = au.find((t) => t === tokenOrId || FeatureManager.userIdOf(t) === tokenOrId);
+    const token = FeatureManager.resolveGrantedToken(featureUuid, tokenOrId); // R31.8c: DRY shared token-OR-hash resolver
     if (!token) return { ok: true }; // already absent → idempotent no-op
     const next = au.filter((t) => t !== token);
     if (next.length !== au.length) { f.unit.model.allowedUsers = next; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
@@ -197,10 +197,18 @@ export class FeatureManager {
   // allowedUsers token-hashes (like revokeFeature's token-OR-hash) → userProfiles.get(token) → MASKED profile.
   // INV-F7: resolves userId→token→profile SERVER-SIDE; the response carries ONLY masked display data — NEVER the raw
   // token or secretCode. Backs GET /api/feature-manager/granted-user (owner/membership-gated at the caller).
-  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number } | null {
+  // R31.8c INV-F7: resolve the REAL token behind an opaque userId — SERVER-INTERNAL ONLY, never returned to a client
+  // (used by grantedUserProfile + the opaque-avatar route). token-OR-hash match, like revokeFeature.
+  static resolveGrantedToken(featureUuid: string, userId: string): string | null {
     const f = readFeature(featureUuid);
     const au: string[] = f && Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
-    const token = au.find((t) => t === userId || FeatureManager.userIdOf(t) === userId);
+    return au.find((t) => t === userId || FeatureManager.userIdOf(t) === userId) || null;
+  }
+  // R31.8c OPAQUE avatar URL (feature+userId, NO raw token) — the granted-user avatar route resolves it server-side.
+  static grantedAvatarUrl(featureUuid: string, userId: string): string { return `/api/feature-manager/granted-user/avatar?feature=${featureUuid}&id=${userId}`; }
+
+  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number } | null {
+    const token = FeatureManager.resolveGrantedToken(featureUuid, userId);
     if (!token) return null;
     const p = profiles.get(token);
     if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
@@ -209,7 +217,7 @@ export class FeatureManager {
     const pp = p as SearchProfile & { features?: string[]; devices?: unknown[] };
     return {
       name: p.name || FeatureManager.maskToken(token),
-      ...(p.avatar ? { avatar: p.avatar } : {}),
+      ...(p.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, userId) } : {}), // OPAQUE — INV-F7: NO raw token in the URL (was p.avatar = /api/avatar/<token>)
       identifiers,
       ...(Array.isArray(pp.features) ? { grantedFeatureCount: pp.features.length } : {}),
       ...(Array.isArray(pp.devices) ? { deviceCount: pp.devices.length } : {}),
