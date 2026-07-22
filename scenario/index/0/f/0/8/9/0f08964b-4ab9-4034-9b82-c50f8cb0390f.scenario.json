@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "0f08964b-4ab9-4034-9b82-c50f8cb0390f",
+  "name": "drawer.applyPosition",
+  "description": "R31.5.7 (drawer = Details compartment, THE CRUX) — RbDetailDrawer.applyPosition(pos: 'inline' | 'bottom') is the PRESENTATION-APPLICATION method (reactive layer), gated to LAYOUT-ONLY: sets the data-position attr -> CSS branches (inline = position:static in-flow [D] strip segment / bottom = position:fixed;bottom:0 as today) -> delegates re-fit to the EXISTING ResizeObserver/attributeChangedCallback. Touches NOTHING in the detail-flow / scroll / grab-bar / expand-minimize / in-room-X-chat (those existing methods UNCHANGED) - ONE component, position=mode. HARD AC: NO 2nd full-width-drawer component (that fork = the regression Tron flagged). AC-INV-PRESENTATION (R31.5.8): the SAME instance inline AND bottom passes the SAME functional tests - only computed layout differs. This is R31.4's DRY-drawer fix extended to the POSITION level. Singular-chain (one method -> one UC). Architect topology commit ce65c672a.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:d48cc0ce-895c-4d06-8615-5aa228dc2abd",
+  "parent": null,
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

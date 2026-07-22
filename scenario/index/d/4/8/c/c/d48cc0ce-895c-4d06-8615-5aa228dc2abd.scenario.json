@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d48cc0ce-895c-4d06-8615-5aa228dc2abd",
+    "name": "RbDetailDrawer.applyPosition",
+    "description": "applyPosition(pos: 'inline' | 'bottom'): NEW thin, LOAD-BEARING marked decl on the EXISTING RbDetailDrawer (position=mode, ONE component). Body MINIMAL: set the data-position attr -> CSS branches (inline = position:static in-flow [D] segment / bottom = position:fixed;bottom:0 as today) -> delegate re-fit to the existing ResizeObserver/attributeChangedCallback. data-position added to observedAttributes (reactive). Touches NOTHING in detail-flow/scroll/grab-bar/expand-minimize/in-room-X-chat (unchanged). NOT attr+CSS-only - a real chain node for traceability + consistency with 5.4 applyViewportMode. Expert places [impl:uuid] on the applyPosition decl (#126). AC-INV-PRESENTATION (R31.5.8) + HARD AC (no 2nd full-width-drawer component) gate it. R31.5.7, architect topology ce65c672a.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}
