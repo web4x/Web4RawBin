@@ -1497,6 +1497,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // generic forward-ref resolver below can't build them → delegate to FeatureManager.allowedUsersChildren, which
         // emits composite-ref user-nodes ('profile:<featureUuid>:<token>', carrying the feature ctx for rb-profile-detail revoke).
         if (type === 'Feature') {
+          // R31.8c P0 SECURITY (release-blocker, architect 2919770c3): a Feature's children expose MEMBER IDENTITIES →
+          // owner/member-gate THIS branch (non-member → 403). Non-Feature units on /api/trace/children stay PUBLIC
+          // (the gate is scoped to the Feature branch only → /trace browsing unaffected, INV-F1 no member-token leak).
+          if (!requireFeatureAccessHttp(req, res, 'Feature Manager')) return;
           const children = FeatureManager.allowedUsersChildren(uuid, userProfiles);
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
