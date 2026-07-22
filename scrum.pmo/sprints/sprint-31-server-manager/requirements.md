@@ -171,6 +171,7 @@
   **Acceptance criteria:**
   - [ ] **(functional)** rb-snap-nav renders one button per COMPARTMENT segment (labels from the strip descriptors — {L,C,R} editor / {What,Overview,Details,Actions} WODA, one component); click -> scrollIntoView that compartment's snap point (native CSS, no JS scroll math). BARS are NOT nav buttons.
   - [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
+  -> nav.snapToCompartment [uc:uuid:70d7ed9d-fc23-4954-8ba6-8ca216efed41]
 
 - [ ] **R31.5.4 — viewport responsive mode: landscape flex all-visible, portrait native scroll-snap scroller, container-query driven**
   [requirement:uuid:be4e57a6-d685-4484-8901-a17cd99776d9]

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "70d7ed9d-fc23-4954-8ba6-8ca216efed41",
+  "name": "nav.snapToCompartment",
+  "description": "R31.5.3 (rb-snap-nav) — RbSnapNav.render builds the data-driven bottom nav (one button per rb-strip COMPARTMENT, labels from descriptors); click -> native scrollIntoView the compartment snap point (no JS scroll math); bars are not buttons. Fresh component, depends on rb-strip 5.2. Singular-chain. Architect topology (R31.5 5.3).",
+  "class": "ior:instance:e0cead14-6cf3-49c0-b2cd-7414f93550ac",
+  "method": "ior:instance:4301b9cc-2b5e-434d-9d89-cf8bc93d3998",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

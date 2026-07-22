@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e0cead14-6cf3-49c0-b2cd-7414f93550ac",
+    "name": "RbSnapNav",
+    "file": "src/public/ts/trace/rb-snap-nav.ts",
+    "methods": [
+      "ior:instance:4301b9cc-2b5e-434d-9d89-cf8bc93d3998"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-snap-nav.ts",
+    "unitLinks": [],
+    "note": "Custom element <rb-snap-nav> — R31.5.3, the data-driven bottom scroll-snap nav bar. FRESH component (unlike 5.4 which reused RbStrip). Reads the rb-strip (5.2) COMPARTMENT segments and emits one button per compartment; button click -> native scrollIntoView(compartment snap point), no JS scroll math. Bars are NOT nav buttons (compartments-only snap targets, consistent w/ 5.4). Fresh uuid per architect. Expert builds rb-snap-nav.ts."
+  },
+  "ownerIor": "ior:instance:70d7ed9d-fc23-4954-8ba6-8ca216efed41"
+}
