@@ -3,7 +3,9 @@
   "model": {
     "uuid": "5f9d2a7c-1e63-48b0-b4a7-9c3e0d6f251b",
     "name": "RbWoda.wodaStripDescriptor impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:d826997d-dd96-4b52-95fe-d3e269cc8edf"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-woda.ts",
     "designAhead": false,
     "description": "R31.5.6 WODA-instance: RbWoda.wodaStripDescriptor() @ src/public/ts/trace/rb-woda.ts (NEW fresh thin host Class RbWoda). Returns the WODA rb-strip descriptor [{bar:What},{C:Overview},{C:Details},{bar:Actions}] + labels {What,Overview,Details,Actions}; the What bar expands to a compartment via rb-compartment's presentation duality. PURE descriptor wiring, same infra as the editor instance (5.5) → proves one-model-two-instances. Marker [impl:uuid:5f9d2a7c-...] on the wodaStripDescriptor decl (#126). R31.5.6."

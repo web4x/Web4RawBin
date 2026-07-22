@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "99ab8d5e-5def-4763-9efa-889bfb45c34d",
+    "name": "test:R31.5.3 render one-btn-per-compartment bars-excluded (RbSnapNav.render)",
+    "description": "Bridged to test/visual/r5356-woda-snapnav-gate.mjs (GREEN DET-3x @390 v0.7.119). Verifies one .rb-snap-btn per COMPARTMENT of the bound strip (Alpha|Gamma), BARS NOT buttons (Bar1 excluded), labels from descriptor, click -> native scrollIntoView snap fires. AC-INV-PRESENTATION. Marker 99ab8d5e adopted from origin (measured, not invented). One-intent-per-piece (R31.5 runway).",
+    "sourceFile": "ior:file:test/visual/r5356-woda-snapnav-gate.mjs",
+    "implementations": [
+      "ior:instance:7c1f9a3e-5d84-42b6-a9e1-0f8c2b6d4e37"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7c1f9a3e-5d84-42b6-a9e1-0f8c2b6d4e37"
+}

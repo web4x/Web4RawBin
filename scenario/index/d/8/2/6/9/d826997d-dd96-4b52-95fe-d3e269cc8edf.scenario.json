@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d826997d-dd96-4b52-95fe-d3e269cc8edf",
+    "name": "test:R31.5.6 wodaStripDescriptor -> rb-strip instance 2C+2bar (RbWoda.wodaStripDescriptor)",
+    "description": "Bridged to test/visual/r5356-woda-snapnav-gate.mjs (GREEN DET-3x @390 v0.7.119). Verifies pure descriptor [bar:What, C:Overview, C:Details, bar:Actions] (exact shape) drives an rb-strip INSTANCE -> 2 compartments + 2 bars (one-model-two-instances). AC-INV-PRESENTATION. Marker d826997d adopted from origin (measured, not invented). One-intent-per-piece (R31.5 runway).",
+    "sourceFile": "ior:file:test/visual/r5356-woda-snapnav-gate.mjs",
+    "implementations": [
+      "ior:instance:5f9d2a7c-1e63-48b0-b4a7-9c3e0d6f251b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5f9d2a7c-1e63-48b0-b4a7-9c3e0d6f251b"
+}
