@@ -911,11 +911,14 @@ function featureManagerPage(): string {
   const script = getBundleScript('feature-manager.js', 'feature-manager.js');
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Feature Manager</title><link rel="stylesheet" href="/app.css"><style>
-body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;min-height:100dvh}
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
 header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
-h1{font-size:1rem;margin:0;flex:1}
+h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+.trace-page{height:auto;flex:1;min-height:0}
+#err{color:#f85149;padding:12px 16px}
 </style></head><body>
-<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128273; Feature Manager</h1></header>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#128273; Feature Manager</h1><button id="refresh">Refresh</button></header>
+<div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="fm-tree"></rb-trace-tree><div id="err"></div></div></div>
 <script type="module" src="${script}"></script></body></html>`;
 }
 
@@ -1019,8 +1022,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
       if (req.method === 'GET' && filepath === '/api/feature-manager') {
+        // R31.8c gap-B: serve the itemView ROOTS (real Feature units) for the native tree-seed (was the superseded
+        // listFeatures reshape). The client (feature-manager.ts) sets tree.items = roots.
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-        res.end(JSON.stringify({ ok: true, features: FeatureManager.listFeatures() }));
+        res.end(JSON.stringify({ ok: true, roots: FeatureManager.featureRoots() }));
         return;
       }
     }
@@ -1488,6 +1493,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // [impl:uuid:29730376-7832-477d-8960-98c937f8c2bb] BUG12 Bug+ChangeRequest forward keys
         // R20.15: unified CHAIN_TYPE_CONFIG replaces inline maps
         const fwdKeys = forwardKeysForMode(type, queryMode as 'scenario' | 'trace');
+        // R31.8c gap-A: a Feature's children = its allowedUsers, but those are raw TOKENS (not ior:instance refs) so the
+        // generic forward-ref resolver below can't build them → delegate to FeatureManager.allowedUsersChildren, which
+        // emits composite-ref user-nodes ('profile:<featureUuid>:<token>', carrying the feature ctx for rb-profile-detail revoke).
+        if (type === 'Feature') {
+          const children = FeatureManager.allowedUsersChildren(uuid, userProfiles);
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children }));
+          return;
+        }
         // R20.22: CurrentSprint → 3 task children from slots
         if (type === 'CurrentSprint') {
           const model = unit.model as Record<string, unknown>;

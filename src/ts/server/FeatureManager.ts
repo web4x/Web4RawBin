@@ -122,6 +122,36 @@ export class FeatureManager {
     if (kind === 'email') { const [u, d] = v.split('@'); return d ? (u.slice(0, 1) + '•••@' + d) : v; }
     return v; // company (name-ish) — no mask
   }
+
+  // [impl:uuid:79b22596-e108-4075-a924-78d8c0a81cab] FeatureManager.featureRoots (Method e07352c9, Class 9f7f345a) —
+  // R31.8c gap-B: itemView ROOTS for the native FeatureManager tree — scan ior:class:Feature → [{uuid, type:'feature',
+  // name, icon, hasChildren:allowedUsers.length>0}]. Seeds the REAL Feature roots (replaces the synthetic 'feature:
+  // manager' so a grant targets the real Feature uuid). Fail-closed to [].
+  static featureRoots(): { uuid: string; type: string; name: string; icon: string; hasChildren: boolean }[] {
+    const out: { uuid: string; type: string; name: string; icon: string; hasChildren: boolean }[] = [];
+    try {
+      const idx = new ScenarioIndex(SCENARIO_DIR);
+      for (const uuid of idx.list()) {
+        const u = idx.get(uuid);
+        if (u?.ior !== 'ior:class:Feature') continue;
+        const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
+        const au = Array.isArray(m.allowedUsers) ? (m.allowedUsers as string[]) : [];
+        out.push({ uuid, type: 'feature', name: String(m.name || 'Feature'), icon: String(m.icon || ''), hasChildren: au.length > 0 });
+      }
+    } catch { /* fail-closed → empty */ }
+    return out;
+  }
+
+  // [impl:uuid:ad622052-baee-4ff7-9258-d4d66b46f638] FeatureManager.allowedUsersChildren (Method 72c660f9, Class
+  // 9f7f345a) — R31.8c gap-A: a Feature's allowedUsers TOKENS → itemView child-nodes with a COMPOSITE uuid
+  // '<featureUuid>:<token>' (the ref becomes 'profile:<featureUuid>:<token>' → rb-profile-detail parses the feature
+  // context for REVOKE). name = live-profile name or masked token. Called by /api/trace/children on a Feature unit
+  // (the raw tokens aren't ior:instance refs, so the default forward-ref resolver can't build these).
+  static allowedUsersChildren(featureUuid: string, profiles: Map<string, SearchProfile>): { uuid: string; type: string; name: string; hasChildren: boolean }[] {
+    const f = readFeature(featureUuid);
+    const au = f && Array.isArray(f.unit.model.allowedUsers) ? (f.unit.model.allowedUsers as string[]) : [];
+    return au.map(token => ({ uuid: `${featureUuid}:${token}`, type: 'profile', name: (profiles.get(token)?.name || FeatureManager.maskToken(token)), hasChildren: false }));
+  }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
   // Owner-gated at the caller (INV-F4). Returns ok=false if the Feature unit is missing (fail-closed).
