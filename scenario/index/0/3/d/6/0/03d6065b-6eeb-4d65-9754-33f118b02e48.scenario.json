@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "03d6065b-6eeb-4d65-9754-33f118b02e48",
+  "name": "featureManager.allowedUsersChildren",
+  "description": "R31.8c NODE-B allowedUsersChildren (composite-ref token resolver — gap A). See Method. Singular-chain. Architect topology 94514b005.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:72c660f9-947c-4980-bd7f-7418c65c4883",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

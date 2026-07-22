@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e07352c9-1228-481b-ac11-33000c5caba1",
+    "name": "FeatureManager.featureRoots",
+    "description": "featureRoots(): NODE-A (gap B fix) — scans ior:class:Feature units and returns the itemView ROOTS [{uuid, type:\"feature\", name, icon, hasChildren: allowedUsers.length>0}]. SEEDS the FeatureManager tree with the REAL Feature scenario-unit roots, REPLACING the synthetic feature:manager root. The data-resolution node for the native tree (parallel to OtmuxBridge.readSessionTree 5c1701bc = the ServerManager tree-data node). Owner-gated at the wrapper. LOAD-BEARING marked decl (expert marks, #126). Architect topology 94514b005.",
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
+}

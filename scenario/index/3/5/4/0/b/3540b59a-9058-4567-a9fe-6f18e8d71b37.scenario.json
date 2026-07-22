@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3540b59a-9058-4567-a9fe-6f18e8d71b37",
+  "name": "featureManager.featureRoots",
+  "description": "R31.8c NODE-A featureRoots (real Feature roots, replaces synthetic — gap B). See Method. Singular-chain. Architect topology 94514b005.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:e07352c9-1228-481b-ac11-33000c5caba1",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

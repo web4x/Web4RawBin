@@ -142,6 +142,8 @@
   -> featureManager.userComplete [uc:uuid:c823aa11-cda4-4b5e-91ef-b7ab2d500819]
   -> featureManager.mount [uc:uuid:1363a806-7383-47e3-9b3e-67663010cfd8]
   -> profile.mount [uc:uuid:236217d8-d6fa-4f32-ad71-11401e8555c1]
+  -> featureManager.featureRoots [uc:uuid:3540b59a-9058-4567-a9fe-6f18e8d71b37]
+  -> featureManager.allowedUsersChildren [uc:uuid:03d6065b-6eeb-4d65-9754-33f118b02e48]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]

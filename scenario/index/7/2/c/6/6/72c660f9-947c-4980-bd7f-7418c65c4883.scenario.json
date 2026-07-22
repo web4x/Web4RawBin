@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "72c660f9-947c-4980-bd7f-7418c65c4883",
+    "name": "FeatureManager.allowedUsersChildren",
+    "description": "allowedUsersChildren(featureUuid): NODE-B (gap A fix) — resolves a Feature allowedUsers TOKENS into user CHILD-nodes [{uuid:\"profile:<featureUuid>:<token>\" (COMPOSITE ref — carries the feature context so rb-profile-detail can parse feature=middle/token=tail for revoke; solves tokens-are-not-ior-refs), type:\"profile\", name: masked-resolved}]. Called by /api/trace/children on Feature units (native itemView child-resolution). Owner-gated. LOAD-BEARING marked decl (expert marks, #126). Architect topology 94514b005.",
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
+}
