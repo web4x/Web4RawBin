@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b0128db2-a405-4904-9060-2d8bebd4d07f",
+  "name": "strip.renderDescriptors",
+  "description": "R31.5.2 (rb-strip foundation) — RbStrip.renderDescriptors(descriptors: StripDescriptor[]) accepts the ordered descriptor array and builds the ordered row (compartment -> hosts rb-compartment; bar -> hosts a bar element), diff/patching on re-set (idempotent, like rb-trace-tree items). Landscape flex-row is the DEFAULT here; the responsive scroll-snap MODE is R31.5.4 (applyViewportMode/observeContainer/focus-restore, SEPARATE chain on the same class). StripDescriptor.interface {id; kind:'compartment'|'bar'; content} is the layer3 data contract (NOT a chain Method). Singular-chain (#27/#38): ONE public method -> ONE UC. Architect topology commit 4729caa14.",
+  "class": "ior:instance:91d575d0-9e7a-4e5c-8269-02a3af0eda1a",
+  "method": "ior:instance:9053202e-a636-40ac-9c48-45dd8b6a823d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -144,6 +144,7 @@
   **Acceptance criteria:**
   - [ ] **(functional)** rb-strip renders an ordered row from a descriptor array [{id,kind:compartment|bar,content}]; owns layout+scroll+snap, no content logic (hosts what descriptors give). SAME rb-strip instantiates editor AND WODA — only the descriptor array differs; new layout = new descriptor array, zero new infra.
   - [ ] **(invariant)** POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).
+  -> strip.renderDescriptors [uc:uuid:b0128db2-a405-4904-9060-2d8bebd4d07f]
 
 - [ ] **R31.5.3 — rb-snap-nav: data-driven bottom nav, one button per compartment, click snaps the viewport to its left edge**
   [requirement:uuid:0a24ac9e-1b58-4be4-bdef-060deb6ec6a0]

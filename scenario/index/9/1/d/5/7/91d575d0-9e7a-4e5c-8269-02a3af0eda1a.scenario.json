@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "91d575d0-9e7a-4e5c-8269-02a3af0eda1a",
+    "name": "RbStrip",
+    "file": "src/public/ts/trace/rb-strip.ts",
+    "methods": [
+      "ior:instance:9053202e-a636-40ac-9c48-45dd8b6a823d"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
+    "unitLinks": [],
+    "note": "Custom element <rb-strip> — the R31.5 layout foundation (ordered row of compartments+bars). Owns layout+scroll+snap, NO content logic. R31.5.2 = renderDescriptors (this chain). R31.5.4 viewport-mode methods (applyViewportMode/observeContainer/focus-restore) attach to THIS SAME class under their own req/chain. Fresh uuid minted by req-eng per architect (holds none). Expert builds rb-strip.ts; re-point file if the path differs."
+  },
+  "ownerIor": "ior:instance:b0128db2-a405-4904-9060-2d8bebd4d07f"
+}

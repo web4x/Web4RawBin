@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9053202e-a636-40ac-9c48-45dd8b6a823d",
+    "name": "RbStrip.renderDescriptors",
+    "description": "renderDescriptors(descriptors: StripDescriptor[]): builds the ordered row from the descriptor array - compartment -> hosts rb-compartment, bar -> hosts a bar element - diff/patch on re-set (idempotent, like rb-trace-tree items). Landscape flex-row default; segment-building is a private helper INSIDE this method (not its own Method). LOAD-BEARING marked decl for R31.5.2 - the expert places [impl:uuid] on the renderDescriptors decl (#126). Viewport-mode (R31.5.4) is a SEPARATE method/chain on the same class. Architect topology commit 4729caa14.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:91d575d0-9e7a-4e5c-8269-02a3af0eda1a"
+}
