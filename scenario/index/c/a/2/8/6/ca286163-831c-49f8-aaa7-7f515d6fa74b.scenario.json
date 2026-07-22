@@ -5,7 +5,9 @@
     "name": "RbFeatureDetail.userComplete",
     "description": "userComplete(query: string): NODE-2 OOSH-c2 completion consuming node-1 searchUsers. Debounced GET /api/feature-manager/users?q= (-> FeatureManager.searchUsers 1e75e388) -> dropdown of MASKED matches (avatar + name + masked-id, ranked) with keyboard nav (up/down/Enter/Esc, highlight) -> on SELECT call applyGrant(thisFeatureUuid, selectedToken, 'grant'). debounce / dropdown-render / key-handling = private helpers (not Methods). LOAD-BEARING marked decl (expert marks, #126). On Class RbFeatureDetail a085d2d1. Architect topology 5a2f3cf37.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:9b54bc91-f8fc-4585-84bf-fb45cbab98e3"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e"
