@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "d0e085ac-add5-4b42-85ae-776ebd02f3b4",
+  "name": "featureManager.mount",
+  "description": "R31.8 FeatureManager view render/open — see Method RbFeatureManagerDetail.mount. Singular-chain. Architect topology 0e6fe16c0.",
+  "class": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e",
+  "method": "ior:instance:b7d6ca6a-7e91-4ebc-acc1-d19f97b6479a",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

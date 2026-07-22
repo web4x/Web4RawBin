@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "d88b965b-2e13-4d99-acf4-53955262080c",
+  "name": "featureManager.applyGrant",
+  "description": "R31.8 FeatureManager view grant/revoke action - see Method RbFeatureManagerDetail.applyGrant (POST /api/feature-manager, owner-gated, proven slice-b). Singular-chain (one method, action param for grant+revoke). Architect topology 0e6fe16c0.",
+  "class": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e",
+  "method": "ior:instance:ee4143df-4dba-4c35-b7a4-73dd3c22be75",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8-feature-unit-type.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
