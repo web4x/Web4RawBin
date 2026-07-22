@@ -857,6 +857,22 @@ function featureAllowedUsers(name: string): string[] {
   } catch { /* fail-closed */ }
   return [];
 }
+// R31.8 slice-d: the Features a token is a MEMBER of (token ∈ Feature.allowedUsers) → {uuid,name,icon} for the profile
+// 'Feature access' render. Membership-driven (generalizes the R31.1 ServerManager-only boolean), fail-closed on error.
+function featuresForToken(token: string): { uuid: string; name: string; icon: string }[] {
+  const out: { uuid: string; name: string; icon: string }[] = [];
+  if (!token) return out;
+  try {
+    const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
+    for (const uuid of fidx.list()) {
+      const u = fidx.get(uuid);
+      if (u?.ior !== 'ior:class:Feature') continue;
+      const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
+      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || '') });
+    }
+  } catch { /* fail-closed */ }
+  return out;
+}
 // R31.8 HTTP wrapper for the ServerManager feature gate (the /api/server-manager/* + /server-manager choke-point).
 function requireFeatureAccessHttp(req: http.IncomingMessage, res: http.ServerResponse, featureName: string): boolean {
   if (ServerManagerGuard.requireFeatureAccess(req, featureName, resolveSessionToken, featureAllowedUsers).ok) return true;
@@ -901,17 +917,23 @@ function renderFeatureGrants(): string {
   // Renders the owner-only 'Server Manager' entry IFF the server-computed m.serverManager flag is set — NO whoami
   // round-trip (kills the owner-accept race + the client can't self-grant). R31.2 cookie-only: the entry mints the
   // sm_session cookie (onclick POST /session with the x-player-token HEADER) then navigates — NO ?token= in the URL.
+  // R31.8 slice-d: render EVERY Feature the user is a member of (m.features, data-driven) — generalizes the R31.1
+  // ServerManager-only boolean so FeatureManager (and future features) appear too. Server Manager keeps its cookie-mint
+  // → /server-manager nav; other features are listed interactive (per-feature page is a later slice).
   return `
-      if(m.serverManager){
+      if(m.features && m.features.length){
         var fg=document.getElementById('feature-grants');
         if(fg){
           fg.innerHTML='<h3>Feature access</h3>';
-          var sm=document.createElement('a');
-          sm.href='#';
-          sm.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
-          sm.textContent='\u{1F5A5}\u{FE0F} Server Manager';
-          sm.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href='/server-manager';}).catch(function(){});}; // B1: mint httpOnly cookie via live-owner token, THEN nav (no ?token= in URL)
-          fg.appendChild(sm);
+          m.features.forEach(function(f){
+            var a=document.createElement('a');
+            a.href='#';
+            a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;margin-top:6px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
+            a.textContent=(f.name==='Server Manager'?'\u{1F5A5}\u{FE0F} ':'\u{1F511} ')+f.name;
+            if(f.name==='Server Manager'){ a.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href='/server-manager';}).catch(function(){});}; } // B1: mint httpOnly cookie via live-owner token, THEN nav
+            else { a.onclick=function(ev){ev.preventDefault();}; } // future: per-feature page
+            fg.appendChild(a);
+          });
         }
       }`;
 }
@@ -2683,7 +2705,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token) }); // R31.1 owner-accept: server-computed owner flag (verified live token) → /profile renders the Server Manager entry off THIS, no client whoami race
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = the user's Feature memberships (data-driven, generalizes the ServerManager-only boolean) → /profile lists ALL granted features
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's
