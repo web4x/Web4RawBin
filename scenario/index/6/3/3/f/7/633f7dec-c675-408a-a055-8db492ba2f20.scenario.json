@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "633f7dec-c675-408a-a055-8db492ba2f20",
+  "name": "config.readBuildVersion",
+  "description": "AC-apiconfig-buildstamp: /api/config reads the BUILD-STAMPED version (build-manifest __BUILD_VERSION__), NOT a per-request package.json read — served == what was built+deployed by construction (kills the Tron phantom).",
+  "class": "ior:instance:ed94e371-97df-48e3-a3f0-f05652ba1c8d",
+  "method": "ior:instance:8155cf84-e748-4882-bb9f-e7cda8e09d85",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.7-typed-version-config.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cabf6551-efa3-4755-ad3b-a5b1f0fcdb50",
+  "name": "config.guardAgreement",
+  "description": "INV-V1/V2 (single-source agreement): post-build, unit == package.json == sw.js CACHE_NAME == build-manifest == __BUILD_VERSION__ (INV-V1 derive-equal) AND == committed HEAD (INV-V2); any mismatch refuses deploy loudly.",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "method": "ior:instance:a8040d7c-4635-4844-ba19-91e90da961a7",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.7-typed-version-config.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

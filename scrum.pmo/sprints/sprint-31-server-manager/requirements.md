@@ -111,6 +111,9 @@
   - [ ] **(invariant)** INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine).
   - [ ] **(config)** Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical.
   -> config.singleSourceVersion [uc:uuid:83e3891a-b932-45de-83ab-bf98a89b6f25]
+  -> config.readBuildVersion [uc:uuid:633f7dec-c675-408a-a055-8db492ba2f20]
+  -> config.guardTreeClean [uc:uuid:b3a0b05d-357c-4855-9bb9-910dd27e2111]
+  -> config.guardAgreement [uc:uuid:cabf6551-efa3-4755-ad3b-a5b1f0fcdb50]
 
 - [ ] **R31.8 — Feature typed unit type + FeatureManager root-of-trust — product layer linking implementations to user grants**
   [requirement:uuid:a93f5fce-e55a-4d42-9d4d-976a7b892523]

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b3a0b05d-357c-4855-9bb9-910dd27e2111",
+  "name": "config.guardTreeClean",
+  "description": "INV-V3 (scoped tree-clean landmine guard): pre-deploy, the DEPLOY-CRITICAL generator input+outputs (server.ts, package.json, sw.js) must == HEAD — a stray/reverted checkout fails loudly BEFORE deploy, scoped (not whole-tree) to avoid false-positives on the shared repo's unrelated churn.",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "method": "ior:instance:e75a7e71-c521-45c3-aa3f-bb2dc422269e",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.7-typed-version-config.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

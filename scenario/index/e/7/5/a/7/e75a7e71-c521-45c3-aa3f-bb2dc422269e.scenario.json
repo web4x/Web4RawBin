@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e75a7e71-c521-45c3-aa3f-bb2dc422269e",
+    "name": "Build.versionGuardTreeClean",
+    "description": "versionGuardTreeClean(env) @ scripts/start.mjs:84: git diff --quiet HEAD -- the scoped deploy-critical file-set (server.ts + package.json + sw.js); non-clean -> refuse deploy loudly (INV-V3). Build/deploy tooling. Expert points impl here (#126).",
+    "sourceFile": "ior:file:scripts/start.mjs",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+}

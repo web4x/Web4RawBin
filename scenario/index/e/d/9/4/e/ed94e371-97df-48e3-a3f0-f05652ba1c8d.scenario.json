@@ -7,7 +7,8 @@
     "sourceFile": "ior:file:src/ts/server/server-config.ts",
     "methods": [
       "ior:instance:7d9e03f3-e9b5-420f-95bf-242f9af0721a",
-      "ior:instance:7e51e40c-ec65-4e68-a15c-c8bacb648d85"
+      "ior:instance:7e51e40c-ec65-4e68-a15c-c8bacb648d85",
+      "ior:instance:8155cf84-e748-4882-bb9f-e7cda8e09d85"
     ]
   },
   "ownerIor": "ior:instance:186ccb53-07ca-4c5a-96fd-6fc94443b45e"

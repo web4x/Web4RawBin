@@ -7,7 +7,9 @@
   "methods": [
    "ior:instance:2612e2fe-2000-4a46-a0f7-ffa0df9a1fac",
    "ior:instance:71931179-03b9-487a-9abf-550af65d42c7",
-   "ior:instance:dee42cc1-b8b4-4730-a01b-f8e8fbb6d8ac"
+   "ior:instance:dee42cc1-b8b4-4730-a01b-f8e8fbb6d8ac",
+   "ior:instance:e75a7e71-c521-45c3-aa3f-bb2dc422269e",
+   "ior:instance:a8040d7c-4635-4844-ba19-91e90da961a7"
   ],
   "note": "NEW (0 existing - measured; build.mjs was unmodeled). Deploy/build tooling: atomic commit-then-serve + version guard (R30.28). Sole-minter."
  },
