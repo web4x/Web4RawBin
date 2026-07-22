@@ -808,7 +808,7 @@ function trackClient(req: http.IncomingMessage): void {
 // the live x-player-token) so the cookie-less /server-manager page + its /tree fetch + the terminal ws all
 // authenticate WITHOUT a live ws session or a token-in-URL. The id is RANDOM (crypto.randomUUID, NOT OWNER_TOKEN →
 // INV-G2 stays 1).
-const smSessions = new Map<string, { owner: boolean; expiresAt: number }>();
+const smSessions = new Map<string, { owner: boolean; expiresAt: number; token: string }>(); // R31.8: value carries the minting TOKEN (cookie value stays the opaque sid) → requireFeatureAccess resolves cookie→token→Feature.allowedUsers
 function cookieFrom(req: http.IncomingMessage, name: string): string {
   const raw = (req.headers['cookie'] as string) || '';
   for (const part of raw.split(';')) { const i = part.indexOf('='); if (i > 0 && part.slice(0, i).trim() === name) return part.slice(i + 1).trim(); }
@@ -826,6 +826,40 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
   if (resolveOwner(req).ok) return true;
   const ip = req.socket.remoteAddress || 'unknown';
   addLog(`[server-manager] DENY kind=http path=${req.url} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+  res.writeHead(403, { 'Content-Type': 'application/json' }); res.end('{"error":"forbidden"}');
+  return false;
+}
+
+// R31.8: resolve the caller's authenticated TOKEN for data-driven feature access — cookie path (sm_session sid →
+// stored token, the owner-gated mint proof; no live-ws needed, matches resolveOwner) OR a live header session; '' if
+// neither. Returns the REAL token (not resolveOwner's 'sm_session' placeholder) so requireFeatureAccess can check
+// Feature.allowedUsers membership.
+function resolveSessionToken(req: http.IncomingMessage): string {
+  const sid = cookieFrom(req, 'sm_session');
+  if (sid) { const s = smSessions.get(sid); if (s && s.expiresAt > Date.now()) return s.token; if (s) smSessions.delete(sid); }
+  const t = ServerManagerGuard.playerTokenFrom(req);
+  return (t && tokenToClient.has(t)) ? t : '';
+}
+// R31.8: allowedUsers of a Feature by name (scan the ior:class:Feature units on disk). Fail-closed: unknown/empty → []
+// (INV-F5). Admin-only low-QPS path; a fresh ScenarioIndex per call keeps it revoke-immediate (no stale cache).
+function featureAllowedUsers(name: string): string[] {
+  try {
+    const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
+    for (const uuid of fidx.list()) {
+      const u = fidx.get(uuid);
+      if (u?.ior === 'ior:class:Feature' && String((u.model as { name?: string })?.name) === name) {
+        const au = (u.model as { allowedUsers?: unknown }).allowedUsers;
+        return Array.isArray(au) ? au as string[] : [];
+      }
+    }
+  } catch { /* fail-closed */ }
+  return [];
+}
+// R31.8 HTTP wrapper for the ServerManager feature gate (the /api/server-manager/* + /server-manager choke-point).
+function requireFeatureAccessHttp(req: http.IncomingMessage, res: http.ServerResponse, featureName: string): boolean {
+  if (ServerManagerGuard.requireFeatureAccess(req, featureName, resolveSessionToken, featureAllowedUsers).ok) return true;
+  const ip = req.socket.remoteAddress || 'unknown';
+  addLog(`[server-manager] DENY kind=http feature=${featureName} path=${req.url} token=${(resolveSessionToken(req) || 'none').slice(0, 8)} ip=${ip}`);
   res.writeHead(403, { 'Content-Type': 'application/json' }); res.end('{"error":"forbidden"}');
   return false;
 }
@@ -892,7 +926,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // can bypass it, and a future sub-route added inside this block inherits the gate. Handlers below run ONLY for
     // an authenticated OWNER; add R31.4 routes inside this block. (Page-route ?token= = flagged R31.4 hardening.)
     if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/')) {
-      if (!requireOwnerHttp(req, res)) return;
+      if (!requireFeatureAccessHttp(req, res, 'Server Manager')) return; // R31.8: data-driven ServerManager Feature gate (was requireOwnerHttp) — access by allowedUsers membership, INV-F6
       if (req.method === 'GET' && filepath === '/server-manager') { // R31.3 owner-only page shell (6th AC: non-owner already 403'd above, shell never leaks)
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
         res.end(serverManagerPage());
@@ -926,7 +960,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       }
       if (req.method === 'POST' && filepath === '/api/server-manager/session') { // R31.4-PRE/B1: mint the httpOnly owner cookie (caller already owner-gated above via the LIVE x-player-token)
         const sid = crypto.randomUUID(); // RANDOM — NOT OWNER_TOKEN (INV-G2 stays 1)
-        smSessions.set(sid, { owner: true, expiresAt: Date.now() + 30 * 60 * 1000 });
+        smSessions.set(sid, { owner: true, expiresAt: Date.now() + 30 * 60 * 1000, token: ServerManagerGuard.playerTokenFrom(req) }); // R31.8: store the minting caller's token for data-driven feature membership
         res.writeHead(200, { 'Content-Type': 'application/json', 'Set-Cookie': `sm_session=${sid}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=1800` });
         res.end('{"ok":true}');
         return;
@@ -2303,7 +2337,7 @@ function setupWebSocketServer(server: https.Server): void {
   server.on('upgrade', (req, socket, head) => {
     const path = (req.url || '/').split('?')[0];
     if (path === '/api/server-manager/terminal') {
-      if (!resolveOwner(req).ok) { // SAME resolveOwner as HTTP — fail-closed
+      if (!ServerManagerGuard.requireFeatureAccess(req, 'Server Manager', resolveSessionToken, featureAllowedUsers).ok) { // R31.8: data-driven ServerManager Feature gate at ws upgrade (INV-G3 destroy-before-open preserved, INV-F6 membership)
         const ip = req.socket.remoteAddress || 'unknown';
         addLog(`[server-manager] DENY kind=ws path=${path} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
         socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;

@@ -5,7 +5,9 @@
     "name": "ServerManagerGuard.requireFeatureAccess",
     "description": "requireFeatureAccess(req, featureName): boolean — the DATA-DRIVEN access gate that generalizes assertOwner (is-caller-THE-owner) to membership (token in Feature.allowedUsers). token=playerTokenFrom(req); fail-closed: !token || !isLiveSession(token) -> 403; !Feature(featureName).allowedUsers.includes(token) -> 403 + addLog DENY; else true. AND-composed (isLiveSession AND membership). INV-F1: added at the SAME server-side choke (server.ts:891 pattern), the ONE choke (replaces requireOwnerHttp), never bypassed, UI-hiding is NOT the gate. INV-G2: OWNER_TOKEN literal NOT OR'd in here (owner enters via seeded membership). INV-F3/INV-G3: a feature ws upgrade calls this BEFORE handleUpgrade. LOAD-BEARING marked decl for R31.8 slice-(a). Architect design 83836631a.",
     "sourceFile": "ior:file:src/ts/server/ServerManagerGuard.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:765ca93b-aa1f-439a-9377-5c200384a259"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:1d6933c7-63a9-4487-b177-44b403a8e45e"

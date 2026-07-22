@@ -40,4 +40,23 @@ export class ServerManagerGuard {
     const a = Buffer.from(token), b = Buffer.from(ServerManagerGuard.OWNER_TOKEN);
     return a.length === b.length && crypto.timingSafeEqual(a, b);
   }
+
+  // [impl:uuid:765ca93b-aa1f-439a-9377-5c200384a259] ServerManagerGuard.requireFeatureAccess (Method 35e91ba7, off
+  // Class ServerManagerGuard 1d6933c7) — R31.8 DATA-DRIVEN feature gate generalizing assertOwner: resolve the caller's
+  // REAL authenticated token (resolveToken = cookie→session-token OR live header, injected since the server owns
+  // smSessions/tokenToClient), then require token ∈ Feature.allowedUsers (data, NOT a hardcoded literal). Fail-closed
+  // (no token, or empty/missing allowedUsers → deny, INV-F5). ★ INV-F6: access is by MEMBERSHIP only — NEVER s.owner,
+  // NEVER mere session-presence; a non-owner holding a valid own-session still denies unless in allowedUsers. The
+  // hardcoded owner (assertOwner) is reserved for the FeatureManager write-gate root-of-trust, not feature access.
+  static requireFeatureAccess(
+    req: http.IncomingMessage,
+    featureName: string,
+    resolveToken: (req: http.IncomingMessage) => string,
+    allowedUsersOf: (featureName: string) => string[],
+  ): { ok: true; token: string } | { ok: false } {
+    const token = resolveToken(req);
+    if (!token) return { ok: false };
+    if (!allowedUsersOf(featureName).includes(token)) return { ok: false };
+    return { ok: true, token };
+  }
 }
