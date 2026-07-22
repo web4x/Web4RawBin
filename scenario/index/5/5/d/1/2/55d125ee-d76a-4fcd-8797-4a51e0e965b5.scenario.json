@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "55d125ee-d76a-4fcd-8797-4a51e0e965b5",
+    "name": "test:R31.8c FIX-2 opaque-ref + P0 no-leak (FeatureManager.allowedUsersChildren)",
+    "description": "Bridged to test/visual/r318d-fix2-opaque-ref-gate.ts (GREEN DET-3x, verify-by-pid 1314979 v0.7.114, pollution-safe). Verifies R31.8c FIX-2 (credential-leak fix) on FeatureManager.allowedUsersChildren (Impl ad622052): a Feature allowedUsers child ref = <featureUuid>:<sha256(token)[:16]> (OPAQUE userId via userIdOf) and the RAW auth-token appears NOWHERE in the /api/trace/children body (no-token-in-ref, defense-in-depth). ALSO covers the grant/revoke FLIP 403<->200 and the P0 owner-gate (non-member -> 403, no leak). Marker 55d125ee adopted from origin (measured line 1). Chain: R31.8 -> UC featureManager.allowedUsersChildren 03d6065b -> Class FeatureManager 9f7f345a -> Method 72c660f9 -> Impl ad622052 -> this Test. Closes FIX-2 chain-to-Test.",
+    "sourceFile": "ior:file:test/visual/r318d-fix2-opaque-ref-gate.ts",
+    "implementations": [
+      "ior:instance:ad622052-baee-4ff7-9258-d4d66b46f638"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ad622052-baee-4ff7-9258-d4d66b46f638"
+}

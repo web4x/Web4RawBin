@@ -3,7 +3,9 @@
   "model": {
     "uuid": "ad622052-baee-4ff7-9258-d4d66b46f638",
     "name": "FeatureManager.allowedUsersChildren impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:55d125ee-d76a-4fcd-8797-4a51e0e965b5"
+    ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
     "description": "BUILT v0.7.112: FeatureManager.allowedUsersChildren @ src/ts/server/FeatureManager.ts — R31.8c gap-A. A Feature's allowedUsers TOKENS → itemView child-nodes with a COMPOSITE uuid '<featureUuid>:<token>' (ref = 'profile:<featureUuid>:<token>' → rb-profile-detail parses the feature context for REVOKE); type:'profile', name = live-profile name or masked token. Called by /api/trace/children on a Feature unit (the raw tokens aren't ior:instance refs so the default forward-ref resolver can't build them). Marker [impl:uuid:ad622052-...] on the allowedUsersChildren decl. R31.8c."
