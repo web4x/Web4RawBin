@@ -299,3 +299,20 @@ Expert closed the query-auth leak; I restarted remoteShells:0.2 → served 0.7.1
 - **LIVE (solo-verifiable via the known owner literal):** query-auth CLOSED — `GET /server-manager?token=<owner>`, `/api/server-manager/tree?token=<owner>`, `/api/server-manager/whoami?token=<owner>`, `/server-manager?playerToken=<owner>` ALL → **403** (were 200 pre-fix). No-token /server-manager → 403 (reject-direction intact). `/trace`+`/scenario` → 200 (unregressed).
 - **Tron/tester-only:** cookie-path owner → 200 (needs a live owner sm_session, un-mockable solo). ws `?token=` closed by the same header-only change (shared playerTokenFrom). Tester's explicit `?token=→403` assertion (slice b0ee7dc6) will pass.
 - **VERDICT:** query-auth leak CLOSED; cookie-only enforced by construction. R31.2 security AC holds. No regression.
+
+## R31.4 TERMINAL LIFECYCLE REVIEW + single-pane-zoom feasibility (robbin-architect 2026-07-22, Tron dialogue)
+Tron: review the attach-session lifecycle; can each terminal be a SINGLE pane zoomed to fill the drawer + auto-close on switching item? MEASURED the code + tmux behavior.
+
+### Lifecycle (measured)
+- SERVER `PtyBridge.attachPane` (PtyBridge.ts): `new-session -d -s sm_<pane>_<ts> -t <session>` (GROUPED: shares the window list, own view) + select-window + select-pane; node-pty `attach-session` RW; `cleanup()` = `term.kill()` + `kill-session sm_*` + `ws.close()`, fires on `ws close`/`ws error`/`term.exit`. So the grouped session dies when the ws closes. Correct.
+- CLIENT `rb-terminal-detail`: `teardown()` (ws.close → server cleanup) fires on `disconnectedCallback` (drawer removes the element) + `attributeChangedCallback` (uuid pane→pane change). So switching SHOULD auto-close.
+- **LEAK (observed 14 live `sm_*`, dupes per pane %8×3/%16×3/%5×2):** teardown does NOT reliably fire on every item-switch — e.g. drawer MINIMIZE/peek keeps the element in the DOM (ws stays open → session lives); re-select-same-ref returns early; switching to a NON-pane node may not disconnect the terminal element. So sessions accumulate mid-run (reapOrphans only reaps at the NEXT boot). Tron's "autoclose on switching the item" = harden this: on ANY selection change away from the current pane (incl. minimize / non-pane select / drawer close), teardown → kill. CLEAR FIX, do it.
+
+### Single-pane zoomed — MEASURED tmux constraint (feasibility)
+Test: scratch session (2 panes) + grouped session; `resize-pane -Z` a pane in the GROUPED session → the ORIGINAL session's `window_zoomed_flag` ALSO became 1. **tmux zoom is a WINDOW property and grouped sessions SHARE window objects → zoom leaks to ALL viewers.** So zooming to isolate one pane in the grouped session DISRUPTS the real agent's view (+ Tron's own attached robbinTeam2 view) — violates the R31.4 no-disrupt invariant. Literal "zoom the pane in the grouped session" is NOT safe.
+OPTIONS (need Tron's call):
+- **A — grouped + MAXIMIZE the drawer** (full-viewport drawer for max terminal space; shows the whole window/all panes; no isolation; NO disrupt; easy). Likely the quick win.
+- **B — grouped + zoom** (single pane full, but DISRUPTS other viewers — measured; only OK if nobody else views that window; NOT recommended, breaks no-disrupt).
+- **C — single-pane PIPE bridge** (`pipe-pane` output + `send-keys` input to the ONE pane: isolated + full-size + NON-disruptive, but degraded interactivity — no native resize/TUI/control-chars; a different bridge than PtyBridge, which we rejected earlier for "not truly interactive").
+- **D — restructure targets to single-pane windows** (each agent = its own window/session → grouped-attach naturally shows one pane full; heavy, changes the hiveMind layout).
+RECOMMENDATION: (1) ship the auto-close-on-switch lifecycle fix now (clear, wanted, fixes the leak). (2) For single-pane: A (maximize drawer) is the non-disruptive quick win; true one-pane isolation needs C (accept degraded interactivity) or D (layout change) — Tron/PO decide the tradeoff. Full interactive + single-pane-isolated + no-disrupt is NOT simultaneously achievable with tmux grouped sessions (zoom is shared).
