@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "ab99233d-42a8-4550-bce2-77cfbfe5b26d",
+  "name": "viewport.responsiveMode",
+  "description": "R31.5.4 (viewport-mode, FOUNDATION) — RbStrip.applyViewportMode: container-query-driven landscape|portrait mode on the shared RbStrip (landscape=all-visible flex; portrait=horizontally-scrollable + scroll-snap on compartments, bars ride leading edge; focus-restore active-compartment on flip). Reuses the RbStrip class (shared w/ 5.2 strip.renderDescriptors), NOT a new component. Singular-chain. Architect topology (R31.5 5.4).",
+  "class": "ior:instance:91d575d0-9e7a-4e5c-8269-02a3af0eda1a",
+  "method": "ior:instance:232a66f7-3210-4322-a8eb-00c7f621c209",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.5-build-decomposition.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -5,7 +5,8 @@
     "name": "RbStrip",
     "file": "src/public/ts/trace/rb-strip.ts",
     "methods": [
-      "ior:instance:9053202e-a636-40ac-9c48-45dd8b6a823d"
+      "ior:instance:9053202e-a636-40ac-9c48-45dd8b6a823d",
+      "ior:instance:232a66f7-3210-4322-a8eb-00c7f621c209"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
