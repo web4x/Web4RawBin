@@ -1,3 +1,4 @@
+// [test:uuid:432beb1a-a6fe-44d2-8e68-c76b36617566] R31.5.5 RbEditorLayout.editorStripDescriptor (Impl 3b8e6c24) — GREEN DET-3x @390 v0.7.119: pure descriptor [C:Left, bar:leftCB, C:Center, bar:rightCB, C:Right] (nav Left/Center/Right) drives an rb-strip INSTANCE → 3 compartments + 2 bars (one-model-two-instances alongside WODA 5.6). AC-INV-PRESENTATION.
 // [test:uuid:d826997d-dd96-4b52-95fe-d3e269cc8edf] R31.5.6 RbWoda.wodaStripDescriptor (Impl 5f9d2a7c) — GREEN DET-3x @390 v0.7.119: pure descriptor [bar:What, C:Overview, C:Details, bar:Actions] (exact shape) drives an rb-strip INSTANCE → 2 compartments + 2 bars (one-model-two-instances). AC-INV-PRESENTATION.
 // [test:uuid:99ab8d5e-5def-4763-9efa-889bfb45c34d] R31.5.3 RbSnapNav.render (Impl 7c1f9a3e) — GREEN DET-3x @390 v0.7.119: one .rb-snap-btn per COMPARTMENT of the bound strip (Alpha|Gamma), BARS NOT buttons (Bar1 excluded), labels from descriptor, click → native scrollIntoView snap fires. AC-INV-PRESENTATION.
 // R31.5.6 RbWoda.wodaStripDescriptor (Impl 5f9d2a7c) + R31.5.3 RbSnapNav.render (Impl 7c1f9a3e) — AC-INV-PRESENTATION,
@@ -52,10 +53,23 @@ try {
     });
     const snapNavOk = c53.btnCount === 2 && c53.compartments === 2 && /Alpha/.test(c53.labels.join(',')) && /Gamma/.test(c53.labels.join(',')) && !/Bar1/.test(c53.labels.join(',')) && c53.snapped.length >= 1;
 
+    // 5.5 editorStripDescriptor — [C:Left, bar:leftCB, C:Center, bar:rightCB, C:Right] (nav {Left,Center,Right}) → rb-strip INSTANCE
+    const c55 = await page.evaluate(() => {
+      const host = document.getElementById('host'); host.innerHTML = '';
+      const ed = document.createElement('rb-editor-layout'); // detached — call the PURE descriptor without connectedCallback
+      const desc = ed.editorStripDescriptor();
+      const strip = document.createElement('rb-strip'); host.appendChild(strip); strip.items = desc;
+      return { desc, compCount: strip.querySelectorAll(':scope > .rb-seg-compartment').length, barCount: strip.querySelectorAll(':scope > .rb-bar').length };
+    });
+    const editorDescOk = JSON.stringify(c55.desc) === JSON.stringify([
+      { id: 'left', kind: 'compartment', label: 'Left' }, { id: 'leftCB', kind: 'bar' }, { id: 'center', kind: 'compartment', label: 'Center' },
+      { id: 'rightCB', kind: 'bar' }, { id: 'right', kind: 'compartment', label: 'Right' }]);
+    const editorInstanceOk = c55.compCount === 3 && c55.barCount === 2; // 3 editor panes (L/C/R) + 2 change-bars
+
     await ctx.close();
-    const pass = descShapeOk && wodaInstanceOk && snapNavOk;
+    const pass = descShapeOk && wodaInstanceOk && snapNavOk && editorDescOk && editorInstanceOk;
     results.push(pass);
-    console.log(`iter ${i}: [5.6]descShape=${descShapeOk} wodaInstance=${wodaInstanceOk}(${c56.compCount}C+${c56.barCount}bar labels=${c56.compLabels.join('|')}) | [5.3]snapNav=${snapNavOk}(btns=${c53.btnCount} labels=${c53.labels.join('|')} bars-excluded=${!/Bar1/.test(c53.labels.join(','))} snapped=${c53.snapped.join('|')}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: [5.6]desc=${descShapeOk} inst=${wodaInstanceOk}(${c56.compCount}C+${c56.barCount}b) | [5.3]snapNav=${snapNavOk}(btns=${c53.btnCount} ${c53.labels.join('|')} noBar=${!/Bar1/.test(c53.labels.join(','))}) | [5.5]editorDesc=${editorDescOk} inst=${editorInstanceOk}(${c55.compCount}C+${c55.barCount}b) => ${pass ? 'GREEN' : 'RED'}`);
   }
 } finally { await browser.close(); }
 
