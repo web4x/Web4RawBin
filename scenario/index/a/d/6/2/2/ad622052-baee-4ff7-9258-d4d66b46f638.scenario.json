@@ -4,7 +4,8 @@
     "uuid": "ad622052-baee-4ff7-9258-d4d66b46f638",
     "name": "FeatureManager.allowedUsersChildren impl",
     "tests": [
-      "ior:instance:55d125ee-d76a-4fcd-8797-4a51e0e965b5"
+      "ior:instance:55d125ee-d76a-4fcd-8797-4a51e0e965b5",
+      "ior:instance:f38f87af-26ba-42cb-9516-8e4447f98e4a"
     ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
