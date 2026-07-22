@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b5eb6953-24e0-4213-8fe9-dd1b48b8099c",
+    "name": "Build.generateVersion impl",
+    "tests": [],
+    "sourceFile": "ior:file:build.mjs",
+    "designAhead": false,
+    "description": "BUILT v0.7.103 (commit 4a4f69985): build.mjs generateVersion() reads the ONE ior:class:Config singleton (scenario/index/c/o/n/f/i/config-singleton-...) → version, semver-validates (fail-loud), surgically write-backs package.json's version field (now a generated derivative). The returned version stamps sw.js CACHE_NAME + build-manifest.version + __BUILD_VERSION__ → all consumers derive-equal by construction (INV-V1, verified 0.7.103 across all four). server.ts getVersion reads the build-stamped manifest (not per-request package.json → served==built, AC-c). start.mjs guards INV-V3 (scoped tree-clean landmine) + INV-V1 (post-build agreement). Marker [impl:uuid:b5eb6953-...] on the generateVersion() decl in build.mjs. R31.7 single-source typed version."
+  },
+  "ownerIor": "ior:instance:dee42cc1-b8b4-4730-a01b-f8e8fbb6d8ac"
+}

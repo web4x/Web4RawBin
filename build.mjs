@@ -14,18 +14,21 @@ if (fs.existsSync(distDir)) {
   }
 }
 
-// R31.7 SINGLE-SOURCE VERSION: the version's ONE source of truth is the typed ior:class:Config singleton.
-// build.mjs GENERATES every consumer from it — package.json (surgical write-back), sw.js CACHE_NAME, build-manifest,
-// and the __BUILD_VERSION__ bundle const — so no hand-maintained copy can desync (the phantom-7.99 root). Bump the
-// version by editing the Config unit's `version` field ONLY, then build.
-const CONFIG_UNIT = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';
-const version = JSON.parse(fs.readFileSync(CONFIG_UNIT, 'utf-8')).model.version;
-if (!/^\d+\.\d+\.\d+$/.test(String(version))) throw new Error(`R31.7: Config unit version "${version}" is not semver — refusing to build (${CONFIG_UNIT})`);
-// package.json is now a GENERATED DERIVATIVE: surgical regex write-back of ONLY the version field (preserve all other
-// keys + exact formatting, same discipline as the sw.js stamp) — a hand-edit is overwritten on the next build.
-let pkgRaw = fs.readFileSync('package.json', 'utf-8');
-const pkg = JSON.parse(pkgRaw);
-if (pkg.version !== version) { fs.writeFileSync('package.json', pkgRaw.replace(/("version":\s*")[^"]*(")/, `$1${version}$2`)); }
+// [impl:uuid:b5eb6953-24e0-4213-8fe9-dd1b48b8099c] Build.generateVersion (Method dee42cc1, off Class b6946e59, UC
+// config.singleSourceVersion 83e3891a) — R31.7 SINGLE-SOURCE VERSION: read the ONE typed ior:class:Config singleton
+// → version (semver-validated, fail-loud), and surgically write-back package.json's version field so it becomes a
+// GENERATED DERIVATIVE not the source. The returned value stamps sw.js CACHE_NAME + build-manifest + __BUILD_VERSION__
+// below → every consumer derive-equal by construction (INV-V1); no hand-copy can desync (the phantom-7.99 root).
+// Bump the version by editing the Config unit's `version` field ONLY, then build.
+function generateVersion() {
+  const CONFIG_UNIT = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';
+  const v = JSON.parse(fs.readFileSync(CONFIG_UNIT, 'utf-8')).model.version;
+  if (!/^\d+\.\d+\.\d+$/.test(String(v))) throw new Error(`R31.7: Config unit version "${v}" is not semver — refusing to build (${CONFIG_UNIT})`);
+  const pkgRaw = fs.readFileSync('package.json', 'utf-8'); // surgical regex write-back of ONLY the version field (preserve all other keys + formatting, same discipline as the sw.js stamp)
+  if (JSON.parse(pkgRaw).version !== v) fs.writeFileSync('package.json', pkgRaw.replace(/("version":\s*")[^"]*(")/, `$1${v}$2`));
+  return v;
+}
+const version = generateVersion();
 
 const result = await esbuild.build({
   entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts'],

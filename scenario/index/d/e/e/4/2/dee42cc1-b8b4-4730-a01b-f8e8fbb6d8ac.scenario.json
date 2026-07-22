@@ -5,7 +5,9 @@
     "name": "Build.generateVersion",
     "description": "build.mjs FIRST step: read the ior:class:Config singleton (ScenarioIndex.get) -> const version = config.model.version (semver-validated via ConfigModel) REPLACING pkg.version as the build version input; then atomically stamp ALL derivatives from that one value — package.json version (write-back, surgical field), sw.js CACHE_NAME (regex stamp), build-manifest version field, and the __BUILD_VERSION__ bundle const. Consumers derive-equal by construction (INV-V1) so a rebuild can never desync them. Design-ahead (architect 23c7873da); expert points its impl here (marker on the generateVersion decl in build.mjs); NOT self-minted (#126).",
     "sourceFile": "ior:file:build.mjs",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b5eb6953-24e0-4213-8fe9-dd1b48b8099c"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
