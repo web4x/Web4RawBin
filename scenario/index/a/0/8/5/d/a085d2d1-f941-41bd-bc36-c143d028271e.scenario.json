@@ -2,15 +2,16 @@
   "ior": "ior:class:Class",
   "model": {
     "uuid": "a085d2d1-f941-41bd-bc36-c143d028271e",
-    "name": "RbFeatureManagerDetail",
-    "file": "src/public/ts/trace/rb-feature-manager-detail.ts",
+    "name": "RbFeatureDetail",
+    "file": "src/public/ts/trace/rb-feature-detail.ts",
     "methods": [
-      "ior:instance:ee4143df-4dba-4c35-b7a4-73dd3c22be75"
+      "ior:instance:ee4143df-4dba-4c35-b7a4-73dd3c22be75",
+      "ior:instance:ca286163-831c-49f8-aaa7-7f515d6fa74b"
     ],
     "useCases": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-manager-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
     "unitLinks": [],
-    "note": "Custom element <rb-feature-manager-detail> — the FeatureManager admin VIEW (R31.8 AC-featuremanager-view). Parallel to RbTerminalDetail 1d632082. REUSES the shared RbDetailDrawer (no new drawer): mount rides the R31.4 DRY detail-flow via tagMap feature:<uuid> -> rb-feature-manager-detail in RbDetailDrawer.renderDetailForRef, opened by selectionModel.select('feature:<uuid>'). Fresh uuid per architect (topology 0e6fe16c0 / design 1d98e15a5). Expert builds rb-feature-manager-detail.ts."
+    "note": "Custom element <rb-feature-detail> — the FEATURE-node detail view in the shared rb-detail-drawer (tagMap feature:<uuid> -> rb-feature-detail). REPOINTED from RbFeatureManagerDetail (uuid UNCHANGED, like ProfileEditor->ProfilePage) when the FeatureManager view became the native scenario-unit itemView tree. Methods: mount (NEW feature-detail render + grant container, node-3) + userComplete (NEW c2, node-2) + applyGrant (KEPT). The old mount-as-list b7d6ca6a is retired/superseded. Architect ruling 5a2f3cf37."
   },
   "ownerIor": "ior:instance:a93f5fce"
 }

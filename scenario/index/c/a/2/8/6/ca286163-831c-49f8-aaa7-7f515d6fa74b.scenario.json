@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ca286163-831c-49f8-aaa7-7f515d6fa74b",
+    "name": "RbFeatureDetail.userComplete",
+    "description": "userComplete(query: string): NODE-2 OOSH-c2 completion consuming node-1 searchUsers. Debounced GET /api/feature-manager/users?q= (-> FeatureManager.searchUsers 1e75e388) -> dropdown of MASKED matches (avatar + name + masked-id, ranked) with keyboard nav (up/down/Enter/Esc, highlight) -> on SELECT call applyGrant(thisFeatureUuid, selectedToken, 'grant'). debounce / dropdown-render / key-handling = private helpers (not Methods). LOAD-BEARING marked decl (expert marks, #126). On Class RbFeatureDetail a085d2d1. Architect topology 5a2f3cf37.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e"
+}

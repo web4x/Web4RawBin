@@ -2,9 +2,9 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "cfde8f48-a004-4a0a-818e-7306c0d0c2dd",
-    "name": "RbFeatureManagerDetail.applyGrant impl",
+    "name": "RbFeatureDetail.applyGrant impl",
     "tests": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-manager-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
     "designAhead": false,
     "description": "BUILT v0.7.108: RbFeatureManagerDetail.applyGrant @ src/public/ts/trace/rb-feature-manager-detail.ts — POST /api/feature-manager {action:grant|revoke,feature,token} (HARDCODED-owner root-of-trust, auth via the sm_session cookie credentials:same-origin; non-owner→403) then re-render from authoritative server state. Marker [impl:uuid:cfde8f48-...] on the applyGrant decl (name-matches). R31.8b."
   },

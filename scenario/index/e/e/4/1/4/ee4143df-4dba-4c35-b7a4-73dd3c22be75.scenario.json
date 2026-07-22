@@ -2,9 +2,9 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "ee4143df-4dba-4c35-b7a4-73dd3c22be75",
-    "name": "RbFeatureManagerDetail.applyGrant",
+    "name": "RbFeatureDetail.applyGrant",
     "description": "applyGrant(featureUuid, token, action: 'grant' | 'revoke'): LOAD-BEARING action - POST /api/feature-manager (owner-gated, the PROVEN slice-(b) endpoint backed by grantFeature 5e2f6781 / revokeFeature 987a31a9) -> re-render. ONE method for BOTH grant + revoke (action param = DRY). A distinct tester-gated security-adjacent action (grant flips a live user 403->200; revoke->403) = its own chain node. Expert marks [impl:uuid] on the applyGrant decl (#126). Architect topology 0e6fe16c0.",
-    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-manager-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
     "implementations": [
       "ior:instance:cfde8f48-a004-4a0a-818e-7306c0d0c2dd"
     ],

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c823aa11-cda4-4b5e-91ef-b7ab2d500819",
+  "name": "featureManager.userComplete",
+  "description": "R31.8c NODE-2 — RbFeatureDetail.userComplete: the c2-style user completion for the grant control. Consumes node-1 searchUsers via debounced GET; dropdown of masked/ranked matches + keyboard nav; on select -> applyGrant(feature, token, 'grant'). Singular-chain. Architect topology 5a2f3cf37.",
+  "class": "ior:instance:a085d2d1-f941-41bd-bc36-c143d028271e",
+  "method": "ior:instance:ca286163-831c-49f8-aaa7-7f515d6fa74b",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-user-selector.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
