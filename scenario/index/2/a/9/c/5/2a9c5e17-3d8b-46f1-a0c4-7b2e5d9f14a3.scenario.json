@@ -3,7 +3,9 @@
   "model": {
     "uuid": "2a9c5e17-3d8b-46f1-a0c4-7b2e5d9f14a3",
     "name": "RbStrip.applyViewportMode impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:f4419019-11a6-401b-bd12-af9344d47d13"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
     "designAhead": false,
     "description": "R31.5.4: RbStrip.applyViewportMode(mode:'landscape'|'portrait') @ rb-strip.ts. Sets data-mode → app.css branches LANDSCAPE (flex; overflow:visible) vs PORTRAIT (overflow-x:auto; scroll-snap-type:x mandatory; compartments=snap-targets scroll-snap-align:start, bars ride the leading edge; --rb-peek:12vw → 88vw compartment min-width). Focus-restore: scrollIntoView the ACTIVE compartment on a real landscape↔portrait flip. observeContainer (private) = ResizeObserver container-query driver (composes when nested). Marker [impl:uuid:2a9c5e17-...] on the applyViewportMode decl (#126)."

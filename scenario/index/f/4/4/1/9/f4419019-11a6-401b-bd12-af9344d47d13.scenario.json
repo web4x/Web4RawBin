@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f4419019-11a6-401b-bd12-af9344d47d13",
+    "name": "test:R31.5.4 applyViewportMode data-mode + focus-restore (RbStrip.applyViewportMode)",
+    "description": "Bridged to test/visual/r315-foundation-gate.mjs (GREEN DET-3x @390px, net-new components esbuild-bundled + gated standalone). Verifies data-mode branch landscape<->portrait (app.css flex-all-visible vs scroll-snap) + focus-restore: on a real flip (prev set + activeId) scrollIntoView the ACTIVE compartment. AC-INV-PRESENTATION (same instance all presentation combos = same functional). Marker f4419019 adopted from origin (measured, not invented). One-intent-per-piece (R31.5 foundation).",
+    "sourceFile": "ior:file:test/visual/r315-foundation-gate.mjs",
+    "implementations": [
+      "ior:instance:2a9c5e17-3d8b-46f1-a0c4-7b2e5d9f14a3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2a9c5e17-3d8b-46f1-a0c4-7b2e5d9f14a3"
+}

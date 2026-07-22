@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "14df64cd-a8af-4c40-aaf8-f742ab91ea5f",
+    "name": "test:R31.5.2 renderDescriptors diff/patch identity (RbStrip.renderDescriptors)",
+    "description": "Bridged to test/visual/r315-foundation-gate.mjs (GREEN DET-3x @390px, net-new components esbuild-bundled + gated standalone). Verifies ordered row from descriptors, DIFF/PATCH: reuse a segment by id (node identity preserved on re-order-in-place a,b,c->c,a,b), rebuild ONLY on kind-change, drop removed. AC-INV-PRESENTATION (same instance all presentation combos = same functional). Marker 14df64cd adopted from origin (measured, not invented). One-intent-per-piece (R31.5 foundation).",
+    "sourceFile": "ior:file:test/visual/r315-foundation-gate.mjs",
+    "implementations": [
+      "ior:instance:8f1b6c3d-0a4e-4d92-b7c5-1e9f2a6d8b40"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8f1b6c3d-0a4e-4d92-b7c5-1e9f2a6d8b40"
+}

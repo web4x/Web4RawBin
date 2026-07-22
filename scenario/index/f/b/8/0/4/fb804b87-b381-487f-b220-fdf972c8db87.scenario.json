@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fb804b87-b381-487f-b220-fdf972c8db87",
+    "name": "test:R31.5.1 applyPresentation AC-INV-PRESENTATION — content never reparented + bar proxies source (RbCompartment.applyPresentation)",
+    "description": "Bridged to test/visual/r315-foundation-gate.mjs (GREEN DET-3x @390px, net-new components esbuild-bundled + gated standalone). Verifies expanded<->bar flip branches ONLY presentation (attr + bar strip); .rbc-content children NEVER reparented (same node identity across flips, isConnected); bar item PROXIES source element (click->source.click). AC-INV-PRESENTATION (same instance all presentation combos = same functional). Marker fb804b87 adopted from origin (measured, not invented). One-intent-per-piece (R31.5 foundation).",
+    "sourceFile": "ior:file:test/visual/r315-foundation-gate.mjs",
+    "implementations": [
+      "ior:instance:4d7e2a91-6b3c-4f8a-9e1d-2c5b7a0f3e64"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4d7e2a91-6b3c-4f8a-9e1d-2c5b7a0f3e64"
+}

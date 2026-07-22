@@ -3,7 +3,9 @@
   "model": {
     "uuid": "8f1b6c3d-0a4e-4d92-b7c5-1e9f2a6d8b40",
     "name": "RbStrip.renderDescriptors impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:14df64cd-a8af-4c40-aaf8-f742ab91ea5f"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-strip.ts",
     "designAhead": false,
     "description": "R31.5.2: RbStrip.renderDescriptors(descriptors:StripDescriptor[]) @ rb-strip.ts. Builds the ordered row — 'compartment'→<rb-compartment>, 'bar'→.rb-seg-bar; DIFF/PATCH idempotent (reuse a segment by id, rebuild only on kind-change, drop removed, re-order in place) like rb-trace-tree.items. Landscape flex-row is the default layout (scroll-snap MODE = 5.4 applyViewportMode). buildSegment (private) = segment-builder. StripDescriptor={id,kind,content} data-contract. Marker [impl:uuid:8f1b6c3d-...] on the renderDescriptors decl (#126)."
