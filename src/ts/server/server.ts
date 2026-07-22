@@ -28,6 +28,7 @@ import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
+import { FeatureManager } from './FeatureManager.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
@@ -143,6 +144,7 @@ interface UserProfile {
   consolidatedFrom: string[];
   redirectTo?: string;
   bugReports: { date: string; text: string; status: string }[];
+  features?: string[]; // R31.8: Feature-uuid refs the user is granted — mirror of Feature.allowedUsers[] (FeatureManager grant/revoke writes both sides)
 }
 
 interface DeviceRecord {
@@ -970,6 +972,27 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // API: bug status update
+    // R31.8 FeatureManager grant/revoke — ROOT-OF-TRUST (INV-F4): HARDCODED owner gate (requireOwnerHttp→assertOwner),
+    // NOT the data-driven feature gate → a non-owner (even a ServerManager member) CANNOT self-grant/escalate. Mirrors
+    // Feature.allowedUsers[] ↔ profile.features[] both sides atomically. Distinct path (/api/feature-manager) so it is
+    // NOT swallowed by the /api/server-manager/* data-driven choke-point.
+    if (req.method === 'POST' && filepath === '/api/feature-manager') {
+      if (!requireOwnerHttp(req, res)) return; // HARDCODED owner ONLY (root-of-trust)
+      let body = '';
+      req.on('data', (chunk: Buffer) => body += chunk);
+      req.on('end', () => {
+        try {
+          const { action, feature, token } = JSON.parse(body || '{}');
+          if ((action !== 'grant' && action !== 'revoke') || !feature || !token) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-request"}'); return; }
+          const r = action === 'grant'
+            ? FeatureManager.grantFeature(String(feature), String(token), userProfiles, saveProfiles)
+            : FeatureManager.revokeFeature(String(feature), String(token), userProfiles, saveProfiles);
+          addLog(`[feature-manager] ${action} feature=${String(feature).slice(0, 8)} token=${String(token).slice(0, 8)} ok=${r.ok}${r.error ? ' err=' + r.error : ''}`);
+          res.writeHead(r.ok ? 200 : 404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(r));
+        } catch { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-json"}'); }
+      });
+      return;
+    }
     if (req.method === 'POST' && filepath === '/api/bug-status') {
       let body = '';
       req.on('data', (chunk: Buffer) => body += chunk);

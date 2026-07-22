@@ -5,7 +5,9 @@
     "name": "FeatureManager.grantFeature",
     "description": "grantFeature(featureName, token): HARDCODED-owner-gated write (root-of-trust, NOT data-driven — closes self-grant escalation). Adds token to Feature.allowedUsers AND mirror-maintains profile.features (both sides). Gated by ServerManagerGuard.assertOwner (the R31.2 OWNER_TOKEN literal). INV-F4: a non-owner grant attempt -> 403, never mutates. LOAD-BEARING marked decl. Architect design 83836631a.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:5e2f6781-28bb-4934-9c69-a4595caeb08b"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
