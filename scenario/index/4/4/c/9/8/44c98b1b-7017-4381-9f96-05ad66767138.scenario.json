@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "44c98b1b-7017-4381-9f96-05ad66767138",
+  "name": "paneTerminal.teardown",
+  "description": "R31.4 T31.4 auto-close (INV-T1): RbDetailDrawer.tearDownTransientDetail() tears down the transient terminal detail on minimize / ESC / deselect → ws.close → the sm_ grouped tmux session is killed → 0 leaked sm_ sessions. Sibling of paneTerminal.attach (server PtyBridge.attachPane) + paneTerminal.mount (client RbTerminalDetail.mount) — the drawer-owned TEARDOWN lifecycle. Singular-chain (#27/#38): this is a DISTINCT method on RbDetailDrawer, so a FRESH UC (not riding attach/mount). Architect topology.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:9c6391fc-0c34-4141-8a39-44080730879f",
+  "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9c6391fc-0c34-4141-8a39-44080730879f",
+    "name": "RbDetailDrawer.tearDownTransientDetail",
+    "description": "tearDownTransientDetail() (rb-detail-drawer.ts:263) — the INV-T1 terminal teardown: on minimize / ESC / deselect, close the terminal ws and kill the sm_ grouped tmux session so NO sm_ session leaks. NEW load-bearing decl on the EXISTING RbDetailDrawer; expert places [impl:uuid:cb153623] on the tearDownTransientDetail decl (#126). Test = INV-T1 0-leaked-sm_ @390 (tester). Architect topology.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:cb153623-3acb-4c45-8dc8-e2bceeba4ae1"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

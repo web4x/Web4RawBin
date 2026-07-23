@@ -14,7 +14,8 @@
   "useCases": [
    "ior:instance:fa1845d3-88e2-4c9b-9618-f427fc262b56",
    "ior:instance:8f3bf119-ce4d-4d42-821c-f1b04d608768",
-   "ior:instance:8bd83486-2013-4560-93e4-eb934a94102e"
+   "ior:instance:8bd83486-2013-4560-93e4-eb934a94102e",
+   "ior:instance:44c98b1b-7017-4381-9f96-05ad66767138"
   ],
   "unitLinks": [],
   "discoverySource": {

@@ -74,6 +74,7 @@
   -> paneTerminal.attach [uc:uuid:fa1845d3-88e2-4c9b-9618-f427fc262b56]
   -> paneTerminal.mount [uc:uuid:8f3bf119-ce4d-4d42-821c-f1b04d608768]
   -> ptyBridge.reapOrphans [uc:uuid:8bd83486-2013-4560-93e4-eb934a94102e]
+  -> paneTerminal.teardown [uc:uuid:44c98b1b-7017-4381-9f96-05ad66767138]
 
 - [ ] **R31.5 — Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)**
   [requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]
