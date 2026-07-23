@@ -161,7 +161,7 @@ export class FeatureManager {
     // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
     // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
     // R31.8c enrich: masked subtitle (description) + avatar per granted-user node (still NO raw token in the ref/payload).
-    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: uid, ...(p?.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, uid) } : {}), hasChildren: false }; }); // R31.8c round-2 item(a) (Tron 10cf5cd3d): subtitle = the FULL OPAQUE userId (FIX-2 sha256[:16]) — NOT masked-phone, NOT raw token, NOT a profile-uuid (INV-F7). Same opaque ref nav keys on. OPAQUE avatar url, never p.avatar(/api/avatar/<token>)
+    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: uid, ...(p?.avatar ? { avatar: p.avatar } : {}), hasChildren: false }; }); // R31.8c round-3: REAL avatar (/api/avatar/<token>) — opaque avatar route RETIRED. NOTE: subtitle (description=uid) + the composite ref stay the opaque userId UNTIL the token↔profile-uuid resolver (profileUuidOf, HELD by PO) lands — THEN description=the real profile uuid + the ref keys off it (architect's authoritative algorithm pending).
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
@@ -206,26 +206,30 @@ export class FeatureManager {
     const au: string[] = f && Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
     return au.find((t) => t === userId || FeatureManager.userIdOf(t) === userId) || null;
   }
-  // R31.8c OPAQUE avatar URL (feature+userId, NO raw token) — the granted-user avatar route resolves it server-side.
-  static grantedAvatarUrl(featureUuid: string, userId: string): string { return `/api/feature-manager/granted-user/avatar?feature=${featureUuid}&id=${userId}`; }
 
-  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number; devices?: { platform: string }[]; bugReportCount?: number } | null {
+  // R31.8c ROUND-3 (DELIVER LITERALLY, design 0cd05131a): owner-gated (root-of-trust) → return the REAL FULL profile,
+  // NO masking. Tron on HIS owner console sees real phone / full devices / secretCode — the round-2 masking was
+  // scope-creep, DROPPED (INV-F7 withdrawn). Shape = ProfileViewData (the shared <rb-profile-view>), so the FM drawer
+  // renders IDENTICALLY to /profile. Resolution still via resolveGrantedToken(userId→token) until the token↔profile-uuid
+  // resolver (profileUuidOf, HELD) lands — the profileUuid ID row is added then. non-owner NEVER reaches here (403 at
+  // the caller, KEPT sacred). FUTURE (flagged, not now): if FM is delegated to non-owner admins, revisit token/secret exposure.
+  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): Record<string, unknown> | null {
     const token = FeatureManager.resolveGrantedToken(featureUuid, userId);
     if (!token) return null;
     const p = profiles.get(token);
     if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
+    const pp = p as SearchProfile & { secretCode?: string; features?: string[]; devices?: Record<string, unknown>[]; bugReports?: Record<string, unknown>[] };
     const identifiers: string[] = [];
-    if (p.phone) identifiers.push(FeatureManager.maskIdentifier('phone', p.phone));
-    // R31.8c round-2 item(2): ENRICH to the full field-set RbProfileView renders — masked device summaries (platform
-    // ONLY, no device ids) + bugReport COUNT. INV-F7 preserved: still NO token/secretCode/raw-avatar (opaque url only).
-    const pp = p as SearchProfile & { features?: string[]; devices?: { platform?: string; name?: string }[]; bugReports?: unknown[] };
+    if (p.phone) identifiers.push(p.phone); // REAL phone, unmasked (owner console)
     return {
       name: p.name || FeatureManager.maskToken(token),
-      ...(p.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, userId) } : {}), // OPAQUE — INV-F7: NO raw token in the URL (was p.avatar = /api/avatar/<token>)
+      ...(p.avatar ? { avatar: p.avatar } : {}),            // REAL avatar (/api/avatar/<token>) — opaque route retired
+      token,                                                 // owner sees real data
+      ...(pp.secretCode ? { secretCode: pp.secretCode } : {}),
       identifiers,
       ...(Array.isArray(pp.features) ? { grantedFeatureCount: pp.features.length } : {}),
-      ...(Array.isArray(pp.devices) ? { deviceCount: pp.devices.length, devices: pp.devices.slice(0, 8).map(dv => ({ platform: String(dv?.platform || dv?.name || 'device') })) } : {}),
-      ...(Array.isArray(pp.bugReports) ? { bugReportCount: pp.bugReports.length } : {}),
+      ...(Array.isArray(pp.devices) ? { devices: pp.devices } : {}),         // FULL device details (dot/id/ip/screen/platform/conn/lastSeen)
+      ...(Array.isArray(pp.bugReports) ? { bugReports: pp.bugReports } : {}), // FULL bug reports (status/date/text)
     };
   }
 }
