@@ -146,6 +146,16 @@ export class RbDetailDrawer extends HTMLElement {
     this.setMode('detail');
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;
+    // R31.4 leak fix (CLIENT root, architect 08b66194f — kills the drawer double-render): onSelectionChanged invokes
+    // renderDetailForRef TWICE per select (attributeChangedCallback:119 via setAttribute('ref') + the sameRef:92 path).
+    // This method is ASYNC, so its currentRef guard (above) can't dedupe two SYNCHRONOUS invocations — and R27.8(d)'s
+    // :86 currentRef='' clears it anyway → 2 renders → 2 terminal elements → 2 ws → the 1st orphans mid-connect = the
+    // leaked sm_. A SYNCHRONOUS per-ref in-flight guard, set BEFORE any await + cleared in finally, collapses the two
+    // to EXACTLY 1 render/element/ws; a later DELIBERATE re-select (after finally) still re-renders (R27.8(d) intact).
+    // Pairs with the server PtyBridge readyState reap (defense-in-depth). SHARED drawer → applies to /trace+/scenario.
+    if (panel.dataset.rendering === ref) return;
+    panel.dataset.rendering = ref;
+    try {
     const colonIdx = ref.indexOf(':');
     const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
     const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
@@ -192,6 +202,7 @@ export class RbDetailDrawer extends HTMLElement {
     el.setAttribute('uuid', uuid);
     if (detailGraph) el.graph = detailGraph;
     panel.appendChild(el);
+    } finally { if (panel.dataset.rendering === ref) delete panel.dataset.rendering; } // R31.4 leak fix: release the in-flight guard AFTER the async render completes → a later deliberate re-select re-renders (R27.8(d)); the 2nd sync invocation of THIS select already returned above
   }
 
   // [impl:uuid:159fb8f0-856e-4c89-afd8-19b7579d91cd] R30.21 RbDetailDrawer.resolveDetailUnit

@@ -67,6 +67,12 @@ export class PtyBridge {
     });
     ws.on('close', cleanup);
     ws.on('error', cleanup);
+    // R31.4 leak fix (server defense, closes the mid-connect race): the ws can CLOSE during the async attach setup
+    // above (client double-render tears down the 1st terminal mid-connect) BEFORE this close handler existed → the
+    // 'close' event fires with no listener → orphaned sm_. If the ws is no longer OPEN(1) by the time we finish
+    // wiring, reap the just-created session NOW. Correct-by-construction at the session-owning site: no sm_ outlives
+    // its ws, independent of ANY client render behavior.
+    if (ws.readyState !== 1) { cleanup(); return; } // 1 = WebSocket.OPEN (type-only import → numeric literal)
     try { ws.send(JSON.stringify({ t: 'ready', pane: paneId })); } catch { /* */ }
   }
 
