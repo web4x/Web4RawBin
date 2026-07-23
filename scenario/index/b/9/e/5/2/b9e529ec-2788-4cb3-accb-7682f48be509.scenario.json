@@ -6,11 +6,11 @@
   "name": "Task 31.5.1: rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip",
   "slug": "task-31.5.1-rb-compartment",
   "description": "rb-compartment hosts content; a single presentation=expanded|bar attr flips EXPANDED (full content []) <-> BAR (collapsed strip | of icons/verb-buttons). Content+behavior are FIXED; only the presentation CSS + what's-shown branches — NOT two components. What-bar, changebar, Actions-bar are all rb-compartment[presentation=bar]. FOUNDATION piece (build order 1).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Task 31.5 (umbrella)](./task-31.5-concept-scrollable-viewport-woda-layout.md)\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5.1 `[requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]`\n  - down\n    - None (atomic build task)",
   "acceptanceCriteria": "- [ ] presentation=expanded|bar on ONE rb-compartment flips full-content <-> collapsed | strip (icons/verb-buttons); content+behavior fixed, only presentation CSS + what's-shown branches. What-bar/changebar/Actions-bar = rb-compartment[presentation=bar]. NOT a second component.\n- [ ] In portrait, a compartment's min-width is 88vw (via a single CSS var --rb-peek:12vw for the ~12% peek of the next compartment) — tunable, not per-snap logic (architect decision).\n- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).\n- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.",
   "subtasks": "None (atomic build task).",
-  "status": "QA Review",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:6be68334-4188-462d-912f-ed6b7767aa8a"
   ],

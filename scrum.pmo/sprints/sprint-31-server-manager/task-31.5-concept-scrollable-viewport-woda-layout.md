@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing
+  - [ ] creating test cases
+  - [~] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-ROLLUP CONDITION MET -> QA-Review (architect disk-assess + req 21f981311 R31.5 BOARD COMPLETE): all 7 children (5.1-5.7) chain-complete-to-Test + GREEN DET-3x @390, per-piece AC-INV-PRESENTATION gated (portrait scroll-snap + landscape side-by-side). UMBRELLA -> DONE gated on: (1) COMPOSED-INTEGRATION live-wiring — <rb-woda> mounted nowhere / /edit still pre-R31.5 panels; TRON RULING 87f741e23 = swap /edit to R31.5 [L]|[C]|[R] with HARD guardrail (preserve R30 diff/merge/spline/alignment/folding/deep-link, positioning!=function, no rewrite); route architect->expert->tester@390(composed+diff-merge-regression)->Tron; (2) Tron device VISUAL on the composed WODA/editor. Children QA-Review (Tron composed-visual pending).
+⚠ ROLLUP REVERTED (2026-07-23): my QA-Review flip (b3de9b556) rode on the architect board-complete assessment which was based on git COMMIT MESSAGES (21f981311), NOT the live scenario units — architect corrected. req (minter, authoritative) reports the UNIT state: 5.5/5.6 await expert Impls + 5.3/5.7 await Tests (likely revert-casualties of the earlier R31.5 scenario revert). So R31.5 is CODE-built but NOT all-7-chain-complete-to-Test at unit level. Reverted umbrella + all 7 children -> In-Progress pending req AUTHORITATIVE per-piece confirmation; I re-flip ONLY the confirmed chain-complete-to-Test pieces. Umbrella->DONE still also gated on /edit-swap (Tron-approved, expert wiring) + Tron device visual.
 
 ## Traceability
 

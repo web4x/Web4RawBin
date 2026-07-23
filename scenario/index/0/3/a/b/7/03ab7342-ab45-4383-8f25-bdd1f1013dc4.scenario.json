@@ -6,11 +6,11 @@
   "name": "Task 31.5.2: rb-strip: ordered row rendered from a descriptor array; owns layout+scroll+snap, no content logic",
   "slug": "task-31.5.2-rb-strip",
   "description": "rb-strip renders an ordered row from a descriptor array [{id,kind:'compartment'|'bar',content}]; it owns layout + scroll + snap and hosts whatever the descriptors give (NO content logic). The SAME rb-strip instantiates BOTH the editor and WODA — only the descriptor array differs; adding a new layout = a new descriptor array, zero new infra. FOUNDATION piece (build order 1).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Task 31.5 (umbrella)](./task-31.5-concept-scrollable-viewport-woda-layout.md)\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5.2 `[requirement:uuid:86d72090-6c58-4892-bb9d-3021e4830c11]`\n  - down\n    - None (atomic build task)",
   "acceptanceCriteria": "- [ ] rb-strip renders an ordered row from a descriptor array [{id,kind:compartment|bar,content}]; owns layout+scroll+snap, no content logic (hosts what descriptors give). SAME rb-strip instantiates editor AND WODA — only the descriptor array differs; new layout = new descriptor array, zero new infra.\n- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).\n- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.",
   "subtasks": "None (atomic build task).",
-  "status": "QA Review",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:86d72090-6c58-4892-bb9d-3021e4830c11"
   ],
