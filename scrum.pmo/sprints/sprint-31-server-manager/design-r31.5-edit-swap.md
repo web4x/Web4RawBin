@@ -1,0 +1,27 @@
+# R31.5 /edit-swap DESIGN — host the R31.5 layout, PRESERVE the diff/merge (robbin-architect 2026-07-23)
+
+Tron ruling 87f741e23: swap /edit to the R31.5 [Local]|[Result]|[Repo] layout; HARD GUARDRAIL — preserve the R30 3-way diff/merge (ribbons R30.34, 0px 3-pane alignment R30.30, native folding R30.53, deletion regions, accept/reject, deep-links), positioning!=function, HOSTS not rewrites, rollback-safe, STOP+flag if any function can't survive. MEASURED the shipped diff/merge + R31.5 primitives.
+
+## MEASURED — the diff/merge is ALREADY [Local]|[Result]|[Repo], and it CANNOT scroll-snap
+- `rb-diff-editor.ts` = the R30 3-way merge, a SELF-CONTAINED custom element. It renders the IntelliJ 3-pane shell **Local | Result | Repository** in `.de-panes` (`:100` `display:flex;flex-direction:row;flex:1;gap:34px;position:relative`) with 3 Monaco editors + a pixel-positioned spline-ribbon overlay + viewZone row-alignment, all INTERNAL.
+- **Tron R30.34-revert (device-validated, rb-diff-editor.ts:74-76): "ALWAYS 3 columns, no matter what — NO stacking media query; on a narrow phone the panes just get narrow (scroll/zoom), NEVER stack."** The ribbons + 0px alignment are PREDICATED on the 3 panes being CO-VISIBLE side-by-side (a ribbon/alignment across panes you can't both see is meaningless).
+- So the diff/merge IS the [Local]|[Result]|[Repo] layout already — the R31.5 editorStripDescriptor `[{C:L},{bar:leftCB},{C:C},{bar:rightCB},{C:R}]` is its generalization.
+
+## ★ GUARDRAIL FIRES on PORTRAIT SCROLL-SNAP — flagged (do NOT ship a regression)
+R31.5 viewport-mode (5.4): landscape = side-by-side, **portrait = horizontal scroll-snap (ONE compartment at a time)**. Applying portrait-scroll-snap to the 3 MERGE panes would:
+- show one pane at a time → **breaks cross-pane spline ribbons (R30.34)** + **0px 3-pane comparison alignment (R30.30)** (both need co-visible panes),
+- **contradict Tron's own device-validated R30.34 "always 3 columns, never stack"** AC.
+This is the STOP-and-flag case. **The merge's FUNCTION (3-way compare) REQUIRES the 3 panes co-visible — so by positioning!=function ITSELF, the merge cannot scroll-snap.** Portrait-scroll-snapping the merge = a function change = a regression. NOT shippable.
+
+## DESIGN — host rb-diff-editor UNCHANGED; the merge is a co-visible cluster (positioning!=function by construction)
+1. **/edit primary view = rb-diff-editor, UNCHANGED.** The R31.5 rb-editor-layout hosts it as the main content; rb-diff-editor renders its OWN [Local]|[Result]|[Repo] 3 panes + ribbons + alignment + folding + accept/reject INTERNALLY, exactly as today. Zero diff/merge rewrite → zero regression by construction. The editorStripDescriptor `[C:L,bar,C:C,bar,C:R]` DESCRIBES this layout; the CONCRETE render stays rb-diff-editor (the device-validated [L]|[C]|[R]).
+2. **The merge is a "co-visible cluster" — EXEMPT from portrait scroll-snap.** In portrait it stays **always-3-columns (R30.34)** (3 narrow columns, scroll/zoom), NOT one-pane-snap. The R31.5 strip's portrait-scroll-snap applies to the OUTER /edit chrome (file-tree ⇄ editor-area), NOT the diff panes. This is DERIVED from positioning!=function (the merge function needs co-visibility) — I designed it, but it needs Tron's one-line confirm (below) since his ruling literally maps the strip compartments to the merge panes.
+3. **Landscape side-by-side:** the [L]|[C]|[R] strip = the merge's 3 co-visible panes (as today). If the outer strip wraps them, the ribbon overlay + 0px alignment must stay in ONE shared coordinate space — SAFEST = the merge stays ONE self-contained rb-diff-editor unit (its `.de-panes` internal), the strip does NOT re-parent the individual panes. No re-parent = no ribbon/alignment risk.
+4. **Deep-links, accept/reject, folding, deletion regions, save-merged (:112-114):** all inside rb-diff-editor → untouched.
+5. **Rollback-safe:** ship behind a guard (e.g. `?layout=r31.5` or a config flag) — the pre-R31.5 /edit panels remain and are the default until the FULL diff/merge regression suite is GREEN @390 + Tron device-OK; then flip the default. One-line revert.
+
+## ★ FLAG TO TRON (via PO) — the one decision I can't make by construction
+His ruling maps the strip [L]|[C]|[R] to the merge Local/Result/Repo. Confirm the PORTRAIT behavior of the MERGE: it stays **always-3-columns (R30.34, narrow+scroll)**, NOT one-pane scroll-snap — because his device-validated diff needs co-visible panes for ribbons/alignment. (Portrait-scroll-snapping the merge would regress R30.34 — I will NOT ship that.) The scroll-snap navigation applies to non-merge /edit content. If Tron wants the literal one-pane-snap OF the merge, that's a diff/merge redesign (ribbons/alignment rework) = out of "hosts, not rewrites" scope = separate escalation.
+
+## Route / gate
+architect (this) → PO/Tron confirm the portrait-merge rule → req formalizes the /edit-swap ACs (host rb-diff-editor in rb-editor-layout, merge=co-visible-cluster-no-snap, rollback-guard) → expert wires (mount rb-diff-editor as the /edit primary via rb-editor-layout behind the guard, NO diff/merge edits) → tester @390: composed /edit renders LIVE + FULL diff/merge regression (3-way/ribbons/0px-align/folding/deletion/accept-reject/deep-link) GREEN + portrait shows merge always-3-col + landscape side-by-side → Tron device → planner umbrella DONE. GATE = composed @390 AND diff/merge regression clean (any red = revert via the guard, STOP). Client-only if /edit is client-rendered (verify); real-restart if server-side.
