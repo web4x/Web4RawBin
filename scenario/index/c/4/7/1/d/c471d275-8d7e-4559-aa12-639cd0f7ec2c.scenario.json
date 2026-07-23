@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c471d275-8d7e-4559-aa12-639cd0f7ec2c",
+    "name": "test:R31.8c-r4 AC-detail-full-profile — drawer===/profile incl Devices(N)+BugReports (ProfileView.profileViewData feed)",
+    "description": "Bridged to test/visual/r31r4-owner-interactive-gate.mjs (GREEN DET-3x @390 v0.7.127, REAL owner-interactive, screenshot-verified, NO route-intercept). Verifies AC-detail-full-profile: the FM drawer's <rb-profile-view> renders the SAME sections as /profile INCL the Devices(N) list + Bug Reports (SystemTester Devices(6) on BOTH surfaces → match) — because grantedUserProfile AND /profile now build via the SHARED ProfileView.profileViewData (the RED-1 devices-parity fix; was RED — drawer missing Devices/BugReports). Marker c471d275 adopted from origin a2be85f4e (measured, not invented).",
+    "sourceFile": "ior:file:test/visual/r31r4-owner-interactive-gate.mjs",
+    "implementations": [
+      "ior:instance:c3e6a2b4-9d1f-4e82-b7a3-5f2c8e1d6a40"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c3e6a2b4-9d1f-4e82-b7a3-5f2c8e1d6a40"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "c3e6a2b4-9d1f-4e82-b7a3-5f2c8e1d6a40",
     "name": "ProfileView.profileViewData impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:c471d275-8d7e-4559-aa12-639cd0f7ec2c"
+    ],
     "sourceFile": "ior:file:src/ts/server/ProfileView.ts",
     "designAhead": false,
     "description": "BUILT R31.8c round-4 FIX-B: NEW neutral module src/ts/server/ProfileView.ts (imports neither server.ts nor FeatureManager → no circular dep). static profileViewData(profile, opts?) maps a ServerProfileRecord → the full ProfileViewData the shared <rb-profile-view> renders — devices INLINE + token/secretCode/bugReports + optional profileUuid/connectedDeviceIds; NO summary identifiers/deviceCount. ONE builder used by BOTH FeatureManager.grantedUserProfile (FM drawer) AND server.ts /profile PROFILE-ws feed → drawer render === /profile by construction (data-driven viewer, same feed = same render). Real full data (INV-F7 owner). Marker [impl:uuid:c3e6a2b4-...] on the profileViewData decl."
