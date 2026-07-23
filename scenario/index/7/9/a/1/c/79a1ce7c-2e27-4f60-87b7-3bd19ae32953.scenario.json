@@ -5,7 +5,8 @@
     "name": "RbTerminalDetail.mount impl",
     "tests": [
       "ior:instance:c6791c06-a1f8-4815-9412-37b1a9170a6a",
-      "ior:instance:0c0a69ad-d113-40f3-ae83-db9fc7fa9844"
+      "ior:instance:0c0a69ad-d113-40f3-ae83-db9fc7fa9844",
+      "ior:instance:6f78a86f-282e-446a-bfd9-1bf2e1f9f6f3"
     ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
     "designAhead": false,

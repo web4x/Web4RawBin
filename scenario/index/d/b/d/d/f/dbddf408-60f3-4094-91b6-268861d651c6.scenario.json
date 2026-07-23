@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "sourceLine": 84,
     "tests": [
-      "ior:instance:f0d21ea3-1b05-4a2c-8d31-21c916c5030a"
+      "ior:instance:f0d21ea3-1b05-4a2c-8d31-21c916c5030a",
+      "ior:instance:6f78a86f-282e-446a-bfd9-1bf2e1f9f6f3"
     ]
   },
   "ownerIor": "ior:instance:0a902bff-b5c3-47ef-a1b3-37fe52b4c82d"

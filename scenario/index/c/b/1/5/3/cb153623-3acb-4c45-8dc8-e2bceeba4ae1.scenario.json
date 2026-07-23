@@ -4,7 +4,9 @@
     "uuid": "cb153623-3acb-4c45-8dc8-e2bceeba4ae1",
     "name": "RbDetailDrawer.tearDownTransientDetail impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:6f78a86f-282e-446a-bfd9-1bf2e1f9f6f3"
+    ]
   },
   "ownerIor": "ior:instance:9c6391fc-0c34-4141-8a39-44080730879f"
 }

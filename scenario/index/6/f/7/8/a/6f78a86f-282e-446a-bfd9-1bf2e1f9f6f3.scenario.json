@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6f78a86f-282e-446a-bfd9-1bf2e1f9f6f3",
+    "name": "test:T31.4 INV-T1 drawer-terminal auto-close — 0 sm_ leak on ALL paths + 1 sm_/open (both-layer: drawer-dedupe + PtyBridge race-reap)",
+    "description": "Bridged to test/visual/r31t4-drawer-ux-gate.mjs (GREEN DET-3x @390 v0.7.132, OBSERVE-ONLY tmux census — name-diff, clean-only-mine). Verifies T31.4 INV-T1 drawer-terminal AUTO-CLOSE: 0 sm_ tmux leak on ALL paths (close / deselect / minimize / esc + pane-switch + maximize-close) AND exactly 1 sm_ per open (double-render killed). BOTH-LAYER fix: CLIENT drawer-dedupe = RbDetailDrawer.tearDownTransientDetail (cb153623, ws.close→sm_ kill on minimize/ESC/deselect) + RbTerminalDetail.mount self-teardown (79a1ce7c, idempotent) + renderDetailForRef single-render guard (dbddf408); SERVER = PtyBridge readyState!==1 cleanup / race-reap (round-2 e8031a9ef). Also asserts maximize geometry portrait+landscape, /trace+/scenario regression, non-owner 403. Marker 6f78a86f adopted from origin a30081afc (measured line 1, not invented). Multi-impl Test — implementations[]=[cb153623, 79a1ce7c, dbddf408].",
+    "sourceFile": "ior:file:test/visual/r31t4-drawer-ux-gate.mjs",
+    "implementations": [
+      "ior:instance:cb153623-3acb-4c45-8dc8-e2bceeba4ae1",
+      "ior:instance:79a1ce7c-2e27-4f60-87b7-3bd19ae32953",
+      "ior:instance:dbddf408-60f3-4094-91b6-268861d651c6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cb153623-3acb-4c45-8dc8-e2bceeba4ae1"
+}
