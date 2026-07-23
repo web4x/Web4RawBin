@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-⚠ ROLLUP REVERTED (2026-07-23): my QA-Review flip (b3de9b556) rode on the architect board-complete assessment which was based on git COMMIT MESSAGES (21f981311), NOT the live scenario units — architect corrected. req (minter, authoritative) reports the UNIT state: 5.5/5.6 await expert Impls + 5.3/5.7 await Tests (likely revert-casualties of the earlier R31.5 scenario revert). So R31.5 is CODE-built but NOT all-7-chain-complete-to-Test at unit level. Reverted umbrella + all 7 children -> In-Progress pending req AUTHORITATIVE per-piece confirmation; I re-flip ONLY the confirmed chain-complete-to-Test pieces. Umbrella->DONE still also gated on /edit-swap (Tron-approved, expert wiring) + Tron device visual.
+ROLLUP CONDITION MET -> QA-Review (TRIPLE DISK-VERIFIED: req authoritative minter [live both-directions + Test pass] + PO independent grep + planner Test-unit check). All 7 children (5.1-5.7) CHAIN-COMPLETE-TO-TEST — Method->Impl->Test present both-dir, Tests pass: 5.1 fb804b87 / 5.2 14df64cd / 5.3 99ab8d5e / 5.4 f4419019 / 5.5 432beb1a / 5.6 d826997d / 5.7 db12e833. (The architect 5.5/5.6-await-Impl + 5.3/5.7-await-Test flag was a commit-msg-vs-unit STALE read, NOT authoritative; disk wins -> my revert 759230a90 was over-correction, undone here.) UMBRELLA -> DONE gated on the ONE real blocker = /edit-swap LIVE-HOST (composed layout live on /edit + full diff/merge regression + Tron device; ACs on R31.5.5 4c528501c) — NOT unit re-builds.
 
 ## Traceability
 
