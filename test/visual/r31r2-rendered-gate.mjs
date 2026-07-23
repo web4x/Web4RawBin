@@ -1,3 +1,7 @@
+// [test:uuid:98a8e5ce-bdf1-45ee-837b-b5f5b48cd82b] R31.8c-r2 AC-detail-full-profile — RbProfileView.render (Impl 4e1c8a92): FM drawer detail renders the FULL shared <rb-profile-view> (name+avatar+Identifiers+Devices+Feature-grants+Bug-reports rows), NOT a name+phone stub. INV-F7: no Token/Secret rows on a masked feed. GREEN DET-3x @390 v0.7.124.
+// [test:uuid:7b8230ee-0974-440e-80ca-dfad707af963] R31.8c-r2 AC-item-description-full-uuid — allowedUsersChildren (Impl ad622052): granted-user child SUBTITLE (.oi-desc) == OPAQUE userId sha256[:16] (d5e3bb07a1f4c9e2), NOT masked-phone (+49..723), NOT raw token. GREEN DET-3x @390 v0.7.124.
+// [test:uuid:2b56f427-b23d-42c1-9984-8379335a546f] R31.8c-r2 AC-drawer-actions-layout+auto-update — RbProfileDetail.mount (Impl 3f61d7d8): Revoke button directly UNDER the grab-bar with <rb-profile-view> BELOW it (rev.top<view.top); Revoke → POST + fm-tree-refresh auto-updates the tree. GREEN DET-3x @390 v0.7.124.
+// [test:uuid:3462958e-dcd4-449b-92c6-ea2e0e10fd60] R31.8c-r2 AC-collapsed-child-count-eager — FeatureManager.featureRoots childCount (Impl 79b22596, distinct-intent from functional 3a571c7e): COLLAPSED feature badge == real granted-user count (2, not 0) via featureRoots.childCount threaded through rb-trace-tree:186→computeBadges. RED→GREEN (bug I found→expert fix e60062afa). GREEN DET-3x @390 v0.7.124.
 // R31.8c ROUND-2 RENDERED-surface gate (Tron IMG_4616) — DET-3x @390 iPhone-12, verify-by-PID. served v0.7.123 pid 3371161.
 // Gate the RENDERED DOM (round-1 stubbed the surface): (1) drawer detail = FULL <rb-profile-view> (masked fields), NOT a
 // name+phone stub; (2) Revoke button directly UNDER the grab-bar, viewer BELOW it; (3) granted-user child SUBTITLE ==
@@ -9,7 +13,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.123';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.124';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
 const fmBundle = fs.readdirSync(`${REPO}/src/public/dist`).find(f => /^feature-manager-.*\.js$/.test(f));
