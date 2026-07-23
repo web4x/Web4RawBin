@@ -165,6 +165,19 @@ async function init(): Promise<void> {
     const diff = layout.showDiff(filePath, { preselect: false }) as unknown as RbDiffEditor;
     void diff.openFromParams(sp, filePath);
   }
+
+  // R31.5.5 /edit-swap — behind the ?layout=r31.5 GUARD (default OFF = pre-R31.5 panels; one-line revert = drop the
+  // param). Hosts the UNCHANGED rb-diff-editor as the /edit PRIMARY view via rb-editor-layout: editorStripDescriptor()
+  // [L,bar,C,bar,R] describes the layout, showDiff mounts the CONCRETE rb-diff-editor (its own .de-panes / ribbons
+  // R30.34 / 0px 3-pane align R30.30 / native folding R30.53 / deletion / accept-reject / deep-links — ALL internal,
+  // ZERO diff/merge edits, HOST not rewrite). The merge stays a self-contained co-visible cluster (NOT re-parented) →
+  // always-3-col in portrait (R30.34), exempt from the R31.5 scroll-snap. Rides existing impls 3b8e6c24 + dc302e8e.
+  if (sp.get('layout') === 'r31.5') {
+    void layout.editorStripDescriptor();                                   // R31.5.5: the descriptor drives the [L,C,R] layout description
+    if (!(sp.has('left') || sp.has('right') || sp.has('repo') || sp.has('3way'))) layout.showDiff(filePath); // plain /edit?layout=r31.5 → mount as primary (a deep-link diff above already mounted it)
+    const closeBtn = layout.querySelector('.el-diff .el-diff-close') as HTMLElement | null;
+    if (closeBtn) closeBtn.style.display = 'none';                          // PRIMARY = persistent view (revert via the guard, not a per-page ✕)
+  }
 }
 
 init();
