@@ -858,6 +858,19 @@ function featureAllowedUsers(name: string): string[] {
   } catch { /* fail-closed */ }
   return [];
 }
+// R31.8c round-4-fix RED-1: the ONE shared "profile → ProfileViewData" ENRICH. devices live in the SEPARATE
+// deviceRecords store (NOT on the profile record), so BOTH the /profile feed AND the FM granted-user handler must
+// merge deviceRecords.filter(ownerToken===token) BEFORE ProfileView.profileViewData — else the drawer shows devices:[].
+// (FIX-B shared the builder; this shares the ENRICH → FM drawer render === /profile by construction.) opts.profile lets
+// the /profile feed pass its already-resolved session profile (zero-drift); the granted-user path resolves by token.
+function profileViewDataForToken(token: string, opts?: { connectedDeviceIds?: string[]; profileUuid?: string; profile?: unknown }) {
+  const p = opts?.profile ?? userProfiles.get(token);
+  const myDevices = deviceRecords.filter(d => d.ownerToken === token);
+  const connectedDeviceIds = opts?.connectedDeviceIds ?? [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
+  const base = p ? { ...(p as object) } : { token };
+  return ProfileView.profileViewData({ ...base, devices: myDevices } as unknown as ServerProfileRecord, { connectedDeviceIds, profileUuid: opts?.profileUuid });
+}
+
 // R31.8 slice-d: the Features a token is a MEMBER of (token ∈ Feature.allowedUsers) → {uuid,name,icon} for the profile
 // 'Feature access' render. Membership-driven (generalizes the R31.1 ServerManager-only boolean), fail-closed on error.
 function featuresForToken(token: string): { uuid: string; name: string; icon: string }[] {
@@ -1068,8 +1081,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const q = new URLSearchParams((req.url || '').split('?')[1] || '');
       const feature = q.get('feature') || '', id = q.get('id') || '';
       if (!feature || !id) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-request"}'); return; }
-      const profile = FeatureManager.grantedUserProfile(String(feature), String(id), userProfiles as unknown as Map<string, { token: string; name?: string; phone?: string; avatar?: string }>);
-      res.writeHead(profile ? 200 : 404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(profile || { error: 'not-found' }));
+      const resolved = FeatureManager.grantedUserProfile(String(feature), String(id), userProfiles as unknown as Map<string, { token: string; name?: string; phone?: string; avatar?: string }>);
+      // R31.8c round-4-fix RED-1: grantedUserProfile now only resolves userId→token (INV-F7); server.ts builds the FULL
+      // ProfileViewData via the SHARED profileViewDataForToken (devices ENRICH from deviceRecords) → drawer === /profile.
+      const viewData = resolved ? profileViewDataForToken(resolved.token, { profileUuid: resolved.profileUuid }) : null;
+      res.writeHead(viewData ? 200 : 404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(viewData || { error: 'not-found' }));
       return;
     }
     // R31.8c round-3: the OPAQUE granted-user avatar route is RETIRED (scope-creep). grantedUserProfile +
@@ -2767,7 +2783,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: ProfileView.profileViewData({ ...profile, devices: myDevices } as unknown as ServerProfileRecord, { connectedDeviceIds }), connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4 FIX-B: m.profileViewData built by the SHARED ProfileView.profileViewData (SAME builder as the FM drawer's grantedUserProfile) → /profile render === drawer render by construction
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: profileViewDataForToken(token, { connectedDeviceIds, profile }), connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4-fix RED-1: m.profileViewData via the SHARED profileViewDataForToken ENRICH (merges deviceRecords) — SAME path the FM granted-user handler now uses → /profile render === drawer render by construction
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's

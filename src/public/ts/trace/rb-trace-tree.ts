@@ -152,6 +152,7 @@ export class RbTraceTree extends HTMLElement {
         console.log(`[renderItems] PATH-A(update) ref=${ref} children=${(root.children||[]).length}`);
         const item = ex.querySelector('rb-object-item') as any;
         if (item) item.data = { ref, type: (root.type || 'task').toLowerCase(), title: root.name, ...(root.description ? { description: root.description } : {}), ...((root.children || []).length > 0 || root.hasChildren === true ? { 'has-children': '' } : {}), ...((root.children || []).length ? { 'child-count': String((root.children || []).length) } : {}) }; // R31.3 BADGE + R31.8c: honor root.hasChildren (lazy roots keep the expander on re-render)
+        ex.dataset.childRefCount = String((root.children || []).length || root.childCount || 0); // R31.8c round-4-fix RED-2: re-stamp child-ref count on UPDATE so computeBadges' max(domCount,refCount) reflects the FRESH server count (revoke → featureRoots childCount decrements → badge decrements); previously only item.data updated → stale refCount kept the old badge
         let kids = ex.querySelector('.tt-children') as HTMLElement;
         if (!kids && root.children && root.children.length > 0) {
           kids = document.createElement('div');
@@ -176,6 +177,7 @@ export class RbTraceTree extends HTMLElement {
             if (cex) {
               const ci = cex.querySelector('rb-object-item') as any;
               if (ci) ci.data = { ref: cref, type: (child.type || 'task').toLowerCase(), title: child.name, ...(child.description ? { description: child.description } : {}), ...((child.children || []).length || child.hasChildren ? { 'has-children': '' } : {}), ...((child.children || []).length ? { 'child-count': String((child.children || []).length) } : {}) }; // R31.3 BADGE + keep chevron on re-render
+              cex.dataset.childRefCount = String((child.children || []).length || child.childCount || 0); // R31.8c round-4-fix RED-2: same fresh-count re-stamp for nested nodes on UPDATE
             } else {
               kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, child.children || [], (child.children || []).length > 0 || child.hasChildren === true, undefined, undefined, child.description)); // R31.3: pass inline children (windows keep their panes + chevron on re-render)
             }

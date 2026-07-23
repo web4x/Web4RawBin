@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { ScenarioIndex } from '../scenario/index.js';
-import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 
 // R31.8 FeatureManager (Class 9f7f345a) — grant/revoke a Feature to a user, mirror-maintained BOTH sides atomically:
 // Feature.allowedUsers[] (scenario unit on disk) ↔ profile.features[] (UserProfile). ★ ROOT-OF-TRUST (INV-F4): these
@@ -229,15 +228,15 @@ export class FeatureManager {
   // renders IDENTICALLY to /profile. Resolution still via resolveGrantedToken(userId→token) until the token↔profile-uuid
   // resolver (profileUuidOf, HELD) lands — the profileUuid ID row is added then. non-owner NEVER reaches here (403 at
   // the caller, KEPT sacred). FUTURE (flagged, not now): if FM is delegated to non-owner admins, revisit token/secret exposure.
-  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): Record<string, unknown> | null {
+  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { token: string; profileUuid: string } | null {
+    // R31.8c round-4-fix RED-1: SLIMMED to INV-F7 userId→token resolution ONLY. The full ProfileViewData needs the
+    // devices ENRICH from server.ts's SEPARATE deviceRecords store (FeatureManager has no access to it), so server.ts's
+    // profileViewDataForToken(token) builds it — for BOTH the /profile feed AND this granted-user handler (shares the
+    // ENRICH, not just the builder: FIX-B shared ProfileView.profileViewData but this path passed a raw profile without
+    // the deviceRecords-merge that /profile does → devices:[] in the drawer). Returns null iff the user isn't granted.
     const pmap = profiles as unknown as Map<string, { redirectTo?: string }>;
     const token = FeatureManager.resolveGrantedToken(featureUuid, userId, pmap);
     if (!token) return null;
-    const p = profiles.get(token);
-    if (!p) return { name: FeatureManager.maskToken(token) }; // granted but no live profile
-    // R31.8c round-4 FIX-B: return the ONE shared builder's output (same as the /profile feed) → the drawer's
-    // granted-user render === /profile BY CONSTRUCTION. Real full data (devices/token/secretCode/bugReports, INV-F7
-    // owner) + the real profileUuid (ID row via profileUuidOf). DROPPED the old summary identifiers/deviceCount/features.
-    return ProfileView.profileViewData(p as unknown as ServerProfileRecord, { profileUuid: FeatureManager.profileUuidOf(token, pmap) });
+    return { token, profileUuid: FeatureManager.profileUuidOf(token, pmap) };
   }
 }
