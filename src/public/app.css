@@ -294,6 +294,10 @@ rb-detail-drawer {
 .drawer-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding: 0 16px 16px; }
 rb-detail-drawer pre, rb-detail-drawer code { overflow-x: auto; max-width: 100%; }
 rb-detail-drawer[open] { box-shadow: 0 -2px 10px rgba(0,0,0,0.3); }
+/* R31.4 AC-maximize (Option A): full-viewport drawer = max terminal space, no-disrupt. !important beats the landscape position:static !important (.trace-page rb-detail-drawer) so maximize works in BOTH orientations; the terminal's ResizeObserver auto-re-fits to the larger box. */
+rb-detail-drawer[maximized] { position: fixed !important; inset: 0 !important; transform: none !important; width: auto !important; max-height: 100dvh !important; height: 100dvh !important; z-index: 100; border-radius: 0; }
+.drawer-max { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.1rem; cursor: pointer; padding: 8px 10px; flex-shrink: 0; }
+.drawer-max:hover { color: white; }
 /* R27.8(c): minimized = a VISIBLE, clickable peek bar (header + grab-bar); body hidden — NOT removed. */
 rb-detail-drawer[minimized] { max-height: none; overflow: hidden; }
 rb-detail-drawer[minimized] .drawer-body { display: none !important; }

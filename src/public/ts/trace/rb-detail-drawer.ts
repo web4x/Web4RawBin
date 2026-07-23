@@ -243,7 +243,7 @@ export class RbDetailDrawer extends HTMLElement {
   close(): void {
     this.removeAttribute('ref');
     this.removeAttribute('open');
-    this.removeAttribute('minimized');                                     // R27.8(b): clean slate
+    this.removeAttribute('minimized'); this.removeAttribute('maximized');  // R27.8(b) + R31.4: clean slate
     this.style.height = '';
     this.style.maxHeight = '';
     const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';        // R27.8(b): so a later reopen RE-RENDERS (not the stale-ref no-op)
@@ -260,6 +260,7 @@ export class RbDetailDrawer extends HTMLElement {
   // cleanup() kills the sm_ grouped session. Terminal-SPECIFIC by tag (persistent details correctly survive minimize/
   // peek); re-selecting the pane re-attaches via renderDetailForRef. Select-AWAY to another ref already tears down via
   // renderDetailForRef's panel.innerHTML='' — this covers the states that DON'T re-render.
+  // [impl:uuid:cb153623-3acb-4c45-8dc8-e2bceeba4ae1] RbDetailDrawer.tearDownTransientDetail (R31.4 INV-T1 auto-close)
   private tearDownTransientDetail(): void {
     const term = this.detailPanel?.querySelector('rb-terminal-detail');
     if (term) { term.remove(); const dp = this.detailPanel; if (dp) dp.dataset.currentRef = ''; } // remove → teardown → ws close → kill sm_ session; clear ref so a reopen re-renders
@@ -282,6 +283,7 @@ export class RbDetailDrawer extends HTMLElement {
     this.innerHTML = `
       <div class="drawer-header">
         ${this.renderGrabBar()}
+        <button class="drawer-max" title="Maximize">⛶</button>
         <button class="drawer-close" title="Close">✕</button>
       </div>
       <div class="drawer-body" style="display:flex;flex-direction:column">
@@ -292,7 +294,20 @@ export class RbDetailDrawer extends HTMLElement {
     // R30.20 (mode-aware close): X returns detail→chat when a chat panel exists (in-room), else minimizes to peek
     // (trace context, or already in chat). ESC still fully CLOSES; grab-bar toggles peek↔expand via closeAndMinimize().
     this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; this.closeAndMinimize(); });
+    this.querySelector('.drawer-max')!.addEventListener('click', () => this.toggleMaximize());
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.closeOrReturn());
+  }
+
+  // R31.4 AC-maximize (Option A, PO-endorsed): full-viewport drawer = maximum terminal space, NO-disrupt — the grouped
+  // attach shows the whole window (NO tmux zoom, which is a shared window property that would leak to other viewers →
+  // options C/D true single-pane isolation deferred pending Tron). Toggles the `maximized` attr → app.css lifts the
+  // drawer to fixed inset:0; the terminal's ResizeObserver auto-re-fits to the larger box. General to the shared drawer
+  // (any detail can maximize). Cleared by minimize()/close() for a clean slate.
+  private toggleMaximize(): void {
+    if (this.hasAttribute('maximized')) { this.removeAttribute('maximized'); return; }
+    this.removeAttribute('minimized');
+    const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'flex'; // maximize implies expanded
+    this.setAttribute('maximized', '');
   }
 
   setMode(m: 'chat' | 'detail' | 'preview'): void {
@@ -383,6 +398,7 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:bfe09645-5e91-42e1-a843-c882b61be9b5] R25.4 RbDetailDrawer.minimize
   minimize(): void {
     if (this.hasAttribute('minimized')) return;
+    this.removeAttribute('maximized'); // R31.4: minimize supersedes maximize
     this._restoreHeight = this.style.height || `${this.offsetHeight}px`;
     this.setAttribute('minimized', '');
     this.style.height = ''; this.style.maxHeight = ''; this.style.transform = '';
