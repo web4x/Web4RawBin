@@ -5,7 +5,9 @@
     "name": "FeatureManager.tokenOfProfileUuid",
     "description": "tokenOfProfileUuid(uuid): REVERSE resolver — map a profile/User-unit uuid back to its allowedUsers token so the server can ACT on a uuid-keyed ref (e.g. revoke resolves the child ref's profile uuid -> token). REPLACES + RETIRES resolveGrantedToken(sha256->token). Owner-gated at the caller (unchanged); the uuid-keyed ref carries no credential. LOAD-BEARING marked decl (#126). Architect round-3 design 0cd05131a.",
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:b2d5f6a1-8c39-4e74-af62-4d1b7a3e5c29"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"

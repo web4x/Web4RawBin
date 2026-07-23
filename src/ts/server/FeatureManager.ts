@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createHash } from 'node:crypto';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { ScenarioIndex } from '../scenario/index.js';
 
@@ -118,11 +117,24 @@ export class FeatureManager {
     return best;
   }
   private static maskToken(t: string): string { return t.length <= 8 ? t : t.slice(0, 4) + '…' + t.slice(-2); }
-  // R31.8c FIX-2 (defense-in-depth): an OPAQUE, deterministic, NON-reversible id for a user WITHIN the itemView tree —
-  // sha256(token) first 16 hex chars. Replaces the raw auth-token in the composite child ref so /api/trace/children can
-  // NEVER surface a live credential (even to the owner / even if a future gate regresses). No stored map: revoke re-hashes
-  // each allowedUsers token and matches. The token stays the source-of-truth in Feature.allowedUsers[] + profile.features[].
-  static userIdOf(token: string): string { return createHash('sha256').update(token).digest('hex').slice(0, 16); }
+  // [impl:uuid:a1c4e5f0-7b28-4d63-9e51-3c0a6f2d4b18] FeatureManager.profileUuidOf (Method cb125989, Class 9f7f345a) —
+  // R31.8c round-3 (req 2b4d7151b, pinned algo): map an allowedUsers TOKEN → the user's REAL Profile-unit uuid by
+  // following EXISTING consolidation only: primary = userProfiles.get(token).redirectTo || token, then the primary
+  // Profile unit's OWN model.uuid (Profile units are token-keyed → == primary when unconsolidated; == the rich uuid
+  // once Tron's temp→rich consolidation lands). NEVER sha256, NEVER a hardcoded 37fcb752, NEVER an invented field.
+  // RETIRES userIdOf(sha256). EXPECTED (not a bug): unconsolidated owner 41ad88c4 → 41ad88c4 (honest token-keyed uuid).
+  static profileUuidOf(token: string, profiles: Map<string, { redirectTo?: string }>): string {
+    const primary = profiles.get(token)?.redirectTo || token;
+    try { const u = new ScenarioIndex(SCENARIO_DIR).get(primary); const uid = (u?.model as { uuid?: string })?.uuid; return uid || primary; } catch { return primary; }
+  }
+  // [impl:uuid:b2d5f6a1-8c39-4e74-af62-4d1b7a3e5c29] FeatureManager.tokenOfProfileUuid (Method 8304f709, Class 9f7f345a) —
+  // R31.8c round-3: reverse — a profile uuid IS a token (Profile units token-keyed, model.uuid==token); verify it
+  // resolves to a Profile unit, then it's the grant key in Feature.allowedUsers[]. (Callers also match via profileUuidOf
+  // so the consolidated case — ref uuid != raw grant token — still resolves back to the grant token.)
+  static tokenOfProfileUuid(uuid: string): string {
+    try { const u = new ScenarioIndex(SCENARIO_DIR).get(uuid); if (u?.ior === 'ior:class:Profile') return uuid; } catch { /* fall through */ }
+    return uuid;
+  }
   private static maskIdentifier(kind: string, v: string): string {
     if (kind === 'phone') return v.length <= 5 ? v : v.slice(0, 3) + '••••' + v.slice(-3);
     if (kind === 'email') { const [u, d] = v.split('@'); return d ? (u.slice(0, 1) + '•••@' + d) : v; }
@@ -161,7 +173,7 @@ export class FeatureManager {
     // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
     // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
     // R31.8c enrich: masked subtitle (description) + avatar per granted-user node (still NO raw token in the ref/payload).
-    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: uid, ...(p?.avatar ? { avatar: p.avatar } : {}), hasChildren: false }; }); // R31.8c round-3: REAL avatar (/api/avatar/<token>) — opaque avatar route RETIRED. NOTE: subtitle (description=uid) + the composite ref stay the opaque userId UNTIL the token↔profile-uuid resolver (profileUuidOf, HELD by PO) lands — THEN description=the real profile uuid + the ref keys off it (architect's authoritative algorithm pending).
+    return au.map(token => { const p = profiles.get(token); const pid = FeatureManager.profileUuidOf(token, profiles as unknown as Map<string, { redirectTo?: string }>); return { uuid: `${featureUuid}:${pid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: pid, ...(p?.avatar ? { avatar: p.avatar } : {}), hasChildren: false }; }); // R31.8c round-3: subtitle(description) + composite ref = the REAL profile uuid via profileUuidOf (redirectTo→primary→Profile-unit.uuid), NOT sha256. Real avatar. Raw token stays out of the URL-ref (the uuid, not the credential).
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
@@ -185,7 +197,7 @@ export class FeatureManager {
     const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
     // R31.8c FIX-2: the id from the tree ref is now the OPAQUE userId (sha256[:16]), not the token. Resolve the REAL
     // token by matching either the raw token (backward-compat / grant path) or its hash → then remove that token.
-    const token = FeatureManager.resolveGrantedToken(featureUuid, tokenOrId); // R31.8c: DRY shared token-OR-hash resolver
+    const token = FeatureManager.resolveGrantedToken(featureUuid, tokenOrId, profiles as unknown as Map<string, { redirectTo?: string }>); // R31.8c round-3: resolve via profileUuidOf (raw token OR its profile-uuid), not sha256
     if (!token) return { ok: true }; // already absent → idempotent no-op
     const next = au.filter((t) => t !== token);
     if (next.length !== au.length) { f.unit.model.allowedUsers = next; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
@@ -201,10 +213,12 @@ export class FeatureManager {
   // token or secretCode. Backs GET /api/feature-manager/granted-user (owner/membership-gated at the caller).
   // R31.8c INV-F7: resolve the REAL token behind an opaque userId — SERVER-INTERNAL ONLY, never returned to a client
   // (used by grantedUserProfile + the opaque-avatar route). token-OR-hash match, like revokeFeature.
-  static resolveGrantedToken(featureUuid: string, userId: string): string | null {
+  // R31.8c round-3: resolve the grant TOKEN behind a child-ref id (now the profile UUID from profileUuidOf, not sha256)
+  // — match the raw token OR its profileUuidOf (so a consolidated ref uuid maps back to its original grant token).
+  static resolveGrantedToken(featureUuid: string, id: string, profiles: Map<string, { redirectTo?: string }>): string | null {
     const f = readFeature(featureUuid);
     const au: string[] = f && Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
-    return au.find((t) => t === userId || FeatureManager.userIdOf(t) === userId) || null;
+    return au.find((t) => t === id || FeatureManager.profileUuidOf(t, profiles) === id) || null;
   }
 
   // R31.8c ROUND-3 (DELIVER LITERALLY, design 0cd05131a): owner-gated (root-of-trust) → return the REAL FULL profile,
@@ -214,7 +228,8 @@ export class FeatureManager {
   // resolver (profileUuidOf, HELD) lands — the profileUuid ID row is added then. non-owner NEVER reaches here (403 at
   // the caller, KEPT sacred). FUTURE (flagged, not now): if FM is delegated to non-owner admins, revisit token/secret exposure.
   static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): Record<string, unknown> | null {
-    const token = FeatureManager.resolveGrantedToken(featureUuid, userId);
+    const pmap = profiles as unknown as Map<string, { redirectTo?: string }>;
+    const token = FeatureManager.resolveGrantedToken(featureUuid, userId, pmap);
     if (!token) return null;
     const p = profiles.get(token);
     if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
@@ -223,6 +238,7 @@ export class FeatureManager {
     if (p.phone) identifiers.push(p.phone); // REAL phone, unmasked (owner console)
     return {
       name: p.name || FeatureManager.maskToken(token),
+      profileUuid: FeatureManager.profileUuidOf(token, pmap),  // R31.8c round-3: the REAL profile uuid (ID row) via consolidation
       ...(p.avatar ? { avatar: p.avatar } : {}),            // REAL avatar (/api/avatar/<token>) — opaque route retired
       token,                                                 // owner sees real data
       ...(pp.secretCode ? { secretCode: pp.secretCode } : {}),
