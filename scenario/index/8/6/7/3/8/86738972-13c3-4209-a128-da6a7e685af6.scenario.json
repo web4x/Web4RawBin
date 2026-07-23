@@ -5,7 +5,9 @@
     "name": "ProfileView.profileViewData",
     "description": "static profileViewData(profile: ServerProfileRecord): ProfileViewData — the ONE shared builder producing the FULL profile-view shape (avatar/name/Token/Secret Code/Feature-access + the DEVICES list built inline: Mac/deviceId, IP, resolution, Nx-connected, Last-timestamp). ONE method, devices-mapping INLINE (no split). LOAD-BEARING marked decl for FIX-B — expert places [impl:uuid] on the 'static profileViewData' decl in src/ts/server/ProfileView.ts (#126). Then impl-edits: FeatureManager.grantedUserProfile returns ProfileView.profileViewData(profile) (incl devices, DROP the summary identifiers/deviceCount); server.ts /profile feed uses the SAME builder → drawer===/profile by construction. Architect topology f94875f6e.",
     "sourceFile": "ior:file:src/ts/server/ProfileView.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:c3e6a2b4-9d1f-4e82-b7a3-5f2c8e1d6a40"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:e20de5f6-c263-4341-a72b-7ecca6c91835"

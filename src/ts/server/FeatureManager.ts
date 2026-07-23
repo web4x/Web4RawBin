@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { ScenarioIndex } from '../scenario/index.js';
+import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 
 // R31.8 FeatureManager (Class 9f7f345a) — grant/revoke a Feature to a user, mirror-maintained BOTH sides atomically:
 // Feature.allowedUsers[] (scenario unit on disk) ↔ profile.features[] (UserProfile). ★ ROOT-OF-TRUST (INV-F4): these
@@ -232,20 +233,10 @@ export class FeatureManager {
     const token = FeatureManager.resolveGrantedToken(featureUuid, userId, pmap);
     if (!token) return null;
     const p = profiles.get(token);
-    if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
-    const pp = p as SearchProfile & { secretCode?: string; features?: string[]; devices?: Record<string, unknown>[]; bugReports?: Record<string, unknown>[] };
-    const identifiers: string[] = [];
-    if (p.phone) identifiers.push(p.phone); // REAL phone, unmasked (owner console)
-    return {
-      name: p.name || FeatureManager.maskToken(token),
-      profileUuid: FeatureManager.profileUuidOf(token, pmap),  // R31.8c round-3: the REAL profile uuid (ID row) via consolidation
-      ...(p.avatar ? { avatar: p.avatar } : {}),            // REAL avatar (/api/avatar/<token>) — opaque route retired
-      token,                                                 // owner sees real data
-      ...(pp.secretCode ? { secretCode: pp.secretCode } : {}),
-      identifiers,
-      ...(Array.isArray(pp.features) ? { grantedFeatureCount: pp.features.length } : {}),
-      ...(Array.isArray(pp.devices) ? { devices: pp.devices } : {}),         // FULL device details (dot/id/ip/screen/platform/conn/lastSeen)
-      ...(Array.isArray(pp.bugReports) ? { bugReports: pp.bugReports } : {}), // FULL bug reports (status/date/text)
-    };
+    if (!p) return { name: FeatureManager.maskToken(token) }; // granted but no live profile
+    // R31.8c round-4 FIX-B: return the ONE shared builder's output (same as the /profile feed) → the drawer's
+    // granted-user render === /profile BY CONSTRUCTION. Real full data (devices/token/secretCode/bugReports, INV-F7
+    // owner) + the real profileUuid (ID row via profileUuidOf). DROPPED the old summary identifiers/deviceCount/features.
+    return ProfileView.profileViewData(p as unknown as ServerProfileRecord, { profileUuid: FeatureManager.profileUuidOf(token, pmap) });
   }
 }

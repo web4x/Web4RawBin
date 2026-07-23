@@ -29,6 +29,7 @@ import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
 import { FeatureManager } from './FeatureManager.js';
+import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
@@ -2280,7 +2281,7 @@ else{
       // + connectedDeviceIds (online dots). Retires the bespoke inline HTML string (layout now lives in RbProfileView).
       el.innerHTML='';
       var pv=document.createElement('rb-profile-view');
-      pv.data={name:p.name,avatar:(p.avatar&&p.avatar.indexOf('/api/avatar/')===0?p.avatar:''),token:p.token,secretCode:p.secretCode,devices:p.devices||[],bugReports:p.bugReports||[],connectedDeviceIds:cids};
+      pv.data=m.profileViewData||{name:p.name,avatar:(p.avatar&&p.avatar.indexOf('/api/avatar/')===0?p.avatar:''),token:p.token,secretCode:p.secretCode,devices:p.devices||[],bugReports:p.bugReports||[],connectedDeviceIds:cids}; // R31.8c round-4 FIX-B: prefer the SHARED server-built profileViewData (===drawer), inline fallback
       el.appendChild(pv);
       ${renderFeatureGrants()}
     }
@@ -2766,7 +2767,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = the user's Feature memberships (data-driven, generalizes the ServerManager-only boolean) → /profile lists ALL granted features
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: ProfileView.profileViewData({ ...profile, devices: myDevices } as unknown as ServerProfileRecord, { connectedDeviceIds }), connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4 FIX-B: m.profileViewData built by the SHARED ProfileView.profileViewData (SAME builder as the FM drawer's grantedUserProfile) → /profile render === drawer render by construction
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's
