@@ -183,7 +183,7 @@ export class RbTraceTree extends HTMLElement {
         }
       } else {
         console.log(`[renderItems] PATH-B(new) ref=${ref} children=${(root.children||[]).length}`);
-        const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0 || root.hasChildren === true, undefined, undefined, root.description); // R31.8c fix: honor root.hasChildren for LAZY top-level roots (featureRoots: hasChildren:true, no inline children) → expander renders → children reachable
+        const node = this.buildSeedNode(root.uuid, root.type, root.name, root.children || [], (root.children || []).length > 0 || root.hasChildren === true, undefined, undefined, root.description, undefined, undefined, root.childCount); // R31.8c fix: honor root.hasChildren for LAZY top-level roots (featureRoots: hasChildren:true, no inline children) → expander renders → children reachable. round-2 AC4: thread root.childCount → serverChildCount → collapsed badge shows the real count (was 0).
         this.appendChild(node);
         // R31.3: NO force-open — roots start COLLAPSED (layer-by-layer); buildSeedNode opens a level only per
         // data-always-expanded / persisted-expanded, so a fresh multi-level tree no longer explodes-then-settles.
