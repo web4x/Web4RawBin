@@ -8,7 +8,7 @@
 import { chromium, devices } from '@playwright/test';
 import https from 'node:https';
 import { execSync } from 'node:child_process';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.130';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.131';
 const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, h = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
@@ -72,6 +72,19 @@ try {
 
   for (let i = 1; i <= 3; i++) {
     const { ctx, page } = await ownerServerManager(browser);
+    // (a0) SWITCH — the DOUBLE-ATTACH trigger (expert's fix = mount() self-teardown): open pane A → open pane B →
+    // A's sm_ must be GONE (remount tore it down), only B alive → close B → 0. This is the exact leak mechanism.
+    const beforeSw = smSessions();
+    await openPaneTerminal(page);
+    const aSm = smSessions().filter(s => !beforeSw.includes(s));
+    await page.evaluate(() => { const panes = Array.from(document.querySelectorAll('rb-object-item[ref^="otmuxpane:"]')); (panes[1] || panes[0])?.click(); }); // select ANOTHER pane (or re-select) → remount
+    await sleep(1800);
+    const afterB = smSessions();
+    const aGone = aSm.length > 0 && aSm.every(s => !afterB.includes(s));       // A's sm_ self-torn-down on remount
+    await page.click('#sm-drawer .drawer-close, rb-detail-drawer .drawer-close', { timeout: 5000 }).catch(() => {}); await sleep(1600);
+    const swLeft = smSessions().filter(s => !beforeSw.includes(s)); killExact(swLeft); leakedAll.push(...swLeft);
+    const switchOk = aGone && swLeft.length === 0;
+    await page.goto(`${BASE}/server-manager`, { waitUntil: 'networkidle' }); await page.waitForFunction(() => document.querySelectorAll('rb-object-item[ref^="otmuxsession:"]').length > 0, { timeout: 15000 }).catch(() => {}); await sleep(500);
     // (a) INV-T1 auto-close — each teardown path: open pane → MY sm_ appears → trigger → MY sm_ gone
     const pathResults = {};
     for (const path of ['close', 'deselect', 'minimize', 'esc']) {
@@ -108,9 +121,9 @@ try {
     const maximizeOk = fillsP && fillsL && stillMax.length === 0;
 
     await ctx.close();
-    const pass = authOk && regressionOk && teardownOk && maximizeOk;
+    const pass = authOk && regressionOk && switchOk && teardownOk && maximizeOk;
     results.push(pass);
-    console.log(`iter ${i}: teardown=${teardownOk}[${Object.entries(pathResults).map(([k, v]) => `${k}=${v.ok}(sp${v.spawned}/lk${v.leaked})`).join(' ')}] | maximize=${maximizeOk}(portrait ${maxP.w}x${maxP.h}/${maxP.vw}x${maxP.vh}=${fillsP} landscape ${maxL.w}x${maxL.h}/${maxL.vw}x${maxL.vh}=${fillsL} noLeak=${stillMax.length === 0}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: switch(double-attach)=${switchOk}(aGone=${aGone} spawned${aSm.length} leftover${swLeft.length}) teardown=${teardownOk}[${Object.entries(pathResults).map(([k, v]) => `${k}=${v.ok}(sp${v.spawned}/lk${v.leaked})`).join(' ')}] | maximize=${maximizeOk}(portrait=${fillsP} landscape=${fillsL} noLeak=${stillMax.length === 0}) => ${pass ? 'GREEN' : 'RED'}`);
   }
   }
 } finally { await browser.close(); }
