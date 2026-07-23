@@ -1,3 +1,5 @@
+// [test:uuid:c471d275-8d7e-4559-aa12-639cd0f7ec2c] R31.8c-r4 AC-detail-full-profile (REAL owner-interactive) — the FM drawer's <rb-profile-view> renders the SAME sections as /profile INCL the Devices(N) list + Bug Reports (SystemTester Devices(6) on BOTH surfaces → match). Was RED (drawer missing Devices/BugReports); fixed v0.7.127. → req: map to the round-4 FM-drawer profileViewData feed impl. GREEN DET-3x @390.
+// [test:uuid:147da46d-2093-449e-8adb-e00e2c1f1344] R31.8c-r4 AC-revoke-live-tree-update (REAL owner-interactive) — REAL owner Revoke → granted-user child REMOVED from the tree LIVE (reactive, no Refresh) AND the feature badge decrements N→N-1 (3→2), server-side confirmed (api childCount 3→2). Was RED (child+api updated, badge stale); fixed v0.7.127. → req: map to the round-4 reactive-badge/tree-update impl. GREEN DET-3x @390.
 // R31.8c ROUND-4 REAL OWNER-INTERACTIVE gate — DET-3x @390 iPhone-12. served v0.7.126. NOT seeded-structural (the round-3
 // gap): seeds a LIVE OWNER session (41ad88c4 + e2e-bypass keys → IDENTIFY → tokenToClient) and drives the REAL FM tree —
 // no route-intercept. PO-sanctioned coordinated blip (evicts Tron ~1×). Non-destructive: revokes the SystemTester peer on
@@ -8,7 +10,7 @@
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.126';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.127';
 const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d', ST_TOKEN = 'ce981242-74fe-4d44-b5b6-43c641e224df', FEAT_SM = '16604eee-d844-4efb-bd4d-881433ca82a6';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, h = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
