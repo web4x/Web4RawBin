@@ -1,3 +1,4 @@
+// [test:uuid:6f78a86f-282e-446a-bfd9-1bf2e1f9f6f3] T31.4 INV-T1 drawer-terminal AUTO-CLOSE — 0 sm_ tmux leak on ALL paths (close/deselect/minimize/esc + pane-switch + maximize-close), 1 sm_/open (double-render killed), DET-3x @390 v0.7.132. Verifies RbDetailDrawer.tearDownTransientDetail (cb153623) + RbTerminalDetail.mount self-teardown (79a1ce7c) + renderDetailForRef single-render guard + server PtyBridge readyState!==1 cleanup (round-2 e8031a9ef). OBSERVE-ONLY tmux census (name-diff, clean-only-mine). + maximize geometry portrait+landscape, /trace+/scenario regression, non-owner 403.
 // T31.4 drawer-UX gate — DET-3x @390 iPhone-12. Server-Manager terminal drawer: INV-T1 auto-close (no sm_ tmux leak) +
 // AC-maximize geometry + /trace,/scenario regression + non-owner 403. Impl cb153623 RbDetailDrawer.tearDownTransientDetail
 // (rb-detail-drawer.ts:264). Self-verifies served .version FIRST (phantom-guard). Reuses the PROVEN r31r4 owner-seed +
@@ -8,7 +9,7 @@
 import { chromium, devices } from '@playwright/test';
 import https from 'node:https';
 import { execSync } from 'node:child_process';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.131';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.132';
 const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, h = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
@@ -40,7 +41,7 @@ const drawerOpen = (page) => page.evaluate(() => { const d = document.getElement
 async function trigger(page, path) {
   if (path === 'close') await page.click('#sm-drawer .drawer-close, rb-detail-drawer .drawer-close', { timeout: 5000 }).catch(() => {});
   else if (path === 'deselect') await page.evaluate(() => document.querySelector('rb-object-item[ref^="otmuxwindow:"] .oi-name, rb-object-item[ref^="otmuxwindow:"]')?.click()); // select a NON-pane node → selection off the pane
-  else if (path === 'minimize') await page.click('#sm-drawer .drawer-handle, rb-detail-drawer .drawer-handle', { timeout: 5000 }).catch(() => {});
+  else if (path === 'minimize') await page.evaluate(() => { const d = document.getElementById('sm-drawer') || document.querySelector('rb-detail-drawer'); d?.minimize?.(); }); // minimize() = what swipe-down(:404)/resize-to-tiny(:400) invoke; a click doesn't minimize
   else if (path === 'esc') { await page.evaluate(() => { document.activeElement?.blur?.(); const d = document.getElementById('sm-drawer') || document.querySelector('rb-detail-drawer'); d?.querySelector('.drawer-header')?.click?.(); }); await sleep(200); await page.keyboard.press('Escape'); }
   await sleep(1800);
 }
