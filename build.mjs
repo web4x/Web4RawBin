@@ -8,7 +8,7 @@ const distDir = 'src/public/dist';
 // Clean old hashed builds
 if (fs.existsSync(distDir)) {
   for (const f of fs.readdirSync(distDir)) {
-    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f.startsWith('server-manager-') || f.startsWith('feature-manager-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
+    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f.startsWith('server-manager-') || f.startsWith('feature-manager-') || f.startsWith('profile-view-entry-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
       fs.unlinkSync(path.join(distDir, f));
     }
   }
@@ -31,7 +31,7 @@ function generateVersion() {
 const version = generateVersion();
 
 const result = await esbuild.build({
-  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts', 'src/public/ts/feature-manager/feature-manager.ts'],
+  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts', 'src/public/ts/feature-manager/feature-manager.ts', 'src/public/ts/profile-view-entry.ts'],
   bundle: true,
   format: 'esm',
   target: 'es2020',
@@ -52,6 +52,7 @@ const scenarioFile = outputs.find(f => path.basename(f).startsWith('scenario-vie
 const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-banner-'));
 const smFile = outputs.find(f => path.basename(f).startsWith('server-manager-'));
 const fmFile = outputs.find(f => path.basename(f).startsWith('feature-manager-')); // R31.8b Feature Manager bundle
+const pvFile = outputs.find(f => path.basename(f).startsWith('profile-view-entry-')); // R31.8c round-3: /profile shared-viewer bundle
 // R31.4 step-4: the server-manager bundle imports xterm.css → esbuild emits a sibling server-manager-<hash>.css
 const smCssFile = Object.keys(result.metafile.outputs).find(f => f.endsWith('.css') && path.basename(f).startsWith('server-manager-'));
 const jsBasename = path.basename(jsFile);
@@ -62,6 +63,7 @@ const bannerBasename = bannerFile ? path.basename(bannerFile) : null;
 const smBasename = smFile ? path.basename(smFile) : null;
 const smCssBasename = smCssFile ? path.basename(smCssFile) : null;
 const fmBasename = fmFile ? path.basename(fmFile) : null;
+const pvBasename = pvFile ? path.basename(pvFile) : null;
 
 // Write build manifest for server to read
 const manifest = { version, 'app.js': jsBasename, built: new Date().toISOString() }; // R31.7: version field (build-stamped from the Config unit) — /api/config reads THIS, not a live package.json read
@@ -72,6 +74,7 @@ if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
 if (smBasename) manifest['server-manager.js'] = smBasename;
 if (smCssBasename) manifest['server-manager.css'] = smCssBasename;
 if (fmBasename) manifest['feature-manager.js'] = fmBasename;
+if (pvBasename) manifest['profile-view-entry.js'] = pvBasename;
 fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles

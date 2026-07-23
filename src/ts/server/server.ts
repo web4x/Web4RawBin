@@ -2262,6 +2262,7 @@ h3{font-size:1rem;margin:16px 0 8px;border-bottom:1px solid #eee;padding-bottom:
 <div id="feature-grants"></div>
 <p class="ver" id="ver"></p>
 </div>
+<script type="module" src="${getBundleScript('profile-view-entry.js', 'profile-view-entry.js')}"></script>
 <script>
 const token=localStorage.getItem('rawbin-player-id');
 if(!token){document.getElementById('profile').innerHTML='<p class="empty">No profile found. Join a room first.</p>'}
@@ -2274,24 +2275,13 @@ else{
     if(m.type==='PROFILE'&&m.profile){
       const p=m.profile;var cids=m.connectedDeviceIds||[];
       const el=document.getElementById('profile');
-      var avatarSrc=p.avatar&&p.avatar.startsWith('/api/avatar/')?p.avatar:'/icon-192.png';
-      el.innerHTML='<div style="text-align:center;margin-bottom:12px"><img src="'+avatarSrc+'" style="width:80px;height:80px;border-radius:50%;object-fit:cover" alt=""></div>'
-        +'<div class="field"><span class="label">Name</span><span>'+(p.name||'Unknown')+'</span></div>'
-        +'<div class="field"><span class="label">Token</span><span style="font-size:0.6rem;opacity:0.5;word-break:break-all">'+p.token+'</span></div>'
-        +'<h3>Your Secret Code</h3>'
-        +'<div class="code">'+(p.secretCode||'----')+'</div>'
-        +'<p style="text-align:center;font-size:0.75rem;opacity:0.5;margin-bottom:8px">Share this code so others can link their account to yours</p>'
-        +'<h3>Devices ('+(p.devices?.length||0)+')</h3>'
-        +(p.devices&&p.devices.length?p.devices.map(function(d){
-          var t=d.userAgent||'';var short=t.includes('Mobile')?'Mobile':t.includes('Mac')?'Mac':t.includes('Windows')?'Windows':t.includes('Linux')?'Linux':'Browser';
-          var online=cids.indexOf(d.deviceId)>=0;var dot=online?'<span style="color:#4CAF50">●</span>':'<span style="color:#f44336">●</span>';
-          return '<div class="device">'+dot+' <span class="dtype">'+short+'</span> <span style="opacity:0.4">'+((d.deviceId||'').slice(0,8)||'legacy')+'</span><div class="dmeta">IP: '+(d.ip||'unknown').replace('::ffff:','')+'</div><div class="dmeta">'+(d.screenSize||'')+(d.platform?' · '+d.platform:'')+(d.connectionCount?' · '+d.connectionCount+'x connected':'')+'</div><div class="dmeta">Last: '+new Date(d.lastSeen).toLocaleString()+'</div></div>'
-        }).join(''):'<p class="empty">No devices recorded</p>')
-        +'<h3>My Bug Reports ('+(p.bugReports?.length||0)+')</h3>'
-        +(p.bugReports&&p.bugReports.length?p.bugReports.map(function(b){
-          var statusColor=b.status==='FIXED'?'#4CAF50':b.status==='IN PROGRESS'?'#ff9800':'#999';
-          return '<div class="device"><span style="color:'+statusColor+';font-weight:600">'+b.status+'</span> <span style="opacity:0.5;font-size:0.7rem">'+new Date(b.date).toLocaleDateString()+'</span><div class="dmeta">'+b.text+'</div></div>'
-        }).join(''):'<p class="empty">No bug reports filed</p>');
+      // R31.8c round-3: render own profile through the SHARED <rb-profile-view> (same component the FM drawer uses) —
+      // the migration that PROVES it's the real viewer. Feed it the full m.profile (token/secretCode/devices/bugReports)
+      // + connectedDeviceIds (online dots). Retires the bespoke inline HTML string (layout now lives in RbProfileView).
+      el.innerHTML='';
+      var pv=document.createElement('rb-profile-view');
+      pv.data={name:p.name,avatar:(p.avatar&&p.avatar.indexOf('/api/avatar/')===0?p.avatar:''),token:p.token,secretCode:p.secretCode,devices:p.devices||[],bugReports:p.bugReports||[],connectedDeviceIds:cids};
+      el.appendChild(pv);
       ${renderFeatureGrants()}
     }
   };
