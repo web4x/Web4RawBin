@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "84cdc9ec-52e8-4696-8340-0892a419f5a4",
+  "name": "profile.viewFull",
+  "description": "R31.8c round-2 — render the FULL EXISTING (now shared) profile viewer for a user in the drawer detail, NOT a stub. See Method RbProfileView.render. Reused by RbProfileDetail.mount (FeatureManager grantee). Singular-chain. Architect topology 467b9c1fa.",
+  "class": "ior:instance:51bb30cb-df02-444a-b494-5500471e984b",
+  "method": "ior:instance:422f22f8-5dc4-4081-899e-8d2bd694762f",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-round2.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
