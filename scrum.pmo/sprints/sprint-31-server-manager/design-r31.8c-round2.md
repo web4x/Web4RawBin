@@ -34,3 +34,10 @@ Opaque FIX-2 ref (`<feature>:<sha256[:16]>`, no raw token) preserved everywhere 
 
 ## Handoff
 req: mint the 1 new node (Class RbProfileView + Method render; a fitting UC e.g. profile.viewFull) + reconcile the 5 impl-edit markers (grantedUserProfile enrich, RbProfileDetail.mount, allowedUsersChildren desc, featureRoots childCount, applyGrant/revoke+feature-manager refresh). expert: build against the units + the /profile-adoption recommendation (or flag it fast-follow). tester: gate @390 the RENDERED surface — `<rb-profile-view>` full viewer present (not a stub), Revoke directly under the bar + viewer below, child description = full uuid, COLLAPSED feature badge = real granted-user count, grant/revoke reflects in the tree (+Refresh); NOT "flow works". I backstop INV-F7 (no token/secret in any granted-user payload/render) + the rendered surface + a real restart (server changes: featureRoots/grantedUserProfile/allowedUsersChildren).
+
+## PO RULING 2026-07-23 (scoping confirmed)
+- (1) EXTRACT RbProfileView = APPROVED as THE one shared masking-aware profile viewer (INV-F7 by construction). ROUND-2 BUILD = the FM drawer detail renders `<rb-profile-view>` (not a stub) + the 4 impl-edits.
+- (2) /profile migration to `<rb-profile-view>` = APPROVED but as a SCOPED FAST-FOLLOW — captured as its OWN follow-up AC (so it's genuinely the single viewer), NOT folded into round-2 (don't bloat / risk regressing the live /profile page). req captures it as a distinct follow-up; expert does it AFTER round-2 lands.
+- (3) the other 4 impl-edits (grantedUserProfile enrich, allowedUsersChildren desc=uuid, featureRoots childCount, grant/revoke→refresh) = proceed.
+- Re-gate @390 asserts the RENDERED viewer + Revoke-under-bar + collapsed-count (NOT flow). Real restart + verify-by-uptime for the server-method changes. I backstop INV-F7 + rendered surface.
+NET round-2 = RbProfileView (new node) + FM drawer uses it + 4 impl-edits; /profile-adopts-rb-profile-view = captured fast-follow (separate AC).
