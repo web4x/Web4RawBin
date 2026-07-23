@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "cb125989-36ec-4150-9d0e-63e1e496ecc4",
+    "name": "FeatureManager.profileUuidOf",
+    "description": "profileUuidOf(token): FORWARD resolver — map an allowedUsers token to its ior:class:User/Profile scenario-unit REAL uuid (model.uuid, e.g. Marcel Donges 37fcb752, distinct from the token). Used by allowedUsersChildren (subtitle + child ref = the profile uuid, keeping the raw token out of URL-addressable refs) and grantedUserProfile (id row). REPLACES + RETIRES userIdOf(sha256[:16]) — no opaque hashing. LOAD-BEARING marked decl (#126). Architect round-3 design 0cd05131a.",
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
+}

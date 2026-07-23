@@ -158,6 +158,8 @@
   -> featureManager.allowedUsersChildren [uc:uuid:03d6065b-6eeb-4d65-9754-33f118b02e48]
   -> featureManager.viewGrantedUser [uc:uuid:9abbf7d9-1215-446e-8029-12f4abf70bd8]
   -> profile.viewFull [uc:uuid:84cdc9ec-52e8-4696-8340-0892a419f5a4]
+  -> featureManager.profileUuidOf [uc:uuid:19bab6d8-533f-47a1-9423-9e771ca753d2]
+  -> featureManager.tokenOfProfileUuid [uc:uuid:7e617334-6ff7-4ec4-ba4b-0c55e185821d]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]

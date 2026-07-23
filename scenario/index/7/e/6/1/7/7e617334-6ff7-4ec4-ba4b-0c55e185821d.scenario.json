@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "7e617334-6ff7-4ec4-ba4b-0c55e185821d",
+  "name": "featureManager.tokenOfProfileUuid",
+  "description": "R31.8c round-3 resolver: FeatureManager.tokenOfProfileUuid — see Method. Replaces the sha256 machinery. Singular-chain. Architect design 0cd05131a.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "method": "ior:instance:8304f709-759c-4e1b-b769-c2bb9c420cfe",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-round3.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
