@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Decomposed into 7 atomic build tasks T31.5.1-T31.5.7 (children), build in dependency order (foundation 5.1/5.2/5.4 -> 5.7 drawer crux -> 5.3 -> 5.5/5.6). ROLLUP RULE (req-confirmed): umbrella -> QA-Review when ALL 7 children are chain-complete-to-Test AND AC-INV-PRESENTATION gated per piece at Tron real viewport (portrait scroll-snap + landscape side-by-side); DONE only after Tron visual on the composed WODA/editor. req mints per-piece Req->UC->Class->Method chains as the expert starts each piece (#126, foundation 5.1/5.2/5.4 first); architect supplies per-piece method topology on request.
+ROLLUP CONDITION MET -> QA-Review (architect disk-assess + req 21f981311 R31.5 BOARD COMPLETE): all 7 children (5.1-5.7) chain-complete-to-Test + GREEN DET-3x @390, per-piece AC-INV-PRESENTATION gated (portrait scroll-snap + landscape side-by-side). UMBRELLA -> DONE gated on: (1) COMPOSED-INTEGRATION live-wiring — <rb-woda> mounted nowhere / /edit still pre-R31.5 panels; TRON RULING 87f741e23 = swap /edit to R31.5 [L]|[C]|[R] with HARD guardrail (preserve R30 diff/merge/spline/alignment/folding/deep-link, positioning!=function, no rewrite); route architect->expert->tester@390(composed+diff-merge-regression)->Tron; (2) Tron device VISUAL on the composed WODA/editor. Children QA-Review (Tron composed-visual pending).
 
 ## Traceability
 
