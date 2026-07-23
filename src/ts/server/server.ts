@@ -1026,7 +1026,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R31.8c gap-B: serve the itemView ROOTS (real Feature units) for the native tree-seed (was the superseded
         // listFeatures reshape). The client (feature-manager.ts) sets tree.items = roots.
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-        res.end(JSON.stringify({ ok: true, roots: FeatureManager.featureRoots() }));
+        res.end(JSON.stringify({ ok: true, roots: FeatureManager.featureRoots(userProfiles as unknown as Map<string, { token: string; name?: string; phone?: string; avatar?: string }>) })); // R31.8c round-4 FIX-A1: inline allowedUsers children for live grant/revoke reconcile
         return;
       }
     }

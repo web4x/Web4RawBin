@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.7.125';
+const CACHE_NAME = 'rawbin-v0.7.126';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -10,10 +10,10 @@ const STATIC_SHELL = [
   '/icon-192.png',
   '/icon-512.png',
   '/trace',
-  '/dist/trace-page-3LXPHGRV.js',
+  '/dist/trace-page-CE2DSY3K.js',
   '/scenario',
-  '/dist/scenario-view-K43ZBNUL.js',
-  '/dist/app-ILP3KW4J.js',
+  '/dist/scenario-view-KO7SM3V2.js',
+  '/dist/app-OMEVSMP4.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

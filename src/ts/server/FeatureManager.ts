@@ -146,8 +146,8 @@ export class FeatureManager {
   // R31.8c gap-B: itemView ROOTS for the native FeatureManager tree — scan ior:class:Feature → [{uuid, type:'feature',
   // name, icon, hasChildren:allowedUsers.length>0}]. Seeds the REAL Feature roots (replaces the synthetic 'feature:
   // manager' so a grant targets the real Feature uuid). Fail-closed to [].
-  static featureRoots(): { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number }[] {
-    const out: { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number }[] = [];
+  static featureRoots(profiles: Map<string, SearchProfile>): { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number; children: ReturnType<typeof FeatureManager.allowedUsersChildren> }[] {
+    const out: { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number; children: ReturnType<typeof FeatureManager.allowedUsersChildren> }[] = [];
     try {
       const idx = new ScenarioIndex(SCENARIO_DIR);
       for (const uuid of idx.list()) {
@@ -155,9 +155,10 @@ export class FeatureManager {
         if (u?.ior !== 'ior:class:Feature') continue;
         const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
         const au = Array.isArray(m.allowedUsers) ? (m.allowedUsers as string[]) : [];
-        // R31.8c round-2 item(c): emit childCount so the SHARED rb-trace-tree collapsed badge shows the real granted-user
-        // count (exactly like the Sprint root's childCount:tasks.length → serverChildCount → computeBadges). No FM tree code.
-        out.push({ uuid, type: 'feature', name: String(m.name || 'Feature'), icon: String(m.icon || ''), hasChildren: au.length > 0, childCount: au.length });
+        // R31.8c round-4 FIX-A1: emit allowedUsers INLINE as `children` (reuse allowedUsersChildren — the /server-manager
+        // shape) so the SHARED rb-trace-tree reconciles grant/revoke LIVE on fm-tree-refresh→load() (revoked child gone +
+        // badge-- with NO manual refresh). childCount still drives the collapsed badge; refresh button = last-resort fallback.
+        out.push({ uuid, type: 'feature', name: String(m.name || 'Feature'), icon: String(m.icon || ''), hasChildren: au.length > 0, childCount: au.length, children: FeatureManager.allowedUsersChildren(uuid, profiles) });
       }
     } catch { /* fail-closed → empty */ }
     return out;

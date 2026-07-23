@@ -78,7 +78,7 @@ export class RbTraceTree extends HTMLElement {
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(this.lsKey) || '[]')); } catch { /* ignore */ }
     if (this.hasAttribute('data-eager-lazy')) { void this.renderCurrentSprintEagerLazy(); } // T30.1: 2-node eager-lazy tree
     else if (this._items) { this.renderItems(); } else { this.render(); }
-    if (!this.getAttribute('data-seed-ior') && !this.hasAttribute('data-eager-lazy')) {
+    if (!this.getAttribute('data-seed-ior') && !this.hasAttribute('data-eager-lazy') && !this._items) { // R31.8c round-4 FIX-A2(a): an ITEMS-fed tree (server-manager / feature-manager) must NOT subscribe to graph updates — render() would wipe its items to the 'no graph' placeholder
       this.unsub = ViewBus.subscribe('graph', () => this.render());
     }
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
@@ -135,6 +135,7 @@ export class RbTraceTree extends HTMLElement {
 
   private renderItems(): void {
     if (!this._items) { console.log('[renderItems] no _items'); return; }
+    this.querySelectorAll(':scope > .tt-empty').forEach(e => e.remove()); // R31.8c round-4 FIX-A2(c): clear a stale 'no graph'/'Loading…' placeholder from a prior render() before reconciling items
     console.log(`[renderItems] roots=${this._items.length} isConnected=${this.isConnected} children=[${this._items.map(r => `${r.type}:${(r.children||[]).length}`).join(',')}]`);
     const existingRoots = new Map<string, HTMLElement>();
     this.querySelectorAll(':scope > .tt-node').forEach(n => {
@@ -204,6 +205,7 @@ export class RbTraceTree extends HTMLElement {
   }
 
   render(): void {
+    if (this._items) { this.renderItems(); return; } // R31.8c round-4 FIX-A2(b): items-fed tree renders its items, never the 'no graph' branch (a stray render() must not wipe server-manager/feature-manager)
     const seedIor = this.getAttribute('data-seed-ior');
     if (seedIor) { if (!this._seedAbort) this.renderSeed(seedIor); return; }
     if (!this.graph) { this.innerHTML = '<div class="tt-empty">no graph</div>'; return; }
