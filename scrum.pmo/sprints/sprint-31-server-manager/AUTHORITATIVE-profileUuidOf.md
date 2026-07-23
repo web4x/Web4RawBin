@@ -28,3 +28,21 @@ The owner seeing `41ad88c4` (== his token) as "the uuid" is what Tron rejects. T
 
 ## HANDOFF
 Expert: build `profileUuidOf`/`tokenOfProfileUuid` per the algorithm above (follow redirectTo→primary→Profile-unit uuid; never a hash, never a hardcoded 37fcb752). req: pin this verbatim into AC-item-description-full-uuid + AC-token-profileuuid-resolver (resolver = consolidation-following; the distinct-rich-uuid appears ONLY when consolidation exists). PO/Tron: rule on option B (consolidate the owner's profiles so his rich uuid shows) — the resolver is correct either way; without consolidation it honestly shows the token-keyed uuid.
+
+## ★★ CONSOLIDATE RULING — MEASURED REALITY INVERTS THE PREMISE (robbin-architect 2026-07-23, do NOT execute blindly)
+Tron authorized CONSOLIDATE (448f6837f) believing 41ad88c4=temp, 37fcb752=rich, UNLINKED. **MEASURED data/profiles.json (the runtime Map where redirectTo/consolidatedFrom LIVE — NOT the scenario units req read): they are ALREADY consolidated, and the direction is the OPPOSITE.**
+- CHAIN: `37fcb752 —redirectTo→ 8f74dfba —redirectTo→ 41ad88c4` (PRIMARY, redirectTo=None). `8f74dfba.consolidatedFrom=[3effa1fc,2703628c,37fcb752]`; `41ad88c4.consolidatedFrom=[8f74dfba]`.
+- **`41ad88c4` = the PRIMARY** consolidated identity (phone +4981422917723 via 8f74dfba, secretCode) **AND** the hardcoded `OWNER_TOKEN` (ServerManagerGuard.ts:12).
+- **`37fcb752` = a DEEP SECONDARY tombstone** (redirects up to 41ad88c4; phone EMPTY; LESS data — it is NOT "the rich profile").
+- So my resolver `profileUuidOf(41ad88c4)` ALREADY correctly returns **41ad88c4** = his real primary consolidated uuid. No mutation needed for correctness.
+
+### WHY "make 37fcb752 the shown uuid" is UNSAFE (would lock Tron out)
+To make profileUuidOf(41ad88c4) return 37fcb752, 37fcb752 must become the PRIMARY — i.e. INVERT the whole cluster (41ad88c4/8f74dfba redirect to 37fcb752). Then:
+1. **Owner gate breaks:** `OWNER_TOKEN` is the hardcoded literal `41ad88c4`. If 41ad88c4 becomes a tombstone → Tron's session redirects (IDENTIFY→TOKEN_REDIRECT, server.ts:2731) to 37fcb752 → he sends x-player-token=37fcb752 → `assertOwner(37fcb752 != 41ad88c4)` → **403, loses admin/root-of-trust**. INV-G2 literal would have to move too.
+2. Redirects his LIVE session; inverts an EXISTING correct consolidation; and 37fcb752 is the LESS-rich record (no phone).
+
+### RULING (evidence) — FLAG TO TRON, do NOT execute
+This is (C) identity-model, Tron-facing. The consolidation Tron pictured ALREADY EXISTS with the OPPOSITE primary. The subtitle correctly shows **41ad88c4** = his REAL primary consolidated profile uuid — which coincides with his token BECAUSE his primary profile unit's uuid==token (unavoidable while 41ad88c4 is his primary + gate). Options for Tron:
+- **(i) RECOMMENDED — accept 41ad88c4** as the shown uuid: it IS his real primary consolidated identity (not "just a token"). Zero risk, zero mutation, resolver already correct.
+- **(ii) RE-HOME his identity to 37fcb752** as primary: a COORDINATED migration (re-point the cluster + move the OWNER_TOKEN literal 41ad88c4→37fcb752 + re-key the gate + his device re-IDENTIFYs) — high-risk, touches the security gate, and 37fcb752 is the thinner record. NOT a safe one-time link; needs a planned migration if Tron truly wants it.
+- I did NOT execute any redirectTo mutation — a naive consolidate breaks his owner access (the exact "make it safe" the PO required). Flagging PO→Tron for the (i)/(ii) call.
