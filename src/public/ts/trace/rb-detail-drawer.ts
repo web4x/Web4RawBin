@@ -95,6 +95,7 @@ export class RbDetailDrawer extends HTMLElement {
       this.removeAttribute('ref');
       const dp = this.detailPanel;
       if (dp) dp.dataset.currentRef = '';
+      this.tearDownTransientDetail(); // R31.4 INV-T1: deselect (empty selection) kills the terminal ws + sm_ session
       if (this.chatPanel) this.setMode('chat');
     }
   };
@@ -247,7 +248,21 @@ export class RbDetailDrawer extends HTMLElement {
     this.style.maxHeight = '';
     const dp = this.detailPanel; if (dp) dp.dataset.currentRef = '';        // R27.8(b): so a later reopen RE-RENDERS (not the stale-ref no-op)
     const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'flex'; // R27.8(b): restore body (minimize set it none)
+    this.tearDownTransientDetail(); // R31.4 INV-T1: ESC/full-close kills the terminal ws + sm_ session
     selectionModel.clear();
+  }
+
+  // R31.4 INV-T1 (auto-close): the terminal detail (rb-terminal-detail) owns a LIVE ws + a server-side grouped tmux
+  // session — expensive, and it LEAKS if the element merely lingers in the DOM. Unlike a normal (persistent) detail,
+  // it MUST NOT survive a drawer-away state — minimize/peek/close/empty-select keep the element mounted (body hidden,
+  // no disconnectedCallback) so its teardown never fires → 14 orphaned sm_ sessions observed. FIX: explicitly REMOVE
+  // the terminal element on those transitions → disconnectedCallback → RbTerminalDetail.teardown → ws.close → server
+  // cleanup() kills the sm_ grouped session. Terminal-SPECIFIC by tag (persistent details correctly survive minimize/
+  // peek); re-selecting the pane re-attaches via renderDetailForRef. Select-AWAY to another ref already tears down via
+  // renderDetailForRef's panel.innerHTML='' — this covers the states that DON'T re-render.
+  private tearDownTransientDetail(): void {
+    const term = this.detailPanel?.querySelector('rb-terminal-detail');
+    if (term) { term.remove(); const dp = this.detailPanel; if (dp) dp.dataset.currentRef = ''; } // remove → teardown → ws close → kill sm_ session; clear ref so a reopen re-renders
   }
 
 // [impl:uuid:b53858c3-89ba-48ee-a659-2d03a3c88e51] impl:RbDetailDrawer.stickyBottom (split for RbDetailDrawer.c
@@ -372,6 +387,7 @@ export class RbDetailDrawer extends HTMLElement {
     this.setAttribute('minimized', '');
     this.style.height = ''; this.style.maxHeight = ''; this.style.transform = '';
     const body = this.querySelector('.drawer-body') as HTMLElement | null; if (body) body.style.display = 'none';
+    this.tearDownTransientDetail(); // R31.4 INV-T1: minimize/peek must kill the terminal ws + sm_ session (the leak: body hidden but element stayed mounted)
   }
   expand(): void {
     if (!this.hasAttribute('minimized')) return;
