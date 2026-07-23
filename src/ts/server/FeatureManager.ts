@@ -161,7 +161,7 @@ export class FeatureManager {
     // R31.8c FIX-2: the composite ref carries the OPAQUE userId (sha256[:16]), NOT the raw token — so the child ref
     // 'profile:<featureUuid>:<userId>' exposes no credential. name is still resolved SERVER-side (live profile or masked).
     // R31.8c enrich: masked subtitle (description) + avatar per granted-user node (still NO raw token in the ref/payload).
-    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: (p?.phone ? FeatureManager.maskIdentifier('phone', p.phone) : FeatureManager.maskToken(token)), ...(p?.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, uid) } : {}), hasChildren: false }; }); // R31.8c INV-F7: OPAQUE avatar url, never p.avatar(/api/avatar/<token>)
+    return au.map(token => { const p = profiles.get(token); const uid = FeatureManager.userIdOf(token); return { uuid: `${featureUuid}:${uid}`, type: 'profile', name: (p?.name || FeatureManager.maskToken(token)), description: uid, ...(p?.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, uid) } : {}), hasChildren: false }; }); // R31.8c round-2 item(a) (Tron 10cf5cd3d): subtitle = the FULL OPAQUE userId (FIX-2 sha256[:16]) — NOT masked-phone, NOT raw token, NOT a profile-uuid (INV-F7). Same opaque ref nav keys on. OPAQUE avatar url, never p.avatar(/api/avatar/<token>)
   }
   // [impl:uuid:5e2f6781-28bb-4934-9c69-a4595caeb08b] FeatureManager.grantFeature (Method ac522b4f, Class 9f7f345a) —
   // idempotently ADD `token` to Feature.allowedUsers AND `featureUuid` to profile.features (BOTH sides, atomic).
