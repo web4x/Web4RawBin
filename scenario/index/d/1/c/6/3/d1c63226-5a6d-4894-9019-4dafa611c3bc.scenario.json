@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d1c63226-5a6d-4894-9019-4dafa611c3bc",
+    "name": "test:R31.8c-r3 subtitle == REAL profile uuid via profileUuidOf (resolver output, not sha256)",
+    "description": "Bridged to test/visual/r31r3-rendered-gate.mjs (GREEN DET-3x @390 v0.7.125, screenshot-verified). Verifies AC-item-description-full-uuid: the granted-user subtitle == FeatureManager.profileUuidOf(token) OUTPUT — a genuine profile UUID (measured against the resolver's own tsx-computed output, NOT a literal), NOT sha256[:16], NOT raw token, NOT masked-phone. Owner honestly resolves to his primary 41ad88c4 (consolidation-following). Marker d1c63226 adopted from origin a6bce8686 (measured, not invented).",
+    "sourceFile": "ior:file:test/visual/r31r3-rendered-gate.mjs",
+    "implementations": [
+      "ior:instance:a1c4e5f0-7b28-4d63-9e51-3c0a6f2d4b18"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a1c4e5f0-7b28-4d63-9e51-3c0a6f2d4b18"
+}

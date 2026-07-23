@@ -3,7 +3,9 @@
   "model": {
     "uuid": "a1c4e5f0-7b28-4d63-9e51-3c0a6f2d4b18",
     "name": "FeatureManager.profileUuidOf impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:d1c63226-5a6d-4894-9019-4dafa611c3bc"
+    ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
     "description": "BUILT R31.8c round-3: profileUuidOf(token, profiles) = primary = profiles.get(token)?.redirectTo || token; return new ScenarioIndex(SCENARIO_DIR).get(primary)?.model.uuid ?? primary. Follows EXISTING consolidation (redirectTo→primary) then the primary Profile-unit's own uuid (Profile units token-keyed → == primary unconsolidated; == rich uuid once Tron's temp→rich consolidation lands). NO sha256, NO hardcoded 37fcb752, NO invented field (req pinned algo 2b4d7151b). RETIRES userIdOf(sha256). Wired into allowedUsersChildren (subtitle+ref), grantedUserProfile (profileUuid ID row), resolveGrantedToken (reverse match). Marker [impl:uuid:a1c4e5f0-...] on the decl."

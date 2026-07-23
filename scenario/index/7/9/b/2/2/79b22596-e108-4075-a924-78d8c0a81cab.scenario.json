@@ -4,7 +4,8 @@
     "uuid": "79b22596-e108-4075-a924-78d8c0a81cab",
     "name": "FeatureManager.featureRoots impl",
     "tests": [
-      "ior:instance:3a571c7e-04d0-4bbd-89ec-58b635e27866"
+      "ior:instance:3a571c7e-04d0-4bbd-89ec-58b635e27866",
+      "ior:instance:3462958e-dcd4-449b-92c6-ea2e0e10fd60"
     ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,

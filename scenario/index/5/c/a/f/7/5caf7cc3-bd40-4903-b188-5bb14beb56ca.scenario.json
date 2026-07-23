@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5caf7cc3-bd40-4903-b188-5bb14beb56ca",
+    "name": "test:R31.8c-r3 shared full-profile viewer REAL unmasked data + /profile migration proof (RbProfileView.render)",
+    "description": "Bridged to test/visual/r31r3-rendered-gate.mjs (GREEN DET-3x @390 v0.7.125, screenshot-verified). Verifies AC-detail-full-profile + AC-profile-single-viewer: THE shared full-profile viewer renders REAL UNMASKED data (Token/uuid, Secret Code, full Devices, phone FULL) and is used by BOTH /profile (migration PROOF — /profile renders IDENTICAL through <rb-profile-view>) AND the FM drawer (same component, Revoke under grab-bar). non-owner→403 sacred. Round-3 dropped owner-side masking. Marker 5caf7cc3 adopted from origin a6bce8686.",
+    "sourceFile": "ior:file:test/visual/r31r3-rendered-gate.mjs",
+    "implementations": [
+      "ior:instance:4e1c8a92-6b3d-4a57-8f21-9c0d3e5b7a16"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4e1c8a92-6b3d-4a57-8f21-9c0d3e5b7a16"
+}

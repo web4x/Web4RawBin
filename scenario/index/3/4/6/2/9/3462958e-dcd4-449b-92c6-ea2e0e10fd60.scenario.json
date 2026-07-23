@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3462958e-dcd4-449b-92c6-ea2e0e10fd60",
+    "name": "test:R31.8c AC-collapsed-child-count-eager real count not 0 (featureRoots, round-3-survivor, distinct-intent)",
+    "description": "Bridged to test/visual/r31r2-rendered-gate.mjs (GREEN DET-3x @390). Verifies AC-collapsed-child-count-eager: the COLLAPSED feature badge == the real granted-user count (2, not 0) via featureRoots.childCount threaded through rb-trace-tree:186→computeBadges. RED→GREEN (tester bug→fix e60062afa). ROUND-2 SURVIVOR re-verified vs round-3 (still GREEN). DISTINCT-intent alongside functional Test 3a571c7e on the same Impl. Marker 3462958e adopted from origin (measured, not invented).",
+    "sourceFile": "ior:file:test/visual/r31r2-rendered-gate.mjs",
+    "implementations": [
+      "ior:instance:79b22596-e108-4075-a924-78d8c0a81cab"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:79b22596-e108-4075-a924-78d8c0a81cab"
+}

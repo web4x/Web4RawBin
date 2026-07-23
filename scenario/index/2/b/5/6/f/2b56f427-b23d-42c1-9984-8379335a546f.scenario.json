@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2b56f427-b23d-42c1-9984-8379335a546f",
+    "name": "test:R31.8c AC-drawer-actions-layout Revoke-under-bar + auto-update (RbProfileDetail.mount, round-3-survivor)",
+    "description": "Bridged to test/visual/r31r2-rendered-gate.mjs (GREEN DET-3x @390). Verifies AC-drawer-actions-layout: the Revoke button sits directly UNDER the grab-bar with <rb-profile-view> BELOW it (rev.top<view.top); Revoke → POST + fm-tree-refresh auto-updates the tree. ROUND-2 SURVIVOR re-verified vs the round-3 drawer (still GREEN — the layout persists through the real-viewer migration). Marker 2b56f427 adopted from origin (measured, not invented).",
+    "sourceFile": "ior:file:test/visual/r31r2-rendered-gate.mjs",
+    "implementations": [
+      "ior:instance:3f61d7d8-041b-45ae-a09e-b5bb0a5cafd9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3f61d7d8-041b-45ae-a09e-b5bb0a5cafd9"
+}

@@ -3,7 +3,9 @@
   "model": {
     "uuid": "3f61d7d8-041b-45ae-a09e-b5bb0a5cafd9",
     "name": "RbProfileDetail.mount impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:2b56f427-b23d-42c1-9984-8379335a546f"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-profile-detail.ts",
     "designAhead": false,
     "description": "BUILT v0.7.111: RbProfileDetail.mount @ src/public/ts/trace/rb-profile-detail.ts — R31.8c NODE-4. Renders a granted-user profile (avatar + name + MASKED identifiers) in the shared drawer (NO ProfileSheet overlay). uuid attr = 'featureUuid:token' (FeatureManager context → REVOKE control → POST /api/feature-manager {action:revoke,feature,token}, owner-gated, reuses slice-b revokeFeature) or plain 'token'. Profile data via the owner-gated searchUsers exact-match (GET /api/feature-manager/users?q=token). fetchUser/revoke/flash = private helpers. tagMap profile→rb-profile-detail. Marker [impl:uuid:3f61d7d8-...] on the mount() decl. R31.8c."
