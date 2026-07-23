@@ -23,6 +23,7 @@ export class RbTerminalDetail extends HTMLElement {
   // connectedCallback→mount: attach xterm + binary ws to the owner-gated PtyBridge for the selected pane. CLIENT
   // counterpart of the server PtyBridge.attachPane (6fc43b8e). Teardown in disconnectedCallback.
   private mount(): void {
+    this.teardown(); // R31.4 INV-T1 fix (tester c00fe5f9e / architect ruling d5a1e266d): make mount() IDEMPOTENT — self-teardown at the TOP closes any pre-existing ws BEFORE opening a new one, so the 'ONE live ws per element' invariant lives INSIDE mount (the invariant-owner) → orphan impossible BY CONSTRUCTION, immune to ANY double-mount/re-connect/re-render path. Previously mount() set this.ws over a live ws → the 1st ws orphaned (server DETACH never fired) → 1 leaked sm_ per pane-open. teardown() is idempotent (no-op on a clean first mount). DRY (reuses the existing teardown); drawer-transition teardown cb153623 unchanged.
     const paneId = this.getAttribute('uuid') || '';
     if (!paneId) { this.innerHTML = '<div class="dv-empty">no pane</div>'; return; }
     this.paneId = paneId;
