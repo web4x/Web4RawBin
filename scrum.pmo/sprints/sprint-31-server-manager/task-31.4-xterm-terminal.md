@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Terminal MECHANISM device-proven (interactive-RW + server-attach + node-pty). DRAWER UX FIX IN FLIGHT (architect ac36618ec/aac9b5391, PO-approved): AC-auto-close (INV-T1 terminal tears down on ANY selection-change-away incl minimize/peek/non-pane — client teardown leaks 14 live sm_ today) + AC-maximize (Option A full-viewport drawer). Folds into the ONE R31.4 drawer build. -> QA-Review when the drawer UX fix gates.
+DRAWER-UX GATE GREEN (v0.7.132): INV-T1 auto-close + maximize + 0-orphan-leak, tester DET-3x @390 GREEN (a30081afc) + architect gate-verified CLOSED (274f0b61f, server race-close measured) + INV-T1 Test 6f78a86f minted+wired (9d54447d7). Chain-complete + two-keyed. -> QA-Review; only Tron device visual remains (interactive terminal in drawer).
 
 ## Traceability
 

@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-ROLLUP CONDITION MET -> QA-Review (TRIPLE DISK-VERIFIED: req authoritative minter [live both-directions + Test pass] + PO independent grep + planner Test-unit check). All 7 children (5.1-5.7) CHAIN-COMPLETE-TO-TEST — Method->Impl->Test present both-dir, Tests pass: 5.1 fb804b87 / 5.2 14df64cd / 5.3 99ab8d5e / 5.4 f4419019 / 5.5 432beb1a / 5.6 d826997d / 5.7 db12e833. (The architect 5.5/5.6-await-Impl + 5.3/5.7-await-Test flag was a commit-msg-vs-unit STALE read, NOT authoritative; disk wins -> my revert 759230a90 was over-correction, undone here.) UMBRELLA -> DONE gated on the ONE real blocker = /edit-swap LIVE-HOST (composed layout live on /edit + full diff/merge regression + Tron device; ACs on R31.5.5 4c528501c) — NOT unit re-builds.
+ALL 7 children chain-complete-to-Test (triple disk-verified). /EDIT-SWAP LIVE-HOST GATE GREEN (v0.7.132): composed /edit?layout=r31.5 [L]|[C]|[R] + R30 diff/merge regression GREEN DET-3x @390 (4a3c4bcc7). Umbrella now awaits ONLY Tron device visual on the composed WODA/editor -> DONE. On Tron GREEN: umbrella + all 7 children (5.1-5.7) -> DONE.
 
 ## Traceability
 
