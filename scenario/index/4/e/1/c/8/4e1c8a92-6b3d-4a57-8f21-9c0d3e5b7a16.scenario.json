@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4e1c8a92-6b3d-4a57-8f21-9c0d3e5b7a16",
+    "name": "RbProfileView.render impl",
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-profile-view.ts",
+    "designAhead": false,
+    "description": "BUILT v0.7.122 (R31.8c round-2): NEW src/public/ts/trace/rb-profile-view.ts — <rb-profile-view>, the ONE canonical data-driven MASKING-AWARE full-profile viewer. render() emits a section ONLY when its field(s) are present in `data` (ProfileViewData: name/avatar/identifiers/deviceCount/devices/grantedFeatureCount/bugReportCount/token?/secretCode?), so a masked granted-user feed (FeatureManager.grantedUserProfile) shows name+identifiers+devices+grants+bug-reports but NEVER token/secretCode (INV-F7 BY CONSTRUCTION — the viewer can't leak what the feed omits). data setter re-renders. FM drawer (RbProfileDetail.mount) is the FIRST caller (feeds the enriched masked profile); /profile adopts it as a captured fast-follow AC. Marker [impl:uuid:4e1c8a92-...] on the render decl (#126). Class RbProfileView 51bb30cb, Method 422f22f8."
+  },
+  "ownerIor": "ior:instance:422f22f8-5dc4-4081-899e-8d2bd694762f"
+}

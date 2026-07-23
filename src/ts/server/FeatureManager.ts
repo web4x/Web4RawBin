@@ -133,8 +133,8 @@ export class FeatureManager {
   // R31.8c gap-B: itemView ROOTS for the native FeatureManager tree — scan ior:class:Feature → [{uuid, type:'feature',
   // name, icon, hasChildren:allowedUsers.length>0}]. Seeds the REAL Feature roots (replaces the synthetic 'feature:
   // manager' so a grant targets the real Feature uuid). Fail-closed to [].
-  static featureRoots(): { uuid: string; type: string; name: string; icon: string; hasChildren: boolean }[] {
-    const out: { uuid: string; type: string; name: string; icon: string; hasChildren: boolean }[] = [];
+  static featureRoots(): { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number }[] {
+    const out: { uuid: string; type: string; name: string; icon: string; hasChildren: boolean; childCount: number }[] = [];
     try {
       const idx = new ScenarioIndex(SCENARIO_DIR);
       for (const uuid of idx.list()) {
@@ -142,7 +142,9 @@ export class FeatureManager {
         if (u?.ior !== 'ior:class:Feature') continue;
         const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
         const au = Array.isArray(m.allowedUsers) ? (m.allowedUsers as string[]) : [];
-        out.push({ uuid, type: 'feature', name: String(m.name || 'Feature'), icon: String(m.icon || ''), hasChildren: au.length > 0 });
+        // R31.8c round-2 item(c): emit childCount so the SHARED rb-trace-tree collapsed badge shows the real granted-user
+        // count (exactly like the Sprint root's childCount:tasks.length → serverChildCount → computeBadges). No FM tree code.
+        out.push({ uuid, type: 'feature', name: String(m.name || 'Feature'), icon: String(m.icon || ''), hasChildren: au.length > 0, childCount: au.length });
       }
     } catch { /* fail-closed → empty */ }
     return out;
@@ -207,20 +209,23 @@ export class FeatureManager {
   // R31.8c OPAQUE avatar URL (feature+userId, NO raw token) — the granted-user avatar route resolves it server-side.
   static grantedAvatarUrl(featureUuid: string, userId: string): string { return `/api/feature-manager/granted-user/avatar?feature=${featureUuid}&id=${userId}`; }
 
-  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number } | null {
+  static grantedUserProfile(featureUuid: string, userId: string, profiles: Map<string, SearchProfile>): { name: string; avatar?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number; devices?: { platform: string }[]; bugReportCount?: number } | null {
     const token = FeatureManager.resolveGrantedToken(featureUuid, userId);
     if (!token) return null;
     const p = profiles.get(token);
     if (!p) return { name: FeatureManager.maskToken(token), identifiers: [] }; // granted but no live profile
     const identifiers: string[] = [];
     if (p.phone) identifiers.push(FeatureManager.maskIdentifier('phone', p.phone));
-    const pp = p as SearchProfile & { features?: string[]; devices?: unknown[] };
+    // R31.8c round-2 item(2): ENRICH to the full field-set RbProfileView renders — masked device summaries (platform
+    // ONLY, no device ids) + bugReport COUNT. INV-F7 preserved: still NO token/secretCode/raw-avatar (opaque url only).
+    const pp = p as SearchProfile & { features?: string[]; devices?: { platform?: string; name?: string }[]; bugReports?: unknown[] };
     return {
       name: p.name || FeatureManager.maskToken(token),
       ...(p.avatar ? { avatar: FeatureManager.grantedAvatarUrl(featureUuid, userId) } : {}), // OPAQUE — INV-F7: NO raw token in the URL (was p.avatar = /api/avatar/<token>)
       identifiers,
       ...(Array.isArray(pp.features) ? { grantedFeatureCount: pp.features.length } : {}),
-      ...(Array.isArray(pp.devices) ? { deviceCount: pp.devices.length } : {}),
+      ...(Array.isArray(pp.devices) ? { deviceCount: pp.devices.length, devices: pp.devices.slice(0, 8).map(dv => ({ platform: String(dv?.platform || dv?.name || 'device') })) } : {}),
+      ...(Array.isArray(pp.bugReports) ? { bugReportCount: pp.bugReports.length } : {}),
     };
   }
 }

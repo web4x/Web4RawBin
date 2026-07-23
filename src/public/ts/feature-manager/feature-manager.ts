@@ -43,4 +43,5 @@ tree?.addEventListener('click', (e: Event) => {
 });
 
 document.getElementById('refresh')?.addEventListener('click', () => void load());
+document.addEventListener('fm-tree-refresh', () => void load()); // R31.8c round-2 item(b): grant/revoke success (rb-feature-detail / rb-profile-detail) → reuse the EXISTING load() path (refetch roots → tree.items diff)
 void load();

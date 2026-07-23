@@ -5,7 +5,9 @@
     "name": "RbProfileView.render",
     "description": "render(profile): the canonical data-driven full-profile render — avatar + name + identifier list + profile fields/counts, from a MASKED profile object (no token/secretCode, INV-F7). ONE shared render both the FeatureManager grantee-detail (via RbProfileDetail.mount) and (fast-follow) /profile use, replacing the round-1 name+truncated-phone STUB. LOAD-BEARING marked decl — expert places [impl:uuid] on the render decl (#126). Architect topology 467b9c1fa (design-r31.8c-round2.md).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-profile-view.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:4e1c8a92-6b3d-4a57-8f21-9c0d3e5b7a16"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:51bb30cb-df02-444a-b494-5500471e984b"

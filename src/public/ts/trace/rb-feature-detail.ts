@@ -144,6 +144,7 @@ export class RbFeatureDetail extends HTMLElement {
     try {
       const r = await fetch('/api/feature-manager', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action, feature, token }) });
       this.flash(r.ok ? (action === 'grant' ? 'Granted ✓' : 'Revoked ✓') : (r.status === 403 ? 'Forbidden (owner only)' : 'Failed (' + r.status + ')'), r.ok);
+      if (r.ok) document.dispatchEvent(new CustomEvent('fm-tree-refresh')); // R31.8c round-2 item(b): grant success auto-refreshes the tree (new member appears)
     } catch { this.flash('Request failed', false); }
   }
 

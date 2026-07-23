@@ -1,9 +1,9 @@
-// R31.8c NODE-4 — RbProfileDetail: a first-class drawer detail-view for a GRANTED USER (reached from a Feature's
-// allowedUsers child-node in the native itemView tree; tagMap profile→rb-profile-detail; REUSES the shared
-// RbDetailDrawer, NO ProfileSheet overlay). uuid attr carries the context: 'feature:token' (opened under a Feature →
-// REVOKE shown) or plain 'token'. Owner-gated, MASKED PII (data via the owner-gated searchUsers exact-match).
-type Hit = { token: string; name: string; avatar?: string; uuid?: string; identifiers: string[]; grantedFeatureCount?: number; deviceCount?: number };
-const esc = (s: string): string => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] as string));
+// R31.8c NODE-4 / round-2 — RbProfileDetail: the drawer detail-view for a GRANTED USER (reached from a Feature's
+// allowedUsers child-node; tagMap profile→rb-profile-detail; REUSES the shared RbDetailDrawer). uuid attr =
+// 'featureUuid:opaqueUserId' (FeatureManager → REVOKE shown) or plain 'token'. Round-2: the hand-built stub is
+// RETIRED — layout = [grab-bar] → [Revoke] → [<rb-profile-view> fed the enriched MASKED profile] (items 2+3).
+import './rb-profile-view.js';
+import type { ProfileViewData } from './rb-profile-view.js';
 
 export class RbProfileDetail extends HTMLElement {
   static get observedAttributes() { return ['uuid']; }
@@ -13,67 +13,56 @@ export class RbProfileDetail extends HTMLElement {
   attributeChangedCallback(): void { if (this.isConnected && (this.getAttribute('uuid') || '') !== this.key) void this.mount(); }
 
   // [impl:uuid:3f61d7d8-041b-45ae-a09e-b5bb0a5cafd9] RbProfileDetail.mount (Method e809f03a, off Class 50f45ac3) —
-  // R31.8c NODE-4: render the granted-user profile — avatar + name + MASKED identifiers. In FeatureManager context
-  // (uuid = 'featureUuid:token' → parent feature in scope) ALSO render a REVOKE control → POST /api/feature-manager
-  // {action:'revoke', feature, token} (owner-gated, reuses the slice-b revokeFeature) → re-render/close. MASKED PII,
-  // owner-gated read (data via searchUsers exact-match). revokeHandler / profile-render = private helpers.
+  // R31.8c round-2 (items 2+3): render the granted-user profile via the SHARED <rb-profile-view> (masking-aware full
+  // viewer) fed the enriched MASKED profile from the owner-gated GET /api/feature-manager/granted-user (grantedUserProfile).
+  // Layout: Revoke button FIRST (directly under the drawer grab-bar), viewer BELOW. No token ever reaches the client (INV-F7).
   private async mount(): Promise<void> {
     const raw = this.getAttribute('uuid') || '';
     this.key = raw;
-    // context: 'feature:token' (FeatureManager) vs plain 'token'
-    const sep = raw.indexOf(':');
+    const sep = raw.indexOf(':');                 // 'featureUuid:opaqueUserId' (FM context) vs plain 'token'
     const feature = sep >= 0 ? raw.slice(0, sep) : '';
-    const token = sep >= 0 ? raw.slice(sep + 1) : raw;
+    const id = sep >= 0 ? raw.slice(sep + 1) : raw;
     this.style.cssText = 'display:block;text-align:left;padding:12px 8px';
     this.innerHTML = '<div class="dv-loading">Loading…</div>';
-    // R31.8c: in FeatureManager context the ref's id is the OPAQUE userId (FIX-2 sha256[:16]). Resolve the MASKED FULL
-    // profile SERVER-side via the owner-gated GET /api/feature-manager/granted-user (grantedUserProfile) — name, avatar,
-    // masked identifiers, counts; no token ever reaches the client.
-    const hit = feature ? await this.resolveGranted(feature, token) : await this.fetchUser(token);
+    const data = feature ? await this.resolveGranted(feature, id) : await this.fetchUser(id);
     this.innerHTML = '';
-    const head = document.createElement('div');
-    head.style.cssText = 'display:flex;align-items:center;gap:12px;margin-bottom:12px';
-    const counts = [hit?.grantedFeatureCount != null ? `${hit.grantedFeatureCount} feature${hit.grantedFeatureCount === 1 ? '' : 's'}` : '', hit?.deviceCount != null ? `${hit.deviceCount} device${hit.deviceCount === 1 ? '' : 's'}` : ''].filter(Boolean).join(' · ');
-    head.innerHTML =
-      (hit?.avatar ? `<img src="${esc(hit.avatar)}" alt="" style="width:48px;height:48px;border-radius:50%;object-fit:cover"/>` : `<div style="width:48px;height:48px;border-radius:50%;background:#30363d;display:flex;align-items:center;justify-content:center;font-size:1.2rem">👤</div>`)
-      + `<div><div style="color:#fff;font-weight:600;font-size:1rem">${esc(hit?.name || '(unknown user)')}</div>`
-      + `<div style="color:rgba(255,255,255,0.55);font:11px monospace;margin-top:2px">${esc((hit?.identifiers || []).join(' · ') || token.slice(0, 8) + '…')}</div>`
-      + (counts ? `<div style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:2px">${esc(counts)}</div>` : '')
-      + `</div>`;
-    this.appendChild(head);
-    if (feature) { // Revoke control at the TOP (under the drawer grab-bar), not buried at the bottom
+    if (feature) { // Revoke FIRST — directly under the grab-bar (item 3), not buried below the viewer
       const btn = document.createElement('button');
       btn.textContent = 'Revoke access';
-      btn.style.cssText = 'background:#b62324;color:#fff;border:0;border-radius:6px;padding:7px 14px;cursor:pointer;font-size:0.85rem';
-      btn.addEventListener('click', () => void this.revoke(feature, token));
+      btn.style.cssText = 'background:#b62324;color:#fff;border:0;border-radius:6px;padding:7px 14px;cursor:pointer;font-size:0.85rem;margin-bottom:12px';
+      btn.addEventListener('click', () => void this.revoke(feature, id));
       this.appendChild(btn);
     }
+    const view = document.createElement('rb-profile-view') as HTMLElement & { data: ProfileViewData | null };
+    view.data = data;                              // masking-aware: renders only present (masked) fields → no token/secret
+    this.appendChild(view);
   }
 
   // R31.8c: resolve a granted user's MASKED FULL profile server-side by opaque id (owner-gated grantedUserProfile).
-  // No token ever reaches the client — the response is masked display only (INV-F7).
-  private async resolveGranted(feature: string, id: string): Promise<Hit | null> {
+  // No token reaches the client — masked display only (INV-F7). The response shape IS ProfileViewData.
+  private async resolveGranted(feature: string, id: string): Promise<ProfileViewData | null> {
     try {
       const r = await fetch(`/api/feature-manager/granted-user?feature=${encodeURIComponent(feature)}&id=${encodeURIComponent(id)}`, { credentials: 'same-origin' });
       if (!r.ok) return null;
-      const d = (await r.json()) as { name?: string; avatar?: string; identifiers?: string[]; grantedFeatureCount?: number; deviceCount?: number };
-      return { token: '', name: d.name || '(unknown user)', avatar: d.avatar, identifiers: d.identifiers || [], grantedFeatureCount: d.grantedFeatureCount, deviceCount: d.deviceCount };
+      return (await r.json()) as ProfileViewData;
     } catch { return null; }
   }
 
-  private async fetchUser(token: string): Promise<Hit | null> {
+  private async fetchUser(token: string): Promise<ProfileViewData | null> {
     try {
       const r = await fetch(`/api/feature-manager/users?q=${encodeURIComponent(token)}`, { credentials: 'same-origin' });
       if (!r.ok) return null;
-      const d = (await r.json()) as { results?: Hit[] };
-      return (d.results || []).find(h => h.token === token) || (d.results || [])[0] || null;
+      const d = (await r.json()) as { results?: { token: string; name: string; avatar?: string; identifiers: string[] }[] };
+      const h = (d.results || []).find(x => x.token === token) || (d.results || [])[0];
+      return h ? { name: h.name, avatar: h.avatar, identifiers: h.identifiers } : null;
     } catch { return null; }
   }
 
-  private async revoke(feature: string, token: string): Promise<void> {
+  private async revoke(feature: string, id: string): Promise<void> {
     try {
-      const r = await fetch('/api/feature-manager', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'revoke', feature, token }) });
+      const r = await fetch('/api/feature-manager', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'revoke', feature, token: id }) });
       this.flash(r.ok ? 'Revoked ✓' : (r.status === 403 ? 'Forbidden (owner only)' : 'Failed (' + r.status + ')'), r.ok);
+      if (r.ok) document.dispatchEvent(new CustomEvent('fm-tree-refresh')); // R31.8c round-2 item(b): auto-refresh the FM tree (revoked user disappears)
     } catch { this.flash('Request failed', false); }
   }
 
