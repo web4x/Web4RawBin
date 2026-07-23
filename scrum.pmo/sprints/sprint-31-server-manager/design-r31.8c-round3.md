@@ -1,3 +1,14 @@
+# R31.8c ROUND-4 PLAN (robbin-expert capture 2026-07-23, for the fresh-budget expert — req chains ready, #126)
+
+Round-3 DONE+LIVE+backstop-verified (v0.7.125, pid 3571355, commits 705cea994/8544b16a6/a0840c4f3/04453c099). Round-4 = req chains (build against them):
+- **FIX-B (core): NEW neutral server module `src/ts/server/ProfileView.ts`** — Class ProfileView **e20de5f6**, Method `profileViewData` **86738972**. `static profileViewData(profile: ServerProfileRecord): ProfileViewData` — ONE builder, devices mapping INLINE. Neutral 3rd module BOTH server.ts + FeatureManager import (avoid circular dep). NOT the client RbProfileView. Place `[impl:uuid:<new>]` on the decl, ownerIor→86738972, add to implementations[]. Report marker to req.
+- **(B) grantedUserProfile 8a3f6d21 (impl-edit):** return `ProfileView.profileViewData(profile)` (incl devices) + FeatureManager's profileUuid; DROP the summary identifiers/deviceCount. server.ts /profile PROFILE-ws feed uses the SAME builder → drawer===/profile BY CONSTRUCTION (this is the point of FIX-B).
+- **(A1) featureRoots 79b22596 (impl-edit):** emit allowedUsers INLINE as `children` (reuse allowedUsersChildren ad622052) so the tree shows granted users inline.
+- **(A2) SHARED rb-trace-tree items-mode reactive, on setItems Impl c5b331a7 (impl-edit):** connectedCallback SKIP graph-sub when `_items` set; render() → renderItems (not the no-graph render) when `_items`; renderItems clears stale `.tt-empty`. → revoke live-updates, no stray no-graph, refresh=fallback. REGRESSION-CHECK /trace.
+- KEEP: non-owner→403 + INV-F7. Report all Impl markers → req reconciles + two-key; tester re-gates the REAL owner-interactive flow @390 (incl revoke live-update). SERVER changes (ProfileView/grantedUserProfile/featureRoots) → batched REAL restart + verify-by-PID.
+
+---
+
 # R31.8c ROUND-3 DESIGN — DELIVER LITERALLY (robbin-architect 2026-07-23)
 
 PO owns the misses; root cause = WE injected owner-side masking/caution Tron never asked for (sha256 uuid, masked mini-card, INV-F7 on his OWN owner-gated console, deferred /profile migration = the stub). Round-3 = deliver LITERALLY + SIMPLER (remove the scope-creep). KEEP only the real protection: non-owner→403. MEASURED first.

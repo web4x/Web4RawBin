@@ -27,6 +27,7 @@ DEVICE-QA RE-OPENED (Tron walk-through 2026-07-23, round-4, spec ed11fb8f8). Rou
     - Requirement R31.8 `[requirement:uuid:a93f5fce-e55a-4d42-9d4d-976a7b892523]`
   - down
     - None (atomic task)
+  - round-4 FIX-B chain (drawer===/profile): UC profileView.build e1ad54d7 -> Class ProfileView e20de5f6 (src/ts/server/ProfileView.ts) -> Method profileViewData 86738972 (affce9084, architect-verified faithful). ROOT-A reactive-tree chain lands as expert builds A1/A2.
 
 ## Task Description
 
