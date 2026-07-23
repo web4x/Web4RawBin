@@ -164,6 +164,7 @@
   -> profile.viewFull [uc:uuid:84cdc9ec-52e8-4696-8340-0892a419f5a4]
   -> featureManager.profileUuidOf [uc:uuid:19bab6d8-533f-47a1-9423-9e771ca753d2]
   -> featureManager.tokenOfProfileUuid [uc:uuid:7e617334-6ff7-4ec4-ba4b-0c55e185821d]
+  -> profileView.build [uc:uuid:e1ad54d7-9bce-4637-b51b-a8af8d5b9095]
 
 - [ ] **R31.5.1 — rb-compartment: one component whose presentation attr flips full-content (expanded) <-> collapsed bar strip**
   [requirement:uuid:6be68334-4188-462d-912f-ed6b7767aa8a]

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e20de5f6-c263-4341-a72b-7ecca6c91835",
+    "name": "ProfileView",
+    "file": "src/ts/server/ProfileView.ts",
+    "methods": [
+      "ior:instance:86738972-13c3-4209-a128-da6a7e685af6"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/server/ProfileView.ts",
+    "unitLinks": [],
+    "note": "FRESH server-side data-builder class (src/ts/server/ProfileView.ts) — a NEUTRAL 3rd module that BOTH server.ts and FeatureManager.ts import (server.ts imports FeatureManager, so the shared builder must live outside both to avoid a circular dep). NOT the CLIENT RbProfileView 51bb30cb (that is client render; this is server DATA). No server Profile code-class existed (profiles are functions loadProfiles/saveProfiles + userProfiles Map) — hence fresh. Architect topology f94875f6e; req-eng minted the fresh uuid."
+  },
+  "ownerIor": "ior:instance:e1ad54d7-9bce-4637-b51b-a8af8d5b9095"
+}

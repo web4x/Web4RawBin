@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e1ad54d7-9bce-4637-b51b-a8af8d5b9095",
+  "name": "profileView.build",
+  "description": "R31.8c ROUND-4 FIX-B (drawer===/profile by construction): ProfileView.profileViewData(profile) is the ONE shared server-side builder that produces the FULL ProfileViewData shape (incl the DEVICES list builder — Mac/deviceId, IP, resolution, Nx-connected, Last-timestamp), used by BOTH FeatureManager.grantedUserProfile AND server.ts /profile. This makes the FM drawer render === /profile render by construction (same component RbProfileView + same data SHAPE). Root: round-3's drawer was NOT a component fork — the FEED differed (grantedUserProfile summary/no-devices vs /profile full/devices); the shared builder removes the fork. INV-F7 kept (owner real data; non-owner→403 is the security). Singular-chain. Architect topology f94875f6e.",
+  "class": "ior:instance:e20de5f6-c263-4341-a72b-7ecca6c91835",
+  "method": "ior:instance:86738972-13c3-4209-a128-da6a7e685af6",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.8c-round4.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
