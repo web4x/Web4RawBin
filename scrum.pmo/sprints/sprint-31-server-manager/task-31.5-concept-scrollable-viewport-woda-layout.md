@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-QA-Review — BUILT + GATED + ACs-MET (TRIPLE disk-verified: req minter artifact-measure + PO gate-file-verify + planner). All 7 piece-cores done-to-Test. /EDIT-SWAP LIVE-HOST is BUILT+SHIPPED (edit.ts:169-177 behind ?layout=r31.5 -> editorStripDescriptor [L,C,R] + showDiff mounts UNCHANGED rb-diff-editor; dist rebuilt 81ecf92f9 v0.7.130) + GATED (r315composed-regression-gate.mjs hits the LIVE /edit?layout=r31.5 route empirically, GREEN DET-3x @390 4a3c4bcc7 + architect backstop 304e4c130) + R31.5.5 5 /edit-swap ACs now MET (req flipped 1de99636e, cited to the green gate — they were captured-unmet-never-flipped = board/units lag, NOT a missing build). My prior In-Progress/pending-build was an OVER-CORRECTION (conflated a missing test:uuid MARKER with a missing BUILD). REMAINING to DONE: (a) /edit-swap Test-CREDIT marker (test:uuid, tester adds -> req mints Test = TRACEABILITY, not a build/re-run) + (b) Tron device visual on the composed WODA/editor. On Tron GREEN -> umbrella + all 7 children DONE.
+CHAMPAGNE-COMPLETE (built + gated + 5 ACs met + Test-credited, triple disk-verified). /edit-swap live-host BUILT (edit.ts:169-177 ?layout=r31.5, dist 81ecf92f9 v0.7.130) + GATED (live-route r315composed-regression-gate.mjs GREEN DET-3x @390 4a3c4bcc7 + backstop 304e4c130) + 5 R31.5.5 ACs MET (req 1de99636e) + Test-CREDIT minted (Test 2b20035d <-> Impl 3b8e6c24, req ed879c489). All 7 piece-cores done-to-Test. NO pending build, NO pending Test-marker. ONLY Tron device visual on the composed WODA/editor remains -> DONE (flips umbrella + all 7 children).
 
 ## Traceability
 
