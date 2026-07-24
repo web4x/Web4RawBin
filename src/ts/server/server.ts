@@ -54,12 +54,18 @@ const PKG_VERSION = JSON.parse(fsSync.readFileSync(path.join(path.dirname(fileUR
 // the per-request package.json read was exactly what let a hand-edit desync served-vs-built). A version change now
 // requires a rebuild — which it did anyway, to re-stamp sw.js; a bump without a rebuild WAS the desync we kill here.
 // Manifest is still per-request (picks up a rebuild without a server restart) but its value is build-stamped, not editable.
-function getVersion(): string {
+// R31.7 INV-V4: BOOT-STAMP the version — read the build-stamped manifest version ONCE at module load, FROZEN for the
+// process lifetime. So /api/config reflects the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart
+// leaves it UNCHANGED (honest — no version-lie), and only a REAL restart re-reads. Ends the verify-by-pid workaround:
+// /api/config becomes a VALID deploy signal. (Was per-request → showed the LATEST-BUILT version even if the process
+// wasn't restarted = the lie we fought all session.) BOOT_VERSION runs after PKG_VERSION (:49) — no TDZ.
+const BOOT_VERSION: string = (() => {
   try {
     const mf = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../src/public/dist/build-manifest.json');
     return JSON.parse(fsSync.readFileSync(mf, 'utf-8')).version || PKG_VERSION;
   } catch { return PKG_VERSION; }
-}
+})();
+function getVersion(): string { return BOOT_VERSION; } // R31.7 INV-V4: frozen at boot (NOT per-request) → /api/config == booted version
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
