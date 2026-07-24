@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.observePosition",
     "description": "observePosition(): the ResizeObserver / container-query driver — observes the host/container width and calls applyPosition(pos) (R31.5.7 d48cc0ce) with 'inline' >=1025px / 'bottom' <=1024px, so the ONE detail-container instance transitions CONTINUOUSLY across the breakpoint (no JS instance-switch, no re-mount, no jump; CSS media drives the layout, this drives the data-position attr). LOAD-BEARING marked decl for R31.9 — expert places [impl:uuid] on the observePosition decl (#126). Everything else is impl-edits (app.css @media:277/:310 retire + data-position branches + transition; clear stale inline height on->inline; rb-strip Details-compartment host reusing R31.5.1/5.2; FM mount->.trace-page). Architect topology e7debdf70.",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:240c539f-4c32-40e8-b40f-856dcb3daf6b"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"

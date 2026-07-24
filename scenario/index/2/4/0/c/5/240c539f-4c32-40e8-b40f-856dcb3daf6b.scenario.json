@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "240c539f-4c32-40e8-b40f-856dcb3daf6b",
+    "name": "RbDetailDrawer.observePosition impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e8097351-f461-4d5b-a90d-5a384dec72af"
+}
