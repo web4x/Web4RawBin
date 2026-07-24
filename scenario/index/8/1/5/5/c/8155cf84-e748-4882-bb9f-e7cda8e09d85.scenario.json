@@ -5,7 +5,9 @@
     "name": "ServerConfig.getVersion",
     "description": "getVersion() reads the build-stamped version from build-manifest.json (the __BUILD_VERSION__ the generator wrote), returned by /api/config (server.ts:1249). NOT a per-request package.json read. Decl currently at server.ts:55 (free function; candidate to consolidate into server-config.ts/ServerConfig). Expert points impl here (marker on getVersion decl); #126.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:f8c198bb-47ad-4f16-8870-67eac717c7dd"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:ed94e371-97df-48e3-a3f0-f05652ba1c8d"

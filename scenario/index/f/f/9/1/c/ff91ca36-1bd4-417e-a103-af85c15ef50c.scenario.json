@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ff91ca36-1bd4-417e-a103-af85c15ef50c",
+    "name": "test:R31.7 INV-V4 boot-frozen version — getVersion returns module-load BOOT_VERSION (served==booted)",
+    "description": "Bridged to test/visual/r317v4-boot-frozen-version-gate.mjs (GREEN DET-3x, v0.7.135). Verifies INV-V4 served==booted: (source-audit) getVersion = return BOOT_VERSION, a module-const IIFE (server.ts:62/68), /api/config uses getVersion, EXACTLY 1 module-scope package.json read — no per-request fs read; (runtime) served==committed==build-manifest==0.7.135, /api/config==/api/health single-source, stable across 5 polls no drift. Independent + NON-mutating (anti-circular vs architect decoy-injection, PO-approved). Marker ff91ca36 adopted from origin (measured line 1, not invented). Closes the version-lie + verify-by-pid axis BY CONSTRUCTION. Chain: R31.7 req 15aab895 -> Method 8155cf84 ServerConfig.getVersion -> Impl f8c198bb -> this Test.",
+    "sourceFile": "ior:file:test/visual/r317v4-boot-frozen-version-gate.mjs",
+    "implementations": [
+      "ior:instance:f8c198bb-47ad-4f16-8870-67eac717c7dd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f8c198bb-47ad-4f16-8870-67eac717c7dd"
+}

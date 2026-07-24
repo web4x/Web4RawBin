@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f8c198bb-47ad-4f16-8870-67eac717c7dd",
+    "name": "ServerConfig.getVersion impl (INV-V4 boot-frozen BOOT_VERSION)",
+    "description": "INV-V4 boot-stamp: const BOOT_VERSION = module-load IIFE reading build-manifest.json ONCE (server.ts:62), getVersion() returns BOOT_VERSION (server.ts:68) — NOT a per-request fs read. /api/config (:1409) + /api/health (:1706) use getVersion, so served == the version the process BOOTED with; a rebuild-without-restart leaves /api/config unchanged, only a real restart re-reads. Retires the version-lie + verify-by-pid. Thin impl-edit on getVersion (no new node beyond this Impl unit for the previously-untraced getVersion Method).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [
+      "ior:instance:ff91ca36-1bd4-417e-a103-af85c15ef50c"
+    ]
+  },
+  "ownerIor": "ior:instance:8155cf84-e748-4882-bb9f-e7cda8e09d85"
+}
