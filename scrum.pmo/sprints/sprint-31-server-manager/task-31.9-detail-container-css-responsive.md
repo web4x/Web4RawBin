@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
+  - [x] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-READY END-TO-END (req b2ef810ed): ACs on disk + FULL chain pre-wired scenario-first (#126) — UC drawer.observePosition cc45a580 -> Class RbDetailDrawer d86af73d -> Method observePosition e8097351 -> Impl 240c539f (minted; expert places the marker on build-go). Architect design e7debdf70 = mostly impl-edits (container-query driver wires the dead R31.5.7 applyPosition + retire @media hard-flip + clear stale inline height). EXPERT HOLDS for PO build-go. Then: expert Impl+impl-edit markers -> req reconcile+two-key -> tester @390+@desktop+@1025px-BP GREEN -> req mints Test -> planner flips. R31.9 = LAST refinement before Sprint 31 DONE.
+CODE SATISFIES all 5 ACs at v0.7.133 (req f1acd660f, no rework — AC3 sharpened to 2-pane inline Details compartment [tree|details] WODA-sizing/RawBin-CI, NOT 4-segment WODA=R31.5.6; Tron ruled). Chain pre-wired (UC drawer.observePosition cc45a580->Class RbDetailDrawer d86af73d->Method observePosition e8097351->Impl 240c539f). AWAITS the REAL GATE: tester @390 + @desktop + @1025px-BP GREEN -> req mints Tests -> planner flips T31.9 to QA-Review. NOT gate-proven yet (impl done != tester-GREEN). R31.9 = LAST refinement before Sprint 31 DONE.
 
 ## Traceability
 
@@ -42,7 +42,7 @@ The ONE refinement before Sprint 31 DONE (Tron device 2026-07-24, 444041798): th
 
 - [ ] **[AC-no-jump-across-breakpoint]**: Dragging the window across the 1025px breakpoint, the detail container transitions CONTINUOUSLY — NO jump. RENDERED assertion @390 (mobile bottom-drawer) AND @desktop-width (Details compartment) AND AT the 1025px breakpoint (drag the window across it): assert the SAME DOM node persists (no re-mount / no component-swap = the DRY invariant), data-position toggles inline<->bottom, and there is NO jump / discontinuity at the flip.
 - [ ] **[AC-resize-continuous-across-breakpoint]**: The drag-bar mouse-resize is CONTINUOUS across the 1025px breakpoint: the resize handle is present AND functional on BOTH sides, with NO stale-height shift, NO break/reset of the resize behaviour when the window crosses the breakpoint. @390 AND @desktop AND AT the breakpoint (drag then resize on each side).
-- [ ] **[AC-desktop-details-compartment]**: At desktop width (>=1025px) the detail container is NO LONGER a bottom-drawer — it is the Details COMPARTMENT in the R31.5 composed responsive-compartment layout (What / Overview / Details / Actions), with WODA-like sizing/proportions (screenshot-4) but RawBin's visual identity (NOT WODA's CI). Mobile (<=1024px) = bottom drawer. SAME instance, CSS transition. RENDERED @390 (drawer) AND @desktop (compartment in the composed layout).
+- [ ] **[AC-desktop-details-compartment]**: At desktop width (>=1025px) the detail container is NO LONGER a bottom-drawer — it is a 2-PANE INLINE Details COMPARTMENT: [host tree | Details] side-by-side (the SM/FM otmux/feature tree in the left pane, the Details compartment in the right), WODA-like sizing/proportions but RawBin's visual identity (NOT WODA's CI). ★ TRON RULING (2026-07-24, filed in the brief): this is a SINGLE Details compartment (his literal 'the details container is no longer a drawer but a COMPARTMENT'), NOT the literal 4-segment What/Overview/Details/Actions WODA composition (that full composition is R31.5.6 WODA-INSTANCE scope, SEPARATE from R31.9 — SM/FM have only a tree|details content model; the architect corrected the over-spec, design cb1b28ab1 + ruling 2c32f50d0) — SM/FM are naturally 2-pane. Mobile (<=1024px) = bottom drawer; SAME instance, CSS transition. RENDERED @390 (drawer) AND @desktop (2-pane tree|details inline compartment). NOTE: the built v0.7.133 (ca602fd33, .trace-page:has([data-position=inline])->row) ALREADY satisfies this sharpened AC — NO rework.
 - [ ] **[AC-state-preserved-across-breakpoint]**: Content / scroll position / terminal state is PRESERVED across the 1025px breakpoint (a direct consequence of it being the SAME instance — no re-mount, no state loss). @390 AND @desktop AND AT the breakpoint: open a detail (e.g. a live terminal or a scrolled profile), drag the window across the breakpoint, assert content + scroll offset + terminal session are intact (not reset).
 - [ ] **[AC-appcss-regression-clean]**: The shared app.css change (retire the @media hard-flip :277/:310, add the data-position branches + CSS transition, clear the stale inline height entering desktop) MUST NOT regress the OTHER drawer/compartment surfaces that share app.css — /trace, /room, /edit, SM (server-manager), FM (feature-manager) drawers all render + resize + open/close correctly. @390 AND @desktop regression suite across ALL consumers (shared component = gate every surface, not just the SM/FM detail).
 
