@@ -4,7 +4,9 @@
     "uuid": "240c539f-4c32-40e8-b40f-856dcb3daf6b",
     "name": "RbDetailDrawer.observePosition impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "tests": []
+    "tests": [
+      "ior:instance:ccb4a810-4397-4d68-9c7e-dc520d583a98"
+    ]
   },
   "ownerIor": "ior:instance:e8097351-f461-4d5b-a90d-5a384dec72af"
 }

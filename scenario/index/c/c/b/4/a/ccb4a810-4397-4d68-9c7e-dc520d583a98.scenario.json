@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ccb4a810-4397-4d68-9c7e-dc520d583a98",
+    "name": "test:R31.9 responsive detail-container across 1025px breakpoint — all 5 ACs REAL-interactive (RbDetailDrawer.observePosition)",
+    "description": "Bridged to test/visual/r319bp-breakpoint-gate.mjs (GREEN DET-3x @390+@desktop+@BP-drag v0.7.133, served==HEAD, REAL interactive resize 1280<->800<->1280 NOT seeded). Verifies all 5 R31.9 ACs: (1) no-jump SAME DOM node across BP (marker+element-handle persist across BOTH crossings, data-position flips inline<->bottom, never re-mounted); (2) resize-continuous (.drawer-handle both sides + stale inline height CLEARED entering desktop, deskH=empty); (3) desktop = 2-pane INLINE Details compartment tree|Details side-by-side / @390 = bottom drawer (Tron ruling f1acd660f); (4) state-preserved (content+node intact across BP); (5) app.css regression clean (/trace+/edit+/room @390+@desktop, @media(1025) retired). Marker ccb4a810 adopted from origin a403751c9 (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r319bp-breakpoint-gate.mjs",
+    "implementations": [
+      "ior:instance:240c539f-4c32-40e8-b40f-856dcb3daf6b"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:240c539f-4c32-40e8-b40f-856dcb3daf6b"
+}
