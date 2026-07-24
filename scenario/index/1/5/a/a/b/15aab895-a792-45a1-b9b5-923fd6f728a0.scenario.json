@@ -30,47 +30,65 @@
    {
     "id": "AC-typed-version-source",
     "group": "config",
-    "text": "The app version lives in ONE typed scenario unit (ior:class:Config, schema-typed version field) = THE single source of truth. No other location holds an authored version; every other occurrence is derived."
+    "text": "The app version lives in ONE typed scenario unit (ior:class:Config, schema-typed version field) = THE single source of truth. No other location holds an authored version; every other occurrence is derived.",
+    "status": "met",
+    "metNote": "MET: version lives in ONE typed Config unit config-singleton (ior:class:Config); build.mjs:24-25 reads config-singleton.model.version as THE source. Gated by Test 317b67d0 (A). Measured 2026-07-24."
    },
    {
     "id": "AC-build-generates",
     "group": "config",
-    "text": "build.mjs ATOMICALLY GENERATES all version consumers from the typed Config unit — package.json version, sw.js CACHE_NAME, build-manifest, and a bundle-const __BUILD_VERSION__ — as a generator step (never hand-edited, like requirements.md is a generated view). They cannot desync because there is one source."
+    "text": "build.mjs ATOMICALLY GENERATES all version consumers from the typed Config unit — package.json version, sw.js CACHE_NAME, build-manifest, and a bundle-const __BUILD_VERSION__ — as a generator step (never hand-edited, like requirements.md is a generated view). They cannot desync because there is one source.",
+    "status": "met",
+    "metNote": "MET: build.mjs generateVersion [impl b5eb6953] (build.mjs:17,23) atomically generates package.json version (surgical write-back :28), sw.js CACHE_NAME (:88), build-manifest.version (:69), __BUILD_VERSION__ (:43) from the Config unit. Gated by Test 317b67d0 (A), status:pass. Measured 2026-07-24."
    },
    {
     "id": "AC-apiconfig-buildstamp",
     "group": "config",
-    "text": "/api/config and any version display READ the build-stamped __BUILD_VERSION__, NOT a per-request package.json read. Served == what was actually BUILT+deployed by construction (the per-request package.json read was EXACTLY what let a stray file edit make served lie = Tron phantom). Accepted tradeoff: version changes via build/deploy only, never a hand-edit."
+    "text": "/api/config and any version display READ the build-stamped __BUILD_VERSION__, NOT a per-request package.json read. Served == what was actually BUILT+deployed by construction (the per-request package.json read was EXACTLY what let a stray file edit make served lie = Tron phantom). Accepted tradeoff: version changes via build/deploy only, never a hand-edit.",
+    "status": "met",
+    "metNote": "MET: server.ts getVersion (:57-61) reads the BUILD-STAMPED build-manifest.json version, NOT a per-request package.json read — the phantom-7.99 root (per-request package.json read) is removed. /api/config (:1403) + status (:1700) use getVersion. Measured server.ts 2026-07-24. NOTE: distinct from INV-V4 — this read is per-request-of-the-build-stamped-manifest (build-stamped, not editable); INV-V4 adds boot-freezing (still UNBUILT, below)."
    },
    {
     "id": "INV-V1",
     "group": "invariant",
-    "text": "INV-V1 (derive-equal): unit == package.json version == sw.js CACHE_NAME == build-manifest == __BUILD_VERSION__ — all consumers derive-equal from the one typed Config unit. A guard/CI fails LOUDLY on any inequality."
+    "text": "INV-V1 (derive-equal): unit == package.json version == sw.js CACHE_NAME == build-manifest == __BUILD_VERSION__ — all consumers derive-equal from the one typed Config unit. A guard/CI fails LOUDLY on any inequality.",
+    "status": "met",
+    "metNote": "MET: versionGuardAgreement (scripts/start.mjs:97) derive-equal asserts unit==package.json==sw.js==manifest, exit(1) loud on divergence. Gated by Test 317b67d0 (B). Measured start.mjs 2026-07-24."
    },
    {
     "id": "INV-V2",
     "group": "invariant",
-    "text": "INV-V2 (served==committed): the generated consumers == HEAD (committed) — no drift between what is built/served and what is committed. Guard fails loudly on divergence."
+    "text": "INV-V2 (served==committed): the generated consumers == HEAD (committed) — no drift between what is built/served and what is committed. Guard fails loudly on divergence.",
+    "status": "met",
+    "metNote": "MET (served==committed): satisfied by versionGuardTreeClean (INV-V3, start.mjs:83) asserting the deploy-critical consumers == HEAD (git diff --quiet HEAD -- server.ts/package.json/sw.js/Config-unit) TOGETHER WITH INV-V1 derive-equal — consumers agree AND equal committed => served==committed by construction. Gated by Test 317b67d0 (B). Measured 2026-07-24. (INV-V2's assertion is mechanically the INV-V3 tree-clean-vs-HEAD check; no separate guard needed.)"
    },
    {
     "id": "INV-V3",
     "group": "invariant",
-    "text": "INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine)."
+    "text": "INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine).",
+    "status": "met",
+    "metNote": "MET: versionGuardTreeClean (scripts/start.mjs:83) — git diff --quiet HEAD -- [server.ts, package.json, sw.js, CONFIG_UNIT], exit(1) loud; SCOPED to deploy-critical (not whole-tree, correct for the shared churny repo). Gated by Test 317b67d0 (B). Measured start.mjs 2026-07-24."
    },
    {
     "id": "AC-typed-config-pattern",
     "group": "config",
-    "text": "Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical."
+    "text": "Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical.",
+    "status": "met",
+    "metNote": "MET (version-first, per the AC's own scoping 'version is the FIRST; extend as far as practical'): the typed-Config-scenario-unit mechanism EXISTS and is proven with the version (config-singleton, ior:class:Config, semver-schema-validated at build.mjs:26 fail-loud). Pattern established; extension to other configs is ongoing/as-practical. Measured 2026-07-24."
    },
    {
     "id": "AC-INV-V4-served-equals-booted",
     "group": "invariant",
-    "text": "INV-V4 (served==booted): getVersion() returns a BOOT-STAMPED const — at module load, const BOOT_VERSION = (read build-manifest.json ONCE) ?? PKG_VERSION; getVersion() returns BOOT_VERSION (frozen at boot). So /api/config version == the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart leaves /api/config UNCHANGED (honest — shows what is actually running), and only a REAL restart re-reads. Closes the last version-lie axis: /api/config becomes a valid deploy signal again (no longer needs the PID/uptime workaround). sw.js CACHE_NAME stays a static build-updated file (correct for PWA client cache-bust) — this fix is only the server self-reported version. Thin impl-edit on getVersion (server.ts:55-59), NO new node; expert builds + a real restart."
+    "text": "INV-V4 (served==booted): getVersion() returns a BOOT-STAMPED const — at module load, const BOOT_VERSION = (read build-manifest.json ONCE) ?? PKG_VERSION; getVersion() returns BOOT_VERSION (frozen at boot). So /api/config version == the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart leaves /api/config UNCHANGED (honest — shows what is actually running), and only a REAL restart re-reads. Closes the last version-lie axis: /api/config becomes a valid deploy signal again (no longer needs the PID/uptime workaround). sw.js CACHE_NAME stays a static build-updated file (correct for PWA client cache-bust) — this fix is only the server self-reported version. Thin impl-edit on getVersion (server.ts:55-59), NO new node; expert builds + a real restart.",
+    "status": "unmet",
+    "unmetNote": "UNMET (the ONE remaining unbuilt AC): server.ts getVersion (:57-61) reads build-manifest.json PER-REQUEST (readFileSync inside getVersion), NOT a boot-stamped const read ONCE at module load — so a rebuild-WITHOUT-restart changes /api/config (served != booted). Requires the thin impl-edit: const BOOT_VERSION = (read manifest once at module load) ?? PKG_VERSION; getVersion() returns BOOT_VERSION. Architect design 520bb68c4 exists; TEED FOR EXPERT (build + a real restart). Measured server.ts 2026-07-24."
    }
   ],
   "designRef": "ior:git:commit:23c7873da",
   "supersedes": "R31.7 deploy-runbook-hardening framing (same altId, reframed in place 2026-07-21)",
-  "closed": false
+  "closed": false,
+  "reconcileNote": "2026-07-24 (robbin-req, PO-directed disk-reconcile): T31.7 was FALSELY marked Done. MEASURED the artifacts on disk v0.7.134: 7/8 ACs BUILT+GATED = MET (single-source generation via build.mjs generateVersion b5eb6953 + Config unit config-singleton + INV-V1/V2/V3 guards in start.mjs:83/97, gated by Test 317b67d0 status:pass; /api/config build-stamped read in server.ts:57-61). ONLY INV-V4 (served==booted, getVersion boot-stamp) is UNBUILT — getVersion reads the manifest per-request, no BOOT_VERSION const; architect design 520bb68c4 exists, teed for expert. Therefore T31.7 is NOT Done -> correct to In-Progress (1 unbuilt AC). NOTE: the requirements.md AC checkboxes render '- [ ]' for ALL reqs (generate-sprint-md.ts:164 is status-blind); the AC-met truth is this unit's ac.status field.",
+  "status": "in-progress"
  },
  "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
 }
