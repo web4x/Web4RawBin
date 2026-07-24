@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-req captured ACs + UC minted (b2ef810ed); architect design ready (e7debdf70, container-query driver wires applyPosition + retire @media hard-flip). AWAITS: expert Impl -> tester gate @390 + @desktop + @1025px-BP -> Tron device. crossRef R31.5.7.
+READY END-TO-END (req b2ef810ed): ACs on disk + FULL chain pre-wired scenario-first (#126) — UC drawer.observePosition cc45a580 -> Class RbDetailDrawer d86af73d -> Method observePosition e8097351 -> Impl 240c539f (minted; expert places the marker on build-go). Architect design e7debdf70 = mostly impl-edits (container-query driver wires the dead R31.5.7 applyPosition + retire @media hard-flip + clear stale inline height). EXPERT HOLDS for PO build-go. Then: expert Impl+impl-edit markers -> req reconcile+two-key -> tester @390+@desktop+@1025px-BP GREEN -> req mints Test -> planner flips. R31.9 = LAST refinement before Sprint 31 DONE.
 
 ## Traceability
 
@@ -28,7 +28,7 @@ req captured ACs + UC minted (b2ef810ed); architect design ready (e7debdf70, con
   - crossRef
     - R31.5.7 (drawer=Details) — R31.9 WIRES its applyPosition/data-position continuous mechanism (BUILT but 0-callers)
   - down
-    - UC drawer.observePosition `[uc:uuid:cc45a580-a401-4cee-9995-a10d7691bf40]` → Class RbDetailDrawer d86af73d → Method observePosition e8097351 (Impl pending expert)
+    - UC drawer.observePosition `[uc:uuid:cc45a580-a401-4cee-9995-a10d7691bf40]` → Class RbDetailDrawer d86af73d → Method observePosition e8097351 (Impl 240c539f pre-minted (marker on build-go))
 
 ## Task Description
 
