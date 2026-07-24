@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [x] implementing
-  - [x] testing
+  - [~] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-CHAIN-COMPLETE-TO-TEST, all 5 ACs MET (req 140e197a7 Test + e86354af9 flip; VERIFIED disk: Test ccb4a810 ior:class:Test reverse-wired to Impl 240c539f, tester GREEN @390+@desktop+@1025px-BP real-interactive). Chain f93d369a->cc45a580->d86af73d->e8097351->240c539f->ccb4a810 complete. -> QA-Review; ONLY Tron device visual remains (no-jump + continuous-resize across the 1025px BP + desktop 2-pane Details compartment) -> DONE.
+DEVICE-QA ROUND-2 RE-OPENED (Tron device d660f68ee 2026-07-24): MAJOR achievement (round-1 confirmed — drawer-resize works + desktop compartment works, Tron-noted) but 2 issues: (1) FULL-WIDTH INTERMEDIATE TIER missing (drawer autosizes narrow, should be 100vw until the compartment breakpoint = a 3-tier: mobile-drawer / full-width-intermediate / desktop-compartment); (2) TREE-SCROLL-PAST-DRAWER REGRESSION (last item occluded by drawer, worked before). ★ DRY: same issue on /trace + SM = fix-once-fixes-both (shared detail container). Round-1 5 ACs STAY met + Test 2b20035d preserved; round-2 re-opens as 2 NEW ACs (req formalizing full-width-intermediate-tier + scroll-past-drawer-regression, in flight -> I mirror). Build: req ACs -> architect diagnose(scroll root)/design(3-tier) -> expert -> tester @390+intermediate+desktop -> Tron. status In-Progress.
 
 ## Traceability
 
