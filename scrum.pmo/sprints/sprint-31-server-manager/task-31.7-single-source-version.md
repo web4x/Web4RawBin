@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-INV-V4 NOW BUILT + GATED (v0.7.135, artifact-verified): getVersion() server.ts:68 returns BOOT_VERSION (frozen at boot :62, NOT per-request — expert 16150b187) + INV-V4 gate GREEN DET-3x v0.7.135 (tester 272c91474, version-lie killer: /api/config unchanged on rebuild-without-restart, only real restart re-reads). 7 single-source core ACs met (v0.7.103 test 317b67d0). ⚠ ONLY req TRACEABILITY pending (in flight, NOT a build): mint/credit the INV-V4 Test onto the getVersion boot-stamp Impl + flip AC-INV-V4 status:met. When req commits -> all 8 ACs met + chain-complete -> planner flips T31.7 -> DONE (PO: server/build-tooling gate, NO Tron device visual needed, like R31.2). Held In-Progress until the INV-V4 AC formally flips (consistency: no all-8-met claim while AC-INV-V4 unmet). VERSION-LIE CHAPTER CLOSED (functional+gate); traceability formalizing.
+CLOSED. All 8 ACs met, chain-complete-to-Test, gate GREEN v0.7.135. Version-lie chapter DONE.
 
 ## Traceability
 
@@ -41,7 +41,7 @@ TYPED single-source-of-truth for the app version, correct-by-construction (Tron 
 - [x] **[INV-V2]**: INV-V2 (served==committed): the generated consumers == HEAD (committed) — no drift between what is built/served and what is committed. Guard fails loudly on divergence.
 - [x] **[INV-V3]**: INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine).
 - [x] **[AC-typed-config-pattern]**: Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical.
-- [ ] **[AC-INV-V4-served-equals-booted]** (UNMET): INV-V4 (served==booted): getVersion() returns a BOOT-STAMPED const — at module load, const BOOT_VERSION = (read build-manifest.json ONCE) ?? PKG_VERSION; getVersion() returns BOOT_VERSION (frozen at boot). So /api/config version == the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart leaves /api/config UNCHANGED (honest — shows what is actually running), and only a REAL restart re-reads. Closes the last version-lie axis: /api/config becomes a valid deploy signal again (no longer needs the PID/uptime workaround). sw.js CACHE_NAME stays a static build-updated file (correct for PWA client cache-bust) — this fix is only the server self-reported version. Thin impl-edit on getVersion (server.ts:55-59), NO new node; expert builds + a real restart.
+- [x] **[AC-INV-V4-served-equals-booted]**: INV-V4 (served==booted): getVersion() returns a BOOT-STAMPED const — at module load, const BOOT_VERSION = (read build-manifest.json ONCE) ?? PKG_VERSION; getVersion() returns BOOT_VERSION (frozen at boot). So /api/config version == the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart leaves /api/config UNCHANGED (honest — shows what is actually running), and only a REAL restart re-reads. Closes the last version-lie axis: /api/config becomes a valid deploy signal again (no longer needs the PID/uptime workaround). sw.js CACHE_NAME stays a static build-updated file (correct for PWA client cache-bust) — this fix is only the server self-reported version. Thin impl-edit on getVersion (server.ts:55-59), NO new node; expert builds + a real restart.
 
 ## Implementation
 
