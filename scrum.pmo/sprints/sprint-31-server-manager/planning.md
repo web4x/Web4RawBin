@@ -29,6 +29,6 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
   - [ ] [Task 31.5.6: WODA is an rb-strip instance: descriptor W|[O][D]|A + nav {What,Overview,Details,Actions}](./task-31.5.6-woda-instance.md)
   - [ ] [Task 31.5.7: drawer = Details compartment: data-position inline|bottom branches ONLY layout CSS, function fully shared](./task-31.5.7-drawer-details.md)
 - [ ] [Task 31.6: Shared pan/zoom viewer capability for EVERY embedded format (FUTURE / concept)](./task-31.6-concept-shared-panzoom-viewer.md)
-- [x] [Task 31.7: DRY single-source app version via ONE typed Config scenario unit — all consumers generated/derived, never hand-copied](./task-31.7-single-source-version.md)
+- [ ] [Task 31.7: DRY single-source app version via ONE typed Config scenario unit — all consumers generated/derived, never hand-copied](./task-31.7-single-source-version.md)
 - [x] [Task 31.8: Feature typed unit type + FeatureManager root-of-trust — product layer linking implementations to user grants](./task-31.8-feature-featuremanager.md)
 - [ ] [Task 31.9: Detail container = ONE CSS-responsive instance (drawer<->compartment), no JS instance-switch](./task-31.9-detail-container-css-responsive.md)

@@ -11,10 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [x] implementing
-  - [x] testing
-- [x] QA Review
-- [x] Done
+  - [~] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Remaining Issues
+
+DONE->In-Progress CORRECTION (PO+planner measured a real board-vs-units gap, same class as /edit-swap). SINGLE-SOURCE-VERSION CORE (7 ACs) BUILT+TESTED (v0.7.103: test GREEN 7/7 adf69f5a2 + BACKSTOP 8bdcea019 all-6-consumers-derive-equal) but the unit ACs were unflipped (status=None board-vs-units lag; req reconciling). ⚠ INV-V4 (AC-INV-V4-served-equals-booted) UNBUILT — VERIFIED ARTIFACT: getVersion() server.ts:57-62 reads build-manifest.json per-request (fsSync.readFileSync every call, fallback PKG_VERSION), NOT a BOOT-STAMPED const. INV-V4 needs getVersion to return a boot-stamped const (read once at boot) = a real PENDING BUILD. So T31.7-Done was dishonest. NON-BLOCKING for the Tron device batch. NEXT: expert boot-stamps getVersion -> tester gates INV-V4 -> req flips INV-V4 met -> planner flips T31.7. req reconciling the 7 core AC statuses to met.
 
 ## Traceability
 
@@ -30,13 +34,14 @@ TYPED single-source-of-truth for the app version, correct-by-construction (Tron 
 
 ## Acceptance Criteria
 
-- [x] The app version lives in ONE typed scenario unit (ior:class:Config, schema-typed version field) = THE single source of truth. No other location holds an authored version; every other occurrence is derived.
-- [x] build.mjs ATOMICALLY GENERATES all version consumers from the typed Config unit — package.json version, sw.js CACHE_NAME, build-manifest, and a bundle-const __BUILD_VERSION__ — as a generator step (never hand-edited, like requirements.md is a generated view). They cannot desync because there is one source.
-- [x] /api/config and any version display READ the build-stamped __BUILD_VERSION__, NOT a per-request package.json read. Served == what was actually BUILT+deployed by construction (the per-request package.json read was EXACTLY what let a stray file edit make served lie = Tron phantom). Accepted tradeoff: version changes via build/deploy only, never a hand-edit.
-- [x] INV-V1 (derive-equal): unit == package.json version == sw.js CACHE_NAME == build-manifest == __BUILD_VERSION__ — all consumers derive-equal from the one typed Config unit. A guard/CI fails LOUDLY on any inequality.
-- [x] INV-V2 (served==committed): the generated consumers == HEAD (committed) — no drift between what is built/served and what is committed. Guard fails loudly on divergence.
-- [x] INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine).
-- [x] Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical.
+- [x] **[AC-typed-version-source]**: The app version lives in ONE typed scenario unit (ior:class:Config, schema-typed version field) = THE single source of truth. No other location holds an authored version; every other occurrence is derived.
+- [x] **[AC-build-generates]**: build.mjs ATOMICALLY GENERATES all version consumers from the typed Config unit — package.json version, sw.js CACHE_NAME, build-manifest, and a bundle-const __BUILD_VERSION__ — as a generator step (never hand-edited, like requirements.md is a generated view). They cannot desync because there is one source.
+- [x] **[AC-apiconfig-buildstamp]**: /api/config and any version display READ the build-stamped __BUILD_VERSION__, NOT a per-request package.json read. Served == what was actually BUILT+deployed by construction (the per-request package.json read was EXACTLY what let a stray file edit make served lie = Tron phantom). Accepted tradeoff: version changes via build/deploy only, never a hand-edit.
+- [x] **[INV-V1]**: INV-V1 (derive-equal): unit == package.json version == sw.js CACHE_NAME == build-manifest == __BUILD_VERSION__ — all consumers derive-equal from the one typed Config unit. A guard/CI fails LOUDLY on any inequality.
+- [x] **[INV-V2]**: INV-V2 (served==committed): the generated consumers == HEAD (committed) — no drift between what is built/served and what is committed. Guard fails loudly on divergence.
+- [x] **[INV-V3]**: INV-V3 (tree-clean, SCOPED, landmine hardening): git diff --quiet HEAD -- src/ts/server/server.ts package.json src/public/sw.js (+ optionally the Config unit + build-manifest) — the DEPLOY-CRITICAL generator input+outputs must equal HEAD; a reverted/stray-checkout of any of these fails LOUDLY BEFORE deploy (catches the exact 3-file landmine from the incident: server.ts strip + package.json revert + sw.js revert; a per-file checkout leaves no reflog so this guard is the only catch). SCOPED to the generator input+outputs, NOT the whole working tree — this shared multi-agent repo ALWAYS carries unrelated uncommitted churn (scenario units, merge-visual PNGs, data/logs, dirty since session start); a whole-tree-clean guard would false-positive on EVERY deploy -> get ignored/disabled -> defeated. Team lesson folded: inspect an old version with git show <ref>:<file> (read-only), NEVER git checkout <ref> -- <file> (mutates the tree = the landmine).
+- [x] **[AC-typed-config-pattern]**: Configs generally are TYPED SCENARIO UNITS (schema-validated, the ONE config mechanism, consistent with data-on-disk-is-truth) — no scattered hardcoded constants / .env sprawl / ad-hoc JSON / hand-maintained copies. Version is the FIRST; extend to other configs as far as practical.
+- [ ] **[AC-INV-V4-served-equals-booted]** (UNBUILT — getVersion server.ts:57 reads manifest per-request, NOT boot-stamped const): INV-V4 (served==booted): getVersion() returns a BOOT-STAMPED const — at module load, const BOOT_VERSION = (read build-manifest.json ONCE) ?? PKG_VERSION; getVersion() returns BOOT_VERSION (frozen at boot). So /api/config version == the version the RUNNING PROCESS booted with; a rebuild-WITHOUT-restart leaves /api/config UNCHANGED (honest — shows what is actually running), and only a REAL restart re-reads. Closes the last version-lie axis: /api/config becomes a valid deploy signal again (no longer needs the PID/uptime workaround). sw.js CACHE_NAME stays a static build-updated file (correct for PWA client cache-bust) — this fix is only the server self-reported version. Thin impl-edit on getVersion (server.ts:55-59), NO new node; expert builds + a real restart.
 
 ## Implementation
 
