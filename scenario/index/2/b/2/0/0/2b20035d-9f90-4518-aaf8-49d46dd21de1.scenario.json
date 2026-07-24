@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2b20035d-9f90-4518-aaf8-49d46dd21de1",
+    "name": "test:R31.5.5 /edit-swap composed regression — /edit?layout=r31.5 hosts UNCHANGED rb-diff-editor, full R30 diff/merge unregressed (RbEditorLayout.editorStripDescriptor)",
+    "description": "Bridged to test/visual/r315composed-regression-gate.mjs (GREEN DET-3x @390 v0.7.132, 4a3c4bcc7). Verifies the R31.5.5 /edit LIVE-HOST swap: /edit?layout=r31.5 hosts the UNCHANGED rb-diff-editor via the [L,C,R] strip descriptor -> the FULL R30 diff/merge is UNREGRESSED (deep-link restore + 3 panes co-visible always-3-col portrait + spline ribbons R30.34 + 49/61 conflicts accept/reject + native folding R30.53 + toolbar) AND layout=r31.5 == default /edit (presentation-only, positioning!=function). Credits the 5 /edit-swap ACs (edit-live-host/diffmerge-function-preserved/portrait-merge-always-3col/rollback-guard/gate). DISTINCT composed-regression intention alongside the structural Test 432beb1a on the same Impl. Marker 2b20035d adopted from origin a2fdb4a11 (measured line 1, not invented).",
+    "sourceFile": "ior:file:test/visual/r315composed-regression-gate.mjs",
+    "implementations": [
+      "ior:instance:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73"
+}

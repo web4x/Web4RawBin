@@ -4,7 +4,8 @@
     "uuid": "3b8e6c24-7f19-4a05-9d2c-6e1b8f405a73",
     "name": "RbEditorLayout.editorStripDescriptor impl",
     "tests": [
-      "ior:instance:432beb1a-a6fe-44d2-8e68-c76b36617566"
+      "ior:instance:432beb1a-a6fe-44d2-8e68-c76b36617566",
+      "ior:instance:2b20035d-9f90-4518-aaf8-49d46dd21de1"
     ],
     "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
     "designAhead": false,
