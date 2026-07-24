@@ -395,7 +395,7 @@ rb-compartment[presentation='bar'] > .rbc-bar { display: flex; gap: 4px; align-i
 .rbc-bar-item { background: #21262d; color: #e6edf3; border: 1px solid #30363d; border-radius: 6px; padding: 4px 8px; cursor: pointer; font-size: 0.8rem; }
 /* R31.5.7 drawer = Details position (thin, layout-only; default/no-attr = today's behavior, only [data-position] branches) */
 rb-detail-drawer[data-position='inline'] { position: static; }
-rb-detail-drawer[data-position='bottom'] { position: fixed; bottom: 0; }
+rb-detail-drawer[data-position='bottom'] { position: static; width: 100%; } /* R31.9 round-2 (architect abbcf1c12): REVERTED from position:fixed;bottom:0 — that (dormant R31.5.7 rule, activated once R31.9 observePosition set data-position=bottom) made the bottom drawer a content-width overlay = lost full-width + occluded the tree's last item (no scroll-past). Static = in-flow flex child → full-width by align-items:stretch (+width:100% belt) + drawer BELOW the tree = tree scrolls fully, no overlay, BY CONSTRUCTION. inline-compartment(:280/:397)/observePosition/transition/resize wins UNTOUCHED. */
 /* R31.5.3 rb-snap-nav — data-driven bottom snap-nav (one button per compartment; bars excluded) */
 rb-snap-nav { display: flex; gap: 6px; justify-content: center; padding: 6px; position: sticky; bottom: 0; background: #161b22; border-top: 1px solid #30363d; }
 .rb-snap-btn { background: #21262d; color: #e6edf3; border: 1px solid #30363d; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; }
