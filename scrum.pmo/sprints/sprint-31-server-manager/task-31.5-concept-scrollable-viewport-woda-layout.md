@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-7 PIECE-CORES done-to-Test (5.1-5.7 QA-Review, triple disk-verified). ⚠ UMBRELLA IN-PROGRESS (honest-board, req f-caught 2026-07-24): the /EDIT-SWAP LIVE-HOST is a PENDING BUILD, not just Tron-ratify. VERIFIED: R31.5.5 (3c3e1cac) has 5 UNMET ACs added 4c528501c — AC-edit-live-host (/edit renders the composed [L]|[C]|[R] live), AC-diffmerge-function-preserved, AC-portrait-merge-always-3col (Tron ruling #2), AC-edit-swap-rollback-guard (?layout=r31.5 flag, old panels default), AC-edit-swap-gate. My earlier /edit-swap-GREEN (146a2e0c7) was OVER-OPTIMISTIC — that was the composition TEST (4a3c4bcc7 GREEN), NOT the live-mount build. UMBRELLA -> QA-Review only after the /edit-swap BUILDS + gates @390+regression (awaits PO build-go -> expert wires <rb-woda>/composed onto /edit -> req reconcile -> tester); -> DONE after + Tron device. R31.5.5 /edit-swap ACs = the umbrella integration gate (roll up here).
+QA-Review — BUILT + GATED + ACs-MET (TRIPLE disk-verified: req minter artifact-measure + PO gate-file-verify + planner). All 7 piece-cores done-to-Test. /EDIT-SWAP LIVE-HOST is BUILT+SHIPPED (edit.ts:169-177 behind ?layout=r31.5 -> editorStripDescriptor [L,C,R] + showDiff mounts UNCHANGED rb-diff-editor; dist rebuilt 81ecf92f9 v0.7.130) + GATED (r315composed-regression-gate.mjs hits the LIVE /edit?layout=r31.5 route empirically, GREEN DET-3x @390 4a3c4bcc7 + architect backstop 304e4c130) + R31.5.5 5 /edit-swap ACs now MET (req flipped 1de99636e, cited to the green gate — they were captured-unmet-never-flipped = board/units lag, NOT a missing build). My prior In-Progress/pending-build was an OVER-CORRECTION (conflated a missing test:uuid MARKER with a missing BUILD). REMAINING to DONE: (a) /edit-swap Test-CREDIT marker (test:uuid, tester adds -> req mints Test = TRACEABILITY, not a build/re-run) + (b) Tron device visual on the composed WODA/editor. On Tron GREEN -> umbrella + all 7 children DONE.
 
 ## Traceability
 
