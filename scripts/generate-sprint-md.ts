@@ -161,7 +161,9 @@ function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, Scenari
     const acs = (rm.acceptanceCriteria as Array<Record<string, unknown>>) || [];
     if (acs.length) {
       lines.push('  **Acceptance criteria:**');
-      for (const ac of acs) lines.push(`  - [ ] **(${ac.group || ac.id || ''})** ${ac.text || ''}`);
+      // R31 traceability-honesty: render the REAL checkbox from ac.status (met => [x]) instead of
+      // always [ ] — a status-blind [ ] made Tron read every AC as unmet (false 'all-unmet' signal).
+      for (const ac of acs) lines.push(`  - [${ac.status === 'met' ? 'x' : ' '}] **(${ac.group || ac.id || ''})** ${ac.text || ''}`);
     }
     for (const uc of ((rm.useCases as string[]) || [])) {
       const ucu = String(uc).replace('ior:instance:', '');
