@@ -1,3 +1,4 @@
+// [test:uuid:2b20035d-9f90-4518-aaf8-49d46dd21de1] R31.5.5 /edit-swap composed regression (Impl 3b8e6c24 RbEditorLayout.editorStripDescriptor) — GREEN DET-3x @390 v0.7.132: /edit?layout=r31.5 hosts the UNCHANGED rb-diff-editor via the [L,C,R] strip descriptor → FULL R30 diff/merge UNREGRESSED (deep-link restore + 3 panes co-visible always-3-col portrait + spline ribbons + 49/61 conflicts + folding + toolbar) AND layout=r31.5 == default /edit (presentation-only). Distinct composed-regression intention Test alongside the structural Test 432beb1a.
 // R31.5 FINAL composed gate (Sprint-31): /edit?layout=r31.5 hosts the UNCHANGED rb-diff-editor → the FULL R30 diff/merge
 // must be UNREGRESSED @390, and the MERGE stays ALWAYS-3-COLUMNS in portrait (TRON RULING #2, never snap). Guardrail is
 // by-construction (only edit.ts changed +13 lines; rb-diff-editor/diff3/rb-code-editor untouched) — this gate confirms the
