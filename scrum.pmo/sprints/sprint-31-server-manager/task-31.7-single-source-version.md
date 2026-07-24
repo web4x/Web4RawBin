@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-DONE->In-Progress CORRECTION (PO+planner measured a real board-vs-units gap, same class as /edit-swap). SINGLE-SOURCE-VERSION CORE (7 ACs) BUILT+TESTED (v0.7.103: test GREEN 7/7 adf69f5a2 + BACKSTOP 8bdcea019 all-6-consumers-derive-equal) but the unit ACs were unflipped (status=None board-vs-units lag; req reconciling). ⚠ INV-V4 (AC-INV-V4-served-equals-booted) UNBUILT — VERIFIED ARTIFACT: getVersion() server.ts:57-62 reads build-manifest.json per-request (fsSync.readFileSync every call, fallback PKG_VERSION), NOT a BOOT-STAMPED const. INV-V4 needs getVersion to return a boot-stamped const (read once at boot) = a real PENDING BUILD. So T31.7-Done was dishonest. NON-BLOCKING for the Tron device batch. NEXT: expert boot-stamps getVersion -> tester gates INV-V4 -> req flips INV-V4 met -> planner flips T31.7. req reconciling the 7 core AC statuses to met.
+INV-V4 NOW BUILT + GATED (v0.7.135, artifact-verified): getVersion() server.ts:68 returns BOOT_VERSION (frozen at boot :62, NOT per-request — expert 16150b187) + INV-V4 gate GREEN DET-3x v0.7.135 (tester 272c91474, version-lie killer: /api/config unchanged on rebuild-without-restart, only real restart re-reads). 7 single-source core ACs met (v0.7.103 test 317b67d0). ⚠ ONLY req TRACEABILITY pending (in flight, NOT a build): mint/credit the INV-V4 Test onto the getVersion boot-stamp Impl + flip AC-INV-V4 status:met. When req commits -> all 8 ACs met + chain-complete -> planner flips T31.7 -> DONE (PO: server/build-tooling gate, NO Tron device visual needed, like R31.2). Held In-Progress until the INV-V4 AC formally flips (consistency: no all-8-met claim while AC-INV-V4 unmet). VERSION-LIE CHAPTER CLOSED (functional+gate); traceability formalizing.
 
 ## Traceability
 
