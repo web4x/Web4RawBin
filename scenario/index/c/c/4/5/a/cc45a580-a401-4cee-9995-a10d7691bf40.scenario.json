@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cc45a580-a401-4cee-9995-a10d7691bf40",
+  "name": "drawer.observePosition",
+  "description": "R31.9 net-new node: RbDetailDrawer.observePosition() is the ResizeObserver / container-query DRIVER that watches the host width and calls the EXISTING RbDetailDrawer.applyPosition (R31.5.7 d48cc0ce) to toggle data-position inline<->bottom CONTINUOUSLY across the 1025px breakpoint — the reactive continuous positioning hinges on it (LOAD-BEARING, a real node like OtmuxBridge.readSessionTree, NOT thin). applyPosition = the presentation-APPLY method (unchanged); observePosition = the DRIVER. Sibling of drawer.applyPosition (paneTerminal/drawer UCs) — distinct method → FRESH UC (singular-chain #27/#38). Architect topology e7debdf70.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:e8097351-f461-4d5b-a90d-5a384dec72af",
+  "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
