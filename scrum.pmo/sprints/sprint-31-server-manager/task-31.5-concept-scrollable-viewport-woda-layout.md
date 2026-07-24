@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [x] creating test cases
-  - [x] implementing
-  - [x] testing
+  - [~] implementing
+  - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-ALL 7 children chain-complete-to-Test (triple disk-verified). /EDIT-SWAP LIVE-HOST GATE GREEN (v0.7.132): composed /edit?layout=r31.5 [L]|[C]|[R] + R30 diff/merge regression GREEN DET-3x @390 (4a3c4bcc7). Umbrella now awaits ONLY Tron device visual on the composed WODA/editor -> DONE. On Tron GREEN: umbrella + all 7 children (5.1-5.7) -> DONE.
+7 PIECE-CORES done-to-Test (5.1-5.7 QA-Review, triple disk-verified). ⚠ UMBRELLA IN-PROGRESS (honest-board, req f-caught 2026-07-24): the /EDIT-SWAP LIVE-HOST is a PENDING BUILD, not just Tron-ratify. VERIFIED: R31.5.5 (3c3e1cac) has 5 UNMET ACs added 4c528501c — AC-edit-live-host (/edit renders the composed [L]|[C]|[R] live), AC-diffmerge-function-preserved, AC-portrait-merge-always-3col (Tron ruling #2), AC-edit-swap-rollback-guard (?layout=r31.5 flag, old panels default), AC-edit-swap-gate. My earlier /edit-swap-GREEN (146a2e0c7) was OVER-OPTIMISTIC — that was the composition TEST (4a3c4bcc7 GREEN), NOT the live-mount build. UMBRELLA -> QA-Review only after the /edit-swap BUILDS + gates @390+regression (awaits PO build-go -> expert wires <rb-woda>/composed onto /edit -> req reconcile -> tester); -> DONE after + Tron device. R31.5.5 /edit-swap ACs = the umbrella integration gate (roll up here).
 
 ## Traceability
 
