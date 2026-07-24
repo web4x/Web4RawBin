@@ -50,6 +50,7 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
   connectedCallback(): void {
     this.render();
+    this.observePosition(); // R31.9: drive data-position (inline compartment ≥1025 / bottom drawer ≤1024) by container width — ONE instance, CSS-responsive
     const handle = this.querySelector('.drawer-handle');
     if (handle) {
       handle.addEventListener('touchstart', this.onTouchStart, { passive: true });
@@ -73,6 +74,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
+    this._posRo?.disconnect(); this._posRo = null; // R31.9: stop the container-query position driver
   }
 
   // [impl:uuid:e927ecfe-619c-49f2-9ee4-dc82340f6433] R30.22 RbDetailDrawer.onSelectionChanged — selection-driven open (content-visible)
@@ -135,6 +137,26 @@ export class RbDetailDrawer extends HTMLElement {
   // same functional tests — only computed layout differs.
   applyPosition(pos: 'inline' | 'bottom'): void {
     if (this.getAttribute('data-position') !== pos) this.setAttribute('data-position', pos);
+    // R31.9: entering desktop (inline Details-compartment) CLEAR the stale bottom-drawer drag height (onTouchMove :384 /
+    // stickyBottom set this.style.height) so it can't fight the flex:1 compartment = the resize-break Tron reported.
+    // Bottom keeps its drag height (height is the resize axis there). This is the "clear stale inline height across BP" fix.
+    if (pos === 'inline') { this.style.height = ''; this.style.maxHeight = ''; this.style.transform = ''; }
+  }
+
+  private _posRo: ResizeObserver | null = null;
+  // [impl:uuid:240c539f-4c32-40e8-b40f-856dcb3daf6b] RbDetailDrawer.observePosition (Method e8097351, off UC cc45a580, Class d86af73d)
+  // R31.9 container-query DRIVER (load-bearing): observe the HOST CONTAINER width → drive the existing applyPosition
+  // (R31.5.7 d48cc0ce) so the ONE drawer instance transitions inline(≥1025 Details-compartment)↔bottom(≤1024 drawer)
+  // via CSS [data-position] — NO JS instance-switch, NO re-mount (same DOM node), NO hard-@media jump. Observes the
+  // PARENT (not self → no feedback loop) mirroring RbStrip.observeContainer (rb-strip.ts:81). Wires the previously-dead
+  // R31.5.7 data-position mechanism (0 callers before). Cleaned up in disconnectedCallback.
+  private observePosition(): void {
+    if (this._posRo) return;
+    const host = this.parentElement || document.body; // .trace-page / .room-view / editor-area — its width crosses the 1025 BP
+    const decide = (): void => this.applyPosition((host.getBoundingClientRect().width || window.innerWidth) >= 1025 ? 'inline' : 'bottom');
+    this._posRo = new ResizeObserver(() => decide());
+    this._posRo.observe(host);
+    decide(); // initial position — correct on first paint (no jump)
   }
 
   private _graph: any = null;

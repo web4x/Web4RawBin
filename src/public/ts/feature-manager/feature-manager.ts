@@ -16,7 +16,9 @@ const err = document.getElementById('err') as HTMLElement | null;
 const tree = document.getElementById('fm-tree') as (HTMLElement & { items?: Root[] }) | null;
 
 if (!document.getElementById('fm-drawer')) {
-  const d = document.createElement('rb-detail-drawer'); d.id = 'fm-drawer'; document.body.appendChild(d);
+  const d = document.createElement('rb-detail-drawer'); d.id = 'fm-drawer';
+  const host = document.querySelector('.trace-page') || document.body; // R31.9: flex child of .trace-page → the data-position responsive drawer↔inline-Details-compartment (mirrors server-manager.ts:22); falls back to body if the page has no .trace-page wrapper
+  host.appendChild(d);
 }
 
 async function load(): Promise<void> {
