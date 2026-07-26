@@ -99,6 +99,7 @@
   - [ ] **(concept)** EVERY embedded-format viewer pans + zooms CONSISTENTLY via that shared base - across ALL embeddable content types: pictures (png, gif, webp), svg, html, and 'you name it' (every embeddable format), NOT a subset. Same gestures / affordances / zoom limits across formats.
   - [ ] **(concept)** A NEW embeddable-format viewer INHERITS pan/zoom for FREE from the shared base - the capability is extensible to future formats with no per-format reimplementation (same shared-mechanism doctrine as drawer / tree / template / badges).
   - [ ] **(concept)** FUTURE / concept: acceptance is a coherent CONCEPT (this captured model + the architect's shared-viewer-base design), NOT an implementation. Deferred until Tron authorizes build; each facet then decomposes into atomic build-requirements.
+  -> viewer.panZoom [uc:uuid:ad2979b6-8d3c-4f17-9f9d-992ce70324dd]
 
 - [x] **R31.7 — DRY single-source app version via ONE typed Config scenario unit — all consumers generated/derived, never hand-copied**
   [requirement:uuid:15aab895-a792-45a1-b9b5-923fd6f728a0]
