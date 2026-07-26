@@ -1,13 +1,13 @@
 # S31 Traceability Audit — RESULT (robbin-skill-expert)
 
 ## ★ FINAL CERTIFICATION 2026-07-26 (post req 81fbce45e — R31.11 last chain landed)
-**Re-ran the audit walker on disk (det). RESULT: Sprint 31 traceability is WHOLE.**
-- **17 / 17 BUILT requirements COMPLETE chain-to-Test** (Req→UC→Class→Method→Impl→Test), **0 mis-wired**.
-- All original gaps CLOSED: R31.5 (UC+chain), R31.7 (INV-V1/V3 Tests), R31.8 (6 Tests). Added + complete: R31.9, R31.10 (attachChainMethod strict-credit), R31.11 (UC 8a7039eb→Class a0c492d6→Method 7dc79987→Impl d4ad31f3→Test d48fd23e).
-- **R31.6 EXCLUDED** — `status: 'concept'`, `future: true` (name: "…FUTURE / concept"). Its Method `RbPanZoom.applyPanZoom` has no Impl BY DESIGN (a future capability, not yet built). designAhead exclusion — NOT a gap.
-- Total S31 = 18 reqs (R31.1–R31.11 + R31.5.1–R31.5.7); 17 built (all COMPLETE) + 1 future/concept (R31.6, excluded).
+**Re-ran the audit walker on disk (det, concept-termination rule applied per Tron/PO). RESULT: Sprint 31 traceability is WHOLE.**
+- **18 / 18 requirements COMPLETE · 0 INCOMPLETE · 0 MIS-WIRED.**
+- **16 built reqs** = full chain Req→UC→Class→Method→Impl→Test.
+- **2 concept reqs** (`status:'concept'`) terminate HONESTLY at their designed Method (no Impl/Test by design, Tron-authorized = COMPLETE, not a gap): **R31.5** (umbrella; its R31.5.1–5.7 sub-reqs carry full chains — R31.5 also independently reaches Test) and **R31.6** (pan/zoom FUTURE → Method `RbPanZoom.applyPanZoom`, honest concept-termination). Only R31.6's verdict relied on the concept rule.
+- All original gaps CLOSED: R31.5 UC (ad… wired), R31.6 UC (viewer.panZoom ad2979b6), R31.7 (INV-V1/V3 Tests), R31.8 (6 Tests). Added + complete: R31.9, R31.10 (attachChainMethod strict-credit), R31.11 (UC 8a7039eb→Class a0c492d6→Method 7dc79987→Impl d4ad31f3→Test d48fd23e, two-key verified).
 
-**CERTIFIED: Sprint 31 chains are traceable Req→…→Test, complete, correctly-wired, no mis-resolution.**
+**CERTIFIED: Sprint 31 chains are traceable Req→…→Test (or honest concept-termination), complete, correctly-wired, no mis-resolution.**
 (Below = the original 2026-07-24 audit, kept for record.)
 
 ---
