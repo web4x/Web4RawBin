@@ -215,8 +215,21 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   // file that exists WITHOUT that header: it is hand-authored (diagnosis brief, design doc, *.png)
   // and lives outside the unit-derived output. This makes the DATA-LOSS hazard (a task slug colliding
   // with a hand-authored filename) structurally impossible — the generator can only overwrite its own prior output.
+  // OWNED-OUTPUT CONFINEMENT (2026-07-26, robbin-po/req — protect diagrams + design notes from regen
+  // data-loss): the generator's write set is a WHITELIST — only bare *.md files it emits (planning.md,
+  // requirements.md, task-*.md). It NEVER writes (nor could delete) a path-escaping name, a diagrams/*.puml,
+  // or a design-*.md brief. Combined with the GENERATED_HEADER overwrite-guard below, non-generated
+  // artifacts are structurally protected — a future prune step also cannot escape this whitelist.
+  const isOwnedOutput = (n: string): boolean =>
+    !n.includes('/') && !n.includes('..') && n.endsWith('.md') &&
+    !n.endsWith('.puml') && !/^design-.*\.md$/.test(n);
   let written = 0, skipped = 0;
   for (const [name, content] of out.files) {
+    if (!isOwnedOutput(name)) {
+      console.log(`  ⛔ REFUSE (not generator-owned output, protected artifact): ${name}`);
+      skipped++;
+      continue;
+    }
     const fp = path.join(sprintDir, name);
     if (fs.existsSync(fp)) {
       const existing = fs.readFileSync(fp, 'utf-8');
