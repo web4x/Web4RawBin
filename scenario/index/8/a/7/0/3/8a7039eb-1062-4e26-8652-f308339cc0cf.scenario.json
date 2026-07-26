@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8a7039eb-1062-4e26-8652-f308339cc0cf",
+  "name": "chainModel.deepNestAllModes",
+  "description": "R31.11: the chain-model forward-key resolver reads the canonical SINGULAR 'class' PLUS legacy PLURAL 'classes' in ALL query modes (scenario/client/trace) so the traceability tree DEEP-NESTS the full chain (UC->Class->Method->Impl->Test) as expandable icon+badge nodes for EVERY sprint incl S31, matching the S30 target. ROOT (architect diagnosis): chain-model.ts:18 UseCase forward keys were split (scenario/client read plural 'classes', trace read singular 'class'); S31 UCs store the canonical singular 'class' (R31.10 made singular authoritative) so the scenario/app tree resolved [] and STOPPED at the UC; S30 UCs carried both keys (redundant) so nested in every mode, masking the bug. Impl-EDIT to CHAIN_TYPE_CONFIG (rides the R20.15 marker d4ad31f3) + server.ts:1610 de-dup so S30 badge stays 1. Reuses canonical Class ChainTypeConfig + Method forwardKeysForMode (R27.2); fresh UC per R31.11 (the R20.15 UC 56f0648b stays R20.15's).",
+  "class": "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8",
+  "method": "ior:instance:7dc79987-d6f6-4409-90c2-bbee701ac246",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.11-tree-deep-nest-full-chain.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
