@@ -78,6 +78,17 @@ try {
         s30NoDup = s30NoDup && ok; s30detail.push(`${mode}:${rbtt.length}x/cc${rbtt[0]?.childCount}`);
       }
 
+      // (2c) ★ architect (f0401f4a4): the line-1648 fix must DE-DUP (UNIQUE-ref Set) — an S30 UC carries BOTH class+classes
+      // pointing to the SAME Class, so a naive string(1)+array(len) childCount would REGRESS the S30 UC badge 1→2. Assert
+      // the S30 UC currentSprintEagerLazy badge STAYS 1 in its parent-listing (Req 6f796898), both modes.
+      const S30_REQ = '6f796898-4dbb-47a3-ab8a-914b4c80b353';
+      let s30BadgeStays1 = true; const s30badge = [];
+      for (const mode of ['scenario', 'trace']) {
+        const ch = kids(await json(`/api/trace/children/${S30_REQ}${mode === 'trace' ? '?mode=trace' : ''}`));
+        const uc = ch.find(c => c.type === 'UseCase' && /currentSprintEager/.test(c.name || ''));
+        s30BadgeStays1 = s30BadgeStays1 && uc?.childCount === 1; s30badge.push(`${mode}:cc=${uc?.childCount}`);
+      }
+
       // (3) VISUAL @390 — REAL user expand flow: Task 31.2 (R31.2 owner-gate) → UC serverManager.ownerGuard → Class
       // ServerManagerGuard → Method → Impl → Test render as nested rb-object-item nodes with type-icons + child-count badges.
       const ctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
@@ -106,9 +117,9 @@ try {
       const regressionOk = smStatus === 403 && fmStatus === 403 && traceStatus === 200;
       await ctx.close();
 
-      const pass = s31BothModes && ucExpandableOk && s30NoDup && visualOk && regressionOk;
+      const pass = s31BothModes && ucExpandableOk && s30BadgeStays1 && s30NoDup && visualOk && regressionOk;
       results.push(pass);
-      console.log(`iter ${it}: S31-chain-DATA=${s31BothModes}[${apiChecks.map(a => `${a.mode}:${a.chain}`).join(' | ')}] ★UC-EXPANDABLE-IN-TREE=${ucExpandableOk}[${ucExpandable.map(u => `${u.mode}:hc=${u.hasChildren}/cc=${u.childCount}`).join(',')}] S30-no-dup=${s30NoDup}[${s30detail.join(',')}] | VISUAL@390=${visualOk}(class=${vis.classNode} badge=${vis.classBadge} method=${vis.hasMethod}) regr=${regressionOk} => ${pass ? 'GREEN' : 'RED'}`);
+      console.log(`iter ${it}: S31-chain-DATA=${s31BothModes} ★UC-EXPANDABLE-IN-TREE=${ucExpandableOk}[${ucExpandable.map(u => `${u.mode}:hc=${u.hasChildren}/cc=${u.childCount}`).join(',')}] ★S30-badge-stays-1=${s30BadgeStays1}[${s30badge.join(',')}] S30-no-dup=${s30NoDup}[${s30detail.join(',')}] | VISUAL@390=${visualOk}(class=${vis.classNode} badge=${vis.classBadge} method=${vis.hasMethod}) regr=${regressionOk} => ${pass ? 'GREEN' : 'RED'}`);
     }
   }
 } finally { await browser.close(); }
