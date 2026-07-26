@@ -877,6 +877,18 @@ function profileViewDataForToken(token: string, opts?: { connectedDeviceIds?: st
   return ProfileView.profileViewData({ ...base, devices: myDevices } as unknown as ServerProfileRecord, { connectedDeviceIds, profileUuid: opts?.profileUuid });
 }
 
+// [impl:uuid:e86f0736-a05a-427c-b2b2-1c2d36b68965] server.attachChainMethod (Method 0fc54115, Class c0a0921d) — R31.10:
+// attach the UseCase's UC.method (ucMethodIor) as entry.chainMethod so the tree resolves the correct UC→Method in ALL
+// query modes (trace + non-trace/scenario), not just /trace. The ucMethodIor guard → fires ONLY when the UC has a genuine
+// method link (else the Class.methods[] fallback). EXTRACTED from the anonymous /api/trace/children .map callback into
+// this NAMED decl so the [impl] marker strict-AST-credits (an anon inline block can't name-match 'attachChainMethod').
+function attachChainMethod(entry: Record<string, unknown>, type: string, ct: string, ucMethodIor: string, idx: ScenarioIndex): void {
+  if (type === 'UseCase' && ct === 'Class' && ucMethodIor) {
+    const meth = idx.get(ucMethodIor);
+    if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
+  }
+}
+
 // R31.8 slice-d: the Features a token is a MEMBER of (token ∈ Feature.allowedUsers) → {uuid,name,icon} for the profile
 // 'Feature access' render. Membership-driven (generalizes the R31.1 ServerManager-only boolean), fail-closed on error.
 function featuresForToken(token: string): { uuid: string; name: string; icon: string }[] {
@@ -1641,11 +1653,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
             const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
             const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
-            // [impl:uuid:e86f0736-a05a-427c-b2b2-1c2d36b68965] server.attachChainMethod (Method 0fc54115, Class c0a0921d) — R31.10 strict-credit marker on the all-modes chainMethod attach (was a bare // R31.10 comment)
-            if (type === 'UseCase' && ct === 'Class' && ucMethodIor) { // R31.10: UC.method drives chain resolution in ALL modes (was queryMode==='trace'-only → non-trace/scenario fell to the wrong Class.methods[] sibling, e.g. observePosition→onGrabBarPointer IMG_4647). The ucMethodIor guard already means Class.methods[] fallback fires ONLY when UC.method is genuinely empty.
-              const meth = idx.get(ucMethodIor);
-              if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
-            }
+            attachChainMethod(entry, type, ct, ucMethodIor, idx); // R31.10: attach UC.method as entry.chainMethod in ALL modes (extracted to the named attachChainMethod decl below for strict-impl credit)
             return entry;
           }
           return null; // v0.6.92: skip dangling refs (unit removed/missing) — never render a raw UUID as a name
