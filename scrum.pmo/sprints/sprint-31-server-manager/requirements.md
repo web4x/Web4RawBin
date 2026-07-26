@@ -88,6 +88,7 @@
   - [ ] **(concept)** The concept defines a bottom scroll-snap NAV bar that snaps the horizontal scroll to the LEFT edge of a compartment, with a button set that depends on the layout instance ({Left,Center,Right} for the editor; {What,Overview,Details,Actions} for WODA).
   - [ ] **(concept)** The concept establishes drawer = the Details compartment with the POSITIONING != FUNCTION invariant (Tron's law): landscape - the drawer BECOMES the inline [D] Details compartment; portrait - the drawer is the bottom drawer as today; the two positions have IDENTICAL function via ONE component, not two forks (same DRY root as the R31.4 /trace-detail-flow reuse). This is the crux facet.
   - [ ] **(concept)** Acceptance is a COHERENT CONCEPT (this captured model + the architect's component-architecture design of how bar<->compartment / scrollable viewport / scroll-snap / nav bar GENERALIZE, how the editor AND WODA both instantiate it, and how the drawer becomes the Details compartment in landscape with identical function via one component), NOT an implementation. Implementation is a LATER Tron-authorized step; each facet above then decomposes into atomic build-requirements.
+  -> layout.compose [uc:uuid:c7710588-267f-467d-bdd3-ec12b30ef04b]
 
 - [ ] **R31.6 — Shared pan/zoom viewer capability for EVERY embedded format (FUTURE / concept)**
   [requirement:uuid:57225ee8-cb9d-46cc-9af3-0167855999e2]

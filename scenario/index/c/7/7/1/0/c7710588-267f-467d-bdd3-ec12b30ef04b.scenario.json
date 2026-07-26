@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c7710588-267f-467d-bdd3-ec12b30ef04b",
+  "name": "layout.compose",
+  "description": "R31.5 UMBRELLA rollup UC: the responsive bar/compartment layout is COMPOSED by RbStrip - the composed-layout engine the R31.5.1-5.7 primitives roll up into (RbStrip.renderDescriptors composes the RbCompartments per descriptor; 5.5 editor [L]|[C]|[R] and 5.6 WODA W|[O][D]|A are its instances; 5.3 snap-nav; 5.7 drawer=Details compartment). Architect target 2026-07-26: REUSE Class RbStrip + Method RbStrip.renderDescriptors (NO new node) as the umbrella's chain hop, so R31.5 terminates on the real composed-layout engine rather than a bare umbrella. The 5.1-5.7 sub-requirements own their own chains; this UC binds the umbrella req to the composition method.",
+  "class": "ior:instance:91d575d0-9e7a-4e5c-8269-02a3af0eda1a",
+  "method": "ior:instance:9053202e-a636-40ac-9c48-45dd8b6a823d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/CONCEPT-scrollable-viewport-woda-layout.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
