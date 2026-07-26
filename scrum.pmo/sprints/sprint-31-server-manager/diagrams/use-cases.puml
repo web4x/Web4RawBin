@@ -1,0 +1,113 @@
+@startuml sprint-31-server-manager-use-cases
+title Sprint 31 — Server Manager - Use Cases (scenario-derived; actors + R31 UCs)
+left to right direction
+
+actor "Owner (Tron)\nroot-of-trust\nOWNER_TOKEN 41ad88c4" as Owner
+actor "Non-owner\n(authenticated user)" as NonOwner
+actor "Viewer\n(own /profile)" as Viewer
+
+rectangle "Sprint 31 — Server Manager / Feature Manager" {
+
+  package "R31.2 owner-gate (foundation)" {
+    usecase "serverManager.ownerGuard\n[40802701]" as UC_ownerGuard
+    usecase "featureAccess.require\n[f18de1ce] data-driven membership" as UC_featureAccess
+    usecase "guard.seedOwnerInto\n[0f5dc242]" as UC_seedOwner
+  }
+
+  package "R31.1 profile feature-grants" {
+    usecase "profileFeatures.render\n[aa6b0299]" as UC_profileFeatures
+  }
+
+  package "R31.3 otmux tree" {
+    usecase "otmuxTree.read\n[742aa04d]" as UC_otmuxRead
+    usecase "traceTree.expandPerLevel\n[6b1132ce]" as UC_treeExpand
+  }
+
+  package "R31.4 interactive terminal" {
+    usecase "paneTerminal.attach\n[fa1845d3]" as UC_attach
+    usecase "paneTerminal.mount\n[8f3bf119]" as UC_mount
+    usecase "ptyBridge.reapOrphans\n[8bd83486]" as UC_reap
+    usecase "paneTerminal.teardown\n[44c98b1b] INV-T1" as UC_teardown
+  }
+
+  package "R31.5 responsive WODA layout" {
+    usecase "compartment.applyPresentation\n[b49b5506]" as UC_present
+    usecase "strip.renderDescriptors\n[b0128db2]" as UC_render
+    usecase "nav.snapToCompartment\n[70d7ed9d]" as UC_snap
+    usecase "viewport.responsiveMode\n[ab99233d]" as UC_viewport
+    usecase "editor.asStripInstance\n[1db93cb3]" as UC_editor
+    usecase "woda.asStripInstance\n[201ef8fa]" as UC_woda
+    usecase "drawer.applyPosition\n[0f08964b]" as UC_applyPos
+  }
+
+  package "R31.6 pan/zoom viewer (concept)" {
+    usecase "viewer.panZoom\n(concept — pending ITEM-2)" as UC_panZoom
+  }
+
+  package "R31.7 single-source version" {
+    usecase "config.singleSourceVersion\n[83e3891a]" as UC_srcVer
+    usecase "config.readBuildVersion\n[633f7dec] INV-V4" as UC_readVer
+    usecase "config.guardTreeClean\n[b3a0b05d] INV-V3" as UC_guardTree
+    usecase "config.guardAgreement\n[cabf6551] INV-V1" as UC_guardAgree
+  }
+
+  package "R31.8 Feature Manager (root-of-trust)" {
+    usecase "featureManager.grant\n[5bd4e70e]" as UC_grant
+    usecase "featureManager.revoke\n[e5ce2a18]" as UC_revoke
+    usecase "featureManager.bootstrap\n[5ec4911b]" as UC_bootstrap
+    usecase "featureManager.searchUsers\n[78cf6eab] c2" as UC_search
+    usecase "featureManager.userComplete\n[c823aa11] c2" as UC_userComplete
+    usecase "featureManager.applyGrant\n[d88b965b]" as UC_applyGrant
+    usecase "featureManager.mount\n[1363a806]" as UC_fmMount
+    usecase "featureManager.featureRoots\n[3540b59a]" as UC_roots
+    usecase "featureManager.allowedUsersChildren\n[03d6065b]" as UC_children
+    usecase "featureManager.viewGrantedUser\n[9abbf7d9]" as UC_viewGranted
+    usecase "featureManager.profileUuidOf\n[19bab6d8]" as UC_uuidOf
+    usecase "featureManager.tokenOfProfileUuid\n[7e617334]" as UC_tokenOf
+    usecase "profile.mount\n[236217d8]" as UC_profMount
+    usecase "profile.viewFull\n[84cdc9ec] shared RbProfileView" as UC_viewFull
+    usecase "profileView.build\n[e1ad54d7] shared builder" as UC_pvBuild
+  }
+
+  package "R31.9 responsive detail-container" {
+    usecase "drawer.observePosition\n[cc45a580]" as UC_observePos
+  }
+}
+
+' ── actor associations ──
+Owner --> UC_ownerGuard
+Owner --> UC_otmuxRead
+Owner --> UC_treeExpand
+Owner --> UC_attach
+Owner --> UC_mount
+Owner --> UC_grant
+Owner --> UC_revoke
+Owner --> UC_search
+Owner --> UC_userComplete
+Owner --> UC_applyGrant
+Owner --> UC_viewGranted
+Owner --> UC_roots
+Owner --> UC_fmMount
+
+NonOwner --> UC_featureAccess
+NonOwner --> UC_ownerGuard
+
+Viewer --> UC_profileFeatures
+Viewer --> UC_viewFull
+Viewer --> UC_profMount
+
+' ── includes / by-construction ──
+UC_ownerGuard <.. UC_featureAccess : <<extend>> membership not literal
+UC_grant ..> UC_search : <<include>> pick user
+UC_search ..> UC_userComplete : <<include>> c2
+UC_viewGranted ..> UC_viewFull : <<include>> shared viewer
+UC_viewFull ..> UC_pvBuild : <<include>> shared data
+UC_bootstrap ..> UC_seedOwner : <<include>>
+UC_srcVer ..> UC_readVer : <<include>> build-stamp
+UC_srcVer ..> UC_guardTree : <<include>> INV-V3
+UC_srcVer ..> UC_guardAgree : <<include>> INV-V1
+UC_applyPos ..> UC_observePos : <<extend>> continuous driver (R31.9)
+
+note bottom of Owner : Owner writes are hardcoded-owner-gated (assertOwner). Feature ACCESS is data-driven membership (requireFeatureAccess = live session AND token in allowedUsers). Non-owner -> 403 by membership, never by session-absence (INV-F6).
+
+@enduml
