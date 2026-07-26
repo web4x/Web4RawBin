@@ -94,9 +94,14 @@ class RbProfileDetail {
   +mount()                  'R31.8 [e809f03a] granted-user profile + revoke
 }
 
-' ─────────── R31.6 pan/zoom viewer (CONCEPT — designed, not built) ───────────
-class RbPanZoom <<concept>> {
-  +applyPanZoom()           'R31.6 concept: shared pan/zoom viewer-base (pinch/drag -> CSS transform); design-ahead, NO Impl/Test
+' ─────────── RbPanZoom — canonical S22 pan/zoom class (R22.2); R31.6 EXTENDS it (concept) ───────────
+' RATIFIED 2026-07-26 (architect, req disk-win): RbPanZoom ALREADY EXISTS from Sprint 22 (e5e3c885, R22.2
+' panZoom.mouseParity) — NOT freshly minted. My earlier "mint fresh RbPanZoom" target was wrong (unmeasured);
+' req correctly REUSED the canonical class per R27.2 and added ONLY the applyPanZoom concept-method. The R31.6
+' concept is a coherent EXTENSION/generalization of this same class (pan/zoom is one concern), not a new one.
+class RbPanZoom {
+  +attachMouse()            'S22/R22.2 IMPLEMENTED — mouse pan/zoom parity (Impl 0564d93b)
+  +applyPanZoom() <<concept>> 'R31.6 concept: generalizes attachMouse into a SHARED pan/zoom viewer-base every embedded viewer extends (pinch/drag -> CSS transform); designAhead, NO Impl/Test until Tron authorizes
 }
 
 ' ─────────── relations ───────────
