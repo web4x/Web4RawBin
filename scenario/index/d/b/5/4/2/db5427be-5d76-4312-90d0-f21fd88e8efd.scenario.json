@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "db5427be-5d76-4312-90d0-f21fd88e8efd",
+    "name": "test:R31.7 INV-V1 versionGuardAgreement — every version consumer derives from the ONE config unit (Build.versionGuardAgreement)",
+    "description": "Bridged to test/visual/r317-single-source-version-gate.mjs (DET-3x GREEN, served==HEAD, commit 1127ea6e7). Verifies R31.7 INV-V1 (Build.versionGuardAgreement, start.mjs:98): post-build EVERY version consumer must derive-equal from the ONE config unit (package.json == sw.js CACHE_NAME == build-manifest == unit); a desynced consumer (manifest->8.8.8) makes the derive-equal check fire -> start.mjs exits 1. Worktree-isolated. Marker db5427be adopted from origin (measured line 1-2, not invented). Impl ee8bbaba on Class Build (start.mjs). INV-V4 (getVersion boot-frozen) already closed separately.",
+    "sourceFile": "ior:file:test/visual/r317-single-source-version-gate.mjs",
+    "implementations": [
+      "ior:instance:ee8bbaba-44ff-4ac4-9dfe-3a48c3cbb73a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ee8bbaba-44ff-4ac4-9dfe-3a48c3cbb73a"
+}
