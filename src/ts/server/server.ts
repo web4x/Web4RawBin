@@ -1641,6 +1641,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
             const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
             const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
+            // [impl:uuid:e86f0736-a05a-427c-b2b2-1c2d36b68965] server.attachChainMethod (Method 0fc54115, Class c0a0921d) — R31.10 strict-credit marker on the all-modes chainMethod attach (was a bare // R31.10 comment)
             if (type === 'UseCase' && ct === 'Class' && ucMethodIor) { // R31.10: UC.method drives chain resolution in ALL modes (was queryMode==='trace'-only → non-trace/scenario fell to the wrong Class.methods[] sibling, e.g. observePosition→onGrabBarPointer IMG_4647). The ucMethodIor guard already means Class.methods[] fallback fires ONLY when UC.method is genuinely empty.
               const meth = idx.get(ucMethodIor);
               if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
