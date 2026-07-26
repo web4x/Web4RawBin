@@ -81,6 +81,7 @@ const CONFIG_UNIT_REL = 'scenario/index/c/o/n/f/i/config-singleton-0000-00000000
 // R31.7 INV-V3: a reverted/stray per-file `git checkout <ref> -- <file>` (the phantom-7.99 incident — no reflog)
 // fails LOUDLY here BEFORE deploy. SCOPED to the deploy-critical generator input+outputs ONLY — this shared repo
 // always carries unrelated churn, so a whole-tree guard would false-positive every deploy and get disabled.
+// [impl:uuid:81151504-4fd8-4210-aca3-4eb19ce05655] Build.versionGuardTreeClean (R31.7 INV-V3)
 function versionGuardTreeClean(env) {
   const files = ['src/ts/server/server.ts', 'package.json', 'src/public/sw.js', CONFIG_UNIT_REL];
   try {
@@ -95,6 +96,7 @@ function versionGuardTreeClean(env) {
 }
 
 // R31.7 INV-V1: after the build, every version consumer must derive-equal from the ONE Config unit.
+// [impl:uuid:ee8bbaba-44ff-4ac4-9dfe-3a48c3cbb73a] Build.versionGuardAgreement (R31.7 INV-V1)
 function versionGuardAgreement() {
   try {
     const unit = JSON.parse(readFileSync(path.join(ROOT, CONFIG_UNIT_REL), 'utf-8')).model.version;

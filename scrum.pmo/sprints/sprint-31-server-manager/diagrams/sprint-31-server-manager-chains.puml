@@ -191,10 +191,11 @@ rectangle "Impl getVersion (INV-V4 boot-frozen)" as I_f8c198bb
 rectangle "Test R31.7 INV-V4 boot-frozen version" as T_ff91ca36
 rectangle "UC config.guardTreeClean" as U_b3a0b05d
 rectangle "Method Build.versionGuardTreeClean" as M_e75a7e71
-rectangle "Impl versionGuardTreeClean (INV-V3) [ARCHITECT MINT]" as I_v3mint
+rectangle "Impl versionGuardTreeClean (INV-V3)" as I_81151504
 rectangle "UC config.guardAgreement" as U_cabf6551
 rectangle "Method Build.versionGuardAgreement" as M_a8040d7c
-rectangle "Impl versionGuardAgreement (INV-V1) [ARCHITECT MINT]" as I_v1mint
+rectangle "Impl versionGuardAgreement (INV-V1)" as I_ee8bbaba
+note bottom of I_81151504 : Impl minted (architect) 81151504 + ee8bbaba, markers @ start.mjs:84/99; Tests pending req mint
 R_15aab895 --> U_83e3891a
 U_83e3891a --> C_b6946e59
 C_b6946e59 --> M_dee42cc1
@@ -208,11 +209,11 @@ I_f8c198bb --> T_ff91ca36
 R_15aab895 --> U_b3a0b05d
 U_b3a0b05d --> C_b6946e59
 C_b6946e59 --> M_e75a7e71
-M_e75a7e71 --> I_v3mint
+M_e75a7e71 --> I_81151504
 R_15aab895 --> U_cabf6551
 U_cabf6551 --> C_b6946e59
 C_b6946e59 --> M_a8040d7c
-M_a8040d7c --> I_v1mint
+M_a8040d7c --> I_ee8bbaba
 
 ' ── R31.8 Feature / FeatureManager (root-of-trust) ────────────
 rectangle "R31.8 Feature typed unit + FeatureManager root-of-trust" as R_a93f5fce

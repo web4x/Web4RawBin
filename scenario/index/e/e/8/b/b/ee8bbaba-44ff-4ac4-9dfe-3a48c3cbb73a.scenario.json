@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ee8bbaba-44ff-4ac4-9dfe-3a48c3cbb73a",
+    "name": "Build.versionGuardAgreement impl",
+    "sourceFile": "ior:file:scripts/start.mjs",
+    "tests": [],
+    "designAhead": false,
+    "description": "R31.7 INV-V1 derive-equal guard @ scripts/start.mjs:99 versionGuardAgreement() — asserts every version consumer (package.json/sw CACHE_NAME/build-manifest/__BUILD_VERSION__) derives-equal from the ONE Config unit; fails LOUDLY on divergence. Marker [impl:uuid:ee8bbaba] on the decl."
+  },
+  "ownerIor": "ior:instance:a8040d7c-4635-4844-ba19-91e90da961a7"
+}

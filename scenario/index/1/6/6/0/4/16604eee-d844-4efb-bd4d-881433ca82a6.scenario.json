@@ -1,24 +1,25 @@
 {
- "ior": "ior:class:Feature",
- "model": {
-  "uuid": "16604eee-d844-4efb-bd4d-881433ca82a6",
-  "name": "Server Manager",
-  "description": "Owner-gated server infrastructure console: otmux session/pane tree + interactive PTY terminal + boot-sweep. The R31.1-R31.4 feature.",
-  "icon": "server",
-  "implementations": [
-   "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94",
-   "ior:instance:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05",
-   "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a",
-   "ior:instance:f345b8ed-6a1e-4d8e-9c5f-8e7a6b5c4d3e",
-   "ior:instance:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c",
-   "ior:instance:5d313828-1525-4748-a201-6553ee72f044"
-  ],
-  "allowedUsers": [
-   "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
-  ],
-  "implNote": "Representative impl set (architect-refined 83836631a; expert wires the Impl.feature back-refs = both-way mirror). assertOwner impl=335dbf3d (Method 8bb1842f).",
-  "allowedUsersNote": "allowedUsers refs the profile TOKEN (Tron 41ad88c4) — stable identity; profiles are Map+JSON today (server.ts:166), profile.features is a new field. Owner enters via seeded membership at bootstrap (NOT a literal-bypass).",
-  "featureNote": "ServerManager Feature instance (R31.8). Both-way Feature<->Impl + Feature<->profile mirror maintained by expert."
- },
- "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
+  "ior": "ior:class:Feature",
+  "model": {
+    "uuid": "16604eee-d844-4efb-bd4d-881433ca82a6",
+    "name": "Server Manager",
+    "description": "Owner-gated server infrastructure console: otmux session/pane tree + interactive PTY terminal + boot-sweep. The R31.1-R31.4 feature.",
+    "icon": "server",
+    "implementations": [
+      "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94",
+      "ior:instance:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05",
+      "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a",
+      "ior:instance:f345b8ed-6a1e-4d8e-9c5f-8e7a6b5c4d3e",
+      "ior:instance:5b3d9f1a-2e6c-4a7b-9c4d-8f1e0a2b6d3c",
+      "ior:instance:5d313828-1525-4748-a201-6553ee72f044"
+    ],
+    "allowedUsers": [
+      "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+      "05e58f81-34ec-4851-b5b7-5749ca9148a3"
+    ],
+    "implNote": "Representative impl set (architect-refined 83836631a; expert wires the Impl.feature back-refs = both-way mirror). assertOwner impl=335dbf3d (Method 8bb1842f).",
+    "allowedUsersNote": "allowedUsers refs the profile TOKEN (Tron 41ad88c4) — stable identity; profiles are Map+JSON today (server.ts:166), profile.features is a new field. Owner enters via seeded membership at bootstrap (NOT a literal-bypass).",
+    "featureNote": "ServerManager Feature instance (R31.8). Both-way Feature<->Impl + Feature<->profile mirror maintained by expert."
+  },
+  "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
 }

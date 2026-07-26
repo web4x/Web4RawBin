@@ -5,7 +5,9 @@
     "name": "Build.versionGuardAgreement",
     "description": "versionGuardAgreement() @ scripts/start.mjs:98: asserts all version consumers derive-equal from the one Config unit (INV-V1) and == committed HEAD (INV-V2); refuses deploy loudly on divergence. Build/deploy tooling. Expert points impl here (#126).",
     "sourceFile": "ior:file:scripts/start.mjs",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:ee8bbaba-44ff-4ac4-9dfe-3a48c3cbb73a"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"

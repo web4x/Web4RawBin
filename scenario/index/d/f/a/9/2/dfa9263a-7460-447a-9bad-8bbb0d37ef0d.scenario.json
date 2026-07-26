@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "dfa9263a-7460-447a-9bad-8bbb0d37ef0d",
+    "kind": "link",
+    "name": "Youtu 8fn9N_JI7l8",
+    "description": "https://youtu.be/8fn9N_JI7l8?is=ndGNB86TKxEQxQX9",
+    "url": "https://youtu.be/8fn9N_JI7l8?is=ndGNB86TKxEQxQX9",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=youtu.be&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}
