@@ -1607,7 +1607,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
           }
         }
-        childRefs = childRefs.filter(ref => ref !== uuid);
+        childRefs = [...new Set(childRefs)].filter(ref => ref !== uuid); // R31.11: de-dup — an S30 UC carries BOTH 'class'+'classes' keys, so the ['class','classes'] resolve would push the SAME Class twice → double-render without this Set
         // Fallback: if scenario index has no forward UUID arrays, consult scanRepo graph
         if (childRefs.length === 0) {
           try {
@@ -1657,7 +1657,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
         }
         if (!parent) {
-          const FWD_SCAN: Record<string, string[]> = { Requirement: ['tasks','useCases'], Task: ['useCases','children','subtasks','coveredRequirements'], UseCase: ['classes'], Class: ['methods'], Method: ['implementations'], Implementation: ['tests'], Sprint: ['tasks','requirements'] };
+          const FWD_SCAN: Record<string, string[]> = { Requirement: ['tasks','useCases'], Task: ['useCases','children','subtasks','coveredRequirements'], UseCase: ['class','classes'], Class: ['methods'], Method: ['implementations'], Implementation: ['tests'], Sprint: ['tasks','requirements'] }; // R31.11: UseCase parent-scan symmetry (singular 'class' + legacy 'classes')
           for (const pUuid of idx.list()) {
             if (parent) break;
             const pUnit = idx.get(pUuid);
