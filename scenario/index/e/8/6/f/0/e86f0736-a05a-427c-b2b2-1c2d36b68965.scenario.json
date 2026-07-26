@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e86f0736-a05a-427c-b2b2-1c2d36b68965",
+    "name": "server.attachChainMethod impl (server.ts:1644 all-modes un-gate)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": true,
+    "markerNote": "Built + GREEN (v0.7.136, tester Test a1d38f6e DET-3x) but the code carries only a '// R31.10:' COMMENT at server.ts:1644-1646, NOT an [impl:uuid] marker. EXPERT: place [impl:uuid:e86f0736-a05a-427c-b2b2-1c2d36b68965] on the server.ts:1644 chainMethod-attach block for strict-impl credit. Behavior is already verified by the Test; this converts the comment to a real marker.",
+    "tests": [
+      "ior:instance:a1d38f6e-4a8f-4877-af38-76063a772ecd"
+    ]
+  },
+  "ownerIor": "ior:instance:0fc54115-dedd-4e5c-9c8c-9ae440f5b35c"
+}

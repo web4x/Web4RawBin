@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1d38f6e-4a8f-4877-af38-76063a772ecd",
+    "name": "test:R31.10 tree resolves UC.method in ALL modes, never sibling (server chainMethod un-gate)",
+    "description": "Bridged to test/visual/r3110mode-resolve-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.136, commit 841c90813). Verifies R31.10: a UC with model.method SET resolves to THAT method in EVERY view (trace + non-trace/scenario), never a sibling. Probe: UC drawer.observePosition cc45a580 -> observePosition e8097351, NOT onGrabBarPointer (R25.4). Asserts API-trace resolves + source-audit fix-un-gated + /trace+/scenario render @390 + onGrabBarPointer never resolved. Marker a1d38f6e adopted from origin 841c90813 (measured line 1, not invented). Chain: R31.10 req 797113c5 -> UC 9dba0d50 -> Class server c0a0921d -> Method 0fc54115 server.attachChainMethod -> Impl e86f0736 (marker-pending server.ts:1644) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3110mode-resolve-gate.mjs",
+    "implementations": [
+      "ior:instance:e86f0736-a05a-427c-b2b2-1c2d36b68965"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e86f0736-a05a-427c-b2b2-1c2d36b68965"
+}
