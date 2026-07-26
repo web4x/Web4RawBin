@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d3abeeb7-5f07-461b-a7bb-19636678d6e3",
+    "name": "test:R31.8 FeatureManager.searchUsers c2 user-search (ranked/masked/capped)",
+    "description": "Bridged to test/visual/r318fm-server-gate.ts (DET-3x GREEN, served==HEAD==v0.7.135). c2 user search: ranked exact<prefix<substring, MASKED identifiers (raw token IS the grant key, identifiers masked), capped-10 truncation, empty-query->[]. Server import-drive (owner-free). Marker d3abeeb7 adopted from origin (measured on line 1, not invented). Impl cb20fd6e on FeatureManager/RbFeatureDetail (R31.8).",
+    "sourceFile": "ior:file:test/visual/r318fm-server-gate.ts",
+    "implementations": [
+      "ior:instance:cb20fd6e-a5e3-4dd3-a942-62724ddbddf8"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cb20fd6e-a5e3-4dd3-a942-62724ddbddf8"
+}

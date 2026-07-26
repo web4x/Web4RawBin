@@ -3,7 +3,9 @@
   "model": {
     "uuid": "9b54bc91-f8fc-4585-84bf-fb45cbab98e3",
     "name": "RbFeatureDetail.userComplete impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:a708a9e3-263c-4890-ac5c-b358642cdef9"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-feature-detail.ts",
     "designAhead": false,
     "description": "BUILT v0.7.110: RbFeatureDetail.userComplete @ src/public/ts/trace/rb-feature-detail.ts — R31.8c NODE-2 OOSH-c2 completion. Debounced (220ms) GET /api/feature-manager/users?q= → searchUsers → masked/ranked dropdown + keyboard nav (↑/↓ wrap, Enter select, Esc close) → on select applyGrant(feature, token, 'grant'). debounce (userComplete timer) / dropdown (renderDropdown/closeDropdown/move/select) / keys (wireKeys) = private helpers. Interdependent with mount (node-3) which provides the input + dropdown container. Marker [impl:uuid:9b54bc91-...] on the userComplete() decl. R31.8c."

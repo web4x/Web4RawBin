@@ -3,7 +3,9 @@
   "model": {
     "uuid": "cb20fd6e-a5e3-4dd3-a942-62724ddbddf8",
     "name": "FeatureManager.searchUsers impl",
-    "tests": [],
+    "tests": [
+      "ior:instance:d3abeeb7-5f07-461b-a7bb-19636678d6e3"
+    ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,
     "description": "BUILT v0.7.109: FeatureManager.searchUsers @ src/ts/server/FeatureManager.ts — R31.8c NODE-1 owner-gated user search. Matches the query across LIVE profiles (name/phone/token) + ALT-IDENTITY Profile units (scenario/alt/{phone,email,company}, model.uuid = token) → resolves the token → returns [{token(real, the grant key), name, avatar?, uuid?, identifiers[](masked)}], RANKED exact→prefix→substring, capped-10 + truncated flag. Served by the owner-gated GET /api/feature-manager/users (requireOwnerHttp, INV-F4). rankMatch/maskToken/maskIdentifier = private helpers. Marker [impl:uuid:cb20fd6e-...] on the searchUsers decl (name-matches). R31.8c."
