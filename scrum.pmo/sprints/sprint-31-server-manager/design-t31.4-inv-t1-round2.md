@@ -50,3 +50,11 @@ All three legs met (earned, NOT by-construction — the corrected process):
 2. **My SERVER race-close MEASURED PASS**: normal open sm_=1→close 0; mid-connect race ×4 → 0 orphans.
 3. **sm_=0 re-confirmed post-run**: census clean after the tester's full run; pid 1124323 stable (no double-restart), served==committed==0.7.132.
 CLIENT drawer-dedupe + SERVER race-close = the backstop PAIR (client kills the double-render, server closes the race) — both verified at their correct levels. INV-T1 marker 6f78a86f → req. **T31.4 INV-T1 leak CLOSED.** LESSON delivered: the wrong-level/asserted by-construction (v0.7.131) → PO caught → re-diagnosed at the drawer+race level → gate-verified this time. Ready for Tron's device batch.
+
+## ★ FINAL VERDICT — T31.4 INV-T1 round-2 = GATE-VERIFIED PASS (robbin-architect 2026-07-26)
+BOTH conditions of my gate-verified commitment MET (this time earned, NOT by-construction assertion — the lesson from the v0.7.131 wrong-level miss applied):
+1. **CLIENT drawer-dedupe — tester DET-3x @390 GREEN** (a30081afc, in HEAD history): 1 sm_/open (double-render KILLED by the renderDetailForRef single-render guard), 0 leak ALL paths (close/deselect/minimize/esc + pane-switch + maximize-close); elem-probe 1 rb-terminal-detail element / 1 ws (was 2); maximize geometry + /trace/scenario single-render regression + non-owner 403 all GREEN. (Tester self-corrected a false-RED minimize trigger: a .drawer-handle CLICK expands; el.minimize() — what swipe/resize invoke — DOES tear down.)
+2. **SERVER race-close — my measured PASS** (v0.7.132 restart): normal open sm_=1→reap 0; mid-connect race ×4 → 0 orphans (PtyBridge readyState!==1).
+3. **Sustained sm_=0** — re-confirmed 0 orphans on the live server 3 days later (2026-07-26), no leak accumulation.
+**T31.4 INV-T1 leak CLOSED at the correct (drawer + race) level, gate-verified.** INV-T1 marker 6f78a86f → req (chain). No open architect action on T31.4.
+NOTE (not T31.4, flagged): live server served=0.7.135 but committed HEAD=0.7.136 (R31.10) → R31.10 committed-not-deployed (needs a real restart to serve). Surfacing per the deploy-gap lesson; owner = whoever drives R31.10.
