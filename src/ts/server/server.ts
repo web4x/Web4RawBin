@@ -1645,8 +1645,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const ct = (child.ior || '').split(':')[2] || '';
             if (allowedTypes.length > 0 && !allowedTypes.includes(ct)) return null;
             const childModel = child.model as Record<string, unknown> || {};
-            const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
-            const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
+            // R31.11 RESIDUAL: childCount via the SAME forward-key resolution as the walk (was a hard-coded plural-only
+            // key list + filter(Array.isArray) that dropped SINGULAR 'class' AND string refs → S31 UC childCount=0 →
+            // hasChildren=false → rendered a LEAF, no chevron). Set-DEDUP is REQUIRED: an S30 UC carries BOTH 'class'+
+            // 'classes' (same Class) → a naive string(1)+array(len) count would regress its badge 1→2.
+            const cRefSet = new Set<string>();
+            for (const k of forwardKeysForMode(ct, queryMode as 'scenario' | 'trace')) {
+              const v = (childModel as Record<string, unknown>)[k];
+              const addRef = (r: unknown): void => { const s = String((typeof r === 'object' && r) ? ((r as { ior?: string; uuid?: string }).ior || (r as { ior?: string; uuid?: string }).uuid || '') : r).replace('ior:instance:', ''); if (/^[0-9a-f]{8}-/.test(s)) cRefSet.add(s); };
+              if (Array.isArray(v)) v.forEach(addRef); else if (typeof v === 'string') addRef(v);
+            }
+            const childCount = cRefSet.size;
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
             // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
             const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
