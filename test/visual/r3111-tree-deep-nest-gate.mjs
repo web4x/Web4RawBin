@@ -1,3 +1,4 @@
+// [test:uuid:d48fd23e-5a30-4f6a-abfd-9bc4cc98b3e2] R31.11 traceability tree deep-nests the FULL chain (UC→Class→Method→Impl→Test) for S31 like S30 — GREEN DET-3x @390 iPhone-12 served v0.7.139. Verifies the RENDER surface (the user's flow, not just /children/<UC>): the tree lists a S31 UC via its parent /children/<Task> which now stamps hasChildren=true/cc=1 both modes → UC gets a chevron → expands to Class ServerManagerGuard(badge 3)→Method assertOwner→Impl→Test on-screen; + S30 UC badge STAYS 1 (de-dup, not 2); + S30 single-Class no-dup; + sacred 403 / trace 200 regression. Root fix: chain-model.ts:18 forward keys + server.ts:1648 per-child childCount via forwardKeysForMode + UNIQUE-ref Set. → req mints onto the shared chain-model fix (architect places the Impl marker).
 // R31.11 traceability TREE deep-nest full chain (UC→Class→Method→Impl→Test) for S31, matching S30. served==0.7.138.
 // Root fix (architect): chain-model.ts:18 UseCase fwd all ['class','classes'] + server.ts:1610 [...new Set] de-dup +
 // server.ts:1661 FWD_SCAN ['class','classes'] — S31 UCs store singular 'class'; scenario/client used to read only plural
@@ -11,7 +12,7 @@ import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
 import fs from 'node:fs';
-const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.138';
+const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.139';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const OWNERGUARD = '40802701-db2c-49d4-85cd-aa421f06e61d';   // S31 UC serverManager.ownerGuard
 const S30UC = 'e22113cd-022d-48f0-b434-9ec4636e2081';        // S30 UC currentSprintEagerLazy (de-dup case)
