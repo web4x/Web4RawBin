@@ -6,7 +6,9 @@
   "name": "Traceability tree resolves the correct UC.method in EVERY view — never sibling-fallback when UC.method is set",
   "description": "The traceability tree MUST resolve a UseCase to its OWN UC.model.method in EVERY view — trace-mode AND non-trace / scenario-mode — and MUST NOT fall back to a sibling method on the same Class when UC.method is set. ROOT (skill-expert audit R31-traceability-audit-RESULT.md, IMG_4647): the server attaches chainMethod from UC.model.method ONLY in queryMode==='trace' (server.ts:1644-1647); the client rb-trace-tree.buildSeedNode renders chainMethod if present, ELSE falls back to fetchAndRenderChildren (the Class's methods) — which surfaces a WRONG sibling (e.g. R31.9 UC drawer.observePosition resolving to R25.4 onGrabBarPointer on the shared Class RbDetailDrawer). This is a CODE fix (architect designs the Class/Method topology + the resolve path), not merely a data-wiring gap: even with UC.method correctly set (as R31.9's IS on disk), non-trace views mis-resolve. Captured per Tron completeness directive (R31-completeness-directive.md) — completeness of the tree resolution across all views.",
   "tronQuote": "> TRON (2026-07-24, completeness directive): the traceability chain is not complete in the tree — review the whole sprint and complete all missing scenarios; the tree must resolve every UC to its correct method in every view, not a sibling.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:e9f5eba2-d64d-485b-8f2c-f94094fd9994"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31-completeness-directive.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",

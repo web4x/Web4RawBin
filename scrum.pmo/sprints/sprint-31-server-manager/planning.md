@@ -32,3 +32,7 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
 - [x] [Task 31.7: DRY single-source app version via ONE typed Config scenario unit — all consumers generated/derived, never hand-copied](./task-31.7-single-source-version.md)
 - [x] [Task 31.8: Feature typed unit type + FeatureManager root-of-trust — product layer linking implementations to user grants](./task-31.8-feature-featuremanager.md)
 - [ ] [Task 31.9: Detail container = ONE CSS-responsive instance (drawer<->compartment), no JS instance-switch](./task-31.9-detail-container-css-responsive.md)
+- [ ] [Task 31.10: Traceability tree resolves the correct UC.method in EVERY view — never sibling-fallback when UC.method is set](./task-31.10-tree-method-resolve.md)
+- [ ] [Task 31.11: Traceability tree deep-nests the full chain (UC->Class->Method->Impl->Test) for every sprint](./task-31.11-tree-deep-nest-chain.md)
+- [ ] [Task 31.12: In-room chat works + tapping the room title opens room settings (@390)](./task-31.12-inroom-chat-room-settings.md)
+- [x] [Task 31.13: Deterministic build: same source -> same bundle hashes (reproducible, no per-restart churn)](./task-31.13-deterministic-build.md)

@@ -1,0 +1,39 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 31.12: In-room chat works + tapping the room title opens room settings (@390)
+
+[task:uuid:348be265-b28b-48c1-aacd-9d498e589667]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [ ] QA Review
+- [ ] Done
+
+## Traceability
+
+  - up
+    - [Sprint 31 Planning](./planning.md)
+    - Requirement R31.12 `[requirement:uuid:ede037dc-9a53-4b8b-9ff1-971b0469c0af]`
+  - down
+    - None (atomic task)
+
+## Task Description
+
+TWO in-room fixes, each pinned @390 in-room. (1) IN-ROOM CHAT WORKS - a REAL regression: the in-room chat sends AND receives messages again. Architect root: R31.9 observePosition + R31.4 drawer-lifecycle changes hit the UN-GATED in-room chat drawer (RoomView uses the shared rb-detail-drawer as chatPanel per R30.20); the drawer refactor broke the chat panel mount/render. FIX = room-chat OPT-OUT (the in-room chat drawer opts out of the observePosition/detail-container lifecycle that broke it), preserving the R31.4/R31.9 drawer wins (positioning!=function, shared behavior). (2) ROOM SETTINGS OPEN FROM THE HEADER - a REAL regression (tester @390 real-device root 141d27f7b): an EMPTY rb-update-banner (fixed, z2000, pointer-events:auto) OVERLAYS the room header and intercepts taps on BOTH the room title AND the pencil edit button, so settings are unreachable (why Tron said 'don't open anymore' - the pencil that worked is now BLOCKED by the invisible banner). FIX = the empty banner does NOT capture pointer events / does not overlay the header safe-area; the title-tap affordance stays (already wired+correct). NOTE: an earlier architect STATIC read framed #2 as an add-affordance (title never had a handler); the tester's @390 REAL-DEVICE measurement SUPERSEDES it - the true root is the banner overlay, so #2 IS a regression. [[device-qa-regression-means-missing-ac]] + suspect-the-instrument (static read missed the runtime overlay). Feature-fix route: architect diagnosed -> expert building both -> tester gates @390 IN-ROOM. These slipped because the R31.4/R31.9 drawer gate never covered the IN-ROOM flow (missing-AC).
+
+## Acceptance Criteria
+
+- [x] @390 IN-ROOM: the chat WORKS again - the user can SEND a message and RECEIVE messages in-room. REAL REGRESSION (worked pre-R31.4/R31.9): the R31.9 observePosition + R31.4 drawer-lifecycle changes hit the un-gated in-room chat drawer (RoomView chatPanel on the shared rb-detail-drawer, R30.20), breaking the chat panel mount/render. Fix = room-chat OPT-OUT of the observePosition/detail-container lifecycle; the R31.4/R31.9 drawer wins (Server Manager / trace) MUST still hold (positioning!=function).
+- [x] @390 IN-ROOM notched-iPhone (safe-area): the empty rb-update-banner (fixed, z2000, pointer-events:auto) MUST NOT overlay/intercept the room header - BOTH the ROOM TITLE and the pencil edit button open the S19 room-settings modal. REAL REGRESSION (tester @390 real-device root 141d27f7b, SUPERSEDES the earlier 'add-affordance' static read): an EMPTY update-banner pinned over the header intercepted taps on BOTH the title AND the pencil -> settings unreachable (why Tron said 'don't open anymore' - the pencil that used to work is now BLOCKED by the invisible banner). Fix = the empty banner does NOT capture pointer events / does not overlay the header safe-area. The title-tap affordance itself stays (already wired + correct); the regression is the banner blocking header taps.
+- [x] The re-gate @390 MUST cover the IN-ROOM flow (chat send/receive + room-title->settings-opens), NOT only /trace + Server Manager - the regression slipped precisely because the R31.4/R31.9 drawer gate never exercised the in-room path (missing-AC). Regression-check: the R31.4/R31.9 drawer wins still hold (no re-break). Tron device re-verify in-room.
+
+## Subtasks
+
+None (atomic task).
