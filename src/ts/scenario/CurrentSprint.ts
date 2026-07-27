@@ -387,7 +387,10 @@ export class CurrentSprint {
       // partial branch below). ucUnit-missing => refs.uc drops to '' so activeHop lands on the
       // uc hop. This never fabricates credit — it just keeps /trace honest about the CURRENT task.
       const ucM = (ucUnit?.model as Record<string, unknown>) || {};
-      const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
+      // R31.11 reconcile (pin = 4th class/classes site, w/ scoreboard/chain-model/childCount): canonical UC->Class
+      // is SINGULAR 'class'; also accept legacy PLURAL 'classes'. Mirrors CHAIN_TYPE_CONFIG.UseCase ['class','classes'].
+      const clsRawRef = (ucM as Record<string, unknown>).class;
+      const clsUuid = ior((Array.isArray(clsRawRef) ? (clsRawRef[0] as string) : (clsRawRef as string)) || ((ucM.classes as string[]) || [])[0] || '');
       const methUuid = ior(String(ucM.method || ''));
       const methUnit = methUuid ? this.index.get(methUuid) : null;
       const methM = methUnit?.model as Record<string, unknown> | undefined;

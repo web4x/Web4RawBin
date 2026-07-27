@@ -267,11 +267,18 @@ export class Chain {
     for (const ucIorStr of ucIors) {
       const ucUuid = ior(ucIorStr);
       const ucM = this.model(ucUuid);
-      if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] ucUuid=${ucUuid.slice(0,8)} ucM=${!!ucM} classes=${JSON.stringify((ucM as any)?.classes)}`);
       if (!ucM) continue;
-      const clsIors = (ucM.classes as string[]) || [];
+      // R31.11 reconcile (skill-classes scoreboard = the 3rd class/classes site, after chain-model fetch + childCount
+      // stamp): canonical UC->Class link is SINGULAR 'class'; also read legacy PLURAL 'classes'. Union + dedup so the
+      // scoreboard credits the Class-hop for ANY correctly-minted UC BY CONSTRUCTION — no per-UC class->classes[]
+      // mirroring. Mirrors CHAIN_TYPE_CONFIG.UseCase forwardKeys ['class','classes'] (the shared source of truth).
+      const ucClassRefs = [
+        ...(Array.isArray((ucM as Record<string, unknown>).class) ? ((ucM as Record<string, unknown>).class as string[]) : ((ucM as Record<string, unknown>).class ? [(ucM as Record<string, unknown>).class as string] : [])),
+        ...(Array.isArray((ucM as Record<string, unknown>).classes) ? ((ucM as Record<string, unknown>).classes as string[]) : []),
+      ];
+      const seenCls = new Set<string>();
+      const clsIors = ucClassRefs.filter((r) => { const u = ior(r); if (seenCls.has(u)) return false; seenCls.add(u); return true; });
       if (clsIors.length === 0) {
-        if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] clsIors EMPTY -> open architect`);
         results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false,
           openNodes: [{ node: 'Class', owner: 'architect', action: 'Wire Class to UC', iorShort: short(ucUuid) }] });
         continue;
