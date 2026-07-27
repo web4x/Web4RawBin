@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3e57bca1-089e-43ea-b3cf-ae69144b2b33",
+    "name": "test:R31.12 title->config for ALL members, non-host read-only, server owner-guard (engine-independent)",
+    "description": "Bridged to test/visual/r3112b-nonhost-gate.mjs (GREEN DET-3x, ENGINE-INDEPENDENT @390, sw+/api/config 0.7.144; tester commit b2d29f4a2/b556b0f48). ONE consolidated Test of the engine-independent parts: (1) the room title is role=button + tabindex=0 (real interactive, NOT a plain h2); (2) a NON-host title-tap is UN-GATED and opens Room Settings; (3) non-host READ-ONLY (inputs disabled + Save removed + save-handler host-only); (4) the server REJECTS a non-owner UPDATE_ROOM_CONFIG (ERROR owner, reject-first, POLLUTION-SAFE). ★ tap-FIRES-on-real-iOS-WebKit is DEVICE-ONLY (rides Tron device re-confirm, like R30.53 codicon) - Chromium false-greened the old h2 click, so that piece is NOT headless-closeable. Marker 3e57bca1 adopted from origin (measured line 1, not invented). Wired PRIMARY to Impl f9b579c1 (RbRoomDetail.editOpen, read-only openRoomEditor); distinct-intent alongside its original test 5b79cc8e. Chain: R31.12 req ede037dc -> UC eb8dfa23 roomDetail.openConfigForAll -> Class RbRoomDetail 5a6d931a -> Method RbRoomDetail.editOpen 6fc898ab -> Impl f9b579c1 -> this Test. Supporting ride-existing edits (note-only, no new marker): role=button + un-gated non-host title-tap rides rb-header T40 39074a59 (connectedCallback:53-61 role=button+tabindex+click un-gated); server owner-guard (reject-first non-owner UPDATE_ROOM_CONFIG @server.ts:2666-2671) has NO dedicated marker - noted as a supporting server-security edit (rides the message-handler). tap-FIRES-on-real-iOS-WebKit is DEVICE-ONLY (Tron re-confirm, like R30.53 codicon) - NOT a headless Test.",
+    "sourceFile": "ior:file:test/visual/r3112b-nonhost-gate.mjs",
+    "implementations": [
+      "ior:instance:f9b579c1-7495-4f93-8dec-736a0410a69a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f9b579c1-7495-4f93-8dec-736a0410a69a"
+}
