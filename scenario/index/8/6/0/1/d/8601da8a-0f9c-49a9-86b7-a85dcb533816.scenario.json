@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8601da8a-0f9c-49a9-86b7-a85dcb533816",
+    "name": "test:R31.13 deterministic build — same source -> byte-identical dist hashes+manifest (3x) (Build.writeManifest)",
+    "description": "Bridged to test/visual/r3113-deterministic-build-gate.mjs (REAL gate, GREEN DET, tester-run in an ISOLATED git-worktree with zero shared-dist pollution, worktree-removed + shared dist churn=0; commit 51f03f90f). Ran node build.mjs 3x consecutive -> ALL 19 dist content-hashes + build-manifest BYTE-IDENTICAL across all 3; manifest.built==version==0.7.142 (NOT new Date(), no ISO/epoch timestamp) -> INV-V3 tree-clean determinism holds. Verifies R31.13 AC-deterministic-hashes + the twice-build-identical part of AC-gate-rebuild-twice. Marker 8601da8a adopted from origin (measured line 1, not invented). ★ HONEST CAVEAT (separate deploy-hygiene, NOT a determinism failure; routed to architect by PO): clean-git-after-rebuild=FALSE — the COMMITTED dist is 17/19 files stale vs a fresh deterministic rebuild (committed pre-v0.7.142 hashing); a ONE-TIME re-commit of the deterministic dist@0.7.142 makes deploys churn-free. So AC-no-per-restart-churn + the clean-git-status part of AC-gate-rebuild-twice are HELD pending that reconcile (re-open ONLY if it reveals cross-env nondeterminism; the determinism itself is proven). Chain: R31.13 req 335cb740 -> UC fd9003a9 build.deterministicManifest -> Class Build b6946e59 -> Method f680ab0d Build.writeManifest -> Impl 1f640b81 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3113-deterministic-build-gate.mjs",
+    "implementations": [
+      "ior:instance:1f640b81-7b1f-4b6d-af57-1e20afb454b6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1f640b81-7b1f-4b6d-af57-1e20afb454b6"
+}
