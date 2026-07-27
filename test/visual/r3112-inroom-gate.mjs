@@ -14,7 +14,7 @@ import https from 'node:https';
 
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';          // Marcel dnd test room — JOIN-reusable (Tron's real room)
-const CLIENT_VER = 'rawbin-v0.7.140';
+const CLIENT_VER = 'rawbin-v0.7.141';   // R31.12 #2 banner fix (client-only)
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (path) => new Promise((resolve) => {
   const req = https.request({ host: HOST, port: PORT, path, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => resolve({ status: res.statusCode, body: b })); });
@@ -53,17 +53,19 @@ const chatOk = (c) => c.rendered === c.total && c.dataContext === 'room-chat' &&
 async function titleArc(page) {
   const probe = await page.evaluate(() => {
     const at = (sel) => { const e = document.querySelector(sel); if (!e) return { present: false }; const r = e.getBoundingClientRect(); const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return { present: true, cursor: getComputedStyle(e).cursor, hitsSelf: e === top || e.contains(top), topEl: top ? top.tagName : null }; };
-    return { title: at('.rb-header-title'), edit: at('[data-action="edit"]') };
+    const banner = document.querySelector('rb-update-banner'); const br = banner?.getBoundingClientRect();
+    return { title: at('.rb-header-title'), edit: at('[data-action="edit"]'), bannerH: br ? Math.round(br.height) : 0 };
   });
-  await page.tap('.rb-header-title', { timeout: 2500 }).catch(() => {}); await sleep(600); // fast-fail: an overlay intercept is the finding
+  await page.tap('.rb-header-title', { timeout: 3000 }).catch(() => {}); await sleep(600);
   const viaTitle = await page.evaluate(() => !!document.querySelector('#re-name') && /Edit Room Config/.test(document.body.textContent || ''));
   await page.evaluate(() => document.querySelectorAll('#re-cancel').forEach(b => b.click())); await sleep(300);
-  await page.tap('[data-action="edit"]', { timeout: 2500 }).catch(() => {}); await sleep(600);
+  await page.tap('[data-action="edit"]', { timeout: 3000 }).catch(() => {}); await sleep(600);
   const viaButton = await page.evaluate(() => !!document.querySelector('#re-name'));
   await page.evaluate(() => document.querySelectorAll('#re-cancel').forEach(b => b.click()));
-  return { cursor: probe.title.cursor, titleHitsSelf: probe.title.hitsSelf, titleTopEl: probe.title.topEl, editHitsSelf: probe.edit.hitsSelf, viaTitle, viaButton };
+  return { cursor: probe.title.cursor, titleHitsSelf: probe.title.hitsSelf, titleTopEl: probe.title.topEl, editHitsSelf: probe.edit.hitsSelf, bannerH: probe.bannerH, viaTitle, viaButton };
 }
-const titleOk = (t) => t.cursor === 'pointer' && t.titleHitsSelf === true && t.viaTitle === true && t.viaButton === true;
+// (a) title→modal (b) ✏️→modal (c) no-update banner has ZERO footprint over the header — title & ✏️ centers hit the HEADER not the banner (PO's exact discriminator) + banner height 0
+const titleOk = (t) => t.cursor === 'pointer' && t.titleHitsSelf === true && t.editHitsSelf === true && t.bannerH === 0 && t.viaTitle === true && t.viaButton === true;
 
 const results = [];
 try {
@@ -73,7 +75,13 @@ try {
   const verOk = cacheName === CLIENT_VER;
   const trace = await httpGet('/trace'); const whoami = await httpGet('/api/server-manager/whoami');
   const regressionOk = trace.status === 200 && whoami.status === 403;
-  console.log(`client-version=${cacheName} (verOk=${verOk}) | regression /trace=${trace.status} whoami=${whoami.status} (${regressionOk})`);
+  // (d) don't-over-suppress: source-audit the banner uses a semver-NEWER guard (isNewer, numeric-per-part), NOT the old
+  //     `version !==` skew that fired on a client-only ship. Engine-independent + robust (a runtime toggle needs the
+  //     component upgraded/shadowed, which the minimal fresh context lacks). A full genuine-newer runtime rides Tron's device.
+  const { execSync } = await import('node:child_process');
+  const bsrc = execSync('cat src/public/ts/components/rb-update-banner.ts', { cwd: '/var/dev/Workspaces/web4x/Web4RawBin', encoding: 'utf8' });
+  const dSemverOk = /function isSemverNewer/.test(bsrc) && /split\('\.'\)\.map/.test(bsrc) && /:host\(\[shown\]\)/.test(bsrc) && /:host\s*\{[^}]*display:\s*none/.test(bsrc) && (bsrc.match(/isSemverNewer/g) || []).length >= 2; // declared AND called (not dead); negative `version!==` check dropped — it lives only in the doc-comment
+  console.log(`client-version=${cacheName} (verOk=${verOk}) | regression /trace=${trace.status} whoami=${whoami.status} (${regressionOk}) | (d) semver-newer guard source-audit=${dSemverOk}`);
   if (!verOk) { console.log(`ABORT phantom-guard: served client ${cacheName} != ${CLIENT_VER}`); process.exitCode = 1; }
   else {
 
@@ -100,9 +108,9 @@ try {
     const { ctx, page } = await newRoomPage(OWNED); await roomReady(page); await sleep(1500);
     const c = await chatArc(page, `own${i}`);
     const t = await titleArc(page);
-    const pass = chatOk(c) && titleOk(t) && dndFidelityOk && regressionOk;
+    const pass = chatOk(c) && titleOk(t) && dndFidelityOk && regressionOk && dSemverOk;
     results.push(pass);
-    console.log(`iter ${i}: chat=${chatOk(c)}(${c.rendered}/${c.total} ctx=${c.dataContext} pos=${c.dataPosition} min=${c.minimized} h=${c.offsetH} gap=${c.bottomGap}) | title=${titleOk(t)}(cursor=${t.cursor} titleHitsSelf=${t.titleHitsSelf} topEl=${t.titleTopEl} editHitsSelf=${t.editHitsSelf} viaTitle=${t.viaTitle} viaBtn=${t.viaButton}) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: chat=${chatOk(c)}(${c.rendered}/${c.total} ctx=${c.dataContext} pos=${c.dataPosition}) | title=${titleOk(t)}(cursor=${t.cursor} titleHitsSelf=${t.titleHitsSelf} topEl=${t.titleTopEl} editHitsSelf=${t.editHitsSelf} bannerH=${t.bannerH} viaTitle=${t.viaTitle} viaBtn=${t.viaButton}) => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 
