@@ -5,6 +5,7 @@ declare const __BUILD_VERSION__: string; // compiled in by build.mjs (define) = 
 // old `config.version !== __BUILD_VERSION__` — post-INV-V4 a CLIENT-ONLY ship makes the client bundle NEWER than the
 // boot-stamped server (0.7.140 client vs 0.7.139 server) → `!=` fired a spurious banner every load (and even offered a
 // DOWNGRADE). Only a real server deploy (server newer) should prompt.
+// [impl:uuid:378357ea-8aec-4e9b-a883-bb0701780f4e] RbUpdateBanner.isSemverNewer (Method 332bd63b, Class 3adf4033) — R31.12 #2 primary: the semver gate that kills the spurious client-ahead banner (INV-V4 skew)
 function isSemverNewer(a: string, b: string): boolean {
   const pa = String(a).split('.').map(n => parseInt(n, 10) || 0), pb = String(b).split('.').map(n => parseInt(n, 10) || 0);
   for (let i = 0; i < 3; i++) { if ((pa[i] || 0) > (pb[i] || 0)) return true; if ((pa[i] || 0) < (pb[i] || 0)) return false; }
