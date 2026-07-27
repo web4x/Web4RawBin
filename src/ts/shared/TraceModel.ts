@@ -150,10 +150,17 @@ export abstract class TraceObject {
   /** T175 Tree: children in the LOCKED chain */
   get children(): TraceObject[] {
     const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'usecase', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
-    const fwd = FORWARD_KEYS[this.type];
     const below = BELOW[this.type];
-    if (!fwd || !below) return [];
-    return this.graph.resolve(this, fwd, below);
+    if (!below) return [];
+    // R31.11 durable (5th class/classes site): UC→Class resolves BOTH canonical singular 'class' + legacy plural
+    // 'classes' (per shared CHAIN_TYPE_CONFIG.UseCase). Multi-key resolve, deduped by uuid — so the client graph
+    // no longer stops at a singular-'class' UC. Other types keep their single FORWARD_KEYS relation.
+    const fwdKeys = this.type === 'usecase' ? ['class', 'classes'] : (FORWARD_KEYS[this.type] ? [FORWARD_KEYS[this.type]] : []);
+    if (!fwdKeys.length) return [];
+    const seen = new Set<string>();
+    const out: TraceObject[] = [];
+    for (const k of fwdKeys) for (const o of this.graph.resolve(this, k, below)) { if (!seen.has(o.uuid)) { seen.add(o.uuid); out.push(o); } }
+    return out;
   }
 
   get hasChildren(): boolean { return this.children.length > 0; }

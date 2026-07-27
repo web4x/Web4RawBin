@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import * as ts from 'typescript';
 import path from 'node:path';
 import { ScenarioIndex } from './index.js';
+import { fwdRefs } from '../shared/chain-model.js';
 import { captureQuote as t138CaptureQuote, proposeTask as t138ProposeTask, walkChain as t138WalkChain, statusTransition as t138StatusTransition, type TaskVerb, type ChainStep } from './skills.js';
 
 // --- Shared helpers ---
@@ -263,6 +264,11 @@ export class Chain {
         openNodes: [{ node: 'UC', owner: 'architect', action: 'Create UC + wire to Req', iorShort: short(reqUuid) }] }];
     }
 
+    // CONCEPT/designAhead req (Tron-authorized honest termination): the chain terminates at its DESIGNED
+    // Method — no Impl/Test expected. The scoreboard must count it COMPLETE-AT-METHOD, NOT demand an Impl
+    // (a false 'create Impl' flag would drive false-credit). See R31.6 (pan/zoom FUTURE).
+    const reqMModel = this.model(reqUuid) as Record<string, unknown> | undefined;
+    const conceptReq = !!reqMModel && (reqMModel.status === 'concept' || reqMModel.future === true || reqMModel.conceptOnly === true || reqMModel.designAhead === true);
     const results: ChainRow[] = [];
     for (const ucIorStr of ucIors) {
       const ucUuid = ior(ucIorStr);
@@ -272,12 +278,7 @@ export class Chain {
       // stamp): canonical UC->Class link is SINGULAR 'class'; also read legacy PLURAL 'classes'. Union + dedup so the
       // scoreboard credits the Class-hop for ANY correctly-minted UC BY CONSTRUCTION — no per-UC class->classes[]
       // mirroring. Mirrors CHAIN_TYPE_CONFIG.UseCase forwardKeys ['class','classes'] (the shared source of truth).
-      const ucClassRefs = [
-        ...(Array.isArray((ucM as Record<string, unknown>).class) ? ((ucM as Record<string, unknown>).class as string[]) : ((ucM as Record<string, unknown>).class ? [(ucM as Record<string, unknown>).class as string] : [])),
-        ...(Array.isArray((ucM as Record<string, unknown>).classes) ? ((ucM as Record<string, unknown>).classes as string[]) : []),
-      ];
-      const seenCls = new Set<string>();
-      const clsIors = ucClassRefs.filter((r) => { const u = ior(r); if (seenCls.has(u)) return false; seenCls.add(u); return true; });
+      const clsIors = fwdRefs(ucM as Record<string, unknown>, 'UseCase'); // shared reader: unions class+classes, deduped
       if (clsIors.length === 0) {
         results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false,
           openNodes: [{ node: 'Class', owner: 'architect', action: 'Wire Class to UC', iorShort: short(ucUuid) }] });
@@ -307,6 +308,11 @@ export class Chain {
           const implIors = (methM.implementations as string[]) || [];
 
           if (implIors.length === 0) {
+            if (conceptReq) {
+              // Honest concept-termination: chain reaches its designed Method, no Impl/Test by design → COMPLETE.
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: 'concept (Method-terminated, no Impl by design)', test: 'concept', complete: true, openNodes: [] });
+              continue;
+            }
             const methTests = (methM.tests as string[]) || [];
             const testNote = methTests.length > 0 ? `open (Test ${methTests.map(t => short(ior(t))).join(',')} via Method — Impl missing)` : 'open';
             results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert ${short(methUuid)}`, test: testNote, complete: false,

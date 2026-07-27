@@ -4,6 +4,7 @@
  * Dispatches 'current-sprint-changed' on document when state changes.
  */
 import { ScenarioIndex } from './index-store.js';
+import { fwdRefs } from '../shared/chain-model.js';
 import type { ScenarioUnit } from './types.js';
 
 export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
@@ -387,10 +388,8 @@ export class CurrentSprint {
       // partial branch below). ucUnit-missing => refs.uc drops to '' so activeHop lands on the
       // uc hop. This never fabricates credit — it just keeps /trace honest about the CURRENT task.
       const ucM = (ucUnit?.model as Record<string, unknown>) || {};
-      // R31.11 reconcile (pin = 4th class/classes site, w/ scoreboard/chain-model/childCount): canonical UC->Class
-      // is SINGULAR 'class'; also accept legacy PLURAL 'classes'. Mirrors CHAIN_TYPE_CONFIG.UseCase ['class','classes'].
-      const clsRawRef = (ucM as Record<string, unknown>).class;
-      const clsUuid = ior((Array.isArray(clsRawRef) ? (clsRawRef[0] as string) : (clsRawRef as string)) || ((ucM.classes as string[]) || [])[0] || '');
+      // Pin UC->Class via the SHARED fwdRefs reader (unions canonical singular 'class' + legacy plural 'classes').
+      const clsUuid = ior(fwdRefs(ucM as Record<string, unknown>, 'UseCase')[0] || '');
       const methUuid = ior(String(ucM.method || ''));
       const methUnit = methUuid ? this.index.get(methUuid) : null;
       const methM = methUnit?.model as Record<string, unknown> | undefined;

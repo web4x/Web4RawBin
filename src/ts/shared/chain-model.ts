@@ -40,3 +40,28 @@ export function clientFwd(type: string): string[] { return resolve(type)?.client
 export function forwardKeysForMode(type: string, mode: 'scenario' | 'trace'): string[] {
   return mode === 'trace' ? traceFwd(type) : scenarioFwd(type);
 }
+
+/**
+ * THE single forward-ref reader. Reads a unit model's refs across ALL forward keys for its type
+ * (per CHAIN_TYPE_CONFIG), unioned + deduped, tolerating a singular string OR an array value.
+ * Fixes the class/classes (canonical singular 'class' vs legacy plural 'classes') mismatch BY
+ * CONSTRUCTION: UseCase forward keys = ['class','classes'], so any read routed here credits the
+ * Class-hop regardless of which key stores it — no per-UC mirroring, no Nth-site recurrence.
+ */
+export function fwdRefs(model: Record<string, unknown> | undefined | null, type: string, mode: 'scenario' | 'trace' = 'scenario'): string[] {
+  if (!model) return [];
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const k of forwardKeysForMode(type, mode)) {
+    const v = model[k];
+    const refs = Array.isArray(v) ? v : (v != null && v !== '' ? [v] : []);
+    for (const r of refs) {
+      const s = String(r);
+      const bare = s.replace('ior:instance:', '');
+      if (!bare || seen.has(bare)) continue;
+      seen.add(bare);
+      out.push(s);
+    }
+  }
+  return out;
+}
