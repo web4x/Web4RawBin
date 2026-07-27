@@ -138,18 +138,24 @@ export class RoomView {
   // [impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a] RbRoomDetail.openRoomEditor
   // [impl:uuid:26b81ea0-9b6c-4395-b0d8-0f49bc4d1eb4] RbRoomDetail.scenarioLinkRender R19
   private openRoomEditor(): void {
+    const isHost = this.roomOwnerToken === this.client.playerToken; // R31.12: non-host = READ-ONLY (view settings; host edits) — safe-by-construction (no Save + no save-handler wired)
     const overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000";
     overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
     const modal = document.createElement("div");
     modal.style.cssText = "background:#1a1a2e;color:#fff;padding:20px;border-radius:12px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto";
     const v = this.roomVisibility, m = this.roomMode;
-    modal.innerHTML = `<h3 style="margin-bottom:16px">Edit Room Config</h3><label style="display:block;margin-bottom:12px">Name<br><input id="re-name" type="text" style="width:100%;padding:8px;margin-top:4px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px"></label><fieldset style="border:none;padding:0;margin-bottom:12px"><legend>Visibility</legend><label><input type="radio" name="re-vis" value="public" ${v==="public"?"checked":""}> Public</label><br><label><input type="radio" name="re-vis" value="by-invite" ${v==="by-invite"?"checked":""}> By-Invite</label><br><label><input type="radio" name="re-vis" value="private" ${v==="private"?"checked":""}> Private</label></fieldset><fieldset style="border:none;padding:0;margin-bottom:16px"><legend>Mode</legend><label><input type="radio" name="re-mode" value="live" ${m==="live"?"checked":""}> Live</label><br><label><input type="radio" name="re-mode" value="persistent" ${m==="persistent"?"checked":""}> Persistent (default)</label></fieldset><div style="display:flex;gap:8px;justify-content:flex-end"><button id="re-cancel" class="btn btn-secondary">Cancel</button><button id="re-save" class="btn btn-primary">Save</button></div>`;
+    modal.innerHTML = `<h3 style="margin-bottom:16px">${isHost ? 'Edit ' : ''}Room Settings</h3><label style="display:block;margin-bottom:12px">Name<br><input id="re-name" type="text" style="width:100%;padding:8px;margin-top:4px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px"></label><fieldset style="border:none;padding:0;margin-bottom:12px"><legend>Visibility</legend><label><input type="radio" name="re-vis" value="public" ${v==="public"?"checked":""}> Public</label><br><label><input type="radio" name="re-vis" value="by-invite" ${v==="by-invite"?"checked":""}> By-Invite</label><br><label><input type="radio" name="re-vis" value="private" ${v==="private"?"checked":""}> Private</label></fieldset><fieldset style="border:none;padding:0;margin-bottom:16px"><legend>Mode</legend><label><input type="radio" name="re-mode" value="live" ${m==="live"?"checked":""}> Live</label><br><label><input type="radio" name="re-mode" value="persistent" ${m==="persistent"?"checked":""}> Persistent (default)</label></fieldset><div style="display:flex;gap:8px;justify-content:flex-end"><button id="re-cancel" class="btn btn-secondary">Cancel</button><button id="re-save" class="btn btn-primary">Save</button></div>`;
     (modal.querySelector("#re-name") as HTMLInputElement).value = this.roomName;
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+    if (!isHost) { // R31.12 read-only: disable inputs, drop Save, Cancel→Close → a non-host can VIEW config but never submit UPDATE_ROOM_CONFIG
+      modal.querySelectorAll("input").forEach((el) => ((el as HTMLInputElement).disabled = true));
+      modal.querySelector("#re-save")?.remove();
+      const c = modal.querySelector("#re-cancel"); if (c) c.textContent = "Close";
+    }
     modal.querySelector("#re-cancel")!.addEventListener("click", () => overlay.remove());
-    modal.querySelector("#re-save")!.addEventListener("click", () => {
+    if (isHost) modal.querySelector("#re-save")!.addEventListener("click", () => { // host-only save-handler wired = non-host CAN'T submit even if the DOM were tampered
       const name = (modal.querySelector("#re-name") as HTMLInputElement).value.trim();
       const vis = (modal.querySelector("input[name=re-vis]:checked") as HTMLInputElement)?.value;
       const md = (modal.querySelector("input[name=re-mode]:checked") as HTMLInputElement)?.value;
