@@ -66,7 +66,7 @@ const fmBasename = fmFile ? path.basename(fmFile) : null;
 const pvBasename = pvFile ? path.basename(pvFile) : null;
 
 // Write build manifest for server to read
-const manifest = { version, 'app.js': jsBasename, built: new Date().toISOString() }; // R31.7: version field (build-stamped from the Config unit) — /api/config reads THIS, not a live package.json read
+const manifest = { version, 'app.js': jsBasename, built: version }; // R31.7: version field (build-stamped from the Config unit) — /api/config reads THIS, not a live package.json read. R31.13(A): `built` = version (DETERMINISTIC), NOT new Date() — a per-build timestamp broke byte-identical rebuilds (INV-V3 tree-clean churn every deploy).
 if (editBasename) manifest['edit.js'] = editBasename;
 if (traceBasename) manifest['trace-page.js'] = traceBasename;
 if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
