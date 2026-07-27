@@ -8,7 +8,10 @@
   "method": "ior:instance:0fc54115-dedd-4e5c-9c8c-9ae440f5b35c",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.10-chain-resolve-all-modes.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ]
  },
  "ownerIor": null
 }

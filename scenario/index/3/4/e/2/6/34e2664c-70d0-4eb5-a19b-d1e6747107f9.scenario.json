@@ -8,7 +8,10 @@
   "method": "ior:instance:332bd63b-eec8-42b1-b8b5-057885cab09d",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.12-in-room-regressions.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "classes": [
+   "ior:instance:3adf4033-6e63-4051-bd77-925c570a3a84"
+  ]
  },
  "ownerIor": null
 }

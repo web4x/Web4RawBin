@@ -9,7 +9,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/CONCEPT-scrollable-viewport-woda-layout.md",
   "parent": null,
   "unitLinks": [],
-  "conceptOnly": true
+  "conceptOnly": true,
+  "classes": [
+   "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"
+  ]
  },
  "ownerIor": null
 }

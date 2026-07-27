@@ -8,7 +8,10 @@
   "method": "ior:instance:7dc79987-d6f6-4409-90c2-bbee701ac246",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.11-tree-deep-nest-full-chain.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "classes": [
+   "ior:instance:a0c492d6-fd8e-4c24-89db-0c1f980d02a8"
+  ]
  },
  "ownerIor": null
 }
