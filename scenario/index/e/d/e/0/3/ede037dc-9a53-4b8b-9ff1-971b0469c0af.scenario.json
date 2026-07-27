@@ -43,7 +43,7 @@
    {
     "id": "AC-host-edit-saves",
     "group": "regression",
-    "text": "@390 REAL WebKit: the HOST/owner can CHANGE and SAVE room config (name/visibility/mode) and it PERSISTS (server applies UPDATE_ROOM_CONFIG). NEW device-QA item (Tron 2026-07-27 v0.7.144): host OPENS settings but CHANGING does NOT work. PENDING ARCHITECT DIAGNOSIS of which root (PO asking Tron greyed-vs-type-but-Save-noop): (hyp1) isHost resolves FALSE for the owner on device (roomOwnerToken!=playerToken, RoomView:74) -> modal opens READ-ONLY for the owner -> fix the isHost/owner resolution; OR (hyp2) isHost=TRUE but SAVE path broken (Save button same iOS-WebKit fragility as the old h2, or save-handler not wired, or UPDATE_ROOM_CONFIG not applied) -> make Save WebKit-reliable / fix wiring. This AC FINALIZES (testable form) on the architect diagnosis; then expert fix + tester gates REAL @390 WebKit (host edit+save PERSISTS) + Tron re-confirm. Was unreachable before (opening was broken) so possibly pre-existing host-edit bug now EXPOSED, or a regression from the read-only fix. Architect measures."
+    "text": "@390 REAL WebKit: in the host config modal, the RADIO BUTTONS (visibility / mode) SELECT on tap AND the change SAVES/persists (server applies UPDATE_ROOM_CONFIG). ★ TRON CLARIFIED 2026-07-27 (decisive): NOT hyp1, NOT hyp2-broad - \"fields show correct but selecting a RADIO BUTTON does not work.\" hyp1 (isHost-false/read-only) REFUTED: the fields ARE editable = the owner resolves CORRECTLY. The REAL issue = the config radio buttons do not SELECT on tap on real iOS WebKit - the SAME CLASS as the h2-title false-green (Chromium fires, WebKit does not). THIRD instance of the iOS-WebKit-tap-fire pattern (h2 title -> real button; now radios). TEST-vs-DEVICE SPLIT: (engine-independent, TESTER) the native radio-input PRESENCE + wiring (real <input type=radio> not a fragile div, change-handler bound, Save handler + UPDATE_ROOM_CONFIG apply) are Test-gated; (DEVICE-ONLY, Tron) the radio actually SELECTING on a real iOS-WebKit tap + Save persisting is device-confirmed (R30.53-codicon pattern, like the title tap-fires). PENDING ARCHITECT root+fix (diagnosing the radio impl now); this AC FINALIZES its testable form on the architect report, then expert fix -> tester engine-independent gate + Tron device re-confirm the radio-select+save."
    }
   ],
   "verificationHistory": [
@@ -62,6 +62,15 @@
     "reason": "Tron device v0.7.144: OPENING works (tap-fires device-CONFIRMED, closes that device-only AC) BUT host CHANGING/saving does NOT work (new symptom)",
     "tronVerbatim": "ok opening the room setting works again. changing it does not work",
     "verificationContext": "tap-fires-on-WebKit AC = device-CONFIRMED PASS; +AC-host-edit-saves added (pending architect hyp1 isHost-false-for-owner vs hyp2 save-broken); T31.12 stays In-Progress for host-edit not tap-fires",
+    "buildAtFailure": "v0.7.144",
+    "reportedVia": "robbin-po"
+   },
+   {
+    "date": "2026-07-27",
+    "hop": "Tron clarification (host-edit): narrowed to radio-button-select on iOS WebKit; hyp1 refuted",
+    "reason": "Tron decisive: fields editable (owner resolves) but config RADIO BUTTONS (visibility/mode) do not select on tap on real iOS WebKit = same class as the h2-title false-green",
+    "tronVerbatim": "fields show correct but selecting a radio button does not work",
+    "verificationContext": "AC-host-edit-saves narrowed to radio-select+save; test-vs-device split (native-input presence/wiring = tester engine-independent; radio-selects-on-tap+save-persists = Tron device); architect diagnosing radio impl; sharpen HELD until architect root+fix",
     "buildAtFailure": "v0.7.144",
     "reportedVia": "robbin-po"
    }
