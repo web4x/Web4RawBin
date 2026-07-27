@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "332bd63b-eec8-42b1-b8b5-057885cab09d",
+    "name": "RbUpdateBanner.isSemverNewer",
+    "description": "R31.12 #2 CORE fix (the sole new load-bearing decl across the R31.12 commits, architect-measured): the named module-scope function isSemverNewer at rb-update-banner.ts:8 - a semver-newer gate that only shows the update banner when the offered version is genuinely NEWER, killing the SPURIOUS empty skew-banner that (fixed, z2000, pointer-events:auto) overlaid the room header and intercepted taps on the room title + pencil -> settings unreachable (R31.12 #2 regression). Called @ rb-update-banner.ts:61. Supporting ride-existing edit-sites (no new markers, no false-credit, note-only per architect+PO+expert sign-off): #1 RoomView data-context='room-chat' -> RbRoomContent.render e289349c; #1 observePosition room-chat guard -> 240c539f; #1 tearDownTransientDetail room-chat guard -> cb153623; #2 rb-header title-tap dispatch -> rb-header T40 39074a59; #2 banner :host pointer-events/display-none/[shown] CSS -> update-banner T39 18ebf760.",
+    "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
+    "implementations": [
+      "ior:instance:378357ea-8aec-4e9b-a883-bb0701780f4e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3adf4033-6e63-4051-bd77-925c570a3a84"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "378357ea-8aec-4e9b-a883-bb0701780f4e",
+    "name": "RbUpdateBanner.isSemverNewer impl (rb-update-banner.ts:8 semver gate)",
+    "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
+    "markerPending": true,
+    "markerNote": "PRIMARY R31.12 Impl (unanimous topology: expert+PO+architect, analogous to R31.9 observePosition). Built + GREEN (v0.7.141, tester Test 7ee23d27 DET-3x @390, commit 65cfd735c/d2f056466). EXPERT: place [impl:uuid:378357ea-8aec-4e9b-a883-bb0701780f4e] on the named isSemverNewer function decl at rb-update-banner.ts:8 for strict-AST credit (name-matches Method RbUpdateBanner.isSemverNewer). Behavior already verified by the Test.",
+    "tests": [
+      "ior:instance:7ee23d27-3548-4be9-9025-30554150c451"
+    ]
+  },
+  "ownerIor": "ior:instance:332bd63b-eec8-42b1-b8b5-057885cab09d"
+}

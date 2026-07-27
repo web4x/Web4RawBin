@@ -11,7 +11,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.12-in-room-regressions.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:34e2664c-70d0-4eb5-a19b-d1e6747107f9"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-feedback",

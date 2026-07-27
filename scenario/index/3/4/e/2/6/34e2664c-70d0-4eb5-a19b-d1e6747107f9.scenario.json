@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "34e2664c-70d0-4eb5-a19b-d1e6747107f9",
+  "name": "updateBanner.semverGate",
+  "description": "R31.12: the update banner shows ONLY when the offered version is genuinely newer (isSemverNewer gate), so an empty spurious skew-banner never overlays/intercepts the room header - both the room title and the pencil reach the S19 settings modal @390. Core of the #2 regression fix; the Test 7ee23d27 (one consolidated in-room @390 gate) also covers the #1 chat opt-out via ride-existing edits. Supporting ride-existing edit-sites (no new markers, no false-credit, note-only per architect+PO+expert sign-off): #1 RoomView data-context='room-chat' -> RbRoomContent.render e289349c; #1 observePosition room-chat guard -> 240c539f; #1 tearDownTransientDetail room-chat guard -> cb153623; #2 rb-header title-tap dispatch -> rb-header T40 39074a59; #2 banner :host pointer-events/display-none/[shown] CSS -> update-banner T39 18ebf760.",
+  "class": "ior:instance:3adf4033-6e63-4051-bd77-925c570a3a84",
+  "method": "ior:instance:332bd63b-eec8-42b1-b8b5-057885cab09d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.12-in-room-regressions.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

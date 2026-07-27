@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3adf4033-6e63-4051-bd77-925c570a3a84",
+    "name": "RbUpdateBanner",
+    "file": "src/public/ts/components/rb-update-banner.ts",
+    "methods": [
+      "ior:instance:332bd63b-eec8-42b1-b8b5-057885cab09d"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:34e2664c-70d0-4eb5-a19b-d1e6747107f9"
+}
