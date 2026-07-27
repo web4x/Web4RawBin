@@ -65,17 +65,26 @@ const smCssBasename = smCssFile ? path.basename(smCssFile) : null;
 const fmBasename = fmFile ? path.basename(fmFile) : null;
 const pvBasename = pvFile ? path.basename(pvFile) : null;
 
-// Write build manifest for server to read
-const manifest = { version, 'app.js': jsBasename, built: version }; // R31.7: version field (build-stamped from the Config unit) — /api/config reads THIS, not a live package.json read. R31.13(A): `built` = version (DETERMINISTIC), NOT new Date() — a per-build timestamp broke byte-identical rebuilds (INV-V3 tree-clean churn every deploy).
-if (editBasename) manifest['edit.js'] = editBasename;
-if (traceBasename) manifest['trace-page.js'] = traceBasename;
-if (scenarioBasename) manifest['scenario-view.js'] = scenarioBasename;
-if (bannerBasename) manifest['rb-update-banner.js'] = bannerBasename;
-if (smBasename) manifest['server-manager.js'] = smBasename;
-if (smCssBasename) manifest['server-manager.css'] = smCssBasename;
-if (fmBasename) manifest['feature-manager.js'] = fmBasename;
-if (pvBasename) manifest['profile-view-entry.js'] = pvBasename;
-fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
+// [impl:uuid:1f640b81-7b1f-4b6d-af57-1e20afb454b6] Build.writeManifest (Method token writeManifest, Class Build b6946e59)
+// R31.13: emit the DETERMINISTIC build-manifest.json. `built` = version (NOT new Date() — a per-build timestamp broke
+// byte-identical rebuilds / R31.7 INV-V3 tree-clean churn every deploy). /api/config reads this version, not live
+// package.json. Same source → byte-identical manifest BY CONSTRUCTION. (Extracted from inline build.mjs for a strict-AST
+// Impl home; pure extraction — identical manifest bytes, same key order.)
+function writeManifest(distDir, version, jsBasename, extra) {
+  const manifest = { version, 'app.js': jsBasename, built: version };
+  if (extra.editBasename) manifest['edit.js'] = extra.editBasename;
+  if (extra.traceBasename) manifest['trace-page.js'] = extra.traceBasename;
+  if (extra.scenarioBasename) manifest['scenario-view.js'] = extra.scenarioBasename;
+  if (extra.bannerBasename) manifest['rb-update-banner.js'] = extra.bannerBasename;
+  if (extra.smBasename) manifest['server-manager.js'] = extra.smBasename;
+  if (extra.smCssBasename) manifest['server-manager.css'] = extra.smCssBasename;
+  if (extra.fmBasename) manifest['feature-manager.js'] = extra.fmBasename;
+  if (extra.pvBasename) manifest['profile-view-entry.js'] = extra.pvBasename;
+  fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
+  return manifest;
+}
+// Write build manifest for server to read — R31.13: via the DETERMINISTIC writeManifest (built=version, no timestamp)
+const manifest = writeManifest(distDir, version, jsBasename, { editBasename, traceBasename, scenarioBasename, bannerBasename, smBasename, smCssBasename, fmBasename, pvBasename });
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
 const swPath = 'src/public/sw.js';
