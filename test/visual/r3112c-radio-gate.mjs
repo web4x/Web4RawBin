@@ -1,3 +1,10 @@
+// ⛔⛔ CHAIN-CREDIT HELD — NOT DONE. This gate is ENGINE-INDEPENDENT GREEN (belt sets checked + change fires + Save reads it
+//   in CHROMIUM) but Tron's REAL iOS DEVICE (v0.7.145) shows FLICKER-REVERT: the radio checks then REVERTS, does NOT stick.
+//   Chromium CANNOT reproduce the iOS state-revert → this GREEN is a FALSE-GREEN for device-correctness, and the belt-handler
+//   is NOT a valid oracle for the actual device behavior. NO marker, NO Test wire, chain-credit HELD until the architect roots
+//   the flicker-revert + fixes it + Tron re-confirms the radio STICKS on his device. This file validates the WIRING only.
+//   ★ LESSON: a "proxy" for engine-SPECIFIC behavior (radio-select-on-iOS-tap) is only a valid oracle if VALIDATED on the
+//   device — I labeled the belt 'WebKit-reliable' without a device; it flicker-reverts on iOS. Wiring-present ≠ behavior-sticks.
 // R31.12 v0.7.145 radio-fix — engine-INDEPENDENT @390, POLLUTION-SAFE (SystemTester in Marcel's existing dnd room, NO new
 // rooms, no write). Chromium CANNOT validate 'a native radio SELECTS on a real iOS-WebKit tap' (false-greens it, 3rd time)
 // → that = TRON device. Gated here (all engine-independent): native-presence + id/for + block-padding + the belt handler +
