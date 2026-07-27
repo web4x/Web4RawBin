@@ -5,10 +5,11 @@
     "name": "Build.writeManifest impl (build.mjs deterministic manifest, built=version)",
     "sourceFile": "ior:file:build.mjs",
     "markerPending": false,
-    "markerNote": "Strict-AST credit HOLDS at cb2f5119d: [impl:uuid:1f640b81] heads the named function writeManifest (build.mjs:73, name-matches Method Build.writeManifest token writeManifest); call site build.mjs:87. Expert extracted it PURE from the inline manifest-write (byte-identical manifest, zero dist change, git status=build.mjs only) -> R31.13 twice-build-identical determinism preserved, no version bump. Test hop = tester REAL twice-build gate (honestly pending; NOT the expert self-run mis-attributed as a gate).",
+    "markerNote": "Marker CORRECTLY PLACED + name-matches: [impl:uuid:1f640b81] @build.mjs:68 heads the named function writeManifest@73 (== Method Build.writeManifest token), call site :87, pure extraction cb2f5119d (byte-identical, determinism preserved). ★ CORRECTION (tester measured the instrument, refuted my earlier over-claim): the strict-AST SCANNER does NOT credit it yet — skill-classes.ts:73 scan roots = src/ + scripts/ ONLY, and build.mjs is at the REPO ROOT, outside those roots -> the scanner never sees the marker -> scoreboard Impl-hop legitimately OPEN. So strict-AST credit is NOT registered until a TOOL-SCOPE fix. Marker placement is right; the tool scope is the gap (SAME class as R31.7 generateVersion b5eb6953, also build.mjs, also unseen). FIX (skill-expert tooling OR architect, NOT req): add build.mjs (+ start.mjs) to the scan roots, OR relocate build.mjs->scripts/build.mjs (+ package.json build). This is the 3rd tool-scope issue this arc (class/classes read, concept-handling, now scan-roots) — correct-by-construction = fix the tool scope, not per-marker.",
     "tests": [
       "ior:instance:8601da8a-0f9c-49a9-86b7-a85dcb533816"
-    ]
+    ],
+    "strictCreditNote": "placed+name-matched; scoreboard-open pending scan-root tool-fix (build.mjs outside src/+scripts/)"
   },
   "ownerIor": "ior:instance:f680ab0d-fad6-49d9-be45-059e470179de"
 }
