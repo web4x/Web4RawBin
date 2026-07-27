@@ -10,7 +10,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:fd9003a9-e432-4427-9bf5-7b31b49f42c4"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "team-discovery",

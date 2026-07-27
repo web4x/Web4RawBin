@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fd9003a9-e432-4427-9bf5-7b31b49f42c4",
+  "name": "build.deterministicManifest",
+  "description": "R31.13: the build writes a DETERMINISTIC build-manifest (built=version, not a per-build timestamp) so rebuilding from identical source yields byte-identical dist + manifest - ZERO tree churn, served==committed==tree-clean holds without a churn-commit, and R31.7's INV-V3 tree-clean invariant is no longer fought on every deploy. Rides Class Build. The twice-build determinism gate is the Test (pending tester marker).",
+  "class": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5",
+  "classes": [
+   "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+  ],
+  "method": "ior:instance:f680ab0d-fad6-49d9-be45-059e470179de",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

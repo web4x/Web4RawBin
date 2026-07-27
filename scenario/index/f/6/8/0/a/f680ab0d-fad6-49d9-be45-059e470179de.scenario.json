@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f680ab0d-fad6-49d9-be45-059e470179de",
+    "name": "Build.writeManifest",
+    "description": "R31.13 deterministic build: writes the build-manifest with `built: version` (DETERMINISTIC), NOT `new Date()` - a per-build timestamp broke byte-identical rebuilds and churned the R31.7 tree-clean invariant INV-V3 every deploy. Extracted (pure, behavior-identical) from the inline build.mjs:68-75 manifest-write for a strict-AST-creditable home. On Class Build b6946e59 alongside generateVersion / versionGuard*. ★ Expert names the extracted function EXACTLY `writeManifest` (token match) - NOT writeBuildManifest - so [impl:uuid] name-matches.",
+    "sourceFile": "ior:file:build.mjs",
+    "implementations": [
+      "ior:instance:1f640b81-7b1f-4b6d-af57-1e20afb454b6"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"
+}

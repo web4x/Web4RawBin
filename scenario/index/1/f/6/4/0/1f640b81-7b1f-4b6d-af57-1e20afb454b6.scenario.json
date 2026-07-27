@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1f640b81-7b1f-4b6d-af57-1e20afb454b6",
+    "name": "Build.writeManifest impl (build.mjs deterministic manifest, built=version)",
+    "sourceFile": "ior:file:build.mjs",
+    "markerPending": true,
+    "markerNote": "R31.13 primary. Fix built + GREEN on origin (build.mjs:69 built=version deterministic, 8a3e9decc v0.7.142). EXPERT (choice a, R31.10 pattern): EXTRACT a named `function writeManifest(...)` around the manifest-write (build.mjs:68-75) + place [impl:uuid:1f640b81-7b1f-4b6d-af57-1e20afb454b6] on that decl. ★ EXACT token = writeManifest (name the fn writeManifest, NOT writeBuildManifest) so strict-AST name-match holds. Pure extraction = same manifest bytes = NO dist change = determinism preserved, build.mjs-only, no version bump.",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f680ab0d-fad6-49d9-be45-059e470179de"
+}
