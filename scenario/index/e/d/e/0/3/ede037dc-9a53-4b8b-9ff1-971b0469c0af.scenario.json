@@ -1,0 +1,41 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ede037dc-9a53-4b8b-9ff1-971b0469c0af",
+  "altId": "R31.12",
+  "name": "In-room chat works + tapping the room title opens room settings (@390)",
+  "description": "TWO in-room fixes, each pinned @390 in-room. (1) IN-ROOM CHAT WORKS - a REAL regression: the in-room chat sends AND receives messages again. Architect root: R31.9 observePosition + R31.4 drawer-lifecycle changes hit the UN-GATED in-room chat drawer (RoomView uses the shared rb-detail-drawer as chatPanel per R30.20); the drawer refactor broke the chat panel mount/render. FIX = room-chat OPT-OUT (the in-room chat drawer opts out of the observePosition/detail-container lifecycle that broke it), preserving the R31.4/R31.9 drawer wins (positioning!=function, shared behavior). (2) TAPPING THE ROOM TITLE OPENS ROOM SETTINGS - an ADD-AFFORDANCE, NOT a regression: architect MEASURED the room title NEVER had a click handler - the pencil affordance always opened the S19 room-settings modal; the title was inert. Tron ruled to ADD it: tapping the room title opens the SAME S19 settings modal the pencil opens (~3-line rb-header title-click -> same modal). Tron called both 'regressions' verbatim; the architect measurement corrects #2 to an add (Rule 11: Tron's words preserved, the measured truth annotated). Feature-fix route: architect diagnosed -> expert building both -> tester gates @390 IN-ROOM. These slipped because the R31.4/R31.9 drawer gate never covered the IN-ROOM flow (missing-AC).",
+  "tronQuote": "> TRON (2026-07-27): \"we have two regressions in-room. the chat is not working anymore and the room settings don't open anymore on the room title.\" [architect-measured: (1) chat = REAL regression; (2) room-title = ADD-affordance - the title never had a handler, the pencil always opened settings; Tron ruled to add title-click.]",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.12-in-room-regressions.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-feedback",
+   "flaggedBy": "Tron (2026-07-27) via robbin-po; architect diagnosed roots",
+   "date": "2026-07-27",
+   "note": "2 in-room items. (1) chat = REAL regression (R31.9 observePosition + R31.4 lifecycle broke the un-gated in-room chat drawer; fix=room-chat opt-out). (2) room-title-opens-settings = ADD-affordance (architect measured the title never had a handler, the pencil always opened the S19 modal; Tron ruled to add). Chain wires onto the built fixes per architect diagnosis. Re-gate MUST cover the in-room flow."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-inroom-chat-works",
+    "group": "regression",
+    "text": "@390 IN-ROOM: the chat WORKS again - the user can SEND a message and RECEIVE messages in-room. REAL REGRESSION (worked pre-R31.4/R31.9): the R31.9 observePosition + R31.4 drawer-lifecycle changes hit the un-gated in-room chat drawer (RoomView chatPanel on the shared rb-detail-drawer, R30.20), breaking the chat panel mount/render. Fix = room-chat OPT-OUT of the observePosition/detail-container lifecycle; the R31.4/R31.9 drawer wins (Server Manager / trace) MUST still hold (positioning!=function)."
+   },
+   {
+    "id": "AC-room-title-opens-settings",
+    "group": "functional",
+    "text": "@390 IN-ROOM: tapping the ROOM TITLE opens the room-settings modal - the SAME S19 settings modal the pencil affordance already opens. ADD-AFFORDANCE, NOT a regression: the architect MEASURED that the room title never had a click handler (the pencil always opened settings; the title was inert). Tron ruled to ADD it (~3-line rb-header title-click -> same S19 modal). No new modal - reuse the existing one."
+   },
+   {
+    "id": "AC-gate-covers-inroom",
+    "group": "gate",
+    "text": "The re-gate @390 MUST cover the IN-ROOM flow (chat send/receive + room-title->settings-opens), NOT only /trace + Server Manager - the regression slipped precisely because the R31.4/R31.9 drawer gate never exercised the in-room path (missing-AC). Regression-check: the R31.4/R31.9 drawer wins still hold (no re-break). Tron device re-verify in-room."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
