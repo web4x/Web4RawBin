@@ -51,8 +51,9 @@ function selfHealingStart() {
 
   console.log(`▸ start: node ${ver(node18)} @ ${node18}`);
 
-  // (2) npm i if node_modules missing
-  if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm i'); run('npm', ['i']); }
+  // (2) R31.13 PIN-2: npm CI (lock-exact) not npm i, if node_modules missing → the pinned esbuild (package.json 0.28.0
+  // exact, PIN-1) is the one that runs → cross-env byte-identical builds (npm i could drift within a caret; ci is lock-exact)
+  if (!existsSync(path.join(ROOT, 'node_modules'))) { console.log('▸ node_modules missing → npm ci'); run('npm', ['ci']); }
 
   // (3) kill any server already on the ports (fresh restart)
   for (const port of PORTS) {
