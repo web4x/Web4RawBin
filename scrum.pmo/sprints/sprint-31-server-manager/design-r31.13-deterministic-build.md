@@ -26,3 +26,22 @@
 - build.mjs + start.mjs only (build config). No app behavior change. NOT on the runtime path → no server-behavior regression; but a wrong sourcemap/mode flip affects debuggability — keep the mode choice explicit.
 - Independent of R31.12 (device/visual). Parallel track.
 - Hand to the FRESH expert (0.1 mid-rewind via ARON) — the design is self-contained on disk (this doc); a fresh expert picks it up. Expert runs the gate, applies A (+B/C per the gate result), and the R31.7 versionGuardTreeClean (start.mjs) then holds every deploy.
+
+---
+
+## R31.13 CROSS-ENV PIN-FIX (architect design, 2026-07-27) — the REAL completion (within-env clean was necessary NOT sufficient)
+**Reconcile (measured):** within-env determinism HOLDS (fresh `node build.mjs` in the deploy env == committed dist, 0 churn; FIX-A drop-timestamp landed v0.7.142). But the tester's ISOLATED-WORKTREE rebuild differs 17/19 = CROSS-ENV nondeterminism. Ruled OUT sourcemap-paths (committed `.map` sources are RELATIVE, 0 absolute). LOCALIZED to TOOLCHAIN: esbuild `^0.28.0` CARET (package.json:46) + the two envs use different node binaries (deploy = node22 `/opt/node22`; tester worktree = vscode-server node) and potentially a different esbuild install (a worktree that `npm install`ed can drift within the caret; only `npm ci` is lock-exact). 17/19 = bundle-level (not the 1-file manifest). [Tester confirming exact node+esbuild delta — fix holds either way.]
+
+### FIX — pin the toolchain so ANY independent rebuild is byte-identical to committed
+| # | Fix | File | Why |
+|---|-----|------|-----|
+| PIN-1 (PRIMARY) | EXACT-pin esbuild: `"esbuild": "0.28.0"` (DROP the `^` caret) | package.json:46 | esbuild output is deterministic PER esbuild version; the caret lets different installs resolve different 0.28.x → different minified bytes. Exact-pin removes the drift. |
+| PIN-2 (PRIMARY) | Build with `npm ci` (lock-exact), NEVER `npm install`, before every build/deploy/gate | build.mjs / start.mjs (pre-build) | guarantees node_modules == package-lock so the pinned esbuild is the one that runs — closes the worktree-drift (the tester's env). |
+| PIN-3 (belt) | Fix the build NODE to one version (e.g. node22) across deploy + gate; document it | start.mjs (findNode18 currently picks node22|20|18 — a RANGE) | esbuild output is largely node-version-independent (Go binary), so PIN-1+2 should suffice; but a fixed build node removes the last variable + makes the gate reproducible. Confirm via the gate whether node alone moves bytes. |
+
+### GATE (the TRUE cross-env AC — supersedes within-env-clean as the credit bar)
+INDEPENDENT rebuild == committed, in a CLEAN room: fresh `git worktree` (or clean checkout) → `npm ci` → `node build.mjs` → `git diff` the committed dist == **ZERO**. Run in ≥2 envs (deploy node22 + the tester's worktree node) → both byte-identical to committed. Only THEN credit R31.13 deploy-hygiene ACs (no-churn / clean-git-status). Within-env-clean (my restart) is necessary but NOT sufficient.
+
+### SCOPE / HANDOFF
+- CONFINED: package.json (1 char, drop caret) + build.mjs/start.mjs (`npm ci` gate) — PO-flagged lean-proceed for the fresh/current expert. Folds into R31.13's HELD ACs (req holds them; a sub-AC "independent-rebuild byte-identical across envs" optional). No runtime/behavior change.
+- Design on disk for the expert (0.1 mid-rewind — HANDS OFF until SM/ARON confirm rewound; DO NOT dispatch). Served v0.7.142 stays valid (deploy-env reproducible); cross-env pin = the remaining work to credit the ACs.
