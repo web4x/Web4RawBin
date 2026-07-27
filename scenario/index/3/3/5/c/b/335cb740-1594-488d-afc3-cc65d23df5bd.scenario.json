@@ -1,0 +1,47 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "335cb740-1594-488d-afc3-cc65d23df5bd",
+  "altId": "R31.13",
+  "name": "Deterministic build: same source -> same bundle hashes (reproducible, no per-restart churn)",
+  "description": "The esbuild build MUST be DETERMINISTIC: identical source produces IDENTICAL dist bundle content-hashes on every rebuild/restart. TODAY (architect-flagged, real): every restart regenerates the dist bundle content-hashes from IDENTICAL source, churning the working tree (new app-<hash>.js / build-manifest) - which FIGHTS the R31.7 tree-clean invariant INV-V3 (versionGuardTreeClean, start.mjs:84) on every deploy, forcing a spurious churn-commit per restart just to keep served==committed==tree-clean. FIX: pin esbuild's hashing to be content-deterministic (same input bytes -> same output hash; stable entry-names / no timestamp or nondeterministic salt in the hash) so a rebuild from unchanged source yields a byte-identical dist + build-manifest, ZERO tree churn, no churn-commit. This is the DURABLE COMPLEMENT to R31.7 (single-source version): R31.7 makes the VERSION single-sourced; R31.13 makes the BUILD reproducible - together = a clean deploy invariant (served==committed==tree-clean holds by construction across restarts). Route: architect designs (esbuild deterministic hashing / pin), expert implements, tester gates (rebuild twice from identical source -> byte-identical hashes + manifest). Chain wires onto the built fix.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-architect",
+   "flaggedBy": "robbin-architect via robbin-po (2026-07-27)",
+   "date": "2026-07-27",
+   "note": "Architect flagged a real defect: non-deterministic esbuild content-hashing regenerates dist bundle hashes from identical source on every restart, churning the tree and fighting R31.7 INV-V3 (versionGuardTreeClean). NOT a Tron quote - a team-discovered build-tooling defect; captured as a NEW req (durable complement to R31.7). crossRef R31.7 (single-source version) + R31.28-style clean-deploy invariant. Architect designs the esbuild deterministic-hashing fix; chain mints onto the built fix."
+  },
+  "crossRef": [],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-deterministic-hashes",
+    "group": "functional",
+    "text": "The esbuild build is content-DETERMINISTIC: rebuilding from IDENTICAL source produces IDENTICAL dist bundle content-hashes (app-<hash>.js, chunk names) - no timestamp / random salt / nondeterministic ordering in the hash input. Same source bytes in -> same hash out, every time."
+   },
+   {
+    "id": "AC-no-per-restart-churn",
+    "group": "functional",
+    "text": "A restart / redeploy with UNCHANGED source produces ZERO dist tree changes (no new app-<hash>.js, no build-manifest diff) - so there is NO spurious churn-commit per restart; served==committed==tree-clean holds without a hand-commit to absorb hash churn."
+   },
+   {
+    "id": "AC-complements-inv-v3",
+    "group": "invariant",
+    "text": "This makes the R31.7 tree-clean invariant INV-V3 (Build.versionGuardTreeClean, start.mjs:84) hold on EVERY deploy WITHOUT a spurious dist-hash churn fighting it. R31.7 = single-source VERSION; R31.13 = reproducible BUILD; together = a clean-deploy invariant (served==committed==tree-clean by construction)."
+   },
+   {
+    "id": "AC-gate-rebuild-twice",
+    "group": "gate",
+    "text": "Gate: build twice from byte-identical source -> the two dist outputs are BYTE-IDENTICAL (same bundle content-hashes AND identical build-manifest). A `git status` after a rebuild-on-unchanged-source shows a CLEAN dist tree (no modified/new dist files). Tester rebuild-twice determinism check."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}
