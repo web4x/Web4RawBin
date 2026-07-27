@@ -46,6 +46,14 @@ export class RbHeader extends HTMLElement {
         this.dispatchEvent(new CustomEvent(`rb-${action}`, { bubbles: true }));
       });
     });
+
+    // R31.12 #2 (Tron ruled — ADD affordance): when editable, the room TITLE is also a click target for settings —
+    // dispatches the SAME rb-edit CustomEvent as the ✏️ button (which still works) → opens the existing openRoomEditor
+    // modal. Drawer-independent (rb-header untouched since v0.5; not an R31.4/9 regression).
+    if (showEdit) {
+      const titleEl = this.querySelector('.rb-header-title') as HTMLElement | null;
+      if (titleEl) { titleEl.style.cursor = 'pointer'; titleEl.title = 'Edit room config'; titleEl.addEventListener('click', () => this.dispatchEvent(new CustomEvent('rb-edit', { bubbles: true }))); }
+    }
   }
 }
 

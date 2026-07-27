@@ -166,7 +166,7 @@ export class RoomView {
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><a href="${scenarioEditorHref(this.roomId)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Edit room scenario unit">✏️ Edit</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-seed-ior="${this.roomId}"></rb-trace-tree></div></div>
-        <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
+        <rb-detail-drawer id="room-file-preview" data-context="room-chat"></rb-detail-drawer><!-- R31.12 #1: opt out of the /trace-designed R31.9 observePosition/data-position + R31.4 terminal auto-close — stay the base bottom chat sheet (trace/SM don't set data-context → their R31.4/R31.9 wins intact by construction) -->
       </div>`;
 
     const dz = document.getElementById("rrc-drop");

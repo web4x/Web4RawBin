@@ -151,6 +151,7 @@ export class RbDetailDrawer extends HTMLElement {
   // PARENT (not self → no feedback loop) mirroring RbStrip.observeContainer (rb-strip.ts:81). Wires the previously-dead
   // R31.5.7 data-position mechanism (0 callers before). Cleaned up in disconnectedCallback.
   private observePosition(): void {
+    if (this.getAttribute('data-context') === 'room-chat') return; // R31.12 #1: the in-room chat sheet OPTS OUT — no data-position driver (R31.9 was /trace+SM-designed); stays the base bottom chat sheet
     if (this._posRo) return;
     const host = this.parentElement || document.body; // .trace-page / .room-view / editor-area — its width crosses the 1025 BP
     const decide = (): void => this.applyPosition((host.getBoundingClientRect().width || window.innerWidth) >= 1025 ? 'inline' : 'bottom');
@@ -295,6 +296,7 @@ export class RbDetailDrawer extends HTMLElement {
   // renderDetailForRef's panel.innerHTML='' — this covers the states that DON'T re-render.
   // [impl:uuid:cb153623-3acb-4c45-8dc8-e2bceeba4ae1] RbDetailDrawer.tearDownTransientDetail (R31.4 INV-T1 auto-close)
   private tearDownTransientDetail(): void {
+    if (this.getAttribute('data-context') === 'room-chat') return; // R31.12 #1: the in-room chat sheet is NOT governed by the R31.4 terminal auto-close/teardown lifecycle
     const term = this.detailPanel?.querySelector('rb-terminal-detail');
     if (term) { term.remove(); const dp = this.detailPanel; if (dp) dp.dataset.currentRef = ''; } // remove → teardown → ws close → kill sm_ session; clear ref so a reopen re-renders
   }

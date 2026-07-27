@@ -3,7 +3,7 @@
   "model": {
     "uuid": "config-singleton-0000-000000000001",
     "name": "RawBin Config",
-    "version": "0.7.139",
+    "version": "0.7.140",
     "branch": "rawbin"
   },
   "ownerIor": null
