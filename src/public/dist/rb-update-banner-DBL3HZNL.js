@@ -11,4 +11,4 @@ var d=Object.defineProperty;var l=(o,i,e)=>i in o?d(o,i,{enumerable:!0,configura
         <span>${c}</span>
         <button id="update-now">Update Now</button>
       </div>`,this.setAttribute("shown",""),t.getElementById("update-now")?.addEventListener("click",async()=>{let s=await navigator.serviceWorker?.getRegistration?.();s?.waiting&&s.waiting.postMessage("SKIP_WAITING"),location.reload()})}};customElements.define("rb-update-banner",r);
-//# sourceMappingURL=rb-update-banner-X7MYMCPW.js.map
+//# sourceMappingURL=rb-update-banner-DBL3HZNL.js.map
