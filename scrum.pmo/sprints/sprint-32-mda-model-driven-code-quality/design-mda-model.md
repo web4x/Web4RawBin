@@ -122,3 +122,44 @@ Implements the 5 AC gates over all `ior:class:ModelElement` units on disk:
 ### C) Chain (req wires onto the built artifacts)
 - Class `ModelElement` (the unit type) → Method `ModelValidator.validate` → Impl → Test (the 5 gates GREEN on the seed). Plus the seed generator as its own Method/Impl. req mints R32.1 Class/Method/Impl markers onto the built validator + seed; I mint/repoint if the expert env can't (IMPL-MINT pattern).
 - GATE: seed re-run = 0 churn (idempotent) + `ModelValidator.validate(seed)` = 0 violations (all 5 AC gates green) + a planted bad unit (e.g. M1→M3 skip) → validator RED (proves the gates bite).
+
+---
+
+## R32.2 DESIGN — TS → M1 generation (architect, pipeline while R32.1 closes)
+Parse the TS compiler base structures (ts compiler API / AST) → generate M1 `ior:class:ModelElement` units on the R32.1 foundation (same ModelElement + TraceModel + ModelValidator — REUSE, no fork). Idempotent + same-UUID by construction.
+
+### Q1 — TS AST node → M2 metaclass (multi-facet instanceOf: MODEL facet + CODE facet, per R32.1)
+| TS AST node | M1 kind | instanceOf (model facet, code facet) |
+|-------------|---------|--------------------------------------|
+| `ClassDeclaration` | class | `[UmlClass, ts-class-code]` |
+| `InterfaceDeclaration` | interface | `[UmlInterface, ts-interface-code]` |
+| `FunctionDeclaration` | function | `[UmlFunction, ts-function-code]` |
+| `MethodDeclaration` (class member) | method | `[UmlMethod, ts-method-code]` — `memberOf` its class |
+| `PropertyDeclaration` (class field) | attribute | `[UmlAttribute, ts-attribute-code]` — `memberOf` its class |
+| `GetAccessorDeclaration` + `SetAccessorDeclaration` (same name) → ONE element | property | `[UmlProperty, ts-property-code]` — accessor+mutator PAIRED into one property; `memberOf` its class |
+| `TypeAliasDeclaration` | type | `[UmlType]` (+ add `ts-type-code` to the seed — small seed extension) |
+- Class `members[]` = its methods + attributes + properties (composition; reverse `memberOf`). One-level-up integrity holds (M1 instanceOf M2) → ModelValidator gate 2 passes by construction.
+- `extends`/`implements` (heritage) → a UmlGeneralization relationship (Q3).
+
+### Q2 — SAME UUID across re-parses (the crux: idempotent, no re-mint — the R32.1/R31.13 law for discovered code)
+**Derive the UUID DETERMINISTICALLY from a STABLE identity key — do NOT random-mint.** Key = `<repo-relative sourceFile> :: <qualifiedName>`:
+- class/interface/function/type → `path::Name` (e.g. `src/public/ts/components/rb-header.ts::RbHeader`).
+- member → `path::ClassName.memberName` (e.g. `…rb-header.ts::RbHeader.render`); property = `…::ClassName.propName` (the get/set PAIR shares one key → one property element).
+UUID = a v5-style namespaced hash of the key, shaped valid-v4 (`sha256(key)` sliced into 8-4-**4**-**8**xx-12 with the version/variant nibbles forced — the EXISTING pattern at `scripts/migrate-to-scenario.ts:245`). ⇒ re-parse the SAME code → SAME key → SAME uuid → `ModelValidator.bindByUuid` RE-BINDS (never re-mints) = idempotent 0-churn by construction (like the seed's pinned uuids, but derived from the code identity). Rename/move = a new key = a new element (correct); the old uuid is removed by a reconcile pass (removed-from-source ⇒ delete/tombstone its unit). Optionally embed the `[model:uuid:X]` marker (R32.1 `modelMarker`) in the TS on generation for gate-4 (serialization-embeds-uuid) + human traceability — but re-bind does NOT depend on the marker (derivation is the source of truth).
+
+### Q3 — Relationships (typed member → `relatesTo`)
+During parse, resolve each member's TYPE (ts TypeChecker or the type node identifier) → if it resolves to another modeled element Y:
+- typed attribute/property → `X.relatesTo += Y` instanceOf **UmlAssociation** (reverse `relatedFrom` on Y).
+- `extends`/`implements` → **UmlGeneralization**.
+- method param/return of another type → **UmlDependency**.
+The relationship carries its M2 type; R32.6 renders it as a relationship view. For R32.2 core, the `relatesTo` link + the M2 relationship-type suffices.
+
+### Build spec (expert; foundation-reuse, no fork)
+- `TsToModel` (src/ts/scenario/) or `scripts/generate-m1.mjs`: `ts.createProgram(files)` → walk each SourceFile (`ts.forEachChild`) → per node: compute identity key → deterministic uuid → build the M1 unit (metaLevel M1, kind, name, instanceOf [UmlX, ts-X-code], members[], relatesTo[]) → `ScenarioIndex.put` (re-bind if the uuid exists). Bidirectional links via the TraceGraph helper (memberOf/relatedFrom/instances).
+- Idempotent: deterministic uuids ⇒ re-run = 0 churn (R31.13 discipline). Reconcile: elements absent from source this pass ⇒ removed.
+- Post-gen: `ModelValidator.validate` ⇒ 0 violations (M1→M2 level-integrity, instanceof-nonempty, uuid-unique all hold by construction).
+
+### GATE / HANDOFF
+- **GATE:** generate over a known TS file → the expected M1 units exist with correct instanceOf (UmlX+ts-X-code); RE-RUN = 0 churn (deterministic uuid); ModelValidator(generated)=0 violations; a typed attribute → a `relatesTo` link to the target element. Chain-to-Test.
+- **req (AC):** R32.2 = TS→M1 per the AST→M2 map; deterministic idempotent uuid (sourceFile::qualifiedName); multi-facet instanceOf; class members[] composition; get+set→one property; typed→relatesTo+M2-relationship-type; ModelValidator(generated)=0. Chain onto the built `TsToModel.generate` (Class/Method/Impl/Test), same IMPL-MINT pattern as R32.1.
+- **expert:** builds `TsToModel` on the R32.1 foundation; HOLDS until this design + PO build-go (scenario-first). Small seed add: `ts-type-code` M2 unit.
