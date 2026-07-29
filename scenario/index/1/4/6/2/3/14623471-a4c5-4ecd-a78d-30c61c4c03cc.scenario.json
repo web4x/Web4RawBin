@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "14623471-a4c5-4ecd-a78d-30c61c4c03cc",
+    "name": "SeedMdaModel",
+    "file": "scripts/seed-mda-model.mjs",
+    "methods": [
+      "ior:instance:c4b82b25-b21e-40a0-ba1c-d18930a22175"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:scripts/seed-mda-model.mjs",
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

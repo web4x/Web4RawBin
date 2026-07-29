@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c4b82b25-b21e-40a0-ba1c-d18930a22175",
+    "name": "SeedMdaModel.seedModel",
+    "description": "R32.1 SUPPORTING: seedModel() @ scripts/seed-mda-model.mjs (named export decl) idempotently seeds the MDA M3+M2 units (2 M3 Class+Relationship reflexive + 17 M2 instanceOf) with PINNED uuids via ScenarioIndex.put + bidirectional instanceOf/instances - re-run 0-churn (R31.13 determinism at seed level). Credits the seed-0-churn gate assertion to the SEED, not to ModelValidator.validate (no mis-attribution, R31.10/13).",
+    "sourceFile": "ior:file:scripts/seed-mda-model.mjs",
+    "implementations": [
+      "ior:instance:f65c9b50-8577-4f2c-b53e-361108149d6a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:14623471-a4c5-4ecd-a78d-30c61c4c03cc"
+}
