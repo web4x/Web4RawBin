@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:2b3d6307-d910-4558-8546-41e3650d1bbb"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-directive",

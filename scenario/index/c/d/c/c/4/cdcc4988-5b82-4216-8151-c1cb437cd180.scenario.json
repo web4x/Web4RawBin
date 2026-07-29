@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "cdcc4988-5b82-4216-8151-c1cb437cd180",
+    "name": "ModelValidator.validate",
+    "description": "R32.1 identity validator: ModelValidator.validate(index):Violation[] enforces the 5 correct-by-construction gate assertions (uuid-unique / level-integrity exactly-one-level-up M3-reflexive / instanceof-nonempty / serialization-embeds-uuid+bindByUuid re-bind / same-uuid-cross-representation) as a Chain-style CI/structural gate over the MDA ModelElement units. Correct-by-construction pin (R31.7 pattern), NO hand-mint. Architect build spec 124f9955d. Supporting artifact (architect refinement, R31.10/13 no-mis-attribution): the SEED = scripts/seed-mda-model.mjs (IDEMPOTENT, PINNED uuids, re-run 0-churn = R31.13 determinism at seed level; 2 M3 + ~17 M2 units via ScenarioIndex.put + bidirectional instanceOf/instances). The seed-0-churn assertion credits the SEED code (if seed-mda-model.mjs exposes a named decl e.g. seedModel(), it gets its OWN supporting Impl+marker so 0-churn credits the seed, NOT validates Impl; if inline/no clean decl, note-as-supporting). The ONE R32.1 Test asserts all 3 architect gates: validate(seed)=0 violations + seed re-run 0-churn + planted M1->M3-skip -> validator RED.",
+    "sourceFile": "ior:file:scripts/mda-model-validator.mjs",
+    "implementations": [
+      "ior:instance:4d0883ad-d3a6-4663-97ce-ea8defb207e0"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e0279b81-5a2f-45b6-bc23-94aea5c8e891"
+}

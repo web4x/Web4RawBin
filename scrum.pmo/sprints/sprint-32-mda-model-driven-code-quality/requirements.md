@@ -27,6 +27,7 @@
   - [ ] **(invariant)** GATE 4 serialization-embeds-UUID: every .puml / .ts emission of element X carries X.uuid, so a round-trip RE-BINDS to the same unit and NEVER re-mints (the no-duplication law).
   - [ ] **(invariant)** GATE 5 same-UUID-cross-representation: an element present in >=2 representations (model / diagram / puml / ts) shows the SAME uuid in each; multi-facet instanceOf (e.g. instanceOf=[UmlClass, ts-class-code]) is one identity.
   - [ ] **(meta)** ACs FINALIZED to architect design eb64a6523 (PO-accepted). On this mint, architect wires the M3/M2 seed units + the identity-validator design for the expert build; chain mints onto the built validator + seed.
+  -> model.validateGates [uc:uuid:2b3d6307-d910-4558-8546-41e3650d1bbb]
 
 - [ ] **R32.2 — TS -> M1 generation from the TypeScript compiler base structures**
   [requirement:uuid:4a9c6ee7-653f-4745-9d27-9540c5f95384]

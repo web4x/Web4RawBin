@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4d0883ad-d3a6-4663-97ce-ea8defb207e0",
+    "name": "ModelValidator.validate impl (5 MDA identity gates)",
+    "sourceFile": "ior:file:scripts/mda-model-validator.mjs",
+    "markerPending": true,
+    "markerNote": "R32.1 PRIMARY. Design-ahead scenario-first (architect spec 124f9955d, expert builds). EXPERT/ARCHITECT: on the built ModelValidator.validate decl place [impl:uuid:4d0883ad-d3a6-4663-97ce-ea8defb207e0] (name-matches Method ModelValidator.validate token validate) for strict-AST credit. IMPL-MINT: architect may mint+place, I re-verify+wire. Seed-0-churn credits the SEED code (its own supporting Impl if seedModel() named-decl), NOT this Impl. Supporting artifact (architect refinement, R31.10/13 no-mis-attribution): the SEED = scripts/seed-mda-model.mjs (IDEMPOTENT, PINNED uuids, re-run 0-churn = R31.13 determinism at seed level; 2 M3 + ~17 M2 units via ScenarioIndex.put + bidirectional instanceOf/instances). The seed-0-churn assertion credits the SEED code (if seed-mda-model.mjs exposes a named decl e.g. seedModel(), it gets its OWN supporting Impl+marker so 0-churn credits the seed, NOT validates Impl; if inline/no clean decl, note-as-supporting). The ONE R32.1 Test asserts all 3 architect gates: validate(seed)=0 violations + seed re-run 0-churn + planted M1->M3-skip -> validator RED.",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:cdcc4988-5b82-4216-8151-c1cb437cd180"
+}
