@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "abaf9f83-978f-4722-af21-c2b0ee76b8a2",
+  "name": "Task 32.5: Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)",
+  "slug": "task-32.5-drop-to-view",
+  "description": "Dropping an MDA-unit itemView onto a diagram creates a VIEW (e.g. a class view). Views contain COMPOSED views: a class UML SVG has an attribute compartment (attribute views), a methods compartment (method views), a properties compartment (getter/setter views). N diagrams can hold N views of the SAME unit -> each view = a LINK from the diagram to the unit (views are references, NOT copies - identity-by-reference, R25.7 kinship); the unit records its N diagram-links. Drop x,y = position; the view is then selectable + movable. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.5 `[requirement:uuid:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] Dropping an itemView onto a diagram creates a VIEW of that unit at the drop x,y.\n- [ ] A class view composes sub-views into UML compartments: attributes compartment (attribute views), methods compartment (method views), properties compartment (getter/setter views).\n- [ ] N views of one unit across N diagrams = N diagram-LINKS recorded on the unit; views are references NOT copies (identity-by-reference, R25.7) - editing the unit reflects in all its views.\n- [ ] A view records its drop x,y and is interactively SELECTABLE + MOVABLE (drag to reposition).\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "buildOrder": 5,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

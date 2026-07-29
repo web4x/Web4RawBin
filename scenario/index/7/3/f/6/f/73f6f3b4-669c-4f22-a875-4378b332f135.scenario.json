@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "73f6f3b4-669c-4f22-a875-4378b332f135",
+  "name": "Task 32.8: Action-driven M1/M2 sync (TS <-> model <-> PUML, same-UUID, no drift)",
+  "slug": "task-32.8-m1-m2-sync",
+  "description": "Keep M1 + M2 ALWAYS IN SYNC between the TS and PUML representations on EVERY action (class.add / class.remove / attribute.add / attribute.edit / ...). Bidirectional, action-driven model sync (TS <-> model <-> PUML), same UUID throughout - the single-source/generated law (R31.7/R31.13) applied to the model. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.8 `[requirement:uuid:782d4b8e-576e-4090-9de6-4c0cda5700fb]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] Each model action (class.add/remove, attribute.add/edit, method.add, ...) updates M1+M2 in BOTH the TS and PUML representations consistently.\n- [ ] Sync is bidirectional (TS<->model<->PUML) with NO drift: after any action, all three representations are consistent (testable: action -> both-representations-consistent gate).\n- [ ] The same UUID is preserved throughout the sync (an element keeps its identity across TS, model, and PUML on every action).\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:782d4b8e-576e-4090-9de6-4c0cda5700fb"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "buildOrder": 8,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

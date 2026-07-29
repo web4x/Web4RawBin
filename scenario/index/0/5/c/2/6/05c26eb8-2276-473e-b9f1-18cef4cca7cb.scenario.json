@@ -6,7 +6,9 @@
   "name": "MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)",
   "description": "MDA MoF 3-level scenario model as ONE unit type ior:class:ModelElement (architect design eb64a6523, PO-accepted): model{uuid, metaLevel:M3|M2|M1, kind:class|interface|attribute|property|method|function|type|relationship, name, instanceOf:ObjectRef[] (multi-facet, reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)}. M3 = Class + Relationship (reflexive: Class instanceOf Class). M2 = UML profile instanceOf M3 (UmlClass/Interface/Attribute/Method/Property/Function/Type instanceOf Class; UmlAssociation/Generalization/Dependency instanceOf Relationship; ts-class-code/puml-class-code instanceOf Class). M1 = real TS structures instanceOf M2. ★ SAME-UUID-ACROSS-LEVELS: one UUID is the identity across model/diagram/puml/ts representations; multi-facet instanceOf (e.g. X.instanceOf=[UmlClass, ts-class-code]). Reuses TraceModel (type:uuid refs + multi-ref bidirectional links + TraceGraph dup-UUID-reject) = NO schema fork. Correct-by-construction via 5 gate assertions (below), each chain-to-Test.",
   "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:f6165590-6f13-4f4a-8ef8-de738ad526dc"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",

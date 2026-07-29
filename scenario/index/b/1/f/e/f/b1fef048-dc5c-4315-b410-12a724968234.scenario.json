@@ -6,7 +6,9 @@
   "name": "PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)",
   "description": "Serialize diagrams to .puml WITHOUT duplication (don't emit a puml class twice); parse .puml back. Treat a puml class as BOTH an M2 instanceOf Class AND an M1 instanceOf puml-class-code, SAME UUID across M-levels - round-trippable identity: parse an existing .puml -> REUSE the same-UUID unit, don't re-mint. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
   "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:f7a635b2-60c7-44f2-9ea6-48c8d9632000"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",

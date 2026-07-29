@@ -18,7 +18,17 @@
    "ior:instance:b1fef048-dc5c-4315-b410-12a724968234",
    "ior:instance:782d4b8e-576e-4090-9de6-4c0cda5700fb"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:2601bb4a-077a-4e24-a96c-89846ad8bef2",
+   "ior:instance:f6165590-6f13-4f4a-8ef8-de738ad526dc",
+   "ior:instance:8559098a-4c96-48f7-b4c3-82d8048f5ad4",
+   "ior:instance:6b479dec-4c0d-4322-a7ed-b1eeab10c0af",
+   "ior:instance:6a946cd2-7c78-4d9f-a720-2894b14ae0a3",
+   "ior:instance:abaf9f83-978f-4722-af21-c2b0ee76b8a2",
+   "ior:instance:d14e3884-242a-4017-acc7-2daf0c47a688",
+   "ior:instance:f7a635b2-60c7-44f2-9ea6-48c8d9632000",
+   "ior:instance:73f6f3b4-669c-4f22-a875-4378b332f135"
+  ],
   "createdBy": "robbin-req",
   "createdAt": "2026-07-29",
   "joint": [

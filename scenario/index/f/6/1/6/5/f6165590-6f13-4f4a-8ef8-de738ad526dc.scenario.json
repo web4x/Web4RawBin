@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "f6165590-6f13-4f4a-8ef8-de738ad526dc",
+  "name": "Task 32.1: MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)",
+  "slug": "task-32.1-mda-mof-model",
+  "description": "MDA MoF 3-level scenario model as ONE unit type ior:class:ModelElement (architect design eb64a6523, PO-accepted): model{uuid, metaLevel:M3|M2|M1, kind:class|interface|attribute|property|method|function|type|relationship, name, instanceOf:ObjectRef[] (multi-facet, reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)}. M3 = Class + Relationship (reflexive: Class instanceOf Class). M2 = UML profile instanceOf M3 (UmlClass/Interface/Attribute/Method/Property/Function/Type instanceOf Class; UmlAssociation/Generalization/Dependency instanceOf Relationship; ts-class-code/puml-class-code instanceOf Class). M1 = real TS structures instanceOf M2. ★ SAME-UUID-ACROSS-LEVELS: one UUID is the identity across model/diagram/puml/ts representations; multi-facet instanceOf (e.g. X.instanceOf=[UmlClass, ts-class-code]). Reuses TraceModel (type:uuid refs + multi-ref bidirectional links + TraceGraph dup-UUID-reject) = NO schema fork. Correct-by-construction via 5 gate assertions (below), each chain-to-Test.",
+  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [~] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.1 `[requirement:uuid:05c26eb8-2276-473e-b9f1-18cef4cca7cb]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] The model is ONE unit type ior:class:ModelElement with {uuid, metaLevel M3|M2|M1, kind, name, instanceOf[] (reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)} - reuses TraceModel refs + bidirectional links (no schema fork).\n- [ ] GATE 1 UUID-unique: no uuid appears twice on disk (TraceGraph dup-UUID-reject) - one identity per element.\n- [ ] GATE 2 level-integrity: every instanceOf points EXACTLY one meta-level up (M1->M2, M2->M3); M3 is reflexive (Class instanceOf Class); NO level skip and NO downward instanceOf.\n- [ ] GATE 3 instanceOf non-empty: every M2 and M1 unit has >=1 instanceOf; M3 units self-type (Class instanceOf Class, Relationship instanceOf Class).\n- [ ] GATE 4 serialization-embeds-UUID: every .puml / .ts emission of element X carries X.uuid, so a round-trip RE-BINDS to the same unit and NEVER re-mints (the no-duplication law).\n- [ ] GATE 5 same-UUID-cross-representation: an element present in >=2 representations (model / diagram / puml / ts) shows the SAME uuid in each; multi-facet instanceOf (e.g. instanceOf=[UmlClass, ts-class-code]) is one identity.\n- [ ] ACs FINALIZED to architect design eb64a6523 (PO-accepted). On this mint, architect wires the M3/M2 seed units + the identity-validator design for the expert build; chain mints onto the built validator + seed.",
+  "subtasks": "None (atomic task).",
+  "status": "In Progress",
+  "coveredRequirements": [
+   "ior:instance:05c26eb8-2276-473e-b9f1-18cef4cca7cb"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "buildOrder": 1,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

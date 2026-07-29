@@ -6,7 +6,9 @@
   "name": "v0.8.0 bump + MDA modeling registered as a FeatureManager feature",
   "description": "Bump to v0.8.0 via the single-source Config unit (R31.7) -> build -> deploy served==committed==0.8.0; and register/enter the Sprint 32 MDA modeling capability as a FeatureManager feature (R31.8). ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
   "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:2601bb4a-077a-4e24-a96c-89846ad8bef2"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
