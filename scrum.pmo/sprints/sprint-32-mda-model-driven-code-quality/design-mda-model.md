@@ -93,3 +93,32 @@ This is the federated-IOR pattern: identity is the UUID; representations are ref
 - **req (AC shapes):** R32.1 identity — `ior:class:ModelElement` with `metaLevel`+`kind`+`instanceOf`; M3 Class/Relationship reflexive; same-UUID-across-levels invariant + the 5 identity-gate assertions as testable ACs. R32.5 view-as-link (N-links, x,y, bidirectional). R32.7 PUML round-trip-identity AC. R32.8 action→both-representations-derive-equal AC. Each chain-to-Test.
 - **expert (build spec):** foundation FIRST = the ModelElement unit + TraceGraph relations (instanceOf/instances, members/memberOf, relatesTo, diagramViews) + the identity validator (Chain-style gate). Then TS→M1 (R32.2, ts-compiler AST), then the reuse wiring (tree/RbPanZoom/drawer), then PUML (Layer 3), then action-sync (Layer 4) LAST (highest risk). NO device hacks (R31.12 lesson); standard SVG/HTML5.
 - Build order per PO: R32.0 bump → R32.1 identity (this layer) → R32.2 → R32.3 → R32.4 → R32.5 → R32.6 → R32.7 → R32.8.
+
+---
+
+## R32.1 BUILD SPEC — M3/M2 SEED + IDENTITY VALIDATOR (architect → expert; req wires the chain onto the built artifacts)
+Per scenario-first + correct-by-construction: a DETERMINISTIC, idempotent, re-runnable SEED (pinned UUIDs) + a VALIDATOR gate — NOT a fragile hand-mint. Mints via `ScenarioIndex.put(uuid, unit)` (src/ts/scenario/index-store.ts). Same-UUID law + the 5 gates hold by construction.
+
+### A) Seed generator — `scripts/seed-mda-model.mjs` (idempotent; pinned UUIDs = re-run mints nothing new)
+Emits `ior:class:ModelElement` units. UUIDs are PINNED constants (a `SEED_UUIDS` map) so re-seed is a no-op (idempotent = the same-UUID/no-re-mint law at the seed level). Every link via a bidirectional helper (writes `instanceOf` + reverse `instances`).
+- **M3 (2, reflexive):**
+  - `Class`   — metaLevel M3, kind 'class',        instanceOf [Class]        (self — MOF fixed point)
+  - `Relationship` — metaLevel M3, kind 'relationship', instanceOf [Class]   (a relationship IS-A classifier at M3)
+- **M2 model metaclasses (instanceOf Class):** `UmlClass`(kind class), `UmlInterface`(interface), `UmlAttribute`(attribute), `UmlMethod`(method), `UmlProperty`(property), `UmlFunction`(function), `UmlType`(type).
+- **M2 relationship metaclasses (instanceOf Relationship):** `UmlAssociation`, `UmlGeneralization`, `UmlDependency` (kind relationship).
+- **M2 code-representation metaclasses (instanceOf Class):** `ts-class-code`, `puml-class-code`, `ts-interface-code`, `ts-method-code`, `ts-attribute-code`, `ts-property-code`, `ts-function-code` (kind = the code kind). These are the metaclasses whose M1 instances are the concrete serializable artifacts (the CODE facet of the multi-facet instanceOf).
+- Reverse `instances` accrues on each M3 unit. Result: 2 M3 + ~17 M2 units, all instanceOf-linked, ONE-level-up, correct-by-construction.
+- Gate the seed: re-run → `git status` ZERO churn (idempotent, pinned UUIDs) = the R31.13 determinism discipline applied to the seed.
+
+### B) Identity validator — `ModelValidator.validate(index): Violation[]` (empty = PASS; CI + structural gate, like versionGuard/camelCase gate)
+Implements the 5 AC gates over all `ior:class:ModelElement` units on disk:
+1. **AC-uuid-unique** — no UUID in >1 file (TraceGraph.register already throws on load-dup; the gate asserts disk uniqueness).
+2. **AC-level-integrity** — every `instanceOf` ref resolves to a unit EXACTLY one level up (M1→M2, M2→M3); M3 `instanceOf`→M3 (reflexive); REJECT any skip (M1→M3), down-link, or cross-level.
+3. **AC-instanceof-nonempty** — every M2 + M1 unit has ≥1 `instanceOf`; M3 units self-type (instanceOf includes an M3).
+4. **AC-serialization-embeds-uuid** — for any element with a .puml/.ts representation, the artifact embeds `uuid` (puml `<<uuid:X>>` stereotype/note + `[model:uuid:X]` code marker, mirroring `[impl:uuid:]`); the RE-BIND function `bindByUuid(embeddedUuid)` returns the existing unit (never mints) → round-trip never duplicates. (For R32.1 foundation: assert the marker CONVENTION + `bindByUuid` exist; Layers 3/4 exercise it live.)
+5. **AC-same-uuid-cross-representation** — an element present in ≥2 representations (unit / diagramView / puml / ts) shows the IDENTICAL uuid in each.
+- Wire as `Chain.validateModel` (mirrors the existing Chain gates) → runs in CI + pre-commit; a violation fails the build. The identity CANNOT drift (correct-by-construction pin, R31.7 pattern).
+
+### C) Chain (req wires onto the built artifacts)
+- Class `ModelElement` (the unit type) → Method `ModelValidator.validate` → Impl → Test (the 5 gates GREEN on the seed). Plus the seed generator as its own Method/Impl. req mints R32.1 Class/Method/Impl markers onto the built validator + seed; I mint/repoint if the expert env can't (IMPL-MINT pattern).
+- GATE: seed re-run = 0 churn (idempotent) + `ModelValidator.validate(seed)` = 0 violations (all 5 AC gates green) + a planted bad unit (e.g. M1→M3 skip) → validator RED (proves the gates bite).
