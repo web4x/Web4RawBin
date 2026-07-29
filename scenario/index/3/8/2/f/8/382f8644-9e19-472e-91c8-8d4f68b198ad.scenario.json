@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "382f8644-9e19-472e-91c8-8d4f68b198ad",
+    "name": "TsToModel.generate impl (TS AST -> M1 ModelElement units, deterministic uuid)",
+    "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126, R32.1 pattern): req mints this Impl; expert drops [impl:uuid:382f8644] on the generate() decl @ src/ts/scenario/TsToModel.ts:97 (name-matches 'generate'; marker-anchor comment already at :93). Built + gate GREEN at abc42508f (v0.8.2, expert tsx self-check). markerPending flips false once req verifies the [impl:uuid] heads the named generate() decl on origin (strict-AST credit).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576"
+}
