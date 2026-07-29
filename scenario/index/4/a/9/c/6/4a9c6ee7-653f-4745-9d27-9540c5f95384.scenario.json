@@ -27,24 +27,26 @@
    {
     "id": "AC-ts-ast-to-m1",
     "group": "functional",
-    "text": "Running the generator over TS source produces M1 scenario units for class / interface / function / attribute / accessor+mutator(property) / method (class member) - one unit per TS structure."
+    "text": "TsToModel.generate parses the TS compiler base structures (ts.createProgram + ts.forEachChild) and produces one M1 ior:class:ModelElement unit per TS structure, per the AST->M2 map: ClassDeclaration->class, InterfaceDeclaration->interface, FunctionDeclaration->function, MethodDeclaration->method (memberOf its class), PropertyDeclaration->attribute (memberOf its class), GetAccessor+SetAccessor of the SAME name->ONE property (accessor+mutator paired; memberOf its class), TypeAliasDeclaration->type. A class's members[] = its methods + attributes + properties (composition; reverse memberOf). Built on the R32.1 foundation (REUSE ModelElement / TraceModel / ModelValidator, no fork)."
    },
    {
     "id": "AC-m1-instanceof-m2",
     "group": "invariant",
-    "text": "Each generated M1 unit is instanceOf the correct M2 UML unit (class->UML class, method->UML method, etc.)."
+    "text": "Each generated M1 unit is instanceOf its correct M2 metaclass with MULTI-FACET instanceOf [model facet, code facet] (per R32.1): class->[UmlClass, ts-class-code], interface->[UmlInterface, ts-interface-code], function->[UmlFunction, ts-function-code], method->[UmlMethod, ts-method-code], attribute->[UmlAttribute, ts-attribute-code], property->[UmlProperty, ts-property-code], type->[UmlType] (+ a small seed add of the ts-type-code M2 unit). One-level-up M1->M2 level-integrity holds by construction (ModelValidator gate 2 passes)."
    },
    {
     "id": "AC-regenerate-stable",
     "group": "invariant",
-    "text": "Re-running the generator on unchanged TS reuses the SAME-UUID M1 units (idempotent, no duplicate mint) - the single-source/generated law (R31.7/R31.13)."
+    "text": "The M1 unit UUID is DERIVED DETERMINISTICALLY from the stable identity key `<repo-relative sourceFile> :: <qualifiedName>` (class/interface/function/type = path::Name; member = path::ClassName.memberName; a get/set PAIR shares one key = one property) as a v4-shaped sha256 (the existing scripts/migrate-to-scenario.ts:245 pattern) - NOT random-minted. Re-parsing unchanged TS -> SAME key -> SAME uuid -> ModelValidator.bindByUuid RE-BINDS, never re-mints = idempotent 0-churn re-run (the R32.1/R31.13 discovered-code law). Rename/move = a new key = a new element; the old uuid, now absent from source, is reconciled (delete/tombstone)."
    },
    {
-    "id": "AC-architect-finalize",
+    "id": "AC-relationships-and-validate",
     "group": "meta",
-    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+    "text": "Typed members resolve (ts TypeChecker / type-node identifier) to typed relationships carrying their M2 type: a typed attribute/property -> `X.relatesTo += Y` instanceOf UmlAssociation (reverse relatedFrom on Y); extends/implements -> UmlGeneralization; a method param/return of another modeled type -> UmlDependency. Post-generation, ModelValidator.validate(generated) = 0 violations (M1->M2 level-integrity, instanceof-nonempty, uuid-unique all hold by construction). The chain mints onto the built TsToModel.generate (Class/Method/Impl/Test), same IMPL-MINT pattern as R32.1."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.2-DESIGN&commit=fa25b8b45",
+  "acFinalizedNote": "4 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.2 DESIGN, fa25b8b45; PO build-go unblock 2026-07-29) - adopt-not-invent from the doc's req(AC) guidance + AST->M2 map (Q1) + deterministic-uuid (Q2) + relationships (Q3) + ModelValidator=0 gate. Placeholder AC-architect-finalize retired -> AC-relationships-and-validate. Chain (UC/Class/Method/Impl/Test onto TsToModel.generate) mints when the expert builds, IMPL-MINT pattern."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
