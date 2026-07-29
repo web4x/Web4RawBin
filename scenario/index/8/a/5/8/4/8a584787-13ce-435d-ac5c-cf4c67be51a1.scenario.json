@@ -6,7 +6,9 @@
   "name": "Non-host read-only notice in room settings (explains why editing is disabled)",
   "description": "When a NON-host member opens the room settings/config modal, a visible READ-ONLY NOTICE explains they cannot edit because they are not the room owner. Host-only edits are CONFIRMED correct by Tron (keep read-only for non-host, R31.12); this adds the UX affordance so a non-host understands WHY the fields are disabled (not a bug). Nothing else broken - radios work, values bound (architect confirmed). Trivial: expert builds a ~2-line notice.",
   "tronQuote": "> TRON (2026-07-28, via PO): host-only edits confirmed - keep read-only; add a notice so a non-host member sees they cannot edit because they are not the room owner.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:05cea277-cb43-4fc7-9fbf-29c70f71fa6e"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",

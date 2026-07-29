@@ -36,3 +36,4 @@ Build order (security foundation first, PO/Tron 2026-07-20): R31.2 owner-gate ->
 - [ ] [Task 31.11: Traceability tree deep-nests the full chain (UC->Class->Method->Impl->Test) for every sprint](./task-31.11-tree-deep-nest-chain.md)
 - [x] [Task 31.12: In-room chat works + tapping the room title opens room settings (@390)](./task-31.12-inroom-chat-room-settings.md)
 - [x] [Task 31.13: Deterministic build: same source -> same bundle hashes (reproducible, no per-restart churn)](./task-31.13-deterministic-build.md)
+- [ ] [Task 31.16: Non-host read-only notice in room settings (explains why editing is disabled)](./task-31.16-readonly-notice.md)
