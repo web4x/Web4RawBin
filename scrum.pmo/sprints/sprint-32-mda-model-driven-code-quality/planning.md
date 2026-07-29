@@ -13,7 +13,7 @@ v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model
 ## Tasks
 
 - [x] [Task 32.0: v0.8.0 bump + MDA modeling registered as a FeatureManager feature](./task-32.0-v0.8.0-bump-mda-feature.md)
-- [ ] [Task 32.1: MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)](./task-32.1-mda-mof-model.md)
+- [x] [Task 32.1: MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)](./task-32.1-mda-mof-model.md)
 - [ ] [Task 32.2: TS -> M1 generation from the TypeScript compiler base structures](./task-32.2-ts-to-m1.md)
 - [ ] [Task 32.3: Model tree = traceability-tree UX reused over the MDA units (drag source)](./task-32.3-model-tree.md)
 - [ ] [Task 32.4: Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)](./task-32.4-diagram-surface.md)
