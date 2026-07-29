@@ -89,9 +89,8 @@ export class TsToModel {
     return null;
   }
 
-  // R32.2 MARKER PENDING: scenario-first (#126) — no TsToModel chain minted yet; req mints Class/Method/Impl/Test
-  // onto this built generate(), then the [impl:uuid:<Impl>] marker lands here (same IMPL-MINT pattern as R32.1).
-  // TsToModel.generate — parse `files` into M1 ModelElement units (deterministic uuid),
+  // [impl:uuid:382f8644-9e19-472e-91c8-8d4f68b198ad] TsToModel.generate (Method 970c7956, Class fc2f97c9, off UC efaea742)
+  // — parse `files` into M1 ModelElement units (deterministic uuid),
   // resolve typed-member relationships (relatesTo + M2 type), write them to `indexDir` idempotently (0-churn re-run),
   // and reconcile (remove prior M1 units of the processed files that are no longer present in source).
   generate(files: string[], opts?: { indexDir?: string; write?: boolean }): { units: M1Unit[]; wrote: number; removed: number } {
