@@ -31,6 +31,7 @@ const U = {
   'ts-attribute-code':'a1d2e3f4-0000-4a1b-8c2d-000000000017',
   'ts-property-code':'a1d2e3f4-0000-4a1b-8c2d-000000000018',
   'ts-function-code':'a1d2e3f4-0000-4a1b-8c2d-000000000019',
+  'ts-type-code':   'a1d2e3f4-0000-4a1b-8c2d-000000000020', // R32.2: CODE facet for TS type aliases (M1 type units)
 };
 
 // key, metaLevel, kind, instanceOf-keys (→ meta one level up; M3 self/near-top). Order fixed → deterministic.
@@ -57,6 +58,7 @@ const ELEMS = [
   ['ts-attribute-code', 'M2', 'attribute', ['Class']],
   ['ts-property-code', 'M2', 'property', ['Class']],
   ['ts-function-code', 'M2', 'function', ['Class']],
+  ['ts-type-code', 'M2', 'type', ['Class']],   // R32.2: CODE facet for M1 TS type aliases
 ];
 
 const ref = (key) => `ior:instance:${U[key]}`;
