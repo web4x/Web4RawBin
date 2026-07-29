@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "c8bc0ee4-a6c0-497a-8510-da23f51902e8",
+  "altId": "R32.6",
+  "name": "Relationship views (attribute/getter/setter whose type is another unit)",
+  "description": "An attribute / getter / setter whose type is ANOTHER class / type / interface / TS-type is rendered as a RELATIONSHIP view from the owning class view to that other unit's view. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-relationship-view",
+    "group": "functional",
+    "text": "When an attribute/getter/setter has a type that is another modeled unit (class/type/interface/TS-type), a RELATIONSHIP view is rendered from the owner to that unit."
+   },
+   {
+    "id": "AC-relationship-resolves",
+    "group": "invariant",
+    "text": "The relationship resolves to the SAME-UUID target unit (identity-by-reference), not a copy."
+   },
+   {
+    "id": "AC-architect-finalize",
+    "group": "meta",
+    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}

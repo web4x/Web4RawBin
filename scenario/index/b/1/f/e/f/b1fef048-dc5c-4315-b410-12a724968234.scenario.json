@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b1fef048-dc5c-4315-b410-12a724968234",
+  "altId": "R32.7",
+  "name": "PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)",
+  "description": "Serialize diagrams to .puml WITHOUT duplication (don't emit a puml class twice); parse .puml back. Treat a puml class as BOTH an M2 instanceOf Class AND an M1 instanceOf puml-class-code, SAME UUID across M-levels - round-trippable identity: parse an existing .puml -> REUSE the same-UUID unit, don't re-mint. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-diagram-to-puml",
+    "group": "functional",
+    "text": "A diagram serializes to a valid .puml with NO duplication (each element emitted once)."
+   },
+   {
+    "id": "AC-puml-to-diagram",
+    "group": "functional",
+    "text": "A .puml parses back into diagram views + MDA units."
+   },
+   {
+    "id": "AC-same-uuid-roundtrip",
+    "group": "invariant",
+    "text": "parse->serialize->parse is identity-preserving: a puml class is M2-instanceOf-Class + M1-instanceOf-puml-class-code with the SAME UUID; parsing an existing .puml REUSES the same-UUID unit (no re-mint / no duplicate)."
+   },
+   {
+    "id": "AC-no-duplication",
+    "group": "invariant",
+    "text": "No element is duplicated across serialize/parse (a puml class never emitted or minted twice)."
+   },
+   {
+    "id": "AC-architect-finalize",
+    "group": "meta",
+    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}

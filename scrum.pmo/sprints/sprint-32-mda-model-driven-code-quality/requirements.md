@@ -1,0 +1,99 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Sprint 32 Requirements — Sprint 32 — MDA Model-Driven Code Quality
+
+## Requirements
+
+- [ ] **R32.0 — v0.8.0 bump + MDA modeling registered as a FeatureManager feature**
+  [requirement:uuid:68aa36fe-f3c7-452c-b5cb-619f7c84bee4]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  Bump to v0.8.0 via the single-source Config unit (R31.7) -> build -> deploy served==committed==0.8.0; and register/enter the Sprint 32 MDA modeling capability as a FeatureManager feature (R31.8). ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** The Config unit version is 0.8.0; build stamps it single-source (R31.7); served==committed==SW==0.8.0 (R31.13 deterministic).
+  - [ ] **(functional)** The MDA modeling capability is registered/entered as a FeatureManager feature (R31.8) - owner-gated feature entry, appears in the feature grid.
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.1 — MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)**
+  [requirement:uuid:05c26eb8-2276-473e-b9f1-18cef4cca7cb]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  MDA MoF 3-level scenario model as ONE unit type ior:class:ModelElement (architect design eb64a6523, PO-accepted): model{uuid, metaLevel:M3|M2|M1, kind:class|interface|attribute|property|method|function|type|relationship, name, instanceOf:ObjectRef[] (multi-facet, reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)}. M3 = Class + Relationship (reflexive: Class instanceOf Class). M2 = UML profile instanceOf M3 (UmlClass/Interface/Attribute/Method/Property/Function/Type instanceOf Class; UmlAssociation/Generalization/Dependency instanceOf Relationship; ts-class-code/puml-class-code instanceOf Class). M1 = real TS structures instanceOf M2. ★ SAME-UUID-ACROSS-LEVELS: one UUID is the identity across model/diagram/puml/ts representations; multi-facet instanceOf (e.g. X.instanceOf=[UmlClass, ts-class-code]). Reuses TraceModel (type:uuid refs + multi-ref bidirectional links + TraceGraph dup-UUID-reject) = NO schema fork. Correct-by-construction via 5 gate assertions (below), each chain-to-Test.
+  **Acceptance criteria:**
+  - [ ] **(invariant)** The model is ONE unit type ior:class:ModelElement with {uuid, metaLevel M3|M2|M1, kind, name, instanceOf[] (reverse instances), members[] (reverse memberOf), relatesTo[] (reverse relatedFrom), diagramViews[] (reverse viewsUnit)} - reuses TraceModel refs + bidirectional links (no schema fork).
+  - [ ] **(invariant)** GATE 1 UUID-unique: no uuid appears twice on disk (TraceGraph dup-UUID-reject) - one identity per element.
+  - [ ] **(invariant)** GATE 2 level-integrity: every instanceOf points EXACTLY one meta-level up (M1->M2, M2->M3); M3 is reflexive (Class instanceOf Class); NO level skip and NO downward instanceOf.
+  - [ ] **(invariant)** GATE 3 instanceOf non-empty: every M2 and M1 unit has >=1 instanceOf; M3 units self-type (Class instanceOf Class, Relationship instanceOf Class).
+  - [ ] **(invariant)** GATE 4 serialization-embeds-UUID: every .puml / .ts emission of element X carries X.uuid, so a round-trip RE-BINDS to the same unit and NEVER re-mints (the no-duplication law).
+  - [ ] **(invariant)** GATE 5 same-UUID-cross-representation: an element present in >=2 representations (model / diagram / puml / ts) shows the SAME uuid in each; multi-facet instanceOf (e.g. instanceOf=[UmlClass, ts-class-code]) is one identity.
+  - [ ] **(meta)** ACs FINALIZED to architect design eb64a6523 (PO-accepted). On this mint, architect wires the M3/M2 seed units + the identity-validator design for the expert build; chain mints onto the built validator + seed.
+
+- [ ] **R32.2 — TS -> M1 generation from the TypeScript compiler base structures**
+  [requirement:uuid:4a9c6ee7-653f-4745-9d27-9540c5f95384]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  From the TS compiler API / AST, generate M1 scenario units for the TS base structures: class, interface, function, attribute, accessor+mutator (getter/setter = property), method (class member). Each generated M1 unit is instanceOf its M2 UML unit. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Running the generator over TS source produces M1 scenario units for class / interface / function / attribute / accessor+mutator(property) / method (class member) - one unit per TS structure.
+  - [ ] **(invariant)** Each generated M1 unit is instanceOf the correct M2 UML unit (class->UML class, method->UML method, etc.).
+  - [ ] **(invariant)** Re-running the generator on unchanged TS reuses the SAME-UUID M1 units (idempotent, no duplicate mint) - the single-source/generated law (R31.7/R31.13).
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.3 — Model tree = traceability-tree UX reused over the MDA units (drag source)**
+  [requirement:uuid:d07b2dc0-7499-4877-952c-655170a7a99a]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  The Model tree is conceptually the SAME as the traceability tree - REUSE the rb-trace-tree components + functionality (skill-expert lane, NO re-fork) to render the MDA scenario units; it is the drag SOURCE for diagram views. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** The model tree renders the MDA units via the SHARED rb-trace-tree component (same expand/collapse/icons/badges), NOT a new tree - generic tree mechanics solved once.
+  - [ ] **(functional)** Each MDA unit itemView in the model tree is a drag SOURCE (draggable into a diagram surface).
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.4 — Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)**
+  [requirement:uuid:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  Interactive SVG diagrams live in the DETAILS DRAWER (rb-detail-drawer reuse), all responsive sizes, with pan + pinch-zoom (RbPanZoom reuse) like any other svg/image/html viewer in the details compartment. A blank diagram is a drop TARGET. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** The SVG diagram surface renders inside the shared rb-detail-drawer (details compartment), responsive at all sizes.
+  - [ ] **(functional)** The diagram supports pan + pinch-zoom via the shared RbPanZoom viewer-base (NO re-fork).
+  - [ ] **(functional)** A blank diagram is a valid drop target for MDA-unit itemViews.
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.5 — Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)**
+  [requirement:uuid:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  Dropping an MDA-unit itemView onto a diagram creates a VIEW (e.g. a class view). Views contain COMPOSED views: a class UML SVG has an attribute compartment (attribute views), a methods compartment (method views), a properties compartment (getter/setter views). N diagrams can hold N views of the SAME unit -> each view = a LINK from the diagram to the unit (views are references, NOT copies - identity-by-reference, R25.7 kinship); the unit records its N diagram-links. Drop x,y = position; the view is then selectable + movable. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Dropping an itemView onto a diagram creates a VIEW of that unit at the drop x,y.
+  - [ ] **(functional)** A class view composes sub-views into UML compartments: attributes compartment (attribute views), methods compartment (method views), properties compartment (getter/setter views).
+  - [ ] **(invariant)** N views of one unit across N diagrams = N diagram-LINKS recorded on the unit; views are references NOT copies (identity-by-reference, R25.7) - editing the unit reflects in all its views.
+  - [ ] **(functional)** A view records its drop x,y and is interactively SELECTABLE + MOVABLE (drag to reposition).
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.6 — Relationship views (attribute/getter/setter whose type is another unit)**
+  [requirement:uuid:c8bc0ee4-a6c0-497a-8510-da23f51902e8]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  An attribute / getter / setter whose type is ANOTHER class / type / interface / TS-type is rendered as a RELATIONSHIP view from the owning class view to that other unit's view. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** When an attribute/getter/setter has a type that is another modeled unit (class/type/interface/TS-type), a RELATIONSHIP view is rendered from the owner to that unit.
+  - [ ] **(invariant)** The relationship resolves to the SAME-UUID target unit (identity-by-reference), not a copy.
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.7 — PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)**
+  [requirement:uuid:b1fef048-dc5c-4315-b410-12a724968234]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  Serialize diagrams to .puml WITHOUT duplication (don't emit a puml class twice); parse .puml back. Treat a puml class as BOTH an M2 instanceOf Class AND an M1 instanceOf puml-class-code, SAME UUID across M-levels - round-trippable identity: parse an existing .puml -> REUSE the same-UUID unit, don't re-mint. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** A diagram serializes to a valid .puml with NO duplication (each element emitted once).
+  - [ ] **(functional)** A .puml parses back into diagram views + MDA units.
+  - [ ] **(invariant)** parse->serialize->parse is identity-preserving: a puml class is M2-instanceOf-Class + M1-instanceOf-puml-class-code with the SAME UUID; parsing an existing .puml REUSES the same-UUID unit (no re-mint / no duplicate).
+  - [ ] **(invariant)** No element is duplicated across serialize/parse (a puml class never emitted or minted twice).
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+
+- [ ] **R32.8 — Action-driven M1/M2 sync (TS <-> model <-> PUML, same-UUID, no drift)**
+  [requirement:uuid:782d4b8e-576e-4090-9de6-4c0cda5700fb]
+  > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
+  Keep M1 + M2 ALWAYS IN SYNC between the TS and PUML representations on EVERY action (class.add / class.remove / attribute.add / attribute.edit / ...). Bidirectional, action-driven model sync (TS <-> model <-> PUML), same UUID throughout - the single-source/generated law (R31.7/R31.13) applied to the model. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Each model action (class.add/remove, attribute.add/edit, method.add, ...) updates M1+M2 in BOTH the TS and PUML representations consistently.
+  - [ ] **(invariant)** Sync is bidirectional (TS<->model<->PUML) with NO drift: after any action, all three representations are consistent (testable: action -> both-representations-consistent gate).
+  - [ ] **(invariant)** The same UUID is preserved throughout the sync (an element keeps its identity across TS, model, and PUML on every action).
+  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).

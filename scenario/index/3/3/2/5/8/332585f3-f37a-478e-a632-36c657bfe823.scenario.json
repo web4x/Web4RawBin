@@ -1,0 +1,32 @@
+{
+ "ior": "ior:class:Sprint",
+ "model": {
+  "uuid": "332585f3-f37a-478e-a632-36c657bfe823",
+  "name": "Sprint 32 — MDA Model-Driven Code Quality",
+  "number": 32,
+  "goal": "v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model elements (M3 Class+Relationship / M2 UML-profile / M1 TS-structures) with SAME-UUID-across-M-levels identity, from the TS compiler AST; a model tree (rb-trace-tree reuse) + interactive SVG diagrams in the details drawer (RbPanZoom) with drag itemView->composed views + relationship views; a PUML serializer/parser (no-dup, same-UUID round-trip); and action-driven M1/M2 sync (TS<->PUML). Delivered as a FeatureManager feature (R31.8). Reuse over re-fork; single-source/generated law (R31.7/R31.13) for the model.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "requirements": [
+   "ior:instance:68aa36fe-f3c7-452c-b5cb-619f7c84bee4",
+   "ior:instance:05c26eb8-2276-473e-b9f1-18cef4cca7cb",
+   "ior:instance:4a9c6ee7-653f-4745-9d27-9540c5f95384",
+   "ior:instance:d07b2dc0-7499-4877-952c-655170a7a99a",
+   "ior:instance:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7",
+   "ior:instance:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
+   "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8",
+   "ior:instance:b1fef048-dc5c-4315-b410-12a724968234",
+   "ior:instance:782d4b8e-576e-4090-9de6-4c0cda5700fb"
+  ],
+  "tasks": [],
+  "createdBy": "robbin-req",
+  "createdAt": "2026-07-29",
+  "joint": [
+   "robbin-req",
+   "robbin-architect",
+   "robbin-planner",
+   "robbin-skill-expert"
+  ]
+ },
+ "ownerIor": null
+}

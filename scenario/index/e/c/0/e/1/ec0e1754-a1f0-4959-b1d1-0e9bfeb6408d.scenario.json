@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
+  "altId": "R32.5",
+  "name": "Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)",
+  "description": "Dropping an MDA-unit itemView onto a diagram creates a VIEW (e.g. a class view). Views contain COMPOSED views: a class UML SVG has an attribute compartment (attribute views), a methods compartment (method views), a properties compartment (getter/setter views). N diagrams can hold N views of the SAME unit -> each view = a LINK from the diagram to the unit (views are references, NOT copies - identity-by-reference, R25.7 kinship); the unit records its N diagram-links. Drop x,y = position; the view is then selectable + movable. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drop-creates-view",
+    "group": "functional",
+    "text": "Dropping an itemView onto a diagram creates a VIEW of that unit at the drop x,y."
+   },
+   {
+    "id": "AC-composed-views",
+    "group": "functional",
+    "text": "A class view composes sub-views into UML compartments: attributes compartment (attribute views), methods compartment (method views), properties compartment (getter/setter views)."
+   },
+   {
+    "id": "AC-n-views-n-links",
+    "group": "invariant",
+    "text": "N views of one unit across N diagrams = N diagram-LINKS recorded on the unit; views are references NOT copies (identity-by-reference, R25.7) - editing the unit reflects in all its views."
+   },
+   {
+    "id": "AC-xy-select-move",
+    "group": "functional",
+    "text": "A view records its drop x,y and is interactively SELECTABLE + MOVABLE (drag to reposition)."
+   },
+   {
+    "id": "AC-architect-finalize",
+    "group": "meta",
+    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}
