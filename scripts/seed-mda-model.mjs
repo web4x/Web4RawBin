@@ -67,8 +67,8 @@ for (const [key, , , of] of ELEMS) for (const metaKey of of) (instances[metaKey]
 
 const shardPath = (uuid) => path.join(INDEX, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
 
-// [impl marker pending req's SUPPORTING seed Method unit — R31.10/13 no-mis-attribution: this credits the SEED's
-// idempotent 0-churn to the seed, NOT to ModelValidator.validate. Named decl so req can mint/mark it.]
+// [impl:uuid:f65c9b50-8577-4f2c-b53e-361108149d6a] SeedMdaModel.seedModel — R31.10/13 no-mis-attribution: credits
+// the SEED's idempotent 0-churn to the seed (NOT to ModelValidator.validate). Name-matches Method seedModel.
 export function seedModel() {
   let wrote = 0;
   for (const [key, metaLevel, kind, of] of ELEMS) {
@@ -88,4 +88,5 @@ export function seedModel() {
   return wrote;
 }
 
-seedModel();
+// Run only as a CLI (not on import) so tests can import seedModel() side-effect-free.
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) seedModel();
