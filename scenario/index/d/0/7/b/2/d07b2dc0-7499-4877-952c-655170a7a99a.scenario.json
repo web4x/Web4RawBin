@@ -27,19 +27,46 @@
    {
     "id": "AC-model-tree-reuse",
     "group": "functional",
-    "text": "The model tree renders the MDA units via the SHARED rb-trace-tree component (same expand/collapse/icons/badges), NOT a new tree - generic tree mechanics solved once."
+    "text": "The model tree renders the MDA ModelElement units via the SHARED rb-trace-tree component (same expand/collapse/lazy/icons/badges) - NO tree-mechanics fork (same law as the Server Manager tree, R31.3/R31.11): a feature supplies only DATA + forward-key config, never new tree logic. Built on the R32.1/R32.2 foundation (ModelElement multi-facet units already generated + gated GREEN)."
+   },
+   {
+    "id": "AC-forward-key-members",
+    "group": "functional",
+    "text": "chain-model CHAIN_TYPE_CONFIG gains ONE ADDITIVE entry `ModelElement: { scenarioFwd:['members'], traceFwd:['members'], clientFwd:['members'], expectedChildren:[] }` - the composition forward-key so a class/interface's `members` (attributes/methods/properties, reverse `memberOf`) render as tree children via the R31.11 forwardKeysForMode single-source mechanism (all model units carry ior:class:ModelElement -> the server type = 'ModelElement' -> ONE entry drives the whole model tree). Nothing else in the tree changes."
+   },
+   {
+    "id": "AC-node-icon-from-m2",
+    "group": "functional",
+    "text": "Each model node's type/icon derives from its M2 MODEL-facet instanceOf metaclass (UmlClass/UmlInterface/UmlAttribute/UmlMethod/UmlProperty/UmlFunction): the server children entry sets the node `type` = the M2 metaclass so rb-object-item renders TRACE_ICONS[type] for the model kind. Small DATA add: TRACE_ICONS Uml* entries (icons.ts) - data, not tree logic. `hasChildren` = members.length>0."
+   },
+   {
+    "id": "AC-member-count-badge",
+    "group": "functional",
+    "text": "The member-count badge = `members.length` via the REUSED R31.11 `node.dataset.childRefCount` stamp - no new badge code."
+   },
+   {
+    "id": "AC-relatesTo-not-child",
+    "group": "functional",
+    "text": "`relatesTo` (a typed attribute/getter/setter pointing at another element) is NOT a tree child forward-key - nesting cross-type edges as tree children would create cycles / wrong structure. relatesTo edges surface in the node DETAIL-view (the shared drawer) and are the input to R32.6 relationship/diagram views, NOT the R32.3 composition tree."
+   },
+   {
+    "id": "AC-determinism-stable-tree",
+    "group": "functional",
+    "text": "Re-parse / re-render yields the SAME UUIDs (R32.2 deterministic sourceFile::qualifiedName uuid) so the model tree is STABLE across re-runs - no churn, no duplicate nodes, expansion state coherent."
+   },
+   {
+    "id": "AC-shared-tree-regression",
+    "group": "functional",
+    "text": "The shared rb-trace-tree stays UNREGRESSED: /trace, Server Manager, and room trees still render + expand + badge exactly as before, because the ModelElement forward-key entry is ADDITIVE (other node types untouched). Regression-green is part of acceptance (shared-component law)."
    },
    {
     "id": "AC-drag-source",
     "group": "functional",
-    "text": "Each MDA unit itemView in the model tree is a drag SOURCE (draggable into a diagram surface)."
-   },
-   {
-    "id": "AC-architect-finalize",
-    "group": "meta",
-    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+    "text": "Each MDA unit itemView in the model tree is a drag SOURCE (draggable). The drag TARGET / diagram-drop is R32.5 (drag itemView -> diagram view); R32.3 asserts only that the model-tree node is draggable."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.3-DESIGN&commit=b24c7b259",
+  "acFinalizedNote": "8 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.3 DESIGN, b24c7b259; 2026-07-29) - adopt-not-invent from the 7 architect AC facets + the existing drag-source. Placeholder AC-architect-finalize retired. Model tree = rb-trace-tree REUSED (data + forward-key config only, NO fork - same law as R31.3/R31.11 Server Manager). Chain (UC/Class/Method/Impl/Test onto the built model-tree wiring: chain-model ModelElement entry + server type-from-instanceOf shaping + TRACE_ICONS Uml* + tree-entry) mints when the expert builds, IMPL-MINT pattern like R32.1/R32.2."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
