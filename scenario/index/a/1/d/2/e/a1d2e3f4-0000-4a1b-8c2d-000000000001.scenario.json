@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "a1d2e3f4-0000-4a1b-8c2d-000000000001",
+    "name": "Class",
+    "metaLevel": "M3",
+    "kind": "class",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001"
+    ],
+    "instances": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000002",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000007",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000014",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000018",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ]
+  },
+  "ownerIor": null
+}
