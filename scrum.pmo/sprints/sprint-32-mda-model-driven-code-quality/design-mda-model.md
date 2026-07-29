@@ -163,3 +163,27 @@ The relationship carries its M2 type; R32.6 renders it as a relationship view. F
 - **GATE:** generate over a known TS file → the expected M1 units exist with correct instanceOf (UmlX+ts-X-code); RE-RUN = 0 churn (deterministic uuid); ModelValidator(generated)=0 violations; a typed attribute → a `relatesTo` link to the target element. Chain-to-Test.
 - **req (AC):** R32.2 = TS→M1 per the AST→M2 map; deterministic idempotent uuid (sourceFile::qualifiedName); multi-facet instanceOf; class members[] composition; get+set→one property; typed→relatesTo+M2-relationship-type; ModelValidator(generated)=0. Chain onto the built `TsToModel.generate` (Class/Method/Impl/Test), same IMPL-MINT pattern as R32.1.
 - **expert:** builds `TsToModel` on the R32.1 foundation; HOLDS until this design + PO build-go (scenario-first). Small seed add: `ts-type-code` M2 unit.
+
+## R32.3 DESIGN — Model tree = rb-trace-tree REUSED over MDA units (architect 2026-07-29, req d07b2dc0)
+Same law as the Server Manager tree (R31.3/R31.11): generic tree mechanics live in the SHARED `rb-trace-tree`; a feature supplies only DATA + forward-key config. NO tree fork. Built on the R32.1/R32.2 foundation (ModelElement multi-facet units already generated + gated GREEN, tester 690c6568b).
+
+### Q1 — ModelElement → rb-trace-tree data shape (composition = children)
+The tree is the **composition tree**: M1 `UmlClass`/`UmlInterface` → their `members` (attributes/methods/properties); M2 metaclasses can be a higher tier. `rb-trace-tree` walks children via the server `/api/trace/children/<uuid>` → `forwardKeysForMode(type)`. A ModelElement's composition forward = `members` (design-mda-model.md:36, REVERSE `memberOf`). So the child-walk = `members` for model units — nothing else changes in the tree.
+
+### Q2 — the ONE data-config addition (chain-model), NOT a fork
+- `src/ts/shared/chain-model.ts` CHAIN_TYPE_CONFIG: add **`ModelElement: { scenarioFwd:['members'], traceFwd:['members'], clientFwd:['members'], expectedChildren:[] }`** (all model units carry `ior:class:ModelElement` → the server's `type = ior.split(':')[2]` = `ModelElement` for every model node, so ONE entry drives the whole model tree). This is the exact mechanism R31.11 hardened (forwardKeysForMode is the single source; string+array both resolve; de-dup at server.ts:1610). Members render as children by construction; badge = `members.length` via the R31.11 `node.dataset.childRefCount` path — REUSED, no new badge code.
+- **`relatesTo` is NOT a child forward-key** (typed attr/getter/setter → another element). Making it a child would nest cross-type edges as tree children = cycles/wrong. relatesTo edges surface in the node DETAIL-view (the shared drawer) + are the input to R32.6 relationship/diagram views — NOT the R32.3 composition tree.
+
+### Q3 — node icon/type from the M2 instanceOf facet + badge (reuse rb-object-item)
+`rb-object-item` renders `type → TRACE_ICONS[type]` + `child-count` badge. For a model node the server children entry sets `type` = the node's **M2 MODEL-facet metaclass** (from `instanceOf`: `UmlClass`/`UmlInterface`/`UmlAttribute`/`UmlMethod`/`UmlProperty`/`UmlFunction`) so the icon reflects the model kind. Small DATA add: `TRACE_ICONS` entries for the Uml* metaclasses (icons.ts) — data, not tree logic. `hasChildren` = `members.length>0`; badge = members count (R31.11 stamp).
+
+### Q4 — tree entry (reuse an existing rb-trace-tree mount pattern, no new tree)
+Feed rb-trace-tree the model roots the SAME way an existing surface already does — choose ONE (expert/PO pick, both are pure DATA into the shared component):
+- **(a) `data-seed-ior`** on a model-root unit (like the room tree `#room-tree`): `<rb-trace-tree data-seed-ior="<model-root/M2-root uuid>">` walks `members` via `/api/trace/children` + the new forward-key. Best if a single model root exists.
+- **(b) `.items` roots** (like Server Manager): a thin `/api/model/tree` (or reuse `/api/trace`) returns the M1 classes (or M2 metaclasses) as roots with inline/lazy `members`. Best for a flat class list.
+Either is data-only; rb-trace-tree renders + lazy-expands + badges unchanged.
+
+### GATE / HANDOFF
+- **GATE (tester):** open the model tree → M1 classes render with correct Uml* icons + real member-count badges; expand a class → its attributes/methods/properties nest (composition); re-render/re-parse = same UUIDs (R32.2 determinism) so the tree is stable; `/trace` + Server Manager + room trees UNREGRESSED (shared component — the ModelElement forward-key entry is additive, other types untouched); relatesTo does NOT appear as a tree child.
+- **req (AC):** R32.3 = model tree via the SHARED rb-trace-tree (no fork); ModelElement forward-key=`members` in chain-model (composition children); node type/icon from the M2 MODEL-facet instanceOf; member-count badge (R31.11 stamp); relatesTo NOT a child (detail/R32.6 only); shared-tree regression (/trace + SM + room) green. Chain onto the built model-tree wiring (Class/Method/Impl/Test), same IMPL-MINT pattern as R32.1/R32.2.
+- **expert:** DATA + config only — chain-model `ModelElement` entry + server children type-from-instanceOf shaping + `TRACE_ICONS` Uml* entries + the tree-entry (a or b). Touches NO rb-trace-tree mechanics. HOLDS until this design + PO build-go (scenario-first).
