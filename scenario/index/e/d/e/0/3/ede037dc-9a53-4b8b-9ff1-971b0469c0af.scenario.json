@@ -43,7 +43,7 @@
    {
     "id": "AC-host-edit-saves",
     "group": "regression",
-    "text": "@390 REAL WebKit: in the host config modal, the RADIO BUTTONS (visibility / mode) SELECT on tap AND the change SAVES/persists (server applies UPDATE_ROOM_CONFIG). ★ TRON CLARIFIED 2026-07-27 (decisive): NOT hyp1, NOT hyp2-broad - \"fields show correct but selecting a RADIO BUTTON does not work.\" hyp1 (isHost-false/read-only) REFUTED: the fields ARE editable = the owner resolves CORRECTLY. The REAL issue = the config radio buttons do not SELECT on tap on real iOS WebKit - the SAME CLASS as the h2-title false-green (Chromium fires, WebKit does not). THIRD instance of the iOS-WebKit-tap-fire pattern (h2 title -> real button; now radios). TEST-vs-DEVICE SPLIT: (engine-independent, TESTER) the native radio-input PRESENCE + wiring (real <input type=radio> not a fragile div, change-handler bound, Save handler + UPDATE_ROOM_CONFIG apply) are Test-gated; (DEVICE-ONLY, Tron) the radio actually SELECTING on a real iOS-WebKit tap + Save persisting is device-confirmed (R30.53-codicon pattern, like the title tap-fires). PENDING ARCHITECT root+fix (diagnosing the radio impl now); this AC FINALIZES its testable form on the architect report, then expert fix -> tester engine-independent gate + Tron device re-confirm the radio-select+save."
+    "text": "@390 REAL WebKit: in the host config modal, the RADIO BUTTONS (visibility / mode) SELECT on tap AND the change SAVES/persists (server applies UPDATE_ROOM_CONFIG). ★ TRON CLARIFIED 2026-07-27 (decisive): NOT hyp1, NOT hyp2-broad - \"fields show correct but selecting a RADIO BUTTON does not work.\" hyp1 (isHost-false/read-only) REFUTED: the fields ARE editable = the owner resolves CORRECTLY. The REAL issue = the config radio buttons do not SELECT on tap on real iOS WebKit - the SAME CLASS as the h2-title false-green (Chromium fires, WebKit does not). THIRD instance of the iOS-WebKit-tap-fire pattern (h2 title -> real button; now radios). TEST-vs-DEVICE SPLIT: (engine-independent, TESTER) the native radio-input PRESENCE + wiring (real <input type=radio> not a fragile div, change-handler bound, Save handler + UPDATE_ROOM_CONFIG apply) are Test-gated; (DEVICE-ONLY, Tron) the radio actually SELECTING on a real iOS-WebKit tap + Save persisting is device-confirmed (R30.53-codicon pattern, like the title tap-fires). PENDING ARCHITECT root+fix (diagnosing the radio impl now); this AC FINALIZES its testable form on the architect report, then expert fix -> tester engine-independent gate + Tron device re-confirm the radio-select+save. ★ CLOSED (tester b671ada84, v0.7.147, GREEN DET-3x): the fix uses CANONICAL HTML5 NATIVE radios (device-specific pointerup BELT DELETED) -> the radio-select+Save is now FULLY engine-independent + headless-certifiable (Chromium a VALID ORACLE); the DEVICE-ONLY caveat COLLAPSED (validates R31.15 - native controls need no device split). Chain-complete-to-Test cd6503cf onto Impl f9b579c1. 5 radios select+stick + Save persists. NO Tron-device caveat remaining on the radio."
    }
   ],
   "verificationHistory": [
@@ -72,6 +72,15 @@
     "tronVerbatim": "fields show correct but selecting a radio button does not work",
     "verificationContext": "AC-host-edit-saves narrowed to radio-select+save; test-vs-device split (native-input presence/wiring = tester engine-independent; radio-selects-on-tap+save-persists = Tron device); architect diagnosing radio impl; sharpen HELD until architect root+fix",
     "buildAtFailure": "v0.7.144",
+    "reportedVia": "robbin-po"
+   },
+   {
+    "date": "2026-07-28",
+    "hop": "host-edit radio-select+save CERTIFIED DONE (engine-independent, no device caveat)",
+    "reason": "tester b671ada84 v0.7.147 GREEN DET-3x: canonical HTML5 native radios (belt deleted) -> Chromium valid oracle -> radio-select+Save headless-certifiable, device-only caveat collapsed",
+    "tronVerbatim": "(host-only edits confirmed; radios+values bound - architect)",
+    "verificationContext": "Test cd6503cf minted onto f9b579c1; AC-host-edit-saves closed (no device caveat); validates R31.15 native-controls principle",
+    "buildAtFailure": "v0.7.147",
     "reportedVia": "robbin-po"
    }
   ],
