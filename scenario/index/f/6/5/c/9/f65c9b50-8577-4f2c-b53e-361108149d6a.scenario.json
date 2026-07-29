@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:scripts/seed-mda-model.mjs",
     "markerPending": true,
     "markerNote": "R32.1 SUPPORTING (seed-0-churn). Built f1f52a651. EXPERT: place [impl:uuid:f65c9b50-8577-4f2c-b53e-361108149d6a] on the named export function seedModel() @ scripts/seed-mda-model.mjs:72 (name-matches Method SeedMdaModel.seedModel token seedModel) for strict-AST credit. The R32.1 Test seed-0-churn assertion credits THIS Impl (not validate 4d0883ad).",
-    "tests": []
+    "tests": [
+      "ior:instance:28cac10f-09d3-4319-a4c5-7ce9339611ad"
+    ]
   },
   "ownerIor": "ior:instance:c4b82b25-b21e-40a0-ba1c-d18930a22175"
 }

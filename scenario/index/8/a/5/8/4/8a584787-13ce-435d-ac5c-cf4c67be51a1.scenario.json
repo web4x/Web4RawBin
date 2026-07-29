@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:3c490de5-e4fd-4a1c-99ae-c54bc7683827"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-directive",

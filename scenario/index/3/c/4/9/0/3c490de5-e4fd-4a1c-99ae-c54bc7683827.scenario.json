@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3c490de5-e4fd-4a1c-99ae-c54bc7683827",
+  "name": "roomSettings.readOnlyNotice",
+  "description": "R31.16: a non-host opening room settings sees a VISIBLE read-only notice ('Read-only - you are not the room owner') + NO Save button + h3 'Room Settings' (host sees NO notice + Save + h3 'Edit Room Settings'). Rendered in RbRoomDetail.editOpen (the !isHost gate @RoomView.ts:148); safe-by-construction (non-host has no save-handler wired). R31.16 Test rides the existing RbRoomDetail.editOpen impl f9b579c1 (impl-edit, distinct-intent) - no new marker (no false-credit).",
+  "class": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
+  "method": "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/requirements.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

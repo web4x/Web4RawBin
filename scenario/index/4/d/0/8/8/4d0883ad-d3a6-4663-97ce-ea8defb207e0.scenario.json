@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:scripts/mda-model-validator.mjs",
     "markerPending": false,
     "markerNote": "Strict-AST credit HOLDS at f1f52a651 (v0.8.1): [impl:uuid:4d0883ad] heads the named validate(index) decl @ src/ts/scenario/ModelValidator.ts:25 (Class ModelValidator:20, name-matches Method validate). 3-gate GREEN: validate(seed)=0 + seed re-run 0-churn (0 written/19 unchanged) + planted M1->M3 skip -> 1 level-integrity violation (RED). 19 seed units = 2 M3 (Class self, Relationship->Class) + 17 M2. Seed-0-churn credited to the SEPARATE seed Impl f65c9b50 (seedModel), NOT this validate Impl (no mis-attribution).",
-    "tests": []
+    "tests": [
+      "ior:instance:28cac10f-09d3-4319-a4c5-7ce9339611ad"
+    ]
   },
   "ownerIor": "ior:instance:cdcc4988-5b82-4216-8151-c1cb437cd180"
 }

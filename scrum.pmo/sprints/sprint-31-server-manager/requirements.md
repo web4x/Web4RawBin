@@ -317,3 +317,4 @@
   **Acceptance criteria:**
   - [ ] **(functional)** When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390.
   - [ ] **(functional)** The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only.
+  -> roomSettings.readOnlyNotice [uc:uuid:3c490de5-e4fd-4a1c-99ae-c54bc7683827]

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "28cac10f-09d3-4319-a4c5-7ce9339611ad",
+    "name": "test:R32.1 MDA model-validator + seed foundation (independent 3-gate, anti-green-wash)",
+    "description": "Bridged to the tester's INDEPENDENT gate (commit 0577bed70, 3rd-independent 3-gate GREEN with an anti-green-wash PLANTED-DEFECT caught = authoritative oracle). Verifies R32.1 MDA model-driven foundation: ModelValidator.validate (5 MDA identity gates) + SeedMdaModel.seedModel (idempotent seed, 0-churn). Multi-impl (champagne, distinct-intent on both). Marker 28cac10f adopted from origin (measured, not invented). NOTE: the expert also committed a weaker same-frame vitest self-gate (marker 75e525ad); this PRIMARY Test credits the INDEPENDENT tester gate 28cac10f (PO ruling). Impls: ModelValidator.validate 4d0883ad + SeedMdaModel.seedModel f65c9b50.",
+    "sourceFile": "ior:file:test/visual/r321-model-validator-gate.ts",
+    "implementations": [
+      "ior:instance:4d0883ad-d3a6-4663-97ce-ea8defb207e0",
+      "ior:instance:f65c9b50-8577-4f2c-b53e-361108149d6a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4d0883ad-d3a6-4663-97ce-ea8defb207e0"
+}
