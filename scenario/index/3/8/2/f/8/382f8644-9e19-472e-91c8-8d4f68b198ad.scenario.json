@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
     "markerPending": false,
     "markerNote": "Strict-AST credit HOLDS at fc1ca5b57: [impl:uuid:382f8644] heads the named generate() decl @ src/ts/scenario/TsToModel.ts:96 (marker line 92 immediately precedes generate(files...), label name-matches 'generate'; Method 970c7956, Class fc2f97c9, UC efaea742). Comment-only, gate stays GREEN (abc42508f v0.8.2). IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test hop HOLDS for the tester independent vitest GREEN (not the expert tsx self-check) - credited on the tester real marker.",
-    "tests": []
+    "tests": [
+      "ior:instance:ba762f5a-3eae-4bde-bccc-16de66c6682d"
+    ]
   },
   "ownerIor": "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576"
 }
