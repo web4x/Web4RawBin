@@ -309,3 +309,11 @@
   - [ ] **(functional)** Every interactive element FIRES/SELECTS reliably on a real iOS-WebKit tap - via a native control or pointerup/touchend + change, NOT a bare click handler on a non-native element (which Chromium fires but real WebKit does not). Sampled real controls fire on real @390 WebKit.
   - [ ] **(invariant)** A STANDING LINT / SWEEP catches a NEW fragile tap-target BY CONSTRUCTION - at commit/CI, a click/tap handler bound to a non-native element (div/span/h2/implicit-label) FAILS the check. The class is caught by the lint, NOT by a Tron device-QA cycle. Testable: inject a fragile tap-target -> lint fires.
   - [ ] **(meta)** Captured scenario-first but marked NEXT / NOT-NOW: the FIX sweep is substantial (fresh expert, not the ~80% one); the sweep-DESIGN can start now. NOT dispatched for build until PO schedules; the chain (UC->Class->Method->Impl->Test) mints onto the built fix then.
+
+- [ ] **R31.16 — Non-host read-only notice in room settings (explains why editing is disabled)**
+  [requirement:uuid:8a584787-13ce-435d-ac5c-cf4c67be51a1]
+  > TRON (2026-07-28, via PO): host-only edits confirmed - keep read-only; add a notice so a non-host member sees they cannot edit because they are not the room owner.
+  When a NON-host member opens the room settings/config modal, a visible READ-ONLY NOTICE explains they cannot edit because they are not the room owner. Host-only edits are CONFIRMED correct by Tron (keep read-only for non-host, R31.12); this adds the UX affordance so a non-host understands WHY the fields are disabled (not a bug). Nothing else broken - radios work, values bound (architect confirmed). Trivial: expert builds a ~2-line notice.
+  **Acceptance criteria:**
+  - [ ] **(functional)** When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390.
+  - [ ] **(functional)** The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only.
