@@ -1519,14 +1519,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         ensureStoreSeeded();
         const idx = new ScenarioIndex(MODEL_STORE); // R32.5: model tree reads the ISOLATED store (prod scenario/index untouched)
-        const roots: Array<{ uuid: string; type: string; name: string; hasChildren: boolean; childCount: number }> = [];
+        const roots: Array<{ uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string }> = [];
         for (const u of idx.list()) {
           const unit = idx.get(u);
-          if (!unit || unit.ior !== 'ior:class:ModelElement') continue;
+          if (!unit) continue;
           const m = unit.model as Record<string, unknown>;
-          if (m.metaLevel !== 'M1' || m.memberOf) continue; // top-level M1 only (members nest under their class)
-          const members = Array.isArray(m.members) ? (m.members as string[]) : [];
-          roots.push({ uuid: String(m.uuid || u), type: modelFacetType(m, idx), name: String(m.name || ''), hasChildren: members.length > 0, childCount: members.length });
+          if (unit.ior === 'ior:class:ModelElement' && m.metaLevel === 'M1' && !m.memberOf) {
+            const members = Array.isArray(m.members) ? (m.members as string[]) : [];
+            // R32.10 (INV-M2): node type='modelelement' → the drawer routes it to rb-modelelement-detail (the «kind» is
+            // shown IN the detail). modelFacetType stays the tree ICON hint via a separate field so the icon survives.
+            roots.push({ uuid: String(m.uuid || u), type: 'modelelement', name: String(m.name || ''), hasChildren: members.length > 0, childCount: members.length, icon: modelFacetType(m, idx) });
+          } else if (unit.ior === 'ior:class:Diagram') {
+            // R32.10 (INV-M2) diagram-reach: emit the Diagram as a root (type:'diagram') → opens the EXISTING rb-diagram-detail.
+            roots.push({ uuid: String(m.uuid || u), type: 'diagram', name: String(m.name || 'Diagram'), hasChildren: false, childCount: 0, icon: 'diagram' });
+          }
         }
         roots.sort((a, b) => a.name.localeCompare(b.name));
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

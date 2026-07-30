@@ -37,4 +37,7 @@ export const TRACE_ICONS: Record<string, string> = {
   umlproperty: svg('<path d="M4 7h16M4 12h16M4 17h10"/>'),
   umlfunction: svg('<path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2M9 12h6"/><path d="m14 8 3 4-3 4"/>'),
   umltype: svg('<path d="M4 7V4h16v3M9 20h6M12 4v16"/>'),
+  // R32.10 MDA model-view node icons — uniform 'modelelement' (the «kind» is shown in rb-modelelement-detail) + 'diagram'.
+  modelelement: svg('<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'),
+  diagram: svg('<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/>'),
 };
