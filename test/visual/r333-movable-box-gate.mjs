@@ -1,3 +1,4 @@
+// [test:uuid:73d267cf-e7e9-44e1-9e7c-561b16cdc7bb] R33.3 interactive diagram editor @390 — verifies diagram.renderCanvas (Impl 34dec13f: selectable box w/ attr/method compartments PIXEL-VISIBLE @390) + diagram.moveView (box-drag → POST /api/model/diagram/move-view 200 → view x,y PERSISTS in MODEL_STORE → survives a fresh re-mount). ONE round-trip gate credits BOTH R33.3 impls (render + moveView). Own-oracle: real rb-diagram-detail drawer-faithful mount + real MODEL_STORE diagram + real pointer drag; pollution-safe (byte-snapshot+restore). GREEN DET-3x v0.8.18. → req wires this Test onto 34dec13f (render) + the moveView impl.
 // R33.3 @390 OWN-ORACLE COMPONENT HARNESS (per PO) — mount rb-diagram-detail drawer-faithful (ref+uuid) with a
 // REAL MODEL_STORE diagram, prove the VISUAL "it must work": (1) a SELECTABLE box w/ attr/method COMPARTMENTS
 // renders PIXEL-VISIBLE @390 (bbox>0, on-canvas — 0x0/off-canvas FAILS); (2) box-DRAG MOVES it (pointer) → POST
