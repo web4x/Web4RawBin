@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e7557a8c-b344-4c46-8773-8f5cf402e335",
+    "name": "test:R32.5 GO-LIVE drop->generate->isolated-store->live tree/diagram (isolation proof, idempotent)",
+    "description": "Bridged to test/visual/r325-golive-live-gate.mjs (INDEPENDENT tester LIVE-AXIS gate GREEN DET-3x v0.8.5, 5801ff08e - measured DIFFERENTLY than the expert: a REAL served POST /api/model/generate drop + DISK-LEVEL isolation proof + snapshot/restore + planted-defect bite). Verifies R32.5 go-live: a real drop populates the R32.3 tree from the ISOLATED store + a Diagram unit lands in the store; ★ prod scenario/index UNCHANGED (fixture uuids only in MODEL_STORE = server.isModelUnit reroute proven, the safe-mechanism isolation law); idempotent re-drop = 0-churn; @390 mobile reach. Companion own-oracle r325-golive-oracle-gate.ts imports TsToModel.generate 382f8644 + buildDiagramSvg ba96a744 in an isolated scratch with a planted-defect bite. Marker e7557a8c adopted from origin (measured line 1, not invented). Chain: R32.5 req ec0e1754 -> UC 91b1b643 model.goLive -> Class server c0a0921d -> Method 20eee8b0 server.isModelUnit -> Impl 010f3e23 (markerPending=false, strict-AST HELD b51c0a968) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r325-golive-live-gate.mjs",
+    "implementations": [
+      "ior:instance:010f3e23-7d0e-49d4-9308-679388d00989"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:010f3e23-7d0e-49d4-9308-679388d00989"
+}
