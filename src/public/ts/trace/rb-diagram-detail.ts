@@ -47,12 +47,26 @@ export class RbDiagramDetail extends HTMLElement {
   private ro: ResizeObserver | null = null;
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
 
-  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); void this.render(); }
+  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); void this.render(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
-  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); this.ro?.disconnect(); this.ro = null; this.pz = null; }
+  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); document.removeEventListener('selection-changed', this.onSelectionChanged); this.ro?.disconnect(); this.ro = null; this.pz = null; }
 
   // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
   private onResyncRequest = (): void => { void this.reSyncFromSource(); };
+
+  // [R32.11-MOBILE marker-pending — req IMPL-mints] RbDiagramDetail.onSelectionChanged — TAP-to-add complement for
+  // touch/iOS Safari, where HTML5 DnD (dragover/drop) never fires → the drag-add path is DEAD on mobile (Tron @390).
+  // A SINGLE selected model-element (class chip, ref 'modelelement:<uuid>') → auto-add its view to THIS OPEN diagram
+  // with NO coords (server auto-grid), reusing addView (idempotent — server dedups, INV-R1..R4). Desktop DnD stays
+  // intact + additive (this is a complement, not a replacement).
+  private onSelectionChanged = (e: Event): void => {
+    if (!this.getAttribute('ref')) return;                                    // only when THIS diagram is open
+    const sel = (e as CustomEvent<{ selected?: string[] }>).detail?.selected || [];
+    if (sel.length !== 1) return;                                             // a single, unambiguous tap only
+    const ref = sel[0];
+    if (!ref.startsWith('modelelement:')) return;                             // only a model-element (class) adds a view
+    void this.addView(stripRef(ref));                                         // no coords → server auto-grid
+  };
 
   // [impl:uuid:fb22c5cd-8806-4738-bf80-f0e87e052984] RbDiagramDetail.reSyncFromSource (Method 3fd80641, Class 039ec367, off UC 75639bd8 model.sync)
   // R32.8 action-sync. Re-runs generation on the model's own
