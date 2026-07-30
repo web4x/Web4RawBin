@@ -389,3 +389,13 @@ MEASURE-FIRST (root confirmed): the `/model` bundle `src/public/ts/model/model.t
 
 ### AC handed to req (0.4)
 - AC: on /model, selecting a model node OPENS the shared drawer (drawer mounted, mirror /trace); selecting a CLASS shows its node-detail + members and REACHES its diagram (R32.4/6 boxes+edges); selecting a METHOD/member shows its signature; /model stays membership-gated (403 non-member) and /trace+/scenario drawers unregressed. Gate the INTERACTION @390 (select→drawer-opens+detail+diagram+signature), NOT page-load. Reuse rb-detail-drawer/rb-diagram-detail/selectionModel, no fork.
+
+### ARCHITECT BACKSTOP — R32.10 v0.8.10 / 52cd07514 (robbin-architect 2026-07-30): **PASS** — /model drawer + typed detail live
+Restarted remoteShells:0.2 ([d] stop → npm start).
+- **BOOT-VERIFY:** FRESH pid 3715637 → 3786293 (not a version-lie); clean boot (serves /api/config + /api/model/tree; no TDZ — the /api/model/tree touch is inside the existing handler, no new module-top __dirname-dep). served 0.8.10.
+- **INVARIANT:** served==committed(pkg)==SW(rawbin-v0.8.10)==0.8.10; HEAD 52cd07514.
+- **STATIC:** PART A — model.ts imports rb-detail-drawer + createElement+append to .trace-page (:18-20, mirror scenario-view) → shared selectionModel opens it (INV-M1). PART B — rb-modelelement-detail.ts EXISTS + tagMap `modelelement:'rb-modelelement-detail'` (rb-detail-drawer.ts:219, INV-M2). SERVER — /api/model/tree emits `modelelement` roots (:1531) + `diagram` roots (:1534).
+- **INTERACTION DATA (live, the @390 substrate):** GET /api/model/tree → root types `{modelelement:5, diagram:1}` — Circle/Point (UmlClass), Shape (UmlInterface), Id (UmlType), makeId (UmlFunction) + "Model diagram (3 classes)" (icon diagram). So select-class→rb-modelelement-detail (members+Open-diagram) and select-diagram/Open-diagram→rb-diagram-detail (R32.4/6 boxes+edges) are wired BY CONSTRUCTION (drawer mounted + tagMap + typed roots). method→signature via the same modelelement detail by kind.
+- **INV-M3 GATE + unregressed:** /model non-member → **403** (preserved); /trace → 200; /server-manager → 403. 
+- **REMAINING (Tron @390 device — 403-limited solo):** the authed VISUAL — select a class → drawer opens with «kind»+members → "📐 Open diagram" → boxes+edges; select a method → signature. Holds by construction (drawer mounted + tagMap + live typed roots); visual confirm is Tron's.
+- **ROOT B still R33:** the live model is Circle/Point/Shape/Id/makeId = the r32.2-sample DEMO (confirmed in the tree) — Tron's "where are RawBin's classes" = the R33 real multi-file model (awaits authorization).
