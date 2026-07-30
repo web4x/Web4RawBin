@@ -100,7 +100,9 @@ export class TsToModel {
     const want = new Set(files.map((f) => path.resolve(f)));
 
     const drafts = new Map<string, Draft>(); // uuid → draft
-    const nameToUuid = new Map<string, string>(); // top-level Name → uuid (for relationship resolution, class/interface)
+    // R33/S33-P2 AC4: name → ALL top-level decls carrying it (with their file) so multi-file relation resolution can
+    // scope by file (a global simple-name map last-wins → cross-file name collisions mis-link. INV-P2 correctness).
+    const nameDecls = new Map<string, { uuid: string; file: string }[]>();
 
     const mkKey = (sf: string, qn: string): string => `${this.rel(sf)}::${qn}`;
     const addDraft = (sf: string, qn: string, kind: string, name: string): Draft => {
@@ -120,7 +122,7 @@ export class TsToModel {
         if (!decl.name || !ts.isIdentifier(decl.name)) return;
         const name = decl.name.text;
         const parent = addDraft(sf.fileName, name, kind, name);
-        nameToUuid.set(name, parent.uuid);
+        { const arr = nameDecls.get(name) || []; arr.push({ uuid: parent.uuid, file: this.rel(sf.fileName) }); nameDecls.set(name, arr); }
 
         // heritage (extends/implements) → UmlGeneralization
         if ((ts.isClassDeclaration(node) || ts.isInterfaceDeclaration(node)) && node.heritageClauses) {
@@ -152,7 +154,13 @@ export class TsToModel {
 
     // PASS 2 — resolve relationships by name to a generated element (design Q3; relatesTo + M2 type).
     const relate = (d: Draft, targetName: string, type: string): void => {
-      const to = nameToUuid.get(targetName);
+      // R33/S33-P2 AC4: resolve file-scoped — prefer a same-file decl; else a UNIQUE global decl; else (ambiguous
+      // cross-file collision) SKIP rather than mis-link (correctness > completeness for a rare ambiguous ref).
+      const cands = nameDecls.get(targetName);
+      if (!cands || !cands.length) return;
+      const sameFile = cands.filter((c) => c.file === d.sourceFile);
+      const pick = sameFile.length ? sameFile[0] : (cands.length === 1 ? cands[0] : null);
+      const to = pick?.uuid;
       if (!to || to === d.uuid) return;
       const tgt = drafts.get(to); if (!tgt) return;
       d.members; // no-op keep tsc calm

@@ -1007,7 +1007,7 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 .trace-page{height:auto;flex:1;min-height:0}
 #err{color:#f85149;padding:12px 16px}
 </style></head><body>
-<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#129504; Model-Driven Code Quality</h1><button id="refresh">Refresh</button></header>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#129504; Model-Driven Code Quality</h1><button id="gen-rawbin" title="Generate the RawBin M1 model from src/ts/scenario (bounded)">Generate RawBin</button><button id="refresh">Refresh</button></header>
 <div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="model-tree" data-always-expanded></rb-trace-tree><div id="err"></div></div></div>
 <script type="module" src="${script}"></script></body></html>`;
 }
@@ -1055,19 +1055,28 @@ function mofLayerRoots(idx: ScenarioIndex): MofNode[] {
   const strip = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
   const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as { uuid: string; ior: string; m: Record<string, unknown> }[];
   const modelEls = els.filter((x) => x.ior === 'ior:class:ModelElement');
-  const byUuid = new Map(modelEls.map((x) => [String(x.m.uuid || x.uuid), x]));
   const m1 = modelEls.filter((x) => x.m.metaLevel === 'M1');
   const m2 = modelEls.filter((x) => x.m.metaLevel === 'M2');
   const folder = (uuid: string, name: string, kids: MofNode[], icon: string, type = 'collection'): MofNode => ({ uuid, type, name, hasChildren: kids.length > 0, childCount: kids.length, icon, ...(kids.length ? { children: kids } : {}) });
+  // S33-P2 (INV-P2-3 / AC5 no-flood): members are LAZY — emit the class node with hasChildren+childCount but NO inline
+  // children; rb-trace-tree lazy-fetches members via /api/trace/children (MODEL_STORE-rerouted) on expand. Bounds the
+  // payload at class-level for a multi-file project (was: inline every member → flood at scale). INV-MOF3 uuid unchanged.
   const elNode = (x: { uuid: string; m: Record<string, unknown> }): MofNode => {
-    const memberKids = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).map((r) => byUuid.get(strip(r))).filter(Boolean).map((mm) => folder(String(mm!.m.uuid || mm!.uuid), String(mm!.m.name || ''), [], String(mm!.m.kind || 'member'), 'modelelement'));
-    return folder(String(x.m.uuid || x.uuid), String(x.m.name || ''), memberKids, String(x.m.kind || 'class'), 'modelelement');
+    const memberCount = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).length;
+    return { uuid: String(x.m.uuid || x.uuid), type: 'modelelement', name: String(x.m.name || ''), hasChildren: memberCount > 0, childCount: memberCount, icon: String(x.m.kind || 'class') };
   };
   const m2Kids = m2.map((mc) => { const mcU = String(mc.m.uuid || mc.uuid); const inst = m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(strip).includes(mcU)).map(elNode); return folder(mcU, String(mc.m.name || ''), inst, String(mc.m.kind || 'class'), 'modelelement'); }).sort((a, b) => a.name.localeCompare(b.name));
   const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => folder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), [], 'diagram', 'diagram'));
-  const byFile = new Map<string, MofNode[]>();
-  for (const x of m1.filter((e) => !e.m.memberOf)) { const sf = String(x.m.sourceFile || 'model'); const arr = byFile.get(sf) || []; arr.push(elNode(x)); byFile.set(sf, arr); }
-  const projKids = [...byFile.entries()].map(([sf, classes]) => folder(`project:${sf}`, sf, [...classes, ...diagrams], 'mof-project'));
+  // M1·Projects (INV-P2-1): group src/ M1 elements under ONE 'RawBin' project (Tron 'where are RawBin's classes');
+  // non-src files (e.g. demo fixtures) keep their own per-file project node. LAZY class nodes (members on expand).
+  const m1Roots = m1.filter((e) => !e.m.memberOf);
+  const rawbin = m1Roots.filter((x) => String(x.m.sourceFile || '').startsWith('src/')).map(elNode).sort((a, b) => a.name.localeCompare(b.name));
+  const otherByFile = new Map<string, MofNode[]>();
+  for (const x of m1Roots.filter((x) => !String(x.m.sourceFile || '').startsWith('src/'))) { const sf = String(x.m.sourceFile || 'model'); const arr = otherByFile.get(sf) || []; arr.push(elNode(x)); otherByFile.set(sf, arr); }
+  const projKids: MofNode[] = [
+    ...(rawbin.length ? [folder('project:RawBin', 'RawBin', [...rawbin, ...diagrams], 'mof-project')] : []),
+    ...[...otherByFile.entries()].map(([sf, classes]) => folder(`project:${sf}`, sf, classes, 'mof-project')),
+  ];
   return [
     folder('mof-m2', 'M2 · UML Profile', m2Kids, 'mof-layer', 'mof-layer'),
     folder('mof-m1', 'M1 · Projects', projKids, 'mof-layer', 'mof-layer'),
@@ -1573,6 +1582,34 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[model] generate ${path.relative(projectRoot, abs)} → ${r.units.length} units (${roots} roots) diagram=${r.diagramUuid?.slice(0, 8)} wrote=${r.wrote} (store-only, prod untouched)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, units: r.units.length, roots, diagramUuid: r.diagramUuid, wrote: r.wrote }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/generate-project') { // S33-P2a: BOUNDED multi-file RawBin M1
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (INV-P2, reuse R32.9 gate)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const projectRoot = path.join(__dirname, '../../..'); // __dirname used INSIDE the handler (runtime-safe, not module-top) — R32.5 boot lesson honored
+          // INV-P2-2 BOUNDED manifest: the RawBin M1 project defaults to src/ts/scenario (self-referential model domain);
+          // EXPLICIT bounded dir under repo-root, EXCLUDE *.test/*.spec/*.d.ts + node_modules/dist, HARD CAP — never all-of-RawBin by accident.
+          const { dir } = JSON.parse(body || '{}');
+          const relDir = String(dir || 'src/ts/scenario');
+          const absDir = path.resolve(projectRoot, relDir);
+          if (!absDir.startsWith(projectRoot + path.sep) || !fsSync.existsSync(absDir)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-dir: must be an existing repo-relative dir"}'); return; }
+          const CAP = 200, EXCL = /\.(test|spec|d)\.ts$/;
+          const files: string[] = [];
+          const walk = (d: string): void => { for (const e of fsSync.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) { if (e.name === 'node_modules' || e.name === 'dist') continue; walk(p); } else if (e.name.endsWith('.ts') && !EXCL.test(e.name)) files.push(p); } };
+          walk(absDir);
+          if (files.length > CAP) { res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: `too-many-files: ${files.length} > CAP ${CAP} (narrow the dir)` })); return; } // R32.6 bound
+          ensureStoreSeeded();
+          const t0 = Date.now();
+          const r = new TsToModel(projectRoot).generate(files, { indexDir: MODEL_STORE, write: true, diagram: false }); // INV-P2-3 NO auto-diagram (curate via R32.11); INV-P2-4 MODEL_STORE only (prod untouched)
+          const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
+          addLog(`[model] generate-project ${relDir} → ${files.length} files → ${r.units.length} units (${roots} roots) wrote=${r.wrote} removed=${r.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: relDir, files: files.length, units: r.units.length, roots, wrote: r.wrote, removed: r.removed }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-project-failed' })); }
       });
       return;
     }

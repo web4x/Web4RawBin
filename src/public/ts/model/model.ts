@@ -36,4 +36,17 @@ async function load(): Promise<void> {
 }
 
 document.getElementById('refresh')?.addEventListener('click', () => void load());
+
+// S33-P2a: explicit owner-action → generate the bounded RawBin M1 model (src/ts/scenario) then reload the tree.
+document.getElementById('gen-rawbin')?.addEventListener('click', () => {
+  const btn = document.getElementById('gen-rawbin') as HTMLButtonElement | null;
+  if (btn) { btn.disabled = true; btn.textContent = 'Generating…'; }
+  if (err) err.textContent = '';
+  fetch('/api/model/generate-project', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: '{}' })
+    .then((r) => r.json())
+    .then((d) => { if (err) err.textContent = d && d.ok ? `Generated ${d.files} files → ${d.roots} classes (store-only).` : `Generate failed: ${d && d.error ? d.error : 'unknown'}`; return load(); })
+    .catch((e: unknown) => { if (err) err.textContent = 'Generate failed: ' + (e instanceof Error ? e.message : String(e)); })
+    .finally(() => { if (btn) { btn.disabled = false; btn.textContent = 'Generate RawBin'; } });
+});
+
 void load();
