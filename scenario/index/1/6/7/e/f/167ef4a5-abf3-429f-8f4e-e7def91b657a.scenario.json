@@ -5,7 +5,9 @@
   "altId": "R31.14",
   "name": "Deploy-hardening: scripted deploy + served!=committed monitor + pinned prod topology (NEXT, not-now)",
   "description": "★ NEXT / NOT-NOW (do NOT dispatch build now - R31.12 is the active item; PO schedules). The recurring PUSH-vs-SERVE deploy lag is a real gap: a commit is pushed but the prod-serving process keeps running the OLD build until a MANUAL Ctrl-C + npm start - there is no auto rebuild+reload, so served != committed until someone notices and restarts by hand. This is the OPERATIONAL COMPLEMENT to the R31.7/R31.13 clean-deploy pair (R31.7 single-source VERSION + R31.13 reproducible BUILD = the ARTIFACT is clean; R31.14 = the DEPLOY actually SERVES that artifact). Three parts: (a) a SCRIPTED deploy = pull + build + VERIFY served==committed==SW==HEAD (no manual Ctrl-C+npm start); (b) a STANDING served!=committed MONITOR - the R31.7 agreement invariant run as a LIVE ALERT so any lag is visible IMMEDIATELY, not discovered by a stale page; (c) PINNED prod TOPOLOGY - exactly ONE prod-serving checkout + exactly ONE restart-driver (architect); the expert commits to a CLONE and does NOT deploy (no ambiguity about who/what serves). Route (when scheduled): architect designs the deploy script + monitor + topology, expert implements, tester gates (push -> scripted deploy -> served==committed within N s; monitor fires on an injected skew). Chain wires onto the built fix. Architect-flagged runbook gap (team-discovery), not a Tron quote.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:03f5d536-e76f-42a9-a7a8-f2279433db5d"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
