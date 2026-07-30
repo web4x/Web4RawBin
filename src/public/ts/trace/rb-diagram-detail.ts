@@ -54,8 +54,8 @@ export class RbDiagramDetail extends HTMLElement {
   // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
   private onResyncRequest = (): void => { void this.reSyncFromSource(); };
 
-  // R32.8 action-sync — MARKER PENDING (scenario-first #126): req mints Class/Method/Impl/Test onto this decl →
-  // [impl:uuid:<Impl>] lands here (name-matches 'reSyncFromSource'). Re-runs generation on the model's own
+  // [impl:uuid:fb22c5cd-8806-4738-bf80-f0e87e052984] RbDiagramDetail.reSyncFromSource (Method 3fd80641, Class 039ec367, off UC 75639bd8 model.sync)
+  // R32.8 action-sync. Re-runs generation on the model's own
   // sourceFile via the EXISTING /api/model/generate (TsToModel.generate → same-uuid rebind + reconcile +
   // idempotent, INV-S1/S2/S3), then re-renders diagram+edges AND broadcasts 'rb-model-resynced' so the tree
   // (R32.3) + PUML (R32.7) re-render from the one MODEL_STORE (INV-S4). NO server code (reuses the endpoint).
