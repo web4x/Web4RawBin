@@ -279,3 +279,41 @@ Export = pure client text transform (model already client-side). Import-persist:
 ### Chain / build order / gate
 - Chain mints onto the BUILT fix (per task): UC puml.export/puml.import → Class PumlSerializer → Method modelToPuml + pumlToModel → Impl → Test. I mint/repoint on ship (IMPL-MINT pattern) if req/expert env can't.
 - GATE (tester): (a) export a known model → valid .puml, each element ONCE (no-dup); (b) re-export byte-identical; (c) import→export→import stable (same uuids, INV-P1/P3); (d) import of an existing .puml REUSES same-uuid units (no re-mint, INV-P2); (e) import mutates ONLY the isolated store (INV-P4); (f) edge kinds round-trip (generalization/association/dependency ↔ `<|--`/`-->`/`..>`).
+
+## R32.8 ACTION-SYNC — ARCHITECT DESIGN (robbin-architect 2026-07-30, unit 782d4b8e, req b1fef048) — the MDA SPRINT FINALE
+MEASURE-FIRST (confirmed GENUINELY NEW): no `reSync`/`actionSync`/`syncModel` in src (grep empty; the diff3/rb-diff-editor hits are the unrelated merge editor). The sync ENGINE already exists and is the whole point of R32.2's determinism — R32.8 is a thin ACTION + re-render over it, NO new model logic.
+
+### ★ KEY INSIGHT — the sync engine is `TsToModel.generate()`; R32.8 is a CLIENT-ONLY action that re-invokes the EXISTING endpoint
+`TsToModel.generate(files,{indexDir:MODEL_STORE,write,diagram})` (TsToModel.ts:96) ALREADY: (1) rebinds every element by DETERMINISTIC uuid `keyToUuid("<repo-rel sourceFile>::<qn>")` (:49) → re-run = same uuid, never re-mints (INV-P1/P2); (2) content-compares each write → 0-churn on no-change (:197-198); (3) RECONCILES — removes prior M1 units of the PROCESSED sourceFiles no longer present in source (:217-234) → stale members drop, new members added; (4) writes ONLY `MODEL_STORE` (data/model-store/index, R32.5) → prod scenario/index untouched. And it is already exposed at **`POST /api/model/generate {file}`** (server.ts:1513-1532, existing, deployed v0.8.7). So "sync the model to the current TS" == re-POST generate with the model's own sourceFile. **R32.8 adds NO server code** — it is a client ACTION + explicit re-render. (PO's "client-isolated preferred, no boot risk" — satisfied: no new endpoint.)
+
+### Architecture — a "Re-Sync from source" ACTION on the model view (client-only)
+1. **ACTION surface (NEW, client):** a "⟳ Re-Sync" button in the model view — on the `rb-diagram-detail` toolbar (rb-diagram-detail.ts:44-89) and/or the model tree header (scenario-view.ts). Visible when viewing a MODEL unit (Diagram / ModelElement), not trace units.
+2. **TRIGGER (reuse):** onClick reads the model's `sourceFile` (from the fetched M1 unit — every M1 carries `model.sourceFile`, TsToModel.ts:175; for a Diagram, from its first view-link's ModelElement) → `dispatchModelGenerate(sourceFile)` (drop-dispatcher.ts:155) → `POST /api/model/generate {file:sourceFile}` (EXISTING). Server re-runs generate against MODEL_STORE → rebind/reconcile/idempotent → `{ok, diagramUuid, wrote, roots}`.
+3. **RE-RENDER (explicit — render is demand-driven, NO auto event):** on `ok`, re-render ALL views from the one refreshed store: (a) tree — re-seed rb-trace-tree (re-fetch `/api/model/tree` or re-set `data-seed-ior`); (b) diagram+edges — reset `rb-diagram-detail`'s `ref` attr → `attributeChangedCallback` (:45) re-fetches the Diagram + members + `buildDiagramSvg`/`buildEdges`; (c) PUML — re-run `modelToPuml` (R32.7) over the re-fetched model. All read the SAME MODEL_STORE → TS↔model↔PUML consistent by construction.
+
+### MDA-STRUCTURE INVARIANTS (finalized — R32.8)
+- **INV-S1 (deterministic rebind):** re-sync rebinds existing units by same-uuid — no dup, no re-mint. BY CONSTRUCTION from `generate()` `keyToUuid` + content-compared write (INV-P1/P2 lineage, R32.2 law).
+- **INV-S2 (reconcile-complete):** for the synced sourceFile, removed members drop + new members added + unchanged rebind. BY CONSTRUCTION from `generate()` reconcile (:217-234).
+- **INV-S3 (isolation):** sync writes ONLY MODEL_STORE; prod scenario/index NEVER mutated. BY CONSTRUCTION (generate indexDir=MODEL_STORE, R32.5).
+- **INV-S4 (all-views-consistent):** after sync, tree + diagram + edges + PUML ALL reflect the same re-generated model — one source (MODEL_STORE), all views re-read it. Correct-by-construction (single source of truth).
+
+### SCOPE — single-file re-sync (matches R32.5's single-file drop); multi-file/deletion DEFERRED
+R32.5 drops ONE .ts → one model+Diagram (Diagram uuid = keyToUuid('diagram::'+files.sorted), TsToModel.ts:206). R32.8 re-syncs THAT file via the existing single-file generate. OUT OF SCOPE for the finale (note, not build): (a) a FILE DELETED on disk — the existing endpoint 400s on a missing path (server.ts:1521), so its stale units linger; (b) multi-file models. Both would need a dedicated **`POST /api/model/sync`** (server → R32.5 discipline: __dirname-below shim + real-boot) that re-runs generate over the store's full tracked sourceFile set + a deletion pass for tracked-but-absent files. Flag to PO as optional R33; NOT in R32.8.
+
+### DEPLOY DISCIPLINE (R32.7 LESSON — applies even though client-only)
+Client-only STILL bumps the version (0.8.7→0.8.8) → build-manifest/SW change, but `/api/config` = `BOOT_VERSION` FROZEN AT BOOT (server.ts:96-102, R31.7 INV-V4). The menu `[r]` rebuild is client-only and does NOT bounce the process → served stays stale. So the deploy REQUIRES a REAL restart: `[d] stop` → `npm start` (re-reads build-manifest). Then verify served==committed==SW==build-manifest==HEAD==0.8.8 + sacred gate 403. (This is exactly what bit R32.7's restart.)
+
+### Chain / gate / handoff
+- **Chain (client-render, mirror R32.7 RbTerminalDetail pattern):** UC `model.sync` → Class (the action component, e.g. reuse rb-diagram-detail or a small `ModelSyncAction`) → Method `reSyncFromSource` → Impl → Test. req mints scenario-first (#126); I mint/repoint Impl on ship if req/expert env can't (IMPL-MINT).
+- **GATE (tester + Tron device):** (a) edit a tracked TS (add a class/method) → ⟳ Re-Sync → tree + diagram + edges + PUML ALL show the new element; unchanged elements keep the SAME uuids (no dup node) [S1]; (b) remove a member → Re-Sync → gone from ALL views [S2]; (c) Re-Sync with NO source change → 0-churn (wrote=0, store byte-identical, views stable) [idempotent]; (d) prod scenario/index git-clean/grep-count UNCHANGED across sync [S3 isolation]; (e) all four views (tree/diagram/edges/puml) reflect the same post-sync model [S4]; (f) /trace + /scenario + prod traceability UNREGRESSED (model reads→store, trace→prod).
+- **req (ACs):** hand the 8 ACs (below). **expert:** client-only — Re-Sync action button (diagram toolbar + tree header) reading model.sourceFile → dispatchModelGenerate → explicit re-render of tree/diagram/puml; NO server change; but version bump → REAL restart to re-stamp /api/config (R32.7 lesson) + R31.7 invariant. HOLDS until PO build-go.
+
+### 8 ACs handed to req (0.4)
+- AC1: a "Re-Sync" action is available on the model view (diagram + tree) for MODEL units only (not trace units).
+- AC2: Re-Sync re-runs generation on the model's own sourceFile via the EXISTING /api/model/generate (no new server endpoint).
+- AC3: after Re-Sync, the tree re-renders and shows the current model (added elements appear, removed elements disappear).
+- AC4: after Re-Sync, the diagram + relationship edges (R32.6) re-render to the current model.
+- AC5: after Re-Sync, the exported PUML (R32.7) reflects the current model (TS↔model↔PUML consistent).
+- AC6: INV-S1 — unchanged elements keep the SAME uuid across re-sync (no duplicate, no re-mint; deterministic-uuid law).
+- AC7: INV-S3 — Re-Sync mutates ONLY the isolated model-store; prod scenario/index is never touched.
+- AC8: Re-Sync with no source change is idempotent (0-churn: no new/changed units, views stable).
