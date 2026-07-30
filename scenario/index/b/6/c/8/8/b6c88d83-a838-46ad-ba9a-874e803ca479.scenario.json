@@ -4,8 +4,8 @@
     "uuid": "b6c88d83-a838-46ad-ba9a-874e803ca479",
     "name": "server.mofChildren impl (bounded/lazy MOF layer resolver, file/dir sub-grouping)",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerPending": true,
-    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:b6c88d83] on the mofChildren() decl @ src/ts/server/server.ts:1069 (name-matches 'mofChildren'). Built + gate GREEN at 2781ca871 (1195->2 nodes). NEW decl - NO re-credit of mofLayerRoots 5afeafe9 (R33.1, extended in place). markerPending flips false on strict-AST verify. Unit two-key (Impl.tests<->Test) clean regardless of markerPending.",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS: [impl:uuid:b6c88d83] heads the named mofChildren() decl @ src/ts/server/server.ts:1071 (marker line 1069 precedes function mofChildren(, name-matches; Method 7c460f8a server.mofChildren, Class server c0a0921d, UC 8bdeda90 model.mofChildren). DISTINCT from mofLayerRoots 5afeafe9 (R33.1) = no re-credit. Source-only comment, no deploy (v0.8.16 stands). IMPL-MINT #126 complete. R33.2 chain-complete-to-Test + strict-credited.",
     "tests": [
       "ior:instance:96a4bda8-e87b-4dd8-afc4-b03311725f55"
     ]
