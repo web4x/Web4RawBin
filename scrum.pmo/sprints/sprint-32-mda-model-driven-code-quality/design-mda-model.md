@@ -399,3 +399,24 @@ Restarted remoteShells:0.2 ([d] stop → npm start).
 - **INV-M3 GATE + unregressed:** /model non-member → **403** (preserved); /trace → 200; /server-manager → 403. 
 - **REMAINING (Tron @390 device — 403-limited solo):** the authed VISUAL — select a class → drawer opens with «kind»+members → "📐 Open diagram" → boxes+edges; select a method → signature. Holds by construction (drawer mounted + tagMap + live typed roots); visual confirm is Tron's.
 - **ROOT B still R33:** the live model is Circle/Point/Shape/Id/makeId = the r32.2-sample DEMO (confirmed in the tree) — Tron's "where are RawBin's classes" = the R33 real multi-file model (awaits authorization).
+
+## R32.11 IN-DIAGRAM DRAG-TO-ADD-VIEW — ROOT + FIX (robbin-architect 2026-07-30, Tron: the DnD IS the vision, it's a BUG). Own the prior "drifted" mis-read — Tron corrected: drag-a-class-into-diagram is CORRECT, just NOT WIRED.
+MEASURE-FIRST — ROOT (3 missing pieces; the interaction was never built, only PROMPTED):
+1. **NO drop-target on the diagram:** `rb-diagram-detail.ts` has ZERO `dragover`/`drop`/`dataTransfer` handlers (grep empty) — the *"Empty diagram — drop a class to add a view (R32.5)"* string (:104) is a LABEL with no handler behind it. Dropping a class card on `.dm-surface` does nothing.
+2. **NO add-view endpoint:** the only model-mutation route is `POST /api/model/generate` (drop a .ts FILE → regenerate). There is NO route to append ONE class's view-link to an existing Diagram unit.
+3. **drop-dispatcher routes FILES, not a class-ref:** `dispatch`(mime)/`dispatchModelGenerate`(.ts path) — no path consumes a dragged `application/rb-object-ref` (the tree card's payload) into the diagram.
+So R32.5 gated drop-a-FILE→generate; the in-diagram drag-a-CLASS→add-view was never wired = the 3rd "gated-path ≠ interaction" ([[gate-the-ac-surface]]).
+
+### FIX (hand expert) — wire the drag-to-add-view (reuse view-link shape + MODEL_STORE + re-render; NO fork)
+| # | File | Change |
+|---|------|--------|
+| 1 | `src/public/ts/trace/rb-diagram-detail.ts` | Add `.dm-surface` **`dragover`** (preventDefault → allow drop) + **`drop`** handlers. On drop: read the dragged element ref (`e.dataTransfer.getData('application/rb-object-ref')` — the tree card sets it in rb-object-item.onDragStart; fallback `text/plain` hash → uuid); compute x,y from the drop point (map cursor→`.dm-content` coords, account for RbPanZoom transform); POST add-view; on ok `await this.render()` (re-render boxes+edges). |
+| 2 | `src/ts/server/server.ts` | NEW `POST /api/model/diagram/add-view` `{diagramUuid, elementUuid, x, y}`: read the Diagram unit from **MODEL_STORE** (isolated, R32.5) → append `{unit:'modelelement:'+elementUuid, x, y, viewKind:'class'}` to `model.views` (DEDUP if the element already has a view = idempotent) → write back to MODEL_STORE (prod scenario/index NEVER touched). Membership-gate consistent with /model if desired (or reuse the model API posture). |
+| 3 | (verify) `rb-object-item.onDragStart` | already sets `application/rb-object-ref` = the node ref (S31) → the model tree card is a valid drag SOURCE; confirm the modelelement node's ref is carried. |
+
+### INVARIANTS / gate / deploy
+- **INV-R1 (drop adds a view):** drop a class card on the diagram → its view-link is appended to the Diagram unit → box renders. **INV-R2 (idempotent):** dropping the same class twice = one view (dedup). **INV-R3 (isolation):** add-view writes ONLY MODEL_STORE; prod scenario/index unchanged. **INV-R4 (persist):** re-open the diagram shows the added view (persisted, not just in-DOM).
+- **GATE @390 (the INTERACTION — tester + Tron):** empty diagram → drag "Circle" from the model tree → drop → Circle box appears; drag "Point" → 2nd box + R32.6 edges; drag Circle again → NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open /model diagram → views persist (INV-R4). Gate the DROP, not the label.
+- **DEPLOY:** client (drop handler) + server (add-view endpoint) → REAL restart + boot-verify + R31.7 invariant.
+- **CHAIN (#126, req):** UC diagram.addView → Class RbDiagramDetail (+ the server add-view Method) → Method onDrop/diagramAddView → Impl → Test. I mint/repoint on ship if needed.
+- **NOTE (my prior mis-read, corrected):** R32.10-assessment (1) called drag-into-empty "drift" — Tron OVERRODE: it IS the original vision; the auto-show idea is secondary. R32.11 makes the DRAG work (the primary), not replace it.
