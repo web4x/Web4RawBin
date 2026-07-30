@@ -5,6 +5,7 @@
     "name": "Feature Manager",
     "description": "Enable/disable Features on user profiles (grant/revoke) by editing Feature.allowedUsers <-> profile.features atomically. ROOT-OF-TRUST: grant-editing is HARDCODED-owner-gated (NOT data-driven), seeded to Tron at bootstrap.",
     "icon": "toggle",
+    "launchPage": "/feature-manager",
     "implementations": [],
     "allowedUsers": [
       "41ad88c4-4dee-49ac-afcb-8a2026657b2d",

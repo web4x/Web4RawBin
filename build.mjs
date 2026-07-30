@@ -8,7 +8,7 @@ const distDir = 'src/public/dist';
 // Clean old hashed builds
 if (fs.existsSync(distDir)) {
   for (const f of fs.readdirSync(distDir)) {
-    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f.startsWith('server-manager-') || f.startsWith('feature-manager-') || f.startsWith('profile-view-entry-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
+    if (f.startsWith('app-') || f.startsWith('edit-') || f.startsWith('trace-page-') || f.startsWith('scenario-view-') || f.startsWith('rb-update-banner-') || f.startsWith('server-manager-') || f.startsWith('feature-manager-') || f.startsWith('profile-view-entry-') || f.startsWith('model-') || f === 'app.js' || f === 'edit.js' || f.endsWith('.map')) {
       fs.unlinkSync(path.join(distDir, f));
     }
   }
@@ -31,7 +31,7 @@ function generateVersion() {
 const version = generateVersion();
 
 const result = await esbuild.build({
-  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts', 'src/public/ts/feature-manager/feature-manager.ts', 'src/public/ts/profile-view-entry.ts'],
+  entryPoints: ['src/public/ts/app.ts', 'src/public/ts/edit.ts', 'src/public/ts/trace-page.ts', 'src/public/ts/scenario-view.ts', 'src/public/ts/components/rb-update-banner.ts', 'src/public/ts/server-manager/server-manager.ts', 'src/public/ts/feature-manager/feature-manager.ts', 'src/public/ts/profile-view-entry.ts', 'src/public/ts/model/model.ts'],
   bundle: true,
   format: 'esm',
   target: 'es2020',
@@ -53,6 +53,7 @@ const bannerFile = outputs.find(f => path.basename(f).startsWith('rb-update-bann
 const smFile = outputs.find(f => path.basename(f).startsWith('server-manager-'));
 const fmFile = outputs.find(f => path.basename(f).startsWith('feature-manager-')); // R31.8b Feature Manager bundle
 const pvFile = outputs.find(f => path.basename(f).startsWith('profile-view-entry-')); // R31.8c round-3: /profile shared-viewer bundle
+const modelFile = outputs.find(f => path.basename(f).startsWith('model-')); // R32.9 (D): Model-Driven Code Quality view bundle
 // R31.4 step-4: the server-manager bundle imports xterm.css → esbuild emits a sibling server-manager-<hash>.css
 const smCssFile = Object.keys(result.metafile.outputs).find(f => f.endsWith('.css') && path.basename(f).startsWith('server-manager-'));
 const jsBasename = path.basename(jsFile);
@@ -64,6 +65,7 @@ const smBasename = smFile ? path.basename(smFile) : null;
 const smCssBasename = smCssFile ? path.basename(smCssFile) : null;
 const fmBasename = fmFile ? path.basename(fmFile) : null;
 const pvBasename = pvFile ? path.basename(pvFile) : null;
+const modelBasename = modelFile ? path.basename(modelFile) : null;
 
 // [impl:uuid:1f640b81-7b1f-4b6d-af57-1e20afb454b6] Build.writeManifest (Method token writeManifest, Class Build b6946e59)
 // R31.13: emit the DETERMINISTIC build-manifest.json. `built` = version (NOT new Date() — a per-build timestamp broke
@@ -80,11 +82,12 @@ function writeManifest(distDir, version, jsBasename, extra) {
   if (extra.smCssBasename) manifest['server-manager.css'] = extra.smCssBasename;
   if (extra.fmBasename) manifest['feature-manager.js'] = extra.fmBasename;
   if (extra.pvBasename) manifest['profile-view-entry.js'] = extra.pvBasename;
+  if (extra.modelBasename) manifest['model.js'] = extra.modelBasename;
   fs.writeFileSync(path.join(distDir, 'build-manifest.json'), JSON.stringify(manifest, null, 2));
   return manifest;
 }
 // Write build manifest for server to read — R31.13: via the DETERMINISTIC writeManifest (built=version, no timestamp)
-const manifest = writeManifest(distDir, version, jsBasename, { editBasename, traceBasename, scenarioBasename, bannerBasename, smBasename, smCssBasename, fmBasename, pvBasename });
+const manifest = writeManifest(distDir, version, jsBasename, { editBasename, traceBasename, scenarioBasename, bannerBasename, smBasename, smCssBasename, fmBasename, pvBasename, modelBasename });
 
 // Stamp CACHE_NAME + STATIC_SHELL in sw.js with current version + hashed bundles
 const swPath = 'src/public/sw.js';

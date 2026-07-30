@@ -929,16 +929,17 @@ function attachChainMethod(entry: Record<string, unknown>, type: string, ct: str
 
 // R31.8 slice-d: the Features a token is a MEMBER of (token ∈ Feature.allowedUsers) → {uuid,name,icon} for the profile
 // 'Feature access' render. Membership-driven (generalizes the R31.1 ServerManager-only boolean), fail-closed on error.
-function featuresForToken(token: string): { uuid: string; name: string; icon: string }[] {
-  const out: { uuid: string; name: string; icon: string }[] = [];
+function featuresForToken(token: string): { uuid: string; name: string; icon: string; launchPage: string }[] {
+  const out: { uuid: string; name: string; icon: string; launchPage: string }[] = [];
   if (!token) return out;
   try {
     const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
     for (const uuid of fidx.list()) {
       const u = fidx.get(uuid);
       if (u?.ior !== 'ior:class:Feature') continue;
-      const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
-      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || '') });
+      const m = u.model as { name?: string; icon?: string; launchPage?: string; allowedUsers?: unknown };
+      // R32.9 (C) INV-D3: carry the Feature's data-driven launchPage → the profile launch is Feature.launchPage, not a name-ternary.
+      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || ''), launchPage: String(m.launchPage || '') });
     }
   } catch { /* fail-closed */ }
   return out;
@@ -992,6 +993,24 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 <script type="module" src="${script}"></script></body></html>`;
 }
 
+// R32.9 (D) Model-Driven Code Quality PAGE shell — membership-gated (requireFeatureAccess 'Model-Driven Code Quality')
+// at the /model route (INV-D4 fail-closed). Loads the model bundle, which mounts the SHARED rb-trace-tree over
+// /api/model/tree (R32.3 model-tree UX reused; R32.5 ISOLATED store). Mirrors featureManagerPage (DRY, no fork).
+function serverModelPage(): string {
+  const script = getBundleScript('model.js', 'model.js');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Model-Driven Code Quality</title><link rel="stylesheet" href="/app.css"><style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
+h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+.trace-page{height:auto;flex:1;min-height:0}
+#err{color:#f85149;padding:12px 16px}
+</style></head><body>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#129504; Model-Driven Code Quality</h1><button id="refresh">Refresh</button></header>
+<div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="model-tree" data-always-expanded></rb-trace-tree><div id="err"></div></div></div>
+<script type="module" src="${script}"></script></body></html>`;
+}
+
 // [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] renderFeatureGrants (Method b4f03947, off UC a3958f85) — R31.1,
 // MOVED to the read-only /profile VIEWER per Tron (was ProfileEditor edit-form). Returns the inline client JS that,
 // at the BOTTOM of 'My Profile' (after My Bug Reports, into #feature-grants), fetches the owner-gated
@@ -1017,7 +1036,7 @@ function renderFeatureGrants(): string {
             a.href='#';
             a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;margin-top:6px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
             a.textContent=(f.name==='Server Manager'?'\u{1F5A5}\u{FE0F} ':'\u{1F511} ')+f.name;
-            var page=(f.name==='Server Manager'?'/server-manager':'/feature-manager');
+            var page=(f.launchPage||'/feature-manager'); // R32.9 (C) INV-D3: data-driven launch = Feature.launchPage (was a name-ternary; new features launch by their own data)
             a.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href=page;}).catch(function(){});}; // R31.8b: mint the sm_session cookie (carries the live owner token) THEN navigate to the feature's page — FIXES the dead else-branch (Tron 'renders but does not open'); Server Manager→/server-manager, every other feature (Feature Manager, …)→/feature-manager
             fg.appendChild(a);
           });
@@ -1084,6 +1103,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // R31.8b FeatureManager VIEW — membership-gated (requireFeatureAccess 'Feature Manager', INV-F6): the page shell +
     // the read-only listFeatures. Distinct from the WRITE below (POST, HARDCODED owner). The condition matches only the
     // page + the GET api, so POST /api/feature-manager falls through to the owner-gated writer.
+    if (req.method === 'GET' && filepath === '/model') { // R32.9 (D): gated Model-Driven Code Quality view page
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // INV-D4 fail-closed: non-member → 403, never leaks the shell
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(serverModelPage());
+      return;
+    }
     if (filepath === '/feature-manager' || (req.method === 'GET' && filepath === '/api/feature-manager')) {
       if (!requireFeatureAccessHttp(req, res, 'Feature Manager')) return; // VIEW-open = membership
       if (req.method === 'GET' && filepath === '/feature-manager') {

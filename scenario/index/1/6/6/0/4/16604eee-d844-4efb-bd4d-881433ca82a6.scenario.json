@@ -5,6 +5,7 @@
     "name": "Server Manager",
     "description": "Owner-gated server infrastructure console: otmux session/pane tree + interactive PTY terminal + boot-sweep. The R31.1-R31.4 feature.",
     "icon": "server",
+    "launchPage": "/server-manager",
     "implementations": [
       "ior:instance:335dbf3d-2294-47cb-9beb-1d81a4bf9a94",
       "ior:instance:394eac63-aa3a-4ee6-a2dc-6a5ac9204a05",
