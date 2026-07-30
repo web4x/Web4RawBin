@@ -103,6 +103,10 @@ function getVersion(): string { return BOOT_VERSION; } // R31.7 INV-V4: frozen a
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// R32.5 GO-LIVE: isolated MDA store (NEVER prod scenario/index). Defined HERE — after the __dirname shim — because
+// referencing __dirname at module-top (was :48) is a const-TDZ ReferenceError that crashed boot. (emergency fix)
+const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
+const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
 
 // Load .env
 const ENV_PATH = path.join(__dirname, '../../../.env');
