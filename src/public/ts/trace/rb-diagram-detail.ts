@@ -107,6 +107,12 @@ export class RbDiagramDetail extends HTMLElement {
     const surface = this.querySelector('.dm-surface') as HTMLElement | null;
     const content = this.querySelector('.dm-content') as HTMLElement | null;
     if (surface && content && count) { this.pz = new RbPanZoom(surface, content); } // R31.6 reuse — pinch/drag pan+zoom
+    // R32.11 (INV-R1): the surface is a DROP TARGET (even when empty — the 'drop a class' label IS the zone). Drag a
+    // class card from the model tree → add its view-link at the drop point → persist → re-render. Wired every render.
+    if (surface && content) {
+      surface.addEventListener('dragover', (e) => { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'; });
+      surface.addEventListener('drop', (e) => { void this.onDropAddView(e, content); });
+    }
     // AC-6: box-click → SHARED drawer node detail via standard selection (no fork).
     this.addEventListener('click', (e) => {
       const box = (e.target as HTMLElement).closest('.dm-box')?.getAttribute('data-ref');
@@ -117,6 +123,33 @@ export class RbDiagramDetail extends HTMLElement {
     });
     // AC-5: ResizeObserver fits the surface to the drawer box (SVG preserveAspectRatio scales by construction).
     if (surface) { this.ro = new ResizeObserver(() => { /* SVG viewBox fits; hook for future pz re-fit */ }); this.ro.observe(surface); }
+  }
+
+  // R32.11 (INV-R1) marker-pending — a class card dropped on .dm-surface: read the dragged ref (application/rb-object-ref,
+  // set by rb-object-item.onDragStart), map the cursor into .dm-content coords (RbPanZoom-aware = post-transform rect ÷
+  // layout width), then persist+re-render via addView. The drop was previously only LABELED (:104), never wired.
+  private async onDropAddView(e: DragEvent, content: HTMLElement): Promise<void> {
+    e.preventDefault();
+    const raw = e.dataTransfer?.getData('application/rb-object-ref') || e.dataTransfer?.getData('text/plain') || '';
+    const elementUuid = stripRef((raw.split(',')[0] || '').split('\n')[0].trim());
+    if (!elementUuid) return;
+    const rect = content.getBoundingClientRect();
+    const scale = content.offsetWidth ? rect.width / content.offsetWidth : 1; // RbPanZoom-aware without reaching into pz internals
+    const x = Math.max(0, Math.round((e.clientX - rect.left) / scale));
+    const y = Math.max(0, Math.round((e.clientY - rect.top) / scale));
+    await this.addView(elementUuid, x, y);
+  }
+
+  // R32.11 (INV-R1/R2/R3/R4) — append a view-link for `elementUuid` to THIS Diagram via POST /api/model/diagram/add-view
+  // (MODEL_STORE only, server dedups → idempotent), then re-render. Shared by the drop (with coords) and the
+  // select-class auto-show complement (no coords → server auto-grid). x,y omitted ⇒ server places it.
+  private async addView(elementUuid: string, x?: number, y?: number): Promise<void> {
+    const diagramUuid = stripRef(this.getAttribute('ref') || '');
+    if (!diagramUuid || !elementUuid) return;
+    try {
+      const r = await fetch('/api/model/diagram/add-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) });
+      if (r.ok) await this.render();
+    } catch { /* noop — surface stays as-is */ }
   }
 }
 

@@ -1562,6 +1562,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/add-view') { // R32.11 (INV-R1): drop/select a class → append a view-link to the Diagram (MODEL_STORE ONLY, dedup, prod untouched)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid, x, y } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no traversal into the shard path)
+          if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : (unit.model.views = []);
+          const link = `modelelement:${elementUuid}`;
+          if (views.some((v) => v.unit === link)) { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: false, views: views.length })); return; } // INV-R2: dedup → idempotent
+          const COLS = 3, i = views.length; // INV-R1: explicit drop coords, else auto-grid (the select-class complement sends none)
+          const vx = Number.isFinite(x) ? Math.max(0, Math.round(x)) : (i % COLS) * 220 + 20;
+          const vy = Number.isFinite(y) ? Math.max(0, Math.round(y)) : Math.floor(i / COLS) * 200 + 20;
+          views.push({ unit: link, x: vx, y: vy, viewKind: 'class' });
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-R3 store-only (MODEL_STORE, prod scenario/index NEVER touched) + INV-R4 persist
+          addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
+      });
+      return;
+    }
     if (filepath === '/api/trace') {
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');

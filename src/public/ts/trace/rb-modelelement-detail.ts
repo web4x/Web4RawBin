@@ -52,7 +52,12 @@ class RbModelElementDetail extends HTMLElement {
       else html += (await Promise.all(memberRefs.map(async (ref) => { const mu = stripRef(ref); const mm = await this.fetchModel(mu); return this.link(`modelelement:${mu}`, String(mm?.kind || 'member'), String(mm?.name || mu.slice(0, 8))); }))).join('');
       html += await relSection();
       const dref = await this.diagramRef();
-      if (dref) html += `<div class="dv-link" data-ref="${dref}" style="margin-top:12px"><span class="dv-link-title">📐 Open diagram</span></div>`;
+      if (dref) {
+        html += `<div class="dv-link" data-ref="${dref}" style="margin-top:12px"><span class="dv-link-title">📐 Open diagram</span></div>`;
+        // R32.11 COMPLEMENT (PO): selecting a class auto-shows its view in the diagram via the SAME add-view path
+        // (server dedups → idempotent; additive to the drag, not replacing it). Fire-and-forget; no coords → server auto-grid.
+        void fetch('/api/model/diagram/add-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid: dref.slice('diagram:'.length), elementUuid: uuid }) }).catch(() => { /* noop */ });
+      }
     } else {
       // method / attribute / property → signature
       const sig = `${esc(name)}${kind === 'method' ? '()' : ''}${m.returns || m.type ? ': ' + esc(String(m.returns || m.type)) : ''}`;
