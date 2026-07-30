@@ -33,12 +33,12 @@
    {
     "id": "AC-folders-dry-labels",
     "group": "functional",
-    "text": "AC3: the RawBin project folders are diagrams (PLURAL) / puml / ts, with the ts FILES INSIDE the ts folder (P2b file-folders under ts/); item labels show the FILENAME ONLY (drop the redundant src/ts/scenario/ prefix - DRY) and each item POINTS TO the real file + resolves it for EDIT (reuse the trace file-resolve that opens the .ts)."
+    "text": "AC3 (refined per Tron IMG_4772): the RawBin project tree is project:RawBin -> { diagrams/ , puml/ , ts/ } where DIAGRAM ITEMS (e.g. 'Model diagram (3 classes)') live directly UNDER the diagrams/ folder (NOT top-level siblings of the ts file-folders); puml/ holds the .puml items; ts/ holds the file-folders (P2b sourceFile/dir sub-grouping) -> classes -> members. Folder name is diagrams (PLURAL). Item labels show the FILENAME ONLY (drop the redundant src/ts/scenario/ prefix - DRY) and each item POINTS TO the real file + resolves it for EDIT (reuse the trace file-resolve that opens the .ts)."
    },
    {
     "id": "AC-action-bar-reuse-named",
     "group": "functional",
-    "text": "AC4: an ACTION BAR is mounted on the /model diagram view (currently MISSING), REUSING the existing WODA component rb-strip / rb-compartment (the S31 CONCEPT primitives, BUILT - NO new fork), with NAMED actions (not icon-only): 'Add Diagram', 'Compile PUML -> SVG' (+ Import-PUML from P3f)."
+    "text": "AC4 (refined per Tron IMG_4772): an ACTION BAR is mounted on the /model diagram view (currently MISSING), REUSING the existing WODA component rb-strip / rb-compartment (the S31 CONCEPT primitives, BUILT - NO new fork), with NAMED actions (not icon-only): 'Add Diagram', 'Compile PUML -> SVG' (+ Import-PUML from P3f). 'Add Diagram' CREATES a NEW EMPTY Diagram UNDER the diagrams/ folder via a NEW POST /api/model/diagram/create (new Diagram unit in MODEL_STORE, PARENTED to the diagrams folder) -> the empty diagram node APPEARS in the tree under diagrams/, ready to drop classes onto (the reachable droppable canvas of AC-reachable-canvas)."
    },
    {
     "id": "AC-m2-instance-svg-edges",
@@ -57,7 +57,7 @@
    "date": "2026-07-30",
    "note": "S33-P3-FEATURES: RawBin project folders + action bar + PUML-import. Import-PUML is Tron's new ask (feature D). Architect measure-first: R32.7 pumlToModel PARSER already exists (reuse, no new parser). Captured scenario-first by robbin-req 2026-07-30."
   },
-  "reScopeNote": "RE-SCOPED 2026-07-30 by robbin-req per PO HOLD + architect gap-design 9fc7bd402 (was: 'RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)' with P3f-1 structure ACs). Root: R32.4/5/6 gated the PATH not the INTERACTION (gate-the-ac-surface at feature-vision scale) - the working interactive diagram (movable selectable compartment boxes) was never delivered/seen by Tron. The 6 new ACs gate @390 by PIXEL (Tron REAL interaction). The prior P3f-1 ACs (project-folders/add-diagram/compile-svg/import-puml/scope-triage/roundtrip/isolation/390-actions) are SUPERSEDED - their surviving parts (folders, action-bar, import-puml) are folded into the re-scoped ACs with corrected folder names (diagrams plural) + DRY labels + WODA action-bar reuse + the @390-pixel gate posture. R33.4 (Compile->TS codegen) unchanged (deferred)."
+  "reScopeNote": "RE-SCOPED 2026-07-30 by robbin-req per PO HOLD + architect gap-design 9fc7bd402 (was: 'RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)' with P3f-1 structure ACs). Root: R32.4/5/6 gated the PATH not the INTERACTION (gate-the-ac-surface at feature-vision scale) - the working interactive diagram (movable selectable compartment boxes) was never delivered/seen by Tron. The 6 new ACs gate @390 by PIXEL (Tron REAL interaction). The prior P3f-1 ACs (project-folders/add-diagram/compile-svg/import-puml/scope-triage/roundtrip/isolation/390-actions) are SUPERSEDED - their surviving parts (folders, action-bar, import-puml) are folded into the re-scoped ACs with corrected folder names (diagrams plural) + DRY labels + WODA action-bar reuse + the @390-pixel gate posture. R33.4 (Compile->TS codegen) unchanged (deferred). REFINED 2026-07-30 (Tron structural clarification IMG_4772): AC-folders - diagram ITEMS live UNDER diagrams/ (project -> {diagrams/[Diagram items], puml/, ts/[file-folders->classes]}), not top-level siblings; AC-action-bar - Add-Diagram POST /api/model/diagram/create parents a NEW EMPTY diagram under diagrams/, appears in tree ready to drop classes into."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }
