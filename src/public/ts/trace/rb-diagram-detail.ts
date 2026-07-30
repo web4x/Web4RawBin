@@ -54,7 +54,7 @@ export class RbDiagramDetail extends HTMLElement {
   // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
   private onResyncRequest = (): void => { void this.reSyncFromSource(); };
 
-  // [R32.11-MOBILE marker-pending — req IMPL-mints] RbDiagramDetail.onSelectionChanged — TAP-to-add complement for
+  // [impl:uuid:20f8a19e-a508-4fcd-8329-04b73bbbcc54] RbDiagramDetail.onSelectionChanged (Method fcd2464e, Class 039ec367, off UC 87d3d693 diagram.tapToAdd) — TAP-to-add complement for
   // touch/iOS Safari, where HTML5 DnD (dragover/drop) never fires → the drag-add path is DEAD on mobile (Tron @390).
   // A SINGLE selected model-element (class chip, ref 'modelelement:<uuid>') → auto-add its view to THIS OPEN diagram
   // with NO coords (server auto-grid), reusing addView (idempotent — server dedups, INV-R1..R4). Desktop DnD stays
