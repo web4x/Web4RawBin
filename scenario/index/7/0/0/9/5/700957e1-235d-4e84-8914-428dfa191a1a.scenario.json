@@ -3,8 +3,8 @@
  "model": {
   "uuid": "700957e1-235d-4e84-8914-428dfa191a1a",
   "altId": "R33.3",
-  "name": "RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)",
-  "description": "S33-P3-FEATURES phase P3f-1 (all REUSE, buildable now): RawBin project gets 3 rb-trace-tree folders (ts/puml/diagram) over MODEL_STORE, plus an action bar of owner-gated actions - '+ Add diagram' (R32.4/R32.11), 'Compile diagram -> SVG' (R32.4 buildDiagramSvg), and 'Import PUML' (Tron feature D: R32.7 pumlToModel parser REUSE -> M1 units + auto-grid Diagram -> interactive R32.4 render). Import scope (measured): 27 class/component .puml importable, 12 sequence/activity out-of-scope (clean 'not importable'), 16 triage. Isolation = MODEL_STORE only (prod untouched). Reuse-only, NO fork; NEW = the 3 folders in mofLayerRoots + the action endpoints + PumlArtifact storage. Compile->TypeScript codegen is SPLIT to R33.4 (P3f-2 big-rock). Chains mint per-action on build (IMPL-MINT); Tests = the @390 action gates (tester independent).",
+  "name": "Working interactive diagram: DnD -> selectable MOVABLE SVG class boxes (S33 RE-SCOPE)",
+  "description": "S33 RE-SCOPE (Tron device-QA IMG_4771 + PO-gap-vision-vs-delivered.md): the never-delivered CORE. R32.4/5/6 gated GREEN but verified STRUCTURE (buildDiagramSvg unit / add-view endpoint / tap-fires), NEVER the VISUAL @390 interaction - Tron has never seen drag/tap an item -> a SELECTABLE, MOVABLE SVG class box with attribute/method/property compartments on a pan/zoom canvas, like a real diagram editor. Architect measure-first (9fc7bd402): the box+compartment logic EXISTS (buildBox diagram-view-model.ts:24 + buildDiagramSvg :91, unit-tested); the MISS is (1) MOVABLE boxes NOT built (box-click only selects, static <g>, no drag-to-move); (2) the diagram is a TRANSIENT drawer detail, not a reachable persistent canvas; (3) the gates never proved the visual @390 loop. FILL (REUSE, assemble the editor): reachable diagrams-folder->Diagram canvas + drop->VISIBLE compartment box (resolver populates members) + ★MOVABLE box-drag (NEW POST /api/model/diagram/move-view, MODEL_STORE, touch+mouse, disambiguated from RbPanZoom-pan) + selectable (exists) + folders diagrams/puml/ts with DRY filename-only labels resolve-to-file-for-EDIT + ACTION BAR reuse rb-strip/rb-compartment (my S31 CONCEPT primitives, BUILT) NAMED Add-Diagram/Compile-PUML->SVG + M2-instance SVG (buildBox) + R32.6 edges. INV-S33V-1 visible / 2 movable / 3 selectable / 4 isolation. ★ GATE POSTURE = @390 Tron REAL interaction, SCREENSHOT+PIXEL (drag->SEE the movable selectable box), NOT endpoint/structure. SUPERSEDES the old P3f-1 structure-framing of this req. Chain: UC diagram.render + diagram.moveView -> Class rb-diagram-detail (+ server move-view) -> Method(s) -> Impl -> Test (mints on build; the new build = move-view + box-drag + reachable canvas + action-bar mount). Compile->TypeScript codegen stays split to R33.4 (deferred).",
   "tronQuote": "> TRON (2026-07-30): import PUML (add an Import-PUML action so a .puml becomes an interactive model/diagram).",
   "tasks": [],
   "tests": [],
@@ -13,47 +13,42 @@
   "sprintName": "Sprint 33",
   "useCases": [],
   "unitLinks": [],
-  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-P3-FEATURES&commit=20b6f97fb",
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-RE-SCOPE&commit=9fc7bd402",
   "acceptanceCriteria": [
    {
-    "id": "AC-project-3-folders",
+    "id": "AC-reachable-canvas",
     "group": "functional",
-    "text": "INV-F-2: under M1.Projects -> RawBin, mofLayerRoots emits 3 rb-trace-tree FOLDERS (reuse, no fork) - ts/ (the R32.2/P2a M1 ModelElements: classes/functions/interfaces), puml/ (PUML text artifacts: modelToPuml output + imported .puml sources, a small PumlArtifact unit), diagram/ (R32.4 interactive Diagram units). Each groups its artifact type; MODEL_STORE only."
+    "text": "PO1 / ★ REACHABLE persistent diagram canvas: via the diagrams folder -> a Diagram node, Tron can NAVIGATE-TO, drop onto, and SEE an interactive diagram canvas (rb-diagram-detail hosting the DnD surface) - a first-class reachable surface, NOT a transient select-only drawer view. An empty diagram = a droppable blank canvas."
    },
    {
-    "id": "AC-action-add-diagram",
+    "id": "AC-drop-visible-box",
     "group": "functional",
-    "text": "An owner/member-gated '+ Add diagram' action creates an empty Diagram unit in diagram/ -> curate via R32.11 add-view (drag on desktop / TAP-add on touch per the R32.11-MOBILE fix). REUSE R32.4 Diagram + R32.11."
+    "text": "PO2 / AC1 / INV-S33V-1: drag/tap a ts-item or M2-unit onto the canvas -> a SELECTABLE SVG class box with attribute / method / property COMPARTMENTS renders at the drop x,y (assemble the EXISTING buildBox render; the resolver populates members). PIXEL-VISIBLE @390 - not just an endpoint 200."
    },
    {
-    "id": "AC-action-compile-svg",
+    "id": "AC-movable-persist",
     "group": "functional",
-    "text": "An owner/member-gated 'Compile diagram -> SVG' action renders a Diagram's view-links to SVG via R32.4 buildDiagramSvg (the exportable 'diagram as svg'). REUSE R32.4."
+    "text": "AC2 / INV-S33V-2: the box is MOVABLE - a pointer/touch drag on a .dm-box updates its view-link x,y (touch + mouse, disambiguated from RbPanZoom canvas-pan) -> persists via a NEW POST /api/model/diagram/move-view {diagramUuid, elementUuid, x, y} (MODEL_STORE, INV-S33V-4) -> re-renders at the new position AND survives reload."
    },
    {
-    "id": "AC-import-puml",
+    "id": "AC-folders-dry-labels",
     "group": "functional",
-    "text": "INV-F-1 (Tron feature D): an owner-gated 'Import PUML' action picks/scans a class/interface .puml -> R32.7 pumlToModel (REUSE the existing parser, NO new parser) -> {elements, relations} -> creates M1 ModelElement units (deterministic puml-scoped uuids, since external .puml lack embedded [model:uuid:X]) + a Diagram unit with auto-grid view-links -> stores: .puml source in puml/, Diagram in diagram/, elements in ts/ -> renders INTERACTIVE (R32.4 boxes + edges)."
+    "text": "AC3: the RawBin project folders are diagrams (PLURAL) / puml / ts, with the ts FILES INSIDE the ts folder (P2b file-folders under ts/); item labels show the FILENAME ONLY (drop the redundant src/ts/scenario/ prefix - DRY) and each item POINTS TO the real file + resolves it for EDIT (reuse the trace file-resolve that opens the .ts)."
    },
    {
-    "id": "AC-import-scope-triage",
+    "id": "AC-action-bar-reuse-named",
     "group": "functional",
-    "text": "Import scope (measured, 55 .puml): the 27 class/component .puml import to the class-Diagram model; the 12 sequence/activity .puml (participant/->/alt) cleanly report 'not importable' with NO crash (pumlToModel parses class/interface + <|--/-->/..> only); the 16 triage .puml are per-file parse-attempted (yields class elements -> import; else skip + report)."
+    "text": "AC4: an ACTION BAR is mounted on the /model diagram view (currently MISSING), REUSING the existing WODA component rb-strip / rb-compartment (the S31 CONCEPT primitives, BUILT - NO new fork), with NAMED actions (not icon-only): 'Add Diagram', 'Compile PUML -> SVG' (+ Import-PUML from P3f)."
    },
    {
-    "id": "AC-import-roundtrip",
+    "id": "AC-m2-instance-svg-edges",
     "group": "functional",
-    "text": "INV-F-4: an imported .puml -> model -> re-export via R32.7 modelToPuml is round-trip STABLE for class diagrams (the R32.7 INV-P3 identity, byte-identical re-export)."
+    "text": "AC5: every dropped M2-instance (class/interface) renders as its SVG box equivalent (buildBox - the puml-compiled-svg equivalent), each selectable + movable; R32.6 relationship EDGES render between the on-canvas boxes."
    },
    {
-    "id": "AC-features-isolation",
+    "id": "AC-390-pixel-gate",
     "group": "gate",
-    "text": "INV-F-3: ALL P3-FEATURES actions (add-diagram, compile-svg, import-puml) write MODEL_STORE only - prod scenario/index is UNCHANGED (git-clean gate-able). All action endpoints are owner/member-gated (403 non-member)."
-   },
-   {
-    "id": "AC-390-actions-gate",
-    "group": "gate",
-    "text": "@390 GATE (gate the ACTIONS, not page-load): RawBin shows the diagram/puml/ts folders; Import-PUML on a class .puml renders an interactive Diagram (R32.4 boxes+edges) + .puml lands in puml/ + Diagram in diagram/; Add-diagram + touch-curate works; Compile->SVG exports; a sequence .puml -> clean 'not importable' (no crash); isolation (prod git-clean); /model owner-gated; /trace unregressed."
+    "text": "AC6 / INV-S33V-3: GATE = @390 Tron REAL interaction, SCREENSHOT + PIXEL - drag/tap an item -> SEE a SELECTABLE, MOVABLE SVG class box WITH compartments on the pan/zoom canvas; box-click selects (highlight + drawer detail). NOT endpoint/structure (the original miss). Planted-defect BITE: a box that renders 0x0 or off-canvas must FAIL. All writes MODEL_STORE only (INV-S33V-4, prod git-clean)."
    }
   ],
   "discoverySource": {
@@ -61,7 +56,8 @@
    "discoveredBy": "robbin-architect (design 20b6f97fb) + Tron (Import-PUML ask, feature D)",
    "date": "2026-07-30",
    "note": "S33-P3-FEATURES: RawBin project folders + action bar + PUML-import. Import-PUML is Tron's new ask (feature D). Architect measure-first: R32.7 pumlToModel PARSER already exists (reuse, no new parser). Captured scenario-first by robbin-req 2026-07-30."
-  }
+  },
+  "reScopeNote": "RE-SCOPED 2026-07-30 by robbin-req per PO HOLD + architect gap-design 9fc7bd402 (was: 'RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)' with P3f-1 structure ACs). Root: R32.4/5/6 gated the PATH not the INTERACTION (gate-the-ac-surface at feature-vision scale) - the working interactive diagram (movable selectable compartment boxes) was never delivered/seen by Tron. The 6 new ACs gate @390 by PIXEL (Tron REAL interaction). The prior P3f-1 ACs (project-folders/add-diagram/compile-svg/import-puml/scope-triage/roundtrip/isolation/390-actions) are SUPERSEDED - their surviving parts (folders, action-bar, import-puml) are folded into the re-scoped ACs with corrected folder names (diagrams plural) + DRY labels + WODA action-bar reuse + the @390-pixel gate posture. R33.4 (Compile->TS codegen) unchanged (deferred)."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }
