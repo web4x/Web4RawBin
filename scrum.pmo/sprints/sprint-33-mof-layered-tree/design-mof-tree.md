@@ -42,3 +42,40 @@ MODEL_STORE (data/model-store/index) unit census by `model.metaLevel`: **M3=2, M
 ## P2 / P3 (forward — designed after P1 ships)
 - **P2 (RawBin real M1 = subsumes R33):** multi-file `TsToModel.generate` over RawBin `src/` → the M1·Projects folder holds RawBin (hundreds of ModelElements) with puml code+svg. Big rocks: scale/perf of the tree+diagram at project size; multi-file reconcile; a real `ior:class:Project` unit.
 - **P3 (M3 + M0):** M3 folder = the 2 existing M3 units (nearly free — same group-by-metaLevel); **M0 = dist** — PO/Tron pragmatic call: dist/compiled artifacts as M0 (NOT strict-MOF runtime-instances). Design flexibly: an M0·dist folder listing compiled artifacts, instanceOf their M1 classes (a dist→M0 generation, lighter than runtime-instance modeling). Confirm M0 semantics with Tron before building P3.
+
+## S33-P2 — RawBin as a REAL M1 project (multi-file) — ARCHITECT DESIGN (robbin-architect 2026-07-30, PO priority: Tron "where are RawBin's classes")
+MEASURE-FIRST (two findings that shrink the work + size the risk):
+1. **`TsToModel.generate(files: string[], …)` is ALREADY MULTI-FILE** (TsToModel.ts:96) — one ts.Program over all files, PASS1/PASS2 cross-file, deterministic uuids, reconcile, ONE Diagram. The single-file limit is ONLY the `/api/model/generate` endpoint (passes `[abs]`). So P2 = extend the ENDPOINT/orchestration + bound the source-set + project grouping — **NOT an engine rewrite** (reuse generate verbatim).
+2. **RawBin src = 122 non-test .ts** (src/ts 48 + src/public/ts 73 + shared 1; biggest dirs trace 41, scenario 26, server 18, components 13). → hundreds of ModelElements + relations = the scale concern is REAL; a single project Diagram of 100s of boxes = the R32.6 pollution → unusable.
+
+### Design — BOUNDED, phased, reuse-the-multi-file-engine, curation-for-diagram-scale
+**P2a (FIRST — bounded proof):** model ONE cohesive RawBin subtree as the M1 project — recommend **`src/ts/scenario/`** (26 files, self-referential model/scenario domain = meaningful "RawBin models itself") OR a smaller `src/ts/shared/` (4) as the smoke. Proves "RawBin's real classes/functions/interfaces" WITHOUT flooding. **P2b:** expand the tracked set (more dirs → whole src) once perf/UX is proven bounded.
+1. **Tracked source-SET (project manifest):** the RawBin M1 project = a persisted set of globs/dirs (e.g. `["src/ts/scenario/**/*.ts"]`, excluding `*.test.ts`/`*.d.ts`/dist/node_modules). Store as a small project definition (an `ior:class:Project` unit or a manifest in MODEL_STORE). The set is BOUNDED + explicit — never "all of RawBin" by accident.
+2. **Generate-project action/endpoint (server):** NEW `POST /api/model/generate-project { projectId | globs }` (owner/member-gated) → resolve the bounded file set → `TsToModel.generate(files, { indexDir: MODEL_STORE, write:true, diagram:false })` → M1 ModelElements for RawBin. Run as an EXPLICIT action (not per-load) — with a file-count CAP + timeout (R32.6 timeout lesson) + the excludes. Reconcile handles re-gen (deterministic uuids → rebind, stale-remove).
+3. **Project grouping (M1·Projects → "RawBin"):** the R33.1 M1 folder groups by sourceFile today; introduce the PROJECT node — group the project's M1 elements under a "RawBin" node (by the manifest). rb-trace-tree LAZY expand (N-level, already there) bounds the tree at 100s of nodes — do NOT inline all.
+4. **Diagram at scale = R32.11 CURATION, NOT a giant auto-Diagram (the key perf call):** do NOT emit one Diagram of all 100s of classes (that IS the R32.6 pollution). The project's diagram starts EMPTY (or a tiny overview); the user DRAGS the classes they care about into a focused diagram (R32.11 drag-to-add-view — just shipped = the scale-enabler) + per-package sub-diagrams later. Edges stay bounded (buildEdges only between on-diagram nodes). So R32.11 is WHY multi-file is usable.
+
+### BIG ROCKS (flag)
+1. **★ Diagram-at-scale = R32.6 pollution — biggest.** Answer above: NO giant auto-Diagram; R32.11 curation + focused/per-package diagrams. Design-resolved, but MUST NOT regress to auto-emit-all.
+2. **★ Cross-file name-collision in relation resolution — a correctness rock.** `TsToModel` PASS2 relates by SIMPLE name (`nameToUuid.set(name, …)` / `relate(…, targetName)`, TsToModel.ts:123/154) — a GLOBAL name map. Multi-file with two classes named `X` in different files → last-wins collision → mis-linked edges. NEEDS qualified/file-scoped name resolution for multi-file correctness. MED — flag to expert as an in-scope P2 fix (scope relation-resolution per-file or by qualifiedName).
+3. **Tree-at-scale (100s nodes):** reuse rb-trace-tree lazy expand; don't inline. LOW-MED (lazy-capable).
+4. **Generation perf/timeout:** ts.Program over the bounded set is fast for tens of files; CAP + timeout + excludes; explicit action not per-load. LOW-MED.
+5. **Project identity:** an `ior:class:Project` unit (name RawBin, manifest globs, its Diagram(s)) vs a synthetic grouping — recommend a real Project unit for P2b. LOW-MED.
+
+### INVARIANTS / reuse / gate / deploy
+- **INV-P2-1 (real M1):** M1·Projects → RawBin shows RawBin's ACTUAL classes/functions/interfaces from the bounded src set (not the r32.2-sample demo).
+- **INV-P2-2 (bounded):** generation is over an EXPLICIT bounded manifest (capped + excludes) — never all-of-RawBin implicitly; re-gen deterministic (rebind, reconcile).
+- **INV-P2-3 (no diagram flood):** no giant auto-Diagram; focused/curated diagrams (R32.11) keep boxes+edges bounded (R32.6 lesson).
+- **INV-P2-4 (isolation):** generate writes MODEL_STORE only; prod scenario/index untouched.
+- **REUSE (no fork):** TsToModel.generate (already multi-file), MODEL_STORE (R32.5), rb-trace-tree lazy folders (R33.1), R32.11 add-view curation, R32.6 edges. NEW = generate-project endpoint + bounded manifest + Project grouping + the qualified-name relation fix.
+- **GATE (tester + Tron @390):** trigger generate-project on the bounded set → M1·Projects → RawBin lists RawBin's real classes/functions/interfaces (e.g. TsToModel, ScenarioIndex, …) with members; relations correct (no name-collision mis-links); the tree stays responsive (lazy, no hang/flood); a curated diagram (drag a few RawBin classes) renders bounded boxes+edges; prod scenario/index git-clean (INV-P2-4); /model still 403 non-member; generation completes within the timeout (no hang). Gate the REAL-MODEL + bounded-perf, not "loads".
+- **DEPLOY:** server (generate-project endpoint + relation fix) → REAL restart + boot-verify + R31.7 invariant. Generation is an explicit owner action → run it, then backstop the produced model.
+
+### ACs handed to req (0.4)
+- AC1: a bounded RawBin source-set (manifest globs, excludes tests/dist/.d.ts) defines the RawBin M1 project.
+- AC2: an owner-gated generate-project action runs TsToModel over the SET (reuse the multi-file engine) → M1 ModelElements in MODEL_STORE (prod untouched), capped+timeout-bounded.
+- AC3: M1·Projects → RawBin shows RawBin's REAL classes/functions/interfaces + members (not the demo).
+- AC4: cross-file relations resolve WITHOUT name-collision mis-links (qualified/file-scoped).
+- AC5: NO giant auto-Diagram — diagrams are curated/focused (R32.11), boxes+edges bounded (no R32.6 flood); tree stays responsive (lazy).
+- AC6: re-generate is deterministic (rebind same-uuid, reconcile stale) + isolated (MODEL_STORE only); /model membership-gate unregressed.
+(Phased: P2a = one bounded dir e.g. src/ts/scenario; P2b = expand. R33.1.1 PUML-node deferred after P2.)
