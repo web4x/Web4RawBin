@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "20eee8b0-d093-46e4-8a65-72409a9d8863",
+    "name": "server.isModelUnit",
+    "description": "R32.5 read-reroute / isolation boundary: isModelUnit(uuid):boolean @ src/ts/server/server.ts:57 is the predicate that routes reads - a ModelElement uuid resolves from MODEL_STORE (data/model-store/index), all other (trace) uuids from prod scenario/index (union). This is the correct-by-construction heart of the R32.5 safe-mechanism law: prod scenario/index is NEVER read-polluted or mutated by the demo model; the store is resettable (rm data/model-store). Used at the /api/trace/children (server.ts:1612) and /api/ior (:1788) read paths; /api/model/tree (:1491) reads MODEL_STORE directly. The distinguishing R32.5 named decl (generate() is R32.2's extended Method 970c7956/382f8644; the /api/model/generate handler is inline endpoint glue; ensureStoreSeeded is one-time setup). Architect design 8116f8761; scenario-first IMPL-MINT (#126, no self-mint) - the [impl:uuid] marker lands on the isModelUnit() decl (name-matches 'isModelUnit').",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:010f3e23-7d0e-49d4-9308-679388d00989"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

@@ -83,6 +83,7 @@
   - [ ] **(functional)** Re-dropping the same TS file yields the SAME UUIDs (R32.2 deterministic sourceFile::qualifiedName) -> idempotent: 0 duplicate units, 0 duplicate diagram nodes; the store re-binds rather than re-mints.
   - [ ] **(functional)** The whole pipeline is REUSE-ONLY: drop-dispatcher + TsToModel.generate + rb-trace-tree (R32.3) + rb-diagram-detail (R32.4) + Layer-2 view-links - NO forks of any of them. The only new code is the MODEL_STORE const + read-reroute + the /api/model/generate endpoint + drop-zone wiring.
   - [ ] **(functional)** ISOLATION PROVEN (gate-able): the count of ior:class:ModelElement units in prod `scenario/index` is UNCHANGED after generation (all model writes hit the store). And /trace + Server Manager + room detail-views + prod traceability stay UNREGRESSED (model reads hit the store, trace reads hit prod). Server change -> real restart + R31.7 served==committed invariant re-stamped.
+  -> model.goLive [uc:uuid:91b1b643-898a-451b-baa2-5acbd6d453c6]
 
 - [ ] **R32.6 — Relationship views (attribute/getter/setter whose type is another unit)**
   [requirement:uuid:c8bc0ee4-a6c0-497a-8510-da23f51902e8]
