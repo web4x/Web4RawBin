@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/requirements.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:4fad0415-09c3-4318-bab9-b858d268fbe7"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "7788ebe0-7e9d-4968-8329-eb611cc65086",
+    "name": "RbModelElementDetail",
+    "file": "src/public/ts/trace/rb-modelelement-detail.ts",
+    "methods": [
+      "ior:instance:c2da9192-8fb2-4872-9f93-c5aafc0e59c6"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4fad0415-09c3-4318-bab9-b858d268fbe7"
+}

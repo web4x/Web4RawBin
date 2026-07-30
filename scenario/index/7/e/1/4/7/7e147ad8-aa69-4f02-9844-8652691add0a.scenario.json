@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7e147ad8-aa69-4f02-9844-8652691add0a",
+    "name": "RbModelElementDetail.render impl (typed model-element drawer detail + diagram/signature dv-links)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
+    "markerPending": true,
+    "tests": [],
+    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:7e147ad8] on the render() decl @ src/public/ts/trace/rb-modelelement-detail.ts:30 (name-matches 'render'). Built at 52cd07514 (v0.8.10). Primary R32.10 anchor = the NEW RbModelElementDetail.render (PART B typed detail); PART A drawer-mount (model.ts:18-20) + /api/model/tree Diagram-root touch (server.ts) are inline supporting enablers (no clean decl / no re-credit). Mixed client+server -> real restart + boot-verify on ship. markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin."
+  },
+  "ownerIor": "ior:instance:c2da9192-8fb2-4872-9f93-c5aafc0e59c6"
+}
