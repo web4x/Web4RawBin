@@ -5,7 +5,9 @@
     "name": "RbModelElementDetail.render impl (typed model-element drawer detail + diagram/signature dv-links)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:c7b558ca-e582-4493-8eaa-84434a90064a"
+    ],
     "markerNote": "Strict-AST credit HOLDS at 258695600: [impl:uuid:7e147ad8] heads the named render() decl @ src/public/ts/trace/rb-modelelement-detail.ts:31 (marker line 30 precedes private async render(, name-matches; Method c2da9192 RbModelElementDetail.render, Class 7788ebe0, UC 4fad0415 modelElement.inspect). Comment-only, no version bump. PART A drawer-mount (model.ts:18-20 inline root fix) + /api/model/tree Diagram-touch (server.ts inline) = supporting enablers, no separate markers. IMPL-MINT #126 complete. Mixed client+server -> real restart + boot-verify on ship. Test on tester @390 interaction gate."
   },
   "ownerIor": "ior:instance:c2da9192-8fb2-4872-9f93-c5aafc0e59c6"
