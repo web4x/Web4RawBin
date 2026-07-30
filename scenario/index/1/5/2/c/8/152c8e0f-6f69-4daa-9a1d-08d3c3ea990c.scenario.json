@@ -5,7 +5,9 @@
     "name": "server.serverModelPage impl (gated /model page shell -> R32.5 model view)",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:16c10d4d-94ba-49be-9db5-6f65211e3982"
+    ],
     "markerNote": "Strict-AST credit HOLDS at bd0098ddb: [impl:uuid:152c8e0f] heads the named serverModelPage() decl @ src/ts/server/server.ts:1000 (marker line 999 precedes function serverModelPage(, name-matches; Method 4668508c server.serverModelPage, Class server c0a0921d, UC b08ac411 feature.launch). Comment-only, no version bump. R32.9 feature.discover co-credits the EXISTING bootstrapSeed 03b2b1db (enumerate body-edit, marker unchanged). MDA Feature unit 901e0ece confirmed in HEAD (discovery + bootstrapSeed find it; /model gate name-matches Model-Driven Code Quality). IMPL-MINT #126 complete. Test on tester @390 FeatureManager-surface gate (co-credits 152c8e0f + 03b2b1db). Remaining: architect real-restart + boot-verify + INV-D4 live gate."
   },
   "ownerIor": "ior:instance:4668508c-992e-465f-847a-7bec7a09301e"

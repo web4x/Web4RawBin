@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "16c10d4d-94ba-49be-9db5-6f65211e3982",
+    "name": "test:R32.9 FeatureManager surface — MDA discovered + membership-gated (INV-D2 owner-seed + INV-D4 fail-closed)",
+    "description": "Bridged to test/visual/r329-featuremanager-surface-gate.mjs (INDEPENDENT tester surface gate GREEN DET-3x NON-VACUOUS, 1cc3b3405 - gotProfile=TRUE + MDA absent for non-member + /model/SM 403). Verifies the R32.9 FeatureManager surface: the MDA feature is DISCOVERED + membership-gated. INV-D2 (owner auto-seed via bootstrapSeed enumerate 03b2b1db, disk-proven); INV-D4 (fail-closed: serverModelPage 152c8e0f /model 403 for authenticated-non-member via live raw-ws IDENTIFY session + non-member featuresForToken list EXCLUDES MDA, non-vacuous). Owner-sees-📐-render Tron-device-confirmed IMG_4715 (sees + launched the MDA feature). CO-CREDITS BOTH R32.9 Impls (the surface gate exercises both directions): 152c8e0f serverModelPage (launch/INV-D4, primary) + 03b2b1db bootstrapSeed (discover-seed/INV-D2). Marker 16c10d4d adopted from origin (measured line 1, not invented). Chain: R32.9 req 96e88399 -> UCs [feature.discover 87de897c, feature.launch b08ac411] -> Classes [FeatureManager 9f7f345a, server c0a0921d] -> Methods [bootstrapSeed 8762a0d5, serverModelPage 4668508c] -> Impls [03b2b1db, 152c8e0f] -> this Test.",
+    "sourceFile": "ior:file:test/visual/r329-featuremanager-surface-gate.mjs",
+    "implementations": [
+      "ior:instance:152c8e0f-6f69-4daa-9a1d-08d3c3ea990c",
+      "ior:instance:03b2b1db-b2ba-44d4-a3f2-eeb9215540ad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:152c8e0f-6f69-4daa-9a1d-08d3c3ea990c"
+}
