@@ -4,8 +4,8 @@
     "uuid": "010f3e23-7d0e-49d4-9308-679388d00989",
     "name": "server.isModelUnit impl (R32.5 model-vs-prod read-reroute isolation predicate)",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerPending": true,
-    "markerNote": "IMPL-MINT scenario-first (#126, R32.1-4 pattern): req mints this Impl; expert drops [impl:uuid:010f3e23] on the isModelUnit() decl @ src/ts/server/server.ts:57 (name-matches 'isModelUnit'). Built + gate GREEN at fd6864b8a (v0.8.5). Chosen as the R32.5 primary anchor = the read-reroute/isolation boundary (the correct-by-construction safe-mechanism heart); generate() stays R32.2's Impl 382f8644 (extended in place with the demo-Diagram+store opt, not re-anchored). If the expert would rather anchor on ensureStoreSeeded (store seed) or generate, ping to re-point (data=truth). markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin (strict-AST credit).",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at 8361bd36c: [impl:uuid:010f3e23] heads the named isModelUnit() decl @ src/ts/server/server.ts:57 (marker line 55 immediately precedes function isModelUnit(, name-matches; Method 20eee8b0 server.isModelUnit, Class server c0a0921d, UC 91b1b643). Comment-only, v0.8.5 stands (architect restart pending for the /api/model/generate endpoint + reroute to take effect live). Anchor = R32.5-exclusive read-reroute/isolation boundary (NOT generate() = R32.2 Impl 382f8644). IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test HOLDS for the tester independent gate.",
     "tests": []
   },
   "ownerIor": "ior:instance:20eee8b0-d093-46e4-8a65-72409a9d8863"
