@@ -1066,6 +1066,8 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
 // S33-P2b (INV-P2b-2/3, NO fork): resolve ONE bounded layer for a SYNTHETIC MOF folder uuid. Shared by mofLayerRoots
 // (top layer) + /api/trace/children (deeper layers). Returns null when the uuid is NOT synthetic (a real ModelElement →
 // the member path resolves it). Scheme: mof-m2 | mof-m2:<mc> | mof-m1 | project:RawBin | project:<sf> | file:<sf>.
+// [impl:uuid:b6c88d83-a838-46ad-ba9a-874e803ca479] mofChildren (Method 7c460f8a, Class c0a0921d, off UC 8bdeda90
+// model.mofChildren) — R33.2/S33-P2b bounded/lazy layer resolver. DISTINCT from mofLayerRoots 5afeafe9 (R33.1) — no re-credit.
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (!/^(mof-m1|mof-m2|project:|file:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
