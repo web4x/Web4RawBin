@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "644bb935-ebea-4759-b0fc-813fd70e35ff",
+    "name": "test:R32.7 PUML export/import round-trip (modelToPuml + pumlToModel: no-dup, byte-identical, same-uuid re-bind)",
+    "description": "Bridged to test/visual/r327-puml-roundtrip-gate.ts (INDEPENDENT tester own-oracle CODE-axis gate GREEN DET-3x v0.8.7, f65a8224e - imports the REAL modelToPuml + pumlToModel + planted-defect bites, NOT the expert tsx self-check). Verifies the FULL R32.7 round-trip: export each element ONCE + arrows by M2 kind (<|-- gen / --> assoc / ..> dep) + byte-identical deterministic re-export + parse->serialize->parse STABLE same-uuid (embedded [model:uuid:X] re-binds, no re-mint) + INV-P4 pure/no-fs. BITES: dup-must-collapse + strip-embed->re-mint-fallback (proves re-bind is real). Because the round-trip exercises BOTH directions, this Test credits BOTH Impls: 8462f889 (modelToPuml/export, primary) + e85bc60a (pumlToModel/import) - so both R32.7 directions reach chain-complete-to-Test from the one round-trip gate. Marker 644bb935 adopted from origin (measured line 1, not invented). Chain: R32.7 req b1fef048 -> UCs [e3c310e2 puml.export, 16523537 puml.import] -> Class 59bdb00e PumlSerializer -> Methods f13a6144 modelToPuml + 31cd0acb pumlToModel -> Impls 8462f889 + e85bc60a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r327-puml-roundtrip-gate.ts",
+    "implementations": [
+      "ior:instance:8462f889-1d56-4a59-adad-f88287b9f9ce",
+      "ior:instance:e85bc60a-5c2b-4180-9d10-fb09bf195fba"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8462f889-1d56-4a59-adad-f88287b9f9ce"
+}

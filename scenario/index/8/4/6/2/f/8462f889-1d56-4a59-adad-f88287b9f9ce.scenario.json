@@ -5,7 +5,10 @@
     "name": "PumlSerializer.modelToPuml impl (model -> @startuml, one-each, byte-identical)",
     "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
     "markerPending": false,
-    "markerNote": "Strict-AST credit HOLDS at 59826470a: [impl:uuid:8462f889] heads the named modelToPuml() decl @ src/ts/shared/puml-serializer.ts:33 (marker line 29 precedes export function modelToPuml(, name-matches; Method f13a6144, Class 59bdb00e PumlSerializer, UC e3c310e2 puml.export). Comment-only, bundle byte-identical, NO version bump (v0.8.7 stands). NEW puml-serializer decl = no re-credit of R32.2/R32.4-6. IMPL-MINT #126 complete. Test HOLDS for the tester independent vitest r32.7-puml-serializer."
+    "markerNote": "Strict-AST credit HOLDS at 59826470a: [impl:uuid:8462f889] heads the named modelToPuml() decl @ src/ts/shared/puml-serializer.ts:33 (marker line 29 precedes export function modelToPuml(, name-matches; Method f13a6144, Class 59bdb00e PumlSerializer, UC e3c310e2 puml.export). Comment-only, bundle byte-identical, NO version bump (v0.8.7 stands). NEW puml-serializer decl = no re-credit of R32.2/R32.4-6. IMPL-MINT #126 complete. Test HOLDS for the tester independent vitest r32.7-puml-serializer.",
+    "tests": [
+      "ior:instance:644bb935-ebea-4759-b0fc-813fd70e35ff"
+    ]
   },
   "ownerIor": "ior:instance:f13a6144-6c10-45a1-a1d7-3700f14f3676"
 }
