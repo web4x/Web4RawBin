@@ -1,3 +1,4 @@
+// [test:uuid:d41e0030-6175-40e5-9f3f-32b5d15b4938] R32.4 SVG-diagram-in-drawer GREEN DET-3x v0.8.4: buildDiagramSvg (nodes from view-LINKS R25.7, UML name/attr/method compartments, M2-facet kind->interface stereotype, EDGES EXCLUDED R32.6, box data-ref select-target) + additive tagMap diagram->rb-diagram-detail (standard renderDetailForRef, no overlay/fork) + RbPanZoom reuse + resize-fit + /trace/SM regression. Own-oracle (import real buildDiagramSvg ba96a744) + planted-defect bites. -> req wires onto Impl ba96a744.
 // R32.4 MDA SVG-diagram-in-drawer — INDEPENDENT gate (own oracle + planted-defect bite), DET-3x. served==HEAD==v0.8.4.
 // R32.4 = the diagram surface is a DRAWER detail-view (rb-diagram-detail, additive tagMap, standard renderDetailForRef —
 // NO overlay/fork). Impl ba96a744 = DiagramViewModel.buildDiagramSvg (EXPORTED pure fn → I import + run the REAL code).
