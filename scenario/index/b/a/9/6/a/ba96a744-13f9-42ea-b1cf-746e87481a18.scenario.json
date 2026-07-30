@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ba96a744-13f9-42ea-b1cf-746e87481a18",
+    "name": "DiagramViewModel.buildDiagramSvg impl (pure view-links -> SVG UML boxes)",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126, R32.1-3 pattern): req mints this Impl; expert drops [impl:uuid:ba96a744] on the buildDiagramSvg() decl @ src/public/ts/trace/diagram-view-model.ts:33 (name-matches 'buildDiagramSvg'). Built + gate GREEN at 2a1b884b5 (v0.8.4, PURE CLIENT no restart). Primary anchor for R32.4 (the RbDiagramDetail element wraps it; RbPanZoom/selection/ResizeObserver are reuse). markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin (strict-AST credit).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3fc6ed5b-53e5-4931-809d-d85f720237a4"
+}

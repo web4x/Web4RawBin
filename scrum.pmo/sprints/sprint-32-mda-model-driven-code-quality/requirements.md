@@ -68,6 +68,7 @@
   - [ ] **(functional)** Clicking an SVG box -> selectionModel.clear(); selectionModel.select('modelelement:X') -> selection-changed -> the SHARED drawer renders X's node detail (the R32.3 / standard detail flow, identical to the room/Server Manager pane-click). No capture-hook, no fork.
   - [ ] **(functional)** EDGES (relatesTo -> UmlAssociation/UmlGeneralization) are EXCLUDED from R32.4 - they are R32.6. A view-link of viewKind 'relationship' is skipped by the R32.4 surface. R32.4 scope = SURFACE + NODES only.
   - [ ] **(functional)** The shared rb-detail-drawer stays UNREGRESSED: /trace, Server Manager, and room detail-views open + render exactly as before, because the tagMap `diagram` entry is ADDITIVE (R31.12 no-fork law - no drawer mechanics touched). Regression-green is part of acceptance.
+  -> diagram.render [uc:uuid:6a155572-074c-46a2-a851-af4fab96144b]
 
 - [ ] **R32.5 — Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)**
   [requirement:uuid:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d]

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "09730090-42e0-44c7-bcad-703c53420aa2",
+    "name": "DiagramViewModel",
+    "file": "src/public/ts/trace/diagram-view-model.ts",
+    "methods": [
+      "ior:instance:3fc6ed5b-53e5-4931-809d-d85f720237a4"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6a155572-074c-46a2-a851-af4fab96144b"
+}
