@@ -362,3 +362,29 @@ behavior tests can finally run reliably.
 
 ---
 **Created:** 2026-05-25 · **Maintained by:** robbin-planner
+
+
+---
+
+# BACKLOG: Model-sync for deleted-file + multi-file (deferred from R32.8, optional `/api/model/sync`)
+
+**Captured:** 2026-07-30 · **By:** robbin-req (PO directive) · **Source:** architect R32.8 design (8e40e79db, ## R32.8 SCOPE)
+
+R32.8 (the MDA sprint finale) delivered CLIENT-ONLY single-file Re-Sync: a model view re-invokes the existing POST /api/model/generate over the model's own sourceFile -> rebind/reconcile/idempotent, all views re-render. Two cases are OUT OF SCOPE for R32.8 and deferred here (architect-flagged, not built):
+
+- **(a) Deleted-file on disk:** the existing /api/model/generate 400s on a missing path (server.ts:1521), so a source file deleted on disk leaves its stale M1 units lingering in the store (no deletion pass).
+- **(b) Multi-file models:** R32.5/R32.8 are single-file (one .ts -> one model + Diagram, keyToUuid('diagram::'+files.sorted)); a multi-file model has no whole-project re-sync.
+
+**Why backlog (not a sprint task, not a new sprint):**
+- R32.8 single-file re-sync is complete + correct-by-construction; these are additive extensions, not a gap in the finale.
+- Tron authorizes any new sprint (no auto-increment) — this is captured as a backlog item, NOT an S33.
+
+**Proposed direction (Tron/PO decides when to schedule):**
+- A dedicated **POST /api/model/sync** (server-side -> R32.5 discipline: __dirname-below shim + real-boot restart) that re-runs generate over the store's FULL tracked-sourceFile set + a DELETION pass for tracked-but-absent files.
+- Acceptance: delete a source file -> sync -> its units drop from ALL views + store; multi-file project -> sync -> all files' models consistent; prod scenario/index still untouched (R32.5 isolation).
+- Owner pair: architect (design the sync endpoint + deletion pass) + expert (implement) + tester (deleted-file + multi-file gates).
+
+**Cross-ref:** R32.5 (go-live isolated store), R32.8 (782d4b8e, single-file re-sync), R32.2 (deterministic keyToUuid engine).
+
+---
+**Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)

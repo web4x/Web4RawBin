@@ -121,10 +121,14 @@
   > TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.
   Keep M1 + M2 ALWAYS IN SYNC between the TS and PUML representations on EVERY action (class.add / class.remove / attribute.add / attribute.edit / ...). Bidirectional, action-driven model sync (TS <-> model <-> PUML), same UUID throughout - the single-source/generated law (R31.7/R31.13) applied to the model. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.
   **Acceptance criteria:**
-  - [ ] **(functional)** Each model action (class.add/remove, attribute.add/edit, method.add, ...) updates M1+M2 in BOTH the TS and PUML representations consistently.
-  - [ ] **(invariant)** Sync is bidirectional (TS<->model<->PUML) with NO drift: after any action, all three representations are consistent (testable: action -> both-representations-consistent gate).
-  - [ ] **(invariant)** The same UUID is preserved throughout the sync (an element keeps its identity across TS, model, and PUML on every action).
-  - [ ] **(meta)** INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).
+  - [ ] **(functional)** AC1 - a 'Re-Sync from source' action (a client button on the rb-diagram-detail toolbar AND the model tree header) is available on the model view for MODEL units only (Diagram / ModelElement), NOT for trace units.
+  - [ ] **(functional)** AC2 - Re-Sync re-runs generation on the model's OWN sourceFile via the EXISTING POST /api/model/generate (TsToModel.generate) - NO new server endpoint, NO fork (client-only action).
+  - [ ] **(functional)** AC3 - after Re-Sync, the R32.3 tree re-renders and shows the CURRENT model: added elements appear, removed elements disappear (INV-S2 reconcile: stale-drop + new-add + unchanged rebind).
+  - [ ] **(functional)** AC4 - after Re-Sync, the R32.4 diagram surface + the R32.6 relationship edges re-render to the current model.
+  - [ ] **(functional)** AC5 - after Re-Sync, the R32.7 exported PUML reflects the current model - TS <-> model <-> PUML consistent (INV-S4 all-views-consistent: tree + diagram + edges + PUML all re-read the one MODEL_STORE).
+  - [ ] **(functional)** AC6 / INV-S1 - unchanged elements keep the SAME uuid across re-sync: no duplicate, no re-mint (the R32.2 deterministic keyToUuid rebind + content-compared write; INV-P1/P2 lineage).
+  - [ ] **(functional)** AC7 / INV-S3 - Re-Sync mutates ONLY the isolated model-store (data/model-store); prod scenario/index is NEVER touched (the R32.5 safe-mechanism law) - gate-able: prod ModelElement count / git-clean unchanged across sync.
+  - [ ] **(functional)** AC8 - Re-Sync with NO source change is idempotent: 0-churn (wrote=0, store byte-identical, all views stable) - by construction from generate()'s content-compared write.
 
 - [ ] **R31.14 — Deploy-hardening: scripted deploy + served!=committed monitor + pinned prod topology (NEXT, not-now)**
   [requirement:uuid:167ef4a5-abf3-429f-8f4e-e7def91b657a]
