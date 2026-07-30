@@ -7,11 +7,11 @@
   "slug": "task-32.2-ts-to-m1",
   "description": "From the TS compiler API / AST, generate M1 scenario units for the TS base structures: class, interface, function, attribute, accessor+mutator (getter/setter = property), method (class member). Each generated M1 unit is instanceOf its M2 UML unit. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
   "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
   "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.2 `[requirement:uuid:4a9c6ee7-653f-4745-9d27-9540c5f95384]`\n  - down\n    - None (atomic task)",
   "acceptanceCriteria": "- [ ] Running the generator over TS source produces M1 scenario units for class / interface / function / attribute / accessor+mutator(property) / method (class member) - one unit per TS structure.\n- [ ] Each generated M1 unit is instanceOf the correct M2 UML unit (class->UML class, method->UML method, etc.).\n- [ ] Re-running the generator on unchanged TS reuses the SAME-UUID M1 units (idempotent, no duplicate mint) - the single-source/generated law (R31.7/R31.13).\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
   "subtasks": "None (atomic task).",
-  "status": "In Progress",
+  "status": "Done",
   "coveredRequirements": [
    "ior:instance:4a9c6ee7-653f-4745-9d27-9540c5f95384"
   ],

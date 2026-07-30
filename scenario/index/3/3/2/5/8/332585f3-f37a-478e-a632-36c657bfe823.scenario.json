@@ -5,7 +5,7 @@
   "name": "Sprint 32 — MDA Model-Driven Code Quality",
   "number": 32,
   "goal": "v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model elements (M3 Class+Relationship / M2 UML-profile / M1 TS-structures) with SAME-UUID-across-M-levels identity, from the TS compiler AST; a model tree (rb-trace-tree reuse) + interactive SVG diagrams in the details drawer (RbPanZoom) with drag itemView->composed views + relationship views; a PUML serializer/parser (no-dup, same-UUID round-trip); and action-driven M1/M2 sync (TS<->PUML). Delivered as a FeatureManager feature (R31.8). Reuse over re-fork; single-source/generated law (R31.7/R31.13) for the model.",
-  "status": "Planned",
+  "status": "In Progress",
   "compoundSource": "scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "requirements": [
    "ior:instance:68aa36fe-f3c7-452c-b5cb-619f7c84bee4",
