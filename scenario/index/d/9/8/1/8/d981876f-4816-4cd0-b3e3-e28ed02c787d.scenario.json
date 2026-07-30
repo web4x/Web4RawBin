@@ -10,7 +10,9 @@
   "status": "concept",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:cdd29583-f304-4df7-af06-b5a8d955be85"
+  ],
   "acceptanceCriteria": [
    {
     "id": "AC-drop-adds-view",

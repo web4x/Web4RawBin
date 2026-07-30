@@ -5,7 +5,8 @@
     "name": "RbDiagramDetail",
     "file": "src/public/ts/trace/rb-diagram-detail.ts",
     "methods": [
-      "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013"
+      "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013",
+      "ior:instance:70be1605-6b8c-4358-af16-6702549aee97"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",

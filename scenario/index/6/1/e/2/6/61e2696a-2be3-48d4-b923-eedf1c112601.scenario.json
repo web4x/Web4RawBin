@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "61e2696a-2be3-48d4-b923-eedf1c112601",
+    "name": "test:R32.11 in-diagram DnD add-view (drag->box / 2nd->edges / dedup / isolation / persist)",
+    "description": "Bridged to test/visual/r3211-dnd-diagram-gate.mjs (INDEPENDENT tester DnD DROP gate GREEN DET-3x, 2bd00f90e, pollution-safe). Verifies R32.11 addView: drag a class card onto .dm-surface -> add/dedup-bite/edges/persist/isolation + auto-grid complement. INV-R1 drop-adds-view (box appears), INV-R2 dedup (drop same twice = one view, bite), INV-R3 isolation (prod scenario/index unchanged), INV-R4 persist (re-open shows view). Marker 61e2696a adopted from origin (measured, not invented). Chain: R32.11 req d981876f -> UC cdd29583 diagram.addView -> Class 039ec367 RbDiagramDetail -> Method 70be1605 addView -> Impl 4e74dfee -> this Test. The @390 drag->box VISUAL = Tron device.",
+    "sourceFile": "ior:file:test/visual/r3211-dnd-diagram-gate.mjs",
+    "implementations": [
+      "ior:instance:4e74dfee-e9ea-4284-80c7-f196b91e93a9"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4e74dfee-e9ea-4284-80c7-f196b91e93a9"
+}
