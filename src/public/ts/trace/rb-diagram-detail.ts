@@ -46,6 +46,7 @@ export class RbDiagramDetail extends HTMLElement {
   private pz: RbPanZoom | null = null;
   private ro: ResizeObserver | null = null;
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
+  private _suppressClick = false; // R33.3: set on a box-drag end so the trailing click doesn't also select
 
   connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); void this.render(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
@@ -129,12 +130,15 @@ export class RbDiagramDetail extends HTMLElement {
     }
     // AC-6: box-click → SHARED drawer node detail via standard selection (no fork).
     this.addEventListener('click', (e) => {
+      if (this._suppressClick) { this._suppressClick = false; e.stopPropagation(); return; } // R33.3: a box-DRAG just ended → don't also select
       const box = (e.target as HTMLElement).closest('.dm-box')?.getAttribute('data-ref');
       if (box) { e.stopPropagation(); selectionModel.replaceWith(box); return; }
       // R32.6 edge-click → SHARED relationship detail (the target element ref; standard selection flow, no fork).
       const edge = (e.target as HTMLElement).closest('.dm-edge')?.getAttribute('data-rel-to');
       if (edge) { e.stopPropagation(); selectionModel.replaceWith(edge); }
     });
+    // R33.3 AC2 (INV-S33V-2): MOVABLE boxes — pointer/touch drag a .dm-box → live-move → persist x,y → survives reload.
+    if (surface && content && count) this.wireBoxDrag(surface, content);
     // AC-5: ResizeObserver fits the surface to the drawer box (SVG preserveAspectRatio scales by construction).
     if (surface) { this.ro = new ResizeObserver(() => { /* SVG viewBox fits; hook for future pz re-fit */ }); this.ro.observe(surface); }
   }
@@ -169,6 +173,55 @@ export class RbDiagramDetail extends HTMLElement {
       const r = await fetch('/api/model/diagram/add-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) });
       if (r.ok) await this.render();
     } catch { /* noop — surface stays as-is */ }
+  }
+
+  // R33.3 AC2 / INV-S33V-2 (markerPending — req IMPL-mints RbDiagramDetail.wireBoxDrag): make each .dm-box MOVABLE.
+  // A pointer/touch press on a box starts a drag (NOT a canvas-pan): capture-phase mousedown/touchstart guards
+  // stopPropagation so RbPanZoom (bubble-phase on the same surface, pans only at scale>1) never sees the gesture;
+  // the box's transform updates live; on release the new x,y persists via POST /api/model/diagram/move-view
+  // (MODEL_STORE) → survives reload. Coords are converted to content space by the current CSS scale (pz-aware).
+  private wireBoxDrag(surface: HTMLElement, content: HTMLElement): void {
+    const guard = (e: Event): void => { if ((e.target as HTMLElement).closest?.('.dm-box')) e.stopPropagation(); };
+    surface.addEventListener('mousedown', guard, true);   // capture → beats RbPanZoom's bubble pan (scale>1)
+    surface.addEventListener('touchstart', guard, true);
+    const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
+    const scaleNow = (): number => (content.offsetWidth ? content.getBoundingClientRect().width / content.offsetWidth : 1);
+    let drag: { el: SVGGElement; uuid: string; sx: number; sy: number; ox: number; oy: number; moved: boolean } | null = null;
+    surface.addEventListener('pointerdown', (e: PointerEvent) => {
+      const el = (e.target as HTMLElement).closest('.dm-box') as SVGGElement | null;
+      if (!el) return; // empty canvas → RbPanZoom handles pan
+      const uuid = stripRef(el.getAttribute('data-ref') || '');
+      if (!uuid) return;
+      const m = TR.exec(el.getAttribute('transform') || '');
+      drag = { el, uuid, sx: e.clientX, sy: e.clientY, ox: m ? parseFloat(m[1]) : 0, oy: m ? parseFloat(m[2]) : 0, moved: false };
+      try { el.setPointerCapture(e.pointerId); } catch { /* */ }
+      e.stopPropagation();
+    });
+    surface.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!drag) return;
+      const s = scaleNow() || 1;
+      if (Math.abs(e.clientX - drag.sx) + Math.abs(e.clientY - drag.sy) > 3) drag.moved = true;
+      const nx = Math.max(0, Math.round(drag.ox + (e.clientX - drag.sx) / s));
+      const ny = Math.max(0, Math.round(drag.oy + (e.clientY - drag.sy) / s));
+      drag.el.setAttribute('transform', `translate(${nx},${ny})`); // live feedback
+    });
+    const end = (): void => {
+      if (!drag) return;
+      const d = drag; drag = null;
+      if (!d.moved) return; // a tap (no move) → let click-select run
+      this._suppressClick = true;
+      const m = TR.exec(d.el.getAttribute('transform') || '');
+      void this.persistMove(d.uuid, m ? Math.round(parseFloat(m[1])) : d.ox, m ? Math.round(parseFloat(m[2])) : d.oy);
+    };
+    surface.addEventListener('pointerup', end);
+    surface.addEventListener('pointercancel', end);
+  }
+
+  private async persistMove(elementUuid: string, x: number, y: number): Promise<void> {
+    const diagramUuid = this.getAttribute('uuid') || stripRef(this.getAttribute('ref') || '');
+    if (!diagramUuid || !elementUuid) return;
+    try { await fetch('/api/model/diagram/move-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) }); }
+    catch { /* box stays at its dropped position; MODEL_STORE is authoritative on next render */ }
   }
 }
 

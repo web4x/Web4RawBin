@@ -1091,13 +1091,13 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     return [
       mofFolder('rawbin:ts', 'ts', tsCount, 'mof-project'),
       mofFolder('rawbin:puml', 'puml', pumlCount, 'puml'),
-      mofFolder('rawbin:diagram', 'diagram', diagramCount, 'diagram'),
+      mofFolder('rawbin:diagram', 'diagrams', diagramCount, 'diagram'), // R33.3 AC3: PLURAL label; Diagram ITEMS live directly under diagrams/
     ];
   }
   if (uuid === 'rawbin:ts') { // ts/ = generated M1 ModelElements sub-grouped by sourceFile (the former flat project:RawBin content, INV-P2b-3)
     const byFile = new Map<string, number>();
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); byFile.set(sf, (byFile.get(sf) || 0) + 1); }
-    return [...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf, n, 'mof-project'));
+    return [...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf.split('/').pop() || sf, n, 'mof-project')); // R33.3 AC3 DRY: filename-only label; uuid keeps full path → resolve-to-file-for-EDIT
   }
   if (uuid === 'rawbin:puml') return els.filter((x) => x.ior === 'ior:class:PumlArtifact').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact')).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
@@ -1666,6 +1666,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/move-view') { // R33.3 (INV-S33V-2/4): drag a box → persist its view-link x,y in MODEL_STORE → survives reload. Ungated like add-view (same drag loop). markerPending (req IMPL-mints)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid, x, y } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no shard-path traversal)
+          if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          if (!Number.isFinite(x) || !Number.isFinite(y)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-coords"}'); return; }
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
+          const view = views.find((v) => v.unit === `modelelement:${elementUuid}`);
+          if (!view) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-view"}'); return; }
+          view.x = Math.max(0, Math.round(x)); view.y = Math.max(0, Math.round(y));
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-S33V-4 store-only (prod scenario/index NEVER touched)
+          addLog(`[model] move-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${view.x},${view.y})`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, x: view.x, y: view.y }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'move-view-failed' })); }
       });
       return;
     }
