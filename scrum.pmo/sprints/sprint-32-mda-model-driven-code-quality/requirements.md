@@ -113,6 +113,8 @@
   - [ ] **(functional)** AC6 / INV-P3: parse -> serialize -> parse is IDENTITY-PRESERVING (round-trip stable BY CONSTRUCTION) - the second parse yields the same units + the same .puml as the first.
   - [ ] **(functional)** AC7 / INV-P4: import mutates ONLY the isolated model-store (data/model-store), NEVER prod scenario/index (the R32.5 safe-mechanism law) - gate-able: prod ModelElement count unchanged after import.
   - [ ] **(functional)** AC8 - edge kinds ROUND-TRIP: generalization/association/dependency <-> the PUML arrows <|-- / --> / ..> (mirrors the R32.6 EDGE_DEFS) - export writes the right arrow per M2 kind, import resolves the arrow back to the right relationship metaclass.
+  -> puml.export [uc:uuid:e3c310e2-8f0f-4253-9ede-b46ecae9de99]
+  -> puml.import [uc:uuid:16523537-0203-4d46-b09a-12e5c45a8377]
 
 - [ ] **R32.8 — Action-driven M1/M2 sync (TS <-> model <-> PUML, same-UUID, no drift)**
   [requirement:uuid:782d4b8e-576e-4090-9de6-4c0cda5700fb]

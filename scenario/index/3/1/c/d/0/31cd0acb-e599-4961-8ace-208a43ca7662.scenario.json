@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "31cd0acb-e599-4961-8ace-208a43ca7662",
+    "name": "PumlSerializer.pumlToModel",
+    "description": "R32.7 import core: pumlToModel(text):{elements, relations} @ src/ts/shared/puml-serializer.ts:67 - a PURE function that parses @startuml back into MDA elements + relations (deterministic same-uuid, INV-P1/P2/P3), edge arrows resolved to M2 kind. Caller writes into the ISOLATED store (INV-P4, prod untouched). NEW named decl on Class PumlSerializer - no re-credit. scenario-first IMPL-MINT (#126) - [impl:uuid] marker lands on the pumlToModel() decl (name-matches 'pumlToModel').",
+    "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
+    "implementations": [
+      "ior:instance:e85bc60a-5c2b-4180-9d10-fb09bf195fba"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441"
+}

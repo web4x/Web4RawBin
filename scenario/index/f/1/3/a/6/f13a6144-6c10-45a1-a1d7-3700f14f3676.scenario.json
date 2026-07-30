@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f13a6144-6c10-45a1-a1d7-3700f14f3676",
+    "name": "PumlSerializer.modelToPuml",
+    "description": "R32.7 export core: modelToPuml(nodes, relations):string @ src/ts/shared/puml-serializer.ts:32 - a PURE function that emits a valid @startuml...@enduml from the model, each element ONCE, deterministic order (byte-identical re-export), relations by M2 kind (<|-- / --> / ..>, mirrors R32.6 EDGE_DEFS). NEW named decl on the NEW Class PumlSerializer - no re-credit of R32.2 generate / R32.4-6 diagram fns. Architect design b9895358d; scenario-first IMPL-MINT (#126) - [impl:uuid] marker lands on the modelToPuml() decl (name-matches 'modelToPuml').",
+    "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
+    "implementations": [
+      "ior:instance:8462f889-1d56-4a59-adad-f88287b9f9ce"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441"
+}

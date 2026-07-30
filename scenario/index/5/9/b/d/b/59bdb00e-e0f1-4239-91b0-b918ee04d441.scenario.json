@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "59bdb00e-e0f1-4239-91b0-b918ee04d441",
+    "name": "PumlSerializer",
+    "file": "src/ts/shared/puml-serializer.ts",
+    "methods": [
+      "ior:instance:f13a6144-6c10-45a1-a1d7-3700f14f3676",
+      "ior:instance:31cd0acb-e599-4961-8ace-208a43ca7662"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e3c310e2-8f0f-4253-9ede-b46ecae9de99"
+}

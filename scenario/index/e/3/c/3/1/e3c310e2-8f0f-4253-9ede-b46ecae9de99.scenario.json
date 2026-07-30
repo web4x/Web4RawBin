@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e3c310e2-8f0f-4253-9ede-b46ecae9de99",
+  "name": "puml.export",
+  "description": "R32.7 EXPORT: PumlSerializer.modelToPuml serializes the MDA model (classes/interfaces + members + relations) to a valid @startuml...@enduml - each element emitted EXACTLY ONCE, deterministic order so re-export is BYTE-IDENTICAL, relations by M2 kind (generalization <|-- / association --> / dependency ..>, mirrors R32.6 EDGE_DEFS). Pure client-isolated puml-serializer.ts (no server endpoint = no boot risk), REUSE the diagram-view-model EdgeKind/DiagramNode/DiagramRelation + buildEdges de-dup. Sibling UC of puml.import.",
+  "class": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+  "classes": [
+   "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441"
+  ],
+  "method": "ior:instance:f13a6144-6c10-45a1-a1d7-3700f14f3676",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

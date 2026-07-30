@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8462f889-1d56-4a59-adad-f88287b9f9ce",
+    "name": "PumlSerializer.modelToPuml impl (model -> @startuml, one-each, byte-identical)",
+    "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126, R32.1-6 pattern): req mints this Impl; expert drops [impl:uuid:8462f889-1d56-4a59-adad-f88287b9f9ce] on the modelToPuml() decl @ src/ts/shared/puml-serializer.ts:32 (name-matches 'modelToPuml'). Built + gate GREEN at cd22300c3 (v0.8.7). NEW puml-serializer decl - no re-credit of R32.2/R32.4-6. markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin."
+  },
+  "ownerIor": "ior:instance:f13a6144-6c10-45a1-a1d7-3700f14f3676"
+}
