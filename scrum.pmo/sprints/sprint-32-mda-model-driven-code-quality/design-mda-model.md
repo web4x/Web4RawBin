@@ -251,3 +251,31 @@ Per design:58-60 the edge is a relationship **view-link** (`viewKind:'relationsh
 - **GATE (tester + Tron):** on the R32.5 demo diagram (faa4acad — Circle/Point/Shape/…), edges render between related boxes with the CORRECT arrowhead per kind (generalization=hollow-triangle for Shape-implements, association/dependency for typed members); pan/zoom moves edges WITH boxes (RbPanZoom); edge→click shows relationship detail; a relatesTo to an OFF-diagram element draws NO dangling edge; re-render idempotent (de-dup); R32.4 boxes + /trace + SM + room UNREGRESSED (additive edge pass only, no drawer/surface mechanics changed).
 - **req (AC):** R32.6 = relationship edges on the R32.4 surface from model `relatesTo` (both endpoints on-diagram); arrowhead by M2 kind (Association/Generalization/Dependency; heritage→Generalization); edge in the same SVG group (RbPanZoom-transformed); edge clickable→relationship detail; de-dup idempotent; edges-excluded-from-R32.4 now RENDERED (closes that deferral); reuse-only (rb-diagram-detail/RbPanZoom, NO fork); R32.4 + shared regression green. Chain onto the built edge-render (Class/Method/Impl/Test), IMPL-MINT like R32.1-5.
 - **expert:** additive edge pass in `rb-diagram-detail` (relatesTo→on-surface endpoints, M2-kind marker, SVG group) + marker `<defs>`. Touches NO surface/drawer mechanics. If a new server read is needed (relationship M2 kind resolution) → real-boot check + __dirname-deps-below-shim (R32.5 lesson). HOLDS until this design + PO build-go.
+
+---
+
+## R32.7 PUML EXPORT/IMPORT — ARCHITECT DESIGN (robbin-architect 2026-07-30, finalizes MDA-structure invariants for task-32.7 f7a635b2 / req b1fef048)
+MEASURE-FIRST (confirmed R32.7 GENUINELY NEW): NO `@startuml` GENERATOR exists in src (grep empty — the repo's "puml" hits are FILE-PREVIEW of .puml, not model→puml generation). REUSE surface (measured, do NOT re-fork): `src/public/ts/trace/diagram-view-model.ts` — `EdgeKind='association'|'generalization'|'dependency'` (:6), `DiagramNode{name,kind,attrs[],methods[],relations?}` (:9), `DiagramRelation{to,kind}` (:7), `buildEdges` de-dup `seen` by `from->to:kind` (:75-76), `EDGE_DEFS` arrow-by-kind (:41-44); R32.2 model+deterministic-uuid via `TsToModel.ts`; R32.5 isolated-store.
+
+### Architecture — ONE shared pure module `src/ts/shared/puml-serializer.ts` (usable client + server, no I/O)
+**EXPORT `modelToPuml(nodes, relations): string`** — a PUML-TEXT renderer PARALLEL to `buildDiagramSvg` (same model, different sink):
+- Node → `class Name {\n  attr\n  method()\n}`; `kind==='interface'` → `interface Name {...}` (mirrors the buildBox `«interface»` stereotype :28). attrs/methods() mirror the box compartments.
+- Relation → PUML line, kind mapping MIRRORS `EDGE_DEFS` arrowheads: **generalization** (hollow triangle) → `Parent <|-- Child`; **association** (open) → `From --> To`; **dependency** (open, dashed) → `From ..> To`.
+- **NO-DUP (AC):** each class emitted ONCE (a `seenClasses` set); relations de-dup by `from->to:kind` (REUSE buildEdges' `seen`).
+- **BYTE-IDENTICAL re-export (idempotent):** DETERMINISTIC ORDER — sort classes by (name,uuid), members by declared-order, relations by (from,to,kind). NO timestamps/random. → re-export same model = byte-identical.
+
+**IMPORT `pumlToModel(text): {elements, relations}`** — parse `@startuml..@enduml`: class/interface blocks + members + relationship lines (reverse kind map: `<|--`→generalization, `-->`→association, `..>`→dependency).
+- Persist into the **ISOLATED store (R32.5 pattern) — NO prod mutation.** Pure parse in the shared module; persistence via the isolated store at the call site.
+
+### MDA-STRUCTURE INVARIANTS (finalized — the task's "finalize on architect design")
+- **INV-P1 (same-UUID-across-M-levels):** a puml class ⇒ ONE uuid that is BOTH M2-instanceOf-Class AND M1-instanceOf-puml-class-code. The uuid is DERIVED DETERMINISTICALLY from the element identity (R32.2 deterministic-uuid law) — NOT random. So parsing an existing .puml RESOLVES to the same-uuid unit.
+- **INV-P2 (no-dup / reuse-not-remint):** import maps each parsed class to its existing same-uuid unit (de-dup by deterministic uuid) → never re-mints, never duplicates. Export emits each element once.
+- **INV-P3 (round-trip stable, correct-by-construction):** `parse→serialize→parse` identity-preserving; `export(model)` byte-identical on re-export; `import(export(m))` yields the SAME uuids as `m`. Holds BY CONSTRUCTION from deterministic-uuid (INV-P1) + deterministic export order.
+- **INV-P4 (isolation):** import writes ONLY the isolated store; prod scenario store is never mutated by an import (R32.5).
+
+### Server endpoint? (R32.5 lesson)
+Export = pure client text transform (model already client-side). Import-persist: RECOMMEND a client-side ISOLATED in-memory store (no prod mutation, no endpoint) for the round-trip; IF a server persist endpoint is later needed → `__dirname`-deps-below shim + REAL-BOOT verify (R32.5). Keep parse/serialize in the shared pure module regardless.
+
+### Chain / build order / gate
+- Chain mints onto the BUILT fix (per task): UC puml.export/puml.import → Class PumlSerializer → Method modelToPuml + pumlToModel → Impl → Test. I mint/repoint on ship (IMPL-MINT pattern) if req/expert env can't.
+- GATE (tester): (a) export a known model → valid .puml, each element ONCE (no-dup); (b) re-export byte-identical; (c) import→export→import stable (same uuids, INV-P1/P3); (d) import of an existing .puml REUSES same-uuid units (no re-mint, INV-P2); (e) import mutates ONLY the isolated store (INV-P4); (f) edge kinds round-trip (generalization/association/dependency ↔ `<|--`/`-->`/`..>`).
