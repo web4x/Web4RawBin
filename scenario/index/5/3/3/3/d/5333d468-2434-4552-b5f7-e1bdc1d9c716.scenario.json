@@ -33,14 +33,15 @@
    {
     "id": "AC-reuse-modelToPuml",
     "group": "functional",
-    "text": "The PUML text is produced by the EXISTING R32.7 modelToPuml (Impl 8462f889) - NO new serializer, no fork; R33.1.1 only wires the leaf node + its content to that call."
+    "text": "The PUML text is produced by the EXISTING R32.7 modelToPuml serializer (Impl 8462f889) - NO new serializer. R33.1.1 builds the store->PumlNode/PumlRelation input ADAPTER (modelToPuml is currently un-wired = zero callers) + wires the leaf to that call. Reuse the serializer, add only the adapter + leaf wiring (expert measure-first correction - not thin, but no serializer fork)."
    },
    {
     "id": "AC-gate-puml-leaf-390",
     "group": "gate",
     "text": "GATE @390: the '📄 PUML (code)' leaf appears under the M1 project and its content is the correct modelToPuml serialization of the project's classes/members/relations - not just 'a node exists'."
    }
-  ]
+  ],
+  "scopeNote": "SCOPE CORRECTION (expert measure-first, 2026-07-30): R32.7 modelToPuml (8462f889) is UN-WIRED - zero existing callers + NO store->PumlNode builder. So R33.1.1 is NOT a thin reuse: it needs a store->PumlNode adapter (read a project M1 model from MODEL_STORE -> PumlNode[]/PumlRelation[]) THEN call the existing modelToPuml, + wire the leaf. modelToPuml (the serializer) is still REUSED (AC-reuse-modelToPuml holds - no NEW serializer), but the input-adapter + wiring is real work = a scoped pass, not thin. Expert places the Impl marker when (b) is built. PO to note; the 5333d468 unit stays valid scenario-first."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }
