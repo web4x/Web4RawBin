@@ -4,8 +4,8 @@
     "uuid": "449d830a-d488-407c-8cc7-81a6bce649f2",
     "name": "server.modelFacetType impl (M2 model-facet type shaping for the model tree)",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerPending": true,
-    "markerNote": "IMPL-MINT scenario-first (#126, R32.1/R32.2 pattern): req mints this Impl; expert drops [impl:uuid:449d830a] on the modelFacetType() decl @ src/ts/server/server.ts:35 (name-matches 'modelFacetType'). Built + gate GREEN at 8c3c31094 (v0.8.3). Primary anchor for R32.3 (the /api/model/tree route is inline endpoint glue; chain-model entry + TRACE_ICONS are data/config). markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin (strict-AST credit).",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at 96e6437f5: [impl:uuid:449d830a] heads the named modelFacetType() decl @ src/ts/server/server.ts:36 (marker line 32 immediately precedes function modelFacetType(, name-matches; Method 2d98903b, Class server c0a0921d, UC dbbf2bdb). Comment-only, architect v0.8.3 backstop PASS stands. IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test hop HOLDS for the tester independent vitest test/vitest/r32.3-model-tree.test.ts.",
     "tests": []
   },
   "ownerIor": "ior:instance:2d98903b-fbda-492f-9051-cb209a8e3b86"
