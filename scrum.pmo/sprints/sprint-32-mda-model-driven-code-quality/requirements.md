@@ -178,3 +178,4 @@
   - [ ] **(functional)** DnD is PRIMARY (the drag-to-add-view above). ADDITIVE complement (PO): selecting a class node (selection-changed) with the /model diagram open AUTO-appends that class's view via the SAME add-view path (idempotent, no 2nd mechanism) - the drag stays for deliberate curation, the select gives instant feedback.
   - [ ] **(gate)** GATE the DROP INTERACTION @390 (Tron viewport): empty diagram -> drag 'Circle' from the model tree -> drop -> Circle box appears; drag 'Point' -> 2nd box + R32.6 edges; drag Circle again -> NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open the /model diagram -> views persist (INV-R4). Gate the DROP, NOT the label/generate-path [[gate-the-ac-surface]] - the 3rd 'gated-path != interaction' miss.
   -> diagram.addView [uc:uuid:cdd29583-f304-4df7-af06-b5a8d955be85]
+  -> diagram.tapToAdd [uc:uuid:87d3d693-6fcf-46e4-bf08-c5447ca8a241]

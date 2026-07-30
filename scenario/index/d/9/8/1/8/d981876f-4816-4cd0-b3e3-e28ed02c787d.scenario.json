@@ -11,7 +11,8 @@
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
   "useCases": [
-   "ior:instance:cdd29583-f304-4df7-af06-b5a8d955be85"
+   "ior:instance:cdd29583-f304-4df7-af06-b5a8d955be85",
+   "ior:instance:87d3d693-6fcf-46e4-bf08-c5447ca8a241"
   ],
   "acceptanceCriteria": [
    {

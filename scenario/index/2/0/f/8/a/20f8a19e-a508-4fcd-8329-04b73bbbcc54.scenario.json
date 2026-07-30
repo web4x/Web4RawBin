@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "20f8a19e-a508-4fcd-8329-04b73bbbcc54",
+    "name": "RbDiagramDetail.onSelectionChanged impl (tap-to-add touch complement)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; the onSelectionChanged decl @:62 carries a '[R32.11-MOBILE marker-pending — req IMPL-mints]' placeholder @:57 awaiting [impl:uuid:20f8a19e] (name-matches 'onSelectionChanged'). Built + GREEN at e9de2fcc0 (v0.8.15) - the diagram:-prefix 400 bug (8806b96c9) fixed at addView getAttribute('uuid') :166. Expert (or req if env) places the marker; markerPending flips false on strict-AST verify. NOTE: UNIT two-key (Impl.tests<->Test) is clean regardless of markerPending.",
+    "tests": [
+      "ior:instance:6cb4c205-144a-47d4-a0b5-12fe07aed834"
+    ]
+  },
+  "ownerIor": "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041"
+}

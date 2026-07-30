@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6cb4c205-144a-47d4-a0b5-12fe07aed834",
+    "name": "test:R32.11-MOBILE tap-to-add box appears on touch (onSelectionChanged, POST 200, guarded)",
+    "description": "Bridged to test/visual/r3211m-mobile-tap-gate.mjs (INDEPENDENT tester gate GREEN DET-3x v0.8.15, e9de2fcc0). Verifies RbDiagramDetail.onSelectionChanged (touch/iOS complement): a SINGLE tap (document 'selection-changed' with one 'modelelement:' ref) with the diagram open -> a UML box APPEARS (addView fires, POST 200). Drives the REAL event on the REAL mounted component (drawer-faithful: ref='diagram:<uuid>' + uuid='<stripped>') + network-captures the add-view POST. BITES: multi-select + non-modelelement GUARDED (no box). Caught the diagram:-prefix 400 bug (8806b96c9) -> fixed addView getAttribute('uuid') :166 -> RED->GREEN. Marker 6cb4c205 adopted from origin (measured line 1, not invented). Chain: R32.11 req d981876f -> UC 87d3d693 diagram.tapToAdd -> Class RbDiagramDetail 039ec367-b84b-4c33-a027-b862f7596c78 -> Method fcd2464e onSelectionChanged -> Impl 20f8a19e -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3211m-mobile-tap-gate.mjs",
+    "implementations": [
+      "ior:instance:20f8a19e-a508-4fcd-8329-04b73bbbcc54"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:20f8a19e-a508-4fcd-8329-04b73bbbcc54"
+}
