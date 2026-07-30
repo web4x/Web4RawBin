@@ -1,0 +1,58 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "f106673d-cd77-49bb-bfbd-3ab622c9f8c7",
+  "altId": "R32.10",
+  "name": "On /model, selecting a tree node opens the drawer (node-detail + reachable diagram / method signature)",
+  "description": "Tron device-QA (2026-07-30): on the /model page, selecting a tree node does NOTHING - no drawer opens. ROOT (measured, PO): serverModelPage (server.ts:999) mounts <rb-trace-tree id='model-tree'> but NO <rb-detail-drawer> (the /trace page mounts BOTH tree + drawer) - so a selection has nothing to open. This is the 2nd 'gated loads but does not WORK' device-QA miss of the MDA arc (R32.9 = feature not listed; R32.10 = drawer not opening) - [[device-qa-regression-means-missing-ac]] + [[gate-the-ac-surface]]: gate at the INTERACTION surface (select -> drawer opens), not page-load. FIX (scenario-first, feature-completion, architect -> expert -> tester): the /model page mounts the SHARED rb-detail-drawer (+ the R32.4 rb-diagram-detail via the drawer tagMap), mirroring /trace - NO fork; selection drives the standard renderDetailForRef flow. Selecting a CLASS opens its node-detail + reachable diagram (R32.4 boxes + R32.6 edges); selecting a MEMBER/method opens its signature-detail. Gated @390 at the interaction.",
+  "tronQuote": "> TRON (device-QA 2026-07-30): \"no drawer opens on /model select.\"",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/requirements.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron (device-QA @390, 2026-07-30) via robbin-po",
+   "date": "2026-07-30",
+   "note": "2nd 'gated-loads-not-works' miss (after R32.9). PO measured the root: serverModelPage mounts rb-trace-tree but not rb-detail-drawer. Gate at the interaction (select->drawer-opens->detail/diagram/method-signature), not page-load."
+  },
+  "crossRef": [
+   "ior:instance:168e6d2b-439f-4c90-ab0c-47b2a10ccae0",
+   "ior:instance:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7",
+   "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8",
+   "ior:instance:96e88399-e8a6-4ce8-b1e3-379edff0eb86"
+  ],
+  "crossRefNote": "R32.10 completes the /model interaction: the R32.3 tree + R32.4 diagram (rb-diagram-detail) + R32.6 edges already exist as shared components; the /model page just needs the shared rb-detail-drawer mounted (mirroring /trace) so selection opens them. Sibling of R32.9 (both are gated-loads-not-works device-QA misses closed by gating the INTERACTION surface, not page-load).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drawer-mounted-on-model",
+    "group": "functional",
+    "text": "The /model page (serverModelPage) mounts the SHARED <rb-detail-drawer> (and the R32.4 rb-diagram-detail via the drawer tagMap) alongside <rb-trace-tree id='model-tree'>, mirroring the /trace page - NO fork (the drawer is the shared component). This is the root fix: the drawer was absent, so nothing could open."
+   },
+   {
+    "id": "AC-class-select-opens-detail",
+    "group": "functional",
+    "text": "On /model, selecting a tree CLASS node OPENS the drawer with that class's node-detail, via the standard selection -> renderDetailForRef flow (identical to /trace) - no capture-hook, no fork."
+   },
+   {
+    "id": "AC-class-select-reaches-diagram",
+    "group": "functional",
+    "text": "Selecting a CLASS makes its diagram REACHABLE in the drawer: the R32.4 UML boxes + R32.6 relationship edges render for that class (rb-diagram-detail over the class's diagram / view-links)."
+   },
+   {
+    "id": "AC-member-select-signature",
+    "group": "functional",
+    "text": "Selecting a MEMBER / method tree node opens its signature-detail (the member's signature + detail) in the drawer."
+   },
+   {
+    "id": "AC-gate-interaction-390",
+    "group": "gate",
+    "text": "Acceptance is GATED at the INTERACTION @390 (Tron viewport): select -> drawer OPENS -> node-detail / reachable diagram / method-signature - NOT at page-load (the page rendering the tree is NOT sufficient) [[gate-the-ac-surface]]. This is the 2nd 'gated-loads-not-works' miss (R32.9 not-listed; R32.10 drawer-not-opening) - a device-QA regression = a missing AC."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}
