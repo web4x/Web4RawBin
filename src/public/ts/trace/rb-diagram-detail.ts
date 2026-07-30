@@ -91,7 +91,11 @@ export class RbDiagramDetail extends HTMLElement {
 
   private async render(): Promise<void> {
     const ref = this.getAttribute('ref') || '';
-    const d = await this.fetchModel(stripRef(ref));
+    // R33.3 fix (caught by the @390 render harness — unit tests never exercised this DOM path): resolve the diagram
+    // via the drawer-provided STRIPPED uuid. stripRef strips ior:instance:/modelelement: but NOT 'diagram:' (the
+    // r3211m 8806b96c9 class of bug), so stripRef('diagram:<uuid>') stayed prefixed → the fetch mis-resolved →
+    // EMPTY canvas (no boxes ever rendered from a drawer 'diagram:' ref). addView was fixed; render() was not.
+    const d = await this.fetchModel(this.getAttribute('uuid') || stripRef(ref));
     const views: ViewLink[] = Array.isArray(d?.views) ? (d!.views as ViewLink[]) : [];
     // Resolve each view-link's element + its members (compartments) — bounded to the diagram's views.
     const nodes = new Map<string, DiagramNode>();
