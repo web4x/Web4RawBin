@@ -202,3 +202,10 @@ Restarted remoteShells:0.2 ([d] stop→npm start, not gated). served==committed(
 - AC4: an ACTION BAR (reuse rb-strip/rb-compartment WODA component) with NAMED actions Add-Diagram + Compile-PUML→SVG on /model.
 - AC5: each M2-instance renders as its SVG box equivalent; relationship edges (R32.6) between on-canvas boxes.
 - AC6: GATE = @390 Tron REAL interaction, screenshot+pixel (drag→SEE the movable selectable box), NOT endpoint/structure; planted-defect bite.
+
+### ARCHITECT BACKSTOP — R33.3 interactive editor v0.8.17 / b3d12f5c1 (robbin-architect 2026-07-30): **PASS (deploy)** — VISUAL @390 = expert playwright + Tron pixel
+Restarted remoteShells:0.2 ([d] stop→npm start). served==committed(pkg)==SW(rawbin-v0.8.17)==HEAD==0.8.17; fresh pid 886657→1135812.
+- **STATIC:** NEW `POST /api/model/diagram/move-view` (server.ts:1672, updates view.x/y in MODEL_STORE, INV-S33V-2/4). Box-drag via **`pointerdown`** (rb-diagram-detail:190 — pointer events = touch+mouse, the R32.11-MOBILE lesson applied) → live transform → persist on release (:223). Reachable canvas + drop→box + action-bar built (client live).
+- **★ INV-S33V-2 (movable+persist) — PROVEN:** POST move-view Circle→(999,888) → `{ok,x:999,y:888}`; MODEL_STORE Diagram file now has Circle view `{x:999,y:888}` = persists to disk (survives reload). INV-S33V-4 isolation: writes MODEL_STORE only (probe artifact in the resettable demo store).
+- **GATE:** /model + /server-manager → 403 non-owner; /trace → 200. Guard grant preserved live (uncommitted).
+- **REMAINING:** ★ the VISUAL @390 interaction (drag/tap item → SEE a selectable box w/ compartments → drag to move → persist-reload) = the expert's MANDATORY playwright self-verify (screenshot) + Tron device PIXEL gate — I'm 403-limited on the authed mobile UI, so the endpoint+persist+static is my ceiling; the pixel is theirs. Owner-guard landmine still open (Tron to commit).
