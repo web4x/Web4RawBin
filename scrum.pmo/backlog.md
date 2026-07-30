@@ -388,3 +388,23 @@ R32.8 (the MDA sprint finale) delivered CLIENT-ONLY single-file Re-Sync: a model
 
 ---
 **Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)
+
+
+---
+
+# BACKLOG: RawBin REAL multi-file model (deferred from R32.10 — generate over RawBin actual source)
+
+**Captured:** 2026-07-30 - **By:** robbin-req (PO directive) - **Source:** architect R32.10 design (16e64e445, ## R32.10 ROOT B) - **discoverySource:** tron-device-qa
+
+R32.1-R32.10 deliver Model-Driven Code Quality over a SINGLE-FILE demo (the r32.2-sample: Circle/Point/Shape/Widget/Base). The ACTUAL VALUE Tron is after: generate the model over RawBin OWN source tree so the tree + diagram + edges show RawBin real classes / functions / interfaces, not the sample. Tron (device-QA): where are RawBin classes/functions/interfaces.
+
+**Root (architect-flagged, R32.10 doc ROOT B):** the generate engine (TsToModel.generate R32.2) + isolated store (R32.5) + views (R32.3/4/6) + PUML (R32.7) + re-sync (R32.8) are single-file today (one .ts -> one model + Diagram). A REAL model needs multi-file generation over a project tracked sourceFile set (RawBin src/), a whole-project Diagram, and drop/re-sync targeting the project not one file.
+
+**Why backlog (not a new sprint):** the MDA feature is COMPLETE + reachable (R32.9 registration + R32.10 drawer) over the demo; multi-file is value-scaling, not a gap. Tron authorizes any new sprint (no auto-increment) - well-formed backlog item, awaiting Tron schedule call.
+
+**Proposed direction (Tron/PO decides):** multi-file TsToModel.generate over a tracked project sourceFile set (reuse deterministic keyToUuid + reconcile; extends the R32.8 model-sync multi-file backlog = SIBLING) + a project/package Diagram with auto-layout + a drop-a-folder / index-the-src entry. Acceptance: point at RawBin src -> tree + diagram show RawBin real classes/functions/interfaces + relations; isolated store, prod untouched (R32.5). Owner pair: architect + expert + tester (real-RawBin-src gate).
+
+**Cross-ref:** R32.2 (engine), R32.5 (go-live store), R32.8 (model-sync multi-file backlog = sibling), R32.10 (drawer that surfaces it).
+
+---
+**Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)
