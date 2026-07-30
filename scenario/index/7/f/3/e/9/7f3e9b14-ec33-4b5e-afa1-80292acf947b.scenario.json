@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7f3e9b14-ec33-4b5e-afa1-80292acf947b",
+    "name": "test:R33.1 MOF-folder structure (M2·UML Profile + M1·Projects folders, cross-level nav, no-dup, isolation)",
+    "description": "Bridged to test/visual/r331-mof-folders-gate.mjs (INDEPENDENT tester MOF-folder structure gate GREEN DET-3x, 91f889858, own-oracle read-only pollution-impossible). Verifies mofLayerRoots (Impl 5afeafe9): /api/model/tree returns MOF-LAYER FOLDER roots (INV-MOF1 M2·UML Profile + M1·Projects, NOT flat) + M2 metaclass→M1 instances via reverse instanceOf (INV-MOF2 cross-level nav) + M1→project→classes+members+Diagram + INV-MOF3 no-dup/same-uuid identity + INV-MOF4 isolation (store-only + /model 403). Own-oracle: real tree structure + /api/ior + prod-shard-absence. Marker 7f3e9b14 adopted from origin (measured line 1, not invented). Chain: R33.1 req e347e82b → UC d42e1a1e model.mofTree → Class c0a0921d server → Method 3d308526 server.mofLayerRoots → Impl 5afeafe9 → this Test. NOTE: Impl markerPending=TRUE — the group-by is inline in /api/model/tree; the expert extracts named mofLayerRoots(idx) + places the code-marker POST-REWIND (req-agreed). UNIT two-key (Impl.tests↔Test) is valid NOW.",
+    "sourceFile": "ior:file:test/visual/r331-mof-folders-gate.mjs",
+    "implementations": [
+      "ior:instance:5afeafe9-14a7-480c-8d02-91e76539a3ae"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5afeafe9-14a7-480c-8d02-91e76539a3ae"
+}

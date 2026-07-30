@@ -5,7 +5,9 @@
     "name": "server.mofLayerRoots impl (group-by-metaLevel MOF-layer folder roots)",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": true,
-    "tests": [],
+    "tests": [
+      "ior:instance:7f3e9b14-ec33-4b5e-afa1-80292acf947b"
+    ],
     "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl NOW; the group-by-metaLevel MOF logic is BUILT + committed (287357c90, v0.8.12) but currently INLINE in the /api/model/tree handler (no name-matchable decl). Per expert request (they were at ~75%, the PO clean-boundary rewind point), the marker is DEFERRED: post-rewind the fresh expert EXTRACTS the group-by into a named mofLayerRoots(idx) function and places [impl:uuid:5afeafe9] on it (name-matches 'mofLayerRoots'). markerPending stays TRUE until then; req flips false once the marker heads the named decl on origin. Server change -> real restart on ship. The unit chain is valid scenario-first now; the Test wires when the tester MOF-folder gate lands."
   },
   "ownerIor": "ior:instance:3d308526-d1c5-4f73-af39-7aecaa5b3cbf"
