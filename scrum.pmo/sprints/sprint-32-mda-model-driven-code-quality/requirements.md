@@ -53,6 +53,7 @@
   - [ ] **(functional)** Re-parse / re-render yields the SAME UUIDs (R32.2 deterministic sourceFile::qualifiedName uuid) so the model tree is STABLE across re-runs - no churn, no duplicate nodes, expansion state coherent.
   - [ ] **(functional)** The shared rb-trace-tree stays UNREGRESSED: /trace, Server Manager, and room trees still render + expand + badge exactly as before, because the ModelElement forward-key entry is ADDITIVE (other node types untouched). Regression-green is part of acceptance (shared-component law).
   - [ ] **(functional)** Each MDA unit itemView in the model tree is a drag SOURCE (draggable). The drag TARGET / diagram-drop is R32.5 (drag itemView -> diagram view); R32.3 asserts only that the model-tree node is draggable.
+  -> model.tree [uc:uuid:dbbf2bdb-9b06-4761-be4e-ef8cc3afbbb9]
 
 - [ ] **R32.4 — Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)**
   [requirement:uuid:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7]

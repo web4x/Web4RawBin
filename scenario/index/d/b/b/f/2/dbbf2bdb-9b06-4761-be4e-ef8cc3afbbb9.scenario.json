@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "dbbf2bdb-9b06-4761-be4e-ef8cc3afbbb9",
+  "name": "model.tree",
+  "description": "R32.3: the MDA model tree renders over the SHARED rb-trace-tree (no fork - data + forward-key config only, R31.3/R31.11 law). The server shapes each model node's display type from its M2 MODEL-facet instanceOf via server.modelFacetType (UmlClass/UmlInterface/UmlAttribute/UmlMethod/UmlProperty/UmlFunction) so rb-object-item picks the right icon; children walk = ModelElement `members` composition (chain-model additive forward-key entry, forwardKeysForMode R31.11); badge = members.length (childRefCount stamp REUSE); relatesTo is NOT a child (detail/R32.6). Re-parse = same UUIDs (R32.2) -> stable tree; /trace + Server Manager + room trees UNREGRESSED (additive). Primary Impl anchor = the named server.modelFacetType decl (the /api/model/tree route is inline endpoint glue). The R32.3 Test (tester independent vitest) asserts the 8 finalized ACs incl the shared-tree no-regression check.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ],
+  "method": "ior:instance:2d98903b-fbda-492f-9051-cb209a8e3b86",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
