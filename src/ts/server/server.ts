@@ -29,6 +29,7 @@ import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
 
+// [impl:uuid:449d830a-d488-407c-8cc7-81a6bce649f2] server.modelFacetType (Method 2d98903b, Class c0a0921d, off UC dbbf2bdb)
 // R32.3 MDA model tree: a model node's DISPLAY type = its M2 MODEL-facet metaclass (the Uml* instanceOf), so
 // rb-object-item renders the model-kind icon (rb-trace-tree lowercases it → TRACE_ICONS['umlclass'] etc.).
 // Data-shaping only (NO tree mechanics). Falls back to 'ModelElement' when no Uml* facet resolves.
