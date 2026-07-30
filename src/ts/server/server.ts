@@ -29,6 +29,7 @@ import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
 import { TsToModel } from '../scenario/TsToModel.js';
+import { pumlToModel } from '../shared/puml-serializer.js'; // S33-P3f-1: REUSE the R32.7 PUML parser (INV-F-1, no new parser)
 
 // [impl:uuid:449d830a-d488-407c-8cc7-81a6bce649f2] server.modelFacetType (Method 2d98903b, Class c0a0921d, off UC dbbf2bdb)
 // R32.3 MDA model tree: a model node's DISPLAY type = its M2 MODEL-facet metaclass (the Uml* instanceOf), so
@@ -1665,6 +1666,63 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/create') { // S33-P3f-1 Add-diagram: create an EMPTY Diagram unit in diagram/ → curate via R32.11 add-view. markerPending (req IMPL-mints per-action)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { name } = JSON.parse(body || '{}');
+          const diagramUuid = crypto.randomUUID();
+          const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
+          fsSync.writeFileSync(dfile, JSON.stringify({ ior: 'ior:class:Diagram', ownerIor: null, model: { uuid: diagramUuid, name: String(name || 'New diagram').slice(0, 80), views: [] } }, null, 2) + '\n'); // INV-F-3 MODEL_STORE only, prod untouched
+          addLog(`[model] add-diagram → empty Diagram ${diagramUuid.slice(0, 8)} (store-only)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, diagramUuid }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-diagram-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/import-puml') { // S33-P3f-1 Import-PUML (Tron feat D): REUSE R32.7 pumlToModel (INV-F-1) → M1 units (ts/) + auto-grid Diagram (diagram/) + PumlArtifact (puml/). markerPending (req IMPL-mints)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { text, name } = JSON.parse(body || '{}');
+          const puml = String(text || '');
+          if (!puml.trim()) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"empty-puml"}'); return; }
+          const { elements, relations } = pumlToModel(puml); // INV-F-1: the R32.7 parser (class/interface + <|--/-->/..>), NO new parser
+          if (elements.length === 0) { // sequence/activity/unknown → NOT a class model → clean 'not importable' (triage/out-of-scope, no crash)
+            addLog(`[model] import-puml '${String(name || '').slice(0, 40)}' → 0 class elements (sequence/activity? out-of-scope)`);
+            res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, reason: 'not-importable: no class/interface found (likely a sequence/activity diagram — class model only)' })); return;
+          }
+          const base = (String(name || 'imported').replace(/\.puml$/i, '').replace(/[^\w.-]/g, '_').slice(0, 60)) || 'imported';
+          const sourceFile = `src/imported/${base}.puml`; // src/ prefix → groups under rawbin:ts (isSrc) as a file-folder
+          const detUuid = (key: string): string => { const h = crypto.createHash('sha256').update(key).digest('hex'); return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`; };
+          const relsFrom = (u: string): { to: string; type: string }[] => relations.filter((r) => r.from === u).map((r) => ({ to: `ior:instance:${r.to}`, type: String(r.kind) }));
+          const writeUnit = (ior: string, model: Record<string, unknown>): void => { const uuid = String(model.uuid); const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); fsSync.mkdirSync(path.dirname(p), { recursive: true }); fsSync.writeFileSync(p, JSON.stringify({ ior, ownerIor: null, model }, null, 2) + '\n'); }; // INV-F-3 MODEL_STORE only
+          let memberCount = 0;
+          for (const el of elements) {
+            const members: string[] = [];
+            for (const a of el.attrs) { const mu = detUuid(`${el.uuid}::attr:${a}`); members.push(`ior:instance:${mu}`); writeUnit('ior:class:ModelElement', { uuid: mu, name: a, metaLevel: 'M1', kind: 'property', sourceFile, qualifiedName: `${el.name}.${a}`, instanceOf: [], memberOf: `ior:instance:${el.uuid}` }); memberCount++; }
+            for (const m of el.methods) { const mu = detUuid(`${el.uuid}::method:${m}`); members.push(`ior:instance:${mu}`); writeUnit('ior:class:ModelElement', { uuid: mu, name: m, metaLevel: 'M1', kind: 'method', sourceFile, qualifiedName: `${el.name}.${m}()`, instanceOf: [], memberOf: `ior:instance:${el.uuid}` }); memberCount++; }
+            writeUnit('ior:class:ModelElement', { uuid: el.uuid, name: el.name, metaLevel: 'M1', kind: el.kind, sourceFile, qualifiedName: el.name, instanceOf: [], members, relations: relsFrom(el.uuid) });
+          }
+          const COLS = 3; // auto-grid Diagram over the imported classes → R32.4 interactive (boxes + relation edges)
+          const views = elements.map((el, i) => ({ unit: `modelelement:${el.uuid}`, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: 'class' }));
+          const diagramUuid = detUuid(`diagram::${sourceFile}`);
+          writeUnit('ior:class:Diagram', { uuid: diagramUuid, name: `${base} (${elements.length} classes)`, views });
+          const pumlUuid = detUuid(`puml::${sourceFile}`); // the .puml source text → puml/
+          writeUnit('ior:class:PumlArtifact', { uuid: pumlUuid, name: `${base}.puml`, text: puml, sourceFile });
+          addLog(`[model] import-puml '${base}' → ${elements.length} classes / ${memberCount} members / ${relations.length} relations → diagram ${diagramUuid.slice(0, 8)} + puml ${pumlUuid.slice(0, 8)} (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, elements: elements.length, members: memberCount, relations: relations.length, diagramUuid, pumlUuid }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'import-puml-failed' })); }
       });
       return;
     }
