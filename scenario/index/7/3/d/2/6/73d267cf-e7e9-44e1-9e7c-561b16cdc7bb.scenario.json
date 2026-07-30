@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "73d267cf-e7e9-44e1-9e7c-561b16cdc7bb",
+    "name": "test:R33.3 interactive diagram editor @390 — visible compartment box + movable persist (dual-impl round-trip)",
+    "description": "Bridged to test/visual/r333-movable-box-gate.mjs (INDEPENDENT tester @390 PIXEL gate GREEN DET-3x v0.8.18, c7b8f761f - own-oracle: real rb-diagram-detail drawer-faithful mount + real MODEL_STORE diagram + real pointer drag; pollution-safe byte-snapshot+restore). ★ THE never-delivered vision, now gated by REAL @390 interaction (not structure/self-verify). ONE round-trip gate credits BOTH R33.3 impls: diagram.renderCanvas (Impl 34dec13f render - a SELECTABLE class box WITH attribute/method compartments PIXEL-VISIBLE @390, resolving the diagram: ref the old stripRef bug left empty) AND diagram.moveView (Impl a4f8ad6a wireBoxDrag - box-drag -> POST /api/model/diagram/move-view 200 -> view x,y PERSISTS in MODEL_STORE -> survives a fresh re-mount). Dual-impl round-trip pattern (like R32.7 modelToPuml+pumlToModel). Marker 73d267cf adopted from origin (measured line 1, not invented). Chain: R33.3 req 700957e1 -> {UC 42e6d425 diagram.renderCanvas -> Method 65649d26 render -> Impl 34dec13f} + {UC f783de5b diagram.moveView -> Method 383d2467 wireBoxDrag -> Impl a4f8ad6a} -> this Test (credits both).",
+    "sourceFile": "ior:file:test/visual/r333-movable-box-gate.mjs",
+    "implementations": [
+      "ior:instance:34dec13f-5cb6-4f01-8894-e85954174830",
+      "ior:instance:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:34dec13f-5cb6-4f01-8894-e85954174830"
+}
