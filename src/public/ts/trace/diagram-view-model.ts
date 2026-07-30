@@ -54,10 +54,9 @@ function borderPoint(r: Rect, tx: number, ty: number): { x: number; y: number } 
   return { x: cx + dx * s, y: cy + dy * s };
 }
 
+// [impl:uuid:77761d46-4144-4b84-a9e4-4c876da310d0] DiagramViewModel.buildEdges (Method 8c68b925, Class 09730090, off UC 20fe541e diagram.renderEdges)
 // R32.6 edge pass — for each on-diagram box X, an edge X→Y per X.relations IFF Y is ALSO an on-diagram box
 // (off-diagram target = NO dangling edge). Arrowhead by M2 kind. De-dup (from,to,kind) → idempotent re-render.
-// MARKER PENDING (scenario-first #126): req mints the R32.6 chain (Class/Method/Impl/Test) onto buildEdges, then
-// [impl:uuid:<Impl>] lands on this decl (name-matches 'buildEdges'; same IMPL-MINT pattern as R32.1-5).
 export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramNode | null): { svg: string; count: number } {
   const rects = new Map<string, Rect>();
   const nodes = new Map<string, DiagramNode>();
