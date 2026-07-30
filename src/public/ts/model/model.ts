@@ -13,6 +13,7 @@ type Root = { uuid: string; type: string; name: string; hasChildren?: boolean; c
 
 const err = document.getElementById('err') as HTMLElement | null;
 const tree = document.getElementById('model-tree') as (HTMLElement & { items?: Root[] }) | null;
+tree?.removeAttribute('data-always-expanded'); // R33.2/S33-P2b (INV-P2b-1): mirror server-manager.ts:28 — the /model shell attr eager-exploded ALL layers (1195-node flood @390); drop it → collapsed-initial + lazy-expand per layer via /api/trace/children.
 
 // Mount the drawer once, as a sibling of the tree panel (mirrors scenario-view's app.appendChild(drawer)).
 if (!document.querySelector('rb-detail-drawer')) {

@@ -1046,40 +1046,58 @@ function renderFeatureGrants(): string {
 }
 
 // [impl:uuid:5afeafe9-14a7-480c-8d02-91e76539a3ae] mofLayerRoots (Method 3d308526, Class c0a0921d, off UC d42e1a1e
-// model.mofTree) — R33.1 (S33-P1) INV-MOF1: group the ISOLATED MODEL_STORE by MOF metaLevel into FOLDER roots for the
-// SHARED rb-trace-tree. 'M2 · UML Profile' → each metaclass → its M1 instances via REVERSE multi-facet instanceOf
-// (INV-MOF2); 'M1 · Projects' → project(by sourceFile) → classes (members inline, SAME uuid INV-MOF3) + Diagram node.
-// Small census → built INLINE (rb-trace-tree renders verbatim, no lazy-fetch of synthetic folders). Pure over `idx`.
+// model.mofTree) — R33.1 MOF folder roots for the SHARED rb-trace-tree. S33-P2b (R33.2, INV-P2b-1/2): emit ONLY the
+// TOP layer (M2/M1 folders, hasChildren+childCount, NO inline deep tree). Every deeper layer (metaclass→instances,
+// project→file-folders→classes→members) lazy-loads via /api/trace/children → mofChildren (MODEL_STORE) on expand →
+// bounds the initial payload+DOM at 390px (was: inline ~1195 nodes = @390 flood). Members already lazy (mofElNode).
 type MofNode = { uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string; children?: MofNode[] };
-function mofLayerRoots(idx: ScenarioIndex): MofNode[] {
-  const strip = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
-  const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as { uuid: string; ior: string; m: Record<string, unknown> }[];
+type MofEl = { uuid: string; ior: string; m: Record<string, unknown> };
+const MOF_STRIP = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
+// bounded folder: hasChildren + childCount, NO inline children array → client lazy-fetches via /api/trace/children.
+const mofFolder = (uuid: string, name: string, childCount: number, icon: string, type = 'collection'): MofNode => ({ uuid, type, name, hasChildren: childCount > 0, childCount, icon });
+// a real ModelElement (class) node — members stay LAZY (hasChildren+childCount, no inline members), INV-MOF3 uuid unchanged.
+const mofElNode = (x: MofEl): MofNode => { const memberCount = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).length; return { uuid: String(x.m.uuid || x.uuid), type: 'modelelement', name: String(x.m.name || ''), hasChildren: memberCount > 0, childCount: memberCount, icon: String(x.m.kind || 'class') }; };
+function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl[]; m1Roots: MofEl[] } {
+  const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as MofEl[];
   const modelEls = els.filter((x) => x.ior === 'ior:class:ModelElement');
   const m1 = modelEls.filter((x) => x.m.metaLevel === 'M1');
-  const m2 = modelEls.filter((x) => x.m.metaLevel === 'M2');
-  const folder = (uuid: string, name: string, kids: MofNode[], icon: string, type = 'collection'): MofNode => ({ uuid, type, name, hasChildren: kids.length > 0, childCount: kids.length, icon, ...(kids.length ? { children: kids } : {}) });
-  // S33-P2 (INV-P2-3 / AC5 no-flood): members are LAZY — emit the class node with hasChildren+childCount but NO inline
-  // children; rb-trace-tree lazy-fetches members via /api/trace/children (MODEL_STORE-rerouted) on expand. Bounds the
-  // payload at class-level for a multi-file project (was: inline every member → flood at scale). INV-MOF3 uuid unchanged.
-  const elNode = (x: { uuid: string; m: Record<string, unknown> }): MofNode => {
-    const memberCount = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).length;
-    return { uuid: String(x.m.uuid || x.uuid), type: 'modelelement', name: String(x.m.name || ''), hasChildren: memberCount > 0, childCount: memberCount, icon: String(x.m.kind || 'class') };
-  };
-  const m2Kids = m2.map((mc) => { const mcU = String(mc.m.uuid || mc.uuid); const inst = m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(strip).includes(mcU)).map(elNode); return folder(mcU, String(mc.m.name || ''), inst, String(mc.m.kind || 'class'), 'modelelement'); }).sort((a, b) => a.name.localeCompare(b.name));
-  const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => folder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), [], 'diagram', 'diagram'));
-  // M1·Projects (INV-P2-1): group src/ M1 elements under ONE 'RawBin' project (Tron 'where are RawBin's classes');
-  // non-src files (e.g. demo fixtures) keep their own per-file project node. LAZY class nodes (members on expand).
-  const m1Roots = m1.filter((e) => !e.m.memberOf);
-  const rawbin = m1Roots.filter((x) => String(x.m.sourceFile || '').startsWith('src/')).map(elNode).sort((a, b) => a.name.localeCompare(b.name));
-  const otherByFile = new Map<string, MofNode[]>();
-  for (const x of m1Roots.filter((x) => !String(x.m.sourceFile || '').startsWith('src/'))) { const sf = String(x.m.sourceFile || 'model'); const arr = otherByFile.get(sf) || []; arr.push(elNode(x)); otherByFile.set(sf, arr); }
-  const projKids: MofNode[] = [
-    ...(rawbin.length ? [folder('project:RawBin', 'RawBin', [...rawbin, ...diagrams], 'mof-project')] : []),
-    ...[...otherByFile.entries()].map(([sf, classes]) => folder(`project:${sf}`, sf, classes, 'mof-project')),
-  ];
+  return { els, m1, m2: modelEls.filter((x) => x.m.metaLevel === 'M2'), m1Roots: m1.filter((e) => !e.m.memberOf) };
+}
+// S33-P2b (INV-P2b-2/3, NO fork): resolve ONE bounded layer for a SYNTHETIC MOF folder uuid. Shared by mofLayerRoots
+// (top layer) + /api/trace/children (deeper layers). Returns null when the uuid is NOT synthetic (a real ModelElement →
+// the member path resolves it). Scheme: mof-m2 | mof-m2:<mc> | mof-m1 | project:RawBin | project:<sf> | file:<sf>.
+function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
+  if (!/^(mof-m1|mof-m2|project:|file:)/.test(uuid)) return null;
+  const { els, m1, m2, m1Roots } = mofModelEls(idx);
+  const instancesOf = (mcU: string): MofEl[] => m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(MOF_STRIP).includes(mcU));
+  const isSrc = (x: MofEl): boolean => String(x.m.sourceFile || '').startsWith('src/');
+  if (uuid === 'mof-m2') return m2.map((mc) => { const mcU = String(mc.m.uuid || mc.uuid); return mofFolder('mof-m2:' + mcU, String(mc.m.name || ''), instancesOf(mcU).length, String(mc.m.kind || 'class'), 'modelelement'); }).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid.startsWith('mof-m2:')) return instancesOf(uuid.slice('mof-m2:'.length)).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid === 'mof-m1') {
+    const rawbinFiles = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile)));
+    const diagramCount = els.filter((x) => x.ior === 'ior:class:Diagram').length;
+    const otherFiles = [...new Set(m1Roots.filter((x) => !isSrc(x)).map((x) => String(x.m.sourceFile || 'model')))].sort();
+    return [
+      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', rawbinFiles.size + diagramCount, 'mof-project')] : []),
+      ...otherFiles.map((sf) => mofFolder('project:' + sf, sf, m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).length, 'mof-project')),
+    ];
+  }
+  if (uuid === 'project:RawBin') { // Part B (INV-P2b-3): sub-group src/ classes by sourceFile → file-folders (not a flat 139-list) + Diagrams
+    const byFile = new Map<string, number>();
+    for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); byFile.set(sf, (byFile.get(sf) || 0) + 1); }
+    const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram'));
+    return [...[...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf, n, 'mof-project')), ...diagrams];
+  }
+  if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
+  if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
+  return [];
+}
+function mofLayerRoots(idx: ScenarioIndex): MofNode[] {
+  const { m2, m1Roots } = mofModelEls(idx);
+  const projectCount = (m1Roots.some((x) => String(x.m.sourceFile || '').startsWith('src/')) ? 1 : 0) + new Set(m1Roots.filter((x) => !String(x.m.sourceFile || '').startsWith('src/')).map((x) => String(x.m.sourceFile || 'model'))).size;
   return [
-    folder('mof-m2', 'M2 · UML Profile', m2Kids, 'mof-layer', 'mof-layer'),
-    folder('mof-m1', 'M1 · Projects', projKids, 'mof-layer', 'mof-layer'),
+    mofFolder('mof-m2', 'M2 · UML Profile', m2.length, 'mof-layer', 'mof-layer'),
+    mofFolder('mof-m1', 'M1 · Projects', projectCount, 'mof-layer', 'mof-layer'),
   ];
 }
 
@@ -1720,6 +1738,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/trace/children/')) {
       const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length)).replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
       try {
+        // S33-P2b (INV-P2b-2): a SYNTHETIC MOF folder uuid (mof-*/project:*/file:*) resolves ONE bounded layer LAZILY
+        // from the ISOLATED MODEL_STORE via mofChildren — the deep MOF tree is NEVER inlined in /api/model/tree's roots
+        // payload. Public parity with /api/model/tree (also ungated, data-only). Real ModelElement uuids fall through.
+        if (/^(mof-m1|mof-m2|project:|file:)/.test(uuid)) {
+          ensureStoreSeeded();
+          const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), uuid) || [];
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          res.end(JSON.stringify({ uuid, type: 'collection', name: '', hasChildren: mofKids.length > 0, children: mofKids, parent: null }));
+          return;
+        }
         // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
         const scenarioDir = isModelUnit(uuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
