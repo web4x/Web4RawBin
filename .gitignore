@@ -10,5 +10,6 @@ data/profiles.json
 data/devices.json
 data/repos.json
 data/*.bak
+data/model-store/
 # verification screenshots (binary churn; .mjs scripts ARE committed)
 test/visual/*.png

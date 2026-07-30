@@ -28,6 +28,7 @@ import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
+import { TsToModel } from '../scenario/TsToModel.js';
 
 // [impl:uuid:449d830a-d488-407c-8cc7-81a6bce649f2] server.modelFacetType (Method 2d98903b, Class c0a0921d, off UC dbbf2bdb)
 // R32.3 MDA model tree: a model node's DISPLAY type = its M2 MODEL-facet metaclass (the Uml* instanceOf), so
@@ -40,6 +41,26 @@ function modelFacetType(model: Record<string, unknown> | undefined, idx: { get(u
     if (n.startsWith('Uml')) return n;
   }
   return 'ModelElement';
+}
+
+// R32.5 GO-LIVE: the MDA model lives in an ISOLATED store, NEVER prod scenario/index (don't-force-prod-mutation law).
+// generate writes ONLY here; model reads reroute here; trace reads stay prod; store is resettable (rm data/model-store).
+const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
+const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
+// Seed the store's M2/M3 metaclasses once (copy from prod's a1d2e… shard) so instanceOf/modelFacetType + ModelValidator resolve self-contained.
+function ensureStoreSeeded(): void {
+  const src = path.join(PROD_INDEX, 'a', '1', 'd', '2', 'e'), dst = path.join(MODEL_STORE, 'a', '1', 'd', '2', 'e');
+  fsSync.mkdirSync(dst, { recursive: true });
+  if (fsSync.existsSync(src)) for (const f of fsSync.readdirSync(src)) { const d = path.join(dst, f); if (!fsSync.existsSync(d)) fsSync.copyFileSync(path.join(src, f), d); }
+}
+// A model unit (ModelElement/Diagram) present in the store → its reads reroute to the store (trace units stay prod). Reads the shard directly (no index scan).
+function isModelUnit(uuid: string): boolean {
+  try {
+    const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+    if (!fsSync.existsSync(p)) return false;
+    const ior = JSON.parse(fsSync.readFileSync(p, 'utf-8')).ior;
+    return ior === 'ior:class:ModelElement' || ior === 'ior:class:Diagram';
+  } catch { return false; }
 }
 import { FeatureManager } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
@@ -1466,7 +1487,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       // as `.items` for the SHARED rb-trace-tree. Data-only; each root's members nest as children via the ModelElement
       // forward-key (/api/trace/children). type = the M2 MODEL-facet metaclass (icon); childCount = members.length (badge).
       try {
-        const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+        ensureStoreSeeded();
+        const idx = new ScenarioIndex(MODEL_STORE); // R32.5: model tree reads the ISOLATED store (prod scenario/index untouched)
         const roots: Array<{ uuid: string; type: string; name: string; hasChildren: boolean; childCount: number }> = [];
         for (const u of idx.list()) {
           const unit = idx.get(u);
@@ -1482,6 +1504,26 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       } catch (e) {
         res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: String(e) }));
       }
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/generate') { // R32.5 GO-LIVE: drop→TsToModel.generate→ISOLATED store (prod scenario/index NEVER mutated) + demo Diagram
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { file } = JSON.parse(body || '{}');
+          const projectRoot = path.join(__dirname, '../../..');
+          const abs = path.resolve(projectRoot, String(file || ''));
+          if (!String(file) || !abs.startsWith(projectRoot + path.sep) || !abs.endsWith('.ts') || !fsSync.existsSync(abs)) { // path-safety: repo-relative existing .ts only (no traversal)
+            res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-file: must be an existing repo-relative .ts path"}'); return;
+          }
+          ensureStoreSeeded();
+          const r = new TsToModel(projectRoot).generate([abs], { indexDir: MODEL_STORE, write: true, diagram: true });
+          const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
+          addLog(`[model] generate ${path.relative(projectRoot, abs)} → ${r.units.length} units (${roots} roots) diagram=${r.diagramUuid?.slice(0, 8)} wrote=${r.wrote} (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, units: r.units.length, roots, diagramUuid: r.diagramUuid, wrote: r.wrote }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-failed' })); }
+      });
       return;
     }
     if (filepath === '/api/trace') {
@@ -1566,7 +1608,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/trace/children/')) {
       const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length)).replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
+        const scenarioDir = isModelUnit(uuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
@@ -1740,7 +1783,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/ior/')) {
       const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        // R32.5: model units (ModelElement/Diagram) resolve from the ISOLATED store (diagram surface + tree fetch); trace units stay prod.
+        const iorUuid = ior.replace(/^ior:(instance|class):/, '');
+        const scenarioDir = isModelUnit(iorUuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);

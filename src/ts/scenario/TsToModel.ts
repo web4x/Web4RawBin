@@ -93,7 +93,7 @@ export class TsToModel {
   // — parse `files` into M1 ModelElement units (deterministic uuid),
   // resolve typed-member relationships (relatesTo + M2 type), write them to `indexDir` idempotently (0-churn re-run),
   // and reconcile (remove prior M1 units of the processed files that are no longer present in source).
-  generate(files: string[], opts?: { indexDir?: string; write?: boolean }): { units: M1Unit[]; wrote: number; removed: number } {
+  generate(files: string[], opts?: { indexDir?: string; write?: boolean; diagram?: boolean }): { units: M1Unit[]; wrote: number; removed: number; diagramUuid?: string } {
     const indexDir = opts?.indexDir || path.join(this.root, 'scenario', 'index');
     const write = opts?.write !== false;
     const program = ts.createProgram(files, { target: ts.ScriptTarget.ES2020, allowJs: false, noResolve: false, noLib: true });
@@ -198,6 +198,22 @@ export class TsToModel {
       if (prev !== json) { fs.writeFileSync(file, json); wrote++; }
     }
 
+    // R32.5 DEMO DIAGRAM — a Diagram unit (Layer-2 view-links, one per class/interface, DETERMINISTIC auto-layout
+    // grid) so the R32.4 surface has nodes. Deterministic uuid (files key) → re-drop re-binds, 0 dup (R32.2 law).
+    // Position lives on the LINK (x,y); the unit is untouched (R25.7 identity-by-ref).
+    let diagramUuid: string | undefined;
+    if (opts?.diagram) {
+      diagramUuid = keyToUuid('diagram::' + files.map((f) => this.rel(f)).sort().join(','));
+      const boxes = units.filter((u) => u.model.kind === 'class' || u.model.kind === 'interface');
+      const COLS = 3;
+      const views = boxes.map((u, i) => ({ unit: 'modelelement:' + u.model.uuid, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: 'class' }));
+      const dUnit = { ior: 'ior:class:Diagram', ownerIor: null, model: { uuid: diagramUuid, name: `Model diagram (${boxes.length} classes)`, views } };
+      const dfile = shardPath(diagramUuid);
+      const djson = JSON.stringify(dUnit, null, 2) + '\n';
+      fs.mkdirSync(path.dirname(dfile), { recursive: true });
+      if ((fs.existsSync(dfile) ? fs.readFileSync(dfile, 'utf-8') : '') !== djson) { fs.writeFileSync(dfile, djson); wrote++; }
+    }
+
     // RECONCILE — remove prior M1 units of the PROCESSED source files that are no longer present (rename/move/delete).
     const processed = new Set(units.map((u) => u.model.sourceFile));
     let removed = 0;
@@ -216,6 +232,6 @@ export class TsToModel {
         }
       }
     }
-    return { units, wrote, removed };
+    return { units, wrote, removed, diagramUuid };
   }
 }
