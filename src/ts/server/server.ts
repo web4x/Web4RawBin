@@ -1069,7 +1069,7 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
 // [impl:uuid:b6c88d83-a838-46ad-ba9a-874e803ca479] mofChildren (Method 7c460f8a, Class c0a0921d, off UC 8bdeda90
 // model.mofChildren) — R33.2/S33-P2b bounded/lazy layer resolver. DISTINCT from mofLayerRoots 5afeafe9 (R33.1) — no re-credit.
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
-  if (!/^(mof-m1|mof-m2|project:|file:)/.test(uuid)) return null;
+  if (!/^(mof-m1|mof-m2|project:|file:|rawbin:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
   const instancesOf = (mcU: string): MofEl[] => m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(MOF_STRIP).includes(mcU));
   const isSrc = (x: MofEl): boolean => String(x.m.sourceFile || '').startsWith('src/');
@@ -1077,19 +1077,29 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (uuid.startsWith('mof-m2:')) return instancesOf(uuid.slice('mof-m2:'.length)).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid === 'mof-m1') {
     const rawbinFiles = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile)));
-    const diagramCount = els.filter((x) => x.ior === 'ior:class:Diagram').length;
     const otherFiles = [...new Set(m1Roots.filter((x) => !isSrc(x)).map((x) => String(x.m.sourceFile || 'model')))].sort();
     return [
-      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', rawbinFiles.size + diagramCount, 'mof-project')] : []),
+      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', 3, 'mof-project')] : []), // S33-P3f-1: RawBin always has the 3 artifact folders (ts/puml/diagram)
       ...otherFiles.map((sf) => mofFolder('project:' + sf, sf, m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).length, 'mof-project')),
     ];
   }
-  if (uuid === 'project:RawBin') { // Part B (INV-P2b-3): sub-group src/ classes by sourceFile → file-folders (not a flat 139-list) + Diagrams
+  if (uuid === 'project:RawBin') { // S33-P3f-1 (INV-F-2): RawBin → 3 artifact FOLDERS (ts / puml / diagram) over MODEL_STORE — reuse rb-trace-tree folders, no fork
+    const tsCount = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile))).size; // file-folders of generated M1 classes
+    const pumlCount = els.filter((x) => x.ior === 'ior:class:PumlArtifact').length;
+    const diagramCount = els.filter((x) => x.ior === 'ior:class:Diagram').length;
+    return [
+      mofFolder('rawbin:ts', 'ts', tsCount, 'mof-project'),
+      mofFolder('rawbin:puml', 'puml', pumlCount, 'puml'),
+      mofFolder('rawbin:diagram', 'diagram', diagramCount, 'diagram'),
+    ];
+  }
+  if (uuid === 'rawbin:ts') { // ts/ = generated M1 ModelElements sub-grouped by sourceFile (the former flat project:RawBin content, INV-P2b-3)
     const byFile = new Map<string, number>();
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); byFile.set(sf, (byFile.get(sf) || 0) + 1); }
-    const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram'));
-    return [...[...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf, n, 'mof-project')), ...diagrams];
+    return [...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf, n, 'mof-project'));
   }
+  if (uuid === 'rawbin:puml') return els.filter((x) => x.ior === 'ior:class:PumlArtifact').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact')).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   return [];
