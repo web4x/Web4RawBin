@@ -420,3 +420,6 @@ So R32.5 gated drop-a-FILE→generate; the in-diagram drag-a-CLASS→add-view wa
 - **DEPLOY:** client (drop handler) + server (add-view endpoint) → REAL restart + boot-verify + R31.7 invariant.
 - **CHAIN (#126, req):** UC diagram.addView → Class RbDiagramDetail (+ the server add-view Method) → Method onDrop/diagramAddView → Impl → Test. I mint/repoint on ship if needed.
 - **NOTE (my prior mis-read, corrected):** R32.10-assessment (1) called drag-into-empty "drift" — Tron OVERRODE: it IS the original vision; the auto-show idea is secondary. R32.11 makes the DRAG work (the primary), not replace it.
+
+### R32.11 COMPLEMENT (PO 2026-07-30): DnD is PRIMARY (fix it), auto-show is ADDITIVE (add it too)
+Per PO: keep the drag-to-add-view as the vision (fix #1-3 above) AND add **select-class → auto-show its view** as a COMPLEMENT (not a replacement). Additive design: when a class node is selected (selection-changed), if the /model diagram is open, auto-append that class's view-link (same add-view path as the drop, idempotent) so its box appears — the DRAG stays for deliberate curation, the SELECT gives instant feedback. Both funnel through the ONE add-view mechanism (INV-R1..R4) — no second path. Small; can ride R32.11 or a fast-follow.
