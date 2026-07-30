@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be",
+    "name": "RbDiagramDetail.wireBoxDrag impl (R33.3 movable box-drag + move-view persist)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be] on the wireBoxDrag() decl @ src/public/ts/trace/rb-diagram-detail.ts:187 (name-matches 'wireBoxDrag'; marker-pending comment already in place). Built + @390 self-verify GREEN at a81209a91 (expert). markerPending flips false on strict-AST verify. Test WAITS on the TESTER independent @390 pixel gate (not expert self-verify).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c"
+}

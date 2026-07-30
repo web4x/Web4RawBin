@@ -7,7 +7,9 @@
     "methods": [
       "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013",
       "ior:instance:70be1605-6b8c-4358-af16-6702549aee97",
-      "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041"
+      "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041",
+      "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95",
+      "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "34dec13f-5cb6-4f01-8894-e85954174830",
+    "name": "RbDiagramDetail.render impl (R33.3 resolve-and-render reachable canvas, compartment boxes)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:34dec13f-5cb6-4f01-8894-e85954174830] on the render() decl @ src/public/ts/trace/rb-diagram-detail.ts:92 (name-matches 'render'; marker-pending comment already in place). Built + @390 self-verify GREEN at a81209a91 (expert). markerPending flips false on strict-AST verify. Test WAITS on the TESTER independent @390 pixel gate (not expert self-verify).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95"
+}

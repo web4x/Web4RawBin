@@ -11,7 +11,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:42e6d425-4ef8-4b49-8820-92028e8b60c7",
+   "ior:instance:f783de5b-05d3-4fe7-b43b-92a4d6be2b2f"
+  ],
   "unitLinks": [],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-RE-SCOPE&commit=9fc7bd402",
   "acceptanceCriteria": [

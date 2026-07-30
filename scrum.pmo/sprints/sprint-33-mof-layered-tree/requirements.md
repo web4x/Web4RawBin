@@ -51,6 +51,8 @@
   - [ ] **(functional)** AC4 (refined per Tron IMG_4772): an ACTION BAR is mounted on the /model diagram view (currently MISSING), REUSING the existing WODA component rb-strip / rb-compartment (the S31 CONCEPT primitives, BUILT - NO new fork), with NAMED actions (not icon-only): 'Add Diagram', 'Compile PUML -> SVG' (+ Import-PUML from P3f). 'Add Diagram' CREATES a NEW EMPTY Diagram UNDER the diagrams/ folder via a NEW POST /api/model/diagram/create (new Diagram unit in MODEL_STORE, PARENTED to the diagrams folder) -> the empty diagram node APPEARS in the tree under diagrams/, ready to drop classes onto (the reachable droppable canvas of AC-reachable-canvas).
   - [ ] **(functional)** AC5: every dropped M2-instance (class/interface) renders as its SVG box equivalent (buildBox - the puml-compiled-svg equivalent), each selectable + movable; R32.6 relationship EDGES render between the on-canvas boxes.
   - [ ] **(gate)** AC6 / INV-S33V-3: GATE = @390 Tron REAL interaction, SCREENSHOT + PIXEL - drag/tap an item -> SEE a SELECTABLE, MOVABLE SVG class box WITH compartments on the pan/zoom canvas; box-click selects (highlight + drawer detail). NOT endpoint/structure (the original miss). Planted-defect BITE: a box that renders 0x0 or off-canvas must FAIL. All writes MODEL_STORE only (INV-S33V-4, prod git-clean).
+  -> diagram.renderCanvas [uc:uuid:42e6d425-4ef8-4b49-8820-92028e8b60c7]
+  -> diagram.moveView [uc:uuid:f783de5b-05d3-4fe7-b43b-92a4d6be2b2f]
 
 - [ ] **R33.4 — Compile MDA model -> TypeScript codegen (S33-P3-FEATURES P3f-2, BIG-ROCK, deferred)**
   [requirement:uuid:eb34c844-cc29-4c95-b128-415dcc8638ba]
