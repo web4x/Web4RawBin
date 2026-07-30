@@ -90,3 +90,43 @@ Restarted remoteShells:0.2 ([d] stop→npm start). BOOT-VERIFY: fresh pid 396280
 - **AC4 (qualified-name) — by construction:** TsToModel.ts:157 resolves relations FILE-SCOPED — "prefer a same-file decl; else a UNIQUE global decl; else (ambiguous) SKIP" → the 52 duplicate member-names (ior/model/get/…) can NOT mis-link (32 relations resolved conservatively, no false cross-file edges).
 - **GATE:** /model non-member → **403** (R32.9 preserved). /trace + SM unregressed (prior).
 - **REMAINING / flags:** (a) Tron @390 authed visual — open /model → M1·Projects·RawBin → its real classes + members (lazy) + curate a diagram (drag classes, R32.11); (b) expert-flagged: 139 classes FLAT under RawBin → **P2b sub-grouping** (by dir/package) for tree ergonomics; (c) R33.1.1 PUML-node still deferred.
+
+## S33-P2b — SUB-GROUPING + BOUNDED/LAZY render (@390 perf) — ARCHITECT DESIGN (robbin-architect 2026-07-30, tester @390 flood risk)
+MEASURE-FIRST — the 1195-node flood has TWO roots, both fixable by REUSE (rb-trace-tree is ALREADY lazy):
+1. **`/model` forces full render:** the shell has `<rb-trace-tree id="model-tree" data-always-expanded>` (server.ts:1011) → data-always-expanded makes buildSeedNode build ALL layers EAGERLY → renders all 1195 nodes at 390px = hang/flood. (server-manager.ts already `removeAttribute('data-always-expanded')` for exactly this, R31.3.)
+2. **`mofLayerRoots` INLINES the full nested tree:** /api/model/tree (server.ts:1554→`mofLayerRoots`) emits M2→instances + M1→classes→members ALL inline (1195 nodes in one payload) — the :1555 comment INTENDS lazy member-fetch via /api/trace/children, but the emission is inline.
+REUSE-READY: rb-trace-tree IS lazy (R31.3 layer-by-layer buildSeedNode + `fetchAndRenderChildren` :130 + `hasChildren`-driven expand); `/api/trace/children` routes ModelElement→MODEL_STORE (R32.5 isModelUnit). The lazy path EXISTS; data-always-expanded + inline-emission DEFEAT it.
+
+### Fix — Part A (bounded/lazy render) + Part B (sub-grouping); NO fork
+**Part A — LAZY (drop the eager flood):**
+1. **Client:** `model.ts` → `tree.removeAttribute('data-always-expanded')` (mirror server-manager.ts R31.3) so the tree starts COLLAPSED + lazy-expands per layer. Only the TOP layer renders initially.
+2. **Server `mofLayerRoots`:** emit BOUNDED — folders (M2/M1) + project + class nodes with `hasChildren:true`+`childCount`, but do NOT inline members/deep grandchildren. The client lazy-fetches each layer via `/api/trace/children/<uuid>` (MODEL_STORE-rerouted, R32.5) on expand. Payload drops from 1195 → the top layer only.
+**Part B — SUB-GROUPING (139 flat classes → hierarchy):** `mofLayerRoots` M1·Projects→RawBin groups its classes by **sourceFile/dir** → RawBin → [file/dir folders] → classes → members. src/ts/scenario = 26 files → 26 file-folder nodes (bounded) → their classes → members. Reuse rb-trace-tree collection/folder rendering (same as the MOF layers). No flat 139-list.
+
+### @390 render (what the user sees, bounded per layer)
+```
+📦 M2 · UML Profile        (collapsed)
+📁 M1 · Projects           (collapsed)
+   └─ RawBin               → 26 file folders (lazy)
+        └─ TsToModel.ts     → TsToModel (class) (lazy)
+             └─ TsToModel   → members (lazy)
+```
+Initial DOM at 390px = 2 folder nodes (not 1195); each expand = ONE bounded lazy fetch.
+
+### INVARIANTS (P2b)
+- **INV-P2b-1 (bounded initial):** /model at 390px renders ONLY the top layer (MOF folders, collapsed) — no data-always-expanded, no 1195-node DOM.
+- **INV-P2b-2 (lazy expand):** each expand fetches ONE bounded layer via /api/trace/children (MODEL_STORE); members/deep NEVER inlined in the roots payload.
+- **INV-P2b-3 (sub-grouped):** RawBin's classes structured by file/dir (rb-trace-tree folders), not a flat 139-list.
+- **INV-P2b-4 (@390 no-hang):** the full RawBin model is reachable WITHOUT hang/flood at 390px (bounded + lazy).
+
+### REUSE / gate / deploy / chain
+- **REUSE (no fork):** rb-trace-tree R31.3 lazy (layer-by-layer + fetchAndRenderChildren + hasChildren), /api/trace/children MODEL_STORE routing (R32.5), rb-trace-tree folders (R33.1). NEW = `mofLayerRoots` bounded emission + file/dir sub-grouping + drop `data-always-expanded` on /model.
+- **★ GATE @390 (render-perf — the interaction the tester flagged, tester + Tron):** /model at 390px initial DOM = bounded (folders only, measure node-count ≪ 1195, render fast, NO hang); expand M1→RawBin→file-folders→classes→members each a bounded lazy fetch (assert /api/trace/children called per-expand, not one 1195 payload); real RawBin classes still reachable (P2-1 unregressed); /model 403 non-member; /trace unregressed. Gate the @390 RENDER-PERF, not "loads".
+- **DEPLOY:** server (`mofLayerRoots` bounded + sub-group) + client (drop data-always-expanded) → REAL restart + boot-verify + R31.7 invariant.
+- **CHAIN (#126, req):** rides `mofLayerRoots` (Method, R33.1 Impl 5afeafe9) — extend for bounded+sub-group; UC model.mofTree; + Test = the @390 render-perf gate.
+
+### ACs handed to req (0.4)
+- AC1: /model tree renders BOUNDED at 390px (top-layer folders only, not the full 1195 nodes) — no data-always-expanded eager render.
+- AC2: deeper layers (project→files→classes→members) load LAZILY on expand via /api/trace/children (MODEL_STORE), not inline in the roots payload.
+- AC3: RawBin's 139 classes are SUB-GROUPED by file/dir (rb-trace-tree folders), not a flat list.
+- AC4: a @390 RENDER-PERF gate — the 1195-node model does NOT hang/flood mobile (bounded initial DOM + lazy expand); real classes still reachable; /model gate + /trace unregressed.
