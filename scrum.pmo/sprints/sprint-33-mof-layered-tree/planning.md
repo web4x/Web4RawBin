@@ -11,3 +11,7 @@ Present the MDA model as a proper MOF 4-layer TREE (M3/M2/M1/M0 folders) instead
 **Status:** Planned
 
 ## Tasks
+
+- [x] [Task 33.1: MOF-layered model tree: /model presents M2·UML Profile + M1·Projects folders (P1)](./task-33.1-mof-layered-tree.md)
+- [x] [Task 33.2: MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)](./task-33.2-bounded-lazy-render.md)
+- [ ] [Task 33.3: Working interactive diagram: DnD -> selectable MOVABLE SVG class boxes (S33 RE-SCOPE)](./task-33.3-interactive-diagram.md)

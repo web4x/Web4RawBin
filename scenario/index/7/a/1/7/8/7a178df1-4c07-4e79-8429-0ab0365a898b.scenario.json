@@ -6,7 +6,9 @@
   "name": "MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)",
   "description": "S33-P2b: the /model MOF tree must render BOUNDED + LAZY at 390px so the 1195-node RawBin model does not flood/hang mobile. MEASURE-FIRST root cause (architect 582b0c27b): (1) the shell's <rb-trace-tree id='model-tree' data-always-expanded> (server.ts:1011) forces buildSeedNode to build ALL layers eagerly; (2) mofLayerRoots (server.ts:1554) INLINES the full nested tree (1195 nodes in one payload). rb-trace-tree is ALREADY lazy (R31.3 layer-by-layer + fetchAndRenderChildren + hasChildren) and /api/trace/children routes ModelElement->MODEL_STORE (R32.5) - data-always-expanded + inline-emission DEFEAT the existing lazy path. FIX (no fork): Part A - drop data-always-expanded on /model (client, mirror server-manager R31.3) + mofLayerRoots emits BOUNDED (folders/project/class with hasChildren+childCount, NO inlined members) so the client lazy-fetches each layer via /api/trace/children on expand; Part B - sub-group RawBin's 139 classes by sourceFile/dir into rb-trace-tree folders (26 file-folders for src/ts/scenario), not a flat 139-list. CHAIN (#126) RIDES R33.1's mofLayerRoots (Method, Impl 5afeafe9) - extended for bounded+sub-group - + UC model.mofTree (d42e1a1e); the R33.2 Test = the @390 render-perf gate (mints on build onto the extended mofLayerRoots Impl, tester independent). Reuse-only: rb-trace-tree R31.3 lazy + /api/trace/children MODEL_STORE (R32.5) + rb-trace-tree folders (R33.1); NEW = mofLayerRoots bounded emission + file/dir sub-grouping + drop data-always-expanded.",
   "tronQuote": "",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:73472bb5-aec0-47cb-a41d-0f29981aebe7"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
