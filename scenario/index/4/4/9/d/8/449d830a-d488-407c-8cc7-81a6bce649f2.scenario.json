@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": false,
     "markerNote": "Strict-AST credit HOLDS at 96e6437f5: [impl:uuid:449d830a] heads the named modelFacetType() decl @ src/ts/server/server.ts:36 (marker line 32 immediately precedes function modelFacetType(, name-matches; Method 2d98903b, Class server c0a0921d, UC dbbf2bdb). Comment-only, architect v0.8.3 backstop PASS stands. IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test hop HOLDS for the tester independent vitest test/vitest/r32.3-model-tree.test.ts.",
-    "tests": []
+    "tests": [
+      "ior:instance:73c7b7ba-19fd-4a6b-9c16-ac05eb0e36e3"
+    ]
   },
   "ownerIor": "ior:instance:2d98903b-fbda-492f-9051-cb209a8e3b86"
 }

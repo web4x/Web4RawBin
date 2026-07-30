@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "73c7b7ba-19fd-4a6b-9c16-ac05eb0e36e3",
+    "name": "test:R32.3 MDA model-tree via shared rb-trace-tree (modelFacetType + members composition + no-fork regression)",
+    "description": "Bridged to test/visual/r323-model-tree-gate.mjs (INDEPENDENT tester gate GREEN DET-3x v0.8.3, fc9a725df - tester's OWN byte-faithful modelFacetType replica + source-audit + planted-defect bites + real client .items render, NOT a re-run of expert harness). Verifies the R32.3 ACs: modelFacetType maps M2 instanceOf->Uml* node type/icon (else ModelElement fallback); /api/model/tree roots = M1 top-level with members->childCount badge; relatesTo NOT a tree child; shaped as .items for the SHARED rb-trace-tree (data-only reuse, NO fork); draggable; deterministic (R32.2 same-uuid); /trace + Server Manager UNREGRESSED. BITES: non-Uml facet->fallback + empty facet->fallback both CAUGHT. Marker 73c7b7ba adopted from origin (measured line 1, not invented). Chain: R32.3 req d07b2dc0 -> UC dbbf2bdb model.tree -> Class server c0a0921d -> Method 2d98903b server.modelFacetType -> Impl 449d830a (markerPending=false, strict-AST credit HELD 96e6437f5) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r323-model-tree-gate.mjs",
+    "implementations": [
+      "ior:instance:449d830a-d488-407c-8cc7-81a6bce649f2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:449d830a-d488-407c-8cc7-81a6bce649f2"
+}
