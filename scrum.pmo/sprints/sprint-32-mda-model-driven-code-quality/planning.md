@@ -16,7 +16,7 @@ v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model
 - [x] [Task 32.1: MDA MoF 3-level scenario model (M3/M2/M1, same-UUID across levels)](./task-32.1-mda-mof-model.md)
 - [x] [Task 32.2: TS -> M1 generation from the TypeScript compiler base structures](./task-32.2-ts-to-m1.md)
 - [x] [Task 32.3: Model tree = traceability-tree UX reused over the MDA units (drag source)](./task-32.3-model-tree.md)
-- [ ] [Task 32.4: Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)](./task-32.4-diagram-surface.md)
+- [x] [Task 32.4: Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)](./task-32.4-diagram-surface.md)
 - [ ] [Task 32.5: Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)](./task-32.5-drop-to-view.md)
 - [ ] [Task 32.6: Relationship views (attribute/getter/setter whose type is another unit)](./task-32.6-relationship-views.md)
 - [ ] [Task 32.7: PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)](./task-32.7-puml-serializer.md)
