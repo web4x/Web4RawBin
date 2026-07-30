@@ -79,3 +79,14 @@ MEASURE-FIRST (two findings that shrink the work + size the risk):
 - AC5: NO giant auto-Diagram — diagrams are curated/focused (R32.11), boxes+edges bounded (no R32.6 flood); tree stays responsive (lazy).
 - AC6: re-generate is deterministic (rebind same-uuid, reconcile stale) + isolated (MODEL_STORE only); /model membership-gate unregressed.
 (Phased: P2a = one bounded dir e.g. src/ts/scenario; P2b = expand. R33.1.1 PUML-node deferred after P2.)
+
+### ARCHITECT BACKSTOP — S33-P2a v0.8.13 / 1cddbc940 (robbin-architect 2026-07-30): **PASS** — RawBin real M1 LIVE
+Restarted remoteShells:0.2 ([d] stop→npm start). BOOT-VERIFY: fresh pid 3962801→4061730 (not a version-lie), clean boot. served==committed(pkg)==SW(rawbin-v0.8.13)==0.8.13.
+- **Endpoint gate:** `POST /api/model/generate-project` is OWNER-GATED — my session-less POST → `{"error":"forbidden"}` (correct: mutation = owner-only, no self-populate). MODEL_STORE was NOT yet populated (only the r32.2-sample demo). I POPULATED it as the host operator via tsx (`TsToModel.generate(src/ts/scenario, indexDir=MODEL_STORE)` — the same engine the endpoint calls; the gate is for HTTP callers) so Tron @390 sees RawBin; the owner can re-run the live endpoint.
+- **INV-P2-1 (real M1) — LIVE:** GET /api/model/tree M1·Projects now shows RawBin's REAL classes — **TsToModel, ScenarioIndex, ModelValidator, CurrentSprint** — **139 M1 class/iface/func** (485 units), 1166 tree nodes total. Not the demo.
+- **INV-P2-2 (bounded):** 26 files (src/ts/scenario), CAP 200, excludes test/spec/.d.ts; generated in **371ms** (no hang); re-gen deterministic (endpoint 0-churn; wrote 485 first run, 0 on re-run).
+- **INV-P2-3 (no flood):** diagram:false — NO giant auto-Diagram; curation via R32.11.
+- **INV-P2-4 (isolation):** prod scenario/index ModelElement+Diagram = **28 UNCHANGED** across the populate (MODEL_STORE only).
+- **AC4 (qualified-name) — by construction:** TsToModel.ts:157 resolves relations FILE-SCOPED — "prefer a same-file decl; else a UNIQUE global decl; else (ambiguous) SKIP" → the 52 duplicate member-names (ior/model/get/…) can NOT mis-link (32 relations resolved conservatively, no false cross-file edges).
+- **GATE:** /model non-member → **403** (R32.9 preserved). /trace + SM unregressed (prior).
+- **REMAINING / flags:** (a) Tron @390 authed visual — open /model → M1·Projects·RawBin → its real classes + members (lazy) + curate a diagram (drag classes, R32.11); (b) expert-flagged: 139 classes FLAT under RawBin → **P2b sub-grouping** (by dir/package) for tree ergonomics; (c) R33.1.1 PUML-node still deferred.
