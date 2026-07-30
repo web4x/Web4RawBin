@@ -83,12 +83,19 @@ export class RbTraceTree extends HTMLElement {
     }
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.addEventListener('hashchange', this.onHashChange);
+    document.addEventListener('rb-model-resynced', this.onModelResynced); // R32.8: re-render a MODEL (seed) tree after Re-Sync
   }
   disconnectedCallback(): void {
     this.unsub?.(); this.unsub = null;
     this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.removeEventListener('hashchange', this.onHashChange);
+    document.removeEventListener('rb-model-resynced', this.onModelResynced);
   }
+
+  // R32.8 AC3: a model Re-Sync (rb-diagram-detail) refreshed MODEL_STORE → re-render this tree if it's a seed
+  // (model) tree so added elements appear + removed disappear. Trace trees are unaffected — the event only fires
+  // from the model view. NO fork (reuses render()).
+  private onModelResynced = (): void => { if (this.getAttribute('data-seed-ior')) void this.render(); };
 
   private onToggleChildren = (e: CustomEvent): void => {
     const item = (e.target as HTMLElement).closest('rb-object-item');

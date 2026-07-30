@@ -7,6 +7,7 @@
 // Pure render logic lives in diagram-view-model.ts (DOM-free, unit-tested by the R32.4 gate).
 import { RbPanZoom } from './pan-zoom.js';
 import { selectionModel } from './selection-model.js';
+import { dropDispatcher } from '../drop-dispatcher.js';
 import { buildDiagramSvg, stripRef, type ViewLink, type DiagramNode, type DiagramRelation, type EdgeKind } from './diagram-view-model.js';
 
 // M2 relationship metaclass uuid → edge kind (seed constants; the pure module stays uuid-free, kind-driven).
@@ -33,6 +34,10 @@ const STYLE = `<style>
   rb-diagram-detail .dm-arrow-open{fill:none;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-arrow-hollow{fill:#0d1117;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-empty{padding:24px;color:rgba(230,237,243,.6);font:13px system-ui;text-align:center}
+  rb-diagram-detail .dm-toolbar{display:flex;gap:8px;padding:6px 10px;background:#161b22;border-bottom:1px solid #30363d}
+  rb-diagram-detail .dm-resync{background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:4px 10px;font:12px system-ui;cursor:pointer}
+  rb-diagram-detail .dm-resync:hover{border-color:#58a6ff}
+  rb-diagram-detail .dm-resync[disabled]{opacity:.5;cursor:default}
 </style>`;
 
 export class RbDiagramDetail extends HTMLElement {
@@ -40,10 +45,30 @@ export class RbDiagramDetail extends HTMLElement {
   static get observedAttributes(): string[] { return ['ref']; }
   private pz: RbPanZoom | null = null;
   private ro: ResizeObserver | null = null;
+  private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
 
-  connectedCallback(): void { void this.render(); }
+  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); void this.render(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
-  disconnectedCallback(): void { this.ro?.disconnect(); this.ro = null; this.pz = null; }
+  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); this.ro?.disconnect(); this.ro = null; this.pz = null; }
+
+  // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
+  private onResyncRequest = (): void => { void this.reSyncFromSource(); };
+
+  // R32.8 action-sync — MARKER PENDING (scenario-first #126): req mints Class/Method/Impl/Test onto this decl →
+  // [impl:uuid:<Impl>] lands here (name-matches 'reSyncFromSource'). Re-runs generation on the model's own
+  // sourceFile via the EXISTING /api/model/generate (TsToModel.generate → same-uuid rebind + reconcile +
+  // idempotent, INV-S1/S2/S3), then re-renders diagram+edges AND broadcasts 'rb-model-resynced' so the tree
+  // (R32.3) + PUML (R32.7) re-render from the one MODEL_STORE (INV-S4). NO server code (reuses the endpoint).
+  async reSyncFromSource(): Promise<void> {
+    if (!this._sourceFile) return;
+    const btn = this.querySelector('.dm-resync') as HTMLButtonElement | null;
+    if (btn) { btn.disabled = true; btn.textContent = '⟳ Syncing…'; }
+    const r = await dropDispatcher.dispatchModelGenerate(this._sourceFile);
+    if (r?.ok) {
+      await this.render(); // re-render diagram + edges from the refreshed MODEL_STORE
+      document.dispatchEvent(new CustomEvent('rb-model-resynced', { detail: { sourceFile: this._sourceFile, diagramUuid: r.diagramUuid }, bubbles: true }));
+    } else if (btn) { btn.disabled = false; btn.textContent = '⟳ Re-Sync'; }
+  }
 
   private async fetchModel(uuid: string): Promise<Record<string, unknown> | null> {
     try { const r = await fetch(`/api/ior/ior:instance:${uuid}`); return (await r.json())?.unit?.model || null; } catch { return null; }
@@ -55,9 +80,11 @@ export class RbDiagramDetail extends HTMLElement {
     const views: ViewLink[] = Array.isArray(d?.views) ? (d!.views as ViewLink[]) : [];
     // Resolve each view-link's element + its members (compartments) — bounded to the diagram's views.
     const nodes = new Map<string, DiagramNode>();
+    let sourceFile: string | null = null; // R32.8: the model's source .ts (single-file model) for Re-Sync
     await Promise.all(views.map(async (v) => {
       const uuid = stripRef(v.unit);
       const m = await this.fetchModel(uuid); if (!m) return;
+      if (m.sourceFile && !sourceFile) sourceFile = String(m.sourceFile);
       const memberRefs = Array.isArray(m.members) ? (m.members as string[]) : [];
       const members = await Promise.all(memberRefs.map((r) => this.fetchModel(stripRef(r))));
       const attrs: string[] = [], methods: string[] = [], relations: DiagramRelation[] = [];
@@ -70,8 +97,12 @@ export class RbDiagramDetail extends HTMLElement {
       for (const mm of members) { if (!mm) continue; (String(mm.kind) === 'method' ? methods : attrs).push(String(mm.name)); collect(mm); }
       nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations });
     }));
+    this._sourceFile = sourceFile;
     const { svg, count } = buildDiagramSvg(views, (u) => nodes.get(u) || null);
-    this.innerHTML = `${STYLE}<div class="dm-surface"><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
+    // R32.8 AC1: Re-Sync action on the diagram (model units only — shown when there's a source .ts to re-sync).
+    const toolbar = (count && sourceFile) ? `<div class="dm-toolbar"><button class="dm-resync" title="Re-Sync model from source TS">⟳ Re-Sync</button></div>` : '';
+    this.innerHTML = `${STYLE}${toolbar}<div class="dm-surface"><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
+    this.querySelector('.dm-resync')?.addEventListener('click', () => { void this.reSyncFromSource(); });
 
     const surface = this.querySelector('.dm-surface') as HTMLElement | null;
     const content = this.querySelector('.dm-content') as HTMLElement | null;
