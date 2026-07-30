@@ -8,8 +8,8 @@
   "tasks": [],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
-  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
-  "sprintName": "Sprint 31",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
   "useCases": [],
   "unitLinks": [],
   "status": "next-backlog",
@@ -44,7 +44,8 @@
     "group": "meta",
     "text": "This requirement is captured scenario-first but marked NEXT / NOT-NOW: it is NOT dispatched for build while R31.12 is the active item. PO schedules the build; the chain (UC->Class->Method->Impl->Test) mints onto the built fix when scheduled."
    }
-  ]
+  ],
+  "reHomeNote": "RE-PARENTED S31 (server-manager, CLOSED) -> S32 (mda-model-driven-code-quality, active 332585f3) by robbin-po authority 2026-07-30 (re-home within an existing sprint, NOT a new sprint = no Tron-auth needed). altId stays R31.14 and discoverySource=team-discovery is PRESERVED (honest provenance: the deploy-hardening gap was discovered during S31; it builds in S32). status stays next-backlog; planner stands up T-R31.14 in the S32 backlog, scheduled AFTER R32.5 (the go-live milestone). 2nd version-skew occurrence -> its served!=committed auto-monitor removes the manual-measure dependency (correct-by-construction)."
  },
- "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
