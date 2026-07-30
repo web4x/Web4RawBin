@@ -1,3 +1,4 @@
+// [test:uuid:16c10d4d-94ba-49be-9db5-6f65211e3982] R32.9 FeatureManager surface — verifies the MDA feature is DISCOVERED + membership-gated (INV-D2 owner auto-seed via bootstrapSeed 03b2b1db; INV-D4 fail-closed serverModelPage 152c8e0f /model 403 + non-member featuresForToken list EXCLUDES MDA, non-vacuous). NON-member rendered-list exclusion + /model+/server-manager 403 (authenticated-non-member, live raw-ws IDENTIFY session) + INV-D2 disk. Owner-sees-📐 render = Tron device IMG_4715. → req wires this Test onto the R32.9 impl (row = serverModelPage 152c8e0f).
 // R32.9 FeatureManager SURFACE — NON-member rendered-list exclusion (the automatable half), DET-3x. The surface list a
 // user sees = MSG.PROFILE.features (featuresForToken, server-authoritative, data-driven launchPage INV-D3). This gate
 // establishes a REAL live SystemTester session via a raw-ws IDENTIFY (@390 dims), captures the server's live
