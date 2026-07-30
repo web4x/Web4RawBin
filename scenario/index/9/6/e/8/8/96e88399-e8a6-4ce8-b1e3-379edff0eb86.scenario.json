@@ -21,7 +21,8 @@
   },
   "crossRef": [
    "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523",
-   "ior:instance:16604eee-d844-4efb-bd4d-881433ca82a6"
+   "ior:instance:16604eee-d844-4efb-bd4d-881433ca82a6",
+   "ior:instance:901e0ece-c735-4c20-8652-1809069662c3"
   ],
   "crossRefNote": "R31.8 (a93f5fce) established the ior:class:Feature typed unit + allowedUsers root-of-trust membership gate (ServerManager is the exemplar Feature 16604eee). R32.9 completes the MDA arc by making it a discovered Feature under that same gate - reusing R31.8's data-driven membership, no new gate.",
   "acceptanceCriteria": [
@@ -57,7 +58,8 @@
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.9&commit=cdbfc7154",
-  "acFinalizedNote": "6 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.9, cdbfc7154; PO 2026-07-30) - adopt-not-invent. Accurate root (smaller than a rebuild): the discovery-LIST + membership guard ALREADY EXIST (featuresForToken:932 enumerates ALL ior:class:Feature + filters by allowedUsers). Only 3 hardcodes to drop: (1) no MDA Feature unit; (2) bootstrapSeed owner-seed hardcoded to 2 features (INV-D2 crux - the fragility); (3) the launch name-ternary (:1020). Design A/B/C/D -> INV-D1 discovery / D2 discovery-seed / D3 data-launch / D4 membership-gate-fail-closed. Anticipated chain (mints on build, IMPL-MINT): UC feature.discover (+ MDA feature.register) -> Class FeatureManager -> Method bootstrapSeed -> Impl -> Test. FEATURE-UNIT (design B, minted at chain time or now): ior:class:Feature, model{name 'Model-Driven Code Quality', icon, allowedUsers:[] (owner seeded at boot by bootstrapSeed/A), launchPage '/model'}, ownerIor -> R31.8 a93f5fce (matching the ServerManager Feature exemplar 16604eee), in PROD scenario/index. SERVER change -> real restart + real-boot verify on ship. GATE at the FeatureManager surface @390, not the model API. This CLOSES the S32 MDA reachability."
+  "acFinalizedNote": "6 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.9, cdbfc7154; PO 2026-07-30) - adopt-not-invent. Accurate root (smaller than a rebuild): the discovery-LIST + membership guard ALREADY EXIST (featuresForToken:932 enumerates ALL ior:class:Feature + filters by allowedUsers). Only 3 hardcodes to drop: (1) no MDA Feature unit; (2) bootstrapSeed owner-seed hardcoded to 2 features (INV-D2 crux - the fragility); (3) the launch name-ternary (:1020). Design A/B/C/D -> INV-D1 discovery / D2 discovery-seed / D3 data-launch / D4 membership-gate-fail-closed. Anticipated chain (mints on build, IMPL-MINT): UC feature.discover (+ MDA feature.register) -> Class FeatureManager -> Method bootstrapSeed -> Impl -> Test. FEATURE-UNIT (design B, minted at chain time or now): ior:class:Feature, model{name 'Model-Driven Code Quality', icon, allowedUsers:[] (owner seeded at boot by bootstrapSeed/A), launchPage '/model'}, ownerIor -> R31.8 a93f5fce (matching the ServerManager Feature exemplar 16604eee), in PROD scenario/index. SERVER change -> real restart + real-boot verify on ship. GATE at the FeatureManager surface @390, not the model API. This CLOSES the S32 MDA reachability.",
+  "mdaFeatureUnit": "ior:instance:901e0ece-c735-4c20-8652-1809069662c3"
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
