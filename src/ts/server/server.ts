@@ -45,14 +45,14 @@ function modelFacetType(model: Record<string, unknown> | undefined, idx: { get(u
 
 // R32.5 GO-LIVE: the MDA model lives in an ISOLATED store, NEVER prod scenario/index (don't-force-prod-mutation law).
 // generate writes ONLY here; model reads reroute here; trace reads stay prod; store is resettable (rm data/model-store).
-const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
-const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
+// MODEL_STORE / PROD_INDEX moved BELOW the __dirname shim (R32.5 boot-crash fix): referencing __dirname at module-top = TDZ ReferenceError (shim is a const at :105).
 // Seed the store's M2/M3 metaclasses once (copy from prod's a1d2e… shard) so instanceOf/modelFacetType + ModelValidator resolve self-contained.
 function ensureStoreSeeded(): void {
   const src = path.join(PROD_INDEX, 'a', '1', 'd', '2', 'e'), dst = path.join(MODEL_STORE, 'a', '1', 'd', '2', 'e');
   fsSync.mkdirSync(dst, { recursive: true });
   if (fsSync.existsSync(src)) for (const f of fsSync.readdirSync(src)) { const d = path.join(dst, f); if (!fsSync.existsSync(d)) fsSync.copyFileSync(path.join(src, f), d); }
 }
+// [impl:uuid:010f3e23-7d0e-49d4-9308-679388d00989] server.isModelUnit (Method 20eee8b0, Class c0a0921d, off UC 91b1b643)
 // A model unit (ModelElement/Diagram) present in the store → its reads reroute to the store (trace units stay prod). Reads the shard directly (no index scan).
 function isModelUnit(uuid: string): boolean {
   try {
