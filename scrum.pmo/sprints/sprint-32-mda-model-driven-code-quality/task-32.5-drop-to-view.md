@@ -10,11 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [~] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
+
+## Remaining Issues
+
+Structural/live go-live gate GREEN DET-3x (5801ff08e). AWAITING TRON VISUAL go-live demo: the populated model tree + diagram render @390 + his sign-off (visual-feature discipline — NOT Done on structural GREEN alone). req crediting Test (chain-complete-to-Test).
 
 ## Traceability
 
