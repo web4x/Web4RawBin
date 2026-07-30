@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "77761d46-4144-4b84-a9e4-4c876da310d0",
+    "name": "DiagramViewModel.buildEdges impl (relatesTo -> on-surface SVG edges, arrowhead by M2 kind)",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126, R32.1-5 pattern): req mints this Impl; expert drops [impl:uuid:77761d46] on the buildEdges() decl @ src/public/ts/trace/diagram-view-model.ts:61 (name-matches 'buildEdges'; anchor comment already at :60). Built + gate GREEN at 7bad29131 (v0.8.6). DISTINCT anchor from buildDiagramSvg (R32.4 Impl ba96a744) - same module, different decl, no re-credit. markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin (strict-AST credit).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799"
+}

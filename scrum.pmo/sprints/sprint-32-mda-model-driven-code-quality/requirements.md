@@ -98,6 +98,7 @@
   - [ ] **(functional)** The relationship edges deferred from R32.4 (AC-edges-excluded) AND R32.3 are now RENDERED here - R32.6 closes that deferral, realizing the relationship VIEW (viewKind 'relationship', from/to = the two element refs; R32.6 core derives it on-the-fly from relatesTo between visible boxes; a persisted relationship view-link is the drop-authored form).
   - [ ] **(functional)** Reuse-only: the R32.4 rb-diagram-detail surface + RbPanZoom + the model relatesTo (R32.5-generated) + the M2 relationship metaclasses - NO fork of the surface or drawer. The only new code is the additive edge pass + the marker <defs>.
   - [ ] **(functional)** R32.4's boxes still render exactly as before, and /trace + Server Manager + room detail-views stay UNREGRESSED (the edge pass is purely additive - no drawer/surface mechanics changed). Regression-green is part of acceptance. Gate on the R32.5 demo diagram faa4acad (Circle/Point/Shape: generalization=hollow-triangle for Shape-implements, association/dependency for typed members).
+  -> diagram.renderEdges [uc:uuid:20fe541e-fcef-4458-b53c-dcdd905c5c41]
 
 - [ ] **R32.7 — PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)**
   [requirement:uuid:b1fef048-dc5c-4315-b410-12a724968234]

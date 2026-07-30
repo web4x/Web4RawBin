@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "20fe541e-fcef-4458-b53c-dcdd905c5c41",
+  "name": "diagram.renderEdges",
+  "description": "R32.6: relationship EDGES on the R32.4 diagram surface (closes the edges deferred from R32.3/R32.4). DiagramViewModel.buildEdges (the chain anchor) reads each on-diagram box's model relatesTo and draws an edge X->Y IFF Y is ALSO a box on the diagram (off-diagram target = no dangling edge), with the arrowhead by M2 kind (UmlGeneralization hollow-triangle / UmlAssociation open / UmlDependency dashed), de-duped by (from,to,kind). The edges render as an ADDITIVE second SVG pass in rb-diagram-detail in the SAME svg group as the R32.4 boxes (RbPanZoom transforms edges WITH nodes - reuse, no fork); edge-click -> selectionModel.select -> shared drawer relationship detail. buildEdges is a NEW named decl in the same diagram-view-model.ts module as buildDiagramSvg (R32.4 Impl ba96a744) but DISTINCT - it is NOT re-credited (same anchor discipline as R32.5-isModelUnit vs R32.2-generate). Units untouched (R25.7). The R32.6 Test (tester independent vitest r32.6-diagram-edges + gate on the R32.5 demo diagram faa4acad) asserts the 8 finalized ACs incl the R32.4/shared no-regression.",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "classes": [
+   "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+  ],
+  "method": "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
