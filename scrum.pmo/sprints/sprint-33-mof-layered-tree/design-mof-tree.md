@@ -167,3 +167,38 @@ Restarted remoteShells:0.2 ([d] stop→npm start, not gated). served==committed(
 - **INV-P2b-3 (sub-grouped):** RawBin project → file-folders by sourceFile (25) lazily. **INV-P2b-4:** client model.ts:16 drops data-always-expanded (collapsed-initial).
 - **GATE:** /model + /server-manager → 403 non-owner; /trace → 200 (unregressed). /api/model/tree public (no INV-D4 leak — the gated PAGE is /model; the tree data is public parity, same as before).
 - **REMAINING:** the @390 render no-hang (mobile) = tester's render-perf gate on this bump (2-node DOM + lazy). mofChildren = uncredited helper riding mofLayerRoots [impl 5afeafe9] — flag if separate mint wanted. Owner-guard landmine still open (uncommitted, Tron to commit).
+
+## S33 RE-SCOPE — WORKING INTERACTIVE DIAGRAM (the never-delivered core) — MEASURED GAP + DESIGN (robbin-architect 2026-07-30, Tron device-QA IMG_4771, CMM4 measure-first)
+### ★ MEASURED GAP — WHY the drag→SVG-box never rendered VISUALLY (read the actual code, no assume)
+1. **The SVG-box + compartment LOGIC IS BUILT:** `buildBox` (diagram-view-model.ts:24-38) renders a UML class box with name (+«interface»), an ATTRIBUTE compartment (rows), a METHOD compartment (rows), separators; `buildDiagramSvg` (:91) assembles boxes+edges into an `<svg viewBox preserveAspectRatio>` (pan/zoom-ready). `data-ref` on the box for select. So box-with-compartments render logic EXISTS and is unit-tested.
+2. **MOVABLE boxes = NOT BUILT:** rb-diagram-detail has NO box-drag-to-move — boxes are static `<g transform>`; the only box interaction is click→`selectionModel` (select, R32.4 :117-119). The vision's "MOVABLE" is absent. GAP.
+3. **The diagram is a TRANSIENT DRAWER DETAIL-VIEW, not a reachable persistent CANVAS:** rb-diagram-detail is registered as a drawer detail (tagMap `diagram:'rb-diagram-detail'`, rb-detail-drawer.ts:218), opened ONLY by selecting a `diagram:` ref. There is NO primary interactive diagram canvas Tron can navigate to, drop onto, and SEE. At @390 the path to a droppable diagram surface (via a diagrams folder + a Diagram node) was not built/reachable. GAP.
+4. **The gates verified STRUCTURE, never the VISUAL @390 interaction:** buildDiagramSvg (DOM-free UNIT test) + add-view (endpoint curl) + tap-fires (R32.11) — but NEVER "navigate → drop → SEE a movable selectable box with compartments." Gated-path ≠ interaction at feature-vision scale ([[visual-features-gate-by-pixel]] / [[gate-the-ac-surface]]). THIS is the miss.
+5. **Compartments populate ONLY IF resolved:** rb-diagram-detail.render (:77-100) fetches each view-link's element + members (fetchModel per member) → DiagramNode.attrs/methods → buildBox. For a RawBin class the members resolve → compartments; but this was never VISUALLY verified @390.
+6. **Folders/labels/action-bar wrong-or-missing:** diagram(singular, should be **diagrams**); items show redundant `src/ts/scenario/X.ts` (DRY violation — should be FILENAME + resolve-to-file-for-edit); NO action bar on /model.
+
+### DESIGN — fill the gaps (scenario-first, REUSE; the box logic exists — assemble the EDITOR)
+1. **★ WORKING interactive diagram (the core):**
+   - **Reachable canvas:** the **diagrams** folder → a Diagram node → opens rb-diagram-detail with the DnD surface (drawer detail is OK as the host, but must be REACHABLE + the drop/see/move loop must WORK). Empty diagram = a droppable blank canvas (the label is the zone, R32.11).
+   - **Drop→VISIBLE box:** drop/tap a ts-item or M2 unit → addView (R32.11, x,y-on-drop) → re-render → `buildBox` renders the M2-instance box WITH compartments (attrs/methods/properties). VERIFY the resolver populates compartments (member fetch) — the pixel gate proves it.
+   - **★ MOVABLE boxes (NEW build):** pointer/touch drag on a `.dm-box` → update that view-link's `x,y` → persist via a NEW `POST /api/model/diagram/move-view {diagramUuid, elementUuid, x, y}` (MODEL_STORE, INV-P4) → re-render at the new position. Disambiguate box-drag (on `.dm-box`) from canvas-pan (RbPanZoom on empty surface). Touch + mouse (the R32.11-MOBILE lesson: HTML5 DnD ≠ touch → use pointer/touch events for the move).
+   - **Selectable:** box-click → selectionModel (exists). **Pan/zoom:** RbPanZoom (exists). Each M2-instance = an SVG box (buildBox — the puml-compiled-svg equivalent).
+2. **Folders + DRY labels:** rename `diagram`→**`diagrams`** (plural); ts files INSIDE the `ts` folder (P2b file-folders → under ts/); item label = **FILENAME only** (drop the redundant `src/ts/scenario/` prefix), each item POINTS TO the real file + resolves it for EDIT (like the trace view opens the .ts). Reuse the trace file-resolve.
+3. **ACTION BAR — REUSE the existing WODA component (LOCATED):** `rb-strip` / `rb-compartment` (src/public/ts/trace/ — my S31 CONCEPT primitives, BUILT) OR `rb-editor-toolbar` (components/). Mount on the /model diagram view (currently MISSING). NAMED actions (not icon-only): **"Add Diagram"**, **"Compile PUML→SVG"**, (+ Import-PUML from P3f). NO new fork — reuse rb-strip/rb-compartment segments.
+4. **M2-instance SVG equivalent:** every dropped M2-instance (class/interface) → buildBox SVG with compartments (the puml-svg equivalent) — already in buildBox; ensure every instance renders + is selectable + movable.
+
+### INVARIANTS / reuse / ★ GATE / big rocks
+- **INV-S33V-1 (visible box):** drop/tap an item → a class box WITH attribute+method compartments RENDERS on the canvas (pixel-visible), not just an endpoint 200.
+- **INV-S33V-2 (movable):** a box drags to a new x,y (touch+mouse), persists (move-view), survives re-render/reload.
+- **INV-S33V-3 (selectable):** box-click selects (highlight + drawer node-detail). **INV-S33V-4 (isolation):** all writes MODEL_STORE only.
+- **REUSE (no fork):** buildBox/buildDiagramSvg (R32.4 — box+compartments EXIST), RbPanZoom (R31.6), addView (R32.11), rb-strip/rb-compartment (action bar), R32.6 edges, R32.7 puml (Compile action), MODEL_STORE. NEW = move-view endpoint + box-drag interaction + action-bar mount + folder rename/DRY-label + reachable-canvas UX.
+- **★ GATE POSTURE (Tron explicit):** @390 REAL interaction — drag/tap an item → SEE a selectable, MOVABLE SVG class box with compartments on the pan/zoom canvas — **screenshot + PIXEL**, NOT endpoint/structure. Planted-defect bite (e.g. a box that renders 0×0 or off-canvas must FAIL). This is the AC surface.
+- **BIG ROCKS:** (1) ★ movable boxes (new box-drag vs canvas-pan disambiguation, touch+mouse, persist x,y) — the main new build; (2) reachable-canvas UX (diagram as a first-class surface); (3) compartment resolution verified by pixel (not unit); (4) action-bar reuse of rb-strip (confirm its API fits named actions).
+
+### S33 ACs handed to req (0.4) — gate @390 by pixel
+- AC1: on the diagrams canvas, drag/tap a ts-item/M2-unit → a SELECTABLE SVG class box with attribute/method/property COMPARTMENTS renders at the drop x,y (pixel-visible @390).
+- AC2: the box is MOVABLE (drag to new x,y, touch+mouse) → persists (MODEL_STORE) → survives reload.
+- AC3: folders = diagrams/puml/ts (ts-files inside ts); item labels = FILENAME only + resolve-to-file-for-EDIT (no redundant src/ path).
+- AC4: an ACTION BAR (reuse rb-strip/rb-compartment WODA component) with NAMED actions Add-Diagram + Compile-PUML→SVG on /model.
+- AC5: each M2-instance renders as its SVG box equivalent; relationship edges (R32.6) between on-canvas boxes.
+- AC6: GATE = @390 Tron REAL interaction, screenshot+pixel (drag→SEE the movable selectable box), NOT endpoint/structure; planted-defect bite.
