@@ -159,7 +159,11 @@ export class RbDiagramDetail extends HTMLElement {
   // select-class auto-show complement (no coords → server auto-grid). x,y omitted ⇒ server places it.
   // [impl:uuid:4e74dfee-e9ea-4284-80c7-f196b91e93a9] RbDiagramDetail.addView (Method 70be1605, Class 039ec367, off UC cdd29583 diagram.addView) — R32.11 INV-R1..R4
   private async addView(elementUuid: string, x?: number, y?: number): Promise<void> {
-    const diagramUuid = stripRef(this.getAttribute('ref') || '');
+    // R32.11-MOBILE fix (tester r3211m 8806b96c9): the drawer's renderDetailForRef sets uuid='<stripped>' AND
+    // ref='diagram:<uuid>'; stripRef strips ior:instance:/modelelement: but NOT 'diagram:' → the server add-view
+    // uuid-regex 400'd on 'diagram:…' → NO box (killed BOTH tap-to-add AND desktop drop). Use the pre-stripped
+    // uuid attribute the drawer already provides; keep stripRef(ref) only as a defensive fallback.
+    const diagramUuid = this.getAttribute('uuid') || stripRef(this.getAttribute('ref') || '');
     if (!diagramUuid || !elementUuid) return;
     try {
       const r = await fetch('/api/model/diagram/add-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) });
