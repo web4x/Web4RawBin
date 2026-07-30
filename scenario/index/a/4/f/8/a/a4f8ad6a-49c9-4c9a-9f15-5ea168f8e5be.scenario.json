@@ -4,8 +4,8 @@
     "uuid": "a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be",
     "name": "RbDiagramDetail.wireBoxDrag impl (R33.3 movable box-drag + move-view persist)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
-    "markerPending": true,
-    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be] on the wireBoxDrag() decl @ src/public/ts/trace/rb-diagram-detail.ts:187 (name-matches 'wireBoxDrag'; marker-pending comment already in place). Built + @390 self-verify GREEN at a81209a91 (expert). markerPending flips false on strict-AST verify. Test WAITS on the TESTER independent @390 pixel gate (not expert self-verify).",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at b7224f9f6: [impl:uuid:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be] heads the named wireBoxDrag() decl @ src/public/ts/trace/rb-diagram-detail.ts:191 (name-matches; Method 383d2467, Class RbDiagramDetail 039ec367). R33.3 working-diagram, NEW decl distinct from addView/onSelectionChanged = no re-credit. render() had a live bug the @390 harness caught (stripRef did not strip diagram: -> empty canvas) fixed to getAttribute(uuid) in the SAME decl the marker heads = the credited impl IS the working render. IMPL-MINT #126 complete. Test waits fresh-tester @390 pixel gate.",
     "tests": []
   },
   "ownerIor": "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c"

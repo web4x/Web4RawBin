@@ -4,8 +4,8 @@
     "uuid": "34dec13f-5cb6-4f01-8894-e85954174830",
     "name": "RbDiagramDetail.render impl (R33.3 resolve-and-render reachable canvas, compartment boxes)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
-    "markerPending": true,
-    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:34dec13f-5cb6-4f01-8894-e85954174830] on the render() decl @ src/public/ts/trace/rb-diagram-detail.ts:92 (name-matches 'render'; marker-pending comment already in place). Built + @390 self-verify GREEN at a81209a91 (expert). markerPending flips false on strict-AST verify. Test WAITS on the TESTER independent @390 pixel gate (not expert self-verify).",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at b7224f9f6: [impl:uuid:34dec13f-5cb6-4f01-8894-e85954174830] heads the named render() decl @ src/public/ts/trace/rb-diagram-detail.ts:95 (name-matches; Method 65649d26, Class RbDiagramDetail 039ec367). R33.3 working-diagram, NEW decl distinct from addView/onSelectionChanged = no re-credit. render() had a live bug the @390 harness caught (stripRef did not strip diagram: -> empty canvas) fixed to getAttribute(uuid) in the SAME decl the marker heads = the credited impl IS the working render. IMPL-MINT #126 complete. Test waits fresh-tester @390 pixel gate.",
     "tests": []
   },
   "ownerIor": "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95"
