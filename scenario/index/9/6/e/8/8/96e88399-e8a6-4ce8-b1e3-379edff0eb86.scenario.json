@@ -28,29 +28,36 @@
    {
     "id": "AC-discover-all-features",
     "group": "functional",
-    "text": "The FeatureManager DISCOVERS and lists ALL ior:class:Feature units (scanning the scenario index, extending the existing listFeatures() at FeatureManager.ts:53) - the hardcoded SEED_FEATURES list is DROPPED. Correct-by-construction / DRY single-source: what appears is driven by the Feature units on disk, not a code list."
+    "text": "INV-D1 - the FeatureManager DISCOVERS + lists ALL ior:class:Feature units via the EXISTING featuresForToken (server.ts:932, enumerate + per-user membership-filter; listFeatures():53 is the mgmt-view twin). The hardcoded SEED_FEATURES-as-list is DROPPED - what appears is driven by the Feature units on disk, not a code list (correct-by-construction / DRY single-source)."
+   },
+   {
+    "id": "AC-owner-bootstrap-preserved",
+    "group": "security",
+    "text": "INV-D2 (the crux) - dropping SEED_FEATURES PRESERVES the R31.8 first-run owner-membership bootstrap: bootstrapSeed ENUMERATES every discovered ior:class:Feature unit and seedOwnerInto each one's allowedUsers at boot (NOT the 2 hardcoded features). So a NEW Feature is owner-reachable by construction - the hardcoded 2-feature seed list (the fragility that hid the MDA feature) is gone."
    },
    {
     "id": "AC-mda-feature-unit-auto-appears",
     "group": "functional",
-    "text": "Creating the MDA (Model-Driven Code Quality) ior:class:Feature unit makes it AUTO-APPEAR and be LAUNCHABLE in the FeatureManager @390, with NO code/list edit - proving the discovery works."
+    "text": "Design-B + INV-D3 - creating the MDA 'Model-Driven Code Quality' ior:class:Feature unit (launchPage '/model', an icon, in PROD scenario/index) makes it AUTO-APPEAR and be LAUNCHABLE in the FeatureManager @390 with NO code/list edit - proving discovery + data-launch."
+   },
+   {
+    "id": "AC-data-driven-launch",
+    "group": "functional",
+    "text": "INV-D3 - launch is DATA-DRIVEN via Feature.launchPage: featuresForToken + renderFeatureGrants use f.launchPage / f.icon, and the hardcoded launch name-ternary (renderFeatureGrants:~1020) is DROPPED. launchPage is backfilled onto the existing Features (ServerManager -> /server-manager, FeatureManager -> /feature-manager) so the ternary fully retires."
    },
    {
     "id": "AC-membership-gated-discovered",
     "group": "security",
-    "text": "Each discovered Feature is membership-gated (R31.8 allowedUsers data-driven gate, like ServerManager): DISCOVERED != WORLD-VISIBLE - a non-member does NOT see or launch the MDA feature; only owner/members (in allowedUsers) do."
-   },
-   {
-    "id": "AC-launch-to-model-view",
-    "group": "functional",
-    "text": "Launching the MDA feature from the FeatureManager opens the model view - the drop -> tree / diagram / edges surface (R32.3/R32.4/R32.6) - reachable end-to-end."
+    "text": "INV-D4 (fail-closed guard) - each discovered Feature is membership-gated by R31.8 allowedUsers: DISCOVERED != WORLD-VISIBLE. A non-member does NOT see the MDA feature (per-user featuresForToken filter) AND the gated /model route returns 403 for a non-member (requireFeatureAccess('Model-Driven Code Quality'), reusing R31.8) - only owner/members reach it."
    },
    {
     "id": "AC-gate-featuremanager-surface",
     "group": "gate",
-    "text": "Acceptance is GATED at the FEATUREMANAGER SURFACE: the feature APPEARS in the FeatureManager list AND LAUNCHES to the model view at the @390 Tron viewport - NOT at the model API (gate where the AC specifies, the user launcher). A device-QA regression here = a missing AC."
+    "text": "Acceptance is GATED at the FEATUREMANAGER SURFACE @390 (Tron viewport): the MDA feature APPEARS in the FeatureManager list AND LAUNCHES -> the gated /model route -> the R32.5 model view (drop -> tree/diagram/edges), reachable end-to-end - NOT gated at the model API (gate where the AC specifies, the user launcher). A device-QA regression here = a missing AC."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.9&commit=cdbfc7154",
+  "acFinalizedNote": "6 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.9, cdbfc7154; PO 2026-07-30) - adopt-not-invent. Accurate root (smaller than a rebuild): the discovery-LIST + membership guard ALREADY EXIST (featuresForToken:932 enumerates ALL ior:class:Feature + filters by allowedUsers). Only 3 hardcodes to drop: (1) no MDA Feature unit; (2) bootstrapSeed owner-seed hardcoded to 2 features (INV-D2 crux - the fragility); (3) the launch name-ternary (:1020). Design A/B/C/D -> INV-D1 discovery / D2 discovery-seed / D3 data-launch / D4 membership-gate-fail-closed. Anticipated chain (mints on build, IMPL-MINT): UC feature.discover (+ MDA feature.register) -> Class FeatureManager -> Method bootstrapSeed -> Impl -> Test. FEATURE-UNIT (design B, minted at chain time or now): ior:class:Feature, model{name 'Model-Driven Code Quality', icon, allowedUsers:[] (owner seeded at boot by bootstrapSeed/A), launchPage '/model'}, ownerIor -> R31.8 a93f5fce (matching the ServerManager Feature exemplar 16604eee), in PROD scenario/index. SERVER change -> real restart + real-boot verify on ship. GATE at the FeatureManager surface @390, not the model API. This CLOSES the S32 MDA reachability."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
