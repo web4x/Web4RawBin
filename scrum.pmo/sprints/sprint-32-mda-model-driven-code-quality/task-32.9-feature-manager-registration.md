@@ -9,16 +9,16 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [~] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-OPEN (Tron device-QA reopen). Route: req (ACs, done) → architect (design discover mechanism + drop SEED_FEATURES + bootstrapSeed-enumerates) → expert (implement) → tester (gate FeatureManager surface @390). BLOCKS T32.5 go-live visual (feature must be reachable first). LESSON: gate-the-ac-surface — sprint gated the MODEL surface but no AC covered the FEATUREMANAGER (user launcher) surface.
+RESOLVED (Done): FeatureManager auto-discovers Features (SEED_FEATURES dropped), MDA feature auto-appears+launchable @390. Chain-complete-to-Test c01354dff (Test 16c10d4d, both Impls co-credited), tester two-key CLEAN, Tron-confirmed IMG_4715 (owner-render). 1st device-QA miss CLOSED.
 
 ## Traceability
 

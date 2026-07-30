@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-OPEN (Tron device-QA, 2nd finding). Design finalized (architect 16e64e445 + 5 ACs); build next: expert implements Part A drawer-mount + Part B typed detail + Diagram-root emit → tester gates interaction @390. Sibling of R32.9 (both device-QA reopen; T32.5 go-live visual needs both reachable).
+RESOLVED (Done): /model select opens drawer + typed detail + reachable diagram/signature. Chain-complete-to-Test bc8b8c230 (Test c7b558ca wired Impl 7e147ad8.tests[]), tester @390 interaction-gate two-key CLEAN. 2nd device-QA miss CLOSED.
 
 ## Traceability
 
