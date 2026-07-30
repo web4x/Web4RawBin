@@ -25,31 +25,48 @@
   "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
   "acceptanceCriteria": [
    {
-    "id": "AC-diagram-to-puml",
+    "id": "AC-export-valid-no-dup",
     "group": "functional",
-    "text": "A diagram serializes to a valid .puml with NO duplication (each element emitted once)."
+    "text": "AC1 - model -> a valid .puml (@startuml...@enduml): every modeled element (class/interface + members + relations) is emitted EXACTLY ONCE (no duplication)."
    },
    {
-    "id": "AC-puml-to-diagram",
+    "id": "AC-reexport-byte-identical",
     "group": "functional",
-    "text": "A .puml parses back into diagram views + MDA units."
+    "text": "AC2 - re-exporting the same model is BYTE-IDENTICAL: idempotent, deterministic emission order (stable sort), so export(model) == export(model) byte-for-byte."
    },
    {
-    "id": "AC-same-uuid-roundtrip",
-    "group": "invariant",
-    "text": "parse->serialize->parse is identity-preserving: a puml class is M2-instanceOf-Class + M1-instanceOf-puml-class-code with the SAME UUID; parsing an existing .puml REUSES the same-UUID unit (no re-mint / no duplicate)."
+    "id": "AC-import-to-model",
+    "group": "functional",
+    "text": "AC3 - a .puml PARSES back into MDA M1 units + diagram views (import): classes/members/relations -> ModelElement units + a Diagram with view-links."
    },
    {
-    "id": "AC-no-duplication",
-    "group": "invariant",
-    "text": "No element is duplicated across serialize/parse (a puml class never emitted or minted twice)."
+    "id": "AC-inv-p1-same-uuid-m-levels",
+    "group": "functional",
+    "text": "AC4 / INV-P1 SAME-UUID-ACROSS-M-LEVELS: a puml class is M2-instanceOf-Class + M1-instanceOf-puml-class-code carrying ONE uuid derived DETERMINISTICALLY (the R32.2 sourceFile::qualifiedName law) - one identity across the M-levels, not a uuid-per-level fork."
    },
    {
-    "id": "AC-architect-finalize",
-    "group": "meta",
-    "text": "INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8)."
+    "id": "AC-inv-p2-reuse-same-uuid",
+    "group": "functional",
+    "text": "AC5 / INV-P2: parsing an EXISTING .puml REUSES the same-UUID unit (deterministic key -> bindByUuid re-bind, never re-mint) - no duplicate units on re-import."
+   },
+   {
+    "id": "AC-inv-p3-roundtrip-identity",
+    "group": "functional",
+    "text": "AC6 / INV-P3: parse -> serialize -> parse is IDENTITY-PRESERVING (round-trip stable BY CONSTRUCTION) - the second parse yields the same units + the same .puml as the first."
+   },
+   {
+    "id": "AC-inv-p4-isolated-store",
+    "group": "functional",
+    "text": "AC7 / INV-P4: import mutates ONLY the isolated model-store (data/model-store), NEVER prod scenario/index (the R32.5 safe-mechanism law) - gate-able: prod ModelElement count unchanged after import."
+   },
+   {
+    "id": "AC-edge-kinds-roundtrip",
+    "group": "functional",
+    "text": "AC8 - edge kinds ROUND-TRIP: generalization/association/dependency <-> the PUML arrows <|-- / --> / ..> (mirrors the R32.6 EDGE_DEFS) - export writes the right arrow per M2 kind, import resolves the arrow back to the right relationship metaclass."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.7&commit=b9895358d",
+  "acFinalizedNote": "8 ACs FORMALIZED verbatim from the architect handoff (design-mda-model.md ## R32.7, b9895358d; MDA-structure invariants INV-P1..P4 FINALIZED on the architect design) - adopt-not-invent. R32.7 = PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip). The original initial ACs (AC-diagram-to-puml / AC-puml-to-diagram / AC-same-uuid-roundtrip / AC-no-duplication) are SUBSUMED by the sharper AC1-AC8 (byte-identical re-export + the four INV-P invariants + edge-kind round-trip). Placeholder AC-architect-finalize retired. ANTICIPATED CHAIN (mints when the expert builds, IMPL-MINT like R32.1-6, anchor on the NEW distinguishing serializer decls - no re-credit of R32.2 generate / R32.4-6 diagram fns): UC puml.export + puml.import -> Class PumlSerializer -> Method modelToPuml + pumlToModel -> Impl -> Test (two UCs/Methods for the two directions, like R32.4 diagram.render + R32.6 diagram.renderEdges). REUSE (architect measured): a shared pure puml-serializer.ts parallel to buildDiagramSvg, reusing diagram-view-model EdgeKind/DiagramNode/DiagramRelation + buildEdges de-dup."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
