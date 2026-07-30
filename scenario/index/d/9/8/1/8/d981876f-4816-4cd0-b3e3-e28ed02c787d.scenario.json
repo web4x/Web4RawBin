@@ -4,23 +4,64 @@
  "model": {
   "uuid": "d981876f-4816-4cd0-b3e3-e28ed02c787d",
   "altId": "R32.11",
-  "name": "DnD drop into the /model diagram not working (Tron device-QA)",
-  "description": "Tron device-QA (2026-07-30): dragging/dropping an itemView into the /model diagram does NOT work — the drop (drop→generate→view, the core R32.5/R32.8 go-live interaction) fails on the device. The drop IS the vision (being FIXED, not demoted).",
-  "tronQuote": "> TRON (device-QA 2026-07-30): the drag-and-drop drop into the diagram is not working.",
+  "name": "In-diagram drag-a-class-to-add-view works on /model (DnD is the vision, was not wired)",
+  "description": "Tron device-QA (2026-07-30): dragging a class card into the /model diagram does NOTHING - the drag-to-add-view is the ORIGINAL VISION, it is a BUG (never wired), NOT a drift. ROOT (architect-measured, 3 missing pieces): (1) rb-diagram-detail has ZERO dragover/drop/dataTransfer handlers (the 'drop a class to add a view' string :104 is a LABEL with no handler); (2) NO add-view endpoint (only POST /api/model/generate = drop a .ts FILE); (3) drop-dispatcher routes FILES, not a class-ref. So R32.5 gated drop-a-FILE->generate; the in-diagram drag-a-CLASS->add-view was never wired = the 3rd 'gated-path != interaction' miss. FIX (no fork): rb-diagram-detail .dm-surface dragover(preventDefault)+drop -> read the dragged ref (application/rb-object-ref, set by rb-object-item.onDragStart) + map drop point to x,y -> POST /api/model/diagram/add-view {diagramUuid, elementUuid, x, y} which appends {unit:'modelelement:X', x, y, viewKind:'class'} to the Diagram unit in MODEL_STORE (isolated, dedup) -> re-render (box+edges). DnD is PRIMARY; select-class -> auto-show its view via the SAME add-view path is an ADDITIVE complement (PO). Canonicalized in place from the planner placeholder (#43) per architect design 6a076e4f2.",
+  "tronQuote": "> TRON (device-QA 2026-07-30, via architect design 6a076e4f2): the drag-a-class-into-diagram IS the vision, it's a BUG - it is CORRECT, just NOT WIRED (auto-show is secondary).",
   "status": "concept",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
   "useCases": [],
-  "acceptanceCriteria": [],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drop-adds-view",
+    "group": "functional",
+    "text": "INV-R1 - dragging a class / model-instance card from the model tree onto the diagram's .dm-surface: rb-diagram-detail's NEW dragover(preventDefault) + drop handlers read the dragged ref (application/rb-object-ref, set by rb-object-item.onDragStart) and map the drop point to x,y (accounting for RbPanZoom) -> POST /api/model/diagram/add-view {diagramUuid, elementUuid, x, y} appends the view-link {unit:'modelelement:X', x, y, viewKind:'class'} to the Diagram unit -> the surface re-renders and the class box appears (with R32.6 edges to other on-diagram boxes)."
+   },
+   {
+    "id": "AC-idempotent-dedup",
+    "group": "functional",
+    "text": "INV-R2 - dropping the SAME class twice yields ONE view (the add-view endpoint dedups by element uuid); no duplicate box."
+   },
+   {
+    "id": "AC-isolation",
+    "group": "security",
+    "text": "INV-R3 - add-view writes ONLY the isolated MODEL_STORE (data/model-store); prod scenario/index is NEVER touched (gate-able: prod git-clean across the drop)."
+   },
+   {
+    "id": "AC-persist",
+    "group": "functional",
+    "text": "INV-R4 - re-opening the diagram shows the added view (the view-link is PERSISTED to the Diagram unit, not just added in-DOM)."
+   },
+   {
+    "id": "AC-auto-show-complement",
+    "group": "functional",
+    "text": "DnD is PRIMARY (the drag-to-add-view above). ADDITIVE complement (PO): selecting a class node (selection-changed) with the /model diagram open AUTO-appends that class's view via the SAME add-view path (idempotent, no 2nd mechanism) - the drag stays for deliberate curation, the select gives instant feedback."
+   },
+   {
+    "id": "AC-gate-drop-interaction-390",
+    "group": "gate",
+    "text": "GATE the DROP INTERACTION @390 (Tron viewport): empty diagram -> drag 'Circle' from the model tree -> drop -> Circle box appears; drag 'Point' -> 2nd box + R32.6 edges; drag Circle again -> NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open the /model diagram -> views persist (INV-R4). Gate the DROP, NOT the label/generate-path [[gate-the-ac-surface]] - the 3rd 'gated-path != interaction' miss."
+   }
+  ],
   "tasks": [
    "ior:instance:42555b04-f47e-4d56-9fab-987fafc1df2b"
   ],
   "discoverySource": {
    "type": "tron-device-qa",
-   "flaggedBy": "Tron via robbin-po",
+   "flaggedBy": "Tron (device-QA @390, 2026-07-30) via robbin-po; placeholder d981876f by robbin-planner #43",
    "date": "2026-07-30",
-   "note": "DnD drop into /model diagram not working."
+   "note": "3rd gated-path!=interaction miss (drag-a-class->add-view never wired). Canonicalized in place per architect design 6a076e4f2 (DnD primary + auto-show complement). Gate the DROP interaction @390."
   },
-  "placeholderNote": "PLACEHOLDER minted by robbin-planner (#43) to wire T32.11 now (PO stand-up-In-Progress directive). robbin-req to CANONICALIZE IN PLACE (reuse uuid d981876f): capture the verbatim Tron device-QA finding + formalize ACs (gate the DROP INTERACTION @390). Architect diagnosing the root cause."
+  "placeholderNote": "PLACEHOLDER minted by robbin-planner (#43) to wire T32.11 now (PO stand-up-In-Progress directive). robbin-req to CANONICALIZE IN PLACE (reuse uuid d981876f): capture the verbatim Tron device-QA finding + formalize ACs (gate the DROP INTERACTION @390). Architect diagnosing the root cause.",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.11&commit=6a076e4f2",
+  "tests": [],
+  "unitLinks": [],
+  "crossRef": [
+   "ior:instance:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7",
+   "ior:instance:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
+   "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8"
+  ],
+  "canonicalizeNote": "Canonicalized IN PLACE (reuse uuid d981876f) from the robbin-planner placeholder (#43, minted to wire T32.11 In-Progress) per robbin-req: verbatim Tron finding + 6 formalized ACs to the architect design (6a076e4f2, INV-R1..R4). Added to S32 sprint.requirements[]. Chain (mints on build, IMPL-MINT): UC diagram.addView -> Class RbDiagramDetail (+ server add-view Method) -> Method onDrop / diagramAddView -> Impl -> Test."
  }
 }

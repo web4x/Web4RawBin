@@ -29,7 +29,9 @@
     "status": "planned"
    }
   ],
-  "requirements": [],
+  "requirements": [
+   "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b"
+  ],
   "tasks": [],
   "createdAt": "2026-07-30",
   "createdBy": "robbin-planner",
