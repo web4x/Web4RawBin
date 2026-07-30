@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fb22c5cd-8806-4738-bf80-f0e87e052984",
+    "name": "RbDiagramDetail.reSyncFromSource impl (client Re-Sync -> reused generate -> all-view re-render)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "markerPending": true,
+    "markerNote": "IMPL-MINT scenario-first (#126, R32.1-7 pattern): req mints this Impl; expert drops [impl:uuid:fb22c5cd] on the reSyncFromSource() decl @ src/public/ts/trace/rb-diagram-detail.ts:62 (name-matches 'reSyncFromSource'; marker-pending anchor comment already at :58). Built + build-GREEN at a4dff5323 (v0.8.8). NEW method on NEW Class RbDiagramDetail - no re-credit. Client-only, but the version bump STILL needs a REAL restart to re-stamp /api/config (R32.7 lesson / R31.7 INV-V4). markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin."
+  },
+  "ownerIor": "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013"
+}

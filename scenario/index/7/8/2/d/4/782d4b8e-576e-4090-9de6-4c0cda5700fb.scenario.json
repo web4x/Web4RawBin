@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:75639bd8-475b-4604-b602-f84b206eacf8"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-directive",
@@ -27,7 +29,7 @@
    {
     "id": "AC-resync-action-model-only",
     "group": "functional",
-    "text": "AC1 - a 'Re-Sync from source' action (a client button on the rb-diagram-detail toolbar AND the model tree header) is available on the model view for MODEL units only (Diagram / ModelElement), NOT for trace units."
+    "text": "AC1 (PO-refined 2026-07-30) - a 'Re-Sync from source' action button is available on the DIAGRAM TOOLBAR (rb-diagram-detail) of the model view (MODEL units only - Diagram/ModelElement - NOT trace units); on Re-Sync, ALL views (tree R32.3 + diagram/edges R32.4/R32.6 + PUML R32.7) AUTO-re-render via the 'rb-model-resynced' event. NO button on the shared rb-trace-tree header (that would leak a feature-button onto /trace, violating the generic-shared-component law - features supply DATA not buttons to the shared tree). A tree-side trigger on a dedicated model host is DEFERRED (R33 backlog)."
    },
    {
     "id": "AC-reuse-existing-generate",
@@ -66,7 +68,8 @@
    }
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.8&commit=8e40e79db",
-  "acFinalizedNote": "8 ACs FORMALIZED verbatim from the architect handoff (design-mda-model.md ## R32.8, 8e40e79db; INV-S1..S4 finalized) - adopt-not-invent. R32.8 = CLIENT-ONLY 'Re-Sync from source' action: reads model.sourceFile -> re-invokes the EXISTING POST /api/model/generate (TsToModel.generate engine, NO new server code, NO fork) -> explicit re-render of tree (R32.3) + diagram/edges (R32.4/R32.6) + PUML (R32.7) from the single MODEL_STORE. INV mapping: AC6=INV-S1 (deterministic rebind), AC3=INV-S2 (reconcile stale-drop/new-add), AC7=INV-S3 (isolation), AC3+AC4+AC5=INV-S4 (all-views-consistent). All by construction from generate(). The original initial ACs (AC-action-sync / AC-bidirectional-no-drift / AC-same-uuid-throughout) are SUBSUMED (sharpened to the concrete client-re-sync + the four INV-S). Placeholder AC-architect-finalize retired. Anticipated chain (client-render mirror of R32.7 RbTerminalDetail pattern): UC model.sync -> Class (ModelSyncAction / reuse rb-diagram-detail) -> Method reSyncFromSource -> Impl -> Test. IMPL-MINT on build. Version bump (client-only) STILL needs a REAL restart to re-stamp /api/config (R32.7 lesson + R31.7 INV-V4). SCOPE: single-file re-sync (matches R32.5 single-file drop); deleted-file + multi-file DEFERRED to backlog (optional /api/model/sync) - captured separately per PO, NOT a new sprint. THIS CLOSES THE MDA SPRINT."
+  "acFinalizedNote": "8 ACs FORMALIZED verbatim from the architect handoff (design-mda-model.md ## R32.8, 8e40e79db; INV-S1..S4 finalized) - adopt-not-invent. R32.8 = CLIENT-ONLY 'Re-Sync from source' action: reads model.sourceFile -> re-invokes the EXISTING POST /api/model/generate (TsToModel.generate engine, NO new server code, NO fork) -> explicit re-render of tree (R32.3) + diagram/edges (R32.4/R32.6) + PUML (R32.7) from the single MODEL_STORE. INV mapping: AC6=INV-S1 (deterministic rebind), AC3=INV-S2 (reconcile stale-drop/new-add), AC7=INV-S3 (isolation), AC3+AC4+AC5=INV-S4 (all-views-consistent). All by construction from generate(). The original initial ACs (AC-action-sync / AC-bidirectional-no-drift / AC-same-uuid-throughout) are SUBSUMED (sharpened to the concrete client-re-sync + the four INV-S). Placeholder AC-architect-finalize retired. Anticipated chain (client-render mirror of R32.7 RbTerminalDetail pattern): UC model.sync -> Class (ModelSyncAction / reuse rb-diagram-detail) -> Method reSyncFromSource -> Impl -> Test. IMPL-MINT on build. Version bump (client-only) STILL needs a REAL restart to re-stamp /api/config (R32.7 lesson + R31.7 INV-V4). SCOPE: single-file re-sync (matches R32.5 single-file drop); deleted-file + multi-file DEFERRED to backlog (optional /api/model/sync) - captured separately per PO, NOT a new sprint. THIS CLOSES THE MDA SPRINT.",
+  "ac1RefineNote": "AC1 refined by robbin-po 2026-07-30: diagram-toolbar button + event-driven ('rb-model-resynced') all-view re-render SATISFIES AC1; the separate tree-HEADER button is DROPPED (shared-component law - no feature-button on rb-trace-tree; tree-side trigger = R33 on a dedicated model host). All-view auto-re-render preserves AC3/AC4/AC5."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }

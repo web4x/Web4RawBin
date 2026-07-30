@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3fd80641-26d7-4d5c-adf0-e42d7e691013",
+    "name": "RbDiagramDetail.reSyncFromSource",
+    "description": "R32.8 finale core: async reSyncFromSource() @ src/public/ts/trace/rb-diagram-detail.ts:62 - reads the model's sourceFile, dispatchModelGenerate -> POST /api/model/generate (EXISTING endpoint, no new server code), then on ok fires 'rb-model-resynced' so tree/diagram/edges/PUML all re-render from MODEL_STORE. Rebind/reconcile/idempotent/isolation all BY CONSTRUCTION from the reused generate() engine (INV-S1..S4). NEW method on the NEW Class RbDiagramDetail (the element; distinct from DiagramViewModel 09730090 = the R32.4/6 render module - no re-credit). Architect design 8e40e79db; scenario-first IMPL-MINT (#126) - [impl:uuid] marker lands on the reSyncFromSource() decl (name-matches 'reSyncFromSource').",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:fb22c5cd-8806-4738-bf80-f0e87e052984"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "039ec367-b84b-4c33-a027-b862f7596c78",
+    "name": "RbDiagramDetail",
+    "file": "src/public/ts/trace/rb-diagram-detail.ts",
+    "methods": [
+      "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:75639bd8-475b-4604-b602-f84b206eacf8"
+}
