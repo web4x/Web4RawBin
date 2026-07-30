@@ -5,7 +5,10 @@
     "name": "RbDiagramDetail.reSyncFromSource impl (client Re-Sync -> reused generate -> all-view re-render)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
     "markerPending": false,
-    "markerNote": "Strict-AST credit HOLDS at 130231994: [impl:uuid:fb22c5cd] heads the named reSyncFromSource() decl @ src/public/ts/trace/rb-diagram-detail.ts:62 (marker line 57 precedes async reSyncFromSource(, name-matches; Method 3fd80641 RbDiagramDetail.reSyncFromSource, Class 039ec367 RbDiagramDetail, UC 75639bd8 model.sync). Comment-only, v0.8.8 stands. NEW Class RbDiagramDetail (element) DISTINCT from DiagramViewModel 09730090 (R32.4/6 module) = no re-credit. IMPL-MINT #126 complete. Client-only bump STILL needs a REAL restart to re-stamp /api/config (R32.7 lesson / R31.7 INV-V4). Test on the tester LIVE gate (edit-TS->resync->all-views + reconcile + isolation)."
+    "markerNote": "Strict-AST credit HOLDS at 130231994: [impl:uuid:fb22c5cd] heads the named reSyncFromSource() decl @ src/public/ts/trace/rb-diagram-detail.ts:62 (marker line 57 precedes async reSyncFromSource(, name-matches; Method 3fd80641 RbDiagramDetail.reSyncFromSource, Class 039ec367 RbDiagramDetail, UC 75639bd8 model.sync). Comment-only, v0.8.8 stands. NEW Class RbDiagramDetail (element) DISTINCT from DiagramViewModel 09730090 (R32.4/6 module) = no re-credit. IMPL-MINT #126 complete. Client-only bump STILL needs a REAL restart to re-stamp /api/config (R32.7 lesson / R31.7 INV-V4). Test on the tester LIVE gate (edit-TS->resync->all-views + reconcile + isolation).",
+    "tests": [
+      "ior:instance:af3e515f-2d3c-473c-b33f-853ea5e03555"
+    ]
   },
   "ownerIor": "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013"
 }
