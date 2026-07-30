@@ -130,3 +130,32 @@ Initial DOM at 390px = 2 folder nodes (not 1195); each expand = ONE bounded lazy
 - AC2: deeper layers (project→files→classes→members) load LAZILY on expand via /api/trace/children (MODEL_STORE), not inline in the roots payload.
 - AC3: RawBin's 139 classes are SUB-GROUPED by file/dir (rb-trace-tree folders), not a flat list.
 - AC4: a @390 RENDER-PERF gate — the 1195-node model does NOT hang/flood mobile (bounded initial DOM + lazy expand); real classes still reachable; /model gate + /trace unregressed.
+
+## S33-P3-FEATURES — RawBin project FOLDERS + ACTION BAR + PUML IMPORT — ARCHITECT DESIGN (robbin-architect 2026-07-30, Tron)
+MEASURE-FIRST: R32.7 `puml-serializer.ts` has BOTH `modelToPuml` (:33 export) AND **`pumlToModel` (:69 PARSER, PUML→model)** — so PUML-import REUSES the existing parser (NO new parser needed). 55 .puml in scrum.pmo/sprints/*/diagrams/: **27 class/component (importable), 12 sequence/activity (OUT-of-scope — pumlToModel parses class/interface/<|--/-->/..> only, not participant/sequence), 16 other/unknown (per-file triage)**.
+
+### (a) RawBin project → 3 FOLDERS (where artifacts LIVE in MODEL_STORE)
+Under M1·Projects → RawBin, 3 sub-folders (reuse rb-trace-tree folders, like the MOF layers + P2b file-folders):
+- **`ts/`** = the M1 ModelElements (RawBin's classes/functions/interfaces — the R32.2/P2a generated model).
+- **`puml/`** = PUML artifacts (the .puml TEXT — R32.7 `modelToPuml` output + imported .puml sources). Storage = a small `PumlArtifact` unit (or the .puml text on a Diagram/project ref) in MODEL_STORE.
+- **`diagram/`** = interactive Diagram units (R32.4 view-link diagrams — curated/generated/imported).
+`mofLayerRoots` emits these 3 folders under the RawBin project node; each groups its artifact type. Isolation: MODEL_STORE only (INV-MOF4).
+
+### (b) ACTION BAR (on /model — the RawBin project / diagram surface)
+Reuse-first; each action = an owner/member-gated endpoint + a client button:
+- **`+ Add diagram`** = create an empty Diagram unit in `diagram/` → curate via R32.11 add-view (drag desktop / tap-add touch — see R32.11-MOBILE fix). REUSE R32.4 Diagram + R32.11.
+- **`Compile diagram → SVG`** = render a Diagram's view-links to SVG via R32.4 `buildDiagramSvg` (the "puml as svg" / exportable). REUSE R32.4. LOW.
+- **`Compile → TypeScript`** = M1 model → .ts codegen. ★ BIG ROCK — this is the REVERSE of `TsToModel` (TS→model); model→TS codegen is NEW (generate valid .ts from M1 ModelElements). Non-trivial (member signatures, relations→imports/extends). FLAG as a later phase; NOT free.
+- **`Import PUML`** (Tron's new ask) = pick/scan a .puml → `pumlToModel` (R32.7, REUSE) → {elements, relations} → create ModelElement units (M1; deterministic puml-scoped uuids since external .puml lack embedded [model:uuid:X]) + a Diagram unit with auto-grid view-links → store: .puml source→`puml/`, Diagram→`diagram/`, elements→`ts/` → render INTERACTIVE (R32.4). Isolation: MODEL_STORE only (INV-P4, R32.7). Owner-gated.
+
+### PUML IMPORT — scope (measured)
+- **IMPORTABLE (27 class/component):** class/interface/component .puml → the class-Diagram model via `pumlToModel` (handles class/interface + <|--/-->/..>). ✓
+- **OUT-OF-SCOPE (12 sequence/activity):** participant/->/alt/activate = a DIFFERENT diagram model (not the class-Diagram); `pumlToModel` won't parse them meaningfully. FLAG — not importable to the class model (a separate sequence-model would be a future arc).
+- **TRIAGE (16 other/unknown):** per-file — chain/mixed diagrams; some class-ish (importable), some not. Expert triages on build (parse-attempt → if yields class elements, import; else skip + report).
+
+### INVARIANTS / reuse / big rocks / gate / deploy
+- **INV-F-1 (reuse parser):** import uses R32.7 `pumlToModel` — no new parser. **INV-F-2 (folders):** diagram/puml/ts are rb-trace-tree folders over MODEL_STORE artifacts (no fork). **INV-F-3 (isolation):** all actions write MODEL_STORE only; prod untouched. **INV-F-4 (round-trip):** an imported .puml → model → re-export (`modelToPuml`) is stable (R32.7 INV-P3) for class diagrams.
+- **REUSE (no fork):** R32.7 pumlToModel/modelToPuml, R32.4 buildDiagramSvg + Diagram, R32.11 add-view curation, R32.2 TsToModel (for ts/), rb-trace-tree folders, MODEL_STORE. NEW = the 3 project folders in mofLayerRoots + the action-bar endpoints (add-diagram/compile-svg/import-puml) + PumlArtifact storage. **Compile→TS = the one genuinely new engine (model→code), flagged big-rock.**
+- **BIG ROCKS:** (1) ★ Compile→TypeScript (model→TS codegen, reverse of TsToModel) = the hardest, later phase; (2) sequence/activity .puml out-of-scope (class-model only); (3) puml/ storage model (PumlArtifact unit shape); (4) the @390 touch curation (R32.11-MOBILE fix is a prerequisite for Add-diagram on mobile).
+- **GATE (@390):** RawBin project shows diagram/puml/ts folders; Import-PUML on a class .puml → interactive Diagram renders (R32.4 boxes+edges) + .puml lands in puml/ + Diagram in diagram/; Add-diagram + curate (touch); Compile→SVG exports; sequence .puml → clean 'not importable' (no crash); isolation (prod git-clean); /model gated. Gate the ACTIONS, not page-load.
+- **DEPLOY:** server (folders in mofLayerRoots + action endpoints) + client (action bar) → real restart + boot-verify. PHASED: P3f-1 folders + Import-PUML + Add-diagram + Compile-SVG (all reuse); P3f-2 Compile→TypeScript (the codegen big-rock).
