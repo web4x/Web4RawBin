@@ -996,6 +996,7 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 // R32.9 (D) Model-Driven Code Quality PAGE shell — membership-gated (requireFeatureAccess 'Model-Driven Code Quality')
 // at the /model route (INV-D4 fail-closed). Loads the model bundle, which mounts the SHARED rb-trace-tree over
 // /api/model/tree (R32.3 model-tree UX reused; R32.5 ISOLATED store). Mirrors featureManagerPage (DRY, no fork).
+// [impl:uuid:152c8e0f-6f69-4daa-9a1d-08d3c3ea990c] server.serverModelPage (Method 4668508c, Class c0a0921d, UC b08ac411 feature.launch)
 function serverModelPage(): string {
   const script = getBundleScript('model.js', 'model.js');
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
