@@ -1834,7 +1834,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // S33-P2b (INV-P2b-2): a SYNTHETIC MOF folder uuid (mof-*/project:*/file:*) resolves ONE bounded layer LAZILY
         // from the ISOLATED MODEL_STORE via mofChildren — the deep MOF tree is NEVER inlined in /api/model/tree's roots
         // payload. Public parity with /api/model/tree (also ungated, data-only). Real ModelElement uuids fall through.
-        if (/^(mof-m1|mof-m2|project:|file:)/.test(uuid)) {
+        if (/^(mof-m1|mof-m2|project:|file:|rawbin:)/.test(uuid)) { // R33.3-BUG fix: dispatch must include rawbin: (matches mofChildren's guard :1073) — else rawbin:ts|puml|diagram fell through to the ModelElement path → 404 {} → empty expand
           ensureStoreSeeded();
           const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), uuid) || [];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });

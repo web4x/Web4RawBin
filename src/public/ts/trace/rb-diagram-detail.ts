@@ -89,6 +89,9 @@ export class RbDiagramDetail extends HTMLElement {
     try { const r = await fetch(`/api/ior/ior:instance:${uuid}`); return (await r.json())?.unit?.model || null; } catch { return null; }
   }
 
+  // [impl:uuid:34dec13f-5cb6-4f01-8894-e85954174830] RbDiagramDetail.render (Method 65649d26, off UC 42e6d425
+  // diagram.renderCanvas, req 700957e1) — R33.3 resolve-and-render the reachable diagram canvas: fetch the Diagram
+  // (drawer uuid, NOT stripRef 'diagram:'), resolve each view-link's element+members, buildDiagramSvg → boxes+edges.
   private async render(): Promise<void> {
     const ref = this.getAttribute('ref') || '';
     // R33.3 fix (caught by the @390 render harness — unit tests never exercised this DOM path): resolve the diagram
@@ -179,7 +182,8 @@ export class RbDiagramDetail extends HTMLElement {
     } catch { /* noop — surface stays as-is */ }
   }
 
-  // R33.3 AC2 / INV-S33V-2 (markerPending — req IMPL-mints RbDiagramDetail.wireBoxDrag): make each .dm-box MOVABLE.
+  // [impl:uuid:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be] RbDiagramDetail.wireBoxDrag (Method 383d2467, off UC f783de5b
+  // diagram.moveView, req 700957e1) — R33.3 AC2 / INV-S33V-2: make each .dm-box MOVABLE.
   // A pointer/touch press on a box starts a drag (NOT a canvas-pan): capture-phase mousedown/touchstart guards
   // stopPropagation so RbPanZoom (bubble-phase on the same surface, pans only at scale>1) never sees the gesture;
   // the box's transform updates live; on release the new x,y persists via POST /api/model/diagram/move-view
