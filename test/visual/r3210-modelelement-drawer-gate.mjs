@@ -1,3 +1,4 @@
+// [test:uuid:c7b558ca-e582-4493-8eaa-84434a90064a] R32.10 ModelElement drawer INTERACTION — verifies RbModelElementDetail.render (Impl 7e147ad8): select a ModelElement → drawer routes 'modelelement:<uuid>' → class renders «kind»+members+'📐 Open diagram' affordance (link → real ior:class:Diagram unit) / method renders signature; non-member → /model 403 (INV-D4). Own-oracle drives the REAL model bundle + drawer renderDetailForRef flow with real /api/ior data @390. → req wires this Test onto Impl 7e147ad8 (render).
 // R32.10 ModelElement drawer INTERACTION @390 (select→drawer→detail/diagram/method), DET-3x. The interaction: a model
 // node → drawer routes 'modelelement:<uuid>' to rb-modelelement-detail (tagMap, R32.10 INV-M2) → class→members+«kind»+
 // '📐 Open diagram' / method→signature; 📐 opens the R32.4/6 rb-diagram-detail. Own-oracle: load the REAL model bundle
