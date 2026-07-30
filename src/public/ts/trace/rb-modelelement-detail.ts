@@ -27,6 +27,7 @@ class RbModelElementDetail extends HTMLElement {
   private sec(label: string, n?: number): string { return `<h4 style="color:#8b949e;font-size:0.72rem;text-transform:uppercase;letter-spacing:.04em;margin:12px 0 4px">${esc(label)}${n === undefined ? '' : ` (${n})`}</h4>`; }
   private link(ref: string, rel: string, title: string): string { return `<div class="dv-link" data-ref="${ref}"><span class="dv-rel">${esc(rel)}</span><span class="dv-link-title">${esc(title)}</span></div>`; }
 
+  // [impl:uuid:7e147ad8-aa69-4f02-9844-8652691add0a] RbModelElementDetail.render (Method c2da9192, Class 7788ebe0, off UC 4fad0415 modelElement.inspect) — R32.10 PART B
   private async render(): Promise<void> {
     const uuid = stripRef(this.getAttribute('ref') || '');
     if (!uuid) return;
