@@ -26,6 +26,7 @@ function pumlUuid(name: string): string {
   return `${hx.slice(0, 8)}-${hx.slice(8, 12)}-4${hx.slice(13, 16)}-a${hx.slice(17, 20)}-${hx.slice(20, 32)}`;
 }
 
+// [impl:uuid:8462f889-1d56-4a59-adad-f88287b9f9ce] PumlSerializer.modelToPuml (Method f13a6144, Class 59bdb00e, off UC e3c310e2 puml.export)
 // EXPORT — model → @startuml. Each element ONCE (seenClasses); relations de-dup by from->to:kind. DETERMINISTIC
 // ORDER (classes by name,uuid; members declared-order; relations by from,to,kind) → byte-identical re-export (INV-P3).
 // The [model:uuid:X] comment carries identity so import re-binds to the same unit (INV-P1/P2).
@@ -62,6 +63,7 @@ const REL_IN: { re: RegExp; kind: EdgeKind; swap: boolean }[] = [
   { re: /^(\w[\w.]*)\s*\.\.>\s*(\w[\w.]*)$/, kind: 'dependency', swap: false },
 ];
 
+// [impl:uuid:e85bc60a-5c2b-4180-9d10-fb09bf195fba] PumlSerializer.pumlToModel (Method 31cd0acb, Class 59bdb00e, off UC 16523537 puml.import)
 // IMPORT — parse @startuml..@enduml → {elements, relations}. PURE (no persistence; caller writes the isolated store).
 // uuid = the embedded [model:uuid:X] if present (round-trip re-bind, INV-P1/P2) else a deterministic puml-scoped id.
 export function pumlToModel(text: string): { elements: PumlNode[]; relations: PumlRelation[] } {
