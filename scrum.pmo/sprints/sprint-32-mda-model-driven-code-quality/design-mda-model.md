@@ -432,3 +432,14 @@ Restarted remoteShells:0.2 twice ([d] stop→npm start) as the two deploys lande
 - **GATE (both):** /model non-member → **403** (R32.9 preserved); /trace → 200; /server-manager → 403 (unregressed). 
 - **REMAINING (Tron @390 device — 403-limited solo):** R32.11 authed VISUAL drag-a-class→box-appears+edges+persist+select-auto-show; R33.1 authed folder expand/cross-level nav. Both hold by construction (endpoint + tree structure live).
 - **GAP (expert-flagged, non-blocking):** R33.1 '📄 PUML(code)' leaf node not yet wired (R32.7 surface) — thin fast-follow; folders+diagram+cross-level-nav all in.
+
+## R32.11-MOBILE — in-diagram DnD BROKEN @390 (Tron device) — ROOT CAUSE (robbin-architect 2026-07-30). Own it: my R32.11 gate verified the endpoint+desktop DnD, never TOUCH.
+Tron @390 (iPhone): drags a class chip (ViewTemplateRegistry) onto the empty diagram → NO view added (the R32.5 'drop a class to add a view' is dead on mobile).
+ROOT (measured): the add-view interaction is **HTML5 Drag-and-Drop ONLY** — which does NOT fire on touch/mobile:
+- Drag SOURCE = rb-object-item: `.oi-icon draggable="true"` (:195) + `dragstart`→onDragStart sets `application/rb-object-ref` (:203/:121/:131). HTML5 DnD.
+- Drop TARGET = rb-diagram-detail: `dragover`+`drop` on .dm-surface (:113-114). HTML5 DnD.
+- **iOS Safari / touch browsers do NOT fire `draggable`/`dragstart`/`dragover`/`drop`** — native HTML5 DnD is desktop-mouse only. So @390 the drag produces NO dragstart/drop → nothing added.
+- rb-object-item's touchstart/touchmove (:65-69) are a LONG-PRESS timer (selection), NOT a touch-drag — no touch-drag path exists.
+COMPOUNDING: the designed **auto-show-on-select complement** (rb-diagram-detail:145 comment — "shared by the drop AND the select-class auto-show") is NOT WIRED — there is NO `selection-changed → addView` listener; `addView` (:147) is called ONLY by `onDropAddView` (the HTML5 drop). So the TOUCH-friendly tap path was commented but never built → mobile has ZERO working add-view path.
+WHY IT PASSED R32.11 BACKSTOP: the gate verified the ENDPOINT (curl add-view dedup/idempotent) + desktop DnD statically; @390 TOUCH was never exercised ("by construction"). The 4th gated-path ≠ interaction — own it.
+FIX DIRECTION (hand expert; root-cause per PO, fix on approval): wire the **auto-show-on-select complement = the touch path** — rb-diagram-detail `document.addEventListener('selection-changed', …)` → if the single selected node is a `modelelement` (class) AND this diagram is open → `addView(elementUuid)` (no coords → server auto-grid, INV-R1/R2/R4, same endpoint). Then a TAP on a class chip (touch-native selection) ADDS its view — no HTML5 DnD needed. KEEP the HTML5 DnD for desktop (additive). GATE = the TOUCH interaction @390 (tap a class → box appears), NOT desktop drag / endpoint. (Optional heavier alt: a touchstart/move/end + elementFromPoint drag polyfill to preserve the literal drag gesture.)
