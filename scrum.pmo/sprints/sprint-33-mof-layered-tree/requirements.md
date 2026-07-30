@@ -37,6 +37,7 @@
   - [ ] **(functional)** AC2 / INV-P2b-2: deeper layers (project -> files -> classes -> members) load LAZILY on expand via /api/trace/children/<uuid> (MODEL_STORE-rerouted, R32.5) - each expand is ONE bounded layer fetch; members/deep grandchildren are NEVER inlined in the mofLayerRoots payload.
   - [ ] **(functional)** AC3 / INV-P2b-3: RawBin's 139 classes are SUB-GROUPED by sourceFile/dir into rb-trace-tree folders (e.g. src/ts/scenario -> 26 file-folder nodes -> their classes -> members), NOT a flat 139-list. Reuses the rb-trace-tree collection/folder rendering (same as the MOF layers).
   - [ ] **(gate)** AC4 / INV-P2b-4: a @390 RENDER-PERF gate - the 1195-node model does NOT hang/flood mobile (bounded initial DOM measured << 1195 + render fast; each expand asserted a bounded lazy /api/trace/children fetch, not one 1195 payload); real RawBin classes still reachable (P2-1 unregressed); /model owner-gated 403 non-member; /trace unregressed. Gate the RENDER-PERF, not merely 'loads'.
+  -> model.mofChildren [uc:uuid:8bdeda90-07b8-4628-a892-b83bd7c9f9fd]
 
 - [ ] **R33.3 — RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)**
   [requirement:uuid:700957e1-235d-4e84-8914-428dfa191a1a]

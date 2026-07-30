@@ -11,7 +11,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:8bdeda90-07b8-4628-a892-b83bd7c9f9fd"
+  ],
   "unitLinks": [],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-P2b&commit=582b0c27b",
   "discoverySource": {

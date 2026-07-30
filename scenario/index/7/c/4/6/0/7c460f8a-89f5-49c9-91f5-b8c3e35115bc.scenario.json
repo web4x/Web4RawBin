@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7c460f8a-89f5-49c9-91f5-b8c3e35115bc",
+    "name": "server.mofChildren",
+    "description": "R33.2 bounded/lazy layer resolver: mofChildren(idx, uuid):MofNode[]|null @ src/ts/server/server.ts:1069 - resolves ONE bounded layer for a synthetic MOF-folder uuid (project->file-folders->classes->members), returning hasChildren+childCount nodes WITHOUT inlining deeper grandchildren, so the client lazy-fetches each layer via /api/trace/children (MODEL_STORE-rerouted, R32.5) on expand. Realizes INV-P2b-2 (lazy expand) + INV-P2b-3 (file/dir sub-grouping). NEW named decl on the EXISTING Class server (c0a0921d) - DISTINCT from mofLayerRoots (R33.1 Method 3d308526 / Impl 5afeafe9, which was extended in place to emit bounded roots but stays R33.1's credit). scenario-first IMPL-MINT (#126) - the [impl:uuid] marker lands on the mofChildren() decl (:1069, name-matches 'mofChildren').",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:b6c88d83-a838-46ad-ba9a-874e803ca479"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}
