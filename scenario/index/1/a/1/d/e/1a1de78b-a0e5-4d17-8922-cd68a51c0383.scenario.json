@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "name": "Sprint 33 — MDA v4 MOF-layered tree",
+  "number": 33,
+  "slug": "sprint-33-mof-layered-tree",
+  "goal": "Present the MDA model as a proper MOF 4-layer TREE (M3/M2/M1/M0 folders) instead of the current FLAT r32.2-demo list (Tron IMG_4716). M3 = MOF meta-meta model; M2 = UML profile classes (UmlClass/UmlInterface/UmlAttribute/... — instances of M3); M1 = PROJECTS (RawBin as a REAL M1 project — its TS classes + PUML as code AND as SVG); M0 = dist folder (runtime instances). Builds on R32.1 ModelElement multi-facet instanceOf (same-UUID across M-levels ALREADY exist — present them as folders, not a flat list). Subsumes + expands R33 (RawBin real multi-file model = M1's RawBin project). PHASED (architect-assessed, Tron go): P1 present M2+M1 MOF folders (low-risk reuse of rb-trace-tree folders + multi-facet M-levels); P2 RawBin real M1 multi-file (subsumes R33 backlog); P3 M3 + M0/dist. Scenario-first: architect designs the MOF-layer tree model + presentation → req formalizes → build.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/PO-vision-MDA-v4-MOF-tree.md",
+  "phases": [
+   {
+    "id": "P1",
+    "title": "Present M2 + M1 MOF folders",
+    "detail": "Low-risk reuse: rb-trace-tree folders + the existing multi-facet M-levels (R32.1). Present M2 (UML profile classes) + M1 (projects) as layered folders. FIRST.",
+    "status": "next"
+   },
+   {
+    "id": "P2",
+    "title": "RawBin real M1 multi-file",
+    "detail": "Generate the MDA model over RawBin's OWN src (multi-file) so M1's RawBin project shows real classes/functions/interfaces. Subsumes R33 backlog (RawBin-real-model + model-sync multi-file).",
+    "status": "planned"
+   },
+   {
+    "id": "P3",
+    "title": "M3 + M0/dist",
+    "detail": "Add the M3 MOF meta-meta folder + the M0/dist runtime-instances folder. PUML as code (R32.7) + SVG (R32.4/6) per M1 project.",
+    "status": "planned"
+   }
+  ],
+  "requirements": [],
+  "tasks": [],
+  "createdAt": "2026-07-30",
+  "createdBy": "robbin-planner",
+  "createdBy_note": "Tron-authorized new sprint (no auto-increment). Sprint SCAFFOLD only — reqs mint scenario-first (architect designs MOF-layer tree model + presentation → req formalizes). Subsumes R33 backlog items.",
+  "joint": [
+   "robbin-architect",
+   "robbin-req",
+   "robbin-planner"
+  ]
+ }
+}

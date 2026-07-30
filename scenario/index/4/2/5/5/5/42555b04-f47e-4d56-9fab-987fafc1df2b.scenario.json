@@ -1,0 +1,26 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "42555b04-f47e-4d56-9fab-987fafc1df2b",
+  "name": "Task 32.11: DnD drop into the /model diagram not working (Tron device-QA) — the drop IS the vision, being fixed",
+  "slug": "task-32.11-dnd-drop-into-diagram",
+  "description": "Tron device-QA (2026-07-30): dragging/dropping an itemView into the /model diagram does NOT work on the device — the drop→generate→view interaction (the core R32.5/R32.8 go-live path) fails. This is being FIXED, not demoted — the drop IS the MDA go-live vision. Architect diagnosing the root cause (device DnD event/handler on the diagram surface).",
+  "intention": "Make the /model diagram DROP interaction actually work on Tron's device — drop an itemView → generate/re-sync → the model view (tree/diagram/edges) renders. Gate the DROP @390.",
+  "context": "Scenario-first (Tron device-QA reopen-family, S32): architect DIAGNOSING; req to formalize R32.11 (placeholder d981876f, canonicalize in place). Sibling of the T32.9/T32.10 device-QA findings (all 'gated-loads-not-works' — gate at the real interaction @390, not page-load).",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [~] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.11 `[requirement:uuid:d981876f-4816-4cd0-b3e3-e28ed02c787d]` (Tron device-QA; placeholder — req canonicalizes)\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] The DnD drop of an itemView into the /model diagram WORKS on the device (drop event reaches the handler; not swallowed).\n- [ ] Drop → generate/re-sync → the model view (tree/diagram/edges) renders the dropped source.\n- [ ] Gated at the DROP INTERACTION @390 (Tron viewport) — not page-load; a real device drop, not a synthetic dispatch. (req to formalize full ACs.)",
+  "subtasks": "None (atomic task).",
+  "status": "In Progress",
+  "coveredRequirements": [
+   "ior:instance:d981876f-4816-4cd0-b3e3-e28ed02c787d"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "remainingIssues": "OPEN (Tron device-QA). Architect DIAGNOSING root cause. req to canonicalize R32.11 (placeholder d981876f) + formalize ACs → expert fixes the drop handler → tester gates the drop @390 on real device.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-30"
+ }
+}

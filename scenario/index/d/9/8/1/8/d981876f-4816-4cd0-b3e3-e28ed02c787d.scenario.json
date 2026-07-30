@@ -1,0 +1,26 @@
+{
+ "ior": "ior:class:Requirement",
+ "ownerIor": null,
+ "model": {
+  "uuid": "d981876f-4816-4cd0-b3e3-e28ed02c787d",
+  "altId": "R32.11",
+  "name": "DnD drop into the /model diagram not working (Tron device-QA)",
+  "description": "Tron device-QA (2026-07-30): dragging/dropping an itemView into the /model diagram does NOT work — the drop (drop→generate→view, the core R32.5/R32.8 go-live interaction) fails on the device. The drop IS the vision (being FIXED, not demoted).",
+  "tronQuote": "> TRON (device-QA 2026-07-30): the drag-and-drop drop into the diagram is not working.",
+  "status": "concept",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [],
+  "acceptanceCriteria": [],
+  "tasks": [
+   "ior:instance:42555b04-f47e-4d56-9fab-987fafc1df2b"
+  ],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron via robbin-po",
+   "date": "2026-07-30",
+   "note": "DnD drop into /model diagram not working."
+  },
+  "placeholderNote": "PLACEHOLDER minted by robbin-planner (#43) to wire T32.11 now (PO stand-up-In-Progress directive). robbin-req to CANONICALIZE IN PLACE (reuse uuid d981876f): capture the verbatim Tron device-QA finding + formalize ACs (gate the DROP INTERACTION @390). Architect diagnosing the root cause."
+ }
+}
