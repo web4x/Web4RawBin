@@ -4,11 +4,11 @@
     "uuid": "4e74dfee-e9ea-4284-80c7-f196b91e93a9",
     "name": "RbDiagramDetail.addView impl (drop -> POST add-view -> persist MODEL_STORE -> re-render)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [
       "ior:instance:61e2696a-2be3-48d4-b923-eedf1c112601"
     ],
-    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:4e74dfee] on the addView() decl @ src/public/ts/trace/rb-diagram-detail.ts:146 (name-matches 'addView'). Built at a3b9cd404 (v0.8.11). onDropAddView (:131) + inline server add-view route + select complement = supporting enablers (no separate markers). Client+server -> real restart on ship. markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin (strict-AST). The unit two-key (Impl.tests<->Test) is valid NOW regardless of the code marker."
+    "markerNote": "Strict-AST credit HOLDS at e4a572068: [impl:uuid:4e74dfee] heads the named addView() decl @ src/public/ts/trace/rb-diagram-detail.ts:147 (marker line 146 precedes private async addView(, name-matches; Method 70be1605 RbDiagramDetail.addView, Class 039ec367, UC cdd29583). onDropAddView (:131) + inline server add-view route + select-complement = supporting enablers. addView DISTINCT from reSyncFromSource 3fd80641 (R32.8) = no re-credit. IMPL-MINT #126 complete. Unit two-key verified by tester (138/418)."
   },
   "ownerIor": "ior:instance:70be1605-6b8c-4358-af16-6702549aee97"
 }
