@@ -1,3 +1,4 @@
+// [test:uuid:96a4bda8-e87b-4dd8-afc4-b03311725f55] S33-P2b/R33.2 render-perf — verifies the bounded/lazy model tree (mofLayerRoots extended): initial /api/model/tree = 2 COLLAPSED MOF-layer roots (≪1195), each expand = ONE bounded /api/trace/children fetch (M1→projects, RawBin→~25 file-folders, NOT 1195), classes reachable (P2-1), /model 403. BITE: initial ≤12 ≪1195 (non-vacuous, full model ~1195). Own-oracle real lazy API walk, read-only. → req wires this Test onto the R33.2 impl (mofLayerRoots-extended lazy/children).
 // S33-P2b (R33.2) render-perf — the BOUNDED/LAZY model tree (my S33-P2a 1195-node perf-flag drove this fix), DET-3x.
 // /api/model/tree now returns the TOP MOF layer COLLAPSED (no eager children) + each expand = ONE bounded
 // /api/trace/children fetch (NOT one 1195-node payload). Own-oracle: walk the real lazy API path + count nodes at each
