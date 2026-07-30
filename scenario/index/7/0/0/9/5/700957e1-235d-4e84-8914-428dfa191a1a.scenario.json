@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "700957e1-235d-4e84-8914-428dfa191a1a",
+  "altId": "R33.3",
+  "name": "RawBin project folders + action bar + PUML import (S33-P3-FEATURES, P3f-1 reuse)",
+  "description": "S33-P3-FEATURES phase P3f-1 (all REUSE, buildable now): RawBin project gets 3 rb-trace-tree folders (ts/puml/diagram) over MODEL_STORE, plus an action bar of owner-gated actions - '+ Add diagram' (R32.4/R32.11), 'Compile diagram -> SVG' (R32.4 buildDiagramSvg), and 'Import PUML' (Tron feature D: R32.7 pumlToModel parser REUSE -> M1 units + auto-grid Diagram -> interactive R32.4 render). Import scope (measured): 27 class/component .puml importable, 12 sequence/activity out-of-scope (clean 'not importable'), 16 triage. Isolation = MODEL_STORE only (prod untouched). Reuse-only, NO fork; NEW = the 3 folders in mofLayerRoots + the action endpoints + PumlArtifact storage. Compile->TypeScript codegen is SPLIT to R33.4 (P3f-2 big-rock). Chains mint per-action on build (IMPL-MINT); Tests = the @390 action gates (tester independent).",
+  "tronQuote": "> TRON (2026-07-30): import PUML (add an Import-PUML action so a .puml becomes an interactive model/diagram).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-P3-FEATURES&commit=20b6f97fb",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-project-3-folders",
+    "group": "functional",
+    "text": "INV-F-2: under M1.Projects -> RawBin, mofLayerRoots emits 3 rb-trace-tree FOLDERS (reuse, no fork) - ts/ (the R32.2/P2a M1 ModelElements: classes/functions/interfaces), puml/ (PUML text artifacts: modelToPuml output + imported .puml sources, a small PumlArtifact unit), diagram/ (R32.4 interactive Diagram units). Each groups its artifact type; MODEL_STORE only."
+   },
+   {
+    "id": "AC-action-add-diagram",
+    "group": "functional",
+    "text": "An owner/member-gated '+ Add diagram' action creates an empty Diagram unit in diagram/ -> curate via R32.11 add-view (drag on desktop / TAP-add on touch per the R32.11-MOBILE fix). REUSE R32.4 Diagram + R32.11."
+   },
+   {
+    "id": "AC-action-compile-svg",
+    "group": "functional",
+    "text": "An owner/member-gated 'Compile diagram -> SVG' action renders a Diagram's view-links to SVG via R32.4 buildDiagramSvg (the exportable 'diagram as svg'). REUSE R32.4."
+   },
+   {
+    "id": "AC-import-puml",
+    "group": "functional",
+    "text": "INV-F-1 (Tron feature D): an owner-gated 'Import PUML' action picks/scans a class/interface .puml -> R32.7 pumlToModel (REUSE the existing parser, NO new parser) -> {elements, relations} -> creates M1 ModelElement units (deterministic puml-scoped uuids, since external .puml lack embedded [model:uuid:X]) + a Diagram unit with auto-grid view-links -> stores: .puml source in puml/, Diagram in diagram/, elements in ts/ -> renders INTERACTIVE (R32.4 boxes + edges)."
+   },
+   {
+    "id": "AC-import-scope-triage",
+    "group": "functional",
+    "text": "Import scope (measured, 55 .puml): the 27 class/component .puml import to the class-Diagram model; the 12 sequence/activity .puml (participant/->/alt) cleanly report 'not importable' with NO crash (pumlToModel parses class/interface + <|--/-->/..> only); the 16 triage .puml are per-file parse-attempted (yields class elements -> import; else skip + report)."
+   },
+   {
+    "id": "AC-import-roundtrip",
+    "group": "functional",
+    "text": "INV-F-4: an imported .puml -> model -> re-export via R32.7 modelToPuml is round-trip STABLE for class diagrams (the R32.7 INV-P3 identity, byte-identical re-export)."
+   },
+   {
+    "id": "AC-features-isolation",
+    "group": "gate",
+    "text": "INV-F-3: ALL P3-FEATURES actions (add-diagram, compile-svg, import-puml) write MODEL_STORE only - prod scenario/index is UNCHANGED (git-clean gate-able). All action endpoints are owner/member-gated (403 non-member)."
+   },
+   {
+    "id": "AC-390-actions-gate",
+    "group": "gate",
+    "text": "@390 GATE (gate the ACTIONS, not page-load): RawBin shows the diagram/puml/ts folders; Import-PUML on a class .puml renders an interactive Diagram (R32.4 boxes+edges) + .puml lands in puml/ + Diagram in diagram/; Add-diagram + touch-curate works; Compile->SVG exports; a sequence .puml -> clean 'not importable' (no crash); isolation (prod git-clean); /model owner-gated; /trace unregressed."
+   }
+  ],
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-architect (design 20b6f97fb) + Tron (Import-PUML ask, feature D)",
+   "date": "2026-07-30",
+   "note": "S33-P3-FEATURES: RawBin project folders + action bar + PUML-import. Import-PUML is Tron's new ask (feature D). Architect measure-first: R32.7 pumlToModel PARSER already exists (reuse, no new parser). Captured scenario-first by robbin-req 2026-07-30."
+  }
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}
