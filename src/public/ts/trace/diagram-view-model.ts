@@ -28,6 +28,7 @@ export function buildBox(view: ViewLink, node: DiagramNode): string {
     + `</g>`;
 }
 
+// [impl:uuid:ba96a744-13f9-42ea-b1cf-746e87481a18] DiagramViewModel.buildDiagramSvg (Method 3fc6ed5b, Class 09730090, off UC 6a155572)
 // Assemble the surface SVG from the ordered view-links + a resolver. Returns svg + box count. Member sub-views
 // render inside their class; relationship views = R32.6 (both skipped here). Unresolved units skipped.
 export function buildDiagramSvg(views: ViewLink[], nodeOf: (uuid: string) => DiagramNode | null): { svg: string; count: number } {
