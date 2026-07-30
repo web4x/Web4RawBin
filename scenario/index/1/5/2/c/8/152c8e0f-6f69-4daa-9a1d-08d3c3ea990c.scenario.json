@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "152c8e0f-6f69-4daa-9a1d-08d3c3ea990c",
+    "name": "server.serverModelPage impl (gated /model page shell -> R32.5 model view)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": true,
+    "tests": [],
+    "markerNote": "IMPL-MINT scenario-first (#126): req mints this Impl; expert drops [impl:uuid:152c8e0f] on the serverModelPage() decl @ src/ts/server/server.ts:999 (name-matches 'serverModelPage'). Built at 705f1ab8f (v0.8.9). NEW R32.9 launch decl - distinct from R31.8 bootstrapSeed (03b2b1db, which R32.9 feature.discover co-credits for the enumerate). SERVER change -> real restart + real-boot verify on ship. markerPending flips false once req verifies the [impl:uuid] heads the named decl on origin."
+  },
+  "ownerIor": "ior:instance:4668508c-992e-465f-847a-7bec7a09301e"
+}

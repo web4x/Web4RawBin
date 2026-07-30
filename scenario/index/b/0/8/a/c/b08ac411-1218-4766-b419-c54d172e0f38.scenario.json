@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "b08ac411-1218-4766-b419-c54d172e0f38",
+  "name": "feature.launch",
+  "description": "R32.9 launch (INV-D3 data-launch + INV-D4 fail-closed + surface): launching the MDA feature is DATA-DRIVEN via Feature.launchPage '/model' (renderFeatureGrants uses f.launchPage, the name-ternary dropped). The gated GET /model route (server.ts:1106, requireFeatureAccess('Model-Driven Code Quality'), R31.8 gate - 403 for a non-member) serves server.serverModelPage() (the /model page shell) -> the R32.5 model view (drop -> tree/diagram/edges). NEW Method server.serverModelPage - distinct R32.9 launch anchor (not the R31.8 bootstrapSeed). Sibling UC of feature.discover.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ],
+  "method": "ior:instance:4668508c-992e-465f-847a-7bec7a09301e",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

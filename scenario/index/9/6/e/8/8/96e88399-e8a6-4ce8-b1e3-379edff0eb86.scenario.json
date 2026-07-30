@@ -11,7 +11,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/R32.9-feature-manager-registration.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:87de897c-74bc-471b-b85e-662d011f792b",
+   "ior:instance:b08ac411-1218-4766-b419-c54d172e0f38"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
