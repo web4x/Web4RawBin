@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "d42e1a1e-6c6b-43da-9690-181bc92afa7f",
+  "name": "model.mofTree",
+  "description": "R33.1 P1: /api/model/tree presents the MOF layers as folder roots (INV-MOF1) - server.mofLayerRoots groups the MODEL_STORE units by model.metaLevel into 'M2 · UML Profile' (18 metaclasses -> M1 instances via reverse multi-facet instanceOf, INV-MOF2) + 'M1 · Projects' (project -> classes -> members + PUML(code) + Diagram(svg)) folders, emitted as the same collection itemView rb-trace-tree already renders. Same-uuid cross-level no dup (INV-MOF3); MODEL_STORE-only isolation + /model 403 (INV-MOF4). REUSE rb-trace-tree folders/lazy-expand + the metaLevel data (R32.1) + R32.7 puml + R32.4/6 diagram; NO fork. ANCHOR = server.mofLayerRoots (the group-by-metaLevel restructure, currently INLINE in the /api/model/tree handler - the expert EXTRACTS it into a named mofLayerRoots(idx) function + places the marker POST-REWIND, req-agreed). The R33.1 Test is the tester @390 MOF-folder gate (folder structure + cross-level nav).",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ],
+  "method": "ior:instance:3d308526-d1c5-4f73-af39-7aecaa5b3cbf",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

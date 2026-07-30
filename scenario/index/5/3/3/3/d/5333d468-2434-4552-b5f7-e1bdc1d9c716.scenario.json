@@ -1,0 +1,46 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5333d468-2434-4552-b5f7-e1bdc1d9c716",
+  "altId": "R33.1.1",
+  "name": "M1 project -> PUML(code) leaf node via R32.7 modelToPuml (S33-P1 completion fast-follow)",
+  "description": "S33-P1 completion fast-follow (PO 2026-07-30): the R33.1 MOF-tree M1·Projects design includes a '📄 PUML (code)' leaf under each project node (its R32.7 modelToPuml serialization), but the expert honestly stopped tight - the PUML-code leaf is NOT wired (only the folder structure + Diagram(svg) shipped in R33.1). R33.1.1 wires it: the M1 project node gets a '📄 PUML (code)' leaf that shows the R32.7 modelToPuml text for the project's model. THIN - reuses R32.7 modelToPuml (Impl 8462f889), no new serializer; the tree already renders leaf nodes. Refinement of R33.1 (completes AC-m1-projects-tree's PUML node). Gate the leaf @390 (appears + shows code).",
+  "tronQuote": "> (S33-P1 completion; the '📄 PUML (code)' leaf from the R33.1 design 4d9ec3914 tree shape, deferred by the expert's tight stop.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b",
+  "refinementOfNote": "Completes R33.1 AC-m1-projects-tree's '📄 PUML (code)' leaf (deferred by the expert's tight stop; thin fast-follow, reuse R32.7 modelToPuml).",
+  "discoverySource": {
+   "type": "team-discovery",
+   "flaggedBy": "robbin-expert (honest tight stop) via robbin-po",
+   "date": "2026-07-30",
+   "note": "R33.1 shipped the MOF folders + Diagram(svg) but not the PUML(code) leaf; captured as a thin S33-P1 completion refinement."
+  },
+  "crossRef": [
+   "ior:instance:b1fef048-dc5c-4315-b410-12a724968234"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-puml-code-leaf",
+    "group": "functional",
+    "text": "Each M1·Projects project node has a '📄 PUML (code)' leaf child that, on select/expand, shows the R32.7 modelToPuml text (@startuml...@enduml) for that project's model - reachable in the /model tree."
+   },
+   {
+    "id": "AC-reuse-modelToPuml",
+    "group": "functional",
+    "text": "The PUML text is produced by the EXISTING R32.7 modelToPuml (Impl 8462f889) - NO new serializer, no fork; R33.1.1 only wires the leaf node + its content to that call."
+   },
+   {
+    "id": "AC-gate-puml-leaf-390",
+    "group": "gate",
+    "text": "GATE @390: the '📄 PUML (code)' leaf appears under the M1 project and its content is the correct modelToPuml serialization of the project's classes/members/relations - not just 'a node exists'."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

@@ -18,3 +18,13 @@
   - [ ] **(security)** INV-MOF4 - the tree reads MODEL_STORE only; prod scenario/index is untouched (git-clean); /model stays membership-gated (R32.9 requireFeatureAccess 403 for non-member).
   - [ ] **(functional)** REUSE rb-trace-tree folders/collections + N-level lazy-expand + the metaLevel data (R32.1) + R32.7 puml + R32.4/6 diagram + MODEL_STORE (R32.5) - NO client fork. The ONLY new code is the /api/model/tree group-by-metaLevel restructure + project grouping + M-layer icons (📦/📁).
   - [ ] **(gate)** GATE @390 the FOLDER STRUCTURE + cross-level nav (Tron viewport): the /model tree shows the M2 + M1 folders; expand M2 -> metaclasses -> M1 instances; expand M1 -> project -> classes -> members + PUML(code) + Diagram(svg); a class under both M2-instance and M1-project = same uuid no dup; prod git-clean; /model 403 non-member - NOT just 'the page loads'.
+  -> model.mofTree [uc:uuid:d42e1a1e-6c6b-43da-9690-181bc92afa7f]
+
+- [ ] **R33.1.1 — M1 project -> PUML(code) leaf node via R32.7 modelToPuml (S33-P1 completion fast-follow)**
+  [requirement:uuid:5333d468-2434-4552-b5f7-e1bdc1d9c716]
+  > (S33-P1 completion; the '📄 PUML (code)' leaf from the R33.1 design 4d9ec3914 tree shape, deferred by the expert's tight stop.)
+  S33-P1 completion fast-follow (PO 2026-07-30): the R33.1 MOF-tree M1·Projects design includes a '📄 PUML (code)' leaf under each project node (its R32.7 modelToPuml serialization), but the expert honestly stopped tight - the PUML-code leaf is NOT wired (only the folder structure + Diagram(svg) shipped in R33.1). R33.1.1 wires it: the M1 project node gets a '📄 PUML (code)' leaf that shows the R32.7 modelToPuml text for the project's model. THIN - reuses R32.7 modelToPuml (Impl 8462f889), no new serializer; the tree already renders leaf nodes. Refinement of R33.1 (completes AC-m1-projects-tree's PUML node). Gate the leaf @390 (appears + shows code).
+  **Acceptance criteria:**
+  - [ ] **(functional)** Each M1·Projects project node has a '📄 PUML (code)' leaf child that, on select/expand, shows the R32.7 modelToPuml text (@startuml...@enduml) for that project's model - reachable in the /model tree.
+  - [ ] **(functional)** The PUML text is produced by the EXISTING R32.7 modelToPuml (Impl 8462f889) - NO new serializer, no fork; R33.1.1 only wires the leaf node + its content to that call.
+  - [ ] **(gate)** GATE @390: the '📄 PUML (code)' leaf appears under the M1 project and its content is the correct modelToPuml serialization of the project's classes/members/relations - not just 'a node exists'.
