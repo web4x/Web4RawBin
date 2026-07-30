@@ -28,6 +28,7 @@ export const CHAIN_TYPE_CONFIG: Record<string, ChainTypeConfig> = {
   Gate:           { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: [],                     clientFwd: [] },
   Feature:        { scenarioFwd: ['allowedUsers'],                                       traceFwd: ['allowedUsers'],                expectedChildren: ['Profile'],            clientFwd: ['allowedUsers'] }, // R31.8c: FeatureManager native tree — a Feature's allowedUsers render as granted-user child-nodes (server resolver maps each token→a profile node)
   CurrentSprint:  { scenarioFwd: [],                                                     traceFwd: [],                              expectedChildren: ['Task'],               clientFwd: [] },
+  ModelElement:   { scenarioFwd: ['members'],                                            traceFwd: ['members'],                     expectedChildren: [],                     clientFwd: ['members'] }, // R32.3: MDA model tree — a class/interface's `members` (attributes/methods/properties, reverse `memberOf`) render as composition children via the SHARED rb-trace-tree; ONE additive entry (all model units are ior:class:ModelElement). relatesTo is NOT a child (detail/R32.6 only).
 };
 
 function resolve(type: string): ChainTypeConfig | undefined {

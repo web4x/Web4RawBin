@@ -28,6 +28,18 @@ import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { PtyBridge } from './PtyBridge.js';
+
+// R32.3 MDA model tree: a model node's DISPLAY type = its M2 MODEL-facet metaclass (the Uml* instanceOf), so
+// rb-object-item renders the model-kind icon (rb-trace-tree lowercases it → TRACE_ICONS['umlclass'] etc.).
+// Data-shaping only (NO tree mechanics). Falls back to 'ModelElement' when no Uml* facet resolves.
+function modelFacetType(model: Record<string, unknown> | undefined, idx: { get(u: string): { model?: Record<string, unknown> } | null }): string {
+  const io = Array.isArray(model?.instanceOf) ? (model!.instanceOf as string[]) : [];
+  for (const r of io) {
+    const n = String(idx.get(String(r).replace('ior:instance:', ''))?.model?.name || '');
+    if (n.startsWith('Uml')) return n;
+  }
+  return 'ModelElement';
+}
 import { FeatureManager } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
@@ -1449,6 +1461,28 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // Phase 2: /api/trace built entirely from ScenarioIndex (no scanRepo)
+    if (filepath === '/api/model/tree') { // R32.3: MDA model-tree ROOTS = M1 top-level class/interface/function/type units,
+      // as `.items` for the SHARED rb-trace-tree. Data-only; each root's members nest as children via the ModelElement
+      // forward-key (/api/trace/children). type = the M2 MODEL-facet metaclass (icon); childCount = members.length (badge).
+      try {
+        const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+        const roots: Array<{ uuid: string; type: string; name: string; hasChildren: boolean; childCount: number }> = [];
+        for (const u of idx.list()) {
+          const unit = idx.get(u);
+          if (!unit || unit.ior !== 'ior:class:ModelElement') continue;
+          const m = unit.model as Record<string, unknown>;
+          if (m.metaLevel !== 'M1' || m.memberOf) continue; // top-level M1 only (members nest under their class)
+          const members = Array.isArray(m.members) ? (m.members as string[]) : [];
+          roots.push({ uuid: String(m.uuid || u), type: modelFacetType(m, idx), name: String(m.name || ''), hasChildren: members.length > 0, childCount: members.length });
+        }
+        roots.sort((a, b) => a.name.localeCompare(b.name));
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify({ roots }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: String(e) }));
+      }
+      return;
+    }
     if (filepath === '/api/trace') {
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
@@ -1661,7 +1695,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
             const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
             const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
+            const entry: Record<string, unknown> = { uuid: ref, type: ct === 'ModelElement' ? modelFacetType(childModel, idx) : ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
             attachChainMethod(entry, type, ct, ucMethodIor, idx); // R31.10: attach UC.method as entry.chainMethod in ALL modes (extracted to the named attachChainMethod decl below for strict-impl credit)
             return entry;
           }
@@ -1696,7 +1730,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
         const extra: Record<string, unknown> = {};
         if (type === 'Room') { extra.mode = unit.model?.mode; extra.visibility = unit.model?.visibility; extra.memberCount = Array.isArray(unit.model?.members) ? (unit.model.members as unknown[]).length : 0; extra.fileCount = Array.isArray(unit.model?.files) ? (unit.model.files as unknown[]).length : 0; }
-        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, ...extra }));
+        res.end(JSON.stringify({ uuid, type: type === 'ModelElement' ? modelFacetType(unit.model as Record<string, unknown>, idx) : type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, ...extra })); // R32.3: model node display type = M2 model-facet (walk still uses real 'ModelElement' type)
       } catch { res.writeHead(500); res.end('{}'); }
       return;
     }
