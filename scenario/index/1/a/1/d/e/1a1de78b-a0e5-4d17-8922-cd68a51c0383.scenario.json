@@ -31,7 +31,8 @@
   ],
   "requirements": [
    "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b",
-   "ior:instance:5333d468-2434-4552-b5f7-e1bdc1d9c716"
+   "ior:instance:5333d468-2434-4552-b5f7-e1bdc1d9c716",
+   "ior:instance:7a178df1-4c07-4e79-8429-0ab0365a898b"
   ],
   "tasks": [],
   "createdAt": "2026-07-30",

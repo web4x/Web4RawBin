@@ -1,0 +1,51 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "7a178df1-4c07-4e79-8429-0ab0365a898b",
+  "altId": "R33.2",
+  "name": "MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)",
+  "description": "S33-P2b: the /model MOF tree must render BOUNDED + LAZY at 390px so the 1195-node RawBin model does not flood/hang mobile. MEASURE-FIRST root cause (architect 582b0c27b): (1) the shell's <rb-trace-tree id='model-tree' data-always-expanded> (server.ts:1011) forces buildSeedNode to build ALL layers eagerly; (2) mofLayerRoots (server.ts:1554) INLINES the full nested tree (1195 nodes in one payload). rb-trace-tree is ALREADY lazy (R31.3 layer-by-layer + fetchAndRenderChildren + hasChildren) and /api/trace/children routes ModelElement->MODEL_STORE (R32.5) - data-always-expanded + inline-emission DEFEAT the existing lazy path. FIX (no fork): Part A - drop data-always-expanded on /model (client, mirror server-manager R31.3) + mofLayerRoots emits BOUNDED (folders/project/class with hasChildren+childCount, NO inlined members) so the client lazy-fetches each layer via /api/trace/children on expand; Part B - sub-group RawBin's 139 classes by sourceFile/dir into rb-trace-tree folders (26 file-folders for src/ts/scenario), not a flat 139-list. CHAIN (#126) RIDES R33.1's mofLayerRoots (Method, Impl 5afeafe9) - extended for bounded+sub-group - + UC model.mofTree (d42e1a1e); the R33.2 Test = the @390 render-perf gate (mints on build onto the extended mofLayerRoots Impl, tester independent). Reuse-only: rb-trace-tree R31.3 lazy + /api/trace/children MODEL_STORE (R32.5) + rb-trace-tree folders (R33.1); NEW = mofLayerRoots bounded emission + file/dir sub-grouping + drop data-always-expanded.",
+  "tronQuote": "",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-P2b&commit=582b0c27b",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-architect (design 582b0c27b) + robbin-tester (@390 1195-node flood flag, S33-P2a perf FLAG 1a5cfd523)",
+   "date": "2026-07-30",
+   "note": "The 1195-node @390 flood found by the tester on S33-P2a; architect measure-first root-caused it to data-always-expanded + mofLayerRoots inline-emission (both defeat the existing R31.3 lazy tree). Captured scenario-first as R33.2 (P2b); ACs handed by architect. NOT a Tron quote - team-discovery. Canonicalized by robbin-req 2026-07-30."
+  },
+  "crossRef": [
+   "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b"
+  ],
+  "crossRefNote": "R33.2 extends R33.1 (MOF layered tree / mofLayerRoots) - same UC model.mofTree + Method/Impl 5afeafe9, bounded+lazy+sub-grouped for @390 perf. Distinct requirement (own INV-P2b-1..4 + @390 render-perf gate).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-bounded-initial",
+    "group": "functional",
+    "text": "AC1 / INV-P2b-1: the /model tree renders BOUNDED at 390px - ONLY the top layer (MOF folders, collapsed), NOT the full 1195 nodes. data-always-expanded is dropped on /model (client, mirror server-manager R31.3) so buildSeedNode does NOT eagerly build all layers; initial DOM << 1195."
+   },
+   {
+    "id": "AC-lazy-expand",
+    "group": "functional",
+    "text": "AC2 / INV-P2b-2: deeper layers (project -> files -> classes -> members) load LAZILY on expand via /api/trace/children/<uuid> (MODEL_STORE-rerouted, R32.5) - each expand is ONE bounded layer fetch; members/deep grandchildren are NEVER inlined in the mofLayerRoots payload."
+   },
+   {
+    "id": "AC-sub-grouped",
+    "group": "functional",
+    "text": "AC3 / INV-P2b-3: RawBin's 139 classes are SUB-GROUPED by sourceFile/dir into rb-trace-tree folders (e.g. src/ts/scenario -> 26 file-folder nodes -> their classes -> members), NOT a flat 139-list. Reuses the rb-trace-tree collection/folder rendering (same as the MOF layers)."
+   },
+   {
+    "id": "AC-390-render-perf-gate",
+    "group": "gate",
+    "text": "AC4 / INV-P2b-4: a @390 RENDER-PERF gate - the 1195-node model does NOT hang/flood mobile (bounded initial DOM measured << 1195 + render fast; each expand asserted a bounded lazy /api/trace/children fetch, not one 1195 payload); real RawBin classes still reachable (P2-1 unregressed); /model owner-gated 403 non-member; /trace unregressed. Gate the RENDER-PERF, not merely 'loads'."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}
