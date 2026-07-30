@@ -6,7 +6,9 @@
   "name": "On /model, selecting a tree node opens the drawer (node-detail + reachable diagram / method signature)",
   "description": "Tron device-QA (2026-07-30): on the /model page, selecting a tree node does NOTHING - no drawer opens. ROOT (measured, PO): serverModelPage (server.ts:999) mounts <rb-trace-tree id='model-tree'> but NO <rb-detail-drawer> (the /trace page mounts BOTH tree + drawer) - so a selection has nothing to open. This is the 2nd 'gated loads but does not WORK' device-QA miss of the MDA arc (R32.9 = feature not listed; R32.10 = drawer not opening) - [[device-qa-regression-means-missing-ac]] + [[gate-the-ac-surface]]: gate at the INTERACTION surface (select -> drawer opens), not page-load. FIX (scenario-first, feature-completion, architect -> expert -> tester): the /model page mounts the SHARED rb-detail-drawer (+ the R32.4 rb-diagram-detail via the drawer tagMap), mirroring /trace - NO fork; selection drives the standard renderDetailForRef flow. Selecting a CLASS opens its node-detail + reachable diagram (R32.4 boxes + R32.6 edges); selecting a MEMBER/method opens its signature-detail. Gated @390 at the interaction.",
   "tronQuote": "> TRON (device-QA 2026-07-30): \"no drawer opens on /model select.\"",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:bfd0e01a-1b38-494f-86af-bf7c860892cc"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/requirements.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",

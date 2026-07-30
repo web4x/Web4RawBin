@@ -22,3 +22,5 @@ v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model
 - [x] [Task 32.7: PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)](./task-32.7-puml-serializer.md)
 - [x] [Task 32.8: Action-driven M1/M2 sync (TS <-> model <-> PUML, same-UUID, no drift)](./task-32.8-m1-m2-sync.md)
 - [ ] [T-R31.14: Deploy-hardening — scripted deploy + served!=committed monitor + pinned prod topology (S32 backlog, scheduled AFTER R32.5)](./task-r31.14-deploy-hardening.md)
+- [ ] [Task 32.9: FeatureManager auto-discovers Features — MDA feature auto-appears + launchable @390, membership-gated (Tron device-QA REOPEN)](./task-32.9-feature-manager-registration.md)
+- [ ] [Task 32.10: /model page — select tree node opens drawer (node-detail + reachable diagram / method signature) (Tron device-QA)](./task-32.10-model-page-drawer.md)

@@ -6,7 +6,9 @@
   "name": "FeatureManager auto-discovers all Features; MDA feature auto-appears + launchable, membership-gated",
   "description": "Tron device-QA (2026-07-30): the Model-Driven Code Quality (MDA) feature - built + gated across R32.1-8 (model generation/tree/diagram/edges/puml/re-sync) - does NOT appear in the FeatureManager, so Tron cannot see or launch it. ROOT (measured, PO): FeatureManager.ts:31 hardcodes SEED_FEATURES = [ServerManager 16604eee, FeatureManager 2980b7d9] only; the MDA feature was never registered as an ior:class:Feature unit + listed. THE MISS (own it): Sprint 32 gated the MODEL surface but NO AC covered the FEATUREMANAGER surface (the user-facing entry) - 'functionally complete' was premature; a device-QA regression = a MISSING AC (gate where the AC specifies - the user launcher - not where the code sits). PO REDIRECT (Tron): make it CORRECT-BY-CONSTRUCTION - the FeatureManager DISCOVERS all ior:class:Feature units (DROP the hardcoded SEED_FEATURES list; a listFeatures() scan already exists at FeatureManager.ts:53); creating the MDA Feature unit then AUTO-APPEARS + launches with NO code/list edit (DRY single-source). Each discovered Feature stays membership-gated (R31.8 allowedUsers data-driven gate, like ServerManager) - DISCOVERED != WORLD-VISIBLE. Launch -> the model view (drop -> tree/diagram/edges). NOTE for architect: dropping SEED_FEATURES must preserve the R31.8 first-run owner-membership bootstrap (owner seeded into a feature's allowedUsers) - design the replacement (general first-run seed / creator-sets-allowedUsers); no fork. This is a feature-COMPLETION of the S32 MDA arc (architect -> expert -> tester), gated at the FeatureManager surface.",
   "tronQuote": "> TRON (device-QA 2026-07-30): \"the feature manager does not show the new feature.\"",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:fb995055-7fcb-4496-83e0-abffc64e31c2"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/R32.9-feature-manager-registration.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
