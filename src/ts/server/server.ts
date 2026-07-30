@@ -1518,23 +1518,34 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       // forward-key (/api/trace/children). type = the M2 MODEL-facet metaclass (icon); childCount = members.length (badge).
       try {
         ensureStoreSeeded();
-        const idx = new ScenarioIndex(MODEL_STORE); // R32.5: model tree reads the ISOLATED store (prod scenario/index untouched)
-        const roots: Array<{ uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string }> = [];
-        for (const u of idx.list()) {
-          const unit = idx.get(u);
-          if (!unit) continue;
-          const m = unit.model as Record<string, unknown>;
-          if (unit.ior === 'ior:class:ModelElement' && m.metaLevel === 'M1' && !m.memberOf) {
-            const members = Array.isArray(m.members) ? (m.members as string[]) : [];
-            // R32.10 (INV-M2): node type='modelelement' → the drawer routes it to rb-modelelement-detail (the «kind» is
-            // shown IN the detail). modelFacetType stays the tree ICON hint via a separate field so the icon survives.
-            roots.push({ uuid: String(m.uuid || u), type: 'modelelement', name: String(m.name || ''), hasChildren: members.length > 0, childCount: members.length, icon: modelFacetType(m, idx) });
-          } else if (unit.ior === 'ior:class:Diagram') {
-            // R32.10 (INV-M2) diagram-reach: emit the Diagram as a root (type:'diagram') → opens the EXISTING rb-diagram-detail.
-            roots.push({ uuid: String(m.uuid || u), type: 'diagram', name: String(m.name || 'Diagram'), hasChildren: false, childCount: 0, icon: 'diagram' });
-          }
-        }
-        roots.sort((a, b) => a.name.localeCompare(b.name));
+        const idx = new ScenarioIndex(MODEL_STORE); // R32.5/INV-MOF4: reads the ISOLATED store only (prod scenario/index untouched)
+        // R33.1 (S33-P1, INV-MOF1): MOF-LAYER FOLDER roots — GROUP the store by metaLevel instead of a flat list.
+        // Small census (M2=18, M1=12, 1 Diagram) → build the folder tree INLINE (children[]) so rb-trace-tree renders
+        // it verbatim (collection/folder + nested nodes), no lazy-fetch of synthetic folders needed.
+        type Node = { uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string; children?: Node[] };
+        const strip = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
+        const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as { uuid: string; ior: string; m: Record<string, unknown> }[];
+        const modelEls = els.filter((x) => x.ior === 'ior:class:ModelElement');
+        const byUuid = new Map(modelEls.map((x) => [String(x.m.uuid || x.uuid), x]));
+        const m1 = modelEls.filter((x) => x.m.metaLevel === 'M1');
+        const m2 = modelEls.filter((x) => x.m.metaLevel === 'M2');
+        const folder = (uuid: string, name: string, kids: Node[], icon: string, type = 'collection'): Node => ({ uuid, type, name, hasChildren: kids.length > 0, childCount: kids.length, icon, ...(kids.length ? { children: kids } : {}) });
+        // an M1/M2 ModelElement as a clickable node (rb-modelelement-detail, R32.10) with its members inline (INV-MOF3: same uuid)
+        const elNode = (x: { uuid: string; m: Record<string, unknown> }): Node => {
+          const memberKids = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).map((r) => byUuid.get(strip(r))).filter(Boolean).map((mm) => folder(String(mm!.m.uuid || mm!.uuid), String(mm!.m.name || ''), [], String(mm!.m.kind || 'member'), 'modelelement'));
+          return folder(String(x.m.uuid || x.uuid), String(x.m.name || ''), memberKids, String(x.m.kind || 'class'), 'modelelement');
+        };
+        // M2 · UML Profile → each metaclass → its M1 instances via REVERSE multi-facet instanceOf (INV-MOF2)
+        const m2Kids = m2.map((mc) => { const mcU = String(mc.m.uuid || mc.uuid); const inst = m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(strip).includes(mcU)).map(elNode); return folder(mcU, String(mc.m.name || ''), inst, String(mc.m.kind || 'class'), 'modelelement'); }).sort((a, b) => a.name.localeCompare(b.name));
+        // M1 · Projects → synthetic project(s) grouped by sourceFile (P1: one file) → classes + the Diagram(svg) node
+        const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => folder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), [], 'diagram', 'diagram'));
+        const byFile = new Map<string, Node[]>();
+        for (const x of m1.filter((e) => !e.m.memberOf)) { const sf = String(x.m.sourceFile || 'model'); const arr = byFile.get(sf) || []; arr.push(elNode(x)); byFile.set(sf, arr); }
+        const projKids = [...byFile.entries()].map(([sf, classes]) => folder(`project:${sf}`, sf, [...classes, ...diagrams], 'mof-project'));
+        const roots: Node[] = [
+          folder('mof-m2', 'M2 · UML Profile', m2Kids, 'mof-layer', 'mof-layer'),
+          folder('mof-m1', 'M1 · Projects', projKids, 'mof-layer', 'mof-layer'),
+        ];
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ roots }));
       } catch (e) {
