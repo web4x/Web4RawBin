@@ -143,6 +143,7 @@ export class RbDiagramDetail extends HTMLElement {
   // R32.11 (INV-R1/R2/R3/R4) — append a view-link for `elementUuid` to THIS Diagram via POST /api/model/diagram/add-view
   // (MODEL_STORE only, server dedups → idempotent), then re-render. Shared by the drop (with coords) and the
   // select-class auto-show complement (no coords → server auto-grid). x,y omitted ⇒ server places it.
+  // [impl:uuid:4e74dfee-e9ea-4284-80c7-f196b91e93a9] RbDiagramDetail.addView (Method 70be1605, Class 039ec367, off UC cdd29583 diagram.addView) — R32.11 INV-R1..R4
   private async addView(elementUuid: string, x?: number, y?: number): Promise<void> {
     const diagramUuid = stripRef(this.getAttribute('ref') || '');
     if (!diagramUuid || !elementUuid) return;
