@@ -5,7 +5,7 @@
     "name": "server.persistRemoveView impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:162f7c2d-d7d9-4da6-a67f-12ec101cfb2a"
 }

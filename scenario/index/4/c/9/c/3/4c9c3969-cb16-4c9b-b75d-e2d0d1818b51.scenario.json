@@ -5,7 +5,7 @@
     "name": "ModelView.removeFromDiagram impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02"
 }
