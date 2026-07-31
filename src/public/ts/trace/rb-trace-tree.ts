@@ -100,13 +100,24 @@ export class RbTraceTree extends HTMLElement {
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.addEventListener('hashchange', this.onHashChange);
     document.addEventListener('rb-model-resynced', this.onModelResynced); // R32.8: re-render a MODEL (seed) tree after Re-Sync
+    document.addEventListener('rb-tree-reveal', this.onTreeReveal); // R33.7.4: diagram box-select → reveal that element in the tree
   }
   disconnectedCallback(): void {
     this.unsub?.(); this.unsub = null;
     this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.removeEventListener('hashchange', this.onHashChange);
     document.removeEventListener('rb-model-resynced', this.onModelResynced);
+    document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
   }
+
+  // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4: a diagram
+  // box-select dispatches rb-tree-reveal{ref}; reveal that element in THIS tree by REUSING revealNode (fetchAncestorPath
+  // → expand ancestry + scrollIntoView, lazy-safe INV-TR2). No new reveal logic (INV-TR1); if the element isn't in this
+  // tree, revealNode no-ops gracefully (INV-TR3 best-effort, no fork).
+  private onTreeReveal = (e: Event): void => {
+    const ref = (e as CustomEvent<{ ref?: string }>).detail?.ref || '';
+    if (ref) void this.revealNode(refUuid(ref));
+  };
 
   // R32.8 AC3: a model Re-Sync (rb-diagram-detail) refreshed MODEL_STORE → re-render this tree if it's a seed
   // (model) tree so added elements appear + removed disappear. Trace trees are unaffected — the event only fires
