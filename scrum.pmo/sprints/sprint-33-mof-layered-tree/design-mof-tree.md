@@ -309,3 +309,22 @@ MEASURE-FIRST: edges are a PURE function of box rects — `buildEdges` (diagram-
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) move a box that is an edge SOURCE → its outgoing connectors follow the box border live; (b) move a box that is an edge TARGET → incoming connectors follow; (c) a box with MULTIPLE edges → all reroute; (d) release → persisted + re-rendered edges match the live geometry (no jump) [R1]; (e) unrelated edges/boxes untouched [R2]; (f) R32.6 static edges + /trace UNREGRESSED.
 - **Chain (extend R33.3 move):** unit 50e4f6f0 — UC/Method on the reroute (mirror R33.3 diagram.moveView); req mints #126; I mint/repoint Impl on ship. Client-only → REAL restart at the R33.6 boundary (hold-b).
+
+## R33.6 item-4 / R33.1.1 — CLIENT itemview-render of EXISTING-SOURCE .puml (architect 2026-07-31, unit 5333d468)
+MEASURE-FIRST: the render MECHANISM already exists — `rb-preview.renderPuml(content)` (rb-preview.ts:55) POSTs to `/api/puml-render` (server.ts:1812, plantuml -tsvg -pipe) → SVG + wheel-zoom. The source-.puml API half (R33.5 item-4, 9eb2c39c) is DONE. GAP is CLIENT-ONLY: `rb-modelelement-detail.render` (rb-modelelement-detail.ts:31-68) shows «kind» + `m.sourceFile` + members + relatesTo but renders NO .puml itemview. This is the EXISTING-source .puml (the element's authored/linked .puml served by the done R33.5 half) — NOT R32.7 generated-puml (PO explicit).
+
+### Fix (client-only; reuse renderPuml — NO fork, NO generated-puml)
+| # | File | Line | Current (gap) | Fix |
+|---|------|------|---------------|-----|
+| A | `rb-modelelement-detail.ts` | 31-68 (`render`) | no .puml section | when the element has an existing-source .puml (resolve via the DONE R33.5 item-4 /api half — the element's puml source-link / its `sourceFile`→.puml), add a "PUML" itemview section that renders the .puml SVG. |
+| B | `rb-modelelement-detail.ts` | (render body) | — | REUSE `rb-preview`'s render path: fetch the existing .puml source text (R33.5 endpoint), then render via the SAME `/api/puml-render`→SVG the `rb-preview.renderPuml` uses (either import/mount `<rb-preview mode=puml>` with the fetched content, or call the shared puml-render→SVG helper). ZERO new render logic; identical SVG + zoom as the /md preview. |
+| C | (scope guard) | — | — | itemview shows the .puml ONLY IF an existing-source .puml resolves; absent → no section (no error, no generated-puml fallback). Reuse, no fork. |
+
+### INVARIANTS
+- **INV-P1.1 (existing-source only):** the itemview renders the EXISTING authored .puml (R33.5 source half), NEVER R32.7 model-generated puml. Absent source → no section.
+- **INV-P1.2 (render reuse):** SVG comes from the SAME `/api/puml-render` + `rb-preview` render path as the /md preview — identical output, no second renderer (no fork).
+- **INV-P1.3 (isolation-safe):** read-only render (fetch source + POST to render) — no store/prod mutation.
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) open a model element (class/interface) that HAS an existing-source .puml → the detail itemview shows the rendered .puml SVG (zoomable, like /md) [P1.1/P1.2]; (b) an element WITHOUT a source .puml → no PUML section, no error [P1.1]; (c) the SVG matches the /md preview of the same .puml (same renderer) [P1.2]; (d) /trace + /md preview + rb-modelelement-detail members/relatesTo UNREGRESSED.
+- **Chain:** unit 5333d468 (folds R33.1.1) — UC/Method on the itemview puml-render (mirror rb-modelelement-detail.render c2da9192); req mints #126; I mint/repoint Impl on ship. Client-only → REAL restart at the R33.6 boundary (hold-b). NOTE for expert: confirm the exact R33.5 item-4 source-.puml route (9eb2c39c) for the fetch in (B).
