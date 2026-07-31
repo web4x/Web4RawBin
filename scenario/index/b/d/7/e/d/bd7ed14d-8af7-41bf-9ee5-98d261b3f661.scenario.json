@@ -1,0 +1,54 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
+  "altId": "R33.9",
+  "name": "Class action-bar verbs completion: rename / delete / new-class in ACTIONS_BY_TYPE for a selected class (fulfilling Tron item-5 full set)",
+  "description": "Follow-up capture of the R33.6.5 item-5 GAP (PO-directed 2026-07-31, so it is TRACKED not lost). Tron round-2 item-5 spec listed the class action-bar verbs as 'rename / remove-from-diagram / delete / new-class', but only ADD-to-diagram (R33.6.5) + REMOVE-from-diagram (R33.8, building) shipped. RENAME / DELETE / NEW-CLASS are NOT yet built = the remaining gap in fulfilling item-5. This req captures the 3 remaining class-action verbs in the R33.6.5 selection-driven action bar (ACTIONS_BY_TYPE.modelelement). ★ DELETE here is DISTINCT from R33.8 remove-from-diagram: R33.8 drops only the diagram VIEW-LINK (element stays); R33.9 DELETE removes the ModelElement UNIT itself (with the appropriate guard/confirm). Reuse the R33.6.5 ACTIONS_BY_TYPE + drawer action-bar + verb-dispatch (wireDrawerActions) pattern, NO fork. NOT dispatched to build - PO is surfacing the PRIORITY to Tron (build-now vs defer). Architect designs the chain IF/when Tron prioritizes.",
+  "tronQuote": "> TRON (round-2 item-5, via R33.6.5 spec): class selected -> rename / remove-from-diagram / delete / new-class. (Only add+remove shipped; rename/delete/new-class = this follow-up.)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "spec-gap",
+   "flaggedBy": "PO (2026-07-31) - R33.6.5 item-5 partial-shipment gap; captured scenario-first so tracked not lost",
+   "date": "2026-07-31",
+   "note": "R33.6.5 item-5 class-action set spec'd rename/remove/delete/new-class; only add+remove(R33.8) shipped. Capture rename/delete/new-class. Reuse ACTIONS_BY_TYPE+drawer, no fork. Not build-dispatched - PO surfaces priority to Tron."
+  },
+  "crossRef": [
+   "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2",
+   "ior:instance:86219c51-48f6-426f-bfec-8a01f5c298d8"
+  ],
+  "crossRefNote": "Completes the R33.6.5 (3c6eee8d) action-bar class-action set alongside R33.8 remove-from-diagram (86219c51). Reuse ACTIONS_BY_TYPE.modelelement + wireDrawerActions verb-dispatch.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-rename-verb",
+    "group": "functional",
+    "client": true,
+    "text": "A class/element selected on a diagram shows a 'Rename' action in the R33.6.5 action bar (ACTIONS_BY_TYPE.modelelement) -> renames the ModelElement (updates model.name in MODEL_STORE, store-only, prod untouched) -> the box label + tree node reflect the new name."
+   },
+   {
+    "id": "AC-delete-verb",
+    "group": "functional",
+    "client": true,
+    "text": "A selected class shows a 'Delete' action -> DELETES the ModelElement UNIT itself from MODEL_STORE (with a guard/confirm) - DISTINCT from R33.8 remove-from-diagram (which drops only the diagram view-link). Delete removes the element + its views + relationships; store-only, prod scenario/index untouched. (Guard: confirm before delete; architect scopes the exact guard.)"
+   },
+   {
+    "id": "AC-new-class-verb",
+    "group": "functional",
+    "client": true,
+    "text": "The action bar shows a 'New class' action -> creates a NEW ModelElement (class) unit in MODEL_STORE (store-only) and optionally add-views it onto the open diagram (architect scopes add-to-diagram-on-create)."
+   },
+   {
+    "id": "AC-390-gate-class-verbs",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite + Tron device) per verb: select a class -> Rename -> label updates; Delete -> element gone from model+diagram (guard fired); New class -> a new class unit appears. planted: rename/new-class writes prod scenario/index, or delete leaves orphans/hits the wrong unit = RED."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}
