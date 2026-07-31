@@ -19,6 +19,7 @@
  */
 
 import { selectionModel } from './selection-model.js';
+import './rb-strip.js'; // R33.6.5 item5: setActions() hosts a reused rb-strip in the generic action-bar region
 import { ChatPanel } from './ChatPanel.js';
 import { TraceGraph, makeObject, type ObjectType } from '../../../ts/shared/TraceModel.js';
 import './rb-file-detail.js';
@@ -183,6 +184,7 @@ export class RbDetailDrawer extends HTMLElement {
     const colonIdx = ref.indexOf(':');
     const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
     const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
+    this.showActionsForType(type, ref); // R33.6.5 item6: selection-driven — let the HOST set the action-bar for this type
     // [impl:uuid:36934fe3-c15b-4429-8aa2-48c79e674688] BUG8 collection detail via parent
     if (type === 'collection') {
       const parts = uuid.split('-');
@@ -324,6 +326,7 @@ export class RbDetailDrawer extends HTMLElement {
         <button class="drawer-max" title="Maximize">⛶</button>
         <button class="drawer-close" title="Close">✕</button>
       </div>
+      <div class="drawer-actionbar" style="display:none;flex:0 0 auto;background:#161b22;border-bottom:1px solid #30363d"></div>
       <div class="drawer-body" style="display:flex;flex-direction:column">
         <div class="drawer-panel-chat" style="display:flex;flex-direction:column;flex:1;min-height:0"></div>
         <div class="drawer-panel-detail" style="display:none"></div>
@@ -334,6 +337,32 @@ export class RbDetailDrawer extends HTMLElement {
     this.querySelector('.drawer-handle')!.addEventListener('click', () => { if (this.mouseMoved) return; this.closeAndMinimize(); });
     this.querySelector('.drawer-max')!.addEventListener('click', () => this.toggleMaximize());
     this.querySelector('.drawer-close')!.addEventListener('click', () => this.closeOrReturn());
+    // R33.6.5 item5: a button in the generic action-bar → emit rb-drawer-action {verb, ref}; the HOST view handles the verb.
+    this.querySelector('.drawer-actionbar')!.addEventListener('click', (e) => {
+      const verb = (e.target as HTMLElement).closest('[data-verb]')?.getAttribute('data-verb');
+      if (verb) document.dispatchEvent(new CustomEvent('rb-drawer-action', { detail: { verb, ref: this.detailPanel?.dataset.currentRef || '' }, bubbles: true }));
+    });
+  }
+
+  // [impl:uuid:cef954eb-443d-4969-b54f-1c92e3692392] RbDetailDrawer.setActions (item5, INV-1/3) — GENERIC fixed action-bar region: the HOST
+  // supplies {verb,label}[]; renders a reused rb-strip; empty → hidden bar. Zero model specifics live in the shared
+  // drawer (/trace + /scenario register no actions → bar stays hidden). A click emits rb-drawer-action (wired above).
+  setActions(items: { verb: string; label: string }[]): void {
+    const bar = this.querySelector('.drawer-actionbar') as HTMLElement | null;
+    if (!bar) return;
+    if (!items || !items.length) { bar.style.display = 'none'; bar.replaceChildren(); return; }
+    const btn = (a: { verb: string; label: string }): string => `<button class="da-btn" data-verb="${a.verb}" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px 12px;font:13px system-ui;cursor:pointer;white-space:nowrap">${a.label}</button>`;
+    const strip = document.createElement('rb-strip') as HTMLElement & { items?: { id: string; kind: string; content: string }[] };
+    strip.items = [{ id: 'drawer-actions', kind: 'bar', content: `<div style="display:flex;gap:8px;padding:8px 10px;overflow-x:auto">${items.map(btn).join('')}</div>` }];
+    bar.replaceChildren(strip);
+    bar.style.display = '';
+  }
+
+  // [impl:uuid:e6870858-2f5b-4605-a2a7-31b366dd41e2] RbDetailDrawer.showActionsForType (item6, INV-2) — selection-driven: on each detail
+  // render tell the HOST which TYPE is shown (rb-drawer-detail-shown {type,ref}) so it can setActions for that type;
+  // the shared drawer never hardcodes actions. Cleared (setActions([])) when switching to chat / empty.
+  private showActionsForType(type: string, ref: string): void {
+    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: (type || '').toLowerCase(), ref }, bubbles: true }));
   }
 
   // R31.4 AC-maximize (Option A, PO-endorsed): full-viewport drawer = maximum terminal space, NO-disrupt — the grouped

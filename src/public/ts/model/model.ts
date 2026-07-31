@@ -54,19 +54,32 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // R33.3 AC4 (markerPending — req IMPL-mints): mount a NAMED action bar on the /model view, REUSING rb-strip
 // (S31 CONCEPT primitive, no fork). 'Add Diagram' → POST /create (new empty Diagram under diagrams/, appears in
 // the tree ready to drop onto); Import-PUML / Compile-PUML→SVG → POST /import-puml (R32.7 engine → model + SVG diagram).
-function mountActionBar(): void {
-  if (document.querySelector('rb-strip.model-actions')) return;
-  const host = document.querySelector('.trace-page') || document.body;
-  const strip = document.createElement('rb-strip') as HTMLElement & { items?: { id: string; kind: string; content: string; label?: string }[] };
-  strip.className = 'model-actions';
-  const btn = (verb: string, label: string): string => `<button data-verb="${verb}" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px 12px;font:13px system-ui;cursor:pointer;white-space:nowrap">${label}</button>`;
-  const bar = `<div style="display:flex;gap:8px;padding:8px 10px;flex-wrap:wrap;background:#161b22;border-bottom:1px solid #30363d">${btn('add-diagram', '＋ Add Diagram')}${btn('compile-puml', '⚙ Compile PUML → SVG')}${btn('import-puml', '⇩ Import PUML')}</div>`;
-  strip.items = [{ id: 'model-actions', kind: 'bar', content: bar, label: 'Actions' }];
-  host.insertBefore(strip, host.firstChild);
-  strip.addEventListener('click', (e) => {
-    const verb = (e.target as HTMLElement).closest('button[data-verb]')?.getAttribute('data-verb');
+// R33.6.5 items 5+6: the action bar now lives IN the drawer (RbDetailDrawer.setActions), SELECTION-DRIVEN. The
+// /model HOST owns the type→actions map + verb-dispatch (the shared drawer stays generic, INV-3). Page-top
+// mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
+const ACTIONS_BY_TYPE: Record<string, { verb: string; label: string }[]> = {
+  diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }],
+  modelelement: [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }],
+  puml: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
+  pumlartifact: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
+};
+const DEFAULT_ACTIONS = [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'import-puml', label: '⇩ Import PUML' }];
+
+// [impl:uuid:613bfb4a-7214-4cf6-b2fa-d32f96559d18] ModelView.wireDrawerActions (host; markerPending re-pointable per PO — awaits fresh-
+// architect confirm-or-fold) — listen for the drawer's rb-drawer-detail-shown{type} → setActions(ACTIONS_BY_TYPE);
+// handle rb-drawer-action{verb} via the EXISTING addDiagram / importPuml / reSyncFromSource (event). No fork.
+function wireDrawerActions(): void {
+  const drawer = (): (HTMLElement & { setActions?: (a: { verb: string; label: string }[]) => void }) | null => document.querySelector('rb-detail-drawer');
+  document.addEventListener('rb-drawer-detail-shown', (e) => {
+    const type = (e as CustomEvent<{ type?: string }>).detail?.type || '';
+    drawer()?.setActions?.(ACTIONS_BY_TYPE[type] || DEFAULT_ACTIONS);
+  });
+  document.addEventListener('rb-drawer-action', (e) => {
+    const verb = (e as CustomEvent<{ verb?: string }>).detail?.verb || '';
     if (verb === 'add-diagram') void addDiagram();
     else if (verb === 'import-puml' || verb === 'compile-puml') void importPuml();
+    else if (verb === 're-sync') document.dispatchEvent(new CustomEvent('rb-model-resync-request', { bubbles: true })); // rb-diagram-detail.onResyncRequest
+    else if (verb === 'add-to-diagram' && err) err.textContent = 'Open a diagram, then tap this class to add it.';
   });
 }
 
@@ -121,5 +134,5 @@ async function importPumlSrc(srcPath: string): Promise<void> {
   } catch (e: unknown) { if (err) err.textContent = 'Import PUML failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
-mountActionBar();
+wireDrawerActions();
 void load();
