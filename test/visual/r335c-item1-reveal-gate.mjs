@@ -6,6 +6,11 @@
 // 'rawbin:diagram']) → assert the 2 REAL diagram itemviews APPEAR under an opened diagrams/ (0→2), from the LIVE server (NOT
 // the expert's oracle, NOT mocked children). PLANTED-DEFECT: expandPath a NON-diagram path (rawbin:ts) → 0 diagram nodes (bite).
 // The CREATE-POST half stays owner-gated (Tron device / logic-Test a5882399). @390 iPhone-12. DET-3x. NO prod seeding, read-only.
+// [test:uuid:53c65a35-1c27-42a5-87b7-26cd68f4e73d] R33.5 item1 ModelView.addDiagram REVEAL (Impl ffdd9347) @390 DET-3x on
+// served v0.8.20: expandPath(['mof-m1','project:RawBin','rawbin:diagram']) → 2 REAL diagrams appear 0→2 via the UNGATED
+// /api/trace/children (independent of the expert's own-oracle) + planted-bite (non-diagram path rawbin:ts → 0 diagrams).
+// DISTINCT-INTENT 2nd Test on ffdd9347 alongside the LOGIC Test a5882399 (create-fires+no-reload): this credits the REVEAL
+// half, now INDEPENDENTLY-GATED (was Tron-held). The CREATE-POST server write stays owner-gated (Tron device).
 import { chromium, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
