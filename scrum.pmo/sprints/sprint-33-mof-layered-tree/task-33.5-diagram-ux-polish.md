@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-HEADLESS-COMPLETE: 4/4 items logic-to-Test (Impls->Tests wired, @390 GREEN DET-3x f54376a1b/5c801bfea, strict-AST holds, backstop PASS v0.8.19 ef31d353e). OPEN (QA-Review, NOT Done): item-1 REVEAL-VISUAL (create->new node APPEARS, harness gap bc0f7749c; expert v0.8.20 reveal-fix cache-bust in flight — SYNC BOARD ON LAND) + Tron @390 pixel go-live. Gate the interaction @390 (screenshot+pixel), not 'loads'.
+HEADLESS-COMPLETE + item-1 REVEAL now MACHINE-GATED (tester 19b0bbfee GREEN DET-3x served v0.8.20, expandPath fix 816ecad4f, cache-bust ebb0e0974; reveal no longer Tron-held). OPEN (QA-Review, NOT Done) SHRUNK to TRON-CONFIRM ONLY: (a) owner-gated create-POST write (tap Add on device -> server creates -> node appears) + (b) AC-390-pixel go-live. All 4 items logic + reveal-render machine-gated GREEN; awaiting Tron create-confirm.
 
 ## Traceability
 
@@ -34,7 +34,7 @@ Four UX refinements on the WORKING R33.3 interactive diagram editor (mostly reus
 
 ## Acceptance Criteria
 
-- [ ] INV-R33.5-1 (item 1, add-shows) — Add-Diagram creates an empty Diagram AND the new node immediately appears/reveals under diagrams/ (logic GREEN DET-3x; ★ REVEAL-VISUAL open — create+no-reload proven, the visible reveal-render is Tron @390 pixel pending, harness gap bc0f7749c; expert v0.8.20 reveal-fix in flight).
+- [ ] INV-R33.5-1 (item 1, add-shows) — Add-Diagram creates an empty Diagram AND the new node immediately appears/reveals under diagrams/ (logic + REVEAL-RENDER now MACHINE-GATED GREEN DET-3x served v0.8.20, Test 19b0bbfee/marker 53c65a35 — expandPath type:uuid fix 816ecad4f; ★ remaining Tron-confirm = the OWNER-GATED CREATE-POST write only: tap Add on device -> server creates -> node appears).
 - [x] INV-R33.5-2 (item 2, diagram-stays) — selecting a box sets a diagram-LOCAL selection (highlights the box + navigates the tree) and KEEPS the diagram in the drawer; class-detail opens ONLY on a TREE click (logic GREEN DET-3x).
 - [x] INV-R33.5-3 (item 3, drag-disambig) — pan is gated by SELECTION STATE: a selected box drags/moves with NO pan; pan only when nothing is selected (logic GREEN DET-3x).
 - [x] INV-R33.5-4 (item 4, puml-populated) — the puml/ folder enumerates the ~55 existing source .puml as itemviews (server mofChildren rawbin:puml, Tron opt-a); click -> Import via R32.7 pumlToModel (logic GREEN DET-3x, backstop PASS v0.8.19).
