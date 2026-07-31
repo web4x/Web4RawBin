@@ -45,10 +45,26 @@
    {
     "id": "AC-390-gate-actionbar",
     "group": "gate",
-    "text": "GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED."
+    "text": "GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED. ★ RE-SHARPENED (device bc21ca747): assert EXACTLY ONE Re-Sync button (count=1) - the old pre-action-bar in-diagram toolbar is RETIRED, NO duplicate/old action buttons."
+   },
+   {
+    "id": "AC-single-resync-no-duplicate",
+    "group": "functional",
+    "client": true,
+    "text": "EXACTLY ONE Re-Sync button (the R33.6.5 action-bar one); NO pre-action-bar duplicate/old in-diagram toolbar action buttons remain - the old in-diagram toolbar is RETIRED when the actions moved INTO the drawer action-bar. Gate: count Re-Sync buttons = 1. (Device bug, architect diagnosis bc21ca747: the pre-action-bar in-diagram toolbar was not retired -> a duplicate/old Re-Sync remained alongside the action-bar one.)"
    }
   ],
-  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59"
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59",
+  "verificationHistory": [
+   {
+    "date": "2026-07-31",
+    "hop": "testing -> in-progress (AC-sharpen, device bug)",
+    "reason": "device-caught: duplicate/old Re-Sync from an un-retired in-diagram toolbar (missing single-button AC)",
+    "architectDiagnosis": "bc21ca747",
+    "verificationContext": "action-bar shipped in the drawer but the pre-action-bar in-diagram toolbar was not retired -> 2 Re-Sync buttons.",
+    "reportedVia": "robbin-po"
+   }
+  ]
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }

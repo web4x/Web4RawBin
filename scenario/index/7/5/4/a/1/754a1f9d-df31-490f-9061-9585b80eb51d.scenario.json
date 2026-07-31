@@ -45,13 +45,19 @@
    {
     "id": "AC-390-gate-zoom",
     "group": "gate",
-    "text": "GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED. ★ SHARPENED (IMG_4793): the gate MUST assert the SVG canvas rendered width/height px (or scroll-area) INCREASES on zoom-out - NOT merely the scale value - + Tron device confirm. A scale-only pass is a FALSE-GREEN for the space-problem intent."
+    "text": "GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED. ★ SHARPENED (IMG_4793): the gate MUST assert the SVG canvas rendered width/height px (or scroll-area) INCREASES on zoom-out - NOT merely the scale value - + Tron device confirm. A scale-only pass is a FALSE-GREEN for the space-problem intent. ★ RE-SHARPENED (device bc21ca747): gate REPEATEDLY - many zoom-out steps, EACH works + canvas grows in px, NO floor-cap; a one-step pass OR a hard MIN floor = FALSE-GREEN."
    },
    {
     "id": "AC-zoom-canvas-px-grows",
     "group": "functional",
     "client": true,
     "text": "Zoom-OUT measurably INCREASES the SVG canvas rendered dimensions (width/height px) and/or the scrollable placeable area - the boxes KEEP their size, the canvas GROWS around them = real room - NOT merely the content scale value. (Device-QA IMG_4793: the prior gate passed scale<1/1=whole/persist but Tron's device showed zoom-out only scaled content, the canvas never grew = space-problem unsolved. Architect diagnosis c725df623: 2 gaps - viewBox stays tight (0 0 maxX maxY) + pure-scale CSS transform, so nothing enlarges the canvas.)"
+   },
+   {
+    "id": "AC-zoom-out-repeated-no-floor",
+    "group": "functional",
+    "client": true,
+    "text": "Zoom-out is ALWAYS possible - REPEATED zoom-out (many steps) keeps working with NO blocking floor (endless-in-practice) AND the canvas grows each step. A hard MIN floor that CAPS zoom-out (e.g. a MIN=0.25 clamp that stops further zoom-out) = RED. (Device bug, architect diagnosis bc21ca747: the MIN-0.25 floor from the setScale fix capped repeated zoom-out - the earlier one-step gate green'd but the user hit the floor. Endless-in-practice = no user-reachable cap.)"
    }
   ],
   "crossRef": [
@@ -67,6 +73,14 @@
     "tronVerbatim": "IMG_4793: zoom-out does not grow the canvas, only scales content - the space-problem is not solved",
     "verificationContext": "setScale Test 99a90d1e gated scale<1 / 1=whole / persist-restore but NOT the canvas PX growth; canvas never enlarges. Architect diagnosis c725df623: viewBox tight + pure-scale-transform.",
     "architectDiagnosis": "c725df623",
+    "reportedVia": "robbin-po"
+   },
+   {
+    "date": "2026-07-31",
+    "hop": "testing -> in-progress (AC-sharpen, device bug)",
+    "reason": "device-caught: repeated zoom-out hit a hard MIN floor (missing repeated/no-floor AC)",
+    "architectDiagnosis": "bc21ca747",
+    "verificationContext": "canvas-grow px gate passed one-step but the MIN-0.25 floor caps REPEATED zoom-out; endless-in-practice not gated.",
     "reportedVia": "robbin-po"
    }
   ]
