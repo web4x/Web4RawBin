@@ -120,3 +120,31 @@
   -> drawer.actionBarRegion [uc:uuid:bf676884-164a-442c-9193-bb54e315c92b]
   -> drawer.selectionDrivenActions [uc:uuid:e0fce253-2499-4fcd-839e-3cc5bd2740c3]
   -> modelView.actionsByType [uc:uuid:fe06818d-1cf8-4417-8be7-0df1bffaff33]
+
+- [ ] **R33.7.1 — Zoom-out always grows the SVG diagram canvas (fixes the space problem) with per-diagram persisted zoom where 1 = 100% = whole diagram**
+  [requirement:uuid:754a1f9d-df31-490f-9061-9585b80eb51d]
+  > TRON (2026-07-31): adding more elements ends up in a space problem; zooming OUT is always possible and increases the size of the SVG diagram; the zoom level is saved on the diagram; 1 = 100% = see the whole diagram.
+  Tron item-1 (HIGHEST PRI, acute 'space problem'). Zooming OUT is ALWAYS possible and GROWS the SVG diagram canvas so more elements fit; the zoom level is SAVED on the Diagram unit (persisted per-diagram); zoom level 1 = 100% = frames the WHOLE diagram, and stays anchored so 1 always frames the whole diagram as it grows. Reuse RbPanZoom (already used for R33.6.2 edge-autoscroll), NO fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Zooming OUT is ALWAYS available and GROWS the SVG diagram canvas (more room for elements) - never blocked/clamped-to-a-floor that traps the user in a full canvas. Reuses RbPanZoom.
+  - [ ] **(functional)** The current zoom level is PERSISTED on the Diagram unit (per-diagram, MODEL_STORE) and SURVIVES a reload / fresh re-mount - reopening the diagram restores its saved zoom.
+  - [ ] **(functional)** Zoom level 1 = 100% = frames the WHOLE diagram; as the canvas grows via zoom-out, level 1 stays anchored to frame the whole diagram (1 is always 'fit whole').
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED.
+
+- [ ] **R33.7.2 — Adding or discovering an element wires its model-graph relationships onto the diagram (auto-on-add + 'Discover relationships' 1-level action)**
+  [requirement:uuid:2a3090ad-b912-42e1-b65a-db55765df179]
+  > TRON (2026-07-31): adding an element should also add its relationships to the other elements already on the diagram; and a 'discover relationships' action should add, one level from the selected element, its base class + extends, navigation links + targets, subclasses, and implemented interfaces.
+  Tron items 2+3 (COUPLED - both add relationships from the model graph onto the diagram; distinct triggers -> architect designs 2 UCs). NOTE: 'moving elements recalcs relationships' = R33.6.3 (reroute-on-move) - already designed, NOT re-minted here. NEW here: (item-2) ADDING an element auto-ADDS its relationships to elements ALREADY on the diagram (auto-wire connectors, no orphan). (item-3) a 'Discover relationships' action-bar action on a SELECTED element (fits the R33.6.5 class-actions bar) adds, 1 LEVEL only (immediate neighbors, NOT transitive): base class + extends; navigation links + target classes; inheriting subclasses; implemented interfaces - adds the discovered classes AND their relationships onto the diagram. Reads the model graph. Reuse R33.6.5 action-bar + model-graph read, NO fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** (item-2) When an element is ADDED to a diagram, its relationships to elements ALREADY on the diagram are auto-added - the new element's connectors to existing on-diagram elements appear immediately (no orphan-added element; only relationships to elements PRESENT on the diagram, not the whole graph).
+  - [ ] **(functional)** (item-3) A 'Discover relationships' action-bar action on a SELECTED diagram element (added to the R33.6.5 class-selected action set) adds onto the diagram, from the model graph: the base class + the extends relationship; navigation links + their target classes; inheriting subclasses; implemented interfaces - the discovered classes AND their relationships.
+  - [ ] **(functional)** Discover adds ONLY 1 level (the selected element's IMMEDIATE neighbors) - never transitive/recursive graph expansion. Re-running Discover on a newly-added neighbor expands the next level (user-controlled, one hop per action).
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): add an element with known relationships to on-diagram elements -> connectors appear to those elements; select an element -> Discover relationships -> its 1-level neighbors (base/subclasses/interfaces/nav-targets) + relationships appear (exactly 1 level, not transitive). planted: add/discover yields no connectors, or discover goes transitive = RED.
+
+- [ ] **R33.7.4 — Selecting a diagram element scrolls and expands the model tree to reveal that element (reuse R33.5 expandPath, selection-triggered)**
+  [requirement:uuid:fc234e2d-4cd6-4b7f-bd60-5d86e8d3cd3c]
+  > TRON (2026-07-31): selecting an element should make the tree navigate/scroll it into view and expand as necessary to reveal it.
+  Tron item-4. Selecting a diagram element -> the model/itemview TREE navigates/scrolls that element into view AND expands its ancestry as necessary to reveal the node. Reuse the R33.5 expandPath uuid-walk / revealNode (already built + gated) - here triggered by DIAGRAM-element SELECTION (tree-side reveal), NO re-fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Selecting a diagram element dispatches a tree-reveal for that element's uuid: the model tree scrolls it into view AND expands the ancestry (mof-m1 -> project -> file -> class) as needed so the node is VISIBLE + highlighted. Reuse R33.5 expandPath / revealNode (uuid-walk) - selection-triggered from the diagram, no new reveal mechanism.
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): select an element in the diagram -> the tree scrolls + expands to its node (visible + highlighted); planted: selection changes but the tree does not reveal/expand to it = RED.
