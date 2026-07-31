@@ -430,3 +430,23 @@ private onTreeReveal = async (e: Event): Promise<void> => {
 };
 ```
 VERIFY-WITH-EXPERT (2 points): (1) the ModelElement leaf ref format in the tree = `modelelement:<uuid>`? (confirm vs mofElNode — the DISPLAY type is the M2 facet, but the tree NODE ref/data-seed should be the raw modelelement uuid — expandPath matches on the node ref). (2) rawbin:ts sub-groups by `file:<sourceFile>` where the file: uuid is the FULL sourceFile path (:1117) — so `file:${m.sourceFile}` must be the full repo-relative path, not basename. Non-TS (imported-puml) elements would path under rawbin:puml, but diagram boxes are TS-source M1 → rawbin:ts is correct. expandPath already lazy-loads each layer (R33.5 item1), so the collapsed/always-expanded-stripped tree is fine. Architect available to pair.
+
+## R33.8 — remove-from-diagram (architect 2026-07-31, unit 86219c51) — INVERSE of R33.5 add-view, reuse-heavy no-fork
+MEASURE-FIRST: add-view (server.ts:1664-1688) loads the Diagram unit from MODEL_STORE, appends `{unit:'modelelement:<uuid>',x,y,viewKind}` to `model.views[]` (dedup, store-only INV-R3, prod untouched), writes back. R33.6.5 action-bar (ACTIONS_BY_TYPE model.ts:62 + wireDrawerActions verb-dispatch) hosts type-driven verbs. buildEdges (R32.6) draws edges only for on-diagram boxes → a full re-render after a view drop recomputes all edges. REUSE all — inverse endpoint + one verb + re-render.
+
+### Fix (1 server endpoint + 1 client verb)
+| # | File | Add |
+|---|------|-----|
+| A | `server.ts` new `POST /api/model/diagram/remove-view` (mirror add-view :1664) | parse {diagramUuid, elementUuid}; SAME UUID path-safety (:1671); load Diagram from MODEL_STORE (404 if missing); `const link='modelelement:'+elementUuid; const before=views.length; unit.model.views = views.filter(v=>v.unit!==link);` → if `views.length===before` return `{ok,removed:false}` (idempotent, absent); else write back (MODEL_STORE ONLY, prod scenario/index NEVER touched, INV-R3 mirror) + log + `{ok,removed:true,views}`. ★ Removes ONLY the VIEW-LINK; the ModelElement UNIT file (data/model-store/index/<uuid>) is NEVER touched. |
+| B | `model.ts` ACTIONS_BY_TYPE.modelelement (:62) | add `{verb:'remove-from-diagram', label:'✕ Remove from diagram'}`. |
+| C | `model.ts` wireDrawerActions dispatch + new `removeFromDiagram(ref)` | `else if (verb==='remove-from-diagram') void removeFromDiagram(shownRef)`; `removeFromDiagram(ref)`: resolve the open diagram (the /api/model/tree diagram root, same heuristic as discoverRelated) → `POST /api/model/diagram/remove-view {diagramUuid, elementUuid:refUuid(ref)}` → on ok, re-render the diagram (rb-diagram-detail.render → buildDiagramSvg/buildEdges): the box + ITS edges drop, remaining boxes' connectors recompute by construction (no dangling; R33.6.3 reroute is for LIVE drag — the full re-render is the authoritative reroute). |
+
+### INVARIANTS
+- **INV-RM1 (view-NOT-model):** remove drops ONLY the Diagram's view-link; the ModelElement unit STAYS in MODEL_STORE (re-addable via add-view/discover). Deleting the model unit = RED. BY CONSTRUCTION (handler filters `model.views`, never touches the element file).
+- **INV-RM2 (isolation):** remove-view writes ONLY the Diagram unit in MODEL_STORE; prod scenario/index NEVER mutated (R32.5, mirror add-view INV-R3).
+- **INV-RM3 (reuse/no-fork):** R33.6.5 verb + inverse-of-add-view endpoint + re-render (buildEdges recomputes). No new mechanism.
+- **INV-RM4 (idempotent):** removing an absent element = no-op (removed:false), symmetric to add-view dedup.
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) select a class on the diagram → 'Remove from diagram' → the box + its connectors disappear [RM3]; (b) ★ the ModelElement UNIT STAYS — tree still lists it, re-addable; grep count of ior:class:ModelElement in MODEL_STORE UNCHANGED after remove (only the Diagram's views[] shrinks) [RM1 — deleting the model = RED]; (c) remaining boxes' edges recompute, no dangling [RM3/R32.6]; (d) re-add the same element (add-view/discover) → box reappears (idempotent, deterministic uuid) [RM4]; (e) prod scenario/index git-clean UNCHANGED [RM2]; (f) /trace + add-view/move-view/discover UNREGRESSED.
+- **Chain (inverse of diagram.addView cdd29583):** unit 86219c51 — UC diagram.removeView → Method removeFromDiagram (client) + persistRemoveView (server) → Impl; req mints #126. SERVER endpoint → R32.5 discipline (__dirname-below MODEL_STORE write) → REAL restart at the next R33 boundary (hold-b). Client verb = client-only.
