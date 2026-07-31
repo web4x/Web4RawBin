@@ -11,7 +11,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:a1f5b43b-75e8-4723-bf0e-3cfdce29e071"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
@@ -37,7 +39,9 @@
     "group": "gate",
     "text": "GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.2&commit=cd5bc0de9",
+  "designAdopted": "Adopted design cd5bc0de9: AC-no-page-scroll-on-drag <- INV-D1 (.dm-box touch-action:none + pointer-capture, by-construction, no method); AC-edge-autoscroll-only-outside-boundary <- INV-D2 (RbPanZoom.panBy + 24px edge-band rAF in wireBoxDrag); AC-390-gate <- INV-D3 (no-fork, page never scrolls). Chain anchors on the NEW decl panBy (singular)."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }

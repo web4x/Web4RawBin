@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b0c0d27d-ff30-4021-a085-1d8945fd389d",
+    "name": "RbModelElementDetail.renderPumlSource impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:3a433a45-8d2e-439c-81bd-3c48cfec0566"
+}

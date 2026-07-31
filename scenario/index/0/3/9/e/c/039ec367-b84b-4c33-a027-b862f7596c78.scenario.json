@@ -10,7 +10,8 @@
       "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041",
       "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95",
       "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c",
-      "ior:instance:65423a29-3f09-4034-9d88-a49892923e92"
+      "ior:instance:65423a29-3f09-4034-9d88-a49892923e92",
+      "ior:instance:123e0c21-488c-4b48-a9c0-7dd4b4f5855c"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",

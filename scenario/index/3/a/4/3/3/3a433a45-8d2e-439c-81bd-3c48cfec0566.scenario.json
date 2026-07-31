@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3a433a45-8d2e-439c-81bd-3c48cfec0566",
+    "name": "RbModelElementDetail.renderPumlSource",
+    "description": "NEW method on RbModelElementDetail (rb-modelelement-detail.ts, mirrors/extends render c2da9192): renders an existing-source .puml itemview by reusing rb-preview.renderPuml -> GET /api/puml-render (no new parser/renderer). Existing-source only; confirm the R33.5 item-4 source-.puml route (9eb2c39c) for the fetch. Client-only. markerPending. NAME PROVISIONAL - if the expert extends render c2da9192 in place rather than a new decl, I re-point/ride c2da9192 (data=truth).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
+    "implementations": [
+      "ior:instance:b0c0d27d-ff30-4021-a085-1d8945fd389d"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086"
+}

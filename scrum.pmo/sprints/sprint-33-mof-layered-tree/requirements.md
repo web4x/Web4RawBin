@@ -28,6 +28,7 @@
   - [ ] **(functional)** Each M1·Projects project node has a '📄 PUML (code)' leaf child that, on select/expand, shows the R32.7 modelToPuml text (@startuml...@enduml) for that project's model - reachable in the /model tree.
   - [ ] **(functional)** The PUML text is produced by the EXISTING R32.7 modelToPuml serializer (Impl 8462f889) - NO new serializer. R33.1.1 builds the store->PumlNode/PumlRelation input ADAPTER (modelToPuml is currently un-wired = zero callers) + wires the leaf to that call. Reuse the serializer, add only the adapter + leaf wiring (expert measure-first correction - not thin, but no serializer fork).
   - [ ] **(gate)** GATE @390: the '📄 PUML (code)' leaf appears under the M1 project and its content is the correct modelToPuml serialization of the project's classes/members/relations - not just 'a node exists'.
+  -> modelElement.renderPumlSource [uc:uuid:8b858586-d70e-42e0-8f56-5e5eb6629b6a]
 
 - [ ] **R33.2 — MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)**
   [requirement:uuid:7a178df1-4c07-4e79-8429-0ab0365a898b]
@@ -95,6 +96,7 @@
   - [ ] **(functional)** While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page.
   - [ ] **(functional)** The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED.
+  -> diagram.edgeAutoscroll [uc:uuid:a1f5b43b-75e8-4723-bf0e-3cfdce29e071]
 
 - [ ] **R33.6.3 — After moving a diagram element, recalculate relationships and re-route the connector lines to the element's new position**
   [requirement:uuid:50e4f6f0-b4c9-4f40-820c-2ee405ae1d35]
@@ -104,6 +106,7 @@
   - [ ] **(functional)** After a box is moved, every connector line to/from it is recomputed and redrawn so its endpoints attach to the box's NEW position; NO connector line remains anchored at the old position (no stale/orphaned lines).
   - [ ] **(functional)** Reroute occurs at least on move-commit (drop). Whether connectors also track live during the drag is architect-scoped (AC updated on design); the committed-position reroute is the minimum acceptance.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): move a CONNECTED box -> its edges redraw to the new position (pixel: no line segment left at the old anchor); planted-defect: lines stay at old position after move = RED.
+  -> diagram.rerouteEdges [uc:uuid:6951485e-1d4e-4d29-8421-e3e516d2bd95]
 
 - [ ] **R33.6.5 — Action bar lives inside the drawer (below the handle-bar, above the content), always present, with contents dynamically driven by the current selection**
   [requirement:uuid:3c6eee8d-85ff-41d5-8c62-c2656171efe2]

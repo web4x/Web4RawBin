@@ -11,7 +11,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:6951485e-1d4e-4d29-8421-e3e516d2bd95"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
@@ -37,7 +39,9 @@
     "group": "gate",
     "text": "GATE @390 (screenshot/pixel + planted bite): move a CONNECTED box -> its edges redraw to the new position (pixel: no line segment left at the old anchor); planted-defect: lines stay at old position after move = RED."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.3&commit=594b22361",
+  "designAdopted": "Adopted design 594b22361: AC-connectors-follow-moved-node <- INV-R1 (live reroute via EXPORTED borderPoint, no drift) + INV-R2 (only edges whose data-rel-from/to==moved uuid); AC-reroute-on-commit <- buildEdges authoritative on full render (INV-R3); AC-390-gate-reroute <- pixel: no line at old anchor. Chain anchors on the NEW decl rerouteEdges (singular); borderPoint export = enabler."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }
