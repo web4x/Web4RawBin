@@ -15,6 +15,7 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { exec, execFile, execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -1092,6 +1093,30 @@ function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: bool
   return { ok: true, removed: true, views: unit.model.views.length };
 }
 
+// R33.10 BUG-B (PLANTUML docker re-wire, PO): the prod host runs a plantuml-server container. Render via HTTP to it
+// (deflate + PlantUML-base64 → GET /svg/<encoded>) instead of a local `plantuml` binary. The URL is R31.7 typed-config
+// — env PLANTUML_URL, else the Config unit's model.plantumlUrl, else the docker default — never hardcoded (so it can't
+// be lost/wrong again). Callers keep a 501 fallback when the server is unreachable.
+function plantumlBaseUrl(): string {
+  const clean = (u: string): string => u.replace(/\/+$/, '');
+  if (process.env.PLANTUML_URL) return clean(process.env.PLANTUML_URL);
+  try {
+    const cfg = JSON.parse(fsSync.readFileSync(path.join(PROD_INDEX, 'c', 'o', 'n', 'f', 'i', 'config-singleton-0000-000000000001.scenario.json'), 'utf-8'));
+    if (cfg?.model?.plantumlUrl) return clean(String(cfg.model.plantumlUrl));
+  } catch { /* fall through to default */ }
+  return 'http://localhost:8089';
+}
+// PlantUML text encoding: raw-deflate → PlantUML's custom base64 (alphabet 0-9A-Za-z-_), the canonical plantuml-encoder
+// (0-pads the final 1-2 bytes). Result goes in the URL path: GET <base>/svg/<encoded>.
+function encodePlantuml(text: string): string {
+  const data = zlib.deflateRawSync(Buffer.from(text, 'utf8'));
+  const e6 = (n: number): string => { let b = n & 0x3F; if (b < 10) return String.fromCharCode(48 + b); b -= 10; if (b < 26) return String.fromCharCode(65 + b); b -= 26; if (b < 26) return String.fromCharCode(97 + b); b -= 26; return b === 0 ? '-' : b === 1 ? '_' : '?'; };
+  const a3 = (b1: number, b2: number, b3: number): string => e6(b1 >> 2) + e6(((b1 & 0x3) << 4) | (b2 >> 4)) + e6(((b2 & 0xF) << 2) | (b3 >> 6)) + e6(b3 & 0x3F);
+  let r = '';
+  for (let i = 0; i < data.length; i += 3) r += a3(data[i], i + 1 < data.length ? data[i + 1] : 0, i + 2 < data.length ? data[i + 2] : 0);
+  return r;
+}
+
 function pumlChildren(els: MofEl[]): MofNode[] {
   const out: MofNode[] = [];
   try {
@@ -2121,16 +2146,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (req.method === 'POST' && filepath === '/api/puml-render') {
       let body = '';
       req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 500000) { res.writeHead(413); res.end('Too large'); } });
-      req.on('end', () => {
+      req.on('end', async () => {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 15000);
         try {
-          const svg = execFileSync('plantuml', ['-tsvg', '-pipe'], { input: body, maxBuffer: 2 * 1024 * 1024, timeout: 15000 }).toString();
+          const url = `${plantumlBaseUrl()}/svg/${encodePlantuml(body)}`; // R33.10 BUG-B: render via the plantuml-server docker (configurable URL, deflate+base64)
+          const r = await fetch(url, { signal: ctrl.signal as any });
+          if (!r.ok) throw new Error(`plantuml-server HTTP ${r.status}`);
+          const svg = await r.text();
           res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
           res.end(svg);
         } catch (e: any) {
-          const stderr = e?.stderr?.toString() || e?.message || 'PlantUML render failed';
-          if (e?.code === 'ENOENT') { res.writeHead(501, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'plantuml not installed on server' })); }
-          else { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: stderr })); }
-        }
+          // Keep the honest 501 when the plantuml-server is unreachable/errored (BUG-B fallback per PO) — NOT a 500.
+          res.writeHead(501, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'plantuml render unavailable', detail: String(e?.message || e) }));
+        } finally { clearTimeout(timer); }
       });
       return;
     }
