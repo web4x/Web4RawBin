@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7c3e9a10-4d21-4f8b-9a6e-1b52c8d70f34",
+    "name": "test:R33.7.1 canvas GROWS in px on zoom-out (RbDiagramDetail.applyCanvasGrow) @390 - the space-problem gate",
+    "description": "Bridged to test/visual/r371b-canvas-grow-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x, served v0.8.31 749b36335, 135204eb5). Marker adopted from origin (measured line 8, not invented). ★ CLOSES the device-QA IMG_4793 space-problem + the AC-zoom-canvas-px-grows sharpen: asserts the SVG CANVAS DIMENSIONS GROW IN PX on zoom-out (surface scrollWidth/height + .dm-svg px INCREASE ~1/scale, 390->876) while a BOX KEEPS its visual px size (160->180, a scale-only pass would HALVE it to ~80) + magnify>=1 resets intrinsic dims + persist->restore unregressed. Measures PX - a scale-only pass is the space FALSE-GREEN this gate exists to catch. DISTINCT chain from setScale 301b71d4 (avoids scale-vs-canvas conflation). Chain: R33.7.1 req 754a1f9d -> UC diagram.canvasGrowOnZoomOut 56fe4cdb -> Class RbDiagramDetail 039ec367 -> Method applyCanvasGrow e9792c2b -> Impl eb468578 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r371b-canvas-grow-gate.mjs",
+    "implementations": [
+      "ior:instance:eb468578-716d-46de-9b66-0f71d85d8066"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:eb468578-716d-46de-9b66-0f71d85d8066"
+}
