@@ -5,7 +5,8 @@
     "name": "ModelView",
     "file": "src/public/ts/model/model.ts",
     "methods": [
-      "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c"
+      "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c",
+      "ior:instance:b0fa32ab-3996-4ec0-936d-46902828f01d"
     ],
     "useCases": [
       "ior:instance:fea2b5fd-b054-4047-a501-94a0ecc2288f"

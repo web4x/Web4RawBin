@@ -11,7 +11,11 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:bf676884-164a-442c-9193-bb54e315c92b",
+   "ior:instance:e0fce253-2499-4fcd-839e-3cc5bd2740c3",
+   "ior:instance:fe06818d-1cf8-4417-8be7-0df1bffaff33"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
@@ -43,7 +47,8 @@
     "group": "gate",
     "text": "GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED."
    }
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59"
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }

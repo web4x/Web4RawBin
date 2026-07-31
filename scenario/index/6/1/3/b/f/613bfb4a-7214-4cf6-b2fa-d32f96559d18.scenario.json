@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "613bfb4a-7214-4cf6-b2fa-d32f96559d18",
+    "name": "ModelView.wireDrawerActions impl",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:b0fa32ab-3996-4ec0-936d-46902828f01d"
+}

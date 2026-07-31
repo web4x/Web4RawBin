@@ -113,3 +113,6 @@
   - [ ] **(functional)** The action bar's contents are driven by the CURRENT selection and update whenever the selection changes (item-6): diagram-folder selected -> 'add diagram'; a class selected -> rename / remove-from-diagram / delete / new-class. Selecting ANYTHING re-renders the bar to that selection's available actions.
   - [ ] **(functional)** With nothing selected (or a neutral/root selection) the action bar shows a sensible default/empty state (exact default architect-scoped on design) - the bar is still present, just without selection-specific actions.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED.
+  -> drawer.actionBarRegion [uc:uuid:bf676884-164a-442c-9193-bb54e315c92b]
+  -> drawer.selectionDrivenActions [uc:uuid:e0fce253-2499-4fcd-839e-3cc5bd2740c3]
+  -> modelView.actionsByType [uc:uuid:fe06818d-1cf8-4417-8be7-0df1bffaff33]
