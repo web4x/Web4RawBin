@@ -1,0 +1,56 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "fa29ab28-04fc-43d4-9e55-c42573bdefa8",
+  "altId": "R33.10",
+  "name": "Model tree completeness + folder grouping: ts/ enumerates the full src/ directory tree (all 123 .ts, folder-grouped), not only the ~25 generated files",
+  "description": "R33.10 (Tron device; architect design 7e1365d60, R33.10-tree-completeness-folders.md). Disk src has 123 .ts but rawbin:ts groups m1Roots by sourceFile -> shows only the ~25 GENERATED files (bounded generate-project) = incomplete tree. item-2 (25->ALL ts) + item-3 (folder grouping) = ONE fix: redesign rawbin:ts (+children) to walk src/ RECURSIVELY (like pumlChildren reads the diagrams dir) emitting folder nodes by directory (dir:<relpath>) + .ts file leaves (file:<relpath>) for ALL 123; under a file: leaf -> its M1 ModelElements from MODEL_STORE if generated, else empty (or generate-on-expand). The directory hierarchy IS the grouping. Completeness + folder-grouping in one. 55-puml folder already closed. Reuse the mof layer-by-layer + /api/trace/children routing, NO fork. INV-T1-4.",
+  "tronQuote": "> TRON (2026-07-31, device): the ts tree only shows ~25 files but there are more on disk; grouping in folders makes sense.",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.10&commit=7e1365d60",
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron device via robbin-po; architect design 7e1365d60 (R33.10-tree-completeness-folders.md)",
+   "date": "2026-07-31",
+   "note": "ts/ completeness (all 123 src .ts) + folder grouping via src/ dir-tree enumeration; 55-puml already closed"
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-ts-completeness",
+    "group": "functional",
+    "client": false,
+    "text": "The ts/ folder enumerates ALL 123 src .ts files (count == disk) by walking the src/ DIRECTORY TREE recursively - NOT only the ~25 files that were run through TsToModel.generate. Completeness = the enumeration source is the src/ dir walk, not the generated-sourceFile set (INV-T1)."
+   },
+   {
+    "id": "AC-folder-hierarchy",
+    "group": "functional",
+    "client": false,
+    "text": "ts/ groups files by directory: dir:<relpath> folder nodes mirror the src/ directory tree; expanding a folder reveals its files + subfolders (layer-by-layer). The directory hierarchy IS the folder grouping (INV-T2)."
+   },
+   {
+    "id": "AC-file-leaf-elements",
+    "group": "functional",
+    "client": false,
+    "text": "Expanding a file:<relpath> .ts leaf shows its M1 ModelElements from MODEL_STORE if that file was generated, else empty (or generate-on-expand reusing /api/model/generate). A non-generated file still APPEARS in the tree (completeness) even with no elements."
+   },
+   {
+    "id": "AC-no-fork-isolation",
+    "group": "functional",
+    "client": false,
+    "text": "Reuse the mof layer-by-layer + /api/trace/children routing; the puml/ (55) + diagram/ folders are UNREGRESSED; read-only src/ walk + MODEL_STORE reads only, prod scenario/index untouched (INV-T3 no-fork / INV-T4 isolation)."
+   },
+   {
+    "id": "AC-390-gate-tree-completeness",
+    "group": "gate",
+    "text": "GATE @390 (tester + Tron device): ts/ shows ALL src .ts grouped in directory folders (count == disk 123); expand a folder -> its files/subfolders; expand a file -> its M1 elements (generated) or empty; puml/=55 + diagram/ + /trace UNREGRESSED. SERVER change -> boundary restart + boot-verify. planted: count != 123 or a flat non-folder-grouped list = RED."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}
