@@ -5,7 +5,7 @@
     "name": "RbPanZoom.panBy impl",
     "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:1a2fbff9-4e98-438a-ad78-85df01d04d7e"
 }
