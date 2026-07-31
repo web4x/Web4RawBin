@@ -483,3 +483,21 @@ MEASURED: `ACTIONS_BY_TYPE` (model.ts:60-66) keys verbs by the SELECTED element'
 | C | `model.ts` | add/remove handlers use `activeDiagramUuid` EXPLICITLY (NOT the /api/model/tree scan) → no ambiguous target. new→POST mint-unit; rename→POST rename-unit; delete→POST delete-unit (guarded). |
 ### INV-A (R33.9): A1 membership verbs (add/remove) NEVER shown without an active diagram (kills last-diagram, correct-by-construction) / A2 membership verbs target the ACTIVE OPEN diagram explicitly / A3 unit verbs (new/rename/delete) always on a selected element regardless of diagram / A4 IMG_4802 fix: diagram-open+selected → membership verbs PRESENT; IMG_4803 fix: no-diagram+selected → membership verbs ABSENT.
 ### NEW server endpoints (new/rename/delete unit — mirror add/remove-view store-only, MODEL_STORE, prod-safe): POST /api/model/element/new + /rename + /delete (guarded). SERVER change → boundary restart. GATE (tester @390): each verb in its correct context; NO action with an ambiguous/last-diagram target; diagram-open shows membership; no-diagram hides them; new/rename/delete act on the unit.
+
+## R33.9 + R33.10 CHAIN SHAPES (architect 2026-07-31 — for req to mint scenario-first #126; names provisional/re-pointable, data=truth)
+### R33.9 — context-aware action lifecycle (req AC bd7ed14d)
+- **UC `diagram.actionContext`** (kill last-diagram; INV-A1/A2/A4 — the IMG_4802/4803 core fix)
+  - Class **RbDiagramDetail** (client, rb-diagram-detail.ts) → Method **broadcastActiveDiagram** — anchor: dispatch `rb-active-diagram{uuid}` in connectedCallback / `{uuid:null}` in disconnectedCallback.
+  - Class **ModelActionBar** (client host, model.ts) → Method **actionsForContext** — anchor: verb-set computed = unit-verbs ∪ (activeDiagramUuid ? membership-verbs : []); recompute on selection AND on `rb-active-diagram`. (Membership add/remove use activeDiagramUuid EXPLICITLY, never the /api/model/tree scan.)
+- **UC `element.new`** (INV-A3 unit-scope) → Class **ModelElementService** (server) → Method **newElement** — anchor: new POST `/api/model/element/new` (mint M1 unit in MODEL_STORE, store-only prod-safe).
+- **UC `element.rename`** (INV-A3) → Class **ModelElementService** → Method **renameElement** — anchor: POST `/api/model/element/rename` (rename the unit in MODEL_STORE).
+- **UC `element.delete`** (INV-A3, destructive/guarded) → Class **ModelElementService** → Method **deleteElement** — anchor: POST `/api/model/element/delete` (delete the M1 unit; ≠ remove-view).
+- **RIDE (no new Method):** add-member → existing `addView` (70be1605, R33.7.2); remove-member → existing `removeFromDiagram` (R33.8) — both RE-POINTED to the active-diagram target (client change only, covered by UC diagram.actionContext).
+### R33.10 — tree completeness + folder grouping (req AC fa29ab28)
+- **UC `modelTree.sourceDirTree`** (all 123 src .ts, folder hierarchy; INV-T1/T2)
+  - Class **MofTreeService** (server, the mofChildren enumeration owner) → Method **sourceDirTree** — anchor: server.ts `mofChildren` `rawbin:ts` case + NEW `dir:` case → walk `src/` recursively (readdirSync, .ts only) emitting `dir:<rel>` folder nodes + `file:<rel>` leaves for ALL 123 files (mirror pumlChildren's disk walk); `file:` leaf → its M1 ModelElements from MODEL_STORE (else empty).
+  - (item-4 55-puml already DONE/closed; folder grouping IS the directory hierarchy — no separate Method.)
+### Build order / gate / restart
+- Both have SERVER endpoints (R33.9 element/new+rename+delete; R33.10 dir-tree walk) → activate on ONE boundary restart. Client: R33.9 action-bar context + R33.10 folder rendering.
+- GATE (tester @390): R33.9 each verb in its correct context (diagram-open→membership present; no-diagram→membership ABSENT; new/rename/delete on unit; NO ambiguous/last-diagram target). R33.10 ts/ shows ALL 123 grouped in directory folders; puml/=55 + diagram/ unregressed.
+- Chains RIDE where noted (addView/removeFromDiagram); NEW Methods = broadcastActiveDiagram, actionsForContext, newElement, renameElement, deleteElement, sourceDirTree. req mints UC/Class/Method/Impl markerPending → expert builds → places markers → req strict-AST flips → I backstop.
