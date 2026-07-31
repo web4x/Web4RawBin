@@ -290,3 +290,22 @@ MEASURE-FIRST: `wireBoxDrag` (rb-diagram-detail.ts:189-221) live-moves a `.dm-bo
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) touch-drag a box at scale 1 → PAGE does NOT scroll [D1]; (b) drag a box toward/past the surface edge → the DIAGRAM auto-scrolls to reveal canvas, box keeps following, PAGE still static [D2]; (c) release → autoscroll stops + x,y persists (R33.3) survives reload; (d) a tap (no move) still selects (R33.5), pan re-enables on deselect; (e) /trace + existing diagram select/move UNREGRESSED.
 - **Chain (extend R33.3 move):** unit 570b77c7 — UC/Method on the box-drag/edge-autoscroll (mirror R33.3 diagram.moveView); req mints scenario-first (#126); I mint/repoint Impl on ship if needed. Client-only → version bump → REAL restart at the R33.6 boundary (restart-hold(b); R32.7 lesson).
+
+## R33.6.3 — reroute connector LINES on move (architect 2026-07-31, unit 50e4f6f0)
+MEASURE-FIRST: edges are a PURE function of box rects — `buildEdges` (diagram-view-model.ts:63) draws each connector `borderPoint(src,tc)→borderPoint(tgt,sc)` (:82) with `data-rel-from`/`data-rel-to`/`data-rel-kind` on the `<line>` (:84). But `wireBoxDrag` pointermove (rb-diagram-detail.ts:210) updates ONLY the moved box's `transform` — the EDGES are NOT recomputed → connectors stay pinned to the box's OLD border until a full re-render (Tron item-3). REUSE `borderPoint` (the ONE geometry fn) live — NO fork, no live-vs-render drift.
+
+### Fix (client-only; extend R33.3 move → live edge recompute)
+| # | File | Line | Current (BUG) | Fix |
+|---|------|------|---------------|-----|
+| A | `diagram-view-model.ts` | 52 (`borderPoint`) | module-private | EXPORT `borderPoint` (+ `type Rect`) — the SAME clip-to-border geometry the static render uses, reused live so there is ZERO divergence between the dragged and the re-rendered edge. (Optionally export a thin `edgeEndpoints(src:Rect,tgt:Rect)={a:borderPoint(src,center(tgt)),b:borderPoint(tgt,center(src))}`.) |
+| B | `rb-diagram-detail.ts` | new `rerouteEdges(uuid,rect)` | — | for each `svg .dm-edge[data-rel-from="modelelement:UUID"], .dm-edge[data-rel-to="modelelement:UUID"]`: recompute BOTH endpoints from the two boxes' CURRENT rects (moved box = its live translate + bg w/h; other box read from ITS `.dm-box` transform + bg w/h) via the exported geometry; set `x1/y1/x2/y2`. A small `boxRect(el)` helper reads `translate(x,y)` from the `.dm-box` transform + w/h from its `.dm-box-bg`. |
+| C | `rb-diagram-detail.ts` | 210 (`pointermove`) | box transform only | after `setAttribute('transform', translate(nx,ny))`, call `this.rerouteEdges(drag.uuid, {x:nx,y:ny,w,h})` → connectors follow the box LIVE (as source AND as target). On drag `end`/persist, the next authoritative `buildEdges` render matches by construction (same geometry). |
+
+### INVARIANTS
+- **INV-R1 (edges follow, no drift):** a moved box's connectors re-route live to its border via the EXPORTED `borderPoint` — identical to the static render, so release→re-render shows NO jump. Correct-by-construction (single geometry fn).
+- **INV-R2 (only connected edges):** only `<line>`s whose `data-rel-from`/`data-rel-to` == the moved uuid are recomputed; all others untouched.
+- **INV-R3 (no fork):** reuse `borderPoint` + R32.6 edge `data-*` attrs; R32.6 edge model + R33.3 move-persist unchanged; `buildEdges` stays authoritative on full render. Composes with R33.6.2 (during edge-autoscroll the box moves in content-space → reroute keeps edges attached).
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) move a box that is an edge SOURCE → its outgoing connectors follow the box border live; (b) move a box that is an edge TARGET → incoming connectors follow; (c) a box with MULTIPLE edges → all reroute; (d) release → persisted + re-rendered edges match the live geometry (no jump) [R1]; (e) unrelated edges/boxes untouched [R2]; (f) R32.6 static edges + /trace UNREGRESSED.
+- **Chain (extend R33.3 move):** unit 50e4f6f0 — UC/Method on the reroute (mirror R33.3 diagram.moveView); req mints #126; I mint/repoint Impl on ship. Client-only → REAL restart at the R33.6 boundary (hold-b).
