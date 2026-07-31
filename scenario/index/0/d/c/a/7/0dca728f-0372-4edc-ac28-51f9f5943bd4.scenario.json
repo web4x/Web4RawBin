@@ -4,7 +4,9 @@
     "uuid": "0dca728f-0372-4edc-ac28-51f9f5943bd4",
     "name": "server.renameElement impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:bf05f07a-8136-4131-a4cc-9886d155aa07"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:8d0df9f6-af38-4a5b-8dcc-4db4c1b308e6"

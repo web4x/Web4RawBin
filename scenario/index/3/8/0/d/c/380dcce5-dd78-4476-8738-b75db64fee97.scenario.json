@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "380dcce5-dd78-4476-8738-b75db64fee97",
+    "name": "test:R33.9 server.newElement @390 — POST /api/model/element/new mints an M1 unit + 400-validate",
+    "description": "Bridged to test/visual/r339-crud-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served==HEAD==0.8.36, d36cebbc9). Marker adopted from origin (measured, not invented). POST /api/model/element/new mints an M1 unit (200 + uuid, /api/ior resolves); empty/blank name -> 400. Pollution-safe round-trip. Chain: R33.9 req bd7ed14d -> UC (new-element) -> server c0a0921d -> Method newElement 7ecb9a8d -> Impl 7ecb9a8d -> this Test.",
+    "sourceFile": "ior:file:test/visual/r339-crud-gate.mjs",
+    "implementations": [
+      "ior:instance:7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d"
+}

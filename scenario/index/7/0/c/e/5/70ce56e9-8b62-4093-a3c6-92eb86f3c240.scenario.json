@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "70ce56e9-8b62-4093-a3c6-92eb86f3c240",
+    "name": "test:R33.9 ModelView.actionsForContext @390 — verb-split: unit verbs always / membership verbs only-with-active-diagram",
+    "description": "Bridged to test/visual/r339b-verb-context-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served==HEAD==0.8.36, d36cebbc9). Marker adopted from origin (measured, not invented). Action-context verb-split (INV-A1-4): UNIT verbs (new/rename/delete) always available; MEMBERSHIP verbs (add/remove-from-diagram) only when an active diagram exists (rb-active-diagram). Chain: R33.9 req bd7ed14d -> UC (action-context) -> Class ModelView 35759641 -> Method actionsForContext a1a5be99 -> Impl a1a5be99 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r339b-verb-context-gate.mjs",
+    "implementations": [
+      "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
+}

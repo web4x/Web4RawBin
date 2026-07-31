@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bf05f07a-8136-4131-a4cc-9886d155aa07",
+    "name": "test:R33.9 server.renameElement @390 — POST /api/model/element/rename sets model.name + 400-validate",
+    "description": "Bridged to test/visual/r339-crud-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served==HEAD==0.8.36, d36cebbc9). Marker adopted from origin (measured, not invented). POST /api/model/element/rename sets model.name (200, unit stays); missing uuid/name -> 400. Chain: R33.9 req bd7ed14d -> UC (rename-element) -> server c0a0921d -> Method renameElement 0dca728f -> Impl 0dca728f -> this Test.",
+    "sourceFile": "ior:file:test/visual/r339-crud-gate.mjs",
+    "implementations": [
+      "ior:instance:0dca728f-0372-4edc-ac28-51f9f5943bd4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0dca728f-0372-4edc-ac28-51f9f5943bd4"
+}

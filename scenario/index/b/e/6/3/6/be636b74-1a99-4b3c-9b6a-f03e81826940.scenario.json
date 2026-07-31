@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "be636b74-1a99-4b3c-9b6a-f03e81826940",
+    "name": "test:R33.9 server.deleteElement @390 — POST delete removes the M1 UNIT (delete != R33.8 remove-view) + 400",
+    "description": "Bridged to test/visual/r339-crud-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served==HEAD==0.8.36, d36cebbc9). Marker adopted from origin (measured, not invented). POST /api/model/element/delete removes the M1 UNIT (/api/ior stops resolving = delete is NOT R33.8 remove-view); missing uuid -> 400. create->delete net-zero (DESTRUCTIVE, pollution-safe). Chain: R33.9 req bd7ed14d -> UC (delete-element) -> server c0a0921d -> Method deleteElement 14b7004a -> Impl 14b7004a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r339-crud-gate.mjs",
+    "implementations": [
+      "ior:instance:14b7004a-7452-4f88-b3cb-b0c6d2e02730"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:14b7004a-7452-4f88-b3cb-b0c6d2e02730"
+}
