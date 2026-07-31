@@ -5,7 +5,7 @@
     "name": "RbDiagramDetail.applyCanvasGrow impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:e9792c2b-d78f-4ce0-9f2d-bbfa17686f7e"
 }
