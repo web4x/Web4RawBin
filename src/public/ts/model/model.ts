@@ -59,7 +59,7 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
 const ACTIONS_BY_TYPE: Record<string, { verb: string; label: string }[]> = {
   diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }],
-  modelelement: [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }],
+  modelelement: [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }, { verb: 'discover', label: '⌗ Discover related' }],
   puml: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
   pumlartifact: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
 };
@@ -70,15 +70,18 @@ const DEFAULT_ACTIONS = [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { ve
 // handle rb-drawer-action{verb} via the EXISTING addDiagram / importPuml / reSyncFromSource (event). No fork.
 function wireDrawerActions(): void {
   const drawer = (): (HTMLElement & { setActions?: (a: { verb: string; label: string }[]) => void }) | null => document.querySelector('rb-detail-drawer');
+  let shownRef = ''; // R33.7.2: the currently-shown detail ref → the selection-driven 'discover' action operates on it
   document.addEventListener('rb-drawer-detail-shown', (e) => {
-    const type = (e as CustomEvent<{ type?: string }>).detail?.type || '';
-    drawer()?.setActions?.(ACTIONS_BY_TYPE[type] || DEFAULT_ACTIONS);
+    const d = (e as CustomEvent<{ type?: string; ref?: string }>).detail;
+    shownRef = d?.ref || '';
+    drawer()?.setActions?.(ACTIONS_BY_TYPE[d?.type || ''] || DEFAULT_ACTIONS);
   });
   document.addEventListener('rb-drawer-action', (e) => {
     const verb = (e as CustomEvent<{ verb?: string }>).detail?.verb || '';
     if (verb === 'add-diagram') void addDiagram();
     else if (verb === 'import-puml' || verb === 'compile-puml') void importPuml();
     else if (verb === 're-sync') document.dispatchEvent(new CustomEvent('rb-model-resync-request', { bubbles: true })); // rb-diagram-detail.onResyncRequest
+    else if (verb === 'discover') void discoverRelated(shownRef); // R33.7.2 UC2: 1-level graph expand from the selected element
     else if (verb === 'add-to-diagram' && err) err.textContent = 'Open a diagram, then tap this class to add it.';
   });
 }
@@ -111,6 +114,30 @@ async function importPuml(): Promise<void> {
     if (err) err.textContent = `Imported ${d.elements} classes, ${d.relations} relations → diagram.`;
     await load();
   } catch (e: unknown) { if (err) err.textContent = 'Import PUML failed: ' + (e instanceof Error ? e.message : String(e)); }
+}
+
+// [impl:uuid:8e8c1d75-c4a4-4067-88fa-cb2b10521f84] ModelView.discoverRelated (Method e6cc8e85) — R33.7.2 UC2:
+// 1-LEVEL graph expand from the selected model element. Resolve the open diagram (the /api/model/tree diagram root,
+// same heuristic as rb-modelelement-detail.diagramRef), fetch the element (/api/ior) → its DIRECT neighbors =
+// relatesTo (out: base/extends, nav/target) ∪ relatedFrom (in: subclasses/implementers) → add-view each (reuse the
+// R32.11 /add-view endpoint, server auto-grid + dedup, INV-DA2 no fork). NO transitive walk (INV-DA1 exactly 1 level);
+// buildEdges (UC1) wires the edges on re-render. Model-derived only, never fabricated (INV-AR1).
+async function discoverRelated(ref: string): Promise<void> {
+  const uuid = (ref.split(':').pop() || '').trim();
+  if (!uuid) return;
+  if (err) err.textContent = '';
+  try {
+    const tr = await (await fetch('/api/model/tree')).json();
+    const diagramUuid = (((tr?.roots || []) as { uuid: string; type: string }[]).find((x) => x.type === 'diagram'))?.uuid || '';
+    if (!diagramUuid) { if (err) err.textContent = 'Open a diagram first, then Discover.'; return; }
+    const m = (await (await fetch(`/api/ior/ior:instance:${uuid}`)).json())?.unit?.model || null;
+    if (!m) return;
+    const refs = [...(Array.isArray(m.relatesTo) ? m.relatesTo : []), ...(Array.isArray(m.relatedFrom) ? m.relatedFrom : [])].map((x: string) => (String(x).split(':').pop() || ''));
+    const neighbors = Array.from(new Set(refs)).filter((u) => u && u !== uuid); // INV-DA1: direct neighbors only, dedup, exclude self
+    for (const n of neighbors) await fetch('/api/model/diagram/add-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid: n }) }).catch(() => { /* dedup/idempotent */ });
+    document.dispatchEvent(new CustomEvent('rb-diagram-refresh', { bubbles: true })); // → rb-diagram-detail re-renders → buildEdges (UC1) wires the discovered edges
+    if (err) err.textContent = `Discovered ${neighbors.length} related element(s).`;
+  } catch (e: unknown) { if (err) err.textContent = 'Discover failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
 // R33.5 item4: click a SOURCE .puml tree node (ref carries 'puml-src:<relpath>') → Import it (R32.7 pumlToModel) →

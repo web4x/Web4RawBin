@@ -52,12 +52,13 @@ export class RbDiagramDetail extends HTMLElement {
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
   private _selectedBox: string | null = null; // R33.5 item2: the locally-selected box ref — diagram STAYS open (no replaceWith)
 
-  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); void this.render(); }
+  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); document.addEventListener('rb-diagram-refresh', this.onRefresh); void this.render(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
-  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); document.removeEventListener('selection-changed', this.onSelectionChanged); this.ro?.disconnect(); this.ro = null; this.pz = null; }
+  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); document.removeEventListener('selection-changed', this.onSelectionChanged); document.removeEventListener('rb-diagram-refresh', this.onRefresh); this.ro?.disconnect(); this.ro = null; this.pz = null; }
 
   // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
   private onResyncRequest = (): void => { void this.reSyncFromSource(); };
+  private onRefresh = (): void => { void this.render(); }; // R33.7.2 UC1: re-render from MODEL_STORE after discover add-views → buildEdges wires the new edges
 
   // [impl:uuid:20f8a19e-a508-4fcd-8329-04b73bbbcc54] RbDiagramDetail.onSelectionChanged (Method fcd2464e, Class 039ec367, off UC 87d3d693 diagram.tapToAdd) — TAP-to-add complement for
   // touch/iOS Safari, where HTML5 DnD (dragover/drop) never fires → the drag-add path is DEAD on mobile (Tron @390).
