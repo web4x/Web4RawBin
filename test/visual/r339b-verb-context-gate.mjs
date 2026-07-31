@@ -8,8 +8,9 @@
 // (new/rename/delete) present REGARDLESS; membership (add/discover/remove) PRESENT iff a diagram is active, ABSENT with none
 // (INV-A1/A2, the IMG_4802/4803 fix — no fragile last-diagram). Drives the real showActions→setActions path. Drawer-UI visual → Tron @390.
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
-import { chromium, devices } from '@playwright/test';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444', TARGET = '0.8.36';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; const ENGINE_NAME = process.env.WK ? 'WEBKIT' : 'chromium';
+const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444', TARGET = process.env.R339_TARGET || '0.8.37';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -45,27 +46,30 @@ async function runOnce(browser) {
   await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid: null }, bubbles: true })));
   await sleep(200);
   const noDiagram = await readVerbs(page);
-
+  const visible = await page.evaluate(() => { const bs=[...document.querySelectorAll('rb-detail-drawer .drawer-actionbar [data-verb]')]; return bs.length>0 && bs.every(b=>b.getBoundingClientRect().width>0 && b.getBoundingClientRect().height>0); });
+  const vw = await page.evaluate(()=>innerWidth);
   await ctx.close();
-  return { withDiagram, noDiagram };
+  return { withDiagram, noDiagram, visible, vw };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true });
 const runs = [];
 try { for (let i = 0; i < 3; i++) runs.push(await runOnce(browser)); } finally { await browser.close(); }
 
 const has = (arr, set) => set.every(v => arr.includes(v));
 const none = (arr, set) => set.every(v => !arr.includes(v));
-console.log('\n===== R33.9 action-context verb-split @390 iPhone-12 (DET-3x) =====');
+console.log(`\n===== R33.9 action-context verb-split @390 ${ENGINE_NAME} (DET-3x) =====`);
 runs.forEach((R, i) => console.log(`iter ${i + 1}: withDiagram=[${R.withDiagram}] noDiagram=[${R.noDiagram}]`));
 const det = f => runs.length === 3 && runs.every(f);
 const membershipPresent = det(R => has(R.withDiagram, MEMBERSHIP));            // (1) INV-A1: diagram-open → membership present
 const membershipAbsent = det(R => none(R.noDiagram, MEMBERSHIP));             // (2) INV-A2: no-diagram → membership absent
-const unitAlways = det(R => has(R.withDiagram, UNIT) && has(R.noDiagram, UNIT)); // (3) unit verbs present regardless
-const green = membershipPresent && membershipAbsent && unitAlways;
+const unitAlways = det(R => has(R.withDiagram, UNIT) && has(R.noDiagram, UNIT));
+const rendered = det(R => R.visible === true);
+const green = membershipPresent && membershipAbsent && unitAlways && (process.env.WK ? rendered : true);
 console.log(`\n(1) diagram-open → membership PRESENT (add/discover/remove): ${membershipPresent ? 'GREEN' : 'RED'}`);
 console.log(`(2) no-diagram → membership ABSENT (no fragile last-diagram): ${membershipAbsent ? 'GREEN' : 'RED'}`);
 console.log(`(3) unit verbs (new/rename/delete) present regardless: ${unitAlways ? 'GREEN' : 'RED'}`);
-console.log('OVERALL R33.9-verb-context:', green ? 'GREEN DET-3x' : 'RED');
+console.log(`(4) drawer actions VISIBLE-rendered @390 (${ENGINE_NAME}, vw=${runs[0]&&runs[0].vw}): ${rendered ? 'GREEN' : 'RED'}`);
+console.log(`OVERALL R33.9-verb-context (${ENGINE_NAME}):`, green ? 'GREEN DET-3x' : 'RED');
 console.log('NOTE: the authed /model drawer-UI VISUAL rides Tron @390 (R33.5 pattern); this gates the actionsForContext LOGIC via the real showActions→setActions path.');
 process.exitCode = green ? 0 : 1;
