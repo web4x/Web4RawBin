@@ -133,6 +133,7 @@
   - [ ] **(functional)** Zoom-OUT measurably INCREASES the SVG canvas rendered dimensions (width/height px) and/or the scrollable placeable area - the boxes KEEP their size, the canvas GROWS around them = real room - NOT merely the content scale value. (Device-QA IMG_4793: the prior gate passed scale<1/1=whole/persist but Tron's device showed zoom-out only scaled content, the canvas never grew = space-problem unsolved. Architect diagnosis c725df623: 2 gaps - viewBox stays tight (0 0 maxX maxY) + pure-scale CSS transform, so nothing enlarges the canvas.)
   -> diagram.zoomOutGrows [uc:uuid:f8be90de-daf4-4c12-9c5a-912aff4116d3]
   -> diagram.persistZoom [uc:uuid:493d4bdb-3707-40fd-a6a9-9354e8fe2d27]
+  -> diagram.canvasGrowOnZoomOut [uc:uuid:56fe4cdb-9bef-4615-ab85-a6387f38aec8]
 
 - [ ] **R33.7.2 — Adding or discovering an element wires its model-graph relationships onto the diagram (auto-on-add + 'Discover relationships' 1-level action)**
   [requirement:uuid:2a3090ad-b912-42e1-b65a-db55765df179]

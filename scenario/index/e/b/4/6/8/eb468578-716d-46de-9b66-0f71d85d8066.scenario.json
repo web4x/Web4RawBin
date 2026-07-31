@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "eb468578-716d-46de-9b66-0f71d85d8066",
+    "name": "RbDiagramDetail.applyCanvasGrow impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:e9792c2b-d78f-4ce0-9f2d-bbfa17686f7e"
+}

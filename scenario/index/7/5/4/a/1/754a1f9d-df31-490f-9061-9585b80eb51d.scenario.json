@@ -13,7 +13,8 @@
   "sprintName": "Sprint 33",
   "useCases": [
    "ior:instance:f8be90de-daf4-4c12-9c5a-912aff4116d3",
-   "ior:instance:493d4bdb-3707-40fd-a6a9-9354e8fe2d27"
+   "ior:instance:493d4bdb-3707-40fd-a6a9-9354e8fe2d27",
+   "ior:instance:56fe4cdb-9bef-4615-ab85-a6387f38aec8"
   ],
   "unitLinks": [],
   "discoverySource": {
