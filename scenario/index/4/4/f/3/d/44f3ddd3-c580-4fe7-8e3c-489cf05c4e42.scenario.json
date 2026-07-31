@@ -4,7 +4,9 @@
     "uuid": "44f3ddd3-c580-4fe7-8e3c-489cf05c4e42",
     "name": "RbPanZoom.setEnabled impl",
     "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:fc65297a-3daa-4d74-abda-d72284936d51"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:4dab0081-7819-4faa-9d94-7040b2ed7618"

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6b647166-0c8d-4496-b163-aac793f6accb",
+    "name": "test:R33.5 item4 puml-folder 55 source itemviews (server.pumlChildren) @390",
+    "description": "Bridged to test/visual/r335-ux-polish-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x v0.8.19, f54376a1b). Marker adopted from origin (measured on the test file, not invented). LIVE served /api/trace/children/rawbin:puml enumerates the 55 EXISTING source .puml as puml-src itemviews; a bogus ref != 55 (planted control). Chain: R33.5 req 3c99ce28 -> UC diagram.pumlChildren -> server Class c0a0921d -> Method pumlChildren e78b5eaf -> Impl 9eb2c39c -> this Test.",
+    "sourceFile": "ior:file:test/visual/r335-ux-polish-gate.mjs",
+    "implementations": [
+      "ior:instance:9eb2c39c-5961-4b3d-bf35-072223c46d23"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9eb2c39c-5961-4b3d-bf35-072223c46d23"
+}
