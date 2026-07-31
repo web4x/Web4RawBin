@@ -1189,7 +1189,7 @@ function pumlChildren(els: MofEl[]): MofNode[] {
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
-  if (!/^(mof-m1|mof-m2|project:|file:|rawbin:)/.test(uuid)) return null;
+  if (!/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
   const instancesOf = (mcU: string): MofEl[] => m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(MOF_STRIP).includes(mcU));
   const isSrc = (x: MofEl): boolean => String(x.m.sourceFile || '').startsWith('src/');
@@ -2039,7 +2039,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // S33-P2b (INV-P2b-2): a SYNTHETIC MOF folder uuid (mof-*/project:*/file:*) resolves ONE bounded layer LAZILY
         // from the ISOLATED MODEL_STORE via mofChildren — the deep MOF tree is NEVER inlined in /api/model/tree's roots
         // payload. Public parity with /api/model/tree (also ungated, data-only). Real ModelElement uuids fall through.
-        if (/^(mof-m1|mof-m2|project:|file:|rawbin:)/.test(uuid)) { // R33.3-BUG fix: dispatch must include rawbin: (matches mofChildren's guard :1073) — else rawbin:ts|puml|diagram fell through to the ModelElement path → 404 {} → empty expand
+        if (/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) { // R33.3-BUG fix: dispatch must include rawbin: (matches mofChildren's guard :1073) — else rawbin:ts|puml|diagram fell through to the ModelElement path → 404 {} → empty expand
           ensureStoreSeeded();
           const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), uuid) || [];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
