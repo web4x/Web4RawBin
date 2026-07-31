@@ -5,7 +5,7 @@
     "name": "ModelView.wireDrawerActions impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:b0fa32ab-3996-4ec0-936d-46902828f01d"
 }

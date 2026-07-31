@@ -5,7 +5,7 @@
     "name": "RbDetailDrawer.showActionsForType impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:c6a39be3-2174-46ad-856a-ce0ff983b3dd"
 }
