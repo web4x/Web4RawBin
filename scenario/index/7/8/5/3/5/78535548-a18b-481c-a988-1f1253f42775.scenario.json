@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "78535548-a18b-481c-a988-1f1253f42775",
+    "name": "test:R33.6.3 reroute connectors on move (RbDiagramDetail.rerouteEdges) @390",
+    "description": "Bridged to test/visual/r3363-reroute-edges-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x, c811e7d3a). Marker adopted from origin (measured line 8, not invented). INV-R1: moving a box -> rerouteEdges recomputes BOTH endpoints (x1,y1,x2,y2) of connected edges live during the drag via the EXPORTED borderPoint geometry so connectors follow the moved box with NO stale line at the old anchor (no drift; single geometry fn = release->re-render matches by construction) + planted-bite. Chain: R33.6.3 req 50e4f6f0 -> UC diagram.rerouteEdges 6951485e -> Class RbDiagramDetail 039ec367 -> Method rerouteEdges 123e0c21 -> Impl 83b9922b -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3363-reroute-edges-gate.mjs",
+    "implementations": [
+      "ior:instance:83b9922b-5fb8-4c1d-ad57-bedbae1c2262"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:83b9922b-5fb8-4c1d-ad57-bedbae1c2262"
+}
