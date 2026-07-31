@@ -83,7 +83,7 @@ async function addDiagram(): Promise<void> {
     if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
     await load();
     // item1: reveal the path so the new empty Diagram is VISIBLE under diagrams/ (reachable droppable canvas), not buried collapsed.
-    (tree as (HTMLElement & { expandPath?: (r: string[]) => void }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
+    await (tree as (HTMLElement & { expandPath?: (r: string[]) => Promise<void> }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
   } catch (e: unknown) { if (err) err.textContent = 'Add Diagram failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
@@ -117,7 +117,7 @@ async function importPumlSrc(srcPath: string): Promise<void> {
     if (!r.ok || !d.ok) throw new Error(d.error || d.reason || ('HTTP ' + r.status));
     if (err) err.textContent = `Imported ${srcPath.split('/').pop()} → ${d.elements} classes → diagram.`;
     await load();
-    (tree as (HTMLElement & { expandPath?: (r: string[]) => void }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
+    await (tree as (HTMLElement & { expandPath?: (r: string[]) => Promise<void> }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
   } catch (e: unknown) { if (err) err.textContent = 'Import PUML failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 

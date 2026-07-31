@@ -63,12 +63,20 @@ export class RbTraceTree extends HTMLElement {
   }
   get items() { return this._items; }
 
-  // R33.5 item1 (reused helper, call-site — no marker): reveal a lazy path. Add the ancestor refs to `expanded`
-  // (buildSeedNode auto-opens + lazy-loads them on render), persist, re-render → a freshly-created node SHOWS.
-  expandPath(refs: string[]): void {
-    for (const r of refs) this.expanded.add(r);
-    try { localStorage.setItem(this.lsKey, JSON.stringify([...this.expanded])); } catch { /* ignore */ }
-    if (this.isConnected) this.renderItems();
+  // R33.5 item1 (reused helper, call-site — no marker): reveal a lazy path by UUID. Walk each ancestor, dispatch
+  // toggle-children (→ onToggleChildren fetches + renders that level), wait for the next level to appear → a
+  // freshly-created leaf SHOWS. Mirrors revealNode's DOM-walk but with an EXPLICIT path (the synthetic mof folders
+  // have no parent chain for fetchAncestorPath, and expanded is keyed by type:uuid — a raw-uuid add never matches).
+  // Match by ref*=uuid (itemRefs are type:uuid; the uuid substring is unique enough for these folder nodes).
+  async expandPath(uuids: string[]): Promise<void> {
+    for (let i = 0; i < uuids.length; i++) {
+      const item = this.querySelector(`rb-object-item[ref*="${uuids[i]}"]`) as HTMLElement | null;
+      if (!item) break;
+      if (!item.hasAttribute('children-open')) {
+        item.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } }));
+        await this.waitForNode(uuids[i + 1] || uuids[i]);
+      }
+    }
   }
 
   private upgradeProperty(prop: string): void {
