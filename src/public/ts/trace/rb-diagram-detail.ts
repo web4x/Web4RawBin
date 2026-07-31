@@ -132,7 +132,12 @@ export class RbDiagramDetail extends HTMLElement {
 
     const surface = this.querySelector('.dm-surface') as HTMLElement | null;
     const content = this.querySelector('.dm-content') as HTMLElement | null;
-    if (surface && content && count) { this.pz = new RbPanZoom(surface, content); } // R31.6 reuse — pinch/drag pan+zoom
+    if (surface && content && count) {
+      this.pz = new RbPanZoom(surface, content); // R31.6 reuse — pinch/drag pan+zoom
+      const z = Number(d?.zoom); if (Number.isFinite(z) && z > 0) this.pz.setScale(z); // R33.7.1 (INV-Z2): restore persisted per-diagram zoom
+      const dUuid = this.getAttribute('uuid') || stripRef(ref);
+      this.pz.onZoomEnd = (scale): void => { void this.persistZoom(dUuid, scale); }; // R33.7.1: persist on user zoom-settle
+    }
     // R32.11 (INV-R1): the surface is a DROP TARGET (even when empty — the 'drop a class' label IS the zone). Drag a
     // class card from the model tree → add its view-link at the drop point → persist → re-render. Wired every render.
     if (surface && content) {
@@ -263,6 +268,13 @@ export class RbDiagramDetail extends HTMLElement {
     if (!diagramUuid || !elementUuid) return;
     try { await fetch('/api/model/diagram/move-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) }); }
     catch { /* box stays at its dropped position; MODEL_STORE is authoritative on next render */ }
+  }
+
+  // R33.7.1 (INV-Z2): persist the per-diagram zoom (store-only /api/model/diagram/zoom → MODEL_STORE; prod untouched).
+  private async persistZoom(diagramUuid: string, zoom: number): Promise<void> {
+    if (!diagramUuid) return;
+    try { await fetch('/api/model/diagram/zoom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, zoom }) }); }
+    catch { /* zoom stays client-side; MODEL_STORE authoritative on next render */ }
   }
 
   // [impl:uuid:83b9922b-5fb8-4c1d-ad57-bedbae1c2262] RbDiagramDetail.rerouteEdges (Method 123e0c21) — R33.6.3:

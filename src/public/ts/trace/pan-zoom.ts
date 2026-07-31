@@ -15,7 +15,9 @@ export class RbPanZoom {
   private scale = 1;
   private tx = 0;
   private ty = 0;
-  private readonly MIN = 1;
+  private readonly MIN = 0.25; // R33.7.1 (INV-Z1): allow zoom-OUT below 1 → grows the working canvas (was 1 = no zoom-out)
+  onZoomEnd?: (scale: number) => void; // R33.7.1: fired (debounced) after a USER zoom settles → host persists per-diagram
+  private zoomEndTimer = 0;
   private readonly MAX = 8;
   private dragging = false;
   private enabled = true; // R33.5 item3: PAN gated by selection — disabled while a diagram box is selected
@@ -131,6 +133,14 @@ export class RbPanZoom {
     this.ty = py - f * (py - this.ty);
     this.scale = ns;
     this.clamp(); this.apply();
+    this.scheduleZoomEnd(); // R33.7.1: user zoom → persist after it settles
+  }
+
+  // R33.7.1: debounce a user zoom so the host persists ONE value after the gesture settles (not every wheel tick).
+  private scheduleZoomEnd(): void {
+    if (!this.onZoomEnd) return;
+    if (this.zoomEndTimer) clearTimeout(this.zoomEndTimer);
+    this.zoomEndTimer = (setTimeout(() => this.onZoomEnd?.(this.scale), 450) as unknown) as number;
   }
 
   private clamp(): void { // AC-b4
@@ -139,7 +149,9 @@ export class RbPanZoom {
     const minTy = Math.min(0, vh - vh * this.scale);
     this.tx = Math.min(0, Math.max(minTx, this.tx));
     this.ty = Math.min(0, Math.max(minTy, this.ty));
-    if (this.scale <= 1) { this.tx = 0; this.ty = 0; } // recenter
+    // R33.7.1 (INV-Z1): at scale ≤ 1 CENTER the content — at 1 that's (0,0) = whole-diagram fit (100%); below 1 it
+    // centers the shrunken diagram so the grown empty canvas surrounds it (working room), instead of pinning top-left.
+    if (this.scale <= 1) { this.tx = (vw - vw * this.scale) / 2; this.ty = (vh - vh * this.scale) / 2; }
   }
 
   private apply(): void { // AC-b1
@@ -150,6 +162,13 @@ export class RbPanZoom {
 
   /** AC-e6 / reset to identity. */
   reset(): void { this.scale = 1; this.tx = 0; this.ty = 0; this.apply(); }
+
+  // [impl:uuid:301b71d4-8c50-4e3f-80fa-6e30ae035f2c] RbPanZoom.setScale (Method c3fa13b7) — R33.7.1: set the zoom
+  // level directly (restore a persisted per-diagram model.zoom), reusing the SAME clamp+apply as gestures (INV-Z3 no
+  // fork). Clamped to [MIN,MAX]; the extended clamp centers content when <1 (INV-Z1: 1=100%=whole-diagram, <1=grown
+  // canvas). Does NOT fire onZoomEnd — this is the restore path, not a user change (no persist-on-restore loop).
+  setScale(s: number): void { this.scale = Math.max(this.MIN, Math.min(this.MAX, s)); this.clamp(); this.apply(); }
+  get currentScale(): number { return this.scale; }
 
   // [impl:uuid:7dd375ac-28f1-4768-9063-bdf6fa430ce5] RbPanZoom.panBy (Method 1a2fbff9) — R33.6.2 INV-D2: programmatic
   // pan by (dx,dy) viewport px, reusing the SAME clamp+apply as gesture pans (no new geometry, INV-D3 no-fork). The

@@ -1709,6 +1709,27 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/zoom') { // R33.7.1 (INV-Z2): persist per-diagram zoom in MODEL_STORE (mirror move-view; prod scenario/index NEVER touched). markerPending (req IMPL-mints)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, zoom } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no shard-path traversal)
+          if (!UUID.test(String(diagramUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          const z = Number(zoom);
+          if (!Number.isFinite(z) || z < 0.25 || z > 8) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-zoom"}'); return; } // INV-Z1 range [0.25,8]
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          unit.model.zoom = z;
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-Z2 store-only (prod scenario/index NEVER touched)
+          addLog(`[model] zoom ${String(diagramUuid).slice(0, 8)} → ${z}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, zoom: z }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'zoom-failed' })); }
+      });
+      return;
+    }
     if (req.method === 'POST' && filepath === '/api/model/diagram/create') { // S33-P3f-1 Add-diagram: create an EMPTY Diagram unit in diagram/ → curate via R32.11 add-view. markerPending (req IMPL-mints per-action)
       if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated
       let body = '';
