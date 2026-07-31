@@ -271,3 +271,22 @@ MEASURE-FIRST: (a) `model.ts mountActionBar()` mounts `<rb-strip class=model-act
 - **GATE @390 (Tron real interaction):** action-bar visible IN the drawer (below handle, above content); select a diagram → [Add/Re-Sync/Compile] appear; select a class → class actions; select a puml-src → [Import]; buttons work; /trace + /scenario drawers show NO model actions (shared-generic unbroken). NOT "loads".
 - **DEPLOY:** CLIENT-only (rb-detail-drawer + model.ts) → version bump → real restart re-stamps /api/config (R32.7/R31.12 lesson) + R31.7 invariant.
 - **CHAIN (#126, req):** UC drawer.actionBarRegion (item5) → Class RbDetailDrawer → Method setActions → Impl → Test; UC drawer.selectionDrivenActions (item6) → Class RbDetailDrawer → Method showActionsForType (dispatch rb-drawer-detail-shown) → Impl → Test; + ModelView ACTIONS_BY_TYPE registration. Per-item singular-chain.
+
+## R33.6.2 — suppress PAGE scroll on element drag + DIAGRAM edge-autoscroll (architect 2026-07-31, unit 570b77c7)
+MEASURE-FIRST: `wireBoxDrag` (rb-diagram-detail.ts:189-221) live-moves a `.dm-box` on `pointermove` but (a) NEVER `preventDefault`s / has NO `touch-action` guard → at scale 1 a touch box-drag ALSO scrolls the PAGE (Tron item-2 bug); (b) has NO edge-autoscroll → a box can't be dragged past the visible surface. RbPanZoom pan seam = `this.tx+=…; this.ty+=…; this.clamp(); this.apply()` (pan-zoom.ts:60-62); `setEnabled(false)` already disables canvas-pan while a box is selected (:230). REUSE both — NO fork.
+
+### Fix (client-only; extend box-drag + RbPanZoom)
+| # | File | Line | Current (BUG) | Fix |
+|---|------|------|---------------|-----|
+| A | `rb-diagram-detail.ts` | 25 (`.dm-box` CSS) | `.dm-box{cursor:pointer}` — no touch-action → touch-drag scrolls the page | `.dm-box{cursor:pointer;touch-action:none}` — a pointer-drag on a box is fully captured (already `setPointerCapture` :201), the browser never scrolls/gestures the page. INV-D1 by construction. (A box is interactive: tap-select / drag-move; never a scroll surface.) |
+| B | `pan-zoom.ts` | after 62 (new public method) | pan only via internal mouse/touch handlers | add `panBy(dx,dy){ this.tx+=dx; this.ty+=dy; this.clamp(); this.apply(); }` — reuses the EXISTING clamp+apply (no new transform logic). |
+| C | `rb-diagram-detail.ts` | 204-211 (`pointermove`) + `end` (:212) | live-move only; no edge handling | edge-autoscroll: in `pointermove`, compute `surface.getBoundingClientRect()`; if the pointer is within an EDGE BAND (e.g. 24px) of — or beyond — an edge, start a `requestAnimationFrame` loop calling `this.pz?.panBy(±speed,0/0,±speed)` (speed ∝ overshoot, capped) so the DIAGRAM scrolls toward the edge; the box keeps tracking the pointer in content-space (nx/ny already `/s`), so it follows as the canvas pans. Stop the rAF on `pointerup`/`pointercancel` (extend `end`) or when the pointer re-enters the band. ONLY the diagram pans — the page never scrolls (A). |
+
+### INVARIANTS
+- **INV-D1 (no page scroll on element drag):** a box drag never scrolls the page — BY CONSTRUCTION (`.dm-box{touch-action:none}` + pointer capture).
+- **INV-D2 (edge-autoscroll = diagram-only, just-outside):** autoscroll pans ONLY the RbPanZoom content, ONLY while the drag pointer is at/just-outside a surface edge; idle otherwise; stops on drag end. Never the page.
+- **INV-D3 (no fork):** reuse `wireBoxDrag` + RbPanZoom (one new `panBy`); R33.3 move-view/persist + R33.5 box-select unchanged.
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) touch-drag a box at scale 1 → PAGE does NOT scroll [D1]; (b) drag a box toward/past the surface edge → the DIAGRAM auto-scrolls to reveal canvas, box keeps following, PAGE still static [D2]; (c) release → autoscroll stops + x,y persists (R33.3) survives reload; (d) a tap (no move) still selects (R33.5), pan re-enables on deselect; (e) /trace + existing diagram select/move UNREGRESSED.
+- **Chain (extend R33.3 move):** unit 570b77c7 — UC/Method on the box-drag/edge-autoscroll (mirror R33.3 diagram.moveView); req mints scenario-first (#126); I mint/repoint Impl on ship if needed. Client-only → version bump → REAL restart at the R33.6 boundary (restart-hold(b); R32.7 lesson).
