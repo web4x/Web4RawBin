@@ -1709,7 +1709,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
-    if (req.method === 'POST' && filepath === '/api/model/diagram/zoom') { // R33.7.1 (INV-Z2): persist per-diagram zoom in MODEL_STORE (mirror move-view; prod scenario/index NEVER touched). markerPending (req IMPL-mints)
+    // [impl:uuid:80440bf0-c512-4fb8-aa95-8fb56547af88] server.persistDiagramZoom (R33.7.1 INV-Z2): persist per-diagram zoom in MODEL_STORE (mirror move-view; prod scenario/index NEVER touched)
+    if (req.method === 'POST' && filepath === '/api/model/diagram/zoom') {
       let body = '';
       req.on('data', (chunk: Buffer) => { body += chunk; });
       req.on('end', () => {
