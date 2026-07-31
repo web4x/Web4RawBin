@@ -12,7 +12,12 @@
   "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.5&commit=1a39feb91",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:fea2b5fd-b054-4047-a501-94a0ecc2288f",
+   "ior:instance:0e3971f2-9b52-4729-a94b-def69c710af4",
+   "ior:instance:1f52bcab-7bf7-4ffc-a163-b06229f7d705",
+   "ior:instance:c1a629e4-59a6-4419-a073-60ac25f3d05a"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",

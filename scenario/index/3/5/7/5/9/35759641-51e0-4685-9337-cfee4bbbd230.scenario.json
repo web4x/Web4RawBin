@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "35759641-51e0-4685-9337-cfee4bbbd230",
+    "name": "ModelView",
+    "file": "src/public/ts/model/model.ts",
+    "methods": [
+      "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c"
+    ],
+    "useCases": [
+      "ior:instance:fea2b5fd-b054-4047-a501-94a0ecc2288f"
+    ],
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fea2b5fd-b054-4047-a501-94a0ecc2288f"
+}

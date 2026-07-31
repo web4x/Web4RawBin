@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e78b5eaf-335e-4b57-b6ce-3c866b9da100",
+    "name": "server.pumlChildren",
+    "description": "Server mofChildren rawbin:puml branch: enumerate the project's existing source .puml set (sprints/*/diagrams/, mirror the ts/ M1 sourceFile enumeration) -> one itemview per .puml; click imports via the already-imported R32.7 pumlToModel parser into the R33.3 editor. Tron ruled option (a) existing-source (not modelToPuml-generate b). Server change -> real restart. markerPending.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:9eb2c39c-5961-4b3d-bf35-072223c46d23"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

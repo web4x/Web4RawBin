@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "85a36ec2-ba27-4774-85b0-302ef27d902c",
+    "name": "ModelView.addDiagramRefresh",
+    "description": "Extends the model-view action-bar Add-Diagram flow (model/model.ts addDiagram, line 73): after POST /create ok, dispatch a tree-refresh of diagrams/ so the new empty diagram node shows immediately. NAME per architect shape; if the expert places the marker on the existing addDiagram decl (extending it) rather than a new addDiagramRefresh decl, req re-points to the built decl on strict-AST-verify (data=truth). markerPending.",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "implementations": [
+      "ior:instance:ffdd9347-34db-4923-9cee-b6d00dd8ec9c"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
+}

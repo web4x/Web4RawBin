@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9eb2c39c-5961-4b3d-bf35-072223c46d23",
+    "name": "server.pumlChildren impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:e78b5eaf-335e-4b57-b6ce-3c866b9da100"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "bde57b1a-3cc5-4c79-8656-18d29a01c979",
+    "name": "RbDiagramDetail.boxSelect impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:65423a29-3f09-4034-9d88-a49892923e92"
+}

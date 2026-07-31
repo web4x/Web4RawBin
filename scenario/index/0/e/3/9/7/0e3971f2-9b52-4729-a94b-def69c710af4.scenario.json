@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "0e3971f2-9b52-4729-a94b-def69c710af4",
+  "name": "diagram.boxSelectKeepsDiagram",
+  "description": "R33.5 AC-class-select-keeps-diagram: box-click sets a diagram-LOCAL _selectedBox (highlight) + tree-reveal, does NOT call selectionModel.replaceWith, so the drawer STAYS on the diagram; class-detail opens ONLY on tree-click.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:65423a29-3f09-4034-9d88-a49892923e92",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.5&commit=1a39feb91",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

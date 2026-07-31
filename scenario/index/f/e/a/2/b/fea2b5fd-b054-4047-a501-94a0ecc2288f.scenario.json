@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fea2b5fd-b054-4047-a501-94a0ecc2288f",
+  "name": "diagram.addDiagramRefresh",
+  "description": "R33.5 AC-add-diagram-creates-itemview: Add-Diagram creates an empty Diagram (POST /api/model/diagram/create) and immediately refreshes the diagrams/ folder so the new node appears without manual reload (reuse rb-model-resynced/tree-reload). Owner = the model-view/action-bar host (model/model.ts, where the R33.3-AC4 action bar + addDiagram live), NOT RbDiagramDetail.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.5&commit=1a39feb91",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
