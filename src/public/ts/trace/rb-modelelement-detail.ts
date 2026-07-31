@@ -29,7 +29,9 @@ class RbModelElementDetail extends HTMLElement {
 
   // [impl:uuid:7e147ad8-aa69-4f02-9844-8652691add0a] RbModelElementDetail.render (Method c2da9192, Class 7788ebe0, off UC 4fad0415 modelElement.inspect) — R32.10 PART B
   private async render(): Promise<void> {
-    const uuid = stripRef(this.getAttribute('ref') || '');
+    const ref = this.getAttribute('ref') || '';
+    if (ref.startsWith('puml-src:')) { await this.renderPumlSource(ref.slice('puml-src:'.length)); return; } // R33.6 item-4 (A): existing-source .puml FOLDER node
+    const uuid = stripRef(ref);
     if (!uuid) return;
     const m = await this.fetchModel(uuid);
     if (!m) { this.innerHTML = '<div class="dv-empty">Model element not found</div>'; return; }
@@ -67,6 +69,28 @@ class RbModelElementDetail extends HTMLElement {
     }
     this.innerHTML = html;
     this.querySelectorAll('.dv-link').forEach((el) => el.addEventListener('click', (e) => { e.stopPropagation(); const ref = (el as HTMLElement).getAttribute('data-ref'); if (ref) selectionModel.replaceWith(ref); }));
+  }
+
+  // [impl:uuid:b0c0d27d-ff30-4021-a085-1d8945fd389d] RbModelElementDetail.renderPumlSource (Method 3a433a45) — R33.6
+  // item-4 (A, existing-source): a puml-src:<relpath> FOLDER itemview renders the EXISTING authored .puml as SVG. Fetch
+  // the raw source READ-ONLY (GET /md/scrum.pmo/sprints/<relpath>, INV-P1.3) → POST it to /api/puml-render (the SAME
+  // renderer rb-preview.renderPuml + the /md preview use → INV-P1.2 no-fork). Existing-source ONLY, never modelToPuml (INV-P1.1).
+  private async renderPumlSource(relPath: string): Promise<void> {
+    const name = relPath.split('/').pop() || relPath;
+    this.innerHTML = `<h3 style="color:white;margin:0 0 4px;font-size:0.95rem">${esc(name)}</h3>`
+      + `<div class="dv-rel" style="margin:0 0 8px">&laquo;puml&raquo; &middot; ${esc(relPath)}</div>`
+      + `<div class="dv-puml" style="overflow:auto"><div class="dv-empty">Rendering PlantUML&hellip;</div></div>`;
+    const host = this.querySelector('.dv-puml'); if (!host) return;
+    try {
+      const srcRes = await fetch(`/md/scrum.pmo/sprints/${encodeURI(relPath)}`); // read-only raw .puml (server /md/*.puml)
+      if (!srcRes.ok) throw new Error(`source HTTP ${srcRes.status}`);
+      const puml = await srcRes.text();
+      const svgRes = await fetch('/api/puml-render', { method: 'POST', body: puml }); // SAME render path as rb-preview.renderPuml
+      if (!svgRes.ok) throw new Error(`render HTTP ${svgRes.status}`);
+      host.innerHTML = await svgRes.text();
+    } catch (e) {
+      host.innerHTML = `<div class="dv-empty">Could not render PUML: ${esc(e instanceof Error ? e.message : String(e))}</div>`;
+    }
   }
 }
 if (!customElements.get('rb-modelelement-detail')) customElements.define('rb-modelelement-detail', RbModelElementDetail);
