@@ -412,3 +412,21 @@ MEASURED: `/api/puml-render` (server.ts:2087-2097) shells `execFileSync('plantum
 DATA=TRUTH (real served /model): a real MODEL_STORE element (attr 99838aa8, kind=attribute, model.memberOf=ior:instance:35a076ca) → `GET /api/trace/children/99838aa8` returns **parent:null**. ROOT: `/api/trace/children` (server.ts:2030-2046) resolves `parent` ONLY from `ownerIor` (model elements have ownerIor:null, TsToModel) or a FWD_SCAN map (Requirement/Task/UseCase/Class/Method — NOT ModelElement) — it IGNORES the model's `memberOf`; and the model tree's hierarchy is SYNTHETIC folders (project:RawBin → ts/puml/diagram → class → member via mofChildren), not unit-parent links. So `revealNode.fetchAncestorPath` (reads data.parent.uuid) gets null → empty path → reveal SKIPs. Compounded by data-always-expanded stripped (layer-by-layer collapsed → element not pre-rendered → the in-DOM highlight path also can't fire). Both tester blockers = REAL. My R33.7.4 INV-TR2 ("lazy-safe via fetchAncestorPath MODEL_STORE-routed") ASSUMED fetchAncestorPath works for model units — WRONG (architect owns this).
 **FIX = onTreeReveal must use the MODEL-tree reveal (R33.5 `expandPath` with the explicit synthetic path), NOT `revealNode` (unit-parent-walk, built for the TRACE tree).** revealNode works on /trace (units carry ownerIor/FWD_SCAN parents); the MODEL tree needs the explicit structural path. R33.5 already does this: importPumlSrc calls `tree.expandPath(['mof-m1','project:RawBin','rawbin:diagram'])` (model.ts:160). onTreeReveal(ref) should build the model element's structural ancestor path — `['mof-m1','project:RawBin', <kind-folder ref>, ...(memberOf class if a member), 'modelelement:<uuid>']` (folder refs from mofChildren/mofLayerRoots) — and call `expandPath(path)`. Client-only; reuse R33.5 expandPath (INV-TR1 reuse still holds, just the RIGHT reuse). Alternative (server): populate `parent` for ModelElement from `memberOf` + a synthetic folder/project chain so fetchAncestorPath walks — but the synthetic-folder levels aren't units, so expandPath (explicit path) is the cleaner reuse. Hand expert; architect pairs on the exact folder refs.
 GATE (re-gate on real /model + Tron device): box-select a diagram class → the tree expands mof-m1→project→folder→the class and scroll-reveals+highlights it (deep/collapsed OK); non-model /trace revealNode UNCHANGED.
+
+### R33.7.4 FIX — CONCRETE expandPath spec (architect, measured mofChildren/mofLayerRoots server.ts:1090-1130)
+The model tree synthetic hierarchy (mofChildren): `mof-m1` (:1130) → `project:RawBin` (:1100) → `rawbin:ts`/`rawbin:puml`/`rawbin:diagram` (:1109-1111) → (ts) `file:<sourceFile>` (:1117, uuid keeps FULL path) → `modelelement:<uuid>` (members nest under their class via memberOf). A diagram box = an M1 class/interface from TS source → lives under `rawbin:ts`.
+CONCRETE onTreeReveal(ref):
+```
+private onTreeReveal = async (e: Event): Promise<void> => {
+  const ref = (e as CustomEvent).detail?.ref; if (!ref) return;
+  const uuid = refUuid(ref);
+  const m = (await (await fetch(`/api/ior/ior:instance:${uuid}`)).json())?.unit?.model;
+  if (!m) return;
+  const base = ['mof-m1', 'project:RawBin', 'rawbin:ts', `file:${m.sourceFile}`];
+  const tail = m.memberOf
+    ? [`modelelement:${refUuid(String(m.memberOf))}`, `modelelement:${uuid}`]  // member: class then member
+    : [`modelelement:${uuid}`];                                                // class/interface
+  await this.expandPath([...base, ...tail]);   // R33.5 reuse (the mechanism importPumlSrc uses model.ts:160)
+};
+```
+VERIFY-WITH-EXPERT (2 points): (1) the ModelElement leaf ref format in the tree = `modelelement:<uuid>`? (confirm vs mofElNode — the DISPLAY type is the M2 facet, but the tree NODE ref/data-seed should be the raw modelelement uuid — expandPath matches on the node ref). (2) rawbin:ts sub-groups by `file:<sourceFile>` where the file: uuid is the FULL sourceFile path (:1117) — so `file:${m.sourceFile}` must be the full repo-relative path, not basename. Non-TS (imported-puml) elements would path under rawbin:puml, but diagram boxes are TS-source M1 → rawbin:ts is correct. expandPath already lazy-loads each layer (R33.5 item1), so the collapsed/always-expanded-stripped tree is fine. Architect available to pair.
