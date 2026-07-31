@@ -450,3 +450,36 @@ MEASURE-FIRST: add-view (server.ts:1664-1688) loads the Diagram unit from MODEL_
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) select a class on the diagram → 'Remove from diagram' → the box + its connectors disappear [RM3]; (b) ★ the ModelElement UNIT STAYS — tree still lists it, re-addable; grep count of ior:class:ModelElement in MODEL_STORE UNCHANGED after remove (only the Diagram's views[] shrinks) [RM1 — deleting the model = RED]; (c) remaining boxes' edges recompute, no dangling [RM3/R32.6]; (d) re-add the same element (add-view/discover) → box reappears (idempotent, deterministic uuid) [RM4]; (e) prod scenario/index git-clean UNCHANGED [RM2]; (f) /trace + add-view/move-view/discover UNREGRESSED.
 - **Chain (inverse of diagram.addView cdd29583):** unit 86219c51 — UC diagram.removeView → Method removeFromDiagram (client) + persistRemoveView (server) → Impl; req mints #126. SERVER endpoint → R32.5 discipline (__dirname-below MODEL_STORE write) → REAL restart at the next R33 boundary (hold-b). Client verb = client-only.
+
+## R33.10 — model tree completeness + folder grouping (architect 2026-07-31, Tron device)
+MEASURED: disk src has **123 .ts** files; MODEL_STORE has 517 M1 units but only ~25 DISTINCT sourceFiles. `rawbin:ts` (server.ts:1158-1161) groups `m1Roots.filter(isSrc)` BY sourceFile → one `file:<sf>` node per GENERATED file → shows only the ~25 files that were run through TsToModel.generate (bounded generate-project). The tree faithfully shows what's GENERATED; the gap is generation-scope, not enumeration.
+- **item-1 (55 puml) = DONE** — BUG-A option-A fix live (v0.8.28), `/api/trace/children/rawbin:puml`=55, refs carry `diagrams/`. Verified.
+- **item-2 (25→ALL ts) + item-3 (folder grouping) = ONE fix: enumerate the src/ DIRECTORY TREE.** Redesign `rawbin:ts` (+ its children) to walk `src/` recursively (like pumlChildren reads the diagrams dir) emitting **folder nodes by directory** (`dir:<relpath>`) + **.ts file leaves** (`file:<relpath>`) for ALL 123 files — NOT just generated sourceFiles. Under a `file:` leaf → its M1 ModelElements from MODEL_STORE if generated, else empty (or generate-on-expand, reuse /api/model/generate). This gives COMPLETENESS (all 123, folder hierarchy) AND folder grouping in one — the directory hierarchy IS the grouping (Tron: "grouping in folders makes sense").
+
+### Fix (server enumeration; mirror pumlChildren's disk walk)
+| # | File | Line | Current | Fix |
+|---|------|------|---------|-----|
+| A | `server.ts` | 1158-1161 (`rawbin:ts`) | groups by sourceFile of GENERATED M1 (~25) | walk `src/` recursively (fsSync.readdirSync, `.ts` only) → emit `dir:<rel>` folder nodes (one per subdir, with child-count) + `file:<rel>` leaves for ALL files, grouped by directory. |
+| B | `server.ts` | new `dir:` case in mofChildren | none | `if (uuid.startsWith('dir:'))` → list that directory's subdirs (`dir:`) + `.ts` files (`file:`). Recursive lazy layer (reuse the layer-by-layer pattern). |
+| C | `server.ts` | 1165 (`file:` case) | resolves M1 by sourceFile == full sf | keep: `file:<rel>` → its M1 ModelElements from MODEL_STORE (empty if not generated). Optionally a generate-on-expand affordance (reuse /api/model/generate). |
+### INV-T (R33.10): T1 completeness (ALL 123 src .ts appear, folder-grouped) / T2 folder-hierarchy (dir nodes mirror the src/ tree) / T3 no-fork (reuse the mof layer-by-layer + /api/trace/children routing; puml/diagram folders unchanged) / T4 isolation (read-only src walk + MODEL_STORE reads; prod scenario/index untouched).
+### GATE (tester @390): ts/ shows ALL src .ts grouped in directory folders (count==disk 123); expand a folder → its files/subfolders; expand a file → its M1 elements (generated) or empty; puml/=55 + diagram/ unregressed; /trace unregressed. SERVER change → boundary restart.
+
+## R33.9 — context-aware action lifecycle (architect 2026-07-31, Tron IMG_4802/4803)
+MEASURED: `ACTIONS_BY_TYPE` (model.ts:60-66) keys verbs by the SELECTED element's TYPE ONLY — modelelement → add/discover/remove — IGNORING whether a diagram is open. `removeFromDiagram`/`discoverRelated`/`addView` resolve the diagram via `/api/model/tree` roots.find(type==diagram) = **"any/last diagram"** = the FRAGILE implicit target Tron flagged. So membership verbs show with NO diagram (IMG_4803, wrong target) and the code can't show "remove from THIS diagram" when a diagram IS open (IMG_4802 gap).
+### Verb × context model (the design)
+| verb | scope | shown when | target |
+|------|-------|-----------|--------|
+| **new** | unit | always (folder/selection) | mints a new class UNIT (no diagram) |
+| **rename** | unit | element selected | the UNIT |
+| **delete** | unit (destructive, guarded) | element selected | the UNIT (≠ remove) |
+| **add** | diagram-context | element selected AND an ACTIVE diagram is open | the ACTIVE (open) diagram — EXPLICIT, never "last" |
+| **remove** | diagram-context | element selected AND active diagram open (R33.8 view-only) | the ACTIVE diagram |
+### Fix (kill last-diagram implicit target, correct-by-construction)
+| # | File | Add |
+|---|------|-----|
+| A | `rb-diagram-detail.ts` | on render/open dispatch `rb-active-diagram {uuid}`; on disconnect dispatch `rb-active-diagram {uuid:null}` — the ACTIVE-diagram signal. |
+| B | `model.ts` (host) | track `activeDiagramUuid` from that event. **Split ACTIONS_BY_TYPE**: UNIT verbs (new/rename/delete) always for a modelelement; MEMBERSHIP verbs (add/remove) appended ONLY when `activeDiagramUuid` is set. `showActionsForType` recomputes on selection AND on `rb-active-diagram`. |
+| C | `model.ts` | add/remove handlers use `activeDiagramUuid` EXPLICITLY (NOT the /api/model/tree scan) → no ambiguous target. new→POST mint-unit; rename→POST rename-unit; delete→POST delete-unit (guarded). |
+### INV-A (R33.9): A1 membership verbs (add/remove) NEVER shown without an active diagram (kills last-diagram, correct-by-construction) / A2 membership verbs target the ACTIVE OPEN diagram explicitly / A3 unit verbs (new/rename/delete) always on a selected element regardless of diagram / A4 IMG_4802 fix: diagram-open+selected → membership verbs PRESENT; IMG_4803 fix: no-diagram+selected → membership verbs ABSENT.
+### NEW server endpoints (new/rename/delete unit — mirror add/remove-view store-only, MODEL_STORE, prod-safe): POST /api/model/element/new + /rename + /delete (guarded). SERVER change → boundary restart. GATE (tester @390): each verb in its correct context; NO action with an ambiguous/last-diagram target; diagram-open shows membership; no-diagram hides them; new/rename/delete act on the unit.
