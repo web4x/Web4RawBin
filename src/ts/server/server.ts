@@ -1073,6 +1073,25 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
 // enumerate the EXISTING SOURCE .puml (scrum.pmo/sprints/*/diagrams/*.puml) as itemviews (mirror ts/). Each node's
 // uuid 'puml-src:<sprint>/<file>' carries the relpath → a click → Import (R32.7 pumlToModel) → interactive diagram.
 // Also surfaces any already-imported PumlArtifact units. Read-only enumeration; import happens via /import-puml.
+// [impl:uuid:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2] server.persistRemoveView (R33.8, INVERSE of add-view) — drop a
+// class's VIEW-LINK from the Diagram unit in MODEL_STORE (store-only, INV-RM2 prod scenario/index NEVER touched). The
+// ModelElement unit file is NEVER touched → re-addable (INV-RM1, NOT a delete). Idempotent: absent link → removed:false
+// (INV-RM4). Same UUID path-safety as add-view. Callers (the /remove-view route) do body-parse + HTTP; this does the store write.
+function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: boolean; removed?: boolean; views?: number; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/;
+  if (!UUID.test(diagramUuid) || !UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+  if (!fsSync.existsSync(dfile)) return { ok: false, error: 'no-diagram', status: 404 };
+  const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+  const views: { unit: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
+  const link = `modelelement:${elementUuid}`;
+  const before = views.length;
+  unit.model.views = views.filter((v) => v.unit !== link); // drop ONLY the view-link; the ModelElement unit file is NEVER touched (INV-RM1)
+  if (unit.model.views.length === before) return { ok: true, removed: false, views: before }; // INV-RM4 absent → no-op
+  fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-RM2 store-only (prod scenario/index NEVER touched)
+  return { ok: true, removed: true, views: unit.model.views.length };
+}
+
 function pumlChildren(els: MofEl[]): MofNode[] {
   const out: MofNode[] = [];
   try {
@@ -1683,6 +1702,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/remove-view') { // R33.8 (INVERSE of add-view) — delegates to persistRemoveView (store-only, prod untouched, model unit re-addable)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid } = JSON.parse(body || '{}');
+          const out = persistRemoveView(String(diagramUuid || ''), String(elementUuid || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          if (out.removed) addLog(`[model] remove-view ${String(elementUuid).slice(0, 8)} ✕ diagram ${String(diagramUuid).slice(0, 8)} views=${out.views}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'remove-view-failed' })); }
       });
       return;
     }

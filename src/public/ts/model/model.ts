@@ -59,7 +59,7 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
 const ACTIONS_BY_TYPE: Record<string, { verb: string; label: string }[]> = {
   diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }],
-  modelelement: [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }, { verb: 'discover', label: '⌗ Discover related' }],
+  modelelement: [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }, { verb: 'discover', label: '⌗ Discover related' }, { verb: 'remove-from-diagram', label: '✕ Remove from diagram' }],
   puml: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
   pumlartifact: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
 };
@@ -82,6 +82,7 @@ function wireDrawerActions(): void {
     else if (verb === 'import-puml' || verb === 'compile-puml') void importPuml();
     else if (verb === 're-sync') document.dispatchEvent(new CustomEvent('rb-model-resync-request', { bubbles: true })); // rb-diagram-detail.onResyncRequest
     else if (verb === 'discover') void discoverRelated(shownRef); // R33.7.2 UC2: 1-level graph expand from the selected element
+    else if (verb === 'remove-from-diagram') void removeFromDiagram(shownRef); // R33.8: drop the selected element's view-link (inverse of add-view)
     else if (verb === 'add-to-diagram' && err) err.textContent = 'Open a diagram, then tap this class to add it.';
   });
 }
@@ -138,6 +139,27 @@ async function discoverRelated(ref: string): Promise<void> {
     document.dispatchEvent(new CustomEvent('rb-diagram-refresh', { bubbles: true })); // → rb-diagram-detail re-renders → buildEdges (UC1) wires the discovered edges
     if (err) err.textContent = `Discovered ${neighbors.length} related element(s).`;
   } catch (e: unknown) { if (err) err.textContent = 'Discover failed: ' + (e instanceof Error ? e.message : String(e)); }
+}
+
+// [impl:uuid:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51] ModelView.removeFromDiagram (Method 167fe16f) — R33.8 (INVERSE of
+// add-view): drop the selected element's VIEW-LINK from the open diagram. Resolve the diagram (the /api/model/tree
+// diagram root, same heuristic as discoverRelated) → POST /api/model/diagram/remove-view {diagramUuid, elementUuid} →
+// on ok dispatch rb-diagram-refresh → the diagram re-renders (buildEdges drops the box + its edges, no dangling). The
+// ModelElement unit is UNTOUCHED (store-only view-removal, re-addable) — INV-RM1 no delete, INV-RM3 reuse-no-fork.
+async function removeFromDiagram(ref: string): Promise<void> {
+  const uuid = (ref.split(':').pop() || '').trim();
+  if (!uuid) return;
+  if (err) err.textContent = '';
+  try {
+    const tr = await (await fetch('/api/model/tree')).json();
+    const diagramUuid = (((tr?.roots || []) as { uuid: string; type: string }[]).find((x) => x.type === 'diagram'))?.uuid || '';
+    if (!diagramUuid) { if (err) err.textContent = 'Open a diagram first, then Remove.'; return; }
+    const r = await fetch('/api/model/diagram/remove-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid: uuid }) });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    document.dispatchEvent(new CustomEvent('rb-diagram-refresh', { bubbles: true })); // → rb-diagram-detail re-renders → buildEdges drops the removed box + its edges
+    if (err) err.textContent = d.removed ? 'Removed from diagram.' : 'Not on the diagram.';
+  } catch (e: unknown) { if (err) err.textContent = 'Remove failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
 // R33.5 item4: click a SOURCE .puml tree node (ref carries 'puml-src:<relpath>') → Import it (R32.7 pumlToModel) →
