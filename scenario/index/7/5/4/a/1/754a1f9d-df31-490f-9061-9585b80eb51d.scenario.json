@@ -6,7 +6,9 @@
   "name": "Zoom-out always grows the SVG diagram canvas (fixes the space problem) with per-diagram persisted zoom where 1 = 100% = whole diagram",
   "description": "Tron item-1 (HIGHEST PRI, acute 'space problem'). Zooming OUT is ALWAYS possible and GROWS the SVG diagram canvas so more elements fit; the zoom level is SAVED on the Diagram unit (persisted per-diagram); zoom level 1 = 100% = frames the WHOLE diagram, and stays anchored so 1 always frames the whole diagram as it grows. Reuse RbPanZoom (already used for R33.6.2 edge-autoscroll), NO fork.",
   "tronQuote": "> TRON (2026-07-31): adding more elements ends up in a space problem; zooming OUT is always possible and increases the size of the SVG diagram; the zoom level is saved on the diagram; 1 = 100% = see the whole diagram.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:5ef5440d-5f90-4d1d-82dd-de8648d71994"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",

@@ -6,7 +6,9 @@
   "name": "Action bar lives inside the drawer (below the handle-bar, above the content), always present, with contents dynamically driven by the current selection",
   "description": "Tron items 5+6 (coupled = ONE requirement). (5) The ACTION BAR moves INTO the drawer, directly BELOW the handle/grab bar and ABOVE the diagram/content, ALWAYS present there (reuse the rb-detail-drawer R31.4 fixed-region pattern - NOT a floating/overlay bar). Its contents are DYNAMIC by selection: diagram-folder -> 'add diagram'; class -> rename / remove-from-diagram / delete / new-class. (6) Selecting ANYTHING always drives the action-bar content to change - the bar reflects the current selection's available actions at ALL times (selection-driven). Items 5 and 6 are the same mechanism (a selection-driven action bar fixed in the drawer). Reuse rb-detail-drawer (R31.4), NO fork.",
   "tronQuote": "> TRON (2026-07-31): move the action bar into the drawer below the handle bar above the content, always there, and make it dynamic by selection (diagram-folder -> add diagram; class -> rename/remove/delete/new-class); selecting anything always changes the action-bar content.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:eb8cf1e7-434a-4291-a42a-fe01cb2d692a"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",

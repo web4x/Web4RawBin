@@ -6,7 +6,9 @@
   "name": "Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary",
   "description": "Tron item-2 (interaction polish). When a diagram element is SELECTED + MOVED, the browser PAGE must NOT scroll. The ONLY autoscroll preserved is the DIAGRAM's own edge-pan, and ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary (edge-pan to reveal off-canvas space). Inside the boundary: no autoscroll at all. Disambiguate page-scroll (suppress) from diagram-edge-autoscroll (keep, bounded). Reuse the existing drag + RbPanZoom mechanics, NO fork.",
   "tronQuote": "> TRON (2026-07-31): when an element is selected and moved, suppress the page scroll; keep the diagram autoscroll ONLY when the dragged item goes slightly outside the diagram boundaries.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:04c64bad-d785-4711-b993-fe41017a8622"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",

@@ -6,7 +6,9 @@
   "name": "Remove-from-diagram action: selected class-on-diagram -> action-bar removes its VIEW (inverse of add-view), model element untouched, edges reroute + refresh",
   "description": "Tron IMG_4794 device ask ('i am lacking a remove from diagram button' + 'action'). A 'Remove from diagram' action in the R33.6.5 selection-driven action bar: when a class/element ON a diagram is selected, the action removes it FROM the diagram - drops its VIEW/view-link (the INVERSE of R33.5 add-view) WITHOUT deleting the underlying model ELEMENT/unit (it stays in MODEL_STORE, re-addable); then the diagram REFRESHES and connectors re-route/drop (R33.6.3 rerouteEdges). Reuse the R33.6.5 action-bar (ACTIONS_BY_TYPE, add a 'remove-from-diagram' verb for class-on-diagram) + a view-removal endpoint mirroring add-view (store-only, prod-safe). NO fork. ★ Connects to an R33.6.5 GAP: R33.6.5's spec (Tron round-2 item 5) was 'class -> rename/remove-from-diagram/delete/new-class' but ONLY 'Add to diagram' shipped for class selection (the R33.6.5 gate green-passed a PARTIAL action set). This req mints ONLY remove-from-diagram (Tron's explicit ask); the rename/delete/new-class remainder is FLAGGED to PO/Tron as a separate follow-up (NOT silently expanded here).",
   "tronQuote": "> TRON (device IMG_4794, 2026-07-31): 'i am lacking a remove from diagram button' + 'action'.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:b628153b-736b-4d3d-8f4b-ff1c83d72b44"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",

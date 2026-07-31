@@ -6,7 +6,9 @@
   "name": "After moving a diagram element, recalculate relationships and re-route the connector lines to the element's new position",
   "description": "Tron item-3 (interaction polish). After a diagram element is moved, the relationships must be RECALCULATED and the connector LINES re-routed/redrawn to the element's NEW position - connectors follow the moved node, no stale lines left at the old position. Reuse the existing edge/connector render (R33.3 diagram render), NO fork. Architect scopes reroute-on-commit (drop) vs live-during-drag.",
   "tronQuote": "> TRON (2026-07-31): after moving an element, recalculate the relationships and re-route the connector lines to its new position.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:dd47dd4b-9ad2-4d14-8009-4a8c70bb38f4"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",

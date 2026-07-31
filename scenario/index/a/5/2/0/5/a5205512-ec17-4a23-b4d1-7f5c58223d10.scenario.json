@@ -6,7 +6,9 @@
   "name": "BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing",
   "description": "Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY diagram STILL adds nothing - the drop-to-add diagram-model write is broken specifically for new/empty diagrams (works once a diagram already has boxes). Likely related to R33.5 item-1 addDiagram / the diagram model-write path (empty-diagram init or the drop handler keying off existing elements). Route architect(diagnose measure-first)->expert(fix)->tester(catch @390). Reuse the existing drop/diagram-write path, NO fork.",
   "tronQuote": "> TRON (2026-07-31): dragging elements into a NEW diagram still doesn't add anything - drop-to-add is broken for new/empty diagrams.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:eec77e5b-ffb9-4c97-ad20-f77a8fa4e08d"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
