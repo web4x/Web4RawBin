@@ -1120,7 +1120,7 @@ function countTsUnder(dir: string): number {
 // 123, not just the ~25 with generated M1 elements). Mirrors pumlChildren's disk walk. file: leaf childCount = its
 // MODEL_STORE M1 element count (0 = a source file not yet modeled; the file: case still resolves its elements, else empty).
 function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
-  const abs = path.join(PROJECT_ROOT, 'src', rel);
+  const abs = path.join(__dirname, '../../..', 'src', rel); // R33.10 fix (architect backstop): PROJECT_ROOT is NOT module-level (only a local in the /md handler) → ReferenceError → {}; mirror pumlChildren's __dirname join
   let entries: fsSync.Dirent[] = [];
   try { entries = fsSync.readdirSync(abs, { withFileTypes: true }); } catch { return []; }
   const dirs: MofNode[] = [], files: MofNode[] = [];
