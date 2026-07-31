@@ -1080,7 +1080,7 @@ function pumlChildren(els: MofEl[]): MofNode[] {
     for (const sp of fsSync.readdirSync(base).sort()) {
       let entries: string[] = [];
       try { entries = fsSync.readdirSync(path.join(base, sp, 'diagrams')); } catch { continue; }
-      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/${f}`, f, 0, 'puml', 'puml'));
+      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/diagrams/${f}`, f, 0, 'puml', 'puml')); // R33.6.3-fix: ref must carry the FULL relpath incl 'diagrams/' (files live at <sprint>/diagrams/<f>) — else /md fetch + import-puml 404
     }
   } catch { /* no sprints dir → just imported artifacts */ }
   for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
