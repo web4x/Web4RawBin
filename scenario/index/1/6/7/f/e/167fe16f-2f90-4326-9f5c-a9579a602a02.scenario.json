@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "167fe16f-2f90-4326-9f5c-a9579a602a02",
+    "name": "ModelView.removeFromDiagram",
+    "description": "NEW client method on ModelView (model.ts): handles the R33.6.5 remove-from-diagram verb; resolves the open diagram, POSTs /api/model/diagram/remove-view {diagramUuid, elementUuid:refUuid(ref)}, and on ok re-renders the diagram so the box + its edges drop and buildEdges recomputes the remaining edges (no dangling). INV-RM1/RM3. markerPending. NAME PROVISIONAL -> re-point on expert decl.",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "implementations": [
+      "ior:instance:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
+}

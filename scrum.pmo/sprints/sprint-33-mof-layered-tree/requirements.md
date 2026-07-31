@@ -164,3 +164,5 @@
   - [ ] **(functional)** Clicking 'Remove from diagram' removes that element's VIEW/view-link from the diagram - the INVERSE of R33.5 add-view (store-only view-removal endpoint mirroring add-view). The underlying model ELEMENT/unit is UNTOUCHED (stays in MODEL_STORE, re-addable via Add-to-diagram); prod scenario/index never touched. NOT a delete of the model element.
   - [ ] **(functional)** After removal the diagram REFRESHES and the removed element's connectors re-route/drop (R33.6.3 rerouteEdges) - no stale edge left anchored to the removed box; other boxes + their edges untouched.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite + Tron device): select a class on the diagram -> 'Remove from diagram' -> the box AND its edges are GONE from the diagram, the model element STILL EXISTS (re-addable), other boxes untouched. planted-defect: the action DELETES the model element (wrong - must only drop the view) OR leaves a stale edge = RED.
+  -> diagram.removeFromDiagram [uc:uuid:44d98bdc-4c07-4741-9a2d-ff42648cd94f]
+  -> diagram.removeView [uc:uuid:8185af11-5c71-45c6-bbd6-40697115b20c]
