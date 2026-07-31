@@ -110,14 +110,34 @@ export class RbTraceTree extends HTMLElement {
     document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
   }
 
-  // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4: a diagram
-  // box-select dispatches rb-tree-reveal{ref}; reveal that element in THIS tree by REUSING revealNode (fetchAncestorPath
-  // → expand ancestry + scrollIntoView, lazy-safe INV-TR2). No new reveal logic (INV-TR1); if the element isn't in this
-  // tree, revealNode no-ops gracefully (INV-TR3 best-effort, no fork).
+  // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4 (RED-fix,
+  // architect 9e56c218d): a diagram box-select dispatches rb-tree-reveal{ref}. The MODEL tree is SYNTHETIC folders
+  // (not unit-parents), so revealNode's ownerIor/FWD_SCAN ancestor-walk returns parent:null for model elements → dead.
+  // Instead build the EXPLICIT structural path from the element's /api/ior model (sourceFile + memberOf) and REUSE
+  // R33.5 expandPath (INV-TR1 — the SAME reuse importPumlSrc uses), then scroll+highlight the leaf via highlightNode.
   private onTreeReveal = (e: Event): void => {
     const ref = (e as CustomEvent<{ ref?: string }>).detail?.ref || '';
-    if (ref) void this.revealNode(refUuid(ref));
+    if (ref) void this.revealModelElement(refUuid(ref));
   };
+
+  // R33.7.4 reveal a MODEL element by its synthetic mof path: mof-m1 → project:RawBin → rawbin:ts → file:<full-path>
+  // → (owning class if a member) → the element. src/ files nest under RawBin/ts; other sourceFiles under project:<sf>
+  // (mirrors mofChildren server.ts:1112-1119). expandPath opens each ancestor (ref*= substring, prefix-agnostic ':<uuid>'
+  // for units), then highlightNode scrolls+flashes the leaf. Off-tree/absent → graceful no-op (INV-TR3, never throws).
+  private async revealModelElement(uuid: string): Promise<void> {
+    if (!uuid) return;
+    try {
+      const m = (await (await fetch(`/api/ior/ior:instance:${uuid}`)).json())?.unit?.model || null;
+      if (!m) return;
+      const sf = String(m.sourceFile || '');
+      const ancestors = sf.startsWith('src/') ? ['mof-m1', 'project:RawBin', 'rawbin:ts', 'file:' + sf] : ['mof-m1', 'project:' + (sf || 'model')];
+      const memberOf = m.memberOf ? (String(m.memberOf).split(':').pop() || '') : ''; // a member nests under its class
+      if (memberOf) ancestors.push(':' + memberOf);
+      await this.expandPath(ancestors);
+      const leaf = this.querySelector(`rb-object-item[ref*=":${uuid}"]`) as HTMLElement | null;
+      if (leaf) this.highlightNode(leaf); // scrollIntoView + flash = the AC's scroll + highlight
+    } catch { /* INV-TR3 best-effort: reveal never throws */ }
+  }
 
   // R32.8 AC3: a model Re-Sync (rb-diagram-detail) refreshed MODEL_STORE → re-render this tree if it's a seed
   // (model) tree so added elements appear + removed disappear. Trace trees are unaffected — the event only fires
