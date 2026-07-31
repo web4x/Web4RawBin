@@ -6,7 +6,8 @@
     "description": "Bridged to test/visual/r371-zoom-gate.mjs (INDEPENDENT tester @390 COMPONENT-harness gate, GREEN DET-3x, served==HEAD==0.8.29, 2499a8011). Marker adopted from origin (measured line 7, not invented). Verifies INV-Z1 zoom-OUT grows canvas (MIN 0.25 + clamp-center at scale<1) + 1=100%=whole-diagram + INV-Z2 persist-restore round-trip: zoom PERSISTS (onZoomEnd -> POST /api/model/diagram/zoom, MODEL_STORE) and a REMOUNT RESTORES the persisted value via setScale (non-vacuous: restores 0.497 != 1, proving its the persisted zoom not default). Pollution-safe (DIAG byte-backed-up+restored). ★ CREDITS the CLIENT setScale (Impl 301b71d4, primary). The persist-restore leg ALSO exercises the SERVER persistDiagramZoom endpoint (Impl 80440bf0) but that endpoint has NO impl-marker placed yet (markerPending) -> once the expert marks the /api/model/diagram/zoom route block this Test should DUAL-CREDIT 80440bf0 (no new test). Chain: R33.7.1 req 754a1f9d -> UC diagram.zoomOutGrows f8be90de -> Class RbPanZoom e5e3c885 -> Method setScale c3fa13b7 -> Impl 301b71d4 -> this Test.",
     "sourceFile": "ior:file:test/visual/r371-zoom-gate.mjs",
     "implementations": [
-      "ior:instance:301b71d4-8c50-4e3f-80fa-6e30ae035f2c"
+      "ior:instance:301b71d4-8c50-4e3f-80fa-6e30ae035f2c",
+      "ior:instance:80440bf0-c512-4fb8-aa95-8fb56547af88"
     ],
     "status": "pass",
     "unitLinks": []
