@@ -4,7 +4,9 @@
     "uuid": "ffdd9347-34db-4923-9cee-b6d00dd8ec9c",
     "name": "ModelView.addDiagramRefresh impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:a5882399-902e-41d3-9897-ef9e5e12c894"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c"

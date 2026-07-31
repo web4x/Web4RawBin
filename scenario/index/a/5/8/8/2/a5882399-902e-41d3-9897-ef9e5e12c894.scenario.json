@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a5882399-902e-41d3-9897-ef9e5e12c894",
+    "name": "test:R33.5 item1 addDiagram LOGIC @390 (ModelView.addDiagram) — create-fires + no-reload + planted-bite",
+    "description": "Bridged to test/visual/r335b-item1-adddiagram-gate.mjs (INDEPENDENT tester @390 LOGIC gate, GREEN DET-3x v0.8.19, 5c801bfea; owner sm_session cookie harness per PO option-a, robust to the OPEN multi-owner guard — never evicts Tron's session). Marker adopted from origin (measured line 10, not invented). ★ SCOPE (PO R30.53 split): credits addDiagram LOGIC ONLY — clicking the +Add Diagram bar fires the create POST + does NOT full-reload (window.__sentinel survives) + planted-defect bite (create->{ok:false} -> addDiagram catches, NO expandPath, no new node). The tree-refresh REVEAL-RENDER AC (new itemview appears under diagrams/ via load()+tree.expandPath) is HONESTLY HELD for Tron @390 device visual — NOT headless-gated (mock-owner can't replicate the real /model serverModelPage tree-seeding; crediting it headless = false-green). Chain: R33.5 req 3c99ce28 -> UC diagram.addDiagramRefresh -> Class ModelView 35759641 -> Method ModelView.addDiagram 85a36ec2 -> Impl ffdd9347 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r335b-item1-adddiagram-gate.mjs",
+    "implementations": [
+      "ior:instance:ffdd9347-34db-4923-9cee-b6d00dd8ec9c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ffdd9347-34db-4923-9cee-b6d00dd8ec9c"
+}
