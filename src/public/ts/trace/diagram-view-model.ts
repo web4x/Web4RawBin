@@ -8,7 +8,10 @@ export interface DiagramRelation { to: string; kind: EdgeKind } // to = target e
 export interface ViewLink { unit: string; x: number; y: number; w?: number; h?: number; viewKind?: string; }
 export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; }
 
-export const stripRef = (r: string): string => String(r || '').replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
+// R33.6.1 fix: ALSO strip the 'diagram:' prefix. A new/empty diagram opened with only ref='diagram:<uuid>' (no
+// `uuid` attr) made addView fall back to stripRef(ref) → 'diagram:<uuid>' unstripped → server 400 bad-uuid → NO box.
+// Stripping it here fixes the whole class (addView / render / drop / tap) by construction, uuid-attr present or not.
+export const stripRef = (r: string): string => String(r || '').replace(/^ior:instance:/, '').replace(/^modelelement:/, '').replace(/^diagram:/, '');
 export const esc = (s: string): string => String(s).replace(/[<>&]/g, (c) => (c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;'));
 
 export const BOX_W = 180, HEAD_H = 26, ROW_H = 18, PAD = 8;
