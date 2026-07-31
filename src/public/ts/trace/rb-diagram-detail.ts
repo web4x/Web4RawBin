@@ -127,10 +127,10 @@ export class RbDiagramDetail extends HTMLElement {
     }));
     this._sourceFile = sourceFile;
     const { svg, count } = buildDiagramSvg(views, (u) => nodes.get(u) || null);
-    // R32.8 AC1: Re-Sync action on the diagram (model units only — shown when there's a source .ts to re-sync).
-    const toolbar = (count && sourceFile) ? `<div class="dm-toolbar"><button class="dm-resync" title="Re-Sync model from source TS">⟳ Re-Sync</button></div>` : '';
-    this.innerHTML = `${STYLE}${toolbar}<div class="dm-surface"><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
-    this.querySelector('.dm-resync')?.addEventListener('click', () => { void this.reSyncFromSource(); });
+    // R33.6.5 BUG-2 (architect bc21ca747): the in-diagram Re-Sync toolbar is RETIRED — Re-Sync now lives ONLY in the
+    // drawer action-bar (ACTIONS_BY_TYPE.diagram 're-sync' → rb-model-resync-request → onResyncRequest → reSyncFromSource),
+    // so removing the old .dm-resync toolbar (+ its click wire) leaves EXACTLY ONE Re-Sync (AC-single-resync-no-duplicate).
+    this.innerHTML = `${STYLE}<div class="dm-surface"><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
 
     const surface = this.querySelector('.dm-surface') as HTMLElement | null;
     const content = this.querySelector('.dm-content') as HTMLElement | null;
@@ -299,7 +299,8 @@ export class RbDiagramDetail extends HTMLElement {
     const b = this._canvasBase;
     if (!svg || !surface || !content || !b) return;
     if (scale < 1) {
-      const w = Math.round(b.w / scale), h = Math.round(b.h / scale);
+      const MAX_CANVAS_PX = 16000; // R33.7.1 BUG-1 (bc21ca747): safety cap — endless zoom-out can't exceed browser canvas limits
+      const w = Math.min(MAX_CANVAS_PX, Math.round(b.w / scale)), h = Math.min(MAX_CANVAS_PX, Math.round(b.h / scale));
       svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
       svg.style.width = `${w}px`; svg.style.height = `${h}px`;
       content.style.width = `${w}px`; content.style.height = `${h}px`; // hold the grown SVG → surface scrollWidth/Height grows

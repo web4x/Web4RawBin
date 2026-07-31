@@ -16,6 +16,7 @@ export class RbPanZoom {
   private tx = 0;
   private ty = 0;
   private readonly MIN = 0.25; // R33.7.1 (INV-Z1): allow zoom-OUT below 1 → grows the working canvas (was 1 = no zoom-out)
+  private readonly GROW_MIN = 0.02; // R33.7.1 BUG-1 (bc21ca747): grow mode has a (near-)no floor → REPEATED zoom-out keeps growing the canvas (endless-in-practice), bounded only by the host's MAX-CANVAS-PX safety cap. (A MIN=0.25 hard floor capped repeated zoom-out — the device regression.)
   onZoomEnd?: (scale: number) => void; // R33.7.1: fired (debounced) after a USER zoom settles → host persists per-diagram
   private zoomEndTimer = 0;
   growMode = false; // R33.7.1 canvas-grow: OPT-IN (diagram only). true → scale<1 GROWS the SVG canvas via onCanvasGrow (native scroll) instead of CSS-shrinking. rb-webitem/rb-preview leave it false = CSS-scale UNCHANGED.
@@ -129,12 +130,21 @@ export class RbPanZoom {
 
   /** AC-b3: zoom about (px,py) in viewport coords, keeping that point stationary. */
   zoomAbout(px: number, py: number, factor: number): void {
-    const ns = Math.max(this.MIN, Math.min(this.MAX, this.scale * factor));
-    const f = ns / this.scale;
+    const floor = this.growMode ? this.GROW_MIN : this.MIN; // R33.7.1 BUG-1: grow mode has (near-)no floor → endless zoom-out
+    const oldScale = this.scale;
+    const ns = Math.max(floor, Math.min(this.MAX, oldScale * factor));
+    const f = ns / oldScale;
     this.tx = px - f * (px - this.tx);
     this.ty = py - f * (py - this.ty);
     this.scale = ns;
-    this.clamp(); this.apply();
+    this.clamp(); this.apply(); // apply() grows the canvas via onCanvasGrow when growMode && scale<1
+    if (this.growMode && ns < 1) {
+      // R33.7.1 BUG-1 (bc21ca747): grow-mode zoom-about via NATIVE SCROLL — the canvas just grew by oldScale/ns, so
+      // scroll the viewport to keep the point under (px,py) stationary (the CSS about-point math is identity in grow mode).
+      const ratio = oldScale / ns;
+      this.viewport.scrollLeft = Math.max(0, (this.viewport.scrollLeft + px) * ratio - px);
+      this.viewport.scrollTop = Math.max(0, (this.viewport.scrollTop + py) * ratio - py);
+    }
     this.scheduleZoomEnd(); // R33.7.1: user zoom → persist after it settles
   }
 
@@ -177,7 +187,7 @@ export class RbPanZoom {
   // level directly (restore a persisted per-diagram model.zoom), reusing the SAME clamp+apply as gestures (INV-Z3 no
   // fork). Clamped to [MIN,MAX]; the extended clamp centers content when <1 (INV-Z1: 1=100%=whole-diagram, <1=grown
   // canvas). Does NOT fire onZoomEnd — this is the restore path, not a user change (no persist-on-restore loop).
-  setScale(s: number): void { this.scale = Math.max(this.MIN, Math.min(this.MAX, s)); this.clamp(); this.apply(); }
+  setScale(s: number): void { const floor = this.growMode ? this.GROW_MIN : this.MIN; this.scale = Math.max(floor, Math.min(this.MAX, s)); this.clamp(); this.apply(); }
   get currentScale(): number { return this.scale; }
 
   // [impl:uuid:7dd375ac-28f1-4768-9063-bdf6fa430ce5] RbPanZoom.panBy (Method 1a2fbff9) — R33.6.2 INV-D2: programmatic
