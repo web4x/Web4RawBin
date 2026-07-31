@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a1a5be99-a715-4a85-a0bf-89964c9c3949",
+    "name": "ModelView.actionsForContext impl",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:0c769fe6-54c9-4201-aa42-fb4fd3fbac4d"
+}

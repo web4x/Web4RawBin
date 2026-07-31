@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "195819d0-b482-43cb-bf21-8218f2683ed5",
+  "name": "element.delete",
+  "description": "R33.9 unit-verb DELETE (design fcc9166e4): POST /api/model/element/delete deletes the model UNIT with a guard (DISTINCT from R33.8 remove-view which only drops the diagram view-link). Store-only, prod-safe. INV-A3. architect 'ModelElementService'.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:30200eb2-6f77-4e4a-b4c2-7294b721b62b",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.9&commit=fcc9166e4",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

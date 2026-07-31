@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "14b7004a-7452-4f88-b3cb-b0c6d2e02730",
+    "name": "server.deleteElement impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:30200eb2-6f77-4e4a-b4c2-7294b721b62b"
+}

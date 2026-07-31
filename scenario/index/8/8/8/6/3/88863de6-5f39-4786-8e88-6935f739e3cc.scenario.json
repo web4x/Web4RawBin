@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "88863de6-5f39-4786-8e88-6935f739e3cc",
+  "name": "diagram.broadcastActiveDiagram",
+  "description": "R33.9 INV-A1/A2 signal half (design fcc9166e4): rb-diagram-detail dispatches rb-active-diagram{uuid} on render/open and {uuid:null} on disconnect - the ACTIVE-diagram signal that KILLS the fragile any/last-diagram implicit target. The host (ModelView.actionsForContext) tracks activeDiagramUuid from it. Client-only.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:a27d5e50-9a47-4fee-8c6a-033d7209cc15",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.9&commit=fcc9166e4",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

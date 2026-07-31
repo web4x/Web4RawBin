@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "42bf4938-c6d6-4c42-99fa-4470d4481fe4",
+    "name": "server.newElement",
+    "description": "NEW server endpoint (server.ts, architect 'ModelElementService.newElement'; canonical class=server c0a0921d per R27.2 where the model endpoints live): POST /api/model/element/new - create a model element, guarded, store-only MODEL_STORE (mirror add/remove-view). markerPending. NAME/CLASS PROVISIONAL - re-point if expert extracts ModelElementService.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

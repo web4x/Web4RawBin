@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8d0df9f6-af38-4a5b-8dcc-4db4c1b308e6",
+    "name": "server.renameElement",
+    "description": "NEW server endpoint (server.ts, architect 'ModelElementService.renameElement'; class=server c0a0921d per R27.2): POST /api/model/element/rename - rename, guarded, store-only. markerPending. NAME/CLASS PROVISIONAL.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:0dca728f-0372-4edc-ac28-51f9f5943bd4"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

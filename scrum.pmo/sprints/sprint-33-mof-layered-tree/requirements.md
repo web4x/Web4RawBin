@@ -182,6 +182,11 @@
   - [ ] **(functional)** IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4).
   - [ ] **(functional)** new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED.
+  -> diagram.broadcastActiveDiagram [uc:uuid:88863de6-5f39-4786-8e88-6935f739e3cc]
+  -> actionBar.actionsForContext [uc:uuid:c1eb0f28-8811-4e43-8fdd-8aebb7f1668e]
+  -> element.new [uc:uuid:46940fd0-c5d8-4ec3-b190-401c0c709328]
+  -> element.rename [uc:uuid:b1956c3a-0c5e-4ff2-a6b3-886e76462fca]
+  -> element.delete [uc:uuid:195819d0-b482-43cb-bf21-8218f2683ed5]
 
 - [ ] **R33.10 — Model tree completeness + folder grouping: ts/ enumerates the full src/ directory tree (all 123 .ts, folder-grouped), not only the ~25 generated files**
   [requirement:uuid:fa29ab28-04fc-43d4-9e55-c42573bdefa8]
@@ -193,3 +198,4 @@
   - [ ] **(functional)** Expanding a file:<relpath> .ts leaf shows its M1 ModelElements from MODEL_STORE if that file was generated, else empty (or generate-on-expand reusing /api/model/generate). A non-generated file still APPEARS in the tree (completeness) even with no elements.
   - [ ] **(functional)** Reuse the mof layer-by-layer + /api/trace/children routing; the puml/ (55) + diagram/ folders are UNREGRESSED; read-only src/ walk + MODEL_STORE reads only, prod scenario/index untouched (INV-T3 no-fork / INV-T4 isolation).
   - [ ] **(gate)** GATE @390 (tester + Tron device): ts/ shows ALL src .ts grouped in directory folders (count == disk 123); expand a folder -> its files/subfolders; expand a file -> its M1 elements (generated) or empty; puml/=55 + diagram/ + /trace UNREGRESSED. SERVER change -> boundary restart + boot-verify. planted: count != 123 or a flat non-folder-grouped list = RED.
+  -> modelTree.sourceDirTree [uc:uuid:a14f8d9f-9f41-4257-bb91-b8c8435ebe1c]

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d",
+    "name": "server.newElement impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:42bf4938-c6d6-4c42-99fa-4470d4481fe4"
+}

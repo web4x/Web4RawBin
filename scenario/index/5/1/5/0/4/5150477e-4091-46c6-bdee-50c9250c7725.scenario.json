@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5150477e-4091-46c6-bdee-50c9250c7725",
+    "name": "RbDiagramDetail.broadcastActiveDiagram impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:a27d5e50-9a47-4fee-8c6a-033d7209cc15"
+}

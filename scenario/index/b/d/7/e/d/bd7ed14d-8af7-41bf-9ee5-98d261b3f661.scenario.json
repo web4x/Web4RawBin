@@ -11,7 +11,13 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:88863de6-5f39-4786-8e88-6935f739e3cc",
+   "ior:instance:c1eb0f28-8811-4e43-8fdd-8aebb7f1668e",
+   "ior:instance:46940fd0-c5d8-4ec3-b190-401c0c709328",
+   "ior:instance:b1956c3a-0c5e-4ff2-a6b3-886e76462fca",
+   "ior:instance:195819d0-b482-43cb-bf21-8218f2683ed5"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "spec-gap",

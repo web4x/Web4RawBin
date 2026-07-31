@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cfb6acef-a67b-49df-b998-f62686db1d5f",
+    "name": "server.sourceDirTree impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c1f006a1-9fa3-4462-b1fe-ad06fc390569"
+}

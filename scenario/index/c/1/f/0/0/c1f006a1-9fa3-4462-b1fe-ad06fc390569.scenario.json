@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c1f006a1-9fa3-4462-b1fe-ad06fc390569",
+    "name": "server.sourceDirTree",
+    "description": "NEW server method (server.ts mofChildren/rawbin:ts owner, architect 'MofTreeService.sourceDirTree'; class=server c0a0921d per R27.2): walk src/ recursively -> dir:<relpath> folders + file:<relpath> .ts leaves for ALL 123; file leaf -> M1 elements or empty. INV-T1-4. markerPending. NAME/CLASS PROVISIONAL.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:cfb6acef-a67b-49df-b998-f62686db1d5f"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}
