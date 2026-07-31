@@ -76,3 +76,40 @@
   -> diagram.boxSelectKeepsDiagram [uc:uuid:0e3971f2-9b52-4729-a94b-def69c710af4]
   -> diagram.dragNoPan [uc:uuid:1f52bcab-7bf7-4ffc-a163-b06229f7d705]
   -> diagram.pumlChildren [uc:uuid:c1a629e4-59a6-4419-a073-60ac25f3d05a]
+
+- [ ] **R33.6.1 — BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing**
+  [requirement:uuid:a5205512-ec17-4a23-b4d1-7f5c58223d10]
+  > TRON (2026-07-31): dragging elements into a NEW diagram still doesn't add anything - drop-to-add is broken for new/empty diagrams.
+  Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY diagram STILL adds nothing - the drop-to-add diagram-model write is broken specifically for new/empty diagrams (works once a diagram already has boxes). Likely related to R33.5 item-1 addDiagram / the diagram model-write path (empty-diagram init or the drop handler keying off existing elements). Route architect(diagnose measure-first)->expert(fix)->tester(catch @390). Reuse the existing drop/diagram-write path, NO fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.
+  - [ ] **(functional)** The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.
+  - [ ] **(gate)** GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.
+
+- [ ] **R33.6.2 — Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary**
+  [requirement:uuid:570b77c7-1679-4827-ba8e-9673fba5994c]
+  > TRON (2026-07-31): when an element is selected and moved, suppress the page scroll; keep the diagram autoscroll ONLY when the dragged item goes slightly outside the diagram boundaries.
+  Tron item-2 (interaction polish). When a diagram element is SELECTED + MOVED, the browser PAGE must NOT scroll. The ONLY autoscroll preserved is the DIAGRAM's own edge-pan, and ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary (edge-pan to reveal off-canvas space). Inside the boundary: no autoscroll at all. Disambiguate page-scroll (suppress) from diagram-edge-autoscroll (keep, bounded). Reuse the existing drag + RbPanZoom mechanics, NO fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page.
+  - [ ] **(functional)** The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page.
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED.
+
+- [ ] **R33.6.3 — After moving a diagram element, recalculate relationships and re-route the connector lines to the element's new position**
+  [requirement:uuid:50e4f6f0-b4c9-4f40-820c-2ee405ae1d35]
+  > TRON (2026-07-31): after moving an element, recalculate the relationships and re-route the connector lines to its new position.
+  Tron item-3 (interaction polish). After a diagram element is moved, the relationships must be RECALCULATED and the connector LINES re-routed/redrawn to the element's NEW position - connectors follow the moved node, no stale lines left at the old position. Reuse the existing edge/connector render (R33.3 diagram render), NO fork. Architect scopes reroute-on-commit (drop) vs live-during-drag.
+  **Acceptance criteria:**
+  - [ ] **(functional)** After a box is moved, every connector line to/from it is recomputed and redrawn so its endpoints attach to the box's NEW position; NO connector line remains anchored at the old position (no stale/orphaned lines).
+  - [ ] **(functional)** Reroute occurs at least on move-commit (drop). Whether connectors also track live during the drag is architect-scoped (AC updated on design); the committed-position reroute is the minimum acceptance.
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): move a CONNECTED box -> its edges redraw to the new position (pixel: no line segment left at the old anchor); planted-defect: lines stay at old position after move = RED.
+
+- [ ] **R33.6.5 — Action bar lives inside the drawer (below the handle-bar, above the content), always present, with contents dynamically driven by the current selection**
+  [requirement:uuid:3c6eee8d-85ff-41d5-8c62-c2656171efe2]
+  > TRON (2026-07-31): move the action bar into the drawer below the handle bar above the content, always there, and make it dynamic by selection (diagram-folder -> add diagram; class -> rename/remove/delete/new-class); selecting anything always changes the action-bar content.
+  Tron items 5+6 (coupled = ONE requirement). (5) The ACTION BAR moves INTO the drawer, directly BELOW the handle/grab bar and ABOVE the diagram/content, ALWAYS present there (reuse the rb-detail-drawer R31.4 fixed-region pattern - NOT a floating/overlay bar). Its contents are DYNAMIC by selection: diagram-folder -> 'add diagram'; class -> rename / remove-from-diagram / delete / new-class. (6) Selecting ANYTHING always drives the action-bar content to change - the bar reflects the current selection's available actions at ALL times (selection-driven). Items 5 and 6 are the same mechanism (a selection-driven action bar fixed in the drawer). Reuse rb-detail-drawer (R31.4), NO fork.
+  **Acceptance criteria:**
+  - [ ] **(functional)** The action bar is a FIXED region INSIDE the rb-detail-drawer (reuse R31.4), rendered directly BELOW the handle/grab bar and ABOVE the diagram/content area, and is ALWAYS present there (not a floating bar, not an overlay). @390 it sits between the grab-bar and the content in the drawer layout.
+  - [ ] **(functional)** The action bar's contents are driven by the CURRENT selection and update whenever the selection changes (item-6): diagram-folder selected -> 'add diagram'; a class selected -> rename / remove-from-diagram / delete / new-class. Selecting ANYTHING re-renders the bar to that selection's available actions.
+  - [ ] **(functional)** With nothing selected (or a neutral/root selection) the action bar shows a sensible default/empty state (exact default architect-scoped on design) - the bar is still present, just without selection-specific actions.
+  - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED.
