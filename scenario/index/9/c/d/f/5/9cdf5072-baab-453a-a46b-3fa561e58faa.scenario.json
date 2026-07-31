@@ -4,7 +4,9 @@
     "uuid": "9cdf5072-baab-453a-a46b-3fa561e58faa",
     "name": "RbTraceTree.onTreeReveal impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:dac73307-6738-43b7-88aa-742f4069779f"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:152435d1-56c7-4473-bea8-decf9619c877"
