@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "786b1863-bb80-497d-9c94-b0c32b2e8988",
+    "name": "test:R33.8 server persistRemoveView @390 - remove-view drops view-link (INV-RM1 element stays)",
+    "description": "Bridged to test/visual/r338-remove-gate.mjs (tester GREEN DET-3x @390, 8c19ca178). Marker adopted from HEAD (measured, not invented). server persistRemoveView: POST remove-view drops the view-link so the box is gone; INV-RM1 the model element STAYS (via /api/ior); planted-bite. FULLY gated. Chain: R33.8 req 86219c51 -> UC diagram.removeView 8185af11 -> server c0a0921d -> Method persistRemoveView 162f7c2d -> Impl 2c64aa7b -> this Test.",
+    "sourceFile": "ior:file:test/visual/r338-remove-gate.mjs",
+    "implementations": [
+      "ior:instance:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2"
+}
