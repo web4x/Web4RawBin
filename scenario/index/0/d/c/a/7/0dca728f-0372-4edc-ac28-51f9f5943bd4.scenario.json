@@ -5,7 +5,7 @@
     "name": "server.renameElement impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:8d0df9f6-af38-4a5b-8dcc-4db4c1b308e6"
 }

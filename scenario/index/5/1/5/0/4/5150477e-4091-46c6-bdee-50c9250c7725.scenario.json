@@ -5,7 +5,7 @@
     "name": "RbDiagramDetail.broadcastActiveDiagram impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:a27d5e50-9a47-4fee-8c6a-033d7209cc15"
 }

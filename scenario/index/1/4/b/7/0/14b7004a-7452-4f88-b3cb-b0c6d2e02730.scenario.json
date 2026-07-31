@@ -5,7 +5,7 @@
     "name": "server.deleteElement impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:30200eb2-6f77-4e4a-b4c2-7294b721b62b"
 }
