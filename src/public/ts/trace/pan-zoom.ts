@@ -18,6 +18,7 @@ export class RbPanZoom {
   private readonly MIN = 1;
   private readonly MAX = 8;
   private dragging = false;
+  private enabled = true; // R33.5 item3: PAN gated by selection — disabled while a diagram box is selected
   private lastX = 0;
   private lastY = 0;
   private pinchDist = 0;
@@ -49,7 +50,7 @@ export class RbPanZoom {
     // v0.6.99: suppress the browser's native image/link drag so a mouse pan doesn't spawn a drag-ghost overlay.
     this.on('dragstart', (e) => e.preventDefault());
     this.on('mousedown', (e) => {
-      if (this.scale <= 1) return; // AC-c2: pan only when zoomed
+      if (!this.enabled || this.scale <= 1) return; // AC-c2 + R33.5 item3: pan only when zoomed AND nothing selected
       this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;
       this.viewport.style.cursor = 'grabbing';
       this.gesturing(); // AC-e5: disable iframe pointer capture on DESKTOP drag too (not just touch)
@@ -94,7 +95,7 @@ export class RbPanZoom {
         this.tx += (mid.x - this.pinchMidX); this.ty += (mid.y - this.pinchMidY);
         this.pinchDist = d; this.pinchMidX = mid.x; this.pinchMidY = mid.y;
         this.clamp(); this.apply();
-      } else if (e.touches.length === 1 && this.scale > 1) {
+      } else if (e.touches.length === 1 && this.scale > 1 && this.enabled) {
         e.preventDefault(); // AC-d1: only hijack scroll when zoomed
         const t = e.touches[0];
         this.tx += t.clientX - this.lastX; this.ty += t.clientY - this.lastY;
@@ -149,6 +150,12 @@ export class RbPanZoom {
 
   /** AC-e6 / reset to identity. */
   reset(): void { this.scale = 1; this.tx = 0; this.ty = 0; this.apply(); }
+
+  // [impl:uuid:44f3ddd3-c580-4fe7-8e3c-489cf05c4e42] RbPanZoom.setEnabled (Method 4dab0081) — R33.5 item3: enable/
+  // disable PAN (not zoom). The diagram disables pan while a box is SELECTED so a selected-box drag MOVES the box
+  // (no canvas pan); re-enabled when the selection clears. Also cancels any in-progress drag.
+  setEnabled(on: boolean): void { this.enabled = on; if (!on) this.dragging = false; }
+  get isEnabled(): boolean { return this.enabled; }
 
   private gesturing(): void { // AC-e5: disable iframe pointer capture mid-gesture
     this.content.querySelectorAll('iframe').forEach(f => (f as HTMLElement).style.pointerEvents = 'none');

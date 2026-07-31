@@ -25,6 +25,7 @@ const STYLE = `<style>
   rb-diagram-detail .dm-box{cursor:pointer}
   rb-diagram-detail .dm-box-bg{fill:#161b22;stroke:#30363d;stroke-width:1}
   rb-diagram-detail .dm-box:hover .dm-box-bg,rb-diagram-detail .dm-box:focus .dm-box-bg{stroke:#58a6ff}
+  rb-diagram-detail .dm-box-selected .dm-box-bg{stroke:#58a6ff;stroke-width:2.5} /* R33.5 item2: local box selection highlight */
   rb-diagram-detail .dm-name{fill:#e6edf3;font:600 12px system-ui}
   rb-diagram-detail .dm-row{fill:#c9d1d9;font:11px ui-monospace,monospace}
   rb-diagram-detail .dm-sep{stroke:#30363d;stroke-width:1}
@@ -46,7 +47,7 @@ export class RbDiagramDetail extends HTMLElement {
   private pz: RbPanZoom | null = null;
   private ro: ResizeObserver | null = null;
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
-  private _suppressClick = false; // R33.3: set on a box-drag end so the trailing click doesn't also select
+  private _selectedBox: string | null = null; // R33.5 item2: the locally-selected box ref — diagram STAYS open (no replaceWith)
 
   connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); void this.render(); }
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
@@ -135,12 +136,9 @@ export class RbDiagramDetail extends HTMLElement {
       surface.addEventListener('dragover', (e) => { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'; });
       surface.addEventListener('drop', (e) => { void this.onDropAddView(e, content); });
     }
-    // AC-6: box-click → SHARED drawer node detail via standard selection (no fork).
+    // R33.5 item2: box selection is handled by wireBoxDrag's pointer path (LOCAL highlight + tree-reveal — the
+    // diagram STAYS, NO selectionModel.replaceWith; class-detail opens only on a TREE click). Edge-click still reveals.
     this.addEventListener('click', (e) => {
-      if (this._suppressClick) { this._suppressClick = false; e.stopPropagation(); return; } // R33.3: a box-DRAG just ended → don't also select
-      const box = (e.target as HTMLElement).closest('.dm-box')?.getAttribute('data-ref');
-      if (box) { e.stopPropagation(); selectionModel.replaceWith(box); return; }
-      // R32.6 edge-click → SHARED relationship detail (the target element ref; standard selection flow, no fork).
       const edge = (e.target as HTMLElement).closest('.dm-edge')?.getAttribute('data-rel-to');
       if (edge) { e.stopPropagation(); selectionModel.replaceWith(edge); }
     });
@@ -184,22 +182,20 @@ export class RbDiagramDetail extends HTMLElement {
 
   // [impl:uuid:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be] RbDiagramDetail.wireBoxDrag (Method 383d2467, off UC f783de5b
   // diagram.moveView, req 700957e1) — R33.3 AC2 / INV-S33V-2: make each .dm-box MOVABLE.
-  // A pointer/touch press on a box starts a drag (NOT a canvas-pan): capture-phase mousedown/touchstart guards
-  // stopPropagation so RbPanZoom (bubble-phase on the same surface, pans only at scale>1) never sees the gesture;
-  // the box's transform updates live; on release the new x,y persists via POST /api/model/diagram/move-view
-  // (MODEL_STORE) → survives reload. Coords are converted to content space by the current CSS scale (pz-aware).
+  // R33.5 items 2+3: a pointer press on a .dm-box SELECTS it (local highlight + tree-reveal — diagram STAYS, no
+  // selectionModel.replaceWith) AND disables RbPanZoom pan (boxSelect → pz.setEnabled(false)) so the drag MOVES the
+  // box, never pans; a press on empty canvas DESELECTS + re-enables pan. A real move persists x,y via move-view →
+  // survives reload; a no-move press is a tap-select. Coords convert to content space by the current CSS scale.
   private wireBoxDrag(surface: HTMLElement, content: HTMLElement): void {
-    const guard = (e: Event): void => { if ((e.target as HTMLElement).closest?.('.dm-box')) e.stopPropagation(); };
-    surface.addEventListener('mousedown', guard, true);   // capture → beats RbPanZoom's bubble pan (scale>1)
-    surface.addEventListener('touchstart', guard, true);
     const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
     const scaleNow = (): number => (content.offsetWidth ? content.getBoundingClientRect().width / content.offsetWidth : 1);
     let drag: { el: SVGGElement; uuid: string; sx: number; sy: number; ox: number; oy: number; moved: boolean } | null = null;
     surface.addEventListener('pointerdown', (e: PointerEvent) => {
       const el = (e.target as HTMLElement).closest('.dm-box') as SVGGElement | null;
-      if (!el) return; // empty canvas → RbPanZoom handles pan
+      if (!el) { this.boxSelect(null); return; } // empty canvas → deselect + pan re-enabled (RbPanZoom handles the drag)
       const uuid = stripRef(el.getAttribute('data-ref') || '');
       if (!uuid) return;
+      this.boxSelect(el); // item2 local-select (diagram stays) + item3 pan OFF → drag moves, never pans
       const m = TR.exec(el.getAttribute('transform') || '');
       drag = { el, uuid, sx: e.clientX, sy: e.clientY, ox: m ? parseFloat(m[1]) : 0, oy: m ? parseFloat(m[2]) : 0, moved: false };
       try { el.setPointerCapture(e.pointerId); } catch { /* */ }
@@ -216,13 +212,22 @@ export class RbDiagramDetail extends HTMLElement {
     const end = (): void => {
       if (!drag) return;
       const d = drag; drag = null;
-      if (!d.moved) return; // a tap (no move) → let click-select run
-      this._suppressClick = true;
+      if (!d.moved) return; // a tap (no move) → box stays SELECTED, no persist
       const m = TR.exec(d.el.getAttribute('transform') || '');
       void this.persistMove(d.uuid, m ? Math.round(parseFloat(m[1])) : d.ox, m ? Math.round(parseFloat(m[2])) : d.oy);
     };
     surface.addEventListener('pointerup', end);
     surface.addEventListener('pointercancel', end);
+  }
+
+  // [impl:uuid:bde57b1a-3cc5-4c79-8656-18d29a01c979] RbDiagramDetail.boxSelect (Method 65423a29) — R33.5 item2:
+  // LOCAL box selection — highlight (.dm-box-selected), reveal in the tree (best-effort 'rb-tree-reveal' event; the
+  // diagram is NOT replaced — replaceWith REMOVED), and disable pan while selected (item3). null → clear + re-enable pan.
+  private boxSelect(el: SVGGElement | null): void {
+    this.querySelectorAll('.dm-box-selected').forEach((b) => b.classList.remove('dm-box-selected'));
+    this._selectedBox = el?.getAttribute('data-ref') || null;
+    if (el) { el.classList.add('dm-box-selected'); if (this._selectedBox) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: this._selectedBox }, bubbles: true })); }
+    this.pz?.setEnabled(!el); // item3: pan ONLY when nothing selected
   }
 
   private async persistMove(elementUuid: string, x: number, y: number): Promise<void> {

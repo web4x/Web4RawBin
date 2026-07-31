@@ -1069,6 +1069,23 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
 // the member path resolves it). Scheme: mof-m2 | mof-m2:<mc> | mof-m1 | project:RawBin | project:<sf> | file:<sf>.
 // [impl:uuid:b6c88d83-a838-46ad-ba9a-874e803ca479] mofChildren (Method 7c460f8a, Class c0a0921d, off UC 8bdeda90
 // model.mofChildren) — R33.2/S33-P2b bounded/lazy layer resolver. DISTINCT from mofLayerRoots 5afeafe9 (R33.1) — no re-credit.
+// [impl:uuid:9eb2c39c-5961-4b3d-bf35-072223c46d23] server.pumlChildren (Method e78b5eaf) — R33.5 item4 (Tron opt-a):
+// enumerate the EXISTING SOURCE .puml (scrum.pmo/sprints/*/diagrams/*.puml) as itemviews (mirror ts/). Each node's
+// uuid 'puml-src:<sprint>/<file>' carries the relpath → a click → Import (R32.7 pumlToModel) → interactive diagram.
+// Also surfaces any already-imported PumlArtifact units. Read-only enumeration; import happens via /import-puml.
+function pumlChildren(els: MofEl[]): MofNode[] {
+  const out: MofNode[] = [];
+  try {
+    const base = path.join(__dirname, '../../..', 'scrum.pmo', 'sprints');
+    for (const sp of fsSync.readdirSync(base).sort()) {
+      let entries: string[] = [];
+      try { entries = fsSync.readdirSync(path.join(base, sp, 'diagrams')); } catch { continue; }
+      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/${f}`, f, 0, 'puml', 'puml'));
+    }
+  } catch { /* no sprints dir → just imported artifacts */ }
+  for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
+  return out.sort((a, b) => a.name.localeCompare(b.name));
+}
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (!/^(mof-m1|mof-m2|project:|file:|rawbin:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
@@ -1099,7 +1116,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); byFile.set(sf, (byFile.get(sf) || 0) + 1); }
     return [...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf.split('/').pop() || sf, n, 'mof-project')); // R33.3 AC3 DRY: filename-only label; uuid keeps full path → resolve-to-file-for-EDIT
   }
-  if (uuid === 'rawbin:puml') return els.filter((x) => x.ior === 'ior:class:PumlArtifact').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact')).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid === 'rawbin:puml') return pumlChildren(els); // R33.5 item4: 55 source .puml + imported artifacts
   if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
@@ -1717,8 +1734,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           ensureStoreSeeded();
-          const { text, name } = JSON.parse(body || '{}');
-          const puml = String(text || '');
+          const body0 = JSON.parse(body || '{}');
+          let puml = String(body0.text || '');
+          let name = body0.name;
+          if (!puml && body0.srcPath) { // R33.5 item4: import an EXISTING source .puml by relpath (the puml/ tree node's click → Import)
+            const rel = String(body0.srcPath).replace(/^\/+/, '');
+            const sprintsDir = path.join(__dirname, '../../..', 'scrum.pmo', 'sprints');
+            const abs = path.join(sprintsDir, rel);
+            if (/\.\./.test(rel) || !/^[\w./-]+\.puml$/.test(rel) || !abs.startsWith(sprintsDir + path.sep)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-srcPath"}'); return; }
+            try { puml = fsSync.readFileSync(abs, 'utf-8'); name = name || (rel.split('/').pop() || rel); } catch { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-puml-file"}'); return; }
+          }
           if (!puml.trim()) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"empty-puml"}'); return; }
           const { elements, relations } = pumlToModel(puml); // INV-F-1: the R32.7 parser (class/interface + <|--/-->/..>), NO new parser
           if (elements.length === 0) { // sequence/activity/unknown → NOT a class model → clean 'not importable' (triage/out-of-scope, no crash)

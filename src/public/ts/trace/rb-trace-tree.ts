@@ -63,6 +63,14 @@ export class RbTraceTree extends HTMLElement {
   }
   get items() { return this._items; }
 
+  // R33.5 item1 (reused helper, call-site — no marker): reveal a lazy path. Add the ancestor refs to `expanded`
+  // (buildSeedNode auto-opens + lazy-loads them on render), persist, re-render → a freshly-created node SHOWS.
+  expandPath(refs: string[]): void {
+    for (const r of refs) this.expanded.add(r);
+    try { localStorage.setItem(this.lsKey, JSON.stringify([...this.expanded])); } catch { /* ignore */ }
+    if (this.isConnected) this.renderItems();
+  }
+
   private upgradeProperty(prop: string): void {
     if (this.hasOwnProperty(prop)) {
       const val = (this as any)[prop];

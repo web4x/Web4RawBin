@@ -70,6 +70,9 @@ function mountActionBar(): void {
   });
 }
 
+// [impl:uuid:ffdd9347-34db-4923-9cee-b6d00dd8ec9c] ModelView.addDiagram (Method 85a36ec2, re-point per req note:
+// built as the module fn `addDiagram`, NOT a new addDiagramRefresh) — R33.5 item1: on /create ok, refresh the tree
+// AND reveal the diagrams/ path so the NEW empty diagram SHOWS (was: full reload collapsed it out of view).
 async function addDiagram(): Promise<void> {
   const name = (prompt('New diagram name:', 'Model diagram') || '').trim();
   if (!name) return;
@@ -78,7 +81,9 @@ async function addDiagram(): Promise<void> {
     const r = await fetch('/api/model/diagram/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name }) });
     const d = await r.json();
     if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
-    await load(); // the new empty Diagram appears under diagrams/ — a reachable droppable canvas (AC-reachable)
+    await load();
+    // item1: reveal the path so the new empty Diagram is VISIBLE under diagrams/ (reachable droppable canvas), not buried collapsed.
+    (tree as (HTMLElement & { expandPath?: (r: string[]) => void }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
   } catch (e: unknown) { if (err) err.textContent = 'Add Diagram failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
@@ -92,6 +97,27 @@ async function importPuml(): Promise<void> {
     if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
     if (err) err.textContent = `Imported ${d.elements} classes, ${d.relations} relations → diagram.`;
     await load();
+  } catch (e: unknown) { if (err) err.textContent = 'Import PUML failed: ' + (e instanceof Error ? e.message : String(e)); }
+}
+
+// R33.5 item4: click a SOURCE .puml tree node (ref carries 'puml-src:<relpath>') → Import it (R32.7 pumlToModel) →
+// reveal the resulting interactive diagram under diagrams/. (Reuses the /import-puml endpoint's new srcPath mode.)
+document.addEventListener('selection-changed', (e) => {
+  const sel = (e as CustomEvent<{ selected?: string[] }>).detail?.selected || [];
+  if (sel.length !== 1) return;
+  const i = sel[0].indexOf('puml-src:');
+  if (i >= 0) void importPumlSrc(sel[0].slice(i + 'puml-src:'.length));
+});
+
+async function importPumlSrc(srcPath: string): Promise<void> {
+  if (err) err.textContent = `Importing ${srcPath}…`;
+  try {
+    const r = await fetch('/api/model/import-puml', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ srcPath }) });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || d.reason || ('HTTP ' + r.status));
+    if (err) err.textContent = `Imported ${srcPath.split('/').pop()} → ${d.elements} classes → diagram.`;
+    await load();
+    (tree as (HTMLElement & { expandPath?: (r: string[]) => void }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
   } catch (e: unknown) { if (err) err.textContent = 'Import PUML failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
