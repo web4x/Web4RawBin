@@ -12,13 +12,13 @@
   - [x] refinement
   - [x] creating test cases
   - [x] implementing
-  - [~] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Built v0.8.35 (04e7048d7, context-aware verbs new/rename/delete + membership add/remove diagram-context). Architect BACKSTOP PASS (9f37dba31 R33.9=PASS). @390 tester gate PENDING -> In-Progress.
+DONE: chain-complete-to-Test (d36cebbc9 @390 GREEN DET-3x + 4 markers, credit holds d8ab8016e) + REAL-WEBKIT @390 self-gated GREEN (3487ada2f, Safari 605.1.15 = Tron iPhone engine, drawer-UI visible). Team-gated at Tron real engine -> Done (Tron spot-checks by choice, not required).
 
 ## Traceability
 
