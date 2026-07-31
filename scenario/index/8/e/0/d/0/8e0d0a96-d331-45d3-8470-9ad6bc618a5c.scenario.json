@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8e0d0a96-d331-45d3-8470-9ad6bc618a5c",
+  "name": "diagram.addToEmptyDiagram",
+  "description": "R33.6.1 (Tron item-1 bug, HIGHEST PRI): adding an element to a NEW/EMPTY diagram must add + persist the box - drop-to-add was broken specifically for empty diagrams. FIX (correct-by-construction 1-liner, a7ae1872d v0.8.21): RbDiagramDetail stripRef now strips the 'diagram:' prefix so a NEW/empty diagram's ref resolves and addView writes the view. RIDES the existing R32.11 add path (reuse Class RbDiagramDetail 039ec367 + Method addView 70be1605 + Impl 4e74dfee) - NO new decl (bug fix in existing addView), NO fabricated Impl. Tap trigger = onSelectionChanged (UC diagram.tapToAdd 87d3d693). Distinct-intent from R32.11 diagram.addView (general add) - this is the EMPTY-diagram case.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:70be1605-6b8c-4358-af16-6702549aee97",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

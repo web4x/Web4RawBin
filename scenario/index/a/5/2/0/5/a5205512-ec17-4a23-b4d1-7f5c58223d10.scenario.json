@@ -11,7 +11,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:8e0d0a96-d331-45d3-8470-9ad6bc618a5c"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",

@@ -7,7 +7,8 @@
     "markerPending": false,
     "markerNote": "Strict-AST credit HOLDS: [impl:uuid:20f8a19e] heads the named onSelectionChanged decl @ src/public/ts/trace/rb-diagram-detail.ts:62 (marker line 57 precedes private onSelectionChanged =, name-matches; Method fcd2464e, Class RbDiagramDetail 039ec367, UC 87d3d693 diagram.tapToAdd). DISTINCT from addView 70be1605 (drag) = no re-credit. Source-only comment, bundle-invariant, no deploy (v0.8.15 stands). IMPL-MINT #126: req minted the Impl, expert placed the marker. R32.11-MOBILE chain-complete-to-Test + strict-credited.",
     "tests": [
-      "ior:instance:6cb4c205-144a-47d4-a0b5-12fe07aed834"
+      "ior:instance:6cb4c205-144a-47d4-a0b5-12fe07aed834",
+      "ior:instance:0aaae49a-4392-42b1-8bff-d53e4300d1e9"
     ]
   },
   "ownerIor": "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041"

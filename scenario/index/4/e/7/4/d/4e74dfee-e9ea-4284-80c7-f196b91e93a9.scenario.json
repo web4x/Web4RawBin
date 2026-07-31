@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
     "markerPending": false,
     "tests": [
-      "ior:instance:61e2696a-2be3-48d4-b923-eedf1c112601"
+      "ior:instance:61e2696a-2be3-48d4-b923-eedf1c112601",
+      "ior:instance:0aaae49a-4392-42b1-8bff-d53e4300d1e9"
     ],
     "markerNote": "Strict-AST credit HOLDS at e4a572068: [impl:uuid:4e74dfee] heads the named addView() decl @ src/public/ts/trace/rb-diagram-detail.ts:147 (marker line 146 precedes private async addView(, name-matches; Method 70be1605 RbDiagramDetail.addView, Class 039ec367, UC cdd29583). onDropAddView (:131) + inline server add-view route + select-complement = supporting enablers. addView DISTINCT from reSyncFromSource 3fd80641 (R32.8) = no re-credit. IMPL-MINT #126 complete. Unit two-key verified by tester (138/418)."
   },

@@ -85,6 +85,7 @@
   - [ ] **(functional)** Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.
   - [ ] **(functional)** The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.
   - [ ] **(gate)** GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.
+  -> diagram.addToEmptyDiagram [uc:uuid:8e0d0a96-d331-45d3-8470-9ad6bc618a5c]
 
 - [ ] **R33.6.2 — Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary**
   [requirement:uuid:570b77c7-1679-4827-ba8e-9673fba5994c]
