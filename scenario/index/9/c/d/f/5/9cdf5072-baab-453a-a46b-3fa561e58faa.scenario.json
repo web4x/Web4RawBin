@@ -5,7 +5,7 @@
     "name": "RbTraceTree.onTreeReveal impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:152435d1-56c7-4473-bea8-decf9619c877"
 }
