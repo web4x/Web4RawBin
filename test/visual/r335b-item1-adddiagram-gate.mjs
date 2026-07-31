@@ -7,6 +7,12 @@
 // DATA APIs (/api/model/tree + /api/trace/children/*) are PUBLIC (measured) → passthrough to the live server; only the
 // owner-gated create POST + the rawbin:diagram children are intercepted (pollution-safe: ZERO real diagram written).
 // PLANTED-DEFECT: create→{ok:false} → addDiagram catches, NO expandPath, the new itemview does NOT render (bite).
+// [test:uuid:a5882399-902e-41d3-9897-ef9e5e12c894] R33.5 item1 ModelView.addDiagram (Impl ffdd9347) LOGIC @390 DET-3x:
+// clicking the ＋Add Diagram bar fires the create POST + does NOT full-reload (sentinel survives) + planted-defect bite
+// (create-fail → no new node, error handled). ★ SCOPE (PO R30.53 pattern): this marker credits the addDiagram LOGIC
+// ONLY. The TREE-REFRESH REVEAL AC (new itemview shows under diagrams/) is architect-confirmed-live (items1-3 client-live
+// v0.8.19) and rides TRON'S @390 device visual on the REAL feature-gated /model — it is NOT headless-gated here (mock-owner
+// can't replicate the real serverModelPage tree-seeding; crediting it headless would be a FALSE-GREEN). reveal = HELD-Tron.
 import { chromium, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
@@ -74,13 +80,17 @@ try {
   planted.push(await runOnce(browser, 1, { failCreate: true }));   // planted-defect control (bite)
 } finally { await browser.close(); }
 
-console.log('\n===== R33.5 item1 addDiagram @390 iPhone-12 (DET-3x + planted-defect) =====');
+console.log('\n===== R33.5 item1 addDiagram @390 iPhone-12 (LOGIC DET-3x + planted-defect; reveal HELD-Tron) =====');
 ok.forEach((R, i) => console.log(`ok iter ${i + 1}: ${JSON.stringify(R)}`));
 console.log(`planted: ${JSON.stringify(planted[0])}`);
-const happy = ok.length === 3 && ok.every(R => R.hasBtn && R.created && R.newBefore === false && R.newNode === true && R.sentinel === true);
-const bite = planted[0] && planted[0].newNode === false;   // create fails → new itemview NEVER renders
-const green = happy && bite;
-console.log(`\nADD-DIAGRAM creates itemview (no reload): ${happy ? 'GREEN DET-3x' : 'RED'}`);
-console.log(`PLANTED-DEFECT bite (create-fail → no new node): ${bite ? 'GREEN' : 'RED'}`);
-console.log('OVERALL item1:', green ? 'GREEN DET-3x' : 'RED');
-process.exitCode = green ? 0 : 1;
+// LOGIC gate (headless-gateable, PO R30.53 pattern): create fires + NO full reload + planted-defect bite.
+const logic = ok.length === 3 && ok.every(R => R.hasBtn && R.created && R.sentinel === true);
+const bite = planted[0] && planted[0].created === false && planted[0].newNode === false; // create-fail → handled, no new node
+const logicGreen = logic && bite;
+// REVEAL-RENDER AC = HELD for Tron's @390 device (real /model). Reported honestly, NOT part of the headless verdict.
+const revealHeadless = ok.every(R => R.newNode === true);
+console.log(`\nADD-DIAGRAM LOGIC (create fires + NO full reload): ${logic ? 'GREEN DET-3x' : 'RED'}`);
+console.log(`PLANTED-DEFECT bite (create-fail → handled, no new node): ${bite ? 'GREEN' : 'RED'}`);
+console.log(`REVEAL-RENDER (new itemview under diagrams/): HELD-TRON-DEVICE — headless=${revealHeadless} (NOT gated: architect items1-3 client-live v0.8.19; mock-owner can't replicate real /model tree-seeding — crediting it = false-green).`);
+console.log('OVERALL item1 LOGIC:', logicGreen ? 'GREEN DET-3x' : 'RED');
+process.exitCode = logicGreen ? 0 : 1;
