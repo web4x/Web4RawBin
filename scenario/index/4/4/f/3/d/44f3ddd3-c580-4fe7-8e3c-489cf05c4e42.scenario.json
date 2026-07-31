@@ -5,7 +5,7 @@
     "name": "RbPanZoom.setEnabled impl",
     "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:4dab0081-7819-4faa-9d94-7040b2ed7618"
 }

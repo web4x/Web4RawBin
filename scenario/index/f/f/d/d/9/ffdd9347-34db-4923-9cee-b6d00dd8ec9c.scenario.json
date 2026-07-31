@@ -5,7 +5,7 @@
     "name": "ModelView.addDiagramRefresh impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "tests": [],
-    "markerPending": true
+    "markerPending": false
   },
   "ownerIor": "ior:instance:85a36ec2-ba27-4774-85b0-302ef27d902c"
 }
