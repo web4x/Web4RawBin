@@ -328,3 +328,22 @@ MEASURE-FIRST: the render MECHANISM already exists — `rb-preview.renderPuml(co
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) open a model element (class/interface) that HAS an existing-source .puml → the detail itemview shows the rendered .puml SVG (zoomable, like /md) [P1.1/P1.2]; (b) an element WITHOUT a source .puml → no PUML section, no error [P1.1]; (c) the SVG matches the /md preview of the same .puml (same renderer) [P1.2]; (d) /trace + /md preview + rb-modelelement-detail members/relatesTo UNREGRESSED.
 - **Chain:** unit 5333d468 (folds R33.1.1) — UC/Method on the itemview puml-render (mirror rb-modelelement-detail.render c2da9192); req mints #126; I mint/repoint Impl on ship. Client-only → REAL restart at the R33.6 boundary (hold-b). NOTE for expert: confirm the exact R33.5 item-4 source-.puml route (9eb2c39c) for the fetch in (B).
+
+## R33.7.1 — ZOOM-OUT grows the canvas + PER-DIAGRAM PERSISTED zoom (architect 2026-07-31, unit 754a1f9d)
+MEASURE-FIRST: RbPanZoom `scale` is clamped **[MIN=1, MAX=8]** (pan-zoom.ts:18-19) → you can ONLY zoom IN, never OUT; `zoomAbout` clamps to that range (:128); `clamp()` (:136) assumes content ≥ viewport (scale≥1). buildDiagramSvg emits `<svg viewBox="0 0 maxX maxY" preserveAspectRatio="xMidYMid meet">` (diagram-view-model.ts:105) → at scale 1 the WHOLE diagram fits (=100%). ACUTE SPACE PROBLEM (crossRef R33.6.2): no zoom-out to reveal working canvas, and zoom isn't remembered per diagram. REUSE RbPanZoom — no fork.
+
+### Fix (extend RbPanZoom + persist zoom on the Diagram unit)
+| # | File | Line | Current | Fix |
+|---|------|------|---------|-----|
+| A | `pan-zoom.ts` | 18 (`MIN=1`) + 136 (`clamp`) | scale floor = 1 (no zoom-out); clamp assumes content ≥ viewport | lower `MIN` to e.g. **0.25** (zoom-OUT enabled; wheel/pinch already call zoomAbout). Extend `clamp()`: when `scale < 1` (content < viewport) CENTER the content (tx/ty = (vw−vw·s)/2) instead of the ≥1 edge-clamp → zoom-out reveals empty canvas AROUND the diagram = working room. INV-Z1: `1 = 100% = whole-diagram`, `<1` = grown working canvas, `>1` = magnify. |
+| B | `diagram-view-model.ts` | 105 (`vb`) | `viewBox = 0 0 maxX maxY` (tight bounds) | pad the canvas: `vb = 0 0 (maxX+CANVAS_PAD) (maxY+CANVAS_PAD)` (or a min-canvas) so the zoom-out-revealed margin is REAL placeable space (drag boxes into it, composing with R33.6.2 edge-autoscroll) — not just empty container gutter. |
+| C | server + client (persist) | new `POST /api/model/diagram/zoom` (mirror R33.3 move-view :~1532) + `pan-zoom.ts` init | zoom not persisted | persist `model.zoom` on the Diagram unit in **MODEL_STORE** (mirror move-view's store-only write; prod scenario/index NEVER touched, R32.5). On zoom-end the client POSTs `{diagramUuid, zoom}`; on render RbPanZoom inits to the persisted `model.zoom` (new `setScale(s)`/`initialScale` seam reusing zoomAbout+clamp+apply). INV-Z2. |
+
+### INVARIANTS
+- **INV-Z1 (zoom range + fit semantics):** scale ∈ [0.25, 8]; `1 = 100% = whole-diagram` (fit); `<1` reveals working canvas (centered by extended clamp); content always reachable at any scale.
+- **INV-Z2 (per-diagram persisted, isolated):** the zoom level is stored on the Diagram unit in MODEL_STORE and restored on reopen; write is store-only — prod scenario/index NEVER mutated (R32.5).
+- **INV-Z3 (reuse, composes):** RbPanZoom extended (MIN + one setScale/init seam), NO fork; composes with R33.6.2 edge-autoscroll (zoom-out to see/place, autoscroll to drag past edge) — together they solve the space problem.
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) zoom OUT below 100% → the diagram shrinks and working canvas appears around it; boxes are placeable/draggable into it (composes w/ R33.6.2) [Z1]; (b) scale 1 = the whole diagram (100%) [Z1]; (c) set a zoom, reopen the diagram → the SAME zoom restores (per-diagram persisted) [Z2]; (d) prod scenario/index git-clean/unchanged across zoom-persist [Z2 isolation]; (e) /trace + existing pan/zoom-in + R33.5 select/R33.3 move UNREGRESSED.
+- **Chain (mirror R33.3 move-view persist):** unit 754a1f9d — UC diagram.persistZoom → RbPanZoom/RbDiagramDetail → Method (setScale + zoom-persist) → Impl; req mints #126. SERVER endpoint (zoom persist) → R32.5 discipline (__dirname-below store write) → REAL restart at the next R33 boundary (hold-b). Client zoom-range is client-only.
