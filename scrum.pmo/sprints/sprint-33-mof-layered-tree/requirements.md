@@ -121,6 +121,7 @@
   -> drawer.actionBarRegion [uc:uuid:bf676884-164a-442c-9193-bb54e315c92b]
   -> drawer.selectionDrivenActions [uc:uuid:e0fce253-2499-4fcd-839e-3cc5bd2740c3]
   -> modelView.actionsByType [uc:uuid:fe06818d-1cf8-4417-8be7-0df1bffaff33]
+  -> diagram.retireInDiagramToolbar [uc:uuid:103e20cd-c42d-42e2-b962-4f87f8ded21c]
 
 - [ ] **R33.7.1 — Zoom-out always grows the SVG diagram canvas (fixes the space problem) with per-diagram persisted zoom where 1 = 100% = whole diagram**
   [requirement:uuid:754a1f9d-df31-490f-9061-9585b80eb51d]

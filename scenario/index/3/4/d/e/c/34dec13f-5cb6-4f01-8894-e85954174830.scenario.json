@@ -7,7 +7,8 @@
     "markerPending": false,
     "markerNote": "Strict-AST credit HOLDS at b7224f9f6: [impl:uuid:34dec13f-5cb6-4f01-8894-e85954174830] heads the named render() decl @ src/public/ts/trace/rb-diagram-detail.ts:95 (name-matches; Method 65649d26, Class RbDiagramDetail 039ec367). R33.3 working-diagram, NEW decl distinct from addView/onSelectionChanged = no re-credit. render() had a live bug the @390 harness caught (stripRef did not strip diagram: -> empty canvas) fixed to getAttribute(uuid) in the SAME decl the marker heads = the credited impl IS the working render. IMPL-MINT #126 complete. Test waits fresh-tester @390 pixel gate.",
     "tests": [
-      "ior:instance:73d267cf-e7e9-44e1-9e7c-561b16cdc7bb"
+      "ior:instance:73d267cf-e7e9-44e1-9e7c-561b16cdc7bb",
+      "ior:instance:6b28f4d1-73ac-4e50-9f62-8c1a05e3b7d9"
     ]
   },
   "ownerIor": "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95"
