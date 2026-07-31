@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8c26c9ef-70e0-4037-87f7-a355f640239d",
+  "name": "modelElement.revealInTree",
+  "description": "R33.7.4 INV-TR1/2/3 (design 293b9cc43): selecting a diagram element reveals it in the model tree. boxSelect (rb-diagram-detail.ts:229) already DISPATCHES rb-tree-reveal{ref} but rb-trace-tree has NO listener (dead). NEW rb-trace-tree onTreeReveal listener (connectedCallback + remove in disconnected) -> reuse revealNode(uuid) (ancestor-walk expand + scrollIntoView, lazy-safe via fetchAncestorPath MODEL_STORE-routed) / R33.5 expandPath. INV-TR1 reuse (no new reveal logic) / TR2 lazy-safe / TR3 best-effort no-fork. Client-only.",
+  "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+  "method": "ior:instance:152435d1-56c7-4473-bea8-decf9619c877",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.4&commit=293b9cc43",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

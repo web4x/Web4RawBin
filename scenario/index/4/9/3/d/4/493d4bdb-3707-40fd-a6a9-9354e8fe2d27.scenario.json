@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "493d4bdb-3707-40fd-a6a9-9354e8fe2d27",
+  "name": "diagram.persistZoom",
+  "description": "R33.7.1 INV-Z2 (design 8aa19d090): per-diagram persisted zoom. NEW POST /api/model/diagram/zoom (mirror R33.3 move-view store-only ~server.ts:1532): on zoom-end the client POSTs {diagramUuid, zoom}; persists model.zoom on the Diagram unit in MODEL_STORE ONLY (prod scenario/index NEVER touched, R32.5 __dirname-below discipline). On render RbPanZoom inits to the persisted model.zoom (client setScale seam). Server endpoint -> REAL restart at R33 boundary. INV-Z2.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:8eba6b18-acfc-47ff-9c42-9cae4b5359da",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=8aa19d090",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

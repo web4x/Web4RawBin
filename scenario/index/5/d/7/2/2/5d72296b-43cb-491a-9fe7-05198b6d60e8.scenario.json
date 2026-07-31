@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5d72296b-43cb-491a-9fe7-05198b6d60e8",
+  "name": "diagram.discoverAction",
+  "description": "R33.7.2 item-3 INV-DA1/2/3 (design 3ace9bf95): 'Discover relationships' action-bar verb (R33.6.5 class-actions) -> 1-level graph expand from the selected element. discoverRelated reads /api/ior/ior:instance:<uuid> for the selected element's relatesTo[] (out) + relatedFrom[] (in), then addView each immediate neighbor (base class+extends, nav-links+targets, subclasses, implemented interfaces) onto the diagram - buildEdges then wires the relationships. 1 LEVEL ONLY (INV-DA1 bounded, immediate neighbors, not transitive); reuse client-only /api/ior + addView (INV-DA2 no new endpoint); store-only isolation (INV-DA3). Client-only.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:e6cc8e85-acfa-43ff-b5f5-fc85b9e594d1",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.2&commit=3ace9bf95",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

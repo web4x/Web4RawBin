@@ -11,7 +11,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:44bb0dbe-54de-4b9f-a971-b49f6e62ad07",
+   "ior:instance:5d72296b-43cb-491a-9fe7-05198b6d60e8"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
@@ -47,7 +50,9 @@
   "crossRef": [
    "ior:instance:50e4f6f0-b4c9-4f40-820c-2ee405ae1d35",
    "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2"
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.2&commit=3ace9bf95",
+  "designAdopted": "Adopted design 3ace9bf95 (2 UCs): AC-add-auto-relationships <- INV-AR1 (UC1 rides existing buildEdges 8c68b925 + addView 70be1605, model-derived never fabricated, NO new method); AC-discover-action+AC-discover-1-level-only <- INV-DA1/2/3 (UC2 new ModelView.discoverRelated: 'discover' verb->/api/ior 1-level relatesTo+relatedFrom->addView, bounded/reuse-client-only/isolation). Only 1 new chain (discoverRelated); UC1 rides existing."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }

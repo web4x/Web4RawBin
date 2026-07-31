@@ -130,6 +130,8 @@
   - [ ] **(functional)** The current zoom level is PERSISTED on the Diagram unit (per-diagram, MODEL_STORE) and SURVIVES a reload / fresh re-mount - reopening the diagram restores its saved zoom.
   - [ ] **(functional)** Zoom level 1 = 100% = frames the WHOLE diagram; as the canvas grows via zoom-out, level 1 stays anchored to frame the whole diagram (1 is always 'fit whole').
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED.
+  -> diagram.zoomOutGrows [uc:uuid:f8be90de-daf4-4c12-9c5a-912aff4116d3]
+  -> diagram.persistZoom [uc:uuid:493d4bdb-3707-40fd-a6a9-9354e8fe2d27]
 
 - [ ] **R33.7.2 — Adding or discovering an element wires its model-graph relationships onto the diagram (auto-on-add + 'Discover relationships' 1-level action)**
   [requirement:uuid:2a3090ad-b912-42e1-b65a-db55765df179]
@@ -140,6 +142,8 @@
   - [ ] **(functional)** (item-3) A 'Discover relationships' action-bar action on a SELECTED diagram element (added to the R33.6.5 class-selected action set) adds onto the diagram, from the model graph: the base class + the extends relationship; navigation links + their target classes; inheriting subclasses; implemented interfaces - the discovered classes AND their relationships.
   - [ ] **(functional)** Discover adds ONLY 1 level (the selected element's IMMEDIATE neighbors) - never transitive/recursive graph expansion. Re-running Discover on a newly-added neighbor expands the next level (user-controlled, one hop per action).
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): add an element with known relationships to on-diagram elements -> connectors appear to those elements; select an element -> Discover relationships -> its 1-level neighbors (base/subclasses/interfaces/nav-targets) + relationships appear (exactly 1 level, not transitive). planted: add/discover yields no connectors, or discover goes transitive = RED.
+  -> diagram.addAutoRelationships [uc:uuid:44bb0dbe-54de-4b9f-a971-b49f6e62ad07]
+  -> diagram.discoverAction [uc:uuid:5d72296b-43cb-491a-9fe7-05198b6d60e8]
 
 - [ ] **R33.7.4 — Selecting a diagram element scrolls and expands the model tree to reveal that element (reuse R33.5 expandPath, selection-triggered)**
   [requirement:uuid:fc234e2d-4cd6-4b7f-bd60-5d86e8d3cd3c]
@@ -148,3 +152,4 @@
   **Acceptance criteria:**
   - [ ] **(functional)** Selecting a diagram element dispatches a tree-reveal for that element's uuid: the model tree scrolls it into view AND expands the ancestry (mof-m1 -> project -> file -> class) as needed so the node is VISIBLE + highlighted. Reuse R33.5 expandPath / revealNode (uuid-walk) - selection-triggered from the diagram, no new reveal mechanism.
   - [ ] **(gate)** GATE @390 (screenshot/pixel + planted bite): select an element in the diagram -> the tree scrolls + expands to its node (visible + highlighted); planted: selection changes but the tree does not reveal/expand to it = RED.
+  -> modelElement.revealInTree [uc:uuid:8c26c9ef-70e0-4037-87f7-a355f640239d]

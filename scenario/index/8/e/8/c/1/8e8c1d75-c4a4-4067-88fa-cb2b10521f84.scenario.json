@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8e8c1d75-c4a4-4067-88fa-cb2b10521f84",
+    "name": "ModelView.discoverRelated impl",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:e6cc8e85-acfa-43ff-b5f5-fc85b9e594d1"
+}

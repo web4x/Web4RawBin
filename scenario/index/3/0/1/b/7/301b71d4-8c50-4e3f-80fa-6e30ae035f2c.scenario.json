@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "301b71d4-8c50-4e3f-80fa-6e30ae035f2c",
+    "name": "RbPanZoom.setScale impl",
+    "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:c3fa13b7-3574-427c-9c35-31ef6d3b47c8"
+}

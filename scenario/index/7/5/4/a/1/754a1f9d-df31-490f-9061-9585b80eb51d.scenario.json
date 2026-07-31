@@ -11,7 +11,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:f8be90de-daf4-4c12-9c5a-912aff4116d3",
+   "ior:instance:493d4bdb-3707-40fd-a6a9-9354e8fe2d27"
+  ],
   "unitLinks": [],
   "discoverySource": {
    "type": "tron-device-qa",
@@ -46,7 +49,9 @@
   ],
   "crossRef": [
    "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c"
-  ]
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=8aa19d090",
+  "designAdopted": "Adopted design 8aa19d090: AC-zoom-out-grows-canvas+AC-zoom-1-is-whole <- INV-Z1 (RbPanZoom MIN 0.25+clamp-center+viewBox pad, setScale seam); AC-zoom-persist-on-diagram <- INV-Z2 (POST /api/model/diagram/zoom store-only, client setScale init). 2 chains: client zoom-range + server persist. Names provisional."
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }

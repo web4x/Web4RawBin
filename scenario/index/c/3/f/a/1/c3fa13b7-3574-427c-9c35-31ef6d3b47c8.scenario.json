@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c3fa13b7-3574-427c-9c35-31ef6d3b47c8",
+    "name": "RbPanZoom.setScale",
+    "description": "NEW seam on RbPanZoom (pan-zoom.ts): setScale(s)/initialScale reusing zoomAbout+clamp+apply, and the zoom-OUT range enablement (MIN 1->0.25 + clamp centers content at scale<1). Inits the canvas to a persisted model.zoom on render; enables zoom-out-grows-canvas. INV-Z1. markerPending. NAME PROVISIONAL -> re-point on expert decl.",
+    "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
+    "implementations": [
+      "ior:instance:301b71d4-8c50-4e3f-80fa-6e30ae035f2c"
+    ],
+    "tests": [],
+    "markerPending": true
+  },
+  "ownerIor": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"
+}
