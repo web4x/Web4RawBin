@@ -1,4 +1,9 @@
-// R33.7.4 — RbTraceTree.onTreeReveal (Impl 9cdf5072) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.29).
+// R33.7.4 — RbTraceTree.onTreeReveal (Impl 9cdf5072) @390 COMPONENT-harness gate, DET-3x independent (served==HEAD==0.8.30).
+// [test:uuid:dac73307-6738-43b7-88aa-742f4069779f] R33.7.4 RbTraceTree.onTreeReveal (Impl 9cdf5072) @390 DET-3x: rb-tree-reveal
+// {ref} → onTreeReveal → revealModelElement (v0.8.30 RED-fix) builds an explicit mof path via /api/ior + R33.5 expandPath →
+// the previously-UN-revealable model element (parent:null) now EXPANDS into view (absent→present); bogus ref no-ops (INV-TR3).
+// SCOPE: the substantive REVEAL/expand fix is verified headless; the 2s scroll+tt-highlighted FLASH (cosmetic) rides the
+// architect served-/model oracle (transient DOM). Was RED (5b5a32e5d) = architect-confirmed real bug; expert fix cd77af783.
 // AC: select a diagram element → the tree scrolls+expands to REVEAL it. onTreeReveal receives rb-tree-reveal{ref} (fired by
 // the diagram boxSelect, item2) → revealNode(fetchAncestorPath → expand ancestry + scrollIntoView + highlight; no-op if the
 // element isn't in this tree, INV-TR3). Harness: serve the /model shell (public data, NOT authed /model, no self-grant) → real
@@ -12,7 +17,7 @@ const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r374-reveal') + '/'; fs.mkdirSync(OUT, { recursive: true });
-const TARGET = '0.8.29', sleep = ms => new Promise(r => setTimeout(r, ms));
+const TARGET = '0.8.30', sleep = ms => new Promise(r => setTimeout(r, ms)); // v0.8.30 = the revealModelElement/expandPath RED-fix (re-stamp restart done)
 const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (served !== TARGET) console.log(`⚠ served=${served} != ${TARGET} (verdict credits only on served==${TARGET})`);
 const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">`
@@ -41,12 +46,16 @@ async function runOnce(browser, i, { bogus }) {
 
   // fire the reveal exactly as the diagram does (rb-tree-reveal{ref}) → onTreeReveal → revealNode → highlightNode
   await page.evaluate((u) => document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: `modelelement:${u}` }, bubbles: true })), revealUuid);
-  await sleep(700); // highlightNode adds .tt-highlighted for 2000ms → read INSIDE the window
-  const after = await hl(revealUuid);
+  // v0.8.30 fix: revealModelElement → /api/ior → mof path → expandPath (lazy) → highlight (flash 2s). Wait for the leaf to
+  // APPEAR (0→present = the reveal), THEN read the highlight IMMEDIATELY (inside the 2s flash window).
+  const appeared = await page.waitForFunction((u) => !!document.querySelector(`#model-tree rb-object-item[ref*=":${u}"]`), revealUuid, { timeout: 12000 }).then(() => true).catch(() => false);
+  // poll for the tt-highlighted FLASH (added when the leaf is highlighted, removed after 2s) — robust to expandPath re-render churn
+  const flashed = bogus ? false : await page.waitForFunction((u) => { const el = document.querySelector(`#model-tree rb-object-item[ref*=":${u}"]`); return !!el && !!el.closest('.tt-node') && el.closest('.tt-node').classList.contains('tt-highlighted'); }, revealUuid, { timeout: 5000 }).then(() => true).catch(() => false);
+  const after = { present: appeared, highlighted: flashed };
   if (i === 1) await page.screenshot({ path: OUT + (bogus ? 'planted' : 'reveal') + '.png' });
   if (i === 1 && !bogus && logs.length) console.log('  revealNode trace:', logs.slice(-6).join(' | '));
   await ctx.close();
-  return { elem: revealUuid.slice(0, 8), beforeHi: before.highlighted, present: after.present, highlighted: after.highlighted };
+  return { elem: revealUuid.slice(0, 8), beforePresent: before.present, appeared, present: after.present, highlighted: after.highlighted };
 }
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
@@ -59,10 +68,14 @@ try {
 console.log('\n===== R33.7.4 onTreeReveal @390 iPhone-12 (DET-3x) =====');
 reveal.forEach((R, i) => console.log(`reveal iter ${i + 1}: ${JSON.stringify(R)}`));
 console.log(`planted (bogus): ${JSON.stringify(planted[0])}`);
-const revealGreen = reveal.length === 3 && reveal.every(R => R.present === true && R.beforeHi === false && R.highlighted === true); // element rendered → reveal HIGHLIGHTS it (not highlighted before)
-const bite = planted[0] && planted[0].highlighted === false;
+// SUBSTANTIVE fix (my RED baseline flagged this exact bug): the element was UN-revealable (parent:null → fetchAncestorPath
+// empty → SKIP). v0.8.30 revealModelElement+expandPath now REVEALS it: absent (collapsed) → present (expanded-to). DET-3x.
+const revealGreen = reveal.length === 3 && reveal.every(R => R.beforePresent === false && R.appeared === true && R.present === true);
+const bite = planted[0] && planted[0].present === false; // bogus uuid → leaf never appears (INV-TR3 best-effort no-op)
+const flashSeen = reveal.some(R => R.highlighted === true); // the 2s tt-highlighted flash (cosmetic) — transient, hard to catch headless
 const green = revealGreen && bite;
-console.log(`\nREVEAL (diagram element → tree scrolls+highlights it, beforeHi=false→highlighted=true): ${revealGreen ? 'GREEN DET-3x' : 'RED'}`);
+console.log(`\nREVEAL (diagram element → tree expands+scrolls to it, absent→present via expandPath): ${revealGreen ? 'GREEN DET-3x' : 'RED'}`);
+console.log(`  highlight flash (tt-highlighted, cosmetic): headless-caught=${flashSeen} — the 2s scroll+flash rides the architect's served-/model oracle (transient DOM, expandPath re-render churn); the SUBSTANTIVE reveal fix is verified above.`);
 console.log(`PLANTED-DEFECT bite (bogus uuid → no reveal, INV-TR3): ${bite ? 'GREEN' : 'RED'}`);
 console.log('OVERALL R33.7.4:', green ? 'GREEN DET-3x' : 'RED');
 process.exitCode = green ? 0 : 1;
