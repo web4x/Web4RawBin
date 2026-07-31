@@ -371,3 +371,21 @@ NEW client action: a `discover` verb on the R33.6.5 action-bar for a selected mo
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) add an element whose model relates to on-diagram elements → its edges auto-appear (both directions) [AR1]; (b) select an element → Discover → its 1-level neighbors (base/extends, nav-targets, subclasses/interfaces) are added + edges wire [DA1]; (c) discover is bounded to 1 level (a neighbor's neighbors are NOT auto-added) [DA1]; (d) re-Discover = idempotent, no dup boxes (R32.11 deterministic uuid) [DA2]; (e) prod scenario/index unchanged [DA3]; (f) /trace + R32.6 edges + R33.6.5 action-bar UNREGRESSED.
 - **Chain (2 UCs, reuse):** unit 2a3090ad — UC diagram.addAutoRelationships (rides buildEdges 8c68b925 / addView 70be1605) + UC diagram.discoverAction → Method discoverRelated (model.ts) → Impl; req mints #126 (2 UCs). CLIENT-ONLY → version bump → REAL restart at the next R33 boundary (hold-b).
+
+## R33.7.4 — SELECT element → TREE scroll+expand reveal (architect 2026-07-31, unit fc234e2d)
+MEASURE-FIRST: the two seams EXIST but aren't connected. `boxSelect` (rb-diagram-detail.ts:229) DISPATCHES `rb-tree-reveal`{ref} on box-select ("best-effort"). rb-trace-tree has `revealNode(uuid)` (:448 — fetchAncestorPath + expand each ancestor + scrollIntoView, lazy-safe via waitForNode) AND R33.5 `expandPath(uuids)` (:71). BUT rb-trace-tree has NO `rb-tree-reveal` listener (it listens for rb-model-resynced/toggle-children/hashchange only) → the dispatch has NO receiver → select→tree-reveal is DEAD. REUSE revealNode/expandPath — no new reveal logic, no fork.
+
+### Fix (client-only; wire the existing dispatch → the existing reveal)
+| # | File | Line | Current | Fix |
+|---|------|------|---------|-----|
+| A | `rb-trace-tree.ts` | 102 (connectedCallback, by the rb-model-resynced listener) | no rb-tree-reveal listener | `document.addEventListener('rb-tree-reveal', this.onTreeReveal)` (+ remove in disconnectedCallback :108). |
+| B | `rb-trace-tree.ts` | new `onTreeReveal` | — | `onTreeReveal = (e) => { const ref = (e as CustomEvent).detail?.ref; if (ref) void this.revealNode(refUuid(ref)); }` — reuse `revealNode` (ancestor-walk expand + scroll). Lazy model tree: `fetchAncestorPath` uses `/api/trace/children` (isModelUnit→MODEL_STORE routed) → ancestors expand on demand. |
+
+### INVARIANTS
+- **INV-TR1 (select→reveal by reuse):** selecting a diagram element reveals it in the tree (scroll + expand ancestors + highlight) via the EXISTING `revealNode`/R33.5 `expandPath` — no new reveal logic.
+- **INV-TR2 (lazy-safe):** `revealNode`'s fetchAncestorPath + waitForNode expand the lazy model tree on demand (MODEL_STORE-routed). By construction.
+- **INV-TR3 (best-effort, no fork):** reuse boxSelect's existing `rb-tree-reveal` dispatch + revealNode; if the element isn't in THIS tree (no root match) revealNode no-ops gracefully. No fork; existing /trace reveal + R33.5 expandPath + selection UNCHANGED.
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) select a diagram box → the tree scrolls to + expands-reveals the element (highlighted) [TR1]; (b) a DEEP/lazy element → its ancestors auto-expand then it reveals [TR2]; (c) select a box whose element isn't in the current tree → graceful no-op (no error) [TR3]; (d) /trace tree reveal (hashchange/revealNode) + R33.5 expandPath + existing selection UNREGRESSED.
+- **Chain (reuse R33.5 reveal):** unit fc234e2d — UC modelElement.revealInTree → rb-trace-tree onTreeReveal → Method (reuse revealNode) → Impl; req mints #126. CLIENT-ONLY → version bump → REAL restart at the next R33 boundary (hold-b).
