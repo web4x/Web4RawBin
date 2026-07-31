@@ -347,3 +347,27 @@ MEASURE-FIRST: RbPanZoom `scale` is clamped **[MIN=1, MAX=8]** (pan-zoom.ts:18-1
 ### GATE / chain
 - **GATE (tester + Tron @390):** (a) zoom OUT below 100% → the diagram shrinks and working canvas appears around it; boxes are placeable/draggable into it (composes w/ R33.6.2) [Z1]; (b) scale 1 = the whole diagram (100%) [Z1]; (c) set a zoom, reopen the diagram → the SAME zoom restores (per-diagram persisted) [Z2]; (d) prod scenario/index git-clean/unchanged across zoom-persist [Z2 isolation]; (e) /trace + existing pan/zoom-in + R33.5 select/R33.3 move UNREGRESSED.
 - **Chain (mirror R33.3 move-view persist):** unit 754a1f9d — UC diagram.persistZoom → RbPanZoom/RbDiagramDetail → Method (setScale + zoom-persist) → Impl; req mints #126. SERVER endpoint (zoom persist) → R32.5 discipline (__dirname-below store write) → REAL restart at the next R33 boundary (hold-b). Client zoom-range is client-only.
+
+## R33.7.2 — items 2+3 COUPLED: add-auto-relationships + discover-action (architect 2026-07-31, unit 2a3090ad, 2 UCs)
+MEASURE-FIRST: `buildEdges` (diagram-view-model.ts:63) draws an edge X→Y IFF BOTH are on-diagram, from `model.relations` (both directions, since it iterates every on-diagram node's relations); `addView` (rb-diagram-detail.ts:170) POSTs add-view then `render()` → buildEdges re-runs. M1 model carries `relatesTo[]` (out) + `relatedFrom[]` (in) + `relations[]{to,type}` (TsToModel.ts:57-60). R33.6.5 action-bar gives type-driven verbs; `/api/ior/ior:instance:<uuid>` returns a unit's model; add-view is store-only (R32.5). REUSE all — CLIENT-ONLY, no fork, no new endpoint.
+
+### UC1 — diagram.addAutoRelationships (item-2): model-derived edges auto-appear on add
+Largely BY CONSTRUCTION: `addView` → `render()` → `buildEdges` surfaces the newly-added element's relationships to on-diagram elements (BOTH directions) from `model.relations`. Design = ENSURE + formalize: after any add-view/discover, a full buildEdges pass runs (already does) so the added element's model-derived edges wire immediately. **INV-AR1: relationships are ALWAYS model-derived (TsToModel), NEVER fabricated** — add auto-WIRES existing model relations, never invents new ones.
+
+### UC2 — diagram.discoverAction (item-3): 1-level graph expand from selection
+NEW client action: a `discover` verb on the R33.6.5 action-bar for a selected model element → resolve its 1-LEVEL neighbors and add-view each.
+| # | File | Line | Add |
+|---|------|------|-----|
+| A | `model.ts` | 60-66 (`ACTIONS_BY_TYPE`) | add `{verb:'discover', label:'⌗ Discover related'}` to `modelelement` (+ diagram). |
+| B | `model.ts` | 77-... (verb dispatch) | `else if (verb==='discover') void discoverRelated(ref)` — reuse the R33.6.5 `rb-drawer-action{verb,ref}` path. |
+| C | `model.ts` | new `discoverRelated(ref)` | fetch the element model via `/api/ior/ior:instance:<uuid>` → collect the 1-level neighbor uuids = `relatesTo` (out: base/extends via Generalization, nav/targets via Association/Dependency) ∪ `relatedFrom` (in: subclasses/implementers) → for each, `addView(neighborUuid)` (existing R32.11 endpoint, server auto-grid, dedup). Then UC1/buildEdges wires the edges. 1 LEVEL ONLY (the fetched element's direct neighbors — no transitive walk). |
+
+### INVARIANTS
+- **INV-AR1 (model-derived, both-dir):** auto-relationships come from `buildEdges` over `model.relations` — both directions, NEVER fabricated. By construction.
+- **INV-DA1 (bounded 1-level):** discover adds EXACTLY the selected element's direct `relatesTo`∪`relatedFrom` neighbors — not transitive.
+- **INV-DA2 (reuse, no fork, client-only):** R33.6.5 action-bar verb + `/api/ior` model read + `addView` (R32.11) + `buildEdges` (R32.6). NO new endpoint, NO fork.
+- **INV-DA3 (isolation):** discover adds view-links to the Diagram in MODEL_STORE (add-view store-only) — prod scenario/index NEVER mutated (R32.5).
+
+### GATE / chain
+- **GATE (tester + Tron @390):** (a) add an element whose model relates to on-diagram elements → its edges auto-appear (both directions) [AR1]; (b) select an element → Discover → its 1-level neighbors (base/extends, nav-targets, subclasses/interfaces) are added + edges wire [DA1]; (c) discover is bounded to 1 level (a neighbor's neighbors are NOT auto-added) [DA1]; (d) re-Discover = idempotent, no dup boxes (R32.11 deterministic uuid) [DA2]; (e) prod scenario/index unchanged [DA3]; (f) /trace + R32.6 edges + R33.6.5 action-bar UNREGRESSED.
+- **Chain (2 UCs, reuse):** unit 2a3090ad — UC diagram.addAutoRelationships (rides buildEdges 8c68b925 / addView 70be1605) + UC diagram.discoverAction → Method discoverRelated (model.ts) → Impl; req mints #126 (2 UCs). CLIENT-ONLY → version bump → REAL restart at the next R33 boundary (hold-b).
