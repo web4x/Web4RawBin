@@ -22,7 +22,7 @@ const STYLE = `<style>
   rb-diagram-detail .dm-surface{width:100%;height:100%;min-height:220px;overflow:hidden;position:relative;background:#0d1117}
   rb-diagram-detail .dm-content{width:100%;height:100%;transform-origin:0 0}
   rb-diagram-detail .dm-svg{width:100%;height:100%}
-  rb-diagram-detail .dm-box{cursor:pointer}
+  rb-diagram-detail .dm-box{cursor:pointer;touch-action:none} /* R33.6.2 INV-D1: a touch-drag on a box moves the box, never scrolls the page */
   rb-diagram-detail .dm-box-bg{fill:#161b22;stroke:#30363d;stroke-width:1}
   rb-diagram-detail .dm-box:hover .dm-box-bg,rb-diagram-detail .dm-box:focus .dm-box-bg{stroke:#58a6ff}
   rb-diagram-detail .dm-box-selected .dm-box-bg{stroke:#58a6ff;stroke-width:2.5} /* R33.5 item2: local box selection highlight */
@@ -186,10 +186,32 @@ export class RbDiagramDetail extends HTMLElement {
   // selectionModel.replaceWith) AND disables RbPanZoom pan (boxSelect → pz.setEnabled(false)) so the drag MOVES the
   // box, never pans; a press on empty canvas DESELECTS + re-enables pan. A real move persists x,y via move-view →
   // survives reload; a no-move press is a tap-select. Coords convert to content space by the current CSS scale.
+  // R33.6.2 (INV-D1/D2): drag no longer scrolls the page (.dm-box touch-action:none) and, when the pointer nears the
+  // surface edge, an rAF loop pans the canvas (RbPanZoom.panBy) so a box can be dragged toward off-screen space. The
+  // box is placed PAN-INVARIANTLY (origin = pointer-in-content + grab-offset, from the LIVE content rect) so it keeps
+  // tracking the pointer while the canvas autoscrolls underneath.
   private wireBoxDrag(surface: HTMLElement, content: HTMLElement): void {
     const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
     const scaleNow = (): number => (content.offsetWidth ? content.getBoundingClientRect().width / content.offsetWidth : 1);
-    let drag: { el: SVGGElement; uuid: string; sx: number; sy: number; ox: number; oy: number; moved: boolean } | null = null;
+    const EDGE = 32, SPEED = 8; // autoscroll margin (px from a surface edge) + pan speed (px/frame)
+    let drag: { el: SVGGElement; uuid: string; sx: number; sy: number; gx: number; gy: number; moved: boolean } | null = null;
+    let raf = 0, lastX = 0, lastY = 0;
+    const moveTo = (clientX: number, clientY: number): void => {
+      if (!drag) return;
+      const s = scaleNow() || 1; const rect = content.getBoundingClientRect();
+      const nx = Math.max(0, Math.round((clientX - rect.left) / s + drag.gx));
+      const ny = Math.max(0, Math.round((clientY - rect.top) / s + drag.gy));
+      drag.el.setAttribute('transform', `translate(${nx},${ny})`);
+    };
+    const autoscroll = (): void => {
+      if (!drag) { raf = 0; return; }
+      const r = surface.getBoundingClientRect();
+      let vx = 0, vy = 0;
+      if (lastX < r.left + EDGE) vx = SPEED; else if (lastX > r.right - EDGE) vx = -SPEED;
+      if (lastY < r.top + EDGE) vy = SPEED; else if (lastY > r.bottom - EDGE) vy = -SPEED;
+      if (vx || vy) { this.pz?.panBy(vx, vy); moveTo(lastX, lastY); drag.moved = true; raf = requestAnimationFrame(autoscroll); }
+      else { raf = 0; } // pointer left the margin → stop autoscrolling (restarts on the next near-edge pointermove)
+    };
     surface.addEventListener('pointerdown', (e: PointerEvent) => {
       const el = (e.target as HTMLElement).closest('.dm-box') as SVGGElement | null;
       if (!el) { this.boxSelect(null); return; } // empty canvas → deselect + pan re-enabled (RbPanZoom handles the drag)
@@ -197,24 +219,27 @@ export class RbDiagramDetail extends HTMLElement {
       if (!uuid) return;
       this.boxSelect(el); // item2 local-select (diagram stays) + item3 pan OFF → drag moves, never pans
       const m = TR.exec(el.getAttribute('transform') || '');
-      drag = { el, uuid, sx: e.clientX, sy: e.clientY, ox: m ? parseFloat(m[1]) : 0, oy: m ? parseFloat(m[2]) : 0, moved: false };
+      const ox = m ? parseFloat(m[1]) : 0, oy = m ? parseFloat(m[2]) : 0;
+      const s = scaleNow() || 1; const rect = content.getBoundingClientRect();
+      drag = { el, uuid, sx: e.clientX, sy: e.clientY, gx: ox - (e.clientX - rect.left) / s, gy: oy - (e.clientY - rect.top) / s, moved: false };
+      lastX = e.clientX; lastY = e.clientY;
       try { el.setPointerCapture(e.pointerId); } catch { /* */ }
       e.stopPropagation();
     });
     surface.addEventListener('pointermove', (e: PointerEvent) => {
       if (!drag) return;
-      const s = scaleNow() || 1;
+      lastX = e.clientX; lastY = e.clientY;
       if (Math.abs(e.clientX - drag.sx) + Math.abs(e.clientY - drag.sy) > 3) drag.moved = true;
-      const nx = Math.max(0, Math.round(drag.ox + (e.clientX - drag.sx) / s));
-      const ny = Math.max(0, Math.round(drag.oy + (e.clientY - drag.sy) / s));
-      drag.el.setAttribute('transform', `translate(${nx},${ny})`); // live feedback
+      moveTo(e.clientX, e.clientY); // live feedback
+      if (!raf) raf = requestAnimationFrame(autoscroll); // kick the edge-autoscroll loop (self-stops away from edges)
     });
     const end = (): void => {
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
       if (!drag) return;
       const d = drag; drag = null;
       if (!d.moved) return; // a tap (no move) → box stays SELECTED, no persist
       const m = TR.exec(d.el.getAttribute('transform') || '');
-      void this.persistMove(d.uuid, m ? Math.round(parseFloat(m[1])) : d.ox, m ? Math.round(parseFloat(m[2])) : d.oy);
+      void this.persistMove(d.uuid, m ? Math.round(parseFloat(m[1])) : 0, m ? Math.round(parseFloat(m[2])) : 0);
     };
     surface.addEventListener('pointerup', end);
     surface.addEventListener('pointercancel', end);

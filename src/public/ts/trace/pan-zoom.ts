@@ -151,6 +151,12 @@ export class RbPanZoom {
   /** AC-e6 / reset to identity. */
   reset(): void { this.scale = 1; this.tx = 0; this.ty = 0; this.apply(); }
 
+  // [impl:uuid:7dd375ac-28f1-4768-9063-bdf6fa430ce5] RbPanZoom.panBy (Method 1a2fbff9) — R33.6.2 INV-D2: programmatic
+  // pan by (dx,dy) viewport px, reusing the SAME clamp+apply as gesture pans (no new geometry, INV-D3 no-fork). The
+  // diagram edge-autoscroll rAF loop calls this while a box-drag hovers just outside the surface boundary → the
+  // canvas scrolls so a box can be dragged toward off-screen space; clamp keeps content from leaving the view.
+  panBy(dx: number, dy: number): void { this.tx += dx; this.ty += dy; this.clamp(); this.apply(); }
+
   // [impl:uuid:44f3ddd3-c580-4fe7-8e3c-489cf05c4e42] RbPanZoom.setEnabled (Method 4dab0081) — R33.5 item3: enable/
   // disable PAN (not zoom). The diagram disables pan while a box is SELECTED so a selected-box drag MOVES the box
   // (no canvas pan); re-enabled when the selection clears. Also cancels any in-progress drag.
