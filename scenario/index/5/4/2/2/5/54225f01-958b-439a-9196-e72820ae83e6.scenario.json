@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "54225f01-958b-439a-9196-e72820ae83e6",
+    "name": "test:R33.7.2 discover relationships 1-level (ModelView.discoverRelated) @390",
+    "description": "Bridged to test/visual/r372-discover-gate.mjs (INDEPENDENT tester @390 COMPONENT-harness gate, GREEN DET-3x, served==HEAD==0.8.29, 944f7bf50). Marker adopted from origin (measured line 9, not invented). Verifies R33.7.2 UC2 (item-3): the R33.6.5 action-bar discover verb (rb-drawer-detail-shown{ref}->rb-drawer-action{verb:discover}->discoverRelated(shownRef)) fetches /api/ior for the selected elements REAL 1-level neighbors (relatesTo union relatedFrom), add-views EXACTLY the 1 real neighbor onto the OPEN diagram + fires rb-diagram-refresh (buildEdges auto-wires the edges). INV-DA1 bounded (1 level), INV-AR1 never-fabricated (planted 0-neighbors->0 add-view = bite). Route-intercepted (0 real writes), /api/ior passes through (real neighbors). Chain: R33.7.2 req 2a3090ad -> UC diagram.discoverAction 5d72296b -> Class ModelView 35759641 -> Method discoverRelated e6cc8e85 -> Impl 8e8c1d75 -> this Test. (R33.7.2 UC1 addAutoRelationships rides existing buildEdges 8c68b925 - separate gate/credit.)",
+    "sourceFile": "ior:file:test/visual/r372-discover-gate.mjs",
+    "implementations": [
+      "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84"
+}
