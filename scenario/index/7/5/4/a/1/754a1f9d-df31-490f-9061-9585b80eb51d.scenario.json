@@ -27,7 +27,7 @@
     "id": "AC-zoom-out-grows-canvas",
     "group": "functional",
     "client": true,
-    "text": "Zooming OUT is ALWAYS available and GROWS the SVG diagram canvas (more room for elements) - never blocked/clamped-to-a-floor that traps the user in a full canvas. Reuses RbPanZoom."
+    "text": "Zooming OUT is ALWAYS available and GROWS the SVG diagram canvas (more room for elements) - never blocked/clamped-to-a-floor that traps the user in a full canvas. Reuses RbPanZoom. ★ SHARPENED by AC-zoom-canvas-px-grows: grows the canvas = measurable PX growth of the SVG dimensions/scroll-area (boxes keep size), NOT just the content scale."
    },
    {
     "id": "AC-zoom-persist-on-diagram",
@@ -44,14 +44,31 @@
    {
     "id": "AC-390-gate-zoom",
     "group": "gate",
-    "text": "GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED."
+    "text": "GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED. ★ SHARPENED (IMG_4793): the gate MUST assert the SVG canvas rendered width/height px (or scroll-area) INCREASES on zoom-out - NOT merely the scale value - + Tron device confirm. A scale-only pass is a FALSE-GREEN for the space-problem intent."
+   },
+   {
+    "id": "AC-zoom-canvas-px-grows",
+    "group": "functional",
+    "client": true,
+    "text": "Zoom-OUT measurably INCREASES the SVG canvas rendered dimensions (width/height px) and/or the scrollable placeable area - the boxes KEEP their size, the canvas GROWS around them = real room - NOT merely the content scale value. (Device-QA IMG_4793: the prior gate passed scale<1/1=whole/persist but Tron's device showed zoom-out only scaled content, the canvas never grew = space-problem unsolved. Architect diagnosis c725df623: 2 gaps - viewBox stays tight (0 0 maxX maxY) + pure-scale CSS transform, so nothing enlarges the canvas.)"
    }
   ],
   "crossRef": [
    "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c"
   ],
   "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=8aa19d090",
-  "designAdopted": "Adopted design 8aa19d090: AC-zoom-out-grows-canvas+AC-zoom-1-is-whole <- INV-Z1 (RbPanZoom MIN 0.25+clamp-center+viewBox pad, setScale seam); AC-zoom-persist-on-diagram <- INV-Z2 (POST /api/model/diagram/zoom store-only, client setScale init). 2 chains: client zoom-range + server persist. Names provisional."
+  "designAdopted": "Adopted design 8aa19d090: AC-zoom-out-grows-canvas+AC-zoom-1-is-whole <- INV-Z1 (RbPanZoom MIN 0.25+clamp-center+viewBox pad, setScale seam); AC-zoom-persist-on-diagram <- INV-Z2 (POST /api/model/diagram/zoom store-only, client setScale init). 2 chains: client zoom-range + server persist. Names provisional.",
+  "verificationHistory": [
+   {
+    "date": "2026-07-31",
+    "hop": "testing -> in-progress (AC-sharpen, device-QA regression)",
+    "reason": "device-caught bug the gate passed = missing testable AC (device-qa-regression-means-missing-ac)",
+    "tronVerbatim": "IMG_4793: zoom-out does not grow the canvas, only scales content - the space-problem is not solved",
+    "verificationContext": "setScale Test 99a90d1e gated scale<1 / 1=whole / persist-restore but NOT the canvas PX growth; canvas never enlarges. Architect diagnosis c725df623: viewBox tight + pure-scale-transform.",
+    "architectDiagnosis": "c725df623",
+    "reportedVia": "robbin-po"
+   }
+  ]
  },
  "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
 }
