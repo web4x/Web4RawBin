@@ -8,7 +8,10 @@
 import { RbPanZoom } from './pan-zoom.js';
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js';
-import { buildDiagramSvg, stripRef, type ViewLink, type DiagramNode, type DiagramRelation, type EdgeKind } from './diagram-view-model.js';
+import { buildDiagramSvg, borderPoint, stripRef, type ViewLink, type DiagramNode, type DiagramRelation, type EdgeKind, type Rect } from './diagram-view-model.js';
+
+// R33.6.3: box transform parser — module-scoped so both wireBoxDrag and rerouteEdges read a box's live (x,y).
+const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
 
 // M2 relationship metaclass uuid → edge kind (seed constants; the pure module stays uuid-free, kind-driven).
 const REL_KIND: Record<string, EdgeKind> = {
@@ -191,7 +194,6 @@ export class RbDiagramDetail extends HTMLElement {
   // box is placed PAN-INVARIANTLY (origin = pointer-in-content + grab-offset, from the LIVE content rect) so it keeps
   // tracking the pointer while the canvas autoscrolls underneath.
   private wireBoxDrag(surface: HTMLElement, content: HTMLElement): void {
-    const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
     const scaleNow = (): number => (content.offsetWidth ? content.getBoundingClientRect().width / content.offsetWidth : 1);
     const EDGE = 32, SPEED = 8; // autoscroll margin (px from a surface edge) + pan speed (px/frame)
     let drag: { el: SVGGElement; uuid: string; sx: number; sy: number; gx: number; gy: number; moved: boolean } | null = null;
@@ -202,6 +204,7 @@ export class RbDiagramDetail extends HTMLElement {
       const nx = Math.max(0, Math.round((clientX - rect.left) / s + drag.gx));
       const ny = Math.max(0, Math.round((clientY - rect.top) / s + drag.gy));
       drag.el.setAttribute('transform', `translate(${nx},${ny})`);
+      this.rerouteEdges(drag.uuid); // R33.6.3: connectors follow the box LIVE — no stale line left at the old anchor
     };
     const autoscroll = (): void => {
       if (!drag) { raf = 0; return; }
@@ -260,6 +263,26 @@ export class RbDiagramDetail extends HTMLElement {
     if (!diagramUuid || !elementUuid) return;
     try { await fetch('/api/model/diagram/move-view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, elementUuid, x, y }) }); }
     catch { /* box stays at its dropped position; MODEL_STORE is authoritative on next render */ }
+  }
+
+  // [impl:uuid:83b9922b-5fb8-4c1d-ad57-bedbae1c2262] RbDiagramDetail.rerouteEdges (Method 123e0c21) — R33.6.3:
+  // after a box moves, recompute the border-to-border endpoints of every connector touching `uuid` from the boxes'
+  // CURRENT transforms + sizes, reusing the EXPORTED borderPoint so the live geometry matches buildEdges exactly
+  // (INV-R1 no drift, INV-R2 no fork). Called from the drag moveTo → connectors follow the node, no stale line left.
+  private rerouteEdges(uuid: string): void {
+    const svg = this.querySelector('.dm-svg'); if (!svg) return;
+    const rectOf = (u: string): Rect | null => {
+      const g = svg.querySelector(`.dm-box[data-ref="modelelement:${u}"]`) as SVGGElement | null; if (!g) return null;
+      const m = TR.exec(g.getAttribute('transform') || ''); const bg = g.querySelector('rect');
+      return { x: m ? parseFloat(m[1]) : 0, y: m ? parseFloat(m[2]) : 0, w: bg ? parseFloat(bg.getAttribute('width') || '0') : 0, h: bg ? parseFloat(bg.getAttribute('height') || '0') : 0 };
+    };
+    svg.querySelectorAll(`.dm-edge[data-rel-from="modelelement:${uuid}"], .dm-edge[data-rel-to="modelelement:${uuid}"]`).forEach((line) => {
+      const src = rectOf(stripRef(line.getAttribute('data-rel-from') || '')), tgt = rectOf(stripRef(line.getAttribute('data-rel-to') || ''));
+      if (!src || !tgt) return;
+      const a = borderPoint(src, tgt.x + tgt.w / 2, tgt.y + tgt.h / 2), b = borderPoint(tgt, src.x + src.w / 2, src.y + src.h / 2);
+      line.setAttribute('x1', a.x.toFixed(1)); line.setAttribute('y1', a.y.toFixed(1));
+      line.setAttribute('x2', b.x.toFixed(1)); line.setAttribute('y2', b.y.toFixed(1));
+    });
   }
 }
 

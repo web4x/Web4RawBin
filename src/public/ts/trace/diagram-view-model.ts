@@ -47,9 +47,10 @@ export const EDGE_DEFS = '<defs>'
   + '<marker id="dm-arrow-dependency" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10" class="dm-arrow-open"/></marker>'
   + '</defs>';
 
-interface Rect { x: number; y: number; w: number; h: number }
+export interface Rect { x: number; y: number; w: number; h: number }
 // Exit point on rect r's border along the ray from r's center toward (tx,ty). Straight center-to-center, clipped.
-function borderPoint(r: Rect, tx: number, ty: number): { x: number; y: number } {
+// R33.6.3: EXPORTED so RbDiagramDetail.rerouteEdges reuses the SAME geometry live during a box drag (INV-R1 no-drift, no fork).
+export function borderPoint(r: Rect, tx: number, ty: number): { x: number; y: number } {
   const cx = r.x + r.w / 2, cy = r.y + r.h / 2, dx = tx - cx, dy = ty - cy;
   if (!dx && !dy) return { x: cx, y: cy };
   const sx = dx ? (r.w / 2) / Math.abs(dx) : Infinity, sy = dy ? (r.h / 2) / Math.abs(dy) : Infinity;
