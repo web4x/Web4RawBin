@@ -48,6 +48,7 @@ export class RbDiagramDetail extends HTMLElement {
   graph: unknown = null; // set by the drawer (unused — this view fetches its own model via /api/ior)
   static get observedAttributes(): string[] { return ['ref']; }
   private pz: RbPanZoom | null = null;
+  private _canvasBase: { w: number; h: number } | null = null; // R33.7.1 canvas-grow: tight content bounds (viewBox maxX/maxY) captured on render
   private ro: ResizeObserver | null = null;
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
   private _selectedBox: string | null = null; // R33.5 item2: the locally-selected box ref — diagram STAYS open (no replaceWith)
@@ -135,7 +136,11 @@ export class RbDiagramDetail extends HTMLElement {
     const content = this.querySelector('.dm-content') as HTMLElement | null;
     if (surface && content && count) {
       this.pz = new RbPanZoom(surface, content); // R31.6 reuse — pinch/drag pan+zoom
-      const z = Number(d?.zoom); if (Number.isFinite(z) && z > 0) this.pz.setScale(z); // R33.7.1 (INV-Z2): restore persisted per-diagram zoom
+      this.pz.growMode = true; // R33.7.1 canvas-grow: diagram opts in (scale<1 GROWS the SVG canvas, not CSS-shrink)
+      const vb = ((this.querySelector('.dm-svg') as SVGSVGElement | null)?.getAttribute('viewBox') || '0 0 100 100').split(/\s+/).map(Number);
+      this._canvasBase = { w: vb[2] || 100, h: vb[3] || 100 }; // tight content bounds = canvasBase (INV-Z1: scale 1 = whole)
+      this.pz.onCanvasGrow = (scale): void => this.applyCanvasGrow(scale); // grow/restore the SVG canvas per scale
+      const z = Number(d?.zoom); if (Number.isFinite(z) && z > 0) this.pz.setScale(z); // R33.7.1 (INV-Z2): restore persisted per-diagram zoom (re-applies regime)
       const dUuid = this.getAttribute('uuid') || stripRef(ref);
       this.pz.onZoomEnd = (scale): void => { void this.persistZoom(dUuid, scale); }; // R33.7.1: persist on user zoom-settle
     }
@@ -218,7 +223,10 @@ export class RbDiagramDetail extends HTMLElement {
       let vx = 0, vy = 0;
       if (lastX < r.left + EDGE) vx = SPEED; else if (lastX > r.right - EDGE) vx = -SPEED;
       if (lastY < r.top + EDGE) vy = SPEED; else if (lastY > r.bottom - EDGE) vy = -SPEED;
-      if (vx || vy) { this.pz?.panBy(vx, vy); moveTo(lastX, lastY); drag.moved = true; raf = requestAnimationFrame(autoscroll); }
+      // R33.7.1 canvas-grow: at scale<1 the canvas is native-scrolled (overflow:auto), so pan via surface.scrollBy
+      // (panBy=CSS-translate has no effect there); at >=1 keep RbPanZoom.panBy UNCHANGED. (drop/moveTo coord map is
+      // universal — content rect reflects scroll + scaleNow=1 in grow mode — so no <1 branch needed there.)
+      if (vx || vy) { if (this.pz && this.pz.currentScale < 1) surface.scrollBy(-vx, -vy); else this.pz?.panBy(vx, vy); moveTo(lastX, lastY); drag.moved = true; raf = requestAnimationFrame(autoscroll); }
       else { raf = 0; } // pointer left the margin → stop autoscrolling (restarts on the next near-edge pointermove)
     };
     surface.addEventListener('pointerdown', (e: PointerEvent) => {
@@ -276,6 +284,30 @@ export class RbDiagramDetail extends HTMLElement {
     if (!diagramUuid) return;
     try { await fetch('/api/model/diagram/zoom', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ diagramUuid, zoom }) }); }
     catch { /* zoom stays client-side; MODEL_STORE authoritative on next render */ }
+  }
+
+  // R33.7.1 canvas-grow (INV-Z1', architect pin 7338c6954/93244b3f6): RbPanZoom.onCanvasGrow at scale<1 → GROW the SVG
+  // canvas so boxes keep VISUAL size and placeable room appears. width/height = base/scale px + viewBox '0 0 base.w/scale
+  // base.h/scale' (grows 1:1 → 1 unit = 1px), content sized to match so the surface (overflow:auto) NATIVE-scrolls the
+  // grown canvas. scale>=1 → restore base (100% / tight viewBox / overflow:hidden) so the CSS-magnify path is UNTOUCHED.
+  private applyCanvasGrow(scale: number): void {
+    const svg = this.querySelector('.dm-svg') as SVGSVGElement | null;
+    const surface = this.querySelector('.dm-surface') as HTMLElement | null;
+    const content = this.querySelector('.dm-content') as HTMLElement | null;
+    const b = this._canvasBase;
+    if (!svg || !surface || !content || !b) return;
+    if (scale < 1) {
+      const w = Math.round(b.w / scale), h = Math.round(b.h / scale);
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svg.style.width = `${w}px`; svg.style.height = `${h}px`;
+      content.style.width = `${w}px`; content.style.height = `${h}px`; // hold the grown SVG → surface scrollWidth/Height grows
+      surface.style.overflow = 'auto';
+    } else {
+      svg.setAttribute('viewBox', `0 0 ${b.w} ${b.h}`);
+      svg.style.width = ''; svg.style.height = '';
+      content.style.width = ''; content.style.height = ''; // back to the CSS 100% (magnify path untouched)
+      surface.style.overflow = 'hidden';
+    }
   }
 
   // [impl:uuid:83b9922b-5fb8-4c1d-ad57-bedbae1c2262] RbDiagramDetail.rerouteEdges (Method 123e0c21) — R33.6.3:

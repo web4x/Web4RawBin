@@ -18,6 +18,8 @@ export class RbPanZoom {
   private readonly MIN = 0.25; // R33.7.1 (INV-Z1): allow zoom-OUT below 1 → grows the working canvas (was 1 = no zoom-out)
   onZoomEnd?: (scale: number) => void; // R33.7.1: fired (debounced) after a USER zoom settles → host persists per-diagram
   private zoomEndTimer = 0;
+  growMode = false; // R33.7.1 canvas-grow: OPT-IN (diagram only). true → scale<1 GROWS the SVG canvas via onCanvasGrow (native scroll) instead of CSS-shrinking. rb-webitem/rb-preview leave it false = CSS-scale UNCHANGED.
+  onCanvasGrow?: (scale: number) => void; // host grows/restores the SVG canvas dims+viewBox for the current scale (grow at <1, reset at >=1)
   private readonly MAX = 8;
   private dragging = false;
   private enabled = true; // R33.5 item3: PAN gated by selection — disabled while a diagram box is selected
@@ -156,7 +158,15 @@ export class RbPanZoom {
 
   private apply(): void { // AC-b1
     this.content.style.transformOrigin = '0 0';
-    this.content.style.transform = `translate(${this.tx}px, ${this.ty}px) scale(${this.scale})`;
+    if (this.growMode && this.scale < 1) {
+      // R33.7.1 canvas-grow: NO CSS scale (identity) — the host (onCanvasGrow) grows the SVG canvas dims + viewBox
+      // (base/scale, 1:1) so boxes keep visual size + placeable room appears; native surface scroll pans the canvas.
+      this.content.style.transform = 'translate(0px, 0px) scale(1)';
+      this.onCanvasGrow?.(this.scale);
+    } else {
+      this.content.style.transform = `translate(${this.tx}px, ${this.ty}px) scale(${this.scale})`;
+      if (this.growMode) this.onCanvasGrow?.(1); // >=1 magnify → reset the canvas to base (host restores tight viewBox/overflow:hidden)
+    }
     this.viewport.style.cursor = this.scale > 1 ? 'grab' : 'auto';
   }
 
