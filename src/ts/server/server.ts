@@ -1074,6 +1074,64 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
 // enumerate the EXISTING SOURCE .puml (scrum.pmo/sprints/*/diagrams/*.puml) as itemviews (mirror ts/). Each node's
 // uuid 'puml-src:<sprint>/<file>' carries the relpath → a click → Import (R32.7 pumlToModel) → interactive diagram.
 // Also surfaces any already-imported PumlArtifact units. Read-only enumeration; import happens via /import-puml.
+// [impl:uuid:7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d] server.newElement (R33.9 unit-verb) — mint a new M1 ModelElement
+// UNIT in MODEL_STORE (store-only, INV: prod scenario/index NEVER touched). Returns the new uuid. NOT a diagram/view op.
+function newElement(name: string, kind: string): { ok: boolean; uuid?: string; error?: string; status?: number } {
+  const nm = String(name || '').trim();
+  if (!nm) return { ok: false, error: 'bad-name', status: 400 };
+  const uuid = crypto.randomUUID();
+  const unit = { ior: 'ior:class:ModelElement', ownerIor: null, model: { uuid, name: nm, metaLevel: 'M1', kind: kind || 'class', members: [], relations: [] } };
+  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(f), { recursive: true });
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
+  return { ok: true, uuid };
+}
+// [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
+// unit in MODEL_STORE (store-only, prod-safe).
+function renameElement(elementUuid: string, name: string): { ok: boolean; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; const nm = String(name || '').trim();
+  if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  if (!nm) return { ok: false, error: 'bad-name', status: 400 };
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
+  const unit = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+  unit.model.name = nm;
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
+  return { ok: true };
+}
+// [impl:uuid:14b7004a-7452-4f88-b3cb-b0c6d2e02730] server.deleteElement (R33.9 unit-verb, DESTRUCTIVE) — delete an M1
+// unit from MODEL_STORE (store-only; prod scenario/index NEVER touched). ≠ R33.8 remove-view (drops only a view-link).
+function deleteElement(elementUuid: string): { ok: boolean; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/;
+  if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
+  fsSync.unlinkSync(f);
+  return { ok: true };
+}
+// count .ts recursively under dir (for the R33.10 dir-folder child count — expandable iff > 0).
+function countTsUnder(dir: string): number {
+  let n = 0;
+  try { for (const e of fsSync.readdirSync(dir, { withFileTypes: true })) { if (e.isDirectory()) n += countTsUnder(path.join(dir, e.name)); else if (e.name.endsWith('.ts')) n++; } } catch { /* unreadable → 0 */ }
+  return n;
+}
+// [impl:uuid:cfb6acef-a67b-49df-b998-f62686db1d5f] server.sourceDirTree (R33.10 tree completeness+folders) — walk
+// src/<rel> ONE level: directory folders (dir:<rel>) + .ts file leaves (file:src/<rel>) for ALL ts on disk (the full
+// 123, not just the ~25 with generated M1 elements). Mirrors pumlChildren's disk walk. file: leaf childCount = its
+// MODEL_STORE M1 element count (0 = a source file not yet modeled; the file: case still resolves its elements, else empty).
+function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
+  const abs = path.join(PROJECT_ROOT, 'src', rel);
+  let entries: fsSync.Dirent[] = [];
+  try { entries = fsSync.readdirSync(abs, { withFileTypes: true }); } catch { return []; }
+  const dirs: MofNode[] = [], files: MofNode[] = [];
+  for (const e of entries) {
+    const childRel = rel ? `${rel}/${e.name}` : e.name;
+    if (e.isDirectory()) { const n = countTsUnder(path.join(abs, e.name)); if (n > 0) dirs.push(mofFolder(`dir:${childRel}`, e.name, n, 'mof-project')); } // folders only if they contain .ts
+    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:src/${childRel}`, e.name, m1Count.get(`src/${childRel}`) || 0, 'mof-project'));
+  }
+  return [...dirs.sort((a, b) => a.name.localeCompare(b.name)), ...files.sort((a, b) => a.name.localeCompare(b.name))];
+}
+
 // [impl:uuid:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2] server.persistRemoveView (R33.8, INVERSE of add-view) — drop a
 // class's VIEW-LINK from the Diagram unit in MODEL_STORE (store-only, INV-RM2 prod scenario/index NEVER touched). The
 // ModelElement unit file is NEVER touched → re-addable (INV-RM1, NOT a delete). Idempotent: absent link → removed:false
@@ -1155,10 +1213,10 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
       mofFolder('rawbin:diagram', 'diagrams', diagramCount, 'diagram'), // R33.3 AC3: PLURAL label; Diagram ITEMS live directly under diagrams/
     ];
   }
-  if (uuid === 'rawbin:ts') { // ts/ = generated M1 ModelElements sub-grouped by sourceFile (the former flat project:RawBin content, INV-P2b-3)
-    const byFile = new Map<string, number>();
-    for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); byFile.set(sf, (byFile.get(sf) || 0) + 1); }
-    return [...byFile.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([sf, n]) => mofFolder('file:' + sf, sf.split('/').pop() || sf, n, 'mof-project')); // R33.3 AC3 DRY: filename-only label; uuid keeps full path → resolve-to-file-for-EDIT
+  if (uuid === 'rawbin:ts' || uuid.startsWith('dir:')) { // R33.10: ts/ = the FULL src/ directory tree (ALL 123 .ts + folder hierarchy), not just the ~25 files with generated M1 elements (INV-T1/T2 completeness+folders)
+    const m1Count = new Map<string, number>();
+    for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
+    return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
   }
   if (uuid === 'rawbin:puml') return pumlChildren(els); // R33.5 item4: 55 source .puml + imported artifacts
   if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
@@ -1741,6 +1799,48 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (out.removed) addLog(`[model] remove-view ${String(elementUuid).slice(0, 8)} ✕ diagram ${String(diagramUuid).slice(0, 8)} views=${out.views}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'remove-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/new') { // R33.9 unit-verb: mint an M1 unit (store-only, delegates to newElement)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { name, kind } = JSON.parse(body || '{}');
+          const out = newElement(String(name || ''), String(kind || 'class'));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/new ${out.uuid?.slice(0, 8)} name=${String(name).slice(0, 30)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-new-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/rename') { // R33.9 unit-verb: rename an M1 unit (store-only)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { elementUuid, name } = JSON.parse(body || '{}');
+          const out = renameElement(String(elementUuid || ''), String(name || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/rename ${String(elementUuid).slice(0, 8)} → ${String(name).slice(0, 30)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-rename-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/delete') { // R33.9 unit-verb: DESTRUCTIVE delete of an M1 unit (≠ R33.8 remove-view)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { elementUuid } = JSON.parse(body || '{}');
+          const out = deleteElement(String(elementUuid || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/delete ${String(elementUuid).slice(0, 8)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-delete-failed' })); }
       });
       return;
     }

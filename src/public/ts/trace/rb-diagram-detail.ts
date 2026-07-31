@@ -53,13 +53,19 @@ export class RbDiagramDetail extends HTMLElement {
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
   private _selectedBox: string | null = null; // R33.5 item2: the locally-selected box ref — diagram STAYS open (no replaceWith)
 
-  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); document.addEventListener('rb-diagram-refresh', this.onRefresh); void this.render(); }
+  connectedCallback(): void { document.addEventListener('rb-model-resync-request', this.onResyncRequest); document.addEventListener('selection-changed', this.onSelectionChanged); document.addEventListener('rb-diagram-refresh', this.onRefresh); void this.render(); this.broadcastActiveDiagram(this.getAttribute('uuid') || stripRef(this.getAttribute('ref') || '') || null); } // R33.9: this diagram is now the ACTIVE membership target
   attributeChangedCallback(): void { if (this.isConnected) void this.render(); }
-  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); document.removeEventListener('selection-changed', this.onSelectionChanged); document.removeEventListener('rb-diagram-refresh', this.onRefresh); this.ro?.disconnect(); this.ro = null; this.pz = null; }
+  disconnectedCallback(): void { document.removeEventListener('rb-model-resync-request', this.onResyncRequest); document.removeEventListener('selection-changed', this.onSelectionChanged); document.removeEventListener('rb-diagram-refresh', this.onRefresh); this.ro?.disconnect(); this.ro = null; this.pz = null; this.broadcastActiveDiagram(null); } // R33.9: no diagram open → membership verbs hide
 
   // R32.8: the tree-header Re-Sync button (or any model view) drives the SAME method via this document event.
   private onResyncRequest = (): void => { void this.reSyncFromSource(); };
   private onRefresh = (): void => { void this.render(); }; // R33.7.2 UC1: re-render from MODEL_STORE after discover add-views → buildEdges wires the new edges
+
+  // [impl:uuid:5150477e-4091-46c6-bdee-50c9250c7725] RbDiagramDetail.broadcastActiveDiagram (Method c1f… req-repoints) —
+  // R33.9: signal the OPEN diagram's uuid to the action-bar host (rb-active-diagram) so MEMBERSHIP verbs (add/remove/
+  // discover) target THIS diagram EXPLICITLY (kills the fragile /api/model/tree last-diagram scan). {uuid} on connect,
+  // {uuid:null} on disconnect → host shows membership only when a diagram is active (INV-A1/A2/A4, IMG_4802/4803 fix).
+  private broadcastActiveDiagram(uuid: string | null): void { document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid }, bubbles: true })); }
 
   // [impl:uuid:20f8a19e-a508-4fcd-8329-04b73bbbcc54] RbDiagramDetail.onSelectionChanged (Method fcd2464e, Class 039ec367, off UC 87d3d693 diagram.tapToAdd) — TAP-to-add complement for
   // touch/iOS Safari, where HTML5 DnD (dragover/drop) never fires → the drag-add path is DEAD on mobile (Tron @390).
