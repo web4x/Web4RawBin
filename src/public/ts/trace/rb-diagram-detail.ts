@@ -286,6 +286,8 @@ export class RbDiagramDetail extends HTMLElement {
     catch { /* zoom stays client-side; MODEL_STORE authoritative on next render */ }
   }
 
+  // [impl:uuid:eb468578-716d-46de-9b66-0f71d85d8066] RbDiagramDetail.applyCanvasGrow (Method e9792c2b, UC 56fe4cdb
+  // diagram.canvasGrowOnZoomOut, req 754a1f9d) — R33.7.1 canvas-GROW (distinct chain from setScale 301b71d4 = scale/persist).
   // R33.7.1 canvas-grow (INV-Z1', architect pin 7338c6954/93244b3f6): RbPanZoom.onCanvasGrow at scale<1 → GROW the SVG
   // canvas so boxes keep VISUAL size and placeable room appears. width/height = base/scale px + viewBox '0 0 base.w/scale
   // base.h/scale' (grows 1:1 → 1 unit = 1px), content sized to match so the surface (overflow:auto) NATIVE-scrolls the
