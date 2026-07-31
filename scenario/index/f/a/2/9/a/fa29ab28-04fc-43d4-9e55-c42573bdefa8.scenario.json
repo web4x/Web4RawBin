@@ -6,7 +6,9 @@
   "name": "Model tree completeness + folder grouping: ts/ enumerates the full src/ directory tree (all 123 .ts, folder-grouped), not only the ~25 generated files",
   "description": "R33.10 (Tron device; architect design 7e1365d60, R33.10-tree-completeness-folders.md). Disk src has 123 .ts but rawbin:ts groups m1Roots by sourceFile -> shows only the ~25 GENERATED files (bounded generate-project) = incomplete tree. item-2 (25->ALL ts) + item-3 (folder grouping) = ONE fix: redesign rawbin:ts (+children) to walk src/ RECURSIVELY (like pumlChildren reads the diagrams dir) emitting folder nodes by directory (dir:<relpath>) + .ts file leaves (file:<relpath>) for ALL 123; under a file: leaf -> its M1 ModelElements from MODEL_STORE if generated, else empty (or generate-on-expand). The directory hierarchy IS the grouping. Completeness + folder-grouping in one. 55-puml folder already closed. Reuse the mof layer-by-layer + /api/trace/children routing, NO fork. INV-T1-4.",
   "tronQuote": "> TRON (2026-07-31, device): the ts tree only shows ~25 files but there are more on disk; grouping in folders makes sense.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:7f1b9ad5-2eee-4836-9d10-ede5add49dd4"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
