@@ -219,6 +219,7 @@ export class RbDetailDrawer extends HTMLElement {
       profile: 'rb-profile-detail', // R31.8c NODE-4: granted-user detail (revoke); tag string only, defined by the feature-manager bundle
       diagram: 'rb-diagram-detail', // R32.4: MDA SVG diagram surface (additive; drawer self-imports it above — no fork)
       modelelement: 'rb-modelelement-detail', // R32.10 (INV-M2): MDA M1 element detail (class→members+diagram / method→signature); tag string only, defined by the model bundle (stays out of /trace)
+      'puml-src': 'rb-modelelement-detail', // R33.1.1: a puml/ folder source-.puml leaf mounts rb-modelelement-detail → its render() branches on the puml-src: ref → renderPumlSource → /md → /api/puml-render → SVG in-section
     };
     const tag = tagMap[type] || 'rb-detail-view';
     // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,
