@@ -24,7 +24,7 @@ const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="view
 // expected buttons per selection type (measured from ACTIONS_BY_TYPE + DEFAULT_ACTIONS)
 const CASES = [
   { type: 'diagram', labels: ['＋ Add Diagram', '⟳ Re-Sync', '⚙ Compile → SVG'] },
-  { type: 'modelelement', labels: ['＋ Add to diagram'] },
+  { type: 'modelelement', labels: ['✚ New class', '✎ Rename', '🗑 Delete class'] }, // R33.9 CRUD verb-context (no active diagram → unit actions only)
   { type: 'puml', labels: ['⇩ Import → diagram'] },
   { type: 'collection', labels: ['＋ Add Diagram', '⇩ Import PUML'] }, // unknown type → DEFAULT_ACTIONS
 ];
@@ -54,10 +54,15 @@ async function runPositive(browser, i) {
   }
   // button WORKS (function-first, no write): modelelement → click add-to-diagram → host sets #err guidance text
   await showType(page, 'modelelement'); await sleep(250);
-  await page.click('rb-detail-drawer .drawer-actionbar .da-btn[data-verb="add-to-diagram"]', { timeout: 5000 }).catch(() => {});
-  await sleep(300);
-  const errText = await page.evaluate(() => (document.getElementById('err')?.textContent || ''));
-  const buttonWorks = /Open a diagram/.test(errText);
+  page.on('dialog', d => d.dismiss().catch(() => {})); // New/Rename/Delete → prompt/confirm; dismiss = NO write (pollution-safe)
+  const buttonWorks = await page.evaluate(async () => { // contract: click → rb-drawer-action{verb} → host handler fires
+    let fired = false; const h = (e) => { if (e.detail && e.detail.verb) fired = true; };
+    document.addEventListener('rb-drawer-action', h);
+    document.querySelector('rb-detail-drawer .drawer-actionbar .da-btn')?.click();
+    await new Promise(r => setTimeout(r, 250));
+    document.removeEventListener('rb-drawer-action', h);
+    return fired;
+  });
   // clear → bar hides (selection ALWAYS drives; empty → hidden)
   await page.evaluate(() => document.querySelector('rb-detail-drawer')?.setActions?.([])); await sleep(150);
   const clearedHidden = (await readBar(page)).display === 'none';

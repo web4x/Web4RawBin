@@ -79,7 +79,7 @@ async function runOnce(browser, i) {
     }
     return { x: 40, y: 100 };
   });
-  await page.mouse.click(empty.x, empty.y); await sleep(200);              // deselect → pan re-enabled (setEnabled(true))
+  await page.mouse.click(empty.x, empty.y); await sleep(200);              // deselect → pan re-enabled (setEnabled(true)) [chromium page.mouse; WK skips empty-pan — see item3keys note]
   const preEmpty = await page.evaluate(() => getComputedStyle(document.querySelector('#dg .dm-content')).transform);
   await page.mouse.move(empty.x, empty.y); await page.mouse.down(); await page.mouse.move(empty.x + 55, empty.y + 40, { steps: 8 }); await page.mouse.up(); await sleep(300);
   const postEmpty = await page.evaluate(() => getComputedStyle(document.querySelector('#dg .dm-content')).transform);
