@@ -1,4 +1,5 @@
 // R33.10 — 123-ts folder-nav (sourceDirTree Impl cfb6acef) @390 WebKit gate, DET-3x. INV-T1: rawbin:ts expands to LEAF
+// [test:uuid:5d4b2fb5-11ef-47ca-8486-b171308643b6] R33.10 server.sourceDirTree (Impl cfb6acef) @390 WebKit — 123-ts folder-nav tree completeness (INV-T1-4); GREEN DET-3x. Independent tester credit.
 // .ts files (NOT {} — v0.8.36 fixed the PROJECT_ROOT ReferenceError). Two halves: (server, read-only, ungated) drill
 // /api/trace/children/rawbin:ts → reach a real .ts leaf within a few levels; (WebKit @390 render) serve /model shell →
 // real model bundle → expandPath(['mof-m1','project:RawBin','rawbin:ts']) → the ts subtree renders nodes VISIBLE.
