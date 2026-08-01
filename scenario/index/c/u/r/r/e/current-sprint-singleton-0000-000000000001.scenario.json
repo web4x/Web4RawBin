@@ -2,18 +2,18 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)",
+    "name": "Current: Task 33.10: Model tree completion (active build) — WebKit-sweep drain",
     "chain": {
-      "req": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2",
-      "uc": "fa1845d3-88e2-4c9b-9618-f427fc262b56",
+      "req": "fa29ab28-04fc-43d4-9e55-c42573bdefa8",
+      "uc": "",
       "class": "",
-      "method": "6fc43b8e-7c94-42af-baf2-c611a84793e7",
-      "impl": "394eac63-aa3a-4ee6-a2dc-6a5ac9204a05",
+      "method": "",
+      "impl": "",
       "test": ""
     },
     "activeHop": 2,
-    "sprintName": "Sprint 31",
-    "taskName": "Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)",
+    "sprintName": "Sprint 33",
+    "taskName": "Task 33.10: Model tree completion (drag/composition/relationships)",
     "hopStates": {
       "req": {
         "status": "done",
@@ -22,24 +22,24 @@
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "",
-    "lastCompletedName": "",
-    "lastCompletedReqUuid": "",
+    "lastCompletedUuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
+    "lastCompletedName": "Task 33.9: Context-aware actions (element CRUD + verb-context)",
+    "lastCompletedReqUuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
     "slots": {
       "current": {
-        "taskUuid": "78dc780b-4301-454c-ac56-bf1fca3ce06d",
-        "taskName": "Task 31.4: Pane -> interactive default-drawer xterm.js SSH terminal (owner-gated websocket PTY bridge)",
-        "reqUuid": "fb14fdbf-3ba4-48fa-b098-748fc0e278c2"
+        "taskUuid": "7f1b9ad5-2eee-4836-9d10-ede5add49dd4",
+        "taskName": "Task 33.10: Model tree completion (drag/composition/relationships)",
+        "reqUuid": "fa29ab28-04fc-43d4-9e55-c42573bdefa8"
       },
       "lastCompleted": {
-        "taskUuid": "d4a153d7-918a-402c-b088-345c86802537",
-        "taskName": "Task 31.2: Owner-only access gate for Server Manager - server-side by-construction (owner 200 / non-owner 403, incl websocket)",
-        "reqUuid": "5bc9683e-384d-4170-8fcf-a2e7ca981d7b"
+        "taskUuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
+        "taskName": "Task 33.9: Context-aware actions (element CRUD + verb-context)",
+        "reqUuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661"
       },
       "nextBacklog": {
-        "taskUuid": "3b60b587-9dac-48ee-b5f2-b3a25d296dc0",
-        "taskName": "Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)",
-        "reqUuid": "7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4"
+        "taskUuid": "",
+        "taskName": "",
+        "reqUuid": ""
       }
     }
   },
