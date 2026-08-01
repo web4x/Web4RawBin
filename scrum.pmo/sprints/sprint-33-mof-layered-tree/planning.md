@@ -26,3 +26,4 @@ Present the MDA model as a proper MOF 4-layer TREE (M3/M2/M1/M0 folders) instead
 - [x] [Task 33.8: Remove-from-diagram action: selected class-on-diagram -> action-bar removes its VIEW (inverse of add-view), model element untouched, edges reroute + refresh](./task-33.8-remove-from-diagram.md)
 - [x] [Task 33.9: Context-aware action lifecycle: unit verbs (new/rename/delete) vs membership verbs (add/remove), kill the fragile last-diagram implicit target](./task-33.9-action-lifecycle.md)
 - [x] [Task 33.10: Model tree completeness + folder grouping: ts/ enumerates the full src/ directory tree (all 123 .ts, folder-grouped), not only the ~25 generated files](./task-33.10-tree-completeness.md)
+- [x] [Task 33.1.1: puml/ folder existing-source .puml leaf renders its diagram as SVG in-section (renderPumlSource, R33.6 item-4 consolidation)](./task-33.1.1-puml-source-render.md)

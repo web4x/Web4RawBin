@@ -6,7 +6,9 @@
   "name": "Existing-source .puml itemview renders its diagram as SVG in-section (R33.6 item-4 / R33.1.1 consolidated — renderPumlSource)",
   "description": "S33-P1 completion fast-follow (PO 2026-07-30): the R33.1 MOF-tree M1·Projects design includes a '📄 PUML (code)' leaf under each project node (its R32.7 modelToPuml serialization), but the expert honestly stopped tight - the PUML-code leaf is NOT wired (only the folder structure + Diagram(svg) shipped in R33.1). R33.1.1 wires it: the M1 project node gets a '📄 PUML (code)' leaf that shows the R32.7 modelToPuml text for the project's model. THIN - reuses R32.7 modelToPuml (Impl 8462f889), no new serializer; the tree already renders leaf nodes. Refinement of R33.1 (completes AC-m1-projects-tree's PUML node). Gate the leaf @390 (appears + shows code).",
   "tronQuote": "> (S33-P1 completion; the '📄 PUML (code)' leaf from the R33.1 design 4d9ec3914 tree shape, deferred by the expert's tight stop.)",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:8be6074f-29c9-4566-b710-bf861d9d9799"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
