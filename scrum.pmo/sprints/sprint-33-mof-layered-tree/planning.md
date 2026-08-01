@@ -15,7 +15,7 @@ Present the MDA model as a proper MOF 4-layer TREE (M3/M2/M1/M0 folders) instead
 - [x] [Task 33.1: MOF-layered model tree: /model presents M2·UML Profile + M1·Projects folders (P1)](./task-33.1-mof-layered-tree.md)
 - [x] [Task 33.2: MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)](./task-33.2-bounded-lazy-render.md)
 - [x] [Task 33.3: Working interactive diagram: DnD -> selectable MOVABLE SVG class boxes (S33 RE-SCOPE)](./task-33.3-interactive-diagram.md)
-- [ ] [Task 33.5: Diagram UX polish on the working R33.3 editor (add-shows / select-keeps-diagram / drag-no-pan / puml-populated)](./task-33.5-diagram-ux-polish.md)
+- [x] [Task 33.5: Diagram UX polish on the working R33.3 editor (add-shows / select-keeps-diagram / drag-no-pan / puml-populated)](./task-33.5-diagram-ux-polish.md)
 - [x] [Task 33.6.1: BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing](./task-33.6.1-drag-add-new-diagram.md)
 - [x] [Task 33.6.2: Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary](./task-33.6.2-suppress-scroll.md)
 - [x] [Task 33.6.3: After moving a diagram element, recalculate relationships and re-route the connector lines to the element's new position](./task-33.6.3-reroute-connectors.md)
