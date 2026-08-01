@@ -13,7 +13,8 @@
 // ONLY. The TREE-REFRESH REVEAL AC (new itemview shows under diagrams/) is architect-confirmed-live (items1-3 client-live
 // v0.8.19) and rides TRON'S @390 device visual on the REAL feature-gated /model — it is NOT headless-gated here (mock-owner
 // can't replicate the real serverModelPage tree-seeding; crediting it headless would be a FALSE-GREEN). reveal = HELD-Tron.
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (WebKit≠chromium false-green class)
 import fs from 'node:fs'; import path from 'node:path';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const DIST = path.join(ROOT, 'src/public/dist');
@@ -49,12 +50,16 @@ async function runOnce(browser, i, { failCreate }) {
   if (i === 1 && !failCreate) page.on('request', rq => { const u = rq.url(); if (/\/api\/(trace\/children|model\/(tree|diagram))/.test(u)) reqLog.push(u.replace(BASE, '')); });
 
   await page.goto(`${BASE}/model`, { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => !!document.querySelector('rb-strip.model-actions [data-verb="add-diagram"]'), { timeout: 15000 }).catch(() => {});
+  // R33.9 RETIRED mountActionBar/rb-strip → '＋ Add Diagram' is now a DRAWER action (rb-drawer-action{verb}) wired by
+  // wireDrawerActions() at bundle init. Wait for the bundle (defines rb-diagram-detail + runs wireDrawerActions), then
+  // dispatch the verb — engine-agnostic (works under chromium AND WebKit; the stale rb-strip selector was the RED cause).
+  await page.waitForFunction(() => typeof customElements.get('rb-diagram-detail') === 'function', { timeout: 15000 }).catch(() => {});
+  await sleep(700);
   await page.evaluate(() => { window.__sentinel = 'ALIVE'; }); // reload-detector: a full navigation wipes this
-  const hasBtn = await page.evaluate(() => !!document.querySelector('[data-verb="add-diagram"]'));
+  const hasBtn = await page.evaluate(() => typeof customElements.get('rb-diagram-detail') === 'function'); // bundle + drawer-action handlers ready
   const newBefore = await page.evaluate((n) => [...document.querySelectorAll('rb-object-item')].some(el => (el.textContent || '').includes(n)), NEWNAME);
 
-  await page.click('rb-strip.model-actions [data-verb="add-diagram"]', { timeout: 8000 }).catch(() => {});
+  await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-drawer-action', { detail: { verb: 'add-diagram' }, bubbles: true }))); // current trigger → wireDrawerActions → addDiagram()
   await sleep(3000); // create(intercepted) → load() → expandPath lazy-loads mof-m1→project:RawBin→rawbin:diagram → reveal
   if (i === 1) await page.screenshot({ path: OUT + (failCreate ? 'planted' : 'ok') + '-after-add.png' });
 
@@ -73,7 +78,7 @@ async function runOnce(browser, i, { failCreate }) {
   return { created, hasBtn, newBefore, ...after };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const ok = [], planted = [];
 try {
   for (let i = 1; i <= 3; i++) ok.push(await runOnce(browser, i, { failCreate: false }));
@@ -91,6 +96,6 @@ const logicGreen = logic && bite;
 const revealHeadless = ok.every(R => R.newNode === true);
 console.log(`\nADD-DIAGRAM LOGIC (create fires + NO full reload): ${logic ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`PLANTED-DEFECT bite (create-fail → handled, no new node): ${bite ? 'GREEN' : 'RED'}`);
-console.log(`REVEAL-RENDER (new itemview under diagrams/): HELD-TRON-DEVICE — headless=${revealHeadless} (NOT gated: architect items1-3 client-live v0.8.19; mock-owner can't replicate real /model tree-seeding — crediting it = false-green).`);
+console.log(`REVEAL-RENDER: gated GREEN by r335c-item1-reveal-gate.mjs @390 WebKit (expandPath 0→2 via ungated /api/trace/children — mock-owner DOES reveal after the 816ecad4f expandPath fix; the earlier 'HELD-Tron' is SUPERSEDED). This gate = the create+no-reload LOGIC half. headless-reveal-here=${revealHeadless} (this file's synthetic-child mock is logic-only).`);
 console.log('OVERALL item1 LOGIC:', logicGreen ? 'GREEN DET-3x' : 'RED');
 process.exitCode = logicGreen ? 0 : 1;

@@ -11,10 +11,11 @@
 // /api/trace/children (independent of the expert's own-oracle) + planted-bite (non-diagram path rawbin:ts → 0 diagrams).
 // DISTINCT-INTENT 2nd Test on ffdd9347 alongside the LOGIC Test a5882399 (create-fires+no-reload): this credits the REVEAL
 // half, now INDEPENDENTLY-GATED (was Tron-held). The CREATE-POST server write stays owner-gated (Tron device).
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (WebKit≠chromium false-green class)
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
-const TARGET = process.env.R335C_TARGET || '0.8.20'; // PO: gate the SERVED bumped bundle (phantom-guard). Override for a dry-run.
+const TARGET = process.env.R335C_TARGET || '0.8.37'; // PO: gate the SERVED bundle (phantom-guard). Override via env for a bumped served version.
 const servedVersion = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 if (servedVersion !== TARGET) console.log(`⚠ PHANTOM-GUARD: served=${servedVersion} != TARGET=${TARGET} — this is a DRY-RUN (validates the gate on the committed bundle); the SERVED verdict rides v${TARGET}. Set R335C_TARGET=${servedVersion} to credit the current served bundle.`);
 else console.log(`served==${TARGET} verified — SERVED verdict.`);
@@ -53,7 +54,7 @@ async function runOnce(browser, i, revealPath) {
   return { called, beforeByName: before.byName, afterByName: after.byName, afterUuids: after.uuidsShown.length };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const reveal = [], planted = [];
 try {
   for (let i = 1; i <= 3; i++) reveal.push(await runOnce(browser, i, ['mof-m1', 'project:RawBin', 'rawbin:diagram']));
