@@ -69,8 +69,12 @@ async function runOnce(browser, i) {
   R.item2_revealed = b1.reveal.some(r => (r || '').includes(b0.ref.replace('modelelement:', '')));
   R.item2_noSelectionChanged = !b1.sel.some(s => s.includes(b0.ref.replace('modelelement:', '')));
 
-  // ── item3 (44f3ddd3): zoom>1, EMPTY-drag PANS, SELECTED-box-drag MOVES-no-pan ──
-  await page.evaluate(() => { const s = document.querySelector('#dg .dm-surface'); for (let k = 0; k < 4; k++) s.dispatchEvent(new WheelEvent('wheel', { deltaY: -140, clientX: 195, clientY: 450, bubbles: true, cancelable: true })); });
+  // ── item3 (44f3ddd3): DETERMINISTIC scale>1, EMPTY-drag PANS, SELECTED-box-drag MOVES-no-pan ──
+  // HARNESS-DRIFT FIX (architect git-bisect: scale>1 pan path BYTE-UNCHANGED since v0.8.18; R33.7.1 persisted-zoom can
+  // render start<1 so a FIXED wheel-in may not reach >1 → pan gate stays closed → false-RED). FIX: setScale(1) then zoom
+  // UNTIL scale>1 ASSERTED (don't assume start=1); + INSTRUMENT scale/transform pre-drag; + drag the UN-CLAMPED direction
+  // (from tx=0 max, content>viewport → tx can only go negative → drag LEFT+UP, not the previously-clamped +RIGHT).
+  await page.evaluate(() => { const e = document.querySelector('#dg'); e.pz.setScale(1); const s = e.querySelector('.dm-surface'); let n = 0; while (e.pz.currentScale <= 1.4 && n++ < 14) s.dispatchEvent(new WheelEvent('wheel', { deltaY: -140, clientX: 195, clientY: 450, bubbles: true, cancelable: true })); });
   await sleep(300);
   const empty = await page.evaluate(() => {
     for (let y = 80; y < 820; y += 40) for (let x = 40; x < 350; x += 40) {
@@ -79,12 +83,18 @@ async function runOnce(browser, i) {
     }
     return { x: 40, y: 100 };
   });
-  await page.mouse.click(empty.x, empty.y); await sleep(200);              // deselect → pan re-enabled (setEnabled(true)) [chromium page.mouse; WK skips empty-pan — see item3keys note]
-  const preEmpty = await page.evaluate(() => getComputedStyle(document.querySelector('#dg .dm-content')).transform);
-  await page.mouse.move(empty.x, empty.y); await page.mouse.down(); await page.mouse.move(empty.x + 55, empty.y + 40, { steps: 8 }); await page.mouse.up(); await sleep(300);
+  await page.mouse.click(empty.x, empty.y); await sleep(200);              // deselect → pan re-enabled (setEnabled(true))
+  const pre = await page.evaluate(() => { const e = document.querySelector('#dg'); return { scale: e.pz.currentScale, enabled: e.pz.isEnabled, t: getComputedStyle(e.querySelector('.dm-content')).transform }; });
+  R.item3_scaleOver1 = pre.scale > 1; R.item3_preScale = Number(pre.scale.toFixed(2)); R.item3_panEnabled = pre.enabled === true; // INSTRUMENT (re-escalation evidence)
+  await page.mouse.move(empty.x, empty.y); await page.mouse.down(); await page.mouse.move(empty.x - 80, empty.y - 55, { steps: 8 }); await page.mouse.up(); await sleep(300); // LEFT+UP = un-clamped
   const postEmpty = await page.evaluate(() => getComputedStyle(document.querySelector('#dg .dm-content')).transform);
-  R.item3_emptyDragPans = preEmpty !== postEmpty;
+  R.item3_emptyDragPans = postEmpty !== pre.t;
   if (i === 1) await page.screenshot({ path: OUT + '02-empty-drag-pans.png' });
+  // isolate the SELECTED-drag sub-test from the empty-pan above (which shifted the box): reset to a clean centered
+  // scale>1, then re-select the box (mousedown selects → setEnabled(false) → box drag MOVES, no pan).
+  await page.evaluate(() => { const e = document.querySelector('#dg'); e.pz.reset(); e.pz.setScale(1.4); }); await sleep(300);
+  const bbSel = await boxInfo(page);
+  await page.mouse.click(bbSel.cx, bbSel.cy); await sleep(300); // select the box (pan disabled while selected)
   const bb = await boxInfo(page);
   const preSel = await page.evaluate(() => getComputedStyle(document.querySelector('#dg .dm-content')).transform);
   await page.mouse.move(bb.cx, bb.cy); await page.mouse.down(); await page.mouse.move(bb.cx + 50, bb.cy + 40, { steps: 8 }); await page.mouse.up(); await sleep(400);
@@ -121,7 +131,9 @@ console.log('\n===== R33.5 items 2/3/4 @390 iPhone-12 (DET-3x) =====');
 runs.forEach((R, i) => console.log(`iter ${i + 1}: ${JSON.stringify(R)}`));
 const detGreen = k => runs.length === 3 && runs.every(R => R[k] === true);
 const item2 = ['item2_control_unselectedFirst', 'item2_selected', 'item2_diagramStays', 'item2_revealed', 'item2_noSelectionChanged'].every(detGreen);
-const item3 = ['item3_emptyDragPans', 'item3_selectedDragMovesBox', 'item3_selectedDragNoPan'].every(detGreen);
+const item3 = ['item3_scaleOver1', 'item3_emptyDragPans', 'item3_selectedDragMovesBox', 'item3_selectedDragNoPan'].every(detGreen);
+// RE-ESCALATION EVIDENCE (architect clause): scale>1 established BUT empty-drag transform dead → product bug, hand back.
+const item3_reEscalate = runs.every(R => R.item3_scaleOver1 === true) && runs.some(R => R.item3_emptyDragPans !== true);
 const item4 = ['item4_puml55', 'item4_plantedDefect'].every(detGreen);
 console.log(`\nITEM2 boxSelect (bde57b1a):`, item2 ? 'GREEN DET-3x' : 'RED');
 console.log(`ITEM3 setEnabled pan (44f3ddd3):`, item3 ? 'GREEN DET-3x' : 'RED');
