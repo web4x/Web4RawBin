@@ -6,7 +6,8 @@
 // lags 0.8.20, restart deferred to R33.6 boundary — the R33.5-reveal lesson). Serve /model shell + real bundle (drawer +
 // wireDrawerActions mount at init). Drive the REAL event contract per type → assert the rendered .da-btn buttons; button-WORKS
 // (function-first, no write: add-to-diagram → #err text); INV-3 NEGATIVE: /trace drawer (no host) → bar HIDDEN. @390. DET-3x.
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
 import fs from 'node:fs'; import path from 'node:path';
 // [test:uuid:2430c050-4c0d-479b-8ba4-b80214c5a2bb] R33.6.5 item5 RbDetailDrawer.setActions (Impl cef954eb) @390 DET-3x served v0.8.22: the GENERIC .drawer-actionbar renders the HOST-supplied {verb,label} .da-btn buttons and HIDES (display:none) when empty.
 // [test:uuid:a1e4c001-01ce-425a-9d72-a2048e1ba61c] R33.6.5 item6 host ModelView.wireDrawerActions (Impl 613bfb4a) @390 DET-3x: selection-driven ACTIONS_BY_TYPE mapping (diagram->[AddDiagram/ReSync/Compile], modelelement->[AddToDiagram], puml->[Import], default->[AddDiagram/ImportPUML]) + button click -> rb-drawer-action -> host handler fires.
@@ -78,7 +79,7 @@ async function runNegative(browser) {
   return { present: bar.present, display: bar.display, labels: bar.labels };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const pos = [], neg = [];
 try {
   for (let i = 1; i <= 3; i++) pos.push(await runPositive(browser, i));

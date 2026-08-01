@@ -8,7 +8,8 @@
 // canvas (scale<1), scale=1=whole-diagram, and a user zoom PERSISTS (POST /api/model/diagram/zoom) → REMOUNT RESTORES it
 // (≠1, non-vacuous). Component-harness (mount rb-diagram-detail, not authed /model); pollution-safe (DIAG byte-restored).
 import fs from 'node:fs'; import path from 'node:path';
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 → real Safari engine @390 (Tron's iPhone)
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
@@ -44,6 +45,7 @@ async function runOnce(browser, i) {
   const { ctx, page } = await mkPage(browser);
   const R = {};
   await mountDiagram(page);
+  R.visibleRender = await page.evaluate(() => { const c = document.querySelector('#dg .dm-content'); const r = c && c.getBoundingClientRect(); return !!(r && r.width > 0 && r.height > 0); }); // WebKit visible-render half
   const s0 = await scale(page);
 
   // (a) zoom-OUT grows the canvas → scale drops below 1 (INV-Z1: <1 = grown canvas)
@@ -73,7 +75,7 @@ async function runOnce(browser, i) {
   return R;
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const runs = [];
 try { for (let i = 1; i <= 3; i++) runs.push(await runOnce(browser, i)); }
 finally { await browser.close(); fs.writeFileSync(DFILE, BASELINE); console.log(`CLEANUP: ${DIAG.slice(0, 8)} restored=${fs.readFileSync(DFILE, 'utf8') === BASELINE}`); }
@@ -81,7 +83,7 @@ finally { await browser.close(); fs.writeFileSync(DFILE, BASELINE); console.log(
 console.log('\n===== R33.7.1 zoom @390 iPhone-12 (DET-3x) =====');
 runs.forEach((R, i) => console.log(`iter ${i + 1}: ${JSON.stringify(R)}`));
 const g = k => runs.length === 3 && runs.every(R => R[k] === true);
-const green = g('zoomOutGrows') && g('oneIsWhole') && g('reloadRestores');
+const green = g('zoomOutGrows') && g('oneIsWhole') && g('reloadRestores') && g('visibleRender');
 console.log(`\n(a) zoom-out grows canvas (<1): ${g('zoomOutGrows') ? 'GREEN' : 'RED'}`);
 console.log(`(b) scale=1 whole-diagram: ${g('oneIsWhole') ? 'GREEN' : 'RED'}`);
 console.log(`(c) reload restores persisted zoom (≠1): ${g('reloadRestores') ? 'GREEN' : 'RED'}`);

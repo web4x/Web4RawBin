@@ -13,7 +13,8 @@
 // [test:uuid:fc65297a-3daa-4d74-abda-d72284936d51] R33.5 item3 RbPanZoom.setEnabled (Impl 44f3ddd3) — @390 zoom>1: empty-canvas drag PANS, selected-box drag MOVES the box with NO pan (setEnabled(false) while selected); GREEN DET-3x.
 // [test:uuid:6b647166-0c8d-4496-b163-aac793f6accb] R33.5 item4 server.pumlChildren (Impl 9eb2c39c) — LIVE served /api/trace/children/rawbin:puml enumerates the 55 source .puml as puml-src itemviews; bogus ref ≠ 55 (planted control); GREEN DET-3x.
 import fs from 'node:fs'; import path from 'node:path';
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
@@ -104,7 +105,7 @@ async function runOnce(browser, i) {
   return R;
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const runs = [];
 try {
   for (let i = 1; i <= 3; i++) runs.push(await runOnce(browser, i));

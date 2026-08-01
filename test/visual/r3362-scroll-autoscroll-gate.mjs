@@ -14,7 +14,8 @@
 // PointerEvents (pointerdown ON the box so e.target→closest('.dm-box') sets drag; pointermoves on .dm-surface into the
 // margin drive the rAF autoscroll). Also: edge-autoscroll needs pan room → zoom>1 first (at scale 1 clamp pins it).
 import fs from 'node:fs'; import path from 'node:path';
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const DIAG = 'faa4acad-41a6-48fc-ad0d-dd0044c123f7';
 const DFILE = path.join(ROOT, 'data/model-store/index', ...DIAG.slice(0, 5).split(''), `${DIAG}.scenario.json`);
@@ -93,7 +94,7 @@ async function runOnce(browser, i) {
   return { invD1, boxTA: s0.boxTA, invD2_autoscroll, preEdge: preEdge.slice(0, 18), postEdge: postEdge.slice(0, 18), bite };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const runs = [];
 try { for (let i = 1; i <= 3; i++) runs.push(await runOnce(browser, i)); }
 finally { await browser.close(); fs.writeFileSync(DFILE, BASELINE); console.log(`CLEANUP: ${DIAG.slice(0, 8)} restored=${fs.readFileSync(DFILE, 'utf8') === BASELINE}`); }

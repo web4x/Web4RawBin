@@ -13,7 +13,8 @@
 // DOM own-oracle. Impl target = RbDiagramDetail.addView 4e74dfee (the stripRef fix path); tap trigger = onSelectionChanged
 // 20f8a19e (UC diagram.tapToAdd) — req maps the marker to the R33.6.1 impl. Pollution-safe (test fixture deleted).
 import fs from 'node:fs'; import path from 'node:path';
-import { chromium, devices } from '@playwright/test';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // R33 WebKit sweep: WK=1 -> real Safari @390
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const EMPTY = 'e0000000-0000-4000-8000-000000033610'; // test-only empty diagram (distinct from the expert repro's uuid)
 const CLASS = 'f51234b0-0233-4fd6-a802-5467f64accc2'; // 'Id' — a real MODEL_STORE element to add
@@ -74,7 +75,7 @@ async function runBite(browser) {
   return { boxesAfter: after.boxes, diskViews: disk };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const happy = [], bite = [];
 try {
   for (let i = 1; i <= 3; i++) happy.push(await runHappy(browser, i));
