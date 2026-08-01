@@ -510,3 +510,21 @@ SERVED-VERIFY: /api/trace/children/rawbin:ts returns `{}` (empty) — NOT the 12
 
 ## R33.10 SECOND BUG (v0.8.36) — folder EXPANSION returns {} (dir: not in the guard regex)
 RE-VERIFY 0.8.36: top-level `rawbin:ts` = 123 ts across 3 folders (public 74 + shared 1 + ts 48) ✓ INV-T1 completeness + top-level folders. BUT expanding a folder (`dir:ts` etc.) returns `{}`. ROOT: `mofChildren`'s guard regex (server.ts:1192) `/^(mof-m1|mof-m2|project:|file:|rawbin:)/` does NOT include `dir:` → a `dir:<rel>` uuid fails the guard → `return null` (before reaching the handler at :1216) → `{}`. SAME for the DISPATCH regex (server.ts:2042, which already carries the R33.3-BUG comment that rawbin: had to be added for the identical reason). **FIX (add `dir:` to BOTH regexes):** server.ts:1192 AND :2042 → `/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/`. Re-verify: `dir:ts` expands to src/ts's subdirs + .ts leaves (recursive walk); folder hierarchy fully navigable (INV-T2). R33.9 + INV-T1 (top-level 123) already good; only the drill-down guard needs `dir:`.
+
+## ★ R33.1.1 DESIGN-CONFIRM + BUILD SPEC (architect 2026-08-01, TRON-authorized; BUG-B fixed = plantuml-server docker :8089)
+DESIGN HOLDS against the WORKING backend — VERIFIED end-to-end LIVE: a real source .puml (`sprint-02-identity-ssh/diagrams/class-diagram.puml`) → `GET /md/scrum.pmo/sprints/<relpath>` = **200** (BUG-A ref fix: pumlChildren now emits `puml-src:${sp}/diagrams/${f}`, server.ts:1185) → `POST /api/puml-render` = **200 image/svg+xml** (BUG-B fixed: plantuml-server docker). The scope-pin (A, existing-source puml-src FOLDER-leaf → /md raw → /api/puml-render SVG, INV-P1.1/1.2/1.3) is correct and the `renderPumlSource` method is already built to it (rb-modelelement-detail.ts:33 branch + :74-88 fetch→render).
+
+### ★ ONE BUILD ITEM (wiring gap I found — the render method is UNREACHABLE without it)
+`renderPumlSource` fires only if the drawer MOUNTS `rb-modelelement-detail` for a puml-src node. But `renderDetailForRef` derives `type = ref.slice(0, ':')` = **`puml-src`** (rb-detail-drawer.ts:185), and the tagMap (:213-222) has NO `puml-src` entry → falls to `rb-detail-view` (default :223) → **the built branch never runs**. (BUG-A/B masked this; now exposed.)
+**FIX (expert, ONE line):** add to the drawer tagMap (rb-detail-drawer.ts:221) → `'puml-src': 'rb-modelelement-detail',` — then select a puml-src leaf → drawer mounts rb-modelelement-detail → `render()` sees `ref.startsWith('puml-src:')` → `renderPumlSource(relPath)` → /md → /api/puml-render → SVG in-section. (rb-modelelement-detail handles the ref directly via the :33 branch; no uuid dependency.) CLIENT-ONLY → version bump → REAL restart at the R33 boundary (R32.7 lesson). Also re-confirm the model tree emits a selectable puml-src node (rawbin:puml folder).
+
+### CHAIN SHAPES (UC→Class→Method→Impl→Test) — confirmed/refined
+- **UC** `modelElement.renderPumlSource` `8b858586` (method→3a433a45; classes[] empty = repo convention, chain via uc.method + Class.methods)
+- **Class** `RbModelElementDetail` `7788ebe0`
+- **Method** `RbModelElementDetail.renderPumlSource` `3a433a45`
+- **Impl** `b0c0d27d` (marker placed rb-modelelement-detail.ts:74; BUILT)
+- **Test** — PENDING: req mints scenario-first on the @390 gate green (real-WebKit self-gate: select a puml-src leaf → SVG renders in-section; planted-defect = bogus relpath → no SVG). ADD a 2nd Impl/marker note IF the tagMap-routing lands as a distinct decl (it rides rb-detail-drawer.renderDetailForRef — a call-site/config edit, not a new traced method; likely no new Impl, req's call).
+
+### GATE / handoff
+- **GATE (tester, real-WebKit @390 self-gate — no Tron bottleneck):** select a puml-src FOLDER leaf (rawbin:puml) → the itemview/section shows the rendered SVG (image/svg+xml in-section); bogus relpath → no SVG (planted control); /trace + class/interface element detail UNREGRESSED.
+- **HANDOFF:** expert = add the tagMap `'puml-src'` routing (the one gap) + restart at boundary; req = mint the Test scenario-first on @390 green. S33 stays OPEN until the gate is GREEN.
