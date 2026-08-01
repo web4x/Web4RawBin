@@ -20,14 +20,15 @@
   - [ ] **(gate)** GATE @390 the FOLDER STRUCTURE + cross-level nav (Tron viewport): the /model tree shows the M2 + M1 folders; expand M2 -> metaclasses -> M1 instances; expand M1 -> project -> classes -> members + PUML(code) + Diagram(svg); a class under both M2-instance and M1-project = same uuid no dup; prod git-clean; /model 403 non-member - NOT just 'the page loads'.
   -> model.mofTree [uc:uuid:d42e1a1e-6c6b-43da-9690-181bc92afa7f]
 
-- [ ] **R33.1.1 — M1 project -> PUML(code) leaf node via R32.7 modelToPuml (S33-P1 completion fast-follow)**
+- [ ] **R33.1.1 — Existing-source .puml itemview renders its diagram as SVG in-section (R33.6 item-4 / R33.1.1 consolidated — renderPumlSource)**
   [requirement:uuid:5333d468-2434-4552-b5f7-e1bdc1d9c716]
   > (S33-P1 completion; the '📄 PUML (code)' leaf from the R33.1 design 4d9ec3914 tree shape, deferred by the expert's tight stop.)
   S33-P1 completion fast-follow (PO 2026-07-30): the R33.1 MOF-tree M1·Projects design includes a '📄 PUML (code)' leaf under each project node (its R32.7 modelToPuml serialization), but the expert honestly stopped tight - the PUML-code leaf is NOT wired (only the folder structure + Diagram(svg) shipped in R33.1). R33.1.1 wires it: the M1 project node gets a '📄 PUML (code)' leaf that shows the R32.7 modelToPuml text for the project's model. THIN - reuses R32.7 modelToPuml (Impl 8462f889), no new serializer; the tree already renders leaf nodes. Refinement of R33.1 (completes AC-m1-projects-tree's PUML node). Gate the leaf @390 (appears + shows code).
   **Acceptance criteria:**
-  - [ ] **(functional)** Each M1·Projects project node has a '📄 PUML (code)' leaf child that, on select/expand, shows the R32.7 modelToPuml text (@startuml...@enduml) for that project's model - reachable in the /model tree.
-  - [ ] **(functional)** The PUML text is produced by the EXISTING R32.7 modelToPuml serializer (Impl 8462f889) - NO new serializer. R33.1.1 builds the store->PumlNode/PumlRelation input ADAPTER (modelToPuml is currently un-wired = zero callers) + wires the leaf to that call. Reuse the serializer, add only the adapter + leaf wiring (expert measure-first correction - not thin, but no serializer fork).
-  - [ ] **(gate)** GATE @390: the '📄 PUML (code)' leaf appears under the M1 project and its content is the correct modelToPuml serialization of the project's classes/members/relations - not just 'a node exists'.
+  - [ ] **(functional)** INV-P1.1 (existing-source only): a puml-src FOLDER-leaf itemview (an EXISTING authored .puml under the project's source, the R33.5 source half) renders its diagram as SVG in-section on select/expand. It renders the RAW authored .puml text, NEVER R32.7 modelToPuml model-generated puml. Absent source -> no section.
+  - [ ] **(functional)** INV-P1.2 (render reuse, no fork): the SVG comes from the SAME /api/puml-render + rb-preview.renderPuml path as the /md preview - identical output, no second renderer. GET /md/<relpath>.puml (raw text/plain) -> POST /api/puml-render -> SVG.
+  - [ ] **(security)** INV-P1.3 (isolation-safe): the render is READ-ONLY - fetch the source .puml then POST to render only; no MODEL_STORE or prod mutation.
+  - [ ] **(gate)** GATE @390 real-WebKit (Test 478d8204, r3364-puml-source-render-gate.mjs, served==HEAD 0.8.38): select a REAL puml-src leaf -> GET /md raw -> POST /api/puml-render (docker plantuml) -> SVG renders in-section (okW>0, nodes>0, PIXEL-sample non-bg); a planted bogus relpath -> NO svg. DET-3x.
   -> modelElement.renderPumlSource [uc:uuid:8b858586-d70e-42e0-8f56-5e5eb6629b6a]
 
 - [ ] **R33.2 — MOF tree bounded/lazy render + file-dir sub-grouping (@390 perf)**
