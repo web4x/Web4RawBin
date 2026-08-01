@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "478d8204-e6fa-43c8-9c54-ca7610dbaa6f",
+    "name": "test:R33.1.1 item-4 puml-source render @390 (RbModelElementDetail.renderPumlSource)",
+    "description": "Bridged to test/visual/r3364-puml-source-render-gate.mjs (INDEPENDENT tester real-WebKit @390 gate, GREEN DET-3x, served==0.8.38, commit 4afba208b). Marker adopted from origin (measured line 8, not invented). Gate: select a real puml-src leaf -> GET /md raw -> POST /api/puml-render (docker plantuml, BUG-B fixed) -> SVG renders in-section (okW=1491, 232 nodes, PIXEL-sample 0.77% non-bg); planted bogus relpath -> NO svg. Chain: R33.1.1 req -> UC modelElement.renderPumlSource 8b858586 -> Class RbModelElementDetail 7788ebe0 -> Method renderPumlSource 3a433a45 -> Impl b0c0d27d -> this Test. The drawer tagMap 'puml-src'->rb-modelelement-detail routing FOLDS into b0c0d27d (rides renderDetailForRef, config/call-site — no separate chain node); the @390 gate exercises routing+render end-to-end.",
+    "sourceFile": "ior:file:test/visual/r3364-puml-source-render-gate.mjs",
+    "implementations": [
+      "ior:instance:b0c0d27d-ff30-4021-a085-1d8945fd389d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b0c0d27d-ff30-4021-a085-1d8945fd389d"
+}
