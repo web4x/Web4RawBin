@@ -13,12 +13,12 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Machine-gated GREEN: canvas-grow PX v0.8.31 (Test 7c3e9a10) + endless-zoom-out regression FIXED v0.8.32 (GREEN DET-3x 6d96b4941) + persist-zoom chain-complete. QA-Review awaiting Tron @390 re-confirm (IMG_4795).
+DONE: chain-complete-to-Test (Test 7c3e9a10 canvas-grow PX v0.8.31 + endless-zoom-out regression FIXED v0.8.32 GREEN DET-3x 6d96b4941 + persist-zoom) + REAL-WEBKIT @390 self-gated GREEN (r371, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done (IMG_4795 space-problem resolved).
 
 ## Traceability
 

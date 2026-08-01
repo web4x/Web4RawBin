@@ -13,12 +13,12 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Machine-gated GREEN (drag-add-new-diagram CLOSED, dual-impl Test 0aaae49a, chain-complete-to-Test). QA-Review awaiting Tron @390 device confirm.
+DONE: chain-complete-to-Test (dual-impl Test 0aaae49a, drag-add-new-diagram CLOSED) + REAL-WEBKIT @390 self-gated GREEN (r3361, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 

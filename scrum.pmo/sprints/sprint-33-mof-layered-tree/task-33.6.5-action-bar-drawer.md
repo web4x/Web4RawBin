@@ -13,12 +13,12 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Machine-gated GREEN (action-bar in drawer + dup-Re-Sync retirement fix v0.8.32, chain-complete). QA-Review awaiting Tron @390.
+DONE: chain-complete-to-Test (action-bar in drawer + dup-Re-Sync retirement fix v0.8.32) + REAL-WEBKIT @390 self-gated GREEN (r3365 relabeled R33.9-CRUD drawer, sweep 6a248b19a, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 

@@ -6,18 +6,18 @@
   "name": "Task 33.6.5: Action bar lives inside the drawer (below the handle-bar, above the content), always present, with contents dynamically driven by the current selection",
   "slug": "task-33.6.5-action-bar-drawer",
   "description": "Tron items 5+6 (coupled = ONE requirement). (5) The ACTION BAR moves INTO the drawer, directly BELOW the handle/grab bar and ABOVE the diagram/content, ALWAYS present there (reuse the rb-detail-drawer R31.4 fixed-region pattern - NOT a floating/overlay bar). Its contents are DYNAMIC by selection: diagram-folder -> 'add diagram'; class -> rename / remove-from-diagram / delete / new-class. (6) Selecting ANYTHING always drives the action-bar content to change - the bar reflects the current selection's available actions at ALL times (selection-driven). Items 5 and 6 are the same mechanism (a selection-driven action bar fixed in the drawer). Reuse rb-detail-drawer (R31.4), NO fork.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
   "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.6.5 `[requirement:uuid:3c6eee8d-85ff-41d5-8c62-c2656171efe2]`\n  - down\n    - None (atomic task)",
   "acceptanceCriteria": "- [x] The action bar is a FIXED region INSIDE the rb-detail-drawer (reuse R31.4), rendered directly BELOW the handle/grab bar and ABOVE the diagram/content area, and is ALWAYS present there (not a floating bar, not an overlay). @390 it sits between the grab-bar and the content in the drawer layout.\n- [x] The action bar's contents are driven by the CURRENT selection and update whenever the selection changes (item-6): diagram-folder selected -> 'add diagram'; a class selected -> rename / remove-from-diagram / delete / new-class. Selecting ANYTHING re-renders the bar to that selection's available actions.\n- [x] With nothing selected (or a neutral/root selection) the action bar shows a sensible default/empty state (exact default architect-scoped on design) - the bar is still present, just without selection-specific actions.\n- [x] GATE @390 (screenshot/pixel + planted bite): the bar is always below the handle inside the drawer; select the diagram-folder -> bar shows 'add diagram'; select a class -> bar shows rename/remove/delete/new-class; change selection -> bar contents change accordingly. planted-defect: selection changes but bar stays stale = RED. ★ RE-SHARPENED (device bc21ca747): assert EXACTLY ONE Re-Sync button (count=1) - the old pre-action-bar in-diagram toolbar is RETIRED, NO duplicate/old action buttons.\n- [x] EXACTLY ONE Re-Sync button (the R33.6.5 action-bar one); NO pre-action-bar duplicate/old in-diagram toolbar action buttons remain - the old in-diagram toolbar is RETIRED when the actions moved INTO the drawer action-bar. Gate: count Re-Sync buttons = 1. (Device bug, architect diagnosis bc21ca747: the pre-action-bar in-diagram toolbar was not retired -> a duplicate/old Re-Sync remained alongside the action-bar one.)",
   "subtasks": "None (atomic task).",
-  "status": "QA Review",
+  "status": "Done",
   "coveredRequirements": [
    "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2"
   ],
   "useCases": [],
   "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
   "sprintName": "Sprint 33",
-  "remainingIssues": "Machine-gated GREEN (action-bar in drawer + dup-Re-Sync retirement fix v0.8.32, chain-complete). QA-Review awaiting Tron @390.",
+  "remainingIssues": "DONE: chain-complete-to-Test (action-bar in drawer + dup-Re-Sync retirement fix v0.8.32) + REAL-WEBKIT @390 self-gated GREEN (r3365 relabeled R33.9-CRUD drawer, sweep 6a248b19a, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
   "createdBy": "robbin-planner",
   "createdAt": "2026-07-31"
  }

@@ -13,12 +13,12 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Machine-gated GREEN DET-3x @390 v0.8.33/HEAD (remove-from-diagram inverse-of-add-view, both chains chain-complete-to-Test 8c19ca178+a3eb41137). QA-Review awaiting Tron @390.
+DONE: chain-complete-to-Test (both chains 8c19ca178+a3eb41137, remove-from-diagram inverse-of-add-view v0.8.33) + REAL-WEBKIT @390 self-gated GREEN (r338, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
