@@ -5,20 +5,33 @@
 // NO svg (the old 'not found' path). Uses a REAL puml-src relpath discovered from the live /api/trace/children/rawbin:puml.
 // Mount rb-modelelement-detail @390 iPhone-12 (component-harness). Read-only (GET raw + render POST; no writes, no mount pollution).
 // Client bundle = committed HEAD build (v0.8.25); served SW rawbin-v0.8.25 (phantom-guard: gate the BUNDLE not /api/config). node22.
-// [test:uuid:PENDING] placed on GREEN → req mints onto Impl b0c0d27d.
-import fs from 'node:fs'; import path from 'node:path';
-import { chromium, devices } from '@playwright/test';
+// [test:uuid:478d8204-e6fa-43c8-9c54-ca7610dbaa6f] placed on GREEN → req mints onto Impl b0c0d27d.
+import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
+import { chromium, webkit, devices } from '@playwright/test';
+const ENGINE = process.env.WK ? webkit : chromium; // WK=1 → real Safari @390 (Tron-facing visual; WebKit≠chromium false-green class)
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
 const DIST = path.join(ROOT, 'src/public/dist');
 const BUNDLE = '/dist/' + fs.readdirSync(DIST).filter(f => /^model-.*\.js$/.test(f)).map(f => [f, fs.statSync(path.join(DIST, f)).mtimeMs]).sort((a, b) => b[1] - a[1])[0][0];
 const OUT = path.join(ROOT, 'test-results/r3364') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+const TARGET = process.env.R3364_TARGET || '0.8.38'; // PO: gate the SERVED docker-render (phantom-guard — BUG-B fix + plantuml docker land at v0.8.38)
+const served = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
+if (served !== TARGET) { console.log(`⚠ PHANTOM-GUARD: served=${served} != TARGET=${TARGET} — ABORT (don't credit a stale/mid-restart render).`); process.exit(1); }
+console.log(`served==${TARGET} verified. engine=${process.env.WK ? 'webkit' : 'chromium'}`);
+// PIXEL-sample (PO: assert the SVG is VISIBLY rendered, not just DOM-present): screenshot the svg element → decode
+// in-browser (Image→canvas→getImageData) → count pixels FAR from the #0d1117 bg. A real PlantUML diagram = many.
+const pixelNonBg = async (page) => { const h = await page.$('#md svg'); if (!h) return 0; let buf; try { buf = await h.screenshot(); } catch { return 0; }
+  return page.evaluate((b64) => new Promise(res => { const img = new Image(); img.onload = () => { const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const x = c.getContext('2d'); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, c.width, c.height).data; let n = 0, t = d.length / 4; for (let i = 0; i < d.length; i += 4) if (Math.abs(d[i] - 13) + Math.abs(d[i + 1] - 17) + Math.abs(d[i + 2] - 23) > 60) n++; res(t ? n / t : 0); }; img.onerror = () => res(0); img.src = 'data:image/png;base64,' + b64; }), buf.toString('base64')); };
 
+// CLEAN shell (route-fulfilled) so the model bundle loads into a FRESH custom-element registry — injecting it onto the
+// real /trace throws "rb-compartment already registered" (first-wins define), which aborts the module → renderPumlSource
+// never runs (empty #md). Mirror r335c's serve-shell approach.
+const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/app.css"></head><body style="margin:0;background:#0d1117"><script type="module" src="${BUNDLE}"></script></body></html>`;
 async function mountDetail(browser, ref) {
   const ctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   const page = await ctx.newPage();
+  await page.route(u => u.pathname === '/trace', r => r.fulfill({ status: 200, contentType: 'text/html', body: SHELL }));
   await page.goto(`${BASE}/trace`, { waitUntil: 'domcontentloaded' });
-  await page.addScriptTag({ url: BUNDLE, type: 'module' }).catch(() => {});
   await page.waitForFunction(() => !!customElements.get('rb-modelelement-detail'), { timeout: 15000 }).catch(() => {});
   await page.evaluate((r) => {
     document.body.style.margin = '0'; document.body.innerHTML = '';
@@ -37,11 +50,14 @@ const svgInfo = (page) => page.evaluate(() => {
 
 async function happyOnce(browser, i, relPath) {
   const { ctx, page } = await mountDetail(browser, `puml-src:${relPath}`);
-  const s = await svgInfo(page); if (i === 1) await page.screenshot({ path: OUT + '01-puml-svg.png' }); await ctx.close();
-  return { okHasSvg: s.hasSvg, okW: s.w, okNodes: s.nodes };
+  const s = await svgInfo(page);
+  const pxFrac = Number((await pixelNonBg(page)).toFixed(4)); // PO pixel-sample: SVG visibly rendered
+  if (i === 1) await page.screenshot({ path: OUT + '01-puml-svg.png' });
+  await ctx.close();
+  return { okHasSvg: s.hasSvg, okW: s.w, okNodes: s.nodes, okPxFrac: pxFrac, okText: s.text };
 }
 
-const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
+const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 // discover a REAL puml-src relpath from the live server (ungated enumeration)
 const disc = await (async () => {
   const ctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true }); const page = await ctx.newPage();
@@ -63,7 +79,9 @@ console.log('\n===== R33.6 item-4 puml-source render @390 iPhone-12 (DET-3x) ===
 console.log('relpath:', disc);
 runs.forEach((R, i) => console.log(`iter ${i + 1}: ${JSON.stringify(R)}`));
 console.log('planted bite (bogus relpath) hasSvg:', biteHasSvg);
-const render = runs.length === 3 && runs.every(R => R.okHasSvg === true && R.okNodes > 3); // real .puml → SVG with content
+// real .puml → SVG DOM (nodes) + real SIZE + VISIBLY rendered pixels (PO pixel-sample). Threshold 0.3%: a PlantUML LINE
+// diagram is mostly whitespace/thin-strokes → measured ~0.75% non-bg; blank/planted = 0% → 0.3% separates cleanly.
+const render = runs.length === 3 && runs.every(R => R.okHasSvg === true && R.okNodes > 20 && R.okW > 100 && R.okPxFrac > 0.003);
 const bite = biteHasSvg === false;                                                          // bogus relpath → no SVG (old 'not found')
 console.log(`\nINV-P1 puml-src renders existing .puml as SVG: ${render ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`PLANTED-DEFECT bite (bogus relpath → no SVG): ${bite ? 'GREEN' : 'RED'}`);
