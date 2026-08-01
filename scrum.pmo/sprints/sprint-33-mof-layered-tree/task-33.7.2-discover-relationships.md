@@ -13,12 +13,12 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Machine-gated GREEN DET-3x (discoverRelated Test 54225f01 + buildEdges auto-wire UC1, chain-complete). QA-Review awaiting Tron @390.
+DONE: chain-complete-to-Test (Impl 8e8c1d75 ModelView.discoverRelated tests[]=[54225f01, a02d7ae6 distinct-intent 2nd Test], req mint 8d60ba65e) + real-WebKit @390 self-gated GREEN DET-3x (discoverRelated 08b8d654b, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
