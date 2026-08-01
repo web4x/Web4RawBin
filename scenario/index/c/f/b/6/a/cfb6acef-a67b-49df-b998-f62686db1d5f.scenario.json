@@ -4,7 +4,9 @@
     "uuid": "cfb6acef-a67b-49df-b998-f62686db1d5f",
     "name": "server.sourceDirTree impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:5d4b2fb5-11ef-47ca-8486-b171308643b6"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:c1f006a1-9fa3-4462-b1fe-ad06fc390569"

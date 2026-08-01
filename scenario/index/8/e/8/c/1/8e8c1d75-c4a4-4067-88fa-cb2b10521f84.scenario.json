@@ -5,7 +5,8 @@
     "name": "ModelView.discoverRelated impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "tests": [
-      "ior:instance:54225f01-958b-439a-9196-e72820ae83e6"
+      "ior:instance:54225f01-958b-439a-9196-e72820ae83e6",
+      "ior:instance:a02d7ae6-d2f3-4a30-a1a5-24dee6f42c71"
     ],
     "markerPending": false
   },

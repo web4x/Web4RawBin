@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5d4b2fb5-11ef-47ca-8486-b171308643b6",
+    "name": "test:R33.10 server.sourceDirTree @390 WebKit — 123-ts folder-nav tree completeness (INV-T1-4)",
+    "description": "Bridged to test/visual/r3310-folder-nav-gate.mjs (INDEPENDENT tester real-WebKit Safari 605.1.15 @390 gate, GREEN DET-3x served==0.8.37, d5b7f639f). Marker adopted from origin (measured line 2, not invented). INV-T1: rawbin:ts expands to LEAF .ts files (NOT {}; v0.8.36 fixed the PROJECT_ROOT ReferenceError). Two halves: server read-only ungated drill /api/trace/children/rawbin:ts -> real .ts leaf; WebKit @390 render expandPath(['mof-m1','project:RawBin','rawbin:ts']) -> ts subtree nodes VISIBLE. Planted-defect: bogus ref -> empty (no false leaf). Chain: R33.10 req fa29ab28 -> UC (sourceDirTree) -> server c0a0921d -> Method sourceDirTree c1f006a1 -> Impl cfb6acef -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3310-folder-nav-gate.mjs",
+    "implementations": [
+      "ior:instance:cfb6acef-a67b-49df-b998-f62686db1d5f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cfb6acef-a67b-49df-b998-f62686db1d5f"
+}
