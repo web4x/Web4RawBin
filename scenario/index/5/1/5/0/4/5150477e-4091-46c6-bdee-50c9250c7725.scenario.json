@@ -4,7 +4,9 @@
     "uuid": "5150477e-4091-46c6-bdee-50c9250c7725",
     "name": "RbDiagramDetail.broadcastActiveDiagram impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
-    "tests": [],
+    "tests": [
+      "ior:instance:8f33daf4-c1f7-4812-80ef-b111157a71a6"
+    ],
     "markerPending": false
   },
   "ownerIor": "ior:instance:a27d5e50-9a47-4fee-8c6a-033d7209cc15"
