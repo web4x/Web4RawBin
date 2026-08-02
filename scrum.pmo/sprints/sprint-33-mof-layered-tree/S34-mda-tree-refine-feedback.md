@@ -24,3 +24,9 @@
 
 ## Route (scenario-first, retain-protect-tweak)
 New requirement set (Tron to confirm sprint — S34 or S33-backlog). architect diagnoses R-D nav-regression + designs R-A/R-B/R-C (generic default-actions for scenario instances, action-bar verbs remove/delete-with-warn, File/Folder scenario types) → req formalizes ACs → expert builds → tester real-WebKit @390 self-gates → planner flips. Refs: S34-feedback-IMG_4815..4819 in this dir. NOTE quota @98% (resets Aug-2 8pm UTC) — captured now; BUILD timing = Tron's call (now vs post-reset).
+
+## ★ R-D REFINED (Tron, 2026-08-02, fresh-context re-look) — NOT a nav-break
+Tron corrected: "the tree navigation from selecting the diagram is NOT as much broken — when the tree IS EXPANDED it actually works, but it does not correctly AUTOEXPAND." So R-D = TWO smaller items, not a regression:
+- R-D1: on select→navigate, the tree does NOT auto-EXPAND the (new folder) ancestor path to REVEAL the target class/element (nav is correct; only the reveal/auto-expand is missing). Fix = expandPath the folder ancestors of the navigated node (reuse R33.10 expandPath / R33.7.4 tree-reveal). LOW risk.
+- R-D2: element actions still MISSING in the action bar on class-select (real — ties to R-B/R-C action-bar work).
+Downgrades R-D from "regression, protect the achievement" to "auto-expand polish" — the tree structure itself is sound.
