@@ -1,0 +1,41 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "21d3df6c-bd67-46db-af28-f161069d789e",
+  "altId": "R34.4",
+  "name": "Element remove-from-diagram appears in the bar (wire active-diagram context) — RESIDUAL, rides R33.9",
+  "description": "The R33.9 remove-from-diagram verb (model.ts:75, removeFromDiagram handler) already EXISTS but shows only when a diagram is active. RESIDUAL: ensure rb-active-diagram{uuid} fires when a diagram is viewed AND an element is selected from THAT diagram, so membership verbs (incl remove-from-diagram) appear. NO new verb — ride R33.9.",
+  "classification": "residual-wiring",
+  "clusterRef": "R-C (Tron IMG_4818)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
+  "unitLinks": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-active-diagram-ctx",
+    "group": "functional",
+    "text": "When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar."
+   },
+   {
+    "id": "AC-remove-from-diagram-works",
+    "group": "functional",
+    "text": "The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram — no new verb fabricated."
+   },
+   {
+    "id": "AC-residual-ride",
+    "group": "functional",
+    "text": "Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl — the chain reuses the built R33.9 nodes)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: select an element that IS in the open diagram → remove-from-diagram shows + works."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth)."
+ },
+ "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
+}

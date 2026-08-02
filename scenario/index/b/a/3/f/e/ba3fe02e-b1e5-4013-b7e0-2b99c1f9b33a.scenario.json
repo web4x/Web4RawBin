@@ -1,0 +1,41 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ba3fe02e-b1e5-4013-b7e0-2b99c1f9b33a",
+  "altId": "R34.6",
+  "name": "Element unit-actions appear on class-select in the tree (wire detail-shown) — RESIDUAL, rides R33.9/R33.7.4",
+  "description": "Modelelement unit actions already EXIST via R33.9 actionsForContext. RESIDUAL: ensure a class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} (so setActions fires) + sets active-diagram (R34.4) when applicable. Folds into the R-B/R-C action-bar wiring. NO new verb — ride R33.9/R33.7.4.",
+  "classification": "residual-wiring",
+  "clusterRef": "R-D2 (Tron IMG_4819)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
+  "unitLinks": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-classselect-detail-shown",
+    "group": "functional",
+    "text": "A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires."
+   },
+   {
+    "id": "AC-actions-appear",
+    "group": "functional",
+    "text": "Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select."
+   },
+   {
+    "id": "AC-residual-ride",
+    "group": "functional",
+    "text": "Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: select a class in the tree → its unit verbs (+ membership if a diagram is active) appear in the bar."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth)."
+ },
+ "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
+}

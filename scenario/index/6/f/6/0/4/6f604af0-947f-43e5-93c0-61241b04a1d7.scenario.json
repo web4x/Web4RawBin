@@ -1,0 +1,41 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "6f604af0-947f-43e5-93c0-61241b04a1d7",
+  "altId": "R34.5",
+  "name": "Tree auto-expands the folder ancestor path on select→navigate (wire trigger to R33.7.4 reveal)",
+  "description": "On select→navigate the tree MUST auto-EXPAND the folder ancestor path to REVEAL the target class/element. Nav is already CORRECT (Tron confirmed: works when expanded); only the auto-expand/reveal is missing. FIX = wire the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement→expandPath (R33.7.4), reused wholesale. New GAP, but ride-existing impl (LOW, no fork, no new verb/Method).",
+  "classification": "residual-wiring",
+  "clusterRef": "R-D1 (Tron IMG_4819, refined 2026-08-02: auto-expand polish, NOT a nav regression)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
+  "unitLinks": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-autoexpand-on-navigate",
+    "group": "functional",
+    "text": "On select→navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing)."
+   },
+   {
+    "id": "AC-wire-trigger-existing",
+    "group": "functional",
+    "text": "The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement→expandPath (R33.7.4) — reused wholesale, NO fork, NO new verb/Method."
+   },
+   {
+    "id": "AC-graceful-noop",
+    "group": "functional",
+    "text": "An off-tree / absent target is a graceful no-op (no error)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: select a class (from diagram/detail) → its folder path auto-expands + the leaf highlights, with NO manual expand."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth)."
+ },
+ "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
+}

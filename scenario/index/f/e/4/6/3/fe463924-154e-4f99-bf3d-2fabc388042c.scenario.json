@@ -1,0 +1,51 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "fe463924-154e-4f99-bf3d-2fabc388042c",
+  "altId": "R34.2",
+  "name": "File & Folder are real ior:class:Folder/File units in MODEL_STORE, showing exact location (server)",
+  "description": "mofChildren MUST mint/use real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs) so each folder/file node resolves to a REAL unit with a detail view + the R34.1 default actions + its exact LOCATION. Deterministic uuid = keyToUuid(rel-path) (R32.2), MODEL_STORE-isolated (R32.5, prod untouched). Server; tree render unchanged.",
+  "classification": "new",
+  "clusterRef": "R-A/A2 (Tron IMG_4815/4816)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
+  "unitLinks": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-folder-file-real-units",
+    "group": "functional",
+    "text": "mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view."
+   },
+   {
+    "id": "AC-exact-location",
+    "group": "functional",
+    "text": "The File/Folder detail shows its exact LOCATION (rel-path)."
+   },
+   {
+    "id": "AC-default-actions-on-fileFolder",
+    "group": "functional",
+    "text": "File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1)."
+   },
+   {
+    "id": "AC-deterministic-uuid",
+    "group": "functional",
+    "text": "Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit — no duplicates."
+   },
+   {
+    "id": "AC-isolation",
+    "group": "security",
+    "text": "Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth)."
+ },
+ "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
+}
