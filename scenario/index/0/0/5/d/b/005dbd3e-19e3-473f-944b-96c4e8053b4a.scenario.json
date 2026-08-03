@@ -4,7 +4,7 @@
     "uuid": "005dbd3e-19e3-473f-944b-96c4e8053b4a",
     "name": "RbDetailDrawer.onUniversalAction impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:276e4981-4415-4e31-af3f-c19217322725"
