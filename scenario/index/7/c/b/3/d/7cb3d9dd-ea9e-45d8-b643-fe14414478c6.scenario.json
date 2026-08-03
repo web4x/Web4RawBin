@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "7cb3d9dd-ea9e-45d8-b643-fe14414478c6",
+  "name": "Task 34.2: File & Folder are real ior:class:Folder/File units in MODEL_STORE, showing exact location (server) [R-A]",
+  "slug": "task-34.2-file-folder-units",
+  "description": "R-A (server half). mofChildren MUST mint/use real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs) so each folder/file node resolves to a REAL unit with a detail view + the R34.1 default actions + its exact LOCATION. Deterministic uuid = keyToUuid(rel-path) (R32.2), MODEL_STORE-isolated (R32.5, prod untouched). Server; tree render unchanged.",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.2 `[requirement:uuid:fe463924-154e-4f99-bf3d-2fabc388042c]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view.\n- [ ] (functional) The File/Folder detail shows its exact LOCATION (rel-path).\n- [ ] (functional) File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1).\n- [ ] (functional) Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit - no duplicates.\n- [ ] (security) Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.\n- [ ] (gate) GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:fe463924-154e-4f99-bf3d-2fabc388042c"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "sprintName": "Sprint 34",
+  "remainingIssues": "Planned — cluster R-A server half (build LAST, pairs with R34.1). Real Folder/File units, deterministic keyToUuid (R32.2), MODEL_STORE-isolated (R32.5 prod untouched). Gate real-WebKit @390 on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-03"
+ }
+}

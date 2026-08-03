@@ -9,7 +9,24 @@
   "goal": "Retain/protect/tweak the S33 MDA tree to perfection (Tron IMG_4815-4819): File/Folder as real scenario types + universal Scenario/Edit default actions (R-A), in-room action-bar Add-folder/remove/delete-with-warn (R-B), residual wiring for remove-from-diagram (R-C), auto-expand-on-navigate (R-D1), element-actions-on-class-select (R-D2). PROTECT the tree — refinements, not a rebuild.",
   "status": "Planned",
   "compoundSource": "scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
-  "phases": [],
+  "phases": [
+   {
+    "id": "R-D1",
+    "title": "Auto-expand tree on select->navigate (R34.5) — wire trigger to R33.7.4 reveal. BUILD FIRST (low-risk)."
+   },
+   {
+    "id": "R-C/D2",
+    "title": "Residual wiring: remove-from-diagram active-diagram ctx (R34.4) + element-actions on class-select (R34.6) — ride R33.9."
+   },
+   {
+    "id": "R-B",
+    "title": "In-room action bar: Add-folder verb+endpoint / remove-from-tree / delete-unit-with-WARN (R34.3)."
+   },
+   {
+    "id": "R-A",
+    "title": "File/Folder real MODEL_STORE units (R34.2 server) + universal orange «Scenario»/«Edit» default (R34.1 client). BUILD LAST."
+   }
+  ],
   "requirements": [
    "ior:instance:793760f2-1c58-4dfa-ae8c-96f8ec4c8027",
    "ior:instance:fe463924-154e-4f99-bf3d-2fabc388042c",
@@ -18,7 +35,14 @@
    "ior:instance:6f604af0-947f-43e5-93c0-61241b04a1d7",
    "ior:instance:ba3fe02e-b1e5-4013-b7e0-2b99c1f9b33a"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:175271d6-b8d7-4e02-b648-681bfe9dcfe7",
+   "ior:instance:7cb3d9dd-ea9e-45d8-b643-fe14414478c6",
+   "ior:instance:8b79efc6-11ca-4e9a-b8df-3a2e015bccaa",
+   "ior:instance:0bd2fa1a-15f9-4bad-80cd-569259f1ab57",
+   "ior:instance:3d76a785-de51-4c78-a810-5aa5c1c123a2",
+   "ior:instance:f71fac7d-8be9-406f-b00f-fccf5e279820"
+  ],
   "createdAt": "2026-08-02",
   "createdBy": "robbin-req",
   "createdBy_note": "STUB minted by robbin-req to parent the S34 requirement units (PO-authorized S34 2026-08-02). Planner OWNS the sprint unit — enrich goal/phases/tasks + stand up the board; safe to overwrite metadata, keep uuid + requirements[].",

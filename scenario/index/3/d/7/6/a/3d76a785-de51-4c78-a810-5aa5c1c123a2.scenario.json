@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "3d76a785-de51-4c78-a810-5aa5c1c123a2",
+  "name": "Task 34.5: Tree auto-expands the folder ancestor path on select->navigate (wire trigger to R33.7.4 reveal) [R-D1]",
+  "slug": "task-34.5-tree-auto-expand",
+  "description": "R-D1 (build FIRST, low-risk). On select->navigate the tree MUST auto-EXPAND the folder ancestor path to REVEAL the target class/element. Nav is already CORRECT (Tron confirmed: works when expanded); only the auto-expand/reveal is missing. FIX = wire the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4), reused wholesale. Ride-existing impl, NO fork, NO new verb/Method.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [~] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.5 `[requirement:uuid:6f604af0-947f-43e5-93c0-61241b04a1d7]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).\n- [ ] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.\n- [ ] (functional) An off-tree / absent target is a graceful no-op (no error).\n- [ ] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.",
+  "subtasks": "None (atomic task).",
+  "status": "In Progress",
+  "coveredRequirements": [
+   "ior:instance:6f604af0-947f-43e5-93c0-61241b04a1d7"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "sprintName": "Sprint 34",
+  "remainingIssues": "In Progress — R-D1 BUILT v0.8.39 (expert 34e5ab7e7, auto-expand on select->navigate rides R33.7.4 onTreeReveal 152435d1 / Impl 9cdf5072, residual no new node). Chain UC a156a018 minted (req 29f918590). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-03"
+ }
+}

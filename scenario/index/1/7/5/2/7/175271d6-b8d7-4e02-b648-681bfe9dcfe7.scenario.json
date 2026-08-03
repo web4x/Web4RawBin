@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "175271d6-b8d7-4e02-b648-681bfe9dcfe7",
+  "name": "Task 34.1: Universal orange «Scenario»+«Edit» default actions on ALL scenario-instance detail views (client) [R-A]",
+  "slug": "task-34.1-scenario-edit-default-actions",
+  "description": "R-A (client half). Every scenario-instance detail view MUST render an orange «◆ Scenario» + «✎ Edit» DEFAULT action pair — generic, solved once for every scenario instance — reusing actionsForContext/DEFAULT_ACTIONS (model.ts); type-specific verbs append AFTER. Client-only (ride R33.6.5/R33.9 action-bar, no fork).",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.1 `[requirement:uuid:793760f2-1c58-4dfa-ae8c-96f8ec4c8027]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs.\n- [ ] (functional) «Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>).\n- [ ] (functional) «Edit» opens the edit flow for that instance.\n- [ ] (functional) The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.\n- [ ] (gate) GATE @390 real-WebKit: open ANY item detail -> the orange Scenario+Edit pair is present + functional; type-specific verbs append after.",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:793760f2-1c58-4dfa-ae8c-96f8ec4c8027"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "sprintName": "Sprint 34",
+  "remainingIssues": "Planned — cluster R-A client half (build LAST). Generic default-action pair solved ONCE via actionsForContext/DEFAULT_ACTIONS (no fork). Gate real-WebKit @390 on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-03"
+ }
+}

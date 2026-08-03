@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "f71fac7d-8be9-406f-b00f-fccf5e279820",
+  "name": "Task 34.6: Element unit-actions appear on class-select in the tree (wire detail-shown) — RESIDUAL, rides R33.9/R33.7.4 [R-D2]",
+  "slug": "task-34.6-class-select-actions-residual",
+  "description": "R-D2 (residual). Modelelement unit actions already EXIST via R33.9 actionsForContext. RESIDUAL: ensure a class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} (so setActions fires) + sets active-diagram (R34.4) when applicable. Folds into the R-B/R-C action-bar wiring. NO new verb — ride R33.9/R33.7.4.",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.6 `[requirement:uuid:ba3fe02e-b1e5-4013-b7e0-2b99c1f9b33a]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires.\n- [ ] (functional) Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.\n- [ ] (functional) Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).\n- [ ] (gate) GATE @390 real-WebKit: select a class in the tree -> its unit verbs (+ membership if a diagram is active) appear in the bar.",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:ba3fe02e-b1e5-4013-b7e0-2b99c1f9b33a"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "sprintName": "Sprint 34",
+  "remainingIssues": "Planned — cluster R-D2 (residual, rides R33.9/R33.7.4; folds into R-B/R-C action-bar wiring). RESIDUAL=class-select detail-shown dispatch, no new verb. Gate real-WebKit @390 on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-03"
+ }
+}
