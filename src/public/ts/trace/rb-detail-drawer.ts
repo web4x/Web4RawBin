@@ -21,7 +21,8 @@
 import { selectionModel } from './selection-model.js';
 import './rb-strip.js'; // R33.6.5 item5: setActions() hosts a reused rb-strip in the generic action-bar region
 import { ChatPanel } from './ChatPanel.js';
-import { TraceGraph, makeObject, type ObjectType } from '../../../ts/shared/TraceModel.js';
+import { TraceGraph, makeObject, refUuid, type ObjectType } from '../../../ts/shared/TraceModel.js';
+import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -48,6 +49,10 @@ export class RbDetailDrawer extends HTMLElement {
   private startBottom = 0;          // v0.6.95: drawer's actual bottom edge at drag-start (position-aware resize)
   private chatPanel: ChatPanel | null = null;
   private _mode: 'chat' | 'detail' | 'preview' = 'chat';
+  // R34.7/R-E: host-registered context-verb providers (model registers actionsForContext); the shared drawer composes
+  // the universal R-A A1 default + these on EVERY drawer usage. _shownType/_shownRef = last detail (for refreshActions).
+  private _actionProviders: Array<(type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]> = [];
+  private _shownType = ''; private _shownRef = '';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
   connectedCallback(): void {
@@ -62,7 +67,20 @@ export class RbDetailDrawer extends HTMLElement {
     }
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
+    document.addEventListener('rb-drawer-action', this.onUniversalAction); // R-A A1: Scenario/Edit handled universally in the shared drawer
   }
+
+  // R-A A1 (universal default verbs): the shared drawer ITSELF handles ◆ Scenario / ✎ Edit for ANY scenario-instance
+  // detail — Scenario → the /scenario?ior focused view, Edit → the scenario editor (scenarioEditorHref). Host-specific
+  // verbs are ignored here (their host handles them). Ref = the action's ref, else the last-shown detail ref.
+  private onUniversalAction = (e: Event): void => {
+    const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
+    const verb = d?.verb || '';
+    const uuid = refUuid(d?.ref || this._shownRef) || (d?.ref || this._shownRef);
+    if (!uuid) return;
+    if (verb === 'scenario') location.href = `/scenario?ior=${encodeURIComponent(uuid)}`;
+    else if (verb === 'edit') location.href = scenarioEditorHref(uuid);
+  };
 
   disconnectedCallback(): void {
     const handle = this.querySelector('.drawer-handle');
@@ -76,6 +94,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('mouseup', this.onMouseUp);
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
+    document.removeEventListener('rb-drawer-action', this.onUniversalAction);
     this._posRo?.disconnect(); this._posRo = null; // R31.9: stop the container-query position driver
   }
 
@@ -348,11 +367,12 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:cef954eb-443d-4969-b54f-1c92e3692392] RbDetailDrawer.setActions (item5, INV-1/3) — GENERIC fixed action-bar region: the HOST
   // supplies {verb,label}[]; renders a reused rb-strip; empty → hidden bar. Zero model specifics live in the shared
   // drawer (/trace + /scenario register no actions → bar stays hidden). A click emits rb-drawer-action (wired above).
-  setActions(items: { verb: string; label: string }[]): void {
+  setActions(items: { verb: string; label: string; primary?: boolean }[]): void {
     const bar = this.querySelector('.drawer-actionbar') as HTMLElement | null;
     if (!bar) return;
     if (!items || !items.length) { bar.style.display = 'none'; bar.replaceChildren(); return; }
-    const btn = (a: { verb: string; label: string }): string => `<button class="da-btn" data-verb="${a.verb}" style="background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:6px 12px;font:13px system-ui;cursor:pointer;white-space:nowrap">${a.label}</button>`;
+    // R-A A1: `primary` verbs (the universal ◆ Scenario / ✎ Edit default) render ORANGE (.da-btn variant); the rest neutral.
+    const btn = (a: { verb: string; label: string; primary?: boolean }): string => `<button class="da-btn${a.primary ? ' da-btn-primary' : ''}" data-verb="${a.verb}" style="background:${a.primary ? '#fb8c00' : '#21262d'};color:${a.primary ? '#1a1a1a' : '#e6edf3'};border:1px solid ${a.primary ? '#fb8c00' : '#30363d'};border-radius:6px;padding:6px 12px;font:13px system-ui;cursor:pointer;white-space:nowrap">${a.label}</button>`;
     const strip = document.createElement('rb-strip') as HTMLElement & { items?: { id: string; kind: string; content: string }[] };
     strip.items = [{ id: 'drawer-actions', kind: 'bar', content: `<div style="display:flex;gap:8px;padding:8px 10px;overflow-x:auto">${items.map(btn).join('')}</div>` }];
     bar.replaceChildren(strip);
@@ -364,12 +384,36 @@ export class RbDetailDrawer extends HTMLElement {
   // the shared drawer never hardcodes actions. Cleared (setActions([])) when switching to chat / empty.
   private showActionsForType(type: string, ref: string): void {
     const t = (type || '').toLowerCase();
-    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref }, bubbles: true }));
+    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref }, bubbles: true })); // INV-E3 back-compat: still dispatched
+    this.universalActionBar(t, ref); // R34.7/R-E: the shared drawer sets the bar ITSELF (all 7 usages), not a per-host listener
     // R34.5 (R-D1): a select→navigate that SHOWS a model-element detail (from diagram/detail-link/anywhere) also reveals
     // it in the tree — auto-expand the folder ancestor path via the EXISTING R33.7.4 onTreeReveal→revealModelElement→
     // expandPath (ride wholesale, NO new verb/Method). Was missing: rb-tree-reveal only fired on diagram-box-select.
     if (t === 'modelelement' && ref) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref }, bubbles: true }));
   }
+
+  // [impl:uuid:ffd44b17-5882-4d77-94d1-a3c03c07ffad] RbDetailDrawer.universalActionBar (Method 54acc696) — R34.7/R-E
+  // unified with R-A A1 (793760f2): the SHARED drawer sets the action bar itself on EVERY detail render (all 7 drawer
+  // usages), not just where a host listens. Composes the UNIVERSAL A1 default [◆ Scenario, ✎ Edit] (primary/orange,
+  // handled by onUniversalAction) + every registered host provider's context verbs (model = actionsForContext, R33.9
+  // reused verbatim). INV-E1 universal / E2 context-verbset (default everywhere + host verbs only where registered) /
+  // E3 no-fork (setActions/actionsForContext unchanged; empty/chat → cleared bar).
+  private universalActionBar(type: string, ref: string): void {
+    this._shownType = type; this._shownRef = ref;
+    if (!type || !ref || type === 'chat') { this.setActions([]); return; } // INV-E3: empty/chat clears the bar
+    const defaults = [{ verb: 'scenario', label: '◆ Scenario', primary: true }, { verb: 'edit', label: '✎ Edit', primary: true }]; // R-A A1 universal default
+    const provided = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } });
+    this.setActions([...defaults, ...provided]);
+  }
+
+  // R34.7/R-E: a host registers its context verbs as a provider (model → actionsForContext); re-render so a provider
+  // that registers AFTER the first detail still shows. refreshActions re-runs the bar for the current detail (host
+  // context changed, e.g. rb-active-diagram → membership verbs recompute).
+  registerActionProvider(fn: (type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]): void {
+    this._actionProviders.push(fn);
+    if (this._shownType) this.universalActionBar(this._shownType, this._shownRef);
+  }
+  refreshActions(): void { if (this._shownType) this.universalActionBar(this._shownType, this._shownRef); }
 
   // R31.4 AC-maximize (Option A, PO-endorsed): full-viewport drawer = maximum terminal space, NO-disrupt — the grouped
   // attach shows the whole window (NO tmux zoom, which is a shared window property that would leak to other viewers →

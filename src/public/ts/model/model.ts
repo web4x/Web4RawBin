@@ -79,18 +79,22 @@ function actionsForContext(type: string, hasActiveDiagram: boolean): { verb: str
 // [impl:uuid:613bfb4a-7214-4cf6-b2fa-d32f96559d18] ModelView.wireDrawerActions (host) — listen rb-drawer-detail-shown{type,ref}
 // + rb-active-diagram{uuid} → setActions(actionsForContext); dispatch rb-drawer-action{verb} to the handlers. No fork.
 function wireDrawerActions(): void {
-  const drawer = (): (HTMLElement & { setActions?: (a: { verb: string; label: string }[]) => void }) | null => document.querySelector('rb-detail-drawer');
-  let shownRef = '', shownType = '';
+  const drawer = (): (HTMLElement & { registerActionProvider?: (fn: (type: string, ref: string) => { verb: string; label: string }[]) => void; refreshActions?: () => void }) | null => document.querySelector('rb-detail-drawer');
+  let shownRef = '';
   let activeDiagramUuid: string | null = null; // R33.9: the OPEN diagram (rb-active-diagram) — explicit membership target
-  const showActions = (): void => { drawer()?.setActions?.(actionsForContext(shownType, !!activeDiagramUuid)); };
+  // R34.7/R-E: register model's context verbs as a PROVIDER on the shared drawer (replaces the isolated setActions);
+  // the drawer's universalActionBar composes the A1 default [Scenario,Edit] + this on ALL usages. actionsForContext (R33.9)
+  // reused verbatim. Idempotent (registered flag) + lazy (re-tried on detail-shown) so it survives a late-mounted drawer.
+  let registered = false;
+  const ensureProvider = (): void => { if (registered) return; const dr = drawer(); if (dr?.registerActionProvider) { dr.registerActionProvider((type) => actionsForContext(type, !!activeDiagramUuid)); registered = true; } };
+  ensureProvider();
   document.addEventListener('rb-drawer-detail-shown', (e) => {
-    const d = (e as CustomEvent<{ type?: string; ref?: string }>).detail;
-    shownRef = d?.ref || ''; shownType = d?.type || '';
-    showActions();
+    shownRef = (e as CustomEvent<{ ref?: string }>).detail?.ref || '';
+    ensureProvider();
   });
   document.addEventListener('rb-active-diagram', (e) => { // R33.9: a diagram opened/closed → recompute membership verbs
     activeDiagramUuid = (e as CustomEvent<{ uuid?: string | null }>).detail?.uuid || null;
-    showActions();
+    drawer()?.refreshActions?.();
   });
   document.addEventListener('rb-drawer-action', (e) => {
     const verb = (e as CustomEvent<{ verb?: string }>).detail?.verb || '';
