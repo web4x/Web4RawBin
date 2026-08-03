@@ -274,7 +274,16 @@ export class RbDiagramDetail extends HTMLElement {
   private boxSelect(el: SVGGElement | null): void {
     this.querySelectorAll('.dm-box-selected').forEach((b) => b.classList.remove('dm-box-selected'));
     this._selectedBox = el?.getAttribute('data-ref') || null;
-    if (el) { el.classList.add('dm-box-selected'); if (this._selectedBox) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: this._selectedBox }, bubbles: true })); }
+    if (el && this._selectedBox) {
+      el.classList.add('dm-box-selected');
+      document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: this._selectedBox }, bubbles: true })); // R33.7.4 reveal (R-D1)
+      // R34.4 (R-C) + R34.6 (R-D2): selecting an element FROM the OPEN diagram → re-assert the active-diagram context +
+      // fire detail-shown{modelelement} so the host's actionsForContext (a1a5be99) emits the element's UNIT + MEMBERSHIP
+      // verbs (incl the existing remove-from-diagram). Rides R33.9 — NO new verb/Method; the diagram STAYS (no drawer swap).
+      const dUuid = this.getAttribute('uuid') || stripRef(this.getAttribute('ref') || '');
+      if (dUuid) document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid: dUuid }, bubbles: true }));
+      document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: 'modelelement', ref: this._selectedBox }, bubbles: true }));
+    }
     this.pz?.setEnabled(!el); // item3: pan ONLY when nothing selected
   }
 

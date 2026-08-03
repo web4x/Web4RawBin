@@ -1086,8 +1086,8 @@ function newElement(name: string, kind: string): { ok: boolean; uuid?: string; e
   fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
   return { ok: true, uuid };
 }
-// R34.3 (R-B) server.createFolder — mint an ior:class:Folder unit in MODEL_STORE (store-only, prod scenario/index NEVER
-// touched; mirrors diagram/create + newElement). markerPending: req IMPL-mints the R-B chain → marker attaches to this named fn.
+// [impl:uuid:28000b00-55d3-4a94-ba37-dd7486ffb851] server.createFolder (Method 67a9f60f, Class c0a0921d) — R34.3 (R-B):
+// mint an ior:class:Folder unit in MODEL_STORE (store-only, prod scenario/index NEVER touched; mirrors diagram/create + newElement).
 function createFolder(name: string, parent: string): { ok: boolean; uuid?: string; error?: string } {
   const uuid = crypto.randomUUID();
   const unit = { ior: 'ior:class:Folder', ownerIor: null, model: { uuid, name: String(name || 'New folder').slice(0, 80), parent: String(parent || '') || null, children: [] } };

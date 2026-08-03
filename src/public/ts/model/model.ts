@@ -95,7 +95,7 @@ function wireDrawerActions(): void {
   document.addEventListener('rb-drawer-action', (e) => {
     const verb = (e as CustomEvent<{ verb?: string }>).detail?.verb || '';
     if (verb === 'add-diagram') void addDiagram();
-    else if (verb === 'add-folder') void addFolderAction(shownRef); // R34.3 (R-B): mint a Folder unit under the selected parent
+    else if (verb === 'add-folder') void addFolder(shownRef); // R34.3 (R-B): mint a Folder unit under the selected parent
     else if (verb === 'import-puml' || verb === 'compile-puml') void importPuml();
     else if (verb === 're-sync') document.dispatchEvent(new CustomEvent('rb-model-resync-request', { bubbles: true })); // rb-diagram-detail.onResyncRequest
     else if (verb === 'discover') void discoverRelated(shownRef, activeDiagramUuid); // R33.9: explicit active-diagram target (no last-diagram scan)
@@ -124,9 +124,10 @@ async function addDiagram(): Promise<void> {
   } catch (e: unknown) { if (err) err.textContent = 'Add Diagram failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
-// R34.3 (R-B): mint a Folder unit under the selected parent (POST /api/model/folder/create, store-only) → refresh the
-// tree + best-effort reveal. Full tree placement of Folder units lands with R-A (A2 File/Folder units in mofChildren).
-async function addFolderAction(ref: string): Promise<void> {
+// [impl:uuid:2f65a342-2f5c-4c4f-8671-c29934f0f9cc] ModelView.addFolder (Method 1b559bf6, Class 35759641) — R34.3 (R-B):
+// mint a Folder unit under the selected parent (POST /api/model/folder/create, store-only) → refresh + best-effort reveal.
+// Full tree placement of Folder units lands with R-A (A2 File/Folder in mofChildren). The 'add-folder' verb listing rides a1a5be99.
+async function addFolder(ref: string): Promise<void> {
   const name = (prompt('New folder name:', 'New folder') || '').trim();
   if (!name) return;
   if (err) err.textContent = '';
