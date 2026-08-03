@@ -30,7 +30,9 @@ const SHELL = `<!doctype html><html><head><meta charset="utf-8"><meta name="view
   + `<script type="module" src="${BUNDLE}"></script></body></html>`;
 
 const readVerbs = (page) => page.evaluate(() => [...document.querySelectorAll('rb-detail-drawer .drawer-actionbar .da-btn')].map(b => b.getAttribute('data-verb')));
-const showType = (page, type, ref) => page.evaluate(([t, r]) => document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref: r || (t + ':x') }, bubbles: true })), [type, ref]);
+// R-E (v0.8.43+): the bar is composed by RbDetailDrawer.showActionsForType→universalActionBar (host verbs via a registered
+// provider), NOT the old direct rb-drawer-detail-shown→setActions. Drive the CURRENT contract so provider verbs populate.
+const showType = (page, type, ref) => page.evaluate(([t, r]) => { const d = document.querySelector('rb-detail-drawer'); if (d && d.showActionsForType) { d.showActionsForType(t, r || (t + ':x')); return true; } return false; }, [type, ref]);
 const setActiveDiagram = (page, uuid) => page.evaluate((u) => document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid: u }, bubbles: true })), uuid);
 
 async function runOnce(browser, i) {
