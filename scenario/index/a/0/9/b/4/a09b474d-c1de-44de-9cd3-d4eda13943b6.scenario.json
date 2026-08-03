@@ -5,7 +5,9 @@
     "name": "server.ensureFolderFileUnit impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:23a9f9fd-672d-4b32-8761-17302d0889ce"
+    ]
   },
   "ownerIor": "ior:instance:64c4f023-7dba-40bb-af17-0bc6ab18571d"
 }

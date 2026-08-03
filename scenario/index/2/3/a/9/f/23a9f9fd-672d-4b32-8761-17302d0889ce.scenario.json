@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "23a9f9fd-672d-4b32-8761-17302d0889ce",
+    "name": "test:R34.2 (R-A A2) File/Folder real units @390 (server.ensureFolderFileUnit)",
+    "description": "Bridged to test/visual/r34a2-file-folder-webkit-gate.mjs (INDEPENDENT tester real-WebKit Safari @390 gate, GREEN DET-3x, served==v0.8.44 — runtime landed 0.8.44; 0.8.45 was marker-comment-only). Marker adopted from origin (measured, not invented). a synthetic tree ref (dir:<rel>|file:src/<rel>) resolves to a REAL ior:class:Folder|File unit (exact location; File carries sourceFile, Folder does not; type-distinct) with a DETERMINISTIC uuid (fetch twice → same uuid, no dup on re-open); opening the node OPENS the detail (location shown) + the universal A1 [◆Scenario,✎Edit] bar; dir/file tree nodes render+expand, tree nav unchanged, no throws. INV-A2-1/2/3.",
+    "sourceFile": "ior:file:test/visual/r34a2-file-folder-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+}
