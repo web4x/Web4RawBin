@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-In Progress — R-D2 BUILT v0.8.40 (expert 86fdde41d, class-select in tree fires detail-shown so unit-actions appear; rides R33.9 actionsForContext + R33.7.4, residual no new node). Chain UC bf4d39b4 (req d79b68737). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.
+DONE: R-D2 built v0.8.40 (86fdde41d, class-select fires detail-shown so unit-actions appear; rides R33.9/R33.7.4) + chain-complete-to-Test (Impl a1a5be99 tests[]=[70ce56e9,070d8d75], markerPending=false, req mint 836ff1193, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ R-D2 (residual). Modelelement unit actions already EXIST via R33.9 actionsForCon
 
 ## Acceptance Criteria
 
-- [ ] (functional) A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires.
-- [ ] (functional) Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.
-- [ ] (functional) Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).
-- [ ] (gate) GATE @390 real-WebKit: select a class in the tree -> its unit verbs (+ membership if a diagram is active) appear in the bar.
+- [x] (functional) A class-select IN THE TREE dispatches rb-drawer-detail-shown{type:'modelelement',ref} so setActions fires.
+- [x] (functional) Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.
+- [x] (functional) Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).
+- [x] (gate) GATE @390 real-WebKit: select a class in the tree -> its unit verbs (+ membership if a diagram is active) appear in the bar.
 
 ## Subtasks
 

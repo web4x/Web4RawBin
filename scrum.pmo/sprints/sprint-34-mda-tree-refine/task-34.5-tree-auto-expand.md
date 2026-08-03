@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-In Progress — R-D1 BUILT v0.8.39 (expert 34e5ab7e7, auto-expand on select->navigate rides R33.7.4 onTreeReveal 152435d1 / Impl 9cdf5072, residual no new node). Chain UC a156a018 minted (req 29f918590). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.
+DONE: R-D1 built v0.8.39 (34e5ab7e7, auto-expand on select->navigate; rides R33.7.4) + chain-complete-to-Test (Impl e6870858 tests[]=[bd8c14fc,9f4bff71], markerPending=false, req mint 836ff1193 re-pointed R-D1 UC to built reality, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ R-D1 (build FIRST, low-risk). On select->navigate the tree MUST auto-EXPAND the 
 
 ## Acceptance Criteria
 
-- [ ] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).
-- [ ] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.
-- [ ] (functional) An off-tree / absent target is a graceful no-op (no error).
-- [ ] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.
+- [x] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).
+- [x] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.
+- [x] (functional) An off-tree / absent target is a graceful no-op (no error).
+- [x] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.
 
 ## Subtasks
 

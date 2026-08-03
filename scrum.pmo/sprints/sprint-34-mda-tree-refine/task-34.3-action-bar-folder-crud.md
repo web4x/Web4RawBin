@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-In Progress — R-B BUILT v0.8.41 (expert 4e3837ae9, Add-folder endpoint POST /api/model/folder/create + verb; remove/delete RIDE R33.8/R33.9). Impls addFolder 2f65a342 + createFolder 28000b00 strict-AST credited markerPending->false (req 35c89d650, v0.8.42, served==HEAD 0.8.42). @390 real-WebKit gate + chain-complete-to-Test (Test mint) PENDING -> NOT Done.
+DONE: R-B built v0.8.41 (4e3837ae9 Add-folder endpoint+verb; remove/delete ride R33.8/R33.9) + chain-complete-to-Test (Impl 2f65a342 addFolder tests[]=[8ce0dbff], credited markerPending=false 35c89d650, req mint 836ff1193, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,11 +34,11 @@ R-B. The in-room action bar MUST offer, for the selected item: Add folder (new v
 
 ## Acceptance Criteria
 
-- [ ] (functional) 'Add folder' appears on folder/diagram context; POST /api/model/folder/create {parent,name} mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors /api/model/diagram/create), then load()+expandPath reveals it.
-- [ ] (functional) 'Remove' detaches the node from its tree/diagram VIEW (view-link removal, non-destructive) - the scenario unit STILL EXISTS.
-- [ ] (security) 'Delete' destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.
-- [ ] (functional) remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.
-- [ ] (gate) GATE @390 real-WebKit: add folder -> appears+reveals; remove -> node gone from tree BUT unit still exists; delete -> confirm WARN -> unit gone.
+- [x] (functional) 'Add folder' appears on folder/diagram context; POST /api/model/folder/create {parent,name} mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors /api/model/diagram/create), then load()+expandPath reveals it.
+- [x] (functional) 'Remove' detaches the node from its tree/diagram VIEW (view-link removal, non-destructive) - the scenario unit STILL EXISTS.
+- [x] (security) 'Delete' destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.
+- [x] (functional) remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.
+- [x] (gate) GATE @390 real-WebKit: add folder -> appears+reveals; remove -> node gone from tree BUT unit still exists; delete -> confirm WARN -> unit gone.
 
 ## Subtasks
 

@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-In Progress — R-C BUILT v0.8.40 (expert 86fdde41d, diagram-element select fires active-diagram so remove-from-diagram membership verb appears; rides R33.9 actionsForContext 0c769fe6/Impl a1a5be99, residual no new node). Chain UC 553229c3 (req d79b68737). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.
+DONE: R-C built v0.8.40 (86fdde41d, active-diagram context so remove-from-diagram membership verb appears; rides R33.9) + chain-complete-to-Test (Impl 4c9c3969 tests[]=[72af686c,5c898784], markerPending=false, req mint 836ff1193 re-pointed R-C UC to built reality, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ R-C (residual). The R33.9 remove-from-diagram verb (model.ts:75, removeFromDiagr
 
 ## Acceptance Criteria
 
-- [ ] (functional) When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar.
-- [ ] (functional) The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram - no new verb fabricated.
-- [ ] (functional) Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl - the chain reuses the built R33.9 nodes).
-- [ ] (gate) GATE @390 real-WebKit: select an element that IS in the open diagram -> remove-from-diagram shows + works.
+- [x] (functional) When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar.
+- [x] (functional) The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram - no new verb fabricated.
+- [x] (functional) Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl - the chain reuses the built R33.9 nodes).
+- [x] (gate) GATE @390 real-WebKit: select an element that IS in the open diagram -> remove-from-diagram shows + works.
 
 ## Subtasks
 
