@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "54acc696-3350-4ab7-94a2-b2659563735d",
+    "name": "RbDetailDrawer.universalActionBar",
+    "description": "NEW universal action-bar mechanism in the shared drawer (R34.7/R-E): showActionsForType sets the A1 default [Scenario,Edit] itself + RbDetailDrawer.registerActionProvider(fn) hook for host context verbs (model host registers actionsForContext). PROVISIONAL name — expert may implement as showActionsForType-edit + a separate registerActionProvider; re-point on ship (data=truth). IMPL-MINT.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:ffd44b17-5882-4d77-94d1-a3c03c07ffad"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}
