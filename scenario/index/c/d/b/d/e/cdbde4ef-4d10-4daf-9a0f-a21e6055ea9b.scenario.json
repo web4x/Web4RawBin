@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cdbde4ef-4d10-4daf-9a0f-a21e6055ea9b",
+  "name": "modelTree.fileFolderUnit",
+  "description": "R34.2 (R-A A2, architect fork A). The mofChildren resolver-side path GET-OR-CREATES a real ior:class:Folder / ior:class:File unit in MODEL_STORE for each folder/file node (instead of the synthetic dir:/file: collection ref), so the node resolves to a REAL unit with a detail view + exact location + the R34.1 default actions. Deterministic uuid = keyToUuid(rel-path) (R32.2) → re-derive re-binds, no dup; MODEL_STORE-isolated (R32.5), prod scenario/index UNTOUCHED. ★ FORK A: the TREE render stays BYTE-UNCHANGED (mofChildren node output identical); the unit-minting is a resolver-side SIDE-EFFECT. Reuse createFileUnit shape. Server → REAL restart at boundary.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:64c4f023-7dba-40bb-af17-0bc6ab18571d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-34-mda-tree-refine/S34-mda-tree-refine-feedback.md?section=R-A-A2-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

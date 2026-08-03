@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "64c4f023-7dba-40bb-af17-0bc6ab18571d",
+    "name": "server.mofFileFolderUnit",
+    "description": "NEW resolver-side get-or-create for R34.2/A2 (architect fork A): in the mofChildren path (server.ts:1202+), mint/resolve a real ior:class:Folder / ior:class:File unit in MODEL_STORE per folder/file node (deterministic uuid=keyToUuid(rel-path), reuse createFileUnit shape, R32.5 isolation). Tree output byte-unchanged (fork A). PROVISIONAL name — expert marks on the actual name-matching decl (mofFileFolderUnit / mintMofUnit / mofFolder-refactor); re-point on ship (data=truth). IMPL-MINT.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

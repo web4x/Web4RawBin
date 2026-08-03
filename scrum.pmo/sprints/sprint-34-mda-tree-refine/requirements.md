@@ -26,6 +26,7 @@
   - [ ] **(functional)** Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit — no duplicates.
   - [ ] **(security)** Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.
   - [ ] **(gate)** GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.
+  -> modelTree.fileFolderUnit [uc:uuid:cdbde4ef-4d10-4daf-9a0f-a21e6055ea9b]
 
 - [ ] **R34.3 — In-room action bar: Add-folder verb+endpoint / remove-from-tree / delete-unit-with-confirm-WARN**
   [requirement:uuid:615048d8-4bfb-449a-81e0-41ca460c969a]
