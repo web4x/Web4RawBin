@@ -58,12 +58,12 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // /model HOST owns the type→actions map + verb-dispatch (the shared drawer stays generic, INV-3). Page-top
 // mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
 const ACTIONS_BY_TYPE: Record<string, { verb: string; label: string }[]> = {
-  diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }],
+  diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'add-folder', label: '📁 Add folder' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }], // R34.3 (R-B): Add-folder on the diagram/folder context
   // R33.9: modelelement is now DYNAMIC (context-aware) via actionsForContext — unit verbs always + membership only when a diagram is active.
   puml: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
   pumlartifact: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
 };
-const DEFAULT_ACTIONS = [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'import-puml', label: '⇩ Import PUML' }];
+const DEFAULT_ACTIONS = [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'add-folder', label: '📁 Add folder' }, { verb: 'import-puml', label: '⇩ Import PUML' }]; // R34.3: Add-folder in the default/root context too
 
 // [impl:uuid:a1a5be99-a715-4a85-a0bf-89964c9c3949] ModelView.actionsForContext (Method … req-repoints) — R33.9: the
 // context-aware verb set for a selected element. UNIT verbs (new/rename/delete) ALWAYS on a modelelement; MEMBERSHIP
@@ -95,6 +95,7 @@ function wireDrawerActions(): void {
   document.addEventListener('rb-drawer-action', (e) => {
     const verb = (e as CustomEvent<{ verb?: string }>).detail?.verb || '';
     if (verb === 'add-diagram') void addDiagram();
+    else if (verb === 'add-folder') void addFolderAction(shownRef); // R34.3 (R-B): mint a Folder unit under the selected parent
     else if (verb === 'import-puml' || verb === 'compile-puml') void importPuml();
     else if (verb === 're-sync') document.dispatchEvent(new CustomEvent('rb-model-resync-request', { bubbles: true })); // rb-diagram-detail.onResyncRequest
     else if (verb === 'discover') void discoverRelated(shownRef, activeDiagramUuid); // R33.9: explicit active-diagram target (no last-diagram scan)
@@ -121,6 +122,22 @@ async function addDiagram(): Promise<void> {
     // item1: reveal the path so the new empty Diagram is VISIBLE under diagrams/ (reachable droppable canvas), not buried collapsed.
     await (tree as (HTMLElement & { expandPath?: (r: string[]) => Promise<void> }) | null)?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:diagram']);
   } catch (e: unknown) { if (err) err.textContent = 'Add Diagram failed: ' + (e instanceof Error ? e.message : String(e)); }
+}
+
+// R34.3 (R-B): mint a Folder unit under the selected parent (POST /api/model/folder/create, store-only) → refresh the
+// tree + best-effort reveal. Full tree placement of Folder units lands with R-A (A2 File/Folder units in mofChildren).
+async function addFolderAction(ref: string): Promise<void> {
+  const name = (prompt('New folder name:', 'New folder') || '').trim();
+  if (!name) return;
+  if (err) err.textContent = '';
+  try {
+    const parent = ref.split(':').pop() || '';
+    const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) });
+    const d = await r.json();
+    if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    await load(); // refresh; the Folder unit shows under the model tree once R-A enumerates File/Folder in mofChildren
+    if (d.uuid) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: `folder:${d.uuid}` }, bubbles: true })); // best-effort reveal (R33.7.4)
+  } catch (e: unknown) { if (err) err.textContent = 'Add folder failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
 
 async function importPuml(): Promise<void> {

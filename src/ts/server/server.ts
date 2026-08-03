@@ -1086,6 +1086,17 @@ function newElement(name: string, kind: string): { ok: boolean; uuid?: string; e
   fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
   return { ok: true, uuid };
 }
+// R34.3 (R-B) server.createFolder — mint an ior:class:Folder unit in MODEL_STORE (store-only, prod scenario/index NEVER
+// touched; mirrors diagram/create + newElement). markerPending: req IMPL-mints the R-B chain → marker attaches to this named fn.
+function createFolder(name: string, parent: string): { ok: boolean; uuid?: string; error?: string } {
+  const uuid = crypto.randomUUID();
+  const unit = { ior: 'ior:class:Folder', ownerIor: null, model: { uuid, name: String(name || 'New folder').slice(0, 80), parent: String(parent || '') || null, children: [] } };
+  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(f), { recursive: true });
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n'); // INV store-only (MODEL_STORE, prod untouched)
+  return { ok: true, uuid };
+}
+
 // [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
 // unit in MODEL_STORE (store-only, prod-safe).
 function renameElement(elementUuid: string, name: string): { ok: boolean; error?: string; status?: number } {
@@ -1904,6 +1915,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[model] add-diagram → empty Diagram ${diagramUuid.slice(0, 8)} (store-only)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, diagramUuid }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-diagram-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/folder/create') { // R34.3 (R-B) Add-folder: mint a Folder unit in MODEL_STORE (mirror diagram/create, store-only). markerPending (req IMPL-mints → createFolder)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (mirror diagram/create)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { name, parent } = JSON.parse(body || '{}');
+          const out = createFolder(String(name || ''), String(parent || ''));
+          addLog(`[model] add-folder → Folder ${out.uuid?.slice(0, 8)} parent=${String(parent || '').slice(0, 8)} (store-only)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
       });
       return;
     }
