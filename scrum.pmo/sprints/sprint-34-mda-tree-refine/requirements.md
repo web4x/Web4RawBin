@@ -54,6 +54,7 @@
   - [ ] **(functional)** The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement→expandPath (R33.7.4) — reused wholesale, NO fork, NO new verb/Method.
   - [ ] **(functional)** An off-tree / absent target is a graceful no-op (no error).
   - [ ] **(gate)** GATE @390 real-WebKit: select a class (from diagram/detail) → its folder path auto-expands + the leaf highlights, with NO manual expand.
+  -> traceTree.autoExpandOnNavigate [uc:uuid:a156a018-e171-4a1d-9f2c-b82851bbe384]
 
 - [ ] **R34.6 — Element unit-actions appear on class-select in the tree (wire detail-shown) — RESIDUAL, rides R33.9/R33.7.4**
   [requirement:uuid:ba3fe02e-b1e5-4013-b7e0-2b99c1f9b33a]

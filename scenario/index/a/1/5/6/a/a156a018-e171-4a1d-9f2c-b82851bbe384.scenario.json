@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a156a018-e171-4a1d-9f2c-b82851bbe384",
+  "name": "traceTree.autoExpandOnNavigate",
+  "description": "R34.5 (R-D1, Tron IMG_4819 refined 2026-08-02: auto-expand polish, NOT a nav regression). RIDES the built R33.7.4 reveal mechanism (Method RbTraceTree.onTreeReveal 152435d1 -> Impl 9cdf5072: rb-tree-reveal listener -> revealNode ancestor-walk expand + scrollIntoView, R33.5 expandPath). GAP: the select->navigate case (selecting a class/element from a diagram/detail to NAVIGATE) does NOT dispatch rb-tree-reveal{ref}, so the folder ancestor path is not auto-expanded (nav itself is correct). FIX = wire the missing trigger to dispatch rb-tree-reveal / call revealModelElement on select->navigate — REUSE R33.7.4 wholesale, NO fork, NO new verb/Method (trigger is a call-site, rides Impl 9cdf5072). Client-only.",
+  "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+  "method": "ior:instance:152435d1-56c7-4473-bea8-decf9619c877",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-D1-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "ridesNote": "RESIDUAL-WIRING: rides existing R33.7.4 onTreeReveal 152435d1 + Impl 9cdf5072 (no new Method/Impl). The select->navigate trigger dispatch is a call-site addition; the @390 Test rides Impl 9cdf5072 as a distinct-intent test alongside R33.7.4 Test dac73307."
+ },
+ "ownerIor": null
+}
