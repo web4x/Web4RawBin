@@ -2,8 +2,8 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "64c4f023-7dba-40bb-af17-0bc6ab18571d",
-    "name": "server.mofFileFolderUnit",
-    "description": "NEW resolver-side get-or-create for R34.2/A2 (architect fork A): in the mofChildren path (server.ts:1202+), mint/resolve a real ior:class:Folder / ior:class:File unit in MODEL_STORE per folder/file node (deterministic uuid=keyToUuid(rel-path), reuse createFileUnit shape, R32.5 isolation). Tree output byte-unchanged (fork A). PROVISIONAL name — expert marks on the actual name-matching decl (mofFileFolderUnit / mintMofUnit / mofFolder-refactor); re-point on ship (data=truth). IMPL-MINT.",
+    "name": "server.ensureFolderFileUnit",
+    "description": "NEW resolver-side get-or-create for R34.2/A2 (architect fork A, expert decl 8e92f6817): server.ensureFolderFileUnit resolves a synthetic tree ref (dir:<rel> | file:src/<rel>) to a REAL ior:class:Folder|File unit in MODEL_STORE, deterministic uuid=keyToUuid(\"folder::\"|\"file::\"+rel), LAZY idempotent mint on first detail (INV-A2-2 no-dup / A2-3 MODEL_STORE-only, prod scenario/index UNTOUCHED). Wired into the /api/ior resolve path so a dir:/file: ref resolves to the unit (detail + exact location + universal A1 Scenario/Edit). Tree output byte-unchanged (fork A). Mirrors createFolder 28000b00 / newElement. IMPL-MINT — expert marks [impl:uuid:a09b474d] on this decl.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "implementations": [
       "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"

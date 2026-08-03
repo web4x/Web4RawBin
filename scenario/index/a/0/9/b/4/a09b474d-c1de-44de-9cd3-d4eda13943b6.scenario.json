@@ -2,7 +2,7 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "a09b474d-c1de-44de-9cd3-d4eda13943b6",
-    "name": "server.mofFileFolderUnit impl",
+    "name": "server.ensureFolderFileUnit impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": true,
     "tests": []
