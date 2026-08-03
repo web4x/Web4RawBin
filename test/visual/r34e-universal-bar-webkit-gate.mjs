@@ -8,6 +8,7 @@
 // MECHANISM (ffd44b17) proven here covers them by construction (the fix is in the shared component, not per-host); a real-
 // page confirm on the gated ones = Tron device. NO seed, NO write (showActionsForType is a pure render). pixel-sample.
 // [test:uuid:cbdb3210-a2ad-4c4f-9e32-68f6f71f16b0] S34 R-E/R34.7 + R-A A1 RbDetailDrawer.universalActionBar (Impl ffd44b17) @390 real-WebKit DET-3x: the shared drawer sets the [◆Scenario,✎Edit] universal default on EVERY detail render across ALL usages — REAL /trace + /scenario show the bar PRESENT (was MISSING on non-model usages pre-fix) with NO model verbs; /model composes the default + its FULL model verb-set (unregressed R33.9); empty/chat → cleared; ◆Scenario → /scenario?ior=; no page throws. INV-E1 universal / E2 context-verbset / E3 no-fork. server-manager/feature-manager/in-room ride the SAME shared component (mechanism-proven; gated-page real-confirm = Tron device).
+// [test:uuid:d8be524e-846e-48f5-a2b1-ffae078f873b] S34 R-A A1 / R34.1 RbDetailDrawer.onUniversalAction (Impl 005dbd3e) @390 real-WebKit DET-3x: the shared drawer handles the universal ◆Scenario/✎Edit verbs itself — ◆Scenario → location /scenario?ior=<uuid>, ✎Edit → scenarioEditorHref /edit/scenario/index/<sharded>/<uuid>.scenario.json. DISTINCT #126 Test for A1 (its own Impl+Req), NOT a ride on R-E ffd44b17 universal-default (crossRef ffd44b17 R34.7 default-pair + a1a5be99 verb-listing).
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
@@ -66,17 +67,26 @@ async function modelUsage(browser, i) {
   return { hasDefault, hasModelVerbs, verbs: bar.verbs };
 }
 
-async function navCheck(browser) { // Scenario → /scenario?ior= ; Edit → scenario editor href
+// A1/R34.1 onUniversalAction (Impl 005dbd3e): ◆Scenario → /scenario?ior=<uuid> ; ✎Edit → scenarioEditorHref (/edit/scenario/index/<sharded>/<uuid>.scenario.json)
+const NAVU = '070d8d75-3200-41a9-8c1f-d6f8defe501e';
+async function oneNav(browser, verb, waitGlob) {
   const ctx = await browser.newContext({ ...devices['iPhone 12'], ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   const page = await ctx.newPage();
   await page.goto(`${BASE}/trace`, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!document.querySelector('rb-detail-drawer'), { timeout: 15000 }).catch(() => {});
-  await drive(page, 'requirement', 'requirement:NAVUUID'); await sleep(200);
-  await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-drawer-action', { detail: { verb: 'scenario', ref: 'requirement:NAVUUID' }, bubbles: true })));
-  await page.waitForURL('**/scenario?ior=**', { timeout: 6000 }).catch(() => {});
-  const scenarioNav = /\/scenario\?ior=/.test(page.url()) && page.url().includes('NAVUUID');
+  await drive(page, 'requirement', 'requirement:' + NAVU); await sleep(200);
+  await page.evaluate(([v, u]) => document.dispatchEvent(new CustomEvent('rb-drawer-action', { detail: { verb: v, ref: 'requirement:' + u }, bubbles: true })), [verb, NAVU]);
+  await page.waitForURL(waitGlob, { timeout: 6000 }).catch(() => {});
+  const url = page.url().replace(BASE, '');
   await ctx.close();
-  return { scenarioNav, url: page.url().replace(BASE, '') };
+  return url;
+}
+async function navCheck(browser) {
+  const scenarioUrl = await oneNav(browser, 'scenario', '**/scenario?ior=**');
+  const editUrl = await oneNav(browser, 'edit', '**/edit/scenario/index/**');
+  const scenarioNav = /\/scenario\?ior=/.test(scenarioUrl) && scenarioUrl.includes(NAVU);
+  const editNav = /\/edit\/scenario\/index\//.test(editUrl) && editUrl.includes(NAVU);
+  return { scenarioNav, editNav, scenarioUrl, editUrl };
 }
 
 const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
@@ -100,12 +110,12 @@ console.log(`  nav: ${JSON.stringify(nav)}  consoleErrors=${consoleErrors}`);
 const traceGreen = okAll(trace, R => R.hasDrawer && R.present && R.hasDefault && R.noModelVerbs && R.cleared);
 const scenarioGreen = okAll(scenario, R => R.hasDrawer && R.present && R.hasDefault && R.noModelVerbs && R.cleared);
 const modelGreen = okAll(model, R => R.hasDefault && R.hasModelVerbs); // universal default PRESENT + full model verbs (unregressed)
-const navGreen = nav && nav.scenarioNav;
+const navGreen = nav && nav.scenarioNav && nav.editNav;
 const noThrows = consoleErrors === 0;
 console.log(`\n/trace (non-model, bar PRESENT [Scenario,Edit], empty→clear): ${traceGreen ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`/scenario (non-model, bar PRESENT, empty→clear): ${scenarioGreen ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`/model (universal default + FULL model verb-set, UNREGRESSED): ${modelGreen ? 'GREEN DET-3x' : 'RED'}`);
-console.log(`Scenario nav → /scenario?ior=: ${navGreen ? 'GREEN' : 'RED'}  |  no page throws: ${noThrows ? 'GREEN' : 'RED'}`);
+console.log(`A1 nav (◆Scenario→/scenario?ior= + ✎Edit→/edit/scenario/index/…): ${navGreen ? 'GREEN' : 'RED'} (${JSON.stringify(nav)})  |  no page throws: ${noThrows ? 'GREEN' : 'RED'}`);
 console.log(`server-manager / feature-manager / in-room: SAME shared rb-detail-drawer.universalActionBar (ffd44b17) — mechanism-proven by construction; real-page confirm on the gated ones = Tron device.`);
 const green = traceGreen && scenarioGreen && modelGreen && navGreen && noThrows;
 console.log('OVERALL R-E/A1:', green ? 'GREEN DET-3x' : 'RED');
