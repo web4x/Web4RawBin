@@ -4,7 +4,7 @@
     "uuid": "2f65a342-2f5c-4c4f-8671-c29934f0f9cc",
     "name": "ModelView.addFolder impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:1b559bf6-1f87-41c8-95e9-40efd491a453"
