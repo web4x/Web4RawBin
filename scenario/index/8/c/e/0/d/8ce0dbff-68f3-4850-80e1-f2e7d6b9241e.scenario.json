@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8ce0dbff-68f3-4850-80e1-f2e7d6b9241e",
+    "name": "test:R34.3 (R-B) add-folder present+fires @390 (ModelView.addFolder)",
+    "description": "Bridged to test/visual/r34-webkit-sweep-gate.mjs (INDEPENDENT tester real-WebKit Safari-605 @390 gate, GREEN DET-3x, served==0.8.42, 5744070b7, pollution-free planted-defect). Marker adopted from origin (measured, not invented). the 📁 Add-folder verb is PRESENT and firing it POSTs /api/model/folder/create + dispatches rb-tree-reveal{folder:}; PLANTED cancel the name prompt → no create POST. R34.3/R-B.",
+    "sourceFile": "ior:file:test/visual/r34-webkit-sweep-gate.mjs",
+    "implementations": [
+      "ior:instance:2f65a342-2f5c-4c4f-8671-c29934f0f9cc"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2f65a342-2f5c-4c4f-8671-c29934f0f9cc"
+}

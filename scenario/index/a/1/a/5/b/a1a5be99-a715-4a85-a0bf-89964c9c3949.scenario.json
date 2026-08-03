@@ -5,7 +5,8 @@
     "name": "ModelView.actionsForContext impl",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "tests": [
-      "ior:instance:70ce56e9-8b62-4093-a3c6-92eb86f3c240"
+      "ior:instance:70ce56e9-8b62-4093-a3c6-92eb86f3c240",
+      "ior:instance:070d8d75-3200-41a9-8c1f-d6f8defe501e"
     ],
     "markerPending": false
   },

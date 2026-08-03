@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "070d8d75-3200-41a9-8c1f-d6f8defe501e",
+    "name": "test:R34.6 (R-D2) class-select unit+membership verbs @390 (ModelView.actionsForContext)",
+    "description": "Bridged to test/visual/r34-webkit-sweep-gate.mjs (INDEPENDENT tester real-WebKit Safari-605 @390 gate, GREEN DET-3x, served==0.8.42, 5744070b7, pollution-free planted-defect). Marker adopted from origin (measured, not invented). selecting a class → drawer action-bar shows unit verbs [new/rename/delete] ALWAYS + membership [add-to-diagram/discover/remove-from-diagram] ONLY when a diagram is active; PLANTED no-diagram → unit only (no membership). R34.6/R-D2.",
+    "sourceFile": "ior:file:test/visual/r34-webkit-sweep-gate.mjs",
+    "implementations": [
+      "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
+}

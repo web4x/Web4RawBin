@@ -4,12 +4,13 @@
   "uuid": "a156a018-e171-4a1d-9f2c-b82851bbe384",
   "name": "traceTree.autoExpandOnNavigate",
   "description": "R34.5 (R-D1, Tron IMG_4819 refined 2026-08-02: auto-expand polish, NOT a nav regression). RIDES the built R33.7.4 reveal mechanism (Method RbTraceTree.onTreeReveal 152435d1 -> Impl 9cdf5072: rb-tree-reveal listener -> revealNode ancestor-walk expand + scrollIntoView, R33.5 expandPath). GAP: the select->navigate case (selecting a class/element from a diagram/detail to NAVIGATE) does NOT dispatch rb-tree-reveal{ref}, so the folder ancestor path is not auto-expanded (nav itself is correct). FIX = wire the missing trigger to dispatch rb-tree-reveal / call revealModelElement on select->navigate — REUSE R33.7.4 wholesale, NO fork, NO new verb/Method (trigger is a call-site, rides Impl 9cdf5072). Client-only.",
-  "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
-  "method": "ior:instance:152435d1-56c7-4473-bea8-decf9619c877",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:c6a39be3-2174-46ad-856a-ce0ff983b3dd",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-D1-ARCHITECT-DESIGN&commit=0f312e4f8",
   "parent": null,
   "unitLinks": [],
-  "ridesNote": "RESIDUAL-WIRING: rides existing R33.7.4 onTreeReveal 152435d1 + Impl 9cdf5072 (no new Method/Impl). The select->navigate trigger dispatch is a call-site addition; the @390 Test rides Impl 9cdf5072 as a distinct-intent test alongside R33.7.4 Test dac73307."
+  "ridesNote": "RESIDUAL-WIRING: rides existing R33.7.4 onTreeReveal 152435d1 + Impl 9cdf5072 (no new Method/Impl). The select->navigate trigger dispatch is a call-site addition; the @390 Test rides Impl 9cdf5072 as a distinct-intent test alongside R33.7.4 Test dac73307.",
+  "repointNote": "RE-POINTED (data=truth, tester credit 2026-08-03): the R-D1 trigger SHIPPED in RbDetailDrawer.showActionsForType (Impl e6870858, dispatches rb-tree-reveal on modelelement detail-show) — NOT in onTreeReveal (152435d1/9cdf5072, the reused handler). Re-pointed class→RbDetailDrawer d86af73d, method→showActionsForType c6a39be3 so the chain credits where the R-D1 code lives; Test 9f4bff71 rides e6870858 distinct-intent alongside R33.6.5 bd8c14fc. onTreeReveal 9cdf5072 remains the downstream reused mechanism."
  },
  "ownerIor": null
 }
