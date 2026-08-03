@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R-B (build after R-C/D2). NEW verb Add-folder (POST /api/model/folder/create, store-only, mirrors diagram/create) + remove-vs-delete lifecycle discipline (R33.8/R33.9). Gate real-WebKit @390 on ship.
+In Progress — R-B BUILT v0.8.41 (expert 4e3837ae9, Add-folder endpoint POST /api/model/folder/create + verb; remove/delete RIDE R33.8/R33.9). Impls addFolder 2f65a342 + createFolder 28000b00 strict-AST credited markerPending->false (req 35c89d650, v0.8.42, served==HEAD 0.8.42). @390 real-WebKit gate + chain-complete-to-Test (Test mint) PENDING -> NOT Done.
 
 ## Traceability
 

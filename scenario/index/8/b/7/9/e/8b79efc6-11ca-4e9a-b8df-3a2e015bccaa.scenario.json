@@ -6,18 +6,18 @@
   "name": "Task 34.3: In-room action bar: Add-folder verb+endpoint / remove-from-tree / delete-unit-with-confirm-WARN [R-B]",
   "slug": "task-34.3-action-bar-folder-crud",
   "description": "R-B. The in-room action bar MUST offer, for the selected item: Add folder (new verb + POST /api/model/folder/create minting an ior:class:Folder unit in MODEL_STORE, then load()+expandPath reveal), Remove (detach node from tree/diagram VIEW only — non-destructive, unit stays), and Delete (destroy the UNIT, gated by a confirm() WARN before the delete endpoint). Distinct verbs = same lifecycle discipline as R33.8/R33.9.",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [~] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.3 `[requirement:uuid:615048d8-4bfb-449a-81e0-41ca460c969a]`\n  - down\n    - None (atomic task)",
   "acceptanceCriteria": "- [ ] (functional) 'Add folder' appears on folder/diagram context; POST /api/model/folder/create {parent,name} mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors /api/model/diagram/create), then load()+expandPath reveals it.\n- [ ] (functional) 'Remove' detaches the node from its tree/diagram VIEW (view-link removal, non-destructive) - the scenario unit STILL EXISTS.\n- [ ] (security) 'Delete' destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.\n- [ ] (functional) remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.\n- [ ] (gate) GATE @390 real-WebKit: add folder -> appears+reveals; remove -> node gone from tree BUT unit still exists; delete -> confirm WARN -> unit gone.",
   "subtasks": "None (atomic task).",
-  "status": "Planned",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:615048d8-4bfb-449a-81e0-41ca460c969a"
   ],
   "useCases": [],
   "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
   "sprintName": "Sprint 34",
-  "remainingIssues": "Planned — cluster R-B (build after R-C/D2). NEW verb Add-folder (POST /api/model/folder/create, store-only, mirrors diagram/create) + remove-vs-delete lifecycle discipline (R33.8/R33.9). Gate real-WebKit @390 on ship.",
+  "remainingIssues": "In Progress — R-B BUILT v0.8.41 (expert 4e3837ae9, Add-folder endpoint POST /api/model/folder/create + verb; remove/delete RIDE R33.8/R33.9). Impls addFolder 2f65a342 + createFolder 28000b00 strict-AST credited markerPending->false (req 35c89d650, v0.8.42, served==HEAD 0.8.42). @390 real-WebKit gate + chain-complete-to-Test (Test mint) PENDING -> NOT Done.",
   "createdBy": "robbin-planner",
   "createdAt": "2026-08-03"
  }
