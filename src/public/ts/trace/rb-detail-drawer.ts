@@ -73,6 +73,7 @@ export class RbDetailDrawer extends HTMLElement {
   // R-A A1 (universal default verbs): the shared drawer ITSELF handles ◆ Scenario / ✎ Edit for ANY scenario-instance
   // detail — Scenario → the /scenario?ior focused view, Edit → the scenario editor (scenarioEditorHref). Host-specific
   // verbs are ignored here (their host handles them). Ref = the action's ref, else the last-shown detail ref.
+  // [impl:uuid:005dbd3e-19e3-473f-944b-96c4e8053b4a] RbDetailDrawer.onUniversalAction (Method 276e4981, Class d86af73d, off UC 8106d378) — R34.1 (R-A A1): universal ◆Scenario/✎Edit handler. verb-listing crossRef a1a5be99; default-pair crossRef ffd44b17 (R34.7). Arrow-field kept (lexical this for the listener; PO/req = no method conversion).
   private onUniversalAction = (e: Event): void => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';
