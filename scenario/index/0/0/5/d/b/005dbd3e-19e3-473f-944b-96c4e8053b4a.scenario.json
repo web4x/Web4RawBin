@@ -5,7 +5,9 @@
     "name": "RbDetailDrawer.onUniversalAction impl",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:d8be524e-846e-48f5-a2b1-ffae078f873b"
+    ]
   },
   "ownerIor": "ior:instance:276e4981-4415-4e31-af3f-c19217322725"
 }
