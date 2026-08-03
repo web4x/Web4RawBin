@@ -6,18 +6,18 @@
   "name": "Task 34.2: File & Folder are real ior:class:Folder/File units in MODEL_STORE, showing exact location (server) [R-A]",
   "slug": "task-34.2-file-folder-units",
   "description": "R-A (server half). mofChildren MUST mint/use real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs) so each folder/file node resolves to a REAL unit with a detail view + the R34.1 default actions + its exact LOCATION. Deterministic uuid = keyToUuid(rel-path) (R32.2), MODEL_STORE-isolated (R32.5, prod untouched). Server; tree render unchanged.",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
   "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.2 `[requirement:uuid:fe463924-154e-4f99-bf3d-2fabc388042c]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [ ] (functional) mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view.\n- [ ] (functional) The File/Folder detail shows its exact LOCATION (rel-path).\n- [ ] (functional) File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1).\n- [ ] (functional) Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit - no duplicates.\n- [ ] (security) Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.\n- [ ] (gate) GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.",
+  "acceptanceCriteria": "- [x] (functional) mofChildren mints/uses real ior:class:Folder + ior:class:File units in MODEL_STORE (not synthetic dir:/file: collection refs); each resolves to a real unit with a detail view.\n- [x] (functional) The File/Folder detail shows its exact LOCATION (rel-path).\n- [x] (functional) File/Folder detail shows the R34.1 «Scenario»+«Edit» default pair (depends R34.1).\n- [x] (functional) Unit uuid = keyToUuid(rel-path) (R32.2 deterministic) so re-derive re-binds the same unit - no duplicates.\n- [x] (security) Units minted in MODEL_STORE ONLY; prod scenario/index untouched (R32.5 isolation); tree render unchanged (still rb-trace-tree folders); /trace detail unregressed.\n- [x] (gate) GATE @390 real-WebKit: a File/Folder node opens a REAL detail with exact location + Scenario/Edit; prod scenario/index untouched.",
   "subtasks": "None (atomic task).",
-  "status": "Planned",
+  "status": "Done",
   "coveredRequirements": [
    "ior:instance:fe463924-154e-4f99-bf3d-2fabc388042c"
   ],
   "useCases": [],
   "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
   "sprintName": "Sprint 34",
-  "remainingIssues": "Planned — cluster R-A server half (build LAST, pairs with R34.1). Real Folder/File units, deterministic keyToUuid (R32.2), MODEL_STORE-isolated (R32.5 prod untouched). Gate real-WebKit @390 on ship.",
+  "remainingIssues": "DONE: R-A A2 built (File/Folder real MODEL_STORE units, deterministic keyToUuid R32.2, R32.5-isolated prod untouched) + chain-complete-to-Test (Impl a09b474d tests[]=[23a9f9fd], markerPending=false) + REAL-WEBKIT @390 GREEN DET-3x (S34 gate b87c8504d, served 0.8.44; HEAD 0.8.45 = A1 marker-only bump, behavior unchanged; Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
   "createdBy": "robbin-planner",
   "createdAt": "2026-08-03"
  }
