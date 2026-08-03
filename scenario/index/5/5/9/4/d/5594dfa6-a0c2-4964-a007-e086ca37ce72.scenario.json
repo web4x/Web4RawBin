@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "5594dfa6-a0c2-4964-a007-e086ca37ce72",
+  "name": "model.createFolder",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:67a9f60f-ee2c-46f5-9533-376fd9d42295",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-B-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R34.3 (R-B) Add-folder — SERVER. POST /api/model/folder/create mints an ior:class:Folder unit in MODEL_STORE (store-only INV, mirrors server.newElement 42bf4938 / diagram-create); deterministic uuid = keyToUuid(rel-path) (R32.2). NEW Method+Impl, IMPL-MINT markerPending — expert marks on the createFolder decl. SERVER → real restart at boundary."
+ },
+ "ownerIor": null
+}

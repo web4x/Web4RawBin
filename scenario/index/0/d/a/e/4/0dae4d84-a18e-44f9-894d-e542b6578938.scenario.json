@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "0dae4d84-a18e-44f9-894d-e542b6578938",
+  "name": "diagram.addFolder",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:1b559bf6-1f87-41c8-95e9-40efd491a453",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-B-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R34.3 (R-B) Add-folder — CLIENT. The «Add folder» action handler: on the add-folder verb, POST /api/model/folder/create {parent,name}, then load()+expandPath to reveal (mirrors ModelView.addDiagram 85a36ec2). The verb itself is listed by actionsForContext (small data addition, rides a1a5be99); THIS is the click handler. NEW Method+Impl, IMPL-MINT markerPending — expert marks on the addFolder decl."
+ },
+ "ownerIor": null
+}

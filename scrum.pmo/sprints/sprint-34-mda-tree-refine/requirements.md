@@ -36,6 +36,10 @@
   - [ ] **(security)** «🗑 Delete» destroys the UNIT, gated by a confirm() WARN ('Delete <name> permanently?') BEFORE the delete endpoint; on confirm the unit is gone.
   - [ ] **(functional)** remove and delete are DISTINCT verbs with distinct labels + distinct semantics (view vs unit), same discipline as R33.8/R33.9.
   - [ ] **(gate)** GATE @390 real-WebKit: add folder → appears+reveals; remove → node gone from tree BUT unit still exists; delete → confirm WARN → unit gone.
+  -> diagram.addFolder [uc:uuid:0dae4d84-a18e-44f9-894d-e542b6578938]
+  -> model.createFolder [uc:uuid:5594dfa6-a0c2-4964-a007-e086ca37ce72]
+  -> diagram.removeFromTree [uc:uuid:aec2fdd9-7198-403f-a8a0-963f86342a19]
+  -> unit.deleteWithConfirm [uc:uuid:daff6011-ca76-4941-bc1c-de13231cc74e]
 
 - [ ] **R34.4 — Element remove-from-diagram appears in the bar (wire active-diagram context) — RESIDUAL, rides R33.9**
   [requirement:uuid:21d3df6c-bd67-46db-af28-f161069d789e]

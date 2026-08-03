@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1b559bf6-1f87-41c8-95e9-40efd491a453",
+    "name": "ModelView.addFolder",
+    "description": "NEW client action handler for R34.3 Add-folder (mirror ModelView.addDiagram 85a36ec2): POST /api/model/folder/create then load()+expandPath reveal. IMPL-MINT.",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "implementations": [
+      "ior:instance:2f65a342-2f5c-4c4f-8671-c29934f0f9cc"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
+}
