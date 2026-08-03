@@ -73,6 +73,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
@@ -1095,6 +1096,28 @@ function createFolder(name: string, parent: string): { ok: boolean; uuid?: strin
   fsSync.mkdirSync(path.dirname(f), { recursive: true });
   fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n'); // INV store-only (MODEL_STORE, prod untouched)
   return { ok: true, uuid };
+}
+
+// [impl:uuid:a09b474d-c1de-44de-9cd3-d4eda13943b6] server.ensureFolderFileUnit (Method 64c4f023, Class c0a0921d, off UC
+// cdbde4ef) — R-A A2 (R34.2, architect fork-A 8e92f6817): map a SYNTHETIC tree ref (dir:<rel> | file:src/<rel>) → a REAL
+// ior:class:Folder|File unit in MODEL_STORE so a folder/file node resolves to a real detail (+ exact location + universal
+// A1 Scenario/Edit). Deterministic uuid=keyToUuid('folder::'|'file::'+rel) (R32.2) → LAZY idempotent: re-derive re-binds
+// the SAME unit, no dup (INV-A2-2). MODEL_STORE-only, prod scenario/index NEVER touched (R32.5, INV-A2-3). Tree +
+// mofChildren expansion BYTE-unchanged (INV-A2-1) — this only ADDS a resolvable unit for the detail. Non dir:/file: → null.
+function ensureFolderFileUnit(ior: string): { ior: string; ownerIor: null; model: Record<string, unknown> } | null {
+  const ref = String(ior).replace(/^ior:instance:/, '');
+  const isDir = ref.startsWith('dir:'), isFile = ref.startsWith('file:');
+  if (!isDir && !isFile) return null;
+  const rel = (isDir ? ref.slice('dir:'.length) : ref.slice('file:'.length)).replace(/^\/+/, '');
+  if (!rel || rel.includes('..')) return null; // path-safety (no traversal into the shard/store path)
+  const uuid = keyToUuid((isDir ? 'folder::' : 'file::') + rel);
+  const dfile = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  if (fsSync.existsSync(dfile)) { try { return JSON.parse(fsSync.readFileSync(dfile, 'utf-8')); } catch { /* corrupt → re-mint below */ } }
+  const name = rel.split('/').pop() || rel;
+  const unit = { ior: isDir ? 'ior:class:Folder' : 'ior:class:File', ownerIor: null as null, model: { uuid, name, location: rel, kind: isDir ? 'folder' : 'file', ...(isFile ? { sourceFile: `ior:file:${rel}` } : {}) } };
+  fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
+  fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-A2-3 store-only (MODEL_STORE, prod scenario/index untouched)
+  return unit;
 }
 
 // [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
@@ -2247,6 +2270,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/ior/')) {
       const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
       try {
+        // R-A A2 (fork A): a synthetic dir:/file: tree ref → its REAL lazy-minted MODEL_STORE Folder/File unit (detail + A1).
+        const ff = ensureFolderFileUnit(ior);
+        if (ff) { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }); res.end(JSON.stringify({ unit: ff })); return; }
         // R32.5: model units (ModelElement/Diagram) resolve from the ISOLATED store (diagram surface + tree fetch); trace units stay prod.
         const iorUuid = ior.replace(/^ior:(instance|class):/, '');
         const scenarioDir = isModelUnit(iorUuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
