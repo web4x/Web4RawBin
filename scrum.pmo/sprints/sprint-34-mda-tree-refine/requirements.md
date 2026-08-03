@@ -45,6 +45,7 @@
   - [ ] **(functional)** The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram — no new verb fabricated.
   - [ ] **(functional)** Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl — the chain reuses the built R33.9 nodes).
   - [ ] **(gate)** GATE @390 real-WebKit: select an element that IS in the open diagram → remove-from-diagram shows + works.
+  -> actionBar.activeDiagramContext [uc:uuid:553229c3-2221-4c16-8e42-e46a7efb9fc0]
 
 - [ ] **R34.5 — Tree auto-expands the folder ancestor path on select→navigate (wire trigger to R33.7.4 reveal)**
   [requirement:uuid:6f604af0-947f-43e5-93c0-61241b04a1d7]
@@ -64,3 +65,4 @@
   - [ ] **(functional)** Modelelement unit verbs (+ membership if a diagram is active, R34.4) appear in the action bar on class-select.
   - [ ] **(functional)** Rides R33.9 actionsForContext + R33.7.4 (ride-existing; NO new verb/Method).
   - [ ] **(gate)** GATE @390 real-WebKit: select a class in the tree → its unit verbs (+ membership if a diagram is active) appear in the bar.
+  -> actionBar.classSelectActions [uc:uuid:bf4d39b4-ddb7-4d03-b7ff-6f7b367a38aa]

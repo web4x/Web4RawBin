@@ -35,7 +35,10 @@
    }
   ],
   "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
-  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth)."
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth).",
+  "useCases": [
+   "ior:instance:bf4d39b4-ddb7-4d03-b7ff-6f7b367a38aa"
+  ]
  },
  "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
 }
