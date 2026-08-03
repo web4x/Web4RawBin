@@ -15,6 +15,7 @@
   - [ ] **(functional)** «Edit» opens the edit flow for that instance.
   - [ ] **(functional)** The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.
   - [ ] **(gate)** GATE @390 real-WebKit: open ANY item detail → the orange Scenario+Edit pair is present + functional; type-specific verbs append after.
+  -> drawer.universalScenarioEdit [uc:uuid:8106d378-04ee-4869-b803-37b21dd2b0bb]
 
 - [ ] **R34.2 — File & Folder are real ior:class:Folder/File units in MODEL_STORE, showing exact location (server)**
   [requirement:uuid:fe463924-154e-4f99-bf3d-2fabc388042c]

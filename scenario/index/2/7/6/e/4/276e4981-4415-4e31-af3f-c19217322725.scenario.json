@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "276e4981-4415-4e31-af3f-c19217322725",
+    "name": "RbDetailDrawer.onUniversalAction",
+    "description": "A1's core new decl (rb-detail-drawer.ts:76, private onUniversalAction arrow-fn): the universal Scenario/Edit verb HANDLER — Scenario → location.href /scenario?ior=<uuid>, Edit → scenarioEditorHref(uuid). Distinct from universalActionBar (ffd44b17, the default-pair composition) — this is the click behavior. ALREADY BUILT v0.8.43; expert places [impl:uuid:005dbd3e] traceability-only (no code change). IMPL-MINT (mint-onto-existing).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:005dbd3e-19e3-473f-944b-96c4e8053b4a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}
