@@ -7,7 +7,9 @@
   "description": "R-E (Tron 2026-08-03: 'add the action bar to all usages of the drawer'). The action-bar MECHANISM is already shared (setActions/showActionsForType, R33.6.5) and rb-drawer-detail-shown fires on EVERY drawer detail-render, but the ONLY listener is model.ts wireDrawerActions -> the bar shows on /model ONLY; 6 of 7 drawer mount sites (/trace, /scenario, in-room, /server-manager, feature-manager, trace/index) show NO bar. FIX (solve-once in the SHARED drawer, NO fork): showActionsForType itself sets the UNIVERSAL R-A A1 default [Scenario,Edit] + exposes RbDetailDrawer.registerActionProvider(fn); the model host REGISTERS its context verbs via actionsForContext (R33.9 reused verbatim) instead of the isolated wireDrawerActions. UNIFIES with R-A A1 (A1's default is built INTO the shared drawer = ONE universal mechanism). Client-only.",
   "classification": "new",
   "clusterRef": "R-E (Tron 'all usages'; unify with R-A A1)",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:3bec71f4-dbcd-4641-9194-7519c2546bf6"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-34-mda-tree-refine/R-E-action-bar-all-drawer-usages.md?section=ARCHITECT-DESIGN&commit=e1ec31f65",
   "unitLinks": [],

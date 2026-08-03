@@ -18,3 +18,4 @@ Retain/protect/tweak the S33 MDA tree to perfection (Tron IMG_4815-4819): File/F
 - [ ] [Task 34.4: Element remove-from-diagram appears in the bar (wire active-diagram context) — RESIDUAL, rides R33.9 [R-C]](./task-34.4-remove-from-diagram-residual.md)
 - [ ] [Task 34.5: Tree auto-expands the folder ancestor path on select->navigate (wire trigger to R33.7.4 reveal) [R-D1]](./task-34.5-tree-auto-expand.md)
 - [ ] [Task 34.6: Element unit-actions appear on class-select in the tree (wire detail-shown) — RESIDUAL, rides R33.9/R33.7.4 [R-D2]](./task-34.6-class-select-actions-residual.md)
+- [ ] [Task 34.7: Universal action bar on ALL drawer usages (shared drawer renders A1 default + host registerActionProvider) [R-E]](./task-34.7-universal-action-bar.md)

@@ -25,6 +25,10 @@
    {
     "id": "R-A",
     "title": "File/Folder real MODEL_STORE units (R34.2 server) + universal orange «Scenario»/«Edit» default (R34.1 client). BUILD LAST."
+   },
+   {
+    "id": "R-E",
+    "title": "Universal action bar on ALL 7 drawer usages (R34.7) — shared drawer renders A1 default + host registerActionProvider; unify with R-A A1. After/alongside R-A."
    }
   ],
   "requirements": [
@@ -42,7 +46,8 @@
    "ior:instance:8b79efc6-11ca-4e9a-b8df-3a2e015bccaa",
    "ior:instance:0bd2fa1a-15f9-4bad-80cd-569259f1ab57",
    "ior:instance:3d76a785-de51-4c78-a810-5aa5c1c123a2",
-   "ior:instance:f71fac7d-8be9-406f-b00f-fccf5e279820"
+   "ior:instance:f71fac7d-8be9-406f-b00f-fccf5e279820",
+   "ior:instance:3bec71f4-dbcd-4641-9194-7519c2546bf6"
   ],
   "createdAt": "2026-08-02",
   "createdBy": "robbin-req",
