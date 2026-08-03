@@ -12,7 +12,7 @@ Retain/protect/tweak the S33 MDA tree to perfection (Tron IMG_4815-4819): File/F
 
 ## Tasks
 
-- [ ] [Task 34.1: Universal orange «Scenario»+«Edit» default actions on ALL scenario-instance detail views (client) [R-A]](./task-34.1-scenario-edit-default-actions.md)
+- [x] [Task 34.1: Universal orange «Scenario»+«Edit» default actions on ALL scenario-instance detail views (client) [R-A]](./task-34.1-scenario-edit-default-actions.md)
 - [x] [Task 34.2: File & Folder are real ior:class:Folder/File units in MODEL_STORE, showing exact location (server) [R-A]](./task-34.2-file-folder-units.md)
 - [x] [Task 34.3: In-room action bar: Add-folder verb+endpoint / remove-from-tree / delete-unit-with-confirm-WARN [R-B]](./task-34.3-action-bar-folder-crud.md)
 - [x] [Task 34.4: Element remove-from-diagram appears in the bar (wire active-diagram context) — RESIDUAL, rides R33.9 [R-C]](./task-34.4-remove-from-diagram-residual.md)

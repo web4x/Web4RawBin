@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Planned — cluster R-A client half (build LAST). Generic default-action pair solved ONCE via actionsForContext/DEFAULT_ACTIONS (no fork). Gate real-WebKit @390 on ship.
+DONE: R-A A1 built (universal «Scenario»+«Edit» default pair solved ONCE via actionsForContext/DEFAULT_ACTIONS, orange, no fork; built INTO the shared drawer = unified with R-E) + chain-complete-to-Test (Impl 005dbd3e onUniversalAction tests[]=[d8be524e], DISTINCT handler decl not a ride on R-E, markerPending=false 3194a16d5, req mint 7211d6c7d, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (A1 gate 8a2a6e8be / b89097eb8, served 0.8.44; HEAD 0.8.45; Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done. S34 7/7 COMPLETE.
 
 ## Traceability
 
@@ -34,11 +34,11 @@ R-A (client half). Every scenario-instance detail view MUST render an orange «�
 
 ## Acceptance Criteria
 
-- [ ] (functional) Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs.
-- [ ] (functional) «Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>).
-- [ ] (functional) «Edit» opens the edit flow for that instance.
-- [ ] (functional) The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.
-- [ ] (gate) GATE @390 real-WebKit: open ANY item detail -> the orange Scenario+Edit pair is present + functional; type-specific verbs append after.
+- [x] (functional) Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs.
+- [x] (functional) «Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>).
+- [x] (functional) «Edit» opens the edit flow for that instance.
+- [x] (functional) The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs.
+- [x] (gate) GATE @390 real-WebKit: open ANY item detail -> the orange Scenario+Edit pair is present + functional; type-specific verbs append after.
 
 ## Subtasks
 
