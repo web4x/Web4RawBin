@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R-C (residual, rides R33.9; build after R-D1). RESIDUAL=active-diagram context wiring only, no new verb. Gate real-WebKit @390 on ship.
+In Progress — R-C BUILT v0.8.40 (expert 86fdde41d, diagram-element select fires active-diagram so remove-from-diagram membership verb appears; rides R33.9 actionsForContext 0c769fe6/Impl a1a5be99, residual no new node). Chain UC 553229c3 (req d79b68737). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.
 
 ## Traceability
 

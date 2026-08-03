@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R-D2 (residual, rides R33.9/R33.7.4; folds into R-B/R-C action-bar wiring). RESIDUAL=class-select detail-shown dispatch, no new verb. Gate real-WebKit @390 on ship.
+In Progress — R-D2 BUILT v0.8.40 (expert 86fdde41d, class-select in tree fires detail-shown so unit-actions appear; rides R33.9 actionsForContext + R33.7.4, residual no new node). Chain UC bf4d39b4 (req d79b68737). @390 real-WebKit gate + chain-complete-to-Test PENDING -> NOT Done.
 
 ## Traceability
 
