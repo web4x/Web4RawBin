@@ -363,7 +363,12 @@ export class RbDetailDrawer extends HTMLElement {
   // render tell the HOST which TYPE is shown (rb-drawer-detail-shown {type,ref}) so it can setActions for that type;
   // the shared drawer never hardcodes actions. Cleared (setActions([])) when switching to chat / empty.
   private showActionsForType(type: string, ref: string): void {
-    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: (type || '').toLowerCase(), ref }, bubbles: true }));
+    const t = (type || '').toLowerCase();
+    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref }, bubbles: true }));
+    // R34.5 (R-D1): a select→navigate that SHOWS a model-element detail (from diagram/detail-link/anywhere) also reveals
+    // it in the tree — auto-expand the folder ancestor path via the EXISTING R33.7.4 onTreeReveal→revealModelElement→
+    // expandPath (ride wholesale, NO new verb/Method). Was missing: rb-tree-reveal only fired on diagram-box-select.
+    if (t === 'modelelement' && ref) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref }, bubbles: true }));
   }
 
   // R31.4 AC-maximize (Option A, PO-endorsed): full-viewport drawer = maximum terminal space, NO-disrupt — the grouped
