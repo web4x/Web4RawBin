@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9bc0a109-58fe-414a-a9d6-fbadbbd0c154",
+    "name": "test:R35.2 all-types-resolve + R35.3 fields-populated @390 (server.ensureViewUnit)",
+    "description": "Bridged to test/visual/r35-foundation-webkit-gate.mjs (INDEPENDENT tester real-WebKit @390 gate, GREEN DET-3x, served v0.8.48). Marker adopted from origin (measured, not invented). EVERY item type resolves to a REAL on-disk ior:class:X unit (Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=puml-src:... — correct ior:class + exact location + File.sourceFile/Folder-none type-distinct + DETERMINISTIC uuid, fetch-twice=same=no-dup) AND both universal buttons RESOLVE end-to-end (Scenario->/scenario?ior=<realUuid>, Edit->/edit/.../<realUuid>.scenario.json — no dead target, via the R35.2 nav-fix impl-edit on onUniversalAction 005dbd3e). Covers BOTH R35.2 (all-types resolve) + R35.3 (fields populated/non-empty) — one gate, one resolver pass. Distinct-intent on a09b474d alongside R34.2 File/Folder (23a9f9fd).",
+    "sourceFile": "ior:file:test/visual/r35-foundation-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+}
