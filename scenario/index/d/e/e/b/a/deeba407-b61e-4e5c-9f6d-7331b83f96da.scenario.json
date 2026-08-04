@@ -9,14 +9,32 @@
   "goal": "Convert legacy per-view buttons into universal action-bar actions (R35.1); every item type resolves to a REAL on-disk scenario so both buttons always work (R35.2, extends S34 A2 to all types); scenarios populated with the item's info (R35.3); add traceability as the 4th MDA RawBin folder (R35.4). Builds on S34 universal action bar.",
   "status": "Planned",
   "compoundSource": "scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/PO-vision.md",
-  "phases": [],
+  "phases": [
+   {
+    "id": "R35.2/3",
+    "title": "Resolver foundation (build FIRST): ensureViewUnit resolves EVERY item type to a real on-disk unit (R35.2) + populates per-type fields at mint (R35.3, same pass). Extends S34 A2, keyToUuid idempotent, prod-untouched, tree byte-unchanged (fork-A)."
+   },
+   {
+    "id": "R35.4",
+    "title": "Traceability as the 4th MDA RawBin folder (R35.4, after foundation): server.ts mofFolder rawbin:traceability + childCount 3->4; expands the REAL trace-tree via existing rb-trace-tree (no fork)."
+   },
+   {
+    "id": "R35.1",
+    "title": "Convert legacy per-view buttons -> universal action-bar actions (R35.1, build LAST): vcard/preview/newtab/proxy -> actionsForContext verbs in the shared universalActionBar; no bespoke button left; no behavior lost."
+   }
+  ],
   "requirements": [
    "ior:instance:b1fbf276-7e20-4e03-9e83-281f64574beb",
    "ior:instance:030a1801-4ce0-4e08-85c0-80bf774b0794",
    "ior:instance:b039cd80-0c49-4c78-8701-629dbcac6228",
    "ior:instance:476d367f-cad6-4b3e-b988-d90ee5049ac3"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:a1d17363-dc2a-4331-a470-27e995735b8d",
+   "ior:instance:7b3c6a57-e50c-416e-81d2-3c54ab36866d",
+   "ior:instance:6506f2ab-27d6-4331-aa34-926f2190245c",
+   "ior:instance:2f902ebc-3f05-406f-8999-2972f62a09ec"
+  ],
   "createdAt": "2026-08-04",
   "createdBy": "robbin-req",
   "createdBy_note": "STUB minted by robbin-req to parent the S35 requirement units (Tron-directed S35). Planner OWNS the sprint unit — enrich goal/phases/tasks + stand up the board; keep uuid + requirements[].",

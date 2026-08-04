@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R35.4 traceability folder (Tron)",
   "description": "Tron: 'add the traceability tree as the fourth folder under the MDA project RawBin folder - ts, puml, diagrams, traceability.' The RawBin project node (server.ts:1240-1247, currently [ts,puml,diagram], childCount 3 @:1236) gets a 4TH folder 'traceability': (a) add mofFolder('rawbin:traceability','traceability',traceCount,'trace-icon') at :1247; (b) bump childCount 3->4 at :1236; (c) uuid==='rawbin:traceability' -> return requirement-root MofNodes (walk /api/trace roots) so it expands into the REAL trace tree via the existing rb-trace-tree (reuse, no fork); (d) folder + children resolve to real on-disk scenarios (R35.2/R35.3; trace units already real).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:2f902ebc-3f05-406f-8999-2972f62a09ec"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "unitLinks": [],

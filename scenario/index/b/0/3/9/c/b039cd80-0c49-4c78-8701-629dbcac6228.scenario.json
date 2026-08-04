@@ -7,7 +7,9 @@
   "classification": "new (rides R35.2 resolver)",
   "clusterRef": "R35.3 populate fields",
   "description": "Each resolved scenario unit is POPULATED with the item's actual data (mirror the node's view data -> unit model fields), not a bare/empty unit. The R35.2 resolver (ensureViewUnit) writes the per-type fields at mint time. OScenario opens a scenario that SHOWS the real info; OEdit edits real content. Per-type field-set: Folder {name,kind:folder,location,parent,childCount}; File {name,location:rel,kind:file,sourceFile}; PumlArtifact {name,kind:pumlArtifact,sourceFile,location}; Project {name:RawBin,kind:project,childCount:4}. Trace/modelelement/diagram units already carry info (no change).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:6506f2ab-27d6-4331-aa34-926f2190245c"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "unitLinks": [],

@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R35.1 buttons->actions",
   "description": "Every bespoke per-item-view button (rb-detail-view vcard[member/user]+preview-file[file]; rb-file-detail new-tab[file]; rb-webitem-detail proxy-preview[webitem]) becomes an actionsForContext/ACTIONS_BY_TYPE verb [download-vcard/preview-file/open-newtab/proxy-preview] rendered in the ONE shared universalActionBar; detail views drop their own button markup; handler via rb-drawer-action (model.ts wireDrawerActions) dispatches to the existing fns (downloadVCard/renderFilePreview/window.open/toProxy). zoom-reset EXCLUDED (viewer control, not an item-action).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:a1d17363-dc2a-4331-a470-27e995735b8d"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "unitLinks": [],

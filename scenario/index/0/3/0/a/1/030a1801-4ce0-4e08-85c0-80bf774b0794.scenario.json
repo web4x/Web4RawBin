@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R35.2 ensureViewUnit (extends A2)",
   "description": "GENERALIZE the A2 resolver ensureFolderFileUnit -> ensureViewUnit(ior) so EVERY item type resolves to a REAL on-disk ior:class:X unit (MODEL_STORE) and both OScenario/OEdit always work. Mint the currently-null cases: synthetic MOF folder refs (project:RawBin, rawbin:ts/puml/diagram/traceability, mof-m1, mof-m2[:mc]) -> ior:class:Folder (keyToUuid('folder::'+ref)); puml-src leaves -> ior:class:File/PumlArtifact (keyToUuid('puml::'+path)). Deterministic idempotent lazy mint, prod scenario/index NEVER touched, tree/mofChildren byte-unchanged (fork-A, only /api/ior + /scenario resolve).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:7b3c6a57-e50c-416e-81d2-3c54ab36866d"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "unitLinks": [],

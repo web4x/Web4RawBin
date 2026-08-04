@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "2f902ebc-3f05-406f-8999-2972f62a09ec",
+  "name": "Task 35.4: Add traceability as the 4th folder under the MDA RawBin project [R35.4, build after R35.2/3]",
+  "slug": "task-35.4-traceability-folder",
+  "description": "Tron: 'add the traceability tree as the fourth folder under the MDA project RawBin folder - ts, puml, diagrams, traceability.' The RawBin project node (server.ts:1240-1247, currently [ts,puml,diagram], childCount 3 @:1236) gets a 4TH folder 'traceability': (a) add mofFolder('rawbin:traceability','traceability',traceCount,'trace-icon') at :1247; (b) bump childCount 3->4 at :1236; (c) uuid==='rawbin:traceability' -> return requirement-root MofNodes (walk /api/trace roots) so it expands into the REAL trace tree via the existing rb-trace-tree (reuse, no fork); (d) folder + children resolve to real on-disk scenarios (R35.2/R35.3; trace units already real).",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 35 Planning](./planning.md)\n    - Requirement R35.4 `[requirement:uuid:476d367f-cad6-4b3e-b988-d90ee5049ac3]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) The MDA RawBin project node shows EXACTLY [ts, puml, diagrams, traceability] - a 4th mofFolder('rawbin:traceability',...) added at server.ts:1247 + childCount hint bumped 3->4 at :1236.\n- [ ] (functional) rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree - returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork.\n- [ ] (functional) The traceability folder + its children resolve to real on-disk scenarios containing info (ties R35.2/R35.3; trace units already real); nodes open a real detail + Scenario/Edit.\n- [ ] (gate) GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve.",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:476d367f-cad6-4b3e-b988-d90ee5049ac3"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "sprintName": "Sprint 35",
+  "remainingIssues": "Planned — cluster R35.4 (build AFTER R35.2/3 foundation, before R35.1; order R35.2/3->R35.4->R35.1). server.ts:1240-1247 add mofFolder('rawbin:traceability') + childCount 3->4 @:1236; rawbin:traceability -> requirement-root MofNodes reusing rb-trace-tree (no fork). @390 real-WebKit gate + chain-complete-to-Test on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-04"
+ }
+}
