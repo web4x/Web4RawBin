@@ -1244,6 +1244,22 @@ function pumlChildren(els: MofEl[]): MofNode[] {
   for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
+// R35.4 (uncredited helper of mofChildren b6c88d83, UC beb0af0d mofTree.traceabilityFolder): the trace-tree ROOTS =
+// every ior:class:Requirement in PROD scenario/index (mirrors /api/trace/roots) → MofNodes. rawbin:traceability returns
+// these so it expands into the REAL trace tree via /api/trace/children (a requirement uuid ≠ a MOF ref → routes to the
+// existing trace walk, no fork). Trace units are already real on-disk → R35.2/R35.3 detail + OScenario/OEdit resolve.
+function traceabilityRoots(): MofNode[] {
+  const tidx = new ScenarioIndex(path.join(__dirname, '../../..', 'scenario', 'index'));
+  const out: MofNode[] = [];
+  for (const u of tidx.list()) {
+    const g = tidx.get(u);
+    if (!g || g.ior !== 'ior:class:Requirement') continue;
+    const ucs = Array.isArray(g.model?.useCases) ? (g.model.useCases as string[]).length : 0;
+    const tks = Array.isArray(g.model?.tasks) ? (g.model.tasks as string[]).length : 0;
+    out.push(mofFolder(u, String(g.model?.name || u.slice(0, 8)), ucs + tks, 'requirement', 'requirement'));
+  }
+  return out.sort((a, b) => a.name.localeCompare(b.name));
+}
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (!/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
@@ -1255,7 +1271,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     const rawbinFiles = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile)));
     const otherFiles = [...new Set(m1Roots.filter((x) => !isSrc(x)).map((x) => String(x.m.sourceFile || 'model')))].sort();
     return [
-      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', 3, 'mof-project')] : []), // S33-P3f-1: RawBin always has the 3 artifact folders (ts/puml/diagram)
+      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', 4, 'mof-project')] : []), // S33-P3f-1 + R35.4: RawBin has 4 folders (ts/puml/diagrams/traceability)
       ...otherFiles.map((sf) => mofFolder('project:' + sf, sf, m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).length, 'mof-project')),
     ];
   }
@@ -1267,6 +1283,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
       mofFolder('rawbin:ts', 'ts', tsCount, 'mof-project'),
       mofFolder('rawbin:puml', 'puml', pumlCount, 'puml'),
       mofFolder('rawbin:diagram', 'diagrams', diagramCount, 'diagram'), // R33.3 AC3: PLURAL label; Diagram ITEMS live directly under diagrams/
+      mofFolder('rawbin:traceability', 'traceability', traceabilityRoots().length, 'trace'), // R35.4: 4th folder → expands into the real Req→…→Test trace tree
     ];
   }
   if (uuid === 'rawbin:ts' || uuid.startsWith('dir:')) { // R33.10: ts/ = the FULL src/ directory tree (ALL 123 .ts + folder hierarchy), not just the ~25 files with generated M1 elements (INV-T1/T2 completeness+folders)
@@ -1274,6 +1291,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
     return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
   }
+  if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
   if (uuid === 'rawbin:puml') return pumlChildren(els); // R33.5 item4: 55 source .puml + imported artifacts
   if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
