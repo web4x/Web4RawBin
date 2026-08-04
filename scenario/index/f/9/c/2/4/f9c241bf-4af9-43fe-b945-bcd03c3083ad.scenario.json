@@ -3,12 +3,13 @@
  "model": {
   "uuid": "f9c241bf-4af9-43fe-b945-bcd03c3083ad",
   "name": "actionBar.convertLegacyButtons",
-  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "class": "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "parent": null,
   "unitLinks": [],
-  "description": "R35.1: add the legacy per-view button verbs to actionsForContext/ACTIONS_BY_TYPE (rides 0c769fe6) + drop bespoke button markup; rb-drawer-action handler dispatches to existing fns. Method mostly rides actionsForContext; the ACTIONS_BY_TYPE additions + handler-wiring are the build-go IMPL (re-point to the built decl).",
-  "method": "ior:instance:0c769fe6-54c9-4201-aa42-fb4fd3fbac4d"
+  "description": "R35.1: convert the 4 bespoke per-view buttons -> universal action-bar actions. FINAL design (architect f1726e904, host-policy vs type-policy split): ALL 4 type-verbs (download-vcard[member/user]->downloadVCard; preview-file[file]->toggle preview; open-newtab[file]->window.open; proxy-preview[webitem]->/api/proxy iframe) live in the NEW view-independent provider registerUniversalActions (universal-actions.ts, Impl b8f284c6) — self-registers a type-conditional registerActionProvider + shared rb-drawer-action handler, loaded by rb-detail-drawer so they fire in ROOM/trace/model. model's actionsForContext (a1a5be99) is UNCHANGED (type-conditional verbs are a PROVIDER, NOT defaults) — R35.1 is SINGLE-impl on b8f284c6. INV-1 no-behavior-lost (dispatch to existing fns); INV-2 no-bespoke-button (3 button removals). zoom-reset excluded (viewer control).",
+  "method": "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1",
+  "ridesNote": "SINGLE-impl b8f284c6 (registerUniversalActions). actionsForContext a1a5be99 UNTOUCHED by R35.1 (design kept type-verbs out of host defaults). Earlier dual-impl plan retired — the provider IS the conversion. Superseded UC 0508c2b1 (crossViewProvider) merged into this UC (same Method/Impl)."
  },
  "ownerIor": null
 }
