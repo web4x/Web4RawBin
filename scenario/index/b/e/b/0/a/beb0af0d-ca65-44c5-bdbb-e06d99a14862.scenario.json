@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "beb0af0d-ca65-44c5-bdbb-e06d99a14862",
+  "name": "mofTree.traceabilityFolder",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R35.4: additive to mofChildren (server c0a0921d) — add rawbin:traceability as the 4th project folder + resolve it to the requirement-root trace tree (walk /api/trace roots) via existing rb-trace-tree. Method = mofChildren additive (build-go IMPL-MINT/ride; re-point to built decl)."
+ },
+ "ownerIor": null
+}

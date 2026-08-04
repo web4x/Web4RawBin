@@ -1,0 +1,29 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "name": "Buttons->Actions + Universal On-Disk Scenarios",
+  "number": 35,
+  "slug": "sprint-35-buttons-to-actions-universal-scenarios",
+  "goal": "Convert legacy per-view buttons into universal action-bar actions (R35.1); every item type resolves to a REAL on-disk scenario so both buttons always work (R35.2, extends S34 A2 to all types); scenarios populated with the item's info (R35.3); add traceability as the 4th MDA RawBin folder (R35.4). Builds on S34 universal action bar.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/PO-vision.md",
+  "phases": [],
+  "requirements": [
+   "ior:instance:b1fbf276-7e20-4e03-9e83-281f64574beb",
+   "ior:instance:030a1801-4ce0-4e08-85c0-80bf774b0794",
+   "ior:instance:b039cd80-0c49-4c78-8701-629dbcac6228",
+   "ior:instance:476d367f-cad6-4b3e-b988-d90ee5049ac3"
+  ],
+  "tasks": [],
+  "createdAt": "2026-08-04",
+  "createdBy": "robbin-req",
+  "createdBy_note": "STUB minted by robbin-req to parent the S35 requirement units (Tron-directed S35). Planner OWNS the sprint unit — enrich goal/phases/tasks + stand up the board; keep uuid + requirements[].",
+  "joint": [
+   "robbin-req",
+   "robbin-architect",
+   "robbin-planner"
+  ]
+ }
+}

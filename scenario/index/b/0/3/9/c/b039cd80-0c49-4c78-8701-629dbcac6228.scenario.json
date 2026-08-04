@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b039cd80-0c49-4c78-8701-629dbcac6228",
+  "altId": "R35.3",
+  "name": "Resolved scenarios are POPULATED with the item's information (not empty stubs)",
+  "classification": "new (rides R35.2 resolver)",
+  "clusterRef": "R35.3 populate fields",
+  "description": "Each resolved scenario unit is POPULATED with the item's actual data (mirror the node's view data -> unit model fields), not a bare/empty unit. The R35.2 resolver (ensureViewUnit) writes the per-type fields at mint time. OScenario opens a scenario that SHOWS the real info; OEdit edits real content. Per-type field-set: Folder {name,kind:folder,location,parent,childCount}; File {name,location:rel,kind:file,sourceFile}; PumlArtifact {name,kind:pumlArtifact,sourceFile,location}; Project {name:RawBin,kind:project,childCount:4}. Trace/modelelement/diagram units already carry info (no change).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "unitLinks": [],
+  "parent": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "useCases": [
+   "ior:instance:8f1eed4d-5ce6-4901-992d-699a8fb8cf0b"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-scenario-populated",
+    "group": "functional",
+    "text": "Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source) — NOT a bare/empty stub. The R35.2 ensureViewUnit resolver writes these at mint time (mirror node display data -> unit model)."
+   },
+   {
+    "id": "AC-fields-per-type",
+    "group": "functional",
+    "text": "Per-type field-set non-empty: Folder = name/kind:'folder'/location/parent/childCount; File = name/location:rel/kind:'file'/sourceFile; PumlArtifact = name/kind:'pumlArtifact'/sourceFile/location; Project = name:'RawBin'/kind:'project'/childCount:4."
+   },
+   {
+    "id": "AC-scenario-shows-info",
+    "group": "functional",
+    "text": "OScenario opens a scenario showing the real info; OEdit edits real content (not an empty unit)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: the resolved scenario CONTAINS the item's info — assert the type's fields are NON-EMPTY for a populated sample per type."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef"
+ },
+ "ownerIor": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da"
+}

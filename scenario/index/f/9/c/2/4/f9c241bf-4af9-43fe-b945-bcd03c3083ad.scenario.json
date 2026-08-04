@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f9c241bf-4af9-43fe-b945-bcd03c3083ad",
+  "name": "actionBar.convertLegacyButtons",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R35.1: add the legacy per-view button verbs to actionsForContext/ACTIONS_BY_TYPE (rides 0c769fe6) + drop bespoke button markup; rb-drawer-action handler dispatches to existing fns. Method mostly rides actionsForContext; the ACTIONS_BY_TYPE additions + handler-wiring are the build-go IMPL (re-point to the built decl).",
+  "method": "ior:instance:0c769fe6-54c9-4201-aa42-fb4fd3fbac4d"
+ },
+ "ownerIor": null
+}

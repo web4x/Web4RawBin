@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "476d367f-cad6-4b3e-b988-d90ee5049ac3",
+  "altId": "R35.4",
+  "name": "Add traceability as the 4th folder under the MDA RawBin project",
+  "classification": "new",
+  "clusterRef": "R35.4 traceability folder (Tron)",
+  "description": "Tron: 'add the traceability tree as the fourth folder under the MDA project RawBin folder - ts, puml, diagrams, traceability.' The RawBin project node (server.ts:1240-1247, currently [ts,puml,diagram], childCount 3 @:1236) gets a 4TH folder 'traceability': (a) add mofFolder('rawbin:traceability','traceability',traceCount,'trace-icon') at :1247; (b) bump childCount 3->4 at :1236; (c) uuid==='rawbin:traceability' -> return requirement-root MofNodes (walk /api/trace roots) so it expands into the REAL trace tree via the existing rb-trace-tree (reuse, no fork); (d) folder + children resolve to real on-disk scenarios (R35.2/R35.3; trace units already real).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "unitLinks": [],
+  "parent": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "useCases": [
+   "ior:instance:beb0af0d-ca65-44c5-bdbb-e06d99a14862"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-fourth-folder",
+    "group": "functional",
+    "text": "The MDA RawBin project node shows EXACTLY [ts, puml, diagrams, traceability] — a 4th mofFolder('rawbin:traceability',...) added at server.ts:1247 + childCount hint bumped 3->4 at :1236."
+   },
+   {
+    "id": "AC-traceability-expands",
+    "group": "functional",
+    "text": "rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree — returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork."
+   },
+   {
+    "id": "AC-nodes-real-scenarios",
+    "group": "functional",
+    "text": "The traceability folder + its children resolve to real on-disk scenarios containing info (ties R35.2/R35.3; trace units already real); nodes open a real detail + OScenario/OEdit."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef"
+ },
+ "ownerIor": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da"
+}

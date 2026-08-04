@@ -1,0 +1,48 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "b1fbf276-7e20-4e03-9e83-281f64574beb",
+  "altId": "R35.1",
+  "name": "Convert legacy per-view buttons into universal action-bar actions",
+  "classification": "new",
+  "clusterRef": "R35.1 buttons->actions",
+  "description": "Every bespoke per-item-view button (rb-detail-view vcard[member/user]+preview-file[file]; rb-file-detail new-tab[file]; rb-webitem-detail proxy-preview[webitem]) becomes an actionsForContext/ACTIONS_BY_TYPE verb [download-vcard/preview-file/open-newtab/proxy-preview] rendered in the ONE shared universalActionBar; detail views drop their own button markup; handler via rb-drawer-action (model.ts wireDrawerActions) dispatches to the existing fns (downloadVCard/renderFilePreview/window.open/toProxy). zoom-reset EXCLUDED (viewer control, not an item-action).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "unitLinks": [],
+  "parent": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "useCases": [
+   "ior:instance:f9c241bf-4af9-43fe-b945-bcd03c3083ad"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-buttons-become-actions",
+    "group": "functional",
+    "text": "Every bespoke per-view button maps to an actionsForContext/ACTIONS_BY_TYPE verb keyed by type (member/user->download-vcard; file->preview-file+open-newtab; webitem->proxy-preview), rendered in the shared universalActionBar."
+   },
+   {
+    "id": "AC-no-behavior-lost",
+    "group": "functional",
+    "text": "INV-1: each converted action preserves the OLD button's effect (dispatches to the existing downloadVCard/renderFilePreview/window.open/toProxy fn) — same result, relocated into the bar."
+   },
+   {
+    "id": "AC-no-bespoke-button",
+    "group": "functional",
+    "text": "INV-2: NO bespoke item-action button remains in any detail view (zoom-reset EXCEPTED = in-pane viewer control, not an item-action)."
+   },
+   {
+    "id": "AC-verb-listing-rides",
+    "group": "functional",
+    "text": "Verb-listing rides actionsForContext (a1a5be99); the click handler routes via rb-drawer-action (wireDrawerActions). Client-only."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: each converted action is PRESENT + FIRES in the bar per type; the old bespoke buttons are gone; no behavior lost."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef"
+ },
+ "ownerIor": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da"
+}
