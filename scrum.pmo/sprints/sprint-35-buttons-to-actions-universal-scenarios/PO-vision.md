@@ -20,6 +20,12 @@ Builds directly on S34's universal action bar (R-E `universalActionBar` ffd44b17
 - Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source), not a bare/empty unit. ◆Scenario opens a scenario that shows the real info; ✎Edit edits real content.
 - ARCHITECT: define, per item type, what information the scenario carries (mirror the item's view data into the unit's fields). REQ: ACs assert the scenario contains the expected fields for each type.
 
+### R35.4 — Traceability tree as the 4th folder under the MDA RawBin project
+**Tron directive (2026-08-04):** "add the traceability tree as the fourth folder under the MDA project RawBin folder — ts, puml, diagrams, traceability."
+- The MDA/MOF RawBin project node currently shows THREE folders: `ts`, `puml`, `diagrams`. ADD a FOURTH: `traceability` — rendering the traceability tree (Requirement→UseCase→Class→Method→Impl→Test units) under the project.
+- ARCHITECT: measure where the project-node folder set is defined (S33 mof-layered-tree / S34 tree), add `traceability` as the 4th child folder, populated from the scenario traceability units (the same chain the scoreboard walks). Ties to R35.2/R35.3 (folder + children resolve to real on-disk scenarios containing info).
+- Gate @390: RawBin project node expands to show exactly [ts, puml, diagrams, traceability]; the traceability folder expands to the real trace tree.
+
 ## Build order (architect/planner to confirm)
 1. R35.2 ensure-scenario-on-disk for all item types (foundation — both buttons need it) + R35.3 populate (same resolver pass) →
 2. R35.1 convert legacy buttons → actions (depends on the action mechanism, mostly client).
