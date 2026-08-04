@@ -77,7 +77,21 @@ export class RbDetailDrawer extends HTMLElement {
   private onUniversalAction = (e: Event): void => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';
-    const uuid = refUuid(d?.ref || this._shownRef) || (d?.ref || this._shownRef);
+    const rawRef = d?.ref || this._shownRef;
+    if (!rawRef) return;
+    // R35.2 NAV-RESOLVE: a SYNTHETIC view ref (dir:/file:/puml-src:/project:/rawbin:/mof-) carries its meaningful key
+    // in the prefix — refUuid would strip it → /scenario?ior=<stripped> is DEAD (only the FULL ref resolves). Resolve
+    // via /api/ior to the REAL lazy-minted MODEL_STORE unit, then BOTH buttons hit a resolving target (R35.2 'both
+    // always work'): Scenario → its uuid; Edit → the MODEL_STORE store dir (not prod scenario/index).
+    if (/^(dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2)/.test(rawRef)) {
+      void fetch(`/api/ior/${encodeURIComponent(rawRef)}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+        const u = j?.unit?.model?.uuid; if (!u) return;
+        if (verb === 'scenario') location.href = `/scenario?ior=${encodeURIComponent(u)}`;
+        else if (verb === 'edit') location.href = scenarioEditorHref(u, 'data/model-store/index');
+      }).catch(() => { /* resolve failed → no dead nav */ });
+      return;
+    }
+    const uuid = refUuid(rawRef) || rawRef;
     if (!uuid) return;
     if (verb === 'scenario') location.href = `/scenario?ior=${encodeURIComponent(uuid)}`;
     else if (verb === 'edit') location.href = scenarioEditorHref(uuid);
