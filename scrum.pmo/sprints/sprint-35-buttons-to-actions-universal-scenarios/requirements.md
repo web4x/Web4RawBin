@@ -16,6 +16,7 @@
   - [ ] **(functional)** Verb-listing rides actionsForContext (a1a5be99); the click handler routes via rb-drawer-action (wireDrawerActions). Client-only.
   - [ ] **(gate)** GATE @390 real-WebKit: each converted action is PRESENT + FIRES in the bar per type; the old bespoke buttons are gone; no behavior lost.
   -> actionBar.convertLegacyButtons [uc:uuid:f9c241bf-4af9-43fe-b945-bcd03c3083ad]
+  -> actionBar.crossViewProvider [uc:uuid:0508c2b1-a889-40f7-86bc-39e1122ae9b0]
 
 - [ ] **R35.2 — Every item type resolves to a REAL on-disk ior:class:X unit (both buttons always work)**
   [requirement:uuid:030a1801-4ce0-4e08-85c0-80bf774b0794]

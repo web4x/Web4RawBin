@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b8f284c6-9cad-4865-adac-53321f4cf666",
+    "name": "universalActions.registerUniversalActions impl",
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1"
+}

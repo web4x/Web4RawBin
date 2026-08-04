@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2b03ee86-7092-4aae-9939-68137b949de1",
+    "name": "universalActions.registerUniversalActions",
+    "description": "R35.1 2nd chain node (architect mechanism B, f1726e904). NEW module src/public/ts/trace/universal-actions.ts: registerUniversalActions() self-registers ONE view-INDEPENDENT type-conditional registerActionProvider + a shared rb-drawer-action handler; imported+called by rb-detail-drawer so it loads on EVERY page -> the 4 converted legacy verbs (download-vcard[member/user]->downloadVCard; preview-file[file]->toggle preview; open-newtab[file]->window.open; proxy-preview[webitem]->/api/proxy iframe) surface + FIRE in ROOM/trace/model (not just /model, which was the R35.1 gap). DISTINCT decl (not the a1a5be99 verb-add impl-edit). IMPL-MINT markerPending; expert marks [impl:uuid:b8f284c6] on the registerUniversalActions decl.",
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "implementations": [
+      "ior:instance:b8f284c6-9cad-4865-adac-53321f4cf666"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1"
+}

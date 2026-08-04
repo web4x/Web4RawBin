@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a9019609-42d9-46f9-bc5a-dc547ff75cf1",
+    "name": "universalActions",
+    "file": "src/public/ts/trace/universal-actions.ts",
+    "methods": [
+      "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "parent": null,
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
