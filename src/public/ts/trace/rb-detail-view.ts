@@ -16,7 +16,6 @@ import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, wireUrlActions } from './content-preview.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
@@ -83,11 +82,8 @@ export class RbDetailView extends HTMLElement {
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
-    // File preview handled by rb-file-detail (tagMap routes file→rb-file-detail)
-    // Only render here as fallback if rb-file-detail is NOT in the DOM
-    if ((obj.type === 'file' || obj.type === 'File') && !this.closest('rb-file-detail')) {
-      this.createFilePreviewButton(obj.uuid, obj.title);
-    }
+    // R35.1: file preview = rb-file-detail (tagMap ALWAYS routes file→rb-file-detail) + the universalActionBar
+    // preview-file/open-newtab actions. The old rb-detail-view fallback button was DEAD (tagMap never lands file here) → REMOVED (INV-2).
 
     // click link rows → navigate to the linked object
     this.querySelectorAll('.dv-link').forEach(row => {
@@ -124,31 +120,9 @@ export class RbDetailView extends HTMLElement {
     for (const lref of linked) this.unsubs.push(ViewBus.subscribe(lref, () => this.render()));
   }
 
-  // [impl:uuid:1a5ad916-33ba-4829-80c4-44efd8756c35] R19.93 createFilePreviewButton
-  private createFilePreviewButton(uuid: string, title: string): void {
-    fetchDetailData(uuid).then(() => {
-      fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.json()).then(res => {
-        if (!res.unit?.model) return;
-        const fm = res.unit.model;
-        const tok = localStorage.getItem('rawbin-player-id') || '';
-        const previewBtn = document.createElement('button');
-        previewBtn.className = 'btn';
-        previewBtn.style.cssText = 'width:100%;margin:8px 0;padding:8px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem';
-        previewBtn.textContent = `Preview ${fm.name || title}`;
-        const linksEl = this.querySelector('.dv-links');
-        if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
-        previewBtn.addEventListener('click', () => this.renderFilePreview(uuid, fm.mimeType || '', fm.name || title, tok, previewBtn));
-      }).catch(() => {});
-    });
-  }
-
-  // [impl:uuid:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd] R19.63 renderFilePreview
-  private renderFilePreview(uuid: string, mimeType: string, name: string, token: string, btn: HTMLElement): void {
-    const preview = renderContentPreview(uuid, mimeType, name, token);
-    btn.insertAdjacentHTML('afterend', preview);
-    wireUrlActions(this); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
-    btn.remove();
-  }
+  // R35.1: createFilePreviewButton + renderFilePreview REMOVED (INV-2) — dead file-type fallback (tagMap routes
+  // file→rb-file-detail always). File preview now = rb-file-detail (toggle pane) + universalActionBar preview-file/open-newtab.
+  // Their scenario Impls 1a5ad916 (createFilePreviewButton) + 71954a38 (renderFilePreview) go dead → req re-points (data=truth).
 }
 
 function esc(s: string): string {

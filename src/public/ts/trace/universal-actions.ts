@@ -47,13 +47,12 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionP
     if (verb === 'open-newtab') { const u = cv?.getAttribute('data-url') || ''; if (u) window.open(u, '_blank'); return; } // was .cv-newtab
     if (verb === 'preview-file') { // was .cv-preview-toggle — toggle the pane, lazy-fill via the SAME fillPreviewPane (INV-1)
       const pane = drawer.querySelector('rb-preview-pane.cv-preview-content') as RbPreviewPane | null;
-      const reset = drawer.querySelector('.cv-reset') as HTMLElement | null;
+      const resets = drawer.querySelectorAll('.cv-reset, .pz-reset'); // zoom-reset shows only while the pane is open (content-preview .cv-reset + rb-file-detail .pz-reset)
       if (!pane || !cv) return;
-      if (pane.style.display !== 'none') { pane.style.display = 'none'; if (reset) reset.style.display = 'none'; }
-      else {
-        pane.style.display = ''; if (reset) reset.style.display = '';
-        if (!(pane as HTMLElement).dataset.filled) { fillPreviewPane(pane, cv.getAttribute('data-uuid') || uuid, cv.getAttribute('data-mime') || '', cv.getAttribute('data-name') || '', cv.getAttribute('data-token') || undefined); (pane as HTMLElement).dataset.filled = '1'; }
-      }
+      const show = pane.style.display === 'none';
+      pane.style.display = show ? '' : 'none';
+      resets.forEach((r) => { (r as HTMLElement).style.display = show ? '' : 'none'; });
+      if (show && !(pane as HTMLElement).dataset.filled) { fillPreviewPane(pane, cv.getAttribute('data-uuid') || uuid, cv.getAttribute('data-mime') || '', cv.getAttribute('data-name') || '', cv.getAttribute('data-token') || undefined); (pane as HTMLElement).dataset.filled = '1'; }
       return;
     }
     if (verb === 'proxy-preview') { // was the rb-webitem #wi-proxy button — reload the frame via the same-origin proxy

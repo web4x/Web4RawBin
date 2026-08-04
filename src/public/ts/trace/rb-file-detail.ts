@@ -8,7 +8,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { guessMimeFromName, fillPreviewPane } from './content-preview.js';
+import { guessMimeFromName } from './content-preview.js';
 import './rb-preview-pane.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 
@@ -50,11 +50,10 @@ export class RbFileDetail extends HTMLElement {
             <h3>${esc(name)}</h3>
             <code class="dv-uuid">${uuid}</code>
           </div>
-          <div class="cv-actions" style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
-            <button class="btn cv-newtab" style="flex:1;font-size:0.8rem">↗ New tab</button>
-            <button class="btn pz-reset" style="flex:1;font-size:0.8rem">⤢ Reset zoom</button>
+          <div class="cv-actions" data-uuid="${uuid}" data-token="${token || ''}" data-url="${esc(contentUrl)}" data-mime="${esc(mimeType)}" data-name="${esc(name)}" style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+            <button class="btn pz-reset" style="flex:1;font-size:0.8rem;display:none">⤢ Reset zoom</button>
           </div>
-          <rb-preview-pane></rb-preview-pane>
+          <rb-preview-pane class="cv-preview-content" style="display:none"></rb-preview-pane>
           <div class="dv-fields">
             ${mimeType ? `<div class="dv-field"><label>Type</label><span>${esc(mimeType)}</span></div>` : ''}
             ${size ? `<div class="dv-field"><label>Size</label><span>${sizeLabel}</span></div>` : ''}
@@ -63,8 +62,9 @@ export class RbFileDetail extends HTMLElement {
           <div class="dv-links"></div>`;
 
         const pane = this.querySelector('rb-preview-pane') as RbPreviewPane;
-        fillPreviewPane(pane, uuid, mimeType, name, token); // DRY: shared mime→content builder
-        this.querySelector('.cv-newtab')?.addEventListener('click', () => window.open(contentUrl, '_blank'));
+        // R35.1 (A): file preview is now toggle-driven by the universalActionBar 'preview-file' action — pane starts hidden
+        // + .cv-preview-content, lazy fillPreviewPane on first show (ONE file-preview mechanism, DRY). New-tab bespoke button
+        // REMOVED → 'open-newtab' reads cv-actions data-url. pz-reset (zoom) stays, shown only while the pane is open.
         this.querySelector('.pz-reset')?.addEventListener('click', () => pane.reset());
 
         if (sourceFile) {
