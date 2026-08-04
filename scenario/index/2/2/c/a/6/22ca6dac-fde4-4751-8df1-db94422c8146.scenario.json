@@ -15,7 +15,10 @@
       "ior:instance:7cc93275-0cbb-49a6-bc4d-0b17e734a308",
       "ior:instance:1f2f1b8d-d5ec-4b5d-93ad-883440626fc1",
       "ior:instance:3e920910-f9f4-43d8-8516-5a27754c585c"
-    ]
+    ],
+    "retired": true,
+    "supersededBy": "ior:instance:b8f284c6-9cad-4865-adac-53321f4cf666",
+    "retiredNote": "DEAD-CODE RETIRED (R35.1 INV-2 cleanup, expert ea7443e87 v0.8.50): the createFilePreviewButton + renderFilePreview decls were REMOVED from rb-detail-view (dead file-type fallback — tagMap routes file->rb-file-detail always, so they never fired). The file-preview behavior MOVED to R35.1's universalActionBar preview-file verb (registerUniversalActions b8f284c6 -> toggle rb-file-detail pane), gated by Test 1fe8564c. supersededBy b8f284c6 (retire-not-delete: one-uuid-one-identity; annotated retired so it is not an open chain gap). (this Test verified the removed decl; superseded by the R35.1 preview-file Test 1fe8564c)."
   },
   "ownerIor": null
 }
