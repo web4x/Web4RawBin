@@ -5,7 +5,9 @@
     "name": "universalActions.registerUniversalActions impl",
     "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:1fe8564c-43d4-458d-8610-0dfcbae67123"
+    ]
   },
   "ownerIor": "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1"
 }
