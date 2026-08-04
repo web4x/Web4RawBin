@@ -7,7 +7,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
   "parent": null,
   "unitLinks": [],
-  "description": "R35.4: additive to mofChildren (server c0a0921d) — add rawbin:traceability as the 4th project folder + resolve it to the requirement-root trace tree (walk /api/trace roots) via existing rb-trace-tree. Method = mofChildren additive (build-go IMPL-MINT/ride; re-point to built decl)."
+  "description": "R35.4: additive to mofChildren (server c0a0921d) — add rawbin:traceability as the 4th project folder + resolve it to the requirement-root trace tree (walk /api/trace roots) via existing rb-trace-tree. Method = mofChildren additive (build-go IMPL-MINT/ride; re-point to built decl).",
+  "method": "ior:instance:7c460f8a-89f5-49c9-91f5-b8c3e35115bc",
+  "ridesNote": "RESIDUAL/impl-edit: R35.4 rides the EXISTING server.mofChildren (Method 7c460f8a / Impl b6c88d83, already credited markerPending=false) — the impl-edit adds the 4th rawbin:traceability folder + its resolution to the requirement-root trace tree. The NEW private helper traceabilityRoots (enumerates PROD Requirement roots -> MofNodes) rides b6c88d83 (traceability on the credited mofChildren decl, not a distinct chain node — expert ship 506ac486f v0.8.47). @390 Test = distinct-intent on b6c88d83 (traceability-folder-appears + expands-to-trace)."
  },
  "ownerIor": null
 }
