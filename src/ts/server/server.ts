@@ -1098,23 +1098,45 @@ function createFolder(name: string, parent: string): { ok: boolean; uuid?: strin
   return { ok: true, uuid };
 }
 
-// [impl:uuid:a09b474d-c1de-44de-9cd3-d4eda13943b6] server.ensureFolderFileUnit (Method 64c4f023, Class c0a0921d, off UC
-// cdbde4ef) — R-A A2 (R34.2, architect fork-A 8e92f6817): map a SYNTHETIC tree ref (dir:<rel> | file:src/<rel>) → a REAL
-// ior:class:Folder|File unit in MODEL_STORE so a folder/file node resolves to a real detail (+ exact location + universal
-// A1 Scenario/Edit). Deterministic uuid=keyToUuid('folder::'|'file::'+rel) (R32.2) → LAZY idempotent: re-derive re-binds
-// the SAME unit, no dup (INV-A2-2). MODEL_STORE-only, prod scenario/index NEVER touched (R32.5, INV-A2-3). Tree +
-// mofChildren expansion BYTE-unchanged (INV-A2-1) — this only ADDS a resolvable unit for the detail. Non dir:/file: → null.
-function ensureFolderFileUnit(ior: string): { ior: string; ownerIor: null; model: Record<string, unknown> } | null {
+// [impl:uuid:a09b474d-c1de-44de-9cd3-d4eda13943b6] server.ensureViewUnit (Method 64c4f023, Class c0a0921d, off UC
+// c3902503 modelTree.ensureViewUnit / 8f1eed4d modelTree.populateViewUnitFields) — R35.2/R35.3, GENERALIZES the R34.2 A2
+// ensureFolderFileUnit (architect fork-A) so EVERY synthetic view ref maps to a REAL lazy-minted ior:class:X unit in
+// MODEL_STORE → OScenario(/scenario?ior) + OEdit(scenarioEditorHref) ALWAYS resolve (never dead). Covered: dir:<rel>→Folder,
+// file:<rel>→File (R34.2 subset, Test 23a9f9fd still holds), puml-src:<path>→PumlArtifact, project:<x>→Project,
+// rawbin:*/mof-m1/mof-m2[:mc]→Folder. uuid=keyToUuid(<prefix>::<body>) → LAZY idempotent (INV-A2-2: same uuid on re-open,
+// no dup). R35.3 POPULATE: model fields written per-type AT MINT (name+location+kind + File.sourceFile/ext ·
+// PumlArtifact.sourceFile/format · Folder.metaLevel · Project.projectKey) — no empty stubs. MODEL_STORE-only, prod
+// scenario/index NEVER touched (INV-A2-3). Tree/mofChildren BYTE-unchanged (INV-A2-1, fork-A). Non-view ref → null.
+function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Record<string, unknown> } | null {
   const ref = String(ior).replace(/^ior:instance:/, '');
-  const isDir = ref.startsWith('dir:'), isFile = ref.startsWith('file:');
-  if (!isDir && !isFile) return null;
-  const rel = (isDir ? ref.slice('dir:'.length) : ref.slice('file:'.length)).replace(/^\/+/, '');
-  if (!rel || rel.includes('..')) return null; // path-safety (no traversal into the shard/store path)
-  const uuid = keyToUuid((isDir ? 'folder::' : 'file::') + rel);
+  if (ref.includes('..')) return null; // path-safety (no traversal into the shard/store path)
+  let iorClass: string, key: string, kind: string, location: string, name: string;
+  const extra: Record<string, unknown> = {};
+  if (ref.startsWith('dir:') || ref.startsWith('file:')) {
+    const isDir = ref.startsWith('dir:');
+    const rel = (isDir ? ref.slice('dir:'.length) : ref.slice('file:'.length)).replace(/^\/+/, '');
+    if (!rel) return null;
+    iorClass = isDir ? 'ior:class:Folder' : 'ior:class:File'; key = (isDir ? 'folder::' : 'file::') + rel;
+    kind = isDir ? 'folder' : 'file'; location = rel; name = rel.split('/').pop() || rel;
+    if (!isDir) { extra.sourceFile = `ior:file:${rel}`; const e = rel.split('.').pop(); if (e && e !== rel) extra.ext = e; } // R35.3 File fields
+  } else if (ref.startsWith('puml-src:')) {
+    const p = ref.slice('puml-src:'.length).replace(/^\/+/, ''); if (!p) return null;
+    iorClass = 'ior:class:PumlArtifact'; key = 'puml::' + p; kind = 'puml'; location = p; name = p.split('/').pop() || p;
+    extra.sourceFile = `ior:file:scrum.pmo/sprints/${p}`; extra.format = 'plantuml'; // R35.3 PumlArtifact fields
+  } else if (ref.startsWith('project:')) {
+    const proj = ref.slice('project:'.length) || 'RawBin';
+    iorClass = 'ior:class:Project'; key = 'folder::' + ref; kind = 'project'; location = ref; name = proj;
+    extra.projectKey = proj; // R35.3 Project fields (keyToUuid('folder::'+ref) per R35.2)
+  } else if (ref.startsWith('rawbin:') || ref === 'mof-m1' || ref.startsWith('mof-m2')) {
+    iorClass = 'ior:class:Folder'; key = 'folder::' + ref; kind = 'folder'; location = ref;
+    name = ref.startsWith('rawbin:') ? ref.slice('rawbin:'.length) : ref.startsWith('mof-m2') ? (ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : 'M2') : 'M1';
+    if (ref.startsWith('mof-m2')) extra.metaLevel = 'M2'; else if (ref === 'mof-m1') extra.metaLevel = 'M1'; // R35.3 MOF-Folder fields
+    extra.synthetic = true;
+  } else return null; // non-view ref → normal resolver
+  const uuid = keyToUuid(key);
   const dfile = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
   if (fsSync.existsSync(dfile)) { try { return JSON.parse(fsSync.readFileSync(dfile, 'utf-8')); } catch { /* corrupt → re-mint below */ } }
-  const name = rel.split('/').pop() || rel;
-  const unit = { ior: isDir ? 'ior:class:Folder' : 'ior:class:File', ownerIor: null as null, model: { uuid, name, location: rel, kind: isDir ? 'folder' : 'file', ...(isFile ? { sourceFile: `ior:file:${rel}` } : {}) } };
+  const unit = { ior: iorClass, ownerIor: null as null, model: { uuid, name, location, kind, ...extra } };
   fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
   fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-A2-3 store-only (MODEL_STORE, prod scenario/index untouched)
   return unit;
@@ -2270,8 +2292,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/ior/')) {
       const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
       try {
-        // R-A A2 (fork A): a synthetic dir:/file: tree ref → its REAL lazy-minted MODEL_STORE Folder/File unit (detail + A1).
-        const ff = ensureFolderFileUnit(ior);
+        // R35.2 (fork A): ANY synthetic view ref (dir/file/puml-src/project/rawbin/mof) → its REAL lazy-minted MODEL_STORE unit (detail + A1).
+        const ff = ensureViewUnit(ior);
         if (ff) { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }); res.end(JSON.stringify({ unit: ff })); return; }
         // R32.5: model units (ModelElement/Diagram) resolve from the ISOLATED store (diagram surface + tree fetch); trace units stay prod.
         const iorUuid = ior.replace(/^ior:(instance|class):/, '');
