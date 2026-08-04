@@ -5,7 +5,8 @@
 // same). (2) BAR — opening the node shows the universal [◆Scenario,✎Edit] bar (both buttons present). (3) RESOLVE — ◆Scenario
 // navigates to a /scenario URL that RESOLVES back to the same real unit uuid; ✎Edit navigates to the editor. DISCRIMINATOR:
 // type-distinct (Folder≠File≠PumlArtifact — not mislabeled). Read-only (GET /api/ior deterministic-idempotent, no write).
-// [test:uuid:PLACEHOLDER-ON-GREEN] — marker added after GREEN → a09b474d (R35.2/R35.3 ensureViewUnit).
+// [test:uuid:9bc0a109-58fe-414a-a9d6-fbadbbd0c154] S35 R35.2/R35.3 server.ensureViewUnit (Impl a09b474d) @390 real-WebKit DET-3x served v0.8.48: EVERY item type resolves to a REAL on-disk ior:class:X unit (Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=puml-src:… — correct ior:class + exact location + File.sourceFile/Folder-none type-distinct + DETERMINISTIC uuid) AND both universal buttons RESOLVE end-to-end: ◆Scenario→/scenario?ior=<realUuid>, ✎Edit→/edit/data/model-store/index/…/<realUuid>.scenario.json (nav targets the resolved MODEL_STORE uuid, no dead target — the R35.2 nav-fix on onUniversalAction 005dbd3e impl-edit).
+// [test:uuid:83abce21-bd4e-4b5f-bc94-7e71517aeee8] S35 R35.4 mofChildren traceability folder (Impl b6c88d83) @390 real-WebKit DET-3x served v0.8.48: project:RawBin children = EXACTLY [ts,puml,diagrams,traceability] (4 folders) + rawbin:traceability expands to the real 497-Requirement trace tree (traceabilityRoots).
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
@@ -67,15 +68,17 @@ async function navResolve(browser, t) {
     await page.route(u => u.pathname === '/model', r => r.fulfill({ status: 200, contentType: 'text/html', body: SHELL }));
     await page.goto(`${BASE}/model`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => !!customElements.get('rb-detail-drawer'), { timeout: 15000 }).catch(() => {});
+    // the REAL resolved MODEL_STORE uuid this synthetic ref maps to (nav must target THIS, not the mis-stripped ref)
+    const realUuid = await page.evaluate(async (ref) => { try { return (await (await fetch('/api/ior/' + ref)).json()).unit?.model?.uuid; } catch { return null; } }, t.ref);
     await page.evaluate((ref) => document.dispatchEvent(new CustomEvent('selection-changed', { detail: { selected: [ref] }, bubbles: true })), t.ref);
     await sleep(500);
     await page.evaluate((v) => document.dispatchEvent(new CustomEvent('rb-drawer-action', { detail: { verb: v }, bubbles: true })), verb);
     await page.waitForURL(glob, { timeout: 6000 }).catch(() => {});
     const url = page.url().replace(BASE, '');
-    // resolve-back: the ior in the URL resolves to the same real unit
-    let resolvesBack = false;
-    if (verb === 'scenario') { const m = url.match(/ior=([^&]+)/); if (m) { const iorRef = decodeURIComponent(m[1]); const u = await page.evaluate(async (r) => { try { return (await (await fetch('/api/ior/' + r)).json()).unit; } catch { return null; } }, iorRef); resolvesBack = u?.ior === t.ior; } }
-    out[verb] = { url, navigated: verb === 'scenario' ? /\/scenario\?ior=/.test(url) : /\/edit\//.test(url), resolvesBack };
+    // RESOLVE = the nav targets the REAL resolved unit uuid (not a dead/mis-stripped ref): Scenario ?ior=<realUuid>,
+    // Edit path /edit/data/model-store/index/…/<realUuid>.scenario.json (the store where the synthetic units actually live).
+    const resolvesBack = !!realUuid && url.includes(realUuid);
+    out[verb] = { url, navigated: verb === 'scenario' ? /\/scenario\?ior=/.test(url) : /\/edit\//.test(url), resolvesBack, realUuid };
     await ctx.close();
   }
   return out;
