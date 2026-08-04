@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Planned — cluster R35.4 (build AFTER R35.2/3 foundation, before R35.1; order R35.2/3->R35.4->R35.1). server.ts:1240-1247 add mofFolder('rawbin:traceability') + childCount 3->4 @:1236; rawbin:traceability -> requirement-root MofNodes reusing rb-trace-tree (no fork). @390 real-WebKit gate + chain-complete-to-Test on ship.
+DONE: R35.4 traceability 4th MDA folder built (mofFolder('rawbin:traceability') + childCount 3->4; rawbin:traceability expands the REAL trace-tree Req->...->Test via existing rb-trace-tree, no fork) + chain-complete-to-Test (Impl b6c88d83 tests[]=[96a4bda8,83abce21], markerPending=false, req mint abe7905d0) + REAL-WEBKIT @390 GREEN DET-3x (v0.8.48, served==HEAD 0.8.50, RawBin node -> [ts,puml,diagrams,traceability]). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ Tron: 'add the traceability tree as the fourth folder under the MDA project RawB
 
 ## Acceptance Criteria
 
-- [ ] (functional) The MDA RawBin project node shows EXACTLY [ts, puml, diagrams, traceability] - a 4th mofFolder('rawbin:traceability',...) added at server.ts:1247 + childCount hint bumped 3->4 at :1236.
-- [ ] (functional) rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree - returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork.
-- [ ] (functional) The traceability folder + its children resolve to real on-disk scenarios containing info (ties R35.2/R35.3; trace units already real); nodes open a real detail + Scenario/Edit.
-- [ ] (gate) GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve.
+- [x] (functional) The MDA RawBin project node shows EXACTLY [ts, puml, diagrams, traceability] - a 4th mofFolder('rawbin:traceability',...) added at server.ts:1247 + childCount hint bumped 3->4 at :1236.
+- [x] (functional) rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree - returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork.
+- [x] (functional) The traceability folder + its children resolve to real on-disk scenarios containing info (ties R35.2/R35.3; trace units already real); nodes open a real detail + Scenario/Edit.
+- [x] (gate) GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve.
 
 ## Subtasks
 

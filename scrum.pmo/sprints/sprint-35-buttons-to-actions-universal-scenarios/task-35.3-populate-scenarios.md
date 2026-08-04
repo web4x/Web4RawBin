@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Planned — cluster R35.3 (build FIRST, same ensureViewUnit resolver pass as R35.2; order R35.2/3->R35.4->R35.1). Resolver writes per-type fields at mint time (mirror node display data -> unit model). @390 real-WebKit gate (assert fields non-empty on a populated sample per type) + chain-complete-to-Test on ship.
+DONE: R35.3 populate per-type fields built (ensureViewUnit resolver writes fields at mint, SAME pass as R35.2; Folder/File/PumlArtifact/Project field-sets) + chain-complete-to-Test (SHARES Impl a09b474d.tests[]=[23a9f9fd,9bc0a109], markerPending=false; Test 9bc0a109 EXPLICITLY = 'R35.2 all-types-resolve + R35.3 fields-populated' -> covers R35.3, verified on disk) + REAL-WEBKIT @390 GREEN DET-3x (v0.8.48, served==HEAD 0.8.50, fields non-empty on populated sample per type). Team-gated -> Done. NOTE: two-tasks-one-gate LEGIT — one resolver Impl does both facets, gate 9bc0a109 asserts both R35.2+R35.3 (verified Test name, not relayed).
 
 ## Traceability
 
@@ -34,10 +34,10 @@ Each resolved scenario unit is POPULATED with the item's actual data (mirror the
 
 ## Acceptance Criteria
 
-- [ ] (functional) Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source) - NOT a bare/empty stub. The R35.2 ensureViewUnit resolver writes these at mint time (mirror node display data -> unit model).
-- [ ] (functional) Per-type field-set non-empty: Folder = name/kind:'folder'/location/parent/childCount; File = name/location:rel/kind:'file'/sourceFile; PumlArtifact = name/kind:'pumlArtifact'/sourceFile/location; Project = name:'RawBin'/kind:'project'/childCount:4.
-- [ ] (functional) Scenario opens a scenario showing the real info; Edit edits real content (not an empty unit).
-- [ ] (gate) GATE @390 real-WebKit: the resolved scenario CONTAINS the item's info - assert the type's fields are NON-EMPTY for a populated sample per type.
+- [x] (functional) Each resolved scenario unit is POPULATED with the item's actual data (name, description, type-specific fields, location/source) - NOT a bare/empty stub. The R35.2 ensureViewUnit resolver writes these at mint time (mirror node display data -> unit model).
+- [x] (functional) Per-type field-set non-empty: Folder = name/kind:'folder'/location/parent/childCount; File = name/location:rel/kind:'file'/sourceFile; PumlArtifact = name/kind:'pumlArtifact'/sourceFile/location; Project = name:'RawBin'/kind:'project'/childCount:4.
+- [x] (functional) Scenario opens a scenario showing the real info; Edit edits real content (not an empty unit).
+- [x] (gate) GATE @390 real-WebKit: the resolved scenario CONTAINS the item's info - assert the type's fields are NON-EMPTY for a populated sample per type.
 
 ## Subtasks
 
