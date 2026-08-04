@@ -12,7 +12,7 @@ import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
-const TARGET_BUNDLE = process.env.R351_BUNDLE || 'app-Z4FFIEQT.js'; // gate the BUNDLE (client-only), not /api/config
+const TARGET_BUNDLE = process.env.R351_BUNDLE || 'app-2UVCBLW6.js'; // gate the BUNDLE (client-only), not /api/config (v0.8.50 client: INV-2 residuals fixed)
 const OUT = path.join(ROOT, 'test-results/r351-universal-actions') + '/'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 // served-bundle guard (client-only): confirm /app serves the TARGET bundle (== committed) before crediting.
@@ -77,8 +77,10 @@ async function fires(browser) {
 // the room drawer mounts on a detail-tap (needs a joined room+content to drive headless) → same-component + Tron @390 device.
 import { execSync } from 'node:child_process';
 const drawerRegisters = /registerUniversalActions/.test(execSync('grep -c registerUniversalActions src/public/ts/trace/rb-detail-drawer.ts || true', { cwd: ROOT, encoding: 'utf8' }).trim() !== '0' ? 'registerUniversalActions' : execSync('grep -l registerUniversalActions src/public/ts/trace/rb-detail-drawer.ts || true', { cwd: ROOT, encoding: 'utf8' }));
-// INV-2: the 4 bespoke buttons were REMOVED from their detail views (source, correct-by-construction)
-const inv2removed = ['rb-detail-view.ts', 'content-preview.ts', 'rb-webitem-detail.ts'].every(f => /R35\.1.*(REMOVED|now.*universalActionBar|is now a universalActionBar)/.test(execSync(`grep -i "R35.1" src/public/ts/trace/${f} || true`, { cwd: ROOT, encoding: 'utf8' })));
+// INV-2: the bespoke item-action buttons were REMOVED from their detail views (source, correct-by-construction).
+const inv2removed = ['rb-detail-view.ts', 'content-preview.ts', 'rb-webitem-detail.ts', 'rb-file-detail.ts'].every(f => /R35\.1.*(REMOVED|now.*universalActionBar|is now|toggle-driven)/.test(execSync(`grep -i "R35.1" src/public/ts/trace/${f} || true`, { cwd: ROOT, encoding: 'utf8' })));
+// v0.8.50 residuals: createFilePreviewButton + cv-newtab must be DEAD (only in removal comments, never active code that creates a button).
+const noResidualCode = ['createFilePreviewButton', 'cv-newtab'].every(sel => execSync(`grep -rn "${sel}" src/public/ts --include=*.ts || true`, { cwd: ROOT, encoding: 'utf8' }).split('\n').filter(l => l.trim()).every(l => /\/\/|REMOVED|was \./.test(l)));
 
 const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const trace = [];
@@ -107,6 +109,7 @@ const noThrows = trace.every(R => R.throws === 0);
 console.log(`\nPRESENT (/trace live, 4 types): ${present ? 'GREEN DET-3x' : 'RED'} | INV-2 type-policy(no-leak): ${policy ? 'GREEN' : 'RED'} | foundation nav unregressed: ${foundation ? 'GREEN' : 'RED'}`);
 console.log(`FIRES (newtab=${fire?.openNewtab}/preview=${fire?.previewToggle}(${fire?.previewBA})/proxy=${fire?.proxyFrame}/vcard=${fire?.vcardDownload}): ${firesGreen ? 'GREEN' : 'RED'}`);
 console.log(`served-bundle==${TARGET_BUNDLE}: ${bundleOk ? 'GREEN' : 'RED'} | cross-view(shared-drawer registers)=${drawerRegisters} | INV-2 bespoke-removed=${inv2removed} | no throws: ${noThrows ? 'GREEN' : 'RED'}`);
-const green = present && policy && foundation && firesGreen && bundleOk && noThrows && drawerRegisters && inv2removed;
+console.log(`INV-2 residuals dead (createFilePreviewButton + cv-newtab, v0.8.50): ${noResidualCode ? 'GREEN' : 'RED'}`);
+const green = present && policy && foundation && firesGreen && bundleOk && noThrows && drawerRegisters && inv2removed && noResidualCode;
 console.log('OVERALL R35.1:', green ? 'GREEN' : 'RED (room live-render = same shared drawer, mechanism-proven + Tron @390 device)');
 process.exitCode = green ? 0 : 1;
