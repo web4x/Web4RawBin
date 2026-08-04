@@ -23,6 +23,7 @@ import './rb-strip.js'; // R33.6.5 item5: setActions() hosts a reused rb-strip i
 import { ChatPanel } from './ChatPanel.js';
 import { TraceGraph, makeObject, refUuid, type ObjectType } from '../../../ts/shared/TraceModel.js';
 import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor
+import { registerUniversalActions } from './universal-actions.js'; // R35.1: view-independent item-action provider (vcard/preview/newtab/proxy)
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -68,6 +69,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
     document.addEventListener('rb-drawer-action', this.onUniversalAction); // R-A A1: Scenario/Edit handled universally in the shared drawer
+    registerUniversalActions(this); // R35.1: self-register the view-independent item-action provider+handler (vcard/preview/newtab/proxy) — drawer loads everywhere → fires in room/trace/model
   }
 
   // R-A A1 (universal default verbs): the shared drawer ITSELF handles ◆ Scenario / ✎ Edit for ANY scenario-instance

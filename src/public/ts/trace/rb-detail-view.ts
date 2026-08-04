@@ -17,7 +17,6 @@ import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { renderContentPreview, wireUrlActions } from './content-preview.js';
-import { downloadVCard } from '../vcard-download.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
@@ -46,31 +45,8 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
-          // R20.31: vCard download button for Member/User types
-          const detectedType = (data.type || ref.split(':')[0] || '').toLowerCase();
-          if (detectedType === 'member' || detectedType === 'user') {
-            // Resolve real playerToken from the unit's model (may differ from scenario uuid)
-            fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).then(iorData => {
-              const model = iorData?.unit?.model || {};
-              const realToken = model.playerToken || model.token || uuid;
-              const vcardBtn = document.createElement('button');
-              vcardBtn.className = 'btn btn-secondary';
-              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
-              vcardBtn.textContent = '📇 Download vCard';
-              vcardBtn.addEventListener('click', () => {
-                downloadVCard({ name: data.name || uuid, playerToken: realToken, phone: model.phone, url: model.url, avatar: model.avatar });
-              });
-              head!.insertAdjacentElement('afterend', vcardBtn);
-            }).catch(() => {
-              // Fallback: render button without profile enrichment
-              const vcardBtn = document.createElement('button');
-              vcardBtn.className = 'btn btn-secondary';
-              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
-              vcardBtn.textContent = '📇 Download vCard';
-              vcardBtn.addEventListener('click', () => { downloadVCard({ name: data.name || uuid, playerToken: uuid }); });
-              head!.insertAdjacentElement('afterend', vcardBtn);
-            });
-          }
+          // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
+          // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
         }
       }).catch(() => {});
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
