@@ -10,7 +10,7 @@ import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin', BASE = 'https://prod.wo-da.de:4444';
-const TARGET = process.env.R35_TARGET || '0.8.46';
+const TARGET = process.env.R35_TARGET || '0.8.48'; // re-gate target: nav-resolve fix + R35.4 traceability (a1594a8f3, restart-served)
 const servedVersion = await new Promise((res) => { const q = https.request({ host: 'prod.wo-da.de', port: 4444, path: '/api/config', rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => { try { res(JSON.parse(b).version); } catch { res('?'); } }); }); q.on('error', () => res('?')); q.end(); });
 console.log(servedVersion === TARGET ? `served==${TARGET} verified — SERVED verdict on ${process.env.WK ? 'WebKit' : 'chromium'}.` : `⚠ PHANTOM-GUARD: served=${servedVersion} != ${TARGET}.`);
 const DIST = path.join(ROOT, 'src/public/dist');
@@ -47,8 +47,15 @@ async function runOnce(browser, i) {
     if (i === 1) await page.screenshot({ path: OUT + t.label + '.png' });
     per[t.label] = { ...data, bar: verbs.includes('scenario') && verbs.includes('edit'), verbs };
   }
+  // R35.4: RawBin = EXACTLY [ts,puml,diagrams,traceability] + traceability → the real 497-req trace tree
+  const r354 = await page.evaluate(async () => {
+    const kids = async (ref) => { try { return (await (await fetch('/api/trace/children/' + ref)).json()).children || []; } catch { return []; } };
+    const rb = await kids('project:RawBin');
+    const trace = await kids('rawbin:traceability');
+    return { rbNames: rb.map(c => c.name), traceCount: trace.length, traceFirst5: trace.slice(0, 5).map(c => (c.type || c.icon || '') + ':' + (c.name || '').slice(0, 24)) };
+  });
   await ctx.close();
-  return { per, throws };
+  return { per, throws, r354 };
 }
 
 // (3) NAV-RESOLVE: ◆Scenario navigates to a /scenario URL that RESOLVES to the SAME unit uuid; ✎Edit → editor href. Fresh context per action.
@@ -96,6 +103,11 @@ for (const t of TYPES) {
 const distinct = runs.every(R => R.per.Folder?.iorOk && R.per.File?.iorOk && R.per.PumlArtifact?.iorOk);
 const noThrows = runs.every(R => R.throws === 0);
 console.log(`type-distinct (Folder/File/PumlArtifact not mislabeled): ${distinct ? 'GREEN' : 'RED'} | no throws: ${noThrows ? 'GREEN' : 'RED'}`);
-const overall = allGreen && distinct && noThrows;
+// R35.4: RawBin = EXACTLY [ts,puml,diagrams,traceability] + traceability = the 497-req trace tree
+const EXPECT4 = ['ts', 'puml', 'diagrams', 'traceability'];
+const r354 = runs.every(R => { const n = R.r354?.rbNames || []; return n.length === 4 && EXPECT4.every(x => n.includes(x)); });
+const r354trace = runs.every(R => (R.r354?.traceCount || 0) >= 400); // ~497 Requirement roots
+console.log(`R35.4 RawBin=[ts,puml,diagrams,traceability]: ${r354 ? 'GREEN' : 'RED'} (${JSON.stringify(runs[0]?.r354?.rbNames)}) | traceability→trace tree (~497 reqs): ${r354trace ? 'GREEN' : 'RED'} (${runs[0]?.r354?.traceCount})`);
+const overall = allGreen && distinct && noThrows && r354 && r354trace;
 console.log('OVERALL S35 FOUNDATION:', overall ? 'GREEN DET-3x' : 'RED');
 process.exitCode = overall ? 0 : 1;
