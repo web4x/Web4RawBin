@@ -5,7 +5,9 @@
     "name": "server.reconcileCanonical impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:fb5ae5eb-2736-4abc-b3c9-2473a186d3f1"
+    ]
   },
   "ownerIor": "ior:instance:5530ea76-b9c0-4abc-a3d4-4d63db4f531d"
 }

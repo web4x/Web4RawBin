@@ -5,7 +5,9 @@
     "name": "DiagramViewModel.renderFacet impl",
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:e21b876d-2397-4db1-a927-08256e5b2904"
+    ]
   },
   "ownerIor": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5"
 }
