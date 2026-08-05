@@ -1,0 +1,38 @@
+# S36 DESIGN — Unify traceability units with the M2 UML/TS model (views of ONE unit) — robbin-architect 2026-08-05
+MEASURE-FIRST (disk-verified). Existing shapes: **UseCase**{name=Object.verb, class, method, classes[], tasks[], implementations[], tests[]} · **Class**{name, description, sourceFile:ior:file:, methods[]} · **Method**{name=Class.method, description, sourceFile, implementations[], tests[] — NO signature yet} · **Implementation**{sourceFile, sourceLine, tests[]} · **ModelElement**{metaLevel:M1|M2, kind, instanceOf[], members[], memberOf, relatesTo[], relations[]} · **Diagram**{views:[{unit, x, y, viewKind}]} (MODEL_STORE) · **TraceLink**{from, to, fromType, toType, relation, direction, label}. **M2 metaclasses ON DISK:** UmlClass/UmlInterface/UmlMethod/UmlFunction/UmlAttribute/UmlProperty/UmlType/UmlAssociation/UmlGeneralization/UmlDependency + ts-class-code/ts-method-code/ts-function-code/… + puml-class-code. **UmlUseCase = ABSENT (R36.1 mints it).** No usedIn/projection mechanism exists (NEW, cross-cutting).
+
+## CORE MECHANISM (DRY) — typed OOP extension = REUSE the existing M2 `instanceOf` multi-facet
+A ScenarioUnit is the ONE source of truth. A "typed OOP extension / view" = the unit **instanceOf its typed M2 facet(s)** — the EXACT mechanism M1 ModelElement already uses (`instanceOf:[UmlClass, ts-class-code]`, TsToModel FACETS). So:
+- **Class** unit → `instanceOf:[UmlClass(M2), ts-class-code(M2)]` → UmlClass & tsClass are two facet-LENS VIEWS of the ONE Class unit (render UML box vs TS signature from the SAME data). NO copy.
+- **Method** unit → `instanceOf:[UmlMethod|UmlFunction, ts-method-code]`.
+- **UseCase** unit → `instanceOf:[UmlUseCase(M2, NEW)]`.
+A "view" renders the ONE unit through a facet lens; the unit's DATA is authoritative; the facet TYPES the projection. Drag-onto-diagram = a Diagram `views[]` view-link to the base unit (REUSE R32.4/R32.11 Diagram view-links) rendered via its facet. This unifies the MDA model element and the traceability unit into ONE.
+
+## ★ GENUINE TRON-DECISION (surfaced to PO/Tron — the sprint's crux)
+Today the SAME real class has TWO units: the authored **traceability Class** (prod scenario/index, e.g. `Onboarding`@ProfileEditor.ts) AND a TS-generated **M1 ModelElement** (MODEL_STORE, TsToModel, `instanceOf:[UmlClass,ts-class-code]`). "ONE unit, not duplicates" needs a direction:
+- **(A) MERGE (recommended, truest DRY):** the traceability Class/Method/UseCase unit IS the model element — it gains `instanceOf` facets + draggability + usage-refs; TsToModel RECONCILES generated M1 into the traceability unit (same-uuid by `sourceFile::qualifiedName` deterministic key, OR a `modelElement` link), so ONE unit per real class. Removes the M1/traceability duplication.
+- **(B) REFERENCE (less invasive):** keep both; the M1 ModelElement carries a `baseUnit`→traceability-Class link; views + Scenario/Edit resolve to the traceability unit. Two units, one canonical.
+DECISION NEEDED: A or B — and if A, how TsToModel reconciles (deterministic same-uuid vs link). I recommend **(A)** (matches "NOT duplicates"); it's a larger model change (TsToModel generation path). Also confirm: **UmlTraceRelationship EXTENDS TraceLink** (reuse from/to/relation/direction + a RawBin relation vocab) — recommended — vs a new type.
+
+## R36.1 — UmlUseCase extends UseCase
+MINT `UmlUseCase` M2 metaclass (ABSENT on disk). UseCase unit → `instanceOf:[…,UmlUseCase]`. Drag→diagram: a Diagram view-link to the UseCase unit rendered as a UML use-case ellipse from the UseCase's existing data (name=Object.verb, class, method). Usage-ref: UseCase.usedIn[] tracks the diagrams/folders it's placed on. UseCase stays a `Class.method`/`Object.verb` decomposition tracing to its Method (→R36.4). NO duplicate — the UML use case is a VIEW.
+
+## R36.2 — UmlClass + tsClass extend Class
+Class unit → `instanceOf:[UmlClass, ts-class-code]` (both M2 facets EXIST — reuse). Two facet-lens VIEWS: UmlClass = UML box (name + attribute/method compartments from Class.methods[] + members), tsClass = TS signature view. Both draggable (Diagram view-link to the ONE Class unit, `viewKind:'class'|'tsClass'`); render from Class data; usage-refs tracked. Two projections, ONE unit.
+
+## R36.3 — Method enrichment + Method-vs-Function + Uml/ts projections
+- **ENRICH Method** model with a full signature: `visibility:'public'|'private'|'protected'`, `parameters:[{name,type}]`, `returnType`, `docs` (oosh-style block). (Source of truth: derive from TS via TsToModel AST where available; else authored.)
+- **Method ≠ Function:** `parentClass` field — PRESENT ⇒ Method (`instanceOf UmlMethod`), ABSENT ⇒ Function (`instanceOf UmlFunction`). Function→Method = add a parentClass (convertible); Method→Function = blocked/hard (state/attribute access) — modelled as a one-way conversion.
+- Projections: UmlMethod/UmlFunction + ts-method-code facets (EXIST). The enriched signature renders in the UML method compartment + the TS view.
+
+## R36.4 — UmlTraceRelationship (typed, RawBin-specific)
+NEW `UmlTraceRelationship` — recommended to **EXTEND TraceLink** (reuse {from, to, fromType, toType, relation, direction, label}) with a RawBin relation vocabulary (`decomposes`/`traces`), NOT strict UML 2.5. Semantics: a UseCase (=Class.method/Object.verb) `traces`/`decomposes` → its Method. Each endpoint = a typed OOP-extended unit tracking usage-refs. Renders as a typed connector on the diagram (reuse R32.6 edges + EDGE_DEFS kind-map, add the trace kind).
+
+## R36.5 — Scenario/Edit open the CORRECT underlying unit + usage-reference tracking
+- **Scenario/Edit → base unit (REUSE S35):** every projected view carries the BASE unit's ior; the S35 universal-actions provider's ◆Scenario→`/scenario?ior=<base-uuid>` + ✎Edit→`/edit/<base-unit-path>` resolve to the ONE underlying unit (the view projects). A UmlClass view's Scenario/Edit open the Class unit, not the view. Reuse `ensureViewUnit` (S34/S35) for on-disk resolution.
+- **Usage-reference tracking (NEW, cross-cutting, bidirectional):** add `usedIn:[{kind:'diagram'|'folder', ref}]` on units ↔ the existing `Diagram.views[]` / folder links. A resolver computes back-refs ("where is this used"). Bidirectional invariant: unit.usedIn ⟷ diagram.views (add-view/remove-view maintain both, reuse R32.11/R33.8 add/remove-view).
+
+## Build order / chain / gate
+- **Order (confirm PO):** (1) FOUNDATION: the `instanceOf`-facet typed-extension + usage-ref tracking + R36.5 Scenario/Edit→base wiring (rides S35 universal-actions). (2) R36.3 Method enrichment (underpins projections). (3) R36.1/R36.2 projections + drag-to-diagram. (4) R36.4 UmlTraceRelationship. Server (unit model + resolver) → restart+backstop; client (views/drag/buttons) → client.
+- **Reuse map (NO fork):** M2 `instanceOf` facets (R32.1/R32.2) · Diagram view-links (R32.4/R32.11) · TraceLink (R36.4) · S35 universal-actions + ensureViewUnit (R36.5) · R32.6 edges (UmlTraceRelationship render). NEW: UmlUseCase M2 · Method signature fields · usedIn[] + back-ref resolver · UmlTraceRelationship type.
+- **GATE (@390):** each new type is a typed unit ON DISK (instanceOf its base/facet); drag→diagram renders from the unit's data (no duplicate data); ◆Scenario/✎Edit open the CORRECT base unit; usage-ref bidirectional (unit↔diagram/folder); Method signature + Method/Function distinction present. Chain-to-Test; Impl.tests[] on disk before flip.
