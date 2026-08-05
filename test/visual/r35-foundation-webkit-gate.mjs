@@ -6,7 +6,9 @@
 // navigates to a /scenario URL that RESOLVES back to the same real unit uuid; ✎Edit navigates to the editor. DISCRIMINATOR:
 // type-distinct (Folder≠File≠PumlArtifact — not mislabeled). Read-only (GET /api/ior deterministic-idempotent, no write).
 // [test:uuid:9bc0a109-58fe-414a-a9d6-fbadbbd0c154] S35 R35.2/R35.3 server.ensureViewUnit (Impl a09b474d) @390 real-WebKit DET-3x served v0.8.48: EVERY item type resolves to a REAL on-disk ior:class:X unit (Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=puml-src:… — correct ior:class + exact location + File.sourceFile/Folder-none type-distinct + DETERMINISTIC uuid) AND both universal buttons RESOLVE end-to-end: ◆Scenario→/scenario?ior=<realUuid>, ✎Edit→/edit/data/model-store/index/…/<realUuid>.scenario.json (nav targets the resolved MODEL_STORE uuid, no dead target — the R35.2 nav-fix on onUniversalAction 005dbd3e impl-edit).
-// [test:uuid:83abce21-bd4e-4b5f-bc94-7e71517aeee8] S35 R35.4 mofChildren traceability folder (Impl b6c88d83) @390 real-WebKit DET-3x served v0.8.48: project:RawBin children = EXACTLY [ts,puml,diagrams,traceability] (4 folders) + rawbin:traceability expands to the real 497-Requirement trace tree (traceabilityRoots).
+// R35.4 NOTE: this file still sanity-checks project:RawBin = [ts,puml,diagrams,traceability] (4 folders). The traceability
+// STRUCTURE Test (83abce21→b6c88d83) was RE-POINTED to r354-parity-webkit-gate.mjs after R35.4 was re-spec'd from flat-497
+// to the DRY sprints-overview parity (v0.8.51) — the original "497-Requirement trace tree" assertion is retired there.
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
@@ -109,8 +111,10 @@ console.log(`type-distinct (Folder/File/PumlArtifact not mislabeled): ${distinct
 // R35.4: RawBin = EXACTLY [ts,puml,diagrams,traceability] + traceability = the 497-req trace tree
 const EXPECT4 = ['ts', 'puml', 'diagrams', 'traceability'];
 const r354 = runs.every(R => { const n = R.r354?.rbNames || []; return n.length === 4 && EXPECT4.every(x => n.includes(x)); });
-const r354trace = runs.every(R => (R.r354?.traceCount || 0) >= 400); // ~497 Requirement roots
-console.log(`R35.4 RawBin=[ts,puml,diagrams,traceability]: ${r354 ? 'GREEN' : 'RED'} (${JSON.stringify(runs[0]?.r354?.rbNames)}) | traceability→trace tree (~497 reqs): ${r354trace ? 'GREEN' : 'RED'} (${runs[0]?.r354?.traceCount})`);
+// R35.4 DRY-FIX (v0.8.51): traceability = CurrentSprint + ordered Sprints (NOT flat 497) — the STRUCTURE/parity is gated by
+// r354-parity-webkit-gate.mjs (Test 83abce21 re-pointed there). Here just sanity: traceability is sprint-shaped (~36, not 497).
+const r354trace = runs.every(R => { const c = R.r354?.traceCount || 0; return c > 0 && c < 100; });
+console.log(`R35.4 RawBin=[ts,puml,diagrams,traceability]: ${r354 ? 'GREEN' : 'RED'} (${JSON.stringify(runs[0]?.r354?.rbNames)}) | traceability sprint-shaped not-flat-497 (structure→r354-parity): ${r354trace ? 'GREEN' : 'RED'} (${runs[0]?.r354?.traceCount} nodes)`);
 const overall = allGreen && distinct && noThrows && r354 && r354trace;
 console.log('OVERALL S35 FOUNDATION:', overall ? 'GREEN DET-3x' : 'RED');
 process.exitCode = overall ? 0 : 1;
