@@ -115,6 +115,18 @@ export class RbDiagramDetail extends HTMLElement {
     // Resolve each view-link's element + its members (compartments) — bounded to the diagram's views.
     const nodes = new Map<string, DiagramNode>();
     let sourceFile: string | null = null; // R32.8: the model's source .ts (single-file model) for Re-Sync
+    // R36.1/R36.2 part-2 (B): the UmlMethod/UmlFunction facet-lens renders a signature line — build it from the
+    // canonical model's R36.3 fields (visibility/parameters/returnType); undefined for non-method units.
+    const sigOf = (m: Record<string, unknown>): string | undefined => {
+      const k = String(m.kind || '');
+      if (k !== 'method' && k !== 'function' && m.parameters === undefined && m.returnType === undefined) return undefined;
+      const vis = m.visibility ? String(m.visibility) + ' ' : '';
+      const params = Array.isArray(m.parameters)
+        ? (m.parameters as unknown[]).map((p) => typeof p === 'string' ? p : (p && typeof p === 'object' ? `${(p as Record<string, unknown>).name ?? ''}${(p as Record<string, unknown>).type ? ': ' + (p as Record<string, unknown>).type : ''}` : '')).join(', ')
+        : '';
+      const ret = m.returnType ? ': ' + String(m.returnType) : '';
+      return `${vis}${String(m.name || '')}(${params})${ret}`;
+    };
     await Promise.all(views.map(async (v) => {
       const uuid = stripRef(v.unit);
       const m = await this.fetchModel(uuid); if (!m) return;
@@ -129,7 +141,7 @@ export class RbDiagramDetail extends HTMLElement {
       };
       collect(m);
       for (const mm of members) { if (!mm) continue; (String(mm.kind) === 'method' ? methods : attrs).push(String(mm.name)); collect(mm); }
-      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations });
+      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m) });
     }));
     this._sourceFile = sourceFile;
     const { svg, count } = buildDiagramSvg(views, (u) => nodes.get(u) || null);

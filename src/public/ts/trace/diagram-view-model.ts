@@ -6,7 +6,10 @@
 export type EdgeKind = 'association' | 'generalization' | 'dependency';
 export interface DiagramRelation { to: string; kind: EdgeKind } // to = target element uuid (or ref); kind = M2-derived
 export interface ViewLink { unit: string; x: number; y: number; w?: number; h?: number; viewKind?: string; }
-export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; }
+export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; }
+
+// R36.1/R36.2 part-2 (B): the class-family facet viewKinds that render as a UML/TS class box + participate in edges.
+const CLASS_FACETS = new Set(['class', 'interface', 'UmlClass', 'tsClass', 'ts-class-code']);
 
 // R33.6.1 fix: ALSO strip the 'diagram:' prefix. A new/empty diagram opened with only ref='diagram:<uuid>' (no
 // `uuid` attr) made addView fall back to stripRef(ref) → 'diagram:<uuid>' unstripped → server 400 bad-uuid → NO box.
@@ -24,11 +27,11 @@ export function boxH(node: DiagramNode): number {
 
 // One UML class box (SVG <g>) at the view-link's x,y. Compartments: name (+«interface» stereotype), attributes,
 // methods; height derives from row counts. data-ref carries the SELECT target for box-click → node detail.
-export function buildBox(view: ViewLink, node: DiagramNode): string {
+export function buildBox(view: ViewLink, node: DiagramNode, tsLens = false): string {
   const w = view.w || BOX_W;
   const attrH = node.attrs.length * ROW_H;
   const h = boxH(node);
-  const stereo = node.kind === 'interface' ? '«interface» ' : '';
+  const stereo = node.kind === 'interface' ? '«interface» ' : (tsLens ? '«ts» ' : ''); // R36.2 (B): tsClass facet-lens label over the SAME canonical data
   const rows = (items: string[], y0: number): string => items.map((t, i) =>
     `<text x="6" y="${y0 + i * ROW_H + 13}" class="dm-row">${esc(t)}</text>`).join('');
   const y1 = HEAD_H, y2 = HEAD_H + (attrH || ROW_H);
@@ -38,6 +41,44 @@ export function buildBox(view: ViewLink, node: DiagramNode): string {
     + `<line x1="0" y1="${y1}" x2="${w}" y2="${y1}" class="dm-sep"/>${rows(node.attrs, y1)}`
     + `<line x1="0" y1="${y2}" x2="${w}" y2="${y2}" class="dm-sep"/>${rows(node.methods.map((m) => m + '()'), y2)}`
     + `</g>`;
+}
+
+// [impl:uuid:MARKER_PENDING] renderFacet — R36.1/R36.2 part-2 (B) facet-lens, built ONCE and reused by buildDiagramSvg
+// for EVERY view-link (no fork, no N renderers). facetType (view.viewKind) selects the lens over the ONE canonical
+// node (from /api/ior reconcileCanonical): class-family → UML box (or «ts» lens for tsClass); UmlMethod/UmlFunction →
+// a signature box; UmlUseCase → an ellipse. markerPending: REQ mints the Impl (#126) — uuid landed on its arrival.
+export function facetW(view: ViewLink, node: DiagramNode): number {
+  const k = view.viewKind || node.kind || 'class';
+  if (k === 'UmlUseCase' || node.kind === 'usecase') return view.w || 160;
+  return view.w || BOX_W;
+}
+export function facetH(view: ViewLink, node: DiagramNode): number {
+  const k = view.viewKind || node.kind || 'class';
+  if (k === 'UmlUseCase' || node.kind === 'usecase') return 52;
+  if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return HEAD_H + ROW_H;
+  return boxH(node);
+}
+export function renderFacet(view: ViewLink, node: DiagramNode): string {
+  const k = view.viewKind || node.kind || 'class';
+  if (k === 'UmlUseCase' || node.kind === 'usecase') return renderUseCaseFacet(view, node);
+  if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return renderMethodFacet(view, node);
+  return buildBox(view, node, k === 'tsClass' || k === 'ts-class-code'); // class-family: UML box (TS lens for tsClass)
+}
+// UmlMethod/UmlFunction lens: one compartment = the signature (visibility name(params): returnType, from the canonical node).
+function renderMethodFacet(view: ViewLink, node: DiagramNode): string {
+  const w = facetW(view, node), h = HEAD_H + ROW_H, sig = node.signature || `${node.name}()`;
+  return `<g class="dm-box dm-facet-method" data-ref="modelelement:${stripRef(view.unit)}" transform="translate(${view.x},${view.y})" tabindex="0">`
+    + `<rect class="dm-box-bg" width="${w}" height="${h}" rx="4"/>`
+    + `<text x="${w / 2}" y="17" text-anchor="middle" class="dm-name">${esc(node.name)}</text>`
+    + `<line x1="0" y1="${HEAD_H}" x2="${w}" y2="${HEAD_H}" class="dm-sep"/>`
+    + `<text x="6" y="${HEAD_H + 13}" class="dm-row">${esc(sig)}</text></g>`;
+}
+// UmlUseCase lens: an ellipse with the use-case name (Object.verb). Its trace connector to the method lands with R36.4.
+function renderUseCaseFacet(view: ViewLink, node: DiagramNode): string {
+  const w = facetW(view, node), h = 52, rx = w / 2, ry = h / 2;
+  return `<g class="dm-box dm-facet-usecase" data-ref="modelelement:${stripRef(view.unit)}" transform="translate(${view.x},${view.y})" tabindex="0">`
+    + `<ellipse class="dm-box-bg" cx="${rx}" cy="${ry}" rx="${rx}" ry="${ry}"/>`
+    + `<text x="${rx}" y="${ry + 4}" text-anchor="middle" class="dm-name">${esc(node.name)}</text></g>`;
 }
 
 // ONE <defs> marker set (Q3): arrowhead by M2 kind. Generalization = hollow triangle; Association/Dependency = open arrow.
@@ -65,7 +106,7 @@ export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramN
   const rects = new Map<string, Rect>();
   const nodes = new Map<string, DiagramNode>();
   for (const v of views) {
-    if (v.viewKind && v.viewKind !== 'class' && v.viewKind !== 'interface') continue;
+    if (v.viewKind && !CLASS_FACETS.has(v.viewKind)) continue; // R36.2 (B): only class-family facets carry relation edges
     const uuid = stripRef(v.unit); const node = nodeOf(uuid); if (!node) continue;
     rects.set(uuid, { x: v.x, y: v.y, w: v.w || BOX_W, h: boxH(node) });
     nodes.set(uuid, node);
@@ -95,12 +136,11 @@ export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramN
 export function buildDiagramSvg(views: ViewLink[], nodeOf: (uuid: string) => DiagramNode | null): { svg: string; count: number; edges: number } {
   const boxes: string[] = []; let maxX = 0, maxY = 0;
   for (const v of views) {
-    if (v.viewKind && v.viewKind !== 'class' && v.viewKind !== 'interface') continue;
     const node = nodeOf(stripRef(v.unit));
     if (!node) continue;
-    boxes.push(buildBox(v, node));
-    maxX = Math.max(maxX, v.x + (v.w || BOX_W) + PAD);
-    maxY = Math.max(maxY, v.y + boxH(node) + PAD);
+    boxes.push(renderFacet(v, node)); // R36.1/R36.2 (B): facet-lens per view.viewKind (built once); class-family default
+    maxX = Math.max(maxX, v.x + facetW(v, node) + PAD);
+    maxY = Math.max(maxY, v.y + facetH(v, node) + PAD);
   }
   const { svg: edgeSvg, count: edges } = buildEdges(views, nodeOf); // edges FIRST (behind boxes)
   const vb = `0 0 ${Math.max(maxX, 100)} ${Math.max(maxY, 100)}`;
