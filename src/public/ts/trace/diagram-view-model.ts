@@ -43,10 +43,8 @@ export function buildBox(view: ViewLink, node: DiagramNode, tsLens = false): str
     + `</g>`;
 }
 
-// [impl:uuid:94ad4f50-aac8-4de5-ad34-e6776fc4b938] DiagramViewModel.renderFacet (Method a6a05d34) — R36.1/R36.2 part-2 (B) facet-lens, built ONCE and reused by buildDiagramSvg
-// for EVERY view-link (no fork, no N renderers). facetType (view.viewKind) selects the lens over the ONE canonical
-// node (from /api/ior reconcileCanonical): class-family → UML box (or «ts» lens for tsClass); UmlMethod/UmlFunction →
-// a signature box; UmlUseCase → an ellipse.
+// R36.1/R36.2 part-2 (B): facet-view geometry helpers (width/height per facetType) — shared by renderFacet + the
+// buildDiagramSvg/buildEdges/buildTraceEdge bounds. (Own [impl] not required; renderFacet's marker sits below.)
 export function facetW(view: ViewLink, node: DiagramNode): number {
   const k = view.viewKind || node.kind || 'class';
   if (k === 'UmlUseCase' || node.kind === 'usecase') return view.w || 160;
@@ -58,6 +56,11 @@ export function facetH(view: ViewLink, node: DiagramNode): number {
   if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return HEAD_H + ROW_H;
   return boxH(node);
 }
+// [impl:uuid:94ad4f50-aac8-4de5-ad34-e6776fc4b938] DiagramViewModel.renderFacet (Method a6a05d34) — R36.1/R36.2 part-2 (B)
+// facet-lens, built ONCE, reused by buildDiagramSvg for EVERY view-link (no fork, no N renderers). facetType
+// (view.viewKind) selects the lens over the ONE canonical node (from /api/ior reconcileCanonical): class-family → UML
+// box (or «ts» lens for tsClass); UmlMethod/UmlFunction → a signature box; UmlUseCase → an ellipse.
+// (Marker moved adjacent-above this decl — task 275 — so strict-AST binds 94ad4f50 to renderFacet, not facetW.)
 export function renderFacet(view: ViewLink, node: DiagramNode): string {
   const k = view.viewKind || node.kind || 'class';
   if (k === 'UmlUseCase' || node.kind === 'usecase') return renderUseCaseFacet(view, node);
