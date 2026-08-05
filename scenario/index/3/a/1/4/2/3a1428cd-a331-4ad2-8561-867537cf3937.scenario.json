@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "3a1428cd-a331-4ad2-8561-867537cf3937",
+  "name": "modelElement.authorTrace",
+  "description": "R36.4 INC-2 persist: author a UmlTraceRelationship unit extending TraceLink (from/to/relation: traces|decomposes) into MODEL_STORE, keyToUuid idempotent (re-derive re-binds, no dup). Isolation (R32.5), no fork.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:fde7eecc-fd61-468d-aaa2-2535cdc2322c",
+  "sourceFile": "ior:file:scrum.pmo/design (R36.4 architect b0d16ec5e)",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

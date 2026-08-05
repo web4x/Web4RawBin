@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fde7eecc-fd61-468d-aaa2-2535cdc2322c",
+    "name": "server.authorTrace",
+    "description": "Persist an authored UmlTraceRelationship unit (extends TraceLink; from/to/relation traces|decomposes) into MODEL_STORE via keyToUuid (idempotent). R36.4 INC-2 server persist. IMPL-MINT: marker TRAILS (expert marks after building).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:a79f6091-9024-4b36-a350-3d71668083fb"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}
