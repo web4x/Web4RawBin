@@ -112,6 +112,30 @@ export class TsToModel {
     return null;
   }
 
+  // R36.3 (PO decision A): SIGNATURE-specific type stringifier — emits KEYWORD types (string/number/void/…) as text,
+  // named refs (+ type args), arrays, unions, literals. SEPARATE from typeName (:109, relationship-resolution = named
+  // refs only, NULL for keywords). NO getText — unbound param/return nodes have no sourceFile → getText would crash
+  // (the R36.3 :153/:181 bug). Exotic types → undefined (omitted, no crash; signature still renders name(params)).
+  // Impl-EDIT to the signature-enrich → RIDES the existing R36.3 chain (enrichMethodSignature 68d1997e), NOT a new Impl (PO/req).
+  private signatureType(t?: ts.TypeNode): string | undefined {
+    if (!t) return undefined;
+    const KW: Partial<Record<ts.SyntaxKind, string>> = {
+      [ts.SyntaxKind.StringKeyword]: 'string', [ts.SyntaxKind.NumberKeyword]: 'number', [ts.SyntaxKind.BooleanKeyword]: 'boolean',
+      [ts.SyntaxKind.VoidKeyword]: 'void', [ts.SyntaxKind.AnyKeyword]: 'any', [ts.SyntaxKind.UnknownKeyword]: 'unknown',
+      [ts.SyntaxKind.NeverKeyword]: 'never', [ts.SyntaxKind.UndefinedKeyword]: 'undefined', [ts.SyntaxKind.ObjectKeyword]: 'object',
+      [ts.SyntaxKind.SymbolKeyword]: 'symbol', [ts.SyntaxKind.BigIntKeyword]: 'bigint',
+    };
+    if (KW[t.kind]) return KW[t.kind];
+    if (ts.isTypeReferenceNode(t) && ts.isIdentifier(t.typeName)) {
+      const args = (t.typeArguments || []).map((a) => this.signatureType(a)).filter(Boolean);
+      return t.typeName.text + (args.length ? `<${args.join(', ')}>` : '');
+    }
+    if (ts.isArrayTypeNode(t)) { const el = this.signatureType(t.elementType); return el ? `${el}[]` : undefined; }
+    if (ts.isUnionTypeNode(t)) { const parts = t.types.map((x) => this.signatureType(x)).filter(Boolean); return parts.length ? parts.join(' | ') : undefined; }
+    if (ts.isLiteralTypeNode(t)) { const lit = t.literal; if (ts.isStringLiteral(lit)) return `'${lit.text}'`; if (lit.kind === ts.SyntaxKind.TrueKeyword) return 'true'; if (lit.kind === ts.SyntaxKind.FalseKeyword) return 'false'; if (ts.isNumericLiteral(lit)) return lit.text; }
+    return undefined;
+  }
+
   // [impl:uuid:382f8644-9e19-472e-91c8-8d4f68b198ad] TsToModel.generate (Method 970c7956, Class fc2f97c9, off UC efaea742)
   // — parse `files` into M1 ModelElement units (deterministic uuid),
   // resolve typed-member relationships (relatesTo + M2 type), write them to `indexDir` idempotently (0-churn re-run),
@@ -150,8 +174,8 @@ export class TsToModel {
         // R36.3: top-level FUNCTION full signature — NO parentClass ⇒ Function (instanceOf UmlFunction via FACETS['function']).
         if (kind === 'function' && ts.isFunctionDeclaration(node)) {
           parent.visibility = 'public';
-          parent.parameters = node.parameters.map((p) => { const t = this.typeName(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
-          parent.returnType = this.typeName(node.type) || undefined;
+          parent.parameters = node.parameters.map((p) => { const t = this.signatureType(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
+          parent.returnType = this.signatureType(node.type); // R36.3(A): keyword returnType text (void/string/…)
           parent.documentation = jsDocText(node) || undefined;
         }
 
@@ -178,8 +202,8 @@ export class TsToModel {
           if (mkind === 'method') { // R36.3: parentClass PRESENT ⇒ Method (instanceOf UmlMethod); enrich the full signature
             md.parentClass = parent.uuid;
             md.visibility = memberVisibility(mem);
-            md.parameters = ((mem as ts.MethodDeclaration | ts.MethodSignature).parameters || []).map((p) => { const t = this.typeName(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
-            md.returnType = this.typeName(mtype) || undefined;
+            md.parameters = ((mem as ts.MethodDeclaration | ts.MethodSignature).parameters || []).map((p) => { const t = this.signatureType(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
+            md.returnType = this.signatureType(mtype); // R36.3(A): keyword returnType text (void/string/…)
             md.documentation = jsDocText(mem) || undefined;
           }
           if (!parent.members.includes(md.uuid)) parent.members.push(md.uuid);
