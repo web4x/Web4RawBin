@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [~] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R36.2 (projections, build 3rd after FOUNDATION + R36.3). Class instanceOf[UmlClass, ts-class-code] two facet-lens VIEWS (A-MERGE fork-A resolve-at-detail, ONE unit per class); both draggable render-from-one-unit; usedIn bidirectional. ★ HARD AC-tree-unchanged (Tron): pre/post-merge tree byte-diff==0 (reuse A2/R35.4 protect-the-tree). @390 real-WebKit gate + chain-complete-to-Test on ship.
+In Progress (HELD on forward-dep, PO+req endorsed): R36.2 merge+render BUILT + chain-complete on disk — A-merge/reconcile (reconcileCanonical 37c08fd5.tests[]=[fb5ae5eb], INV-T byte-diff==0 no-write) + both-facet render (renderFacet 94ad4f50.tests[]=[e21b876d], 5-facet paint @390), both markerPending=false. ★ HELD: HARD AC-usedin-survives-regen (side-index mechanism (c) ca49f1826) is UN-BUILT on disk (no side-index commit/gate) — R36.2 NOT Done until the side-index ships+gates (and R36.5 re-gated on the side-index backend per the guardrail). NOT chain-complete-to-Test on that AC yet.
 
 ## Traceability
 

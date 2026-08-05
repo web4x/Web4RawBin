@@ -17,6 +17,8 @@
   - [ ] **(gate)** HARD AC (Tron constraint, reuse A2/R35.4 protect-the-tree): /api/model/tree + rawbin children [ts,puml,diagrams,traceability] + sprint structure + EVERY existing node render BYTE-IDENTICAL before vs after merge (byte-diff==0). A merged element STILL shows at its current node — only its detail / /api/ior / Scenario / Edit / facet-views resolve to the ONE canonical unit; NO node added/removed/reordered/recounted. The MOF tree + traceability folder + /api/model/tree are UNTOUCHED. GATE @390: pre/post-merge tree byte-diff==0.
   - [ ] **(gate)** GATE @390 real-WebKit: UmlUseCase exists on disk (M2); a UseCase instanceOf it (ONE merged unit); drag renders the ellipse from unit data (no duplicate); usedIn bidirectional. Chain-to-Test, Impl.tests[] on disk before flip.
   -> modelElement.umlUseCaseView [uc:uuid:543ce993-9ffd-4460-a1db-f83bbf1ea0eb]
+  -> modelElement.reconcileCanonical [uc:uuid:f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c]
+  -> diagramView.renderFacet [uc:uuid:97e5e14e-aaf7-4783-8352-f6da5bbc5e24]
 
 - [ ] **R36.2 — UmlClass + tsClass extend Class (two facet-lens views of ONE Class, A-merge)**
   [requirement:uuid:32bf71f2-550c-409c-8c4d-b6c26be81586]
@@ -31,6 +33,8 @@
   - [ ] **(gate)** GUARDRAIL (architect 19b6217be + PO): (c) is a TRANSPARENT BACKEND SWAP — ONLY the 3 R36.5 fns (addUsedIn/removeUsedIn/resolveUsedIn 2f44e112) move off-element to read/write the MODEL_STORE side-index (keyed by keyToUuid(sourceFile::qualifiedName)); add-view/remove-view callers + GET /api/model/used-in + /api/ior behavior UNCHANGED. BECAUSE the usedIn STORE LOCATION moves off-element, when R36.2 ships the tester MUST RE-GATE R36.5 on the side-index backend: add-view→side-index returns, remove-view→drops, bidirectional, the element file is NOW PRISTINE (INV-RM1), /api/ior STILL shows usedIn (resolver attaches), INV-T byte-diff==0. R36.5 on-element Test 91a10db8 is re-verified/re-pointed to the side-index behavior on R36.2 ship.
   - [ ] **(gate)** GATE @390: Class instanceOf both facets (ONE merged unit); drag each renders from the ONE unit's data (no duplicate); usedIn bidirectional.
   -> modelElement.umlClassView [uc:uuid:dd000fd8-b65c-4868-a3ed-22b2f23a3aed]
+  -> modelElement.reconcileCanonical [uc:uuid:f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c]
+  -> diagramView.renderFacet [uc:uuid:97e5e14e-aaf7-4783-8352-f6da5bbc5e24]
 
 - [ ] **R36.3 — Method enrichment (full signature + docs) + Method-vs-Function + Uml/ts projections**
   [requirement:uuid:d4048137-c73c-4132-a27e-2b2fae53c5b8]
@@ -51,6 +55,8 @@
   - [ ] **(functional)** Renders as a typed connector on the diagram — reuse R32.6 edges + EDGE_DEFS kind-map with the added trace kind (no fork).
   - [ ] **(gate)** GATE @390: a UmlTraceRelationship between a UseCase + its Method renders the typed trace connector; the relation vocabulary (decomposes/traces) is carried; endpoints resolve to real units.
   -> modelElement.umlTraceRelationship [uc:uuid:8c10c217-3372-4cdb-b4ba-60076766a70c]
+  -> diagramView.buildTraceEdge [uc:uuid:a9148cbe-5ef6-4c47-b789-a414683ad58d]
+  -> modelElement.authorTrace [uc:uuid:3a1428cd-a331-4ad2-8561-867537cf3937]
 
 - [ ] **R36.5 — Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking**
   [requirement:uuid:a8663672-3522-4f0c-b313-d14d13dbba5f]

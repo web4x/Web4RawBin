@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R36.4 (build LAST, after projections). UmlTraceRelationship extends TraceLink + RawBin decompose/trace vocabulary (UseCase -> Method); typed connector reuses R32.6 edges + EDGE_DEFS kind-map (no fork). @390 real-WebKit gate + chain-complete-to-Test on ship.
+In Progress (in-testing): R36.4 UmlTraceRelationship BUILT — inc-1 DERIVED connector (2ab6e3d11 v0.8.57) + inc-2 AUTHORED authorTrace + draw-to-create (ce843818d/84284dc19 v0.8.58/59); both [impl] markers PLACED strict-AST (Impl a79f6091 authorTrace + dc101d02 buildTraceEdge markerPending=false, req credit-flip c99e69084) + mechanism Test d41ee143 <-> a79f6091 wired. ★ PENDING: r364b @390 render Test (visual connector paint) on fresh tester -> Done when @390-gated + chain-complete-to-Test.
 
 ## Traceability
 

@@ -6,18 +6,18 @@
   "name": "Task 36.4: UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace [R36.4, build LAST]",
   "slug": "task-36.4-umltracerelationship",
   "description": "NEW UmlTraceRelationship EXTENDS the existing TraceLink (reuse {from,to,fromType,toType,relation,direction,label}) with a RawBin relation VOCABULARY (decomposes/traces), NOT strict UML 2.5. Semantics: a UseCase (=Class.method/Object.verb) traces/decomposes -> its Method. Each endpoint = a typed OOP-extended ScenarioUnit tracking usage-refs. Renders as a typed connector on the diagram (reuse R32.6 edges + EDGE_DEFS kind-map, add the trace kind). Cluster 4 (build last).",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [~] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Sprint 36 Planning](./planning.md)\n    - Requirement R36.4 `[requirement:uuid:2265ad63-8c61-4e72-bd36-afd28c9bd731]`\n  - down\n    - None (atomic task)",
   "acceptanceCriteria": "- [ ] (functional) UmlTraceRelationship EXTENDS TraceLink (reuse from/to/fromType/toType/relation/direction/label) + a RawBin relation vocabulary (decomposes/traces) — NOT strict UML 2.5, NOT a new fork.\n- [ ] (functional) Semantics: a UseCase (Class.method/Object.verb) traces/decomposes -> its Method; each endpoint is a typed OOP-extended unit tracking usage-refs.\n- [ ] (functional) Renders as a typed connector on the diagram — reuse R32.6 edges + EDGE_DEFS kind-map with the added trace kind (no fork).\n- [ ] (gate) GATE @390 real-WebKit: a UmlTraceRelationship between a UseCase + its Method renders the typed trace connector; the relation vocabulary (decomposes/traces) is carried; endpoints resolve to real units.",
   "subtasks": "None (atomic task).",
-  "status": "Planned",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:2265ad63-8c61-4e72-bd36-afd28c9bd731"
   ],
   "useCases": [],
   "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
   "sprintName": "Sprint 36",
-  "remainingIssues": "Planned — cluster R36.4 (build LAST, after projections). UmlTraceRelationship extends TraceLink + RawBin decompose/trace vocabulary (UseCase -> Method); typed connector reuses R32.6 edges + EDGE_DEFS kind-map (no fork). @390 real-WebKit gate + chain-complete-to-Test on ship.",
+  "remainingIssues": "In Progress (in-testing): R36.4 UmlTraceRelationship BUILT — inc-1 DERIVED connector (2ab6e3d11 v0.8.57) + inc-2 AUTHORED authorTrace + draw-to-create (ce843818d/84284dc19 v0.8.58/59); both [impl] markers PLACED strict-AST (Impl a79f6091 authorTrace + dc101d02 buildTraceEdge markerPending=false, req credit-flip c99e69084) + mechanism Test d41ee143 <-> a79f6091 wired. ★ PENDING: r364b @390 render Test (visual connector paint) on fresh tester -> Done when @390-gated + chain-complete-to-Test.",
   "createdBy": "robbin-planner",
   "createdAt": "2026-08-05"
  }
