@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
+- [x] In Progress
+  - [x] refinement
+  - [~] creating test cases
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned — cluster R36.3 (build 2nd, after FOUNDATION, before R36.1/2 projections). Enrich Method unit (full signature + docs) + parentClass Method-vs-Function distinction (one-way Function->Method) + UmlMethod/UmlFunction/ts-method projections. @390 real-WebKit gate + chain-complete-to-Test on ship.
+In Progress (CHAIN-CREDIT code-done, @390 Test PENDING): R36.3 CODE-DONE (architect d38b5321e chain-credit R30.11, no new build) — methodSignature UC rides Impl 382f8644 (TsToModel.generate signature+parentClass data-extract d978df35d, markerPending=false) + crossRef renderFacet 94ad4f50 (render); Method-vs-Function BY-CONSTRUCTION (parentClass present->Method / absent->Function, TsToModel.ts:155/180). req chainCredit aac167c3a. ★ HELD for Done: fresh tester @390 gate (re-generate prereq -> method-facet signature render 'visibility name(params):returnType' -> Method-vs-Function) PENDING; on GREEN req mints the distinct-intent Test -> chain-complete-to-Test -> flip. Runs PARALLEL to r364b (T36.4).
 
 ## Traceability
 
