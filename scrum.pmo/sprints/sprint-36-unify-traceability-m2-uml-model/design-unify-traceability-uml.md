@@ -78,3 +78,36 @@ R36.3 part-1 (d978df35d, rides TsToModel.generate 382f8644) ships the DATA: Meth
 ★ PRINCIPLE (the correct-by-construction line): **preserve-across-regen applies ONLY to NON-source-derived metadata** (usedIn = diagram/folder placement, NOT a code fact → side-index, R36.2). **SOURCE-DERIVED facts follow the source** (TsToModel = source of truth): `parentClass`/method-vs-function/signature/members are GENERATED from the AST → a model-only edit creates model↔source DRIFT that regenerate CORRECTLY overwrites. So Function→Method CONVERSION = a **SOURCE refactor** (move the top-level function INTO a class in the .ts → TsToModel regenerates it as a method NATURALLY), NOT a model-edit that regenerate must preserve. This is the OPPOSITE of the usedIn caveat: usedIn is preserved BECAUSE it isn't in the source; parentClass is NOT preserved BECAUSE it is. CALL for this sprint: R36.3 MODELS the distinction (parentClass present=Method/absent=Function — SHIPPED) + declares the conversion SEMANTICS = source-edit (Scenario/Edit opens the source; regenerate reflects the refactor). A dedicated function→method REFACTOR operation (rewrite source + call-sites) is a LATER feature if Tron wants a one-click convert — flag to PO. Do NOT build a model-only-preserved conversion (it would lie vs source).
 ### Restart
 R36.3 restart stays DEFERRED per the moving-target guard (tester gating the foundation @390 on 0.8.52) — I honor it; the enrichment is data-only + takes effect on re-generate. I restart+backstop R36.3 when the 0.8.52 gate lifts.
+
+## R36.1/R36.2 part-2 — DETAILED reconcile design (architect 2026-08-05, for the fresh expert)
+The A-merge is a RESOLVE-TIME COMPUTE-ON-READ at `/api/ior` (server.ts:2358) — NEVER a write to either file. This is what makes it correct-by-construction: files stay pristine ⇒ INV-T (tree bytes) + isolation (prod) + INV-RM1 (M1 pristine) all hold BY CONSTRUCTION; "never blind-overwrite" = the merge NEVER writes, it computes a canonical VIEW.
+### MERGE ALGORITHM — `reconcileCanonical(uuid)` hooked into GET /api/ior/<uuid>
+1. **Load base:** `base = idx.get(uuid)` from `isModelUnit(uuid) ? MODEL_STORE : prod scenario/index` (existing resolve). (uuid may be the traceability uuid OR the M1 uuid.)
+2. **Compute the canonical key:** `key = keyToUuid(base.sourceFile-rel :: (base.qualifiedName || base.name))`. This is the M1's own uuid AND the deterministic dedup key (R32.2). (No sourceFile/name → no counterpart; base IS canonical, skip to 5.)
+3. **Find the counterpart (dedup by sourceFile::qualifiedName):**
+   - base is a TRACEABILITY unit (Class/Method/UseCase) → counterpart `m1 = MODEL_STORE.get(key)` (the generated M1).
+   - base is an M1 element → counterpart `trace = ` the traceability unit with matching sourceFile+name (scan prod by type+sourceFile+name, or a name→uuid index). 
+   - No counterpart → base is canonical as-is (still gets facets if authored + usedIn); done.
+4. **READ-MERGE into a canonical VIEW (compute in memory, precedence table below) — do NOT write either file.**
+5. **Attach usedIn:** `canonical.usedIn = resolveUsedIn(key)` (R36.2 side-index, keyed by the canonical key).
+6. **Return** the canonical merged model as the /api/ior response. (Persistence NOT needed; if ever required, write ONLY to a MODEL_STORE canonical unit — never prod, never the pristine M1 — but default is compute-on-read.)
+### FIELD-PRECEDENCE (which field from which side — never blind-overwrite; UNION where additive)
+| Field | Source (winner) | Rule |
+|-------|-----------------|------|
+| `uuid` (canonical identity) | TRACEABILITY | the authored, chain-stable uuid; the M1 key ALIASES to it (both resolve to the same canonical) |
+| `name`, `sourceFile`, `qualifiedName` | TRACEABILITY (M1 fallback) | authored preferred; M1 if trace absent |
+| `instanceOf:[Uml*, ts-*-code]` | UNION(M1 generated, authored) | the typed OOP-extension facets — generated facets UNION any authored |
+| `members[]`, `memberOf`, `kind`, `relatesTo[]`, `relations[]` | M1 (generated structure) | the AST-derived model structure |
+| `visibility, parameters[], returnType, docs, parentClass` (R36.3) | M1/enrichment (source-derived) | the signature; source is truth (per R36.3 principle) |
+| `methods[]`, `implementations[]`, `tests[]`, `class`, `method`, `tasks`, `description` | TRACEABILITY (authored chain) | the 6-step chain links |
+| `usedIn[]` | R36.2 side-index (key) | attached at step 5 |
+INV: additive fields UNION (never drop one side); scalar conflicts prefer the AUTHORED chain unit for identity/chain, the GENERATED M1 for structure/signature. NEVER overwrite a file.
+### FACET-LENS RENDER — `renderFacet(canonical, facetType)` built ONCE, reused by all projections
+ONE facet-parameterized renderer over the canonical merged unit — NOT N renderers. Reuse the R32.4 diagram-view-model `buildBox`/`buildDiagramSvg` surface; the `facetType` selects the lens:
+- `UmlClass` → UML box: name + attribute compartment (members kind∈{attribute,property}) + method compartment (members kind=method, each rendered via UmlMethod).
+- `UmlMethod`/`UmlFunction` → `visibility name(parameters): returnType` + docs; UmlFunction iff `parentClass` absent.
+- `UmlUseCase` → use-case ellipse (name=Object.verb) + a UmlTraceRelationship connector to its `method` (R36.4).
+- `tsClass`/`ts-method-code` → TS-syntax lens over the same data.
+Drag-onto-diagram = a Diagram `views[]` view-link {unit: canonical-uuid, viewKind: facetType} (reuse R32.4/R32.11 add-view); the surface renderer calls `renderFacet(reconcileCanonical(unit), viewKind)`. Scenario/Edit on any facet view → the canonical uuid (rides S35 universal-actions → the base unit). ONE render path, all projections.
+### INV / gate
+INV-T byte-diff==0 (merge is /api/ior compute-on-read; mofChildren/tree read the unchanged files) · isolation (no prod write) · INV-RM1 strict (M1 pristine) · usedIn side-index survives re-gen · dedup deterministic (keyToUuid) · facet render built once (no fork). GATE @390: drag each facet → renders from the canonical (no dup data); Scenario/Edit → canonical base unit; pre/post-merge tree byte-diff==0; where-used bidirectional.
