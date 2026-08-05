@@ -3,7 +3,7 @@
 // (the custom element) does the fetch + mount + pan/zoom + click; this module is the render logic it calls.
 // R32.6 EXTENDS it: an ADDITIVE edge pass (buildEdges) — model relatesTo/relations → on-surface X→Y edges.
 
-export type EdgeKind = 'association' | 'generalization' | 'dependency';
+export type EdgeKind = 'association' | 'generalization' | 'dependency' | 'trace'; // R36.4: UmlTraceRelationship (UC→method), dashed
 export interface DiagramRelation { to: string; kind: EdgeKind } // to = target element uuid (or ref); kind = M2-derived
 export interface ViewLink { unit: string; x: number; y: number; w?: number; h?: number; viewKind?: string; }
 export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; }
@@ -86,6 +86,7 @@ export const EDGE_DEFS = '<defs>'
   + '<marker id="dm-arrow-generalization" markerWidth="14" markerHeight="12" refX="11" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L11,5 L0,10 Z" class="dm-arrow-hollow"/></marker>'
   + '<marker id="dm-arrow-association" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10" class="dm-arrow-open"/></marker>'
   + '<marker id="dm-arrow-dependency" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10" class="dm-arrow-open"/></marker>'
+  + '<marker id="dm-arrow-trace" markerWidth="12" markerHeight="12" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,5 L0,10" class="dm-arrow-open"/></marker>' // R36.4 UmlTraceRelationship (UC→method); the dashed LINE (.dm-edge-trace) distinguishes it
   + '</defs>';
 
 export interface Rect { x: number; y: number; w: number; h: number }
@@ -106,9 +107,11 @@ export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramN
   const rects = new Map<string, Rect>();
   const nodes = new Map<string, DiagramNode>();
   for (const v of views) {
-    if (v.viewKind && !CLASS_FACETS.has(v.viewKind)) continue; // R36.2 (B): only class-family facets carry relation edges
     const uuid = stripRef(v.unit); const node = nodeOf(uuid); if (!node) continue;
-    rects.set(uuid, { x: v.x, y: v.y, w: v.w || BOX_W, h: boxH(node) });
+    // R36.4: rect EVERY facet view (facet-aware size) so a trace connector (UC→method) can anchor to usecase/method
+    // views too — not only class-family. Class relations still originate on class nodes' relations[]; usecase nodes
+    // carry the derived {to:method, kind:'trace'} relation. borderPoint clip + (from,to,kind) de-dup unchanged.
+    rects.set(uuid, { x: v.x, y: v.y, w: facetW(v, node), h: facetH(v, node) });
     nodes.set(uuid, node);
   }
   const seen = new Set<string>(); const edges: string[] = [];

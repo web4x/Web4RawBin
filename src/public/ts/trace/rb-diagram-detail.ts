@@ -35,6 +35,7 @@ const STYLE = `<style>
   rb-diagram-detail .dm-edge{stroke:#8b949e;stroke-width:1.5;fill:none;cursor:pointer}
   rb-diagram-detail .dm-edge:hover{stroke:#58a6ff}
   rb-diagram-detail .dm-edge-dependency{stroke-dasharray:5 4}
+  rb-diagram-detail .dm-edge-trace{stroke-dasharray:2 3;stroke:#a371f7} /* R36.4 UmlTraceRelationship UC→method: fine-dotted, distinct hue */
   rb-diagram-detail .dm-arrow-open{fill:none;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-arrow-hollow{fill:#0d1117;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-empty{padding:24px;color:rgba(230,237,243,.6);font:13px system-ui;text-align:center}
@@ -141,6 +142,11 @@ export class RbDiagramDetail extends HTMLElement {
       };
       collect(m);
       for (const mm of members) { if (!mm) continue; (String(mm.kind) === 'method' ? methods : attrs).push(String(mm.name)); collect(mm); }
+      // R36.4 DERIVED trace: a UseCase carries a singular `method` ref (Object.verb → its Method) — the trace ALREADY
+      // exists in the chain data, so emit it as a typed {kind:'trace'} relation (NO new unit). buildEdges renders it
+      // as a dashed connector IFF the target Method is also on the diagram (both-on-diagram guard). Authored traces
+      // (UmlTraceRelationship units) are the separate server-persist path (R36.4 increment-2).
+      if (m.method && typeof m.method === 'string') relations.push({ to: stripRef(m.method), kind: 'trace' as EdgeKind });
       nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m) });
     }));
     this._sourceFile = sourceFile;
