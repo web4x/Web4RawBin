@@ -26,7 +26,7 @@
    {
     "id": "AC-traceability-expands",
     "group": "functional",
-    "text": "rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree — returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork."
+    "text": "rawbin:traceability expands into the SAME current+sprints-overview structure that /trace renders (STRUCTURAL PARITY) — a CurrentSprint node PINNED first + Sprints in project order S1->S35 (ior:class:Sprint by model.number ASC = /api/trace/sprints = sprints.overview.md order); each sprint expands via the EXISTING /api/trace/children walk to its requirements -> each req to its chain (Req->UC->Class->Method->Impl->Test). NOT a flat list of 497 requirement roots, NOT a reinvented hierarchy."
    },
    {
     "id": "AC-nodes-real-scenarios",
@@ -36,10 +36,17 @@
    {
     "id": "AC-gate-390",
     "group": "gate",
-    "text": "GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve."
+    "text": "GATE @390 real-WebKit: RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; rawbin:traceability expands to CurrentSprint(pinned) + ORDERED sprint nodes (~36, SAME order+uuids as /api/trace/sprints + sprints.overview.md, S1->S35), each sprint -> its reqs -> each req -> its chain (structural PARITY with /trace, NOT flat 497 roots); nodes open real detail + Scenario/Edit."
+   },
+   {
+    "id": "AC-reuse-sprints-overview",
+    "group": "functional",
+    "text": "DRY / single-source: rawbin:traceability REUSES the EXISTING current+sprints-overview node-set (does NOT reinvent, does NOT flat-list 497 req roots). The ordered-Sprint enumeration lives in ONE SHARED helper sprintOverviewNodes() called by BOTH /api/trace/sprints (which /trace consumes) AND the traceability folder builder (traceabilityRoots), so the folder is STRUCTURALLY IDENTICAL to /trace by construction (single source of truth for sprint order+uuids). sprint->req->chain rides the EXISTING /api/trace/children trace-walk (zero new walk code)."
    }
   ],
-  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef"
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "reopenNote": "R35.4 REOPENED 2026-08-05 (Tron DRY, po-delegated) + RESOLVED same-day. Original gate (Test 83abce21) verified a FLAT '497 req roots' tree, MISSING sprint structure. SHARPENED to structural-parity DRY: reuse the existing sprints-overview (sprints.overview.md via trace-page.ts / /api/trace/sprints) — CurrentSprint + S1->S35 ordered -> reqs -> chain. BUILT (expert 98eb0d891 v0.8.51) + tester PARITY re-gate GREEN (r354-parity-webkit-gate.mjs). Test 83abce21 RE-POINTED (same uuid, PO-directed) from the flat assertion to the parity gate; wiring 83abce21<->b6c88d83 intact (impl unchanged).",
+  "chainNote": "RESOLVED via impl-EDIT on mofChildren b6c88d83 (traceabilityRoots BODY replaced to build sprint nodes; dispatch @server.ts:1294 unchanged) — data=truth: the shared enumeration sprintOverviewNodes() (server.ts:1250) is an UN-marked SHARED PRIVATE helper riding b6c88d83, called by BOTH traceabilityRoots (:1269) + /api/trace/sprints (:2104) = one source of truth (DRY in code, no new chain node — supersedes the earlier option-a 'IMPL-MINT sprintOverviewNodes' plan; the expert built it as a riding helper, cleaner). R35.4 credits b6c88d83; Test 83abce21 (parity, re-pointed) closes it."
  },
  "ownerIor": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da"
 }
