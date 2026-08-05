@@ -15,7 +15,8 @@
   "unitLinks": [],
   "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
   "useCases": [
-   "ior:instance:f5e4ecb2-b337-4ed4-9c49-df3effd5775a"
+   "ior:instance:f5e4ecb2-b337-4ed4-9c49-df3effd5775a",
+   "ior:instance:8e39082a-2b1b-4b52-be3a-af8157c17100"
   ],
   "acceptanceCriteria": [
    {
@@ -39,7 +40,11 @@
     "text": "GATE @390: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function→Method conversion works, Method→Function blocked."
    }
   ],
-  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "chainCredit": "R30.11-shared-impl",
+  "chainCreditNote": "R36.3 CODE-DONE (woven into shared impls), chain built via R30.11 shared-impl (architect 2ebff228c + planner + PO final). R36.3 OWN Methods enrichMethodSignature 68d1997e (rides data Impl 382f8644=R32.2) + renderMethodFacet d8818494 (rides render Impl 94ad4f50=R36.2). 3 DISTINCT-INTENT Tests PENDING (fresh tester @390 re-generate gate): T1 data-enrich signature+parentClass; T2 facet renders visibility name(params):returnType; T3 Method-vs-Function by parentClass. NO re-credit/flip of R32.2/R36.2 markers.",
+  "methodVsFunctionClosure": "by-construction",
+  "methodVsFunctionClosureNote": "TsToModel derives type by parentClass presence (present->Method TsToModel.ts:180; absent->Function :155). T3 gates it; distinction is by-construction."
  },
  "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
 }

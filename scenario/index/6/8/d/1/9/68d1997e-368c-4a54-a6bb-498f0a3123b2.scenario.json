@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "68d1997e-368c-4a54-a6bb-498f0a3123b2",
+    "name": "TsToModel.enrichMethodSignature",
+    "description": "R36.3 data-enrich: extract+write full signature (visibility, parameters, returnType, docs) + parentClass for each M1 Method/Function on TsToModel re-generate (TsToModel.ts:150-180 extract incl memberVisibility:74, :228-232 write). R36.3 R30.11 SHARED-IMPL credit (architect 2ebff228c, PO final greenlight): R36.3's OWN Method RIDES this shared Impl with DISTINCT INTENT — the Impl's marker/ownerIor STAY with its owner (382f8644=R32.2 generate, 94ad4f50=R36.2 renderFacet); NO re-credit, NO markerPending flip. R36.3 credit = distinct-intent Test(s) on the shared Impl. Test-PENDING (fresh tester @390 gate).",
+    "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
+    "implementations": [
+      "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051"
+}

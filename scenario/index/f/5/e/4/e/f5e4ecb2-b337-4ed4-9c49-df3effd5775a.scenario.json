@@ -6,7 +6,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "parent": null,
   "unitLinks": [],
-  "description": "R36.3: enrich the Method unit with visibility/parameters/returnType/docs + parentClass-driven Method-vs-Function (instanceOf UmlMethod|UmlFunction) + ts-method-code projection. Method/chain at build-go (server model enrich + client projections)."
+  "description": "R36.3: enrich the Method unit with visibility/parameters/returnType/docs + parentClass-driven Method-vs-Function (instanceOf UmlMethod|UmlFunction) + ts-method-code projection. Method/chain at build-go (server model enrich + client projections).",
+  "class": "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051",
+  "method": "ior:instance:68d1997e-368c-4a54-a6bb-498f0a3123b2"
  },
  "ownerIor": null
 }

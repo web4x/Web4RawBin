@@ -5,7 +5,8 @@
     "name": "TsToModel",
     "file": "src/ts/scenario/TsToModel.ts",
     "methods": [
-      "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576"
+      "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576",
+      "ior:instance:68d1997e-368c-4a54-a6bb-498f0a3123b2"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",

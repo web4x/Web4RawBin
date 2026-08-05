@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8e39082a-2b1b-4b52-be3a-af8157c17100",
+  "name": "diagramView.methodFacetRender",
+  "description": "R36.3 render: a method facet renders the full signature line 'visibility name(params):returnType' in a compartment (distinct intent from R36.2's facet-lens routing). Rides renderFacet Impl 94ad4f50 (renderMethodFacet inline helper).",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "method": "ior:instance:d8818494-2374-4891-b581-d3fa96add67c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-unify-traceability-uml.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}
