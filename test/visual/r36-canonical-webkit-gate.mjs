@@ -5,7 +5,10 @@
 // GATE: (1) INV-T — /api/ior twice byte-identical + the on-disk unit file mtime UNCHANGED (compute-on-read never writes);
 // (2) renderFacet — each facet (UmlClass/tsClass/UmlMethod/UmlFunction/UmlUseCase) PAINTS a box (pixel area>0) with its
 // distinct lens (class→UML box, method→signature row, usecase→ellipse); (3) Scenario/Edit → the CANONICAL unit unchanged;
-// (4) where-used BIDIRECTIONAL (R36.2 side-index, net-zero add/remove). [test markers pending req-recovery — gate now]
+// (4) where-used BIDIRECTIONAL (R36.2 side-index, net-zero add/remove). Re-gated GREEN on served 0.8.58 (R36_TARGET=0.8.58).
+// [test:uuid:e21b876d-2397-4db1-a927-08256e5b2904] S36 part-2 DiagramViewModel.renderFacet (Impl 94ad4f50) — every view PAINTS
+// its viewKind lens from the ONE canonical node (UmlClass/tsClass→UML box+«ts», UmlMethod/UmlFunction→signature row,
+// UmlUseCase→ellipse), pixel area>20 @390 mobile + desktop real-WebKit, DET-3x (was: non-class views skipped facets).
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
