@@ -1244,21 +1244,30 @@ function pumlChildren(els: MofEl[]): MofNode[] {
   for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
-// R35.4 (uncredited helper of mofChildren b6c88d83, UC beb0af0d mofTree.traceabilityFolder): the trace-tree ROOTS =
-// every ior:class:Requirement in PROD scenario/index (mirrors /api/trace/roots) → MofNodes. rawbin:traceability returns
-// these so it expands into the REAL trace tree via /api/trace/children (a requirement uuid ≠ a MOF ref → routes to the
-// existing trace walk, no fork). Trace units are already real on-disk → R35.2/R35.3 detail + OScenario/OEdit resolve.
+// R35.4 DRY fix (architect cb9168e8c) — the ONE ordered-Sprint source: ior:class:Sprint by number (= /trace's
+// sprints.overview order). SHARED so the /api/trace/sprints endpoint (which /trace consumes) AND traceabilityRoots()
+// derive the SAME sprint set+order → the traceability folder CANNOT drift from /trace (parity BY CONSTRUCTION). Zero fork.
+function sprintOverviewNodes(idx: ScenarioIndex): Array<{ uuid: string; name: string; number: number; taskCount: number }> {
+  const sprints = idx.list().map((u) => {
+    const g = idx.get(u);
+    if (g?.ior !== 'ior:class:Sprint') return null;
+    return { uuid: u, name: String(g.model?.name || ''), number: Number(g.model?.number || 0), taskCount: Array.isArray(g.model?.tasks) ? (g.model!.tasks as string[]).length : 0 };
+  }).filter(Boolean) as Array<{ uuid: string; name: string; number: number; taskCount: number }>;
+  return sprints.sort((a, b) => a.number - b.number);
+}
+
+// R35.4 (uncredited helper of mofChildren b6c88d83, UC beb0af0d mofTree.traceabilityFolder) — the traceability folder
+// mirrors /trace's TOP-LEVEL by construction: the CurrentSprint singleton node + the ordered Sprints (the SHARED
+// sprintOverviewNodes source). Each node expands via the EXISTING /api/trace/children walk (CurrentSprint→slots,
+// Sprint→tasks→req→chain — a plain uuid ≠ a MOF ref → routes to the trace walk, no reinvented hierarchy, no fork).
+// Was flat-497 Requirement roots (drifted from /trace's sprint structure — the reopened DRY bug).
 function traceabilityRoots(): MofNode[] {
   const tidx = new ScenarioIndex(path.join(__dirname, '../../..', 'scenario', 'index'));
   const out: MofNode[] = [];
-  for (const u of tidx.list()) {
-    const g = tidx.get(u);
-    if (!g || g.ior !== 'ior:class:Requirement') continue;
-    const ucs = Array.isArray(g.model?.useCases) ? (g.model.useCases as string[]).length : 0;
-    const tks = Array.isArray(g.model?.tasks) ? (g.model.tasks as string[]).length : 0;
-    out.push(mofFolder(u, String(g.model?.name || u.slice(0, 8)), ucs + tks, 'requirement', 'requirement'));
-  }
-  return out.sort((a, b) => a.name.localeCompare(b.name));
+  // CurrentSprint node — SAME singleton uuid /trace uses (rb-trace-tree) → its expand rides the identical CurrentSprint slots.
+  out.push(mofFolder('current-sprint-singleton-0000-000000000001', 'CurrentSprint', 3, 'trace', 'currentsprint'));
+  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, s.name || `Sprint ${s.number}`, s.taskCount, 'trace', 'sprint'));
+  return out;
 }
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (!/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) return null;
@@ -2090,15 +2099,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // T187: /api/trace/sprints — Sprint navigation roots (Sprint→Tasks)
     if (filepath === '/api/trace/sprints') {
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
-        const idx = new ScenarioIndex(scenarioDir);
-        const sprints = idx.list().map(uuid => {
-          const u = idx.get(uuid);
-          if (!u || u.ior !== 'ior:class:Sprint') return null;
-          const tasks = (u.model.tasks as string[]) || [];
-          return { uuid, type: 'Sprint', name: String(u.model?.name || ''), number: u.model?.number || 0, hasChildren: tasks.length > 0, childCount: tasks.length };
-        }).filter(Boolean);
-        sprints.sort((a: any, b: any) => (a.number || 0) - (b.number || 0));
+        const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+        // R35.4 DRY: SAME shared ordered-Sprint source as the traceability folder (parity by construction). Shape unchanged.
+        const sprints = sprintOverviewNodes(idx).map((s) => ({ uuid: s.uuid, type: 'Sprint', name: s.name, number: s.number, hasChildren: s.taskCount > 0, childCount: s.taskCount }));
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(sprints));
       } catch { res.writeHead(500); res.end('[]'); }
