@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "d2a2ead2-6960-41f3-8ab6-06756cc30ede",
+  "name": "modelElement.usedInSurvivesRegen",
+  "description": "R36.2 survives-regen: a usedIn reference added to a unit PERSISTS across a TsToModel re-generate (the usage-index side-index is re-gen-immune by construction). Rides resolveUsedIn Impl 2f44e112 (reads the side-index) distinct-intent.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:94154aba-f2c5-4fdd-8aea-446dd0c11dd6",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-unify-traceability-uml.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

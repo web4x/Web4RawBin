@@ -17,7 +17,8 @@
   "useCases": [
    "ior:instance:dd000fd8-b65c-4868-a3ed-22b2f23a3aed",
    "ior:instance:f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c",
-   "ior:instance:97e5e14e-aaf7-4783-8352-f6da5bbc5e24"
+   "ior:instance:97e5e14e-aaf7-4783-8352-f6da5bbc5e24",
+   "ior:instance:d2a2ead2-6960-41f3-8ab6-06756cc30ede"
   ],
   "acceptanceCriteria": [
    {
@@ -63,7 +64,8 @@
   ],
   "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "regenConstraintNote": "R36.2 usedIn-survives-regen MECHANISM = (c) SIDE-INDEX (architect ca49f1826, RECOMMEND): a MODEL_STORE usage-index keyed by canonical uuid (sourceFile::qualifiedName), outside the generated element -> re-gen-immune BY CONSTRUCTION, element pristine (INV-RM1 strict), decoupled, bidirectional. REJECT (a) write-on-canonical (prod scenario/index isolation violation unless canonical in MODEL_STORE=becomes c). (b) read-merge-write = minimal fallback (couples TsToModel, INV-RM1 relaxed). Refactors R36.5 on-element usedIn into the side index at R36.2. Formalize the R36.2 chain on (c) at build-go [or (b) if PO/expert opt minimal].",
-  "r365RegateNote": "R36.2 (c) side-index moves the usedIn store off-element (transparent swap, only R36.5 3 fns change backend). R36.5 Test 91a10db8 gated ON-ELEMENT usedIn; on R36.2 ship the tester RE-GATES R36.5 on the side-index (like R35.4 flat->parity re-point). Wired into the R36.2 gate so R36.5 is re-verified when R36.2 lands (no silent stale green)."
+  "r365RegateNote": "R36.2 (c) side-index moves the usedIn store off-element (transparent swap, only R36.5 3 fns change backend). R36.5 Test 91a10db8 gated ON-ELEMENT usedIn; on R36.2 ship the tester RE-GATES R36.5 on the side-index (like R35.4 flat->parity re-point). Wired into the R36.2 gate so R36.5 is re-verified when R36.2 lands (no silent stale green).",
+  "survivesRegenChainNote": "AC-usedin-survives-regen chain-built R30.11 shared-impl (own UC modelElement.usedInSurvivesRegen d2a2ead2 -> own Method server.usedInSurvivesRegen 94154aba -> rides resolveUsedIn Impl 2f44e112 distinct-intent, R36.5-owned untouched). Test-PENDING (tester folds into R36.3 re-generate cycle). AC-r365-regate-on-store-move: tester re-gates R36.5's 91a10db8 on the side-index when this ships."
  },
  "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
 }
