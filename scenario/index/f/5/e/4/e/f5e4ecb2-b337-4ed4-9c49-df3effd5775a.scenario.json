@@ -6,7 +6,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "parent": null,
   "unitLinks": [],
-  "description": "R36.3: enrich the Method unit with visibility/parameters/returnType/docs + parentClass-driven Method-vs-Function (instanceOf UmlMethod|UmlFunction) + ts-method-code projection. Method/chain at build-go (server model enrich + client projections)."
+  "description": "R36.3: enrich the Method unit with visibility/parameters/returnType/docs + parentClass-driven Method-vs-Function (instanceOf UmlMethod|UmlFunction) + ts-method-code projection. Method/chain at build-go (server model enrich + client projections).",
+  "class": "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051",
+  "method": "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576",
+  "rideNote": "R36.3 chain-credit (architect verdict d38b5321e = CODE-DONE, NOT a build). The method/function full-signature DATA-extract (visibility, parameters, returnType, docs, parentClass) is an impl-edit to TsToModel.generate (d978df35d, src/ts/scenario/TsToModel.ts + new helpers memberVisibility/jsDocText) — RIDES the existing generate Impl 382f8644 (R32 marker, no re-credit) with distinct R36.3 intent. Render = renderFacet 94ad4f50 (R36.2). Method-vs-Function = BY-CONSTRUCTION (parentClass present at TsToModel.ts:180 -> Method/UmlMethod; absent at :155 -> Function/UmlFunction)."
  },
  "ownerIor": null
 }
