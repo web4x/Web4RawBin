@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a81a82c4-c12f-443b-99ca-1a2af815c8ba",
+    "name": "test:T36.2 usedIn survives re-generation (distinct-intent on shared resolveUsedIn Impl)",
+    "description": "Bridged to test/visual/r362-survives-regen-gate.ts (INDEPENDENT tester @390 real-WebKit, GREEN DET-3x, adopted from origin — measured, not invented). R30.11 distinct-intent: credits R36.2 usedInSurvivesRegen 94154aba (add-view populates usedIn -> RE-GENERATE class -> usedIn still present + element byte-identical INV-RM1; side-index usage-index.json OUTSIDE element, server.ts:1247). Rides shared Impl 2f44e112 (owned by R36.5 resolveUsedIn e48832b2) ALONGSIDE R36.5's test 91a10db8 — no re-credit.",
+    "sourceFile": "ior:file:test/visual/r362-survives-regen-gate.ts",
+    "implementations": [
+      "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "distinctIntent": true
+  },
+  "ownerIor": "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+}

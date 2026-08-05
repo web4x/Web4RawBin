@@ -6,7 +6,8 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerPending": false,
     "tests": [
-      "ior:instance:91a10db8-8449-4550-aaf5-bb42cb122732"
+      "ior:instance:91a10db8-8449-4550-aaf5-bb42cb122732",
+      "ior:instance:a81a82c4-c12f-443b-99ca-1a2af815c8ba"
     ]
   },
   "ownerIor": "ior:instance:e48832b2-4b28-430f-96a7-50000948fad9"

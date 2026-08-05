@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "84ffd586-0f45-4b1d-bc69-13983141f9d3",
+    "name": "test:R36.3 T3 Method-vs-Function by parentClass (distinct-intent on shared generate Impl)",
+    "description": "Bridged to test/visual/r363-method-facet-webkit-gate.ts (INDEPENDENT tester @390 real-WebKit, GREEN DET-3x, adopted from origin — measured, not invented). R30.11 distinct-intent: parentClass PRESENT => instanceOf UmlMethod, ABSENT => UmlFunction. Credits R36.3 (by-construction classify) on shared Impl 382f8644 (R32.2-owned) ALONGSIDE ba762f5a — no re-credit.",
+    "sourceFile": "ior:file:test/visual/r363-method-facet-webkit-gate.ts",
+    "implementations": [
+      "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "distinctIntent": true
+  },
+  "ownerIor": "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+}
