@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
+  "altId": "R36.5",
+  "name": "Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking",
+  "classification": "new",
+  "clusterRef": "R36.5 base-unit + usedIn",
+  "description": "For EVERY projected view/element, the ◆Scenario + ✎Edit buttons carry the info to open the CORRECT underlying BASE ScenarioUnit (the unit the view projects) in the editor — RIDES S35 universal-actions (onUniversalAction b8f284c6) + ensureViewUnit (a09b474d). Usage-reference tracking (NEW, cross-cutting, bidirectional): add usedIn:[{kind:'diagram'|'folder', ref}] on units ↔ the existing Diagram.views[]/folder links; a resolver computes back-refs (\"where is this used\"). Bidirectional invariant: unit.usedIn ⟷ diagram.views (add-view/remove-view maintain BOTH, reuse R32.11/R33.8 add/remove-view).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "unitLinks": [],
+  "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "useCases": [
+   "ior:instance:2d58e144-1765-4564-ba51-500ba8275944"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-buttons-open-base",
+    "group": "functional",
+    "text": "For every projected view/element, ◆Scenario opens /scenario?ior=<BASE-unit> + ✎Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence."
+   },
+   {
+    "id": "AC-usedin-field",
+    "group": "functional",
+    "text": "Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers \"where is this used\" (back-refs)."
+   },
+   {
+    "id": "AC-usedin-bidirectional",
+    "group": "functional",
+    "text": "INVARIANT: unit.usedIn ⟷ Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram → unit.usedIn + diagram.views both updated; remove → both cleared)."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
+ },
+ "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
+}

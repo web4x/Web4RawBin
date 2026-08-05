@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "d4048137-c73c-4132-a27e-2b2fae53c5b8",
+  "altId": "R36.3",
+  "name": "Method enrichment (full signature + docs) + Method-vs-Function + Uml/ts projections",
+  "classification": "new",
+  "clusterRef": "R36.3 Method enrich",
+  "description": "ENRICH the Method ScenarioUnit with a FULL SIGNATURE: visibility (public/private/protected), name(parameters[]), returnType, and documentation (oosh-style). Method != Function via a parentClass field — PRESENT ⇒ Method (instanceOf UmlMethod), ABSENT ⇒ Function (instanceOf UmlFunction); Function→Method is convertible (add a parentClass), Method→Function is blocked/hard (state/attribute access) = a one-way conversion. Projections: UmlMethod/UmlFunction + ts-method-code (typed extensions of the enriched Method/Function).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "unitLinks": [],
+  "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "useCases": [
+   "ior:instance:f5e4ecb2-b337-4ed4-9c49-df3effd5775a"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-method-signature",
+    "group": "functional",
+    "text": "The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl."
+   },
+   {
+    "id": "AC-method-vs-function",
+    "group": "functional",
+    "text": "parentClass field distinguishes Method (PRESENT ⇒ instanceOf UmlMethod) from Function (ABSENT ⇒ instanceOf UmlFunction). Function→Method convertible (add parentClass); Method→Function blocked (modelled one-way)."
+   },
+   {
+    "id": "AC-projections",
+    "group": "functional",
+    "text": "UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function→Method conversion works, Method→Function blocked."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
+ },
+ "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
+}

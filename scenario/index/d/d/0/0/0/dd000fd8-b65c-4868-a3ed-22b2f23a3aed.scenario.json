@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "dd000fd8-b65c-4868-a3ed-22b2f23a3aed",
+  "name": "modelElement.umlClassView",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R36.2 (A-merge): drag a Class onto a diagram as UmlClass (UML box) or tsClass (TS signature) view-link — two facet-lens views of the ONE merged Class unit; usedIn[] tracked. Rides Diagram view-links; TsToModel reconciles M1 into the traceability Class. Method/chain at build-go."
+ },
+ "ownerIor": null
+}

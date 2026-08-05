@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2d58e144-1765-4564-ba51-500ba8275944",
+  "name": "actionBar.openBaseUnit",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R36.5: ◆Scenario/✎Edit resolve a projected view to its BASE ScenarioUnit + open it (rides S35 onUniversalAction b8f284c6 / ensureViewUnit a09b474d); usedIn[] bidirectional resolver (unit↔Diagram.views). Method/chain at build-go."
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,30 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "name": "Unify Traceability Units with the M2 UML/TS Model",
+  "number": 36,
+  "slug": "sprint-36-unify-traceability-m2-uml-model",
+  "goal": "UML/TS elements are typed OOP-extension VIEWS of the ONE existing ScenarioUnit (DRY, instanceOf multi-facet — NOT copies), usage-tracked. R36.1 UmlUseCase, R36.2 UmlClass/tsClass, R36.3 Method-enrich+Method-vs-Function, R36.4 UmlTraceRelationship extends TraceLink, R36.5 Scenario/Edit→base + usedIn. Follows S35.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/PO-vision.md",
+  "phases": [],
+  "requirements": [
+   "ior:instance:e8fc62f9-5816-4eb1-938c-3db4b44bb803",
+   "ior:instance:32bf71f2-550c-409c-8c4d-b6c26be81586",
+   "ior:instance:d4048137-c73c-4132-a27e-2b2fae53c5b8",
+   "ior:instance:2265ad63-8c61-4e72-bd36-afd28c9bd731",
+   "ior:instance:a8663672-3522-4f0c-b313-d14d13dbba5f"
+  ],
+  "tasks": [],
+  "createdAt": "2026-08-05",
+  "createdBy": "robbin-req",
+  "createdBy_note": "STUB to parent the S36 requirement units (Tron-directed S36). Planner OWNS the sprint unit — enrich + stand up the board; keep uuid + requirements[]. Tron ruled A(MERGE) tree-preserving; all 5 reqs formalized; R36.1/R36.2 carry the hard AC-tree-unchanged (byte-diff==0).",
+  "joint": [
+   "robbin-req",
+   "robbin-architect",
+   "robbin-planner"
+  ]
+ }
+}

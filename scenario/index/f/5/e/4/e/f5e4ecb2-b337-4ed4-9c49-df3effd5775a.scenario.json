@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f5e4ecb2-b337-4ed4-9c49-df3effd5775a",
+  "name": "modelElement.methodSignature",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R36.3: enrich the Method unit with visibility/parameters/returnType/docs + parentClass-driven Method-vs-Function (instanceOf UmlMethod|UmlFunction) + ts-method-code projection. Method/chain at build-go (server model enrich + client projections)."
+ },
+ "ownerIor": null
+}

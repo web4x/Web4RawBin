@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "543ce993-9ffd-4460-a1db-f83bbf1ea0eb",
+  "name": "modelElement.umlUseCaseView",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R36.1: drag a UseCase onto a diagram → a UmlUseCase view-link (ellipse) rendered from the UseCase's existing data; UseCase.usedIn[] tracks placement. Rides Diagram view-links (R32.4/R32.11). Method/chain at build-go (merge-specifics held)."
+ },
+ "ownerIor": null
+}
