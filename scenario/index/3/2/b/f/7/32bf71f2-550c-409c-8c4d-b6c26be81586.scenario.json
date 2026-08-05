@@ -7,7 +7,9 @@
   "classification": "new (merge=A, TsToModel-reconcile)",
   "clusterRef": "R36.2 UmlClass/tsClass",
   "description": "The existing Class ScenarioUnit gains instanceOf:[UmlClass, ts-class-code] (both M2 facets EXIST — reuse) = two facet-LENS VIEWS: UmlClass (UML box: name + attribute/method compartments from Class.methods[]+members) vs tsClass (TS signature view). Both draggable (Diagram view-link to the ONE Class unit, viewKind:'class'|'tsClass'); render from Class data; usedIn usage-refs tracked. Two projections, ONE unit — NO copy. ★ TRON RULING A (MERGE 2026-08-05): the authored traceability Class unit IS the model element — gains the facets in place; TsToModel RECONCILES the generated M1 ModelElement into the SAME traceability Class (deterministic same-uuid sourceFile::qualifiedName, or modelElement link), removing the M1/traceability duplication (ONE unit per real class). ★ HARD CONSTRAINT (Tron): the merge MUST NOT disrupt/break the current tree.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:58596fcc-781f-444b-9730-ca7e3db5f5e0"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "unitLinks": [],

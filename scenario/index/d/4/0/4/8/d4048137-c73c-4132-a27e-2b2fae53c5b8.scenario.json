@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R36.3 Method enrich",
   "description": "ENRICH the Method ScenarioUnit with a FULL SIGNATURE: visibility (public/private/protected), name(parameters[]), returnType, and documentation (oosh-style). Method != Function via a parentClass field — PRESENT ⇒ Method (instanceOf UmlMethod), ABSENT ⇒ Function (instanceOf UmlFunction); Function→Method is convertible (add a parentClass), Method→Function is blocked/hard (state/attribute access) = a one-way conversion. Projections: UmlMethod/UmlFunction + ts-method-code (typed extensions of the enriched Method/Function).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:2a4ec784-53ae-4761-8163-67806ff7a982"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "unitLinks": [],

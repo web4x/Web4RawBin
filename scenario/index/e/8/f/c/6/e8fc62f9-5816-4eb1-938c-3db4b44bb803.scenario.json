@@ -7,7 +7,9 @@
   "classification": "new (merge=A, TsToModel-reconcile)",
   "clusterRef": "R36.1 UmlUseCase",
   "description": "MINT UmlUseCase as a M2 metaclass on disk (ABSENT today) — the existing UseCase ScenarioUnit gains instanceOf:[...,UmlUseCase] (typed OOP EXTENSION / VIEW, NOT a duplicate; the EXACT M2 instanceOf multi-facet mechanism M1 ModelElement already uses). ★ TRON RULING A (MERGE 2026-08-05): the traceability UseCase unit IS the model element — it gains the instanceOf facet + draggability + usage-refs IN PLACE; TsToModel RECONCILES any generated M1 into the SAME traceability unit (deterministic same-uuid by sourceFile::qualifiedName, or a modelElement link), so ONE unit per real use case (no M1/traceability duplication). Drag→diagram = a Diagram view-link to the UseCase unit rendered as a UML use-case ellipse from its EXISTING data (name=Object.verb, class, method) — a VIEW, no copy. UseCase tracks usedIn[]. Stays a Class.method/Object.verb decomposition tracing to its Method (→R36.4). ★ HARD CONSTRAINT (Tron): the merge MUST NOT disrupt/break the current tree.",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:cec4747a-e235-4e65-b59b-3f82f0cbeee3"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "unitLinks": [],

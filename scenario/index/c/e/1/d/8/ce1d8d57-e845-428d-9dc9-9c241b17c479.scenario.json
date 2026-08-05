@@ -9,7 +9,24 @@
   "goal": "UML/TS elements are typed OOP-extension VIEWS of the ONE existing ScenarioUnit (DRY, instanceOf multi-facet — NOT copies), usage-tracked. R36.1 UmlUseCase, R36.2 UmlClass/tsClass, R36.3 Method-enrich+Method-vs-Function, R36.4 UmlTraceRelationship extends TraceLink, R36.5 Scenario/Edit→base + usedIn. Follows S35.",
   "status": "Planned",
   "compoundSource": "scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/PO-vision.md",
-  "phases": [],
+  "phases": [
+   {
+    "id": "FOUNDATION",
+    "title": "Typed-OOP-ext base (Uml*/ts* instanceOf facets extend the existing units, DRY not copies) + usedIn usage-ref tracking + R36.5 Scenario/Edit-opens-correct-base-unit. BUILD FIRST (T36.5)."
+   },
+   {
+    "id": "R36.3",
+    "title": "Method enrichment (full signature/visibility/return/docs) + Method-vs-Function (parentClass present=Method/absent=Function, one-way convert) + Uml/ts projections. Underpins projections (T36.3)."
+   },
+   {
+    "id": "R36.1/R36.2",
+    "title": "Projections + drag-onto-diagram: UmlUseCase ext UseCase (T36.1) + UmlClass/tsClass ext Class (T36.2). A-MERGE tree-preserving — HARD AC-tree-unchanged byte-diff==0 pre/post-merge (Tron)."
+   },
+   {
+    "id": "R36.4",
+    "title": "UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace connector (UseCase -> Method), reuse R32.6 edges. BUILD LAST (T36.4)."
+   }
+  ],
   "requirements": [
    "ior:instance:e8fc62f9-5816-4eb1-938c-3db4b44bb803",
    "ior:instance:32bf71f2-550c-409c-8c4d-b6c26be81586",
@@ -17,7 +34,13 @@
    "ior:instance:2265ad63-8c61-4e72-bd36-afd28c9bd731",
    "ior:instance:a8663672-3522-4f0c-b313-d14d13dbba5f"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:cec4747a-e235-4e65-b59b-3f82f0cbeee3",
+   "ior:instance:58596fcc-781f-444b-9730-ca7e3db5f5e0",
+   "ior:instance:2a4ec784-53ae-4761-8163-67806ff7a982",
+   "ior:instance:47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d",
+   "ior:instance:b5948931-5a36-4779-806d-abe60153aba8"
+  ],
   "createdAt": "2026-08-05",
   "createdBy": "robbin-req",
   "createdBy_note": "STUB to parent the S36 requirement units (Tron-directed S36). Planner OWNS the sprint unit — enrich + stand up the board; keep uuid + requirements[]. Tron ruled A(MERGE) tree-preserving; all 5 reqs formalized; R36.1/R36.2 carry the hard AC-tree-unchanged (byte-diff==0).",

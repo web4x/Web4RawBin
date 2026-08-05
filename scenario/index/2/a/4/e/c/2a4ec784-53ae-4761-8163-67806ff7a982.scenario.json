@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "2a4ec784-53ae-4761-8163-67806ff7a982",
+  "name": "Task 36.3: Method enrichment (full signature + docs) + Method-vs-Function + Uml/ts projections [R36.3, build 2nd]",
+  "slug": "task-36.3-method-enrich",
+  "description": "ENRICH the Method ScenarioUnit with a FULL SIGNATURE: visibility (public/private/protected), name(parameters[]), returnType, and documentation (oosh-style). Method != Function via a parentClass field — PRESENT => Method (instanceOf UmlMethod), ABSENT => Function (instanceOf UmlFunction); Function->Method is convertible (add a parentClass), Method->Function is blocked/hard (state/attribute access) = a one-way conversion. Projections: UmlMethod/UmlFunction + ts-method-code (typed extensions of the enriched Method/Function). Cluster 2 (underpins the projections).",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 36 Planning](./planning.md)\n    - Requirement R36.3 `[requirement:uuid:d4048137-c73c-4132-a27e-2b2fae53c5b8]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl.\n- [ ] (functional) parentClass field distinguishes Method (PRESENT => instanceOf UmlMethod) from Function (ABSENT => instanceOf UmlFunction). Function->Method convertible (add parentClass); Method->Function blocked (modelled one-way).\n- [ ] (functional) UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).\n- [ ] (gate) GATE @390 real-WebKit: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function->Method conversion works, Method->Function blocked.",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:d4048137-c73c-4132-a27e-2b2fae53c5b8"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "sprintName": "Sprint 36",
+  "remainingIssues": "Planned — cluster R36.3 (build 2nd, after FOUNDATION, before R36.1/2 projections). Enrich Method unit (full signature + docs) + parentClass Method-vs-Function distinction (one-way Function->Method) + UmlMethod/UmlFunction/ts-method projections. @390 real-WebKit gate + chain-complete-to-Test on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-05"
+ }
+}

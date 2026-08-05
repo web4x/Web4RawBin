@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R36.5 base-unit + usedIn",
   "description": "For EVERY projected view/element, the ◆Scenario + ✎Edit buttons carry the info to open the CORRECT underlying BASE ScenarioUnit (the unit the view projects) in the editor — RIDES S35 universal-actions (onUniversalAction b8f284c6) + ensureViewUnit (a09b474d). Usage-reference tracking (NEW, cross-cutting, bidirectional): add usedIn:[{kind:'diagram'|'folder', ref}] on units ↔ the existing Diagram.views[]/folder links; a resolver computes back-refs (\"where is this used\"). Bidirectional invariant: unit.usedIn ⟷ diagram.views (add-view/remove-view maintain BOTH, reuse R32.11/R33.8 add/remove-view).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:b5948931-5a36-4779-806d-abe60153aba8"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "unitLinks": [],

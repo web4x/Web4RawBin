@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "b5948931-5a36-4779-806d-abe60153aba8",
+  "name": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
+  "slug": "task-36.5-scenario-edit-base-unit",
+  "description": "For EVERY projected view/element, the Scenario + Edit buttons carry the info to open the CORRECT underlying BASE ScenarioUnit (the unit the view projects) in the editor — RIDES S35 universal-actions (onUniversalAction b8f284c6) + ensureViewUnit (a09b474d). Usage-reference tracking (NEW, cross-cutting, bidirectional): add usedIn:[{kind:'diagram'|'folder', ref}] on units <-> the existing Diagram.views[]/folder links; a resolver computes back-refs ('where is this used'). Bidirectional invariant: unit.usedIn <-> diagram.views (add-view/remove-view maintain BOTH, reuse R32.11/R33.8 add/remove-view). Cluster FOUNDATION (build first, underpins all projections).",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 36 Planning](./planning.md)\n    - Requirement R36.5 `[requirement:uuid:a8663672-3522-4f0c-b313-d14d13dbba5f]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] (functional) For every projected view/element, Scenario opens /scenario?ior=<BASE-unit> + Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence.\n- [ ] (functional) Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers 'where is this used' (back-refs).\n- [ ] (functional) INVARIANT: unit.usedIn <-> Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.\n- [ ] (gate) GATE @390 real-WebKit: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram -> unit.usedIn + diagram.views both updated; remove -> both cleared).",
+  "subtasks": "None (atomic task).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:a8663672-3522-4f0c-b313-d14d13dbba5f"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "sprintName": "Sprint 36",
+  "remainingIssues": "Planned — cluster FOUNDATION (build FIRST: typed-OOP-ext base + usedIn usage-ref + R36.5 Scenario/Edit-opens-correct-unit). Rides S35 onUniversalAction b8f284c6 + ensureViewUnit a09b474d; usedIn <-> Diagram.views bidirectional (reuse R32.11/R33.8). @390 real-WebKit gate (open-TARGET, bidirectional usedIn) + chain-complete-to-Test on ship.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-05"
+ }
+}

@@ -7,7 +7,9 @@
   "classification": "new",
   "clusterRef": "R36.4 UmlTraceRelationship",
   "description": "NEW UmlTraceRelationship EXTENDS the existing TraceLink (reuse {from,to,fromType,toType,relation,direction,label}) with a RawBin relation VOCABULARY (decomposes/traces), NOT strict UML 2.5. Semantics: a UseCase (=Class.method/Object.verb) traces/decomposes → its Method. Each endpoint = a typed OOP-extended ScenarioUnit tracking usage-refs. Renders as a typed connector on the diagram (reuse R32.6 edges + EDGE_DEFS kind-map, add the trace kind).",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "unitLinks": [],
