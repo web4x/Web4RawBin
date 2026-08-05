@@ -6,10 +6,10 @@
 //     'Model-Driven Code Quality', server.ts:2122/2137) → no-token AND non-owner (SystemTester) → 403 (never authors/leaks).
 // SPLIT (PO iOS-WebKit-tap discipline): the 🔗-arm→click-source→click-target→POST FLOW + overlay render/reroute = the
 //     WebKit @390 visual gate (r364b, separate); fires-on-real-iOS-TAP = Tron device (do NOT false-green a fragile tap-fire).
-// [test:uuid:d41ee143-5817-4355-adfa-08c70a827a16] R36.4 authorTrace (Impl 8c68b925, server.ts:1106) MECHANISM: idempotent
+// [test:uuid:d41ee143-5817-4355-adfa-08c70a827a16] R36.4 authorTrace (Impl a79f6091, server.ts:1105) MECHANISM: idempotent
 // uuid = keyToUuid('umltrace::from::to::relation') (same triple = same uuid, re-draw no-dup; any component change = distinct)
 // + POST /api/model/trace/create & GET /api/model/traces feature-gated → no-token AND non-owner → 403. DET-3x, engine-independent.
-// (authorTrace Impl 8c68b925 markerPending/TRAILS → req mints the Impl, then two-key d41ee143↔8c68b925.) buildTraceEdge dc101d02 render = r364b.
+// (authorTrace Impl a79f6091 server.ts:1105 — TWO-KEY CLOSED d41ee143↔a79f6091, both-dir status:pass.) buildTraceEdge dc101d02 render = r364b.
 import https from 'node:https';
 import { keyToUuid } from '../../src/ts/scenario/TsToModel.js';
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df'; // SystemTester = a real NON-owner (feature-gate must still 403)
