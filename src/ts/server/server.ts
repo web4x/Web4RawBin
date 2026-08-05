@@ -1204,7 +1204,48 @@ function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: bool
   unit.model.views = views.filter((v) => v.unit !== link); // drop ONLY the view-link; the ModelElement unit file is NEVER touched (INV-RM1)
   if (unit.model.views.length === before) return { ok: true, removed: false, views: before }; // INV-RM4 absent → no-op
   fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-RM2 store-only (prod scenario/index NEVER touched)
+  removeUsedIn(elementUuid, diagramUuid); // R36.5: bidirectional inverse — drop this diagram from the element's usedIn (never one-sided)
   return { ok: true, removed: true, views: unit.model.views.length };
+}
+
+// R36.5 usedIn[] BIDIRECTIONAL usage-refs (unit.usedIn ⟷ Diagram.views). ADDITIVE store-only metadata on the
+// MODEL_STORE element unit tracking WHERE it is placed — NOT destructive (re-addable preserved, INV-RM1 spirit) +
+// tree-INVISIBLE (INV-T: /api/model/tree renders name/hierarchy, never usedIn → tree bytes unchanged) + prod
+// scenario/index NEVER touched (element units resolve from MODEL_STORE). Maintained by add-view/remove-view = both
+// sides, never one-sided. Element not in the store → no-op (nothing to back-ref).
+function addUsedIn(elementUuid: string, kind: 'diagram' | 'folder', ref: string): void {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return;
+  try {
+    const u = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+    const used: { kind: string; ref: string }[] = Array.isArray(u.model.usedIn) ? u.model.usedIn : (u.model.usedIn = []);
+    if (used.some((x) => x.kind === kind && x.ref === ref)) return; // dedup → idempotent
+    used.push({ kind, ref });
+    fsSync.writeFileSync(f, JSON.stringify(u, null, 2) + '\n');
+  } catch { /* corrupt/missing → best-effort back-ref, skip */ }
+}
+function removeUsedIn(elementUuid: string, ref: string): void {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return;
+  try {
+    const u = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+    if (!Array.isArray(u.model.usedIn)) return;
+    const before = u.model.usedIn.length;
+    u.model.usedIn = u.model.usedIn.filter((x: { ref: string }) => x.ref !== ref);
+    if (u.model.usedIn.length !== before) fsSync.writeFileSync(f, JSON.stringify(u, null, 2) + '\n');
+  } catch { /* */ }
+}
+// [impl:uuid:2f44e112-ce56-4fe5-892c-a55aab5f3bf3] server.resolveUsedIn (Method e48832b2, Class c0a0921d, off UC
+// e46c6407 modelElement.usedInResolver) — R36.5 where-used RESOLVER: the back-refs ARE the element unit's usedIn[]
+// (the bidirectional mirror of Diagram.views maintained store-only by add-view/removeView; no scan). Served via
+// GET /api/model/used-in/<uuid> + present on the unit model at /api/ior.
+function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid)) return [];
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return [];
+  try { const u = JSON.parse(fsSync.readFileSync(f, 'utf-8')); return Array.isArray(u.model.usedIn) ? u.model.usedIn : []; } catch { return []; }
 }
 
 // R33.10 BUG-B (PLANTUML docker re-wire, PO): the prod host runs a plantuml-server container. Render via HTTP to it
@@ -1846,6 +1887,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'GET' && filepath.startsWith('/api/model/used-in/')) { // R36.5 where-used resolver: the element's usedIn[] back-refs (bidirectional mirror of Diagram.views)
+      const uuid = decodeURIComponent(filepath.slice('/api/model/used-in/'.length)).replace(/^ior:instance:/, '').trim();
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify({ uuid, usedIn: resolveUsedIn(uuid) }));
+      return;
+    }
     if (req.method === 'POST' && filepath === '/api/model/diagram/add-view') { // R32.11 (INV-R1): drop/select a class → append a view-link to the Diagram (MODEL_STORE ONLY, dedup, prod untouched)
       let body = '';
       req.on('data', (chunk: Buffer) => { body += chunk; });
@@ -1865,6 +1912,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const vy = Number.isFinite(y) ? Math.max(0, Math.round(y)) : Math.floor(i / COLS) * 200 + 20;
           views.push({ unit: link, x: vx, y: vy, viewKind: 'class' });
           fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-R3 store-only (MODEL_STORE, prod scenario/index NEVER touched) + INV-R4 persist
+          addUsedIn(elementUuid, 'diagram', diagramUuid); // R36.5: bidirectional — the element unit tracks this diagram (usedIn ⟷ diagram.views), store-only
           addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
