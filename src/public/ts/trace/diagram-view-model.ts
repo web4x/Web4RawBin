@@ -118,6 +118,7 @@ export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramN
   for (const [from, node] of nodes) {
     const src = rects.get(from)!;
     for (const rel of node.relations || []) {
+      if (rel.kind === 'trace') continue; // R36.4: trace edges are the buildTraceEdge pass (below) — this pass = class relations
       const to = stripRef(rel.to);
       if (to === from || !rects.has(to)) continue; // off-diagram (or self) → no dangling edge
       const key = `${from}->${to}:${rel.kind}`;
@@ -127,6 +128,32 @@ export function buildEdges(views: ViewLink[], nodeOf: (uuid: string) => DiagramN
       const a = borderPoint(src, tc.x, tc.y), b = borderPoint(tgt, sc.x, sc.y);
       edges.push(`<line class="dm-edge dm-edge-${rel.kind}" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" `
         + `marker-end="url(#dm-arrow-${rel.kind})" data-rel-from="modelelement:${from}" data-rel-to="modelelement:${to}" data-rel-kind="${rel.kind}"/>`);
+    }
+  }
+  return { svg: edges.join(''), count: edges.length };
+}
+
+// [impl:uuid:dc101d02-d345-4ef3-a7a8-8231a1a695db] DiagramViewModel.buildTraceEdge (Method 6a2cbd63, Class 09730090)
+// R36.4 — the TRACE-edge pass, EXTENDS buildEdges (8c68b925): emits kind='trace' relations (derived UC→method +
+// authored UmlTraceRelationship, both injected as {to,kind:'trace'} on the from-node). Same rect/borderPoint/de-dup
+// machinery as buildEdges; dashed dm-edge-trace + dm-arrow-trace; data-rel-* for R33.6.3 reroute + click. buildEdges
+// skips 'trace' (this pass owns it) → renders in the same SVG group so RbPanZoom transforms + reroute apply, no fork.
+export function buildTraceEdge(views: ViewLink[], nodeOf: (uuid: string) => DiagramNode | null): { svg: string; count: number } {
+  const rects = new Map<string, Rect>(); const nodes = new Map<string, DiagramNode>();
+  for (const v of views) { const uuid = stripRef(v.unit); const node = nodeOf(uuid); if (!node) continue; rects.set(uuid, { x: v.x, y: v.y, w: facetW(v, node), h: facetH(v, node) }); nodes.set(uuid, node); }
+  const seen = new Set<string>(); const edges: string[] = [];
+  for (const [from, node] of nodes) {
+    const src = rects.get(from)!;
+    for (const rel of node.relations || []) {
+      if (rel.kind !== 'trace') continue; // ONLY trace edges here (class relations = buildEdges)
+      const to = stripRef(rel.to);
+      if (to === from || !rects.has(to)) continue; // off-diagram (or self) → no dangling edge
+      const key = `${from}->${to}:trace`; if (seen.has(key)) continue; seen.add(key); // de-dup (derived+authored overlap)
+      const tgt = rects.get(to)!;
+      const sc = { x: src.x + src.w / 2, y: src.y + src.h / 2 }, tc = { x: tgt.x + tgt.w / 2, y: tgt.y + tgt.h / 2 };
+      const a = borderPoint(src, tc.x, tc.y), b = borderPoint(tgt, sc.x, sc.y);
+      edges.push(`<line class="dm-edge dm-edge-trace" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" `
+        + `marker-end="url(#dm-arrow-trace)" data-rel-from="modelelement:${from}" data-rel-to="modelelement:${to}" data-rel-kind="trace"/>`);
     }
   }
   return { svg: edges.join(''), count: edges.length };
@@ -145,7 +172,8 @@ export function buildDiagramSvg(views: ViewLink[], nodeOf: (uuid: string) => Dia
     maxX = Math.max(maxX, v.x + facetW(v, node) + PAD);
     maxY = Math.max(maxY, v.y + facetH(v, node) + PAD);
   }
-  const { svg: edgeSvg, count: edges } = buildEdges(views, nodeOf); // edges FIRST (behind boxes)
+  const { svg: edgeSvg, count: edges } = buildEdges(views, nodeOf); // class-relation edges FIRST (behind boxes)
+  const { svg: traceSvg, count: traceCount } = buildTraceEdge(views, nodeOf); // R36.4: trace edges (UC→method / authored)
   const vb = `0 0 ${Math.max(maxX, 100)} ${Math.max(maxY, 100)}`;
-  return { svg: `<svg class="dm-svg" viewBox="${vb}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">${EDGE_DEFS}${edgeSvg}${boxes.join('')}</svg>`, count: boxes.length, edges };
+  return { svg: `<svg class="dm-svg" viewBox="${vb}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">${EDGE_DEFS}${edgeSvg}${traceSvg}${boxes.join('')}</svg>`, count: boxes.length, edges: edges + traceCount };
 }

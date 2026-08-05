@@ -1102,7 +1102,7 @@ function createFolder(name: string, parent: string): { ok: boolean; uuid?: strin
 // user-DRAWN trace between two on-diagram units with no existing chain link (derived UC→method needs NO unit). Store-
 // only (prod scenario/index NEVER touched; NOT build-owned → the R31.7 put-guard allows it). Deterministic uuid =
 // keyToUuid('umltrace::'+from+'::'+to+'::'+relation) → idempotent (re-draw = same uuid, overwrite-identical, no dup).
-// markerPending: buildTraceEdge/authorTrace Impl 8c68b925 TRAILS (req mints on recovery; marked after, A+B pattern).
+// [impl:uuid:a79f6091-9024-4b36-a350-3d71668083fb] server.authorTrace (Method fde7eecc, Class c0a0921d) — R36.4 inc-2 AUTHORED-trace persist.
 function authorTrace(from: string, to: string, relation: string, fromType?: string, toType?: string): { ok: boolean; uuid?: string; error?: string } {
   const f0 = String(from || '').replace(/^ior:instance:/, ''); const t0 = String(to || '').replace(/^ior:instance:/, '');
   const rel = relation === 'decomposes' ? 'decomposes' : 'traces';
