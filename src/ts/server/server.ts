@@ -1245,8 +1245,9 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
   return readUsageIndex()[elementUuid] || [];
 }
 
-// R36.1/R36.2 part-2 A-merge (architect design 0f13d9d87). markerPending: REQ mints the Impl (sole minter, #126);
-// the [impl] marker is added on req's uuid. COMPUTE-ON-READ at /api/ior — NEVER writes either file, so INV-T (tree
+// [impl:uuid:37c08fd5-3880-47e9-bb8b-4dcb15244a89] server.reconcileCanonical (Method 5530ea76) — R36.1/R36.2 part-2
+// A-merge (architect design 0f13d9d87; the 119ca06d9 ior:-prefix fix is an impl-edit to THIS method, same unit).
+// COMPUTE-ON-READ at /api/ior — NEVER writes either file, so INV-T (tree
 // bytes) + isolation (prod untouched) + INV-RM1 (generated M1 pristine) hold BY CONSTRUCTION. Dedup by the
 // deterministic key keyToUuid(sourceFile::qualifiedName) (R32.2 = the generated M1's OWN uuid). Field-precedence:
 // TRACEABILITY wins identity/chain (name + methods/implementations/tests/chain links — left untouched on the base),

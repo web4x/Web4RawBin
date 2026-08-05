@@ -43,10 +43,10 @@ export function buildBox(view: ViewLink, node: DiagramNode, tsLens = false): str
     + `</g>`;
 }
 
-// [impl:uuid:MARKER_PENDING] renderFacet — R36.1/R36.2 part-2 (B) facet-lens, built ONCE and reused by buildDiagramSvg
+// [impl:uuid:94ad4f50-aac8-4de5-ad34-e6776fc4b938] DiagramViewModel.renderFacet (Method a6a05d34) — R36.1/R36.2 part-2 (B) facet-lens, built ONCE and reused by buildDiagramSvg
 // for EVERY view-link (no fork, no N renderers). facetType (view.viewKind) selects the lens over the ONE canonical
 // node (from /api/ior reconcileCanonical): class-family → UML box (or «ts» lens for tsClass); UmlMethod/UmlFunction →
-// a signature box; UmlUseCase → an ellipse. markerPending: REQ mints the Impl (#126) — uuid landed on its arrival.
+// a signature box; UmlUseCase → an ellipse.
 export function facetW(view: ViewLink, node: DiagramNode): number {
   const k = view.viewKind || node.kind || 'class';
   if (k === 'UmlUseCase' || node.kind === 'usecase') return view.w || 160;
