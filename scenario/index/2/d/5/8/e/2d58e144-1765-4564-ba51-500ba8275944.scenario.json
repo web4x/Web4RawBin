@@ -9,7 +9,7 @@
   "description": "R36.5: ◆Scenario/✎Edit resolve a projected view to its BASE ScenarioUnit + open it (rides S35 onUniversalAction b8f284c6 / ensureViewUnit a09b474d); usedIn[] bidirectional resolver (unit↔Diagram.views). Method/chain at build-go.",
   "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
   "method": "ior:instance:276e4981-4415-4e31-af3f-c19217322725",
-  "ridesNote": "R36.5 openBaseUnit RIDES the S35 Scenario/Edit handler onUniversalAction (Method 276e4981 / Impl 005dbd3e) as an impl-EDIT: resolve a projected VIEW to its BASE ScenarioUnit before Scenario->/scenario?ior / Edit->scenarioEditorHref (rides ensureViewUnit a09b474d for the resolve). NO new Impl. usedIn-maintenance rides add-view (server.ts:1849) + persistRemoveView (2c64aa7b) impl-edits (both sides unit.usedIn<->diagram.views). The where-used RESOLVER = the distinct new node (UC e46c6407)."
+  "ridesNote": "R36.5 openBaseUnit is satisfied by EXISTING S35 behavior (expert 1bdeeba87, data=truth): onUniversalAction (Method 276e4981 / Impl 005dbd3e) ALREADY resolves a diagram element's Scenario/Edit to its BASE unit via /api/ior — NO code change for R36.5, so 005dbd3e is UNCHANGED (keeps R34.1). The AC is verified by the @390 gate (Scenario/Edit opens the base), not a new edit — a concept/existing-behavior ride. The projection->base mapping for FACET views is R36.1/R36.2. usedIn-maintenance rides add-view + persistRemoveView 2c64aa7b (impl-edits, unchanged markers). The where-used RESOLVER (UC e46c6407 -> resolveUsedIn e48832b2 -> Impl 2f44e112) is R36.5's distinct new node."
  },
  "ownerIor": null
 }

@@ -4,7 +4,7 @@
     "uuid": "2f44e112-ce56-4fe5-892c-a55aab5f3bf3",
     "name": "server.resolveUsedIn impl",
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:e48832b2-4b28-430f-96a7-50000948fad9"

@@ -27,6 +27,7 @@
   - [ ] **(functional)** Both UmlClass + tsClass are draggable (Diagram view-link to the ONE Class unit, viewKind class|tsClass); each renders from the SAME Class data (UML box vs TS signature).
   - [ ] **(functional)** Usage-refs (usedIn[]) tracked bidirectionally with Diagram.views.
   - [ ] **(gate)** HARD AC (Tron constraint, reuse A2/R35.4 protect-the-tree): /api/model/tree + rawbin children [ts,puml,diagrams,traceability] + sprint structure + EVERY existing node render BYTE-IDENTICAL before vs after merge (byte-diff==0). A merged element STILL shows at its current node — only its detail / /api/ior / Scenario / Edit / facet-views resolve to the ONE canonical unit; NO node added/removed/reordered/recounted. The MOF tree + traceability folder + /api/model/tree UNTOUCHED. GATE @390: pre/post-merge tree byte-diff==0.
+  - [ ] **(gate)** HARD (architect-flagged, real): the A-merge/reconcile MUST PRESERVE the additive usedIn[] across TsToModel RE-GENERATION. TsToModel re-gen overwrites the M1 file — usedIn[] (where-used) MUST SURVIVE the re-gen (merge into the reconciled unit, not be dropped), else where-used goes STALE on re-sync. GATE @390: place a Class on a diagram (usedIn set) -> trigger TsToModel re-gen -> usedIn[] still present + correct (survives), tree still byte-unchanged.
   - [ ] **(gate)** GATE @390: Class instanceOf both facets (ONE merged unit); drag each renders from the ONE unit's data (no duplicate); usedIn bidirectional.
   -> modelElement.umlClassView [uc:uuid:dd000fd8-b65c-4868-a3ed-22b2f23a3aed]
 
