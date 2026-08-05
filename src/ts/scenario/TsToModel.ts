@@ -150,7 +150,7 @@ export class TsToModel {
         // R36.3: top-level FUNCTION full signature — NO parentClass ⇒ Function (instanceOf UmlFunction via FACETS['function']).
         if (kind === 'function' && ts.isFunctionDeclaration(node)) {
           parent.visibility = 'public';
-          parent.parameters = node.parameters.map((p) => { const t = this.typeName(p.type); return { name: p.name.getText(), ...(t ? { type: t } : {}) }; });
+          parent.parameters = node.parameters.map((p) => { const t = this.typeName(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
           parent.returnType = this.typeName(node.type) || undefined;
           parent.documentation = jsDocText(node) || undefined;
         }
@@ -178,7 +178,7 @@ export class TsToModel {
           if (mkind === 'method') { // R36.3: parentClass PRESENT ⇒ Method (instanceOf UmlMethod); enrich the full signature
             md.parentClass = parent.uuid;
             md.visibility = memberVisibility(mem);
-            md.parameters = ((mem as ts.MethodDeclaration | ts.MethodSignature).parameters || []).map((p) => { const t = this.typeName(p.type); return { name: p.name.getText(), ...(t ? { type: t } : {}) }; });
+            md.parameters = ((mem as ts.MethodDeclaration | ts.MethodSignature).parameters || []).map((p) => { const t = this.typeName(p.type); return { name: ts.isIdentifier(p.name) ? p.name.text : p.name.getText(sf), ...(t ? { type: t } : {}) }; });
             md.returnType = this.typeName(mtype) || undefined;
             md.documentation = jsDocText(mem) || undefined;
           }
