@@ -1098,6 +1098,38 @@ function createFolder(name: string, parent: string): { ok: boolean; uuid?: strin
   return { ok: true, uuid };
 }
 
+// R36.4 increment-2 (design b0d16ec5e): mint an AUTHORED UmlTraceRelationship (EXTENDS TraceLink) in MODEL_STORE — a
+// user-DRAWN trace between two on-diagram units with no existing chain link (derived UC→method needs NO unit). Store-
+// only (prod scenario/index NEVER touched; NOT build-owned → the R31.7 put-guard allows it). Deterministic uuid =
+// keyToUuid('umltrace::'+from+'::'+to+'::'+relation) → idempotent (re-draw = same uuid, overwrite-identical, no dup).
+// markerPending: buildTraceEdge/authorTrace Impl 8c68b925 TRAILS (req mints on recovery; marked after, A+B pattern).
+function authorTrace(from: string, to: string, relation: string, fromType?: string, toType?: string): { ok: boolean; uuid?: string; error?: string } {
+  const f0 = String(from || '').replace(/^ior:instance:/, ''); const t0 = String(to || '').replace(/^ior:instance:/, '');
+  const rel = relation === 'decomposes' ? 'decomposes' : 'traces';
+  if (!f0 || !t0 || f0 === t0) return { ok: false, error: 'bad-endpoints' };
+  const uuid = keyToUuid(`umltrace::${f0}::${t0}::${rel}`);
+  const unit = { ior: 'ior:class:UmlTraceRelationship', ownerIor: null, model: { uuid, from: `ior:instance:${f0}`, to: `ior:instance:${t0}`, fromType: String(fromType || 'usecase'), toType: String(toType || 'method'), relation: rel, direction: 'directed', label: rel } };
+  const file = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(file), { recursive: true });
+  fsSync.writeFileSync(file, JSON.stringify(unit, null, 2) + '\n'); // idempotent (same uuid) — INV store-only (prod untouched)
+  return { ok: true, uuid };
+}
+
+// R36.4 increment-2: list all AUTHORED UmlTraceRelationship units (MODEL_STORE) for the client to render as trace
+// connectors (those whose from+to are both on the open diagram). Bounded scan (authored traces are few).
+function listTraces(): Array<{ uuid: string; from: string; to: string; relation: string }> {
+  try {
+    const idx = new ScenarioIndex(MODEL_STORE);
+    const out: Array<{ uuid: string; from: string; to: string; relation: string }> = [];
+    for (const u of idx.list()) {
+      const x = idx.get(u); if (!x || x.ior !== 'ior:class:UmlTraceRelationship') continue;
+      const m = x.model as Record<string, unknown>;
+      out.push({ uuid: u, from: String(m.from || '').replace(/^ior:instance:/, ''), to: String(m.to || '').replace(/^ior:instance:/, ''), relation: String(m.relation || 'traces') });
+    }
+    return out;
+  } catch { return []; }
+}
+
 // [impl:uuid:a09b474d-c1de-44de-9cd3-d4eda13943b6] server.ensureViewUnit (Method 64c4f023, Class c0a0921d, off UC
 // c3902503 modelTree.ensureViewUnit / 8f1eed4d modelTree.populateViewUnitFields) — R35.2/R35.3, GENERALIZES the R34.2 A2
 // ensureFolderFileUnit (architect fork-A) so EVERY synthetic view ref maps to a REAL lazy-minted ior:class:X unit in
@@ -2084,6 +2116,26 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
       });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/trace/create') { // R36.4 inc-2: author a UmlTraceRelationship (MODEL_STORE, idempotent). markerPending (req IMPL-mints → authorTrace, trails per PO)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (mirror folder/create)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { from, to, relation, fromType, toType } = JSON.parse(body || '{}');
+          const out = authorTrace(String(from || ''), String(to || ''), String(relation || 'traces'), fromType, toType);
+          addLog(`[model] author-trace → ${out.ok ? 'UmlTraceRelationship ' + out.uuid?.slice(0, 8) : 'FAIL ' + out.error} (store-only)`);
+          res.writeHead(out.ok ? 200 : 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'author-trace-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'GET' && filepath === '/api/model/traces') { // R36.4 inc-2: authored UmlTraceRelationship units for the diagram surface to render
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return;
+      res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ traces: listTraces() }));
       return;
     }
     if (req.method === 'POST' && filepath === '/api/model/import-puml') { // S33-P3f-1 Import-PUML (Tron feat D): REUSE R32.7 pumlToModel (INV-F-1) → M1 units (ts/) + auto-grid Diagram (diagram/) + PumlArtifact (puml/). markerPending (req IMPL-mints)

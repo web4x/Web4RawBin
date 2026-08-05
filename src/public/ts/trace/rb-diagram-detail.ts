@@ -39,6 +39,10 @@ const STYLE = `<style>
   rb-diagram-detail .dm-arrow-open{fill:none;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-arrow-hollow{fill:#0d1117;stroke:#8b949e;stroke-width:1.5}
   rb-diagram-detail .dm-empty{padding:24px;color:rgba(230,237,243,.6);font:13px system-ui;text-align:center}
+  rb-diagram-detail .dm-surface{position:relative}
+  rb-diagram-detail .dm-trace-btn{position:absolute;top:8px;right:8px;z-index:5;background:#21262d;color:#c9d1d9;border:1px solid #30363d;border-radius:6px;padding:4px 8px;font:12px system-ui;cursor:pointer}
+  rb-diagram-detail .dm-trace-btn.dm-trace-armed{background:#a371f7;color:#fff;border-color:#a371f7}
+  rb-diagram-detail.dm-tracing .dm-box{cursor:crosshair}
   rb-diagram-detail .dm-toolbar{display:flex;gap:8px;padding:6px 10px;background:#161b22;border-bottom:1px solid #30363d}
   rb-diagram-detail .dm-resync{background:#21262d;color:#e6edf3;border:1px solid #30363d;border-radius:6px;padding:4px 10px;font:12px system-ui;cursor:pointer}
   rb-diagram-detail .dm-resync:hover{border-color:#58a6ff}
@@ -50,6 +54,7 @@ export class RbDiagramDetail extends HTMLElement {
   static get observedAttributes(): string[] { return ['ref']; }
   private pz: RbPanZoom | null = null;
   private _canvasBase: { w: number; h: number } | null = null; // R33.7.1 canvas-grow: tight content bounds (viewBox maxX/maxY) captured on render
+  private _traceMode = false; private _traceFrom: string | null = null; // R36.4 inc-2: draw-to-create trace gesture (arm → click source → click target)
   private ro: ResizeObserver | null = null;
   private _sourceFile: string | null = null; // R32.8: the model's source .ts (for Re-Sync); captured in render()
   private _selectedBox: string | null = null; // R33.5 item2: the locally-selected box ref — diagram STAYS open (no replaceWith)
@@ -150,11 +155,22 @@ export class RbDiagramDetail extends HTMLElement {
       nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m) });
     }));
     this._sourceFile = sourceFile;
+    // R36.4 inc-2: overlay AUTHORED traces (UmlTraceRelationship units) — inject {to,kind:'trace'} onto the from-node
+    // when BOTH endpoints are on-diagram, so buildEdges renders them via the SAME derived-trace path (de-dup handles
+    // any derived+authored overlap). Best-effort (viewers without model access get no overlay).
+    try {
+      const tr = await fetch('/api/model/traces', { credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+      for (const t of (tr?.traces || []) as Array<{ from: string; to: string }>) {
+        const f = stripRef(String(t.from)), to = stripRef(String(t.to));
+        const fromNode = nodes.get(f);
+        if (fromNode && nodes.has(to)) (fromNode.relations = fromNode.relations || []).push({ to, kind: 'trace' as EdgeKind });
+      }
+    } catch { /* authored-trace overlay best-effort */ }
     const { svg, count } = buildDiagramSvg(views, (u) => nodes.get(u) || null);
     // R33.6.5 BUG-2 (architect bc21ca747): the in-diagram Re-Sync toolbar is RETIRED — Re-Sync now lives ONLY in the
     // drawer action-bar (ACTIONS_BY_TYPE.diagram 're-sync' → rb-model-resync-request → onResyncRequest → reSyncFromSource),
     // so removing the old .dm-resync toolbar (+ its click wire) leaves EXACTLY ONE Re-Sync (AC-single-resync-no-duplicate).
-    this.innerHTML = `${STYLE}<div class="dm-surface"><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
+    this.innerHTML = `${STYLE}<div class="dm-surface"><button class="dm-trace-btn${this._traceMode ? ' dm-trace-armed' : ''}" title="Draw a trace: click the source box then the target box">🔗 Trace</button><div class="dm-content">${count ? svg : '<div class="dm-empty">Empty diagram — drop a class to add a view (R32.5).</div>'}</div></div>`;
 
     const surface = this.querySelector('.dm-surface') as HTMLElement | null;
     const content = this.querySelector('.dm-content') as HTMLElement | null;
@@ -176,7 +192,20 @@ export class RbDiagramDetail extends HTMLElement {
     }
     // R33.5 item2: box selection is handled by wireBoxDrag's pointer path (LOCAL highlight + tree-reveal — the
     // diagram STAYS, NO selectionModel.replaceWith; class-detail opens only on a TREE click). Edge-click still reveals.
+    const traceBtn = this.querySelector('.dm-trace-btn') as HTMLElement | null;
+    traceBtn?.addEventListener('click', (e) => { e.stopPropagation(); this._traceMode = !this._traceMode; this._traceFrom = null; traceBtn.classList.toggle('dm-trace-armed', this._traceMode); this.classList.toggle('dm-tracing', this._traceMode); });
     this.addEventListener('click', (e) => {
+      // R36.4 inc-2 draw-to-create: in trace-mode, click source box then target box → author the trace → re-render.
+      if (this._traceMode) {
+        const boxEl = (e.target as HTMLElement).closest('.dm-box');
+        const boxRef = boxEl?.getAttribute('data-ref');
+        if (boxRef) {
+          e.stopPropagation(); const uuid = stripRef(boxRef);
+          if (!this._traceFrom) { this._traceFrom = uuid; boxEl?.classList.add('dm-trace-src'); }
+          else if (uuid !== this._traceFrom) { const from = this._traceFrom; this._traceMode = false; this._traceFrom = null; void this.createTrace(from, uuid); }
+          return;
+        }
+      }
       const edge = (e.target as HTMLElement).closest('.dm-edge')?.getAttribute('data-rel-to');
       if (edge) { e.stopPropagation(); selectionModel.replaceWith(edge); }
     });
@@ -184,6 +213,15 @@ export class RbDiagramDetail extends HTMLElement {
     if (surface && content && count) this.wireBoxDrag(surface, content);
     // AC-5: ResizeObserver fits the surface to the drawer box (SVG preserveAspectRatio scales by construction).
     if (surface) { this.ro = new ResizeObserver(() => { /* SVG viewBox fits; hook for future pz re-fit */ }); this.ro.observe(surface); }
+  }
+
+  // R36.4 inc-2: POST an AUTHORED trace (from→to) → server mints UmlTraceRelationship in MODEL_STORE (idempotent) →
+  // re-render (the /api/model/traces overlay draws it). markerPending: authorTrace Impl 8c68b925 (req mints, trails).
+  private async createTrace(from: string, to: string): Promise<void> {
+    try {
+      const r = await fetch('/api/model/trace/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ from, to, relation: 'traces' }) });
+      if (r.ok) this.render(); // authored trace now overlays via the /api/model/traces fetch
+    } catch { /* author-trace best-effort */ }
   }
 
   // R32.11 (INV-R1) marker-pending — a class card dropped on .dm-surface: read the dragged ref (application/rb-object-ref,
