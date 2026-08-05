@@ -346,14 +346,15 @@ export class Chain {
               continue;
             }
             const refCount = implRefs.get(implUuid) || 0;
-            if (refCount > 1) {
-              // HARD RULE: one marker = one unit = one method. Shared Impl = NEVER credited.
-              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert shared-impl(x${refCount}) ${short(implUuid)}`, test: 'open', complete: false,
-                openNodes: [{ node: 'Impl', owner: 'expert', action: `Impl ${short(implUuid)} shared by ${refCount} Methods — mint fresh uuid per method (HARD RULE: one marker=one unit=one method)`, iorShort: short(implUuid) }] });
-              continue;
-            }
+            // R30.11 shared-impl (JOINT verdict architect+planner 2ebff228c, PO-ruled; precedent a09b474d R35.2+R35.3):
+            // a shared Impl IS creditable when each riding Method carries its OWN distinct-intent Test — req wires the
+            // Method's tests[] alongside the shared marker (ownerIor/markerPending untouched, no re-credit). Credit flows
+            // via realImpl && realTest below (the DISTINCT TEST is the gate); the shared count is shown for transparency.
+            // Was a HARD-BLOCK (continue) that un-credited EVERY shared Impl -> false 'open shared-impl-xN'. lintMarkers
+            // still FLAGS shared-impl for review, so shared markers stay visible (detection moves to lint, credit to test).
+            const sharedTag = refCount > 1 ? ` shared-x${refCount}(R30.11)` : '';
             const realImpl = hasRealImpl(implUuid);
-            const implCell = realImpl ? `check ${short(implUuid)}` : `open expert ${short(implUuid)}`;
+            const implCell = realImpl ? `check ${short(implUuid)}${sharedTag}` : `open expert ${short(implUuid)}${sharedTag}`;
             const implM = this.model(implUuid);
             const testIors = implM ? ((implM.tests as string[]) || []) : [];
             const openNodes: OpenNode[] = [];
