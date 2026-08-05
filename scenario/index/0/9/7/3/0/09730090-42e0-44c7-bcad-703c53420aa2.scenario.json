@@ -6,7 +6,8 @@
     "file": "src/public/ts/trace/diagram-view-model.ts",
     "methods": [
       "ior:instance:3fc6ed5b-53e5-4931-809d-d85f720237a4",
-      "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799"
+      "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799",
+      "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",

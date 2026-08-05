@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "5530ea76-b9c0-4abc-a3d4-4d63db4f531d",
+    "name": "server.reconcileCanonical",
+    "description": "server.ts:1255 function reconcileCanonical(uuid,m): compute-on-read A-merge canonical view, never writes (fork-A). Built v0.8.55/56 (4db24e412 + strip ior:file: 119ca06d9). IMPL-MINT — expert marks [impl:uuid:37c08fd5-3880-47e9-bb8b-4dcb15244a89] on the name-matching decl.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}
