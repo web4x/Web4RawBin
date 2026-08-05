@@ -12,9 +12,9 @@
 //   'visibility name(params): returnType' (sigOf), pixel-visible; BITE: a node with NO signature → bare 'name()' fallback.
 // served-confirm/phantom-guard: served==HEAD==0.8.59. real-iOS-TAP fire = Tron device.
 //
-// [test:uuid:PENDING-T1] R36.3 data-extract (TsToModel.generate 382f8644) — re-generate enriches method/function signature
-// [test:uuid:PENDING-T2] R36.3 signature-CONTENT render (renderFacet 94ad4f50) — facet paints 'visibility name(params): returnType' @390 WebKit
-// [test:uuid:PENDING-T3] R36.3 Method-vs-Function — parentClass PRESENT ⇒ UmlMethod, ABSENT ⇒ UmlFunction
+// [test:uuid:5bb30e23-e73c-4a40-aeb6-7786648afc4d] R36.3 T1 data-extract — re-generate enriches the METHOD/FUNCTION signature with TYPED params + returnType (visibility/parameters{name,type}/returnType incl keyword primitives via signatureType), served DET-3x. Rides the enrichMethodSignature method-impl (distinct-per-method pending expert task 278) + signatureType.
+// [test:uuid:0172b45d-fdf5-402c-a352-0250db145eed] R36.3 T2 signature-CONTENT render (renderMethodFacet d8818494 / renderFacet 94ad4f50) — the method facet PAINTS 'visibility name(params): returnType' @390 real-WebKit (pixel), no-sig→bare name() fallback bite.
+// [test:uuid:84ffd586-0f45-4b1d-bc69-13983141f9d3] R36.3 T3 Method-vs-Function — parentClass PRESENT ⇒ instanceOf UmlMethod, ABSENT ⇒ instanceOf UmlFunction (classify), served DET-3x.
 import { keyToUuid } from '../../src/ts/scenario/TsToModel.ts';
 import { webkit, devices } from '@playwright/test';
 import fs from 'node:fs';
