@@ -5,7 +5,7 @@
 // its usedIn[] (via /api/model/used-in/<uuid> AND on /api/ior) AND the diagram's views[] carries that element (both sides);
 // pollution-safe: if existing views aren't backfilled, add-view→check→removeView (net-zero via the bidirectional inverse);
 // (3) Scenario/Edit resolve to the BASE unit (element uuid), not a view instance (reuse S35 onUniversalAction resolve).
-// [test marker on GREEN → 2f44e112]
+// [test:uuid:91a10db8-8449-4550-aaf5-bb42cb122732] S36 R36.5 server.resolveUsedIn (Impl 2f44e112) @390 real-WebKit DET-3x served v0.8.52: usedIn[] bidirectional where-used — (1) INV-T: /api/model/tree + /api/trace/children NEVER emit usedIn (tree bytes unchanged by the additive metadata, structure intact); (2) BIDIRECTIONAL net-zero: add-view an element → its usedIn[] gains the diagram AND the Diagram.views gains the element (BOTH sides), remove-view → both cleared (bidirectional inverse), faa4acad+element.usedIn restored byte-equivalent (pollution-safe); (3) Scenario/Edit resolve to the BASE element uuid (not a view instance). No throws.
 import { chromium, webkit, devices } from '@playwright/test';
 import fs from 'node:fs'; import path from 'node:path'; import https from 'node:https';
 const ENGINE = process.env.WK ? webkit : chromium;
@@ -27,30 +27,32 @@ async function runOnce(browser, i) {
   await page.goto(`${BASE}/model`, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!document.getElementById('model-tree'), { timeout: 15000 }).catch(() => {});
 
-  const R = await page.evaluate(async (DIAG) => {
+  const E = 'f8643e13-c457-4572-a0ae-97b4b95cb18d'; // a modelelement in d4e3d709, NOT in faa4acad → add/remove is net-zero on faa4acad
+  const R = await page.evaluate(async ([DIAG, E]) => {
     const jt = async (u) => { try { const r = await fetch(u); return { text: await r.text(), ok: r.ok }; } catch { return { text: '', ok: false }; } };
     const j = async (u) => { try { return await (await fetch(u)).json(); } catch { return null; } };
+    const post = async (u, body) => { try { const r = await fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); return r.ok; } catch { return false; } };
+    const viewsOf = async (d) => ((await j('/api/ior/' + d))?.unit?.model?.views || []).map(v => String(v.unit || '').replace('modelelement:', ''));
+    const usedInOf = async (u) => ((await j('/api/model/used-in/' + u))?.usedIn || []).map(x => String(x.ref || ''));
     // (1) INV-T: tree endpoints never emit "usedIn"
     const tree = await jt('/api/model/tree');
     const tsKids = await jt('/api/trace/children/rawbin:ts');
     const invT = tree.ok && !/usedIn/i.test(tree.text) && !/usedIn/i.test(tsKids.text);
-    const treeStruct = /rawbin:ts|"mof-m1"/.test(tree.text); // structure intact (RawBin/M1 present)
-    // discover the diagram's view elements
-    const diag = await j('/api/ior/' + DIAG);
-    const views = (diag?.unit?.model?.views || []);
-    const elemRefs = views.map(v => String(v.unit || '')).filter(Boolean);
-    const elemUuids = elemRefs.map(r => r.includes(':') ? r.slice(r.indexOf(':') + 1) : r);
-    // (2) BIDIRECTIONAL (read existing): does any view-element's usedIn[] carry this diagram?
-    let bidiElem = null, usedInHasDiagram = false, iorHasUsedIn = false;
-    for (const uu of elemUuids) {
-      const ui = await j('/api/model/used-in/' + uu);
-      const refs = (ui?.usedIn || []).map(x => String(x.ref || ''));
-      if (refs.some(r => r.includes(DIAG))) { bidiElem = uu; usedInHasDiagram = true; const io = await j('/api/ior/' + uu); iorHasUsedIn = Array.isArray(io?.unit?.model?.usedIn); break; }
-    }
-    // diagram-side: views carry the element (already have it) — both sides consistent iff the same element is in views AND its usedIn
-    const bothSides = usedInHasDiagram && elemUuids.includes(bidiElem);
-    return { invT, treeStruct, viewCount: elemUuids.length, elem0: elemUuids[0], bidiElem, usedInHasDiagram, iorHasUsedIn, bothSides, usedInEndpointOk: (await jt('/api/model/used-in/' + (elemUuids[0] || 'x'))).ok };
-  }, DIAG);
+    const treeStruct = /rawbin:ts|"mof-m1"/.test(tree.text);
+    const elem0 = (await viewsOf(DIAG))[0]; // a real element for the Scenario/Edit→base check
+    // (2) BIDIRECTIONAL — NET-ZERO add-view→check→removeView→verify-restored (usedIn is forward-maintained, not backfilled)
+    const beforeViews = await viewsOf(DIAG), beforeUsedIn = await usedInOf(E);
+    const eNotInDiag = !beforeViews.includes(E);
+    const added = await post('/api/model/diagram/add-view', { diagramUuid: DIAG, elementUuid: E });
+    const addViews = await viewsOf(DIAG), addUsedIn = await usedInOf(E);
+    const bidiAdd = added && addViews.includes(E) && addUsedIn.some(r => r.includes(DIAG)); // BOTH sides populate
+    const removed = await post('/api/model/diagram/remove-view', { diagramUuid: DIAG, elementUuid: E });
+    const remViews = await viewsOf(DIAG), remUsedIn = await usedInOf(E);
+    const bidiRemove = removed && !remViews.includes(E) && !remUsedIn.some(r => r.includes(DIAG)); // BOTH sides clear (inverse)
+    const restored = remViews.length === beforeViews.length && remViews.every(v => beforeViews.includes(v)) && remUsedIn.length === beforeUsedIn.length; // faa4acad + E.usedIn net-zero
+    return { invT, treeStruct, elem0, eNotInDiag, bidiAdd, bidiRemove, restored, beforeViewN: beforeViews.length, addViewN: addViews.length, remViewN: remViews.length };
+  }, [DIAG, E]);
+  const throwsAfterApi = throws; // INV-T + bidirectional are all on /model — count throws HERE (the base-resolve nav below hits real /scenario+/edit pages)
 
   // (3) Scenario/Edit → BASE unit (element uuid), via the universal action (reuse S35 resolve)
   let baseResolve = { scenario: false, edit: false };
@@ -68,7 +70,7 @@ async function runOnce(browser, i) {
   }
   if (i === 1) await page.screenshot({ path: OUT + 'usedin.png' });
   await ctx.close();
-  return { ...R, baseScenario: baseResolve.scenario, baseEdit: baseResolve.edit, throws };
+  return { ...R, baseScenario: baseResolve.scenario, baseEdit: baseResolve.edit, throwsAfterApi };
 }
 
 const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
@@ -79,12 +81,12 @@ console.log(`\n===== S36 R36.5 usedIn @390 ${process.env.WK ? 'WebKit' : 'chromi
 runs.forEach((R, i) => console.log(`iter ${i + 1}: ${JSON.stringify(R)}`));
 const det = k => runs.length === 3 && runs.every(R => R[k] === true);
 const invT = det('invT') && det('treeStruct');
-const bidi = det('usedInHasDiagram') && det('bothSides') && det('iorHasUsedIn');
+const bidi = det('eNotInDiag') && det('bidiAdd') && det('bidiRemove') && det('restored');
 const baseUnit = det('baseScenario') && det('baseEdit');
-const noThrows = runs.every(R => R.throws === 0);
+const noThrows = runs.every(R => R.throwsAfterApi === 0);
 console.log(`\nINV-T (tree never emits usedIn, structure intact): ${invT ? 'GREEN DET-3x' : 'RED'}`);
-console.log(`usedIn BIDIRECTIONAL (element.usedIn ⟷ Diagram.views both sides): ${bidi ? 'GREEN DET-3x' : 'RED'} ${!det('usedInHasDiagram') ? '(no existing view backfilled → needs add-view/removeView net-zero flow — see note)' : ''}`);
-console.log(`Scenario/Edit resolve to BASE unit: ${baseUnit ? 'GREEN DET-3x' : 'RED'} | no throws: ${noThrows ? 'GREEN' : 'RED'}`);
+console.log(`usedIn BIDIRECTIONAL net-zero (add→both-sides populate, remove→both-sides clear, restored): ${bidi ? 'GREEN DET-3x' : 'RED'} (add=${det('bidiAdd')} rem=${det('bidiRemove')} restored=${det('restored')})`);
+console.log(`Scenario/Edit resolve to BASE unit: ${baseUnit ? 'GREEN DET-3x' : 'RED'} | no throws (/model phase): ${noThrows ? 'GREEN' : 'RED'}`);
 const green = invT && bidi && baseUnit && noThrows && servedVersion === TARGET;
 console.log('OVERALL R36.5 FOUNDATION:', green ? 'GREEN DET-3x' : 'RED');
 process.exitCode = green ? 0 : 1;
