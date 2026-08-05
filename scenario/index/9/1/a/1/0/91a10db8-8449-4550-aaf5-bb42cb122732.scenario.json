@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "91a10db8-8449-4550-aaf5-bb42cb122732",
+    "name": "test:R36.5 usedIn[] bidirectional where-used + INV-T + Scenario/Edit->base @390 (server.resolveUsedIn)",
+    "description": "Bridged to test/visual/r365-usedin-webkit-gate.mjs (INDEPENDENT tester real-WebKit @390 DET-3x, served v0.8.52, 2ab54eb53). Marker adopted from origin (measured, not invented). Verifies R36.5 FOUNDATION: (1) INV-T: /api/model/tree + /api/trace/children NEVER emit usedIn (tree BYTES UNCHANGED by the additive metadata, structure intact = the hard tree-unchanged gate); (2) usedIn[] BIDIRECTIONAL net-zero: add-view an element -> its usedIn[] gains the diagram AND Diagram.views gains the element (BOTH sides), remove-view -> both cleared (inverse), byte-equivalent restore (pollution-safe); (3) Scenario/Edit resolve to the BASE element uuid (not a view instance). Credits the where-used RESOLVER (Impl 2f44e112 server.resolveUsedIn); openBaseUnit rides existing 005dbd3e (S35), usedIn-maintenance rides add-view+2c64aa7b (verified end-to-end here).",
+    "sourceFile": "ior:file:test/visual/r365-usedin-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+}
