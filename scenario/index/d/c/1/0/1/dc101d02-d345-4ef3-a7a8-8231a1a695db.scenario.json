@@ -5,7 +5,9 @@
     "name": "DiagramViewModel.buildTraceEdge impl (trace EDGE_DEFS kind + reroute)",
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:3c881f31-1eda-4b0b-82df-beb4f402e63c"
+    ]
   },
   "ownerIor": "ior:instance:6a2cbd63-e958-4de8-a5b3-e84948c71bc6"
 }
