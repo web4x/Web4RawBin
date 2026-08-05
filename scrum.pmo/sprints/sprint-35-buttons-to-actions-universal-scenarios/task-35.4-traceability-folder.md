@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-DONE: R35.4 traceability 4th MDA folder built (mofFolder('rawbin:traceability') + childCount 3->4; rawbin:traceability expands the REAL trace-tree Req->...->Test via existing rb-trace-tree, no fork) + chain-complete-to-Test (Impl b6c88d83 tests[]=[96a4bda8,83abce21], markerPending=false, req mint abe7905d0) + REAL-WEBKIT @390 GREEN DET-3x (v0.8.48, served==HEAD 0.8.50, RawBin node -> [ts,puml,diagrams,traceability]). Team-gated at Tron real engine -> Done.
+DONE (R35.4 reopened Tron-DRY 2026-08-05 PO-delegated + RESOLVED same-day): traceability 4th MDA folder now STRUCTURAL-PARITY with /trace - traceabilityRoots reuses the shared sprintOverviewNodes() helper (server.ts:1250, called by BOTH /api/trace/sprints AND traceabilityRoots = ONE source of truth, DRY; CurrentSprint pinned + S1->S35 ordered -> reqs -> chain, NOT the earlier flat-497 roots). Built expert 3b6a96fbb v0.8.51. Chain-complete-to-Test: Impl b6c88d83 tests[]=[96a4bda8,83abce21], markerPending=false; Test 83abce21 RE-POINTED same-uuid to parity (PO-directed, name='R35.4 traceability DRY-parity with /trace sprints-overview @390', status=pass, two-key intact). REAL-WEBKIT @390 GREEN DET-3x (r354-parity-webkit-gate.mjs, re-gate 98eb0d891 v0.8.51, served==HEAD 0.8.51). AC sharpened to structural-parity (req 4f3c6cf58, +AC-reuse-sprints-overview). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -35,9 +35,10 @@ Tron: 'add the traceability tree as the fourth folder under the MDA project RawB
 ## Acceptance Criteria
 
 - [x] (functional) The MDA RawBin project node shows EXACTLY [ts, puml, diagrams, traceability] - a 4th mofFolder('rawbin:traceability',...) added at server.ts:1247 + childCount hint bumped 3->4 at :1236.
-- [x] (functional) rawbin:traceability expands into the REAL trace tree (Requirement->UseCase->Class->Method->Impl->Test) via the EXISTING rb-trace-tree - returns the requirement-root MofNodes (walk /api/trace roots), reuse no fork.
+- [x] (functional) rawbin:traceability expands into the SAME current+sprints-overview structure that /trace renders (STRUCTURAL PARITY) - a CurrentSprint node PINNED first + Sprints in project order S1->S35 (ior:class:Sprint by model.number ASC = /api/trace/sprints = sprints.overview.md order); each sprint expands via the EXISTING /api/trace/children walk to its requirements -> each req to its chain (Req->UC->Class->Method->Impl->Test). NOT a flat list of 497 requirement roots, NOT a reinvented hierarchy.
 - [x] (functional) The traceability folder + its children resolve to real on-disk scenarios containing info (ties R35.2/R35.3; trace units already real); nodes open a real detail + Scenario/Edit.
-- [x] (gate) GATE @390 real-WebKit: the RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; the traceability folder expands to the Req->...->Test tree; nodes open real detail + both buttons resolve.
+- [x] (gate) GATE @390 real-WebKit: RawBin project node expands to EXACTLY [ts, puml, diagrams, traceability]; rawbin:traceability expands to CurrentSprint(pinned) + ORDERED sprint nodes (~36, SAME order+uuids as /api/trace/sprints + sprints.overview.md, S1->S35), each sprint -> its reqs -> each req -> its chain (structural PARITY with /trace, NOT flat 497 roots); nodes open real detail + Scenario/Edit.
+- [x] (functional) DRY / single-source: rawbin:traceability REUSES the EXISTING current+sprints-overview node-set (does NOT reinvent, does NOT flat-list 497 req roots). The ordered-Sprint enumeration lives in ONE SHARED helper sprintOverviewNodes() called by BOTH /api/trace/sprints (which /trace consumes) AND the traceability folder builder (traceabilityRoots), so the folder is STRUCTURALLY IDENTICAL to /trace by construction. sprint->req->chain rides the EXISTING /api/trace/children trace-walk (zero new walk code).
 
 ## Subtasks
 
