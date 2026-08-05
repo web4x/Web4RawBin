@@ -4,7 +4,7 @@
     "uuid": "94ad4f50-aac8-4de5-ad34-e6776fc4b938",
     "name": "DiagramViewModel.renderFacet impl",
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5"

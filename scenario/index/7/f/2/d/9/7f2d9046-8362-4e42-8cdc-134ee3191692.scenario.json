@@ -5,7 +5,7 @@
     "name": "ScenarioIndex.put BUILD_OWNED no-flush guard impl",
     "description": "R31.7 durable no-flush guard (0f623bfb6, architect design 50e7285da): ScenarioIndex.put (index-store.ts:50) refuses runtime writes of BUILD_OWNED_UUIDS (config-singleton) — warn+no-op at the ONE chokepoint (by-construction, all flush paths blocked). Distinct-intent impl on the existing put Method c2ab4e27 (alongside 877ec45e/9c8d5ebb). IMPL-MINT — expert marks [impl:uuid:7f2d9046-8362-4e42-8cdc-134ee3191692] on the put/guard decl.",
     "sourceFile": "ior:file:src/ts/scenario/index-store.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:c2ab4e27-b143-48fb-ba8d-0e5251aaa5b5"
