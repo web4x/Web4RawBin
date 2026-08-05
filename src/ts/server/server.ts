@@ -1245,6 +1245,36 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
   return readUsageIndex()[elementUuid] || [];
 }
 
+// R36.1/R36.2 part-2 A-merge (architect design 0f13d9d87). markerPending: REQ mints the Impl (sole minter, #126);
+// the [impl] marker is added on req's uuid. COMPUTE-ON-READ at /api/ior — NEVER writes either file, so INV-T (tree
+// bytes) + isolation (prod untouched) + INV-RM1 (generated M1 pristine) hold BY CONSTRUCTION. Dedup by the
+// deterministic key keyToUuid(sourceFile::qualifiedName) (R32.2 = the generated M1's OWN uuid). Field-precedence:
+// TRACEABILITY wins identity/chain (name + methods/implementations/tests/chain links — left untouched on the base),
+// generated M1 wins structure/signature, instanceOf facets UNION, usedIn from the R36.2 side-index. Enriches the
+// resolution's model IN MEMORY only.
+function reconcileCanonical(uuid: string, m: Record<string, unknown>): void {
+  const sourceFile = String(m.sourceFile || ''); const qn = String(m.qualifiedName || m.name || '');
+  if (!sourceFile || !qn) return; // no key → no counterpart; base IS canonical
+  const key = keyToUuid(`${sourceFile}::${qn}`); // = the generated M1's uuid by construction (R32.2 mkKey)
+
+  // Trace base (prod) → merge the generated M1 counterpart from MODEL_STORE (deterministic key). Files stay pristine.
+  if (!isModelUnit(uuid) && key !== uuid && isModelUnit(key)) {
+    let g: Record<string, unknown> | undefined;
+    try { g = (new ScenarioIndex(MODEL_STORE).get(key) as { model?: Record<string, unknown> } | undefined)?.model; } catch { /* no counterpart */ }
+    if (g) {
+      const facets = new Set<string>([...(Array.isArray(m.instanceOf) ? m.instanceOf as string[] : []), ...(Array.isArray(g.instanceOf) ? g.instanceOf as string[] : [])]);
+      if (facets.size) m.instanceOf = [...facets]; // UNION — never drop a side's facet
+      for (const f of ['members', 'memberOf', 'kind', 'relatesTo', 'relatedFrom', 'relations', 'visibility', 'parameters', 'returnType', 'docs', 'parentClass']) {
+        if (g[f] !== undefined) m[f] = g[f]; // generated M1 wins structure/signature (source is truth)
+      }
+      m.canonicalKey = key; // the M1 alias key — both resolve to this ONE canonical unit
+    }
+  }
+  // usedIn from the R36.2 side-index (keyed by the canonical/M1 key; the M1's uuid IS that key)
+  const usedIn = resolveUsedIn(isModelUnit(uuid) ? uuid : key);
+  if (usedIn.length) m.usedIn = usedIn;
+}
+
 // R33.10 BUG-B (PLANTUML docker re-wire, PO): the prod host runs a plantuml-server container. Render via HTTP to it
 // (deflate + PlantUML-base64 → GET /svg/<encoded>) instead of a local `plantuml` binary. The URL is R31.7 typed-config
 // — env PLANTUML_URL, else the Config unit's model.plantumlUrl, else the docker default — never hardcoded (so it can't
@@ -2367,6 +2397,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const idx = new ScenarioIndex(scenarioDir);
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);
+        if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>); // R36.1/R36.2 part-2: compute-on-read A-merge (canonical view; never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
