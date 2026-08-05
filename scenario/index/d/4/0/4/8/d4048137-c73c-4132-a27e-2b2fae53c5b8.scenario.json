@@ -39,16 +39,7 @@
     "text": "GATE @390: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function→Method conversion works, Method→Function blocked."
    }
   ],
-  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
-  "chainCredit": "code-done",
-  "chainCreditNote": "R36.3 GREENLIGHT = CHAIN-CREDIT not a build (PO + architect d38b5321e). CODE-DONE: part-1 data-extract d978df35d (TsToModel.generate signature+parentClass enrich, rides Impl 382f8644 distinct-intent); part-2 render renderFacet 94ad4f50 (R36.2, already tested e21b876d). No new Method/Impl minted — no fabrication, ride-existing.",
-  "crossRef": [
-   "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad",
-   "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
-  ],
-  "methodVsFunctionClosure": "by-construction",
-  "methodVsFunctionClosureNote": "AC-method-vs-function closed BY-CONSTRUCTION: TsToModel derives type from parentClass presence (present @TsToModel.ts:180 -> Method / instanceOf UmlMethod; absent @:155 -> Function / instanceOf UmlFunction; fn->method convertible). Not a functional @390 Test — verification = the invariant. Recorded so not falsely-open.",
-  "testPending": "Fresh tester gates R36.3 @390: re-generate prereq -> method-facet renders 'visibility name(params):returnType' -> Method-vs-Function. On GREEN I mint the distinct-intent Test (adopt tester marker) onto generate 382f8644 (data) / renderFacet 94ad4f50 (render)."
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
  },
  "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
 }
