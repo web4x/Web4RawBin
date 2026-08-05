@@ -49,13 +49,19 @@
     "text": "HARD (architect mechanism (c) SIDE-INDEX, ca49f1826): usedIn[] survives TsToModel RE-GENERATION BY CONSTRUCTION — usedIn lives in a DEDICATED usage-index in MODEL_STORE keyed by the CANONICAL deterministic uuid (sourceFile::qualifiedName), OUTSIDE the generated element file. TsToModel NEVER touches the side index, so re-gen leaves usedIn intact; the generated M1 element stays PRISTINE (INV-RM1 strict — element file never written); resolveUsedIn reads the side index (resolve-at-detail); bidirectional side-index<->Diagram.views. (c) refactors R36.5 on-element usedIn into the side index — natural AT R36.2. GATE @390: place a Class on a diagram (usedIn set in side-index) -> trigger TsToModel re-gen -> usedIn still present+correct (survives) + the generated element file byte-unchanged + tree byte-unchanged."
    },
    {
+    "id": "AC-r365-regate-on-store-move",
+    "group": "gate",
+    "text": "GUARDRAIL (architect 19b6217be + PO): (c) is a TRANSPARENT BACKEND SWAP — ONLY the 3 R36.5 fns (addUsedIn/removeUsedIn/resolveUsedIn 2f44e112) move off-element to read/write the MODEL_STORE side-index (keyed by keyToUuid(sourceFile::qualifiedName)); add-view/remove-view callers + GET /api/model/used-in + /api/ior behavior UNCHANGED. BECAUSE the usedIn STORE LOCATION moves off-element, when R36.2 ships the tester MUST RE-GATE R36.5 on the side-index backend: add-view→side-index returns, remove-view→drops, bidirectional, the element file is NOW PRISTINE (INV-RM1), /api/ior STILL shows usedIn (resolver attaches), INV-T byte-diff==0. R36.5 on-element Test 91a10db8 is re-verified/re-pointed to the side-index behavior on R36.2 ship."
+   },
+   {
     "id": "AC-gate-390",
     "group": "gate",
     "text": "GATE @390: Class instanceOf both facets (ONE merged unit); drag each renders from the ONE unit's data (no duplicate); usedIn bidirectional."
    }
   ],
   "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
-  "regenConstraintNote": "R36.2 usedIn-survives-regen MECHANISM = (c) SIDE-INDEX (architect ca49f1826, RECOMMEND): a MODEL_STORE usage-index keyed by canonical uuid (sourceFile::qualifiedName), outside the generated element -> re-gen-immune BY CONSTRUCTION, element pristine (INV-RM1 strict), decoupled, bidirectional. REJECT (a) write-on-canonical (prod scenario/index isolation violation unless canonical in MODEL_STORE=becomes c). (b) read-merge-write = minimal fallback (couples TsToModel, INV-RM1 relaxed). Refactors R36.5 on-element usedIn into the side index at R36.2. Formalize the R36.2 chain on (c) at build-go [or (b) if PO/expert opt minimal]."
+  "regenConstraintNote": "R36.2 usedIn-survives-regen MECHANISM = (c) SIDE-INDEX (architect ca49f1826, RECOMMEND): a MODEL_STORE usage-index keyed by canonical uuid (sourceFile::qualifiedName), outside the generated element -> re-gen-immune BY CONSTRUCTION, element pristine (INV-RM1 strict), decoupled, bidirectional. REJECT (a) write-on-canonical (prod scenario/index isolation violation unless canonical in MODEL_STORE=becomes c). (b) read-merge-write = minimal fallback (couples TsToModel, INV-RM1 relaxed). Refactors R36.5 on-element usedIn into the side index at R36.2. Formalize the R36.2 chain on (c) at build-go [or (b) if PO/expert opt minimal].",
+  "r365RegateNote": "R36.2 (c) side-index moves the usedIn store off-element (transparent swap, only R36.5 3 fns change backend). R36.5 Test 91a10db8 gated ON-ELEMENT usedIn; on R36.2 ship the tester RE-GATES R36.5 on the side-index (like R35.4 flat->parity re-point). Wired into the R36.2 gate so R36.5 is re-verified when R36.2 lands (no silent stale green)."
  },
  "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
 }
