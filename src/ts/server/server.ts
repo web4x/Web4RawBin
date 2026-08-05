@@ -1208,44 +1208,41 @@ function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: bool
   return { ok: true, removed: true, views: unit.model.views.length };
 }
 
-// R36.5 usedIn[] BIDIRECTIONAL usage-refs (unit.usedIn ⟷ Diagram.views). ADDITIVE store-only metadata on the
-// MODEL_STORE element unit tracking WHERE it is placed — NOT destructive (re-addable preserved, INV-RM1 spirit) +
-// tree-INVISIBLE (INV-T: /api/model/tree renders name/hierarchy, never usedIn → tree bytes unchanged) + prod
-// scenario/index NEVER touched (element units resolve from MODEL_STORE). Maintained by add-view/remove-view = both
-// sides, never one-sided. Element not in the store → no-op (nothing to back-ref).
+// R36.5 usedIn[] BIDIRECTIONAL usage-refs (usage ⟷ Diagram.views). R36.2(c) SIDE-INDEX (architect ca49f1826 / 19b6217be):
+// usedIn now lives in a DEDICATED MODEL_STORE usage-index (data/model-store/usage-index.json) keyed by the element's
+// CANONICAL deterministic uuid (=keyToUuid(sourceFile::qualifiedName) for a generated M1 unit) — OUTSIDE the element
+// file (and OUTSIDE the scanned index shards), so the generated element stays PRISTINE (INV-RM1 strict, never written)
+// and usedIn SURVIVES TsToModel re-generation BY CONSTRUCTION (TsToModel never touches the side-index). Transparent
+// backend swap: add-view/remove-view callers + GET /api/model/used-in + /api/ior behavior UNCHANGED. Tree-INVISIBLE
+// (INV-T byte-diff==0 — usedIn was never in the tree; now not even on the element file). Bidirectional, both sides.
+const usageIndexPath = (): string => path.join(MODEL_STORE, '..', 'usage-index.json'); // one level ABOVE the index shards → never scanned as a unit
+function readUsageIndex(): Record<string, { kind: string; ref: string }[]> {
+  try { return JSON.parse(fsSync.readFileSync(usageIndexPath(), 'utf-8')); } catch { return {}; }
+}
+function writeUsageIndex(idx: Record<string, { kind: string; ref: string }[]>): void {
+  fsSync.mkdirSync(path.dirname(usageIndexPath()), { recursive: true });
+  fsSync.writeFileSync(usageIndexPath(), JSON.stringify(idx, null, 2) + '\n');
+}
 function addUsedIn(elementUuid: string, kind: 'diagram' | 'folder', ref: string): void {
   const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
-  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
-  if (!fsSync.existsSync(f)) return;
-  try {
-    const u = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
-    const used: { kind: string; ref: string }[] = Array.isArray(u.model.usedIn) ? u.model.usedIn : (u.model.usedIn = []);
-    if (used.some((x) => x.kind === kind && x.ref === ref)) return; // dedup → idempotent
-    used.push({ kind, ref });
-    fsSync.writeFileSync(f, JSON.stringify(u, null, 2) + '\n');
-  } catch { /* corrupt/missing → best-effort back-ref, skip */ }
+  const idx = readUsageIndex();
+  const used = idx[elementUuid] || (idx[elementUuid] = []);
+  if (used.some((x) => x.kind === kind && x.ref === ref)) return; // dedup → idempotent
+  used.push({ kind, ref }); writeUsageIndex(idx); // R36.2(c): element file NEVER written (INV-RM1 strict)
 }
 function removeUsedIn(elementUuid: string, ref: string): void {
   const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
-  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
-  if (!fsSync.existsSync(f)) return;
-  try {
-    const u = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
-    if (!Array.isArray(u.model.usedIn)) return;
-    const before = u.model.usedIn.length;
-    u.model.usedIn = u.model.usedIn.filter((x: { ref: string }) => x.ref !== ref);
-    if (u.model.usedIn.length !== before) fsSync.writeFileSync(f, JSON.stringify(u, null, 2) + '\n');
-  } catch { /* */ }
+  const idx = readUsageIndex(); const arr = idx[elementUuid]; if (!Array.isArray(arr)) return;
+  const kept = arr.filter((x) => x.ref !== ref);
+  if (kept.length !== arr.length) { if (kept.length) idx[elementUuid] = kept; else delete idx[elementUuid]; writeUsageIndex(idx); }
 }
 // [impl:uuid:2f44e112-ce56-4fe5-892c-a55aab5f3bf3] server.resolveUsedIn (Method e48832b2, Class c0a0921d, off UC
-// e46c6407 modelElement.usedInResolver) — R36.5 where-used RESOLVER: the back-refs ARE the element unit's usedIn[]
-// (the bidirectional mirror of Diagram.views maintained store-only by add-view/removeView; no scan). Served via
-// GET /api/model/used-in/<uuid> + present on the unit model at /api/ior.
+// e46c6407 modelElement.usedInResolver) — R36.5 where-used RESOLVER, R36.2(c) reads the SIDE-INDEX (resolve-at-detail):
+// the back-refs are the usage-index entry for the element's canonical uuid (survives re-gen; element file pristine).
+// Served via GET /api/model/used-in/<uuid> + attached to the unit model at /api/ior. Behavior identical to R36.5.
 function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
   const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid)) return [];
-  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
-  if (!fsSync.existsSync(f)) return [];
-  try { const u = JSON.parse(fsSync.readFileSync(f, 'utf-8')); return Array.isArray(u.model.usedIn) ? u.model.usedIn : []; } catch { return []; }
+  return readUsageIndex()[elementUuid] || [];
 }
 
 // R33.10 BUG-B (PLANTUML docker re-wire, PO): the prod host runs a plantuml-server container. Render via HTTP to it
