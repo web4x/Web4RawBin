@@ -1253,8 +1253,13 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
 // generated M1 wins structure/signature, instanceOf facets UNION, usedIn from the R36.2 side-index. Enriches the
 // resolution's model IN MEMORY only.
 function reconcileCanonical(uuid: string, m: Record<string, unknown>): void {
-  const sourceFile = String(m.sourceFile || ''); const qn = String(m.qualifiedName || m.name || '');
-  if (!sourceFile || !qn) return; // no key → no counterpart; base IS canonical
+  const sourceFileRaw = String(m.sourceFile || ''); const qn = String(m.qualifiedName || m.name || '');
+  if (!sourceFileRaw || !qn) return; // no key → no counterpart; base IS canonical
+  // R36.1/R36.2 (A) fix (verified: 5 counterpart classes matched only after this): traceability units store
+  // sourceFile as `ior:file:<repo-rel-path>`, but the generated M1 keys off the PLAIN repo-rel path
+  // (keyToUuid(rel(sf)::qn), R32.2 mkKey). Strip the ior:*: prefix so the dedup key matches the M1's uuid —
+  // without this the merge NEVER fires (every /api/ior showed base-only; the architect-caught defect).
+  const sourceFile = sourceFileRaw.replace(/^ior:(file|instance|class):/, '');
   const key = keyToUuid(`${sourceFile}::${qn}`); // = the generated M1's uuid by construction (R32.2 mkKey)
 
   // Trace base (prod) → merge the generated M1 counterpart from MODEL_STORE (deterministic key). Files stay pristine.
