@@ -58,11 +58,34 @@ export interface M1Model {
   members?: string[]; memberOf?: string;
   relatesTo?: string[]; relatedFrom?: string[];
   relations?: { to: string; type: string }[];
+  // R36.3 method/function full signature (enriched from the source decl)
+  visibility?: 'public' | 'private' | 'protected'; parameters?: { name: string; type?: string }[]; returnType?: string;
+  documentation?: string; parentClass?: string;
 }
 export interface M1Unit { ior: 'ior:class:ModelElement'; ownerIor: null; model: M1Model; }
 
 interface Draft { uuid: string; kind: string; name: string; qn: string; sourceFile: string;
-  members: string[]; memberOf?: string; typeRefs: string[]; heritage: string[]; depRefs: string[]; }
+  members: string[]; memberOf?: string; typeRefs: string[]; heritage: string[]; depRefs: string[];
+  // R36.3 method/function full signature (enriched from the source decl)
+  visibility?: 'public' | 'private' | 'protected'; parameters?: { name: string; type?: string }[]; returnType?: string;
+  documentation?: string; parentClass?: string; }
+
+// R36.3: visibility from a member decl's modifiers (default public; a #private name is private too).
+function memberVisibility(node: ts.Node): 'public' | 'private' | 'protected' {
+  const mods = (ts.canHaveModifiers && ts.canHaveModifiers(node) ? ts.getModifiers(node) : (node as { modifiers?: readonly ts.Modifier[] }).modifiers) as readonly ts.Modifier[] | undefined;
+  if (mods?.some((m) => m.kind === ts.SyntaxKind.PrivateKeyword)) return 'private';
+  if (mods?.some((m) => m.kind === ts.SyntaxKind.ProtectedKeyword)) return 'protected';
+  const nm = (node as { name?: ts.Node }).name;
+  if (nm && ts.isPrivateIdentifier(nm)) return 'private';
+  return 'public';
+}
+// R36.3: oosh-style docs = the decl's JSDoc comment text (last block).
+function jsDocText(node: ts.Node): string {
+  const jsdoc = (node as unknown as { jsDoc?: { comment?: string | { text?: string }[] }[] }).jsDoc;
+  if (!jsdoc || !jsdoc.length) return '';
+  const c = jsdoc[jsdoc.length - 1].comment;
+  return typeof c === 'string' ? c.trim() : (Array.isArray(c) ? c.map((x) => x.text || '').join('').trim() : '');
+}
 
 export class TsToModel {
   private root: string;
@@ -124,6 +147,14 @@ export class TsToModel {
         const parent = addDraft(sf.fileName, name, kind, name);
         { const arr = nameDecls.get(name) || []; arr.push({ uuid: parent.uuid, file: this.rel(sf.fileName) }); nameDecls.set(name, arr); }
 
+        // R36.3: top-level FUNCTION full signature — NO parentClass ⇒ Function (instanceOf UmlFunction via FACETS['function']).
+        if (kind === 'function' && ts.isFunctionDeclaration(node)) {
+          parent.visibility = 'public';
+          parent.parameters = node.parameters.map((p) => { const t = this.typeName(p.type); return { name: p.name.getText(), ...(t ? { type: t } : {}) }; });
+          parent.returnType = this.typeName(node.type) || undefined;
+          parent.documentation = jsDocText(node) || undefined;
+        }
+
         // heritage (extends/implements) → UmlGeneralization
         if ((ts.isClassDeclaration(node) || ts.isInterfaceDeclaration(node)) && node.heritageClauses) {
           for (const hc of node.heritageClauses) for (const t of hc.types) if (ts.isIdentifier(t.expression)) parent.heritage.push(t.expression.text);
@@ -144,6 +175,13 @@ export class TsToModel {
           if (mkind === 'property') { if (seenProp.has(mn)) { /* get+set pair → one property (already drafted) */ } seenProp.add(mn); }
           const md = addDraft(sf.fileName, `${name}.${mn}`, mkind, mn);
           md.memberOf = parent.uuid;
+          if (mkind === 'method') { // R36.3: parentClass PRESENT ⇒ Method (instanceOf UmlMethod); enrich the full signature
+            md.parentClass = parent.uuid;
+            md.visibility = memberVisibility(mem);
+            md.parameters = ((mem as ts.MethodDeclaration | ts.MethodSignature).parameters || []).map((p) => { const t = this.typeName(p.type); return { name: p.name.getText(), ...(t ? { type: t } : {}) }; });
+            md.returnType = this.typeName(mtype) || undefined;
+            md.documentation = jsDocText(mem) || undefined;
+          }
           if (!parent.members.includes(md.uuid)) parent.members.push(md.uuid);
           // typed member → relationship target (attribute/property=Association; method return=Dependency)
           const tn = this.typeName(mtype);
@@ -186,6 +224,12 @@ export class TsToModel {
       };
       if (d.members.length) model.members = d.members.map(ref);
       if (d.memberOf) model.memberOf = ref(d.memberOf);
+      // R36.3 full signature: visibility + name(parameters) + returnType + docs; parentClass PRESENT ⇒ Method (else Function)
+      if (d.visibility) model.visibility = d.visibility;
+      if (d.parameters) model.parameters = d.parameters;
+      if (d.returnType) model.returnType = d.returnType;
+      if (d.documentation) model.documentation = d.documentation;
+      if (d.parentClass) model.parentClass = ref(d.parentClass);
       if (dd._rel && dd._rel.length) { model.relatesTo = dd._rel.map((r) => ref(r.to)); model.relations = dd._rel.map((r) => ({ to: ref(r.to), type: ref(r.type) })); }
       if (dd._from && dd._from.length) model.relatedFrom = dd._from.map(ref);
       units.push({ ior: 'ior:class:ModelElement', ownerIor: null, model });
