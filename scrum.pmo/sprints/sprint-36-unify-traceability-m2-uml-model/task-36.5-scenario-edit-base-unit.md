@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-Planned — cluster FOUNDATION (build FIRST: typed-OOP-ext base + usedIn usage-ref + R36.5 Scenario/Edit-opens-correct-unit). Rides S35 onUniversalAction b8f284c6 + ensureViewUnit a09b474d; usedIn <-> Diagram.views bidirectional (reuse R32.11/R33.8). @390 real-WebKit gate (open-TARGET, bidirectional usedIn) + chain-complete-to-Test on ship.
+DONE: R36.5 FOUNDATION built (Scenario/Edit open the CORRECT base unit - rides S35 onUniversalAction b8f284c6/005dbd3e + ensureViewUnit a09b474d; usedIn[] bidirectional usage-ref <-> Diagram.views) + chain-complete-to-Test (chain R36.5 a8663672 -> UC usedInResolver e46c6407 + openBaseUnit 2d58e144 -> server c0a0921d -> Method resolveUsedIn e48832b2 -> Impl 2f44e112 tests[]=[91a10db8], markerPending=false, req mint 33f9fe6de, two-key) + REAL-WEBKIT @390 GREEN DET-3x (r365-usedin-webkit-gate.mjs gate 2ab54eb53 v0.8.52, served==HEAD 0.8.52; verified INV-T byte-diff==0 + usedIn bidirectional + Scenario/Edit->base open-target). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ For EVERY projected view/element, the Scenario + Edit buttons carry the info to 
 
 ## Acceptance Criteria
 
-- [ ] (functional) For every projected view/element, Scenario opens /scenario?ior=<BASE-unit> + Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence.
-- [ ] (functional) Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers 'where is this used' (back-refs).
-- [ ] (functional) INVARIANT: unit.usedIn <-> Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
-- [ ] (gate) GATE @390 real-WebKit: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram -> unit.usedIn + diagram.views both updated; remove -> both cleared).
+- [x] (functional) For every projected view/element, Scenario opens /scenario?ior=<BASE-unit> + Edit opens the base unit's editor — the CORRECT underlying ScenarioUnit the view projects (rides S35 universal-actions + ensureViewUnit). Gate the actual open-TARGET, not button presence.
+- [x] (functional) Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers 'where is this used' (back-refs).
+- [x] (functional) INVARIANT: unit.usedIn <-> Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
+- [x] (gate) GATE @390 real-WebKit: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram -> unit.usedIn + diagram.views both updated; remove -> both cleared).
 
 ## Subtasks
 
