@@ -56,3 +56,17 @@ The regen-fragility (TsToModel overwrites the M1 file, dropping additive usedIn)
 - **REJECT (a):** the canonical traceability unit lives in PROD scenario/index → writing usedIn there VIOLATES prod-untouched isolation (INV-A2-3). (If the canonical is materialized in MODEL_STORE it just BECOMES (c).)
 - **(b) read-merge-write = the minimal-change fallback** if the team prefers NOT to refactor R36.5's shipped on-element usedIn: TsToModel reads+re-attaches usedIn before overwrite. Works, but COUPLES the generator to usedIn + keeps INV-RM1 relaxed. Acceptable but inferior.
 - **Cost note:** (c) refactors R36.5's on-element usedIn into the side index — natural to do AT R36.2 (the merge/reconcile build). RECOMMEND (c); (b) only if avoiding the R36.5 touch.
+
+## R36.2 (c) SIDE USAGE-INDEX — DESIGN (architect 2026-08-05, PO-APPROVED, preserve R36.5)
+MEASURED R36.5 sites (server.ts): `addUsedIn(elementUuid,kind,ref)` (:1215, writes u.model.usedIn on the ELEMENT file :1222) ← add-view :1915; `removeUsedIn(elementUuid,diagramUuid)` (:1234-1237, filters+writes element file) ← remove-view :1207; `resolveUsedIn(elementUuid)` (:1244-1248, impl 2f44e112, reads u.model.usedIn from element file) ← GET /api/model/used-in/<uuid> :1893 + /api/ior. KEY PROPERTY: the M1 element uuid IS `keyToUuid(sourceFile::qualifiedName)` = the CANONICAL deterministic uuid already → keying a side-index by that uuid survives re-gen + is the merged unit's key BY CONSTRUCTION.
+### (c) = TRANSPARENT BACKEND SWAP of ONLY those 3 functions (preserve R36.5 gated behavior)
+- **Store:** a side usage-index in MODEL_STORE (`data/model-store/usage-index/` sharded by uuid, OR one keyed map) — canonicalUuid → `[{kind,ref}]`. NOT on the element file, NOT prod.
+- **`addUsedIn`/`removeUsedIn`:** read-modify-write the SIDE-INDEX entry (keyed by uuid) instead of the element file. The generated element file is NEVER written → stays PRISTINE (INV-RM1 STRICT restored; re-gen can't drop usedIn).
+- **`resolveUsedIn` (2f44e112, marker STAYS impl-edit):** read the SIDE-INDEX entry instead of the element file — SAME return shape.
+- **`/api/model/used-in/<uuid>` + add-view/remove-view callers: UNCHANGED** (call the same 3 functions) → R36.5's GATED BEHAVIOR (endpoint returns back-refs; add/remove bidirectional) HOLDS identically.
+- **`/api/ior` parity:** usedIn was "present on the unit model at /api/ior" (R36.5, because on-element). Off-element now → the /api/ior resolver ATTACHES `resolveUsedIn(uuid)` onto the returned model (transparent) so that behavior is preserved too.
+### INV-T + isolation
+- **INV-T:** the side-index is tree-INVISIBLE (not in /api/model/tree/mofChildren) → tree byte-diff==0 (even more decoupled than on-element). 
+- **Isolation:** side-index in MODEL_STORE/data, NEVER prod scenario/index.
+### ★ GUARDRAIL FLAG (per PO) — tester RE-GATE R36.5
+The store LOCATION moves off-element → the SIDE-INDEX. The resolveUsedIn/add/remove API + /api/model/used-in behavior are PRESERVED (transparent), but the BACKING STORAGE changed → **tester must RE-GATE R36.5** on the side-index backend: add-view→used-in returns it; remove-view→drops it; bidirectional; element file now PRISTINE (usedIn NOT on it); /api/ior still shows usedIn (via the resolver attach); INV-T byte-diff==0. Build (c) INTO the R36.2 A-merge (the merge keys the same canonical uuid = the side-index key).
