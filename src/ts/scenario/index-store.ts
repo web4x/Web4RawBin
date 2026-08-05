@@ -40,7 +40,15 @@ export class ScenarioIndex {
     return newPath;
   }
 
+  // R31.7 no-flush write-guard (architect design 50e7285da). The config-singleton unit is BUILD-OWNED: start.mjs
+  // writes it; the server only READS it (server.ts:1286 plantumlUrl) + serves BOOT_VERSION — it must NEVER persist it.
+  // put() is the SOLE disk-write for every unit, so guarding it here blocks ALL runtime flush paths BY CONSTRUCTION →
+  // the version-regression antipattern (a server booted @X re-flushing config@X, dirtying the tree) cannot recur.
+  // WARN (not silent) so any offending write path is visible. markerPending: REQ mints the Impl (#126).
+  static readonly BUILD_OWNED_UUIDS = new Set(['config-singleton-0000-000000000001']);
+
   put(uuid: string, scenario: ScenarioUnit): void {
+    if (ScenarioIndex.BUILD_OWNED_UUIDS.has(uuid)) { console.warn('[ScenarioIndex] refused runtime write of BUILD-OWNED unit ' + uuid); return; }
     this.invalidateListCache();
     const dir = path.join(this.basePath, this.prefixPath(uuid));
     fs.mkdirSync(dir, { recursive: true });
