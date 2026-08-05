@@ -15,7 +15,8 @@
   "unitLinks": [],
   "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
   "useCases": [
-   "ior:instance:2d58e144-1765-4564-ba51-500ba8275944"
+   "ior:instance:2d58e144-1765-4564-ba51-500ba8275944",
+   "ior:instance:e46c6407-3188-4fde-9ad3-5cf5ff171914"
   ],
   "acceptanceCriteria": [
    {

@@ -59,3 +59,4 @@
   - [ ] **(functional)** INVARIANT: unit.usedIn ⟷ Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
   - [ ] **(gate)** GATE @390: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram → unit.usedIn + diagram.views both updated; remove → both cleared).
   -> actionBar.openBaseUnit [uc:uuid:2d58e144-1765-4564-ba51-500ba8275944]
+  -> modelElement.usedInResolver [uc:uuid:e46c6407-3188-4fde-9ad3-5cf5ff171914]

@@ -6,7 +6,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "parent": null,
   "unitLinks": [],
-  "description": "R36.5: ◆Scenario/✎Edit resolve a projected view to its BASE ScenarioUnit + open it (rides S35 onUniversalAction b8f284c6 / ensureViewUnit a09b474d); usedIn[] bidirectional resolver (unit↔Diagram.views). Method/chain at build-go."
+  "description": "R36.5: ◆Scenario/✎Edit resolve a projected view to its BASE ScenarioUnit + open it (rides S35 onUniversalAction b8f284c6 / ensureViewUnit a09b474d); usedIn[] bidirectional resolver (unit↔Diagram.views). Method/chain at build-go.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:276e4981-4415-4e31-af3f-c19217322725",
+  "ridesNote": "R36.5 openBaseUnit RIDES the S35 Scenario/Edit handler onUniversalAction (Method 276e4981 / Impl 005dbd3e) as an impl-EDIT: resolve a projected VIEW to its BASE ScenarioUnit before Scenario->/scenario?ior / Edit->scenarioEditorHref (rides ensureViewUnit a09b474d for the resolve). NO new Impl. usedIn-maintenance rides add-view (server.ts:1849) + persistRemoveView (2c64aa7b) impl-edits (both sides unit.usedIn<->diagram.views). The where-used RESOLVER = the distinct new node (UC e46c6407)."
  },
  "ownerIor": null
 }
