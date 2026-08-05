@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
-- [ ] Done
+  - [x] testing
+- [x] QA Review
+- [x] Done
 
 ## Remaining Issues
 
-In Progress (chain-BUILT via R30.11 shared-credit CLEAN, 3 distinct-intent Tests PENDING @390 gate): R36.3's OWN chain built (req 1470075c8) — Method enrichMethodSignature 68d1997e (data-enrich RIDES shared Impl 382f8644=R32.2) + Method renderMethodFacet d8818494 (render RIDES shared Impl 94ad4f50=R36.2); R36.3.useCases[]=[f5e4ecb2, 8e39082a]. ★ VERIFY-NOT-RELAY CLEAN (checked on disk myself): shared Impls 382f8644 (tests[]=[ba762f5a]=R32.2, markerPending=false) + 94ad4f50 (tests[]=[e21b876d]=R36.2, markerPending=false) UNTOUCHED — NO re-credit, NO marker flip, ownerIor stays with owners. R36.3.tests[]=[] Test-PENDING. Method-vs-Function by-construction. ★ FLIP->Done ONLY when fresh tester @390 re-generate gate GREEN -> req mints the 3 DISTINCT-INTENT Tests onto the shared Impls (alongside owners' tests, R30.11) -> I verify R36.3's distinct test present on disk -> chain-complete-to-Test.
+DONE: R36.3 Method-enrich + Method-vs-Function + projections — chain-complete-to-Test via R30.11 SHARED-IMPL (verified on disk myself: DISTINCT-INTENT, NO double-credit). R36.3's OWN Methods enrichMethodSignature 68d1997e (rides shared 382f8644=R32.2) + renderMethodFacet d8818494 (rides shared 94ad4f50=R36.2). 3 DISTINCT-INTENT Tests wired ALONGSIDE owners' (verified names + status=pass, NOT claiming ba762f5a/e21b876d): T1 5bb30e23 (data-extract signature, 382f8644) + T3 84ffd586 (Method-vs-Function, 382f8644) + T2 0172b45d (signature-content render @390, 94ad4f50). Shared markers UNTOUCHED (382f8644/94ad4f50 markerPending=false, owners R32.2/R36.2). Tester GREEN DET-3x v0.8.61 (c0ed32640), served==HEAD 0.8.61. R30.11-accept (PO greenlight + joint verdict 2ebff228c + scoreboard-OK). Team-gated at Tron real engine -> Done.
 
 ## Traceability
 
@@ -34,10 +34,10 @@ ENRICH the Method ScenarioUnit with a FULL SIGNATURE: visibility (public/private
 
 ## Acceptance Criteria
 
-- [ ] (functional) The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl.
-- [ ] (functional) parentClass field distinguishes Method (PRESENT => instanceOf UmlMethod) from Function (ABSENT => instanceOf UmlFunction). Function->Method convertible (add parentClass); Method->Function blocked (modelled one-way).
-- [ ] (functional) UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).
-- [ ] (gate) GATE @390 real-WebKit: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function->Method conversion works, Method->Function blocked.
+- [x] (functional) The Method unit carries a FULL signature: visibility {public|private|protected}, name(parameters[]), returnType, docs (oosh-style) — enriched from the source decl.
+- [x] (functional) parentClass field distinguishes Method (PRESENT => instanceOf UmlMethod) from Function (ABSENT => instanceOf UmlFunction). Function->Method convertible (add parentClass); Method->Function blocked (modelled one-way).
+- [x] (functional) UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).
+- [x] (gate) GATE @390 real-WebKit: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function->Method conversion works, Method->Function blocked.
 
 ## Subtasks
 
