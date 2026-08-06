@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "862053c6-1de8-4236-bdd9-2382b589098e",
+  "name": "modelElement.whereUsedDisplay",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md",
+  "parent": null,
+  "unitLinks": [],
+  "description": "T36.5 where-used DISPLAY: RbModelElementDetail.render adds a 'Where used' section (reusing this.sec()+this.link()) rendering m.usedIn [{kind,ref}] (already served on /api/ior via the R36.2c side-index) as clickable dv-links; each ref drills via the existing .dv-link handler (selectionModel.replaceWith); 'Not used' when empty. INV-W1 data-driven, INV-W2 drill, INV-W3 tree byte-diff==0 (detail-view only), INV-W4 empty-safe. Architect design sec 'T36.5 WHERE-USED DISPLAY' (1695b54ad).",
+  "class": "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086",
+  "method": "ior:instance:c2da9192-8fb2-4872-9f93-c5aafc0e59c6",
+  "ridesNote": "R30.11 shared-impl: where-used section is an impl-edit to the EXISTING RbModelElementDetail.render (Method c2da9192 / Impl 7e147ad8, R32.10-owned). This UC RIDES that shared Method/Impl with a DISTINCT-INTENT where-used Test - render marker/ownerIor/R32.10 Test STAY UNTOUCHED, credit is the added distinct Test (minted at gate adopting tester @390 marker). Expert impl-edits render() (client-only -> version bump); NOT self-mint (#126)."
+ },
+ "ownerIor": null
+}

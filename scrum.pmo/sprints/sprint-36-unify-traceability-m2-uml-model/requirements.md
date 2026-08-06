@@ -35,6 +35,7 @@
   -> modelElement.umlClassView [uc:uuid:dd000fd8-b65c-4868-a3ed-22b2f23a3aed]
   -> modelElement.reconcileCanonical [uc:uuid:f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c]
   -> diagramView.renderFacet [uc:uuid:97e5e14e-aaf7-4783-8352-f6da5bbc5e24]
+  -> modelElement.usedInSurvivesRegen [uc:uuid:d2a2ead2-6960-41f3-8ab6-06756cc30ede]
 
 - [ ] **R36.3 — Method enrichment (full signature + docs) + Method-vs-Function + Uml/ts projections**
   [requirement:uuid:d4048137-c73c-4132-a27e-2b2fae53c5b8]
@@ -45,6 +46,7 @@
   - [ ] **(functional)** UmlMethod/UmlFunction + ts-method-code projections render as typed facet-lens VIEWS of the enriched Method/Function unit (no copy).
   - [ ] **(gate)** GATE @390: Method unit shows the full signature + docs; Method/Function distinction via parentClass present/absent; projections render from the unit; Function→Method conversion works, Method→Function blocked.
   -> modelElement.methodSignature [uc:uuid:f5e4ecb2-b337-4ed4-9c49-df3effd5775a]
+  -> diagramView.methodFacetRender [uc:uuid:8e39082a-2b1b-4b52-be3a-af8157c17100]
 
 - [ ] **R36.4 — UmlTraceRelationship extends TraceLink (typed RawBin decompose/trace)**
   [requirement:uuid:2265ad63-8c61-4e72-bd36-afd28c9bd731]
@@ -66,5 +68,7 @@
   - [ ] **(functional)** Each unit carries usedIn:[{kind:'diagram'|'folder', ref}] tracking where it is placed/linked; a resolver answers "where is this used" (back-refs).
   - [ ] **(functional)** INVARIANT: unit.usedIn ⟷ Diagram.views bidirectional — add-view/remove-view maintain BOTH sides (reuse R32.11/R33.8 add/remove-view), never one-sided.
   - [ ] **(gate)** GATE @390: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram → unit.usedIn + diagram.views both updated; remove → both cleared).
+  - [ ] **(gate)** The usedIn data DISPLAYS at Tron's surface (NOT a raw /api/ior check): RbModelElementDetail's detail drawer shows a 'Where used' section listing each usedIn {kind, ref} as a clickable dv-link that drills to the using diagram/element (selectionModel.replaceWith), and 'Not used' when empty. The DATA already persists (usedIn on /api/ior via the R36.2c side-index) - THIS is the DISPLAY deliverable Tron requires. GATE @390 (screenshot/pixel at Tron's mobile surface, NOT /api/ior): open an element's detail -> the 'Where used' section is VISIBLE; add a diagram view -> it lists the diagram; click a ref -> drills. INV-W1..4 (data-driven / drill / tree byte-diff==0 / empty-safe). Client-only -> version bump + real restart.
   -> actionBar.openBaseUnit [uc:uuid:2d58e144-1765-4564-ba51-500ba8275944]
   -> modelElement.usedInResolver [uc:uuid:e46c6407-3188-4fde-9ad3-5cf5ff171914]
+  -> modelElement.whereUsedDisplay [uc:uuid:862053c6-1de8-4236-bdd9-2382b589098e]

@@ -16,7 +16,8 @@
   "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
   "useCases": [
    "ior:instance:2d58e144-1765-4564-ba51-500ba8275944",
-   "ior:instance:e46c6407-3188-4fde-9ad3-5cf5ff171914"
+   "ior:instance:e46c6407-3188-4fde-9ad3-5cf5ff171914",
+   "ior:instance:862053c6-1de8-4236-bdd9-2382b589098e"
   ],
   "acceptanceCriteria": [
    {
@@ -38,6 +39,11 @@
     "id": "AC-gate-390",
     "group": "gate",
     "text": "GATE @390: Scenario/Edit on a projected view open the CORRECT base unit (verify the open-target); usedIn is bidirectional (place on diagram → unit.usedIn + diagram.views both updated; remove → both cleared)."
+   },
+   {
+    "id": "AC-whereused-display",
+    "group": "gate",
+    "text": "The usedIn data DISPLAYS at Tron's surface (NOT a raw /api/ior check): RbModelElementDetail's detail drawer shows a 'Where used' section listing each usedIn {kind, ref} as a clickable dv-link that drills to the using diagram/element (selectionModel.replaceWith), and 'Not used' when empty. The DATA already persists (usedIn on /api/ior via the R36.2c side-index) - THIS is the DISPLAY deliverable Tron requires. GATE @390 (screenshot/pixel at Tron's mobile surface, NOT /api/ior): open an element's detail -> the 'Where used' section is VISIBLE; add a diagram view -> it lists the diagram; click a ref -> drills. INV-W1..4 (data-driven / drill / tree byte-diff==0 / empty-safe). Client-only -> version bump + real restart."
    }
   ],
   "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
