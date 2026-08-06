@@ -67,6 +67,19 @@ class RbModelElementDetail extends HTMLElement {
       if (m.memberOf) html += this.sec('Member of') + this.link(`modelelement:${stripRef(String(m.memberOf))}`, 'memberOf', 'owner');
       html += await relSection();
     }
+    // T36.5 "Where used" — the R36.2 usedIn side-index [{kind,ref}] (diagrams/folders referencing this element),
+    // already merged onto the model at /api/ior. Reuses sec()/link(); each row drills via the existing .dv-link
+    // handler below (kind-prefixed ref → selectionModel.replaceWith). Empty → "Not used". All element kinds (both
+    // render branches merge here).
+    const usedIn = Array.isArray(m.usedIn) ? (m.usedIn as { kind: string; ref: string }[]) : [];
+    html += this.sec('Where used', usedIn.length);
+    if (!usedIn.length) html += '<div class="dv-empty">Not used</div>';
+    else html += (await Promise.all(usedIn.map(async (u) => {
+      const rid = stripRef(u.ref);
+      const drill = u.kind === 'diagram' ? `diagram:${rid}` : `puml-src:${u.ref}`;
+      const title = u.kind === 'diagram' ? String((await this.fetchModel(rid))?.name || 'Diagram') : (u.ref.split('/').pop() || u.ref);
+      return this.link(drill, u.kind, title);
+    }))).join('');
     this.innerHTML = html;
     this.querySelectorAll('.dv-link').forEach((el) => el.addEventListener('click', (e) => { e.stopPropagation(); const ref = (el as HTMLElement).getAttribute('data-ref'); if (ref) selectionModel.replaceWith(ref); }));
   }

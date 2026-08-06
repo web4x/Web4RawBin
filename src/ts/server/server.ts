@@ -1285,7 +1285,16 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
 // TRACEABILITY wins identity/chain (name + methods/implementations/tests/chain links — left untouched on the base),
 // generated M1 wins structure/signature, instanceOf facets UNION, usedIn from the R36.2 side-index. Enriches the
 // resolution's model IN MEMORY only.
-function reconcileCanonical(uuid: string, m: Record<string, unknown>): void {
+function reconcileCanonical(uuid: string, m: Record<string, unknown>, ior?: string): void {
+  // R36.1: UseCase → UmlUseCase M2 projection (server.projectUmlUseCase — rides this reconcileCanonical Impl
+  // 37c08fd5). UNION the UmlUseCase metaclass facet into instanceOf so renderFacet draws the ellipse on the
+  // tree/diagram. COMPUTE-ON-READ — never writes the file (INV-T byte-diff==0). Runs BEFORE the sourceFile/qn
+  // early-return below because a UseCase unit carries no sourceFile/qualifiedName.
+  if (ior === 'ior:class:UseCase') {
+    const umlUseCaseFacet = 'ior:instance:792cd09c-8a94-48da-abc6-b890d5f880ea';
+    const io = Array.isArray(m.instanceOf) ? m.instanceOf as string[] : [];
+    if (!io.includes(umlUseCaseFacet)) m.instanceOf = [...io, umlUseCaseFacet];
+  }
   const sourceFileRaw = String(m.sourceFile || ''); const qn = String(m.qualifiedName || m.name || '');
   if (!sourceFileRaw || !qn) return; // no key → no counterpart; base IS canonical
   // R36.1/R36.2 (A) fix (verified: 5 counterpart classes matched only after this): traceability units store
@@ -2455,7 +2464,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const idx = new ScenarioIndex(scenarioDir);
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);
-        if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>); // R36.1/R36.2 part-2: compute-on-read A-merge (canonical view; never writes)
+        if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
