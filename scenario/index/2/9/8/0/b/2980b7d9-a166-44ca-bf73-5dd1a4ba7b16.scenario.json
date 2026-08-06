@@ -10,7 +10,8 @@
     "allowedUsers": [
       "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
       "05e58f81-34ec-4851-b5b7-5749ca9148a3",
-      "8d9be587-c45e-4ff4-bc03-7d809f1e4b7e"
+      "8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
+      "c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
     ],
     "implNote": "implementations[] to-be-BUILT (grant/revoke logic + enable/disable UI); expert points impls here (#126).",
     "securityNote": "INV-F4 root-of-trust: grant/revoke gated by the hardcoded ServerManagerGuard.assertOwner/OWNER_TOKEN (NOT self-referential/data-driven = the escalation hole). Seeded to owner at bootstrap; INV-F5 empty allowedUsers fails-closed.",
