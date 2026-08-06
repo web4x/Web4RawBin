@@ -6,7 +6,10 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
   "parent": null,
   "unitLinks": [],
-  "description": "R36.1: drag a UseCase onto a diagram → a UmlUseCase view-link (ellipse) rendered from the UseCase's existing data; UseCase.usedIn[] tracks placement. Rides Diagram view-links (R32.4/R32.11). Method/chain at build-go (merge-specifics held)."
+  "description": "R36.1: drag a UseCase onto a diagram → a UmlUseCase view-link (ellipse) rendered from the UseCase's existing data; UseCase.usedIn[] tracks placement. Rides Diagram view-links (R32.4/R32.11). Method/chain at build-go (merge-specifics held).",
+  "method": "ior:instance:f7ac91c7-aa5e-4f49-8402-adca70d83e86",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "ridesNote": "R30.11 shared-impl: umlUseCaseView projection = server.projectUmlUseCase (f7ac91c7) riding shared reconcileCanonical Impl 37c08fd5 with a DISTINCT UseCase-projection Test; the render/drag ellipse is UC 97e5e14e diagramView.renderFacet (rides 94ad4f50). UmlUseCase M2 facet = 792cd09c-8a94-48da-abc6-b890d5f880ea (mint). Build-go."
  },
  "ownerIor": null
 }
