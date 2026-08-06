@@ -167,3 +167,29 @@ HARD AC = usedIn side-index PERSISTS across a TsToModel re-generate. MEASURED:
 The survives-regen MECHANISM is complete + correct-by-construction (side-index separate from the re-gen write scope). The planner's "un-built" flag = the AC's TEST/CHAIN is un-built (no distinct Test asserting "usedIn survives a re-generate"), NOT the mechanism — same pattern as R36.3 (mechanism-done, chain-pending).
 - **REMAINING = ONE distinct survives-regen TEST** (add usedIn → re-generate the element → assert usedIn PERSISTS + element file re-generated) → a small Test/gate-add on the EXISTING resolveUsedIn(2f44e112)/side-index Impls, **NOT a code build, NO design needed** (mechanism shipped).
 - **PO build-now-vs-defer:** RECOMMEND add the Test NOW (chain-credit the HARD AC; low-cost; proves survives-regen) — but it is DEFERRABLE (mechanism is safe by construction; deferring = gate-hygiene debt, not risk). Either way: **NO code build, NO blocker to S36 shipping.**
+
+## R36.1 FALSE-DONE AUDIT + UseCase→UmlUseCase PROJECTION FIX (architect 2026-08-06, S36-correction, T36.1 reopened)
+### ★ FALSE-DONE EVIDENCE (measured on disk 0.8.63)
+T36.1 was flipped Done, but the UmlUseCase AC is UNMET. MEASURED: **531 UseCase units, 0 carry the UmlUseCase facet, 0 have a `sourceFile`/`qualifiedName` key.** The A-merge `reconcileCanonical` (server.ts:1288, Impl 37c08fd5) only enriches a base unit that has a MODEL_STORE M1 counterpart keyed by `keyToUuid(sourceFile::qualifiedName)` — but UseCase units are Object.verb scenario units, NOT TS-derived (TsToModel generates ZERO usecases, grep 0), so they have NO key → reconcileCanonical returns early (:1290 "no key → base IS canonical") for EVERY UseCase → the UmlUseCase facet is never added. The chain-credit Tests exercise CLASSES only: `fb5ae5eb`↔`37c08fd5` = 5-**class** facet-UNION merge; `e21b876d`↔`94ad4f50` = 5-**facet** (class/method) PAINT. NEITHER tests a scenario UseCase resolving/rendering as UmlUseCase. M2 metaclass + renderFacet-ellipse (diagram-view-model.ts:50/62) exist, but the UseCase→UmlUseCase projection was NEVER wired = false-Done (mechanism-present, AC-unmet — the systemic pattern).
+
+### FIX — TYPE-LEVEL projection ("UmlUseCase EXTENDS UseCase", Tron Ruling A), compute-on-read, no fork, no write
+A UseCase's UmlUseCase-ness is NOT key-based (no TS counterpart) — it is INTRINSIC to the type. "UmlUseCase extends UseCase" ⇒ every `ior:class:UseCase` IS a UmlUseCase in the model lens. So the projection is a tiny TYPE-RULE, not a counterpart merge.
+
+| # | File | Change | Detail |
+|---|------|--------|--------|
+| 1 | `server.ts` reconcileCanonical (:1288) OR sibling on the /api/ior path (:2458) | when `ior === 'ior:class:UseCase'`, UNION the UmlUseCase M2 facet into `instanceOf` in-memory | `m.instanceOf = [...(m.instanceOf||[]), 'ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479']` — compute-on-read, NEVER writes the file (INV-T byte-diff==0 by construction, same discipline as the class-merge). |
+| 2 | render | NONE — `renderFacet` already draws UmlUseCase as an ellipse from node data (name=Object.verb). Reuse. |
+| 3 | drag→diagram | reuse existing add-view → Diagram view-link to the UseCase unit; ellipse from EXISTING data — a VIEW, no copy. |
+| 4 | usedIn | already attached via `resolveUsedIn` side-index (:1312) — bidirectional (R36.5/R36.2c). |
+
+### INVARIANTS
+- **INV-U1 (project-not-write):** every UseCase's /api/ior resolves with `instanceOf ⊇ {UmlUseCase}`, but NO scenario/index file is written → **INV-T tree byte-diff==0** (HARD Tron AC: tree/traceability/mof/every node byte-identical pre↔post; UseCase still shows at its current node).
+- **INV-U2 (render-from-data):** a dragged UseCase renders as a UmlUseCase ellipse from its existing name/class/method — no copy, no duplicate unit.
+- **INV-U3 (one-unit):** the traceability UseCase IS the model element (Tron Ruling A) — no duplicate M1 usecase (none exists; projection is type-level, needs no counterpart).
+- **INV-U4 (usedIn bidirectional):** via side-index (unchanged).
+
+### GATE @390 (real-WebKit — the DISTINCT test the false-Done lacked)
+(a) a REAL scenario UseCase /api/ior shows `instanceOf` INCLUDING UmlUseCase [INV-U1]; (b) pre/post: `/api/model/tree` + rawbin children + traceability folder byte-diff==0 [INV-T]; (c) drag → renders as a UML use-case ELLIPSE from its data (not a class box, no duplicate) [INV-U2]; (d) usedIn bidirectional. ★ MUST exercise a UseCase (not a class) — distinct-intent from fb5ae5eb/e21b876d (verify-owner-first: NO cross-wire onto 37c08fd5/94ad4f50's class Tests).
+
+### Chain
+Small addition on the /api/ior resolution path. DISTINCT behavior (UseCase type-projection vs class counterpart-merge) → needs its OWN distinct Test (the false-Done gap). Server change → REAL restart + R31.7. req mints the distinct UseCase-projection Test scenario-first (#126); I backstop on ship (INV-U1..4 + @390 ellipse).
