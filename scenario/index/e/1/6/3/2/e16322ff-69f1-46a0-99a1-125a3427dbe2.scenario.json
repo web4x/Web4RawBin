@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e16322ff-69f1-46a0-99a1-125a3427dbe2",
+    "name": "test:R36.1 UseCase->UmlUseCase M2 projection (the T36.1 systemic fix)",
+    "description": "Bridged to test/visual/r361-usecase-uml-gate.ts (DET-3x GREEN @390 real-WebKit, served v0.8.64). AXIS-A: a REAL scenario UseCase /api/ior resolves with model.instanceOf superset ior:instance:792cd09c (UmlUseCase M2); a non-UseCase Class does NOT gain it (targeted); INV-T byte-diff==0 (deterministic + mtime unchanged + the UseCase file has NO M2 uuid = projection NEVER writes). INV-U2 ellipse-render is COVERED by e21b876d (renderFacet 5-facet paint incl dm-facet-usecase ellipse) -> 751eca73 DROPPED-as-covered (no double-credit on 94ad4f50); INV-U2 = this projection composed with e21b876d. DISTINCT-INTENT on Impl 37c08fd5 (projectUmlUseCase rides reconcileCanonical) - NOT fb5ae5eb (R36.2). Verify-owner-first: rides ALONGSIDE fb5ae5eb, owner Method 5530ea76/marker UNTOUCHED (R30.11).",
+    "sourceFile": "ior:file:test/visual/r361-usecase-uml-gate.ts",
+    "implementations": [
+      "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+}
