@@ -193,3 +193,25 @@ A UseCase's UmlUseCase-ness is NOT key-based (no TS counterpart) — it is INTRI
 
 ### Chain
 Small addition on the /api/ior resolution path. DISTINCT behavior (UseCase type-projection vs class counterpart-merge) → needs its OWN distinct Test (the false-Done gap). Server change → REAL restart + R31.7. req mints the distinct UseCase-projection Test scenario-first (#126); I backstop on ship (INV-U1..4 + @390 ellipse).
+
+## T36.5 WHERE-USED DISPLAY — ARCHITECT DESIGN (architect 2026-08-06, PO-sequenced after R36.1)
+MEASURE-FIRST: the DATA already exists — `resolveUsedIn` (server.ts:2f44e112, R36.2c side-index usage-index.json) + `reconcileCanonical` (:1312) attach `m.usedIn = [{kind, ref}]` onto every /api/ior model-element resolution. But NO client renders it (grep src/public/ts usedIn = 0). So T36.5 = pure client DISPLAY of already-served data. NO server change, NO fork.
+
+### FIX — a "Where used" section in RbModelElementDetail.render (rb-modelelement-detail.ts:31-72)
+| # | File | Change | Detail |
+|---|------|--------|--------|
+| 1 | `rb-modelelement-detail.ts` render (before `this.innerHTML=html` :70) | ADD a `usedIn` section, reusing the EXISTING `this.sec()` + `this.link()` helpers | `const usedIn = Array.isArray(m.usedIn) ? m.usedIn as {kind:string;ref:string}[] : []; html += this.sec('Where used', usedIn.length); html += usedIn.length ? usedIn.map(u => this.link(u.ref, u.kind, /*name from u.ref or fetch*/)).join('') : '<div class="dv-empty">Not used</div>';` |
+| 2 | drill | NONE — the existing `.dv-link` click handler (:71) already does `selectionModel.replaceWith(ref)` → the drawer re-renders the using Diagram/element. A usedIn `ref` (e.g. `diagram:<uuid>`) reuses it verbatim. |
+| 3 | backend | NONE — usedIn already on /api/ior (survives-regen + bidirectional by construction, R36.2c/R36.5). |
+
+### INVARIANTS
+- **INV-W1 (data-driven):** the section reflects `m.usedIn` from /api/ior (side-index) → survives-regen + bidirectional inherited (backend unchanged).
+- **INV-W2 (drill):** each usedIn ref clickable → `selectionModel.replaceWith` → drawer re-renders the using unit (standard flow, reused).
+- **INV-W3 (INV-T):** display is detail-view ONLY → tree byte-diff==0 (usedIn was never in the tree).
+- **INV-W4 (empty-safe):** no usedIn → "Not used", no error.
+
+### GATE @390
+(a) add a diagram view referencing an element → open that element's detail → "Where used" lists the diagram [INV-W1]; (b) remove the view → the entry drops (bidirectional, R36.5) [INV-W1]; (c) click a usedIn ref → drills to the using unit [INV-W2]; (d) re-generate → usedIn persists (side-index, R36.2c); (e) tree byte-diff==0 pre/post [INV-W3].
+
+### Chain
+Client-only addition to RbModelElementDetail.render (Method c2da9192 / Impl 7e147ad8) — DISTINCT behavior (where-used display) → its OWN distinct Test (no cross-wire). Client-only → version bump → REAL restart (R32.7 lesson) + R31.7. req mints the distinct Test scenario-first (#126); I backstop on ship (INV-W1..4 + @390 drill).
