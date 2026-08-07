@@ -5,7 +5,9 @@
     "name": "SprintPinResolver.sprintNumOf (model.number + sourceFile/slug fallback, NEVER name-parse)",
     "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:e6f99c46-23c9-4fa9-9717-404f6e0384e5"
+    ],
     "markerNote": "STRICT-AST VERIFIED (8ab2edb96, origin): [impl:uuid:e0f62b6c-f571-4a2a-a754-1575397a915d] heads export function sprintNumOf@src/ts/scenario/sprint-pin-resolver.ts:31 (name-match, 0 intervening decls). compile GREEN; smoke (node22): sprintSlugOf(S20)=sprint-20-traceability-first (S20 phantom KILLED), fallback-2 resolves S37 via model.slug, refuses->null if no existing dir (fail-closed)."
   },
   "ownerIor": "ior:instance:bbfc6d8b-c836-46df-a813-97ebaab43210"

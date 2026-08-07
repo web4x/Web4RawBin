@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e6f99c46-23c9-4fa9-9717-404f6e0384e5",
+    "name": "test:R-C1 sprintNumOf BITE (number from model.number/sourceFile, NEVER the free-text name)",
+    "description": "Bridged to rc1-sprintpin-resolver-gate.ts (DET-3x, own-oracle). PROVEN-BY-BITE: sprintNumOf = model.number, else sprint-<N> from sourceFile/slug; the free-text NAME is NEVER parsed for the number (a name with a stray digit / M2 does NOT change it, INV-C1-5/C1-8). Grep-lint no-name-parse cross-cuts.",
+    "sourceFile": "ior:file:test/visual/rc1-sprintpin-resolver-gate.ts",
+    "implementations": [
+      "ior:instance:e0f62b6c-f571-4a2a-a754-1575397a915d"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e0f62b6c-f571-4a2a-a754-1575397a915d"
+}

@@ -5,7 +5,9 @@
     "name": "SprintPinResolver.resolveSprintPin (3 slots, number-keyed, fail-closed-vacuous)",
     "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:fc28b6f1-12de-4e86-8408-c6379914c74b"
+    ],
     "markerNote": "STRICT-AST VERIFIED (8ab2edb96, origin): [impl:uuid:af97137f-cce1-4b1c-9bb8-40d84dbd5b33] heads export function resolveSprintPin@src/ts/scenario/sprint-pin-resolver.ts:98 (name-match, 0 intervening decls). compile GREEN; smoke (node22): sprintSlugOf(S20)=sprint-20-traceability-first (S20 phantom KILLED), fallback-2 resolves S37 via model.slug, refuses->null if no existing dir (fail-closed)."
   },
   "ownerIor": "ior:instance:576af5f0-92c2-4d5a-8e11-5fbcdc8c5e72"
