@@ -71,10 +71,25 @@ The brittle-name class has now bitten **TWICE**, proving name-parsing is unsafe 
   - Any future consumer → imports it; never re-parses.
 - **INV-C1-8 no-name-parse (single-source):** NO module derives a sprint number from the free-text `name`. The ONLY sprint-identity source is the shared `sprintNumOf` (model.number + sourceFile/slug fallback). Enforceable by a grep-lint BITE: a `name`-based `\d`/`match(/\d+/)` for sprint number ANYWHERE in the consumer set = FAIL (a second parser = a second drift site).
 
+## ★ R-C1 REFINEMENT — frozen-scope exclusion + cancelledReason-terminal (the REAL pin unblocker, planner-measured 2026-08-07)
+The resolver was built (`sprint-pin-resolver.ts`, `8ab2edb96`, Impl `af97137f`) and the planner ran it live: **14 sprints count Active (goal = 1 = S37)**, and — decisively — **closing the 49 non-frozen stale-Actives does NOT unblock the pin**, because **8 FROZEN pre-S19 sprints are ALSO Active** (S10=3/S11=3/S12=1/S13=7/S14=2/S15=8/S16=8/S17=33 = 65 In-Progress tasks). After a perfect 49-grind: S37 + 8 frozen = 9 Active → INV-C1-4 ambiguity throw → pin STILL FAILS. The S01-18 FREEZE (Tron: don't touch the data) therefore CONFLICTS with the pin — and the fix must be BY CONSTRUCTION, NOT by mutating frozen data.
+
+**Two measured root causes + fixes (impl-edit of the existing resolver — NO new units; UC/Method/Impl `af97137f` unchanged):**
+
+### FIX 1 — frozen sprints are NOT pin candidates (structural, explicit, can't drift)
+`resolveSprintPin` (~:108) filters `rows` by `status==='Active'` over ALL sprints, including frozen. **Root:** a frozen sprint with ≥1 In-Progress task counts Active. **Fix:** the pin's universe = CURRENT-ERA sprints only; frozen sprints are historical, excluded from ALL three slots (current/last/next) AND from the ambiguity/unresolvable throws.
+- Define ONE shared explicit boundary `FROZEN_LEGACY_MAX = 18` + `isCurrentEra(num) = num > FROZEN_LEGACY_MAX`, exported from a single module and imported by BOTH the resolver and R-C6's FROZEN_LEGACY (single-source, [[one-parser-one-source]] — the frozen boundary must never be defined twice). It is an explicit constant/allow-list, NOT a heuristic (never "old dates") → cannot drift.
+- `resolveSprintPin`: `const rows = allRows.filter(r => isCurrentEra(r.num))` BEFORE computing active/closed/next + before the throws. Frozen sprints' In-Progress tasks are frozen-in-amber, not "active work"; they never make the pin ambiguous. (The 49 non-frozen stale-Actives still need the honesty grind to reach exactly 1 — this fix handles the 8 frozen that the grind structurally cannot.)
+
+### FIX 2 — cancelledReason is terminal (alongside supersededBy/Done)
+`deriveSprintStatus` (~:78) treats ONLY `supersededBy` (+Done) as terminal → a task with `cancelledReason` (planner's `450cb98a`) falls through to `deriveStatusEnum` → counts In-Progress → keeps S20 Active. **Fix:** TERMINAL-RESOLVED(task) = `derived==Done` OR `supersededBy` present OR **`cancelledReason` present**. Mirror the supersededBy branch: a `counts.cancelled` bucket, `continue` before the switch, `terminalAll = total>0 && done+superseded+cancelled === total`. `cancelledReason` is the same class as `supersededBy` (ruling B): status stays honestly checklist-derived, a separate field marks terminal — NO enum change, NO R-C5 clobber. Counted DISTINCTLY (INV-C1-7 extends: Done · Superseded · Cancelled).
+
 ## GATE — distinct BITE Test (#126, no cross-wire)
 - **Golden:** fixture S35/S36/S37 → current=S37 / last=S35 / next=none.
 - **DRIFT-BITE:** rename a sprint / add a `31.1` suffix / put `M2` in the name → resolver output UNCHANGED (number-keyed) = proves neither the `31.1→31` nor the `M2→2` bite can recur.
 - **NO-NAME-PARSE grep-lint BITE (INV-C1-8):** scan the consumer set for a sprint-number parse off `name` → must find ZERO (the shared `sprintNumOf` is the only source; a re-introduced local parser fails the gate).
+- **FROZEN-EXCLUSION BITE (INV-C1-9):** 8 frozen sprints (S10-17) with In-Progress tasks + S37 Active → pin resolves `current=S37`, NOT an ambiguity throw. Remove the `isCurrentEra` filter → it throws (proves the filter is load-bearing). And after frozen-exclusion + the 49-grind → exactly 1 Active (S37) → pin succeeds.
+- **CANCELLED-TERMINAL BITE (INV-C1-10):** a task with `cancelledReason` (450cb98a) → its sprint is NOT kept Active by it (counts terminal/Closed, not In-Progress); S20 no longer Active from the cancelled task.
 - **QA-pending-BITE:** flip S37's In-Progress task to `QA Review` → S37 NOT current (current=null/next active) = INV-C1-3.
 - **Fully-Done-BITE:** complete S36's QA tasks → last-completed advances S35→S36.
 - **Ambiguity-BITE:** two Active sprints → fail-loud (INV-C1-4), not a silent pick.
