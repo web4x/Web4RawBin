@@ -5,7 +5,9 @@
     "name": "ConsistencyGuard.refuseIfVacuous (named refusal on every vacuous shape, shared)",
     "sourceFile": "ior:file:src/ts/scenario/consistency-guard.ts",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:caf74333-a969-4d62-a0ef-66fdb888d3dd"
+    ],
     "markerNote": "STRICT-AST VERIFIED (dda311ad7, expert build): [impl:uuid:ee424581-c246-48b7-bdc8-54a37f686b02] heads export function refuseIfVacuous@src/ts/scenario/consistency-guard.ts:48 (name-match, 0 intervening, gap comment-only). buildStrictImplSet credit=true. R-C3."
   },
   "ownerIor": "ior:instance:c8721430-4a80-4d82-a982-2929e12a2347"

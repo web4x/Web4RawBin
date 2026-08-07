@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "af6c8fe5-6b7f-47ad-9e42-46f934bc708a",
+    "name": "test:R-C3 assertNonVacuous + META-BITE (no-vacuous-truth + gate-proves-the-gate-prover)",
+    "description": "Bridged to test/visual/rc3-consistency-guard-metabite.ts (DET-3x, own-oracle). PROVEN-BY-BITE (INV-C3-2/4/5): assertNonVacuous makes every([])===true / all-of-nothing FAIL for a gate; PLUS the ★ META-BITE — a deliberately-vacuous-PASSING stub guard turns the suite RED (proves the suite catches a silent-pass regression) + drift-injection. The gate-proves-the-gate-prover piece. Verify-owner-first, distinct-intent on assertNonVacuous cf756307.",
+    "sourceFile": "ior:file:test/visual/rc3-consistency-guard-metabite.ts",
+    "implementations": [
+      "ior:instance:cf756307-2e0b-474d-b494-7874180096c0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cf756307-2e0b-474d-b494-7874180096c0"
+}
