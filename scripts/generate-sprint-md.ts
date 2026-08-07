@@ -25,12 +25,12 @@ import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
-const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
-const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
+export const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
+export const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
 
 const idx = new ScenarioIndex(INDEX_DIR);
 
-function allUnits(): Map<string, ScenarioUnit> {
+export function allUnits(): Map<string, ScenarioUnit> {
   const m = new Map<string, ScenarioUnit>();
   const uuids = [...idx.list()].sort();
   for (const uuid of uuids) {
@@ -176,12 +176,12 @@ function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, Scenari
   return normalize(lines.join('\n'));
 }
 
-interface SprintOutput {
+export interface SprintOutput {
   sprintSlug: string;
   files: Map<string, string>; // filename → content
 }
 
-function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>): SprintOutput | null {
+export function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>): SprintOutput | null {
   const sprint = idx.get(sprintUuid);
   if (!sprint || sprint.ior !== 'ior:class:Sprint') return null;
   const sprintSlug = speakingSlug(sprint);
@@ -303,7 +303,8 @@ function reportCheck(r: CheckResult): void {
   for (const f of r.mismatched) console.log(`    mismatched: ${f}`);
 }
 
-// CLI
+// CLI — guarded so importing this module (e.g. from migrate-boards.ts) does NOT execute the generator on load.
+if (process.argv[1] && process.argv[1].endsWith('generate-sprint-md.ts')) {
 const args = process.argv.slice(2);
 const isCheck = args.includes('--check');
 const filtered = args.filter(a => a !== '--check');
@@ -337,3 +338,4 @@ if (cmd === '--list') {
 } else {
   console.log('Usage: npx tsx scripts/generate-sprint-md.ts [--check] <sprint-uuid|--all|--list>');
 }
+} // end CLI guard
