@@ -16,3 +16,5 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] [Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]](./task-c2-board-generated-reconcile-all.md)
 - [ ] [Task C3: FAIL-LOUD guard asserts pin==board==files (ci:gates, drift-injection BITE) [R-C3]](./task-c3-fail-loud-guard-bite.md)
 - [ ] [Task C4: Objects self-heal (validate on init/read, never run silently drifted) [R-C4]](./task-c4-objects-self-heal.md)
+- [ ] [Task C5: Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip [R-C5]](./task-c5-dual-status-reconcile.md)
+- [ ] [Task C6: sprints.overview.md is a GENERATED view (with preserved-narrative region) [R-C6]](./task-c6-sprints-overview-generated.md)

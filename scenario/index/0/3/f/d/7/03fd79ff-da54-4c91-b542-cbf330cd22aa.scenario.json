@@ -4,7 +4,9 @@
   "uuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa",
   "name": "Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip",
   "altId": "R-C5",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:97e8a6ad-46db-440f-a9be-cfb97ca64df4"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
   "sourceLine": 1,
