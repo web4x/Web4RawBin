@@ -38,6 +38,24 @@ Concrete per-guard applications (audit each for the shape):
 - Meta-BITE: a stub guard that silent-passes vacuous input → suite RED (the suite can catch the regression class).
 - Idempotent; `consistency:strict` green on the real clean tree, RED on any injected vacuous pass.
 
+## ★ R-C3 ADDITION — 8-char prefix-collision: FORWARD guard + RETRO-audit sweep (PO 2026-08-07)
+The prefix-collision class bit twice (the earlier `f2f84ce3` episode + §4 `3542dcb3`). A forward guard alone is HALF a fix — it stops new corruption while old corruption keeps silently crediting. Both halves land here.
+
+### Forward guard (INV-C3-6 — fail-closed full-uuid resolution)
+- Any `resolveUnit(id)` / chain-op lookup takes a FULL 36-char uuid. A prefix matching **>1 unit → THROW named** ("ambiguous prefix P matches N units — full uuid required"); matching 0 → throw; exactly 1 → allowed but the WRITE must store the full uuid. Never silently pick ([[false-low-worse-than-absent]], same family as INV-C1-8 no-name-parse).
+- **Stored chain refs are full uuids:** `ownerIor`/`method`/`class`/`implementations[]`/`tests[]`/`useCases[]` — a trace-audit assertion FAILS on any ref shorter than a full uuid.
+- **grep-lint/collision BITE:** any two units sharing an 8-char prefix are reported (latent-collision pairs); a chain op that resolved a colliding prefix without a full uuid fails.
+
+### Retro-audit sweep (INV-C3-7 — runnable, fail-loud, CLASSIFYING) — MEASURED blast radius
+A runnable script (fold into `trace-audit` or `scripts/collision-artifact-audit.ts`), fail-loud with per-category counts. ★ **It must CLASSIFY, not just count** — a naive type-mismatch over-reports because R30.11 shared-impl + historical owner-conventions are LEGITIMATE. Three buckets per finding: **CONFIRMED-CORRUPTION / LEGIT-PATTERN / NEEDS-REVIEW** (fail-closed: uncertain → review, never auto-labelled corruption; never auto-fixed — the sweep MEASURES so req/expert fix bounded batches with full uuids). **I ran the sweep now — real blast radius (graph = 5271 units):**
+- **A. foreign entries in `Method.implementations[]`: 1069 raw → 980 name-MISMATCH (CONFIRMED-CORRUPTION: an impl whose name/owner is a genuinely different method, e.g. `renderObject` impl on the `chainExcludesSelf` method) + 89 same-name (NEEDS-REVIEW: R30.11-shared vs stale dup).** Across 185 methods. This is the big one — the §4 aae6 case is 1 of ~185.
+- **B. foreign entries in `tests[]`** — same shape (Test.ownerIor / name mismatch); measure in the run.
+- **C. self-referencing `ownerIor`: 0** (clean — CONFIRMS the §4 "self-ref" was a prefix artifact, not real).
+- **D. UC→wrong-type:** `UC.method→non-Method = 0` (clean); `UC.class→non-Class = 8` (CONFIRMED-CORRUPTION).
+- **E. owner→wrong-type:** `UC.owner→non-Requirement = 239 → {Sprint:186, Task:53}` (only 169/538 UCs are Req-owned). NEEDS-REVIEW/RULING: 186 UC→Sprint is too systematic to be all collision — likely a historical nav-owner convention vs the §4 BUG1/Sprint20 corruption; the audit surfaces it for a PO ruling, does NOT auto-repoint. `Method.owner→non-Class = 5`, `Impl.owner→non-Method = 10` (likely CONFIRMED-CORRUPTION, small).
+- **F. 8-char prefix-collision pairs: 18** (latent — forward guard prevents new; audit lists existing so tooling uses full uuids).
+- Output = counts + samples + bucket per category; `--strict` fails CI on CONFIRMED-CORRUPTION > 0 (after the bounded fixes land), REPORT-ONLY until then (delta discipline, like R-C2 INV2). The 980 + 8 + 10 + 5 confirmed = the true blast radius to fix; the 89 + 239 = human-ruling first (don't damage legit sharing/convention).
+
 ## CHAIN + sequence + deploy
 - Chain: UC `guard.failClosedOnVacuous` → Class `ConsistencyGuard` → Method `assertNonVacuous` (+ per-guard adoption of `refuseIfVacuous`) → Impl → vacuous-BITE Test. req mints at build-go.
 - Sequence: R-C3 after R-C1 (this). THEN R-C6.
