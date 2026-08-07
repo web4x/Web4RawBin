@@ -18,6 +18,7 @@
   - [ ] **(functional)** 'Advance the pin' (skill-expert duty) = RUNNING the resolver, NOT editing a value; a hand-set value is overridden by the recompute.
   - [ ] **(functional)** The computed sprint-pin == the sprint carrying active work (today S36, not stale S33, no 34/35 skip) AND the computed task-pointer == the active in-progress task on disk (not the measured ~5-sprint-stale 'Task 31.1').
   - [ ] **(gate)** TEST EXERCISES AC-computed+AC-task-pointer+AC-matches-files: arrange units so active work = sprint N / task T, run the resolver -> sprint-pin==N AND task-pointer==T deterministically; plant a stale hand-set sprint-pin OR task-pointer -> the recompute overrides BOTH. Verify Impl.tests[] on disk before flip.
+  -> sprintPin.resolveFromFiles [uc:uuid:6c016f6a-4cc3-4ce9-aded-ac99fcb639ab]
 
 - [ ] **R-C2 — Board is a GENERATED view + one-time reconcile-all**
   [requirement:uuid:eec7ebb7-5dd3-431f-9700-a50429c3de03]
@@ -39,6 +40,13 @@
   - [ ] **(functional)** The guard is folded into ci:gates — check:sprint-md is EXTENDED to FAIL on any drift (not merely report); a drifted state cannot pass CI ('no silent broken state').
   - [ ] **(gate)** The fail-loud is PROVEN by a REAL drift-injection BITE, not asserted: planting sprint-pin!=files OR task-pointer!=files MUST make the guard exit non-zero with a clear message; planting board!=units MUST fail-loud; planting status!=checkbox MUST fail. A by-construction claim is false if only asserted (correct-by-construction-needs-gate-verification).
   - [ ] **(gate)** TEST EXERCISES AC-BITE directly: inject each drift kind (sprint-pin-drift, TASK-pointer-drift, board-drift, status-drift) -> assert guard exits non-zero + clear message each; remove all drift -> assert guard passes (GREEN). The Test IS the BITE. Verify Impl.tests[] on disk before flip.
+  - [ ] **(vacuous)** FAIL-CLOSED on vacuous input (INV-C3-1): every S37 guard REFUSES with a named reason on any vacuous shape - unresolvable-uuid / missing-or-empty-file / absent-or-malformed-checklist / 0-items-where->=1-expected / wrong-ior-class / null-output / a positive assertion over an empty collection. NEVER a silent pass.
+  - [ ] **(vacuous)** NO vacuous truth (INV-C3-2): a positive assertion over an empty/absent set defaults to FAIL for a gate - every([])===true / all-of-nothing / '0 offenders because 0 were scanned' must NOT read as clean (false-low-worse-than-absent).
+  - [ ] **(vacuous)** Named reason (INV-C3-3): every refusal carries a human reason STRING (not a bare false / exit 1) so CI output says WHY it refused.
+  - [ ] **(dry)** ONE shared helper refuseIfVacuous(value,{name,expect}) is called at the TOP of every guard (DRY - no per-guard ad-hoc null-checks that each drift subtly); returns {ok:false,reason} | {ok:true}.
+  - [ ] **(ci)** A consistency:strict ci:gate (INV-C3-4) composes the S37 guards - pin (R-C1 resolver==committed pin) + dual-status (R-C5 assertStatusConsistent) + board-drift (R-C2, missing-file=FAIL) + migration-refuse (R-C7 proveComplete); ANY refusal fails the build; folded into ci:gates:raw.
+  - [ ] **(gate)** META-BITE (gate-proves the gate-prover): the vacuous-BITE suite feeds EACH guard x EACH vacuous path (unresolvable/empty/missing-file/malformed/wrong-ior/null) and asserts REFUSE-with-reason (INV-C3-5 BITE-per-vacuous-path); PLUS a deliberately-vacuous-PASSING stub guard that MUST turn the suite RED - proving the suite would catch a silent-pass regression.
+  -> guard.failClosedOnVacuous [uc:uuid:029574bd-eaa2-48ba-b145-68d321ff53e5]
 
 - [ ] **R-C4 — Objects self-heal (validate on init/read, never run silently drifted)**
   [requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]
@@ -71,6 +79,11 @@
   - [ ] **(functional)** A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) — the generator writes the table region, preserves the narrative region.
   - [ ] **(functional)** A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R-C3).
   - [ ] **(gate)** TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip.
+  - [ ] **(region)** REGION granularity (INV-C6-1): the generator writes ONLY between <!-- GENERATED-INDEX:BEGIN --> and <!-- GENERATED-INDEX:END --> markers; bytes OUTSIDE the markers are byte-identical pre/post (hand narrative safe by construction). First run (markers absent): insert the marker pair at the canonical index location, preserving all surrounding prose.
+  - [ ] **(frozen)** FROZEN-LEGACY VISIBLE (INV-C6-3, no silent cap): the excluded sets - S01-18 frozen-legacy + the 10 design-doc planning.md (S01-09) - are EXPLICITLY LISTED as frozen-legacy in --check output from a NAMED list (not inferred); dropping a sprint from the frozen set surfaces it BACK into the gate (a change, not a silent slip). The overview index also tags them 'frozen-legacy' so a reader sees the boundary.
+  - [ ] **(vacuous)** FAIL-CLOSED on vacuous (INV-C6-4, per R-C3): generateOverview on empty sprint set / unresolvable current-pin / missing markers / vacuous-or-unresolvable frozen-list -> REFUSE with a named reason, NEVER emit an empty index (an empty index would read as 'no sprints'); --check on a missing overview file -> FAIL named, not skip-as-match.
+  - [ ] **(honesty)** NO status invention (INV-C6-5): the index status = R-C5 rollup (R-C1 pin marks current/last/next); Done and supersededBy are counted DISTINCTLY (INV-C1-7 carried up) - the overview never shows/collapses a superseded sprint as Done.
+  -> overview.generatePreserved [uc:uuid:833d3525-d269-4b98-bc23-12551c5d40b6]
 
 - [ ] **R-C7 — Legacy hand-authored boards MIGRATED to generated (units-completeness-proven, zero loss)**
   [requirement:uuid:6ccbef4e-4630-408d-8178-b8af73710759]
