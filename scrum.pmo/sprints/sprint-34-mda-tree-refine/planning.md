@@ -8,7 +8,7 @@
 
 Retain/protect/tweak the S33 MDA tree to perfection (Tron IMG_4815-4819): File/Folder as real scenario types + universal Scenario/Edit default actions (R-A), in-room action-bar Add-folder/remove/delete-with-warn (R-B), residual wiring for remove-from-diagram (R-C), auto-expand-on-navigate (R-D1), element-actions-on-class-select (R-D2). PROTECT the tree — refinements, not a rebuild.
 
-**Status:** Planned
+**Status:** Done
 
 ## Tasks
 

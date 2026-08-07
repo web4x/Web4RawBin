@@ -7,7 +7,7 @@
   "number": 34,
   "slug": "sprint-34-mda-tree-refine",
   "goal": "Retain/protect/tweak the S33 MDA tree to perfection (Tron IMG_4815-4819): File/Folder as real scenario types + universal Scenario/Edit default actions (R-A), in-room action-bar Add-folder/remove/delete-with-warn (R-B), residual wiring for remove-from-diagram (R-C), auto-expand-on-navigate (R-D1), element-actions-on-class-select (R-D2). PROTECT the tree — refinements, not a rebuild.",
-  "status": "Planned",
+  "status": "Done",
   "compoundSource": "scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
   "phases": [
    {

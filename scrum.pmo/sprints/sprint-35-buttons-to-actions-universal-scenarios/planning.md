@@ -8,7 +8,7 @@
 
 Convert legacy per-view buttons into universal action-bar actions (R35.1); every item type resolves to a REAL on-disk scenario so both buttons always work (R35.2, extends S34 A2 to all types); scenarios populated with the item's info (R35.3); add traceability as the 4th MDA RawBin folder (R35.4). Builds on S34 universal action bar.
 
-**Status:** Planned
+**Status:** Done
 
 ## Tasks
 
