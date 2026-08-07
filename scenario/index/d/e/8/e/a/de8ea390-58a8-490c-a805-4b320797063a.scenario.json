@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "de8ea390-58a8-490c-a805-4b320797063a",
+    "name": "SprintPinResolver.sprintSlugOf",
+    "description": "sprintSlugOf(unit): the CANONICAL sprint slug from the sourceFile/compoundSource PATH (the real on-disk dir, e.g. sprint-20-traceability-first) via /sprints/(sprint-[^/]+)/ - NEVER slugify(model.name). Slugifying the free-text name mints a phantom slug (sprint-20-radical-forward-planning-...) with no dir (the S20 drift). Companion to sprintNumOf - identity from PATH not name. INV-C1-8 extended: no module derives a sprint NUMBER or SLUG from the name; grep-lint BITE catches slugify(name) too. R-C1 DRY addendum +1.",
+    "implementations": [
+      "ior:instance:f326509a-3f40-4962-86f5-60c4ecb40f1a"
+    ]
+  },
+  "ownerIor": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268"
+}

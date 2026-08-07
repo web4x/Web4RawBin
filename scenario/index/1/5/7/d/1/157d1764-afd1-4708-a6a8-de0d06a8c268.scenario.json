@@ -7,7 +7,8 @@
     "methods": [
       "ior:instance:576af5f0-92c2-4d5a-8e11-5fbcdc8c5e72",
       "ior:instance:50408e90-6fd8-42a6-99b7-2d3526863eb6",
-      "ior:instance:bbfc6d8b-c836-46df-a813-97ebaab43210"
+      "ior:instance:bbfc6d8b-c836-46df-a813-97ebaab43210",
+      "ior:instance:de8ea390-58a8-490c-a805-4b320797063a"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts"

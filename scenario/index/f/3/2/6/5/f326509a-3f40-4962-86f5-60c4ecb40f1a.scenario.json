@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "f326509a-3f40-4962-86f5-60c4ecb40f1a",
+    "name": "SprintPinResolver.sprintSlugOf (slug from sourceFile/compoundSource path, NEVER slugify(name))",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:de8ea390-58a8-490c-a805-4b320797063a"
+}

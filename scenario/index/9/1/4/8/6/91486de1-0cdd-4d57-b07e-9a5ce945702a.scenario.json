@@ -61,6 +61,11 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST EXERCISES AC-computed+AC-task-pointer+AC-matches-files: arrange units so active work = sprint N / task T, run the resolver -> sprint-pin==N AND task-pointer==T deterministically; plant a stale hand-set sprint-pin OR task-pointer -> the recompute overrides BOTH. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-no-name-derivation",
+    "group": "no-name-parse",
+    "text": "INV-C1-8 (extended, no-name-parse single-source): NO module derives a sprint NUMBER or SLUG from the free-text name. sprintNumOf = model.number + sourceFile/slug fallback; sprintSlugOf = the sourceFile/compoundSource PATH dir (e.g. sprint-20-traceability-first), NEVER slugify(model.name) (which mints the S20 phantom sprint-20-radical-forward-planning-... with no dir). Grep-lint BITE: a name-based match/slugify(name) for sprint identity anywhere in the consumer set = FAIL."
    }
   ]
  },
