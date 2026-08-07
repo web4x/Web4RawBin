@@ -3,7 +3,7 @@
   "model": {
     "uuid": "de8ea390-58a8-490c-a805-4b320797063a",
     "name": "SprintPinResolver.sprintSlugOf",
-    "description": "sprintSlugOf(unit): the CANONICAL sprint slug from the sourceFile/compoundSource PATH (the real on-disk dir, e.g. sprint-20-traceability-first) via /sprints/(sprint-[^/]+)/ - NEVER slugify(model.name). Slugifying the free-text name mints a phantom slug (sprint-20-radical-forward-planning-...) with no dir (the S20 drift). Companion to sprintNumOf - identity from PATH not name. INV-C1-8 extended: no module derives a sprint NUMBER or SLUG from the name; grep-lint BITE catches slugify(name) too. R-C1 DRY addendum +1.",
+    "description": "sprintSlugOf(unit): the CANONICAL sprint slug = the real on-disk dir, resolved by a FALLBACK CHAIN (NEVER slugify(model.name)): (1) /sprints/(sprint-[^/]+)/ on sourceFile/compoundSource [S20: compoundSource points into the dir]; (2) else model.slug IF scrum.pmo/sprints/<slug>/ EXISTS [S37: compoundSource=consistency-guard-scope.md has no /sprints/, but model.slug=sprint-37-consistency-by-construction + dir exists]; (3) else the on-disk sprint-<model.number>-* dir. MUST resolve to an EXISTING dir - if none resolves, REFUSE (fail-closed, ties R-C3), never invent/slugify-name. slugify(model.name) is the S20 phantom (sprint-20-radical-forward-planning-... = no dir). INV-C1-8 extended: no name-derived NUMBER or SLUG; grep-lint BITE catches slugify(name). R-C1 DRY addendum +1.",
     "implementations": [
       "ior:instance:f326509a-3f40-4962-86f5-60c4ecb40f1a"
     ]
