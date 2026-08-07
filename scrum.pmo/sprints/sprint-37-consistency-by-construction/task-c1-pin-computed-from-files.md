@@ -30,14 +30,15 @@ Planned - cluster R-C1 (pin COMPUTED-from-files resolver), build 2nd (after R-C2
 
 ## Task Description
 
-R-C1 (build 2nd). The CurrentSprint pin is DERIVED by a resolver from the scenario units on disk (the sprint carrying the active in-progress work) - NO hand-editable stored value. 'Advance the pin' (skill-expert duty) becomes RUNNING the resolver, not editing a value. Fixes the measured 3-sprint stale pin (S33 while work is on S36).
+R-C1 (build 2nd). BOTH the CurrentSprint pin AND the current-TASK pointer ('📌 Current: Task N') are DERIVED by a resolver from the scenario units on disk (sprint = the sprint with active work; task = the active in-progress task) - NEITHER has a hand-editable stored value. 'Advance' becomes RUNNING the resolver. Fixes BOTH measured stale pointers: the 3-sprint-stale sprint-pin (S33 while work on S36) AND the ~5-sprint-stale task-pointer ('Task 31.1') - same drift class.
 
 ## Acceptance Criteria
 
-- [ ] (functional) A currentSprint resolver DERIVES the pin from the scenario units on disk (the sprint the active work is on); there is NO hand-editable stored pin value the resolver can disagree with.
+- [ ] (functional) BOTH the CurrentSprint pin AND the current-task pointer ('📌 Current: Task N') are DERIVED by a resolver from the scenario units on disk; NEITHER has a hand-editable stored value the resolver can disagree with.
+- [ ] (functional) The current-task pointer is COMPUTED from the task units' status on disk (the active in-progress task), NEVER hand-set - the ~5-sprint-stale 'Task 31.1' pointer is a hand-set drift of the SAME class as the stale sprint-pin, eliminated the same by-construction way.
 - [ ] (functional) 'Advance the pin' (skill-expert duty) = RUNNING the resolver, NOT editing a value; a hand-set value is overridden by the recompute.
-- [ ] (functional) The computed pin == the sprint carrying the active in-progress work on disk (today S36, not the stale S33) - no 34/35 skip.
-- [ ] (gate) TEST EXERCISES AC-computed+AC-matches-files: arrange units so active work is on sprint N, run the resolver -> pin==N deterministically; plant a stale/hand-set pin -> the recompute overrides it to N. Verify Impl.tests[] on disk before flip.
+- [ ] (functional) The computed sprint-pin == the sprint carrying active work (today S36, not stale S33, no 34/35 skip) AND the computed task-pointer == the active in-progress task on disk (not the ~5-sprint-stale 'Task 31.1').
+- [ ] (gate) TEST EXERCISES AC-computed+AC-task-pointer+AC-matches-files: arrange units so active work = sprint N / task T, run the resolver -> sprint-pin==N AND task-pointer==T deterministically; plant a stale hand-set sprint-pin OR task-pointer -> the recompute overrides BOTH. Verify Impl.tests[] on disk before flip.
 
 ## Subtasks
 
