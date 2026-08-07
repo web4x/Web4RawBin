@@ -12,7 +12,7 @@
   "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.6 `[requirement:uuid:57225ee8-cb9d-46cc-9af3-0167855999e2]` (conceptOnly + future)\n  - concept traceability (NO build chain yet — deferred until Tron authorizes build)\n    - facet-ACs (decomposition candidates for the later build-requirements): AC-shared-panzoom-base, AC-all-formats-panzoom, AC-extensible-future-formats, AC-concept-future\n    - design docs: DEFERRED (architect shared-viewer-base design authored when Tron authorizes build)",
   "acceptanceCriteria": "- [ ] A coherent CONCEPT is captured (req) — a plan, NOT code (facets below are DECOMPOSITION CANDIDATES, not testable ACs yet; no Test-hop until Tron authorizes build).\n- [ ] Pan/zoom is established as a SHARED viewer capability: RbPanZoom generalized into ONE shared base/mixin, not reimplemented per format.\n- [ ] EVERY embedded-format viewer pans + zooms consistently via that base (png/gif/webp/svg/html/…), not a subset; same gestures/limits across formats.\n- [ ] A new embeddable-format viewer INHERITS pan/zoom for free (extensible to future formats, no per-format reimplementation).\n- [ ] FUTURE / concept: acceptance is a coherent concept + (when authorized) the architect's shared-viewer-base design, NOT an implementation.",
   "subtasks": "None (atomic task).",
-  "status": "QA Review",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:57225ee8-cb9d-46cc-9af3-0167855999e2"
   ],
