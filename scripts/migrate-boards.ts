@@ -13,7 +13,7 @@
 // scripts/CI-only (no server import → no restart).
 import fs from 'node:fs';
 import path from 'node:path';
-import { buildSprintOutput, allUnits, GENERATED_HEADER, SPRINTS_DIR } from './generate-sprint-md.js';
+import { buildSprintOutput, allUnits, SPRINTS_DIR } from './generate-sprint-md.js';
 
 const normalizeLF = (s: string): string => s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n+$/g, '') + '\n';
 
@@ -59,6 +59,25 @@ export function proveBoardComplete(handAuthored: string, generated: string): Boa
 
 export interface ProofResult { sprintSlug: string; complete: boolean; gaps: { file: string; item: string }[]; needsReview: { file: string; item: string }[]; reason?: string; }
 
+// SHARED, EXPORTED per-file zero-loss diff — the SINGLE source of truth for BOTH proveComplete (G1) and
+// applyMigration (G4): same file-set + skip + predicate, so a --prove PASS guarantees --apply succeeds BY
+// CONSTRUCTION (no prove/apply disagreement). Exported as a clean testable surface (tester bites the no-skip).
+// Returns ONE entry per file that has a delta (empty array = zero-loss for every file).
+// SKIP only a non-existent file (the generator creates it fresh → nothing hand-authored to prove).
+// We deliberately do NOT skip GENERATED_HEADER files: a pure-generated file diffs to 0 (free), but a hand-ANNOTATED
+// generated file (header + a hand-added row, e.g. an "in-flight per PO" note) is CAUGHT — verify, don't assume the
+// header means untouched (that skip false-COMPLETE'd S19 while --apply's per-file G4 correctly refused). [[false-low-worse-than-absent]]
+export function perFileDiffs(dir: string, files: Map<string, string>): { file: string; gaps: string[]; needsReview: string[] }[] {
+  const results: { file: string; gaps: string[]; needsReview: string[] }[] = [];
+  for (const [name, generated] of files) {
+    const fp = path.join(dir, name);
+    if (!fs.existsSync(fp)) continue;
+    const d = proveBoardComplete(fs.readFileSync(fp, 'utf-8'), generated);
+    if (d.gaps.length || d.needsReview.length) results.push({ file: name, gaps: d.gaps, needsReview: d.needsReview });
+  }
+  return results;
+}
+
 // [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] BoardMigrator.proveComplete (Method c9a8b675) — G1
 // proof-before-write, READ-ONLY: for each HAND-AUTHORED board file (no GENERATED_HEADER) in the sprint, prove
 // every structural item is also produced by the generator from units; REFUSE (complete:false) NAMING each gap.
@@ -75,25 +94,12 @@ export function proveComplete(sprintUuid: string): ProofResult {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) return { sprintSlug: bare, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED: buildSprintOutput returned null for ${bare} (not a resolvable Sprint)` };
   const sprintSlug = out.sprintSlug;
-  const gaps: { file: string; item: string }[] = [];
-  const needsReview: { file: string; item: string }[] = [];
-  {
-    const dir = path.join(SPRINTS_DIR, sprintSlug);
-    // SCOPE = only the GENERATOR-OWNED board files (out.files: planning.md / requirements.md / task-*.md). Hand-
-    // authored ANALYSIS/DESIGN docs are NOT migration targets — preserved (OWNED-OUTPUT whitelist), never proven.
-    // ★ PER-FILE zero-loss: compare each hand-authored file to ITS OWN generated counterpart, NOT the concat of all
-    // files — an all-files match can FALSELY cover a hand-note whose normalized text coincidentally appears in a
-    // DIFFERENT generated file (that gave a false COMPLETE on S19 while --apply's per-file G4 correctly refused).
-    for (const name of out.files.keys()) {
-      const fp = path.join(dir, name);
-      if (!fs.existsSync(fp)) continue;                    // generator will create it fresh → no hand-authored to prove
-      const content = fs.readFileSync(fp, 'utf-8');
-      if (content.startsWith(GENERATED_HEADER)) continue;  // already a generated board → nothing to prove
-      const d = proveBoardComplete(content, out.files.get(name) as string);
-      for (const item of d.gaps) gaps.push({ file: name, item });
-      for (const item of d.needsReview) needsReview.push({ file: name, item });
-    }
-  }
+  // SCOPE = only the GENERATOR-OWNED board files (out.files: planning.md / requirements.md / task-*.md). Hand-
+  // authored ANALYSIS/DESIGN docs are NOT migration targets — preserved (OWNED-OUTPUT whitelist), never proven.
+  // PER-FILE zero-loss via the shared perFileDiffs (same file-set + skip + predicate that --apply's G4 trusts).
+  const perFile = perFileDiffs(path.join(SPRINTS_DIR, sprintSlug), out.files);
+  const gaps = perFile.flatMap((f) => f.gaps.map((item) => ({ file: f.file, item })));
+  const needsReview = perFile.flatMap((f) => f.needsReview.map((item) => ({ file: f.file, item })));
   // complete (safe to --apply) requires BOTH 0 gaps AND 0 needs-review — an uncertain item blocks apply (fail-closed).
   return { sprintSlug, complete: gaps.length === 0 && needsReview.length === 0, gaps, needsReview };
 }
@@ -119,15 +125,15 @@ export function applyMigration(sprintUuid: string, opts: { apply: boolean }): Mi
   const out = buildSprintOutput(sprintUuid, allUnits());
   if (!out) return { sprintSlug, applied: false, refused: 'FAIL-CLOSED: buildSprintOutput null' };
   const dir = path.join(SPRINTS_DIR, sprintSlug);
-  // ★ ATOMIC (G3): pass 1 verifies EVERY file's per-file zero-loss (G4 belt-and-braces) + collects the write set,
-  // REFUSING on any delta BEFORE a single write — so a later-file refusal can never leave an earlier file partially
-  // written (the non-atomic bug that half-migrated S19's planning.md). pass 2 writes all-or-nothing.
+  // ★ G4 zero-loss is ALREADY GUARANTEED: proveComplete (above, G1) ran the SAME shared perFileDiffs over the SAME
+  // out.files and returned complete === true — so re-proving here would be redundant and could only DISAGREE if it
+  // diverged (the exact prove/apply bug we removed). We TRUST the proof. Belt-and-braces re-check available via the
+  // exported perFileDiffs if ever needed. ★ ATOMIC (G3): pass 1 collects the write set only; pass 2 writes all-or-
+  // nothing — so no later step can leave an earlier file partially written (the non-atomic bug that half-migrated S19).
   const toWrite: { fp: string; generated: string; name: string }[] = [];
   for (const [name, generated] of out.files) {
     const fp = path.join(dir, name);
     const old = fs.existsSync(fp) ? fs.readFileSync(fp, 'utf-8') : '';
-    const d = proveBoardComplete(old, generated); // G4 zero-loss, per-file (matches proveComplete)
-    if (d.gaps.length || d.needsReview.length) return { sprintSlug, applied: false, refused: `REFUSED (G4 zero-loss) ${name}: ${d.gaps.length} gap + ${d.needsReview.length} needs-review would drop [${[...d.gaps, ...d.needsReview].join(', ')}]` };
     if (normalizeLF(old) !== normalizeLF(generated)) toWrite.push({ fp, generated, name }); // G3 idempotent: skip byte-stable
   }
   const written: string[] = [];
