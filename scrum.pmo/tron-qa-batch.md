@@ -1,18 +1,18 @@
 # Tron QA Batch — stale-Active + R-C5 Done-candidates
 Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind: S19+S21+S25 DONE.
-**A1=23 (3 task-level DIRECT = signable NOW + 20 scope-verified PENDING VACUITY AUDIT) - A2=16 (held/unverified/vacuous) - B=3 - D=4 - S=2 - C=4**
+**A1=21 (3 task-level DIRECT = signable NOW + 18 scope-verified PENDING VACUITY AUDIT) - A2=18 (held/unverified/vacuous) - B=3 - D=4 - S=2 - C=4**
 
 > ★ SCOPE-VERIFIED != VACUITY-CHECKED (PO correction 2026-08-07): "the cited Test exists and names the right thing" was NEVER sufficient - the Test must be ABLE TO FAIL. Tester vacuity-audit IN PROGRESS: a91643c6 already found VACUOUS (moved A1->A2). Do NOT sign the 20 scope-verified rows until each is vacuity-checked. The 3 task-level rows (10545051/15aeb43d/54519bc4) have DIRECT tester evidence and stay signable NOW.
+
+> ★ ROOT CAUSE (bigger than these rows): marker-STACK files (server.test.ts 69 markers / file-dnd-chain.test.ts 10 / impl-coverage-batch.test.ts) credit a FILE, not an assertion - a [test] marker in a bulk COMMENT block confers NO real scope. Architect is designing the symmetric AST-attach rule ([impl] already requires a name-matching decl; [test] did not).
 
 ## A1 — Done candidates: task-level direct OR scope-VERIFIED (Test asserts THIS task scope)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
 | 147e2f64 | S19 | room scenario unit model holds IOR references to its mem | Test Room.persistMembers asserts member-IOR persistence (req R19.35 Test c874546a) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 1805f7db | S19 | BY-INVITE Apply button + invite-request messages | Test JoinRequestFlow.applySend asserts invite-apply send (req R19.5 Test 2420ff7d) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 1c7f8d8e | S19 | configurable server log level gates logging verbosity | Test R19.41 Logger asserts runtime log-level gating (req R19.41 Test 1f38ad83) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 2195d98f | S19 | in-room tree REUSES /trace rb-tree + rb-tree-item with M | Test RbRoomContent.mountTraceTree asserts tree REUSES rb-tree (req R19.21 Test ea6ce5d8) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 3ca88df7 | S19 | joining from lobby must succeed (same-token takeover, ne | Test R19.82 addMemberTakeover asserts stale-conn join takeover (req R19.82 Test 3c153212) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 40a756f5 | S19 | different content same name registers new version | Test R19.48 asserts same-name-new-content=version (req R19.48 Test 8d8b3fdd) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 787e88ab | S19 | strip isSpectator/mode/role/UI/join-flow/server/MSG type | Test Room.stripSpectator asserts spectator code stripped (req R19.24 Test d12f34d5) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 834fe55b | S19 | Files become scenario units (uuid.content + scenario.jso | Test FileUnit.upload asserts file stored as unit (req R19.14 Test fbfeac53) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | c0d67460 | S19 | edit pen on room item opens canonical scenario unit | Test RbRoomDetail.editCanonical asserts pen opens canonical editor (req R19.30 Test 6d58883c) | Done? (scope-verified, PENDING VACUITY AUDIT) |
@@ -35,6 +35,8 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 ## A2 — req-level Test only, SCOPE UNVERIFIED / held (grind ongoing S21/S25 next)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
+| 1c7f8d8e | S19 | configurable server log level gates logging verbosity | req R19.41 Test 1f38ad83 - file test/vitest/server.test.ts grep=0 log-level assertions + 69 test-uuid markers bulk-stacked as comments before imports; 1f38ad83 asserts nothing about log-level = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
+| 40a756f5 | S19 | different content same name registers new version | req R19.48 Test 8d8b3fdd - file test/vitest/file-dnd-chain.test.ts grep=0 version/same-name assertions; 8d8b3fdd = 1 of 10 markers BULK-STACKED at file top, tied to no assertion (credits a FILE not behaviour) = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
 | a91643c6 | S19 | sticky close button on detail drawer | req R19.33 Test 859878d6 - cited Test is CSS-substring-only (impl-coverage-batch.test.ts:39-47: 5 substring checks on app.css .drawer-header / position:sticky / .drawer-body / overflow-y:auto / .drawer-close), asserts NO behaviour, passes even if feature absent = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
 | 0c28c7f8 | S19 | Users become first-class scenario units (ior:class:User) | req R19.54 Test f5211188 — Test is Logger.logAtLevel-split artifact, not User-unit scope | SCOPE UNVERIFIED |
 | 164d8114 | S19 | Room visibility modes (public/by-invite/private) | req R19.3 Test 9a4f07c7 — Test targets R19.4, task covers R19.3 (visibility) — wrong-req | SCOPE UNVERIFIED |
