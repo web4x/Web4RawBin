@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8b238215-6d70-41b4-86c1-e8491d27bbb9",
+    "name": "SprintOverviewGenerator.generateOverview",
+    "description": "generateOverview(): read the existing sprints.overview.md -> PRESERVE all bytes OUTSIDE the <!-- GENERATED-INDEX:BEGIN/END --> markers -> REGENERATE only the between-markers sprint index from Sprint units (number-ordered) + R-C1 resolveSprintPin (mark current/last/next) + R-C5 rollup status per sprint (Done/Active/QA-pending/Planned/Closed with Done+supersededBy counts DISTINCT, INV-C6-5). First run: insert the marker pair at the canonical location, preserve surrounding prose (INV-C6-1). Frozen-legacy set (S01-18 + 10 design-doc planning.md) listed VISIBLE (INV-C6-3). FAIL-CLOSED on vacuous: empty sprint set / unresolvable pin / missing markers / vacuous frozen-list -> refuse+name (INV-C6-4). R-C6.",
+    "implementations": [
+      "ior:instance:1f38e07e-2635-433a-b9ee-045584c3a669"
+    ]
+  },
+  "ownerIor": "ior:instance:c85603ca-b007-402b-aa86-1ed44bc6f623"
+}
