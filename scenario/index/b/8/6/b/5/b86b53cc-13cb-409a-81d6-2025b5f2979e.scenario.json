@@ -33,7 +33,12 @@
    "ior:instance:1530c79c-39a6-40b7-8d2b-044d5583aa59",
    "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
   ],
-  "tasks": [],
+  "tasks": [
+   "ior:instance:458b6b1c-b967-4c5f-8ff8-1e57e380159e",
+   "ior:instance:4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
+   "ior:instance:364785b1-6d6a-4b08-8c18-a282a32fbf9d",
+   "ior:instance:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d"
+  ],
   "createdAt": "2026-08-07",
   "createdBy": "robbin-req",
   "createdBy_note": "STUB to parent the S37 requirement units (Tron-authorized S37 consistency-by-construction, #76). Planner OWNS the sprint unit — adopt this stub, enrich + stand up the board (4 covering tasks), keep uuid + requirements[]. Build order R-C2->R-C1->R-C3->R-C4.",

@@ -4,7 +4,9 @@
   "uuid": "eec7ebb7-5dd3-431f-9700-a50429c3de03",
   "name": "Board is a GENERATED view + one-time reconcile-all",
   "altId": "R-C2",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
   "sourceLine": 1,
