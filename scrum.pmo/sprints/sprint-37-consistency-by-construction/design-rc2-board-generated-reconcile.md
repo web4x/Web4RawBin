@@ -42,3 +42,21 @@ Already structural via the `GENERATED … DO NOT HAND-EDIT` header + OWNED-OUTPU
 ### ★ TWO GOVERNANCE-SENSITIVE FLAGS (kept OUT of R-C2 by design)
 1. **Dual status field (`status` vs `statusChecklist`) — do NOT collapse in R-C2.** Reconcile-all regenerates from BOTH fields AS-IS (status→checkbox, statusChecklist→task-md Status) — it MUST NOT pick a winner, because that could FLIP a task's displayed Done-ness (e.g. Task 95: status='In Progress' but statusChecklist all-checked) = a status invention (violates INV-C4) + collides with the S33-36 honesty audit. **Consolidating to ONE status field is a SEPARATE follow-on** (candidate R-C3/planner-audit), surfaced to PO/req — NOT R-C2.
 2. **`sprints.overview.md` generator — DEFER to a follow-on.** It's the remaining hand-maintained seam, but it needs a NEW generator (source = Sprint units number/name/status/goal) + a preserved-narrative OWNED-region for the WIP/CURRENT-SPRINT block (mirror the header guard) + a new `--check` in ci:gates. That is a distinct piece; the one-time reconcile-all (planning/requirements/task-md via the existing generator) is the immediate high-value drift-clear and must NOT be blocked on the overview generator. RECOMMEND R-C2-part-2 (or fold into R-C3).
+
+## GATE (drift-injection BITE — fail-loud PROVEN not asserted, per scope + [[correct-by-construction-needs-gate-verification]])
+1. **BITE-1 (guard bites):** hand-edit a checkbox in a committed `planning.md` (board != units) → `check:sprint-md` (`--check --all`) MUST `exit 1` fail-loud on that sprint. (Proves the generated==committed guard actually detects drift.)
+2. **RECONCILE clears it:** run the write `--all` reconcile-all → `check:sprint-md` then reports **37/37 byte-match** (0 drift).
+3. **INV-C2 idempotent:** run reconcile-all a 2nd time → `git diff` EMPTY (byte-stable round-trip).
+4. **INV-C1 units-untouched:** after reconcile-all, `git status --short scenario/index` = CLEAN (no unit/prod mutated); only scrum.pmo md changed.
+5. **INV-C4 no-status-invention:** spot-check a sample of the 29 sprints — each task's regenerated checkbox == its unit `model.status`, and task-md `## Status` == its `model.statusChecklist`, verbatim (regen reflects the fields, never flips them).
+6. **BITE-2 (unit-side):** edit a Task unit `status` → reconcile-all → the board checkbox reflects the NEW status (proves units→md flows), and re-running is idempotent.
+
+## CHAIN (scenario-first #126; req mints at build-go)
+- UC `sprintBoard.reconcileAll` → Class `SprintViewGenerator` (EXISTING, scripts/generate-sprint-md.ts) → Method `generateAll`/write-`--all` → Impl → **Test = the BITE** (plant drift → check fails; reconcile → 37/37; idempotent; units-clean). The reconcile-all itself is a one-time RUN (migration-class, like the `backfill-*.ts` precedent) — its acceptance = BITE green + post-run `check:sprint-md` 37/37 + `scenario/index` git-clean.
+- **verify-owner-first:** the Test is DISTINCT-intent (board-drift bite), do NOT cross-wire onto an existing generator Test.
+
+## BUILD-GO / posture
+- **NO code beyond a possible tiny write-`--all` addition** (if the write path is per-sprint-only today); the reconcile is a RUN. **Docs-only → NO version bump, NO restart, NO prod/MODEL_STORE touch** (INV-C1/C3).
+- **Does NOT close/flip S33-36 sprint-unit statuses** (separate TRON governance) nor invent task statuses (INV-C4) — R-C2 only makes the VIEW match the units.
+- Sequence (planner scope): R-C2 reconcile-all FIRST → then R-C1 pin-resolver → R-C3 fail-loud CI guard (+ dual-status consolidation + sprints.overview generator, the 2 flagged follow-ons) → R-C4 self-heal.
+- req mints the chain at build-go; expert runs reconcile-all + adds write-`--all` if needed; I backstop (BITE fail-loud + 37/37 + idempotent + units-clean).
