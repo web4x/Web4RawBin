@@ -4,8 +4,8 @@
     "uuid": "73f045d8-e0ac-4afc-b357-92e76aa8ddc0",
     "name": "BoardMigrator.applyMigration (proven-only, idempotent+reversible-one-sprint, narrative-preserved, zero-loss)",
     "sourceFile": "ior:file:scripts/migrate-boards.ts",
-    "markerPending": true,
-    "markerNote": "R-C7 legacy-board migration (Tron-auth executable). Expert marks [impl:uuid:73f045d8-e0ac-4afc-b357-92e76aa8ddc0] on the name-matching decl in scripts/migrate-boards.ts; builds --prove/--apply. scripts/CI-only -> NO restart/version-bump. Per-sprint classification (safe vs needs-backfill) from architect read-only audit.",
+    "markerPending": false,
+    "markerNote": "STRICT-AST VERIFIED (520885af9, origin): [impl:uuid:73f045d8-e0ac-4afc-b357-92e76aa8ddc0] heads export function applyMigration@scripts/migrate-boards.ts:76 (name-match, 0 intervening). R-C7 BoardMigrator; --prove read-only scoped to generator-owned boards (G5 narrative excluded), refuses naming each gap; --apply proof-gated G1/G4/G3/G2. Real run --prove S18 = REFUSE 98 gaps (all in requirements.md). Expert also fixed a generate-sprint-md CLI import-leak.",
     "tests": []
   },
   "ownerIor": "ior:instance:37d3fc2f-4b83-44a1-9f0c-5822b1477b59"

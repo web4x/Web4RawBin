@@ -4,8 +4,8 @@
     "uuid": "21e38b44-eb21-4fbf-830c-303ad2775095",
     "name": "BoardMigrator.proveComplete (per-sprint units-completeness proof, refuse-if-incomplete)",
     "sourceFile": "ior:file:scripts/migrate-boards.ts",
-    "markerPending": true,
-    "markerNote": "R-C7 legacy-board migration (Tron-auth executable). Expert marks [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] on the name-matching decl in scripts/migrate-boards.ts; builds --prove/--apply. scripts/CI-only -> NO restart/version-bump. Per-sprint classification (safe vs needs-backfill) from architect read-only audit.",
+    "markerPending": false,
+    "markerNote": "STRICT-AST VERIFIED (520885af9, origin): [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] heads export function proveComplete@scripts/migrate-boards.ts:47 (name-match, 0 intervening). R-C7 BoardMigrator; --prove read-only scoped to generator-owned boards (G5 narrative excluded), refuses naming each gap; --apply proof-gated G1/G4/G3/G2. Real run --prove S18 = REFUSE 98 gaps (all in requirements.md). Expert also fixed a generate-sprint-md CLI import-leak.",
     "tests": []
   },
   "ownerIor": "ior:instance:c9a8b675-4e55-4258-9dbe-0463f303abf5"
