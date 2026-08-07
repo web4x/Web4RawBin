@@ -11,7 +11,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:c8c3d81e-4ec4-48e7-9769-842e93879897"
+  ],
   "description": "The ~20 legacy hand-authored requirements.md + ~10 planning.md (pre-R30.18, no GENERATED_HEADER) are MIGRATED to generated views so the whole board becomes generated (closing the drift-seam R-C2 could not touch). DATA-LOSS-SENSITIVE: for each legacy board, its scenario UNITS must be PROVEN to carry ALL the file's content BEFORE any clobber; where they do not, the units are BACKFILLED from the file FIRST (the file is that content's source of record until migrated). Idempotent + reversible, ZERO content loss. Explicitly TRACKED (no-silent-caps). TRON-AUTHORIZED EXECUTABLE (2026-08-07): runs one sprint at a time, each only after its units-completeness is proven; genuine (non-unit-derived) narrative stays hand-authored in a preserved region. Architect designs the procedure + per-sprint classification. This is what makes 37/37 REAL (R-C2 keeps its honest generator-owned-green scope).",
   "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — expert-surfaced during R-C2 run, PO-approved as the safe legacy-migration req; EXECUTION needs Tron-auth (data-loss).",
   "discoverySource": {

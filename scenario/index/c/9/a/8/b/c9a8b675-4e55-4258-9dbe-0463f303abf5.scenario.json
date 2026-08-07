@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c9a8b675-4e55-4258-9dbe-0463f303abf5",
+    "name": "BoardMigrator.proveComplete",
+    "description": "--prove: per-sprint units-completeness PROOF (G1). For a legacy hand-authored board, prove its scenario UNITS carry ALL the file's content; if NOT, REFUSE (fail-loud) naming the missing content — no write. Where units lack content, the file is that content's source -> backfill precedes migration (G2, a separate scenario-first unit mint from the hand file, req/planner). Read-only; never clobbers. R-C7 build-go, scripts/CI-only (no restart). Design design-rc2-migration-safety.md. Expert marks the decl.",
+    "sourceFile": "ior:file:scripts/migrate-boards.ts",
+    "implementations": [
+      "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eac99b32-63fb-471d-b4b2-c4be9525d4e5"
+}

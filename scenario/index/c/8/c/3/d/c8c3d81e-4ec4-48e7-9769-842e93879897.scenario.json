@@ -1,0 +1,16 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c8c3d81e-4ec4-48e7-9769-842e93879897",
+  "name": "board.migrateProvenComplete",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc2-migration-safety.md",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R-C7: migrate the ~20 legacy hand-authored requirements.md + ~10 planning.md to generated views SAFELY — proveComplete (per-sprint units-completeness proof, REFUSE-if-incomplete naming the gap) then applyMigration (proven-only, idempotent + reversible one-sprint-at-a-time, genuine-narrative-preserved, zero-loss-provable-by-diff). Backfill-from-file-first where units lack content. Tron-authorized executable; scripts/CI-only, no restart. Architect design design-rc2-migration-safety.md (5 hard gates G1-G5).",
+  "class": "ior:instance:eac99b32-63fb-471d-b4b2-c4be9525d4e5",
+  "method": "ior:instance:37d3fc2f-4b83-44a1-9f0c-5822b1477b59",
+  "helperMethod": "ior:instance:c9a8b675-4e55-4258-9dbe-0463f303abf5",
+  "helperNote": "proveComplete (Method c9a8b675) is the per-sprint completeness gate applyMigration calls first (refuse-if-incomplete). BITE Test targets the refuse path."
+ },
+ "ownerIor": null
+}

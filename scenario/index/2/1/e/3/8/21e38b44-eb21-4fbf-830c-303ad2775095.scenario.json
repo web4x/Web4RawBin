@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "21e38b44-eb21-4fbf-830c-303ad2775095",
+    "name": "BoardMigrator.proveComplete (per-sprint units-completeness proof, refuse-if-incomplete)",
+    "sourceFile": "ior:file:scripts/migrate-boards.ts",
+    "markerPending": true,
+    "markerNote": "R-C7 legacy-board migration (Tron-auth executable). Expert marks [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] on the name-matching decl in scripts/migrate-boards.ts; builds --prove/--apply. scripts/CI-only -> NO restart/version-bump. Per-sprint classification (safe vs needs-backfill) from architect read-only audit.",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c9a8b675-4e55-4258-9dbe-0463f303abf5"
+}
