@@ -3,6 +3,7 @@
   "model": {
     "uuid": "d10070a6-9187-4f6d-8fcd-b212ffd44ce7",
     "name": "T-detail-parent-link: parent link above scenario-view navigates to ownerIor",
+    "supersededBy": "COMMIT-VERIFIED: shipped S18-era df4e40118 v0.5.99 (ownerIor+parent-link); detail-view enhanced S27",
     "slug": "detail-parent-link-ownerio",
     "description": "Parent link above the Scenario-view link navigates to the owning parent. Already shipped (df4e4011 v0.5.99). Traceability-closure task.",
     "status": "In Progress",

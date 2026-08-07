@@ -3,6 +3,7 @@
   "model": {
     "uuid": "bef36fd2-aa7c-4766-8001-db2b69452d61",
     "name": "R18.34 \u2014 SVG viewer with scoped pinch/pan (cross-browser)",
+    "supersededBy": "RE-DELIVERED-LATER: RbPanZoom viewer S19 (R19.85)/S21 (R21.9)/S22 (R22.2), reused S31 (R31.6)",
     "slug": "task-r18.34-svg-viewer-scoped-pinch-zoom",
     "description": "Build an SVG viewer with scoped pinch/pan that works cross-browser.",
     "status": "In Progress",

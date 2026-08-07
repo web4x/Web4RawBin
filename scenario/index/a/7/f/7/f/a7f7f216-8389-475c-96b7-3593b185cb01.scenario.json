@@ -4,6 +4,7 @@
     "uuid": "a7f7f216-8389-475c-96b7-3593b185cb01",
     "id": "T189",
     "name": "Role skills \u2014 co-specify planner/architect/req-eng SKILL.md from precedence-analysis Rules 1-11",
+    "supersededBy": "RE-DELIVERED-LATER: Rules 1-11 shipped as rule-per-file skills S24 (Traceability Skills)",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
       "ior:instance:57231c0e-d7ff-4094-a139-58e3adf975af"

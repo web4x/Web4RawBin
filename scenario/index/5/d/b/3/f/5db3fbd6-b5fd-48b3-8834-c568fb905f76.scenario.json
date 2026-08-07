@@ -3,6 +3,7 @@
   "model": {
     "uuid": "5db3fbd6-b5fd-48b3-8834-c568fb905f76",
     "name": "T-detail-line-monaco: line info to Monaco editor at correct line",
+    "supersededBy": "RE-DELIVERED-LATER: Monaco open-at-line detail superseded S27",
     "slug": "detail-line-info-monaco-editor",
     "description": "Line info carried through to Monaco so editor opens at correct line. Already shipped. Traceability-closure task.",
     "status": "In Progress",

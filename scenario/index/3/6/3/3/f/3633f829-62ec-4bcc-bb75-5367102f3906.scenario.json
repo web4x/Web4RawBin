@@ -3,6 +3,7 @@
   "model": {
     "uuid": "3633f829-62ec-4bcc-bb75-5367102f3906",
     "name": "T-detail-source-link-all: source link on ALL types (UC to .puml, Class/Method/Impl to src)",
+    "supersededBy": "COMMIT-VERIFIED: shipped S18-era 08ae00f88 v0.5.106 (source-links); superseded S27",
     "slug": "detail-source-link-all-types",
     "description": "Source link on ALL types \u2014 UseCase to .puml, Class/Method/Impl to source file. Already shipped (08ae00f8 v0.5.106). Traceability-closure task.",
     "status": "In Progress",

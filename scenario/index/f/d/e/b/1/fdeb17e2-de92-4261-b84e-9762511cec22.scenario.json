@@ -3,6 +3,7 @@
   "model": {
     "uuid": "fdeb17e2-de92-4261-b84e-9762511cec22",
     "name": "T-detail-browse-file: Browse-File link opens file-browser folder with highlight",
+    "supersededBy": "RE-DELIVERED-LATER: file-browser detail superseded S27 (Detail View Enhancements)",
     "slug": "detail-browse-file-folder-highlight",
     "description": "Browse-File link opens file-browser folder with target file highlighted. Already shipped. Traceability-closure task.",
     "status": "In Progress",

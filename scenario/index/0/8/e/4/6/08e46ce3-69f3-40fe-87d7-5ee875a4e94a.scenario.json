@@ -3,6 +3,7 @@
   "model": {
     "uuid": "08e46ce3-69f3-40fe-87d7-5ee875a4e94a",
     "name": "T190: Tree expand appends only — no full re-render, no scroll jump",
+    "supersededBy": "RE-DELIVERED-LATER: append-only tree render re-delivered S31 (R31.3/R31.8c) + S33",
     "slug": "task-190-tree-expand-append-no-rerender",
     "description": "Expanding a tree node appends child-level DOM only — no full re-render of the\ntree. Scroll position preserved (no jump-to-top). In a 100+ node tree,\nexpanding node #50 must not re-layout nodes #1-49.",
     "status": "In Progress",

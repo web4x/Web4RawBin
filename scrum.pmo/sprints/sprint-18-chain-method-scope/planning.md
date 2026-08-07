@@ -8,7 +8,7 @@
 
 Narrow the traceability chain at Class→Method to the ONE method that fulfills the current requirement (vs scenario browser which shows ALL methods); dogfood S17 scenario-unit model by authoring Sprint 18 as scenario.json FIRST and generating planning.md + task-*.md from those units; co-specify role refinement protocols as SKILL.md files (Rules 1-11 from refinement-precedence-analysis.md).
 
-**Status:** Planned
+**Status:** Done
 
 ## Tasks
 
