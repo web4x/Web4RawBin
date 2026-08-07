@@ -52,9 +52,26 @@ A runnable script (fold into `trace-audit` or `scripts/collision-artifact-audit.
 - **B. foreign entries in `tests[]`** — same shape (Test.ownerIor / name mismatch); measure in the run.
 - **C. self-referencing `ownerIor`: 0** (clean — CONFIRMS the §4 "self-ref" was a prefix artifact, not real).
 - **D. UC→wrong-type:** `UC.method→non-Method = 0` (clean); `UC.class→non-Class = 8` (CONFIRMED-CORRUPTION).
-- **E. owner→wrong-type:** `UC.owner→non-Requirement = 239 → {Sprint:186, Task:53}` (only 169/538 UCs are Req-owned). NEEDS-REVIEW/RULING: 186 UC→Sprint is too systematic to be all collision — likely a historical nav-owner convention vs the §4 BUG1/Sprint20 corruption; the audit surfaces it for a PO ruling, does NOT auto-repoint. `Method.owner→non-Class = 5`, `Impl.owner→non-Method = 10` (likely CONFIRMED-CORRUPTION, small).
+- **E. owner→wrong-type:** `UC.owner→non-Requirement = 239 → {Sprint:186, Task:53}` (only 169/538 UCs are Req-owned). ★ **PO RULING (recorded inline, 2026-08-07): 186 UC→Sprint is TOO SYSTEMATIC to be collision = a LEGACY CONVENTION → do NOT auto-repoint, do NOT bulk-migrate this pass.** Three parts: (1) **CANONICAL RULE going forward — a UseCase's owner MUST be a Requirement** (nav-to-Sprint is a VIEW concern, not ownership); (2) **FORWARD-GUARD** new/edited UCs against it (fail-closed family, folds with INV-C3-6) so the convention can't spread; (3) the 239 = **VISIBLE, COUNTED DEBT in this needs-review bucket** — a deliberate reviewed migration later beats mass-repointing 239 ownership links now (mass-mutating a historical convention is how you break a graph). The **§4/BUG1 Sprint20 case is DIFFERENT — that one IS corruption on a live chain, fixed specifically** (repoint UC 8dc64273 → BUG1 2d5f151e, in the §4 untangle). `Method.owner→non-Class = 5` + `Impl.owner→non-Method = 10` = CONFIRMED-CORRUPTION (fix in the repair).
 - **F. 8-char prefix-collision pairs: 18** (latent — forward guard prevents new; audit lists existing so tooling uses full uuids).
 - Output = counts + samples + bucket per category; `--strict` fails CI on CONFIRMED-CORRUPTION > 0 (after the bounded fixes land), REPORT-ONLY until then (delta discipline, like R-C2 INV2). The 980 + 8 + 10 + 5 confirmed = the true blast radius to fix; the 89 + 239 = human-ruling first (don't damage legit sharing/convention).
+
+## ★ REPAIR spec — confirmed-corruption set (≈1003), for the expert
+Mechanical, full-uuid only, fail-loud, idempotent, backup + pre/post counts, `--strict` AFTER (delta). `scripts/repair-collision-artifacts.ts --dry-run|--apply`. **Fixes ONLY the CONFIRMED set; NEVER touches the 89 same-name (R30.11 review), the 239 UC→Sprint/Task (E convention debt), or the 18 prefix pairs.** Runs on a clean tree so git is the backup; one atomic revertible commit.
+
+Per-category repair (each VERIFY-OWNER-FIRST, MOVE-not-drop — the R27.2 union lesson):
+1. **A — 980 foreign `Method.implementations[]` entries.** For each foreign impl `X` on wrong method `M`: resolve `X.ownerIor → M'` (X's TRUE method). If `M'` doesn't already list `X` → ADD it to `M'.implementations[]` FIRST, then REMOVE `X` from `M.implementations[]`. Net: every Impl ends on exactly ONE (its true-owner) method — 0 orphaned. Key ONLY on name-MISMATCH + ownerIor (a genuinely foreign impl); a same-name entry is left for review (never mistake an R30.11 shared-impl for corruption).
+2. **D — 8 `UC.class→non-Class`.** Set `UC.class = resolve(UC.method).ownerIor` (the Class that owns the UC's Method — the class IS derivable from the method's owner). Fail-closed if `UC.method` is itself broken → SKIP + report needs-manual.
+3. **Method.owner 5 (`Method.ownerIor→non-Class`).** Repoint to the Class whose `methods[]` lists this Method (or, if none, the name-matched Class `Foo` for `Foo.bar`). Fail-closed if ambiguous → skip+report.
+4. **Impl.owner 10 (`Impl.ownerIor→non-Method`).** Repoint to the Method whose `implementations[]` lists this Impl (or name-matched). Fail-closed if ambiguous → skip+report.
+
+**REPAIR INVARIANTS (gate before --apply, assert after):**
+- **No Impl orphaned:** every Impl still owned by exactly one Method that lists it (before==after distinct-impl-on-true-method count).
+- **No unit deleted:** repair edits REFS only; total unit count conserved (5271==5271).
+- **Confirmed-corruption → 0:** the 4 categories (980+8+5+10) go to 0; **needs-review (89) + convention debt (239) + prefix pairs (18) UNCHANGED** (assert they're untouched — the repair must not have moved them).
+- **Fail-closed:** any entry whose correct target can't be determined (unresolvable/ambiguous) is SKIPPED + reported `needs-manual`, NEVER guessed.
+- **Idempotent:** re-run --apply = 0 changes.
+- **BITE:** inject a known foreign-impl → repair relocates it to its true method; a planted R30.11 same-name shared-impl is NOT touched; re-run idempotent; post-run audit confirmed-corruption==0 while 89/239/18 unchanged. Then the audit's `--strict` on confirmed-corruption turns on (delta discipline).
 
 ## CHAIN + sequence + deploy
 - Chain: UC `guard.failClosedOnVacuous` → Class `ConsistencyGuard` → Method `assertNonVacuous` (+ per-guard adoption of `refuseIfVacuous`) → Impl → vacuous-BITE Test. req mints at build-go.
