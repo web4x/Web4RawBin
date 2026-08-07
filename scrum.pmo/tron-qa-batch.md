@@ -1,6 +1,6 @@
 # Tron QA Batch — stale-Active + R-C5 Done-candidates
 Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind: S19+S21+S25 DONE.
-**A1=21 (3 task-level DIRECT = signable NOW + 18 scope-verified PENDING VACUITY AUDIT) - A2=18 (held/unverified/vacuous) - B=3 - D=4 - S=2 - C=4**
+**A1=17 (3 task-level DIRECT signable + 1 vacuity-PASSED 834fe55b + 13 PENDING [3 S19-weak-need-read + 10 S21/S25 unaudited]) - A2=22 (held/unverified/vacuous/mis-scope) - B=3 - D=4 - S=2 - C=4**
 
 > ★ SCOPE-VERIFIED != VACUITY-CHECKED (PO correction 2026-08-07): "the cited Test exists and names the right thing" was NEVER sufficient - the Test must be ABLE TO FAIL. Tester vacuity-audit IN PROGRESS: a91643c6 already found VACUOUS (moved A1->A2). Do NOT sign the 20 scope-verified rows until each is vacuity-checked. The 3 task-level rows (10545051/15aeb43d/54519bc4) have DIRECT tester evidence and stay signable NOW.
 
@@ -9,14 +9,10 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 ## A1 — Done candidates: task-level direct OR scope-VERIFIED (Test asserts THIS task scope)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
-| 147e2f64 | S19 | room scenario unit model holds IOR references to its mem | Test Room.persistMembers asserts member-IOR persistence (req R19.35 Test c874546a) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 1805f7db | S19 | BY-INVITE Apply button + invite-request messages | Test JoinRequestFlow.applySend asserts invite-apply send (req R19.5 Test 2420ff7d) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 2195d98f | S19 | in-room tree REUSES /trace rb-tree + rb-tree-item with M | Test RbRoomContent.mountTraceTree asserts tree REUSES rb-tree (req R19.21 Test ea6ce5d8) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 3ca88df7 | S19 | joining from lobby must succeed (same-token takeover, ne | Test R19.82 addMemberTakeover asserts stale-conn join takeover (req R19.82 Test 3c153212) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 787e88ab | S19 | strip isSpectator/mode/role/UI/join-flow/server/MSG type | Test Room.stripSpectator asserts spectator code stripped (req R19.24 Test d12f34d5) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| 834fe55b | S19 | Files become scenario units (uuid.content + scenario.jso | Test FileUnit.upload asserts file stored as unit (req R19.14 Test fbfeac53) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| c0d67460 | S19 | edit pen on room item opens canonical scenario unit | Test RbRoomDetail.editCanonical asserts pen opens canonical editor (req R19.30 Test 6d58883c) | Done? (scope-verified, PENDING VACUITY AUDIT) |
-| e90c223d | S19 | strip maxMembers/maxPlayers/size config from model+UI+se | Test Room.stripSizeLimits asserts size/capacity limits removed (req R19.23 Test ffab35a3) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 147e2f64 | S19 | room scenario unit model holds IOR references to its mem | Test Room.persistMembers asserts member-IOR persistence (req R19.35 Test c874546a) | Done? (scope-verified, PENDING VACUITY AUDIT - weak 1-hit, needs read) |
+| 1805f7db | S19 | BY-INVITE Apply button + invite-request messages | Test JoinRequestFlow.applySend asserts invite-apply send (req R19.5 Test 2420ff7d) | Done? (scope-verified, PENDING VACUITY AUDIT - 3-hit, prob real) |
+| 834fe55b | S19 | Files become scenario units (uuid.content + scenario.jso | Test FileUnit.upload asserts file stored as unit (req R19.14 Test fbfeac53) | Done? (scope-verified, VACUITY-CHECKED PASS: tester FileUnit.upload behavior asserted, 12 hits - likely-real) |
+| e90c223d | S19 | strip maxMembers/maxPlayers/size config from model+UI+se | Test Room.stripSizeLimits asserts size/capacity limits removed (req R19.23 Test ffab35a3) | Done? (scope-verified, PENDING VACUITY AUDIT - weak 1-hit, needs read) |
 | 10545051 | S20 | url-drawer .url click opens the drawer (BUG13) | tester DET-3x real-data 32ba15a7b | Done? |
 | 15aeb43d | S20 | CurrentSprint planner-skill maintains the pin (R20.13) | CurrentSprint.ts +8 Tests 82e309bbb, ~16-spr prod | Done? |
 | 54519bc4 | S20 | TestCase+Gate as 1st-class units (R20.20/21) | gate+render 7b07d8465, 1023 TC+6 Gate | Done? |
@@ -35,6 +31,10 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 ## A2 — req-level Test only, SCOPE UNVERIFIED / held (grind ongoing S21/S25 next)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
+| 2195d98f | S19 | in-room tree REUSES /trace rb-tree + rb-tree-item with M | cited Test ea6ce5d8: room.test.ts grep=0 tree-reuse assertion - no mountTraceTree/rb-tree-REUSE behavior asserted | VACUOUS (tester vacuity-audit, moved A1->A2) |
+| 3ca88df7 | S19 | joining from lobby must succeed (same-token takeover, ne | cited Test 3c153212: room.test.ts grep=0 takeover assertion - no stale-conn takeover behavior asserted | VACUOUS (tester vacuity-audit, moved A1->A2) |
+| 787e88ab | S19 | strip isSpectator/mode/role/UI/join-flow/server/MSG type | cited Test d12f34d5: room.test.ts grep=0 spectator assertion - no stripSpectator behavior asserted | VACUOUS (tester vacuity-audit, moved A1->A2) |
+| c0d67460 | S19 | edit pen on room item opens canonical scenario unit | cited Test 6d58883c asserts writeRoomJson wraps room data, NOT the edit-PEN-opens-canonical-editor behavior (real assertion, WRONG scope) | MIS-SCOPE (tester vacuity-audit, moved A1->A2) |
 | 1c7f8d8e | S19 | configurable server log level gates logging verbosity | req R19.41 Test 1f38ad83 - file test/vitest/server.test.ts grep=0 log-level assertions + 69 test-uuid markers bulk-stacked as comments before imports; 1f38ad83 asserts nothing about log-level = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
 | 40a756f5 | S19 | different content same name registers new version | req R19.48 Test 8d8b3fdd - file test/vitest/file-dnd-chain.test.ts grep=0 version/same-name assertions; 8d8b3fdd = 1 of 10 markers BULK-STACKED at file top, tied to no assertion (credits a FILE not behaviour) = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
 | a91643c6 | S19 | sticky close button on detail drawer | req R19.33 Test 859878d6 - cited Test is CSS-substring-only (impl-coverage-batch.test.ts:39-47: 5 substring checks on app.css .drawer-header / position:sticky / .drawer-body / overflow-y:auto / .drawer-close), asserts NO behaviour, passes even if feature absent = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
