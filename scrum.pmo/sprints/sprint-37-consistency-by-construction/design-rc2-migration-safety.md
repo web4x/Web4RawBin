@@ -43,3 +43,22 @@ TRON authorized the migration as R-C7, completeness-proven PER SPRINT. The proce
 
 ### Chain (req mints R-C7 #126)
 UC `board.migrateProvenComplete` → Class `BoardMigrator` → Method `proveComplete` + `applyMigration` → Impl → **Test = the BITE-refuse** (units-incomplete → refuse) + PASS/BACKFILL paths. Distinct Test (verify-owner-first). Migrator is scripts/CI-tooling → NO server restart. req mints; expert builds `--prove`/`--apply`; I backstop (BITE-refuse fail-loud + per-sprint proof + git-reversible + 0-loss diff).
+
+## ★ PER-SPRINT CLASSIFICATION (read-only audit, evidence-based, 2026-08-07) — sizes the migration
+**Totals:** (i) SAFE-MIGRATE = **9** · (ii) NEEDS-BACKFILL = **11** · (iii) KEEP-HAND-AUTHORED = **10** (+1 orphan dir). Clean cutover at S21.
+
+### (i) SAFE-MIGRATE (9) — requirements.md S21–S29 (scenario-first era; units carry all reqs+ACs)
+`--apply` can run these proven-only (G1 passes). **3 PRE-CHECK caveats before flipping ownership (G4):**
+- **S24** — units have `description` but NO `tronQuote` → the PO directive quotes would be lost. Fold quotes into `description`/`tronQuote` first, OR Tron accepts the loss.
+- **S27** — hand file body includes **R27.5**, which is modeled under **S28**'s `requirements[]` → the S27-only generated view DROPS R27.5. RE-LINK (content still in index) before flipping.
+- **S29** — **R29.2** referenced in the hand file but is NOT an S29 unit → verify deferred/moved, not lost.
+- All 9 also drop sprint-intro prose + `## Traceability Matrix` tables + `*(impl base:/design:)*` annotations = recomputable/minor; Tron decides whether to fold into `goal`/`description` first.
+
+### (ii) NEEDS-BACKFILL (11) — requirements.md S08–S18 (units EMPTY or CORRUPT → G1 REFUSES). req+planner backfill FROM the hand file (G2) then re-prove.
+- **6 FROM-SCRATCH authoring (reqUnits=0):** S08, S09, S12, S14, S15, **S17 (47 reqs — largest)**. Generator would erase 14–349 authored lines each if forced → G1 correctly refuses.
+- **5 REPAIR of a prior lossy MD→unit migration:** S10, S11, S13, S16, S18 — units have markdown-table-rows as `name`, misaligned Tron quotes, missing altIds, missing whole reqs (R10.1/R11.1/R16.1/R-A1/R-T1), 0 ACs. Backfill = REPAIR (replace garbled units), not just fill.
+
+### (iii) KEEP-HAND-AUTHORED (10) — all planning.md S01–S09 are DESIGN DOCS (architecture audits, crypto/API specs, ASCII dep-graphs, Sprint-Totals, DoD) — NOT modelable by the Sprint schema. Same class as sprints.overview → G5 (exclude from checkSprint scope; R-C6). 
+- **+1 ORPHAN dir:** `sprint-20-traceability-first/planning.md` — NO Sprint unit maps to it (real S20 = `sprint-20-radical-forward-planning-traceability-first`, byte-matches). Stale DUPLICATE directory — not part of the 9/37 blockage; recommend delete/archive (planner call).
+
+**Migration sizing:** 9 migrate-now (3 w/ pre-check) · 11 backfill-first (6 author + 5 repair) · 10 keep-hand + 1 orphan-dir cleanup. The classification CONFIRMS the 5 gates: G1 refuses all 11 incomplete sprints (the data-loss guard working by construction), G2 is the 11-sprint backfill path, G5 covers the 10 planning docs.
