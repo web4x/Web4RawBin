@@ -1,39 +1,41 @@
 # Tron QA Batch — stale-Active + R-C5 Done-candidates
 Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind: S19+S21+S25 DONE.
-**A1=24 (task-level/scope-VERIFIED -> Done?) · A2=15 (held, unverified) · B=3 · D=4 (delivered-live) · S=2 (superseded/concept) · C=4**
+**A1=23 (3 task-level DIRECT = signable NOW + 20 scope-verified PENDING VACUITY AUDIT) - A2=16 (held/unverified/vacuous) - B=3 - D=4 - S=2 - C=4**
+
+> ★ SCOPE-VERIFIED != VACUITY-CHECKED (PO correction 2026-08-07): "the cited Test exists and names the right thing" was NEVER sufficient - the Test must be ABLE TO FAIL. Tester vacuity-audit IN PROGRESS: a91643c6 already found VACUOUS (moved A1->A2). Do NOT sign the 20 scope-verified rows until each is vacuity-checked. The 3 task-level rows (10545051/15aeb43d/54519bc4) have DIRECT tester evidence and stay signable NOW.
 
 ## A1 — Done candidates: task-level direct OR scope-VERIFIED (Test asserts THIS task scope)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
-| 147e2f64 | S19 | room scenario unit model holds IOR references to its mem | Test Room.persistMembers asserts member-IOR persistence (req R19.35 Test c874546a) | Done? (scope-verified) |
-| 1805f7db | S19 | BY-INVITE Apply button + invite-request messages | Test JoinRequestFlow.applySend asserts invite-apply send (req R19.5 Test 2420ff7d) | Done? (scope-verified) |
-| 1c7f8d8e | S19 | configurable server log level gates logging verbosity | Test R19.41 Logger asserts runtime log-level gating (req R19.41 Test 1f38ad83) | Done? (scope-verified) |
-| 2195d98f | S19 | in-room tree REUSES /trace rb-tree + rb-tree-item with M | Test RbRoomContent.mountTraceTree asserts tree REUSES rb-tree (req R19.21 Test ea6ce5d8) | Done? (scope-verified) |
-| 3ca88df7 | S19 | joining from lobby must succeed (same-token takeover, ne | Test R19.82 addMemberTakeover asserts stale-conn join takeover (req R19.82 Test 3c153212) | Done? (scope-verified) |
-| 40a756f5 | S19 | different content same name registers new version | Test R19.48 asserts same-name-new-content=version (req R19.48 Test 8d8b3fdd) | Done? (scope-verified) |
-| 787e88ab | S19 | strip isSpectator/mode/role/UI/join-flow/server/MSG type | Test Room.stripSpectator asserts spectator code stripped (req R19.24 Test d12f34d5) | Done? (scope-verified) |
-| 834fe55b | S19 | Files become scenario units (uuid.content + scenario.jso | Test FileUnit.upload asserts file stored as unit (req R19.14 Test fbfeac53) | Done? (scope-verified) |
-| a91643c6 | S19 | sticky close button on detail drawer | Test RbDetailDrawer.stickyClose asserts close stays sticky (req R19.33 Test 859878d6) | Done? (scope-verified) |
-| c0d67460 | S19 | edit pen on room item opens canonical scenario unit | Test RbRoomDetail.editCanonical asserts pen opens canonical editor (req R19.30 Test 6d58883c) | Done? (scope-verified) |
-| e90c223d | S19 | strip maxMembers/maxPlayers/size config from model+UI+se | Test Room.stripSizeLimits asserts size/capacity limits removed (req R19.23 Test ffab35a3) | Done? (scope-verified) |
+| 147e2f64 | S19 | room scenario unit model holds IOR references to its mem | Test Room.persistMembers asserts member-IOR persistence (req R19.35 Test c874546a) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 1805f7db | S19 | BY-INVITE Apply button + invite-request messages | Test JoinRequestFlow.applySend asserts invite-apply send (req R19.5 Test 2420ff7d) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 1c7f8d8e | S19 | configurable server log level gates logging verbosity | Test R19.41 Logger asserts runtime log-level gating (req R19.41 Test 1f38ad83) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 2195d98f | S19 | in-room tree REUSES /trace rb-tree + rb-tree-item with M | Test RbRoomContent.mountTraceTree asserts tree REUSES rb-tree (req R19.21 Test ea6ce5d8) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 3ca88df7 | S19 | joining from lobby must succeed (same-token takeover, ne | Test R19.82 addMemberTakeover asserts stale-conn join takeover (req R19.82 Test 3c153212) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 40a756f5 | S19 | different content same name registers new version | Test R19.48 asserts same-name-new-content=version (req R19.48 Test 8d8b3fdd) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 787e88ab | S19 | strip isSpectator/mode/role/UI/join-flow/server/MSG type | Test Room.stripSpectator asserts spectator code stripped (req R19.24 Test d12f34d5) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 834fe55b | S19 | Files become scenario units (uuid.content + scenario.jso | Test FileUnit.upload asserts file stored as unit (req R19.14 Test fbfeac53) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| c0d67460 | S19 | edit pen on room item opens canonical scenario unit | Test RbRoomDetail.editCanonical asserts pen opens canonical editor (req R19.30 Test 6d58883c) | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| e90c223d | S19 | strip maxMembers/maxPlayers/size config from model+UI+se | Test Room.stripSizeLimits asserts size/capacity limits removed (req R19.23 Test ffab35a3) | Done? (scope-verified, PENDING VACUITY AUDIT) |
 | 10545051 | S20 | url-drawer .url click opens the drawer (BUG13) | tester DET-3x real-data 32ba15a7b | Done? |
 | 15aeb43d | S20 | CurrentSprint planner-skill maintains the pin (R20.13) | CurrentSprint.ts +8 Tests 82e309bbb, ~16-spr prod | Done? |
 | 54519bc4 | S20 | TestCase+Gate as 1st-class units (R20.20/21) | gate+render 7b07d8465, 1023 TC+6 Gate | Done? |
 
-| 0c1b375e | S21 | vCard drop stores .vcf beside avatar | Test R21.1 dropVCard asserts .vcf stored beside avatar | Done? (scope-verified) |
-| 18845496 | S21 | Addresses async OSM-verified | Test R21.7 mintAndVerifyAsync asserts async OSM address verify | Done? (scope-verified) |
-| 1bae9710 | S21 | Phone alt-UUID index (ln symlink) | Test R21.3 registerSymlink asserts phone alt-UUID ln symlink | Done? (scope-verified) |
-| 3960168e | S21 | Emails as scenario units + alt-index | Test R21.5 mintAndLink asserts email-as-unit + alt-index | Done? (scope-verified) |
-| 842d4f01 | S21 | Companies as shared dedup units | Test R21.8 mintOrReuseShared asserts company shared-dedup | Done? (scope-verified) |
-| a25e2787 | S21 | Lobby renders real name on first connect | Test R21.2 renderNameOnConnect asserts lobby real-name on connect | Done? (scope-verified) |
-| af9dc6cc | S21 | Phones as scenario units (seed Tron) | Test R21.6 mintAndLink asserts phone-as-scenario-unit | Done? (scope-verified) |
-| e83dc244 | S21 | Device-link on known phone/email | Test R21.4 resolveOrEnroll asserts device-link on known phone/email | Done? (scope-verified) |
-| 92bdca8b | S25 | vCard onboarding recognizes existing users (device-l | Test R25.3 recognizeIdentity asserts vCard onboarding recognizes existing user | Done? (scope-verified) |
-| b9deaf57 | S25 | Drawer interaction — grab-bar mouse parity + X-minim | Test R25.4 minimize (planner-wired 222969ea) asserts X-minimize | Done? (scope-verified) |
+| 0c1b375e | S21 | vCard drop stores .vcf beside avatar | Test R21.1 dropVCard asserts .vcf stored beside avatar | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 18845496 | S21 | Addresses async OSM-verified | Test R21.7 mintAndVerifyAsync asserts async OSM address verify | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 1bae9710 | S21 | Phone alt-UUID index (ln symlink) | Test R21.3 registerSymlink asserts phone alt-UUID ln symlink | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 3960168e | S21 | Emails as scenario units + alt-index | Test R21.5 mintAndLink asserts email-as-unit + alt-index | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 842d4f01 | S21 | Companies as shared dedup units | Test R21.8 mintOrReuseShared asserts company shared-dedup | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| a25e2787 | S21 | Lobby renders real name on first connect | Test R21.2 renderNameOnConnect asserts lobby real-name on connect | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| af9dc6cc | S21 | Phones as scenario units (seed Tron) | Test R21.6 mintAndLink asserts phone-as-scenario-unit | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| e83dc244 | S21 | Device-link on known phone/email | Test R21.4 resolveOrEnroll asserts device-link on known phone/email | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| 92bdca8b | S25 | vCard onboarding recognizes existing users (device-l | Test R25.3 recognizeIdentity asserts vCard onboarding recognizes existing user | Done? (scope-verified, PENDING VACUITY AUDIT) |
+| b9deaf57 | S25 | Drawer interaction — grab-bar mouse parity + X-minim | Test R25.4 minimize (planner-wired 222969ea) asserts X-minimize | Done? (scope-verified, PENDING VACUITY AUDIT) |
 
 ## A2 — req-level Test only, SCOPE UNVERIFIED / held (grind ongoing S21/S25 next)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
+| a91643c6 | S19 | sticky close button on detail drawer | req R19.33 Test 859878d6 - cited Test is CSS-substring-only (impl-coverage-batch.test.ts:39-47: 5 substring checks on app.css .drawer-header / position:sticky / .drawer-body / overflow-y:auto / .drawer-close), asserts NO behaviour, passes even if feature absent = does not verify THIS task scope | VACUOUS (tester vacuity-audit, moved A1->A2) |
 | 0c28c7f8 | S19 | Users become first-class scenario units (ior:class:User) | req R19.54 Test f5211188 — Test is Logger.logAtLevel-split artifact, not User-unit scope | SCOPE UNVERIFIED |
 | 164d8114 | S19 | Room visibility modes (public/by-invite/private) | req R19.3 Test 9a4f07c7 — Test targets R19.4, task covers R19.3 (visibility) — wrong-req | SCOPE UNVERIFIED |
 | 25c38ac0 | S19 | unknown format dropped onto room chat + extensible mimeT | req R19.37 Test 1e763397 — Test is R19.14 file-chain, task is R19.37 unknown-dispatch | SCOPE UNVERIFIED |
