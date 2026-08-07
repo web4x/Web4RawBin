@@ -3,7 +3,8 @@
   "model": {
     "uuid": "5baef26a-8331-4feb-850f-2a38e4434ce7",
     "name": "T: breadth-vs-depth \u2014 All Children \u2260 Traceability Chain, all types (R20.30)",
-    "status": "in-progress",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:d7299c88-c56f-4686-a91f-c67bf78b8930"
     ],

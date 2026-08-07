@@ -5,7 +5,8 @@
     "name": "T-drawer-resize: grab-handle drag sets drawer height (min 120px to 95vh)",
     "slug": "drawer-resize-grab-handle-height-drag",
     "description": "Replace translateY swipe-dismiss on grab handle with real height-drag. touchStart on .drawer-handle captures startY+startHeight. touchMove clamps [120, 95vh]. touchEnd < 120 = close. Off-handle swipe-dismiss preserved.",
-    "status": "Planned",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:62e1b2e1-8715-47e4-9fdb-8b882d0f42dc"
     ],

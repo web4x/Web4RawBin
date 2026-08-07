@@ -4,6 +4,7 @@
     "uuid": "54519bc4-2704-4484-a83f-5b88019d62c3",
     "name": "T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)",
     "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:1e3f9799-943f-4716-b116-78a202301d02",
       "ior:instance:102ab818-ca11-4272-8ee8-74b9e4d8298a",

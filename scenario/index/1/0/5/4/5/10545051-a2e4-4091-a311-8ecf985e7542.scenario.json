@@ -3,7 +3,8 @@
   "model": {
     "uuid": "10545051-a2e4-4091-a311-8ecf985e7542",
     "name": "T: url-drawer-regression / .url click opens drawer (BUG13)",
-    "status": "Resolved",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     ],
