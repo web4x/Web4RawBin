@@ -5,8 +5,8 @@
     "name": "T21.7: Addresses async OSM-verified",
     "slug": "task-t21-7",
     "description": "AddressIndex.mintAddress: store ior:class:Address { oneLine \"Country City PostalCode Street HouseNumber\", verified:false, osmLink:null, gmapsLink:null } synchronously (never blocks); server enqueues a background VerifyJob that hits Nominatim (limit=1, UA, <=1 req/s, cached by oneLine) and on a hit sets verified:true + OSM + Google Maps links.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:5d3b5e6e-75da-4b66-8d44-75df5f9ceb7f"
     ],

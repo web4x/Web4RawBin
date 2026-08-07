@@ -5,8 +5,8 @@
     "name": "T-iframe-pinch-scale: a pinch gesture inside the preview iframe must SCALE the pre",
     "slug": "iframe-pinch-gesture-scales-preview",
     "description": "R19.85 fix: a pinch gesture inside the preview iframe must SCALE the preview content (zoom), not the page. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:e29dcae1-2327-48df-a3c5-41add257c624"
     ],

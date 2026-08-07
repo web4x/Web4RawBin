@@ -5,8 +5,8 @@
     "name": "T21.5: Emails as scenario units + alt-index",
     "slug": "task-t21-5",
     "description": "EmailIndex.mintAndLink: normalizeEmail (trim+lowercase) -> mint ior:class:Email unit (ownerIor=profile) -> push into Profile.emails[] (multiple, idempotent) -> register alt/email symlink on Profile.unitLinks[]. Known email triggers the R21.4 device-link via shared resolveKeyToProfile.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:a8be009e-8d1c-41ae-8f38-96515a72a929"
     ],

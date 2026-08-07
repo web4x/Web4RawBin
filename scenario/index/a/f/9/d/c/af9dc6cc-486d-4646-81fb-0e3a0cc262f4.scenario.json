@@ -5,8 +5,8 @@
     "name": "T21.6: Phones as scenario units (seed Tron)",
     "slug": "task-t21-6",
     "description": "PhoneIndex.mintAndLink: mint ior:class:Phone unit { e164:+CountryDigits, ownerIor:profile } -> Profile.phones[] (multiple, idempotent) -> alt/phone symlink. Standardized format enforced at creation. Tron +4915253844085 seeded as first Phone unit on his WODA.prod profile.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:3bd63ae7-96e9-453a-a19f-fc7e1e00ab1f"
     ],

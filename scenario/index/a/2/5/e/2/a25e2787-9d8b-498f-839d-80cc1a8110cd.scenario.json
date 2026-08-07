@@ -5,8 +5,8 @@
     "name": "T21.2: Lobby renders real name on first connect",
     "slug": "task-t21-2",
     "description": "RoomBrowser must show the actual profile name immediately on connect, never a blank/random fallback that only corrects on a second reload. Fix: re-render the name+avatar block on the PROFILE event (one-shot guarded), not just patch the input value; first paint uses cached profile name or a neutral skeleton. Verified headless against the running app.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4f099ef2-66b6-4eba-b9e2-5b2a4c86e98b"
     ],
