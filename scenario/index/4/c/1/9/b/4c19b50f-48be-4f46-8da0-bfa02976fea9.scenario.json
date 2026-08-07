@@ -6,6 +6,8 @@
     "slug": "drawer-nudge-drag-resizes-height",
     "description": "R19.84 fix: the drawer nudge/grab-handle must DRAG-RESIZE the drawer height (not just toggle). Pointer drag on the handle adjusts drawer height live. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
     "status": "In Progress",
+    "supersededBy": "ior:instance:b9deaf57-0e85-44a4-be94-3aa68f914c67",
+    "supersededReason": "drag-resize grab-handle delivered in the shared rb-detail-drawer (rb-detail-drawer.ts:46-67 dragging/mouseResizing + mousedown handle); consolidated + tested under S25 Task 25.4 grab-bar mouse parity (b9deaf57)",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:0be510a8-fce6-49cb-afa8-d9cf39762d4d"

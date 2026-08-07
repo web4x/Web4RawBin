@@ -6,6 +6,8 @@
     "slug": "room-file-item-rerender-lifecycle-mirror-members",
     "description": "R19.83 fix: file item views in the in-room tree must survive a re-render \u2014 mirror the Members item lifecycle so Files items persist/refresh correctly instead of disappearing or duplicating on re-render. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
     "status": "In Progress",
+    "supersededBy": "ior:instance:b8da64a1-9939-4de9-b47d-73f489a8258a",
+    "supersededReason": "file-item re-render lifecycle obviated by R19.90 setItems (Task b8da64a1) — RoomView imperative tree (renderRoomTreeFiles/diffRenderItems) deleted; files render via shared rb-trace-tree.setItems([membersRoot, filesRoot])",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 mirror members re-render lifecycle; in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"

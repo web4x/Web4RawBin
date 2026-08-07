@@ -6,6 +6,9 @@
     "slug": "diff-render-replace-innerhtml-nuke",
     "description": "R19.88.A fix: stop innerHTML='' destroy+recreate. diffRenderItems() indexes existing by ref, removes departed, updates attrs in-place (preserves connectedCallback state), appends only new. Shared helper for both members + files. Zero innerHTML='' on live rb-object-item containers.",
     "status": "Planned",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "supersededBy": "ior:instance:b8da64a1-9939-4de9-b47d-73f489a8258a",
+    "supersededReason": "named method orphan-by-design per architect 3569dc915; outcome delivered via R19.90 setItems (Task b8da64a1)",
     "coveredRequirements": [
       "ior:instance:3785b104-f890-473e-8d76-bee5bf010b84"
     ],
