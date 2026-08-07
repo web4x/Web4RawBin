@@ -2,44 +2,49 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking",
+    "name": "Current: Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
     "chain": {
-      "req": "a8663672-3522-4f0c-b313-d14d13dbba5f",
+      "req": "eec7ebb7-5dd3-431f-9700-a50429c3de03",
       "uc": "",
       "class": "",
       "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 0,
-    "sprintName": "Sprint 36",
-    "taskName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
+    "activeHop": 4,
+    "sprintName": "Sprint 37",
+    "taskName": "Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
     "hopStates": {
       "req": {
         "status": "done",
         "owner": "robbin-skill-expert",
         "updatedAt": "2026-08-07"
+      },
+      "impl": {
+        "status": "in-progress",
+        "owner": "robbin-skill-expert",
+        "updatedAt": "2026-08-07"
       }
     },
-    "nextBacklogOverride": "",
-    "lastCompletedUuid": "47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d",
-    "lastCompletedName": "Task 36.4: UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace [R36.4, build LAST]",
-    "lastCompletedReqUuid": "2265ad63-8c61-4e72-bd36-afd28c9bd731",
+    "nextBacklogOverride": "97e8a6ad-46db-440f-a9be-cfb97ca64df4",
+    "lastCompletedUuid": "b5948931-5a36-4779-806d-abe60153aba8",
+    "lastCompletedName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
+    "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
     "slots": {
       "current": {
+        "taskUuid": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
+        "taskName": "Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
+        "reqUuid": "eec7ebb7-5dd3-431f-9700-a50429c3de03"
+      },
+      "lastCompleted": {
         "taskUuid": "b5948931-5a36-4779-806d-abe60153aba8",
         "taskName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
         "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
-      "lastCompleted": {
-        "taskUuid": "47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d",
-        "taskName": "Task 36.4: UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace [R36.4, build LAST]",
-        "reqUuid": "2265ad63-8c61-4e72-bd36-afd28c9bd731"
-      },
       "nextBacklog": {
-        "taskUuid": "",
-        "taskName": "",
-        "reqUuid": ""
+        "taskUuid": "97e8a6ad-46db-440f-a9be-cfb97ca64df4",
+        "taskName": "Task C5: Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip [R-C5]",
+        "reqUuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa"
       }
     }
   },
