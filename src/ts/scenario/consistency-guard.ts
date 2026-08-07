@@ -78,9 +78,14 @@ export function consistencyStrict(idx: ScenarioIndex): GuardResult[] {
   results.push(idxGuard);
   if (!idxGuard.ok) return results; // nothing trustworthy downstream
 
-  // (a) sprint-pin resolves to a single current sprint (R-C1); current:null = unresolvable = refuse.
-  const pin = resolveSprintPin(idx);
-  results.push(refuseIfVacuous(pin.current, { name: 'consistency:strict/sprint-pin.current', expect: 'present' }));
+  // (a) sprint-pin resolves to a single current sprint (R-C1). Ambiguity (INV-C1-4, >1 current-era Active) THROWS —
+  // CATCH it and convert to a NAMED fail-closed refusal (INV-C3-3: a gate reports WHY, never a bare throw/stack).
+  try {
+    const pin = resolveSprintPin(idx);
+    results.push(refuseIfVacuous(pin.current, { name: 'consistency:strict/sprint-pin.current', expect: 'present' }));
+  } catch (e) {
+    results.push({ ok: false, reason: `consistency:strict/sprint-pin: ${(e as Error).message}` });
+  }
 
   // (c) dual-status consistency (R-C5): unit-status == board checkbox. Non-empty offenders = drift = fail.
   const offenders = assertStatusConsistent(idx);

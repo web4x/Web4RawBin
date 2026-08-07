@@ -4,7 +4,7 @@
     "uuid": "4d21edf3-6037-4e0a-82a0-48867e032584",
     "name": "SprintOverviewGenerator.checkOverview (between-markers drift FAIL + frozen-legacy VISIBLE + missing-file FAIL)",
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:4873f41b-836b-4a01-b998-896482ee905a"

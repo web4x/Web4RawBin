@@ -4,7 +4,7 @@
     "uuid": "1f38e07e-2635-433a-b9ee-045584c3a669",
     "name": "SprintOverviewGenerator.generateOverview (preserved-region + pin/rollup index + frozen-legacy visible)",
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": []
   },
   "ownerIor": "ior:instance:8b238215-6d70-41b4-86c1-e8491d27bbb9"
