@@ -20,11 +20,6 @@ const normalizeLF = (s: string): string => s.replace(/\r\n/g, '\n').replace(/\r/
 // STRUCTURAL keys (G5: narrative ignored). altId/number IDs (R18.29, T36.5, R-C2) are the STABLE identity — matched
 // BY KEY so a REWORDED/refined requirement still matches (not a false gap). uuid refs are deliberately NOT used as
 // keys (they change on re-mint = fragile). Rows = checkbox labels, normalized (case/whitespace/markdown-insensitive).
-function extractIds(md: string): Set<string> {
-  const ids = new Set<string>();
-  for (const m of md.matchAll(/\b(R-C\d+|T-C\d+|[RT]\d+(?:\.\d+)*)\b/g)) ids.add(m[1].toUpperCase());
-  return ids;
-}
 const normRow = (s: string): string => s.replace(/[*_`[\]]/g, '').replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 80);
 function extractRows(md: string): { text: string; id: string | null }[] {
   const rows: { text: string; id: string | null }[] = [];
@@ -45,10 +40,13 @@ export interface BoardDiff { gaps: string[]; needsReview: string[]; }
 // ★ FAIL-CLOSED: an uncertain item is NEVER silently 'matched' (that would re-open the vacuous-pass hole) and NEVER
 // a hard gap — it is a NAMED, distinct category a human confirms before --apply. (Narrative yields no items, G5.)
 export function proveBoardComplete(handAuthored: string, generated: string): BoardDiff {
-  const genIds = extractIds(generated);
+  // Gap ids come from STRUCTURAL checkbox rows ONLY (line-20 intent: narrative ignored). extractIds over the WHOLE
+  // md false-flags a PROSE cross-reference (e.g. "unblocked once R21.9 landed" = a mention of another sprint's id)
+  // as a missing gap; a structural checkbox row still fires a real gap. (tester BITE rc7e-extractids-prose-crossref)
+  const genIds = new Set(extractRows(generated).map((r) => r.id).filter(Boolean));
   const genRowTexts = new Set(extractRows(generated).map((r) => r.text));
   const gaps: string[] = [], needsReview: string[] = [];
-  for (const id of extractIds(handAuthored)) if (!genIds.has(id)) gaps.push(`id:${id}`);
+  for (const { id } of extractRows(handAuthored)) if (id && !genIds.has(id)) gaps.push(`id:${id}`);
   for (const row of extractRows(handAuthored)) {
     if (row.id) continue;                     // ID-bearing rows are adjudicated by the ID check above
     if (genRowTexts.has(row.text)) continue;  // exact normalized-text match → covered
@@ -67,13 +65,20 @@ export interface ProofResult { sprintSlug: string; complete: boolean; gaps: { fi
 // We deliberately do NOT skip GENERATED_HEADER files: a pure-generated file diffs to 0 (free), but a hand-ANNOTATED
 // generated file (header + a hand-added row, e.g. an "in-flight per PO" note) is CAUGHT — verify, don't assume the
 // header means untouched (that skip false-COMPLETE'd S19 while --apply's per-file G4 correctly refused). [[false-low-worse-than-absent]]
-export function perFileDiffs(dir: string, files: Map<string, string>): { file: string; gaps: string[]; needsReview: string[] }[] {
-  const results: { file: string; gaps: string[]; needsReview: string[] }[] = [];
+export function perFileDiffs(dir: string, files: Map<string, string>): { file: string; gaps: string[]; needsReview: string[]; drops: string[] }[] {
+  const results: { file: string; gaps: string[]; needsReview: string[]; drops: string[] }[] = [];
   for (const [name, generated] of files) {
     const fp = path.join(dir, name);
     if (!fs.existsSync(fp)) continue;
-    const d = proveBoardComplete(fs.readFileSync(fp, 'utf-8'), generated);
-    if (d.gaps.length || d.needsReview.length) results.push({ file: name, gaps: d.gaps, needsReview: d.needsReview });
+    const content = fs.readFileSync(fp, 'utf-8');
+    const d = proveBoardComplete(content, generated);
+    // ADDITIVE-ONLY gate (R-C6 preserve-region UNBUILT): a non-empty hand line the generator does NOT reproduce
+    // would be DROPPED on --apply. G5 excludes NARRATIVE from the structural proof, so hand prose (e.g. '**Theme:**',
+    // '**Source:**', '*Captured by …*') silently vanishes on migrate. Surface every such line as a `drop` so
+    // proveComplete can REFUSE fail-closed until R-C6 preserves hand-narrative regions. "apply must lose nothing."
+    const genLines = new Set(normalizeLF(generated).split('\n').map((l) => l.trim()).filter(Boolean));
+    const drops = normalizeLF(content).split('\n').map((l) => l.trim()).filter((l) => l && !genLines.has(l));
+    if (d.gaps.length || d.needsReview.length || drops.length) results.push({ file: name, gaps: d.gaps, needsReview: d.needsReview, drops });
   }
   return results;
 }
@@ -100,7 +105,17 @@ export function proveComplete(sprintUuid: string): ProofResult {
   const perFile = perFileDiffs(path.join(SPRINTS_DIR, sprintSlug), out.files);
   const gaps = perFile.flatMap((f) => f.gaps.map((item) => ({ file: f.file, item })));
   const needsReview = perFile.flatMap((f) => f.needsReview.map((item) => ({ file: f.file, item })));
-  // complete (safe to --apply) requires BOTH 0 gaps AND 0 needs-review — an uncertain item blocks apply (fail-closed).
+  // ★ NARRATIVE-LOSS REFUSAL (R-C6 preserve-region UNBUILT): if migrating would DROP any hand line the generator
+  // doesn't reproduce (narrative not covered by the G5 structural proof), REFUSE fail-closed with a NAMED reason —
+  // "apply must lose nothing". This turns the manual additive-only assertion into a by-construction gate; it lifts
+  // automatically once R-C6 preserves hand-narrative regions (drops → 0 for a preserved board). NOT human memory.
+  const dropFiles = perFile.filter((f) => f.drops.length);
+  if (dropFiles.length) {
+    const sample = dropFiles.flatMap((f) => f.drops).find((l) => /\*\*(theme|source)|captured by/i.test(l)) || dropFiles[0].drops[0];
+    const reason = `REFUSED (R-C6 preserve-region UNBUILT): migrating would DROP hand narrative the generator does not reproduce — ${dropFiles.map((f) => `${f.file} (${f.drops.length} line(s))`).join(', ')}; e.g. "${sample.slice(0, 70)}". apply must lose nothing → refusing until R-C6 preserves narrative regions.`;
+    return { sprintSlug, complete: false, gaps, needsReview, reason };
+  }
+  // complete (safe to --apply) requires 0 gaps AND 0 needs-review AND 0 dropped hand lines (all fail-closed).
   return { sprintSlug, complete: gaps.length === 0 && needsReview.length === 0, gaps, needsReview };
 }
 
