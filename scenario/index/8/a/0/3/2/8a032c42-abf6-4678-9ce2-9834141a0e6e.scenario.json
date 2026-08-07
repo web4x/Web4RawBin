@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a032c42-abf6-4678-9ce2-9834141a0e6e",
+    "name": "TaskStatus.deriveStatusEnum (highest-checked-box -> enum, malformed-safe)",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "markerPending": true,
+    "markerNote": "R-C5 dual-status. Expert marks [impl:uuid:8a032c42-abf6-4678-9ce2-9834141a0e6e] on the name-matching decl in src/ts/scenario/task-status.ts (or scripts/). Scripts/CI-only -> NO version bump/restart unless the module is also imported by the running server (then real-restart + R31.7).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb"
+}

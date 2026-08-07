@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb",
+    "name": "TaskStatus.deriveStatusEnum",
+    "description": "Pure fn deriveStatusEnum(checklist: string): Status = the HIGHEST checked TOP-LEVEL box, 1:1 with the enum Planned < In Progress < QA Review < Done (sub-steps ignored for the enum); deterministic. statusChecklist is the SOURCE (richer); status is DERIVED from it -> DRY, the two cannot disagree for new/edited tasks (by-construction). The generator + any Task writer sets model.status = deriveStatusEnum(model.statusChecklist). Handles the 1 malformed (non-string) checklist safely. R-C5. Design-ahead -> expert marks the decl; scripts/CI-only.",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "implementations": [
+      "ior:instance:8a032c42-abf6-4678-9ce2-9834141a0e6e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07"
+}

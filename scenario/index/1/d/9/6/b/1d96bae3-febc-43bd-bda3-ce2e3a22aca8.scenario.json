@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1d96bae3-febc-43bd-bda3-ce2e3a22aca8",
+    "name": "TaskStatus.assertStatusConsistent",
+    "description": "FAIL-LOUD detector: for every Task assert model.status == deriveStatusEnum(model.statusChecklist); exit 1 LISTING every offender, and FLAG the DANGEROUS subset status='Done' && Done-box UNCHECKED as FALSE-DONE priority (the S33-36 honesty-audit target); also flag the 1 malformed (non-string) checklist. NEVER auto-flips a status (INV-S5a no-invention) — the list IS the planner's honest-Done audit worklist; resolution flows checklist->status only, owner-resolved at the task level. Fold into ci:gates (composes with R-C3). R-C5. Design-ahead -> expert marks the decl; scripts/CI-only, NO restart/version-bump.",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "implementations": [
+      "ior:instance:d86f0309-df84-4fbf-9b47-da9e2b6abbee"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07"
+}

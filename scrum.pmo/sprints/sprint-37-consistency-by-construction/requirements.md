@@ -54,8 +54,11 @@
   **Acceptance criteria:**
   - [ ] **(functional)** A Task's status is ONE truth: model.status and model.statusChecklist are reconciled (or one derived from the other) so they CANNOT disagree within a unit.
   - [ ] **(functional)** The reconcile MUST NOT flip a task's displayed Done-ness (a status='In Progress' + all-checked checklist is SURFACED for the honesty audit, NOT silently flipped to Done) — no status invention, honors R-C2 INV-C4.
+  - [ ] **(functional)** A FAIL-LOUD detector assertStatusConsistent asserts status==deriveStatusEnum(statusChecklist) for EVERY Task and exit 1 LISTING every offender, FLAGGING the dangerous status='Done' && Done-box-UNCHECKED subset as FALSE-DONE priority (the honesty-audit target). Folds into ci:gates. The list IS the owner-resolve worklist (resolution flows checklist->status, never reverse).
+  - [ ] **(functional)** The 1 malformed (non-string) statusChecklist found on disk is handled safely: deriveStatusEnum and the detector do NOT crash on it — it is flagged for repair-to-template, not silently mis-derived.
   - [ ] **(functional)** status/statusChecklist disagreements are surfaced to the planner honesty audit (the UNIT is the thing to fix, not the view); ties to the S33-36 honesty correction.
-  - [ ] **(gate)** TEST EXERCISES AC-one-status+AC-no-doneness-flip: a Task with disagreeing status/statusChecklist (e.g. Task 95) -> reconcile yields ONE consistent status WITHOUT changing displayed Done-ness + the disagreement is flagged (not silently resolved). Verify Impl.tests[] on disk before flip.
+  - [ ] **(gate)** TEST = false-Done BITE (distinct-intent, exercises its own AC): plant status='Done' on a task whose checklist Done-box is [ ] -> assertStatusConsistent MUST exit 1 naming it FALSE-DONE; a task with status==deriveStatusEnum(checklist) -> passes; setting status=deriveStatusEnum on a fresh edit keeps them equal (by-construction, no new drift). Verify Impl.tests[] on disk before flip.
+  -> taskStatus.deriveAndAssert [uc:uuid:2a840e93-8b20-4b50-97ef-38d7cab1df53]
 
 - [ ] **R-C6 — sprints.overview.md is a GENERATED view (with preserved-narrative region)**
   [requirement:uuid:9339cc3b-8035-403b-8bef-8c08df15edc2]

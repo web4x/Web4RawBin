@@ -1,0 +1,16 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2a840e93-8b20-4b50-97ef-38d7cab1df53",
+  "name": "taskStatus.deriveAndAssert",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc5-dual-status-reconcile.md",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R-C5: statusChecklist = SOURCE (richer, sub-steps); status = DERIVED via deriveStatusEnum = highest checked top-level box (Planned<In Progress<QA Review<Done) so the two CANNOT disagree by construction (DRY: derive the poorer from the richer). NO auto-override of the ~69 EXISTING disagreements (that would FLIP displayed Done-ness = status-invention) — instead the FAIL-LOUD assertStatusConsistent detector LISTS every offender, prioritizing the DANGEROUS status=Done + Done-box-UNCHECKED FALSE-DONE subset (+ the 1 malformed checklist). Resolution flows checklist->status, never reverse; owner-resolved at task level = the planner honest-Done worklist. Architect design design-rc5-dual-status-reconcile.md.",
+  "class": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07",
+  "method": "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8",
+  "helperMethod": "ior:instance:f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb",
+  "helperNote": "deriveStatusEnum (Method f0f9eaa4) is the pure derive fn assertStatusConsistent calls; both live on Class TaskStatus. The by-construction 'status derives from checklist' AND the fail-loud detector are ONE R-C5 behavior (deriveAndAssert). BITE Test targets assertStatusConsistent."
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d86f0309-df84-4fbf-9b47-da9e2b6abbee",
+    "name": "TaskStatus.assertStatusConsistent (fail-loud, lists offenders, false-Done priority)",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "markerPending": true,
+    "markerNote": "R-C5 dual-status. Expert marks [impl:uuid:d86f0309-df84-4fbf-9b47-da9e2b6abbee] on the name-matching decl in src/ts/scenario/task-status.ts (or scripts/). Scripts/CI-only -> NO version bump/restart unless the module is also imported by the running server (then real-restart + R31.7).",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8"
+}
