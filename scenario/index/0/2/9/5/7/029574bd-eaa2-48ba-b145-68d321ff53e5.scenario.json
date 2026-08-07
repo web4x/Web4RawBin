@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "029574bd-eaa2-48ba-b145-68d321ff53e5",
+    "name": "guard.failClosedOnVacuous",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc3-fail-loud-guard.md",
+    "parent": null,
+    "unitLinks": [],
+    "class": "ior:instance:13cff277-e147-4897-8783-40fe2c8059f6",
+    "method": "ior:instance:c8721430-4a80-4d82-a982-2929e12a2347",
+    "description": "R-C3: every consistency guard is FAIL-LOUD (refuses with a named reason) AND FAIL-CLOSED on vacuous input (unresolvable/empty/0-items/wrong-ior/null/every([]) = REFUSE, never silent-pass). Generalizes the vacuous-pass fix the R-C7 BITE exposed into a cross-cutting invariant for EVERY S37 guard + a meta-BITE that gate-proves the gate-prover. Design design-rc3-fail-loud-guard.md."
+  }
+}

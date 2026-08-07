@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ee424581-c246-48b7-bdc8-54a37f686b02",
+    "name": "ConsistencyGuard.refuseIfVacuous (named refusal on every vacuous shape, shared)",
+    "sourceFile": "ior:file:src/ts/scenario/consistency-guard.ts",
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c8721430-4a80-4d82-a982-2929e12a2347"
+}

@@ -13,7 +13,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:029574bd-eaa2-48ba-b145-68d321ff53e5"
+  ],
   "description": "A FAIL-LOUD guard folded into ci:gates FAILS the build when the pointers/board/files disagree: (a) sprint-pin != computed-current-sprint-from-files; (a2) current-task-pointer != computed-active-task-from-files; (b) ANY sprint's planning.md/task-md/requirements.md != regenerated (round-trip byte-match — extend check:sprint-md to FAIL on drift, not just report); (c) a task-status in a unit != its board checkbox. BOTH pointers (sprint + task) == board == files. The fail-loud is PROVEN by a real drift-injection BITE, NOT asserted.",
   "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
   "discoverySource": {
@@ -44,6 +46,36 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST EXERCISES AC-BITE directly: inject each drift kind (sprint-pin-drift, TASK-pointer-drift, board-drift, status-drift) -> assert guard exits non-zero + clear message each; remove all drift -> assert guard passes (GREEN). The Test IS the BITE. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-fail-closed-vacuous",
+    "group": "vacuous",
+    "text": "FAIL-CLOSED on vacuous input (INV-C3-1): every S37 guard REFUSES with a named reason on any vacuous shape - unresolvable-uuid / missing-or-empty-file / absent-or-malformed-checklist / 0-items-where->=1-expected / wrong-ior-class / null-output / a positive assertion over an empty collection. NEVER a silent pass."
+   },
+   {
+    "id": "AC-no-vacuous-truth",
+    "group": "vacuous",
+    "text": "NO vacuous truth (INV-C3-2): a positive assertion over an empty/absent set defaults to FAIL for a gate - every([])===true / all-of-nothing / '0 offenders because 0 were scanned' must NOT read as clean (false-low-worse-than-absent)."
+   },
+   {
+    "id": "AC-named-reason",
+    "group": "vacuous",
+    "text": "Named reason (INV-C3-3): every refusal carries a human reason STRING (not a bare false / exit 1) so CI output says WHY it refused."
+   },
+   {
+    "id": "AC-refuseIfVacuous-shared",
+    "group": "dry",
+    "text": "ONE shared helper refuseIfVacuous(value,{name,expect}) is called at the TOP of every guard (DRY - no per-guard ad-hoc null-checks that each drift subtly); returns {ok:false,reason} | {ok:true}."
+   },
+   {
+    "id": "AC-composed-strict",
+    "group": "ci",
+    "text": "A consistency:strict ci:gate (INV-C3-4) composes the S37 guards - pin (R-C1 resolver==committed pin) + dual-status (R-C5 assertStatusConsistent) + board-drift (R-C2, missing-file=FAIL) + migration-refuse (R-C7 proveComplete); ANY refusal fails the build; folded into ci:gates:raw."
+   },
+   {
+    "id": "AC-meta-BITE",
+    "group": "gate",
+    "text": "META-BITE (gate-proves the gate-prover): the vacuous-BITE suite feeds EACH guard x EACH vacuous path (unresolvable/empty/missing-file/malformed/wrong-ior/null) and asserts REFUSE-with-reason (INV-C3-5 BITE-per-vacuous-path); PLUS a deliberately-vacuous-PASSING stub guard that MUST turn the suite RED - proving the suite would catch a silent-pass regression."
    }
   ]
  },

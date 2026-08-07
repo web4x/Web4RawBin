@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "13cff277-e147-4897-8783-40fe2c8059f6",
+    "name": "ConsistencyGuard",
+    "file": "src/ts/scenario/consistency-guard.ts",
+    "methods": [
+      "ior:instance:c8721430-4a80-4d82-a982-2929e12a2347",
+      "ior:instance:6328433a-e773-422e-9afb-9903b5339e6d"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/scenario/consistency-guard.ts"
+  },
+  "ownerIor": null
+}

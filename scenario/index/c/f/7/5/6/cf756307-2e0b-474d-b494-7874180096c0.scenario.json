@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cf756307-2e0b-474d-b494-7874180096c0",
+    "name": "ConsistencyGuard.assertNonVacuous (consistency:strict composed gate + meta-BITE backing)",
+    "sourceFile": "ior:file:src/ts/scenario/consistency-guard.ts",
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6328433a-e773-422e-9afb-9903b5339e6d"
+}

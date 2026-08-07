@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c8721430-4a80-4d82-a982-2929e12a2347",
+    "name": "ConsistencyGuard.refuseIfVacuous",
+    "description": "Shared refuseIfVacuous(value,{name,expect}): {ok:false,reason} | {ok:true} called at the TOP of every guard. Encodes the vacuous checklist: input ref unresolvable(null) / file missing-or-empty / checklist absent-or-malformed / 0 items where >=1 expected / wrong ior:class / null-or-undefined output / a positive assertion over an empty collection (every([])). Returns a NAMED refusal or ok. ONE helper, ONE place, reused (DRY) - kills the vacuous-truth silent-pass by construction. INV-C3-1/2/3. R-C3.",
+    "implementations": [
+      "ior:instance:ee424581-c246-48b7-bdc8-54a37f686b02"
+    ]
+  },
+  "ownerIor": "ior:instance:13cff277-e147-4897-8783-40fe2c8059f6"
+}
