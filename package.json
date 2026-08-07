@@ -18,6 +18,7 @@
     "rule-pair:strict": "tsx scripts/rule-pair-check.ts --strict",
     "check:sprint-md": "tsx scripts/generate-sprint-md.ts --check --all",
     "check:camelcase": "node scripts/check-camelcase-names.mjs",
+    "check:task-status": "node --import tsx src/ts/scenario/task-status.ts",
     "prepare": "git config core.hooksPath .githooks 2>/dev/null || true",
     "ci:gates:raw": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md && npm run check:camelcase",
     "ci:gates": "node scripts/with-node20.mjs npm run ci:gates:raw",
