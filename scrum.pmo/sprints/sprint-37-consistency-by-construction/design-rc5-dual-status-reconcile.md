@@ -19,3 +19,25 @@ A Task carries status in TWO independent fields that nothing keeps in sync:
 - **INV-S5b (fail-loud, not silently picked):** a disagreement HALTS (fail-loud CI) — "no silent broken state." The guard never picks a winner; it lists offenders for resolution.
 - **INV-S5c (units→derivation only; no prod/other-field mutation):** deriving `status` from `statusChecklist` touches ONLY the `status` field of Task units, and ONLY once the disagreement is owner-resolved; never prod scenario data, never the checklist content (the source stays the human's).
 - **INV-S5d (honest-Done gate):** the disagreement list IS the planner's audit worklist — R-C5 UNBLOCKS the honest closes by making "which tasks have un-established Done-ness" explicit + fail-loud, but the RESOLUTION of each (is it really Done?) is the TASK-level owner act (planner + TRON-QA per the honesty precondition), NOT R-C5 auto-deciding.
+
+## IMPL-SHAPE (expert-buildable)
+| # | Piece | Detail |
+|---|-------|--------|
+| 1 | **`deriveStatusEnum(checklist: string): Status`** pure fn (shared module, e.g. `scripts/generate-sprint-md.ts` or a small `src/ts/scenario/task-status.ts`) | highest-checked top-level box → `Done`/`QA Review`/`In Progress`/`Planned`; deterministic; sub-steps ignored for the enum. |
+| 2 | **status becomes DERIVED (by-construction, going forward)** | the generator + any Task writer sets `model.status = deriveStatusEnum(model.statusChecklist)` — `status` is no longer independently hand-edited → the two CANNOT disagree for new/edited tasks (INV-S5 by construction). |
+| 3 | **FAIL-LOUD detector `assertStatusConsistent`** | for every Task: assert `model.status == deriveStatusEnum(model.statusChecklist)`; `exit 1` listing EVERY offender + FLAG the `status=Done && Done-box-unchecked` subset as FALSE-DONE priority. Also flag the 1 malformed (non-string) checklist. Fold into `ci:gates` (the assertion is R-C5's; CI-wiring composes with R-C3). |
+| 4 | **Migration — phase 2 (existing ~69): DETECT + owner-RESOLVE, never auto-flip** | the detector's list = the planner's honest-Done AUDIT WORKLIST. Each is resolved at the TASK level: the owner fixes the CHECKLIST (the source) to reflect TRUE state (+ TRON-QA for user-facing Done, honesty precondition), THEN `status` auto-derives + agrees. R-C5 code NEVER silently picks (INV-S5a/b). Fix the 1 malformed checklist → template. |
+
+**Why checklist=source (not status):** the checklist is losslessly reducible to the enum (highest-box) but the enum cannot reconstruct sub-steps — so the richer field must be source (DRY: derive the poorer from the richer, never duplicate).
+
+## GATE (drift-injection BITE — fail-loud proven, [[correct-by-construction-needs-gate-verification]])
+1. **BITE-a (guard bites the false-Done):** plant `status=Done` on a task whose checklist Done-box is `[ ]` → `assertStatusConsistent` MUST `exit 1` naming it as FALSE-DONE.
+2. **BITE-b (agreeing derives):** a task whose `status == deriveStatusEnum(checklist)` → passes; and setting `status=deriveStatusEnum(checklist)` on a fresh edit keeps them equal (by-construction, no new drift).
+3. **RESOLVE path:** fix a disagreement's CHECKLIST to truth → re-derive → `status` agrees → guard GREEN. (Proves resolution flows checklist→status, never the reverse invention.)
+4. **INV-S5c:** the derivation touches ONLY `model.status`; `statusChecklist` content + prod scenario data UNCHANGED (git-diff scoped to the status field).
+5. **HONEST-DONE unblock:** the detector's worklist is handed to the planner = the exact set of tasks whose Done-ness must be re-established before S33-36 close honestly.
+
+## CHAIN + deploy
+- UC `taskStatus.deriveAndAssert` → Class (`SprintViewGenerator` or new `TaskStatus`) → Method `deriveStatusEnum` + `assertStatusConsistent` → Impl → **Test = the BITE** (plant false-Done → fail; agreeing → pass; resolve → agree). Distinct-intent Test (verify-owner-first, no cross-wire). req mints #126 at build-go; I backstop.
+- **Deploy:** `deriveStatusEnum`/`assertStatusConsistent` are GENERATOR/CI-tooling (run at commit-time, not the prod server) → **NO server restart / NO version bump** IF confined to scripts/. If a shared module is also imported by the running server, then real-restart + R31.7. Prefer scripts/CI-only (no restart).
+- **Sequence:** R-C5 (this) UNBLOCKS the planner honest-Done audit → then S33-36 closes (team, per doctrine) → R-C1 pin-resolver → R-C3 fail-loud guard (folds in assertStatusConsistent + the sprints.overview generator) → R-C4 self-heal.
