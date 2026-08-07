@@ -1,6 +1,6 @@
 # Tron QA Batch — stale-Active + R-C5 Done-candidates
-Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind IN PROGRESS (S19 done).
-**A1=14 (task-level/scope-VERIFIED -> Done?) · A2=25 (scope UNVERIFIED, S21/S25 grind next) · B=3 · D=4 (delivered-live, chain-backfill) · S=2 (superseded/concept) · C=4 (unevidenced->superseded/backlog)**
+Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind: S19+S21+S25 DONE.
+**A1=24 (task-level/scope-VERIFIED -> Done?) · A2=15 (held, unverified) · B=3 · D=4 (delivered-live) · S=2 (superseded/concept) · C=4**
 
 ## A1 — Done candidates: task-level direct OR scope-VERIFIED (Test asserts THIS task scope)
 | task | spr | what | evidence | rec |
@@ -20,6 +20,17 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 | 15aeb43d | S20 | CurrentSprint planner-skill maintains the pin (R20.13) | CurrentSprint.ts +8 Tests 82e309bbb, ~16-spr prod | Done? |
 | 54519bc4 | S20 | TestCase+Gate as 1st-class units (R20.20/21) | gate+render 7b07d8465, 1023 TC+6 Gate | Done? |
 
+| 0c1b375e | S21 | vCard drop stores .vcf beside avatar | Test R21.1 dropVCard asserts .vcf stored beside avatar | Done? (scope-verified) |
+| 18845496 | S21 | Addresses async OSM-verified | Test R21.7 mintAndVerifyAsync asserts async OSM address verify | Done? (scope-verified) |
+| 1bae9710 | S21 | Phone alt-UUID index (ln symlink) | Test R21.3 registerSymlink asserts phone alt-UUID ln symlink | Done? (scope-verified) |
+| 3960168e | S21 | Emails as scenario units + alt-index | Test R21.5 mintAndLink asserts email-as-unit + alt-index | Done? (scope-verified) |
+| 842d4f01 | S21 | Companies as shared dedup units | Test R21.8 mintOrReuseShared asserts company shared-dedup | Done? (scope-verified) |
+| a25e2787 | S21 | Lobby renders real name on first connect | Test R21.2 renderNameOnConnect asserts lobby real-name on connect | Done? (scope-verified) |
+| af9dc6cc | S21 | Phones as scenario units (seed Tron) | Test R21.6 mintAndLink asserts phone-as-scenario-unit | Done? (scope-verified) |
+| e83dc244 | S21 | Device-link on known phone/email | Test R21.4 resolveOrEnroll asserts device-link on known phone/email | Done? (scope-verified) |
+| 92bdca8b | S25 | vCard onboarding recognizes existing users (device-l | Test R25.3 recognizeIdentity asserts vCard onboarding recognizes existing user | Done? (scope-verified) |
+| b9deaf57 | S25 | Drawer interaction — grab-bar mouse parity + X-minim | Test R25.4 minimize (planner-wired 222969ea) asserts X-minimize | Done? (scope-verified) |
+
 ## A2 — req-level Test only, SCOPE UNVERIFIED / held (grind ongoing S21/S25 next)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
@@ -36,18 +47,8 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 | fb629eb7 | S19 | full-width drawer must not cover top-nav back button (R1 | req R19.57 Test 79da3d78 — Test is Logger.logAtLevel-split artifact for raiseAboveDrawer | SCOPE UNVERIFIED |
 | fda34dac | S19 | room link navigates to live room or editor, never 404 | req R19.31 Test 7f5a8bb4 — Test generic click-navigate, not the 404-fix specifically | SCOPE UNVERIFIED |
 | d43fce61 | S20 | split 11 shared-impl regressions into own Impl+marker pe | req R19.11 Test e4963145 — scope unverified | SCOPE UNVERIFIED |
-| 0c1b375e | S21 | vCard drop stores .vcf beside avatar | req R21.1 Test 068dbc4b — scope unverified | SCOPE UNVERIFIED |
-| 18845496 | S21 | Addresses async OSM-verified | req R21.7 Test 0802991c — scope unverified | SCOPE UNVERIFIED |
-| 1bae9710 | S21 | Phone alt-UUID index (ln symlink) | req R21.3 Test 4c93e285 — scope unverified | SCOPE UNVERIFIED |
-| 3960168e | S21 | Emails as scenario units + alt-index | req R21.5 Test 1fd43df9 — scope unverified | SCOPE UNVERIFIED |
-| 842d4f01 | S21 | Companies as shared dedup units | req R21.8 Test 1d469c7b — scope unverified | SCOPE UNVERIFIED |
-| a25e2787 | S21 | Lobby renders real name on first connect | req R21.2 Test 8f464c84 — scope unverified | SCOPE UNVERIFIED |
-| af9dc6cc | S21 | Phones as scenario units (seed Tron) | req R21.6 Test 2d069fd0 — scope unverified | SCOPE UNVERIFIED |
-| e83dc244 | S21 | Device-link on known phone/email | req R21.4 Test f494cdd4 — scope unverified | SCOPE UNVERIFIED |
-| f86f7003 | S21 | File detail reorder + pan/zoom | req R21.9 Test 27d4d8ca — scope unverified | SCOPE UNVERIFIED |
-| 06544a45 | S25 | Comprehensive DnD logging (capture every dropped URL sch | req R25.1 Test 1e763397 — scope unverified | SCOPE UNVERIFIED |
-| 92bdca8b | S25 | vCard onboarding recognizes existing users (device-link, | req R25.3 Test d82ebcf5 — scope unverified | SCOPE UNVERIFIED |
-| b9deaf57 | S25 | Drawer interaction — grab-bar mouse parity + X-minimize | req R25.4 Test 222969ea — scope unverified | SCOPE UNVERIFIED |
+| f86f7003 | S21 | File detail reorder + pan/zoom | req R21.9 Test 27d4d8ca — Test renderActionsFirst covers reorder, NOT the pan/zoom half | SCOPE UNVERIFIED |
+| 06544a45 | S25 | Comprehensive DnD logging (capture every dropped URL sch | req R25.1 Test 1e763397 — Test is R19.14.DnDFileChain — wrong req (task=R25.1 logging) | SCOPE UNVERIFIED |
 
 ## B — partial-tested / spot-check
 | task | spr | what | evidence | rec |
@@ -72,10 +73,10 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 | 18ee26a2 | S20 | chain section excludes self + non-chain | LIVE singular-chain.ts:49,52 (BUG1, UCs=0) | chain-backfill; NO Test -> tester gate |
 | 1fac9d23 | S20 | tap clears/switches + long-press toggle | LIVE rb-object-item.ts:80,86 (BUG2, UCs=0) | chain-backfill; NO Test -> tester gate |
 
-## S — SUPERSEDED / concept (verify vs RbPanZoom, MED)
+## S — backlog: open mobile gap / concept (NOT superseded — PO ruling)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
-| 1cbad4ef | S19 | iframe 2-finger pinch-scale gesture | RbPanZoom=wheel+double-tap; literal PINCH maybe NOT 1:1 covered | supersededBy-RbPanZoom UNCLEAR -> PO/Tron or device-verify |
+| 1cbad4ef | S19 | iframe 2-finger pinch-scale gesture | OPEN GAP: RbPanZoom=wheel+dbltap does NOT cover 2-finger pinch (mobile-native zoom @390) | backlog — real mobile capability gap (PO surfacing to Tron) |
 | 6be9a92d | S31 | shared pan/zoom viewer every embed | conceptOnly/future; universal-every-format unproven | backlog (concept, not delivered) |
 
 _By robbin-req 2026-08-07. S19 A2 grind: 11 PROMOTED (real scope-match, cited) / 12 HELD (wrong-req Test, generic, or Logger-split artifact) / 0 demoted. S21/S25 next. Deep-verify/flag on request._
