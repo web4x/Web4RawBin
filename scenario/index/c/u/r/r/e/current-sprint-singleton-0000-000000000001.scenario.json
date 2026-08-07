@@ -2,39 +2,39 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 33.10: Model tree completion (active build) — WebKit-sweep drain",
+    "name": "Current: Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking",
     "chain": {
-      "req": "fa29ab28-04fc-43d4-9e55-c42573bdefa8",
+      "req": "a8663672-3522-4f0c-b313-d14d13dbba5f",
       "uc": "",
       "class": "",
       "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 2,
-    "sprintName": "Sprint 33",
-    "taskName": "Task 33.10: Model tree completion (drag/composition/relationships)",
+    "activeHop": 0,
+    "sprintName": "Sprint 36",
+    "taskName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
     "hopStates": {
       "req": {
         "status": "done",
-        "owner": "req-eng",
-        "updatedAt": "2026-07-20T19:17:21.251Z"
+        "owner": "robbin-skill-expert",
+        "updatedAt": "2026-08-07"
       }
     },
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
-    "lastCompletedName": "Task 33.9: Context-aware actions (element CRUD + verb-context)",
-    "lastCompletedReqUuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
+    "lastCompletedUuid": "47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d",
+    "lastCompletedName": "Task 36.4: UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace [R36.4, build LAST]",
+    "lastCompletedReqUuid": "2265ad63-8c61-4e72-bd36-afd28c9bd731",
     "slots": {
       "current": {
-        "taskUuid": "7f1b9ad5-2eee-4836-9d10-ede5add49dd4",
-        "taskName": "Task 33.10: Model tree completion (drag/composition/relationships)",
-        "reqUuid": "fa29ab28-04fc-43d4-9e55-c42573bdefa8"
+        "taskUuid": "b5948931-5a36-4779-806d-abe60153aba8",
+        "taskName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
+        "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
       "lastCompleted": {
-        "taskUuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
-        "taskName": "Task 33.9: Context-aware actions (element CRUD + verb-context)",
-        "reqUuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661"
+        "taskUuid": "47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d",
+        "taskName": "Task 36.4: UmlTraceRelationship extends TraceLink — typed RawBin decompose/trace [R36.4, build LAST]",
+        "reqUuid": "2265ad63-8c61-4e72-bd36-afd28c9bd731"
       },
       "nextBacklog": {
         "taskUuid": "",
