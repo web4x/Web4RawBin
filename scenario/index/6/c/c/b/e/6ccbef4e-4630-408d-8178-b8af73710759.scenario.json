@@ -14,7 +14,7 @@
   "useCases": [
    "ior:instance:c8c3d81e-4ec4-48e7-9769-842e93879897"
   ],
-  "description": "The ~20 legacy hand-authored requirements.md + ~10 planning.md (pre-R30.18, no GENERATED_HEADER) are MIGRATED to generated views so the whole board becomes generated (closing the drift-seam R-C2 could not touch). DATA-LOSS-SENSITIVE: for each legacy board, its scenario UNITS must be PROVEN to carry ALL the file's content BEFORE any clobber; where they do not, the units are BACKFILLED from the file FIRST (the file is that content's source of record until migrated). Idempotent + reversible, ZERO content loss. Explicitly TRACKED (no-silent-caps). TRON-AUTHORIZED EXECUTABLE (2026-08-07): runs one sprint at a time, each only after its units-completeness is proven; genuine (non-unit-derived) narrative stays hand-authored in a preserved region. Architect designs the procedure + per-sprint classification. This is what makes 37/37 REAL (R-C2 keeps its honest generator-owned-green scope).",
+  "description": "The ~20 legacy hand-authored requirements.md + ~10 planning.md (pre-R30.18, no GENERATED_HEADER) are MIGRATED to generated views so the whole board becomes generated (closing the drift-seam R-C2 could not touch). DATA-LOSS-SENSITIVE: for each legacy board, its scenario UNITS must be PROVEN to carry ALL the file's content BEFORE any clobber; where they do not, the units are BACKFILLED from the file FIRST (the file is that content's source of record until migrated). Idempotent + reversible, ZERO content loss. Explicitly TRACKED (no-silent-caps). TRON BOUNDED (2026-08-07): backfill S21-S29 ONLY (~119 gaps) to generated+guarded; FREEZE S01-S18 as labelled legacy (excluded from checkSprint, tracked, no-silent-caps); the 11 already-PASS are fine. Per-sprint --prove names the exact gaps; backfill those -> re-prove -> --apply one-sprint-atomic. Runs one sprint at a time, each only after its units-completeness is proven; genuine narrative stays hand-authored. Makes R-C2 37/37 REAL as an IN-SCOPE number.",
   "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — expert-surfaced during R-C2 run, PO-approved as the safe legacy-migration req; EXECUTION needs Tron-auth (data-loss).",
   "discoverySource": {
    "type": "team-discovery-authorized",
@@ -47,7 +47,7 @@
    {
     "id": "AC-tracked-scope",
     "group": "functional",
-    "text": "The ~20 requirements.md + ~10 planning.md are the EXPLICIT tracked scope (no-silent-caps); the architect's read-only completeness audit populates the per-sprint classification (units-complete vs needs-backfill) before execution."
+    "text": "BOUNDED SCOPE (Tron ruling 2026-08-07): IN-SCOPE = S21-S29 (~119 named gaps backfilled to generated+guarded; S23 already PASSES). S01-S18 = FROZEN LEGACY hand-authored — NOT backfilled, EXCLUDED from checkSprint, and EXPLICITLY LABELLED legacy (visible + tracked, no-silent-caps — never silently dropped). The 11 already-PASS boards (S19/S20/S23/S30-S37) are fine. Worklist = expert gap report ed9beb540 (scrum.pmo/board-migration-gap-report.md), the exact named items per sprint."
    },
    {
     "id": "AC-tron-auth",
