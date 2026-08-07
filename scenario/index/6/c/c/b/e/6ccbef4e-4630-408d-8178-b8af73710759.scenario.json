@@ -4,7 +4,9 @@
   "uuid": "6ccbef4e-4630-408d-8178-b8af73710759",
   "name": "Legacy hand-authored boards MIGRATED to generated (units-completeness-proven, zero loss)",
   "altId": "R-C7",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:bb31965b-8fe7-401b-8d19-968aad127bf0"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
   "sourceLine": 1,
