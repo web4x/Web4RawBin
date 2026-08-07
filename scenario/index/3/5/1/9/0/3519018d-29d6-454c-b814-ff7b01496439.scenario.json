@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3519018d-29d6-454c-b814-ff7b01496439",
+    "name": "test:R-C1 REFINEMENT resolveSprintPin frozen-excluded + cancelled-terminal META-BITE (INV-C1-9/10, DET-3x, distinct-intent alongside fc28b6f1)",
+    "description": "Bridged to test/visual/rc1refine-frozen-cancelled-metabite.ts (DET-3x, own-oracle imports the real resolver; served==committed==HEAD). DISTINCT-INTENT alongside fc28b6f1 on the SAME resolveSprintPin Impl (impl-edit b161f311f): INV-C1-9 frozen-excluded (isCurrentEra filters pre-S19/num<=FROZEN_LEGACY_MAX=18 from the pin universe -> lingering frozen In-Progress cannot count Active or trip INV-C1-4) + INV-C1-10 cancelled-terminal (cancelledReason = distinct terminal -> a cancelled task cannot keep a sprint Active). META-BITE: a STUB isCurrentEra always-true breaks frozen-exclusion -> 3 current-era -> suite RED (gate proves its own guard). Plus era-boundary drift-injection (boundary EXACTLY FROZEN_LEGACY_MAX) + single-source lint (ONE FROZEN_LEGACY_MAX, no 2nd frozen boundary). GREEN DET-3x.",
+    "sourceFile": "ior:file:test/visual/rc1refine-frozen-cancelled-metabite.ts",
+    "implementations": [
+      "ior:instance:af97137f-cce1-4b1c-9bb8-40d84dbd5b33"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:af97137f-cce1-4b1c-9bb8-40d84dbd5b33"
+}
