@@ -1,3 +1,4 @@
+// [test:uuid:705e8a53-dbed-4b77-8527-043535fda95a] R-C7 prose-cross-ref-not-a-gap (structural-row gap-id derivation, expert fix 7eeb6cc6c) — proveComplete 21e38b44, DISTINCT-intent alongside 0870c78b (complete) + ae106047 (fail-closed-vacuous). GREEN DET-3x: a hand PROSE cross-ref no longer injects a false gap; a real structural checkbox gap still fires.
 // R-C7 extractIds prose-cross-ref BITE (architect-requested) — own-oracle, scripts-only, served-independent, DET.
 // THE HOLE: proveBoardComplete's gap check (migrate-boards.ts:51) uses extractIds() which regex-scans the WHOLE board
 // markdown (line 25) — including PROSE — for R/T ids. So a hand-authored NARRATIVE cross-reference like "blocked by
