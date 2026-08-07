@@ -59,9 +59,22 @@ Both are unreachable by the old matcher (`/\d+/` maps any `Sxx.y`→`xx`; `.incl
 - **INV-C1-7 terminal-resolved distinct (no status-invention):** `Done` and `supersededBy` both satisfy "no open work" for the CLOSED rollup, but display preserves each count DISTINCTLY — a supersededBy task is NEVER shown/counted as Done (its derived status stays honest; supersededBy is a separate field). Rollup uses terminal-resolved; display uses exact per-bucket counts (Done vs superseded).
 - **INV-C1-6 FAIL-CLOSED on vacuous input** (PO cross-cutting, folds into R-C3): the resolver NEVER silent-passes on missing/vacuous data. (a) **`every([])===true` guard:** an EMPTY `tasks[]` must NOT roll up to `Done` (all-of-nothing is vacuously true) — Done requires `tasks.length>0 && all Done`; a 0-task sprint = `Planned` (defensible) but is FLAGGED if any pointer would depend on its emptiness. (b) **unresolvable task ref:** a uuid in `sprint.tasks[]` that doesn't resolve is NOT silently skipped (skipping could hide an In-Progress task → wrongly compute `Done`) → the rollup REFUSES that sprint with a named reason (`sprint S<n> references unresolvable task <uuid>`) and it cannot be `last-completed`. (c) **malformed checklist:** `deriveStatusEnum` returns `Planned` malformed-safe — fine for DERIVE, but the resolver records a "malformed-checklist" note so a gate can see it (a vacuous `Planned` must be distinguishable from a real one). (d) empty index / no sprints → all-null WITH a reason, never a bare null that reads as "resolved to nothing".
 
+## ★ DRY ADDENDUM — ONE `sprintNumOf`, explicit consumer set, no-name-parse invariant (expert-flagged 2026-08-07)
+The brittle-name class has now bitten **TWICE**, proving name-parsing is unsafe in principle: (1) `"Sprint 31.1".match(/\d+/)` → **31** collides S31 (the pin, CurrentSprint.ts:202); (2) `"…M2…".` free-text parse → **2** misreads S36 as sprint 2 (check:sprint-md). The expert's correct fix already exists but LOCALLY (generate-sprint-md.ts:328) — a **duplicated parser is a second place to drift**.
+
+- **Promote `sprintNumOf` to THE shared resolver** (beside `resolveSprintPin`): `sprintNumOf(unit) = Number.isFinite(model.number)&&>0 ? model.number : (/sprint-(\d+)/i on sourceFile||slug) ?? -1`. **model.number authoritative; sourceFile/slug `sprint-NN` fallback; the free-text NAME is NEVER parsed.**
+- **CONSUMER SET (explicit — all import the ONE `sprintNumOf`/`resolveSprintPin`, zero local parsers):**
+  - `src/ts/scenario/CurrentSprint.ts` (replace the `:202-203` `name.match(/\d+/)` matcher).
+  - `scripts/generate-sprint-md.ts` / `check:sprint-md` (delete the local `:328` copy, import the shared one).
+  - `scripts/migrate-boards.ts` (R-C7 migrator — sprint identity for proveComplete/frozen-scope).
+  - `scripts/trace-audit.ts` (any sprint-number use).
+  - Any future consumer → imports it; never re-parses.
+- **INV-C1-8 no-name-parse (single-source):** NO module derives a sprint number from the free-text `name`. The ONLY sprint-identity source is the shared `sprintNumOf` (model.number + sourceFile/slug fallback). Enforceable by a grep-lint BITE: a `name`-based `\d`/`match(/\d+/)` for sprint number ANYWHERE in the consumer set = FAIL (a second parser = a second drift site).
+
 ## GATE — distinct BITE Test (#126, no cross-wire)
 - **Golden:** fixture S35/S36/S37 → current=S37 / last=S35 / next=none.
-- **DRIFT-BITE:** rename a sprint or add a `31.1`-style suffix → resolver output UNCHANGED (number-keyed) = proves it can't drift on name.
+- **DRIFT-BITE:** rename a sprint / add a `31.1` suffix / put `M2` in the name → resolver output UNCHANGED (number-keyed) = proves neither the `31.1→31` nor the `M2→2` bite can recur.
+- **NO-NAME-PARSE grep-lint BITE (INV-C1-8):** scan the consumer set for a sprint-number parse off `name` → must find ZERO (the shared `sprintNumOf` is the only source; a re-introduced local parser fails the gate).
 - **QA-pending-BITE:** flip S37's In-Progress task to `QA Review` → S37 NOT current (current=null/next active) = INV-C1-3.
 - **Fully-Done-BITE:** complete S36's QA tasks → last-completed advances S35→S36.
 - **Ambiguity-BITE:** two Active sprints → fail-loud (INV-C1-4), not a silent pick.
