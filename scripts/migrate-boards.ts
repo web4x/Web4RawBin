@@ -99,6 +99,16 @@ export function proveComplete(sprintUuid: string): ProofResult {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) return { sprintSlug: bare, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED: buildSprintOutput returned null for ${bare} (not a resolvable Sprint)` };
   const sprintSlug = out.sprintSlug;
+  // ★ FAIL-CLOSED (vacuous / SLUG-DRIFT): if the computed board dir is absent OR contains NONE of the expected
+  // board files, perFileDiffs would skip every file and vacuously report complete:true — then --apply crashes
+  // (ENOENT) or writes a phantom wrong-slug dir. A '0 files where ≥1 expected' is a REFUSAL, not clean (INV-C3-2 /
+  // false-low-worse-than-absent). Almost always SLUG DRIFT: the unit-name-derived slug ≠ the on-disk dir name.
+  const dirAbs = path.join(SPRINTS_DIR, sprintSlug);
+  const presentFiles = [...out.files.keys()].filter((name) => fs.existsSync(path.join(dirAbs, name)));
+  if (!fs.existsSync(dirAbs) || presentFiles.length === 0) {
+    const why = fs.existsSync(dirAbs) ? `has NONE of the ${out.files.size} expected board file(s)` : `does not exist on disk`;
+    return { sprintSlug, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED (vacuous): board dir '${sprintSlug}' ${why} — cannot prove a board that isn't there; likely SLUG DRIFT (generated slug ≠ on-disk dir). Refusing (0-files-where-≥1-expected ≠ clean).` };
+  }
   // SCOPE = only the GENERATOR-OWNED board files (out.files: planning.md / requirements.md / task-*.md). Hand-
   // authored ANALYSIS/DESIGN docs are NOT migration targets — preserved (OWNED-OUTPUT whitelist), never proven.
   // PER-FILE zero-loss via the shared perFileDiffs (same file-set + skip + predicate that --apply's G4 trusts).
