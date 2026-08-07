@@ -318,10 +318,27 @@ if (cmd === '--list') {
   const units = allUnits();
   const sprintUuids = [...units.entries()].filter(([, u]) => u.ior === 'ior:class:Sprint').map(([uuid]) => uuid).sort();
   if (isCheck) {
-    console.log('\n=== Sprint MD Round-Trip Check ===');
+    console.log('\n=== Sprint MD Round-Trip Check (honest-metric scoping — Tron ruling) ===');
+    // IN-SCOPE = S19-S37 (incl the S21-29 backfill targets) → MUST byte-match, counted in the metric. FROZEN LEGACY
+    // = S01-S18 (hand-authored, NOT generated) → EXCLUDED from the metric but EXPLICITLY LISTED (never a silent
+    // exclusion). The G5 design-doc planning.md (S01-09) fall under this frozen exclusion. The printed number is REAL
+    // (N/N in-scope + K frozen legacy), never a fake 37/37.
+    // Authoritative sprint number = model.number (the generator's own field); fall back to a sprint-NN in the
+    // sourceFile/slug. NEVER regex the free-text name (e.g. S36 "…M2…" would falsely parse as 2).
+    const sprintNumOf = (u: string): number => {
+      const mdl = units.get(u)?.model as Record<string, unknown> | undefined;
+      const n = Number(mdl?.number);
+      if (Number.isFinite(n) && n > 0) return n;
+      const m = /sprint-(\d+)/i.exec(String(mdl?.sourceFile || mdl?.slug || ''));
+      return m ? parseInt(m[1], 10) : -1;
+    };
+    const inScope = sprintUuids.filter(u => sprintNumOf(u) >= 19).sort((a, b) => sprintNumOf(a) - sprintNumOf(b));
+    const frozen = sprintUuids.filter(u => { const n = sprintNumOf(u); return n >= 1 && n <= 18; }).sort((a, b) => sprintNumOf(a) - sprintNumOf(b));
     let failed = 0;
-    for (const uuid of sprintUuids) { const r = checkSprint(uuid, units); reportCheck(r); if (!r.ok) failed++; }
-    console.log(`\nResult: ${sprintUuids.length - failed}/${sprintUuids.length} sprints byte-match`);
+    for (const uuid of inScope) { const r = checkSprint(uuid, units); reportCheck(r); if (!r.ok) failed++; }
+    console.log('\n--- FROZEN LEGACY (S1-S18, hand-authored, NOT generated — EXCLUDED from the metric, listed for visibility) ---');
+    for (const uuid of frozen) console.log(`  frozen legacy: ${String(units.get(uuid)?.model.name || uuid)}`);
+    console.log(`\nResult: ${inScope.length - failed}/${inScope.length} IN-SCOPE (S19-S37) byte-match + ${frozen.length} frozen legacy (excluded, hand-authored)`);
     if (failed > 0) process.exit(1);
   } else {
     generateAll(sprintUuids, units);

@@ -17,38 +17,67 @@ import { buildSprintOutput, allUnits, GENERATED_HEADER, SPRINTS_DIR } from './ge
 
 const normalizeLF = (s: string): string => s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n+$/g, '') + '\n';
 
-// G5: extract only STRUCTURAL items — traceability refs (requirement/task/test/impl:uuid), altId-style IDs
-// (R30.11, T36.5, R-C2), and checkbox row labels. Free prose/narrative lines yield no items (excluded from proof).
-export function significantItems(md: string): Set<string> {
-  const items = new Set<string>();
+// STRUCTURAL keys (G5: narrative ignored). altId/number IDs (R18.29, T36.5, R-C2) are the STABLE identity — matched
+// BY KEY so a REWORDED/refined requirement still matches (not a false gap). uuid refs are deliberately NOT used as
+// keys (they change on re-mint = fragile). Rows = checkbox labels, normalized (case/whitespace/markdown-insensitive).
+function extractIds(md: string): Set<string> {
+  const ids = new Set<string>();
+  for (const m of md.matchAll(/\b(R-C\d+|T-C\d+|[RT]\d+(?:\.\d+)*)\b/g)) ids.add(m[1].toUpperCase());
+  return ids;
+}
+const normRow = (s: string): string => s.replace(/[*_`[\]]/g, '').replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 80);
+function extractRows(md: string): { text: string; id: string | null }[] {
+  const rows: { text: string; id: string | null }[] = [];
   for (const raw of md.split('\n')) {
-    const line = raw.trim();
-    const ref = /\b(requirement|task|test|impl):uuid:([0-9a-f]{8})/i.exec(line);
-    if (ref) items.add(`${ref[1].toLowerCase()}:${ref[2].toLowerCase()}`);
-    for (const m of line.matchAll(/\b(R-C\d+|T-C\d+|[RT]\d+(?:\.\d+)*)\b/g)) items.add(`id:${m[1].toUpperCase()}`);
-    const cb = /^-\s*\[[ xX]\]\s*(.+)$/.exec(line);
-    if (cb) { const lbl = cb[1].replace(/[*_`]/g, '').trim(); if (lbl) items.add(`row:${lbl.slice(0, 60).toLowerCase()}`); }
+    const cb = /^-\s*\[[ xX]\]\s*(.+)$/.exec(raw.trim());
+    if (!cb) continue;
+    const idm = /\b(R-C\d+|T-C\d+|[RT]\d+(?:\.\d+)*)\b/.exec(cb[1]);
+    rows.push({ text: normRow(cb[1]), id: idm ? idm[1].toUpperCase() : null });
   }
-  return items;
+  return rows;
 }
 
-// PURE gap-finder: structural items in the hand-authored board that the generated (units) board does NOT produce
-// = content the units are missing → the migration must REFUSE (G1), naming them. Narrative differences are ignored (G5).
-export function proveBoardComplete(handAuthored: string, generated: string): string[] {
-  const gen = significantItems(generated);
-  return [...significantItems(handAuthored)].filter((it) => !gen.has(it)).sort();
+export interface BoardDiff { gaps: string[]; needsReview: string[]; }
+
+// SEMANTIC / BY-KEY match (NOT literal string): a hand item is a real GAP only if its stable ID is ABSENT from the
+// generated board (a genuinely-missing requirement/task). A reworded/refined row whose ID matches is COVERED (its
+// text may differ — that's fine). An ID-less row with no exact normalized-text match is UNCERTAIN → NEEDS-REVIEW.
+// ★ FAIL-CLOSED: an uncertain item is NEVER silently 'matched' (that would re-open the vacuous-pass hole) and NEVER
+// a hard gap — it is a NAMED, distinct category a human confirms before --apply. (Narrative yields no items, G5.)
+export function proveBoardComplete(handAuthored: string, generated: string): BoardDiff {
+  const genIds = extractIds(generated);
+  const genRowTexts = new Set(extractRows(generated).map((r) => r.text));
+  const gaps: string[] = [], needsReview: string[] = [];
+  for (const id of extractIds(handAuthored)) if (!genIds.has(id)) gaps.push(`id:${id}`);
+  for (const row of extractRows(handAuthored)) {
+    if (row.id) continue;                     // ID-bearing rows are adjudicated by the ID check above
+    if (genRowTexts.has(row.text)) continue;  // exact normalized-text match → covered
+    if (row.text) needsReview.push(`row:${row.text.slice(0, 60)}`);
+  }
+  return { gaps: [...new Set(gaps)].sort(), needsReview: [...new Set(needsReview)].sort() };
 }
 
-export interface ProofResult { sprintSlug: string; complete: boolean; gaps: { file: string; item: string }[]; }
+export interface ProofResult { sprintSlug: string; complete: boolean; gaps: { file: string; item: string }[]; needsReview: { file: string; item: string }[]; reason?: string; }
 
 // [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] BoardMigrator.proveComplete (Method c9a8b675) — G1
 // proof-before-write, READ-ONLY: for each HAND-AUTHORED board file (no GENERATED_HEADER) in the sprint, prove
 // every structural item is also produced by the generator from units; REFUSE (complete:false) NAMING each gap.
 export function proveComplete(sprintUuid: string): ProofResult {
-  const out = buildSprintOutput(sprintUuid, allUnits());
-  const sprintSlug = out?.sprintSlug || sprintUuid;
+  const units = allUnits();
+  const bare = sprintUuid.replace(/^ior:(instance|class):/, '');
+  const unit = units.get(bare) || units.get(sprintUuid);
+  // ★ FAIL-CLOSED (this gate guards DATA-LOSS): a typo'd/unresolvable uuid, or a wrong ior:class (e.g. a
+  // like-named ior:class:Requirement instead of the Sprint), must REFUSE with a NAMED reason — NEVER a vacuous
+  // complete:true. Fail-open here would let --apply overwrite a hand-authored board on an empty proof.
+  // [[false-low-worse-than-absent]] + fail-loud: empty/vacuous input is a REFUSAL, not a pass.
+  if (!unit) return { sprintSlug: bare, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED: uuid ${bare} does not resolve to any unit` };
+  if (unit.ior !== 'ior:class:Sprint') return { sprintSlug: bare, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED: uuid ${bare} resolves to ${unit.ior}, not ior:class:Sprint` };
+  const out = buildSprintOutput(sprintUuid, units);
+  if (!out) return { sprintSlug: bare, complete: false, gaps: [], needsReview: [], reason: `FAIL-CLOSED: buildSprintOutput returned null for ${bare} (not a resolvable Sprint)` };
+  const sprintSlug = out.sprintSlug;
   const gaps: { file: string; item: string }[] = [];
-  if (out) {
+  const needsReview: { file: string; item: string }[] = [];
+  {
     const dir = path.join(SPRINTS_DIR, sprintSlug);
     const generatedAll = [...out.files.values()].join('\n');
     // SCOPE = only the GENERATOR-OWNED board files (out.files: planning.md / requirements.md / task-*.md). Hand-
@@ -59,10 +88,13 @@ export function proveComplete(sprintUuid: string): ProofResult {
       if (!fs.existsSync(fp)) continue;                    // generator will create it fresh → no hand-authored to prove
       const content = fs.readFileSync(fp, 'utf-8');
       if (content.startsWith(GENERATED_HEADER)) continue;  // already a generated board → nothing to prove
-      for (const item of proveBoardComplete(content, generatedAll)) gaps.push({ file: name, item });
+      const d = proveBoardComplete(content, generatedAll);
+      for (const item of d.gaps) gaps.push({ file: name, item });
+      for (const item of d.needsReview) needsReview.push({ file: name, item });
     }
   }
-  return { sprintSlug, complete: gaps.length === 0, gaps };
+  // complete (safe to --apply) requires BOTH 0 gaps AND 0 needs-review — an uncertain item blocks apply (fail-closed).
+  return { sprintSlug, complete: gaps.length === 0 && needsReview.length === 0, gaps, needsReview };
 }
 
 export interface MigrationResult { sprintSlug: string; applied: boolean; refused?: string; filesWritten?: string[]; }
@@ -74,20 +106,24 @@ export interface MigrationResult { sprintSlug: string; applied: boolean; refused
 // commit. G2 backfill + G5 narrative-exclusion are honored by construction (never invents units; prose not proven).
 // Only writes when opts.apply === true; dryRun otherwise (returns what WOULD be written).
 export function applyMigration(sprintUuid: string, opts: { apply: boolean }): MigrationResult {
-  const proof = proveComplete(sprintUuid); // G1
+  const proof = proveComplete(sprintUuid); // G1 (fail-closed: reason set on unresolvable/wrong-ior/null)
   const sprintSlug = proof.sprintSlug;
   if (!proof.complete) {
-    return { sprintSlug, applied: false, refused: `REFUSED (G1 not proven) — ${proof.gaps.length} item(s) absent from units: ` + proof.gaps.map((g) => `${g.file}:${g.item}`).join(', ') };
+    const why = proof.reason
+      ? proof.reason
+      : `REFUSED (G1 not proven) — ${proof.gaps.length} gap(s): ${proof.gaps.map((g) => `${g.file}:${g.item}`).join(', ')}` +
+        (proof.needsReview.length ? ` | ${proof.needsReview.length} needs-review: ${proof.needsReview.map((g) => `${g.file}:${g.item}`).join(', ')}` : '');
+    return { sprintSlug, applied: false, refused: why };
   }
   const out = buildSprintOutput(sprintUuid, allUnits());
-  if (!out) return { sprintSlug, applied: false, refused: 'not a Sprint' };
+  if (!out) return { sprintSlug, applied: false, refused: 'FAIL-CLOSED: buildSprintOutput null' };
   const dir = path.join(SPRINTS_DIR, sprintSlug);
   const written: string[] = [];
   for (const [name, generated] of out.files) {
     const fp = path.join(dir, name);
     const old = fs.existsSync(fp) ? fs.readFileSync(fp, 'utf-8') : '';
-    const lost = proveBoardComplete(old, generated); // G4 zero-loss (belt-and-braces vs proveComplete)
-    if (lost.length) return { sprintSlug, applied: false, refused: `REFUSED (G4 zero-loss) ${name}: would drop ${lost.join(', ')}` };
+    const d = proveBoardComplete(old, generated); // G4 zero-loss (belt-and-braces vs proveComplete)
+    if (d.gaps.length || d.needsReview.length) return { sprintSlug, applied: false, refused: `REFUSED (G4 zero-loss) ${name}: ${d.gaps.length} gap + ${d.needsReview.length} needs-review would drop [${[...d.gaps, ...d.needsReview].join(', ')}]` };
     if (normalizeLF(old) === normalizeLF(generated)) continue; // G3 idempotent
     if (opts.apply) fs.writeFileSync(fp, generated);
     written.push(name);
@@ -102,8 +138,13 @@ if (process.argv[1] && process.argv[1].endsWith('migrate-boards.ts')) {
   if (mode === '--prove' && sprintUuid) {
     const r = proveComplete(sprintUuid);
     console.log(`\n=== BoardMigrator.proveComplete ${r.sprintSlug} ===`);
-    if (r.complete) { console.log('✓ COMPLETE — units reproduce every structural board item (safe to migrate)'); }
-    else { console.log(`✗ REFUSE — ${r.gaps.length} gap(s) (units missing content present in the hand-authored board):`); for (const g of r.gaps) console.log(`  ${g.file} :: ${g.item}`); process.exit(1); }
+    if (r.reason) { console.log(`✗ ${r.reason}`); process.exit(1); }
+    else if (r.complete) { console.log('✓ COMPLETE — units reproduce every structural board item (safe to migrate)'); }
+    else {
+      if (r.gaps.length) { console.log(`✗ REFUSE — ${r.gaps.length} GAP(s) (units missing content in the hand-authored board):`); for (const g of r.gaps) console.log(`  ${g.file} :: ${g.item}`); }
+      if (r.needsReview.length) { console.log(`⚠ ${r.needsReview.length} NEEDS-REVIEW (id-less row, no exact match — reworded? human confirms, NOT auto-matched):`); for (const g of r.needsReview) console.log(`  ${g.file} :: ${g.item}`); }
+      process.exit(1);
+    }
   } else if (mode === '--apply' && sprintUuid) {
     const r = applyMigration(sprintUuid, { apply: write });
     console.log(`\n=== BoardMigrator.applyMigration ${r.sprintSlug} (${write ? 'WRITE' : 'dry-run'}) ===`);

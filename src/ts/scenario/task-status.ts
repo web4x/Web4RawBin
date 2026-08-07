@@ -26,7 +26,7 @@ export function deriveStatusEnum(checklist: string): TaskStatusEnum {
   return STATUS_ORDER[best];
 }
 
-export interface StatusOffender { uuid: string; name: string; declared: string; derived: TaskStatusEnum | '(malformed)'; kind: 'FALSE-DONE' | 'MALFORMED' | 'DRIFT'; }
+export interface StatusOffender { uuid: string; name: string; declared: string; derived: TaskStatusEnum | '(malformed)' | '(no checklist)'; kind: 'FALSE-DONE' | 'MALFORMED' | 'UNVERIFIABLE' | 'DRIFT'; }
 
 // [impl:uuid:d86f0309-df84-4fbf-9b47-da9e2b6abbee] TaskStatus.assertStatusConsistent (Method 1d96bae3) — the
 // FAIL-LOUD detector: for every Task unit, compare model.status vs deriveStatusEnum(model.statusChecklist) and
@@ -46,13 +46,20 @@ export function assertStatusConsistent(idx: ScenarioIndex): StatusOffender[] {
       offenders.push({ uuid, name: String(m.name || uuid), declared, derived: '(malformed)', kind: 'MALFORMED' });
       continue;
     }
-    const derived = deriveStatusEnum(cl as string); // string → parsed; undefined/null → 'Planned' (malformed-safe)
+    if (cl === undefined || cl === null || String(cl).trim() === '') {
+      // ★ FAIL-CLOSED: an ABSENT/empty checklist = UNVERIFIABLE — there is no data to verify status against, so it
+      // is reported as its own NAMED category, NEVER silently read as clean (same vacuous-pass hole as proveComplete's
+      // wrong-uuid bug). A task with no checklist could otherwise carry any status unchecked forever. [[false-low-worse-than-absent]]
+      offenders.push({ uuid, name: String(m.name || uuid), declared, derived: '(no checklist)', kind: 'UNVERIFIABLE' });
+      continue;
+    }
+    const derived = deriveStatusEnum(cl as string); // present string → parsed
     if (declared !== derived) {
       const kind: StatusOffender['kind'] = (declared === 'Done' && derived !== 'Done') ? 'FALSE-DONE' : 'DRIFT';
       offenders.push({ uuid, name: String(m.name || uuid), declared, derived, kind });
     }
   }
-  const rank: Record<StatusOffender['kind'], number> = { 'FALSE-DONE': 0, MALFORMED: 1, DRIFT: 2 };
+  const rank: Record<StatusOffender['kind'], number> = { 'FALSE-DONE': 0, MALFORMED: 1, UNVERIFIABLE: 2, DRIFT: 3 };
   offenders.sort((a, b) => rank[a.kind] - rank[b.kind]);
   return offenders;
 }
@@ -64,9 +71,10 @@ if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   const offenders = assertStatusConsistent(idx);
   const falseDone = offenders.filter((o) => o.kind === 'FALSE-DONE');
   const malformed = offenders.filter((o) => o.kind === 'MALFORMED');
-  const drift = offenders.length - falseDone.length - malformed.length;
+  const unverifiable = offenders.filter((o) => o.kind === 'UNVERIFIABLE');
+  const drift = offenders.length - falseDone.length - malformed.length - unverifiable.length;
   console.log('\n=== Task status↔checklist consistency (R-C5 assertStatusConsistent) ===');
-  console.log(`Offenders: ${offenders.length}  (FALSE-DONE: ${falseDone.length} · MALFORMED: ${malformed.length} · DRIFT: ${drift})`);
+  console.log(`Offenders: ${offenders.length}  (FALSE-DONE: ${falseDone.length} · MALFORMED: ${malformed.length} · UNVERIFIABLE: ${unverifiable.length} · DRIFT: ${drift})`);
   for (const o of offenders) console.log(`  [${o.kind}] ${o.uuid.slice(0, 8)} "${o.name}" — status='${o.declared}' vs checklist-derived='${o.derived}'`);
   // REPORT-ONLY by default (delta-not-absolute, R27.2 precedent): the pre-existing offenders must NOT red the
   // whole team's CI. By construction (status = deriveStatusEnum(checklist)) new/edited tasks can't add drift, so
