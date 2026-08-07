@@ -1,0 +1,47 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "name": "Consistency by Construction",
+  "number": 37,
+  "slug": "sprint-37-consistency-by-construction",
+  "goal": "Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (planning.md/task-mds/requirements.md) are GENERATED views that CANNOT drift; a FAIL-LOUD guard asserts pin==board==files, folded into ci:gates. Consistency owned by DESIGN, not vigilance (CMM4, not CMM2). R-C1 pin computed-from-files, R-C2 board generated + one-time reconcile-all (clears 29-sprint drift), R-C3 fail-loud ci-guard (drift-injection BITE), R-C4 objects self-heal. Build order R-C2->R-C1->R-C3->R-C4.",
+  "status": "Planned",
+  "compoundSource": "scrum.pmo/consistency-guard-scope.md",
+  "phases": [
+   {
+    "id": "R-C2",
+    "title": "Board = generated view + one-time reconcile-all (clear 29-sprint historical drift in ONE pass). BUILD FIRST."
+   },
+   {
+    "id": "R-C1",
+    "title": "Pin = computed-from-files resolver (advance = run resolver, not edit a value)."
+   },
+   {
+    "id": "R-C3",
+    "title": "FAIL-LOUD ci-guard asserts pin==board==files; PROVEN by drift-injection BITE (not asserted)."
+   },
+   {
+    "id": "R-C4",
+    "title": "Objects self-heal — validate on init/read, never run silently drifted. BUILD LAST."
+   }
+  ],
+  "requirements": [
+   "ior:instance:91486de1-0cdd-4d57-b07e-9a5ce945702a",
+   "ior:instance:eec7ebb7-5dd3-431f-9700-a50429c3de03",
+   "ior:instance:1530c79c-39a6-40b7-8d2b-044d5583aa59",
+   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+  ],
+  "tasks": [],
+  "createdAt": "2026-08-07",
+  "createdBy": "robbin-req",
+  "createdBy_note": "STUB to parent the S37 requirement units (Tron-authorized S37 consistency-by-construction, #76). Planner OWNS the sprint unit — adopt this stub, enrich + stand up the board (4 covering tasks), keep uuid + requirements[]. Build order R-C2->R-C1->R-C3->R-C4.",
+  "joint": [
+   "robbin-req",
+   "robbin-planner",
+   "robbin-architect",
+   "robbin-skill-expert"
+  ]
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "91486de1-0cdd-4d57-b07e-9a5ce945702a",
+  "name": "Pin is COMPUTED from files (never hand-set)",
+  "altId": "R-C1",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "The CurrentSprint pin is DERIVED by a resolver from the scenario units on disk (the sprint carrying the active in-progress work) — it has NO hand-editable stored value. 'Advance the pin' becomes RUNNING the resolver, not editing a value. Fixes the measured 3-sprint stale pin (S33 while work is on S36).",
+  "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
+  "discoverySource": {
+   "type": "doctrine-authorized",
+   "authorizedBy": "Tron (#76 strategic increment)",
+   "date": "2026-08-07",
+   "doctrine": "session/knowledge-base/consistency-by-construction.md (ARON)",
+   "scope": "scrum.pmo/consistency-guard-scope.md (planner+req 492e28fe5)",
+   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R-C2->R-C1->R-C3->R-C4."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-computed",
+    "group": "functional",
+    "text": "A currentSprint resolver DERIVES the pin from the scenario units on disk (the sprint the active work is on); there is NO hand-editable stored pin value the resolver can disagree with."
+   },
+   {
+    "id": "AC-advance-is-run",
+    "group": "functional",
+    "text": "'Advance the pin' (skill-expert duty) = RUNNING the resolver, NOT editing a value; a hand-set value is overridden by the recompute."
+   },
+   {
+    "id": "AC-matches-files",
+    "group": "functional",
+    "text": "The computed pin == the sprint carrying the active in-progress work on disk (today S36, not the stale S33) — no 34/35 skip."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-computed+AC-matches-files: arrange units so active work is on sprint N, run the resolver -> pin==N deterministically; plant a stale/hand-set pin -> the recompute overrides it to N. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
