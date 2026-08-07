@@ -50,12 +50,12 @@ Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGN
 | f86f7003 | S21 | File detail reorder + pan/zoom | req R21.9 Test 27d4d8ca — Test renderActionsFirst covers reorder, NOT the pan/zoom half | SCOPE UNVERIFIED |
 | 06544a45 | S25 | Comprehensive DnD logging (capture every dropped URL sch | req R25.1 Test 1e763397 — Test is R19.14.DnDFileChain — wrong req (task=R25.1 logging) | SCOPE UNVERIFIED |
 
-## B — partial-tested / spot-check
+## B — partial / delivered-pending (PO ruling: default QA-Review, NOT superseded w/o named evidence, NOT Done w/o Tron)
 | task | spr | what | evidence | rec |
 |---|---|---|---|---|
-| 56cc23b5 | S20 | 'Champagne Chain' → 'Traceability Chain' in all user-fac | req CR1 Test ae08d5ec | spot-check/superseded |
-| 767dd241 | S20 | every item view defaults COLLAPSED on render, always | req R20.3 Test 50601482 | spot-check/superseded |
-| d01c38b3 | S25 | Room membership dedup by resolved identity (structural,  | req R25.7 Test cca392d6 | spot-check/superseded |
+| 56cc23b5 | S20 | 'Champagne Chain' → 'Traceability Chain' in all user-fac | req CR1 Test ae08d5ec |  QA-Review (delivered-pending; no superseder named -> not superseded; Tron spot-check for Done) |
+| 767dd241 | S20 | every item view defaults COLLAPSED on render, always | req R20.3 Test 50601482 |  QA-Review (delivered-pending; no superseder named -> not superseded; Tron spot-check for Done) |
+| d01c38b3 | S25 | Room membership dedup by resolved identity (structural,  | req R25.7 Test cca392d6 |  QA-Review (delivered-pending; no superseder named -> not superseded; Tron spot-check for Done) |
 
 ## C — unevidenced -> superseded/backlog (planner Phase-1 closing)
 | task | spr | what | evidence | rec |
