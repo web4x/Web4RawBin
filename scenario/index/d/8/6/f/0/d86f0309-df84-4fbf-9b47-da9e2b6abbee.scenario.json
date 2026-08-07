@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
     "markerPending": false,
     "markerNote": "STRICT-AST VERIFIED (ddd56dd3c, origin): [impl:uuid:d86f0309-df84-4fbf-9b47-da9e2b6abbee] heads export function assertStatusConsistent@src/ts/scenario/task-status.ts:35 (name-match, 0 intervening). Detector run: 71 offenders (7 FALSE-DONE/17 MALFORMED/47 DRIFT). Fold posture = report-only until worked to 0 (delta-vs-absolute, R27.2 precedent — never absolute-block CI on pre-existing).",
-    "tests": []
+    "tests": [
+      "ior:instance:30d4b44a-7b5a-41bf-9ad1-d6609d7ab652"
+    ]
   },
   "ownerIor": "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8"
 }
