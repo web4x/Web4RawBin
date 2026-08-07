@@ -13,7 +13,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:6c016f6a-4cc3-4ce9-aded-ac99fcb639ab"
+  ],
   "description": "BOTH the CurrentSprint pin AND the current-TASK pointer ('📌 Current: Task N') are DERIVED by a resolver from the scenario units on disk (sprint = the sprint carrying active in-progress work; task = the active in-progress task) — NEITHER has a hand-editable stored value. 'Advance' becomes RUNNING the resolver. Fixes BOTH measured stale pointers: the 3-sprint-stale sprint-pin (S33 while work is on S36) AND the ~5-sprint-stale task-pointer ('Task 31.1'). Same drift class — one stale pointer proves vigilance fails; both must be computed. The pin's THREE SLOTS are all computed: CURRENT = sprint with in-progress work (QA-pending-only is NOT current), LAST-COMPLETED = highest fully-Done, NEXT-BACKLOG = next Planned — the by-construction answer to the open-for-QA ambiguity (a human should never have to ask 'is this sprint still current').",
   "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
   "discoverySource": {

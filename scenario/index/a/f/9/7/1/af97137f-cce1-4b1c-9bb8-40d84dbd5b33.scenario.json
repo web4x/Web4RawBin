@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "af97137f-cce1-4b1c-9bb8-40d84dbd5b33",
+    "name": "SprintPinResolver.resolveSprintPin (3 slots, number-keyed, fail-closed-vacuous)",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:576af5f0-92c2-4d5a-8e11-5fbcdc8c5e72"
+}
