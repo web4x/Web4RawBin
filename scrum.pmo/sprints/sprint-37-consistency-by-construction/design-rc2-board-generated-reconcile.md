@@ -18,3 +18,27 @@
 - **INV-C2 (idempotent / round-trip byte-stable):** running reconcile-all twice yields ZERO changes on the 2nd run (`git diff` empty). Requires the generator to be DETERMINISTIC (stable ordering, no timestamps/random) — the R32.7-puml byte-identical discipline applied to md.
 - **INV-C3 (generated-only surface):** reconcile-all writes ONLY generated view files (planning.md, task-*.md, requirements.md, sprints.overview.md under scrum.pmo/sprints/). It does NOT touch code, prod scenario/index, MODEL_STORE, or any non-generated doc.
 - **INV-C4 (no status invention):** the regenerated md reflects EXACTLY the unit statuses as they are — reconcile-all NEVER flips a task Done/Reopened/etc. (that is planner audit + the honesty gate, a SEPARATE act). It only makes the VIEW match the units. A drifted board where the UNIT itself is wrong is NOT R-C2's job (that is the S33-36 honesty audit under the correction).
+
+## Measured mechanics (architect + Explore, disk 2026-08-07)
+- **Generator (single):** `scripts/generate-sprint-md.ts` — `generatePlanningMd` (:85), `generateRequirementsMd` (:137, R30.18), `generateTaskMd` (:55). Single source = the **Sprint unit** (`model.tasks[]`→Task units, `model.requirements[]`→Requirement units). `normalize()` (:50, LF+single trailing NL) → deterministic.
+- **`--check --all`** (`checkSprint` :250, in npm `check:sprint-md` → `ci:gates:raw`) byte-compares generated==committed, `exit 1` on drift. RAN IT: **8/37 byte-match, 29 DRIFT** (sprints 01-29-ish; 24 requirements.md + a few planning/task-md). S33-36 currently CLEAN (already reconciled under the correction).
+- **Write path** `generateSprint` (:207) with **OWNED-OUTPUT guard** (:223-241) — overwrites ONLY files starting with `GENERATED_HEADER`; never clobbers `design-*.md`/`*.puml`/`PO-vision.md`. Never writes units (reads units → writes md).
+- **CRUX (dual status):** a Task carries TWO independent fields — `model.status` (→planning checkbox, :119) AND `model.statusChecklist` free-text (→task-md `## Status`, :67). Nothing keeps them in sync → status can disagree WITHIN the source.
+- **GAP:** `sprints.overview.md` is NOT generated (hand-maintained narrative: WIP=1, CURRENT-SPRINT block; no generator, no `--check`).
+
+## R-C2 IMPL-SHAPE (expert-buildable)
+### (b) ONE-TIME reconcile-all = run the EXISTING generator in WRITE mode over ALL sprints
+The board is already generated; the reconcile-all is a **one-shot regenerate-all**, NOT new logic:
+| # | Step | Detail |
+|---|------|--------|
+| 1 | **Ensure a WRITE `--all`** | `--check --all` already iterates all 37 sprints (`checkSprint`). Confirm/add the symmetric **write** `--all` = loop `generateSprint` over every sprint (trivial; mirror the check loop). Run: `node scripts/with-node20.mjs npx tsx scripts/generate-sprint-md.ts --all` (write, no `--check`). |
+| 2 | **Regenerate all 29 drifted boards from units** | writes ONLY generated md (planning/requirements/task-*), OWNED-OUTPUT-guarded; scenario units UNTOUCHED (INV-C1). Clears the drift in ONE pass. |
+| 3 | **Verify green** | `check:sprint-md` (=`--check --all`) then reports 37/37 byte-match. |
+| 4 | **Commit atomically** | one commit = the 29 sprints' regenerated md. scrum.pmo docs only → **NO code/prod change, NO version bump, NO restart** (INV-C3). |
+
+### (a) GUARANTEE board = generated view
+Already structural via the `GENERATED … DO NOT HAND-EDIT` header + OWNED-OUTPUT guard + `check:sprint-md` in `ci:gates`. R-C2 confirms this holds; R-C3 (separate task) makes `check:sprint-md --all` FAIL the build on ANY drift (it already does `exit 1` — R-C3 just guarantees it stays wired in ci:gates and extends coverage).
+
+### ★ TWO GOVERNANCE-SENSITIVE FLAGS (kept OUT of R-C2 by design)
+1. **Dual status field (`status` vs `statusChecklist`) — do NOT collapse in R-C2.** Reconcile-all regenerates from BOTH fields AS-IS (status→checkbox, statusChecklist→task-md Status) — it MUST NOT pick a winner, because that could FLIP a task's displayed Done-ness (e.g. Task 95: status='In Progress' but statusChecklist all-checked) = a status invention (violates INV-C4) + collides with the S33-36 honesty audit. **Consolidating to ONE status field is a SEPARATE follow-on** (candidate R-C3/planner-audit), surfaced to PO/req — NOT R-C2.
+2. **`sprints.overview.md` generator — DEFER to a follow-on.** It's the remaining hand-maintained seam, but it needs a NEW generator (source = Sprint units number/name/status/goal) + a preserved-narrative OWNED-region for the WIP/CURRENT-SPRINT block (mirror the header guard) + a new `--check` in ci:gates. That is a distinct piece; the one-time reconcile-all (planning/requirements/task-md via the existing generator) is the immediate high-value drift-clear and must NOT be blocked on the overview generator. RECOMMEND R-C2-part-2 (or fold into R-C3).
