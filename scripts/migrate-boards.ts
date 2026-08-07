@@ -79,16 +79,17 @@ export function proveComplete(sprintUuid: string): ProofResult {
   const needsReview: { file: string; item: string }[] = [];
   {
     const dir = path.join(SPRINTS_DIR, sprintSlug);
-    const generatedAll = [...out.files.values()].join('\n');
     // SCOPE = only the GENERATOR-OWNED board files (out.files: planning.md / requirements.md / task-*.md). Hand-
-    // authored ANALYSIS/DESIGN docs (chain-narrowing-analysis.md, compound-requirement-source.md, *.puml, etc.) are
-    // NOT migration targets — they stay hand-authored + preserved (OWNED-OUTPUT whitelist), never proven/overwritten.
+    // authored ANALYSIS/DESIGN docs are NOT migration targets — preserved (OWNED-OUTPUT whitelist), never proven.
+    // ★ PER-FILE zero-loss: compare each hand-authored file to ITS OWN generated counterpart, NOT the concat of all
+    // files — an all-files match can FALSELY cover a hand-note whose normalized text coincidentally appears in a
+    // DIFFERENT generated file (that gave a false COMPLETE on S19 while --apply's per-file G4 correctly refused).
     for (const name of out.files.keys()) {
       const fp = path.join(dir, name);
       if (!fs.existsSync(fp)) continue;                    // generator will create it fresh → no hand-authored to prove
       const content = fs.readFileSync(fp, 'utf-8');
       if (content.startsWith(GENERATED_HEADER)) continue;  // already a generated board → nothing to prove
-      const d = proveBoardComplete(content, generatedAll);
+      const d = proveBoardComplete(content, out.files.get(name) as string);
       for (const item of d.gaps) gaps.push({ file: name, item });
       for (const item of d.needsReview) needsReview.push({ file: name, item });
     }
@@ -118,16 +119,19 @@ export function applyMigration(sprintUuid: string, opts: { apply: boolean }): Mi
   const out = buildSprintOutput(sprintUuid, allUnits());
   if (!out) return { sprintSlug, applied: false, refused: 'FAIL-CLOSED: buildSprintOutput null' };
   const dir = path.join(SPRINTS_DIR, sprintSlug);
-  const written: string[] = [];
+  // ★ ATOMIC (G3): pass 1 verifies EVERY file's per-file zero-loss (G4 belt-and-braces) + collects the write set,
+  // REFUSING on any delta BEFORE a single write — so a later-file refusal can never leave an earlier file partially
+  // written (the non-atomic bug that half-migrated S19's planning.md). pass 2 writes all-or-nothing.
+  const toWrite: { fp: string; generated: string; name: string }[] = [];
   for (const [name, generated] of out.files) {
     const fp = path.join(dir, name);
     const old = fs.existsSync(fp) ? fs.readFileSync(fp, 'utf-8') : '';
-    const d = proveBoardComplete(old, generated); // G4 zero-loss (belt-and-braces vs proveComplete)
+    const d = proveBoardComplete(old, generated); // G4 zero-loss, per-file (matches proveComplete)
     if (d.gaps.length || d.needsReview.length) return { sprintSlug, applied: false, refused: `REFUSED (G4 zero-loss) ${name}: ${d.gaps.length} gap + ${d.needsReview.length} needs-review would drop [${[...d.gaps, ...d.needsReview].join(', ')}]` };
-    if (normalizeLF(old) === normalizeLF(generated)) continue; // G3 idempotent
-    if (opts.apply) fs.writeFileSync(fp, generated);
-    written.push(name);
+    if (normalizeLF(old) !== normalizeLF(generated)) toWrite.push({ fp, generated, name }); // G3 idempotent: skip byte-stable
   }
+  const written: string[] = [];
+  for (const w of toWrite) { if (opts.apply) fs.writeFileSync(w.fp, w.generated); written.push(w.name); }
   return { sprintSlug, applied: opts.apply, filesWritten: written };
 }
 
