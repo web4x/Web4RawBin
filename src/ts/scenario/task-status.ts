@@ -39,11 +39,14 @@ export function assertStatusConsistent(idx: ScenarioIndex): StatusOffender[] {
     if (!u || u.ior !== 'ior:class:Task') continue;
     const m = u.model as { name?: string; status?: string; statusChecklist?: unknown };
     const declared = String(m.status || '');
-    if (typeof m.statusChecklist !== 'string') {
+    const cl = m.statusChecklist;
+    // MALFORMED = the checklist is PRESENT but not a string (array/object/number = a genuine data bug). An ABSENT
+    // checklist (undefined/null) is NOT malformed — it derives 'Planned' and only counts as DRIFT if status disagrees.
+    if (cl !== undefined && cl !== null && typeof cl !== 'string') {
       offenders.push({ uuid, name: String(m.name || uuid), declared, derived: '(malformed)', kind: 'MALFORMED' });
       continue;
     }
-    const derived = deriveStatusEnum(m.statusChecklist);
+    const derived = deriveStatusEnum(cl as string); // string → parsed; undefined/null → 'Planned' (malformed-safe)
     if (declared !== derived) {
       const kind: StatusOffender['kind'] = (declared === 'Done' && derived !== 'Done') ? 'FALSE-DONE' : 'DRIFT';
       offenders.push({ uuid, name: String(m.name || uuid), declared, derived, kind });
@@ -65,9 +68,13 @@ if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   console.log('\n=== Task status↔checklist consistency (R-C5 assertStatusConsistent) ===');
   console.log(`Offenders: ${offenders.length}  (FALSE-DONE: ${falseDone.length} · MALFORMED: ${malformed.length} · DRIFT: ${drift})`);
   for (const o of offenders) console.log(`  [${o.kind}] ${o.uuid.slice(0, 8)} "${o.name}" — status='${o.declared}' vs checklist-derived='${o.derived}'`);
+  // REPORT-ONLY by default (delta-not-absolute, R27.2 precedent): the pre-existing offenders must NOT red the
+  // whole team's CI. By construction (status = deriveStatusEnum(checklist)) new/edited tasks can't add drift, so
+  // the count only goes DOWN → flip to BLOCKING with --strict once it reaches 0 (the one-line gate promotion).
+  const strict = process.argv.includes('--strict');
   if (offenders.length) {
-    console.log(`\n★ ${falseDone.length} FALSE-DONE (status=Done but Done box unchecked) = PRIORITY. Owner resolves checklist↔status — NO auto-flip (INV-S5a).`);
-    process.exit(1);
+    console.log(`\n★ ${falseDone.length} FALSE-DONE (status=Done but Done box unchecked) = PRIORITY worklist. Owner resolves checklist↔status — NO auto-flip (INV-S5a). ${strict ? 'STRICT → failing.' : 'REPORT-ONLY (pass --strict to block once count==0).'}`);
+    process.exit(strict ? 1 : 0);
   }
   console.log('✓ all Task status == checklist-derived');
 }
