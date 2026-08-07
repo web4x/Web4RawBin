@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bf1cf902-5b41-4ed5-960b-3806ad498cf1",
+  "name": "sprintBoard.reconcileAll",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc2-board-generated-reconcile.md",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R-C2 one-time reconcile-all: run the EXISTING SprintViewGenerator in WRITE mode over ALL sprints (scripts/generate-sprint-md.ts --all, :307-317, loops generateSprint) so the 29 drifted boards regenerate from their scenario units in ONE pass (8/37 -> 37/37 byte-match). Migration-class RUN, docs-only (NO version bump / restart / prod-or-unit touch). INV-C1 units-untouched (units->md ONLY), INV-C2 idempotent byte-stable, INV-C3 generated-only surface, INV-C4 no-status-invention. Architect design design-rc2-board-generated-reconcile.md.",
+  "class": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c",
+  "method": "ior:instance:eddf2836-4320-46ae-a75f-c9e6312053e6"
+ },
+ "ownerIor": null
+}

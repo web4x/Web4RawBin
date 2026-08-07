@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9339cc3b-8035-403b-8bef-8c08df15edc2",
+  "name": "sprints.overview.md is a GENERATED view (with preserved-narrative region)",
+  "altId": "R-C6",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R-C6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.",
+  "discoverySource": {
+   "type": "team-discovery-authorized",
+   "discoveredBy": "robbin-architect (R-C2 design surfaced)",
+   "approvedBy": "robbin-po",
+   "date": "2026-08-07",
+   "doctrine": "session/knowledge-base/consistency-by-construction.md",
+   "note": "Surfaced during R-C2 design; PO approved as distinct S37 reqs, kept OUT of R-C2."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-generated",
+    "group": "functional",
+    "text": "The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained."
+   },
+   {
+    "id": "AC-preserved-narrative",
+    "group": "functional",
+    "text": "A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) — the generator writes the table region, preserves the narrative region."
+   },
+   {
+    "id": "AC-check-ci",
+    "group": "functional",
+    "text": "A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R-C3)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

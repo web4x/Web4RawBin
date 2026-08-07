@@ -13,7 +13,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:bf1cf902-5b41-4ed5-960b-3806ad498cf1"
+  ],
   "description": "planning.md + task-mds + requirements.md are GENERATED from scenario units (existing generate-sprint-md) — never hand-maintained. A ONE-TIME reconcile-all regenerates EVERY sprint's views from its units, clearing the 29-sprint historical drift (24 requirements.md + a few planning/task-md) in ONE pass — not hand-fixed per file.",
   "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
   "discoverySource": {

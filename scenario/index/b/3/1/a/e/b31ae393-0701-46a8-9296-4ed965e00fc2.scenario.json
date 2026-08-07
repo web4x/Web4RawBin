@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b31ae393-0701-46a8-9296-4ed965e00fc2",
+    "name": "SprintViewGenerator.generateAll impl (--all write-all-sprints reconcile)",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "markerPending": true,
+    "markerNote": "R-C2 reconcile-all = the --all WRITE branch (:307-317) looping generateSprint over all 37 sprints. Expert marks a named generateAll decl OR confirms it rides generateSprint 41c86206 (then I re-point). Migration-class RUN; acceptance = BITE Test green + post-run check:sprint-md 37/37 + scenario/index git-clean.",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eddf2836-4320-46ae-a75f-c9e6312053e6"
+}

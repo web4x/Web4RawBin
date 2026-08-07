@@ -26,6 +26,7 @@
   - [ ] **(functional)** A one-time reconcile-all regenerates EVERY sprint's views from its units in ONE pass, clearing the 29-sprint historical drift — NOT hand-fixed per file.
   - [ ] **(functional)** After reconcile-all, generate-sprint-md --check --all byte-matches for ALL sprints (0 drift remaining).
   - [ ] **(gate)** TEST EXERCISES AC-reconcile-all+AC-post-clean: on the drifted set (the 29 sprints), run reconcile-all -> --check --all reports GREEN/byte-match for every sprint. Verify Impl.tests[] on disk before flip.
+  -> sprintBoard.reconcileAll [uc:uuid:bf1cf902-5b41-4ed5-960b-3806ad498cf1]
 
 - [ ] **R-C3 — FAIL-LOUD guard asserts pin==board==files (in ci:gates, drift-injection BITE)**
   [requirement:uuid:1530c79c-39a6-40b7-8d2b-044d5583aa59]
@@ -45,3 +46,23 @@
   - [ ] **(functional)** The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.
   - [ ] **(functional)** The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read.
   - [ ] **(gate)** TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.
+
+- [ ] **R-C5 — Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip**
+  [requirement:uuid:03fd79ff-da54-4c91-b542-cbf330cd22aa]
+  > (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.
+  A Task unit carries TWO independent status fields — model.status (-> planning checkbox) AND model.statusChecklist (free-text -> task-md '## Status') — which can DISAGREE WITHIN the source (e.g. Task 95: status='In Progress' but statusChecklist all-checked). R-C5 makes a task's status ONE truth WITHOUT flipping its displayed Done-ness (disagreements are surfaced for the honesty audit, never silently reconciled to Done = a status invention). Kept OUT of R-C2 (which regenerates from BOTH fields as-is, INV-C4).
+  **Acceptance criteria:**
+  - [ ] **(functional)** A Task's status is ONE truth: model.status and model.statusChecklist are reconciled (or one derived from the other) so they CANNOT disagree within a unit.
+  - [ ] **(functional)** The reconcile MUST NOT flip a task's displayed Done-ness (a status='In Progress' + all-checked checklist is SURFACED for the honesty audit, NOT silently flipped to Done) — no status invention, honors R-C2 INV-C4.
+  - [ ] **(functional)** status/statusChecklist disagreements are surfaced to the planner honesty audit (the UNIT is the thing to fix, not the view); ties to the S33-36 honesty correction.
+  - [ ] **(gate)** TEST EXERCISES AC-one-status+AC-no-doneness-flip: a Task with disagreeing status/statusChecklist (e.g. Task 95) -> reconcile yields ONE consistent status WITHOUT changing displayed Done-ness + the disagreement is flagged (not silently resolved). Verify Impl.tests[] on disk before flip.
+
+- [ ] **R-C6 — sprints.overview.md is a GENERATED view (with preserved-narrative region)**
+  [requirement:uuid:9339cc3b-8035-403b-8bef-8c08df15edc2]
+  > (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.
+  sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R-C6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.
+  **Acceptance criteria:**
+  - [ ] **(functional)** The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained.
+  - [ ] **(functional)** A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) — the generator writes the table region, preserves the narrative region.
+  - [ ] **(functional)** A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R-C3).
+  - [ ] **(gate)** TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip.
