@@ -1433,6 +1433,18 @@ function mofLayerRoots(idx: ScenarioIndex): MofNode[] {
   ];
 }
 
+// R40.8 — resolve a unit's REAL on-disk shard path via the ONE shard rule, single-sourced with PROD_INDEX
+// (ScenarioIndex.filePath — the SAME function get()/has() use, never a re-derived or composed path). FAIL-CLOSED:
+// if the unit is not actually on disk, return null → the caller 404s; the UI NEVER shows a guessed/composed path.
+// [impl:uuid:3ee03bde-aa3c-4d95-92c1-71e9c599f46a] ServerManagerApi.unitRealPath (/api/unit/<uuid>/path, shard-rule single-sourced, fail-closed)
+function unitRealPath(uuid: string): { realPath: string; dir: string } | null {
+  const idx = new ScenarioIndex(PROD_INDEX);
+  if (!idx.has(uuid)) return null;                                   // fail-closed: no on-disk file → NO path (never composed/guessed)
+  const repoRoot = path.join(__dirname, '../../../');
+  const realPath = path.relative(repoRoot, idx.filePath(uuid));      // reuse the ONE shard rule; repo-relative real path
+  return { realPath, dir: path.dirname(realPath) };
+}
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
@@ -1444,8 +1456,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // every /api/server-manager/* route are gated HERE first by the SOLE assertOwner guard — no route (page or API)
     // can bypass it, and a future sub-route added inside this block inherits the gate. Handlers below run ONLY for
     // an authenticated OWNER; add R31.4 routes inside this block. (Page-route ?token= = flagged R31.4 hardening.)
-    if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/')) {
+    if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/') || filepath.startsWith('/api/unit/')) {
       if (!requireFeatureAccessHttp(req, res, 'Server Manager')) return; // R31.8: data-driven ServerManager Feature gate (was requireOwnerHttp) — access by allowedUsers membership, INV-F6
+      // R40.8: /api/unit/<uuid>/path — the REAL measured shard path (single-sourced, fail-closed). ServerManagerApi family
+      // → gated HERE by construction (existence-oracle stays owner-only). No composed/guessed path ever leaves the server.
+      const unitPathMatch = req.method === 'GET' ? filepath.match(/^\/api\/unit\/([0-9a-fA-F-]+)\/path$/) : null;
+      if (unitPathMatch) {
+        const rp = unitRealPath(unitPathMatch[1]);
+        if (!rp) { res.writeHead(404, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify({ ok: false, error: 'not-on-disk' })); return; } // fail-closed
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, ...rp }));
+        return;
+      }
       if (req.method === 'GET' && filepath === '/server-manager') { // R31.3 owner-only page shell (6th AC: non-owner already 403'd above, shell never leaks)
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
         res.end(serverManagerPage());
@@ -1458,13 +1480,48 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       }
       if (req.method === 'GET' && filepath === '/api/server-manager/tree') { // R31.3/R31.4 read-only otmux tree
         const sessions = await OtmuxBridge.readSessionTree();
-        // R41: compose the itemView `roots` via the EXTRACTED gateable function (the composition + loud fail-open live in
-        // OtmuxBridge.buildRootedTree — inline handler logic was untestable-by-construction, forcing a [REPLICATED] gate).
-        // Read the WODA.prod node unit MODEL-DRIVEN + hand the LIVE sessions (read fresh above = the live lens) to it.
+        // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
+        // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
+        const sessionRows = sessions.map((s) => ({
+          // R31.3 badge-via-references: session carries hasChildren too (windows/panes already do) — parity with the
+          // scenario tree so the chevron/count is deterministic (client stamps dataset.childRefCount from children.length).
+          uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
+          children: s.windows.map((w) => ({
+            // R31.3: real window label 'window N' (NOT the active-command placebo w.name) + explicit hasChildren
+            // (belt-and-suspenders; the client also derives the chevron from children.length).
+            uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: 'window ' + w.index, hasChildren: true,
+            children: w.panes.map((p) => ({
+              uuid: p.paneId, type: 'otmuxPane', name: p.label + (p.title ? '  —  ' + p.title : ''), hasChildren: false,
+            })),
+          })),
+        }));
+        // R41 RE-ROOT (Tron's open question — Server Manager showed a FLAT session list, no client surface for WODA.prod):
+        // re-root under the WODA.prod deployment node (fc327458), MODEL-DRIVEN (read the node unit, don't hardcode). The
+        // node is the single ROOT row; the live otmux sessions are its CHILDREN (a LIVE LENS — read fresh here, never a
+        // mirrored copy); the node's 4 measured deploymentRefs (sshd_config · host key · .env domain · LE cert) surface as
+        // leaf rows so the deployment surface is visible where the owner works. Fail-OPEN to the flat lens if the node unit
+        // is ever missing — never break the live session surface. The UML-diagram facet (renderedBy) is untouched: this ADDS.
+        let roots: any[] = sessionRows;
         const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
-        let nodeUnit: { model?: Record<string, unknown> } | undefined;
-        try { nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID); } catch { /* buildRootedTree loud-fail-opens on an absent node */ }
-        const roots = OtmuxBridge.buildRootedTree(sessions, nodeUnit, NODE_UUID);
+        try {
+          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID);
+          const nm: any = nodeUnit?.model;
+          if (nm && nm.kind === 'node') {
+            const refRows = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
+              uuid: 'depref:' + String(d.role), type: 'deploymentRef',
+              name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
+            }));
+            roots = [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
+          } else {
+            // fail-open AND LOUD (PO refinement): keep the live sessions available, but NEVER silently degrade to the
+            // bare flat list Tron complained about — surface a VISIBLE notice row + a server WARN naming the missing uuid.
+            console.warn(`[server-manager] WARN: WODA.prod deployment node ${NODE_UUID} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
+            roots = [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
+          }
+        } catch (e: any) {
+          console.warn(`[server-manager] WARN: WODA.prod re-root failed (${e?.message || e}) → tree DEGRADED to flat session list (fail-open).`);
+          roots = [{ uuid: 'depnode:error', type: 'notice', name: '⚠ WODA.prod deployment node re-root failed — showing flat session list', hasChildren: sessionRows.length > 0, children: sessionRows }];
+        }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;
