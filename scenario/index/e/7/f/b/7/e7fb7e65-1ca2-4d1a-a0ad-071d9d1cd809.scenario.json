@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809",
+    "name": "SprintLabel.sprintLabel impl (compose Sprint {number} — {name}, single-source)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts"
+  },
+  "ownerIor": "ior:instance:90e4014a-dfd7-45a1-946c-e52d9e75949f"
+}
