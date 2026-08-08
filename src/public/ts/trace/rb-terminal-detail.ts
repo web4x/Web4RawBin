@@ -87,7 +87,10 @@ export class RbTerminalDetail extends HTMLElement {
     let keys: KeyDef[] = [];
     try {
       const j = await fetch('/api/ior/c16abc17-21cc-477f-b2ce-481bef773da1', { credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null));
-      keys = ((j && j.model && j.model.keys) || (j && j.keys) || []) as KeyDef[];
+      // /api/ior returns the view WRAPPER { ior, type, unit:{ ior, model }, html, md } — the keymap lives at unit.model.keys
+      // (R35/R36 view-unit wrap); read that first (bug: was reading j.model.keys → 0 keys → no bar). Fallbacks + array guard.
+      const k = (j && j.unit && j.unit.model && j.unit.model.keys) || (j && j.model && j.model.keys) || (j && j.keys);
+      keys = Array.isArray(k) ? (k as KeyDef[]) : [];
     } catch { /* fail-closed */ }
     if (keys.length && this.isConnected) this.appendChild(RbKeyboardBar.renderKeyMap(keys, send));
   }
