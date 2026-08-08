@@ -1,5 +1,7 @@
 // [impl:uuid:1e9916f1-7e29-4e9d-9aa9-c930fe693c9f] T64 editor layout
 // [impl:uuid:f7c4483a-b041-4e66-9d91-6c9ad12ed673] RbEditorLayout.backNav
+import '../trace/rb-trace-tree.js';    // R40.9: REUSE the shared trace tree (scoped via data-seed-ior) — no new renderer
+import '../trace/rb-detail-drawer.js'; // R40.9: REUSE the shared detail drawer (selection-driven)
 const STORAGE_KEY = 'rawbin-editor-layout';
 const TAB_BAR_HEIGHT = 52;
 
@@ -43,6 +45,22 @@ export class RbEditorLayout extends HTMLElement {
   togglePreview(): void { this.state.previewVisible = !this.state.previewVisible; this.applyState(); saveState(this.state); }
   showPreview(): void { this.state.previewVisible = true; this.applyState(); saveState(this.state); }
   hidePreview(): void { this.state.previewVisible = false; this.applyState(); saveState(this.state); }
+
+  // [impl:uuid:0ed5cd75-7cd5-420d-af29-28c7f167456c] EditorPreview.previewTraceability (REUSE rb-trace-tree scoped to unit + rb-detail-drawer, NO new renderer)
+  // R40.9: the 👁 Preview panel renders THAT unit's traceability by mounting the SHARED components — rb-trace-tree
+  // SCOPED to the unit (data-seed-ior, R31.8c seed mode) + the SHARED rb-detail-drawer (selection-driven). No bespoke
+  // preview renderer: the tree fetches its own subtree from the seed, node-select drives the drawer via selectionModel.
+  previewTraceability(unitIor: string): void {
+    const host = this.previewEl;
+    if (!host) return;
+    host.innerHTML = '';
+    const tree = document.createElement('rb-trace-tree');
+    tree.setAttribute('data-mode', 'scenario');
+    tree.setAttribute('data-seed-ior', unitIor);
+    const drawer = document.createElement('rb-detail-drawer');
+    host.appendChild(tree);
+    host.appendChild(drawer);
+  }
 
   // [impl:uuid:dc302e8e-9689-4f67-a221-6003f27c4df4] RbEditorLayout.showDiff — R30.6.6 [Open Diff] entry: mount the
   // diff/merge editor as an overlay with the LEFT pane preselected to the CURRENT file (path + current editor content).
