@@ -73,6 +73,20 @@ Per-category repair (each VERIFY-OWNER-FIRST, MOVE-not-drop — the R27.2 union 
 - **Idempotent:** re-run --apply = 0 changes.
 - **BITE:** inject a known foreign-impl → repair relocates it to its true method; a planted R30.11 same-name shared-impl is NOT touched; re-run idempotent; post-run audit confirmed-corruption==0 while 89/239/18 unchanged. Then the audit's `--strict` on confirmed-corruption turns on (delta discipline).
 
+## ★ SHARED CLASSIFIER CONTRACT (audit + repair import the SAME module — resolves the 715-vs-980 divergence)
+The audit and the expert's repair diverged on nearly every category (A 715/980, MO 19/5, IO 13/10, SN 5/89, EC 245/239, PP 67/18). **Do NOT hand-reconcile the numbers** (the R27.2 62-vs-45 / 87-vs-11.2 lesson) — export ONE module `collision-classify.ts` with per-category predicates that BOTH the audit and `repair-collision-artifacts.ts` import, over the SAME unit-set. Then counts CANNOT drift; if they do, it's real data change, not definition drift. Canonical definitions (FAIL-CLOSED toward SAFETY — when unsure, DON'T auto-mutate):
+- **`name-token(unit)` = `unit.model.name.replace(/^impl:/,'').trim().split(/\s+/)[0]`** (the method-qualified token, e.g. `RbDetailView.chainExcludesSelf`). ONE definition — the SN 5-vs-89 gap is exactly this token rule; lock it.
+- **foreign impl in `Method M`.implementations[]** = the impl is not owned by `M`. Sub-classify (mutually exclusive):
+  - **MOVE-able** (~707): name-token(impl) ≠ name-token(M) AND `impl.ownerIor` resolves to a **Method** `M'`. → auto-move to `M'`.
+  - **SAME-NAME / leave** (~89): name-token(impl) == name-token(M) → R30.11-shared-or-dup → LEAVE (fail-closed: never move a same-named impl — that's how you damage legit sharing).
+  - **UNRESOLVED-owner / manual** (~259): `impl.ownerIor` doesn't resolve → can't determine target → REPORT needs-manual, do NOT touch.
+- **owner mismatch** — split into TWO buckets (the MO/IO/EC divergence was merging them):
+  - **WRONG-TYPE** (repoint): `ownerIor` RESOLVES to a unit of the wrong type (Method→non-Class, Impl→non-Method, UC→non-Req). Repairable by repoint. (the smaller resolving-wrong counts.)
+  - **MISSING/unresolvable** (orphan): `ownerIor` empty or resolves to nothing → SEPARATE `orphan` bucket → assign-owner is a DIFFERENT fix, report, do NOT auto-repoint. (the larger remainder — my fail-closed 20/154/369 lumped these in; they are NOT repair-1003.)
+- **UC.class mismatch** (8): `UC.class` resolves to non-Class → repoint via `resolve(UC.method).ownerIor`.
+- **prefix collision**: report **18 GROUPS** (and **67 member-units**) — both numbers, labelled; the guard's count is groups, the blast is members.
+- **The TRUE auto-repair set** = MOVE-able(707) + UC.class(8) + owner-WRONG-TYPE(resolving) — NOT the imprecise "1003" (which folded in same-name/unresolved/missing-owner). The shared module produces the exact number; both import it; `--strict` after the BITE passes against IT.
+
 ## CHAIN + sequence + deploy
 - Chain: UC `guard.failClosedOnVacuous` → Class `ConsistencyGuard` → Method `assertNonVacuous` (+ per-guard adoption of `refuseIfVacuous`) → Impl → vacuous-BITE Test. req mints at build-go.
 - Sequence: R-C3 after R-C1 (this). THEN R-C6.
