@@ -98,6 +98,14 @@ function runChecks() {
   const numBody = bodyOf('sprintNumOf'), slugBody = bodyOf('sprintSlugOf');
   c.lintNoNameDerivation = noSlugify && !/\.name\b/.test(numBody) && !/\.name\b/.test(slugBody);
 
+  // ── ★ META-BITE (retrofit sweep, PO doctrine — prove THIS gate can fail, not vacuously green) ──
+  // A STUB sprintNumOf that PARSED the free-text name (the exact INV-C1-8 anti-pattern the fix forbids) returns a number
+  // for a name-only unit → the numNeverFromName check would flip RED. Real returns null (passes) while the stub returns 42
+  // (fails) → the gate is proven ABLE TO FAIL on a name-parsing regression. (FAMILY: identity-from-name derivation.)
+  const stubNumFromName = (u: any) => { const h = /(\d+)/.exec(String(u.model?.name || '')); return h ? +h[1] : null; };
+  const nameOnly = { ior: 'ior:class:Sprint', model: { uuid: 'z', name: 'Sprint 42 name-only, no numbered source' } };
+  c.metaBite_stubNameParserFails = sprintNumOf(nameOnly as any) === null && stubNumFromName(nameOnly) === 42;
+
   return c;
 }
 
