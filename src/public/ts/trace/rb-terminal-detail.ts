@@ -7,6 +7,7 @@
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 per-pane RC deep-link
+import { RbKeyboardBar, type KeyDef } from './rb-keyboard-bar.js'; // R40.3 OS-keyboard suppress + data-driven controller
 
 export class RbTerminalDetail extends HTMLElement {
   static get observedAttributes() { return ['uuid']; }
@@ -72,6 +73,23 @@ export class RbTerminalDetail extends HTMLElement {
     this.onWin = (): void => fit();
     window.addEventListener('resize', this.onWin);
     fit();
+    // R40.3: suppress the OS soft-keyboard on the terminal's input target (device-gated on real iOS — Tron verifies)
+    // + mount the data-driven keyboard controller as a BOTTOM COMPARTMENT (flex:0, not a full-screen overlay) so the
+    // terminal (host, flex:1) stays FULLY visible above it and nothing overlays the drawer's Scenario/Edit buttons.
+    RbKeyboardBar.suppressSoftKeyboard((term as unknown as { textarea?: HTMLTextAreaElement }).textarea || null);
+    const sendSeq = (bytes: string): void => { if (ws.readyState === WebSocket.OPEN) { ws.send(enc.encode(bytes)); term.focus(); } }; // synthetic keys → SAME ws PTY as typed input
+    void this.mountKeyBar(sendSeq);
+  }
+
+  // R40.3 mount the keyboard controller from the DATA-DRIVEN keymap config unit (c16abc17); fail-closed → no bar if the
+  // unit is unreadable (never fabricate keys). Reuses the ws PTY send path — the controller is a client shell, keys are data.
+  private async mountKeyBar(send: (bytes: string) => void): Promise<void> {
+    let keys: KeyDef[] = [];
+    try {
+      const j = await fetch('/api/ior/c16abc17-21cc-477f-b2ce-481bef773da1', { credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null));
+      keys = ((j && j.model && j.model.keys) || (j && j.keys) || []) as KeyDef[];
+    } catch { /* fail-closed */ }
+    if (keys.length && this.isConnected) this.appendChild(RbKeyboardBar.renderKeyMap(keys, send));
   }
 
   // R40.1 [impl marker pending req chain] fetch THIS pane's owner-gated RC link + open the universal link (app-else-web);
