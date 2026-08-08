@@ -1,9 +1,0 @@
-{
-  "ior": "ior:class:Implementation",
-  "model": {
-    "uuid": "3542dcb3-a1b2-4c3d-8e4f-5a6b7c8d9e07",
-    "name": "impl:RbDetailView.chainExcludesSelf",
-    "tests": []
-  },
-  "ownerIor": "ior:instance:3542dcb3-aae6-48ac-b3a2-ac3cd2c0dded"
-}
