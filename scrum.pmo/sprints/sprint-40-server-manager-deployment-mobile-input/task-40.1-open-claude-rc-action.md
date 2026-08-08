@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.1 (Open Claude.ai RC action, per-pane deep link claude.ai/code/<session-id>). ACs MIRRORED from req R40.1 caab6d86 (requirements.md 9af2aa9f7); coveredRequirements resolves. In Progress: build-go GIVEN (PO); architect R40.1 design committed c01c9a23a (measured RC id-source + chain shape); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 350ab353).
+QA-Review: R40.1 CHAIN-COMPLETE-TO-TEST (planner disk-verified) — Impl 45853b02 RcLinkResolver.resolveRcLink (OWN chain, markerPending=false, STRICT-AST verified rc-link-resolver.ts:14, fail-closed: bash-pane->NO LINK no synthesised URL) + Test c4f8a1d6 status=pass. PROVEN = 403-by-construction + fail-closed. All 4 In-Progress sub-steps [x]. ★ CERT-SCOPE PENDING (Tron owner-device QA): owner-page ACs = RC button VISIBLE+FIREABLE + pane->agent ISOLATION e2e (right-agent, no cross-pane leak) — NOT automatably proven (owner-page-gated). Done-gate [ ] — NOT Done w/o Tron sign-off (tron-qa-batch 6-check).
 
 ## Traceability
 

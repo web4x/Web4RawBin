@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 3bd0fb847); coveredRequirements resolves. ★ refs-resolve-REAL: ALL 4 refs CONFIRMED measured-real + semantically-correct (architect 6276f73e1) — SSH = /etc/ssh/sshd_config (inbound) + host key ~/.ssh/public_keys/root.WODA.prod.public_key; DOMAIN = .env LE_DOMAIN/BASE_DOMAIN; CERT = /etc/letsencrypt/live/prod.wo-da.de/; ~/.ssh/config EXCLUDED (outbound client). Mint the 4 ref units at build-go. In Progress: architect design 389912465 + refs 6276f73e1; impl a25b0fbf7 (renderFacet-extend). ★ implementing [x] on VERIFY-OWNER-FIRST PASS 4/4 (req + planner disk-confirmed): ride impl 94ad4f50 DiagramViewModel.renderFacet owner=a6a05d34 UNTOUCHED (R30.11 original, not re-flipped), markerPending=false, tests[]=[e21b876d,0172b45d] NOT padded, distinct-intent R30.11 node-branch, M1 fc327458 4-refs+lens intact. deployment-node-renders Test at tester @390 gate (rides 94ad4f50 distinct-intent). useCases b9a549e4 wired.
+Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 3bd0fb847); coveredRequirements resolves. ★ refs-resolve-REAL: ALL 4 refs CONFIRMED measured-real + semantically-correct (architect 6276f73e1) — SSH = /etc/ssh/sshd_config (inbound) + host key ~/.ssh/public_keys/root.WODA.prod.public_key; DOMAIN = .env LE_DOMAIN/BASE_DOMAIN; CERT = /etc/letsencrypt/live/prod.wo-da.de/; ~/.ssh/config EXCLUDED (outbound client). Mint the 4 ref units at build-go. In Progress: architect design 389912465 + refs 6276f73e1; impl a25b0fbf7 (renderFacet-extend). ★ implementing [x] on VERIFY-OWNER-FIRST PASS 4/4 (req + planner disk-confirmed): ride impl 94ad4f50 DiagramViewModel.renderFacet owner=a6a05d34 UNTOUCHED (R30.11 original, not re-flipped), markerPending=false, tests[]=[e21b876d,0172b45d] NOT padded, distinct-intent R30.11 node-branch, M1 fc327458 4-refs+lens intact. QA-Review: R40.2 CHAIN-COMPLETE-TO-TEST (planner disk-verified) — Test e9b21f74 status=pass riding Impl 94ad4f50 (owner a6a05d34 UNTOUCHED verify-owner-first, tests[]=[e21b876d,0172b45d,e9b21f74] distinct-intent NOT padded, M1 fc327458 4-refs+lens). Diagram surface PROVEN. All 4 In-Progress sub-steps [x]. ★★ CERT-SCOPE PENDING (Tron): Server-Manager-ROOT-surface — the tree is STILL FLAT (no root node); expert RE-ROOTING. This IS Tron's 'where is the root node' question = MUST stay visible on the board, not buried. Done-gate [ ] — NOT Done w/o Tron + the root surface landing.
 
 ## Traceability
 

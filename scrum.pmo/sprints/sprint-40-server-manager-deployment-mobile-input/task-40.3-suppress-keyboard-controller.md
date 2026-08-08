@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.3 (suppress iOS keyboard + configurable Keyboard Controller shell + config model). ACs MIRRORED from req R40.3 bfe97d61 (requirements.md 3bd0fb847) — SPLIT A-automatable (5: suppress-by-construction / input-still-reaches-pty anti-vacuity / terminal-visible PIXEL / no-overlay PIXEL / configurable) + B-device-only (1: iOS-keyboard-never-opens — TRON real-iOS, NEVER headless-GREEN, like the longpress sliver). coveredRequirements resolves. This sprint = suppression + shell + config model ONLY (controller behavior later). In Progress: build-go GIVEN (PO); architect R40.3 design committed 389912465 (device-verify suppress + data-driven keymap unit + concept bottom-bar layout); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 9d1225a4).
+Planned - S40 R40.3 (suppress iOS keyboard + configurable Keyboard Controller shell + config model). ACs MIRRORED from req R40.3 bfe97d61 (requirements.md 3bd0fb847) — SPLIT A-automatable (5: suppress-by-construction / input-still-reaches-pty anti-vacuity / terminal-visible PIXEL / no-overlay PIXEL / configurable) + B-device-only (1: iOS-keyboard-never-opens — TRON real-iOS, NEVER headless-GREEN, like the longpress sliver). coveredRequirements resolves. This sprint = suppression + shell + config model ONLY (controller behavior later). QA-Review: R40.3-A CHAIN-COMPLETE-TO-TEST (planner disk-verified) — Tests f2c7b3e9 + b8e4a1c2 status=pass (A-automatable PROVEN: suppress-attrs + keybar-renders-8-keys + tap->real-PTY-bytes; impls c3a56e56 suppressSoftKeyboard + dbdcc42d renderKeyMap, strict-AST verified 56e5e0628). All 4 In-Progress sub-steps [x]. ★ CERT-SCOPE PENDING (Tron owner-device QA): owner-page + DEVICE — terminal-FULLY-VISIBLE + input-row NO-OVERLAY of Scenario/Edit (pixel @390) + R40.3-B iOS-OSK-NEVER-OPENS (device-only, Tron real-iOS, NEVER headless-GREEN). Done-gate [ ] — NOT Done w/o Tron device sign-off.
 
 ## Traceability
 
