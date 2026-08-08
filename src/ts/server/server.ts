@@ -1445,6 +1445,37 @@ function unitRealPath(uuid: string): { realPath: string; dir: string } | null {
   return { realPath, dir: path.dirname(realPath) };
 }
 
+// R40.10 — TaskQaVerdict: the owner's QA verdict on a task, recorded AS DATA (not asserted). approveByOwner makes
+// "Done requires Tron QA" PROVABLE — it writes approvedBy/approvedAt onto the task and only then flips status→Done,
+// and it FAIL-CLOSED refuses unless the task already carries the evidence (status 'QA Review' = the pipeline advanced
+// it, work+tests done) → a Done can NEVER be manufactured from an un-reviewed task. Extracted as named functions so
+// the verdict logic is gateable directly (not inline-in-handler). Owner-gate is applied by the caller (requireOwnerHttp).
+// [impl:uuid:36b6ce2e-efe9-4ad8-9382-104ee07d0266] TaskQaVerdict.approveByOwner (owner-gated; approvedBy/approvedAt as data; evidence-precondition; flips Done-gate)
+function approveByOwner(idx: ScenarioIndex, taskUuid: string, ownerTok8: string, now: string): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(taskUuid);
+  if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
+  const m = unit.model as any;
+  if (m.status !== 'QA Review') return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' != 'QA Review' — cannot manufacture Done` } };
+  m.approvedBy = ownerTok8; m.approvedAt = now; m.status = 'Done';   // Tron's QA recorded as DATA → the Done-gate is now provable
+  idx.put(taskUuid, unit);
+  return { code: 200, payload: { ok: true, status: 'Done', approvedBy: ownerTok8, approvedAt: now } };
+}
+
+// [impl:uuid:90089602-d819-4df3-80a9-ef5524931ae3] TaskQaVerdict.declineToChangeRequest (owner-gated; mints ior:class:ChangeRequest linked to task/req)
+function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8: string, reason: string, now: string): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(taskUuid);
+  if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
+  const m = unit.model as any;
+  const crUuid = crypto.randomUUID();
+  const requirements = Array.isArray(m.requirements) ? m.requirements : [];   // link the CR to the task's requirement(s)
+  idx.put(crUuid, { ior: 'ior:class:ChangeRequest', model: { uuid: crUuid, name: `Change Request: ${m.name || taskUuid}`, task: `ior:instance:${taskUuid}`, requirements, reason, createdBy: ownerTok8, createdAt: now, status: 'Open' }, ownerIor: `ior:instance:${taskUuid}` });
+  m.changeRequests = Array.isArray(m.changeRequests) ? m.changeRequests : [];
+  m.changeRequests.push(`ior:instance:${crUuid}`);
+  m.status = 'In Progress';   // declined → back into the pipeline; NEVER silently Done
+  idx.put(taskUuid, unit);
+  return { code: 200, payload: { ok: true, changeRequest: crUuid, status: 'In Progress' } };
+}
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
@@ -1633,6 +1664,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.end(JSON.stringify({ ok: true, updated: profile.bugReports[bugIndex] }));
           addLog(`Bug status updated: ${playerToken.slice(0,8)} #${bugIndex} -> ${status}`);
         } catch { res.writeHead(400); res.end('Bad request'); }
+      });
+      return;
+    }
+
+    // R40.10 — owner-gated task QA verdict: POST /api/task/<uuid>/{approve,decline}. Owner-only (403 non-owner);
+    // approve records Tron's QA as DATA + is evidence-gated (cannot manufacture Done); decline mints a ChangeRequest.
+    const taskVerdictMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/(approve|decline)$/);
+    if (req.method === 'POST' && taskVerdictMatch) {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — a non-owner can never record a QA verdict
+      const taskUuid = taskVerdictMatch[1], verb = taskVerdictMatch[2];
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const idx = new ScenarioIndex(PROD_INDEX);
+          const r = resolveOwner(req);
+          const ownerTok8 = String((r as { ok: true; token: string }).token || ServerManagerGuard.playerTokenFrom(req) || 'owner').slice(0, 8);
+          const now = new Date().toISOString();
+          let out: { code: number; payload: Record<string, unknown> };
+          if (verb === 'approve') out = approveByOwner(idx, taskUuid, ownerTok8, now);
+          else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, ownerTok8, reason, now); }
+          res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+          res.end(JSON.stringify(out.payload));
+          addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); }
       });
       return;
     }
