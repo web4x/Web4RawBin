@@ -46,9 +46,9 @@ export function singularChain(graph: TraceGraph, startUuid: string): ChainStep[]
   return steps;
 }
 
-// [impl:uuid:15682c8a-45ad-455e-b3e2-2dccb61d1d25] BUG1 chainExcludesSelf
 const CHAIN_TYPES = new Set(['requirement', 'usecase', 'class', 'method', 'implementation', 'test', 'bug', 'changerequest']);
 
+// [impl:uuid:15682c8a-45ad-455e-b3e2-2dccb61d1d25] BUG1 chainExcludesSelf
 export function renderSingularChain(steps: ChainStep[], selfUuid?: string): string {
   const filtered = steps.filter(s => s.uuid !== selfUuid && CHAIN_TYPES.has(s.type.toLowerCase()));
   if (filtered.length === 0) return '<div class="dv-empty">No chain</div>';
