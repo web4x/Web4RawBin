@@ -1,0 +1,166 @@
+# Fabricated-Identity uuid scan (robbin-req 2026-08-08, PO-named defect class)
+
+Heuristic scan of 5273 units. 155 suspect. HIGH-confidence (structured/repeat/word/seq-suffix): 113. Interleave-only (REVIEW, may be coincidental random): 42.
+
+Trigger case: e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b (54519bc4 Impl parse-test-cases.ts) — format-valid v4 but sequential content.
+
+## HIGH-CONFIDENCE fabricated (hand-mint schemes)
+
+- 00000000-0000-4000-8000-000000000001 [User] RawBin System :: word;repeat5;seq-suffix
+- 08a6db86-1139-4427-bc33-2fb5a73e0007 [Message] SystemTester: r3112-own3-3-3184 :: seq-suffix
+- 113fb74b-5b69-4e07-8b27-20000de59f15 [TestCase] TC-3: roomUuid populates unitLinks[] + o :: word
+- 158ed75e-7967-4387-9821-d3bcd20000d1 [UseCase] detailView.sourceLink :: word
+- 164a1371-4781-45ca-9153-10000003a0d4 [UseCase] user.scenarioUnit :: word;repeat5
+- 16a01001-d001-4a01-b001-000000110001 [UseCase] detailDrawer.open :: word;repeat5;seq-suffix
+- 16a01002-d002-4a02-b002-000000110002 [UseCase] detailDrawer.close :: word;repeat5;seq-suffix
+- 16a01003-d003-4a03-b003-000000110003 [UseCase] detailDrawer.swipeDismiss :: word;repeat5;seq-suffix
+- 16a01101-d101-4a01-b101-000000111001 [UseCase] taskDetail.render :: word;repeat5
+- 16a01102-d102-4a02-b102-000000111002 [UseCase] requirementDetail.render :: word;repeat5
+- 16a01103-d103-4a03-b103-000000111003 [UseCase] usecaseDetail.render :: word;repeat5
+- 16a01121-d121-4a01-b121-000000112001 [UseCase] objectItem.renderNameDesc :: word;repeat5
+- 16a01122-d122-4a02-b122-000000112002 [UseCase] objectItem.generateName :: word;repeat5
+- 16a01131-d131-4a01-b131-000000113001 [UseCase] objectItem.setIcon :: word;repeat5
+- 16a01141-d141-4a01-b141-000000114001 [UseCase] objectItem.drag :: word;repeat5
+- 16a01151-d151-4a01-b151-000000115001 [UseCase] objectItem.collapse :: word;repeat5
+- 16a01152-d152-4a02-b152-000000115002 [UseCase] objectItem.expand :: word;repeat5
+- 16a01153-d153-4a03-b153-000000115003 [UseCase] treeItem.expandChildren :: word;repeat5
+- 16a01161-d161-4a01-b161-000000116001 [UseCase] traceChain.auditOrphans :: word;repeat5
+- 16a01171-d171-4a01-b171-000000117001 [UseCase] useCase.trackInPuml :: word;repeat5
+- 17a00101-0001-4a01-a001-000017010001 [UseCase] unit.load :: word;seq-suffix
+- 17a00102-0002-4a02-a002-000017010002 [UseCase] ior.resolveClass :: word;seq-suffix
+- 17a00103-0003-4a03-a003-000017010003 [UseCase] ior.resolveInstance :: word;seq-suffix
+- 17a00104-0004-4a04-a004-000017010004 [UseCase] index.put :: word;seq-suffix
+- 17a00105-0005-4a05-a005-000017010005 [UseCase] index.get :: word;seq-suffix
+- 17a00201-0001-4a01-a001-000017020001 [UseCase] tree.symlinkJson :: word;seq-suffix
+- 17a00202-0002-4a02-a002-000017020002 [UseCase] tree.generateMd :: word;seq-suffix
+- 17a00203-0003-4a03-a003-000017020003 [UseCase] tree.navigate :: word;seq-suffix
+- 17a00301-0001-4a01-a001-000017030001 [UseCase] view.renderHtml :: word;seq-suffix
+- 17a00302-0002-4a02-a002-000017030002 [UseCase] view.renderMd :: word;seq-suffix
+- 17a00303-0003-4a03-a003-000017030003 [UseCase] view.liveUpdate :: word;seq-suffix
+- 17a00304-0004-4a04-a004-000017030004 [UseCase] planning.generate :: word;seq-suffix
+- 17a00401-0001-4a01-a001-000017040001 [UseCase] migrate.sprintToScenario :: word;seq-suffix
+- 17a00402-0002-4a02-a002-000017040002 [UseCase] migrate.preserveHierarchy :: word;seq-suffix
+- 17a00403-0003-4a03-a003-000017040003 [UseCase] chain.traceMethodToReq :: word;seq-suffix
+- 18a1b2c3-d4e5-4f60-8a71-000000018001 [Requirement] Two views of the same Class, two differe :: word;repeat5
+- 18a3b4c5-d6e7-8f90-1a2b-000000018031 [Requirement] The ScenarioUnit class (or its equivalen :: word;repeat5
+- 18a7b8c9-d0e1-2f3a-4b5c-000000018025 [Requirement] The /trace tree currently stops the chai :: word;repeat5
+- 18a7b8c9-d0e1-4f26-8cd7-000000018007 [Requirement] After expand or collapse, the scroll pos :: word;repeat5
+- 18b2c3d4-e5f6-4a71-9b82-000000018002 [Requirement] The narrowing is not just at the Class→M :: word;repeat5
+- 18b2c3d4-e5f6-7a8b-9c0d-000000018020 [Requirement] The tree narrowing (R18.5) applies only  :: word;repeat5
+- 18b8c9d0-e1f2-3a4b-5c6d-000000018026 [Requirement] Every scenario type must show a source l :: word;repeat5
+- 18b8c9d0-e1f2-4a3b-5c6d-000000018008 [Requirement] Tree root structure for BOTH /scenario a :: word;repeat5
+- 18c3d4e5-f6a7-4b82-9c93-000000018003 [Requirement] This sprint dogfoods the S17 scenario-un :: word;repeat5
+- 18c3d4e5-f6a7-8b9c-0d1e-000000018021 [Requirement] The detail pane shows a "Parent" link po :: word;repeat5
+- 18c9d0e1-f2a3-4b5c-6d7e-000000018027 [Requirement] REVISES R18.22. The link target is `/md/ :: word;repeat5
+- 18d0e1f2-a3b4-5c6d-7e8f-000000018028 [Requirement] REVISES R18.23. The line parameter (`?li :: word;repeat5
+- 18d4e5f6-a7b8-4c93-9da4-000000018004 [Requirement] The precedence analysis (refinement-prec :: word;repeat5
+- 18d4e5f6-a7b8-9c0d-1e2f-000000018022 [Requirement] The detail pane shows a "Browse File" li :: word;repeat5
+- 18dc1bc3-86ba-413f-aceb-fbd2a0dfcbf5 [TestCase] TC-7: unknown file type routes to routeU :: word
+- 18e1f2a3-b4c5-6d7e-8f90-000000018029 [Requirement] The speaking-name symlink tree (scenario :: word;repeat5
+- 18e5f6a7-b8c9-0d1e-2f3a-000000018023 [Requirement] The "Browse File" link includes line inf :: word;repeat5
+- 18e5f6a7-b8c9-4d04-8ab5-000000018005 [Requirement] Widens R18.1 from Class→Method scope to  :: word;repeat5
+- 18f2a3b4-c5d6-7e8f-9a0b-000000018030 [Requirement] Every scenario.json unit model gains a ` :: word;repeat5
+- 18f6a7b8-c9d0-1e2f-3a4b-000000018024 [Requirement] The detail pane's "Traceability Chain" s :: word;repeat5
+- 18f6a7b8-c9d0-4e15-9bc6-000000018006 [Requirement] Expanding a node must INSERT child `<rb- :: word;repeat5
+- 574f9ac1-8471-4d26-bd29-2c1dfbeefb6f [Requirement] No drawer shadow when closed :: word
+- 76a00001-0001-4a01-a001-000176010001 [Test] T176 R-O module exec proof :: word;seq-suffix
+- 7cda92d6-3b75-41de-ad8f-b33df2dc21f6 [Requirement] R20.6g: Consolidate multiple drawer impl :: word
+- 8f33daf4-c1f7-4812-80ef-b111157a71a6 [Test] test:R33.9 RbDiagramDetail.broadcastActi :: word
+- 93179981-a25d-4612-9a7f-eed7bdef5a6c [Requirement] R17.5: Speaking-name tree (json) — symli :: word
+- 942dbaa5-da46-4da2-ab25-254cafc0de1a [TraceLink]  :: word
+- 96559000-02d9-46f9-be95-0124de1cd7ea [TestCase] renders placeholder when no avatarUrl :: word
+- 99999999-9999-4999-8999-999999999999 [Implementation] fs.writeFileSync(path.join(srcDir, 's.ts :: repeat5
+- 9f4bff71-5253-4bc4-ac3b-bbbbb3f40533 [Test] test:R34.5 (R-D1) auto-expand-on-navigat :: repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000001 [ModelElement] Class :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000002 [ModelElement] Relationship :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000003 [ModelElement] UmlClass :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000004 [ModelElement] UmlInterface :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000005 [ModelElement] UmlAttribute :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000006 [ModelElement] UmlMethod :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000007 [ModelElement] UmlProperty :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000008 [ModelElement] UmlFunction :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000009 [ModelElement] UmlType :: interleave;word;repeat5;seq-suffix
+- a1d2e3f4-0000-4a1b-8c2d-000000000010 [ModelElement] UmlAssociation :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000011 [ModelElement] UmlGeneralization :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000012 [ModelElement] UmlDependency :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000013 [ModelElement] ts-class-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000014 [ModelElement] puml-class-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000015 [ModelElement] ts-interface-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000016 [ModelElement] ts-method-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000017 [ModelElement] ts-attribute-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000018 [ModelElement] ts-property-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000019 [ModelElement] ts-function-code :: interleave;word;repeat5
+- a1d2e3f4-0000-4a1b-8c2d-000000000020 [ModelElement] ts-type-code :: interleave;word;repeat5
+- a7511111-4d1b-48d0-9199-f3e2d913587c [Message] User 17: hi hi :: word;repeat5
+- aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee [Room] Canon :: repeat5
+- ae705fee-d381-4c92-9a67-9a383d1f8c68 [TestCase] TC-9: drop-debug message ownerIor = RawB :: word
+- aee5e037-657f-4947-96e5-44444f5e2cce [Message] VE: going asleep :: repeat5
+- b5989df8-f3bc-40ea-80e6-6a7cebefacef [TestCase] canTransition checks allowed targets :: word
+- ce33dead-6064-4ffa-a9fd-14bbcacd2d28 [TestCase] send() queues messages when disconnected :: word
+- config-singleton-0000-000000000001 [Config] RawBin Config :: word;repeat5;seq-suffix
+- current-sprint-singleton-0000-000000000001 [CurrentSprint] Current: Task C2: Board is a GENERATED v :: word;repeat5;seq-suffix
+- d20d22eb-d60c-4b8f-9caf-eed3bff702d6 [Device]  :: word
+- d28bd1ff-3f3b-497f-a1f4-6babe5e6bde3 [TestCase] valid subdirectory path works :: word
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000003 [Requirement] R17.4: Index by UUID prefix — scenario/i :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000004 [Requirement] R17.5: Speaking-name tree (json) — symli :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000005 [Requirement] R17.6: Speaking-name tree (md) — generat :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000006 [Requirement] R17.7: HTML view templates per class :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000007 [Requirement] R17.8: Views generated + live-updated fr :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000008 [Requirement] R17.9: planning.md is a generated Task-o :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000009 [Requirement] R17.10: Sprint overview = list of sprint :: interleave;word;repeat5;seq-suffix
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000010 [Requirement] R17.11: File-browser ↔ traceability-brow :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000011 [Requirement] R17.12: All files are units, referenceab :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000012 [Requirement] R17.13: Method → task → requirement trac :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000013 [Requirement] R17.14: Migrate all sprints/tasks/requir :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000014 [Requirement] R17.15: Collaborative planning — archite :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000015 [Requirement] R17.16: HTML status renders correctly :: interleave;word;repeat5
+- d4e5f6a7-b8c9-4d0e-1f2a-000000000016 [Requirement] R17.17: Task status as state-machine met :: interleave;word;repeat5
+- d5478d32-7a51-4bc4-968a-bda4ababed4f [Test] test:R17.24 vcardUpload :: word
+- e18c1a2c-b8d2-4742-8945-da4b69beeffa [Message] SystemTester: r3112-own1-2-79988 :: word
+- e48832b2-4b28-430f-96a7-50000948fad9 [Method] server.resolveUsedIn :: word
+- f93d369a-bcc4-4c77-9816-b9c4c0de727d [Requirement] Detail container = ONE CSS-responsive in :: word
+
+## INTERLEAVE-only (architect: refine detector w/ entropy — some are coincidental random)
+
+- 01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f [Implementation] RbDetailDrawer.dragResize impl
+- 0f430305-66f5-4443-bdd9-d0d360c2f766 [TestCase] subsequent write with returned mtime suc
+- 103d3e4f-5061-4273-839a-d03030303104 [Test] AC1-AC5
+- 104d3e4f-5061-4273-894a-d04040404104 [Task] T104: Object.verb Use-Case Diagrams
+- 105e4f50-6172-4384-895b-e05050505105 [Task] T105: defaultItemView Web Component (dra
+- 1d0cf9b9-b0c2-4881-b53b-65d187654f68 [Requirement] TAKE-OVER diffs (per-hunk left->center /
+- 28899895-ee1d-4ccb-916f-34baa5f099c0 [TestCase] speaking names match task slugs
+- 30c3d4e5-f6a7-4b82-9c93-1d2e3f4a5b62 [Requirement] | Requirement | Task | Use case | PUML |
+- 32951d17-47f6-486a-bcde-2671fc93ec51 [Device] 
+- 48cf6080-491c-4b5c-ab6c-ed4e0d5dde17 [Test] test:R30.39 deep-link history-fill parit
+- 4d7e2a91-6b3c-4f8a-9e1d-2c5b7a0f3e64 [Implementation] RbCompartment.applyPresentation impl
+- 5333d468-2434-4552-b5f7-e1bdc1d9c716 [Requirement] Existing-source .puml itemview renders i
+- 6006ce1a-ae1f-4016-93f9-f6f7cb5ad948 [Device] 
+- 63d58e0f-b1a2-4c3d-8e4f-5a6b7c8d9e0f [Implementation] R20.30 renderChainPathSection — depth-fi
+- 6a6a56d3-3e06-44e9-9ca2-b7c11d574bff [Task] Task 30.9: IntelliJ-faithful base-aware 
+- 7c1f4ab2-9e3d-4f6a-8b5c-2d0e1f3a4b5d [Test] * Object.verb migration (introspection, 
+- 8c9d0e1f-2a3b-4c4d-5e6f-7a8b9c0d1e2f [UseCase] traceTree.computeBadges
+- 9d0e1f2a-3b4c-4d5e-6f7a-8b9c0d1e2f3a [Method] RbTraceTree.computeBadges
+- a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d [Requirement] R-A2: Avatar upload must work without ex
+- a28f0e01-4c5d-4a3b-8e7f-001122334455 [Task] T28: Fix All Task Files — Web4Articles T
+- a3958f85-2735-4356-82f8-d2e9ce27a7d8 [Class] ProfilePage
+- b07c18d2-e3f4-4a56-7b8c-9d0e1f230037 [Requirement] R17.38: Zero orphan scenario units exist
+- b29f0e02-5d6e-4b4c-9f80-002233445566 [Task] T29: Update OOSH Sprint Tool — Template 
+- b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e [Requirement] R-R1: All user rooms load from disk on c
+- b2f3a4e5-c6d7-4e8f-9a01-2b3c4d5e6f27 [Requirement] In BOTH task files AND generated views, 
+- b849fda2-b15d-4567-8a73-79d2567ec396 [Task] Task 27.7: WebItem type-aware preview dr
+- bbfc6d8b-c836-46df-a813-97ebaab43210 [Method] SprintPinResolver.sprintNumOf
+- c18d29e3-f4a5-4b67-8c9d-0e1f2a340038 [Requirement] R17.39: A data-quality CI gate fails the
+- c30f0e03-6e7f-4c5d-a091-003344556677 [Task] T30: PO Process Documentation
+- c3a4b5e6-d7e8-4f90-a1b2-3c4d5e6f7028 [Requirement] Every node in the traceability tree IS a
+- ce7f0047-334b-474c-ac99-897b9590a968 [Task] T12: SSH-Based Login (Challenge-Response
+- d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f [Implementation] R20.22 getThreeSlots
+- d37f0e04-7f80-4d6e-b102-004455667788 [Task] T37: Hotfixes — Private Room + Version B
+- d4b5c6e7-e8f9-4a01-b2c3-4d5e6f708029 [Requirement] Update S17 `planning.md` AND rework ever
+- d63e74f8-a9b0-4c12-3d4e-5f6a7b890033 [Requirement] R17.34: Implementation traces finally to
+- e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b [Implementation] parse-test-cases.ts
+- e74f85a9-b0c1-4d23-4e5f-6a7b8c900034 [Requirement] R17.35: One implementation can have mult
+- ed543211-2314-4768-af75-cf09b39a4dc7 [Method] FileUnit.upload
+- f0b1a2c3-c3d4-4e56-7f8a-9b0c1d230047 [Requirement] | Req | UUID (short) | Task(s) | Categor
+- f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c [UseCase] modelElement.reconcileCanonical
+- f4f3c201-1c7c-4240-bad5-2975f46ccb33 [Message] SystemTester: r3112-own2-3-93630
+- f8a2b3c4-d5e6-4f78-9a0b-1c2d3e4f5a6b [Test] Phase 2 parity
