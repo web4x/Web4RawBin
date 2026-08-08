@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b8e4a1c2-7f39-4d5b-a061-2e9c6f04b8d1",
+    "name": "test:R40.3-A AC-2+AC-5 renderKeyMap — keybar renders 8 data-driven keys from the config unit + tap emits real PTY bytes",
+    "description": "Bridged to test/visual/r403a-served-render-confirm.mjs (r403a, GREEN DET-3x, served 0.8.67 @390, 8c007154e). Certifies the keybar RENDERS (RED->GREEN flip, not the empty no-bar state) + is data-driven + input reaches the PTY.",
+    "sourceFile": "ior:file:test/visual/r403a-served-render-confirm.mjs",
+    "implementations": [
+      "ior:instance:dbdcc42d-868b-4679-a039-1f4d0d8bfbdf"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "certificationScope": {
+      "proven_harness_realwebkit_390_served_0_8_67": "AC-2+AC-5: the keyboard bar RENDERS 8 data-driven keys read from the config unit j.unit.model.keys (the RED->GREEN flip, NOT the empty no-bar state); a key tap dispatches its real byte sequence to the PTY ws (Esc=[27]), proving suppression did NOT break input; keymap is data-driven (config unit c16abc17).",
+      "not_proven_owner_page_and_device": "AC-3 terminal-FULLY-VISIBLE + AC-4 input-row-NOT-overlaying-Scenario/Edit = OWNER-PAGE (terminal UI owner-gated e2e, no non-owner can load it). AC-OSK = DEVICE-ONLY Tron (vacuous headless). -> Tron owner-device QA."
+    }
+  },
+  "ownerIor": "ior:instance:dbdcc42d-868b-4679-a039-1f4d0d8bfbdf"
+}

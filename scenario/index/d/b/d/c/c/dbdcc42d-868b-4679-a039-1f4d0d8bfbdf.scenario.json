@@ -4,7 +4,9 @@
     "uuid": "dbdcc42d-868b-4679-a039-1f4d0d8bfbdf",
     "name": "RbKeyboardBar.renderKeyMap impl (data-driven from keymap unit)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:b8e4a1c2-7f39-4d5b-a061-2e9c6f04b8d1"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts",
     "markerNote": "STRICT-AST VERIFIED: heads static renderKeyMap@rb-keyboard-bar.ts:35 (name-match, 0 intervening). data-driven from keymap config unit c16abc17; sends byte sequences via R31.4 ws PTY."
   },
