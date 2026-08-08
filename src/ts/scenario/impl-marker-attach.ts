@@ -8,12 +8,18 @@
  */
 import * as ts from 'typescript';
 
-// 4-way honest split (PO 2026-08-08): ANON_HANDLER kept SEPARATE from UNPROVEN — it is a STRUCTURAL case (the impl
-// exists locally but in an anonymous handler/scope with NO named-member decl for the AST rule to attach to, e.g.
-// sw.js ServiceWorker.ignoreSearchNav in a fetch handler); architect owns the policy, so it needs its own number.
-// UNPROVEN reads UNPROVEN/NEEDS-VERIFICATION — the name appears elsewhere in src = WEAK evidence, not "probably fine".
-export type ImplBucket = 'PROVEN_COMPLETE' | 'ANON_HANDLER' | 'UNPROVEN' | 'PROVEN_FICTIONAL';
-export interface Decl { fullStart: number; start: number; end: number; name: string | null; kind: 'named-member' | 'data' | 'non-member' }
+// HONEST buckets (PO 2026-08-08, post read-pass): 'FICTIONAL' means the feature does NOT EXIST — the read proved
+// that is ≈0, so the old 53 split by DEFECT (different defect ⇒ different fix, one bucket would hide that):
+//  PROVEN_COMPLETE   — marker heads a named-member decl (credit stands, label-independent)
+//  ANON_HANDLER      — impl real+local but in an anon handler/scope, no named decl (structural; architect policy)
+//  SPLIT_FOR_CLUSTER — real method, multi-uuid markers stacked at file header '(split for X.method)'; fix = marker
+//                      CONSOLIDATION (strict-marker-audit's own canonical rule ALREADY fails this — a named defect)
+//  FILE_HEADER       — module-level R-tag in the top doc-comment (heads a non-member import/class); needs a POLICY
+//                      call (file-scope vs must-attach-to-method) — same question as ANON_HANDLER, route to architect
+//  UNPROVEN          — name appears in OTHER src = WEAK evidence → NEEDS-VERIFICATION, not denied
+//  FICTIONAL         — name appears NOWHERE in src = provably no such symbol (≈0 after the read-pass)
+export type ImplBucket = 'PROVEN_COMPLETE' | 'ANON_HANDLER' | 'SPLIT_FOR_CLUSTER' | 'FILE_HEADER' | 'UNPROVEN' | 'PROVEN_FICTIONAL';
+export interface Decl { fullStart: number; start: number; end: number; name: string | null; kind: 'named-member' | 'handler' | 'data' | 'non-member' }
 
 /** All declarations in a source file, mirroring strict-marker-audit's engine (named-member = function/method/accessor/
  *  ctor/field-arrow/const-fn; data = plain const/prop; non-member = class/interface/import/type). */
@@ -29,6 +35,14 @@ export function collectDecls(src: string, filePath: string): Decl[] {
     else if (ts.isPropertyDeclaration(n) && ts.isIdentifier(n.name)) push(n, n.name.text, n.initializer && (ts.isArrowFunction(n.initializer) || ts.isFunctionExpression(n.initializer)) ? 'named-member' : 'data');
     else if (ts.isVariableStatement(n)) { const d = n.declarationList.declarations[0]; const nm = d && ts.isIdentifier(d.name) ? d.name.text : null; const fn = n.declarationList.declarations.some((x) => x.initializer && (ts.isArrowFunction(x.initializer) || ts.isFunctionExpression(x.initializer))); push(n, nm, fn ? 'named-member' : 'data'); }
     else if (ts.isClassDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isTypeAliasDeclaration(n) || ts.isImportDeclaration(n) || ts.isExportDeclaration(n)) push(n, null, 'non-member');
+    // HANDLER-SCOPE (architect 05b63e85d policy B): an addEventListener(...) call OR an on<Event>= arrow assignment is
+    // a handler node the AST can bind — a marker heading it + an explicit method label = attached (browser idiom).
+    else if (ts.isExpressionStatement(n)) {
+      const ex = n.expression;
+      const isAEL = ts.isCallExpression(ex) && ((ts.isPropertyAccessExpression(ex.expression) && ex.expression.name.text === 'addEventListener') || (ts.isIdentifier(ex.expression) && ex.expression.text === 'addEventListener'));
+      const isOnAssign = ts.isBinaryExpression(ex) && ex.operatorToken.kind === ts.SyntaxKind.EqualsToken && ts.isPropertyAccessExpression(ex.left) && /^on[a-z]/i.test(ex.left.name.text) && (ts.isArrowFunction(ex.right) || ts.isFunctionExpression(ex.right));
+      if (isAEL || isOnAssign) push(n, null, 'handler');
+    }
     ts.forEachChild(n, visit);
   };
   visit(sf);
@@ -55,9 +69,14 @@ export function ownerDecl(markerOffset: number, decls: Decl[]): Decl | null {
   for (const d of decls) if (markerOffset >= d.fullStart && markerOffset < d.start) if (!own || (d.start - d.fullStart) < (own.start - own.fullStart)) own = d;
   return own;
 }
+/** An explicit Class.method label = a clean JS identifier (the handler-attach intent-match; prose like 'in-room' fails). */
+export function validMethodLabel(label: string): boolean { return /^[a-z_$][\w$]*$/i.test(label); }
+
 export function isImplMarkerAttached(markerOffset: number, label: string, decls: Decl[]): boolean {
   const own = ownerDecl(markerOffset, decls);
-  return !!(own && own.kind === 'named-member' && own.name); // heads a named member = attached (label-independent)
+  if (own && own.kind === 'named-member' && own.name) return true;          // heads a named member = attached (label-independent)
+  if (own && own.kind === 'handler' && validMethodLabel(label)) return true; // heads a handler node + explicit method label (policy B)
+  return false;
 }
 
 /**
@@ -67,17 +86,20 @@ export function isImplMarkerAttached(markerOffset: number, label: string, decls:
  *                     under an existing decl / re-exported symbol) → credit SUSPENDED (the mirror-error guard)
  *  PROVEN_FICTIONAL — not attached AND NO decl with that name anywhere in src (the claimed impl does not exist) → DENIED
  */
-export function classifyImplMarker(markerOffset: number, label: string, fileDecls: Decl[], fileTokens: Set<string>, globalTokens: Set<string>): ImplBucket {
-  if (isImplMarkerAttached(markerOffset, label, fileDecls)) return 'PROVEN_COMPLETE';
-  if (!label) return 'PROVEN_FICTIONAL';                       // no resolvable method token → cannot back a named claim
-  // MIRROR-ERROR GUARD (PO flag), fail-closed toward not-erasing-real-work but each level honestly labelled:
-  if (fileTokens.has(label)) return 'ANON_HANDLER';           // impl is LOCAL to this file but in a non-named construct (structural; architect policy)
-  if (globalTokens.has(label)) return 'UNPROVEN';             // name appears in OTHER src = WEAK evidence → NEEDS-VERIFICATION, not denied
-  return 'PROVEN_FICTIONAL';                                  // name appears NOWHERE in src = provably no such symbol
+export function classifyImplMarker(markerOffset: number, label: string, text: string, fileDecls: Decl[], fileTokens: Set<string>, globalTokens: Set<string>): ImplBucket {
+  const own = ownerDecl(markerOffset, fileDecls);
+  if (own && own.kind === 'named-member' && own.name) return 'PROVEN_COMPLETE';        // heads a named member (label-independent)
+  if (own && own.kind === 'handler' && validMethodLabel(label)) return 'PROVEN_COMPLETE'; // handler-scope attach (policy B)
+  if (/\(split for/i.test(text)) return 'SPLIT_FOR_CLUSTER';                            // real method, multi-uuid stacked at header
+  if (own && own.kind === 'non-member') return 'FILE_HEADER';                           // module-level R-tag (heads import/class) → policy Q
+  if (own && own.kind === 'handler') return 'ANON_HANDLER';                             // heads a handler but prose/invalid label (fallback-A residue)
+  if (label && fileTokens.has(label)) return 'ANON_HANDLER';                            // local inline impl, no headed node
+  if (label && globalTokens.has(label)) return 'UNPROVEN';                              // name in OTHER src = weak → NEEDS-VERIFICATION
+  return 'PROVEN_FICTIONAL';                                                            // name NOWHERE = provably no such symbol (≈0)
 }
 
-export interface ImplMarkerRef { uuid: string; file: string; offset: number; label: string }
-export interface ImplMarkerBuckets { complete: ImplMarkerRef[]; anonHandler: ImplMarkerRef[]; unproven: ImplMarkerRef[]; fictional: ImplMarkerRef[]; outsideScope: ImplMarkerRef[]; markerTotal: number; fileCount: number }
+export interface ImplMarkerRef { uuid: string; file: string; offset: number; label: string; text: string }
+export interface ImplMarkerBuckets { complete: ImplMarkerRef[]; anonHandler: ImplMarkerRef[]; splitForCluster: ImplMarkerRef[]; fileHeader: ImplMarkerRef[]; unproven: ImplMarkerRef[]; fictional: ImplMarkerRef[]; outsideScope: ImplMarkerRef[]; markerTotal: number; fileCount: number }
 
 const IMPL_RE = /\[impl:uuid:([0-9a-f-]{8,36})\]\s*([^\n]*)/gi;
 const CODE = /\.(ts|js|mjs)$/;
@@ -98,7 +120,7 @@ export function scanImplMarkers(root: string, fsMod: { readdirSync: Function; re
     let w: RegExpExecArray | null; WORD.lastIndex = 0; while ((w = WORD.exec(src))) { const t = w[0].toLowerCase(); fileTok.add(t); globalTokens.add(t); }
     tokensByFile.set(p, fileTok);
     let m: RegExpExecArray | null; IMPL_RE.lastIndex = 0;
-    while ((m = IMPL_RE.exec(src))) { const ref: ImplMarkerRef = { uuid: m[1], file: p, offset: m.index, label: labelMethod(m[2] || '') }; (scoped ? inScope : outsideScope).push(ref); }
+    while ((m = IMPL_RE.exec(src))) { const ref: ImplMarkerRef = { uuid: m[1], file: p, offset: m.index, label: labelMethod(m[2] || ''), text: (m[2] || '').trim() }; (scoped ? inScope : outsideScope).push(ref); }
   };
   const walk = (d: string, scoped: boolean) => {
     let ents: any[]; try { ents = fsMod.readdirSync(d, { withFileTypes: true }); } catch { return; }
@@ -107,10 +129,8 @@ export function scanImplMarkers(root: string, fsMod: { readdirSync: Function; re
   walk(pathJoin(root, 'src'), true);
   walk(pathJoin(root, 'scripts'), true);
   walk(pathJoin(root, 'test'), false); // [impl] markers found under test/ are outside-scope
-  const out: ImplMarkerBuckets = { complete: [], anonHandler: [], unproven: [], fictional: [], outsideScope, markerTotal: inScope.length + outsideScope.length, fileCount };
-  for (const r of inScope) {
-    const bucket = classifyImplMarker(r.offset, r.label, declsByFile.get(r.file) || [], tokensByFile.get(r.file) || new Set(), globalTokens);
-    (bucket === 'PROVEN_COMPLETE' ? out.complete : bucket === 'ANON_HANDLER' ? out.anonHandler : bucket === 'UNPROVEN' ? out.unproven : out.fictional).push(r);
-  }
+  const out: ImplMarkerBuckets = { complete: [], anonHandler: [], splitForCluster: [], fileHeader: [], unproven: [], fictional: [], outsideScope, markerTotal: inScope.length + outsideScope.length, fileCount };
+  const route: Record<ImplBucket, ImplMarkerRef[]> = { PROVEN_COMPLETE: out.complete, ANON_HANDLER: out.anonHandler, SPLIT_FOR_CLUSTER: out.splitForCluster, FILE_HEADER: out.fileHeader, UNPROVEN: out.unproven, PROVEN_FICTIONAL: out.fictional };
+  for (const r of inScope) route[classifyImplMarker(r.offset, r.label, r.text, declsByFile.get(r.file) || [], tokensByFile.get(r.file) || new Set(), globalTokens)].push(r);
   return out;
 }
