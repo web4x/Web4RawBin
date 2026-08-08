@@ -22,3 +22,5 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] [Task 40.8: 'Files' shows the REAL measured on-disk path of the scenario unit (fail-closed if absent, browsable)](./task-40.8-files-real-disk-path.md)
 - [ ] [Task 40.9: 'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer)](./task-40.9-preview-traceability-drawer-reuse.md)
 - [ ] [Task 40.10: Tron renders his QA verdict FROM the task — Approve (records verdict + flips Done-gate) / Decline (mints a ChangeRequest)](./task-40.10-tron-qa-verdict-approve-decline.md)
+- [ ] [Task 40.11: deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)](./task-40.11-deployment-refs-scenario-units-default-views.md)
+- [ ] [Task 40.12: File detail view renders a working type-appropriate preview (audio player regression fix; fail-loud, all contexts)](./task-40.12-file-preview-audio-player-regression.md)

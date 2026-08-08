@@ -66,7 +66,7 @@
   - [ ] **(automatable)** [AUTOMATABLE] Per-surface actionSets declared as DATA (config units), not hardcoded.
   - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] The invariant: NO logical action is implemented more than once across the detail/feature views (DE-DUPLICATION, not uniformity). A grep-zero-bespoke lint SCOPED to the detail/feature-view surfaces ONLY — it must NOT fire on the editor chrome, and it must FAIL if a NEW bespoke detail-view button appears (plant one -> RED).
   - [ ] **(device)** [DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load).
-  -> 1c21d43a [uc:uuid:1c21d43a-c036-43b8-b947-1fae68720bb5]
+  -> detailView.migrateExtraButtonsToActions [uc:uuid:1c21d43a-c036-43b8-b947-1fae68720bb5]
 
 - [ ] **R40.6 — deploymentRefs become a real typed OOP model (interfaces + inheritance, IOR relationships to file-leaf nodes)**
   [requirement:uuid:6a9d99c3-7ca7-4b35-b808-8dcc6719e162]
@@ -83,7 +83,7 @@
   - [ ] **(automatable)** [AUTOMATABLE, graph] The types reuse the existing M2 metamodel family (a1d2e3f4-... sentinels) — NO parallel type system; the deployment-node facet already added (R40.2 UmlNode) extends, not forks.
   - [ ] **(automatable)** [AUTOMATABLE] INV-T byte-diff==0 — the typed model is compute-on-read / a structural migration that does not churn unrelated units.
   - [ ] **(automatable)** [AUTOMATABLE, graph] Each NEW M2 member (the deployment-type metaclasses joining the a1d2e3f4-.. family) carries a sentinelReason field ("M2 deployment-metamodel member, patterned by design for family lookup") so the registered-sentinel exception is PROVABLE-not-remembered — an unexplained legitimate patterned uuid is indistinguishable from a fabricated defect (R5 sentinel rule + the identity-detector exclusion).
-  -> b2c5cdba [uc:uuid:b2c5cdba-527d-4321-89f9-c5ec1158ccf0]
+  -> deploymentModel.typedOopRefs [uc:uuid:b2c5cdba-527d-4321-89f9-c5ec1158ccf0]
 
 - [ ] **R40.7 — Back is real history back; the path label navigates to the containing folder**
   [requirement:uuid:6ce80195-a394-4ba3-b9ca-3db7a04d2ce2]
@@ -93,7 +93,7 @@
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] '← Back' performs genuine history back — proven by navigating 2+ steps then Back returns to the prior view (not the folder).
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] Clicking the '📁 scenario/...' path label navigates to the CONTAINING FOLDER (today's Back behaviour).
   - [ ] **(automatable)** [AUTOMATABLE @390] The two are DISTINCT: Back does history, the path label does folder-nav; neither does the other's job (both asserted in one flow).
-  -> 5d02d562 [uc:uuid:5d02d562-eafb-4bc9-8d6f-3894b3fbda9c]
+  -> detailView.backVsPathNav [uc:uuid:5d02d562-eafb-4bc9-8d6f-3894b3fbda9c]
 
 - [ ] **R40.8 — 'Files' shows the real on-disk file location of the scenario unit**
   [requirement:uuid:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb]
@@ -102,7 +102,7 @@
   **Acceptance criteria:**
   - [ ] **(automatable)** [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
   - [ ] **(automatable)** [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
-  -> 98df6abf [uc:uuid:98df6abf-7801-457d-92bd-690aac4819a7]
+  -> editorFooter.filesRealPath [uc:uuid:98df6abf-7801-457d-92bd-690aac4819a7]
 
 - [ ] **R40.9 — 'Preview' shows that scenario's traceability chain + details drawer (reusing existing surfaces)**
   [requirement:uuid:50753cf6-59e8-4251-84e0-7d54f988ce76]
@@ -112,7 +112,7 @@
   - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).
-  -> 23af7ba9 [uc:uuid:23af7ba9-4aad-4455-83f7-48b6ca62165d]
+  -> editorFooter.previewTraceability [uc:uuid:23af7ba9-4aad-4455-83f7-48b6ca62165d]
 
 - [ ] **R40.10 — Tron renders his QA verdict from the task: Approve (records verdict + flips Done-gate) / Decline (mints a ChangeRequest)**
   [requirement:uuid:33451271-29db-4e54-acaa-d0d9f59c04ad]
@@ -125,4 +125,28 @@
   - [ ] **(automatable)** [AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it.
   - [ ] **(automatable)** [AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5s exact defect while fixing it).
   - [ ] **(device)** [DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification.
-  -> 0a3e3653 [uc:uuid:0a3e3653-c997-4a87-97ef-1511a1fef5dd]
+  -> taskQa.tronVerdict [uc:uuid:0a3e3653-c997-4a87-97ef-1511a1fef5dd]
+
+- [ ] **R40.11 — deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)**
+  [requirement:uuid:83528e2f-60d3-4d62-acf3-2e3b4068fce5]
+  all deploymentRefs are still buggy on the details view as long as they are not scenario-first units with default views
+  The deploymentRefs still render buggy on the details view: the tree hands the drawer a SYNTHETIC pseudo-ref (depref:<name>) that is not a real unit ior, so the drawer shows a PERMANENT "Loading..." + no children (Tron: selected ssh-host-identity under WODA.prod, drawer hung forever). ROOT: R40.6 typed the M1 nodes but kept deploymentRefs as a raw STRING ARRAY read-view (34d297d91) — those strings are what the tree renders. FIX: every deploymentRef becomes a REAL scenario-first unit of its R40.6 type with a DEFAULT VIEW; the tree emits the REAL ior; unresolvable refs FAIL LOUD (never silent Loading).
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, graph] EVERY deploymentRef is a REAL minted scenario unit of the right R40.6 type (ssh-service->Service, ssh-host-identity->KeyFile, domain(.env#LE_DOMAIN)->EnvValue, letsencrypt-cert->Certificate; FileBacked realizers where a real file backs them). REUSE the R40.6 M2 types (0022-0033), NOT new machinery — no synthetic pseudo-unit.
+  - [ ] **(automatable)** [AUTOMATABLE, source] The tree emits the REAL unit ior for each deploymentRef node, NEVER a synthetic depref:<name> pseudo-id (grep: no depref: id reaches the drawer).
+  - [ ] **(device)** [AUTOMATABLE render + @390 device] The detail drawer renders identity + fields + parent/children via ONE GENERIC default view DRIVEN BY THE M2 TYPE (the type determines the fields shown) — NOT per-type bespoke views that can drift (PO steer; DRY, the R40.5 lesson). The drawer does NOT hang. Verified @390 real-WebKit that it renders content, not Loading.
+  - [ ] **(automatable)** [AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT "unresolved: <ior>" error state — a permanent "Loading..." is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin).
+  - [ ] **(device)** [DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged).
+  -> 249fdab6 [uc:uuid:249fdab6-2eab-4997-86cc-9f8624ff090c]
+
+- [ ] **R40.12 — File detail view renders a working type-appropriate preview (audio player regression fix; fail-loud, all contexts)**
+  [requirement:uuid:c9fa4f49-caa1-4032-ae47-7144646c4fd0]
+  here we also have a massive regression from a music player and the item being a file and especially a music file with a music player
+  REGRESSION: selecting an audio file (Ed Sheeran - I See Fire.mp3, unit 63462717-1771-4775-aeda-d9947d7bcbd2) in Heartspaces on v0.8.71 renders File badge+name+uuid+parent then a LARGE EMPTY BLACK BOX where the audio player should be — the S23 (R23.1) HTML5 audio player is GONE. FIX (code AND the S23 requirement, per device-regression=missing-AC): a File unit detail view renders a type-appropriate preview (audio->working player), fail-LOUD on failure (never an empty box), present in EVERY context the drawer opens, gated @390 real-device by PIXEL.
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] A FILE unit detail view renders a TYPE-APPROPRIATE preview; an AUDIO file renders a WORKING HTML5 audio player (play/pause/seek controls PRESENT + functional), NOT an empty container.
+  - [ ] **(automatable)** [AUTOMATABLE, ★ silent-failure guard] If a preview CANNOT render, an EXPLICIT error state is shown -- an empty box is a SILENT failure (the same sin as R40.11 eternal spinner). Fail-LOUD, never a blank container; stub-must-fail (break the asset -> explicit error, not empty).
+  - [ ] **(automatable)** [AUTOMATABLE] The asset is REGISTERED/present in EVERY context the drawer opens: ROOM view AND /trace AND /app -- a context-dependent empty render is HOW this hid (the drawer resolved the file in one context, not the room view).
+  - [ ] **(device)** [AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone.
+  - [ ] **(automatable)** [AUTOMATABLE] DET-3x (deterministic 3x) + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped).
+  -> 16b3a2ef [uc:uuid:16b3a2ef-de39-470b-abd3-8e436047ab1a]
