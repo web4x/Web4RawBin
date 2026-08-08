@@ -1,87 +1,73 @@
-// R40.2 Server-Manager-ROOT — server-side STRUCTURE gate (tsx against HEAD, non-owner). SURFACE-LABELLED.
-//   [REAL·NON-OWNER] the /api/server-manager/tree endpoint 403s a non-owner and leaks NO tree content.
-//   [REAL server-side] OtmuxBridge.readSessionTree() = the LIVE LENS: nested otmuxSession→otmuxWindow→otmuxPane, read
-//     FRESH per call (call twice → both reflect the live tmux; never a mirror). node unit fc327458 = kind:node + the 4
-//     measured deploymentRefs (sshd_config / SSH host key / .env LE_DOMAIN / LE cert). Read-only → INV-T byte-diff==0 by construction.
-//   [REPLICATED·labelled] the re-root composition (server.ts:1482-1492 is INLINE in the handler, NOT a function — flagged for
-//     extraction): single ROOT = the WODA.prod node, children = [4 refRows, ...sessionRows]. Verifies the EXPECTED shape from the real inputs.
-//   [SOURCE·fail-open] ★ stub-must-fail: the fail-open catch (server.ts) must be LOUD (a visible WARN row), NOT silent — a
-//     silent fall-back to the flat list is exactly Tron's original complaint and nobody would notice. RED while it is silent.
-//   [OWNER-PAGE → Tron] the VISUAL @390 render of the rooted tree (owner-only page).
+// [test:uuid:a3f9c1d7-2b48-4e91-8c05-6f1a9d3b74e2] R40.2-root graceful-degradation-is-LOUD — DISTINCT intent (not the
+// render-contract e9b21f74): OtmuxBridge.buildRootedTree fail-opens LOUD — a missing / non-`node` unit yields a VISIBLE
+// ⚠ notice row naming the uuid + a server WARN, flat sessions still wrapped, NEVER a silent slide to the bare flat list.
+// Rides the extracted buildRootedTree Impl (req to mint the Impl unit + adopt this Test — R5 no-invent).
+//
+// R40.2 Server-Manager-ROOT — now gates the REAL extracted function (buildRootedTree), NOT a [REPLICATED] copy. SURFACE-LABELLED.
+//   [REAL·non-owner] /api/server-manager/tree 403s a non-owner, leaks no tree content.
+//   [REAL·function] OtmuxBridge.buildRootedTree(realSessions, real fc327458 unit, NODE_UUID) → single ROOT deploymentNode
+//     WODA.prod with children [4 deploymentRef rows, ...session rows (otmuxSession→Window→Pane)].
+//   [REAL·INV-T] pure composer: does NOT mutate its inputs + deterministic → byte-diff==0.
+//   [REAL·function·LOUD] node null / not-a-node → a VISIBLE type:'notice' ⚠ row naming the uuid + a server console.warn;
+//     stub-must-fail: strip the notice → roots[0].type flips to 'otmuxSession' (silent flat) → RED.
+//   [OWNER-PAGE → Tron] the VISUAL @390 render of the rooted tree.
 import fs from 'node:fs';
 import https from 'node:https';
 import { OtmuxBridge } from '../../src/ts/server/OtmuxBridge.js';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
 const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
-const httpGet = (path: string, headers = {}): Promise<{ status: number; body: string }> => new Promise((resolve) => {
-  const r = https.request({ host: 'prod.wo-da.de', port: 4444, path, method: 'GET', headers, rejectUnauthorized: false }, (res) => {
-    let b = ''; res.on('data', (c) => b += c); res.on('end', () => resolve({ status: res.statusCode || 0, body: b }));
-  });
-  r.on('error', () => resolve({ status: 0, body: 'ERR' })); r.end();
+const httpGet = (p: string, h = {}): Promise<{ status: number; body: string }> => new Promise((res) => {
+  const r = https.request({ host: 'prod.wo-da.de', port: 4444, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (x) => { let b = ''; x.on('data', (c) => b += c); x.on('end', () => res({ status: x.statusCode || 0, body: b })); });
+  r.on('error', () => res({ status: 0, body: 'ERR' })); r.end();
 });
 
 async function main() {
-  // [REAL·NON-OWNER] 403 + no tree-content leak
-  const noTok = await httpGet('/api/server-manager/tree');
-  const unk = await httpGet('/api/server-manager/tree', { 'x-player-token': '00000000-0000-4000-8000-000000000000' });
-  const leaks = (s: string) => /otmuxSession|otmuxPane|deploymentNode|"sess:|"win:|deploymentRef/.test(s);
-  const ac403 = noTok.status === 403 && unk.status === 403 && !leaks(noTok.body) && !leaks(unk.body);
-
-  // [REAL server-side] the LENS — fresh nested tree per call
-  const t1 = await OtmuxBridge.readSessionTree();
-  const t2 = await OtmuxBridge.readSessionTree();
-  const nested = Array.isArray(t1) && t1.length > 0 && t1.every((s: any) => Array.isArray(s.windows) && s.windows.every((w: any) => Array.isArray(w.panes)));
-  const freshLens = Array.isArray(t2) && t2.length === t1.length; // read fresh each call (live tmux) — deterministic count in a stable moment, re-read not cached
-  const paneCount = t1.reduce((n: number, s: any) => n + s.windows.reduce((m: number, w: any) => m + w.panes.length, 0), 0);
-
-  // [REAL] node unit fc327458 = kind:node + 4 deploymentRefs
-  const shard = `${ROOT}/scenario/index/${NODE_UUID.slice(0, 5).split('').join('/')}/${NODE_UUID}.scenario.json`;
-  let nm: any = null; try { nm = JSON.parse(fs.readFileSync(shard, 'utf8')).model; } catch { /* */ }
-  const roles = (nm && Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => String(d.role));
-  const nodeOk = !!nm && nm.kind === 'node' && roles.length === 4;
-
-  // [REPLICATED·labelled] the inline re-root composition on the REAL inputs → single WODA.prod root, refs+sessions as children
-  const sessionRows = t1.map((s: any) => ({ uuid: 'sess:' + s.name, type: 'otmuxSession' }));
-  const refRows = roles.map((r: string) => ({ uuid: 'depref:' + r, type: 'deploymentRef' }));
-  const roots = (nm && nm.kind === 'node') ? [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), children: [...refRows, ...sessionRows] }] : sessionRows;
-  const singleRoot = roots.length === 1 && roots[0].type === 'deploymentNode';
-  const childrenAreLensPlusRefs = singleRoot && roots[0].children.filter((c: any) => c.type === 'deploymentRef').length === 4 && roots[0].children.filter((c: any) => c.type === 'otmuxSession').length === t1.length;
-
-  // [REAL] served == committed == 0.8.69 (loud fix live, phantom-guard)
+  // [REAL] served == committed (phantom-guard)
   let served = ''; try { served = JSON.parse((await httpGet('/api/config')).body).version; } catch { /* */ }
-  const servedOk = served === '0.8.69';
+  const servedOk = served === '0.8.70';
 
-  // ★ [SOURCE·fail-open LOUD, served 0.8.69] BOTH degradation paths (else: node missing/not-a-node · catch: exception) must
-  // emit a server WARN + a VISIBLE type:'notice' ⚠ row wrapping the flat sessions — NOT a silent slide to the bare flat list.
-  const handlerSrc = fs.readFileSync(`${ROOT}/src/ts/server/server.ts`, 'utf8');
-  const reRootStart = handlerSrc.indexOf('R41 RE-ROOT');
-  const reRootBlock = handlerSrc.slice(reRootStart, handlerSrc.indexOf('server-manager/rc', reRootStart)); // full block incl else + catch branches
-  const warns = (reRootBlock.match(/console\.warn\(`\[server-manager\] WARN/g) || []).length;   // both paths WARN
-  const noticeRows = (reRootBlock.match(/type: 'notice'/g) || []).length;                        // both paths a VISIBLE notice row
-  const namesUuid = reRootBlock.includes(NODE_UUID) && /⚠ WODA\.prod deployment node/.test(reRootBlock);
-  const failOpenLoud = warns >= 2 && noticeRows >= 2 && namesUuid;
+  // [REAL·non-owner] 403 + no tree-content leak
+  const noTok = await httpGet('/api/server-manager/tree');
+  const leaks = (s: string) => /otmuxSession|otmuxPane|deploymentNode|"sess:|deploymentRef/.test(s);
+  const ac403 = noTok.status === 403 && !leaks(noTok.body);
 
-  // [REPLICATE·plant-missing, labelled] the fixed else-branch on a MISSING node → a VISIBLE notice row (not silent flat).
-  // stub-must-fail: if the notice were removed, roots[0].type would be 'otmuxSession' (silent flat) → this flips RED.
-  const plantMissing = (nm2: any) => {
-    if (nm2 && nm2.kind === 'node') return sessionRows; // (not this case)
-    return [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, children: sessionRows }];
-  };
-  const missingRoots = plantMissing(null);
-  const plantLoud = missingRoots.length === 1 && missingRoots[0].type === 'notice' && /⚠/.test(missingRoots[0].name) && missingRoots[0].name.includes(NODE_UUID.slice(0, 8)) && (missingRoots[0] as any).children.length === t1.length; // loud AND availability preserved
+  // real inputs: live-lens sessions + the real fc327458 node unit
+  const sessions: any[] = await OtmuxBridge.readSessionTree();
+  const shard = `${ROOT}/scenario/index/${NODE_UUID.slice(0, 5).split('').join('/')}/${NODE_UUID}.scenario.json`;
+  const nodeUnit = { model: JSON.parse(fs.readFileSync(shard, 'utf8')).model };
+  const nRefs = (nodeUnit.model.deploymentRefs || []).length;
+  const nSessions = sessions.length;
 
-  const realStructure = ac403 && nested && freshLens && nodeOk && singleRoot && childrenAreLensPlusRefs;
-  console.log(`[REAL·non-owner] tree 403+no-leak = ${ac403} (noTok:${noTok.status} unk:${unk.status})`);
-  console.log(`[REAL server-side] lens nested=${nested} fresh=${freshLens} (${t1.length} sessions, ${paneCount} panes) | node fc327458 kind=node+4refs=${nodeOk} (roles: ${roles.join('/')})`);
-  console.log(`[REPLICATED·labelled] single-root=${singleRoot} (${roots[0]?.name}) children=refs+sessions=${childrenAreLensPlusRefs}`);
-  console.log(`[REAL] served==committed==0.8.69 = ${servedOk} (served ${served})`);
-  console.log(`★ [SOURCE·fail-open LOUD] = ${failOpenLoud} (both paths: ${warns} WARNs + ${noticeRows} notice rows + names-uuid=${namesUuid}) ${failOpenLoud ? '— degradation is LOUD, not silent' : '★ RED: still silent'}`);
-  console.log(`[REPLICATE·plant-missing] node-missing → VISIBLE notice row (not silent flat) = ${plantLoud} (roots[0].type=${missingRoots[0].type})`);
-  const failOpenGreen = servedOk && failOpenLoud && plantLoud;
-  console.log(`\nSTRUCTURE (REAL+replica) = ${realStructure ? 'GREEN' : 'RED'} · ★ FAIL-OPEN-LOUD = ${failOpenGreen ? 'GREEN — DEFECT CLOSED on 0.8.69' : 'RED'}`);
-  console.log('OWNER-PAGE → TRON: the VISUAL @390 render of the rooted tree (owner-only page).');
-  console.log('★ FLAG: the re-root composition is INLINE in the tree handler (server.ts:1482-1492) — recommend extracting OtmuxBridge.buildRootedTree(sessions,nodeUnit) so the composed structure + INV-T can be gated as a FUNCTION directly (like resolveRcLink), not replicated.');
-  process.exitCode = (realStructure && failOpenGreen) ? 0 : 1;
+  // [REAL·function] compose the rooted tree from the REAL fn
+  const roots: any[] = OtmuxBridge.buildRootedTree(sessions as any, nodeUnit as any, NODE_UUID);
+  const root = roots[0];
+  const composed = roots.length === 1 && root.type === 'deploymentNode' && root.name === 'WODA.prod'
+    && root.children.filter((c: any) => c.type === 'deploymentRef').length === nRefs && nRefs === 4
+    && root.children.filter((c: any) => c.type === 'otmuxSession').length === nSessions
+    && root.children.some((c: any) => c.type === 'otmuxSession' && c.children?.some((w: any) => w.type === 'otmuxWindow' && w.children?.some((p: any) => p.type === 'otmuxPane'))); // nested lens
+
+  // [REAL·INV-T] pure — no input mutation + deterministic
+  const sBefore = JSON.stringify(sessions), uBefore = JSON.stringify(nodeUnit);
+  const roots2 = OtmuxBridge.buildRootedTree(sessions as any, nodeUnit as any, NODE_UUID);
+  const invT = JSON.stringify(sessions) === sBefore && JSON.stringify(nodeUnit) === uBefore && JSON.stringify(roots2) === JSON.stringify(roots);
+
+  // [REAL·function·LOUD] node null / not-a-node → VISIBLE notice + server WARN; stub-must-fail
+  const warns: string[] = []; const orig = console.warn; console.warn = (m?: any) => { warns.push(String(m)); };
+  const missing = OtmuxBridge.buildRootedTree(sessions as any, null, NODE_UUID);
+  const notNode = OtmuxBridge.buildRootedTree(sessions as any, { model: { kind: 'file' } } as any, NODE_UUID);
+  console.warn = orig;
+  const loud = (r: any[]) => r.length === 1 && r[0].type === 'notice' && /⚠/.test(r[0].name) && r[0].name.includes(NODE_UUID.slice(0, 8)) && r[0].children.length === nSessions; // loud notice, sessions preserved
+  const failOpenLoud = loud(missing) && loud(notNode) && warns.length === 2 && warns.every((w) => w.includes(NODE_UUID) && /WARN/.test(w));
+
+  console.log(`[REAL] served==committed==0.8.70 = ${servedOk} (${served})`);
+  console.log(`[REAL·non-owner] tree 403+no-leak = ${ac403} (${noTok.status})`);
+  console.log(`[REAL·function] composed single-root WODA.prod + ${nRefs} refs + ${nSessions} sessions (nested) = ${composed}`);
+  console.log(`[REAL·INV-T] no-mutation + deterministic (byte-diff==0) = ${invT}`);
+  console.log(`★ [REAL·function·LOUD] null+not-a-node → notice ⚠ + WARN(uuid) = ${failOpenLoud} (roots[0].type: missing=${missing[0].type} notNode=${notNode[0].type}, warns=${warns.length})`);
+  const green = servedOk && ac403 && composed && invT && failOpenLoud;
+  console.log(`\n★ R40.2-root REAL-FUNCTION gate = ${green ? 'GREEN — [REAL] end-to-end, zero replicas' : 'RED'}`);
+  console.log('OWNER-PAGE → TRON: the VISUAL @390 render of the rooted tree. Test marker a3f9c1d7 → req (rides buildRootedTree Impl).');
+  process.exitCode = green ? 0 : 1;
 }
 main();
