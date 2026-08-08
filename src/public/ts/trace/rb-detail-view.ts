@@ -37,6 +37,20 @@ export class RbDetailView extends HTMLElement {
     if (!obj) {
       const uuid = refUuid(ref);
       this.innerHTML = `<div class="dv-head"><span class="dv-type">Loading...</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${uuid}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
+      // R40.11 CARVE-OUT (FAIL-LOUD): a ref that resolves to NO unit (e.g. a depref: synthetic deployment-ref) must
+      // show an EXPLICIT 'unresolved: <ior>' — never the perpetual 'Loading…' spinner (Tron's eternal-hang drawer).
+      // This is the honesty slice ONLY: it does NOT mint typed units / consolidate emitters / migrate (that is parked R40.11).
+      // SCOPED to SYNTHETIC refs only (depref: deployment-ref rows) — legitimate chain-only units (impl/test) also hit
+      // this !obj branch and resolve via fetchDetailData, so we must NOT false-fail-loud those. Zero regression risk.
+      const isSynthetic = /(^|:)depref:/.test(ref) || uuid.startsWith('depref:');
+      const failLoud = (): void => {
+        const h = this.querySelector('.dv-head');
+        if (!h) return;
+        h.querySelector('.dv-type')!.textContent = 'unresolved';
+        h.querySelector('.dv-title')!.textContent = '⚠ unresolved: ' + (ref || uuid);
+        const kids = this.querySelector('.dv-scenario-children');
+        if (kids) kids.innerHTML = '<div class="dv-empty">no resolvable unit for this reference</div>';
+      };
       // Fetch the unit's own data (name, type, children) from /api/trace/children
       fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => {
         const head = this.querySelector('.dv-head');
@@ -46,8 +60,10 @@ export class RbDetailView extends HTMLElement {
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
           // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
           // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
+        } else if (head && !data && isSynthetic) {
+          failLoud(); // synthetic ref resolved to NO unit → honest error, not an eternal spinner
         }
-      }).catch(() => {});
+      }).catch(() => { if (isSynthetic) failLoud(); });
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
         const head = this.querySelector('.dv-head');
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
