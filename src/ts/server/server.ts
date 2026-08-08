@@ -1458,48 +1458,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       }
       if (req.method === 'GET' && filepath === '/api/server-manager/tree') { // R31.3/R31.4 read-only otmux tree
         const sessions = await OtmuxBridge.readSessionTree();
-        // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
-        // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
-        const sessionRows = sessions.map((s) => ({
-          // R31.3 badge-via-references: session carries hasChildren too (windows/panes already do) — parity with the
-          // scenario tree so the chevron/count is deterministic (client stamps dataset.childRefCount from children.length).
-          uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
-          children: s.windows.map((w) => ({
-            // R31.3: real window label 'window N' (NOT the active-command placebo w.name) + explicit hasChildren
-            // (belt-and-suspenders; the client also derives the chevron from children.length).
-            uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: 'window ' + w.index, hasChildren: true,
-            children: w.panes.map((p) => ({
-              uuid: p.paneId, type: 'otmuxPane', name: p.label + (p.title ? '  —  ' + p.title : ''), hasChildren: false,
-            })),
-          })),
-        }));
-        // R41 RE-ROOT (Tron's open question — Server Manager showed a FLAT session list, no client surface for WODA.prod):
-        // re-root under the WODA.prod deployment node (fc327458), MODEL-DRIVEN (read the node unit, don't hardcode). The
-        // node is the single ROOT row; the live otmux sessions are its CHILDREN (a LIVE LENS — read fresh here, never a
-        // mirrored copy); the node's 4 measured deploymentRefs (sshd_config · host key · .env domain · LE cert) surface as
-        // leaf rows so the deployment surface is visible where the owner works. Fail-OPEN to the flat lens if the node unit
-        // is ever missing — never break the live session surface. The UML-diagram facet (renderedBy) is untouched: this ADDS.
-        let roots: any[] = sessionRows;
+        // R41: compose the itemView `roots` via the EXTRACTED gateable function (the composition + loud fail-open live in
+        // OtmuxBridge.buildRootedTree — inline handler logic was untestable-by-construction, forcing a [REPLICATED] gate).
+        // Read the WODA.prod node unit MODEL-DRIVEN + hand the LIVE sessions (read fresh above = the live lens) to it.
         const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
-        try {
-          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID);
-          const nm: any = nodeUnit?.model;
-          if (nm && nm.kind === 'node') {
-            const refRows = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
-              uuid: 'depref:' + String(d.role), type: 'deploymentRef',
-              name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
-            }));
-            roots = [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
-          } else {
-            // fail-open AND LOUD (PO refinement): keep the live sessions available, but NEVER silently degrade to the
-            // bare flat list Tron complained about — surface a VISIBLE notice row + a server WARN naming the missing uuid.
-            console.warn(`[server-manager] WARN: WODA.prod deployment node ${NODE_UUID} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
-            roots = [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
-          }
-        } catch (e: any) {
-          console.warn(`[server-manager] WARN: WODA.prod re-root failed (${e?.message || e}) → tree DEGRADED to flat session list (fail-open).`);
-          roots = [{ uuid: 'depnode:error', type: 'notice', name: '⚠ WODA.prod deployment node re-root failed — showing flat session list', hasChildren: sessionRows.length > 0, children: sessionRows }];
-        }
+        let nodeUnit: { model?: Record<string, unknown> } | undefined;
+        try { nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID); } catch { /* buildRootedTree loud-fail-opens on an absent node */ }
+        const roots = OtmuxBridge.buildRootedTree(sessions, nodeUnit, NODE_UUID);
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;

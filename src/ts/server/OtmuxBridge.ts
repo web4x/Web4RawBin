@@ -9,6 +9,7 @@ const execFileAsync = promisify(execFile);
 export interface SmPane { paneId: string; index: string; title: string; active: boolean; label: string; }
 export interface SmWindow { index: string; name: string; active: boolean; panes: SmPane[]; }
 export interface SmSession { name: string; windows: SmWindow[]; }
+export interface SmTreeRow { uuid: string; type: string; name: string; hasChildren: boolean; children?: SmTreeRow[]; }
 // R40.1 per-pane RC deep-link. url=null is FAIL-CLOSED (no measured bridge → NO link + a stated reason), NEVER a
 // synthesised session_ URL. A url is emitted ONLY from a measured ~/.claude/sessions/<pid>.json.bridgeSessionId.
 export interface RcLink { url: string | null; reason?: string; agent?: string; }
@@ -44,6 +45,35 @@ export class OtmuxBridge {
       w.panes.push({ paneId: pid, index: pidx, title, active: pactive === '1', label: `${sname}:${widx}.${pidx}` });
     }
     return [...sessions.values()];
+  }
+
+  // R41 — compose the Server-Manager itemView `roots`: re-root the live otmux session tree under the WODA.prod
+  // deployment node (model-driven from nodeUnit). EXTRACTED from the /api/server-manager/tree handler so the
+  // composition AND the loud fail-open are gateable as REAL code — inline handler logic is untestable-by-construction
+  // (the tester had to gate a [REPLICATED] copy; this makes it gate the actual function + INV-T). This method only
+  // COMPOSES — `sessions` is the LIVE LENS the caller reads fresh each request (read-only → INV-T byte-diff==0). Fail
+  // -OPEN AND LOUD: a missing / non-`node` unit keeps the sessions available BUT surfaces a visible ⚠ notice row + a
+  // server WARN (never silently the bare flat list Tron complained about — degrade the data, never the honesty).
+  static buildRootedTree(sessions: SmSession[], nodeUnit: { model?: Record<string, unknown> } | null | undefined, nodeUuid: string): SmTreeRow[] {
+    const sessionRows: SmTreeRow[] = sessions.map((s) => ({
+      uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
+      children: s.windows.map((w) => ({
+        uuid: 'win:' + s.name + ':' + w.index, type: 'otmuxWindow', name: 'window ' + w.index, hasChildren: true,
+        children: w.panes.map((p) => ({
+          uuid: p.paneId, type: 'otmuxPane', name: p.label + (p.title ? '  —  ' + p.title : ''), hasChildren: false,
+        })),
+      })),
+    }));
+    const nm = nodeUnit?.model as any;
+    if (nm && nm.kind === 'node') {
+      const refRows: SmTreeRow[] = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
+        uuid: 'depref:' + String(d.role), type: 'deploymentRef',
+        name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
+      }));
+      return [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
+    }
+    console.warn(`[server-manager] WARN: WODA.prod deployment node ${nodeUuid} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
+    return [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${nodeUuid.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
   }
 
   // R40.1 [impl marker pending req chain] resolveRcLink(paneId) — the SELECTED pane → its claude agent's claude.ai RC
