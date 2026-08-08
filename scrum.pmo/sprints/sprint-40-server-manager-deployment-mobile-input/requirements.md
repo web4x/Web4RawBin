@@ -56,15 +56,16 @@
   - [ ] **(device)** @390 mobile: the label is legible and NOT truncated mid-number in the tree row.
   -> sprintView.renderLabel [uc:uuid:d6cb7ddd-9587-49a2-b6b2-a355862579da]
 
-- [ ] **R40.5 — All special buttons become standard action units on the shared bar (DRY everywhere)**
+- [ ] **R40.5 — Detail/feature-view EXTRA action buttons de-duplicated onto the shared action bar (editor chrome unchanged)**
   [requirement:uuid:e152177d-d016-45eb-a41f-75ffe3dc9a64]
-  all these special buttons should be standard actions - DRY everywhere
-  Every bespoke button across surfaces (Scenario · Edit · Claude.ai RC [terminal drawer] · Code · Open Diff · Save [editor header] · Files/Editor/Preview [editor footer] · Refresh · Back-to-Profile) becomes an ACTION UNIT rendered by the ONE shared universalActionBar (extends R35.1, which already migrated 4). Per-surface action sets are declared as DATA, not hardcoded; no bespoke button markup remains.
+  the editor actions can stay the same regarding ux ... but all in-room detail views have additional buttons shall become [actions] and feature views / details views have additional action buttons that are extra and not DRY
+  The DETAIL-VIEW FAMILY (in-room detail views + feature/detail views) has accumulated EXTRA bespoke action buttons that DUPLICATE the same logical actions per view (not DRY). Each such additional button becomes an action UNIT rendered by the ONE shared universalActionBar (R35.1). ★ The point is DE-DUPLICATION (no logical action implemented more than once across detail/feature views), NOT uniformity for its own sake. ⛔ OUT OF SCOPE: the EDITOR CHROME keeps its UX EXACTLY as-is (Code · Open Diff · Save · the Files/Editor/Preview footer · the header Back) — Tron is happy with that UX; do NOT migrate/restyle/relocate it.
   **Acceptance criteria:**
-  - [ ] **(automatable)** [AUTOMATABLE, source] Every listed button (Scenario/Edit/Claude.ai-RC/Code/Open-Diff/Save/Files/Editor/Preview/Refresh/Back-to-Profile) is an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696), NOT bespoke markup.
-  - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] A grep PROVES ZERO bespoke button markup remains on those surfaces (the R40.4 sprintPrefix single-source enforcement shape) — plant a bespoke button -> gate RED.
-  - [ ] **(automatable)** [AUTOMATABLE] Per-surface action sets are declared as DATA (config units), not hardcoded — the set is read, not literal.
-  - [ ] **(device)** [DEVICE/VISUAL @390 - Tron] The migrated bars render @390 unchanged-or-better (pixel; Tron final visual on the owner-gated surfaces where a non-owner cannot load).
+  - [ ] **(automatable)** [AUTOMATABLE, source] A GREP-DRIVEN INVENTORY of the ADDITIONAL action buttons across ALL in-room detail views + feature/detail views is produced at build; the EDITOR CHROME (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) is EXPLICITLY EXCLUDED and that exclusion is RECORDED (not silently dropped).
+  - [ ] **(automatable)** [AUTOMATABLE, source] Each IN-SCOPE (detail/feature-view additional) button becomes an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696/ffd44b17), NOT bespoke per-view markup.
+  - [ ] **(automatable)** [AUTOMATABLE] Per-surface actionSets declared as DATA (config units), not hardcoded.
+  - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] The invariant: NO logical action is implemented more than once across the detail/feature views (DE-DUPLICATION, not uniformity). A grep-zero-bespoke lint SCOPED to the detail/feature-view surfaces ONLY — it must NOT fire on the editor chrome, and it must FAIL if a NEW bespoke detail-view button appears (plant one -> RED).
+  - [ ] **(device)** [DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load).
   -> 1c21d43a [uc:uuid:1c21d43a-c036-43b8-b947-1fae68720bb5]
 
 - [ ] **R40.6 — deploymentRefs become a real typed OOP model (interfaces + inheritance, IOR relationships to file-leaf nodes)**
@@ -112,3 +113,16 @@
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).
   - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).
   -> 23af7ba9 [uc:uuid:23af7ba9-4aad-4455-83f7-48b6ca62165d]
+
+- [ ] **R40.10 — Tron renders his QA verdict from the task: Approve (records verdict + flips Done-gate) / Decline (mints a ChangeRequest)**
+  [requirement:uuid:33451271-29db-4e54-acaa-d0d9f59c04ad]
+  for the tasks on QA add an approve by Tron action then you do not need to remind me ... also add a action decline QA, that results in a scenario-first change request unit
+  A task at QA-Review carries TWO owner-only action units: APPROVE BY TRON (records approvedBy+approvedAt as DATA on the unit -> Done-gate flips; makes "Done requires Tron QA" PROVABLE not remembered) and DECLINE QA (mints an ior:class:ChangeRequest unit capturing the reason, LINKED to the declined task/requirement, entering the board as real work). Removes the PO from the loop: no reminder pings, no batch markdown. Applies to ANY task at QA-Review (incl the S37 twelve unsigned) -> obsoletes tron-qa-batch.md + reminders.
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, data] APPROVE fires on a QA-Review task, records approvedBy + approvedAt as DATA on the unit (so "Done requires Tron QA" is PROVABLE from the record, not remembered), and flips the Done-gate.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] DECLINE mints an ior:class:ChangeRequest unit (REUSE the EXISTING kind — registered templates.ts:370 + in CHAIN_TYPES; NOT a new kind) capturing the reason, LINKED to the declined task/requirement, entering the board as real work — a UNIT, not a comment that gets lost.
+  - [ ] **(automatable)** [AUTOMATABLE, 403] OWNER-GATED: only the owner may render a verdict; a non-owner approve/decline is 403. This gate IS the integrity of "Done requires Tron QA" — if anyone can self-approve, the law is decorative.
+  - [ ] **(automatable)** [AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it.
+  - [ ] **(automatable)** [AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5s exact defect while fixing it).
+  - [ ] **(device)** [DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification.
+  -> 0a3e3653 [uc:uuid:0a3e3653-c997-4a87-97ef-1511a1fef5dd]
