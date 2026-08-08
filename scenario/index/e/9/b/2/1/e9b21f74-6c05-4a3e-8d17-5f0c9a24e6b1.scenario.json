@@ -11,8 +11,9 @@
     "status": "pass",
     "unitLinks": [],
     "certificationScope": {
-      "proven_surface": "diagram/render contract (model + UML surface): deployment-node 3D-box/<<node>> render via renderFacet node-branch, 4 refs render, childrenLens=live readSessionTree, INV-T byte-diff==0",
-      "not_proven_pending": "Server-Manager-ROOT live-node surface (expert re-rooting the node under the server-manager page) — this Test is the diagram/render contract ONLY, not the live-rooted surface; + owner-page (PO Tron owner-QA batch)"
+      "proven_diagram_surface": "renderNodeFacet riding 94ad4f50 draws the «node» 3D box with name + the 4 MEASURED refs as compartment rows (sshd_config / SSH-identity / .env-domain / LE-cert); children+methods NOT mirrored into the facet; deterministic render; INV-T byte-diff==0; stub-must-fail (empty -> 0 rows) + drift-injection (refs -> rows).",
+      "not_proven_pending_server_manager_root": "The LIVE WODA.prod ROOT node with its 4 refs actually RESOLVING + the live-tree byte-diff==0 — the tree is still FLAT, expert is re-rooting it. PENDING (not passed, NOT failed). This is why Tron asked \"where is the root node\": the MODEL was right, the VIEW was empty — this Test must NOT read as if the live view were verified.",
+      "owner_page": "batched into the PO Tron owner-QA list."
     }
   },
   "ownerIor": "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
