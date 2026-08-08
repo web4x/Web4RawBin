@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dbdcc42d-868b-4679-a039-1f4d0d8bfbdf",
+    "name": "RbKeyboardBar.renderKeyMap impl (data-driven from keymap unit)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts"
+  },
+  "ownerIor": "ior:instance:0929405f-c20f-42df-9454-d69f622e7d26"
+}

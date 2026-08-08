@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "95508bd3-3ce3-4254-8970-83e2cec51577",
+    "name": "RcLinkResolver",
+    "methods": [
+      "ior:instance:a45dd931-e848-4901-8037-f86b4dbff54f"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b9a549e4-f48a-45d8-8888-bcf639928449",
+    "name": "deploymentNode.render",
+    "description": "WODA.prod (M1, instanceOf UmlNode M2) renders in the UML diagram as a DEPLOYMENT-NODE (3D box / <<node>> stereotype) via the EXISTING renderFacet (extended with a node facet-branch, R30.11 ride — not a fork). otmux items attach as CHILDREN by LENS to live readSessionTree (no mirror). INV-T tree byte-diff==0.",
+    "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+    "method": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
+    "tasks": [],
+    "implementations": [
+      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+    ],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f"
+}

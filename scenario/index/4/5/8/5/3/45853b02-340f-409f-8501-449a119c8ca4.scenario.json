@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "45853b02-340f-409f-8501-449a119c8ca4",
+    "name": "RcLinkResolver.resolveRcLink impl (bridgeSessionId, fail-closed)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rc-link-resolver.ts"
+  },
+  "ownerIor": "ior:instance:a45dd931-e848-4901-8037-f86b4dbff54f"
+}

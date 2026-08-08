@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c3a56e56-2f91-452f-9b1d-c267802687e1",
+    "name": "RbKeyboardBar.suppressSoftKeyboard impl (inputmode=none, device-gated)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts"
+  },
+  "ownerIor": "ior:instance:514ad5a1-d5f4-4a75-aeb4-15fca65d8488"
+}

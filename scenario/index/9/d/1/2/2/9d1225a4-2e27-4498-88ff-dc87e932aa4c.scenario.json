@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9d1225a4-2e27-4498-88ff-dc87e932aa4c",
+    "name": "terminal.keyboardControl",
+    "description": "Suppress the OS soft keyboard on terminal input (inputmode=none, focus-without-OSK) AND render a data-driven keyboard-controller bar whose keys come from the keymap config unit; each key sends its byte sequence via the R31.4 ws PTY. Terminal stays fully visible; input row clears the Scenario/Edit buttons.",
+    "class": "ior:instance:b116c68f-f4a1-4f81-b146-8de78d8a6aaf",
+    "method": "ior:instance:514ad5a1-d5f4-4a75-aeb4-15fca65d8488",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
+}

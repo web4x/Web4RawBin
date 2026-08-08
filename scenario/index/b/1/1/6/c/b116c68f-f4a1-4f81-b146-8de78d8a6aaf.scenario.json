@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b116c68f-f4a1-4f81-b146-8de78d8a6aaf",
+    "name": "RbKeyboardBar",
+    "methods": [
+      "ior:instance:514ad5a1-d5f4-4a75-aeb4-15fca65d8488",
+      "ior:instance:0929405f-c20f-42df-9454-d69f622e7d26"
+    ]
+  },
+  "ownerIor": null
+}

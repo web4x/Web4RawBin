@@ -1,0 +1,44 @@
+{
+  "ior": "ior:class:Config",
+  "model": {
+    "uuid": "c16abc17-21cc-477f-b2ce-481bef773da1",
+    "name": "keymap: terminal keyboard controller (minimal)",
+    "kind": "keymap",
+    "keys": [
+      {
+        "label": "Esc",
+        "sequence": "\\u001b"
+      },
+      {
+        "label": "Tab",
+        "sequence": "\\t"
+      },
+      {
+        "label": "Ctrl",
+        "modifier": "ctrl"
+      },
+      {
+        "label": "↑",
+        "sequence": "\\u001b[A"
+      },
+      {
+        "label": "↓",
+        "sequence": "\\u001b[B"
+      },
+      {
+        "label": "←",
+        "sequence": "\\u001b[D"
+      },
+      {
+        "label": "→",
+        "sequence": "\\u001b[C"
+      },
+      {
+        "label": "↵",
+        "sequence": "\\r"
+      }
+    ],
+    "note": "data-driven; expand by editing this unit (full controller = later config edit, no rewrite)"
+  },
+  "ownerIor": "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
+}
