@@ -1480,8 +1480,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // leaf rows so the deployment surface is visible where the owner works. Fail-OPEN to the flat lens if the node unit
         // is ever missing — never break the live session surface. The UML-diagram facet (renderedBy) is untouched: this ADDS.
         let roots: any[] = sessionRows;
+        const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
         try {
-          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get('fc327458-03d1-4b90-847d-ab52a7d82237');
+          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID);
           const nm: any = nodeUnit?.model;
           if (nm && nm.kind === 'node') {
             const refRows = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
@@ -1489,8 +1490,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
             }));
             roots = [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
+          } else {
+            // fail-open AND LOUD (PO refinement): keep the live sessions available, but NEVER silently degrade to the
+            // bare flat list Tron complained about — surface a VISIBLE notice row + a server WARN naming the missing uuid.
+            console.warn(`[server-manager] WARN: WODA.prod deployment node ${NODE_UUID} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
+            roots = [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
           }
-        } catch { /* fail-open: keep the flat live lens */ }
+        } catch (e: any) {
+          console.warn(`[server-manager] WARN: WODA.prod re-root failed (${e?.message || e}) → tree DEGRADED to flat session list (fail-open).`);
+          roots = [{ uuid: 'depnode:error', type: 'notice', name: '⚠ WODA.prod deployment node re-root failed — showing flat session list', hasChildren: sessionRows.length > 0, children: sessionRows }];
+        }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;
