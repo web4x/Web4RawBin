@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. In Progress: architect one-helper-placement DESIGN committed 033fb688b (sprintLabel(sprint)='Sprint '+sprintNumOf+' — '+name, REUSES R-C1 sprintNumOf, placed in shared sprint module; consumers = generate-sprint-md :101/:145 + tree-row + detail-header, all import it, AC2 grep-no-2nd-site). useCases d6cb7ddd wired (architect supply-at-design confirmed). Chain UC->Class->Method sprintLabel->Impl->Test mints at build-go; req mints/expert builds. ACs mirrored from req R40.4 9a8cbffe.
+Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. QA-Review: R40.4 CHAIN-COMPLETE-TO-TEST (req 72be83fda, planner disk-verified) — Impl e7fb7e65 SprintLabel.sprintLabel (markerPending=false, STRICT-AST verified heads sprint-label.ts:19, single-source sprintPrefix atom, AC2 grep-no-2nd-site) + Test d7e4b9a1 (SINGLE-SOURCE INVARIANT, status=pass) wired both-dir + r404-sprint-label-single-source-gate GREEN DET-3x. All 4 In-Progress sub-steps done (refinement=architect 033fb688b / test-cases=d7e4b9a1 / implementing=e7fb7e65 / testing=r404 GREEN). ★ AWAITING TRON for Done (NOT Done w/o Tron per tron-qa-batch). FIRST S40 req closed-to-Test. Chain: UC sprintView.renderLabel d6cb7ddd -> Method sprintLabel -> Impl e7fb7e65 -> Test d7e4b9a1.
 
 ## Traceability
 
