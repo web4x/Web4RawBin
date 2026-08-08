@@ -54,6 +54,7 @@ export class OtmuxBridge {
   // COMPOSES — `sessions` is the LIVE LENS the caller reads fresh each request (read-only → INV-T byte-diff==0). Fail
   // -OPEN AND LOUD: a missing / non-`node` unit keeps the sessions available BUT surfaces a visible ⚠ notice row + a
   // server WARN (never silently the bare flat list Tron complained about — degrade the data, never the honesty).
+  // [impl:uuid:fcd57103-4ff0-4ca1-b3c7-2deec33e6a02] OtmuxBridge.buildRootedTree (R40.2 deploymentNode.render composition)
   static buildRootedTree(sessions: SmSession[], nodeUnit: { model?: Record<string, unknown> } | null | undefined, nodeUuid: string): SmTreeRow[] {
     const sessionRows: SmTreeRow[] = sessions.map((s) => ({
       uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
