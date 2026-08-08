@@ -6,10 +6,10 @@
     "description": "Bridged to test/visual/rcd-singularchain-excludes-gate.ts (DET-3x, served v0.8.65). Asserts the singular chain render EXCLUDES the node itself and non-chain nodes. Rides the re-minted canonical chainExcludesSelf Impl (source marker singular-chain.ts:49).",
     "sourceFile": "ior:file:test/visual/rcd-singularchain-excludes-gate.ts",
     "implementations": [
-      "ior:instance:15682c8a-45ad-455e-b3e2-2dccb61d1d25"
+      "ior:instance:91bea17d-4056-4336-b6cd-f4668716fb8f"
     ],
     "status": "pass",
     "unitLinks": []
   },
-  "ownerIor": "ior:instance:15682c8a-45ad-455e-b3e2-2dccb61d1d25"
+  "ownerIor": "ior:instance:91bea17d-4056-4336-b6cd-f4668716fb8f"
 }
