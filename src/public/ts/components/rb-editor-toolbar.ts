@@ -33,12 +33,10 @@ export class RbEditorToolbar extends HTMLElement {
   }
 
   private render(): void {
-    const parent = this._path ? this._path.split('/').slice(0, -1).join('/') : '';
-    const parentDir = parent ? '/md/' + parent + '/' : '/md/';
     this.innerHTML = `
-      <a href="${parentDir}" style="color:#ccc;text-decoration:none">← Back</a>
+      <a href="#" id="tb-back" title="Back" style="color:#ccc;text-decoration:none">← Back</a>
       <a href="/md/" style="color:#ccc;text-decoration:none">📂</a>
-      <span id="tb-path" style="flex:1;color:#667eea;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${this._path || '(no file)'}</span>
+      <span id="tb-path" title="Go to containing folder" style="flex:1;color:#667eea;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer">${this._path || '(no file)'}</span>
       ${this._path && (this._path.endsWith('.md') || this._path.endsWith('.puml')) ? `<a href="/md/${this._path}" style="color:#ff9800;text-decoration:none;font-size:0.75rem" title="View rendered">👁 View</a>` : ''}
       <span id="tb-status" style="font-size:0.75rem;opacity:0.8"></span>
       <button class="tb-btn" id="tb-mode" style="background:none;border:1px solid #555;color:#ccc;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:0.75rem">${this.modeLabel()}</button>
@@ -48,6 +46,20 @@ export class RbEditorToolbar extends HTMLElement {
     // R30.6.6: [Open Diff] entry — bubbling toolbar-open-diff carrying the current file path (LEFT-preselect).
     this.querySelector('#tb-diff')?.addEventListener('click', () => this.dispatchEvent(new CustomEvent('toolbar-open-diff', { bubbles: true, detail: { path: this._path } })));
     this.querySelector('#tb-mode')?.addEventListener('click', () => this.cycleMode());
+    // R40.7: Back = genuine browser history (2 DISTINCT handlers); the file-path LABEL owns the folder-nav that Back used to do.
+    this.querySelector('#tb-back')?.addEventListener('click', (e) => { e.preventDefault(); this.historyBack(); });
+    this.querySelector('#tb-path')?.addEventListener('click', () => this.pathLabelNav());
+  }
+
+  // [impl:uuid:6b4d7714-5b86-4f08-9560-3cbd3cc03015] EditorHeaderNav.historyBack (history.back, genuine)
+  historyBack(): void { window.history.back(); }
+
+  // [impl:uuid:197054f9-12d0-4e5e-a76d-77ad709c96c0] EditorHeaderNav.pathLabelNav (navigate to containing folder)
+  pathLabelNav(): void { window.location.href = this.containingFolderHref(); }
+
+  private containingFolderHref(): string {
+    const parent = this._path ? this._path.split('/').slice(0, -1).join('/') : '';
+    return parent ? '/md/' + parent + '/' : '/md/';
   }
 
   private updatePath(): void {
