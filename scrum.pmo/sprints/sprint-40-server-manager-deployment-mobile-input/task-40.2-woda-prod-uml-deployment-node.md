@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [ ] creating test cases
-  - [~] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 3bd0fb847); coveredRequirements resolves. ★ refs-resolve-REAL: ALL 4 refs CONFIRMED measured-real + semantically-correct (architect 6276f73e1) — SSH = /etc/ssh/sshd_config (inbound) + host key ~/.ssh/public_keys/root.WODA.prod.public_key; DOMAIN = .env LE_DOMAIN/BASE_DOMAIN; CERT = /etc/letsencrypt/live/prod.wo-da.de/; ~/.ssh/config EXCLUDED (outbound client). Mint the 4 ref units at build-go. In Progress: build-go GIVEN (PO); architect R40.2 design committed 389912465 (UMLNode M2 renderFacet + children-by-lens) + refs 6276f73e1; req minting chain, expert building. Task.useCases wire from req's chain mint (UC b9a549e4).
+Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 3bd0fb847); coveredRequirements resolves. ★ refs-resolve-REAL: ALL 4 refs CONFIRMED measured-real + semantically-correct (architect 6276f73e1) — SSH = /etc/ssh/sshd_config (inbound) + host key ~/.ssh/public_keys/root.WODA.prod.public_key; DOMAIN = .env LE_DOMAIN/BASE_DOMAIN; CERT = /etc/letsencrypt/live/prod.wo-da.de/; ~/.ssh/config EXCLUDED (outbound client). Mint the 4 ref units at build-go. In Progress: architect design 389912465 + refs 6276f73e1; impl a25b0fbf7 (renderFacet-extend). ★ implementing [x] on VERIFY-OWNER-FIRST PASS 4/4 (req + planner disk-confirmed): ride impl 94ad4f50 DiagramViewModel.renderFacet owner=a6a05d34 UNTOUCHED (R30.11 original, not re-flipped), markerPending=false, tests[]=[e21b876d,0172b45d] NOT padded, distinct-intent R30.11 node-branch, M1 fc327458 4-refs+lens intact. deployment-node-renders Test at tester @390 gate (rides 94ad4f50 distinct-intent). useCases b9a549e4 wired.
 
 ## Traceability
 
