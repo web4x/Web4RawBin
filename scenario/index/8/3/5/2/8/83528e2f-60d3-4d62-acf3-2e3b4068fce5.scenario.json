@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "83528e2f-60d3-4d62-acf3-2e3b4068fce5",
+    "name": "deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)",
+    "altId": "R40.11",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:249fdab6-2eab-4997-86cc-9f8624ff090c"
+    ],
+    "description": "The deploymentRefs still render buggy on the details view: the tree hands the drawer a SYNTHETIC pseudo-ref (depref:<name>) that is not a real unit ior, so the drawer shows a PERMANENT \"Loading...\" + no children (Tron: selected ssh-host-identity under WODA.prod, drawer hung forever). ROOT: R40.6 typed the M1 nodes but kept deploymentRefs as a raw STRING ARRAY read-view (34d297d91) — those strings are what the tree renders. FIX: every deploymentRef becomes a REAL scenario-first unit of its R40.6 type with a DEFAULT VIEW; the tree emits the REAL ior; unresolvable refs FAIL LOUD (never silent Loading).",
+    "tronQuote": "all deploymentRefs are still buggy on the details view as long as they are not scenario-first units with default views",
+    "reconcileNote": "R40.6 (34d297d91) already minted 4 M1 nodes but typed ssh-service ref (/etc/ssh/sshd_config) as ConfigFile; this PO/Tron mapping says ssh-service->Service (Deployable, NOT file-backed). ssh-host-identity->KeyFile, domain->EnvValue, letsencrypt-cert->Certificate MATCH R40.6. Architect reconciles the ssh-service typing at design (re-type / add Service+configuredBy->ConfigFile / supersede). REUSE R40.6 M2 types 0022-0033, no new machinery.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-real-units",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] EVERY deploymentRef is a REAL minted scenario unit of the right R40.6 type (ssh-service->Service, ssh-host-identity->KeyFile, domain(.env#LE_DOMAIN)->EnvValue, letsencrypt-cert->Certificate; FileBacked realizers where a real file backs them). REUSE the R40.6 M2 types (0022-0033), NOT new machinery — no synthetic pseudo-unit."
+      },
+      {
+        "id": "AC-automatable-real-ior",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] The tree emits the REAL unit ior for each deploymentRef node, NEVER a synthetic depref:<name> pseudo-id (grep: no depref: id reaches the drawer)."
+      },
+      {
+        "id": "AC-390-default-view",
+        "group": "device",
+        "text": "[AUTOMATABLE render + @390 device] EACH type (Service/KeyFile/EnvValue/Certificate) has a DEFAULT VIEW: the detail drawer renders identity + fields + parent/children — it does NOT hang. Verified @390 real-WebKit that the drawer renders content (not Loading)."
+      },
+      {
+        "id": "AC-automatable-fail-loud",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT \"unresolved: <ior>\" error state — a permanent \"Loading...\" is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin)."
+      },
+      {
+        "id": "AC-device-390-pixel + gated-migration",
+        "group": "device",
+        "text": "[DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
