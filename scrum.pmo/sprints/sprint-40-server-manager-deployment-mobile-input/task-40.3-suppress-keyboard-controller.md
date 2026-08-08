@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.3 (suppress iOS keyboard + configurable Keyboard Controller shell + config model). ACs MIRRORED from req R40.3 bfe97d61 (requirements.md 3bd0fb847) — SPLIT A-automatable (5: suppress-by-construction / input-still-reaches-pty anti-vacuity / terminal-visible PIXEL / no-overlay PIXEL / configurable) + B-device-only (1: iOS-keyboard-never-opens — TRON real-iOS, NEVER headless-GREEN, like the longpress sliver). coveredRequirements resolves. This sprint = suppression + shell + config model ONLY (controller behavior later). Architect supplies useCases[] at design (req UC 9d1225a4). No build until build-go.
+Planned - S40 R40.3 (suppress iOS keyboard + configurable Keyboard Controller shell + config model). ACs MIRRORED from req R40.3 bfe97d61 (requirements.md 3bd0fb847) — SPLIT A-automatable (5: suppress-by-construction / input-still-reaches-pty anti-vacuity / terminal-visible PIXEL / no-overlay PIXEL / configurable) + B-device-only (1: iOS-keyboard-never-opens — TRON real-iOS, NEVER headless-GREEN, like the longpress sliver). coveredRequirements resolves. This sprint = suppression + shell + config model ONLY (controller behavior later). In Progress: build-go GIVEN (PO); architect R40.3 design committed 389912465 (device-verify suppress + data-driven keymap unit + concept bottom-bar layout); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 9d1225a4).
 
 ## Traceability
 

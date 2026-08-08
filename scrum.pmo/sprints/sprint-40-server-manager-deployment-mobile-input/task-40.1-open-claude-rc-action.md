@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.1 (Open Claude.ai RC action, per-pane deep link claude.ai/code/<session-id>). ACs MIRRORED from req R40.1 caab6d86 (requirements.md 9af2aa9f7); coveredRequirements resolves. Architect supplies useCases[] at design (req UC 350ab353). No build until build-go.
+Planned - S40 R40.1 (Open Claude.ai RC action, per-pane deep link claude.ai/code/<session-id>). ACs MIRRORED from req R40.1 caab6d86 (requirements.md 9af2aa9f7); coveredRequirements resolves. In Progress: build-go GIVEN (PO); architect R40.1 design committed c01c9a23a (measured RC id-source + chain shape); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 350ab353).
 
 ## Traceability
 
