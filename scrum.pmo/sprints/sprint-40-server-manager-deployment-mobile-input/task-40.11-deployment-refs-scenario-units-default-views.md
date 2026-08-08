@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.11 (deploymentRefs -> scenario-first units w/ default views; fixes permanent-Loading drawer). Scenario-first: req minted R40.11 83528e2f (30730eb0a); coveredRequirements + useCases 249fdab6 wired; ACs MIRRORED w/ tags (3 AUTOMATABLE + 2 device @390). ★ RECONCILE at architect design: R40.6 (34d297d91) typed ssh-service as ConfigFile; R40.11 says ssh-service->Service — architect re-types. Reuse R40.6 M2 0022-0033. Depends on R40.6 typed model (landed). No build until build-go.
+Planned - S40 R40.11 (deploymentRefs -> scenario-first units w/ default views; fixes permanent-Loading drawer). Scenario-first: req minted R40.11 83528e2f (30730eb0a); coveredRequirements + useCases 249fdab6 wired; ACs MIRRORED w/ tags (3 AUTOMATABLE + 2 device @390). ★ RECONCILE RULED + CLOSED (PO 2026-08-08, architect APPLIED f59b1b9e4): answer = BOTH — the conflation ('ssh-service — /etc/ssh/sshd_config' cramming a LOGICAL thing + a PHYSICAL file into one label) WAS the modelling bug. UNIFORM RULE: (a) file IS the artifact -> a FileBacked type (KeyFile/Certificate/ConfigFile/EnvValue, manifestsAs->real path, ONE unit); (b) file merely CONFIGURES a running thing -> the THING is the unit (Service/Deployable) + configuredBy -> a SEPARATE ConfigFile unit (TWO units). So ssh-service = Service configuredBy ConfigFile(/etc/ssh/sshd_config) [SPLIT 1->2, NOT a re-type]; ssh-host-identity = KeyFile; letsencrypt-cert = Certificate; domain = EnvValue (FileBacked-with-fragment .env). Reuse R40.6 M2 0022-0033. Depends on R40.6 typed model (landed 34d297d91). No build until build-go.
 
 ## Traceability
 

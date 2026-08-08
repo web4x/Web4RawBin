@@ -6,11 +6,11 @@
   "name": "Task 40.8: 'Files' shows the REAL measured on-disk path of the scenario unit (fail-closed if absent, browsable)",
   "slug": "task-40.8-files-real-disk-path",
   "description": "R40.8 (Tron: 'files should show where the file really is'). The editor footer 'Files' tab reveals the ACTUAL filesystem path of that scenario unit (browsable there), and the path shown MATCHES the unit's real location on disk (measured, not composed). Scenario-first: req mints R40.8 + ACs; architect designs; expert implements; tester gates (disk).",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
   "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.8 `[requirement:uuid:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb]`\n  - down\n    - None (atomic task)",
   "acceptanceCriteria": "- [ ] [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.\n- [ ] [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.",
   "subtasks": "None (atomic task).",
-  "status": "Planned",
+  "status": "In Progress",
   "coveredRequirements": [
    "ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb"
   ],
