@@ -152,6 +152,15 @@ export class RbDiagramDetail extends HTMLElement {
       // as a dashed connector IFF the target Method is also on the diagram (both-on-diagram guard). Authored traces
       // (UmlTraceRelationship units) are the separate server-persist path (R36.4 increment-2).
       if (m.method && typeof m.method === 'string') relations.push({ to: stripRef(m.method), kind: 'trace' as EdgeKind });
+      // R40.2: a deployment-node (kind=node)'s compartment rows = its MEASURED deploymentRefs (role: file-basename) so
+      // renderNodeFacet shows the node's real config (sshd/identity/domain/cert). childrenLens is NOT mapped here — the
+      // otmux children ride the LIVE readSessionTree lens in the node detail, never mirrored into the facet (INV-T==0).
+      if (String(m.kind) === 'node' && Array.isArray(m.deploymentRefs)) {
+        for (const dr of m.deploymentRefs as Array<{ role?: string; ref?: string }>) {
+          const base = String(dr.ref || '').replace(/^ior:file:/, '').split('/').pop() || String(dr.ref || '');
+          attrs.push(`${dr.role || 'ref'}: ${base}`);
+        }
+      }
       nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m) });
     }));
     this._sourceFile = sourceFile;

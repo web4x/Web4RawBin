@@ -65,7 +65,23 @@ export function renderFacet(view: ViewLink, node: DiagramNode): string {
   const k = view.viewKind || node.kind || 'class';
   if (k === 'UmlUseCase' || node.kind === 'usecase') return renderUseCaseFacet(view, node);
   if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return renderMethodFacet(view, node);
+  if (k === 'UmlNode' || k === 'node' || k === 'deployment-node' || node.kind === 'node') return renderNodeFacet(view, node); // R40.2 deployment-node lens
   return buildBox(view, node, k === 'tsClass' || k === 'ts-class-code'); // class-family: UML box (TS lens for tsClass)
+}
+// R40.2 [ride 94ad4f50 — renderFacet EXTENSION, no new marker] UmlNode deployment-node lens: the «node» 3D box
+// (front + top + right faces) with the node name and its measured refs as compartment rows (sshd_config / SSH
+// identity / domain / TLS cert). Children (otmux panes) are NOT drawn here — they ride the LIVE readSessionTree lens
+// in the node's detail (never mirrored into the persisted graph → INV-T tree byte-diff == 0). Pure SVG, no DOM/fetch.
+function renderNodeFacet(view: ViewLink, node: DiagramNode): string {
+  const d = 10, w = facetW(view, node), bodyH = HEAD_H + node.attrs.length * ROW_H, h = bodyH; // front-face height
+  const front = `M0,${d} L${w},${d} L${w},${d + h} L0,${d + h} Z`;
+  const top = `M0,${d} L${d},0 L${w + d},0 L${w},${d} Z`;
+  const right = `M${w},${d} L${w + d},0 L${w + d},${h} L${w},${d + h} Z`;
+  const rows = node.attrs.map((a, i) => `<text x="6" y="${d + HEAD_H + 13 + i * ROW_H}" class="dm-row">${esc(a)}</text>`).join('');
+  return `<g class="dm-box dm-facet-node" data-ref="modelelement:${stripRef(view.unit)}" transform="translate(${view.x},${view.y})" tabindex="0">`
+    + `<path class="dm-box-bg" d="${top}"/><path class="dm-box-bg" d="${right}"/><path class="dm-box-bg" d="${front}"/>`
+    + `<text x="${w / 2}" y="${d + 17}" text-anchor="middle" class="dm-name">«node» ${esc(node.name)}</text>`
+    + `<line x1="0" y1="${d + HEAD_H}" x2="${w}" y2="${d + HEAD_H}" class="dm-sep"/>${rows}</g>`;
 }
 // UmlMethod/UmlFunction lens: one compartment = the signature (visibility name(params): returnType, from the canonical node).
 function renderMethodFacet(view: ViewLink, node: DiagramNode): string {
