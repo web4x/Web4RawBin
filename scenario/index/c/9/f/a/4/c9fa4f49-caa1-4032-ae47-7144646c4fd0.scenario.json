@@ -1,0 +1,50 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c9fa4f49-caa1-4032-ae47-7144646c4fd0",
+    "name": "File detail view renders a working type-appropriate preview (audio player regression fix; fail-loud, all contexts)",
+    "altId": "R40.12",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:16b3a2ef-de39-470b-abd3-8e436047ab1a"
+    ],
+    "description": "REGRESSION: selecting an audio file (Ed Sheeran - I See Fire.mp3, unit 63462717-1771-4775-aeda-d9947d7bcbd2) in Heartspaces on v0.8.71 renders File badge+name+uuid+parent then a LARGE EMPTY BLACK BOX where the audio player should be — the S23 (R23.1) HTML5 audio player is GONE. FIX (code AND the S23 requirement, per device-regression=missing-AC): a File unit detail view renders a type-appropriate preview (audio->working player), fail-LOUD on failure (never an empty box), present in EVERY context the drawer opens, gated @390 real-device by PIXEL.",
+    "tronQuote": "here we also have a massive regression from a music player and the item being a file and especially a music file with a music player",
+    "crossRef": [
+      "ior:instance:480b40aa-c0ba-40dc-8876-823ebe3af91b"
+    ],
+    "crossRefNote": "Fixes the R23.1 (S23) audio-player regression. R23.1 also gets a backfilled AC (audio player renders in the room-view drawer, every context, @390 device pixel) — its verify AC was HEADLESS so it never caught the room-view-drawer empty box.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-type-appropriate-preview",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390 real-WebKit] A FILE unit detail view renders a TYPE-APPROPRIATE preview; an AUDIO file renders a WORKING HTML5 audio player (play/pause/seek controls PRESENT + functional), NOT an empty container."
+      },
+      {
+        "id": "AC-automatable-fail-loud",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, ★ silent-failure guard] If a preview CANNOT render, an EXPLICIT error state is shown -- an empty box is a SILENT failure (the same sin as R40.11 eternal spinner). Fail-LOUD, never a blank container; stub-must-fail (break the asset -> explicit error, not empty)."
+      },
+      {
+        "id": "AC-automatable-every-context",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] The asset is REGISTERED/present in EVERY context the drawer opens: ROOM view AND /trace AND /app -- a context-dependent empty render is HOW this hid (the drawer resolved the file in one context, not the room view)."
+      },
+      {
+        "id": "AC-390-device-pixel",
+        "group": "device",
+        "text": "[AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone."
+      },
+      {
+        "id": "AC-automatable-det3x-stub",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] DET-3x (deterministic 3x) + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
