@@ -29,6 +29,7 @@ import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { sprintPrefix } from '../scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
+import { generateProjectModel } from './generate-project.js'; // T36.3 shared generate-project core (HTTP handler + local CLI)
 import { PtyBridge } from './PtyBridge.js';
 import { TsToModel } from '../scenario/TsToModel.js';
 import { pumlToModel } from '../shared/puml-serializer.js'; // S33-P3f-1: REUSE the R32.7 PUML parser (INV-F-1, no new parser)
@@ -1949,23 +1950,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           const projectRoot = path.join(__dirname, '../../..'); // __dirname used INSIDE the handler (runtime-safe, not module-top) — R32.5 boot lesson honored
-          // INV-P2-2 BOUNDED manifest: the RawBin M1 project defaults to src/ts/scenario (self-referential model domain);
-          // EXPLICIT bounded dir under repo-root, EXCLUDE *.test/*.spec/*.d.ts + node_modules/dist, HARD CAP — never all-of-RawBin by accident.
           const { dir } = JSON.parse(body || '{}');
-          const relDir = String(dir || 'src/ts/scenario');
-          const absDir = path.resolve(projectRoot, relDir);
-          if (!absDir.startsWith(projectRoot + path.sep) || !fsSync.existsSync(absDir)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-dir: must be an existing repo-relative dir"}'); return; }
-          const CAP = 200, EXCL = /\.(test|spec|d)\.ts$/;
-          const files: string[] = [];
-          const walk = (d: string): void => { for (const e of fsSync.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) { if (e.name === 'node_modules' || e.name === 'dist') continue; walk(p); } else if (e.name.endsWith('.ts') && !EXCL.test(e.name)) files.push(p); } };
-          walk(absDir);
-          if (files.length > CAP) { res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: `too-many-files: ${files.length} > CAP ${CAP} (narrow the dir)` })); return; } // R32.6 bound
-          ensureStoreSeeded();
           const t0 = Date.now();
-          const r = new TsToModel(projectRoot).generate(files, { indexDir: MODEL_STORE, write: true, diagram: false }); // INV-P2-3 NO auto-diagram (curate via R32.11); INV-P2-4 MODEL_STORE only (prod untouched)
-          const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
-          addLog(`[model] generate-project ${relDir} → ${files.length} files → ${r.units.length} units (${roots} roots) wrote=${r.wrote} removed=${r.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
-          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: relDir, files: files.length, units: r.units.length, roots, wrote: r.wrote, removed: r.removed }));
+          // T36.3: the generate-project CORE is now the ONE shared generateProjectModel — HTTP handler + the local CLI
+          // (scripts/regen-model.ts) run the SAME path/invariants (INV-P2 bounded/CAP/MODEL_STORE-only). Owner-gate above UNCHANGED.
+          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), MODEL_STORE, PROD_INDEX);
+          if (!g.ok) { res.writeHead(g.status || 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: g.error })); return; }
+          addLog(`[model] generate-project ${g.dir} → ${g.files} files → ${g.units} units (${g.roots} roots) wrote=${g.wrote} removed=${g.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: g.dir, files: g.files, units: g.units, roots: g.roots, wrote: g.wrote, removed: g.removed }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-project-failed' })); }
       });
       return;
