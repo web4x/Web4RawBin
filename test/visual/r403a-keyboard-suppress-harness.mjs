@@ -29,7 +29,7 @@ const realKeymap = () => new Promise((resolve) => {
         const j = JSON.parse(b);
         const u = typeof j.unit === 'string' ? JSON.parse(j.unit) : j.unit;
         const servesAtUnitPath = ((u && u.model && u.model.keys) || []).length;          // where the keys REALLY are (8)
-        const componentReadsHere = ((j.model && j.model.keys) || j.keys || []).length;    // what rb-terminal-detail:90 reads → 0 (BUG)
+        const componentReadsHere = ((u && u.model && u.model.keys) || (j.model && j.model.keys) || j.keys || []).length; // fixed rb-terminal-detail:92 reads j.unit.model.keys → 8 (0.8.67)
         resolve({ servesAtUnitPath, componentReadsHere });
       } catch { resolve({ servesAtUnitPath: 0, componentReadsHere: 0 }); }
     });
