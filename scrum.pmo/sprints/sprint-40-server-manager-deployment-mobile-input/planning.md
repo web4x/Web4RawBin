@@ -16,3 +16,8 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] [Task 40.2: WODA.prod as a UML deployment-Node (SSH/domain/letsencrypt refs + otmux sessions->windows->panes children)](./task-40.2-woda-prod-uml-deployment-node.md)
 - [ ] [Task 40.3: Suppress OS (iOS) keyboard + configurable Keyboard Controller (suppression + controller shell + config model)](./task-40.3-suppress-keyboard-controller.md)
 - [ ] [Task 40.4: Sprint labels show the sprint NUMBER (display-composed 'Sprint N — theme' from model.number + name, single-source)](./task-40.4-sprint-label-shows-number.md)
+- [ ] [Task 40.5: All bespoke buttons -> action UNITS on the shared universalActionBar (DRY everywhere, grep-zero-bespoke)](./task-40.5-buttons-to-action-units-dry.md)
+- [ ] [Task 40.6: deploymentRefs -> real typed OOP model (typed units + typed IOR relationships + inheritance/interfaces, each leaf resolves a real file)](./task-40.6-deployment-refs-typed-oop-model.md)
+- [ ] [Task 40.7: Back = real history.back(); the path label navigates to the containing folder (distinct)](./task-40.7-back-history-path-label-nav.md)
+- [ ] [Task 40.8: 'Files' shows the REAL measured on-disk path of the scenario unit (fail-closed if absent, browsable)](./task-40.8-files-real-disk-path.md)
+- [ ] [Task 40.9: 'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer)](./task-40.9-preview-traceability-drawer-reuse.md)

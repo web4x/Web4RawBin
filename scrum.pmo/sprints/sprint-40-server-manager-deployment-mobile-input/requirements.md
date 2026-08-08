@@ -55,3 +55,60 @@
   - [ ] **(single-source)** The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number.
   - [ ] **(device)** @390 mobile: the label is legible and NOT truncated mid-number in the tree row.
   -> sprintView.renderLabel [uc:uuid:d6cb7ddd-9587-49a2-b6b2-a355862579da]
+
+- [ ] **R40.5 — All special buttons become standard action units on the shared bar (DRY everywhere)**
+  [requirement:uuid:e152177d-d016-45eb-a41f-75ffe3dc9a64]
+  all these special buttons should be standard actions - DRY everywhere
+  Every bespoke button across surfaces (Scenario · Edit · Claude.ai RC [terminal drawer] · Code · Open Diff · Save [editor header] · Files/Editor/Preview [editor footer] · Refresh · Back-to-Profile) becomes an ACTION UNIT rendered by the ONE shared universalActionBar (extends R35.1, which already migrated 4). Per-surface action sets are declared as DATA, not hardcoded; no bespoke button markup remains.
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, source] Every listed button (Scenario/Edit/Claude.ai-RC/Code/Open-Diff/Save/Files/Editor/Preview/Refresh/Back-to-Profile) is an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696), NOT bespoke markup.
+  - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] A grep PROVES ZERO bespoke button markup remains on those surfaces (the R40.4 sprintPrefix single-source enforcement shape) — plant a bespoke button -> gate RED.
+  - [ ] **(automatable)** [AUTOMATABLE] Per-surface action sets are declared as DATA (config units), not hardcoded — the set is read, not literal.
+  - [ ] **(device)** [DEVICE/VISUAL @390 - Tron] The migrated bars render @390 unchanged-or-better (pixel; Tron final visual on the owner-gated surfaces where a non-owner cannot load).
+  -> 1c21d43a [uc:uuid:1c21d43a-c036-43b8-b947-1fae68720bb5]
+
+- [ ] **R40.6 — deploymentRefs become a real typed OOP model (interfaces + inheritance, IOR relationships to file-leaf nodes)**
+  [requirement:uuid:6a9d99c3-7ca7-4b35-b808-8dcc6719e162]
+  just ior relationships to uml deployment diagram nodes that basically end in files - think oop interfaces and inheritance scenario-first
+  The WODA.prod deploymentRefs (today an ad-hoc array of {role, ref:'ior:file:...', note} STRING refs) become a real OOP model: each ref a first-class TYPED unit related by TYPED IOR relationships (deploys/contains/manifestsAs/configuredBy), a genuine inheritance hierarchy with interfaces (abstract deployment-target -> Device/ExecutionEnvironment/Service; Artifact -> ConfigFile/Certificate/KeyFile/EnvValue), each leaf resolving to a real file on disk. Reuses the existing M2 family (no parallel type system).
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, graph] Each ref is a FIRST-CLASS typed unit (an ior:class:ModelElement instanceOf its deployment-type), NOT a string in an array.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] Refs are related by TYPED IOR relationships (deploys / contains / manifestsAs / configuredBy), NOT a free-text 'role' string.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] A genuine inheritance hierarchy with interfaces exists: abstract deployment-target -> Device / ExecutionEnvironment / Service; Artifact -> ConfigFile / Certificate / KeyFile / EnvValue.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] IS-A is a REAL GRAPH EDGE: generalization/realization are ior:class:Relationship instances using the EXISTING M2 kinds (UmlGeneralization a1d2e3f4-..0011, UmlDependency ..0012). ConfigFile --generalization--> Artifact and Certificate --realizes--> FileBacked are QUERYABLE EDGES; a gate asserts IS-A by READING THE GRAPH, never a string/name. (Architect ecaed1399: measured the kinds already exist, invented no machinery.)
+  - [ ] **(automatable)** [AUTOMATABLE, graph] INTERFACES are UmlInterface (a1d2e3f4-..0004) contracts CUTTING ACROSS the tree (not single-inheritance): FileBacked (all 4 Artifact subtypes realize it), Deployable (the target subtypes), Measurable (Certificate/ConfigFile/KeyFile). Realization is a QUERYABLE edge (realizes, via UmlDependency/UmlInterface), read the same way as generalization.
+  - [ ] **(invariant)** [AUTOMATABLE, disk, ★ THE CROWN AC / fail-closed] For EVERY unit realizing FileBacked, resolve(u.manifestsAs) MUST EXIST as a real on-disk file — evaluated as a MODEL QUERY over the graph, FAIL-CLOSED. ★ Correct-by-construction: M1 nodes inherit the contract via instanceOf->M2 edges, so the gate FINDS the FileBacked realizers BY QUERY (not by re-listing) — a future 5th artifact type is covered automatically, no gate edit (correct-by-construction, not maintained-by-memory). Makes Trons basically-end-in-files PROVABLE; guards the fabricated-reference class killed 5x this sprint.
+  - [ ] **(automatable)** [AUTOMATABLE, graph+disk] All 4 existing refs survive the migration as proper typed nodes: sshd_config · host key · .env#LE_DOMAIN · LE fullchain — none lost, each now a typed unit.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] The types reuse the existing M2 metamodel family (a1d2e3f4-... sentinels) — NO parallel type system; the deployment-node facet already added (R40.2 UmlNode) extends, not forks.
+  - [ ] **(automatable)** [AUTOMATABLE] INV-T byte-diff==0 — the typed model is compute-on-read / a structural migration that does not churn unrelated units.
+  - [ ] **(automatable)** [AUTOMATABLE, graph] Each NEW M2 member (the deployment-type metaclasses joining the a1d2e3f4-.. family) carries a sentinelReason field ("M2 deployment-metamodel member, patterned by design for family lookup") so the registered-sentinel exception is PROVABLE-not-remembered — an unexplained legitimate patterned uuid is indistinguishable from a fabricated defect (R5 sentinel rule + the identity-detector exclusion).
+  -> b2c5cdba [uc:uuid:b2c5cdba-527d-4321-89f9-c5ec1158ccf0]
+
+- [ ] **R40.7 — Back is real history back; the path label navigates to the containing folder**
+  [requirement:uuid:6ce80195-a394-4ba3-b9ca-3db7a04d2ce2]
+  back should be a real history back; the path label should do what back does today
+  The '← Back' control performs GENUINE browser history back; clicking the '📁 scenario/...' path label navigates to the containing folder (the behaviour Back does TODAY). The two are distinct and neither does the other's job.
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] '← Back' performs genuine history back — proven by navigating 2+ steps then Back returns to the prior view (not the folder).
+  - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] Clicking the '📁 scenario/...' path label navigates to the CONTAINING FOLDER (today's Back behaviour).
+  - [ ] **(automatable)** [AUTOMATABLE @390] The two are DISTINCT: Back does history, the path label does folder-nav; neither does the other's job (both asserted in one flow).
+  -> 5d02d562 [uc:uuid:5d02d562-eafb-4bc9-8d6f-3894b3fbda9c]
+
+- [ ] **R40.8 — 'Files' shows the real on-disk file location of the scenario unit**
+  [requirement:uuid:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb]
+  files should show where the file really is
+  The editor footer 'Files' tab reveals the ACTUAL filesystem path of that scenario unit (browsable there), and the path shown MATCHES the unit's real location on disk (measured, not composed).
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
+  - [ ] **(automatable)** [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
+  -> 98df6abf [uc:uuid:98df6abf-7801-457d-92bd-690aac4819a7]
+
+- [ ] **R40.9 — 'Preview' shows that scenario's traceability chain + details drawer (reusing existing surfaces)**
+  [requirement:uuid:50753cf6-59e8-4251-84e0-7d54f988ce76]
+  preview should show that scenario's traceability and the details drawer
+  The editor footer 'Preview' tab renders the scenario's traceability chain and opens the details drawer for a selected node — REUSING the existing /trace + rb-detail-drawer surfaces (no bespoke preview renderer; same DRY spirit as R40.5).
+  **Acceptance criteria:**
+  - [ ] **(automatable)** [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).
+  - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).
+  - [ ] **(automatable)** [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).
+  -> 23af7ba9 [uc:uuid:23af7ba9-4aad-4455-83f7-48b6ca62165d]
