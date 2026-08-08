@@ -22,6 +22,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { sprintPrefix } from '../src/ts/scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
@@ -98,7 +99,7 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
     '',
     `[Back to Sprints](../sprints.overview.md)`,
     '',
-    `# Sprint ${m.number || '?'} Planning — ${m.name || '(untitled)'}`,
+    `# ${sprintPrefix(m.number)} Planning — ${m.name || '(untitled)'}`,
     '',
     '## Sprint Goal',
     '',
@@ -142,7 +143,7 @@ function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, Scenari
     '',
     `[Back to Planning](./planning.md)`,
     '',
-    `# Sprint ${m.number || '?'} Requirements — ${m.name || '(untitled)'}`,
+    `# ${sprintPrefix(m.number)} Requirements — ${m.name || '(untitled)'}`,
     '',
     '## Requirements',
     '',

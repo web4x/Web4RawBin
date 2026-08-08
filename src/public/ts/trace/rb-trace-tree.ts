@@ -29,6 +29,7 @@
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
+import { sprintLabel } from '../../../ts/scenario/sprint-label.js'; // R40.4 shared sprint-number label
 
 const LS_KEY = 'rawbin-trace-expanded';
 
@@ -471,7 +472,7 @@ export class RbTraceTree extends HTMLElement {
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
     // R31.3 BADGE-via-REFERENCES: carry each sprint's server task-count as childCount → buildSeedNode stamps it on the
     // node's dataset.childRefCount so the badge shows the real N before its tasks lazy-load (no nodeChildCount map).
-    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false, childCount: sp.childCount }));
+    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sprintLabel(sp.name, sp.number), hasChildren: sp.hasChildren !== false, childCount: sp.childCount })); // R40.4 tree row shows the number
     this.appendChild(this.buildSeedNode('sprints-collection-30-1', 'collection', `Sprints 01-${pad2(N)}`, spKids, true, undefined, undefined, undefined, false));
     this.computeBadges();
   }

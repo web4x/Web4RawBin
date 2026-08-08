@@ -38,6 +38,7 @@ import './rb-implementation-detail.js';
 import './rb-test-detail.js';
 import './rb-detail-view.js';
 import './rb-diagram-detail.js'; // R32.4: MDA SVG diagram surface as a drawer detail-view (additive; no fork)
+import { sprintLabel } from '../../../ts/scenario/sprint-label.js'; // R40.4 shared sprint-number label
 
 export class RbDetailDrawer extends HTMLElement {
   static get observedAttributes() { return ['ref', 'open', 'data-position']; }
@@ -305,7 +306,7 @@ export class RbDetailDrawer extends HTMLElement {
       const childRes = await fetch(`/api/trace/children/${encodeURIComponent(uuid)}`);
       const kids = (await childRes.json().catch(() => ({})))?.children || [];
       panel.innerHTML =
-        `<div class="dv-head"><span class="dv-type">${type}</span><h3 class="dv-title">${String(m.name || uuid)}</h3><code class="dv-uuid">${uuid}</code></div>` +
+        `<div class="dv-head"><span class="dv-type">${type}</span><h3 class="dv-title">${sprintLabel(String(m.name || uuid), m.number as number | undefined)}</h3><code class="dv-uuid">${uuid}</code></div>` + // R40.4 label carries the number
         (goal ? `<p style="color:rgba(255,255,255,0.7);font-size:0.78rem;margin:8px 0">${goal}</p>` : '') +
         `<div class="dv-scenario-children"><h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Tasks (${tasks.length || kids.length})</h4>` +
         (kids.length === 0 ? '<div class="dv-empty">no tasks</div>' :
