@@ -46,7 +46,7 @@ export function singularChain(graph: TraceGraph, startUuid: string): ChainStep[]
   return steps;
 }
 
-// [impl:uuid:3542dcb3-a1b2-4c3d-8e4f-5a6b7c8d9e07] BUG1 chainExcludesSelf
+// [impl:uuid:15682c8a-45ad-455e-b3e2-2dccb61d1d25] BUG1 chainExcludesSelf
 const CHAIN_TYPES = new Set(['requirement', 'usecase', 'class', 'method', 'implementation', 'test', 'bug', 'changerequest']);
 
 export function renderSingularChain(steps: ChainStep[], selfUuid?: string): string {
