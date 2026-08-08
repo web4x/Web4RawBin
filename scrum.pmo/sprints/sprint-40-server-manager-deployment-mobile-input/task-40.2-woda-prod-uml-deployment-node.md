@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 9af2aa9f7); coveredRequirements resolves. ★ refs-resolve-REAL: SSH referent PENDING architect final confirm (inbound /etc/ssh/sshd_config + host key, NOT ~/.ssh/config outbound); domain+cert SETTLED. Architect supplies useCases[] at design (req UC b9a549e4). No build until build-go.
+Planned - S40 R40.2 (WODA.prod UML deployment-NODE: SSH/domain/letsencrypt refs + otmux sessions->windows->panes children). ACs MIRRORED from req R40.2 adab1bb5 (requirements.md 3bd0fb847); coveredRequirements resolves. ★ refs-resolve-REAL: ALL 4 refs CONFIRMED measured-real + semantically-correct (architect 6276f73e1) — SSH = /etc/ssh/sshd_config (inbound) + host key ~/.ssh/public_keys/root.WODA.prod.public_key; DOMAIN = .env LE_DOMAIN/BASE_DOMAIN; CERT = /etc/letsencrypt/live/prod.wo-da.de/; ~/.ssh/config EXCLUDED (outbound client). Mint the 4 ref units at build-go. Architect supplies useCases[] at design (req UC b9a549e4). No build until build-go.
 
 ## Traceability
 
