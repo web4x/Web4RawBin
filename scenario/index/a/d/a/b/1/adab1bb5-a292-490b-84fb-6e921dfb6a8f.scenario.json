@@ -48,9 +48,9 @@
     ],
     "refsConstraint": "AC-refs-resolve-REAL: the 3 node refs (ssh/domain/LE-cert) minted at build-go FROM architect's real measurements; never invented paths.",
     "measuredRefs": {
-      "measuredBy": "robbin-architect 2026-08-08 (WODA.prod v60211) + PO semantic correction",
-      "status": "domain+cert SETTLED; SSH pending architect FINAL confirm of the inbound-service referent. Mint the 3 ref UNITS at build-go from THESE.",
-      "ssh": "CORRECTED (PO): the NODE's ssh = its OWN INBOUND service -> /etc/ssh/sshd_config (measured, exists) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key (measured). ⚠ NOT ~/.ssh/config — that is the ossh-managed OUTBOUND CLIENT file (resolvable-but-semantically-WRONG: a real path answering the wrong question). ⚠ NO 'Host WODA.prod' entry exists = a 'ssh host entry' ref would be FABRICATED. PENDING architect final confirm.",
+      "measuredBy": "robbin-architect 2026-08-08 (WODA.prod v60211, confirmed 6276f73e1) + PO semantic correction",
+      "status": "CONFIRMED — 4 refs, all measured-real + semantically-correct. Mint the 4 ref UNITS at build-go with the node.",
+      "ssh": "CONFIRMED (2 refs for the inbound-service ssh): /etc/ssh/sshd_config (measured 3309B: HostKey/Port/PermitRootLogin — the node's OWN inbound service config) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key (measured). ⚠ ~/.ssh/config EXCLUDED — it is the ossh-managed OUTBOUND CLIENT file (resolvable-but-semantically-WRONG; a distinct ref only if outbound-connections are ever modelled). ⚠ NO 'Host WODA.prod' entry exists = a 'ssh host entry' ref would be FABRICATED.",
       "domain": "file Web4RawBin/.env keys LE_DOMAIN=prod.wo-da.de + BASE_DOMAIN=prod.wo-da.de (the .env is the SOURCE).",
       "cert": "/etc/letsencrypt/live/prod.wo-da.de/ (fullchain.pem / privkey.pem / cert.pem / chain.pem, dated Jul31) — ref the dir or fullchain.pem specifically."
     }
