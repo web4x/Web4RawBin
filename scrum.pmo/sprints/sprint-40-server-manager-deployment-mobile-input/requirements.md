@@ -54,4 +54,4 @@
   - [ ] **(coverage)** Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units.
   - [ ] **(single-source)** The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number.
   - [ ] **(device)** @390 mobile: the label is legible and NOT truncated mid-number in the tree row.
-  -> d6cb7ddd [uc:uuid:d6cb7ddd-9587-49a2-b6b2-a355862579da]
+  -> sprintView.renderLabel [uc:uuid:d6cb7ddd-9587-49a2-b6b2-a355862579da]

@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. Awaiting architect one-helper-placement design -> flip In-Progress on design commit. ACs mirrored from req R40.4 9a8cbffe. NOT built yet.
+Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. In Progress: architect one-helper-placement DESIGN committed 033fb688b (sprintLabel(sprint)='Sprint '+sprintNumOf+' — '+name, REUSES R-C1 sprintNumOf, placed in shared sprint module; consumers = generate-sprint-md :101/:145 + tree-row + detail-header, all import it, AC2 grep-no-2nd-site). useCases d6cb7ddd wired (architect supply-at-design confirmed). Chain UC->Class->Method sprintLabel->Impl->Test mints at build-go; req mints/expert builds. ACs mirrored from req R40.4 9a8cbffe.
 
 ## Traceability
 
