@@ -19,6 +19,7 @@ Still FAIL-CLOSED: a marker heading NEITHER a named decl NOR a handler node (e.g
 - Fail-closed on truncation (see identity-family): the attach resolver is full-uuid only.
 
 ## FILE_HEADER (182) — component/module-scope [impl] tags — same shape, one nuance
+> ★ PO RULING (authoritative, 2026-08-08): file/component-scope tags = VALID but a DISTINCT attachment kind → **`COMPLETE_FILE_SCOPE`, separately reported**, with the condition that **a tag whose label NAMES an existing method must attach THERE instead**. This section (committed independently, converges) DEFERS to that ruling — same policy-B shape; the classifier emits `COMPLETE_FILE_SCOPE` as the distinct bucket.
 Expert measured 182 markers heading a NON-member (a class decl or an import) = file/component-scope tags (e.g. `[impl] T10 device enrollment` atop DeviceEnrollDialog.ts; module R17.x tags).
 
 **DECISION: LEGIT when the marker heads a named CLASS/MODULE DECLARATION → attach to that class/module NODE + explicit label = PROVEN-COMPLETE, but tagged `component-scope` (distinct from method-scope).** Same reasoning as handler-scope (B): a real impl at a bindable NAMED node + a label is proven; declaring file-scope "out of scope" would reopen the hole. A class decl IS a specific named node — the existing heads-named-member rule already binds it.
