@@ -11,7 +11,11 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ALLOW = path.join(ROOT, 'src/ts/scenario/sprint-label.ts'); // the ONE home of the atom
-// the DISPLAY composition: a 'Sprint ' string literal immediately followed by a numeric interpolation or a concat.
+// the DISPLAY composition: a 'Sprint ' string literal immediately followed by a numeric INTERPOLATION or a CONCAT.
+// SCOPE (deliberate, not an oversight): this matches how the label is BUILT, so it correctly EXCLUDES a 'Sprint '
+// used as a String.replace() replacement argument (e.g. migrate-to-scenario.ts:119 `slug.replace(/^sprint-\d+-/,
+// 'Sprint ')` — a one-time migration slug→name that drops the number, NOT a display-label composition). Confirmed:
+// COMPOSE does not match that form (no ${ / + after the literal), so no allow-list entry is needed for it.
 const COMPOSE = /(`Sprint \$\{|['"]Sprint ['"]\s*\+|`Sprint `\s*\+)/;
 const CODE = /\.(ts|mjs)$/;
 const offenders: string[] = [];
