@@ -5,7 +5,8 @@
     "name": "EditorPreview.previewTraceability impl (REUSE rb-trace-tree scoped to unit + rb-detail-drawer, NO new renderer)",
     "markerPending": true,
     "tests": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts"
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-layout.ts",
+    "targetNote": "REPOINTED rb-detail-view->rb-editor-layout.ts by measurement: the editor-footer 👁 Preview tab is in rb-editor-layout.ts:86 (.el-preview @39). content-preview.ts is the FILE/MIME media preview (R19.63-65/R22.5 audio player ca54081e) = R40.12/R23.1 territory, NOT R40.9. R40.9 = the 👁 Preview panel renders rb-trace-tree (scoped to the unit) + rb-detail-drawer, zero new renderer. Architect confirms if the design intends otherwise."
   },
   "ownerIor": "ior:instance:47822b73"
 }
