@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "50753cf6-59e8-4251-84e0-7d54f988ce76",
+    "name": "'Preview' shows that scenario's traceability chain + details drawer (reusing existing surfaces)",
+    "altId": "R40.9",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:23af7ba9-4aad-4455-83f7-48b6ca62165d"
+    ],
+    "description": "The editor footer 'Preview' tab renders the scenario's traceability chain and opens the details drawer for a selected node — REUSING the existing /trace + rb-detail-drawer surfaces (no bespoke preview renderer; same DRY spirit as R40.5).",
+    "tronQuote": "preview should show that scenario's traceability and the details drawer",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-reuse-grep",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5)."
+      },
+      {
+        "id": "AC-automatable-traceability-390",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface)."
+      },
+      {
+        "id": "AC-automatable-details-drawer-390",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

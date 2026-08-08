@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb",
+    "name": "'Files' shows the real on-disk file location of the scenario unit",
+    "altId": "R40.8",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:98df6abf-7801-457d-92bd-690aac4819a7"
+    ],
+    "description": "The editor footer 'Files' tab reveals the ACTUAL filesystem path of that scenario unit (browsable there), and the path shown MATCHES the unit's real location on disk (measured, not composed).",
+    "tronQuote": "files should show where the file really is",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-path-matches-disk",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug."
+      },
+      {
+        "id": "AC-automatable-browsable-390",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e152177d-d016-45eb-a41f-75ffe3dc9a64",
+    "name": "All special buttons become standard action units on the shared bar (DRY everywhere)",
+    "altId": "R40.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1c21d43a-c036-43b8-b947-1fae68720bb5"
+    ],
+    "description": "Every bespoke button across surfaces (Scenario · Edit · Claude.ai RC [terminal drawer] · Code · Open Diff · Save [editor header] · Files/Editor/Preview [editor footer] · Refresh · Back-to-Profile) becomes an ACTION UNIT rendered by the ONE shared universalActionBar (extends R35.1, which already migrated 4). Per-surface action sets are declared as DATA, not hardcoded; no bespoke button markup remains.",
+    "tronQuote": "all these special buttons should be standard actions - DRY everywhere",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-action-units",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] Every listed button (Scenario/Edit/Claude.ai-RC/Code/Open-Diff/Save/Files/Editor/Preview/Refresh/Back-to-Profile) is an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696), NOT bespoke markup."
+      },
+      {
+        "id": "AC-automatable-grep-zero-bespoke",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source, stub-must-fail] A grep PROVES ZERO bespoke button markup remains on those surfaces (the R40.4 sprintPrefix single-source enforcement shape) — plant a bespoke button -> gate RED."
+      },
+      {
+        "id": "AC-automatable-data-driven",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] Per-surface action sets are declared as DATA (config units), not hardcoded — the set is read, not literal."
+      },
+      {
+        "id": "AC-device-visual-390",
+        "group": "device",
+        "text": "[DEVICE/VISUAL @390 - Tron] The migrated bars render @390 unchanged-or-better (pixel; Tron final visual on the owner-gated surfaces where a non-owner cannot load)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
