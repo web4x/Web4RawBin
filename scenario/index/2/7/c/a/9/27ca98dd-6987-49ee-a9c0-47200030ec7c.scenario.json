@@ -2,7 +2,7 @@
   "ior": "ior:class:Class",
   "model": {
     "uuid": "27ca98dd-6987-49ee-a9c0-47200030ec7c",
-    "name": "EditorHeaderNav",
+    "name": "RbEditorToolbar",
     "methods": [
       "ior:instance:ccbf83af-6387-4b49-990f-d24703fbc326",
       "ior:instance:d98af6d8-2f87-40c1-9e7d-bed79510f58a"

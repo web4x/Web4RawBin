@@ -45,6 +45,16 @@
         "id": "AC-device-visual-390",
         "group": "device",
         "text": "[DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification."
+      },
+      {
+        "id": "AC-automatable-cr-status-enum",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] The ChangeRequest status uses a SINGLE-SOURCED ChangeRequestStatus enum (like TaskStatusEnum): Open -> Triaged -> Resolved -> Closed (distinct from TaskStatusEnum). Initial = Open. NO bare string literals (a bare status can drift into ad-hoc strings; architect steer 82a10155a)."
+      },
+      {
+        "id": "AC-automatable-audit-log-cr-mint",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] The decline endpoint AUDIT-LOGS the ChangeRequest mint (who declined, which task/req, when) for Q2 integrity — the verdict + its resulting unit are traceable, never a silent state change. createdBy is SERVER-SET from the owner token (can not be spoofed)."
       }
     ]
   },

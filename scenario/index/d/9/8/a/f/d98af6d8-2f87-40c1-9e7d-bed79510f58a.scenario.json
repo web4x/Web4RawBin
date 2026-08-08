@@ -2,7 +2,7 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "d98af6d8-2f87-40c1-9e7d-bed79510f58a",
-    "name": "EditorHeaderNav.pathLabelNav",
+    "name": "RbEditorToolbar.pathLabelNav",
     "implementations": [
       "ior:instance:197054f9-12d0-4e5e-a76d-77ad709c96c0"
     ]

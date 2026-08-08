@@ -4,7 +4,7 @@
     "uuid": "23af7ba9-4aad-4455-83f7-48b6ca62165d",
     "name": "editorFooter.previewTraceability",
     "description": "Preview renders THAT scenario's traceability chain (Req->UC->Class->Method->Impl->Test) via the EXISTING /trace surface (rb-trace-tree 5a057914) scoped to the unit + the EXISTING rb-detail-drawer for details on select. Zero new renderer (DRY, like R40.5).",
-    "class": "ior:instance:d3646636-3014-4ceb-b397-7826e76efe58",
+    "class": "ior:instance:94e7bf82-f867-4352-88b4-8c2a45bff4d4",
     "method": "ior:instance:47822b73-cfa0-4972-9a28-2fe826df55ef",
     "tasks": [],
     "implementations": [],
