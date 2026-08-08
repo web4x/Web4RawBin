@@ -3,9 +3,10 @@
   "model": {
     "uuid": "45853b02-340f-409f-8501-449a119c8ca4",
     "name": "RcLinkResolver.resolveRcLink impl (bridgeSessionId, fail-closed)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rc-link-resolver.ts"
+    "sourceFile": "ior:file:src/public/ts/trace/rc-link-resolver.ts",
+    "markerNote": "STRICT-AST VERIFIED (independent): [impl:uuid:45853b02] heads static async resolveRcLink@src/public/ts/trace/rc-link-resolver.ts:14 (name-match RcLinkResolver.resolveRcLink, 0 intervening named decls; line 13 = comment continuation). Client method fronts owner-gated /api/server-manager/rc (server OtmuxBridge.resolveRcLink); expert self-verified real panes: 0.0->po / 0.1->expert distinct, bash-pane->NO LINK (fail-closed, no synthesised URL)."
   },
   "ownerIor": "ior:instance:a45dd931-e848-4901-8037-f86b4dbff54f"
 }
