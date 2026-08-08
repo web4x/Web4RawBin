@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
+    "name": "Sprint labels show the sprint number (composed at display from number + name)",
+    "altId": "R40.4",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:d6cb7ddd-9587-49a2-b6b2-a355862579da"
+    ],
+    "description": "Every sprint surface displays the sprint NUMBER with its theme (\"Sprint N — theme\"), composed AT THE DISPLAY LAYER by ONE shared helper from the already-first-class model.number + model.name. The number is NOT written into the name field (that would be a second source of truth and drift on rename/renumber). Fixes all sprints (their labels currently render theme-only, unidentifiable/unsortable) with NO data migration.",
+    "tronQuote": "why is it not named sprint 40 - ...",
+    "singleSourceNote": "model.number stays the ONLY home of the number; name stays theme-only. Compose the label (sprintLabel(unit)=>\"Sprint {number} — {name}\") at render, never store \"Sprint 40\" in name.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-all-surfaces",
+        "group": "display",
+        "text": "Every sprint surface shows \"Sprint N — theme\": the tree row, the detail header, AND every generated MD view (the generator requirements.md header already does this — extend the same to tree + detail)."
+      },
+      {
+        "id": "AC-one-helper",
+        "group": "single-source",
+        "text": "The label is composed by ONE shared helper (e.g. sprintLabel(unit) => \"Sprint {number} — {name}\") — a grep PROVES there is no second composition site."
+      },
+      {
+        "id": "AC-all-sprints-no-migration",
+        "group": "coverage",
+        "text": "Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units."
+      },
+      {
+        "id": "AC-name-unchanged",
+        "group": "single-source",
+        "text": "The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number."
+      },
+      {
+        "id": "AC-device",
+        "group": "device",
+        "text": "@390 mobile: the label is legible and NOT truncated mid-number in the tree row."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
