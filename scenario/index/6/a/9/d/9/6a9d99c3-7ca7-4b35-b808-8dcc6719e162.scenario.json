@@ -31,9 +31,19 @@
         "text": "[AUTOMATABLE, graph] A genuine inheritance hierarchy with interfaces exists: abstract deployment-target -> Device / ExecutionEnvironment / Service; Artifact -> ConfigFile / Certificate / KeyFile / EnvValue."
       },
       {
-        "id": "AC-automatable-leaf-resolves-real-file",
+        "id": "AC-automatable-generalization-queryable",
         "group": "automatable",
-        "text": "[AUTOMATABLE, disk] Every LEAF node resolves to a REAL file on disk (os.path.exists), measured not composed."
+        "text": "[AUTOMATABLE, graph, anti-DRY-claim] GENERALIZATION is FIRST-CLASS + QUERYABLE: a gate asserts ConfigFile IS-A Artifact by READING THE GRAPH — generalization/realization are TYPED relationships or explicit model fields (exactly as deploys/contains/manifestsAs/configuredBy already are), NOT names/notes. If the IS-A can only be read from a string/name, it is DRY-claimed-not-enforced = FAIL (the sprintLabel-comment disease)."
+      },
+      {
+        "id": "AC-automatable-interfaces-realizable",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] INTERFACES exist as first-class REALIZABLE contracts (distinct from abstract-base single-inheritance; an interface is satisfiable ACROSS unrelated branches): FileBacked (every artifact whose leaf manifestsAs a real file — all 4 subtypes realize it), Deployable (targets that can host), optionally Measurable (has a verifiable on-disk referent). Realization is QUERYABLE the same way as generalization (typed relationship/field, read from the graph across branches)."
+      },
+      {
+        "id": "AC-automatable-leaf-resolves-real-file",
+        "group": "invariant",
+        "text": "[AUTOMATABLE, disk, ★ THE INVARIANT] Every FileBacked leaf RESOLVES to a real file on disk — and this passes AS A MODEL QUERY: enumerate the FileBacked realizers from the GRAPH, resolve each leafs manifestsAs->ior:file:, os.path.exists ALL. This is what makes Trons basically-end-in-files PROVABLE (not a description); a hierarchy whose leaves point at nothing is the fabricated-reference class killed 5x this sprint."
       },
       {
         "id": "AC-automatable-4-refs-survive",
