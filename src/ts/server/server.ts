@@ -1460,7 +1460,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sessions = await OtmuxBridge.readSessionTree();
         // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
         // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
-        const roots = sessions.map((s) => ({
+        const sessionRows = sessions.map((s) => ({
           // R31.3 badge-via-references: session carries hasChildren too (windows/panes already do) — parity with the
           // scenario tree so the chevron/count is deterministic (client stamps dataset.childRefCount from children.length).
           uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
@@ -1473,6 +1473,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             })),
           })),
         }));
+        // R41 RE-ROOT (Tron's open question — Server Manager showed a FLAT session list, no client surface for WODA.prod):
+        // re-root under the WODA.prod deployment node (fc327458), MODEL-DRIVEN (read the node unit, don't hardcode). The
+        // node is the single ROOT row; the live otmux sessions are its CHILDREN (a LIVE LENS — read fresh here, never a
+        // mirrored copy); the node's 4 measured deploymentRefs (sshd_config · host key · .env domain · LE cert) surface as
+        // leaf rows so the deployment surface is visible where the owner works. Fail-OPEN to the flat lens if the node unit
+        // is ever missing — never break the live session surface. The UML-diagram facet (renderedBy) is untouched: this ADDS.
+        let roots: any[] = sessionRows;
+        try {
+          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get('fc327458-03d1-4b90-847d-ab52a7d82237');
+          const nm: any = nodeUnit?.model;
+          if (nm && nm.kind === 'node') {
+            const refRows = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
+              uuid: 'depref:' + String(d.role), type: 'deploymentRef',
+              name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
+            }));
+            roots = [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
+          }
+        } catch { /* fail-open: keep the flat live lens */ }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;
