@@ -1,0 +1,46 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bfe97d61-24b0-4a76-82e7-0ea44406901f",
+    "name": "Suppress OS keyboard + configurable Keyboard Controller shell",
+    "altId": "R40.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9d1225a4-2e27-4498-88ff-dc87e932aa4c"
+    ],
+    "description": "An action that PREVENTS the OS (iOS) keyboard from opening on terminal input, plus a keyboard-controller surface (like the action bar) with CONFIGURABLE, data-driven keystrokes. This sprint delivers the suppression + the controller shell + the config model; the full controller is designed later.",
+    "tronQuote": "an action that PREVENTS the OS keyboard from opening, plus a keyboard-controller surface like the action bar but with CONFIGURABLE KEYSTROKES (full controller designed later — this sprint = suppression + shell + config model)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-no-os-keyboard",
+        "group": "no-os-keyboard",
+        "text": "Firing the action means the iOS keyboard NEVER opens on terminal input (suppressed by construction, not dismissed after)."
+      },
+      {
+        "id": "AC-terminal-visible",
+        "group": "terminal-visible",
+        "text": "The terminal stays FULLY VISIBLE — it is currently 100% occluded by the keyboard; after the action it is not occluded."
+      },
+      {
+        "id": "AC-no-overlay",
+        "group": "no-overlay",
+        "text": "The keyboard-controller input row must NOT overlay the Scenario/Edit buttons."
+      },
+      {
+        "id": "AC-configurable",
+        "group": "configurable",
+        "text": "Keystrokes are CONFIGURABLE (data-driven config model, not hardcoded) — the config model exists and drives the controller shell."
+      },
+      {
+        "id": "AC-device-gate-pixel",
+        "group": "device-gate-pixel",
+        "text": "Gated @390 REAL-WebKit with a SCREENSHOT: pixel evidence that the terminal is un-occluded and the input row clears the Scenario/Edit buttons — NEVER DOM counts (this is a visual/occlusion bug)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

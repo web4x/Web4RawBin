@@ -1,0 +1,59 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "adab1bb5-a292-490b-84fb-6e921dfb6a8f",
+    "name": "WODA.prod modelled as a UML deployment Node (with real refs + otmux children)",
+    "altId": "R40.2",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:b9a549e4-f48a-45d8-8888-bcf639928449"
+    ],
+    "description": "The WODA.prod server is modelled as a UML deployment-NODE scenario unit with resolvable references to (a) its SSH config, (b) its configured domain, (c) its LetsEncrypt certificate; the current otmux items (session -> window -> pane) appear as CHILDREN of that node root; it renders in the UML diagram in deployment-node style (a 3D node box, not a plain class box).",
+    "tronQuote": "the SERVER modelled as a UML deployment NODE unit with REFERENCES to (a) its SSH config, (b) its configured DOMAIN, (c) its LETSENCRYPT CERTIFICATE, and the CURRENT OTMUX ITEMS (session -> window -> pane) as CHILDREN of that root",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-node-exists",
+        "group": "node-exists",
+        "text": "A deployment-node unit for WODA.prod exists on disk (UML deployment-Node facet), with its 3 references present."
+      },
+      {
+        "id": "AC-refs-resolve-REAL",
+        "group": "refs-resolve-REAL",
+        "text": "The 3 refs — SSH config, configured domain, LetsEncrypt certificate — RESOLVE to REAL MEASURED artefacts on WODA.prod AND are SEMANTICALLY CORRECT (each answers the right question for a deployment NODE — the node's OWN inbound service config, not a resolvable-but-wrong outbound client file). NEVER invented/assumed paths (= fabricated identity) and NEVER a real-path-answering-the-wrong-question. Measured referents: DOMAIN=.env LE_DOMAIN/BASE_DOMAIN(prod.wo-da.de); CERT=/etc/letsencrypt/live/prod.wo-da.de/; SSH=/etc/ssh/sshd_config (inbound service) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key — NOT ~/.ssh/config (outbound client)."
+      },
+      {
+        "id": "AC-otmux-children",
+        "group": "otmux-children",
+        "text": "The current otmux items appear as CHILDREN under the node root in the correct hierarchy: session -> window -> pane."
+      },
+      {
+        "id": "AC-deployment-style",
+        "group": "deployment-style",
+        "text": "Renders in the UML diagram in DEPLOYMENT-NODE style (the 3D node-box notation), NOT a plain class box."
+      },
+      {
+        "id": "AC-inv-t",
+        "group": "inv-t",
+        "text": "INV-T: tree byte-diff == 0 — the node projection is compute-on-read / non-mutating (no write-back to the scenario tree)."
+      },
+      {
+        "id": "AC-device-gate",
+        "group": "device-gate",
+        "text": "@390 mobile REAL-WebKit: the node + its otmux children render legibly."
+      }
+    ],
+    "refsConstraint": "AC-refs-resolve-REAL: the 3 node refs (ssh/domain/LE-cert) minted at build-go FROM architect's real measurements; never invented paths.",
+    "measuredRefs": {
+      "measuredBy": "robbin-architect 2026-08-08 (WODA.prod v60211) + PO semantic correction",
+      "status": "domain+cert SETTLED; SSH pending architect FINAL confirm of the inbound-service referent. Mint the 3 ref UNITS at build-go from THESE.",
+      "ssh": "CORRECTED (PO): the NODE's ssh = its OWN INBOUND service -> /etc/ssh/sshd_config (measured, exists) + host identity ~/.ssh/public_keys/root.WODA.prod.public_key (measured). ⚠ NOT ~/.ssh/config — that is the ossh-managed OUTBOUND CLIENT file (resolvable-but-semantically-WRONG: a real path answering the wrong question). ⚠ NO 'Host WODA.prod' entry exists = a 'ssh host entry' ref would be FABRICATED. PENDING architect final confirm.",
+      "domain": "file Web4RawBin/.env keys LE_DOMAIN=prod.wo-da.de + BASE_DOMAIN=prod.wo-da.de (the .env is the SOURCE).",
+      "cert": "/etc/letsencrypt/live/prod.wo-da.de/ (fullchain.pem / privkey.pem / cert.pem / chain.pem, dated Jul31) — ref the dir or fullchain.pem specifically."
+    }
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
