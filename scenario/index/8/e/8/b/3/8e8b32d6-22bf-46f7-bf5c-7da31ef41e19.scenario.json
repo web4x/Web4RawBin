@@ -1,0 +1,44 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "name": "Server Manager — deployment-node model + mobile input control",
+  "number": 40,
+  "slug": "sprint-40-server-manager-deployment-mobile-input",
+  "goal": "Server Manager: model the deployment surface + fix mobile input control (Tron-authorized S40, #76). R40.1 — an action that opens the Claude app/web at the selected pane's AGENT RC (remote-control) session (per-pane/per-agent deep link; Claude Code sessions addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 + firing lands on that agent's RC). R40.2 — represent WODA.prod as a UML deployment-NODE (rendered deployment-node style in the UML diagram) with REFERENCES to (a) the SSH config for WODA.prod, (b) the configured DOMAIN, (c) the LETSENCRYPT CERTIFICATE for that server, and the CURRENT OTMUX ITEMS (sessions->windows->panes) as CHILDREN of that root node. R40.3 — an action that PREVENTS the OS-specific (iOS) keyboard from opening + a new configurable Keyboard Controller surface (action-bar-style but with CONFIGURABLE KEYSTROKES); this sprint delivers the SUPPRESSION + the controller SHELL + the config model (the controller behavior is designed later). Evidence (Tron screenshot): the iOS keyboard covers the ENTIRE terminal and the input row overlays the Scenario/Edit buttons. Scenario-first (#126): req mints the R40.1/2/3 Requirement units + ACs; planner boards the sprint + 3 covering tasks; units on disk BEFORE any implementation.",
+  "status": "Planned",
+  "phases": [
+   {
+    "id": "R40.1",
+    "title": "Action: Open Claude.ai RC — per-pane/agent deep link to the selected agent's remote-control session."
+   },
+   {
+    "id": "R40.2",
+    "title": "WODA.prod as a UML deployment-NODE — SSH/domain/letsencrypt references + otmux sessions->windows->panes as children."
+   },
+   {
+    "id": "R40.3",
+    "title": "Suppress the OS (iOS) keyboard + a configurable Keyboard Controller (suppression + controller shell + config model this sprint)."
+   }
+  ],
+  "requirements": [
+   "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
+   "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f",
+   "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
+  ],
+  "tasks": [
+   "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+   "ior:instance:ce92294f-2a53-4f41-b15d-ac60f416e121",
+   "ior:instance:d884d8d9-346c-4332-b85a-7704566aaf8e"
+  ],
+  "createdAt": "2026-08-08",
+  "createdBy": "robbin-planner",
+  "createdBy_note": "Tron-authorized Sprint 40 (only-Tron-increments #76, via robbin-po). Planner OWNS the sprint unit + task slots + planning.md; req OWNS the 3 Requirement units + requirements.md + ACs (uuids caab6d86/adab1bb5/bfe97d61, req-minted). Task ACs are scaffold-pointers until req publishes the Requirement ACs, then planner mirrors + regens.",
+  "joint": [
+   "robbin-planner",
+   "robbin-req",
+   "robbin-architect"
+  ]
+ }
+}

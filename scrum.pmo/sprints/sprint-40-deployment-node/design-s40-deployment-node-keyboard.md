@@ -33,3 +33,21 @@ Real-WebKit @390 is the ONLY authority (Playwright-Chromium ≠ WebKit; I cannot
 
 ## Sequence + deploy
 - All three are CLIENT + one server facet (renderFacet) → version bump + restart + re-verify-served (R40.2 renderFacet is client bundle; R40.3 is client). req mints R40.1/2/3 + the 3 measured refs at build-go; expert builds; I backstop (refs resolve to measured paths · UmlNode via renderFacet not a fork · children-by-lens-not-mirror · INV-T byte-diff==0 · keyboard device-gated @390 · terminal fully visible @390).
+
+## R40.1 — per-pane Remote-Control deep-link — MEASURED id-source (the trap dodged)
+★ **The trap (PO):** a claude.ai RC link is `claude.ai/code/session_<opaque>`, a DIFFERENT identifier space from the session `.jsonl` UUID (agents are uuid-named on disk: robbin-req f839a86b…). Synthesising a URL from the `.jsonl` uuid → a 404 = a fabricated reference wearing a hyperlink.
+★ **MEASURED — a reliable bridge EXISTS: `~/.claude/sessions/<pid>.json`.** Each carries BOTH spaces + the agent:
+  - `sessionId` = the `.jsonl` UUID (e.g. `30a47516-…`),
+  - **`bridgeSessionId` = the claude.ai RC id** (e.g. `session_01Mf5yKjsU2hjyA4atrmPnJu`),
+  - `name` = agent@host (e.g. `ARON@WODA.prod`), plus `pid`, `cwd`, `status`.
+  CONFIRMED: `sessions/2357186.json`.bridgeSessionId = `session_01XDXzb7GoZuKF9xzHTRGPdg` = the exact `Claude-Session:` trailer we emit in git commits → `bridgeSessionId` IS the RC id. The claudeCode registry's `sessionId` is the UUID space (not the RC id) — so DON'T resolve via it for the link.
+- **DESIGN (a) resolve via the real bridge:** given a pane → its claude process `pid` (tmux pane_pid → child claude) → `~/.claude/sessions/<pid>.json` → `bridgeSessionId` → link `https://claude.ai/code/<bridgeSessionId>`. Join key priority: `pid` (most reliable, 1 process = 1 file) → `name` (agent@host) → `sessionId` (uuid). 
+- **FAIL-CLOSED (honesty, PO condition):** if no `sessions/*.json` matches the pane, or it has no `bridgeSessionId` → return NO link (the RC surface opens without a per-pane deep link) and STATE the limitation — NEVER synthesise a `session_…` URL. A link is emitted ONLY from a measured `bridgeSessionId`.
+
+## Chain shapes (UC → Class → Method → Impl → Test) — for req to mint at build-go
+- **R40.1** `pane.resolveRcLink` → Class **RcLinkResolver** (or extend OtmuxBridge) → Method **resolveRcLink(pane)** (reads `~/.claude/sessions/<pid>.json`.bridgeSessionId; fail-closed → null) → Impl → Test (a pane WITH a bridge → correct `claude.ai/code/<bridgeSessionId>`; a pane WITHOUT → no link, not a fabricated URL).
+- **R40.2** `deploymentNode.render` → Class **DiagramViewModel** → Method **renderFacet** (EXTEND: node/`<<node>>` 3D-box facet branch) → Impl → Test (WODA.prod M1 instanceOf UmlNode renders as a deployment-node; INV-T tree byte-diff==0). Data: the M1 node unit holds the 4 MEASURED refs (sshd_config / pubkey-identity / .env-domain / LE-cert) + a LENS to live `readSessionTree` for children (no mirror).
+- **R40.3** `terminal.keyboardControl` → Class **RbKeyboardBar** (new client component, or extend RbTerminalDetail) → Methods **suppressSoftKeyboard()** (inputmode=none/synthetic, device-gated) + **renderKeyMap()** (data-driven from the keymap config unit) → Impl → Test (device @390: tap terminal → no soft keyboard, keys send via ws PTY, terminal fully visible, input row off Scenario/Edit). Data: a keymap config unit (rows of `{label,sequence,modifier}`).
+
+## What req mints (build-go)
+R40.1: UC pane.resolveRcLink + chain. R40.2: UC deploymentNode.render + chain + the WODA.prod M1 UmlNode unit with 4 measured refs. R40.3: UC terminal.keyboardControl + chain + the keymap config unit. All refs resolve to MEASURED paths AND answer the right question. Expert builds; I backstop each (R40.1 link-only-from-measured-bridge / R40.2 facet-not-fork + lens-not-mirror + INV-T==0 / R40.3 device-gated@390 + terminal-visible).
