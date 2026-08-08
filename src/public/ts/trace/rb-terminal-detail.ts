@@ -6,6 +6,7 @@
 // element on re-render/close → ws.close → server kills the pty + grouped tmux session).
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
+import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 per-pane RC deep-link
 
 export class RbTerminalDetail extends HTMLElement {
   static get observedAttributes() { return ['uuid']; }
@@ -30,8 +31,15 @@ export class RbTerminalDetail extends HTMLElement {
     this.style.cssText = 'display:flex;flex-direction:column;height:60vh;min-height:240px;text-align:left';
     this.innerHTML = '';
     const bar = document.createElement('div');
-    bar.style.cssText = 'flex:0 0 auto;color:#ccc;font:600 0.78rem monospace;padding:2px 4px 6px';
-    bar.textContent = 'Terminal — pane ' + paneId;
+    bar.style.cssText = 'flex:0 0 auto;color:#ccc;font:600 0.78rem monospace;padding:2px 4px 6px;display:flex;align-items:center;gap:8px';
+    const label = document.createElement('span'); label.textContent = 'Terminal — pane ' + paneId; label.style.cssText = 'flex:1';
+    // R40.1 per-pane action: visible + fireable from the pane surface, resolves THIS pane's agent RC (owner-gated
+    // endpoint) and opens the universal link (app-if-installed-else-web); fail-closed message if no measured bridge.
+    const rc = document.createElement('button');
+    rc.textContent = '↗ Claude.ai RC'; rc.title = "Open this pane's agent Remote Control";
+    rc.style.cssText = 'background:#238636;color:#fff;border:0;border-radius:5px;padding:3px 8px;font:inherit;cursor:pointer;white-space:nowrap';
+    rc.addEventListener('click', () => void this.openRc(paneId, rc));
+    bar.appendChild(label); bar.appendChild(rc);
     const host = document.createElement('div');
     host.style.cssText = 'flex:1;min-height:0;overflow:hidden';
     this.appendChild(bar);
@@ -64,6 +72,16 @@ export class RbTerminalDetail extends HTMLElement {
     this.onWin = (): void => fit();
     window.addEventListener('resize', this.onWin);
     fit();
+  }
+
+  // R40.1 [impl marker pending req chain] fetch THIS pane's owner-gated RC link + open the universal link (app-else-web);
+  // fail-closed: url=null → show the stated reason on the button, NEVER open/synthesise a fabricated URL.
+  private async openRc(paneId: string, btn: HTMLButtonElement): Promise<void> {
+    const prev = btn.textContent; btn.disabled = true; btn.textContent = '…';
+    const link = await RcLinkResolver.resolveRcLink(paneId);
+    if (link.url) { window.open(link.url, '_blank', 'noopener'); btn.textContent = prev; } // universal link → app if installed, else web
+    else { btn.textContent = 'no RC link'; btn.title = 'No per-pane RC link: ' + (link.reason || 'no measured bridge session'); } // fail-closed, stated
+    btn.disabled = false;
   }
 
   private teardown(): void {
