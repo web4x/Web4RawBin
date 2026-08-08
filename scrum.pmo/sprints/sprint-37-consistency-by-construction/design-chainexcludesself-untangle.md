@@ -29,3 +29,14 @@ The prefix-collision class has now bitten repeatedly (this + the earlier `f2f84c
 
 ## Notes
 - req is single-minter; verify-owner-first on every step (esp. C2's 6 foreign removals + C3's a1b2/7d865e08). I backstop the well-formed chain + the systemic guard when built. No unit mutated until req executes.
+
+---
+
+## DEFERRED (backlog, not rejected) — extract chainExcludesSelf as its own named artifact
+**Recorded by robbin-req 2026-08-08 (PO condition-4 on the §4 R30.11-ride close).**
+
+**Insight (correct-by-construction):** `chainExcludesSelf` is a fully-fledged traceable behaviour — it owns a Bug (BUG1 2d5f151e), a UseCase (detailView.chainExcludesSelf 8dc64273), a Method (RbDetailView.chainExcludesSelf 3542dcb3-aae6), and a distinct Test (e97850c3-fad4-46d0-b8b1-709c4ed7b350). A behaviour with its own full chain *deserves its own named code artifact + its own Impl*, so the marker/label/host/unit all align and strict-AST binds precisely — instead of riding renderSingularChain's Impl (91bea17d) as a distinct-intent Test.
+
+**Deferral rationale:** the extract touches `src/public/ts/trace/singular-chain.ts` = **CLIENT code** → a version bump (via the source config unit) + atomic commit + restart + re-verify-on-served = a full deploy cycle. At **76% weekly budget in a closing-only posture**, that deploy is not warranted for a bookkeeping/traceability benefit. So we took the no-code R30.11 ride now (Test e97850c3 rides shared Impl 91bea17d, distinct-intent; owner 09611d71 untouched) and DEFER the extract.
+
+**When picked up:** extract the filter `steps.filter(s => s.uuid !== selfUuid && CHAIN_TYPES.has(s.type.toLowerCase()))` into `function chainExcludesSelf(steps, selfUuid): ChainStep[]`; renderSingularChain calls it; mint a fresh v4 Impl heading it; re-point Method 3542dcb3-aae6 + Test e97850c3 off the shared 91bea17d onto the new Impl; version-bump (client change) + restart + re-verify. Net: chainExcludesSelf becomes a first-class, independently-testable artifact with a clean label==host==unit strict-AST bind.
