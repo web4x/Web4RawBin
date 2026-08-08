@@ -12,8 +12,9 @@
     "unitLinks": [],
     "certificationScope": {
       "proven_diagram_surface": "renderNodeFacet riding 94ad4f50 draws the «node» 3D box with name + the 4 MEASURED refs as compartment rows (sshd_config / SSH-identity / .env-domain / LE-cert); children+methods NOT mirrored into the facet; deterministic render; INV-T byte-diff==0; stub-must-fail (empty -> 0 rows) + drift-injection (refs -> rows).",
-      "not_proven_pending_server_manager_root": "The LIVE WODA.prod ROOT node with its 4 refs actually RESOLVING + the live-tree byte-diff==0 — the tree is still FLAT, expert is re-rooting it. PENDING (not passed, NOT failed). This is why Tron asked \"where is the root node\": the MODEL was right, the VIEW was empty — this Test must NOT read as if the live view were verified.",
-      "owner_page": "batched into the PO Tron owner-QA list."
+      "not_proven_pending_server_manager_root": "SHRUNK to exactly TWO, no open defects: (1) [REPLICATED] composition — the live re-rooted tree awaiting the experts buildRootedTree EXTRACT (then the distinct LOUD-degradation Test wires to that Impl, tester places the marker); (2) VISUAL @390 render on the owner page (Tron owner-device).",
+      "owner_page": "batched into the PO Tron owner-QA list.",
+      "proven_source_loud_degradation_served_0_8_69": "FAIL-OPEN now LOUD (r402root-server-tree-gate.ts, GREEN DET-3x, HEAD==served 0.8.69, 1dc1a469b): BOTH degradation paths (else: node missing/not-a-node · catch: exception) emit a server WARN + a VISIBLE type:notice ⚠ row NAMING the uuid, flat sessions still WRAPPED so availability survives; plant-missing -> notice (not silent flat); stub-must-fail proven (strip the notice -> RED to the 0.8.67 silent baseline). This closes Trons original silent-fall-back complaint. ⚠ DISTINCT INTENT (failure-announces-itself vs e9b21f74 happy-path-composes) -> gets its OWN Test at the buildRootedTree extract (below); recorded here as source-proven until the clean Impl exists (R5: no invented uuid, R4: no riding a non-existent Impl)."
     }
   },
   "ownerIor": "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
