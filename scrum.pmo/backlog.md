@@ -408,3 +408,22 @@ R32.1-R32.10 deliver Model-Driven Code Quality over a SINGLE-FILE demo (the r32.
 
 ---
 **Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)
+
+---
+
+# BACKLOG: generate-sprint-md write-guard must FAIL-LOUD on a HEADERLESS file at a generator-OWNED path (not silently preserve)
+
+**Captured:** 2026-08-08 - **By:** robbin-planner (PO directive) - **Source:** S40 requirements.md incident - **discoverySource:** planner-found-drift (round-trip --check)
+
+The generator's write-guard (generate-sprint-md.ts ~215-237) preserves any on-disk file that LACKS the generated-header, treating it as "hand-authored, not generator-owned" and SKIPPING it. Correct for genuinely-FOREIGN artifacts (diagrams/*.puml, design briefs, *.png). WRONG for a file at the generator's OWN owned path that merely lacks the header — the guard cannot distinguish "a file I do not own" from "a file at MY path missing MY header," and those need OPPOSITE responses.
+
+**Root (PO-named STRUCTURAL TRAP, S40 evidence):** requirements.md is a GENERATOR-OWNED view (generateRequirementsMd, generate-sprint-md.ts:190; R30.18 wired it into buildSprintOutput precisely so requirements.md stops being hand-authored). When req hand-authored S40's requirements.md (headerless), the write-guard silently preserved it FOREVER: the generator politely stops writing that path, --check reports drift, and NOTHING ever reconciles. A one-time hand-authoring became PERMANENT SILENT DRIFT. Same family as the day's other findings — a mechanism quiet where it must be loud (cf. the narrow-glob dropping markers, the vacuous test passing, the DET-gate blind spot).
+
+**Why backlog (NOT build now):** Tron's S40 features (R40.1/2/3) come FIRST (PO). The immediate S40 drift is fixed by REGENERATION (req removes the headerless requirements.md + re-runs the generator so the generated view lands). This item is the BY-CONSTRUCTION prevention so it can never recur.
+
+**Proposed direction (Tron/PO decides; owner = expert generate-sprint-md + architect):** the write-guard, on finding a HEADERLESS file at a GENERATOR-OWNED path (the emitted set: planning.md, requirements.md, task-*.md), must FAIL-LOUD — report a CONFLICT (path, expected-header, action=regenerate-or-move) and exit non-zero — instead of silently preserving it. Genuinely-foreign paths (outside the generator-owned set) keep the silent-preserve behavior. Acceptance/gate: plant a headerless requirements.md at a sprint -> generator EXITS LOUD naming it (path + expected-header + "regenerate") NOT skip; a headerless foreign design-brief.md -> still preserved silently (the two responses stay distinct). Folds into ci:gates alongside check:sprint-md.
+
+**Cross-ref:** R30.18 (generateRequirementsMd = requirements.md IS a generated view), law #100 (MD = generated view of units), S40 requirements.md incident (this evidence), R-C3 (fail-loud ci-guard family — same doctrine).
+
+---
+**Maintained by:** robbin-planner (2026-08-08, PO directive — S40 write-guard trap)
