@@ -29,7 +29,7 @@
       {
         "id": "AC-390-default-view",
         "group": "device",
-        "text": "[AUTOMATABLE render + @390 device] EACH type (Service/KeyFile/EnvValue/Certificate) has a DEFAULT VIEW: the detail drawer renders identity + fields + parent/children — it does NOT hang. Verified @390 real-WebKit that the drawer renders content (not Loading)."
+        "text": "[AUTOMATABLE render + @390 device] The detail drawer renders identity + fields + parent/children via ONE GENERIC default view DRIVEN BY THE M2 TYPE (the type determines the fields shown) — NOT per-type bespoke views that can drift (PO steer; DRY, the R40.5 lesson). The drawer does NOT hang. Verified @390 real-WebKit that it renders content, not Loading."
       },
       {
         "id": "AC-automatable-fail-loud",
@@ -41,7 +41,8 @@
         "group": "device",
         "text": "[DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged)."
       }
-    ]
+    ],
+    "poSteerNote": "PO (2026-08-08): ONE generic view driven by the M2 type, not per-type views that can drift."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
