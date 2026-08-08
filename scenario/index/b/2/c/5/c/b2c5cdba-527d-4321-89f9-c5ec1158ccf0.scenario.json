@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b2c5cdba-527d-4321-89f9-c5ec1158ccf0",
+    "name": "deploymentModel.typedOopRefs",
+    "description": "Build the typed OOP deployment model: each ref a first-class typed M1 node instanceOf its M2 type; IS-A (generalization) + implements (realizes) as real Relationship EDGES reusing UmlGeneralization/UmlDependency/UmlInterface; every FileBacked realizer manifestsAs a real file (crown invariant, fail-closed model query). Renders via renderFacet (R40.2). Reuses the M2 family, no parallel type system.",
+    "class": "ior:instance:78342cc7-e47b-474e-9df9-2f5381599b58",
+    "method": "ior:instance:ab9379d6-71a4-402e-a029-458f5c8561d7",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:6a9d99c3-7ca7-4b35-b808-8dcc6719e162"
+}

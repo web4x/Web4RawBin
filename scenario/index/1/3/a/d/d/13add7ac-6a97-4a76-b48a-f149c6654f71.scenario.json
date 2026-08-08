@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "13add7ac-6a97-4a76-b48a-f149c6654f71",
+    "name": "prod.wo-da.de fullchain",
+    "metaLevel": "M1",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000028"
+    ],
+    "manifestsAs": "ior:file:/etc/letsencrypt/live/prod.wo-da.de/fullchain.pem"
+  },
+  "ownerIor": null
+}

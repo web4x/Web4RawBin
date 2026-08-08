@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Relationship",
+  "model": {
+    "uuid": "1de5d6ab-9c50-4a05-bbde-15206735fc99",
+    "from": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000030",
+    "to": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000026",
+    "kind": "generalization",
+    "metaKind": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000011"
+  },
+  "ownerIor": null
+}
