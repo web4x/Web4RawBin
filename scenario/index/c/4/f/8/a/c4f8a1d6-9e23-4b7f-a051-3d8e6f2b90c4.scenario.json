@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "name": "test:R40.1 resolveRcLink fail-closed per-pane RC deep-link (owner-gated 403 no-leak + no synthesised URL)",
+    "description": "Bridged to test/visual/r401-rc-link-gate.mjs (r401, GREEN DET-3x, 7d5ae8d08). Certifies: the owner-gated endpoint 403s a non-owner with NO bridgeSessionId/session-URL leak; the resolver returns {url:null,reason} (NEVER a synthesised session_ URL) while threading the SELECTED pane id -> pane-WITH-bridge yields the correct claude.ai/code/<bridgeSessionId>, pane-WITHOUT yields no link. SCOPE: this Test covers the resolveRcLink fail-closed resolution (Impl 45853b02). AC-1 (action visible+fireable) + AC-2 (server-side pane->agent isolation, owner page) are OWNER-PAGE-PENDING — separate impls, not this one.",
+    "sourceFile": "ior:file:test/visual/r401-rc-link-gate.mjs",
+    "implementations": [
+      "ior:instance:45853b02-340f-409f-8501-449a119c8ca4"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:45853b02-340f-409f-8501-449a119c8ca4"
+}
