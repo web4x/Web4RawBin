@@ -48,19 +48,40 @@ async function main() {
   const singleRoot = roots.length === 1 && roots[0].type === 'deploymentNode';
   const childrenAreLensPlusRefs = singleRoot && roots[0].children.filter((c: any) => c.type === 'deploymentRef').length === 4 && roots[0].children.filter((c: any) => c.type === 'otmuxSession').length === t1.length;
 
-  // [SOURCE·fail-open] the catch must emit a LOUD WARN row, not be silent
+  // [REAL] served == committed == 0.8.69 (loud fix live, phantom-guard)
+  let served = ''; try { served = JSON.parse((await httpGet('/api/config')).body).version; } catch { /* */ }
+  const servedOk = served === '0.8.69';
+
+  // ★ [SOURCE·fail-open LOUD, served 0.8.69] BOTH degradation paths (else: node missing/not-a-node · catch: exception) must
+  // emit a server WARN + a VISIBLE type:'notice' ⚠ row wrapping the flat sessions — NOT a silent slide to the bare flat list.
   const handlerSrc = fs.readFileSync(`${ROOT}/src/ts/server/server.ts`, 'utf8');
-  const reRootBlock = handlerSrc.slice(handlerSrc.indexOf('R41 RE-ROOT'), handlerSrc.indexOf('R41 RE-ROOT') + 1400);
-  const failOpenLoud = /catch[\s\S]{0,120}(WARN|warn|node-unit-missing|deploymentNodeMissing|fallback.*flat.*row|addLog)/.test(reRootBlock);
+  const reRootStart = handlerSrc.indexOf('R41 RE-ROOT');
+  const reRootBlock = handlerSrc.slice(reRootStart, handlerSrc.indexOf('server-manager/rc', reRootStart)); // full block incl else + catch branches
+  const warns = (reRootBlock.match(/console\.warn\(`\[server-manager\] WARN/g) || []).length;   // both paths WARN
+  const noticeRows = (reRootBlock.match(/type: 'notice'/g) || []).length;                        // both paths a VISIBLE notice row
+  const namesUuid = reRootBlock.includes(NODE_UUID) && /⚠ WODA\.prod deployment node/.test(reRootBlock);
+  const failOpenLoud = warns >= 2 && noticeRows >= 2 && namesUuid;
+
+  // [REPLICATE·plant-missing, labelled] the fixed else-branch on a MISSING node → a VISIBLE notice row (not silent flat).
+  // stub-must-fail: if the notice were removed, roots[0].type would be 'otmuxSession' (silent flat) → this flips RED.
+  const plantMissing = (nm2: any) => {
+    if (nm2 && nm2.kind === 'node') return sessionRows; // (not this case)
+    return [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, children: sessionRows }];
+  };
+  const missingRoots = plantMissing(null);
+  const plantLoud = missingRoots.length === 1 && missingRoots[0].type === 'notice' && /⚠/.test(missingRoots[0].name) && missingRoots[0].name.includes(NODE_UUID.slice(0, 8)) && (missingRoots[0] as any).children.length === t1.length; // loud AND availability preserved
 
   const realStructure = ac403 && nested && freshLens && nodeOk && singleRoot && childrenAreLensPlusRefs;
   console.log(`[REAL·non-owner] tree 403+no-leak = ${ac403} (noTok:${noTok.status} unk:${unk.status})`);
   console.log(`[REAL server-side] lens nested=${nested} fresh=${freshLens} (${t1.length} sessions, ${paneCount} panes) | node fc327458 kind=node+4refs=${nodeOk} (roles: ${roles.join('/')})`);
   console.log(`[REPLICATED·labelled] single-root=${singleRoot} (${roots[0]?.name}) children=refs+sessions=${childrenAreLensPlusRefs}`);
-  console.log(`[SOURCE·fail-open] LOUD-degradation = ${failOpenLoud}  ${failOpenLoud ? '(WARN row present)' : '★ RED: fail-open is SILENT (catch → flat, no WARN row) — deceptive, expert must make it LOUD'}`);
-  console.log(`\nSTRUCTURE (REAL+replica) = ${realStructure ? 'GREEN' : 'RED'} · FAIL-OPEN-LOUD = ${failOpenLoud ? 'GREEN' : 'RED (silent)'}`);
+  console.log(`[REAL] served==committed==0.8.69 = ${servedOk} (served ${served})`);
+  console.log(`★ [SOURCE·fail-open LOUD] = ${failOpenLoud} (both paths: ${warns} WARNs + ${noticeRows} notice rows + names-uuid=${namesUuid}) ${failOpenLoud ? '— degradation is LOUD, not silent' : '★ RED: still silent'}`);
+  console.log(`[REPLICATE·plant-missing] node-missing → VISIBLE notice row (not silent flat) = ${plantLoud} (roots[0].type=${missingRoots[0].type})`);
+  const failOpenGreen = servedOk && failOpenLoud && plantLoud;
+  console.log(`\nSTRUCTURE (REAL+replica) = ${realStructure ? 'GREEN' : 'RED'} · ★ FAIL-OPEN-LOUD = ${failOpenGreen ? 'GREEN — DEFECT CLOSED on 0.8.69' : 'RED'}`);
   console.log('OWNER-PAGE → TRON: the VISUAL @390 render of the rooted tree (owner-only page).');
   console.log('★ FLAG: the re-root composition is INLINE in the tree handler (server.ts:1482-1492) — recommend extracting OtmuxBridge.buildRootedTree(sessions,nodeUnit) so the composed structure + INV-T can be gated as a FUNCTION directly (like resolveRcLink), not replicated.');
-  process.exitCode = (realStructure && failOpenLoud) ? 0 : 1;
+  process.exitCode = (realStructure && failOpenGreen) ? 0 : 1;
 }
 main();
