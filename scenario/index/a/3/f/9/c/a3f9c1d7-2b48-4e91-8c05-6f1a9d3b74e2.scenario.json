@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a3f9c1d7-2b48-4e91-8c05-6f1a9d3b74e2",
+    "name": "test:R40.2 buildRootedTree server compose + graceful-degradation-is-LOUD (distinct from e9b21f74 render-contract)",
+    "description": "Bridged to test/visual/r402root-server-tree-gate.ts ([REAL] end-to-end, zero replicas, GREEN, served==committed==0.8.70, 25b2eba95). DISTINCT intent (failure-announces-itself + server compose) vs e9b21f74 (client render-contract).",
+    "sourceFile": "ior:file:test/visual/r402root-server-tree-gate.ts",
+    "implementations": [
+      "ior:instance:fcd57103-4ff0-4ca1-b3c7-2deec33e6a02"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "certificationScope": {
+      "proven_server_side_REAL_zero_replicas_0_8_70": "buildRootedTree composes a SINGLE ROOT deploymentNode WODA.prod + 4 depref rows + 5 sessions nested to windows/panes; pure composer, no input mutation, deterministic -> INV-T byte-diff==0. BOTH degradation paths LOUD (null + not-a-node -> visible ⚠ notice row NAMING the uuid + server WARN, sessions PRESERVED) with stub-must-fail proven. [MOVED from e9b21f74 per the borrowed-proof-MOVES-not-COPIES rule — this is now its ONLY home.]",
+      "scope_boundary_not_a_defect": "Server-composition surface ONLY. The VISUAL @390 render on the owner page (Tron owner-device) is a SEPARATE surface — NOT this Tests scope and NOT a server pending. No server-side pending, no replicas, no open defects."
+    }
+  },
+  "ownerIor": "ior:instance:fcd57103-4ff0-4ca1-b3c7-2deec33e6a02"
+}

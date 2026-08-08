@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e56fcd32-fd56-4e9d-b8e2-23764fbc951c",
+    "name": "OtmuxBridge.buildRootedTree",
+    "implementations": [
+      "ior:instance:fcd57103-4ff0-4ca1-b3c7-2deec33e6a02"
+    ]
+  },
+  "ownerIor": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
+}

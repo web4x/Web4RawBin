@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fcd57103-4ff0-4ca1-b3c7-2deec33e6a02",
+    "name": "OtmuxBridge.buildRootedTree impl (single-root deployment-node compose + LOUD fail-open)",
+    "markerPending": true,
+    "tests": [
+      "ior:instance:a3f9c1d7-2b48-4e91-8c05-6f1a9d3b74e2"
+    ],
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts"
+  },
+  "ownerIor": "ior:instance:e56fcd32-fd56-4e9d-b8e2-23764fbc951c"
+}
