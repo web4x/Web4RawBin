@@ -4,7 +4,9 @@
     "uuid": "e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809",
     "name": "SprintLabel.sprintLabel impl (compose Sprint {number} — {name}, single-source)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:d7e4b9a1-3c62-4f18-b0a5-6e91f2c8d340"
+    ],
     "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts",
     "markerNote": "STRICT-AST VERIFIED: heads export function sprintLabel@src/ts/scenario/sprint-label.ts:19 (name-match SprintLabel.sprintLabel, 0 intervening; sprintPrefix@13 is BEFORE the marker, not intervening). Share-the-atom: sprintPrefix(num) is the ONE number-format home; sprintLabel + generator headings compose it. GREP-PROVEN single display-composition site (R40.4 AC-one-helper). migrate-to-scenario:119 = migration-time slug->name, NOT a display-label site (pre-existing, separate)."
   },

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d7e4b9a1-3c62-4f18-b0a5-6e91f2c8d340",
+    "name": "test:R40.4 sprintLabel SINGLE-SOURCE INVARIANT — the \"Sprint {number}\" format has exactly ONE composition site, gate-enforced",
+    "description": "Bridged to test/visual/r404-sprint-label-single-source-gate.mjs (r404, GREEN DET-3x, committed 1f9217dcb). Certifies the INVARIANT, not the appearance: not merely \"the label shows a number\" (already visibly true = the weak claim) but that the Sprint-N format is composed at exactly ONE site (sprintPrefix/sprintLabel) — proven by TWO independent greps + check:sprint-label PASS + a BITE (plant a bypass/2nd composition site -> gate exit 1; remove -> exit 0). That distinction is why R40.4 AC was RED while the feature looked fine. Covers AC-one-helper + AC-name-unchanged (single source).",
+    "sourceFile": "ior:file:test/visual/r404-sprint-label-single-source-gate.mjs",
+    "implementations": [
+      "ior:instance:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809"
+}
