@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-Planned - S40 R40.5 (SCOPE-CORRECTED ac147a82d: detail/feature-view EXTRA buttons DE-DUP onto shared bar; ⛔ editor chrome OUT/unchanged, exclusion RECORDED). RE-MIRRORED from rewritten R40.5. coveredRequirements + useCases 1c21d43a wired; ACs MIRRORED with tags (4 AUTOMATABLE + 1 DEVICE/VISUAL @390 Tron). NOTE: slug stays task-40.5-buttons-to-action-units-dry (identifier stable; corrected scope in name/desc/ACs). Architect designs the chain. No build until build-go.
+Planned - S40 R40.5 (SCOPE-CORRECTED ac147a82d: detail/feature-view EXTRA buttons DE-DUP onto shared bar; ⛔ editor chrome OUT/unchanged, exclusion RECORDED). RE-MIRRORED from rewritten R40.5. coveredRequirements + useCases 1c21d43a wired; ACs MIRRORED with tags (4 AUTOMATABLE + 1 DEVICE/VISUAL @390 Tron). NOTE: slug stays task-40.5-buttons-to-action-units-dry (identifier stable; corrected scope in name/desc/ACs). ★ In Progress refinement [x]: design/build-requirement DELIVERED (architect 9cf7857a2 authoritative-N-before-migration + build-go cb77ce28f: UC rides EXISTING universalActionBar 54acc696/ffd44b17, actionSets at build from grep-inventory; architect confirmed NO open design action, NOT design-gated). BUILD-READY, expert on it (Impl markerPending). ★ SCOPE: editor chrome OUT, IN = duplicated detail/feature-view buttons, POINT = de-dup NOT uniformity; grep-zero-bespoke lint SCOPED to detail/feature (must NOT fire on editor chrome) + stub-must-fail on new bespoke.
 
 ## Traceability
 
