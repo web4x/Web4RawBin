@@ -28,6 +28,7 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
+import { sprintPrefix } from '../scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
 import { PtyBridge } from './PtyBridge.js';
 import { TsToModel } from '../scenario/TsToModel.js';
 import { pumlToModel } from '../shared/puml-serializer.js'; // S33-P3f-1: REUSE the R32.7 PUML parser (INV-F-1, no new parser)
@@ -1381,7 +1382,7 @@ function traceabilityRoots(): MofNode[] {
   const out: MofNode[] = [];
   // CurrentSprint node — SAME singleton uuid /trace uses (rb-trace-tree) → its expand rides the identical CurrentSprint slots.
   out.push(mofFolder('current-sprint-singleton-0000-000000000001', 'CurrentSprint', 3, 'trace', 'currentsprint'));
-  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, s.name || `Sprint ${s.number}`, s.taskCount, 'trace', 'sprint'));
+  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, s.name || sprintPrefix(s.number), s.taskCount, 'trace', 'sprint')); // R40.4 single-source
   return out;
 }
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {

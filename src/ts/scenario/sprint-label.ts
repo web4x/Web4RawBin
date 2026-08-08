@@ -4,11 +4,12 @@
  * caller — client surfaces pass unit.model.number; server surfaces pass the R-C1 sprintNumOf(unit). Passing it in keeps
  * this module CLIENT-SAFE (sprint-pin-resolver, home of sprintNumOf, imports node:fs at module-top → not browser-safe).
  *
- * SHARE THE ATOM, NOT THE STRING (PO 2026-08-08): sprintPrefix is the one home of the 'Sprint N' format; two legitimately
- * DIFFERENT headings compose it per-purpose (NOT duplication of one fact):
- *   - display label      = sprintPrefix(num) + ' — ' + name        (tree row, detail header)
- *   - requirements heading = sprintPrefix(num) + ' Requirements — ' + name  (generator — wording UNCHANGED, byte-stable)
- * If the prefix ever becomes 'S40' / 'Sprint #40', it changes in exactly ONE place.
+ * SHARE THE ATOM, NOT THE STRING (PO 2026-08-08): sprintPrefix is the one home of the 'Sprint N' format; per-purpose
+ * callers compose it (display label = sprintPrefix + ' — ' + name; generator headings = sprintPrefix + ' Planning/
+ * Requirements — ' + name, wording unchanged/byte-stable). If the prefix ever becomes 'S40'/'Sprint #40' it changes here only.
+ * ★ ENFORCED, not merely claimed: scripts/check-sprint-label.ts (ci:gates) FAILS the build if any src/scripts site
+ *   composes 'Sprint <number>' outside this file — so this single-source invariant cannot silently drift (a client-scoped
+ *   grep once missed 3 bypass sites; the gate is global). DRY-enforced, not DRY-claimed.
  */
 export function sprintPrefix(num: number | null | undefined): string {
   return 'Sprint ' + (num ? num : '?'); // '?' matches the generator's prior `m.number || '?'` → byte-stable output
