@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0ed5cd75-7cd5-420d-af29-28c7f167456c",
+    "name": "EditorPreview.previewTraceability impl (REUSE rb-trace-tree scoped to unit + rb-detail-drawer, NO new renderer)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts"
+  },
+  "ownerIor": "ior:instance:47822b73"
+}

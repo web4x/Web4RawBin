@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5d02d562-eafb-4bc9-8d6f-3894b3fbda9c",
+    "name": "detailView.backVsPathNav",
+    "description": "'← Back' = genuine history.back(); the '📁 scenario/...' path label = a SEPARATE handler navigating to the containing FOLDER (today's Back behaviour). Two distinct handlers, neither does the other's job.",
+    "class": "ior:instance:27ca98dd-6987-49ee-a9c0-47200030ec7c",
+    "method": "ior:instance:ccbf83af-6387-4b49-990f-d24703fbc326",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:6ce80195-a394-4ba3-b9ca-3db7a04d2ce2"
+}

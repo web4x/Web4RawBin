@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a20f8990-5a0e-4a99-9190-9674c11d668c",
+    "name": "TaskQaVerdict",
+    "methods": [
+      "ior:instance:7e6a0361-1b23-4e12-97c2-abbc0772b5fa",
+      "ior:instance:aa046d50-751a-465e-bea7-51e28a94b09d"
+    ]
+  },
+  "ownerIor": null
+}

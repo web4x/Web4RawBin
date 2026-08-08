@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "197054f9-12d0-4e5e-a76d-77ad709c96c0",
+    "name": "EditorHeaderNav.pathLabelNav impl (navigate to containing folder)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts"
+  },
+  "ownerIor": "ior:instance:d98af6d8"
+}

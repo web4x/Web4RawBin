@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "47822b73-cfa0-4972-9a28-2fe826df55ef",
+    "name": "EditorPreview.previewTraceability",
+    "implementations": [
+      "ior:instance:0ed5cd75-7cd5-420d-af29-28c7f167456c"
+    ]
+  },
+  "ownerIor": "ior:instance:d3646636-3014-4ceb-b397-7826e76efe58"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0a3e3653-c997-4a87-97ef-1511a1fef5dd",
+    "name": "taskQa.tronVerdict",
+    "description": "A QA-Review task carries two OWNER-ONLY action units on the universalActionBar: approveByOwner (records approvedBy+approvedAt as data -> flips Done-gate; evidence-precondition, cannot manufacture a Done) + declineToChangeRequest (mints an ior:class:ChangeRequest, existing kind, linked). Shipped together.",
+    "class": "ior:instance:a20f8990-5a0e-4a99-9190-9674c11d668c",
+    "method": "ior:instance:7e6a0361-1b23-4e12-97c2-abbc0772b5fa",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad"
+}

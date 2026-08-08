@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "36b6ce2e-efe9-4ad8-9382-104ee07d0266",
+    "name": "TaskQaVerdict.approveByOwner impl (owner-gated 403; approvedBy/approvedAt as data; evidence-precondition; flips Done-gate)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts"
+  },
+  "ownerIor": "ior:instance:7e6a0361"
+}

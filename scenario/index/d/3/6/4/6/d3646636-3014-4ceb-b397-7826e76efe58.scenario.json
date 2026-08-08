@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d3646636-3014-4ceb-b397-7826e76efe58",
+    "name": "EditorPreview",
+    "methods": [
+      "ior:instance:47822b73-cfa0-4972-9a28-2fe826df55ef"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "90089602-d819-4df3-80a9-ef5524931ae3",
+    "name": "TaskQaVerdict.declineToChangeRequest impl (owner-gated 403; mints ior:class:ChangeRequest linked to task/req)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts"
+  },
+  "ownerIor": "ior:instance:aa046d50"
+}

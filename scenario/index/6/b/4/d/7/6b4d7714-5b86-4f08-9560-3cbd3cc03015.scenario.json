@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6b4d7714-5b86-4f08-9560-3cbd3cc03015",
+    "name": "EditorHeaderNav.historyBack impl (history.back, genuine)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts"
+  },
+  "ownerIor": "ior:instance:ccbf83af"
+}
