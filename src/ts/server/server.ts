@@ -1475,6 +1475,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
         return;
       }
+      if (req.method === 'GET' && filepath === '/api/server-manager/rc') { // R40.1 per-pane RC deep-link (owner-gated by the block above)
+        const paneId = String(urlParams.get('pane') || '').trim();
+        if (!paneId) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"ok":false,"error":"pane required"}'); return; }
+        const link = await OtmuxBridge.resolveRcLink(paneId); // { url: string|null, reason?, agent? } — url=null is fail-closed, NOT an error
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, ...link })); // client opens link.url (app-else-web) OR shows link.reason when null
+        return;
+      }
       if (req.method === 'POST' && filepath === '/api/server-manager/session') { // R31.4-PRE/B1: mint the httpOnly owner cookie (caller already owner-gated above via the LIVE x-player-token)
         const sid = crypto.randomUUID(); // RANDOM — NOT OWNER_TOKEN (INV-G2 stays 1)
         smSessions.set(sid, { owner: true, expiresAt: Date.now() + 30 * 60 * 1000, token: ServerManagerGuard.playerTokenFrom(req) }); // R31.8: store the minting caller's token for data-driven feature membership
