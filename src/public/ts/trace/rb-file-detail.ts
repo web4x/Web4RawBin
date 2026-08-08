@@ -8,7 +8,7 @@ import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { guessMimeFromName } from './content-preview.js';
+import { guessMimeFromName, fillPreviewPane } from './content-preview.js'; // R40.12: restore eager media render
 import './rb-preview-pane.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 
@@ -62,10 +62,12 @@ export class RbFileDetail extends HTMLElement {
           <div class="dv-links"></div>`;
 
         const pane = this.querySelector('rb-preview-pane') as RbPreviewPane;
-        // R35.1 (A): file preview is now toggle-driven by the universalActionBar 'preview-file' action — pane starts hidden
-        // + .cv-preview-content, lazy fillPreviewPane on first show (ONE file-preview mechanism, DRY). New-tab bespoke button
-        // REMOVED → 'open-newtab' reads cv-actions data-url. pz-reset (zoom) stays, shown only while the pane is open.
+        // R35.1 (A): non-media file preview stays toggle-driven by the universalActionBar 'preview-file' action (lazy
+        // fillPreviewPane on first show — DRY, keeps large/other files behind a click). pz-reset shown only while open.
         this.querySelector('.pz-reset')?.addEventListener('click', () => pane.reset());
+        // R40.12: MEDIA subtypes AUTO-RENDER on select again (ea7443e87's unification dropped the eager call → the
+        // 75vh pane read as Tron's empty black box). Restore it for media + FAIL-LOUD (never a visible-but-empty pane).
+        this.autoRenderMediaPreview(pane, uuid, mimeType, name, token);
 
         if (sourceFile) {
           const sh = this.querySelector('.dv-head');
@@ -85,6 +87,19 @@ export class RbFileDetail extends HTMLElement {
         if (ref) this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
       }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load file</div>'; });
     });
+  }
+
+  // R40.12 — File MEDIA subtypes render their player on SELECT (auto), restoring the S23 auto-render that ea7443e87's
+  // file-preview unification dropped (it left the 75vh pane visible-but-unfilled = Tron's empty black box). Non-media
+  // stays toggle-driven. FAIL-LOUD: an unfillable pane shows an explicit 'preview unavailable: <mime>', never empty.
+  // (marker: req mints the R40.12 Impl → this name-matching decl; converges into R40.11's generic type-driven view.)
+  private autoRenderMediaPreview(pane: RbPreviewPane, uuid: string, mimeType: string, name: string, token: string): void {
+    const isMedia = /^(audio|video|image)\//.test(mimeType) || mimeType === 'application/pdf' || mimeType === 'text/html'
+      || mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc');
+    if (!isMedia) return;                                        // non-media: keep the toggle path (pane stays hidden)
+    pane.style.display = '';                                     // show the pane so the media player is visible on select
+    try { fillPreviewPane(pane, uuid, mimeType, name, token); }  // eager render (fillPreviewPane always fills → never empty)
+    catch { pane.setContent(`<div style="padding:24px;color:#ff6b6b">⚠ preview unavailable: ${esc(mimeType || 'unknown type')}</div>`); } // FAIL-LOUD
   }
 }
 
