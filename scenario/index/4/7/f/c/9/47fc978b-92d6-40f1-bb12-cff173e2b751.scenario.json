@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "47fc978b-92d6-40f1-bb12-cff173e2b751",
+    "name": "objectItem.longPressToggles",
+    "description": "Long-press (500ms hold) on a room object item TOGGLES that ref in/out of the multi-select set while OTHERS stay selected — the R20.6d long-press-toggle intent (distinct from tap = exclusive single-select), realized by RbObjectItem.longPressMultiSelect.",
+    "class": "ior:instance:3bc876b5-594c-49f3-962b-84623de2aaff",
+    "method": "ior:instance:0146ee6c-5561-4322-86a7-9ca65555ed88",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:300a8952-2545-41e2-b974-1560fc9e46be"
+}

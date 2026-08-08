@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ff903752-3d69-4ec4-a555-f7ec09637ff6",
+    "name": "test:R20.6d longpress-toggle — RbObjectItem.longPressMultiSelect (real-WebKit@390 DET-3x): 500ms hold TOGGLES a node in/out of the set, OTHERS stay (multi-select via toggle)",
+    "description": "Bridged to test/visual/rcd-selection-touch-webkit-gate.mjs (real-WebKit @390, DET-3x). Asserts: longpress A -> A in set; longpress B -> B added, A stays (multi); longpress A again -> A removed. Distinct-intent (toggle) vs the tap-switch (exclusive) Test.",
+    "sourceFile": "ior:file:test/visual/rcd-selection-touch-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:4256aef7-7580-4410-a0f3-987987d71cfd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4256aef7-7580-4410-a0f3-987987d71cfd"
+}

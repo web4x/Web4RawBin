@@ -18,7 +18,10 @@
       "class": "SelectionModel + RbObjectItem",
       "method": "onLongPress → toggleSelect(ior)",
       "test": "RED: long-press A → selection=[A]. Long-press B → selection=[A,B]. Long-press A again → selection=[B] (A removed)."
-    }
+    },
+    "useCases": [
+      "ior:instance:47fc978b-92d6-40f1-bb12-cff173e2b751"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
