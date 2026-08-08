@@ -3,9 +3,10 @@
   "model": {
     "uuid": "c3a56e56-2f91-452f-9b1d-c267802687e1",
     "name": "RbKeyboardBar.suppressSoftKeyboard impl (inputmode=none, device-gated)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts"
+    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts",
+    "markerNote": "STRICT-AST VERIFIED: heads static suppressSoftKeyboard@rb-keyboard-bar.ts:23 (name-match, 0 intervening). inputmode=none+readonly; the OSK-never-opens assertion is DEVICE-GATED (Tron iOS, R40.3 AC-B); automatable side = config-present + input-reaches-PTY + terminal-visible-pixel (AC-A)."
   },
   "ownerIor": "ior:instance:514ad5a1-d5f4-4a75-aeb4-15fca65d8488"
 }

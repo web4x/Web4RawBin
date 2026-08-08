@@ -3,9 +3,10 @@
   "model": {
     "uuid": "dbdcc42d-868b-4679-a039-1f4d0d8bfbdf",
     "name": "RbKeyboardBar.renderKeyMap impl (data-driven from keymap unit)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
-    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts"
+    "sourceFile": "ior:file:src/public/ts/trace/rb-keyboard-bar.ts",
+    "markerNote": "STRICT-AST VERIFIED: heads static renderKeyMap@rb-keyboard-bar.ts:35 (name-match, 0 intervening). data-driven from keymap config unit c16abc17; sends byte sequences via R31.4 ws PTY."
   },
   "ownerIor": "ior:instance:0929405f-c20f-42df-9454-d69f622e7d26"
 }
