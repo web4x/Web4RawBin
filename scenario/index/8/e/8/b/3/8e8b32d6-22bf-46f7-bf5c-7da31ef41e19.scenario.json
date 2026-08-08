@@ -20,17 +20,23 @@
    {
     "id": "R40.3",
     "title": "Suppress the OS (iOS) keyboard + a configurable Keyboard Controller (suppression + controller shell + config model this sprint)."
+   },
+   {
+    "id": "R40.4",
+    "title": "Sprint labels show the sprint NUMBER — composed at DISPLAY from model.number + name by ONE shared helper (single-source, no drift; fixes all sprints, no migration)."
    }
   ],
   "requirements": [
    "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
    "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f",
-   "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
+   "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f",
+   "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
   ],
   "tasks": [
    "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
    "ior:instance:ce92294f-2a53-4f41-b15d-ac60f416e121",
-   "ior:instance:d884d8d9-346c-4332-b85a-7704566aaf8e"
+   "ior:instance:d884d8d9-346c-4332-b85a-7704566aaf8e",
+   "ior:instance:ae0548ae-d4be-4349-b505-e1d0d0fb88ed"
   ],
   "createdAt": "2026-08-08",
   "createdBy": "robbin-planner",

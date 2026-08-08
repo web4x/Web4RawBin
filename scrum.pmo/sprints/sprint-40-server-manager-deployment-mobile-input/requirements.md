@@ -43,3 +43,15 @@
   - [ ] **(A-keystrokes-configurable)** [A · AUTOMATABLE] Keystrokes are CONFIGURABLE (data-driven config model, not hardcoded) — the config model exists and drives the controller shell.
   - [ ] **(B-ios-keyboard-never-opens)** [B · DEVICE-ONLY — TRON verifies on REAL iOS; NEVER reportable GREEN from a headless/desktop/Linux-WebKit run] The iOS on-screen keyboard genuinely NEVER opens on terminal input. (Real WebKit on the CI host has no on-screen keyboard at all, so this cannot be automated without a false pass — device-gated, same as the physical-finger longpress sliver.)
   -> terminal.keyboardControl [uc:uuid:9d1225a4-2e27-4498-88ff-dc87e932aa4c]
+
+- [ ] **R40.4 — Sprint labels show the sprint number (composed at display from number + name)**
+  [requirement:uuid:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb]
+  why is it not named sprint 40 - ...
+  Every sprint surface displays the sprint NUMBER with its theme ("Sprint N — theme"), composed AT THE DISPLAY LAYER by ONE shared helper from the already-first-class model.number + model.name. The number is NOT written into the name field (that would be a second source of truth and drift on rename/renumber). Fixes all sprints (their labels currently render theme-only, unidentifiable/unsortable) with NO data migration.
+  **Acceptance criteria:**
+  - [ ] **(display)** Every sprint surface shows "Sprint N — theme": the tree row, the detail header, AND every generated MD view (the generator requirements.md header already does this — extend the same to tree + detail).
+  - [ ] **(single-source)** The label is composed by ONE shared helper (e.g. sprintLabel(unit) => "Sprint {number} — {name}") — a grep PROVES there is no second composition site.
+  - [ ] **(coverage)** Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units.
+  - [ ] **(single-source)** The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number.
+  - [ ] **(device)** @390 mobile: the label is legible and NOT truncated mid-number in the tree row.
+  -> d6cb7ddd [uc:uuid:d6cb7ddd-9587-49a2-b6b2-a355862579da]

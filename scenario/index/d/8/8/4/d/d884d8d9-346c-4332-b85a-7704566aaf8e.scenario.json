@@ -14,7 +14,9 @@
   "coveredRequirements": [
    "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
   ],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:9d1225a4-2e27-4498-88ff-dc87e932aa4c"
+  ],
   "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
   "sprintName": "Sprint 40",
   "remainingIssues": "Planned - S40 R40.3 (suppress iOS keyboard + configurable Keyboard Controller shell + config model). ACs MIRRORED from req R40.3 bfe97d61 (requirements.md 3bd0fb847) — SPLIT A-automatable (5: suppress-by-construction / input-still-reaches-pty anti-vacuity / terminal-visible PIXEL / no-overlay PIXEL / configurable) + B-device-only (1: iOS-keyboard-never-opens — TRON real-iOS, NEVER headless-GREEN, like the longpress sliver). coveredRequirements resolves. This sprint = suppression + shell + config model ONLY (controller behavior later). In Progress: build-go GIVEN (PO); architect R40.3 design committed 389912465 (device-verify suppress + data-driven keymap unit + concept bottom-bar layout); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 9d1225a4).",

@@ -14,7 +14,9 @@
   "coveredRequirements": [
    "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775"
   ],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:350ab353-0f6b-496c-b2f5-ff0f2eaf0ce2"
+  ],
   "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
   "sprintName": "Sprint 40",
   "remainingIssues": "Planned - S40 R40.1 (Open Claude.ai RC action, per-pane deep link claude.ai/code/<session-id>). ACs MIRRORED from req R40.1 caab6d86 (requirements.md 9af2aa9f7); coveredRequirements resolves. In Progress: build-go GIVEN (PO); architect R40.1 design committed c01c9a23a (measured RC id-source + chain shape); req minting chain, expert building. Task.useCases wire from req's chain mint (UC 350ab353).",
