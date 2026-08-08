@@ -33,17 +33,17 @@
       {
         "id": "AC-automatable-generalization-queryable",
         "group": "automatable",
-        "text": "[AUTOMATABLE, graph, anti-DRY-claim] GENERALIZATION is FIRST-CLASS + QUERYABLE: a gate asserts ConfigFile IS-A Artifact by READING THE GRAPH — generalization/realization are TYPED relationships or explicit model fields (exactly as deploys/contains/manifestsAs/configuredBy already are), NOT names/notes. If the IS-A can only be read from a string/name, it is DRY-claimed-not-enforced = FAIL (the sprintLabel-comment disease)."
+        "text": "[AUTOMATABLE, graph] IS-A is a REAL GRAPH EDGE: generalization/realization are ior:class:Relationship instances using the EXISTING M2 kinds (UmlGeneralization a1d2e3f4-..0011, UmlDependency ..0012). ConfigFile --generalization--> Artifact and Certificate --realizes--> FileBacked are QUERYABLE EDGES; a gate asserts IS-A by READING THE GRAPH, never a string/name. (Architect ecaed1399: measured the kinds already exist, invented no machinery.)"
       },
       {
         "id": "AC-automatable-interfaces-realizable",
         "group": "automatable",
-        "text": "[AUTOMATABLE, graph] INTERFACES exist as first-class REALIZABLE contracts (distinct from abstract-base single-inheritance; an interface is satisfiable ACROSS unrelated branches): FileBacked (every artifact whose leaf manifestsAs a real file — all 4 subtypes realize it), Deployable (targets that can host), optionally Measurable (has a verifiable on-disk referent). Realization is QUERYABLE the same way as generalization (typed relationship/field, read from the graph across branches)."
+        "text": "[AUTOMATABLE, graph] INTERFACES are UmlInterface (a1d2e3f4-..0004) contracts CUTTING ACROSS the tree (not single-inheritance): FileBacked (all 4 Artifact subtypes realize it), Deployable (the target subtypes), Measurable (Certificate/ConfigFile/KeyFile). Realization is a QUERYABLE edge (realizes, via UmlDependency/UmlInterface), read the same way as generalization."
       },
       {
         "id": "AC-automatable-leaf-resolves-real-file",
         "group": "invariant",
-        "text": "[AUTOMATABLE, disk, ★ THE INVARIANT] Every FileBacked leaf RESOLVES to a real file on disk — and this passes AS A MODEL QUERY: enumerate the FileBacked realizers from the GRAPH, resolve each leafs manifestsAs->ior:file:, os.path.exists ALL. This is what makes Trons basically-end-in-files PROVABLE (not a description); a hierarchy whose leaves point at nothing is the fabricated-reference class killed 5x this sprint."
+        "text": "[AUTOMATABLE, disk, ★ THE CROWN AC / fail-closed] For EVERY unit realizing FileBacked, resolve(u.manifestsAs) MUST EXIST as a real on-disk file — evaluated as a MODEL QUERY over the graph, FAIL-CLOSED. ★ Correct-by-construction: M1 nodes inherit the contract via instanceOf->M2 edges, so the gate FINDS the FileBacked realizers BY QUERY (not by re-listing) — a future 5th artifact type is covered automatically, no gate edit (correct-by-construction, not maintained-by-memory). Makes Trons basically-end-in-files PROVABLE; guards the fabricated-reference class killed 5x this sprint."
       },
       {
         "id": "AC-automatable-4-refs-survive",
@@ -59,6 +59,11 @@
         "id": "AC-automatable-inv-t",
         "group": "automatable",
         "text": "[AUTOMATABLE] INV-T byte-diff==0 — the typed model is compute-on-read / a structural migration that does not churn unrelated units."
+      },
+      {
+        "id": "AC-automatable-sentinelReason",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] Each NEW M2 member (the deployment-type metaclasses joining the a1d2e3f4-.. family) carries a sentinelReason field (\"M2 deployment-metamodel member, patterned by design for family lookup\") so the registered-sentinel exception is PROVABLE-not-remembered — an unexplained legitimate patterned uuid is indistinguishable from a fabricated defect (R5 sentinel rule + the identity-detector exclusion)."
       }
     ]
   },
