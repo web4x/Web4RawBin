@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "267011df-8f51-4284-a75d-a0dbc4d789f5",
+    "name": "RbFileDetail.autoRenderMediaPreview",
+    "implementations": [
+      "ior:instance:aba7b795-7951-4294-af69-436f7c204d13"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd"
+}

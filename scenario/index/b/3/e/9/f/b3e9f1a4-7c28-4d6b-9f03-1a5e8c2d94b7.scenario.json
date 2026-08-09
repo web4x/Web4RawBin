@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b3e9f1a4-7c28-4d6b-9f03-1a5e8c2d94b7",
+    "name": "test:R40.12 RbFileDetail.autoRenderMediaPreview — media subtype selects -> PAINTED player (pixel, not container), fail-loud on throw",
+    "description": "Bridged to test/visual/r4012-music-player-pixel-gate.mjs (gate:device:live, DET-3x @390 real-WebKit). PIXEL-not-DOM: a real audio player is PAINTED (measured ~390x31 with control-chrome pixels) on selecting a media-subtype File; throw -> '⚠ preview unavailable: <mime>', never an empty/black box. Tron's music-player black-box FIXED (served 0.8.75). Device-verified.",
+    "sourceFile": "ior:file:test/visual/r4012-music-player-pixel-gate.mjs",
+    "implementations": [
+      "ior:instance:aba7b795-7951-4294-af69-436f7c204d13"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:aba7b795-7951-4294-af69-436f7c204d13"
+}

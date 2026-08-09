@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "16b3a2ef-de39-470b-abd3-8e436047ab1a",
+    "name": "fileDetail.autoRenderMediaPreview",
+    "description": "On selecting a File unit whose MIME is a media subtype (audio/video/image + pdf/html/uri-list/youtube), the file detail view AUTO-RENDERS a painted media player/preview in the preview pane (restores the eager fillPreviewPane call); fail-loud on throw (never an empty/black box). Non-media stays toggle.",
+    "class": "ior:instance:37103cf0-c1db-4c94-84d4-163b05f9a8dd",
+    "method": "ior:instance:267011df-8f51-4284-a75d-a0dbc4d789f5",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c9fa4f49-caa1-4032-ae47-7144646c4fd0"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "aba7b795-7951-4294-af69-436f7c204d13",
+    "name": "RbFileDetail.autoRenderMediaPreview impl (media auto-render, fail-loud)",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-file-detail.ts",
+    "markerPending": true,
+    "tests": [
+      "ior:instance:b3e9f1a4-7c28-4d6b-9f03-1a5e8c2d94b7"
+    ]
+  },
+  "ownerIor": "ior:instance:267011df-8f51-4284-a75d-a0dbc4d789f5"
+}
