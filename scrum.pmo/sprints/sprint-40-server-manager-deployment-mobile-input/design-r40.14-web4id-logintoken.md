@@ -17,6 +17,13 @@ Confidentiality and authenticity are DIFFERENT goals; conflating them into one o
 - **INNER = signed identity assertion** (the credential): claims + a signature by the user's IDENTITY private key. Portable, self-contained, verified by any server against the identity PUBLIC key. → authenticity / anti-forgery / identity-binding.
 - **OUTER = encryption envelope to the user**: the assertion is hybrid-encrypted so only the *real user* can open the file at rest. → confidentiality ("only the real user can decrypt").
 
+## ★★ PRIMARY AC — NOT A BEARER CREDENTIAL (possession-proof is the headline property, PO 2026-08-08)
+The single most important property of the whole design: **the web4ID is NOT a bearer credential.** Possession of the file is NOT possession of the identity. The `verifyChallenge` step (point 3) is therefore a PRIMARY acceptance criterion, not merely a replay defence:
+
+> **AC-web4id-1 (headline):** a **stolen `.web4id` file, with NO device private key, MUST FAIL to authenticate.** The holder must answer a fresh server challenge signed by an enrolled device key; a file alone cannot.
+
+**This is the FIRST test to run.** If it ever passes, the feature is a credential-leak generator no matter how strong the crypto — so it gates ahead of everything. Concretely: a captured envelope that the attacker cannot even decrypt (no device key) fails at unwrap; and even a decrypted assertion fails at the challenge (no device key to sign it). Two independent walls, both requiring a device private key the file does not contain.
+
 ## (1) CRYPTO SHAPE — **PICK: reuse the existing per-user identity keypair; multi-recipient hybrid envelope**
 - **Signer = the user's IDENTITY key** (`UserKeys.getUserPrivateKey`, home-server-held). The identity private key **never leaves the server** (smallest attack surface). Servers verify with the identity PUBLIC key.
   - Algorithm: **RSA-PSS + SHA-256** for the new credential signature (modern default; note the existing `signDeviceKey` uses PKCS1-v1_5 — new credential should specify PSS). Confirm `generateUserKeypair` modulus ≥2048 (**recommend 4096** for a long-lived identity key).
@@ -50,9 +57,13 @@ The crux: a token minted on `prod` dropped onto `test`/another host. The receivi
 - **PICK (i) federation fetch:** assertion carries `issuerHost` + `issuerKeyId`. Receiving server fetches `GET https://<issuerHost>/api/web4id/pubkey/<identityIor>` (S26 originHost-fetch precedent, over TLS) → verifies the signature; **pins `(issuerHost, issuerKeyId) → pubkey` on first use (TOFU)**; a later key change for the same identity is flagged as possible compromise (re-confirm), because `issuerKeyId` is the key fingerprint.
 - **vs (ii) self-contained** (embed issuer key + trust a pre-shared CA): rejected — without a real PKI/CA it still needs a pinned anchor AND cannot do live revocation.
 - **Trade-off (stated):** (i) requires the issuer reachable at login (acceptable — login is inherently online) and roots trust in TLS+DNS (the receiving server trusts that `<issuerHost>` speaks for its own users — the same trust model as email domains / OIDC discovery). In exchange it gets LIVE revocation + key-rotation, which a credential needs. Mitigate the reachability cost with a short pubkey cache.
+- **★ AC-web4id-2 — UNREACHABLE ISSUER FAILS CLOSED (PO 2026-08-08, stated, never left to implementation):** if the issuer is unreachable, the pubkey fetch fails, or the revocation list is unfetchable ⇒ **REJECT the login.** NEVER degrade to "accept unverified", NEVER "trust the embedded key", NEVER fall back to a self-contained path. A fallback is EXACTLY how a live-revocation design silently becomes a self-contained one under network failure — the same fail-closed-on-unrunnable-check rule as the gates (point 6 / R-C3). A verification that cannot run is a verification that FAILED.
+- **Residual risk (recorded as a known limitation, not a blocker):** TOFU pins on FIRST contact, so a first-contact man-in-the-middle can poison the pin for a never-before-seen issuer. TLS+DNS is not absolute. **Mitigation:** an out-of-band `issuerKeyId` fingerprint check when first trusting a new issuer (display the fingerprint for the operator to confirm), and the pin-change alarm thereafter. Documented honestly rather than pretended away.
 
 ## (6) GATE SHAPE (tester) — STUB-MUST-FAIL on crypto, never "it decrypted for me"
 Each is a distinct #126 Test; the crypto gates prove REJECTION, not acceptance:
+- **★ RUN FIRST — STOLEN-FILE-NO-DEVICE-KEY FAILS (AC-web4id-1 headline):** a captured `.web4id` file with NO device private key MUST FAIL to authenticate (fails at envelope-unwrap AND, if that were bypassed, at the challenge). If this passes, STOP — the feature is a credential leak. This is the gate before all others.
+- **★ UNREACHABLE-ISSUER FAILS CLOSED (AC-web4id-2):** issuer down / pubkey-fetch fail / revocation-list unfetchable → login REJECTED. Stub the issuer as unreachable → MUST reject, never accept-unverified/trust-embedded-key.
 - **Wrong-key decrypt FAILS:** envelope to user A, open attempt with user B's key → MUST fail (OAEP unwrap throws) → login rejected. (Not "it decrypted for me.")
 - **Forged token REJECTED:** tamper any claim (identityIor/displayName/expiry) without re-signing → signature verify fails → reject. AND sign with a non-issuer key → reject.
 - **Replayed token REJECTED:** submit a valid token twice (same jti) → 2nd rejected; AND replay a captured assertion WITHOUT the private key → challenge unanswerable → rejected.
