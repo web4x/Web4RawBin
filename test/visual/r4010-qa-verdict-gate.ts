@@ -13,6 +13,7 @@ import https from 'node:https';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SCRATCH = path.join('/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad', 'r4010-idx', 'index');
@@ -58,7 +59,6 @@ const auditServer = () => {
 };
 
 const REAL_QA_TASK = '92bdca8b-6c08-459d-a540-98073b80c020';
-const OWNER_LITERAL = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
 
 async function run() {
   const results: boolean[] = [];

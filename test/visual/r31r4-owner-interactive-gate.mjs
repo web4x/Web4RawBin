@@ -10,8 +10,9 @@
 import { chromium, devices } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'node:https';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin', TARGET = '0.7.127';
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d', ST_TOKEN = 'ce981242-74fe-4d44-b5b6-43c641e224df', FEAT_SM = '16604eee-d844-4efb-bd4d-881433ca82a6';
+const OWNER = OWNER_LITERAL, ST_TOKEN = 'ce981242-74fe-4d44-b5b6-43c641e224df', FEAT_SM = '16604eee-d844-4efb-bd4d-881433ca82a6';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const httpGet = (p, h = {}) => new Promise((r) => { const q = https.request({ host: HOST, port: PORT, path: p, method: 'GET', headers: h, rejectUnauthorized: false }, (res) => { let b = ''; res.on('data', c => b += c); res.on('end', () => r({ status: res.statusCode, body: b })); }); q.on('error', () => r({ status: 0, body: '' })); q.end(); });
 const seedOwner = (ctx) => ctx.addInitScript((o) => { localStorage.setItem('rawbin-player-id', o); localStorage.setItem('rawbin-name', 'Owner'); localStorage.setItem('rawbin-device-privateKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-publicKey', 'e2e-bypass'); localStorage.setItem('rawbin-device-signature', 'e2e-bypass'); }, OWNER);

@@ -13,8 +13,9 @@ import { execFileSync } from 'node:child_process';
 import { WebSocket } from 'ws';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d', ST = 'ce981242-74fe-4d44-b5b6-43c641e224df', UNKNOWN = '00000000-0000-4000-8000-000000000000';
+const OWNER = OWNER_LITERAL, ST = 'ce981242-74fe-4d44-b5b6-43c641e224df', UNKNOWN = '00000000-0000-4000-8000-000000000000';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const get = (path, headers = {}) => new Promise((res) => { const q = https.request({ host: HOST, port: PORT, path, method: 'GET', headers, rejectUnauthorized: false }, (r) => { let b = ''; r.on('data', c => b += c); r.on('end', () => res({ status: r.statusCode, body: b })); }); q.on('error', () => res({ status: 0, body: '' })); q.end(); });
 const wsProbe = (headers = {}) => new Promise((res) => { let done = false; const fin = (r) => { if (!done) { done = true; try { ws.terminate(); } catch { /* */ } res(r); } }; const ws = new WebSocket(`wss://${HOST}:${PORT}/api/server-manager/terminal`, { rejectUnauthorized: false, headers }); ws.on('open', () => fin({ opened: true, code: null })); ws.on('unexpected-response', (_q, r) => fin({ opened: false, code: r.statusCode })); ws.on('error', (e) => fin({ opened: false, code: /403/.test(e?.message || '') ? 403 : -1 })); setTimeout(() => fin({ opened: false, code: -2 }), 4000); });
@@ -26,7 +27,7 @@ const VARIANTS = [['no-token', {}], ['unknown', { 'x-player-token': UNKNOWN }], 
 async function liveNonMember() { // INV-F6: a LIVE authenticated SystemTester (has a real session, NOT in allowedUsers) → 403
   const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });
   try { const ctx = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block' }); await seedSystemTester(ctx); const page = await ctx.newPage(); await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' }); await sleep(1500);
-    return await page.evaluate(async (st) => { const s = async (h) => (await fetch('/api/server-manager/whoami', { headers: h })).status; return { own: await s({ 'x-player-token': st }), none: await s({}), lit: await s({ 'x-player-token': '41ad88c4-4dee-49ac-afcb-8a2026657b2d' }) }; }, ST).finally(() => ctx.close());
+    return await page.evaluate(async (st) => { const s = async (h) => (await fetch('/api/server-manager/whoami', { headers: h })).status; return { own: await s({ 'x-player-token': st }), none: await s({}), lit: await s({ 'x-player-token': OWNER_LITERAL }) }; }, ST).finally(() => ctx.close());
   } finally { await browser.close(); }
 }
 

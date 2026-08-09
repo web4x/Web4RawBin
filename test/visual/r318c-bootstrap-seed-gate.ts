@@ -9,9 +9,10 @@ import { FeatureManager } from '../../src/ts/server/FeatureManager.js';
 import { ServerManagerGuard } from '../../src/ts/server/ServerManagerGuard.js';
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER = OWNER_LITERAL;
 const SM = `${REPO}/scenario/index/1/6/6/0/4/16604eee-d844-4efb-bd4d-881433ca82a6.scenario.json`; // Server Manager Feature
 const FM = `${REPO}/scenario/index/2/9/8/0/b/2980b7d9-a166-44ca-bf73-5dd1a4ba7b16.scenario.json`; // Feature Manager Feature
 const au = (p: string): string[] => JSON.parse(fs.readFileSync(p, 'utf8')).model.allowedUsers || [];

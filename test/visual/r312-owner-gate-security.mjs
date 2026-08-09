@@ -15,9 +15,10 @@ import { execSync } from 'node:child_process';
 import { WebSocket } from 'ws';
 import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`;
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';               // leaked from ServerManagerGuard.ts — must STILL 403 (no live session)
+const OWNER = OWNER_LITERAL;               // leaked from ServerManagerGuard.ts — must STILL 403 (no live session)
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';                  // SystemTester (a real non-owner)
 const UNKNOWN = '00000000-0000-4000-8000-000000000000';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
@@ -80,7 +81,7 @@ async function browserChecks() {
       return {
         withOwnHeader: await s({ 'x-player-token': st }),
         noHeader: await s({}),
-        withOwnerLiteral: await s({ 'x-player-token': '41ad88c4-4dee-49ac-afcb-8a2026657b2d' }),
+        withOwnerLiteral: await s({ 'x-player-token': OWNER_LITERAL }),
       };
     }, ST).finally(() => ctx.close());
   } finally { await browser.close(); }

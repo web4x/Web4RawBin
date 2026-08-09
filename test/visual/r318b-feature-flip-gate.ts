@@ -13,6 +13,7 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'node:fs';
 import https from 'node:https';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';           // 'Server Manager' Feature unit
@@ -56,7 +57,7 @@ try {
   // INV-F4: non-owner POST the owner-gated grant endpoint → 403, allowedUsers UNCHANGED (no self-grant)
   const auPre = JSON.stringify(readAU());
   const noOwner = await post('/api/feature-manager', { action: 'grant', feature: SM, token: ST });                  // no token/cookie
-  const litOwner = await post('/api/feature-manager', { action: 'grant', feature: SM, token: ST }, { 'x-player-token': '41ad88c4-4dee-49ac-afcb-8a2026657b2d' }); // leaked owner literal, not a live session
+  const litOwner = await post('/api/feature-manager', { action: 'grant', feature: SM, token: ST }, { 'x-player-token': OWNER_LITERAL }); // leaked owner literal, not a live session
   const invF4 = noOwner === 403 && litOwner === 403 && JSON.stringify(readAU()) === auPre;
   results.push(invF4);
   console.log(`INV-F4 non-owner grant: no-token=${noOwner} owner-literal-not-live=${litOwner} allowedUsers-unchanged=${JSON.stringify(readAU()) === auPre} => ${invF4 ? 'GREEN' : 'RED'}`);

@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.8 (Files = real measured disk path, fail-closed if absent). Scenario-first: req minted R40.8 90cc7bab (515f743b8); coveredRequirements + useCases 98df6abf wired; ACs MIRRORED (2 AUTOMATABLE disk/@390). Architect designs the chain. No build until build-go.
+QA-Review (units-win; planner disk-verified BOTH directions + tester two-key CLOSED): chain-complete-to-Test — Impl 3ee03bde (ServerManagerApi.unitRealPath) tests[]=[c4a7f1b9] <-> Test c4a7f1b9.implementations[]=[3ee03bde], status=pass, ownerIor=3ee03bde (single-impl, clean, no cross-wire). Tester KEY-2 two-key CLOSED both-dir + PUSHED (01addbba1, origin==b0d0f5a17). All In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control). Board re-derived from units (PO campaign 2026-08-09).
 
 ## Traceability
 
@@ -34,8 +34,8 @@ R40.8 (Tron: 'files should show where the file really is'). The editor footer 'F
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
-- [ ] [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
+- [x] [AUTOMATABLE, disk] The path shown by Files MATCHES the unit's REAL location on disk (scenario/index/<shard>/<uuid>.scenario.json) — measured against the filesystem, NOT composed from the slug.
+- [x] [AUTOMATABLE @390] The Files tab reveals that path and is browsable to the containing folder from there.
 
 ## Subtasks
 

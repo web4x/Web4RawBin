@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.9 (Preview = traceability + details drawer, REUSE not bespoke). Scenario-first: req minted R40.9 50753cf6 (515f743b8); coveredRequirements + useCases 23af7ba9 wired; ACs MIRRORED (3 AUTOMATABLE source/@390). Architect designs the chain. No build until build-go.
+QA-Review (units-win; planner disk-verified BOTH directions + tester two-key CLOSED): chain-complete-to-Test — Impl 0ed5cd75 (ModelView.previewTraceability, reuse /trace + rb-detail-drawer no-fork) tests[]=[a1e8d3f7] <-> Test a1e8d3f7.implementations[]=[0ed5cd75], status=pass, ownerIor=0ed5cd75 (single-impl, clean, no cross-wire). Tester KEY-2 two-key CLOSED both-dir + PUSHED (01addbba1, origin==b0d0f5a17). All In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control). Board re-derived from units (PO campaign 2026-08-09).
 
 ## Traceability
 
@@ -34,9 +34,9 @@ R40.9 (Tron: 'preview should show that scenario's traceability and the details d
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).
-- [ ] [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).
-- [ ] [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).
+- [x] [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).
+- [x] [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).
+- [x] [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).
 
 ## Subtasks
 

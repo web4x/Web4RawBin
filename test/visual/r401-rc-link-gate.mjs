@@ -13,8 +13,9 @@
 import https from 'node:https';
 import { execSync } from 'node:child_process';
 import { webkit, devices } from '@playwright/test';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 const HOST = 'prod.wo-da.de', PORT = 4444;
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER = OWNER_LITERAL;
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
 const BUNDLE = `${ROOT}/test-results/r401-harness/rcl.bundle.js`;
 const iPhone = devices['iPhone 12'];

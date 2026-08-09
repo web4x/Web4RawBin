@@ -11,8 +11,9 @@
 // tokenToClient.set(OWNER), which DISPLACES Tron's real owner session. Do NOT run ad-hoc while Tron holds it. One blip,
 // both halves, then Tron re-auths. Expected GREEN once v0.7.89 fixes the owner tree ticket.
 import { chromium } from '@playwright/test';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 const BASE = 'https://prod.wo-da.de:4444';
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER = OWNER_LITERAL;
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 // seed the OWNER identity (mirror seedSystemTester, owner token) — e2e-bypass device keys so IDENTIFY registers it live

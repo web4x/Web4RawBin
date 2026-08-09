@@ -10,12 +10,13 @@ import { seedSystemTester } from './system-tester-setup.mjs';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import https from 'node:https';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const HOST = 'prod.wo-da.de', PORT = 4444, BASE = `https://${HOST}:${PORT}`, REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SM = '16604eee-d844-4efb-bd4d-881433ca82a6';           // 'Server Manager' Feature
 const FM = '2980b7d9-a166-44ca-bf73-5dd1a4ba7b16';           // 'Feature Manager' Feature (viewing children needs THIS)
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER = OWNER_LITERAL;
 const EXPECTED_PID = '1314979';
 const featPath = (u: string) => `${REPO}/scenario/index/${u[0]}/${u[1]}/${u[2]}/${u[3]}/${u[4]}/${u}.scenario.json`;
 const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));

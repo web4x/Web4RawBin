@@ -9,9 +9,10 @@
 import https from 'node:https';
 import fs from 'node:fs';
 import { WebSocket } from 'ws';
+import { OWNER_LITERAL } from './_owner-literal.mjs'; // no-secrets: owner literal read at runtime, never hardcoded
 
 const HOST = 'localhost', PORT = 4444;                        // same server as prod.wo-da.de:4444 on WODA.prod
-const OWNER = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER = OWNER_LITERAL;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const MDA = 'Model-Driven Code Quality';
 const MDA_UNIT = '/var/dev/Workspaces/web4x/Web4RawBin/scenario/index/9/0/1/e/0/901e0ece-c735-4c20-8652-1809069662c3.scenario.json';
