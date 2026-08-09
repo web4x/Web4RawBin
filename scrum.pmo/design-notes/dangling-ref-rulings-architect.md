@@ -1,0 +1,38 @@
+# Dangling-Ref Audit — Architect Rulings (3 classes)
+
+**By:** robbin-architect 2026-08-09, on req's audit (dangling-ref-audit.md, 94eb9a46b), per PO. Analysis + naming only, no build. Measured full-uuid (never 8-char).
+
+## ★ RULING 1 — the two "missing parent hubs" are NOT missing: PREFIX COLLISION (repoint + restore back-link)
+The audit's 8-char reporting masked the truth. Measured with FULL uuids:
+- Tasks' `ownerIor` → **`29d92990-3514-4627-8780-eb0d2e462eeb`** (phantom, never existed) — but the REAL **Sprint 03** unit exists = **`29d92990-3512-48c8-8648-e08ee757bb57`** ("Sprint 03 — E2E Hardening"), tasks[] EMPTY.
+- Tasks' `ownerIor` → **`2aac7676-bc8a-4f9a-aa07-e9a8dba3f0cd`** (phantom) — real **Sprint 09** = **`2aac7676-bc88-4eb0-a81b-07c913fda5ee`** ("Sprint 09 — Room Identity"), tasks[] EMPTY.
+- Same 8-char prefix, different full uuid. The 10 orphans under -3514 are exactly **T13–T22** (dir `sprint-03-e2e-hardening/`); the 7 under -bc8a are **T74–T80** (dir `sprint-09-room-identity/`). Content + directory + real Sprint unit all agree.
+
+**RULE:** the refs are WRONG (fabricated owner uuids that reused the real sprint's 8-char prefix + a fake tail — same fabrication family as Ruling 2, but here the real owner is RECOVERABLE). The owner is NOT missing and NOTHING is minted-from-child — the parent identity comes from the **real S3/S9 Sprint units** (confirmed by content + directory, not fabricated). Fix = **(a) repoint the 17 Tasks' `ownerIor` to the real full uuids** (S3 `29d92990-3512-…`, S9 `2aac7676-bc88-…`); **(b) restore the back-link** — add the 17 tasks to S3/S9 `tasks[]` (currently empty). One ruling clears 17. This CORRECTS the audit premise "never created, nothing to restore": the parents exist; the child refs were fabricated onto a colliding prefix.
+**LESSON (repeat):** resolve refs by FULL uuid — an 8-char prefix hid two live sprint owners.
+
+## RULING 2 — the 14 fabricated refs: NONE mintable; the REF is the defect
+Template/tool grep for zero-uuid / patterned-uuid defaults = **EMPTY** → these were **hand-fabricated** (fake-suffix anti-pattern, [[standard-task-template-no-fork]]/never-fake-suffix), NOT emitted by a live tool. Patterns:
+- **All-zero tails** (`…-0000-0000-0000-000000000000`): `64af2638-0000…` (Task ownerIor), `7e717383-0000…` + `ae410763-0000…` (Requirement `tests[]`). The zero-uuid = an unfilled placeholder/template default.
+- **Hand-typed hex words**: `…-e1f2a3b4c5d6` (ascending bytes — hub for 5 Methods' ownerIor), `…-cafebec000de`.
+- **Bad v4 variant** (variant nibble ∉ {8,9,a,b}): `d1135c9f-…-e5d1-…`, `b1113a7d-…-c3b9-…`.
+
+**RULE (per sub-class):**
+- **The 3 all-zero `Requirement.tests[]` refs = DELETE** (FALSE-GREEN risk — a Req claiming a zero-uuid Test reads as tested; delete the fake test-ref, the Req has no real Test). Never mint a zero-uuid Test.
+- **The fabricated `ownerIor`/`parent` targets (5 Methods → `…e1f2a3b4c5d6`, etc.) = REPOINT to the real owner if identifiable from the referrer's own content, else DELETE the ref** (the referrer is genuinely unowned). Do NOT mint (entrenches the fabrication).
+- **The fabricated `implementations[]` targets (Tests → bad-variant Impls) = DELETE** the verify-link (Test points at a non-existent Impl).
+
+**MECHANISM DIAGNOSIS (the cause, per PO):** NOT a live tool — hand-fabricated uuids (fake-suffix) + a template zero-uuid default that was never replaced. The real fix is **correct-by-construction: a mint-path guard that REJECTS a non-v4 or all-zero uuid at unit creation** ([[correct-by-construction]]) — so a fabricated id can't enter the graph again. Recommend folding into the R-C3 fail-closed guard family (a fabricated-uuid BITE). The 14 are the symptom; the missing mint-guard is the class.
+
+## RULING 3 — the 16 missing UCs: ALL HOLLOW (leave dangling, do NOT mint)
+Measured each referrer (14 Requirement.useCases + 2 Task.useCases): **0/16 have a built downstream** (no Method/Impl/Test unit implements the req), and each has ONLY the one missing UC (no resolving sibling). The 4 that cite an altId anywhere are **incidental** — a Bug unit (R18.16→"BUG7"), Sprint descriptions (R27.6→S28 goal, R40.11→SM sprint), an unrelated Class/Method (R29.9→RbFileTree) — NOT a built chain.
+
+These are REAL, CAPTURED/DESIGNED requirements that are **NOT BUILT** — notably several are design-only and ON HOLD for Tron: **R40.14** (loginToken), **R40.15** (secretCode), **R40.21** (creds-in-URLs), **R40.22** (identity-decoupling) — the security-incident designs. Others: R40.13/16/17/18/20, R28.1, R29.9, R27.6, R18.16.
+
+**RULE (applying the PO guard + fail-closed [[false-low-worse-than-absent]]):** name a UC ONLY where the downstream (Method+Impl+Test) is REAL. Here **none proves a built downstream → do NOT mint any**. Minting a hollow UC manufactures a chain climbing on nothing and makes the scoreboard read "in progress" on unbuilt work — STRICTLY WORSE than the honest "open/not-built" a dangling ref shows. **Leave the 16 dangling** (the honest state: designed-not-built). If req wants any specific one minted, it must FIRST prove that req's Method+Impl+Test exist on disk — I name the UC **per-unit on proof, never batch**.
+**ONE FLAG for closer look:** **R28.1** ("generate requirements.md") — the generator code EXISTS (generate-sprint-md.ts:145) but is chain-credited to R30.18/generator units, not R28.1. So R28.1 is a **shared-impl candidate** ([[verify-owner-first-in-shared-credit]]), NOT a fresh-mint and NOT purely hollow — verify-owner-first before any wiring (do not cross-wire onto R30.18's units).
+
+## Summary for req
+- (1) **Repoint** 17 Tasks' ownerIor → real S3 `29d92990-3512-48c8-8648-e08ee757bb57` / S9 `2aac7676-bc88-4eb0-a81b-07c913fda5ee` + restore S3/S9 tasks[]. Parents exist (prefix collision).
+- (2) **Delete** the 3 all-zero Req.tests[] + the fabricated impl-links; **repoint-or-delete** the fabricated ownerIors; add a mint-path fabricated-uuid guard.
+- (3) **Leave all 16 dangling** (designed-not-built); mint per-unit only on proven downstream; R28.1 = shared-impl verify-owner-first.
