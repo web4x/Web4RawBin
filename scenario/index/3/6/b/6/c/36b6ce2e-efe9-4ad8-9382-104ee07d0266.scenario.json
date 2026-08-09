@@ -8,5 +8,5 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerNote": "STRICT-AST VERIFIED: heads function approveByOwner@1454 (owner-403 + evidence-precondition status==QA Review 409-refuse + approvedBy/approvedAt data + status->Done) @src/ts/server/server.ts (name-match, 0 intervening). ★ SCHEMA CONFIRMED single-source: status strings QA Review/In Progress/Done EXACTLY match canonical TaskStatusEnum (task-status.ts:9) — no drift. Owner-gated 403 (non-owner->forbidden verified). Served 0.8.73 (expert ca4582ae7), buildStrictImplSet=TRUE."
   },
-  "ownerIor": "ior:instance:7e6a0361"
+  "ownerIor": "ior:instance:7e6a0361-1b23-4e12-97c2-abbc0772b5fa"
 }

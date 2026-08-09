@@ -11,5 +11,5 @@
     "targetNote": "REPOINTED rb-detail-view->rb-editor-layout.ts by measurement: the editor-footer 👁 Preview tab is in rb-editor-layout.ts:86 (.el-preview @39). content-preview.ts is the FILE/MIME media preview (R19.63-65/R22.5 audio player ca54081e) = R40.12/R23.1 territory, NOT R40.9. R40.9 = the 👁 Preview panel renders rb-trace-tree (scoped to the unit) + rb-detail-drawer, zero new renderer. Architect confirms if the design intends otherwise.",
     "markerNote": "STRICT-AST VERIFIED: heads previewTraceability@src/public/ts/components/rb-editor-layout.ts:53 (name-match EditorPreview.previewTraceability, 0 intervening; lines 50-52 comment continuation). REUSE the SHARED rb-trace-tree (data-seed-ior scoped, R31.8c seed) + SHARED rb-detail-drawer, ZERO new renderer; content-preview.ts untouched (R40.12 territory). sourceFile repoint (rb-editor-layout) was CORRECT per measure. Served 0.8.74 (expert 03646d486), buildStrictImplSet=TRUE."
   },
-  "ownerIor": "ior:instance:47822b73"
+  "ownerIor": "ior:instance:47822b73-cfa0-4972-9a28-2fe826df55ef"
 }

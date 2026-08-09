@@ -19,5 +19,5 @@
     "functionalDone": true,
     "functionalDoneNote": "R16.5: icons.ts pure data module (module-level svg() arrow + TRACE_ICONS const, NO class/method); marker is JSDoc. Declarative-by-nature like R19.85/87. functionalDone-not-champagne, IN denom. PO 2026-06-13."
   },
-  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b"
+  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
 }
