@@ -2,8 +2,10 @@
 robbin-tester, 2026-08-09 (non-frozen: analysis only). Predicts the next screenshot-regression instead of reacting to it.
 Structural cause behind S23-audio / R40.19 / R40.20: an AC gated HEADLESLY while the requirement is VISUAL, DEVICE, GESTURE, or KEYBOARD. Report is by FAMILY (not one instance); can't-fail gates flagged. NOT fixing here — the list IS the deliverable.
 
-## ★★ META-FINDING (single highest leverage) — the correct-by-construction BACKSTOP is NOT BUILT
-**R31.15 (210a25ec)** already NAMES the whole iOS-WebKit tap-fire false-green class AND prescribes a **STANDING LINT** that fails a fragile tap-target at commit/CI. It is `next-backlog` / NOT-NOW — **not built**. So today the entire class has **no CI guard**: every `chromium` gate that fires a synthetic click on a non-native element is blind, with nothing behind it. Building R31.15's lint + native-control sweep kills the family by construction — it outranks any single re-gate. (Same for a keyboard-suppress/render lint.) The families below are what leaks until that backstop exists.
+## ★★ META-FINDING — the backstop was NOT built; GATE-side now BUILT (8a7a5f421), SOURCE-side still frozen
+**R31.15 (210a25ec)** already NAMES the whole iOS-WebKit tap-fire false-green class AND prescribes a **STANDING LINT** at commit/CI — but it was filed `next-backlog` and never built, so the class had ZERO CI guard while we kept shipping gates the class invalidates (worse than not knowing).
+- ✅ **GATE-side backstop BUILT** (PO-authorized, freeze-compliant): `scripts/check-device-ac-lint.mjs` (ci:gates:raw + check:device-ac). FAILS any gate that asserts a real-device behaviour via a synthetic event in a chromium context without deferring to real-WebKit/Tron → the blind GATE is now impossible to ADD. Prove-the-prover (3 F1 known-bad flag / 3 known-good clear, else suite fails) + external BITE verified. Baseline CLEAN.
+- ⛔ **SOURCE-side sweep still owed** (R31.15's own AC-standing-lint-sweep + native-control fix): a fragile tap-target in `src/public` (div/span/h2/label click handler) → native control. That lint + fix touch `src` = FROZEN, and are the substantial fresh-expert work. The gate-lint stops us GATING the blindness; the source-sweep stops us SHIPPING it.
 
 ## RANKED FAMILIES (highest user-facing risk first)
 
@@ -38,8 +40,18 @@ Structural cause behind S23-audio / R40.19 / R40.20: an AC gated HEADLESLY while
 - **Fix class:** real `mousedown→move→up` / touch pointer sequence at 390 real-WebKit; longpress/multitouch physical sliver → Tron.
 - **Blind gates (candidates):** r3211-dnd-diagram (DOM/LOGIC-only for a DRAG-and-drop req = doubly blind), r333-movable-box, DnD file-chain gates.
 
-## DOCTRINE APPLIED
-Family named not instance; every CAN'T-FAIL gate flagged (F1 chromium-tap, F4 keyboard-absence); ranked by what reaches Tron first. The one structural fix that dwarfs the rest: **build R31.15's standing lint** so the class is caught at commit, not by a Tron device-QA cycle.
+## ★ VERIFIED (measure-first — the discipline is stronger than the inventory tags suggest)
+The `chromium` / `DOM-only` capability tags do NOT mean blind. Read each candidate before flagging:
+- **r3211-dnd-diagram** (looked like F5): NOT blind — gates the server drop-EFFECT (own-oracle POST) and explicitly hands the visual drag→drop→box to Tron device. Correct split.
+- **r314-sw-tree-render** (looked like F3): NOT blind — gates the network-first + renderer LOGIC deployed; header states the owner-gated rendered-tree VISUAL + iOS-PWA repro = Tron's device. Correct split.
+- **r408 / R40.3-A / R40.8**: own-oracle logic + non-owner-reject gated; visual/owner slivers → Tron.
+⇒ FINDING: the team's manual visual→Tron / logic-here split is GOOD and widespread — the device-AC lint baseline is CLEAN. We are **not lying to ourselves much**; the exposure is STRUCTURAL: it was one forgotten split away with no CI catch. The gate-lint now closes that. The residual real risk = the SOURCE-side (fragile tap-targets already in `src/public`, frozen) + any UNLABELED F4 AC.
 
-## STATUS: drilling continues
-Next passes: (F3) confirm each render-gate's req is visual + read its assertion; (F4) find the UNLABELED keyboard/device ACs; (F1/F5) list exact (gate:line, AC) synthetic-click/gesture pairs. Reported to PO as finds land.
+## ★ F4 GOOD-NEWS + the fix pattern (PO-requested)
+R40.3 and R40.20 are the CORRECT TEMPLATE: a device-only AC is **explicitly labelled** device-only ("NEVER reportable GREEN from headless") and its automatable sibling is re-scoped to config/DOM/functional-input-reaches-PTY (not "keyboard absence"). ⇒ The fix for any UNLABELED vacuous AC is simply to **make it look like those two**: add the device-only label + split the automatable half. The lint enforces the gate side; requirement authors apply the R40.3 template on the AC side.
+
+## DOCTRINE APPLIED
+Family named not instance; every CAN'T-FAIL gate flagged (F1 chromium-tap, F4 keyboard-absence); ranked by what reaches Tron first; each candidate VERIFIED before flagging (disproved my own r3211/r314/F5 suspicion — measure-first). Highest-leverage fix (R31.15 gate-lint) BUILT this pass.
+
+## STATUS
+Gate-side backstop shipped. Remaining passes (analysis-only): (F4) enumerate any UNLABELED device/keyboard ACs to hand to req for the R40.3-template relabel; (F1/F5) the SOURCE fragile-tap-target inventory for the frozen R31.15 sweep (fresh-expert). Reported to PO as finds land.
