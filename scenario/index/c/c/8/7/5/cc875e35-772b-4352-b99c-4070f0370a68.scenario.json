@@ -1,0 +1,59 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "cc875e35-772b-4352-b99c-4070f0370a68",
+    "name": "Folders as real scenario units — type-driven detail view + item actions + child-size sunburst",
+    "altId": "R40.16",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:966de307-0d5e-470e-b983-37db7ee3ec60"
+    ],
+    "description": "Folders in the tree (ts / puml / diagrams / traceability etc.) must BE real Folder scenario units (identity, parent, children as real links) with a DEFAULT type-driven detail view (riding the SAME generic view as R40.11, not bespoke), folder ACTIONS on the item itself (incl New Folder, as action UNITS per R40.5 dedup), CONVERGING on the in-room 'Files' itemview precedent (a folder showing its file children), and keeping child-SIZE state as a real single-source field rendered as a SUNBURST view. @390 pixel-gated, fail-loud on unresolvable size/children.",
+    "tronQuote": "the screenshot shows that folders are not really folder scenario units. but they should. they also lack details view and actions like new folder. partially that is better in-room where files itemview is a folder showing its file childrens. it should also keep state about the size of its children in a sunburst diagram.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "designRequired": true,
+    "discoverySource": {
+      "type": "tron-directive+screenshot",
+      "note": "Model-Driven Code Quality tree: RawBin > ts / puml(59) / diagrams / traceability(39) render as folder ROWS with child counts but are NOT real Folder units — no proper detail view, folder actions only in the global action bar not on the item. DESIGN-REQUIRED: (5) child-size state stored-vs-derived architect call (ONE source). Ties R40.11 (type-driven view) + R40.5 (action-unit dedup)."
+    },
+    "crossRefNote": "AC-2 rides R40.11's generic type-driven default view (do not build a bespoke folder renderer). AC-3 action-units per R40.5 de-dup. AC-4 converge on in-room Files itemview.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-folder-is-real-unit",
+        "group": "folder-is-real-unit",
+        "text": "A folder IS a real scenario unit (ior:class:Folder or the EXISTING Folder kind — REUSE, check before minting a new kind per #126) with identity, parent, and CHILDREN as real links (not a render-only tree row)."
+      },
+      {
+        "id": "AC-default-detail-view-RIDE-R40.11",
+        "group": "default-detail-view-RIDE-R40.11",
+        "text": "A folder has a DEFAULT DETAIL VIEW — SAME CLASS as R40.11 (deploymentRefs needed real units + a type-driven default view). It RIDES that ONE generic type-driven view, NOT a bespoke folder renderer."
+      },
+      {
+        "id": "AC-folder-actions-on-item-R40.5",
+        "group": "folder-actions-on-item-R40.5",
+        "text": "FOLDER ACTIONS live on the folder ITEM itself, including NEW FOLDER; the existing Add-folder / Add-Diagram actions become action UNITS per R40.5's de-duplication (not bespoke buttons)."
+      },
+      {
+        "id": "AC-converge-in-room-precedent",
+        "group": "converge-in-room-precedent",
+        "text": "CONVERGE on the in-room 'Files' itemview — Tron says it already behaves right (a folder showing its file children). Do NOT invent a second folder behaviour; the model is that precedent."
+      },
+      {
+        "id": "AC-child-size-state-sunburst-DESIGN",
+        "group": "child-size-state-sunburst-DESIGN",
+        "text": "A folder keeps STATE about the SIZE of its children — a real derived/stored field on the unit with ONE source (not computed ad-hoc in one view) — rendered as a SUNBURST diagram (a VIEW over the field). ★ DESIGN-REQUIRED: architect call on WHERE child-size state lives (stored vs derived) so it has ONE source."
+      },
+      {
+        "id": "AC-device-390-fail-loud",
+        "group": "device-390-fail-loud",
+        "text": "Gated @390 real-device PIXEL (Tron's viewport); fail-loud if size or children cannot resolve (never a blank ring / silent-empty)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
