@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
-    "name": "Assign-as-next-task action — owner-gated action unit records explicit next (overrides derived, single-sourced in resolver)",
+    "name": "Assign task as CURRENT or NEXT — owner-gated action units record explicit current/next (override derived, single-sourced in resolver; explicit-current unblocks the ambiguous pin)",
     "altId": "R40.17",
     "tasks": [],
     "tests": [],
@@ -12,51 +12,66 @@
     "useCases": [
       "ior:instance:3778ccc7-64bb-4de7-b0ee-b103f8a510cc"
     ],
-    "description": "An ASSIGN-AS-NEXT-TASK action (action unit on the universalActionBar, on the task item like R40.10 approve/decline), OWNER-GATED (non-owner 403), that RECORDS the assignment as DATA (assignedNextBy/assignedNextAt, the R40.10 approvedBy/approvedAt pattern) so the pin's next slot is PROVABLE not remembered. EXPLICIT-assigned next OVERRIDES DERIVED next, single-sourced INSIDE resolveSprintPin (next = explicit-if-set ELSE derived, never in a view). Uniqueness: one task next, replaces previous, no collision with current/lastCompleted. @390 pixel, fail-loud on record failure. This is the SELECT mechanism for Tron's last/current/next (today next is derived-only; he wants to assign it). REUSE R40.10 owner-gated machinery + R40.5 action-unit pattern + the existing resolver — do NOT fork.",
-    "tronQuote": "a task needs to have the actions for the action bar: assign as next task",
+    "description": "TWO action units that SHIP TOGETHER (like R40.10 approve/decline): ASSIGN-AS-NEXT and ASSIGN-AS-CURRENT, on the universalActionBar (R40.5 action-unit dedup), ON the task item, OWNER-GATED (non-owner 403). Each RECORDS the assignment as DATA (assignedNextBy/At, assignedCurrentBy/At — R40.10 pattern) so the pin's current/next slots are PROVABLE not remembered. EXPLICIT overrides DERIVED, single-sourced INSIDE resolveSprintPin (current/next = explicit-if-set ELSE derived, never in a view). ★ The explicit assigned-CURRENT is the ESCAPE HATCH: it resolves the pin even when multiple sprints have open work (the resolver's current ambiguity that has parked T40.6 all session) — WITHOUT masking the ambiguity, which stays visible+counted via R-C5's audit (frozen-legacy pattern). 3-slot uniqueness (rotate/clear, no collision), @390 pixel, fail-loud. This is the SELECT mechanism for Tron's last/current/next. REUSE R40.10 + R40.5 + the existing resolver — do NOT fork.",
+    "tronQuote": "a task needs to have the actions for the action bar: assign as next task [and] assign as current task",
     "status": "Backlog",
     "captureOnly": true,
     "designRequired": true,
     "discoverySource": {
       "type": "tron-directive",
-      "note": "Completes the loop Tron corrected the PO on ('last, current unfinished, next — you easily can select them'). Today the pin's next slot is DERIVED only; this is the mechanism to ASSIGN it from the task. DESIGN-REQUIRED: (4) explicit-overrides-derived single-sourced in resolveSprintPin — nobody builds a SECOND next-source. Ties R40.10 (owner-gated action + approvedBy/At) + R40.5 (action-unit) + R-C1 resolveSprintPin."
+      "note": "Completes the SELECT loop Tron corrected the PO on ('last, current unfinished, next — you easily can select them'). Both actions ship together. DESIGN-REQUIRED: (4) explicit-overrides-derived single-sourced in resolveSprintPin (no 2nd next/current source); (5) explicit-current unblocks the ambiguous pin (the session-long T40.6 blocker) WITHOUT masking ambiguity (R-C5 visible+counted); architect-flag: no auto status-transition. Ties R40.10 (owner-gated action + approvedBy/At) + R40.5 (action-unit) + R-C1 resolveSprintPin + R-C5 (audit)."
     },
-    "crossRefNote": "REUSE (do not fork): R40.10 owner-gated action machinery + approvedBy/approvedAt data pattern; R40.5 action-unit de-dup; R-C1 resolveSprintPin as the single next-source (explicit-if-set ELSE derived).",
+    "crossRefNote": "REUSE (do not fork): R40.10 owner-gated action machinery + approvedBy/approvedAt data pattern; R40.5 action-unit de-dup; R-C1 resolveSprintPin single-source (explicit-if-set ELSE derived); R-C5 audit for the visible+counted multi-Active ambiguity.",
     "acceptanceCriteria": [
       {
-        "id": "AC-action-unit-on-task-R40.5-R40.10",
-        "group": "action-unit-on-task-R40.5-R40.10",
-        "text": "ASSIGN-AS-NEXT-TASK is an ACTION UNIT on the universalActionBar (per R40.5 de-duplication — a real action unit, NOT a bespoke button), living ON the task item (like R40.10's approve/decline)."
+        "id": "AC-action-units-on-task-R40.5-R40.10",
+        "group": "action-units-on-task-R40.5-R40.10",
+        "text": "BOTH assign-as-NEXT and assign-as-CURRENT are ACTION UNITS on the universalActionBar (per R40.5 de-duplication — real action units, NOT bespoke buttons), living ON the task item (like R40.10's approve/decline). They SHIP TOGETHER (assign-next without assign-current leaves the main control missing)."
       },
       {
         "id": "AC-owner-gated-403",
         "group": "owner-gated-403",
-        "text": "OWNER-GATED, non-owner => 403. Priority is Tron's call; nobody self-promotes their own work (same integrity argument as approve: if anyone can set next, next means nothing)."
+        "text": "BOTH owner-gated, non-owner => 403. Priority is Tron's call; nobody self-promotes their own work (same integrity as approve: if anyone can set current/next, they mean nothing)."
       },
       {
         "id": "AC-records-as-data-R40.10-pattern",
         "group": "records-as-data-R40.10-pattern",
-        "text": "RECORDS the assignment as DATA on the unit (assignedNextBy / assignedNextAt) — the R40.10 approvedBy/approvedAt pattern — so the pin's next slot is PROVABLE not remembered (trustworthy after a rewind)."
+        "text": "RECORDS the assignment as DATA on the unit — assign-next => assignedNextBy/assignedNextAt; assign-current => assignedCurrentBy/assignedCurrentAt (the R40.10 approvedBy/approvedAt pattern) — so the pin's current AND next slots are PROVABLE not remembered (trustworthy after a rewind)."
       },
       {
         "id": "AC-explicit-overrides-derived-SINGLE-SOURCE",
         "group": "explicit-overrides-derived-SINGLE-SOURCE",
-        "text": "★ DESIGN-REQUIRED: EXPLICIT-ASSIGNED next OVERRIDES the DERIVED next, resolved in ONE place — next = explicit-if-set ELSE derived, decided INSIDE resolveSprintPin, NEVER in a view. No two-sources-of-one-truth (the disease killed this session: two depref builders / two marker counts / two fabricated-uuid figures)."
+        "text": "★ DESIGN-REQUIRED: EXPLICIT-assigned OVERRIDES DERIVED, single-sourced INSIDE resolveSprintPin — current = explicit-if-set ELSE derived; next = explicit-if-set ELSE derived; decided in the resolver, NEVER in a view. No two-sources-of-one-truth (the disease killed this session: two depref builders / two marker counts / two fabricated-uuid figures)."
+      },
+      {
+        "id": "AC-current-UNBLOCKS-ambiguous-pin",
+        "group": "current-UNBLOCKS-ambiguous-pin",
+        "text": "★ ESCAPE-HATCH (named AC): an explicit assigned-CURRENT resolves the pin EVEN WHEN multiple sprints have open work. resolveSprintPin currently THROWS on ambiguity (5 current-era Active: S19/20/21/25/37) -> R40.11's pin renders 'current: unresolved (pending A1 sign-off)' and T40.6 is coupled+parked. An explicit assigned-current ANSWERS the question the resolver cannot answer from data alone => the pin becomes RESOLVABLE IMMEDIATELY, WITHOUT first driving 40+ legacy tasks to terminal."
+      },
+      {
+        "id": "AC-honest-visible-ambiguity-R-C5",
+        "group": "honest-visible-ambiguity-R-C5",
+        "text": "★ HONESTY CONDITION: the explicit-current must NOT silently MASK the ambiguity. The multi-Active condition stays VISIBLE and COUNTED — reported via R-C5's audit (the frozen-legacy pattern: EXCLUDED from the DECISION, NEVER hidden from the REPORT). An honest throw traded for a quiet lie is the exact disease we killed this session."
       },
       {
         "id": "AC-uniqueness-3-slot",
         "group": "uniqueness-3-slot",
-        "text": "UNIQUENESS: only ONE task can be next — assigning a new one REPLACES the previous (same 3-slot uniqueness the pin enforces); must NOT collide with current / lastCompleted."
+        "text": "3-SLOT UNIQUENESS: only ONE current and ONE next. Assigning CURRENT to a task presently NEXT must rotate/clear the next slot; assigning either must not collide with lastCompleted. REUSE the pin's existing distinctness enforcement — do NOT reimplement."
       },
       {
         "id": "AC-device-390",
         "group": "device-390",
-        "text": "@390 real-device PIXEL gate — the action must be reachable AND fireable on his phone."
+        "text": "@390 real-device PIXEL gate — both actions reachable AND fireable on his phone."
       },
       {
         "id": "AC-fail-loud",
         "group": "fail-loud",
         "text": "FAIL-LOUD: if the assignment cannot be recorded, show an EXPLICIT error — never a silently-unchanged pin."
+      },
+      {
+        "id": "AC-architect-flag-no-auto-transition",
+        "group": "architect-flag-no-auto-transition",
+        "text": "★ ARCHITECT FLAG: does assigning CURRENT also TRANSITION the task (Planned -> In Progress) or leave status untouched? PO instinct = must NOT auto-transition (status stays checklist-derived per R-C5; assigning ATTENTION is not claiming WORK was started). His call — flagged, not decided."
       }
     ]
   },
