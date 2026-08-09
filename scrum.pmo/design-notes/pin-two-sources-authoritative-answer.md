@@ -5,6 +5,16 @@
 ## TL;DR
 There are **TWO independent pin systems feeding TWO surfaces at TWO granularities, with NO shared source.** That is the two-sources-of-one-truth bug — the same disease we killed on depref-builders / marker-counts. Tron's phone shows System A (a hand-set snapshot); the tooling reports System B (a live derivation that currently fail-louds). They were never wired to each other.
 
+## COMMITTED STATEMENT (PO's 4 points, settled — robbin-skill-expert owns this)
+1. **How many sources:** TWO. (A) the CurrentSprint singleton's STORED 3 slots — derived by `CurrentSprint.getThreeSlots()` from the singleton's own hand-set hints (focus + nextBacklogOverride + lastCompletedUuid); (B) `resolveSprintPin()` — a separate derivation from the index (Active-count), which IGNORES the singleton. They share no source ⇒ they disagree (screen=C2, resolver=UNRESOLVED).
+2. **Which is authoritative:** SHOULD be `resolveSprintPin` (System B) — the R-C1 "computed-from-files, never hand-set" source. System A is a hand-set snapshot (stale by design). **The System-A writer must DIE**: retire the direct singleton hand-edit AND `getThreeSlots`-from-focus; the stored slots either get deleted or become a write-through cache written ONLY by resolveSprintPin. One writer, by construction.
+3. **Precedence rule:** `DERIVE validated sets (Active/Closed/Planned + within-sprint current-TASK by CHAIN activity) → EXPLICIT hint DISAMBIGUATES WITHIN them → AUTO-on-QA transitions within them → else FAIL-LOUD`. The explicit hint can never fabricate a non-Active current (architect's guard, accepted).
+4. **Can explicit-current unblock the ambiguous pin without masking the ambiguity? YES for the DISPLAY, NO for the audit — by construction:**
+   - With 6 Active, an explicit-current naming ONE of the genuinely-Active sprints (e.g. S37) lets the DISPLAY resolve to it instead of throwing → the pin unblocks for Tron's screen.
+   - It must NOT mask the truth: the 6-Active is a DATA defect (stale unclosed sprints 19/20/21/25 with lingering In-Progress checklists). The hint is a DISPLAY tie-breaker layered OVER the derivation — it does NOT mutate the derivation's inputs, does NOT flip any checklist, does NOT lower the Active-count.
+   - So the **R-C5 honesty audit STILL computes + counts + surfaces "6 Active (4 stale)"** as an open defect until the checklists are reconciled. Display shows S37 AND the audit still screams "6 Active — fix the 4 stale."
+   - Guard: explicit-current pointing at a NON-Active sprint is REJECTED (can't fabricate). It disambiguates among real-Active only; it can never hide that the other 5 are (wrongly) Active — the audit counts them regardless. **Unblock ≠ resolve; the data fix (R-C5) is what resolves.**
+
 ## System A — the STORED singleton (what Tron's screen shows)
 - File: `scenario/index/c/u/r/r/e/current-sprint-singleton-0000-000000000001.scenario.json` (`ior:class:CurrentSprint`).
 - The 3 slots ("Current: Task C2 / R-C2", "Last Completed: Task 36.5") are **STORED DATA on the unit** (`model.slots`) — **TASK-level**.
