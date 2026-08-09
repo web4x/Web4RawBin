@@ -45,6 +45,20 @@ My "hand-fabricated, no live tool" was WRONG on target: I grepped TEMPLATES/zero
 
 **I OWN THE CORRECTION** (symmetry with the PO owning ruling 1): we each hit the prefix-hazard from opposite ends — PO's history-search false-negatived a live unit; my expander-grep false-negatived a live mechanism. Same root: don't reason about uuids at 8 chars.
 
+## ★★ MINT-PATH FABRICATED-UUID GUARD — THREE signatures (the 3rd survives a format check)
+A live case (tester BITE markers `3c9f2a71…` / `4d0a3b82…` / `5e1b4c93…`) exposed a 3rd fabrication family that PASSES a v4/variant check. Measured (never assumed):
+- `4d0a3b82`→`5e1b4c93` per-nibble delta = **1,1,1,1,1,1,1,1** (constant +1); `3c9f2a71`→`4d0a3b82` = 1,1,7,11,1,1,1,1 (near-constant). **The signature is a CONSTANT INTER-ID DELTA across the co-minted SET**, NOT intra-id monotonicity — each id's internal +1 run = **1** (they look individually random). A single-id entropy test would MISS this.
+- False-positive control: 200 real `crypto.randomUUID()` → max intra-id +1 run = **4**; and real random ids never share a constant per-nibble delta. So the tests below have ~0 false-positive by construction.
+
+**THREE signatures the guard must reject (structure-in-the-VALUES, not just wellformedness):**
+1. **All-zero / near-zero tail** — exact check.
+2. **Bad v4** — version nibble ≠ 4 OR variant ∉ {8,9,a,b}.
+3. **Sequential / constant-delta SET** — the new one. PRIMARY test = **set-delta**: when ≥2 uuids are minted together (a batch, or all markers in a file/commit), REJECT if they are related by a near-constant per-nibble delta (≥~6 of 8 head-nibbles equal delta). SECONDARY = intra-id monotonic run ≥8 (cheap, catches an internally-sequential single id; threshold ≥8 ⇒ 0 FP given reals max at 4) — but note it would NOT have caught THIS case, so the set-delta is the load-bearing test.
+
+**KEY DESIGN CONSEQUENCE:** signature 3 is a SET property → the guard cannot be single-id-only. It must run where co-minted ids are visible together — (a) in any mint tool that creates multiple markers/units in one call, and (b) a CI scan over the `[*:uuid:…]` markers per file/commit. A per-id format check alone is insufficient (that is exactly how it slipped past inside the anti-corruption requirement — caught only because req measured the digits).
+
+**BITE (stub-must-fail):** feed the exact 3 heads → MUST be rejected via the set-delta test; PLUS a **positive control** — 100+ real `crypto.randomUUID()` → ALL pass (0 false-positive). The positive control is mandatory: an over-aggressive entropy test that rejects real uuids is worse than none ([[false-low-worse-than-absent]]) and would get disabled. Fold into the R-C3 fail-closed guard family (post-GO, src/ts) beside the prefix-expansion + non-v4/all-zero guards.
+
 ## Summary for req
 - (1) **Repoint** 17 Tasks' ownerIor → real S3 `29d92990-3512-48c8-8648-e08ee757bb57` / S9 `2aac7676-bc88-4eb0-a81b-07c913fda5ee` + restore S3/S9 tasks[]. Parents exist (prefix collision).
 - (2) **Delete** the 2 all-zero Req.tests[] (live false-credit, FIRST) + the fabricated impl-links; **repoint-or-delete** the fabricated ownerIors. ROOT = truncation→expander (CORRECTED): make `resolvePrefix` fail-closed (unique-or-refuse) + prevention batch (E) + prefix-expansion BITE, all post-GO in R-C3.
