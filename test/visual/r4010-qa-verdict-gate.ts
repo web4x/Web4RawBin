@@ -52,8 +52,9 @@ const clientVerdictUI = () => {
 };
 // source-audit: the REAL server logic matches my replica
 const auditServer = () => {
-  const s = fs.readFileSync(path.join(REPO, 'src/ts/server/server.ts'), 'utf8');
-  return /status !== 'QA Review'/.test(s) && /code: 409/.test(s) && /m\.approvedBy = ownerTok8; m\.approvedAt = now; m\.status = 'Done'/.test(s) && /ior:class:ChangeRequest/.test(s);
+  // ★ read HEAD (== committed == served), NOT the shared working tree — a peer's uncommitted refactor-WIP can diverge it
+  const s = execSync('git show HEAD:src/ts/server/server.ts', { cwd: REPO, encoding: 'utf8', maxBuffer: 1e8 });
+  return /status !== 'QA Review'/.test(s) && /code: 409/.test(s) && /approvedBy = ownerTok8/.test(s) && /m\.status = 'Done'/.test(s) && /ior:class:ChangeRequest/.test(s);
 };
 
 const REAL_QA_TASK = '92bdca8b-6c08-459d-a540-98073b80c020';
