@@ -7,9 +7,7 @@
     "description": "The detail view All Children section MUST render ALL children of a scenario unit \u2014 the union of all array-relationship fields in the model (methods[]/implementations[]/tests[]/useCases[]/tasks[]/members[]/files[] etc). Covers the 'All Children' half of R20.5. Method already implemented: RbDetailView.renderAllChildren (bfbc0874) at detail-superseded.ts:37.",
     "tronQuote": "> Derived from R20.5 (universal chain-vs-children): \"children is obviously the sum of all array relationships in the model.\"",
     "tasks": [],
-    "tests": [
-      "ior:instance:7e717383-0000-0000-0000-000000000000"
-    ],
+    "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",

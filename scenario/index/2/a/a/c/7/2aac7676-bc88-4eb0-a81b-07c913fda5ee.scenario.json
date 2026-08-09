@@ -4,7 +4,15 @@
     "uuid": "2aac7676-bc88-4eb0-a81b-07c913fda5ee",
     "name": "Sprint 09 — Room Identity",
     "number": 9,
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9c9d4eda-ed8b-466b-b738-a5d4c621be7a",
+      "ior:instance:7662f276-9cd4-4a67-a1d3-5c47a8294195",
+      "ior:instance:7d439851-a7d2-4193-b3fa-4ac0d893a86d",
+      "ior:instance:b6772860-ded7-4a10-afe7-ee8d6d79f91e",
+      "ior:instance:b4f1c2a8-9e3d-4a17-bc52-1f8e7d6a0c44",
+      "ior:instance:1ba50e32-5dd2-479c-a021-c44e92c42d01",
+      "ior:instance:49d6b8e5-c8d7-46b9-930d-086c22116f15"
+    ],
     "requirements": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-09-room-identity/planning.md",
     "sourceLine": 1,

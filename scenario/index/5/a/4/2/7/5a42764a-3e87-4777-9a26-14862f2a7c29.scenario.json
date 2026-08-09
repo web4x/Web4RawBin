@@ -7,9 +7,7 @@
     "description": "The detail view MUST render superseded links \u2014 when a unit has supersededBy or supersedes[] fields, they are shown as navigable links in the detail section. This is the dedup-traceability half of R20.5 (part C). Method already implemented: RbDetailView.renderSupersededLinks (31c6e25e) at detail-superseded.ts:15.",
     "tronQuote": "> Derived from R20.5-C (dedup traceability): dedup relationship must be traceable, surfaced in detail-view.",
     "tasks": [],
-    "tests": [
-      "ior:instance:ae410763-0000-0000-0000-000000000000"
-    ],
+    "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "unitLinks": [],
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
