@@ -32,38 +32,55 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 ---
 
-| # | Sprint | Status | Tasks | Planning |
-|---|--------|--------|-------|----------|
-| 1 | Foundation | Done | 11 | [planning](./sprint-01-rawbin-foundation/planning.md) |
-| 2 | Identity & SSH | Done | 7 | [planning](./sprint-02-identity-ssh/planning.md) |
-| 3 | E2E & Hardening | Done | 10 | [planning](./sprint-03-e2e-hardening/planning.md) |
-| 4 | Traceability | Done | 8 | [planning](./sprint-04-traceability/planning.md) |
-| 5 | PWA & Offline | Done | 8 | [planning](./sprint-05-pwa-offline/planning.md) |
-| 6 | Web Components | Done | 8 | [planning](./sprint-06-web-components/planning.md) |
-| 7 | Encrypted Storage | Done | 13 | [planning](./sprint-07-encrypted-storage/planning.md) |
-| 8 | Monaco Editor | Done (Tron QA) | 14 | [planning](./sprint-08-monaco-editor/planning.md) |
-| 9 | Room Identity | T74-77,79,80 Tron QA Done; T78 tested→awaiting Tron QA | 7 | [planning](./sprint-09-room-identity/planning.md) |
-| 10 | Contacts UI | active — T81/82/83 tested, awaiting Tron QA | 3 | [planning](./sprint-10-contacts-ui/planning.md) |
-| 11 | Traceability Standardization | active — T85/86 impl-done; T87-90 planned (S1-9 remediation); T119 planned (test-traceability retrofit, Tron 2026-05-29) | 7 | [planning](./sprint-11-traceability/planning.md) |
-| 12 | Editor Fixes | active — T84 tested, awaiting Tron QA | 1 | [planning](./sprint-12-editor-fixes/planning.md) |
-| 13 | Stability | active — 7 (T91-95,T100,T109) 🧪 awaiting Tron QA; T118 ✅ 317f41a (E2E cleanup); T130 ✅ 8539d57 v0.5.27 (md-preview MD_CSS nested-list rules) | 9 | [planning](./sprint-13-stability/planning.md) |
-| 14 | Legacy Data Migration | ✅ migration complete — T96/97 migrated, T98 verify PASS, T99 gate-cleared + EXECUTED (legacy removed v0.5.19); regression+Tron QA pending | 4 | [planning](./sprint-14-legacy-migration/planning.md) |
-| 15 | Traceability Browser & Object Model | active — all 8 impl-complete (v0.5.18); T101/102/103/105/106 tested→Tron QA; T104/107/108 testing | 8 | [planning](./sprint-15-traceability-browser/planning.md) |
-| 16 | Traceability UX & DetailViews | active — Phase 1-3 all 8 ✅ (T110-117, v0.5.23+bdb74ec); Phase 4: T120/T122 ✅ (50d20be v0.5.25), T123 ✅ (2a28dd3 v0.5.26 pageNav sticky), T121 🔧 (Phase 2 C2a/C2b done, C1/C3/C5/C6/C7 pending) | 12 | [planning](./sprint-16-traceability-ux/planning.md) |
-| 17 | Scenario Units / IOR Data Model & Class Views | active — 29 🧪 tester-verified (Tron QA batch ready, see scrum.pmo/tron-qa-batch-2026-06-05.md); T180 Track 1 awaits Tron DNS; T184/T185/T186 closed in-scope | 60+ | [planning](./sprint-17-scenario-units/planning.md) |
-| 18 | Chain method-scope & role skills | active — DOGFOOD: T187 🔧 FIX-CYCLE ITER-2 (v0.5.89 NAV PASS but UC→Method over-narrows 0/should-be-1; expert v0.5.90 fix in flight; tester re-runs TS6-9 on redeploy); T190 🧪 strict-verified (v0.5.89 RE-RUN 8/8 PASS — append-only confirmed, DOM identity, scroll preserved); T188 ⏳ (ViewGenerator); T189 ⏳ (architect+req SKILL.md pending). PO honest-board 2026-06-05. | 4 + sub | [planning](./sprint-18-chain-method-scope/planning.md) |
-| 19 | Room Handling | scenario-first stand-up 2026-06-10 (PO b0b6b8e8 + ln tree 364202fe): Sprint unit 97f513a1 + 14 R19.x Requirement units on disk + sprints.json/sprint-19-room-handling/{sprint.json, requirement/r19-1..14.json} symlinks. R19.x scope: room-as-scenario-unit + room editor, visibility PUBLIC/BY-INVITE-Apply-flow/PRIVATE-password, lifecycle LIVE/PERSISTENT (persistent-default after sprint), member add/remove, room UI drop-zone + Members/Files tree, files-as-units. Tasks pending req-signal decomposition complete. Source: [compound-requirement-source.md](./sprint-19-room-handling/compound-requirement-source.md). | 0 (req-signal pending) | scenario-unit-first (planning.md = generated VIEW per Tron 2026-06-10) |
-| 20 | **Radical Forward Planning (Traceability-First) · WIP=1** | ACTIVE — the 📌 CURRENT SPRINT (top of this doc). Chains built BEFORE/WITH impl, Test-first, nothing ships chain-open. ONE Current Task driven end-to-end across all roles, replaced ONLY on version-bump delivery; no parallel batch. Sprint unit 64af2638. Carries forward S19 follow-ons (R19.99/100/102) + the WIP=1 drawer/trace work (BUG8/9/10/11 + RbDetailDrawer chains). **(Sprint 29 'Radical Forward Planning (WIP=1)' was a FICTION fork — merged here 2026-06-14 in the S29→S20 refactor; its WIP=1 method preserved at [wip1-method](./sprint-20-traceability-first/wip1-method-merged-from-fiction-sprint29.md).)** | WIP=1 | [planning](./sprint-20-traceability-first/planning.md) |
-| 21 | Contact Identity | scenario-first stand-up 2026-06-28 (robbin-req): Sprint unit 1bdfaafa + 8 R21.x Requirement units on disk + sprints.json/sprint-21-contact-identity/{sprint.json, requirement/r21-1..8.json} symlinks. Scope: vCard-drop-with-photo, lobby first-load name fix, Phone/Email as alternate-UUID ln symlinks + device-link-not-new-user, Phone/Email/Address/Company first-class scenario units (class-method relationship pattern), Company shared (dedup by name), Address async-verified vs OpenStreetMap. Tron seed: +4915253844085 as first Phone unit on WODA.prod. UC placeholders pending architect refinement; tasks pending planner stand-up. | 9 | [planning](./sprint-21-contact-identity/planning.md) |
-| 22 | Traceability View Fixes | scenario-first stand-up 2026-06-29 (robbin-req): Sprint unit 9996b46a + R22.1 (Task detail: one chain section + Forward Links to MD task file) on disk + sprints.json symlinks. Tron screenshot directive. UC-VF.1 placeholder pending architect refinement. | 4 | [planning](./sprint-22-traceability-view-fixes/planning.md) |
-| 23 | Media Preview | scenario-first stand-up 2026-06-29 (robbin-req): Sprint unit 4a4a5d66 + R23.1 (audio HTML5 player) + R23.2 (YouTube embed) on disk + sprints.json symlinks. Tron Heartspaces-room directive. Extends R21.9 content preview. UC-MP.1/UC-MP.2 placeholders pending architect. | 3 | [planning](./sprint-23-media-preview/planning.md) |
-| 24 | Traceability Skills | scenario-first stand-up 2026-06-29 (robbin-req): Sprint unit 04339450 + R24.1-R24.5 (Object.verb skill engine / pin mgmt / chain scoring / sprint-md ViewGenerator / traceability audit) on disk + sprints.json symlinks. PO main-goal: formalize existing scattered TS tools as one OOSH-like SKILL set. UC-SK.1-5 placeholders; planner briefs+builds tasks, architect designs, skill-expert owns chain tools. | 5 | [planning](./sprint-24-traceability-skills/planning.md) |
-| 25 | Apple DnD | scenario-first stand-up 2026-06-29 (robbin-req): Sprint unit c7d700c6 + R25.1 (comprehensive DnD logging - capture dropped URL schemes) on disk + sprints.json symlinks. Tron directive + PO URL-scheme clarification: Apple DnD = URL schemes (mailto/webcal/calshow/maps/geo/tel/x-apple-reminder), R23.2 YouTube model. R25.2+ per-scheme handlers DEFERRED (measure-first from Tron-room logs). UC-DND.1 placeholder. | 7 | [planning](./sprint-25-apple-dnd/planning.md) |
-| 26 | **RawBin Federation** | scenario-first stand-up 2026-07-01 (robbin-req): Sprint unit 1d98197d + R26.1-R26.5 (federated IOR / DnD federated-ref / server-to-server fetch API / lazy child resolve / conflict reconcile) on disk + sprints.json symlinks. Architect design 7e940cf81. Greenfield inter-server scenario exchange — structure-eager/payload-lazy/identity-by-reference; foreign members by-reference (R25.7 tie-in). UC placeholders pending architect. NOTE: canonical R26.x (federation) — the v0.6.97/98 gate R26.1/R26.2 labels for clipboard/scenario-link were a mislabel of R25.5/R25.6. | 6 | [planning](./sprint-26-federation/planning.md) |
-| 27 | Detail View Enhancements | scenario-first stand-up 2026-07-01 (robbin-req): Sprint unit c1c63a2e + R27.1 (task detail renders statusChecklist visually) on disk + sprints.json symlinks. Task-detail enhancement; MD-file link covered by R22.1. v0.7.6 shipped -> chain retroactive. UC27.1 placeholder pending architect. | 6 | [planning](./sprint-27-detail-view-enhancements/planning.md) |
-| 28 | Graph-Integrity Foundation | scenario-first stand-up 2026-07-01 (robbin-req): Sprint unit fabc9784 + R27.5 (ref-slot registry+calibration, moved from S27) + R27.6 (true-dangling repair: Method.impl 51/Test.parent 32/Test.verifies 12/Test.methods 1) + symlinks. Architect design 05da0584a/76c3a102b. Foundational, build on Tron go. | 2 | [planning](./sprint-28-graph-integrity-foundation/planning.md) |
-| 29 | Server & Dev Lifecycle (infra) | scenario-first stand-up 2026-07-02 (robbin-req): Sprint unit 186ccb53 + R29.1 (self-healing npm start preserving interactive server TUI, consistent prod+test, restart in remoteShells) + symlinks. Tron directive, retroactive #126 for shipped start.mjs self-heal. | 7 | [planning](./sprint-29-server-dev-lifecycle/planning.md) |
-| 30 | Agent Messaging (Async Mailbox) | scenario-first stand-up 2026-07-02 (robbin-req): TRON-AUTHORIZED (R29.4 record). Sprint 2173e549 + R30.1-4 (AgentMessage unit / async mailbox / no-live-injection / Task.messages+skill-verbs) from skill-expert design 4546a59d9. Structural fix for sent-!=-delivered. | 1 | [planning](./sprint-30-agent-messaging/planning.md) |
+<!-- GENERATED-INDEX:BEGIN -->
+## 📌 Sprint pointers (generated — R-C1 pin + R-C5 rollup)
+- **current:** ⚠️ UNRESOLVED — pin ambiguous — 6 Active sprints [21, 20, 40, 19, 37, 25] — ambiguous current, never silent-pick. Resolve the checklists so exactly one sprint is In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
+
+| # | Sprint | Status |
+|---|--------|--------|
+| 1 | Sprint 01 — Rawbin Foundation | frozen-legacy (excluded from gate) |
+| 2 | Sprint 02 — Identity & SSH | frozen-legacy (excluded from gate) |
+| 3 | Sprint 03 — E2E Hardening | frozen-legacy (excluded from gate) |
+| 4 | Sprint 04 — Traceability | frozen-legacy (excluded from gate) |
+| 5 | Sprint 05 — PWA & Offline | frozen-legacy (excluded from gate) |
+| 6 | Sprint 06 — Web Components | frozen-legacy (excluded from gate) |
+| 7 | Sprint 07 — Encrypted Storage | frozen-legacy (excluded from gate) |
+| 8 | Sprint 08 — Monaco Editor | frozen-legacy (excluded from gate) |
+| 9 | Sprint 09 — Room Identity | frozen-legacy (excluded from gate) |
+| 10 | Sprint 10 — Contacts Ui | frozen-legacy (excluded from gate) |
+| 11 | Sprint 11 — Traceability | frozen-legacy (excluded from gate) |
+| 12 | Sprint 12 — Editor Fixes | frozen-legacy (excluded from gate) |
+| 13 | Sprint 13 — Stability | frozen-legacy (excluded from gate) |
+| 14 | Sprint 14 — Legacy Migration | frozen-legacy (excluded from gate) |
+| 15 | Sprint 15 — Traceability Browser | frozen-legacy (excluded from gate) |
+| 16 | Sprint 16 — Traceability Ux | frozen-legacy (excluded from gate) |
+| 17 | Sprint 17 — Scenario Units | frozen-legacy (excluded from gate) |
+| 18 | Sprint 18 — Chain Method-Scope & Role Skills | frozen-legacy (excluded from gate) |
+| 19 | Sprint 19 — Room Handling | Active |
+| 20 | Sprint 20 — Radical Forward Planning (Traceability-First) | Active |
+| 21 | Sprint 21 — Contact Identity | Active |
+| 22 | Sprint 22 — Traceability View Fixes | Closed |
+| 23 | Sprint 23 — Media Preview | Closed |
+| 24 | Sprint 24 — Traceability Skills | Closed |
+| 25 | Sprint 25 — Apple DnD | Active |
+| 26 | Sprint 26 — RawBin Federation | QA-pending |
+| 27 | Sprint 27 — Detail View Enhancements | Closed |
+| 28 | Sprint 28 — Graph-Integrity Foundation | Planned |
+| 29 | Sprint 29 — Server & Dev Lifecycle | Planned |
+| 30 | Sprint 30 — Traceability Improvement | QA-pending |
+| 31 | Sprint 31 - Server Manager | QA-pending |
+| 32 | Sprint 32 — MDA Model-Driven Code Quality | QA-pending |
+| 33 | Sprint 33 — MDA v4 MOF-layered tree | Closed |
+| 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
+| 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
+| 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
+| 37 | Consistency by Construction | Active |
+| 40 | Server Manager — deployment-node model + mobile input control | Active |
+
+**FROZEN-LEGACY** (excluded from the consistency gate — Tron-bounded scope, [[no silent caps]]):
+- sprints S01–S18 (needs-backfill ancient set, FROZEN not backfilled): S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18
+- design-doc planning.md (hand-authored): S01, S02, S03, S04, S05, S06, S07, S08, S09
+<!-- GENERATED-INDEX:END -->
 
 **Task numbering:** global sequential. T1-T80 (S1-9), T81-83 (S10), T84 (S12),
 T85-90 (S11), T91-95 (S13), T96-99 (S14), T100 (S13), T101-108 (S15), T109 (S13), T110-117 (S16), T118 (S13), T119 (S11), T120-123 (S16), T124-129 (S17 parents — sub-tasks T124.1+ allocated at refinement time), T130 (S13), T131-T186 (S17 follow-ons + extensions), T187-T190 (S18). Next new task = **T191**.
