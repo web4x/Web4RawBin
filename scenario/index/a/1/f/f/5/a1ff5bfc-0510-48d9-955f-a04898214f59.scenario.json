@@ -7,7 +7,8 @@
       "ior:instance:e1ff295f-be7e-4111-8f58-7cbb98f26cb9"
     ],
     "sourceFile": "ior:file:scripts/owned-output-guard-bites.ts",
-    "markerNote": "Adopted from tester BITE marker in owned-output-guard-bites.ts (c4152976a, real uuid4 after fabricated-uuid regen). check:owned-output in ci:gates:raw, suite GREEN, weaken-proven non-vacuous."
+    "markerNote": "Adopted from tester BITE marker in owned-output-guard-bites.ts (c4152976a, real uuid4 after fabricated-uuid regen). check:owned-output in ci:gates:raw, suite GREEN, weaken-proven non-vacuous.",
+    "status": "pass"
   },
   "ownerIor": "ior:instance:e1ff295f-be7e-4111-8f58-7cbb98f26cb9"
 }
