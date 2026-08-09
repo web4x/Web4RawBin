@@ -3,7 +3,7 @@
 Tron: model a scenario-first `Feature` type — referenced by all its implementations (both-way), referencing the user profiles allowed to use it; ServerManager + FeatureManager are Features; profile shows the user's granted features. Generalizes R31.1 (render) + R31.2 (gate) data-driven, WITHOUT weakening the security. MEASURED first, then design; security/bootstrap is the architect call (below).
 
 ## MEASURED — current topology
-- **Profiles = `Map<token, UserProfile>`** (server.ts:166) persisted as a JSON array to PROFILES_PATH (:198); `UserProfile` iface (:129) keyed by `token`. NOT scenario units yet. → For R31.8, `Feature.allowedUsers` references the profile's **token** (the stable user identity, e.g. Tron `41ad88c4…`); `profile.features` is a new field on UserProfile. (Full profile-as-scenario-unit = a later R31.7-aligned migration; token-ref works now + is stable.)
+- **Profiles = `Map<token, UserProfile>`** (server.ts:166) persisted as a JSON array to PROFILES_PATH (:198); `UserProfile` iface (:129) keyed by `token`. NOT scenario units yet. → For R31.8, `Feature.allowedUsers` references the profile's **token** (the stable user identity, e.g. Tron `<owner-literal>…`); `profile.features` is a new field on UserProfile. (Full profile-as-scenario-unit = a later R31.7-aligned migration; token-ref works now + is stable.)
 - **Gate = choke-point** server.ts:891 `if (filepath==='/server-manager' || startsWith('/api/server-manager/')) { if(!requireOwnerHttp(req,res)) return; }` → `requireOwnerHttp`→`resolveOwner`/`ServerManagerGuard.assertOwner` (hardcoded `OWNER_TOKEN` + live-session + sm_session cookie). INV-G1/2/3.
 - **Render bridge** server.ts:2625 sets `serverManager: ServerManagerGuard.isOwner(profile.token)` on the PROFILE ws msg → `renderFeatureGrants` (:862) shows the entry IFF `m.serverManager`.
 
@@ -20,7 +20,7 @@ Tron: model a scenario-first `Feature` type — referenced by all its implementa
 - Mirror invariant (INV-F-MIRROR): for every `f ∈ Feature.implementations`, `Impl(f).feature == Feature`; for every `u ∈ Feature.allowedUsers`, `u`'s profile has `Feature ∈ profile.features`. A drift-check (like the existing reverse-link verify) fails loud.
 
 ## Instances (req mints scenario-first, #126)
-- **ServerManager** Feature: implementations=[assertOwner 8bb1842f, attachPane 394eac63, readSessionTree 5c1701bc, renderFeatureGrants f345b8ed, buildSeedNode 5b3d9f1a…]; allowedUsers=[Tron 41ad88c4…].
+- **ServerManager** Feature: implementations=[assertOwner 8bb1842f, attachPane 394eac63, readSessionTree 5c1701bc, renderFeatureGrants f345b8ed, buildSeedNode 5b3d9f1a…]; allowedUsers=[Tron <owner-literal>…].
 - **FeatureManager** Feature: implementations=[grant/revoke logic + enable/disable UI]; allowedUsers=[Tron].
 
 ## (2) DATA-DRIVEN access + ★ SECURITY / BOOTSTRAP (architect call) — generalizes R31.2, NEVER weakens it

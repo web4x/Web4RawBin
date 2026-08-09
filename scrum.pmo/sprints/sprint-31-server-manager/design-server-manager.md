@@ -15,7 +15,7 @@
 Single shared guard, one definition, used by EVERY server-manager HTTP endpoint AND the terminal ws upgrade. Not per-call ad-hoc.
 
 ```
-const OWNER_TOKEN = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+const OWNER_TOKEN = 'the owner literal';
 // constant-time compare; resolve caller token the SAME way existing endpoints do
 function resolveOwner(req): {ok:true, token} | {ok:false} {
   const token = playerTokenFrom(req);            // header/query as existing endpoints use
