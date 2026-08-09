@@ -1,0 +1,52 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "acbfe6e7-cb3f-4845-82c9-e749cbd7d1ff",
+    "name": "Credential/identity decoupling — keep the user-id STABLE, introduce a separate ROTATABLE credential (challenge-response/keypair)",
+    "altId": "R40.22",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:c0a58546-449d-450b-84b0-6aab67e65b2d"
+    ],
+    "description": "SECURITY (design-required, architect measuring): the owner literal appears to BE the owner's real user-id in runtime storage (data/users/<owner-id>/, profiles.json), so rotating the credential could mean migrating an identity PRIMARY KEY — device enrollments, memberships, ownership refs — with real lockout / orphan risk. LIKELY FIX: keep the user-id STABLE (identity) and introduce a SEPARATE, ROTATABLE credential (the challenge-response / keypair endgame) so a credential rotates WITHOUT migrating identity. The architect is measuring now; the verdict may reshape the rotation and fills in the shape (design lands LOCAL, outside repo). NO credential/owner VALUE recorded here (secret-value rule) — the owner literal is referenced only as 'the owner literal' / <owner-id>.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "designRequired": true,
+    "discoverySource": {
+      "type": "architect-security-finding",
+      "note": "Requirement-grade security finding, capture-only for Tron's backlog. Exploit/rotation detail lives in the LOCAL design (/var/dev/security-local/, chmod 600) — NOT in-repo. Independent of tonight's incident; architect design/verdict fills the shape. NO exploitable detail + NO secret VALUES in this unit (secret-value rule)."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-identity-stable",
+        "group": "identity-stable",
+        "text": "The user-id (identity primary key) stays STABLE across credential rotation — no migration of device enrollments / memberships / ownership refs on a rotate."
+      },
+      {
+        "id": "AC-rotatable-credential-separate",
+        "group": "rotatable-credential-separate",
+        "text": "A SEPARATE, ROTATABLE credential (distinct from the user-id) authenticates; rotating it does NOT touch identity."
+      },
+      {
+        "id": "AC-no-lockout-no-orphan",
+        "group": "no-lockout-no-orphan",
+        "text": "Rotation causes NO lockout (owner still authenticates) and NO orphaned refs (every identity ref still resolves to the stable user-id)."
+      },
+      {
+        "id": "AC-challenge-response-endgame",
+        "group": "challenge-response-endgame",
+        "text": "The credential mechanism is challenge-response / keypair (not a shared secret at rest) — ties R40.14 (loginToken keypair) + R40.15 (secretCode hardening) + R40.21 (capability tokens)."
+      },
+      {
+        "id": "AC-architect-verdict",
+        "group": "architect-verdict",
+        "text": "★ DESIGN-REQUIRED: the architect's measurement/verdict fills the shape and may reshape the rotation. Do NOT build before the verdict."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
