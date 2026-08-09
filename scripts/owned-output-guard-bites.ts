@@ -16,6 +16,9 @@
  *
  * RED until the helper lands + generators route through it — that RED IS the finding (the guard is not yet present).
  */
+// [test:uuid:3c9f2a71-8b04-4e6d-a1f5-9d2e0c7b6a34] owned-output-guard guardedWrite (Impl 3a716334) — write ONLY an owned, path-confined, marker-or-new file; refuse non-owned / '..'-escape / clobber-of-unmarked (B1 + B3, weaken-proven RED).
+// [test:uuid:4d0a3b82-9c15-4f7e-b2a6-0e3f1d8c7b45] owned-output-guard guardedDelete (Impl e1ff295f) — delete ONLY a marker-carrying file; NEVER an unmarked/hand-authored one; fail-closed on ambiguous (B2b negative bite + B1 + B3, weaken-proven RED).
+// [test:uuid:5e1b4c93-0d26-4a8f-a3b7-1f402e9d8c56] owned-output-guard guardedWriteRegion (Impl fc520411) — region-write ONLY an owned file that contains the region marker; refuse markerless-existing / markerless-content / non-owned / escape (B1-region, control-proven non-vacuous).
 import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_HEADER } from './generate-sprint-md.ts';
@@ -72,6 +75,25 @@ else {
   ok('B3 non-owned-write refused', guard!.guardedWrite!(nonOwned, 'x', GENERATED_HEADER, (b: string) => b === 'requirements.md') === false && !fs.existsSync(nonOwned));
   const escapePath = `${SCRATCH}/../oog-escape.md`; // RAW string keeps the '..' segment (path.join would normalize it away)
   ok('B3 path-escape write refused', guard!.guardedWrite!(escapePath, 'x', GENERATED_HEADER, () => true) === false && !fs.existsSync(escapePath));
+  fresh();
+}
+
+console.log('\n== B1-region (guardedWriteRegion) — markerless/hand-authored file NEVER clobbered; markerless content + escape refused ==');
+if (!(guard && (guard as { guardedWriteRegion?: Function }).guardedWriteRegion)) { ok('B1-region guard PRESENT', false, 'guardedWriteRegion absent'); }
+else {
+  const gwr = (guard as { guardedWriteRegion: Function }).guardedWriteRegion;
+  fresh();
+  const RM = '<!-- BEGIN GENERATED REGION -->';
+  const owned = (b: string) => b === 'sprints.overview.md';
+  const f = path.join(SCRATCH, 'sprints.overview.md');
+  const handNarr = '# hand narrative\nno region marker — do not clobber\n';
+  fs.writeFileSync(f, handNarr);
+  ok('B1-region markerless-EXISTING refused (survives byte-identical)', gwr(f, RM + '\ngen\n', RM, owned) === false && fs.readFileSync(f, 'utf8') === handNarr);
+  fs.rmSync(f, { force: true });
+  ok('B1-region markerless-CONTENT refused (never write output lacking the region marker)', gwr(f, 'no marker in output', RM, owned) === false && !fs.existsSync(f));
+  ok('B1-region non-owned name refused', gwr(path.join(SCRATCH, 'other.md'), RM + '\ng\n', RM, owned) === false);
+  ok('B1-region path-escape refused', gwr(`${SCRATCH}/../oog-region-escape.md`, RM + '\ng\n', RM, () => true) === false);
+  ok('B1-region valid marked write (control, proves not vacuously-refuse-all)', gwr(f, RM + '\ngen\n', RM, owned) === true && fs.existsSync(f));
   fresh();
 }
 
