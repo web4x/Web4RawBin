@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "29d92990-3512-48c8-8648-e08ee757bb57",
-    "name": "Sprint 03 — E2E Hardening",
+    "name": "E2E Hardening",
     "number": 3,
     "tasks": [
       "ior:instance:676f309c-101a-4567-ba86-caa3077d6a01",
