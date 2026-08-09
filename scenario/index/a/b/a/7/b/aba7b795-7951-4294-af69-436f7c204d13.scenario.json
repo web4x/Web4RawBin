@@ -4,10 +4,11 @@
     "uuid": "aba7b795-7951-4294-af69-436f7c204d13",
     "name": "RbFileDetail.autoRenderMediaPreview impl (media auto-render, fail-loud)",
     "sourceFile": "ior:file:src/public/ts/trace/rb-file-detail.ts",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [
       "ior:instance:b3e9f1a4-7c28-4d6b-9f03-1a5e8c2d94b7"
-    ]
+    ],
+    "markerNote": "STRICT-AST VERIFIED: [impl:uuid:aba7b795] heads named method RbFileDetail.autoRenderMediaPreview @rb-file-detail.ts (a3bb23818), 0-intervening (only doc-comment above); buildStrictImplSet credits aba7b795->autoRenderMediaPreview = TRUE (expert-run, authoritative AST tool). Comment-only marker, served 0.8.76 unchanged."
   },
   "ownerIor": "ior:instance:267011df-8f51-4284-a75d-a0dbc4d789f5"
 }
