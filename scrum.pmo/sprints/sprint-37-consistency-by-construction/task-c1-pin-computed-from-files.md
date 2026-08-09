@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - cluster R-C1 (pin COMPUTED-from-files resolver), build 2nd (after R-C2). Chain at build-go. Gate = Test EXERCISES resolver -> pin==active-sprint deterministically + hand-set value overridden by recompute (CI/tooling, not @390). Verify Impl.tests[] on disk before flip.
+QA-Review (units-win over stale Planned board): chain-complete-to-Test — Impl af97137f resolveSprintPin markerPending=false + Impl.tests[]=[fc28b6f1,3519018d] both pass, BITE gates GREEN (rc1-sprintpin-resolver + rc1refine-frozen-cancelled-metabite). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control live v0.8.77). Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 

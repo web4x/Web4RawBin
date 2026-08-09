@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - cluster R-C3 (FAIL-LOUD ci-guard pin==board==files), build 3rd. ★ AC-BITE PINNED: fail-loud PROVEN by real drift-injection (pin/board/status drift -> guard exits non-zero + clear msg), NOT asserted ([[correct-by-construction-needs-gate-verification]]). Chain at build-go. The Test IS the BITE. Verify Impl.tests[] on disk before flip.
+QA-Review (units-win over stale Planned board): chain-complete-to-Test — Impl ee424581 refuseIfVacuous markerPending=false + Impl.tests[]=[caf74333] pass, BITE gate GREEN (rc3-consistency-guard-metabite, real drift-injection). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act. Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 

@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [~] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress — BoardMigrator mechanism BUILT (proveComplete G1 + applyMigration G2-G5, expert 520885af9; markerPending=false 7e5f7b280; 5-gate BITE PASS 1b94f5da1) + gap-report ran (ed9beb540: 37 sprints 11 PASS / 26 REFUSE / 694 gaps). PENDING: chain-complete-to-Test verify + per-sprint EXECUTION (26 REFUSE need G2 units-backfill = req+planner mint-from-hand-files per architect classification). @390 N/A (scripts/CI). Verify Impl.tests[] on disk before flip.
+QA-Review (units-win): chain-complete-to-Test — Impl 73f045d8 applyMigration markerPending=false + Impl.tests[]=[0870c78b] pass, 6 BITE gates GREEN (rc7 + rc7b-f). All 4 In-Progress sub-steps [x]. ★ NOTE: the MECHANISM is chain-complete+gated (QA-Review); per-sprint EXECUTION residual (26 REFUSE need G2 units-backfill) is downstream run-work, NOT a chain gap. Done-gate [ ] = Tron's act. Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 

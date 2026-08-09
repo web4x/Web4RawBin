@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.12 (file detail working-preview / audio-player regression fix, fail-loud all contexts). Scenario-first: req minted R40.12 c9fa4f49 (6a5910d9e); coveredRequirements + useCases 16b3a2ef wired; ACs MIRRORED w/ tags (4 AUTOMATABLE + 1 device @390 pixel Tron). crossRef R23.1 480b40aa (S23 FROZEN legacy; R23.1 unit backfilled AC-6 audio-player-in-room-drawer @390 — S23 board MD frozen/no-regen, unit is the truth). Architect designs. No build until build-go.
+QA-Review (units-win over BADLY-stale Planned board — ripest S40 task): chain-complete-to-Test — Impl aba7b795 autoRenderMediaPreview markerPending=false (strict-AST) + Impl.tests[]=[b3e9f1a4] pass, gate r4012-music-player-pixel-gate GREEN DET-3x, SHIPPED v0.8.75 DEVICE-VERIFIED (a339ea395), two-key done (ed26b3bb0). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control live v0.8.77). Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 

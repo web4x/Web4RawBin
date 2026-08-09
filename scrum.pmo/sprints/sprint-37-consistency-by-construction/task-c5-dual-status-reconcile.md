@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - cluster R-C5 (dual-status reconcile, architect-surfaced during R-C2). Kept OUT of R-C2. Directly closes the [[task-dual-status-fields-can-disagree]] class (Task 95). Chain at build-go. Gate = Test EXERCISES disagreeing-unit -> ONE status, NO Done-ness flip, disagreement flagged. Verify Impl.tests[] on disk before flip.
+QA-Review (units-win over stale Planned board): chain-complete-to-Test — Impl d86f0309 assertStatusConsistent markerPending=false + Impl.tests[]=[30d4b44a] pass, BITE gate GREEN (rc5-taskstatus-bite, fail-loud offender-naming). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act. Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 
