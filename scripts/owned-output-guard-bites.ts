@@ -70,7 +70,8 @@ else {
   ok('B3 ambiguous-delete refused', guard!.guardedDelete!(amb, GENERATED_HEADER) === false && fs.existsSync(amb));
   const nonOwned = path.join(SCRATCH, 'not-owned.md');
   ok('B3 non-owned-write refused', guard!.guardedWrite!(nonOwned, 'x', GENERATED_HEADER, (b: string) => b === 'requirements.md') === false && !fs.existsSync(nonOwned));
-  ok('B3 path-escape write refused', guard!.guardedWrite!(path.join(SCRATCH, '../escape.md'), 'x', GENERATED_HEADER, () => true) === false && !fs.existsSync(path.join(SCRATCH, '..', 'escape.md')));
+  const escapePath = `${SCRATCH}/../oog-escape.md`; // RAW string keeps the '..' segment (path.join would normalize it away)
+  ok('B3 path-escape write refused', guard!.guardedWrite!(escapePath, 'x', GENERATED_HEADER, () => true) === false && !fs.existsSync(escapePath));
   fresh();
 }
 
