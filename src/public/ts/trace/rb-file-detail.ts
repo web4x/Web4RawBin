@@ -92,7 +92,7 @@ export class RbFileDetail extends HTMLElement {
   // R40.12 — File MEDIA subtypes render their player on SELECT (auto), restoring the S23 auto-render that ea7443e87's
   // file-preview unification dropped (it left the 75vh pane visible-but-unfilled = Tron's empty black box). Non-media
   // stays toggle-driven. FAIL-LOUD: an unfillable pane shows an explicit 'preview unavailable: <mime>', never empty.
-  // (marker: req mints the R40.12 Impl → this name-matching decl; converges into R40.11's generic type-driven view.)
+  // [impl:uuid:aba7b795-7951-4294-af69-436f7c204d13] R40.12 RbFileDetail.autoRenderMediaPreview (converges into R40.11's generic type-driven view)
   private autoRenderMediaPreview(pane: RbPreviewPane, uuid: string, mimeType: string, name: string, token: string): void {
     const isMedia = /^(audio|video|image)\//.test(mimeType) || mimeType === 'application/pdf' || mimeType === 'text/html'
       || mimeType === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc');
