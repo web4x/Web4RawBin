@@ -23,11 +23,20 @@ Our visual/device gates run **NOWHERE after a deploy** — which is exactly why 
 ## ★ FAIL-CLOSED — NOT-RUN is a FAILURE state (the rule that makes it real)
 A device gate that **cannot run** — webkit runner unavailable, server not serving, device offline, timeout, `gate:device:live` errors before asserting — records **`NOT-RUN`, and NOT-RUN is treated as RED**: it blocks deploy-done and surfaces loud, exactly like a failed assertion. **Never a silent pass, never skipped.** This is the R-C3 fail-closed-on-unrunnable rule applied to device gates: the S23 regression was precisely a gate that *never ran*, so "couldn't run the real gate" must be as loud as "the gate failed." **A gate that is not known-GREEN is RED.**
 
+## ★ NO SKIP / BYPASS FLAG — EVER (PO guard 1, 2026-08-08; prohibition baked in for future agents)
+**There is NO silencer.** The moment device gates can block deploy-done, someone will want a `--skip-device-gate` to get a ship out — the same pressure that already produced an unattributed edit removing `check:task-status` from `ci:gates` to green CI over drift. So the design MUST NOT provide one, and this paragraph is written so a future agent reads the prohibition before adding one:
+> Shipping without a green device gate is **ALLOWED** — but it is RECORDED as **served-but-UNVERIFIED** (the RED/NOT-RUN device-gate unit + `/api/gate-status`), **never as done and never silenceable.** There is no flag, env var, or config that turns a RED/NOT-RUN device gate GREEN or hides it. Any future bypass must be a **committed, justified, visible state** (an explicit recorded override with an author and reason), not a silent skip. A trigger that can be silently no-op'd is the S23 disease one level up.
+
+## ★ GATE-STATUS VISIBLE TO TRON (PO guard 2, 2026-08-08 — close the loop to the last-resort detector)
+Tron is currently the regression detector of last resort — he finds them by screenshot on his phone. A durable unit the humans never see still leaves him as the fallback. So `/api/gate-status` MUST surface where he actually looks: an **owner-gated UI badge** (profile / server-manager / a persistent header badge) answering at a glance: **"is what is served RIGHT NOW verified on a real device, and at which version?"** — GREEN vN / RED vN / **NOT-RUN vN**. Owner-gated (reuse `ServerManagerGuard`), read-only, always reflects the LATEST device-gate unit for the served version. This closes the loop to the person currently doing the gate's job manually: he sees "served v0.8.74 — device-gate RED" without hunting a screenshot regression himself.
+
 ## INVARIANTS
 - **INV-PDG-1 deploy-done REQUIRES device-GREEN:** a deploy is verified ONLY if the post-deploy device gate is GREEN; RED/NOT-RUN → deploy un-verified (blocks the done-state, exits non-zero).
 - **INV-PDG-2 NOT-RUN == FAILURE (fail-closed):** an unrunnable device gate records NOT-RUN = RED; never silent-pass/skip.
 - **INV-PDG-3 durable + visible:** every run records a version-stamped device-gate unit + updates `/api/gate-status`; a failure reaches a human (PO/SM), not just a log.
 - **INV-PDG-4 real-artifact:** the gate runs against the LIVE served version at WebKit@390 — it certifies what Tron will actually load, not the build tree.
+- **INV-PDG-5 NO-SILENCER:** no flag/env/config turns a RED/NOT-RUN device gate GREEN or hides it; a bypass exists only as a committed, authored, visible override state — never a silent skip.
+- **INV-PDG-6 VISIBLE-TO-TRON:** `/api/gate-status` surfaces in an owner-gated UI badge answering "served version verified on a real device? at which version?" — the last-resort human detector sees the gate's verdict at a glance.
 
 ## GATE — meta-gate the trigger itself (stub-must-fail applied to the trigger)
 - **trigger-fires BITE:** after a deploy, assert a `device-gate` unit was recorded for the served version — no deploy without a device-gate record.
