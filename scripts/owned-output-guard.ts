@@ -36,6 +36,7 @@ function isTraversalFree(filePath: string): boolean {
  *   - an EXISTING file does not START WITH generatedHeader (hand-authored — never clobber).
  * (Matches robbin-tester's B2b/B3 contract exactly: prefix-match, filePath-based, boolean.)
  */
+// [impl:uuid:3a716334-7a7b-4995-b9a0-7c7c138086ca] guardedWrite — owned-output write chokepoint (prefix-marker guard)
 export function guardedWrite(
   filePath: string,
   content: string,
@@ -58,6 +59,7 @@ export function guardedWrite(
  * the file is absent, unreadable, or does not carry the header (unmarked = hand-authored → NEVER delete).
  * (Matches robbin-tester's guardedDelete contract exactly.)
  */
+// [impl:uuid:e1ff295f-be7e-4111-8f58-7cbb98f26cb9] guardedDelete — delete-only-if-marker-carrying chokepoint (never delete unmarked)
 export function guardedDelete(filePath: string, generatedHeader: string): boolean {
   if (!isTraversalFree(filePath)) return false;
   if (!fs.existsSync(filePath)) return false;
@@ -74,6 +76,7 @@ export function guardedDelete(filePath: string, generatedHeader: string): boolea
  * CONTAINS the region marker (contains-match, not prefix). Same fail-closed / never-clobber-unmarked guarantee.
  * Lives in this module so it is still "via the owned-output-guard" for the B2a static chokepoint check.
  */
+// [impl:uuid:fc520411-1a61-420d-8fb4-842e4c0b2343] guardedWriteRegion — region-marker (contains-match) write chokepoint
 export function guardedWriteRegion(
   filePath: string,
   content: string,
