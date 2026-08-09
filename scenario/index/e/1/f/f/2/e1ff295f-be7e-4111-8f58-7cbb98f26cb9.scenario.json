@@ -3,10 +3,10 @@
   "model": {
     "uuid": "e1ff295f-be7e-4111-8f58-7cbb98f26cb9",
     "name": "OwnedOutputGuard.guardedDelete impl (deletes only header-marked generated files; fail-closed)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
     "sourceFile": "ior:file:scripts/owned-output-guard.ts",
-    "markerNote": "Chain minted scenario-first (skill-expert shipped 1851d2144 with NO [impl] markers per #126). Awaiting skill-expert/expert [impl:uuid:e1ff295f-be7e-4111-8f58-7cbb98f26cb9] on the fn in owned-output-guard.ts -> strict-AST flip. Tests: tester BITEs d0eee3e89 (B1 behavioural/B2a static-chokepoint/B2b negative/B3 fail-closed) — adopt as Tests AFTER tester RED->GREEN re-run confirms green; NOT wired yet (would credit against a red gate)."
+    "markerNote": "STRICT-AST VERIFIED: marker [impl:uuid:e1ff295f-be7e-4111-8f58-7cbb98f26cb9] at owned-output-guard.ts directly above export fn (name-match, 0 intervening); flipped markerPending=false (buildStrictImplSet). Skill-expert 32acaceed. Tests deferred: BITE uuids were fabricated (R5) -> awaiting tester real-uuid regen."
   },
   "ownerIor": "ior:instance:46ff3ee5-b757-463b-94a6-d143f14e4c4e"
 }
