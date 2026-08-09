@@ -5,9 +5,7 @@
     "name": "test:R16.2 RequirementDetailView",
     "file": "test/vitest/rb-detail-overview.test.ts",
     "methods": [],
-    "implementations": [
-      "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
-    ],
+    "implementations": [],
     "status": "PASS",
     "sourceFile": "ior:file:test/vitest/components.test.ts",
     "testCases": [
@@ -17,5 +15,5 @@
       "ior:instance:6138a46a-b974-4b46-8bba-bf8ec8344551"
     ]
   },
-  "ownerIor": "ior:instance:b1113a7d-8e15-4f02-c3b9-2a1f7d4e0c61"
+  "ownerIor": null
 }
