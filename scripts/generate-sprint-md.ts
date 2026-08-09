@@ -23,11 +23,18 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 import { sprintPrefix } from '../src/ts/scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
+import { guardedWrite } from './owned-output-guard.js'; // shared owned-output chokepoint (architect 38ba4a160)
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
 export const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
 export const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
+
+// The generator's owned-output NAME whitelist: bare *.md it emits (planning.md, requirements.md, task-*.md);
+// never a diagrams/*.puml or a design-*.md brief. (Path-escape is handled by the guard's isConfinedName.)
+// Exported so the owned-output-guard call and the tester's B2 static check share ONE definition (DRY).
+export const isSprintMdOwnedName = (n: string): boolean =>
+  n.endsWith('.md') && !n.endsWith('.puml') && !/^design-.*\.md$/.test(n);
 
 const idx = new ScenarioIndex(INDEX_DIR);
 
@@ -211,37 +218,19 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
   if (!fs.existsSync(sprintDir)) fs.mkdirSync(sprintDir, { recursive: true });
   console.log(`\nGenerating: ${out.sprintSlug}`);
-  // OWNED-OUTPUT GUARD (correct-by-construction, TRON via robbin-po 2026-07-19): the generator
-  // OWNS only the files it emits — every generated file carries GENERATED_HEADER. NEVER clobber a
-  // file that exists WITHOUT that header: it is hand-authored (diagnosis brief, design doc, *.png)
-  // and lives outside the unit-derived output. This makes the DATA-LOSS hazard (a task slug colliding
-  // with a hand-authored filename) structurally impossible — the generator can only overwrite its own prior output.
-  // OWNED-OUTPUT CONFINEMENT (2026-07-26, robbin-po/req — protect diagrams + design notes from regen
-  // data-loss): the generator's write set is a WHITELIST — only bare *.md files it emits (planning.md,
-  // requirements.md, task-*.md). It NEVER writes (nor could delete) a path-escaping name, a diagrams/*.puml,
-  // or a design-*.md brief. Combined with the GENERATED_HEADER overwrite-guard below, non-generated
-  // artifacts are structurally protected — a future prune step also cannot escape this whitelist.
-  const isOwnedOutput = (n: string): boolean =>
-    !n.includes('/') && !n.includes('..') && n.endsWith('.md') &&
-    !n.endsWith('.puml') && !/^design-.*\.md$/.test(n);
+  // OWNED-OUTPUT GUARD (correct-by-construction; TRON via robbin-po 2026-07-19 → confinement 2026-07-26 →
+  // shared chokepoint 2026-08-09, architect design 38ba4a160). The generator OWNS only the files it emits —
+  // every generated file carries GENERATED_HEADER. Route EVERY write through the shared helper
+  // (scripts/owned-output-guard.ts): create/replace ONLY a path-confined, name-whitelisted *.md whose content
+  // carries GENERATED_HEADER, and NEVER clobber a file that exists WITHOUT it (hand-authored: diagnosis brief,
+  // design-*.md, diagrams/*.puml, *.png). The inline whitelist was intentionally REMOVED — an inline confinement
+  // can silently revert (Option-1, 2026-08-09); the single helper + the tester's B2 anti-regression BITE make the
+  // protection impossible to drop undetected. A future prune step routes through guardedRemove (marker-only delete).
   let written = 0, skipped = 0;
   for (const [name, content] of out.files) {
-    if (!isOwnedOutput(name)) {
-      console.log(`  ⛔ REFUSE (not generator-owned output, protected artifact): ${name}`);
-      skipped++;
-      continue;
-    }
-    const fp = path.join(sprintDir, name);
-    if (fs.existsSync(fp)) {
-      const existing = fs.readFileSync(fp, 'utf-8');
-      if (!existing.startsWith(GENERATED_HEADER)) {
-        console.log(`  ⚠ SKIP (hand-authored, not generator-owned): ${name}`);
-        skipped++;
-        continue;
-      }
-    }
-    fs.writeFileSync(fp, content);
-    written++;
+    const wrote = guardedWrite(path.join(sprintDir, name), content, GENERATED_HEADER, isSprintMdOwnedName);
+    if (wrote) written++;
+    else { console.log(`  ⚠ SKIP (not owned-output or hand-authored, preserved): ${name}`); skipped++; }
   }
   console.log(`  ✓ ${written} files${skipped ? ` (${skipped} hand-authored preserved)` : ''}`);
 }

@@ -9,7 +9,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../src/ts/scenario/index-store.js';
-import { SprintOverviewGenerator } from '../src/ts/scenario/sprint-overview-generator.js';
+import { SprintOverviewGenerator, BEGIN } from '../src/ts/scenario/sprint-overview-generator.js';
+import { guardedWriteRegion } from './owned-output-guard.js'; // shared owned-output chokepoint (architect 38ba4a160)
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OVERVIEW = path.join(ROOT, 'scrum.pmo/sprints/sprints.overview.md');
@@ -21,7 +22,10 @@ const existing = fs.existsSync(OVERVIEW) ? fs.readFileSync(OVERVIEW, 'utf-8') : 
 if (WRITE) {
   if (existing === null) { console.error('✗ sprint-overview --write: overview file missing — refusing.'); process.exit(1); }
   const out = gen.generateOverview(existing);
-  fs.writeFileSync(OVERVIEW, out);
+  // Route through the shared owned-output chokepoint (region model: ownership = file CONTAINS the GENERATED-INDEX
+  // marker; hand-narrative outside BEGIN/END is preserved by generateOverview). Never clobber a markerless file.
+  const wrote = guardedWriteRegion(OVERVIEW, out, BEGIN, (b) => b === 'sprints.overview.md');
+  if (!wrote) { console.error('✗ sprint-overview --write: owned-output-guard REFUSED (markerless/hand-authored target or wrong name) — nothing written.'); process.exit(1); }
   console.log(`✓ sprint-overview --write: regenerated the between-markers index (narrative outside markers preserved). ${out.length} bytes.`);
   process.exit(0);
 }
