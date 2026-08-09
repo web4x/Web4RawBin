@@ -6,9 +6,9 @@
     "file": "ior:file:test/e2e/components.test.ts",
     "sourceLine": 2110,
     "verifies": [
-      "ior:instance:934cb609"
+      "ior:instance:934cb609-dada-436c-ae8f-400244a062a3"
     ],
     "status": "pass"
   },
-  "ownerIor": "ior:instance:934cb609"
+  "ownerIor": "ior:instance:934cb609-dada-436c-ae8f-400244a062a3"
 }

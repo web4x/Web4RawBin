@@ -6,9 +6,9 @@
     "file": "ior:file:test/e2e/components.test.ts",
     "sourceLine": 2207,
     "verifies": [
-      "ior:instance:e13591d9"
+      "ior:instance:e13591d9-6d3c-4d65-8b00-90c98f8c6951"
     ],
     "status": "pass"
   },
-  "ownerIor": "ior:instance:e13591d9"
+  "ownerIor": "ior:instance:e13591d9-6d3c-4d65-8b00-90c98f8c6951"
 }
