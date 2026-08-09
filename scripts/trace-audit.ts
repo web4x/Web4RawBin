@@ -412,7 +412,10 @@ for (const d of result.dangling.slice(0, 25)) console.log(`  - ${d.uuid.slice(0,
 if (result.dangling.length > 25) console.log(`  ... and ${result.dangling.length - 25} more`);
 
 // R27.7 ref-tier: truncated-but-resolvable slot refs — VISIBLE debt (prefix-tolerant, resolves fine, but ambiguous).
-console.log(`\nTruncated-but-resolvable field-refs (R27.7 ref-tier): ${result.truncatedFieldRefs.length} (prefix-tolerant → resolves today, AMBIGUOUS; goes to 0 only at full-uuid; DEBT — reported, not strict-gated)`);
+// ★ RATCHET (PO): report-not-strict WHILE the count is being repaired down; the instant it reaches 0, FLIP THIS TO STRICT
+// (add `|| result.truncatedFieldRefs.length` to the strict exit below) — ratchet-DOWN-ONLY, never let the number rise
+// again, else new truncated refs creep back silently and we relearn 3542dcb3. Strict is the endgame, not an oversight.
+console.log(`\nTruncated-but-resolvable field-refs (R27.7 ref-tier): ${result.truncatedFieldRefs.length} (prefix-tolerant → resolves today, AMBIGUOUS; goes to 0 only at full-uuid; DEBT — reported, not strict-gated${result.truncatedFieldRefs.length === 0 ? ' → ★ NOW 0: FLIP TO STRICT (ratchet)' : ''})`);
 if (result.truncatedFieldRefs.length) {
   console.log('  FAMILY: silent prefix-resolution hides collision debt — an 8-char ref resolves now, a future collision mis-resolves it (bit us at 3542dcb3). Expand each to the full 36-char uuid; the count goes to 0 as they are repaired.');
   for (const t of result.truncatedFieldRefs.slice(0, 25)) console.log(`  · ${t.uuid.slice(0, 8)} (${t.type}).${t.slot} → ${t.ref} [${t.tier}]`);
