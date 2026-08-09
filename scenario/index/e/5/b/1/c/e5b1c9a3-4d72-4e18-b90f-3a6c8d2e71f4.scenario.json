@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e5b1c9a3-4d72-4e18-b90f-3a6c8d2e71f4",
+    "name": "test:R40.19/T40.7 history back-navigation — Back=genuine history (prior VIEW not folder) + path-label->containing-folder, DISTINCT one-flow (real-WebKit @390 DET-3x, stub-must-fail both ways)",
+    "description": "Bridged to test/visual/r4019-history-back-gate.mjs (gate:device:live f43ea803b, DET-3x @390 real-WebKit, stub-must-fail proven both ways). Asserts T40.7's 3 ACs which ARE R40.19's regression gate (SAME behavioural intent): AC1 Back returns to the prior VIEW (genuine window.history.back, not the folder); AC2 path-label navigates to the CONTAINING FOLDER; AC3 DISTINCT — Back lands on view-not-folder AND path-label goes to folder-not-history each iteration (neither does the other's job, one flow). ONE Test serves BOTH the feature (T40.7) and the regression gate (R40.19): same intent + same 2 impls = NO double-credit (R30.11 shared-impl; tester + req both verify-owner-first: both impls Test-less, clean 1st Test, no cross-wire). Rides EditorHeaderNav.historyBack + pathLabelNav.",
+    "sourceFile": "ior:file:test/visual/r4019-history-back-gate.mjs",
+    "implementations": [
+      "ior:instance:6b4d7714-5b86-4f08-9560-3cbd3cc03015",
+      "ior:instance:197054f9-12d0-4e5e-a76d-77ad709c96c0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6b4d7714-5b86-4f08-9560-3cbd3cc03015"
+}
