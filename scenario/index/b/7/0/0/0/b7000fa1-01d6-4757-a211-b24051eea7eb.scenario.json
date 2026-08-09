@@ -18,44 +18,56 @@
     "acceptanceCriteria": [
       {
         "id": "AC-t",
-        "group": "touch-primary",
-        "text": "Touch remains the primary surface: 1-finger drag pans, pinch zooms, double-tap resets/toggles (unchanged)."
+        "group": "touch-device-only",
+        "text": "\u2605 DEVICE-ONLY (real iOS @390, Tron-verified, NEVER headless-green): touch is the primary surface \u2014 1-finger drag pans, pinch zooms, double-tap resets/toggles. A headless browser SYNTHESIZES touch events and never exercises the real iOS gesture recognizer (no momentum, no passive-listener / touch-action conflict surfacing); this AC cannot be greened headless. Behaviour claim UNCHANGED \u2014 only the verification surface is made honest."
       },
       {
         "id": "AC-m1",
         "group": "mouse-parity",
-        "text": "Mouse-drag pans the drawer content, identical to 1-finger pan."
+        "text": "Mouse-drag pans the drawer content, identical to 1-finger pan. (Gated HEADLESS @390 \u2014 automatable.)"
       },
       {
         "id": "AC-m2",
         "group": "mouse-parity",
-        "text": "Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer)."
+        "text": "Scroll-wheel zooms the drawer content, identical to pinch-zoom (zoom toward the pointer). (Gated HEADLESS @390 \u2014 automatable.)"
       },
       {
         "id": "AC-m3",
         "group": "mouse-parity",
-        "text": "Double-click resets/toggles the zoom, identical to double-tap."
+        "text": "Double-click resets/toggles the zoom, identical to double-tap. (Gated HEADLESS @390 \u2014 automatable.)"
       },
       {
         "id": "AC-eq",
         "group": "parity",
-        "text": "Behaviour is identical across input types \u2014 no mouse-only or touch-only divergence in pan/zoom/reset."
+        "text": "Behaviour is identical across input types \u2014 no mouse-only or touch-only divergence in pan/zoom/reset. The MOUSE side is checkable headless; the mouse\u2194touch IDENTITY can only be fully confirmed on-device, since the touch half is device-only."
       },
       {
-        "id": "AC-v",
-        "group": "verify",
-        "text": "Verified live (headless) on both a touch surface and a mouse/pointer surface."
+        "id": "AC-v-mouse",
+        "group": "verify-headless",
+        "text": "Verified live HEADLESS @390 for the MOUSE/pointer surface: mouse-drag pan, scroll-wheel zoom, double-click reset (AC-m1/m2/m3)."
+      },
+      {
+        "id": "AC-v-touch",
+        "group": "device-only-390",
+        "text": "\u2605 DEVICE-ONLY: the TOUCH gestures (1-finger pan, pinch-zoom, double-tap \u2014 AC-t) verified on real iOS @390 on Tron's device, NEVER headless-green. Headless synthesizes touch and never exercises the real gesture recognizer \u2014 so the old single AC-v ('verified headless on both surfaces') was VACUOUSLY GREEN for touch since R22.2 shipped. Corrected to honest device-only per the R40.3/R40.20 template; the requirement is NOT weakened (behaviour unchanged, verification made truthful). Tester audit: test/visual/HEADLESS-ONLY-AC-AUDIT.md."
       }
     ],
     "crossRef": [
-      "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
+      "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299",
+      "ior:instance:1cbad4ef-1428-4594-9a48-b7892ab36f48"
     ],
-    "crossRefNote": "Extends the R21.9 rb-preview-pane / RbPanZoom pan/zoom surface with full mouse parity.",
+    "crossRefNote": "Extends the R21.9 rb-preview-pane / RbPanZoom pan/zoom surface with full mouse parity. ALSO cross-refs 1cbad4ef (T-iframe-pinch-scale, R19.85) per PO ruling 2026-08-09: 1cbad4ef is NOT superseded by RbPanZoom (wheel + double-tap != a 2-finger pinch) = an OPEN mobile gap. R22.2's touch pan/zoom was only ever verified by SYNTHESIZED touch (vacuous), so it is unknown whether pinch/pan actually works on Tron's 390px device. Open-gap (1cbad4ef) + vacuously-verified-neighbour (R22.2) = one story about pinch on real mobile; both require real-iOS @390 verification.",
     "coverageNote": "2026-06-30 triage: the grab-bar-mouse + X-minimize bugs moved to a DEDICATED requirement R25.4 (225b18a6, sibling) per architect diagnosis + PO. The AC-grab I briefly added here was BACKED OUT to keep single-source - R22.2 stays scoped to drawer pan/zoom CONTENT mouse-parity; R25.4 owns grab-bar drag + X-minimize.",
     "refinedBy": [
       "ior:instance:225b18a6-684d-4bec-9a4d-42ed4f23fd09"
     ],
-    "refinedByNote": "R25.4 extends the R22.2 touch-first mouse-parity PRINCIPLE to the drawer chrome (grab-bar drag + X-minimize), which R22.2's content pan/zoom ACs did not cover."
+    "refinedByNote": "R25.4 extends the R22.2 touch-first mouse-parity PRINCIPLE to the drawer chrome (grab-bar drag + X-minimize), which R22.2's content pan/zoom ACs did not cover.",
+    "labelCorrection": {
+      "date": "2026-08-09",
+      "by": "robbin-req",
+      "what": "Split the vacuous AC-v (was 'verified live headless on both a touch and a mouse surface') into AC-v-mouse (HEADLESS @390, automatable) + AC-v-touch (DEVICE-ONLY real iOS, never headless-green); relabeled AC-t to touch-device-only. R40.3/R40.20 template. NO re-scope: behaviour claims unchanged, verification surface made honest.",
+      "source": "tester audit test/visual/HEADLESS-ONLY-AC-AUDIT.md + PO directive"
+    }
   },
   "ownerIor": "ior:instance:9996b46a-66b7-4f8a-9298-cbea3c2edabf"
 }
