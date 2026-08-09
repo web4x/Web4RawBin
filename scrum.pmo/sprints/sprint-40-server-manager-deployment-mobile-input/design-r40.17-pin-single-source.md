@@ -1,5 +1,7 @@
 # R40.17 — Unify "what is current": ONE resolveSprintPin, explicit hint as override (kill the 2nd source)
 
+> ⚠️ **NOT AUTHORITATIVE — INPUT ONLY (2026-08-08).** The **skill-expert (0.2) owns R40.17** — Tron assigned it the pin ("make the skill expert keep it current"). This doc is **measured input** handed to the skill-expert, NOT a competing spec. Its answer is the authoritative semantics; **do not build from this doc.** Producing two analyses of "what is current" would be the very second-source hazard R40.17 exists to eliminate. R40.17 is captured BACKLOG (current pinned task = C2/R-C2); post-reset I design to the skill-expert's semantics, not in parallel.
+
 **Author:** robbin-architect · 2026-08-08. Expert-flagged + PO-relayed finding: two sources of one truth for "what is current". Follow-on to R-C1 `resolveSprintPin` (shipped). DESIGN → expert builds → I backstop. No existing R40.17 doc (verified — not double-designing).
 
 ## MEASURED — the two sources (confirmed on disk, v0.8.74)
