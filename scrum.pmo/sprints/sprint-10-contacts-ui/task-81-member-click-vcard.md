@@ -24,6 +24,10 @@
 - down
   - None (atomic task)
 
+## Task Description
+
+Wire a member click to open the profile sheet with a vCard download.
+
 ## Acceptance Criteria
 
 - [x] AC1: Tapping a joined member's **name** opens their profile sheet (`.user-sheet` visible)

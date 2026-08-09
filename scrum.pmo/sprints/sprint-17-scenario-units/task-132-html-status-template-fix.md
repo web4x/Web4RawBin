@@ -40,6 +40,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (no new UC required — template fix)
   - **class/method:** `src/ts/templates/` (per-class HTML template files from T124.2 / T125.4) — specifically the `Status` section emitter shared by all 7 class templates (or per-class if architect determines that's where the bug lives)
 
+## Task Description
+
+Fix the HTML status template so the generated status view renders correctly.
+
 ## Acceptance Criteria
 
 - [ ] AC1 — `scenario/sprints.md/task/<uuid>.html` renders Status section identically (visually) to the canonical Web4Articles markdown form (checkbox + label + nested sub-steps with indent)

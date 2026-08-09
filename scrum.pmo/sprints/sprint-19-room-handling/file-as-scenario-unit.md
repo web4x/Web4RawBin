@@ -13,7 +13,7 @@
   - [ ] creating test cases
   - [x] implementing (commit 22416694 v0.5.128 — FileLoader + createFileUnit + readFileUnitContent)
   - [ ] testing
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Task Description

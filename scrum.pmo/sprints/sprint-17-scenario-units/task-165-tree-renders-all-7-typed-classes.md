@@ -40,6 +40,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds UC if introduced; first-class UseCase instances per R17.10 / T117 pattern)
   - **class/method:** `src/public/ts/trace/` — `rb-tree-item` (generalize per type), tree builder (root-set + child-edge derivation), per-class registration; TBD by architect
 
+## Task Description
+
+Make the traceability tree render all 7 typed scenario classes, not only Requirements.
+
 ## Context
 
 T158 (shipped `a41d16a` v0.5.59) delivered 4 typed DetailViews (Class / Method /

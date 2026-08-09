@@ -36,6 +36,10 @@
   - **puml:** [diagrams/sprint13-usecases.puml](./diagrams/sprint13-usecases.puml) (if present; else architect adds new entries)
   - **class/method:** `test/e2e/helpers.ts` → `cleanupTestUsers(pattern)`; per-spec `test.afterAll(() => cleanupTestUsers(<pattern>))`
 
+## Task Description
+
+Clean up the E2E tests: add cleanupTestUsers, per-spec afterAll teardown, and purge backfilled test data.
+
 ## Acceptance Criteria
 
 - [ ] AC1 — `cleanupTestUsers(pattern)` helper exists in `test/e2e/helpers.ts`, honors `DATA_DIR`, refuses unbounded patterns

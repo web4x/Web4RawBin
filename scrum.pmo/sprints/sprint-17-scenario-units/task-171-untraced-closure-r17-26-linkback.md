@@ -36,6 +36,10 @@
   - **implementation:** TBD
   - **test:** T169 audit re-run + R17.26 walkDown reach T165/T166 — TBD
 
+## Task Description
+
+Close the untraced gap: link the ~50 untraced units, wire R17.26 back to T165/T166, and refresh the traceability matrix for T143-T171.
+
 ## Context
 
 T169 KEYSTONE shipped `7ddf64f` v0.5.66 — audit tooling + remigration. PO ran

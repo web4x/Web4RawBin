@@ -51,6 +51,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script extension (architect names — likely extends `scripts/migrate-to-scenario.ts`) / `RequirementLoader` defaults / `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
 
+## Task Description
+
+Improve Requirement data quality: split name vs description and populate the tasks[] array.
+
 ## Context
 
 Sibling to T152 (UC data quality) and T153 (UC residual fields). T146 introduced

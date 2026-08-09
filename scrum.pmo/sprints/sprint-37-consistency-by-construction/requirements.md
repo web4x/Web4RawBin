@@ -18,6 +18,7 @@
   - [ ] **(functional)** 'Advance the pin' (skill-expert duty) = RUNNING the resolver, NOT editing a value; a hand-set value is overridden by the recompute.
   - [ ] **(functional)** The computed sprint-pin == the sprint carrying active work (today S36, not stale S33, no 34/35 skip) AND the computed task-pointer == the active in-progress task on disk (not the measured ~5-sprint-stale 'Task 31.1').
   - [ ] **(gate)** TEST EXERCISES AC-computed+AC-task-pointer+AC-matches-files: arrange units so active work = sprint N / task T, run the resolver -> sprint-pin==N AND task-pointer==T deterministically; plant a stale hand-set sprint-pin OR task-pointer -> the recompute overrides BOTH. Verify Impl.tests[] on disk before flip.
+  - [ ] **(no-name-parse)** INV-C1-8 (extended, no-name-parse single-source): NO module derives a sprint NUMBER or SLUG from the free-text name. sprintNumOf = model.number + sourceFile/slug fallback. sprintSlugOf = the real on-disk dir via a fallback chain (path-regex /sprints/(sprint-[^/]+)/ -> model.slug-if-dir-exists -> on-disk sprint-<num>-* dir), which MUST resolve to an EXISTING dir else REFUSE (fail-closed, R-C3) - NEVER slugify(model.name) (which mints the S20 phantom sprint-20-radical-forward-planning-... with no dir). Grep-lint BITE: a name-based match/slugify(name) for sprint identity anywhere in the consumer set = FAIL.
   -> sprintPin.resolveFromFiles [uc:uuid:6c016f6a-4cc3-4ce9-aded-ac99fcb639ab]
 
 - [ ] **R-C2 — Board is a GENERATED view + one-time reconcile-all**

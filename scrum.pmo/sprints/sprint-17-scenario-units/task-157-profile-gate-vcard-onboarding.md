@@ -44,6 +44,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `src/public/ts/ProfileEditor.ts` (gate mode) + new `src/public/ts/vcard-parser.ts` (V3.0 parser) — architect confirms / renames
 
+## Task Description
+
+Add a vCard upload to the profile gate for fast onboarding, via a button and native drag-and-drop.
+
 ## Context
 
 Tron 2026-06-01 (B3): first-time-connect profile gate currently requires manual

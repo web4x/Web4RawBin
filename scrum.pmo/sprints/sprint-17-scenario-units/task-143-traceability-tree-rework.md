@@ -52,6 +52,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117 pattern)
   - **class/method:** `src/public/ts/trace/TraceModel.ts`, `TraceLink`, ViewGenerator templates, `/trace` rendering, `/md/` view emission (TBD by architect)
 
+## Task Description
+
+Rework the traceability-chain rendering into a tree view, implementing R17.26-R17.29.
+
 ## Context
 
 Tron's 4th S17 extension (2026-05-31, captured verbatim by PO in `df09df2`,

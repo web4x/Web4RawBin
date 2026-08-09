@@ -68,5 +68,3 @@ Tron 2026-05-30 (verbatim): "the templates should be like the html registered vi
 ## Subtasks
 
 None (atomic sub-task).
-
----

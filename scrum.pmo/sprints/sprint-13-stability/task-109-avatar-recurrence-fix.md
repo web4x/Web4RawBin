@@ -28,6 +28,10 @@
 - relates
   - DISJOINT from S14: token-* dirs (T97) have 0 avatars/keys; the ~118 real avatars are on already-UUID dirs T97 never touches → migration can't fix or worsen it. (T97 should still add: re-encrypt files/* on identity rekey.)
 
+## Task Description
+
+Fix the recurring avatar bug: handle the decrypt-exception overwrite and rekey/re-encrypt the avatar.
+
 ## Acceptance Criteria
 
 - [ ] AC1: decrypt EXCEPTION in `ensureAvatar` NEVER overwrites avatar.enc with a default (no data loss)

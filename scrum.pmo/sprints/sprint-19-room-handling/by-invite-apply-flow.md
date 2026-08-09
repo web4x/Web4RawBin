@@ -13,7 +13,7 @@
   - [ ] creating test cases
   - [ ] implementing (expert: pending)
   - [ ] testing
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Task Description

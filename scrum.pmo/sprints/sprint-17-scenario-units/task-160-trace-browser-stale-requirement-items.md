@@ -39,6 +39,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** server-side `/api/trace` handler (or whatever endpoint serves the browser graph); possibly the parsed-graph cache layer; client-side fetch wrapper (architect names concrete files on diagnosis)
 
+## Task Description
+
+Repopulate the forward references that T159 over-stripped and restore browser data freshness (root-cause fix for the over-strip).
+
 ## Context
 
 Trigger context: T159 (`58b17e3` v0.5.56) just ran the forward-only strip

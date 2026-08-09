@@ -42,6 +42,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** new DetailView Web Components (architect names — e.g. `src/public/ts/trace/rb-class-detail.ts`, `rb-method-detail.ts`, `rb-test-detail.ts`, `rb-implementation-detail.ts`), VerbRegistry wiring, tree-item updates, `scrum.pmo/standards/traceability-standard.md` browser-rendering spec
 
+## Task Description
+
+Surface the full traceability chain data in the browser: Requirement -> Task -> UseCase -> Class -> Method -> Implementation -> Test.
+
 ## Context
 
 T151 standardized JSON `model.links.*` / `model.chain.*` arrays. T152/T153

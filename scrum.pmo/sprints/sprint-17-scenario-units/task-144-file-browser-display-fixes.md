@@ -48,6 +48,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer), `src/public/ts/components/rb-file-tree.ts` (TBD by architect)
 
+## Task Description
+
+Fix three file-browser display issues from B5: icon ordering and link targets.
+
 ## Context
 
 Tron 2026-05-31 (captured by req-eng in `2bfb64f` / backlog B5): three file-browser

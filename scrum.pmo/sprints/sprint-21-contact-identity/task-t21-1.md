@@ -14,7 +14,7 @@
   - [x] implementing (expert — shipped)
   - [x] architect PDCA Check
   - [ ] testing (tester DET gate)
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Traceability

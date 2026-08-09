@@ -34,6 +34,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds UC if introduced)
   - **class/method:** `src/ts/server/` `/api/trace` route handler — switch the requirement-title field source (TBD by architect)
 
+## Task Description
+
+Switch the /api/trace requirement title source from scanRepo firstLine() to the scenario index model.name.
+
 ## Context
 
 T161 (shipped `737c841` v0.5.57) made the **scenario index** `model.name` clean: speaky names instead of raw Tron-quote blockquotes. T161 fixed `model.name`, not the `/api/trace` endpoint.

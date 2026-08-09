@@ -56,6 +56,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC if applicable
   - **class/method:** `scripts/migrate-to-scenario.ts` (T154 name/description parser — may need refinement); `src/public/ts/trace/rb-tree-item.ts` + `rb-requirement-detail.ts` (renderer field source); `RequirementLoader` defaults — architect names concrete files
 
+## Task Description
+
+Fix the bug where requirement items render the Tron quote as the title instead of the speaky model.name.
+
 ## Context
 
 T146 (Phase 10, ✅) introduced the NAME-first format: each `requirements.md`

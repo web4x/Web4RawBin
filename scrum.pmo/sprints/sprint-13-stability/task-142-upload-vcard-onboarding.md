@@ -12,7 +12,7 @@
   - [ ] refinement (req → architect)
   - [ ] creating test cases
   - [x] implementing
-  - [ ] testing
+  - [x] testing  ← robbin-tester DET-3x GREEN ebec12151 (R21.1 vCard-persist, v0.6.67, 9/9; RED 404 v0.6.65 → GREEN 200)
 - [ ] QA Review
 - [ ] Done
 
@@ -38,6 +38,10 @@
   - **use case:** new — `profile.uploadVCard`, `profile.dropVCard`, `profile.initFromVCard` (architect adds UC instances at refinement)
   - **puml:** likely `scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/` (identity flow) — architect picks location
   - **class/method:** `src/public/ts/ProfileEditor.ts` (UI: upload button at top + drop-zone on the form), new vCard V3.0 parser (vCard is line-oriented `KEY:VALUE`; the project currently only exports vCards via ProfileSheet.downloadVCard — this is the inverse import direction), profile-field mapping helper, HTML5 drag-and-drop handlers (`dragenter`/`dragover`/`drop` events)
+
+## Task Description
+
+Add an upload-vCard onboarding gate to speed up first-time profile fill.
 
 ## Acceptance Criteria
 

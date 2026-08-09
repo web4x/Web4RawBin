@@ -40,6 +40,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/public/ts/app.ts` (connection-failed error HTML ~line 81), `src/public/sw.js` OFFLINE_HTML (existing `<button class="retry">`), possibly `src/public/ts/edit.ts` equivalent — TBD by architect
 
+## Task Description
+
+Add a reload button to the Connection-Failed and Offline pages.
+
 ## Context
 
 Tron 2026-06-01 (B4): two error surfaces should expose a manual reload action so

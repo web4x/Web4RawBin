@@ -50,6 +50,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `src/ts/scenario/classes.ts` (Loader defaults — drop back-ref fields) / `scripts/migrate-to-scenario.ts` (strip-back-refs migration; refactor T155 closure logic) / `scrum.pmo/standards/traceability-standard.md` (forward-only spec)
 
+## Task Description
+
+Refactor the traceability chain to be forward-only, removing back-references between units.
+
 ## Context
 
 Tron 2026-06-01 (verbatim, relayed via PO): the traceability chain is

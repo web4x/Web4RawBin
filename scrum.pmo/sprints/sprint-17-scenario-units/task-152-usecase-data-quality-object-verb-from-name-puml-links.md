@@ -45,6 +45,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script (architect names — likely `scripts/uc-data-quality.ts` or extends `scripts/migrate-to-scenario.ts`) / `scrum.pmo/standards/traceability-standard.md` (UC shape spec) / UC scenario JSON schema
 
+## Task Description
+
+Improve UseCase data quality: derive object/verb from the name and populate the tasks, classes, and requirement links from the PUML diagrams.
+
 ## Context
 
 Current state (post-T117 / T126 / T134 / T143 / T149 / T151):

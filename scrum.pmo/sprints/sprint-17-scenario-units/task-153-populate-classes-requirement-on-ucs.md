@@ -48,6 +48,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** data-quality script extension (architect names — likely extends T152's `scripts/uc-data-quality.ts`) / `scrum.pmo/standards/traceability-standard.md` (UC shape spec) / UC scenario JSON schema
 
+## Task Description
+
+Follow-up to T152: populate model.classes and model.requirement on UseCase units.
+
 ## Context
 
 Post-T152 (v0.5.49) state — per-UC audit landed; residual gaps:

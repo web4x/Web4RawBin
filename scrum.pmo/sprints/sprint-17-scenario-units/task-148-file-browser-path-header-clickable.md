@@ -41,6 +41,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — path-header emission), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)
 
+## Task Description
+
+Make the file-browser path-header segments clickable for parent-directory navigation.
+
 ## Context
 
 The `/md/` route renders a directory listing for any path under the served

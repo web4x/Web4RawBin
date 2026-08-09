@@ -43,6 +43,10 @@
   - **class/method:** `src/ts/trace-cli/trace-cli.ts` → `parseTestUuidMarkers()` (new Pass 6); `validate()` extended for `orphanTests`
   - **test:** `test/vitest/trace-cli.test.ts` + `test/vitest/test-traceability.test.ts` (new); each carries `[test:uuid:]` to its own AC
 
+## Task Description
+
+Add test traceability: [test:uuid:] markers, trace-cli Pass 6, and chain validation.
+
 ## Acceptance Criteria
 
 - [ ] AC1 — `traceability-standard.md` updated to include the **test** node and the `[test:uuid:]` marker grammar

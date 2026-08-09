@@ -43,6 +43,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds TraceabilityLink as a class with these UCs
   - **class/method:** `src/ts/scenario/classes.ts` → new `TraceabilityLink` class extending `Unit`; new template in `src/ts/templates/traceability-link.html.ts` + `.md.ts`; update T125.3 storage layer to emit `ln` into both endpoints' speaking-name dirs
 
+## Task Description
+
+Represent traceability links as first-class scenario.json units with ln symlinks into the referenced instances, and render them in the generated MD/HTML views.
+
 ## Acceptance Criteria
 
 - [ ] AC1 — `TraceabilityLink` class + `Unit` extension shipped; round-trip serialize/parse via `IOR.resolve()`

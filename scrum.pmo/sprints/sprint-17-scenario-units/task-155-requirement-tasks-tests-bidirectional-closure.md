@@ -53,6 +53,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** closure script (architect names — likely extends `scripts/migrate-to-scenario.ts`) / `RequirementLoader` defaults (add `tests: []` if missing) / `scrum.pmo/standards/traceability-standard.md` Requirement shape spec
 
+## Task Description
+
+Ensure the Requirement tasks[] and tests[] arrays are fully populated so the chain links close.
+
 ## Context
 
 Tron 2026-06-01 (B16): after T154 landed (name/description + `tasks[]`

@@ -46,6 +46,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UC as a `UseCase` instance (rule #10 / T117)
   - **class/method:** `src/ts/server/server.ts` (`/md/` directory listing renderer — same module as T144), `src/public/ts/components/rb-file-tree.ts` if mirrored (TBD by architect)
 
+## Task Description
+
+Add the chain-link icon to the /md/ directory listing for the scenarios/sprints.md/ subtrees, mirroring the .json side for symmetric UX.
+
 ## Context
 
 T144 (`5da4054` v0.5.36 + `0101980` v0.5.38) restored click-through navigation on

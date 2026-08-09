@@ -44,6 +44,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** symlink emitter (T131's module, TBD by architect — may live in `scripts/` or as a server-side helper) / `scrum.pmo/standards/traceability-standard.md` (spec) — architect names the concrete locations
 
+## Task Description
+
+Extend the speaking-name symlink tree to cover all 9 scenario classes so the chain-link icon resolves universally for every unit type.
+
 ## Context
 
 T131 (`aad0816` v0.5.30) introduced the symlink tree at

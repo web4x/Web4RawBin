@@ -68,5 +68,3 @@ Tron 2026-05-30 (verbatim): "uuid identified instances are units in a data direc
 ## Subtasks
 
 None (atomic sub-task).
-
----

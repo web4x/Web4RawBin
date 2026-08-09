@@ -46,6 +46,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** migration script (architect names — likely `scripts/migrate-chain-to-json.ts` or extends `scripts/migrate-to-scenario.ts`) / `scrum.pmo/standards/traceability-standard.md` (model spec) / scenario JSON schema (T125 foundation)
 
+## Task Description
+
+Migrate the markdown traceability bullets into JSON model arrays on the scenario units, with no information loss.
+
 ## Context
 
 Current state (post-T134/T141/T143/T146/T149):

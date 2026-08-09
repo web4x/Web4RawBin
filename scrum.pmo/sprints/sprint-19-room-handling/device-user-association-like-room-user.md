@@ -1,0 +1,23 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# T-device-user-association: Device↔User association modeled like Room↔User
+
+[task:uuid:5d87e755-6e9b-4171-80b1-61776e7d04bc]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement architect
+  - [x] creating test cases
+  - [x] implementing expert
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
+## Task Description
+
+R19.55.A: Device↔User association modeled like Room↔User — forward IOR array, ownerIor, per-user storage, unitLinks.
+
+## Subtasks

@@ -43,6 +43,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds the UC if introduced)
   - **class/method:** `src/ts/templates/` — UseCase template first (one shared helper or per-template render); affects per-class chain rendering blocks emitted by T126 ViewGenerator
 
+## Task Description
+
+Add the chain-link icon to generated MD views, linking each item to its sprints.json symlink (the speaking-name tree).
+
 ## Acceptance Criteria
 
 - [ ] AC1 — UseCase template chain block renders `🔗 [Speaking Name](sprints.json/...)` for every cross-reference (every existing chain edge in the migrated Sprint-1 UseCase units)

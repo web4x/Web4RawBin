@@ -30,6 +30,10 @@
 - down
   - None (atomic task)
 
+## Task Description
+
+Make a .scenario.json click open the /trace tree with lazy-loading; consolidates R-K1 + R-L and covers R-K2 + R-K3.
+
 ## QA Audit & User Feedback
 
 - 2026-06-03: Tron verbatim — R-K1 "clicking on the sprint.json currently ends in a dead end"; R-K2 "instead open it as a sprint item view in the traceability tree view"; R-K3 lazy-load cascade; R-L "still shows File not found". Captured by robbin-req in `compound-requirement-source-2.md`.

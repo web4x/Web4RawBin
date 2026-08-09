@@ -41,6 +41,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect may extend the existing T148 UC's notes (no new UC necessarily)
   - **class/method:** `src/public/app.css` (or file-browser-specific stylesheet — architect names it)
 
+## Task Description
+
+Fix the CSS color contrast of the file-browser breadcrumb links so they are legible.
+
 ## Context
 
 T148 (PO 2026-06-01, currently 📝 — req anchored `555ca7c`, awaiting architect)

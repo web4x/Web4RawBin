@@ -13,7 +13,7 @@
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Traceability

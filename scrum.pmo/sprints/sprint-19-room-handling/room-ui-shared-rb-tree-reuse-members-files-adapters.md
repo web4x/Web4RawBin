@@ -13,7 +13,7 @@
   - [ ] creating test cases
   - [ ] implementing expert - REOPENED (c4ff02a5 was false reuse: built fake rb-tree.ts vs /trace rb-object-item)
   - [ ] testing
-- [ ] QA Review
+- [x] QA Review
 - [ ] Done
 
 ## Task Description

@@ -33,6 +33,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds UC if introduced)
   - **class/method:** `src/ts/server/TraceConsistency.ts` (`firstLine()` helper area touched by T161); architect confirms
 
+## Task Description
+
+Stop markdown artifacts (## headings) from leaking into requirement titles.
+
 ## Context
 
 T161 fixed the primary bug (raw blockquote rendered as title — now speaky names render correctly via `firstLine()` in `TraceConsistency.ts`, shipped in `737c841` v0.5.57). Tester verification turned up TS6: when the source content's first non-blank line is a **Markdown heading** (`##`, `###`, `# `), the helper returns it verbatim and the heading text — including the leading hash marks — surfaces as the requirement title.

@@ -49,6 +49,10 @@
   - **implementation:** TBD
   - **test:** chain-walk validator + visual on `/trace` — TBD
 
+## Task Description
+
+Establish the canonical traceability chain order and make atomic requirements the roots of the tree.
+
 ## Context
 
 Tron R-E (compound-requirement-source-2 completion 2026-06-02): the canonical

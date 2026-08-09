@@ -44,6 +44,10 @@
   - **implementation:** TBD
   - **test:** audit-clean run + remigration regression — TBD
 
+## Task Description
+
+Keystone data-quality audit and re-migration: produce a complete traceability tree with no back-reference chaos and no untraced scenarios.
+
 ## Context
 
 Tron R-F (compound-requirement-source-2 completion 2026-06-02 across `bfae071`

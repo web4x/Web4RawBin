@@ -37,6 +37,10 @@
   - **implementation:** TBD
   - **test:** CI dry-runs on clean + violating states — TBD
 
+## Task Description
+
+Establish a diligent, no-stop sustain plan with delivery cadence and quality gates.
+
 ## Context
 
 Tron R-G (compound-requirement-source-2 completion 2026-06-02 across commits

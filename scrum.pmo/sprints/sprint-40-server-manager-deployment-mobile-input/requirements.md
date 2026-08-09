@@ -151,7 +151,7 @@
   - [ ] **(automatable)** [AUTOMATABLE] The asset is REGISTERED/present in EVERY context the drawer opens: ROOM view AND /trace AND /app -- a context-dependent empty render is HOW this hid (the drawer resolved the file in one context, not the room view).
   - [ ] **(device)** [AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone.
   - [ ] **(automatable)** [AUTOMATABLE] DET-3x (deterministic 3x) + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped).
-  -> 16b3a2ef [uc:uuid:16b3a2ef-de39-470b-abd3-8e436047ab1a]
+  -> fileDetail.autoRenderMediaPreview [uc:uuid:16b3a2ef-de39-470b-abd3-8e436047ab1a]
 
 - [ ] **R40.13 — User Admin — thorough merge + delete of profiles / duplicate users (zero dangling refs)**
   [requirement:uuid:ad977999-b747-4527-95b6-29bac8deae1c]

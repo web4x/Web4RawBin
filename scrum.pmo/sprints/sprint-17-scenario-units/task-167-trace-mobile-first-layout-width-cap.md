@@ -36,6 +36,10 @@
   - **implementation:** TBD
   - **test:** visual + responsive E2E spec TBD
 
+## Task Description
+
+Give /trace a mobile-first layout with a hard width cap on the right-hand detail pane.
+
 ## Context
 
 Tron R-D (compound-requirement-source-2 completion 2026-06-02): `/trace` needs

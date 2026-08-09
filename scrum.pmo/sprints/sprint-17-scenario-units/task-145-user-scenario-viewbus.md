@@ -46,6 +46,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `src/ts/shared/User.ts` (new — scenario class) / `src/public/ts/trace/UserLoader.ts` (new) / `src/public/ts/RoomBrowser.ts` (View) / `src/public/ts/RoomView.ts` (View) / `src/public/ts/components/rb-member-badge.ts` (View) / `src/public/ts/ProfileEditor.ts` (mutator) — TBD by architect
 
+## Task Description
+
+Make the User class a scenario unit and drive view updates through a ViewBus, fixing the stale lobby/room name.
+
 ## Context
 
 Tron 2026-05-31 (captured by PO/req-eng in B6 of `scrum.pmo/backlog.md`): two

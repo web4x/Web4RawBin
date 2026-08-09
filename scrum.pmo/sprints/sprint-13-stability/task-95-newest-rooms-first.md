@@ -28,6 +28,10 @@
 - depends
   - Builds on T93 (`roomListFor`/owner-aware list) — already landed.
 
+## Task Description
+
+Order the lobby room list newest-first.
+
 ## Acceptance Criteria
 
 - [ ] AC1: In the lobby, rooms are ordered newest-first (highest `createdAt` at the top)

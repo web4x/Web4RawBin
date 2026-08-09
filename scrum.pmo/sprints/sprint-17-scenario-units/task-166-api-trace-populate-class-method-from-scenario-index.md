@@ -35,6 +35,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) (architect adds UC if introduced)
   - **class/method:** `src/ts/server/` `/api/trace` route handler — overlay/walk pulling Class + Method from scenario index (TBD by architect)
 
+## Task Description
+
+Populate Class and Method node types in /api/trace from the scenario index.
+
 ## Context
 
 T165 (`60a97a7` architect design committed) targets full 7-class tree

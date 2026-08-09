@@ -1,0 +1,23 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# T-rawbin-user: system RawBin User owns DnD debug messages
+
+[task:uuid:d09a42e9-72af-4e8c-9841-a02df6567955]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement architect
+  - [x] creating test cases
+  - [x] implementing expert
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
+## Task Description
+
+A system-level RawBin User identity owns DnD debug/dispatch messages in chat (not attributed to the dropping user). Covers R19.39.
+
+## Subtasks

@@ -26,6 +26,10 @@
 - follows
   - [T81](./task-81-member-click-vcard.md) — member-click landed (v0.4.9); T82 fixes follow-on sheet defects
 
+## Task Description
+
+Fix the vCard button visibility and DRY up the ProfileSheet avatar rendering.
+
 ## Acceptance Criteria
 
 - [x] AC1: "Download vCard" button is VISIBLE in the joined-user sheet (readable text, distinct from "Link Account")

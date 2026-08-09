@@ -27,6 +27,10 @@
   - [T161](./task-161-requirement-name-renders-tron-quote-not-speaky.md) — `737c841` v0.5.57
   - [T163](./task-163-api-trace-title-source-switch.md) — `f138aa0` v0.5.61
 
+## Task Description
+
+Re-migrate dirty model.name values and harden the firstLine() fallback.
+
 ## Context
 
 T163 switched `/api/trace` to read `model.name` from scenario index. But 9 scenarios still have dirty `model.name` values — the migration parser (`scripts/migrate-to-scenario.ts`) stored raw MD heading text into `model.name`.

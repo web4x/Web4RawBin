@@ -42,6 +42,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds new UCs as `UseCase` instances (rule #10 / T117)
   - **class/method:** `scrum.pmo/sprints/sprint-*/requirements.md` (retro-clean target — many files) / `src/public/ts/trace/templates.ts` (template helper) / `scripts/trace-cli.*` (validator) / `scrum.pmo/standards/traceability-standard.md` (spec) — TBD by architect
 
+## Task Description
+
+Reform the requirement-entry format: a 3-5 word concise NAME on the first line, with the speaky name shown on the chain-link icon.
+
 ## Context
 
 Tron 2026-06-01 (captured by req-eng in B7 of `scrum.pmo/backlog.md`): two-part

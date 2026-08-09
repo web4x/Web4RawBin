@@ -8,10 +8,13 @@
 
 ## Status
 - [x] Planned
-- [x] In Progress (built v0.7.77)
-- [~] QA Review — TRON-REJECTED (setHiddenAreas approach)
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [ ] QA Review
 - [ ] Done
-- ⊘ SUPERSEDED by R30.53 (native Monaco); mechanism REVERTED prod v0.7.77→v0.7.76
 
 ## Traceability
 

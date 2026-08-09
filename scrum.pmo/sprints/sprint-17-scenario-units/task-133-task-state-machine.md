@@ -40,6 +40,10 @@
   - **puml:** [diagrams/s17-usecases.puml](./diagrams/s17-usecases.puml) — architect adds the Task verbs as first-class UCs (T117 PUML machinery)
   - **class/method:** `src/ts/scenario/classes.ts` Task class → new verb methods + state-transition guards; corresponds to symbol legend (⏳📝🔧✅🧪🏁) progression
 
+## Task Description
+
+Add a state machine and status methods to the Task class so task lifecycle state (planned / in-progress / QA / done) is tracked and queryable.
+
 ## Acceptance Criteria
 
 - [ ] AC1 — Task class has a documented state machine with all transitions modeled (architect's diagram in this file)
