@@ -1,0 +1,72 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7db6bfba-7b4a-499a-b35f-fd750e40ea09",
+    "name": "First key toggles native keyboard while RETAINING the artificial key bar (input-accessory retention, device-only) — extends R40.3",
+    "altId": "R40.20",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:92660a08-a192-4429-bd8d-6395602af598"
+    ],
+    "description": "The FIRST (leftmost/primary) key on the artificial key bar TOGGLES the native keyboard shown vs hidden, and the artificial keys action bar STAYS VISIBLE AND USABLE IN BOTH states (input-accessory style — sits ABOVE the keyboard when shown, never covered/unmounted). Input still reaches the PTY in both states (R40.3 anti-vacuity holds); terminal stays visible per R40.3 pixel ACs; the key is an action unit (R40.5). DEVICE-ONLY real iOS @390 (a headless browser cannot show/hide an iOS keyboard). ★ CHANGES R40.3's SHAPE: keyboard suppression becomes a SETTABLE STATE owned by the bar (re-enableable), NOT a bolt-on fighting by-construction suppression.",
+    "tronQuote": "the first button on the artificial action line keys is toggle between native keyboard hidden and shown while retaining the keys action bar",
+    "status": "Backlog",
+    "captureOnly": true,
+    "designRequired": true,
+    "crossRef": [
+      "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f"
+    ],
+    "crossRefNote": "EXTENDS + RE-SHAPES R40.3 (suppress-OS-keyboard): suppression must become a SETTABLE STATE owned by the bar so it is re-enableable/toggleable — architect must not let it be a bolt-on. Reuses R40.3 anti-vacuity (input-reaches-PTY) + pixel ACs + device-B split; R40.5 action-unit.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "note": "Extends R40.3. HARD PART = RETENTION (bar above the iOS keyboard, input-accessory, never covered) = the AC most likely to fail on-device while passing headless. DESIGN-REQUIRED: R40.3 shape-change (suppression = settable state owned by the bar, re-enableable). Device-only real-iOS @390 (headless cannot show/hide iOS keyboard)."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-first-position-toggle",
+        "group": "first-position-toggle",
+        "text": "The FIRST (leftmost/primary) key on the artificial key bar IS the toggle — the POSITION is part of the requirement, not a detail."
+      },
+      {
+        "id": "AC-toggles-native-keyboard",
+        "group": "toggles-native-keyboard",
+        "text": "Firing it TOGGLES the native (iOS) soft keyboard between SHOWN and HIDDEN."
+      },
+      {
+        "id": "AC-bar-retained-both-states",
+        "group": "bar-retained-both-states",
+        "text": "★ THE HARD AC (device, most likely to fail-on-device while passing headless): the artificial keys action bar is RETAINED and USABLE in BOTH states. With the native keyboard SHOWN the bar must sit ABOVE the keyboard (input-accessory style) — never covered, never unmounted."
+      },
+      {
+        "id": "AC-input-reaches-pty-both",
+        "group": "input-reaches-pty-both",
+        "text": "Input STILL REACHES THE PTY in BOTH states — R40.3's anti-vacuity AC still holds. A bar that renders but sends nothing is the empty-container class we fixed twice this session."
+      },
+      {
+        "id": "AC-terminal-visible-usable",
+        "group": "terminal-visible-usable",
+        "text": "The terminal remains visible/usable per R40.3's pixel ACs (in both keyboard states)."
+      },
+      {
+        "id": "AC-action-unit-R40.5",
+        "group": "action-unit-R40.5",
+        "text": "The toggle key is an ACTION UNIT per R40.5's de-duplication — never a bespoke button."
+      },
+      {
+        "id": "AC-device-only-390",
+        "group": "device-only-390",
+        "text": "★ DEVICE-ONLY: verified on real iOS @390 on Tron's device, NEVER headless-green. A headless browser cannot show or hide an iOS soft keyboard — the same reason R40.3-B was already split device-only."
+      },
+      {
+        "id": "AC-architect-suppression-settable-state",
+        "group": "architect-suppression-settable-state",
+        "text": "★ DESIGN-REQUIRED (architect, R40.3 SHAPE-CHANGE): R40.3 suppressed the keyboard BY CONSTRUCTION; a toggle requires suppression to be a SETTABLE STATE OWNED BY THE BAR (re-enableable), NOT a bolt-on that fights the by-construction suppression. This changes R40.3's shape, not just adds to it."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
