@@ -125,6 +125,8 @@
   - [ ] **(automatable)** [AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it.
   - [ ] **(automatable)** [AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5s exact defect while fixing it).
   - [ ] **(device)** [DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification.
+  - [ ] **(automatable)** [AUTOMATABLE, source] The ChangeRequest status uses a SINGLE-SOURCED ChangeRequestStatus enum (like TaskStatusEnum): Open -> Triaged -> Resolved -> Closed (distinct from TaskStatusEnum). Initial = Open. NO bare string literals (a bare status can drift into ad-hoc strings; architect steer 82a10155a).
+  - [ ] **(automatable)** [AUTOMATABLE] The decline endpoint AUDIT-LOGS the ChangeRequest mint (who declined, which task/req, when) for Q2 integrity — the verdict + its resulting unit are traceable, never a silent state change. createdBy is SERVER-SET from the owner token (can not be spoofed).
   -> taskQa.tronVerdict [uc:uuid:0a3e3653-c997-4a87-97ef-1511a1fef5dd]
 
 - [ ] **R40.11 — deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)**
@@ -150,3 +152,40 @@
   - [ ] **(device)** [AUTOMATABLE @390 real-WebKit PIXEL + Tron real-device] Tap the .mp3 -> the player is VISIBLE with controls present, proven by PIXEL screenshot @390 -- NEVER a DOM-count green (a <audio> container in the DOM != a player that renders). Tron confirms on his phone.
   - [ ] **(automatable)** [AUTOMATABLE] DET-3x (deterministic 3x) + stub-must-fail: strip the player render -> gate RED (proves the gate catches the empty-box regression that shipped).
   -> 16b3a2ef [uc:uuid:16b3a2ef-de39-470b-abd3-8e436047ab1a]
+
+- [ ] **R40.13 — User Admin — thorough merge + delete of profiles / duplicate users (zero dangling refs)**
+  [requirement:uuid:ad977999-b747-4527-95b6-29bac8deae1c]
+  we need a Feature User Admin that allows merging and deleting profiles and duplicate users thouroughly
+  A User Admin feature that MERGES and DELETES profiles and duplicate users THOROUGHLY — consolidating (merge) or removing (delete) EVERY reference across the graph, leaving ZERO dangling/orphan references, gated by the EXISTING S37 identity-family detectors, dry-run+count+reversible+idempotent, owner-gated. THOROUGHLY is the requirement: profiles.json has been hand-edited + 59+ pollution profiles purged by stop-edit-restart + 3+ duplicate 'Marcel Donges' exist.
+  **Acceptance criteria:**
+  - [ ] **(merge-all-refs)** MERGE consolidates EVERY reference, not just the profile row — room memberships, file/unit ownership, device enrollments, alt-identity indexes (phone/email symlinks), avatars, vCards, usedIn side-index.
+  - [ ] **(delete-no-dangling)** DELETE leaves NO dangling reference — every ref to the removed user is repointed (merge) or removed (delete).
+  - [ ] **(gate-graph-query-REUSE)** The completion GATE is a GRAPH QUERY: ZERO dangling/orphan refs after merge or delete, PROVEN by the EXISTING S37 identity-family detectors (orphan-owner / truncated-ref / prefix-collision). REUSE them — do NOT write a parallel checker.
+  - [ ] **(dry-run-reversible-idempotent)** DRY-RUN + counts BEFORE apply; reversible backup; idempotent (the R27.2 / repair protocol).
+  - [ ] **(owner-gated-403)** OWNER-GATED; non-owner => 403 (same integrity argument as R40.10 — if anyone can merge identities, identity means nothing).
+  - [ ] **(device-390)** Usable at 390px on mobile (Tron's phone).
+  -> 38ef2453 [uc:uuid:38ef2453-4746-449c-af3f-4e0a382e81e3]
+
+- [ ] **R40.14 — Portable encrypted loginToken — download from profile, drag-drop to log in (User.Name.web4ID)**
+  [requirement:uuid:e8ab7aa2-92e2-423e-b3d1-794796c530fe]
+  also we need a posibility to download a loginToken from the profile (like the vcard), that is encrypted in a way that only the real user can decrypt it with his private key but the token works as a User.Name.web4ID that can be dragged and dropped into any server to log on
+  A downloadable portable login token (like the vCard) encrypted TO the user's PUBLIC key so ONLY their PRIVATE key can decrypt it; token identity form User.Name.web4ID; drag-and-dropped into ANY server logs that user on (reusing DropDispatcher/WebItem MIME routing). Credential-grade: replay-safety, revocability, forgery-resistance; never embeds the plaintext secretCode. ★ DESIGN-REQUIRED: the crypto needs a real architect SECURITY design post-reset — do NOT build from these ACs alone.
+  **Acceptance criteria:**
+  - [ ] **(download-from-profile)** DOWNLOAD from the profile, reusing the vCard-download precedent.
+  - [ ] **(crypto-pubkey-STUB-MUST-FAIL)** Encrypted TO the user's PUBLIC key so ONLY his PRIVATE key can decrypt — proven BY CONSTRUCTION: decryption with a WRONG key must FAIL (stub-must-fail applied to crypto; NEVER 'it decrypted for me' as evidence). [DESIGN-REQUIRED — architect security design.]
+  - [ ] **(token-identity-form)** Token identity form = User.Name.web4ID.
+  - [ ] **(drag-drop-login-REUSE)** DRAG-AND-DROP into ANY server logs that user on — REUSE the DropDispatcher / WebItem MIME routing, no new drop machinery.
+  - [ ] **(credential-security)** Credential-grade security stated explicitly: replay-safety (expiry and/or nonce), REVOCABILITY, and forgery-resistance (dropping a token must NEVER authenticate a DIFFERENT identity).
+  - [ ] **(no-plaintext-secretCode)** Must NOT embed the plaintext secretCode.
+  -> b25ce219 [uc:uuid:b25ce219-e059-48ac-a824-0dc9754e80f8]
+
+- [ ] **R40.15 — secretCode hardening — hash+salt at rest, rate-limit/lockout, never-logged (device-link auth)**
+  [requirement:uuid:2182c412-54d1-4e25-8938-41c6e7133337]
+  [security finding, PO-relayed] secretCode is stored PLAINTEXT and UNHASHED (4 digits) on prod, and it gates device-linking
+  SECURITY FINDING: secretCode is stored PLAINTEXT and UNHASHED (4 digits) on prod, and it gates device-linking. Harden it: hash+salt at rest, rate-limit/lockout on verify, never logged, and consider a second factor for device-link. Same identity/auth family as R40.13/R40.14.
+  **Acceptance criteria:**
+  - [ ] **(hash-salt-at-rest)** secretCode is HASHED + SALTED at rest — never stored plaintext.
+  - [ ] **(rate-limit-lockout)** Rate-limit / lockout on verify (defeats 4-digit brute-force).
+  - [ ] **(never-logged)** secretCode is NEVER logged (any level).
+  - [ ] **(second-factor-consider)** Consider a SECOND FACTOR for device-link (design decision — flag for architect).
+  -> 6c9fc9bf [uc:uuid:6c9fc9bf-7075-40ce-b794-91c9712b4cb1]
