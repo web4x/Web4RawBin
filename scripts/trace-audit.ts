@@ -96,6 +96,7 @@ interface AuditResult {
   reachable: number;
   orphans: { uuid: string; type: string; name: string }[];
   dangling: { uuid: string; type: string; slot: string; ref: string; tier: string }[]; // R27.5 Axis-1 ref-integrity
+  truncatedFieldRefs: { uuid: string; type: string; slot: string; ref: string; tier: string }[]; // R27.7 ref-tier: truncated-but-prefix-resolvable slot refs (visible debt, not silent)
   cardinalityIssues: string[];
   duplicateClasses: { name: string; count: number; uuids: string[] }[]; // R27.2 AC-canonical: exactly ONE Class unit per code-class name
   classesPerFile: { file: string; count: number; uuids: string[] }[];   // R27.5 Axis-3: >1 Class sharing one sourceFile (allowlist excepted)
@@ -260,6 +261,13 @@ function auditAll(idx: ScenarioIndex, sinceRef?: string): AuditResult {
   const readSlot = (unit: ScenarioUnit, key: string): unknown =>
     key.startsWith('@') ? (unit as unknown as Record<string, unknown>)[key.slice(1)] : (unit.model as Record<string, unknown>)[key];
   const dangling: AuditResult['dangling'] = [];
+  // R27.7 ref-tier: bareRef() returns null for a TRUNCATED (<36-char) instance ref, so scanDangling silently tolerates it
+  // (it prefix-resolves to a real unit, so nothing dangles) — which is exactly how 64 truncated field-refs reported as 0.
+  // FAMILY: silent prefix-resolution hides collision debt (an 8-char ref resolves today, a future collision mis-resolves
+  // it — bit us at 3542dcb3). Behaviour stays tolerant (nothing breaks); we make the count VISIBLE so it goes to 0 only
+  // when refs are genuinely full-uuid. A reporter that says 0 while 64 exist is measurement that reassures, not informs.
+  const truncatedFieldRefs: AuditResult['truncatedFieldRefs'] = [];
+  const allUuidsArr = [...units.keys()];
   const scanDangling = (unit: ScenarioUnit, keys: string[], tier: string): void => {
     const type = getType(unit);
     for (const key of keys) {
@@ -267,8 +275,15 @@ function auditAll(idx: ScenarioIndex, sinceRef?: string): AuditResult {
       const val = readSlot(unit, key);
       const refs = Array.isArray(val) ? val : (val ? [val] : []);
       for (const r of refs) {
-        const b = bareRef(String(r));
+        const s = String(r);
+        const b = bareRef(s);
         if (b && !units.has(b)) dangling.push({ uuid: String(unit.model.uuid), type, slot: key, ref: b, tier });
+        // surface a truncated-BUT-RESOLVABLE instance ref as visible debt (not dangling, not silently fine)
+        if (s.startsWith('ior:instance:')) {
+          const raw = s.replace('ior:instance:', '').split('@')[0];
+          if (raw && /^[0-9a-f]{6,}$/i.test(raw) && !FULL_UUID.test(raw) && allUuidsArr.some(u => u.startsWith(raw)))
+            truncatedFieldRefs.push({ uuid: String(unit.model.uuid), type, slot: key, ref: raw, tier });
+        }
       }
     }
   };
@@ -347,6 +362,7 @@ function auditAll(idx: ScenarioIndex, sinceRef?: string): AuditResult {
     reachable: visited.size,
     orphans,
     dangling,
+    truncatedFieldRefs,
     cardinalityIssues,
     duplicateClasses,
     classesPerFile,
@@ -394,6 +410,14 @@ const dataDangling = result.dangling.filter(d => d.tier === 'data');
 console.log(`\nRef-integrity dangling (R27.5 Axis-1, all REF_SLOTS must resolve): chain=${chainDangling.length} data=${dataDangling.length} (${result.dangling.length === 0 ? 'PASS' : 'residual → R27.6 repair, delta-not-absolute'})`);
 for (const d of result.dangling.slice(0, 25)) console.log(`  - ${d.uuid.slice(0, 8)} (${d.type}).${d.slot} → ${d.ref.slice(0, 8)} [${d.tier}]`);
 if (result.dangling.length > 25) console.log(`  ... and ${result.dangling.length - 25} more`);
+
+// R27.7 ref-tier: truncated-but-resolvable slot refs — VISIBLE debt (prefix-tolerant, resolves fine, but ambiguous).
+console.log(`\nTruncated-but-resolvable field-refs (R27.7 ref-tier): ${result.truncatedFieldRefs.length} (prefix-tolerant → resolves today, AMBIGUOUS; goes to 0 only at full-uuid; DEBT — reported, not strict-gated)`);
+if (result.truncatedFieldRefs.length) {
+  console.log('  FAMILY: silent prefix-resolution hides collision debt — an 8-char ref resolves now, a future collision mis-resolves it (bit us at 3542dcb3). Expand each to the full 36-char uuid; the count goes to 0 as they are repaired.');
+  for (const t of result.truncatedFieldRefs.slice(0, 25)) console.log(`  · ${t.uuid.slice(0, 8)} (${t.type}).${t.slot} → ${t.ref} [${t.tier}]`);
+  if (result.truncatedFieldRefs.length > 25) console.log(`  ... and ${result.truncatedFieldRefs.length - 25} more`);
+}
 
 console.log(`\nCardinality: ${result.cardinalityIssues.length} (${result.cardinalityIssues.length === 0 ? 'PASS' : 'FAIL'})`);
 for (const c of result.cardinalityIssues) console.log(`  - ${c}`);
