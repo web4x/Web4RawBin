@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "77761d46-4144-4b84-a9e4-4c876da310d0",
+    "name": "DiagramViewModel.buildEdges impl (relatesTo -> on-surface SVG edges, arrowhead by M2 kind)",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at fcae74749: [impl:uuid:77761d46] heads the named buildEdges() decl @ src/public/ts/trace/diagram-view-model.ts:60 (marker line 57 precedes export function buildEdges(, name-matches; Method 8c68b925 DiagramViewModel.buildEdges, Class 09730090, UC 20fe541e). Comment-only, bundle byte-identical, NO version bump (v0.8.6 stands). buildDiagramSvg 3fc6ed5b/ba96a744 (R32.4) UNTOUCHED = no re-credit. IMPL-MINT #126: req minted the Impl, expert placed the marker. Test HOLDS for tester independent vitest r32.6-diagram-edges.",
+    "tests": [
+      "ior:instance:9c419d83-ae85-4627-bf8b-5f4c1a036b2f",
+      "ior:instance:2f6a1c3e-9b47-4d82-a5e1-0c7f3d61b9a4"
+    ]
+  },
+  "ownerIor": "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799"
+}

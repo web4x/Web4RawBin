@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "50408e90-6fd8-42a6-99b7-2d3526863eb6",
+    "name": "SprintPinResolver.deriveSprintStatus",
+    "description": "deriveSprintStatus(sprint) rolls sprint.tasks[] up via R-C5 deriveStatusEnum (single-source: sprint<->tasks cannot disagree, INV-C1-2). TERMINAL-RESOLVED(task) = (deriveStatusEnum==Done) OR task.supersededBy present. CLOSED = tasks non-empty AND every task terminal-resolved (display keeps Done vs Superseded counts DISTINCT — never collapse to Done, INV-C1-7); Active = >=1 In-Progress not-superseded; QA-pending; Planned. Reuses R-C5 with NO extension — supersededBy is a SEPARATE field (PO ruling B), not a status enum value, so the consistency sprint never contradicts itself. R-C1.",
+    "implementations": [
+      "ior:instance:303639ce-0863-4df1-968c-c6f415c5bd70"
+    ]
+  },
+  "ownerIor": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268"
+}

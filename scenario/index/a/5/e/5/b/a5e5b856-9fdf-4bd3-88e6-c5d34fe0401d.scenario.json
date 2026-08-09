@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a5e5b856-9fdf-4bd3-88e6-c5d34fe0401d",
+    "name": "test:R-C1 sprintSlugOf BITE (2-facet: slug-from-path-never-slugify(name) + fail-closed-on-unresolvable-dir)",
+    "description": "Bridged to rc1-sprintpin-resolver-gate.ts (DET-3x, own-oracle). PROVEN-BY-BITE both facets in one Test (verify-owner-first, no cross-wire): (a) slug derives from the sourceFile/compoundSource PATH / model.slug-if-dir-exists / on-disk sprint-<num>-* dir, NEVER slugify(model.name) - so the S20 name would NOT produce the phantom long-slug (AC-no-name-derivation, INV-C1-8); (b) a unit resolving to NO existing dir REFUSES->null (fail-closed, ties R-C3 vacuous family), never fabricates a slug.",
+    "sourceFile": "ior:file:test/visual/rc1-sprintpin-resolver-gate.ts",
+    "implementations": [
+      "ior:instance:f326509a-3f40-4962-86f5-60c4ecb40f1a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f326509a-3f40-4962-86f5-60c4ecb40f1a"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5bb30e23-e73c-4a40-aeb6-7786648afc4d",
+    "name": "test:R36.3 T1 data-extract typed signature (enrichMethodSignature, distinct-intent on shared generate Impl)",
+    "description": "Bridged to test/visual/r363-method-facet-webkit-gate.ts (INDEPENDENT tester @390 real-WebKit, GREEN DET-3x, adopted from origin — measured, not invented). R30.11 distinct-intent: credits R36.3 enrichMethodSignature 68d1997e (re-generate enriches METHOD/FUNCTION signature with typed params{name,type}+returnType incl keyword primitives via signatureType). Rides shared Impl 382f8644 (owned by R32.2 generate 970c7956) ALONGSIDE R32.2's test ba762f5a — does NOT re-credit it.",
+    "sourceFile": "ior:file:test/visual/r363-method-facet-webkit-gate.ts",
+    "implementations": [
+      "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "distinctIntent": true
+  },
+  "ownerIor": "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+}

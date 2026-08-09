@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8185af11-5c71-45c6-bbd6-40697115b20c",
+  "name": "diagram.removeView",
+  "description": "R33.8 server (design 2207a55fe): NEW POST /api/model/diagram/remove-view (mirror add-view server.ts:1664) - parse {diagramUuid, elementUuid}, SAME uuid path-safety, load Diagram from MODEL_STORE (404 if missing), filter modelelement:<uuid> OUT of model.views[]; idempotent (removed:false if absent, INV-RM4); else write back MODEL_STORE-ONLY (prod scenario/index NEVER touched, INV-RM2) + log. ★ INV-RM1: removes ONLY the VIEW-LINK; the ModelElement UNIT file is NEVER touched (re-addable). Deleting the model unit = RED by construction.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:162f7c2d-d7d9-4da6-a67f-12ec101cfb2a",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.8&commit=2207a55fe",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

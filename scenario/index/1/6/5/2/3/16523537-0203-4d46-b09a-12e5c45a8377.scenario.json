@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "16523537-0203-4d46-b09a-12e5c45a8377",
+  "name": "puml.import",
+  "description": "R32.7 IMPORT: PumlSerializer.pumlToModel parses a @startuml...@enduml back into MDA M1 units + diagram views, into the ISOLATED model-store (prod scenario/index NEVER mutated, R32.5). INV-P1 same-uuid-across-M (one deterministic R32.2 uuid), INV-P2 re-import REUSES the same-uuid unit (bindByUuid, no re-mint/no-dup), INV-P3 parse->serialize->parse identity-preserving by construction. Edge arrows resolve back to the right M2 kind. Sibling UC of puml.export.",
+  "class": "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441",
+  "classes": [
+   "ior:instance:59bdb00e-e0f1-4239-91b0-b918ee04d441"
+  ],
+  "method": "ior:instance:31cd0acb-e599-4961-8ace-208a43ca7662",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

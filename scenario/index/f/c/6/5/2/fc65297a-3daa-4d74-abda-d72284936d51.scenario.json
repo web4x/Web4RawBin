@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fc65297a-3daa-4d74-abda-d72284936d51",
+    "name": "test:R33.5 item3 selected-box drag no-pan (RbPanZoom.setEnabled) @390",
+    "description": "Bridged to test/visual/r335-ux-polish-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x v0.8.19, f54376a1b). Marker adopted from origin (measured on the test file, not invented). zoom>1: empty-canvas drag PANS; a SELECTED-box drag MOVES the box with NO pan (setEnabled(false) while a box is selected). Chain: R33.5 req 3c99ce28 -> UC diagram.dragNoPan -> Class RbPanZoom e5e3c885 -> Method setEnabled 4dab0081 -> Impl 44f3ddd3 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r335-ux-polish-gate.mjs",
+    "implementations": [
+      "ior:instance:44f3ddd3-c580-4fe7-8e3c-489cf05c4e42"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:44f3ddd3-c580-4fe7-8e3c-489cf05c4e42"
+}

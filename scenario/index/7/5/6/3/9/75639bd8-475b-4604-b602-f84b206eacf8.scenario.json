@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "75639bd8-475b-4604-b602-f84b206eacf8",
+  "name": "model.sync",
+  "description": "R32.8 FINALE - client-only 'Re-Sync from source': RbDiagramDetail.reSyncFromSource reads the model's own sourceFile and re-invokes the EXISTING POST /api/model/generate (TsToModel.generate engine - deterministic keyToUuid rebind + reconcile + 0-churn + MODEL_STORE-only write, R32.2/R32.5) - NO new server code, NO fork. On ok it fires 'rb-model-resynced' so ALL views auto-re-render from the one MODEL_STORE: tree (R32.3) + diagram/edges (R32.4/R32.6) + PUML (R32.7) - TS<->model<->PUML consistent by construction (INV-S1 rebind / S2 reconcile / S3 isolation / S4 all-views-consistent). Button on the diagram toolbar only (MODEL units); the shared rb-trace-tree gets NO feature-button (generic-shared-component law, PO 2026-07-30). Single-file re-sync (deleted-file + multi-file DEFERRED to backlog / optional /api/model/sync). The R32.8 Test is the tester LIVE gate (edit TS -> resync -> all-views + reconcile + isolation).",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "classes": [
+   "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+  ],
+  "method": "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

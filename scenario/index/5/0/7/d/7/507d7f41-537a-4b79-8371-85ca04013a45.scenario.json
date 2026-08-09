@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "507d7f41-537a-4b79-8371-85ca04013a45",
+    "name": "test:R-C1 deriveSprintStatus BITE (empty tasks != Closed, vacuous-truth guard)",
+    "description": "Bridged to rc1-sprintpin-resolver-gate.ts (DET-3x, own-oracle). PROVEN-BY-BITE: a sprint with empty tasks[] does NOT roll up to Closed/Done (every([])===true vacuous-truth guard, INV-C1-6/C3); rollup via R-C5 deriveStatusEnum; terminal-resolved = Done||supersededBy with Done vs Superseded counted DISTINCT (INV-C1-7 no-collapse).",
+    "sourceFile": "ior:file:test/visual/rc1-sprintpin-resolver-gate.ts",
+    "implementations": [
+      "ior:instance:303639ce-0863-4df1-968c-c6f415c5bd70"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:303639ce-0863-4df1-968c-c6f415c5bd70"
+}

@@ -22,7 +22,10 @@
       "class": "RbDetailDrawer (or chain-walk logic)",
       "method": "renderTraceabilitySection — filter out self-node + non-chain nodes",
       "test": "RED: open Task detail → assert Task does NOT appear as a node in its own Traceability Chain section. Assert only req→uc→class→method→impl→test nodes appear. Currently FAILS (Task shown as chain node + all methods mixed in)."
-    }
+    },
+    "useCases": [
+      "ior:instance:8dc64273-9148-4c04-ae2a-77f65ad6ad15"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

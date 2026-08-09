@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/requirements.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:ad2979b6-8d3c-4f17-9f9d-992ce70324dd"
+  ],
   "unitLinks": [],
   "conceptOnly": true,
   "future": true,

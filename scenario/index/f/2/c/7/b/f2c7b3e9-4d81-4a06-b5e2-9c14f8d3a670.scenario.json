@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f2c7b3e9-4d81-4a06-b5e2-9c14f8d3a670",
+    "name": "test:R40.3-A AC-1 suppressSoftKeyboard — terminal input suppresses OSK (inputmode=none+readonly) without losing the controller input path",
+    "description": "Bridged to test/visual/r403a-served-render-confirm.mjs (r403a, GREEN DET-3x, served 0.8.67 @390 real-WebKit, 8c007154e). Certifies the suppression ATTRS are configured on the terminal focus target.",
+    "sourceFile": "ior:file:test/visual/r403a-served-render-confirm.mjs",
+    "implementations": [
+      "ior:instance:c3a56e56-2f91-452f-9b1d-c267802687e1"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "certificationScope": {
+      "proven_harness_realwebkit_390_served_0_8_67": "AC-1: the terminal input target carries inputmode=none + readonly (OSK-suppress config present + verifiable in served DOM @390), WITHOUT losing the controller input path.",
+      "not_proven_owner_page_and_device": "AC-OSK (iOS keyboard genuinely never opens) = DEVICE-ONLY Tron: VACUOUS in every automatable env (desktop/Linux WebKit has NO on-screen keyboard, so absence proves nothing). AC-3 terminal-fully-visible + AC-4 no-overlay = OWNER-PAGE: the terminal UI is owner-gated end-to-end, no non-owner identity can load it. -> Tron owner-device QA."
+    }
+  },
+  "ownerIor": "ior:instance:c3a56e56-2f91-452f-9b1d-c267802687e1"
+}

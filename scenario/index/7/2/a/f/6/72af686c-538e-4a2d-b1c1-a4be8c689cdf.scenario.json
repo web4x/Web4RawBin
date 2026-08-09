@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "72af686c-538e-4a2d-b1c1-a4be8c689cdf",
+    "name": "test:R33.8 client removeFromDiagram remove-view logic+effect @390",
+    "description": "Bridged to test/visual/r338-remove-gate.mjs (tester GREEN DET-3x @390, 8c19ca178). Marker adopted from HEAD (measured, not invented). client removeFromDiagram remove-view logic+effect via the exact endpoint it calls. ★ SCOPE: the /model drawer verb-CLICK is Tron-visual (HELD, R33.5 item-1 split, uncredited headless) - this Test credits the remove-view LOGIC, not the drawer-UI. Chain: R33.8 req 86219c51 -> UC diagram.removeFromDiagram 44d98bdc -> ModelView 35759641 -> Method removeFromDiagram 167fe16f -> Impl 4c9c3969 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r338-remove-gate.mjs",
+    "implementations": [
+      "ior:instance:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51"
+}

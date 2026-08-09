@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a09b474d-c1de-44de-9cd3-d4eda13943b6",
+    "name": "server.ensureViewUnit impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:23a9f9fd-672d-4b32-8761-17302d0889ce",
+      "ior:instance:9bc0a109-58fe-414a-a9d6-fbadbbd0c154"
+    ]
+  },
+  "ownerIor": "ior:instance:64c4f023-7dba-40bb-af17-0bc6ab18571d"
+}

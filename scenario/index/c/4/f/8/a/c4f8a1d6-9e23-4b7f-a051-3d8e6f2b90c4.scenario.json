@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "name": "test:R40.1 resolveRcLink fail-closed per-pane RC deep-link (owner-gated 403 no-leak + no synthesised URL)",
+    "description": "Bridged to test/visual/r401-rc-link-gate.mjs (r401, GREEN DET-3x, 7d5ae8d08). Honest certification split (unusually STRONG on security, PARTIAL on UI): PROVEN [REAL, non-owner]: the owner-gated endpoint 403s a non-owner across no-token / unknown-token / owner-literal-not-live / path-injection, with ZERO bridgeSessionId or claude.ai URL in ANY body or log — and the leak is impossible BY CONSTRUCTION (the R31.2 choke-point 403s BEFORE resolveRcLink runs, so no bridge id is ever computed; stronger than \"no leak observed\"). PROVEN [HARNESS, HEAD source]: fail-closed behaviour (403 / null / no-agent / network-error -> {url:null, reason}, NEVER a synthesised session_ URL, stub-must-fail applied) + per-pane threading/encoding (pane %1 never fetches %0). NOT PROVEN — OWNER-PAGE PENDING: the RC button VISIBLE+FIREABLE on the real /server-manager surface (AC-1) and server-side pane->agent isolation observed END-TO-END (AC-2) — both need the owner page, which no non-owner identity can load; batched into the PO owner-QA list for Tron. This Test = chain-complete-to-Test for the PROVEN set only; it does NOT assert the UI half.",
+    "sourceFile": "ior:file:test/visual/r401-rc-link-gate.mjs",
+    "implementations": [
+      "ior:instance:45853b02-340f-409f-8501-449a119c8ca4"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "certificationScope": {
+      "proven_real_byconstruction": "403 before resolveRcLink runs (R31.2 choke) = leak impossible; 4 non-owner cases, 0 leak in body/log",
+      "proven_harness": "fail-closed url:null+reason never synthesised, stub-must-fail, %1-never-fetches-%0",
+      "not_proven_owner_page": "AC-1 button visible+fireable + AC-2 pane->agent isolation e2e (owner page only; Tron owner-QA batch)"
+    }
+  },
+  "ownerIor": "ior:instance:45853b02-340f-409f-8501-449a119c8ca4"
+}

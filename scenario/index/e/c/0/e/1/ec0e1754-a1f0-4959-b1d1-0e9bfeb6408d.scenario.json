@@ -1,0 +1,74 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
+  "altId": "R32.5",
+  "name": "Drag itemView -> diagram VIEW (composed compartments, N-views=N-links, x/y, select/move)",
+  "description": "Dropping an MDA-unit itemView onto a diagram creates a VIEW (e.g. a class view). Views contain COMPOSED views: a class UML SVG has an attribute compartment (attribute views), a methods compartment (method views), a properties compartment (getter/setter views). N diagrams can hold N views of the SAME unit -> each view = a LINK from the diagram to the unit (views are references, NOT copies - identity-by-reference, R25.7 kinship); the unit records its N diagram-links. Drop x,y = position; the view is then selectable + movable. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [
+   "ior:instance:abaf9f83-978f-4722-af21-c2b0ee76b8a2"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [
+   "ior:instance:91b1b643-898a-451b-baa2-5acbd6d453c6"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drop-to-generate",
+    "group": "functional",
+    "text": "Dropping a TS file on a model drop-zone (REUSE the existing drop-dispatcher) POSTs its path/content to a NEW `POST /api/model/generate` endpoint, which runs TsToModel.generate (R32.2 REUSE) - no drop or generate fork."
+   },
+   {
+    "id": "AC-isolated-store",
+    "group": "functional",
+    "text": "Generation writes to an ISOLATED ScenarioIndex dir `data/model-store/index/` via TsToModel.generate({ indexDir: MODEL_STORE, write: true }) (TsToModel.ts:96 hook) - prod `scenario/index` is NEVER mutated (the PO don't-force-prod-mutation safe-mechanism law). The store is demo-scoped + resettable; its M2 metaclasses are seeded once so instanceOf/modelFacetType resolve self-contained."
+   },
+   {
+    "id": "AC-read-reroute",
+    "group": "functional",
+    "text": "The ONE server read-change: `/api/model/tree` reads MODEL_STORE (not prod scenario/index); `/api/trace/children`, when the uuid is a ModelElement, resolves from MODEL_STORE (UNION - trace units stay in prod scenario/index, model units come from the store). rb-trace-tree + the R32.3 forward-key walk are UNCHANGED - they just read a store that now has data (this is why R32.3 correctly returned roots=0 on empty prod)."
+   },
+   {
+    "id": "AC-generate-model-and-demo-diagram",
+    "group": "functional",
+    "text": "Generation produces the M1/M2 ModelElement units PLUS a demo Diagram unit with Layer-2 view-links (one per generated class/interface, viewKind 'class', DETERMINISTIC auto-layout x,y grid/row) so the R32.4 surface has nodes. View-links are REFERENCES (R25.7 identity-by-ref): the unit lives in the store, position lives on the link - N views across N diagrams = N links, editing the unit reflects in all its views."
+   },
+   {
+    "id": "AC-live-render-demonstrable",
+    "group": "functional",
+    "text": "The R32.3 tree (/api/model/tree -> store) AND the R32.4 diagram surface (rb-diagram-detail over the demo Diagram's view-links) render the generated model LIVE - a DEMONSTRABLE drop->populated tree + diagram that Tron can SEE (the go-live milestone): classes -> members with correct M2 icons/badges (R32.3) + UML class boxes on the surface (R32.4)."
+   },
+   {
+    "id": "AC-idempotent-redrop",
+    "group": "functional",
+    "text": "Re-dropping the same TS file yields the SAME UUIDs (R32.2 deterministic sourceFile::qualifiedName) -> idempotent: 0 duplicate units, 0 duplicate diagram nodes; the store re-binds rather than re-mints."
+   },
+   {
+    "id": "AC-reuse-no-fork",
+    "group": "functional",
+    "text": "The whole pipeline is REUSE-ONLY: drop-dispatcher + TsToModel.generate + rb-trace-tree (R32.3) + rb-diagram-detail (R32.4) + Layer-2 view-links - NO forks of any of them. The only new code is the MODEL_STORE const + read-reroute + the /api/model/generate endpoint + drop-zone wiring."
+   },
+   {
+    "id": "AC-isolation-and-regression",
+    "group": "functional",
+    "text": "ISOLATION PROVEN (gate-able): the count of ior:class:ModelElement units in prod `scenario/index` is UNCHANGED after generation (all model writes hit the store). And /trace + Server Manager + room detail-views + prod traceability stay UNREGRESSED (model reads hit the store, trace reads hit prod). Server change -> real restart + R31.7 served==committed invariant re-stamped."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.5-DESIGN&commit=8116f8761",
+  "acFinalizedNote": "8 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.5 DESIGN, 8116f8761; 2026-07-30) - adopt-not-invent from the 8 design facets. R32.5 = the DROP->GENERATE->VIEW GO-LIVE on an ISOLATED store (data/model-store/index, prod scenario/index NEVER mutated). The original manual-drag-itemView framing (AC-drop-creates-view / AC-composed-views / AC-n-views-n-links / AC-xy-select-move) is SUBSUMED: the go-live auto-generates the demo Diagram's view-links from the dropped TS (composed UML boxes render via R32.4, identity-by-ref R25.7 preserved in AC-generate-model-and-demo-diagram); a manual drag-to-compose surface is a later concern, not this milestone. Placeholder AC-architect-finalize retired. Two PO-starred gates kept: AC-isolation-and-regression (prod ModelElement count unchanged) + AC-live-render-demonstrable (Tron-visible drop->populated tree+diagram). Chain (UC/Class/Method/Impl/Test onto the built generate-pipeline) mints when the expert builds, IMPL-MINT pattern like R32.1-4."
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}

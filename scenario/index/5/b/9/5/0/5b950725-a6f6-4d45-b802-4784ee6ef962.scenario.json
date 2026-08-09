@@ -5,7 +5,7 @@
     "name": "Sprint 18 \u2014 Chain Method-Scope & Role Skills",
     "number": 18,
     "goal": "Narrow the traceability chain at Class\u2192Method to the ONE method that fulfills the current requirement (vs scenario browser which shows ALL methods); dogfood S17 scenario-unit model by authoring Sprint 18 as scenario.json FIRST and generating planning.md + task-*.md from those units; co-specify role refinement protocols as SKILL.md files (Rules 1-11 from refinement-precedence-analysis.md).",
-    "status": "Planned",
+    "status": "Done",
     "compoundSource": "scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
     "requirements": [
       "ior:instance:f3ee66eb-c18e-4cc2-9ed4-236a940e00c5",

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "162f7c2d-d7d9-4da6-a67f-12ec101cfb2a",
+    "name": "server.persistRemoveView",
+    "description": "NEW server endpoint handler (server.ts, mirror add-view :1664): POST /api/model/diagram/remove-view filters modelelement:<uuid> out of the Diagram unit model.views[] in MODEL_STORE store-only (INV-RM2 prod untouched), idempotent (INV-RM4 removed:false if absent); NEVER touches the ModelElement unit file (INV-RM1). markerPending. NAME PROVISIONAL -> re-point on expert decl (route handler).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

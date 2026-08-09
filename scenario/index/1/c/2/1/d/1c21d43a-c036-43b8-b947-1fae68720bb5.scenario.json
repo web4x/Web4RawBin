@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1c21d43a-c036-43b8-b947-1fae68720bb5",
+    "name": "detailView.migrateExtraButtonsToActions",
+    "description": "Migrate the DETAIL/FEATURE-view family's EXTRA duplicated buttons onto the ONE shared universalActionBar (R35.1) as action units + per-surface actionSets — de-duplication. Editor chrome EXCLUDED. Rides the existing universalActionBar mechanism (a migration, not new machinery); the distinct credit is the grep-zero-bespoke-on-detail/feature-surfaces Test.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "method": "ior:instance:54acc696-3350-4ab7-94a2-b2659563735d",
+    "tasks": [],
+    "implementations": [
+      "ior:instance:ffd44b17-5882-4d77-94d1-a3c03c07ffad"
+    ],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:e152177d-d016-45eb-a41f-75ffe3dc9a64"
+}

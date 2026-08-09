@@ -5,7 +5,9 @@
     "name": "Build.versionGuardTreeClean",
     "description": "versionGuardTreeClean(env) @ scripts/start.mjs:84: git diff --quiet HEAD -- the scoped deploy-critical file-set (server.ts + package.json + sw.js); non-clean -> refuse deploy loudly (INV-V3). Build/deploy tooling. Expert points impl here (#126).",
     "sourceFile": "ior:file:scripts/start.mjs",
-    "implementations": [],
+    "implementations": [
+      "ior:instance:81151504-4fd8-4210-aca3-4eb19ce05655"
+    ],
     "tests": []
   },
   "ownerIor": "ior:instance:b6946e59-44a2-4460-8811-7682775912b5"

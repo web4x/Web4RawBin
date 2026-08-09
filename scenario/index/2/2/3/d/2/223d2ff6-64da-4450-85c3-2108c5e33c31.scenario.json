@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "223d2ff6-64da-4450-85c3-2108c5e33c31",
+    "name": "test:R-C5 deriveStatusEnum BITE (statusChecklist SOURCE -> status DERIVED, highest-checked-box, malformed-safe)",
+    "description": "Bridged to test/visual/rc5-taskstatus-bite-gate.ts (DET, own-oracle, scripts-only). PROVEN-BY-BITE: deriveStatusEnum returns the highest-checked-box status from statusChecklist (Planned<InProgress<QA<Done); mutate the checklist -> derived enum tracks it (BITES); malformed/non-string checklist -> Planned (malformed-safe, holds). Verify-owner-first: distinct-intent R-C5 derive-side, no cross-wire.",
+    "sourceFile": "ior:file:test/visual/rc5-taskstatus-bite-gate.ts",
+    "implementations": [
+      "ior:instance:8a032c42-abf6-4678-9ce2-9834141a0e6e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8a032c42-abf6-4678-9ce2-9834141a0e6e"
+}

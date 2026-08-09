@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "eb8dfa23-03d4-4dec-b925-01968a36df49",
+  "name": "roomDetail.openConfigForAll",
+  "description": "R31.12 (Tron ruled): tapping the in-room room TITLE opens the EXISTING room config/settings modal (openRoomEditor) for ALL in-room members (not host-only); NON-HOST gets a READ-ONLY view (inputs disabled + Save removed + save-handler host-only), HOST gets EDITABLE; the server REJECTS a non-owner UPDATE_ROOM_CONFIG (reject-first, pollution-safe). Rides the existing RbRoomDetail.editOpen chain (impl-edit for read-only). Supporting ride-existing edits (note-only, no new marker): role=button + un-gated non-host title-tap rides rb-header T40 39074a59 (connectedCallback:53-61 role=button+tabindex+click un-gated); server owner-guard (reject-first non-owner UPDATE_ROOM_CONFIG @server.ts:2666-2671) has NO dedicated marker - noted as a supporting server-security edit (rides the message-handler). tap-FIRES-on-real-iOS-WebKit is DEVICE-ONLY (Tron re-confirm, like R30.53 codicon) - NOT a headless Test.",
+  "class": "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431",
+  "classes": [
+   "ior:instance:5a6d931a-f4ab-4796-a295-3033323bd431"
+  ],
+  "method": "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/R31.12-title-settings-device-regression.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

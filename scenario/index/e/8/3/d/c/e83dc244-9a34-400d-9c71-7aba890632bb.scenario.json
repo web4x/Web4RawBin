@@ -5,8 +5,8 @@
     "name": "T21.4: Device-link on known phone/email",
     "slug": "task-t21-4",
     "description": "On IDENTIFY with a phone/email already in the alt-index, resolveKeyToProfile returns the existing profile; server sends KNOWN_KEY_CHALLENGE and (on correct secret code) attaches a NEW device to the existing profile via the existing DEVICE_ENROLL path — never mints a new user. Identical for phone and email.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:04dff687-ae49-4d9c-9150-6e2419a1c0b9"
     ],

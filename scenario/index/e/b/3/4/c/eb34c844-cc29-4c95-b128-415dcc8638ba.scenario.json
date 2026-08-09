@@ -1,0 +1,43 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "eb34c844-cc29-4c95-b128-415dcc8638ba",
+  "altId": "R33.4",
+  "name": "Compile MDA model -> TypeScript codegen (S33-P3-FEATURES P3f-2, BIG-ROCK, deferred)",
+  "description": "S33-P3-FEATURES phase P3f-2 (the BIG-ROCK): 'Compile -> TypeScript' = M1 ModelElement model -> valid .ts source codegen, the REVERSE of TsToModel (R32.2, which does TS->model). Genuinely NEW engine (member signatures, relations->imports/extends), NOT reuse. Architect flagged as the hardest S33-P3 item + a LATER phase; split from R33.3 (the P3f-1 reuse features) so the reuse features ship first. DEFERRED (next-backlog) until Tron/PO prioritize; planner stands up its task then. Writes MODEL_STORE only (isolation).",
+  "tronQuote": "",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [],
+  "unitLinks": [],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=S33-P3-FEATURES&commit=20b6f97fb",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-model-to-ts-codegen",
+    "group": "functional",
+    "text": "'Compile -> TypeScript' generates valid .ts from the M1 ModelElement model - the REVERSE of TsToModel (TS->model): each class/interface -> a .ts declaration with member signatures (attributes/methods from members), relations -> imports/extends/implements. NEW ENGINE (not reuse). Writes to MODEL_STORE only (isolation, prod untouched)."
+   },
+   {
+    "id": "AC-codegen-roundtrip",
+    "group": "functional",
+    "text": "Round-trip sanity: TsToModel(generated .ts) reproduces the SAME M1 units (same deterministic uuids, R32.2 law) - model -> TS -> model is identity-preserving for the supported subset."
+   },
+   {
+    "id": "AC-bigrock-deferred",
+    "group": "meta",
+    "text": "★ BIG-ROCK / LATER PHASE (P3f-2): this is the one genuinely NEW engine in S33-P3 (model->code codegen, non-trivial: member signatures, relation->import/extends resolution). Deferred after P3f-1 (the reuse features, R33.3); scheduled when Tron/PO prioritize. status=next-backlog."
+   }
+  ],
+  "status": "next-backlog",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-architect (design 20b6f97fb) + Tron (Import-PUML ask, feature D)",
+   "date": "2026-07-30",
+   "note": "S33-P3-FEATURES: RawBin project folders + action bar + PUML-import. Import-PUML is Tron's new ask (feature D). Architect measure-first: R32.7 pumlToModel PARSER already exists (reuse, no new parser). Captured scenario-first by robbin-req 2026-07-30."
+  }
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

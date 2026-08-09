@@ -1,0 +1,19 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "553229c3-2221-4c16-8e42-e46a7efb9fc0",
+  "name": "actionBar.activeDiagramContext",
+  "description": "R34.4 (R-C, Tron IMG_4818). RESIDUAL-WIRING: rides R33.9 ModelView.actionsForContext (0c769fe6 -> Impl a1a5be99), which emits MEMBERSHIP verbs (add-to-diagram/discover/remove-from-diagram) ONLY when hasActiveDiagram. Tron 'remove missing' = no active-diagram context was set. FIX = dispatch rb-active-diagram{uuid} when a diagram is viewed AND an element is selected from THAT diagram, so actionsForContext includes the membership verbs (incl the existing removeFromDiagram 167fe16f/Impl 4c9c3969). Call-site addition, NO new verb/Method/Impl. Client-only.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-C-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "crossRef": [
+   "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02"
+  ],
+  "ridesNote": "RESIDUAL: rides actionsForContext 0c769fe6/Impl a1a5be99 (membership-verb gating) + the built removeFromDiagram 167fe16f/Impl 4c9c3969 (crossRef, the verb that becomes visible). No fabrication. @390 Test rides a1a5be99 distinct-intent.",
+  "repointNote": "RE-POINTED (data=truth, tester credit 2026-08-03): the R-C Test verifies the ✕ Remove-from-diagram verb FIRING (POST remove-view) = ModelView.removeFromDiagram (167fe16f / Impl 4c9c3969), so method→removeFromDiagram. The active-diagram-context gating via actionsForContext (0c769fe6/a1a5be99) remains the crossRef (verb-appearance side). Test 5c898784 rides 4c9c3969."
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a1f5b43b-75e8-4723-bf0e-3cfdce29e071",
+  "name": "diagram.edgeAutoscroll",
+  "description": "R33.6.2 (architect design cd5bc0de9): DIAGRAM edge-autoscroll during element drag. In wireBoxDrag pointermove, when the drag pointer is within/past a 24px surface edge-band, a requestAnimationFrame loop calls the NEW RbPanZoom.panBy(dx,dy) (speed proportional to overshoot, capped) so ONLY the diagram pans toward the edge; the box keeps tracking the pointer in content-space. Stops on pointerup/cancel. INV-D2. Page-scroll suppression (INV-D1) is by-construction CSS (.dm-box touch-action:none + existing setPointerCapture) - no method. Singular chain = the NEW decl panBy; the wireBoxDrag edge-rAF is a call-site (mirrors R33.5 setEnabled pattern). Reuse RbPanZoom clamp+apply, NO fork.",
+  "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+  "method": "ior:instance:1a2fbff9-4e98-438a-ad78-85df01d04d7e",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.2&commit=cd5bc0de9",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

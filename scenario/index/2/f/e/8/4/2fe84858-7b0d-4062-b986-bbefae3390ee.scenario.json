@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2fe84858-7b0d-4062-b986-bbefae3390ee",
+    "name": "test:R20.6c tap-switch — RbObjectItem.tapSingleSelect (real-WebKit@390 DET-3x): tap selects a node + SWITCHES off the previous (exclusive single-select via replaceWith)",
+    "description": "Bridged to test/visual/rcd-selection-touch-webkit-gate.mjs (real-WebKit @390, DET-3x). Asserts: tap A -> A selected; tap B -> B selected AND A cleared (single-select). Distinct-intent from the longpress-toggle Test on the sibling gesture Method.",
+    "sourceFile": "ior:file:test/visual/rcd-selection-touch-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:cc1dcd0e-93b2-43d5-80bb-b162cd685403"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cc1dcd0e-93b2-43d5-80bb-b162cd685403"
+}

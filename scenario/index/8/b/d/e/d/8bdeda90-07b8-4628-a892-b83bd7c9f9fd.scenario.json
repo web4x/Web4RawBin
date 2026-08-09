@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8bdeda90-07b8-4628-a892-b83bd7c9f9fd",
+  "name": "model.mofChildren",
+  "description": "R33.2/S33-P2b bounded-lazy: server.mofChildren resolves ONE bounded layer for a synthetic MOF-folder uuid on expand (M1->projects, RawBin->~25 file-folders sub-grouped by sourceFile/dir, folder->classes->members), so /api/trace/children lazy-fetches per layer instead of the eager 1195-node flood. Paired with the extended mofLayerRoots (R33.1 Impl 5afeafe9, now emits BOUNDED collapsed roots) + the client drop of data-always-expanded. The NEW distinguishing decl = mofChildren (NOT re-crediting mofLayerRoots 5afeafe9 = R33.1). Sibling UC of R33.1 model.mofTree (d42e1a1e) on the same Class server. Reuse rb-trace-tree R31.3 lazy + /api/trace/children MODEL_STORE (R32.5) + folders (R33.1); the R33.2 Test = the @390 render-perf gate.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ],
+  "method": "ior:instance:7c460f8a-89f5-49c9-91f5-b8c3e35115bc",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

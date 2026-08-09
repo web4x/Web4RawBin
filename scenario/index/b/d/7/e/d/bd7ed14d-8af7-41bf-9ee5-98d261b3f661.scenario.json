@@ -1,0 +1,83 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
+  "altId": "R33.9",
+  "name": "Context-aware action lifecycle: unit verbs (new/rename/delete) vs membership verbs (add/remove), kill the fragile last-diagram implicit target",
+  "description": "R33.9 (Tron device-critique IMG_4802 diagram-open / IMG_4803 no-diagram; formalized off architect design 7e1365d60, was the narrow rename/delete/new-class capture). ACTIONS_BY_TYPE keys verbs by TYPE only, ignoring whether a diagram is open -> membership verbs (add/remove) resolve the diagram via any/LAST diagram = the fragile implicit target Tron flagged (shown in the WRONG context IMG_4803, MISSING in the RIGHT context IMG_4802). FIX (design): rb-diagram-detail dispatches rb-active-diagram{uuid} on open / {uuid:null} on disconnect; model.ts tracks activeDiagramUuid + SPLITS ACTIONS_BY_TYPE - UNIT verbs (new/rename/delete) always on a selected modelelement; MEMBERSHIP verbs (add/remove) appended ONLY when a diagram is active (targets THAT diagram); showActionsForType recomputes on selection AND on rb-active-diagram. NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (store-only, MODEL_STORE, prod-safe; delete DISTINCT from R33.8 remove-view = deletes the UNIT with guard, not just the view). Reuse R33.6.5 action-bar + wireDrawerActions, NO fork. INV-A1-4.",
+  "tronQuote": "> TRON (round-2 item-5, via R33.6.5 spec): class selected -> rename / remove-from-diagram / delete / new-class. (Only add+remove shipped; rename/delete/new-class = this follow-up.)",
+  "tasks": [
+   "ior:instance:291460bd-51b9-454d-8f69-4080cd5e8990"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:88863de6-5f39-4786-8e88-6935f739e3cc",
+   "ior:instance:c1eb0f28-8811-4e43-8fdd-8aebb7f1668e",
+   "ior:instance:46940fd0-c5d8-4ec3-b190-401c0c709328",
+   "ior:instance:b1956c3a-0c5e-4ff2-a6b3-886e76462fca",
+   "ior:instance:195819d0-b482-43cb-bf21-8218f2683ed5"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "spec-gap",
+   "flaggedBy": "PO (2026-07-31) - R33.6.5 item-5 partial-shipment gap; captured scenario-first so tracked not lost",
+   "date": "2026-07-31",
+   "note": "R33.6.5 item-5 class-action set spec'd rename/remove/delete/new-class; only add+remove(R33.8) shipped. Capture rename/delete/new-class. Reuse ACTIONS_BY_TYPE+drawer, no fork. Not build-dispatched - PO surfaces priority to Tron."
+  },
+  "crossRef": [
+   "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2",
+   "ior:instance:86219c51-48f6-426f-bfec-8a01f5c298d8"
+  ],
+  "crossRefNote": "Completes the R33.6.5 (3c6eee8d) action-bar class-action set alongside R33.8 remove-from-diagram (86219c51). Reuse ACTIONS_BY_TYPE.modelelement + wireDrawerActions verb-dispatch.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-unit-verbs-always",
+    "group": "functional",
+    "client": true,
+    "text": "UNIT verbs (new / rename / delete) are ALWAYS present on a selected modelelement (class) regardless of whether a diagram is open (INV-A3). rename/delete/new-class act on the UNIT itself."
+   },
+   {
+    "id": "AC-membership-verbs-need-active-diagram",
+    "group": "functional",
+    "client": true,
+    "text": "MEMBERSHIP verbs (add / remove) are NEVER shown without an ACTIVE OPEN diagram - correct-by-construction, killing the fragile any/last-diagram implicit target (INV-A1). No membership action can ever fire against an ambiguous/last diagram."
+   },
+   {
+    "id": "AC-membership-targets-active-diagram",
+    "group": "functional",
+    "client": true,
+    "text": "When shown, membership verbs target the ACTIVE OPEN diagram EXPLICITLY (via the rb-active-diagram{uuid} signal from rb-diagram-detail; model.ts tracks activeDiagramUuid; showActionsForType recomputes on selection AND on rb-active-diagram), never a resolved any/last diagram (INV-A2)."
+   },
+   {
+    "id": "AC-context-fix-img4802-4803",
+    "group": "functional",
+    "client": true,
+    "text": "IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4)."
+   },
+   {
+    "id": "AC-unit-verb-endpoints",
+    "group": "functional",
+    "client": false,
+    "text": "new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart."
+   },
+   {
+    "id": "AC-390-gate-action-context",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.9&commit=7e1365d60",
+  "verificationHistory": [
+   {
+    "date": "2026-07-31",
+    "hop": "captured -> formalized",
+    "reason": "Tron prioritized + architect designed (7e1365d60); expanded from the narrow rename/delete/new-class capture to the full context-aware action lifecycle (INV-A1-4, unit vs membership, kill last-diagram via rb-active-diagram)",
+    "reportedVia": "robbin-po"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

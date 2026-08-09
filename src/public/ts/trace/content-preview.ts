@@ -14,7 +14,9 @@ import type { RbPreviewPane } from './rb-preview-pane.js';
 // [impl:uuid:7cd70c47-d2cd-4749-8bb6-18018c64bc14] R21.9 RbPanZoom preview (retired iframe pinch-zoom)
 export function renderContentPreview(uuid: string, mimeType: string, name: string, token?: string): string {
   const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
-  const actions = `<div class="cv-actions" data-uuid="${uuid}" data-token="${token || ''}" data-url="${esc(contentUrl)}" data-mime="${esc(mimeType)}" data-name="${esc(name)}" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn cv-preview-toggle" style="flex:1;font-size:0.8rem">👁 Preview</button><button class="btn cv-newtab" style="flex:1;font-size:0.8rem">↗ New tab</button><button class="btn cv-reset" style="flex:1;font-size:0.8rem;display:none">⤢ Reset zoom</button></div>`;
+  // R35.1: Preview + New-tab bespoke buttons REMOVED → now universalActionBar actions (universal-actions.ts). Keep the
+  // data-attrs (the bar handler's ref-context) + the cv-reset zoom button (viewer control, stays in-pane, INV-2 excepted).
+  const actions = `<div class="cv-actions" data-uuid="${uuid}" data-token="${token || ''}" data-url="${esc(contentUrl)}" data-mime="${esc(mimeType)}" data-name="${esc(name)}" style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn cv-reset" style="flex:1;font-size:0.8rem;display:none">⤢ Reset zoom</button></div>`;
   // In-flow 75vh pan/zoom pane (AC-a5: never position:fixed). Lazily filled on first toggle.
   const preview = `<rb-preview-pane class="cv-preview-content" style="display:none"></rb-preview-pane>`;
   return `<div class="cv-preview">${actions}${preview}</div>`;
@@ -70,42 +72,22 @@ export function wireUrlActions(container: HTMLElement): void {
     const e = el as HTMLElement;
     const contentUrl = e.dataset.url || '';
     const mime = e.dataset.mime || '';
-    const uuid = e.dataset.uuid || '';
-    const token = e.dataset.token || '';
     const name = e.dataset.name || '';
     const pane = el.parentElement?.querySelector('rb-preview-pane.cv-preview-content') as RbPreviewPane | null;
-    const toggleBtn = el.querySelector('.cv-preview-toggle') as HTMLElement | null;
     const resetBtn = el.querySelector('.cv-reset') as HTMLElement | null;
-    let filled = false;
 
-    // Pre-resolve external URL for .url/.webloc so New tab opens the site synchronously (no async gap).
-    let resolvedUrl = contentUrl;
+    // R35.1: Preview + New-tab are now universalActionBar actions (universal-actions.ts) — the bar handler toggles +
+    // lazy-fills this pane (SAME fillPreviewPane) and opens the URL. Pane + data-attrs + resetBtn (zoom-reset, in-pane)
+    // remain. Pre-resolve .url/.webloc and write it BACK to data-url so the bar's open-newtab opens the SITE, not the
+    // .url file (INV-1 no behavior lost).
     if (mime === 'text/uri-list' || name.endsWith('.url') || name.endsWith('.webloc')) {
       fetch(contentUrl).then(r => r.text()).then(text => {
-        const url = text.trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || ''; // v0.6.87: any scheme (mailto:/tel:/maps:…) so New tab launches the app
-        if (url) resolvedUrl = url;
+        const url = text.trim().split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
+        if (url) e.dataset.url = url;
       }).catch(() => {});
     }
 
-    toggleBtn?.addEventListener('click', () => {
-      if (!pane) return;
-      if (pane.style.display === 'none') {
-        pane.style.display = '';
-        if (resetBtn) resetBtn.style.display = '';
-        if (!filled) { fillPreviewPane(pane, uuid, mime, name, token); filled = true; }
-        toggleBtn.textContent = '👁 Hide';
-      } else {
-        pane.style.display = 'none';
-        if (resetBtn) resetBtn.style.display = 'none';
-        toggleBtn.textContent = '👁 Preview';
-      }
-    });
-
     resetBtn?.addEventListener('click', () => pane?.reset());
-
-    el.querySelector('.cv-newtab')?.addEventListener('click', () => {
-      window.open(resolvedUrl, '_blank');
-    });
   });
 }
 

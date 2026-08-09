@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "30200eb2-6f77-4e4a-b4c2-7294b721b62b",
+    "name": "server.deleteElement",
+    "description": "NEW server endpoint (server.ts, architect 'ModelElementService.deleteElement'; class=server c0a0921d per R27.2): POST /api/model/element/delete - delete the UNIT with guard (NOT just the view, distinct from R33.8 removeView), store-only. markerPending. NAME/CLASS PROVISIONAL.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:14b7004a-7452-4f88-b3cb-b0c6d2e02730"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

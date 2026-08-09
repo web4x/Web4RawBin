@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5c898784-70fb-4bd9-b41c-054f69e52d01",
+    "name": "test:R34.4 (R-C) remove-from-diagram present+fires @390 (ModelView.removeFromDiagram)",
+    "description": "Bridged to test/visual/r34-webkit-sweep-gate.mjs (INDEPENDENT tester real-WebKit Safari-605 @390 gate, GREEN DET-3x, served==0.8.42, 5744070b7, pollution-free planted-defect). Marker adopted from origin (measured, not invented). with an active diagram + a selected element, the ✕ Remove-from-diagram verb is PRESENT and firing it POSTs /api/model/diagram/remove-view {diagramUuid,elementUuid} + dispatches rb-diagram-refresh; PLANTED no-active-diagram → no POST. R34.4/R-C.",
+    "sourceFile": "ior:file:test/visual/r34-webkit-sweep-gate.mjs",
+    "implementations": [
+      "ior:instance:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4c9c3969-cb16-4c9b-b75d-e2d0d1818b51"
+}

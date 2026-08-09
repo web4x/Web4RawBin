@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "70be1605-6b8c-4358-af16-6702549aee97",
+    "name": "RbDiagramDetail.addView",
+    "description": "R32.11 add-view core: async addView(elementUuid, x?, y?) @ src/public/ts/trace/rb-diagram-detail.ts:146 - POST /api/model/diagram/add-view -> the server appends the view-link to the Diagram unit in MODEL_STORE (dedup INV-R2, isolation INV-R3, persist INV-R4) -> re-render (INV-R1 boxes + R32.6 edges). NEW method on the EXISTING Class RbDiagramDetail 039ec367 (R32.8; distinct from reSyncFromSource 3fd80641 - no re-credit). onDropAddView (:131 drop wiring) + the inline server add-view route + the select complement are supporting enablers (no name-matchable server decl; onDropAddView calls addView). Architect design 6a076e4f2; scenario-first IMPL-MINT (#126) - [impl:uuid] marker lands on the addView() decl (name-matches 'addView').",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:4e74dfee-e9ea-4284-80c7-f196b91e93a9"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

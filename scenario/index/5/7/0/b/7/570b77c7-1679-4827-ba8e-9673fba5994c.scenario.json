@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "570b77c7-1679-4827-ba8e-9673fba5994c",
+  "altId": "R33.6.2",
+  "name": "Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary",
+  "description": "Tron item-2 (interaction polish). When a diagram element is SELECTED + MOVED, the browser PAGE must NOT scroll. The ONLY autoscroll preserved is the DIAGRAM's own edge-pan, and ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary (edge-pan to reveal off-canvas space). Inside the boundary: no autoscroll at all. Disambiguate page-scroll (suppress) from diagram-edge-autoscroll (keep, bounded). Reuse the existing drag + RbPanZoom mechanics, NO fork.",
+  "tronQuote": "> TRON (2026-07-31): when an element is selected and moved, suppress the page scroll; keep the diagram autoscroll ONLY when the dragged item goes slightly outside the diagram boundaries.",
+  "tasks": [
+   "ior:instance:04c64bad-d785-4711-b993-fe41017a8622"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:a1f5b43b-75e8-4723-bf0e-3cfdce29e071"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron ('editing improved a lot') via robbin-po; PO-capture scrum.pmo/sprints/sprint-33-mof-layered-tree/R33.6-diagram-editor-round2-PO-capture.md (dd3fa403b)",
+   "date": "2026-07-31",
+   "note": "Tron item-2: suppress page-scroll on element drag, keep diagram edge-autoscroll only just-outside-boundary. Interaction gate @390 (touch)."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-no-page-scroll-on-drag",
+    "group": "functional",
+    "client": true,
+    "text": "While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page."
+   },
+   {
+    "id": "AC-edge-autoscroll-only-outside-boundary",
+    "group": "functional",
+    "client": true,
+    "text": "The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page."
+   },
+   {
+    "id": "AC-390-gate-scroll",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.2&commit=cd5bc0de9",
+  "designAdopted": "Adopted design cd5bc0de9: AC-no-page-scroll-on-drag <- INV-D1 (.dm-box touch-action:none + pointer-capture, by-construction, no method); AC-edge-autoscroll-only-outside-boundary <- INV-D2 (RbPanZoom.panBy + 24px edge-band rAF in wireBoxDrag); AC-390-gate <- INV-D3 (no-fork, page never scrolls). Chain anchors on the NEW decl panBy (singular)."
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

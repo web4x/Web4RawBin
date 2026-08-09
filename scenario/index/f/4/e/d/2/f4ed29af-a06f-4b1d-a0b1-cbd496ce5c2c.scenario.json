@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f4ed29af-a06f-4b1d-a0b1-cbd496ce5c2c",
+  "name": "modelElement.reconcileCanonical",
+  "description": "S36 R36.1/R36.2 part-2 (A). Compute-on-read A-merge: at /api/ior, reconcileCanonical merges M1<->traceability into ONE canonical unit by sourceFile::qualifiedName (never writes; tree untouched). Server.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:5530ea76-b9c0-4abc-a3d4-4d63db4f531d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/planning.md?section=part-2-canonical-reconcile",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4668508c-992e-465f-847a-7bec7a09301e",
+    "name": "server.serverModelPage",
+    "description": "R32.9 /model page shell: serverModelPage():string @ src/ts/server/server.ts:999 - builds the Model-Driven Code Quality page served by the gated GET /model route (:1106, behind requireFeatureAccess, R31.8 403 for non-members) = the launch target of the MDA Feature (launchPage '/model'). Loads the client model.ts entry -> the R32.5 model view (drop -> tree R32.3 / diagram R32.4 / edges R32.6). NEW named decl on Class server c0a0921d (distinct from the R31.8 FeatureManager.bootstrapSeed = the discovery side). Architect design cdbfc7154; scenario-first IMPL-MINT (#126) - [impl:uuid] marker lands on the serverModelPage() decl (name-matches 'serverModelPage').",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:152c8e0f-6f69-4daa-9a1d-08d3c3ea990c"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

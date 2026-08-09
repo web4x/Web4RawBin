@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7e6a0361-1b23-4e12-97c2-abbc0772b5fa",
+    "name": "TaskQaVerdict.approveByOwner",
+    "implementations": [
+      "ior:instance:36b6ce2e-efe9-4ad8-9382-104ee07d0266"
+    ]
+  },
+  "ownerIor": "ior:instance:a20f8990-5a0e-4a99-9190-9674c11d668c"
+}

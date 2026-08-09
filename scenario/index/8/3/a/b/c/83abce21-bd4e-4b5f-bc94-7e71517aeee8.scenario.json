@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "83abce21-bd4e-4b5f-bc94-7e71517aeee8",
+    "name": "test:R35.4 traceability DRY-parity with /trace sprints-overview @390 (mofChildren)",
+    "description": "Bridged to test/visual/r354-parity-webkit-gate.mjs (INDEPENDENT tester real-WebKit @390 DET-3x, served v0.8.51, 98eb0d891). RE-POINTED (same uuid, PO-directed) from the retired flat-497 assertion (was r35-foundation-webkit-gate.mjs) to the DRY-parity gate. rawbin:traceability MIRRORS the existing /trace current+sprints-overview via the SHARED sprintOverviewNodes helper: children = CurrentSprint pinned + Sprints S1->S35 IN ORDER (~36, NOT flat 497), sprint uuids (minus CurrentSprint) EXACTLY == /api/trace/sprints uuids in the SAME order (structural parity by construction), each sprint expands to its reqs->chain. Impl b6c88d83 (mofChildren, traceabilityRoots+sprintOverviewNodes ride it) unchanged — wiring 83abce21<->b6c88d83 intact.",
+    "sourceFile": "ior:file:test/visual/r354-parity-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:b6c88d83-a838-46ad-ba9a-874e803ca479"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "repointNote": "R35.4 DRY-reopen: same Test uuid re-pointed flat-497 -> parity (PO-directed); Impl b6c88d83 unchanged, no re-mint, two-key intact."
+  },
+  "ownerIor": "ior:instance:b6c88d83-a838-46ad-ba9a-874e803ca479"
+}

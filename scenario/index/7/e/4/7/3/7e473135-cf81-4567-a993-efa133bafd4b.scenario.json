@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7e473135-cf81-4567-a993-efa133bafd4b",
+    "name": "test:R31.8 FeatureManager.tokenOfProfileUuid round-trip",
+    "description": "Bridged to test/visual/r318fm-server-gate.ts (DET-3x GREEN, served==HEAD==v0.7.135). A real Profile uuid round-trips as the grant token; graceful (returns input) on a non-Profile uuid. Marker 7e473135 adopted from origin (measured on line 1, not invented). Impl b2d5f6a1 on FeatureManager/RbFeatureDetail (R31.8).",
+    "sourceFile": "ior:file:test/visual/r318fm-server-gate.ts",
+    "implementations": [
+      "ior:instance:b2d5f6a1-8c39-4e74-af62-4d1b7a3e5c29"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b2d5f6a1-8c39-4e74-af62-4d1b7a3e5c29"
+}

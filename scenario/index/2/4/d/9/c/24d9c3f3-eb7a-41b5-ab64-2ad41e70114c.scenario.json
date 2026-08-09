@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "24d9c3f3-eb7a-41b5-ab64-2ad41e70114c",
+    "name": "RbDetailDrawer.setActions",
+    "description": "NEW generic method on the shared rb-detail-drawer: renders a FIXED .drawer-actionbar region (between header and body) hosting rb-strip from a {verb,label}[] items array; empty items -> bar hidden; a button click emits rb-drawer-action{verb,ref}. No model specifics (shared-generic). markerPending.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:cef954eb-443d-4969-b54f-1c92e3692392"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

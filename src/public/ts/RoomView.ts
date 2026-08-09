@@ -138,18 +138,28 @@ export class RoomView {
   // [impl:uuid:f9b579c1-7495-4f93-8dec-736a0410a69a] RbRoomDetail.openRoomEditor
   // [impl:uuid:26b81ea0-9b6c-4395-b0d8-0f49bc4d1eb4] RbRoomDetail.scenarioLinkRender R19
   private openRoomEditor(): void {
+    const isHost = this.roomOwnerToken === this.client.playerToken; // R31.12: non-host = READ-ONLY (view settings; host edits) — safe-by-construction (no Save + no save-handler wired)
     const overlay = document.createElement("div");
     overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000";
     overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
     const modal = document.createElement("div");
     modal.style.cssText = "background:#1a1a2e;color:#fff;padding:20px;border-radius:12px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto";
     const v = this.roomVisibility, m = this.roomMode;
-    modal.innerHTML = `<h3 style="margin-bottom:16px">Edit Room Config</h3><label style="display:block;margin-bottom:12px">Name<br><input id="re-name" type="text" style="width:100%;padding:8px;margin-top:4px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px"></label><fieldset style="border:none;padding:0;margin-bottom:12px"><legend>Visibility</legend><label><input type="radio" name="re-vis" value="public" ${v==="public"?"checked":""}> Public</label><br><label><input type="radio" name="re-vis" value="by-invite" ${v==="by-invite"?"checked":""}> By-Invite</label><br><label><input type="radio" name="re-vis" value="private" ${v==="private"?"checked":""}> Private</label></fieldset><fieldset style="border:none;padding:0;margin-bottom:16px"><legend>Mode</legend><label><input type="radio" name="re-mode" value="live" ${m==="live"?"checked":""}> Live</label><br><label><input type="radio" name="re-mode" value="persistent" ${m==="persistent"?"checked":""}> Persistent (default)</label></fieldset><div style="display:flex;gap:8px;justify-content:flex-end"><button id="re-cancel" class="btn btn-secondary">Cancel</button><button id="re-save" class="btn btn-primary">Save</button></div>`;
+    modal.innerHTML = `<h3 style="margin-bottom:16px">${isHost ? 'Edit ' : ''}Room Settings</h3>${isHost ? '' : '<div style="margin-bottom:16px;padding:8px 10px;background:rgba(255,255,255,0.06);border-radius:6px;color:#ffcc66;font-size:0.85rem">🔒 Read-only — you are not the room owner</div>'}<label style="display:block;margin-bottom:12px">Name<br><input id="re-name" type="text" style="width:100%;padding:8px;margin-top:4px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px"></label><fieldset style="border:none;padding:0;margin-bottom:12px"><legend>Visibility</legend><label class="re-option" for="re-vis-public" style="display:block;padding:10px 8px;cursor:pointer"><input type="radio" id="re-vis-public" name="re-vis" value="public" ${v==="public"?"checked":""}> Public</label><label class="re-option" for="re-vis-by-invite" style="display:block;padding:10px 8px;cursor:pointer"><input type="radio" id="re-vis-by-invite" name="re-vis" value="by-invite" ${v==="by-invite"?"checked":""}> By-Invite</label><label class="re-option" for="re-vis-private" style="display:block;padding:10px 8px;cursor:pointer"><input type="radio" id="re-vis-private" name="re-vis" value="private" ${v==="private"?"checked":""}> Private</label></fieldset><fieldset style="border:none;padding:0;margin-bottom:16px"><legend>Mode</legend><label class="re-option" for="re-mode-live" style="display:block;padding:10px 8px;cursor:pointer"><input type="radio" id="re-mode-live" name="re-mode" value="live" ${m==="live"?"checked":""}> Live</label><label class="re-option" for="re-mode-persistent" style="display:block;padding:10px 8px;cursor:pointer"><input type="radio" id="re-mode-persistent" name="re-mode" value="persistent" ${m==="persistent"?"checked":""}> Persistent (default)</label></fieldset><div style="display:flex;gap:8px;justify-content:flex-end"><button id="re-cancel" class="btn btn-secondary">Cancel</button><button id="re-save" class="btn btn-primary">Save</button></div>`;
     (modal.querySelector("#re-name") as HTMLInputElement).value = this.roomName;
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+    if (!isHost) { // R31.12 read-only: disable inputs, drop Save, Cancel→Close → a non-host can VIEW config but never submit UPDATE_ROOM_CONFIG
+      modal.querySelectorAll("input").forEach((el) => ((el as HTMLInputElement).disabled = true));
+      modal.querySelector("#re-save")?.remove();
+      const c = modal.querySelector("#re-cancel"); if (c) c.textContent = "Close";
+    }
+    // R31.12 FINAL (architect f8d193568, tester r3112e 4/4): NO belt loop. The prior belt's pointerup+preventDefault
+    // was SUPPRESSING native radio tap-select (the flicker-revert). Canonical native radios (explicit id/for above)
+    // select on tap by HTML5 spec — no handler, no preventDefault, no device code; works all browsers identically.
+    // Save reads input:checked; read-only (non-host) disables the inputs above.
     modal.querySelector("#re-cancel")!.addEventListener("click", () => overlay.remove());
-    modal.querySelector("#re-save")!.addEventListener("click", () => {
+    if (isHost) modal.querySelector("#re-save")!.addEventListener("click", () => { // host-only save-handler wired = non-host CAN'T submit even if the DOM were tampered
       const name = (modal.querySelector("#re-name") as HTMLInputElement).value.trim();
       const vis = (modal.querySelector("input[name=re-vis]:checked") as HTMLInputElement)?.value;
       const md = (modal.querySelector("input[name=re-mode]:checked") as HTMLInputElement)?.value;
@@ -166,7 +176,7 @@ export class RoomView {
         <div style="padding:0 16px 4px;display:flex;gap:8px;align-items:center"><a href="/scenario?ior=${this.roomId}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="View room scenario unit">📄 Scenario</a><a href="${scenarioEditorHref(this.roomId)}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Edit room scenario unit">✏️ Edit</a><span style="color:rgba(255,255,255,0.3);font-size:0.65rem">${this.roomId.slice(0,8)}</span></div>
         <div id="offline-banner" class="offline-banner" style="display:none">Offline — messages queued</div>
         <div class="room-body"><div class="member-panel"><h3>Members</h3><rb-member-list id="member-list"></rb-member-list></div><div class="rrc" id="rrc-root"><div class="rrc-drop" id="rrc-drop" tabindex="0"><div class="rrc-drop-label">Drop content here</div><div class="rrc-drop-hint">Files become room scenario units</div></div><div class="rrc-upload-status" id="rrc-upload-status" style="display:none"></div><rb-trace-tree id="room-tree" data-seed-ior="${this.roomId}"></rb-trace-tree></div></div>
-        <rb-detail-drawer id="room-file-preview"></rb-detail-drawer>
+        <rb-detail-drawer id="room-file-preview" data-context="room-chat"></rb-detail-drawer><!-- R31.12 #1: opt out of the /trace-designed R31.9 observePosition/data-position + R31.4 terminal auto-close — stay the base bottom chat sheet (trace/SM don't set data-context → their R31.4/R31.9 wins intact by construction) -->
       </div>`;
 
     const dz = document.getElementById("rrc-drop");

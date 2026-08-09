@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6b28f4d1-73ac-4e50-9f62-8c1a05e3b7d9",
+    "name": "test:R33.6.5 exactly ONE Re-Sync, old in-diagram toolbar retired (RbDiagramDetail.render) @390",
+    "description": "Bridged to test/visual/r365b-single-resync-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served v0.8.32, 6d96b4941). Marker adopted from origin (measured line 6, not invented). ★ AC-single-resync-no-duplicate (device bug IMG_4795, fix 8ad1ad537): EXACTLY ONE Re-Sync button (count=1) - the old pre-action-bar in-diagram .dm-resync toolbar is RETIRED, no duplicate alongside the R33.6.5 drawer action-bar one. DISTINCT-intent (single-Re-Sync/toolbar-retire) on the EXISTING RbDiagramDetail.render Impl 34dec13f, alongside the R33.3 render Test 73d267cf (a removal rides render). Chain: R33.6.5 req 3c6eee8d -> UC diagram.retireInDiagramToolbar 103e20cd -> Class RbDiagramDetail 039ec367 -> Method render 65649d26 -> Impl 34dec13f -> this Test.",
+    "sourceFile": "ior:file:test/visual/r365b-single-resync-gate.mjs",
+    "implementations": [
+      "ior:instance:34dec13f-5cb6-4f01-8894-e85954174830"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:34dec13f-5cb6-4f01-8894-e85954174830"
+}

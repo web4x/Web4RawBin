@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5afeafe9-14a7-480c-8d02-91e76539a3ae",
+    "name": "server.mofLayerRoots impl (group-by-metaLevel MOF-layer folder roots)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:7f3e9b14-ec33-4b5e-afa1-80292acf947b"
+    ],
+    "markerNote": "Strict-AST credit HOLDS at 87d0376da: [impl:uuid:5afeafe9] heads the named mofLayerRoots(idx) decl @ src/ts/server/server.ts:1054 (marker line 1048 precedes function mofLayerRoots(idx), name-matches; Method 3d308526 server.mofLayerRoots, Class server c0a0921d, UC d42e1a1e model.mofTree). Fresh expert POST-REWIND extracted the inline /api/model/tree group-by into named mofLayerRoots(idx) (server-only, behavior-identical) + placed the marker, per the deferral agreement. IMPL-MINT #126 complete. Unit two-key (Impl.tests<->Test 7f3e9b14) tester-verified. R33.1 MOF-folder structure chain-complete-to-Test + strict-credited = DONE. Remaining: @390 MOF-folder Tron visual + server real-restart."
+  },
+  "ownerIor": "ior:instance:3d308526-d1c5-4f73-af39-7aecaa5b3cbf"
+}

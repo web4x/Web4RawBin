@@ -5,6 +5,7 @@
     "name": "T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link",
     "description": "Store uploaded vCard next to the avatar; make it downloadable; enrich vCard NOTE with download-date + geolocation maps link. Minted by planner 2026-06-16 (req 0.5 rate-limited) for realtime current-task pin switch.",
     "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:f3f26cab-792e-4e65-9cf8-98d907023396"
     ],

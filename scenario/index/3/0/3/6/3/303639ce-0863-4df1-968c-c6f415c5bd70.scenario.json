@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "303639ce-0863-4df1-968c-c6f415c5bd70",
+    "name": "SprintPinResolver.deriveSprintStatus (rollup via R-C5, supersededBy terminal-resolved)",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:507d7f41-537a-4b79-8371-85ca04013a45"
+    ],
+    "markerNote": "STRICT-AST VERIFIED (8ab2edb96, origin): [impl:uuid:303639ce-0863-4df1-968c-c6f415c5bd70] heads export function deriveSprintStatus@src/ts/scenario/sprint-pin-resolver.ts:69 (name-match, 0 intervening decls). compile GREEN; smoke (node22): sprintSlugOf(S20)=sprint-20-traceability-first (S20 phantom KILLED), fallback-2 resolves S37 via model.slug, refuses->null if no existing dir (fail-closed)."
+  },
+  "ownerIor": "ior:instance:50408e90-6fd8-42a6-99b7-2d3526863eb6"
+}

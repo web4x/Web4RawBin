@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8c10c217-3372-4cdb-b4ba-60076766a70c",
+  "name": "modelElement.umlTraceRelationship",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R36.4: a typed trace relationship extending TraceLink (RawBin decomposes/traces vocab, UseCase→Method) rendered via R32.6 edges + EDGE_DEFS trace kind. Method/chain at build-go (extend TraceLink + edge render)."
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,26 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "e9f5eba2-d64d-485b-8f2c-f94094fd9994",
+  "name": "Task 31.10: Traceability tree resolves the correct UC.method in EVERY view — never sibling-fallback when UC.method is set",
+  "slug": "task-31.10-tree-method-resolve",
+  "description": "The traceability tree MUST resolve a UseCase to its OWN UC.model.method in EVERY view — trace-mode AND non-trace / scenario-mode — and MUST NOT fall back to a sibling method on the same Class when UC.method is set. ROOT (skill-expert audit R31-traceability-audit-RESULT.md, IMG_4647): the server attaches chainMethod from UC.model.method ONLY in queryMode==='trace' (server.ts:1644-1647); the client rb-trace-tree.buildSeedNode renders chainMethod if present, ELSE falls back to fetchAndRenderChildren (the Class's methods) — which surfaces a WRONG sibling (e.g. R31.9 UC drawer.observePosition resolving to R25.4 onGrabBarPointer on the shared Class RbDetailDrawer). This is a CODE fix (architect designs the Class/Method topology + the resolve path), not merely a data-wiring gap: even with UC.method correctly set (as R31.9's IS on disk), non-trace views mis-resolve. Captured per Tron completeness directive (R31-completeness-directive.md) — completeness of the tree resolution across all views.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.10 `[requirement:uuid:797113c5-5824-4d82-899f-89bc04886dff]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [x] For a UseCase whose model.method is SET, the traceability tree resolves and displays THAT method (and its chain) in EVERY view — trace-mode AND non-trace / scenario-mode — never a sibling method on the same Class. Acceptance probe: R31.9 UC drawer.observePosition resolves to observePosition (e8097351), NOT onGrabBarPointer (R25.4), in non-trace/scenario views too.\n- [x] When UC.method is set, the client tree MUST NOT fall back to the Class's sibling-methods (the fetchAndRenderChildren path); the UC's own method resolution is authoritative in all query modes (the chainMethod attach is not gated to queryMode==='trace' alone). Architect owns the code fix.",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "gateProof": "GATED GREEN v0.7.136: tester 841c90813 tree method-resolution across ALL modes GREEN DET-3x (IMG_4647 sibling-fix); chain-complete-to-Test a1d38f6e; Impl e86f0736 strict-AST credit (attachChainMethod). Root (6d6d8c9d1): server.ts:1644 chainMethod trace-mode-only -> dropped gate, UC.method authoritative in all modes, Class.methods[] fallback only when UC.method empty. Functional/gate DONE, no open build. QA-Review: Tron device @390 pending.",
+  "coveredRequirements": [
+   "ior:instance:797113c5-5824-4d82-899f-89bc04886dff"
+  ],
+  "useCases": [
+   "ior:instance:9dba0d50-3bc7-49cf-95c8-15cf2f3bade7"
+  ],
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-27"
+ }
+}

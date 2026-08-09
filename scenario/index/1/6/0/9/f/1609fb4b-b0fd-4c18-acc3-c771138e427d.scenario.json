@@ -11,7 +11,7 @@
       "ior:instance:700b2e94-352d-4b81-8ca0-8112862f9f55"
     ],
     "status": "Done",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
     "description": "Three fixes per architect, addressing fallout from the T192 edge change and the shared-Set false-cycle bug:\n\nBUG1: REVERTED Requirement:['useCases'] back to ['tasks'] \u2014 useCases[] is unpopulated on 75 Reqs, yielding 0 children in the tree. Req->tasks is the legitimate chain for the navigation layer.\n\nBUG2: visited Set is now PER BRANCH (new Set copy per child) instead of shared across siblings. Shared mutation caused false cycle stubs on DAG re-convergence \u2014 the same node reached via two sibling paths is legitimate convergence, not a cycle. This is the ancestor-path-precise guard (R18.11).\n\nBUG3: cycle stub '\u21bb cycle' replaced with an empty invisible node (return empty div). True ancestor-path cycles are silently dropped \u2014 the user never sees cut nodes (R18.12 clean cycle omission).\n\nNet effect: Req children restored + true ancestor-path cycles silently dropped + no infinite loop + no false stubs on DAG convergence. 836/836 pass.",
     "qaAudit": "2026-06-05 0e1e97ee v0.5.94 T193: revert Req\u2192tasks + per-branch visited Set + invisible cycle",
     "subtasks": "None (atomic task).",

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3c881f31-1eda-4b0b-82df-beb4f402e63c",
+    "name": "test:R36.4 buildTraceEdge render @390 (dashed trace overlay + reroute + gesture-flow)",
+    "description": "Bridged to test/visual/r364b-trace-edge-webkit-gate.ts (INDEPENDENT tester @390 real-WebKit, GREEN DET-3x served v0.8.59, marker ce6bc49eb, adopted from origin). PART1 pure buildTraceEdge engine-independent (both-on-diagram->1 dashed edge, off-diagram->0, non-trace-kind->0, de-dup, reroute-on-move); PART2 @390 WebKit visual (dashed .dm-edge-trace pixel-visible #a371f7); PART3 gesture flow (link-arm->click->click->POST route-intercepted). Chain: R36.4 2265ad63 -> UC diagramView.buildTraceEdge a9148cbe -> Method DiagramViewModel.buildTraceEdge 6a2cbd63 -> Impl dc101d02 (diagram-view-model.ts:141) -> this Test. real-iOS-TAP gesture-fire = separate Tron device verify (iOS-webkit split, NOT a chain blocker).",
+    "sourceFile": "ior:file:test/visual/r364b-trace-edge-webkit-gate.ts",
+    "implementations": [
+      "ior:instance:dc101d02-d345-4ef3-a7a8-8231a1a695db"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:dc101d02-d345-4ef3-a7a8-8231a1a695db"
+}

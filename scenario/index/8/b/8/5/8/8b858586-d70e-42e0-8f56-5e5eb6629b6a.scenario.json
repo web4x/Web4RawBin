@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8b858586-d70e-42e0-8f56-5e5eb6629b6a",
+  "name": "modelElement.renderPumlSource",
+  "description": "R33.1.1 / R33.6 item-4 (architect design 343938e7e): client itemview-RENDER of EXISTING-SOURCE .puml under the puml/ folder. rb-modelelement-detail's render is extended so a puml-src itemview reuses rb-preview.renderPuml -> GET /api/puml-render to show the .puml as a rendered itemview (the /api enumeration half is already done: R33.5 item-4 Impl 9eb2c39c). EXISTING-SOURCE ONLY (the ~55 sprints/*/diagrams/ .puml) - NOT generated puml-as-code (that stays the separate later R33.1.1-generated concern). INV-P1.1 (existing-source only) / P1.2 (reuse renderPuml, no new renderer) / P1.3 (client-only, MODEL_STORE/prod untouched). Consolidates the recurring puml-folder-itemview gap (Tron re-reported); NO re-fork. Mirrors rb-modelelement-detail.render c2da9192.",
+  "class": "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086",
+  "method": "ior:instance:3a433a45-8d2e-439c-81bd-3c48cfec0566",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.1.1&commit=343938e7e",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

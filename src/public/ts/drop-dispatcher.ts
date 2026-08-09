@@ -151,6 +151,16 @@ export class DropDispatcher {
     if (input.inline !== undefined) ref.inline = input.inline;       // optimization: tiny units skip the round-trip
     return JSON.stringify(ref);
   }
+
+  // R32.5 GO-LIVE: drop/pick a repo .ts file → POST it to /api/model/generate → TsToModel writes M1/M2 + a demo
+  // Diagram into the ISOLATED store (prod untouched); the R32.3 tree + R32.4 diagram then render it live. REUSE
+  // (this dispatcher) — no drop fork. Path-based (repo-relative); a content-drop extension is a fast-follow.
+  async dispatchModelGenerate(file: string): Promise<{ ok?: boolean; roots?: number; diagramUuid?: string; error?: string }> {
+    try {
+      const res = await fetch('/api/model/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ file }) });
+      return await res.json();
+    } catch (e: unknown) { return { ok: false, error: String((e as Error)?.message || e) }; }
+  }
 }
 
 export const dropDispatcher = new DropDispatcher();

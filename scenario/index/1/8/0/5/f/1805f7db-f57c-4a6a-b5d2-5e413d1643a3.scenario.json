@@ -5,8 +5,8 @@
     "name": "T-apply-flow: BY-INVITE Apply button + invite-request messages",
     "slug": "by-invite-apply-flow",
     "description": "BY-INVITE rooms: requester sends an invite-request message into the room carrying name+uuid; the room shows an Apply button (NOT join); request can be accepted -> requester joins. PUBLIC rooms keep the join button. Singular-chain by design.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; JoinRequestFlow Class + applySend Method)\n  - [ ] creating test cases\n  - [ ] implementing (expert: pending)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; JoinRequestFlow Class + applySend Method)\n  - [ ] creating test cases\n  - [ ] implementing (expert: pending)\n  - [ ] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:97bb40eb-638f-463b-b66d-e601cc0802c1",
       "ior:instance:8bd2f61f-d229-4eec-a385-47795c753ca2"

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "af3e515f-2d3c-473c-b33f-853ea5e03555",
+    "name": "test:R32.8 action-driven re-sync FINALE (edit->resync->all-4-views + reconcile + idempotent + isolation)",
+    "description": "Bridged to test/visual/r328-resync-gate.ts (INDEPENDENT tester own-oracle gate GREEN DET-3x, cb03b4ecf - imports the REAL generate + buildEdges + modelToPuml on an isolated scratch, NOT the expert self-check). Verifies the R32.8 re-sync/reconcile finale: edit source -> re-invoke generate on the ISOLATED store -> tree + diagram + edges + puml ALL reflect (INV-S4 all-views-consistent); add->appears / remove->DISAPPEARS not stale-retained (INV-S2 reconcile bite + bidirectional); re-sync unchanged -> 0 churn / 0 dup / same-uuid (INV-S1 idempotent); prod scenario/index UNCHANGED (INV-S3 isolation). Marker af3e515f adopted from origin (measured line 1, not invented). Chain: R32.8 req 782d4b8e -> UC 75639bd8 model.sync -> Class 039ec367 RbDiagramDetail -> Method 3fd80641 reSyncFromSource -> Impl fb22c5cd (markerPending=false, strict-AST HELD 71878248f) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r328-resync-gate.ts",
+    "implementations": [
+      "ior:instance:fb22c5cd-8806-4738-bf80-f0e87e052984"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:fb22c5cd-8806-4738-bf80-f0e87e052984"
+}

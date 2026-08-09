@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "f7a635b2-60c7-44f2-9ea6-48c8d9632000",
+  "name": "Task 32.7: PUML serializer/parser (diagram <-> .puml, no-dup, same-UUID round-trip)",
+  "slug": "task-32.7-puml-serializer",
+  "description": "Serialize diagrams to .puml WITHOUT duplication (don't emit a puml class twice); parse .puml back. Treat a puml class as BOTH an M2 instanceOf Class AND an M1 instanceOf puml-class-code, SAME UUID across M-levels - round-trippable identity: parse an existing .puml -> REUSE the same-UUID unit, don't re-mint. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.7 `[requirement:uuid:b1fef048-dc5c-4315-b410-12a724968234]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] A diagram serializes to a valid .puml with NO duplication (each element emitted once).\n- [ ] A .puml parses back into diagram views + MDA units.\n- [ ] parse->serialize->parse is identity-preserving: a puml class is M2-instanceOf-Class + M1-instanceOf-puml-class-code with the SAME UUID; parsing an existing .puml REUSES the same-UUID unit (no re-mint / no duplicate).\n- [ ] No element is duplicated across serialize/parse (a puml class never emitted or minted twice).\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "coveredRequirements": [
+   "ior:instance:b1fef048-dc5c-4315-b410-12a724968234"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "buildOrder": 7,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

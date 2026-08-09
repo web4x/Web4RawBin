@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "57829ccc-59dd-4360-a11c-35899a5182f1",
+    "name": "test:R-C7 narrative-loss REFUSAL BITE (perFileDiffs.drops -> proveComplete refuse) [phase-a]",
+    "description": "Bridged to test/visual/rc7f-narrative-preservation-bite.ts (DET, own-oracle, scripts-only). PROVEN-BY-BITE (expert fix 7eeb6cc6c): when a migration would DROP narrative (perFileDiffs.drops non-empty) proveComplete REFUSES with a named reason rather than silently completing = no narrative-loss on apply. PHASE-A only (refusal-on-drop); phase-b (narrative-survives-apply BYTE-IDENTICAL) is a future 2nd Test once R-C6 preserve-region ships. DISTINCT-INTENT on proveComplete 21e38b44 ALONGSIDE 0870c78b/ae106047/705e8a53 - verify-owner-first, no cross-wire.",
+    "sourceFile": "ior:file:test/visual/rc7f-narrative-preservation-bite.ts",
+    "implementations": [
+      "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+}

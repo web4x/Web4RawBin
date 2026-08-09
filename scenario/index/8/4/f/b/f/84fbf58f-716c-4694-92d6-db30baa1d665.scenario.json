@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "84fbf58f-716c-4694-92d6-db30baa1d665",
+    "name": "test:T36.5 where-used DISPLAY (RbModelElementDetail 'Where used' section)",
+    "description": "Bridged to test/visual/r365c-whereused-mechanism-gate.ts (DET-3x GREEN @390 real-WebKit, served v0.8.64). A USED element renders the 'Where used' section LISTING the diagram as a .dv-link with the correct drill ref (diagram:<uuid> -> selectionModel.replaceWith); an UNUSED element renders 'Not used'. DISTINCT-INTENT DISPLAY on Impl 7e147ad8 (RbModelElementDetail.render) - NOT the R36.5 backend resolver 2f44e112/af74aef0, NOT renderFacet e21b876d. Verify-owner-first: rides ALONGSIDE c7b558ca (R32.10 render), owner Method c2da9192/marker UNTOUCHED (R30.11). Client-only, version-bumped.",
+    "sourceFile": "ior:file:test/visual/r365c-whereused-mechanism-gate.ts",
+    "implementations": [
+      "ior:instance:7e147ad8-aa69-4f02-9844-8652691add0a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7e147ad8-aa69-4f02-9844-8652691add0a"
+}

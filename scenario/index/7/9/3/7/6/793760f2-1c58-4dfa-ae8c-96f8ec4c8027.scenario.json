@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "793760f2-1c58-4dfa-ae8c-96f8ec4c8027",
+  "altId": "R34.1",
+  "name": "Universal orange «Scenario»+«Edit» default actions on ALL scenario-instance detail views (client)",
+  "description": "Every scenario-instance detail view MUST render an orange «◆ Scenario» + «✎ Edit» DEFAULT action pair — generic, solved once for every scenario instance — reusing actionsForContext/DEFAULT_ACTIONS (model.ts); type-specific verbs append AFTER. Client-only (ride R33.6.5/R33.9 action-bar, no fork).",
+  "classification": "new",
+  "clusterRef": "R-A/A1 (Tron IMG_4816/screenshot-3)",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md",
+  "unitLinks": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-default-pair-all-details",
+    "group": "functional",
+    "text": "Every scenario-instance detail view renders the «◆ Scenario» + «✎ Edit» default pair via actionsForContext/DEFAULT_ACTIONS, independent of and BEFORE any type-specific verbs."
+   },
+   {
+    "id": "AC-scenario-verb",
+    "group": "functional",
+    "text": "«Scenario» dispatches to the instance's scenario-view (/scenario?ior=<ref>)."
+   },
+   {
+    "id": "AC-edit-verb",
+    "group": "functional",
+    "text": "«Edit» opens the edit flow for that instance."
+   },
+   {
+    "id": "AC-orange-styling",
+    "group": "functional",
+    "text": "The default pair renders ORANGE (a .da-btn variant class), visually distinct from type-specific verbs."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: open ANY item detail → the orange Scenario+Edit pair is present + functional; type-specific verbs append after."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md#ARCHITECT-DESIGN (0f312e4f8)",
+  "chainNote": "Chain minted per-cluster at build-go (architect design + reuse map): NEW builds IMPL-MINT markerPending; RESIDUAL-WIRING rides existing R33.9 actionsForContext/removeFromDiagram + R33.7.4 revealModelElement/expandPath (no new verb/Method). Method names provisional/re-pointable (data=truth).",
+  "useCases": [
+   "ior:instance:8106d378-04ee-4869-b803-37b21dd2b0bb"
+  ]
+ },
+ "ownerIor": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d"
+}

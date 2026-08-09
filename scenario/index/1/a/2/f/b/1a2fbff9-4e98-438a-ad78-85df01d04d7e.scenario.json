@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1a2fbff9-4e98-438a-ad78-85df01d04d7e",
+    "name": "RbPanZoom.panBy",
+    "description": "NEW public method on RbPanZoom (pan-zoom.ts, after :62): panBy(dx,dy){ this.tx+=dx; this.ty+=dy; this.clamp(); this.apply(); } - reuses the EXISTING clamp+apply (no new transform logic). Called by the wireBoxDrag edge-autoscroll rAF loop (call-site in rb-diagram-detail.ts) so the diagram pans while a box is dragged to/past a surface edge. INV-D2 (edge-autoscroll = diagram-only, just-outside). markerPending.",
+    "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
+    "implementations": [
+      "ior:instance:7dd375ac-28f1-4768-9063-bdf6fa430ce5"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"
+}

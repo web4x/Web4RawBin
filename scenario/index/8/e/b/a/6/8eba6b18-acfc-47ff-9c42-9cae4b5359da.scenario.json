@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8eba6b18-acfc-47ff-9c42-9cae4b5359da",
+    "name": "server.persistDiagramZoom",
+    "description": "NEW server endpoint handler (server.ts, mirror move-view ~:1532): POST /api/model/diagram/zoom writes model.zoom on the Diagram unit in MODEL_STORE store-only (R32.5 isolation, prod untouched). INV-Z2. markerPending. NAME PROVISIONAL -> re-point on expert decl (route handler).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:80440bf0-c512-4fb8-aa95-8fb56547af88"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

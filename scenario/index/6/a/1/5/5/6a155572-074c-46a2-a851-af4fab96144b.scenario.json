@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6a155572-074c-46a2-a851-af4fab96144b",
+  "name": "diagram.render",
+  "description": "R32.4: the SVG diagram SURFACE renders a Diagram's Layer-2 views[] view-links as UML class boxes (name/attr/method compartments from members, M2-facet kind via modelFacetType R32.3) inside the shared rb-detail-drawer. The NEW client element RbDiagramDetail (src/public/ts/trace/rb-diagram-detail.ts, registered in the drawer tagMap for a diagram: ref, R31.4 detail-view path NO fork) WRAPS the pure render core buildDiagramSvg (the chain anchor) + REUSE RbPanZoom (R31.6 pan/zoom) + selectionModel (click->node detail) + ResizeObserver fit (R31.4 pattern). Position lives on the view-link x,y (unit untouched, R25.7). EDGES excluded (R32.6). 0 views initially (live data = R32.5). Primary Impl anchor = the named pure buildDiagramSvg decl (diagram-view-model.ts:33); the element + pan/zoom + selection are reuse. The R32.4 Test (tester vitest + playwright) asserts the 8 finalized ACs incl the shared-drawer no-regression check.",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "classes": [
+   "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+  ],
+  "method": "ior:instance:3fc6ed5b-53e5-4931-809d-d85f720237a4",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

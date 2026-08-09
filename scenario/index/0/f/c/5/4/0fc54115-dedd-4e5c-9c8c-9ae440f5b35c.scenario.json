@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0fc54115-dedd-4e5c-9c8c-9ae440f5b35c",
+    "name": "server.attachChainMethod",
+    "description": "R31.10 fix (server.ts:1644-1646): in the /api/trace/children resolver, attach entry.chainMethod = the UC's authoritative model.method whenever type==='UseCase' && ct==='Class' && ucMethodIor - in ALL modes (dropped the queryMode==='trace'-only gate). So the client rb-trace-tree resolves each UC to its correct method in EVERY view (trace + scenario/non-trace), never a Class.methods[] sibling; the fallback fires ONLY when UC.method is genuinely empty (a real incomplete chain, correctly surfaced). Architect design design-r31.10-chain-resolve-all-modes.md.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:e86f0736-a05a-427c-b2b2-1c2d36b68965"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

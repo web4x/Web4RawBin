@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a02d7ae6-d2f3-4a30-a1a5-24dee6f42c71",
+    "name": "test:R33.7.2 ModelView.discoverRelated neighbor add-view @390 — 1-level relatesTo∪relatedFrom (self-excl, dedup) + no-diagram bite",
+    "description": "Bridged to test/visual/r372-discover-related-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served==0.8.37, 08b8d654b). Marker adopted from origin (measured line 10, not invented). ★ DISTINCT-INTENT 2nd Test on Impl 8e8c1d75 alongside 54225f01 (r372-discover-gate.mjs, the 1-level discover base): this verifies Discover -> EXACTLY the element's 1-level relatesTo∪relatedFrom neighbors are add-viewed (self-excluded, deduped) + tree refresh; with NO active diagram -> 0 add-view ('Open a diagram first', explicit-diagram-target INV) = planted bite. Chain: R33.7.2 req -> UC (discover-related) -> Class ModelView 35759641 -> Method discoverRelated e6cc8e85 -> Impl 8e8c1d75 -> this Test (distinct-intent, alongside 54225f01).",
+    "sourceFile": "ior:file:test/visual/r372-discover-related-gate.mjs",
+    "implementations": [
+      "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84"
+}

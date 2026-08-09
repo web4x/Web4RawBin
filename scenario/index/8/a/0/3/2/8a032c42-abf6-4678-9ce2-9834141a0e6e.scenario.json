@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8a032c42-abf6-4678-9ce2-9834141a0e6e",
+    "name": "TaskStatus.deriveStatusEnum (highest-checked-box -> enum, malformed-safe)",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "markerPending": false,
+    "markerNote": "STRICT-AST VERIFIED (ddd56dd3c, origin): [impl:uuid:8a032c42-abf6-4678-9ce2-9834141a0e6e] heads export function deriveStatusEnum@src/ts/scenario/task-status.ts:16 (name-match, 0 intervening). Detector run: 71 offenders (7 FALSE-DONE/17 MALFORMED/47 DRIFT). Fold posture = report-only until worked to 0 (delta-vs-absolute, R27.2 precedent — never absolute-block CI on pre-existing).",
+    "tests": [
+      "ior:instance:223d2ff6-64da-4450-85c3-2108c5e33c31"
+    ]
+  },
+  "ownerIor": "ior:instance:f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb"
+}

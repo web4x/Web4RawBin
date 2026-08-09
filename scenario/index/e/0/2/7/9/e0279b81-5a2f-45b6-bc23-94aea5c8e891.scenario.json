@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e0279b81-5a2f-45b6-bc23-94aea5c8e891",
+    "name": "ModelValidator",
+    "file": "scripts/mda-model-validator.mjs",
+    "methods": [
+      "ior:instance:cdcc4988-5b82-4216-8151-c1cb437cd180"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:scripts/mda-model-validator.mjs",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:2b3d6307-d910-4558-8546-41e3650d1bbb"
+}

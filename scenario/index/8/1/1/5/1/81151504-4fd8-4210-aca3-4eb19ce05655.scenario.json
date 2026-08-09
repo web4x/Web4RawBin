@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "81151504-4fd8-4210-aca3-4eb19ce05655",
+    "name": "Build.versionGuardTreeClean impl",
+    "sourceFile": "ior:file:scripts/start.mjs",
+    "tests": [
+      "ior:instance:788e7b83-bfd9-49cc-88ce-6d57d2a3d4c7"
+    ],
+    "designAhead": false,
+    "description": "R31.7 INV-V3 tree-clean guard @ scripts/start.mjs:84 versionGuardTreeClean(env) — git diff --quiet HEAD on the deploy-critical generator input+outputs (server.ts/package.json/sw.js/Config unit) fails LOUDLY before deploy = the stray-checkout landmine backstop; scoped (not whole-tree) so shared-repo churn does not false-positive. Marker [impl:uuid:81151504] on the decl."
+  },
+  "ownerIor": "ior:instance:e75a7e71-c521-45c3-aa3f-bb2dc422269e"
+}

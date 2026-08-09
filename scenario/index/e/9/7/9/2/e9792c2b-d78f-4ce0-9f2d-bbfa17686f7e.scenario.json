@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e9792c2b-d78f-4ce0-9f2d-bbfa17686f7e",
+    "name": "RbDiagramDetail.applyCanvasGrow",
+    "description": "NEW method on RbDiagramDetail (rb-diagram-detail.ts): grows the SVG canvas rendered dimensions (width/height px) + viewBox on zoom-out so the placeable area enlarges around the fixed-size boxes (real room = fixes the IMG_4793 space-problem). Called from RbPanZoom.apply() growMode branch via onCanvasGrow. INV: measurable PX growth of the SVG dims/scroll-area, boxes keep size - NOT content scale. markerPending (expert placed the code fix 749b36335; awaiting the [impl:uuid:eb468578] marker on this decl). NAME PROVISIONAL -> re-point on expert marker.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:eb468578-716d-46de-9b66-0f71d85d8066"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

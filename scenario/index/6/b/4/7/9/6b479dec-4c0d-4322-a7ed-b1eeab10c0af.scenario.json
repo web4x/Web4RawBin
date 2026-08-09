@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "6b479dec-4c0d-4322-a7ed-b1eeab10c0af",
+  "name": "Task 32.3: Model tree = traceability-tree UX reused over the MDA units (drag source)",
+  "slug": "task-32.3-model-tree",
+  "description": "The Model tree is conceptually the SAME as the traceability tree - REUSE the rb-trace-tree components + functionality (skill-expert lane, NO re-fork) to render the MDA scenario units; it is the drag SOURCE for diagram views. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.3 `[requirement:uuid:d07b2dc0-7499-4877-952c-655170a7a99a]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [ ] The model tree renders the MDA units via the SHARED rb-trace-tree component (same expand/collapse/icons/badges), NOT a new tree - generic tree mechanics solved once.\n- [ ] Each MDA unit itemView in the model tree is a drag SOURCE (draggable into a diagram surface).\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "coveredRequirements": [
+   "ior:instance:d07b2dc0-7499-4877-952c-655170a7a99a"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "buildOrder": 3,
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

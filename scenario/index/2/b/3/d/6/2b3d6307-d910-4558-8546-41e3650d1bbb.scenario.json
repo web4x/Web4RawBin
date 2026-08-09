@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "2b3d6307-d910-4558-8546-41e3650d1bbb",
+  "name": "model.validateGates",
+  "description": "R32.1: the MDA MoF model is CORRECT-BY-CONSTRUCTION - ModelValidator.validate enforces the 5 identity gates (uuid-unique, level-integrity, instanceof-nonempty, serialization-embeds-uuid, same-uuid-cross-representation) over the ModelElement units as a structural/CI gate. ModelElement = the ior:class:ModelElement TYPE of the seeded/validated units (the DATA), NOT this chains Class (architect confirmed: root at ModelValidator which owns validate). Supporting artifact (architect refinement, R31.10/13 no-mis-attribution): the SEED = scripts/seed-mda-model.mjs (IDEMPOTENT, PINNED uuids, re-run 0-churn = R31.13 determinism at seed level; 2 M3 + ~17 M2 units via ScenarioIndex.put + bidirectional instanceOf/instances). The seed-0-churn assertion credits the SEED code (if seed-mda-model.mjs exposes a named decl e.g. seedModel(), it gets its OWN supporting Impl+marker so 0-churn credits the seed, NOT validates Impl; if inline/no clean decl, note-as-supporting). The ONE R32.1 Test asserts all 3 architect gates: validate(seed)=0 violations + seed re-run 0-churn + planted M1->M3-skip -> validator RED.",
+  "class": "ior:instance:e0279b81-5a2f-45b6-bc23-94aea5c8e891",
+  "classes": [
+   "ior:instance:e0279b81-5a2f-45b6-bc23-94aea5c8e891"
+  ],
+  "method": "ior:instance:cdcc4988-5b82-4216-8151-c1cb437cd180",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

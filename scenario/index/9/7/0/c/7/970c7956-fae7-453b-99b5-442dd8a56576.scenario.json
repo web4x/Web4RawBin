@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "970c7956-fae7-453b-99b5-442dd8a56576",
+    "name": "TsToModel.generate",
+    "description": "R32.2 TS->M1 generator: generate(files, opts):{units, wrote, removed} walks each SourceFile (ts.forEachChild), computes the stable identity key sourceFile::qualifiedName, derives a deterministic v4-shaped uuid, builds the M1 ModelElement (metaLevel M1, kind, name, multi-facet instanceOf [UmlX, ts-X-code], members[] composition, relatesTo[] typed relationships) and ScenarioIndex.put (re-binds if the uuid exists). Idempotent 0-churn re-run (deterministic uuid, R31.13 discipline); reconcile removes elements absent from source. Post-gen ModelValidator.validate(generated)=0. Built on the R32.1 foundation (no fork). Architect design fa25b8b45; scenario-first IMPL-MINT (no self-mint, #126) - the [impl:uuid] marker lands on the generate() decl @ src/ts/scenario/TsToModel.ts:97 (name-matches 'generate').",
+    "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
+    "implementations": [
+      "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051"
+}

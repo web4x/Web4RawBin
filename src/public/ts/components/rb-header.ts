@@ -46,6 +46,19 @@ export class RbHeader extends HTMLElement {
         this.dispatchEvent(new CustomEvent(`rb-${action}`, { bubbles: true }));
       });
     });
+
+    // R31.12 device-fix (Tron): the room TITLE opens room settings for ALL in-room members (non-host = read-only,
+    // enforced in RoomView.openRoomEditor). REAL interactive element (role=button + keydown) so iOS WebKit fires the
+    // tap — was a plain click on a non-interactive <h2> = Chromium false-green, dead on real WebKit. Un-gated from
+    // showEdit → all members; ✏️ button stays host-only (unchanged). Reuses rb-edit → openRoomEditor.
+    const titleEl = this.querySelector('.rb-header-title') as HTMLElement | null;
+    if (titleEl) {
+      titleEl.setAttribute('role', 'button'); titleEl.setAttribute('tabindex', '0');
+      titleEl.style.cursor = 'pointer'; titleEl.title = 'Room settings';
+      const openCfg = () => this.dispatchEvent(new CustomEvent('rb-edit', { bubbles: true }));
+      titleEl.addEventListener('click', openCfg);
+      titleEl.addEventListener('keydown', (e: Event) => { const k = (e as KeyboardEvent).key; if (k === 'Enter' || k === ' ') { e.preventDefault(); openCfg(); } });
+    }
   }
 }
 

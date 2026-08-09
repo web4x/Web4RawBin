@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "a1d2e3f4-0000-4a1b-8c2d-000000000022",
+    "name": "DeploymentTarget",
+    "metaLevel": "M2",
+    "kind": "class",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003"
+    ],
+    "instances": [],
+    "sentinelReason": "M2 deployment-metamodel member — patterned uuid by design for a1d2e3f4 family lookup (registered sentinel, R5 exception, identity-detector exclusion)",
+    "abstract": true
+  }
+}

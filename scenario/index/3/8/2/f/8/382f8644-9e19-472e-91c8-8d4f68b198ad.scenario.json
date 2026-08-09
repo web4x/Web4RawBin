@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "382f8644-9e19-472e-91c8-8d4f68b198ad",
+    "name": "TsToModel.generate impl (TS AST -> M1 ModelElement units, deterministic uuid)",
+    "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at fc1ca5b57: [impl:uuid:382f8644] heads the named generate() decl @ src/ts/scenario/TsToModel.ts:96 (marker line 92 immediately precedes generate(files...), label name-matches 'generate'; Method 970c7956, Class fc2f97c9, UC efaea742). Comment-only, gate stays GREEN (abc42508f v0.8.2). IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test hop HOLDS for the tester independent vitest GREEN (not the expert tsx self-check) - credited on the tester real marker.",
+    "tests": [
+      "ior:instance:ba762f5a-3eae-4bde-bccc-16de66c6682d",
+      "ior:instance:5bb30e23-e73c-4a40-aeb6-7786648afc4d",
+      "ior:instance:84ffd586-0f45-4b1d-bc69-13983141f9d3"
+    ]
+  },
+  "ownerIor": "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576"
+}

@@ -3,6 +3,7 @@
   "model": {
     "uuid": "292d8931-efff-45ab-b66e-772fac16c6ea",
     "name": "T187: Trace narrowing — single-thread chain in /trace, full fan-out in /scenario",
+    "supersededBy": "RE-DELIVERED-LATER: trace-narrowing (chainMethod) re-delivered S30/S33/S36-unified-M2",
     "slug": "task-187-trace-narrowing-single-thread-chain",
     "description": "/trace shows a NARROWED single-thread chain starting at UC→Method:\nUC.method (ONE singular) → Method.implementation (singular) → tests.\n/scenario shows FULL fan-out: UC.classes[]→Class.methods[] (ALL).\nNAV layer (Sprint→Tasks→coveredReqs→UCs) is IDENTICAL in both modes — all children, 1:N OK.\nSprint is a root-level nav-root. /api/trace/sprints endpoint.",
     "status": "In Progress",

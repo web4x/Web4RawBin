@@ -22,15 +22,16 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
+import { sprintPrefix } from '../src/ts/scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
-const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
-const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
+export const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
+export const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
 
 const idx = new ScenarioIndex(INDEX_DIR);
 
-function allUnits(): Map<string, ScenarioUnit> {
+export function allUnits(): Map<string, ScenarioUnit> {
   const m = new Map<string, ScenarioUnit>();
   const uuids = [...idx.list()].sort();
   for (const uuid of uuids) {
@@ -98,7 +99,7 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
     '',
     `[Back to Sprints](../sprints.overview.md)`,
     '',
-    `# Sprint ${m.number || '?'} Planning — ${m.name || '(untitled)'}`,
+    `# ${sprintPrefix(m.number)} Planning — ${m.name || '(untitled)'}`,
     '',
     '## Sprint Goal',
     '',
@@ -142,7 +143,7 @@ function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, Scenari
     '',
     `[Back to Planning](./planning.md)`,
     '',
-    `# Sprint ${m.number || '?'} Requirements — ${m.name || '(untitled)'}`,
+    `# ${sprintPrefix(m.number)} Requirements — ${m.name || '(untitled)'}`,
     '',
     '## Requirements',
     '',
@@ -176,12 +177,12 @@ function generateRequirementsMd(sprint: ScenarioUnit, units: Map<string, Scenari
   return normalize(lines.join('\n'));
 }
 
-interface SprintOutput {
+export interface SprintOutput {
   sprintSlug: string;
   files: Map<string, string>; // filename → content
 }
 
-function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>): SprintOutput | null {
+export function buildSprintOutput(sprintUuid: string, units: Map<string, ScenarioUnit>): SprintOutput | null {
   const sprint = idx.get(sprintUuid);
   if (!sprint || sprint.ior !== 'ior:class:Sprint') return null;
   const sprintSlug = speakingSlug(sprint);
@@ -215,8 +216,21 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   // file that exists WITHOUT that header: it is hand-authored (diagnosis brief, design doc, *.png)
   // and lives outside the unit-derived output. This makes the DATA-LOSS hazard (a task slug colliding
   // with a hand-authored filename) structurally impossible — the generator can only overwrite its own prior output.
+  // OWNED-OUTPUT CONFINEMENT (2026-07-26, robbin-po/req — protect diagrams + design notes from regen
+  // data-loss): the generator's write set is a WHITELIST — only bare *.md files it emits (planning.md,
+  // requirements.md, task-*.md). It NEVER writes (nor could delete) a path-escaping name, a diagrams/*.puml,
+  // or a design-*.md brief. Combined with the GENERATED_HEADER overwrite-guard below, non-generated
+  // artifacts are structurally protected — a future prune step also cannot escape this whitelist.
+  const isOwnedOutput = (n: string): boolean =>
+    !n.includes('/') && !n.includes('..') && n.endsWith('.md') &&
+    !n.endsWith('.puml') && !/^design-.*\.md$/.test(n);
   let written = 0, skipped = 0;
   for (const [name, content] of out.files) {
+    if (!isOwnedOutput(name)) {
+      console.log(`  ⛔ REFUSE (not generator-owned output, protected artifact): ${name}`);
+      skipped++;
+      continue;
+    }
     const fp = path.join(sprintDir, name);
     if (fs.existsSync(fp)) {
       const existing = fs.readFileSync(fp, 'utf-8');
@@ -230,6 +244,15 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
     written++;
   }
   console.log(`  ✓ ${written} files${skipped ? ` (${skipped} hand-authored preserved)` : ''}`);
+}
+
+// [impl:uuid:b31ae393-0701-46a8-9296-4ed965e00fc2] SprintViewGenerator.generateAll (Method eddf2836, Class
+// SprintViewGenerator 93f9afc7, UC bf1cf902 sprintBoard.reconcileAll) — R-C2 one-time reconcile-all: regenerate
+// EVERY sprint's board MD from its units in ONE pass. Pure extraction of the prior inline --all loop (SAME
+// behavior, no new logic): units→md only (INV-C1 units untouched), idempotent byte-stable (INV-C2), generated-only
+// (INV-C3, OWNED-OUTPUT whitelist in generateSprint), reflects fields never invents status (INV-C4).
+function generateAll(sprintUuids: string[], units: Map<string, ScenarioUnit>): void {
+  for (const uuid of sprintUuids) generateSprint(uuid, units);
 }
 
 interface CheckResult { sprintSlug: string; missing: string[]; extra: string[]; mismatched: string[]; ok: boolean; }
@@ -281,7 +304,8 @@ function reportCheck(r: CheckResult): void {
   for (const f of r.mismatched) console.log(`    mismatched: ${f}`);
 }
 
-// CLI
+// CLI — guarded so importing this module (e.g. from migrate-boards.ts) does NOT execute the generator on load.
+if (process.argv[1] && process.argv[1].endsWith('generate-sprint-md.ts')) {
 const args = process.argv.slice(2);
 const isCheck = args.includes('--check');
 const filtered = args.filter(a => a !== '--check');
@@ -295,13 +319,30 @@ if (cmd === '--list') {
   const units = allUnits();
   const sprintUuids = [...units.entries()].filter(([, u]) => u.ior === 'ior:class:Sprint').map(([uuid]) => uuid).sort();
   if (isCheck) {
-    console.log('\n=== Sprint MD Round-Trip Check ===');
+    console.log('\n=== Sprint MD Round-Trip Check (honest-metric scoping — Tron ruling) ===');
+    // IN-SCOPE = S19-S37 (incl the S21-29 backfill targets) → MUST byte-match, counted in the metric. FROZEN LEGACY
+    // = S01-S18 (hand-authored, NOT generated) → EXCLUDED from the metric but EXPLICITLY LISTED (never a silent
+    // exclusion). The G5 design-doc planning.md (S01-09) fall under this frozen exclusion. The printed number is REAL
+    // (N/N in-scope + K frozen legacy), never a fake 37/37.
+    // Authoritative sprint number = model.number (the generator's own field); fall back to a sprint-NN in the
+    // sourceFile/slug. NEVER regex the free-text name (e.g. S36 "…M2…" would falsely parse as 2).
+    const sprintNumOf = (u: string): number => {
+      const mdl = units.get(u)?.model as Record<string, unknown> | undefined;
+      const n = Number(mdl?.number);
+      if (Number.isFinite(n) && n > 0) return n;
+      const m = /sprint-(\d+)/i.exec(String(mdl?.sourceFile || mdl?.slug || ''));
+      return m ? parseInt(m[1], 10) : -1;
+    };
+    const inScope = sprintUuids.filter(u => sprintNumOf(u) >= 19).sort((a, b) => sprintNumOf(a) - sprintNumOf(b));
+    const frozen = sprintUuids.filter(u => { const n = sprintNumOf(u); return n >= 1 && n <= 18; }).sort((a, b) => sprintNumOf(a) - sprintNumOf(b));
     let failed = 0;
-    for (const uuid of sprintUuids) { const r = checkSprint(uuid, units); reportCheck(r); if (!r.ok) failed++; }
-    console.log(`\nResult: ${sprintUuids.length - failed}/${sprintUuids.length} sprints byte-match`);
+    for (const uuid of inScope) { const r = checkSprint(uuid, units); reportCheck(r); if (!r.ok) failed++; }
+    console.log('\n--- FROZEN LEGACY (S1-S18, hand-authored, NOT generated — EXCLUDED from the metric, listed for visibility) ---');
+    for (const uuid of frozen) console.log(`  frozen legacy: ${String(units.get(uuid)?.model.name || uuid)}`);
+    console.log(`\nResult: ${inScope.length - failed}/${inScope.length} IN-SCOPE (S19-S37) byte-match + ${frozen.length} frozen legacy (excluded, hand-authored)`);
     if (failed > 0) process.exit(1);
   } else {
-    for (const uuid of sprintUuids) generateSprint(uuid, units);
+    generateAll(sprintUuids, units);
   }
 } else if (cmd) {
   const units = allUnits();
@@ -315,3 +356,4 @@ if (cmd === '--list') {
 } else {
   console.log('Usage: npx tsx scripts/generate-sprint-md.ts [--check] <sprint-uuid|--all|--list>');
 }
+} // end CLI guard

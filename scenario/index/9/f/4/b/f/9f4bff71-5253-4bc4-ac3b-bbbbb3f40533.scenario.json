@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9f4bff71-5253-4bc4-ac3b-bbbbb3f40533",
+    "name": "test:R34.5 (R-D1) auto-expand-on-navigate @390 (RbDetailDrawer.showActionsForType fires rb-tree-reveal)",
+    "description": "Bridged to test/visual/r34-webkit-sweep-gate.mjs (INDEPENDENT tester real-WebKit Safari-605 @390 gate, GREEN DET-3x, served==0.8.42, 5744070b7, pollution-free planted-defect). Marker adopted from origin (measured, not invented). on a modelelement detail-show, showActionsForType fires rb-tree-reveal{ref} (auto-expand-on-navigate); a diagram detail-show does NOT (type==='modelelement' guard). DISTINCT-INTENT 2nd Test on e6870858 alongside R33.6.5 bd8c14fc. R34.5/R-D1.",
+    "sourceFile": "ior:file:test/visual/r34-webkit-sweep-gate.mjs",
+    "implementations": [
+      "ior:instance:e6870858-2f5b-4605-a2a7-31b366dd41e2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6870858-2f5b-4605-a2a7-31b366dd41e2"
+}

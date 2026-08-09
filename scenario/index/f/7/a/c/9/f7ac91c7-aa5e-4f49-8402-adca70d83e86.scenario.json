@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "f7ac91c7-aa5e-4f49-8402-adca70d83e86",
+    "name": "server.projectUmlUseCase",
+    "description": "Type-level projection (Tron Ruling A: 'UmlUseCase extends UseCase'): on the /api/ior resolution path, when ior==='ior:class:UseCase', UNION the UmlUseCase M2 facet (ior:instance:792cd09c-8a94-48da-abc6-b890d5f880ea) into m.instanceOf IN-MEMORY (compute-on-read, NEVER writes the file) so every UseCase resolves with instanceOf ⊇ {UmlUseCase} — INV-U1 project-not-write => INV-T tree byte-diff==0 by construction. Distinct from the class counterpart-merge (reconcileCanonical). RIDES the shared reconcileCanonical Impl 37c08fd5 (R30.11 shared-impl: the fix is a UseCase branch added ahead of reconcileCanonical's no-key early-return, per architect design lines 171-195) — 37c08fd5 marker/ownerIor/tests UNTOUCHED, the credit is the DISTINCT UseCase-projection Test (minted at gate, verify-owner-first, NO cross-wire onto the class Tests fb5ae5eb/e21b876d). If the expert extracts a sibling decl on the /api/ior path (:2458) with its own [impl:uuid], I re-point (data=truth). Server change -> real restart + R31.7.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

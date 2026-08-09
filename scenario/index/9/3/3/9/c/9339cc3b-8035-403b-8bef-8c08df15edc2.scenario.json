@@ -1,0 +1,73 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9339cc3b-8035-403b-8bef-8c08df15edc2",
+  "name": "sprints.overview.md is a GENERATED view (with preserved-narrative region)",
+  "altId": "R-C6",
+  "tasks": [
+   "ior:instance:32061171-e236-4ed4-8f7f-8db42e0b395b"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:833d3525-d269-4b98-bc23-12551c5d40b6"
+  ],
+  "description": "sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R-C6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.",
+  "discoverySource": {
+   "type": "team-discovery-authorized",
+   "discoveredBy": "robbin-architect (R-C2 design surfaced)",
+   "approvedBy": "robbin-po",
+   "date": "2026-08-07",
+   "doctrine": "session/knowledge-base/consistency-by-construction.md",
+   "note": "Surfaced during R-C2 design; PO approved as distinct S37 reqs, kept OUT of R-C2."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-generated",
+    "group": "functional",
+    "text": "The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained."
+   },
+   {
+    "id": "AC-preserved-narrative",
+    "group": "functional",
+    "text": "A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) — the generator writes the table region, preserves the narrative region."
+   },
+   {
+    "id": "AC-check-ci",
+    "group": "functional",
+    "text": "A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R-C3)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-preserved-region",
+    "group": "region",
+    "text": "REGION granularity (INV-C6-1): the generator writes ONLY between <!-- GENERATED-INDEX:BEGIN --> and <!-- GENERATED-INDEX:END --> markers; bytes OUTSIDE the markers are byte-identical pre/post (hand narrative safe by construction). First run (markers absent): insert the marker pair at the canonical index location, preserving all surrounding prose."
+   },
+   {
+    "id": "AC-frozen-legacy-visible",
+    "group": "frozen",
+    "text": "FROZEN-LEGACY VISIBLE (INV-C6-3, no silent cap): the excluded sets - S01-18 frozen-legacy + the 10 design-doc planning.md (S01-09) - are EXPLICITLY LISTED as frozen-legacy in --check output from a NAMED list (not inferred); dropping a sprint from the frozen set surfaces it BACK into the gate (a change, not a silent slip). The overview index also tags them 'frozen-legacy' so a reader sees the boundary."
+   },
+   {
+    "id": "AC-fail-closed-vacuous",
+    "group": "vacuous",
+    "text": "FAIL-CLOSED on vacuous (INV-C6-4, per R-C3): generateOverview on empty sprint set / unresolvable current-pin / missing markers / vacuous-or-unresolvable frozen-list -> REFUSE with a named reason, NEVER emit an empty index (an empty index would read as 'no sprints'); --check on a missing overview file -> FAIL named, not skip-as-match."
+   },
+   {
+    "id": "AC-no-status-invention",
+    "group": "honesty",
+    "text": "NO status invention (INV-C6-5): the index status = R-C5 rollup (R-C1 pin marks current/last/next); Done and supersededBy are counted DISTINCTLY (INV-C1-7 carried up) - the overview never shows/collapses a superseded sprint as Done."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

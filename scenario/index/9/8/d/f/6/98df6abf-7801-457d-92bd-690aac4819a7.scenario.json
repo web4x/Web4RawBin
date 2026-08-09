@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "98df6abf-7801-457d-92bd-690aac4819a7",
+    "name": "editorFooter.filesRealPath",
+    "description": "The Files tab reveals the ACTUAL shard path (scenario/index/<shard>/<uuid>.scenario.json) via /api/unit/<uuid>/path {realPath,dir} computed from PROD_INDEX + the SAME shard rule the store uses (single-sourced, never re-derived), browsable in the existing file-browser. Fail-closed: unit not on disk -> say so, never fake a path.",
+    "class": "ior:instance:2ad2195f-acbc-4f1f-a1bb-fcb730e6ce99",
+    "method": "ior:instance:07a14dc5-8139-42ac-b495-c7394f75c302",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb"
+}

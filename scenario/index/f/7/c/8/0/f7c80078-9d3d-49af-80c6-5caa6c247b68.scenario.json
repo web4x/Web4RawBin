@@ -3,6 +3,7 @@
   "model": {
     "uuid": "f7c80078-9d3d-49af-80c6-5caa6c247b68",
     "name": "T-detail-browse-line: line info carried through file-browser to Monaco editor",
+    "supersededBy": "RE-DELIVERED-LATER: Monaco line-carry detail superseded S27",
     "slug": "detail-browse-line-info-to-monaco",
     "description": "Line info carried through file-browser to Monaco so editor opens at correct line. Already shipped. Traceability-closure task.",
     "status": "In Progress",

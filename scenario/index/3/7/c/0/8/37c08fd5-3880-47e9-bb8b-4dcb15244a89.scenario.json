@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "37c08fd5-3880-47e9-bb8b-4dcb15244a89",
+    "name": "server.reconcileCanonical impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:fb5ae5eb-2736-4abc-b3c9-2473a186d3f1",
+      "ior:instance:e16322ff-69f1-46a0-99a1-125a3427dbe2"
+    ]
+  },
+  "ownerIor": "ior:instance:5530ea76-b9c0-4abc-a3d4-4d63db4f531d"
+}

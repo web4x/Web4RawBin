@@ -7,8 +7,13 @@
 [task:uuid:8a31ba75-22b6-48ff-9532-d5da21458543]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
+- [x] Planned
+- [x] In Progress
+  - [x] refinement (architect — view-gen design)
+  - [x] creating test cases
+  - [x] implementing (expert — generator round-trip)
+  - [x] testing (tester — champagne 442237d6 GREEN; AC1/3/4/5 PASS; 7-step chain Test 9dbf5538→Impl ee738f5f→…→Req R18.3 wired)
+- [ ] QA Review
 - [ ] Done
 
 ## Task Description

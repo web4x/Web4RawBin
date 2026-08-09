@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "86930eae-e0ba-4e67-8819-8e9d4954d05c",
+    "name": "test:R31.8 RbFeatureDetail.applyGrant grant->fm-tree-refresh @390",
+    "description": "Bridged to test/visual/r318fm-client-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.135). Mousedown a hit -> POST /api/feature-manager {action:grant,feature,token} -> fm-tree-refresh FLIP. Client @390. Marker 86930eae adopted from origin (measured on line 1, not invented). Impl cfde8f48 on FeatureManager/RbFeatureDetail (R31.8).",
+    "sourceFile": "ior:file:test/visual/r318fm-client-gate.mjs",
+    "implementations": [
+      "ior:instance:cfde8f48-a004-4a0a-818e-7306c0d0c2dd"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cfde8f48-a004-4a0a-818e-7306c0d0c2dd"
+}

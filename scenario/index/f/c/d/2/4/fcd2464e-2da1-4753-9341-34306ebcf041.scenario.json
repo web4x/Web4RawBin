@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fcd2464e-2da1-4753-9341-34306ebcf041",
+    "name": "RbDiagramDetail.onSelectionChanged",
+    "description": "R32.11-MOBILE tap-to-add complement: onSelectionChanged(e) @ src/public/ts/trace/rb-diagram-detail.ts:62 - a 'selection-changed' listener that, when the diagram is open and exactly ONE 'modelelement:' ref is selected, calls addView (no coords, auto-grid) so a single TAP adds a UML box on touch/iOS (where HTML5 DnD does not fire). Multi-select + non-modelelement are guarded. NEW Method on the EXISTING Class RbDiagramDetail (holds addView 70be1605 drag + reSyncFromSource) - DISTINCT decl, no re-credit of addView. scenario-first IMPL-MINT (#126) - the [impl:uuid] marker lands on the onSelectionChanged decl (:62, name-matches; marker-pending comment already at :57).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:20f8a19e-a508-4fcd-8329-04b73bbbcc54"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "383d2467-5f45-4f0b-bd74-cc70c5139f0c",
+    "name": "RbDiagramDetail.wireBoxDrag",
+    "description": "R33.3 movable big-rock: wireBoxDrag(surface, content):void wires per-.dm-box pointer/touch drag -> live-move + view-link x,y update + POST /api/model/diagram/move-view persist, disambiguated from RbPanZoom pan, touch+mouse; box-drag-end suppresses the select click. NEW decl, distinct from addView 70be1605 / onSelectionChanged fcd2464e / render. Decl @ src/public/ts/trace/rb-diagram-detail.ts:187; scenario-first IMPL-MINT (#126) - the [impl:uuid] marker lands on this decl (name-matches).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:a4f8ad6a-49c9-4c9a-9f15-5ea168f8e5be"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

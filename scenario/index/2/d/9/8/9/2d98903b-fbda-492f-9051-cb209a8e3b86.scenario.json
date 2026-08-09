@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2d98903b-fbda-492f-9051-cb209a8e3b86",
+    "name": "server.modelFacetType",
+    "description": "R32.3 model-tree data-shaping: modelFacetType(model, idx):string @ src/ts/server/server.ts:35 maps a ModelElement node to its M2 MODEL-facet metaclass name (from instanceOf: UmlClass/UmlInterface/UmlAttribute/UmlMethod/UmlProperty/UmlFunction) so the server children/detail responses set the node display `type` = the model kind (walk still uses the real 'ModelElement' type) -> rb-object-item renders TRACE_ICONS[UmlX]. Data-shaping only; NO rb-trace-tree mechanics touched. Composition children come from the additive chain-model ModelElement forward-key ['members'] (forwardKeysForMode R31.11); the /api/model/tree route (server.ts:1464) is inline endpoint glue feeding the roots. Built on R32.1/R32.2. Architect design b24c7b259; scenario-first IMPL-MINT (#126, no self-mint) - the [impl:uuid] marker lands on the modelFacetType() decl (name-matches).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:449d830a-d488-407c-8cc7-81a6bce649f2"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

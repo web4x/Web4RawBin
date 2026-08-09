@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "64c4f023-7dba-40bb-af17-0bc6ab18571d",
+    "name": "server.ensureViewUnit",
+    "description": "NEW resolver-side get-or-create for R34.2/A2 (architect fork A, expert decl 8e92f6817): server.ensureFolderFileUnit resolves a synthetic tree ref (dir:<rel> | file:src/<rel>) to a REAL ior:class:Folder|File unit in MODEL_STORE, deterministic uuid=keyToUuid(\"folder::\"|\"file::\"+rel), LAZY idempotent mint on first detail (INV-A2-2 no-dup / A2-3 MODEL_STORE-only, prod scenario/index UNTOUCHED). Wired into the /api/ior resolve path so a dir:/file: ref resolves to the unit (detail + exact location + universal A1 Scenario/Edit). Tree output byte-unchanged (fork A). Mirrors createFolder 28000b00 / newElement. IMPL-MINT — expert marks [impl:uuid:a09b474d] on this decl.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:a09b474d-c1de-44de-9cd3-d4eda13943b6"
+    ],
+    "tests": [],
+    "genNote": "R35.2 GENERALIZE (impl-edit, marker STAYS a09b474d, expert ship 4b2954ed4 v0.8.46): ensureFolderFileUnit RENAMED+generalized in place to ensureViewUnit(ior) — EVERY synthetic view ref maps to a REAL lazy-minted ior:class:X in MODEL_STORE (Folder/File/PumlArtifact/Project; keyToUuid idempotent; prod-untouched; fork-A byte-unchanged). Name re-pointed to match the renamed decl (server.ts:1110) for strict-AST. CREDITS 3 reqs via distinct-intent Tests on ONE Impl a09b474d: R34.2 File/Folder (SUBSET, Test 23a9f9fd holds) + R35.2 all-types + R35.3 populate-fields-inline (no separate helper, per default). project:<x> -> ior:class:Project flagged to architect."
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

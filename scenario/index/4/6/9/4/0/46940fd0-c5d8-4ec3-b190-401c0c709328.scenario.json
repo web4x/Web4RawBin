@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "46940fd0-c5d8-4ec3-b190-401c0c709328",
+  "name": "element.new",
+  "description": "R33.9 unit-verb NEW (design fcc9166e4): POST /api/model/element/new creates a new model element (guarded, store-only MODEL_STORE, prod scenario/index untouched). Server change -> boundary restart. INV-A3 (unit verb always available). architect service 'ModelElementService'.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:42bf4938-c6d6-4c42-99fa-4470d4481fe4",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.9&commit=fcc9166e4",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

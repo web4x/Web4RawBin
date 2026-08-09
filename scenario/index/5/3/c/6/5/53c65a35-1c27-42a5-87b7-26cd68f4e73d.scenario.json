@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "53c65a35-1c27-42a5-87b7-26cd68f4e73d",
+    "name": "test:R33.5 item1 addDiagram REVEAL @390 (ModelView.addDiagram) — expandPath reveals 2 real diagrams 0->2 + planted-bite",
+    "description": "Bridged to test/visual/r335c-item1-reveal-gate.mjs (INDEPENDENT tester @390 REVEAL gate, GREEN DET-3x on SERVED v0.8.20, 19b0bbfee). Marker adopted from origin (measured line 9, not invented). ★ DISTINCT-INTENT 2nd Test on Impl ffdd9347 alongside LOGIC a5882399 — verifies the REVEAL half: expandPath(['mof-m1','project:RawBin','rawbin:diagram']) -> the 2 REAL diagram itemviews appear under an opened diagrams/ (0->2) via the UNGATED /api/trace/children (data APIs public, no owner-cookie for the reveal half; from the LIVE server, independent of the expert's oracle, NOT mocked children) + planted-defect bite (non-diagram path rawbin:ts -> 0 diagram nodes). This MOVES reveal-render from Tron-held -> independently gated; only the CREATE-POST owner-write half stays owner/Tron (logic Test a5882399 / device @390). NOTE: reveal is driven by rb-trace-tree.expandPath which the expert fixed to walk by UUID (raw-uuid vs the tree's type:uuid open-keys mismatch the tester MEASURED). Chain: R33.5 req 3c99ce28 -> UC diagram.addDiagramRefresh -> Class ModelView 35759641 -> Method 85a36ec2 -> Impl ffdd9347 -> this Test (distinct-intent REVEAL, alongside a5882399 LOGIC).",
+    "sourceFile": "ior:file:test/visual/r335c-item1-reveal-gate.mjs",
+    "implementations": [
+      "ior:instance:ffdd9347-34db-4923-9cee-b6d00dd8ec9c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ffdd9347-34db-4923-9cee-b6d00dd8ec9c"
+}

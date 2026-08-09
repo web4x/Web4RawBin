@@ -1,0 +1,61 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "86219c51-48f6-426f-bfec-8a01f5c298d8",
+  "altId": "R33.8",
+  "name": "Remove-from-diagram action: selected class-on-diagram -> action-bar removes its VIEW (inverse of add-view), model element untouched, edges reroute + refresh",
+  "description": "Tron IMG_4794 device ask ('i am lacking a remove from diagram button' + 'action'). A 'Remove from diagram' action in the R33.6.5 selection-driven action bar: when a class/element ON a diagram is selected, the action removes it FROM the diagram - drops its VIEW/view-link (the INVERSE of R33.5 add-view) WITHOUT deleting the underlying model ELEMENT/unit (it stays in MODEL_STORE, re-addable); then the diagram REFRESHES and connectors re-route/drop (R33.6.3 rerouteEdges). Reuse the R33.6.5 action-bar (ACTIONS_BY_TYPE, add a 'remove-from-diagram' verb for class-on-diagram) + a view-removal endpoint mirroring add-view (store-only, prod-safe). NO fork. ★ Connects to an R33.6.5 GAP: R33.6.5's spec (Tron round-2 item 5) was 'class -> rename/remove-from-diagram/delete/new-class' but ONLY 'Add to diagram' shipped for class selection (the R33.6.5 gate green-passed a PARTIAL action set). This req mints ONLY remove-from-diagram (Tron's explicit ask); the rename/delete/new-class remainder is FLAGGED to PO/Tron as a separate follow-up (NOT silently expanded here).",
+  "tronQuote": "> TRON (device IMG_4794, 2026-07-31): 'i am lacking a remove from diagram button' + 'action'.",
+  "tasks": [
+   "ior:instance:b628153b-736b-4d3d-8f4b-ff1c83d72b44"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:44d98bdc-4c07-4741-9a2d-ff42648cd94f",
+   "ior:instance:8185af11-5c71-45c6-bbd6-40697115b20c"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron (device IMG_4794) via robbin-po; PO-capture R33.8-remove-from-diagram-PO-capture.md (24c3567c9)",
+   "date": "2026-07-31",
+   "note": "Remove-from-diagram action-bar action; inverse of R33.5 add-view (drop the view-link, keep the model element); reuse R33.6.5 action-bar + R33.6.3 reroute. Surfaces the R33.6.5 partial-class-action-set gap (only Add-to-diagram shipped)."
+  },
+  "crossRef": [
+   "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2",
+   "ior:instance:50e4f6f0-b4c9-4f40-820c-2ee405ae1d35"
+  ],
+  "crossRefNote": "Reuse R33.6.5 action-bar (3c6eee8d, ACTIONS_BY_TYPE selection-driven) for the remove verb + R33.6.3 rerouteEdges (50e4f6f0) after removal. The removal is the INVERSE of R33.5 add-view (view-link drop, model element untouched).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-remove-action-shows",
+    "group": "functional",
+    "client": true,
+    "text": "When a class/element ON a diagram is selected, the R33.6.5 selection-driven action bar shows a 'Remove from diagram' action (added to the class-on-diagram action set alongside the shipped 'Add to diagram')."
+   },
+   {
+    "id": "AC-remove-drops-view",
+    "group": "functional",
+    "client": true,
+    "text": "Clicking 'Remove from diagram' removes that element's VIEW/view-link from the diagram - the INVERSE of R33.5 add-view (store-only view-removal endpoint mirroring add-view). The underlying model ELEMENT/unit is UNTOUCHED (stays in MODEL_STORE, re-addable via Add-to-diagram); prod scenario/index never touched. NOT a delete of the model element."
+   },
+   {
+    "id": "AC-remove-reroute-refresh",
+    "group": "functional",
+    "client": true,
+    "text": "After removal the diagram REFRESHES and the removed element's connectors re-route/drop (R33.6.3 rerouteEdges) - no stale edge left anchored to the removed box; other boxes + their edges untouched."
+   },
+   {
+    "id": "AC-390-gate-remove",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite + Tron device): select a class on the diagram -> 'Remove from diagram' -> the box AND its edges are GONE from the diagram, the model element STILL EXISTS (re-addable), other boxes untouched. planted-defect: the action DELETES the model element (wrong - must only drop the view) OR leaves a stale edge = RED."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.8&commit=2207a55fe",
+  "designAdopted": "Adopted design 2207a55fe: AC-remove-action-shows <- R33.6.5 verb (design B, rides wireDrawerActions); AC-remove-drops-view <- INV-RM1 (view-link filtered, ModelElement untouched) + INV-RM2 (store-only) + INV-RM4 (idempotent); AC-remove-reroute-refresh <- re-render (buildEdges recomputes, no dangling); AC-390-gate-remove <- INV-RM1 delete-model=RED. 2 chains: client removeFromDiagram + server persistRemoveView (inverse of addView cdd29583)."
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e152177d-d016-45eb-a41f-75ffe3dc9a64",
+    "name": "Detail/feature-view EXTRA action buttons de-duplicated onto the shared action bar (editor chrome unchanged)",
+    "altId": "R40.5",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1c21d43a-c036-43b8-b947-1fae68720bb5"
+    ],
+    "description": "The DETAIL-VIEW FAMILY (in-room detail views + feature/detail views) has accumulated EXTRA bespoke action buttons that DUPLICATE the same logical actions per view (not DRY). Each such additional button becomes an action UNIT rendered by the ONE shared universalActionBar (R35.1). ★ The point is DE-DUPLICATION (no logical action implemented more than once across detail/feature views), NOT uniformity for its own sake. ⛔ OUT OF SCOPE: the EDITOR CHROME keeps its UX EXACTLY as-is (Code · Open Diff · Save · the Files/Editor/Preview footer · the header Back) — Tron is happy with that UX; do NOT migrate/restyle/relocate it.",
+    "tronQuote": "the editor actions can stay the same regarding ux ... but all in-room detail views have additional buttons shall become [actions] and feature views / details views have additional action buttons that are extra and not DRY",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-grep-inventory-scoped",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] A GREP-DRIVEN INVENTORY of the ADDITIONAL action buttons across ALL in-room detail views + feature/detail views is produced at build; the EDITOR CHROME (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) is EXPLICITLY EXCLUDED and that exclusion is RECORDED (not silently dropped)."
+      },
+      {
+        "id": "AC-automatable-action-units",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] Each IN-SCOPE (detail/feature-view additional) button becomes an action UNIT rendered by the shared universalActionBar (R35.1 mechanism 54acc696/ffd44b17), NOT bespoke per-view markup."
+      },
+      {
+        "id": "AC-automatable-data-driven",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] Per-surface actionSets declared as DATA (config units), not hardcoded."
+      },
+      {
+        "id": "AC-automatable-dedup-lint-scoped",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source, stub-must-fail] The invariant: NO logical action is implemented more than once across the detail/feature views (DE-DUPLICATION, not uniformity). A grep-zero-bespoke lint SCOPED to the detail/feature-view surfaces ONLY — it must NOT fire on the editor chrome, and it must FAIL if a NEW bespoke detail-view button appears (plant one -> RED)."
+      },
+      {
+        "id": "AC-device-visual-390",
+        "group": "device",
+        "text": "[DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load)."
+      }
+    ],
+    "scopeNote": "EDITOR CHROME EXPLICITLY EXCLUDED (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) and this exclusion is RECORDED so a future reader does not think it was missed — its distinct chrome is NOT a defect; only the DUPLICATED extra buttons on detail/feature views are."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

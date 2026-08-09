@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "bbfc6d8b-c836-46df-a813-97ebaab43210",
+    "name": "SprintPinResolver.sprintNumOf",
+    "description": "sprintNumOf(unit) = Number.isFinite(model.number)&&>0 ? model.number : (/sprint-(\\d+)/i on sourceFile||slug) ?? -1. model.number authoritative; sourceFile/slug 'sprint-NN' fallback; the free-text NAME is NEVER parsed. THE single shared sprint-identity source for ALL consumers (CurrentSprint.ts, generate-sprint-md/check:sprint-md, migrate-boards, trace-audit) — zero local parsers. INV-C1-8 no-name-parse, enforced by a grep-lint BITE (a re-introduced name-based \\d parse anywhere in the consumer set = FAIL). Kills 31.1->31 and M2->2 by construction. R-C1 DRY addendum.",
+    "implementations": [
+      "ior:instance:e0f62b6c-f571-4a2a-a754-1575397a915d"
+    ]
+  },
+  "ownerIor": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268"
+}

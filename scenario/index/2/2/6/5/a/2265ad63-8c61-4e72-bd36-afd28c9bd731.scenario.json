@@ -1,0 +1,47 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "2265ad63-8c61-4e72-bd36-afd28c9bd731",
+  "altId": "R36.4",
+  "name": "UmlTraceRelationship extends TraceLink (typed RawBin decompose/trace)",
+  "classification": "new",
+  "clusterRef": "R36.4 UmlTraceRelationship",
+  "description": "NEW UmlTraceRelationship EXTENDS the existing TraceLink (reuse {from,to,fromType,toType,relation,direction,label}) with a RawBin relation VOCABULARY (decomposes/traces), NOT strict UML 2.5. Semantics: a UseCase (=Class.method/Object.verb) traces/decomposes → its Method. Each endpoint = a typed OOP-extended ScenarioUnit tracking usage-refs. Renders as a typed connector on the diagram (reuse R32.6 edges + EDGE_DEFS kind-map, add the trace kind).",
+  "tasks": [
+   "ior:instance:47f0d7d9-c9a3-4c69-8ed1-6b9aad0adf7d"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e",
+  "unitLinks": [],
+  "parent": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479",
+  "useCases": [
+   "ior:instance:8c10c217-3372-4cdb-b4ba-60076766a70c",
+   "ior:instance:a9148cbe-5ef6-4c47-b789-a414683ad58d",
+   "ior:instance:3a1428cd-a331-4ad2-8561-867537cf3937"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-extends-tracelink",
+    "group": "functional",
+    "text": "UmlTraceRelationship EXTENDS TraceLink (reuse from/to/fromType/toType/relation/direction/label) + a RawBin relation vocabulary (decomposes/traces) — NOT strict UML 2.5, NOT a new fork."
+   },
+   {
+    "id": "AC-semantics",
+    "group": "functional",
+    "text": "Semantics: a UseCase (Class.method/Object.verb) traces/decomposes → its Method; each endpoint is a typed OOP-extended unit tracking usage-refs."
+   },
+   {
+    "id": "AC-edge-render",
+    "group": "functional",
+    "text": "Renders as a typed connector on the diagram — reuse R32.6 edges + EDGE_DEFS kind-map with the added trace kind (no fork)."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390: a UmlTraceRelationship between a UseCase + its Method renders the typed trace connector; the relation vocabulary (decomposes/traces) is carried; endpoints resolve to real units."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?commit=07d01684e"
+ },
+ "ownerIor": "ior:instance:ce1d8d57-e845-428d-9dc9-9c241b17c479"
+}

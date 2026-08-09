@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "4fad0415-09c3-4318-bab9-b858d268fbe7",
+  "name": "modelElement.inspect",
+  "description": "R32.10: on /model, selecting a tree node opens the drawer with a TYPED node-detail. RbModelElementDetail (NEW element, registered in the drawer tagMap for a 'modelelement' ref) renders: a CLASS -> its «kind» + members (each a dv-link drilling to the member's signature) + relations + a '📐 Open diagram' dv-link -> diagram:<uuid> -> rb-diagram-detail (R32.4 boxes + R32.6 edges); a METHOD/attr -> its signature-detail. ENABLED by PART A (INV-M1, the root fix): model.ts imports + createElement('rb-detail-drawer') + appends to .trace-page (src/public/ts/model/model.ts:18-20, inline module init - mirrors scenario-view.ts:38-41) so the SHARED selectionModel/'selection-changed' opens the drawer (previously model.ts imported ONLY rb-trace-tree = 'no drawer opens'). Diagram-reach = a /api/model/tree touch (server.ts, emits modelelement + Diagram roots). PART A drawer-mount + the server touch are inline supporting enablers (no name-matchable decl); the distinguishing R32.10 anchor = RbModelElementDetail.render. REUSE rb-detail-drawer + rb-diagram-detail + selectionModel, no fork. INV-M3: the R32.9 /model 403-non-member gate is preserved. Gated @390 at the interaction.",
+  "class": "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086",
+  "classes": [
+   "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086"
+  ],
+  "method": "ior:instance:c2da9192-8fb2-4872-9f93-c5aafc0e59c6",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

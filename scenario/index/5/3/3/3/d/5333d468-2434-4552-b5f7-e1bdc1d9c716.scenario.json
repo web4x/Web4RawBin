@@ -1,0 +1,61 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5333d468-2434-4552-b5f7-e1bdc1d9c716",
+  "altId": "R33.1.1",
+  "name": "Existing-source .puml itemview renders its diagram as SVG in-section (R33.6 item-4 / R33.1.1 consolidated — renderPumlSource)",
+  "description": "S33-P1 completion fast-follow (PO 2026-07-30): the R33.1 MOF-tree M1·Projects design includes a '📄 PUML (code)' leaf under each project node (its R32.7 modelToPuml serialization), but the expert honestly stopped tight - the PUML-code leaf is NOT wired (only the folder structure + Diagram(svg) shipped in R33.1). R33.1.1 wires it: the M1 project node gets a '📄 PUML (code)' leaf that shows the R32.7 modelToPuml text for the project's model. THIN - reuses R32.7 modelToPuml (Impl 8462f889), no new serializer; the tree already renders leaf nodes. Refinement of R33.1 (completes AC-m1-projects-tree's PUML node). Gate the leaf @390 (appears + shows code).",
+  "tronQuote": "> (S33-P1 completion; the '📄 PUML (code)' leaf from the R33.1 design 4d9ec3914 tree shape, deferred by the expert's tight stop.)",
+  "tasks": [
+   "ior:instance:8be6074f-29c9-4566-b710-bf861d9d9799"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:8b858586-d70e-42e0-8f56-5e5eb6629b6a"
+  ],
+  "unitLinks": [],
+  "refinementOf": "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b",
+  "refinementOfNote": "Completes R33.1 AC-m1-projects-tree's '📄 PUML (code)' leaf (deferred by the expert's tight stop; thin fast-follow, reuse R32.7 modelToPuml).",
+  "discoverySource": {
+   "type": "team-discovery",
+   "flaggedBy": "robbin-expert (honest tight stop) via robbin-po",
+   "date": "2026-07-30",
+   "note": "R33.1 shipped the MOF folders + Diagram(svg) but not the PUML(code) leaf; captured as a thin S33-P1 completion refinement."
+  },
+  "crossRef": [
+   "ior:instance:b1fef048-dc5c-4315-b410-12a724968234",
+   "ior:instance:3c99ce28-a6e6-4950-8fad-3cd872a7cf8b"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-existing-source-render",
+    "group": "functional",
+    "text": "INV-P1.1 (existing-source only): a puml-src FOLDER-leaf itemview (an EXISTING authored .puml under the project's source, the R33.5 source half) renders its diagram as SVG in-section on select/expand. It renders the RAW authored .puml text, NEVER R32.7 modelToPuml model-generated puml. Absent source -> no section."
+   },
+   {
+    "id": "AC-render-reuse-nofork",
+    "group": "functional",
+    "text": "INV-P1.2 (render reuse, no fork): the SVG comes from the SAME /api/puml-render + rb-preview.renderPuml path as the /md preview - identical output, no second renderer. GET /md/<relpath>.puml (raw text/plain) -> POST /api/puml-render -> SVG."
+   },
+   {
+    "id": "AC-render-readonly",
+    "group": "security",
+    "text": "INV-P1.3 (isolation-safe): the render is READ-ONLY - fetch the source .puml then POST to render only; no MODEL_STORE or prod mutation."
+   },
+   {
+    "id": "AC-gate-puml-src-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit (Test 478d8204, r3364-puml-source-render-gate.mjs, served==HEAD 0.8.38): select a REAL puml-src leaf -> GET /md raw -> POST /api/puml-render (docker plantuml) -> SVG renders in-section (okW>0, nodes>0, PIXEL-sample non-bg); a planted bogus relpath -> NO svg. DET-3x."
+   }
+  ],
+  "scopeNote": "SCOPE CORRECTION (expert measure-first, PO 2026-07-30): R32.7 modelToPuml (8462f889) is UN-WIRED (zero callers, no store->PumlNode builder), so the PUML(code)-leaf is NOT thin-reuse - it is a 3-PART build (expert does all 3): (1) a store->PumlNode/PumlRelation ADAPTER (read a project M1 model from MODEL_STORE -> the modelToPuml input shape); (2) a server ENDPOINT exposing the project PUML text; (3) the CLIENT leaf render (the 📄 PUML(code) node + its content). modelToPuml (the serializer) is still REUSED (no fork). ★ DEFERRED: build AFTER S33-P2 (RawBin real M1) per PO - a real multi-file project is the meaningful PUML target. The 5333d468 unit stays valid scenario-first; expert designs + marks the 3-part chain when built. On the expert design I refine the R33.1.1 ACs to the 3 parts + IMPL-MINT. ★ SCOPE CONSOLIDATION + AC-REFINE (2026-08-01, planner honest-board catch + PO gate-the-ac-surface, r336Item4Consolidation / designAdopted 343938e7e): R33.1.1 was CONSOLIDATED with R33.6 item-4 into the EXISTING-SOURCE .puml itemview RENDER (renderPumlSource, Impl b0c0d27d, INV-P1.1/1.2/1.3) - THIS is what SHIPPED v0.8.38 + got GATED (Test 478d8204). The formal acceptanceCriteria[] are now REFINED to the delivered renderPumlSource scope; the stale modelToPuml PUML(code)-leaf ACs (AC-puml-code-leaf / AC-reuse-modelToPuml / AC-gate-puml-leaf-390) are DROPPED per PO (requirement==impl==gate). The R32.7-modelToPuml-generated PUML(code) leaf is SUPERSEDED-by-consolidation for R33.1.1 (a future generated-puml item can re-open it if Tron wants generated output; NOT part of the delivered R33.1.1).",
+  "deferredNote": "Build order: AFTER S33-P2 (RawBin real M1). PO 2026-07-30.",
+  "r336Item4Consolidation": "R33.6 item-4 CONSOLIDATION (2026-07-31, PO-capture dd3fa403b): Tron re-reports the puml/ folder itemviews are STILL not rendering. PO: consolidate HERE, do NOT re-fork. ★ req data=truth distinction for architect: R33.1.1 = GENERATED puml-as-code (M1->PUML via R32.7 modelToPuml); Tron item-4 = EXISTING SOURCE .puml enumeration whose /api half is ALREADY covered by R33.5 AC-puml-folder-existing-source (Impl 9eb2c39c, two-key closed) - the actual gap is the CLIENT itemview RENDER of those enumerated .puml under the puml/ folder. Architect scopes the consolidation: UN-DEFER R33.1.1 and close the existing-source itemview-render gap as ONE puml-folder-itemview thread (generated-puml-as-code stays the later/separate concern). UN-DEFERRED per PO 2026-07-31. crossRef R33.5 3c99ce28.",
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.1.1&commit=343938e7e",
+  "designAdopted": "Adopted design 343938e7e (item-4 folds R33.1.1): the puml-folder-itemview gap = CLIENT render (api enumeration already R33.5 9eb2c39c). AC = existing-source .puml renders as an itemview via rb-preview.renderPuml/api/puml-render (INV-P1.1/1.2/1.3); existing-source ONLY, generated-puml-as-code separate. Chain mirrors rb-modelelement-detail.render c2da9192; anchors on renderPumlSource (re-point if extend-in-place)."
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

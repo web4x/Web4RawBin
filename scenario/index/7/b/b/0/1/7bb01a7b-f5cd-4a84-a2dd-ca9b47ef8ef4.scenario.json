@@ -13,7 +13,9 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/CONCEPT-scrollable-viewport-woda-layout.md",
   "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
   "sprintName": "Sprint 31",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:c7710588-267f-467d-bdd3-ec12b30ef04b"
+  ],
   "unitLinks": [],
   "conceptOnly": false,
   "conceptNote": "PLAN-only requirement: NO chain (no UC/Class/Method) is minted yet - acceptance is a coherent concept, not code. When Tron authorizes implementation, the facet-ACs decompose into atomic build-requirements (each with its own chain). Do NOT flip to a build task; planner structures this as a CONCEPT (design) task per PO 2026-07-20.",

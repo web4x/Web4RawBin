@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "dac73307-6738-43b7-88aa-742f4069779f",
+    "name": "test:R33.7.4 select element -> tree reveal+expand (RbTraceTree.onTreeReveal) @390",
+    "description": "Bridged to test/visual/r374-reveal-gate.mjs (INDEPENDENT tester @390 COMPONENT-harness gate, GREEN DET-3x served==HEAD==0.8.30 RED->GREEN on the v0.8.30 fix, dfe803cc1). Marker adopted from origin (measured line 2, not invented). AC-select-reveals-tree: rb-tree-reveal{ref} (fired by diagram box-select) -> onTreeReveal -> revealModelElement (v0.8.30 RED-fix: builds an explicit mof path via /api/ior + R33.5 expandPath) -> the real model tree scrolls+expands to REVEAL the element (revealNode/highlightNode). SCOPE: reveal/expand verified headless; scroll+flash cosmetic = architect oracle (not headless-gated). INV-TR1/2/3. Chain: R33.7.4 req fc234e2d -> UC modelElement.revealInTree 8c26c9ef -> Class RbTraceTree 5a057914 -> Method onTreeReveal 152435d1 -> Impl 9cdf5072 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r374-reveal-gate.mjs",
+    "implementations": [
+      "ior:instance:9cdf5072-baab-453a-a46b-3fa561e58faa"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9cdf5072-baab-453a-a46b-3fa561e58faa"
+}

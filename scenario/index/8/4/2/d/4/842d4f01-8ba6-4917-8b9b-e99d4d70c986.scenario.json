@@ -5,8 +5,8 @@
     "name": "T21.8: Companies as shared dedup units",
     "slug": "task-t21-8",
     "description": "CompanyIndex.mintOrReuseShared: companyNameKey (NFKD+diacritics, lowercase, &->and, strip legal suffixes, strip non-alnum) is the recall key; domain (from email/URL) is the AUTHORITATIVE key. Domain-hit reuses; domain present-but-miss mints DISTINCT (AC-b3); no-domain nameKey collision dedups (Tron \"do not duplicate\"). ownerIor:null shared; Profile.companies[] forward-only; /api/company/suggest autocomplete.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:bf6a0433-6e85-4341-92e5-79acb725e0bf"
     ],

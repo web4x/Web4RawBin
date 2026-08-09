@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "e383cf9a-d48c-422b-a7dc-67901ce81e4d",
+    "name": "root.WODA.prod.public_key",
+    "metaLevel": "M1",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000029"
+    ],
+    "manifestsAs": "ior:file:~/.ssh/public_keys/root.WODA.prod.public_key"
+  },
+  "ownerIor": null
+}

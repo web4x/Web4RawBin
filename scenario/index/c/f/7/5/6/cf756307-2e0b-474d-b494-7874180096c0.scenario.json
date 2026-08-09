@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cf756307-2e0b-474d-b494-7874180096c0",
+    "name": "ConsistencyGuard.assertNonVacuous (consistency:strict composed gate + meta-BITE backing)",
+    "sourceFile": "ior:file:src/ts/scenario/consistency-guard.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:af6c8fe5-6b7f-47ad-9e42-46f934bc708a"
+    ],
+    "markerNote": "STRICT-AST VERIFIED (dda311ad7, expert build): [impl:uuid:cf756307-2e0b-474d-b494-7874180096c0] heads export function assertNonVacuous@src/ts/scenario/consistency-guard.ts:58 (name-match, 0 intervening, gap comment-only). buildStrictImplSet credit=true. R-C3."
+  },
+  "ownerIor": "ior:instance:6328433a-e773-422e-9afb-9903b5339e6d"
+}

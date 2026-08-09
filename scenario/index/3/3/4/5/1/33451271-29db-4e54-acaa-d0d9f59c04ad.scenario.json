@@ -1,0 +1,62 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "33451271-29db-4e54-acaa-d0d9f59c04ad",
+    "name": "Tron renders his QA verdict from the task: Approve (records verdict + flips Done-gate) / Decline (mints a ChangeRequest)",
+    "altId": "R40.10",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:0a3e3653-c997-4a87-97ef-1511a1fef5dd"
+    ],
+    "description": "A task at QA-Review carries TWO owner-only action units: APPROVE BY TRON (records approvedBy+approvedAt as DATA on the unit -> Done-gate flips; makes \"Done requires Tron QA\" PROVABLE not remembered) and DECLINE QA (mints an ior:class:ChangeRequest unit capturing the reason, LINKED to the declined task/requirement, entering the board as real work). Removes the PO from the loop: no reminder pings, no batch markdown. Applies to ANY task at QA-Review (incl the S37 twelve unsigned) -> obsoletes tron-qa-batch.md + reminders.",
+    "tronQuote": "for the tasks on QA add an approve by Tron action then you do not need to remind me ... also add a action decline QA, that results in a scenario-first change request unit",
+    "shipTogetherNote": "Approve AND Decline ship TOGETHER — approve-without-decline pushes Tron back to prose, which is the thing being removed. Do NOT split across deliveries.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-approve-records-data-flips-gate",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, data] APPROVE fires on a QA-Review task, records approvedBy + approvedAt as DATA on the unit (so \"Done requires Tron QA\" is PROVABLE from the record, not remembered), and flips the Done-gate."
+      },
+      {
+        "id": "AC-automatable-decline-mints-changerequest",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] DECLINE mints an ior:class:ChangeRequest unit (REUSE the EXISTING kind — registered templates.ts:370 + in CHAIN_TYPES; NOT a new kind) capturing the reason, LINKED to the declined task/requirement, entering the board as real work — a UNIT, not a comment that gets lost."
+      },
+      {
+        "id": "AC-automatable-owner-gated-403",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, 403] OWNER-GATED: only the owner may render a verdict; a non-owner approve/decline is 403. This gate IS the integrity of \"Done requires Tron QA\" — if anyone can self-approve, the law is decorative."
+      },
+      {
+        "id": "AC-automatable-evidence-precondition",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it."
+      },
+      {
+        "id": "AC-automatable-dry-action-units",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5s exact defect while fixing it)."
+      },
+      {
+        "id": "AC-device-visual-390",
+        "group": "device",
+        "text": "[DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification."
+      },
+      {
+        "id": "AC-automatable-cr-status-enum",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, source] The ChangeRequest status uses a SINGLE-SOURCED ChangeRequestStatus enum (like TaskStatusEnum): Open -> Triaged -> Resolved -> Closed (distinct from TaskStatusEnum). Initial = Open. NO bare string literals (a bare status can drift into ad-hoc strings; architect steer 82a10155a)."
+      },
+      {
+        "id": "AC-automatable-audit-log-cr-mint",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] The decline endpoint AUDIT-LOGS the ChangeRequest mint (who declined, which task/req, when) for Q2 integrity — the verdict + its resulting unit are traceable, never a silent state change. createdBy is SERVER-SET from the owner token (can not be spoofed)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

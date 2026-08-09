@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "833d3525-d269-4b98-bc23-12551c5d40b6",
+    "name": "overview.generatePreserved",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc6-overview-generated-frozen-legacy.md",
+    "parent": null,
+    "unitLinks": [],
+    "class": "ior:instance:c85603ca-b007-402b-aa86-1ed44bc6f623",
+    "method": "ior:instance:8b238215-6d70-41b4-86c1-e8491d27bbb9",
+    "description": "R-C6: sprints.overview.md becomes generated-where-it-drifts (the sprint index, between GENERATED-INDEX markers, from Sprint units + R-C1 pin + R-C5 rollup) and preserved-where-it's-narrative (bytes outside the markers untouched), with the frozen-legacy scope (S01-18 + 10 design-doc planning.md) made VISIBLE as a declared named list - never a silent cap. Fail-closed on vacuous (R-C3). LAST S37 design -> completes consistency-by-construction. Design design-rc6-overview-generated-frozen-legacy.md."
+  }
+}

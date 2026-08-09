@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "6c016f6a-4cc3-4ce9-aded-ac99fcb639ab",
+    "name": "sprintPin.resolveFromFiles",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/design-rc1-pin-resolver.md",
+    "parent": null,
+    "unitLinks": [],
+    "class": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268",
+    "method": "ior:instance:576af5f0-92c2-4d5a-8e11-5fbcdc8c5e72",
+    "description": "R-C1: the sprint pin (which-sprint pointer + the three slots current/last-completed/next-backlog) is a GENERATED view COMPUTED from each sprint's tasks — it cannot be hand-set and cannot drift. Replaces the brittle name matcher (CurrentSprint.ts:202 /\\d+/ + .includes) and the hand-set Sprint.status. NUMBER-KEYED throughout. Rolls up R-C5 deriveStatusEnum per sprint (single-source). Design design-rc1-pin-resolver.md."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "705e8a53-dbed-4b77-8527-043535fda95a",
+    "name": "test:R-C7 prose-cross-ref-not-a-gap BITE (structural-row gap-id derivation)",
+    "description": "Bridged to test/visual/rc7e-extractids-prose-crossref-bite.ts (DET, own-oracle, scripts-only). PROVEN-BY-BITE the matcher-refine (expert fix 7eeb6cc6c) for the 9-gap false-positive classes: a gap-id that appears ONLY in inline-prose/annotation or that RESOLVES to a unit in another sprint (cross-ref) is NOT a gap (structural row-header derivation drops it); a GENUINELY-missing structural row-header id in the same context IS still a gap (fail-closed, no new silent-pass). DISTINCT-INTENT on proveComplete 21e38b44, ALONGSIDE 0870c78b (completeness) + ae106047 (fail-closed-vacuous) - verify-owner-first, no cross-wire.",
+    "sourceFile": "ior:file:test/visual/rc7e-extractids-prose-crossref-bite.ts",
+    "implementations": [
+      "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+}

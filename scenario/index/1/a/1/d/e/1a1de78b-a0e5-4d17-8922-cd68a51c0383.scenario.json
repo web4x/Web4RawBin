@@ -1,0 +1,76 @@
+{
+ "ior": "ior:class:Sprint",
+ "ownerIor": null,
+ "model": {
+  "uuid": "1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "name": "Sprint 33 — MDA v4 MOF-layered tree",
+  "number": 33,
+  "slug": "sprint-33-mof-layered-tree",
+  "goal": "Present the MDA model as a proper MOF 4-layer TREE (M3/M2/M1/M0 folders) instead of the current FLAT r32.2-demo list (Tron IMG_4716). M3 = MOF meta-meta model; M2 = UML profile classes (UmlClass/UmlInterface/UmlAttribute/... — instances of M3); M1 = PROJECTS (RawBin as a REAL M1 project — its TS classes + PUML as code AND as SVG); M0 = dist folder (runtime instances). Builds on R32.1 ModelElement multi-facet instanceOf (same-UUID across M-levels ALREADY exist — present them as folders, not a flat list). Subsumes + expands R33 (RawBin real multi-file model = M1's RawBin project). PHASED (architect-assessed, Tron go): P1 present M2+M1 MOF folders (low-risk reuse of rb-trace-tree folders + multi-facet M-levels); P2 RawBin real M1 multi-file (subsumes R33 backlog); P3 M3 + M0/dist. Scenario-first: architect designs the MOF-layer tree model + presentation → req formalizes → build.",
+  "status": "Done",
+  "compoundSource": "scrum.pmo/sprints/PO-vision-MDA-v4-MOF-tree.md",
+  "phases": [
+   {
+    "id": "P1",
+    "title": "Present M2 + M1 MOF folders",
+    "detail": "Low-risk reuse: rb-trace-tree folders + the existing multi-facet M-levels (R32.1). Present M2 (UML profile classes) + M1 (projects) as layered folders. FIRST.",
+    "status": "next"
+   },
+   {
+    "id": "P2",
+    "title": "RawBin real M1 multi-file",
+    "detail": "Generate the MDA model over RawBin's OWN src (multi-file) so M1's RawBin project shows real classes/functions/interfaces. Subsumes R33 backlog (RawBin-real-model + model-sync multi-file).",
+    "status": "planned"
+   },
+   {
+    "id": "P3",
+    "title": "M3 + M0/dist",
+    "detail": "Add the M3 MOF meta-meta folder + the M0/dist runtime-instances folder. PUML as code (R32.7) + SVG (R32.4/6) per M1 project.",
+    "status": "planned"
+   }
+  ],
+  "requirements": [
+   "ior:instance:e347e82b-20e9-44ac-9f4d-0257f31e3b1b",
+   "ior:instance:5333d468-2434-4552-b5f7-e1bdc1d9c716",
+   "ior:instance:7a178df1-4c07-4e79-8429-0ab0365a898b",
+   "ior:instance:700957e1-235d-4e84-8914-428dfa191a1a",
+   "ior:instance:eb34c844-cc29-4c95-b128-415dcc8638ba",
+   "ior:instance:3c99ce28-a6e6-4950-8fad-3cd872a7cf8b",
+   "ior:instance:a5205512-ec17-4a23-b4d1-7f5c58223d10",
+   "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c",
+   "ior:instance:50e4f6f0-b4c9-4f40-820c-2ee405ae1d35",
+   "ior:instance:3c6eee8d-85ff-41d5-8c62-c2656171efe2",
+   "ior:instance:754a1f9d-df31-490f-9061-9585b80eb51d",
+   "ior:instance:2a3090ad-b912-42e1-b65a-db55765df179",
+   "ior:instance:fc234e2d-4cd6-4b7f-bd60-5d86e8d3cd3c",
+   "ior:instance:86219c51-48f6-426f-bfec-8a01f5c298d8",
+   "ior:instance:bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
+   "ior:instance:fa29ab28-04fc-43d4-9e55-c42573bdefa8"
+  ],
+  "tasks": [
+   "ior:instance:6027e554-3041-47a8-ab0b-7d8f0e76adba",
+   "ior:instance:73472bb5-aec0-47cb-a41d-0f29981aebe7",
+   "ior:instance:202ef492-c10e-44f3-bb78-aacfbf1a8bf7",
+   "ior:instance:b1a688ff-ee9b-49df-a89e-f0c8bf17b8ce",
+   "ior:instance:eec77e5b-ffb9-4c97-ad20-f77a8fa4e08d",
+   "ior:instance:04c64bad-d785-4711-b993-fe41017a8622",
+   "ior:instance:dd47dd4b-9ad2-4d14-8009-4a8c70bb38f4",
+   "ior:instance:eb8cf1e7-434a-4291-a42a-fe01cb2d692a",
+   "ior:instance:5ef5440d-5f90-4d1d-82dd-de8648d71994",
+   "ior:instance:04705460-98e6-4d67-9665-1a7b00039615",
+   "ior:instance:a0a45d33-e255-4b3e-bf92-3d4c78ba2c12",
+   "ior:instance:b628153b-736b-4d3d-8f4b-ff1c83d72b44",
+   "ior:instance:291460bd-51b9-454d-8f69-4080cd5e8990",
+   "ior:instance:7f1b9ad5-2eee-4836-9d10-ede5add49dd4",
+   "ior:instance:8be6074f-29c9-4566-b710-bf861d9d9799"
+  ],
+  "createdAt": "2026-07-30",
+  "createdBy": "robbin-planner",
+  "createdBy_note": "Tron-authorized new sprint (no auto-increment). Sprint SCAFFOLD only — reqs mint scenario-first (architect designs MOF-layer tree model + presentation → req formalizes). Subsumes R33 backlog items.",
+  "joint": [
+   "robbin-architect",
+   "robbin-req",
+   "robbin-planner"
+  ]
+ }
+}

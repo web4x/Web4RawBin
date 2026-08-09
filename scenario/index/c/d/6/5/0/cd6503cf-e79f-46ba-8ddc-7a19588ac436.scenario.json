@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cd6503cf-e79f-46ba-8ddc-7a19588ac436",
+    "name": "test:R31.12 config radios (visibility/mode) select+stick+Save persists — canonical HTML5, no device caveat",
+    "description": "Bridged to test/visual/r3112f-radio-clean-gate.mjs (R31.12 FINAL, GREEN DET-3x @390, served v0.7.147 app-H22AFE74.js; tester b671ada84). CERTIFIED DONE, NO device-only caveat: the fix uses CANONICAL HTML5 NATIVE radios (the device-specific pointerup belt is DELETED = 0 pointerup in served bundle) -> native radios behave per HTML5 spec identically everywhere -> Chromium is a VALID ORACLE (headless-certifiable, engine-independent). Each of the 5 radios (3 visibility + 2 mode) plain-click SELECTS + STICKS (no flicker/revert) + Save PERSISTS (reopen confirms). Pollution-safe host room create+delete. Marker cd6503cf adopted from origin (measured line 1, not invented). Distinct-intent multi-test on Impl f9b579c1 (RbRoomDetail.editOpen) alongside 5b79cc8e (original) + 3e57bca1 (non-host read-only). Chain: R31.12 req ede037dc -> UC eb8dfa23 roomDetail.openConfigForAll -> Class RbRoomDetail -> Method RbRoomDetail.editOpen -> Impl f9b579c1 -> this Test. ★ Validates R31.15 principle: native controls = WebKit-reliable AND Chromium-testable (no device split needed).",
+    "sourceFile": "ior:file:test/visual/r3112f-radio-clean-gate.mjs",
+    "implementations": [
+      "ior:instance:f9b579c1-7495-4f93-8dec-736a0410a69a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f9b579c1-7495-4f93-8dec-736a0410a69a"
+}

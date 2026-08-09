@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "fe06818d-1cf8-4417-8be7-0df1bffaff33",
+  "name": "modelView.actionsByType",
+  "description": "R33.6.5 item-6 HOST half (AC-actionbar-selection-driven + AC-actionbar-default-state): model.ts registers a rb-drawer-detail-shown listener -> drawer.setActions(ACTIONS_BY_TYPE[type]) and handles rb-drawer-action verbs via the EXISTING addDiagram/importPuml/reSyncFromSource. ACTIONS_BY_TYPE (host-owned): diagram->[Add-Diagram,Re-Sync,Compile]; class(modelelement)->[Add-to-diagram]; puml-src->[Import]; default/none->[Add-Diagram,Import]. The page-top mountActionBar strip is RETIRED into this drawer region. This is the ModelView host contribution the architect flagged (+ModelView ACTIONS_BY_TYPE registration); req formalizes it as the 3rd singular-chain (distinct Class=ModelView) per #126 — FLAGGED to architect: confirm or fold into item-6.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:b0fa32ab-3996-4ec0-936d-46902828f01d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

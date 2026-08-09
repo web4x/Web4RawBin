@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "010f3e23-7d0e-49d4-9308-679388d00989",
+    "name": "server.isModelUnit impl (R32.5 model-vs-prod read-reroute isolation predicate)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at 8361bd36c: [impl:uuid:010f3e23] heads the named isModelUnit() decl @ src/ts/server/server.ts:57 (marker line 55 immediately precedes function isModelUnit(, name-matches; Method 20eee8b0 server.isModelUnit, Class server c0a0921d, UC 91b1b643). Comment-only, v0.8.5 stands (architect restart pending for the /api/model/generate endpoint + reroute to take effect live). Anchor = R32.5-exclusive read-reroute/isolation boundary (NOT generate() = R32.2 Impl 382f8644). IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test HOLDS for the tester independent gate.",
+    "tests": [
+      "ior:instance:e7557a8c-b344-4c46-8773-8f5cf402e335"
+    ]
+  },
+  "ownerIor": "ior:instance:20eee8b0-d093-46e4-8a65-72409a9d8863"
+}

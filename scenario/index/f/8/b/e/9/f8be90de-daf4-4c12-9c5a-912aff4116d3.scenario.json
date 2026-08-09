@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f8be90de-daf4-4c12-9c5a-912aff4116d3",
+  "name": "diagram.zoomOutGrows",
+  "description": "R33.7.1 INV-Z1 (design 8aa19d090): zoom-out grows the working canvas. RbPanZoom MIN lowered 1->0.25 (zoom-OUT enabled; wheel/pinch already call zoomAbout) + clamp() extended: at scale<1 CENTER content (tx/ty=(vw-vw*s)/2) instead of the >=1 edge-clamp -> zoom-out reveals placeable canvas around the diagram; viewBox canvas-pad (diagram-view-model.ts:105, call-site) makes the margin REAL space (composes R33.6.2). 1=100%=whole-diagram, <1=grown canvas, >1=magnify. Client-only, reuse RbPanZoom clamp/apply, no fork. Singular=the setScale/zoom-range seam; MIN const + clamp edit + viewBox pad are edits/call-sites.",
+  "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+  "method": "ior:instance:c3fa13b7-3574-427c-9c35-31ef6d3b47c8",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=8aa19d090",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

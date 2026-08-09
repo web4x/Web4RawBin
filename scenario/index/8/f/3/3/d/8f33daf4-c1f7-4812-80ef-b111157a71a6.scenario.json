@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8f33daf4-c1f7-4812-80ef-b111157a71a6",
+    "name": "test:R33.9 RbDiagramDetail.broadcastActiveDiagram @390 — diagram open/close emits rb-active-diagram (real-UI emitter)",
+    "description": "Bridged to test/visual/r339-broadcast-active-diagram-gate.mjs (INDEPENDENT tester real-WebKit @390 gate, GREEN DET-3x, 3cf7c0987). Marker adopted from origin (measured line 7, not invented). Completes R33.9 5th chain: broadcastActiveDiagram is the real-UI EMITTER (diagram open/close -> fires rb-active-diagram; the counterpart to actionsForContext's CONSUMPTION gated by 70ce56e9). Chain: R33.9 req bd7ed14d -> UC (broadcast-active-diagram) -> Class RbDiagramDetail 039ec367 -> Method broadcastActiveDiagram a27d5e50 -> Impl 5150477e -> this Test.",
+    "sourceFile": "ior:file:test/visual/r339-broadcast-active-diagram-gate.mjs",
+    "implementations": [
+      "ior:instance:5150477e-4091-46c6-bdee-50c9250c7725"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:5150477e-4091-46c6-bdee-50c9250c7725"
+}

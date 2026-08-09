@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c1a629e4-59a6-4419-a073-60ac25f3d05a",
+  "name": "diagram.pumlChildren",
+  "description": "R33.5 AC-puml-folder-existing-source (Tron-decided a): mofChildren('rawbin:puml') enumerates the ~55 EXISTING SOURCE .puml design files (sprints/*/diagrams/) as itemviews (mirror ts/ enumeration); click -> Import (R32.7 pumlToModel) -> interactive diagram.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:e78b5eaf-335e-4b57-b6ce-3c866b9da100",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.5&commit=1a39feb91",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

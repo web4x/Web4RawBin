@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "abd7dac9-77aa-405c-8c5f-be91ffbf0a07",
+    "name": "TaskStatus",
+    "file": "src/ts/scenario/task-status.ts",
+    "methods": [
+      "ior:instance:f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb",
+      "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts"
+  },
+  "ownerIor": null
+}

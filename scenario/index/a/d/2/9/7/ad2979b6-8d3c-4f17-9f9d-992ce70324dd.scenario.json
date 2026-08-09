@@ -1,0 +1,18 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "ad2979b6-8d3c-4f17-9f9d-992ce70324dd",
+  "name": "viewer.panZoom",
+  "description": "R31.6 CONCEPT UC (honest concept termination - chain ends at design, no Impl/Test). A shared pan/zoom viewer-base every embedded viewer extends (pinch/drag -> CSS transform on viewport). Rides the EXISTING canonical RbPanZoom class (S22, reused per R27.2 / DISK-WINS - architect's 'mint fresh class' target was stale) + the fresh designAhead Method applyPanZoom. Awaits Tron build-authorization before any Impl/Test.",
+  "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+  "method": "ior:instance:45ae1f90-4c26-4e90-a7ed-4d59ed8065f3",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/CONCEPT-scrollable-viewport-woda-layout.md",
+  "parent": null,
+  "unitLinks": [],
+  "conceptOnly": true,
+  "classes": [
+   "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43"
+  ]
+ },
+ "ownerIor": null
+}

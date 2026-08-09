@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8f1eed4d-5ce6-4901-992d-699a8fb8cf0b",
+  "name": "modelTree.populateViewUnitFields",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R35.3: the ensureViewUnit resolver writes the per-type fields (mirror node view data -> unit model) at mint time. Rides R35.2's ensureViewUnit (distinct AC-intent = populated-not-empty; same Method). Re-point to built decl on ship.",
+  "method": "ior:instance:64c4f023-7dba-40bb-af17-0bc6ab18571d"
+ },
+ "ownerIor": null
+}

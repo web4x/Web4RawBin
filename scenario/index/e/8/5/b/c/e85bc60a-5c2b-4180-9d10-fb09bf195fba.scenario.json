@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e85bc60a-5c2b-4180-9d10-fb09bf195fba",
+    "name": "PumlSerializer.pumlToModel impl (@startuml -> MDA units, same-uuid reuse)",
+    "sourceFile": "ior:file:src/ts/shared/puml-serializer.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at 59826470a: [impl:uuid:e85bc60a] heads the named pumlToModel() decl @ src/ts/shared/puml-serializer.ts:69 (marker line 66 precedes export function pumlToModel(, name-matches; Method 31cd0acb, Class 59bdb00e PumlSerializer, UC 16523537 puml.import). Comment-only, bundle byte-identical, NO version bump (v0.8.7 stands). NEW puml-serializer decl = no re-credit of R32.2/R32.4-6. IMPL-MINT #126 complete. Test HOLDS for the tester independent vitest r32.7-puml-serializer.",
+    "tests": [
+      "ior:instance:644bb935-ebea-4759-b0fc-813fd70e35ff"
+    ]
+  },
+  "ownerIor": "ior:instance:31cd0acb-e599-4961-8ace-208a43ca7662"
+}

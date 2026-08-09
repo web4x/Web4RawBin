@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b6c88d83-a838-46ad-ba9a-874e803ca479",
+    "name": "server.mofChildren impl (bounded/lazy MOF layer resolver, file/dir sub-grouping)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS: [impl:uuid:b6c88d83] heads the named mofChildren() decl @ src/ts/server/server.ts:1071 (marker line 1069 precedes function mofChildren(, name-matches; Method 7c460f8a server.mofChildren, Class server c0a0921d, UC 8bdeda90 model.mofChildren). DISTINCT from mofLayerRoots 5afeafe9 (R33.1) = no re-credit. Source-only comment, no deploy (v0.8.16 stands). IMPL-MINT #126 complete. R33.2 chain-complete-to-Test + strict-credited.",
+    "tests": [
+      "ior:instance:96a4bda8-e87b-4dd8-afc4-b03311725f55",
+      "ior:instance:83abce21-bd4e-4b5f-bc94-7e71517aeee8"
+    ]
+  },
+  "ownerIor": "ior:instance:7c460f8a-89f5-49c9-91f5-b8c3e35115bc"
+}

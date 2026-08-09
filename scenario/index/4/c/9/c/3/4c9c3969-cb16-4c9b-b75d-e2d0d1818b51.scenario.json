@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4c9c3969-cb16-4c9b-b75d-e2d0d1818b51",
+    "name": "ModelView.removeFromDiagram impl",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "tests": [
+      "ior:instance:72af686c-538e-4a2d-b1c1-a4be8c689cdf",
+      "ior:instance:5c898784-70fb-4bd9-b41c-054f69e52d01"
+    ],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02"
+}

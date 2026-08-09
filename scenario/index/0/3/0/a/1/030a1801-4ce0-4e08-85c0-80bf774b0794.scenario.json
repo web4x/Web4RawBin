@@ -1,0 +1,50 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "030a1801-4ce0-4e08-85c0-80bf774b0794",
+  "altId": "R35.2",
+  "name": "Every item type resolves to a REAL on-disk ior:class:X unit (both buttons always work)",
+  "classification": "new",
+  "clusterRef": "R35.2 ensureViewUnit (extends A2)",
+  "description": "GENERALIZE the A2 resolver ensureFolderFileUnit -> ensureViewUnit(ior) so EVERY item type resolves to a REAL on-disk ior:class:X unit (MODEL_STORE) and both OScenario/OEdit always work. Mint the currently-null cases: synthetic MOF folder refs (project:RawBin, rawbin:ts/puml/diagram/traceability, mof-m1, mof-m2[:mc]) -> ior:class:Folder (keyToUuid('folder::'+ref)); puml-src leaves -> ior:class:File/PumlArtifact (keyToUuid('puml::'+path)). Deterministic idempotent lazy mint, prod scenario/index NEVER touched, tree/mofChildren byte-unchanged (fork-A, only /api/ior + /scenario resolve).",
+  "tasks": [
+   "ior:instance:7b3c6a57-e50c-416e-81d2-3c54ab36866d"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "unitLinks": [],
+  "parent": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da",
+  "useCases": [
+   "ior:instance:c3902503-5bdc-479c-8457-51ba4421f98a"
+  ],
+  "acceptanceCriteria": [
+   {
+    "id": "AC-all-types-resolve",
+    "group": "functional",
+    "text": "EVERY item type rendered in a view resolves to a REAL ior:class:X unit on disk (MODEL_STORE) so OScenario (/scenario?ior) + OEdit (scenarioEditorHref) both ALWAYS work, never dead/no-op. Generalizes ensureFolderFileUnit -> ensureViewUnit covering synthetic MOF folders (->Folder) + puml-src (->File/PumlArtifact)."
+   },
+   {
+    "id": "AC-idempotent",
+    "group": "functional",
+    "text": "INV-A2-2: deterministic keyToUuid ('folder::'+ref / 'puml::'+path) = idempotent LAZY mint — fetch twice yields the SAME uuid, no dup on re-open."
+   },
+   {
+    "id": "AC-store-only",
+    "group": "security",
+    "text": "INV-A2-3: units minted in MODEL_STORE ONLY; prod scenario/index NEVER touched."
+   },
+   {
+    "id": "AC-byte-unchanged",
+    "group": "functional",
+    "text": "INV-A2-1: tree/mofChildren output BYTE-unchanged (only /api/ior + /scenario resolve to the new unit) — fork-A."
+   },
+   {
+    "id": "AC-gate-390",
+    "group": "gate",
+    "text": "GATE @390 real-WebKit: for EVERY item type, OScenario + OEdit both resolve to a real unit (not dead) — data-having sample per type: Folder=rawbin:ts, File=file:src/ts/server/server.ts, PumlArtifact=a real puml/ leaf (NOT a degenerate entity)."
+   }
+  ],
+  "designSource": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef"
+ },
+ "ownerIor": "ior:instance:deeba407-b61e-4e5c-9f6d-7331b83f96da"
+}

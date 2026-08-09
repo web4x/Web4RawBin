@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "65649d26-f578-4d67-b0e9-f58401684a95",
+    "name": "RbDiagramDetail.render",
+    "description": "R33.3 render fix: render():Promise<void> resolves the diagram: ref + each view-link's element/members and calls buildBox/buildDiagramSvg so the canvas shows selectable compartment boxes (not the previously-empty drawer render). The reachable-canvas + drop-visible assembly of the existing R32.4 box logic. Decl @ src/public/ts/trace/rb-diagram-detail.ts:92; scenario-first IMPL-MINT (#126) - the [impl:uuid] marker lands on this decl (name-matches).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:34dec13f-5cb6-4f01-8894-e85954174830"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

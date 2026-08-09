@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "04c64bad-d785-4711-b993-fe41017a8622",
+  "name": "Task 33.6.2: Suppress browser page-scroll during element drag; diagram edge-autoscroll ONLY when the element is dragged slightly outside the diagram boundary",
+  "slug": "task-33.6.2-suppress-scroll",
+  "description": "Tron item-2 (interaction polish). When a diagram element is SELECTED + MOVED, the browser PAGE must NOT scroll. The ONLY autoscroll preserved is the DIAGRAM's own edge-pan, and ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary (edge-pan to reveal off-canvas space). Inside the boundary: no autoscroll at all. Disambiguate page-scroll (suppress) from diagram-edge-autoscroll (keep, bounded). Reuse the existing drag + RbPanZoom mechanics, NO fork.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.6.2 `[requirement:uuid:570b77c7-1679-4827-ba8e-9673fba5994c]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [x] While a selected element is being dragged/moved, the browser PAGE does not scroll (the drag is captured by the diagram canvas - preventDefault / touch-action:none on the active drag). @390 a touch-drag of an element does NOT scroll the page.\n- [x] The DIAGRAM edge-autoscroll (auto-pan) fires ONLY when the dragged element crosses SLIGHTLY OUTSIDE the diagram boundary; while the element stays inside the diagram bounds there is NO autoscroll. The autoscroll is bounded to the diagram viewport, never the page.\n- [x] GATE @390 (screenshot/pixel + planted bite): drag a selected element within bounds -> page fixed, no autoscroll; drag the element just past the diagram edge -> the DIAGRAM edge-pans (page still fixed). planted-defect: page scrolls during drag = RED.",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "coveredRequirements": [
+   "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "remainingIssues": "DONE: chain-complete-to-Test (Test b826d2a9, suppress page-scroll + edge-autoscroll v0.8.23) + REAL-WEBKIT @390 self-gated GREEN (r3362, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-31"
+ }
+}

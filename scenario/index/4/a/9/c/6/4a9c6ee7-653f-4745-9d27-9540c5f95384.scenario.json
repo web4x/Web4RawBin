@@ -1,0 +1,54 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "4a9c6ee7-653f-4745-9d27-9540c5f95384",
+  "altId": "R32.2",
+  "name": "TS -> M1 generation from the TypeScript compiler base structures",
+  "description": "From the TS compiler API / AST, generate M1 scenario units for the TS base structures: class, interface, function, attribute, accessor+mutator (getter/setter = property), method (class member). Each generated M1 unit is instanceOf its M2 UML unit. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [
+   "ior:instance:8559098a-4c96-48f7-b4c3-82d8048f5ad4"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [
+   "ior:instance:efaea742-87c6-4c99-a2ed-e2939a61f048"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-ts-ast-to-m1",
+    "group": "functional",
+    "text": "TsToModel.generate parses the TS compiler base structures (ts.createProgram + ts.forEachChild) and produces one M1 ior:class:ModelElement unit per TS structure, per the AST->M2 map: ClassDeclaration->class, InterfaceDeclaration->interface, FunctionDeclaration->function, MethodDeclaration->method (memberOf its class), PropertyDeclaration->attribute (memberOf its class), GetAccessor+SetAccessor of the SAME name->ONE property (accessor+mutator paired; memberOf its class), TypeAliasDeclaration->type. A class's members[] = its methods + attributes + properties (composition; reverse memberOf). Built on the R32.1 foundation (REUSE ModelElement / TraceModel / ModelValidator, no fork)."
+   },
+   {
+    "id": "AC-m1-instanceof-m2",
+    "group": "invariant",
+    "text": "Each generated M1 unit is instanceOf its correct M2 metaclass with MULTI-FACET instanceOf [model facet, code facet] (per R32.1): class->[UmlClass, ts-class-code], interface->[UmlInterface, ts-interface-code], function->[UmlFunction, ts-function-code], method->[UmlMethod, ts-method-code], attribute->[UmlAttribute, ts-attribute-code], property->[UmlProperty, ts-property-code], type->[UmlType] (+ a small seed add of the ts-type-code M2 unit). One-level-up M1->M2 level-integrity holds by construction (ModelValidator gate 2 passes)."
+   },
+   {
+    "id": "AC-regenerate-stable",
+    "group": "invariant",
+    "text": "The M1 unit UUID is DERIVED DETERMINISTICALLY from the stable identity key `<repo-relative sourceFile> :: <qualifiedName>` (class/interface/function/type = path::Name; member = path::ClassName.memberName; a get/set PAIR shares one key = one property) as a v4-shaped sha256 (the existing scripts/migrate-to-scenario.ts:245 pattern) - NOT random-minted. Re-parsing unchanged TS -> SAME key -> SAME uuid -> ModelValidator.bindByUuid RE-BINDS, never re-mints = idempotent 0-churn re-run (the R32.1/R31.13 discovered-code law). Rename/move = a new key = a new element; the old uuid, now absent from source, is reconciled (delete/tombstone)."
+   },
+   {
+    "id": "AC-relationships-and-validate",
+    "group": "meta",
+    "text": "Typed members resolve (ts TypeChecker / type-node identifier) to typed relationships carrying their M2 type: a typed attribute/property -> `X.relatesTo += Y` instanceOf UmlAssociation (reverse relatedFrom on Y); extends/implements -> UmlGeneralization; a method param/return of another modeled type -> UmlDependency. Post-generation, ModelValidator.validate(generated) = 0 violations (M1->M2 level-integrity, instanceof-nonempty, uuid-unique all hold by construction). The chain mints onto the built TsToModel.generate (Class/Method/Impl/Test), same IMPL-MINT pattern as R32.1."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.2-DESIGN&commit=fa25b8b45",
+  "acFinalizedNote": "4 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.2 DESIGN, fa25b8b45; PO build-go unblock 2026-07-29) - adopt-not-invent from the doc's req(AC) guidance + AST->M2 map (Q1) + deterministic-uuid (Q2) + relationships (Q3) + ModelValidator=0 gate. Placeholder AC-architect-finalize retired -> AC-relationships-and-validate. Chain (UC/Class/Method/Impl/Test onto TsToModel.generate) mints when the expert builds, IMPL-MINT pattern."
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}

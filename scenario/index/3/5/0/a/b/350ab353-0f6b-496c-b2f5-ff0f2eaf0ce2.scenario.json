@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "350ab353-0f6b-496c-b2f5-ff0f2eaf0ce2",
+    "name": "pane.resolveRcLink",
+    "description": "Resolve a pane to its agent's Remote-Control deep link: pane -> claude pid -> ~/.claude/sessions/<pid>.json -> bridgeSessionId -> https://claude.ai/code/<bridgeSessionId>. FAIL-CLOSED: no matching sessions file / no bridgeSessionId -> NO link (never a synthesised session_ URL).",
+    "class": "ior:instance:95508bd3-3ce3-4254-8970-83e2cec51577",
+    "method": "ior:instance:a45dd931-e848-4901-8037-f86b4dbff54f",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775"
+}

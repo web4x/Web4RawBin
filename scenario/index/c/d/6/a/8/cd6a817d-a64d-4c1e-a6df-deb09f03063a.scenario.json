@@ -4,6 +4,7 @@
     "uuid": "cd6a817d-a64d-4c1e-a6df-deb09f03063a",
     "name": "T: markdown-not-source / unit-sourced /api/trace",
     "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:a7dcf3f8-7c01-421f-a58a-a13184796b20"
     ],

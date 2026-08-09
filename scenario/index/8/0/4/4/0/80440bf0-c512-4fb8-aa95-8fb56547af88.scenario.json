@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "80440bf0-c512-4fb8-aa95-8fb56547af88",
+    "name": "server.persistDiagramZoom impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "tests": [
+      "ior:instance:99a90d1e-37f3-4925-9049-38b8670d9283"
+    ],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:8eba6b18-acfc-47ff-9c42-9cae4b5359da"
+}

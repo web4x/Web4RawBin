@@ -1,0 +1,289 @@
+@startuml sprint-31-server-manager-chains
+title Sprint 31 — Server Manager - Requirement Chains (scenario-derived, Req->UC->Class->Method->Impl->Test)
+left to right direction
+
+' ── R31.1 profile feature-grants ──────────────────────────────
+rectangle "R31.1 User-specific profile features section" as R_f032af09
+rectangle "UC profileFeatures.render" as U_aa6b0299
+rectangle "Class ProfilePage" as C_a3958f85
+rectangle "Method ProfilePage.renderFeatureGrants" as M_b4f03947
+rectangle "Impl renderFeatureGrants" as I_f345b8ed
+rectangle "Test R31.1 feature-grants POSITIVE" as T_96d0d227
+R_f032af09 --> U_aa6b0299
+U_aa6b0299 --> C_a3958f85
+C_a3958f85 --> M_b4f03947
+M_b4f03947 --> I_f345b8ed
+I_f345b8ed --> T_96d0d227
+
+' ── R31.2 owner-gate ──────────────────────────────────────────
+rectangle "R31.2 Owner-only access gate for Server Manager" as R_5bc9683e
+rectangle "UC serverManager.ownerGuard" as U_40802701
+rectangle "Class ServerManagerGuard" as C_1d6933c7
+rectangle "Method ServerManagerGuard.assertOwner" as M_8bb1842f
+rectangle "Impl assertOwner" as I_335dbf3d
+rectangle "Test R31.2 owner-gate reject" as T_87b040ee
+R_5bc9683e --> U_40802701
+U_40802701 --> C_1d6933c7
+C_1d6933c7 --> M_8bb1842f
+M_8bb1842f --> I_335dbf3d
+I_335dbf3d --> T_87b040ee
+
+' ── R31.3 otmux tree ──────────────────────────────────────────
+rectangle "R31.3 otmux session/pane tree in Server Manager" as R_168e6d2b
+rectangle "UC otmuxTree.read" as U_742aa04d
+rectangle "Class OtmuxBridge" as C_34c7dfe6
+rectangle "Method OtmuxBridge.readSessionTree" as M_7d7221d8
+rectangle "Impl readSessionTree" as I_5c1701bc
+rectangle "Test R31.3 otmux tree parse-match" as T_9467b1c6
+rectangle "UC traceTree.expandPerLevel" as U_6b1132ce
+rectangle "Class RbTraceTree" as C_5a057914
+rectangle "Method RbTraceTree.buildSeedNode" as M_08ad3bdd
+rectangle "Impl buildSeedNode" as I_5b3d9f1a
+rectangle "Test R31.3 tree RENDER layer-by-layer" as T_eb324c68
+R_168e6d2b --> U_742aa04d
+U_742aa04d --> C_34c7dfe6
+C_34c7dfe6 --> M_7d7221d8
+M_7d7221d8 --> I_5c1701bc
+I_5c1701bc --> T_9467b1c6
+R_168e6d2b --> U_6b1132ce
+U_6b1132ce --> C_5a057914
+C_5a057914 --> M_08ad3bdd
+M_08ad3bdd --> I_5b3d9f1a
+I_5b3d9f1a --> T_eb324c68
+
+' ── R31.4 terminal ────────────────────────────────────────────
+rectangle "R31.4 Pane -> interactive xterm.js SSH terminal" as R_fb14fdbf
+rectangle "UC paneTerminal.attach" as U_fa1845d3
+rectangle "Class PtyBridge" as C_59648f26
+rectangle "Method PtyBridge.attachPane" as M_6fc43b8e
+rectangle "Impl attachPane" as I_394eac63
+rectangle "Test R31.4 attachPane grouped" as T_b395a272
+rectangle "UC paneTerminal.mount" as U_8f3bf119
+rectangle "Class RbTerminalDetail" as C_1d632082
+rectangle "Method RbTerminalDetail.mount" as M_386cc4e4
+rectangle "Impl mount" as I_79a1ce7c
+rectangle "Test R31.4 CLIENT terminal mounts" as T_c6791c06
+rectangle "Test T31.4 INV-T1 drawer-terminal" as T_6f78a86f
+rectangle "UC ptyBridge.reapOrphans" as U_8bd83486
+rectangle "Method PtyBridge.reapOrphans" as M_28d8158b
+rectangle "Impl reapOrphans" as I_5d313828
+rectangle "Test R31.4 boot-sweep" as T_c35f02c7
+rectangle "UC paneTerminal.teardown" as U_44c98b1b
+rectangle "Class RbDetailDrawer" as C_d86af73d
+rectangle "Method RbDetailDrawer.tearDownTransientDetail" as M_9c6391fc
+rectangle "Impl tearDownTransientDetail" as I_cb153623
+R_fb14fdbf --> U_fa1845d3
+U_fa1845d3 --> C_59648f26
+C_59648f26 --> M_6fc43b8e
+M_6fc43b8e --> I_394eac63
+I_394eac63 --> T_b395a272
+R_fb14fdbf --> U_8f3bf119
+U_8f3bf119 --> C_1d632082
+C_1d632082 --> M_386cc4e4
+M_386cc4e4 --> I_79a1ce7c
+I_79a1ce7c --> T_c6791c06
+I_79a1ce7c --> T_6f78a86f
+R_fb14fdbf --> U_8bd83486
+U_8bd83486 --> C_59648f26
+C_59648f26 --> M_28d8158b
+M_28d8158b --> I_5d313828
+I_5d313828 --> T_c35f02c7
+R_fb14fdbf --> U_44c98b1b
+U_44c98b1b --> C_d86af73d
+C_d86af73d --> M_9c6391fc
+M_9c6391fc --> I_cb153623
+I_cb153623 --> T_6f78a86f
+
+' ── R31.5 responsive WODA layout (umbrella + 5.1-5.7) ──────────
+rectangle "R31.5 Responsive bar/compartment WODA viewport (umbrella)" as R_7bb01a7b
+note bottom of R_7bb01a7b : umbrella; chain via R31.5.1-5.7 sub-reqs (UC pending, ITEM-2)
+rectangle "R31.5.1 rb-compartment presentation duality" as R_6be68334
+rectangle "UC compartment.applyPresentation" as U_b49b5506
+rectangle "Class RbCompartment" as C_eea850ba
+rectangle "Method RbCompartment.applyPresentation" as M_7e611ee4
+rectangle "Impl applyPresentation" as I_4d7e2a91
+rectangle "Test R31.5.1 applyPresentation" as T_fb804b87
+R_6be68334 --> U_b49b5506
+U_b49b5506 --> C_eea850ba
+C_eea850ba --> M_7e611ee4
+M_7e611ee4 --> I_4d7e2a91
+I_4d7e2a91 --> T_fb804b87
+rectangle "R31.5.2 rb-strip descriptor row" as R_86d72090
+rectangle "UC strip.renderDescriptors" as U_b0128db2
+rectangle "Class RbStrip" as C_91d575d0
+rectangle "Method RbStrip.renderDescriptors" as M_9053202e
+rectangle "Impl renderDescriptors" as I_8f1b6c3d
+rectangle "Test R31.5.2 renderDescriptors" as T_14df64cd
+R_86d72090 --> U_b0128db2
+U_b0128db2 --> C_91d575d0
+C_91d575d0 --> M_9053202e
+M_9053202e --> I_8f1b6c3d
+I_8f1b6c3d --> T_14df64cd
+rectangle "R31.5.3 rb-snap-nav" as R_0a24ac9e
+rectangle "UC nav.snapToCompartment" as U_70d7ed9d
+rectangle "Class RbSnapNav" as C_e0cead14
+rectangle "Method RbSnapNav.render" as M_4301b9cc
+rectangle "Impl render" as I_7c1f9a3e
+rectangle "Test R31.5.3 render one-btn-per-compartment" as T_99ab8d5e
+R_0a24ac9e --> U_70d7ed9d
+U_70d7ed9d --> C_e0cead14
+C_e0cead14 --> M_4301b9cc
+M_4301b9cc --> I_7c1f9a3e
+I_7c1f9a3e --> T_99ab8d5e
+rectangle "R31.5.4 viewport responsive mode" as R_be4e57a6
+rectangle "UC viewport.responsiveMode" as U_ab99233d
+rectangle "Method RbStrip.applyViewportMode" as M_232a66f7
+rectangle "Impl applyViewportMode" as I_2a9c5e17
+rectangle "Test R31.5.4 applyViewportMode" as T_f4419019
+R_be4e57a6 --> U_ab99233d
+U_ab99233d --> C_91d575d0
+C_91d575d0 --> M_232a66f7
+M_232a66f7 --> I_2a9c5e17
+I_2a9c5e17 --> T_f4419019
+rectangle "R31.5.5 3-way editor as rb-strip instance" as R_3c3e1cac
+rectangle "UC editor.asStripInstance" as U_1db93cb3
+rectangle "Class RbEditorLayout" as C_94e7bf82
+rectangle "Method RbEditorLayout.editorStripDescriptor" as M_c9cf2a82
+rectangle "Impl editorStripDescriptor" as I_3b8e6c24
+rectangle "Test R31.5.5 editorStripDescriptor" as T_432beb1a
+R_3c3e1cac --> U_1db93cb3
+U_1db93cb3 --> C_94e7bf82
+C_94e7bf82 --> M_c9cf2a82
+M_c9cf2a82 --> I_3b8e6c24
+I_3b8e6c24 --> T_432beb1a
+rectangle "R31.5.6 WODA as rb-strip instance" as R_2f707d67
+rectangle "UC woda.asStripInstance" as U_201ef8fa
+rectangle "Class RbWoda" as C_67852ca8
+rectangle "Method RbWoda.wodaStripDescriptor" as M_4e26dedb
+rectangle "Impl wodaStripDescriptor" as I_5f9d2a7c
+rectangle "Test R31.5.6 wodaStripDescriptor" as T_d826997d
+R_2f707d67 --> U_201ef8fa
+U_201ef8fa --> C_67852ca8
+C_67852ca8 --> M_4e26dedb
+M_4e26dedb --> I_5f9d2a7c
+I_5f9d2a7c --> T_d826997d
+rectangle "R31.5.7 drawer = Details compartment" as R_8243b2fc
+rectangle "UC drawer.applyPosition" as U_0f08964b
+rectangle "Method RbDetailDrawer.applyPosition" as M_d48cc0ce
+rectangle "Impl applyPosition" as I_6e2d4b81
+rectangle "Test R31.5.7 applyPosition one-instance" as T_db12e833
+R_8243b2fc --> U_0f08964b
+U_0f08964b --> C_d86af73d
+C_d86af73d --> M_d48cc0ce
+M_d48cc0ce --> I_6e2d4b81
+I_6e2d4b81 --> T_db12e833
+
+' ── R31.6 pan/zoom viewer (concept — chain pending, ITEM-2) ────
+rectangle "R31.6 Shared pan/zoom viewer capability (concept)" as R_57225ee8
+note bottom of R_57225ee8 : concept; UC->Class->Method chain pending (ITEM-2)
+
+' ── R31.7 DRY single-source version ───────────────────────────
+rectangle "R31.7 DRY single-source app version (typed Config unit)" as R_15aab895
+rectangle "UC config.singleSourceVersion" as U_83e3891a
+rectangle "Class Build" as C_b6946e59
+rectangle "Method Build.generateVersion" as M_dee42cc1
+rectangle "Impl generateVersion" as I_b5eb6953
+rectangle "Test R31.7 single-source typed version" as T_317b67d0
+rectangle "UC config.readBuildVersion" as U_633f7dec
+rectangle "Class ServerConfig" as C_ed94e371
+rectangle "Method ServerConfig.getVersion" as M_8155cf84
+rectangle "Impl getVersion (INV-V4 boot-frozen)" as I_f8c198bb
+rectangle "Test R31.7 INV-V4 boot-frozen version" as T_ff91ca36
+rectangle "UC config.guardTreeClean" as U_b3a0b05d
+rectangle "Method Build.versionGuardTreeClean" as M_e75a7e71
+rectangle "Impl versionGuardTreeClean (INV-V3)" as I_81151504
+rectangle "UC config.guardAgreement" as U_cabf6551
+rectangle "Method Build.versionGuardAgreement" as M_a8040d7c
+rectangle "Impl versionGuardAgreement (INV-V1)" as I_ee8bbaba
+note bottom of I_81151504 : Impl minted (architect) 81151504 + ee8bbaba, markers @ start.mjs:84/99; Tests pending req mint
+R_15aab895 --> U_83e3891a
+U_83e3891a --> C_b6946e59
+C_b6946e59 --> M_dee42cc1
+M_dee42cc1 --> I_b5eb6953
+I_b5eb6953 --> T_317b67d0
+R_15aab895 --> U_633f7dec
+U_633f7dec --> C_ed94e371
+C_ed94e371 --> M_8155cf84
+M_8155cf84 --> I_f8c198bb
+I_f8c198bb --> T_ff91ca36
+R_15aab895 --> U_b3a0b05d
+U_b3a0b05d --> C_b6946e59
+C_b6946e59 --> M_e75a7e71
+M_e75a7e71 --> I_81151504
+R_15aab895 --> U_cabf6551
+U_cabf6551 --> C_b6946e59
+C_b6946e59 --> M_a8040d7c
+M_a8040d7c --> I_ee8bbaba
+
+' ── R31.8 Feature / FeatureManager (root-of-trust) ────────────
+rectangle "R31.8 Feature typed unit + FeatureManager root-of-trust" as R_a93f5fce
+rectangle "Class FeatureManager" as C_9f7f345a
+rectangle "Class RbFeatureDetail" as C_a085d2d1
+rectangle "Class RbProfileDetail" as C_50f45ac3
+rectangle "Class RbProfileView" as C_51bb30cb
+rectangle "Class ProfileView" as C_e20de5f6
+rectangle "UC featureAccess.require" as U_f18de1ce
+rectangle "Method ServerManagerGuard.requireFeatureAccess" as M_35e91ba7
+rectangle "UC featureManager.grant" as U_5bd4e70e
+rectangle "Method FeatureManager.grantFeature" as M_ac522b4f
+rectangle "UC featureManager.revoke" as U_e5ce2a18
+rectangle "Method FeatureManager.revokeFeature" as M_0c63bacc
+rectangle "UC featureManager.bootstrap" as U_5ec4911b
+rectangle "Method FeatureManager.bootstrapSeed" as M_8762a0d5
+rectangle "UC guard.seedOwnerInto" as U_0f5dc242
+rectangle "Method ServerManagerGuard.seedOwnerInto" as M_ba2e94ec
+rectangle "UC featureManager.featureRoots" as U_3540b59a
+rectangle "Method FeatureManager.featureRoots" as M_e07352c9
+rectangle "UC featureManager.allowedUsersChildren" as U_03d6065b
+rectangle "Method FeatureManager.allowedUsersChildren" as M_72c660f9
+rectangle "UC profile.viewFull" as U_84cdc9ec
+rectangle "Method RbProfileView.render" as M_422f22f8
+rectangle "UC profileView.build" as U_e1ad54d7
+rectangle "Method ProfileView.profileViewData" as M_86738972
+rectangle "UC featureManager.profileUuidOf" as U_19bab6d8
+rectangle "Method FeatureManager.profileUuidOf" as M_cb125989
+R_a93f5fce --> U_f18de1ce
+U_f18de1ce --> C_1d6933c7
+C_1d6933c7 --> M_35e91ba7
+R_a93f5fce --> U_5bd4e70e
+U_5bd4e70e --> C_9f7f345a
+C_9f7f345a --> M_ac522b4f
+R_a93f5fce --> U_e5ce2a18
+U_e5ce2a18 --> C_9f7f345a
+C_9f7f345a --> M_0c63bacc
+R_a93f5fce --> U_5ec4911b
+U_5ec4911b --> C_9f7f345a
+C_9f7f345a --> M_8762a0d5
+R_a93f5fce --> U_0f5dc242
+U_0f5dc242 --> C_1d6933c7
+C_1d6933c7 --> M_ba2e94ec
+R_a93f5fce --> U_3540b59a
+U_3540b59a --> C_9f7f345a
+C_9f7f345a --> M_e07352c9
+R_a93f5fce --> U_03d6065b
+U_03d6065b --> C_9f7f345a
+C_9f7f345a --> M_72c660f9
+R_a93f5fce --> U_84cdc9ec
+U_84cdc9ec --> C_51bb30cb
+C_51bb30cb --> M_422f22f8
+R_a93f5fce --> U_e1ad54d7
+U_e1ad54d7 --> C_e20de5f6
+C_e20de5f6 --> M_86738972
+R_a93f5fce --> U_19bab6d8
+U_19bab6d8 --> C_9f7f345a
+C_9f7f345a --> M_cb125989
+note bottom of R_a93f5fce : R31.8 has 17 UCs; core chains shown. 6 Impls Test-pending (RbFeatureDetail.applyGrant/userComplete/mount, FeatureManager.searchUsers/grantedUserProfile/tokenOfProfileUuid) = req mints Tests.
+
+' ── R31.9 responsive detail-container (drawer<->compartment) ───
+rectangle "R31.9 Detail container = ONE CSS-responsive instance" as R_f93d369a
+rectangle "UC drawer.observePosition" as U_cc45a580
+rectangle "Method RbDetailDrawer.observePosition" as M_e8097351
+rectangle "Impl observePosition" as I_240c539f
+rectangle "Test R31.9 responsive detail-container" as T_ccb4a810
+R_f93d369a --> U_cc45a580
+U_cc45a580 --> C_d86af73d
+C_d86af73d --> M_e8097351
+M_e8097351 --> I_240c539f
+I_240c539f --> T_ccb4a810
+
+@enduml

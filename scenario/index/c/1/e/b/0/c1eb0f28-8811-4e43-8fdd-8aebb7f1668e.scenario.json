@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c1eb0f28-8811-4e43-8fdd-8aebb7f1668e",
+  "name": "actionBar.actionsForContext",
+  "description": "R33.9 INV-A1-4 verb-set half (design fcc9166e4): the model.ts action-bar host (architect 'ModelActionBar') tracks activeDiagramUuid from rb-active-diagram and SPLITS the verb set - UNIT verbs (new/rename/delete) always on a selected modelelement (A3); MEMBERSHIP verbs (add/remove) appended ONLY when a diagram is active, targeting THAT diagram (A1/A2); showActionsForType recomputes on selection AND on rb-active-diagram (A4 IMG_4802/4803 fix). Reuse R33.6.5 ACTIONS_BY_TYPE + wireDrawerActions, no fork.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:0c769fe6-54c9-4201-aa42-fb4fd3fbac4d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.9&commit=fcc9166e4",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

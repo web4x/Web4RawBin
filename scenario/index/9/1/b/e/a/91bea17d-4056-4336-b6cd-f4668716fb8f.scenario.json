@@ -5,6 +5,9 @@
     "uuid": "91bea17d-4056-4336-b6cd-f4668716fb8f",
     "name": "impl:RbDetailView.renderSingularChain",
     "status": "active",
-    "sourceFile": ""
+    "sourceFile": "",
+    "tests": [
+      "ior:instance:e97850c3-fad4-46d0-b8b1-709c4ed7b350"
+    ]
   }
 }

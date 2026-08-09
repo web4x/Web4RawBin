@@ -40,12 +40,18 @@
         "id": "AC-5",
         "group": "verify",
         "text": "Verified live (headless): an audio file in a room renders the player and is playable."
+      },
+      {
+        "id": "AC-6",
+        "group": "no-regress",
+        "text": "The audio player still RENDERS in the room-view DETAIL DRAWER (not only a standalone preview pane) and in EVERY context the drawer opens (room / trace / app), gated @390 REAL-DEVICE by PIXEL (a <audio> in the DOM != a visible player) DET-3x -- an empty box FAILS. [Backfilled 2026-08-08: this req shipped then REGRESSED to a blank box (R40.12); AC-5 was HEADLESS and never covered the room-view-drawer render, letting the empty box through. Device-caught-regression = missing AC.]"
       }
     ],
     "crossRef": [
       "ior:instance:21e792e0-0431-4ffd-a4d4-c8d85df23299"
     ],
-    "crossRefNote": "Extends the R21.9 preview pane (rb-preview-pane / ContentPreviewer) with an audio content type."
+    "crossRefNote": "Extends the R21.9 preview pane (rb-preview-pane / ContentPreviewer) with an audio content type.",
+    "regressionNote": "2026-08-08: audio player regressed to an empty black box in the room-view drawer (v0.8.71). +AC-6 (room-view-drawer render, every context, @390 device pixel, fail-on-empty). Code fix = R40.12."
   },
   "ownerIor": "ior:instance:4a4a5d66-d9ff-42be-8d17-201531dbb53e"
 }

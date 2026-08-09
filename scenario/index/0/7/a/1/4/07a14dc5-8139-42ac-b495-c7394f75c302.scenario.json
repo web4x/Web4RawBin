@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "07a14dc5-8139-42ac-b495-c7394f75c302",
+    "name": "ServerManagerApi.unitRealPath",
+    "implementations": [
+      "ior:instance:3ee03bde-aa3c-4d95-92c1-71e9c599f46a"
+    ]
+  },
+  "ownerIor": "ior:instance:2ad2195f-acbc-4f1f-a1bb-fcb730e6ce99"
+}

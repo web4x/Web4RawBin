@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c2da9192-8fb2-4872-9f93-c5aafc0e59c6",
+    "name": "RbModelElementDetail.render",
+    "description": "R32.10 typed model-element detail render: async render() @ src/public/ts/trace/rb-modelelement-detail.ts:30 - for a 'modelelement' ref, fetches the unit and renders CLASS -> «kind» + members (dv-links to signatures) + relations + '📐 Open diagram' dv-link (-> diagram: -> rb-diagram-detail R32.4/6); METHOD/attr -> signature. The NEW distinguishing R32.10 PART-B decl on the NEW Class RbModelElementDetail (the element). Part A drawer-mount (model.ts:18-20, inline root fix) + the /api/model/tree Diagram-root touch (server.ts, inline) are supporting enablers - no re-credit of R32.3/4/6. Architect design 16e64e445; scenario-first IMPL-MINT (#126) - the [impl:uuid] marker lands on the render() decl (name-matches 'render').",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-modelelement-detail.ts",
+    "implementations": [
+      "ior:instance:7e147ad8-aa69-4f02-9844-8652691add0a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:7788ebe0-7e9d-4968-8329-eb611cc65086"
+}

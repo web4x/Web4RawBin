@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "21e38b44-eb21-4fbf-830c-303ad2775095",
+    "name": "BoardMigrator.proveComplete (per-sprint units-completeness proof, refuse-if-incomplete)",
+    "sourceFile": "ior:file:scripts/migrate-boards.ts",
+    "markerPending": false,
+    "markerNote": "STRICT-AST VERIFIED (520885af9, origin): [impl:uuid:21e38b44-eb21-4fbf-830c-303ad2775095] heads export function proveComplete@scripts/migrate-boards.ts:47 (name-match, 0 intervening). R-C7 BoardMigrator; --prove read-only scoped to generator-owned boards (G5 narrative excluded), refuses naming each gap; --apply proof-gated G1/G4/G3/G2. Real run --prove S18 = REFUSE 98 gaps (all in requirements.md). Expert also fixed a generate-sprint-md CLI import-leak.",
+    "tests": [
+      "ior:instance:0870c78b-6268-4de2-a86b-0b74dfe7cf0d",
+      "ior:instance:ae106047-eb62-4a99-9b33-84f91697269f",
+      "ior:instance:705e8a53-dbed-4b77-8527-043535fda95a",
+      "ior:instance:57829ccc-59dd-4360-a11c-35899a5182f1"
+    ]
+  },
+  "ownerIor": "ior:instance:c9a8b675-4e55-4258-9dbe-0463f303abf5"
+}

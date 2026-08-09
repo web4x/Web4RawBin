@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "fc2f97c9-a2e2-4599-9c9a-a9657d31b051",
+    "name": "TsToModel",
+    "file": "src/ts/scenario/TsToModel.ts",
+    "methods": [
+      "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576",
+      "ior:instance:68d1997e-368c-4a54-a6bb-498f0a3123b2"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/ts/scenario/TsToModel.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:efaea742-87c6-4c99-a2ed-e2939a61f048"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "67a9f60f-ee2c-46f5-9533-376fd9d42295",
+    "name": "server.createFolder",
+    "description": "NEW server endpoint for R34.3 Add-folder (mirror server.newElement 42bf4938): POST /api/model/folder/create mints ior:class:Folder in MODEL_STORE (R32.5 isolation, R32.2 det-uuid). IMPL-MINT.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:28000b00-55d3-4a94-ba37-dd7486ffb851"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

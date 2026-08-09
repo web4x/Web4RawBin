@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Feature",
+  "model": {
+    "uuid": "901e0ece-c735-4c20-8652-1809069662c3",
+    "name": "Model-Driven Code Quality",
+    "description": "The MDA / Model-Driven Code Quality feature (Sprint 32, R32.1-R32.8): drop a TS file -> generate M1/M2 model units on the isolated store -> the model TREE (R32.3) + interactive SVG DIAGRAM with UML boxes (R32.4) + relationship EDGES (R32.6) + PUML export/import round-trip (R32.7) + action Re-Sync from source (R32.8). Owner/member-gated; launches to /model. R32.9 registers it so the FeatureManager DISCOVERS + lists it (correct-by-construction, no hardcoded seed).",
+    "icon": "📐",
+    "allowedUsers": [
+      "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+      "05e58f81-34ec-4851-b5b7-5749ca9148a3",
+      "c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
+    ],
+    "launchPage": "/model",
+    "allowedUsersNote": "Intentionally EMPTY at mint: the owner is seeded into allowedUsers at first boot by the R32.9 bootstrapSeed ENUMERATE pass (INV-D2 - seeds every discovered Feature, not a hardcoded 2-feature list). Leaving it [] proves the discovery-seed works (a pre-populated list would mask INV-D2). allowedUsers refs the profile TOKEN (owner Tron 41ad88c4), like the ServerManager Feature exemplar.",
+    "launchPageNote": "R32.9 design-C: launch is DATA-DRIVEN via Feature.launchPage (drop the renderFeatureGrants name-ternary). '/model' serves the R32.5 model view behind requireFeatureAccess('Model-Driven Code Quality') (R31.8 gate, 403 for non-members).",
+    "implementations": [],
+    "implNote": "MDA feature-impl mirror = the R32.1-R32.8 chain (representative: TsToModel.generate 382f8644, modelFacetType 449d830a, buildDiagramSvg ba96a744, buildEdges 77761d46, modelToPuml 8462f889 / pumlToModel e85bc60a, reSyncFromSource fb22c5cd, isModelUnit 010f3e23). Expert wires the both-way Feature<->Impl back-refs on build (same mirror discipline as ServerManager 16604eee).",
+    "featureNote": "MDA Feature instance minted by robbin-req scenario-first (R32.9 design B, cdbfc7154; PO directive 2026-07-30) - the DATA the FeatureManager discovery finds. In PROD scenario/index (not model-store). ownerIor -> R31.8 a93f5fce matching the ServerManager Feature exemplar. Auto-appears + launchable @390 once the expert lands A (bootstrapSeed enumerate) + C (launchPage data-launch) + D (gated /model route)."
+  },
+  "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
+}

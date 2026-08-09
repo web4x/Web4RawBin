@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "daff6011-ca76-4941-bc1c-de13231cc74e",
+  "name": "unit.deleteWithConfirm",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:30200eb2-6f77-4e4a-b4c2-7294b721b62b",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-B-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R34.3 (R-B) «Delete» = DESTROY the scenario unit, gated by a confirm() WARN before the delete endpoint. RESIDUAL-WIRING: rides the built R33.9 deleteElement (Method 30200eb2 / Impl 14b7004a — already carries the confirm-WARN per expert). The client confirm guard is a call-site; NO new verb/Method/Impl.",
+  "ridesNote": "Rides deleteElement 30200eb2/Impl 14b7004a (confirm-WARN already present). @390 Test rides 14b7004a distinct-intent."
+ },
+ "ownerIor": null
+}

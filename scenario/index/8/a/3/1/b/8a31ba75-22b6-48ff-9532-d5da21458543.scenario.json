@@ -4,6 +4,7 @@
     "uuid": "8a31ba75-22b6-48ff-9532-d5da21458543",
     "id": "T188",
     "name": "Dogfood S17 view-gen: planning.md + task-*.md emitted from scenario.json Sprint+Task units",
+    "supersededBy": "RE-DELIVERED-LATER: generate-sprint-md view-gen formalized S24 (R24.1)",
     "sprint": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
     "coveredRequirements": [
       "ior:instance:91a1c36a-bd77-4c05-a5ac-e3f1dfbfac5b",

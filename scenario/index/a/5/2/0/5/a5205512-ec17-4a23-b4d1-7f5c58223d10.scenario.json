@@ -1,0 +1,47 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "a5205512-ec17-4a23-b4d1-7f5c58223d10",
+  "altId": "R33.6.1",
+  "name": "BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing",
+  "description": "Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY diagram STILL adds nothing - the drop-to-add diagram-model write is broken specifically for new/empty diagrams (works once a diagram already has boxes). Likely related to R33.5 item-1 addDiagram / the diagram model-write path (empty-diagram init or the drop handler keying off existing elements). Route architect(diagnose measure-first)->expert(fix)->tester(catch @390). Reuse the existing drop/diagram-write path, NO fork.",
+  "tronQuote": "> TRON (2026-07-31): dragging elements into a NEW diagram still doesn't add anything - drop-to-add is broken for new/empty diagrams.",
+  "tasks": [
+   "ior:instance:eec77e5b-ffb9-4c97-ad20-f77a8fa4e08d"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:8e0d0a96-d331-45d3-8470-9ad6bc618a5c"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron ('editing improved a lot') via robbin-po; PO-capture scrum.pmo/sprints/sprint-33-mof-layered-tree/R33.6-diagram-editor-round2-PO-capture.md (dd3fa403b)",
+   "date": "2026-07-31",
+   "note": "Tron item-1: drop-to-add broken for new/empty diagrams. Bug = functionality broken (highest pri). Consolidates the diagram model-write path with R33.5 item-1 addDiagram; architect measures the empty-diagram drop handler first."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-drop-adds-to-new-diagram",
+    "group": "functional",
+    "client": true,
+    "text": "Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes."
+   },
+   {
+    "id": "AC-drop-persists-roundtrip",
+    "group": "functional",
+    "client": true,
+    "text": "The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram."
+   },
+   {
+    "id": "AC-390-gate-drop-new",
+    "group": "gate",
+    "text": "GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cef954eb-443d-4969-b54f-1c92e3692392",
+    "name": "RbDetailDrawer.setActions impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "tests": [
+      "ior:instance:2430c050-4c0d-479b-8ba4-b80214c5a2bb"
+    ],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:24d9c3f3-eb7a-41b5-ab64-2ad41e70114c"
+}

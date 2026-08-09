@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "aa046d50-751a-465e-bea7-51e28a94b09d",
+    "name": "TaskQaVerdict.declineToChangeRequest",
+    "implementations": [
+      "ior:instance:90089602-d819-4df3-80a9-ef5524931ae3"
+    ]
+  },
+  "ownerIor": "ior:instance:a20f8990-5a0e-4a99-9190-9674c11d668c"
+}

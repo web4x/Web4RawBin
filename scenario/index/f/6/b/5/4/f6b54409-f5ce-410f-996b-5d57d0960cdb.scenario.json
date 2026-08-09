@@ -3,6 +3,7 @@
   "model": {
     "uuid": "f6b54409-f5ce-410f-996b-5d57d0960cdb",
     "name": "T-detail-narrowed-chain: detail-view chain section shows narrowed singular chain",
+    "supersededBy": "RE-DELIVERED-LATER: narrowed-chain (chainMethod) detail superseded S27 + S36",
     "slug": "detail-narrowed-chain-singular",
     "description": "Detail-view Traceability-Chain section shows the narrowed singular chain per UC. Already shipped. Traceability-closure task.",
     "status": "In Progress",

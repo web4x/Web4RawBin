@@ -17,7 +17,8 @@
 // [impl:uuid:87c9007a-2144-4030-a5ac-cd48f518bb2b] TraceObject.parent
 
 export type ObjectType =
-  | 'requirement' | 'task' | 'usecase' | 'class' | 'method' | 'implementation' | 'test' | 'bug' | 'changerequest' | 'sprint' | 'room' | 'testcase' | 'gate' | 'currentsprint';
+  | 'requirement' | 'task' | 'usecase' | 'class' | 'method' | 'implementation' | 'test' | 'bug' | 'changerequest' | 'sprint' | 'room' | 'testcase' | 'gate' | 'currentsprint'
+  | 'modelelement'; // R32.1 MDA: the ONE MoF element type (metaLevel M3/M2/M1 + kind), no ior-per-kind fork
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -150,10 +151,17 @@ export abstract class TraceObject {
   /** T175 Tree: children in the LOCKED chain */
   get children(): TraceObject[] {
     const BELOW: Partial<Record<ObjectType, ObjectType>> = { requirement: 'usecase', task: 'usecase', usecase: 'class', class: 'method', method: 'implementation', implementation: 'test' };
-    const fwd = FORWARD_KEYS[this.type];
     const below = BELOW[this.type];
-    if (!fwd || !below) return [];
-    return this.graph.resolve(this, fwd, below);
+    if (!below) return [];
+    // R31.11 durable (5th class/classes site): UC→Class resolves BOTH canonical singular 'class' + legacy plural
+    // 'classes' (per shared CHAIN_TYPE_CONFIG.UseCase). Multi-key resolve, deduped by uuid — so the client graph
+    // no longer stops at a singular-'class' UC. Other types keep their single FORWARD_KEYS relation.
+    const fwdKeys = this.type === 'usecase' ? ['class', 'classes'] : (FORWARD_KEYS[this.type] ? [FORWARD_KEYS[this.type]] : []);
+    if (!fwdKeys.length) return [];
+    const seen = new Set<string>();
+    const out: TraceObject[] = [];
+    for (const k of fwdKeys) for (const o of this.graph.resolve(this, k, below)) { if (!seen.has(o.uuid)) { seen.add(o.uuid); out.push(o); } }
+    return out;
   }
 
   get hasChildren(): boolean { return this.children.length > 0; }
@@ -177,6 +185,49 @@ export abstract class TraceObject {
 
 // ── Chain objects ───────────────────────────────────────────────────────────
 // Relationship names are paired (forward/inverse) so links stay bidirectional and typed.
+
+// ── R32.1 MDA MoF element (Layer 1 identity) ─────────────────────────────────
+// The ONE MoF element type (design-mda-model.md eb64a6523, req R32.1 05c26eb8): metaLevel (M3/M2/M1) + kind,
+// multi-facet instanceOf (→ meta one level up; REVERSE 'instances'), members (composition; REVERSE 'memberOf'),
+// relatesTo (typed attr/getter/setter → another element; REVERSE 'relatedFrom'), diagramViews (Layer 2 view-links;
+// REVERSE 'viewsUnit'). Every relation via graph.link → bidirectional by construction; same-UUID/one-unit law (NO
+// ior-per-kind fork). Builds on TraceObject/TraceGraph (which already rejects duplicate UUIDs = assertion 1).
+// NOTE: [impl:uuid:] markers on the ctor/relation methods pending req minting the R32.1 Method units (05c26eb8 chain
+// currently empty) — placed post-mint, name-matching req's Method tokens (scenario-first, no invented uuids).
+export type MetaLevel = 'M3' | 'M2' | 'M1';
+export type ModelKind = 'class' | 'interface' | 'attribute' | 'property' | 'method' | 'function' | 'type' | 'relationship';
+export class ModelElement extends TraceObject {
+  readonly type = 'modelelement' as const;
+  metaLevel: MetaLevel;
+  kind: ModelKind;
+  sourceFile = '';
+  sourceLine = 0;
+  tsSignature = '';
+  constructor(graph: TraceGraph, uuid: string, name: string, metaLevel: MetaLevel, kind: ModelKind) {
+    super(graph, uuid, name);
+    this.metaLevel = metaLevel;
+    this.kind = kind;
+  }
+  addInstanceOf(m: ModelElement): this { this.graph.link(this, 'instanceOf', m, 'instances'); return this; }   // → meta one level up (multi-facet; M3 self-types)
+  addMember(m: ModelElement): this { this.graph.link(this, 'members', m, 'memberOf'); return this; }            // composition (class → attrs/methods/properties)
+  addRelatesTo(m: ModelElement): this { this.graph.link(this, 'relatesTo', m, 'relatedFrom'); return this; }    // typed attr/getter/setter → element (an association/dependency)
+  addDiagramView(v: TraceObject): this { this.graph.link(this, 'diagramViews', v, 'viewsUnit'); return this; }  // Layer 2 view-link (identity-by-reference, not a copy)
+  get instanceOf(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'instanceOf', 'modelelement'); }
+  get instances(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'instances', 'modelelement'); }
+  get members(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'members', 'modelelement'); }
+  get memberOf(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'memberOf', 'modelelement'); }
+  get relatesTo(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'relatesTo', 'modelelement'); }
+  get relatedFrom(): ModelElement[] { return this.graph.resolve<ModelElement>(this, 'relatedFrom', 'modelelement'); }
+  // R32.1 assertion-4 helper: every .puml/.ts serialization of X embeds this marker (mirrors [impl:uuid:]) so identity survives text.
+  modelMarker(): string { return `[model:uuid:${this.uuid}]`; }
+  toJSON(): FlatObject {
+    const out = super.toJSON();
+    (out as unknown as Record<string, unknown>).metaLevel = this.metaLevel;
+    (out as unknown as Record<string, unknown>).kind = this.kind;
+    if (this.sourceFile) (out as unknown as Record<string, unknown>).sourceFile = this.sourceFile;
+    return out;
+  }
+}
 
 export class Requirement extends TraceObject {
   readonly type = 'requirement' as const;

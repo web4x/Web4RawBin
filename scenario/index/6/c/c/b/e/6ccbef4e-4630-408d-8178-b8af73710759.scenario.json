@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "6ccbef4e-4630-408d-8178-b8af73710759",
+  "name": "Legacy hand-authored boards MIGRATED to generated (units-completeness-proven, zero loss)",
+  "altId": "R-C7",
+  "tasks": [
+   "ior:instance:bb31965b-8fe7-401b-8d19-968aad127bf0"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:c8c3d81e-4ec4-48e7-9769-842e93879897"
+  ],
+  "description": "The ~20 legacy hand-authored requirements.md + ~10 planning.md (pre-R30.18, no GENERATED_HEADER) are MIGRATED to generated views so the whole board becomes generated (closing the drift-seam R-C2 could not touch). DATA-LOSS-SENSITIVE: for each legacy board, its scenario UNITS must be PROVEN to carry ALL the file's content BEFORE any clobber; where they do not, the units are BACKFILLED from the file FIRST (the file is that content's source of record until migrated). Idempotent + reversible, ZERO content loss. Explicitly TRACKED (no-silent-caps). TRON BOUNDED (2026-08-07): backfill S21-S29 ONLY (~119 gaps) to generated+guarded; FREEZE S01-S18 as labelled legacy (excluded from checkSprint, tracked, no-silent-caps); the 11 already-PASS are fine. Per-sprint --prove names the exact gaps; backfill those -> re-prove -> --apply one-sprint-atomic. Runs one sprint at a time, each only after its units-completeness is proven; genuine narrative stays hand-authored. Makes R-C2 37/37 REAL as an IN-SCOPE number.",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — expert-surfaced during R-C2 run, PO-approved as the safe legacy-migration req; EXECUTION needs Tron-auth (data-loss).",
+  "discoverySource": {
+   "type": "team-discovery-authorized",
+   "discoveredBy": "robbin-expert (R-C2 run measured ~9/37) + robbin-req (analysis)",
+   "approvedBy": "robbin-po",
+   "date": "2026-08-07",
+   "note": "R-C2 reconcile-all correctly could not clobber 20 hand-authored requirements.md + 10 planning.md (OWNED-OUTPUT data-loss invariant). R-C7 migrates them SAFELY (units-completeness-proven, no loss), the doctrinally-correct seam-close. EXECUTION Tron-gated (data-loss-sensitive)."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-units-completeness",
+    "group": "safety",
+    "text": "Before ANY clobber of a legacy hand-authored board, its scenario UNITS are PROVEN to carry ALL the file's content (per-sprint units-completeness check); NO file is overwritten until completeness is proven for that sprint."
+   },
+   {
+    "id": "AC-backfill-first",
+    "group": "safety",
+    "text": "Where the units do NOT carry all the content, the units are BACKFILLED from the file FIRST (content flows file->units, the file being that content's source of record until migrated) — THEN the generator owns the view. Content that exists only in the file is NEVER deleted."
+   },
+   {
+    "id": "AC-narrative-preserved",
+    "group": "safety",
+    "text": "GENUINE narrative content (human prose that is NOT unit-derived — e.g. design rationale, notes) STAYS hand-authored in a preserved region (mirrors R-C6's preserved-narrative OWNED-region); the migration generates the unit-derived portions and PRESERVES genuine narrative, never flattening it into a lossy generated view."
+   },
+   {
+    "id": "AC-idempotent-reversible",
+    "group": "safety",
+    "text": "The migration is idempotent (re-run = no-op) and REVERSIBLE ONE-SPRINT-AT-A-TIME (each sprint's pre-migration file is recoverable via git before moving to the next); ZERO content loss end-to-end, provable by diffing pre-file content against post-generated + units."
+   },
+   {
+    "id": "AC-tracked-scope",
+    "group": "functional",
+    "text": "BOUNDED SCOPE (Tron ruling 2026-08-07): IN-SCOPE = S21-S29 (~119 named gaps backfilled to generated+guarded; S23 already PASSES). S01-S18 = FROZEN LEGACY hand-authored — NOT backfilled, EXCLUDED from checkSprint, and EXPLICITLY LABELLED legacy (visible + tracked, no-silent-caps — never silently dropped). The 11 already-PASS boards (S19/S20/S23/S30-S37) are fine. Worklist = expert gap report ed9beb540 (scrum.pmo/board-migration-gap-report.md), the exact named items per sprint."
+   },
+   {
+    "id": "AC-tron-auth",
+    "group": "governance",
+    "text": "TRON-AUTHORIZED EXECUTABLE (2026-08-07): the migration RUNS (not just tracked), one sprint at a time; each sprint migrates ONLY after its units-completeness is PROVEN (per-sprint gate, not a team-wide block). The architect designs the procedure + per-sprint classification."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "BITE TEST (distinct-intent, exercises AC-units-completeness): plant a units-INCOMPLETE sprint (units missing some file content) -> the migration REFUSES to write that sprint (fail-loud, no clobber); a units-COMPLETE sprint -> migrates + --check byte-matches + original content fully present (post-generated + units) + reversible. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

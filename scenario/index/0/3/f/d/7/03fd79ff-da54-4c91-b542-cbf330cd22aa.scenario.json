@@ -1,0 +1,63 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa",
+  "name": "Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip",
+  "altId": "R-C5",
+  "tasks": [
+   "ior:instance:97e8a6ad-46db-440f-a9be-cfb97ca64df4"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:2a840e93-8b20-4b50-97ef-38d7cab1df53"
+  ],
+  "description": "A Task unit carries TWO independent status fields — model.status (-> planning checkbox) AND model.statusChecklist (free-text -> task-md '## Status') — which can DISAGREE WITHIN the source (e.g. Task 95: status='In Progress' but statusChecklist all-checked). R-C5 makes a task's status ONE truth WITHOUT flipping its displayed Done-ness (disagreements are surfaced for the honesty audit, never silently reconciled to Done = a status invention). Kept OUT of R-C2 (which regenerates from BOTH fields as-is, INV-C4).",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.",
+  "discoverySource": {
+   "type": "team-discovery-authorized",
+   "discoveredBy": "robbin-architect (R-C2 design surfaced)",
+   "approvedBy": "robbin-po",
+   "date": "2026-08-07",
+   "doctrine": "session/knowledge-base/consistency-by-construction.md",
+   "note": "Surfaced during R-C2 design; PO approved as distinct S37 reqs, kept OUT of R-C2."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-one-status",
+    "group": "functional",
+    "text": "A Task's status is ONE truth: model.status and model.statusChecklist are reconciled (or one derived from the other) so they CANNOT disagree within a unit."
+   },
+   {
+    "id": "AC-no-doneness-flip",
+    "group": "functional",
+    "text": "The reconcile MUST NOT flip a task's displayed Done-ness (a status='In Progress' + all-checked checklist is SURFACED for the honesty audit, NOT silently flipped to Done) — no status invention, honors R-C2 INV-C4."
+   },
+   {
+    "id": "AC-detector",
+    "group": "functional",
+    "text": "A FAIL-LOUD detector assertStatusConsistent asserts status==deriveStatusEnum(statusChecklist) for EVERY Task and exit 1 LISTING every offender, FLAGGING the dangerous status='Done' && Done-box-UNCHECKED subset as FALSE-DONE priority (the honesty-audit target). Folds into ci:gates. The list IS the owner-resolve worklist (resolution flows checklist->status, never reverse)."
+   },
+   {
+    "id": "AC-malformed",
+    "group": "functional",
+    "text": "The 1 malformed (non-string) statusChecklist found on disk is handled safely: deriveStatusEnum and the detector do NOT crash on it — it is flagged for repair-to-template, not silently mis-derived."
+   },
+   {
+    "id": "AC-ties-honesty-audit",
+    "group": "functional",
+    "text": "status/statusChecklist disagreements are surfaced to the planner honesty audit (the UNIT is the thing to fix, not the view); ties to the S33-36 honesty correction."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST = false-Done BITE (distinct-intent, exercises its own AC): plant status='Done' on a task whose checklist Done-box is [ ] -> assertStatusConsistent MUST exit 1 naming it FALSE-DONE; a task with status==deriveStatusEnum(checklist) -> passes; setting status=deriveStatusEnum on a fresh edit keeps them equal (by-construction, no new drift). Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

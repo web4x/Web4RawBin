@@ -1,0 +1,44 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8a584787-13ce-435d-ac5c-cf4c67be51a1",
+  "altId": "R31.16",
+  "name": "Non-host read-only notice in room settings (explains why editing is disabled)",
+  "description": "When a NON-host member opens the room settings/config modal, a visible READ-ONLY NOTICE explains they cannot edit because they are not the room owner. Host-only edits are CONFIRMED correct by Tron (keep read-only for non-host, R31.12); this adds the UX affordance so a non-host understands WHY the fields are disabled (not a bug). Nothing else broken - radios work, values bound (architect confirmed). Trivial: expert builds a ~2-line notice.",
+  "tronQuote": "> TRON (2026-07-28, via PO): host-only edits confirmed - keep read-only; add a notice so a non-host member sees they cannot edit because they are not the room owner.",
+  "tasks": [
+   "ior:instance:05cea277-cb43-4fc7-9fbf-29c70f71fa6e"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [
+   "ior:instance:3c490de5-e4fd-4a1c-99ae-c54bc7683827"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-28) via robbin-po",
+   "date": "2026-07-28",
+   "note": "Light UX: non-host read-only notice in the room settings modal (host-only edits confirmed by Tron). crossRef R31.12 (non-host read-only). Expert building ~2-line notice; chain mints onto the built notice."
+  },
+  "crossRef": [
+   "ior:instance:ede037dc-9a53-4b8b-9ff1-971b0469c0af"
+  ],
+  "crossRefNote": "Extends R31.12 (ede037dc) non-host read-only config: R31.12 makes non-host read-only; R31.16 adds the visible notice explaining WHY (not-the-owner).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-nonhost-readonly-notice",
+    "group": "functional",
+    "text": "When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390."
+   },
+   {
+    "id": "AC-host-no-notice",
+    "group": "functional",
+    "text": "The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

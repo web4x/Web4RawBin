@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a9148cbe-5ef6-4c47-b789-a414683ad58d",
+  "name": "diagramView.buildTraceEdge",
+  "description": "R36.4 INC-2 render: build the dashed connector for an AUTHORED UmlTraceRelationship edge — extends R32.6 buildEdges (add a 'trace' EDGE_DEFS kind) + borderPoint reroute, via a distinct buildTraceEdge decl. Diagram-only (INV-T tree byte-diff==0).",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "method": "ior:instance:6a2cbd63-e958-4de8-a5b3-e84948c71bc6",
+  "sourceFile": "ior:file:scrum.pmo/design (R36.4 architect b0d16ec5e)",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

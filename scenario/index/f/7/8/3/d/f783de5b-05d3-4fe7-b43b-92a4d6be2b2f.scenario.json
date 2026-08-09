@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f783de5b-05d3-4fe7-b43b-92a4d6be2b2f",
+  "name": "diagram.moveView",
+  "description": "R33.3 (AC-movable-persist / INV-S33V-2, the BIG ROCK): RbDiagramDetail.wireBoxDrag makes each .dm-box MOVABLE - a pointer/touch drag on a box live-moves it and updates its view-link x,y, disambiguated from RbPanZoom canvas-pan (drag on .dm-box = move-box; drag on empty surface = pan), touch+mouse (the R32.11-MOBILE lesson: HTML5 DnD != touch -> pointer/touch events). The move persists via the server POST /api/model/diagram/move-view (inline endpoint glue, MODEL_STORE, INV-S33V-4) so it survives reload; a box-drag-end suppresses the trailing select click. Distinct NEW Method wireBoxDrag on Class RbDiagramDetail (no re-credit of addView/render). Gate = @390 pixel (drag -> SEE box move + persist).",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "classes": [
+   "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+  ],
+  "method": "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -10,14 +10,6 @@ import { MSG } from '../../shared/MessageTypes.js';
 const client = new RawBinClient();
 (window as any).__rawbinClient = client;
 
-// BUG5 instrumentation — document-level capture to find what intercepts 2nd tap
-document.addEventListener('click', (e) => {
-  const t = e.target as HTMLElement;
-  const inDrawer = t.closest('rb-detail-drawer') ? 'IN-DRAWER' : 'NOT-DRAWER';
-  const inTree = t.closest('rb-trace-tree') ? 'IN-TREE' : 'NOT-TREE';
-  const ref = t.closest('rb-object-item')?.getAttribute('ref') || 'none';
-  console.log('[CLICK-TARGET]', t.tagName, t.className, inDrawer, inTree, 'ref=' + ref);
-}, true);
 const container = document.getElementById('app')!;
 const profileEditor = new ProfileEditor(client);
 const deviceEnroll = new DeviceEnrollDialog(client);

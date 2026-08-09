@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "87de897c-74bc-471b-b85e-662d011f792b",
+  "name": "feature.discover",
+  "description": "R32.9 discovery (INV-D1 + INV-D2): the FeatureManager DISCOVERS all ior:class:Feature units and, at first boot, FeatureManager.bootstrapSeed ENUMERATES every discovered Feature + seedOwnerInto each one's allowedUsers (dropping the hardcoded 2-feature SEED_FEATURES list - the fragility that left the MDA Feature owner-unreachable). So a NEW Feature (the MDA unit 901e0ece) is owner-reachable + listed by construction. Reuses the EXISTING bootstrapSeed chain (Method 8762a0d5-8f69-4dba-8d48-59bd3e264f18 / Impl 03b2b1db, R31.8, body edited for the enumerate - marker stays); R32.9's Test co-credits Impl 03b2b1db. featuresForToken (server.ts:932) carries launchPage (INV-D3). Sibling UC of feature.launch.",
+  "class": "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43",
+  "classes": [
+   "ior:instance:9f7f345a-ac64-4038-9582-7c026db82a43"
+  ],
+  "method": "ior:instance:8762a0d5-8f69-4dba-8d48-59bd3e264f18",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

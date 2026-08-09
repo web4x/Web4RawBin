@@ -1,0 +1,73 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "91486de1-0cdd-4d57-b07e-9a5ce945702a",
+  "name": "Pin is COMPUTED from files (never hand-set)",
+  "altId": "R-C1",
+  "tasks": [
+   "ior:instance:458b6b1c-b967-4c5f-8ff8-1e57e380159e"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:6c016f6a-4cc3-4ce9-aded-ac99fcb639ab"
+  ],
+  "description": "BOTH the CurrentSprint pin AND the current-TASK pointer ('📌 Current: Task N') are DERIVED by a resolver from the scenario units on disk (sprint = the sprint carrying active in-progress work; task = the active in-progress task) — NEITHER has a hand-editable stored value. 'Advance' becomes RUNNING the resolver. Fixes BOTH measured stale pointers: the 3-sprint-stale sprint-pin (S33 while work is on S36) AND the ~5-sprint-stale task-pointer ('Task 31.1'). Same drift class — one stale pointer proves vigilance fails; both must be computed. The pin's THREE SLOTS are all computed: CURRENT = sprint with in-progress work (QA-pending-only is NOT current), LAST-COMPLETED = highest fully-Done, NEXT-BACKLOG = next Planned — the by-construction answer to the open-for-QA ambiguity (a human should never have to ask 'is this sprint still current').",
+  "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
+  "discoverySource": {
+   "type": "doctrine-authorized",
+   "authorizedBy": "Tron (#76 strategic increment)",
+   "date": "2026-08-07",
+   "doctrine": "session/knowledge-base/consistency-by-construction.md (ARON)",
+   "scope": "scrum.pmo/consistency-guard-scope.md (planner+req 492e28fe5)",
+   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R-C2->R-C1->R-C3->R-C4."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-computed",
+    "group": "functional",
+    "text": "BOTH the CurrentSprint pin AND the current-task pointer are DERIVED by a resolver from the scenario units on disk; NEITHER has a hand-editable stored value the resolver can disagree with."
+   },
+   {
+    "id": "AC-task-pointer",
+    "group": "functional",
+    "text": "The current-task pointer ('📌 Current: Task N') is COMPUTED from the task units' status on disk (the active in-progress task), NEVER hand-set — the ~5-sprint-stale 'Task 31.1' pointer is a hand-set drift of the SAME class as the stale sprint-pin, and is eliminated the same by-construction way."
+   },
+   {
+    "id": "AC-three-slots",
+    "group": "functional",
+    "text": "The three CurrentSprint slots are COMPUTED from unit/task state, NEVER hand-set: CURRENT = the sprint carrying IN-PROGRESS work (a sprint open ONLY on QA-pending items is NOT current — e.g. S36 today, open only for QA); LAST-COMPLETED = the highest fully-Done sprint; NEXT-BACKLOG = the next Planned sprint. This is the by-construction answer to 'is an open-for-QA sprint still current' — the resolver decides, never a human."
+   },
+   {
+    "id": "AC-three-slots-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-three-slots: feed a fixture where S36 is open ONLY on QA-pending items AND S37 has in-progress work -> the resolver returns current=S37, last-completed=S35, next-backlog=S38-or-none. Deterministic from unit/task state; no hand-set slot. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-advance-is-run",
+    "group": "functional",
+    "text": "'Advance the pin' (skill-expert duty) = RUNNING the resolver, NOT editing a value; a hand-set value is overridden by the recompute."
+   },
+   {
+    "id": "AC-matches-files",
+    "group": "functional",
+    "text": "The computed sprint-pin == the sprint carrying active work (today S36, not stale S33, no 34/35 skip) AND the computed task-pointer == the active in-progress task on disk (not the measured ~5-sprint-stale 'Task 31.1')."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-computed+AC-task-pointer+AC-matches-files: arrange units so active work = sprint N / task T, run the resolver -> sprint-pin==N AND task-pointer==T deterministically; plant a stale hand-set sprint-pin OR task-pointer -> the recompute overrides BOTH. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-no-name-derivation",
+    "group": "no-name-parse",
+    "text": "INV-C1-8 (extended, no-name-parse single-source): NO module derives a sprint NUMBER or SLUG from the free-text name. sprintNumOf = model.number + sourceFile/slug fallback. sprintSlugOf = the real on-disk dir via a fallback chain (path-regex /sprints/(sprint-[^/]+)/ -> model.slug-if-dir-exists -> on-disk sprint-<num>-* dir), which MUST resolve to an EXISTING dir else REFUSE (fail-closed, R-C3) - NEVER slugify(model.name) (which mints the S20 phantom sprint-20-radical-forward-planning-... with no dir). Grep-lint BITE: a name-based match/slugify(name) for sprint identity anywhere in the consumer set = FAIL."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

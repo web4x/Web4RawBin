@@ -8,7 +8,10 @@
   "method": "ior:instance:08ad3bdd-2cfb-4c7a-bcfc-c4669cd6deda",
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-server-manager.md",
   "parent": null,
-  "unitLinks": []
+  "unitLinks": [],
+  "classes": [
+   "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+  ]
  },
  "ownerIor": null
 }

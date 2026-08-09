@@ -1,0 +1,74 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7",
+  "altId": "R32.4",
+  "name": "Interactive SVG diagram surface in the details drawer (responsive, pan/zoom)",
+  "description": "Interactive SVG diagrams live in the DETAILS DRAWER (rb-detail-drawer reuse), all responsive sizes, with pan + pinch-zoom (RbPanZoom reuse) like any other svg/image/html viewer in the details compartment. A blank diagram is a drop TARGET. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+  "tronQuote": "> TRON (2026-07-29): consistent version reached -> bump v0.8.0 + a new sprint FULLY about model-driven code quality, delivered as a feature via the FeatureManager. Generate scenario-based MDA/MOF 3-level model elements for the TS compiler base structures, same UUID across M-levels; model tree + interactive SVG diagrams; PUML serialize/parse no-dup; action-driven TS<->PUML sync.",
+  "tasks": [
+   "ior:instance:6a946cd2-7c78-4d9f-a720-2894b14ae0a3"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+  "sprintName": "Sprint 32",
+  "useCases": [
+   "ior:instance:6a155572-074c-46a2-a851-af4fab96144b"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-directive",
+   "flaggedBy": "Tron (2026-07-29) via robbin-po",
+   "date": "2026-07-29",
+   "note": "Sprint 32 MDA model-driven code quality vision. Minted scenario-first; ACs INITIAL, finalize on architect MDA-structure design (same-UUID invariant, PUML round-trip, action-sync). Reuse: rb-trace-tree, RbPanZoom, rb-detail-drawer, R31.8 FeatureManager, R31.7/R31.13 single-source law, R25.7 identity-by-reference."
+  },
+  "crossRef": [],
+  "crossRefNote": "Reuse (no re-fork): model tree=rb-trace-tree; diagram pan/zoom=RbPanZoom; drawer=rb-detail-drawer; feature=R31.8 FeatureManager; version=R31.7 single-source + R31.13 deterministic; view identity-by-reference=R25.7 kinship. same-UUID-across-M-levels = the central invariant (architect owns, correct-by-construction).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-svg-in-drawer",
+    "group": "functional",
+    "text": "The SVG diagram SURFACE is a DRAWER DETAIL-VIEW: a NEW rb-diagram-detail element (like rb-terminal-detail/rb-class-detail) registered in the rb-detail-drawer tagMap for a `diagram:` ref, mounted via the STANDARD selection->renderDetailForRef flow - NOT showElement, NOT a bespoke overlay (the R31.12 no-fork law, exact fork R31.4 retired). It inherits the drawer's responsive position (R31.9: bottom portrait / inline landscape) + open/close/expand by construction. Selecting a diagram:<D> ref renders the surface."
+   },
+   {
+    "id": "AC-diagram-nodes-from-viewlinks",
+    "group": "functional",
+    "text": "NODES = the Diagram unit's ordered Layer-2 `views[]` view-links: each `{ unit:'modelelement:X', x, y, w?, h?, viewKind:'class' }` -> ONE SVG UML class box at (x,y) with 3 compartments (name / attributes / methods) built from X's `members`; the box KIND + icon come from X's M2 MODEL-facet (same modelFacetType as R32.3). viewKind attr/method/prop = inner rows."
+   },
+   {
+    "id": "AC-position-on-link",
+    "group": "functional",
+    "text": "Position lives on the view-LINK (x,y), NOT the unit: the box reads the UNIT for content but a move mutates x,y on the view-link ONLY - the ModelElement unit is untouched (R25.7 identity-by-reference). One unit can appear in many diagrams at different positions."
+   },
+   {
+    "id": "AC-pan-zoom",
+    "group": "functional",
+    "text": "The surface supports pan + pinch-zoom via RbPanZoom.applyPanZoom (the ratified R31.6 shared pan/zoom base: viewBox + CSS-transform on the viewport) - NO new/forked pan/zoom code."
+   },
+   {
+    "id": "AC-resize-fit",
+    "group": "functional",
+    "text": "A ResizeObserver fits the surface to the drawer box (the same fit pattern as the R31.4 terminal); the surface just fills the already-CSS-responsive drawer at all sizes."
+   },
+   {
+    "id": "AC-node-click-detail",
+    "group": "functional",
+    "text": "Clicking an SVG box -> selectionModel.clear(); selectionModel.select('modelelement:X') -> selection-changed -> the SHARED drawer renders X's node detail (the R32.3 / standard detail flow, identical to the room/Server Manager pane-click). No capture-hook, no fork."
+   },
+   {
+    "id": "AC-edges-excluded",
+    "group": "functional",
+    "text": "EDGES (relatesTo -> UmlAssociation/UmlGeneralization) are EXCLUDED from R32.4 - they are R32.6. A view-link of viewKind 'relationship' is skipped by the R32.4 surface. R32.4 scope = SURFACE + NODES only."
+   },
+   {
+    "id": "AC-shared-drawer-regression",
+    "group": "functional",
+    "text": "The shared rb-detail-drawer stays UNREGRESSED: /trace, Server Manager, and room detail-views open + render exactly as before, because the tagMap `diagram` entry is ADDITIVE (R31.12 no-fork law - no drawer mechanics touched). Regression-green is part of acceptance."
+   }
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md?section=R32.4-DESIGN&commit=3d9f17737",
+  "acFinalizedNote": "8 ACs FINALIZED to the APPROVED architect design (design-mda-model.md ## R32.4 DESIGN, 3d9f17737; 2026-07-30) - adopt-not-invent from the 8 design facets. R32.4 scope = SVG SURFACE + NODES only (drawer detail-view rb-diagram-detail, R31.4 path, NO fork). RETIRED: AC-architect-finalize (placeholder) + AC-blank-drop-target (the drop->generate->view-link flow is R32.5, per the PO scope split; R32.4 surface renders 0 views initially = empty, safe-to-build-ahead like R32.3 tree). EDGES = R32.6. Chain (UC/Class/Method/Impl/Test onto the built rb-diagram-detail) mints when the expert builds, IMPL-MINT pattern like R32.1-3."
+ },
+ "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
+}

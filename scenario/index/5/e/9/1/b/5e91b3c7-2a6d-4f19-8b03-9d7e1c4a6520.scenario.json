@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5e91b3c7-2a6d-4f19-8b03-9d7e1c4a6520",
+    "name": "test:R33.7.1 BUG-1 endless zoom-out (no MIN floor) grows canvas to cap (RbDiagramDetail.applyCanvasGrow) @390",
+    "description": "Bridged to test/visual/r371c-endless-zoom-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served v0.8.32, 6d96b4941, phantom-guard served==committed). Marker adopted from origin (measured line 6, not invented). ★ AC-zoom-out-repeated-no-floor (device bug, architect diagnosis bc21ca747): REPEATED zoom-out ALWAYS works with NO hard MIN floor - grows the SVG canvas px 876->16000 endlessly-in-practice (GROW_MIN=0.02, NOT the old 0.25 floor that capped it), MAX_CANVAS_PX=16000 cap. A one-step pass OR a hard MIN floor = FALSE-GREEN. DISTINCT-intent alongside the px-grow Test 7c3e9a10 on the same applyCanvasGrow chain. The fix spans 3 decls (RbPanZoom.zoomAbout GROW_MIN floor [uncredited gesture helper] + RbPanZoom.setScale 301b71d4 grow-aware-floor + RbDiagramDetail.applyCanvasGrow eb468578 MAX_CANVAS_PX cap) - credited to applyCanvasGrow (the canvas-grow-to-cap authority; the 876->16000 assertion is its output, and a floor-regression can't reach 16000). Chain: R33.7.1 754a1f9d -> UC diagram.canvasGrowOnZoomOut 56fe4cdb -> RbDiagramDetail 039ec367 -> Method applyCanvasGrow e9792c2b -> Impl eb468578 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r371c-endless-zoom-gate.mjs",
+    "implementations": [
+      "ior:instance:eb468578-716d-46de-9b66-0f71d85d8066"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:eb468578-716d-46de-9b66-0f71d85d8066"
+}

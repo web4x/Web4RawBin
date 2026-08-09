@@ -1,0 +1,91 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "754a1f9d-df31-490f-9061-9585b80eb51d",
+  "altId": "R33.7.1",
+  "name": "Zoom-out always grows the SVG diagram canvas (fixes the space problem) with per-diagram persisted zoom where 1 = 100% = whole diagram",
+  "description": "Tron item-1 (HIGHEST PRI, acute 'space problem'). Zooming OUT is ALWAYS possible and GROWS the SVG diagram canvas so more elements fit; the zoom level is SAVED on the Diagram unit (persisted per-diagram); zoom level 1 = 100% = frames the WHOLE diagram, and stays anchored so 1 always frames the whole diagram as it grows. Reuse RbPanZoom (already used for R33.6.2 edge-autoscroll), NO fork.",
+  "tronQuote": "> TRON (2026-07-31): adding more elements ends up in a space problem; zooming OUT is always possible and increases the size of the SVG diagram; the zoom level is saved on the diagram; 1 = 100% = see the whole diagram.",
+  "tasks": [
+   "ior:instance:5ef5440d-5f90-4d1d-82dd-de8648d71994"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:f8be90de-daf4-4c12-9c5a-912aff4116d3",
+   "ior:instance:493d4bdb-3707-40fd-a6a9-9354e8fe2d27",
+   "ior:instance:56fe4cdb-9bef-4615-ab85-a6387f38aec8"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron ('great progress') via robbin-po; PO-capture scrum.pmo/sprints/sprint-33-mof-layered-tree/R33.7-diagram-editor-round3-PO-capture.md (bda9dc70d)",
+   "date": "2026-07-31",
+   "note": "Tron item-1: zoom-out grows SVG canvas + per-diagram persisted zoom (1=whole). Highest pri (space problem). Reuse RbPanZoom."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-zoom-out-grows-canvas",
+    "group": "functional",
+    "client": true,
+    "text": "Zooming OUT is ALWAYS available and GROWS the SVG diagram canvas (more room for elements) - never blocked/clamped-to-a-floor that traps the user in a full canvas. Reuses RbPanZoom. ★ SHARPENED by AC-zoom-canvas-px-grows: grows the canvas = measurable PX growth of the SVG dimensions/scroll-area (boxes keep size), NOT just the content scale."
+   },
+   {
+    "id": "AC-zoom-persist-on-diagram",
+    "group": "functional",
+    "client": true,
+    "text": "The current zoom level is PERSISTED on the Diagram unit (per-diagram, MODEL_STORE) and SURVIVES a reload / fresh re-mount - reopening the diagram restores its saved zoom."
+   },
+   {
+    "id": "AC-zoom-1-is-whole",
+    "group": "functional",
+    "client": true,
+    "text": "Zoom level 1 = 100% = frames the WHOLE diagram; as the canvas grows via zoom-out, level 1 stays anchored to frame the whole diagram (1 is always 'fit whole')."
+   },
+   {
+    "id": "AC-390-gate-zoom",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED. ★ SHARPENED (IMG_4793): the gate MUST assert the SVG canvas rendered width/height px (or scroll-area) INCREASES on zoom-out - NOT merely the scale value - + Tron device confirm. A scale-only pass is a FALSE-GREEN for the space-problem intent. ★ RE-SHARPENED (device bc21ca747): gate REPEATEDLY - many zoom-out steps, EACH works + canvas grows in px, NO floor-cap; a one-step pass OR a hard MIN floor = FALSE-GREEN."
+   },
+   {
+    "id": "AC-zoom-canvas-px-grows",
+    "group": "functional",
+    "client": true,
+    "text": "Zoom-OUT measurably INCREASES the SVG canvas rendered dimensions (width/height px) and/or the scrollable placeable area - the boxes KEEP their size, the canvas GROWS around them = real room - NOT merely the content scale value. (Device-QA IMG_4793: the prior gate passed scale<1/1=whole/persist but Tron's device showed zoom-out only scaled content, the canvas never grew = space-problem unsolved. Architect diagnosis c725df623: 2 gaps - viewBox stays tight (0 0 maxX maxY) + pure-scale CSS transform, so nothing enlarges the canvas.)"
+   },
+   {
+    "id": "AC-zoom-out-repeated-no-floor",
+    "group": "functional",
+    "client": true,
+    "text": "Zoom-out is ALWAYS possible - REPEATED zoom-out (many steps) keeps working with NO blocking floor (endless-in-practice) AND the canvas grows each step. A hard MIN floor that CAPS zoom-out (e.g. a MIN=0.25 clamp that stops further zoom-out) = RED. (Device bug, architect diagnosis bc21ca747: the MIN-0.25 floor from the setScale fix capped repeated zoom-out - the earlier one-step gate green'd but the user hit the floor. Endless-in-practice = no user-reachable cap.)"
+   }
+  ],
+  "crossRef": [
+   "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c"
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=8aa19d090",
+  "designAdopted": "Adopted design 8aa19d090: AC-zoom-out-grows-canvas+AC-zoom-1-is-whole <- INV-Z1 (RbPanZoom MIN 0.25+clamp-center+viewBox pad, setScale seam); AC-zoom-persist-on-diagram <- INV-Z2 (POST /api/model/diagram/zoom store-only, client setScale init). 2 chains: client zoom-range + server persist. Names provisional.",
+  "verificationHistory": [
+   {
+    "date": "2026-07-31",
+    "hop": "testing -> in-progress (AC-sharpen, device-QA regression)",
+    "reason": "device-caught bug the gate passed = missing testable AC (device-qa-regression-means-missing-ac)",
+    "tronVerbatim": "IMG_4793: zoom-out does not grow the canvas, only scales content - the space-problem is not solved",
+    "verificationContext": "setScale Test 99a90d1e gated scale<1 / 1=whole / persist-restore but NOT the canvas PX growth; canvas never enlarges. Architect diagnosis c725df623: viewBox tight + pure-scale-transform.",
+    "architectDiagnosis": "c725df623",
+    "reportedVia": "robbin-po"
+   },
+   {
+    "date": "2026-07-31",
+    "hop": "testing -> in-progress (AC-sharpen, device bug)",
+    "reason": "device-caught: repeated zoom-out hit a hard MIN floor (missing repeated/no-floor AC)",
+    "architectDiagnosis": "bc21ca747",
+    "verificationContext": "canvas-grow px gate passed one-step but the MIN-0.25 floor caps REPEATED zoom-out; endless-in-practice not gated.",
+    "reportedVia": "robbin-po"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "37d3fc2f-4b83-44a1-9f0c-5822b1477b59",
+    "name": "BoardMigrator.applyMigration",
+    "description": "--apply: migrate ONE proven-complete sprint's legacy board to generated. Calls proveComplete FIRST and REFUSES if not proven (G1). Idempotent + REVERSIBLE one-sprint-at-a-time (G3, pre-migration file recoverable via git). Zero content loss provable by diff (pre-file content == post-generated + units) (G4). GENUINE narrative stays hand-authored in a preserved region (G5, mirror R-C6 OWNED-region), never flattened. R-C7 build-go, scripts/CI-only. Design design-rc2-migration-safety.md. Expert marks the decl.",
+    "sourceFile": "ior:file:scripts/migrate-boards.ts",
+    "implementations": [
+      "ior:instance:73f045d8-e0ac-4afc-b357-92e76aa8ddc0"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eac99b32-63fb-471d-b4b2-c4be9525d4e5"
+}

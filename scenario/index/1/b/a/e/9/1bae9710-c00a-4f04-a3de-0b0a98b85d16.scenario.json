@@ -5,8 +5,8 @@
     "name": "T21.3: Phone alt-UUID index (ln symlink)",
     "slug": "task-t21-3",
     "description": "Normalize phone to +<digits> and register alt/phone/<key>.scenario.json as a symlink on the PROFILE unit unitLinks[] pointing to the profile (alternate UUID). resolveToProfile follows the symlink -> profile uuid. PhoneIndex.registerSymlink/normalizePhone.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — req+architecture.md)\n  - [x] AC + test scenarios (in requirement unit)\n  - [x] implementing (expert — shipped)\n  - [x] architect PDCA Check\n  - [ ] testing (tester DET gate)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:144d1332-e3c8-4e37-a1ca-93904801b5c6"
     ],

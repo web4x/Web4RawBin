@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0929405f-c20f-42df-9454-d69f622e7d26",
+    "name": "RbKeyboardBar.renderKeyMap",
+    "implementations": [
+      "ior:instance:dbdcc42d-868b-4679-a039-1f4d0d8bfbdf"
+    ]
+  },
+  "ownerIor": "ior:instance:b116c68f-f4a1-4f81-b146-8de78d8a6aaf"
+}

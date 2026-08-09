@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "44d98bdc-4c07-4741-9a2d-ff42648cd94f",
+  "name": "diagram.removeFromDiagram",
+  "description": "R33.8 client (design 2207a55fe): the R33.6.5 action-bar remove-from-diagram verb -> removeFromDiagram(ref) resolves the open diagram (same heuristic as discoverRelated) -> POST /api/model/diagram/remove-view -> on ok re-render (rb-diagram-detail.render -> buildDiagramSvg/buildEdges): the box + ITS edges drop, remaining connectors recompute by construction (no dangling; full re-render is the authoritative reroute). INV-RM1 view-not-model / RM3 reuse. The ACTIONS_BY_TYPE.modelelement verb entry (design B) + wireDrawerActions dispatch else-if ride the existing R33.6.5 wireDrawerActions.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.8&commit=2207a55fe",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

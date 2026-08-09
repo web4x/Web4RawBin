@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "c85603ca-b007-402b-aa86-1ed44bc6f623",
+    "name": "SprintOverviewGenerator",
+    "file": "scripts/generate-sprint-md.ts",
+    "methods": [
+      "ior:instance:8b238215-6d70-41b4-86c1-e8491d27bbb9",
+      "ior:instance:4873f41b-836b-4a01-b998-896482ee905a"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "note": "May be folded into the existing SprintViewGenerator (generate-sprint-md.ts) rather than a new class - expert confirms at build; the generator mechanisms (GENERATED_HEADER, owned-output guard, --check --all) live there."
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,129 @@
+@startuml sprint-31-server-manager-class-diagram
+title Sprint 31 — Server Manager - Class Diagram (scenario-derived, real disk units)
+
+' ─────────── R31.2 / R31.8 security root-of-trust ───────────
+class ServerManagerGuard {
+  +assertOwner()            'R31.2 [8bb1842f]
+  +requireFeatureAccess()   'R31.8 [35e91ba7] data-driven membership
+  +seedOwnerInto()          'R31.8 [ba2e94ec]
+}
+class Feature <<scenario unit>> {
+  uuid : string
+  name : string
+  allowedUsers[] : token
+  implementations[] : Impl
+}
+class FeatureManager {
+  +grantFeature()           '[ac522b4f]
+  +revokeFeature()          '[0c63bacc]
+  +bootstrapSeed()          '[8762a0d5]
+  +searchUsers()            '[1e75e388]
+  +featureRoots()           '[e07352c9]
+  +allowedUsersChildren()   '[72c660f9]
+  +grantedUserProfile()     '[218b4733]
+  +profileUuidOf()          '[cb125989]
+  +tokenOfProfileUuid()     '[8304f709]
+}
+
+' ─────────── R31.3 tree ───────────
+class OtmuxBridge {
+  +readSessionTree()        'R31.3 [7d7221d8] raw tmux list-panes
+}
+class RbTraceTree {
+  +buildSeedNode()          'R31.3 [08ad3bdd] N-level layer-by-layer
+}
+
+' ─────────── R31.4 terminal + R31.5.7/R31.9 responsive drawer ───────────
+class PtyBridge {
+  +attachPane()             'R31.4 [6fc43b8e] node-pty grouped attach
+  +reapOrphans()            'R31.4 [28d8158b] boot-sweep
+}
+class RbTerminalDetail {
+  +mount()                  'R31.4 [386cc4e4] xterm in shared drawer
+}
+class RbDetailDrawer {
+  +tearDownTransientDetail() 'R31.4 INV-T1 [9c6391fc]
+  +applyPosition()           'R31.5.7 [d48cc0ce] data-position inline|bottom
+  +observePosition()         'R31.9 [e8097351] container-query driver
+}
+
+' ─────────── R31.5 responsive WODA layout primitives ───────────
+class RbCompartment {
+  +applyPresentation()      'R31.5.1 [7e611ee4]
+}
+class RbStrip {
+  +renderDescriptors()      'R31.5.2 [9053202e]
+  +applyViewportMode()      'R31.5.4 [232a66f7]
+}
+class RbSnapNav {
+  +render()                 'R31.5.3 [4301b9cc]
+}
+class RbEditorLayout {
+  +editorStripDescriptor()  'R31.5.5 [c9cf2a82]
+}
+class RbWoda {
+  +wodaStripDescriptor()    'R31.5.6 [4e26dedb]
+}
+
+' ─────────── R31.7 single-source version + guards ───────────
+class Build {
+  +generateVersion()        'R31.7 [dee42cc1] from ior:class:Config unit
+  +versionGuardTreeClean()  'R31.7 INV-V3 [e75a7e71] start.mjs:83
+  +versionGuardAgreement()  'R31.7 INV-V1 [a8040d7c] start.mjs:97
+}
+class ServerConfig {
+  +getVersion()             'R31.7 INV-V4 [8155cf84] boot-frozen BOOT_VERSION
+}
+
+' ─────────── R31.1 / R31.8 profile render ───────────
+class ProfilePage {
+  +renderFeatureGrants()    'R31.1 [b4f03947] /profile owner-only entry
+}
+class RbProfileView {
+  +render()                 'R31.8c [422f22f8] shared masking-aware full-profile viewer
+}
+class ProfileView {
+  +profileViewData()        'R31.8c-r4 [86738972] shared full-profile builder
+}
+class RbFeatureDetail {
+  +mount()                  'R31.8 [29130d6e]
+  +userComplete()           'R31.8 [ca286163] c2 user-selector
+  +applyGrant()             'R31.8 [ee4143df] grant/revoke
+}
+class RbProfileDetail {
+  +mount()                  'R31.8 [e809f03a] granted-user profile + revoke
+}
+
+' ─────────── RbPanZoom — canonical S22 pan/zoom class (R22.2); R31.6 EXTENDS it (concept) ───────────
+' RATIFIED 2026-07-26 (architect, req disk-win): RbPanZoom ALREADY EXISTS from Sprint 22 (e5e3c885, R22.2
+' panZoom.mouseParity) — NOT freshly minted. My earlier "mint fresh RbPanZoom" target was wrong (unmeasured);
+' req correctly REUSED the canonical class per R27.2 and added ONLY the applyPanZoom concept-method. The R31.6
+' concept is a coherent EXTENSION/generalization of this same class (pan/zoom is one concern), not a new one.
+class RbPanZoom {
+  +attachMouse()            'S22/R22.2 IMPLEMENTED — mouse pan/zoom parity (Impl 0564d93b)
+  +applyPanZoom() <<concept>> 'R31.6 concept: generalizes attachMouse into a SHARED pan/zoom viewer-base every embedded viewer extends (pinch/drag -> CSS transform); designAhead, NO Impl/Test until Tron authorizes
+}
+
+' ─────────── relations ───────────
+RbPanZoom <|.. RbProfileView : <<concept>> embedded viewers extend pan/zoom base (R31.6)
+RbPanZoom <|.. RbTerminalDetail : <<concept>> (R31.6 shared viewer capability)
+ServerManagerGuard <.. FeatureManager : gates writes (root-of-trust)
+Feature "1" o-- "*" FeatureManager : manages allowedUsers[]
+FeatureManager ..> RbProfileView : grantedUserProfile feeds
+ProfileView ..> RbProfileView : profileViewData feeds (shared)
+ProfilePage ..> RbProfileView : /profile renders via (same viewer)
+RbFeatureDetail --|> RbDetailDrawer : detail-view in shared drawer
+RbProfileDetail --|> RbDetailDrawer : detail-view in shared drawer
+RbTerminalDetail --|> RbDetailDrawer : detail-view in shared drawer
+RbTraceTree ..> OtmuxBridge : /tree roots from readSessionTree
+RbTraceTree ..> FeatureManager : /feature-manager roots from featureRoots
+PtyBridge <.. RbTerminalDetail : ws PTY bridge
+RbStrip "1" o-- "*" RbCompartment : composes segments
+RbStrip <.. RbSnapNav : nav targets compartments
+RbEditorLayout ..> RbStrip : editor = strip instance
+RbWoda ..> RbStrip : WODA = strip instance
+RbDetailDrawer ..> RbCompartment : data-position=inline = Details compartment
+Build ..> ServerConfig : generateVersion stamps; getVersion reads boot-frozen
+Build ..> Feature : Config = typed scenario unit (single-source)
+
+@enduml

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "94ad4f50-aac8-4de5-ad34-e6776fc4b938",
+    "name": "DiagramViewModel.renderFacet impl",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:e21b876d-2397-4db1-a927-08256e5b2904",
+      "ior:instance:0172b45d-fdf5-402c-a352-0250db145eed",
+      "ior:instance:e9b21f74-6c05-4a3e-8d17-5f0c9a24e6b1"
+    ]
+  },
+  "ownerIor": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5"
+}

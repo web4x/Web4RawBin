@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0c769fe6-54c9-4201-aa42-fb4fd3fbac4d",
+    "name": "ModelView.actionsForContext",
+    "description": "NEW method on ModelView (model.ts, the R33.6.5 action-bar host - architect named it 'ModelActionBar', canonical class=ModelView per R27.2): tracks activeDiagramUuid, splits ACTIONS_BY_TYPE into unit-verbs (always) + membership-verbs (only with active diagram, targeting it), recomputes on selection + rb-active-diagram. INV-A1-4. markerPending. NAME/CLASS PROVISIONAL - re-point if expert extracts a ModelActionBar class.",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "implementations": [
+      "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
+}

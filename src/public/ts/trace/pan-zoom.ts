@@ -15,9 +15,15 @@ export class RbPanZoom {
   private scale = 1;
   private tx = 0;
   private ty = 0;
-  private readonly MIN = 1;
+  private readonly MIN = 0.25; // R33.7.1 (INV-Z1): allow zoom-OUT below 1 → grows the working canvas (was 1 = no zoom-out)
+  private readonly GROW_MIN = 0.02; // R33.7.1 BUG-1 (bc21ca747): grow mode has a (near-)no floor → REPEATED zoom-out keeps growing the canvas (endless-in-practice), bounded only by the host's MAX-CANVAS-PX safety cap. (A MIN=0.25 hard floor capped repeated zoom-out — the device regression.)
+  onZoomEnd?: (scale: number) => void; // R33.7.1: fired (debounced) after a USER zoom settles → host persists per-diagram
+  private zoomEndTimer = 0;
+  growMode = false; // R33.7.1 canvas-grow: OPT-IN (diagram only). true → scale<1 GROWS the SVG canvas via onCanvasGrow (native scroll) instead of CSS-shrinking. rb-webitem/rb-preview leave it false = CSS-scale UNCHANGED.
+  onCanvasGrow?: (scale: number) => void; // host grows/restores the SVG canvas dims+viewBox for the current scale (grow at <1, reset at >=1)
   private readonly MAX = 8;
   private dragging = false;
+  private enabled = true; // R33.5 item3: PAN gated by selection — disabled while a diagram box is selected
   private lastX = 0;
   private lastY = 0;
   private pinchDist = 0;
@@ -49,7 +55,7 @@ export class RbPanZoom {
     // v0.6.99: suppress the browser's native image/link drag so a mouse pan doesn't spawn a drag-ghost overlay.
     this.on('dragstart', (e) => e.preventDefault());
     this.on('mousedown', (e) => {
-      if (this.scale <= 1) return; // AC-c2: pan only when zoomed
+      if (!this.enabled || this.scale <= 1) return; // AC-c2 + R33.5 item3: pan only when zoomed AND nothing selected
       this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;
       this.viewport.style.cursor = 'grabbing';
       this.gesturing(); // AC-e5: disable iframe pointer capture on DESKTOP drag too (not just touch)
@@ -94,7 +100,7 @@ export class RbPanZoom {
         this.tx += (mid.x - this.pinchMidX); this.ty += (mid.y - this.pinchMidY);
         this.pinchDist = d; this.pinchMidX = mid.x; this.pinchMidY = mid.y;
         this.clamp(); this.apply();
-      } else if (e.touches.length === 1 && this.scale > 1) {
+      } else if (e.touches.length === 1 && this.scale > 1 && this.enabled) {
         e.preventDefault(); // AC-d1: only hijack scroll when zoomed
         const t = e.touches[0];
         this.tx += t.clientX - this.lastX; this.ty += t.clientY - this.lastY;
@@ -124,12 +130,29 @@ export class RbPanZoom {
 
   /** AC-b3: zoom about (px,py) in viewport coords, keeping that point stationary. */
   zoomAbout(px: number, py: number, factor: number): void {
-    const ns = Math.max(this.MIN, Math.min(this.MAX, this.scale * factor));
-    const f = ns / this.scale;
+    const floor = this.growMode ? this.GROW_MIN : this.MIN; // R33.7.1 BUG-1: grow mode has (near-)no floor → endless zoom-out
+    const oldScale = this.scale;
+    const ns = Math.max(floor, Math.min(this.MAX, oldScale * factor));
+    const f = ns / oldScale;
     this.tx = px - f * (px - this.tx);
     this.ty = py - f * (py - this.ty);
     this.scale = ns;
-    this.clamp(); this.apply();
+    this.clamp(); this.apply(); // apply() grows the canvas via onCanvasGrow when growMode && scale<1
+    if (this.growMode && ns < 1) {
+      // R33.7.1 BUG-1 (bc21ca747): grow-mode zoom-about via NATIVE SCROLL — the canvas just grew by oldScale/ns, so
+      // scroll the viewport to keep the point under (px,py) stationary (the CSS about-point math is identity in grow mode).
+      const ratio = oldScale / ns;
+      this.viewport.scrollLeft = Math.max(0, (this.viewport.scrollLeft + px) * ratio - px);
+      this.viewport.scrollTop = Math.max(0, (this.viewport.scrollTop + py) * ratio - py);
+    }
+    this.scheduleZoomEnd(); // R33.7.1: user zoom → persist after it settles
+  }
+
+  // R33.7.1: debounce a user zoom so the host persists ONE value after the gesture settles (not every wheel tick).
+  private scheduleZoomEnd(): void {
+    if (!this.onZoomEnd) return;
+    if (this.zoomEndTimer) clearTimeout(this.zoomEndTimer);
+    this.zoomEndTimer = (setTimeout(() => this.onZoomEnd?.(this.scale), 450) as unknown) as number;
   }
 
   private clamp(): void { // AC-b4
@@ -138,17 +161,46 @@ export class RbPanZoom {
     const minTy = Math.min(0, vh - vh * this.scale);
     this.tx = Math.min(0, Math.max(minTx, this.tx));
     this.ty = Math.min(0, Math.max(minTy, this.ty));
-    if (this.scale <= 1) { this.tx = 0; this.ty = 0; } // recenter
+    // R33.7.1 (INV-Z1): at scale ≤ 1 CENTER the content — at 1 that's (0,0) = whole-diagram fit (100%); below 1 it
+    // centers the shrunken diagram so the grown empty canvas surrounds it (working room), instead of pinning top-left.
+    if (this.scale <= 1) { this.tx = (vw - vw * this.scale) / 2; this.ty = (vh - vh * this.scale) / 2; }
   }
 
   private apply(): void { // AC-b1
     this.content.style.transformOrigin = '0 0';
-    this.content.style.transform = `translate(${this.tx}px, ${this.ty}px) scale(${this.scale})`;
+    if (this.growMode && this.scale < 1) {
+      // R33.7.1 canvas-grow: NO CSS scale (identity) — the host (onCanvasGrow) grows the SVG canvas dims + viewBox
+      // (base/scale, 1:1) so boxes keep visual size + placeable room appears; native surface scroll pans the canvas.
+      this.content.style.transform = 'translate(0px, 0px) scale(1)';
+      this.onCanvasGrow?.(this.scale);
+    } else {
+      this.content.style.transform = `translate(${this.tx}px, ${this.ty}px) scale(${this.scale})`;
+      if (this.growMode) this.onCanvasGrow?.(1); // >=1 magnify → reset the canvas to base (host restores tight viewBox/overflow:hidden)
+    }
     this.viewport.style.cursor = this.scale > 1 ? 'grab' : 'auto';
   }
 
   /** AC-e6 / reset to identity. */
   reset(): void { this.scale = 1; this.tx = 0; this.ty = 0; this.apply(); }
+
+  // [impl:uuid:301b71d4-8c50-4e3f-80fa-6e30ae035f2c] RbPanZoom.setScale (Method c3fa13b7) — R33.7.1: set the zoom
+  // level directly (restore a persisted per-diagram model.zoom), reusing the SAME clamp+apply as gestures (INV-Z3 no
+  // fork). Clamped to [MIN,MAX]; the extended clamp centers content when <1 (INV-Z1: 1=100%=whole-diagram, <1=grown
+  // canvas). Does NOT fire onZoomEnd — this is the restore path, not a user change (no persist-on-restore loop).
+  setScale(s: number): void { const floor = this.growMode ? this.GROW_MIN : this.MIN; this.scale = Math.max(floor, Math.min(this.MAX, s)); this.clamp(); this.apply(); }
+  get currentScale(): number { return this.scale; }
+
+  // [impl:uuid:7dd375ac-28f1-4768-9063-bdf6fa430ce5] RbPanZoom.panBy (Method 1a2fbff9) — R33.6.2 INV-D2: programmatic
+  // pan by (dx,dy) viewport px, reusing the SAME clamp+apply as gesture pans (no new geometry, INV-D3 no-fork). The
+  // diagram edge-autoscroll rAF loop calls this while a box-drag hovers just outside the surface boundary → the
+  // canvas scrolls so a box can be dragged toward off-screen space; clamp keeps content from leaving the view.
+  panBy(dx: number, dy: number): void { this.tx += dx; this.ty += dy; this.clamp(); this.apply(); }
+
+  // [impl:uuid:44f3ddd3-c580-4fe7-8e3c-489cf05c4e42] RbPanZoom.setEnabled (Method 4dab0081) — R33.5 item3: enable/
+  // disable PAN (not zoom). The diagram disables pan while a box is SELECTED so a selected-box drag MOVES the box
+  // (no canvas pan); re-enabled when the selection clears. Also cancels any in-progress drag.
+  setEnabled(on: boolean): void { this.enabled = on; if (!on) this.dragging = false; }
+  get isEnabled(): boolean { return this.enabled; }
 
   private gesturing(): void { // AC-e5: disable iframe pointer capture mid-gesture
     this.content.querySelectorAll('iframe').forEach(f => (f as HTMLElement).style.pointerEvents = 'none');

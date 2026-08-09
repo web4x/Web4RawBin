@@ -27,17 +27,18 @@ function readFeature(featureUuid: string): { file: string; unit: { model: { allo
 }
 
 export class FeatureManager {
-  // R31.8 bootstrap: the S31 Feature instances whose allowedUsers get the hardcoded owner seeded at first run.
-  private static readonly SEED_FEATURES = ['16604eee-d844-4efb-bd4d-881433ca82a6', '2980b7d9-a166-44ca-bf73-5dd1a4ba7b16']; // ServerManager, FeatureManager
-
   // [impl:uuid:03b2b1db-b2ba-44d4-a3f2-eeb9215540ad] FeatureManager.bootstrapSeed (Method 8762a0d5, Class 9f7f345a) —
-  // idempotent first-run seed: ensure the hardcoded owner is a MEMBER of ServerManager + FeatureManager allowedUsers
-  // (via ServerManagerGuard.seedOwnerInto, INV-G2==1 — no literal here). The owner enters the data-driven gate by
-  // SEEDED MEMBERSHIP, not a literal-bypass; no grant path exists that doesn't originate at the hardcoded owner. Runs
-  // at server startup; safe to re-run (units already carrying the owner are unchanged, so no needless write). INV-F5.
+  // R32.9 (A) INV-D2: DISCOVERY-seed — ENUMERATE every ior:class:Feature on disk and seed the hardcoded owner into
+  // EACH one's allowedUsers (via ServerManagerGuard.seedOwnerInto, INV-G2==1 — no literal here). Replaces the old
+  // hardcoded 2-feature SEED_FEATURES list (the fragility that left a newly-minted Feature — e.g. MDA — owner-unreachable).
+  // The owner enters each data-driven gate by SEEDED MEMBERSHIP, not a literal-bypass. Idempotent (units already
+  // carrying the owner are unchanged → no needless write); runs at startup. A new Feature is auto owner-reachable. INV-F5.
   static bootstrapSeed(): void {
-    for (const featureUuid of FeatureManager.SEED_FEATURES) {
-      const f = readFeature(featureUuid);
+    let idx: ScenarioIndex;
+    try { idx = new ScenarioIndex(SCENARIO_DIR); } catch { return; }
+    for (const uuid of idx.list()) {
+      if (idx.get(uuid)?.ior !== 'ior:class:Feature') continue;
+      const f = readFeature(uuid);
       if (!f) continue;
       const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
       const before = au.length;

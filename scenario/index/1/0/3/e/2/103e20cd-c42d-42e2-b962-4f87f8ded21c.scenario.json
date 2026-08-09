@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "103e20cd-c42d-42e2-b962-4f87f8ded21c",
+  "name": "diagram.retireInDiagramToolbar",
+  "description": "R33.6.5 AC-single-resync-no-duplicate (device bug IMG_4795, architect diagnosis bc21ca747, fix 8ad1ad537 v0.8.32): retire the OLD pre-action-bar in-diagram .dm-resync toolbar button in RbDiagramDetail.render so EXACTLY ONE Re-Sync remains (the R33.6.5 drawer action-bar one). A REMOVAL - rides the existing RbDiagramDetail.render (65649d26/Impl 34dec13f), distinct-intent (fresh UC + reuse method + ride impl, R31.16 pattern). Gate: count Re-Sync buttons = 1. crossRef R33.6.5 action-bar 3c6eee8d.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -12,8 +12,8 @@
   - [x] refinement
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-- [ ] Done
+- [x] QA Review
+- [x] Done
 
 ## Task Description
 

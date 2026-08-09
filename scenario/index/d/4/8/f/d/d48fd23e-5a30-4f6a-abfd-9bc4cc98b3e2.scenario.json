@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d48fd23e-5a30-4f6a-abfd-9bc4cc98b3e2",
+    "name": "test:R31.11 tree deep-nests full chain for S31 like S30 (chain-model forward-key reconcile)",
+    "description": "Bridged to test/visual/r3111-tree-deep-nest-gate.mjs (DET-3x GREEN @390 iPhone-12, served==HEAD==v0.7.139, commit b6813b6e2). Verifies the RENDER surface (user flow, not just /children/<UC>): a S31 UC listed via its parent /children/<Task> now stamps hasChildren=true/childCount=1 in both modes -> the UC gets a chevron -> expands to Class ServerManagerGuard(badge 3) -> Method assertOwner -> Impl -> Test on-screen (deep-nest like S30); + S30 UC badge STAYS 1 (de-dup, not 2); + S30 single-Class no-dup; + sacred 403 / trace 200 unregressed. Root fix (architect): chain-model.ts:18 forward keys reconciled to ['class','classes'] all modes + server.ts:1648 per-child childCount via forwardKeysForMode + UNIQUE-ref Set. Impl-EDIT to CHAIN_TYPE_CONFIG d4ad31f3 (rides its real R20.15 marker chain-model.ts:14). Marker d48fd23e adopted from origin b6813b6e2 (measured, not invented). Chain: R31.11 req c56b1120 -> UC 8a7039eb chainModel.deepNestAllModes -> Class ChainTypeConfig a0c492d6 -> Method forwardKeysForMode 7dc79987 -> Impl d4ad31f3 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3111-tree-deep-nest-gate.mjs",
+    "implementations": [
+      "ior:instance:d4ad31f3-c33e-4311-806c-61ce2364d2ad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:d4ad31f3-c33e-4311-806c-61ce2364d2ad"
+}

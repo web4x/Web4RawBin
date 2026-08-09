@@ -1,0 +1,46 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "fc234e2d-4cd6-4b7f-bd60-5d86e8d3cd3c",
+  "altId": "R33.7.4",
+  "name": "Selecting a diagram element scrolls and expands the model tree to reveal that element (reuse R33.5 expandPath, selection-triggered)",
+  "description": "Tron item-4. Selecting a diagram element -> the model/itemview TREE navigates/scrolls that element into view AND expands its ancestry as necessary to reveal the node. Reuse the R33.5 expandPath uuid-walk / revealNode (already built + gated) - here triggered by DIAGRAM-element SELECTION (tree-side reveal), NO re-fork.",
+  "tronQuote": "> TRON (2026-07-31): selecting an element should make the tree navigate/scroll it into view and expand as necessary to reveal it.",
+  "tasks": [
+   "ior:instance:a0a45d33-e255-4b3e-bf92-3d4c78ba2c12"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/requirements.md",
+  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+  "sprintName": "Sprint 33",
+  "useCases": [
+   "ior:instance:8c26c9ef-70e0-4037-87f7-a355f640239d"
+  ],
+  "unitLinks": [],
+  "discoverySource": {
+   "type": "tron-device-qa",
+   "flaggedBy": "Tron ('great progress') via robbin-po; PO-capture scrum.pmo/sprints/sprint-33-mof-layered-tree/R33.7-diagram-editor-round3-PO-capture.md (bda9dc70d)",
+   "date": "2026-07-31",
+   "note": "Tron item-4: diagram-element selection -> tree scroll+expand reveal. Reuse R33.5 expandPath (built+gated), selection-triggered, NO re-fork."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-select-reveals-tree",
+    "group": "functional",
+    "client": true,
+    "text": "Selecting a diagram element dispatches a tree-reveal for that element's uuid: the model tree scrolls it into view AND expands the ancestry (mof-m1 -> project -> file -> class) as needed so the node is VISIBLE + highlighted. Reuse R33.5 expandPath / revealNode (uuid-walk) - selection-triggered from the diagram, no new reveal mechanism."
+   },
+   {
+    "id": "AC-390-gate-reveal",
+    "group": "gate",
+    "text": "GATE @390 (screenshot/pixel + planted bite): select an element in the diagram -> the tree scrolls + expands to its node (visible + highlighted); planted: selection changes but the tree does not reveal/expand to it = RED."
+   }
+  ],
+  "crossRef": [
+   "ior:instance:168e6d2b-439f-4c90-ab0c-47b2a10ccae0"
+  ],
+  "designRef": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.4&commit=293b9cc43",
+  "designAdopted": "Adopted design 293b9cc43: AC-select-reveals-tree <- INV-TR1/2/3 (new RbTraceTree.onTreeReveal listener connects the dead boxSelect rb-tree-reveal dispatch -> reuse revealNode/expandPath, lazy-safe). 1 chain; reuse-no-fork."
+ },
+ "ownerIor": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383"
+}

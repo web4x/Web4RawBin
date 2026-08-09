@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "91b1b643-898a-451b-baa2-5acbd6d453c6",
+  "name": "model.goLive",
+  "description": "R32.5 GO-LIVE: drop a TS file (drop-dispatcher reuse) -> POST /api/model/generate -> TsToModel.generate(indexDir=MODEL_STORE, write, diagram) writes M1/M2 + a demo Diagram (Layer-2 view-links, auto-layout) to the ISOLATED store data/model-store/index; the R32.3 tree + R32.4 diagram then render LIVE from the store. The correct-by-construction ISOLATION (prod scenario/index NEVER mutated, the safe-mechanism law) is enforced by the READ-REROUTE predicate server.isModelUnit (the chain anchor): every read of a ModelElement uuid resolves from MODEL_STORE while trace units stay in prod scenario/index (union). Supporting reuse/glue (NOT self-minted): TsToModel.generate extended with the demo-Diagram+store write (R32.2 Method generate 382f8644 - rides its own chain), ensureStoreSeeded (one-time M2 seed), the inline /api/model/generate endpoint, drop-zone wiring. Deterministic re-drop = same UUIDs (R32.2) = idempotent. The R32.5 Test (tester independent vitest r32.5-go-live + live endpoint + Tron device demo) asserts the 8 finalized ACs incl the isolation gate (prod ModelElement count unchanged).",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ],
+  "method": "ior:instance:20eee8b0-d093-46e4-8a65-72409a9d8863",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

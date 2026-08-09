@@ -1,0 +1,42 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "fc327458-03d1-4b90-847d-ab52a7d82237",
+    "name": "WODA.prod",
+    "metaLevel": "M1",
+    "kind": "node",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000024"
+    ],
+    "deploymentRefs": [
+      {
+        "role": "ssh-service",
+        "ref": "ior:file:/etc/ssh/sshd_config",
+        "note": "inbound service config (measured 3309B: HostKey/Port/PermitRootLogin)"
+      },
+      {
+        "role": "ssh-host-identity",
+        "ref": "ior:file:~/.ssh/public_keys/root.WODA.prod.public_key",
+        "note": "node SSH identity (measured)"
+      },
+      {
+        "role": "domain",
+        "ref": "ior:file:.env#LE_DOMAIN",
+        "note": "prod.wo-da.de (.env LE_DOMAIN/BASE_DOMAIN, the SOURCE)"
+      },
+      {
+        "role": "letsencrypt-cert",
+        "ref": "ior:file:/etc/letsencrypt/live/prod.wo-da.de/fullchain.pem",
+        "note": "LE cert (+privkey.pem), measured Jul31"
+      }
+    ],
+    "childrenLens": {
+      "kind": "lens",
+      "via": "ior:instance:5c1701bc-bf5d-4e9c-904a-2f4144e1ef2a",
+      "note": "live otmux session->window->pane via OtmuxBridge.readSessionTree (R31.3); LENS not a mirrored copy (persisted graph stores node+lens only, INV-T byte-diff==0)"
+    },
+    "renderedBy": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
+    "migrationNote": "R40.6: re-typed UmlNode->ExecutionEnvironment; the 4 string deploymentRefs now exist as typed M1 nodes (0e7d9a26/e383cf9a/a29ce09a/13add7ac) via configuredBy+manifestsAs. deploymentRefs[] kept as a DERIVED READ-VIEW; the array->relationship reconcile + array-removal is the GATED dry-run+count apply (small=4, leaves unchanged, INV-T==0)."
+  },
+  "ownerIor": "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "514ad5a1-d5f4-4a75-aeb4-15fca65d8488",
+    "name": "RbKeyboardBar.suppressSoftKeyboard",
+    "implementations": [
+      "ior:instance:c3a56e56-2f91-452f-9b1d-c267802687e1"
+    ]
+  },
+  "ownerIor": "ior:instance:b116c68f-f4a1-4f81-b146-8de78d8a6aaf"
+}

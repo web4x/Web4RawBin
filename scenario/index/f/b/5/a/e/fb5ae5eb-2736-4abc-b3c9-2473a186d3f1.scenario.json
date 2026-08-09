@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fb5ae5eb-2736-4abc-b3c9-2473a186d3f1",
+    "name": "test:S36 part-2 counterpart-enrichment reconcile (server.reconcileCanonical) @merge",
+    "description": "Bridged to test/visual/r36b-counterpart-enrichment-gate.mjs (INDEPENDENT tester @390 real-WebKit gate, GREEN DET-3x, served v0.8.58, marker 1742961e8). Marker adopted from origin (measured, not invented). 5 units merge to instanceOf UNION [UmlClass, ts-class-code] + members(30/4/6/18/5) + usedIn=None + INV-T no-write. Chain: S36 R36.1 -> UC modelElement.reconcileCanonical f4ed29af -> Method server.reconcileCanonical 5530ea76 -> Impl 37c08fd5 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r36b-counterpart-enrichment-gate.mjs",
+    "implementations": [
+      "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:37c08fd5-3880-47e9-bb8b-4dcb15244a89"
+}

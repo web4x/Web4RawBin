@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a1393fcc-1fac-44d4-bcff-e8212e471127",
+  "name": "drawer.universalActionBar",
+  "description": "R34.7 (R-E). The shared RbDetailDrawer renders the action bar on EVERY detail-render by construction: showActionsForType sets the universal R-A A1 default [Scenario,Edit] itself + calls an optional registered provider for extra context verbs (host registers via registerActionProvider -> actionsForContext, R33.9 reused). Solves-once in the shared component, no per-page fork; /model unregressed; rb-drawer-detail-shown kept.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:54acc696-3350-4ab7-94a2-b2659563735d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-34-mda-tree-refine/R-E-action-bar-all-drawer-usages.md?section=ARCHITECT-DESIGN&commit=e1ec31f65",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

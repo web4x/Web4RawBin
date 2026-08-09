@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import * as ts from 'typescript';
 import path from 'node:path';
 import { ScenarioIndex } from './index.js';
+import { fwdRefs } from '../shared/chain-model.js';
 import { captureQuote as t138CaptureQuote, proposeTask as t138ProposeTask, walkChain as t138WalkChain, statusTransition as t138StatusTransition, type TaskVerb, type ChainStep } from './skills.js';
 
 // --- Shared helpers ---
@@ -60,6 +61,10 @@ export class Chain {
   private walkFiles(dir: string): string[] {
     const out: string[] = [];
     if (!fs.existsSync(dir)) return out;
+    if (fs.statSync(dir).isFile()) { // explicit FILE root (e.g. repo-root build.mjs) — scan-scope matches where markers legitimately live
+      if (/\.(ts|js|mjs|css)$/.test(dir)) out.push(dir);
+      return out;
+    }
     for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
       if (ent.name === 'node_modules' || ent.name === 'dist' || ent.name.startsWith('.')) continue;
       const full = path.join(dir, ent.name);
@@ -69,9 +74,21 @@ export class Chain {
     return out;
   }
 
-  /** Real-code roots for [impl:uuid:] markers: src/ + scripts/ (tooling code is real code). */
+  /** Real-code roots for [impl:uuid:] markers: src/ + scripts/ + repo-root build scripts (build.mjs, …).
+   *  Scan scope MUST match WHERE markers legitimately live — repo-root build code is real code (load-bearing:
+   *  build.mjs is invoked by start.mjs; NOT relocated). The shallow root-file scan is correct-by-construction,
+   *  so a NEW repo-root build script can't re-open this scan-coverage gap (bit R31.7 + R31.13). */
   private implRoots(): string[] {
-    return [this.srcDir, path.join(this.srcDir, '../scripts')];
+    return [this.srcDir, path.join(this.srcDir, '../scripts'), ...this.repoRootScriptFiles()];
+  }
+
+  /** Top-level (NON-recursive) repo-root build scripts (*.mjs/*.js) carrying real code + [impl:uuid:] markers. */
+  private repoRootScriptFiles(): string[] {
+    const repoRoot = path.join(this.srcDir, '..');
+    if (!fs.existsSync(repoRoot)) return [];
+    return fs.readdirSync(repoRoot, { withFileTypes: true })
+      .filter(e => e.isFile() && (e.name.endsWith('.mjs') || e.name.endsWith('.js')))
+      .map(e => path.join(repoRoot, e.name));
   }
 
   /** Roots for [test:uuid:] markers: test/ + scripts/ (tooling tests live there too). */
@@ -263,15 +280,22 @@ export class Chain {
         openNodes: [{ node: 'UC', owner: 'architect', action: 'Create UC + wire to Req', iorShort: short(reqUuid) }] }];
     }
 
+    // CONCEPT/designAhead req (Tron-authorized honest termination): the chain terminates at its DESIGNED
+    // Method — no Impl/Test expected. The scoreboard must count it COMPLETE-AT-METHOD, NOT demand an Impl
+    // (a false 'create Impl' flag would drive false-credit). See R31.6 (pan/zoom FUTURE).
+    const reqMModel = this.model(reqUuid) as Record<string, unknown> | undefined;
+    const conceptReq = !!reqMModel && (reqMModel.status === 'concept' || reqMModel.future === true || reqMModel.conceptOnly === true || reqMModel.designAhead === true);
     const results: ChainRow[] = [];
     for (const ucIorStr of ucIors) {
       const ucUuid = ior(ucIorStr);
       const ucM = this.model(ucUuid);
-      if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] ucUuid=${ucUuid.slice(0,8)} ucM=${!!ucM} classes=${JSON.stringify((ucM as any)?.classes)}`);
       if (!ucM) continue;
-      const clsIors = (ucM.classes as string[]) || [];
+      // R31.11 reconcile (skill-classes scoreboard = the 3rd class/classes site, after chain-model fetch + childCount
+      // stamp): canonical UC->Class link is SINGULAR 'class'; also read legacy PLURAL 'classes'. Union + dedup so the
+      // scoreboard credits the Class-hop for ANY correctly-minted UC BY CONSTRUCTION — no per-UC class->classes[]
+      // mirroring. Mirrors CHAIN_TYPE_CONFIG.UseCase forwardKeys ['class','classes'] (the shared source of truth).
+      const clsIors = fwdRefs(ucM as Record<string, unknown>, 'UseCase'); // shared reader: unions class+classes, deduped
       if (clsIors.length === 0) {
-        if (reqUuid.startsWith('a97c')) console.error(`[DEBUG ${reqUuid.slice(0,8)}] clsIors EMPTY -> open architect`);
         results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'open architect', method: 'open', impl: 'open', test: 'open', complete: false,
           openNodes: [{ node: 'Class', owner: 'architect', action: 'Wire Class to UC', iorShort: short(ucUuid) }] });
         continue;
@@ -300,6 +324,11 @@ export class Chain {
           const implIors = (methM.implementations as string[]) || [];
 
           if (implIors.length === 0) {
+            if (conceptReq) {
+              // Honest concept-termination: chain reaches its designed Method, no Impl/Test by design → COMPLETE.
+              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: 'concept (Method-terminated, no Impl by design)', test: 'concept', complete: true, openNodes: [] });
+              continue;
+            }
             const methTests = (methM.tests as string[]) || [];
             const testNote = methTests.length > 0 ? `open (Test ${methTests.map(t => short(ior(t))).join(',')} via Method — Impl missing)` : 'open';
             results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert ${short(methUuid)}`, test: testNote, complete: false,
@@ -317,14 +346,15 @@ export class Chain {
               continue;
             }
             const refCount = implRefs.get(implUuid) || 0;
-            if (refCount > 1) {
-              // HARD RULE: one marker = one unit = one method. Shared Impl = NEVER credited.
-              results.push({ chainName: reqName, req: 'check', uc: 'check', cls: 'check', method: methName, methodUuid: methUuid, impl: `open expert shared-impl(x${refCount}) ${short(implUuid)}`, test: 'open', complete: false,
-                openNodes: [{ node: 'Impl', owner: 'expert', action: `Impl ${short(implUuid)} shared by ${refCount} Methods — mint fresh uuid per method (HARD RULE: one marker=one unit=one method)`, iorShort: short(implUuid) }] });
-              continue;
-            }
+            // R30.11 shared-impl (JOINT verdict architect+planner 2ebff228c, PO-ruled; precedent a09b474d R35.2+R35.3):
+            // a shared Impl IS creditable when each riding Method carries its OWN distinct-intent Test — req wires the
+            // Method's tests[] alongside the shared marker (ownerIor/markerPending untouched, no re-credit). Credit flows
+            // via realImpl && realTest below (the DISTINCT TEST is the gate); the shared count is shown for transparency.
+            // Was a HARD-BLOCK (continue) that un-credited EVERY shared Impl -> false 'open shared-impl-xN'. lintMarkers
+            // still FLAGS shared-impl for review, so shared markers stay visible (detection moves to lint, credit to test).
+            const sharedTag = refCount > 1 ? ` shared-x${refCount}(R30.11)` : '';
             const realImpl = hasRealImpl(implUuid);
-            const implCell = realImpl ? `check ${short(implUuid)}` : `open expert ${short(implUuid)}`;
+            const implCell = realImpl ? `check ${short(implUuid)}${sharedTag}` : `open expert ${short(implUuid)}${sharedTag}`;
             const implM = this.model(implUuid);
             const testIors = implM ? ((implM.tests as string[]) || []) : [];
             const openNodes: OpenNode[] = [];

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fcd57103-4ff0-4ca1-b3c7-2deec33e6a02",
+    "name": "OtmuxBridge.buildRootedTree impl (single-root deployment-node compose + LOUD fail-open)",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:a3f9c1d7-2b48-4e91-8c05-6f1a9d3b74e2"
+    ],
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
+    "markerNote": "STRICT-AST VERIFIED (independent): heads static buildRootedTree@src/ts/server/OtmuxBridge.ts:58 (name-match OtmuxBridge.buildRootedTree, 0 intervening; 2 doc-comment lines above the marker, readSessionTree@25 is BEFORE the marker not intervening). Comment-only marker placement, NO bump (served stays 0.8.70 [REAL]-gated). buildStrictImplSet credit TRUE (expert 606c38699)."
+  },
+  "ownerIor": "ior:instance:e56fcd32-fd56-4e9d-b8e2-23764fbc951c"
+}

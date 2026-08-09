@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ba96a744-13f9-42ea-b1cf-746e87481a18",
+    "name": "DiagramViewModel.buildDiagramSvg impl (pure view-links -> SVG UML boxes)",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at f326f1159: [impl:uuid:ba96a744] heads the named buildDiagramSvg() decl @ src/public/ts/trace/diagram-view-model.ts:34 (marker line 31 immediately precedes export function buildDiagramSvg(, name-matches; Method 3fc6ed5b DiagramViewModel.buildDiagramSvg, Class 09730090, UC 6a155572). Comment-only, v0.8.4 stands. Expert took the Class=DiagramViewModel anchor (pure module, R32.3 modelFacetType pattern) - no re-point, data=truth. IMPL-MINT #126: req minted the Impl, expert placed the marker (no self-mint). Test hop HOLDS for tester vitest r32.4-diagram-surface + playwright.",
+    "tests": [
+      "ior:instance:d41e0030-6175-40e5-9f3f-32b5d15b4938"
+    ]
+  },
+  "ownerIor": "ior:instance:3fc6ed5b-53e5-4931-809d-d85f720237a4"
+}

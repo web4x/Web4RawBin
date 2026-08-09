@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "cdd29583-f304-4df7-af06-b5a8d955be85",
+  "name": "diagram.addView",
+  "description": "R32.11: dragging a class card onto the /model diagram's .dm-surface adds its view (the in-diagram DnD, the original vision, was never wired). RbDiagramDetail.addView (the chain anchor) POSTs /api/model/diagram/add-view {diagramUuid, elementUuid, x, y} -> appends {unit:'modelelement:X', x, y, viewKind:'class'} to the Diagram unit in the isolated MODEL_STORE (dedup = INV-R2, prod untouched = INV-R3, persisted = INV-R4) -> re-renders boxes + R32.6 edges (INV-R1). Supporting enablers (no separate marker): onDropAddView (:131, the drop-event wiring that reads the dragged application/rb-object-ref + maps x,y then calls addView - the 'was not wired' fix), the inline server add-view route (server.ts handleRequest), and the select-class auto-show complement (rb-modelelement-detail glue, same add-view path, additive). REUSE view-link shape + MODEL_STORE + re-render, no fork. The R32.11 Test is the tester @390 DnD gate (drag->box / 2nd->edges / dup-free / prod-clean / persists).",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "classes": [
+   "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+  ],
+  "method": "ior:instance:70be1605-6b8c-4358-af16-6702549aee97",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,71 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6a9d99c3-7ca7-4b35-b808-8dcc6719e162",
+    "name": "deploymentRefs become a real typed OOP model (interfaces + inheritance, IOR relationships to file-leaf nodes)",
+    "altId": "R40.6",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:b2c5cdba-527d-4321-89f9-c5ec1158ccf0"
+    ],
+    "description": "The WODA.prod deploymentRefs (today an ad-hoc array of {role, ref:'ior:file:...', note} STRING refs) become a real OOP model: each ref a first-class TYPED unit related by TYPED IOR relationships (deploys/contains/manifestsAs/configuredBy), a genuine inheritance hierarchy with interfaces (abstract deployment-target -> Device/ExecutionEnvironment/Service; Artifact -> ConfigFile/Certificate/KeyFile/EnvValue), each leaf resolving to a real file on disk. Reuses the existing M2 family (no parallel type system).",
+    "tronQuote": "just ior relationships to uml deployment diagram nodes that basically end in files - think oop interfaces and inheritance scenario-first",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-typed-units",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] Each ref is a FIRST-CLASS typed unit (an ior:class:ModelElement instanceOf its deployment-type), NOT a string in an array."
+      },
+      {
+        "id": "AC-automatable-typed-relationships",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] Refs are related by TYPED IOR relationships (deploys / contains / manifestsAs / configuredBy), NOT a free-text 'role' string."
+      },
+      {
+        "id": "AC-automatable-inheritance",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] A genuine inheritance hierarchy with interfaces exists: abstract deployment-target -> Device / ExecutionEnvironment / Service; Artifact -> ConfigFile / Certificate / KeyFile / EnvValue."
+      },
+      {
+        "id": "AC-automatable-generalization-queryable",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] IS-A is a REAL GRAPH EDGE: generalization/realization are ior:class:Relationship instances using the EXISTING M2 kinds (UmlGeneralization a1d2e3f4-..0011, UmlDependency ..0012). ConfigFile --generalization--> Artifact and Certificate --realizes--> FileBacked are QUERYABLE EDGES; a gate asserts IS-A by READING THE GRAPH, never a string/name. (Architect ecaed1399: measured the kinds already exist, invented no machinery.)"
+      },
+      {
+        "id": "AC-automatable-interfaces-realizable",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] INTERFACES are UmlInterface (a1d2e3f4-..0004) contracts CUTTING ACROSS the tree (not single-inheritance): FileBacked (all 4 Artifact subtypes realize it), Deployable (the target subtypes), Measurable (Certificate/ConfigFile/KeyFile). Realization is a QUERYABLE edge (realizes, via UmlDependency/UmlInterface), read the same way as generalization."
+      },
+      {
+        "id": "AC-automatable-leaf-resolves-real-file",
+        "group": "invariant",
+        "text": "[AUTOMATABLE, disk, ★ THE CROWN AC / fail-closed] For EVERY unit realizing FileBacked, resolve(u.manifestsAs) MUST EXIST as a real on-disk file — evaluated as a MODEL QUERY over the graph, FAIL-CLOSED. ★ Correct-by-construction: M1 nodes inherit the contract via instanceOf->M2 edges, so the gate FINDS the FileBacked realizers BY QUERY (not by re-listing) — a future 5th artifact type is covered automatically, no gate edit (correct-by-construction, not maintained-by-memory). Makes Trons basically-end-in-files PROVABLE; guards the fabricated-reference class killed 5x this sprint."
+      },
+      {
+        "id": "AC-automatable-4-refs-survive",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph+disk] All 4 existing refs survive the migration as proper typed nodes: sshd_config · host key · .env#LE_DOMAIN · LE fullchain — none lost, each now a typed unit."
+      },
+      {
+        "id": "AC-automatable-reuse-M2-no-parallel",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] The types reuse the existing M2 metamodel family (a1d2e3f4-... sentinels) — NO parallel type system; the deployment-node facet already added (R40.2 UmlNode) extends, not forks."
+      },
+      {
+        "id": "AC-automatable-inv-t",
+        "group": "automatable",
+        "text": "[AUTOMATABLE] INV-T byte-diff==0 — the typed model is compute-on-read / a structural migration that does not churn unrelated units."
+      },
+      {
+        "id": "AC-automatable-sentinelReason",
+        "group": "automatable",
+        "text": "[AUTOMATABLE, graph] Each NEW M2 member (the deployment-type metaclasses joining the a1d2e3f4-.. family) carries a sentinelReason field (\"M2 deployment-metamodel member, patterned by design for family lookup\") so the registered-sentinel exception is PROVABLE-not-remembered — an unexplained legitimate patterned uuid is indistinguishable from a fabricated defect (R5 sentinel rule + the identity-detector exclusion)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

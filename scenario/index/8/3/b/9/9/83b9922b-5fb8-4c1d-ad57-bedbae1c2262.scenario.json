@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "83b9922b-5fb8-4c1d-ad57-bedbae1c2262",
+    "name": "RbDiagramDetail.rerouteEdges impl",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "tests": [
+      "ior:instance:78535548-a18b-481c-a988-1f1253f42775"
+    ],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:123e0c21-488c-4b48-a9c0-7dd4b4f5855c"
+}

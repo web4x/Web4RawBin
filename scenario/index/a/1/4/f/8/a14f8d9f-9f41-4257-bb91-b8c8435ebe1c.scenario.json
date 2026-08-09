@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "a14f8d9f-9f41-4257-bb91-b8c8435ebe1c",
+  "name": "modelTree.sourceDirTree",
+  "description": "R33.10 INV-T1-4 (design fcc9166e4): redesign rawbin:ts (+children) to walk src/ RECURSIVELY emitting folder nodes (dir:<relpath>) + .ts file leaves (file:<relpath>) for ALL 123 files (not only the ~25 generated sourceFiles); under a file leaf -> its M1 ModelElements if generated, else empty. Completeness (T1) + folder-hierarchy (T2) in one; reuse mof layer-by-layer + /api/trace/children routing (T3); read-only src walk + MODEL_STORE reads, prod untouched (T4). Server change -> boundary restart. architect service 'MofTreeService'.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:c1f006a1-9fa3-4462-b1fe-ad06fc390569",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.10&commit=fcc9166e4",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

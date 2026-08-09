@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2430c050-4c0d-479b-8ba4-b80214c5a2bb",
+    "name": "test:R33.6.5 item5 generic action-bar renders/hides (RbDetailDrawer.setActions) @390",
+    "description": "Bridged to test/visual/r3365-drawer-actions-independent-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served v0.8.22, b1b021574). Marker adopted from origin (measured, not invented). item-5 INV-1/3: the GENERIC .drawer-actionbar renders the HOST-supplied {verb,label} .da-btn buttons and HIDES (display:none) when empty. Chain: R33.6.5 req 3c6eee8d -> UC drawer.actionBarRegion bf676884 -> Class RbDetailDrawer d86af73d -> Method setActions 24d9c3f3 -> Impl cef954eb -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3365-drawer-actions-independent-gate.mjs",
+    "implementations": [
+      "ior:instance:cef954eb-443d-4969-b54f-1c92e3692392"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cef954eb-443d-4969-b54f-1c92e3692392"
+}

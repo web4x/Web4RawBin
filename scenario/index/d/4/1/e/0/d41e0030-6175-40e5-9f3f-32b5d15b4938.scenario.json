@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d41e0030-6175-40e5-9f3f-32b5d15b4938",
+    "name": "test:R32.4 SVG diagram surface in drawer (buildDiagramSvg nodes from view-links, edges-excluded, no-fork regression)",
+    "description": "Bridged to test/visual/r324-diagram-gate.ts (INDEPENDENT tester gate GREEN DET-3x v0.8.4, 64cc41f27 - own oracle: IMPORTS the REAL buildDiagramSvg ba96a744 + 8/8 planted-defect bites, NOT the expert self-check). Verifies R32.4 ACs: nodes from view-LINKS (R25.7 identity-by-ref, x/y on link); UML name/attr/method compartments from members; M2-facet kind->interface stereotype (modelFacetType); EDGES EXCLUDED (R32.6); box data-ref = select target; additive tagMap diagram->rb-diagram-detail via standard renderDetailForRef (NO overlay/fork); RbPanZoom reuse; resize-fit; /trace + Server Manager shared-drawer UNREGRESSED. Marker d41e0030 adopted from origin (measured line 1, not invented). Chain: R32.4 req 496936cb -> UC 6a155572 diagram.render -> Class 09730090 DiagramViewModel -> Method 3fc6ed5b DiagramViewModel.buildDiagramSvg -> Impl ba96a744 (markerPending=false, strict-AST HELD d465fcaeb) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r324-diagram-gate.ts",
+    "implementations": [
+      "ior:instance:ba96a744-13f9-42ea-b1cf-746e87481a18"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ba96a744-13f9-42ea-b1cf-746e87481a18"
+}

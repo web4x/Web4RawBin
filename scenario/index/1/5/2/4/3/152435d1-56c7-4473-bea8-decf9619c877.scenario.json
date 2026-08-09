@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "152435d1-56c7-4473-bea8-decf9619c877",
+    "name": "RbTraceTree.onTreeReveal",
+    "description": "NEW listener method on RbTraceTree (rb-trace-tree.ts): document.addEventListener('rb-tree-reveal', this.onTreeReveal) in connectedCallback (remove in disconnected); onTreeReveal=(e)=>{ const ref=e.detail?.ref; if(ref) void this.revealNode(refUuid(ref)); } - REUSES the existing revealNode (ancestor-walk expand+scroll, lazy-safe via fetchAncestorPath). Connects the dead boxSelect rb-tree-reveal dispatch to the tree reveal. INV-TR1/2/3. markerPending. NAME PROVISIONAL.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "implementations": [
+      "ior:instance:9cdf5072-baab-453a-a46b-3fa561e58faa"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+}

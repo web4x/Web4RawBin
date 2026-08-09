@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c6a39be3-2174-46ad-856a-ce0ff983b3dd",
+    "name": "RbDetailDrawer.showActionsForType",
+    "description": "NEW method on the shared rb-detail-drawer: on renderDetailForRef resolving a detail type, dispatches rb-drawer-detail-shown{type,ref} so the HOST can set type-appropriate actions (and clears actions on empty/chat). Generic dispatch only; the model-specific type->actions map lives on the host (ModelView.wireDrawerActions). markerPending.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:e6870858-2f5b-4605-a2a7-31b366dd41e2"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

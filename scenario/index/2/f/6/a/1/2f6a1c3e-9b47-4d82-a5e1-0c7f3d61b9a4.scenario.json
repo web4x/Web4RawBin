@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f6a1c3e-9b47-4d82-a5e1-0c7f3d61b9a4",
+    "name": "test:R33.7.2 UC1 add element auto-wires edges (DiagramViewModel.buildEdges) @390",
+    "description": "Bridged to test/visual/r372b-autoedge-gate.mjs (INDEPENDENT tester @390 COMPONENT-harness gate, GREEN DET-3x, 99b567cf6). Marker adopted from origin (measured line 8, not invented). DISTINCT-INTENT UC1 test on the EXISTING buildEdges impl (alongside 9c419d83) - the PO not-exercised path: r372 discover asserts refresh-FIRES; r372b asserts the EDGE-RENDERS OUTCOME. AC-add-auto-relationships (item-2 INV-AR1): adding an element to a diagram -> buildEdges AUTO-WIRES its edges to the EXISTING related boxes (assert the SVG .dm-edge renders to a real relatedFrom-neighbor); model-derived, never fabricated. Chain: R33.7.2 req 2a3090ad -> UC diagram.addAutoRelationships 44bb0dbe -> Class DiagramViewModel 09730090 -> Method buildEdges 8c68b925 -> Impl 77761d46 -> this Test (distinct-intent, rides existing buildEdges).",
+    "sourceFile": "ior:file:test/visual/r372b-autoedge-gate.mjs",
+    "implementations": [
+      "ior:instance:77761d46-4144-4b84-a9e4-4c876da310d0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:77761d46-4144-4b84-a9e4-4c876da310d0"
+}

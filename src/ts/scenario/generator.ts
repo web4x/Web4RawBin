@@ -20,6 +20,7 @@ import { type ScenarioUnit } from './types.js';
 import { ScenarioIndex } from './index-store.js';
 import { setActiveResolver } from './templates.js';
 import { type ViewTemplateRegistry } from './templates.js';
+import { sprintPrefix } from './sprint-label.js'; // R40.4 single-source sprint-number atom
 
 export interface GenerateResult {
   filesWritten: number;
@@ -101,7 +102,7 @@ export class ViewGenerator {
     const taskIors = (m.tasks as string[]) || [];
     const sprintSlug = speakingName(sprint);
     const lines = [
-      `# Sprint ${m.number || '?'} Planning — ${m.name || '(untitled)'}`,
+      `# ${sprintPrefix(m.number)} Planning — ${m.name || '(untitled)'}`,
       '',
       `## Sprint Goal`,
       '',

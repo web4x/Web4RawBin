@@ -362,3 +362,68 @@ behavior tests can finally run reliably.
 
 ---
 **Created:** 2026-05-25 · **Maintained by:** robbin-planner
+
+
+---
+
+# BACKLOG: Model-sync for deleted-file + multi-file (deferred from R32.8, optional `/api/model/sync`)
+
+**Captured:** 2026-07-30 · **By:** robbin-req (PO directive) · **Source:** architect R32.8 design (8e40e79db, ## R32.8 SCOPE)
+
+R32.8 (the MDA sprint finale) delivered CLIENT-ONLY single-file Re-Sync: a model view re-invokes the existing POST /api/model/generate over the model's own sourceFile -> rebind/reconcile/idempotent, all views re-render. Two cases are OUT OF SCOPE for R32.8 and deferred here (architect-flagged, not built):
+
+- **(a) Deleted-file on disk:** the existing /api/model/generate 400s on a missing path (server.ts:1521), so a source file deleted on disk leaves its stale M1 units lingering in the store (no deletion pass).
+- **(b) Multi-file models:** R32.5/R32.8 are single-file (one .ts -> one model + Diagram, keyToUuid('diagram::'+files.sorted)); a multi-file model has no whole-project re-sync.
+
+**Why backlog (not a sprint task, not a new sprint):**
+- R32.8 single-file re-sync is complete + correct-by-construction; these are additive extensions, not a gap in the finale.
+- Tron authorizes any new sprint (no auto-increment) — this is captured as a backlog item, NOT an S33.
+
+**Proposed direction (Tron/PO decides when to schedule):**
+- A dedicated **POST /api/model/sync** (server-side -> R32.5 discipline: __dirname-below shim + real-boot restart) that re-runs generate over the store's FULL tracked-sourceFile set + a DELETION pass for tracked-but-absent files.
+- Acceptance: delete a source file -> sync -> its units drop from ALL views + store; multi-file project -> sync -> all files' models consistent; prod scenario/index still untouched (R32.5 isolation).
+- Owner pair: architect (design the sync endpoint + deletion pass) + expert (implement) + tester (deleted-file + multi-file gates).
+
+**Cross-ref:** R32.5 (go-live isolated store), R32.8 (782d4b8e, single-file re-sync), R32.2 (deterministic keyToUuid engine).
+
+---
+**Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)
+
+
+---
+
+# BACKLOG: RawBin REAL multi-file model (deferred from R32.10 — generate over RawBin actual source)
+
+**Captured:** 2026-07-30 - **By:** robbin-req (PO directive) - **Source:** architect R32.10 design (16e64e445, ## R32.10 ROOT B) - **discoverySource:** tron-device-qa
+
+R32.1-R32.10 deliver Model-Driven Code Quality over a SINGLE-FILE demo (the r32.2-sample: Circle/Point/Shape/Widget/Base). The ACTUAL VALUE Tron is after: generate the model over RawBin OWN source tree so the tree + diagram + edges show RawBin real classes / functions / interfaces, not the sample. Tron (device-QA): where are RawBin classes/functions/interfaces.
+
+**Root (architect-flagged, R32.10 doc ROOT B):** the generate engine (TsToModel.generate R32.2) + isolated store (R32.5) + views (R32.3/4/6) + PUML (R32.7) + re-sync (R32.8) are single-file today (one .ts -> one model + Diagram). A REAL model needs multi-file generation over a project tracked sourceFile set (RawBin src/), a whole-project Diagram, and drop/re-sync targeting the project not one file.
+
+**Why backlog (not a new sprint):** the MDA feature is COMPLETE + reachable (R32.9 registration + R32.10 drawer) over the demo; multi-file is value-scaling, not a gap. Tron authorizes any new sprint (no auto-increment) - well-formed backlog item, awaiting Tron schedule call.
+
+**Proposed direction (Tron/PO decides):** multi-file TsToModel.generate over a tracked project sourceFile set (reuse deterministic keyToUuid + reconcile; extends the R32.8 model-sync multi-file backlog = SIBLING) + a project/package Diagram with auto-layout + a drop-a-folder / index-the-src entry. Acceptance: point at RawBin src -> tree + diagram show RawBin real classes/functions/interfaces + relations; isolated store, prod untouched (R32.5). Owner pair: architect + expert + tester (real-RawBin-src gate).
+
+**Cross-ref:** R32.2 (engine), R32.5 (go-live store), R32.8 (model-sync multi-file backlog = sibling), R32.10 (drawer that surfaces it).
+
+---
+**Maintained by:** robbin-planner (req-captured 2026-07-30 per PO)
+
+---
+
+# BACKLOG: generate-sprint-md write-guard must FAIL-LOUD on a HEADERLESS file at a generator-OWNED path (not silently preserve)
+
+**Captured:** 2026-08-08 - **By:** robbin-planner (PO directive) - **Source:** S40 requirements.md incident - **discoverySource:** planner-found-drift (round-trip --check)
+
+The generator's write-guard (generate-sprint-md.ts ~215-237) preserves any on-disk file that LACKS the generated-header, treating it as "hand-authored, not generator-owned" and SKIPPING it. Correct for genuinely-FOREIGN artifacts (diagrams/*.puml, design briefs, *.png). WRONG for a file at the generator's OWN owned path that merely lacks the header — the guard cannot distinguish "a file I do not own" from "a file at MY path missing MY header," and those need OPPOSITE responses.
+
+**Root (PO-named STRUCTURAL TRAP, S40 evidence):** requirements.md is a GENERATOR-OWNED view (generateRequirementsMd, generate-sprint-md.ts:190; R30.18 wired it into buildSprintOutput precisely so requirements.md stops being hand-authored). When req hand-authored S40's requirements.md (headerless), the write-guard silently preserved it FOREVER: the generator politely stops writing that path, --check reports drift, and NOTHING ever reconciles. A one-time hand-authoring became PERMANENT SILENT DRIFT. Same family as the day's other findings — a mechanism quiet where it must be loud (cf. the narrow-glob dropping markers, the vacuous test passing, the DET-gate blind spot).
+
+**Why backlog (NOT build now):** Tron's S40 features (R40.1/2/3) come FIRST (PO). The immediate S40 drift is fixed by REGENERATION (req removes the headerless requirements.md + re-runs the generator so the generated view lands). This item is the BY-CONSTRUCTION prevention so it can never recur.
+
+**Proposed direction (Tron/PO decides; owner = expert generate-sprint-md + architect):** the write-guard, on finding a HEADERLESS file at a GENERATOR-OWNED path (the emitted set: planning.md, requirements.md, task-*.md), must FAIL-LOUD — report a CONFLICT (path, expected-header, action=regenerate-or-move) and exit non-zero — instead of silently preserving it. Genuinely-foreign paths (outside the generator-owned set) keep the silent-preserve behavior. Acceptance/gate: plant a headerless requirements.md at a sprint -> generator EXITS LOUD naming it (path + expected-header + "regenerate") NOT skip; a headerless foreign design-brief.md -> still preserved silently (the two responses stay distinct). Folds into ci:gates alongside check:sprint-md.
+
+**Cross-ref:** R30.18 (generateRequirementsMd = requirements.md IS a generated view), law #100 (MD = generated view of units), S40 requirements.md incident (this evidence), R-C3 (fail-loud ci-guard family — same doctrine).
+
+---
+**Maintained by:** robbin-planner (2026-08-08, PO directive — S40 write-guard trap)

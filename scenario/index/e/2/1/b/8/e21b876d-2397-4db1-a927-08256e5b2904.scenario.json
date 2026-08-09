@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e21b876d-2397-4db1-a927-08256e5b2904",
+    "name": "test:S36 part-2 5-facet lens paint @390 (DiagramViewModel.renderFacet)",
+    "description": "Bridged to test/visual/r36-canonical-webkit-gate.mjs (INDEPENDENT tester @390 real-WebKit gate, GREEN DET-3x, served v0.8.58, marker 1742961e8). Marker adopted from origin (measured, not invented). every view PAINTS the 5-facet lens @390 mobile + desktop, real-WebKit. Chain: S36 R36.2 -> UC diagramView.renderFacet 97e5e14e -> Method DiagramViewModel.renderFacet a6a05d34 -> Impl 94ad4f50 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r36-canonical-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ccbf83af-6387-4b49-990f-d24703fbc326",
+    "name": "RbEditorToolbar.historyBack",
+    "implementations": [
+      "ior:instance:6b4d7714-5b86-4f08-9560-3cbd3cc03015"
+    ]
+  },
+  "ownerIor": "ior:instance:27ca98dd-6987-49ee-a9c0-47200030ec7c"
+}

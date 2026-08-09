@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "05cea277-cb43-4fc7-9fbf-29c70f71fa6e",
+  "name": "Task 31.16: Non-host read-only notice in room settings (explains why editing is disabled)",
+  "slug": "task-31.16-readonly-notice",
+  "description": "When a NON-host member opens the room settings/config modal, a visible READ-ONLY NOTICE explains they cannot edit because they are not the room owner. Host-only edits are CONFIRMED correct by Tron (keep read-only for non-host, R31.12); this adds the UX affordance so a non-host understands WHY the fields are disabled (not a bug). Nothing else broken - radios work, values bound (architect confirmed). Trivial: expert builds a ~2-line notice.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.16 `[requirement:uuid:8a584787-13ce-435d-ac5c-cf4c67be51a1]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [x] When a NON-host member opens the room settings/config modal, a VISIBLE read-only notice is shown explaining they cannot edit because they are not the room owner. @390.\n- [x] The HOST/owner does NOT see the read-only notice (host has editable fields + Save, R31.12) - the notice is non-host-only.",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "gateProof": "DONE — read-only-notice CERTIFIED GREEN DET-3x on STABLE v0.8.1 (tester b168fa1a2, engine-independent standard HTML5, NO Tron device needed; marker ad86c3a0, orphan 3ee856ac gone). Landed v0.7.148 (e04ec73c8), resolved-trivial per Tron ruling (5d32f34f4). Sprint 31 FULLY CLOSED with T31.12.",
+  "coveredRequirements": [
+   "ior:instance:8a584787-13ce-435d-ac5c-cf4c67be51a1"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-07-29"
+ }
+}

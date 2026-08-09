@@ -1,5 +1,16 @@
 // [impl:uuid:18ebf760-c51b-4b67-9dcb-a2c2f5f3cfa3] T39 update banner
 declare const __BUILD_VERSION__: string; // compiled in by build.mjs (define) = the version of THIS running bundle
+
+// R31.12 #2: is server-version `a` GENUINELY NEWER than this bundle `b`? (semver x.y.z, numeric-per-part). Replaces the
+// old `config.version !== __BUILD_VERSION__` — post-INV-V4 a CLIENT-ONLY ship makes the client bundle NEWER than the
+// boot-stamped server (0.7.140 client vs 0.7.139 server) → `!=` fired a spurious banner every load (and even offered a
+// DOWNGRADE). Only a real server deploy (server newer) should prompt.
+// [impl:uuid:378357ea-8aec-4e9b-a883-bb0701780f4e] RbUpdateBanner.isSemverNewer (Method 332bd63b, Class 3adf4033) — R31.12 #2 primary: the semver gate that kills the spurious client-ahead banner (INV-V4 skew)
+function isSemverNewer(a: string, b: string): boolean {
+  const pa = String(a).split('.').map(n => parseInt(n, 10) || 0), pb = String(b).split('.').map(n => parseInt(n, 10) || 0);
+  for (let i = 0; i < 3; i++) { if ((pa[i] || 0) > (pb[i] || 0)) return true; if ((pa[i] || 0) < (pb[i] || 0)) return false; }
+  return false;
+}
 class RbUpdateBanner extends HTMLElement {
   private version: string = '';
 
@@ -48,7 +59,7 @@ class RbUpdateBanner extends HTMLElement {
     const check = async () => {
       try {
         const config = await (await fetch('/api/config', { cache: 'no-store' })).json();
-        if (config.version && config.version !== __BUILD_VERSION__) { this.version = config.version; this.showBanner(config.version); }
+        if (config.version && isSemverNewer(config.version, __BUILD_VERSION__)) { this.version = config.version; this.showBanner(config.version); } // R31.12 #2: GENUINELY-newer only (not '!=') — kills the spurious banner a client-only ship triggers via the INV-V4 client>server skew
       } catch {}
     };
     void check();
@@ -68,8 +79,10 @@ class RbUpdateBanner extends HTMLElement {
 
     shadow.innerHTML = `
       <style>
-        :host { display: block; position: fixed; top: 0; left: 0; right: 0; z-index: 2000; }
-        .banner { background: #e74c3c; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.9rem; font-weight: 600; }
+        /* R31.12 #2 (rows 1+2): the host NEVER blocks header taps (was display:block/fixed/z-2000 overlaying the header → Tron's title+✏️ tap-block) + has ZERO footprint until [shown]. pointer-events:none on the host; only the .banner is tappable (and only when shown). */
+        :host { display: none; pointer-events: none; }
+        :host([shown]) { display: block; position: fixed; top: 0; left: 0; right: 0; z-index: 2000; }
+        .banner { pointer-events: auto; background: #e74c3c; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 16px; padding-top: calc(10px + env(safe-area-inset-top)); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.9rem; font-weight: 600; }
         button { background: white; color: #e74c3c; border: none; border-radius: 6px; padding: 6px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
         button:active { opacity: 0.8; }
       </style>
@@ -77,6 +90,7 @@ class RbUpdateBanner extends HTMLElement {
         <span>${label}</span>
         <button id="update-now">Update Now</button>
       </div>`;
+    this.setAttribute('shown', ''); // R31.12 #2: → :host([shown]) = display:block/fixed (default :host is display:none = zero footprint, no header overlay when there's no genuine update)
 
     shadow.getElementById('update-now')?.addEventListener('click', async () => {
       // R30.14 one-click (C): swap the waiting SW if present, then reload. The network-first shell guarantees this

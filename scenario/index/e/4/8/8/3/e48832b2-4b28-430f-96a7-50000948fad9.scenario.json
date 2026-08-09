@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e48832b2-4b28-430f-96a7-50000948fad9",
+    "name": "server.resolveUsedIn",
+    "description": "NEW where-used back-ref resolver for R36.5 (server): given a unit, enumerate the diagrams/folders that reference it (scan Diagram.views[] + folder links, or read unit.usedIn[]) and return the usage back-refs. PROVISIONAL name (server.resolveUsedIn / usedInBackRefs) -- expert marks + re-point on ship (data=truth). IMPL-MINT.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

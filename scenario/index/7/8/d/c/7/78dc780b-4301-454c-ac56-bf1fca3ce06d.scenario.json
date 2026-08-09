@@ -25,7 +25,7 @@
   "createdAt": "2026-07-20",
   "remainingIssues": "DRAWER-UX GATE GREEN (v0.7.132): INV-T1 auto-close + maximize + 0-orphan-leak, tester DET-3x @390 GREEN (a30081afc) + architect gate-verified CLOSED (274f0b61f, server race-close measured) + INV-T1 Test 6f78a86f minted+wired (9d54447d7). Chain-complete + two-keyed. -> QA-Review; only Tron device visual remains (interactive terminal in drawer).",
   "implementation": "DESIGN COMPLETE (design-server-manager.md ## R31.4: 3-type otmuxSession/otmuxWindow/otmuxPane model + fullscreen terminal). BUILD IN PROGRESS (expert building now, implementing[~]): node-pty grouped-session PTY bridge + xterm.js frontend + ticket-gated ws UPGRADE + read-only-default. Highest design risk (owner-gated interactive terminal).",
-  "focus": true,
+  "focus": false,
   "gateProof": "TRON DEVICE-CONFIRMED (2026-07-24, commit 444041798 'R31.9 (Tron device)' WINS): live terminal confirmed on device. -> Done."
  }
 }

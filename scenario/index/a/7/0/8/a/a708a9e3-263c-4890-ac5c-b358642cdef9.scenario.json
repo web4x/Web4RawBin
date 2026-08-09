@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a708a9e3-263c-4890-ac5c-b358642cdef9",
+    "name": "test:R31.8 RbFeatureDetail.userComplete dropdown populates @390",
+    "description": "Bridged to test/visual/r318fm-client-gate.mjs (DET-3x GREEN, served==HEAD==v0.7.135). Type -> debounced /api/feature-manager/users?q= -> dropdown POPULATES [data-hit] ranked/masked hits, visible. Client @390. Marker a708a9e3 adopted from origin (measured on line 1, not invented). Impl 9b54bc91 on FeatureManager/RbFeatureDetail (R31.8).",
+    "sourceFile": "ior:file:test/visual/r318fm-client-gate.mjs",
+    "implementations": [
+      "ior:instance:9b54bc91-f8fc-4585-84bf-fb45cbab98e3"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:9b54bc91-f8fc-4585-84bf-fb45cbab98e3"
+}

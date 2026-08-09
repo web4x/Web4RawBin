@@ -66,8 +66,7 @@ export class RbWebItemDetail extends HTMLElement {
   private renderPreviewable(m: Record<string, unknown>, url: string, uuid: string): void {
     const name = String(m.name || url);
     this.innerHTML =
-      `<div style="display:flex;gap:10px;padding:10px 14px 6px;flex-wrap:wrap">` +          // action-row, immediately below the drawer handle
-        `<button id="wi-proxy" style="${BTN};background:#455a64;color:#fff">⟳ Preview via proxy</button>` +
+      `<div style="display:flex;gap:10px;padding:10px 14px 6px;flex-wrap:wrap">` +          // R35.1: ⟳ Preview-via-proxy button REMOVED (INV-2) → universalActionBar 'proxy-preview' action; 3s auto-fallback stays
         `<a href="${esc(url)}" target="_blank" rel="noopener" style="${BTN};background:#ff9800;color:#000">↗ Open in new tab</a>` +
       `</div>` +
       `<div id="wi-pane" style="position:relative;height:52vh;margin:0 10px;background:#0d0d0d;border-radius:10px;overflow:hidden">` +
@@ -92,8 +91,7 @@ export class RbWebItemDetail extends HTMLElement {
     // X-Frame/CORS block leaves a dead/blank frame → fall back to the SERVER PROXY (same-origin, sanitized → always renders).
     const toProxy = () => { if (frame) frame.src = `/api/proxy?url=${encodeURIComponent(url)}`; };
     let loaded = false; frame?.addEventListener('load', () => { loaded = true; });
-    setTimeout(() => { if (!loaded) toProxy(); }, 3000);                                   // auto-fallback: never a permanently dead frame
-    (this.querySelector('#wi-proxy') as HTMLElement)?.addEventListener('click', toProxy); // manual fallback
+    setTimeout(() => { if (!loaded) toProxy(); }, 3000);                                   // auto-fallback: never a permanently dead frame (R35.1: manual trigger = universalActionBar 'proxy-preview')
   }
 
   // launcher: no preview-pane; details + an Open card that hands off to the OS app

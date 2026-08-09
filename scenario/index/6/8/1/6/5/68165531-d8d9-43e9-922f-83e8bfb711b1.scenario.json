@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "68165531-d8d9-43e9-922f-83e8bfb711b1",
+    "name": "test:R33.5 item2 box-select keeps diagram (RbDiagramDetail.boxSelect) @390",
+    "description": "Bridged to test/visual/r335-ux-polish-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x v0.8.19, f54376a1b). Marker adopted from origin (measured on the test file, not invented). click a box -> .dm-box-selected + 'rb-tree-reveal' fires, diagram STAYS (no replaceWith), no selection-changed for the box. Chain: R33.5 req 3c99ce28 -> UC diagram.boxSelectKeepsDiagram -> Class RbDiagramDetail 039ec367 -> Method boxSelect 65423a29 -> Impl bde57b1a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r335-ux-polish-gate.mjs",
+    "implementations": [
+      "ior:instance:bde57b1a-3cc5-4c79-8656-18d29a01c979"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:bde57b1a-3cc5-4c79-8656-18d29a01c979"
+}

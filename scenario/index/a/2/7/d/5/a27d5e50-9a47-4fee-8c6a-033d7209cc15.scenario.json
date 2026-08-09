@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a27d5e50-9a47-4fee-8c6a-033d7209cc15",
+    "name": "RbDiagramDetail.broadcastActiveDiagram",
+    "description": "NEW method on RbDiagramDetail (rb-diagram-detail.ts): on render/open dispatch rb-active-diagram{uuid}; on disconnectedCallback dispatch {uuid:null}. The active-diagram signal for the context-aware action bar (INV-A1/A2). markerPending. NAME PROVISIONAL.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:5150477e-4091-46c6-bdee-50c9250c7725"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

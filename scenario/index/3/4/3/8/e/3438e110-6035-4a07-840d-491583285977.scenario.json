@@ -5,7 +5,8 @@
     "name": "T-iframe-pinch: 2-finger pinch scales preview iframe content (0.25x-4x)",
     "slug": "iframe-pinch-zoom-scale-preview-content",
     "description": "Wrap iframe in .preview-zoom-container with touch-action:none. 2-touch \u2192 capture initialPinchDist, compute scale = currentScale * (newDist/initialDist), clamp [0.25,4], apply transform:scale on iframe. No snap-back. Single-touch pan preserved.",
-    "status": "Planned",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b6ad2bdd-f0f4-4b53-a711-46fed46dfc06"
     ],

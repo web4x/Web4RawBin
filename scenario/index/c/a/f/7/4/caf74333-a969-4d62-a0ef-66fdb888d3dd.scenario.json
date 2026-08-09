@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "caf74333-a969-4d62-a0ef-66fdb888d3dd",
+    "name": "test:R-C3 refuseIfVacuous BITE (vacuous-path battery — every shape REFUSES with reason)",
+    "description": "Bridged to test/visual/rc3-consistency-guard-metabite.ts (DET-3x, own-oracle). PROVEN-BY-BITE (INV-C3-1/3): refuseIfVacuous feeds EACH vacuous shape — unresolvable-uuid/null / missing-or-empty-file / absent-or-malformed-checklist / 0-items / wrong-ior-class / null-output — and asserts it REFUSES with a NAMED reason, never silent-pass. Verify-owner-first, distinct-intent on refuseIfVacuous 8 ee424581.",
+    "sourceFile": "ior:file:test/visual/rc3-consistency-guard-metabite.ts",
+    "implementations": [
+      "ior:instance:ee424581-c246-48b7-bdc8-54a37f686b02"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ee424581-c246-48b7-bdc8-54a37f686b02"
+}

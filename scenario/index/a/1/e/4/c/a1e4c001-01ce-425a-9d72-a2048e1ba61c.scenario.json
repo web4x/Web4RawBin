@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1e4c001-01ce-425a-9d72-a2048e1ba61c",
+    "name": "test:R33.6.5 item6 selection-driven ACTIONS_BY_TYPE + verb-dispatch (ModelView.wireDrawerActions) @390",
+    "description": "Bridged to test/visual/r3365-drawer-actions-independent-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served v0.8.22, b1b021574). Marker adopted from origin (measured, not invented). item-6 host-policy: selection-driven ACTIONS_BY_TYPE mapping (diagram->[AddDiagram/ReSync/Compile], modelelement->[AddToDiagram], puml->[Import], default->[AddDiagram/ImportPUML]) + button click -> rb-drawer-action -> host handler fires. Credits the 3rd (host-policy) chain - architect CONFIRMED no-fold (wireDrawerActions stands as a distinct HOST-POLICY node, INV-3 mechanism/policy boundary). Chain: R33.6.5 req 3c6eee8d -> UC modelView.actionsByType fe06818d -> Class ModelView 35759641 -> Method wireDrawerActions b0fa32ab -> Impl 613bfb4a -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3365-drawer-actions-independent-gate.mjs",
+    "implementations": [
+      "ior:instance:613bfb4a-7214-4cf6-b2fa-d32f96559d18"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:613bfb4a-7214-4cf6-b2fa-d32f96559d18"
+}

@@ -1,0 +1,19 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "8106d378-04ee-4869-b803-37b21dd2b0bb",
+  "name": "drawer.universalScenarioEdit",
+  "description": "R34.1 (R-A A1). The universal «◆ Scenario» + «✎ Edit» default actions HANDLER in the shared drawer: on rb-drawer-action, Scenario → /scenario?ior=<uuid> focused view, Edit → scenarioEditorHref(uuid). Generic (no host needed), works on every detail. ALREADY BUILT + LIVE v0.8.43 (f28939b41, unified with R34.7/R-E). The verb-LISTING rides actionsForContext (a1a5be99); the default-PAIR composition [Scenario,Edit] lives in RbDetailDrawer.universalActionBar (ffd44b17, R34.7 shared mechanism — crossRef, NOT double-marked). THIS chain credits the HANDLER (onUniversalAction). Client-only.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:276e4981-4415-4e31-af3f-c19217322725",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-A-A1&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "crossRef": [
+   "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949",
+   "ior:instance:ffd44b17-5882-4d77-94d1-a3c03c07ffad"
+  ],
+  "crossRefNote": "a1a5be99 = actionsForContext verb-listing (rides). ffd44b17 = R34.7 universalActionBar default-pair composition (shared mechanism, DON'T double-mark — A1's distinct new decl is onUniversalAction, the handler)."
+ },
+ "ownerIor": null
+}

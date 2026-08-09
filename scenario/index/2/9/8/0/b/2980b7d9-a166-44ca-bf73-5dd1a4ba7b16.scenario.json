@@ -1,17 +1,21 @@
 {
- "ior": "ior:class:Feature",
- "model": {
-  "uuid": "2980b7d9-a166-44ca-bf73-5dd1a4ba7b16",
-  "name": "Feature Manager",
-  "description": "Enable/disable Features on user profiles (grant/revoke) by editing Feature.allowedUsers <-> profile.features atomically. ROOT-OF-TRUST: grant-editing is HARDCODED-owner-gated (NOT data-driven), seeded to Tron at bootstrap.",
-  "icon": "toggle",
-  "implementations": [],
-  "allowedUsers": [
-   "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
-  ],
-  "implNote": "implementations[] to-be-BUILT (grant/revoke logic + enable/disable UI); expert points impls here (#126).",
-  "securityNote": "INV-F4 root-of-trust: grant/revoke gated by the hardcoded ServerManagerGuard.assertOwner/OWNER_TOKEN (NOT self-referential/data-driven = the escalation hole). Seeded to owner at bootstrap; INV-F5 empty allowedUsers fails-closed.",
-  "featureNote": "FeatureManager Feature instance (R31.8)."
- },
- "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
+  "ior": "ior:class:Feature",
+  "model": {
+    "uuid": "2980b7d9-a166-44ca-bf73-5dd1a4ba7b16",
+    "name": "Feature Manager",
+    "description": "Enable/disable Features on user profiles (grant/revoke) by editing Feature.allowedUsers <-> profile.features atomically. ROOT-OF-TRUST: grant-editing is HARDCODED-owner-gated (NOT data-driven), seeded to Tron at bootstrap.",
+    "icon": "toggle",
+    "launchPage": "/feature-manager",
+    "implementations": [],
+    "allowedUsers": [
+      "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+      "05e58f81-34ec-4851-b5b7-5749ca9148a3",
+      "8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
+      "c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
+    ],
+    "implNote": "implementations[] to-be-BUILT (grant/revoke logic + enable/disable UI); expert points impls here (#126).",
+    "securityNote": "INV-F4 root-of-trust: grant/revoke gated by the hardcoded ServerManagerGuard.assertOwner/OWNER_TOKEN (NOT self-referential/data-driven = the escalation hole). Seeded to owner at bootstrap; INV-F5 empty allowedUsers fails-closed.",
+    "featureNote": "FeatureManager Feature instance (R31.8)."
+  },
+  "ownerIor": "ior:instance:a93f5fce-e55a-4d42-9d4d-976a7b892523"
 }

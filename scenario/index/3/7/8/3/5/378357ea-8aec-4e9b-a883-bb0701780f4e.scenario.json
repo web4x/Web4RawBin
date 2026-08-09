@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "378357ea-8aec-4e9b-a883-bb0701780f4e",
+    "name": "RbUpdateBanner.isSemverNewer impl (rb-update-banner.ts:8 semver gate)",
+    "sourceFile": "ior:file:src/public/ts/components/rb-update-banner.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at 694b8b38d: [impl:uuid:378357ea] placed on the named module-scope function isSemverNewer (rb-update-banner.ts:8-9, name-matches Method RbUpdateBanner.isSemverNewer 332bd63b). Marker-only comment edit (no rebuild). Tester Test 7ee23d27 DET-3x GREEN @390 v0.7.141. The 5 supporting R31.12 edits stay ride-existing note-only (e289349c/240c539f/cb153623/39074a59/18ebf760).",
+    "tests": [
+      "ior:instance:7ee23d27-3548-4be9-9025-30554150c451"
+    ]
+  },
+  "ownerIor": "ior:instance:332bd63b-eec8-42b1-b8b5-057885cab09d"
+}

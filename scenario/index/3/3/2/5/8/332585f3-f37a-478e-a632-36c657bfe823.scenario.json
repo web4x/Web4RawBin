@@ -1,0 +1,50 @@
+{
+ "ior": "ior:class:Sprint",
+ "model": {
+  "uuid": "332585f3-f37a-478e-a632-36c657bfe823",
+  "name": "Sprint 32 — MDA Model-Driven Code Quality",
+  "number": 32,
+  "goal": "v0.8.0. Model-driven code quality: generate scenario-based MDA/MOF 3-level model elements (M3 Class+Relationship / M2 UML-profile / M1 TS-structures) with SAME-UUID-across-M-levels identity, from the TS compiler AST; a model tree (rb-trace-tree reuse) + interactive SVG diagrams in the details drawer (RbPanZoom) with drag itemView->composed views + relationship views; a PUML serializer/parser (no-dup, same-UUID round-trip); and action-driven M1/M2 sync (TS<->PUML). Delivered as a FeatureManager feature (R31.8). Reuse over re-fork; single-source/generated law (R31.7/R31.13) for the model.",
+  "status": "In Progress",
+  "compoundSource": "scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md",
+  "requirements": [
+   "ior:instance:68aa36fe-f3c7-452c-b5cb-619f7c84bee4",
+   "ior:instance:05c26eb8-2276-473e-b9f1-18cef4cca7cb",
+   "ior:instance:4a9c6ee7-653f-4745-9d27-9540c5f95384",
+   "ior:instance:d07b2dc0-7499-4877-952c-655170a7a99a",
+   "ior:instance:496936cb-d0ea-4c0e-a6d3-b6e9c7189fc7",
+   "ior:instance:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
+   "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8",
+   "ior:instance:b1fef048-dc5c-4315-b410-12a724968234",
+   "ior:instance:782d4b8e-576e-4090-9de6-4c0cda5700fb",
+   "ior:instance:167ef4a5-abf3-429f-8f4e-e7def91b657a",
+   "ior:instance:96e88399-e8a6-4ce8-b1e3-379edff0eb86",
+   "ior:instance:f106673d-cd77-49bb-bfbd-3ab622c9f8c7",
+   "ior:instance:d981876f-4816-4cd0-b3e3-e28ed02c787d"
+  ],
+  "tasks": [
+   "ior:instance:2601bb4a-077a-4e24-a96c-89846ad8bef2",
+   "ior:instance:f6165590-6f13-4f4a-8ef8-de738ad526dc",
+   "ior:instance:8559098a-4c96-48f7-b4c3-82d8048f5ad4",
+   "ior:instance:6b479dec-4c0d-4322-a7ed-b1eeab10c0af",
+   "ior:instance:6a946cd2-7c78-4d9f-a720-2894b14ae0a3",
+   "ior:instance:abaf9f83-978f-4722-af21-c2b0ee76b8a2",
+   "ior:instance:d14e3884-242a-4017-acc7-2daf0c47a688",
+   "ior:instance:f7a635b2-60c7-44f2-9ea6-48c8d9632000",
+   "ior:instance:73f6f3b4-669c-4f22-a875-4378b332f135",
+   "ior:instance:03f5d536-e76f-42a9-a7a8-f2279433db5d",
+   "ior:instance:fb995055-7fcb-4496-83e0-abffc64e31c2",
+   "ior:instance:bfd0e01a-1b38-494f-86af-bf7c860892cc",
+   "ior:instance:42555b04-f47e-4d56-9fab-987fafc1df2b"
+  ],
+  "createdBy": "robbin-req",
+  "createdAt": "2026-07-29",
+  "joint": [
+   "robbin-req",
+   "robbin-architect",
+   "robbin-planner",
+   "robbin-skill-expert"
+  ]
+ },
+ "ownerIor": null
+}

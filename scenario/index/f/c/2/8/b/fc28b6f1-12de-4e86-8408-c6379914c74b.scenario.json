@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "fc28b6f1-12de-4e86-8408-c6379914c74b",
+    "name": "test:R-C1 resolveSprintPin BITE (golden pin + drift-invariance + ambiguity-throws + fail-closed-unresolvable)",
+    "description": "Bridged to test/visual/rc1-sprintpin-resolver-gate.ts (DET-3x, own-oracle imports the real resolver). PROVEN-BY-BITE: GOLDEN fixture S35-done/S36-QA/S37-active -> current=S37, last=S35, next=none (INV-C1-3 QA-pending!=current); DRIFT-invariance = rename / add 31.1 / M2-in-name -> output UNCHANGED (number-keyed, kills 31.1->31 + M2->2 INV-C1-5); AMBIGUITY = >1 Active -> THROWS fail-loud (INV-C1-4, no silent-pick); fail-closed on unresolvable task ref (INV-C1-6). INV-C1-8 no-name-parse lint cross-cuts.",
+    "sourceFile": "ior:file:test/visual/rc1-sprintpin-resolver-gate.ts",
+    "implementations": [
+      "ior:instance:af97137f-cce1-4b1c-9bb8-40d84dbd5b33"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:af97137f-cce1-4b1c-9bb8-40d84dbd5b33"
+}

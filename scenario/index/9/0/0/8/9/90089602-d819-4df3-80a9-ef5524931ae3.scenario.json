@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "90089602-d819-4df3-80a9-ef5524931ae3",
+    "name": "TaskQaVerdict.declineToChangeRequest impl (owner-gated 403; mints ior:class:ChangeRequest linked to task/req)",
+    "markerPending": false,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerNote": "STRICT-AST VERIFIED: heads function declineToChangeRequest@1465 (owner-403 + mints ior:class:ChangeRequest linked task+requirements[] + task.changeRequests append + status->In Progress) @src/ts/server/server.ts (name-match, 0 intervening). ★ SCHEMA CONFIRMED single-source: status strings QA Review/In Progress/Done EXACTLY match canonical TaskStatusEnum (task-status.ts:9) — no drift. Owner-gated 403 (non-owner->forbidden verified). Served 0.8.73 (expert ca4582ae7), buildStrictImplSet=TRUE."
+  },
+  "ownerIor": "ior:instance:aa046d50"
+}

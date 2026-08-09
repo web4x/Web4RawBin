@@ -8,7 +8,7 @@
 
 Narrow the traceability chain at Class→Method to the ONE method that fulfills the current requirement (vs scenario browser which shows ALL methods); dogfood S17 scenario-unit model by authoring Sprint 18 as scenario.json FIRST and generating planning.md + task-*.md from those units; co-specify role refinement protocols as SKILL.md files (Rules 1-11 from refinement-precedence-analysis.md).
 
-**Status:** Planned
+**Status:** Done
 
 ## Tasks
 
@@ -23,5 +23,11 @@ Narrow the traceability chain at Class→Method to the ONE method that fulfills 
 - [x] [Object.verb UC population + Class/Method/Impl chain wiring (multi-phase epic)](./t195-object-verb-uc-population-chain-wiring.md)
 - [x] [Orphan-method + wrong-type-UUID cleanup in Method.implementation chain](./t197-orphan-method-wrong-type-uuid-cleanup.md)
 - [x] [Sprint scenario units + sprint catalogue cleanup (dedupe + numbered rename)](./t198-sprint-scenario-units-catalogue-cleanup.md)
-- [ ] [SVG viewer: fullscreen iframe + native zoom](./svg-fullscreen-iframe-native-zoom.md)
+- [ ] [R18.34 — SVG viewer with scoped pinch/pan (cross-browser)](./task-r18.34-svg-viewer-scoped-pinch-zoom.md)
 - [ ] [T202: Class.method-per-UC narrowing — shared Class picks wrong method](./class-method-per-uc-narrowing-shared-class-wrong-method.md)
+- [ ] [T-detail-parent-link: parent link above scenario-view navigates to ownerIor](./detail-parent-link-ownerio.md)
+- [ ] [T-detail-browse-file: Browse-File link opens file-browser folder with highlight](./detail-browse-file-folder-highlight.md)
+- [ ] [T-detail-browse-line: line info carried through file-browser to Monaco editor](./detail-browse-line-info-to-monaco.md)
+- [ ] [T-detail-narrowed-chain: detail-view chain section shows narrowed singular chain](./detail-narrowed-chain-singular.md)
+- [ ] [T-detail-source-link-all: source link on ALL types (UC to .puml, Class/Method/Impl to src)](./detail-source-link-all-types.md)
+- [ ] [T-detail-line-monaco: line info to Monaco editor at correct line](./detail-line-info-monaco-editor.md)

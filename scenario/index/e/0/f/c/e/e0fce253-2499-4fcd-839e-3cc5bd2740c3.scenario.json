@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e0fce253-2499-4fcd-839e-3cc5bd2740c3",
+  "name": "drawer.selectionDrivenActions",
+  "description": "R33.6.5 item-6 (AC-actionbar-selection-driven, INV-R33.6.5-2): in renderDetailForRef(ref), after resolving type, the drawer dispatches rb-drawer-detail-shown{type,ref} (and clears actions on empty/chat). The HOST provides the actions per type. Drawer half = the type dispatch (generic); the host mapping is modelView.actionsByType. Shared-generic (INV-3).",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:c6a39be3-2174-46ad-856a-ce0ff983b3dd",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

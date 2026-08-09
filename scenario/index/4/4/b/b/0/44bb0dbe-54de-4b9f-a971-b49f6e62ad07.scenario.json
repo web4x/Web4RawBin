@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "44bb0dbe-54de-4b9f-a971-b49f6e62ad07",
+  "name": "diagram.addAutoRelationships",
+  "description": "R33.7.2 item-2 INV-AR1 (design 3ace9bf95): adding an element auto-adds its model-derived relationships to on-diagram elements. RIDES the EXISTING DiagramViewModel.buildEdges (8c68b925) - it already draws an edge X<->Y IFF both are on-diagram from model.relations (both directions); addView (70be1605) POSTs add-view then render()->buildEdges re-runs, so a newly-added element's edges to present elements appear by construction. INV-AR1 = model-derived, never fabricated. NO new method/Impl (rides buildEdges + addView). Test credits buildEdges' existing impl (distinct-intent).",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "method": "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.2&commit=3ace9bf95",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

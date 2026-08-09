@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6ce80195-a394-4ba3-b9ca-3db7a04d2ce2",
+    "name": "Back is real history back; the path label navigates to the containing folder",
+    "altId": "R40.7",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:5d02d562-eafb-4bc9-8d6f-3894b3fbda9c"
+    ],
+    "description": "The '← Back' control performs GENUINE browser history back; clicking the '📁 scenario/...' path label navigates to the containing folder (the behaviour Back does TODAY). The two are distinct and neither does the other's job.",
+    "tronQuote": "back should be a real history back; the path label should do what back does today",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-automatable-history-back-390",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390 real-WebKit] '← Back' performs genuine history back — proven by navigating 2+ steps then Back returns to the prior view (not the folder)."
+      },
+      {
+        "id": "AC-automatable-path-label-folder-390",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390 real-WebKit] Clicking the '📁 scenario/...' path label navigates to the CONTAINING FOLDER (today's Back behaviour)."
+      },
+      {
+        "id": "AC-automatable-distinct",
+        "group": "automatable",
+        "text": "[AUTOMATABLE @390] The two are DISTINCT: Back does history, the path label does folder-nav; neither does the other's job (both asserted in one flow)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

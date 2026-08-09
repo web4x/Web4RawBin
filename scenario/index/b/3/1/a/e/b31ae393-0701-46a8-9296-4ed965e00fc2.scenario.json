@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b31ae393-0701-46a8-9296-4ed965e00fc2",
+    "name": "SprintViewGenerator.generateAll impl (--all write-all-sprints reconcile)",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "markerPending": false,
+    "markerNote": "STRICT-AST VERIFIED (9b1c2ab18): [impl:uuid:b31ae393] @generate-sprint-md.ts:248 heads function generateAll@253 (name-match, 0 intervening). Expert extracted generateAll as pure refactor of the inline --all loop (same behavior); INV-C1 held (scenario/index byte-identical). Reconcile-all = a RUN of this. R-C2 BLOCKED ~9/37 by OWNED-OUTPUT guard skipping 20 hand-authored req.md + 10 planning.md (no GENERATED_HEADER); decision pending PO+Tron.",
+    "tests": []
+  },
+  "ownerIor": "ior:instance:eddf2836-4320-46ae-a75f-c9e6312053e6"
+}

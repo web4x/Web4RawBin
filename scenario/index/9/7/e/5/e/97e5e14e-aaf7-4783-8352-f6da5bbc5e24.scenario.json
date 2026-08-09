@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "97e5e14e-aaf7-4783-8352-f6da5bbc5e24",
+  "name": "diagramView.renderFacet",
+  "description": "S36 R36.1/R36.2 part-2 (B). renderFacet renders the facet-lens per view.viewKind (class-family default) — the typed OOP-extension VIEW of the canonical unit. Client.",
+  "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+  "method": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/planning.md?section=part-2-canonical-reconcile",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

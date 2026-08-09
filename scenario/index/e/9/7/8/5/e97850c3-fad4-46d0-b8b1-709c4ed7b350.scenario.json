@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e97850c3-fad4-46d0-b8b1-709c4ed7b350",
+    "name": "test:BUG1 chainExcludesSelf — renderSingularChain excludes self + non-chain nodes (Group-D f2, real-WebKit @390 DET-3x v0.8.65)",
+    "description": "Bridged to test/visual/rcd-singularchain-excludes-gate.ts (DET-3x, served v0.8.65). Asserts the singular chain render EXCLUDES the node itself and non-chain nodes. Rides the re-minted canonical chainExcludesSelf Impl (source marker singular-chain.ts:49).",
+    "sourceFile": "ior:file:test/visual/rcd-singularchain-excludes-gate.ts",
+    "implementations": [
+      "ior:instance:91bea17d-4056-4336-b6cd-f4668716fb8f"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:91bea17d-4056-4336-b6cd-f4668716fb8f"
+}

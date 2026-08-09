@@ -16,8 +16,6 @@ import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
-import { renderContentPreview, wireUrlActions } from './content-preview.js';
-import { downloadVCard } from '../vcard-download.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 
 export class RbDetailView extends HTMLElement {
@@ -39,6 +37,20 @@ export class RbDetailView extends HTMLElement {
     if (!obj) {
       const uuid = refUuid(ref);
       this.innerHTML = `<div class="dv-head"><span class="dv-type">Loading...</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${uuid}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
+      // R40.11 CARVE-OUT (FAIL-LOUD): a ref that resolves to NO unit (e.g. a depref: synthetic deployment-ref) must
+      // show an EXPLICIT 'unresolved: <ior>' — never the perpetual 'Loading…' spinner (Tron's eternal-hang drawer).
+      // This is the honesty slice ONLY: it does NOT mint typed units / consolidate emitters / migrate (that is parked R40.11).
+      // SCOPED to SYNTHETIC refs only (depref: deployment-ref rows) — legitimate chain-only units (impl/test) also hit
+      // this !obj branch and resolve via fetchDetailData, so we must NOT false-fail-loud those. Zero regression risk.
+      const isSynthetic = /(^|:)depref:/.test(ref) || uuid.startsWith('depref:');
+      const failLoud = (): void => {
+        const h = this.querySelector('.dv-head');
+        if (!h) return;
+        h.querySelector('.dv-type')!.textContent = 'unresolved';
+        h.querySelector('.dv-title')!.textContent = '⚠ unresolved: ' + (ref || uuid);
+        const kids = this.querySelector('.dv-scenario-children');
+        if (kids) kids.innerHTML = '<div class="dv-empty">no resolvable unit for this reference</div>';
+      };
       // Fetch the unit's own data (name, type, children) from /api/trace/children
       fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => {
         const head = this.querySelector('.dv-head');
@@ -46,33 +58,12 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
-          // R20.31: vCard download button for Member/User types
-          const detectedType = (data.type || ref.split(':')[0] || '').toLowerCase();
-          if (detectedType === 'member' || detectedType === 'user') {
-            // Resolve real playerToken from the unit's model (may differ from scenario uuid)
-            fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).then(iorData => {
-              const model = iorData?.unit?.model || {};
-              const realToken = model.playerToken || model.token || uuid;
-              const vcardBtn = document.createElement('button');
-              vcardBtn.className = 'btn btn-secondary';
-              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
-              vcardBtn.textContent = '📇 Download vCard';
-              vcardBtn.addEventListener('click', () => {
-                downloadVCard({ name: data.name || uuid, playerToken: realToken, phone: model.phone, url: model.url, avatar: model.avatar });
-              });
-              head!.insertAdjacentElement('afterend', vcardBtn);
-            }).catch(() => {
-              // Fallback: render button without profile enrichment
-              const vcardBtn = document.createElement('button');
-              vcardBtn.className = 'btn btn-secondary';
-              vcardBtn.style.cssText = 'margin-top:8px;width:100%;font-size:0.8rem';
-              vcardBtn.textContent = '📇 Download vCard';
-              vcardBtn.addEventListener('click', () => { downloadVCard({ name: data.name || uuid, playerToken: uuid }); });
-              head!.insertAdjacentElement('afterend', vcardBtn);
-            });
-          }
+          // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
+          // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
+        } else if (head && !data && isSynthetic) {
+          failLoud(); // synthetic ref resolved to NO unit → honest error, not an eternal spinner
         }
-      }).catch(() => {});
+      }).catch(() => { if (isSynthetic) failLoud(); });
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
         const head = this.querySelector('.dv-head');
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
@@ -107,11 +98,8 @@ export class RbDetailView extends HTMLElement {
       </div>
       <div class="dv-links">${rows.join('') || '<div class="dv-empty">no links</div>'}</div>`;
 
-    // File preview handled by rb-file-detail (tagMap routes file→rb-file-detail)
-    // Only render here as fallback if rb-file-detail is NOT in the DOM
-    if ((obj.type === 'file' || obj.type === 'File') && !this.closest('rb-file-detail')) {
-      this.createFilePreviewButton(obj.uuid, obj.title);
-    }
+    // R35.1: file preview = rb-file-detail (tagMap ALWAYS routes file→rb-file-detail) + the universalActionBar
+    // preview-file/open-newtab actions. The old rb-detail-view fallback button was DEAD (tagMap never lands file here) → REMOVED (INV-2).
 
     // click link rows → navigate to the linked object
     this.querySelectorAll('.dv-link').forEach(row => {
@@ -148,31 +136,9 @@ export class RbDetailView extends HTMLElement {
     for (const lref of linked) this.unsubs.push(ViewBus.subscribe(lref, () => this.render()));
   }
 
-  // [impl:uuid:1a5ad916-33ba-4829-80c4-44efd8756c35] R19.93 createFilePreviewButton
-  private createFilePreviewButton(uuid: string, title: string): void {
-    fetchDetailData(uuid).then(() => {
-      fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.json()).then(res => {
-        if (!res.unit?.model) return;
-        const fm = res.unit.model;
-        const tok = localStorage.getItem('rawbin-player-id') || '';
-        const previewBtn = document.createElement('button');
-        previewBtn.className = 'btn';
-        previewBtn.style.cssText = 'width:100%;margin:8px 0;padding:8px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem';
-        previewBtn.textContent = `Preview ${fm.name || title}`;
-        const linksEl = this.querySelector('.dv-links');
-        if (linksEl) linksEl.insertAdjacentElement('beforebegin', previewBtn);
-        previewBtn.addEventListener('click', () => this.renderFilePreview(uuid, fm.mimeType || '', fm.name || title, tok, previewBtn));
-      }).catch(() => {});
-    });
-  }
-
-  // [impl:uuid:71954a38-ec79-4bc6-8fd9-9cfdd9a8e1bd] R19.63 renderFilePreview
-  private renderFilePreview(uuid: string, mimeType: string, name: string, token: string, btn: HTMLElement): void {
-    const preview = renderContentPreview(uuid, mimeType, name, token);
-    btn.insertAdjacentHTML('afterend', preview);
-    wireUrlActions(this); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
-    btn.remove();
-  }
+  // R35.1: createFilePreviewButton + renderFilePreview REMOVED (INV-2) — dead file-type fallback (tagMap routes
+  // file→rb-file-detail always). File preview now = rb-file-detail (toggle pane) + universalActionBar preview-file/open-newtab.
+  // Their scenario Impls 1a5ad916 (createFilePreviewButton) + 71954a38 (renderFilePreview) go dead → req re-points (data=truth).
 }
 
 function esc(s: string): string {

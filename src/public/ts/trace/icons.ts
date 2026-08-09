@@ -29,4 +29,18 @@ export const TRACE_ICONS: Record<string, string> = {
   otmuxsession: svg('<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>'),
   otmuxwindow: svg('<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/>'),
   otmuxpane: svg('<polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/>'),
+  // R32.3 MDA model tree — node type = the M2 MODEL-facet metaclass (from instanceOf); rb-trace-tree lowercases the type.
+  umlclass: svg('<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'),
+  umlinterface: svg('<circle cx="12" cy="12" r="9"/><path d="M12 3v18"/>'),
+  umlattribute: svg('<circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>'),
+  umlmethod: svg('<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m9 8 3 3-3 3"/><path d="M13 16h3"/>'),
+  umlproperty: svg('<path d="M4 7h16M4 12h16M4 17h10"/>'),
+  umlfunction: svg('<path d="M9 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h2M9 12h6"/><path d="m14 8 3 4-3 4"/>'),
+  umltype: svg('<path d="M4 7V4h16v3M9 20h6M12 4v16"/>'),
+  // R32.10 MDA model-view node icons — uniform 'modelelement' (the «kind» is shown in rb-modelelement-detail) + 'diagram'.
+  modelelement: svg('<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'),
+  diagram: svg('<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/>'),
+  // R33.1 (S33-P1) MOF-layer folder icons — the /model tree groups by metaLevel (📦 M2 profile / 📁 M1 projects).
+  'mof-layer': svg('<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>'),
+  'mof-project': svg('<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>'),
 };

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9c419d83-ae85-4627-bf8b-5f4c1a036b2f",
+    "name": "test:R32.6 relationship edges (buildEdges: on-diagram-only, arrowhead-by-kind, de-dup, no-regression)",
+    "description": "Bridged to test/visual/r326-edges-gate.ts (INDEPENDENT tester own-oracle CODE-axis gate GREEN DET-3x v0.8.6, 2b40bff3e - imports the REAL buildEdges + buildDiagramSvg + EDGE_DEFS + planted-defect bites, NOT the expert tsx self-check). Verifies R32.6 buildEdges (DISTINCT from R32.4 buildDiagramSvg ba96a744): edges X->Y IFF both endpoints on-diagram (off-diagram/self = NO dangling edge; bite dangling-must-skip 3->4); arrowhead BY M2 kind (UmlGeneralization hollow-triangle / UmlAssociation + UmlDependency open); de-dup (from,to,kind) idempotent (bite dedup-must-collapse); edges in ONE svg group BEHIND boxes; + R32.4 box NO-regression. Marker 9c419d83 adopted from origin (measured line 1, not invented). Chain: R32.6 req c8bc0ee4 -> UC 20fe541e diagram.renderEdges -> Class 09730090 DiagramViewModel -> Method 8c68b925 DiagramViewModel.buildEdges -> Impl 77761d46 (markerPending=false, strict-AST HELD 243086f3a) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r326-edges-gate.ts",
+    "implementations": [
+      "ior:instance:77761d46-4144-4b84-a9e4-4c876da310d0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:77761d46-4144-4b84-a9e4-4c876da310d0"
+}

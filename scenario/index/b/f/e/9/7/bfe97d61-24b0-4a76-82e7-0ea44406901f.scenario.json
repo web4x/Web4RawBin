@@ -1,0 +1,51 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "bfe97d61-24b0-4a76-82e7-0ea44406901f",
+    "name": "Suppress OS keyboard + configurable Keyboard Controller shell",
+    "altId": "R40.3",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:9d1225a4-2e27-4498-88ff-dc87e932aa4c"
+    ],
+    "description": "An action that PREVENTS the OS (iOS) keyboard from opening on terminal input, plus a keyboard-controller surface (like the action bar) with CONFIGURABLE, data-driven keystrokes. This sprint delivers the suppression + the controller shell + the config model; the full controller is designed later.",
+    "tronQuote": "an action that PREVENTS the OS keyboard from opening, plus a keyboard-controller surface like the action bar but with CONFIGURABLE KEYSTROKES (full controller designed later — this sprint = suppression + shell + config model)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-A-suppress-by-construction",
+        "group": "A-suppress-by-construction",
+        "text": "[A · AUTOMATABLE @390 real-WebKit] The terminal input is configured to SUPPRESS the OS keyboard by construction (inputmode=none / readonly / not-focusable, per architect design) — verifiable in the served config/DOM, not by observing keyboard absence (which is vacuously true on a headless host)."
+      },
+      {
+        "id": "AC-A-input-still-reaches-pty",
+        "group": "A-input-still-reaches-pty",
+        "text": "[A · AUTOMATABLE] Synthetic input STILL REACHES the PTY after suppression — functional proof the suppression did NOT break typing (input flows to the terminal). This is the anti-vacuity guard: the feature must be present, not merely 'no keyboard appeared'."
+      },
+      {
+        "id": "AC-A-terminal-fully-visible",
+        "group": "A-terminal-fully-visible",
+        "text": "[A · AUTOMATABLE @390 real-WebKit + PIXEL] The terminal stays FULLY VISIBLE — currently 100% occluded; screenshot pixel-evidence shows it un-occluded (NEVER DOM counts)."
+      },
+      {
+        "id": "AC-A-no-overlay-scenario-edit",
+        "group": "A-no-overlay-scenario-edit",
+        "text": "[A · AUTOMATABLE @390 + PIXEL] The keyboard-controller input row does NOT overlay the Scenario/Edit buttons (pixel evidence — Tron's actual reported bug)."
+      },
+      {
+        "id": "AC-A-keystrokes-configurable",
+        "group": "A-keystrokes-configurable",
+        "text": "[A · AUTOMATABLE] Keystrokes are CONFIGURABLE (data-driven config model, not hardcoded) — the config model exists and drives the controller shell."
+      },
+      {
+        "id": "AC-B-ios-keyboard-never-opens",
+        "group": "B-ios-keyboard-never-opens",
+        "text": "[B · DEVICE-ONLY — TRON verifies on REAL iOS; NEVER reportable GREEN from a headless/desktop/Linux-WebKit run] The iOS on-screen keyboard genuinely NEVER opens on terminal input. (Real WebKit on the CI host has no on-screen keyboard at all, so this cannot be automated without a false pass — device-gated, same as the physical-finger longpress sliver.)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

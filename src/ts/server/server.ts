@@ -15,6 +15,7 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { exec, execFile, execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
@@ -27,7 +28,44 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
+import { sprintPrefix } from '../scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
+import { generateProjectModel } from './generate-project.js'; // T36.3 shared generate-project core (HTTP handler + local CLI)
 import { PtyBridge } from './PtyBridge.js';
+import { TsToModel } from '../scenario/TsToModel.js';
+import { pumlToModel } from '../shared/puml-serializer.js'; // S33-P3f-1: REUSE the R32.7 PUML parser (INV-F-1, no new parser)
+
+// [impl:uuid:449d830a-d488-407c-8cc7-81a6bce649f2] server.modelFacetType (Method 2d98903b, Class c0a0921d, off UC dbbf2bdb)
+// R32.3 MDA model tree: a model node's DISPLAY type = its M2 MODEL-facet metaclass (the Uml* instanceOf), so
+// rb-object-item renders the model-kind icon (rb-trace-tree lowercases it → TRACE_ICONS['umlclass'] etc.).
+// Data-shaping only (NO tree mechanics). Falls back to 'ModelElement' when no Uml* facet resolves.
+function modelFacetType(model: Record<string, unknown> | undefined, idx: { get(u: string): { model?: Record<string, unknown> } | null }): string {
+  const io = Array.isArray(model?.instanceOf) ? (model!.instanceOf as string[]) : [];
+  for (const r of io) {
+    const n = String(idx.get(String(r).replace('ior:instance:', ''))?.model?.name || '');
+    if (n.startsWith('Uml')) return n;
+  }
+  return 'ModelElement';
+}
+
+// R32.5 GO-LIVE: the MDA model lives in an ISOLATED store, NEVER prod scenario/index (don't-force-prod-mutation law).
+// generate writes ONLY here; model reads reroute here; trace reads stay prod; store is resettable (rm data/model-store).
+// MODEL_STORE / PROD_INDEX moved BELOW the __dirname shim (R32.5 boot-crash fix): referencing __dirname at module-top = TDZ ReferenceError (shim is a const at :105).
+// Seed the store's M2/M3 metaclasses once (copy from prod's a1d2e… shard) so instanceOf/modelFacetType + ModelValidator resolve self-contained.
+function ensureStoreSeeded(): void {
+  const src = path.join(PROD_INDEX, 'a', '1', 'd', '2', 'e'), dst = path.join(MODEL_STORE, 'a', '1', 'd', '2', 'e');
+  fsSync.mkdirSync(dst, { recursive: true });
+  if (fsSync.existsSync(src)) for (const f of fsSync.readdirSync(src)) { const d = path.join(dst, f); if (!fsSync.existsSync(d)) fsSync.copyFileSync(path.join(src, f), d); }
+}
+// [impl:uuid:010f3e23-7d0e-49d4-9308-679388d00989] server.isModelUnit (Method 20eee8b0, Class c0a0921d, off UC 91b1b643)
+// A model unit (ModelElement/Diagram) present in the store → its reads reroute to the store (trace units stay prod). Reads the shard directly (no index scan).
+function isModelUnit(uuid: string): boolean {
+  try {
+    const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+    if (!fsSync.existsSync(p)) return false;
+    const ior = JSON.parse(fsSync.readFileSync(p, 'utf-8')).ior;
+    return ior === 'ior:class:ModelElement' || ior === 'ior:class:Diagram';
+  } catch { return false; }
+}
 import { FeatureManager } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
@@ -37,6 +75,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
@@ -69,6 +108,10 @@ function getVersion(): string { return BOOT_VERSION; } // R31.7 INV-V4: frozen a
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+// R32.5 GO-LIVE: isolated MDA store (NEVER prod scenario/index). Defined HERE — after the __dirname shim — because
+// referencing __dirname at module-top (was :48) is a const-TDZ ReferenceError that crashed boot. (emergency fix)
+const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
+const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
 
 // Load .env
 const ENV_PATH = path.join(__dirname, '../../../.env');
@@ -877,18 +920,31 @@ function profileViewDataForToken(token: string, opts?: { connectedDeviceIds?: st
   return ProfileView.profileViewData({ ...base, devices: myDevices } as unknown as ServerProfileRecord, { connectedDeviceIds, profileUuid: opts?.profileUuid });
 }
 
+// [impl:uuid:e86f0736-a05a-427c-b2b2-1c2d36b68965] server.attachChainMethod (Method 0fc54115, Class c0a0921d) — R31.10:
+// attach the UseCase's UC.method (ucMethodIor) as entry.chainMethod so the tree resolves the correct UC→Method in ALL
+// query modes (trace + non-trace/scenario), not just /trace. The ucMethodIor guard → fires ONLY when the UC has a genuine
+// method link (else the Class.methods[] fallback). EXTRACTED from the anonymous /api/trace/children .map callback into
+// this NAMED decl so the [impl] marker strict-AST-credits (an anon inline block can't name-match 'attachChainMethod').
+function attachChainMethod(entry: Record<string, unknown>, type: string, ct: string, ucMethodIor: string, idx: ScenarioIndex): void {
+  if (type === 'UseCase' && ct === 'Class' && ucMethodIor) {
+    const meth = idx.get(ucMethodIor);
+    if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
+  }
+}
+
 // R31.8 slice-d: the Features a token is a MEMBER of (token ∈ Feature.allowedUsers) → {uuid,name,icon} for the profile
 // 'Feature access' render. Membership-driven (generalizes the R31.1 ServerManager-only boolean), fail-closed on error.
-function featuresForToken(token: string): { uuid: string; name: string; icon: string }[] {
-  const out: { uuid: string; name: string; icon: string }[] = [];
+function featuresForToken(token: string): { uuid: string; name: string; icon: string; launchPage: string }[] {
+  const out: { uuid: string; name: string; icon: string; launchPage: string }[] = [];
   if (!token) return out;
   try {
     const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
     for (const uuid of fidx.list()) {
       const u = fidx.get(uuid);
       if (u?.ior !== 'ior:class:Feature') continue;
-      const m = u.model as { name?: string; icon?: string; allowedUsers?: unknown };
-      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || '') });
+      const m = u.model as { name?: string; icon?: string; launchPage?: string; allowedUsers?: unknown };
+      // R32.9 (C) INV-D3: carry the Feature's data-driven launchPage → the profile launch is Feature.launchPage, not a name-ternary.
+      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || ''), launchPage: String(m.launchPage || '') });
     }
   } catch { /* fail-closed */ }
   return out;
@@ -942,6 +998,25 @@ h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;
 <script type="module" src="${script}"></script></body></html>`;
 }
 
+// R32.9 (D) Model-Driven Code Quality PAGE shell — membership-gated (requireFeatureAccess 'Model-Driven Code Quality')
+// at the /model route (INV-D4 fail-closed). Loads the model bundle, which mounts the SHARED rb-trace-tree over
+// /api/model/tree (R32.3 model-tree UX reused; R32.5 ISOLATED store). Mirrors featureManagerPage (DRY, no fork).
+// [impl:uuid:152c8e0f-6f69-4daa-9a1d-08d3c3ea990c] server.serverModelPage (Method 4668508c, Class c0a0921d, UC b08ac411 feature.launch)
+function serverModelPage(): string {
+  const script = getBundleScript('model.js', 'model.js');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Model-Driven Code Quality</title><link rel="stylesheet" href="/app.css"><style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+header{padding:max(env(safe-area-inset-top),12px) 16px 12px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:12px}
+h1{font-size:1rem;margin:0;flex:1}button{background:#238636;color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+.trace-page{height:auto;flex:1;min-height:0}
+#err{color:#f85149;padding:12px 16px}
+</style></head><body>
+<header><a href="/profile" style="color:#58a6ff;text-decoration:none;font-size:.9rem;white-space:nowrap">&larr; Back to Profile</a><h1>&#129504; Model-Driven Code Quality</h1><button id="gen-rawbin" title="Generate the RawBin M1 model from src/ts/scenario (bounded)">Generate RawBin</button><button id="refresh">Refresh</button></header>
+<div class="trace-page"><div class="trace-tree-panel"><rb-trace-tree id="model-tree" data-always-expanded></rb-trace-tree><div id="err"></div></div></div>
+<script type="module" src="${script}"></script></body></html>`;
+}
+
 // [impl:uuid:f345b8ed-c853-46c8-8b3c-102375f528dc] renderFeatureGrants (Method b4f03947, off UC a3958f85) — R31.1,
 // MOVED to the read-only /profile VIEWER per Tron (was ProfileEditor edit-form). Returns the inline client JS that,
 // at the BOTTOM of 'My Profile' (after My Bug Reports, into #feature-grants), fetches the owner-gated
@@ -967,12 +1042,438 @@ function renderFeatureGrants(): string {
             a.href='#';
             a.style.cssText='display:flex;align-items:center;gap:8px;padding:10px;margin-top:6px;background:rgba(102,126,234,0.08);border-radius:10px;color:#667eea;text-decoration:none;font-weight:600';
             a.textContent=(f.name==='Server Manager'?'\u{1F5A5}\u{FE0F} ':'\u{1F511} ')+f.name;
-            var page=(f.name==='Server Manager'?'/server-manager':'/feature-manager');
+            var page=(f.launchPage||'/feature-manager'); // R32.9 (C) INV-D3: data-driven launch = Feature.launchPage (was a name-ternary; new features launch by their own data)
             a.onclick=function(ev){ev.preventDefault();fetch('/api/server-manager/session',{method:'POST',headers:{'x-player-token':token}}).then(function(r){if(r.ok)location.href=page;}).catch(function(){});}; // R31.8b: mint the sm_session cookie (carries the live owner token) THEN navigate to the feature's page — FIXES the dead else-branch (Tron 'renders but does not open'); Server Manager→/server-manager, every other feature (Feature Manager, …)→/feature-manager
             fg.appendChild(a);
           });
         }
       }`;
+}
+
+// [impl:uuid:5afeafe9-14a7-480c-8d02-91e76539a3ae] mofLayerRoots (Method 3d308526, Class c0a0921d, off UC d42e1a1e
+// model.mofTree) — R33.1 MOF folder roots for the SHARED rb-trace-tree. S33-P2b (R33.2, INV-P2b-1/2): emit ONLY the
+// TOP layer (M2/M1 folders, hasChildren+childCount, NO inline deep tree). Every deeper layer (metaclass→instances,
+// project→file-folders→classes→members) lazy-loads via /api/trace/children → mofChildren (MODEL_STORE) on expand →
+// bounds the initial payload+DOM at 390px (was: inline ~1195 nodes = @390 flood). Members already lazy (mofElNode).
+type MofNode = { uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string; children?: MofNode[] };
+type MofEl = { uuid: string; ior: string; m: Record<string, unknown> };
+const MOF_STRIP = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
+// bounded folder: hasChildren + childCount, NO inline children array → client lazy-fetches via /api/trace/children.
+const mofFolder = (uuid: string, name: string, childCount: number, icon: string, type = 'collection'): MofNode => ({ uuid, type, name, hasChildren: childCount > 0, childCount, icon });
+// a real ModelElement (class) node — members stay LAZY (hasChildren+childCount, no inline members), INV-MOF3 uuid unchanged.
+const mofElNode = (x: MofEl): MofNode => { const memberCount = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).length; return { uuid: String(x.m.uuid || x.uuid), type: 'modelelement', name: String(x.m.name || ''), hasChildren: memberCount > 0, childCount: memberCount, icon: String(x.m.kind || 'class') }; };
+function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl[]; m1Roots: MofEl[] } {
+  const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as MofEl[];
+  const modelEls = els.filter((x) => x.ior === 'ior:class:ModelElement');
+  const m1 = modelEls.filter((x) => x.m.metaLevel === 'M1');
+  return { els, m1, m2: modelEls.filter((x) => x.m.metaLevel === 'M2'), m1Roots: m1.filter((e) => !e.m.memberOf) };
+}
+// S33-P2b (INV-P2b-2/3, NO fork): resolve ONE bounded layer for a SYNTHETIC MOF folder uuid. Shared by mofLayerRoots
+// (top layer) + /api/trace/children (deeper layers). Returns null when the uuid is NOT synthetic (a real ModelElement →
+// the member path resolves it). Scheme: mof-m2 | mof-m2:<mc> | mof-m1 | project:RawBin | project:<sf> | file:<sf>.
+// [impl:uuid:b6c88d83-a838-46ad-ba9a-874e803ca479] mofChildren (Method 7c460f8a, Class c0a0921d, off UC 8bdeda90
+// model.mofChildren) — R33.2/S33-P2b bounded/lazy layer resolver. DISTINCT from mofLayerRoots 5afeafe9 (R33.1) — no re-credit.
+// [impl:uuid:9eb2c39c-5961-4b3d-bf35-072223c46d23] server.pumlChildren (Method e78b5eaf) — R33.5 item4 (Tron opt-a):
+// enumerate the EXISTING SOURCE .puml (scrum.pmo/sprints/*/diagrams/*.puml) as itemviews (mirror ts/). Each node's
+// uuid 'puml-src:<sprint>/<file>' carries the relpath → a click → Import (R32.7 pumlToModel) → interactive diagram.
+// Also surfaces any already-imported PumlArtifact units. Read-only enumeration; import happens via /import-puml.
+// [impl:uuid:7ecb9a8d-41dd-4709-8b5c-bea9367e8c0d] server.newElement (R33.9 unit-verb) — mint a new M1 ModelElement
+// UNIT in MODEL_STORE (store-only, INV: prod scenario/index NEVER touched). Returns the new uuid. NOT a diagram/view op.
+function newElement(name: string, kind: string): { ok: boolean; uuid?: string; error?: string; status?: number } {
+  const nm = String(name || '').trim();
+  if (!nm) return { ok: false, error: 'bad-name', status: 400 };
+  const uuid = crypto.randomUUID();
+  const unit = { ior: 'ior:class:ModelElement', ownerIor: null, model: { uuid, name: nm, metaLevel: 'M1', kind: kind || 'class', members: [], relations: [] } };
+  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(f), { recursive: true });
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
+  return { ok: true, uuid };
+}
+// [impl:uuid:28000b00-55d3-4a94-ba37-dd7486ffb851] server.createFolder (Method 67a9f60f, Class c0a0921d) — R34.3 (R-B):
+// mint an ior:class:Folder unit in MODEL_STORE (store-only, prod scenario/index NEVER touched; mirrors diagram/create + newElement).
+function createFolder(name: string, parent: string): { ok: boolean; uuid?: string; error?: string } {
+  const uuid = crypto.randomUUID();
+  const unit = { ior: 'ior:class:Folder', ownerIor: null, model: { uuid, name: String(name || 'New folder').slice(0, 80), parent: String(parent || '') || null, children: [] } };
+  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(f), { recursive: true });
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n'); // INV store-only (MODEL_STORE, prod untouched)
+  return { ok: true, uuid };
+}
+
+// R36.4 increment-2 (design b0d16ec5e): mint an AUTHORED UmlTraceRelationship (EXTENDS TraceLink) in MODEL_STORE — a
+// user-DRAWN trace between two on-diagram units with no existing chain link (derived UC→method needs NO unit). Store-
+// only (prod scenario/index NEVER touched; NOT build-owned → the R31.7 put-guard allows it). Deterministic uuid =
+// keyToUuid('umltrace::'+from+'::'+to+'::'+relation) → idempotent (re-draw = same uuid, overwrite-identical, no dup).
+// [impl:uuid:a79f6091-9024-4b36-a350-3d71668083fb] server.authorTrace (Method fde7eecc, Class c0a0921d) — R36.4 inc-2 AUTHORED-trace persist.
+function authorTrace(from: string, to: string, relation: string, fromType?: string, toType?: string): { ok: boolean; uuid?: string; error?: string } {
+  const f0 = String(from || '').replace(/^ior:instance:/, ''); const t0 = String(to || '').replace(/^ior:instance:/, '');
+  const rel = relation === 'decomposes' ? 'decomposes' : 'traces';
+  if (!f0 || !t0 || f0 === t0) return { ok: false, error: 'bad-endpoints' };
+  const uuid = keyToUuid(`umltrace::${f0}::${t0}::${rel}`);
+  const unit = { ior: 'ior:class:UmlTraceRelationship', ownerIor: null, model: { uuid, from: `ior:instance:${f0}`, to: `ior:instance:${t0}`, fromType: String(fromType || 'usecase'), toType: String(toType || 'method'), relation: rel, direction: 'directed', label: rel } };
+  const file = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  fsSync.mkdirSync(path.dirname(file), { recursive: true });
+  fsSync.writeFileSync(file, JSON.stringify(unit, null, 2) + '\n'); // idempotent (same uuid) — INV store-only (prod untouched)
+  return { ok: true, uuid };
+}
+
+// R36.4 increment-2: list all AUTHORED UmlTraceRelationship units (MODEL_STORE) for the client to render as trace
+// connectors (those whose from+to are both on the open diagram). Bounded scan (authored traces are few).
+function listTraces(): Array<{ uuid: string; from: string; to: string; relation: string }> {
+  try {
+    const idx = new ScenarioIndex(MODEL_STORE);
+    const out: Array<{ uuid: string; from: string; to: string; relation: string }> = [];
+    for (const u of idx.list()) {
+      const x = idx.get(u); if (!x || x.ior !== 'ior:class:UmlTraceRelationship') continue;
+      const m = x.model as Record<string, unknown>;
+      out.push({ uuid: u, from: String(m.from || '').replace(/^ior:instance:/, ''), to: String(m.to || '').replace(/^ior:instance:/, ''), relation: String(m.relation || 'traces') });
+    }
+    return out;
+  } catch { return []; }
+}
+
+// [impl:uuid:a09b474d-c1de-44de-9cd3-d4eda13943b6] server.ensureViewUnit (Method 64c4f023, Class c0a0921d, off UC
+// c3902503 modelTree.ensureViewUnit / 8f1eed4d modelTree.populateViewUnitFields) — R35.2/R35.3, GENERALIZES the R34.2 A2
+// ensureFolderFileUnit (architect fork-A) so EVERY synthetic view ref maps to a REAL lazy-minted ior:class:X unit in
+// MODEL_STORE → OScenario(/scenario?ior) + OEdit(scenarioEditorHref) ALWAYS resolve (never dead). Covered: dir:<rel>→Folder,
+// file:<rel>→File (R34.2 subset, Test 23a9f9fd still holds), puml-src:<path>→PumlArtifact, project:<x>→Project,
+// rawbin:*/mof-m1/mof-m2[:mc]→Folder. uuid=keyToUuid(<prefix>::<body>) → LAZY idempotent (INV-A2-2: same uuid on re-open,
+// no dup). R35.3 POPULATE: model fields written per-type AT MINT (name+location+kind + File.sourceFile/ext ·
+// PumlArtifact.sourceFile/format · Folder.metaLevel · Project.projectKey) — no empty stubs. MODEL_STORE-only, prod
+// scenario/index NEVER touched (INV-A2-3). Tree/mofChildren BYTE-unchanged (INV-A2-1, fork-A). Non-view ref → null.
+function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Record<string, unknown> } | null {
+  const ref = String(ior).replace(/^ior:instance:/, '');
+  if (ref.includes('..')) return null; // path-safety (no traversal into the shard/store path)
+  let iorClass: string, key: string, kind: string, location: string, name: string;
+  const extra: Record<string, unknown> = {};
+  if (ref.startsWith('dir:') || ref.startsWith('file:')) {
+    const isDir = ref.startsWith('dir:');
+    const rel = (isDir ? ref.slice('dir:'.length) : ref.slice('file:'.length)).replace(/^\/+/, '');
+    if (!rel) return null;
+    iorClass = isDir ? 'ior:class:Folder' : 'ior:class:File'; key = (isDir ? 'folder::' : 'file::') + rel;
+    kind = isDir ? 'folder' : 'file'; location = rel; name = rel.split('/').pop() || rel;
+    if (!isDir) { extra.sourceFile = `ior:file:${rel}`; const e = rel.split('.').pop(); if (e && e !== rel) extra.ext = e; } // R35.3 File fields
+  } else if (ref.startsWith('puml-src:')) {
+    const p = ref.slice('puml-src:'.length).replace(/^\/+/, ''); if (!p) return null;
+    iorClass = 'ior:class:PumlArtifact'; key = 'puml::' + p; kind = 'puml'; location = p; name = p.split('/').pop() || p;
+    extra.sourceFile = `ior:file:scrum.pmo/sprints/${p}`; extra.format = 'plantuml'; // R35.3 PumlArtifact fields
+  } else if (ref.startsWith('project:')) {
+    const proj = ref.slice('project:'.length) || 'RawBin';
+    iorClass = 'ior:class:Project'; key = 'folder::' + ref; kind = 'project'; location = ref; name = proj;
+    extra.projectKey = proj; // R35.3 Project fields (keyToUuid('folder::'+ref) per R35.2)
+  } else if (ref.startsWith('rawbin:') || ref === 'mof-m1' || ref.startsWith('mof-m2')) {
+    iorClass = 'ior:class:Folder'; key = 'folder::' + ref; kind = 'folder'; location = ref;
+    name = ref.startsWith('rawbin:') ? ref.slice('rawbin:'.length) : ref.startsWith('mof-m2') ? (ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : 'M2') : 'M1';
+    if (ref.startsWith('mof-m2')) extra.metaLevel = 'M2'; else if (ref === 'mof-m1') extra.metaLevel = 'M1'; // R35.3 MOF-Folder fields
+    extra.synthetic = true;
+  } else return null; // non-view ref → normal resolver
+  const uuid = keyToUuid(key);
+  const dfile = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  if (fsSync.existsSync(dfile)) { try { return JSON.parse(fsSync.readFileSync(dfile, 'utf-8')); } catch { /* corrupt → re-mint below */ } }
+  const unit = { ior: iorClass, ownerIor: null as null, model: { uuid, name, location, kind, ...extra } };
+  fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
+  fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-A2-3 store-only (MODEL_STORE, prod scenario/index untouched)
+  return unit;
+}
+
+// [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
+// unit in MODEL_STORE (store-only, prod-safe).
+function renameElement(elementUuid: string, name: string): { ok: boolean; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; const nm = String(name || '').trim();
+  if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  if (!nm) return { ok: false, error: 'bad-name', status: 400 };
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
+  const unit = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
+  unit.model.name = nm;
+  fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
+  return { ok: true };
+}
+// [impl:uuid:14b7004a-7452-4f88-b3cb-b0c6d2e02730] server.deleteElement (R33.9 unit-verb, DESTRUCTIVE) — delete an M1
+// unit from MODEL_STORE (store-only; prod scenario/index NEVER touched). ≠ R33.8 remove-view (drops only a view-link).
+function deleteElement(elementUuid: string): { ok: boolean; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/;
+  if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
+  fsSync.unlinkSync(f);
+  return { ok: true };
+}
+// count .ts recursively under dir (for the R33.10 dir-folder child count — expandable iff > 0).
+function countTsUnder(dir: string): number {
+  let n = 0;
+  try { for (const e of fsSync.readdirSync(dir, { withFileTypes: true })) { if (e.isDirectory()) n += countTsUnder(path.join(dir, e.name)); else if (e.name.endsWith('.ts')) n++; } } catch { /* unreadable → 0 */ }
+  return n;
+}
+// [impl:uuid:cfb6acef-a67b-49df-b998-f62686db1d5f] server.sourceDirTree (R33.10 tree completeness+folders) — walk
+// src/<rel> ONE level: directory folders (dir:<rel>) + .ts file leaves (file:src/<rel>) for ALL ts on disk (the full
+// 123, not just the ~25 with generated M1 elements). Mirrors pumlChildren's disk walk. file: leaf childCount = its
+// MODEL_STORE M1 element count (0 = a source file not yet modeled; the file: case still resolves its elements, else empty).
+function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
+  const abs = path.join(__dirname, '../../..', 'src', rel); // R33.10 fix (architect backstop): PROJECT_ROOT is NOT module-level (only a local in the /md handler) → ReferenceError → {}; mirror pumlChildren's __dirname join
+  let entries: fsSync.Dirent[] = [];
+  try { entries = fsSync.readdirSync(abs, { withFileTypes: true }); } catch { return []; }
+  const dirs: MofNode[] = [], files: MofNode[] = [];
+  for (const e of entries) {
+    const childRel = rel ? `${rel}/${e.name}` : e.name;
+    if (e.isDirectory()) { const n = countTsUnder(path.join(abs, e.name)); if (n > 0) dirs.push(mofFolder(`dir:${childRel}`, e.name, n, 'mof-project')); } // folders only if they contain .ts
+    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:src/${childRel}`, e.name, m1Count.get(`src/${childRel}`) || 0, 'mof-project'));
+  }
+  return [...dirs.sort((a, b) => a.name.localeCompare(b.name)), ...files.sort((a, b) => a.name.localeCompare(b.name))];
+}
+
+// [impl:uuid:2c64aa7b-9840-4bdc-8b60-2e6e0ae891a2] server.persistRemoveView (R33.8, INVERSE of add-view) — drop a
+// class's VIEW-LINK from the Diagram unit in MODEL_STORE (store-only, INV-RM2 prod scenario/index NEVER touched). The
+// ModelElement unit file is NEVER touched → re-addable (INV-RM1, NOT a delete). Idempotent: absent link → removed:false
+// (INV-RM4). Same UUID path-safety as add-view. Callers (the /remove-view route) do body-parse + HTTP; this does the store write.
+function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: boolean; removed?: boolean; views?: number; error?: string; status?: number } {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/;
+  if (!UUID.test(diagramUuid) || !UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
+  const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+  if (!fsSync.existsSync(dfile)) return { ok: false, error: 'no-diagram', status: 404 };
+  const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+  const views: { unit: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
+  const link = `modelelement:${elementUuid}`;
+  const before = views.length;
+  unit.model.views = views.filter((v) => v.unit !== link); // drop ONLY the view-link; the ModelElement unit file is NEVER touched (INV-RM1)
+  if (unit.model.views.length === before) return { ok: true, removed: false, views: before }; // INV-RM4 absent → no-op
+  fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-RM2 store-only (prod scenario/index NEVER touched)
+  removeUsedIn(elementUuid, diagramUuid); // R36.5: bidirectional inverse — drop this diagram from the element's usedIn (never one-sided)
+  return { ok: true, removed: true, views: unit.model.views.length };
+}
+
+// R36.5 usedIn[] BIDIRECTIONAL usage-refs (usage ⟷ Diagram.views). R36.2(c) SIDE-INDEX (architect ca49f1826 / 19b6217be):
+// usedIn now lives in a DEDICATED MODEL_STORE usage-index (data/model-store/usage-index.json) keyed by the element's
+// CANONICAL deterministic uuid (=keyToUuid(sourceFile::qualifiedName) for a generated M1 unit) — OUTSIDE the element
+// file (and OUTSIDE the scanned index shards), so the generated element stays PRISTINE (INV-RM1 strict, never written)
+// and usedIn SURVIVES TsToModel re-generation BY CONSTRUCTION (TsToModel never touches the side-index). Transparent
+// backend swap: add-view/remove-view callers + GET /api/model/used-in + /api/ior behavior UNCHANGED. Tree-INVISIBLE
+// (INV-T byte-diff==0 — usedIn was never in the tree; now not even on the element file). Bidirectional, both sides.
+const usageIndexPath = (): string => path.join(MODEL_STORE, '..', 'usage-index.json'); // one level ABOVE the index shards → never scanned as a unit
+function readUsageIndex(): Record<string, { kind: string; ref: string }[]> {
+  try { return JSON.parse(fsSync.readFileSync(usageIndexPath(), 'utf-8')); } catch { return {}; }
+}
+function writeUsageIndex(idx: Record<string, { kind: string; ref: string }[]>): void {
+  fsSync.mkdirSync(path.dirname(usageIndexPath()), { recursive: true });
+  fsSync.writeFileSync(usageIndexPath(), JSON.stringify(idx, null, 2) + '\n');
+}
+function addUsedIn(elementUuid: string, kind: 'diagram' | 'folder', ref: string): void {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
+  const idx = readUsageIndex();
+  const used = idx[elementUuid] || (idx[elementUuid] = []);
+  if (used.some((x) => x.kind === kind && x.ref === ref)) return; // dedup → idempotent
+  used.push({ kind, ref }); writeUsageIndex(idx); // R36.2(c): element file NEVER written (INV-RM1 strict)
+}
+function removeUsedIn(elementUuid: string, ref: string): void {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid) || !ref) return;
+  const idx = readUsageIndex(); const arr = idx[elementUuid]; if (!Array.isArray(arr)) return;
+  const kept = arr.filter((x) => x.ref !== ref);
+  if (kept.length !== arr.length) { if (kept.length) idx[elementUuid] = kept; else delete idx[elementUuid]; writeUsageIndex(idx); }
+}
+// [impl:uuid:2f44e112-ce56-4fe5-892c-a55aab5f3bf3] server.resolveUsedIn (Method e48832b2, Class c0a0921d, off UC
+// e46c6407 modelElement.usedInResolver) — R36.5 where-used RESOLVER, R36.2(c) reads the SIDE-INDEX (resolve-at-detail):
+// the back-refs are the usage-index entry for the element's canonical uuid (survives re-gen; element file pristine).
+// Served via GET /api/model/used-in/<uuid> + attached to the unit model at /api/ior. Behavior identical to R36.5.
+function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
+  const UUID = /^[0-9a-fA-F-]{16,40}$/; if (!UUID.test(elementUuid)) return [];
+  return readUsageIndex()[elementUuid] || [];
+}
+
+// [impl:uuid:37c08fd5-3880-47e9-bb8b-4dcb15244a89] server.reconcileCanonical (Method 5530ea76) — R36.1/R36.2 part-2
+// A-merge (architect design 0f13d9d87; the 119ca06d9 ior:-prefix fix is an impl-edit to THIS method, same unit).
+// COMPUTE-ON-READ at /api/ior — NEVER writes either file, so INV-T (tree
+// bytes) + isolation (prod untouched) + INV-RM1 (generated M1 pristine) hold BY CONSTRUCTION. Dedup by the
+// deterministic key keyToUuid(sourceFile::qualifiedName) (R32.2 = the generated M1's OWN uuid). Field-precedence:
+// TRACEABILITY wins identity/chain (name + methods/implementations/tests/chain links — left untouched on the base),
+// generated M1 wins structure/signature, instanceOf facets UNION, usedIn from the R36.2 side-index. Enriches the
+// resolution's model IN MEMORY only.
+function reconcileCanonical(uuid: string, m: Record<string, unknown>, ior?: string): void {
+  // R36.1: UseCase → UmlUseCase M2 projection (server.projectUmlUseCase — rides this reconcileCanonical Impl
+  // 37c08fd5). UNION the UmlUseCase metaclass facet into instanceOf so renderFacet draws the ellipse on the
+  // tree/diagram. COMPUTE-ON-READ — never writes the file (INV-T byte-diff==0). Runs BEFORE the sourceFile/qn
+  // early-return below because a UseCase unit carries no sourceFile/qualifiedName.
+  if (ior === 'ior:class:UseCase') {
+    const umlUseCaseFacet = 'ior:instance:792cd09c-8a94-48da-abc6-b890d5f880ea';
+    const io = Array.isArray(m.instanceOf) ? m.instanceOf as string[] : [];
+    if (!io.includes(umlUseCaseFacet)) m.instanceOf = [...io, umlUseCaseFacet];
+  }
+  const sourceFileRaw = String(m.sourceFile || ''); const qn = String(m.qualifiedName || m.name || '');
+  if (!sourceFileRaw || !qn) return; // no key → no counterpart; base IS canonical
+  // R36.1/R36.2 (A) fix (verified: 5 counterpart classes matched only after this): traceability units store
+  // sourceFile as `ior:file:<repo-rel-path>`, but the generated M1 keys off the PLAIN repo-rel path
+  // (keyToUuid(rel(sf)::qn), R32.2 mkKey). Strip the ior:*: prefix so the dedup key matches the M1's uuid —
+  // without this the merge NEVER fires (every /api/ior showed base-only; the architect-caught defect).
+  const sourceFile = sourceFileRaw.replace(/^ior:(file|instance|class):/, '');
+  const key = keyToUuid(`${sourceFile}::${qn}`); // = the generated M1's uuid by construction (R32.2 mkKey)
+
+  // Trace base (prod) → merge the generated M1 counterpart from MODEL_STORE (deterministic key). Files stay pristine.
+  if (!isModelUnit(uuid) && key !== uuid && isModelUnit(key)) {
+    let g: Record<string, unknown> | undefined;
+    try { g = (new ScenarioIndex(MODEL_STORE).get(key) as { model?: Record<string, unknown> } | undefined)?.model; } catch { /* no counterpart */ }
+    if (g) {
+      const facets = new Set<string>([...(Array.isArray(m.instanceOf) ? m.instanceOf as string[] : []), ...(Array.isArray(g.instanceOf) ? g.instanceOf as string[] : [])]);
+      if (facets.size) m.instanceOf = [...facets]; // UNION — never drop a side's facet
+      for (const f of ['members', 'memberOf', 'kind', 'relatesTo', 'relatedFrom', 'relations', 'visibility', 'parameters', 'returnType', 'docs', 'parentClass']) {
+        if (g[f] !== undefined) m[f] = g[f]; // generated M1 wins structure/signature (source is truth)
+      }
+      m.canonicalKey = key; // the M1 alias key — both resolve to this ONE canonical unit
+    }
+  }
+  // usedIn from the R36.2 side-index (keyed by the canonical/M1 key; the M1's uuid IS that key)
+  const usedIn = resolveUsedIn(isModelUnit(uuid) ? uuid : key);
+  if (usedIn.length) m.usedIn = usedIn;
+}
+
+// R33.10 BUG-B (PLANTUML docker re-wire, PO): the prod host runs a plantuml-server container. Render via HTTP to it
+// (deflate + PlantUML-base64 → GET /svg/<encoded>) instead of a local `plantuml` binary. The URL is R31.7 typed-config
+// — env PLANTUML_URL, else the Config unit's model.plantumlUrl, else the docker default — never hardcoded (so it can't
+// be lost/wrong again). Callers keep a 501 fallback when the server is unreachable.
+function plantumlBaseUrl(): string {
+  const clean = (u: string): string => u.replace(/\/+$/, '');
+  if (process.env.PLANTUML_URL) return clean(process.env.PLANTUML_URL);
+  try {
+    const cfg = JSON.parse(fsSync.readFileSync(path.join(PROD_INDEX, 'c', 'o', 'n', 'f', 'i', 'config-singleton-0000-000000000001.scenario.json'), 'utf-8'));
+    if (cfg?.model?.plantumlUrl) return clean(String(cfg.model.plantumlUrl));
+  } catch { /* fall through to default */ }
+  return 'http://localhost:8089';
+}
+// PlantUML text encoding: raw-deflate → PlantUML's custom base64 (alphabet 0-9A-Za-z-_), the canonical plantuml-encoder
+// (0-pads the final 1-2 bytes). Result goes in the URL path: GET <base>/svg/<encoded>.
+function encodePlantuml(text: string): string {
+  const data = zlib.deflateRawSync(Buffer.from(text, 'utf8'));
+  const e6 = (n: number): string => { let b = n & 0x3F; if (b < 10) return String.fromCharCode(48 + b); b -= 10; if (b < 26) return String.fromCharCode(65 + b); b -= 26; if (b < 26) return String.fromCharCode(97 + b); b -= 26; return b === 0 ? '-' : b === 1 ? '_' : '?'; };
+  const a3 = (b1: number, b2: number, b3: number): string => e6(b1 >> 2) + e6(((b1 & 0x3) << 4) | (b2 >> 4)) + e6(((b2 & 0xF) << 2) | (b3 >> 6)) + e6(b3 & 0x3F);
+  let r = '';
+  for (let i = 0; i < data.length; i += 3) r += a3(data[i], i + 1 < data.length ? data[i + 1] : 0, i + 2 < data.length ? data[i + 2] : 0);
+  return r;
+}
+
+function pumlChildren(els: MofEl[]): MofNode[] {
+  const out: MofNode[] = [];
+  try {
+    const base = path.join(__dirname, '../../..', 'scrum.pmo', 'sprints');
+    for (const sp of fsSync.readdirSync(base).sort()) {
+      let entries: string[] = [];
+      try { entries = fsSync.readdirSync(path.join(base, sp, 'diagrams')); } catch { continue; }
+      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/diagrams/${f}`, f, 0, 'puml', 'puml')); // R33.6.3-fix: ref must carry the FULL relpath incl 'diagrams/' (files live at <sprint>/diagrams/<f>) — else /md fetch + import-puml 404
+    }
+  } catch { /* no sprints dir → just imported artifacts */ }
+  for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
+  return out.sort((a, b) => a.name.localeCompare(b.name));
+}
+// R35.4 DRY fix (architect cb9168e8c) — the ONE ordered-Sprint source: ior:class:Sprint by number (= /trace's
+// sprints.overview order). SHARED so the /api/trace/sprints endpoint (which /trace consumes) AND traceabilityRoots()
+// derive the SAME sprint set+order → the traceability folder CANNOT drift from /trace (parity BY CONSTRUCTION). Zero fork.
+function sprintOverviewNodes(idx: ScenarioIndex): Array<{ uuid: string; name: string; number: number; taskCount: number }> {
+  const sprints = idx.list().map((u) => {
+    const g = idx.get(u);
+    if (g?.ior !== 'ior:class:Sprint') return null;
+    return { uuid: u, name: String(g.model?.name || ''), number: Number(g.model?.number || 0), taskCount: Array.isArray(g.model?.tasks) ? (g.model!.tasks as string[]).length : 0 };
+  }).filter(Boolean) as Array<{ uuid: string; name: string; number: number; taskCount: number }>;
+  return sprints.sort((a, b) => a.number - b.number);
+}
+
+// R35.4 (uncredited helper of mofChildren b6c88d83, UC beb0af0d mofTree.traceabilityFolder) — the traceability folder
+// mirrors /trace's TOP-LEVEL by construction: the CurrentSprint singleton node + the ordered Sprints (the SHARED
+// sprintOverviewNodes source). Each node expands via the EXISTING /api/trace/children walk (CurrentSprint→slots,
+// Sprint→tasks→req→chain — a plain uuid ≠ a MOF ref → routes to the trace walk, no reinvented hierarchy, no fork).
+// Was flat-497 Requirement roots (drifted from /trace's sprint structure — the reopened DRY bug).
+function traceabilityRoots(): MofNode[] {
+  const tidx = new ScenarioIndex(path.join(__dirname, '../../..', 'scenario', 'index'));
+  const out: MofNode[] = [];
+  // CurrentSprint node — SAME singleton uuid /trace uses (rb-trace-tree) → its expand rides the identical CurrentSprint slots.
+  out.push(mofFolder('current-sprint-singleton-0000-000000000001', 'CurrentSprint', 3, 'trace', 'currentsprint'));
+  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, s.name || sprintPrefix(s.number), s.taskCount, 'trace', 'sprint')); // R40.4 single-source
+  return out;
+}
+function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
+  if (!/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) return null;
+  const { els, m1, m2, m1Roots } = mofModelEls(idx);
+  const instancesOf = (mcU: string): MofEl[] => m1.filter((x) => (Array.isArray(x.m.instanceOf) ? (x.m.instanceOf as string[]) : []).map(MOF_STRIP).includes(mcU));
+  const isSrc = (x: MofEl): boolean => String(x.m.sourceFile || '').startsWith('src/');
+  if (uuid === 'mof-m2') return m2.map((mc) => { const mcU = String(mc.m.uuid || mc.uuid); return mofFolder('mof-m2:' + mcU, String(mc.m.name || ''), instancesOf(mcU).length, String(mc.m.kind || 'class'), 'modelelement'); }).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid.startsWith('mof-m2:')) return instancesOf(uuid.slice('mof-m2:'.length)).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid === 'mof-m1') {
+    const rawbinFiles = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile)));
+    const otherFiles = [...new Set(m1Roots.filter((x) => !isSrc(x)).map((x) => String(x.m.sourceFile || 'model')))].sort();
+    return [
+      ...(rawbinFiles.size ? [mofFolder('project:RawBin', 'RawBin', 4, 'mof-project')] : []), // S33-P3f-1 + R35.4: RawBin has 4 folders (ts/puml/diagrams/traceability)
+      ...otherFiles.map((sf) => mofFolder('project:' + sf, sf, m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).length, 'mof-project')),
+    ];
+  }
+  if (uuid === 'project:RawBin') { // S33-P3f-1 (INV-F-2): RawBin → 3 artifact FOLDERS (ts / puml / diagram) over MODEL_STORE — reuse rb-trace-tree folders, no fork
+    const tsCount = new Set(m1Roots.filter(isSrc).map((x) => String(x.m.sourceFile))).size; // file-folders of generated M1 classes
+    const pumlCount = els.filter((x) => x.ior === 'ior:class:PumlArtifact').length;
+    const diagramCount = els.filter((x) => x.ior === 'ior:class:Diagram').length;
+    return [
+      mofFolder('rawbin:ts', 'ts', tsCount, 'mof-project'),
+      mofFolder('rawbin:puml', 'puml', pumlCount, 'puml'),
+      mofFolder('rawbin:diagram', 'diagrams', diagramCount, 'diagram'), // R33.3 AC3: PLURAL label; Diagram ITEMS live directly under diagrams/
+      mofFolder('rawbin:traceability', 'traceability', traceabilityRoots().length, 'trace'), // R35.4: 4th folder → expands into the real Req→…→Test trace tree
+    ];
+  }
+  if (uuid === 'rawbin:ts' || uuid.startsWith('dir:')) { // R33.10: ts/ = the FULL src/ directory tree (ALL 123 .ts + folder hierarchy), not just the ~25 files with generated M1 elements (INV-T1/T2 completeness+folders)
+    const m1Count = new Map<string, number>();
+    for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
+    return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
+  }
+  if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
+  if (uuid === 'rawbin:puml') return pumlChildren(els); // R33.5 item4: 55 source .puml + imported artifacts
+  if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
+  if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
+  return [];
+}
+function mofLayerRoots(idx: ScenarioIndex): MofNode[] {
+  const { m2, m1Roots } = mofModelEls(idx);
+  const projectCount = (m1Roots.some((x) => String(x.m.sourceFile || '').startsWith('src/')) ? 1 : 0) + new Set(m1Roots.filter((x) => !String(x.m.sourceFile || '').startsWith('src/')).map((x) => String(x.m.sourceFile || 'model'))).size;
+  return [
+    mofFolder('mof-m2', 'M2 · UML Profile', m2.length, 'mof-layer', 'mof-layer'),
+    mofFolder('mof-m1', 'M1 · Projects', projectCount, 'mof-layer', 'mof-layer'),
+  ];
+}
+
+// R40.8 — resolve a unit's REAL on-disk shard path via the ONE shard rule, single-sourced with PROD_INDEX
+// (ScenarioIndex.filePath — the SAME function get()/has() use, never a re-derived or composed path). FAIL-CLOSED:
+// if the unit is not actually on disk, return null → the caller 404s; the UI NEVER shows a guessed/composed path.
+// [impl:uuid:3ee03bde-aa3c-4d95-92c1-71e9c599f46a] ServerManagerApi.unitRealPath (/api/unit/<uuid>/path, shard-rule single-sourced, fail-closed)
+function unitRealPath(uuid: string): { realPath: string; dir: string } | null {
+  const idx = new ScenarioIndex(PROD_INDEX);
+  if (!idx.has(uuid)) return null;                                   // fail-closed: no on-disk file → NO path (never composed/guessed)
+  const repoRoot = path.join(__dirname, '../../../');
+  const realPath = path.relative(repoRoot, idx.filePath(uuid));      // reuse the ONE shard rule; repo-relative real path
+  return { realPath, dir: path.dirname(realPath) };
+}
+
+// R40.10 — TaskQaVerdict: the owner's QA verdict on a task, recorded AS DATA (not asserted). approveByOwner makes
+// "Done requires Tron QA" PROVABLE — it writes approvedBy/approvedAt onto the task and only then flips status→Done,
+// and it FAIL-CLOSED refuses unless the task already carries the evidence (status 'QA Review' = the pipeline advanced
+// it, work+tests done) → a Done can NEVER be manufactured from an un-reviewed task. Extracted as named functions so
+// the verdict logic is gateable directly (not inline-in-handler). Owner-gate is applied by the caller (requireOwnerHttp).
+// [impl:uuid:36b6ce2e-efe9-4ad8-9382-104ee07d0266] TaskQaVerdict.approveByOwner (owner-gated; approvedBy/approvedAt as data; evidence-precondition; flips Done-gate)
+function approveByOwner(idx: ScenarioIndex, taskUuid: string, ownerTok8: string, now: string): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(taskUuid);
+  if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
+  const m = unit.model as any;
+  if (m.status !== 'QA Review') return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' != 'QA Review' — cannot manufacture Done` } };
+  m.approvedBy = ownerTok8; m.approvedAt = now; m.status = 'Done';   // Tron's QA recorded as DATA → the Done-gate is now provable
+  idx.put(taskUuid, unit);
+  return { code: 200, payload: { ok: true, status: 'Done', approvedBy: ownerTok8, approvedAt: now } };
+}
+
+// [impl:uuid:90089602-d819-4df3-80a9-ef5524931ae3] TaskQaVerdict.declineToChangeRequest (owner-gated; mints ior:class:ChangeRequest linked to task/req)
+function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8: string, reason: string, now: string): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(taskUuid);
+  if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
+  const m = unit.model as any;
+  const crUuid = crypto.randomUUID();
+  const requirements = Array.isArray(m.requirements) ? m.requirements : [];   // link the CR to the task's requirement(s)
+  idx.put(crUuid, { ior: 'ior:class:ChangeRequest', model: { uuid: crUuid, name: `Change Request: ${m.name || taskUuid}`, task: `ior:instance:${taskUuid}`, requirements, reason, createdBy: ownerTok8, createdAt: now, status: 'Open' }, ownerIor: `ior:instance:${taskUuid}` });
+  m.changeRequests = Array.isArray(m.changeRequests) ? m.changeRequests : [];
+  m.changeRequests.push(`ior:instance:${crUuid}`);
+  m.status = 'In Progress';   // declined → back into the pipeline; NEVER silently Done
+  idx.put(taskUuid, unit);
+  return { code: 200, payload: { ok: true, changeRequest: crUuid, status: 'In Progress' } };
 }
 
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
@@ -986,8 +1487,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // every /api/server-manager/* route are gated HERE first by the SOLE assertOwner guard — no route (page or API)
     // can bypass it, and a future sub-route added inside this block inherits the gate. Handlers below run ONLY for
     // an authenticated OWNER; add R31.4 routes inside this block. (Page-route ?token= = flagged R31.4 hardening.)
-    if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/')) {
+    if (filepath === '/server-manager' || filepath.startsWith('/api/server-manager/') || filepath.startsWith('/api/unit/')) {
       if (!requireFeatureAccessHttp(req, res, 'Server Manager')) return; // R31.8: data-driven ServerManager Feature gate (was requireOwnerHttp) — access by allowedUsers membership, INV-F6
+      // R40.8: /api/unit/<uuid>/path — the REAL measured shard path (single-sourced, fail-closed). ServerManagerApi family
+      // → gated HERE by construction (existence-oracle stays owner-only). No composed/guessed path ever leaves the server.
+      const unitPathMatch = req.method === 'GET' ? filepath.match(/^\/api\/unit\/([0-9a-fA-F-]+)\/path$/) : null;
+      if (unitPathMatch) {
+        const rp = unitRealPath(unitPathMatch[1]);
+        if (!rp) { res.writeHead(404, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify({ ok: false, error: 'not-on-disk' })); return; } // fail-closed
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, ...rp }));
+        return;
+      }
       if (req.method === 'GET' && filepath === '/server-manager') { // R31.3 owner-only page shell (6th AC: non-owner already 403'd above, shell never leaks)
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
         res.end(serverManagerPage());
@@ -1002,7 +1513,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sessions = await OtmuxBridge.readSessionTree();
         // R31.4 step-1: also emit itemView `roots` (3-level, inline children) for the shared rb-trace-tree renderer —
         // otmuxSession → otmuxWindow → otmuxPane. pane uuid = the STABLE pane_id (%N) = the terminal target.
-        const roots = sessions.map((s) => ({
+        const sessionRows = sessions.map((s) => ({
           // R31.3 badge-via-references: session carries hasChildren too (windows/panes already do) — parity with the
           // scenario tree so the chevron/count is deterministic (client stamps dataset.childRefCount from children.length).
           uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
@@ -1015,8 +1526,43 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             })),
           })),
         }));
+        // R41 RE-ROOT (Tron's open question — Server Manager showed a FLAT session list, no client surface for WODA.prod):
+        // re-root under the WODA.prod deployment node (fc327458), MODEL-DRIVEN (read the node unit, don't hardcode). The
+        // node is the single ROOT row; the live otmux sessions are its CHILDREN (a LIVE LENS — read fresh here, never a
+        // mirrored copy); the node's 4 measured deploymentRefs (sshd_config · host key · .env domain · LE cert) surface as
+        // leaf rows so the deployment surface is visible where the owner works. Fail-OPEN to the flat lens if the node unit
+        // is ever missing — never break the live session surface. The UML-diagram facet (renderedBy) is untouched: this ADDS.
+        let roots: any[] = sessionRows;
+        const NODE_UUID = 'fc327458-03d1-4b90-847d-ab52a7d82237';
+        try {
+          const nodeUnit = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')).get(NODE_UUID);
+          const nm: any = nodeUnit?.model;
+          if (nm && nm.kind === 'node') {
+            const refRows = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
+              uuid: 'depref:' + String(d.role), type: 'deploymentRef',
+              name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
+            }));
+            roots = [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
+          } else {
+            // fail-open AND LOUD (PO refinement): keep the live sessions available, but NEVER silently degrade to the
+            // bare flat list Tron complained about — surface a VISIBLE notice row + a server WARN naming the missing uuid.
+            console.warn(`[server-manager] WARN: WODA.prod deployment node ${NODE_UUID} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
+            roots = [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${NODE_UUID.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
+          }
+        } catch (e: any) {
+          console.warn(`[server-manager] WARN: WODA.prod re-root failed (${e?.message || e}) → tree DEGRADED to flat session list (fail-open).`);
+          roots = [{ uuid: 'depnode:error', type: 'notice', name: '⚠ WODA.prod deployment node re-root failed — showing flat session list', hasChildren: sessionRows.length > 0, children: sessionRows }];
+        }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
         res.end(JSON.stringify({ ok: true, roots, sessions })); // `sessions` kept for the current display shell (removed when step-2 switches to rb-trace-tree)
+        return;
+      }
+      if (req.method === 'GET' && filepath === '/api/server-manager/rc') { // R40.1 per-pane RC deep-link (owner-gated by the block above)
+        const paneId = String(urlParams.get('pane') || '').trim();
+        if (!paneId) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"ok":false,"error":"pane required"}'); return; }
+        const link = await OtmuxBridge.resolveRcLink(paneId); // { url: string|null, reason?, agent? } — url=null is fail-closed, NOT an error
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({ ok: true, ...link })); // client opens link.url (app-else-web) OR shows link.reason when null
         return;
       }
       if (req.method === 'POST' && filepath === '/api/server-manager/session') { // R31.4-PRE/B1: mint the httpOnly owner cookie (caller already owner-gated above via the LIVE x-player-token)
@@ -1034,6 +1580,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // R31.8b FeatureManager VIEW — membership-gated (requireFeatureAccess 'Feature Manager', INV-F6): the page shell +
     // the read-only listFeatures. Distinct from the WRITE below (POST, HARDCODED owner). The condition matches only the
     // page + the GET api, so POST /api/feature-manager falls through to the owner-gated writer.
+    if (req.method === 'GET' && filepath === '/model') { // R32.9 (D): gated Model-Driven Code Quality view page
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // INV-D4 fail-closed: non-member → 403, never leaks the shell
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache' });
+      res.end(serverModelPage());
+      return;
+    }
     if (filepath === '/feature-manager' || (req.method === 'GET' && filepath === '/api/feature-manager')) {
       if (!requireFeatureAccessHttp(req, res, 'Feature Manager')) return; // VIEW-open = membership
       if (req.method === 'GET' && filepath === '/feature-manager') {
@@ -1112,6 +1664,31 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.end(JSON.stringify({ ok: true, updated: profile.bugReports[bugIndex] }));
           addLog(`Bug status updated: ${playerToken.slice(0,8)} #${bugIndex} -> ${status}`);
         } catch { res.writeHead(400); res.end('Bad request'); }
+      });
+      return;
+    }
+
+    // R40.10 — owner-gated task QA verdict: POST /api/task/<uuid>/{approve,decline}. Owner-only (403 non-owner);
+    // approve records Tron's QA as DATA + is evidence-gated (cannot manufacture Done); decline mints a ChangeRequest.
+    const taskVerdictMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/(approve|decline)$/);
+    if (req.method === 'POST' && taskVerdictMatch) {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — a non-owner can never record a QA verdict
+      const taskUuid = taskVerdictMatch[1], verb = taskVerdictMatch[2];
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const idx = new ScenarioIndex(PROD_INDEX);
+          const r = resolveOwner(req);
+          const ownerTok8 = String((r as { ok: true; token: string }).token || ServerManagerGuard.playerTokenFrom(req) || 'owner').slice(0, 8);
+          const now = new Date().toISOString();
+          let out: { code: number; payload: Record<string, unknown> };
+          if (verb === 'approve') out = approveByOwner(idx, taskUuid, ownerTok8, now);
+          else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, ownerTok8, reason, now); }
+          res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+          res.end(JSON.stringify(out.payload));
+          addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); }
       });
       return;
     }
@@ -1437,6 +2014,292 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // Phase 2: /api/trace built entirely from ScenarioIndex (no scanRepo)
+    if (filepath === '/api/model/tree') { // R32.3: MDA model-tree ROOTS = M1 top-level class/interface/function/type units,
+      // as `.items` for the SHARED rb-trace-tree. Data-only; each root's members nest as children via the ModelElement
+      // forward-key (/api/trace/children). type = the M2 MODEL-facet metaclass (icon); childCount = members.length (badge).
+      try {
+        ensureStoreSeeded();
+        const idx = new ScenarioIndex(MODEL_STORE); // R32.5/INV-MOF4: reads the ISOLATED store only (prod scenario/index untouched)
+        const roots = mofLayerRoots(idx); // R33.1: extracted → named mofLayerRoots (Impl 5afeafe9, strict-AST credit)
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        res.end(JSON.stringify({ roots }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: String(e) }));
+      }
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/generate') { // R32.5 GO-LIVE: drop→TsToModel.generate→ISOLATED store (prod scenario/index NEVER mutated) + demo Diagram
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { file } = JSON.parse(body || '{}');
+          const projectRoot = path.join(__dirname, '../../..');
+          const abs = path.resolve(projectRoot, String(file || ''));
+          if (!String(file) || !abs.startsWith(projectRoot + path.sep) || !abs.endsWith('.ts') || !fsSync.existsSync(abs)) { // path-safety: repo-relative existing .ts only (no traversal)
+            res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-file: must be an existing repo-relative .ts path"}'); return;
+          }
+          ensureStoreSeeded();
+          const r = new TsToModel(projectRoot).generate([abs], { indexDir: MODEL_STORE, write: true, diagram: true });
+          const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
+          addLog(`[model] generate ${path.relative(projectRoot, abs)} → ${r.units.length} units (${roots} roots) diagram=${r.diagramUuid?.slice(0, 8)} wrote=${r.wrote} (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, units: r.units.length, roots, diagramUuid: r.diagramUuid, wrote: r.wrote }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/generate-project') { // S33-P2a: BOUNDED multi-file RawBin M1
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (INV-P2, reuse R32.9 gate)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const projectRoot = path.join(__dirname, '../../..'); // __dirname used INSIDE the handler (runtime-safe, not module-top) — R32.5 boot lesson honored
+          const { dir } = JSON.parse(body || '{}');
+          const t0 = Date.now();
+          // T36.3: the generate-project CORE is now the ONE shared generateProjectModel — HTTP handler + the local CLI
+          // (scripts/regen-model.ts) run the SAME path/invariants (INV-P2 bounded/CAP/MODEL_STORE-only). Owner-gate above UNCHANGED.
+          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), MODEL_STORE, PROD_INDEX);
+          if (!g.ok) { res.writeHead(g.status || 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: g.error })); return; }
+          addLog(`[model] generate-project ${g.dir} → ${g.files} files → ${g.units} units (${g.roots} roots) wrote=${g.wrote} removed=${g.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: g.dir, files: g.files, units: g.units, roots: g.roots, wrote: g.wrote, removed: g.removed }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'generate-project-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'GET' && filepath.startsWith('/api/model/used-in/')) { // R36.5 where-used resolver: the element's usedIn[] back-refs (bidirectional mirror of Diagram.views)
+      const uuid = decodeURIComponent(filepath.slice('/api/model/used-in/'.length)).replace(/^ior:instance:/, '').trim();
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+      res.end(JSON.stringify({ uuid, usedIn: resolveUsedIn(uuid) }));
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/add-view') { // R32.11 (INV-R1): drop/select a class → append a view-link to the Diagram (MODEL_STORE ONLY, dedup, prod untouched)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid, x, y } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no traversal into the shard path)
+          if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : (unit.model.views = []);
+          const link = `modelelement:${elementUuid}`;
+          if (views.some((v) => v.unit === link)) { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: false, views: views.length })); return; } // INV-R2: dedup → idempotent
+          const COLS = 3, i = views.length; // INV-R1: explicit drop coords, else auto-grid (the select-class complement sends none)
+          const vx = Number.isFinite(x) ? Math.max(0, Math.round(x)) : (i % COLS) * 220 + 20;
+          const vy = Number.isFinite(y) ? Math.max(0, Math.round(y)) : Math.floor(i / COLS) * 200 + 20;
+          views.push({ unit: link, x: vx, y: vy, viewKind: 'class' });
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-R3 store-only (MODEL_STORE, prod scenario/index NEVER touched) + INV-R4 persist
+          addUsedIn(elementUuid, 'diagram', diagramUuid); // R36.5: bidirectional — the element unit tracks this diagram (usedIn ⟷ diagram.views), store-only
+          addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: true, views: views.length }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/remove-view') { // R33.8 (INVERSE of add-view) — delegates to persistRemoveView (store-only, prod untouched, model unit re-addable)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid } = JSON.parse(body || '{}');
+          const out = persistRemoveView(String(diagramUuid || ''), String(elementUuid || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          if (out.removed) addLog(`[model] remove-view ${String(elementUuid).slice(0, 8)} ✕ diagram ${String(diagramUuid).slice(0, 8)} views=${out.views}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'remove-view-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/new') { // R33.9 unit-verb: mint an M1 unit (store-only, delegates to newElement)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { name, kind } = JSON.parse(body || '{}');
+          const out = newElement(String(name || ''), String(kind || 'class'));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/new ${out.uuid?.slice(0, 8)} name=${String(name).slice(0, 30)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-new-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/rename') { // R33.9 unit-verb: rename an M1 unit (store-only)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { elementUuid, name } = JSON.parse(body || '{}');
+          const out = renameElement(String(elementUuid || ''), String(name || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/rename ${String(elementUuid).slice(0, 8)} → ${String(name).slice(0, 30)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-rename-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/element/delete') { // R33.9 unit-verb: DESTRUCTIVE delete of an M1 unit (≠ R33.8 remove-view)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { elementUuid } = JSON.parse(body || '{}');
+          const out = deleteElement(String(elementUuid || ''));
+          if (!out.ok) { res.writeHead(out.status || 500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: out.error })); return; }
+          addLog(`[model] element/delete ${String(elementUuid).slice(0, 8)}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'element-delete-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/move-view') { // R33.3 (INV-S33V-2/4): drag a box → persist its view-link x,y in MODEL_STORE → survives reload. Ungated like add-view (same drag loop). markerPending (req IMPL-mints)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, elementUuid, x, y } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no shard-path traversal)
+          if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          if (!Number.isFinite(x) || !Number.isFinite(y)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-coords"}'); return; }
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
+          const view = views.find((v) => v.unit === `modelelement:${elementUuid}`);
+          if (!view) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-view"}'); return; }
+          view.x = Math.max(0, Math.round(x)); view.y = Math.max(0, Math.round(y));
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-S33V-4 store-only (prod scenario/index NEVER touched)
+          addLog(`[model] move-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${view.x},${view.y})`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, x: view.x, y: view.y }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'move-view-failed' })); }
+      });
+      return;
+    }
+    // [impl:uuid:80440bf0-c512-4fb8-aa95-8fb56547af88] server.persistDiagramZoom (R33.7.1 INV-Z2): persist per-diagram zoom in MODEL_STORE (mirror move-view; prod scenario/index NEVER touched)
+    if (req.method === 'POST' && filepath === '/api/model/diagram/zoom') {
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { diagramUuid, zoom } = JSON.parse(body || '{}');
+          const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no shard-path traversal)
+          if (!UUID.test(String(diagramUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
+          const z = Number(zoom);
+          if (!Number.isFinite(z) || z < 0.25 || z > 8) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-zoom"}'); return; } // INV-Z1 range [0.25,8]
+          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
+          const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
+          unit.model.zoom = z;
+          fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-Z2 store-only (prod scenario/index NEVER touched)
+          addLog(`[model] zoom ${String(diagramUuid).slice(0, 8)} → ${z}`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, zoom: z }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'zoom-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/diagram/create') { // S33-P3f-1 Add-diagram: create an EMPTY Diagram unit in diagram/ → curate via R32.11 add-view. markerPending (req IMPL-mints per-action)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { name } = JSON.parse(body || '{}');
+          const diagramUuid = crypto.randomUUID();
+          const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
+          fsSync.writeFileSync(dfile, JSON.stringify({ ior: 'ior:class:Diagram', ownerIor: null, model: { uuid: diagramUuid, name: String(name || 'New diagram').slice(0, 80), views: [] } }, null, 2) + '\n'); // INV-F-3 MODEL_STORE only, prod untouched
+          addLog(`[model] add-diagram → empty Diagram ${diagramUuid.slice(0, 8)} (store-only)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, diagramUuid }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-diagram-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/folder/create') { // R34.3 (R-B) Add-folder: mint a Folder unit in MODEL_STORE (mirror diagram/create, store-only). markerPending (req IMPL-mints → createFolder)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (mirror diagram/create)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { name, parent } = JSON.parse(body || '{}');
+          const out = createFolder(String(name || ''), String(parent || ''));
+          addLog(`[model] add-folder → Folder ${out.uuid?.slice(0, 8)} parent=${String(parent || '').slice(0, 8)} (store-only)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/trace/create') { // R36.4 inc-2: author a UmlTraceRelationship (MODEL_STORE, idempotent). markerPending (req IMPL-mints → authorTrace, trails per PO)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated (mirror folder/create)
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const { from, to, relation, fromType, toType } = JSON.parse(body || '{}');
+          const out = authorTrace(String(from || ''), String(to || ''), String(relation || 'traces'), fromType, toType);
+          addLog(`[model] author-trace → ${out.ok ? 'UmlTraceRelationship ' + out.uuid?.slice(0, 8) : 'FAIL ' + out.error} (store-only)`);
+          res.writeHead(out.ok ? 200 : 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'author-trace-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'GET' && filepath === '/api/model/traces') { // R36.4 inc-2: authored UmlTraceRelationship units for the diagram surface to render
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return;
+      res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ traces: listTraces() }));
+      return;
+    }
+    if (req.method === 'POST' && filepath === '/api/model/import-puml') { // S33-P3f-1 Import-PUML (Tron feat D): REUSE R32.7 pumlToModel (INV-F-1) → M1 units (ts/) + auto-grid Diagram (diagram/) + PumlArtifact (puml/). markerPending (req IMPL-mints)
+      if (!requireFeatureAccessHttp(req, res, 'Model-Driven Code Quality')) return; // owner/member-gated
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          ensureStoreSeeded();
+          const body0 = JSON.parse(body || '{}');
+          let puml = String(body0.text || '');
+          let name = body0.name;
+          if (!puml && body0.srcPath) { // R33.5 item4: import an EXISTING source .puml by relpath (the puml/ tree node's click → Import)
+            const rel = String(body0.srcPath).replace(/^\/+/, '');
+            const sprintsDir = path.join(__dirname, '../../..', 'scrum.pmo', 'sprints');
+            const abs = path.join(sprintsDir, rel);
+            if (/\.\./.test(rel) || !/^[\w./-]+\.puml$/.test(rel) || !abs.startsWith(sprintsDir + path.sep)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-srcPath"}'); return; }
+            try { puml = fsSync.readFileSync(abs, 'utf-8'); name = name || (rel.split('/').pop() || rel); } catch { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-puml-file"}'); return; }
+          }
+          if (!puml.trim()) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"empty-puml"}'); return; }
+          const { elements, relations } = pumlToModel(puml); // INV-F-1: the R32.7 parser (class/interface + <|--/-->/..>), NO new parser
+          if (elements.length === 0) { // sequence/activity/unknown → NOT a class model → clean 'not importable' (triage/out-of-scope, no crash)
+            addLog(`[model] import-puml '${String(name || '').slice(0, 40)}' → 0 class elements (sequence/activity? out-of-scope)`);
+            res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, reason: 'not-importable: no class/interface found (likely a sequence/activity diagram — class model only)' })); return;
+          }
+          const base = (String(name || 'imported').replace(/\.puml$/i, '').replace(/[^\w.-]/g, '_').slice(0, 60)) || 'imported';
+          const sourceFile = `src/imported/${base}.puml`; // src/ prefix → groups under rawbin:ts (isSrc) as a file-folder
+          const detUuid = (key: string): string => { const h = crypto.createHash('sha256').update(key).digest('hex'); return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`; };
+          const relsFrom = (u: string): { to: string; type: string }[] => relations.filter((r) => r.from === u).map((r) => ({ to: `ior:instance:${r.to}`, type: String(r.kind) }));
+          const writeUnit = (ior: string, model: Record<string, unknown>): void => { const uuid = String(model.uuid); const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); fsSync.mkdirSync(path.dirname(p), { recursive: true }); fsSync.writeFileSync(p, JSON.stringify({ ior, ownerIor: null, model }, null, 2) + '\n'); }; // INV-F-3 MODEL_STORE only
+          let memberCount = 0;
+          for (const el of elements) {
+            const members: string[] = [];
+            for (const a of el.attrs) { const mu = detUuid(`${el.uuid}::attr:${a}`); members.push(`ior:instance:${mu}`); writeUnit('ior:class:ModelElement', { uuid: mu, name: a, metaLevel: 'M1', kind: 'property', sourceFile, qualifiedName: `${el.name}.${a}`, instanceOf: [], memberOf: `ior:instance:${el.uuid}` }); memberCount++; }
+            for (const m of el.methods) { const mu = detUuid(`${el.uuid}::method:${m}`); members.push(`ior:instance:${mu}`); writeUnit('ior:class:ModelElement', { uuid: mu, name: m, metaLevel: 'M1', kind: 'method', sourceFile, qualifiedName: `${el.name}.${m}()`, instanceOf: [], memberOf: `ior:instance:${el.uuid}` }); memberCount++; }
+            writeUnit('ior:class:ModelElement', { uuid: el.uuid, name: el.name, metaLevel: 'M1', kind: el.kind, sourceFile, qualifiedName: el.name, instanceOf: [], members, relations: relsFrom(el.uuid) });
+          }
+          const COLS = 3; // auto-grid Diagram over the imported classes → R32.4 interactive (boxes + relation edges)
+          const views = elements.map((el, i) => ({ unit: `modelelement:${el.uuid}`, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: 'class' }));
+          const diagramUuid = detUuid(`diagram::${sourceFile}`);
+          writeUnit('ior:class:Diagram', { uuid: diagramUuid, name: `${base} (${elements.length} classes)`, views });
+          const pumlUuid = detUuid(`puml::${sourceFile}`); // the .puml source text → puml/
+          writeUnit('ior:class:PumlArtifact', { uuid: pumlUuid, name: `${base}.puml`, text: puml, sourceFile });
+          addLog(`[model] import-puml '${base}' → ${elements.length} classes / ${memberCount} members / ${relations.length} relations → diagram ${diagramUuid.slice(0, 8)} + puml ${pumlUuid.slice(0, 8)} (store-only, prod untouched)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, elements: elements.length, members: memberCount, relations: relations.length, diagramUuid, pumlUuid }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'import-puml-failed' })); }
+      });
+      return;
+    }
     if (filepath === '/api/trace') {
       try {
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
@@ -1484,15 +2347,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // T187: /api/trace/sprints — Sprint navigation roots (Sprint→Tasks)
     if (filepath === '/api/trace/sprints') {
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
-        const idx = new ScenarioIndex(scenarioDir);
-        const sprints = idx.list().map(uuid => {
-          const u = idx.get(uuid);
-          if (!u || u.ior !== 'ior:class:Sprint') return null;
-          const tasks = (u.model.tasks as string[]) || [];
-          return { uuid, type: 'Sprint', name: String(u.model?.name || ''), number: u.model?.number || 0, hasChildren: tasks.length > 0, childCount: tasks.length };
-        }).filter(Boolean);
-        sprints.sort((a: any, b: any) => (a.number || 0) - (b.number || 0));
+        const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+        // R35.4 DRY: SAME shared ordered-Sprint source as the traceability folder (parity by construction). Shape unchanged.
+        const sprints = sprintOverviewNodes(idx).map((s) => ({ uuid: s.uuid, type: 'Sprint', name: s.name, number: s.number, hasChildren: s.taskCount > 0, childCount: s.taskCount }));
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(sprints));
       } catch { res.writeHead(500); res.end('[]'); }
@@ -1519,7 +2376,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/trace/children/')) {
       const uuid = decodeURIComponent(filepath.slice('/api/trace/children/'.length)).replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        // S33-P2b (INV-P2b-2): a SYNTHETIC MOF folder uuid (mof-*/project:*/file:*) resolves ONE bounded layer LAZILY
+        // from the ISOLATED MODEL_STORE via mofChildren — the deep MOF tree is NEVER inlined in /api/model/tree's roots
+        // payload. Public parity with /api/model/tree (also ungated, data-only). Real ModelElement uuids fall through.
+        if (/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) { // R33.3-BUG fix: dispatch must include rawbin: (matches mofChildren's guard :1073) — else rawbin:ts|puml|diagram fell through to the ModelElement path → 404 {} → empty expand
+          ensureStoreSeeded();
+          const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), uuid) || [];
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          res.end(JSON.stringify({ uuid, type: 'collection', name: '', hasChildren: mofKids.length > 0, children: mofKids, parent: null }));
+          return;
+        }
+        // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
+        const scenarioDir = isModelUnit(uuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
@@ -1607,7 +2475,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (/^[0-9a-f]{8}-/.test(clean)) childRefs.push(clean);
           }
         }
-        childRefs = childRefs.filter(ref => ref !== uuid);
+        childRefs = [...new Set(childRefs)].filter(ref => ref !== uuid); // R31.11: de-dup — an S30 UC carries BOTH 'class'+'classes' keys, so the ['class','classes'] resolve would push the SAME Class twice → double-render without this Set
         // Fallback: if scenario index has no forward UUID arrays, consult scanRepo graph
         if (childRefs.length === 0) {
           try {
@@ -1633,18 +2501,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const ct = (child.ior || '').split(':')[2] || '';
             if (allowedTypes.length > 0 && !allowedTypes.includes(ct)) return null;
             const childModel = child.model as Record<string, unknown> || {};
-            const forwardArrays = ['tasks','useCases','classes','methods','implementations','tests','children'].map(k => childModel[k]).filter(Array.isArray);
-            const childCount = forwardArrays.reduce((sum, arr) => sum + arr.length, 0);
+            // R31.11 RESIDUAL: childCount via the SAME forward-key resolution as the walk (was a hard-coded plural-only
+            // key list + filter(Array.isArray) that dropped SINGULAR 'class' AND string refs → S31 UC childCount=0 →
+            // hasChildren=false → rendered a LEAF, no chevron). Set-DEDUP is REQUIRED: an S30 UC carries BOTH 'class'+
+            // 'classes' (same Class) → a naive string(1)+array(len) count would regress its badge 1→2.
+            const cRefSet = new Set<string>();
+            for (const k of forwardKeysForMode(ct, queryMode as 'scenario' | 'trace')) {
+              const v = (childModel as Record<string, unknown>)[k];
+              const addRef = (r: unknown): void => { const s = String((typeof r === 'object' && r) ? ((r as { ior?: string; uuid?: string }).ior || (r as { ior?: string; uuid?: string }).uuid || '') : r).replace('ior:instance:', ''); if (/^[0-9a-f]{8}-/.test(s)) cRefSet.add(s); };
+              if (Array.isArray(v)) v.forEach(addRef); else if (typeof v === 'string') addRef(v);
+            }
+            const childCount = cRefSet.size;
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
             // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
             const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
             const cSrc = (cRawSrc && !cRawSrc.includes('.scenario.json')) ? cRawSrc : undefined;
             const cLine = cSrc ? ((childModel.sourceLine as number) || undefined) : undefined;
-            const entry: Record<string, unknown> = { uuid: ref, type: ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
-            if (queryMode === 'trace' && type === 'UseCase' && ct === 'Class' && ucMethodIor) {
-              const meth = idx.get(ucMethodIor);
-              if (meth) entry.chainMethod = { uuid: ucMethodIor, type: 'Method', name: String(meth.model?.name || '') };
-            }
+            const entry: Record<string, unknown> = { uuid: ref, type: ct === 'ModelElement' ? modelFacetType(childModel, idx) : ct, name: String(child.model?.name || ''), hasChildren: childCount > 0, childCount, ...(childModel.assigned ? { assignee: String(childModel.assigned) } : {}), ...(childStatus ? { status: childStatus } : {}), ...(cSrc ? { sourceFile: cSrc, sourceLine: cLine } : {}) };
+            attachChainMethod(entry, type, ct, ucMethodIor, idx); // R31.10: attach UC.method as entry.chainMethod in ALL modes (extracted to the named attachChainMethod decl below for strict-impl credit)
             return entry;
           }
           return null; // v0.6.92: skip dangling refs (unit removed/missing) — never render a raw UUID as a name
@@ -1657,7 +2531,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (parentUnit) parent = { uuid: ownerIor, type: (parentUnit.ior || '').split(':')[2] || '', name: String(parentUnit.model?.name || '') };
         }
         if (!parent) {
-          const FWD_SCAN: Record<string, string[]> = { Requirement: ['tasks','useCases'], Task: ['useCases','children','subtasks','coveredRequirements'], UseCase: ['classes'], Class: ['methods'], Method: ['implementations'], Implementation: ['tests'], Sprint: ['tasks','requirements'] };
+          const FWD_SCAN: Record<string, string[]> = { Requirement: ['tasks','useCases'], Task: ['useCases','children','subtasks','coveredRequirements'], UseCase: ['class','classes'], Class: ['methods'], Method: ['implementations'], Implementation: ['tests'], Sprint: ['tasks','requirements'] }; // R31.11: UseCase parent-scan symmetry (singular 'class' + legacy 'classes')
           for (const pUuid of idx.list()) {
             if (parent) break;
             const pUnit = idx.get(pUuid);
@@ -1678,7 +2552,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
         const extra: Record<string, unknown> = {};
         if (type === 'Room') { extra.mode = unit.model?.mode; extra.visibility = unit.model?.visibility; extra.memberCount = Array.isArray(unit.model?.members) ? (unit.model.members as unknown[]).length : 0; extra.fileCount = Array.isArray(unit.model?.files) ? (unit.model.files as unknown[]).length : 0; }
-        res.end(JSON.stringify({ uuid, type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, ...extra }));
+        res.end(JSON.stringify({ uuid, type: type === 'ModelElement' ? modelFacetType(unit.model as Record<string, unknown>, idx) : type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, ...extra })); // R32.3: model node display type = M2 model-facet (walk still uses real 'ModelElement' type)
       } catch { res.writeHead(500); res.end('{}'); }
       return;
     }
@@ -1687,10 +2561,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (filepath.startsWith('/api/ior/')) {
       const ior = decodeURIComponent(filepath.slice('/api/ior/'.length));
       try {
-        const scenarioDir = path.join(__dirname, '../../../scenario/index');
+        // R35.2 (fork A): ANY synthetic view ref (dir/file/puml-src/project/rawbin/mof) → its REAL lazy-minted MODEL_STORE unit (detail + A1).
+        const ff = ensureViewUnit(ior);
+        if (ff) { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }); res.end(JSON.stringify({ unit: ff })); return; }
+        // R32.5: model units (ModelElement/Diagram) resolve from the ISOLATED store (diagram surface + tree fetch); trace units stay prod.
+        const iorUuid = ior.replace(/^ior:(instance|class):/, '');
+        const scenarioDir = isModelUnit(iorUuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);
+        if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
@@ -1710,16 +2590,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     if (req.method === 'POST' && filepath === '/api/puml-render') {
       let body = '';
       req.on('data', (chunk: Buffer) => { body += chunk; if (body.length > 500000) { res.writeHead(413); res.end('Too large'); } });
-      req.on('end', () => {
+      req.on('end', async () => {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 15000);
         try {
-          const svg = execFileSync('plantuml', ['-tsvg', '-pipe'], { input: body, maxBuffer: 2 * 1024 * 1024, timeout: 15000 }).toString();
+          const url = `${plantumlBaseUrl()}/svg/${encodePlantuml(body)}`; // R33.10 BUG-B: render via the plantuml-server docker (configurable URL, deflate+base64)
+          const r = await fetch(url, { signal: ctrl.signal as any });
+          if (!r.ok) throw new Error(`plantuml-server HTTP ${r.status}`);
+          const svg = await r.text();
           res.writeHead(200, { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'no-cache' });
           res.end(svg);
         } catch (e: any) {
-          const stderr = e?.stderr?.toString() || e?.message || 'PlantUML render failed';
-          if (e?.code === 'ENOENT') { res.writeHead(501, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'plantuml not installed on server' })); }
-          else { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: stderr })); }
-        }
+          // Keep the honest 501 when the plantuml-server is unreachable/errored (BUG-B fallback per PO) — NOT a 500.
+          res.writeHead(501, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'plantuml render unavailable', detail: String(e?.message || e) }));
+        } finally { clearTimeout(timer); }
       });
       return;
     }

@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "efaea742-87c6-4c99-a2ed-e2939a61f048",
+  "name": "model.generate",
+  "description": "R32.2: TsToModel.generate parses the TS compiler base structures (ts.createProgram + ts.forEachChild) and generates M1 ior:class:ModelElement units on the R32.1 foundation (REUSE ModelElement / TraceModel / ModelValidator, no fork), per the AST->M2 map (Class/Interface/Function/Method/Property/get+set->one property/TypeAlias). Multi-facet instanceOf [UmlX, ts-X-code]; class members[] composition; typed members -> relatesTo (UmlAssociation/Generalization/Dependency). IDEMPOTENT + same-UUID by construction: the M1 uuid is DERIVED DETERMINISTICALLY from sourceFile::qualifiedName (v4-shaped sha256, migrate-to-scenario.ts:245 pattern) -> re-parse re-binds, never re-mints (R32.1/R31.13 law). Post-gen ModelValidator.validate(generated)=0. Chain root at TsToModel which owns generate(). The R32.2 Test (tester's independent GREEN, not the expert tsx self-check) asserts the 4 finalized ACs; credited on the tester's real marker.",
+  "class": "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051",
+  "classes": [
+   "ior:instance:fc2f97c9-a2e2-4599-9c9a-a9657d31b051"
+  ],
+  "method": "ior:instance:970c7956-fae7-453b-99b5-442dd8a56576",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/design-mda-model.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

@@ -5,15 +5,8 @@
     "name": "T-current-sprint-planner-skill: planner SKILL maintains + drives the WIP=1 chain via the CurrentSprint class (R20.13)",
     "slug": "current-sprint-planner-skill",
     "description": "R20.13 (Tron directive): the current sprint is a DEDICATED, MAINTAINED CurrentSprint class (architect 43d570be: setChain/pinCurrent/advance/getActiveChain) that SETS THE CHAIN, consumed by the PLANNER's SKILL as the core planning + driving instrument (replaces ad-hoc planning-doc driving). Planner skill layers driveNext (derive each role's next-action from the OPEN node) + status (board state) + a champagne det-3x gate before advance, ON TOP of the class API. setChain populates the WIP=1 req->UC->Class->Method->Impl->Test chain; getActiveChain reads it (ordered Req->Test array); advance drives focus to the next hop after genuine-champagne + Tron-QA; pinCurrent feeds the R20.12 /trace pin-row. WIP=1 becomes class-enforced, not convention. The 6-item queue migrates into CurrentSprint advance-order. Event 'current-sprint-changed' on document.",
-    "status": "Planned",
-    "statusChecklist": {
-      "refinement": false,
-      "creatingTestCases": false,
-      "implementing": false,
-      "testing": false,
-      "qaReview": false,
-      "done": false
-    },
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:c559452e-cd2e-4792-b28c-9f31b88ebbb4"
     ],

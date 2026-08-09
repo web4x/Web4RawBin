@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6b4d7714-5b86-4f08-9560-3cbd3cc03015",
+    "name": "EditorHeaderNav.historyBack impl (history.back, genuine)",
+    "markerPending": false,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/components/rb-editor-toolbar.ts",
+    "markerNote": "STRICT-AST VERIFIED: heads historyBack@55 @src/public/ts/components/rb-editor-toolbar.ts (name-match EditorHeaderNav.*, 0 intervening). sourceFile REPOINTED rb-detail-view->rb-editor-toolbar (measure-corrected: the Back/#tb-path DOM lives ONLY in the editor toolbar; expert 11ee8c496, served 0.8.72, buildStrictImplSet=TRUE). Back=window.history.back(); path-label=containing-folder nav; 2 distinct handlers."
+  },
+  "ownerIor": "ior:instance:ccbf83af"
+}

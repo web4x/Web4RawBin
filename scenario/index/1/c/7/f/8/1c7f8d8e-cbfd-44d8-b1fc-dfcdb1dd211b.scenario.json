@@ -5,8 +5,8 @@
     "name": "T-server-log-level: configurable server log level gates logging verbosity",
     "slug": "server-log-level-configurable-gates-logging",
     "description": "R19.41: Server has a configurable log level that gates logging detail at runtime.",
-    "status": "Planned",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:e0bcf6ec-3b16-483a-bdc9-a22b9ab2495b"
     ],

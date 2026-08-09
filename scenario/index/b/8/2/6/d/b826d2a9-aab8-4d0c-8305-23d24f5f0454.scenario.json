@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b826d2a9-aab8-4d0c-8305-23d24f5f0454",
+    "name": "test:R33.6.2 suppress page-scroll + edge-autoscroll (RbPanZoom.panBy) @390",
+    "description": "Bridged to test/visual/r3362-scroll-autoscroll-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x, 0b218ba64). Marker adopted from origin (measured line 9, not invented). Verifies INV-D1 suppress-page-scroll (.dm-box touch-action:none - a touch-drag moves the box, never scrolls the page, by-construction) + INV-D2 edge-autoscroll (drag a selected box into the 32px surface margin -> rAF loop calls RbPanZoom.panBy -> the canvas PANS while gesture-pan is OFF/box-selected; panBy called 20x, content transform changes) + planted-bite. Chain: R33.6.2 req 570b77c7 -> UC diagram.edgeAutoscroll a1f5b43b -> Class RbPanZoom e5e3c885 -> Method panBy 1a2fbff9 -> Impl 7dd375ac -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3362-scroll-autoscroll-gate.mjs",
+    "implementations": [
+      "ior:instance:7dd375ac-28f1-4768-9063-bdf6fa430ce5"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7dd375ac-28f1-4768-9063-bdf6fa430ce5"
+}

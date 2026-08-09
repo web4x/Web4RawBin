@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bf4d39b4-ddb7-4d03-b7ff-6f7b367a38aa",
+  "name": "actionBar.classSelectActions",
+  "description": "R34.6 (R-D2, Tron IMG_4819). RESIDUAL-WIRING: rides R33.9 ModelView.actionsForContext (0c769fe6 -> Impl a1a5be99), which always emits modelelement UNIT verbs. Gap: a class-select IN THE TREE did not fire the detail-shown path, so setActions/actionsForContext was not called. FIX = ensure a tree class-select dispatches rb-drawer-detail-shown{type:'modelelement',ref} (+ set active-diagram per R34.4 when applicable) so the unit verbs appear. Call-site addition, NO new verb/Method/Impl. Client-only. Folds with R-B/R-C action-bar wiring.",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:0c769fe6-54c9-4201-aa42-fb4fd3fbac4d",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-D2-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "ridesNote": "RESIDUAL: rides actionsForContext 0c769fe6/Impl a1a5be99 (distinct-intent from R34.4 — this is the class-select detail-shown trigger; R34.4 is the active-diagram membership trigger). No fabrication. @390 Test rides a1a5be99 distinct-intent."
+ },
+ "ownerIor": null
+}

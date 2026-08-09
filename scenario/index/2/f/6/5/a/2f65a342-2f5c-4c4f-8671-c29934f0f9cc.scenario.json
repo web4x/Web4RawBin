@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2f65a342-2f5c-4c4f-8671-c29934f0f9cc",
+    "name": "ModelView.addFolder impl",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:8ce0dbff-68f3-4850-80e1-f2e7d6b9241e"
+    ]
+  },
+  "ownerIor": "ior:instance:1b559bf6-1f87-41c8-95e9-40efd491a453"
+}

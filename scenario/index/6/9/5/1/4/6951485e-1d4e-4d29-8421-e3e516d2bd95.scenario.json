@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "6951485e-1d4e-4d29-8421-e3e516d2bd95",
+  "name": "diagram.rerouteEdges",
+  "description": "R33.6.3 (architect design 594b22361): reroute connector lines LIVE when a box moves. In wireBoxDrag pointermove, after setting the moved box transform, call the NEW rerouteEdges(uuid,rect): for each .dm-edge with data-rel-from/to == the moved modelelement uuid, recompute BOTH endpoints from the two boxes' CURRENT rects via the EXPORTED borderPoint geometry (the SAME clip-to-border fn buildEdges uses statically) -> set x1/y1/x2/y2. Correct-by-construction: single geometry fn => release->re-render shows NO drift. INV-R1 (no-drift)/R2 (only connected edges)/R3 (no-fork; buildEdges stays authoritative on full render). Singular chain = the NEW decl rerouteEdges; borderPoint EXPORT is a visibility change (enabler, not a traced method), buildEdges unchanged. Reuse borderPoint + R32.6 edge data-*, NO fork.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:123e0c21-488c-4b48-a9c0-7dd4b4f5855c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.3&commit=594b22361",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

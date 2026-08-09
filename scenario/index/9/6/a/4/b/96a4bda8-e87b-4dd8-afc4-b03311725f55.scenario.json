@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "96a4bda8-e87b-4dd8-afc4-b03311725f55",
+    "name": "test:R33.2/S33-P2b render-perf — bounded initial DOM (2 roots ≪1195) + per-expand ONE lazy fetch",
+    "description": "Bridged to test/visual/r332b-render-perf-gate.mjs (INDEPENDENT tester gate GREEN DET-3x, 2781ca871 - own-oracle real lazy-API walk, read-only). Verifies the bounded/lazy MOF model tree: initial /api/model/tree = 2 COLLAPSED MOF-layer roots (<<1195, drop data-always-expanded); each expand = ONE bounded /api/trace/children fetch via server.mofChildren (M1->projects, RawBin->~25 file-folders sub-grouped, NOT 1195); real RawBin classes still reachable (P2-1 unregressed); /model owner-gated 403 non-member; read-only. BITE: initial <=12 <<1195 (non-vacuous, full model ~1195). Closes the P2a 1195-node perf-flag. Marker 96a4bda8 adopted from origin (measured line 1, not invented). Chain: R33.2 req 7a178df1 -> UC 8bdeda90 model.mofChildren -> Class server c0a0921d -> Method 7c460f8a server.mofChildren -> Impl b6c88d83 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r332b-render-perf-gate.mjs",
+    "implementations": [
+      "ior:instance:b6c88d83-a838-46ad-ba9a-874e803ca479"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b6c88d83-a838-46ad-ba9a-874e803ca479"
+}

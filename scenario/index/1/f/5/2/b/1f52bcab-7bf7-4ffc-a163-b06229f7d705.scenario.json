@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1f52bcab-7bf7-4ffc-a163-b06229f7d705",
+  "name": "diagram.dragNoPan",
+  "description": "R33.5 AC-drag-selected-no-pan: pan gated by selection-state — RbPanZoom disabled while a box is selected; selected-box drag MOVES (wireBoxDrag), empty-canvas drag pans. Fixes the R33.3 target-guard pan leak.",
+  "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+  "method": "ior:instance:4dab0081-7819-4faa-9d94-7040b2ed7618",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.5&commit=1a39feb91",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

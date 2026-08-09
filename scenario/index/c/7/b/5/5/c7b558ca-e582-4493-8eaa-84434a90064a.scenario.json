@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c7b558ca-e582-4493-8eaa-84434a90064a",
+    "name": "test:R32.10 /model drawer INTERACTION (select class->detail+members+📐-diagram / method->signature / non-member 403)",
+    "description": "Bridged to test/visual/r3210-modelelement-drawer-gate.mjs (INDEPENDENT tester interaction gate GREEN DET-3x). Own-oracle drives the REAL model bundle + drawer renderDetailForRef flow with real /api/ior data @390. Verifies RbModelElementDetail.render (Impl 7e147ad8): selecting a ModelElement -> the drawer routes modelelement:<uuid> -> a CLASS renders «kind» + members + a 📐 Open diagram affordance (dv-link -> a real ior:class:Diagram unit -> R32.4/6 boxes+edges); a METHOD renders its signature; a NON-member -> /model 403 (INV-M3/INV-D4 gate preserved). Proves the PART A root fix (drawer opens on select) + PART B typed detail. Marker c7b558ca adopted from origin (measured line 1, not invented). Chain: R32.10 req f106673d -> UC 4fad0415 modelElement.inspect -> Class 7788ebe0 RbModelElementDetail -> Method c2da9192 render -> Impl 7e147ad8 (markerPending=false, strict-AST HELD e205e2a9b) -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3210-modelelement-drawer-gate.mjs",
+    "implementations": [
+      "ior:instance:7e147ad8-aa69-4f02-9844-8652691add0a"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:7e147ad8-aa69-4f02-9844-8652691add0a"
+}

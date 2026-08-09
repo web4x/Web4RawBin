@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "42e6d425-4ef8-4b49-8820-92028e8b60c7",
+  "name": "diagram.renderCanvas",
+  "description": "R33.3 (AC-reachable-canvas + AC-drop-visible-box): RbDiagramDetail.render resolves the diagram: ref and renders the reachable canvas - the R33.3 fix (rb-diagram-detail.ts:92/94) makes render() actually resolve each view-link's element+members and call buildBox so a dropped item shows as a SELECTABLE SVG class box WITH attribute/method/property compartments (previously render() left the canvas EMPTY from a drawer diagram: ref though addView fired). Assembles the EXISTING buildBox/buildDiagramSvg (R32.4) into a reachable, droppable canvas. Sibling UC of diagram.moveView on Class RbDiagramDetail. Server /api/model/diagram/create (Add-Diagram, inline endpoint glue) parents a new empty Diagram under diagrams/. Gate = @390 pixel.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "classes": [
+   "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+  ],
+  "method": "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

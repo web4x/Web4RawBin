@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "eddf2836-4320-46ae-a75f-c9e6312053e6",
+    "name": "SprintViewGenerator.generateAll",
+    "description": "Write-mode --all: loop generateSprint over EVERY sprint (scripts/generate-sprint-md.ts:307-317 already exists as the CLI '--all' write branch, mirroring the '--check --all' loop) -> regenerate all boards from units, OWNED-OUTPUT-guarded (writes only GENERATED-header md, never units/design/puml). Deterministic (normalize LF + single trailing NL) => idempotent. The reconcile-all is a one-time RUN of this; NO code beyond a possible tiny extract if the expert wants a named generateAll() marker anchor (the --all branch loops generateSprint Impl 41c86206). Design-ahead — expert marks the --all write-all decl; if it rides generateSprint 41c86206 instead, I re-point (data=truth). R-C2.",
+    "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
+    "implementations": [
+      "ior:instance:b31ae393-0701-46a8-9296-4ed965e00fc2"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:93f9afc7-364d-4dd4-a9d7-3e49333cc16c"
+}

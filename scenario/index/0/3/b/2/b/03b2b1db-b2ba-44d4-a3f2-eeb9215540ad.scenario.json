@@ -4,7 +4,8 @@
     "uuid": "03b2b1db-b2ba-44d4-a3f2-eeb9215540ad",
     "name": "FeatureManager.bootstrapSeed impl",
     "tests": [
-      "ior:instance:095ed0c9-d1a1-4c74-bf3f-92fb905dbc87"
+      "ior:instance:095ed0c9-d1a1-4c74-bf3f-92fb905dbc87",
+      "ior:instance:16c10d4d-94ba-49be-9db5-6f65211e3982"
     ],
     "sourceFile": "ior:file:src/ts/server/FeatureManager.ts",
     "designAhead": false,

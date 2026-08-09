@@ -1,0 +1,15 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "aec2fdd9-7198-403f-a8a0-963f86342a19",
+  "name": "diagram.removeFromTree",
+  "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+  "method": "ior:instance:167fe16f-2f90-4326-9f5c-a9579a602a02",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/S34-mda-tree-refine-feedback.md?section=R-B-ARCHITECT-DESIGN&commit=0f312e4f8",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R34.3 (R-B) «Remove» = detach the node from its tree/diagram VIEW (non-destructive; the scenario unit STILL EXISTS). RESIDUAL-WIRING: rides the built R33.8/R33.9 removeFromDiagram (Method 167fe16f / Impl 4c9c3969) — view-link removal, NO new verb/Method/Impl.",
+  "ridesNote": "Rides removeFromDiagram 167fe16f/Impl 4c9c3969 (no fabrication). @390 Test rides 4c9c3969 distinct-intent."
+ },
+ "ownerIor": null
+}

@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "039ec367-b84b-4c33-a027-b862f7596c78",
+    "name": "RbDiagramDetail",
+    "file": "src/public/ts/trace/rb-diagram-detail.ts",
+    "methods": [
+      "ior:instance:3fd80641-26d7-4d5c-adf0-e42d7e691013",
+      "ior:instance:70be1605-6b8c-4358-af16-6702549aee97",
+      "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041",
+      "ior:instance:65649d26-f578-4d67-b0e9-f58401684a95",
+      "ior:instance:383d2467-5f45-4f0b-bd74-cc70c5139f0c",
+      "ior:instance:65423a29-3f09-4034-9d88-a49892923e92",
+      "ior:instance:123e0c21-488c-4b48-a9c0-7dd4b4f5855c",
+      "ior:instance:e9792c2b-d78f-4ce0-9f2d-bbfa17686f7e",
+      "ior:instance:a27d5e50-9a47-4fee-8c6a-033d7209cc15"
+    ],
+    "useCases": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:75639bd8-475b-4604-b602-f84b206eacf8"
+}

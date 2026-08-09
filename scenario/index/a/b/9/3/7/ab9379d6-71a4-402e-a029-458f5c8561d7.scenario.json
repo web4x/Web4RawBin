@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ab9379d6-71a4-402e-a029-458f5c8561d7",
+    "name": "DeploymentModel.buildTypedModel",
+    "implementations": [
+      "ior:instance:e009ace7-9f2e-4188-80fb-b14f844c0e5d"
+    ]
+  },
+  "ownerIor": "ior:instance:78342cc7-e47b-474e-9df9-2f5381599b58"
+}

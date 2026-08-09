@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e86f0736-a05a-427c-b2b2-1c2d36b68965",
+    "name": "server.attachChainMethod impl (server.ts:1644 all-modes un-gate)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "markerNote": "Strict-AST credit HOLDS at ca474f14b (v0.7.138): [impl:uuid:e86f0736] placed on the named module-scope function attachChainMethod (server.ts:885, name-matches Method server.attachChainMethod 0fc54115); call site server.ts:1656. Expert extracted it from the anon /api/trace/children .map callback (behavior-identical, R31.10 still GREEN). Was: markerPending comment-only at 2f81a5df3.",
+    "tests": [
+      "ior:instance:a1d38f6e-4a8f-4877-af38-76063a772ecd"
+    ]
+  },
+  "ownerIor": "ior:instance:0fc54115-dedd-4e5c-9c8c-9ae440f5b35c"
+}

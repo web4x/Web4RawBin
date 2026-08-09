@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8c68b925-b465-4ae7-89f1-b9a884185799",
+    "name": "DiagramViewModel.buildEdges",
+    "description": "R32.6 pure edge-render core: buildEdges(views, nodeOf):{svg, count} @ src/public/ts/trace/diagram-view-model.ts:61 - a PURE function (companion to buildDiagramSvg) that, for each on-diagram box X, reads X.relatesTo[] and emits an SVG edge X->Y ONLY when Y is also a box on the diagram (both endpoints resolvable via nodeOf; off-diagram = skipped, no dangling edge). Arrowhead/style by the relationship's M2 metaclass (UmlGeneralization solid+hollow-triangle / UmlAssociation solid+open / UmlDependency dashed+open) via a <defs> marker set; de-dup by (from,to,kind) Set (idempotent re-render). Edges emit into the SAME svg group as the boxes (RbPanZoom-transformed), behind box fills. NEW Method on the EXISTING Class DiagramViewModel 09730090 (R32.4) - DISTINCT from buildDiagramSvg 3fc6ed5b (which stays R32.4's Method/Impl ba96a744, not re-anchored). Architect design 730f36ece; scenario-first IMPL-MINT (#126, no self-mint) - the [impl:uuid] marker lands on the buildEdges() decl (name-matches 'buildEdges').",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "implementations": [
+      "ior:instance:77761d46-4144-4b84-a9e4-4c876da310d0"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+}

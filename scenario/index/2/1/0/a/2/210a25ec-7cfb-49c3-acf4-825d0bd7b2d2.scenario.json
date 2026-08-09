@@ -1,0 +1,52 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "210a25ec-7cfb-49c3-acf4-825d0bd7b2d2",
+  "altId": "R31.15",
+  "name": "WebKit-reliable interactive elements: no fragile non-native tap targets (correct-by-construction, NEXT)",
+  "description": "★ NEXT / NOT-NOW (the FIX is a substantial SWEEP = needs a fresh expert, not the ~80% one; the sweep-DESIGN can start now; PO schedules the build). CORRECT-BY-CONSTRUCTION generalization of a recurring class: real iOS Safari/WebKit does NOT reliably fire tap/click on FRAGILE NON-NATIVE interactive elements (a div / span / h2 / implicit-label wired as a click target) that Chromium (incl. Playwright device EMULATION) DOES - so the headless gate goes GREEN while the real device FAILS = a FALSE-GREEN device-QA cycle. This hit >=3x: (1) R31.12 room-title h2 (->real button); (2) R31.12 config RADIO buttons (don't select on real iOS tap); (3) R30.53 Monaco codicon chevrons. RULE: EVERY interactive element MUST be a real button / real input (type=radio/checkbox/etc.) / [role=button]+tabindex with a WebKit-RELIABLE tap (native control, or pointerup/touchend + change - NOT a bare click on a non-native element). PLUS a STANDING LINT/SWEEP so a NEW fragile tap-target is caught BY CONSTRUCTION (at commit/CI), NOT by a Tron device-QA cycle. Together = the iOS-WebKit-tap-fire false-green is designed OUT, not chased one-at-a-time. Route (when scheduled): architect designs the sweep + lint rule, fresh expert implements the sweep, tester gates (lint fires on an injected fragile tap-target; sampled real controls fire on real @390 WebKit). Chain wires onto the built fix. Team-discovery (req-eng recurring-pattern flag, PO-approved 2026-07-27).",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
+  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+  "sprintName": "Sprint 31",
+  "useCases": [],
+  "unitLinks": [],
+  "status": "next-backlog",
+  "scheduleNote": "NEXT, NOT-NOW (PO 2026-07-27): the FIX sweep is substantial - needs a FRESH expert (not the ~80% one); the sweep-DESIGN (architect) can start now. Captured scenario-first; PO schedules the build. Do not create build tasks until scheduled.",
+  "discoverySource": {
+   "type": "team-discovery",
+   "discoveredBy": "robbin-req (recurring-pattern flag) + Tron device-QA (3 instances)",
+   "flaggedBy": "robbin-req via robbin-po (PO-approved 2026-07-27)",
+   "date": "2026-07-27",
+   "note": "3rd iOS-WebKit-tap-fire false-green in one sprint (h2-title, config radios; + R30.53 codicon) -> generalize to a correct-by-construction rule + standing lint so the class is designed out, not caught by a device-QA cycle each time. Marked NEXT (substantial sweep, fresh expert). See the memory 'ios-webkit-tap-fire-fragile-elements'."
+  },
+  "crossRef": [
+   "ior:instance:ede037dc-9a53-4b8b-9ff1-971b0469c0af"
+  ],
+  "crossRefNote": "Generalizes the 3 instances: R31.12 (ede037dc) title-h2->real-button + config radios don't-select-on-iOS-tap; R30.53 Monaco codicon chevrons (render/interact only on real WebKit). Each was a false-green (Chromium/emulation passed, real iOS WebKit failed) caught by a Tron device-QA cycle. R31.15 designs the whole CLASS out by construction (native controls + standing lint).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-no-fragile-tap-targets",
+    "group": "invariant",
+    "text": "NO interactive element is a fragile non-native tap target: NO div / span / h2 / implicit-label wired as a click/tap target. EVERY interactive element is a real <button>, a real <input> (radio/checkbox/text/etc.), or a [role=button]+tabindex=0 element - a proper accessible/native control."
+   },
+   {
+    "id": "AC-webkit-reliable-tap",
+    "group": "functional",
+    "text": "Every interactive element FIRES/SELECTS reliably on a real iOS-WebKit tap - via a native control or pointerup/touchend + change, NOT a bare click handler on a non-native element (which Chromium fires but real WebKit does not). Sampled real controls fire on real @390 WebKit."
+   },
+   {
+    "id": "AC-standing-lint-sweep",
+    "group": "invariant",
+    "text": "A STANDING LINT / SWEEP catches a NEW fragile tap-target BY CONSTRUCTION - at commit/CI, a click/tap handler bound to a non-native element (div/span/h2/implicit-label) FAILS the check. The class is caught by the lint, NOT by a Tron device-QA cycle. Testable: inject a fragile tap-target -> lint fires."
+   },
+   {
+    "id": "AC-scheduled-next",
+    "group": "meta",
+    "text": "Captured scenario-first but marked NEXT / NOT-NOW: the FIX sweep is substantial (fresh expert, not the ~80% one); the sweep-DESIGN can start now. NOT dispatched for build until PO schedules; the chain (UC->Class->Method->Impl->Test) mints onto the built fix then."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea"
+}

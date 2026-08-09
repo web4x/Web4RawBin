@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "65423a29-3f09-4034-9d88-a49892923e92",
+    "name": "RbDiagramDetail.boxSelect",
+    "description": "Box-click handler in rb-diagram-detail: sets local _selectedBox (CSS highlight) + dispatches tree-reveal (location.hash / revealNode), REMOVES the selectionModel.replaceWith call (rb-diagram-detail:141-142) so shared selection is untouched and the drawer keeps the diagram. markerPending.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+    "implementations": [
+      "ior:instance:bde57b1a-3cc5-4c79-8656-18d29a01c979"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+}

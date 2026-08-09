@@ -1,0 +1,18 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "c3902503-5bdc-479c-8457-51ba4421f98a",
+  "name": "modelTree.ensureViewUnit",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-35-buttons-to-actions-universal-scenarios/design-buttons-actions-scenarios.md?commit=0c27937ef",
+  "parent": null,
+  "unitLinks": [],
+  "description": "R35.2: generalize ensureFolderFileUnit (64c4f023) -> ensureViewUnit(ior) minting Folder/File/PumlArtifact in MODEL_STORE for the currently-null synthetic-MOF + puml-src cases. Method = the generalized resolver (build-go: expert extends/renames ensureFolderFileUnit -> ensureViewUnit; re-point on ship, data=truth).",
+  "method": "ior:instance:64c4f023-7dba-40bb-af17-0bc6ab18571d",
+  "crossRef": [
+   "ior:instance:005dbd3e-19e3-473f-944b-96c4e8053b4a"
+  ],
+  "crossRefNote": "R35.2 nav-enablement: the onUniversalAction nav fix (005dbd3e impl-edit, synthetic-ref /api/ior branch) makes both buttons NAVIGATE to the ensureViewUnit-resolved MODEL_STORE unit. Credited on 005dbd3e (R34.1 chain, impl-edit) — crossRef only, no double-count; the R35.2 Test 9bc0a109 verifies the end-to-end resolve+nav on a09b474d."
+ },
+ "ownerIor": null
+}

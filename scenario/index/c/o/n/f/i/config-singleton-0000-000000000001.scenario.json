@@ -3,8 +3,9 @@
   "model": {
     "uuid": "config-singleton-0000-000000000001",
     "name": "RawBin Config",
-    "version": "0.7.135",
-    "branch": "rawbin"
+    "version": "0.8.76",
+    "branch": "rawbin",
+    "plantumlUrl": "http://localhost:8089"
   },
   "ownerIor": null
 }

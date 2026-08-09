@@ -1,0 +1,46 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "caab6d86-35b8-4865-acf4-d4210670e775",
+    "name": "Open Claude.ai RC action (per-pane deep link to the pane's agent)",
+    "altId": "R40.1",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:350ab353-0f6b-496c-b2f5-ff0f2eaf0ce2"
+    ],
+    "description": "An action, visible and fireable from a pane's surface, that opens the Claude app (or the web page as fallback) at the SELECTED pane's AGENT's Remote Control — resolving the pane -> its agent -> its session id -> a per-pane deep link (e.g. claude.ai/code/<session-id>) — so firing it on pane 0.1 opens 0.1's agent's RC, never another pane's.",
+    "tronQuote": "an action that opens the Claude app or webpage at the AGENT's RC for the SELECTED pane (per-pane deep link, e.g. claude.ai/code/<session-id>)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-visible-fireable",
+        "group": "visible-fireable",
+        "text": "The action is visible AND fireable from the pane surface (the pane's own action affordance)."
+      },
+      {
+        "id": "AC-resolve-chain",
+        "group": "resolve-chain",
+        "text": "Firing resolves the SELECTED pane -> its agent -> its session id -> the RC deep link (claude.ai/code/<session-id>)."
+      },
+      {
+        "id": "AC-app-else-web",
+        "group": "app-else-web",
+        "text": "Opens the Claude app if available, else the web page (app-if-available-else-web)."
+      },
+      {
+        "id": "AC-right-agent",
+        "group": "right-agent",
+        "text": "Opens the RIGHT agent's RC: firing on pane 0.1 must NOT open 0.0's RC (per-pane isolation, no cross-pane leak)."
+      },
+      {
+        "id": "AC-device-gate",
+        "group": "device-gate",
+        "text": "Verified @390 mobile REAL-WebKit: the action fires and opens the correct per-pane deep link."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

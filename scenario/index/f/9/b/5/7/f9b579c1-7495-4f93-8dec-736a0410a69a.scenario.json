@@ -9,7 +9,10 @@
       "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234"
     ],
     "tests": [
-      "ior:instance:5b79cc8e-e44c-4cbb-ab54-9d9d06ab596b"
+      "ior:instance:5b79cc8e-e44c-4cbb-ab54-9d9d06ab596b",
+      "ior:instance:3e57bca1-089e-43ea-b3cf-ae69144b2b33",
+      "ior:instance:cd6503cf-e79f-46ba-8ddc-7a19588ac436",
+      "ior:instance:ad86c3a0-8db2-446c-8e09-a9c7d0aee4b2"
     ]
   },
   "ownerIor": "ior:instance:6fc898ab-a933-4756-920a-3c9e4050d234"

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0870c78b-6268-4de2-a86b-0b74dfe7cf0d",
+    "name": "test:R-C7 BoardMigrator 5-gate BITE (proveComplete refuse + applyMigration proof-gated)",
+    "description": "Bridged to test/visual/rc7-migrate-board-bite-gate.ts (DET, scripts-only). PROVEN-BY-BITE not asserted: (1) plant a hand item absent from units -> proveComplete NAMES it fail-loud + flips complete when present; (2) --prove READ-ONLY (git clean); (3) --apply PROOF-GATED (REFUSED G1 when prove fails); (4) atomic+reversible; (5) narrative yields 0 significantItems (G5 excluded). Live: --prove S18 REFUSES 98 gaps. ONE gate exercises BOTH Impls (multi-impl Test): proveComplete 21e38b44 + applyMigration 73f045d8. Verify-owner-first: distinct-intent (the R-C7 5-gate BITE), no cross-wire.",
+    "sourceFile": "ior:file:test/visual/rc7-migrate-board-bite-gate.ts",
+    "implementations": [
+      "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095",
+      "ior:instance:73f045d8-e0ac-4afc-b357-92e76aa8ddc0"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+}

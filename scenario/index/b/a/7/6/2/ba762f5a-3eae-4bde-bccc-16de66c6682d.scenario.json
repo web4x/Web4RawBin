@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ba762f5a-3eae-4bde-bccc-16de66c6682d",
+    "name": "test:R32.2 TsToModel TS->M1 generation (4 ACs + planted-defect bite, INDEPENDENT gate)",
+    "description": "Bridged to test/visual/r322-ts-to-model-gate.ts (INDEPENDENT tester gate GREEN DET-3x, 690c6568b - tester's OWN tsx harness + synthetic fixture + oracle, NOT vitest, NOT the expert's r32.2-gate.ts tsx self-check). Verifies the 4 finalized R32.2 ACs: (a) TS AST->M1 ModelElement with multi-facet instanceOf [UmlX, ts-X-code]; (b) get+set same-name->ONE property + members[]/memberOf composition; (c) typed->relatesTo + M2 UmlAssociation, extends->UmlGeneralization; (d) DETERMINISTIC same-uuid re-parse identical + 0-churn re-write (w1=8,w2=0) + ModelValidator(generated+seed)=0. GATE-THAT-BITES: a planted broken M1 (empty instanceOf) is CAUGHT by the validator (RED). Marker ba762f5a adopted from origin (measured line 1, not invented). Honest tester-real credit (not expert self-check). Chain: R32.2 req 4a9c6ee7 -> UC efaea742 model.generate -> Class fc2f97c9 TsToModel -> Method 970c7956 TsToModel.generate -> Impl 382f8644 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r322-ts-to-model-gate.ts",
+    "implementations": [
+      "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:382f8644-9e19-472e-91c8-8d4f68b198ad"
+}

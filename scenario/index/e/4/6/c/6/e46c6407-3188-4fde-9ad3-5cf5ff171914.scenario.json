@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "e46c6407-3188-4fde-9ad3-5cf5ff171914",
+  "name": "modelElement.usedInResolver",
+  "description": "R36.5 where-used RESOLVER (NEW decl, expert-confirmed distinct node): computes the back-references for a unit -- 'where is this used' -- from unit.usedIn[{kind:'diagram'|'folder', ref}] <-> the existing Diagram.views[]/folder links. Distinct from openBaseUnit (2d58e144, Scenario/Edit->base, rides onUniversalAction) and from the usedIn-maintenance (rides add-view/persistRemoveView impl-edits). IMPL-MINT; expert marks on the resolver decl. Provisional name server.resolveUsedIn, re-point on ship.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:e48832b2-4b28-430f-96a7-50000948fad9",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-36-unify-traceability-m2-uml-model/design-unify-traceability-uml.md?section=R36.5&commit=b08995a28",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

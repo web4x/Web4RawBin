@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "ae106047-eb62-4a99-9b33-84f91697269f",
+    "name": "test:R-C7 proveComplete FAIL-CLOSED BITE (unresolvable/wrong-ior -> REFUSE named, not vacuous-pass)",
+    "description": "Bridged to test/visual/rc7b-provecomplete-failclosed-bite-gate.ts (DET, own-oracle, scripts-only). PROVEN-BY-BITE the fail-open hole I flagged: proveComplete on an unresolvable / wrong-ior (e.g. a Requirement uuid where a Sprint is required) / null target now REFUSES with a NAMED reason ('resolves to ior:class:Requirement, not Sprint') instead of complete:true VACUOUS (BITES); a genuinely-complete target still proves complete (holds). DISTINCT-INTENT fail-closed refuse, ALONGSIDE the existing 0870c78b 5-gate completeness-proof on the same Impl (2 distinct Tests, no double-credit). Verify-owner-first.",
+    "sourceFile": "ior:file:test/visual/rc7b-provecomplete-failclosed-bite-gate.ts",
+    "implementations": [
+      "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
+}

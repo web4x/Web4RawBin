@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a79f6091-9024-4b36-a350-3d71668083fb",
+    "name": "server.authorTrace impl (UmlTraceRelationship persist, keyToUuid idempotent)",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerPending": false,
+    "tests": [
+      "ior:instance:d41ee143-5817-4355-adfa-08c70a827a16"
+    ]
+  },
+  "ownerIor": "ior:instance:fde7eecc-fd61-468d-aaa2-2535cdc2322c"
+}

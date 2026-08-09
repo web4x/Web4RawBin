@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "94154aba-f2c5-4fdd-8aea-446dd0c11dd6",
+    "name": "server.usedInSurvivesRegen",
+    "description": "R36.2 usedin-survives-regen: assert usedIn persists across TsToModel re-generate via the usage-index side-index (server.ts). R36.2 AC-usedin-survives-regen R30.11 SHARED-IMPL credit (architect 33dfa047e mechanism BUILT by-construction: usage-index.json is a SEPARATE MODEL_STORE side-index keyed by canonical uuid, OUTSIDE the generated element, so a TsToModel re-generate leaves usedIn intact). This R36.2 OWN Method RIDES the EXISTING server.resolveUsedIn Impl 2f44e112 with DISTINCT INTENT (usedin-SURVIVES-REGEN) — 2f44e112 stays R36.5-owned (Method e48832b2, Test 91a10db8); NO re-credit, NO markerPending flip, NO touch. Credit = a distinct-intent Test. Test-PENDING (tester gates: add usedIn -> re-generate -> usedIn PERSISTS).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:2f44e112-ce56-4fe5-892c-a55aab5f3bf3"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

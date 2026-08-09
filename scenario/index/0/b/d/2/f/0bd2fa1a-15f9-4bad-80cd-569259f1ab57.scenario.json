@@ -1,0 +1,24 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "0bd2fa1a-15f9-4bad-80cd-569259f1ab57",
+  "name": "Task 34.4: Element remove-from-diagram appears in the bar (wire active-diagram context) — RESIDUAL, rides R33.9 [R-C]",
+  "slug": "task-34.4-remove-from-diagram-residual",
+  "description": "R-C (residual). The R33.9 remove-from-diagram verb (model.ts:75, removeFromDiagram handler) already EXISTS but shows only when a diagram is active. RESIDUAL: ensure rb-active-diagram{uuid} fires when a diagram is viewed AND an element is selected from THAT diagram, so membership verbs (incl remove-from-diagram) appear. NO new verb — ride R33.9.",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.4 `[requirement:uuid:21d3df6c-bd67-46db-af28-f161069d789e]`\n  - down\n    - None (atomic task)",
+  "acceptanceCriteria": "- [x] (functional) When a diagram is being viewed AND an element is selected from THAT diagram, rb-active-diagram{uuid} fires so membership verbs (incl remove-from-diagram) appear in the bar.\n- [x] (functional) The EXISTING R33.9 remove-from-diagram verb removes the element FROM the diagram - no new verb fabricated.\n- [x] (functional) Rides R33.9 actionsForContext + removeFromDiagram (ride-existing; NO new Method/Impl - the chain reuses the built R33.9 nodes).\n- [x] (gate) GATE @390 real-WebKit: select an element that IS in the open diagram -> remove-from-diagram shows + works.",
+  "subtasks": "None (atomic task).",
+  "status": "Done",
+  "coveredRequirements": [
+   "ior:instance:21d3df6c-bd67-46db-af28-f161069d789e"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+  "sprintName": "Sprint 34",
+  "remainingIssues": "DONE: R-C built v0.8.40 (86fdde41d, active-diagram context so remove-from-diagram membership verb appears; rides R33.9) + chain-complete-to-Test (Impl 4c9c3969 tests[]=[72af686c,5c898784], markerPending=false, req mint 836ff1193 re-pointed R-C UC to built reality, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-03"
+ }
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0172b45d-fdf5-402c-a352-0250db145eed",
+    "name": "test:R36.3 T2 signature-content render @390 (renderMethodFacet, distinct-intent on shared renderFacet Impl)",
+    "description": "Bridged to test/visual/r363-method-facet-webkit-gate.ts (INDEPENDENT tester @390 real-WebKit, GREEN DET-3x, adopted from origin — measured, not invented). R30.11 distinct-intent: credits R36.3 renderMethodFacet d8818494 (method facet PAINTS 'visibility name(params): returnType' @390 real-WebKit; no-sig->bare name() fallback). Rides shared Impl 94ad4f50 (owned by R36.2 renderFacet a6a05d34) ALONGSIDE R36.2's test e21b876d — no re-credit.",
+    "sourceFile": "ior:file:test/visual/r363-method-facet-webkit-gate.ts",
+    "implementations": [
+      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+    ],
+    "status": "pass",
+    "unitLinks": [],
+    "distinctIntent": true
+  },
+  "ownerIor": "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+}

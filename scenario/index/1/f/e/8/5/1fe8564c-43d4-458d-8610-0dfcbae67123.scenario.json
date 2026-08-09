@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "1fe8564c-43d4-458d-8610-0dfcbae67123",
+    "name": "test:R35.1 legacy buttons -> universalActionBar verbs present+fire per type @390 (registerUniversalActions)",
+    "description": "Bridged to test/visual/r351-universal-actions-webkit-gate.mjs (INDEPENDENT tester real-WebKit @390 gate on the SERVED client bundle app-Z4FFIEQT.js v0.8.49, GREEN DET-3x). Marker adopted from origin (measured, not invented). The 4 legacy per-detail buttons are converted to universalActionBar verbs, type-conditional PRESENT per type on /trace live (member/user->download-vcard, file->preview-file+open-newtab, webitem->proxy-preview), composing with the A1 [Scenario,Edit] default (foundation UNREGRESSED, no verb-leak across types), each FIRES its exact old effect (window.open / toggle rb-preview-pane / #wi-frame /api/proxy / .vcf download) = INV-1. INV-2 bespoke buttons removed in source. ★ HONEST SCOPE: /trace is LIVE-gated headless; ROOM = the SAME shared rb-detail-drawer (source-verified self-registers registerUniversalActions -> room by construction; room-live render needs a joined room+content, covered by Tron @390 device for the visual). Single-impl on b8f284c6 (a1a5be99 UNTOUCHED — type-verbs live in the provider, not actionsForContext defaults).",
+    "sourceFile": "ior:file:test/visual/r351-universal-actions-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:b8f284c6-9cad-4865-adac-53321f4cf666"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:b8f284c6-9cad-4865-adac-53321f4cf666"
+}

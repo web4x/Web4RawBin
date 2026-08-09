@@ -6,7 +6,8 @@
     "description": "Server-side read of the otmux/tmux session/window/pane tree for the Server Manager view (R31.3). Read-only: raw `tmux list-panes -a -F` (NOT the OOSH otmux wrapper — avoids server-ctx tty/classifier gates), parsed to sessions -> windows -> panes with pane_id (%N) as the stable attach target. Owner-gated via ServerManagerGuard. Design-ahead; intended impl src/ts/server/OtmuxBridge.ts. See design-server-manager.md.",
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
     "methods": [
-      "ior:instance:7d7221d8-b2d1-43a3-b9c4-896a912454b6"
+      "ior:instance:7d7221d8-b2d1-43a3-b9c4-896a912454b6",
+      "ior:instance:e56fcd32-fd56-4e9d-b8e2-23764fbc951c"
     ]
   },
   "ownerIor": "ior:instance:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552"

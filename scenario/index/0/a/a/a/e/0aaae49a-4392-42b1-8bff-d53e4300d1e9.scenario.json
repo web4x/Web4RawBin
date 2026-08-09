@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "0aaae49a-4392-42b1-8bff-d53e4300d1e9",
+    "name": "test:R33.6.1 empty-diagram add-view @390 - tap class onto NEW/EMPTY diagram -> box 0->1 + disk persist + roundtrip",
+    "description": "Bridged to test/visual/r3361-empty-addview-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x on the LIVE client bundle v0.8.21 model-7OFPF33R.js, 61d11399f - measured DISK view-count 0->1 + roundtrip, NOT the expert's DOM own-oracle; gated the SERVED bundle not /api/config which lags 0.8.20). Marker adopted from origin (measured line 9, not invented). ★ DUAL-IMPL (PO 'map both'): CREDITS the R33.6.1 stripPrefix fix path RbDiagramDetail.addView (Impl 4e74dfee, PRIMARY/owner - the stripRef 'diagram:' one-liner that unblocks the empty-diagram case) AND the tap trigger RbDiagramDetail.onSelectionChanged (Impl 20f8a19e, UC diagram.tapToAdd). Verifies: tap a class onto a NEW/EMPTY diagram -> selectable box w/ compartment APPEARS (0->1) + DISK view-count persists 0->1 + ROUNDTRIP re-mount renders from disk (survives reload) + planted-bite (non-modelelement ref -> early return, no addView, diskViews stays 0). Rides the existing R32.11 add chain (no fabricated Impl). Chain: R33.6.1 req a5205512 -> UC diagram.addToEmptyDiagram 8e0d0a96 -> Class RbDiagramDetail 039ec367 -> Method addView 70be1605 -> Impl 4e74dfee -> this Test (+ credits onSelectionChanged 20f8a19e).",
+    "sourceFile": "ior:file:test/visual/r3361-empty-addview-gate.mjs",
+    "implementations": [
+      "ior:instance:4e74dfee-e9ea-4284-80c7-f196b91e93a9",
+      "ior:instance:20f8a19e-a508-4fcd-8329-04b73bbbcc54"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4e74dfee-e9ea-4284-80c7-f196b91e93a9"
+}

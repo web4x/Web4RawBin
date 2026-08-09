@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "56fe4cdb-9bef-4615-ab85-a6387f38aec8",
+  "name": "diagram.canvasGrowOnZoomOut",
+  "description": "R33.7.1 AC-zoom-canvas-px-grows (device IMG_4793 sharpen, architect diagnosis c725df623, expert fix 749b36335 v0.8.31): zoom-OUT measurably GROWS the SVG canvas rendered dims (width/height px)/viewBox/scroll-area - boxes keep size, the canvas grows around them = real room - NOT merely content scale. DISTINCT decl from setScale (RbPanZoom scale/zoom-range, INV-Z1 scale) - this is the CANVAS-dims grow on RbDiagramDetail (crediting it to setScale would re-conflate scale-vs-canvas = the exact false-green the sharpen prevents). Trigger = RbPanZoom.apply() growMode branch + onCanvasGrow callback (a, call-site); authoritative canvas-grow = RbDiagramDetail.applyCanvasGrow (b, the SVG-dims/viewBox grow). Composes with R33.6.2 edge-autoscroll. No fork.",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "method": "ior:instance:e9792c2b-d78f-4ce0-9f2d-bbfa17686f7e",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.7.1&commit=c725df623",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

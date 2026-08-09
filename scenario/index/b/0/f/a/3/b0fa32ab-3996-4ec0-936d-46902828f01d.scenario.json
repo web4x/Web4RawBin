@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "b0fa32ab-3996-4ec0-936d-46902828f01d",
+    "name": "ModelView.wireDrawerActions",
+    "description": "NEW host method on ModelView (model/model.ts): registers the rb-drawer-detail-shown listener, maps ACTIONS_BY_TYPE[type] -> drawer.setActions(...), and handles rb-drawer-action{verb} by dispatching to existing addDiagram/importPuml/reSyncFromSource; retires the page-top mountActionBar strip. Host-owned type->actions map. markerPending. NAME PROVISIONAL — expert places the real decl marker, req re-points (data=truth).",
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "implementations": [
+      "ior:instance:613bfb4a-7214-4cf6-b2fa-d32f96559d18"
+    ],
+    "tests": [],
+    "markerPending": false
+  },
+  "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
+}

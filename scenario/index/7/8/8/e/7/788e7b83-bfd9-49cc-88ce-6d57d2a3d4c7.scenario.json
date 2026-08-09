@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "788e7b83-bfd9-49cc-88ce-6d57d2a3d4c7",
+    "name": "test:R31.7 INV-V3 versionGuardTreeClean — lone deploy-critical hand-edit blocks deploy (Build.versionGuardTreeClean)",
+    "description": "Bridged to test/visual/r317-single-source-version-gate.mjs (DET-3x GREEN, served==HEAD, commit 1127ea6e7). Verifies R31.7 INV-V3 (Build.versionGuardTreeClean, start.mjs:84): a lone hand-edit of a deploy-critical file (server.ts / package.json / sw.js / config-unit) that diverges from HEAD makes `git diff --quiet HEAD -- <files>` fire -> start.mjs exits 1 pre-deploy (the phantom-version-desync landmine). 3 files caught, baseline-clean each; worktree-isolated non-mutating. Marker 788e7b83 adopted from origin (measured line 1-2, not invented). Impl 81151504 on Class Build (start.mjs). INV-V4 (getVersion boot-frozen) already closed separately.",
+    "sourceFile": "ior:file:test/visual/r317-single-source-version-gate.mjs",
+    "implementations": [
+      "ior:instance:81151504-4fd8-4210-aca3-4eb19ce05655"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:81151504-4fd8-4210-aca3-4eb19ce05655"
+}

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "bf676884-164a-442c-9193-bb54e315c92b",
+  "name": "drawer.actionBarRegion",
+  "description": "R33.6.5 item-5 (AC-actionbar-fixed-in-drawer, INV-R33.6.5-1): rb-detail-drawer.render() adds a FIXED .drawer-actionbar region BETWEEN .drawer-header (handle+close) and .drawer-body (scroll), hosting a reused rb-strip (S31). GENERIC API RbDetailDrawer.setActions(items:{verb,label}[]) renders the strip buttons (empty->hidden bar) + emits rb-drawer-action{verb,ref} on click. Shared-generic (INV-3): zero model specifics; /trace+/scenario register no actions => empty bar, unaffected.",
+  "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+  "method": "ior:instance:24d9c3f3-eb7a-41b5-ab64-2ad41e70114c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-33-mof-layered-tree/design-mof-tree.md?section=R33.6.5&commit=7b264ec59",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

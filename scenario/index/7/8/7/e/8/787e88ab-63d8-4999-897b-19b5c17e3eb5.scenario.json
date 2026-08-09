@@ -5,8 +5,8 @@
     "name": "T-remove-spectator: strip isSpectator/mode/role/UI/join-flow/server/MSG types",
     "slug": "remove-spectator-mode-role-ui-join-flow-msg-types",
     "description": "Remove all spectator-related code: isSpectator field, spectator mode/role, spectator UI elements, spectator join flow, server-side spectator handling, and spectator-related message types. Rooms have no spectator concept. Covers R19.24.",
-    "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (chain wired b49dc787)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "status": "QA Review",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (chain wired b49dc787)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:7d6c95ce-c2e5-4119-b74b-c26be7dbafc6"
     ],

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
+    "name": "DiagramViewModel.renderFacet",
+    "description": "diagram-view-model.ts:61 export function renderFacet(view,node): facet-lens per view.viewKind (built once). Built v0.8.55 (60afefa5d). IMPL-MINT — expert marks [impl:uuid:94ad4f50-aac8-4de5-ad34-e6776fc4b938] on the name-matching decl.",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "implementations": [
+      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+}

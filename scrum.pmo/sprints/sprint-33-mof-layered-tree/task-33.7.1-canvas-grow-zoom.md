@@ -1,0 +1,46 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 33.7.1: Zoom-out always grows the SVG diagram canvas (fixes the space problem) with per-diagram persisted zoom where 1 = 100% = whole diagram
+
+[task:uuid:5ef5440d-5f90-4d1d-82dd-de8648d71994]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
+- [x] Done
+
+## Remaining Issues
+
+DONE: chain-complete-to-Test (Test 7c3e9a10 canvas-grow PX v0.8.31 + endless-zoom-out regression FIXED v0.8.32 GREEN DET-3x 6d96b4941 + persist-zoom) + REAL-WEBKIT @390 self-gated GREEN (r371, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done (IMG_4795 space-problem resolved).
+
+## Traceability
+
+  - up
+    - [Sprint 33 Planning](./planning.md)
+    - Requirement R33.7.1 `[requirement:uuid:754a1f9d-df31-490f-9061-9585b80eb51d]`
+  - down
+    - None (atomic task)
+
+## Task Description
+
+Tron item-1 (HIGHEST PRI, acute 'space problem'). Zooming OUT is ALWAYS possible and GROWS the SVG diagram canvas so more elements fit; the zoom level is SAVED on the Diagram unit (persisted per-diagram); zoom level 1 = 100% = frames the WHOLE diagram, and stays anchored so 1 always frames the whole diagram as it grows. Reuse RbPanZoom (already used for R33.6.2 edge-autoscroll), NO fork.
+
+## Acceptance Criteria
+
+- [x] Zooming OUT is ALWAYS available and GROWS the SVG diagram canvas (more room for elements) - never blocked/clamped-to-a-floor that traps the user in a full canvas. Reuses RbPanZoom. ★ SHARPENED by AC-zoom-canvas-px-grows: grows the canvas = measurable PX growth of the SVG dimensions/scroll-area (boxes keep size), NOT just the content scale.
+- [x] The current zoom level is PERSISTED on the Diagram unit (per-diagram, MODEL_STORE) and SURVIVES a reload / fresh re-mount - reopening the diagram restores its saved zoom.
+- [x] Zoom level 1 = 100% = frames the WHOLE diagram; as the canvas grows via zoom-out, level 1 stays anchored to frame the whole diagram (1 is always 'fit whole').
+- [x] GATE @390 (screenshot/pixel + planted bite): on a crowded diagram, zoom OUT -> canvas grows + elements fit (space problem solved); reload -> the saved zoom level is restored; set to 1 -> the whole diagram is framed. planted: zoom-out blocked or zoom not persisted = RED. ★ SHARPENED (IMG_4793): the gate MUST assert the SVG canvas rendered width/height px (or scroll-area) INCREASES on zoom-out - NOT merely the scale value - + Tron device confirm. A scale-only pass is a FALSE-GREEN for the space-problem intent. ★ RE-SHARPENED (device bc21ca747): gate REPEATEDLY - many zoom-out steps, EACH works + canvas grows in px, NO floor-cap; a one-step pass OR a hard MIN floor = FALSE-GREEN.
+- [x] Zoom-OUT measurably INCREASES the SVG canvas rendered dimensions (width/height px) and/or the scrollable placeable area - the boxes KEEP their size, the canvas GROWS around them = real room - NOT merely the content scale value. (Device-QA IMG_4793: the prior gate passed scale<1/1=whole/persist but Tron's device showed zoom-out only scaled content, the canvas never grew = space-problem unsolved. Architect diagnosis c725df623: 2 gaps - viewBox stays tight (0 0 maxX maxY) + pure-scale CSS transform, so nothing enlarges the canvas.)
+- [x] Zoom-out is ALWAYS possible - REPEATED zoom-out (many steps) keeps working with NO blocking floor (endless-in-practice) AND the canvas grows each step. A hard MIN floor that CAPS zoom-out (e.g. a MIN=0.25 clamp that stops further zoom-out) = RED. (Device bug, architect diagnosis bc21ca747: the MIN-0.25 floor from the setScale fix capped repeated zoom-out - the earlier one-step gate green'd but the user hit the floor. Endless-in-practice = no user-reachable cap.)
+
+## Subtasks
+
+None (atomic task).

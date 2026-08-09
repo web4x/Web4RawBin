@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d41ee143-5817-4355-adfa-08c70a827a16",
+    "name": "test:R36.4 authored-trace mechanism (server.authorTrace) — idempotent + 403-gate",
+    "description": "Bridged to test/visual/r364-trace-mechanism-gate.ts (INDEPENDENT tester engine-independent gate, GREEN DET-3x, marker 8b5026f85). Marker adopted from origin (measured, not invented). POST /api/model/trace/create + GET /api/model/traces feature-gated: no-token AND non-owner -> 403; idempotent (keyToUuid re-bind, server.ts:1106). Chain: R36.4 2265ad63 -> UC modelElement.authorTrace 3a1428cd -> Method server.authorTrace fde7eecc -> Impl a79f6091 -> this Test. DATA-CORRECTION: the tester marker comment referenced \"Impl 8c68b925\" which is the buildEdges METHOD (render layer, diagram-view-model.ts) in error; the authored-trace mechanism Impl is a79f6091 (server.authorTrace, server.ts) — credited here per measurement + PO.",
+    "sourceFile": "ior:file:test/visual/r364-trace-mechanism-gate.ts",
+    "implementations": [
+      "ior:instance:a79f6091-9024-4b36-a350-3d71668083fb"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:a79f6091-9024-4b36-a350-3d71668083fb"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bd8c14fc-f6b9-42f1-affb-6322faa6dced",
+    "name": "test:R33.6.5 item6 INV-3 shared-generic detail-shown contract (RbDetailDrawer.showActionsForType) @390",
+    "description": "Bridged to test/visual/r3365-drawer-actions-independent-gate.mjs (INDEPENDENT tester @390 gate, GREEN DET-3x served v0.8.22, b1b021574). Marker adopted from origin (measured, not invented). item-6 INV-3 shared-generic: the rb-drawer-detail-shown{type} contract drives the bar; on /trace (NO host registered) the SAME shared drawer's bar stays HIDDEN - no model actions leak into the shared drawer. Chain: R33.6.5 req 3c6eee8d -> UC drawer.selectionDrivenActions e0fce253 -> Class RbDetailDrawer d86af73d -> Method showActionsForType c6a39be3 -> Impl e6870858 -> this Test.",
+    "sourceFile": "ior:file:test/visual/r3365-drawer-actions-independent-gate.mjs",
+    "implementations": [
+      "ior:instance:e6870858-2f5b-4605-a2a7-31b366dd41e2"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:e6870858-2f5b-4605-a2a7-31b366dd41e2"
+}

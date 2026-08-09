@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "576af5f0-92c2-4d5a-8e11-5fbcdc8c5e72",
+    "name": "SprintPinResolver.resolveSprintPin",
+    "description": "Pure resolveSprintPin(idx): {current,lastCompleted,nextBacklog}, each {uuid,number,name}|null. NUMBER-KEYED (never name-substring/\\d+). current=the only Active (>=1 task derives In-Progress AND not superseded) sprint — QA-pending-only does NOT qualify (INV-C1-3); >1 Active = FAIL-LOUD ambiguous (INV-C1-4), never silent-pick; none->null. last-completed=highest-number fully-Done. next-backlog=lowest-number Planned with number>current.number. FAIL-CLOSED on vacuous (INV-C1-6): empty tasks[] != Done; an unresolvable task ref REFUSES that sprint with a named reason (never silent-skip); malformed checklist noted. R-C1. Design-ahead -> expert marks the decl.",
+    "implementations": [
+      "ior:instance:af97137f-cce1-4b1c-9bb8-40d84dbd5b33"
+    ]
+  },
+  "ownerIor": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268"
+}

@@ -1,24 +1,27 @@
 {
-  "ior": "ior:class:Requirement",
-  "model": {
-    "uuid": "2ad98e53-fa9d-4d20-b259-24f91f66e47a",
-    "altId": "R20.6a",
-    "name": "R20.6a: Global SelectionModel — app-wide selection array singleton.",
-    "description": "A global SelectionModel exists as an app-wide singleton holding the current selection array of item IORs. All selection state flows through this model. Components observe it for changes.",
-    "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6a)",
-    "tasks": [
-      "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
-    ],
-    "tests": [],
-    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
-    "unitLinks": [],
-    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "intendedChain": {
-      "useCase": "selectionModel.init — app creates a single SelectionModel instance at startup",
-      "class": "SelectionModel",
-      "method": "constructor / getSelection / setSelection",
-      "test": "RED: app startup → SelectionModel exists as singleton, selection=[] empty. Assert only one instance."
-    }
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "2ad98e53-fa9d-4d20-b259-24f91f66e47a",
+  "altId": "R20.6a",
+  "name": "R20.6a: Global SelectionModel — app-wide selection array singleton.",
+  "description": "A global SelectionModel exists as an app-wide singleton holding the current selection array of item IORs. All selection state flows through this model. Components observe it for changes.",
+  "tronQuote": "> TRON: \"create a selection model globally for the app. if nothing is selected currently, the default details drawer shows the chat in room. if a item view is clicked in the middle, its the selected item. if its clicked loooong its added to the selection array. the item view get highlighted as selected and active as css. dragging one drags all. long press toggles being in the selection or removed from the selection. this will completely dedup the multiple drawer implementations and consolidate the requirements related. the css highlight on the default drawer is just awkward. remove it as in the chat. keep the x to close the drawer.\" (atomic: R20.6a)",
+  "tasks": [
+   "ior:instance:7047d04f-3226-46ff-a058-39f53f9aed58"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
+  "unitLinks": [],
+  "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+  "intendedChain": {
+   "useCase": "selectionModel.init — app creates a single SelectionModel instance at startup",
+   "class": "SelectionModel",
+   "method": "constructor / getSelection / setSelection",
+   "test": "RED: app startup → SelectionModel exists as singleton, selection=[] empty. Assert only one instance."
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "useCases": [
+   "ior:instance:2250545b-9259-414c-a5d9-7b9e4a3d5f91"
+  ]
+ },
+ "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }

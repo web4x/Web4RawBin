@@ -58,11 +58,13 @@ export function scenarioFileHref(uuid: string): string {
   return `/md/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
 }
 // v0.7.0 (3): editor deep-link for a unit — /edit/scenario/index/<shard>/<uuid>.scenario.json (existing editor route)
-export function scenarioEditorHref(uuid: string): string {
+export function scenarioEditorHref(uuid: string, storeDir = 'scenario/index'): string {
   if (!uuid) return '';
   const hex = uuid.replace(/-/g, '');
   if (hex.length < 5) return '';
-  return `/edit/scenario/index/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+  // R35.2 NAV-RESOLVE: synthetic view units (Folder/File/PumlArtifact/Project) are lazy-minted into MODEL_STORE
+  // (data/model-store/index), NOT prod scenario/index — Edit must target their ACTUAL store so OEdit resolves.
+  return `/edit/${storeDir}/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
 }
 // R26.2: EVERY detail view renders this 📄 Scenario link — no view may lack it (source of truth).
 // v0.7.0 (3): + a ✏️ pencil next to it that opens the EDITOR directly.

@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "9dba0d50-3bc7-49cf-95c8-15cf2f3bade7",
+  "name": "traceChildren.resolveChainMethod",
+  "description": "R31.10 (ITEM-1): the traceability tree resolves a UC to its CORRECT method in ALL view modes (trace + non-trace/scenario), never a sibling fallback when UC.method is set. Server attaches chainMethod=UC.method in all modes (server.ts:1644 un-gate); the client rb-trace-tree honors the authoritative pointer. Probe: UC drawer.observePosition cc45a580 -> observePosition e8097351, NOT onGrabBarPointer (R25.4). Minted onto the built fix per PO 2026-07-26 (completeness-to-Test); architect design said code-fix, PO directed the chain for completeness.",
+  "class": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0",
+  "method": "ior:instance:0fc54115-dedd-4e5c-9c8c-9ae440f5b35c",
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/design-r31.10-chain-resolve-all-modes.md",
+  "parent": null,
+  "unitLinks": [],
+  "classes": [
+   "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+  ]
+ },
+ "ownerIor": null
+}

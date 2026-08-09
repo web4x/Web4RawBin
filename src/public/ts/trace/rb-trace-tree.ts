@@ -29,6 +29,7 @@
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
+import { sprintLabel } from '../../../ts/scenario/sprint-label.js'; // R40.4 shared sprint-number label
 
 const LS_KEY = 'rawbin-trace-expanded';
 
@@ -63,6 +64,22 @@ export class RbTraceTree extends HTMLElement {
   }
   get items() { return this._items; }
 
+  // R33.5 item1 (reused helper, call-site — no marker): reveal a lazy path by UUID. Walk each ancestor, dispatch
+  // toggle-children (→ onToggleChildren fetches + renders that level), wait for the next level to appear → a
+  // freshly-created leaf SHOWS. Mirrors revealNode's DOM-walk but with an EXPLICIT path (the synthetic mof folders
+  // have no parent chain for fetchAncestorPath, and expanded is keyed by type:uuid — a raw-uuid add never matches).
+  // Match by ref*=uuid (itemRefs are type:uuid; the uuid substring is unique enough for these folder nodes).
+  async expandPath(uuids: string[]): Promise<void> {
+    for (let i = 0; i < uuids.length; i++) {
+      const item = this.querySelector(`rb-object-item[ref*="${uuids[i]}"]`) as HTMLElement | null;
+      if (!item) break;
+      if (!item.hasAttribute('children-open')) {
+        item.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } }));
+        await this.waitForNode(uuids[i + 1] || uuids[i]);
+      }
+    }
+  }
+
   private upgradeProperty(prop: string): void {
     if (this.hasOwnProperty(prop)) {
       const val = (this as any)[prop];
@@ -83,12 +100,50 @@ export class RbTraceTree extends HTMLElement {
     }
     this.addEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.addEventListener('hashchange', this.onHashChange);
+    document.addEventListener('rb-model-resynced', this.onModelResynced); // R32.8: re-render a MODEL (seed) tree after Re-Sync
+    document.addEventListener('rb-tree-reveal', this.onTreeReveal); // R33.7.4: diagram box-select → reveal that element in the tree
   }
   disconnectedCallback(): void {
     this.unsub?.(); this.unsub = null;
     this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.removeEventListener('hashchange', this.onHashChange);
+    document.removeEventListener('rb-model-resynced', this.onModelResynced);
+    document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
   }
+
+  // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4 (RED-fix,
+  // architect 9e56c218d): a diagram box-select dispatches rb-tree-reveal{ref}. The MODEL tree is SYNTHETIC folders
+  // (not unit-parents), so revealNode's ownerIor/FWD_SCAN ancestor-walk returns parent:null for model elements → dead.
+  // Instead build the EXPLICIT structural path from the element's /api/ior model (sourceFile + memberOf) and REUSE
+  // R33.5 expandPath (INV-TR1 — the SAME reuse importPumlSrc uses), then scroll+highlight the leaf via highlightNode.
+  private onTreeReveal = (e: Event): void => {
+    const ref = (e as CustomEvent<{ ref?: string }>).detail?.ref || '';
+    if (ref) void this.revealModelElement(refUuid(ref));
+  };
+
+  // R33.7.4 reveal a MODEL element by its synthetic mof path: mof-m1 → project:RawBin → rawbin:ts → file:<full-path>
+  // → (owning class if a member) → the element. src/ files nest under RawBin/ts; other sourceFiles under project:<sf>
+  // (mirrors mofChildren server.ts:1112-1119). expandPath opens each ancestor (ref*= substring, prefix-agnostic ':<uuid>'
+  // for units), then highlightNode scrolls+flashes the leaf. Off-tree/absent → graceful no-op (INV-TR3, never throws).
+  private async revealModelElement(uuid: string): Promise<void> {
+    if (!uuid) return;
+    try {
+      const m = (await (await fetch(`/api/ior/ior:instance:${uuid}`)).json())?.unit?.model || null;
+      if (!m) return;
+      const sf = String(m.sourceFile || '');
+      const ancestors = sf.startsWith('src/') ? ['mof-m1', 'project:RawBin', 'rawbin:ts', 'file:' + sf] : ['mof-m1', 'project:' + (sf || 'model')];
+      const memberOf = m.memberOf ? (String(m.memberOf).split(':').pop() || '') : ''; // a member nests under its class
+      if (memberOf) ancestors.push(':' + memberOf);
+      await this.expandPath(ancestors);
+      const leaf = this.querySelector(`rb-object-item[ref*=":${uuid}"]`) as HTMLElement | null;
+      if (leaf) this.highlightNode(leaf); // scrollIntoView + flash = the AC's scroll + highlight
+    } catch { /* INV-TR3 best-effort: reveal never throws */ }
+  }
+
+  // R32.8 AC3: a model Re-Sync (rb-diagram-detail) refreshed MODEL_STORE → re-render this tree if it's a seed
+  // (model) tree so added elements appear + removed disappear. Trace trees are unaffected — the event only fires
+  // from the model view. NO fork (reuses render()).
+  private onModelResynced = (): void => { if (this.getAttribute('data-seed-ior')) void this.render(); };
 
   private onToggleChildren = (e: CustomEvent): void => {
     const item = (e.target as HTMLElement).closest('rb-object-item');
@@ -417,7 +472,7 @@ export class RbTraceTree extends HTMLElement {
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
     // R31.3 BADGE-via-REFERENCES: carry each sprint's server task-count as childCount → buildSeedNode stamps it on the
     // node's dataset.childRefCount so the badge shows the real N before its tasks lazy-load (no nodeChildCount map).
-    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sp.name, hasChildren: sp.hasChildren !== false, childCount: sp.childCount }));
+    const spKids = sprints.map(sp => ({ uuid: sp.uuid, type: 'Sprint', name: sprintLabel(sp.name, sp.number), hasChildren: sp.hasChildren !== false, childCount: sp.childCount })); // R40.4 tree row shows the number
     this.appendChild(this.buildSeedNode('sprints-collection-30-1', 'collection', `Sprints 01-${pad2(N)}`, spKids, true, undefined, undefined, undefined, false));
     this.computeBadges();
   }

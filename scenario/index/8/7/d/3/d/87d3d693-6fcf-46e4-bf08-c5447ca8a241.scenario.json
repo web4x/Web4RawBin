@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "87d3d693-6fcf-46e4-bf08-c5447ca8a241",
+  "name": "diagram.tapToAdd",
+  "description": "R32.11-MOBILE: the TOUCH/iOS complement to the desktop drag add-view (R32.11 diagram.addView). RbDiagramDetail.onSelectionChanged listens for the document 'selection-changed' event: a SINGLE tap on a class chip (one 'modelelement:' ref) with the diagram open -> addView fires (no coords, auto-grid) -> a UML box APPEARS (POST 200). Guards: multi-select + non-modelelement refs add NO box. Fixes the Tron @390 iPhone gap (HTML5 DnD dragstart/drop does NOT fire on touch). Sibling UC of R32.11 diagram.addView (cdd29583) on the same Class RbDiagramDetail; keeps desktop DnD. Distinct Method onSelectionChanged (NOT re-crediting addView 70be1605).",
+  "class": "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78",
+  "classes": [
+   "ior:instance:039ec367-b84b-4c33-a027-b862f7596c78"
+  ],
+  "method": "ior:instance:fcd2464e-2da1-4753-9341-34306ebcf041",
+  "sourceFile": "ior:file:src/public/ts/trace/rb-diagram-detail.ts",
+  "parent": null,
+  "unitLinks": []
+ },
+ "ownerIor": null
+}

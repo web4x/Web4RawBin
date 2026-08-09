@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "cbdb3210-a2ad-4c4f-9e32-68f6f71f16b0",
+    "name": "test:R34.7 (R-E) universal action bar on all drawer usages @390 (RbDetailDrawer.universalActionBar)",
+    "description": "Bridged to test/visual/r34e-universal-bar-webkit-gate.mjs (INDEPENDENT tester real-WebKit Safari @390 gate, GREEN DET-3x, served==v0.8.44 — runtime landed 0.8.44; 0.8.45 was marker-comment-only). Marker adopted from origin (measured, not invented). the shared drawer sets the [◆Scenario,✎Edit] universal default on EVERY detail render across ALL usages — /trace + /scenario show the bar PRESENT (was MISSING pre-fix) with no model verbs; /model composes default + FULL model verb-set (unregressed R33.9); empty/chat cleared; ◆Scenario→/scenario?ior; no throws. INV-E1/E2/E3. server-manager/feature-manager/in-room ride the SAME shared component (mechanism-proven). Also covers the R-A A1 universal-default COMPOSITION (the pair shows); A1's Scenario/Edit HANDLER navigation = the distinct onUniversalAction Test (005dbd3e).",
+    "sourceFile": "ior:file:test/visual/r34e-universal-bar-webkit-gate.mjs",
+    "implementations": [
+      "ior:instance:ffd44b17-5882-4d77-94d1-a3c03c07ffad"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ffd44b17-5882-4d77-94d1-a3c03c07ffad"
+}

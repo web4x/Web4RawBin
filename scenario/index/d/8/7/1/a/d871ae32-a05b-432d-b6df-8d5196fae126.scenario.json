@@ -6,11 +6,11 @@
   "name": "Task 31.5.3: rb-snap-nav: data-driven bottom nav, one button per compartment, click snaps the viewport to its left edge",
   "slug": "task-31.5.3-rb-snap-nav",
   "description": "rb-snap-nav is a data-driven bottom nav: one button per COMPARTMENT segment (labels from the strip descriptors); click -> scrollIntoView that compartment's snap point (native, no JS scroll math). {L,C,R} for the editor / {What,Overview,Details,Actions} for WODA — ONE component, labels from the strip. BARS are NOT nav buttons (compartments are the snap targets). Depends on rb-strip (5.2).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [ ] QA Review\n- [ ] Done",
+  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
   "traceability": "  - up\n    - [Task 31.5 (umbrella)](./task-31.5-concept-scrollable-viewport-woda-layout.md)\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5.3 `[requirement:uuid:0a24ac9e-1b58-4be4-bdef-060deb6ec6a0]`\n  - down\n    - None (atomic build task)",
   "acceptanceCriteria": "- [ ] rb-snap-nav renders one button per COMPARTMENT segment (labels from the strip descriptors — {L,C,R} editor / {What,Overview,Details,Actions} WODA, one component); click -> scrollIntoView that compartment's snap point (native CSS, no JS scroll math). BARS are NOT nav buttons.\n- [ ] POSITIONING!=FUNCTION (cross-cutting, architect design b3f30491f): the SAME component instance in ANY presentation combination {bar|compartment}x{landscape|portrait}x{inline|bottom} passes the SAME functional tests (detail renders, scroll works, expand/minimize, verb-actions fire) — only computed layout/position differs. Any behavior that CHANGES with position/presentation is a DEFECT (the anti-pattern Tron flagged). Tester gates this piece at Tron's real viewport (portrait mobile scroll-snap + landscape side-by-side).\n- [ ] AC-INV-PRESENTATION (cross-cutting R31.5.8): positioning != function — presentation is a reactive layer, never a second fork.",
   "subtasks": "None (atomic build task).",
-  "status": "QA Review",
+  "status": "Done",
   "coveredRequirements": [
    "ior:instance:0a24ac9e-1b58-4be4-bdef-060deb6ec6a0"
   ],

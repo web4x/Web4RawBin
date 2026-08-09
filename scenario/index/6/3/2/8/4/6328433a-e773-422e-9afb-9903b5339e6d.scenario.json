@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "6328433a-e773-422e-9afb-9903b5339e6d",
+    "name": "ConsistencyGuard.assertNonVacuous",
+    "description": "assertNonVacuous / consistency:strict: composes the S37 guards into ONE ci:gate (pin R-C1 resolver==committed pin + dual-status R-C5 assertStatusConsistent + board-drift R-C2 missing-file=FAIL + migration-refuse R-C7 proveComplete), each guarded by refuseIfVacuous at entry; ANY refusal fails the build (INV-C3-4); folded into ci:gates:raw. Backs the vacuous-BITE suite + the meta-BITE (a stub guard that silent-passes vacuous input turns the suite RED). INV-C3-4/5. R-C3.",
+    "implementations": [
+      "ior:instance:cf756307-2e0b-474d-b494-7874180096c0"
+    ]
+  },
+  "ownerIor": "ior:instance:13cff277-e147-4897-8783-40fe2c8059f6"
+}

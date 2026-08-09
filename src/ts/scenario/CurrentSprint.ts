@@ -4,6 +4,7 @@
  * Dispatches 'current-sprint-changed' on document when state changes.
  */
 import { ScenarioIndex } from './index-store.js';
+import { fwdRefs } from '../shared/chain-model.js';
 import type { ScenarioUnit } from './types.js';
 
 export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
@@ -195,8 +196,15 @@ export class CurrentSprint {
     let sprintTaskUuids: string[] = [];
     let currentSprint: { name: string; number: number; tasks: string[] } | undefined;
     if (this.sprintName) {
+      // Match the sprint by NUMBER (robust) — the Sprint unit NAME often carries no "Sprint NN" substring
+      // (e.g. S36 = "Unify Traceability Units…"), so norm-name-includes silently MISSED and the pointer fell
+      // back to a stale focus flag (→ pinned an old sprint's task). Number parse first, name-substring fallback.
+      const numM = this.sprintName.match(/\d+/);
+      const wantNum = numM ? Number(numM[0]) : NaN;
       const key = norm(this.sprintName);
-      const match = key ? sprintUnits.find(s => norm(s.name).includes(key)) : undefined;
+      const match = !Number.isNaN(wantNum)
+        ? sprintUnits.find(s => s.number === wantNum)
+        : (key ? sprintUnits.find(s => norm(s.name).includes(key)) : undefined);
       if (match) { sprintTaskUuids = match.tasks; currentSprint = match; }
     }
     if (!sprintTaskUuids.length) {
@@ -213,6 +221,9 @@ export class CurrentSprint {
     let i = sprintTasks.findIndex(t => t.focus && !t.done);
     if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].done) i = j; }
     if (i < 0) i = sprintTasks.findIndex(t => !t.done); // forward-fall: current = first NOT-DONE WIP in-sprint
+    // Fully-COMPLETED sprint (every task Done, no open WIP): the pointer must reflect "we are at the END of
+    // Sprint N" — show the LAST in-sprint task as current rather than going blank/falling to a stale flag.
+    if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.done)) i = sprintTasks.length - 1;
     let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
     if (!current && this.chain?.req) {
       // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
@@ -387,7 +398,8 @@ export class CurrentSprint {
       // partial branch below). ucUnit-missing => refs.uc drops to '' so activeHop lands on the
       // uc hop. This never fabricates credit — it just keeps /trace honest about the CURRENT task.
       const ucM = (ucUnit?.model as Record<string, unknown>) || {};
-      const clsUuid = ior(((ucM.classes as string[]) || [])[0] || '');
+      // Pin UC->Class via the SHARED fwdRefs reader (unions canonical singular 'class' + legacy plural 'classes').
+      const clsUuid = ior(fwdRefs(ucM as Record<string, unknown>, 'UseCase')[0] || '');
       const methUuid = ior(String(ucM.method || ''));
       const methUnit = methUuid ? this.index.get(methUuid) : null;
       const methM = methUnit?.model as Record<string, unknown> | undefined;

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3d308526-d1c5-4f73-af39-7aecaa5b3cbf",
+    "name": "server.mofLayerRoots",
+    "description": "R33.1 P1 MOF-layer roots: mofLayerRoots(idx) - groups the MODEL_STORE units by model.metaLevel into the 'M2 · UML Profile' + 'M1 · Projects' folder roots for /api/model/tree (each M2 metaclass -> its M1 instances via reverse instanceOf; the M1 project -> classes -> members + PUML(code) + Diagram(svg)), emitted as the collection itemView shape rb-trace-tree renders. NEW named function on Class server c0a0921d (module-function pattern, like modelFacetType/isModelUnit). Currently the group-by is INLINE in the /api/model/tree handler; the expert EXTRACTS it into named mofLayerRoots(idx) + places [impl:uuid:5afeafe9] POST-REWIND (they were at ~75%, PO clean-boundary; req agreed to defer the marker). Architect design 4d9ec3914; scenario-first IMPL-MINT (#126).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:5afeafe9-14a7-480c-8d02-91e76539a3ae"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

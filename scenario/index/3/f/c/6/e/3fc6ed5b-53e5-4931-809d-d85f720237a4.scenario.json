@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3fc6ed5b-53e5-4931-809d-d85f720237a4",
+    "name": "DiagramViewModel.buildDiagramSvg",
+    "description": "R32.4 pure diagram-surface render core: buildDiagramSvg(views, nodeOf):{svg, count} @ src/public/ts/trace/diagram-view-model.ts:33 - a PURE function (no DOM, no side-effects) that maps a Diagram's Layer-2 view-links (each {unit, x, y, viewKind}) to SVG UML class boxes at (x,y) with 3 compartments (name/attributes/methods) from the unit's members, kind/icon from the M2 MODEL-facet (modelFacetType, R32.3), edges skipped (R32.6). The RbDiagramDetail element wraps it + RbPanZoom (R31.6) + selectionModel click->detail + ResizeObserver fit (R31.4) - all REUSE, so buildDiagramSvg is the distinguishing R32.4 logic. Architect design 3d9f17737; scenario-first IMPL-MINT (#126, no self-mint) - the [impl:uuid] marker lands on the buildDiagramSvg() decl (name-matches 'buildDiagramSvg').",
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "implementations": [
+      "ior:instance:ba96a744-13f9-42ea-b1cf-746e87481a18"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+}
