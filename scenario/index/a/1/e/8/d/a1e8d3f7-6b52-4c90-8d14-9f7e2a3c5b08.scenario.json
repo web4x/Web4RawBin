@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1e8d3f7-6b52-4c90-8d14-9f7e2a3c5b08",
+    "name": "test:R40.9 EditorPreview.previewTraceability — the eye Preview panel REUSES rb-trace-tree (scoped to unit) + rb-detail-drawer, NO new renderer (@390 real-WebKit, AC-reuse with synthetic bespoke-renderer BITE)",
+    "description": "Bridged to test/visual/r409-preview-reuse-gate.mjs (GREEN DET-3x @390 real-WebKit). Asserts the Preview panel renders the SHARED rb-trace-tree (data-seed-ior scoped to the unit) + SHARED rb-detail-drawer, ZERO new renderer; AC-reuse proven with a synthetic bespoke-renderer BITE (stub-must-fail: a bespoke renderer FAILS the reuse assertion). content-preview.ts untouched (R40.12 territory). sourceFile repointed rb-detail-view->rb-editor-layout by measurement.",
+    "sourceFile": "ior:file:test/visual/r409-preview-reuse-gate.mjs",
+    "implementations": [
+      "ior:instance:0ed5cd75-7cd5-420d-af29-28c7f167456c"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0ed5cd75-7cd5-420d-af29-28c7f167456c"
+}

@@ -4,7 +4,9 @@
     "uuid": "3ee03bde-aa3c-4d95-92c1-71e9c599f46a",
     "name": "ServerManagerApi.unitRealPath impl (/api/unit/<uuid>/path, shard rule single-sourced, fail-closed)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:c4a7f1b9-2e63-4d08-b591-7a0e3c8d4f26"
+    ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerNote": "STRICT-AST VERIFIED: heads function unitRealPath@src/ts/server/server.ts:1440 (name-match ServerManagerApi.unitRealPath, 0 intervening). Real shard path via ScenarioIndex.filePath (SAME fn get()/has() use, single-sourced w/ PROD_INDEX, never re-derived); FAIL-CLOSED !has->null->404; inside the server-manager OWNER-GATE choke-point (existence-oracle owner-only). Served 0.8.71 (expert 325fb1b02), boot+config clean, buildStrictImplSet=TRUE."
   },
