@@ -1,0 +1,57 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ad977999-b747-4527-95b6-29bac8deae1c",
+    "name": "User Admin — thorough merge + delete of profiles / duplicate users (zero dangling refs)",
+    "altId": "R40.13",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:38ef2453-4746-449c-af3f-4e0a382e81e3"
+    ],
+    "description": "A User Admin feature that MERGES and DELETES profiles and duplicate users THOROUGHLY — consolidating (merge) or removing (delete) EVERY reference across the graph, leaving ZERO dangling/orphan references, gated by the EXISTING S37 identity-family detectors, dry-run+count+reversible+idempotent, owner-gated. THOROUGHLY is the requirement: profiles.json has been hand-edited + 59+ pollution profiles purged by stop-edit-restart + 3+ duplicate 'Marcel Donges' exist.",
+    "tronQuote": "we need a Feature User Admin that allows merging and deleting profiles and duplicate users thouroughly",
+    "status": "Backlog",
+    "captureOnly": true,
+    "discoverySource": {
+      "type": "team-discovery+security",
+      "note": "hand-edited profiles.json; purged 59+ pollution profiles by stop-edit-restart; 3+ duplicate Marcel Donges. Identity/auth family with R40.14/R40.15."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-merge-all-refs",
+        "group": "merge-all-refs",
+        "text": "MERGE consolidates EVERY reference, not just the profile row — room memberships, file/unit ownership, device enrollments, alt-identity indexes (phone/email symlinks), avatars, vCards, usedIn side-index."
+      },
+      {
+        "id": "AC-delete-no-dangling",
+        "group": "delete-no-dangling",
+        "text": "DELETE leaves NO dangling reference — every ref to the removed user is repointed (merge) or removed (delete)."
+      },
+      {
+        "id": "AC-gate-graph-query-REUSE",
+        "group": "gate-graph-query-REUSE",
+        "text": "The completion GATE is a GRAPH QUERY: ZERO dangling/orphan refs after merge or delete, PROVEN by the EXISTING S37 identity-family detectors (orphan-owner / truncated-ref / prefix-collision). REUSE them — do NOT write a parallel checker."
+      },
+      {
+        "id": "AC-dry-run-reversible-idempotent",
+        "group": "dry-run-reversible-idempotent",
+        "text": "DRY-RUN + counts BEFORE apply; reversible backup; idempotent (the R27.2 / repair protocol)."
+      },
+      {
+        "id": "AC-owner-gated-403",
+        "group": "owner-gated-403",
+        "text": "OWNER-GATED; non-owner => 403 (same integrity argument as R40.10 — if anyone can merge identities, identity means nothing)."
+      },
+      {
+        "id": "AC-device-390",
+        "group": "device-390",
+        "text": "Usable at 390px on mobile (Tron's phone)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

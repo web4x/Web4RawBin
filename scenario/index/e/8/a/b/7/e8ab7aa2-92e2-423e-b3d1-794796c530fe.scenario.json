@@ -1,0 +1,59 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e8ab7aa2-92e2-423e-b3d1-794796c530fe",
+    "name": "Portable encrypted loginToken — download from profile, drag-drop to log in (User.Name.web4ID)",
+    "altId": "R40.14",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:b25ce219-e059-48ac-a824-0dc9754e80f8"
+    ],
+    "description": "A downloadable portable login token (like the vCard) encrypted TO the user's PUBLIC key so ONLY their PRIVATE key can decrypt it; token identity form User.Name.web4ID; drag-and-dropped into ANY server logs that user on (reusing DropDispatcher/WebItem MIME routing). Credential-grade: replay-safety, revocability, forgery-resistance; never embeds the plaintext secretCode. ★ DESIGN-REQUIRED: the crypto needs a real architect SECURITY design post-reset — do NOT build from these ACs alone.",
+    "tronQuote": "also we need a posibility to download a loginToken from the profile (like the vcard), that is encrypted in a way that only the real user can decrypt it with his private key but the token works as a User.Name.web4ID that can be dragged and dropped into any server to log on",
+    "status": "Backlog",
+    "captureOnly": true,
+    "discoverySource": {
+      "type": "tron-directive",
+      "designRequired": true,
+      "note": "CRYPTO = architect security design post-reset. Do NOT build from ACs alone."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-download-from-profile",
+        "group": "download-from-profile",
+        "text": "DOWNLOAD from the profile, reusing the vCard-download precedent."
+      },
+      {
+        "id": "AC-crypto-pubkey-STUB-MUST-FAIL",
+        "group": "crypto-pubkey-STUB-MUST-FAIL",
+        "text": "Encrypted TO the user's PUBLIC key so ONLY his PRIVATE key can decrypt — proven BY CONSTRUCTION: decryption with a WRONG key must FAIL (stub-must-fail applied to crypto; NEVER 'it decrypted for me' as evidence). [DESIGN-REQUIRED — architect security design.]"
+      },
+      {
+        "id": "AC-token-identity-form",
+        "group": "token-identity-form",
+        "text": "Token identity form = User.Name.web4ID."
+      },
+      {
+        "id": "AC-drag-drop-login-REUSE",
+        "group": "drag-drop-login-REUSE",
+        "text": "DRAG-AND-DROP into ANY server logs that user on — REUSE the DropDispatcher / WebItem MIME routing, no new drop machinery."
+      },
+      {
+        "id": "AC-credential-security",
+        "group": "credential-security",
+        "text": "Credential-grade security stated explicitly: replay-safety (expiry and/or nonce), REVOCABILITY, and forgery-resistance (dropping a token must NEVER authenticate a DIFFERENT identity)."
+      },
+      {
+        "id": "AC-no-plaintext-secretCode",
+        "group": "no-plaintext-secretCode",
+        "text": "Must NOT embed the plaintext secretCode."
+      }
+    ],
+    "designRequired": true
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2182c412-54d1-4e25-8938-41c6e7133337",
+    "name": "secretCode hardening — hash+salt at rest, rate-limit/lockout, never-logged (device-link auth)",
+    "altId": "R40.15",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:6c9fc9bf-7075-40ce-b794-91c9712b4cb1"
+    ],
+    "description": "SECURITY FINDING: secretCode is stored PLAINTEXT and UNHASHED (4 digits) on prod, and it gates device-linking. Harden it: hash+salt at rest, rate-limit/lockout on verify, never logged, and consider a second factor for device-link. Same identity/auth family as R40.13/R40.14.",
+    "tronQuote": "[security finding, PO-relayed] secretCode is stored PLAINTEXT and UNHASHED (4 digits) on prod, and it gates device-linking",
+    "status": "Backlog",
+    "captureOnly": true,
+    "discoverySource": {
+      "type": "security-finding",
+      "note": "secretCode plaintext/unhashed 4-digit on prod, gates device-link. Found tonight. Design-adjacent."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-hash-salt-at-rest",
+        "group": "hash-salt-at-rest",
+        "text": "secretCode is HASHED + SALTED at rest — never stored plaintext."
+      },
+      {
+        "id": "AC-rate-limit-lockout",
+        "group": "rate-limit-lockout",
+        "text": "Rate-limit / lockout on verify (defeats 4-digit brute-force)."
+      },
+      {
+        "id": "AC-never-logged",
+        "group": "never-logged",
+        "text": "secretCode is NEVER logged (any level)."
+      },
+      {
+        "id": "AC-second-factor-consider",
+        "group": "second-factor-consider",
+        "text": "Consider a SECOND FACTOR for device-link (design decision — flag for architect)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
