@@ -30,5 +30,5 @@
     "orphanByDesign": true,
     "orphanReason": "climb-completion task \u2014 drives existing reqs (R16.x/R19.63/R19.84) to champagne; not a new user requirement"
   },
-  "ownerIor": "ior:instance:64af2638-0000-0000-0000-000000000000"
+  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
