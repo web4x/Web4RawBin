@@ -31,7 +31,7 @@ The gate is self-proven by a deliberately-broken variant that MUST go RED:
 ## ★ REFACTOR-GUARD RULE (the music-player lesson, made structural)
 **No refactor may touch `RbEditorToolbar` / `historyBack` (6b4d7714) / `pathLabelNav` (197054f9) without R40.19 GREEN.** Enforced structurally, not by memory:
 - Because these are client files, the **item-1 post-deploy trigger runs R40.19 automatically** on every deploy — a refactor that drops the eager call (the exact music-player failure) turns R40.19 RED post-deploy → deploy un-verified (INV-PDG-1).
-- Plus a **check-lint**: a commit that modifies `rb-editor-toolbar.ts` or those two Impl markers MUST have a **fresh R40.19-green `device-gate` unit for the served version** (record-gates links the gate to the Method/Test uuids). "File changed AND no fresh R40.19-green" → block. This closes the "nobody re-checked" hole by construction.
+- Plus a **check-lint**: a commit that modifies `rb-editor-toolbar.ts` or those two Impl markers MUST have a **fresh R40.19-green `device-gate` unit** — and **FRESH means STAMPED to the current version AND commit** (INV-PDG-7), not "green once." A green from three versions ago does NOT satisfy the lint; a gate result older than the artifact it certifies is NOT-RUN → RED. "File changed AND no R40.19-green stamped to THIS version+commit" → block. This closes both the "nobody re-checked" hole and the "it was green once" degradation by construction.
 
 ## INVARIANTS
 - **INV-R4019-1 behavioural-not-DOM:** asserts the navigation OUTCOME (correct previous view rendered / folder resolves), never a DOM-count of the control.
