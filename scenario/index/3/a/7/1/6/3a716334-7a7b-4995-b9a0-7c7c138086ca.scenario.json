@@ -4,7 +4,9 @@
     "uuid": "3a716334-7a7b-4995-b9a0-7c7c138086ca",
     "name": "OwnedOutputGuard.guardedWrite impl (fail-closed; refuses to overwrite an unmarked file)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:02cfb6ae-2242-41a2-bf11-b37d773d5af4"
+    ],
     "sourceFile": "ior:file:scripts/owned-output-guard.ts",
     "markerNote": "STRICT-AST VERIFIED: marker [impl:uuid:3a716334-7a7b-4995-b9a0-7c7c138086ca] at owned-output-guard.ts directly above export fn (name-match, 0 intervening); flipped markerPending=false (buildStrictImplSet). Skill-expert 32acaceed. Tests deferred: BITE uuids were fabricated (R5) -> awaiting tester real-uuid regen."
   },

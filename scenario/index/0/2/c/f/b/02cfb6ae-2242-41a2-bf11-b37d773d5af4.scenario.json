@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "02cfb6ae-2242-41a2-bf11-b37d773d5af4",
+    "name": "test:R-C8 guardedWrite BITE — write chokepoint refuses to overwrite an UNMARKED file (B1 behavioural, fail-closed)",
+    "implementations": [
+      "ior:instance:3a716334-7a7b-4995-b9a0-7c7c138086ca"
+    ],
+    "sourceFile": "ior:file:scripts/owned-output-guard-bites.ts",
+    "markerNote": "Adopted from tester BITE marker in owned-output-guard-bites.ts (c4152976a, real uuid4 after fabricated-uuid regen). check:owned-output in ci:gates:raw, suite GREEN, weaken-proven non-vacuous."
+  },
+  "ownerIor": "ior:instance:3a716334-7a7b-4995-b9a0-7c7c138086ca"
+}

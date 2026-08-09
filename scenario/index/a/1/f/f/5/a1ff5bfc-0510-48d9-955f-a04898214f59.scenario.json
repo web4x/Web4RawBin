@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a1ff5bfc-0510-48d9-955f-a04898214f59",
+    "name": "test:R-C8 guardedDelete BITE — deletes ONLY a header-marked file, never an unmarked one (B2b negative-bite, weaken-proven RED->GREEN)",
+    "implementations": [
+      "ior:instance:e1ff295f-be7e-4111-8f58-7cbb98f26cb9"
+    ],
+    "sourceFile": "ior:file:scripts/owned-output-guard-bites.ts",
+    "markerNote": "Adopted from tester BITE marker in owned-output-guard-bites.ts (c4152976a, real uuid4 after fabricated-uuid regen). check:owned-output in ci:gates:raw, suite GREEN, weaken-proven non-vacuous."
+  },
+  "ownerIor": "ior:instance:e1ff295f-be7e-4111-8f58-7cbb98f26cb9"
+}
