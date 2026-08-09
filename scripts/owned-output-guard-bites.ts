@@ -16,9 +16,9 @@
  *
  * RED until the helper lands + generators route through it — that RED IS the finding (the guard is not yet present).
  */
-// [test:uuid:3c9f2a71-8b04-4e6d-a1f5-9d2e0c7b6a34] owned-output-guard guardedWrite (Impl 3a716334) — write ONLY an owned, path-confined, marker-or-new file; refuse non-owned / '..'-escape / clobber-of-unmarked (B1 + B3, weaken-proven RED).
-// [test:uuid:4d0a3b82-9c15-4f7e-b2a6-0e3f1d8c7b45] owned-output-guard guardedDelete (Impl e1ff295f) — delete ONLY a marker-carrying file; NEVER an unmarked/hand-authored one; fail-closed on ambiguous (B2b negative bite + B1 + B3, weaken-proven RED).
-// [test:uuid:5e1b4c93-0d26-4a8f-a3b7-1f402e9d8c56] owned-output-guard guardedWriteRegion (Impl fc520411) — region-write ONLY an owned file that contains the region marker; refuse markerless-existing / markerless-content / non-owned / escape (B1-region, control-proven non-vacuous).
+// [test:uuid:02cfb6ae-2242-41a2-bf11-b37d773d5af4] owned-output-guard guardedWrite (Impl 3a716334) — write ONLY an owned, path-confined, marker-or-new file; refuse non-owned / '..'-escape / clobber-of-unmarked (B1 + B3, weaken-proven RED).
+// [test:uuid:a1ff5bfc-0510-48d9-955f-a04898214f59] owned-output-guard guardedDelete (Impl e1ff295f) — delete ONLY a marker-carrying file; NEVER an unmarked/hand-authored one; fail-closed on ambiguous (B2b negative bite + B1 + B3, weaken-proven RED).
+// [test:uuid:e19a1882-3f32-46ab-97eb-b488d4efb3ca] owned-output-guard guardedWriteRegion (Impl fc520411) — region-write ONLY an owned file that contains the region marker; refuse markerless-existing / markerless-content / non-owned / escape (B1-region, control-proven non-vacuous).
 import fs from 'node:fs';
 import path from 'node:path';
 import { GENERATED_HEADER } from './generate-sprint-md.ts';
