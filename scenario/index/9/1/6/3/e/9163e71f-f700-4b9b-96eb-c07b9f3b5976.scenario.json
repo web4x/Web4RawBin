@@ -1,0 +1,53 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9163e71f-f700-4b9b-96eb-c07b9f3b5976",
+    "name": "Protect history back-navigation — an EXECUTING regression gate (@390 real-device, behavioural, stub-must-fail, in gate:device:live)",
+    "altId": "R40.19",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:7111d89e-5101-432f-ab71-97a5e1d1e1ad"
+    ],
+    "description": "History back-navigation (R40.7 historyBack + pathLabelNav on RbEditorToolbar) is a PROTECTED BEHAVIOUR and must be pinned by a MECHANISM, not a note: a regression gate that ACTUALLY EXECUTES the behaviour @390 on a real device (tap Back lands on the correct previous view; path-label nav resolves) — pixel/behavioural, never a DOM count; stub-must-fail (break historyBack -> RED); added to gate:device:live so it runs; depends on the post-deploy device-gate trigger; and NO refactor may touch the nav path without this gate green. Learned from the S23 audio player (silently regressed a whole sprint — headless-only AC, never re-ran) and the music player (died to a unification refactor that dropped an eager call nobody re-checked).",
+    "tronQuote": "all current history back navigation is perfect... do not regress it",
+    "status": "Backlog",
+    "captureOnly": true,
+    "crossRefNote": "Protects R40.7 (historyBack + pathLabelNav on RbEditorToolbar). Same regression class as R40.12 music-player (refactor dropped eager call) + S23 audio (headless-only AC never re-ran). DEPENDS on the post-deploy device-gate trigger (post-reset work-order top). Ties the anti-vacuity doctrine (a control that renders but does nothing passes a DOM count) + device/pixel gating.",
+    "discoverySource": {
+      "type": "tron-directive-protection",
+      "note": "Tron: back-nav is PERFECT, do NOT regress it. A protected-behaviour req = an EXECUTING gate, not a note. Proof this session: S23 audio silent-regression (headless-only AC) + R40.12 music-player refactor-drop. Depends on the device-gate trigger (visual gates run nowhere today = why bugs arrive as screenshots)."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-regression-gate-behavioural-390",
+        "group": "regression-gate-behavioural-390",
+        "text": "A REGRESSION GATE for history back-navigation (R40.7's historyBack + pathLabelNav on RbEditorToolbar) that verifies BEHAVIOUR @390 on a REAL DEVICE: tap Back LANDS on the correct previous view, and path-label nav RESOLVES. Pixel/behavioural — NEVER a DOM count (a rendered control that does nothing passes a count)."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "STUB-MUST-FAIL: deliberately break historyBack and the gate MUST go RED. A gate that still passes when the behaviour is broken certifies NOTHING."
+      },
+      {
+        "id": "AC-in-gate-device-live",
+        "group": "in-gate-device-live",
+        "text": "ADDED TO gate:device:live (d5148b7d3) so it RUNS alongside the other device gates (it must actually execute, not just exist)."
+      },
+      {
+        "id": "AC-depends-device-gate-trigger",
+        "group": "depends-device-gate-trigger",
+        "text": "DEPENDS ON the post-deploy DEVICE-GATE TRIGGER (top of the post-reset work order — visual/device gates currently run NOWHERE, which is exactly why Tron's bugs arrive as screenshots). Until the trigger runs the gate, back-nav is unprotected."
+      },
+      {
+        "id": "AC-no-refactor-without-green",
+        "group": "no-refactor-without-green",
+        "text": "NO REFACTOR may touch the nav path without this gate GREEN. Proof: the music player died to a unification refactor that dropped an eager call nobody re-checked; the S23 audio player silently regressed a whole sprint because its AC was headless-only and never re-ran. Back-nav meets the same fate unless an EXECUTING gate pins it."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
