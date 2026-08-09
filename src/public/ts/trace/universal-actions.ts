@@ -6,7 +6,7 @@ import { fillPreviewPane } from './content-preview.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 
 type Action = { verb: string; label: string };
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview'];
+const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline'];
 
 // TYPE-CONDITIONAL verb set (INV-E3 type-policy): file-verbs never leak onto a webitem, vcard only on member/user, etc.
 function universalActionsFor(type: string): Action[] {
@@ -14,6 +14,11 @@ function universalActionsFor(type: string): Action[] {
   if (t === 'member' || t === 'user') return [{ verb: 'download-vcard', label: '📇 vCard' }];
   if (t === 'file') return [{ verb: 'preview-file', label: '👁 Preview' }, { verb: 'open-newtab', label: '↗ New tab' }];
   if (t === 'webitem') return [{ verb: 'proxy-preview', label: '⟳ Proxy preview' }];
+  // R40.10 — the owner's QA verdict control as ACTION UNITS on any task detail (NOT a bespoke button). We do NOT
+  // client-gate on status: the SERVER is the sole authority for the Done-gate (approve 409s if not 'QA Review',
+  // decline always mints a ChangeRequest) — a client status-check would be a second source of truth that can drift.
+  // The 409/403 refusal is surfaced honestly by the handler; approve+decline ship TOGETHER (approve-only = prose again).
+  if (t === 'task') return [{ verb: 'qa-approve', label: '✓ Approve' }, { verb: 'qa-decline', label: '✗ Decline' }];
   return [];
 }
 
@@ -35,6 +40,7 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionP
     if (!VERBS.includes(verb)) return; // host/model verbs handled by their own provider
     const ref = d?.ref || '';
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
+    if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
     if (verb === 'download-vcard') { // was the rb-detail-view vCard button (fetch real playerToken, then download)
       void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
         const m = (j?.unit?.model || {}) as Record<string, unknown>;
@@ -65,4 +71,52 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionP
       return;
     }
   });
+}
+
+// R40.10 — surface the QA-verdict outcome INSIDE the drawer detail, honestly (never a fake success, never a hidden
+// refusal): a banner at the top of the task detail, colour-coded ok/warn/err, + reflect the server's new status on
+// the badge. Reused by approve + decline. @390-legible (system-ui 13px, wrapping).
+function surfaceVerdict(drawer: HTMLElement, message: string, kind: 'ok' | 'warn' | 'err'): void {
+  const panel = drawer.querySelector('.drawer-panel-detail') as HTMLElement | null;
+  if (!panel) return;
+  let banner = panel.querySelector('.qa-verdict-result') as HTMLElement | null;
+  if (!banner) { banner = document.createElement('div'); banner.className = 'qa-verdict-result'; panel.insertBefore(banner, panel.firstChild); }
+  const bg = kind === 'ok' ? '#12331f' : kind === 'warn' ? '#3d2f00' : '#3d1414';
+  const bd = kind === 'ok' ? '#2ea043' : kind === 'warn' ? '#d29922' : '#f85149';
+  banner.setAttribute('style', `margin:0 0 10px;padding:9px 12px;border-radius:6px;background:${bg};border:1px solid ${bd};color:#e6edf3;font:13px system-ui;white-space:pre-wrap;line-height:1.4`);
+  banner.textContent = message;
+}
+
+// R40.10 universalActions.handleTaskVerdict — [impl] marker PENDING req's R40.10 client-chain mint (placed on THIS fn).
+// The owner taps ✓ Approve or ✗ Decline on a task detail → POST the owner-gated /api/task/<uuid>/{approve,decline}
+// and surface the server's verdict verbatim. NO client status pre-gate (server is the sole Done-gate authority):
+//   200 approve → status Done (approvedBy/approvedAt shown)   200 decline → ChangeRequest minted, status In Progress
+//   403 → owner-only refusal, verdict NOT recorded            409 → no-evidence (not 'QA Review'), nothing changed
+// Decline prompts for an optional CR reason; CANCEL aborts so an accidental tap can't mint a ChangeRequest.
+function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): void {
+  const action = verb === 'qa-approve' ? 'approve' : 'decline';
+  let body: string | undefined;
+  if (action === 'decline') {
+    const reason = window.prompt('Decline — reason for the Change Request (optional):', '');
+    if (reason === null) return; // cancelled → do NOT mint a ChangeRequest on an accidental tap
+    body = JSON.stringify({ reason });
+  }
+  surfaceVerdict(drawer, action === 'approve' ? '⏳ Approving…' : '⏳ Declining…', 'warn');
+  void fetch(`/api/task/${uuid}/${action}`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body })
+    .then(async (r) => {
+      let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
+      if (r.status === 200 && j.ok) {
+        if (action === 'approve') surfaceVerdict(drawer, `✓ Approved — status now Done (by ${j.approvedBy} at ${j.approvedAt})`, 'ok');
+        else surfaceVerdict(drawer, `✗ Declined — Change Request ${String(j.changeRequest || '').slice(0, 8)} created; status now In Progress`, 'ok');
+        const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null;
+        if (badge && j.status) badge.textContent = String(j.status);
+      } else if (r.status === 403) {
+        surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Your verdict was NOT recorded.', 'err');
+      } else if (r.status === 409) {
+        surfaceVerdict(drawer, `⚠ Cannot approve — ${String(j.detail || j.error || "not in 'QA Review'")}. Nothing was changed.`, 'warn');
+      } else {
+        surfaceVerdict(drawer, `⚠ ${action} failed (HTTP ${r.status}) — ${String(j.error || 'unknown')}. Nothing was changed.`, 'err');
+      }
+    })
+    .catch((e) => surfaceVerdict(drawer, `⚠ ${action} request failed — ${String(e?.message || e)}. Nothing was changed.`, 'err'));
 }
