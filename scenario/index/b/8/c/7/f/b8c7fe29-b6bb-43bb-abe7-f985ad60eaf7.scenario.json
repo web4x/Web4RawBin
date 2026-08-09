@@ -1,0 +1,64 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
+    "name": "Assign-as-next-task action — owner-gated action unit records explicit next (overrides derived, single-sourced in resolver)",
+    "altId": "R40.17",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:3778ccc7-64bb-4de7-b0ee-b103f8a510cc"
+    ],
+    "description": "An ASSIGN-AS-NEXT-TASK action (action unit on the universalActionBar, on the task item like R40.10 approve/decline), OWNER-GATED (non-owner 403), that RECORDS the assignment as DATA (assignedNextBy/assignedNextAt, the R40.10 approvedBy/approvedAt pattern) so the pin's next slot is PROVABLE not remembered. EXPLICIT-assigned next OVERRIDES DERIVED next, single-sourced INSIDE resolveSprintPin (next = explicit-if-set ELSE derived, never in a view). Uniqueness: one task next, replaces previous, no collision with current/lastCompleted. @390 pixel, fail-loud on record failure. This is the SELECT mechanism for Tron's last/current/next (today next is derived-only; he wants to assign it). REUSE R40.10 owner-gated machinery + R40.5 action-unit pattern + the existing resolver — do NOT fork.",
+    "tronQuote": "a task needs to have the actions for the action bar: assign as next task",
+    "status": "Backlog",
+    "captureOnly": true,
+    "designRequired": true,
+    "discoverySource": {
+      "type": "tron-directive",
+      "note": "Completes the loop Tron corrected the PO on ('last, current unfinished, next — you easily can select them'). Today the pin's next slot is DERIVED only; this is the mechanism to ASSIGN it from the task. DESIGN-REQUIRED: (4) explicit-overrides-derived single-sourced in resolveSprintPin — nobody builds a SECOND next-source. Ties R40.10 (owner-gated action + approvedBy/At) + R40.5 (action-unit) + R-C1 resolveSprintPin."
+    },
+    "crossRefNote": "REUSE (do not fork): R40.10 owner-gated action machinery + approvedBy/approvedAt data pattern; R40.5 action-unit de-dup; R-C1 resolveSprintPin as the single next-source (explicit-if-set ELSE derived).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-action-unit-on-task-R40.5-R40.10",
+        "group": "action-unit-on-task-R40.5-R40.10",
+        "text": "ASSIGN-AS-NEXT-TASK is an ACTION UNIT on the universalActionBar (per R40.5 de-duplication — a real action unit, NOT a bespoke button), living ON the task item (like R40.10's approve/decline)."
+      },
+      {
+        "id": "AC-owner-gated-403",
+        "group": "owner-gated-403",
+        "text": "OWNER-GATED, non-owner => 403. Priority is Tron's call; nobody self-promotes their own work (same integrity argument as approve: if anyone can set next, next means nothing)."
+      },
+      {
+        "id": "AC-records-as-data-R40.10-pattern",
+        "group": "records-as-data-R40.10-pattern",
+        "text": "RECORDS the assignment as DATA on the unit (assignedNextBy / assignedNextAt) — the R40.10 approvedBy/approvedAt pattern — so the pin's next slot is PROVABLE not remembered (trustworthy after a rewind)."
+      },
+      {
+        "id": "AC-explicit-overrides-derived-SINGLE-SOURCE",
+        "group": "explicit-overrides-derived-SINGLE-SOURCE",
+        "text": "★ DESIGN-REQUIRED: EXPLICIT-ASSIGNED next OVERRIDES the DERIVED next, resolved in ONE place — next = explicit-if-set ELSE derived, decided INSIDE resolveSprintPin, NEVER in a view. No two-sources-of-one-truth (the disease killed this session: two depref builders / two marker counts / two fabricated-uuid figures)."
+      },
+      {
+        "id": "AC-uniqueness-3-slot",
+        "group": "uniqueness-3-slot",
+        "text": "UNIQUENESS: only ONE task can be next — assigning a new one REPLACES the previous (same 3-slot uniqueness the pin enforces); must NOT collide with current / lastCompleted."
+      },
+      {
+        "id": "AC-device-390",
+        "group": "device-390",
+        "text": "@390 real-device PIXEL gate — the action must be reachable AND fireable on his phone."
+      },
+      {
+        "id": "AC-fail-loud",
+        "group": "fail-loud",
+        "text": "FAIL-LOUD: if the assignment cannot be recorded, show an EXPLICIT error — never a silently-unchanged pin."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
