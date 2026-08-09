@@ -1,0 +1,67 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ce2734ea-2590-4491-a9a3-3be22629cacb",
+    "name": "Auto-progress current/next pin on QA-Review transition (by sprint-completion order; explicit-wins-over-auto; QA is not Done)",
+    "altId": "R40.18",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:4715978d-8210-4441-9af0-0f7b5edc46f6"
+    ],
+    "description": "Switching a task's state to QA-Review AUTO-PROGRESSES the pin: the QA'd task leaves CURRENT, NEXT becomes CURRENT, a new NEXT is selected by SPRINT-COMPLETION ORDER. Precedence is single-sourced in resolveSprintPin: EXPLICIT (R40.17 assigned) WINS over auto/derived (explicit-if-set ELSE auto ELSE derived) — never clobbers Tron's manual choice, never a 2nd source in a view/hook. lastCompleted follows DONE (R40.10 approve), NOT QA (QA is not completion — no false Done). Idempotent (no double-rotate), fail-loud (UNRESOLVED not silent-pick), 3-slot uniqueness reused, @390 visible without manual refresh. This makes the pin move BY ITSELF (R40.17 = manual steering; together = the whole mechanism). REUSE R-C5 status derivation + R40.10 QA/approve transition + R40.17 action units + the existing resolver.",
+    "tronQuote": "but on switching a task state to QA needs to also auto progress the current and next task by sprint completion",
+    "status": "Backlog",
+    "captureOnly": true,
+    "designRequired": true,
+    "crossRef": [
+      "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7"
+    ],
+    "crossRefNote": "COMPLETES R40.17 (manual assign current/next). They must AGREE on precedence: EXPLICIT (R40.17) WINS over AUTO (R40.18), single-sourced in resolveSprintPin — else two things fight over the same slots. REUSE R40.10 (QA/approve + lastCompleted-at-Done), R-C5 (status stays checklist-derived), R-C1 resolveSprintPin.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "note": "Completes R40.17 — R40.17 = manual steering, R40.18 = auto so the pin moves by itself and Tron only intervenes to override. DESIGN-REQUIRED: (2) explicit-wins-over-auto precedence single-sourced in resolveSprintPin; (3) lastCompleted-follows-DONE-not-QA (no false Done). Both are where a 2nd source / false Done would creep in."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-trigger-qa-auto-progresses",
+        "group": "trigger-qa-auto-progresses",
+        "text": "TRIGGER: a task's state switching to QA-Review AUTO-PROGRESSES the pin — the QA'd task LEAVES current, NEXT becomes CURRENT, and a new NEXT is selected BY SPRINT-COMPLETION ORDER (the order that completes the sprint, per Tron's words)."
+      },
+      {
+        "id": "AC-explicit-wins-over-auto-SINGLE-SOURCE",
+        "group": "explicit-wins-over-auto-SINGLE-SOURCE",
+        "text": "★ DESIGN-REQUIRED (precedence): EXPLICIT (R40.17 assigned) WINS over AUTO — auto-progress RESPECTS an explicitly-assigned next and NEVER clobbers Tron's choice. The precedence chain is ONE rule in ONE place: explicit-if-set ELSE auto/derived, decided INSIDE resolveSprintPin — never in a view or in a transition hook that keeps its own opinion (else two things fight over the same slots = two-sources-of-one-truth)."
+      },
+      {
+        "id": "AC-lastCompleted-follows-DONE-not-QA",
+        "group": "lastCompleted-follows-DONE-not-QA",
+        "text": "★ DESIGN-REQUIRED (lastCompleted semantics, architect call): QA is NOT completion. A task at QA-Review awaits Tron's verdict, so lastCompleted updates ONLY when it reaches DONE (R40.10 approve), NOT on the QA transition. Auto-progress moves CURRENT forward; lastCompleted follows DONE. Otherwise the board claims work completed that he has not signed (a false Done)."
+      },
+      {
+        "id": "AC-idempotent",
+        "group": "idempotent",
+        "text": "IDEMPOTENT: re-entering QA, or a re-run, must NOT double-rotate the slots."
+      },
+      {
+        "id": "AC-fail-loud-unresolved",
+        "group": "fail-loud-unresolved",
+        "text": "FAIL-LOUD, never silent-pick: if the next-by-sprint-completion cannot be determined unambiguously, report it as UNRESOLVED — exactly as resolveSprintPin already does for the ambiguous current (it prefers saying 'I do not know' over guessing)."
+      },
+      {
+        "id": "AC-uniqueness-3-slot",
+        "group": "uniqueness-3-slot",
+        "text": "3-SLOT UNIQUENESS preserved (current / next / lastCompleted distinct) — REUSE the pin's existing enforcement, do NOT reimplement."
+      },
+      {
+        "id": "AC-device-390-visible",
+        "group": "device-390-visible",
+        "text": "@390 real-device PIXEL gate; the progression must be VISIBLE — after a QA switch the board shows the rotated slots WITHOUT a manual refresh, or states why not."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
