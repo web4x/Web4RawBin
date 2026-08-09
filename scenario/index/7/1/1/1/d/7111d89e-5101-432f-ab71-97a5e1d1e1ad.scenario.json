@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "7111d89e-5101-432f-ab71-97a5e1d1e1ad",
+    "name": "editorToolbar.historyBackRegression",
+    "description": "History back-navigation on RbEditorToolbar — historyBack (window.history.back → the correct previous view) + pathLabelNav (navigate to the containing folder) — is a PROTECTED behaviour pinned by an EXECUTING regression gate: verifies BEHAVIOUR @390 on a real device (tap Back lands on the correct previous view; path-label nav resolves), pixel/behavioural never a DOM count, stub-must-fail (break historyBack → RED), registered in gate:device:live. Covers BOTH toolbar nav handlers so any refactor that drops either eager call goes RED (the music-player/S23-audio silent-regression lesson made structural).",
+    "class": "ior:instance:27ca98dd-6987-49ee-a9c0-47200030ec7c",
+    "method": "ior:instance:ccbf83af-6387-4b49-990f-d24703fbc326",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9163e71f-f700-4b9b-96eb-c07b9f3b5976"
+}
