@@ -50,6 +50,14 @@ The `chromium` / `DOM-only` capability tags do NOT mean blind. Read each candida
 ## ★ F4 GOOD-NEWS + the fix pattern (PO-requested)
 R40.3 and R40.20 are the CORRECT TEMPLATE: a device-only AC is **explicitly labelled** device-only ("NEVER reportable GREEN from headless") and its automatable sibling is re-scoped to config/DOM/functional-input-reaches-PTY (not "keyboard absence"). ⇒ The fix for any UNLABELED vacuous AC is simply to **make it look like those two**: add the device-only label + split the automatable half. The lint enforces the gate side; requirement authors apply the R40.3 template on the AC side.
 
+## ★ CONFIRMED UNLABELED INSTANCE (F4/F5) — R22.2 drawer pan/zoom, touch-first
+**R22.2 (b7000fa1)** "Drawer pan/zoom: full mouse parity (touch-first)". AC-t = "1-finger drag pans, **pinch** zooms, double-tap resets"; **AC-v = "Verified live (HEADLESS) on both a touch surface and a mouse surface."**
+- **WHAT the gate can prove headless:** synthetic touch/wheel events fire and the handler pans/zooms in Blink. The MOUSE-parity ACs (m1/m2/m3) are genuinely headless-gateable (real mouse events).
+- **WHAT the req actually claims:** the TOUCH gestures work on the real iOS device — pinch-zoom / 1-finger pan / double-tap go through the iOS gesture recognizer (momentum, passive-listener/scroll conflict, `touch-action`). Headless synthesizes these; it does NOT exercise the recognizer. AC-v literally says "verified headless" for the TOUCH surface = the vacuous pattern.
+- **Risk:** a real-iOS pan/zoom regression (e.g. a passive-listener or touch-action change) stays GREEN headless → reaches Tron by screenshot (same class as S23 audio). SHIPPED long ago = latent.
+- **Fix class (R40.3 template):** split AC-v — mouse parity gated headless @390; **touch gestures → Tron real-iOS device, never headless-green**; relabel AC-t + AC-v with the device-only caveat. Hand to req for the relabel.
+- (Cleared, not a finding: R26.3 / 05d21385 — "drag" is only in the tronQuote; all ACs are server endpoint/auth/audit = headless-correct. Measure-first before flagging.)
+
 ## DOCTRINE APPLIED
 Family named not instance; every CAN'T-FAIL gate flagged (F1 chromium-tap, F4 keyboard-absence); ranked by what reaches Tron first; each candidate VERIFIED before flagging (disproved my own r3211/r314/F5 suspicion — measure-first). Highest-leverage fix (R31.15 gate-lint) BUILT this pass.
 
