@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fac7f1b5-e25b-465e-bb51-8961def60c0b",
+    "name": "OwnedOutputGuard.guardedWriteRegion",
+    "implementations": [
+      "ior:instance:fc520411-1a61-420d-8fb4-842e4c0b2343"
+    ]
+  },
+  "ownerIor": "ior:instance:985d8f5b-901d-4b33-a679-fe4f3f1e0f7e"
+}

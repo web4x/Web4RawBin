@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e92d26f6-2300-4d3a-829e-0ca1e6a1a420",
+    "name": "OwnedOutputGuard.guardedWrite",
+    "implementations": [
+      "ior:instance:3a716334-7a7b-4995-b9a0-7c7c138086ca"
+    ]
+  },
+  "ownerIor": "ior:instance:985d8f5b-901d-4b33-a679-fe4f3f1e0f7e"
+}

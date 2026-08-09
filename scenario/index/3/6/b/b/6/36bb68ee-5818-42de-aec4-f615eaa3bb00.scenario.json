@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "36bb68ee-5818-42de-aec4-f615eaa3bb00",
+    "name": "ownedOutputGuard.guardGeneratedWrite",
+    "description": "The board generators route every output write/delete through the shared owned-output guard so only marked generated outputs are written/removed and hand-authored files are never clobbered or deleted (fail-closed).",
+    "class": "ior:instance:985d8f5b-901d-4b33-a679-fe4f3f1e0f7e",
+    "method": "ior:instance:e92d26f6-2300-4d3a-829e-0ca1e6a1a420",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:1ddc8564-9f45-488f-965c-0b4fc1a76a1c"
+}

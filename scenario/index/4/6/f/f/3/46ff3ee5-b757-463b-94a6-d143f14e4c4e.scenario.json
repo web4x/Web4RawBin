@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "46ff3ee5-b757-463b-94a6-d143f14e4c4e",
+    "name": "OwnedOutputGuard.guardedDelete",
+    "implementations": [
+      "ior:instance:e1ff295f-be7e-4111-8f58-7cbb98f26cb9"
+    ]
+  },
+  "ownerIor": "ior:instance:985d8f5b-901d-4b33-a679-fe4f3f1e0f7e"
+}

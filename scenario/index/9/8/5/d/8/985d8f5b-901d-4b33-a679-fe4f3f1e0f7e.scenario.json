@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "985d8f5b-901d-4b33-a679-fe4f3f1e0f7e",
+    "name": "OwnedOutputGuard",
+    "sourceFile": "ior:file:scripts/owned-output-guard.ts",
+    "methods": [
+      "ior:instance:e92d26f6-2300-4d3a-829e-0ca1e6a1a420",
+      "ior:instance:fac7f1b5-e25b-465e-bb51-8961def60c0b",
+      "ior:instance:46ff3ee5-b757-463b-94a6-d143f14e4c4e"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

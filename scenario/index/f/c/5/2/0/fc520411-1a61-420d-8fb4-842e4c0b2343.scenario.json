@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fc520411-1a61-420d-8fb4-842e4c0b2343",
+    "name": "OwnedOutputGuard.guardedWriteRegion impl (rewrites only the generated region; preserves narrative)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/owned-output-guard.ts",
+    "markerNote": "Chain minted scenario-first (skill-expert shipped 1851d2144 with NO [impl] markers per #126). Awaiting skill-expert/expert [impl:uuid:fc520411-1a61-420d-8fb4-842e4c0b2343] on the fn in owned-output-guard.ts -> strict-AST flip. Tests: tester BITEs d0eee3e89 (B1 behavioural/B2a static-chokepoint/B2b negative/B3 fail-closed) — adopt as Tests AFTER tester RED->GREEN re-run confirms green; NOT wired yet (would credit against a red gate)."
+  },
+  "ownerIor": "ior:instance:fac7f1b5-e25b-465e-bb51-8961def60c0b"
+}

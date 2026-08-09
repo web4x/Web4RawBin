@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "1ddc8564-9f45-488f-965c-0b4fc1a76a1c",
+    "name": "Generated-output writes route through a shared owned-output guard — never clobber/delete an UNMARKED (hand-authored) file, fail-closed",
+    "altId": "R-C8",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:36bb68ee-5818-42de-aec4-f615eaa3bb00"
+    ],
+    "description": "Every write/delete performed by the board generators (generate-sprint-md, sprint-overview) routes through ONE shared owned-output chokepoint that writes/deletes a file ONLY when it is a MARKED generated output (owned name / generated-header / owned region); an UNMARKED hand-authored file is NEVER clobbered or deleted; the guard is fail-closed (unknown/ambiguous -> refuse) and path-traversal-free. Permanent by-construction fix for the regen-collateral-delete class that removed three committed knowledge docs.",
+    "discoverySource": {
+      "type": "incident-driven",
+      "note": "2026-08-09 incident: 3 committed knowledge docs (pin-two-sources / R31-audit-RESULT / release-tagging) removed as unstaged working-tree deletions. Architect design 38ba4a160; skill-expert shipped the guard (1851d2144) with NO [impl] markers (avoid dangling refs, #126) so units come first. Defense-in-depth: root was an Option-1 code-revert, guard makes a silent confinement-revert break CI (B2 BITE)."
+    },
+    "implRef": "scripts/owned-output-guard.ts (guardedWrite/guardedWriteRegion/guardedDelete); wired into generate-sprint-md.ts + sprint-overview.ts. Commit 1851d2144, design 38ba4a160.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-shared-chokepoint",
+        "group": "shared-chokepoint",
+        "text": "Both generators (generate-sprint-md guardedWrite + sprint-overview guardedWriteRegion) route ALL writes/deletes through the ONE shared owned-output-guard helper — no direct fs.write/unlink bypasses it."
+      },
+      {
+        "id": "AC-never-clobber-unmarked",
+        "group": "never-clobber-unmarked",
+        "text": "An UNMARKED (hand-authored) file is NEVER overwritten: guardedWrite refuses to write over a path that is not an owned/generated name or lacks the generated header."
+      },
+      {
+        "id": "AC-never-delete-unmarked",
+        "group": "never-delete-unmarked",
+        "text": "An UNMARKED file is NEVER deleted: guardedDelete removes a path ONLY when it carries the generated header — hand-authored knowledge docs cannot be regen-collateral."
+      },
+      {
+        "id": "AC-fail-closed",
+        "group": "fail-closed",
+        "text": "Fail-closed: on unknown/ambiguous ownership OR a path-traversal attempt, the guard REFUSES the operation (does not write/delete) rather than proceeding."
+      },
+      {
+        "id": "AC-region-preserve",
+        "group": "region-preserve",
+        "text": "guardedWriteRegion rewrites ONLY the generated region (between markers) of sprints.overview.md and preserves the hand-authored narrative outside it."
+      },
+      {
+        "id": "AC-verify-bites",
+        "group": "verify",
+        "text": "Verified by the tester BITEs (B1 behavioural / B2a static chokepoint / B2b negative-bite / B3 fail-closed) going GREEN once the guard is present (they were correctly RED when written against its absence)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
