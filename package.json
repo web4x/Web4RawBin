@@ -25,7 +25,7 @@
     "check:sprint-label": "node --import tsx scripts/check-sprint-label.ts",
     "check:regen-leaf": "node --import tsx scripts/check-regen-leaf.ts",
     "check:detail-bespoke": "node --import tsx scripts/check-detail-bespoke-actions.ts",
-    "gate:device:live": "node test/visual/r4012-music-player-pixel-gate.mjs && node test/visual/r4011-carveout-unresolved-gate.mjs && node test/visual/r4019-history-back-gate.mjs",
+    "gate:device:live": "node test/visual/r4012-music-player-pixel-gate.mjs && node test/visual/r4011-carveout-unresolved-gate.mjs && node test/visual/r4019-history-back-gate.mjs && node test/visual/r4010b-qa-verdict-ui-gate.mjs",
     "prepare": "git config core.hooksPath .githooks 2>/dev/null || true",
     "ci:gates:raw": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md && npm run check:camelcase && npm run check:task-status && npm run consistency:strict && npm run test:marker:strict && npm run impl:marker:strict && npm run check:sprint-label && npm run check:regen-leaf && npm run check:detail-bespoke",
     "ci:gates": "node scripts/with-node20.mjs npm run ci:gates:raw",
