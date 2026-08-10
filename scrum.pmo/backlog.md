@@ -427,3 +427,19 @@ The generator's write-guard (generate-sprint-md.ts ~215-237) preserves any on-di
 
 ---
 **Maintained by:** robbin-planner (2026-08-08, PO directive — S40 write-guard trap)
+
+---
+
+## Systemic credit-lag: device-real-but-chain-UNWIRED (T40.7 / R33.10 / R40.24 class)
+**Captured:** 2026-08-10 · **By:** robbin-planner (PO ruling) · **Source:** R40.24 flip-request measurement · **discoverySource:** planner-found (units-win disk-check on flip-request)
+
+A recurring pattern: a requirement is device-verified by Tron and/or its fix is SHIPPED in code (real, working), but its SCENARIO CHAIN (UC -> Method -> Impl -> Test units) is never wired back to the req — `tests=[]`, `useCases=[]`, no covering task. The work is REAL but INVISIBLE on the traceability board; a naive flip would create a false-Done (looks-done, chain-empty) — the exact class this campaign exists to kill. Instances: **T40.7** ([test:uuid] in a gate file, not a minted Test unit) · **R33.10** (Impl.tests[] empty, gate green) · **R40.24** (a2c78c46 deviceVerified 2026-08-10 + fix 406bb2a4d shipped + labels b7a056dcc, but tests/useCases/task all []).
+
+**Correct handling (proven, PO-endorsed):** HOLD the flip; req wires the chain (mint UC/Method/Impl/Test, ADOPT the existing shipped source markers), THEN planner stands up the covering task + flips. A note is NOT a chain.
+
+**Why backlog (small sweep, not ad-hoc):** each instance is fixed at flip-time by req wiring; the SWEEP is to enumerate all device-verified/shipped reqs whose chain is unwired and backfill so credit is not lost. Owner = req (chain-mint) + planner (task stand-up).
+
+**Cross-ref:** chain-complete-verify-test-units-on-disk, false-Done class (R-C5), T40.7 + R33.10 + R40.24.
+
+---
+**Maintained by:** robbin-planner (2026-08-10, PO ruling — device-real-chain-unwired credit-lag)
