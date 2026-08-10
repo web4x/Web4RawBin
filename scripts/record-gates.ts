@@ -45,13 +45,15 @@ const verdict = arg('verdict') || 'PASS';
 const evidence = arg('evidence') || '';
 const gatedBy = arg('gated-by') || 'system';
 const gatedItems = argList('items').map(u => `ior:instance:${u}`);
+const version = arg('version'); // R40.25 INV-PDG-7: stamp the exact served version + commit a gate was produced against —
+const commit = arg('commit');   // a device-gate is valid ONLY for that version+commit; a mismatch vs the live artifact reads NOT-RUN/stale.
 
 if (!gateType) {
   console.log('Usage: npx tsx scripts/record-gates.ts --type <gate-type> --verdict PASS|FAIL --evidence "..." --gated-by <role> --items <uuid...>');
   process.exit(1);
 }
 
-const uuid = hashUuid(`gate:${gateType}:${verdict}:${gatedItems.join(',')}:${new Date().toISOString().slice(0, 10)}`);
+const uuid = hashUuid(`gate:${gateType}:${verdict}:${gatedItems.join(',')}:${version || ''}:${new Date().toISOString().slice(0, 10)}`); // R40.25: version in the key → each served version's gate is a DISTINCT unit (a v0.8.56 green can't masquerade as v0.8.82)
 const unitPath = path.join(SCENARIO_INDEX, prefixPath(uuid), `${uuid}.scenario.json`);
 
 const gate = {
