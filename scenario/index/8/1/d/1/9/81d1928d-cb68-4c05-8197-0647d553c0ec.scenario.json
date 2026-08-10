@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "81d1928d-cb68-4c05-8197-0647d553c0ec",
+    "name": "Class facet completeness: renders TS method signatures + attributes/properties + relationships via the single renderFacet path",
+    "altId": "R40.27",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "A Class facet is missing its TS method signatures, attributes/properties, and relationships. The data already exists (R36.3 part-1 enrichment, R40.6 relationships); this is a render gap. Must render via the SINGLE renderFacet/deriveViewKind path and distinguish empty from absent (fail-visible).",
+    "tronQuote": "discover related should add the relationship between use case and class and should add parents and traceability children to the diagram. also the class is lacking al its ts method signtures and attributes, properties and relationships",
+    "status": "Backlog",
+    "captureOnly": true,
+    "discoverySource": {
+      "type": "tron-directive",
+      "by": "Tron (device)",
+      "date": "2026-08-10",
+      "note": "Tron device-found; class facet missing signatures/attributes/relationships."
+    },
+    "reuseNote": "REUSE (do not fork): method signature + parentClass DATA already exists (R36.3 part-1, T36.3 re-gen); relationships = R40.6. Both are RENDER gaps over existing data, via the R40.23/deriveViewKind single path — NO new renderer.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a-method-signatures",
+        "group": "method-signatures",
+        "text": "A Class facet renders its TS METHOD SIGNATURES (visibility name(params):returnType) — the data exists from R36.3 part-1 enrichment."
+      },
+      {
+        "id": "AC-b-attributes",
+        "group": "attributes",
+        "text": "It renders its ATTRIBUTES / PROPERTIES."
+      },
+      {
+        "id": "AC-c-relationships",
+        "group": "relationships",
+        "text": "It renders its RELATIONSHIPS."
+      },
+      {
+        "id": "AC-d-empty-vs-absent",
+        "group": "empty-vs-absent",
+        "text": "Empty vs absent is DISTINGUISHED: an empty compartment must NOT look identical to missing data — fail-visible (unknown-facet precedent)."
+      },
+      {
+        "id": "AC-e-single-path",
+        "group": "single-render-path",
+        "text": "Renders via the SINGLE renderFacet/deriveViewKind path — NO rival renderer or type-map (the family single-source, ties R40.23/BUG-D)."
+      },
+      {
+        "id": "AC-f-device-gate",
+        "group": "device-gate",
+        "text": "Device-gated @390 real-WebKit, RED-baseline."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

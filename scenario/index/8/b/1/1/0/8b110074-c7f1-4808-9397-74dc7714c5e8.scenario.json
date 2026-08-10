@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8b110074-c7f1-4808-9397-74dc7714c5e8",
+    "name": "Discover-related completeness: adds the UseCase<->Class relationship EDGE + parents + traceability children to the diagram (not just nodes)",
+    "altId": "R40.26",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "discover-related currently adds nodes but is missing the RELATIONSHIP EDGE between the UseCase and the Class, plus parents and traceability children. A node added with no edge is the empty-container class. All added relationships/nodes must render immediately and re-running must not duplicate.",
+    "tronQuote": "discover related should add the relationship between use case and class and should add parents and traceability children to the diagram. also the class is lacking al its ts method signtures and attributes, properties and relationships",
+    "status": "Backlog",
+    "captureOnly": true,
+    "discoverySource": {
+      "type": "tron-directive",
+      "by": "Tron (device)",
+      "date": "2026-08-10",
+      "note": "Tron device-found; discover-related edge/parents/children gap."
+    },
+    "reuseNote": "REUSE (do not fork): relationships already exist as REAL Relationship edges (R40.6 typed OOP model, IS-A/implements). This is likely a RENDER/WIRING gap over existing edge data, NOT a new data model.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a-relationship-edge",
+        "group": "relationship-edge",
+        "text": "discover-related adds the RELATIONSHIP EDGE between the UseCase and the Class, not only the nodes — an added node with no edge is the empty-container class we fix repeatedly."
+      },
+      {
+        "id": "AC-b-parents",
+        "group": "parents",
+        "text": "It adds the PARENTS of the discovered element to the diagram."
+      },
+      {
+        "id": "AC-c-trace-children",
+        "group": "traceability-children",
+        "text": "It adds the TRACEABILITY CHILDREN to the diagram."
+      },
+      {
+        "id": "AC-d-immediate-render",
+        "group": "immediate-render",
+        "text": "Added relationships/nodes render on the diagram IMMEDIATELY, no refresh."
+      },
+      {
+        "id": "AC-e-idempotent",
+        "group": "idempotent",
+        "text": "Idempotent: re-running discover-related does NOT duplicate nodes or edges."
+      },
+      {
+        "id": "AC-f-device-gate",
+        "group": "device-gate",
+        "text": "Device-gated @390 real-WebKit, RED-baseline + STUB-MUST-FAIL, in the device lane so it re-runs."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

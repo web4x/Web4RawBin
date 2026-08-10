@@ -47,7 +47,12 @@
         "group": "family",
         "text": "Implemented via the family-named selection-driven-action-provider (single source for selection->verbs), not a bespoke bar."
       }
-    ]
+    ],
+    "deviceVerified": {
+      "date": "2026-08-10",
+      "by": "Tron",
+      "note": "'good actions change' — action-bar regression FIXED on device: element-context verbs (remove-from-diagram/delete/find-linked) return on select. Do not re-ask; eligible for QA-Review."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
