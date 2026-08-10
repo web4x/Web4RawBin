@@ -70,7 +70,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
     document.addEventListener('rb-drawer-action', this.onUniversalAction); // R-A A1: Scenario/Edit handled universally in the shared drawer
-    document.addEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.25: SINGLE trigger — the type signal (from render OR box-select) drives the action bar here, no orphaned signal
+    document.addEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.24: SINGLE trigger — the type signal (from render OR box-select) drives the action bar here, no orphaned signal
     registerUniversalActions(this); // R35.1: self-register the view-independent item-action provider+handler (vcard/preview/newtab/proxy) — drawer loads everywhere → fires in room/trace/model
   }
 
@@ -114,7 +114,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
     document.removeEventListener('rb-drawer-action', this.onUniversalAction);
-    document.removeEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.25
+    document.removeEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.24
     this._posRo?.disconnect(); this._posRo = null; // R31.9: stop the container-query position driver
   }
 
@@ -403,7 +403,7 @@ export class RbDetailDrawer extends HTMLElement {
   // [impl:uuid:e6870858-2f5b-4605-a2a7-31b366dd41e2] RbDetailDrawer.showActionsForType (item6, INV-2) — selection-driven: on each detail
   // render tell the HOST which TYPE is shown (rb-drawer-detail-shown {type,ref}) so it can setActions for that type;
   // the shared drawer never hardcodes actions. Cleared (setActions([])) when switching to chat / empty.
-  // R40.25 SINGLE trigger: the drawer hears rb-drawer-detail-shown{type,ref} from ANY source — its own render dispatch
+  // R40.24 SINGLE trigger: the drawer hears rb-drawer-detail-shown{type,ref} from ANY source — its own render dispatch
   // AND rb-active-diagram box-select — and drives the action bar HERE. Fixes the orphaned-signal regression: box-select's
   // {type:'modelelement'} was heard ONLY by model.ts (local shownRef), never reached universalActionBar, so element verbs
   // (incl Delete) never rendered while a diagram was open. One driver, no second driver in model.ts, no double-fire.
@@ -411,7 +411,7 @@ export class RbDetailDrawer extends HTMLElement {
 
   private showActionsForType(type: string, ref: string): void {
     const t = (type || '').toLowerCase();
-    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref }, bubbles: true })); // R40.25: DISPATCH-ONLY — the drawer's own onDetailShown listener drives universalActionBar (ONE trigger path; box-select's {modelelement} signal now reaches it too — no orphaned signal, no double-fire)
+    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: t, ref }, bubbles: true })); // R40.24: DISPATCH-ONLY — the drawer's own onDetailShown listener drives universalActionBar (ONE trigger path; box-select's {modelelement} signal now reaches it too — no orphaned signal, no double-fire)
     // R34.5 (R-D1): a select→navigate that SHOWS a model-element detail (from diagram/detail-link/anywhere) also reveals
     // it in the tree — auto-expand the folder ancestor path via the EXISTING R33.7.4 onTreeReveal→revealModelElement→
     // expandPath (ride wholesale, NO new verb/Method). Was missing: rb-tree-reveal only fired on diagram-box-select.
