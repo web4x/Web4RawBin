@@ -1,0 +1,68 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7fee0120-a5dc-43df-838f-b91ab86711b1",
+    "name": "Post-deploy device-gate trigger — every deploy auto-runs gate:device:live on live prod; NOT-RUN==RED; no bypass; version-stamped + Tron-visible",
+    "altId": "R40.25",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "The SYSTEMIC fix behind FIVE Tron screenshot-found defects: visual/device gates currently run NOWHERE, so device regressions ship green and arrive as screenshots. A post-deploy trigger automatically runs the EXISTING gate:device:live lane against live prod after every deploy and makes 'deployed' mean 'device-verified'. Architect design 00361a7e3 (approved; build was never dispatched = PO gap, expert building now). Chain trails (mint/marker) as with device-bugs A/B/C/D.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "post-deploy-device-gate",
+    "discoverySource": {
+      "type": "architect-design",
+      "designCommit": "00361a7e3",
+      "by": "robbin-architect",
+      "date": "2026-08-10",
+      "note": "Approved design never built (PO measured the gap). Systemic root behind 5 device-found defects. Expert building; req mint/marker trails."
+    },
+    "implRef": "chain (build trails): UC deploy.postDeployDeviceGate -> Class DeviceGateTrigger -> Method runAndRecord.",
+    "crossRef": [
+      "ior:instance:9163e71f-f700-4b9b-96eb-c07b9f3b5976"
+    ],
+    "crossRefNote": "R40.19 (history-back regression gate) + the other device-gated reqs DEPEND on this trigger — it is what makes an EXECUTING gate actually execute post-deploy. Without R40.25 those gates run nowhere.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-reuse-existing-lane",
+        "group": "reuse-lane",
+        "text": "A post-deploy step invokes the EXISTING gate:device:live lane against LIVE prod automatically after restart + served==committed. No new gate machinery — it wires the trigger, not a parallel gate."
+      },
+      {
+        "id": "AC-2-not-done-until-green",
+        "group": "not-done-until-green",
+        "text": "A deploy is NOT verified/done until the gate is GREEN (non-zero exit on RED). 'Served-but-gate-RED' is an explicit UN-VERIFIED state, not done."
+      },
+      {
+        "id": "AC-3-versioned-unit-and-api",
+        "group": "versioned-record",
+        "text": "Results land as a VERSION-STAMPED device-gate unit (GREEN/RED/NOT-RUN + evidence + the gated Test uuids) exposed at /api/gate-status — durable + queryable, NOT a log line."
+      },
+      {
+        "id": "AC-4-notrun-equals-red",
+        "group": "notrun-equals-red",
+        "text": "NOT-RUN == FAILURE == RED (unavailable / timeout / errored-before-asserting) — NEVER a silent pass. Rationale: S23 died because its gate NEVER RAN; absence of a result must read as failure."
+      },
+      {
+        "id": "AC-5-no-bypass-ever",
+        "group": "no-bypass-ever",
+        "text": "NO skip/bypass flag EVER. Shipping un-gated is allowed but is RECORDED as served-but-UNVERIFIED and can NEVER be silenced/marked-verified. (This prohibition is part of the requirement so a future agent reading it does not add a bypass.)"
+      },
+      {
+        "id": "AC-6-tron-visible",
+        "group": "tron-visible",
+        "text": "Gate-status is VISIBLE TO TRON (owner-gated UI) answering: is what is currently SERVED verified on-device, and at WHICH version?"
+      },
+      {
+        "id": "AC-7-meta-bite",
+        "group": "meta-bite",
+        "text": "A META-BITE on the trigger ITSELF: trigger-fires / unavailable->NOT-RUN-RED / RED-blocks-done / S23-regression-replay — a trigger that silently no-ops is the same disease one level up, so its own fail-ability is proven."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
