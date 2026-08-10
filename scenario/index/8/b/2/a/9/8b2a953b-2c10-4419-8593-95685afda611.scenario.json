@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8b2a953b-2c10-4419-8593-95685afda611",
+    "name": "RbTaskDetail.renderChangeRequests",
+    "implementations": [
+      "ior:instance:e080ef45-f2ae-4640-a2ee-6677040f9aa2"
+    ]
+  },
+  "ownerIor": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5"
+}

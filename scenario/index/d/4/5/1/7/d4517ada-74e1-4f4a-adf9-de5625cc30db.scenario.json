@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d4517ada-74e1-4f4a-adf9-de5625cc30db",
+    "name": "DiagramViewModel.stripRef",
+    "implementations": [
+      "ior:instance:20962425-8860-4641-bfc1-2e0330ac5d16"
+    ]
+  },
+  "ownerIor": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "857b6a73-d717-4e2a-97e3-113bd9a5607a",
+    "name": "ServiceWorker.networkFirst",
+    "implementations": [
+      "ior:instance:5ae5aa07-ce83-4744-84dd-e93a1a0c2925"
+    ]
+  },
+  "ownerIor": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133"
+}

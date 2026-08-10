@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3f2dfabc-70af-4ab7-986f-17235c2bdb0c",
+    "name": "taskDetail.renderChangeRequests",
+    "description": "The task detail view renders decline-minted ChangeRequests as REACHABLE child itemViews with the decline reason readable, so a rejected verdict's ChangeRequest is navigable from the task (even a task with zero forward chain links).",
+    "class": "ior:instance:4df19279-f2b8-438d-97b8-03fb37e049d5",
+    "method": "ior:instance:8b2a953b-2c10-4419-8593-95685afda611",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad"
+}

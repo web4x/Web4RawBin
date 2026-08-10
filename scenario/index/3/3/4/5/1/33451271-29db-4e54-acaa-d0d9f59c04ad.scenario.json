@@ -10,7 +10,8 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:0a3e3653-c997-4a87-97ef-1511a1fef5dd"
+      "ior:instance:0a3e3653-c997-4a87-97ef-1511a1fef5dd",
+      "ior:instance:3f2dfabc-70af-4ab7-986f-17235c2bdb0c"
     ],
     "description": "A task at QA-Review carries TWO owner-only action units: APPROVE BY TRON (records approvedBy+approvedAt as DATA on the unit -> Done-gate flips; makes \"Done requires Tron QA\" PROVABLE not remembered) and DECLINE QA (mints an ior:class:ChangeRequest unit capturing the reason, LINKED to the declined task/requirement, entering the board as real work). Removes the PO from the loop: no reminder pings, no batch markdown. Applies to ANY task at QA-Review (incl the S37 twelve unsigned) -> obsoletes tron-qa-batch.md + reminders.",
     "tronQuote": "for the tasks on QA add an approve by Tron action then you do not need to remind me ... also add a action decline QA, that results in a scenario-first change request unit",

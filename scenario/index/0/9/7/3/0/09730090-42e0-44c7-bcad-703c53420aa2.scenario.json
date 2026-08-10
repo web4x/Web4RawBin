@@ -9,7 +9,8 @@
       "ior:instance:8c68b925-b465-4ae7-89f1-b9a884185799",
       "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
       "ior:instance:6a2cbd63-e958-4de8-a5b3-e84948c71bc6",
-      "ior:instance:d8818494-2374-4891-b581-d3fa96add67c"
+      "ior:instance:d8818494-2374-4891-b581-d3fa96add67c",
+      "ior:instance:d4517ada-74e1-4f4a-adf9-de5625cc30db"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",

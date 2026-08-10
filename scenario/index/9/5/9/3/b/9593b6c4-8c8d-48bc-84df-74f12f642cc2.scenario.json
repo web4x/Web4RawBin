@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9593b6c4-8c8d-48bc-84df-74f12f642cc2",
+    "name": "serviceWorker.networkFirst",
+    "description": "The service worker's networkFirst cache STRATEGY caches only GET responses and skips non-GET (POST/PUT/DELETE), so a POST no longer throws on cache.put. Distinct-intent from serviceWorker.networkFirstShell (nav-routing list) — this is the fetch-and-cache strategy.",
+    "class": "ior:instance:8bd3bd6b-a6a5-4e15-af57-9aa12f9b7133",
+    "method": "ior:instance:857b6a73-d717-4e2a-97e3-113bd9a5607a",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:76512c5f-3e87-4e4f-99aa-113312458e07"
+}
