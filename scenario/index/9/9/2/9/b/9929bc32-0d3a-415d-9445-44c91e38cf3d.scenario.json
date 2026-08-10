@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9929bc32-0d3a-415d-9445-44c91e38cf3d",
+    "name": "drawer.singleTriggerActionBar",
+    "description": "The action bar is driven by a SINGLE trigger path: the drawer dispatches rb-drawer-detail-shown{type,ref} from ANY source (its own render OR a box-select) and its own onDetailShown listener sets the action bar — so a box-select's {modelelement} signal reaches the bar (no orphaned signal, no double-fire). Distinct-intent from R33.6.5 drawer.selectionDrivenActions (which is the selection->verbs behaviour); this is the single-trigger WIRING that fixes the regression.",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "method": "ior:instance:c6a39be3-2174-46ad-856a-ce0ff983b3dd",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:a2c78c46-ff5c-4537-99bf-aaa7eb8c53f9"
+}

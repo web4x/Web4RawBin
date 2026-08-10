@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0a959b61-df6c-40fb-956a-8e66a58ebf4c",
+    "name": "RbDetailDrawer single-trigger action-bar wiring impl (dispatch-only rb-drawer-detail-shown from any source; box-select signal reaches the bar; no orphaned/double-fire)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "markerNote": "DISTINCT-Impl on SHARED Method showActionsForType c6a39be3 (R30.11) — does NOT re-credit R33.6.5's Impl e6870858 (drawer.selectionDrivenActions). Fix = single-trigger wiring (commit 406bb2a4d, comment-labeled R40.24 at rb-detail-drawer.ts:406/414). EXPERT places ONE NEW [impl:uuid:0a959b61] marker on the R40.24 change (distinct from e6870858@403) -> I strict-AST-flip. Device-verified by Tron ('good actions change'); DISTINCT device Test = tester AC-4 gate."
+  }
+}

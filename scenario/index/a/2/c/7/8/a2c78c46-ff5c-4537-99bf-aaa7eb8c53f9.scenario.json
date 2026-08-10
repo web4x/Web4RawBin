@@ -9,7 +9,9 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:9929bc32-0d3a-415d-9445-44c91e38cf3d"
+    ],
     "description": "REGRESSION (Tron device-found, 5th by screenshot): selecting a diagram/model element no longer updates the action bar to expose its element-context verbs. The element-context verbs were moved to a PROVIDER on the shared drawer (R34.7/R-E, model.ts:85-86) composed by universalActionBar; membership verbs gate on hasActiveDiagram (model.ts:75). Tron's screenshot shows A1 defaults + diagram-LEVEL verbs present but ELEMENT verbs (remove-from-diagram/delete/find-linked) ABSENT on selection.",
     "tronQuote": "selecting diagram elements does not change the action bar any more... where are the actions remove from diagram / delete / find linked",
     "status": "Backlog",
