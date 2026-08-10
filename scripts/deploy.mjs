@@ -41,7 +41,14 @@ async function main() {
 
   // (2) COMMIT build artifacts (path-limited: version derivatives + dist; source already committed by the developer)
   if (DRY) console.log('  [dry-run] step commit: path-limited commit of package.json + sw.js + dist (skipped)');
-  else { console.log('▸ commit build artifacts …'); spawnSync('git', ['add', '--', 'package.json', 'src/public/sw.js', 'src/public/dist'], { cwd: ROOT }); spawnSync('git', ['-c', 'commit.gpgsign=false', 'commit', '-m', `deploy: build artifacts v${committed}`, '--', 'package.json', 'src/public/sw.js', 'src/public/dist'], { cwd: ROOT, stdio: 'inherit' }); }
+  else {
+    console.log('▸ commit build artifacts …');
+    const P = ['package.json', 'src/public/sw.js', 'src/public/dist'];
+    spawnSync('git', ['add', '--', ...P], { cwd: ROOT });
+    const nothingStaged = spawnSync('git', ['diff', '--cached', '--quiet', '--', ...P], { cwd: ROOT }).status === 0; // 0 = no staged diff
+    if (nothingStaged) console.log('  nothing to commit — no-change deploy (build artifacts byte-identical); continuing (no empty commit).');
+    else { const c = spawnSync('git', ['-c', 'commit.gpgsign=false', 'commit', '-m', `deploy: build artifacts v${committed}`, '--', ...P], { cwd: ROOT, stdio: 'inherit' }); if (c.status !== 0) abort('commit of build artifacts failed'); }
+  }
 
   // (3) RESTART into the PINNED foreground pane (%18) — does NOT block on the server's stdout
   if (DRY) console.log(`  [dry-run] step restart: tmux send-keys -t ${PANE} C-c + 'npm start' (pinned foreground; skipped)`);
