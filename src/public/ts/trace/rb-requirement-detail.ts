@@ -50,6 +50,12 @@ export class RbRequirementDetail extends HTMLElement {
       </div>`;
 
     this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    // R40.10 BUG A: a ChangeRequest carries a `reason` the owner typed on decline — render it PROMINENTLY (top of fields).
+    // REUSE (no fork): this same detail serves Requirement + ChangeRequest (RequirementTemplate); reason shows only when present.
+    fetch(`/api/ior/ior:instance:${obj.uuid}`).then(r => r.ok ? r.json() : null).then(j => {
+      const reason = j?.unit?.model?.reason;
+      if (reason) this.querySelector('.dv-fields')?.insertAdjacentHTML('afterbegin', `<div class="dv-field dv-cr-reason"><label>Reason</label><div style="white-space:pre-wrap;color:#e6edf3;font-size:0.85rem;margin-top:4px;padding:8px 10px;background:#161b22;border-radius:6px;border-left:3px solid #fb8c00">${esc(String(reason))}</div></div>`);
+    }).catch(() => { /* reason best-effort */ });
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
 

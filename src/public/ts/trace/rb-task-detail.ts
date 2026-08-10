@@ -80,6 +80,19 @@ export class RbTaskDetail extends HTMLElement {
       renderChainPathSection(this, uuid);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, uuid);
+      // R40.10 BUG A: render the task's decline-minted ChangeRequests as CHILD itemViews, OUTSIDE the forwardOnly
+      // chain (render-only — the edge ALREADY exists via CR.ownerIor→task + the task.changeRequests mirror; NO new
+      // link written, chain stays byte-identical). Each CR → an rb-object-item (name + badge + click-through to its reason).
+      const crRefs: string[] = Array.isArray(model.changeRequests) ? model.changeRequests : [];
+      if (crRefs.length && this.isConnected) {
+        const items = await Promise.all(crRefs.map((r) => String(r).replace('ior:instance:', '')).map(async (u) => {
+          const cm = await fetch(`/api/ior/ior:instance:${u}`).then(x => x.ok ? x.json() : null).catch(() => null);
+          const nm = String(cm?.unit?.model?.name || 'Change Request');
+          const st = String(cm?.unit?.model?.status || '');
+          return `<rb-object-item ref="changerequest:${u}" type="changerequest" name="${esc(nm)}"${st ? ` status="${esc(st)}"` : ''}></rb-object-item>`;
+        }));
+        this.querySelector('.dv-links')?.insertAdjacentHTML('afterend', `<div class="dv-links dv-change-requests"><h4>Change Requests</h4>${items.join('')}</div>`);
+      }
     });
   }
 }

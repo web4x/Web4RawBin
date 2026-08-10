@@ -249,6 +249,7 @@ export class RbDetailDrawer extends HTMLElement {
     panel.dataset.currentRef = ref;
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
+      changerequest: 'rb-requirement-detail', // R40.10 BUG A: ChangeRequest uses RequirementTemplate → REUSE its detail (renders the reason)
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
       test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
       otmuxpane: 'rb-terminal-detail', // R31.4 DRY: Server Manager terminal = a detail-view (defined by the server-manager bundle; tag string only → no xterm in /trace bundles)
