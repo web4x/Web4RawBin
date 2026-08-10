@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c0610574-8568-469e-b893-477a24af2691",
+    "name": "doneProvenance.assertNoBareDone",
+    "description": "Reconcile-GUARD: a Done requires a doneBasis, and 'tron-approved' requires approvedBy; a bare/lying Done is REFUSED fail-closed. Folded into ci:gates so a bulk-derive can never emit a bare Done.",
+    "class": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd",
+    "method": "ior:instance:3f993f9a-d91c-4692-9647-37522df15190",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:3cdd5091-cb29-4279-ac8e-1661e6cea026"
+}

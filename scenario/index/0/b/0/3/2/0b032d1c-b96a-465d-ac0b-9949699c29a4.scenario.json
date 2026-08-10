@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "0b032d1c-b96a-465d-ac0b-9949699c29a4",
+    "name": "DoneProvenance.reclassifyBulkAdvanced impl (the 17 S19/S20 + 1 Device bare-Done -> checklist-derived or revert, fail-loud list)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/done-provenance.ts",
+    "markerNote": "markerPending: expert builds. AC-e retroactive; never keep a bare Done."
+  },
+  "ownerIor": "ior:instance:abf9ef79-6e5d-410f-9722-1748d2f030b7"
+}

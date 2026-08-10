@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3f993f9a-d91c-4692-9647-37522df15190",
+    "name": "DoneProvenance.assertNoBareDone",
+    "implementations": [
+      "ior:instance:c4d01ff2-e611-459a-ba50-953c361cc948"
+    ]
+  },
+  "ownerIor": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "eb6a1678-e830-47ac-bab0-b386ba86a84b",
+    "name": "DoneProvenance.deriveDoneBasis impl (pure; tron-approved iff approvedBy / checklist-derived iff Done-box-no-approvedBy / null iff not-Done; written at every Done-write site)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/done-provenance.ts",
+    "markerNote": "markerPending: expert builds src/ts/scenario/done-provenance.ts. Reads R-C5 derive + R40.10 approvedBy as EVIDENCE only (C9-5 reads-not-owns), never mutates them."
+  },
+  "ownerIor": "ior:instance:c6f02242-5e16-465a-ba48-fe47e949d5a5"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "abf9ef79-6e5d-410f-9722-1748d2f030b7",
+    "name": "DoneProvenance.reclassifyBulkAdvanced",
+    "implementations": [
+      "ior:instance:0b032d1c-b96a-465d-ac0b-9949699c29a4"
+    ]
+  },
+  "ownerIor": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd"
+}

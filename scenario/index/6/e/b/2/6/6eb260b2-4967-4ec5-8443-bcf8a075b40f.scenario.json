@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "6eb260b2-4967-4ec5-8443-bcf8a075b40f",
+    "name": "doneProvenance.reclassifyBulkAdvanced",
+    "description": "Retroactive (AC-e): the 17 S19/S20 Tasks + 1 Device that are status=Done with no approvedBy are set doneBasis='checklist-derived' if their checklist is Done, ELSE reverted to the derived enum — never kept as a bare Done; fail-loud list.",
+    "class": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd",
+    "method": "ior:instance:abf9ef79-6e5d-410f-9722-1748d2f030b7",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:3cdd5091-cb29-4279-ac8e-1661e6cea026"
+}

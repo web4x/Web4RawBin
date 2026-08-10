@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd",
+    "name": "DoneProvenance",
+    "sourceFile": "ior:file:src/ts/scenario/done-provenance.ts",
+    "methods": [
+      "ior:instance:c6f02242-5e16-465a-ba48-fe47e949d5a5",
+      "ior:instance:3f993f9a-d91c-4692-9647-37522df15190",
+      "ior:instance:abf9ef79-6e5d-410f-9722-1748d2f030b7"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

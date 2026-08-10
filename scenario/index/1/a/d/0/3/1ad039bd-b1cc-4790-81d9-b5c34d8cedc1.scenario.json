@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1ad039bd-b1cc-4790-81d9-b5c34d8cedc1",
+    "name": "doneProvenance.deriveBasis",
+    "description": "Derive a Task's doneBasis (orthogonal to status): 'tron-approved' iff approvedBy present, 'checklist-derived' iff Done-box checked but no approvedBy, null iff not-Done. Called at EVERY Done-write site so a Done never lacks its basis (by-construction half).",
+    "class": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd",
+    "method": "ior:instance:c6f02242-5e16-465a-ba48-fe47e949d5a5",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:3cdd5091-cb29-4279-ac8e-1661e6cea026"
+}

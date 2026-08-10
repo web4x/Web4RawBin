@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c6f02242-5e16-465a-ba48-fe47e949d5a5",
+    "name": "DoneProvenance.deriveDoneBasis",
+    "implementations": [
+      "ior:instance:eb6a1678-e830-47ac-bab0-b386ba86a84b"
+    ]
+  },
+  "ownerIor": "ior:instance:a6cfc8e6-0386-4c9b-9b76-b0fc2d2c8acd"
+}
