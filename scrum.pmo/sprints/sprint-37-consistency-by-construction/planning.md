@@ -19,3 +19,4 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] [Task C5: Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip [R-C5]](./task-c5-dual-status-reconcile.md)
 - [ ] [Task C6: sprints.overview.md is a GENERATED view (with preserved-narrative region) [R-C6]](./task-c6-sprints-overview-generated.md)
 - [ ] [Task C7: Legacy hand-authored boards MIGRATED to generated (units-completeness-proven, zero loss) [R-C7]](./task-c7-legacy-board-migration.md)
+- [ ] [Task C8: Generated-output writes route through a shared owned-output guard — never clobber/delete an UNMARKED (hand-authored) file, fail-closed [R-C8]](./task-c8-owned-output-delete-guard.md)

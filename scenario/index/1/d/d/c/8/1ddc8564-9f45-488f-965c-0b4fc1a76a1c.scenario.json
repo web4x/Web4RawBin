@@ -4,7 +4,9 @@
     "uuid": "1ddc8564-9f45-488f-965c-0b4fc1a76a1c",
     "name": "Generated-output writes route through a shared owned-output guard — never clobber/delete an UNMARKED (hand-authored) file, fail-closed",
     "altId": "R-C8",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9ca4b58f-015f-44b8-9b27-62eeee31d4ea"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
