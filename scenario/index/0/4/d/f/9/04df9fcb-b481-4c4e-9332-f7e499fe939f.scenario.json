@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "04df9fcb-b481-4c4e-9332-f7e499fe939f",
+    "name": "ModelView.discoverRelated completeness increment (neighbor=relational∪chain-PARENTS∪trace-CHILDREN bounded-1-level; UC<->Class edge emits m.class as {to,kind} riding buildEdges R32.6)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/model/model.ts",
+    "markerNote": "DISTINCT-Impl on SHARED Method discoverRelated e6cc8e85 (R30.11) — does NOT re-credit R33.7.2 Impl 8e8c1d75. Edge-emit RIDES buildEdges 8c68b925/R32.6 both-on-diagram guard, no 2nd edge concept, NOT cross-wired. INV-DA2 bounded-1-level (1195-node flood measured @390). Expert builds+marks (after R40.25/R31.14 lands); DISTINCT device Test."
+  },
+  "ownerIor": "ior:instance:e6cc8e85-acfa-43ff-b5f5-fc85b9e594d1"
+}

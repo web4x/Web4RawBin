@@ -6,7 +6,8 @@
     "description": "diagram-view-model.ts:61 export function renderFacet(view,node): facet-lens per view.viewKind (built once). Built v0.8.55 (60afefa5d). IMPL-MINT — expert marks [impl:uuid:94ad4f50-aac8-4de5-ad34-e6776fc4b938] on the name-matching decl.",
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
     "implementations": [
-      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938"
+      "ior:instance:94ad4f50-aac8-4de5-ad34-e6776fc4b938",
+      "ior:instance:c3469466-d5e7-4411-9fc7-5302a7da2156"
     ],
     "tests": []
   },

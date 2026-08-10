@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c3469466-d5e7-4411-9fc7-5302a7da2156",
+    "name": "DiagramViewModel.renderFacet member-render increment (thread sigOf(mm)/attr-type into node.methods/attrs + relationships; empty-vs-absent fail-visible, stop swallowing null members)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
+    "markerNote": "DISTINCT-Impl on SHARED Method renderFacet a6a05d34 (R30.11) — does NOT re-credit R36.1/2 Impl 94ad4f50. Routes SINGLE renderFacet/deriveViewKind (R40.23), no rival renderer. node-build currently if(!mm)continue SWALLOWS null -> track load-failed flag. Expert builds+marks (after R40.25/R31.14); DISTINCT device Test."
+  },
+  "ownerIor": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5"
+}

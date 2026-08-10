@@ -6,7 +6,8 @@
     "description": "NEW method on ModelView (model.ts): handles the R33.6.5 action-bar 'discover' verb -> GET /api/ior for the selected element's relatesTo[]+relatedFrom[] -> addView each 1-level immediate neighbor (base/extends, nav/targets, subclasses, interfaces) onto the diagram; buildEdges wires the relationships. 1 level only (bounded), reuse /api/ior + addView (no new endpoint), store-only. INV-DA1/2/3. markerPending. NAME PROVISIONAL.",
     "sourceFile": "ior:file:src/public/ts/model/model.ts",
     "implementations": [
-      "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84"
+      "ior:instance:8e8c1d75-c4a4-4067-88fa-cb2b10521f84",
+      "ior:instance:04df9fcb-b481-4c4e-9332-f7e499fe939f"
     ],
     "tests": [],
     "markerPending": false

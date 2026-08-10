@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bb3c490e-fb3e-4568-826b-9aec3f9ef804",
+    "name": "classFacet.completeness",
+    "description": "A Class facet renders TS method SIGNATURES (visibility name(params):returnType via sigOf(mm) threaded into node.methods), ATTRIBUTES/PROPERTIES (attr-type), and RELATIONSHIPS — through the SINGLE renderFacet/deriveViewKind (R40.23) path. Empty-vs-absent fail-visible: '(no members)' vs '⚠ members unavailable'.",
+    "class": "ior:instance:09730090-42e0-44c7-bcad-703c53420aa2",
+    "method": "ior:instance:a6a05d34-1951-4dc5-b6f6-7b00ea90e3f5",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:81d1928d-cb68-4c05-8197-0647d553c0ec"
+}

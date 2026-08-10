@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3e41d088-3458-406e-986e-d43252f31e3a",
+    "name": "discover.completeness",
+    "description": "discover-related returns the COMPLETE neighbor set (relational ∪ direct-chain PARENTS ∪ direct-trace CHILDREN, reusing forwardOnly chain keys as single source), bounded one level; the UC<->Class edge is emitted (m.class -> typed {to,kind} riding buildEdges/R32.6); all render immediately, idempotent no-dup.",
+    "class": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230",
+    "method": "ior:instance:e6cc8e85-acfa-43ff-b5f5-fc85b9e594d1",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:8b110074-c7f1-4808-9397-74dc7714c5e8"
+}

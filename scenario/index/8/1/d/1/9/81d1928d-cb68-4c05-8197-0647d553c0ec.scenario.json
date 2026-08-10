@@ -9,7 +9,9 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:bb3c490e-fb3e-4568-826b-9aec3f9ef804"
+    ],
     "description": "A Class facet is missing its TS method signatures, attributes/properties, and relationships. The data already exists (R36.3 part-1 enrichment, R40.6 relationships); this is a render gap. Must render via the SINGLE renderFacet/deriveViewKind path and distinguish empty from absent (fail-visible).",
     "tronQuote": "discover related should add the relationship between use case and class and should add parents and traceability children to the diagram. also the class is lacking al its ts method signtures and attributes, properties and relationships",
     "status": "Backlog",
@@ -40,7 +42,7 @@
       {
         "id": "AC-d-empty-vs-absent",
         "group": "empty-vs-absent",
-        "text": "Empty vs absent is DISTINGUISHED: an empty compartment must NOT look identical to missing data — fail-visible (unknown-facet precedent)."
+        "text": "Empty vs absent DISTINGUISHED with teeth: a genuinely empty class shows '(no members)'; when fetchModel returns NULL (members unavailable) it shows '⚠ members unavailable' — because node-build currently SWALLOWS the null (if(!mm)continue) and a swallowed error is indistinguishable from success. Fail-visible, never a silent empty box."
       },
       {
         "id": "AC-e-single-path",
