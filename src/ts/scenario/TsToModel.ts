@@ -10,6 +10,7 @@ import ts from 'typescript';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { deriveViewKind } from '../shared/facet-type.js'; // R40.23: THE single facet-type source (no hardcoded viewKind)
 
 // M2 metaclass uuids — MIRROR scripts/seed-mda-model.mjs (pinned/stable seed constants). [model facet, code facet].
 const M2 = {
@@ -282,7 +283,7 @@ export class TsToModel {
       diagramUuid = keyToUuid('diagram::' + files.map((f) => this.rel(f)).sort().join(','));
       const boxes = units.filter((u) => u.model.kind === 'class' || u.model.kind === 'interface');
       const COLS = 3;
-      const views = boxes.map((u, i) => ({ unit: 'modelelement:' + u.model.uuid, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: 'class' }));
+      const views = boxes.map((u, i) => ({ unit: 'modelelement:' + u.model.uuid, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: deriveViewKind(u.ior, u.model) })); // R40.23: single-sourced (class/interface → same box; no hardcoded 'class')
       const dUnit = { ior: 'ior:class:Diagram', ownerIor: null, model: { uuid: diagramUuid, name: `Model diagram (${boxes.length} classes)`, views } };
       const dfile = shardPath(diagramUuid);
       const djson = JSON.stringify(dUnit, null, 2) + '\n';

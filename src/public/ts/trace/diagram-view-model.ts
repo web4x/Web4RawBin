@@ -8,12 +8,13 @@ export interface DiagramRelation { to: string; kind: EdgeKind } // to = target e
 export interface ViewLink { unit: string; x: number; y: number; w?: number; h?: number; viewKind?: string; }
 import { deriveViewKind } from '../../../ts/shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type fn, shared with the server add-view (no rival map)
 
-export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; ior?: string; model?: Record<string, unknown>; }
+export interface DiagramNode { name: string; kind: string | null; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; ior?: string; model?: Record<string, unknown>; }
 
-// R32.11-B2 / BUG D: the facet key for a view — view.viewKind (authoritative when present) else DERIVED from the
-// element's ior-class via the shared deriveViewKind (legacy/missing viewKind no longer silently becomes 'class'),
-// else the node's own kind. renderFacet stays the ONE lens router; this only chooses its key. Used by all 3 sites.
-const facetKind = (view: ViewLink, node: DiagramNode): string => view.viewKind || deriveViewKind(node.ior, node.model) || node.kind || 'class';
+// R32.11-B2 / BUG D / R40.23: the facet key for a view — view.viewKind (authoritative when present) else DERIVED from
+// the element's ior-class via the shared deriveViewKind, else the node's own kind, else NULL. NO 'class' default here:
+// a null result MUST reach renderFacet's explicit fail-VISIBLE unknown branch (never a silent class box). node.kind is
+// itself nullable (rb-diagram-detail m.kind||null) so the chain truly reaches null. renderFacet stays the ONE router.
+const facetKind = (view: ViewLink, node: DiagramNode): string | null => view.viewKind || deriveViewKind(node.ior, node.model) || node.kind || null;
 
 // R36.1/R36.2 part-2 (B): the class-family facet viewKinds that render as a UML/TS class box + participate in edges.
 const CLASS_FACETS = new Set(['class', 'interface', 'UmlClass', 'tsClass', 'ts-class-code']);
@@ -76,10 +77,24 @@ export function facetH(view: ViewLink, node: DiagramNode): number {
 // (Marker moved adjacent-above this decl — task 275 — so strict-AST binds 94ad4f50 to renderFacet, not facetW.)
 export function renderFacet(view: ViewLink, node: DiagramNode): string {
   const k = facetKind(view, node);
+  if (!k) return renderUnknownFacet(view, node); // R40.23: unresolvable facet type → VISIBLE unknown box, NEVER a silent 'class' default
   if (k === 'UmlUseCase' || node.kind === 'usecase') return renderUseCaseFacet(view, node);
   if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return renderMethodFacet(view, node);
   if (k === 'UmlNode' || k === 'node' || k === 'deployment-node' || node.kind === 'node') return renderNodeFacet(view, node); // R40.2 deployment-node lens
   return buildBox(view, node, k === 'tsClass' || k === 'ts-class-code'); // class-family: UML box (TS lens for tsClass)
+}
+// R40.23: fail-VISIBLE unknown facet — reached ONLY when facetKind returns null (no viewKind, no deriveViewKind, no
+// node.kind). A DISTINCT dashed grey box labelled '⚠ unknown type' + the element name + its raw ior/type, so an
+// unmapped type is OBVIOUS on the diagram instead of silently masquerading as a class box (the R40.23 defect).
+function renderUnknownFacet(view: ViewLink, node: DiagramNode): string {
+  const w = facetW(view, node), h = facetH(view, node);
+  const raw = String(node.ior || node.kind || 'unknown').replace(/^ior:(class|instance):/, '');
+  return `<g class="dm-box dm-facet-unknown" data-ref="modelelement:${stripRef(view.unit)}" transform="translate(${view.x},${view.y})" tabindex="0">`
+    + `<rect width="${w}" height="${h}" rx="4" fill="#21262d" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="5 3"/>`
+    + `<text x="${w / 2}" y="15" text-anchor="middle" fill="#8b949e" font-size="9" font-style="italic">⚠ unknown type</text>`
+    + `<text x="${w / 2}" y="${Math.round(h / 2) + 4}" text-anchor="middle" fill="#e6edf3" font-size="11">${esc(node.name)}</text>`
+    + `<text x="${w / 2}" y="${h - 7}" text-anchor="middle" fill="#8b949e" font-size="8">${esc(raw)}</text>`
+    + `</g>`;
 }
 // R40.2 [ride 94ad4f50 — renderFacet EXTENSION, no new marker] UmlNode deployment-node lens: the «node» 3D box
 // (front + top + right faces) with the node name and its measured refs as compartment rows (sshd_config / SSH

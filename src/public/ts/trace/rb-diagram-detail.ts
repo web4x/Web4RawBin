@@ -163,7 +163,7 @@ export class RbDiagramDetail extends HTMLElement {
           attrs.push(`${dr.role || 'ref'}: ${base}`);
         }
       }
-      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m), ior: elIor, model: m }); // R32.11-B2/BUG D: ior+model → deriveViewKind fallback
+      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: m.kind ? String(m.kind) : null, attrs, methods, relations, signature: sigOf(m), ior: elIor, model: m }); // R32.11-B2/BUG D: ior+model → deriveViewKind fallback; R40.23: kind NULLABLE (no 'class' default) so facetKind can reach the fail-VISIBLE unknown branch
     }));
     this._sourceFile = sourceFile;
     // R36.4 inc-2: overlay AUTHORED traces (UmlTraceRelationship units) — inject {to,kind:'trace'} onto the from-node

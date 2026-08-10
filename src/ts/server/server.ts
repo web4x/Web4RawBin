@@ -2298,7 +2298,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             writeUnit('ior:class:ModelElement', { uuid: el.uuid, name: el.name, metaLevel: 'M1', kind: el.kind, sourceFile, qualifiedName: el.name, instanceOf: [], members, relations: relsFrom(el.uuid) });
           }
           const COLS = 3; // auto-grid Diagram over the imported classes → R32.4 interactive (boxes + relation edges)
-          const views = elements.map((el, i) => ({ unit: `modelelement:${el.uuid}`, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: 'class' }));
+          const views = elements.map((el, i) => ({ unit: `modelelement:${el.uuid}`, x: (i % COLS) * 220 + 20, y: Math.floor(i / COLS) * 200 + 20, viewKind: deriveViewKind('ior:class:ModelElement', { kind: el.kind }) })); // R40.23: single-sourced (el.kind, not hardcoded 'class' — interfaces now correct)
           const diagramUuid = detUuid(`diagram::${sourceFile}`);
           writeUnit('ior:class:Diagram', { uuid: diagramUuid, name: `${base} (${elements.length} classes)`, views });
           const pumlUuid = detUuid(`puml::${sourceFile}`); // the .puml source text → puml/
