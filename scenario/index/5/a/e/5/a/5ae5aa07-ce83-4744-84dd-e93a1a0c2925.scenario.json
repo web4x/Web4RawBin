@@ -3,10 +3,12 @@
   "model": {
     "uuid": "5ae5aa07-ce83-4744-84dd-e93a1a0c2925",
     "name": "ServiceWorker.networkFirst impl (cache-strategy GET-guard: response.ok && method===GET on cache.put; caches GET only, skips non-GET)",
-    "markerPending": true,
-    "tests": [],
+    "markerPending": false,
+    "tests": [
+      "ior:instance:7d0e3ff0-b6fe-4bfd-a444-e04a1506ed31"
+    ],
     "sourceFile": "ior:file:src/public/sw.js",
-    "markerNote": "Chain minted scenario-first (Tron-reported device bug, fix green on 0.8.79/69a6a62e1; marker placement FROZEN until Tron GO). Awaiting expert [impl:uuid:5ae5aa07-ce83-4744-84dd-e93a1a0c2925] on the fn -> strict-AST flip. Test held (tester BITE, real uuid4)."
+    "markerNote": "STRICT-AST VERIFIED: [impl:uuid:5ae5aa07-ce83-4744-84dd-e93a1a0c2925] adjacent-above name-matching decl (expert 422c636a3); flipped markerPending=false. Test 7d0e3ff0 wired."
   },
   "ownerIor": "ior:instance:857b6a73-d717-4e2a-97e3-113bd9a5607a"
 }

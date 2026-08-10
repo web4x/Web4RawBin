@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "67697d86-b488-4e81-bd80-3e7b38674fda",
+    "name": "test:R40.10 BUG-A CR-section reachable from task (decline-minted ChangeRequest as child itemView w/ reason; asserted on Tron real task cec4747a zero-forward-chain)",
+    "implementations": [
+      "ior:instance:e080ef45-f2ae-4640-a2ee-6677040f9aa2"
+    ],
+    "sourceFile": "ior:file:test/visual/r4010c-cr-reachable-gate.mjs",
+    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir."
+  },
+  "ownerIor": "ior:instance:e080ef45-f2ae-4640-a2ee-6677040f9aa2"
+}

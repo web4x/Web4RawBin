@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "bc1b1cdc-c95b-4a48-a46b-36fcdbc8e20d",
+    "name": "test:R32.4 BUG-B add-view UseCase strip (generic stripRef -> clean uuid; diagram drop 200 not 400)",
+    "implementations": [
+      "ior:instance:20962425-8860-4641-bfc1-2e0330ac5d16"
+    ],
+    "sourceFile": "ior:file:test/visual/rdiagram-addview-strip-gate.mjs",
+    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir."
+  },
+  "ownerIor": "ior:instance:20962425-8860-4641-bfc1-2e0330ac5d16"
+}

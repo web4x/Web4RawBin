@@ -3,10 +3,12 @@
   "model": {
     "uuid": "20962425-8860-4641-bfc1-2e0330ac5d16",
     "name": "DiagramViewModel.stripRef impl (generic stripRef -> clean uuid for a dragged UseCase/Class; diagram drop returns 200 not 400)",
-    "markerPending": true,
-    "tests": [],
+    "markerPending": false,
+    "tests": [
+      "ior:instance:bc1b1cdc-c95b-4a48-a46b-36fcdbc8e20d"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/diagram-view-model.ts",
-    "markerNote": "Chain minted scenario-first (Tron-reported device bug, fix green on 0.8.79/69a6a62e1; marker placement FROZEN until Tron GO). Awaiting expert [impl:uuid:20962425-8860-4641-bfc1-2e0330ac5d16] on the fn -> strict-AST flip. Test held (tester BITE, real uuid4)."
+    "markerNote": "STRICT-AST VERIFIED: [impl:uuid:20962425-8860-4641-bfc1-2e0330ac5d16] adjacent-above name-matching decl (expert 422c636a3); flipped markerPending=false. Test bc1b1cdc wired."
   },
   "ownerIor": "ior:instance:d4517ada-74e1-4f4a-adf9-de5625cc30db"
 }

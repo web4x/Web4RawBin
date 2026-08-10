@@ -3,10 +3,12 @@
   "model": {
     "uuid": "e080ef45-f2ae-4640-a2ee-6677040f9aa2",
     "name": "RbTaskDetail.renderChangeRequests impl (extract from loadDetailData; renders model.changeRequests as rb-object-item child views with reason)",
-    "markerPending": true,
-    "tests": [],
+    "markerPending": false,
+    "tests": [
+      "ior:instance:67697d86-b488-4e81-bd80-3e7b38674fda"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-task-detail.ts",
-    "markerNote": "Chain minted scenario-first (Tron-reported device bug, fix green on 0.8.79/69a6a62e1; marker placement FROZEN until Tron GO). Awaiting expert [impl:uuid:e080ef45-f2ae-4640-a2ee-6677040f9aa2] on the fn -> strict-AST flip. Test held (tester BITE, real uuid4)."
+    "markerNote": "STRICT-AST VERIFIED: [impl:uuid:e080ef45-f2ae-4640-a2ee-6677040f9aa2] adjacent-above name-matching decl (expert 422c636a3); flipped markerPending=false. Test 67697d86 wired."
   },
   "ownerIor": "ior:instance:8b2a953b-2c10-4419-8593-95685afda611"
 }
