@@ -14,7 +14,12 @@ const CLASS_FACETS = new Set(['class', 'interface', 'UmlClass', 'tsClass', 'ts-c
 // R33.6.1 fix: ALSO strip the 'diagram:' prefix. A new/empty diagram opened with only ref='diagram:<uuid>' (no
 // `uuid` attr) made addView fall back to stripRef(ref) → 'diagram:<uuid>' unstripped → server 400 bad-uuid → NO box.
 // Stripping it here fixes the whole class (addView / render / drop / tap) by construction, uuid-attr present or not.
-export const stripRef = (r: string): string => String(r || '').replace(/^ior:instance:/, '').replace(/^modelelement:/, '').replace(/^diagram:/, '');
+// THE ONE ref-parser (imported by every call site — no per-module copy): strip ALL leading `word:` type-prefixes
+// generically (ior:instance: / modelelement: / diagram: / class: / usecase: / any future type) so a new type can NEVER
+// drift a copy out of sync again (BUG B: the old 3-prefix list didn't strip class:/usecase: → colon survived into
+// elementUuid → server hex-regex 400). A uuid is hex+dash (no colon), so the +group stops after the prefixes. Server
+// regex stays strict (path-safety guard) — parsing is owned HERE, not spread.
+export const stripRef = (r: string): string => String(r || '').replace(/^([a-z][a-z0-9]*:)+/i, '');
 export const esc = (s: string): string => String(s).replace(/[<>&]/g, (c) => (c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;'));
 
 export const BOX_W = 180, HEAD_H = 26, ROW_H = 18, PAD = 8;

@@ -5,8 +5,8 @@
 // method/attribute/property → its signature. Self-contained fetch (no graph dep); navigation via the SHARED
 // selectionModel.replaceWith (standard selection flow → the drawer re-renders the target). Reuse, no fork.
 import { selectionModel } from './selection-model.js';
+import { stripRef } from './diagram-view-model.js'; // BUG B: THE ONE shared generic ref-parser (no per-module copy that can drift)
 
-const stripRef = (r: string): string => r.replace(/^[a-z]+:/i, '').replace(/^ior:instance:/, '');
 const esc = (s: string): string => s.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c] as string));
 
 class RbModelElementDetail extends HTMLElement {
