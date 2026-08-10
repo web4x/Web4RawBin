@@ -23,9 +23,10 @@
     },
     "implRef": "chain (build trails): UC deploy.postDeployDeviceGate -> Class DeviceGateTrigger -> Method runAndRecord.",
     "crossRef": [
-      "ior:instance:9163e71f-f700-4b9b-96eb-c07b9f3b5976"
+      "ior:instance:9163e71f-f700-4b9b-96eb-c07b9f3b5976",
+      "ior:instance:167ef4a5-abf3-429f-8f4e-e7def91b657a"
     ],
-    "crossRefNote": "R40.19 (history-back regression gate) + the other device-gated reqs DEPEND on this trigger — it is what makes an EXECUTING gate actually execute post-deploy. Without R40.25 those gates run nowhere.",
+    "crossRefNote": "R40.19 (history-back regression gate) + the other device-gated reqs DEPEND on this trigger — it is what makes an EXECUTING gate actually execute post-deploy. Without R40.25 those gates run nowhere. BLOCKS-ON R31.14 (scripted deploy): R40.25 is decorative until R31.14 folds the gate in as a by-construction deploy step.",
     "acceptanceCriteria": [
       {
         "id": "AC-1-reuse-existing-lane",
@@ -60,7 +61,12 @@
       {
         "id": "AC-7-meta-bite",
         "group": "meta-bite",
-        "text": "A META-BITE on the trigger ITSELF: trigger-fires / unavailable->NOT-RUN-RED / RED-blocks-done / S23-regression-replay — a trigger that silently no-ops is the same disease one level up, so its own fail-ability is proven."
+        "text": "A META-BITE on the trigger ITSELF: trigger-fires / unavailable->NOT-RUN-RED / RED-blocks-done / S23-regression-replay — a trigger that silently no-ops is the same disease one level up, so its own fail-ability is proven. ★ META-BITE #1 (a NORMAL deploy CANNOT complete without the gate having run) is EXPECTED-RED until the scripted-deploy (R31.14) exists — the FAILING bite is the HONEST signal that the mechanism is not yet by-construction; it must NOT be softened/skipped to make the mechanism look green."
+      },
+      {
+        "id": "AC-8-blocking-scripted-deploy",
+        "group": "blocking-dependency",
+        "text": "★ BLOCKING DEPENDENCY (not a footnote): R40.25 may NOT reach QA-Review while the gate remains SKIPPABLE. Until the BY-CONSTRUCTION scripted-deploy invocation exists (R31.14 deploy-hardening — the gate runs automatically as a deploy STEP, never by an agent remembering to run it), R40.25 is MECHANISM-ONLY / decorative. A gate an agent must remember to run has reliability equal to that agent's memory — exactly how S23's gate never ran."
       }
     ]
   },
