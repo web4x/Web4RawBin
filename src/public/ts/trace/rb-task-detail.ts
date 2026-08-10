@@ -87,6 +87,7 @@ export class RbTaskDetail extends HTMLElement {
   // R40.10 BUG A — render the task's decline-minted ChangeRequests as CHILD itemViews, OUTSIDE the forwardOnly chain
   // (render-only: the edge ALREADY exists via CR.ownerIor→task + the task.changeRequests mirror; NO new link written,
   // the chain stays byte-identical). Each CR → an rb-object-item itemView (name + badge + click-through to its reason).
+  // [impl:uuid:e080ef45-f2ae-4640-a2ee-6677040f9aa2] RbTaskDetail.renderChangeRequests (R40.10 BUG A)
   private async renderChangeRequests(model: Record<string, any>): Promise<void> {
     const crRefs: string[] = Array.isArray(model.changeRequests) ? model.changeRequests : [];
     if (!crRefs.length || !this.isConnected) return;

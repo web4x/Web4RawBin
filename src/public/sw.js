@@ -95,6 +95,7 @@ async function cacheFirst(request) {
   }
 }
 
+// [impl:uuid:5ae5aa07-ce83-4744-84dd-e93a1a0c2925] ServiceWorker.networkFirst (BUG C)
 async function networkFirst(request) {
   try {
     const response = await fetch(request);

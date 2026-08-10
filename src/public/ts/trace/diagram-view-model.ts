@@ -26,6 +26,7 @@ const CLASS_FACETS = new Set(['class', 'interface', 'UmlClass', 'tsClass', 'ts-c
 // drift a copy out of sync again (BUG B: the old 3-prefix list didn't strip class:/usecase: → colon survived into
 // elementUuid → server hex-regex 400). A uuid is hex+dash (no colon), so the +group stops after the prefixes. Server
 // regex stays strict (path-safety guard) — parsing is owned HERE, not spread.
+// [impl:uuid:20962425-8860-4641-bfc1-2e0330ac5d16] DiagramViewModel.stripRef (BUG B)
 export const stripRef = (r: string): string => String(r || '').replace(/^([a-z][a-z0-9]*:)+/i, '');
 export const esc = (s: string): string => String(s).replace(/[<>&]/g, (c) => (c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&amp;'));
 
