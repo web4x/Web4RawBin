@@ -12,7 +12,8 @@
   "sprintName": "Sprint 32",
   "useCases": [
    "ior:instance:cdd29583-f304-4df7-af06-b5a8d955be85",
-   "ior:instance:87d3d693-6fcf-46e4-bf08-c5447ca8a241"
+   "ior:instance:87d3d693-6fcf-46e4-bf08-c5447ca8a241",
+   "ior:instance:3a8be3bd-a3d5-4093-a819-42f303480882"
   ],
   "acceptanceCriteria": [
    {

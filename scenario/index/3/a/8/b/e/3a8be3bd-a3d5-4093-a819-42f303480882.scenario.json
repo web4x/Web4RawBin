@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3a8be3bd-a3d5-4093-a819-42f303480882",
+    "name": "facetType.deriveViewKind",
+    "description": "A single-source pure fn maps an element's ior-class to its diagram facet-type (UseCase->UmlUseCase / Method->UmlMethod|UmlFunction / Class->tsClass / ModelElement->model.kind / unknown->null fail-closed), so a dropped UseCase renders as an ellipse not a class box. Both server add-view (derive+store, 400 on null) and client renderFacet fallback import the SAME fn = no divergent 'class' default.",
+    "class": "ior:instance:7ec95309-9ad4-4326-978a-1c1c2c340b1f",
+    "method": "ior:instance:fd529f1d-8bde-4be6-933c-68cd7d16f859",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:d981876f-4816-4cd0-b3e3-e28ed02c787d"
+}

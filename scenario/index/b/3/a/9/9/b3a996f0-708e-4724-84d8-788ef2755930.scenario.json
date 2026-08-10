@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b3a996f0-708e-4724-84d8-788ef2755930",
+    "name": "FacetType.deriveViewKind impl (ior-class->facet-type single-source, fail-closed null; replaces hardcoded viewKind:class at server add-view + client renderFacet default)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/shared/facet-type.ts",
+    "markerNote": "Chain minted scenario-first (BUG-D, shipped v0.8.80/9799d8fd8). Awaiting expert [impl:uuid:b3a996f0-708e-4724-84d8-788ef2755930] on deriveViewKind@facet-type.ts -> strict-AST flip. Test: pending tester (D gate)."
+  },
+  "ownerIor": "ior:instance:fd529f1d-8bde-4be6-933c-68cd7d16f859"
+}

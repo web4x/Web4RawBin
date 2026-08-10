@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "7ec95309-9ad4-4326-978a-1c1c2c340b1f",
+    "name": "FacetType",
+    "sourceFile": "ior:file:src/ts/shared/facet-type.ts",
+    "methods": [
+      "ior:instance:fd529f1d-8bde-4be6-933c-68cd7d16f859"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

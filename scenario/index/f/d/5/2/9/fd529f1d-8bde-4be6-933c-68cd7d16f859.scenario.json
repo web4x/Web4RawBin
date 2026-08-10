@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fd529f1d-8bde-4be6-933c-68cd7d16f859",
+    "name": "FacetType.deriveViewKind",
+    "implementations": [
+      "ior:instance:b3a996f0-708e-4724-84d8-788ef2755930"
+    ]
+  },
+  "ownerIor": "ior:instance:7ec95309-9ad4-4326-978a-1c1c2c340b1f"
+}
