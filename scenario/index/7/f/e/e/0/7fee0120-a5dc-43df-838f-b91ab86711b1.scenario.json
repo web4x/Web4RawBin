@@ -9,7 +9,9 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:817fa8cc-cfdc-45b4-a9fd-5c557bd41751"
+    ],
     "description": "The SYSTEMIC fix behind FIVE Tron screenshot-found defects: visual/device gates currently run NOWHERE, so device regressions ship green and arrive as screenshots. A post-deploy trigger automatically runs the EXISTING gate:device:live lane against live prod after every deploy and makes 'deployed' mean 'device-verified'. Architect design 00361a7e3 (approved; build was never dispatched = PO gap, expert building now). Chain trails (mint/marker) as with device-bugs A/B/C/D.",
     "status": "Backlog",
     "captureOnly": true,

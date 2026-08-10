@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "51b8d846-e9db-41f5-af5a-8605c7f009f4",
+    "name": "DeviceGateTrigger.runAndRecord impl (run gate:device:live on live prod -> version-stamped GREEN/RED/NOT-RUN unit + /api/gate-status; NOT-RUN==RED; no bypass)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/post-deploy-gate.mjs",
+    "markerNote": "STEP-1 shipped v0.8.83 (trigger core + record-gates + /api/gate-status + owner badge). Expert places [impl:uuid:51b8d846] on scripts/post-deploy-gate.mjs -> I strict-AST-flip. Invoked by R31.14 Deployer.runScripted as the by-construction final step (that fold-in un-blocks R40.25 AC-8)."
+  }
+}

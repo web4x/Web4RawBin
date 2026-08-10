@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "cd7c12aa-23b6-4be2-99af-6e4a015c16c5",
+    "name": "DeviceGateTrigger.runAndRecord",
+    "implementations": [
+      "ior:instance:51b8d846-e9db-41f5-af5a-8605c7f009f4"
+    ]
+  },
+  "ownerIor": "ior:instance:bbd88f6b-f33d-45c8-9ff8-0e44dcaf5322"
+}

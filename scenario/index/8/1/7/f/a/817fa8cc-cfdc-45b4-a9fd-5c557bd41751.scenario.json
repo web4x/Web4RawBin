@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "817fa8cc-cfdc-45b4-a9fd-5c557bd41751",
+    "name": "deploy.postDeployDeviceGate",
+    "description": "After a deploy (restart + served==committed), the trigger AUTO-runs the existing gate:device:live lane against live prod, records a version-stamped GREEN/RED/NOT-RUN result (evidence + gated Test uuids) at /api/gate-status, treats NOT-RUN as RED, never bypasses, and exposes owner-gated status to Tron.",
+    "class": "ior:instance:bbd88f6b-f33d-45c8-9ff8-0e44dcaf5322",
+    "method": "ior:instance:cd7c12aa-23b6-4be2-99af-6e4a015c16c5",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:7fee0120-a5dc-43df-838f-b91ab86711b1"
+}
