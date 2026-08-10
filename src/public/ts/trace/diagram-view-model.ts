@@ -6,7 +6,14 @@
 export type EdgeKind = 'association' | 'generalization' | 'dependency' | 'trace'; // R36.4: UmlTraceRelationship (UC→method), dashed
 export interface DiagramRelation { to: string; kind: EdgeKind } // to = target element uuid (or ref); kind = M2-derived
 export interface ViewLink { unit: string; x: number; y: number; w?: number; h?: number; viewKind?: string; }
-export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; }
+import { deriveViewKind } from '../../../ts/shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type fn, shared with the server add-view (no rival map)
+
+export interface DiagramNode { name: string; kind: string; attrs: string[]; methods: string[]; relations?: DiagramRelation[]; signature?: string; ior?: string; model?: Record<string, unknown>; }
+
+// R32.11-B2 / BUG D: the facet key for a view — view.viewKind (authoritative when present) else DERIVED from the
+// element's ior-class via the shared deriveViewKind (legacy/missing viewKind no longer silently becomes 'class'),
+// else the node's own kind. renderFacet stays the ONE lens router; this only chooses its key. Used by all 3 sites.
+const facetKind = (view: ViewLink, node: DiagramNode): string => view.viewKind || deriveViewKind(node.ior, node.model) || node.kind || 'class';
 
 // R36.1/R36.2 part-2 (B): the class-family facet viewKinds that render as a UML/TS class box + participate in edges.
 const CLASS_FACETS = new Set(['class', 'interface', 'UmlClass', 'tsClass', 'ts-class-code']);
@@ -51,12 +58,12 @@ export function buildBox(view: ViewLink, node: DiagramNode, tsLens = false): str
 // R36.1/R36.2 part-2 (B): facet-view geometry helpers (width/height per facetType) — shared by renderFacet + the
 // buildDiagramSvg/buildEdges/buildTraceEdge bounds. (Own [impl] not required; renderFacet's marker sits below.)
 export function facetW(view: ViewLink, node: DiagramNode): number {
-  const k = view.viewKind || node.kind || 'class';
+  const k = facetKind(view, node);
   if (k === 'UmlUseCase' || node.kind === 'usecase') return view.w || 160;
   return view.w || BOX_W;
 }
 export function facetH(view: ViewLink, node: DiagramNode): number {
-  const k = view.viewKind || node.kind || 'class';
+  const k = facetKind(view, node);
   if (k === 'UmlUseCase' || node.kind === 'usecase') return 52;
   if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return HEAD_H + ROW_H;
   return boxH(node);
@@ -67,7 +74,7 @@ export function facetH(view: ViewLink, node: DiagramNode): number {
 // box (or «ts» lens for tsClass); UmlMethod/UmlFunction → a signature box; UmlUseCase → an ellipse.
 // (Marker moved adjacent-above this decl — task 275 — so strict-AST binds 94ad4f50 to renderFacet, not facetW.)
 export function renderFacet(view: ViewLink, node: DiagramNode): string {
-  const k = view.viewKind || node.kind || 'class';
+  const k = facetKind(view, node);
   if (k === 'UmlUseCase' || node.kind === 'usecase') return renderUseCaseFacet(view, node);
   if (k === 'UmlMethod' || k === 'UmlFunction' || node.kind === 'method' || node.kind === 'function') return renderMethodFacet(view, node);
   if (k === 'UmlNode' || k === 'node' || k === 'deployment-node' || node.kind === 'node') return renderNodeFacet(view, node); // R40.2 deployment-node lens

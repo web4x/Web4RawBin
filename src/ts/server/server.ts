@@ -75,6 +75,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
@@ -2087,10 +2088,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : (unit.model.views = []);
           const link = `modelelement:${elementUuid}`;
           if (views.some((v) => v.unit === link)) { res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, added: false, views: views.length })); return; } // INV-R2: dedup → idempotent
+          // R32.11-B2 / Tron BUG D: viewKind DERIVED FROM THE UNIT TYPE (single source deriveViewKind, same fn the client
+          // renderFacet uses) — NOT the old hardcoded 'class' that rendered every drop as a class box. Resolve the element
+          // (prod index, else MODEL_STORE), FAIL-CLOSED on an unknown/unresolvable type (400 — never store a silent 'class').
+          let elUnit: { ior?: string; model?: Record<string, unknown> } | null = null;
+          try { elUnit = new ScenarioIndex(PROD_INDEX).get(elementUuid) as any; } catch { /* fall through to model-store */ }
+          if (!elUnit) { try { const ef = path.join(MODEL_STORE, ...String(elementUuid).slice(0, 5).split(''), `${elementUuid}.scenario.json`); if (fsSync.existsSync(ef)) elUnit = JSON.parse(fsSync.readFileSync(ef, 'utf-8')); } catch { /* unresolvable */ } }
+          const viewKind = elUnit ? deriveViewKind(elUnit.ior, elUnit.model) : null;
+          if (!viewKind) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"unknown-view-kind","detail":"element type has no facet mapping — refusing to store a silent class default"}'); return; }
           const COLS = 3, i = views.length; // INV-R1: explicit drop coords, else auto-grid (the select-class complement sends none)
           const vx = Number.isFinite(x) ? Math.max(0, Math.round(x)) : (i % COLS) * 220 + 20;
           const vy = Number.isFinite(y) ? Math.max(0, Math.round(y)) : Math.floor(i / COLS) * 200 + 20;
-          views.push({ unit: link, x: vx, y: vy, viewKind: 'class' });
+          views.push({ unit: link, x: vx, y: vy, viewKind });
           fsSync.writeFileSync(dfile, JSON.stringify(unit, null, 2) + '\n'); // INV-R3 store-only (MODEL_STORE, prod scenario/index NEVER touched) + INV-R4 persist
           addUsedIn(elementUuid, 'diagram', diagramUuid); // R36.5: bidirectional — the element unit tracks this diagram (usedIn ⟷ diagram.views), store-only
           addLog(`[model] add-view ${String(elementUuid).slice(0, 8)} → diagram ${String(diagramUuid).slice(0, 8)} @(${vx},${vy}) views=${views.length}`);

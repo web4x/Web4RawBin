@@ -135,7 +135,9 @@ export class RbDiagramDetail extends HTMLElement {
     };
     await Promise.all(views.map(async (v) => {
       const uuid = stripRef(v.unit);
-      const m = await this.fetchModel(uuid); if (!m) return;
+      const resp = await fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).catch(() => null); // R32.11-B2/BUG D: keep the unit.ior for deriveViewKind
+      const m = resp?.unit?.model as Record<string, unknown> | undefined; if (!m) return;
+      const elIor = String(resp?.unit?.ior || '');
       if (m.sourceFile && !sourceFile) sourceFile = String(m.sourceFile);
       const memberRefs = Array.isArray(m.members) ? (m.members as string[]) : [];
       const members = await Promise.all(memberRefs.map((r) => this.fetchModel(stripRef(r))));
@@ -161,7 +163,7 @@ export class RbDiagramDetail extends HTMLElement {
           attrs.push(`${dr.role || 'ref'}: ${base}`);
         }
       }
-      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m) });
+      nodes.set(uuid, { name: String(m.name || uuid.slice(0, 8)), kind: String(m.kind || 'class'), attrs, methods, relations, signature: sigOf(m), ior: elIor, model: m }); // R32.11-B2/BUG D: ior+model → deriveViewKind fallback
     }));
     this._sourceFile = sourceFile;
     // R36.4 inc-2: overlay AUTHORED traces (UmlTraceRelationship units) — inject {to,kind:'trace'} onto the from-node
