@@ -1988,6 +1988,30 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // R40.25 (7fee0120) INV-PDG-3/6/7 — is what is served RIGHT NOW verified on a real device, at which version?
+    // Owner-gated (the badge is Tron's last-resort view). Reads the LATEST device-gate unit for the SERVED version;
+    // NO unit for the served version → NOT-RUN (fail-closed INV-PDG-2: not-known-GREEN == RED; a green from an older
+    // version can never certify the live one, INV-PDG-7 freshness — we filter on the served version so a stale green
+    // simply doesn't match). Read-only.
+    if (filepath === '/api/gate-status') {
+      if (!requireOwnerHttp(req, res)) return;
+      const served = getVersion();
+      let latest: Record<string, any> | null = null;
+      try {
+        const idx = new ScenarioIndex(PROD_INDEX);
+        for (const u of idx.list()) {
+          const g = idx.get(u); const m = g?.model as Record<string, any> | undefined;
+          if (g?.ior === 'ior:class:Gate' && m?.gateType === 'device-gate' && m?.version === served) {
+            if (!latest || String(m.timestamp || '') > String(latest.timestamp || '')) latest = m;
+          }
+        }
+      } catch { /* index unreadable → NOT-RUN (fail-closed) */ }
+      const verdict = latest ? String(latest.verdict) : 'NOT-RUN'; // no device-gate for the served version → NOT-RUN=RED
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify({ ok: true, servedVersion: served, verdict, verified: verdict === 'GREEN', gateVersion: latest?.version || null, gateCommit: latest?.commit || null, evidence: latest?.evidence || 'no device-gate recorded for the served version — UNVERIFIED', timestamp: latest?.timestamp || null }));
+      return;
+    }
+
     // T108 (relocated): standalone Traceability browser page — docs top-nav choice (peer to
     // browser/App). Mounts rb-trace-tree + detail pane off /api/trace.
     if (filepath === '/trace' || filepath === '/trace/') {
@@ -3152,6 +3176,8 @@ document.getElementById('bug-submit').addEventListener('click',function(){
   ws.send(JSON.stringify({type:'BUG_REPORT',text:text}));
 });
 fetch('/api/config').then(function(r){return r.json()}).then(function(c){document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(function(){});
+/* R40.25 INV-PDG-6: owner-only device-gate badge next to the version — is what is served RIGHT NOW device-verified? (403 for non-owners → no badge) */
+fetch('/api/gate-status').then(function(r){return r.ok?r.json():null}).then(function(g){if(!g)return;var el=document.getElementById('ver');if(!el)return;var c=g.verdict==='GREEN'?'#2ea043':(g.verdict==='RED'?'#f85149':'#d29922');var t=g.verdict==='GREEN'?'✓ device-verified':(g.verdict==='RED'?'✗ device RED':'⚠ NOT device-verified');el.insertAdjacentHTML('afterend',' <span class="gate-status-badge" title="'+String(g.evidence||'').replace(/"/g,'')+'" style="margin-left:8px;padding:1px 6px;border-radius:6px;font-size:0.6rem;background:'+c+';color:#0d1117">'+t+' v'+g.servedVersion+'</span>')}).catch(function(){});
 </script></body></html>`);
       return;
     } else if (filepath === '/profile' || filepath === '/profile/') {
@@ -3203,6 +3229,8 @@ else{
   };
 }
 fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('ver').textContent='v'+c.version+' · '+c.branch}).catch(()=>{});
+/* R40.25 INV-PDG-6: owner-only device-gate badge (403 for non-owners → no badge) */
+fetch('/api/gate-status').then(r=>r.ok?r.json():null).then(g=>{if(!g)return;const el=document.getElementById('ver');if(!el)return;const c=g.verdict==='GREEN'?'#2ea043':(g.verdict==='RED'?'#f85149':'#d29922');const t=g.verdict==='GREEN'?'✓ device-verified':(g.verdict==='RED'?'✗ device RED':'⚠ NOT device-verified');el.insertAdjacentHTML('afterend',' <span class="gate-status-badge" title="'+String(g.evidence||'').replace(/"/g,'')+'" style="margin-left:8px;padding:1px 6px;border-radius:6px;font-size:0.6rem;background:'+c+';color:#0d1117">'+t+' v'+g.servedVersion+'</span>')}).catch(()=>{});
 </script></body></html>`);
       return;
     }
