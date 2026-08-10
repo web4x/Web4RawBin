@@ -1,0 +1,61 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3cdd5091-cb29-4279-ac8e-1661e6cea026",
+    "name": "Done carries provenance — checklist-derived Done and Tron-approved Done are DISTINCT on disk; a reconcile never writes a bare unverdicted Done",
+    "altId": "R-C9",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "A checklist-derived Done and a Tron-approved Done are DIFFERENT claims and must be DISTINCT on disk (doneBasis = 'tron-approved' via approvedBy/approvedAt vs 'checklist-derived'). Resolves a real collision between OUR OWN rules: R-C5 (status DERIVED from checklist, single-source) vs R40.10 (Done requires Tron approvedBy/approvedAt) give OPPOSITE answers for an old fully-ticked task -> today the derived Done wins SILENTLY and impersonates a Tron-signed Done (two-sources-one-fact, quiet-impersonates-authoritative). Structural fix, not cleanup.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "done-provenance",
+    "discoverySource": {
+      "type": "po-doctrine-ruling",
+      "by": "robbin-po",
+      "date": "2026-08-10",
+      "note": "Ruling relayed via planner. EVIDENCE: 17 old S19/S20 Tasks bulk Planned->Done in-tree, checklist-ticked, NO approvedBy = indistinguishable from a Tron-Done. Resolves R-C5 vs R40.10 collision."
+    },
+    "crossRef": [
+      "ior:instance:eec7ebb7-5dd3-431f-9700-a50429c3de03"
+    ],
+    "crossRefNote": "Resolves the R-C5 (derived-status) vs R40.10 (Tron-approved Done) collision; sibling to the R-C consistency-by-construction family.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a-done-basis-distinct",
+        "group": "done-basis-distinct",
+        "text": "A Task's Done carries its BASIS on disk (doneBasis): 'tron-approved' (with approvedBy/approvedAt) vs 'checklist-derived' — DISTINCT claims, never conflated. The two are different facts, not one."
+      },
+      {
+        "id": "AC-b-reconcile-no-bare-done",
+        "group": "reconcile-no-bare-done",
+        "text": "A reconcile / R-C5 checklist-derive MUST NOT write a plain unverdicted 'Done' (no approvedBy/approvedAt) onto a Task with no Tron verdict. A fully-ticked checklist derives at most doneBasis=checklist-derived, NEVER a bare Tron-equivalent Done."
+      },
+      {
+        "id": "AC-c-resolves-collision",
+        "group": "resolves-collision",
+        "text": "Resolves the R-C5 (status DERIVED from checklist) vs R40.10 (Done requires Tron approvedBy/approvedAt) COLLISION: today the derived Done wins SILENTLY and impersonates a Tron-signed Done. The basis field makes them distinguishable so a derived Done can NEVER impersonate a Tron Done."
+      },
+      {
+        "id": "AC-d-board-distinguishes",
+        "group": "board-distinguishes",
+        "text": "The board/scoreboard DISTINGUISHES the two — a checklist-derived Done is NOT counted or rendered as a Tron-verdicted Done."
+      },
+      {
+        "id": "AC-e-retroactive-reclassify",
+        "group": "retroactive",
+        "text": "The 17 S19/S20 Tasks bulk-advanced Planned->Done without approvedBy are re-classified doneBasis=checklist-derived (or reverted to their real state) — never left indistinguishable from a Tron-Done."
+      },
+      {
+        "id": "AC-f-by-construction",
+        "group": "by-construction",
+        "text": "BY-CONSTRUCTION: the reconcile/derive path CANNOT emit a Done without a doneBasis — a lint/guard rejects a bare Done, proven non-vacuous by a STUB-MUST-FAIL bite (write a bare Done -> RED)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
