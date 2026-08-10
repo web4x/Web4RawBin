@@ -1,0 +1,53 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a2c78c46-ff5c-4537-99bf-aaa7eb8c53f9",
+    "name": "Selecting a diagram element changes the action bar to show element-context verbs (remove-from-diagram / delete / find-linked)",
+    "altId": "R40.24",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "REGRESSION (Tron device-found, 5th by screenshot): selecting a diagram/model element no longer updates the action bar to expose its element-context verbs. The element-context verbs were moved to a PROVIDER on the shared drawer (R34.7/R-E, model.ts:85-86) composed by universalActionBar; membership verbs gate on hasActiveDiagram (model.ts:75). Tron's screenshot shows A1 defaults + diagram-LEVEL verbs present but ELEMENT verbs (remove-from-diagram/delete/find-linked) ABSENT on selection.",
+    "tronQuote": "selecting diagram elements does not change the action bar any more... where are the actions remove from diagram / delete / find linked",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "selection-driven-action-provider",
+    "discoverySource": {
+      "type": "tron-directive-regression",
+      "by": "Tron (device screenshot)",
+      "date": "2026-08-10",
+      "note": "5th device-found bug by screenshot. Behaviour worked; a refactor (verbs->provider) took it. Architect root-causing, tester building the RED baseline gate."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-selection-changes-bar",
+        "group": "selection-driven",
+        "text": "Selecting a diagram/model element CHANGES the action bar to include the element-context verbs: remove-from-diagram, delete, find-linked."
+      },
+      {
+        "id": "AC-2-fireable",
+        "group": "anti-vacuity",
+        "text": "Those verbs are FIREABLE and ACT on the selected element (not merely rendered — a verb that appears but does nothing fails)."
+      },
+      {
+        "id": "AC-3-no-reverse-regression",
+        "group": "no-reverse-regression",
+        "text": "The A1 defaults and the diagram-LEVEL verbs REMAIN present (no regression the other way)."
+      },
+      {
+        "id": "AC-4-red-baseline-device-gate",
+        "group": "red-baseline-device-gate",
+        "text": "Pinned by a RED-baseline DEVICE gate @390 with STUB-MUST-FAIL, added to the device lane so it RE-RUNS (an ungated protection is a promise, not a guard — this behaviour worked and a refactor took it)."
+      },
+      {
+        "id": "AC-5-family",
+        "group": "family",
+        "text": "Implemented via the family-named selection-driven-action-provider (single source for selection->verbs), not a bespoke bar."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

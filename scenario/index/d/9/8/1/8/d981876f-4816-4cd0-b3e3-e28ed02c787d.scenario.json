@@ -66,6 +66,11 @@
    "ior:instance:ec0e1754-a1f0-4959-b1d1-0e9bfeb6408d",
    "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8"
   ],
-  "canonicalizeNote": "Canonicalized IN PLACE (reuse uuid d981876f) from the robbin-planner placeholder (#43, minted to wire T32.11 In-Progress) per robbin-req: verbatim Tron finding + 6 formalized ACs to the architect design (6a076e4f2, INV-R1..R4). Added to S32 sprint.requirements[]. Chain (mints on build, IMPL-MINT): UC diagram.addView -> Class RbDiagramDetail (+ server add-view Method) -> Method onDrop / diagramAddView -> Impl -> Test."
+  "canonicalizeNote": "Canonicalized IN PLACE (reuse uuid d981876f) from the robbin-planner placeholder (#43, minted to wire T32.11 In-Progress) per robbin-req: verbatim Tron finding + 6 formalized ACs to the architect design (6a076e4f2, INV-R1..R4). Added to S32 sprint.requirements[]. Chain (mints on build, IMPL-MINT): UC diagram.addView -> Class RbDiagramDetail (+ server add-view Method) -> Method onDrop / diagramAddView -> Impl -> Test.",
+  "deviceVerified": {
+   "date": "2026-08-10",
+   "by": "Tron",
+   "note": "BUG-D fixed on device: a dropped UseCase renders as an ELLIPSE (deriveViewKind single-source facet-type). Device-verify for R32.11/BUG-D — do not re-ask."
+  }
  }
 }
