@@ -1,4 +1,4 @@
-// [test:uuid:READY-ON-GREEN] BUG-C — sw.js networkFirst must NOT Cache.put a non-GET request (POST/PUT/DELETE):
+// [test:uuid:7d0e3ff0-b6fe-4bfd-a444-e04a1506ed31] BUG-C — sw.js networkFirst must NOT Cache.put a non-GET request (POST/PUT/DELETE):
 // Cache.put on a POST throws 'Request method POST is unsupported'. Fix = guard cache.put with request.method==='GET'
 // (or skip non-GET at the fetch handler). Served-source audit (deterministic, no browser). RED until the guard lands.
 import https from 'node:https';

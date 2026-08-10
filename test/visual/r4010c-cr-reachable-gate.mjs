@@ -1,4 +1,4 @@
-// [test:uuid:67697d86-b488-4e81-bd80-3e7b38674fda] (READY, DO NOT MINT WHILE RED) R40.10 BUG-A — after a decline, the minted ChangeRequest must be REACHABLE as a child/itemView on
+// [test:uuid:67697d86-b488-4e81-bd80-3e7b38674fda] (READY — GREEN on 0.8.79) R40.10 BUG-A — after a decline, the minted ChangeRequest must be REACHABLE as a child/itemView on
 // the TASK DETAIL surface, not merely existing in the store. GATE-THE-AC-SURFACE: the r4010 tsx gate proved the SERVER
 // effect (CR minted + status→In Progress) but never the USER-FACING outcome (Tron sees 'Forward Links: no links').
 // Root: rb-task-detail renders forwardOnly(obj) = the LOCKED 7-step chain forward keys only → changeRequests is filtered out.
@@ -35,9 +35,13 @@ try {
       return { taskRendered, crReachable, saysNoLinks, len: html.length };
     }, CR);
 
-    const pass = r.taskRendered && r.crReachable;   // GREEN only when the task renders AND the CR is reachable from it
+    // ★ FRAGILITY CASE (PO): cec4747a has ZERO forward chain links (saysNoLinks) yet MUST still show its CR. The CR
+    // section is inserted via .dv-links?.insertAdjacentHTML, so it depends on the Forward-Links block existing — this
+    // task IS the no-forward-links case, and GREEN here proves a task with no chain links still surfaces its CR.
+    const noLinksCaseCovered = r.saysNoLinks && r.crReachable;   // the exact conditional-on-a-sibling case that a happy-path gate misses
+    const pass = r.taskRendered && r.crReachable && noLinksCaseCovered;
     results.push(pass);
-    console.log(`iter ${i}: task-detail-rendered=${r.taskRendered}(control) | CR-reachable-from-task=${r.crReachable} | (says-no-links=${r.saysNoLinks}, detail ${r.len}c) => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: task-detail-rendered=${r.taskRendered}(control) | CR-reachable-from-task=${r.crReachable} | no-forward-links-case-covered=${noLinksCaseCovered}(saysNoLinks=${r.saysNoLinks}) detail ${r.len}c => ${pass ? 'GREEN' : 'RED'}`);
     await ctx.close();
   }
 } finally { await browser.close(); }

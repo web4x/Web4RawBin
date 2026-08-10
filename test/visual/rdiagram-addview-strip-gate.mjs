@@ -1,4 +1,4 @@
-// [test:uuid:READY-ON-DEPLOY] BUG-B — dropping a UseCase onto a diagram must NOT 400. Root (measured, not guessed):
+// [test:uuid:bc1b1cdc-c95b-4a48-a46b-36fcdbc8e20d] BUG-B — dropping a UseCase onto a diagram must NOT 400. Root (measured, not guessed):
 // rb-object-item drags a type-prefixed ref ('usecase:<uuid>'); onDropAddView (rb-diagram-detail:242) strips it via
 // stripRef before POST /api/model/diagram/add-view; the server (server.ts:2083) 400s 'bad-uuid' unless elementUuid
 // matches /^[0-9a-fA-F-]{16,40}$/. BUG-B was that stripRef stripped ior:instance:/modelelement: but NOT the 'usecase:'
