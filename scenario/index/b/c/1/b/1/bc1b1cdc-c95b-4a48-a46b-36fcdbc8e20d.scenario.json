@@ -7,7 +7,8 @@
       "ior:instance:20962425-8860-4641-bfc1-2e0330ac5d16"
     ],
     "sourceFile": "ior:file:test/visual/rdiagram-addview-strip-gate.mjs",
-    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir."
+    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir.",
+    "status": "pass"
   },
   "ownerIor": "ior:instance:20962425-8860-4641-bfc1-2e0330ac5d16"
 }

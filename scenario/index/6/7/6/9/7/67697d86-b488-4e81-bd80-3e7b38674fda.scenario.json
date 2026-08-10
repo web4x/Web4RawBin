@@ -7,7 +7,8 @@
       "ior:instance:e080ef45-f2ae-4640-a2ee-6677040f9aa2"
     ],
     "sourceFile": "ior:file:test/visual/r4010c-cr-reachable-gate.mjs",
-    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir."
+    "markerNote": "Tron device-QA bug, green DET-3x on 0.8.79 (69a6a62e1); tester real-uuid4 (set-delta lint-clean). Wired both-dir.",
+    "status": "pass"
   },
   "ownerIor": "ior:instance:e080ef45-f2ae-4640-a2ee-6677040f9aa2"
 }
