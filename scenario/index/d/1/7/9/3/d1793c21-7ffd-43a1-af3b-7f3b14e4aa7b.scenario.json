@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "d1793c21-7ffd-43a1-af3b-7f3b14e4aa7b",
+    "name": "Deployer.assertPinned",
+    "implementations": [
+      "ior:instance:5e9deeb2-1a2c-4422-a0a5-18b126553db2"
+    ]
+  },
+  "ownerIor": "ior:instance:26f91381-6f1c-4ac7-b8c7-cc465764cad8"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "99433137-3809-43ed-b0e2-f973d14091e4",
+    "name": "deploy.runScripted",
+    "description": "One scripted command runs the whole deploy: build -> commit -> restart DETACHED -> wait served==committed -> invoke the post-deploy device-gate as the FINAL step -> record -> exit NON-ZERO on gate RED or NOT-RUN. A deploy the normal way CANNOT complete un-gated.",
+    "class": "ior:instance:26f91381-6f1c-4ac7-b8c7-cc465764cad8",
+    "method": "ior:instance:9e030196-6cff-415f-a917-3046eb6bc3be",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:167ef4a5-abf3-429f-8f4e-e7def91b657a"
+}

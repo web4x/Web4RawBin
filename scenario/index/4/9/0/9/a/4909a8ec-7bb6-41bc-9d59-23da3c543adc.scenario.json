@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "4909a8ec-7bb6-41bc-9d59-23da3c543adc",
+    "name": "Deployer.runScripted impl (build->commit->restart-detached->wait served==committed->FINAL invoke R40.25 gate->record->exit non-zero on RED/NOT-RUN)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/deploy.mjs",
+    "markerNote": "markerPending: expert builds scripts/deploy.mjs. RIDES R30.28 b6946e59-44a2-4460-8811-7682775912b5 served==committed compare (INV-D6, NOT re-minted). FOLD-IN: FINAL step INVOKES R40.25 DeviceGateTrigger.runAndRecord (cd7c12aa-23b6-4be2-99af-6e4a015c16c5) by-reference (that Method is R40.25's, minted separately) = INV-D1 gate-by-construction, un-blocks R40.25 AC-8."
+  },
+  "ownerIor": "ior:instance:9e030196-6cff-415f-a917-3046eb6bc3be"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c73c87a2-f96c-411d-8423-ce5bee960452",
+    "name": "Deployer.monitorDrift impl (standing served!=committed drift loop + alert, post-ship)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/deploy.mjs",
+    "markerNote": "markerPending: expert builds. Comparison rides R30.28; the monitor loop+alert is new."
+  },
+  "ownerIor": "ior:instance:223f79b6-6a5d-48af-86e6-0a590910b09e"
+}

@@ -12,7 +12,11 @@
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-31-server-manager/planning.md",
   "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
   "sprintName": "Sprint 32",
-  "useCases": [],
+  "useCases": [
+   "ior:instance:99433137-3809-43ed-b0e2-f973d14091e4",
+   "ior:instance:93f35398-3730-4aed-913a-d11df980a18c",
+   "ior:instance:04e3b795-d1ab-46fa-ae04-ca1ad76247b2"
+  ],
   "unitLinks": [],
   "status": "next-backlog",
   "scheduleNote": "NEXT, NOT-NOW (PO 2026-07-27): captured scenario-first but NOT dispatched - R31.12 is the active item. PO schedules the build; do not create build tasks / dispatch architect until then.",
@@ -44,7 +48,37 @@
    {
     "id": "AC-scheduled-next",
     "group": "meta",
-    "text": "This requirement is captured scenario-first but marked NEXT / NOT-NOW: it is NOT dispatched for build while R31.12 is the active item. PO schedules the build; the chain (UC->Class->Method->Impl->Test) mints onto the built fix when scheduled."
+    "text": "BUILD-AUTHORIZED (2026-08-10) under Tron's standing campaign directive (finish S30++ tasks -> QA); chain minted scenario-first before the expert lands scripts/deploy.mjs. (Was NEXT/NOT-NOW.)"
+   },
+   {
+    "id": "AC-inv-D1-gate-by-construction",
+    "group": "invariant",
+    "text": "INV-D1: gate-by-construction — there is NO exit-0 path that ships without the post-deploy device-gate having run GREEN. This is the property that UN-BLOCKS R40.25's AC-8 (the gate stops being skippable). Enforced BOTH ways: a behavioural META-BITE (a normal deploy CANNOT complete un-gated — covers existing paths) AND a STATIC LINT (every exit-0 downstream of the gate — prevents future ones); the lint carries two bites: plant-a-bypass -> RED, and lint-itself-runs -> RED (non-vacuous)."
+   },
+   {
+    "id": "AC-inv-D2-no-bypass-ever",
+    "group": "invariant",
+    "text": "INV-D2: NO skip/bypass flag EVER. There is no --force / --skip-gate / env override. Shipping un-gated is only ever RECORDED as served-but-UNVERIFIED (R40.25), never silenceable. (Prohibition written into the requirement so a future agent does not add a bypass.)"
+   },
+   {
+    "id": "AC-inv-D3-atomic-fail-loud",
+    "group": "invariant",
+    "text": "INV-D3: atomic + fail-loud — the deploy never half-completes; on any step failure it fails LOUD and leaves the previous live state intact, never a partial/broken serve."
+   },
+   {
+    "id": "AC-inv-D4-one-path",
+    "group": "invariant",
+    "text": "INV-D4: exactly ONE deploy path when done — no divergent manual vs scripted routes; the scripted path is THE path."
+   },
+   {
+    "id": "AC-inv-D5-dry-run-safe-cutover",
+    "group": "invariant",
+    "text": "INV-D5: dry-run FIRST, and the EXISTING restart path stays available until the scripted deploy has succeeded >=1 time live (safe cutover, no big-bang)."
+   },
+   {
+    "id": "AC-inv-D6-rides-R30.28",
+    "group": "invariant",
+    "text": "INV-D6: served==committed comparison RIDES R30.28 (b6946e59.assertVersionAtHead) — NOT a second copy. Distinct intent: R30.28 is the ship-time GUARANTEE; R31.14 is orchestration + drift MONITOR + pinned topology."
    }
   ],
   "reHomeNote": "RE-PARENTED S31 (server-manager, CLOSED) -> S32 (mda-model-driven-code-quality, active 332585f3) by robbin-po authority 2026-07-30 (re-home within an existing sprint, NOT a new sprint = no Tron-auth needed). altId stays R31.14 and discoverySource=team-discovery is PRESERVED (honest provenance: the deploy-hardening gap was discovered during S31; it builds in S32). status stays next-backlog; planner stands up T-R31.14 in the S32 backlog, scheduled AFTER R32.5 (the go-live milestone). 2nd version-skew occurrence -> its served!=committed auto-monitor removes the manual-measure dependency (correct-by-construction)."

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "223f79b6-6a5d-48af-86e6-0a590910b09e",
+    "name": "Deployer.monitorDrift",
+    "implementations": [
+      "ior:instance:c73c87a2-f96c-411d-8423-ce5bee960452"
+    ]
+  },
+  "ownerIor": "ior:instance:26f91381-6f1c-4ac7-b8c7-cc465764cad8"
+}

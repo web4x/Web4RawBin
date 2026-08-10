@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "9e030196-6cff-415f-a917-3046eb6bc3be",
+    "name": "Deployer.runScripted",
+    "implementations": [
+      "ior:instance:4909a8ec-7bb6-41bc-9d59-23da3c543adc"
+    ]
+  },
+  "ownerIor": "ior:instance:26f91381-6f1c-4ac7-b8c7-cc465764cad8"
+}

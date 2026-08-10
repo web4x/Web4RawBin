@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "93f35398-3730-4aed-913a-d11df980a18c",
+    "name": "deploy.monitorDrift",
+    "description": "A STANDING monitor detects served!=committed drift continuously AFTER ship (distinct from R30.28's one-shot ship-time check) and alerts.",
+    "class": "ior:instance:26f91381-6f1c-4ac7-b8c7-cc465764cad8",
+    "method": "ior:instance:223f79b6-6a5d-48af-86e6-0a590910b09e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:167ef4a5-abf3-429f-8f4e-e7def91b657a"
+}

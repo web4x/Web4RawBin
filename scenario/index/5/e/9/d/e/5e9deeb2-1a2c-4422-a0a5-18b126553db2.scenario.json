@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5e9deeb2-1a2c-4422-a0a5-18b126553db2",
+    "name": "Deployer.assertPinned impl (pin host/port/node22/prod-pane + assert live matches)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/deploy.mjs",
+    "markerNote": "markerPending: expert builds scripts/deploy.mjs."
+  },
+  "ownerIor": "ior:instance:d1793c21-7ffd-43a1-af3b-7f3b14e4aa7b"
+}
