@@ -23,7 +23,7 @@
   "sprintName": "Sprint 31",
   "createdBy": "robbin-planner",
   "createdAt": "2026-07-20",
-  "remainingIssues": "Placement bug RESOLVED (moved to /profile viewer, v0.7.88/89). Remaining: r311a real-owner gate verification.",
+  "remainingIssues": "QA-Review — impl DONE at the AC surface. ★ r311 RED = PHANTOM, NOT a real regression (architect+PO verdict 2026-08-11): renderFeatureGrants moved SERVER-side (server.ts:1029, marker f345b8ed, called in /profile render, data-driven from m.features); owner IS granted in all 3 Feature units; client fn correctly removed. The Impl was re-pointed during the S31 owner-accept fix while the Test kept driving the OLD client surface -> the RED is a STALE gate asserting a REMOVED surface. T31.1 is SUPERSEDED-clean at the AC surface, NOT unfinished BUILD work. Outstanding = the TESTER's r311 RETARGET ONLY (test-fix onto the server surface, two-key preserved, NO chain re-mint) -> STAYS QA-Review; NOT flipped Done until the retargeted gate is actually GREEN + Tron verdict.",
   "implementation": "PLACEMENT BUG FIXED (v0.7.88 owner-accept entry + v0.7.89 cookie): the Server Manager feature-grants section moved from the profile EDITOR to the /profile VIEWER (Tron's screenshot surface). Pending r311a real-owner gate (owner sees entry / non-owner does not, on the viewer). testing[~] = r311a gate pending."
  }
 }
