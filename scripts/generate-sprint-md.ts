@@ -23,12 +23,20 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 import { sprintPrefix } from '../src/ts/scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
-import { guardedWrite } from './owned-output-guard.js'; // shared owned-output chokepoint (architect 38ba4a160)
+import { guardedWrite, guardedDelete } from './owned-output-guard.js'; // shared owned-output chokepoint (architect 38ba4a160)
+import { sprintNumOf, isCurrentEra } from '../src/ts/scenario/sprint-pin-resolver.js'; // ONE frozen-legacy boundary (num>18)
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
 export const SPRINTS_DIR = path.join(__dirname, '../scrum.pmo/sprints');
 export const GENERATED_HEADER = '<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->';
+
+// OWNERSHIP = the stable PREFIX, the ONE definition of "generator-owned" (PO ruling 2026-08-11). The full header's
+// punctuation once drifted (em-dash — vs hyphen -), and an EXACT-string guard treated a drifted file as hand-authored
+// and refused to update it FOREVER = two-representations-of-one-header (a mini two-sources bug). Matching the prefix
+// (everything BEFORE the punctuation) means a header punctuation change never orphans an owned file; a file carrying
+// this prefix is DECLARING itself generated (the marker's intent). Used for write/delete/check/prune ownership alike.
+export const GENERATED_HEADER_PREFIX = '<!-- GENERATED FROM SCENARIO UNITS';
 
 // The generator's owned-output NAME whitelist: bare *.md it emits (planning.md, requirements.md, task-*.md);
 // never a diagrams/*.puml or a design-*.md brief. (Path-escape is handled by the guard's isConfinedName.)
@@ -228,7 +236,7 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   // protection impossible to drop undetected. A future prune step routes through guardedRemove (marker-only delete).
   let written = 0, skipped = 0;
   for (const [name, content] of out.files) {
-    const wrote = guardedWrite(path.join(sprintDir, name), content, GENERATED_HEADER, isSprintMdOwnedName);
+    const wrote = guardedWrite(path.join(sprintDir, name), content, GENERATED_HEADER_PREFIX, isSprintMdOwnedName);
     if (wrote) written++;
     else { console.log(`  ⚠ SKIP (not owned-output or hand-authored, preserved): ${name}`); skipped++; }
   }
@@ -252,7 +260,8 @@ function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): Chec
   const result: CheckResult = { sprintSlug: out.sprintSlug, missing: [], extra: [], mismatched: [], ok: true };
   const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
 
-  // Walk on-disk files that start with GENERATED_HEADER
+  // Walk on-disk files that carry the generated-header PREFIX (the ONE ownership definition — a punctuation-drifted
+  // header still counts as generated, so a hyphen/em-dash difference is a mismatch to reconcile, never an orphan to miss).
   const onDiskGenerated = new Set<string>();
   if (fs.existsSync(sprintDir)) {
     for (const f of fs.readdirSync(sprintDir).sort()) {
@@ -260,7 +269,7 @@ function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): Chec
       const fp = path.join(sprintDir, f);
       try {
         const content = fs.readFileSync(fp, 'utf-8');
-        if (content.startsWith(GENERATED_HEADER)) onDiskGenerated.add(f);
+        if (content.startsWith(GENERATED_HEADER_PREFIX)) onDiskGenerated.add(f);
       } catch { /* skip */ }
     }
   }
@@ -293,11 +302,61 @@ function reportCheck(r: CheckResult): void {
   for (const f of r.mismatched) console.log(`    mismatched: ${f}`);
 }
 
+interface PruneResult { sprintSlug: string; pruned: string[]; kept: number; }
+
+// PRUNE orphaned generated views (PO-approved 2026-08-11, TIGHTLY GUARDED — generate-sprint-md once rm'd unowned
+// design-*.md + diagrams/*.puml as regen collateral, which is why the C8 guard exists). Delete ONLY a file that is
+// (a) NOT in the current buildSprintOutput (orphan = its task was removed/superseded), (b) passes isSprintMdOwnedName
+// so it is a bare *.md view — NEVER a .puml, NEVER a design-*.md, (c) carries the generated-header PREFIX — enforced by
+// guardedDelete, so NEVER an unmarked/hand-authored file. Every delete routes through guardedDelete. dryRun reports
+// what WOULD be pruned and deletes nothing.
+function pruneSprintOrphans(sprintUuid: string, units: Map<string, ScenarioUnit>, dryRun: boolean): PruneResult {
+  const out = buildSprintOutput(sprintUuid, units);
+  if (!out) return { sprintSlug: sprintUuid, pruned: [], kept: 0 };
+  // FROZEN LEGACY (num ≤ 18) is hand-authored and NOT generator-managed — NEVER prune it (same ONE boundary as the
+  // resolver + --check; a generated-header on a frozen-era file is out of the generated-view scope and is left alone).
+  const sprintUnit = units.get(sprintUuid);
+  if (!sprintUnit || !isCurrentEra(sprintNumOf(sprintUnit))) return { sprintSlug: out.sprintSlug, pruned: [], kept: 0 };
+  const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
+  const res: PruneResult = { sprintSlug: out.sprintSlug, pruned: [], kept: 0 };
+  if (!fs.existsSync(sprintDir)) return res;
+  const expected = new Set(out.files.keys());
+  for (const f of fs.readdirSync(sprintDir).sort()) {
+    if (!isSprintMdOwnedName(f)) continue;      // ONLY the sprint .md view set — never .puml, never design-*.md
+    if (expected.has(f)) { res.kept++; continue; } // still generated → keep
+    const fp = path.join(sprintDir, f);
+    if (dryRun) {
+      // orphan candidate — count ONLY if it carries the generated-header prefix (never a hand-authored file)
+      let owned = false;
+      try { owned = fs.readFileSync(fp, 'utf-8').startsWith(GENERATED_HEADER_PREFIX); } catch { owned = false; }
+      if (owned) res.pruned.push(f);
+    } else if (guardedDelete(fp, GENERATED_HEADER_PREFIX)) { // guardedDelete refuses anything unmarked
+      res.pruned.push(f);
+    }
+  }
+  return res;
+}
+
+function reportPrune(results: PruneResult[], dryRun: boolean): number {
+  console.log(`\n=== Prune orphaned generated views ${dryRun ? '(DRY-RUN — nothing deleted)' : '(REAL DELETE)'} ===`);
+  let total = 0;
+  for (const r of results) {
+    if (!r.pruned.length) continue;
+    console.log(`  ${r.sprintSlug}: ${r.pruned.length} orphan(s) ${dryRun ? 'WOULD prune' : 'PRUNED'}`);
+    for (const f of r.pruned) console.log(`    - ${f}`);
+    total += r.pruned.length;
+  }
+  console.log(`\nTotal: ${total} orphaned generated .md ${dryRun ? 'WOULD be pruned' : 'pruned'} — guarded: prefix-marked + .md view-set only, NEVER .puml/design-*/unmarked.`);
+  return total;
+}
+
 // CLI — guarded so importing this module (e.g. from migrate-boards.ts) does NOT execute the generator on load.
 if (process.argv[1] && process.argv[1].endsWith('generate-sprint-md.ts')) {
 const args = process.argv.slice(2);
 const isCheck = args.includes('--check');
-const filtered = args.filter(a => a !== '--check');
+const isPrune = args.includes('--prune');
+const isDryRun = args.includes('--dry-run');
+const filtered = args.filter(a => a !== '--check' && a !== '--prune' && a !== '--dry-run');
 const cmd = filtered[0];
 
 if (cmd === '--list') {
@@ -307,7 +366,9 @@ if (cmd === '--list') {
 } else if (cmd === '--all') {
   const units = allUnits();
   const sprintUuids = [...units.entries()].filter(([, u]) => u.ior === 'ior:class:Sprint').map(([uuid]) => uuid).sort();
-  if (isCheck) {
+  if (isPrune) {
+    reportPrune(sprintUuids.map(u => pruneSprintOrphans(u, units, isDryRun)), isDryRun);
+  } else if (isCheck) {
     console.log('\n=== Sprint MD Round-Trip Check (honest-metric scoping — Tron ruling) ===');
     // IN-SCOPE = S19-S37 (incl the S21-29 backfill targets) → MUST byte-match, counted in the metric. FROZEN LEGACY
     // = S01-S18 (hand-authored, NOT generated) → EXCLUDED from the metric but EXPLICITLY LISTED (never a silent
@@ -335,7 +396,9 @@ if (cmd === '--list') {
   }
 } else if (cmd) {
   const units = allUnits();
-  if (isCheck) {
+  if (isPrune) {
+    reportPrune([pruneSprintOrphans(cmd, units, isDryRun)], isDryRun);
+  } else if (isCheck) {
     console.log('\n=== Sprint MD Round-Trip Check ===');
     const r = checkSprint(cmd, units); reportCheck(r);
     if (!r.ok) process.exit(1);
@@ -343,6 +406,6 @@ if (cmd === '--list') {
     generateSprint(cmd, units);
   }
 } else {
-  console.log('Usage: npx tsx scripts/generate-sprint-md.ts [--check] <sprint-uuid|--all|--list>');
+  console.log('Usage: npx tsx scripts/generate-sprint-md.ts [--check | --prune [--dry-run]] <sprint-uuid|--all|--list>');
 }
 } // end CLI guard
