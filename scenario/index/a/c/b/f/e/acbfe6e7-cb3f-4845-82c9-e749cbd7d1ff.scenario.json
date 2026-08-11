@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "acbfe6e7-cb3f-4845-82c9-e749cbd7d1ff",
-    "name": "Credential/identity decoupling — keep the user-id STABLE, introduce a separate ROTATABLE credential (challenge-response/keypair)",
+    "name": "Storage/identity RE-KEY — key data/users/ by a non-secret opaque storageId (never accepted for auth) so a credential rotation touches ONLY auth + ZERO path bytes (no orphaned home)",
     "altId": "R40.22",
     "tasks": [],
     "tests": [],
@@ -12,7 +12,7 @@
     "useCases": [
       "ior:instance:c0a58546-449d-450b-84b0-6aab67e65b2d"
     ],
-    "description": "SECURITY (design-required, architect measuring): the owner literal appears to BE the owner's real user-id in runtime storage (data/users/<owner-id>/, profiles.json), so rotating the credential could mean migrating an identity PRIMARY KEY — device enrollments, memberships, ownership refs — with real lockout / orphan risk. LIKELY FIX: keep the user-id STABLE (identity) and introduce a SEPARATE, ROTATABLE credential (the challenge-response / keypair endgame) so a credential rotates WITHOUT migrating identity. The architect is measuring now; the verdict may reshape the rotation and fills in the shape (design lands LOCAL, outside repo). NO credential/owner VALUE recorded here (secret-value rule) — the owner literal is referenced only as 'the owner literal' / <owner-id>.",
+    "description": "SECURITY (design landed 03287719c, fresh expert builds after the 116 invalidation): the owner token is BOTH the auth credential AND the storage key (it appears in data/users/<token>/ paths), so rotating it orphans the user's home — measured to have threatened TRON's. And there are 217 distinct such credentials, not one. FIX = re-key storage onto a purpose-built OPAQUE storageId (non-secret, minted per owner, appears in paths, NEVER accepted for auth) BEFORE any rotation, so afterwards a token rotation changes only auth and touches zero path bytes. Bridge (storage dual-validity) during the migration, kill mint-regrowth at the three sites, gate that no path carries a credential-shaped segment. Ties R40.21 (capability-not-identity) + R40.14/R40.15. NO credential VALUE recorded here (secret-value rule); owner referenced only as <owner-id>/<token>.",
     "status": "Backlog",
     "captureOnly": true,
     "designRequired": true,
@@ -21,6 +21,43 @@
       "note": "Requirement-grade security finding, capture-only for Tron's backlog. Exploit/rotation detail lives in the LOCAL design (/var/dev/security-local/, chmod 600) — NOT in-repo. Independent of tonight's incident; architect design/verdict fills the shape. NO exploitable detail + NO secret VALUES in this unit (secret-value rule)."
     },
     "acceptanceCriteria": [
+      {
+        "id": "AC-opaque-storageId",
+        "group": "storageId",
+        "text": "A purpose-built OPAQUE storageId keys data/users/ — non-secret, minted per owner, may appear in paths, and is NEVER accepted for auth. ★ LOAD-BEARING: because it cannot authenticate, leaking it in a path is HARMLESS -> credential/path re-conflation is STRUCTURALLY IMPOSSIBLE, not merely fixed. NOT the Profile uuid (architect measured 0/195 Devices + 0/45 Rooms resolve to a Profile on disk = no universal stable owner-id; token->profile is runtime-only)."
+      },
+      {
+        "id": "AC-bridge-not-hard-rename",
+        "group": "bridge",
+        "text": "BRIDGE, not a hard-rename, during transition: BOTH the old-token path AND the new-storageId path resolve, then converge, then the old drops = STORAGE dual-validity. Makes the migration RECOVERABLE, not atomic-or-broken."
+      },
+      {
+        "id": "AC-migration-treatment",
+        "group": "migration",
+        "text": "Migration treatment: dry-run WITH counts first; rewrite the 167 unitLinks; per-file content-hash before==after (zero content loss); idempotent (re-run = no-op); half-run-recoverable. Same remap rigor as R27.2."
+      },
+      {
+        "id": "AC-kill-mint-regrowth",
+        "group": "anti-regrowth",
+        "text": "Kill mint-regrowth at ALL THREE sites (createUserHome, file-unit.ts:74, server.ts:1996+2009) or the migration REFILLS behind us with fresh token-keyed homes."
+      },
+      {
+        "id": "AC-gate-no-credential-path",
+        "group": "gate",
+        "text": "★ THE GATE (ci:gates, beside the field pii-guard): NO token-keyed path remains AND NO path string contains a credential-shaped segment; every unitLink resolves; per-file hashes match; idempotent. STUB-MUST-FAIL BOTH ways (plant a credential-shaped path segment -> RED; weaken the guard -> RED)."
+      },
+      {
+        "id": "AC-rekey-before-rotation-protects-Tron",
+        "group": "protects-tron",
+        "text": "★★ THE ACCEPTANCE CRITERION THAT PROTECTS TRON: storage is keyed by storageId BEFORE any rotation, and AFTER the re-key a token rotation changes ONLY auth and touches ZERO path/file bytes — PROVEN by a post-re-key rotation test (rotate a token -> assert 0 path bytes changed, home still resolves)."
+      },
+      {
+        "id": "AC-build-after-116-architect-backstop",
+        "group": "sequencing",
+        "text": "SEQUENCING: the 116-invalidation (auth-only, touches no storage) runs FIRST; the FRESH expert builds this gated re-key migration AFTER it, with the architect backstopping. Design landed (03287719c) — no longer design-blocked, but gated on the migration ACs above."
+      }
+    ],
+    "supersededACs": [
       {
         "id": "AC-identity-stable",
         "group": "identity-stable",
@@ -46,7 +83,13 @@
         "group": "architect-verdict",
         "text": "★ DESIGN-REQUIRED: the architect's measurement/verdict fills the shape and may reshape the rotation. Do NOT build before the verdict."
       }
-    ]
+    ],
+    "premiseAmendment": "★ PREMISE MEASURED FALSE, TWICE (honest amendment, not a quiet replace — see supersededACs): the original R40.22 was written as SINGLE-OWNER credential/identity decoupling (rotate ONE owner secret, dual-validity, flip a flag). Measurement destroyed that premise: (1) there are 217 DISTINCT credentials tracked (ownerToken 241 + uploaderToken 204 etc), not one owner secret; (2) the token is ALSO the user's STORAGE KEY — it appears in data/users/<token>/ paths, so rotating it ORPHANS the home (it would have orphaned TRON's). So R40.22's real scope is a STORAGE/IDENTITY RE-KEY, and its ACs must say so or we build to a spec the data contradicts. Amended per architect design 03287719c + PO ruling 2026-08-11; original ACs preserved in supersededACs. This credential incident IS R40.22's live justification.",
+    "crossRef": [
+      "ior:file:scrum.pmo/design-notes/... 03287719c (storage re-key design)"
+    ],
+    "crossRefNote": "Amended scope per architect re-key design 03287719c. Original single-owner-decoupling ACs preserved in supersededACs (premise measured false). Ties R40.21 credential-vs-identity + R40.14 loginToken-keypair + R40.15 secretCode. The 116-invalidation (auth-only, no storage touch) runs FIRST; this re-key migration is the storage half, fresh expert after.",
+    "designLanded": "architect 03287719c (storage re-key: opaque storageId, Profile-uuid RULED OUT because 0/195 Devices + 0/45 Rooms resolve to a Profile on disk = no universal stable owner-id, token->profile link is runtime-only)"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
