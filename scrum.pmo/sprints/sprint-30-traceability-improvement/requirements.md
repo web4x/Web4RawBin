@@ -241,6 +241,7 @@
   -> swUpdate.pollForUpdate [uc:uuid:ba7b15ab-c785-4c94-a8fe-936016b0023c]
   -> swUpdate.claimClients [uc:uuid:decc53f9-13b9-4785-bddf-b1f001bb2b9c]
   -> serviceWorker.networkFirstShell [uc:uuid:a5dd44bc-e7c6-4db1-8bc4-04478bd9d3ef]
+  -> serviceWorker.networkFirst [uc:uuid:9593b6c4-8c8d-48bc-84df-74f12f642cc2]
 
 - [ ] **R30.15 — Right-history default is meaningful + user-pick wins**
   [requirement:uuid:c2472818-0d33-4d4d-9f34-a858c03bb346]

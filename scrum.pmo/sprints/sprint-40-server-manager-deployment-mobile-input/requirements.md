@@ -128,6 +128,7 @@
   - [ ] **(automatable)** [AUTOMATABLE, source] The ChangeRequest status uses a SINGLE-SOURCED ChangeRequestStatus enum (like TaskStatusEnum): Open -> Triaged -> Resolved -> Closed (distinct from TaskStatusEnum). Initial = Open. NO bare string literals (a bare status can drift into ad-hoc strings; architect steer 82a10155a).
   - [ ] **(automatable)** [AUTOMATABLE] The decline endpoint AUDIT-LOGS the ChangeRequest mint (who declined, which task/req, when) for Q2 integrity — the verdict + its resulting unit are traceable, never a silent state change. createdBy is SERVER-SET from the owner token (can not be spoofed).
   -> taskQa.tronVerdict [uc:uuid:0a3e3653-c997-4a87-97ef-1511a1fef5dd]
+  -> taskDetail.renderChangeRequests [uc:uuid:3f2dfabc-70af-4ab7-986f-17235c2bdb0c]
 
 - [ ] **R40.11 — deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)**
   [requirement:uuid:83528e2f-60d3-4d62-acf3-2e3b4068fce5]

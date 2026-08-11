@@ -138,7 +138,16 @@
   - [ ] **(functional)** A SCRIPTED deploy exists: one command does pull + build + VERIFY served==committed==SW==HEAD, replacing the manual Ctrl-C + npm start. After it runs, the prod-serving process is running the JUST-committed build (no stale old-build lag). If any of served/committed/SW/HEAD disagree, the script FAILS LOUD (does not silently serve stale).
   - [ ] **(invariant)** A STANDING served!=committed MONITOR runs continuously (the R31.7 agreement invariant as a LIVE ALERT): if the served version/hash ever diverges from committed==HEAD (i.e. a push happened but the serve didn't reload), it ALERTS IMMEDIATELY - the lag is visible at once, not found later via a stale page. Testable: inject a skew (commit without redeploy) -> the monitor fires.
   - [ ] **(invariant)** Prod topology is PINNED: exactly ONE prod-serving checkout and exactly ONE restart-driver (architect). The expert commits to a CLONE and does NOT deploy - no ambiguity about which checkout serves or who restarts. Prevents the 'someone else's checkout served an old/other build' class of lag/confusion.
-  - [ ] **(meta)** This requirement is captured scenario-first but marked NEXT / NOT-NOW: it is NOT dispatched for build while R31.12 is the active item. PO schedules the build; the chain (UC->Class->Method->Impl->Test) mints onto the built fix when scheduled.
+  - [ ] **(meta)** BUILD-AUTHORIZED (2026-08-10) under Tron's standing campaign directive (finish S30++ tasks -> QA); chain minted scenario-first before the expert lands scripts/deploy.mjs. (Was NEXT/NOT-NOW.)
+  - [ ] **(invariant)** INV-D1: gate-by-construction — there is NO exit-0 path that ships without the post-deploy device-gate having run GREEN. This is the property that UN-BLOCKS R40.25's AC-8 (the gate stops being skippable). Enforced BOTH ways: a behavioural META-BITE (a normal deploy CANNOT complete un-gated — covers existing paths) AND a STATIC LINT (every exit-0 downstream of the gate — prevents future ones); the lint carries two bites: plant-a-bypass -> RED, and lint-itself-runs -> RED (non-vacuous).
+  - [ ] **(invariant)** INV-D2: NO skip/bypass flag EVER. There is no --force / --skip-gate / env override. Shipping un-gated is only ever RECORDED as served-but-UNVERIFIED (R40.25), never silenceable. (Prohibition written into the requirement so a future agent does not add a bypass.)
+  - [ ] **(invariant)** INV-D3: atomic + fail-loud — the deploy never half-completes; on any step failure it fails LOUD and leaves the previous live state intact, never a partial/broken serve.
+  - [ ] **(invariant)** INV-D4: exactly ONE deploy path when done — no divergent manual vs scripted routes; the scripted path is THE path.
+  - [ ] **(invariant)** INV-D5: dry-run FIRST, and the EXISTING restart path stays available until the scripted deploy has succeeded >=1 time live (safe cutover, no big-bang).
+  - [ ] **(invariant)** INV-D6: served==committed comparison RIDES R30.28 (b6946e59.assertVersionAtHead) — NOT a second copy. Distinct intent: R30.28 is the ship-time GUARANTEE; R31.14 is orchestration + drift MONITOR + pinned topology.
+  -> deploy.runScripted [uc:uuid:99433137-3809-43ed-b0e2-f973d14091e4]
+  -> deploy.monitorDrift [uc:uuid:93f35398-3730-4aed-913a-d11df980a18c]
+  -> deploy.pinTopology [uc:uuid:04e3b795-d1ab-46fa-ae04-ca1ad76247b2]
 
 - [ ] **R32.9 — FeatureManager auto-discovers all Features; MDA feature auto-appears + launchable, membership-gated**
   [requirement:uuid:96e88399-e8a6-4ce8-b1e3-379edff0eb86]
@@ -179,3 +188,4 @@
   - [ ] **(gate)** GATE the DROP INTERACTION @390 (Tron viewport): empty diagram -> drag 'Circle' from the model tree -> drop -> Circle box appears; drag 'Point' -> 2nd box + R32.6 edges; drag Circle again -> NO dup (INV-R2); prod scenario/index git-clean (INV-R3); re-open the /model diagram -> views persist (INV-R4). Gate the DROP, NOT the label/generate-path [[gate-the-ac-surface]] - the 3rd 'gated-path != interaction' miss.
   -> diagram.addView [uc:uuid:cdd29583-f304-4df7-af06-b5a8d955be85]
   -> diagram.tapToAdd [uc:uuid:87d3d693-6fcf-46e4-bf08-c5447ca8a241]
+  -> facetType.deriveViewKind [uc:uuid:3a8be3bd-a3d5-4093-a819-42f303480882]

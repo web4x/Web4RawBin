@@ -99,3 +99,30 @@
   - [ ] **(governance)** TRON-AUTHORIZED EXECUTABLE (2026-08-07): the migration RUNS (not just tracked), one sprint at a time; each sprint migrates ONLY after its units-completeness is PROVEN (per-sprint gate, not a team-wide block). The architect designs the procedure + per-sprint classification.
   - [ ] **(gate)** BITE TEST (distinct-intent, exercises AC-units-completeness): plant a units-INCOMPLETE sprint (units missing some file content) -> the migration REFUSES to write that sprint (fail-loud, no clobber); a units-COMPLETE sprint -> migrates + --check byte-matches + original content fully present (post-generated + units) + reversible. Verify Impl.tests[] on disk before flip.
   -> board.migrateProvenComplete [uc:uuid:c8c3d81e-4ec4-48e7-9769-842e93879897]
+
+- [ ] **R-C8 — Generated-output writes route through a shared owned-output guard — never clobber/delete an UNMARKED (hand-authored) file, fail-closed**
+  [requirement:uuid:1ddc8564-9f45-488f-965c-0b4fc1a76a1c]
+  Every write/delete performed by the board generators (generate-sprint-md, sprint-overview) routes through ONE shared owned-output chokepoint that writes/deletes a file ONLY when it is a MARKED generated output (owned name / generated-header / owned region); an UNMARKED hand-authored file is NEVER clobbered or deleted; the guard is fail-closed (unknown/ambiguous -> refuse) and path-traversal-free. Permanent by-construction fix for the regen-collateral-delete class that removed three committed knowledge docs.
+  **Acceptance criteria:**
+  - [ ] **(shared-chokepoint)** Both generators (generate-sprint-md guardedWrite + sprint-overview guardedWriteRegion) route ALL writes/deletes through the ONE shared owned-output-guard helper — no direct fs.write/unlink bypasses it.
+  - [ ] **(never-clobber-unmarked)** An UNMARKED (hand-authored) file is NEVER overwritten: guardedWrite refuses to write over a path that is not an owned/generated name or lacks the generated header.
+  - [ ] **(never-delete-unmarked)** An UNMARKED file is NEVER deleted: guardedDelete removes a path ONLY when it carries the generated header — hand-authored knowledge docs cannot be regen-collateral.
+  - [ ] **(fail-closed)** Fail-closed: on unknown/ambiguous ownership OR a path-traversal attempt, the guard REFUSES the operation (does not write/delete) rather than proceeding.
+  - [ ] **(region-preserve)** guardedWriteRegion rewrites ONLY the generated region (between markers) of sprints.overview.md and preserves the hand-authored narrative outside it.
+  - [ ] **(verify)** Verified by the tester BITEs (B1 behavioural / B2a static chokepoint / B2b negative-bite / B3 fail-closed) going GREEN once the guard is present (they were correctly RED when written against its absence).
+  -> ownedOutputGuard.guardGeneratedWrite [uc:uuid:36bb68ee-5818-42de-aec4-f615eaa3bb00]
+
+- [ ] **R-C9 — Done carries provenance — checklist-derived Done and Tron-approved Done are DISTINCT on disk; a reconcile never writes a bare unverdicted Done**
+  [requirement:uuid:3cdd5091-cb29-4279-ac8e-1661e6cea026]
+  A checklist-derived Done and a Tron-approved Done are DIFFERENT claims and must be DISTINCT on disk (doneBasis = 'tron-approved' via approvedBy/approvedAt vs 'checklist-derived'). Resolves a real collision between OUR OWN rules: R-C5 (status DERIVED from checklist, single-source) vs R40.10 (Done requires Tron approvedBy/approvedAt) give OPPOSITE answers for an old fully-ticked task -> today the derived Done wins SILENTLY and impersonates a Tron-signed Done (two-sources-one-fact, quiet-impersonates-authoritative). Structural fix, not cleanup.
+  **Acceptance criteria:**
+  - [ ] **(done-basis-distinct)** A Task's Done carries its BASIS on disk (doneBasis): 'tron-approved' (with approvedBy/approvedAt) vs 'checklist-derived' — DISTINCT claims, never conflated. The two are different facts, not one.
+  - [ ] **(reconcile-no-bare-done)** A reconcile / R-C5 checklist-derive MUST NOT write a plain unverdicted 'Done' (no approvedBy/approvedAt) onto a Task with no Tron verdict. A fully-ticked checklist derives at most doneBasis=checklist-derived, NEVER a bare Tron-equivalent Done.
+  - [ ] **(resolves-collision)** Resolves the R-C5 (status DERIVED from checklist) vs R40.10 (Done requires Tron approvedBy/approvedAt) COLLISION: today the derived Done wins SILENTLY and impersonates a Tron-signed Done. The basis field makes them distinguishable so a derived Done can NEVER impersonate a Tron Done.
+  - [ ] **(board-distinguishes)** The board/scoreboard DISTINGUISHES the two — a checklist-derived Done is NOT counted or rendered as a Tron-verdicted Done.
+  - [ ] **(retroactive)** The 17 S19/S20 Tasks bulk-advanced Planned->Done without approvedBy are re-classified doneBasis=checklist-derived (or reverted to their real state) — never left indistinguishable from a Tron-Done.
+  - [ ] **(by-construction)** BY-CONSTRUCTION: the reconcile/derive path CANNOT emit a Done without a doneBasis — a lint/guard rejects a bare Done, proven non-vacuous by a STUB-MUST-FAIL bite (write a bare Done -> RED).
+  - [ ] **(reads-not-owns-orthogonal)** doneBasis is ORTHOGONAL to status (INV-C9-4/C9-5): R-C5 still OWNS the status enum and R40.10 still OWNS approvedBy; DoneProvenance READS both as evidence and NEVER mutates them. The provenance LAYER over the two rules, not a rewrite of either — no cross-wire.
+  -> doneProvenance.deriveBasis [uc:uuid:1ad039bd-b1cc-4790-81d9-b5c34d8cedc1]
+  -> doneProvenance.assertNoBareDone [uc:uuid:c0610574-8568-469e-b893-477a24af2691]
+  -> doneProvenance.reclassifyBulkAdvanced [uc:uuid:6eb260b2-4967-4ec5-8443-bcf8a075b40f]
