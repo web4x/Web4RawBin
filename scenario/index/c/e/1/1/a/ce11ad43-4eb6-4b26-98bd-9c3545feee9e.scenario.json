@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ce11ad43-4eb6-4b26-98bd-9c3545feee9e",
+    "name": "TaskPolicy.apply",
+    "implementations": [
+      "ior:instance:1e789400-8e25-4957-b0d6-f9429f174184"
+    ]
+  },
+  "ownerIor": "ior:instance:44d42650-5b19-461a-8db9-49f5891a3853"
+}

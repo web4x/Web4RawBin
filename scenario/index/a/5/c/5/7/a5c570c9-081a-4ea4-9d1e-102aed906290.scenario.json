@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a5c570c9-081a-4ea4-9d1e-102aed906290",
+    "name": "MvcBoundaryGuard.assertControllerDominates impl (dominance lint: unitController.apply UNIQUE dominator; no model.status= / tick / Done / owned-view-write outside it; two-bite)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/mvc-boundary-guard.ts",
+    "markerNote": "markerPending: expert build-step-7 (LAST, only true once the controller exists). [impl:uuid:a5c570c9] -> I flip. Dominance target = unitController.apply (not statusNext)."
+  },
+  "ownerIor": "ior:instance:3b394294-0e47-4d3d-887e-9bbc1a7af786"
+}

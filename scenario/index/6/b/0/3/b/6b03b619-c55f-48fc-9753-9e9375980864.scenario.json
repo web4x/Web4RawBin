@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6b03b619-c55f-48fc-9753-9e9375980864",
+    "name": "UnitController.emit impl (step-4 publish: delegates to viewBus.emitUnitChanged R37.12, UNIT_CHANGED{ior,uuid,hash}; generic, no task shape)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/unit-controller.ts",
+    "markerNote": "markerPending: expert builds emit as apply's publish step. [impl:uuid:6b03b619] -> I flip. Ties R37.12 viewBus.emitUnitChanged."
+  },
+  "ownerIor": "ior:instance:1e03b611-1952-42ea-a030-4224cacf2c49"
+}

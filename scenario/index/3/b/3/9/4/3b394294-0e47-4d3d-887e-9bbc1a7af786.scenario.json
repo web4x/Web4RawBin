@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "3b394294-0e47-4d3d-887e-9bbc1a7af786",
+    "name": "MvcBoundaryGuard.assertControllerDominates",
+    "implementations": [
+      "ior:instance:a5c570c9-081a-4ea4-9d1e-102aed906290"
+    ]
+  },
+  "ownerIor": "ior:instance:ceaf7500-5279-42bb-a942-d76c1794fe0f"
+}

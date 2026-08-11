@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "44d42650-5b19-461a-8db9-49f5891a3853",
+    "name": "TaskPolicy",
+    "sourceFile": "ior:file:src/ts/scenario/task-policy.ts",
+    "methods": [
+      "ior:instance:8b282512-6410-4406-ba66-d88c5fac906e",
+      "ior:instance:ce11ad43-4eb6-4b26-98bd-9c3545feee9e",
+      "ior:instance:49c41152-3430-4909-bbb0-4d1cd3b5cbbb"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

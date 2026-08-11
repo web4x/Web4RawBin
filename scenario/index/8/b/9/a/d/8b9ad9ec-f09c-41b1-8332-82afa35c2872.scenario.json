@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "8b9ad9ec-f09c-41b1-8332-82afa35c2872",
+    "name": "taskPolicy.apply",
+    "description": "Policy #1 apply hook (invoked by unitController.apply): TICKS the nested checklist step; NEVER writes a flat 4-state status string; deriveStatusEnum produces the 4-state from the checklist. task-fsm.ts reduces to this policy's internal legality module, not a rival model.",
+    "class": "ior:instance:44d42650-5b19-461a-8db9-49f5891a3853",
+    "method": "ior:instance:ce11ad43-4eb6-4b26-98bd-9c3545feee9e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+}

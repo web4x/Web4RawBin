@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd",
+    "name": "UnitController",
+    "sourceFile": "ior:file:src/ts/scenario/unit-controller.ts",
+    "methods": [
+      "ior:instance:5cc58e20-b27d-4ccf-93d1-80ed9ae8bff5",
+      "ior:instance:1e03b611-1952-42ea-a030-4224cacf2c49"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

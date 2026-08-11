@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1e03b611-1952-42ea-a030-4224cacf2c49",
+    "name": "UnitController.emit",
+    "implementations": [
+      "ior:instance:6b03b619-c55f-48fc-9753-9e9375980864"
+    ]
+  },
+  "ownerIor": "ior:instance:872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd"
+}

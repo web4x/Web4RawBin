@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "47227ad1-f00a-4337-bc0d-8e63a34b1b26",
+    "name": "TaskPolicy.statusNext impl (THIN FACADE over unitController.apply for ior:class:Task, NOT a 2nd entry; NEVER writes the 4-state strings approve reads -> ticks checklist, deriveStatusEnum derives; removed hazard: flat 'QAReview' vs live 'QA Review' would break Tron approve silently)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/task-policy.ts",
+    "markerNote": "markerPending: expert builds statusNext as the thin Task facade calling apply. [impl:uuid:47227ad1] -> I flip. R40.10 approveByOwner DELEGATES to apply's Task-Done step (no new Impl)."
+  },
+  "ownerIor": "ior:instance:49c41152-3430-4909-bbb0-4d1cd3b5cbbb"
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "1e789400-8e25-4957-b0d6-f9429f174184",
+    "name": "TaskPolicy.apply impl (apply hook: TICKS the nested checklist step; NEVER writes a flat 4-state status string; deriveStatusEnum derives the 4-state)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/task-policy.ts",
+    "markerNote": "markerPending: expert builds the tick-checklist hook. [impl:uuid:1e789400] -> I flip. NO flat status-write (retired hazard)."
+  },
+  "ownerIor": "ior:instance:ce11ad43-4eb6-4b26-98bd-9c3545feee9e"
+}

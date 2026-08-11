@@ -15,7 +15,13 @@
   "sprintName": "Sprint 37",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:be1e9403-98c4-4b0b-82e6-9f2a10a9f953"
+   "ior:instance:be1e9403-98c4-4b0b-82e6-9f2a10a9f953",
+   "ior:instance:29b78da3-f9aa-47c6-b706-46df6e47a69a",
+   "ior:instance:339246c8-9ce8-4c12-b279-4ac4930d1a04",
+   "ior:instance:bab465ec-a2ba-4623-8365-140cb049eb2b",
+   "ior:instance:8b9ad9ec-f09c-41b1-8332-82afa35c2872",
+   "ior:instance:62c5576b-4b43-4d52-bf79-c36cb4667e99",
+   "ior:instance:3b7b2a6d-86e2-49d9-ad45-6c3fe7fc7f77"
   ],
   "description": "Every UNIT mutation (any ior:class:*) flows through ONE controller unitController.apply (validate via the registered policy -> apply -> persist via ScenarioIndex.put deliberate-opt -> emit). The Task FSM registers as POLICY #1; statusNext is a THIN Task facade over apply, never a second entry. Done has ONE writer (R40.10 approveByOwner DELEGATES to apply's Done step, recording approvedBy/approvedAt as the evidence, never sets Done itself; tronApprove folds in). The controller REFUSES to advance past a checklist step whose evidence is absent, using the ONE shared evidenceForStep predicate (also consumed by checklist-chain-audit — no second copy). A dominance LINT proves the controller is the UNIQUE dominator of every mutation. Covers C4.2/C4.3/C4.8 (T37.4.2 + T37.4.3).",
   "tronQuote": "> Tron (pre-build, C4 shape): \"that's far away from MVC and a view pipeline\" -> RE-ISSUED DRY as TWO SINGLETONS (generic mechanism + plugged-in policy); Task = policy #1, sprint board = projection #1.",
@@ -50,7 +56,7 @@
    {
     "id": "AC-single-source-done",
     "group": "functional",
-    "text": "statusNext OWNS the Done transition; R40.10 approveByOwner DELEGATES (records approvedBy/approvedAt as evidence, then calls the Done step) and does NOT set Done itself; tronApprove folds in. ONE Done-writer by construction."
+    "text": "unitController.apply's Task-Done step (via TaskPolicy) OWNS the Done transition; R40.10 approveByOwner DELEGATES (records approvedBy/approvedAt as evidence, then calls apply's Done step) and does NOT set Done itself; the statusNext facade + tronApprove fold in. ONE Done-writer by construction."
    },
    {
     "id": "AC-delegation-no-regression",
@@ -60,7 +66,17 @@
    {
     "id": "AC-dominance-lint",
     "group": "gate",
-    "text": "A LINT proves unitController is the UNIQUE DOMINATOR of every task-status transition: no model.status= / no checklist-tick outside statusNext; no Done except via statusNext (R40.10 must delegate); no hand-authored owned-view write. Two-bite: plant a bypass -> RED; weaken the lint -> RED. The dominance property is this req's invariant, not a separate want."
+    "text": "A LINT proves unitController.apply is the UNIQUE DOMINATOR of every unit mutation: no model.status= / no checklist-tick outside unitController.apply; no Done except via apply's Task-Done step (R40.10 must delegate); no hand-authored owned-view write. Two-bite: plant a bypass -> RED; weaken the lint -> RED. The dominance property is this req's invariant, not a separate want."
+   },
+   {
+    "id": "AC-no-flat-status-write",
+    "group": "gate",
+    "text": "statusNext NEVER writes the flat 4-state status strings that approveByOwner reads (e.g. it must not emit 'QAReview'/'Refining' status writes) — it TICKS the nested checklist and lets deriveStatusEnum derive the 4-state. REMOVED HAZARD (carry as AC, not tidying): the retired flat vocabulary said 'QAReview' while approve's live gate reads 'QA Review' — had a status-write been wired live, Tron's approve would have broken SILENTLY (a button that flips nothing, found by him not us). ONE representation (nested checklist) + ONE legality set; task-fsm.ts reduces to TaskPolicy's internal legality module. BITE: a statusNext path that writes a 4-state string -> RED."
+   },
+   {
+    "id": "AC-derive-sole-writer",
+    "group": "gate",
+    "text": "deriveStatusEnum is the SOLE writer of the 4-state model.status strings (family: status-string-writer) — a literal 'QA Review'/'Done'/'In Progress'/'Planned' status-set ANYWHERE else -> RED. This folds into mvcBoundary.assertControllerDominates as a 2nd FACET (architect ruling: one property, one home — NOT a separate unit). Proven non-vacuous by a STUB-MUST-FAIL bite (plant a literal status-set -> RED; weaken the lint -> RED)."
    },
    {
     "id": "AC-gate",

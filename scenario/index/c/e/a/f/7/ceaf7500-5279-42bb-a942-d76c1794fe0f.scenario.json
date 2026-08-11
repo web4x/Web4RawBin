@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "ceaf7500-5279-42bb-a942-d76c1794fe0f",
+    "name": "MvcBoundaryGuard",
+    "sourceFile": "ior:file:scripts/mvc-boundary-guard.ts",
+    "methods": [
+      "ior:instance:3b394294-0e47-4d3d-887e-9bbc1a7af786"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

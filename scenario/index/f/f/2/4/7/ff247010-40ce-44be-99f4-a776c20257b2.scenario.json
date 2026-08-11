@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ff247010-40ce-44be-99f4-a776c20257b2",
+    "name": "TaskPolicy.validate impl (re-expressed legality: flat TRANSITIONS+guardTransition survive as legality over (top-level,sub-step) PAIRS of the nested form; + evidenceForStep precondition, refuse advance past evidence-absent step)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/task-policy.ts",
+    "markerNote": "markerPending: expert builds task-policy.ts (reduces task-fsm.ts to internal legality). validate = guard+evidenceForStep hook. [impl:uuid:ff247010] -> I flip. Consumes evidenceForStep (5021456d, shipped)."
+  },
+  "ownerIor": "ior:instance:8b282512-6410-4406-ba66-d88c5fac906e"
+}
