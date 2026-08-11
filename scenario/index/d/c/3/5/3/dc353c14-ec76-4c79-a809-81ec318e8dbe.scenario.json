@@ -1,0 +1,47 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "dc353c14-ec76-4c79-a809-81ec318e8dbe",
+    "name": "Behavioural gates target STABLE test hooks (not CSS class names) + drift NAMES ITSELF (hook-missing, not -1) — gate-rot protection",
+    "altId": "R40.30",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "Old merge-editor gates (0.7.19-0.7.59) DRIFTED as the UI evolved: e.g. R30.52 renamed the CSS hook .de-count -> .de-open-count, so r3037 now reads -1 and reports RED while the FEATURE IS INTACT (proven by source + overlapping newer GREEN gates). Nothing detected the drift — the gates rotted until someone re-ran them. HONEST NUANCE: those gates going RED on a rename was the gate WORKING as a change-detector; the failure was that nobody maintained them AND a RED read as a code regression rather than a drift signal. The fix is to make drift NAME ITSELF. Sibling to the un-datable-gate-version cohort.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "gate-rot-protection",
+    "discoverySource": {
+      "type": "tester-archaeology",
+      "by": "tester (17-row re-gate)",
+      "date": "2026-08-11",
+      "note": "R30.52 .de-count->.de-open-count rename; r3037 reads -1 RED, feature intact. Gate-rot: no drift detection."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-stable-hooks",
+        "group": "stable-hooks",
+        "text": "Behavioural gates target STABLE test hooks (data-testid or an equivalent contract), NOT incidental CSS class names — a cosmetic rename cannot break a behavioural gate."
+      },
+      {
+        "id": "AC-2-hook-rename-reruns-gates",
+        "group": "hook-dependency-discoverable",
+        "text": "Renaming or removing a test hook REQUIRES re-running the gates that depend on it — the dependency is DISCOVERABLE: a gate declares which hooks it binds."
+      },
+      {
+        "id": "AC-3-retarget-reproves-fail",
+        "group": "retarget-stub-must-fail",
+        "text": "A re-targeted gate MUST re-prove it can FAIL (stub-must-fail) before its GREEN counts — otherwise re-pointing a selector until it passes silently empties the gate."
+      },
+      {
+        "id": "AC-4-drift-names-itself",
+        "group": "drift-names-itself",
+        "text": "Drift is DETECTABLE rather than discovered by accident: a gate whose hook has VANISHED says 'hook missing' LOUDLY (distinct signal), not read -1 and report a behavioural failure. The RED must name drift, not masquerade as a code regression."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
