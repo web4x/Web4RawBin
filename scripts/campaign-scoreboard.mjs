@@ -23,7 +23,7 @@ const coversNextPhase = t => (t.m.coveredRequirements || []).some(r => NEXT_PHAS
 // FICTIONAL marker (AST-rejected, the lying-marker class). Its flip RIDES another task's build. The coarse
 // script cannot grep src for the host decl, so these are measured overrides (task-uuid -> coupled-on note).
 const BUILD_COUPLED = new Map([
-  ['95d74272-2283-446c-b383-697b2ded6eb8', 'T40.11 — Impl e009ace7 credits DeploymentModel.buildTypedModel = 0 src hits; buildTypedModel is T40.11 deliverable'], // T40.6
+  // (T40.6 95d74272 was here 2026-08-11 until buildTypedModel got BUILT on DeploymentModel.ts, strict-AST-flipped d3e02a99b durable on origin -> marker no longer fictional -> auto re-classifies to gate. Mechanism retained for future measured couplings.)
 ]);
 
 const byUuid = new Map();

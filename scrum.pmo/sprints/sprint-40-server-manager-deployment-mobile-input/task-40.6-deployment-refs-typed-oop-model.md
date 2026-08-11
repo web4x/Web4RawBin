@@ -11,14 +11,14 @@
 - [x] In Progress
   - [x] refinement
   - [ ] creating test cases
-  - [~] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.6 (deploymentRefs -> typed OOP model; THE DEEP ONE). Scenario-first: req minted R40.6 6a9d99c3 (515f743b8); coveredRequirements + useCases b2c5cdba wired; ACs MIRRORED — UPDATED to req 714b16491 (10 ACs, all AUTOMATABLE graph/disk): +generalization-queryable (IS-A real graph edge) +interfaces-realizable (UmlInterface cross-cutting) +CROWN leaf-resolves-as-model-query fail-closed +sentinelReason. Architect ecaed1399 measured M2 kinds already exist (no new machinery). Architect designs the typed-OOP-model chain (esp this one). No build until build-go.
+In Progress — implementing DONE (2026-08-11): Impl e009ace7 (DeploymentModel.buildTypedModel — type refs, real Relationship edges, crown-invariant fail-closed) markerPending=false, REAL host on DeploymentModel.ts, strict-AST-flipped d3e02a99b DURABLE ON ORIGIN (buildTypedModel now 5 src hits, WAS 0 — expert built it; the fictional-marker / build-coupled block is CLEARED). verify-owner-first PASSED: e009ace7 sharedByTasks=[95d74272 ONLY] = distinct to T40.6's chain (R40.6 6a9d99c3 -> UC b2c5cdba deploymentModel.typedOopRefs -> Method ab9379d6). NOT EVIDENCED [ ]: creating test cases + testing = R40.6 has NO Test yet, e009ace7.tests[]=EMPTY. >> NEEDS a gate/Test wired to e009ace7 (verify-owner-first WHEN it lands: e009ace7 code also serves R40.11 per req, so confirm the Test covers R40.6's typed-model facet distinct-intent, on ORIGIN) -> then QA-Review. Re-classified marker -> GATE (buildTypedModel now built). 0 Done till Tron.
 
 ## Traceability
 
