@@ -39,7 +39,7 @@
       {
         "id": "AC-kill-mint-regrowth",
         "group": "anti-regrowth",
-        "text": "Kill mint-regrowth at ALL THREE sites (createUserHome, file-unit.ts:74, server.ts:1996+2009) or the migration REFILLS behind us with fresh token-keyed homes."
+        "text": "Kill mint-regrowth at ALL THREE sites — anchored by SYMBOL (line numbers DRIFT: the 2 server calls already moved +2 to 1998/2011 after an authz re-point above them; anchor on the symbol, never the line): (1) createUserHome (UserKeys.ts), (2) roomFsLink (file-unit.ts), (3) the server upload mint = createWebItemUnit + createFileUnit (server.ts, 2 calls) — or the migration REFILLS behind us with fresh token-keyed homes."
       },
       {
         "id": "AC-gate-no-credential-path",
