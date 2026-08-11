@@ -46,7 +46,7 @@ function tickBox(checklist: string, target: TaskStatusEnum): string {
 }
 
 export const TaskPolicy: UnitPolicy = {
-  // [impl:uuid:ff247010] TaskPolicy.validate — step-legality (re-expressed task-fsm TRANSITIONS/guardTransition) +
+  // [impl:uuid:ff247010-40ce-44be-99f4-a776c20257b2] TaskPolicy.validate — step-legality (re-expressed task-fsm TRANSITIONS/guardTransition) +
   // evidenceForStep precondition (5021456d). Refuses illegal skips AND advancing past a step whose chain-edge is absent.
   validate(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
     const cur = currentState(unit);
@@ -57,7 +57,7 @@ export const TaskPolicy: UnitPolicy = {
     if (to === 'Done' && !(unit.model as Record<string, unknown>).approvedBy)
       throw new Error(`TaskPolicy: REFUSED ${cur}→Done — no approvedBy verdict (Done requires the owner's QA sign-off; R40.10 approve delegates it as evidence).`);
   },
-  // [impl:uuid:1e789400] TaskPolicy.apply — TICKS the next checklist box, then model.status = deriveStatusEnum (the SOLE
+  // [impl:uuid:1e789400-8e25-4957-b0d6-f9429f174184] TaskPolicy.apply — TICKS the next checklist box, then model.status = deriveStatusEnum (the SOLE
   // 4-state writer). NEVER writes a flat 7-state or a literal status string (MvcBoundaryGuard enforces this structurally).
   apply(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
     const to = legalNext(currentState(unit), intent.target as TaskStatusEnum | undefined);
@@ -67,7 +67,7 @@ export const TaskPolicy: UnitPolicy = {
   },
 };
 
-// [impl:uuid:47227ad1] TaskPolicy.statusNext — the THIN Task façade over the generic UnitController.apply (NOT a 2nd entry).
+// [impl:uuid:47227ad1-f00a-4337-bc0d-8e63a34b1b26] TaskPolicy.statusNext — the THIN Task façade over the generic UnitController.apply (NOT a 2nd entry).
 export function statusNext(idx: ScenarioIndex, taskUuid: string, opts: { actor?: string; target?: TaskStatusEnum; publish?: PublishFn } = {}): ScenarioUnit {
   return UnitController.apply(idx, TASK_IOR, taskUuid, { target: opts.target }, { actor: opts.actor, publish: opts.publish });
 }

@@ -27,7 +27,7 @@ export function registerPolicy(ior: string, policy: UnitPolicy): void { POLICIES
 export function policyFor(ior: string): UnitPolicy | undefined { return POLICIES.get(ior); }
 
 export class UnitController {
-  // [impl:uuid:b5f72641] UnitController.apply — the generic PRIMARY: the SOLE mutation entry for ANY ior:class:* unit
+  // [impl:uuid:b5f72641-a75c-4b8f-98fc-2380ced1a42a] UnitController.apply — the generic PRIMARY: the SOLE mutation entry for ANY ior:class:* unit
   // (validate → apply → persist → emit). This SUBSUMES statusNext; statusNext is a thin Task façade over this.
   static apply(idx: ScenarioIndex, ior: string, uuid: string, intent: UnitIntent = {}, opts: { actor?: string; publish?: PublishFn } = {}): ScenarioUnit {
     const unit = idx.get(uuid);
@@ -43,7 +43,7 @@ export class UnitController {
     return unit;
   }
 
-  // [impl:uuid:6b03b619] UnitController.emit — publish step-4: delegates the injected publish (the server's R37.12
+  // [impl:uuid:6b03b619-c55f-48fc-9753-9e9375980864] UnitController.emit — publish step-4: delegates the injected publish (the server's R37.12
   // viewBus.emitUnitChanged / UNIT_CHANGED wsClients broadcast). No-op when no publisher is wired (e.g. a pure bite).
   static emit(ior: string, uuid: string, publish?: PublishFn): void {
     publish?.(ior, uuid);
