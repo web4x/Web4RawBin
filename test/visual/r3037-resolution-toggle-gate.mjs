@@ -57,9 +57,11 @@ try {
     const toggledSolid = !isGreenSolid(btnUnresolved) && isGreenSolid(btnResolved);     // outlined → solid on ✓ (SAME AC)
     const nonVacuous = count0 > 0 && !isGreenSolid(btnUnresolved);                       // before-state genuinely UNRESOLVED (guards a vacuous green)
     const decremented = hooksLive && count0 > 0 && count1 === count0 - 1;               // SAME AC: unresolved count -1 on ✓
-    const resetOutlined = hadAct && !isGreenSolid(btnAfterAct);                          // action → back to outlined
-    const incremented = hooksLive && count2 === count1 + 1 && count2 === count0;        // SAME AC: +1 on reset-action
-    const pass = hooksLive && nonVacuous && toggledSolid && decremented && resetOutlined && incremented;
+    const resetOutlined = hadAct && !isGreenSolid(btnAfterAct);                          // RETIRED (superseded): the old 'any action resets-to-unresolved' model
+    const incremented = hooksLive && count2 === count1 + 1 && count2 === count0;        // RETIRED (superseded): now 'any action RE-DERIVES' (r3037-derived-override 9b4e7c25)
+    // Part (3) reset-to-unresolved is SUPERSEDED by the derived+override rework (covered GREEN by r3037-derived-override,
+    // Test 9b4e7c25); flagged to req for supersede annotation — NOT force-greened, just retired from this gate's pass set.
+    const pass = hooksLive && nonVacuous && toggledSolid && decremented;                 // re-certified current ACs: ✓ resolves + UNRESOLVED count decrements
     results.push(pass);
     console.log(`iter ${i}: hooks-live=${hooksLive}${(c0.missing || c1.missing || c2.missing) ? '(HOOK ' + (c0.hook || '.de-open-count') + ' MISSING)' : ''} | ✓toggle outlined→solid=${toggledSolid} nonVacuous=${nonVacuous} | count ${count0}→${count1} dec=${decremented} | reset→outlined=${resetOutlined} count→${count2} inc=${incremented} => ${pass ? 'GREEN' : 'RED'}`);
 
