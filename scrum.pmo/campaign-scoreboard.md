@@ -3,7 +3,11 @@
 
 **Measured 2026-08-11 from scenario units** (units win over boards; chain-edge = C4(C) StepEvidence: shipped Impl markerPending=false, coverage = two-keyed passing Test only). **Done stays Tron's act via approve — 0 planner Done-flips.**
 
-**★ Counting rule (encoded in the script, right-by-construction):** `supersededBy != null` = **TERMINAL**, orthogonal to the derived status string — a superseded task leaves the remaining-count on every re-run even if its status string is stale (T30.51 was the exemplar: `supersededBy=ac3338b6` R30.53 present+evidenced, status string stale).
+**★ Counting rules (encoded in the script, right-by-construction — a scripted boundary does not decay, a remembered one does):**
+- `supersededBy != null` = **TERMINAL** — leaves the count even if the status string is stale (exemplar T30.51: `supersededBy=ac3338b6` R30.53, status string stale).
+- **campaign-scope boundary** = a task covering **R40.30** (`dc353c14`) or **R40.31** (`70bbaec5`) is **NEXT-PHASE**, outside the S30++ finish-count (PO ruling 2026-08-11: reqs minted DURING the campaign in response to discoveries are next-phase hardening, else the target recedes as fast as we advance = un-finishable). Currently 0 tasks (both req-only) → forward-guard.
+
+**★ S40.requirements[] AUDIT (2026-08-11, commit 84590a66c):** the list was partial — **15 parent==S40 Requirements were missing** (R40.16–R40.30, all Backlog, invisible on the board), not just R40.30 as first believed. Added all 15 → requirements[]=31 (== parent-count). A partial requirements[] under-reports scope and every count on it inherits the error; now complete.
 
 ## Headline
 - **TOTAL S30++ tasks: 114** — Done **66** · QA-Review **34** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 11**
@@ -33,6 +37,20 @@
 1. **T40.10** `9a70ce5e` — ✅ **FLIPPED → QA-Review 2026-08-11** (commit `9f517ec82`). verify-owner-first PASSED: Impls distinct, Test `67697d86` is R40.10's own; approveByOwner device-verified (r4010 GREEN @390, 403 token-less). AC-6 device = Tron.
 2. **T40.5** `a10c3329` — ⛔ **HELD (cross-credit CONFIRMED)**: Impl `ffd44b17` universalActionBar shared with T34.7; passing Test `cbdb3210` = "test:R34.7 universal action bar", NOT R40.5's extra-buttons-dedup facet. Needs a **distinct-intent Test** on the dedup facet (R30.11 no-re-credit) — req preparing the mint, gate from tester — THEN flip. Not put in front of Tron.
 3. **T37.6** `32061171` — gate: awaiting the tester's overview-generator gate (`1f38e07e.tests[]`=empty), sits 3rd in the tester queue. Flip the instant it lands.
+
+## ★ Last-mile expert queue (named, PO-requested) — the 11 remaining by what each needs
+**REAL expert-build/marker queue (ordered by value — this is what to hand the expert when it frees):**
+1. **T37.4.1** `236918e9` (S37, build) — MODEL self-heal on read (generic validate-on-read); part of the pinned C4, architect-confirmed generic.
+2. **T40.6** `95d74272` (S40, marker) — deploymentRefs → real typed OOP model; markerPending, needs the strict-AST marker-flip.
+3. **T40.11** `6e3cc1b2` (S40, build) — **★ LARGE / SPLIT CANDIDATE:** deploymentRefs as scenario-first units + generic M2-type default view + fail-loud (the deep depref migration, UC 249fdab6 absent = unbuilt). Worth splitting so the campaign reaches empty rather than stalling on one big item.
+
+**Gate-needing (expert wires C4 → tester gates; not fresh build):** T37.4.2 `fe6b4379` + T37.4.3 `1b8ebc9a` (S37, C4 controller — expert wiring in BUILD ORDER after evidenceForStep) · T37.6 `32061171` (S37 — overview generator UNBLOCKED 2026-08-11, awaiting tester r3706 re-gate).
+
+**HELD (not queue):** T40.5 `a10c3329` (RIPE-but-cross-credit — awaiting req's distinct-intent dedup Test).
+
+**NOT expert queue (excluded/deferred):** T31.6 `6be9a92d` (EXCLUDE concept) · T37.4 `79fd2164` (EXCLUDE rollup) · T30.44 `06623fea` (deferred-backlog, security) · T-R31.14 `03f5d536` (deferred-backlog, deploy-hardening).
+
+⇒ Net **new-build for the expert = T37.4.1, T40.6, T40.11(split)**; everything else is gate/wire, held, excluded, or deferred.
 
 ## EXCLUDE (not campaign debt — evidence-based)
 - **T31.6** `6be9a92d` — CONCEPT ONLY, Tron 2026-07-20 "do NOT implement now" → EXCLUDE.

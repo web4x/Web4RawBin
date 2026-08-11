@@ -9,6 +9,15 @@ const bare = s => String(s ?? '').replace('ior:instance:', '');
 const ORDER = ['Planned', 'In Progress', 'QA Review', 'Done'];
 // full sprint uuids (prefix-match on parent walk)
 const SPRINTS = { '2173e549': 'S30', '3c05f411': 'S31', '332585f3': 'S32', 'b86b53cc': 'S37', '8e8b32d6': 'S40' };
+// CAMPAIGN-SCOPE BOUNDARY (PO ruling 2026-08-11): reqs minted DURING the finish-campaign in response to
+// what we discovered are NEXT-PHASE hardening, NOT part of the S30++ finish-count (else the target recedes
+// as fast as we advance = un-finishable). A task covering one of these leaves the remaining-count by
+// construction (same shape as supersededBy). Extend this set as PO rules more discoveries next-phase.
+const NEXT_PHASE_REQS = new Set([
+  'dc353c14-ec76-4c79-a809-81ec318e8dbe', // R40.30 gate-rot: behavioural gates target stable test hooks
+  '70bbaec5-a445-457a-b123-db0f2822ab16', // R40.31 gate-pollution
+]);
+const coversNextPhase = t => (t.m.coveredRequirements || []).some(r => NEXT_PHASE_REQS.has(bare(r)));
 
 const byUuid = new Map();
 (function walk(d) {
@@ -70,6 +79,7 @@ for (const t of tasks) {
   const noChain = !(t.m.coveredRequirements || []).length;
   let gap = null;
   if (t.m.supersededBy) gap = 'SUPERSEDED';          // terminal by supersession (orthogonal to derived status) — leaves remaining
+  else if (coversNextPhase(t)) gap = 'NEXT-PHASE';   // campaign-scope boundary — minted-during-campaign hardening, outside the finish-count
   else if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
   else if (ci.coveredByTest) gap = 'RIPE';           // chain-complete-to-Test, board-lag -> flip-ready
   else if (ci.shippedImpl) gap = ci.anyTestWired ? 'two-key' : 'gate';
@@ -81,13 +91,13 @@ for (const t of tasks) {
 }
 
 // ---- report ----
-const TERMINAL = new Set(['DONE', 'QA-REVIEW', 'SUPERSEDED']);
+const TERMINAL = new Set(['DONE', 'QA-REVIEW', 'SUPERSEDED', 'NEXT-PHASE']);
 const remaining = rows.filter(r => !TERMINAL.has(r.gap));
 const perSprint = sp => rows.filter(r => r.sp === sp);
 const count = (arr, g) => arr.filter(r => r.gap === g).length;
 
 console.log('=== CAMPAIGN SCOREBOARD (measured from units) ===');
-console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| REMAINING(<QA):', remaining.length);
+console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| NEXT-PHASE(scope-excl):', rows.filter(r => r.gap === 'NEXT-PHASE').length, '| REMAINING(<QA):', remaining.length);
 console.log('\n-- per-sprint (Done / QA-Review / remaining) --');
 for (const sp of ['S30', 'S31', 'S32', 'S37', 'S40']) {
   const a = perSprint(sp);
