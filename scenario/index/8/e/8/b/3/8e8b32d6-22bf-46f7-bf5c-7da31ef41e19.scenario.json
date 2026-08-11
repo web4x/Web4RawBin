@@ -1,103 +1,104 @@
 {
- "ior": "ior:class:Sprint",
- "ownerIor": null,
- "model": {
-  "uuid": "8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "name": "Server Manager — deployment-node model + mobile input control",
-  "number": 40,
-  "slug": "sprint-40-server-manager-deployment-mobile-input",
-  "goal": "Server Manager: model the deployment surface + fix mobile input control (Tron-authorized S40, #76). R40.1 — an action that opens the Claude app/web at the selected pane's AGENT RC (remote-control) session (per-pane/per-agent deep link; Claude Code sessions addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 + firing lands on that agent's RC). R40.2 — represent WODA.prod as a UML deployment-NODE (rendered deployment-node style in the UML diagram) with REFERENCES to (a) the SSH config for WODA.prod, (b) the configured DOMAIN, (c) the LETSENCRYPT CERTIFICATE for that server, and the CURRENT OTMUX ITEMS (sessions->windows->panes) as CHILDREN of that root node. R40.3 — an action that PREVENTS the OS-specific (iOS) keyboard from opening + a new configurable Keyboard Controller surface (action-bar-style but with CONFIGURABLE KEYSTROKES); this sprint delivers the SUPPRESSION + the controller SHELL + the config model (the controller behavior is designed later). Evidence (Tron screenshot): the iOS keyboard covers the ENTIRE terminal and the input row overlays the Scenario/Edit buttons. Scenario-first (#126): req mints the R40.1/2/3 Requirement units + ACs; planner boards the sprint + 3 covering tasks; units on disk BEFORE any implementation.",
-  "status": "Planned",
-  "phases": [
-   {
-    "id": "R40.1",
-    "title": "Action: Open Claude.ai RC — per-pane/agent deep link to the selected agent's remote-control session."
-   },
-   {
-    "id": "R40.2",
-    "title": "WODA.prod as a UML deployment-NODE — SSH/domain/letsencrypt references + otmux sessions->windows->panes as children."
-   },
-   {
-    "id": "R40.3",
-    "title": "Suppress the OS (iOS) keyboard + a configurable Keyboard Controller (suppression + controller shell + config model this sprint)."
-   },
-   {
-    "id": "R40.4",
-    "title": "Sprint labels show the sprint NUMBER — composed at DISPLAY from model.number + name by ONE shared helper (single-source, no drift; fixes all sprints, no migration)."
-   },
-   {
-    "id": "R40.5",
-    "title": "All bespoke buttons -> action UNITS on the shared R35.1 universalActionBar (DRY, data-driven, grep-zero-bespoke). Follow-up (Tron QA v0.8.70)."
-   },
-   {
-    "id": "R40.6",
-    "title": "deploymentRefs -> real typed OOP model (typed units + typed IOR relationships + inheritance/interfaces, each leaf resolves a real file, M2-reuse, INV-T). The deep one."
-   },
-   {
-    "id": "R40.7",
-    "title": "Back = real history.back(); the path label takes over today's folder-nav (distinct)."
-   },
-   {
-    "id": "R40.8",
-    "title": "'Files' shows the REAL measured on-disk path of the scenario unit (fail-closed if absent, browsable)."
-   },
-   {
-    "id": "R40.9",
-    "title": "'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer; DRY like R40.5)."
-   },
-   {
-    "id": "R40.10",
-    "title": "Tron renders his QA verdict FROM the task: Approve (records approvedBy+approvedAt as DATA -> flips Done-gate) / Decline (mints a ChangeRequest unit). Owner-gated, evidence-precondition; obsoletes tron-qa-batch.md + reminders. Approve+Decline SHIP TOGETHER."
-   },
-   {
-    "id": "R40.11",
-    "title": "deploymentRefs are scenario-first UNITS with default views (fix the permanent-Loading detail drawer): tree emits the REAL ior (no synthetic depref:), ONE generic M2-type-driven default view, unresolvable = FAIL-LOUD not silent-Loading."
-   },
-   {
-    "id": "R40.12",
-    "title": "File detail view renders a working type-appropriate preview (audio-player regression fix): audio -> working HTML5 player, fail-LOUD on failure (never an empty box), present in EVERY context, @390 pixel. Fixes R23.1."
-   }
-  ],
-  "requirements": [
-   "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
-   "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f",
-   "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f",
-   "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
-   "ior:instance:e152177d-d016-45eb-a41f-75ffe3dc9a64",
-   "ior:instance:6a9d99c3-7ca7-4b35-b808-8dcc6719e162",
-   "ior:instance:6ce80195-a394-4ba3-b9ca-3db7a04d2ce2",
-   "ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb",
-   "ior:instance:50753cf6-59e8-4251-84e0-7d54f988ce76",
-   "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad",
-   "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5",
-   "ior:instance:c9fa4f49-caa1-4032-ae47-7144646c4fd0",
-   "ior:instance:ad977999-b747-4527-95b6-29bac8deae1c",
-   "ior:instance:e8ab7aa2-92e2-423e-b3d1-794796c530fe",
-   "ior:instance:2182c412-54d1-4e25-8938-41c6e7133337"
-  ],
-  "tasks": [
-   "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
-   "ior:instance:ce92294f-2a53-4f41-b15d-ac60f416e121",
-   "ior:instance:d884d8d9-346c-4332-b85a-7704566aaf8e",
-   "ior:instance:ae0548ae-d4be-4349-b505-e1d0d0fb88ed",
-   "ior:instance:a10c3329-9249-423a-9643-17efc7bdced9",
-   "ior:instance:95d74272-2283-446c-b383-697b2ded6eb8",
-   "ior:instance:b6e4a7dd-0453-4658-98e9-25fcc0b864b0",
-   "ior:instance:b0be0668-d35d-4739-b805-f25c0abe8420",
-   "ior:instance:cc3fa868-91e9-4d1e-8c2e-4b558b779d8a",
-   "ior:instance:9a70ce5e-7e88-45f9-b921-0f8e9caf07a6",
-   "ior:instance:6e3cc1b2-abf6-4468-a6c3-a7e54471e39c",
-   "ior:instance:241a2be3-a2cf-4ac7-b2ef-658ebc4507e5",
-   "ior:instance:9f11a990-79bd-46e4-95e2-abe066f4b95b",
-   "ior:instance:50f51ac1-2f9a-46d4-8137-b4730b237e4f"
-  ],
-  "createdAt": "2026-08-08",
-  "createdBy": "robbin-planner",
-  "createdBy_note": "Tron-authorized Sprint 40 (only-Tron-increments #76, via robbin-po). Planner OWNS the sprint unit + task slots + planning.md; req OWNS the 3 Requirement units + requirements.md + ACs (uuids caab6d86/adab1bb5/bfe97d61, req-minted). Task ACs are scaffold-pointers until req publishes the Requirement ACs, then planner mirrors + regens.",
-  "joint": [
-   "robbin-planner",
-   "robbin-req",
-   "robbin-architect"
-  ]
- }
+  "ior": "ior:class:Sprint",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "name": "Server Manager — deployment-node model + mobile input control",
+    "number": 40,
+    "slug": "sprint-40-server-manager-deployment-mobile-input",
+    "goal": "Server Manager: model the deployment surface + fix mobile input control (Tron-authorized S40, #76). R40.1 — an action that opens the Claude app/web at the selected pane's AGENT RC (remote-control) session (per-pane/per-agent deep link; Claude Code sessions addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 + firing lands on that agent's RC). R40.2 — represent WODA.prod as a UML deployment-NODE (rendered deployment-node style in the UML diagram) with REFERENCES to (a) the SSH config for WODA.prod, (b) the configured DOMAIN, (c) the LETSENCRYPT CERTIFICATE for that server, and the CURRENT OTMUX ITEMS (sessions->windows->panes) as CHILDREN of that root node. R40.3 — an action that PREVENTS the OS-specific (iOS) keyboard from opening + a new configurable Keyboard Controller surface (action-bar-style but with CONFIGURABLE KEYSTROKES); this sprint delivers the SUPPRESSION + the controller SHELL + the config model (the controller behavior is designed later). Evidence (Tron screenshot): the iOS keyboard covers the ENTIRE terminal and the input row overlays the Scenario/Edit buttons. Scenario-first (#126): req mints the R40.1/2/3 Requirement units + ACs; planner boards the sprint + 3 covering tasks; units on disk BEFORE any implementation.",
+    "status": "Planned",
+    "phases": [
+      {
+        "id": "R40.1",
+        "title": "Action: Open Claude.ai RC — per-pane/agent deep link to the selected agent's remote-control session."
+      },
+      {
+        "id": "R40.2",
+        "title": "WODA.prod as a UML deployment-NODE — SSH/domain/letsencrypt references + otmux sessions->windows->panes as children."
+      },
+      {
+        "id": "R40.3",
+        "title": "Suppress the OS (iOS) keyboard + a configurable Keyboard Controller (suppression + controller shell + config model this sprint)."
+      },
+      {
+        "id": "R40.4",
+        "title": "Sprint labels show the sprint NUMBER — composed at DISPLAY from model.number + name by ONE shared helper (single-source, no drift; fixes all sprints, no migration)."
+      },
+      {
+        "id": "R40.5",
+        "title": "All bespoke buttons -> action UNITS on the shared R35.1 universalActionBar (DRY, data-driven, grep-zero-bespoke). Follow-up (Tron QA v0.8.70)."
+      },
+      {
+        "id": "R40.6",
+        "title": "deploymentRefs -> real typed OOP model (typed units + typed IOR relationships + inheritance/interfaces, each leaf resolves a real file, M2-reuse, INV-T). The deep one."
+      },
+      {
+        "id": "R40.7",
+        "title": "Back = real history.back(); the path label takes over today's folder-nav (distinct)."
+      },
+      {
+        "id": "R40.8",
+        "title": "'Files' shows the REAL measured on-disk path of the scenario unit (fail-closed if absent, browsable)."
+      },
+      {
+        "id": "R40.9",
+        "title": "'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer; DRY like R40.5)."
+      },
+      {
+        "id": "R40.10",
+        "title": "Tron renders his QA verdict FROM the task: Approve (records approvedBy+approvedAt as DATA -> flips Done-gate) / Decline (mints a ChangeRequest unit). Owner-gated, evidence-precondition; obsoletes tron-qa-batch.md + reminders. Approve+Decline SHIP TOGETHER."
+      },
+      {
+        "id": "R40.11",
+        "title": "deploymentRefs are scenario-first UNITS with default views (fix the permanent-Loading detail drawer): tree emits the REAL ior (no synthetic depref:), ONE generic M2-type-driven default view, unresolvable = FAIL-LOUD not silent-Loading."
+      },
+      {
+        "id": "R40.12",
+        "title": "File detail view renders a working type-appropriate preview (audio-player regression fix): audio -> working HTML5 player, fail-LOUD on failure (never an empty box), present in EVERY context, @390 pixel. Fixes R23.1."
+      }
+    ],
+    "requirements": [
+      "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
+      "ior:instance:adab1bb5-a292-490b-84fb-6e921dfb6a8f",
+      "ior:instance:bfe97d61-24b0-4a76-82e7-0ea44406901f",
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
+      "ior:instance:e152177d-d016-45eb-a41f-75ffe3dc9a64",
+      "ior:instance:6a9d99c3-7ca7-4b35-b808-8dcc6719e162",
+      "ior:instance:6ce80195-a394-4ba3-b9ca-3db7a04d2ce2",
+      "ior:instance:90cc7bab-f7d4-4646-bc85-4a58fcb2c3eb",
+      "ior:instance:50753cf6-59e8-4251-84e0-7d54f988ce76",
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad",
+      "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5",
+      "ior:instance:c9fa4f49-caa1-4032-ae47-7144646c4fd0",
+      "ior:instance:ad977999-b747-4527-95b6-29bac8deae1c",
+      "ior:instance:e8ab7aa2-92e2-423e-b3d1-794796c530fe",
+      "ior:instance:2182c412-54d1-4e25-8938-41c6e7133337",
+      "ior:instance:70bbaec5-a445-457a-b123-db0f2822ab16"
+    ],
+    "tasks": [
+      "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+      "ior:instance:ce92294f-2a53-4f41-b15d-ac60f416e121",
+      "ior:instance:d884d8d9-346c-4332-b85a-7704566aaf8e",
+      "ior:instance:ae0548ae-d4be-4349-b505-e1d0d0fb88ed",
+      "ior:instance:a10c3329-9249-423a-9643-17efc7bdced9",
+      "ior:instance:95d74272-2283-446c-b383-697b2ded6eb8",
+      "ior:instance:b6e4a7dd-0453-4658-98e9-25fcc0b864b0",
+      "ior:instance:b0be0668-d35d-4739-b805-f25c0abe8420",
+      "ior:instance:cc3fa868-91e9-4d1e-8c2e-4b558b779d8a",
+      "ior:instance:9a70ce5e-7e88-45f9-b921-0f8e9caf07a6",
+      "ior:instance:6e3cc1b2-abf6-4468-a6c3-a7e54471e39c",
+      "ior:instance:241a2be3-a2cf-4ac7-b2ef-658ebc4507e5",
+      "ior:instance:9f11a990-79bd-46e4-95e2-abe066f4b95b",
+      "ior:instance:50f51ac1-2f9a-46d4-8137-b4730b237e4f"
+    ],
+    "createdAt": "2026-08-08",
+    "createdBy": "robbin-planner",
+    "createdBy_note": "Tron-authorized Sprint 40 (only-Tron-increments #76, via robbin-po). Planner OWNS the sprint unit + task slots + planning.md; req OWNS the 3 Requirement units + requirements.md + ACs (uuids caab6d86/adab1bb5/bfe97d61, req-minted). Task ACs are scaffold-pointers until req publishes the Requirement ACs, then planner mirrors + regens.",
+    "joint": [
+      "robbin-planner",
+      "robbin-req",
+      "robbin-architect"
+    ]
+  }
 }
