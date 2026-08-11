@@ -81,24 +81,30 @@ export class RbDetailDrawer extends HTMLElement {
   private onUniversalAction = (e: Event): void => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';
+    if (verb !== 'scenario' && verb !== 'edit') return; // A1 defaults ONLY — host/type verbs handled by their own provider (no reverse regression)
     const rawRef = d?.ref || this._shownRef;
     if (!rawRef) return;
-    // R35.2 NAV-RESOLVE: a SYNTHETIC view ref (dir:/file:/puml-src:/project:/rawbin:/mof-) carries its meaningful key
-    // in the prefix — refUuid would strip it → /scenario?ior=<stripped> is DEAD (only the FULL ref resolves). Resolve
-    // via /api/ior to the REAL lazy-minted MODEL_STORE unit, then BOTH buttons hit a resolving target (R35.2 'both
-    // always work'): Scenario → its uuid; Edit → the MODEL_STORE store dir (not prod scenario/index).
+    // R40.28 (Tron): the A1 default ◆Scenario / ✎Edit ALWAYS open in a NEW TAB — never navigate the current tab (he
+    // loses his place, the real cost on a phone). ★ iOS HAZARD (AC-7): window.open is popup-BLOCKED unless called
+    // SYNCHRONOUSLY inside the tap handler — if we await first (a fetch/resolve) the tab silently never opens, and that
+    // failure is invisible headless. So: open synchronously in-gesture; when a URL needs async resolution, open the tab
+    // FIRST and set its location after (never await-then-open).
+    // R35.2 NAV-RESOLVE: a SYNTHETIC view ref (dir:/file:/puml-src:/project:/rawbin:/mof-) carries its meaningful key in
+    // the prefix — refUuid would strip it → only the FULL ref resolves via /api/ior to the REAL lazy-minted MODEL_STORE
+    // unit. That needs a fetch → open the tab SYNC first, then point it once resolved (Scenario → uuid; Edit → store dir).
     if (/^(dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2)/.test(rawRef)) {
+      const win = window.open('about:blank', '_blank'); // SYNC in-gesture open (iOS-safe); pointed after the async resolve
       void fetch(`/api/ior/${encodeURIComponent(rawRef)}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
-        const u = j?.unit?.model?.uuid; if (!u) return;
-        if (verb === 'scenario') location.href = `/scenario?ior=${encodeURIComponent(u)}`;
-        else if (verb === 'edit') location.href = scenarioEditorHref(u, 'data/model-store/index');
-      }).catch(() => { /* resolve failed → no dead nav */ });
+        const u = j?.unit?.model?.uuid; if (!u) { win?.close(); return; }
+        const url = verb === 'scenario' ? `/scenario?ior=${encodeURIComponent(u)}` : scenarioEditorHref(u, 'data/model-store/index');
+        if (win) win.location.href = url; else window.open(url, '_blank'); // fallback if the sync open was itself blocked
+      }).catch(() => { win?.close(); /* resolve failed → close the placeholder, no dead tab */ });
       return;
     }
     const uuid = refUuid(rawRef) || rawRef;
     if (!uuid) return;
-    if (verb === 'scenario') location.href = `/scenario?ior=${encodeURIComponent(uuid)}`;
-    else if (verb === 'edit') location.href = scenarioEditorHref(uuid);
+    const url = verb === 'scenario' ? `/scenario?ior=${encodeURIComponent(uuid)}` : scenarioEditorHref(uuid);
+    window.open(url, '_blank'); // SYNC new-tab open inside the tap handler (uuid resolved synchronously above — no await before open)
   };
 
   disconnectedCallback(): void {
