@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "378e813f-0ce1-4870-91ab-39adcc4311e0",
+    "name": "universalActions.handlePinDesignate",
+    "implementations": [
+      "ior:instance:9073d5fd-701a-492c-a40b-a49846529266"
+    ]
+  },
+  "ownerIor": "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1"
+}

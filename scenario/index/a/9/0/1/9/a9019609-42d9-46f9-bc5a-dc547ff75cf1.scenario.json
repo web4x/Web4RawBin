@@ -5,7 +5,8 @@
     "name": "universalActions",
     "file": "src/public/ts/trace/universal-actions.ts",
     "methods": [
-      "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1"
+      "ior:instance:2b03ee86-7092-4aae-9939-68137b949de1",
+      "ior:instance:378e813f-0ce1-4870-91ab-39adcc4311e0"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",

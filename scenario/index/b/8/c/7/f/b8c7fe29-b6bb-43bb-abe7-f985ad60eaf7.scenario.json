@@ -10,7 +10,8 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:3778ccc7-64bb-4de7-b0ee-b103f8a510cc"
+      "ior:instance:3778ccc7-64bb-4de7-b0ee-b103f8a510cc",
+      "ior:instance:201d1e58-241f-4669-8089-3c6e8fd13a74"
     ],
     "description": "TWO action units that SHIP TOGETHER (like R40.10 approve/decline): ASSIGN-AS-NEXT and ASSIGN-AS-CURRENT, on the universalActionBar (R40.5 action-unit dedup), ON the task item, OWNER-GATED (non-owner 403). Each RECORDS the assignment as DATA (assignedNextBy/At, assignedCurrentBy/At — R40.10 pattern) so the pin's current/next slots are PROVABLE not remembered. EXPLICIT overrides DERIVED, single-sourced INSIDE resolveSprintPin (current/next = explicit-if-set ELSE derived, never in a view). ★ The explicit assigned-CURRENT is the ESCAPE HATCH: it resolves the pin even when multiple sprints have open work (the resolver's current ambiguity that has parked T40.6 all session) — WITHOUT masking the ambiguity, which stays visible+counted via R-C5's audit (frozen-legacy pattern). 3-slot uniqueness (rotate/clear, no collision), @390 pixel, fail-loud. This is the SELECT mechanism for Tron's last/current/next. REUSE R40.10 + R40.5 + the existing resolver — do NOT fork.",
     "tronQuote": "a task needs to have the actions for the action bar: assign as next task [and] assign as current task",

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "9073d5fd-701a-492c-a40b-a49846529266",
+    "name": "universalActions.handlePinDesignate impl (R40.17 live-pin NOTIFY: after a 200 /api/current-sprint/designate, ViewBus.notify the CurrentSprint singleton ref -> the pin's targeted subscriber re-fetches; PRIMARY, Test 9c2e7b41 hangs here)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "markerNote": "markerPending: expert places [impl:uuid:9073d5fd] adjacent-above `function handlePinDesignate`@universal-actions.ts:138 (currently a `// R40.17 ... marker PENDING` placeholder — verified UNMARKED at mint). PRIMARY of the R40.17 live-pin: the notify-add. Consumer wiring (calls T103 ViewBus.notify), NOT a ViewBus method (no ride db4008d9). Test 9c2e7b41-5d38-4a06-b1e9-7f0c3a2d64e8 two-keys to THIS Impl. -> I flip."
+  },
+  "ownerIor": "ior:instance:378e813f-0ce1-4870-91ab-39adcc4311e0"
+}

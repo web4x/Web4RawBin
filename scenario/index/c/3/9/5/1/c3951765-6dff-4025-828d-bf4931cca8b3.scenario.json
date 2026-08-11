@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c3951765-6dff-4025-828d-bf4931cca8b3",
+    "name": "RbTraceTree.connectedCallback impl (R40.17 live-pin RECEIVER: the subscribe-wiring — ViewBus.subscribe on the CurrentSprint singleton ref -> renderCurrentSprintEagerLazy re-fetch, targeted not flood; R30.11 distinct concern on the shared lifecycle method)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "markerNote": "markerPending: connectedCallback@rb-trace-tree.ts:91 is a SHARED lifecycle method (verified UNMARKED at mint) — R30.11 distinct-Impl for the R40.17 subscribe concern (line 101 ViewBus.subscribe). Expert marks the subscribe concern [impl:uuid:c3951765] (or extracts livePinSubscribe). renderCurrentSprintEagerLazy e649a695 is FOREIGN (called, not the wiring). RECEIVER half; the Test hangs on the PRIMARY (handlePinDesignate 9073d5fd), this rides as R30.11 shared-credit. -> I flip."
+  },
+  "ownerIor": "ior:instance:66043569-bd62-40e2-80ac-1ce093b2ae4b"
+}

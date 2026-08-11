@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "201d1e58-241f-4669-8089-3c6e8fd13a74",
+    "name": "pin.liveUpdateNoRefresh",
+    "description": "When an owner designates a task as CURRENT/NEXT, the sprint pin updates LIVE with NO page refresh @390 (Tron's AC: 'actions should happen LIVE in the tree'). CONSUMER WIRING over the pre-existing T103 ViewBus: the NOTIFY (handlePinDesignate, PRIMARY) fires ViewBus.notify on the CurrentSprint singleton's OWN ref after a 200 designate; the RECEIVER (RbTraceTree.connectedCallback subscribe-wiring) re-fetches ONLY the 2-node pin -> the tree updates live without flooding. NOT a ViewBus method (does not ride emitUnitChanged db4008d9 — that is the generic emit; these are CALLS to T103 subscribe/notify).",
+    "class": "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1",
+    "method": "ior:instance:378e813f-0ce1-4870-91ab-39adcc4311e0",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1",
+      "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+    ]
+  },
+  "ownerIor": "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7"
+}

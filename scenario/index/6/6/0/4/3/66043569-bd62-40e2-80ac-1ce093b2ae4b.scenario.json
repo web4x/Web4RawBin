@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "66043569-bd62-40e2-80ac-1ce093b2ae4b",
+    "name": "RbTraceTree.connectedCallback",
+    "implementations": [
+      "ior:instance:c3951765-6dff-4025-828d-bf4931cca8b3"
+    ]
+  },
+  "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+}
