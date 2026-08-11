@@ -190,3 +190,208 @@
   - [ ] **(never-logged)** secretCode is NEVER logged (any level).
   - [ ] **(second-factor-consider)** Consider a SECOND FACTOR for device-link (design decision — flag for architect).
   -> 6c9fc9bf [uc:uuid:6c9fc9bf-7075-40ce-b794-91c9712b4cb1]
+
+- [ ] **R40.31 — Gates cannot pollute production — isolated store BY CONSTRUCTION, cleanup survives failure/timeout/crash, and a BITE proves no prod-state touch**
+  [requirement:uuid:70bbaec5-a445-457a-b123-db0f2822ab16]
+  > TRON (emphatic, post room-pollution, via robbin-po -> tester): this cannot happen ever again — a gate must not damage production while it runs.
+  A gate must NEVER be able to DAMAGE production state while it runs. DISTINCT from R40.30 gate-ROT (rot = a gate goes silently WRONG over time); POLLUTION = a gate MUTATES prod while running. By-construction: a gate targets an ISOLATED store (scratch registry / temp key / dry-run) so mutating production is IMPOSSIBLE — not merely tidied afterward; cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate (not happy-path-only); and a BITE PROVES a gate cannot touch prod. Tron-emphatic ('cannot happen ever again', post room-pollution). First offender: r3043-uc4addlocal registered 2 repos in the LIVE registry (tester cleaned via authorized DELETE, builtins-only verified) — BLOCKED from re-run until isolated.
+  **Acceptance criteria:**
+  - [ ] **(isolation)** A gate targets an ISOLATED store BY CONSTRUCTION — scratch registry / temp key / dry-run — so mutating PRODUCTION is IMPOSSIBLE, not merely cleaned-up-after. The gate CANNOT reach the live store (routing PROVEN, not asserted: prove the write lands in scratch, not prod — a no-op PUT is not read-only if the server normalizes).
+  - [ ] **(cleanup)** Cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate — NOT happy-path-only. An EXTERNAL post-run cleanup (finally / trap / harness-level) guarantees no residue survives an abort; a gate that half-writes then times out leaves ZERO prod residue.
+  - [ ] **(bite)** A BITE PROVES a gate cannot touch prod state (STUB-MUST-FAIL): attempt a prod-write from inside the gate -> REFUSED / routed-to-scratch (RED if it reaches prod); AND a stub gate that DOES touch prod -> the bite turns RED (proving the bite would catch a regression, not vacuously pass).
+  - [ ] **(offender)** NAMED OFFENDER (no-silent-caps): r3043-uc4addlocal (registered 2 repos in the LIVE registry) is BLOCKED from re-run until isolated; its fix = target a scratch registry / temp key + cleanup-on-failure. Tracked, not silently dropped; unblocked only once isolated + bited.
+  - [ ] **(isolation)** A Test/gate that appears to NEED a production write is REDESIGNED to dry-run / scratch — NEVER sanctioned as a real prod mutation ('the test needs it' is not a license to mutate prod).
+  - [ ] **(verify)** VERIFIED: a full gate run leaves the live store BYTE-IDENTICAL before==after (git clean-check / live-registry-count unchanged), INCLUDING on an injected mid-gate failure/timeout. The isolation + cleanup are gate-proven, not asserted.
+
+- [ ] **R40.16 — Folders as real scenario units — type-driven detail view + item actions + child-size sunburst**
+  [requirement:uuid:cc875e35-772b-4352-b99c-4070f0370a68]
+  the screenshot shows that folders are not really folder scenario units. but they should. they also lack details view and actions like new folder. partially that is better in-room where files itemview is a folder showing its file childrens. it should also keep state about the size of its children in a sunburst diagram.
+  Folders in the tree (ts / puml / diagrams / traceability etc.) must BE real Folder scenario units (identity, parent, children as real links) with a DEFAULT type-driven detail view (riding the SAME generic view as R40.11, not bespoke), folder ACTIONS on the item itself (incl New Folder, as action UNITS per R40.5 dedup), CONVERGING on the in-room 'Files' itemview precedent (a folder showing its file children), and keeping child-SIZE state as a real single-source field rendered as a SUNBURST view. @390 pixel-gated, fail-loud on unresolvable size/children.
+  **Acceptance criteria:**
+  - [ ] **(folder-is-real-unit)** A folder IS a real scenario unit (ior:class:Folder or the EXISTING Folder kind — REUSE, check before minting a new kind per #126) with identity, parent, and CHILDREN as real links (not a render-only tree row).
+  - [ ] **(default-detail-view-RIDE-R40.11)** A folder has a DEFAULT DETAIL VIEW — SAME CLASS as R40.11 (deploymentRefs needed real units + a type-driven default view). It RIDES that ONE generic type-driven view, NOT a bespoke folder renderer.
+  - [ ] **(folder-actions-on-item-R40.5)** FOLDER ACTIONS live on the folder ITEM itself, including NEW FOLDER; the existing Add-folder / Add-Diagram actions become action UNITS per R40.5's de-duplication (not bespoke buttons).
+  - [ ] **(converge-in-room-precedent)** CONVERGE on the in-room 'Files' itemview — Tron says it already behaves right (a folder showing its file children). Do NOT invent a second folder behaviour; the model is that precedent.
+  - [ ] **(child-size-state-sunburst-DESIGN)** A folder keeps STATE about the SIZE of its children — a real derived/stored field on the unit with ONE source (not computed ad-hoc in one view) — rendered as a SUNBURST diagram (a VIEW over the field). ★ DESIGN-REQUIRED: architect call on WHERE child-size state lives (stored vs derived) so it has ONE source.
+  - [ ] **(device-390-fail-loud)** Gated @390 real-device PIXEL (Tron's viewport); fail-loud if size or children cannot resolve (never a blank ring / silent-empty).
+  -> 966de307 [uc:uuid:966de307-0d5e-470e-b983-37db7ee3ec60]
+
+- [ ] **R40.17 — Assign task as CURRENT or NEXT — owner-gated action units record explicit current/next (override derived, single-sourced in resolver; explicit-current unblocks the ambiguous pin)**
+  [requirement:uuid:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7]
+  a task needs to have the actions for the action bar: assign as next task [and] assign as current task
+  TWO action units that SHIP TOGETHER (like R40.10 approve/decline): ASSIGN-AS-NEXT and ASSIGN-AS-CURRENT, on the universalActionBar (R40.5 action-unit dedup), ON the task item, OWNER-GATED (non-owner 403). Each RECORDS the assignment as DATA (assignedNextBy/At, assignedCurrentBy/At — R40.10 pattern) so the pin's current/next slots are PROVABLE not remembered. EXPLICIT overrides DERIVED, single-sourced INSIDE resolveSprintPin (current/next = explicit-if-set ELSE derived, never in a view). ★ The explicit assigned-CURRENT is the ESCAPE HATCH: it resolves the pin even when multiple sprints have open work (the resolver's current ambiguity that has parked T40.6 all session) — WITHOUT masking the ambiguity, which stays visible+counted via R-C5's audit (frozen-legacy pattern). 3-slot uniqueness (rotate/clear, no collision), @390 pixel, fail-loud. This is the SELECT mechanism for Tron's last/current/next. REUSE R40.10 + R40.5 + the existing resolver — do NOT fork.
+  **Acceptance criteria:**
+  - [ ] **(action-units-on-task-R40.5-R40.10)** BOTH assign-as-NEXT and assign-as-CURRENT are ACTION UNITS on the universalActionBar (per R40.5 de-duplication — real action units, NOT bespoke buttons), living ON the task item (like R40.10's approve/decline). They SHIP TOGETHER (assign-next without assign-current leaves the main control missing).
+  - [ ] **(owner-gated-403)** BOTH owner-gated, non-owner => 403. Priority is Tron's call; nobody self-promotes their own work (same integrity as approve: if anyone can set current/next, they mean nothing).
+  - [ ] **(records-as-data-R40.10-pattern)** RECORDS the assignment as DATA on the unit — assign-next => assignedNextBy/assignedNextAt; assign-current => assignedCurrentBy/assignedCurrentAt (the R40.10 approvedBy/approvedAt pattern) — so the pin's current AND next slots are PROVABLE not remembered (trustworthy after a rewind).
+  - [ ] **(explicit-overrides-derived-SINGLE-SOURCE)** ★ DESIGN-REQUIRED: EXPLICIT-assigned OVERRIDES DERIVED, single-sourced INSIDE resolveSprintPin — current = explicit-if-set ELSE derived; next = explicit-if-set ELSE derived; decided in the resolver, NEVER in a view. No two-sources-of-one-truth (the disease killed this session: two depref builders / two marker counts / two fabricated-uuid figures).
+  - [ ] **(current-UNBLOCKS-ambiguous-pin)** ★ ESCAPE-HATCH (named AC): an explicit assigned-CURRENT resolves the pin EVEN WHEN multiple sprints have open work. resolveSprintPin currently THROWS on ambiguity (5 current-era Active: S19/20/21/25/37) -> R40.11's pin renders 'current: unresolved (pending A1 sign-off)' and T40.6 is coupled+parked. An explicit assigned-current ANSWERS the question the resolver cannot answer from data alone => the pin becomes RESOLVABLE IMMEDIATELY, WITHOUT first driving 40+ legacy tasks to terminal.
+  - [ ] **(honest-visible-ambiguity-R-C5)** ★ HONESTY CONDITION: the explicit-current must NOT silently MASK the ambiguity. The multi-Active condition stays VISIBLE and COUNTED — reported via R-C5's audit (the frozen-legacy pattern: EXCLUDED from the DECISION, NEVER hidden from the REPORT). An honest throw traded for a quiet lie is the exact disease we killed this session.
+  - [ ] **(uniqueness-3-slot)** 3-SLOT UNIQUENESS: only ONE current and ONE next. Assigning CURRENT to a task presently NEXT must rotate/clear the next slot; assigning either must not collide with lastCompleted. REUSE the pin's existing distinctness enforcement — do NOT reimplement.
+  - [ ] **(device-390)** @390 real-device PIXEL gate — both actions reachable AND fireable on his phone.
+  - [ ] **(fail-loud)** FAIL-LOUD: if the assignment cannot be recorded, show an EXPLICIT error — never a silently-unchanged pin.
+  - [ ] **(architect-flag-no-auto-transition)** ★ ARCHITECT FLAG: does assigning CURRENT also TRANSITION the task (Planned -> In Progress) or leave status untouched? PO instinct = must NOT auto-transition (status stays checklist-derived per R-C5; assigning ATTENTION is not claiming WORK was started). His call — flagged, not decided.
+  -> 3778ccc7 [uc:uuid:3778ccc7-64bb-4de7-b0ee-b103f8a510cc]
+  -> pin.liveUpdateNoRefresh [uc:uuid:201d1e58-241f-4669-8089-3c6e8fd13a74]
+
+- [ ] **R40.18 — Auto-progress current/next pin on QA-Review transition (by sprint-completion order; explicit-wins-over-auto; QA is not Done)**
+  [requirement:uuid:ce2734ea-2590-4491-a9a3-3be22629cacb]
+  but on switching a task state to QA needs to also auto progress the current and next task by sprint completion
+  Switching a task's state to QA-Review AUTO-PROGRESSES the pin: the QA'd task leaves CURRENT, NEXT becomes CURRENT, a new NEXT is selected by SPRINT-COMPLETION ORDER. Precedence is single-sourced in resolveSprintPin: EXPLICIT (R40.17 assigned) WINS over auto/derived (explicit-if-set ELSE auto ELSE derived) — never clobbers Tron's manual choice, never a 2nd source in a view/hook. lastCompleted follows DONE (R40.10 approve), NOT QA (QA is not completion — no false Done). Idempotent (no double-rotate), fail-loud (UNRESOLVED not silent-pick), 3-slot uniqueness reused, @390 visible without manual refresh. This makes the pin move BY ITSELF (R40.17 = manual steering; together = the whole mechanism). REUSE R-C5 status derivation + R40.10 QA/approve transition + R40.17 action units + the existing resolver.
+  **Acceptance criteria:**
+  - [ ] **(trigger-qa-auto-progresses)** TRIGGER: a task's state switching to QA-Review AUTO-PROGRESSES the pin — the QA'd task LEAVES current, NEXT becomes CURRENT, and a new NEXT is selected BY SPRINT-COMPLETION ORDER (the order that completes the sprint, per Tron's words).
+  - [ ] **(explicit-wins-over-auto-SINGLE-SOURCE)** ★ DESIGN-REQUIRED (precedence): EXPLICIT (R40.17 assigned) WINS over AUTO — auto-progress RESPECTS an explicitly-assigned next and NEVER clobbers Tron's choice. The precedence chain is ONE rule in ONE place: explicit-if-set ELSE auto/derived, decided INSIDE resolveSprintPin — never in a view or in a transition hook that keeps its own opinion (else two things fight over the same slots = two-sources-of-one-truth).
+  - [ ] **(lastCompleted-follows-DONE-not-QA)** ★ DESIGN-REQUIRED (lastCompleted semantics, architect call): QA is NOT completion. A task at QA-Review awaits Tron's verdict, so lastCompleted updates ONLY when it reaches DONE (R40.10 approve), NOT on the QA transition. Auto-progress moves CURRENT forward; lastCompleted follows DONE. Otherwise the board claims work completed that he has not signed (a false Done).
+  - [ ] **(idempotent)** IDEMPOTENT: re-entering QA, or a re-run, must NOT double-rotate the slots.
+  - [ ] **(fail-loud-unresolved)** FAIL-LOUD, never silent-pick: if the next-by-sprint-completion cannot be determined unambiguously, report it as UNRESOLVED — exactly as resolveSprintPin already does for the ambiguous current (it prefers saying 'I do not know' over guessing).
+  - [ ] **(uniqueness-3-slot)** 3-SLOT UNIQUENESS preserved (current / next / lastCompleted distinct) — REUSE the pin's existing enforcement, do NOT reimplement.
+  - [ ] **(device-390-visible)** @390 real-device PIXEL gate; the progression must be VISIBLE — after a QA switch the board shows the rotated slots WITHOUT a manual refresh, or states why not.
+  -> 4715978d [uc:uuid:4715978d-8210-4441-9af0-0f7b5edc46f6]
+
+- [ ] **R40.19 — Protect history back-navigation — an EXECUTING regression gate (@390 real-device, behavioural, stub-must-fail, in gate:device:live)**
+  [requirement:uuid:9163e71f-f700-4b9b-96eb-c07b9f3b5976]
+  all current history back navigation is perfect... do not regress it
+  History back-navigation (R40.7 historyBack + pathLabelNav on RbEditorToolbar) is a PROTECTED BEHAVIOUR and must be pinned by a MECHANISM, not a note: a regression gate that ACTUALLY EXECUTES the behaviour @390 on a real device (tap Back lands on the correct previous view; path-label nav resolves) — pixel/behavioural, never a DOM count; stub-must-fail (break historyBack -> RED); added to gate:device:live so it runs; depends on the post-deploy device-gate trigger; and NO refactor may touch the nav path without this gate green. Learned from the S23 audio player (silently regressed a whole sprint — headless-only AC, never re-ran) and the music player (died to a unification refactor that dropped an eager call nobody re-checked).
+  **Acceptance criteria:**
+  - [ ] **(regression-gate-behavioural-390)** A REGRESSION GATE for history back-navigation (R40.7's historyBack + pathLabelNav on RbEditorToolbar) that verifies BEHAVIOUR @390 on a REAL DEVICE: tap Back LANDS on the correct previous view, and path-label nav RESOLVES. Pixel/behavioural — NEVER a DOM count (a rendered control that does nothing passes a count).
+  - [ ] **(stub-must-fail)** STUB-MUST-FAIL: deliberately break historyBack and the gate MUST go RED. A gate that still passes when the behaviour is broken certifies NOTHING.
+  - [ ] **(in-gate-device-live)** ADDED TO gate:device:live (d5148b7d3) so it RUNS alongside the other device gates (it must actually execute, not just exist).
+  - [ ] **(depends-device-gate-trigger)** DEPENDS ON the post-deploy DEVICE-GATE TRIGGER (top of the post-reset work order — visual/device gates currently run NOWHERE, which is exactly why Tron's bugs arrive as screenshots). Until the trigger runs the gate, back-nav is unprotected.
+  - [ ] **(no-refactor-without-green)** NO REFACTOR may touch the nav path without this gate GREEN. Proof: the music player died to a unification refactor that dropped an eager call nobody re-checked; the S23 audio player silently regressed a whole sprint because its AC was headless-only and never re-ran. Back-nav meets the same fate unless an EXECUTING gate pins it.
+  -> editorToolbar.historyBackRegression [uc:uuid:7111d89e-5101-432f-ab71-97a5e1d1e1ad]
+
+- [ ] **R40.20 — First key toggles native keyboard while RETAINING the artificial key bar (input-accessory retention, device-only) — extends R40.3**
+  [requirement:uuid:7db6bfba-7b4a-499a-b35f-fd750e40ea09]
+  the first button on the artificial action line keys is toggle between native keyboard hidden and shown while retaining the keys action bar
+  The FIRST (leftmost/primary) key on the artificial key bar TOGGLES the native keyboard shown vs hidden, and the artificial keys action bar STAYS VISIBLE AND USABLE IN BOTH states (input-accessory style — sits ABOVE the keyboard when shown, never covered/unmounted). Input still reaches the PTY in both states (R40.3 anti-vacuity holds); terminal stays visible per R40.3 pixel ACs; the key is an action unit (R40.5). DEVICE-ONLY real iOS @390 (a headless browser cannot show/hide an iOS keyboard). ★ CHANGES R40.3's SHAPE: keyboard suppression becomes a SETTABLE STATE owned by the bar (re-enableable), NOT a bolt-on fighting by-construction suppression.
+  **Acceptance criteria:**
+  - [ ] **(first-position-toggle)** The FIRST (leftmost/primary) key on the artificial key bar IS the toggle — the POSITION is part of the requirement, not a detail.
+  - [ ] **(toggles-native-keyboard)** Firing it TOGGLES the native (iOS) soft keyboard between SHOWN and HIDDEN.
+  - [ ] **(bar-retained-both-states)** ★ THE HARD AC (device, most likely to fail-on-device while passing headless): the artificial keys action bar is RETAINED and USABLE in BOTH states. With the native keyboard SHOWN the bar must sit ABOVE the keyboard (input-accessory style) — never covered, never unmounted.
+  - [ ] **(input-reaches-pty-both)** Input STILL REACHES THE PTY in BOTH states — R40.3's anti-vacuity AC still holds. A bar that renders but sends nothing is the empty-container class we fixed twice this session.
+  - [ ] **(terminal-visible-usable)** The terminal remains visible/usable per R40.3's pixel ACs (in both keyboard states).
+  - [ ] **(action-unit-R40.5)** The toggle key is an ACTION UNIT per R40.5's de-duplication — never a bespoke button.
+  - [ ] **(device-only-390)** ★ DEVICE-ONLY: verified on real iOS @390 on Tron's device, NEVER headless-green. A headless browser cannot show or hide an iOS soft keyboard — the same reason R40.3-B was already split device-only.
+  - [ ] **(architect-suppression-settable-state)** ★ DESIGN-REQUIRED (architect, R40.3 SHAPE-CHANGE): R40.3 suppressed the keyboard BY CONSTRUCTION; a toggle requires suppression to be a SETTABLE STATE OWNED BY THE BAR (re-enableable), NOT a bolt-on that fights the by-construction suppression. This changes R40.3's shape, not just adds to it.
+  -> 92660a08 [uc:uuid:92660a08-a192-4429-bd8d-6395602af598]
+
+- [ ] **R40.21 — Credentials-in-URLs -> capability-not-identity — in-app auth off URL params (header/cookie), shareable links carry expiring scoped capability tokens**
+  [requirement:uuid:1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61]
+  SECURITY (design-required): an identity bearer token is currently carried AS a URL parameter, so a URL literally IS an unscoped, non-expiring identity credential — exposed via request logs, browser history, the Referer header, proxy/CDN logs, and copied/QR-shared links (in a SHARING app, handing over a resource link hands over identity unknowingly). FIX reuses the EXISTING primitive (no new mechanism): the T26.3 federation capability-grant (HMAC over {resourceId,exp,scope}, short-lived). In-app auth moves to the sm_session cookie / x-player-token HEADER so the URL carries an IDENTIFIER not a credential; shareable URLs carry ?cap=signed(...) that opens ONLY that resource and EXPIRES. Phased: accept-both -> reject identity-in-URL; post-rotation old links are inert + 404 gracefully. ★ Exploit detail + the vulnerable-endpoint list are in the LOCAL design ONLY (NOT in-repo): /var/dev/security-local/FINDING-credentials-in-URLs.LOCAL.md (chmod 600).
+  **Acceptance criteria:**
+  - [ ] **(auth-off-url)** In-app auth uses the sm_session cookie / x-player-token HEADER — NO identity credential in any URL parameter.
+  - [ ] **(cap-for-sharing)** Shareable resource URLs carry ?cap=signed({resourceId,exp,scope}) reusing the T26.3 capability-grant HMAC — opens ONLY that one resource, short-lived/expiring, scoped.
+  - [ ] **(stub-must-fail-cap-gate)** The capability gate is STUB-MUST-FAIL: a forged / expired / wrong-scope cap FAILS (proven), never opens the resource.
+  - [ ] **(INV-URL-1-5)** INV-URL-1..5 per the LOCAL design: no identity token in a URL; cap scoped to exactly one resource; cap expires; wrong/missing cap -> 403/404 no-leak; old identity-in-URL links inert post-migration.
+  - [ ] **(phased-migration)** Phased migration: accept BOTH (identity-URL + cap) -> then REJECT identity-in-URL; post-rotation old links are inert and 404 GRACEFULLY (no leak, no crash).
+  - [ ] **(device-390)** @390 owner-device (Tron): the share + capability-open flow works on his phone.
+  -> ba738beb [uc:uuid:ba738beb-f1ab-46f2-86dd-3f24f7f753f4]
+
+- [ ] **R40.22 — Credential/identity decoupling — keep the user-id STABLE, introduce a separate ROTATABLE credential (challenge-response/keypair)**
+  [requirement:uuid:acbfe6e7-cb3f-4845-82c9-e749cbd7d1ff]
+  SECURITY (design-required, architect measuring): the owner literal appears to BE the owner's real user-id in runtime storage (data/users/<owner-id>/, profiles.json), so rotating the credential could mean migrating an identity PRIMARY KEY — device enrollments, memberships, ownership refs — with real lockout / orphan risk. LIKELY FIX: keep the user-id STABLE (identity) and introduce a SEPARATE, ROTATABLE credential (the challenge-response / keypair endgame) so a credential rotates WITHOUT migrating identity. The architect is measuring now; the verdict may reshape the rotation and fills in the shape (design lands LOCAL, outside repo). NO credential/owner VALUE recorded here (secret-value rule) — the owner literal is referenced only as 'the owner literal' / <owner-id>.
+  **Acceptance criteria:**
+  - [ ] **(identity-stable)** The user-id (identity primary key) stays STABLE across credential rotation — no migration of device enrollments / memberships / ownership refs on a rotate.
+  - [ ] **(rotatable-credential-separate)** A SEPARATE, ROTATABLE credential (distinct from the user-id) authenticates; rotating it does NOT touch identity.
+  - [ ] **(no-lockout-no-orphan)** Rotation causes NO lockout (owner still authenticates) and NO orphaned refs (every identity ref still resolves to the stable user-id).
+  - [ ] **(challenge-response-endgame)** The credential mechanism is challenge-response / keypair (not a shared secret at rest) — ties R40.14 (loginToken keypair) + R40.15 (secretCode hardening) + R40.21 (capability tokens).
+  - [ ] **(architect-verdict)** ★ DESIGN-REQUIRED: the architect's measurement/verdict fills the shape and may reshape the rotation. Do NOT build before the verdict.
+  -> c0a58546 [uc:uuid:c0a58546-449d-450b-84b0-6aab67e65b2d]
+
+- [ ] **R40.23 — Facet-type is single-sourced through deriveViewKind (no hardcoded viewKind / no silent 'class' default anywhere)**
+  [requirement:uuid:4b12b6c4-407e-47ad-8415-7e278363a249]
+  Every ior-class->facet-type derivation in the app routes through the ONE shared deriveViewKind fn (src/ts/shared/facet-type.ts, established by BUG-D). The remaining sites that still hardcode viewKind or fall back to node.kind||'class' are routed through it, and a family lint prevents new ones. These hardcodes are correct only BY INCIDENT (those flows are class-only today); the moment a UseCase flows through them they reproduce Tron's box-instead-of-ellipse bug (BUG-D).
+  **Acceptance criteria:**
+  - [ ] **(route-all-sites)** TsToModel.ts:285 routes its element->viewKind through deriveViewKind (not an incidental class-only default).
+  - [ ] **(route-all-sites)** server.ts:2301 import-puml routes its element->viewKind through deriveViewKind.
+  - [ ] **(explicit-unknown)** The client facetKind fallback becomes an EXPLICIT-UNKNOWN facet (distinct rendering, or refuse) instead of node.kind||'class' — an unknown ior-class never silently renders as a class box.
+  - [ ] **(family-lint-stub-must-fail)** A FAMILY LINT asserts NO hardcoded viewKind and NO silent 'class' outside deriveViewKind, and is proven non-vacuous by a STUB-MUST-FAIL bite (introduce a hardcode -> lint goes RED).
+
+- [ ] **R40.24 — Selecting a diagram element changes the action bar to show element-context verbs (remove-from-diagram / delete / find-linked)**
+  [requirement:uuid:a2c78c46-ff5c-4537-99bf-aaa7eb8c53f9]
+  selecting diagram elements does not change the action bar any more... where are the actions remove from diagram / delete / find linked
+  REGRESSION (Tron device-found, 5th by screenshot): selecting a diagram/model element no longer updates the action bar to expose its element-context verbs. The element-context verbs were moved to a PROVIDER on the shared drawer (R34.7/R-E, model.ts:85-86) composed by universalActionBar; membership verbs gate on hasActiveDiagram (model.ts:75). Tron's screenshot shows A1 defaults + diagram-LEVEL verbs present but ELEMENT verbs (remove-from-diagram/delete/find-linked) ABSENT on selection.
+  **Acceptance criteria:**
+  - [ ] **(selection-driven)** Selecting a diagram/model element CHANGES the action bar to include the element-context verbs: remove-from-diagram, delete, find-linked.
+  - [ ] **(anti-vacuity)** Those verbs are FIREABLE and ACT on the selected element (not merely rendered — a verb that appears but does nothing fails).
+  - [ ] **(no-reverse-regression)** The A1 defaults and the diagram-LEVEL verbs REMAIN present (no regression the other way).
+  - [ ] **(red-baseline-device-gate)** Pinned by a RED-baseline DEVICE gate @390 with STUB-MUST-FAIL, added to the device lane so it RE-RUNS (an ungated protection is a promise, not a guard — this behaviour worked and a refactor took it).
+  - [ ] **(family)** Implemented via the family-named selection-driven-action-provider (single source for selection->verbs), not a bespoke bar.
+  -> drawer.singleTriggerActionBar [uc:uuid:9929bc32-0d3a-415d-9445-44c91e38cf3d]
+
+- [ ] **R40.25 — Post-deploy device-gate trigger — every deploy auto-runs gate:device:live on live prod; NOT-RUN==RED; no bypass; version-stamped + Tron-visible**
+  [requirement:uuid:7fee0120-a5dc-43df-838f-b91ab86711b1]
+  The SYSTEMIC fix behind FIVE Tron screenshot-found defects: visual/device gates currently run NOWHERE, so device regressions ship green and arrive as screenshots. A post-deploy trigger automatically runs the EXISTING gate:device:live lane against live prod after every deploy and makes 'deployed' mean 'device-verified'. Architect design 00361a7e3 (approved; build was never dispatched = PO gap, expert building now). Chain trails (mint/marker) as with device-bugs A/B/C/D.
+  **Acceptance criteria:**
+  - [ ] **(reuse-lane)** A post-deploy step invokes the EXISTING gate:device:live lane against LIVE prod automatically after restart + served==committed. No new gate machinery — it wires the trigger, not a parallel gate.
+  - [ ] **(not-done-until-green)** A deploy is NOT verified/done until the gate is GREEN (non-zero exit on RED). 'Served-but-gate-RED' is an explicit UN-VERIFIED state, not done.
+  - [ ] **(versioned-record)** Results land as a VERSION-STAMPED device-gate unit (GREEN/RED/NOT-RUN + evidence + the gated Test uuids) exposed at /api/gate-status — durable + queryable, NOT a log line.
+  - [ ] **(notrun-equals-red)** NOT-RUN == FAILURE == RED (unavailable / timeout / errored-before-asserting) — NEVER a silent pass. Rationale: S23 died because its gate NEVER RAN; absence of a result must read as failure.
+  - [ ] **(no-bypass-ever)** NO skip/bypass flag EVER. Shipping un-gated is allowed but is RECORDED as served-but-UNVERIFIED and can NEVER be silenced/marked-verified. (This prohibition is part of the requirement so a future agent reading it does not add a bypass.)
+  - [ ] **(tron-visible)** Gate-status is VISIBLE TO TRON (owner-gated UI) answering: is what is currently SERVED verified on-device, and at WHICH version?
+  - [ ] **(meta-bite)** A META-BITE on the trigger ITSELF: trigger-fires / unavailable->NOT-RUN-RED / RED-blocks-done / S23-regression-replay — a trigger that silently no-ops is the same disease one level up, so its own fail-ability is proven. ★ META-BITE #1 (a NORMAL deploy CANNOT complete without the gate having run) is EXPECTED-RED until the scripted-deploy (R31.14) exists — the FAILING bite is the HONEST signal that the mechanism is not yet by-construction; it must NOT be softened/skipped to make the mechanism look green.
+  - [ ] **(blocking-dependency)** ★ BLOCKING DEPENDENCY (not a footnote): R40.25 may NOT reach QA-Review while the gate remains SKIPPABLE. Until the BY-CONSTRUCTION scripted-deploy invocation exists (R31.14 deploy-hardening — the gate runs automatically as a deploy STEP, never by an agent remembering to run it), R40.25 is MECHANISM-ONLY / decorative. A gate an agent must remember to run has reliability equal to that agent's memory — exactly how S23's gate never ran.
+  -> deploy.postDeployDeviceGate [uc:uuid:817fa8cc-cfdc-45b4-a9fd-5c557bd41751]
+
+- [ ] **R40.26 — Discover-related completeness: adds the UseCase<->Class relationship EDGE + parents + traceability children to the diagram (not just nodes)**
+  [requirement:uuid:8b110074-c7f1-4808-9397-74dc7714c5e8]
+  discover related should add the relationship between use case and class and should add parents and traceability children to the diagram. also the class is lacking al its ts method signtures and attributes, properties and relationships
+  discover-related currently adds nodes but is missing the RELATIONSHIP EDGE between the UseCase and the Class, plus parents and traceability children. A node added with no edge is the empty-container class. All added relationships/nodes must render immediately and re-running must not duplicate.
+  **Acceptance criteria:**
+  - [ ] **(relationship-edge)** discover-related adds the RELATIONSHIP EDGE between the UseCase and the Class — node-build emits m.class as a typed {to,kind} relation RIDING the existing buildEdges (R32.6) both-on-diagram guard (NO second edge concept). An added node with no edge is the empty-container class.
+  - [ ] **(parents)** It adds the PARENTS of the discovered element to the diagram.
+  - [ ] **(traceability-children)** It adds the TRACEABILITY CHILDREN to the diagram.
+  - [ ] **(immediate-render)** Added relationships/nodes render on the diagram IMMEDIATELY, no refresh.
+  - [ ] **(idempotent)** Idempotent: re-running discover-related does NOT duplicate nodes or edges.
+  - [ ] **(device-gate)** Device-gated @390 real-WebKit, RED-baseline + STUB-MUST-FAIL, in the device lane so it re-runs.
+  - [ ] **(inv-da2-anti-flood)** INV-DA2 anti-flood: the neighbor set is BOUNDED ONE LEVEL (repeat-discover for depth), reusing the forwardOnly chain keys as the single source. Justification BY MEASUREMENT (not taste): the /model tree already produced a 1195-node eager flood at 390 — the one-level bound prevents that.
+  -> discover.completeness [uc:uuid:3e41d088-3458-406e-986e-d43252f31e3a]
+
+- [ ] **R40.27 — Class facet completeness: renders TS method signatures + attributes/properties + relationships via the single renderFacet path**
+  [requirement:uuid:81d1928d-cb68-4c05-8197-0647d553c0ec]
+  discover related should add the relationship between use case and class and should add parents and traceability children to the diagram. also the class is lacking al its ts method signtures and attributes, properties and relationships
+  A Class facet is missing its TS method signatures, attributes/properties, and relationships. The data already exists (R36.3 part-1 enrichment, R40.6 relationships); this is a render gap. Must render via the SINGLE renderFacet/deriveViewKind path and distinguish empty from absent (fail-visible).
+  **Acceptance criteria:**
+  - [ ] **(method-signatures)** A Class facet renders its TS METHOD SIGNATURES (visibility name(params):returnType) — the data exists from R36.3 part-1 enrichment.
+  - [ ] **(attributes)** It renders its ATTRIBUTES / PROPERTIES.
+  - [ ] **(relationships)** It renders its RELATIONSHIPS.
+  - [ ] **(empty-vs-absent)** Empty vs absent DISTINGUISHED with teeth: a genuinely empty class shows '(no members)'; when fetchModel returns NULL (members unavailable) it shows '⚠ members unavailable' — because node-build currently SWALLOWS the null (if(!mm)continue) and a swallowed error is indistinguishable from success. Fail-visible, never a silent empty box.
+  - [ ] **(single-render-path)** Renders via the SINGLE renderFacet/deriveViewKind path — NO rival renderer or type-map (the family single-source, ties R40.23/BUG-D).
+  - [ ] **(device-gate)** Device-gated @390 real-WebKit, RED-baseline.
+  -> classFacet.completeness [uc:uuid:bb3c490e-fb3e-4568-826b-9aec3f9ef804]
+
+- [ ] **R40.28 — A1 default actions Scenario + Edit ALWAYS open in a new tab (every surface the universalActionBar composes on), never navigate the current tab**
+  [requirement:uuid:cb9c222e-c61f-4396-96e5-d782c704e022]
+  make sure the default action scenatio edit alwazs opens in a new tab
+  The A1 DEFAULT actions Scenario and Edit — the two the universalActionBar composes on ALL usages — must ALWAYS open in a NEW TAB, never navigate the current one, from EVERY surface the bar appears on (trace / model / room / task detail / drawer). Losing his place on a phone is the actual pain.
+  **Acceptance criteria:**
+  - [ ] **(new-tab)** The A1 'Scenario' default action opens the scenario in a NEW TAB.
+  - [ ] **(new-tab)** The A1 'Edit' default action opens the editor in a NEW TAB.
+  - [ ] **(always-every-surface)** ★ 'ALWAYS' = from EVERY surface the universalActionBar is composed on (trace / model / room / task detail / drawer), not just the one currently in view. The word 'always' is part of the requirement — a per-surface exception is a defect.
+  - [ ] **(current-tab-preserved)** The CURRENT tab is NOT navigated away — the user keeps his place (losing context on a phone is the actual pain being fixed).
+  - [ ] **(no-reverse-regression)** The OTHER actions' behaviour is unchanged (no reverse regression).
+  - [ ] **(device-gate-result)** Device-gated @390 real-WebKit (iOS-parity, NOT chromium-emulation) asserting a NEW browsing context ACTUALLY OPENED — detected via the page/popup EVENT, NOT target=_blank-in-DOM (in-DOM != opened = the empty-container false-green). ★ AUTO-GATE-ABLE half (tester prove-the-prover: real sync tap fires a context 3/3).
+  - [ ] **(device-only-390)** ★ DEVICE-ONLY (real iOS Safari @390, Tron-verified, NEVER headless-green): the new-tab open MUST be SYNCHRONOUS in the tap/user-gesture handler (no await/fetch/resolve before window.open; open the tab first then point it). iOS Safari silently popup-blocks a non-sync open — the tab never appears, invisibly. ⚠ HEADLESS CANNOT VERIFY THIS (measured, tester prove-the-prover): headless Playwright-WebKit does NOT enforce the sync-gesture popup rule — an async-timeout AND async-promise open ALSO fire a context, so auto-gating AC-7 would FALSE-GREEN a broken async open. Therefore AC-7 is verified ONLY on Tron's real device; AC-6 (a context actually opens) is the auto-gate-able half. Do NOT headless-green AC-7 (R22.2 device-only precedent).
+  -> actionBar.defaultsNewTab [uc:uuid:0f60a0b7-f174-4bd4-8e93-d45848cbc4e2]
+
+- [ ] **R40.29 — Diagram background-drag pans the viewport with a MOUSE (parity with touch) — unify on POINTER events, one handler**
+  [requirement:uuid:c7feeb18-ad82-4ef3-a028-434860d0a93d]
+  in the diagramms i can pan the position via finger but not via mouse when i am on the diagram background. it needs to work with the mouse too
+  On a diagram, panning the viewport by dragging the BACKGROUND works with TOUCH (finger) but NOT with a MOUSE. Mouse parity required — the same background-drag pans the viewport with a mouse. Likely cause: pan handlers bound to touch events only (touchstart/touchmove).
+  **Acceptance criteria:**
+  - [ ] **(mouse-bg-pan)** Dragging the diagram BACKGROUND with a MOUSE pans the viewport.
+  - [ ] **(no-reverse-regression)** The existing TOUCH pan continues to work UNCHANGED — this is PARITY, not replacement (no reverse regression).
+  - [ ] **(no-hijack)** Background-drag does NOT hijack node drag / selection / text-selection — panning only on the background, not on a node.
+  - [ ] **(gate-asserts-result)** ★ The gate asserts the RESULT — the viewport POSITION actually CHANGED after a mouse drag — NOT that a listener/handler exists. A bound listener that moves nothing is the empty-container class.
+  - [ ] **(split-verify)** Desktop-MOUSE half = AUTOMATABLE-gated (viewport moved on mouse drag); the TOUCH half stays DEVICE-VERIFIED (real device).
+  - [ ] **(by-construction-pointer-events)** ★ BY-CONSTRUCTION: unify on POINTER events (pointerdown/pointermove/pointerup) — ONE handler covering mouse + touch + pen. Do NOT add a parallel mouse handler beside the touch one: two input paths for one behaviour is the two-sources disease and they WILL drift (one gets a fix the other does not — which is exactly how the finger/mouse gap arose). Also check whether this belongs to the EXISTING RbPanZoom component rather than a per-view handler (single-source the pan behaviour).
+  -> panZoom.pointerUnifiedPan [uc:uuid:01aef558-6768-4718-8dad-89f51570d927]
+
+- [ ] **R40.30 — Behavioural gates target STABLE test hooks (not CSS class names) + drift NAMES ITSELF (hook-missing, not -1) — gate-rot protection**
+  [requirement:uuid:dc353c14-ec76-4c79-a809-81ec318e8dbe]
+  Old merge-editor gates (0.7.19-0.7.59) DRIFTED as the UI evolved: e.g. R30.52 renamed the CSS hook .de-count -> .de-open-count, so r3037 now reads -1 and reports RED while the FEATURE IS INTACT (proven by source + overlapping newer GREEN gates). Nothing detected the drift — the gates rotted until someone re-ran them. HONEST NUANCE: those gates going RED on a rename was the gate WORKING as a change-detector; the failure was that nobody maintained them AND a RED read as a code regression rather than a drift signal. The fix is to make drift NAME ITSELF. Sibling to the un-datable-gate-version cohort.
+  **Acceptance criteria:**
+  - [ ] **(stable-hooks)** Behavioural gates target STABLE test hooks (data-testid or an equivalent contract), NOT incidental CSS class names — a cosmetic rename cannot break a behavioural gate.
+  - [ ] **(hook-dependency-discoverable)** Renaming or removing a test hook REQUIRES re-running the gates that depend on it — the dependency is DISCOVERABLE: a gate declares which hooks it binds.
+  - [ ] **(retarget-stub-must-fail)** A re-targeted gate MUST re-prove it can FAIL (stub-must-fail) before its GREEN counts — otherwise re-pointing a selector until it passes silently empties the gate.
+  - [ ] **(drift-names-itself)** Drift is DETECTABLE rather than discovered by accident: a gate whose hook has VANISHED says 'hook missing' LOUDLY (distinct signal), not read -1 and report a behavioural failure. The RED must name drift, not masquerade as a code regression.
