@@ -1,0 +1,70 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "cfe02f4b-f07d-41ec-8aca-c462c22306f9",
+  "name": "ONE CONTROLLER — every unit mutation flows through a single validated entry (no bypass)",
+  "altId": "R37.11",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:be1e9403-98c4-4b0b-82e6-9f2a10a9f953"
+  ],
+  "description": "Every UNIT mutation (any ior:class:*) flows through ONE controller unitController.apply (validate via the registered policy -> apply -> persist via ScenarioIndex.put deliberate-opt -> emit). The Task FSM registers as POLICY #1; statusNext is a THIN Task facade over apply, never a second entry. Done has ONE writer (R40.10 approveByOwner DELEGATES to apply's Done step, recording approvedBy/approvedAt as the evidence, never sets Done itself; tronApprove folds in). The controller REFUSES to advance past a checklist step whose evidence is absent, using the ONE shared evidenceForStep predicate (also consumed by checklist-chain-audit — no second copy). A dominance LINT proves the controller is the UNIQUE dominator of every mutation. Covers C4.2/C4.3/C4.8 (T37.4.2 + T37.4.3).",
+  "tronQuote": "> Tron (pre-build, C4 shape): \"that's far away from MVC and a view pipeline\" -> RE-ISSUED DRY as TWO SINGLETONS (generic mechanism + plugged-in policy); Task = policy #1, sprint board = projection #1.",
+  "discoverySource": {
+   "type": "po-directive-split",
+   "ruledBy": "robbin-po",
+   "date": "2026-08-11",
+   "design": "scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md",
+   "note": "PO SPLIT ruling: R37.4 (objects self-heal, C4.1) must NOT become the C4 umbrella — a req creditable by five unrelated Tests is a folder, not a requirement (over-crediting = shared-credit disease at REQUIREMENT level) + a self-heal-named req containing a controller/bus is the name-vs-content inconsistency Tron flagged. R37.4 STAYS self-heal; this sibling carries the ONE controller (C4.2/C4.3/C4.8): generic apply + Task FSM policy #1 + statusNext facade + single-source Done + evidence-precondition (evidenceForStep) + dominance lint. T37.4 remains the coordination ROOT task."
+  },
+  "crossRef": [
+   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1",
+   "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+  ],
+  "crossRefNote": "MVC family (C4 shape, design c4-mvc-view-pipeline-shape.md): R37.4 self-heal MODEL + R37.11 CONTROLLER (this) + R37.12 VIEW BUS. T37.4 = coordination root. evidenceForStep (UC be1e9403) sits HERE — it is the controller's evidence-precondition, shared with the audit — re-parented from R37.4 per the PO split ruling.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-one-entry",
+    "group": "functional",
+    "text": "unitController.apply(idx,ior,uuid,intent,{actor,evidenceRef?}) is the SOLE mutation entry for ANY unit: validate via registered policy -> apply -> persist via ScenarioIndex.put (deliberate-opt, subsumes statusNext's opt-in) -> emit. statusNext is a THIN Task facade over apply, NOT a second entry."
+   },
+   {
+    "id": "AC-policy-registration",
+    "group": "functional",
+    "text": "Task FSM registers as POLICY #1 (registerPolicy(ior,policy)); adding a new class policy is REGISTRATION ONLY — zero edits to the controller (DRY acceptance test: a throwaway policy works + a controller edit for policy N+1 -> RED)."
+   },
+   {
+    "id": "AC-evidence-precondition",
+    "group": "functional",
+    "text": "The controller REFUSES to advance past a checklist step whose evidence is absent, using the ONE shared evidenceForStep predicate (the SAME definition checklist-chain-audit consumes — no second copy that could disagree)."
+   },
+   {
+    "id": "AC-single-source-done",
+    "group": "functional",
+    "text": "statusNext OWNS the Done transition; R40.10 approveByOwner DELEGATES (records approvedBy/approvedAt as evidence, then calls the Done step) and does NOT set Done itself; tronApprove folds in. ONE Done-writer by construction."
+   },
+   {
+    "id": "AC-delegation-no-regression",
+    "group": "gate",
+    "text": "The R40.10 delegation edit needs POSITIVE-CONTROL bites (approve STILL records approvedBy + reaches Done end-to-end; decline STILL mints a reachable CR; non-owner STILL 403); tester RE-RUNS r4010 after the delegation edit. Positive controls + the negative no-2nd-writer bite together = delegation without regression."
+   },
+   {
+    "id": "AC-dominance-lint",
+    "group": "gate",
+    "text": "A LINT proves unitController is the UNIQUE DOMINATOR of every task-status transition: no model.status= / no checklist-tick outside statusNext; no Done except via statusNext (R40.10 must delegate); no hand-authored owned-view write. Two-bite: plant a bypass -> RED; weaken the lint -> RED. The dominance property is this req's invariant, not a separate want."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-one-entry+AC-evidence-precondition+AC-dominance (distinct-intent): a mutation bypassing apply -> RED; advancing past an evidence-absent step -> refused fail-loud; a second Done-writer -> RED. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

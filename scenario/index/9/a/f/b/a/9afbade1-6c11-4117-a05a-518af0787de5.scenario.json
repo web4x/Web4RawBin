@@ -1,0 +1,68 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9afbade1-6c11-4117-a05a-518af0787de5",
+  "name": "ONE VIEW BUS — model changes propagate to every view; no view renders silently stale",
+  "altId": "R37.12",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "Every model change is announced by ONE revision-stamped event UNIT_CHANGED{ior,uuid,hash} on ONE view bus (the EXISTING viewBus, extended to carry the revision), and every view format is a REGISTERED PROJECTION reached ONLY through the bus. Any projection that cannot prove it is current renders VISIBLY STALE (revalidate-or-stale-badge). Adding a view format is REGISTRATION ONLY. The revision = a compute-on-read CONTENT-HASH reusing the federation contentHash (single-source, NOT a counter, NOT a stored bump); currency is fail-closed (unconfirmed == stale). Covers C4.4/C4.5/C4.6 (T37.4.4/.5/.6).",
+  "tronQuote": "> Tron (pre-build, C4 shape): \"that's far away from MVC and a view pipeline\" -> RE-ISSUED DRY as TWO SINGLETONS (generic mechanism + plugged-in policy); Task = policy #1, sprint board = projection #1.",
+  "discoverySource": {
+   "type": "po-directive-split",
+   "ruledBy": "robbin-po",
+   "date": "2026-08-11",
+   "design": "scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md",
+   "note": "PO SPLIT ruling: R37.4 (objects self-heal, C4.1) must NOT become the C4 umbrella — a req creditable by five unrelated Tests is a folder, not a requirement (over-crediting = shared-credit disease at REQUIREMENT level) + a self-heal-named req containing a controller/bus is the name-vs-content inconsistency Tron flagged. R37.4 STAYS self-heal; this sibling carries the ONE view bus (C4.4/C4.5/C4.6): the revision-stamped bus event + projection registry + revalidate-or-mark-stale + fail-closed currency. T37.4 remains the coordination ROOT task."
+  },
+  "crossRef": [
+   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1",
+   "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+  ],
+  "crossRefNote": "MVC family (C4 shape, design c4-mvc-view-pipeline-shape.md): R37.4 self-heal MODEL + R37.11 CONTROLLER + R37.12 VIEW BUS (this). T37.4 = coordination root. The client stale-badge is the piece Tron FEELS (pin-swap-not-appearing).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-one-event",
+    "group": "functional",
+    "text": "Every unit mutation emits ONE UNIT_CHANGED{ior,uuid,hash} on the EXISTING viewBus (extended to carry the revision); no surface discovers change independently (one event shape, one emit call)."
+   },
+   {
+    "id": "AC-revision-hash",
+    "group": "functional",
+    "text": "The revision = a compute-on-read CONTENT-HASH reusing the federation contentHash (single-source) — NOT a monotonic counter, NOT a stored bump at the put() chokepoint; currency proved by re-hash + compare (rendered.hash != current.hash -> stale). Cache per (uuid,version) to bound cost."
+   },
+   {
+    "id": "AC-projection-registry",
+    "group": "functional",
+    "text": "Every view format REGISTERS as a projection (selects+render); generate-sprint-md = PROJECTION #1; each writes through the C8 owned-output guard. Adding a format is REGISTRATION ONLY — zero bus/pipeline edits (DRY acceptance: throwaway projection works; a pipeline edit for format N+1 -> RED)."
+   },
+   {
+    "id": "AC-scoped-debounced",
+    "group": "functional",
+    "text": "The board pipeline regenerates ONLY the affected sprint's owned board(s), DEBOUNCED (coalesce a burst of transitions in one sprint into ONE regen) — never all 144 .md, never unaffected sprints. Cost-bounded so the guard stays enabled."
+   },
+   {
+    "id": "AC-revalidate-or-stale",
+    "group": "functional",
+    "text": "The live client subscribes to the ws event and on notify / focus / visibilitychange REVALIDATES the affected subtree OR marks it VISIBLY STALE (a badge) — a stale render is never indistinguishable from fresh. This is how never-return-a-silently-drifted-value reaches the RENDER surface (fixes pin-swap-not-appearing)."
+   },
+   {
+    "id": "AC-fail-closed",
+    "group": "functional",
+    "text": "Unconfirmed currency == STALE, never fresh (same shape as NOT-RUN==RED): a dropped ws / skipped revision / offline -> the node goes stale; the (re)connect welcome piggybacks the current revision for reconcile. The client NEVER assumes fresh because no event arrived."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-one-event+AC-scoped-debounced+AC-revalidate-or-stale+AC-fail-closed (distinct-intent): two transitions in one sprint -> exactly ONE scoped regen (RED if it regenerates unaffected sprints / fires per-event); drop the ws / skip a revision -> the open node goes STALE (RED if it renders fresh); register a throwaway projection -> works with zero pipeline edits. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
