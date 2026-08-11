@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress 2/4 (planner reconcile 2026-08-11, MEASURED per-box, Tron directive; checklist was ALL-unticked=derived-Planned = UNRECORDED PROGRESS, not a display bug; status DERIVED from checklist R37.5, never hand-set). EVIDENCED [x]: refinement = Req eec7ebb7 + UC bf1cf902 (sprintBoard.reconcileAll) + Class 93f9afc7 (SprintViewGenerator, R24.4) + Method eddf2836 (generateAll) all on disk+wired. implementing = Impl b31ae393 (generateAll --all write-extraction) markerPending=false STRICT-AST @generate-sprint-md.ts:248 (9b1c2ab18); shipped RUN 5b2630552 (regen 144 md, owned-output guard 0 puml/design). NOT EVIDENCED [ ]: creating test cases + testing = R37.2 has NO Test — Impl b31ae393.tests[]=EMPTY; no Test unit references reconcile-all/generateAll. The cited T24.4 gate (Test 82ca355c, r245-s24-tooling-gate.mjs) is GREEN (status=pass) BUT two-keyed to generateSprint Impl 41c86206 NOT b31ae393, and exercises the --check CHECKER not the reconcile-all WRITE = CROSS-CREDIT, not R37.2's gate (verify-owner-first). PLUS reconcile-all BLOCKED ~9/37 by OWNED-OUTPUT guard skipping 20 legacy req.md + 10 planning.md (no GENERATED_HEADER, R37.7-pending). >> test-cases NEEDS: author a reconcile-all gate (run --all WRITE on drifted set -> --check --all byte-match on IN-SCOPE boards per re-scoped AC-post-clean ~20/20 NOT 37/37) wired to b31ae393. testing NEEDS: that gate GREEN two-keyed + in-scope scope settled OR R37.7 legacy migration to unblock. NOT rounded up to QA-Review (Tron steers QA from status). ★ PO SCOPE RULING (2026-08-11, do-not-re-litigate): C2 is NOT FAILING — its scope is IN-SCOPE byte-match ~20/20 (generator-owned boards) + HONESTLY DECLARES the out-of-scope count, never a fake 37/37. The ~20 legacy req.md + 10 planning.md the owned-output guard SKIPS (no GENERATED_HEADER) are R37.7's scope (legacy hand-authored boards migrated with units-completeness proof), NOT C2's — overriding the header-guard blindly risks hand-authored loss. C2's scope ENDS where the guard correctly protects unmarked files. So the In-Progress landing = test-cases+testing genuinely uncovered (no reconcile-all gate wired to b31ae393), NOT because C2 is blocked by the legacy files.
+QA-Review (planner flip 2026-08-11, chain-complete-to-Test VERIFIED both-dir on disk — the test-cases+testing gap my prior reconcile documented is now CLOSED). refinement[x]=Req eec7ebb7 + UC bf1cf902 (sprintBoard.reconcileAll) + Class 93f9afc7 (SprintViewGenerator) + Method eddf2836 (generateAll). implementing[x]=Impl b31ae393 (generateAll --all) markerPending=false STRICT-AST 9b1c2ab18, shipped 5b2630552. creating-test-cases[x]+testing[x]=req minted the REAL reconcile-all WRITE gate Test 8d1c4f60 (rc2-reconcile-all-write-gate.mjs: generateAll b31ae393 regenerates every in-scope sprint board in one --all pass, drift 6->0, 4 orphans pruned, stub-must-fail proven, header-less legacy correctly out-of-scope per R-C7) wired both-dir to b31ae393 (b31ae393.tests[]=[8d1c4f60] <-> 8d1c4f60.implementations[]=[b31ae393]), status=pass, tester GREEN re-verified 663fb9f1 (chain-complete 9ec30587f). This is R37.2's OWN gate (generateAll WRITE), NOT the prior T24.4 cross-credit (82ca355c was two-keyed to generateSprint 41c86206, --check CHECKER not reconcile WRITE) — verify-owner-first satisfied. All 4 In-Progress sub-steps evidenced -> QA-Review. Awaiting Tron QA verdict (0 Done till Tron). PO scope-ruling HOLDS: in-scope byte-match ~20/20 generator-owned boards + honest out-of-scope declare; legacy req.md/planning.md = R37.7 scope not C2.
 
 ## Traceability
 
