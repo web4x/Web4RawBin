@@ -99,7 +99,9 @@ export const EXPECTED_REVOKED_COUNT = 116;
 // quiet fail-open). Flip to true ONLY together with a materialized list at EXPECTED_REVOKED_COUNT so
 // arming and the list land atomically (the CI gate refuses ARMED-without-a-full-list). Held for the
 // architect 7-point + PO GO — this const flip IS the arm act.
-export const REVOKED_ARMED = false;
+// ARMED 2026-08-11: architect 5/5 (bb8250f7b) + req independent joint verify + PO GO. Materialized list
+// revoked-token-hashes.json = 116 salted hashes (sha256 e187d7a6…), disjoint from enrolled-79/Tron/File-owners.
+export const REVOKED_ARMED = true;
 
 // TWO OPPOSITE FAILURE DIRECTIONS IN ONE MECHANISM (failure-direction-by-consequence):
 //   • fail-OPEN for an UNLISTED token — never lock out a valid client (see isRevoked);
