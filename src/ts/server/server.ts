@@ -1741,6 +1741,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (slot === 'next') { m.nextSprintName = sprintName; m.nextBacklogOverride = tu; }
           else { m.sprintName = sprintName; m.currentTaskUuid = tu; }
           idx.put(CU, { ior: 'ior:class:CurrentSprint', model: m, ownerIor: cur?.ownerIor ?? null }); // INPUT-ONLY; the task unit's status is NEVER touched
+          // R40.17 LIVE (Tron: actions should happen LIVE in the sprint tree): after the designate write, push a
+          // UNIT_CHANGED over the EXISTING wsClients transport (rides the broadcastRoomList pattern — no new transport)
+          // so every subscribed trace-tree re-renders (ViewBus 'graph' → render() re-fetches) with NO Refresh.
+          wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior: 'ior:class:CurrentSprint', uuid: CU })); });
           let label = '';
           try { const pin = resolveSprintPin(idx, slot === 'next' ? { nextSprintNumber: sprintNum } : { currentSprintNumber: sprintNum }); const s = slot === 'next' ? pin.nextBacklog : pin.current; if (s) label = `Sprint ${s.number} — ${s.status}${s.designated ? ' (designated)' : ''}`; } catch { /* label best-effort — never blocks the designation */ }
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
