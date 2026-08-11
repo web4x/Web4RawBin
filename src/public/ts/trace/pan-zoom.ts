@@ -45,6 +45,7 @@ export class RbPanZoom {
   }
 
   // [impl:uuid:0564d93b-b492-4314-9dad-a53f7ea131af] R22.2 RbPanZoom.attach (mouse handlers)
+  // [impl:uuid:58a7c149-8ea3-413d-9c77-e35aee70f2fd] RbPanZoom.attach (R40.29 pointer-unified background pan at all scales — DISTINCT from 0564d93b/R22.2, R30.11 no-re-credit; host method is `attach`, req-minted as attachMouse)
   private attach(): void {
     this.on('wheel', (e) => { // AC-c1
       e.preventDefault();
@@ -54,21 +55,42 @@ export class RbPanZoom {
 
     // v0.6.99: suppress the browser's native image/link drag so a mouse pan doesn't spawn a drag-ghost overlay.
     this.on('dragstart', (e) => e.preventDefault());
-    this.on('mousedown', (e) => {
-      if (!this.enabled || this.scale <= 1) return; // AC-c2 + R33.5 item3: pan only when zoomed AND nothing selected
-      this.dragging = true; this.lastX = e.clientX; this.lastY = e.clientY;
-      this.viewport.style.cursor = 'grabbing';
-      this.gesturing(); // AC-e5: disable iframe pointer capture on DESKTOP drag too (not just touch)
+    // R40.29 — UNIFY the mouse/pen background-drag pan onto POINTER events (ONE path; the old separate mouse handlers
+    // are GONE — a divergent 2nd path is how the s<=1 gap was born). Pans at ALL scales: the old `scale<=1` early-return
+    // is removed, so the mouse now pans even when zoomed-out/at-fit — matching what TOUCH already did via native scroll.
+    // growMode + scale<1 (a grown, scrollable canvas) → pan via native scroll (parity with touch); otherwise via the CSS
+    // tx/ty transform (s>1; at s<=1 non-grow the clamp recenters = harmless no-op). A ~4px threshold keeps a click from
+    // being a pan (so node-selection still fires); the `enabled` gate (pan OFF while a box is selected) keeps a
+    // selected-box drag moving the box, not the canvas — the same background-vs-node guardrails the old path relied on,
+    // now extended to every scale. ★ TOUCH is intentionally NOT moved onto pointer — the touch handlers below (pinch /
+    // 1-finger / double-tap) are battle-tested and touch already pans at every scale, so leaving them untouched = ZERO
+    // touch regression by construction; pointerType==='touch' is ignored here so there is no double-handling.
+    let panDownX = 0, panDownY = 0, panning = false, panArmed = false, panPid = -1;
+    this.on('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;             // touch → its own handlers (no double-handling)
+      if (!this.enabled) return;                          // R33.5: pan OFF while a box is selected (node-drag owns it)
+      panArmed = true; panning = false; panPid = e.pointerId;
+      panDownX = e.clientX; panDownY = e.clientY; this.lastX = e.clientX; this.lastY = e.clientY;
     });
-    this.on('mousemove', (e) => {
-      if (!this.dragging) return;
-      this.tx += e.clientX - this.lastX; this.ty += e.clientY - this.lastY;
+    this.on('pointermove', (e) => {
+      if (!panArmed || e.pointerId !== panPid) return;
+      const dx = e.clientX - this.lastX, dy = e.clientY - this.lastY;
+      if (!panning) { // threshold: a click (< ~4px) is a selection, NOT a pan
+        if (Math.abs(e.clientX - panDownX) < 4 && Math.abs(e.clientY - panDownY) < 4) return;
+        panning = true; this.dragging = true; this.viewport.style.cursor = 'grabbing'; this.gesturing(); // AC-e5 iframe capture off
+      }
+      if (this.growMode && this.scale < 1) { this.viewport.scrollLeft -= dx; this.viewport.scrollTop -= dy; } // pan the grown canvas (touch-parity)
+      else { this.tx += dx; this.ty += dy; this.clamp(); this.apply(); }                                     // CSS-transform pan
       this.lastX = e.clientX; this.lastY = e.clientY;
-      this.clamp(); this.apply();
     });
-    const endDrag = () => { this.dragging = false; this.viewport.style.cursor = this.scale > 1 ? 'grab' : 'auto'; this.idle(); };
-    this.on('mouseup', endDrag);
-    this.on('mouseleave', endDrag);
+    const endPan = (e: PointerEvent) => {
+      if (panPid !== -1 && e.pointerId !== panPid) return;
+      panArmed = false; panning = false; this.dragging = false; panPid = -1;
+      this.viewport.style.cursor = this.scale > 1 ? 'grab' : 'auto'; this.idle();
+    };
+    this.on('pointerup', endPan);
+    this.on('pointercancel', endPan);
+    this.on('pointerleave', endPan);
     this.on('dblclick', (e) => this.doubleTapToggle(e.clientX, e.clientY)); // R22.2 mouse-parity: dblclick toggles reset<->2x (touch already has double-tap)
 
     this.on('touchstart', (e) => {
