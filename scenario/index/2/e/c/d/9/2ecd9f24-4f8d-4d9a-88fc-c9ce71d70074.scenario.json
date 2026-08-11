@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2ecd9f24-4f8d-4d9a-88fc-c9ce71d70074",
+    "name": "ViewPipeline.revalidateOrMarkStale impl (client model.ts subscribes ws UNIT_CHANGED; on notify/focus/visibilitychange revalidate-or-stale-badge; unconfirmed==STALE fail-closed; (re)connect welcome reconciles revision)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/model.ts",
+    "markerNote": "markerPending: expert builds the client revalidation in src/public/ts/model.ts (today NO ws-invalidation). The piece Tron FEELS (pin-swap). [impl:uuid:2ecd9f24] -> I flip."
+  },
+  "ownerIor": "ior:instance:e257d70d-6753-4959-aad7-83379f03134b"
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "53a85195-4253-43b5-a6e0-c266c34f833f",
+    "name": "viewPipeline.revalidateOrMarkStale",
+    "description": "The live client subscribes to the ws UNIT_CHANGED and on notify / focus / visibilitychange REVALIDATES the affected subtree (re-fetch + compare rendered.hash vs current.hash) OR marks it VISIBLY STALE (a badge). Unconfirmed currency == STALE, never fresh (fail-closed, same shape as NOT-RUN==RED); the (re)connect welcome piggybacks the current revision for reconcile. This is how never-return-a-silently-drifted-value reaches the RENDER surface (fixes the pin-swap-not-appearing Tron feels).",
+    "class": "ior:instance:22a3c350-67a0-44cc-abd1-999d5997c4ed",
+    "method": "ior:instance:e257d70d-6753-4959-aad7-83379f03134b",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+}

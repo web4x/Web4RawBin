@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d0779715-495d-45f3-b5e9-f754040938f2",
+    "name": "ProjectionRegistry.register impl (register {selects,render}; on UNIT_CHANGED invoke only AFFECTED projections, scoped+debounced; generate-sprint-md=projection #1; add-format=registration-only DRY)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/projection-registry.ts",
+    "markerNote": "markerPending: expert builds src/public/ts/trace/projection-registry.ts. Server projections write via C8 guardedWrite; scoped to affected sprint + debounced (R37.12 AC-scoped-debounced). [impl:uuid:d0779715] -> I flip."
+  },
+  "ownerIor": "ior:instance:e73747df-3cf6-46b9-8636-c3c1479b5ce1"
+}

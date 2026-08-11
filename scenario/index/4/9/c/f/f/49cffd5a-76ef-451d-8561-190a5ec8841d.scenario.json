@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "49cffd5a-76ef-451d-8561-190a5ec8841d",
+    "name": "ViewBus.emitUnitChanged impl (publish UNIT_CHANGED{ior,uuid,hash} on canonical ViewBus keyed by ref ior:uuid, content-hash rev; NEW distinct Impl, NO re-credit of the T103/AC3 notify 9ce0b153, R30.11)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/ViewBus.ts",
+    "markerNote": "markerPending: expert build-step-3 builds emitUnitChanged on the CANONICAL ViewBus (src/public/ts/trace/ViewBus.ts, ViewBusImpl 9ce0b153/T103, LIVE-PIN rides it v0.8.90 — do NOT regress). subscribe-by-ref already present. The OTHER ViewBus file (src/public/ts/ViewBus.ts T145 'viewBus' instance, MALFORMED marker uuid e5145c01-...-4g03-... non-hex FLAGGED) is RETIRED: its 4 User-keyed importers (ProfileSheet/ProfileEditor/rb-member-badge/RoomBrowser) migrate to subscribe(ref)+re-read, THEN FILE 1 DELETED (architect ruling — no unit minted for it). UnitController.emit 6b03b619 delegates here. [impl:uuid:49cffd5a] -> I flip."
+  },
+  "ownerIor": "ior:instance:751975f4-fe3f-40d2-bbd0-25abf7e55c83"
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e73747df-3cf6-46b9-8636-c3c1479b5ce1",
+    "name": "ProjectionRegistry.register",
+    "implementations": [
+      "ior:instance:d0779715-495d-45f3-b5e9-f754040938f2"
+    ]
+  },
+  "ownerIor": "ior:instance:f145e342-026f-47eb-9a87-103e739b4eb9"
+}

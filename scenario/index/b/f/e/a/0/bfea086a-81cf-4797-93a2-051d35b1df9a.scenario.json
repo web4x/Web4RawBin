@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bfea086a-81cf-4797-93a2-051d35b1df9a",
+    "name": "projection.register",
+    "description": "Register a view format as a PROJECTION {selects, render}: generate-sprint-md = projection #1; the MDA/trace tree, detail drawers, overview each register. On UNIT_CHANGED the pipeline invokes ONLY the AFFECTED projections (by selects), scoped + debounced. Adding a format is REGISTRATION ONLY — zero bus/pipeline edits (DRY).",
+    "class": "ior:instance:f145e342-026f-47eb-9a87-103e739b4eb9",
+    "method": "ior:instance:e73747df-3cf6-46b9-8636-c3c1479b5ce1",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "db4008d9-bcb0-427c-a465-cc776a3a08f3",
+    "name": "ViewBus",
+    "sourceFile": "ior:file:src/public/ts/trace/ViewBus.ts",
+    "methods": [
+      "ior:instance:751975f4-fe3f-40d2-bbd0-25abf7e55c83"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

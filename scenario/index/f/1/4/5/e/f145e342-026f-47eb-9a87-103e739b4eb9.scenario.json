@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "f145e342-026f-47eb-9a87-103e739b4eb9",
+    "name": "ProjectionRegistry",
+    "sourceFile": "ior:file:src/public/ts/trace/projection-registry.ts",
+    "methods": [
+      "ior:instance:e73747df-3cf6-46b9-8636-c3c1479b5ce1"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

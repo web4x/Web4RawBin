@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "e257d70d-6753-4959-aad7-83379f03134b",
+    "name": "ViewPipeline.revalidateOrMarkStale",
+    "implementations": [
+      "ior:instance:2ecd9f24-4f8d-4d9a-88fc-c9ce71d70074"
+    ]
+  },
+  "ownerIor": "ior:instance:22a3c350-67a0-44cc-abd1-999d5997c4ed"
+}

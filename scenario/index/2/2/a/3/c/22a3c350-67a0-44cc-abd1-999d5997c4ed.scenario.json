@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "22a3c350-67a0-44cc-abd1-999d5997c4ed",
+    "name": "ViewPipeline",
+    "sourceFile": "ior:file:src/public/ts/model.ts",
+    "methods": [
+      "ior:instance:e257d70d-6753-4959-aad7-83379f03134b"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
