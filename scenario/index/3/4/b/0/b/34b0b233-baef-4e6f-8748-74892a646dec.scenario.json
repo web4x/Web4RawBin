@@ -1,0 +1,48 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "34b0b233-baef-4e6f-8748-74892a646dec",
+    "altId": "BUG-KEYBAR-READPATH",
+    "name": "BUG: terminal keyboard-bar never renders — reader used j.model.keys/j.keys while /api/ior serves keys at unit.model.keys (empty array → no keybar)",
+    "description": "Tron-facing DEFECT (real page): the on-screen keyboard-bar (.rb-keybar) never renders in the terminal detail. ROOT = a READ-PATH mismatch: /api/ior returns the view WRAPPER { ior, type, unit:{ ior, model }, html, md } (R35/R36 view-unit wrap) so the keymap lives at j.unit.model.keys — but RbTerminalDetail.mountKeyBar (rb-terminal-detail.ts:90) read j.model.keys || j.keys, got undefined → the array guard produced an EMPTY keys[] → no bar appended. DISTINCT from the adjacent features: it is NOT R40.3 (OS-keyboard SUPPRESS) nor R40.20 (keybar first-key TOGGLE design) — those are the features this bug makes UNDELIVERABLE (a keybar that never renders means suppress-and-use-our-bar and first-key-toggle both cannot work on his device). Captured because the defect existed ONLY as a fix-comment inside the r403a gate = invisible to the board + campaign count (reverse credit-debt). FIX is a read-path correction (read j.unit.model.keys FIRST, then fallbacks + Array.isArray guard).",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "unitLinks": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "discoverySource": {
+      "type": "tester-measured-device-facing",
+      "flaggedBy": "robbin-po (tester-measured)",
+      "date": "2026-08-11",
+      "note": "Tester measured the read-path mismatch from the r403a gate; the defect had no schedulable unit (it lived only as a code comment) so it could never be scheduled/credited. Minted distinct so the campaign can finish it. Evidence = r403a gate (below).",
+      "evidence": "test/visual/r403a-terminal-suppress-layout-gate.mjs — asserts .rb-keybar renders with keys + keys reach the PTY @390 real-WebKit; a keys=[] (empty) read = RED (no bar). The gate's keybar-renders assertion is the repro."
+    },
+    "crossRef": [
+      "ior:instance:2182c412-54d1-4e25-8938-41c6e7133337"
+    ],
+    "crossRefNote": "DISTINCT from R40.3 (terminal OS-keyboard SUPPRESS, gate r403a) and R40.20 (keybar first-key TOGGLE, design-req) — this read-path bug makes BOTH undeliverable (their shared prerequisite is a keybar that actually renders). Do NOT fold into either; they are different features (PO ruling). crossRef listed as the impacted features. (R40.3/R40.20 uuids to be added when confirmed; keeping the ref set minimal to avoid a wrong-uuid.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-read-path",
+        "group": "read-path",
+        "text": "RbTerminalDetail.mountKeyBar reads the keymap from the /api/ior VIEW-WRAPPER at j.unit.model.keys FIRST (the R35/R36 view-unit wrap), with j.model.keys / j.keys as fallbacks and an Array.isArray guard — NEVER assumes the keys live at the top level (the bug: j.model.keys → undefined → empty → no bar)."
+      },
+      {
+        "id": "AC-renders",
+        "group": "renders",
+        "text": "The keyboard-bar (.rb-keybar) RENDERS with its keys on the real terminal-detail page @390 (was 0 keys → absent). Verified by the r403a gate keybar-renders assertion (keys[] non-empty + buttons present)."
+      },
+      {
+        "id": "AC-fail-closed",
+        "group": "fail-closed",
+        "text": "Fail-closed on an unreadable/absent unit: never fabricate keys; an empty/failed fetch yields no bar (not a crash), but a WELL-FORMED /api/ior response MUST yield the keys (the bug was a well-formed response mis-read as empty)."
+      },
+      {
+        "id": "AC-gate",
+        "group": "gate",
+        "text": "GATE (r403a, DET-3x @390 real-WebKit): open the terminal detail → assert .rb-keybar renders with the expected keys AND a bar key's bytes reach the (mocked) PTY. A keys=[] empty read → RED. Chromium-emulation NOT accepted for the render half."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
