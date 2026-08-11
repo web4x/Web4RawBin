@@ -4,7 +4,9 @@
     "uuid": "b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
     "name": "Assign task as CURRENT or NEXT — owner-gated action units record explicit current/next (override derived, single-sourced in resolver; explicit-current unblocks the ambiguous pin)",
     "altId": "R40.17",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:50f51ac1-2f9a-46d4-8137-b4730b237e4f"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
