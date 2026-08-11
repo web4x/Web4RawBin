@@ -2716,7 +2716,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const uptime = Math.floor((Date.now() - serverStartTime.getTime()) / 1000);
       // (B) LOUD-ABSENCE: refuse to report healthy when the revocation kill is ARMED but the list is
       // missing/short — 503 so monitoring screams instead of a green light over an evaporated revocation.
-      const base = { uptime, version: getVersion(), connections: wsClients.size, rooms: roomManager.size };
+      // revoked:{armed,loaded} makes the arm OBSERVABLE from outside: a 200 alone is ambiguous (not-armed
+      // vs armed-and-correct); the visible count lets anyone independently confirm the mechanism SEES 116,
+      // not merely that no 503 fired (absence of failure ≠ evidence of success).
+      const base = { uptime, version: getVersion(), connections: wsClients.size, rooms: roomManager.size, revoked: { armed: REVOKED_ARMED, loaded: revokedTokens.size } };
       if (revokedHealthError) {
         res.writeHead(503, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ status: 'unhealthy', reason: revokedHealthError, ...base }));
