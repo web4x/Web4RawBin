@@ -3,8 +3,13 @@
  * tokens) into data/revoked-tokens.json. Deliberate, reviewed, run-once-per-deploy step — NOT a live
  * derivation (the server never widens the set at runtime).
  *
- * Run: /opt/node22/bin/node --import tsx scripts/gen-revoked-tokens.ts [--write]
- *   (no flag = dry-run: prints the counts + invariants, writes nothing.  --write = materialize the file.)
+ * Run: /opt/node22/bin/node --import tsx scripts/gen-revoked-tokens.ts [--write] [--out <path>]
+ *   (no flag = dry-run: prints the counts + invariants, writes nothing.  --write = materialize the file.
+ *    --out <path> = write to a SCRATCH path instead of the tracked repo-root file — used to produce the
+ *    artifact req verifies BEFORE the arm, so verification lands on the thing that will ship, not after.)
+ * DETERMINISTIC by construction: fixed committed salt + a fixed input set (the on-disk Device units) +
+ * a .sort() on the hashes ⇒ byte-identical output across runs. So the arm-time real write reproduces the
+ * req-verified scratch artifact exactly (the arm step still byte-diffs the two as a belt-and-braces check).
  *
  * REFUSES TO WRITE unless every safety invariant holds (|revoked|==116, disjoint from enrolled/Tron/
  * File-owners) — over-revoking is the lockout risk, so a drift fails LOUD instead of shipping a bad list.
@@ -18,7 +23,11 @@ import { computeRevocationScope, EXPECTED_REVOKED_COUNT, hashToken } from '../sr
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // TRACKED (salted-hash) list at repo root — deploy-durable, not a credential. NOT under data/ (runtime).
-const OUT = path.join(ROOT, 'revoked-token-hashes.json');
+// --out <path> overrides the target (scratch artifact for pre-arm verification).
+const outArg = process.argv.indexOf('--out');
+const OUT = outArg >= 0 && process.argv[outArg + 1]
+  ? path.resolve(process.argv[outArg + 1])
+  : path.join(ROOT, 'revoked-token-hashes.json');
 const write = process.argv.includes('--write');
 
 const idx = new ScenarioIndex(path.join(ROOT, 'scenario/index'));
