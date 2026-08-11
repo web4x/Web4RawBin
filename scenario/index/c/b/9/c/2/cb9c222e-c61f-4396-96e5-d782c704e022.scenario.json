@@ -9,7 +9,9 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:0f60a0b7-f174-4bd4-8e93-d45848cbc4e2"
+    ],
     "description": "The A1 DEFAULT actions Scenario and Edit — the two the universalActionBar composes on ALL usages — must ALWAYS open in a NEW TAB, never navigate the current one, from EVERY surface the bar appears on (trace / model / room / task detail / drawer). Losing his place on a phone is the actual pain.",
     "tronQuote": "make sure the default action scenatio edit alwazs opens in a new tab",
     "status": "Backlog",

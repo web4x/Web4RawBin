@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0f60a0b7-f174-4bd4-8e93-d45848cbc4e2",
+    "name": "actionBar.defaultsNewTab",
+    "description": "The A1 default actions Scenario and Edit always open in a NEW TAB from every surface the universalActionBar composes on, never navigating the current tab. window.open _blank triggered SYNCHRONOUSLY in the tap handler (iOS: open the tab first, then point it, for any async-resolve branch — a non-sync open is silently popup-blocked). Sibling to actionBar.openBaseUnit (R36.5).",
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "method": "ior:instance:276e4981-4415-4e31-af3f-c19217322725",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:cb9c222e-c61f-4396-96e5-d782c704e022"
+}

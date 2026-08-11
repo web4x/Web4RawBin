@@ -6,7 +6,8 @@
     "description": "A1's core new decl (rb-detail-drawer.ts:76, private onUniversalAction arrow-fn): the universal Scenario/Edit verb HANDLER — Scenario → location.href /scenario?ior=<uuid>, Edit → scenarioEditorHref(uuid). Distinct from universalActionBar (ffd44b17, the default-pair composition) — this is the click behavior. ALREADY BUILT v0.8.43; expert places [impl:uuid:005dbd3e] traceability-only (no code change). IMPL-MINT (mint-onto-existing).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "implementations": [
-      "ior:instance:005dbd3e-19e3-473f-944b-96c4e8053b4a"
+      "ior:instance:005dbd3e-19e3-473f-944b-96c4e8053b4a",
+      "ior:instance:7557bd7c-7e23-43c3-9772-c4189a87b434"
     ],
     "tests": []
   },
