@@ -204,38 +204,63 @@ for (const key of idx.list()) {
   }
 }
 if (tokenPathsLeft) fails.push(`${tokenPathsLeft} tracked unitLinks still embed an owner-TOKEN path segment (must be storageId)`);
-// (4d) PIN 2 (architect) — DELTA, not absolute. The copy must not BREAK any symlink; but the originals
-// already contain PRE-EXISTING dangling symlinks (measured: 36/69 broken — refs to scenario units that no
-// longer exist / wrong-depth ../ counts), which the re-key faithfully preserves and is NOT responsible for.
-// So the invariant is 0 NEW broken (copy-broken <= original-broken), proven by comparing the untouched
-// token homes (still present — copy is additive) against the storageId copies. fs.existsSync FOLLOWS the
-// link → false if broken; recursion enters only real dirs (never a symlink entry) → no loop.
-const brokenIn = (dirs: string[]) => {
-  let t = 0, b = 0;
-  const w = (d: string) => {
+// (4d) PER-HOME declared==materialized (architect option-2 REFINED — the anti-corruption invariant).
+// ★ The migration is NOT a pure copy — it HEALS: ScenarioIndex.put() syncs the data/users symlink farm from
+// unitLinks (addLink→ensureSymlinkDisk), MATERIALIZING stale declared-but-unmaterialized symlinks. So a raw
+// count-mirror (copy==original) wrongly fires on a legitimate heal. The precise invariant is PER HOME,
+// BIDIRECTIONAL: the symlinks materialized in data/users/<sid>/ must EXACTLY equal the unitLinks DECLARED
+// FOR THAT HOME (units whose rewritten link → this <sid>). (a) every materialized symlink is declared for
+// THIS home → catches cross-home INJECTION + spurious (not merely "declared in SOME unit"); (b) every
+// declared-for-this-home link is materialized → catches DROPS and a silently-failed put. Allows the heal.
+const declaredFor = new Map<string, Set<string>>(); // sid → set of relpaths declared by units for that home
+for (const key of idx.list()) {
+  const u = idx.get(key); if (!u) continue;
+  for (const l of (Array.isArray((u.model as any)?.unitLinks) ? (u.model as any).unitLinks : [])) {
+    const mm = String(l).match(/data\/users\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\/(.+)$/i);
+    if (!mm) continue;
+    if (!declaredFor.has(mm[1])) declaredFor.set(mm[1], new Set());
+    declaredFor.get(mm[1])!.add(mm[2]);
+  }
+}
+const materializedRelpaths = (home: string): Set<string> => {
+  const out = new Set<string>();
+  const w = (d: string, rel: string) => {
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
-      const p = path.join(d, e.name);
-      if (e.isSymbolicLink()) { t++; if (!fs.existsSync(p)) b++; }
-      else if (e.isDirectory()) w(p);
+      const r = rel ? `${rel}/${e.name}` : e.name;
+      if (e.isSymbolicLink()) out.add(r);
+      else if (e.isDirectory()) w(path.join(d, e.name), r);
     }
   };
-  for (const d of dirs) w(d);
-  return { t, b };
+  if (fs.existsSync(home)) w(home, '');
+  return out;
 };
-const symOrig = brokenIn(ownerTokens.map(t => path.join(DATA_USERS, t)));        // untouched originals (baseline)
-const symCopy = brokenIn(ownerTokens.map(t => path.join(DATA_USERS, map[t])));    // storageId copies
-const newBroken = symCopy.b - symOrig.b;
-if (newBroken > 0) fails.push(`${newBroken} NEW broken symlinks introduced by the copy (originals ${symOrig.b} broken, copies ${symCopy.b}) — the copy must preserve resolution`);
-// COUNT MIRROR (architect): delta-broken alone false-PASSES if the copy DROPS a resolving symlink
-// (symCopy.t=68/b=36 → newBroken=0) and the content-multiset excludes symlinks → assert copy total ==
-// original total so a dropped OR added symlink is caught too.
-if (symCopy.t !== symOrig.t) fails.push(`symlink COUNT MIRROR: copies have ${symCopy.t} symlinks vs originals ${symOrig.t} (a symlink was dropped/added — the class delta+multiset jointly miss)`);
-console.log(`in-home symlinks: originals ${symOrig.t - symOrig.b}/${symOrig.t} resolve (${symOrig.b} PRE-EXISTING dangling, flagged req); copies ${symCopy.t - symCopy.b}/${symCopy.t} resolve → NEW broken=${newBroken} (0 req), COUNT MIRROR ${symCopy.t}==${symOrig.t} (${symCopy.t === symOrig.t ? '✓' : '✗'})`);
+// Compare each COPY to its OWN untouched ORIGINAL plus the declared heals (the faithful baseline the copy
+// must preserve). A raw "materialized==declared-for-home" over-fires on PRE-EXISTING undeclared symlinks
+// (stale links / shared-room materializations) that the copy faithfully carried over from the original —
+// those are debt, not migration corruption. So: EXTRA (copy \ original) is allowed ONLY if declared-for-this-
+// home (a legit put heal); any other EXTRA = INJECTION. MISSING (original \ copy) must be empty = no DROP.
+let homeFails = 0, injectedTotal = 0, droppedTotal = 0, healedTotal = 0;
+for (const token of ownerTokens) {
+  const sid = map[token];
+  const decl = declaredFor.get(sid) || new Set<string>();
+  const orig = materializedRelpaths(path.join(DATA_USERS, token));  // untouched original (faithful baseline)
+  const copy = materializedRelpaths(path.join(DATA_USERS, sid));    // storageId copy (after put heal)
+  const extra = [...copy].filter(r => !orig.has(r));               // added by the migration
+  const missing = [...orig].filter(r => !copy.has(r));             // dropped by the migration
+  const injected = extra.filter(r => !decl.has(r));               // EXTRA not explained by a declared heal = INJECTION/corruption
+  healedTotal += extra.length - injected.length;
+  if (injected.length || missing.length) {
+    homeFails++; injectedTotal += injected.length; droppedTotal += missing.length;
+    if (homeFails <= 3) console.error(`  home ${sid.slice(0,8)}: ${injected.length} INJECTED (extra, undeclared), ${missing.length} DROPPED (in original, not in copy)`);
+  }
+}
+if (homeFails) fails.push(`${homeFails} homes FAIL copy==original+declared-heals (${injectedTotal} injected, ${droppedTotal} dropped) — corruption`);
+console.log(`PER-HOME copy==original+heals: ${ownerTokens.length - homeFails}/${ownerTokens.length} homes OK (${healedTotal} declared heals allowed; 0 injection, 0 drop required)`);
 
 if (fails.length) {
   console.error(`✗ VERIFY FAILED (ABORT — originals untouched; git checkout scenario/index to revert):`);
   for (const f of fails) console.error('  - ' + f);
   process.exit(1);
 }
-console.log(`✓ VERIFY PASS: links resolve · storageId multiset == APPLY_REF quiesced-start (0 content lost) · symlink count-mirror + 0-new-broken · 0 owner-token paths in tracked unitLinks`);
+console.log(`✓ VERIFY PASS: links resolve · storageId multiset == APPLY_REF quiesced-start (0 content lost) · per-home copy==original+declared-heals (0 injection, 0 drop) · 0 owner-token paths in tracked unitLinks`);
 console.log(`NEXT (outside this script): deploy regrowth-kill code + restart; originals kept as insurance.`);
