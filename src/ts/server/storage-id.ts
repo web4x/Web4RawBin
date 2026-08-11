@@ -15,6 +15,7 @@
 
 import fsSync from 'node:fs';
 import crypto from 'node:crypto';
+import path from 'node:path';
 
 // Flip to true ATOMICALLY WITH the migration (the one window's step 5). While false → INERT: call sites use
 // the raw token (current behavior). While true → new homes/uploads key by storageId + the fail-loud map
@@ -39,14 +40,39 @@ export function storageMapSize(): number { return Object.keys(_sm.map).length; }
 // is only ever a map VALUE, never a KEY → map-only lookup returns '' → no home. Legit tokens always have a
 // map entry (migration, or getOrMint on their first write); a pre-write new user reads '' = empty (correct).
 // Callers MUST treat '' as NO HOME (return no rooms / no file), never fall back to the token.
-export function homeKeyFor(token: string, opts: { mint: boolean }): string {
-  return resolveHomeKey(token, opts, REKEY_APPLIED, _sm);
+// READ returns `string | null` — NULL (not '') for "no home". ★ WHY (PO, by-construction): '' is falsy but
+// PATH-JOINABLE — path.join(USERS_DIR, '', 'rooms', id) = the users ROOT = ALL homes = worse-than-original
+// exposure, and a missed guard looks like a harmless falsy check. `null` makes the danger IMPOSSIBLE, not
+// guarded-per-site: path.join rejects `string | null`, so a caller that forgets to handle no-home is a
+// COMPILE ERROR (TS) / a throw (runtime), never a silent parent-dir read. WRITE always returns a string.
+export function homeKeyFor(token: string, opts: { mint: true }): string;
+export function homeKeyFor(token: string, opts: { mint: false }): string | null;
+export function homeKeyFor(token: string, opts: { mint: boolean }): string | null {
+  return resolveHomeKey(token, opts as any, REKEY_APPLIED, _sm);
 }
-// Pure core (applied + sm injected) so the security property is DEMONSTRABLE in a test without flipping the
-// committed REKEY_APPLIED const. READ is map-ONLY → a storageId (a map VALUE, never a KEY) resolves to ''.
-export function resolveHomeKey(token: string, opts: { mint: boolean }, applied: boolean, sm: StorageMap): string {
+// Pure core (applied + sm injected) so the security property is DEMONSTRABLE without flipping the committed
+// REKEY_APPLIED const. READ is MAP-ONLY → a storageId (a map VALUE, never a KEY) resolves to null.
+export function resolveHomeKey(token: string, opts: { mint: true }, applied: boolean, sm: StorageMap): string;
+export function resolveHomeKey(token: string, opts: { mint: false }, applied: boolean, sm: StorageMap): string | null;
+export function resolveHomeKey(token: string, opts: { mint: boolean }, applied: boolean, sm: StorageMap): string | null {
   if (!applied) return token;
-  return opts.mint ? getOrMintStorageId(token, sm) : (sm.map[token] || '');
+  return opts.mint ? getOrMintStorageId(token, sm) : (sm.map[token] ?? null);
+}
+
+// homePathFor — THE one builder for a data/users home path, and the STRUCTURAL BACKSTOP for the null
+// no-home sentinel (architect + PO: make the danger impossible, not guarded-per-site). THROWS on a
+// null/empty (or path-unsafe) key, so a no-home result can NEVER resolve to a directory — least of all the
+// users ROOT (path.join(usersDir,'') = usersDir = every owner's home = worse-than-original exposure). Every
+// data/users/<key>/... construction MUST route through this: a forgotten upstream null-guard becomes a LOUD
+// throw here instead of a silent parent-dir read.
+export function homePathFor(usersDir: string, homeKey: string | null, ...segments: string[]): string {
+  if (homeKey === null || homeKey === undefined || homeKey === '' || typeof homeKey !== 'string') {
+    throw new Error('homePathFor: refusing to build a home path from an empty/no-home key (would resolve to the users root = every home)');
+  }
+  if (homeKey.includes('/') || homeKey.includes('\\') || homeKey.includes('..')) {
+    throw new Error(`homePathFor: invalid home key (path-traversal / separator)`);
+  }
+  return path.join(usersDir, homeKey, ...segments);
 }
 
 export function loadStorageMap(pathStr: string): Record<string, string> {
