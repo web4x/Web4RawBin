@@ -4,6 +4,7 @@
 import { downloadVCard } from '../vcard-download.js';
 import { fillPreviewPane } from './content-preview.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
+import { ViewBus } from './ViewBus.js'; // R40.17: notify the CurrentSprint singleton ref so the eager-lazy pin re-fetches live
 
 type Action = { verb: string; label: string };
 const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next'];
@@ -142,6 +143,7 @@ function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): vo
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
         surfaceVerdict(drawer, `📌 Designated ${slot} — pin now: ${j.label || j.sprint || 'updated'} (task status unchanged)`, 'ok');
+        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17: the eager-lazy pin's targeted subscriber re-fetches the 2-node pin → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Designation NOT recorded.', 'err');
       } else {

@@ -93,7 +93,13 @@ export class RbTraceTree extends HTMLElement {
     this.upgradeProperty('items');
     this.upgradeProperty('graph');
     try { this.expanded = new Set(JSON.parse(localStorage.getItem(this.lsKey) || '[]')); } catch { /* ignore */ }
-    if (this.hasAttribute('data-eager-lazy')) { void this.renderCurrentSprintEagerLazy(); } // T30.1: 2-node eager-lazy tree
+    if (this.hasAttribute('data-eager-lazy')) {
+      void this.renderCurrentSprintEagerLazy(); // T30.1: 2-node eager-lazy tree
+      // R40.17 LIVE-pin: subscribe to the CurrentSprint singleton's OWN ref (TARGETED — NOT the broad 'graph' channel,
+      // which stays flood-excluded at the block below). A pin-designate notifies this ref → re-fetch ONLY the 2-node
+      // pin, so the sprint tree updates LIVE with no Refresh @390 without re-rendering (flooding) the whole tree.
+      this.unsub = ViewBus.subscribe('current-sprint-singleton-0000-000000000001', () => { void this.renderCurrentSprintEagerLazy(); });
+    }
     else if (this._items) { this.renderItems(); } else { this.render(); }
     if (!this.getAttribute('data-seed-ior') && !this.hasAttribute('data-eager-lazy') && !this._items) { // R31.8c round-4 FIX-A2(a): an ITEMS-fed tree (server-manager / feature-manager) must NOT subscribe to graph updates — render() would wipe its items to the 'no graph' placeholder
       this.unsub = ViewBus.subscribe('graph', () => this.render());

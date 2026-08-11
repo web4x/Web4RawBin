@@ -29,7 +29,9 @@ async function load(): Promise<void> {
     tree.setAttribute('data-eager-lazy', '');
     tree.graph = graph;
     treeMount.appendChild(tree);
-    document.addEventListener('current-sprint-changed', () => tree.renderCurrentSprintEagerLazy());
+    // R40.17: the eager-lazy tree now self-subscribes to the CurrentSprint singleton ref on the graph-bus (rb-trace-tree
+    // connectedCallback) — the old bespoke 'current-sprint-changed' DOM event was DEAD (nothing dispatched it), which was
+    // the live-pin gap. No bespoke channel; the same ViewBus that designate now notifies drives the re-fetch.
 
     // Detail drawer
     const drawer = document.createElement('rb-detail-drawer');
