@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "12316904-d0d9-49ac-9712-254c4392b6bb",
+    "name": "canonGuard.assertNoSchemeLiteralInSource",
+    "description": "Scan generator SOURCE (src/ + scripts/*.ts) for a HARDCODED bespoke-scheme literal (R-C<n> / task-c<n> / Task C<n>) — a generator ASSERTING the dead scheme -> RED. check-altid-canon inspects UNITS; it structurally could NOT catch a scheme literal in source, which is exactly where the board-drift defect lived (the overview index hardcoded 'R-C1 pin + R-C5 rollup'). EXCLUDES: the INV-C<n> invariant-ID namespace (different namespace, renaming = code change with test/gate fallout), comment-only lines, and the guard file itself.",
+    "class": "ior:instance:13f97053-ac31-420e-bb3a-4190f50cbf6a",
+    "method": "ior:instance:1bba4857-a90a-4c99-9cd3-8925ff8f9d22",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9"
+}

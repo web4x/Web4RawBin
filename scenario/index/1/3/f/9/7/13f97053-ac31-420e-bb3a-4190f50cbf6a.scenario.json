@@ -5,7 +5,8 @@
     "name": "AltIdCanonGuard",
     "sourceFile": "ior:file:scripts/check-altid-canon.ts",
     "methods": [
-      "ior:instance:993e5667-106a-4d6d-abf2-f8044df6214e"
+      "ior:instance:993e5667-106a-4d6d-abf2-f8044df6214e",
+      "ior:instance:1bba4857-a90a-4c99-9cd3-8925ff8f9d22"
     ],
     "unitLinks": []
   },

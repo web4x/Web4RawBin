@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1bba4857-a90a-4c99-9cd3-8925ff8f9d22",
+    "name": "AltIdCanonGuard.findSchemeLiteralsInSource",
+    "implementations": [
+      "ior:instance:f14fdee7-8a3a-4824-83d7-7308274fd7f3"
+    ]
+  },
+  "ownerIor": "ior:instance:13f97053-ac31-420e-bb3a-4190f50cbf6a"
+}

@@ -12,7 +12,8 @@
   "sprintName": "Sprint 37",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:4bd737a5-cee9-4648-98f1-bebbef034627"
+   "ior:instance:4bd737a5-cee9-4648-98f1-bebbef034627",
+   "ior:instance:12316904-d0d9-49ac-9712-254c4392b6bb"
   ],
   "description": "Task/requirement naming can NEVER drift back to the killed bespoke C-scheme (S37's consistency-by-construction thesis applied to ITSELF). A ci:gate asserts the bespoke scheme is ABSENT across BOTH surfaces — a Task's identity in model.name ('Task 37.1:') + model.slug ('task-37.1-') AND a Requirement's model.altId ('R37.1'); an altId-only check is half-blind (it passes every task no matter how named). RED on any planted bespoke id, and RED on a weakened guard (tester meta-bite). Naming is canon by construction, not by vigilance. Guard SHIPPED + GREEN (skill-expert rename 4ae63b73) BEFORE this req = a #126 slip; chain completed retroactively.",
   "tronQuote": "> Tron (2026-08-11): naming must be consistent-by-construction — the S37 bespoke C1..C8 / R-C1..R-C10 scheme was renamed to fleet canon Task 37.<i> / R37.<i>, and a guard must keep it from drifting back.",
@@ -48,6 +49,11 @@
     "id": "AC-determinism",
     "group": "functional",
     "text": "Read-only over the scenario index; violations sorted by uuid; exit 1 iff any (deterministic, no false-low)."
+   },
+   {
+    "id": "AC-source-literals",
+    "group": "functional",
+    "text": "The guard ALSO scans generator SOURCE (src/ + scripts/*.ts) for a hardcoded bespoke literal (R-C<n> / task-c<n> / Task C<n>): a generator ASSERTING the dead scheme -> RED (findSchemeLiteralsInSource). EXCLUDES the INV-C<n> invariant namespace (different namespace), comment-only lines, and the guard file itself. Closes the source-surface blind side (units-scan structurally could not catch a hardcoded literal — where the overview board-drift defect lived)."
    },
    {
     "id": "AC-gate",
