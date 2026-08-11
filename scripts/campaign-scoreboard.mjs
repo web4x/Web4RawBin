@@ -69,7 +69,8 @@ for (const t of tasks) {
   const ci = chainInfo(t);
   const noChain = !(t.m.coveredRequirements || []).length;
   let gap = null;
-  if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
+  if (t.m.supersededBy) gap = 'SUPERSEDED';          // terminal by supersession (orthogonal to derived status) — leaves remaining
+  else if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
   else if (ci.coveredByTest) gap = 'RIPE';           // chain-complete-to-Test, board-lag -> flip-ready
   else if (ci.shippedImpl) gap = ci.anyTestWired ? 'two-key' : 'gate';
   else if (ci.anyImpl) gap = 'marker';
@@ -80,16 +81,17 @@ for (const t of tasks) {
 }
 
 // ---- report ----
-const remaining = rows.filter(r => r.gap !== 'DONE' && r.gap !== 'QA-REVIEW');
+const TERMINAL = new Set(['DONE', 'QA-REVIEW', 'SUPERSEDED']);
+const remaining = rows.filter(r => !TERMINAL.has(r.gap));
 const perSprint = sp => rows.filter(r => r.sp === sp);
 const count = (arr, g) => arr.filter(r => r.gap === g).length;
 
 console.log('=== CAMPAIGN SCOREBOARD (measured from units) ===');
-console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| REMAINING(<QA):', remaining.length);
+console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| REMAINING(<QA):', remaining.length);
 console.log('\n-- per-sprint (Done / QA-Review / remaining) --');
 for (const sp of ['S30', 'S31', 'S32', 'S37', 'S40']) {
   const a = perSprint(sp);
-  console.log(`${sp}: total ${a.length} | Done ${a.filter(r => r.gap === 'DONE').length} | QA ${a.filter(r => r.gap === 'QA-REVIEW').length} | remaining ${a.filter(r => r.gap !== 'DONE' && r.gap !== 'QA-REVIEW').length}`);
+  console.log(`${sp}: total ${a.length} | Done ${a.filter(r => r.gap === 'DONE').length} | QA ${a.filter(r => r.gap === 'QA-REVIEW').length} | superseded ${a.filter(r => r.gap === 'SUPERSEDED').length} | remaining ${a.filter(r => !TERMINAL.has(r.gap)).length}`);
 }
 console.log('\n-- REMAINING by what it needs --');
 console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'));
