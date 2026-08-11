@@ -10,7 +10,8 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:1c21d43a-c036-43b8-b947-1fae68720bb5"
+      "ior:instance:1c21d43a-c036-43b8-b947-1fae68720bb5",
+      "ior:instance:325e2e1b-68ba-4e36-a7a4-5f391bbad434"
     ],
     "description": "The DETAIL-VIEW FAMILY (in-room detail views + feature/detail views) has accumulated EXTRA bespoke action buttons that DUPLICATE the same logical actions per view (not DRY). Each such additional button becomes an action UNIT rendered by the ONE shared universalActionBar (R35.1). ★ The point is DE-DUPLICATION (no logical action implemented more than once across detail/feature views), NOT uniformity for its own sake. ⛔ OUT OF SCOPE: the EDITOR CHROME keeps its UX EXACTLY as-is (Code · Open Diff · Save · the Files/Editor/Preview footer · the header Back) — Tron is happy with that UX; do NOT migrate/restyle/relocate it.",
     "tronQuote": "the editor actions can stay the same regarding ux ... but all in-room detail views have additional buttons shall become [actions] and feature views / details views have additional action buttons that are extra and not DRY",

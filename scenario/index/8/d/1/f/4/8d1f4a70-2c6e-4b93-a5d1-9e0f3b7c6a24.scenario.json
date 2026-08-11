@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8d1f4a70-2c6e-4b93-a5d1-9e0f3b7c6a24",
+    "name": "test:R40.5/T40.5 dedup-facet — 0 duplicated bespoke action buttons across detail/feature views (de-dup invariant); a logical action in >=2 rb-*detail*.ts -> RED; single-surface chrome + editor-chrome-excluded pass; stub-must-fail (plant a dup -> RED). GREEN DET-3x (46b07e604). R40.5's FIRST distinct-intent coverage (NOT R34.7's cbdb3210).",
+    "implementations": [
+      "ior:instance:1beb8fb0-924f-4bdf-a5ce-a586bb2d3591"
+    ],
+    "sourceFile": "ior:file:test/visual/r405-dedup-facet-gate.mjs",
+    "status": "pass",
+    "markerNote": "Tester GREEN DET-3x (46b07e604, pushed). FULL uuid gate-sourced (r405-dedup-facet-gate.mjs, measure-don't-invent, valid v4). Hangs on R40.5's OWN dedup Impl 1beb8fb0 (DetailBespokeActionsGuard.findBespokeDuplicates) — NOT ffd44b17 (shared, R34.7's) and NOT reusing cbdb3210 (R34.7's bar test). RULE #4 borrowed-credit corrected: this is R40.5's first REAL distinct-intent coverage. Impl markerPending until expert marks the extracted fn -> I flip -> tester two-keys -> planner flips T40.5 -> QA-Review -> verdict released."
+  },
+  "ownerIor": "ior:instance:1beb8fb0-924f-4bdf-a5ce-a586bb2d3591"
+}

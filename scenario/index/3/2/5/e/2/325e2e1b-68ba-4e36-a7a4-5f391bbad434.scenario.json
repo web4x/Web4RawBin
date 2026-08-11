@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "325e2e1b-68ba-4e36-a7a4-5f391bbad434",
+    "name": "detailView.assertNoBespokeDuplication",
+    "description": "R40.5's DEDUP-ENFORCEMENT facet (distinct from the migrate-extra-buttons UC): a scoped CI lint over the detail/feature VIEW surfaces (rb-*detail*.ts, EXCLUDING editor chrome rb-editor-toolbar/layout) asserts NO logical action button is implemented BESPOKE in >1 view — a duplicate across >=2 views must be ONE universalActionBar action unit. Single-surface chrome is legitimate + PASSES. FAILS (exit 1) on any cross-file duplicate; stub-must-fail (plant the same button in a 2nd view -> RED). This is R40.5's OWN distinct-intent coverage, NOT the shared universalActionBar migration.",
+    "class": "ior:instance:22c8e257-465d-465e-9dfb-41522aa41c54",
+    "method": "ior:instance:ca5b10b4-ed67-4ba9-a235-2c2b40f391dd",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:e152177d-d016-45eb-a41f-75ffe3dc9a64"
+}

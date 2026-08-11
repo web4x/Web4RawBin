@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "22c8e257-465d-465e-9dfb-41522aa41c54",
+    "name": "DetailBespokeActionsGuard",
+    "sourceFile": "ior:file:scripts/check-detail-bespoke-actions.ts",
+    "methods": [
+      "ior:instance:ca5b10b4-ed67-4ba9-a235-2c2b40f391dd"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

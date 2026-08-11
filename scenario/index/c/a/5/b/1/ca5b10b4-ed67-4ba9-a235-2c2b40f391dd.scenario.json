@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ca5b10b4-ed67-4ba9-a235-2c2b40f391dd",
+    "name": "DetailBespokeActionsGuard.findBespokeDuplicates",
+    "implementations": [
+      "ior:instance:1beb8fb0-924f-4bdf-a5ce-a586bb2d3591"
+    ]
+  },
+  "ownerIor": "ior:instance:22c8e257-465d-465e-9dfb-41522aa41c54"
+}
