@@ -4,7 +4,9 @@
     "uuid": "7557bd7c-7e23-43c3-9772-c4189a87b434",
     "name": "RbDetailDrawer.onUniversalAction new-tab-open increment (Scenario/Edit -> window.open _blank, iOS-sync open-first-then-point)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:501f17ad-5e4b-4746-8aa1-8b7c3669955b"
+    ],
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
     "markerNote": "STRICT-AST VERIFIED: [impl:uuid:7557bd7c] adjacent-above onUniversalAction@rb-detail-drawer.ts:81 (name-match, distinct from 005dbd3e/R34.1@80; 3rd increment on shared Method 276e4981, R30.11). markerPending=false. Feature shipped v0.8.84 (93042a3eb). Test pending tester AC-6 gate (AC-7 device-only Tron)."
   }
