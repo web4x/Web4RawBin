@@ -24,3 +24,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] [Task 40.10: Tron renders his QA verdict FROM the task — Approve (records verdict + flips Done-gate) / Decline (mints a ChangeRequest)](./task-40.10-tron-qa-verdict-approve-decline.md)
 - [ ] [Task 40.11: deploymentRefs are scenario-first units with default views (fix the permanent-Loading detail drawer)](./task-40.11-deployment-refs-scenario-units-default-views.md)
 - [ ] [Task 40.12: File detail view renders a working type-appropriate preview (audio player regression fix; fail-loud, all contexts)](./task-40.12-file-preview-audio-player-regression.md)
+- [ ] [Task 40.28: Default actions Scenario + Edit ALWAYS open in a new tab (every surface the universalActionBar composes on), never navigate the current tab](./task-40.28-default-actions-new-tab.md)
