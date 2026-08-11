@@ -23,6 +23,21 @@ export const REKEY_APPLIED = false;
 
 export interface StorageMap { path: string; map: Record<string, string>; }
 
+// ── MODULE SINGLETON — the ONE chokepoint every module routes through (server, RoomKeys, UserKeys, file-unit)
+// so there is exactly one place that maps a token to its on-disk home key (correct-by-construction; grep-
+// guarded: no data/users/<token> path may bypass homeKeyFor). server.ts calls initStorageMap() at boot.
+let _sm: StorageMap = { path: '', map: {} };
+export function initStorageMap(pathStr: string): StorageMap { _sm = { path: pathStr, map: loadStorageMap(pathStr) }; return _sm; }
+export function storageMapSize(): number { return Object.keys(_sm.map).length; }
+
+// homeKeyFor — THE single resolver for every data/users/<key> access. INERT (returns the raw token, current
+// behavior) until REKEY_APPLIED. Then: READ (mint:false) = GET-ONLY (map[token] || token — side-effect-free,
+// NEVER mints on a read, per architect); WRITE (mint:true) = getOrMint (stable, injective, concurrency-safe).
+export function homeKeyFor(token: string, opts: { mint: boolean }): string {
+  if (!REKEY_APPLIED) return token;
+  return opts.mint ? getOrMintStorageId(token, _sm) : (_sm.map[token] || token);
+}
+
 export function loadStorageMap(pathStr: string): Record<string, string> {
   try { if (fsSync.existsSync(pathStr)) { const d = JSON.parse(fsSync.readFileSync(pathStr, 'utf-8')); if (d && typeof d === 'object' && !Array.isArray(d)) return d; } } catch { /* fall through */ }
   return {};
