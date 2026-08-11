@@ -75,7 +75,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
-import { resolveSprintPin } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
+import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
@@ -1695,6 +1695,44 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
+    // R40.17 — owner designates the current/next task+sprint for the pin. POST /api/current-sprint/designate
+    // { taskUuid, slot?: 'current'|'next' }. INPUT-ONLY: writes the designation onto the CurrentSprint SINGLETON
+    // (sprintName/nextSprintName = the task's sprint → the resolveSprintPin designation; currentTaskUuid /
+    // nextBacklogOverride = the task → the slotsFrom slot). ★ NEVER writes the task's own status — reactivating a task
+    // is the owner's separate R-C5 checklist act, never a pin-button side-effect (would be the authored-status disease).
+    // Designation is UNCONSTRAINED: a Closed sprint is fine (shown labeled 'Closed', NEVER refused — that IS the point).
+    if (req.method === 'POST' && filepath === '/api/current-sprint/designate') {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — only the owner steers the pin
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const tu = String(parsed.taskUuid || '').replace('ior:instance:', '').trim();
+          const slot = parsed.slot === 'next' ? 'next' : 'current';
+          const idx = new ScenarioIndex(PROD_INDEX);
+          const task = idx.get(tu);
+          if (!task || task.ior !== 'ior:class:Task') { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'task not found' })); return; }
+          // task → its sprint = the Sprint unit whose tasks[] contains it (NUMBER-keyed, robust; INV-C1-8).
+          let sprintNum: number | null = null;
+          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '')); if (tasks.includes(tu)) { sprintNum = sprintNumOf(su); break; } }
+          if (sprintNum == null) { res.writeHead(409, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'task is not in any numbered sprint — cannot designate' })); return; }
+          const sprintName = `Sprint ${sprintNum}`;
+          const CU = 'current-sprint-singleton-0000-000000000001';
+          const cur = idx.get(CU); const m = ((cur?.model as Record<string, unknown>) || { uuid: CU, name: 'Current' }) as Record<string, unknown>;
+          if (slot === 'next') { m.nextSprintName = sprintName; m.nextBacklogOverride = tu; }
+          else { m.sprintName = sprintName; m.currentTaskUuid = tu; }
+          idx.put(CU, { ior: 'ior:class:CurrentSprint', model: m, ownerIor: cur?.ownerIor ?? null }); // INPUT-ONLY; the task unit's status is NEVER touched
+          let label = '';
+          try { const pin = resolveSprintPin(idx, slot === 'next' ? { nextSprintNumber: sprintNum } : { currentSprintNumber: sprintNum }); const s = slot === 'next' ? pin.nextBacklog : pin.current; if (s) label = `Sprint ${s.number} — ${s.status}${s.designated ? ' (designated)' : ''}`; } catch { /* label best-effort — never blocks the designation */ }
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+          res.end(JSON.stringify({ ok: true, slot, taskUuid: tu, sprint: sprintName, label }));
+          addLog(`[pin-designate] ${slot} task ${tu.slice(0, 8)} -> ${sprintName} (label: ${label || '?'}) INPUT-ONLY no-status-write`);
+        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); }
+      });
+      return;
+    }
+
     if (req.method === 'POST' && filepath === '/api/avatar') {
       let body = '';
       req.on('data', (chunk: Buffer) => body += chunk);
@@ -2456,7 +2494,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let pinSprintLabel = '';
           try {
             const desNum = /\d+/.exec(String(model.sprintName || ''))?.[0];
-            const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null });
+            const nextNum = /\d+/.exec(String(model.nextSprintName || ''))?.[0];
+            const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
             const cur = pin.current;
             if (cur) pinSprintLabel = `Sprint ${cur.number} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
             slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined) as any;

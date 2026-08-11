@@ -6,7 +6,7 @@ import { fillPreviewPane } from './content-preview.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 
 type Action = { verb: string; label: string };
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline'];
+const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next'];
 
 // TYPE-CONDITIONAL verb set (INV-E3 type-policy): file-verbs never leak onto a webitem, vcard only on member/user, etc.
 function universalActionsFor(type: string): Action[] {
@@ -18,7 +18,12 @@ function universalActionsFor(type: string): Action[] {
   // client-gate on status: the SERVER is the sole authority for the Done-gate (approve 409s if not 'QA Review',
   // decline always mints a ChangeRequest) — a client status-check would be a second source of truth that can drift.
   // The 409/403 refusal is surfaced honestly by the handler; approve+decline ship TOGETHER (approve-only = prose again).
-  if (t === 'task') return [{ verb: 'qa-approve', label: '✓ Approve' }, { verb: 'qa-decline', label: '✗ Decline' }];
+  // R40.10 QA verdict + R40.17 pin designation — both surface on ANY task detail (owner-gated server-side; a non-owner
+  // tap 403s honestly). Set-current + Set-next ship TOGETHER (never one alone), like approve+decline.
+  if (t === 'task') return [
+    { verb: 'qa-approve', label: '✓ Approve' }, { verb: 'qa-decline', label: '✗ Decline' },
+    { verb: 'pin-current', label: '📌 Set current' }, { verb: 'pin-next', label: '📋 Set next' },
+  ];
   return [];
 }
 
@@ -41,6 +46,7 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionP
     const ref = d?.ref || '';
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
     if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
+    if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation
     if (verb === 'download-vcard') { // was the rb-detail-view vCard button (fetch real playerToken, then download)
       void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
         const m = (j?.unit?.model || {}) as Record<string, unknown>;
@@ -119,4 +125,28 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
       }
     })
     .catch((e) => surfaceVerdict(drawer, `⚠ ${action} request failed — ${String(e?.message || e)}. Nothing was changed.`, 'err'));
+}
+
+// R40.17 universalActions.handlePinDesignate — [impl] marker PENDING req's R40.17 client-chain mint (placed on THIS fn).
+// The owner taps 📌 Set current / 📋 Set next on a task detail → POST the owner-gated /api/current-sprint/designate.
+// The server writes the designation INPUT-ONLY onto the CurrentSprint singleton (the task's sprint + the task uuid) and
+// resolves the pin — it NEVER writes the task's status (reactivation is a separate checklist act). An owner designation
+// is UNCONSTRAINED + LABELED: a Closed/QA-pending sprint resolves and is shown with its real status, never refused. We
+// surface the server's honest label verbatim (incl. the status), and never fake success.
+//   200 → designated, pin now shows "Sprint N — <status> (designated)"   403 → owner-only, not recorded   4xx → surfaced
+function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): void {
+  const slot = verb === 'pin-current' ? 'current' : 'next';
+  surfaceVerdict(drawer, slot === 'current' ? '⏳ Setting as current…' : '⏳ Setting as next…', 'warn');
+  void fetch('/api/current-sprint/designate', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskUuid: uuid, slot }) })
+    .then(async (r) => {
+      let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
+      if (r.status === 200 && j.ok) {
+        surfaceVerdict(drawer, `📌 Designated ${slot} — pin now: ${j.label || j.sprint || 'updated'} (task status unchanged)`, 'ok');
+      } else if (r.status === 403) {
+        surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Designation NOT recorded.', 'err');
+      } else {
+        surfaceVerdict(drawer, `⚠ Designate failed (HTTP ${r.status}) — ${String(j.error || 'unknown')}. Nothing changed.`, 'err');
+      }
+    })
+    .catch((e) => surfaceVerdict(drawer, `⚠ designate request failed — ${String(e?.message || e)}. Nothing changed.`, 'err'));
 }
