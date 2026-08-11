@@ -2,9 +2,11 @@
   "ior": "ior:class:Bug",
   "model": {
     "uuid": "34b0b233-baef-4e6f-8748-74892a646dec",
-    "altId": "BUG-KEYBAR-READPATH",
-    "name": "BUG: terminal keyboard-bar never renders — reader used j.model.keys/j.keys while /api/ior serves keys at unit.model.keys (empty array → no keybar)",
-    "description": "Tron-facing DEFECT (real page): the on-screen keyboard-bar (.rb-keybar) never renders in the terminal detail. ROOT = a READ-PATH mismatch: /api/ior returns the view WRAPPER { ior, type, unit:{ ior, model }, html, md } (R35/R36 view-unit wrap) so the keymap lives at j.unit.model.keys — but RbTerminalDetail.mountKeyBar (rb-terminal-detail.ts:90) read j.model.keys || j.keys, got undefined → the array guard produced an EMPTY keys[] → no bar appended. DISTINCT from the adjacent features: it is NOT R40.3 (OS-keyboard SUPPRESS) nor R40.20 (keybar first-key TOGGLE design) — those are the features this bug makes UNDELIVERABLE (a keybar that never renders means suppress-and-use-our-bar and first-key-toggle both cannot work on his device). Captured because the defect existed ONLY as a fix-comment inside the r403a gate = invisible to the board + campaign count (reverse credit-debt). FIX is a read-path correction (read j.unit.model.keys FIRST, then fallbacks + Array.isArray guard).",
+    "altId": "BUG-KEYBAR-SILENT-EMPTY",
+    "name": "BUG: terminal keyboard-bar SILENT-EMPTY — when keys.length was 0 the bar rendered NOTHING, so absent-by-DEFECT was indistinguishable from absent-by-DESIGN (vacuity)",
+    "description": "Tron-facing DEFECT (real page): RbTerminalDetail.mountKeyBar, on a 0-length keymap (keys.length === 0), rendered NOTHING and returned silently — so a keyboard-bar that was absent BY DEFECT looked identical to one absent BY DESIGN. This is the vacuity class killed everywhere else this campaign (an empty container that looks fine = the same lie as a gate that passes without asserting). FIX (expert v0.8.91, dcf921a00): the 0-keys case now FAILS-CLOSED AND VISIBLE — it renders a role=status notice NAMING the cause, so an absent bar is never a silent mystery. DISTINCT from R40.3 (OS-keyboard SUPPRESS) and R40.20 (keybar first-key TOGGLE) — those are features whose deliverability depends on the bar being legible about its own state.",
+    "correctionRecord": "★ DIAGNOSIS CORRECTED (honest history, not a quiet edit): this unit was FIRST minted (b16fad62e) on a READ-PATH-MISMATCH hypothesis (reader used j.model.keys instead of j.unit.model.keys) — that hypothesis was MEASURED FALSE by the expert: the read-path has read j.unit.model.keys FIRST (with j.model.keys/j.keys fallbacks + Array.isArray guard) since R40.3 v0.8.67 (241ce4683), still present at rb-terminal-detail.ts:92. An AC describing a non-existent mismatch would be trivially 'satisfied' = a FALSE RECORD on disk (the exact thing we refuse). The hypothesis was relayed unmeasured (PO relayed the tester's framing); corrected here to the REAL measured defect = SILENT-EMPTY. Same uuid kept; ACs rewritten; correction recorded so the unit's history is honest.",
+    "openResidual": "★ SEPARATE OPEN QUESTION (do NOT fold into this unit): /api/ior serves 8 keys, so the NORMAL path SHOULD render 8. IF the tester at @390 still sees NO bar with 8 keys actually served, that is a DISTINCT render/CSS/WebKit defect in renderKeyMap (dbdcc42d), NOT the silent-empty vacuity — it gets its OWN unit. This unit covers the 0-keys silent-empty case ONLY.",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
@@ -12,35 +14,35 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "discoverySource": {
       "type": "tester-measured-device-facing",
-      "flaggedBy": "robbin-po (tester-measured)",
+      "flaggedBy": "robbin-po (relayed) → corrected on robbin-expert measurement",
       "date": "2026-08-11",
-      "note": "Tester measured the read-path mismatch from the r403a gate; the defect had no schedulable unit (it lived only as a code comment) so it could never be scheduled/credited. Minted distinct so the campaign can finish it. Evidence = r403a gate (below).",
-      "evidence": "test/visual/r403a-terminal-suppress-layout-gate.mjs — asserts .rb-keybar renders with keys + keys reach the PTY @390 real-WebKit; a keys=[] (empty) read = RED (no bar). The gate's keybar-renders assertion is the repro."
+      "note": "Real defect = silent-empty (0-keys renders nothing). The read-path hypothesis relayed with it was measured false (see correctionRecord). Evidence = r403a gate.",
+      "evidence": "test/visual/r403a-terminal-suppress-layout-gate.mjs — asserts .rb-keybar renders + keys reach the PTY @390 real-WebKit. The 0-keys case (was silent-nothing, now role=status notice) is the vacuity the fix makes visible."
     },
     "crossRef": [
       "ior:instance:2182c412-54d1-4e25-8938-41c6e7133337"
     ],
-    "crossRefNote": "DISTINCT from R40.3 (terminal OS-keyboard SUPPRESS, gate r403a) and R40.20 (keybar first-key TOGGLE, design-req) — this read-path bug makes BOTH undeliverable (their shared prerequisite is a keybar that actually renders). Do NOT fold into either; they are different features (PO ruling). crossRef listed as the impacted features. (R40.3/R40.20 uuids to be added when confirmed; keeping the ref set minimal to avoid a wrong-uuid.)",
+    "crossRefNote": "DISTINCT from R40.3 (terminal OS-keyboard SUPPRESS, gate r403a) and R40.20 (keybar first-key TOGGLE, design-req). Not folded — different features. crossRef listed as impacted context. Fix shipped v0.8.91 (dcf921a00).",
     "acceptanceCriteria": [
       {
-        "id": "AC-read-path",
-        "group": "read-path",
-        "text": "RbTerminalDetail.mountKeyBar reads the keymap from the /api/ior VIEW-WRAPPER at j.unit.model.keys FIRST (the R35/R36 view-unit wrap), with j.model.keys / j.keys as fallbacks and an Array.isArray guard — NEVER assumes the keys live at the top level (the bug: j.model.keys → undefined → empty → no bar)."
+        "id": "AC-no-silent-empty",
+        "group": "vacuity",
+        "text": "When the keymap is empty (keys.length === 0), mountKeyBar MUST NOT render nothing silently — a keyboard-bar absent BY DEFECT must be distinguishable from one absent BY DESIGN (the vacuity lie: empty-that-looks-fine)."
       },
       {
-        "id": "AC-renders",
+        "id": "AC-fail-visible",
+        "group": "fail-visible",
+        "text": "The 0-keys case FAILS-CLOSED AND VISIBLE: it renders a role=status notice NAMING the cause (why there are no keys), rather than an empty/absent region — so the state is legible to Tron on his device (expert fix v0.8.91)."
+      },
+      {
+        "id": "AC-normal-path-renders",
         "group": "renders",
-        "text": "The keyboard-bar (.rb-keybar) RENDERS with its keys on the real terminal-detail page @390 (was 0 keys → absent). Verified by the r403a gate keybar-renders assertion (keys[] non-empty + buttons present)."
-      },
-      {
-        "id": "AC-fail-closed",
-        "group": "fail-closed",
-        "text": "Fail-closed on an unreadable/absent unit: never fabricate keys; an empty/failed fetch yields no bar (not a crash), but a WELL-FORMED /api/ior response MUST yield the keys (the bug was a well-formed response mis-read as empty)."
+        "text": "On the normal path (/api/ior serves N>0 keys), the bar renders the N keys as before — the fail-visible notice is ONLY for the genuine 0-keys case, never a regression of the populated bar."
       },
       {
         "id": "AC-gate",
         "group": "gate",
-        "text": "GATE (r403a, DET-3x @390 real-WebKit): open the terminal detail → assert .rb-keybar renders with the expected keys AND a bar key's bytes reach the (mocked) PTY. A keys=[] empty read → RED. Chromium-emulation NOT accepted for the render half."
+        "text": "GATE (r403a, DET-3x @390 real-WebKit): 0 keys → assert a VISIBLE role=status notice (not an empty region); N keys → assert the .rb-keybar renders the N keys + a key's bytes reach the (mocked) PTY. Chromium-emulation NOT accepted for the render half."
       }
     ]
   },
