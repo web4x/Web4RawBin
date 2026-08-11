@@ -3,7 +3,7 @@
  "model": {
   "uuid": "c8615e9f-df2e-4ebf-b916-cbdd346ad1a1",
   "name": "Objects self-heal (validate on init/read, never run silently drifted)",
-  "altId": "R-C4",
+  "altId": "R37.4",
   "tasks": [
    "ior:instance:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d"
   ],
@@ -22,7 +22,7 @@
    "date": "2026-08-07",
    "doctrine": "session/knowledge-base/consistency-by-construction.md (ARON)",
    "scope": "scrum.pmo/consistency-guard-scope.md (planner+req 492e28fe5)",
-   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R-C2->R-C1->R-C3->R-C4."
+   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R37.2->R37.1->R37.3->R37.4."
   },
   "acceptanceCriteria": [
    {

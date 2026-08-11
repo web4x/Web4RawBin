@@ -2,6 +2,8 @@
 
 **By:** robbin-architect 2026-08-11, per PO + Tron ("that's far away from MVC and a view pipeline"). This is the SHAPE that unifies C4.1–C4.8 (planner containerizing in parallel) — not patches. Grounded in the PO's measured analysis (analysis-c4-task-statusnext.md, 63fb728a8) + seams I re-measured. Design → req mints the chain scenario-first → expert wires → tester bites → I backstop.
 
+> **★ RENAME NOTE (design-history, 2026-08-11):** S37's bespoke C-scheme was renamed to fleet canon `T37.<index>` / `R37.<index>` (Tron: naming must be consistent-by-construction). The `C4` task is now **T37.4** and its subtasks **C4.1→T37.4.1, C4.2→T37.4.2, C4.3→T37.4.3**; `R-C4`→`R37.4`. The `C4.x` names below are preserved as the historical record of the design; UNIT identities (uuids) are unchanged. Enforced going forward by `check-altid-canon` (ci:gates). NOTE: the broader design-note set (r-c9-*, rc10-*, pin-two-sources, etc.) still names the C-scheme in prose — tracked debt, does NOT affect the canon-guard (which checks unit altId/name+slug, not prose).
+
 ## ★★ RE-ISSUED DRY (Tron, pre-build): TWO SINGLETONS — generic mechanism + plugged-in policy
 Supersedes the task-shaped framing below (which is now merely POLICY #1 + PROJECTION #1). In an all-classes-are-scenario-units world with hundreds of view formats, a Task-specific `statusNext`/`TASK_CHANGED`/board-regenerator multiplies into N controllers/N events/N regenerators — same disease at scale. The mechanism is GENERIC; Task and the sprint board are the first plug-ins.
 

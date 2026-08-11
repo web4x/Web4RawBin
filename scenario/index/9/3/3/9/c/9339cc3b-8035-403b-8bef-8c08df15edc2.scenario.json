@@ -3,7 +3,7 @@
  "model": {
   "uuid": "9339cc3b-8035-403b-8bef-8c08df15edc2",
   "name": "sprints.overview.md is a GENERATED view (with preserved-narrative region)",
-  "altId": "R-C6",
+  "altId": "R37.6",
   "tasks": [
    "ior:instance:32061171-e236-4ed4-8f7f-8db42e0b395b"
   ],
@@ -16,15 +16,15 @@
   "useCases": [
    "ior:instance:833d3525-d269-4b98-bc23-12551c5d40b6"
   ],
-  "description": "sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R-C6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
-  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.",
+  "description": "sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R37.6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R37.2 design, PO-approved as a distinct req.",
   "discoverySource": {
    "type": "team-discovery-authorized",
-   "discoveredBy": "robbin-architect (R-C2 design surfaced)",
+   "discoveredBy": "robbin-architect (R37.2 design surfaced)",
    "approvedBy": "robbin-po",
    "date": "2026-08-07",
    "doctrine": "session/knowledge-base/consistency-by-construction.md",
-   "note": "Surfaced during R-C2 design; PO approved as distinct S37 reqs, kept OUT of R-C2."
+   "note": "Surfaced during R37.2 design; PO approved as distinct S37 reqs, kept OUT of R37.2."
   },
   "acceptanceCriteria": [
    {
@@ -40,7 +40,7 @@
    {
     "id": "AC-check-ci",
     "group": "functional",
-    "text": "A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R-C3)."
+    "text": "A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) — the overview joins the pin==board==files guard (R37.3)."
    },
    {
     "id": "AC-gate",
@@ -60,12 +60,12 @@
    {
     "id": "AC-fail-closed-vacuous",
     "group": "vacuous",
-    "text": "FAIL-CLOSED on vacuous (INV-C6-4, per R-C3): generateOverview on empty sprint set / unresolvable current-pin / missing markers / vacuous-or-unresolvable frozen-list -> REFUSE with a named reason, NEVER emit an empty index (an empty index would read as 'no sprints'); --check on a missing overview file -> FAIL named, not skip-as-match."
+    "text": "FAIL-CLOSED on vacuous (INV-C6-4, per R37.3): generateOverview on empty sprint set / unresolvable current-pin / missing markers / vacuous-or-unresolvable frozen-list -> REFUSE with a named reason, NEVER emit an empty index (an empty index would read as 'no sprints'); --check on a missing overview file -> FAIL named, not skip-as-match."
    },
    {
     "id": "AC-no-status-invention",
     "group": "honesty",
-    "text": "NO status invention (INV-C6-5): the index status = R-C5 rollup (R-C1 pin marks current/last/next); Done and supersededBy are counted DISTINCTLY (INV-C1-7 carried up) - the overview never shows/collapses a superseded sprint as Done."
+    "text": "NO status invention (INV-C6-5): the index status = R37.5 rollup (R37.1 pin marks current/last/next); Done and supersededBy are counted DISTINCTLY (INV-C1-7 carried up) - the overview never shows/collapses a superseded sprint as Done."
    }
   ]
  },

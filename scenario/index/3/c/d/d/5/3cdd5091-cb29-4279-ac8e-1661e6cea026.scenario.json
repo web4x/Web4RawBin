@@ -3,7 +3,7 @@
   "model": {
     "uuid": "3cdd5091-cb29-4279-ac8e-1661e6cea026",
     "name": "Done carries provenance — checklist-derived Done and Tron-approved Done are DISTINCT on disk; a reconcile never writes a bare unverdicted Done",
-    "altId": "R-C9",
+    "altId": "R37.9",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
@@ -14,7 +14,7 @@
       "ior:instance:c0610574-8568-469e-b893-477a24af2691",
       "ior:instance:6eb260b2-4967-4ec5-8443-bcf8a075b40f"
     ],
-    "description": "A checklist-derived Done and a Tron-approved Done are DIFFERENT claims and must be DISTINCT on disk (doneBasis = 'tron-approved' via approvedBy/approvedAt vs 'checklist-derived'). Resolves a real collision between OUR OWN rules: R-C5 (status DERIVED from checklist, single-source) vs R40.10 (Done requires Tron approvedBy/approvedAt) give OPPOSITE answers for an old fully-ticked task -> today the derived Done wins SILENTLY and impersonates a Tron-signed Done (two-sources-one-fact, quiet-impersonates-authoritative). Structural fix, not cleanup.",
+    "description": "A checklist-derived Done and a Tron-approved Done are DIFFERENT claims and must be DISTINCT on disk (doneBasis = 'tron-approved' via approvedBy/approvedAt vs 'checklist-derived'). Resolves a real collision between OUR OWN rules: R37.5 (status DERIVED from checklist, single-source) vs R40.10 (Done requires Tron approvedBy/approvedAt) give OPPOSITE answers for an old fully-ticked task -> today the derived Done wins SILENTLY and impersonates a Tron-signed Done (two-sources-one-fact, quiet-impersonates-authoritative). Structural fix, not cleanup.",
     "status": "Backlog",
     "captureOnly": true,
     "family": "done-provenance",
@@ -22,12 +22,12 @@
       "type": "po-doctrine-ruling",
       "by": "robbin-po",
       "date": "2026-08-10",
-      "note": "Ruling relayed via planner. EVIDENCE: 17 old S19/S20 Tasks bulk Planned->Done in-tree, checklist-ticked, NO approvedBy = indistinguishable from a Tron-Done. Resolves R-C5 vs R40.10 collision."
+      "note": "Ruling relayed via planner. EVIDENCE: 17 old S19/S20 Tasks bulk Planned->Done in-tree, checklist-ticked, NO approvedBy = indistinguishable from a Tron-Done. Resolves R37.5 vs R40.10 collision."
     },
     "crossRef": [
       "ior:instance:eec7ebb7-5dd3-431f-9700-a50429c3de03"
     ],
-    "crossRefNote": "Resolves the R-C5 (derived-status) vs R40.10 (Tron-approved Done) collision; sibling to the R-C consistency-by-construction family.",
+    "crossRefNote": "Resolves the R37.5 (derived-status) vs R40.10 (Tron-approved Done) collision; sibling to the R-C consistency-by-construction family.",
     "acceptanceCriteria": [
       {
         "id": "AC-a-done-basis-distinct",
@@ -37,12 +37,12 @@
       {
         "id": "AC-b-reconcile-no-bare-done",
         "group": "reconcile-no-bare-done",
-        "text": "A reconcile / R-C5 checklist-derive MUST NOT write a plain unverdicted 'Done' (no approvedBy/approvedAt) onto a Task with no Tron verdict. A fully-ticked checklist derives at most doneBasis=checklist-derived, NEVER a bare Tron-equivalent Done."
+        "text": "A reconcile / R37.5 checklist-derive MUST NOT write a plain unverdicted 'Done' (no approvedBy/approvedAt) onto a Task with no Tron verdict. A fully-ticked checklist derives at most doneBasis=checklist-derived, NEVER a bare Tron-equivalent Done."
       },
       {
         "id": "AC-c-resolves-collision",
         "group": "resolves-collision",
-        "text": "Resolves the R-C5 (status DERIVED from checklist) vs R40.10 (Done requires Tron approvedBy/approvedAt) COLLISION: today the derived Done wins SILENTLY and impersonates a Tron-signed Done. The basis field makes them distinguishable so a derived Done can NEVER impersonate a Tron Done."
+        "text": "Resolves the R37.5 (status DERIVED from checklist) vs R40.10 (Done requires Tron approvedBy/approvedAt) COLLISION: today the derived Done wins SILENTLY and impersonates a Tron-signed Done. The basis field makes them distinguishable so a derived Done can NEVER impersonate a Tron Done."
       },
       {
         "id": "AC-d-board-distinguishes",
@@ -62,7 +62,7 @@
       {
         "id": "AC-g-reads-not-owns",
         "group": "reads-not-owns-orthogonal",
-        "text": "doneBasis is ORTHOGONAL to status (INV-C9-4/C9-5): R-C5 still OWNS the status enum and R40.10 still OWNS approvedBy; DoneProvenance READS both as evidence and NEVER mutates them. The provenance LAYER over the two rules, not a rewrite of either — no cross-wire."
+        "text": "doneBasis is ORTHOGONAL to status (INV-C9-4/C9-5): R37.5 still OWNS the status enum and R40.10 still OWNS approvedBy; DoneProvenance READS both as evidence and NEVER mutates them. The provenance LAYER over the two rules, not a rewrite of either — no cross-wire."
       }
     ]
   },

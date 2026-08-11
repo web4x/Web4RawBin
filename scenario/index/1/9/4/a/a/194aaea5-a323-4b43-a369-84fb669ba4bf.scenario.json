@@ -3,7 +3,7 @@
   "model": {
     "uuid": "194aaea5-a323-4b43-a369-84fb669ba4bf",
     "name": "Test-attachment single-source = Implementation.tests[] ONLY — schema-delete the always-empty tests[] fields + lint (no Method-level tests, no union read)",
-    "altId": "R-C10",
+    "altId": "R37.10",
     "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
@@ -22,7 +22,7 @@
       "date": "2026-08-11",
       "note": "Chain-integrity: requirement.tests[] empty 540/540; the real disease = Method.tests[] 21 drift (2nd attachment point the scoreboard reads at :332). PO+architect ruled delete+lint+migrate."
     },
-    "crossRefNote": "Distinct-intent = the Test-attachment single-source layer. Do NOT cross-wire onto R-C5 (derived-status) or R-C9 (done-provenance).",
+    "crossRefNote": "Distinct-intent = the Test-attachment single-source layer. Do NOT cross-wire onto R37.5 (derived-status) or R37.9 (done-provenance).",
     "acceptanceCriteria": [
       {
         "id": "AC-a-single-source",

@@ -3,7 +3,7 @@
  "model": {
   "uuid": "1530c79c-39a6-40b7-8d2b-044d5583aa59",
   "name": "FAIL-LOUD guard asserts pin==board==files (in ci:gates, drift-injection BITE)",
-  "altId": "R-C3",
+  "altId": "R37.3",
   "tasks": [
    "ior:instance:364785b1-6d6a-4b08-8c18-a282a32fbf9d"
   ],
@@ -24,7 +24,7 @@
    "date": "2026-08-07",
    "doctrine": "session/knowledge-base/consistency-by-construction.md (ARON)",
    "scope": "scrum.pmo/consistency-guard-scope.md (planner+req 492e28fe5)",
-   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R-C2->R-C1->R-C3->R-C4."
+   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R37.2->R37.1->R37.3->R37.4."
   },
   "acceptanceCriteria": [
    {
@@ -70,7 +70,7 @@
    {
     "id": "AC-composed-strict",
     "group": "ci",
-    "text": "A consistency:strict ci:gate (INV-C3-4) composes the S37 guards - pin (R-C1 resolver==committed pin) + dual-status (R-C5 assertStatusConsistent) + board-drift (R-C2, missing-file=FAIL) + migration-refuse (R-C7 proveComplete); ANY refusal fails the build; folded into ci:gates:raw."
+    "text": "A consistency:strict ci:gate (INV-C3-4) composes the S37 guards - pin (R37.1 resolver==committed pin) + dual-status (R37.5 assertStatusConsistent) + board-drift (R37.2, missing-file=FAIL) + migration-refuse (R37.7 proveComplete); ANY refusal fails the build; folded into ci:gates:raw."
    },
    {
     "id": "AC-meta-BITE",

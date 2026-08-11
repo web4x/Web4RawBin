@@ -6,24 +6,24 @@
     "name": "Consistency by Construction",
     "number": 37,
     "slug": "sprint-37-consistency-by-construction",
-    "goal": "Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (planning.md/task-mds/requirements.md) are GENERATED views that CANNOT drift; a FAIL-LOUD guard asserts pin==board==files, folded into ci:gates. Consistency owned by DESIGN, not vigilance (CMM4, not CMM2). R-C1 pin computed-from-files, R-C2 board generated + one-time reconcile-all (clears 29-sprint drift), R-C3 fail-loud ci-guard (drift-injection BITE), R-C4 objects self-heal. Build order R-C2->R-C1->R-C3->R-C4.",
+    "goal": "Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (planning.md/task-mds/requirements.md) are GENERATED views that CANNOT drift; a FAIL-LOUD guard asserts pin==board==files, folded into ci:gates. Consistency owned by DESIGN, not vigilance (CMM4, not CMM2). R37.1 pin computed-from-files, R37.2 board generated + one-time reconcile-all (clears 29-sprint drift), R37.3 fail-loud ci-guard (drift-injection BITE), R37.4 objects self-heal. Build order R37.2->R37.1->R37.3->R37.4.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/consistency-guard-scope.md",
     "phases": [
       {
-        "id": "R-C2",
+        "id": "R37.2",
         "title": "Board = generated view + one-time reconcile-all (clear 29-sprint historical drift in ONE pass). BUILD FIRST."
       },
       {
-        "id": "R-C1",
+        "id": "R37.1",
         "title": "Pin = computed-from-files resolver (advance = run resolver, not edit a value)."
       },
       {
-        "id": "R-C3",
+        "id": "R37.3",
         "title": "FAIL-LOUD ci-guard asserts pin==board==files; PROVEN by drift-injection BITE (not asserted)."
       },
       {
-        "id": "R-C4",
+        "id": "R37.4",
         "title": "Objects self-heal — validate on init/read, never run silently drifted. BUILD LAST."
       }
     ],
@@ -54,7 +54,7 @@
     ],
     "createdAt": "2026-08-07",
     "createdBy": "robbin-req",
-    "createdBy_note": "STUB to parent the S37 requirement units (Tron-authorized S37 consistency-by-construction, #76). Planner OWNS the sprint unit — adopt this stub, enrich + stand up the board (4 covering tasks), keep uuid + requirements[]. Build order R-C2->R-C1->R-C3->R-C4.",
+    "createdBy_note": "STUB to parent the S37 requirement units (Tron-authorized S37 consistency-by-construction, #76). Planner OWNS the sprint unit — adopt this stub, enrich + stand up the board (4 covering tasks), keep uuid + requirements[]. Build order R37.2->R37.1->R37.3->R37.4.",
     "joint": [
       "robbin-req",
       "robbin-planner",

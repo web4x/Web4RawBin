@@ -3,7 +3,7 @@
  "model": {
   "uuid": "91486de1-0cdd-4d57-b07e-9a5ce945702a",
   "name": "Pin is COMPUTED from files (never hand-set)",
-  "altId": "R-C1",
+  "altId": "R37.1",
   "tasks": [
    "ior:instance:458b6b1c-b967-4c5f-8ff8-1e57e380159e"
   ],
@@ -24,7 +24,7 @@
    "date": "2026-08-07",
    "doctrine": "session/knowledge-base/consistency-by-construction.md (ARON)",
    "scope": "scrum.pmo/consistency-guard-scope.md (planner+req 492e28fe5)",
-   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R-C2->R-C1->R-C3->R-C4."
+   "note": "Consistency owned by DESIGN not vigilance (CMM4 not CMM2). Build order R37.2->R37.1->R37.3->R37.4."
   },
   "acceptanceCriteria": [
    {
@@ -65,7 +65,7 @@
    {
     "id": "AC-no-name-derivation",
     "group": "no-name-parse",
-    "text": "INV-C1-8 (extended, no-name-parse single-source): NO module derives a sprint NUMBER or SLUG from the free-text name. sprintNumOf = model.number + sourceFile/slug fallback. sprintSlugOf = the real on-disk dir via a fallback chain (path-regex /sprints/(sprint-[^/]+)/ -> model.slug-if-dir-exists -> on-disk sprint-<num>-* dir), which MUST resolve to an EXISTING dir else REFUSE (fail-closed, R-C3) - NEVER slugify(model.name) (which mints the S20 phantom sprint-20-radical-forward-planning-... with no dir). Grep-lint BITE: a name-based match/slugify(name) for sprint identity anywhere in the consumer set = FAIL."
+    "text": "INV-C1-8 (extended, no-name-parse single-source): NO module derives a sprint NUMBER or SLUG from the free-text name. sprintNumOf = model.number + sourceFile/slug fallback. sprintSlugOf = the real on-disk dir via a fallback chain (path-regex /sprints/(sprint-[^/]+)/ -> model.slug-if-dir-exists -> on-disk sprint-<num>-* dir), which MUST resolve to an EXISTING dir else REFUSE (fail-closed, R37.3) - NEVER slugify(model.name) (which mints the S20 phantom sprint-20-radical-forward-planning-... with no dir). Grep-lint BITE: a name-based match/slugify(name) for sprint identity anywhere in the consumer set = FAIL."
    }
   ]
  },

@@ -3,7 +3,7 @@
  "model": {
   "uuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa",
   "name": "Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip",
-  "altId": "R-C5",
+  "altId": "R37.5",
   "tasks": [
    "ior:instance:97e8a6ad-46db-440f-a9be-cfb97ca64df4"
   ],
@@ -16,15 +16,15 @@
   "useCases": [
    "ior:instance:2a840e93-8b20-4b50-97ef-38d7cab1df53"
   ],
-  "description": "A Task unit carries TWO independent status fields — model.status (-> planning checkbox) AND model.statusChecklist (free-text -> task-md '## Status') — which can DISAGREE WITHIN the source (e.g. Task 95: status='In Progress' but statusChecklist all-checked). R-C5 makes a task's status ONE truth WITHOUT flipping its displayed Done-ness (disagreements are surfaced for the honesty audit, never silently reconciled to Done = a status invention). Kept OUT of R-C2 (which regenerates from BOTH fields as-is, INV-C4).",
-  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R-C2 design, PO-approved as a distinct req.",
+  "description": "A Task unit carries TWO independent status fields — model.status (-> planning checkbox) AND model.statusChecklist (free-text -> task-md '## Status') — which can DISAGREE WITHIN the source (e.g. Task 95: status='In Progress' but statusChecklist all-checked). R37.5 makes a task's status ONE truth WITHOUT flipping its displayed Done-ness (disagreements are surfaced for the honesty audit, never silently reconciled to Done = a status invention). Kept OUT of R37.2 (which regenerates from BOTH fields as-is, INV-C4).",
+  "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R37.2 design, PO-approved as a distinct req.",
   "discoverySource": {
    "type": "team-discovery-authorized",
-   "discoveredBy": "robbin-architect (R-C2 design surfaced)",
+   "discoveredBy": "robbin-architect (R37.2 design surfaced)",
    "approvedBy": "robbin-po",
    "date": "2026-08-07",
    "doctrine": "session/knowledge-base/consistency-by-construction.md",
-   "note": "Surfaced during R-C2 design; PO approved as distinct S37 reqs, kept OUT of R-C2."
+   "note": "Surfaced during R37.2 design; PO approved as distinct S37 reqs, kept OUT of R37.2."
   },
   "acceptanceCriteria": [
    {
@@ -35,7 +35,7 @@
    {
     "id": "AC-no-doneness-flip",
     "group": "functional",
-    "text": "The reconcile MUST NOT flip a task's displayed Done-ness (a status='In Progress' + all-checked checklist is SURFACED for the honesty audit, NOT silently flipped to Done) — no status invention, honors R-C2 INV-C4."
+    "text": "The reconcile MUST NOT flip a task's displayed Done-ness (a status='In Progress' + all-checked checklist is SURFACED for the honesty audit, NOT silently flipped to Done) — no status invention, honors R37.2 INV-C4."
    },
    {
     "id": "AC-detector",
