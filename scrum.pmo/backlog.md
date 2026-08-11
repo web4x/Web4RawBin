@@ -423,7 +423,7 @@ The generator's write-guard (generate-sprint-md.ts ~215-237) preserves any on-di
 
 **Proposed direction (Tron/PO decides; owner = expert generate-sprint-md + architect):** the write-guard, on finding a HEADERLESS file at a GENERATOR-OWNED path (the emitted set: planning.md, requirements.md, task-*.md), must FAIL-LOUD — report a CONFLICT (path, expected-header, action=regenerate-or-move) and exit non-zero — instead of silently preserving it. Genuinely-foreign paths (outside the generator-owned set) keep the silent-preserve behavior. Acceptance/gate: plant a headerless requirements.md at a sprint -> generator EXITS LOUD naming it (path + expected-header + "regenerate") NOT skip; a headerless foreign design-brief.md -> still preserved silently (the two responses stay distinct). Folds into ci:gates alongside check:sprint-md.
 
-**Cross-ref:** R30.18 (generateRequirementsMd = requirements.md IS a generated view), law #100 (MD = generated view of units), S40 requirements.md incident (this evidence), R-C3 (fail-loud ci-guard family — same doctrine).
+**Cross-ref:** R30.18 (generateRequirementsMd = requirements.md IS a generated view), law #100 (MD = generated view of units), S40 requirements.md incident (this evidence), R37.3 (fail-loud ci-guard family — same doctrine).
 
 ---
 **Maintained by:** robbin-planner (2026-08-08, PO directive — S40 write-guard trap)
@@ -439,7 +439,7 @@ A recurring pattern: a requirement is device-verified by Tron and/or its fix is 
 
 **Why backlog (small sweep, not ad-hoc):** each instance is fixed at flip-time by req wiring; the SWEEP is to enumerate all device-verified/shipped reqs whose chain is unwired and backfill so credit is not lost. Owner = req (chain-mint) + planner (task stand-up).
 
-**Cross-ref:** chain-complete-verify-test-units-on-disk, false-Done class (R-C5), T40.7 + R33.10 + R40.24.
+**Cross-ref:** chain-complete-verify-test-units-on-disk, false-Done class (R37.5), T40.7 + R33.10 + R40.24.
 
 ---
 **Maintained by:** robbin-planner (2026-08-10, PO ruling — device-real-chain-unwired credit-lag)

@@ -1,6 +1,6 @@
 # [test] marker AST-attach — symmetric with [impl] (the scoreboard-integrity fix)
 
-**Author:** robbin-architect · 2026-08-07. PO TOP priority (outranks the 1003-corruption repair) — a Test that credits a FILE with no per-assertion scope is a claim that cannot fail, sitting UNDER the scoreboard. Design → expert extends the marker audit → tester's blast-radius number and this gate must AGREE. Folds into R-C3's fail-closed family.
+**Author:** robbin-architect · 2026-08-07. PO TOP priority (outranks the 1003-corruption repair) — a Test that credits a FILE with no per-assertion scope is a claim that cannot fail, sitting UNDER the scoreboard. Design → expert extends the marker audit → tester's blast-radius number and this gate must AGREE. Folds into R37.3's fail-closed family.
 
 ## MEASURED (disk, HEAD)
 - **The asymmetry is real:** `[impl:uuid]` markers are AST-gated (`strict-marker-audit.ts`: PASS iff the marker HEADS a named member declaration, name-matched, via the TS AST). `[test:uuid]` markers have **NO equivalent rule** — `trace-audit` does not validate them at all. That absence IS the hole.
@@ -41,6 +41,6 @@ New/edited `[test]` markers MUST AST-attach — extend `strict-marker-audit.ts` 
 
 ## Sequence + deploy
 - **PO sequence: (1) FORWARD-GUARD + FAIL-CLOSED FIRST** — extend `strict-marker-audit` to `[test]` + fail-closed no-credit in `trace-audit`/`ci:gates`, to STOP the hole growing before touching the backlog. **(2) then the CLASSIFIED backlog** (a-reattach vs b-writeTest). The 1003-corruption repair queues behind BOTH.
-- Same fail-closed family as R-C3 (folds there or a sibling `strict-marker-audit` extension — the [impl] rule already lives there, so [test] joins it).
+- Same fail-closed family as R37.3 (folds there or a sibling `strict-marker-audit` extension — the [impl] rule already lives there, so [test] joins it).
 - scripts/CI-only (audit + gate) → no restart. Re-attach = test-file edits (no prod).
 - Expert extends `strict-marker-audit.ts` + wires `trace-audit`/`ci:gates`; tester supplies the measured baseline; I backstop (INV-T1/2/3 + count-agreement + the A1-rows-now-incomplete assertion).

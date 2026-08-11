@@ -1,6 +1,6 @@
 # Baseline-Ratchet — make permanently-red gates useful again (item 4)
 
-**Author:** robbin-architect · 2026-08-08. A gate red on known debt STOPS GATING (a new violation is invisible inside the existing red = the mirror of an always-green gate). Fix: a committed, dated baseline per CHECK; the check fails on anything BEYOND baseline; the baseline may only RATCHET DOWN; a RAISE needs the same visible authorisation as removing a gate. Generalises R-C2's INV2 delta.
+**Author:** robbin-architect · 2026-08-08. A gate red on known debt STOPS GATING (a new violation is invisible inside the existing red = the mirror of an always-green gate). Fix: a committed, dated baseline per CHECK; the check fails on anything BEYOND baseline; the baseline may only RATCHET DOWN; a RAISE needs the same visible authorisation as removing a gate. Generalises R37.2's INV2 delta.
 
 ## Granularity: per-CHECK, not per-GATE (the key)
 One gate carries an ABSOLUTE invariant AND a DELTA-baselined debt class simultaneously ([6] proves it). So the baseline record is keyed by CHECK id, not gate.
@@ -22,7 +22,7 @@ Per check: `{ check, gate, kind: "ABSOLUTE"|"DELTA", baseline: 0 | { count, know
 
 ## Per-check application (PO shapes)
 - **[1] trace:audit:strict — NO CHANGE.** Already the correct hybrid (HARD classes absolute-0 + deferred delta 1897). Went RED on a genuinely-new defect and back GREEN at d48337fe6 = proof it works. REFERENCE PATTERN. (Add TRUNCATED-STORED-REF to its absolute-0 set.)
-- **[3] check:sprint-md — DELTA + pending-migration list.** EXTEND the existing frozen-legacy-18 baseline tier (don't invent a second mechanism). Owner = R-C7. Requirement: a byte-matching sprint that REGRESSES goes RED even though the 15 known-pending don't → use the ID-SET (known-pending sprint slugs), not a bare count.
+- **[3] check:sprint-md — DELTA + pending-migration list.** EXTEND the existing frozen-legacy-18 baseline tier (don't invent a second mechanism). Owner = R37.7. Requirement: a byte-matching sprint that REGRESSES goes RED even though the 15 known-pending don't → use the ID-SET (known-pending sprint slugs), not a bare count.
 - **[6] consistency:strict — SPLIT into three checks under one gate:** (a) sprint-pin exactly-1-active = ABSOLUTE (a delta would defeat the invariant — the whole point is exactly one); (b) dual-status = DELTA-baseline the 4 known-unverifiable; (c) board-drift = inherits [3]'s delta.
 
 ## Deploy

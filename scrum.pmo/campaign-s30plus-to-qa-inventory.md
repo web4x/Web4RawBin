@@ -11,12 +11,12 @@
 
 ## S37 — CLOSE FIRST (consistency-by-construction; S40 jumped a still-open sprint)
 Board shows C1-C7 all [ ] but tonight advanced some — VERIFY each vs units.
-- **C2** (board generated view + reconcile-all): generated-view half DONE tonight (expert R-C6 write; stale-S20 overview fixed, --check flipped to pass). Remaining = one-time reconcile-all MIGRATION (dry-run+counts+reversible). Needs: (a) build(migration) + (c) gate + (d) two-key.
+- **C2** (board generated view + reconcile-all): generated-view half DONE tonight (expert R37.6 write; stale-S20 overview fixed, --check flipped to pass). Remaining = one-time reconcile-all MIGRATION (dry-run+counts+reversible). Needs: (a) build(migration) + (c) gate + (d) two-key.
 - **C5** (dual-status reconcile — one truth, no Done-flip): OPEN. Needs (a)+(c)+(d).
 - **C1** (pin computed from files): VERIFY vs units — needs (a)/(c)+(d).
 - **C3** (fail-loud guard pin==board==files, drift-injection BITE): needs (a)+(c gate w/ bite)+(d).
 - **C4** (objects self-heal validate on init/read): needs (a)+(c)+(d).
-- **C6** (sprints.overview.md generated view): expert's R-C6 --write landed the generation; VERIFY marker/two-key -> likely (b)+(c)+(d).
+- **C6** (sprints.overview.md generated view): expert's R37.6 --write landed the generation; VERIFY marker/two-key -> likely (b)+(c)+(d).
 - **C7** (legacy hand-authored boards MIGRATED, units-completeness-proven zero-loss): needs (a migration)+(c)+(d).
 
 ## S40 — BOARD IS STALE (recent credits not reflected) — VERIFY EACH vs units

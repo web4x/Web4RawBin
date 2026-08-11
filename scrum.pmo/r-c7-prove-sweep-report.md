@@ -1,4 +1,4 @@
-# R-C7 — Full `--prove` Sweep (authoritative apply-ready set)
+# R37.7 — Full `--prove` Sweep (authoritative apply-ready set)
 
 Regenerated on the FIXED prover (`perFileDiffs` single-source, HEAD `1ae1a905e`) via
 `/opt/node22/bin/node --import tsx scripts/prove-sweep.ts`. Read-only. Matches architect's independent sweep:

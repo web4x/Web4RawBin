@@ -7,7 +7,7 @@ Measured HEAD-vs-worktree:
 - **Sprint units are NOT dirty** — `git diff scenario/index` shows ZERO Sprint-unit name changes; no Sprint file is modified. So worktree==HEAD for every Sprint.
 - **The embed is IN HEAD** — `git show HEAD:…/9996b46a…` = `"name": "Sprint 22 — Traceability View Fixes"` (S22 embeds the number in the COMMITTED unit). Same for S10–S33.
 - **S34 was the worktree artifact** (already restored to a clean HEAD, per planner).
-⇒ **The S10–S33 embeds are REAL (committed-in-HEAD), NOT phantom** — my earlier "24" was worktree, but worktree==HEAD for sprints, so it stands. A de-embed of S10–S33 is a REAL rename (subject to R-C7: regen only owned boards). **BUT it is subordinate to the root below** — do not schedule it until re-dirtying is fixed, or the fix will fight fresh runtime writes.
+⇒ **The S10–S33 embeds are REAL (committed-in-HEAD), NOT phantom** — my earlier "24" was worktree, but worktree==HEAD for sprints, so it stands. A de-embed of S10–S33 is a REAL rename (subject to R37.7: regen only owned boards). **BUT it is subordinate to the root below** — do not schedule it until re-dirtying is fixed, or the fix will fight fresh runtime writes.
 
 ## 2. ★ RE-DIRTYING ROOT — the PO's hypothesis is CONFIRMED: the no-flush guard SCOPE is the defect
 - **The guard protects ONE uuid.** `index-store.ts:48`: `BUILD_OWNED_UUIDS = new Set(['config-singleton-0000-000000000001'])`; `put()` (:52) refuses a runtime write ONLY for that uuid. The chokepoint is right (put() is the sole disk-write, R31.7) — the SCOPE is wrong.
@@ -21,7 +21,7 @@ Replace `BUILD_OWNED_UUIDS` (1 uuid) with a **committed-unit-class predicate** i
 - **Refuse a runtime write to any COMMITTED/board unit class** — Sprint, Task, Requirement, UseCase, Class, Method, Implementation, Test (+ the config singleton). These are agent-authored via deliberate commits; the prod server must NEVER persist them as a side-effect of a read/reconcile/connect.
 - **Allow app RUNTIME data classes** — Profile, Room, Message, Device — but fix the write-on-READ: create in-memory on lookup, persist ONLY on a deliberate user MUTATION (a save), never on a bare `get`. (Or route live app data to a separate mutable store outside scenario/index — the cleaner long-term split.)
 - One chokepoint (put), so it holds BY CONSTRUCTION for every write path present and future.
-- **STUB-MUST-FAIL bite:** (i) simulate a runtime write of a Sprint/Task unit → the guard REFUSES (RED if it doesn't); (ii) meta-assert the guard runs → weaken/remove it → suite RED. Same two-bite standard as R-C8.
+- **STUB-MUST-FAIL bite:** (i) simulate a runtime write of a Sprint/Task unit → the guard REFUSES (RED if it doesn't); (ii) meta-assert the guard runs → weaken/remove it → suite RED. Same two-bite standard as R37.8.
 
 **Why this outranks the sweep:** the sweep is cosmetic; this is the recurring, board-CORRUPTING source (it re-dirtied S34's cousin-class, the T34.1/T36.1 status regressions, and 30+ units now). De-numbering names while the server keeps re-dirtying units is bailing a boat with the hole open. **Fix the guard scope first; then the sweep (if still wanted) runs on a tree that stays clean.**
 

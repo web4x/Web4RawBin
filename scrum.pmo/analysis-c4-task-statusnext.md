@@ -1,10 +1,10 @@
-# C4 / R-C4 — THE ISSUE: progress is never recorded at the moment it happens
+# C4 / R37.4 — THE ISSUE: progress is never recorded at the moment it happens
 
-**Origin:** Tron looked at Task C2 on his device and said *"full refinement has happened but is not reflected in the task."* He was right. This document is the analysis behind it, to be folded into **R-C4 / T-C4 (Objects self-heal — validate on init/read, never run silently drifted)**, which is the existing requirement that covers this work.
+**Origin:** Tron looked at Task 37.2 on his device and said *"full refinement has happened but is not reflected in the task."* He was right. This document is the analysis behind it, to be folded into **R37.4 / T-C4 (Objects self-heal — validate on init/read, never run silently drifted)**, which is the existing requirement that covers this work.
 
 ## The defect, precisely
 
-A task's status is DERIVED from its checklist. Agents did the work, built and credited the traceability chain, and shipped the implementation — but **nobody ever ticked the checklist**. So the status derived to `Planned` while the chain had reached a shipped Impl. The board returned a **silently-drifted value**, which is exactly what R-C4 forbids.
+A task's status is DERIVED from its checklist. Agents did the work, built and credited the traceability chain, and shipped the implementation — but **nobody ever ticked the checklist**. So the status derived to `Planned` while the chain had reached a shipped Impl. The board returned a **silently-drifted value**, which is exactly what R37.4 forbids.
 
 Confirmed instances: **C2** (reconciled 70123010e) and **C6** (reconciled 5172291fc) — both landed honestly at *In Progress 2/4*.
 
@@ -31,7 +31,7 @@ Confirmed instances: **C2** (reconciled 70123010e) and **C6** (reconciled 517229
 
 `tronApprove` already exists in the FSM, **and** R40.10's approve endpoint records `approvedBy` / `approvedAt`. If both can set `Done`, that is **two sources for one transition** — the two-sources disease. Whatever is built must declare which one OWNS the Done transition and make the other DELEGATE, never duplicate.
 
-## ACCEPTANCE CRITERIA to fold into R-C4
+## ACCEPTANCE CRITERIA to fold into R37.4
 
 - [ ] (functional) A **single advance entry point** (`statusNext`) moves a task to the next LEGAL state via the existing TRANSITIONS table — not six separate calls.
 - [ ] (functional) It **PERSISTS** the scenario unit (via the `ScenarioIndex.put` path; coordinate with the class-guard work — this is a legitimate committed-class writer).
@@ -40,7 +40,7 @@ Confirmed instances: **C2** (reconciled 70123010e) and **C6** (reconciled 517229
 - [ ] (functional) Status stays **DERIVED**: `statusNext` ticks the CHECKLIST and lets `deriveStatusEnum` produce the status — it NEVER hand-sets the enum.
 - [ ] (functional) **EVIDENCE-PRECONDITION**: it must REFUSE to advance past a step whose evidence is absent. A box ticked without evidence corrupts the exact signal Tron steers QA by.
 - [ ] (functional) **SINGLE-SOURCE with R40.10 approve**: the req must state which mechanism owns the `Done` transition; the other delegates. No second writer.
-- [ ] (functional) Objects **validate on init/read** — recompute to reality or REFUSE; never return a silently-drifted value (R-C4's original AC, now with a measured instance behind it).
+- [ ] (functional) Objects **validate on init/read** — recompute to reality or REFUSE; never return a silently-drifted value (R37.4's original AC, now with a measured instance behind it).
 - [ ] (gate) STUB-MUST-FAIL: break the advance/derive path and the gate must go RED. Name the FAMILY: **under-recorded-progress**.
 - [ ] (gate) Evidence-precondition bite: attempt to advance a step with absent evidence → MUST refuse.
 

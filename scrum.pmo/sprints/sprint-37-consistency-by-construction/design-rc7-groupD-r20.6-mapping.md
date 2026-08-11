@@ -1,4 +1,4 @@
-# R-C7 GROUP-D backfill — R20.6a-h req→UC mapping (architect, for req to mint)
+# R37.7 GROUP-D backfill — R20.6a-h req→UC mapping (architect, for req to mint)
 
 **Author:** robbin-architect · 2026-08-07. PO GO. req (0.4) is single-minter + wires per this map, verify-owner-first, adopts tester markers. MEASURED disk (not inferred): the 8 reqs R20.6a-h all have `useCases=[]`; Class `SelectionModel b57b8838` + 3 Methods + 3 UCs exist. The map below is grounded in each existing UC/Method's ACTUAL description on disk.
 

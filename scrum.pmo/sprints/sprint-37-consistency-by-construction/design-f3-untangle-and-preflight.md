@@ -24,7 +24,7 @@ The built gesture code + the f3 tests live on **`RbObjectItem`** (the item that 
 4. NO Method dedup, NO gate-impl re-owner (both already correct).
 
 ## ★ PRE-FLIGHT (PO ask — find blockers UPFRONT, not one adoption at a time)
-- The Group-D REQ-CHAINS all pre-flight **CLEAN** — because the malformed units are the **adoption TARGETS** (loose Impls/Methods/Tests req will wire), NOT yet in `req.useCases[]`. → the pre-flight must run the shared `classifyCollisionArtifact` over each pending adoption's **target-unit set** (the specific Impl/Method/Test uuids), not the wired chain. **Ask req/planner for the credit-next target-unit list** (remaining Group-D, R-C1/R-C6 refinement chains, A1=15) so I run it precisely.
+- The Group-D REQ-CHAINS all pre-flight **CLEAN** — because the malformed units are the **adoption TARGETS** (loose Impls/Methods/Tests req will wire), NOT yet in `req.useCases[]`. → the pre-flight must run the shared `classifyCollisionArtifact` over each pending adoption's **target-unit set** (the specific Impl/Method/Test uuids), not the wired chain. **Ask req/planner for the credit-next target-unit list** (remaining Group-D, R37.1/R37.6 refinement chains, A1=15) so I run it precisely.
 - **Delivered now — the 18 PREFIX-COLLISION groups (the class that CREATES false findings).** ★ Root insight: **most are FAKE-SUFFIX uuids** (fabricated, not real v4 — real v4 UUIDs do not collide on 8 chars): `d4e5f6a7` = 14 `R17.x` reqs all `-b8c9`; `a1d2e3f4` = 20 ModelElements all `-0000`; plus many `-a1b2-4c3d-8e4f-…` templated impls. Only a FEW are genuine random collisions biting adoptions: `3542dcb3` (§4), `4256aef7` (f3), `76bbedda`, `e927ecfe`, `63d58e0f`, `bfbc0874`, `79601135`, `01771d5b`. → **Recommend the prefix-guard ALSO flag fake-suffix uuids** (a `[0-9a-f]{4}`-repeated / non-random-suffix pattern) — connects to `strict-marker-audit`'s existing FAKE detector + the never-fake-suffix rule (my SKILL #17). Real random uuids don't collide; a collision is a fake-suffix smell.
 - **Master malformed-inventory** req checks any adoption target against: PREFIX-COLLISION (18 groups / 67 members, list above) + ORPHAN-OWNER (289 units, from the shared classifier) + foreign-test over-credit (a Test in >1 Impl.tests[] with mismatched era/intent, e.g. R15.4 on R20 impls).
 
@@ -39,9 +39,9 @@ Ran the identity-family classifier over the identifiable credit-next targets. ON
 | f3 R20.6c tapSingleSelect | **MALFORMED** | `2fe84858` (tap-switch Test) **TRUNCATED** |
 | f3 R20.6d longPressMultiSelect | **MALFORMED** | `4256aef7-7580` PREFIX-COLLISION · `ff903752` (longpress Test) **TRUNCATED** |
 | f3 SelectionModel methods | **CLEAN** | — |
-| R-C1 resolveSprintPin | **CLEAN** | — |
+| R37.1 resolveSprintPin | **CLEAN** | — |
 
-★ **Key: the f3 Tests themselves (`2fe84858`, `ff903752`) are TRUNCATED uuids** — that's why they didn"t resolve on disk. The real f3 blocker = truncated Test uuids + the 4256aef7 collision, NOT the (well-formed) gesture chains. **⚠ INCOMPLETE:** the remaining Group-D (R20.6e/f/g/h) + R-C6 + §4 adoption-target uuids are needed from req/planner to finish the sweep — the malformed lives in the ADOPTION TARGETS, not the wired chains, so I can only classify targets I"m given. Sending req this list; req mints against CLEAN only + fixes the named defects.
+★ **Key: the f3 Tests themselves (`2fe84858`, `ff903752`) are TRUNCATED uuids** — that's why they didn"t resolve on disk. The real f3 blocker = truncated Test uuids + the 4256aef7 collision, NOT the (well-formed) gesture chains. **⚠ INCOMPLETE:** the remaining Group-D (R20.6e/f/g/h) + R37.6 + §4 adoption-target uuids are needed from req/planner to finish the sweep — the malformed lives in the ADOPTION TARGETS, not the wired chains, so I can only classify targets I"m given. Sending req this list; req mints against CLEAN only + fixes the named defects.
 
 ## ★ 3 more malformed A1 rows (req audit) + FABRICATED-UUID detector (PO ask — I ran it)
 **Add to the pre-flight list (all confirmed my two catalogued classes, landing on rows Tron is about to sign):**

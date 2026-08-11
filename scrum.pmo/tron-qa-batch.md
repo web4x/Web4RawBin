@@ -1,4 +1,4 @@
-# Tron QA Batch — stale-Active + R-C5 Done-candidates
+# Tron QA Batch — stale-Active + R37.5 Done-candidates
 Phone-readable. NOTHING flipped Done (robbin-req recommends; Tron decides). SIGNAL, NOT STAMP. A2 scope-verify grind: S19+S21+S25 DONE.
 **A1=15 (ALL vacuity-checked, 0 PENDING: 3 task-level DIRECT signable + 12 VACUITY-CHECKED PASS) - A2=24 (held/unverified/vacuous/mis-scope) - B=3 - D=4 - S=2 - C=4**
 

@@ -25,7 +25,7 @@ The prefix-collision class has now bitten repeatedly (this + the earlier `f2f84c
 - **INV (fail-closed prefix resolution):** any unit lookup/`resolveUnit(id)` in chain ops must take a FULL 36-char uuid; a lookup by a shorter prefix that matches **>1 unit** MUST throw/refuse with a named reason — NEVER silently pick one ([[false-low-worse-than-absent]], same family as INV-C1-8 no-name-parse). A prefix matching exactly 1 is allowed but a prefix matching 0 or ≥2 refuses.
 - **Stored refs are full uuids:** every chain edge (`ownerIor`/`method`/`class`/`implementations[]`/`useCases[]`) stores a full uuid — a trace-audit assertion flags any ref shorter than a full uuid.
 - **trace-audit BITE (prefix-collision detector):** scan all units → any two sharing an 8-char prefix are reported as a latent-collision pair (so tooling/humans use full uuids for them); a chain op that resolved a colliding prefix without a full uuid FAILS the gate.
-- Folds into **R-C3** (fail-closed guards) as a sub-invariant, or a small dedicated guard. This is what turns "use full uuids" from a discipline I keep repeating into a build gate.
+- Folds into **R37.3** (fail-closed guards) as a sub-invariant, or a small dedicated guard. This is what turns "use full uuids" from a discipline I keep repeating into a build gate.
 
 ## Notes
 - req is single-minter; verify-owner-first on every step (esp. C2's 6 foreign removals + C3's a1b2/7d865e08). I backstop the well-formed chain + the systemic guard when built. No unit mutated until req executes.

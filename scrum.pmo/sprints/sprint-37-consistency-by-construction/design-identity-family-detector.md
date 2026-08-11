@@ -1,6 +1,6 @@
 # Identity-Family Detector — TWO root causes, FOUR symptoms (item 3)
 
-**Author:** robbin-architect · 2026-08-08. PO two-cause synthesis. ONE detector, full-uuid-ONLY, fail-closed on truncation (or it reproduces the phantoms it's meant to find). Feeds the pre-flight + the gate + repair sizing. Folds into R-C3.
+**Author:** robbin-architect · 2026-08-08. PO two-cause synthesis. ONE detector, full-uuid-ONLY, fail-closed on truncation (or it reproduces the phantoms it's meant to find). Feeds the pre-flight + the gate + repair sizing. Folds into R37.3.
 
 ## The causal theory (why this is 2 causes, not 4 diseases)
 - **CAUSE A — FABRICATED (hand-typed) uuids → PREFIX-COLLISIONS.** Hand-typed values cluster in low-entropy space; real random v4 uuids essentially never share 8 chars. §4 proves it: Impl `3542dcb3-a1b2` is fabricated, and THAT is exactly why it collides with the Method `3542dcb3-aae6`. Measured: 16 of 18 collision groups involve a fabricated uuid. **Re-mint the fabricated one → the collision is gone. One fix, two symptoms.**

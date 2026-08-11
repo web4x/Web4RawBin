@@ -1,13 +1,13 @@
-# R-C3 — Fail-Loud Consistency Guard (FAIL-CLOSED on vacuous input)
+# R37.3 — Fail-Loud Consistency Guard (FAIL-CLOSED on vacuous input)
 
-**Author:** robbin-architect · 2026-08-07 (S37). PO-dispatched after R-C1. Generalizes the vacuous-pass fix the R-C7 BITE exposed into a cross-cutting invariant for EVERY S37 guard. Design → req mints → expert builds → I backstop. Roots: [[correct-by-construction-needs-gate-verification]] + [[false-low-worse-than-absent]].
+**Author:** robbin-architect · 2026-08-07 (S37). PO-dispatched after R37.1. Generalizes the vacuous-pass fix the R37.7 BITE exposed into a cross-cutting invariant for EVERY S37 guard. Design → req mints → expert builds → I backstop. Roots: [[correct-by-construction-needs-gate-verification]] + [[false-low-worse-than-absent]].
 
 **DOCTRINE:** every consistency check is FAIL-LOUD (refuses with a NAMED reason, never a bare false) AND FAIL-CLOSED on vacuous input (no-data / unresolvable / empty / 0-items / wrong-type / null-output = REFUSE, never silent pass). This is what makes "by-construction" REAL rather than asserted — a guard that passes on no-input guarantees nothing.
 
 ## MEASURED ground truth (disk, HEAD v0.8.65)
 - **`ci:gates:raw`** = `trace:audit:strict && rule-pair:strict && check:sprint-md && check:camelcase && check:task-status` (via `with-node20.mjs`).
-- **The BITE-exposed bug is ALREADY fixed** in `proveComplete` (migrate-boards.ts:51-58): an unresolvable uuid → `{complete:false, reason:"FAIL-CLOSED: uuid … does not resolve"}`; wrong `ior:class` → false+reason; `buildSprintOutput` null → false+reason. R-C3 does NOT re-fix it — R-C3 **generalizes this exact pattern** to every guard, because the PO's insight is that the same vacuous shape "likely exists elsewhere."
-- **Guards in the S37 family:** `proveComplete` (R-C7, fail-closed ✓), `assertStatusConsistent` (R-C5 task-status.ts), `check:sprint-md` drift (R-C2), `resolveSprintPin` (R-C1, INV-C1-6 ✓), `trace-audit` dup/orphan/dangling (R27.2), `rule-pair`.
+- **The BITE-exposed bug is ALREADY fixed** in `proveComplete` (migrate-boards.ts:51-58): an unresolvable uuid → `{complete:false, reason:"FAIL-CLOSED: uuid … does not resolve"}`; wrong `ior:class` → false+reason; `buildSprintOutput` null → false+reason. R37.3 does NOT re-fix it — R37.3 **generalizes this exact pattern** to every guard, because the PO's insight is that the same vacuous shape "likely exists elsewhere."
+- **Guards in the S37 family:** `proveComplete` (R37.7, fail-closed ✓), `assertStatusConsistent` (R37.5 task-status.ts), `check:sprint-md` drift (R37.2), `resolveSprintPin` (R37.1, INV-C1-6 ✓), `trace-audit` dup/orphan/dangling (R27.2), `rule-pair`.
 
 ## THE INVARIANT — FAIL-CLOSED ON VACUOUS (cross-cutting, applies to EVERY guard)
 Vacuous input = any of: input ref **unresolvable** (typo/deleted uuid) · file **missing or empty** · checklist **absent/malformed** · **0 items** where ≥1 is expected · **wrong `ior:class`** · **null/undefined output** · a positive assertion over an **empty collection**.
@@ -23,7 +23,7 @@ Concrete per-guard applications (audit each for the shape):
 
 ## DESIGN
 1. **Shared helper `refuseIfVacuous(value, {name, expect}): {ok:false, reason} | {ok:true}`** — called at the TOP of every guard. Encodes the checklist above (unresolvable→null, empty-collection, wrong-type, missing-file) → returns a NAMED refusal or ok. One helper, one place, reused (DRY; no per-guard ad-hoc null-checks that each get it subtly wrong).
-2. **`consistency:strict` ci:gate** composing the S37 guards, any refusal fails the build: pin-consistency (R-C1 resolver output == committed pin) + dual-status (R-C5 `assertStatusConsistent --strict`) + board-drift (R-C2, missing-file=FAIL) + migration-refuse (R-C7 `proveComplete`). Fold into `ci:gates:raw`.
+2. **`consistency:strict` ci:gate** composing the S37 guards, any refusal fails the build: pin-consistency (R37.1 resolver output == committed pin) + dual-status (R37.5 `assertStatusConsistent --strict`) + board-drift (R37.2, missing-file=FAIL) + migration-refuse (R37.7 `proveComplete`). Fold into `ci:gates:raw`.
 3. **Vacuous-BITE suite** — the gate that PROVES the invariant: for EACH guard, feed an unresolvable / empty / malformed / wrong-type input and assert it **REFUSES with a reason** (not pass). Plus a **meta-BITE**: a deliberately-vacuous-passing stub guard makes the suite go RED (proves the suite would catch a regression).
 
 ## INVARIANTS
@@ -38,7 +38,7 @@ Concrete per-guard applications (audit each for the shape):
 - Meta-BITE: a stub guard that silent-passes vacuous input → suite RED (the suite can catch the regression class).
 - Idempotent; `consistency:strict` green on the real clean tree, RED on any injected vacuous pass.
 
-## ★ R-C3 ADDITION — 8-char prefix-collision: FORWARD guard + RETRO-audit sweep (PO 2026-08-07)
+## ★ R37.3 ADDITION — 8-char prefix-collision: FORWARD guard + RETRO-audit sweep (PO 2026-08-07)
 The prefix-collision class bit twice (the earlier `f2f84ce3` episode + §4 `3542dcb3`). A forward guard alone is HALF a fix — it stops new corruption while old corruption keeps silently crediting. Both halves land here.
 
 ### Forward guard (INV-C3-6 — fail-closed full-uuid resolution)
@@ -54,7 +54,7 @@ A runnable script (fold into `trace-audit` or `scripts/collision-artifact-audit.
 - **D. UC→wrong-type:** `UC.method→non-Method = 0` (clean); `UC.class→non-Class = 8` (CONFIRMED-CORRUPTION).
 - **E. owner→wrong-type:** `UC.owner→non-Requirement = 239 → {Sprint:186, Task:53}` (only 169/538 UCs are Req-owned). ★ **PO RULING (recorded inline, 2026-08-07): 186 UC→Sprint is TOO SYSTEMATIC to be collision = a LEGACY CONVENTION → do NOT auto-repoint, do NOT bulk-migrate this pass.** Three parts: (1) **CANONICAL RULE going forward — a UseCase's owner MUST be a Requirement** (nav-to-Sprint is a VIEW concern, not ownership); (2) **FORWARD-GUARD** new/edited UCs against it (fail-closed family, folds with INV-C3-6) so the convention can't spread; (3) the 239 = **VISIBLE, COUNTED DEBT in this needs-review bucket** — a deliberate reviewed migration later beats mass-repointing 239 ownership links now (mass-mutating a historical convention is how you break a graph). The **§4/BUG1 Sprint20 case is DIFFERENT — that one IS corruption on a live chain, fixed specifically** (repoint UC 8dc64273 → BUG1 2d5f151e, in the §4 untangle). `Method.owner→non-Class = 5` + `Impl.owner→non-Method = 10` = CONFIRMED-CORRUPTION (fix in the repair).
 - **F. 8-char prefix-collision pairs: 18** (latent — forward guard prevents new; audit lists existing so tooling uses full uuids).
-- Output = counts + samples + bucket per category; `--strict` fails CI on CONFIRMED-CORRUPTION > 0 (after the bounded fixes land), REPORT-ONLY until then (delta discipline, like R-C2 INV2). The 980 + 8 + 10 + 5 confirmed = the true blast radius to fix; the 89 + 239 = human-ruling first (don't damage legit sharing/convention).
+- Output = counts + samples + bucket per category; `--strict` fails CI on CONFIRMED-CORRUPTION > 0 (after the bounded fixes land), REPORT-ONLY until then (delta discipline, like R37.2 INV2). The 980 + 8 + 10 + 5 confirmed = the true blast radius to fix; the 89 + 239 = human-ruling first (don't damage legit sharing/convention).
 
 ## ★ REPAIR spec — confirmed-corruption set (≈1003), for the expert
 Mechanical, full-uuid only, fail-loud, idempotent, backup + pre/post counts, `--strict` AFTER (delta). `scripts/repair-collision-artifacts.ts --dry-run|--apply`. **Fixes ONLY the CONFIRMED set; NEVER touches the 89 same-name (R30.11 review), the 239 UC→Sprint/Task (E convention debt), or the 18 prefix pairs.** Runs on a clean tree so git is the backup; one atomic revertible commit.
@@ -91,5 +91,5 @@ The audit and the expert's repair diverged on nearly every category (A 715/980, 
 
 ## CHAIN + sequence + deploy
 - Chain: UC `guard.failClosedOnVacuous` → Class `ConsistencyGuard` → Method `assertNonVacuous` (+ per-guard adoption of `refuseIfVacuous`) → Impl → vacuous-BITE Test. req mints at build-go.
-- Sequence: R-C3 after R-C1 (this). THEN R-C6.
+- Sequence: R37.3 after R37.1 (this). THEN R37.6.
 - **Deploy:** scripts/CI-only (guards + ci:gates) → NO restart (unless a guard shares a server module).

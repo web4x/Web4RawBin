@@ -33,7 +33,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 ---
 
 <!-- GENERATED-INDEX:BEGIN -->
-## 📌 Sprint pointers (generated — R-C1 pin + R-C5 rollup)
+## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)
 - **current:** ⚠️ UNRESOLVED — pin ambiguous — 6 Active sprints [21, 20, 40, 19, 37, 25] — ambiguous current, never silent-pick. Resolve the checklists so exactly one sprint is In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
 
 | # | Sprint | Status |

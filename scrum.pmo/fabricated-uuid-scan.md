@@ -98,7 +98,7 @@ Trigger case: e4f5b693-c1d2-4e3f-8a5b-6c7d8e9f0a1b (54519bc4 Impl parse-test-cas
 - b5989df8-f3bc-40ea-80e6-6a7cebefacef [TestCase] canTransition checks allowed targets :: word
 - ce33dead-6064-4ffa-a9fd-14bbcacd2d28 [TestCase] send() queues messages when disconnected :: word
 - config-singleton-0000-000000000001 [Config] RawBin Config :: word;repeat5;seq-suffix
-- current-sprint-singleton-0000-000000000001 [CurrentSprint] Current: Task C2: Board is a GENERATED v :: word;repeat5;seq-suffix
+- current-sprint-singleton-0000-000000000001 [CurrentSprint] Current: Task 37.2: Board is a GENERATED v :: word;repeat5;seq-suffix
 - d20d22eb-d60c-4b8f-9caf-eed3bff702d6 [Device]  :: word
 - d28bd1ff-3f3b-497f-a1f4-6babe5e6bde3 [TestCase] valid subdirectory path works :: word
 - d4e5f6a7-b8c9-4d0e-1f2a-000000000003 [Requirement] R17.4: Index by UUID prefix — scenario/i :: interleave;word;repeat5;seq-suffix

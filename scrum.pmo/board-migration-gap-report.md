@@ -1,4 +1,4 @@
-# Board Migration Gap Report — R-C7 proveComplete sweep (READ-ONLY, semantic/by-key matcher)
+# Board Migration Gap Report — R37.7 proveComplete sweep (READ-ONLY, semantic/by-key matcher)
 
 PASS = safe to --apply (0 gaps, 0 needs-review). REFUSE = units MISSING a stable ID (real backfill gap). NEEDS-REVIEW = an id-less row with no exact text match (likely REWORDED — a human confirms, never auto-matched, never a hard gap). FAIL-CLOSED = unresolvable/wrong-ior uuid. Match is BY-KEY (altId/number), so reworded requirements are matched not flagged. Narrative excluded (G5).
 
