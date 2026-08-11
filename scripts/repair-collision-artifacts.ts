@@ -1,5 +1,5 @@
 /**
- * R-C3/repair — mechanical repair of the CONFIRMED collision-artifact corruption set (architect spec 1dfc71d1d).
+ * R37.3/repair — mechanical repair of the CONFIRMED collision-artifact corruption set (architect spec 1dfc71d1d).
  * scripts/repair-collision-artifacts.ts --dry-run(default) | --apply | --bite
  *
  * Fixes ONLY the confirmed set; NEVER touches: 89 same-name (R30.11 shared-impl review), 239 UC→Sprint/Task
@@ -115,7 +115,7 @@ else {
   const idx = new ScenarioIndex(path.join(ROOT, 'scenario/index'));
   const totalBefore = [...idx.list()].length;
   const B = analyze(idx);
-  console.log(`\nR-C3 repair-collision-artifacts — ${MODE.toUpperCase()} (total units=${totalBefore})\n`);
+  console.log(`\nR37.3 repair-collision-artifacts — ${MODE.toUpperCase()} (total units=${totalBefore})\n`);
   console.log('CONFIRMED-CORRUPTION (to repair):');
   console.log(`  A  foreign Method.implementations[] : ${B.A.length}`);
   console.log(`  D  UC.class → non-Class             : ${B.D.length}`);
@@ -169,7 +169,7 @@ function runBite() {
   applyRepair(idx, analyze(idx)); const B2 = analyze(idx);
   const idempotent = B2.A.length === 0;
   fs.rmSync(path.join(ROOT, 'scratchpad-bite'), { recursive: true, force: true });
-  console.log('R-C3 repair BITE:');
+  console.log('R37.3 repair BITE:');
   console.log('  foreign detected (A=1, X=foreign):', foreignDetected);
   console.log('  foreign MOVED to true owner:', foreignMoved);
   console.log('  same-name shared LEFT ALONE (on both S1+S2):', sharedUntouched);

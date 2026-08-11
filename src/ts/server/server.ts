@@ -1717,7 +1717,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     // { taskUuid, slot?: 'current'|'next' }. INPUT-ONLY: writes the designation onto the CurrentSprint SINGLETON
     // (sprintName/nextSprintName = the task's sprint → the resolveSprintPin designation; currentTaskUuid /
     // nextBacklogOverride = the task → the slotsFrom slot). ★ NEVER writes the task's own status — reactivating a task
-    // is the owner's separate R-C5 checklist act, never a pin-button side-effect (would be the authored-status disease).
+    // is the owner's separate R37.5 checklist act, never a pin-button side-effect (would be the authored-status disease).
     // Designation is UNCONSTRAINED: a Closed sprint is fine (shown labeled 'Closed', NEVER refused — that IS the point).
     if (req.method === 'POST' && filepath === '/api/current-sprint/designate') {
       if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — only the owner steers the pin

@@ -1,5 +1,5 @@
 /**
- * R-C3 [test]-marker forward-guard + reporter (architect da2a029e8, PO sequence step 1). Uses the SINGLE-SOURCE
+ * R37.3 [test]-marker forward-guard + reporter (architect da2a029e8, PO sequence step 1). Uses the SINGLE-SOURCE
  * predicate src/ts/scenario/test-marker-attach.ts (same one the tester baseline imports → counts can't drift).
  *
  *   default : report the 3 buckets (complete / unproven / fictional) + worst files. No exit-fail.
@@ -41,7 +41,7 @@ console.log(`  PROVEN_FICTIONAL (deny · write-test debt)  : ${b.fictional.lengt
 
 if (MODE === 'write-baseline') {
   const nonComplete = [...b.unproven, ...b.fictional].map((m) => m.uuid).sort();
-  fs.writeFileSync(BASELINE, JSON.stringify({ note: 'R-C3 [test]-marker delta baseline — non-complete uuids known at snapshot. --strict fails on any NON-complete marker NOT listed here (stops the hole growing). Shrink on drain.', fileSet: 'test/**/*.ts', count: nonComplete.length, uuids: nonComplete }, null, 2) + '\n');
+  fs.writeFileSync(BASELINE, JSON.stringify({ note: 'R37.3 [test]-marker delta baseline — non-complete uuids known at snapshot. --strict fails on any NON-complete marker NOT listed here (stops the hole growing). Shrink on drain.', fileSet: 'test/**/*.ts', count: nonComplete.length, uuids: nonComplete }, null, 2) + '\n');
   console.log(`\n✓ wrote baseline (${nonComplete.length} known non-complete uuids) → ${rel(BASELINE)}`);
   process.exit(0);
 }

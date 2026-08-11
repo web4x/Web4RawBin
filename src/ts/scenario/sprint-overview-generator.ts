@@ -1,9 +1,9 @@
 /**
- * R-C6 — SprintOverviewGenerator: sprints.overview.md becomes generated-where-it-drifts + preserved-where-it's-narrative.
+ * R37.6 — SprintOverviewGenerator: sprints.overview.md becomes generated-where-it-drifts + preserved-where-it's-narrative.
  * (design-rc6-overview-generated-frozen-legacy.md, chain d8ef9ad1a). Region-granularity: the sprint INDEX between
- * `<!-- GENERATED-INDEX:BEGIN/END -->` is regenerated from Sprint units + R-C1 pin + R-C5 rollup; EVERYTHING outside
+ * `<!-- GENERATED-INDEX:BEGIN/END -->` is regenerated from Sprint units + R37.1 pin + R37.5 rollup; EVERYTHING outside
  * the markers is PRESERVED byte-identical hand-narrative. Frozen-legacy (S01-FROZEN_LEGACY_MAX) is EXCLUDED from the
- * gate but EXPLICITLY LISTED (INV-C6-3, never a silent cap). Fail-closed vacuous via R-C3 refuseIfVacuous.
+ * gate but EXPLICITLY LISTED (INV-C6-3, never a silent cap). Fail-closed vacuous via R37.3 refuseIfVacuous.
  *
  * Pure producers (no I/O in the methods) so the first run is a reviewable dry-run, never a blind clobber of a
  * Tron-facing board — the CLI (scripts/sprint-overview.ts) does --check (default) / --write.
@@ -15,7 +15,7 @@ import { refuseIfVacuous } from './consistency-guard.js';
 
 export const BEGIN = '<!-- GENERATED-INDEX:BEGIN -->';
 export const END = '<!-- GENERATED-INDEX:END -->';
-// G5 set 2: design-doc planning.md kept hand-authored (R-C7 classification) — declared, not inferred.
+// G5 set 2: design-doc planning.md kept hand-authored (R37.7 classification) — declared, not inferred.
 export const FROZEN_DESIGN_DOC_PLANNING = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export interface OverviewCheck { ok: boolean; reasons: string[]; currentUnresolved?: string }
@@ -44,7 +44,7 @@ export class SprintOverviewGenerator {
       return { md: `- **current:** ${fmt(pin.current)}\n- **last completed:** ${fmt(pin.lastCompleted)}\n- **next backlog:** ${fmt(pin.nextBacklog)}` };
     } catch (e) {
       // INV-C1-4 ambiguity (multiple current-era Active) — carry the FULL count+cause so a reader can act (live TODO).
-      const cause = (e as Error).message.replace(/^R-C1 FAIL-LOUD[^:]*:\s*/, '');
+      const cause = (e as Error).message.replace(/^R37.1 FAIL-LOUD[^:]*:\s*/, '');
       const msg = `pin ambiguous — ${cause} (pending sprint closure: Tron A1 sign-off + A2 dispositions)`;
       return { md: `- **current:** ⚠️ UNRESOLVED — ${msg}`, unresolved: msg };
     }
@@ -62,10 +62,10 @@ export class SprintOverviewGenerator {
   /** Regenerate ONLY the between-markers index block (the content that goes inside BEGIN/END). Pure. */
   private renderIndex(): string {
     const rows = this.sprintRows();
-    const vac = refuseIfVacuous(rows, { name: 'R-C6 overview/sprint-set', expect: 'non-empty-array' });
-    if (!vac.ok) throw new Error(`R-C6 FAIL-CLOSED (INV-C6-4): ${vac.reason} — refusing to emit an empty index (would read as "no sprints").`);
+    const vac = refuseIfVacuous(rows, { name: 'R37.6 overview/sprint-set', expect: 'non-empty-array' });
+    if (!vac.ok) throw new Error(`R37.6 FAIL-CLOSED (INV-C6-4): ${vac.reason} — refusing to emit an empty index (would read as "no sprints").`);
     const pin = this.pinLines();
-    // Frozen-legacy rows show 'frozen-legacy' NOT the R-C5 rollup: their unit data is the 694-gap/needs-backfill set,
+    // Frozen-legacy rows show 'frozen-legacy' NOT the R37.5 rollup: their unit data is the 694-gap/needs-backfill set,
     // so a derived status would be wrong (e.g. an ancient-Done sprint rolling up 'Planned') — honoring no-status-invention
     // (INV-C6-5) means NOT asserting an unreliable status for a sprint we've deliberately frozen out of the gate.
     const table = ['| # | Sprint | Status |', '|---|--------|--------|',
@@ -76,8 +76,8 @@ export class SprintOverviewGenerator {
   // [impl:uuid:1f38e07e-2635-433a-b9ee-045584c3a669] SprintOverviewGenerator.generateOverview — preserve narrative OUTSIDE markers, regenerate
   // the index INSIDE (INV-C6-1/2/5). First run (markers absent): wrap the existing `| # | Sprint |` table in place.
   generateOverview(existing: string): string {
-    const vac = refuseIfVacuous(existing, { name: 'R-C6 overview/existing-content', expect: 'non-empty-string' });
-    if (!vac.ok) throw new Error(`R-C6 FAIL-CLOSED (INV-C6-4): ${vac.reason} — refusing (missing overview file is a FAIL, not an empty regen).`);
+    const vac = refuseIfVacuous(existing, { name: 'R37.6 overview/existing-content', expect: 'non-empty-string' });
+    if (!vac.ok) throw new Error(`R37.6 FAIL-CLOSED (INV-C6-4): ${vac.reason} — refusing (missing overview file is a FAIL, not an empty regen).`);
     const block = `${BEGIN}\n${this.renderIndex()}\n${END}`;
     const b = existing.indexOf(BEGIN), e = existing.indexOf(END);
     if (b !== -1 && e !== -1 && e > b) {
@@ -87,7 +87,7 @@ export class SprintOverviewGenerator {
     // first run: markers absent → wrap the existing hand-maintained `| # | Sprint |` table in place.
     const lines = existing.split('\n');
     let start = lines.findIndex((l) => /^\|\s*#\s*\|\s*Sprint\s*\|/.test(l));
-    if (start === -1) throw new Error('R-C6 FAIL-CLOSED (INV-C6-4): no GENERATED-INDEX markers AND no `| # | Sprint |` table found — refusing to guess the index location.');
+    if (start === -1) throw new Error('R37.6 FAIL-CLOSED (INV-C6-4): no GENERATED-INDEX markers AND no `| # | Sprint |` table found — refusing to guess the index location.');
     let end = start;
     while (end + 1 < lines.length && lines[end + 1].trimStart().startsWith('|')) end++;
     return [...lines.slice(0, start), block, ...lines.slice(end + 1)].join('\n');
@@ -97,16 +97,16 @@ export class SprintOverviewGenerator {
   // + missing-file FAIL; the outside-markers narrative is NOT checked (hand-owned). Reports current-unresolved (live TODO).
   checkOverview(existing: string | null): OverviewCheck {
     const reasons: string[] = [];
-    if (existing === null) return { ok: false, reasons: ['R-C6 FAIL (INV-C6-4): overview file missing — FAIL, not skip-as-match.'] };
+    if (existing === null) return { ok: false, reasons: ['R37.6 FAIL (INV-C6-4): overview file missing — FAIL, not skip-as-match.'] };
     const b = existing.indexOf(BEGIN), e = existing.indexOf(END);
-    if (b === -1 || e === -1 || e <= b) return { ok: false, reasons: ['R-C6 FAIL (INV-C6-4): GENERATED-INDEX markers missing/malformed — cannot verify the index region.'] };
+    if (b === -1 || e === -1 || e <= b) return { ok: false, reasons: ['R37.6 FAIL (INV-C6-4): GENERATED-INDEX markers missing/malformed — cannot verify the index region.'] };
     const current = existing.slice(b + BEGIN.length, e).replace(/^\n|\n$/g, '');
     const expected = this.renderIndex();
-    if (current !== expected) reasons.push('R-C6 DRIFT (INV-C6-2): the between-markers index != regenerated (Sprint units + pin + rollup). Run --write.');
+    if (current !== expected) reasons.push('R37.6 DRIFT (INV-C6-2): the between-markers index != regenerated (Sprint units + pin + rollup). Run --write.');
     const pin = this.pinLines();
     // guard 2: surface unresolved as a REPORTABLE live-TODO, never a silent pass.
     const currentUnresolved = pin.unresolved;
-    if (currentUnresolved) reasons.push(`R-C6 REPORT: overview current = UNRESOLVED (${currentUnresolved}) — live TODO, not a resolved value.`);
+    if (currentUnresolved) reasons.push(`R37.6 REPORT: overview current = UNRESOLVED (${currentUnresolved}) — live TODO, not a resolved value.`);
     return { ok: reasons.length === 0, reasons, currentUnresolved };
   }
 }

@@ -244,7 +244,7 @@ function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
 }
 
 // [impl:uuid:b31ae393-0701-46a8-9296-4ed965e00fc2] SprintViewGenerator.generateAll (Method eddf2836, Class
-// SprintViewGenerator 93f9afc7, UC bf1cf902 sprintBoard.reconcileAll) — R-C2 one-time reconcile-all: regenerate
+// SprintViewGenerator 93f9afc7, UC bf1cf902 sprintBoard.reconcileAll) — R37.2 one-time reconcile-all: regenerate
 // EVERY sprint's board MD from its units in ONE pass. Pure extraction of the prior inline --all loop (SAME
 // behavior, no new logic): units→md only (INV-C1 units untouched), idempotent byte-stable (INV-C2), generated-only
 // (INV-C3, OWNED-OUTPUT whitelist in generateSprint), reflects fields never invents status (INV-C4).

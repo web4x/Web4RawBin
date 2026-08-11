@@ -1,7 +1,7 @@
 /**
  * R40.4 — the shared SPRINT-NUMBER rendering atom (single-source of the ONE thing that could drift: how a sprint
  * number is written). Number is NOT stored in name (name stays theme-only, no data migration); it is supplied by the
- * caller — client surfaces pass unit.model.number; server surfaces pass the R-C1 sprintNumOf(unit). Passing it in keeps
+ * caller — client surfaces pass unit.model.number; server surfaces pass the R37.1 sprintNumOf(unit). Passing it in keeps
  * this module CLIENT-SAFE (sprint-pin-resolver, home of sprintNumOf, imports node:fs at module-top → not browser-safe).
  *
  * SHARE THE ATOM, NOT THE STRING (PO 2026-08-08): sprintPrefix is the one home of the 'Sprint N' format; per-purpose

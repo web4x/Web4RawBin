@@ -1,10 +1,10 @@
 /**
- * R-C3 — `consistency:strict` ci:gate entry (INV-C3-4). Composes the S37 fail-closed guards and exits NON-ZERO
+ * R37.3 — `consistency:strict` ci:gate entry (INV-C3-4). Composes the S37 fail-closed guards and exits NON-ZERO
  * with a NAMED reason on any refusal — a drifted/vacuous state cannot pass CI ("no silent broken state").
  *
- *   - in-process: consistencyStrict(idx) = pin (R-C1 resolveSprintPin) + dual-status (R-C5 assertStatusConsistent),
+ *   - in-process: consistencyStrict(idx) = pin (R37.1 resolveSprintPin) + dual-status (R37.5 assertStatusConsistent),
  *     each fronted by refuseIfVacuous/assertNonVacuous so vacuous input FAILS.
- *   - subprocess: board-drift (R-C2) + migration-refuse (R-C7) via `check:sprint-md` (already fail-closed post-R-C7).
+ *   - subprocess: board-drift (R37.2) + migration-refuse (R37.7) via `check:sprint-md` (already fail-closed post-R37.7).
  *
  * Run: /opt/node22/bin/node --import tsx scripts/consistency-strict.ts   (tsx-via-vscode-node is denied in this env)
  * Fold into ci:gates:raw so `npm run ci:gates` enforces it.

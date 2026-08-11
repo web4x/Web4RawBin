@@ -1,4 +1,4 @@
-// R-C5 — TaskStatus (Class abd7dac9): make Task.status a DERIVED value of Task.statusChecklist (the single source
+// R37.5 — TaskStatus (Class abd7dac9): make Task.status a DERIVED value of Task.statusChecklist (the single source
 // of truth) so status + checklist cannot disagree BY CONSTRUCTION, plus a fail-loud CI detector for the existing
 // disagreements. ★ INV-S5a (no-status-invention): the detector NEVER auto-flips — it detects + lists; the OWNER
 // resolves each checklist↔status conflict. Scripts/CI-only module (no server import → no restart).
@@ -73,7 +73,7 @@ if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   const malformed = offenders.filter((o) => o.kind === 'MALFORMED');
   const unverifiable = offenders.filter((o) => o.kind === 'UNVERIFIABLE');
   const drift = offenders.length - falseDone.length - malformed.length - unverifiable.length;
-  console.log('\n=== Task status↔checklist consistency (R-C5 assertStatusConsistent) ===');
+  console.log('\n=== Task status↔checklist consistency (R37.5 assertStatusConsistent) ===');
   console.log(`Offenders: ${offenders.length}  (FALSE-DONE: ${falseDone.length} · MALFORMED: ${malformed.length} · UNVERIFIABLE: ${unverifiable.length} · DRIFT: ${drift})`);
   for (const o of offenders) console.log(`  [${o.kind}] ${o.uuid.slice(0, 8)} "${o.name}" — status='${o.declared}' vs checklist-derived='${o.derived}'`);
   // REPORT-ONLY by default (delta-not-absolute, R27.2 precedent): the pre-existing offenders must NOT red the

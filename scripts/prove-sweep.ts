@@ -1,4 +1,4 @@
-// R-C7 sweep — run the FIXED proveComplete over EVERY Sprint unit → the authoritative apply-ready set.
+// R37.7 sweep — run the FIXED proveComplete over EVERY Sprint unit → the authoritative apply-ready set.
 // READ-ONLY (proveComplete never writes). Run: /opt/node22/bin/node --import tsx scripts/prove-sweep.ts
 import { proveComplete } from './migrate-boards.js';
 import { allUnits } from './generate-sprint-md.js';

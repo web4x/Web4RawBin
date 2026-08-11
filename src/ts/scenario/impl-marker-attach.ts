@@ -1,5 +1,5 @@
 /**
- * R-C3 [impl]-marker AST-attach — the shared [impl] predicate (symmetric partner of test-marker-attach.ts).
+ * R37.3 [impl]-marker AST-attach — the shared [impl] predicate (symmetric partner of test-marker-attach.ts).
  * Encodes the rule that ONLY LIVED IN DOCS (team-laws.md L7) but was NEVER an enforced ci:gate here: strict-marker-audit.ts
  * had a stale macOS ROOT + a missing /tmp/credited.json → it CRASHED, was absent from ci:gates, and never ran on Linux.
  * This module makes the [impl] rule real + single-source (trace-audit + the impl gate import THIS) — repo-relative,

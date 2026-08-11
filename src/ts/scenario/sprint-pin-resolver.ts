@@ -1,9 +1,9 @@
 /**
- * R-C1 — SprintPinResolver (Class 157d1764): the ONE computed-from-files resolver of sprint identity + status.
+ * R37.1 — SprintPinResolver (Class 157d1764): the ONE computed-from-files resolver of sprint identity + status.
  * Files are the single source of truth; the current/last/next pin is DERIVED (advance = RUN the resolver, never
  * hand-edit a value). Also exports the canonical sprintNumOf + sprintSlugOf so NO consumer re-parses ad-hoc.
  * ★ INV-C1-8: a sprint's NUMBER and SLUG are NEVER derived from the free-text model.name — only from the numbered
- * field or the on-disk /sprints/ path. scripts/CI + shared; no server import (no restart). R-C5 deriveStatusEnum reused.
+ * field or the on-disk /sprints/ path. scripts/CI + shared; no server import (no restart). R37.5 deriveStatusEnum reused.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -47,7 +47,7 @@ export function sprintNumOf(unit: ScenarioUnit): number | null {
 
 // [impl:uuid:f326509a-3f40-4962-86f5-60c4ecb40f1a] SprintPinResolver.sprintSlugOf — canonical slug from the on-disk
 // path, NEVER slugify(model.name) (INV-C1-8). 3-step fallback (req 936caa456), MUST resolve to an EXISTING dir else
-// REFUSE (fail-closed, ties R-C3): (1) /sprints/(sprint-…)/ in sourceFile|compoundSource; (2) model.slug if its dir
+// REFUSE (fail-closed, ties R37.3): (1) /sprints/(sprint-…)/ in sourceFile|compoundSource; (2) model.slug if its dir
 // exists; (3) the on-disk sprint-<num>-* dir. Returns null (refuse) when none resolves to a real directory.
 export function sprintSlugOf(unit: ScenarioUnit): string | null {
   const m = unit.model as Record<string, unknown>;
@@ -69,10 +69,10 @@ export function sprintSlugOf(unit: ScenarioUnit): string | null {
 }
 
 // [impl:uuid:303639ce-0863-4df1-968c-c6f415c5bd70] SprintPinResolver.deriveSprintStatus — roll the sprint's tasks[]
-// up via R-C5 deriveStatusEnum (single source; sprint↔tasks can't disagree, INV-C1-2). TERMINAL-RESOLVED(task) =
+// up via R37.5 deriveStatusEnum (single source; sprint↔tasks can't disagree, INV-C1-2). TERMINAL-RESOLVED(task) =
 // deriveStatusEnum===Done OR task.supersededBy present. CLOSED = tasks non-empty AND all terminal-resolved (Done vs
 // Superseded kept DISTINCT, never collapsed — INV-C1-7); Active = ≥1 In-Progress not-superseded; QA-pending = ≥1 QA
-// Review (no active); else Planned. Reuses R-C5 with NO extension (supersededBy is a SEPARATE field, PO ruling B).
+// Review (no active); else Planned. Reuses R37.5 with NO extension (supersededBy is a SEPARATE field, PO ruling B).
 export function deriveSprintStatus(sprint: ScenarioUnit, idx: ScenarioIndex): SprintStatus {
   const taskIors = (((sprint.model as Record<string, unknown>).tasks as string[]) || []);
   const counts = { done: 0, superseded: 0, cancelled: 0, inProgress: 0, qa: 0, planned: 0, total: 0 };
@@ -85,7 +85,7 @@ export function deriveSprintStatus(sprint: ScenarioUnit, idx: ScenarioIndex): Sp
     const superseded = tm.supersededBy != null && tm.supersededBy !== '';
     if (superseded) { counts.superseded++; continue; } // separate field — counted DISTINCT, NOT as Done
     const cancelled = tm.cancelledReason != null && tm.cancelledReason !== '';
-    if (cancelled) { counts.cancelled++; continue; } // R-C1-refine FIX2: cancelled is TERMINAL, DISTINCT (INV-C1-10), NOT Done
+    if (cancelled) { counts.cancelled++; continue; } // R37.1-refine FIX2: cancelled is TERMINAL, DISTINCT (INV-C1-10), NOT Done
     switch (deriveStatusEnum(String(tm.statusChecklist ?? ''))) {
       case 'Done': counts.done++; break;
       case 'In Progress': counts.inProgress++; break;
@@ -100,8 +100,8 @@ export function deriveSprintStatus(sprint: ScenarioUnit, idx: ScenarioIndex): Sp
   return { status, counts, unresolvedRef };
 }
 
-// R-C1-refine FIX1: the ONE shared frozen/current-era boundary — single-source, imported by BOTH resolveSprintPin
-// AND R-C6's FROZEN_LEGACY (cannot drift, NOT a per-consumer heuristic). Sprints numbered <= FROZEN_LEGACY_MAX are
+// R37.1-refine FIX1: the ONE shared frozen/current-era boundary — single-source, imported by BOTH resolveSprintPin
+// AND R37.6's FROZEN_LEGACY (cannot drift, NOT a per-consumer heuristic). Sprints numbered <= FROZEN_LEGACY_MAX are
 // frozen pre-S19 legacy (lingering In-Progress checklists frozen-in-amber) — EXCLUDED from the pin universe (all 3
 // slots + the ambiguity/unresolvable throws) BY CONSTRUCTION (INV-C1-9), with NO frozen-data mutation.
 export const FROZEN_LEGACY_MAX = 18;
@@ -121,7 +121,7 @@ export function resolveSprintPin(idx: ScenarioIndex, hint?: SprintPinHint): Spri
     .filter((x): x is { s: ScenarioUnit; num: number } => isCurrentEra(x.num))
     .map(({ s, num }) => {
       const st = deriveSprintStatus(s, idx);
-      if (st.unresolvedRef) throw new Error(`R-C1 FAIL-CLOSED: sprint '${(s.model as any).slug || (s.model as any).uuid}' has an unresolvable task ref ${st.unresolvedRef} — refusing (never silent-skip).`);
+      if (st.unresolvedRef) throw new Error(`R37.1 FAIL-CLOSED: sprint '${(s.model as any).slug || (s.model as any).uuid}' has an unresolvable task ref ${st.unresolvedRef} — refusing (never silent-skip).`);
       return { uuid: String((s.model as any).uuid), num, name: String((s.model as any).name || ''), st };
     });
 
@@ -134,7 +134,7 @@ export function resolveSprintPin(idx: ScenarioIndex, hint?: SprintPinHint): Spri
   // with its REAL derived status label (`designated:true`); we never CLAIM it is Active and never REPLACE it with a
   // fail-loud error on the owner's screen. The 'derivation-can-never-fabricate-a-non-Active-current' invariant governs
   // ONLY the no-designation branch below. The throw surfaces ONLY when there is NO designation AND >1 Active (genuine
-  // ambiguity). The designation NEVER mutates status and NEVER reduces the Active count (R-C5 still audits all Active).
+  // ambiguity). The designation NEVER mutates status and NEVER reduces the Active count (R37.5 still audits all Active).
   let current: SprintSlot | null;
   const designated = hint?.currentSprintNumber != null ? rows.find((r) => r.num === hint.currentSprintNumber) : undefined;
   if (designated) {
@@ -142,7 +142,7 @@ export function resolveSprintPin(idx: ScenarioIndex, hint?: SprintPinHint): Spri
   } else {
     const active = rows.filter((r) => r.st.status === 'Active');
     if (active.length === 1) current = slot(active[0]);
-    else if (active.length > 1) throw new Error(`R-C1/R40.17 FAIL-LOUD (INV-C1-4): ${active.length} Active sprints [${active.map((a) => a.num).join(', ')}] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress.`);
+    else if (active.length > 1) throw new Error(`R37.1/R40.17 FAIL-LOUD (INV-C1-4): ${active.length} Active sprints [${active.map((a) => a.num).join(', ')}] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress.`);
     else current = null;
   }
 

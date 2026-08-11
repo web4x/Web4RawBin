@@ -1,6 +1,6 @@
-// R-C7 — BoardMigrator (Class eac99b32): safely migrate a HAND-AUTHORED sprint board (planning.md/requirements.md
+// R37.7 — BoardMigrator (Class eac99b32): safely migrate a HAND-AUTHORED sprint board (planning.md/requirements.md
 // lacking GENERATED_HEADER) into a generated view — ONLY after PROVING the sprint's units carry the board's
-// structural content (zero data-loss). This is the safe resolution to the R-C2 blocker: it never violates Tron's
+// structural content (zero data-loss). This is the safe resolution to the R37.2 blocker: it never violates Tron's
 // OWNED-OUTPUT data-loss invariant, because it refuses to overwrite a hand-authored board unless the units
 // provably reproduce every structural item. 5 HARD GATES as CODE:
 //   G1 proof-before-write   — applyMigration refuses unless proveComplete passes, NAMING each gap.
@@ -17,7 +17,7 @@ import { buildSprintOutput, allUnits, SPRINTS_DIR } from './generate-sprint-md.j
 
 const normalizeLF = (s: string): string => s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n+$/g, '') + '\n';
 
-// STRUCTURAL keys (G5: narrative ignored). altId/number IDs (R18.29, T36.5, R-C2) are the STABLE identity — matched
+// STRUCTURAL keys (G5: narrative ignored). altId/number IDs (R18.29, T36.5, R37.2) are the STABLE identity — matched
 // BY KEY so a REWORDED/refined requirement still matches (not a false gap). uuid refs are deliberately NOT used as
 // keys (they change on re-mint = fragile). Rows = checkbox labels, normalized (case/whitespace/markdown-insensitive).
 const normRow = (s: string): string => s.replace(/[*_`[\]]/g, '').replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 80);
@@ -72,10 +72,10 @@ export function perFileDiffs(dir: string, files: Map<string, string>): { file: s
     if (!fs.existsSync(fp)) continue;
     const content = fs.readFileSync(fp, 'utf-8');
     const d = proveBoardComplete(content, generated);
-    // ADDITIVE-ONLY gate (R-C6 preserve-region UNBUILT): a non-empty hand line the generator does NOT reproduce
+    // ADDITIVE-ONLY gate (R37.6 preserve-region UNBUILT): a non-empty hand line the generator does NOT reproduce
     // would be DROPPED on --apply. G5 excludes NARRATIVE from the structural proof, so hand prose (e.g. '**Theme:**',
     // '**Source:**', '*Captured by …*') silently vanishes on migrate. Surface every such line as a `drop` so
-    // proveComplete can REFUSE fail-closed until R-C6 preserves hand-narrative regions. "apply must lose nothing."
+    // proveComplete can REFUSE fail-closed until R37.6 preserves hand-narrative regions. "apply must lose nothing."
     const genLines = new Set(normalizeLF(generated).split('\n').map((l) => l.trim()).filter(Boolean));
     const drops = normalizeLF(content).split('\n').map((l) => l.trim()).filter((l) => l && !genLines.has(l));
     if (d.gaps.length || d.needsReview.length || drops.length) results.push({ file: name, gaps: d.gaps, needsReview: d.needsReview, drops });
@@ -115,14 +115,14 @@ export function proveComplete(sprintUuid: string): ProofResult {
   const perFile = perFileDiffs(path.join(SPRINTS_DIR, sprintSlug), out.files);
   const gaps = perFile.flatMap((f) => f.gaps.map((item) => ({ file: f.file, item })));
   const needsReview = perFile.flatMap((f) => f.needsReview.map((item) => ({ file: f.file, item })));
-  // ★ NARRATIVE-LOSS REFUSAL (R-C6 preserve-region UNBUILT): if migrating would DROP any hand line the generator
+  // ★ NARRATIVE-LOSS REFUSAL (R37.6 preserve-region UNBUILT): if migrating would DROP any hand line the generator
   // doesn't reproduce (narrative not covered by the G5 structural proof), REFUSE fail-closed with a NAMED reason —
   // "apply must lose nothing". This turns the manual additive-only assertion into a by-construction gate; it lifts
-  // automatically once R-C6 preserves hand-narrative regions (drops → 0 for a preserved board). NOT human memory.
+  // automatically once R37.6 preserves hand-narrative regions (drops → 0 for a preserved board). NOT human memory.
   const dropFiles = perFile.filter((f) => f.drops.length);
   if (dropFiles.length) {
     const sample = dropFiles.flatMap((f) => f.drops).find((l) => /\*\*(theme|source)|captured by/i.test(l)) || dropFiles[0].drops[0];
-    const reason = `REFUSED (R-C6 preserve-region UNBUILT): migrating would DROP hand narrative the generator does not reproduce — ${dropFiles.map((f) => `${f.file} (${f.drops.length} line(s))`).join(', ')}; e.g. "${sample.slice(0, 70)}". apply must lose nothing → refusing until R-C6 preserves narrative regions.`;
+    const reason = `REFUSED (R37.6 preserve-region UNBUILT): migrating would DROP hand narrative the generator does not reproduce — ${dropFiles.map((f) => `${f.file} (${f.drops.length} line(s))`).join(', ')}; e.g. "${sample.slice(0, 70)}". apply must lose nothing → refusing until R37.6 preserves narrative regions.`;
     return { sprintSlug, complete: false, gaps, needsReview, reason };
   }
   // complete (safe to --apply) requires 0 gaps AND 0 needs-review AND 0 dropped hand lines (all fail-closed).

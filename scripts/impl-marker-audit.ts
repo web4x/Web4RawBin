@@ -1,5 +1,5 @@
 /**
- * R-C3 [impl]-marker forward-guard + reporter (architect da2a029e8 policy B + PO honest-buckets). Uses the SINGLE-SOURCE
+ * R37.3 [impl]-marker forward-guard + reporter (architect da2a029e8 policy B + PO honest-buckets). Uses the SINGLE-SOURCE
  * predicate src/ts/scenario/impl-marker-attach.ts (same one trace-audit imports). Symmetric partner of test-marker-audit.ts.
  *
  *   default : report the 7-way buckets. No exit-fail.
@@ -29,7 +29,7 @@ console.log(`  SPLIT_FOR_CLUSTER   : ${r.splitForCluster.length}   ANON_HANDLER 
 
 if (MODE === 'write-baseline') {
   const uuids = nonCrediting.map((m) => m.uuid).sort();
-  fs.writeFileSync(BASELINE, JSON.stringify({ note: 'R-C3 [impl]-marker delta baseline — non-crediting uuids at snapshot. --strict fails on any NON-crediting marker NOT listed (stops the hole growing). Shrink on drain (consolidate/reattach).', count: uuids.length, uuids }, null, 2) + '\n');
+  fs.writeFileSync(BASELINE, JSON.stringify({ note: 'R37.3 [impl]-marker delta baseline — non-crediting uuids at snapshot. --strict fails on any NON-crediting marker NOT listed (stops the hole growing). Shrink on drain (consolidate/reattach).', count: uuids.length, uuids }, null, 2) + '\n');
   console.log(`\n✓ wrote baseline (${uuids.length} non-crediting uuids) → ${rel(BASELINE)}`);
   process.exit(0);
 }

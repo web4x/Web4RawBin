@@ -1,5 +1,5 @@
 /**
- * R-C3 [test]-marker AST-attach — the ONE SHARED single-source predicate (architect da2a029e8 / 3-bucket a08ab0f27).
+ * R37.3 [test]-marker AST-attach — the ONE SHARED single-source predicate (architect da2a029e8 / 3-bucket a08ab0f27).
  * Symmetric with the [impl] rule in strict-marker-audit.ts: a [test:uuid] credits chain-completion ONLY if it HEADS
  * a name/intent-matched it()/test()/describe() block. BOTH trace-audit and the tester's baseline import THIS module
  * (over the same file-set + marker regex) so the per-bucket counts CANNOT diverge (kills the 87%-vs-11% + 387-vs-652

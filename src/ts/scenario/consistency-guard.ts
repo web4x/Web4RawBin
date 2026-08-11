@@ -1,5 +1,5 @@
 /**
- * R-C3 — ConsistencyGuard: the fail-CLOSED / no-vacuous-truth meta-guard (Sprint 37 consistency-by-construction).
+ * R37.3 — ConsistencyGuard: the fail-CLOSED / no-vacuous-truth meta-guard (Sprint 37 consistency-by-construction).
  *
  * Generalises the fail-closed hole-class (narrative-loss / vacuous-dir / slug-drift ad-hoc guards) into ONE shared
  * pair called at the TOP of every S37 guard, so a guard can NEVER silently pass on absent/empty/malformed input:
@@ -7,7 +7,7 @@
  *   - assertNonVacuous(items, {name, min})    — refuse a POSITIVE assertion over an empty/absent set (INV-C3-2:
  *                                               "0 offenders because 0 were scanned" must NOT read as clean).
  * Every refusal carries a human reason STRING (never a bare false / exit 1) so CI says WHY (INV-C3-3).
- * consistencyStrict(idx) composes the S37 guards (pin R-C1 + dual-status R-C5), each fronted by the pair — the
+ * consistencyStrict(idx) composes the S37 guards (pin R37.1 + dual-status R37.5), each fronted by the pair — the
  * backing for the `consistency:strict` ci:gate + the meta-BITE (a deliberately-vacuous-passing stub must turn RED).
  */
 import { ScenarioIndex } from './index-store.js';
@@ -65,9 +65,9 @@ export function assertNonVacuous(items: unknown, opts: { name: string; min?: num
 
 /**
  * consistency:strict composed gate (INV-C3-4): each sub-guard fronted by refuseIfVacuous/assertNonVacuous so a
- * vacuous input FAILS rather than passes. Returns every refusal reason; empty => consistent. Board-drift (R-C2,
- * check:sprint-md) + migration-refuse (R-C7, proveComplete) compose at the CLI/ci:gates:raw layer (they own their
- * own fail-closed guards); this composes the in-process resolvers pin (R-C1) + dual-status (R-C5).
+ * vacuous input FAILS rather than passes. Returns every refusal reason; empty => consistent. Board-drift (R37.2,
+ * check:sprint-md) + migration-refuse (R37.7, proveComplete) compose at the CLI/ci:gates:raw layer (they own their
+ * own fail-closed guards); this composes the in-process resolvers pin (R37.1) + dual-status (R37.5).
  */
 export function consistencyStrict(idx: ScenarioIndex): GuardResult[] {
   const results: GuardResult[] = [];
@@ -78,7 +78,7 @@ export function consistencyStrict(idx: ScenarioIndex): GuardResult[] {
   results.push(idxGuard);
   if (!idxGuard.ok) return results; // nothing trustworthy downstream
 
-  // (a) sprint-pin resolves to a single current sprint (R-C1). Ambiguity (INV-C1-4, >1 current-era Active) THROWS —
+  // (a) sprint-pin resolves to a single current sprint (R37.1). Ambiguity (INV-C1-4, >1 current-era Active) THROWS —
   // CATCH it and convert to a NAMED fail-closed refusal (INV-C3-3: a gate reports WHY, never a bare throw/stack).
   try {
     const pin = resolveSprintPin(idx);
@@ -87,7 +87,7 @@ export function consistencyStrict(idx: ScenarioIndex): GuardResult[] {
     results.push({ ok: false, reason: `consistency:strict/sprint-pin: ${(e as Error).message}` });
   }
 
-  // (c) dual-status consistency (R-C5): unit-status == board checkbox. Non-empty offenders = drift = fail.
+  // (c) dual-status consistency (R37.5): unit-status == board checkbox. Non-empty offenders = drift = fail.
   const offenders = assertStatusConsistent(idx);
   results.push(offenders.length === 0
     ? { ok: true }
