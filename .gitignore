@@ -11,6 +11,7 @@ data/devices.json
 data/repos.json
 data/*.bak
 data/model-store/
+data/revoked-tokens.json
 # verification screenshots (binary churn; .mjs scripts ARE committed)
 test/visual/*.png
 package-lock.json
