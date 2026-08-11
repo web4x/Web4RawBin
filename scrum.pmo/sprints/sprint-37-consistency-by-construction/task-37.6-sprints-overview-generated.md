@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress 2/4 (planner reconcile 2026-08-11, MEASURED per-box, Tron directive, same disease+method as C2; checklist was ALL-unticked=derived-Planned = UNRECORDED PROGRESS; status DERIVED from checklist R37.5, never hand-set). EVIDENCED [x]: refinement = Req 9339cc3b + UC 833d3525 (overview.generatePreserved) + Class c85603ca (SprintOverviewGenerator) + Method 8b238215 (generateOverview) all on disk+wired. implementing = Impl 1f38e07e (generateOverview: preserved-region + pin/rollup index + frozen-legacy visible) markerPending=false, shipped expert cf850d26e, planner owner-APPROVED this session. NOT EVIDENCED [ ]: creating test cases + testing = R37.6 has NO Test — Impl 1f38e07e.tests[]=EMPTY; the only R37.6-mentioning Test (57829ccc) is R37.7's narrative-loss BITE two-keyed to proveComplete 21e38b44 NOT 1f38e07e, naming R37.6 only as a FUTURE phase-b dependency (verify-owner-first: MENTION != WIRE, no cross-wire). >> test-cases NEEDS: author the R37.6 gate (regenerate overview -> sprint-table reflects Sprint units + preserved-narrative byte-untouched + injected table-drift FAILS --check, per AC-gate) wired to 1f38e07e. testing NEEDS: that gate GREEN two-keyed. NOT rounded up to QA-Review (Tron steers QA from status).
+QA-Review (planner flip 2026-08-11, chain-complete-to-Test DURABLE ON ORIGIN — verified TWICE: my post-fetch origin measure + PO second-source; I REFUSED to flip on local-only state first, PO made origin-durability part of the chain-complete-to-Test definition). Test 7e4a1c9d 'test:R37.6/T37.6 overview-generator' (rc6-overview-generator-gate.mjs) status=pass, two-keyed BOTH-DIR to Impl 1f38e07e (generateOverview): FWD 1f38e07e.tests[]=[7e4a1c9d] + REV 7e4a1c9d.implementations[]=[1f38e07e]+ownerIor, on origin HEAD fa9131be7 (req mint 29e99d9b2 + tester two-key both on origin). Gate GREEN 4/4 (A check-passes / B regen-byte-stable / C narrative-preserved / D stub-must-fail), RED->GREEN after my overview regen a3bef80b9 (--write fixed the R-C1->R37.1 committed drift). verify-owner-first PASSED: Impl 1f38e07e distinct sharedByTasks=[32061171], Test is R37.6's OWN (clean first Test, 1f38e07e.tests[] was empty = NO cross-wire, NOT the 57829ccc R37.7 cross-credit). All 4 In-Progress sub-steps evidenced. Awaiting Tron QA verdict. 0 Done till Tron.
 
 ## Traceability
 
