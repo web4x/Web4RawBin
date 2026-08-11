@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8dc0ab43-93e8-4bb0-89e5-37f573fa0625",
+    "name": "RbTerminalDetail.mountKeyBar",
+    "implementations": [
+      "ior:instance:8d4da71e-d9eb-4af8-a6eb-7cec96dd77db"
+    ]
+  },
+  "ownerIor": "ior:instance:1d632082-f9a3-48f5-b944-e93c323217f7"
+}

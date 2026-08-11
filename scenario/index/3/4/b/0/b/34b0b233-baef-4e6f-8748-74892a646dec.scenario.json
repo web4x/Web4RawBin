@@ -9,7 +9,9 @@
     "openResidual": "★ SEPARATE OPEN QUESTION (do NOT fold into this unit): /api/ior serves 8 keys, so the NORMAL path SHOULD render 8. Tester MEASURED on served: the bar renders 8 keys GREEN DET-3x — so this residual is NOT observed (no distinct renderKeyMap render/CSS/WebKit defect at this time). IF it later recurs (8 served, no bar @390), that gets its OWN unit; not this one.",
     "resolutionState": "★ RESOLVED-IN-CODE at HEAD v0.8.91 (dcf921a00) — verified on disk (verify-owner-first): (AC-normal-path) read-path reads unit.model.keys FIRST + array-guard @rb-terminal-detail.ts:92, and keys.length renders RbKeyboardBar.renderKeyMap @:96 (tester: 8 keys GREEN DET-3x on served); (AC-no-silent-empty + AC-fail-visible) the 0-keys case renders a VISIBLE role=status notice className 'rb-keybar-unavailable' text '⚠ keyboard bar unavailable — 0 keys resolved from /api/ior' @:97-104 — no more silent-empty. ALL 4 corrected ACs met IN CODE. ★ REMAINING TO CLOSE BY-CONSTRUCTION (not asserted): AC-gate needs a SMALL tester GATE on the 0-keys fail-visible behavior (construct a 0-keys response -> assert the role=status notice appears, NOT an empty region) — correct-by-construction-needs-gate-verification. On that gate GREEN, I mint the Test -> the Bug CLOSES as a genuine fix (a real campaign win). Flagged tester for the small fail-visible gate.",
     "tasks": [],
-    "tests": [],
+    "tests": [
+      "ior:instance:6e1a9d47-5c82-43b0-9f16-2a7e0c4b8d35"
+    ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "unitLinks": [],
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
@@ -45,7 +47,9 @@
         "group": "gate",
         "text": "GATE (r403a, DET-3x @390 real-WebKit): 0 keys → assert a VISIBLE role=status notice (not an empty region); N keys → assert the .rb-keybar renders the N keys + a key's bytes reach the (mocked) PTY. Chromium-emulation NOT accepted for the render half."
       }
-    ]
+    ],
+    "resolvedByImpl": "ior:instance:8d4da71e-d9eb-4af8-a6eb-7cec96dd77db",
+    "resolvedNote": "Fixed v0.8.91 (fail-visible notice) — RbTerminalDetail.mountKeyBar Impl 8d4da71e (its OWN host, NOT borrowed off R31.4's mount 79a1ce7c); Test 6e1a9d47 gates the 0-keys failure path. Closes on tester two-key + expert marker flip."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

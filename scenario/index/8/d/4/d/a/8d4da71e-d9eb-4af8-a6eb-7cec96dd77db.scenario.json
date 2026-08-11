@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8d4da71e-d9eb-4af8-a6eb-7cec96dd77db",
+    "name": "RbTerminalDetail.mountKeyBar impl (fail-VISIBLE 0-keys: reads unit.model.keys; keys.length renders the bar ELSE renders a role=status .rb-keybar-unavailable notice naming the cause — no silent-empty)",
+    "markerPending": true,
+    "tests": [
+      "ior:instance:6e1a9d47-5c82-43b0-9f16-2a7e0c4b8d35"
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
+    "markerNote": "markerPending: the fail-visible fix SHIPPED (v0.8.91) in mountKeyBar (rb-terminal-detail.ts:86-105, 0-keys notice @:97-105). Expert places [impl:uuid:8d4da71e] adjacent-above `private async mountKeyBar`@:86 (strict-AST, comment-only) -> I strict-AST-flip. ★ DISTINCT from RbTerminalDetail.mount 79a1ce7c (R31.4 ws-lifecycle, 3 R31.4 tests) — mountKeyBar is a DIFFERENT method; NOT riding 79a1ce7c (would be borrowed-credit, the T40.5 disease). Test 6e1a9d47 hangs HERE. Closes BUG-KEYBAR-SILENT-EMPTY 34b0b233."
+  },
+  "ownerIor": "ior:instance:8dc0ab43-93e8-4bb0-89e5-37f573fa0625"
+}

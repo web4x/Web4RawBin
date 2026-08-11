@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "6e1a9d47-5c82-43b0-9f16-2a7e0c4b8d35",
+    "name": "test:BUG-KEYBAR-SILENT-EMPTY fail-visible — forced 0 keys -> role=status .rb-keybar-unavailable notice w/ cause text + NO keybar buttons (3/3); stub-must-fail (strip notice class -> RED); SW-neutralised; served==committed 0.8.91 dynamic; real-WebKit@390 DET-3x",
+    "implementations": [
+      "ior:instance:8d4da71e-d9eb-4af8-a6eb-7cec96dd77db"
+    ],
+    "sourceFile": "ior:file:test/visual/r403b-keybar-failvisible-gate.mjs",
+    "status": "pass",
+    "markerNote": "Tester GREEN DET-3x + durable on origin (2913f0a1f). FULL uuid gate-sourced (r403b-keybar-failvisible-gate.mjs, valid v4). Verify-owner-first: hangs on RbTerminalDetail.mountKeyBar 8d4da71e (its OWN host), NOT mount 79a1ce7c (R31.4 ws, 3 R31.4 tests — would be borrowed-credit). Forces the empty case (fetch->0 keys), asserts the visible notice + no buttons, PROVES the gate fails (strip class -> RED). Closes BUG-KEYBAR-SILENT-EMPTY on the FAILURE path (gate-not-happy-path)."
+  },
+  "ownerIor": "ior:instance:8d4da71e-d9eb-4af8-a6eb-7cec96dd77db"
+}

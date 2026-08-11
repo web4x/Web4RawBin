@@ -6,7 +6,8 @@
     "description": "CLIENT counterpart of PtyBridge (server, 59648f26): the Server Manager terminal as a first-class drawer DETAIL-VIEW (<rb-terminal-detail>, src/public/ts/trace/rb-terminal-detail.ts). uuid attr = tmux pane_id (%N). Reached via the STANDARD drawer path (selectionModel.select('otmuxpane:%N') -> selection-changed -> renderDetailForRef -> tagMap otmuxpane->rb-terminal-detail) so scroll/grab-bar/expand/minimize are IDENTICAL to /trace by construction (R31.4 DRAWER-DRY, retires the showElement fork). xterm.js over a binary ws to the owner-gated PtyBridge; teardown on disconnect. R31.4 client-render. ownerIor rides the R31.4 UC (paneTerminal) — req to confirm/rebind (may get a distinct client-render UC).",
     "sourceFile": "ior:file:src/public/ts/trace/rb-terminal-detail.ts",
     "methods": [
-      "ior:instance:386cc4e4-7dfa-464d-8a5e-43f0ea7d69bd"
+      "ior:instance:386cc4e4-7dfa-464d-8a5e-43f0ea7d69bd",
+      "ior:instance:8dc0ab43-93e8-4bb0-89e5-37f573fa0625"
     ]
   },
   "ownerIor": "ior:instance:8f3bf119-ce4d-4d42-821c-f1b04d608768"
