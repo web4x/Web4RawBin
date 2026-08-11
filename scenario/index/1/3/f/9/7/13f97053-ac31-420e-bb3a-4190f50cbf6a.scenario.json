@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "13f97053-ac31-420e-bb3a-4190f50cbf6a",
+    "name": "AltIdCanonGuard",
+    "sourceFile": "ior:file:scripts/check-altid-canon.ts",
+    "methods": [
+      "ior:instance:993e5667-106a-4d6d-abf2-f8044df6214e"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

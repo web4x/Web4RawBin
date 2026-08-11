@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8f934116-b64b-47f1-b206-da658e94c5c3",
+    "name": "AltIdCanonGuard.findAltIdCanonViolations impl (bespoke C-scheme absent on Task name+slug AND Req altId; sorted offenders; exit 1 iff any; meta-bite RED on a weakened guard)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/check-altid-canon.ts",
+    "markerNote": "RETROACTIVE: guard SHIPPED + GREEN (skill-expert 4ae63b73). Expert/skill-expert places [impl:uuid:8f934116] marker adjacent-above export function findAltIdCanonViolations @scripts/check-altid-canon.ts:23 (strict-AST next-named-decl) -> I strict-AST-flip. Test pending tester bite gate (meta-bite: weakened guard -> RED); measure the test:uuid from the gate, do NOT fabricate."
+  },
+  "ownerIor": "ior:instance:993e5667-106a-4d6d-abf2-f8044df6214e"
+}

@@ -1,0 +1,60 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "5576307b-e69b-4b40-8049-e59f7253c8c9",
+  "name": "Naming is canon by construction — the bespoke C-scheme can never return (task name+slug AND req altId)",
+  "altId": "R37.13",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:4bd737a5-cee9-4648-98f1-bebbef034627"
+  ],
+  "description": "Task/requirement naming can NEVER drift back to the killed bespoke C-scheme (S37's consistency-by-construction thesis applied to ITSELF). A ci:gate asserts the bespoke scheme is ABSENT across BOTH surfaces — a Task's identity in model.name ('Task 37.1:') + model.slug ('task-37.1-') AND a Requirement's model.altId ('R37.1'); an altId-only check is half-blind (it passes every task no matter how named). RED on any planted bespoke id, and RED on a weakened guard (tester meta-bite). Naming is canon by construction, not by vigilance. Guard SHIPPED + GREEN (skill-expert rename 4ae63b73) BEFORE this req = a #126 slip; chain completed retroactively.",
+  "tronQuote": "> Tron (2026-08-11): naming must be consistent-by-construction — the S37 bespoke C1..C8 / R-C1..R-C10 scheme was renamed to fleet canon Task 37.<i> / R37.<i>, and a guard must keep it from drifting back.",
+  "discoverySource": {
+   "type": "team-shipped-retroactive",
+   "discoveredBy": "robbin-skill-expert",
+   "date": "2026-08-11",
+   "shipCommit": "4ae63b73",
+   "note": "S37 rename to fleet canon shipped + the check-altid-canon guard live+GREEN; code preceded the scenario chain (#126 slip), completed retroactively. Same pattern as R37.2 (write-gate). Distinct-intent (naming-consistency) = its own req, not folded into another (no over-crediting)."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-both-surfaces",
+    "group": "functional",
+    "text": "The guard checks BOTH forms: a TASK's identity in model.name (/^Task C\\d/) + model.slug (/^task-c\\d/) AND a REQUIREMENT's model.altId (/^R-C\\d/). An altId-only check passes every task regardless of name (half-blind) and is REJECTED — both surfaces asserted."
+   },
+   {
+    "id": "AC-bespoke-absent",
+    "group": "functional",
+    "text": "The killed bespoke scheme is asserted ABSENT: a Task name /^Task C\\d/ OR slug /^task-c\\d/, or a Req altId /^R-C\\d/ -> the guard exits non-zero LISTING each offender (ior + uuid + surface + value)."
+   },
+   {
+    "id": "AC-meta-bite",
+    "group": "gate",
+    "text": "A WEAKENED guard goes RED (tester meta-bite): weaken/remove the check so a planted 'Task C9' / 'task-c9-' / 'R-C9' would pass -> the bite suite turns RED. The guard PROVES itself, not merely asserts (a by-construction claim is false if only asserted)."
+   },
+   {
+    "id": "AC-ci-fold",
+    "group": "functional",
+    "text": "Folded into ci:gates (RED on any bespoke id) so naming cannot drift back through CI — the consistency-by-construction sprint must not itself be inconsistent."
+   },
+   {
+    "id": "AC-determinism",
+    "group": "functional",
+    "text": "Read-only over the scenario index; violations sorted by uuid; exit 1 iff any (deterministic, no false-low)."
+   },
+   {
+    "id": "AC-gate",
+    "group": "gate",
+    "text": "TEST EXERCISES AC-bespoke-absent + AC-both-surfaces + AC-meta-bite (distinct-intent): plant a 'Task C9' name / 'task-c9-' slug / 'R-C9' altId -> guard RED naming each surface; remove all -> GREEN; weaken the guard -> suite RED. Verify Impl.tests[] on disk before flip."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

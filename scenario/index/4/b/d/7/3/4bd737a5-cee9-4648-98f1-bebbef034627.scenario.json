@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4bd737a5-cee9-4648-98f1-bebbef034627",
+    "name": "canonGuard.assertNoBespokeScheme",
+    "description": "Assert the killed bespoke S37 C-scheme is ABSENT across the scenario graph on BOTH identity surfaces — Task model.name+model.slug AND Requirement model.altId — exiting non-zero with a sorted, named offender list; a weakened guard turns the tester meta-bite RED. Read-only, deterministic, folded into ci:gates.",
+    "class": "ior:instance:13f97053-ac31-420e-bb3a-4190f50cbf6a",
+    "method": "ior:instance:993e5667-106a-4d6d-abf2-f8044df6214e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9"
+}

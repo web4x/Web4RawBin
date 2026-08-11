@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "993e5667-106a-4d6d-abf2-f8044df6214e",
+    "name": "AltIdCanonGuard.findAltIdCanonViolations",
+    "implementations": [
+      "ior:instance:8f934116-b64b-47f1-b206-da658e94c5c3"
+    ]
+  },
+  "ownerIor": "ior:instance:13f97053-ac31-420e-bb3a-4190f50cbf6a"
+}
