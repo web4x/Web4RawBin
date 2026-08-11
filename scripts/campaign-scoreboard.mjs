@@ -18,6 +18,13 @@ const NEXT_PHASE_REQS = new Set([
   '70bbaec5-a445-457a-b123-db0f2822ab16', // R40.31 gate-pollution
 ]);
 const coversNextPhase = t => (t.m.coveredRequirements || []).some(r => NEXT_PHASE_REQS.has(bare(r)));
+// BUILD-COUPLED overrides (expert-measured 2026-08-11): a task the coarse rule calls 'marker' but whose
+// markerPending Impl credits a host decl that DOES NOT EXIST in src yet — placing the marker would be a
+// FICTIONAL marker (AST-rejected, the lying-marker class). Its flip RIDES another task's build. The coarse
+// script cannot grep src for the host decl, so these are measured overrides (task-uuid -> coupled-on note).
+const BUILD_COUPLED = new Map([
+  ['95d74272-2283-446c-b383-697b2ded6eb8', 'T40.11 — Impl e009ace7 credits DeploymentModel.buildTypedModel = 0 src hits; buildTypedModel is T40.11 deliverable'], // T40.6
+]);
 
 const byUuid = new Map();
 (function walk(d) {
@@ -81,6 +88,7 @@ for (const t of tasks) {
   if (t.m.supersededBy) gap = 'SUPERSEDED';          // terminal by supersession (orthogonal to derived status) — leaves remaining
   else if (coversNextPhase(t)) gap = 'NEXT-PHASE';   // campaign-scope boundary — minted-during-campaign hardening, outside the finish-count
   else if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
+  else if (BUILD_COUPLED.has(t.m.uuid)) gap = 'build-coupled'; // measured override — fictional-marker avoided; flip rides another task's build (still REMAINING)
   else if (ci.coveredByTest) gap = 'RIPE';           // chain-complete-to-Test, board-lag -> flip-ready
   else if (ci.shippedImpl) gap = ci.anyTestWired ? 'two-key' : 'gate';
   else if (ci.anyImpl) gap = 'marker';
@@ -104,7 +112,7 @@ for (const sp of ['S30', 'S31', 'S32', 'S37', 'S40']) {
   console.log(`${sp}: total ${a.length} | Done ${a.filter(r => r.gap === 'DONE').length} | QA ${a.filter(r => r.gap === 'QA-REVIEW').length} | superseded ${a.filter(r => r.gap === 'SUPERSEDED').length} | remaining ${a.filter(r => !TERMINAL.has(r.gap)).length}`);
 }
 console.log('\n-- REMAINING by what it needs --');
-console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'));
+console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'), '| build-coupled:', count(remaining, 'build-coupled'));
 console.log('device-blocked (subset overlay):', remaining.filter(r => r.device).length);
 console.log('\n-- RIPE (closest to QA-Review, flip-ready) --');
 for (const r of remaining.filter(r => r.gap === 'RIPE')) console.log(`  ${r.sp} ${r.uuid} [${r.derived}${r.drift ? ' drift:' + r.drift : ''}] ${r.name}`);
