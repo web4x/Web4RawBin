@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Task 37.4.3: CONTROLLER single-source Done — statusNext OWNS the Done transition, R40.10 approve DELEGATES, tronApprove folds in (no second writer)
+# Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of any unit mutation; single-source Done delegation — R40.10 approve DELEGATES, tronApprove folds in (no second writer)
 
 [task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]
 
@@ -31,14 +31,14 @@ Planned - C4.3 CONTROLLER single-source Done (subtask of T-C4 79fd2164; kills th
 
 ## Task Description
 
-C4.3 (subtask of T-C4, MVC decomposition; architect shape 34ae87486). RISK C4 exposed: TWO writers for one transition — the FSM tronApprove AND R40.10's approve endpoint (approvedBy/approvedAt) can both set Done = the two-sources disease (two sources for one fact). C4.3 DECLARES which mechanism OWNS the Done transition and makes the other DELEGATE, never duplicate. Architect shape: statusNext OWNS Done, R40.10 approve DELEGATES to it, tronApprove folds in. A lint/bite prevents a second Done-writer from ever reappearing (by construction, not by vigilance). Family: under-recorded-progress / silent-drift (two-sources variant — the same class as the pin/board double-source).
+C4.3 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). RISK C4 exposed: TWO writers for one transition — the FSM tronApprove AND R40.10's approve endpoint (approvedBy/approvedAt) can both set Done = the two-sources disease (two sources for one fact). GENERIC fold: unitController.apply is the UNIQUE DOMINATOR of EVERY unit mutation — nothing bypasses it. Single-source Done lives WITHIN the Task policy: R40.10 approveByOwner (server.ts) DELEGATES to apply's Done step — it records approvedBy/approvedAt as the Tron-verdict EVIDENCE, then reaches Done through apply, and does NOT set Done itself; FSM tronApprove FOLDS IN as the Done applier, not a parallel writer. ONE Done-writer by construction. A dominance LINT proves it (two-bite: plant a 2nd Done-writer OR a mutation outside apply -> RED), not vigilance. Family: under-recorded-progress / silent-drift (two-sources variant — same class as the pin/board double-source).
 
 ## Acceptance Criteria
 
-- [ ] (functional) The req/impl DECLARES which mechanism OWNS the Done transition: per architect shape statusNext OWNS Done, R40.10 approve DELEGATES to it, the FSM tronApprove FOLDS IN — exactly ONE writer of the Done transition.
-- [ ] (functional) R40.10 approve (approvedBy/approvedAt) does NOT set Done independently — it delegates to the owner; the approve DATA (approvedBy/approvedAt) is still recorded as the Tron verdict, but the transition goes through the single owner.
-- [ ] (functional) A LINT/bite prevents a SECOND independent Done-writer from reappearing (two-sources-one-fact killed by construction).
-- [ ] (gate) STUB-MUST-FAIL: introduce a second independent Done-writer (or make R40.10 set Done directly) -> the lint/gate goes RED. FAMILY: under-recorded-progress / silent-drift (two-sources variant).
+- [ ] (functional) unitController.apply is the UNIQUE DOMINATOR of ANY unit mutation — NO path mutates a unit's status/checklist/Done outside apply (grep-provable single writer, dominance property, INV-C4-8).
+- [ ] (functional) Single-source Done delegation: R40.10 approveByOwner DELEGATES to apply's Done step — records approvedBy/approvedAt as the Tron-verdict EVIDENCE, does NOT set Done independently; FSM tronApprove FOLDS IN as the Done applier. Exactly ONE Done-writer by construction.
+- [ ] (functional) The delegation must NOT break ITEM ZERO (R40.10 is LIVE, Tron's verdicts run through it) — positive controls: approve STILL records approvedBy/approvedAt AND reaches Done end-to-end; decline STILL mints a reachable CR; non-owner STILL 403 (tester RE-RUNS r4010 after the delegation edit, hardening D).
+- [ ] (DRY-AC / gate) STUB-MUST-FAIL dominance lint: plant a 2nd independent Done-writer (or make R40.10 set Done directly) -> lint RED; a bypass path that mutates a unit outside apply -> RED. The negative no-2nd-writer bite + the (D) positive controls together = delegation without regression. FAMILY: under-recorded-progress / silent-drift.
 
 ## Subtasks
 

@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Task 37.4.2: CONTROLLER single transition entry (statusNext) — guard + evidence-precondition + tick-checklist + DERIVE + persist + emit
+# Task 37.4.2: CONTROLLER — one generic unitController.apply for ANY unit mutation (validate-via-registered-policy → apply → persist → emit); Task FSM = policy #1, statusNext = thin facade
 
 [task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]
 
@@ -31,15 +31,14 @@ Planned - C4.2 CONTROLLER statusNext single entry (subtask of T-C4 79fd2164; the
 
 ## Task Description
 
-C4.2 (subtask of T-C4, MVC decomposition; architect shape 34ae87486). The CONTROLLER (task-fsm.ts) exists — 7 states + TRANSITIONS + guards — but is unwired: six separate start* calls, no single advance, not wired to persistence. C4.2 = ONE advance entry point statusNext that moves a task to the next LEGAL state via the existing TRANSITIONS table, TICKS the checklist and lets deriveStatusEnum produce the status (NEVER hand-sets the enum), PERSISTS via the ScenarioIndex.put path, and REFUSES to advance past a step whose evidence is absent (evidence-precondition — a box ticked without evidence corrupts the exact signal Tron steers QA by). This is the PREVENTION half (records progress at the moment it happens); the checklist-chain-audit detector is the AUDIT backstop (C4.7). Ride the existing FSM, do NOT rebuild it. Family: under-recorded-progress / silent-drift.
+C4.2 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). SUPERSEDES the task-shaped statusNext-only framing (now merely POLICY #1). In an all-classes-are-scenario-units world a Task-specific statusNext multiplies into N controllers = the same disease at scale — so the mechanism is GENERIC and Task is the first plug-in. ONE controller entry unitController.apply(idx, ior, uuid, intent, {actor, evidenceRef?}) is the SOLE mutation entry for ANY unit (any ior:class:*): (1) VALIDATE via the REGISTERED policy for that ior (registerPolicy(ior, policy); default-accept if none); (2) APPLY the policy mutation; (3) PERSIST via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, SUBSUMING statusNext's); (4) EMIT UNIT_CHANGED{ior,uuid,revision}. Task FSM = POLICY #1 (task-fsm.ts guardTransition + the SHARED evidenceForStep predicate; apply = tick-checklist so deriveStatusEnum derives the status, NEVER hand-set). statusNext = a THIN Task facade over apply, NOT a second entry. Ride existing seams (task-fsm.ts, ScenarioIndex.put), NO fork. Family: under-recorded-progress / silent-drift.
 
 ## Acceptance Criteria
 
-- [ ] (functional) A SINGLE advance entry point (statusNext) moves a task to the next LEGAL state via the existing TRANSITIONS table — NOT six separate start* calls. Rides task-fsm.ts (guardTransition), does not rebuild it.
-- [ ] (functional) statusNext TICKS the CHECKLIST and lets deriveStatusEnum produce the status — it NEVER hand-sets the status enum (status stays DERIVED, R37.5).
-- [ ] (functional) statusNext PERSISTS the scenario unit via the ScenarioIndex.put path (a legitimate committed-class writer; coordinate with the class-guard work).
-- [ ] (functional) EVIDENCE-PRECONDITION: statusNext REFUSES to advance past a step whose evidence is absent (chain has not reached that step) — a box ticked without evidence corrupts Tron's QA signal.
-- [ ] (gate) STUB-MUST-FAIL: break the advance/derive/persist path -> gate RED. + EVIDENCE-PRECONDITION BITE: attempt to advance a step with absent evidence -> MUST refuse (RED if it advances). FAMILY: under-recorded-progress / silent-drift.
+- [ ] (functional) ONE controller entry unitController.apply(idx, ior, uuid, intent) is the SOLE mutation entry for ANY unit (any ior:class:*): validate via the REGISTERED policy for that ior -> apply -> persist -> emit. NOT a Task-specific statusNext; policies REGISTER via registerPolicy(ior, policy) (default-accept if none).
+- [ ] (functional) Task FSM = POLICY #1 (guardTransition + the SHARED evidenceForStep predicate); apply TICKS the checklist and lets deriveStatusEnum produce the status — NEVER hand-sets the enum (status stays DERIVED, R37.5). statusNext = a THIN Task facade over apply, NOT a second entry.
+- [ ] (functional) apply PERSISTS via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, subsuming statusNext's). EVIDENCE-PRECONDITION via the SHARED evidenceForStep predicate (single-source with checklist-chain-audit, hardening C): REFUSE to advance past a step whose evidence is absent — a box ticked without evidence corrupts the signal Tron steers QA by.
+- [ ] (DRY-AC / gate) STUB-MUST-FAIL: adding a NEW class policy = REGISTRATION ONLY — register a throwaway policy in the test, assert it works AND the diff touches ONLY the registry; a controller/bus/pipeline edit for policy N+1 -> RED. + break the validate->apply->persist->emit path -> RED. FAMILY: under-recorded-progress / silent-drift.
 
 ## Subtasks
 
