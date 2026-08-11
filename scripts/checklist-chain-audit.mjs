@@ -163,5 +163,8 @@ console.log(`\nWARN (${warns.length}) — verify-owner-first (shared-chain possi
 for (const w of warns) console.log(`  [${w.sprint}] ${w.uuid} derived=${w.derived} | ${w.name} | ${w.reason}`);
 if (report) process.exit(0);
 if (fails.length) { console.log(`\n✗ ${fails.length} confirmed under-recorded-progress task(s) — tick the checklist to measured reality (let status derive).`); process.exit(1); }
-console.log('\n✓ no confirmed under-recorded-progress (FAIL tier empty).');
+console.log('\n✓ no CURRENTLY under-recorded-progress (FAIL tier empty).');
+console.log('  NOTE: FAIL=0 = clean RIGHT NOW, NOT proof the family never occurred. Known instances');
+console.log('  (S37 C2/C6, 2026-08-11) were RECONCILED honestly to In-Progress (70123010e/5172291fc),');
+console.log('  not born clean — this guard exists because the class is real and recurs.');
 process.exit(0);
