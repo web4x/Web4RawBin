@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8d1c4f60-2e97-4b53-9a6f-0c7e2b1d5a84",
+    "name": "test:R37.2 reconcile-all write-gate — generateAll (b31ae393) regenerates every in-scope sprint board MD in one --all pass (drift 6→0, 4 orphans pruned, stub-must-fail proven; header-less hand-authored req/planning correctly out-of-scope per R-C7)",
+    "implementations": [
+      "ior:instance:b31ae393-0701-46a8-9296-4ed965e00fc2"
+    ],
+    "sourceFile": "ior:file:test/visual/rc2-reconcile-all-write-gate.mjs",
+    "status": "pass",
+    "markerNote": "Tester GREEN independently re-verified (663fb9f1, fix landed): the --all reconcile WRITE regenerates all in-scope boards non-empty; measured drift 6→0, 4 orphans pruned, stub-must-fail proven (the checker gate did not drive the write — this gate does, b31ae393). Gate = test/visual/rc2-reconcile-all-write-gate.mjs marker binds Test 8d1c4f60 → Impl b31ae393 (generateAll @generate-sprint-md.ts:253, STRICT-AST 9b1c2ab18) → Method eddf2836. Owned-output guard skips header-less hand-authored req.md/planning.md (R-C7 scope) — correctly NOT asserted, not a failure. Full-uuid gate-sourced (measure-don't-invent, valid v4, set-clean)."
+  },
+  "ownerIor": "ior:instance:b31ae393-0701-46a8-9296-4ed965e00fc2"
+}

@@ -6,7 +6,9 @@
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
     "markerPending": false,
     "markerNote": "STRICT-AST VERIFIED (9b1c2ab18): [impl:uuid:b31ae393] @generate-sprint-md.ts:248 heads function generateAll@253 (name-match, 0 intervening). Expert extracted generateAll as pure refactor of the inline --all loop (same behavior); INV-C1 held (scenario/index byte-identical). Reconcile-all = a RUN of this. R-C2 BLOCKED ~9/37 by OWNED-OUTPUT guard skipping 20 hand-authored req.md + 10 planning.md (no GENERATED_HEADER); decision pending PO+Tron.",
-    "tests": []
+    "tests": [
+      "ior:instance:8d1c4f60-2e97-4b53-9a6f-0c7e2b1d5a84"
+    ]
   },
   "ownerIor": "ior:instance:eddf2836-4320-46ae-a75f-c9e6312053e6"
 }
