@@ -12,7 +12,7 @@ import { describe, it, expect } from 'vitest';
 import os from 'node:os';
 import fs from 'node:fs';
 import path from 'node:path';
-import { computeRevocationScope, loadRevokedTokens, isRevoked, type UnitSource } from '../../src/ts/server/revoked-tokens.js';
+import { computeRevocationScope, loadRevokedTokens, isRevoked, hashToken, revokedArmedHealth, EXPECTED_REVOKED_COUNT, type UnitSource } from '../../src/ts/server/revoked-tokens.js';
 
 // Tiny in-memory scenario store: enrolled tokens carry a devicePublicKey; unenrolled do not.
 function mkIdx(units: Array<{ ior: string; model: any }>): UnitSource {
@@ -54,15 +54,40 @@ describe('R40.22 step-3: revoked-token derivation', () => {
   });
 });
 
-describe('R40.22 step-3: isRevoked — both directions (stub-must-fail)', () => {
-  const revoked = new Set(['dead-token-1', 'dead-token-2']);
-  it('REJECTS a revoked token', () => {
+describe('R40.22 step-3: isRevoked over SALTED HASHES — both directions (stub-must-fail)', () => {
+  // The set holds HASHES (as the tracked list does); isRevoked hashes the presented token before lookup.
+  const revoked = new Set(['dead-token-1', 'dead-token-2'].map(hashToken));
+  it('REJECTS a revoked token (its hash is in the list)', () => {
     expect(isRevoked('dead-token-1', revoked)).toBe(true);
   });
   it('ACCEPTS (fail-open) any unlisted token — never over-reject', () => {
     expect(isRevoked('a-valid-live-token', revoked)).toBe(false);
     expect(isRevoked(OWNER, revoked)).toBe(false);
     expect(isRevoked('', revoked)).toBe(false);
+  });
+  it('the stored value is a 64-hex hash, NOT the raw token (list is not a credential)', () => {
+    const h = hashToken('some-token');
+    expect(h).toMatch(/^[0-9a-f]{64}$/);
+    expect(h).not.toBe('some-token');
+  });
+  it('salt is fixed/deterministic across calls (deploy-durable)', () => {
+    expect(hashToken('t')).toBe(hashToken('t'));
+  });
+});
+
+describe('R40.22 step-3 (B): revokedArmedHealth — loud absence, both directions', () => {
+  it('NOT armed → null (inert; a missing list is expected, quiet fail-open)', () => {
+    expect(revokedArmedHealth(0, false)).toBeNull();
+    expect(revokedArmedHealth(999, false)).toBeNull();
+  });
+  it('armed + correct count → healthy (null)', () => {
+    expect(revokedArmedHealth(EXPECTED_REVOKED_COUNT, true)).toBeNull();
+  });
+  it('armed + absent/empty → LOUD (non-null error)', () => {
+    expect(revokedArmedHealth(0, true)).toBeTruthy();
+  });
+  it('armed + SHORT (the sneaky case) → LOUD (non-null error)', () => {
+    expect(revokedArmedHealth(EXPECTED_REVOKED_COUNT - 1, true)).toBeTruthy();
   });
 });
 

@@ -14,6 +14,19 @@
 // a mistake is undone by removing an entry (token accepted again); nothing is destroyed.
 
 import fsSync from 'node:fs';
+import crypto from 'node:crypto';
+
+// R40.22 step-3 (A) — the stored list holds SALTED HASHES, never raw tokens (architect f1ab00e21 / PO
+// ruling). A fixed-salt SHA-256 of a 128-bit-entropy UUID token CANNOT authenticate and is not
+// brute-forceable from the hash ⇒ the list stops being a credential ⇒ safe to TRACK in git
+// (deploy-durable) and it does not trip the credential guard. The salt is DOMAIN SEPARATION, not
+// secrecy — so it MUST be FIXED and COMMITTED: a per-deploy-random salt would break the list across
+// deploys and silently un-revoke everything (the exact failure we guard against). Publishing it costs
+// nothing (a UUID is not recoverable from its hash).
+export const REVOKED_SALT = 'rb-revoked-token-v1';
+export function hashToken(token: string): string {
+  return crypto.createHash('sha256').update(REVOKED_SALT + '\0' + token).digest('hex');
+}
 
 // Minimal structural view of the scenario store (decouples from ScenarioIndex; keeps this unit testable).
 export interface UnitSource {
@@ -55,10 +68,11 @@ export function computeRevocationScope(idx: UnitSource, isOwner: (t: string) => 
   return { revoked, enrolled, unenrolled, fileOwners };
 }
 
-// Load the FROZEN revoked list. FAIL-OPEN: a missing / unreadable / malformed / empty file yields an
+// Load the FROZEN revoked HASH list. FAIL-OPEN: a missing / unreadable / malformed / empty file yields an
 // empty set ⇒ NOBODY is revoked (we never over-reject a valid token). Accepts a bare array or
-// { revoked: [...] }. This fail-open on absence is deliberate: under-protection is recoverable
-// (re-run the generator), over-rejection would be a mass lockout.
+// { revoked: [...] } of SHA-256 hex hashes. Fail-open on absence is deliberate: under-protection is
+// recoverable (re-run the generator); over-rejection would be a mass lockout. (The absent/short case is
+// separately made LOUD-when-armed by revokedArmedHealth — the opposite failure direction.)
 export function loadRevokedTokens(pathStr: string): Set<string> {
   const set = new Set<string>();
   try {
@@ -67,15 +81,36 @@ export function loadRevokedTokens(pathStr: string): Set<string> {
     const list: unknown[] = Array.isArray(data)
       ? data
       : (data && Array.isArray(data.revoked) ? data.revoked : []);
-    for (const t of list) if (typeof t === 'string' && t.trim()) set.add(t.trim());
+    for (const h of list) if (typeof h === 'string' && h.trim()) set.add(h.trim());
   } catch { /* fail-open */ }
   return set;
 }
 
-// The auth decision at IDENTIFY. Fail-open for every unlisted token by construction (a Set miss = false).
-export function isRevoked(token: string, revoked: Set<string>): boolean {
-  return revoked.has(token);
+// The auth decision at IDENTIFY. Hashes the presented token and checks the HASH set. Fail-open for every
+// unlisted token by construction (a Set miss = false). One SHA-256 per IDENTIFY — negligible.
+export function isRevoked(token: string, revokedHashes: Set<string>): boolean {
+  return revokedHashes.has(hashToken(token));
 }
 
 // The measured, ruling-backed target count. Any drift trips the generator AND the CI gate LOUD.
 export const EXPECTED_REVOKED_COUNT = 116;
+
+// R40.22 step-3 ARM flag. FALSE = INERT (the kill is not activated → an absent/empty list is EXPECTED,
+// quiet fail-open). Flip to true ONLY together with a materialized list at EXPECTED_REVOKED_COUNT so
+// arming and the list land atomically (the CI gate refuses ARMED-without-a-full-list). Held for the
+// architect 7-point + PO GO — this const flip IS the arm act.
+export const REVOKED_ARMED = false;
+
+// TWO OPPOSITE FAILURE DIRECTIONS IN ONE MECHANISM (failure-direction-by-consequence):
+//   • fail-OPEN for an UNLISTED token — never lock out a valid client (see isRevoked);
+//   • fail-LOUD when the WHOLE LIST is absent/short WHILE ARMED — otherwise the revocation silently
+//     evaporates on a fresh deploy and the 116 leaked tokens authenticate again (the incident reopens).
+// Returns an error string when unhealthy, else null. `armed` is a param (defaulting to the const) purely
+// so both directions are unit-testable without rebuilding.
+export function revokedArmedHealth(loadedCount: number, armed: boolean = REVOKED_ARMED): string | null {
+  if (!armed) return null; // not armed → inert; a missing list here is intended, not a fault
+  if (loadedCount !== EXPECTED_REVOKED_COUNT) {
+    return `revoked-tokens ARMED but loaded ${loadedCount} (expected ${EXPECTED_REVOKED_COUNT}) — revocation is NOT enforced; refusing to report healthy.`;
+  }
+  return null;
+}

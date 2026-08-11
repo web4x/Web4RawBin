@@ -14,10 +14,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../src/ts/scenario/index.js';
 import { ServerManagerGuard } from '../src/ts/server/ServerManagerGuard.js';
-import { computeRevocationScope, EXPECTED_REVOKED_COUNT } from '../src/ts/server/revoked-tokens.js';
+import { computeRevocationScope, EXPECTED_REVOKED_COUNT, hashToken } from '../src/ts/server/revoked-tokens.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = path.join(ROOT, 'data', 'revoked-tokens.json');
+// TRACKED (salted-hash) list at repo root — deploy-durable, not a credential. NOT under data/ (runtime).
+const OUT = path.join(ROOT, 'revoked-token-hashes.json');
 const write = process.argv.includes('--write');
 
 const idx = new ScenarioIndex(path.join(ROOT, 'scenario/index'));
@@ -47,13 +48,14 @@ if (fails.length) {
 console.log('✓ invariants hold: |revoked|==116, disjoint from enrolled-79 / Tron / File-owners.');
 
 if (!write) {
-  console.log('DRY-RUN (no --write) — file NOT written. Re-run with --write to materialize data/revoked-tokens.json.');
+  console.log('DRY-RUN (no --write) — file NOT written. Re-run with --write to materialize revoked-token-hashes.json (tracked).');
   process.exit(0);
 }
-fs.mkdirSync(path.dirname(OUT), { recursive: true });
+const hashes = scope.revoked.map(hashToken).sort(); // SALTED HASHES only — never the raw tokens
 fs.writeFileSync(OUT, JSON.stringify({
-  note: 'R40.22 step-3 auth-invalidation — 116 dormant dev/test raw-only Device tokens. Reversible: remove an entry to accept it again. GITIGNORED (never commit).',
-  count: scope.revoked.length,
-  revoked: scope.revoked,
-}, null, 2));
-console.log(`✓ wrote ${scope.revoked.length} tokens → ${path.relative(ROOT, OUT)}`);
+  note: 'R40.22 step-3 auth-invalidation — SALTED SHA-256 hashes of the 116 dormant dev/test raw-only Device tokens (NOT raw tokens; safe to track). Reversible: remove an entry to accept that token again.',
+  salt: 'rb-revoked-token-v1 (domain separation, public; see revoked-tokens.ts)',
+  count: hashes.length,
+  revoked: hashes,
+}, null, 2) + '\n');
+console.log(`✓ wrote ${hashes.length} SALTED HASHES → ${path.relative(ROOT, OUT)} (tracked, deploy-durable)`);
