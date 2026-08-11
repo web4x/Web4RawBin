@@ -21,9 +21,12 @@ req measured the units at field level and I confirmed by field-PRESENCE scan (pr
 - **`devicePublicKey` populated in 79 units.**
 - Each Device row pairs a real IP with a live owner credential — **impersonation risk, not merely privacy.**
 
-### Two severity classes (the guard + remediation MUST distinguish them)
-- **CREDENTIAL (higher — leaked = ACCESS):** `ownerToken`, `devicePublicKey`, `token`, `secret`. The gate fails **LOUDEST** on these.
-- **PII (leaked = harm):** `ip`, phone, names, message bodies, email + the 10 PII types.
+### Severity tiers — INDEPENDENTLY MEASURED by field-name pattern sweep over all 5580 tracked units (no values; scope is MEASURED, not briefed — the briefed count was wrong 4× tonight: 113→311→240→~445)
+- **CREDENTIAL (rotate; leaked = ACCESS; gate LOUDEST):** `ownerToken` **241** [Device 195 / Room 45 / Requirement 1], `uploaderToken` **204** [File 186 / WebItem 18], `token` 2, `secretCode` 1. **★ Rotation scope = ownerToken 241 + uploaderToken 204 = ~445** two-class credential leak.
+- **★ NEW TYPE: `File` (186 uploaderToken) — was on NOBODY's type-list → ADD File to the PII/untrack set.** A type-only allowlist misses all 186 File credentials; this is why the guard is FIELD-level (vindicated: type-scoping would have missed File AND the 45 Room ownerTokens).
+- **PUBLIC-KEY tier (identifying security-artifact; lower sev; NOT the same rotation):** `devicePublicKey` **80**, `sshPublicKey` **42** [Room]. Public halves — record + treat as PII-tier, not credential-rotate.
+- **PII (leaked = harm):** `ip` 195, phone, names, message bodies, email + the (now 11) PII types incl File.
+- **NOT secrets (pattern false-positives, exclude from rotation):** `contentHash` 183 [File] = content-dedup hash; `sshKeysGenerated`/`sshKeyGeneratedAt` = boolean/timestamp metadata. Requirement-hosted token/secretCode (R19.54/R19.55) = schema-DESCRIBING field-names, req value-checking + redacting if a real value slipped (low-sev req-lane hygiene).
 
 ### ★★ REMEDIATION IS INVERTED for the credential class — ROTATION is PRIMARY, scrubbing SECONDARY
 A history rewrite / going-private is **INSUFFICIENT for the tokens**: anyone who already cloned or forked holds VALID credentials, and a scrub cannot reach a clone. **The only effective fix is ROTATION — invalidate the tokens server-side.** After rotation the leaked copies become worthless, and the remaining repo question reduces to ordinary PII (names, phones, IPs, message bodies) where scrubbing/private applies.
@@ -31,7 +34,12 @@ A history rewrite / going-private is **INSUFFICIENT for the tokens**: anyone who
 - This is a distinct, HIGHER-priority track than the PII untrack/gate below; rotation neutralizes the leaked tokens regardless of what happens to the repo.
 
 ### ★ ROTATION SCOPE = 240 by FIELD-PRESENCE (NOT 195 by type) + architect backstop checklist
-- **Scope must be `ownerToken`-populated = 240 (195 Device + 45 Room) — NOT the 195 Device by type.** A type-scoped rotation leaves the 45 Room tokens working+public while looking complete. Also cover `devicePublicKey` (79). VERIFY the expert's rotation covers Room by FIELD-PRESENCE, not unit type.
+- **Scope = TWO credential classes by FIELD-PRESENCE (independently swept, not briefed): `ownerToken` 241 (Device 195 / Room 45 / Req 1) + `uploaderToken` 204 (File 186 / WebItem 18) = ~445.** A type-scoped rotation leaves the 45 Room + 186 File tokens working+public while looking complete. Independently verify BOTH classes by field-presence, not unit type; also record devicePublicKey 80 / sshPublicKey 42 (public-key tier, lower sev).
+- **★ VERIFY THE EXPERT'S SCOPE SWEEP INDEPENDENTLY** (do not accept its list — my sweep found no 5th credential beyond ownerToken/uploaderToken; contentHash/ssh*Generated are hashes/metadata not secrets — but re-run the pattern each time the tree changes, a new field can appear).
+- **★ C4-INERTNESS (item 4) — PROVEN post-revert (a9dd7c964), independently:** server.ts no longer imports task-policy; task-policy's ONLY importer is `mvc-boundary-guard.ts` which is an ORPHAN (imported by nobody — refs elsewhere are its class def + comments); no barrel re-export, no dynamic import ⇒ `registerPolicy`/`registerSelfHeal` cannot run at boot ⇒ restart activates zero C4/self-heal. Re-verify if the tree changes before restart.
+
+## ★ GENERAL RULE (banked, PO — will recur): the DEPLOY BOUNDARY is the RESTART, not the commit
+"build-not-deploy" is NOT inert if the build adds a **boot-time import**. A change touching the boot graph is shipped-on-next-restart — and that restart may be triggered by someone else for an unrelated reason (e.g. this credential rotation). **Before ANY restart, ask what ELSE is armed on this tree** (grep the boot graph for newly-reachable module-top side-effects). This is now a standing part of the rotation backstop and any restart-bearing gate. (C4.3 above was the live instance: a build-not-deploy commit armed the approve-path via a boot-time import; caught before the rotation restart.)
 - **Backstop (independent verification, NOT the expert's word), when the rotation lands:** (1) dual-validity genuinely accepts BOTH old+new BEFORE any invalidation; (2) prove-before-kill — `acceptLegacyOwnerToken` stays TRUE until Tron personally authenticates with the new credential AND hits an owner route successfully; (3) fail-loud boot-check present and ACTUALLY fails loudly (not a log line); (4) ★ restart activates NO C4 approve-path / C4.1 self-heal code — verify dormant/unimported on the CURRENT tree (accidental approve-path activation during rotation = worst coincidence); (5) r4010 SERVER re-gate genuinely re-runs (old green certified a corrupt source). (6) post-rotation field-presence: 0 tracked units carry a LIVE `ownerToken` (old tokens invalidated).
 
 ### PHASE 1 — STOP THE EXPOSURE NOW, but in a TWO-STEP that avoids the CI-red hazard (PO sequencing ruling)
