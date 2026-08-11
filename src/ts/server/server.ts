@@ -75,6 +75,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { resolveSprintPin } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
@@ -2446,9 +2447,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R20.22: CurrentSprint → 3 task children from slots
         if (type === 'CurrentSprint') {
           const model = unit.model as Record<string, unknown>;
-          // PIN-KEEP (ROOT-1): recompute the three slots from LIVE task state each read — never the frozen
-          // model.slots snapshot (which froze to whenever persist() last ran → stale current/last/next). Self-healing.
-          const slots = CurrentSprint.slotsFrom(idx) as any;
+          // R40.17 SINGLE-SOURCE + PIN-KEEP (ROOT-1): recompute LIVE each read (never the frozen slots snapshot).
+          // The current SPRINT comes from the ONE resolver — resolveSprintPin(idx, designation) — using the singleton's
+          // owner designation (sprintName→number + currentTaskUuid). An owner designation WINS and is shown with its
+          // REAL derived status ('Sprint 37 — QA-pending'); a genuinely ambiguous NO-designation state fails loud →
+          // surfaced HONESTLY as UNRESOLVED, never a silent guess and never a 500. slotsFrom no longer self-derives.
+          let slots: any = { current: null, lastCompleted: null, nextBacklog: null };
+          let pinSprintLabel = '';
+          try {
+            const desNum = /\d+/.exec(String(model.sprintName || ''))?.[0];
+            const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null });
+            const cur = pin.current;
+            if (cur) pinSprintLabel = `Sprint ${cur.number} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
+            slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined) as any;
+          } catch (e: any) {
+            pinSprintLabel = `⚠ UNRESOLVED — ${String(e?.message || e).slice(0, 160)}`; // honest fail-loud, not a crash
+          }
           const slotEntries: Array<{ label: string; slot: any }> = [
             { label: '📌 Current', slot: slots.current },
             { label: '✅ Last Completed', slot: slots.lastCompleted },
@@ -2464,7 +2478,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label}: ${taskName}`, hasChildren: true, status };
           });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-          res.end(JSON.stringify({ uuid, type, name: String(model.name || 'Current Sprint'), hasChildren: children.length > 0, children }));
+          // node name surfaces the resolved sprint + its HONEST status label (R40.17); model.name as the fallback.
+          res.end(JSON.stringify({ uuid, type, name: pinSprintLabel || String(model.name || 'Current Sprint'), hasChildren: children.length > 0, children }));
           return;
         }
         // Room type: build Members + Files collection children

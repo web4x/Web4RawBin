@@ -85,8 +85,12 @@ export class CurrentSprint {
   // PIN-KEEP (recompute-on-read): stateless — build a throwaway instance bound to the FRESH per-request index
   // (load()s the singleton unit's hints live) and derive slots from LIVE task state. NOT the cached getInstance
   // (which binds one stale index) → the served pin self-heals on every read, no persist() dependency (ROOT-1 fix).
-  static slotsFrom(index: ScenarioIndex): ThreeSlots {
-    return new CurrentSprint(index).getThreeSlots();
+  // R40.17 SINGLE-SOURCE: the current SPRINT is resolved by resolveSprintPin (server-side, fs) and passed IN as
+  // `resolvedSprint` — this client-bundled class no longer derives the sprint from sprintName (that parallel
+  // derivation was the 2nd source; retired, INV-C1-9). `currentTaskUuid` = the owner's task designation (INPUT-ONLY
+  // from the singleton) that OVERRIDES chain-activity for the current-task slot.
+  static slotsFrom(index: ScenarioIndex, resolvedSprint?: { number: number; uuid: string; name: string }, currentTaskUuid?: string): ThreeSlots {
+    return new CurrentSprint(index).getThreeSlots(resolvedSprint, currentTaskUuid);
   }
 
   private load(): void {
@@ -120,7 +124,8 @@ export class CurrentSprint {
         lastCompletedUuid: this.lastCompletedUuid,
         lastCompletedName: this.lastCompletedName,
         lastCompletedReqUuid: this.lastCompletedReqUuid,
-        slots: this.getThreeSlots(),
+        // R40.17: no `slots` snapshot persisted — the served pin is recompute-on-read via slotsFrom(resolveSprintPin)
+        // (ROOT-1), nothing reads model.slots, and a stored snapshot would be a stale 2nd source of "what is current".
       },
       ownerIor: null,
     };
@@ -163,7 +168,7 @@ export class CurrentSprint {
   }
 
   // [impl:uuid:d20855e7-4a1b-4c2d-8e3f-5a6b7c8d9e0f] R20.22 getThreeSlots
-  getThreeSlots(): ThreeSlots {
+  getThreeSlots(resolvedSprint?: { number: number; uuid: string; name: string }, currentTaskUuid?: string): ThreeSlots {
     // Tron redesign + forward-fall: current & lastCompleted derive from the CURRENT SPRINT's tasks[]
     // (no global scan of DONE past-sprint tasks — that was the phantom Sprint-20 backlog bug).
     // nextBacklog = next not-done task in-sprint, and if the sprint has none left, the FIRST open task
@@ -192,33 +197,27 @@ export class CurrentSprint {
       const sm = unit.model as Record<string, unknown>;
       sprintUnits.push({ name: String(sm.name || sm.altId || ''), number: Number(sm.number) || 0, tasks: ((sm.tasks as string[]) || []).map(t => ior(t)) });
     }
-    const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    // R40.17 SINGLE-SOURCE: the current sprint is the one RESOLVED by resolveSprintPin (passed in by the server as
+    // `resolvedSprint`) — NUMBER-matched to the in-memory sprintUnits for its ordered tasks. The old sprintName-derived
+    // match + focus-flag fallback are RETIRED (they were the parallel 2nd source of "what is current"; INV-C1-9). If no
+    // sprint was resolved (should not happen on the served path — the endpoint always passes the resolver's answer),
+    // the slots are honestly empty rather than silently re-derived from a stale hint.
     let sprintTaskUuids: string[] = [];
     let currentSprint: { name: string; number: number; tasks: string[] } | undefined;
-    if (this.sprintName) {
-      // Match the sprint by NUMBER (robust) — the Sprint unit NAME often carries no "Sprint NN" substring
-      // (e.g. S36 = "Unify Traceability Units…"), so norm-name-includes silently MISSED and the pointer fell
-      // back to a stale focus flag (→ pinned an old sprint's task). Number parse first, name-substring fallback.
-      const numM = this.sprintName.match(/\d+/);
-      const wantNum = numM ? Number(numM[0]) : NaN;
-      const key = norm(this.sprintName);
-      const match = !Number.isNaN(wantNum)
-        ? sprintUnits.find(s => s.number === wantNum)
-        : (key ? sprintUnits.find(s => norm(s.name).includes(key)) : undefined);
+    if (resolvedSprint) {
+      const match = sprintUnits.find(s => s.number === resolvedSprint.number);
       if (match) { sprintTaskUuids = match.tasks; currentSprint = match; }
-    }
-    if (!sprintTaskUuids.length) {
-      let focusUuid = '';
-      for (const u of this.index.list()) { const unit = this.index.get(u); if (unit?.ior === 'ior:class:Task' && (unit.model as Record<string, unknown>).focus) { focusUuid = u; break; } }
-      const owner = focusUuid ? sprintUnits.find(s => s.tasks.includes(focusUuid)) : undefined;
-      if (owner) { sprintTaskUuids = owner.tasks; currentSprint = owner; }
     }
     const sprintTasks = sprintTaskUuids.map(slotInfo).filter((t): t is Slot => !!t);
 
     // 2) current = the WIP by construction (PIN-KEEP): a VALID focus wins (in-sprint — sprintTasks already is — AND
     //    not-done), else the in-sprint task covering the WIP chain req (also not-done), else forward-fall to the
     //    FIRST NOT-DONE in-sprint task. NEVER a done task; a stale/done/out-of-sprint focus is rejected (ROOT-2).
-    let i = sprintTasks.findIndex(t => t.focus && !t.done);
+    // R40.17 DESIGNATION OVERRIDES chain-activity: an explicit owner currentTaskUuid (INPUT-ONLY from the singleton)
+    // wins for the current slot — authoritative data, honored regardless of focus/done (chain-activity stays the
+    // DEFAULT only when no designation exists). Must be in the resolved sprint; a designation elsewhere is ignored here.
+    let i = currentTaskUuid ? sprintTasks.findIndex(t => t.uuid === currentTaskUuid) : -1;
+    if (i < 0) i = sprintTasks.findIndex(t => t.focus && !t.done);
     if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].done) i = j; }
     if (i < 0) i = sprintTasks.findIndex(t => !t.done); // forward-fall: current = first NOT-DONE WIP in-sprint
     // Fully-COMPLETED sprint (every task Done, no open WIP): the pointer must reflect "we are at the END of
