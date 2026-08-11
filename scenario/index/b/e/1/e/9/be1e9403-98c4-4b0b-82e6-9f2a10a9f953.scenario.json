@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "be1e9403-98c4-4b0b-82e6-9f2a10a9f953",
+    "name": "evidence.evidenceForStep",
+    "description": "The ONE shared evidence predicate: evidenceForStep(unit, step) -> boolean — has this checklist step's evidence actually landed (the real chain-edge: the chain reached a shipped Impl AND a two-keyed passing Test<->Impl.tests[] for that step)? BOTH statusNext (controller/prevention, refuses to advance past a step whose evidence is absent) AND checklist-chain-audit (backstop) CONSUME this single definition; the audit's existing inline chain-edge computation refactors to CALL this predicate and its inline copy is retired. Single-source so the two evidence-askers can never disagree (applies C4's own single-source law to the fix's internals).",
+    "class": "ior:instance:0d9a7b85-813b-47df-aafd-8910cf7f9637",
+    "method": "ior:instance:6f47de6e-8e0e-40f8-87cc-783fb418fe19",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+}

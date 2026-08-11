@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5021456d-3ec5-4265-8c4f-54afb86ea46a",
+    "name": "StepEvidence.evidenceForStep impl (ONE shared evidence predicate; real chain-edge = chain reached shipped Impl AND two-keyed passing Test<->Impl.tests[] for the step; consumed by BOTH statusNext prevention + checklist-chain-audit backstop; retires the audit inline copy)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/step-evidence.ts",
+    "markerNote": "markerPending: expert builds src/ts/scenario/step-evidence.ts = C4 BUILD-STEP-1 (unblocks the controller policy). BUILD-DEP: this predicate MUST exist before unitController.apply/statusNext so the policy consumes the shared def, NOT a 2nd copy (design build-seq #1). checklist-chain-audit.mjs refactors its inline chain-edge computation to CALL evidenceForStep and retires the inline copy (design hardening C). Then I strict-AST-flip on the [impl:uuid:5021456d] marker. Design: scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md (C) + chain line 123."
+  },
+  "ownerIor": "ior:instance:6f47de6e-8e0e-40f8-87cc-783fb418fe19"
+}

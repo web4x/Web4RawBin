@@ -13,7 +13,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:be1e9403-98c4-4b0b-82e6-9f2a10a9f953"
+  ],
   "description": "The pin and board objects VALIDATE on init/read: they reflect reality (recompute from files) or REFUSE to run drifted — they never return a silently-drifted value. Consistency is a property of the objects, not of anyone's vigilance.",
   "tronQuote": "> Tron AUTHORIZED Sprint 37 = consistency-by-construction (2026-08-07, via robbin-po); files = the ONE source of truth, pin+board = GENERATED views that cannot drift, a FAIL-LOUD guard asserts pin==board==files.",
   "discoverySource": {

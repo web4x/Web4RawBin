@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0d9a7b85-813b-47df-aafd-8910cf7f9637",
+    "name": "StepEvidence",
+    "sourceFile": "ior:file:src/ts/scenario/step-evidence.ts",
+    "methods": [
+      "ior:instance:6f47de6e-8e0e-40f8-87cc-783fb418fe19"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
