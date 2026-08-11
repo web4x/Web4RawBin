@@ -16,6 +16,7 @@ import type { ScenarioUnit } from './types.js';
 import { deriveStatusEnum, type TaskStatusEnum } from './task-status.js';
 import { StepEvidence, type EvidenceStep, type ResolveRef } from './step-evidence.js';
 import { UnitController, registerPolicy, type UnitPolicy, type UnitIntent, type PublishFn } from './unit-controller.js';
+import { registerSelfHeal } from './self-heal.js'; // C4.1 self-heal on read (Task healer registers below)
 
 export const TASK_IOR = 'ior:class:Task';
 // The ONE canonical 4-state order (In Progress subsumes the task-fsm impl/testing sub-steps). This IS the re-expressed
@@ -73,3 +74,13 @@ export function statusNext(idx: ScenarioIndex, taskUuid: string, opts: { actor?:
 }
 
 registerPolicy(TASK_IOR, TaskPolicy);
+
+// C4.1 (T37.4.1) self-heal on READ — Task = healer #1. Recompute the DERIVED status from the checklist (the single
+// source, deriveStatusEnum) so a READ never returns a stored `status` that has drifted from the checklist (C2/C6:
+// status 'Planned' while the chain had shipped). deriveStatusEnum never throws → Task always self-CORRECTS (fresh, no
+// refuse). A new class inherits self-heal-on-read by registering its own healer here — zero edits to the mechanism.
+// [impl:uuid:PENDING-req-mint] TaskPolicy self-heal-on-read registration (recompute status from checklist)
+registerSelfHeal(TASK_IOR, (unit) => {
+  const m = unit.model as Record<string, unknown>;
+  m.status = deriveStatusEnum(String(m.statusChecklist ?? ''));
+});

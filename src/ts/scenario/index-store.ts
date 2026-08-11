@@ -10,6 +10,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { type ScenarioUnit } from './types.js';
+import { selfHealOnRead } from './self-heal.js'; // C4.1 self-heal on read (inert until a class registers a healer)
 
 // [impl:uuid:5b584056-ebc9-43d4-a3f9-3ea371a9c2b8] ScenarioIndex.get(uuid): ScenarioUnit impl
 // [impl:uuid:4e256ada-5598-4ae0-9182-bb2e9d1729ee] ScenarioIndex.prefix(uuid): string impl
@@ -64,7 +65,10 @@ export class ScenarioIndex {
     if (!uuid) return null;
     const fp = this.filePath(uuid);
     if (!fp || !fs.existsSync(fp)) return null;
-    return JSON.parse(fs.readFileSync(fp, 'utf-8'));
+    // C4.1 (T37.4.1) self-heal on READ: recompute derived fields to reality (fresh) OR refuse (throw), so a read never
+    // returns a silently-drifted value. No-op for any ior with no registered healer (O(1) Map lookup) — inert until a
+    // class registers via registerSelfHeal, so this changes no read behaviour until a healer is wired in.
+    return selfHealOnRead(JSON.parse(fs.readFileSync(fp, 'utf-8')) as ScenarioUnit);
   }
 
   has(uuid: string): boolean {
