@@ -6,6 +6,6 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
-    "markerNote": "DISTINCT-Impl (THIRD) on SHARED multi-req Method onUniversalAction 276e4981 (R30.11) — does NOT re-credit 005dbd3e (R34.1 R-A A1) nor R36.5 actionBar.openBaseUnit. Built ahead (expert); holding deploy for R40.17 bundle. Expert places [impl:uuid:7557bd7c] DISTINCT-from-005dbd3e on onUniversalAction -> I strict-AST-flip. DISTINCT Test = tester waitForEvent(page) gate (async-open->RED, proves sync-in-gesture)."
+    "markerNote": "DISTINCT-Impl (THIRD) on SHARED multi-req Method onUniversalAction 276e4981 (R30.11) — does NOT re-credit 005dbd3e (R34.1 R-A A1) nor R36.5 actionBar.openBaseUnit. FEATURE ALREADY SHIPPED standalone v0.8.84 (93042a3eb) — user-facing change LIVE on device (tester can gate AC-6 NOW). Expert places [impl:uuid:7557bd7c] DISTINCT-from-005dbd3e on onUniversalAction -> I strict-AST-flip. DISTINCT Test = tester waitForEvent(page) gate (async-open->RED, proves sync-in-gesture)."
   }
 }
