@@ -21,8 +21,15 @@ export interface SprintStatus {
   counts: { done: number; superseded: number; cancelled: number; inProgress: number; qa: number; planned: number; total: number };
   unresolvedRef?: string; // a task ref that doesn't resolve → resolveSprintPin refuses fail-closed (never silent-skip)
 }
-export interface SprintSlot { uuid: string; number: number; name: string }
+// R40.17: a slot carries its REAL derived status so the display can LABEL an owner-designated sprint honestly
+// ("Sprint 37 — Closed") — designation is authoritative data, never a claim of Active. `designated` = came from an
+// explicit owner designation (won over the derivation), vs a purely-derived slot.
+export interface SprintSlot { uuid: string; number: number; name: string; status?: SprintStatusEnum; designated?: boolean }
 export interface SprintPin { current: SprintSlot | null; lastCompleted: SprintSlot | null; nextBacklog: SprintSlot | null }
+// R40.17 — the explicit owner DESIGNATION fed INTO resolveSprintPin (INPUT-ONLY, sourced from the CurrentSprint
+// singleton; NOT a second store). Precedence: a valid designation WINS unconstrained (shown with its real status),
+// else derive, else fail-loud. The within-Active constraint governs ONLY the derived (no-designation) path.
+export interface SprintPinHint { currentSprintNumber?: number | null; nextSprintNumber?: number | null }
 
 const bare = (ref: string): string => String(ref).replace('ior:instance:', '').split('@')[0];
 
@@ -105,7 +112,7 @@ export function isCurrentEra(num: number | null): boolean { return num != null &
 // QA-pending-only sprint does NOT qualify (INV-C1-3); >1 Active = FAIL-LOUD ambiguity (INV-C1-4), never a silent
 // pick; none → null. last = highest-number Closed; next = lowest-number Planned with number > current. FAIL-CLOSED
 // vacuous (INV-C1-6): a sprint with an unresolvable task ref REFUSES (throws named); empty tasks[] is never Done.
-export function resolveSprintPin(idx: ScenarioIndex): SprintPin {
+export function resolveSprintPin(idx: ScenarioIndex, hint?: SprintPinHint): SprintPin {
   const sprints = [...idx.list()].map((u) => idx.get(u)).filter((u): u is ScenarioUnit => !!u && u.ior === 'ior:class:Sprint');
   const rows = sprints
     .map((s) => ({ s, num: sprintNumOf(s) }))
@@ -118,18 +125,36 @@ export function resolveSprintPin(idx: ScenarioIndex): SprintPin {
       return { uuid: String((s.model as any).uuid), num, name: String((s.model as any).name || ''), st };
     });
 
-  const slot = (r: { uuid: string; num: number; name: string }): SprintSlot => ({ uuid: r.uuid, number: r.num, name: r.name });
+  const slot = (r: { uuid: string; num: number; name: string; st: SprintStatus }, designated = false): SprintSlot =>
+    ({ uuid: r.uuid, number: r.num, name: r.name, status: r.st.status, designated });
 
-  const active = rows.filter((r) => r.st.status === 'Active');
-  if (active.length > 1) throw new Error(`R-C1 FAIL-LOUD (INV-C1-4): ${active.length} Active sprints [${active.map((a) => a.num).join(', ')}] — ambiguous current, never silent-pick. Resolve the checklists so exactly one sprint is In-Progress.`);
-  const current = active.length === 1 ? slot(active[0]) : null;
+  // R40.17 PRECEDENCE (PO ruling — owner designation is authoritative DATA, not a fabrication):
+  //   explicit DESIGNATION wins → else DERIVE (the ONE Active) → else FAIL-LOUD UNRESOLVED.
+  // A valid designation (names an existing current-era sprint) WINS UNCONSTRAINED — it may be non-Active and is shown
+  // with its REAL derived status label (`designated:true`); we never CLAIM it is Active and never REPLACE it with a
+  // fail-loud error on the owner's screen. The 'derivation-can-never-fabricate-a-non-Active-current' invariant governs
+  // ONLY the no-designation branch below. The throw surfaces ONLY when there is NO designation AND >1 Active (genuine
+  // ambiguity). The designation NEVER mutates status and NEVER reduces the Active count (R-C5 still audits all Active).
+  let current: SprintSlot | null;
+  const designated = hint?.currentSprintNumber != null ? rows.find((r) => r.num === hint.currentSprintNumber) : undefined;
+  if (designated) {
+    current = slot(designated, true); // owner designation → honest labeled display, never refused
+  } else {
+    const active = rows.filter((r) => r.st.status === 'Active');
+    if (active.length === 1) current = slot(active[0]);
+    else if (active.length > 1) throw new Error(`R-C1/R40.17 FAIL-LOUD (INV-C1-4): ${active.length} Active sprints [${active.map((a) => a.num).join(', ')}] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress.`);
+    else current = null;
+  }
 
   const closed = rows.filter((r) => r.st.status === 'Closed').sort((a, b) => b.num - a.num);
   const lastCompleted = closed.length ? slot(closed[0]) : null;
 
   const curNum = current?.number ?? lastCompleted?.number ?? -Infinity;
-  const planned = rows.filter((r) => r.st.status === 'Planned' && r.num > curNum).sort((a, b) => a.num - b.num);
-  const nextBacklog = planned.length ? slot(planned[0]) : null;
+  // next = lowest-number Planned with number > current; a nextSprintNumber designation wins among Planned candidates
+  // (same shape: designation wins → else lowest Planned ahead). Never fabricates a non-Planned next silently.
+  const plannedAhead = rows.filter((r) => r.st.status === 'Planned' && r.num > curNum).sort((a, b) => a.num - b.num);
+  const designatedNext = hint?.nextSprintNumber != null ? rows.find((r) => r.num === hint.nextSprintNumber) : undefined;
+  const nextBacklog = designatedNext ? slot(designatedNext, true) : (plannedAhead.length ? slot(plannedAhead[0]) : null);
 
   return { current, lastCompleted, nextBacklog };
 }
