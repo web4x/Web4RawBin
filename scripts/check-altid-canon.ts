@@ -64,6 +64,7 @@ function walkTs(dir: string, out: string[] = []): string[] {
   return out;
 }
 
+// [impl:uuid:f14fdee7-8a3a-4824-83d7-7308274fd7f3] AltIdCanonGuard.assertNoSchemeLiteralInSource — source-surface canon (R37.13)
 export function findSchemeLiteralsInSource(root: string): SourceLiteral[] {
   const files = [...walkTs(path.join(root, 'src')), ...walkTs(path.join(root, 'scripts'))];
   const hits: SourceLiteral[] = [];
