@@ -128,13 +128,14 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
     .catch((e) => surfaceVerdict(drawer, `⚠ ${action} request failed — ${String(e?.message || e)}. Nothing was changed.`, 'err'));
 }
 
-// R40.17 universalActions.handlePinDesignate — [impl] marker PENDING req's R40.17 client-chain mint (placed on THIS fn).
+// R40.17 universalActions.handlePinDesignate — the pin-designate client action (the notify-add below IS the live-pin push).
 // The owner taps 📌 Set current / 📋 Set next on a task detail → POST the owner-gated /api/current-sprint/designate.
 // The server writes the designation INPUT-ONLY onto the CurrentSprint singleton (the task's sprint + the task uuid) and
 // resolves the pin — it NEVER writes the task's status (reactivation is a separate checklist act). An owner designation
 // is UNCONSTRAINED + LABELED: a Closed/QA-pending sprint resolves and is shown with its real status, never refused. We
 // surface the server's honest label verbatim (incl. the status), and never fake success.
 //   200 → designated, pin now shows "Sprint N — <status> (designated)"   403 → owner-only, not recorded   4xx → surfaced
+// [impl:uuid:9073d5fd-701a-492c-a40b-a49846529266] universalActions.handlePinDesignate — R40.17 notify-add: on a 200 designate it calls ViewBus.notify(CurrentSprint ref) so the eager-lazy live-pin re-fetches (no Refresh @390).
 function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): void {
   const slot = verb === 'pin-current' ? 'current' : 'next';
   surfaceVerdict(drawer, slot === 'current' ? '⏳ Setting as current…' : '⏳ Setting as next…', 'warn');

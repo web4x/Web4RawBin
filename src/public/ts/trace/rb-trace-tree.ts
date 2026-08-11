@@ -88,6 +88,9 @@ export class RbTraceTree extends HTMLElement {
     }
   }
 
+  // [impl:uuid:c3951765-6dff-4025-828d-bf4931cca8b3] RbTraceTree.connectedCallback — R40.17 live-pin RECEIVER concern
+  // (R30.11 distinct-on-shared: this is a shared lifecycle method; this Impl credits its live-pin subscribe — the
+  // eager-lazy branch subscribes to the CurrentSprint singleton ref so a designate notify re-fetches the 2-node pin).
   connectedCallback(): void {
     this.classList.add('trace-tree');
     this.upgradeProperty('items');
