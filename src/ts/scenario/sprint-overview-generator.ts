@@ -70,7 +70,7 @@ export class SprintOverviewGenerator {
     // (INV-C6-5) means NOT asserting an unreliable status for a sprint we've deliberately frozen out of the gate.
     const table = ['| # | Sprint | Status |', '|---|--------|--------|',
       ...rows.map((r) => `| ${r.num} | ${r.name} | ${r.frozen ? 'frozen-legacy (excluded from gate)' : r.status} |`)];
-    return ['## 📌 Sprint pointers (generated — R-C1 pin + R-C5 rollup)', pin.md, '', ...table, '', this.frozenLegacySection()].join('\n');
+    return ['## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)', pin.md, '', ...table, '', this.frozenLegacySection()].join('\n');
   }
 
   // [impl:uuid:1f38e07e-2635-433a-b9ee-045584c3a669] SprintOverviewGenerator.generateOverview — preserve narrative OUTSIDE markers, regenerate

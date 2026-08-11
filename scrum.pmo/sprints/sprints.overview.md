@@ -34,19 +34,19 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 <!-- GENERATED-INDEX:BEGIN -->
 ## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)
-- **current:** ⚠️ UNRESOLVED — pin ambiguous — 6 Active sprints [21, 20, 40, 19, 37, 25] — ambiguous current, never silent-pick. Resolve the checklists so exactly one sprint is In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
+- **current:** ⚠️ UNRESOLVED — pin ambiguous — R-C1/R40.17 FAIL-LOUD (INV-C1-4): 6 Active sprints [21, 20, 40, 19, 37, 25] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
 
 | # | Sprint | Status |
 |---|--------|--------|
-| 1 | Sprint 01 — Rawbin Foundation | frozen-legacy (excluded from gate) |
-| 2 | Sprint 02 — Identity & SSH | frozen-legacy (excluded from gate) |
-| 3 | Sprint 03 — E2E Hardening | frozen-legacy (excluded from gate) |
-| 4 | Sprint 04 — Traceability | frozen-legacy (excluded from gate) |
-| 5 | Sprint 05 — PWA & Offline | frozen-legacy (excluded from gate) |
-| 6 | Sprint 06 — Web Components | frozen-legacy (excluded from gate) |
-| 7 | Sprint 07 — Encrypted Storage | frozen-legacy (excluded from gate) |
-| 8 | Sprint 08 — Monaco Editor | frozen-legacy (excluded from gate) |
-| 9 | Sprint 09 — Room Identity | frozen-legacy (excluded from gate) |
+| 1 | Rawbin Foundation | frozen-legacy (excluded from gate) |
+| 2 | Identity & SSH | frozen-legacy (excluded from gate) |
+| 3 | E2E Hardening | frozen-legacy (excluded from gate) |
+| 4 | Traceability | frozen-legacy (excluded from gate) |
+| 5 | PWA & Offline | frozen-legacy (excluded from gate) |
+| 6 | Web Components | frozen-legacy (excluded from gate) |
+| 7 | Encrypted Storage | frozen-legacy (excluded from gate) |
+| 8 | Monaco Editor | frozen-legacy (excluded from gate) |
+| 9 | Room Identity | frozen-legacy (excluded from gate) |
 | 10 | Sprint 10 — Contacts Ui | frozen-legacy (excluded from gate) |
 | 11 | Sprint 11 — Traceability | frozen-legacy (excluded from gate) |
 | 12 | Sprint 12 — Editor Fixes | frozen-legacy (excluded from gate) |
