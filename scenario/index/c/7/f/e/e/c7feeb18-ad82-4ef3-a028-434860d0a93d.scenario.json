@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c7feeb18-ad82-4ef3-a028-434860d0a93d",
+    "name": "Diagram background-drag pans the viewport with a MOUSE (parity with touch) — unify on POINTER events, one handler",
+    "altId": "R40.29",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "On a diagram, panning the viewport by dragging the BACKGROUND works with TOUCH (finger) but NOT with a MOUSE. Mouse parity required — the same background-drag pans the viewport with a mouse. Likely cause: pan handlers bound to touch events only (touchstart/touchmove).",
+    "tronQuote": "in the diagramms i can pan the position via finger but not via mouse when i am on the diagram background. it needs to work with the mouse too",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "pan-zoom-pointer-parity",
+    "discoverySource": {
+      "type": "tron-directive",
+      "by": "Tron (device)",
+      "date": "2026-08-11",
+      "note": "Diagram background pan works touch, not mouse. Mouse parity. Same family as R22.2 (drawer pan/zoom) + parked 1cbad4ef (iframe pinch)."
+    },
+    "crossRef": [
+      "ior:instance:b7000fa1-01d6-4757-a211-b24051eea7eb",
+      "ior:instance:1cbad4ef-1428-4594-9a48-b7892ab36f48"
+    ],
+    "crossRefNote": "Same pan/zoom-input-parity family as R22.2 (drawer pan/zoom, touch-first mouse-parity, device-only touch half) + parked 1cbad4ef (iframe pinch-scale, open mobile gap). This is the DIAGRAM viewport background-pan mouse-parity.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-mouse-bg-pan",
+        "group": "mouse-bg-pan",
+        "text": "Dragging the diagram BACKGROUND with a MOUSE pans the viewport."
+      },
+      {
+        "id": "AC-2-touch-unchanged",
+        "group": "no-reverse-regression",
+        "text": "The existing TOUCH pan continues to work UNCHANGED — this is PARITY, not replacement (no reverse regression)."
+      },
+      {
+        "id": "AC-3-no-hijack",
+        "group": "no-hijack",
+        "text": "Background-drag does NOT hijack node drag / selection / text-selection — panning only on the background, not on a node."
+      },
+      {
+        "id": "AC-4-gate-asserts-result",
+        "group": "gate-asserts-result",
+        "text": "★ The gate asserts the RESULT — the viewport POSITION actually CHANGED after a mouse drag — NOT that a listener/handler exists. A bound listener that moves nothing is the empty-container class."
+      },
+      {
+        "id": "AC-5-split-verify",
+        "group": "split-verify",
+        "text": "Desktop-MOUSE half = AUTOMATABLE-gated (viewport moved on mouse drag); the TOUCH half stays DEVICE-VERIFIED (real device)."
+      },
+      {
+        "id": "AC-6-by-construction-pointer",
+        "group": "by-construction-pointer-events",
+        "text": "★ BY-CONSTRUCTION: unify on POINTER events (pointerdown/pointermove/pointerup) — ONE handler covering mouse + touch + pen. Do NOT add a parallel mouse handler beside the touch one: two input paths for one behaviour is the two-sources disease and they WILL drift (one gets a fix the other does not — which is exactly how the finger/mouse gap arose). Also check whether this belongs to the EXISTING RbPanZoom component rather than a per-view handler (single-source the pan behaviour)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
