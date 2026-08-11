@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.5 (SCOPE-CORRECTED ac147a82d: detail/feature-view EXTRA buttons DE-DUP onto shared bar; ⛔ editor chrome OUT/unchanged, exclusion RECORDED). RE-MIRRORED from rewritten R40.5. coveredRequirements + useCases 1c21d43a wired; ACs MIRRORED with tags (4 AUTOMATABLE + 1 DEVICE/VISUAL @390 Tron). NOTE: slug stays task-40.5-buttons-to-action-units-dry (identifier stable; corrected scope in name/desc/ACs). ★ In Progress refinement [x]: design/build-requirement DELIVERED (architect 9cf7857a2 authoritative-N-before-migration + build-go cb77ce28f: UC rides EXISTING universalActionBar 54acc696/ffd44b17, actionSets at build from grep-inventory; architect confirmed NO open design action, NOT design-gated). BUILD-READY, expert on it (Impl markerPending). ★ SCOPE: editor chrome OUT, IN = duplicated detail/feature-view buttons, POINT = de-dup NOT uniformity; grep-zero-bespoke lint SCOPED to detail/feature (must NOT fire on editor chrome) + stub-must-fail on new bespoke.
+QA-Review (planner flip 2026-08-11 — ★ THE CAMPAIGN PAYOFF: Tron -> ZERO held verdicts). chain-complete-to-Test DURABLE ON ORIGIN, quad-verified (my both-dir origin measure + PO both-dir + tester + req). ★ BORROWED-CREDIT CORRECTED AT SOURCE (RULE #4): R40.5 now has its OWN distinct-intent chain — UC detailView.assertNoBespokeDuplication 325e2e1b -> Method findBespokeDuplicates ca5b10b4 -> Impl 1beb8fb0 (DetailBespokeActionsGuard dedup lint; sharedByTasks=[a10c3329 ONLY]; markerPending=false; marker @check-detail-bespoke-actions.ts:33) <-> Test 8d1f4a70 (r405-dedup-facet-gate.mjs) status=pass, implementations[]=[1beb8fb0] + ownerIor=1beb8fb0. Does NOT ride the shared ffd44b17 (R34.7's universalActionBar) and does NOT reuse cbdb3210 (R34.7's bar test) — the borrowed credit that held this verdict back is gone. Expert extract behavior-preserving (983d3dfe4), req strict-AST flip (6408a9074), r405 GREEN DET-3x post-extract (46b07e604). verify-owner-first PASSED. ★ This task was REFUSED-to-flip TWICE (cross-credit, then local-only) — both refusals correct; now flips on OWN-earned + DURABLE evidence. AC-DEVICE/VISUAL @390 = Tron. Awaiting Tron QA verdict. 0 Done till Tron.
 
 ## Traceability
 
