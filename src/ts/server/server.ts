@@ -1289,6 +1289,24 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
 // TRACEABILITY wins identity/chain (name + methods/implementations/tests/chain links — left untouched on the base),
 // generated M1 wins structure/signature, instanceOf facets UNION, usedIn from the R36.2 side-index. Enriches the
 // resolution's model IN MEMORY only.
+// R40.10 BUG-A — surface a task's decline-minted ChangeRequests by their DURABLE backref (CR.task / CR.ownerIor → this
+// task), NOT the losable task.changeRequests forward mirror. MEASURED: 0 tasks carry a non-empty changeRequests[] on
+// disk (the corruption/reset history wiped every forward mirror) while the CR units survive — so a declined CR was
+// INVISIBLE on the task surface Tron declined it from (gate-the-AC-surface). The backref (task/ownerIor on the CR) is
+// durable. COMPUTE-ON-READ at /api/ior — NEVER writes the file (INV-T byte-diff==0); unions any live mirror so a
+// populated mirror is never lost. The client renderChangeRequests reads model.changeRequests → renders each CR reachable.
+function attachTaskChangeRequests(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
+  const bare = (s: unknown) => String(s || '').replace('ior:instance:', '');
+  const crs = new Set<string>((Array.isArray(m.changeRequests) ? m.changeRequests as string[] : []).map(bare).filter(Boolean));
+  for (const u of idx.list()) {
+    const cu = idx.get(u);
+    if (cu?.ior !== 'ior:class:ChangeRequest') continue;
+    const cm = cu.model as Record<string, unknown>;
+    if (bare(cm.task) === taskUuid || bare(cu.ownerIor) === taskUuid) crs.add(String(cm.uuid || u));
+  }
+  m.changeRequests = [...crs].map((x) => `ior:instance:${x}`);
+}
+
 function reconcileCanonical(uuid: string, m: Record<string, unknown>, ior?: string): void {
   // R36.1: UseCase → UmlUseCase M2 projection (server.projectUmlUseCase — rides this reconcileCanonical Impl
   // 37c08fd5). UNION the UmlUseCase metaclass facet into instanceOf so renderFacet draws the ellipse on the
@@ -2658,6 +2676,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);
         if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
+        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskChangeRequests(iorUuid, result.unit.model as Record<string, unknown>, idx); // R40.10 BUG-A: durable-backref CRs so a declined CR is reachable on the task surface (compute-on-read, never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
