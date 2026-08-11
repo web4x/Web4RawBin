@@ -39,9 +39,16 @@ Preview RENDER + drawer-open were gated GREEN @390 real-WebKit; only the real-fi
 - **PASS:** the details drawer opens for that node.
 - **Closes:** R40.9 drawer-on-select (tap-fire half).
 
+## 7. 🆕 R40.28 — ◆Scenario / ✎Edit open in a NEW TAB (AC-7 iOS sync-block)  · real iOS Safari only
+AC-6 (a new browsing context ACTUALLY opens — sync-uuid + synthetic-ref about:blank→pointed) is gated GREEN DET-3x @390 real-WebKit (r4028-newtab-gate). AC-7 = iOS silently blocks a NON-synchronous window.open; headless WebKit does NOT enforce the sync-gesture rule (measured: async also opens), so only a real device confirms the tab truly opens.
+- **DO:** open any unit's drawer → tap **◆ Scenario**, then **✎ Edit**; also try a synthetic-ref node (dir:/file:).
+- **PASS:** each tap opens a NEW TAB (not the current one) landing on the real target (Scenario view / editor) — no silently-blocked or empty `about:blank` tab.
+- **Closes:** R40.28 AC-7 (iOS sync-gesture new-tab).
+
 ---
 
 ### Pulled OFF this list (automatable @390 real-WebKit → I gate, not you — no padding)
+- **R40.28 new-tab AC-6 (actual-open)** — gated GREEN DET-3x @390 real-WebKit (r4028-newtab-gate); only AC-7 (iOS sync-block, headless cannot enforce) is device (row 7).
 - **R40.9 preview render + drawer logic** — already gated GREEN @390 real-WebKit (r409); only the real-finger tap (row 6) remains.
 - **R40.4 sprint-label render @390** — pixel-automatable; I'll re-gate, not hand it over.
 - **R40.20 keybar first-key toggle** — NOT shipped yet (never-built); add a row when it ships (its "bar stays above the keyboard" AC will be device-only).
