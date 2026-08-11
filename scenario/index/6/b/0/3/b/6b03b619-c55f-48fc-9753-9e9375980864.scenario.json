@@ -3,10 +3,10 @@
   "model": {
     "uuid": "6b03b619-c55f-48fc-9753-9e9375980864",
     "name": "UnitController.emit impl (step-4 SERVER publish: broadcasts UNIT_CHANGED{ior,uuid,hash} over wsClients; generic, no task shape)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
     "sourceFile": "ior:file:src/ts/scenario/unit-controller.ts",
-    "markerNote": "markerPending (unit-controller.ts BUILT per expert 2a, marker landing): the SERVER side of the notification path — UnitController runs server-side in apply, so emit BROADCASTS UNIT_CHANGED{ior,uuid,hash} over wsClients (server.ts:1747). NOT a direct client-module import; the client RECEIVES the broadcast and calls ViewBus.emitUnitChanged (49cffd5a, R37.12). Two sides of ONE ws path (confirmed with expert). [impl:uuid:6b03b619] -> I flip."
+    "markerNote": "markerPending (unit-controller.ts BUILT per expert 2a, marker landing): the SERVER side of the notification path — UnitController runs server-side in apply, so emit BROADCASTS UNIT_CHANGED{ior,uuid,hash} over wsClients (server.ts:1747). NOT a direct client-module import; the client RECEIVES the broadcast and calls ViewBus.emitUnitChanged (49cffd5a, R37.12). Two sides of ONE ws path (confirmed with expert). [impl:uuid:6b03b619] -> I flip. | FLIPPED by req (strict-AST verified disk: FULL-uuid marker @line 46 adjacent-above decl, 0 intervening, name-token match; expert full-uuid expansion + buildStrictImplSet credits=true)."
   },
   "ownerIor": "ior:instance:1e03b611-1952-42ea-a030-4224cacf2c49"
 }

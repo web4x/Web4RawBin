@@ -3,10 +3,10 @@
   "model": {
     "uuid": "b5f72641-a75c-4b8f-98fc-2380ced1a42a",
     "name": "UnitController.apply impl (generic PRIMARY sole entry for ANY ior:class:*: validate-via-registered-policy -> apply -> persist ScenarioIndex.put deliberate-opt -> publish/emit; the committed-class opt-in site + dominance target)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
     "sourceFile": "ior:file:src/ts/scenario/unit-controller.ts",
-    "markerNote": "markerPending: expert build-step-2 builds src/ts/scenario/unit-controller.ts. Generic mechanism (Task=policy#1). Expert places [impl:uuid:b5f72641] adjacent-above function/method apply (strict-AST) -> I flip."
+    "markerNote": "markerPending: expert build-step-2 builds src/ts/scenario/unit-controller.ts. Generic mechanism (Task=policy#1). Expert places [impl:uuid:b5f72641] adjacent-above function/method apply (strict-AST) -> I flip. | FLIPPED by req (strict-AST verified disk: FULL-uuid marker @line 30 adjacent-above decl, 0 intervening, name-token match; expert full-uuid expansion + buildStrictImplSet credits=true)."
   },
   "ownerIor": "ior:instance:5cc58e20-b27d-4ccf-93d1-80ed9ae8bff5"
 }
