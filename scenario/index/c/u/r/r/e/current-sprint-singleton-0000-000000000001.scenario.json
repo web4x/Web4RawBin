@@ -27,7 +27,7 @@
       }
     },
     "nextSprintName": "Sprint 37",
-    "nextBacklogOverride": "79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d",
+    "nextBacklogOverride": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
     "lastCompletedUuid": "b5948931-5a36-4779-806d-abe60153aba8",
     "lastCompletedName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
     "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
@@ -48,7 +48,7 @@
         "reqUuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa"
       }
     },
-    "currentTaskUuid": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9"
+    "currentTaskUuid": "79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d"
   },
   "ownerIor": null
 }
