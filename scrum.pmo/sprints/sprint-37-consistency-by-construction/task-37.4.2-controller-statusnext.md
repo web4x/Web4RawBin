@@ -25,7 +25,7 @@ Planned - C4.2 CONTROLLER statusNext single entry (subtask of T-C4 79fd2164; the
   - up
     - [Sprint 37 Planning](./planning.md)
     - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`
-    - Requirement R37.4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`
+    - Requirement R37.11 `[requirement:uuid:cfe02f4b-f07d-41ec-8aca-c462c22306f9]`
   - down
     - None (leaf subtask)
 
