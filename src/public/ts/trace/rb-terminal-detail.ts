@@ -83,6 +83,7 @@ export class RbTerminalDetail extends HTMLElement {
 
   // R40.3 mount the keyboard controller from the DATA-DRIVEN keymap config unit (c16abc17); fail-closed → no bar if the
   // unit is unreadable (never fabricate keys). Reuses the ws PTY send path — the controller is a client shell, keys are data.
+  // [impl:uuid:8d4da71e-d9eb-4af8-a6eb-7cec96dd77db] RbTerminalDetail.mountKeyBar (0-keys fail-visible notice — BUG-KEYBAR-SILENT-EMPTY)
   private async mountKeyBar(send: (bytes: string) => void): Promise<void> {
     let keys: KeyDef[] = [];
     try {
