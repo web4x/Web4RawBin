@@ -91,8 +91,18 @@ export class RbTerminalDetail extends HTMLElement {
       // (R35/R36 view-unit wrap); read that first (bug: was reading j.model.keys → 0 keys → no bar). Fallbacks + array guard.
       const k = (j && j.unit && j.unit.model && j.unit.model.keys) || (j && j.model && j.model.keys) || (j && j.keys);
       keys = Array.isArray(k) ? (k as KeyDef[]) : [];
-    } catch { /* fail-closed */ }
-    if (keys.length && this.isConnected) this.appendChild(RbKeyboardBar.renderKeyMap(keys, send));
+    } catch { /* fail-closed → keys stays [] → the VISIBLE notice below fires */ }
+    if (!this.isConnected) return;
+    if (keys.length) { this.appendChild(RbKeyboardBar.renderKeyMap(keys, send)); return; }
+    // BUG-KEYBAR-READPATH (fail-closed AND VISIBLE): 0 keys is a DEFECT, not "no bar by design". Render a visible notice
+    // so an empty keymap can NEVER hide as a silently-absent bar (the vacuity class — an empty bar that "looks fine" is
+    // the same lie as a gate that passes without asserting). The read-path itself is unit.model.keys first (R40.3, above).
+    const warn = document.createElement('div');
+    warn.className = 'rb-keybar-unavailable';
+    warn.setAttribute('role', 'status');
+    warn.style.cssText = 'padding:6px 10px;font-size:12px;color:#b00;background:#fee;border-top:1px solid #f0c0c0';
+    warn.textContent = '⚠ keyboard bar unavailable — 0 keys resolved from /api/ior (keymap missing or unreadable)';
+    this.appendChild(warn);
   }
 
   // R40.1 [impl marker pending req chain] fetch THIS pane's owner-gated RC link + open the universal link (app-else-web);
