@@ -16,3 +16,10 @@ Heuristic. It includes (a) **explanatory refs** — a function that *uses* / is 
 
 ## Recommendation
 The 33-item campaign set is TRACTABLE (vs a blind 115-item sweep the PO explicitly rejected). Next step = architect verify-owner-first triage of the 33 → the confirmed true debt (likely a handful), each then req-minted a marker/Impl so its task can be legitimately credited before Tron's verdict. Full 115 = a captured req (post-campaign debt). The "?" 319-unresolved-parent bucket = a separate data-integrity finding (folds into the fabricated-identifier work).
+
+## ★★ CORRECTION + CAMPAIGN CLEARANCE (2026-08-11, after triage)
+MY SCAN HAD A BUG: it checked only the function BODY for an `[impl:uuid]` marker — but the standard placement is ADJACENT-ABOVE the decl (AST-attach; I documented this myself). So it FALSE-flagged every function whose marker sits above its decl. `renderFacet` exposed it (marker `[impl:uuid:94ad4f50…]` at diagram-view-model.ts:73, decl :78 — body-scan missed it → false "debt"). Corrected scan (marker checked ABOVE-decl + body): **total 115→51, campaign-intersection 33→10.**
+TRIAGE of the corrected 10 (req-chain discriminator): **ALL 10 = CLEAR (req-credited-elsewhere — the requirement has a marked impl; these functions are USE-REFS).** ⇒ **CAMPAIGN-CRITICAL TRUE-DEBT INTERSECTION = EMPTY.** No campaign at-QA task's credit rests on an unmarked impl. Tron can render the 33 verdicts safely on this axis.
+- The 51 corrected total = ordinary POST-CAMPAIGN debt (capture req).
+- R40.17 (captureOnly req, NO chain at all) remains the ONE confirmed real debt — already mapped to req (distinct chain).
+- MINOR post-campaign note: R30.14 has 3 impl units unmarked/unplaced in files OTHER than these functions — its task is still credited via 1 marked impl (not campaign-blocking).
