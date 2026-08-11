@@ -3,12 +3,12 @@
   "model": {
     "uuid": "1beb8fb0-924f-4bdf-a5ce-a586bb2d3591",
     "name": "DetailBespokeActionsGuard.findBespokeDuplicates impl (R40.5 dedup lint: scoped grep of rb-*detail*.ts button labels, normalized; FAIL exit1 on a label in >=2 view files; editor chrome EXCLUDED-recorded; single-surface chrome passes)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [
       "ior:instance:8d1f4a70-2c6e-4b93-a5d1-9e0f3b7c6a24"
     ],
     "sourceFile": "ior:file:scripts/check-detail-bespoke-actions.ts",
-    "markerNote": "markerPending: R40.5's OWN dedup-enforcement lint SHIPPED as scripts/check-detail-bespoke-actions.ts (module-level dedup gate). Expert EXTRACTS the module-level check into an exported fn (e.g. findBespokeDuplicates returning the cross-file duplicates) + places [impl:uuid:1beb8fb0] adjacent-above it (strict-AST next-named-decl) -> I strict-AST-flip. ★ R40.5's FIRST distinct-intent dedup coverage: does NOT ride ffd44b17 (shared universalActionBar = R34.7's) and Test 8d1f4a70 does NOT reuse cbdb3210 (R34.7's bar test) — RULE #4 borrowed-credit corrected. Releases Tron's last held verdict."
+    "markerNote": "markerPending: R40.5's OWN dedup-enforcement lint SHIPPED as scripts/check-detail-bespoke-actions.ts (module-level dedup gate). Expert EXTRACTS the module-level check into an exported fn (e.g. findBespokeDuplicates returning the cross-file duplicates) + places [impl:uuid:1beb8fb0] adjacent-above it (strict-AST next-named-decl) -> I strict-AST-flip. ★ R40.5's FIRST distinct-intent dedup coverage: does NOT ride ffd44b17 (shared universalActionBar = R34.7's) and Test 8d1f4a70 does NOT reuse cbdb3210 (R34.7's bar test) — RULE #4 borrowed-credit corrected. Releases Tron's last held verdict. | FLIPPED by req (strict-AST verified disk: FULL-uuid marker @check-detail-bespoke-actions.ts:33 adjacent-above export function findBespokeDuplicates@:37, 34-36=comment-continuation 0 intervening named-decl, name-token match; marker present ON ORIGIN; expert extract behavior-preserving r405 PASS + buildStrictImplSet credits=true)."
   },
   "ownerIor": "ior:instance:ca5b10b4-ed67-4ba9-a235-2c2b40f391dd"
 }
