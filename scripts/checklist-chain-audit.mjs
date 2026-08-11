@@ -28,7 +28,20 @@
 
 import fs from 'fs';
 import path from 'path';
-import { StepEvidence } from '../src/ts/scenario/step-evidence.js'; // C4 (C): the ONE real-chain-edge predicate (run under tsx)
+// C4 (C): the ONE real-chain-edge predicate (src/ts/scenario/step-evidence.ts). Imported DYNAMICALLY with a
+// SELF-DESCRIBING guard: a plain-node invocation (no tsx) can't load the .ts, and the raw failure is a cryptic
+// ERR_UNKNOWN_FILE_EXTENSION / ERR_MODULE_NOT_FOUND that reads as a PRODUCT failure (cost real time tonight on
+// r4010's exit-9). Fail closed, but say WHICH kind: RED_INFRA (exit 2, runner missing tsx) is DISTINCT from the
+// audit's own RED_FAILED (exit 1, real under-recorded-progress). Never make a .js copy — that re-forks the very
+// single-source (C) we just retired.
+let StepEvidence;
+try {
+  ({ StepEvidence } = await import('../src/ts/scenario/step-evidence.js'));
+} catch (e) {
+  console.error('❌ RED_INFRA — checklist-chain-audit requires node20+ with tsx. Run: `node --import tsx scripts/checklist-chain-audit.mjs` (NOT plain node). This is a RUNNER/INFRA failure, not an audit failure (exit 2 ≠ the audit\'s RED_FAILED exit 1).');
+  console.error(`   loader error: ${(e && (e.code || e.message)) || e}`);
+  process.exit(2);
+}
 
 const ORDER = ['Planned', 'In Progress', 'QA Review', 'Done'];
 const ref = s => String(s || '').replace('ior:instance:', '');
