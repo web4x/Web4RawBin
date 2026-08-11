@@ -25,7 +25,7 @@
     "check:sprint-label": "node --import tsx scripts/check-sprint-label.ts",
     "check:regen-leaf": "node --import tsx scripts/check-regen-leaf.ts",
     "check:pin-single-source": "node --import tsx scripts/check-pin-single-source.ts --strict",
-    "check:checklist-chain": "node scripts/checklist-chain-audit.mjs",
+    "check:checklist-chain": "node --import tsx scripts/checklist-chain-audit.mjs",
     "check:facet-single-source": "node --import tsx scripts/check-facet-single-source.ts",
     "check:detail-bespoke": "node --import tsx scripts/check-detail-bespoke-actions.ts",
     "check:device-ac": "node scripts/check-device-ac-lint.mjs",

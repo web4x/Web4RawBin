@@ -28,6 +28,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { StepEvidence } from '../src/ts/scenario/step-evidence.js'; // C4 (C): the ONE real-chain-edge predicate (run under tsx)
 
 const ORDER = ['Planned', 'In Progress', 'QA Review', 'Done'];
 const ref = s => String(s || '').replace('ior:instance:', '');
@@ -51,23 +52,10 @@ function audit(byUuid) {
   for (const t of tasks) {
     const m = t.m;
     const der = deriveStatusEnum(m.statusChecklist);
-    let shippedImpl = false, coveredByTest = false;
-    for (const r of (m.coveredRequirements || []).map(get).filter(Boolean)) {
-      for (const uc of (r.m.useCases || []).map(get).filter(Boolean)) {
-        const M = uc.m.method ? get(uc.m.method) : null;
-        if (!M) continue;
-        for (const im of (M.m.implementations || []).map(get).filter(Boolean)) {
-          if (im.m.markerPending === false) shippedImpl = true;
-          // CHAIN-EDGE coverage ONLY: two-keyed (Impl.tests[] <-> Test.implementations[]) + pass. Never prose.
-          for (const teu of (im.m.tests || [])) {
-            const te = get(teu);
-            if (!te) continue;
-            const twoKeyed = (te.m.implementations || []).some(x => ref(x) === im.m.uuid);
-            if (twoKeyed && te.m.status === 'pass') coveredByTest = true;
-          }
-        }
-      }
-    }
+    // C4 (C) SINGLE-SOURCE: the real-chain-edge predicate lives ONCE in StepEvidence; the inline copy is RETIRED so
+    // this backstop and statusNext's evidence-precondition can never disagree about what "recorded" means.
+    const shippedImpl = StepEvidence.evidenceForStep(get, t, 'implementing');
+    const coveredByTest = StepEvidence.evidenceForStep(get, t, 'testing');
     const label = { uuid: (m.uuid || '').slice(0, 8), sprint: m.sprintName || '?', name: (m.name || '').slice(0, 50), derived: der };
     if (der === 'Planned' && shippedImpl) {
       fails.push({ ...label, reason: 'derived=Planned but chain has a SHIPPED Impl (nothing recorded, code shipped)' });
