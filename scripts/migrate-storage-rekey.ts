@@ -29,7 +29,9 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../src/ts/scenario/index.js';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// REKEY_ROOT lets --apply run against an ISOLATED scratch repo copy (architect gate: measured-green on
+// scratch before the real window). Default = the real repo.
+const ROOT = process.env.REKEY_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_USERS = path.join(ROOT, 'data', 'users');
 const MAP_PATH = path.join(ROOT, 'data', 'token-storage-map.json'); // gitignored (contains raw tokens)
 // DRY-RUN CROSS-CHECK ONLY — the first backup's fingerprint. The live tree DRIFTS past this (legit user
@@ -139,7 +141,11 @@ for (const token of ownerTokens) {
   const sid = map[token];
   const src = path.join(DATA_USERS, token), dst = path.join(DATA_USERS, sid);
   if (fs.existsSync(dst)) { skipped++; continue; } // idempotent
-  execFileSync('cp', ['-rP', src, dst]); // -rP: recursive, symlinks preserved (NOT dereferenced), no hardlinks
+  // TAR-PIPE copy (NOT cp -rP): cp -rP was measured to FAN OUT a nested symlink into a real dir on at
+  // least one home (source 8 rooms → cp 9, +1 symlink) — not faithful. tar archives the tree EXACTLY
+  // (symlinks as symlinks, no dereference, no fan-out); the backup tar already proved faithful (69→69).
+  fs.mkdirSync(dst, { recursive: true });
+  execFileSync('sh', ['-c', `tar -C "${src}" -cf - . | tar -C "${dst}" -xf -`]);
   // per-file hash-verify (regular files only)
   const a = contentFingerprint([src]), b = contentFingerprint([dst]);
   if (a.fingerprint !== b.fingerprint) {
@@ -214,12 +220,16 @@ const symOrig = brokenIn(ownerTokens.map(t => path.join(DATA_USERS, t)));       
 const symCopy = brokenIn(ownerTokens.map(t => path.join(DATA_USERS, map[t])));    // storageId copies
 const newBroken = symCopy.b - symOrig.b;
 if (newBroken > 0) fails.push(`${newBroken} NEW broken symlinks introduced by the copy (originals ${symOrig.b} broken, copies ${symCopy.b}) — the copy must preserve resolution`);
-console.log(`in-home symlinks: originals ${symOrig.t - symOrig.b}/${symOrig.t} resolve (${symOrig.b} PRE-EXISTING dangling, flagged req); copies ${symCopy.t - symCopy.b}/${symCopy.t} resolve → NEW broken by copy = ${newBroken} (0 required)`);
+// COUNT MIRROR (architect): delta-broken alone false-PASSES if the copy DROPS a resolving symlink
+// (symCopy.t=68/b=36 → newBroken=0) and the content-multiset excludes symlinks → assert copy total ==
+// original total so a dropped OR added symlink is caught too.
+if (symCopy.t !== symOrig.t) fails.push(`symlink COUNT MIRROR: copies have ${symCopy.t} symlinks vs originals ${symOrig.t} (a symlink was dropped/added — the class delta+multiset jointly miss)`);
+console.log(`in-home symlinks: originals ${symOrig.t - symOrig.b}/${symOrig.t} resolve (${symOrig.b} PRE-EXISTING dangling, flagged req); copies ${symCopy.t - symCopy.b}/${symCopy.t} resolve → NEW broken=${newBroken} (0 req), COUNT MIRROR ${symCopy.t}==${symOrig.t} (${symCopy.t === symOrig.t ? '✓' : '✗'})`);
 
 if (fails.length) {
   console.error(`✗ VERIFY FAILED (ABORT — originals untouched; git checkout scenario/index to revert):`);
   for (const f of fails) console.error('  - ' + f);
   process.exit(1);
 }
-console.log(`✓ VERIFY PASS: links resolve · storageId multiset == b5ec87fb (0 content lost) · 0 owner-token paths in tracked unitLinks`);
+console.log(`✓ VERIFY PASS: links resolve · storageId multiset == APPLY_REF quiesced-start (0 content lost) · symlink count-mirror + 0-new-broken · 0 owner-token paths in tracked unitLinks`);
 console.log(`NEXT (outside this script): deploy regrowth-kill code + restart; originals kept as insurance.`);
