@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9c2e7b41-5d38-4a06-b1e9-7f0c3a2d64e8",
+    "name": "test:R40.17 live-pin no-refresh — a 200 pin-designate fires ViewBus.notify (handlePinDesignate) → the eager-lazy CurrentSprint subscriber re-fetches the 2-node pin → sprint tree updates LIVE @390 real-WebKit DET-3x, no Refresh (AUTOMATABLE bus→view half; real owner-designate finger-tap = Tron device row)",
+    "implementations": [
+      "ior:instance:9073d5fd-701a-492c-a40b-a49846529266"
+    ],
+    "sourceFile": "ior:file:test/visual/r4017-live-pin-norefresh-gate.mjs",
+    "status": "pass",
+    "markerNote": "Tester GREEN DET-3x @390 real-WebKit (2ea899ffe). Hangs on the PRIMARY R40.17 notify-add (handlePinDesignate 9073d5fd) per architect map; RECEIVER connectedCallback c3951765 rides as R30.11 shared-credit (no separate Test). FULL uuid gate-sourced (measure-don't-invent, valid v4). Covers the automatable bus→view half; the real owner-designate finger-tap stays a Tron device row (not headless). Does NOT ride R37.12 ViewBus (consumer wiring). Tester two-keys both-dir."
+  },
+  "ownerIor": "ior:instance:9073d5fd-701a-492c-a40b-a49846529266"
+}
