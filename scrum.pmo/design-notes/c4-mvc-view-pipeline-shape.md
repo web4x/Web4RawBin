@@ -62,5 +62,25 @@ Behavioural bites cover paths that EXIST; the lint forbids paths that DO NOT EXI
 | C4.7 Audit | checklist-chain-audit retained as backstop |
 | C4.8 MVC boundary | dominance property + lint (unique controller / pure views / no bypass) |
 
+## PO HARDENINGS (folded 2026-08-11) — A/B/C/D, (C) load-bearing
+### (A) Freshness FAILS CLOSED on a missed event — absence of notification is NOT evidence of currency
+The revision token is insufficient if the transport drops: a missed `TASK_CHANGED` (ws blip) silently returns to today's stale-believes-fresh. So:
+- The `welcome`/(re)connect handshake (server.ts:3490 already sends `welcome`) PIGGYBACKS the current global model `revision`. On every (re)connect / `focus` / `visibilitychange`, the client RECONCILES `rendered.revision` vs the server's current `revision` — mismatch OR **unknown** (offline / can't confirm) → REVALIDATE or STALE-BADGE.
+- **Rule: unconfirmed currency == STALE, never fresh** (same shape as NOT-RUN==RED). A gap in the ws sequence (monotonic `revision` skips) → treat as stale. The client NEVER assumes fresh because no event arrived.
+- Bite: drop the ws / skip a revision → the open node must go STALE (RED if it renders fresh).
+
+### (B) SCOPE the regen — affected sprint only, debounced
+The event carries the affected sprint (taskUuid → its Sprint). The board pipeline regenerates ONLY that sprint's OWNED board(s), DEBOUNCED (coalesce a burst of transitions in one sprint into a single regen) — NOT all 144 `.md` per transition. C8 owned-output guard still gates writes. Cost-bounded so the pipeline stays enabled — **a guard people disable because it's expensive is worse than none.** Bite: two transitions in one sprint within the debounce window → exactly ONE regen, scoped to that sprint (RED if it regenerates unaffected sprints / fires per-event).
+
+### (C) ★ ONE EVIDENCE PREDICATE, SHARED — the load-bearing single-source
+statusNext's evidence-precondition ("has this step's evidence landed?") and `checklist-chain-audit` compute essentially the SAME question (chain reached shipped-Impl / two-keyed passing `Test`↔`Impl.tests[]` for that step). Implemented separately = **TWO DEFINITIONS OF EVIDENCE that can disagree** — the controller could refuse what the audit calls recorded, or advance what it calls unrecorded = the two-sources disease at the very heart of the fix. FIX: extract ONE predicate `evidenceForStep(unit, step): boolean` in a shared module; **BOTH** `statusNext` (prevention) AND `checklist-chain-audit` (backstop) CONSUME it — never two copies. This applies C4's own single-source law to the fix's internals. Bite: a second/divergent evidence definition → lint RED; the predicate is the sole authority both import (grep-provable single definition, two-bite).
+
+### (D) R40.10 delegation must NOT break ITEM ZERO — positive-control bites
+Approve is LIVE, gated GREEN, Tron's 13 verdicts run through it. The delegation edit (approveByOwner → calls statusNext's Done step instead of setting Done) needs POSITIVE-CONTROL bites (prove the good path still works, not just the negative no-2nd-writer):
+- approve STILL records `approvedBy`/`approvedAt` (as the Done evidence) AND reaches Done end-to-end;
+- decline STILL mints a reachable CR (BUG-A/r4010c);
+- non-owner STILL 403.
+- **tester RE-RUNS r4010 after the delegation edit.** The negative bite (no 2nd Done-writer) + these positive controls together = delegation without regression.
+
 ## Chain (verify-owner-first) — the shape's own traceability
-R-C4 → NEW UCs per boundary (req mints scenario-first, distinct-intent, NO cross-wire): `taskController.statusNext` → Class `TaskController` (task-fsm.ts) → Method `statusNext` → Impl; `taskController.notifyTransition` → Method `notifyTransition` → Impl; `viewPipeline.revalidateOrMarkStale` → Class (client model) → Method → Impl; `mvcBoundary.assertControllerDominates` → Class `MvcBoundaryGuard` (new lint file) → Method → Impl. Single-source Done = a DELEGATION edit to R40.10 approve (no new Done Impl). Each rides its C4.x container's ACs. I confirm uuids before expert wires; backstop @390 for the client stale-badge + flip Impls.
+R-C4 → NEW UCs per boundary (req mints scenario-first, distinct-intent, NO cross-wire): `taskController.statusNext` → Class `TaskController` (task-fsm.ts) → Method `statusNext` → Impl; `taskController.notifyTransition` → Method `notifyTransition` → Impl; `viewPipeline.revalidateOrMarkStale` → Class (client model) → Method → Impl; `mvcBoundary.assertControllerDominates` → Class `MvcBoundaryGuard` (new lint file) → Method → Impl. Single-source Done = a DELEGATION edit to R40.10 approve (no new Done Impl). **(C) shared evidence predicate** = NEW UC `evidence.evidenceForStep` → Class `StepEvidence` (shared module) → Method `evidenceForStep` → Impl, CONSUMED by BOTH statusNext AND checklist-chain-audit (the audit's existing chain-edge computation refactors to CALL this one predicate — do NOT leave a second copy; retire the inline one). This is the single-source unit that keeps the two evidence-askers from disagreeing. Each rides its C4.x container's ACs. I confirm uuids before expert wires; backstop @390 for the client stale-badge + flip Impls.
