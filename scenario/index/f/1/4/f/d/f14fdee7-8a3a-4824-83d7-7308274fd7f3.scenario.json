@@ -3,7 +3,7 @@
   "model": {
     "uuid": "f14fdee7-8a3a-4824-83d7-7308274fd7f3",
     "name": "AltIdCanonGuard.findSchemeLiteralsInSource impl (scans src/+scripts/*.ts for bespoke R-C/task-c/Task-C literals; excludes INV-C namespace + comments + self; closes the generator-hardcoded-literal blind side)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
     "sourceFile": "ior:file:scripts/check-altid-canon.ts",
     "markerNote": "markerPending: guard SHIPPED (skill-expert cc735c07d, guard GREEN units 0 + source 0, canon-ized 21 pre-existing R-C source literals across 16 files). Skill-expert places [impl:uuid:f14fdee7] adjacent-above `export function findSchemeLiteralsInSource`@check-altid-canon.ts:67 (strict-AST next-named-decl) -> I flip. 2nd distinct method of Class AltIdCanonGuard (source-surface vs findAltIdCanonViolations units-surface). Test pending tester bite (planted source literal -> RED)."
