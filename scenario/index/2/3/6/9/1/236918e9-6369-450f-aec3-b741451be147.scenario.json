@@ -1,0 +1,25 @@
+{
+ "ior": "ior:class:Task",
+ "ownerIor": null,
+ "model": {
+  "uuid": "236918e9-6369-450f-aec3-b741451be147",
+  "name": "Task C4.1: MODEL self-heal on read — pin/board/task objects validate on init/read (fresh-or-refuse), never return a silently-drifted value",
+  "slug": "task-c4.1-model-self-heal-on-read",
+  "description": "C4.1 (subtask of T-C4, MVC decomposition; architect shape 34ae87486 design-notes/c4-mvc-view-pipeline-shape.md). The MODEL layer is the only healthy one but its guarantee is incomplete on READ: pin/board/task objects must VALIDATE on init/read — recompute to reflect reality (fresh) OR REFUSE to run when drifted — never return a silently-drifted value. C2/C6 are the measured instances (status derived Planned while the chain had shipped an Impl = a silently-drifted read). This is C4/R-C4's original core AC, now with measured instances behind it. Family: under-recorded-progress / silent-drift.",
+  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+  "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task C4](./task-c4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R-C4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`\n  - down\n    - None (leaf subtask)",
+  "acceptanceCriteria": "- [ ] (functional) The pin/board/task objects VALIDATE on init/read: recompute to reflect reality (fresh) OR REFUSE to run when drifted (fresh-or-refuse, architect shape C4.1).\n- [ ] (functional) The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read (C2/C6 = measured instances: status derived Planned while the chain had shipped an Impl).\n- [ ] (gate) STUB-MUST-FAIL: construct a drifted pin/board/task object -> it recomputes-to-reality OR throws/refuses (never returns silently-wrong); break the validate-on-read path -> gate goes RED. FAMILY: under-recorded-progress / silent-drift.",
+  "subtasks": "None (leaf subtask).",
+  "status": "Planned",
+  "coveredRequirements": [
+   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+  ],
+  "useCases": [],
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "designRef": "ior:file:scrum.pmo/analysis-c4-task-statusnext.md?commit=63fb728a8 + design-notes/c4-mvc-view-pipeline-shape.md?commit=34ae87486",
+  "remainingIssues": "Planned - C4.1 MODEL self-heal on read (subtask of T-C4 79fd2164, the MODEL guarantee of the MVC/view-pipeline fix). Chain (UC/Class/Method) at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = drifted object recomputes-or-refuses, never silent-wrong. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.",
+  "createdBy": "robbin-planner",
+  "createdAt": "2026-08-11"
+ }
+}

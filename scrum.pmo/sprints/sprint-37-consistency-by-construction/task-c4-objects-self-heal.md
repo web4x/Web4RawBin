@@ -25,8 +25,11 @@ Planned - cluster R-C4 (objects self-heal, validate on init/read), build LAST. C
   - up
     - [Sprint 37 Planning](./planning.md)
     - Requirement R-C4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`
-  - down
-    - None (atomic task)
+  - down (subtasks — MVC/view-pipeline decomposition)
+    - [Task C4.1: MODEL self-heal on read](./task-c4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`
+    - [Task C4.2: CONTROLLER statusNext single entry](./task-c4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`
+    - [Task C4.3: CONTROLLER single-source Done](./task-c4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`
+    - (C4.4-C4.8 pending, created in later batches)
 
 ## Task Description
 
@@ -40,4 +43,9 @@ R-C4 (build LAST). The pin and board objects VALIDATE on init/read: they reflect
 
 ## Subtasks
 
-None (atomic task).
+T-C4 is the COORDINATION ROOT of an 8-part MVC / view-pipeline decomposition (Tron: 'faaaaar away from mvc and a view pipeline'; analysis-c4-task-statusnext.md 63fb728a8 + architect shape 34ae87486). BATCH 1 (MODEL + CONTROLLER, the prevention layer) stood up:
+- [Task C4.1: MODEL self-heal on read](./task-c4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`
+- [Task C4.2: CONTROLLER statusNext single entry](./task-c4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`
+- [Task C4.3: CONTROLLER single-source Done](./task-c4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`
+
+PENDING later batches: C4.4 view-pipeline (generated boards) · C4.5 view-pipeline (live client) · C4.6 notification/observer · C4.7 retain checklist-chain-audit · C4.8 MVC-boundary lint.

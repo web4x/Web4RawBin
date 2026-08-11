@@ -20,3 +20,6 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] [Task C6: sprints.overview.md is a GENERATED view (with preserved-narrative region) [R-C6]](./task-c6-sprints-overview-generated.md)
 - [ ] [Task C7: Legacy hand-authored boards MIGRATED to generated (units-completeness-proven, zero loss) [R-C7]](./task-c7-legacy-board-migration.md)
 - [ ] [Task C8: Generated-output writes route through a shared owned-output guard — never clobber/delete an UNMARKED (hand-authored) file, fail-closed [R-C8]](./task-c8-owned-output-delete-guard.md)
+- [ ] [Task C4.1: MODEL self-heal on read — pin/board/task objects validate on init/read (fresh-or-refuse), never return a silently-drifted value](./task-c4.1-model-self-heal-on-read.md)
+- [ ] [Task C4.2: CONTROLLER single transition entry (statusNext) — guard + evidence-precondition + tick-checklist + DERIVE + persist + emit](./task-c4.2-controller-statusnext.md)
+- [ ] [Task C4.3: CONTROLLER single-source Done — statusNext OWNS the Done transition, R40.10 approve DELEGATES, tronApprove folds in (no second writer)](./task-c4.3-controller-single-source-done.md)

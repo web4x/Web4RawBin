@@ -82,5 +82,17 @@ Approve is LIVE, gated GREEN, Tron's 13 verdicts run through it. The delegation 
 - non-owner STILL 403.
 - **tester RE-RUNS r4010 after the delegation edit.** The negative bite (no 2nd Done-writer) + these positive controls together = delegation without regression.
 
+## BUILD SEQUENCE — PO-LOCKED, dependency-derived (state on the units; do NOT reorder by convenience)
+The order is forced by DEPENDENCY, not preference — each step's reason is why it cannot move:
+1. **StepEvidence.evidenceForStep FIRST** — both consumers (statusNext, checklist-chain-audit) depend on it; building statusNext against a not-yet-shared predicate would RECREATE the second copy (C) just killed.
+2. **statusNext controller TOGETHER WITH the R40.10 Done-delegation** — one semantic change (single-writer). Splitting them leaves a WINDOW where two Done-writers coexist. Tester RE-RUNS r4010 immediately after, with the (D) positive controls.
+3. **notifyTransition + the two transports** (wss clients + agents).
+4. **client revalidate-or-STALE-BADGE** — the one Tron actually FEELS (pin-swap); land as EARLY as its deps (3) allow.
+5. **scoped + debounced board regen** (B).
+6. **model self-heal validation** (C4.1).
+7. **dominance LINT LAST** — it asserts the controller is the UNIQUE dominator, which can only be TRUE once the controller (2) exists; landing it earlier is just red.
+8. **C4.7 = RETAIN, not rebuild** — checklist-chain-audit is already shipped + wired; its ONLY change is the (C) refactor to call `evidenceForStep`.
+Each C4.x unit carries its predecessor as a build-dependency so the order is on-record, not tribal.
+
 ## Chain (verify-owner-first) — the shape's own traceability
 R-C4 → NEW UCs per boundary (req mints scenario-first, distinct-intent, NO cross-wire): `taskController.statusNext` → Class `TaskController` (task-fsm.ts) → Method `statusNext` → Impl; `taskController.notifyTransition` → Method `notifyTransition` → Impl; `viewPipeline.revalidateOrMarkStale` → Class (client model) → Method → Impl; `mvcBoundary.assertControllerDominates` → Class `MvcBoundaryGuard` (new lint file) → Method → Impl. Single-source Done = a DELEGATION edit to R40.10 approve (no new Done Impl). **(C) shared evidence predicate** = NEW UC `evidence.evidenceForStep` → Class `StepEvidence` (shared module) → Method `evidenceForStep` → Impl, CONSUMED by BOTH statusNext AND checklist-chain-audit (the audit's existing chain-edge computation refactors to CALL this one predicate — do NOT leave a second copy; retire the inline one). This is the single-source unit that keeps the two evidence-askers from disagreeing. Each rides its C4.x container's ACs. I confirm uuids before expert wires; backstop @390 for the client stale-badge + flip Impls.
