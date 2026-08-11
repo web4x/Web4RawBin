@@ -7,6 +7,7 @@
       "ior:instance:7557bd7c-7e23-43c3-9772-c4189a87b434"
     ],
     "sourceFile": "ior:file:test/visual/r4028-newtab-gate.mjs",
+    "status": "pass",
     "markerNote": "Tester real-uuid4 (set-delta-clean), GREEN DET-3x @390 real-WebKit served==0.8.84==HEAD. Asserts a new context ACTUALLY opens (page event), both paths (sync-uuid Scenario/Edit + synthetic-ref opens about:blank sync then POINTS to resolved target). AC-7 (iOS sync-gesture block) stays DEVICE-ONLY (Tron)."
   },
   "ownerIor": "ior:instance:7557bd7c-7e23-43c3-9772-c4189a87b434"
