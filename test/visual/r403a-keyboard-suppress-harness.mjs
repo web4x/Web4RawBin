@@ -19,6 +19,13 @@ const iPhone = devices['iPhone 12'];
 execSync(`mkdir -p ${ROOT}/test-results/r403a-harness`, { cwd: ROOT });
 execSync(`npx esbuild src/public/ts/trace/rb-keyboard-bar.ts --bundle --format=iife --global-name=RBKB --outfile=${BUNDLE}`, { cwd: ROOT, stdio: 'pipe' });
 
+// INV-PDG-4 (gate-reads-cache-not-deploy): HEAD-source harness + real endpoint via node-https (no served nav → no SW
+// cache). Tie the green to the DEPLOY (replaces the stale 'served 0.8.66' pin): served version MUST == committed, else NOT-RUN=RED.
+const COMMITTED_VER = execSync('node -p "require(\'./package.json\').version"', { cwd: ROOT }).toString().trim();
+const SERVED_VER = ((execSync('curl -s https://prod.wo-da.de:4444/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
+if (SERVED_VER !== COMMITTED_VER) { console.log(`NOT-RUN=RED (INV-PDG-4): served ${SERVED_VER || '?'} != committed ${COMMITTED_VER}`); process.exit(1); }
+console.log(`INV-PDG-4: served==committed==${COMMITTED_VER} — gate reads the DEPLOY.`);
+
 // [REAL] the keymap config unit + the COMPONENT's actual read path. ★ BUG SURFACED: /api/ior returns the resolver
 // wrapper {unit:{model:{keys}}} but rb-terminal-detail.ts:90 reads j.model.keys||j.keys → [] → keyboard bar NEVER
 // renders on the real page. serves-at-unit-path proves the DATA is real; component-read-path==0 IS the integration bug.

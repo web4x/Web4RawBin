@@ -31,6 +31,14 @@ const leaks = (s) => /claude\.ai\/code|bridgeSessionId|session_|"url"\s*:\s*"htt
 execSync(`mkdir -p ${ROOT}/test-results/r401-harness`, { cwd: ROOT });
 execSync(`npx esbuild src/public/ts/trace/rc-link-resolver.ts --bundle --format=iife --global-name=RCL --outfile=${BUNDLE}`, { cwd: ROOT, stdio: 'pipe' });
 
+// INV-PDG-4 (gate-reads-cache-not-deploy): this gate tests HEAD source (esbuild above) + the real endpoint via node-https
+// (no served browser nav → no SW cache to taint it). Still, tie the green to the DEPLOY: served /api/config version MUST
+// equal the committed build, else the HEAD source under test isn't what's shipped → NOT-RUN=RED, never a false green.
+const COMMITTED_VER = execSync('node -p "require(\'./package.json\').version"', { cwd: ROOT }).toString().trim();
+const SERVED_VER = ((execSync('curl -s https://prod.wo-da.de:4444/api/config --insecure', { cwd: ROOT }).toString().match(/"version":"([^"]*)"/)) || [])[1] || '';
+if (SERVED_VER !== COMMITTED_VER) { console.log(`NOT-RUN=RED (INV-PDG-4): served ${SERVED_VER || '?'} != committed ${COMMITTED_VER}`); process.exit(1); }
+console.log(`INV-PDG-4: served==committed==${COMMITTED_VER} — gate reads the DEPLOY.`);
+
 const browser = await webkit.launch({ headless: true });
 const results = [];
 try {
