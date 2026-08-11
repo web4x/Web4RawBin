@@ -1,0 +1,65 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "194aaea5-a323-4b43-a369-84fb669ba4bf",
+    "name": "Test-attachment single-source = Implementation.tests[] ONLY — schema-delete the always-empty tests[] fields + lint (no Method-level tests, no union read)",
+    "altId": "R-C10",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:a22ba765-71be-4cb8-896f-b8701b11b490"
+    ],
+    "description": "The SINGLE SOURCE for which Tests cover a chain is Implementation.tests[]. NO other unit-class's tests[] is a source and there is NO union read (Impl ∪ Method = two-sources under the appearance of thoroughness). Measured: 0 legit Method-level Tests (all 21 Method.tests have an Impl); zero readers of requirement.tests. Fix layered by-construction: SCHEMA-DELETE the field where it is never a source (can't-populate) + LINT (can't-reintroduce). Retroactively migrate the 21 Method.tests to Impl-only FIRST, then switch the scoreboard read.",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "tests-attachment-single-source",
+    "discoverySource": {
+      "type": "tester-archaeology+architect-schema",
+      "by": "tester (surfaced) + robbin-req (measured 540/540 + 21-classify) + robbin-architect (schema ruling, zero-readers)",
+      "date": "2026-08-11",
+      "note": "Chain-integrity: requirement.tests[] empty 540/540; the real disease = Method.tests[] 21 drift (2nd attachment point the scoreboard reads at :332). PO+architect ruled delete+lint+migrate."
+    },
+    "crossRefNote": "Distinct-intent = the Test-attachment single-source layer. Do NOT cross-wire onto R-C5 (derived-status) or R-C9 (done-provenance).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-a-single-source",
+        "group": "single-source",
+        "text": "The single source for Test coverage is Implementation.tests[] ONLY. No other class's tests[] is a source; NO union read (Impl ∪ Method institutionalises two sources). Measured 0/21 legit Method-level Tests → Method.tests is never legitimate."
+      },
+      {
+        "id": "AC-b-schema-delete",
+        "group": "schema-delete",
+        "text": "SCHEMA-DELETE tests[] from the 5 always-empty Loaders NOW (Requirement 0/539, UseCase 0/237, Bug 0/15, ChangeRequest 0/1, Test 0/7) — measured ZERO readers of requirement.tests (trace-audit/trace-cli repo-scan; scoreboard traverses to Impl.tests) → can't-populate by-construction. Delete from MethodLoader AFTER the migrate lands (Method holds the 21 until then)."
+      },
+      {
+        "id": "AC-c-lint-2bite",
+        "group": "lint-anti-reintro",
+        "text": "LINT forbids a non-empty tests[] on EVERY non-Impl class (Requirement/UseCase/Method/Bug/ChangeRequest/Test): a write → RED, PLUS a lint-itself-runs bite (2-bite stub-must-fail: plant a Method.tests write → RED; weaken/remove the lint → suite RED). Delete=can't-populate + lint=can't-reintroduce, LAYERED (neither alone holds)."
+      },
+      {
+        "id": "AC-d-migrate-retroactive",
+        "group": "migrate-cleanup-retroactive",
+        "text": "RETROACTIVE cleanup (coupled to the schema change by ordering): migrate the 21 Method.tests to Impl-only — DEDUP the ~13 doubles (remove the Method entry ONLY after PROVING the Impl entry is the SAME Test uuid, not name) + MIGRATE the ~8 Impl-orphans to their Impl. Preserve-FIRST (labelled snapshot before ANY mutation), dry-run with counts reported BEFORE applying, verify-owner-first per case."
+      },
+      {
+        "id": "AC-e-multi-impl-exercised",
+        "group": "multi-impl-exercised-or-exception",
+        "text": "The 4 MULTI-Impl misfiled (DropDispatcher.uploadFile 5 impls / Message.lazyLoadChain 6 / User.ensureRawBinUser 2 / ServiceWorker.flushAndReload) — pick the EXERCISED Impl by EVIDENCE (what the Test ASSERTS ↔ which Impl's decl/sourceFile that behaviour lives in), NEVER name-to-name (a wrong Impl = cross-wire / false credit, the C-networkFirst class). IF evidence does NOT determine it: LEAVE the Test on the Method + a NAMED lint exception for those uuids until resolved. Honest-unresolved beats plausible-placement."
+      },
+      {
+        "id": "AC-f-migrate-then-switch",
+        "group": "sequence-migrate-then-switch",
+        "text": "NON-NEGOTIABLE ORDER: migrate FIRST, THEN switch the scoreboard read (:332 Method.tests → Impl-only). The 9 Method-only Tests are REAL coverage now; flipping the read before migration silently under-reports and complete chains present as broken. Sequence: preserve → dry-run counts → migrate → verify → switch-read → Method.tests converges empty → joins delete+lint."
+      },
+      {
+        "id": "AC-g-conservation",
+        "group": "conservation-invariant",
+        "text": "INV (gate the migrate on this): distinct-Test-count across the WHOLE graph is UNCHANGED before==after the migrate — NO Test lost (conservation, same as R27.2 union INV-1b). Coverage figure UNCHANGED post-migrate: the traversal still resolves the migrated + deduped Tests. If before!=after, ABORT and restore from the preserve snapshot."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

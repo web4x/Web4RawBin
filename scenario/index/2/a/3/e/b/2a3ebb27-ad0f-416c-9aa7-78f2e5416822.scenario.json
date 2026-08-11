@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "2a3ebb27-ad0f-416c-9aa7-78f2e5416822",
+    "name": "TestsAttachmentGuard.migrateMethodTests impl (one-time: dedup ~13 same-uuid-proven + migrate ~8 to exercised Impl; preserve-first, dry-run, verify-owner-first; multi-Impl = evidence or named-exception)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/check-tests-attachment.ts",
+    "markerNote": "markerPending: the retroactive migrate (AC-d/e). MIGRATE BEFORE MethodLoader delete + read-switch (AC-f). Preserve-first snapshot; PO wants dry-run counts before apply."
+  },
+  "ownerIor": "ior:instance:56760117-9d43-438a-bd40-e523de8ebe1d"
+}

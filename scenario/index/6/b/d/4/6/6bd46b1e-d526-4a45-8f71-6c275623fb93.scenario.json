@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "6bd46b1e-d526-4a45-8f71-6c275623fb93",
+    "name": "TestsAttachmentGuard.assertTestsImplOnly impl (lint: non-empty tests[] on any non-Impl class -> RED; 2-bite stub-must-fail)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/check-tests-attachment.ts",
+    "markerNote": "markerPending: expert builds scripts/check-tests-attachment.ts + folds ci:gates. Distinct BITE Test (tester). Also SCHEMA-DELETE tests[] from 5 always-empty Loaders (classes.ts) + MethodLoader after migrate."
+  },
+  "ownerIor": "ior:instance:68ae86d5-f288-49c0-b605-184fbbf87296"
+}

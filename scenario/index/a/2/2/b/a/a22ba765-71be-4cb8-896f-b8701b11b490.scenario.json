@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a22ba765-71be-4cb8-896f-b8701b11b490",
+    "name": "schema.testsImplOnly",
+    "description": "The schema + lint enforce that the tests[] attachment source is Implementation.tests[] only: the field is deleted from the always-empty Loaders and a lint forbids a non-empty tests[] on any non-Impl class (2-bite). One-time migrate of the 21 Method.tests to Impl precedes the MethodLoader delete + the scoreboard read-switch.",
+    "class": "ior:instance:507cb71e-caeb-4db5-9bb6-9cffb6ae3139",
+    "method": "ior:instance:68ae86d5-f288-49c0-b605-184fbbf87296",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:194aaea5-a323-4b43-a369-84fb669ba4bf"
+}

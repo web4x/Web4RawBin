@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "56760117-9d43-438a-bd40-e523de8ebe1d",
+    "name": "TestsAttachmentGuard.migrateMethodTests",
+    "implementations": [
+      "ior:instance:2a3ebb27-ad0f-416c-9aa7-78f2e5416822"
+    ]
+  },
+  "ownerIor": "ior:instance:507cb71e-caeb-4db5-9bb6-9cffb6ae3139"
+}

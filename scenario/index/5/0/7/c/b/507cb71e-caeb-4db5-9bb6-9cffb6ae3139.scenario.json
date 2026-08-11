@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "507cb71e-caeb-4db5-9bb6-9cffb6ae3139",
+    "name": "TestsAttachmentGuard",
+    "sourceFile": "ior:file:scripts/check-tests-attachment.ts",
+    "methods": [
+      "ior:instance:68ae86d5-f288-49c0-b605-184fbbf87296",
+      "ior:instance:56760117-9d43-438a-bd40-e523de8ebe1d"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "68ae86d5-f288-49c0-b605-184fbbf87296",
+    "name": "TestsAttachmentGuard.assertTestsImplOnly",
+    "implementations": [
+      "ior:instance:6bd46b1e-d526-4a45-8f71-6c275623fb93"
+    ]
+  },
+  "ownerIor": "ior:instance:507cb71e-caeb-4db5-9bb6-9cffb6ae3139"
+}
