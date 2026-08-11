@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "b49a18ff-54d0-4bf6-810b-5b4aab225124",
+    "name": "LE_DOMAIN",
+    "metaLevel": "M1",
+    "kind": "envValue",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000030",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000031"
+    ],
+    "manifestsAs": ".env",
+    "fragment": "LE_DOMAIN",
+    "sourceRole": "domain",
+    "note": "T40.11 typed deployment unit for WODA.prod deploymentRef 'domain' (scenario-first authoring mint)"
+  },
+  "ownerIor": "ior:instance:fc327458-03d1-4b90-847d-ab52a7d82237"
+}

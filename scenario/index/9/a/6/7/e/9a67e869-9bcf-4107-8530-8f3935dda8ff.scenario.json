@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "9a67e869-9bcf-4107-8530-8f3935dda8ff",
+    "name": "ssh host identity key",
+    "metaLevel": "M1",
+    "kind": "keyFile",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000029",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000031"
+    ],
+    "manifestsAs": "~/.ssh/public_keys/root.WODA.prod.public_key",
+    "sourceRole": "ssh-host-identity",
+    "note": "T40.11 typed deployment unit for WODA.prod deploymentRef 'ssh-host-identity' (scenario-first authoring mint)"
+  },
+  "ownerIor": "ior:instance:fc327458-03d1-4b90-847d-ab52a7d82237"
+}
