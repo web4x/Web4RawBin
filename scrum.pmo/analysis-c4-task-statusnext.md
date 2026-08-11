@@ -84,3 +84,42 @@ Each subtask carries: dual parent/child links to T-C4, its own ACs, a gate with 
 - **C4.8 — MVC BOUNDARY by construction.** An architectural statement + lint: views are never hand-authored where a generator owns them, and no transition path may bypass the controller. State it as a **dominance/uniqueness property a linter can prove**, not as "we checked the paths" — behavioural bites cover paths that exist, the lint prevents paths that do not exist yet.
 
 **Sequencing note:** C4.6 + C4.5 are what Tron *feels* (his pin swap not appearing); C4.2 + C4.3 are what prevents the recurrence; C4.1 is the guarantee; C4.4 fixes the board surface; C4.8 keeps it from decaying. C4.7 already exists and only needs to be kept.
+
+---
+
+# ★★ DRY AMENDMENT (Tron, BEFORE any build): GENERIC MECHANISM + PLUGGED-IN POLICY
+
+Tron: *"we are working in an environment of all classes scenario-unit model based and hundreds of different view formats. make sure you DRY."*
+
+**The design as approved is TASK-SHAPED and therefore NOT DRY.** `statusNext` / `TASK_CHANGED` / a sprint-board regenerator solve it for `ior:class:Task` only. With every class a scenario unit and hundreds of view formats, that shape multiplies into N controllers, N events and N regenerators — the same disease at scale.
+
+## The split: ONE mechanism, MANY policies, MANY projections
+
+| Layer | GENERIC (build once) | CLASS/FORMAT-SPECIFIC (plug in) |
+|---|---|---|
+| **Model** | Any scenario unit (`ior:class:*`), unit revision | — |
+| **Controller** | ONE mutation entry: validate → apply → **persist** → **emit**. Generic for any unit. | The **Task FSM** (7 states, TRANSITIONS, guards) is ONE registered **policy**, not the mechanism. Other classes register their own rules or none. |
+| **Evidence** | ONE predicate interface, consumed by controller AND audit | Per-class evidence rules (Task's step-evidence is the first) |
+| **Event** | **ONE generic change event** — `UNIT_CHANGED { ior, uuid, revision }` — NOT `TASK_CHANGED`. Any subscriber filters by class/uuid. | — |
+| **Pipeline** | ONE **projection registry**: view formats REGISTER against the model; the pipeline invokes the affected projections, scoped + debounced. | Each view format is a registered **projection** (sprint `.md`, requirements.md, planning.md, puml, MDA tree, trace tree, detail drawers, WebItem formats …). Adding format N+1 must need **no new plumbing**. |
+| **Freshness** | ONE revision/`revalidate-or-mark-stale` capability usable by ANY view | — |
+| **Dominance lint** | **No unit write bypasses the controller** (generic), not merely "no status write outside statusNext" | — |
+
+## DRY = also do not duplicate what already exists — RIDE it
+
+- **`renderFacet`** (R36.1/2) — the facet-lens is already built ONCE and reused by all projections. The pipeline must reuse that pattern, not fork per format.
+- **`deriveViewKind`** (R40.23) — view-kind derivation is already single-sourced; projections consume it, never re-derive.
+- **`universalActionBar` / action units** (R40.5) — verbs are already de-duplicated onto a shared bar; transitions surface as ACTION UNITS, not bespoke buttons.
+- **existing `wss`/`wsClients`** — one transport, already chosen; no second socket.
+- **C8 `guardedWrite`/`guardedDelete`** — the ONE write/delete chokepoint for owned outputs; every projection writes through it.
+- **`generate-sprint-md`** — becomes a REGISTERED PROJECTION, not a special case the pipeline knows about by name.
+
+## Consequences for C4.1–C4.8 (ACs must be restated generically)
+
+- **C4.2** is a GENERIC unit-transition controller; `statusNext` is its Task-policy façade — the same entry serves any class.
+- **C4.4** is the PROJECTION REGISTRY + scoped/debounced invocation; the sprint board is projection #1, not the subject.
+- **C4.5** is a GENERIC revalidate-or-stale capability any view inherits; the MDA tree is the first consumer.
+- **C4.6** emits `UNIT_CHANGED` for ANY unit; Task is the first payload.
+- **C4.8**'s dominance property is generic: the controller is the UNIQUE dominator of unit mutation.
+
+**Acceptance test of the DRY claim (state it as an AC):** adding a NEW class policy or a NEW view format must require **registration only — zero changes to the controller, the event, or the pipeline.** If format N+1 needs plumbing edits, it is not DRY and the design has failed its own law.
