@@ -5,7 +5,9 @@
     "name": "SprintOverviewGenerator.generateOverview (preserved-region + pin/rollup index + frozen-legacy visible)",
     "sourceFile": "ior:file:scripts/generate-sprint-md.ts",
     "markerPending": false,
-    "tests": []
+    "tests": [
+      "ior:instance:7e4a1c9d-2b60-45f3-8a17-9c0e5d3f6b28"
+    ]
   },
   "ownerIor": "ior:instance:8b238215-6d70-41b4-86c1-e8491d27bbb9"
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7e4a1c9d-2b60-45f3-8a17-9c0e5d3f6b28",
+    "name": "test:R37.6/T37.6 overview-generator — sprints.overview.md sprint-table GENERATED from Sprint units + narrative OWNED-region byte-preserved + --check FAILS on drift + stub-must-fail; 4 checks GREEN (A check-passes / B regen-byte-stable / C narrative-preserved / D stub-must-fail), RED->GREEN after planner overview --write a3bef80b9",
+    "implementations": [
+      "ior:instance:1f38e07e-2635-433a-b9ee-045584c3a669"
+    ],
+    "sourceFile": "ior:file:test/visual/rc6-overview-generator-gate.mjs",
+    "status": "pass",
+    "markerNote": "Tester GREEN DET-3x at HEAD a3bef80b9 (RED->GREEN after planner regen'd the drifted overview via --write). 4 checks: A check-passes / B regen-byte-stable / C narrative-preserved / D stub-must-fail. FULL uuid gate-sourced (rc6-overview-generator-gate.mjs, measure-don't-invent, valid v4). Wired to Impl 1f38e07e = SprintOverviewGenerator.generateOverview (on R37.6 chain via Method 8b238215; 1f38e07e.tests[] was empty = clean first Test, no cross-wire). Also fixed 1f38e07e.ownerIor reverse-link -> its Method. Tester two-keys -> planner flips T37.6 to QA-Review."
+  },
+  "ownerIor": "ior:instance:1f38e07e-2635-433a-b9ee-045584c3a669"
+}
