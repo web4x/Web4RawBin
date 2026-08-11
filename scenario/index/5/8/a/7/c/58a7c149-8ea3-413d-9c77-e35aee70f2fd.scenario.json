@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "58a7c149-8ea3-413d-9c77-e35aee70f2fd",
+    "name": "RbPanZoom.attachMouse pointer-unified-pan increment (unify to pointer events; background pointer-drag pans at ALL scales; 3-4px threshold; background-only; no touch regression)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/public/ts/trace/pan-zoom.ts",
+    "markerNote": "DISTINCT-Impl on SHARED Method attachMouse 09db9916 (R30.11) — does NOT re-credit 0564d93b (R31.6/R22.2). Architect: root=scale-gate (mousedown early-return scale<=1 @pan-zoom.ts:58; touch s=1 native-scroll fallthrough mouse lacks). Fix=pointer-unify ONE handler, NOT parallel. SHARED-fix: 6 other RbPanZoom consumers gain mouse-pan-at-s=1. Expert marks distinct-from-0564d93b -> I flip. Gate: viewport POSITION CHANGED on mouse drag (touch device-verified R22.2)."
+  }
+}

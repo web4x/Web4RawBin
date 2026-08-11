@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "01aef558-6768-4718-8dad-89f51570d927",
+    "name": "panZoom.pointerUnifiedPan",
+    "description": "Background drag pans the viewport for ANY pointer (mouse+touch+pen) at ALL scales via unified POINTER events in ONE handler — giving the mouse the pan that touch got for free from native scroll at scale=1. Background-only, ~3-4px threshold (click!=pan), grab cursor; preserves touch pinch/double-tap. Root fixed: attachMouse gated mousedown early on scale<=1 while touch fell through to native scroll.",
+    "class": "ior:instance:e5e3c885-7e2c-4666-8eaf-6a91489b5d43",
+    "method": "ior:instance:09db9916-2e8e-48bc-99d3-0625925d618e",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c7feeb18-ad82-4ef3-a028-434860d0a93d"
+}
