@@ -15,3 +15,4 @@ data/token-storage-map.json
 # verification screenshots (binary churn; .mjs scripts ARE committed)
 test/visual/*.png
 package-lock.json
+data/users-staging/

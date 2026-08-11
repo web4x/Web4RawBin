@@ -135,27 +135,33 @@ let map = mintStorageIds(loadMap(), allTokens);
 fs.writeFileSync(MAP_PATH, JSON.stringify(map, null, 2));
 console.log(`minted/loaded storageId for ${Object.keys(map).length} tokens (${ownerTokens.length} homes + ${allTokens.length - ownerTokens.length} orphan-in-unitLinks) → ${path.relative(ROOT, MAP_PATH)} (gitignored)`);
 
-// (2) COPY homes token→storageId (idempotent; hash-verify; originals UNTOUCHED)
+// (2) COPY homes token→storageId — STAGE-then-MOVE, NOT in-place. ROOT CAUSE (measured): extracting all
+// 47 homes IN-PLACE into data/users (alongside the originals) cross-contaminates — one home's copy gained
+// ANOTHER home's room (+1 symlink), caught by the count-mirror. Injective map ruled out a collision (B);
+// an isolated-staging copy is faithful (69==69) ⇒ (A) in-place was the cause. So: tar-extract each home
+// into an ISOLATED staging dir (data/users-staging, same filesystem, NOT under data/users → no coexistence
+// with the originals during extract), hash-verify, then rename it into place (atomic metadata move — no
+// extract, no symlink-follow → no contamination). tar preserves symlinks exactly (backup proved 69→69).
+const STAGE = path.join(ROOT, 'data', 'users-staging');
+fs.rmSync(STAGE, { recursive: true, force: true });
+fs.mkdirSync(STAGE, { recursive: true });
 let copied = 0, skipped = 0;
 for (const token of ownerTokens) {
   const sid = map[token];
-  const src = path.join(DATA_USERS, token), dst = path.join(DATA_USERS, sid);
+  const src = path.join(DATA_USERS, token), staged = path.join(STAGE, sid), dst = path.join(DATA_USERS, sid);
   if (fs.existsSync(dst)) { skipped++; continue; } // idempotent
-  // TAR-PIPE copy (NOT cp -rP): cp -rP was measured to FAN OUT a nested symlink into a real dir on at
-  // least one home (source 8 rooms → cp 9, +1 symlink) — not faithful. tar archives the tree EXACTLY
-  // (symlinks as symlinks, no dereference, no fan-out); the backup tar already proved faithful (69→69).
-  fs.mkdirSync(dst, { recursive: true });
-  execFileSync('sh', ['-c', `tar -C "${src}" -cf - . | tar -C "${dst}" -xf -`]);
-  // per-file hash-verify (regular files only)
-  const a = contentFingerprint([src]), b = contentFingerprint([dst]);
+  execFileSync('sh', ['-c', `mkdir -p "${staged}" && tar -C "${src}" -cf - . | tar -C "${staged}" -xf -`]);
+  const a = contentFingerprint([src]), b = contentFingerprint([staged]);
   if (a.fingerprint !== b.fingerprint) {
-    console.error(`✗ ABORT: hash mismatch copying a home (original untouched); removing bad copy.`);
-    fs.rmSync(dst, { recursive: true, force: true });
+    console.error(`✗ ABORT: hash mismatch staging a home (original untouched); removing staged copy.`);
+    fs.rmSync(staged, { recursive: true, force: true });
     process.exit(1);
   }
+  fs.renameSync(staged, dst); // atomic move into data/users (same fs) — no re-extract, no contamination
   copied++;
 }
-console.log(`homes copied: ${copied} (skipped ${skipped} already-present); originals byte-untouched`);
+fs.rmSync(STAGE, { recursive: true, force: true });
+console.log(`homes staged→moved: ${copied} (skipped ${skipped} already-present); originals byte-untouched`);
 
 // (3) REWRITE the unitLinks token→storageId in the scenario units (LAST) — idempotent
 let rewritten = 0;
