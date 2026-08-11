@@ -2,11 +2,34 @@
 
 **By:** robbin-architect 2026-08-11, per PO + Tron ("that's far away from MVC and a view pipeline"). This is the SHAPE that unifies C4.1–C4.8 (planner containerizing in parallel) — not patches. Grounded in the PO's measured analysis (analysis-c4-task-statusnext.md, 63fb728a8) + seams I re-measured. Design → req mints the chain scenario-first → expert wires → tester bites → I backstop.
 
-## The one law
+## ★★ RE-ISSUED DRY (Tron, pre-build): TWO SINGLETONS — generic mechanism + plugged-in policy
+Supersedes the task-shaped framing below (which is now merely POLICY #1 + PROJECTION #1). In an all-classes-are-scenario-units world with hundreds of view formats, a Task-specific `statusNext`/`TASK_CHANGED`/board-regenerator multiplies into N controllers/N events/N regenerators — same disease at scale. The mechanism is GENERIC; Task and the sprint board are the first plug-ins.
+
+### The one law (generic)
+**Every UNIT mutation (any `ior:class:*`) flows through ONE controller (validate→apply→persist→emit), is announced by ONE revision-stamped event on ONE view bus, and NOTHING bypasses the controller. Every view format is a REGISTERED PROJECTION — a pure function of the model reached only through the bus — and any projection that cannot prove it is current renders VISIBLY STALE. Adding a new class policy or view format is REGISTRATION ONLY.**
+
+Data-flow: `act → unitController.apply(ior,uuid,intent)[policy.validate → apply → ScenarioIndex.put(deliberate) → emit] → UNIT_CHANGED{ior,uuid,revision} on viewBus → ( wss → client projections REVALIDATE-or-STALE-BADGE ) + ( projection registry → affected server projections REGEN via guardedWrite, scoped+debounced ) + ( agents )`
+
+### SINGLETON 1 — ONE CONTROLLER (`unitController.apply`), policies REGISTER
+`unitController.apply(idx, ior, uuid, intent, {actor, evidenceRef?})` — the sole mutation entry for ANY unit: (1) VALIDATE via the registered POLICY for that `ior` (or default-accept); (2) APPLY the policy's mutation; (3) PERSIST via `ScenarioIndex.put` with the deliberate-opt flag — **this is THE committed-class opt-in site; it SUBSUMES statusNext's** (guard opt-in list names `unitController.apply`); (4) EMIT `UNIT_CHANGED`.
+- `registerPolicy(ior, policy)`. **Task FSM = POLICY #1** (task-fsm.ts: `guardTransition`+`evidenceForStep`, apply = tick-checklist so `deriveStatusEnum` derives). **`statusNext` = a THIN Task façade** over `apply`, NOT a second entry. Other classes register their own policy or none.
+- **Single-source Done**: within the Task policy; R40.10 approve DELEGATES to `apply` (Task Done step, `approvedBy` = evidence). One writer.
+
+### SINGLETON 2 — ONE VIEW BUS + PROJECTION REGISTRY (ride the EXISTING `viewBus`)
+- **The bus already exists** — `src/public/ts/ViewBus.ts` (`viewBus`, T145: `subscribe(classType,uuid)`/`publish`). EXTEND it to carry `{ior, uuid, revision}` (add the revision token); the server EMIT rides the EXISTING `wss`/`wsClients` (server.ts:3459) → `viewBus.publish`. ONE bus, both ends — server regen + client revalidate share the SAME semantics, not two mechanisms.
+- `registerProjection({selects, render})` — every view format REGISTERS: server (sprint `.md` = **generate-sprint-md = PROJECTION #1**, requirements.md, planning.md, puml, generate-project — each writes through **C8 `guardedWrite`/`guardedDelete`**, scripts/owned-output-guard.ts); client (MDA tree, trace tree, detail drawers, WebItem formats — each subscribes to `viewBus`). On `UNIT_CHANGED` the pipeline invokes only the AFFECTED projections (by `selects`), scoped + debounced.
+- **RIDE existing single-sources, never fork**: `renderFacet` (diagram-view-model.ts:78), `deriveViewKind` (src/ts/shared/facet-type.ts), `universalActionBar` action-units (transitions surface as ACTION UNITS not bespoke buttons), the one `wss`, `guardedWrite` (marker 3a716334).
+
+### ★ DRY ACCEPTANCE TEST (HARD AC)
+Adding a NEW class policy OR a NEW view format = **REGISTRATION ONLY: zero edits to the controller, the bus, or the pipeline.** Gate bite: register a trivial throwaway policy + projection in the test and assert it works AND that the diff touches ONLY a registry (a controller/bus/pipeline edit for format N+1 → RED). If format N+1 needs plumbing, the design failed its own law.
+
+---
+*(The task-shaped sections below are the concrete Policy #1 / Projection #1 instance of the generic law above; the hardenings A/B/C/D and build sequence apply generically.)*
+
+## The one law (task instance — POLICY #1)
 **Every task-status change flows `Model ← Controller → Pipeline → Views`, through a SINGLE controller entry, announced by a SINGLE event, and NOTHING bypasses the controller. Every view is a pure function of the model reachable ONLY through the pipeline, and any view that cannot prove it is current renders VISIBLY STALE.**
 
-Data-flow (one line):
-`act (agent/Tron) → statusNext[guard+evidence+tick+persist+emit] → deriveStatusEnum (Model truth) → notifyTransition{revision} → ( wss → client REVALIDATE-or-STALE-BADGE ) + ( pipeline → owned-board REGEN ) + ( agent NOTIFY )`
+Data-flow (task instance): `act → statusNext(=apply for ior:class:Task)[guard+evidence+tick+persist+emit] → deriveStatusEnum → UNIT_CHANGED{Task,uuid,revision} → ( wss → client REVALIDATE-or-STALE-BADGE ) + ( projection registry → sprint-board REGEN ) + ( agents )`
 
 ## Measured seams (the shape plugs into these, invents nothing)
 - CONTROLLER: `task-fsm.ts` — TRANSITIONS + `guardTransition` + six `start*` + `tronApprove(unit,ref)` + `deriveStatusEnum` + `assertStatusConsistent`. All mutate `unit.model` IN MEMORY; **none persist; no single entry**.
@@ -83,15 +106,15 @@ Approve is LIVE, gated GREEN, Tron's 13 verdicts run through it. The delegation 
 - **tester RE-RUNS r4010 after the delegation edit.** The negative bite (no 2nd Done-writer) + these positive controls together = delegation without regression.
 
 ## BUILD SEQUENCE — PO-LOCKED, dependency-derived (state on the units; do NOT reorder by convenience)
-The order is forced by DEPENDENCY, not preference — each step's reason is why it cannot move:
-1. **StepEvidence.evidenceForStep FIRST** — both consumers (statusNext, checklist-chain-audit) depend on it; building statusNext against a not-yet-shared predicate would RECREATE the second copy (C) just killed.
-2. **statusNext controller TOGETHER WITH the R40.10 Done-delegation** — one semantic change (single-writer). Splitting them leaves a WINDOW where two Done-writers coexist. Tester RE-RUNS r4010 immediately after, with the (D) positive controls.
-3. **notifyTransition + the two transports** (wss clients + agents).
-4. **client revalidate-or-STALE-BADGE** — the one Tron actually FEELS (pin-swap); land as EARLY as its deps (3) allow.
-5. **scoped + debounced board regen** (B).
-6. **model self-heal validation** (C4.1).
-7. **dominance LINT LAST** — it asserts the controller is the UNIQUE dominator, which can only be TRUE once the controller (2) exists; landing it earlier is just red.
-8. **C4.7 = RETAIN, not rebuild** — checklist-chain-audit is already shipped + wired; its ONLY change is the (C) refactor to call `evidenceForStep`.
+The order is forced by DEPENDENCY, not preference. Steps are now GENERIC (Task = policy #1, sprint board = projection #1):
+1. **`evidenceForStep` predicate FIRST** (generic interface + Task's rule) — both consumers (controller policy, checklist-chain-audit) depend on it; building the policy against a not-yet-shared predicate RECREATES the second copy (C) just killed.
+2. **`unitController.apply` (generic validate→apply→persist→emit) + register Task FSM as POLICY #1 + `statusNext` façade + R40.10 Done-delegation — TOGETHER** — one semantic change (single-writer); splitting leaves a WINDOW where two Done-writers coexist. Tester RE-RUNS r4010 immediately after with the (D) positive controls.
+3. **`UNIT_CHANGED` emit + EXTEND `viewBus` (add revision) + wss bridge** — the one bus, both ends.
+4. **client revalidate-or-STALE-BADGE as a GENERIC capability** (MDA/trace tree = first consumer) — the one Tron actually FEELS (pin-swap); land as EARLY as deps (3) allow.
+5. **projection registry + scoped/debounced invocation** — `generate-sprint-md` registers as PROJECTION #1 (B).
+6. **model self-heal validation** (generic on read) (C4.1).
+7. **dominance LINT LAST** — asserts `unitController` is the UNIQUE dominator of ANY unit mutation; only TRUE once the controller (2) exists.
+8. **C4.7 = RETAIN, not rebuild** — checklist-chain-audit already shipped/wired; its ONLY change is the (C) refactor to call `evidenceForStep`.
 Each C4.x unit carries its predecessor as a build-dependency so the order is on-record, not tribal.
 
 ## Chain (verify-owner-first) — the shape's own traceability
