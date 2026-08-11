@@ -6,8 +6,9 @@
 **★ Counting rule (encoded in the script, right-by-construction):** `supersededBy != null` = **TERMINAL**, orthogonal to the derived status string — a superseded task leaves the remaining-count on every re-run even if its status string is stale (T30.51 was the exemplar: `supersededBy=ac3338b6` R30.53 present+evidenced, status string stale).
 
 ## Headline
-- **TOTAL S30++ tasks: 113** — Done **66** · QA-Review **33** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 11**
-- At QA-Review NOW, awaiting only Tron's verdict: **33**
+- **TOTAL S30++ tasks: 114** — Done **66** · QA-Review **34** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 11**
+- At QA-Review NOW, awaiting only Tron's verdict: **34**
+- **2026-08-11 deltas:** +**T40.17** `50f51ac1` (credited-but-taskless live-pin, req-minted, entered directly at QA-Review — real work made visible, TOTAL 113→114 / QA 33→34) · the **15 S30/S32 gate re-certs** at 0.8.90 (r3035/3036/3037×2/3038/3052b/325/3041/3042/3043×2/3045/3046/3050/3052) = all 12 covering tasks (T30.35/36/37/38/39/42/43/45/46/50/52 + T32.5) were ALREADY at QA-Review = **anti-regression re-certification only, NO campaign movement** (no honest flip to claim). R30.49 skipped (still-holding). ⚠ NOT moved backward without evidence: r311/R31.1 RED = architect-diagnosed supersede-vs-regression (S31's 1 remaining, verdict pending); 5 stale-gate-suspected + r309 NOT-RUN=RED are unconfirmed, not product regressions.
 
 ## Per-sprint (Done / QA-Review / superseded / remaining)
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
