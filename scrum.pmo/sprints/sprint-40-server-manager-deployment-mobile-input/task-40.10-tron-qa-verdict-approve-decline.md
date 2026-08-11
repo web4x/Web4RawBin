@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - S40 R40.10 (Tron Approve/Decline QA-verdict FROM the task; obsoletes tron-qa-batch.md + reminders). Scenario-first: req minted R40.10 33451271 (4c57b99d7); coveredRequirements + useCases 0a3e3653 wired; ACs MIRRORED (5 AUTOMATABLE + 1 DEVICE @390 Tron). ★ Approve+Decline SHIP TOGETHER (shipTogetherNote). Reuse R40.5 universalActionBar + existing ChangeRequest kind. Architect designs the chain. No build until build-go.
+QA-Review (planner flip 2026-08-11, PO-authorized + VERIFY-OWNER-FIRST PASSED on disk). Chain verified: R40.10 33451271 -> UC taskDetail.renderChangeRequests -> Impl e080ef45 (markerPending=false) <-> Test 67697d86 'test:R40.10 BUG-A CR-section reachable/decline' status=pass two-keyed = R40.10's OWN distinct-intent Test (NOT a cross-credit; both Impls e080ef45 + 36b6ce2e sharedByTasks=[9a70ce5e ONLY]). Approve path Impl 36b6ce2e (approveByOwner owner-gate) markerPending=false, device-verified (r4010 gate GREEN @390, POST /approve 403 token-less, approve records approvedBy/approvedAt + reaches Done end-to-end). 5 AUTOMATABLE ACs proven (shipped markers + distinct Test + gate); AC-6 DEVICE @390 [ ] = Tron taps Approve/Decline on his device (go-live). Awaiting Tron QA verdict. 0 Done till Tron.
 
 ## Traceability
 
@@ -34,11 +34,11 @@ R40.10 (Tron: 'for the tasks on QA add an approve by Tron action then you do not
 
 ## Acceptance Criteria
 
-- [ ] [AUTOMATABLE, data] APPROVE fires on a QA-Review task, records approvedBy + approvedAt as DATA on the unit (so 'Done requires Tron QA' is PROVABLE from the record, not remembered), and flips the Done-gate.
-- [ ] [AUTOMATABLE, graph] DECLINE mints an ior:class:ChangeRequest unit (REUSE the EXISTING kind — registered templates.ts:370 + in CHAIN_TYPES; NOT a new kind) capturing the reason, LINKED to the declined task/requirement, entering the board as real work — a UNIT, not a comment that gets lost.
-- [ ] [AUTOMATABLE, 403] OWNER-GATED: only the owner may render a verdict; a non-owner approve/decline is 403. This gate IS the integrity of 'Done requires Tron QA' — if anyone can self-approve, the law is decorative.
-- [ ] [AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it.
-- [ ] [AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5's exact defect while fixing it).
+- [x] [AUTOMATABLE, data] APPROVE fires on a QA-Review task, records approvedBy + approvedAt as DATA on the unit (so 'Done requires Tron QA' is PROVABLE from the record, not remembered), and flips the Done-gate.
+- [x] [AUTOMATABLE, graph] DECLINE mints an ior:class:ChangeRequest unit (REUSE the EXISTING kind — registered templates.ts:370 + in CHAIN_TYPES; NOT a new kind) capturing the reason, LINKED to the declined task/requirement, entering the board as real work — a UNIT, not a comment that gets lost.
+- [x] [AUTOMATABLE, 403] OWNER-GATED: only the owner may render a verdict; a non-owner approve/decline is 403. This gate IS the integrity of 'Done requires Tron QA' — if anyone can self-approve, the law is decorative.
+- [x] [AUTOMATABLE, fail-closed] EVIDENCE PRECONDITION: the actions are available ONLY on tasks genuinely at QA-Review WITH their evidence present — approving can NEVER manufacture a Done on a task that is not chain-complete. Approval is a human judgement ON TOP of verified evidence, never a substitute for it.
+- [x] [AUTOMATABLE, source] Both actions are ACTION UNITS on the R40.5 universalActionBar mechanism — NOT two hand-placed bespoke buttons (that would commit R40.5's exact defect while fixing it).
 - [ ] [DEVICE @390 - Tron] The visual firing (Tron taps Approve / Decline on his device) is Tron device-verification.
 
 ## Subtasks
