@@ -1,0 +1,228 @@
+{
+  "labelled": "R-C10 preserve-first snapshot 2026-08-11 (BEFORE any mutation)",
+  "methods": [
+    {
+      "method": "aee04064-f57d-4741-aabb-e5f8ca48736d",
+      "name": "ContentPreviewer.htmlSandboxed",
+      "tests": [
+        "178f14b2-9f1e-4b42-872f-c1fb02698161"
+      ],
+      "impls": [
+        "cf44c51c-0e38-4f9c-bbf9-b4731eb6e8ce"
+      ]
+    },
+    {
+      "method": "3d4ceb1d-6ed6-4073-a047-cd90e6291a27",
+      "name": "DropDispatcher.routeUnknown",
+      "tests": [
+        "1e763397-5c56-4288-aac6-ee6f874b64a6"
+      ],
+      "impls": [
+        "971bdde0-004b-4896-bc8c-4570832f6304",
+        "4a159912-978e-46bc-a839-5201857461c5"
+      ]
+    },
+    {
+      "method": "9905fbfa-e41a-4177-b625-f6fee373efd2",
+      "name": "DropDispatcher.uploadFile",
+      "tests": [
+        "1e763397-5c56-4288-aac6-ee6f874b64a6"
+      ],
+      "impls": [
+        "d6ec181b-3e6f-4b95-9b67-196cdb137ad3",
+        "05ed9488-cef2-41f5-83b2-f8e046fcd77a",
+        "dcfc5fe3-ff7a-44e3-927b-2aa03197498f",
+        "8b400f1d-34e0-4fbf-abd5-06f0e0499b7a",
+        "0bd88871-d496-448e-84b7-7daf8bee595a"
+      ]
+    },
+    {
+      "method": "7a983076-23e0-419c-a6d0-2a10f4342b4b",
+      "name": "Message.createMessageUnit",
+      "tests": [
+        "8289ef98-6aba-49a2-be74-89e95658f1a7"
+      ],
+      "impls": [
+        "a3e4972c-cfb5-41b2-b382-a29afb1da568"
+      ]
+    },
+    {
+      "method": "94bc8f6e-e377-415f-96fb-fd39175029c5",
+      "name": "Message.lazyLoadChain",
+      "tests": [
+        "9e1cb105-27b1-4268-b9c3-d2110563fdeb"
+      ],
+      "impls": [
+        "e9dfad4e-95a1-44b8-bc96-c6c6802b4037",
+        "7f1774c9-1f78-403e-b078-c1b21d8a6b8e",
+        "25b1a3ee-d97f-4525-b482-e203794fb47f",
+        "dcc18fd3-48ca-4e9a-a8b7-23fcd05cee5f",
+        "e94199c4-5c74-458e-92ad-2e75f8bc2926",
+        "b1751446-effd-45f2-a4e2-e70ae5a19d27"
+      ]
+    },
+    {
+      "method": "adde3420-6ba6-400d-9b51-ebac318ea034",
+      "name": "PageNav.raiseAboveDrawer",
+      "tests": [
+        "7d6badb4-a27d-4c9d-b7f8-385fc9636e90"
+      ],
+      "impls": [
+        "2f809076-5cca-42b3-806b-7f390890fa2b"
+      ]
+    },
+    {
+      "method": "22f951cc-2e9f-4fc5-9031-2f06a529ed0e",
+      "name": "RbDetailDrawer.closeAndMinimize",
+      "tests": [
+        "fc9ed257-a711-4803-bf91-8279aa5f4fa7"
+      ],
+      "impls": [
+        "e42b85e8-d844-4e7b-be17-561a82d780b9"
+      ]
+    },
+    {
+      "method": "01771d5b-9195-4680-99ac-334266d85aa0",
+      "name": "RbDetailDrawer.dragResize",
+      "tests": [
+        "beea8c64-c42c-4e16-a1db-79958be53a0e"
+      ],
+      "impls": [
+        "01771d5b-a1b2-4c3d-8e4f-5a6b7c8d9e0f",
+        "c23f3022-0d63-496c-87fd-ded59d4c24c7"
+      ]
+    },
+    {
+      "method": "da9462f5-72fd-49df-bedb-72c8b3248fc2",
+      "name": "RbDetailDrawer.fullWidth",
+      "tests": [
+        "0b7d18d9-247e-4261-8430-ef5fbc88ad10"
+      ],
+      "impls": [
+        "ff684e10-e57c-45ae-97b9-8f866264c737"
+      ]
+    },
+    {
+      "method": "3a671bfc-12c2-4922-938e-01572d90808e",
+      "name": "RbDetailDrawer.stickyClose",
+      "tests": [
+        "e59ff205-2a3f-4f4b-8e47-f5e7836d1646"
+      ],
+      "impls": [
+        "aa585fcc-dfc1-42a8-a77d-0c0fb03ca5fd",
+        "1dae7316-28c5-480e-81c4-fc2874fa8c5d"
+      ]
+    },
+    {
+      "method": "31c6e25e-c65e-4039-ad01-f0dd87978ed1",
+      "name": "RbDetailView.renderSupersededLinks",
+      "tests": [
+        "ae410763-e446-4294-ad75-a6b11a2bdc31"
+      ],
+      "impls": [
+        "45cfa001-a50a-4554-9f6a-3b641a9174aa"
+      ]
+    },
+    {
+      "method": "6ae25e44-904a-4fbf-9c26-18628f48a479",
+      "name": "RbDetailView.scenarioBrowserLink",
+      "tests": [
+        "3acb7a5d-1a04-4aa1-883a-4faa5bf5de12"
+      ],
+      "impls": [
+        "ed71d42a-8b9c-4831-963a-973ff28d0819"
+      ]
+    },
+    {
+      "method": "5ac05259-20b4-4120-84d5-c1920d6b22da",
+      "name": "RbObjectItem.dragAllSelected",
+      "tests": [
+        "22993e0d-6d24-46be-b04f-21a0db2046f8"
+      ],
+      "impls": [
+        "8c01c12c-22f2-44a6-bcdf-6bb460a0b072"
+      ]
+    },
+    {
+      "method": "1608977f-c794-4b70-9d85-17c46117a46a",
+      "name": "RbRoomContent.filePreview",
+      "tests": [
+        "7f62966c-d044-4a8b-b811-d3cf5dd74f35"
+      ],
+      "impls": [
+        "6471cfbd-d505-4876-97c5-9196cba80b53"
+      ]
+    },
+    {
+      "method": "187a1c5e-125c-4af7-bb11-49585f8321d7",
+      "name": "RbWebItemDetail.previewByType",
+      "tests": [
+        "3458dd89-5a4d-443c-8e29-ac91cb795ad2"
+      ],
+      "impls": [
+        "accc6a00-5c92-4de0-b38f-029a45b86852"
+      ]
+    },
+    {
+      "method": "79ee7486-499b-49de-81dc-77f8682da420",
+      "name": "Room.forwardRefs",
+      "tests": [
+        "167361bc-184b-4c4e-b938-78d76e4ba848"
+      ],
+      "impls": [
+        "28f244c7-1a9c-49c5-ab6c-249d906cb9a4"
+      ]
+    },
+    {
+      "method": "79601135-70ea-48d9-a566-b4b53a96dfc8",
+      "name": "RoomView.openFilePreview",
+      "tests": [
+        "c73b0ad9-7f6b-408d-ae0e-2607e3f19c0e"
+      ],
+      "impls": [
+        "852101d1-ec42-478a-bc73-59ddff7feb49"
+      ]
+    },
+    {
+      "method": "10f3d3d4-4451-4b8e-a88c-1f99cfa40086",
+      "name": "SelectionModel.select",
+      "tests": [
+        "7cba34a6-03ab-41db-9ac2-d0e76d1d6f71"
+      ],
+      "impls": [
+        "6a626fa3-9e31-437f-bb40-2fa57cc501bf"
+      ]
+    },
+    {
+      "method": "fd5059c5-89be-42b4-a5cd-f38ab61c42d6",
+      "name": "ServiceWorker.flushAndReload",
+      "tests": [
+        "ed935b58-cea8-4e8a-8079-e592d21ecda2"
+      ],
+      "impls": [
+        "4bb96a28-cfe7-4f0a-9a38-909a930e8345"
+      ]
+    },
+    {
+      "method": "0a542620-1669-4212-8e8c-4bd72a8d5770",
+      "name": "SprintViewGenerator.generateTaskMd",
+      "tests": [
+        "dfd28fdd-0fd4-4c3a-8fc4-0d9db43fb221"
+      ],
+      "impls": [
+        "88744d89-4520-471e-b732-2d2d2504f817"
+      ]
+    },
+    {
+      "method": "0eda72b1-2ab5-4b4a-8cd8-c5f86e0cced9",
+      "name": "User.ensureRawBinUser",
+      "tests": [
+        "f2122854-51e0-4e5e-850e-9d86acebed3b"
+      ],
+      "impls": [
+        "7de1d230-8174-4ea5-b1e9-7b52bb6e63e8",
+        "8c72876c-05a5-467d-a1da-2b14a4a7b40d"
+      ]
+    }
+  ]
+}
