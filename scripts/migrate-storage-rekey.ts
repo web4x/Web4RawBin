@@ -32,7 +32,10 @@ import { ScenarioIndex } from '../src/ts/scenario/index.js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_USERS = path.join(ROOT, 'data', 'users');
 const MAP_PATH = path.join(ROOT, 'data', 'token-storage-map.json'); // gitignored (contains raw tokens)
-const REF_FINGERPRINT = 'b5ec87fbb79ee84fa22c2c66c32702e27433ff1721cf94c18117330bbf7c0f25'; // quiesced backup multiset (527 files)
+// DRY-RUN CROSS-CHECK ONLY — the first backup's fingerprint. The live tree DRIFTS past this (legit user
+// writes), so --apply NEVER gates on this constant; it captures a FRESH APPLY_REF from the quiesced state
+// in-window and verifies against THAT (PIN 1, architect). This constant only annotates the dry-run report.
+const FIRST_BACKUP_FINGERPRINT = 'b5ec87fbb79ee84fa22c2c66c32702e27433ff1721cf94c18117330bbf7c0f25';
 const APPLY = process.argv.includes('--apply');
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -100,7 +103,7 @@ console.log(`\n=== R40.22 storage re-key — ${APPLY ? 'APPLY' : 'DRY-RUN'} ===`
 console.log(`owner homes (data/users/<token>/): ${ownerTokens.length}`);
 console.log(`regular files: ${cur.files}   symlinks (→scenario/index, preserved as-is): ${symlinkCount}`);
 console.log(`content multiset fingerprint: ${cur.fingerprint}`);
-console.log(`  == backup reference b5ec87fb…: ${cur.fingerprint === REF_FINGERPRINT ? '✓ EXACT MATCH' : '✗ DRIFT (server wrote since snapshot — expected if not re-quiesced)'}`);
+console.log(`  == FIRST backup b5ec87fb… (dry-run cross-check only): ${cur.fingerprint === FIRST_BACKUP_FINGERPRINT ? '✓ match' : '✗ DRIFT (expected — live moved; --apply re-quiesces + uses a FRESH ref, never this constant)'}`);
 console.log(`File/WebItem unitLink strings embedding data/users/<token>/: ${linkHits.length}  across ${new Set(linkHits.map(h => h.unitKey)).size} units`);
 console.log(`distinct tokens embedded in unitLinks: ${tokensInLinks.size}`);
 console.log(`  all embedded tokens are known owner-homes: ${tokensInLinksNotOwners.length === 0 ? '✓' : '✗ ' + tokensInLinksNotOwners.length + ' orphan'}`);
@@ -189,6 +192,20 @@ for (const key of idx.list()) {
   }
 }
 if (tokenPathsLeft) fails.push(`${tokenPathsLeft} tracked unitLinks still embed an owner-TOKEN path segment (must be storageId)`);
+// (4d) PIN 2 (architect): every in-home SYMLINK must RESOLVE post-copy (target exists), not merely be
+// present. fs.existsSync FOLLOWS the link → false if the relative target is broken at the storageId depth.
+// Recursion enters only REAL dirs (e.isDirectory() is false for a symlink entry) → no follow/loop.
+let symTotal = 0, symBroken = 0;
+const checkSymlinks = (d: string) => {
+  for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+    const p = path.join(d, e.name);
+    if (e.isSymbolicLink()) { symTotal++; if (!fs.existsSync(p)) symBroken++; }
+    else if (e.isDirectory()) checkSymlinks(p);
+  }
+};
+for (const t of ownerTokens) checkSymlinks(path.join(DATA_USERS, map[t]));
+if (symBroken) fails.push(`${symBroken}/${symTotal} in-home symlinks BROKEN post-copy (target missing at storageId depth) — expected 0`);
+console.log(`in-home symlinks RESOLVE post-copy: ${symTotal - symBroken}/${symTotal} (stat-follows-link; 0 broken required)`);
 
 if (fails.length) {
   console.error(`✗ VERIFY FAILED (ABORT — originals untouched; git checkout scenario/index to revert):`);
