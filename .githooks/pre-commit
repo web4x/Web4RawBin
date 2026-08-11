@@ -7,3 +7,19 @@ node scripts/check-camelcase-names.mjs || {
   echo "pre-commit BLOCKED: camelCase name gate failed — rename the snake_case UseCase/Method name(s) above." >&2
   exit 1
 }
+
+# Auto-regen + deletion-guard (T37.6): when staged scenario units change, regenerate the sprints.overview.md
+# generated index INSIDE this commit and stage it — so committed-overview == regen-of-committed-units BY
+# CONSTRUCTION (no human quiesce-window race); and refuse any staged deletion of a hand-authored scrum.pmo doc.
+# Needs tsx, so it only spawns when scenario units are staged OR a scrum.pmo *.md is being deleted (fast path
+# stays node-only). Node override: RB_NODE=/path/to/node (default /opt/node22/bin/node, else PATH node).
+NEED_REGEN=0
+git diff --cached --name-only | grep -qE '^scenario/index/.*\.scenario\.json$' && NEED_REGEN=1
+git diff --cached --name-only --diff-filter=D | grep -qE '^scrum\.pmo/.*\.md$' && NEED_REGEN=1
+if [ "$NEED_REGEN" = 1 ]; then
+  RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
+  "$RB_NODE" --import tsx scripts/precommit-regen-overview.ts || {
+    echo "pre-commit BLOCKED: sprints.overview.md auto-regen / deletion-check failed (fail-closed) — see above." >&2
+    exit 1
+  }
+fi
