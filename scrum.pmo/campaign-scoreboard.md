@@ -14,6 +14,9 @@
 - At QA-Review NOW, awaiting only Tron's verdict: **34**
 - **2026-08-11 deltas:** +**T40.17** `50f51ac1` (credited-but-taskless live-pin, req-minted, entered directly at QA-Review — real work made visible, TOTAL 113→114 / QA 33→34) · the **15 S30/S32 gate re-certs** at 0.8.90 (r3035/3036/3037×2/3038/3052b/325/3041/3042/3043×2/3045/3046/3050/3052) = all 12 covering tasks (T30.35/36/37/38/39/42/43/45/46/50/52 + T32.5) were ALREADY at QA-Review = **anti-regression re-certification only, NO campaign movement** (no honest flip to claim). R30.49 skipped (still-holding). ⚠ NOT moved backward without evidence: r311/R31.1 RED = architect-diagnosed supersede-vs-regression (S31's 1 remaining, verdict pending); 5 stale-gate-suspected + r309 NOT-RUN=RED are unconfirmed, not product regressions.
 
+## ★★ PRE-DEPLOY TRUTH-TEST (2026-08-11, `node scripts/qa-evidence-audit.mjs`)
+The hardened approve path (built, not yet deployed) enforces a testing-evidence precondition: a QA-Review task without a two-keyed passing Test would **409** on Tron's approve tap. Audited all QA-Review tasks for that exact chain-edge (Test ∈ Impl.tests[] ∧ Test.implementations[] back-ref ∧ status=pass): **WOULD-PASS approve = 36 / 36 · WOULD-409 = 0.** Every task flipped to QA-Review genuinely carries the evidence the approve path checks — the headline (36 QA-Review, zero held) is **not overstated**. (Coverage-existence test = what the precondition checks; per-flip verify-owner-first separately established each Test tests the *right* facet.)
+
 ## Per-sprint (Done / QA-Review / superseded / remaining)
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
