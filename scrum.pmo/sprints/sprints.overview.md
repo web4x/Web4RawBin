@@ -34,7 +34,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 <!-- GENERATED-INDEX:BEGIN -->
 ## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)
-- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1/R40.17 FAIL-LOUD (INV-C1-4): 6 Active sprints [21, 20, 40, 19, 37, 25] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
+- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1/R40.17 FAIL-LOUD (INV-C1-4): 5 Active sprints [21, 20, 40, 19, 25] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
 
 | # | Sprint | Status |
 |---|--------|--------|
@@ -74,7 +74,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 | 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
 | 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
 | 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
-| 37 | Consistency by Construction | Active |
+| 37 | Sprint 37: Consistency by Construction | QA-pending |
 | 40 | Server Manager — deployment-node model + mobile input control | Active |
 
 **FROZEN-LEGACY** (excluded from the consistency gate — Tron-bounded scope, [[no silent caps]]):
