@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "cb9c222e-c61f-4396-96e5-d782c704e022",
+    "name": "A1 default actions Scenario + Edit ALWAYS open in a new tab (every surface the universalActionBar composes on), never navigate the current tab",
+    "altId": "R40.28",
+    "tasks": [],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "The A1 DEFAULT actions Scenario and Edit — the two the universalActionBar composes on ALL usages — must ALWAYS open in a NEW TAB, never navigate the current one, from EVERY surface the bar appears on (trace / model / room / task detail / drawer). Losing his place on a phone is the actual pain.",
+    "tronQuote": "make sure the default action scenatio edit alwazs opens in a new tab",
+    "status": "Backlog",
+    "captureOnly": true,
+    "family": "default-actions-new-tab",
+    "discoverySource": {
+      "type": "tron-directive",
+      "by": "Tron (device)",
+      "date": "2026-08-11",
+      "note": "A1 default Scenario/Edit must open new-tab always; current-tab context preservation on mobile."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-scenario-new-tab",
+        "group": "new-tab",
+        "text": "The A1 'Scenario' default action opens the scenario in a NEW TAB."
+      },
+      {
+        "id": "AC-2-edit-new-tab",
+        "group": "new-tab",
+        "text": "The A1 'Edit' default action opens the editor in a NEW TAB."
+      },
+      {
+        "id": "AC-3-always-every-surface",
+        "group": "always-every-surface",
+        "text": "★ 'ALWAYS' = from EVERY surface the universalActionBar is composed on (trace / model / room / task detail / drawer), not just the one currently in view. The word 'always' is part of the requirement — a per-surface exception is a defect."
+      },
+      {
+        "id": "AC-4-current-tab-preserved",
+        "group": "current-tab-preserved",
+        "text": "The CURRENT tab is NOT navigated away — the user keeps his place (losing context on a phone is the actual pain being fixed)."
+      },
+      {
+        "id": "AC-5-others-unchanged",
+        "group": "no-reverse-regression",
+        "text": "The OTHER actions' behaviour is unchanged (no reverse regression)."
+      },
+      {
+        "id": "AC-6-device-gate-asserts-open",
+        "group": "device-gate-result",
+        "text": "★ Device-gated @390 real-WebKit asserting a NEW TAB/WINDOW actually OPENED — assert the RESULT (a new browsing context exists), NOT that a target/attribute is present. A rendered target that never opens is the empty-container class."
+      },
+      {
+        "id": "AC-7-sync-open-ios-hazard",
+        "group": "ios-sync-open-hazard",
+        "text": "★ IMPLEMENTATION HAZARD (by-construction): the new-tab open MUST be triggered SYNCHRONOUSLY inside the tap/user-gesture handler — NO await / fetch / resolve / async ref lookup before window.open. iOS Safari BLOCKS a non-synchronous window.open as a popup: the tab silently never appears, and that failure is INVISIBLE headless. Resolve any URL/ref data BEFORE the tap or open synchronously and navigate the new context after."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
