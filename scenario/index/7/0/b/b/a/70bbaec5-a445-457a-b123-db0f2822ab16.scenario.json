@@ -57,7 +57,8 @@
     "group": "verify",
     "text": "VERIFIED: a full gate run leaves the live store BYTE-IDENTICAL before==after (git clean-check / live-registry-count unchanged), INCLUDING on an injected mid-gate failure/timeout. The isolation + cleanup are gate-proven, not asserted."
    }
-  ]
+  ],
+  "campaignScope": "★ CAMPAIGN SCOPE (PO ruling 2026-08-11): OUTSIDE the S30++ finish-campaign count. NEW requirement created DURING the campaign from a finding (gate-pollution / room-pollution), NOT backlog-as-it-stood-from-S30 — EXCLUDED from the remaining-11 so the target does not recede as we discover. Captured + cross-ref (R40.30) + scheduled as NEXT-PHASE hardening. ★ IMMEDIATE (the CONSTRAINT, not the task): r3043-uc4addlocal stays BLOCKED-until-isolated regardless of scheduling."
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

@@ -41,7 +41,8 @@
         "group": "drift-names-itself",
         "text": "Drift is DETECTABLE rather than discovered by accident: a gate whose hook has VANISHED says 'hook missing' LOUDLY (distinct signal), not read -1 and report a behavioural failure. The RED must name drift, not masquerade as a code regression."
       }
-    ]
+    ],
+    "campaignScope": "★ CAMPAIGN SCOPE (PO ruling 2026-08-11): OUTSIDE the S30++ finish-campaign count — NEW requirement created DURING the campaign (gate-rot discovery), NOT backlog-as-it-stood-from-S30; EXCLUDED from the remaining-11, scheduled as next-phase hardening. Sibling classification to R40.31 (gate-pollution)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
