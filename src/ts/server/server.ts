@@ -1912,10 +1912,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // roomUuid may point at a room that is no longer loaded — that used to 403 valid viewers → broken image).
         const fu0 = (() => { const idx2 = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); return idx2.get(fileUuid); })();
         const fileRoomUuid = fu0 ? String((fu0.model as any).roomUuid || '') : '';
-        const uploaderToken = fu0 ? String((fu0.model as any).uploaderToken || '') : '';
         const memberOf = (r: any) => !!r && (r.creatorToken === authToken || [...r.members.values()].some((m: any) => m.playerToken === authToken));
-        let authorized = !!uploaderToken && uploaderToken === authToken;
-        if (!authorized && fileRoomUuid) authorized = memberOf(roomManager.getRoom(fileRoomUuid));
+        // R40.22 step-1(a) RE-POINT (before scrub): authorize by OWNER-REF (room creator = owner) / room-membership ONLY.
+        // The leaked-copy clause `uploaderToken === authToken` is REMOVED — a request presenting only the embedded
+        // uploaderToken value is no longer authorized by that value, so scrubbing the field is safe (re-point BEFORE scrub).
+        let authorized = false;
+        if (fileRoomUuid) authorized = memberOf(roomManager.getRoom(fileRoomUuid));
         if (!authorized) authorized = roomManager.roomsWithFile(fileUuid).some(memberOf);
         if (!authorized) { res.writeHead(403); res.end('Forbidden'); return; }
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
