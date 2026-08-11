@@ -4,7 +4,10 @@
   "uuid": "cfe02f4b-f07d-41ec-8aca-c462c22306f9",
   "name": "ONE CONTROLLER — every unit mutation flows through a single validated entry (no bypass)",
   "altId": "R37.11",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba",
+   "ior:instance:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
   "sourceLine": 1,
