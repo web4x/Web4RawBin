@@ -75,6 +75,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { statusNext } from '../scenario/task-policy.js'; // C4.3: approve DELEGATES the Done-advance to the ONE controller (single Done-writer). Importing this wires the C4 controller + C4.1 self-heal at boot — go-live is on the (held) restart.
 import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -1475,10 +1476,19 @@ function approveByOwner(idx: ScenarioIndex, taskUuid: string, ownerTok8: string,
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
   const m = unit.model as any;
-  if (m.status !== 'QA Review') return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' != 'QA Review' — cannot manufacture Done` } };
-  m.approvedBy = ownerTok8; m.approvedAt = now; m.status = 'Done';   // Tron's QA recorded as DATA → the Done-gate is now provable
-  idx.put(taskUuid, unit);
-  return { code: 200, payload: { ok: true, status: 'Done', approvedBy: ownerTok8, approvedAt: now } };
+  // C4.3 SINGLE-SOURCE DONE: approve records Tron's QA verdict as DATA (the evidence the controller's Done-gate reads),
+  // then DELEGATES the Done-advance to the ONE controller (statusNext) — it NEVER sets status directly. The controller
+  // validates (QA Review→Done, 'testing' chain-evidence present AND approvedBy present), ticks the checklist, and
+  // derives status=Done (the sole 4-state writer). MvcBoundaryGuard enforces that no path sets Done outside it.
+  m.approvedBy = ownerTok8; m.approvedAt = now;   // Tron's QA recorded as DATA (evidence) BEFORE delegating
+  idx.put(taskUuid, unit);                        // persist the verdict-evidence so the controller's validate reads it
+  try {
+    const advanced = statusNext(idx, taskUuid, { target: 'Done', actor: ownerTok8 });
+    return { code: 200, payload: { ok: true, status: (advanced.model as any).status, approvedBy: ownerTok8, approvedAt: now } };
+  } catch (e: any) {
+    // the controller REFUSED (evidence-precondition unmet) — surface honestly, never manufacture Done
+    return { code: 409, payload: { ok: false, error: 'no-evidence', detail: String(e?.message ?? e) } };
+  }
 }
 
 // [impl:uuid:90089602-d819-4df3-80a9-ef5524931ae3] TaskQaVerdict.declineToChangeRequest (owner-gated; mints ior:class:ChangeRequest linked to task/req)
