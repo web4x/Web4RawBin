@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - cluster R-C6 (sprints.overview.md GENERATED + preserved-narrative + --check in ci:gates). The last un-generated board seam; joins the R-C3 pin==board==files guard. Chain at build-go. Gate = Test EXERCISES regen -> table reflects Sprint units + narrative byte-untouched + injected drift FAILS --check. Verify Impl.tests[] on disk before flip.
+In Progress 2/4 (planner reconcile 2026-08-11, MEASURED per-box, Tron directive, same disease+method as C2; checklist was ALL-unticked=derived-Planned = UNRECORDED PROGRESS; status DERIVED from checklist R-C5, never hand-set). EVIDENCED [x]: refinement = Req 9339cc3b + UC 833d3525 (overview.generatePreserved) + Class c85603ca (SprintOverviewGenerator) + Method 8b238215 (generateOverview) all on disk+wired. implementing = Impl 1f38e07e (generateOverview: preserved-region + pin/rollup index + frozen-legacy visible) markerPending=false, shipped expert cf850d26e, planner owner-APPROVED this session. NOT EVIDENCED [ ]: creating test cases + testing = R-C6 has NO Test — Impl 1f38e07e.tests[]=EMPTY; the only R-C6-mentioning Test (57829ccc) is R-C7's narrative-loss BITE two-keyed to proveComplete 21e38b44 NOT 1f38e07e, naming R-C6 only as a FUTURE phase-b dependency (verify-owner-first: MENTION != WIRE, no cross-wire). >> test-cases NEEDS: author the R-C6 gate (regenerate overview -> sprint-table reflects Sprint units + preserved-narrative byte-untouched + injected table-drift FAILS --check, per AC-gate) wired to 1f38e07e. testing NEEDS: that gate GREEN two-keyed. NOT rounded up to QA-Review (Tron steers QA from status).
 
 ## Traceability
 
