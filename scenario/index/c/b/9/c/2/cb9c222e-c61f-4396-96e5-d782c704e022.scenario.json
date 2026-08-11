@@ -52,14 +52,20 @@
       {
         "id": "AC-6-device-gate-asserts-open",
         "group": "device-gate-result",
-        "text": "★ Device-gated @390 real-WebKit asserting a NEW TAB/WINDOW actually OPENED — assert the RESULT (a new browsing context exists), NOT that a target/attribute is present. A rendered target that never opens is the empty-container class."
+        "text": "Device-gated @390 real-WebKit (iOS-parity, NOT chromium-emulation) asserting a NEW browsing context ACTUALLY OPENED — detected via the page/popup EVENT, NOT target=_blank-in-DOM (in-DOM != opened = the empty-container false-green). ★ AUTO-GATE-ABLE half (tester prove-the-prover: real sync tap fires a context 3/3)."
       },
       {
         "id": "AC-7-sync-open-ios-hazard",
-        "group": "ios-sync-open-hazard",
-        "text": "★ IMPLEMENTATION HAZARD (by-construction): the new-tab open MUST be triggered SYNCHRONOUSLY inside the tap/user-gesture handler — NO await / fetch / resolve / async ref lookup before window.open. iOS Safari BLOCKS a non-synchronous window.open as a popup: the tab silently never appears, and that failure is INVISIBLE headless. Resolve any URL/ref data BEFORE the tap or open synchronously and navigate the new context after."
+        "group": "device-only-390",
+        "text": "★ DEVICE-ONLY (real iOS Safari @390, Tron-verified, NEVER headless-green): the new-tab open MUST be SYNCHRONOUS in the tap/user-gesture handler (no await/fetch/resolve before window.open; open the tab first then point it). iOS Safari silently popup-blocks a non-sync open — the tab never appears, invisibly. ⚠ HEADLESS CANNOT VERIFY THIS (measured, tester prove-the-prover): headless Playwright-WebKit does NOT enforce the sync-gesture popup rule — an async-timeout AND async-promise open ALSO fire a context, so auto-gating AC-7 would FALSE-GREEN a broken async open. Therefore AC-7 is verified ONLY on Tron's real device; AC-6 (a context actually opens) is the auto-gate-able half. Do NOT headless-green AC-7 (R22.2 device-only precedent)."
       }
-    ]
+    ],
+    "verifySplit": {
+      "auto-gateable": "AC-6 (actual-open, @390 real-WebKit)",
+      "device-only": "AC-7 (iOS sync-gesture block, Tron real-device)",
+      "by": "tester prove-the-prover 2026-08-11",
+      "note": "headless WebKit does not enforce iOS sync-gesture popup-block -> AC-7 device-only per R22.2 precedent."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
