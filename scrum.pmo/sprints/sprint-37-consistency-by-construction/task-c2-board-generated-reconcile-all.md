@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
-  - [ ] implementing
+  - [x] implementing
   - [ ] testing
 - [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - cluster R-C2, BUILD FIRST (order R-C2->R-C1->R-C3->R-C4). Clears 29-sprint historical drift in ONE reconcile-all pass. Chain at build-go (architect design, useCases pending). Gate = Test EXERCISES reconcile-all -> --check --all byte-match ALL sprints (CI/tooling, not @390). Verify Impl.tests[] on disk before flip.
+In Progress 2/4 (planner reconcile 2026-08-11, MEASURED per-box, Tron directive; checklist was ALL-unticked=derived-Planned = UNRECORDED PROGRESS, not a display bug; status DERIVED from checklist R-C5, never hand-set). EVIDENCED [x]: refinement = Req eec7ebb7 + UC bf1cf902 (sprintBoard.reconcileAll) + Class 93f9afc7 (SprintViewGenerator, R24.4) + Method eddf2836 (generateAll) all on disk+wired. implementing = Impl b31ae393 (generateAll --all write-extraction) markerPending=false STRICT-AST @generate-sprint-md.ts:248 (9b1c2ab18); shipped RUN 5b2630552 (regen 144 md, owned-output guard 0 puml/design). NOT EVIDENCED [ ]: creating test cases + testing = R-C2 has NO Test — Impl b31ae393.tests[]=EMPTY; no Test unit references reconcile-all/generateAll. The cited T24.4 gate (Test 82ca355c, r245-s24-tooling-gate.mjs) is GREEN (status=pass) BUT two-keyed to generateSprint Impl 41c86206 NOT b31ae393, and exercises the --check CHECKER not the reconcile-all WRITE = CROSS-CREDIT, not R-C2's gate (verify-owner-first). PLUS reconcile-all BLOCKED ~9/37 by OWNED-OUTPUT guard skipping 20 legacy req.md + 10 planning.md (no GENERATED_HEADER, R-C7-pending). >> test-cases NEEDS: author a reconcile-all gate (run --all WRITE on drifted set -> --check --all byte-match on IN-SCOPE boards per re-scoped AC-post-clean ~20/20 NOT 37/37) wired to b31ae393. testing NEEDS: that gate GREEN two-keyed + in-scope scope settled OR R-C7 legacy migration to unblock. NOT rounded up to QA-Review (Tron steers QA from status).
 
 ## Traceability
 
