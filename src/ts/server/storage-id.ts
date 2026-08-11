@@ -31,11 +31,22 @@ export function initStorageMap(pathStr: string): StorageMap { _sm = { path: path
 export function storageMapSize(): number { return Object.keys(_sm.map).length; }
 
 // homeKeyFor — THE single resolver for every data/users/<key> access. INERT (returns the raw token, current
-// behavior) until REKEY_APPLIED. Then: READ (mint:false) = GET-ONLY (map[token] || token — side-effect-free,
-// NEVER mints on a read, per architect); WRITE (mint:true) = getOrMint (stable, injective, concurrency-safe).
+// behavior) until REKEY_APPLIED. Then: READ (mint:false) = MAP-ONLY (_sm.map[token], NO `|| token` fallback)
+// → '' when the token is not a map KEY = NO HOME = 0 access; WRITE (mint:true) = getOrMint.
+// ★ SECURITY (architect): the `|| token` fallback was an EXPLOIT — an attacker presenting a leaked storageId
+// as their playerToken fail-opens IDENTIFY, then map[storageId]||storageId = storageId → reads the OWNER's
+// home, breaking "storageId can never authenticate, a leaked path is harmless BY CONSTRUCTION". A storageId
+// is only ever a map VALUE, never a KEY → map-only lookup returns '' → no home. Legit tokens always have a
+// map entry (migration, or getOrMint on their first write); a pre-write new user reads '' = empty (correct).
+// Callers MUST treat '' as NO HOME (return no rooms / no file), never fall back to the token.
 export function homeKeyFor(token: string, opts: { mint: boolean }): string {
-  if (!REKEY_APPLIED) return token;
-  return opts.mint ? getOrMintStorageId(token, _sm) : (_sm.map[token] || token);
+  return resolveHomeKey(token, opts, REKEY_APPLIED, _sm);
+}
+// Pure core (applied + sm injected) so the security property is DEMONSTRABLE in a test without flipping the
+// committed REKEY_APPLIED const. READ is map-ONLY → a storageId (a map VALUE, never a KEY) resolves to ''.
+export function resolveHomeKey(token: string, opts: { mint: boolean }, applied: boolean, sm: StorageMap): string {
+  if (!applied) return token;
+  return opts.mint ? getOrMintStorageId(token, sm) : (sm.map[token] || '');
 }
 
 export function loadStorageMap(pathStr: string): Record<string, string> {

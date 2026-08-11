@@ -28,7 +28,7 @@ import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { loadRevokedTokens, isRevoked, EXPECTED_REVOKED_COUNT, REVOKED_ARMED, revokedArmedHealth } from './revoked-tokens.js';
-import { loadStorageMap, getOrMintStorageId, storageMapHealth, REKEY_APPLIED, type StorageMap } from './storage-id.js';
+import { initStorageMap, homeKeyFor, storageMapSize, storageMapHealth, REKEY_APPLIED } from './storage-id.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
 import { sprintPrefix } from '../scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
 import { generateProjectModel } from './generate-project.js'; // T36.3 shared generate-project core (HTTP handler + local CLI)
@@ -231,11 +231,9 @@ let revokedHealthError: string | null = null; // (B) LOUD-ABSENCE: set at boot w
 // R40.22 regrowth-kill: tokenToStorageId map (gitignored — keys are raw tokens/credentials). INERT until
 // REKEY_APPLIED; then new homes/uploads key by storageId + a lost map is fail-loud (storageMapHealthError).
 const STORAGE_MAP_PATH = path.join(__dirname, '../../../data/token-storage-map.json');
-const storageMap: StorageMap = { path: STORAGE_MAP_PATH, map: {} };
 let storageMapHealthError: string | null = null;
-// Storage key for a NEW home/upload: storageId once the re-key is applied (regrowth-kill), else the raw
-// token (current behavior — INERT pre-window). One chokepoint so no site embeds a raw token in a path.
-const storageKeyFor = (token: string): string => (REKEY_APPLIED ? getOrMintStorageId(token, storageMap) : token);
+// The ONE chokepoint = homeKeyFor(token,{mint}) from storage-id.ts (READ=get-only / WRITE=getOrMint).
+// initStorageMap() loads the singleton at boot. No site may build a data/users/<token> path outside homeKeyFor.
 const userProfiles = new Map<string, UserProfile>();
 const deviceRecords: DeviceRecord[] = [];
 let revokedTokens: Set<string> = new Set();
@@ -567,12 +565,12 @@ if (revokedHealthError) {
 }
 // R40.22 regrowth-kill: load tokenToStorageId at boot (INERT until REKEY_APPLIED). FAIL-LOUD if the map is
 // gone while REKEY_APPLIED — a lost map orphans every storageId home (do NOT silently mint-fresh).
-storageMap.map = loadStorageMap(STORAGE_MAP_PATH);
-storageMapHealthError = storageMapHealth(Object.keys(storageMap.map).length);
+initStorageMap(STORAGE_MAP_PATH);
+storageMapHealthError = storageMapHealth(storageMapSize());
 if (storageMapHealthError) {
   console.error(`[boot][UNHEALTHY] ${storageMapHealthError}`);
 } else {
-  console.log(`[boot] storage-map: loaded ${Object.keys(storageMap.map).length} token→storageId (rekeyApplied=${REKEY_APPLIED}; new homes key by ${REKEY_APPLIED ? 'storageId' : 'token (inert)'})`);
+  console.log(`[boot] storage-map: loaded ${storageMapSize()} token→storageId (rekeyApplied=${REKEY_APPLIED}; new homes key by ${REKEY_APPLIED ? 'storageId' : 'token (inert)'})`);
 }
 // Inject the redirect resolver so rooms collapse consolidated (redirectTo) members to the PRIMARY profile.
 Room.resolveToken = (token: string) => userProfiles.get(token)?.redirectTo || token;
@@ -1808,7 +1806,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // T92: a normal upload must JUST SUCCEED — no key error ever surfaces. Guarantee
           // usable key material in THIS request before encrypting: createUserHome makes the
           // .ssh tree, generateUserKeypair is idempotent. Keys are never the user's concern.
-          createUserHome(storageKeyFor(playerToken));
+          createUserHome(homeKeyFor(playerToken, { mint: true }));
           generateUserKeypair(playerToken);
           if (!profile.sshKeysGenerated) { profile.sshKeysGenerated = true; saveProfiles(); }
           const ext = mimeType === 'image/png' ? 'png' : mimeType === 'image/gif' ? 'gif' : mimeType === 'image/webp' ? 'webp' : 'jpg';
@@ -1848,7 +1846,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const buf = Buffer.from(data, 'base64');
           const profile = userProfiles.get(playerToken);
           if (!profile) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'No profile' })); return; }
-          createUserHome(storageKeyFor(playerToken));
+          createUserHome(homeKeyFor(playerToken, { mint: true }));
           generateUserKeypair(playerToken);
           if (!profile.sshKeysGenerated) { profile.sshKeysGenerated = true; saveProfiles(); }
           try {
@@ -2033,7 +2031,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (isWebItem) {
             const url = extractUrl(fileData.toString('utf-8'), fileName);
             if (url) {
-              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: storageKeyFor(playerToken), roomUuid: roomId, relatedFile: relatedFile || undefined });
+              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, relatedFile: relatedFile || undefined });
               addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
               // v0.6.98 (R25.5): for http(s), fetch the page <title> as the NAME (distinct from description=url);
               // falls back to deriveName's hostname on timeout/failure. Only overrides a generic (non-fetched) name.
@@ -2046,7 +2044,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
             }
           }
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: storageKeyFor(playerToken), roomUuid: roomId });
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId });
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);
