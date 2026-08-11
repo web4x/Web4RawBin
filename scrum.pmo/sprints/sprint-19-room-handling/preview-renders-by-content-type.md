@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 

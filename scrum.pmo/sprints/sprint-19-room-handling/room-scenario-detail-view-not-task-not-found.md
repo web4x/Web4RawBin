@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 
@@ -18,6 +18,6 @@
 
 ## Task Description
 
-The Room Scenario button must open a Room detail view (RoomDetailView), not error with 'Task not found'. Architect chained R19.62-66 in d361eae4. Covers R19.66.
+The Room Scenario button must open a Room detail view (RoomDetailView), not error with 'Task not found'. Architect chained R19.62-66 in d361eae4 (/scenario type-dispatch + ContentPreviewer). Covers R19.66.
 
 ## Subtasks

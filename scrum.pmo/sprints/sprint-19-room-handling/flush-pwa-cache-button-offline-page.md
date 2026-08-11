@@ -1,4 +1,4 @@
-<!-- GENERATED FROM SCENARIO UNITS - DO NOT HAND-EDIT -->
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
 
 [Back to Planning](./planning.md)
 
@@ -18,6 +18,6 @@
 
 ## Task Description
 
-Offline page has a red Flush PWA Cache button next to Retry. Architect chained UC d8872aa3. Covers R19.45.
+Offline page has a red Flush PWA Cache button next to Retry (architect already chained UC d8872aa3). Covers R19.45.
 
 ## Subtasks
