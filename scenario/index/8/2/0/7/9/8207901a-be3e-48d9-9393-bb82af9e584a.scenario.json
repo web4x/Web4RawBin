@@ -1,0 +1,65 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8207901a-be3e-48d9-9393-bb82af9e584a",
+  "name": "Armed revocation must fail-CLOSED-but-not-lockout — an armed-but-empty revoked list can never silently fail-OPEN (by construction)",
+  "altId": "R40.34",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "ARMED + absent/short revoked list = a SILENT-security failure: the feature reports itself ARMED while quietly authenticating EVERYONE (incl the 116 dormant test tokens) — fail-OPEN while claiming closed. A loud LOG is NOT a control (nobody reads a log at 3am). The honest shape is fail-CLOSED-BUT-NOT-LOCKOUT = LOUD AND CLOSED, with a governing constraint that the refusal must NEVER become a way to lock Tron out (operator-fixable in seconds, never refuse-to-boot). Architect caught this on HEAD (design d92bc3329, post-restart-verification-checklist.md ## BY-CONSTRUCTION FIX; the forbidden STATE-C = restart with REVOKED_ARMED=true + absent list). Fix = 3-layer defense-in-depth that makes the dishonest state UNREACHABLE. NO token values in this req — the tracked list holds SALTED HASHES only (a UUID is not recoverable from its hash), safe-to-track by design.",
+  "tronQuote": "> (No direct Tron quote) — robbin-architect diagnosis (armed-but-empty fail-open hole on HEAD), PO-directed capture 2026-08-12 as an R40-series security req; architect maps the chain when captured.",
+  "discoverySource": {
+   "type": "architect-diagnosis-po-directed",
+   "diagnosedBy": "robbin-architect",
+   "directedBy": "robbin-po",
+   "date": "2026-08-12",
+   "design": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/post-restart-verification-checklist.md ## BY-CONSTRUCTION FIX (d92bc3329)",
+   "note": "Non-blocking capture. Caught on HEAD before the single authorized restart. Kin to the honesty-by-construction family (the ARMED flag must not LIE about being closed) + the credential/rotation family R40.21/R40.22 + the re-key R40.33."
+  },
+  "crossRef": [
+   "ior:instance:1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61",
+   "ior:instance:acbfe6e7-cb3f-4845-82c9-e749cbd7d1ff",
+   "ior:instance:2ea94dbc-8eba-4ad6-a47e-c261789158ba"
+  ],
+  "crossRefNote": "Credential/revocation-integrity family: R40.21 (credentials-as-capability) + R40.22 (storage/identity re-key) + R40.33 (re-key home-isolation) + R40.34 (armed-revocation fail-closed). Also honesty-by-construction kin (a flag must not announce a security posture it isn't holding — the same 'must not lie' spirit as R37.13/15/16/17). ★ SECRET-DISCIPLINE: the list holds SALTED HASHES (sha256 of a 128-bit UUID + fixed committed salt) = NOT credentials, safe to git-track; NO token values anywhere.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-fail-closed-not-lockout",
+    "group": "security",
+    "text": "An ARMED revocation with an absent/short list must fail-CLOSED (LOUD AND CLOSED), NEVER silently fail-OPEN (authenticate everyone incl the 116). A loud LOG is NOT a control. GOVERNING CONSTRAINT: the refusal must NEVER lock Tron out — operator-fixable in seconds, never refuse-to-boot (an unattended-restart outage)."
+   },
+   {
+    "id": "AC-layer1-commit-couple",
+    "group": "by-construction",
+    "text": "LAYER 1 (primary — makes the state unreachable): the revoked list holds SALTED HASHES (sha256 of a 128-bit UUID token + fixed committed salt = NOT a credential, safe to git-track) and is committed ATOMICALLY with REVOKED_ARMED. Armed + its list ship TOGETHER and cannot diverge across deploys (also fixes the fresh-deploy-durability gap). NO token values are stored — only irreversible hashes."
+   },
+   {
+    "id": "AC-layer2-ci-gate",
+    "group": "gate",
+    "text": "LAYER 2 (CI gate check:revoked-tokens, in ci:gates): assert REVOKED_ARMED <=> (list PRESENT AND count==EXPECTED_REVOKED_COUNT AND disjoint from enrolled-79/Tron/File-owners). Armed-but-empty -> RED at commit => the dishonest state CANNOT be committed. Layer-1 tracking makes the list CI-visible (today it is gitignored-runtime so CI is blind — that is the hole)."
+   },
+   {
+    "id": "AC-layer3-runtime-belt",
+    "group": "security",
+    "text": "LAYER 3 (runtime belt for disk-corruption / list-lost-at-boot despite committed): ARMED and loaded != EXPECTED => IDENTIFY REFUSES to serve auth with an OPERATOR-FACING error naming the fix (run gen:revoked-tokens --write), health reports RED, but the server STAYS UP (health/status readable). = fail-CLOSED (nobody auths, incl the 116) + LOUD (visible, not a buried log) + NOT-a-lockout (a boot-time state, fix in seconds, auth resumes the instant the list materializes). NEVER refuse-to-boot."
+   },
+   {
+    "id": "AC-stub-must-fail",
+    "group": "gate",
+    "text": "Each layer PROVEN non-vacuous (stub-must-fail): plant armed-but-empty -> layer-2 CI goes RED AND layer-3 IDENTIFY REFUSES (never fail-open); a valid armed+materialized list -> auth works AND Tron + enrolled-79 are NOT over-rejected (F3). A guard that cannot fail proves nothing."
+   },
+   {
+    "id": "AC-net-defense-in-depth",
+    "group": "by-construction",
+    "text": "NET: loud + closed, no silent fail-open, no permanent lockout. The 3 layers are DEFENSE-IN-DEPTH — the dishonest armed-but-empty state becomes UNREACHABLE by construction (committed-coupled + CI-forbidden + runtime-fail-closed), not merely detected after the fact."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
