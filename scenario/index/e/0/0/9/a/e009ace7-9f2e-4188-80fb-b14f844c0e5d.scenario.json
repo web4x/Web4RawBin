@@ -4,7 +4,9 @@
     "uuid": "e009ace7-9f2e-4188-80fb-b14f844c0e5d",
     "name": "DeploymentModel.buildTypedModel impl (type the refs, real Relationship edges, crown-invariant fail-closed)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:c5a92e14-7b6f-4d83-9e21-0a4f8c73b6e2"
+    ],
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
     "markerNote": " | FLIPPED by req (strict-AST verified disk: FULL-uuid [impl:uuid:e009ace7]@DeploymentModel.ts:41 adjacent-above static buildTypedModel@:42, 0 intervening, name-token match; marker ON ORIGIN; T40.11 Slice1 4b78459e6; buildStrictImplSet credits=true). The parked no-host trigger now has its REAL host."
   },

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "c5a92e14-7b6f-4d83-9e21-0a4f8c73b6e2",
+    "name": "test:T40.6 DeploymentModel.buildTypedModel (e009ace7) — PURE reconcile rule: ssh 1->2 split w/ configuredBy edge / domain #fragment split / 5 distinct M2 types / FileBacked-vs-Deployable cross-cut / provenance all-4-refs-survive; fail-loud untypeable-role + no-array THROW proven non-vacuous; DISTINCT-INTENT (does NOT borrow the deployment-model family's graph/disk ACs)",
+    "implementations": [
+      "ior:instance:e009ace7-9f2e-4188-80fb-b14f844c0e5d"
+    ],
+    "sourceFile": "ior:file:test/visual/r406-buildtypedmodel-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r406-buildtypedmodel-gate.ts (measure-don't-invent, valid v4, no set-delta). Tester GREEN DET 6/6. Asserts the PURE reconcile rule of buildTypedModel (e009ace7): ssh 1->2 split with configuredBy edge, domain #fragment split, 5 distinct M2 types, FileBacked-vs-Deployable cross-cut, provenance all-4-refs-survive; fail-loud half (untypeable role + no-array THROW) proven non-vacuous. DISTINCT-INTENT: does NOT borrow the deployment-model family's graph/disk ACs (those belong to other impls) — no borrowed credit (T40.5 discipline). verify-owner-first: e009ace7 markerPending=false + tests[] EMPTY (shipped, 1st Test, no cross-wire). ★ This makes the once-suspected-FICTIONAL e009ace7 chain (measured real by expert @DeploymentModel.ts:42, PO-verified) honest END-TO-END, not merely believed."
+  },
+  "ownerIor": "ior:instance:e009ace7-9f2e-4188-80fb-b14f844c0e5d"
+}
