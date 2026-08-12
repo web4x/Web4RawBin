@@ -26,11 +26,12 @@ import { fileURLToPath } from 'node:url';
 import { guardedWriteRegion } from './owned-output-guard.js';
 import { BEGIN, END } from '../src/ts/scenario/sprint-overview-generator.js';
 
-type Totals = { total: number; done: number; qa: number; superseded: number; remaining: number };
+type Totals = { total: number; done: number; qa: number; superseded: number; remaining: number; actionable: number };
 type PerSprint = { sp: string; total: number; done: number; qa: number; superseded: number; remaining: number };
 type Blocker = { gap: string; count: number };
-type Task = { sp: string; uuid: string; derived: string; gap: string; device: boolean; name: string };
-type Measure = { totals: Totals; perSprint: PerSprint[]; byBlocker: Blocker[]; remainingTasks: Task[]; buildCoupled: number };
+type Task = { sp: string; uuid: string; derived: string; gap: string; name: string };
+type Disp = { sp: string; uuid: string; name: string; disposition: string }; // law#103 unit-persisted campaignDisposition
+type Measure = { totals: Totals; perSprint: PerSprint[]; byBlocker: Blocker[]; actionableTasks: Task[]; excluded: Disp[]; deferred: Disp[]; buildCoupled: number };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BOARD_REL = 'scrum.pmo/campaign-scoreboard.md';
@@ -53,22 +54,36 @@ function emitRegionInner(d: Measure): string {
   out.push('### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)');
   out.push('');
   out.push(`- **TOTAL S30++ tasks: ${t.total}** — Done **${t.done}** · QA-Review **${t.qa}** · SUPERSEDED-terminal **${t.superseded}** · **REMAINING (<QA-Review): ${t.remaining}** (${t.total} = ${t.done}+${t.qa}+${t.superseded}+${t.remaining})`);
+  out.push(`- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): ${t.actionable}**`);
   out.push('');
   out.push('| Sprint | total | Done | QA-Review | superseded | remaining<QA |');
   out.push('|--------|-------|------|-----------|------------|--------------|');
   for (const s of d.perSprint) out.push(`| ${s.sp} | ${s.total} | ${s.done} | ${s.qa} | ${s.superseded} | ${s.remaining} |`);
   out.push('');
-  out.push('**REMAINING by blocker:** ' + (d.byBlocker.length ? d.byBlocker.map((b) => `${b.gap} ${b.count}`).join(' · ') : '(none — every S30++ task at QA-Review or terminal)'));
+  out.push('**ACTIONABLE by blocker:** ' + (d.byBlocker.length ? d.byBlocker.map((b) => `${b.gap} ${b.count}`).join(' · ') : '(none — every actionable task at QA-Review or terminal)'));
   out.push('');
-  if (d.remainingTasks.length) {
-    out.push('| sprint | task | status | blocker | device | name |');
-    out.push('|--------|------|--------|---------|--------|------|');
-    for (const r of d.remainingTasks) out.push(`| ${r.sp} | ${r.uuid} | ${r.derived} | ${r.gap} | ${r.device ? 'DEVICE' : ''} | ${r.name} |`);
+  if (d.actionableTasks.length) {
+    out.push('#### Actionable — drivable now');
+    out.push('| sprint | task | status | blocker | name |');
+    out.push('|--------|------|--------|---------|------|');
+    for (const r of d.actionableTasks) out.push(`| ${r.sp} | ${r.uuid} | ${r.derived} | ${r.gap} | ${r.name} |`);
+    out.push('');
+  }
+  // law#103 dispositions — now MACHINE-MEASURED from unit.campaignDisposition (planner 74e23ad85), migrated OUT of
+  // the curated ## Headline prose INTO the generated region (PO ruling: the region GROWS as rulings become measurable).
+  if (d.excluded.length) {
+    out.push('#### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)');
+    for (const r of d.excluded) out.push(`- **${r.sp} ${r.uuid}** — ${r.name} — _${r.disposition}_`);
+    out.push('');
+  }
+  if (d.deferred.length) {
+    out.push('#### Deferred — law#103 campaignDisposition (Tron/PO-scheduled later; leaves the actionable count by construction)');
+    for (const r of d.deferred) out.push(`- **${r.sp} ${r.uuid}** — ${r.name} — _${r.disposition}_`);
     out.push('');
   }
   // GAP B (declared-not-measured, never silent): the .mjs does not yet AST-measure src host-decl existence for
   // build-coupled markers — that lag is an UNMEASURED input, so it is NAMED here (like the unresolved-pin placeholder).
-  out.push(`_Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **${d.buildCoupled}** entr${d.buildCoupled === 1 ? 'y' : 'ies'} (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map). Gate results reach this board ONLY via Test-unit.status._`);
+  out.push(`_Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **${d.buildCoupled}** entr${d.buildCoupled === 1 ? 'y' : 'ies'} (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map — enforced: the check FAILS if it grows). Gate results reach this board ONLY via Test-unit.status._`);
   return out.join('\n');
 }
 
