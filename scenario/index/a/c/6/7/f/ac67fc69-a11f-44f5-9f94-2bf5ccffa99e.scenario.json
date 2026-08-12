@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ac67fc69-a11f-44f5-9f94-2bf5ccffa99e",
+  "name": "New req-specific Class units root to their owning UC (uplink integrity) — sweep the 7 unrooted + recurrence gate",
+  "altId": "R37.19",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "A NEW req-specific Class unit's ownerIor MUST = its owning UC (the UC whose .class/.classes[] references it); a null ownerIor leaves the Class UNROOTED on the uplink (the Class->UC back-link is missing = navigability gap). SHARED classes (referenced by many UCs across reqs, e.g. CurrentSprint / RbDetailView) KEEP their ORIGINAL owner (one owner, many referencers) — never re-point a shared class. ★★ This is an INTEGRITY / navigability debt, NOT a false-credit one: the forward chain (UC->Class->Method->Impl->Test) still fully derives and nothing is over-credited — the ONLY gap is the reverse uplink. That framing is load-bearing: the fix roots the uplink, it must NEVER be 'fixed' by re-pointing credit/attribution. (a) SWEEP the existing unrooted units; (b) a RECURRENCE GATE so it cannot come back. Discovered: architect flagged DeploymentModel 78342cc7; robbin-req measure-and-report found the 2nd-through-Nth instances in its OWN campaign mints (and corrected the list by measuring — DetailFields was already rooted, excluded).",
+  "tronQuote": "> (No direct Tron quote) — architect chain-integrity flag (DeploymentModel 78342cc7) + robbin-req self-audit, PO-directed capture 2026-08-12; do NOT execute tonight (REMAINING=4).",
+  "discoverySource": {
+   "type": "team-discovery-then-po-directed",
+   "discoveredBy": "robbin-architect (DeploymentModel 78342cc7 empty-ownerUC) + robbin-req (measured 2nd-Nth in own mints, corrected DetailFields already-rooted)",
+   "directedBy": "robbin-po",
+   "date": "2026-08-12",
+   "note": "Convention gap: robbin-req minted new req-specific Classes with ownerIor=null. Going-forward fix = root new Class.ownerIor->UC AT MINT (by-construction, adopted now). This req = the retroactive sweep + recurrence gate."
+  },
+  "crossRef": [
+   "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
+   "ior:instance:e8f27cd1-3763-45c2-8a6b-3283f240c7b2"
+  ],
+  "crossRefNote": "By-construction traceability-integrity family, S37: R37.13 (naming canon) + R37.16 (board never lies) + R37.19 (Class uplink rooted). campaignScope=OUTSIDE next-phase (R40.35 finishability precedent). The 7 measured unrooted: OwnedOutputGuard 985d8f5b(R37.8) / StepEvidence 0d9a7b85(R37.11) / SelfHeal 5f17f9f6(R37.4) / PrecommitOverviewRegen d63e557b(R37.6) / AltIdCanonGuard 13f97053(R37.13) / DoneProvenance a6cfc8e6(R37.9) / DeploymentModel 78342cc7(R40.6). StaleSteerLog ad92f487 already fixed (9229dba62); DetailFields 7e7813be EXCLUDED (already rooted cee1f429).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-sweep-7",
+    "group": "functional",
+    "text": "SWEEP the 7 measured unrooted new-req Classes (OwnedOutputGuard 985d8f5b / StepEvidence 0d9a7b85 / SelfHeal 5f17f9f6 / PrecommitOverviewRegen d63e557b / AltIdCanonGuard 13f97053 / DoneProvenance a6cfc8e6 / DeploymentModel 78342cc7): set each ownerIor -> its owning UC (the UC whose .class/.classes[] references it), one mechanical fix per Class. DetailFields 7e7813be is EXCLUDED (measured already-rooted, ownerIor=cee1f429); StaleSteerLog ad92f487 already fixed."
+   },
+   {
+    "id": "AC-shared-keep-owner",
+    "group": "functional",
+    "text": "SHARED classes (many UC referencers, e.g. CurrentSprint 43d570be keeps S20, RbDetailView) KEEP their ORIGINAL owner — verify-owner-first, do NOT re-point a shared class + steal its attribution. The sweep touches ONLY new-req-specific Classes (single owning UC)."
+   },
+   {
+    "id": "AC-recurrence-gate",
+    "group": "gate",
+    "text": "A trace-audit RECURRENCE GATE: a Class referenced as a UC's OWN class (req-specific, single UC referencer) with a NULL ownerIor -> FAIL. STUB-MUST-FAIL: plant a null-owner req-specific class -> RED; a rooted one -> GREEN; weaken/remove the gate -> the bite suite goes RED (meta-bite)."
+   },
+   {
+    "id": "AC-report-only-then-strict",
+    "group": "gate",
+    "text": "★ MANDATORY (PO ruling): the gate lands REPORT-ONLY-LOUD first (surfaces every offender loudly but does NOT fail the build) and flips to STRICT (build-fail) ONLY once the sweep reaches 0 offenders. Precedent: assertStatusConsistent / check:task-status. A gate that is RED from day one is how gates get silently removed (that happened tonight) — report-only-until-clean prevents it."
+   },
+   {
+    "id": "AC-integrity-not-false-credit",
+    "group": "framing",
+    "text": "EXPLICIT: this is an INTEGRITY / navigability debt (the Class->UC uplink is missing), NOT a false-credit debt — the forward chain still derives, nothing is over-credited. The fix roots the uplink; it must NEVER be resolved by re-pointing credit/attribution (that would convert a harmless navigability gap into a real over-credit)."
+   },
+   {
+    "id": "AC-by-construction-prevention",
+    "group": "by-construction",
+    "text": "Going forward, new req-specific Classes are minted WITH ownerIor -> their UC AT MINT (correct-by-construction, robbin-req convention fix adopted 2026-08-12). The recurrence gate catches any that slip; by-construction prevention + gate = the layered fix (neither alone holds)."
+   }
+  ],
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase chain-integrity sweep + gate, R40.35 finishability precedent; do NOT execute tonight, REMAINING=4)"
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

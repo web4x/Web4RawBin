@@ -140,8 +140,11 @@
   - [ ] **(automatable)** [AUTOMATABLE, source] The tree emits the REAL unit ior for each deploymentRef node, NEVER a synthetic depref:<name> pseudo-id (grep: no depref: id reaches the drawer).
   - [ ] **(device)** [AUTOMATABLE render + @390 device] The detail drawer renders identity + fields + parent/children via ONE GENERIC default view DRIVEN BY THE M2 TYPE (the type determines the fields shown) — NOT per-type bespoke views that can drift (PO steer; DRY, the R40.5 lesson). The drawer does NOT hang. Verified @390 real-WebKit that it renders content, not Loading.
   - [ ] **(automatable)** [AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT "unresolved: <ior>" error state — a permanent "Loading..." is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin).
-  - [ ] **(device)** [DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged).
-  -> 249fdab6 [uc:uuid:249fdab6-2eab-4997-86cc-9f8624ff090c]
+  - [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). Scopes exactly what Tron owes (his own device tap); cannot be auto-certified. (Split from the former combined AC-5 by content-name; no scope change.)
+  -> deploymentNode.emitTypedRefRows [uc:uuid:249fdab6-2eab-4997-86cc-9f8624ff090c]
+  -> detailFields.deriveScalarFields [uc:uuid:cee1f429-97e5-4488-957a-cff15fac5d41]
+  -> detailView.renderTypeDrivenFields [uc:uuid:91943ec8-18be-405d-a171-af7d88703c98]
+  -> detailView.renderUnresolved [uc:uuid:2b7edda5-8899-4096-a974-ebf8d6237f02]
 
 - [ ] **R40.12 — File detail view renders a working type-appropriate preview (audio player regression fix; fail-loud, all contexts)**
   [requirement:uuid:c9fa4f49-caa1-4032-ae47-7144646c4fd0]
@@ -247,7 +250,7 @@
   - [ ] **(fail-loud-unresolved)** FAIL-LOUD, never silent-pick: if the next-by-sprint-completion cannot be determined unambiguously, report it as UNRESOLVED — exactly as resolveSprintPin already does for the ambiguous current (it prefers saying 'I do not know' over guessing).
   - [ ] **(uniqueness-3-slot)** 3-SLOT UNIQUENESS preserved (current / next / lastCompleted distinct) — REUSE the pin's existing enforcement, do NOT reimplement.
   - [ ] **(device-390-visible)** @390 real-device PIXEL gate; the progression must be VISIBLE — after a QA switch the board shows the rotated slots WITHOUT a manual refresh, or states why not.
-  -> 4715978d [uc:uuid:4715978d-8210-4441-9af0-0f7b5edc46f6]
+  -> currentSprint.autoProgressPin [uc:uuid:4715978d-8210-4441-9af0-0f7b5edc46f6]
 
 - [ ] **R40.19 — Protect history back-navigation — an EXECUTING regression gate (@390 real-device, behavioural, stub-must-fail, in gate:device:live)**
   [requirement:uuid:9163e71f-f700-4b9b-96eb-c07b9f3b5976]
@@ -409,3 +412,16 @@
   - [ ] **(containment)** r3014-network-first-gate is the STANDING REGRESSION-LOCK on the SW backstop: if the SW regresses to cache-first, r3014 goes RED. The debt's containment holds while r3014 is green (r3014 EXCLUDED from the 16 — it self-asserts the served hash, safe-by-design).
   - [ ] **(functional)** Remediation is WHEN-TOUCHED (cheap, not a last-mile campaign): when any of the 16 gates is next re-run for its own reason, add the served==committed guard (r3014/r403b pattern) or neutralise the SW. Do NOT mass-re-run 16 old gates during the campaign — the network-first backstop covers them.
   - [ ] **(tracking)** The full 16-gate list + risk-rank (higher=user-facing visual: drawer/vcard/lobby/file-detail/audio/task-detail/detail-chain/newtab...; lower=federation/non-visual: federated-dnd/counterpart-enrichment) is durable at scrum.pmo/sw-cache-gate-debt-2026-08-12.md — this req makes it a tracked backlog item, not memory.
+
+- [ ] **R40.35 — deploymentRefs model inversion — the minted units become canonical, the array stops being the source of truth (AC-5-AUTO's home)**
+  [requirement:uuid:8477a592-081f-462d-9496-a9af12191aee]
+  > Tron ruled SPLIT (2026-08-12, via robbin-po): move the array-removal (AC-5-AUTO) off T40.11 onto its own next-phase requirement; T40.11 QAs at AC-1..4 + AC-5-DEVICE (Tron's tap).
+  NEXT-PHASE model inversion carved out of R40.11 (Tron ruled SPLIT 2026-08-12). Today the deploymentRefs STRING ARRAY is still the source of truth and is READ by two consumers — the PRODUCER buildTypedModel (reads the array as INPUT) and the CLIENT facet rb-diagram-detail (reads the array to render). R40.35 INVERTS the model: the minted scenario units (R40.11 AC-1..4) become CANONICAL; BOTH readers stop reading the array and read the units instead; THEN the deploymentRefs array is removed. Because the array is a real INPUT with 3 readers, this is a model INVERSION, not a field-delete — hence its own next-phase req (R40.30/R40.31 finishability precedent), so T40.11 can reach QA honestly on AC-1..4 + AC-5-DEVICE while this defers.
+  **Acceptance criteria:**
+  - [ ] **(functional)** deploymentRefs STOP being the source of truth: the minted scenario units (R40.11 AC-1..4, real R40.6-typed) become CANONICAL; nothing reads the deploymentRefs string array as authoritative input.
+  - [ ] **(functional)** The PRODUCER buildTypedModel (reads the array as INPUT today, buildTypedModel:43) STOPS reading the array and reads the units — single-source back-ref produced-by-buildTypedModel, no second producer.
+  - [ ] **(functional)** The CLIENT facet (rb-diagram-detail:160) STOPS reading the array and reads the units/back-ref — no client-side array read remains (grep-provable).
+  - [ ] **(automatable)** [the moved AC-5-AUTO] AFTER both readers stop, the deploymentRefs array is REMOVED via a GATED dry-run+count migration with INV-T byte-diff==0 (the graph is unchanged). Verifiable without the owner tap.
+  - [ ] **(automatable)** ★ MANDATORY (architect): BEFORE any array removal, PROVE that EVERY array field (role / ref / NOTE / ...) is captured in the units — a per-FIELD conservation check. Do NOT infer full representation from tree-level INV-T byte-diff==0: the tree may not render fields like 'note', so a tree-diff can be clean while a field is silently lost. Removal is BLOCKED until per-field conservation is proven (stub-must-fail: drop a captured 'note' from the units -> the conservation gate goes RED).
+  - [ ] **(automatable)** The back-ref emission is ORDER-PINNED (deterministic order), so the inverted model produces byte-stable output and INV-T byte-diff==0 is meaningful (not order-flapping).
+  - [ ] **(functional)** NO dual-read fallback: the code NEVER falls back to reading the array when a unit is missing — a fallback reintroduces the two-sources disease (the array as a shadow source). A missing unit FAILS LOUD (R40.11 fail-loud family), never silently reads the old array.
