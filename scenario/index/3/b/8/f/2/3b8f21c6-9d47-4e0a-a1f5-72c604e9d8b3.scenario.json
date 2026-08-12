@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3b8f21c6-9d47-4e0a-a1f5-72c604e9d8b3",
+    "name": "test:T37.4.3 / R37.11 C4.3 MvcBoundaryGuard.assertControllerDominates (a5c570c9) — SINGLE-Done-WRITER dominance: NO code sets a Task Done outside the ONE controller (grep-provable unique writer, INV-C4-8, frozen-legacy allowlist) + approveByOwner DELEGATES to statusNext (no direct Done-set) + STUB-MUST-FAIL (plant a direct Done-write → detectDoneWrites RED; sanctioned deriveStatusEnum NOT flagged). DISTINCT-INTENT from T37.4.2's a7f3c1e8 (UnitController.apply b5f72641 = validate→apply→persist→emit pipeline)",
+    "implementations": [
+      "ior:instance:a5c570c9-081a-4ea4-9d1e-102aed906290"
+    ],
+    "sourceFile": "ior:file:scripts/check-controller-dominance.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from scripts/check-controller-dominance.ts:26 (measure-don't-invent, valid v4, no set-delta). Tester VERIFIED GREEN on HEAD (npm run check:controller-dominance EXIT 0 — approveByOwner delegates, single-Done-writer holds); check wired into ci:gates (expert C4.3 re-apply). ★ DISTINCT-INTENT, the sibling-credit pair the planner already refused ONCE: this asserts the single-Done-WRITER property (no direct-Done outside the controller + delegation + plant-bite via detectDoneWrites) on Impl a5c570c9 (MvcBoundaryGuard.assertControllerDominates) — NOT T37.4.2's a7f3c1e8 which is UnitController.apply b5f72641 (the validate→apply→persist→emit pipeline = a DIFFERENT impl + intent). verify-owner-first: a5c570c9 markerPending=false + tests[] EMPTY (shipped, clean 1st Test, no cross-wire) + measured distinct from b5f72641. This gives T37.4.3 its OWN earned facet (R37.16 by-construction in the wild: shared R37.11, but each sibling task carries its own distinct-intent Test)."
+  },
+  "ownerIor": "ior:instance:a5c570c9-081a-4ea4-9d1e-102aed906290"
+}

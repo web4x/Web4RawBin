@@ -4,7 +4,9 @@
     "uuid": "a5c570c9-081a-4ea4-9d1e-102aed906290",
     "name": "MvcBoundaryGuard.assertControllerDominates impl (dominance lint: unitController.apply UNIQUE dominator; no model.status= / tick / Done / owned-view-write outside it; two-bite)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:3b8f21c6-9d47-4e0a-a1f5-72c604e9d8b3"
+    ],
     "sourceFile": "ior:file:src/ts/scenario/mvc-boundary-guard.ts",
     "markerNote": "markerPending: expert build-step-7 (LAST, only true once the controller exists). [impl:uuid:a5c570c9] -> I flip. Dominance target = unitController.apply (not statusNext). | FLIPPED: architect AGREED (97b1ff1c0) WIRED-IN-CI/active after measure-beats-relay caught their grep-scope false-low (searched src/ only, missed scripts/check-controller-dominance.ts). BOTH CI-wired-active AND runtime-inert (no contradiction). Marker @src/ts/scenario/mvc-boundary-guard.ts:34 adjacent-above assertControllerDominates@:37, on origin, buildStrictImplSet credits=true.",
     "chainStatusNote": "WIRED-IN-CI (req measured, measure-beats-relay): assertControllerDominates is imported by scripts/check-controller-dominance.ts (line 10), run over a FULL src/ts walk (line 27-28, non-vacuous), fails build on violation, and check:controller-dominance IS in package.json ci:gates:raw. So this is ACTIVE-in-CI, NOT design-ahead/unwired. Architect boot-graph C4-inertness is correct+expected (a lint is a CI gate, not a runtime module). sourceFile CORRECTED scripts/->src/ts/scenario/ (mint error). markerPending held pending architect reconcile of the orphan claim before flip."
