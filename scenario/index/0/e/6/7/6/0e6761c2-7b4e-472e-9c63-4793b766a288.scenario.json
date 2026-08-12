@@ -2,8 +2,8 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "0e6761c2-7b4e-472e-9c63-4793b766a288",
-    "name": "FolderService.createPhysicalWithUnit impl",
-    "description": "DESIGN-AHEAD (R40.37): ATOMIC create physical dir + Folder scenario unit, fail-closed BOTH ways (mkdir-fail->no unit; put-fail->rmdir rollback). src/ts/server/FolderService.ts",
+    "name": "FolderService.mintRealUnit impl",
+    "description": "DESIGN-AHEAD (R40.37): mint+persist+return a real Folder unit, fail-closed=write-or-no-phantom-node (no mkdir). src/ts/server/FolderService.ts",
     "sourceFile": "ior:file:src/ts/server/FolderService.ts",
     "designAhead": true,
     "tests": []

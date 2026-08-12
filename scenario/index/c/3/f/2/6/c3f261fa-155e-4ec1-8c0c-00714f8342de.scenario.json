@@ -3,7 +3,7 @@
   "model": {
     "uuid": "c3f261fa-155e-4ec1-8c0c-00714f8342de",
     "name": "FolderService",
-    "description": "Server-side folder creation (R40.37): physical dir + scenario unit, atomic. src/ts/server/FolderService.ts",
+    "description": "Server-side folder-unit minting (R40.37): mint+persist a real Folder scenario-unit, one-step, no filesystem dir. src/ts/server/FolderService.ts",
     "file": "ior:file:src/ts/server/FolderService.ts",
     "sourceFile": "ior:file:src/ts/server/FolderService.ts",
     "methods": [
