@@ -55,7 +55,11 @@ export class OtmuxBridge {
   // -OPEN AND LOUD: a missing / non-`node` unit keeps the sessions available BUT surfaces a visible ⚠ notice row + a
   // server WARN (never silently the bare flat list Tron complained about — degrade the data, never the honesty).
   // [impl:uuid:fcd57103-4ff0-4ca1-b3c7-2deec33e6a02] OtmuxBridge.buildRootedTree (R40.2 deploymentNode.render composition)
-  static buildRootedTree(sessions: SmSession[], nodeUnit: { model?: Record<string, unknown> } | null | undefined, nodeUuid: string): SmTreeRow[] {
+  // typedUnits (R40.11 slice-2): the node's deploymentRefs resolved to their REAL minted typed units
+  // (units whose sourceRole ∈ this node's deploymentRef roles). The caller (which has the ScenarioIndex)
+  // resolves them; this emitter maps each to a REAL ior row — NO synthetic 'depref:'+role. One row per
+  // real typed unit; unresolvable → a fail-LOUD ⚠ row (never a silent synthetic).
+  static buildRootedTree(sessions: SmSession[], nodeUnit: { model?: Record<string, unknown> } | null | undefined, nodeUuid: string, typedUnits: { uuid: string; name: string; m2Type?: string }[] = []): SmTreeRow[] {
     const sessionRows: SmTreeRow[] = sessions.map((s) => ({
       uuid: 'sess:' + s.name, type: 'otmuxSession', name: s.name, hasChildren: s.windows.length > 0,
       children: s.windows.map((w) => ({
@@ -67,10 +71,15 @@ export class OtmuxBridge {
     }));
     const nm = nodeUnit?.model as any;
     if (nm && nm.kind === 'node') {
-      const refRows: SmTreeRow[] = (Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => ({
-        uuid: 'depref:' + String(d.role), type: 'deploymentRef',
-        name: String(d.role) + '  —  ' + String(d.ref).replace(/^ior:file:/, ''), hasChildren: false,
-      }));
+      // R40.11 slice-2: emit the REAL minted typed-unit iors (from Slice-1's units), NOT synthetic
+      // 'depref:'+role — so the drawer resolves each row to a real unit (graph.get hit) instead of a miss.
+      // If the node declares refs but none resolved to a typed unit → fail-LOUD ⚠ row (never revert to depref:).
+      const declaredRefs = Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : [];
+      const refRows: SmTreeRow[] = typedUnits.length
+        ? typedUnits.map((u) => ({ uuid: u.uuid, type: 'deploymentUnit', name: u.name, hasChildren: false }))
+        : (declaredRefs.length
+            ? [{ uuid: 'depunit:unresolved', type: 'notice', name: `⚠ ${declaredRefs.length} deployment ref(s) unresolved to a typed unit`, hasChildren: false }]
+            : []);
       return [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
     }
     console.warn(`[server-manager] WARN: WODA.prod deployment node ${nodeUuid} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
