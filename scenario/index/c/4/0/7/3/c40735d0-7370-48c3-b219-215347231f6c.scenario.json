@@ -1,0 +1,60 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "c40735d0-7370-48c3-b219-215347231f6c",
+  "name": "Gates must not encode a SNAPSHOT of the product's shape — a snapshot rots when the product changes (symbol-anchor / current-contract fixtures / load-checked-and-run, each stub-must-fail)",
+  "altId": "R37.17",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "UNIFYING CAUSE: a gate that encodes a SNAPSHOT of the product's shape ROTS whenever the product changes — the gate goes RED (or, worse, silently un-verifying) while the FEATURE is GREEN. Evidence-backed by 5 measured instances across 4 mechanisms (tester, 2026-08-12): (1) UN-LOADABLE import — rc7 threw SyntaxError from a removed import, verified NOTHING, yet its Test read status:pass until a manual audit; (2) synthetic fixture vs a HARDENED contract — rc3 fed a synthetic single-Active sprint, then resolveSprintPin was hardened fail-closed unless the sprint resolves to a real on-disk dir, so the fake stopped qualifying (product got stricter, test became wrong); (3) LINE-PIN drift — r408 hardcoded server.ts slice(1439,1446) and R40.22 churn moved those lines; (4) delegation-contract change — r4010's src-audit asserted the OLD direct-Done write, but OUR OWN C4.3 commit made approveByOwner delegate to statusNext; (5) synthetic fixture vs a CHURNED contract — r309, same class as (2), backing FOUR rows. Fix by-construction (kill the snapshot-encoding generator, NOT repeat the gate-repair — same shape as R37.15/R37.16).",
+  "tronQuote": "> (No direct Tron quote) — PO-directed capture 2026-08-12 from the tester's stale-gate diagnosis (5 instances / 4 mechanisms). Same kill-the-generator doctrine as R37.15/R37.16.",
+  "discoverySource": {
+   "type": "team-discovery-then-po-directed",
+   "discoveredBy": "robbin-tester (5 stale-gate instances across 4 mechanisms: rc7 un-loadable / rc3+r309 synthetic-vs-hardened/churned contract / r408 line-pin drift / r4010 delegation-contract change)",
+   "directedBy": "robbin-po",
+   "date": "2026-08-12",
+   "note": "Evidence-backed not speculative. The unifying cause (snapshot-rot) is demonstrated by 5 real rows, backing FOUR held rows. r4010's own fix already applies the symbol-anchor AC (dogfooded)."
+  },
+  "crossRef": [
+   "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
+   "ior:instance:ddc38227-3ca8-4d65-8c44-046c6993e93a",
+   "ior:instance:e8f27cd1-3763-45c2-8a6b-3283f240c7b2",
+   "ior:instance:82b25dbe-1924-49c3-893b-f472e60f557b"
+  ],
+  "crossRefNote": "Honesty family (the gate/board must not lie, by construction): R37.13 (no bespoke-scheme ids) + R37.15 (no embedded-derived-field names) + R37.16 (no sibling-credited RIPE) + R37.17 (no snapshot-rot gates) + R40.32 (gates self-assert served==committed). Distinct-intent each; R37.17 unifies the 3 gate-authoring guards under ONE cause (snapshot-rot) — its 3 ACs are facets of that one intent, not separate subsystems (contrast R37.4 C4 which genuinely split).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-no-line-pins",
+    "group": "gate",
+    "text": "Gates SYMBOL-ANCHOR only — slice a NAMED fn body / anchor on a declaration — NEVER a line-range slice or hardcoded line number. LINT-ENFORCED: a line-pin in gate code -> RED (r408's server.ts slice(1439,1446) is the offender; r4010's fix already dogfoods symbol-anchoring). STUB-MUST-FAIL: plant a line-pin in a gate -> the lint goes RED, else it certifies nothing."
+   },
+   {
+    "id": "AC-fixtures-current-contract",
+    "group": "gate",
+    "text": "Fixtures must satisfy the product's CURRENT contract; PREFER REAL artifacts over synthetic. A synthetic fixture that no longer qualifies under a hardened/churned contract (rc3 synthetic single-Active sprint vs resolveSprintPin real-dir fail-closed; r309 same class) is a STALE GATE, not a broken product — the gate must not read pass on a fixture the current product would reject. Where synthetic is unavoidable it MUST be constructed to satisfy the current contract. STUB-MUST-FAIL: feed a fixture that violates the current contract -> the gate catches it (does not silently pass)."
+   },
+   {
+    "id": "AC-load-checked-and-run",
+    "group": "gate",
+    "text": "★ EVERY gate is LOAD-CHECKED and RUN so an un-loadable or never-run gate CANNOT sit marked-pass — the structural fix for the ENTIRE stale-pass class (rc7: SyntaxError from a removed import verified NOTHING while its Test read status:pass until a manual audit). STUB-MUST-FAIL: plant an un-loadable gate (bad import/syntax) OR a never-run gate -> the load/run check goes RED and its Test cannot read pass."
+   },
+   {
+    "id": "AC-each-stub-must-fail",
+    "group": "meta",
+    "text": "Each guard AC carries a STUB-MUST-FAIL arm or it certifies nothing (a guard that cannot fail proves nothing) — the meta-bite discipline shared with R37.13/R37.15/R37.16 + R37.3's gate-proves-the-gate-prover."
+   },
+   {
+    "id": "AC-evidence-backed",
+    "group": "context",
+    "text": "The guard is EVIDENCE-BACKED by 5 measured instances across 4 mechanisms (rc7 un-loadable / rc3+r309 synthetic-vs-hardened/churned-contract / r408 line-pin drift / r4010 delegation-contract change), backing FOUR held rows — the unifying cause (a snapshot of the product's shape rots when the product changes) is demonstrated, not asserted."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
