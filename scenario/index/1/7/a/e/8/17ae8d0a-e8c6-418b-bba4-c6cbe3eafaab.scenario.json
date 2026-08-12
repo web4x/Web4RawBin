@@ -6,7 +6,9 @@
     "description": "BUILT inc-1 (5925bc7e1): per-action applicability resolution (types/statuses/kinds/when -> offered|hidden|disabled-with-reason). src/public/ts/trace/universal-actions.ts",
     "sourceFile": "ior:file:src/public/ts/trace/action-applicability.ts",
     "designAhead": false,
-    "tests": []
+    "markerPending": false,
+    "tests": [],
+    "markerNote": "STRICT-AST FLIPPED None->false (architect-authorized, both independently verified): [impl:uuid:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab]@action-applicability.ts:30 binds `export function applicableActionsFor`@:34 (adjacent-above, full-uuid, 0 intervening); designAhead=false, committed inc-1 5925bc7e1. None was the architect's mint-gap (set designAhead:true but never markerPending). markerPending tracks MARKER-PLACED-IN-COMMITTED-CODE (satisfied) — distinct from served==committed (deploy gate) + chain-complete-to-Test. R40.37 Test mints to this on inc-2 + full r4037 green (held per PO)."
   },
   "ownerIor": "ior:instance:4018e773-9b8a-483b-99a5-0f484de7b8d9"
 }
