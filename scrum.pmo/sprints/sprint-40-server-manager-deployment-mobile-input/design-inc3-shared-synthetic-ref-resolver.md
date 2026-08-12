@@ -10,6 +10,9 @@ PO-approved unification: R40.37 **AC4** (diagrams container kind never resolves)
 
 Two-source bug INSIDE ONE FILE (nav vs detail), plus a third consumer (action-bar). "One truth read twice/thrice."
 
+### ★ PROXIMATE A3 mechanism (sharpened via the S37 map — the collection-branch mis-fire)
+`mofFolder` (server.ts:1114) DEFAULTS `type='collection'` for synthetic folder/container nodes, and synthetic uuids embed their own prefix — so a folder tree node becomes itemRef `collection:dir:src/ts/server` (DOUBLE-prefixed) and the diagrams container becomes `collection:rawbin:diagram`. The drawer splits at the first colon → `type='collection'`, then the **collection-branch (rb-detail-drawer.ts:240-257)** — built ONLY for room `members-<roomUuid>`/`files-<roomUuid>` collections — runs `roomUuid = uuid.split('-').slice(1).join('-'); if(!roomUuid) return;`. A synthetic `dir:…`/`rawbin:…` uuid has no `-`-delimited roomUuid → **early `return` → empty detail, BEFORE resolveDetailUnit is ever reached.** So the fix is not only "resolve synthetic refs right" — it is: the collection-branch must fire ONLY for genuine room collections; synthetic folder/container refs route through the shared resolver to their real lazy-minted Folder unit. (This also converges with S37-B: room members-/files- become real Folder units too, so the collection-branch ultimately RETIRES — every folder/collection is a real Folder unit resolved by the one resolver.)
+
 ## The fix — ONE resolver, THREE importers
 Extract a single shared resolver (in `src/ts/shared/` or `src/public/ts/trace/synthetic-ref.ts`, importable by client trace + model bundles):
 ```ts
