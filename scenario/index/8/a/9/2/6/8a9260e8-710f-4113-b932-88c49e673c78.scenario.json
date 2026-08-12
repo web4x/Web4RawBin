@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "8a9260e8-710f-4113-b932-88c49e673c78",
+    "name": "OtmuxBridge.discoverRootHost",
+    "description": "S37-D: discover the server-manager ROOT host from real config on disk (ssh config Host block / this-host deployment node), mirroring readSessionTree live-discovery; replaces the hardcoded NODE_UUID. Fail-open-and-loud.",
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
+    "implementations": [
+      "ior:instance:eacf48f5-f1c0-422a-84a5-7ec95c7f1898"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
+}

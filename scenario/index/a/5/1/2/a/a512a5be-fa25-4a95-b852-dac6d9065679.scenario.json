@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a512a5be-fa25-4a95-b852-dac6d9065679",
+    "name": "FederatedIor.federatedIor impl",
+    "description": "DESIGN-AHEAD (S37): S37-C: produce/parse an origin-COMPLETE IOR (class+host+unit-path) reconciling the existing ior:instance:<uuid>@<originHost>; back-compat bare=local. NO fork. src/ts/scenario/federated-ior.ts",
+    "sourceFile": "ior:file:src/ts/scenario/federated-ior.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:06863210-7e02-4aff-8627-e0a2dc0a0527"
+}

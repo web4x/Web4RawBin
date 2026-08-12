@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "d464497f-dafd-4e15-b9a8-fa386e1b35dd",
+    "name": "DropDispatcher.serializeDragUnit impl",
+    "description": "DESIGN-AHEAD (S37): S37-A: produce the drag payload as the ACTUAL scenario UNIT JSON (via resolveRefUnit ref->unit), never a *.show?uuid=/URL. Fleet-wide single serializer; sibling deserializeDropUnit consumes origin-aware. Rides inc-3 resolveRefUnit. src/public/ts/drop-dispatcher.ts",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4d4d6a68-a57c-4b9d-8353-2299b7436ee7"
+}
