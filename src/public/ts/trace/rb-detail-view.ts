@@ -37,12 +37,11 @@ export class RbDetailView extends HTMLElement {
     if (!obj) {
       const uuid = refUuid(ref);
       this.innerHTML = `<div class="dv-head"><span class="dv-type">Loading...</span><h3 class="dv-title">Loading...</h3><code class="dv-uuid">${uuid}</code></div><div class="dv-scenario-children"><span style="color:rgba(255,255,255,0.4);font-size:0.7rem">Loading...</span></div>`;
-      // R40.11 CARVE-OUT (FAIL-LOUD): a ref that resolves to NO unit (e.g. a depref: synthetic deployment-ref) must
-      // show an EXPLICIT 'unresolved: <ior>' — never the perpetual 'Loading…' spinner (Tron's eternal-hang drawer).
-      // This is the honesty slice ONLY: it does NOT mint typed units / consolidate emitters / migrate (that is parked R40.11).
-      // SCOPED to SYNTHETIC refs only (depref: deployment-ref rows) — legitimate chain-only units (impl/test) also hit
-      // this !obj branch and resolve via fetchDetailData, so we must NOT false-fail-loud those. Zero regression risk.
-      const isSynthetic = /(^|:)depref:/.test(ref) || uuid.startsWith('depref:');
+      // R40.11 slice-3 (AC-4 FAIL-LOUD): a ref that resolves to NO unit must show an EXPLICIT 'unresolved: <ior>' —
+      // never the perpetual 'Loading…' spinner (Tron's eternal-hang drawer; a silent failure that HID the bug).
+      // Slices 1-2 mint the typed units + emit REAL iors; this fires fail-loud whenever the unit genuinely does not
+      // resolve (404). Legitimate chain-only units (impl/test) EXIST in the index → 200 via fetchDetailData → no
+      // false-fail. (Was scoped to synthetic depref: only; broadened because slice-2 emits real iors now.)
       const failLoud = (): void => {
         const h = this.querySelector('.dv-head');
         if (!h) return;
@@ -58,12 +57,24 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
+          // R40.11 slice-3 (AC-3): ONE GENERIC type-driven field view — render the unit's own scalar fields (the M2
+          // TYPE determines which fields exist: ConfigFile→manifestsAs, Service→configuredBy, EnvValue→fragment, …).
+          // No per-type bespoke view (DRY). A typed deployment unit now shows CONTENT, not a spinner.
+          const f: Record<string, string> = data.fields || {};
+          const keys = Object.keys(f);
+          if (keys.length) {
+            const esc = (s: string): string => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c));
+            head.insertAdjacentHTML('afterend', `<div class="dv-fields">${keys.map(k => `<div class="dv-field"><span class="dv-field-k">${esc(k)}</span><span class="dv-field-v">${esc(f[k])}</span></div>`).join('')}</div>`);
+          }
           // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
           // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
-        } else if (head && !data && isSynthetic) {
-          failLoud(); // synthetic ref resolved to NO unit → honest error, not an eternal spinner
+        } else if (head && !data) {
+          // R40.11 slice-3 (AC-4): 404 = the unit genuinely does NOT resolve → EXPLICIT error, never an eternal
+          // spinner. Broadened from synthetic-only: slice-2 emits REAL iors, so an unresolvable REAL ior must also
+          // fail loud. Legitimate chain-only units (impl/test) exist in the index → 200 (data present) → no false-fail.
+          failLoud();
         }
-      }).catch(() => { if (isSynthetic) failLoud(); });
+      }).catch(() => failLoud());
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
         const head = this.querySelector('.dv-head');
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
