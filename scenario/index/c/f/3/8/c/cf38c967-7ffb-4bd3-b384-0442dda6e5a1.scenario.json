@@ -1,0 +1,62 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "cf38c967-7ffb-4bd3-b384-0442dda6e5a1",
+  "name": "An [impl:uuid] marker on a method declaration must have a live caller OR a supersede record (orphan-method-marker lint, fleet-wide)",
+  "altId": "R40.38",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "An [impl:uuid:...] marker on a METHOD decl claims that code implements a chain node. If nothing calls that method AND it is not recorded as superseded, the marker credits work that never runs — a false-green that survives because no one measures the call-graph. A marker on dead code silently credits work nothing runs = SCOREBOARD INFLATION with no false-Done anywhere to catch it. The lint: for every [impl:uuid] method-marker in src/, resolve >=1 RUNTIME CALLER (static call-graph/call-site scan) OR a supersededBy record; an OFFENDER = marked + zero callers + no supersede. REPORT-ONLY-LOUD first (a lint RED-from-birth is how gates get silently deleted), STRICT when offenders==0. Fleet-wide generalisation of R40.37's narrow in-gate orphan-check. Same family as the no-2nd-source lint + the ownerIor gate.",
+  "tronQuote": "> (Architect design req-content-orphan-method-marker-lint.md, routed via PO — NOT a direct Tron quote.) Closes the class the req found LIVE tonight: applicableActionsFor already existing (Impl on Method 4018e773) while a 2nd Impl 17ae8d0a was minted design-ahead = one function two Impls; and actionsForContext a1a5be99 would have been marked-but-uncalled after conversion (caught + superseded-with-record instead).",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "architect-design-via-po",
+   "author": "robbin-architect",
+   "routedBy": "robbin-po",
+   "date": "2026-08-12",
+   "design": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/req-content-orphan-method-marker-lint.md",
+   "liveInstance": "robbin-req measure-finding 2026-08-12: applicableActionsFor pre-existing (Method 4018e773+impl) vs design-ahead 2nd Impl 17ae8d0a = double-credit at Impl level; actionsForContext a1a5be99 marked-but-uncalled-after-conversion. The wound teaches the cure.",
+   "note": "campaignScope=OUTSIDE (own req/task, sibling to R40.35/R40.36/R37.19). Do-NOT-execute-tonight; PO schedules. Content authored by architect; minted faithfully (measure-don't-invent), 5 ACs verbatim."
+  },
+  "crossRef": [
+   "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8"
+  ],
+  "crossRefNote": "Companion to R40.37 (context-sensitive actions): R40.37 ships a NARROW R40.37-diff-scoped orphan-check INSIDE its own gate (asserts THIS conversion left no orphan); R40.38 is the FLEET-WIDE generalisation (every [impl] method-marker in src/). Same family as R37.19 Class-uplink sweep + the no-2nd-source lint + the ownerIor gate.",
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (fleet-wide traceability-integrity guard, next-phase hardening; sibling R40.35/R40.36/R37.19). Do-not-execute-tonight; PO schedules.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC1-report-only",
+    "group": "report-only",
+    "text": "The lint scans every [impl:uuid] method-marker in src/, resolves caller-or-supersede, and prints offenders (count + each named: file:line + method + impl-uuid) LOUD, exit 0 in report-only mode. Never blocks in phase 1."
+   },
+   {
+    "id": "AC2-named-debt",
+    "group": "named-debt",
+    "text": "The current offender set is enumerated as NAMED DEBT — the baseline to drive to 0 (never a silent count; false-low-worse-than-absent)."
+   },
+   {
+    "id": "AC3-flip-to-strict",
+    "group": "flip",
+    "text": "When offenders == 0, the lint flips to STRICT (fails ci:gates). A born-RED strict gate is FORBIDDEN — report-only until the offender count reaches 0; the flip is the acceptance event (precedent: check:sprint-md / consistency:strict / ownerIor gate — report-only until debt==0, then strict-by-construction). The flip condition is this explicit AC."
+   },
+   {
+    "id": "AC4-supersede-honoured",
+    "group": "functional",
+    "text": "A method whose Method/Impl unit carries a supersededBy record is NOT an offender (honorSupersededBy, R30.11) — SUPERSEDED-honest is not orphan. (Directly the actionsForContext a1a5be99 case: superseded-with-record, keeps its own Tests, not flagged.)"
+   },
+   {
+    "id": "AC5-stub-must-fail",
+    "group": "gate",
+    "text": "STUB-MUST-FAIL ON THE CHECK: feed a synthetic marked-uncalled-unsuperseded method -> the lint FLAGS it (report, or fail in strict); feed a marked-called OR marked-superseded method -> NOT flagged. The check is PROVEN able to catch the class (a lint that can't go RED on a real orphan certifies nothing = prove-the-prover)."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
