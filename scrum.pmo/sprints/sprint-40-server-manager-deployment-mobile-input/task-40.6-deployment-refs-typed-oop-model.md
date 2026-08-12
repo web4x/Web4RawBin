@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress — implementing DONE (2026-08-11): Impl e009ace7 (DeploymentModel.buildTypedModel — type refs, real Relationship edges, crown-invariant fail-closed) markerPending=false, REAL host on DeploymentModel.ts, strict-AST-flipped d3e02a99b DURABLE ON ORIGIN (buildTypedModel now 5 src hits, WAS 0 — expert built it; the fictional-marker / build-coupled block is CLEARED). verify-owner-first PASSED: e009ace7 sharedByTasks=[95d74272 ONLY] = distinct to T40.6's chain (R40.6 6a9d99c3 -> UC b2c5cdba deploymentModel.typedOopRefs -> Method ab9379d6). NOT EVIDENCED [ ]: creating test cases + testing = R40.6 has NO Test yet, e009ace7.tests[]=EMPTY. >> NEEDS a gate/Test wired to e009ace7 (verify-owner-first WHEN it lands: e009ace7 code also serves R40.11 per req, so confirm the Test covers R40.6's typed-model facet distinct-intent, on ORIGIN) -> then QA-Review. Re-classified marker -> GATE (buildTypedModel now built). 0 Done till Tron.
+QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on ORIGIN, not relayed): the NEEDS this unit documented is now CLOSED — Test c5a92e14 'test:T40.6 DeploymentModel.buildTypedModel PURE reconcile rule' status=pass wired both-dir to Impl e009ace7 (markerPending=false, REAL host DeploymentModel.ts:42): e009ace7.tests[]=[c5a92e14] + c5a92e14.implementations[]=[e009ace7]. VERIFY-OWNER-FIRST CLEAN: c5a92e14 is T40.6's OWN test (typed-model reconcile-rule facet), e009ace7 sharedByTasks=[95d74272 ONLY] = distinct-intent to R40.6 (e009ace7 code also serves R40.11 but this Test covers R40.6's facet — no cross-credit). HONESTLY closes the once-suspected-fictional e009ace7 chain (was 0 src hits; expert built it real, req chain-mint cd483bf79) — vindicates the earlier fictional->real correction. All 4 In-Progress sub-steps evidenced -> QA-Review. Awaiting Tron QA verdict (0 Done till Tron).
 
 ## Traceability
 
