@@ -90,9 +90,9 @@ if (!version) {
     if (!fs.existsSync(p)) { console.warn(`  ⚠ gated item ${u.slice(0, 8)} not found on disk — skipped`); continue; }
     const unit = JSON.parse(fs.readFileSync(p, 'utf-8'));
     if (unit.ior !== 'ior:class:Test') continue; // only Test units carry the gate result
-    unit.model.gateServedVersion = version;       // the served version this gate PASSED against (derived-board input)
+    unit.model.gateServedVersion = version;         // the served version this gate PASSED against (derived-board reads THIS: SIGNABLE iff ==current-served, HELD-STALE iff <)
+    if (commit) unit.model.gateServedCommit = commit; // provenance (planner-agreed shape)
     unit.model.gateVerdict = verdict;
-    if (commit) unit.model.gateCommit = commit;
     unit.model.gatedAt = gate.model.timestamp;
     if (verdict === 'PASS') unit.model.status = 'pass'; else if (verdict === 'FAIL') unit.model.status = 'fail';
     fs.writeFileSync(p, JSON.stringify(unit, null, 2));
