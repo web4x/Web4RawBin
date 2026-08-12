@@ -73,7 +73,7 @@ export class FeatureManager {
       // option-(iii): additively re-seed the TRUSTED protected owner-identity set (from the root-only config) so a
       // wiped/reset allowedUsers self-heals ALL of Tron's identities (e.g. 05e58f81), not only the 41ad88c4 literal
       // — the recurring cast-out gap. Additive only: never removes, never propagates a non-trusted member.
-      for (const pid of loadProtectedIdentities()) if (!au.includes(pid)) au.push(pid);
+      for (const pid of pi.ids) if (!au.includes(pid)) au.push(pid); // FIX: iterate pi.ids (the loaded-once array), NOT the {ids,present,error} object — the old `for..of loadProtectedIdentities()` threw TypeError (object not iterable) at boot, caught by startServers → :4000 double-bind crash. Reuses pi (line 63 "once, before the loop") = author's stated intent; also avoids a per-feature file re-read.
       if (au.length !== before) { f.unit.model.allowedUsers = au; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
     }
   }
