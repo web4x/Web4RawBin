@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "e0e30825-ebf0-4b92-bc3f-cd474eba7990",
+    "name": "det-3x: PASS",
+    "gateType": "det-3x",
+    "verdict": "PASS",
+    "evidence": "R37.3 rc3 + R37.7 rc7 + R40.8 r408 GREEN DET-3x re-run @v0.8.92 (self-holds till revocation-final)",
+    "gatedItems": [
+      "ior:instance:caf74333-a969-4d62-a0ef-66fdb888d3dd",
+      "ior:instance:0870c78b-6268-4de2-a86b-0b74dfe7cf0d",
+      "ior:instance:c4a7f1b9-2e63-4d08-b591-7a0e3c8d4f26"
+    ],
+    "timestamp": "2026-08-12T10:09:05.014Z",
+    "gatedBy": "tester"
+  },
+  "ownerIor": "ior:instance:caf74333-a969-4d62-a0ef-66fdb888d3dd"
+}

@@ -10,7 +10,11 @@
       "ior:instance:73f045d8-e0ac-4afc-b357-92e76aa8ddc0"
     ],
     "status": "pass",
-    "unitLinks": []
+    "unitLinks": [],
+    "gateServedVersion": "0.8.92",
+    "gateServedCommit": "0e9a567bf",
+    "gateVerdict": "PASS",
+    "gatedAt": "2026-08-12T10:09:05.014Z"
   },
   "ownerIor": "ior:instance:21e38b44-eb21-4fbf-830c-303ad2775095"
 }
