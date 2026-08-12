@@ -3,10 +3,10 @@
   "model": {
     "uuid": "79f2dec1-b484-4f94-8663-788012f6b242",
     "name": "SelfHeal.selfHealOnRead impl (Task=healer #1: recompute status from checklist deriveStatusEnum on read; recompute-to-reality or throw-to-refuse; pure+unit-local, O(1) Map lookup, no recursion)",
-    "markerPending": true,
+    "markerPending": false,
     "tests": [],
     "sourceFile": "ior:file:src/ts/scenario/self-heal.ts",
-    "markerNote": "markerPending: code DONE + gate GREEN (self-heal.ts registry + selfHealOnRead; registerSelfHeal(TASK_IOR,...) wired task-policy.ts:83; check:self-heal-on-read GREEN). Expert replaces the literal [impl:uuid:PENDING-req-mint]@task-policy.ts:82 with b886... NO -> with **79f2dec1**. ★ STRICT-AST FLAG: the placeholder @:82 sits above `registerSelfHeal(TASK_IOR,(unit)=>{...})` = a CALL-expression, NOT a named decl -> buildStrictImplSet may not bind. Expert: EITHER extract a named `taskStatusHealer` fn at :83, OR move the marker to the generic `export function selfHealOnRead`@self-heal.ts:26 (a clean named export = the natural Method-Impl bind). Your call; I verify-owner-first at flip. sourceFile set to task-policy.ts to match the placeholder; retarget if you move it."
+    "markerNote": "STRICT-AST VERIFIED by req (af178943d, verify-owner-first disk-read): [impl:uuid:79f2dec1]@self-heal.ts:26 (label LEADS with 'SelfHeal.selfHealOnRead') binds `export function selfHealOnRead`@:27 — next-named-decl, 0 intervening, full-uuid match; buildStrictImplSet().has(79f2dec1)=YES. Expert HEEDED my strict-AST flag: moved the marker off the task-policy.ts:82 CALL-expr placeholder (registerSelfHeal(...) = wouldn't bind) onto the named export, removed the stale PENDING placeholder (verified gone from task-policy.ts, no dup), retargeted this unit sourceFile task-policy.ts->self-heal.ts. C4.1 code DONE + check:self-heal-on-read GREEN. Test pending tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong)."
   },
   "ownerIor": "ior:instance:7b479ac8-efff-480e-84bc-0f794f5e37f3"
 }
