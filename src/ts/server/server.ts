@@ -3683,9 +3683,11 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       delRoom.broadcast({ type: MSG.ROOM_DELETED, roomId: msg.roomId, reason: 'Room deleted by owner' });
       roomManager.removeRoom(msg.roomId);
       if (delRoom.creatorToken) {
-        const roomDir = getRoomDir(delRoom.creatorToken, msg.roomId);
-        try { fsSync.rmSync(roomDir, { recursive: true, force: true }); } catch {}
-        addLog(`Room dir deleted: ${roomDir}`);
+        const roomDir = getRoomDir(delRoom.creatorToken, msg.roomId);   // READ (mint:false) → string|null
+        if (roomDir) {
+          try { fsSync.rmSync(roomDir, { recursive: true, force: true }); } catch {}
+          addLog(`Room dir deleted: ${roomDir}`);
+        }
       }
       broadcastRoomList();
       addLog(`Room deleted by owner: ${delRoom.name} (${msg.roomId.slice(0,8)})`);
