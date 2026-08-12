@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "b4e21f7a-9c38-4d05-a1e6-73f8c2015d9b",
+    "name": "test:T37.6 auto-regen-ON-COMMIT (autoRegenOverview b886ef5d) — narrative byte-preserved / generator idempotent / owned-output-guard refuses markerless-or-wrong-name / stub-must-fail tripwire; DISTINCT-INTENT, does NOT borrow check:sprint-overview's green (T40.5 disease avoided)",
+    "implementations": [
+      "ior:instance:b886ef5d-afee-46fb-971b-55f8123fecbb"
+    ],
+    "sourceFile": "ior:file:test/visual/r376-autoregen-oncommit-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r376-autoregen-oncommit-gate.ts (measure-don't-invent, valid v4, no set-delta). Tester GREEN DET. Asserts the COMMIT-TIME orchestration (autoRegenOverview b886ef5d): narrative outside markers byte-preserved, generator idempotent, R37.8 owned-output-guard refuses a markerless/wrong-name target, negative stub-must-fail tripwire RED on a broken generator. Deliberately does NOT reuse check:sprint-overview's green (that would be borrowed credit = the T40.5 disease). verify-owner-first: b886ef5d tests[] was empty (1st Test, no cross-wire); NOT 1f38e07e generateOverview (content producer). Completes T37.6 Req->UC->Class->Method->Impl->Test end-to-end."
+  },
+  "ownerIor": "ior:instance:b886ef5d-afee-46fb-971b-55f8123fecbb"
+}

@@ -4,7 +4,9 @@
     "uuid": "b886ef5d-afee-46fb-971b-55f8123fecbb",
     "name": "PrecommitOverviewRegen.autoRegenOverview impl (commit-time regen: deletion-check + guardedWriteRegion + shared-index-safety + stub-must-fail verify + stage; committed-overview==regen-of-units by construction)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:b4e21f7a-9c38-4d05-a1e6-73f8c2015d9b"
+    ],
     "sourceFile": "ior:file:scripts/precommit-regen-overview.ts",
     "markerNote": "STRICT-AST VERIFIED by req (837b83c1b, verify-owner-first disk-read): [impl:uuid:b886ef5d]@precommit-regen-overview.ts:66 with comment-continuation :67-69 (0 intervening named-decl) binds `function autoRegenOverview`@:70 — full-uuid match, name matches Method 304a0da7, bottom call@:136 correctly NOT the target; skill-expert extracted the commit-flow into the named fn + heeded the call-expr-doesnt-bind warning. [was: skill-expert build PUSHED (995d64b2a + fix cbfe7eb86); expert names fn + places marker -> I flip.] DISTINCT from R37.6 generateOverview 1f38e07e (content producer) — this is the commit-time orchestration (verify-owner-first: not riding that Impl/Test). Rides R37.8 owned-output-guard (guardedWriteRegion narrative byte-preserve, deletion-check, self-verify tripwire). Test = tester's 3-controls gate incl negative stub-must-fail -> measure the test:uuid, don't fabricate."
   },

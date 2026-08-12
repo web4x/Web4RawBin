@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a7f3c1e8-2b94-4d6f-8e05-91c3a7b0d4f2",
+    "name": "test:T37.4.2 UnitController.apply (b5f72641, C4.2 family: emit/validate/apply/statusNext) — GREEN DET 5/5, stub-must-fail proven incl the evidence-precondition REFUSES an unevidenced advance WITHOUT persisting (QA-Review is a fact, not a label)",
+    "implementations": [
+      "ior:instance:b5f72641-a75c-4b8f-98fc-2380ced1a42a"
+    ],
+    "sourceFile": "ior:file:test/visual/r3742-unit-controller-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r3742-unit-controller-gate.ts (measure-don't-invent, valid v4, no set-delta). Tester GREEN DET 5/5 with stub-must-fail proven. Asserts the single validated mutation entry UnitController.apply (b5f72641, generic PRIMARY): validate->apply->persist->emit, Task-FSM policy #1, statusNext thin facade. ★ Key property: the evidence-precondition REFUSES an unevidenced advance WITHOUT persisting (no half-write) — that is what makes QA-Review a fact not a label. verify-owner-first: b5f72641 markerPending=false + tests[] empty (shipped, 1st Test, no cross-wire); ONE Test covers the C4.2 apply family per the gate. Under R37.11 ONE CONTROLLER."
+  },
+  "ownerIor": "ior:instance:b5f72641-a75c-4b8f-98fc-2380ced1a42a"
+}
