@@ -23,7 +23,15 @@ Two paths — recommend **B1 (decoupled, safe)**, affordable **once D2 is live**
 ### B2 — coupled (only if Tron won't wait for the rekey): riskier
 Rotate literal + scrub 3 allowedUsers + **migrate `data/users/<old>→<new>` + rewrite 2 unitLinks + update 1 ownerToken**, ALL atomic. Touches storage+identity → a partial migration = lockout risk. Byte-verify hash before==after. Prefer B1.
 
+## ★★ SECRET-HYGIENE CONSTRAINT (PO/Tron, folded in — the one that would RECREATE the incident)
+The incident's root cause was a credential existing as a LITERAL in a committed file. A rotation that succeeds functionally but re-embeds the secret is a FAILED rotation — it resets the clock on the identical hole with a fresh value. Therefore, by construction:
+- **The new token is NEVER a literal in any tracked file.** `ServerManagerGuard` reads it from a RUNTIME reference — env (`RB_OWNER_TOKEN`) or a gitignored root-only config — resolved at boot. INV-G2 evolves: not "the literal lives in exactly one place" but **"ZERO uuid-shaped secret literals in tracked code; the config-read lives in one place."**
+- **Fail-closed + LOUD if the reference is absent/unreadable** → OWNER_TOKEN unresolved → owner-gate denies ALL (never a blank that accidentally matches) + a loud boot log, DISTINCT from a wrong-secret (same absent-vs-wrong discipline as the revocation list).
+- **bootstrapSeed must NOT persist the raw secret into a committed `allowedUsers` unit.** It re-seeds the owner every boot; if it writes the raw token into a git-tracked Feature unit, the secret is re-embedded in a committed file = re-exposure. Store a NON-SECRET reference in allowedUsers (the `storageId`/opaque id from the B1 rekey), or keep owner-membership runtime-only — never the raw token on disk.
+- **Delivery is OWNER-ONLY.** Tron supplies it, or it is written to a root-only path he reads, or generated in-place and never leaves the process. **NO agent — including me, including to the PO — transmits, logs, echoes, commits, reports, or writes-to-an-anchor the value.** (My own grep checks below output COUNTS/booleans only, never the value.)
+
 ## VERIFY (all must pass; this IS the acceptance)
+0. ★ SECRET-HYGIENE (alongside 403-everywhere): grep the B1 diff AND the entire tracked tree for ANY uuid-shaped token literal (old `41ad88c4` AND any new value) → **ZERO secret literals**; confirm `ServerManagerGuard` reads OWNER_TOKEN from config/env (not embedded); confirm `bootstrapSeed`/allowedUsers hold a non-secret reference, not the raw token; confirm NO agent context / commit message / transcript / anchor contains the new value. A functional rotation that re-embeds the secret = FAILED.
 1. NEW token → owner-route **200** + Server Manager / Feature Manager / Model-Driven all reachable; can open a fresh terminal (after D2 lifted).
 2. OLD public `41ad88c4` → **403 on ALL owner surfaces** (server-manager, FeatureManager grant/revoke, Model-Driven) AND rejected at IDENTIFY-owner.
 3. `bootstrapSeed` seeds ONLY the new token (grep the boot; old token absent from re-seed).
