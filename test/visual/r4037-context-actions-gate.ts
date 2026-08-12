@@ -2,6 +2,7 @@
 // Pure-fn tsx gate — NO served artifact ⇒ no SW/served-guard (stated per rule scope). node22: PATH=/opt/node22/bin:$PATH npx tsx test/visual/r4037-context-actions-gate.ts
 // STRUCTURE: (A) ENGINE matrix over REAL UNIVERSAL_DECLS (built now) — approve/decline gated by APPROVE_STATUSES, file/pin cells; (B) ENGINE kind-gate proven with a representative diagrams-container decl (the mechanism the expert's container-decl migration rides); (C) META — stub-must-fail AIMED AT THE CHECK + APPROVE_STATUSES single-source (imported-not-duplicated) + rollback-actually-rolls-back. PENDING-IMPL items are reported honestly (not counted RED) and flip in when the code lands.
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APPROVE_STATUSES } from '../../src/ts/scenario/task-status-constants.ts';
@@ -71,8 +72,25 @@ results['APPROVE_STATUSES single-source'] = allDefs === 1 && clientImports && se
   && APPROVE_STATUSES.length === 1 && APPROVE_STATUSES[0] === 'QA Review';
 
 // ── (C3) rollback-actually-rolls-back (folder.createPhysicalWithUnit 0c58eb53) — PENDING the expert build ──
-const folderCreateBuilt = /mintRealUnit|createPhysicalWithUnit/.test(scanCode('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
-if (!folderCreateBuilt) pending.push('rollback-actually-rolls-back: folder.mintRealUnit (UC2 0c58eb53, architect final verb) NOT built yet — on ship: force unit-put to throw → assert the physical dir was rmdir\'d (no orphan)');
+// ── (D) AC5 add-folder WRITE-OR-NOTHING atomicity (FolderService.mintRealUnit 0e6761c2) — LIVE v0.8.96 ──
+// ★ AC-framing correction (Tron ruled): "physical" = a REAL PERSISTED UNIT on disk, NOT a filesystem directory —
+// there is NO user-facing mkdir, so the rollback is NOT "rmdir a dir" but WRITE-OR-NOTHING: if the persist throws,
+// nothing is written + no unit returned → the caller renders NO phantom node. Gate the ACTUAL behaviour.
+{
+  const { FolderService } = await import('../../src/ts/server/FolderService.ts'); // pure server module (fs/path/crypto)
+  const store = fs.mkdtempSync(path.join(os.tmpdir(), 'r4037fs-'));
+  const happy = FolderService.mintRealUnit(store, 'TestFolder', 'parent-uuid', 'folder');
+  const diagrams = FolderService.mintRealUnit(store, 'Diagrams', 'parent-uuid', 'diagrams');
+  const happyPersisted = happy.ok && !!happy.unit && fs.existsSync(path.join(store, ...happy.unit.model.uuid.slice(0, 5).split(''), `${happy.unit.model.uuid}.scenario.json`));
+  // FORCE the persist to fail: storeDir is a FILE → the shard mkdir under it throws → write-or-nothing
+  const badStore = path.join(store, 'not-a-dir'); fs.writeFileSync(badStore, 'x');
+  const failed = FolderService.mintRealUnit(badStore, 'Boom', 'p', 'folder');
+  results['add-folder mint happy (persisted unit, kind:folder)'] = happy.ok === true && happy.unit?.model.kind === 'folder' && happy.unit?.model.name === 'TestFolder' && happyPersisted;
+  results['add-folder kind:diagrams (for the diagrams container)'] = diagrams.ok === true && diagrams.unit?.model.kind === 'diagrams';
+  results['add-folder WRITE-OR-NOTHING (put-fail→ok:false, no unit, no phantom)'] = failed.ok === false && failed.unit === undefined && /persist-failed/.test(failed.error || '');
+  results['add-folder empty-name refused'] = FolderService.mintRealUnit(store, '   ', 'p').ok === false;
+  fs.rmSync(store, { recursive: true, force: true }); // pollution-free
+}
 // AC4 add-diagram-diagrams-ONLY-by-KIND — NOT built yet: add-diagram uses notTypes (appears on ALL containers incl
 // plain folders). Flips when the expert ships the kind-switch (appliesTo→{kinds:['diagrams']}) + lazy-mints a real
 // kind:'diagrams' Folder unit via ensureViewUnit.
