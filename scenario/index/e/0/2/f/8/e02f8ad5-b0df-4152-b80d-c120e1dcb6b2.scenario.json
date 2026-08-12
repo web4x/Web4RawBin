@@ -8,5 +8,5 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerNote": "markerPending DESIGN-AHEAD: server.ts:3750 currently only per-token isRevoked, NO armed-short-refuse-all branch. Expert builds; architect confirms uuid pre-wire."
   },
-  "ownerIor": "2cb915e9-32da-4496-bc19-ee751839b0d3"
+  "ownerIor": "ior:instance:2cb915e9-32da-4496-bc19-ee751839b0d3"
 }
