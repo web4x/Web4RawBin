@@ -40,9 +40,14 @@
         "text": "[AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT \"unresolved: <ior>\" error state — a permanent \"Loading...\" is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin)."
       },
       {
-        "id": "AC-device-390-pixel + gated-migration",
+        "id": "AC-5-AUTO",
+        "group": "automatable",
+        "text": "[AUTOMATABLE — closes on slice-4 + architect backstop] The deploymentRefs array-removal is a GATED dry-run+count migration with INV-T byte-diff==0 (leaves the graph unchanged). Verifiable without the owner tap. (Split from the former AC-device-390-pixel+gated-migration by content-name per design-r40.11-slice4-backref-decision.md 859c69156 — a/b letters were swapped, PO caught it; no scope change.)"
+      },
+      {
+        "id": "AC-5-DEVICE",
         "group": "device",
-        "text": "[DEVICE @390 pixel - Tron on phone] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). AND the deploymentRefs array-removal stays a GATED dry-run+count migration with INV-T byte-diff==0 (leaves unchanged)."
+        "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). Scopes exactly what Tron owes (his own device tap); cannot be auto-certified. (Split from the former combined AC-5 by content-name; no scope change.)"
       }
     ],
     "poSteerNote": "PO (2026-08-08): ONE generic view driven by the M2 type, not per-type views that can drift."
