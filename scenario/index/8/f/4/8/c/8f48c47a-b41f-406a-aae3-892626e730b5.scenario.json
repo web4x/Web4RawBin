@@ -6,7 +6,8 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
-    "markerNote": "markerPending REAL (existing, revoked-tokens.ts:115 loud-only). The CLOSED belt (refuse-auth) is the design-ahead sibling IM_REFUSE. Architect confirms uuid pre-wire -> I flip."
+    "markerNote": "markerPending REAL (existing, revoked-tokens.ts:115 loud-only). The CLOSED belt (refuse-auth) is the design-ahead sibling IM_REFUSE. Architect confirms uuid pre-wire -> I flip.",
+    "designAhead": false
   },
   "ownerIor": "ior:instance:c0785151-1594-4a80-8bba-335edb08718f"
 }

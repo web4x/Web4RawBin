@@ -6,7 +6,8 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
-    "markerNote": "markerPending REAL (existing code, salted-hash). Architect confirms uuid + marker site pre-wire -> I strict-AST-flip. NO token values."
+    "markerNote": "markerPending REAL (existing code, salted-hash). Architect confirms uuid + marker site pre-wire -> I strict-AST-flip. NO token values.",
+    "designAhead": false
   },
   "ownerIor": "ior:instance:7a94d085-5ec6-4c0d-9790-0140943b0710"
 }

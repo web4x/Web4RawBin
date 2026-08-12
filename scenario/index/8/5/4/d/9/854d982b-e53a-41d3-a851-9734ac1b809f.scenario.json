@@ -6,7 +6,8 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
-    "markerNote": "markerPending DESIGN-AHEAD: the PATH-UNIFY fix (server currently loads data/revoked-tokens.json ABSENT while gate checks revoked-token-hashes.json ROOT). Expert builds; architect confirms uuid pre-wire."
+    "markerNote": "markerPending DESIGN-AHEAD: the PATH-UNIFY fix (server currently loads data/revoked-tokens.json ABSENT while gate checks revoked-token-hashes.json ROOT). Expert builds; architect confirms uuid pre-wire.",
+    "designAhead": true
   },
   "ownerIor": "ior:instance:ce8423ad-6edd-4fa9-ab70-51d4c3e90538"
 }

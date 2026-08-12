@@ -6,7 +6,8 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:scripts/check-revoked-tokens.ts",
-    "markerNote": "markerPending REAL (existing, check-revoked-tokens.ts:77). Refine to assert the UNIFIED (server-loaded) path per the L1 catch. Architect confirms uuid pre-wire -> I flip."
+    "markerNote": "markerPending REAL (existing, check-revoked-tokens.ts:77). Refine to assert the UNIFIED (server-loaded) path per the L1 catch. Architect confirms uuid pre-wire -> I flip.",
+    "designAhead": false
   },
   "ownerIor": "ior:instance:dd579287-863b-4720-ac6e-6b4c797c235f"
 }
