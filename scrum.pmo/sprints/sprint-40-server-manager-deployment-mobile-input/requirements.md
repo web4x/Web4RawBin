@@ -450,7 +450,7 @@
   - [ ] **(functional)** [TRON CLARIFICATION 2026-08-12, his ruling] 'physical' means a REAL PERSISTED unit ON DISK, NOT a filesystem directory: 'Add folder' IMMEDIATELY MINTS a real persisted Folder scenario-unit (as opposed to a synthetic/virtual tree node), and the itemview BECOMES that unit at once — NO mkdir, NO filesystem write; atomicity = the unit write. If the unit write FAILS, nothing changes and NO phantom itemview node appears. (AC renamed from AC-ADD-FOLDER-CREATES-PHYSICAL-FOLDER-AND-UNIT — 'PHYSICAL-FOLDER' read as filesystem; content-name per the letters-swap lesson.)
   - [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on his phone that the IMPOSSIBLE buttons are GONE (Approve absent on a Done task; container actions absent on a Task) AND that 'Add folder' creates the physical folder + unit + itemview live. AC-N-DEVICE convention so the approve-queue device-scan catches it when the covering task reaches QA Review.
   -> universalActions.applicableActionsFor [uc:uuid:1de961e7-5f64-4768-af31-7e7de8063ed5]
-  -> folder.mintRealUnitImmediately [uc:uuid:0c58eb53-73fc-4e4d-97d4-dbe729cc0916]
+  -> folder.mintRealUnit [uc:uuid:0c58eb53-73fc-4e4d-97d4-dbe729cc0916]
 
 - [ ] **R40.38 — An [impl:uuid] marker on a method declaration must have a live caller OR a supersede record (orphan-method-marker lint, fleet-wide)**
   [requirement:uuid:cf38c967-7ffb-4bd3-b384-0442dda6e5a1]
