@@ -16,6 +16,10 @@
 - [x] QA Review
 - [ ] Done
 
+## Remaining Issues
+
+HELD-FROM-BATCH (PO 2026-08-12, NOT Tron-signable): tester-diagnosed = GATE STALE/UNVERIFIABLE (status:pass over a currently-RED gate DET-3x, hollow-row class), FEATURE NOT IMPLICATED (no broken feature). Status stays QA-Review (not downgraded); do NOT approve until the gate is re-verified GREEN.
+
 ## Traceability
 
   - up

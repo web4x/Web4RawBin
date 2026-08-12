@@ -21,6 +21,7 @@
     ],
     "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
     "sprintName": "Sprint 30",
+    "remainingIssues": "HELD-FROM-BATCH (PO 2026-08-12, NOT Tron-signable): tester-diagnosed = GATE STALE/UNVERIFIABLE (status:pass over a currently-RED gate DET-3x, hollow-row class), FEATURE NOT IMPLICATED (no broken feature). Status stays QA-Review (not downgraded); do NOT approve until the gate is re-verified GREEN.",
     "createdBy": "robbin-planner",
     "createdAt": "2026-07-13",
     "tronDelivered": "2026-07-13 (Tron-accepted, IntelliJ fidelity gate passed)"

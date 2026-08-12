@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-QA-Review (units-win over stale Planned board): chain-complete-to-Test — Impl ee424581 refuseIfVacuous markerPending=false + Impl.tests[]=[caf74333] pass, BITE gate GREEN (rc3-consistency-guard-metabite, real drift-injection). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act. Board re-derived from units (PO campaign-sync 2026-08-09).
+HELD-FROM-BATCH (PO 2026-08-12, NOT Tron-signable): tester-diagnosed = GATE STALE/UNVERIFIABLE (status:pass over a currently-RED gate DET-3x, hollow-row class), FEATURE NOT IMPLICATED (no broken feature). Status stays QA-Review (not downgraded); do NOT approve until the gate is re-verified GREEN. --- QA-Review (units-win over stale Planned board): chain-complete-to-Test — Impl ee424581 refuseIfVacuous markerPending=false + Impl.tests[]=[caf74333] pass, BITE gate GREEN (rc3-consistency-guard-metabite, real drift-injection). All 4 In-Progress sub-steps [x]. Done-gate [ ] = Tron's act. Board re-derived from units (PO campaign-sync 2026-08-09).
 
 ## Traceability
 
