@@ -4,12 +4,14 @@
     "uuid": "180512d8-1a0c-4404-b003-3fd7442562c7",
     "name": "ior.carryOrigin",
     "description": "A cross-instance IOR carries class+host+unit-path origin, reconciled onto the federated ior:instance:<uuid>@<originHost> form (path derived from uuid-sharding, class from resolved unit) — single format, no fork. Placeholder: architect designs the reconciliation Class/Method.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:eeba4ec7-094f-46cc-a3a9-d83a0500121f",
+    "method": "ior:instance:06863210-7e02-4aff-8627-e0a2dc0a0527",
     "tasks": [],
     "implementations": [],
     "tests": [],
-    "classes": []
+    "classes": [
+      "ior:instance:eeba4ec7-094f-46cc-a3a9-d83a0500121f"
+    ]
   },
   "ownerIor": "ior:instance:aedd0e83-34c8-408a-95e7-a57782c9b1ff"
 }

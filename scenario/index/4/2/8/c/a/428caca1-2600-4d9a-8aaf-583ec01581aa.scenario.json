@@ -4,12 +4,14 @@
     "uuid": "428caca1-2600-4d9a-8aaf-583ec01581aa",
     "name": "serverManager.discoverRoot",
     "description": "Discover the server-manager root host from on-disk config (ssh config etc.), the same way otmux tree items are discovered — never a hardcoded host. Placeholder: architect designs the discovery Class/Method.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006",
+    "method": "ior:instance:8a9260e8-710f-4113-b932-88c49e673c78",
     "tasks": [],
     "implementations": [],
     "tests": [],
-    "classes": []
+    "classes": [
+      "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
+    ]
   },
   "ownerIor": "ior:instance:185fffc7-d6e5-4f12-8e9f-3e23b59e983f"
 }

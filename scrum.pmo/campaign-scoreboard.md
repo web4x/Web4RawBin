@@ -29,15 +29,15 @@
 | S37 | 15 | 0 | 10 | 0 | 5 |
 | S40 | 16 | 0 | 15 | 0 | 1 |
 
-**ACTIONABLE by blocker:** gate 1 · build 4
+**ACTIONABLE by blocker:** gate 1 · marker 4
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
-| S37 | 1bf4acc5 | Planned | build | Task 37.21: Room Members/Files become real Folder scenario-u |
-| S37 | ae01f065 | Planned | build | Task 37.20: ONE shared DnD drop contract — buffer carries th |
-| S37 | d6dae432 | Planned | build | Task 37.23: Server-manager root discovered from ssh config o |
-| S37 | fdee4809 | Planned | build | Task 37.22: IOR carries a clear origin (class+host+path) for |
+| S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
+| S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
+| S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
+| S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S40 | 2e831ffd | Planned | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
