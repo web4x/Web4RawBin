@@ -1730,6 +1730,14 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let out: { code: number; payload: Record<string, unknown> };
           if (verb === 'approve') out = approveByOwner(idx, taskUuid, ownerTok8, now);
           else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, ownerTok8, reason, now); }
+          // R40.18 BITE-6b OBSERVABLE stale-steer (event-driven, ONCE at the R40.10 transition; LOG-ONLY — NEVER a
+          // pin write, that would be the two-source hook R40.17 bans): if the task just approved to Done IS the current
+          // explicit steer, the designation is "used up" → auto-progress resumes. State it (never a silent drop-to-auto).
+          if (verb === 'approve' && out.code >= 200 && out.code < 300) {
+            const cu = idx.get('current-sprint-singleton-0000-000000000001');
+            const steer = String((cu?.model as Record<string, unknown>)?.currentTaskUuid || '').replace('ior:instance:', '');
+            if (steer && steer === taskUuid.replace('ior:instance:', '')) addLog(`[pin] explicit current-task steer for ${taskUuid.slice(0, 8)} expired (reached Done) → auto-progress resumed`);
+          }
           res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify(out.payload));
           addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);

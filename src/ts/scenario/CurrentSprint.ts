@@ -6,6 +6,13 @@
 import { ScenarioIndex } from './index-store.js';
 import { fwdRefs } from '../shared/chain-model.js';
 import type { ScenarioUnit } from './types.js';
+import { deriveStatusEnum, type TaskStatusEnum } from './task-status.js';
+
+// R40.18 pin auto-progress (design-r40.18-pin-auto-progress.md): a task has "LEFT current" once it reaches a
+// TERMINAL-FOR-CURRENT status — QA-Review or Done (or raw Superseded/Cancelled). Detected via the STATUS ENUM
+// (deriveStatusEnum, the single source), NEVER a symbol/glyph. QA-Review leaves *current* by DERIVATION (no hook,
+// no stored pin) but is NOT completion — lastCompleted still follows Done only (lastCompleted-follows-DONE-not-QA).
+const TERMINAL_FOR_CURRENT: readonly TaskStatusEnum[] = ['QA Review', 'Done'];
 
 export type HopStatus = 'pending' | 'in-progress' | 'done' | 'gate-proven';
 
@@ -174,17 +181,28 @@ export class CurrentSprint {
     // nextBacklog = next not-done task in-sprint, and if the sprint has none left, the FIRST open task
     // of the next sprint (by number) — so the pin ALWAYS shows current/last/next. Forward-only + not-
     // done-only keeps the phantom (done/past) out while still surfacing genuine upcoming work.
-    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean };
+    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum };
     const slotInfo = (uuid: string): Slot | null => {
       const unit = this.index.get(uuid);
       if (!unit || unit.ior !== 'ior:class:Task') return null;
       const m = unit.model as Record<string, unknown>;
       const reqIors = (m.coveredRequirements as string[]) || [];
+      // R40.18: status via the ENUM. Single-source = deriveStatusEnum(statusChecklist); fall back to the declared
+      // model.status ONLY when a task carries no checklist (normalized to the enum) — never a glyph/symbol.
+      const rawStatus = String(m.status || '');
+      const checklist = String(m.statusChecklist || '');
+      const status: TaskStatusEnum = checklist
+        ? deriveStatusEnum(checklist)
+        : ((['Planned', 'In Progress', 'QA Review', 'Done'] as TaskStatusEnum[]).find((s) => s.toLowerCase() === rawStatus.toLowerCase()) || 'Planned');
       return {
         uuid, name: String(m.name || ''),
         reqUuid: reqIors.length > 0 ? ior(reqIors[0]) : '',
         focus: !!m.focus,
-        done: String(m.status || '').toLowerCase() === 'done',
+        done: status === 'Done',
+        // R40.18 terminal-for-current: QA-Review or Done leaves the current-eligible set (Superseded/Cancelled too,
+        // if a raw status carries them — the enum cannot derive those, so match the raw string as a belt-and-braces).
+        terminal: TERMINAL_FOR_CURRENT.includes(status) || /^(superseded|cancelled)$/i.test(rawStatus),
+        status,
       };
     };
 
@@ -216,13 +234,23 @@ export class CurrentSprint {
     // R40.17 DESIGNATION OVERRIDES chain-activity: an explicit owner currentTaskUuid (INPUT-ONLY from the singleton)
     // wins for the current slot — authoritative data, honored regardless of focus/done (chain-activity stays the
     // DEFAULT only when no designation exists). Must be in the resolved sprint; a designation elsewhere is ignored here.
-    let i = currentTaskUuid ? sprintTasks.findIndex(t => t.uuid === currentTaskUuid) : -1;
-    if (i < 0) i = sprintTasks.findIndex(t => t.focus && !t.done);
-    if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].done) i = j; }
-    if (i < 0) i = sprintTasks.findIndex(t => !t.done); // forward-fall: current = first NOT-DONE WIP in-sprint
-    // Fully-COMPLETED sprint (every task Done, no open WIP): the pointer must reflect "we are at the END of
-    // Sprint N" — show the LAST in-sprint task as current rather than going blank/falling to a stale flag.
-    if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.done)) i = sprintTasks.length - 1;
+    // R40.18 EXPLICIT-WINS-WHILE-VALID: an owner currentTaskUuid designation wins for current ONLY while its task is
+    // still current-eligible (non-terminal). Once the steered task reaches QA-Review/Done it is STALE → fall through
+    // to auto-derive (the drop-to-auto is logged EVENT-DRIVEN at the R40.10 QA-transition, NOT here — a derive-time
+    // log would spam every render and fight idempotency). Auto NEVER clobbers a still-valid manual steer.
+    let i = -1;
+    if (currentTaskUuid) {
+      const j = sprintTasks.findIndex(t => t.uuid === currentTaskUuid);
+      if (j >= 0 && !sprintTasks[j].terminal) i = j;
+    }
+    if (i < 0) i = sprintTasks.findIndex(t => t.focus && !t.terminal);
+    if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].terminal) i = j; }
+    // R40.18 AUTO-DERIVE: current = first NON-TERMINAL task in sprint-completion order (QA-Review counts as "left
+    // current"). Pure derivation → idempotent (a function of task states; running twice = same pin, no double-rotate).
+    if (i < 0) i = sprintTasks.findIndex(t => !t.terminal);
+    // Fully-COMPLETED sprint (every task terminal — all QA-Review/Done): pin the LAST in-sprint task ("end of Sprint
+    // N") rather than going blank. A REASONED pick, not a silent arbitrary one (fail-loud lineage).
+    if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.terminal)) i = sprintTasks.length - 1;
     let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
     if (!current && this.chain?.req) {
       // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
@@ -232,10 +260,11 @@ export class CurrentSprint {
     }
     const currentUuid = current?.uuid || '';
 
-    // 3) lastCompleted = nearest DONE task before current in-sprint; else immediate predecessor.
+    // 3) lastCompleted = nearest DONE task before current in-sprint. R40.18 lastCompleted-follows-DONE-not-QA:
+    // Done ONLY — the old "else immediate predecessor" fallback is REMOVED (it wrongly promoted a QA-Review
+    // predecessor to "completed"; QA-Review is not completion — a task becomes lastCompleted only on R40.10 approve).
     let lastCompleted: Slot | null = null;
     for (let k = i - 1; k >= 0; k--) { if (sprintTasks[k].done) { lastCompleted = sprintTasks[k]; break; } }
-    if (!lastCompleted && i > 0) lastCompleted = sprintTasks[i - 1];
     // if none in-sprint (e.g. current is the FIRST task of a new sprint), fall BACK to the previous
     // sprint's most-recent DONE task — lastCompleted stays populated across the boundary. Backward +
     // done-only (a done prior-sprint task IS a real completion, not the phantom; symmetric to the
@@ -256,12 +285,15 @@ export class CurrentSprint {
     //    last/next (a nearly-done sprint wraps into the next). The phantom bug was a DONE/PAST task
     //    surfacing as backlog; a NOT-DONE task in a LATER sprint is legit upcoming work, so forward
     //    look-ahead is safe (we never pick a done task, never a lower-numbered/past sprint).
+    // R40.18: next = the task FOLLOWING current in completion order, SKIPPING TERMINAL (a QA-Review task is not
+    // upcoming backlog — it has left the WIP set). Auto-scan uses !terminal; the explicit override below keeps the
+    // design's not-Done validation (a steered next may legitimately be anything not yet Done).
     let nextBacklog: Slot | null = null;
-    for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].done) { nextBacklog = sprintTasks[k]; break; } }
+    for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].terminal) { nextBacklog = sprintTasks[k]; break; } }
     if (!nextBacklog && currentSprint) {
       const forward = sprintUnits.filter(s => s.number > currentSprint!.number).sort((a, b) => a.number - b.number);
       for (const sp of forward) {
-        const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.done);
+        const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.terminal);
         if (open) { nextBacklog = open; break; }
       }
     }
