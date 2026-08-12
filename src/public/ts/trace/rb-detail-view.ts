@@ -32,6 +32,7 @@ export class RbDetailView extends HTMLElement {
   // R40.11 slice-3 (AC-3 field RENDER). ONE generic type-driven field view: renders the unit's own scalar
   // `fields` (from /api/trace/children; the M2 TYPE determines which exist) as labeled rows — no per-type
   // bespoke view (DRY). [impl] marker lands adjacent-above on req's slice-3 uuid (host: renderTypeDrivenFields).
+  // [impl:uuid:613a26bb-2c37-48e0-b95d-a645ce61c4b1] renderTypeDrivenFields — R40.11 slice-3 (AC-3 render)
   private renderTypeDrivenFields(head: Element, fields: Record<string, string>): void {
     const keys = Object.keys(fields || {});
     if (!keys.length) return;
@@ -41,6 +42,7 @@ export class RbDetailView extends HTMLElement {
 
   // R40.11 slice-3 (AC-4 fail-loud). An unresolvable ref → EXPLICIT '⚠ unresolved: <ior>', never a perpetual
   // 'Loading…' spinner (the silent failure that hid the bug). [impl] marker on req's slice-3 uuid (host: renderUnresolved).
+  // [impl:uuid:b9eaac0f-9425-435b-9105-82cedd780216] renderUnresolved — R40.11 slice-3 (AC-4 fail-loud)
   private renderUnresolved(label: string): void {
     const h = this.querySelector('.dv-head');
     if (!h) return;
