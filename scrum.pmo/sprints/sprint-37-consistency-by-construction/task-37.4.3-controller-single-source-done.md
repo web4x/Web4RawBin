@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - C4.3 CONTROLLER single-source Done (subtask of T-C4 79fd2164; kills the two-writer Done risk C4 exposed). Pairs with R40.10 (approve-control) — that req's Done-write DELEGATES here. Chain at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = second-Done-writer -> lint RED. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.
+QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): Test 3b8f21c6 'MvcBoundaryGuard.assertControllerDominates' status=pass <-> Impl a5c570c9 (dominance / single-Done-writer facet, markerPending=false), both-dir. ★ VERIFY-OWNER-FIRST CLEAN = T37.4.3's OWN distinct-intent Test on its OWN facet, NOT the shared a7f3c1e8 (T37.4.2's apply pipeline). This is the RIPE-SHARED case my own guard flags, resolved honestly (own Test, no sibling-credit). Awaiting Tron QA verdict. --- PRIOR:Planned - C4.3 CONTROLLER single-source Done (subtask of T-C4 79fd2164; kills the two-writer Done risk C4 exposed). Pairs with R40.10 (approve-control) — that req's Done-write DELEGATES here. Chain at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = second-Done-writer -> lint RED. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.
 
 ## Traceability
 

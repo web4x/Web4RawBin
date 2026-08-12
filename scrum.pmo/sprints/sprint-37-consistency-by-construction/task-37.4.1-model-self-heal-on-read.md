@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-In Progress 2/4 (planner reconcile 2026-08-12, MEASURED per-box — req said 'flip to QA-Review' but the chain is complete-to-IMPL NOT to-Test; heeded this unit's own 'Verify Impl.tests[] before any flip' note). EVIDENCED [x]: refinement = R37.4 -> UC 2bf4b9c3 -> Class SelfHeal 5f17f9f6 -> Method 7b479ac8 wired; implementing = Impl 79f2dec1 (SelfHeal.selfHealOnRead @self-heal.ts:27) markerPending=false STRICT-AST verified (af178943d; expert heeded the marker-placement flag, moved off the task-policy.ts:82 call-expr placeholder onto the named export, removed stale PENDING). NOT EVIDENCED [ ]: creating test cases + testing = 79f2dec1.tests[]=EMPTY; R37.4.1 self-heal-on-read has NO Test (its OWN markerNote: 'Test pending tester self-heal bite'). The 2 selfHeal Tests on disk (81f953b1=R19.90 selfHealingUpgrade, d03c8ac3=R29.1 selfHealingStart) are OTHER reqs' facets = prose-name-collision, NOT wired to 79f2dec1 (verify-owner-first). >> NEEDS the tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong) wired to 79f2dec1, then req mints the Test -> THEN QA-Review. ACTIONABLE BELOW-QA STAYS 3 (T37.4.1 NOT clearing yet). 0 Done till Tron.
+QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): the self-heal bite landed -> Test 5c1e9a37 'SelfHeal.selfHealOnRead' status=pass <-> Impl 79f2dec1 (79f2dec1.tests[]=[5c1e9a37] + 5c1e9a37.implementations[]=[79f2dec1]), verify-owner-first CLEAN = its OWN Task-status-recompute intent, NOT the R19.90/R29.1 selfHeal prose-collision. Closes the impl!=test gap I caught earlier (Test now EXISTS). All 4 In-Progress sub-steps evidenced. Awaiting Tron QA verdict. --- PRIOR: In Progress 2/4 (planner reconcile 2026-08-12, MEASURED per-box — req said 'flip to QA-Review' but the chain is complete-to-IMPL NOT to-Test; heeded this unit's own 'Verify Impl.tests[] before any flip' note). EVIDENCED [x]: refinement = R37.4 -> UC 2bf4b9c3 -> Class SelfHeal 5f17f9f6 -> Method 7b479ac8 wired; implementing = Impl 79f2dec1 (SelfHeal.selfHealOnRead @self-heal.ts:27) markerPending=false STRICT-AST verified (af178943d; expert heeded the marker-placement flag, moved off the task-policy.ts:82 call-expr placeholder onto the named export, removed stale PENDING). NOT EVIDENCED [ ]: creating test cases + testing = 79f2dec1.tests[]=EMPTY; R37.4.1 self-heal-on-read has NO Test (its OWN markerNote: 'Test pending tester self-heal bite'). The 2 selfHeal Tests on disk (81f953b1=R19.90 selfHealingUpgrade, d03c8ac3=R29.1 selfHealingStart) are OTHER reqs' facets = prose-name-collision, NOT wired to 79f2dec1 (verify-owner-first). >> NEEDS the tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong) wired to 79f2dec1, then req mints the Test -> THEN QA-Review. ACTIONABLE BELOW-QA STAYS 3 (T37.4.1 NOT clearing yet). 0 Done till Tron.
 
 ## Traceability
 
