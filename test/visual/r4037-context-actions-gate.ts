@@ -57,27 +57,31 @@ results['stub-must-fail@check'] = approveAbsentOnDone(UNIVERSAL_DECLS) === true 
 
 // ── (C2) APPROVE_STATUSES imported-NOT-duplicated (anti-drift, one source, two importers) ──
 const scan = (rel: string) => fs.readFileSync(path.join(ROOT, rel), 'utf-8');
+// ★ DOCTRINE (found in my OWN AC4 detector tonight, now PO-doctrine): a text-match gate that can match a COMMENT
+// reports clean while the code is wrong. Strip block + line comments before ANY source-text assertion.
+const codeOnly = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, '').split('\n').map((l) => /^\s*\/\//.test(l) ? '' : l.replace(/([^:])\/\/.*$/, '$1')).join('\n');
+const scanCode = (rel: string) => codeOnly(scan(rel));
 const defRe = /export\s+const\s+APPROVE_STATUSES/g;
 const allDefs = ['src/ts/scenario/task-status-constants.ts', 'src/ts/scenario/task-status.ts', 'src/ts/server/server.ts', 'src/public/ts/trace/universal-actions.ts', 'src/public/ts/trace/action-applicability.ts']
-  .reduce((n, f) => n + (scan(f).match(defRe)?.length || 0), 0);
+  .reduce((n, f) => n + (scanCode(f).match(defRe)?.length || 0), 0);
 // R40.37 inc-1: the client affordance importer moved universal-actions.ts → action-applicability.ts (where the decls now live)
-const clientImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scan('src/public/ts/trace/action-applicability.ts'));
-const serverImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scan('src/ts/server/server.ts'));
+const clientImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scanCode('src/public/ts/trace/action-applicability.ts'));
+const serverImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scanCode('src/ts/server/server.ts'));
 results['APPROVE_STATUSES single-source'] = allDefs === 1 && clientImports && serverImports
   && APPROVE_STATUSES.length === 1 && APPROVE_STATUSES[0] === 'QA Review';
 
 // ── (C3) rollback-actually-rolls-back (folder.createPhysicalWithUnit 0c58eb53) — PENDING the expert build ──
-const folderCreateBuilt = /mintRealUnit|createPhysicalWithUnit/.test(scan('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
+const folderCreateBuilt = /mintRealUnit|createPhysicalWithUnit/.test(scanCode('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
 if (!folderCreateBuilt) pending.push('rollback-actually-rolls-back: folder.mintRealUnit (UC2 0c58eb53, architect final verb) NOT built yet — on ship: force unit-put to throw → assert the physical dir was rmdir\'d (no orphan)');
 // AC4 add-diagram-diagrams-ONLY-by-KIND — NOT built yet: add-diagram uses notTypes (appears on ALL containers incl
 // plain folders). Flips when the expert ships the kind-switch (appliesTo→{kinds:['diagrams']}) + lazy-mints a real
 // kind:'diagrams' Folder unit via ensureViewUnit.
 // read the ACTUAL add-diagram DECL line's grammar (not a comment): notTypes = not-built; kinds:['diagrams'] = built.
-const addDiagramDeclLine = scan('src/public/ts/model/model.ts').split('\n').find((l) => /verb:\s*'add-diagram'/.test(l) && /appliesTo/.test(l)) || '';
+const addDiagramDeclLine = scanCode('src/public/ts/model/model.ts').split('\n').find((l) => /verb:\s*'add-diagram'/.test(l) && /appliesTo/.test(l)) || '';
 if (!/kinds:\s*\[\s*'diagrams'\s*\]/.test(addDiagramDeclLine))
   pending.push("AC4 add-diagram-diagrams-ONLY-by-kind NOT built — add-diagram decl still notTypes-gated (on ALL containers). On the kind-switch deploy: assert diagrams-container(kind:'diagrams')→add-diagram PRESENT + plain-folder→ABSENT + lazy-mint IDEMPOTENT (touch twice→ONE unit, ensureViewUnit)");
 // Real MODEL_DECLS DATA import is blocked (model.ts = heavy browser module, MODEL_DECLS unexported, accessor retires inc-2):
-if (!/export\s+(const\s+MODEL_DECLS|function\s+actionDecls|function\s+modelDecls)/.test(scan('src/public/ts/model/model.ts')))
+if (!/export\s+(const\s+MODEL_DECLS|function\s+actionDecls|function\s+modelDecls)/.test(scanCode('src/public/ts/model/model.ts')))
   pending.push('§B real-DATA import BLOCKED: MODEL_DECLS is module-local in the heavy browser module model.ts — recommend expert export it from a PURE module (mirrors inc-1 universal-actions→action-applicability); then §B imports the real container decls instead of the grammar-mirror');
 
 console.log('===== R40.37 context-sensitive actions PREP gate (DET) =====');
