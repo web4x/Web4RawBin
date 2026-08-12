@@ -46,7 +46,18 @@ function evidence(t){
 // TRON-ONLY / Tron device, @390, iOS/real-webkit, tap/pixel/drawer-render. R40.18 BITE-7 (@390 no-refresh, Tron-only)
 // must land here, NOT silently READY. 'no device'/'headless' deliberately NOT matched (those are the non-device path).
 const DEVICE=/device-only|iOS|never.?headless|tron[ -]?(device|only)|@390|AC-\d+-DEVICE|real.?webkit|pixel|tap.?fires?|drawer renders/i;
-const needsDevice=t=>DEVICE.test(t.m.acceptanceCriteria||'')||DEVICE.test(t.m.remainingIssues||'')||DEVICE.test(t.m.description||'');
+// acceptanceCriteria is a LIST of {id,group,text} AC objects (not a string) — DEVICE.test on the raw array coerces
+// to '[object Object]' and MISSES the tag. Flatten string OR structured fields to searchable text (JSON.stringify
+// captures id/group/text, so AC-7-DEVICE / [DEVICE-ONLY @390 ... TRON-ONLY] tokens are matched).
+const acText=v=>typeof v==='string'?v:(v?JSON.stringify(v):'');
+const needsDevice=t=>{
+  if(DEVICE.test(acText(t.m.acceptanceCriteria))||DEVICE.test(acText(t.m.remainingIssues))||DEVICE.test(acText(t.m.description))) return true;
+  // Requirement-level device AC propagates to a COVERING task (req measured R40.18: the convention is declared on
+  // the Requirement, e.g. AC-7-DEVICE, and a task delivering it needs the device act even if its own fields do not
+  // repeat the text). So scan the covered Requirements' ACs too — the convention works whether tagged on task OR req.
+  for(const r of (t.m.coveredRequirements||[]).map(get).filter(Boolean)) if(DEVICE.test(acText(r.m.acceptanceCriteria))) return true;
+  return false;
+};
 
 const qa=[...byU.values()].filter(x=>x.ior==='ior:class:Task'&&sprintOf(x)&&der(x.m.statusChecklist)==='QA Review');
 const rows=qa.map(t=>{const e=evidence(t);return{sp:sprintOf(t),uuid:(t.m.uuid||'').slice(0,8),name:(t.m.name||'').slice(0,52),covered:e.covered,testName:e.testName,reason:e.reason,device:needsDevice(t),checklist:t.m.statusChecklist||''};}).sort((a,b)=>a.sp.localeCompare(b.sp)||a.uuid.localeCompare(b.uuid));

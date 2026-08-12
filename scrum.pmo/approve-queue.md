@@ -39,12 +39,13 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 #### ⚠️ NOT READY — 0 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - (none — every QA-Review task carries two-keyed passing testing evidence)
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 17 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 18 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S32 abaf9f83** Task 32.5: Drag itemView -> diagram VIEW (composed c — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 241a2be3** Task 40.12: File detail view renders a working type- — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 46964040** Task 40.18: Pin auto-progress on QA-Review — pin adv — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 50f51ac1** Task 40.17: Live-pin no-refresh — pin-designate upda — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 6e3cc1b2** Task 40.11: deploymentRefs are scenario-first units  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 7a956c21** Task 40.1: Action — Open Claude.ai RC (per-pane/agen — _device @390 — headless evidence ok; needs your tap/pixel verify_
