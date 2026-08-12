@@ -13,7 +13,7 @@
   "unitLinks": [],
   "useCases": [],
   "description": "An [impl:uuid:...] marker on a METHOD decl claims that code implements a chain node. If nothing calls that method AND it is not recorded as superseded, the marker credits work that never runs — a false-green that survives because no one measures the call-graph. A marker on dead code silently credits work nothing runs = SCOREBOARD INFLATION with no false-Done anywhere to catch it. The lint: for every [impl:uuid] method-marker in src/, resolve >=1 RUNTIME CALLER (static call-graph/call-site scan) OR a supersededBy record; an OFFENDER = marked + zero callers + no supersede. REPORT-ONLY-LOUD first (a lint RED-from-birth is how gates get silently deleted), STRICT when offenders==0. Fleet-wide generalisation of R40.37's narrow in-gate orphan-check. Same family as the no-2nd-source lint + the ownerIor gate.",
-  "tronQuote": "> (Architect design req-content-orphan-method-marker-lint.md, routed via PO — NOT a direct Tron quote.) Closes the class the req found LIVE tonight: applicableActionsFor already existing (Impl on Method 4018e773) while a 2nd Impl 17ae8d0a was minted design-ahead = one function two Impls; and actionsForContext a1a5be99 would have been marked-but-uncalled after conversion (caught + superseded-with-record instead).",
+  "tronQuote": "> (Architect design req-content-orphan-method-marker-lint.md, routed via PO — NOT a direct Tron quote.) Closes the orphan-method-marker class: actionsForContext (Impl a1a5be99) would be marked-but-uncalled AFTER its supersede-conversion to applicableActionsFor — caught + superseded-with-record (R30.11) instead of leaving a marker that credits dead code. [CORRECTION: my initial co-report of a '2nd Impl 17ae8d0a double-credit' was a PHANTOM — c6cbe3ea was the final-group FRAGMENT of Impl 17ae8d0a's full uuid 17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab, not a 2nd unit; there is ONE Method 4018e773 + ONE Impl. The orphan-marker class stands on the real a1a5be99 case.]",
   "status": "Planned",
   "designRequired": true,
   "discoverySource": {
@@ -22,7 +22,7 @@
    "routedBy": "robbin-po",
    "date": "2026-08-12",
    "design": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/req-content-orphan-method-marker-lint.md",
-   "liveInstance": "robbin-req measure-finding 2026-08-12: applicableActionsFor pre-existing (Method 4018e773+impl) vs design-ahead 2nd Impl 17ae8d0a = double-credit at Impl level; actionsForContext a1a5be99 marked-but-uncalled-after-conversion. The wound teaches the cure.",
+   "liveInstance": "The REAL class (architect design): actionsForContext (Impl a1a5be99) would be marked-but-uncalled AFTER its supersede-conversion to applicableActionsFor — caught + superseded-with-record instead of an orphan marker. CORRECTION: my initial co-report of a '2nd Impl 17ae8d0a double-credit' was a PHANTOM (c6cbe3ea = final-group fragment of Impl 17ae8d0a's full uuid, NOT a 2nd unit; ONE Method 4018e773 + ONE Impl). The orphan-marker class stands on the a1a5be99 case; the phantom itself taught the sibling lesson: resolve BOTH ids fully before believing there are two things.",
    "note": "campaignScope=OUTSIDE (own req/task, sibling to R40.35/R40.36/R37.19). Do-NOT-execute-tonight; PO schedules. Content authored by architect; minted faithfully (measure-don't-invent), 5 ACs verbatim."
   },
   "crossRef": [

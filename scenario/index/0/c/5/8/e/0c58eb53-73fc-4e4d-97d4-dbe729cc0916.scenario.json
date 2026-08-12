@@ -2,8 +2,8 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "0c58eb53-73fc-4e4d-97d4-dbe729cc0916",
-    "name": "folder.createPhysicalWithUnit",
-    "description": "'Add folder' immediately creates a real PHYSICAL folder on disk AND its scenario unit, and the itemview renders as that new folder in one step (no separate save). PLACEHOLDER: architect designs Class/Method -> I confirm + wire.",
+    "name": "folder.mintRealUnitImmediately",
+    "description": "'Add folder' IMMEDIATELY MINTS a real PERSISTED Folder scenario-unit on disk (Tron ruling 2026-08-12: 'physical' = a persisted unit, NOT a filesystem directory — NO mkdir), and the itemview BECOMES that unit at once; atomicity = the unit write (if it fails, nothing changes + no phantom node). Renamed from folder.createPhysicalWithUnit per Tron's clarification. Architect wired Class c3f261fa + Method 36a73988 — flagged to align THEIR names away from 'physical/create' toward mint-real-unit.",
     "class": "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de",
     "classes": [
       "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de"
