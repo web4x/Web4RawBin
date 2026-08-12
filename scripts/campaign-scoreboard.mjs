@@ -145,6 +145,26 @@ const remaining = rows.filter(r => !TERMINAL.has(r.gap));
 const perSprint = sp => rows.filter(r => r.sp === sp);
 const count = (arr, g) => arr.filter(r => r.gap === g).length;
 
+// --json: structured measurement for the board-region writer (scripts/campaign-scoreboard-region.ts).
+// This is the SINGLE measurement source; the .ts writer only FORMATS + writes via the owned-output-guard
+// (no second measurement, no fragile console-parsing). T37.6-pattern extended to the campaign board.
+if (process.argv.includes('--json')) {
+  const SP = ['S30', 'S31', 'S32', 'S33', 'S34', 'S35', 'S36', 'S37', 'S40'];
+  const perSprintJson = SP.map(sp => { const a = perSprint(sp); return { sp, total: a.length, done: a.filter(r => r.gap === 'DONE').length, qa: a.filter(r => r.gap === 'QA-REVIEW').length, superseded: a.filter(r => r.gap === 'SUPERSEDED').length, remaining: a.filter(r => !TERMINAL.has(r.gap)).length }; }).filter(x => x.total > 0);
+  const GAPS = ['RIPE', 'RIPE-SHARED', 'two-key', 'gate', 'marker', 'build', 'build-coupled'];
+  const byBlocker = GAPS.map(g => ({ gap: g, count: count(remaining, g) })).filter(x => x.count > 0);
+  process.stdout.write(JSON.stringify({
+    totals: { total: rows.length, done: rows.filter(r => r.gap === 'DONE').length, qa: rows.filter(r => r.gap === 'QA-REVIEW').length, superseded: rows.filter(r => r.gap === 'SUPERSEDED').length, remaining: remaining.length },
+    perSprint: perSprintJson,
+    byBlocker,
+    remainingTasks: [...remaining].sort((a, b) => a.sp.localeCompare(b.sp)).map(r => ({ sp: r.sp, uuid: r.uuid, derived: r.derived, gap: r.gap, device: r.device, name: r.name })),
+    // buildCoupled = size of the HAND-MAINTAINED override map (a declared, not-AST-measured second source — GAP B).
+    // Surfaced so the board can NAME the src-build lag; target is 0 (AST-measure host-decls + delete the map).
+    buildCoupled: BUILD_COUPLED.size,
+  }));
+  process.exit(0);
+}
+
 console.log('=== CAMPAIGN SCOREBOARD (measured from units) ===');
 console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| NEXT-PHASE(scope-excl):', rows.filter(r => r.gap === 'NEXT-PHASE').length, '| REMAINING(<QA):', remaining.length);
 console.log('\n-- per-sprint (Done / QA-Review / remaining) --');
