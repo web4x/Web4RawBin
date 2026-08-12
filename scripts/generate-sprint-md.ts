@@ -25,6 +25,7 @@ import { ScenarioIndex, type ScenarioUnit } from '../src/ts/scenario/index.js';
 import { sprintPrefix } from '../src/ts/scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
 import { guardedWrite, guardedDelete } from './owned-output-guard.js'; // shared owned-output chokepoint (architect 38ba4a160)
 import { sprintNumOf, isCurrentEra } from '../src/ts/scenario/sprint-pin-resolver.js'; // ONE frozen-legacy boundary (num>18)
+import { statusSymbol, deriveStatusEnum } from '../src/ts/scenario/task-status.js'; // Tron#1: at-a-glance status glyph + checklist-derived Done (single-source, no stored status field)
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INDEX_DIR = path.join(__dirname, '../scenario/index');
@@ -132,9 +133,14 @@ function generatePlanningMd(sprint: ScenarioUnit, units: Map<string, ScenarioUni
     const task = units.get(uuid);
     if (!task) { lines.push(`${'  '.repeat(depth)}- [ ] *${uuid} (not found)*`); return; }
     const tm = task.model as Record<string, unknown>;
-    const done = String(tm.status || '').toLowerCase() === 'done';
+    // Tron#1 (law#100 regression fix): derive BOTH the Done checkbox AND the at-a-glance glyph from the CHECKLIST
+    // (single-source, R37.5) — NOT the stored status field. The glyph makes QA-Review/In-Progress advances visible;
+    // the checkbox flips to [x] only when the checklist has Done checked (never invents a Done — guardrail #4).
+    const cl = String(tm.statusChecklist || '');
+    const done = deriveStatusEnum(cl) === 'Done';
+    const sym = statusSymbol(cl);
     const slug = speakingSlug(task);
-    lines.push(`${'  '.repeat(depth)}- [${done ? 'x' : ' '}] [${tm.name || slug}](./${slug}.md)`);
+    lines.push(`${'  '.repeat(depth)}- [${done ? 'x' : ' '}] ${sym} [${tm.name || slug}](./${slug}.md)`);
     for (const c of ((tm.children as string[]) || [])) renderTask(String(c).replace('ior:instance:', ''), depth + 1);
   }
 

@@ -12,9 +12,9 @@ Enhance the scenario/task detail views. R27.1: render the task status checklist 
 
 ## Tasks
 
-- [x] [Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)](./task-27.3-per-task-md-view-generation.md)
-- [x] [Task 27.1: Task detail renders the status checklist visually](./task-27.1-task-detail-status-checklist.md)
-- [x] [Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)](./task-27.2-class-unit-dedup-migration.md)
-- [x] [Task 27.4: Graph integrity — resolve/prune dangling UC refs + orphan Methods](./task-27.4-graph-integrity-cleanup.md)
-- [x] [Task 27.7: WebItem type-aware preview drawer](./task-27.7-webitem-type-aware-preview-drawer.md)
-- [x] [Task 27.8: Detail drawer regression — X closes + minimized-on-open](./task-27.8-detail-drawer-regression.md)
+- [x] 🏁 [Task 27.3: Per-task MD view generation (every 📄 link resolves, no 404)](./task-27.3-per-task-md-view-generation.md)
+- [x] 🏁 [Task 27.1: Task detail renders the status checklist visually](./task-27.1-task-detail-status-checklist.md)
+- [x] 🏁 [Task 27.2: Class-unit dedup gated migration (one canonical Class per code class)](./task-27.2-class-unit-dedup-migration.md)
+- [x] 🏁 [Task 27.4: Graph integrity — resolve/prune dangling UC refs + orphan Methods](./task-27.4-graph-integrity-cleanup.md)
+- [x] 🏁 [Task 27.7: WebItem type-aware preview drawer](./task-27.7-webitem-type-aware-preview-drawer.md)
+- [x] 🏁 [Task 27.8: Detail drawer regression — X closes + minimized-on-open](./task-27.8-detail-drawer-regression.md)

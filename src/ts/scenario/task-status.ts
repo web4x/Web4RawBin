@@ -26,6 +26,29 @@ export function deriveStatusEnum(checklist: string): TaskStatusEnum {
   return STATUS_ORDER[best];
 }
 
+// TaskStatus.statusSymbol — the SINGLE at-a-glance status glyph for a task. ★ It CALLS deriveStatusEnum for the
+// status enum (NO independent status re-derivation — the two-source disease is killed by delegating, PO hard-condition
+// 2026-08-12); it only REFINES the In-Progress substate glyph on top, reading the indented sub-steps that
+// deriveStatusEnum deliberately ignores. NO stored status field, NO second symbol vocabulary anywhere. SKILL.md legend
+// (law#100 regression fix, Tron #1 2026-08-12 — planning.md rendered a Done-only checkbox so QA-Review advances were
+// invisible): ⏳ Planned · 📝 designed(refinement done) · 🔧 implementing · ✅ impl-shipped · 🧪 QA-Review(testing) ·
+// 🏁 Done. BOTH the sprint-board generator (planning.md) AND the verdict-surface import THIS one function — the
+// no-2nd-source grep-lint (scripts/check-status-symbol-single-source) enforces that the glyphs live only here.
+export const STATUS_GLYPHS = ['⏳', '📝', '🔧', '✅', '🧪', '🏁'] as const;
+export function statusSymbol(checklist: string): string {
+  switch (deriveStatusEnum(checklist)) {
+    case 'Done': return '🏁';
+    case 'QA Review': return '🧪';
+    case 'Planned': return '⏳';
+    default: { // In Progress → finer glyph from the indented sub-steps (still the checklist = single-source)
+      const sub = (label: string) => new RegExp(`^\\s+- \\[[xX]\\]\\s*${label}`, 'm').test(checklist);
+      if (sub('implementing')) return '✅';  // impl shipped, tester pending
+      if (sub('refinement')) return '📝';     // designed, awaiting impl
+      return '🔧';                            // in progress, pre-refinement
+    }
+  }
+}
+
 export interface StatusOffender { uuid: string; name: string; declared: string; derived: TaskStatusEnum | '(malformed)' | '(no checklist)'; kind: 'FALSE-DONE' | 'MALFORMED' | 'UNVERIFIABLE' | 'DRIFT'; }
 
 // [impl:uuid:d86f0309-df84-4fbf-9b47-da9e2b6abbee] TaskStatus.assertStatusConsistent (Method 1d96bae3) — the

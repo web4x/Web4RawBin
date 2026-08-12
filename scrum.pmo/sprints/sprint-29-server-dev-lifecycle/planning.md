@@ -12,8 +12,8 @@ Infra: self-healing npm start preserving the interactive server TUI (foreground,
 
 ## Tasks
 
-- [x] [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
-- [ ] [Task 29.5: First-class AgentMessage scenario unit](./task-29.5-agentmessage-unit.md)
-- [ ] [Task 29.6: Async mailbox — send writes+commits a unit; recipient pulls](./task-29.6-async-mailbox.md)
-- [ ] [Task 29.7: No live prompt/keystroke injection between agents](./task-29.7-no-live-injection.md)
-- [ ] [Task 29.8: Task.messages[] link + agentMessage skill verbs](./task-29.8-task-messages-skill-verbs.md)
+- [x] 🏁 [Task 29.1: Self-healing npm start that preserves the interactive server TUI](./task-29.1-self-healing-npm-start-tui.md)
+- [ ] ⏳ [Task 29.5: First-class AgentMessage scenario unit](./task-29.5-agentmessage-unit.md)
+- [ ] ⏳ [Task 29.6: Async mailbox — send writes+commits a unit; recipient pulls](./task-29.6-async-mailbox.md)
+- [ ] ⏳ [Task 29.7: No live prompt/keystroke injection between agents](./task-29.7-no-live-injection.md)
+- [ ] ⏳ [Task 29.8: Task.messages[] link + agentMessage skill verbs](./task-29.8-task-messages-skill-verbs.md)

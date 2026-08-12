@@ -12,6 +12,6 @@ Extend the room content preview (R21.9 rb-preview-pane / ContentPreviewer) to ri
 
 ## Tasks
 
-- [x] [Task 23.1: Audio files play in the preview (HTML5 player)](./task-23.1-audio-preview-html5-player.md)
-- [x] [Task 23.2: YouTube URLs render as embedded iframe player](./task-23.2-youtube-embed-iframe-player.md)
-- [x] [Task 23.3: Identity merge cleans up room membership (no ghost members)](./task-23.3-identity-merge-room-cleanup.md)
+- [x] 🏁 [Task 23.1: Audio files play in the preview (HTML5 player)](./task-23.1-audio-preview-html5-player.md)
+- [x] 🏁 [Task 23.2: YouTube URLs render as embedded iframe player](./task-23.2-youtube-embed-iframe-player.md)
+- [x] 🏁 [Task 23.3: Identity merge cleans up room membership (no ghost members)](./task-23.3-identity-merge-room-cleanup.md)

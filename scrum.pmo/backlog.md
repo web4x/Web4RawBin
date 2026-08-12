@@ -8,6 +8,10 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **NAMED-DEBT — status-symbol single-source (task-fsm STATE_SYMBOLS latent fork)** *(planner, 2026-08-12; PO branch-(i) ruling)*
+  `src/ts/scenario/task-status.ts` `statusSymbol()` (glyphs ⏳📝🔧✅🧪🏁, derives from checklist via `deriveStatusEnum`) is the single source consumed by the sprint-board generator. `src/ts/scenario/task-fsm.ts` ALSO exports `STATE_SYMBOLS` (status→glyph) = a SECOND status vocabulary — the two-source disease. Measured branch (i): task-fsm `STATE_SYMBOLS` is EXPORTED (barrel index.ts) but **UNCONSUMED** (grep = def + re-export only, ZERO render sites) = a LATENT fork, no live surface renders it. PO ruling: LAND the statusSymbol rollout + keep `scripts/check-status-symbol.ts` no-2nd-source lint **REPORT-ONLY** (not ci-failing) + record this as named debt; **no value-alignment needed now** (nothing renders task-fsm's glyphs). CONSOLIDATE next phase: retire `STATE_SYMBOLS`, point any future consumer at `statusSymbol`, then flip the lint to `--strict`. Pattern: [[status-discriminator-is-a-unit-field]] — one glyph vocabulary, single-source.
+  **Touches:** `task-fsm.ts` (retire STATE_SYMBOLS), `check-status-symbol.ts` (--strict flip when clean).
+
 - **B18 — Traceability chain is FORWARD-ONLY (no upward back-refs)**
   [requirement:uuid:1a9750fa-6a64-4a28-a2f8-468ae73ec756] *(planner-suggested; req-eng to anchor/override on capture)*
   > TRON DIRECTIVE (verbatim, relayed via PO 2026-06-01): "the traceability traces requirements to tasks to use cases to classes and methods. tasks do not trace back to requirements. multiple requirements can be addressed in the same task, but from the task ist goes into subtasks and use cases never back to requirements."
