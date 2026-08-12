@@ -12,6 +12,23 @@ import { ScenarioIndex } from '../scenario/index.js';
 // immediately → grant/revoke are effective at once (revoke-immediate). INV-G2 preserved: no OWNER_TOKEN literal here.
 const SCENARIO_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index');
 
+// R40.22 owner-safety option-(iii) (PO ruling): the TRUSTED protected owner-identity set lives in a ROOT-ONLY
+// runtime config OUTSIDE the repo (chmod 600, NEVER tracked) — the code holds only the PATH (a REFERENCE), never
+// the token values (acceptance #0: no raw literals in tracked code). bootstrapSeed re-seeds from THIS trusted
+// source — NOT from current membership (self-referential: an attacker who added themselves to allowedUsers would
+// be re-seeded into a protected set forever) and NOT from a tracked literal. Result: a wiped allowedUsers
+// self-heals to the trusted set, while a non-trusted intruder is never re-seeded/cemented. Fail-safe: an absent/
+// unreadable/malformed file → [] → fall back to seedOwnerInto only (no worse than before; never a crash).
+const PROTECTED_IDS_FILE = process.env.RAWBIN_PROTECTED_IDS || '/root/.rawbin/protected-owner-identities.json';
+function loadProtectedIdentities(): string[] {
+  try {
+    if (!fs.existsSync(PROTECTED_IDS_FILE)) return [];
+    const data = JSON.parse(fs.readFileSync(PROTECTED_IDS_FILE, 'utf-8'));
+    const list: unknown[] = Array.isArray(data) ? data : (data && Array.isArray(data.protectedIdentities) ? data.protectedIdentities : []);
+    return list.filter((t: unknown): t is string => typeof t === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(t));
+  } catch { return []; }
+}
+
 type MinProfile = { token: string; features?: string[] };
 // R31.8c searchUsers I/O: SearchProfile = the live-profile fields it reads (UserProfile is assignable); UserHit = a
 // masked search result carrying the REAL token (the grant key) + masked identifiers for display.
@@ -43,6 +60,10 @@ export class FeatureManager {
       const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
       const before = au.length;
       ServerManagerGuard.seedOwnerInto(au);
+      // option-(iii): additively re-seed the TRUSTED protected owner-identity set (from the root-only config) so a
+      // wiped/reset allowedUsers self-heals ALL of Tron's identities (e.g. 05e58f81), not only the 41ad88c4 literal
+      // — the recurring cast-out gap. Additive only: never removes, never propagates a non-trusted member.
+      for (const pid of loadProtectedIdentities()) if (!au.includes(pid)) au.push(pid);
       if (au.length !== before) { f.unit.model.allowedUsers = au; fs.writeFileSync(f.file, JSON.stringify(f.unit, null, 2) + '\n'); }
     }
   }
