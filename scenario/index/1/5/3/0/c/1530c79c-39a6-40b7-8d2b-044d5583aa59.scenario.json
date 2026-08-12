@@ -73,6 +73,11 @@
     "text": "A consistency:strict ci:gate (INV-C3-4) composes the S37 guards - pin (R37.1 resolver==committed pin) + dual-status (R37.5 assertStatusConsistent) + board-drift (R37.2, missing-file=FAIL) + migration-refuse (R37.7 proveComplete); ANY refusal fails the build; folded into ci:gates:raw."
    },
    {
+    "id": "AC-strict-flip-condition",
+    "group": "ci",
+    "text": "DUAL FLIP-CONDITION (INV-C3-6, RECORDED so nobody flips it early and re-REDs the fleet on legacy state): consistency:strict transitions from REPORT-ONLY-LOUD (surfaces every drift by name, NEVER blocks) to STRICT (build-blocking) ONLY when BOTH hold — (a) task dual-status drift == 0 graph-wide (status vs statusChecklist reconciled per R37.5 assertStatusConsistent; the 27 are reconciled, the 10 remaining legacy are EXCLUDED via the ruled FROZEN-LEGACY set — visible + named per R37.7 INV-C6-3, never silently dropped), AND (b) the sprint-pin resolves to <=1 Active sprint OR has received Tron's EXPLICIT current-sprint designation (R40.17 explicit-current, single-sourced — the escape hatch for the multi-Active ambiguity). The flip is a DELIBERATE gated transition, not a default: a premature flip while >1 Active OR drift>0 would re-RED the whole fleet on pre-existing legacy state (report-loud-first, strict-when-earned — the automate-before-gate discipline)."
+   },
+   {
     "id": "AC-meta-BITE",
     "group": "gate",
     "text": "META-BITE (gate-proves the gate-prover): the vacuous-BITE suite feeds EACH guard x EACH vacuous path (unresolvable/empty/missing-file/malformed/wrong-ior/null) and asserts REFUSE-with-reason (INV-C3-5 BITE-per-vacuous-path); PLUS a deliberately-vacuous-PASSING stub guard that MUST turn the suite RED - proving the suite would catch a silent-pass regression."
