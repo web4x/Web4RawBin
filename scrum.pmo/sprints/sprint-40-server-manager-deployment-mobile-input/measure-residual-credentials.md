@@ -25,3 +25,14 @@ Git history retains what was published; the repo has been public. **Re-writing a
 
 ## Bottom line
 Path-unify would close 116 and leave **79 live publicly-readable identity credentials still authenticating** (incl Tron's RCE token). That is the majority-of-value residual and it is URGENT. Invalidation of all 223 (revoke 116 + rotate 79 + retire 28) is the remediation; the chokepoint + sid keep it from recurring; only repo-private+history-scrub addresses the already-published copies.
+
+## Triage of the 79 (PO stale-premise catch: ~0 real users → most are dormant, revoke not rotate)
+Note: first pass had a threshold-gap bug (all 79 sit in the 31–90d band → mis-bucketed as ambiguous); re-measured with a signal histogram.
+**Histogram of the 79 NOT-116 live-identity tokens:**
+- lastSeen: 0 in last 30d · ALL 79 at 31–90d · 0 older · 0 never → ZERO recently active.
+- enrolled(devicePublicKey)=79 · feature-grant=0 (none privileged) · owns-room=6 · connectionCount>2=12.
+- owner `41ad88c4` NOT in this set → B1 literal rotation handles it separately.
+
+**Buckets:** (1) live-needed = 0 by recency; only non-trivial signal = 6 room-owners + 12 repeat-connectors (≤~15, stale, plausibly Tron's own test devices). (2) dormant ~64+ → bulk-revoke. (3) ambiguous = the 6–12 room/repeat.
+
+**Recommendation (cost-inverting, per PO logic + burned reframe):** BULK-REVOKE all 79 (all stale, none active-in-30d, none privileged, all burned) + re-enroll-on-demand; no 79-rotation dance. Optionally ping Tron on the 6 room-owners for zero-surprise, but bucket-3 rule (can't vouch → revoke) defaults them to revoke too. ⇒ B1 collapses to: **1 bulk-revoke of the 79 + Tron's OWNER literal rotation (separate) + retire the 28 artifacts** — a handful of real actions, not 79 prove-before-kill dances. Awaiting PO split ruling.
