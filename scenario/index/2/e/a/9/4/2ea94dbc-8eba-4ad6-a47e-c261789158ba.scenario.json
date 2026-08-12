@@ -2,7 +2,7 @@
  "ior": "ior:class:Requirement",
  "model": {
   "uuid": "2ea94dbc-8eba-4ad6-a47e-c261789158ba",
-  "name": "Re-key home-copy must be HOME-ISOLATED — no cross-home symlink injection (R40.22 re-key BLOCKER)",
+  "name": "Re-key home-copy home-isolation invariant — materializing a home's OWN declared roomFsLink is a benign HEAL; RED only on ANOTHER home's file (R40.22 re-key gate)",
   "altId": "R40.33",
   "tasks": [],
   "tests": [],
@@ -12,7 +12,7 @@
   "sprintName": "Sprint 40",
   "unitLinks": [],
   "useCases": [],
-  "description": "The R40.22 storage re-key single-window --apply (copy all 47 data/users/<token> homes -> data/users/<storageId>) must be HOME-ISOLATED: each copied home contains EXACTLY its own source's contents. MEASURED DEFECT (expert, on scratch): one home ce981242's copy gained an EXTRA room dir 68d0f039 (files/ = symlinks -> scenario/index) that is NOT in that home's own source -> copy had 70 in-home symlinks vs 69 in the original = cross-home copy-contamination. The architect's COUNT-MIRROR gate (assert copy-symlink-count == source-symlink-count) caught it (70!=69 -> VERIFY FAILED -> --apply self-ABORTED, originals byte-untouched); delta-broken + content-multiset were BLIND (extra symlinks RESOLVE so delta-broken=0; multiset EXCLUDES symlinks). R40.22 re-key is PARKED on this until root-caused. PROD SAFE + INERT + gate-protected; step-3 116-token auth-invalidation DONE + armed.",
+  "description": "The R40.22 storage re-key single-window --apply copies 47 data/users/<token> homes -> data/users/<storageId>. ROOT-CAUSED (robbin-expert): the observed +1 symlink on home ce981242's copy (70 vs 69) is a benign HEAL, NOT cross-home injection — the re-key REWRITE (idx.put) MATERIALIZES ce981242's OWN declared-but-unmaterialized roomFsLink (f74bd319, its own File in its own room 68d0f039) into its storageId home. The architect's blanket COUNT-MIRROR gate (copy-symlink-count == source-symlink-count) FALSE-FLAGGED this benign own-heal as corruption. DISTINGUISHER: the +1 is EXACTLY ce981242's OWN 1 file, never another home's. NO corruption occurred and prod was NEVER at risk (the gate self-aborted --apply out of caution). The invariant is REFINED: copy-gained symlinks must all be THIS home's OWN declared roomFsLinks (materializing them is a legitimate heal); the gate REDs ONLY on ANOTHER home's file (a real cross-home injection).",
   "tronQuote": "> (No direct Tron quote) — robbin-expert diagnosis handed via PO as a DURABLE requirement so a fresh instance does not rediscover the R40.22 blocker the hard way.",
   "discoverySource": {
    "type": "expert-diagnosis-po-directed",
@@ -29,17 +29,17 @@
    {
     "id": "AC-home-isolated",
     "group": "functional",
-    "text": "The re-key home-copy is HOME-ISOLATED: a copied home contains EXACTLY its own source's contents — NO cross-home symlink/dir injection. The observed defect (ce981242's copy gained room dir 68d0f039 not in its source; 70 in-home symlinks vs 69) must not recur."
+    "text": "HOME-ISOLATION (refined): copy-gained symlinks must all be THIS home's OWN declared roomFsLinks — materializing an own declared-but-unmaterialized link (e.g. ce981242's f74bd319) is a legitimate HEAL and must PASS. The gate REDs ONLY when a copy gains ANOTHER home's file (a real cross-home injection). [SUPERSEDES the original 'no cross-home symlink/dir injection' — the observed +1 was an own-heal, not injection.]"
    },
    {
     "id": "AC-count-mirror-gate",
     "group": "gate",
-    "text": "The COUNT-MIRROR gate (copy-symlink-count == source-symlink-count per home) stays LOAD-BEARING in the re-key verify — it is the ONLY check that caught this (delta-broken=0 because the extra symlinks resolve; content-multiset excludes symlinks). A verify without count-mirror would ship a contaminated copy."
+    "text": "The count-mirror check stays but is REFINED to a HOME-OWNERSHIP mirror: a blanket copy-count==source-count FALSE-FLAGS a benign own-heal (the +1 = this home's own roomFsLink materialized), so the gate must classify each gained symlink as own-declared (PASS/heal) vs another-home's-file (RED). delta-broken + content-multiset stay BLIND to symlinks — the refined ownership-mirror is the load-bearing check."
    },
    {
     "id": "AC-root-cause",
     "group": "functional",
-    "text": "ROOT-CAUSED before resume: reproduce in an ISOLATED SAME-FILESYSTEM root WITH scenario/index PRESENT (a /tmp root WITHOUT scenario MASKS it — that flawed test gave a false green earlier), then BISECT which OTHER home injects 68d0f039 into ce981242 + the exact tar/symlink mechanism that fires ONLY when the symlink target resolves."
+    "text": "ROOT-CAUSED (DONE, robbin-expert 2026-08-12): the +1 is a HEAL not injection — re-key rewrite materializes ce981242's OWN declared roomFsLink f74bd319 into its home; blanket count-mirror false-flagged it. The isolated-same-fs+scenario bisection resolved to own-heal-materialization (the earlier /tmp-without-scenario false-green masked the heal, not an injection)."
    },
    {
     "id": "AC-ruled-out",
@@ -49,9 +49,19 @@
    {
     "id": "AC-resume-gate",
     "group": "governance",
-    "text": "R40.22 re-key resumes ONLY after root-cause + a full SCRATCH-GREEN (count-mirror 69==69 + delta 0 + content-multiset f1761782 + 84 rewrites + no-token-path) + architect review. Until then re-key stays PARKED; prod stays SAFE/INERT/gate-protected."
+    "text": "R40.22 re-key resumes ONLY after the REFINED count-mirror (own-heal PASS / another-home-file RED) goes SCRATCH-GREEN + architect review. Prod stays SAFE/INERT/gate-protected meanwhile; step-3 116-token auth-invalidation DONE + armed. (Root-cause is DONE; the remaining gate is the refined-invariant scratch-green.)"
    }
-  ]
+  ],
+  "rootCause": {
+   "by": "robbin-expert",
+   "date": "2026-08-12",
+   "verdict": "HEAL-not-injection",
+   "mechanism": "re-key rewrite idx.put materializes ce981242's OWN declared-but-unmaterialized roomFsLink f74bd319 (own File in own room 68d0f039) into its storageId home = +1 symlink",
+   "falsePositive": "the blanket count-mirror gate flagged a benign own-heal as corruption",
+   "distinguisher": "+1 == EXACTLY this home's own 1 file, NOT another home's files",
+   "prodRisk": "NONE — no corruption, gate self-aborted out of caution"
+  },
+  "premiseAmendment": "ORIGINAL framing (preserved): 'cross-home copy-contamination — home gained another home's room dir'. CORRECTED: it is a benign self-heal (own declared roomFsLink materialized), false-flagged by a blanket count-mirror. The req survives as a HOME-ISOLATION INVARIANT with a REFINED gate (own-heal OK / another-home-file RED), not a corruption blocker. Honest amend, not quiet-replace."
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
