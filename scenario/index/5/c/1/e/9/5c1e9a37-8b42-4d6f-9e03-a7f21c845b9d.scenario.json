@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5c1e9a37-8b42-4d6f-9e03-a7f21c845b9d",
+    "name": "test:T37.4.1 / R37.11 C4.1 SelfHeal.selfHealOnRead (79f2dec1) — read-side self-heal: a READ recomputes a Task's DERIVED status from its checklist (deriveStatusEnum single source), so a stored status DRIFTED from the checklist is corrected on read; a read NEVER returns a silently-wrong value (C2/C6: 'Planned' while the chain shipped). INERT when stored==derived + STUB-MUST-FAIL. DISTINCT-INTENT from the R19.90/R29.1 selfHeal Tests (prose-collision, different owners)",
+    "implementations": [
+      "ior:instance:79f2dec1-b484-4f94-8663-788012f6b242"
+    ],
+    "sourceFile": "ior:file:test/visual/r3741-selfheal-onread-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r3741-selfheal-onread-gate.ts:1 (measure-don't-invent, valid v4, no set-delta). Tester GREEN DET. Asserts the C4.1 read-side self-heal: a READ recomputes a Task's status from its checklist (deriveStatusEnum), correcting a stored-status drift on read (never returns silently-wrong); INERT when stored==derived; stub-must-fail. ★ verify-owner-first + the prose-name-collision caution HONORED: 79f2dec1 (SelfHeal.selfHealOnRead) markerPending=false + tests[] EMPTY (shipped, clean 1st Test, no cross-wire) — NOT the same-NAMED 81f953b1 (R19.90 selfHealingUpgrade) / d03c8ac3 (R29.1 selfHealingStart), which are different owners+intents = would-be borrowed-credit (the trap I flagged + the tester's gate correctly avoids). This resolves T37.4.1 chain-to-Test HONESTLY — closing the earlier impl!=test over-claim (I once said flip-to-QA when tests[] was empty; the Test now actually EXISTS). Task status-from-checklist recompute facet."
+  },
+  "ownerIor": "ior:instance:79f2dec1-b484-4f94-8663-788012f6b242"
+}

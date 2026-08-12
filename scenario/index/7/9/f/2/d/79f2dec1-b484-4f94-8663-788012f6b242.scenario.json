@@ -4,7 +4,9 @@
     "uuid": "79f2dec1-b484-4f94-8663-788012f6b242",
     "name": "SelfHeal.selfHealOnRead impl (Task=healer #1: recompute status from checklist deriveStatusEnum on read; recompute-to-reality or throw-to-refuse; pure+unit-local, O(1) Map lookup, no recursion)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:5c1e9a37-8b42-4d6f-9e03-a7f21c845b9d"
+    ],
     "sourceFile": "ior:file:src/ts/scenario/self-heal.ts",
     "markerNote": "STRICT-AST VERIFIED by req (af178943d, verify-owner-first disk-read): [impl:uuid:79f2dec1]@self-heal.ts:26 (label LEADS with 'SelfHeal.selfHealOnRead') binds `export function selfHealOnRead`@:27 — next-named-decl, 0 intervening, full-uuid match; buildStrictImplSet().has(79f2dec1)=YES. Expert HEEDED my strict-AST flag: moved the marker off the task-policy.ts:82 CALL-expr placeholder (registerSelfHeal(...) = wouldn't bind) onto the named export, removed the stale PENDING placeholder (verified gone from task-policy.ts, no dup), retargeted this unit sourceFile task-policy.ts->self-heal.ts. C4.1 code DONE + check:self-heal-on-read GREEN. Test pending tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong)."
   },
