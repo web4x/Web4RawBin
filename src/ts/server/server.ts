@@ -830,6 +830,19 @@ function addLog(message: string): void {
   if (process.stdout.isTTY) process.stdout.write(entry + '\n');
 }
 
+// R40.18 StaleSteerLog — the observability facet for pin auto-progress (BITE-6b). LOG-ONLY: it OBSERVES the
+// explicit-steer→auto transition; it NEVER writes the pin (a pin write here would be the two-source hook R40.17 bans).
+class StaleSteerLog {
+  // [impl:uuid:c0cfbbad-8702-45fb-bbc1-7960c48537be] StaleSteerLog.logStaleSteerExpiry — R40.18 BITE-6b observable
+  // stale-steer: called ONCE at the R40.10 approve→Done transition; if the just-completed task IS the current explicit
+  // currentTaskUuid steer, that designation is "used up" → auto-progress resumes. State it (never a silent drop-to-auto).
+  static logStaleSteerExpiry(idx: ScenarioIndex, taskUuid: string): void {
+    const cu = idx.get('current-sprint-singleton-0000-000000000001');
+    const steer = String((cu?.model as Record<string, unknown>)?.currentTaskUuid || '').replace('ior:instance:', '');
+    if (steer && steer === taskUuid.replace('ior:instance:', '')) addLog(`[pin] explicit current-task steer for ${taskUuid.slice(0, 8)} expired (reached Done) → auto-progress resumed`);
+  }
+}
+
 function cleanupOldLogs(): void {
   try {
     if (!fsSync.existsSync(LOGS_DIR)) return;
@@ -1730,14 +1743,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let out: { code: number; payload: Record<string, unknown> };
           if (verb === 'approve') out = approveByOwner(idx, taskUuid, ownerTok8, now);
           else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, ownerTok8, reason, now); }
-          // R40.18 BITE-6b OBSERVABLE stale-steer (event-driven, ONCE at the R40.10 transition; LOG-ONLY — NEVER a
-          // pin write, that would be the two-source hook R40.17 bans): if the task just approved to Done IS the current
-          // explicit steer, the designation is "used up" → auto-progress resumes. State it (never a silent drop-to-auto).
-          if (verb === 'approve' && out.code >= 200 && out.code < 300) {
-            const cu = idx.get('current-sprint-singleton-0000-000000000001');
-            const steer = String((cu?.model as Record<string, unknown>)?.currentTaskUuid || '').replace('ior:instance:', '');
-            if (steer && steer === taskUuid.replace('ior:instance:', '')) addLog(`[pin] explicit current-task steer for ${taskUuid.slice(0, 8)} expired (reached Done) → auto-progress resumed`);
-          }
+          // R40.18 BITE-6b observable stale-steer (LOG-ONLY, never a pin write): if the just-approved-to-Done task is
+          // the current explicit steer, its designation is used up → auto-progress resumes. Delegated to StaleSteerLog.
+          if (verb === 'approve' && out.code >= 200 && out.code < 300) StaleSteerLog.logStaleSteerExpiry(idx, taskUuid);
           res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify(out.payload));
           addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);
