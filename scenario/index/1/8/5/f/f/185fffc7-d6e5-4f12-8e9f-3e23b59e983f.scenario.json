@@ -1,0 +1,49 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "185fffc7-d6e5-4f12-8e9f-3e23b59e983f",
+  "name": "Server-manager root host is DISCOVERED from on-disk config (ssh config, like otmux tree items), never hardcoded WODA.prod",
+  "altId": "R37.23",
+  "tasks": [
+   "ior:instance:d6dae432-bf5b-4a97-a967-6f98cf096a52"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:428caca1-2600-4d9a-8aaf-583ec01581aa"
+  ],
+  "description": "The server-manager ROOT host must be DISCOVERED from real on-disk configuration (ssh config etc.), the SAME way otmux tree items are discovered — NOT a hardcoded host. Today on WODA.test the root is still the hardcoded WODA.prod; it must resolve to the actual host from config. A hardcoded host is the fragile-heuristic class we keep killing (single-source: config on disk is the truth).",
+  "tronQuote": "> Tron: \"in the server manager on WODA.test the root is still the hardcoded WODA.prod, but it must be discovered from the files like ssh config like the otmux tree items ... not been hardcoded.\"",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "date": "2026-08-12",
+   "via": "robbin-po",
+   "order": "session/tasks/TRON-ORDER-S37-dnd-units-ior-origin.md",
+   "note": "Cluster D. Discover root from ssh config on disk like otmux tree items; hardcoded host forbidden."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-D-discovered-root",
+    "group": "functional",
+    "text": "The server-manager ROOT host is DISCOVERED from real on-disk config (ssh config etc.), the SAME way otmux tree items are discovered — read from files, not a constant."
+   },
+   {
+    "id": "AC-D-no-hardcode",
+    "group": "functional",
+    "text": "On WODA.test the root resolves to WODA.test (discovered), NOT the hardcoded WODA.prod; a hardcoded root host is FORBIDDEN (fragile-heuristic class). Provable by running on a non-prod host and asserting the root == that host."
+   },
+   {
+    "id": "AC-D-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron, NEVER headless-green, TRON-ONLY] Tron verifies on WODA.test the server-manager root shows WODA.test (discovered), not WODA.prod."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

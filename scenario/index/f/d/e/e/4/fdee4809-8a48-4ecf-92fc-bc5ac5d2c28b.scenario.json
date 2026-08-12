@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "fdee4809-8a48-4ecf-92fc-bc5ac5d2c28b",
+    "name": "Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)",
+    "slug": "task-37.22-task-37.22-ior-carries-a",
+    "description": "Deliver R37.22: cross-instance IORs carry a clear origin reconciled onto the existing federated ior:instance:<uuid>@<originHost> scheme (no 2nd format); prod<->test drops resolve the real unit. Architect designs the reconciliation first (scenario-first #126).",
+    "intention": "Tron 2026-08-12: IORs need a clear origin for prod<->test DnD; reconcile with the existing federated scheme, don't fork.",
+    "context": "Covers R37.22 (aedd0e83) via UC ior.carryOrigin (180512d8); reconciles federated-scenario-transfer.md.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "NOT STARTED (scenario-first #126). Architect designs; expert builds; req mints chain+Test. Units on disk BEFORE implementation.",
+    "acceptanceCriteria": "- [ ] AC-C-clear-origin: cross-instance IOR carries class+host+unit-path origin.\n- [ ] AC-C-reconcile-no-fork: reconcile with ior:instance:<uuid>@<originHost> (path from uuid-sharding, class from unit), NO 2nd format.\n- [ ] AC-C-cross-instance-resolves: prod->test drop resolves via origin, not a plain-URL WebItem.\n- [ ] AC-C-DEVICE [@390 Tron]: prod<->test drop carries origin + resolves, verified on device.",
+    "subtasks": "None (architect may split at design).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:aedd0e83-34c8-408a-95e7-a57782c9b1ff"
+    ],
+    "useCases": [
+      "ior:instance:180512d8-1a0c-4404-b003-3fd7442562c7"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-12"
+  }
+}

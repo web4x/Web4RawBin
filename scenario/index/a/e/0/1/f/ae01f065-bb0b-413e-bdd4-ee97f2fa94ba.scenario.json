@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+    "name": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
+    "slug": "task-37.20-task-37.20-one-shared-dnd",
+    "description": "Deliver R37.20: a single shared serializer+resolver so the DnD buffer always carries the scenario UNIT (never a *.show URL), a file drags as a file, detail views render, and every drop target (diagram/room/tree/editor) reuses ONE contract with no URL fallback. Architect designs the shared serializer/resolver first (scenario-first #126).",
+    "intention": "Tron 2026-08-12 overnight: dragging /model tree files produced #collection.show/#webitem.show URLs (generally wrong) + empty detail views; amendment makes the contract fleet-wide.",
+    "context": "Covers R37.20 (03e0f803) via UC dnd.carryUnitPayload (5474886a). Chain pending architect drop-contract design.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "NOT STARTED (scenario-first #126). Architect designs; expert builds; req mints chain+Test. Units on disk BEFORE implementation.",
+    "acceptanceCriteria": "- [ ] AC-A1-file-drags-as-file: a FILE drags as a FILE not a collection.\n- [ ] AC-A2-buffer-carries-unit: payload = scenario UNIT JSON, NEVER a *.show?uuid= URL/webitem, ALWAYS.\n- [ ] AC-A3-details-render: detail views render for every /model tree selection.\n- [ ] AC-shared-contract-fleet-wide: ONE serializer + ONE resolver, every drop target reuses it, no per-target format, no URL fallback.\n- [ ] AC-BITE-per-target-stub-must-fail: BITE per target (diagram/room/tree/editor) + emit-URL-again->RED.\n- [ ] AC-6-DEVICE [@390 Tron]: file drags as file + drops carry unit + details render, verified on device.",
+    "subtasks": "None (architect may split at design).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+    ],
+    "useCases": [
+      "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-12"
+  }
+}

@@ -1,0 +1,58 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "aedd0e83-34c8-408a-95e7-a57782c9b1ff",
+  "name": "IOR carries a clear ORIGIN (class + host + unit-path) for cross-instance DnD, reconciled with the federated ior:instance:<uuid>@<originHost> scheme (single origin format, no fork)",
+  "altId": "R37.22",
+  "tasks": [
+   "ior:instance:fdee4809-8a48-4ecf-92fc-bc5ac5d2c28b"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:180512d8-1a0c-4404-b003-3fd7442562c7"
+  ],
+  "description": "For cross-instance drag-and-drop (WODA.prod <-> WODA.test) an IOR must carry a CLEAR ORIGIN so the source unit resolves unambiguously: its class + origin HOST + unit path (Tron's example: ior:class:WebItem://prod.wo-da.de:4444/scenario/index/.../dfa9263a....scenario.json). ★ RECONCILE, do NOT fork (single-source law): the EXISTING federated IOR scheme is ior:instance:<uuid>@<originHost> (+ model.originHost / model.originIor, design-notes/federated-scenario-transfer.md). The unit PATH is DERIVABLE from the uuid (deterministic sharding index/c0/c1/c2/c3/c4/<uuid>.scenario.json) and the CLASS from the resolved unit — so ONE origin format (uuid@host) carries class+host+path by-reference. The architect designs the exact reconciliation; a SECOND origin format is forbidden.",
+  "tronQuote": "> Tron: \"To drag and drop between the WODA.prod and the WODA.test instance IORs have to be enhanced.\" / \"it should have a clear origin.\" (example: ior:class:WebItem://prod.wo-da.de:4444/scenario/index/.../.scenario.json).",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "date": "2026-08-12",
+   "via": "robbin-po",
+   "order": "session/tasks/TRON-ORDER-S37-dnd-units-ior-origin.md",
+   "note": "Cluster C. Reconcile with existing federated IOR (do NOT fork a 2nd origin format)."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-C-clear-origin",
+    "group": "functional",
+    "text": "A cross-instance IOR carries a CLEAR ORIGIN — class + origin HOST + unit path — so a prod<->test DnD resolves the source unit unambiguously ('it should have a clear origin')."
+   },
+   {
+    "id": "AC-C-reconcile-no-fork",
+    "group": "functional",
+    "text": "The origin RECONCILES with the EXISTING federated IOR ior:instance:<uuid>@<originHost> (+ model.originHost/originIor) — do NOT fork a 2nd origin format (single-source). Path derived from uuid-sharding, class from the resolved unit => ONE format carries class+host+path by-reference. Local IORs omit @host (back-compatible)."
+   },
+   {
+    "id": "AC-C-cross-instance-resolves",
+    "group": "functional",
+    "text": "A unit dragged from WODA.prod dropped on WODA.test resolves via its origin (fetch by-reference through the federated scheme), NOT a plain-URL WebItem (the A2 defect at instance scope)."
+   },
+   {
+    "id": "AC-C-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron, NEVER headless-green, TRON-ONLY] Tron verifies a prod<->test drop carries the origin and resolves the real unit."
+   }
+  ],
+  "crossRef": [
+   "ior:instance:cc875e35-772b-4352-b99c-4070f0370a68"
+  ],
+  "crossRefNote": "Reconciles with the federated-scenario-transfer.md scheme (ior:instance:<uuid>@<originHost>). Ties to cluster A (A2 URL-not-unit is the local case; C is the cross-instance case). Single origin format, no fork."
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

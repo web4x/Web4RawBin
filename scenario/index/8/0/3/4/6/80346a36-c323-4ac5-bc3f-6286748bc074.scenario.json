@@ -1,0 +1,53 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "80346a36-c323-4ac5-bc3f-6286748bc074",
+  "name": "Room Members/Files pseudo-collections become REAL Folder scenario-units with sunburst detail (rides R40.16, no duplicate folder model)",
+  "altId": "R37.21",
+  "tasks": [
+   "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:c2d40f62-9dbe-48d9-9b00-5a418d393540"
+  ],
+  "description": "The in-room Members and Files pseudo-collections (today: #collection.show?uuid=members-<uuid> / files-<uuid> -> 'no scenario') must resolve to REAL Folder scenario-units (identity, parent, children as real links), and the folder DETAIL renders a child-size SUNBURST diagram. ★ VERIFY-OWNER-FIRST (Tron: 'find the corresponding task'): this RIDES the EXISTING R40.16 (Folders as real scenario units — type-driven detail + item actions + child-size sunburst) — do NOT mint a duplicate folder model or sunburst renderer; the room Members/Files are another INSTANCE of R40.16's folder-as-unit pattern.",
+  "tronQuote": "> Tron: \"the Files from the second screenshot should be a real FOLDER ... a real scenario-unit for folder with sunburst diagram details ... find the corresponding task.\" (in-room members-<uuid>/files-<uuid> -> 'no scenario').",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "date": "2026-08-12",
+   "via": "robbin-po",
+   "order": "session/tasks/TRON-ORDER-S37-dnd-units-ior-origin.md",
+   "note": "Cluster B. Tron said find the existing folder/sunburst work (=R40.16) and wire, not duplicate."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-B-real-folder-unit",
+    "group": "functional",
+    "text": "Room members-<uuid> and files-<uuid> pseudo-collections resolve to REAL Folder scenario-units (identity/parent/children as real links) — NOT 'no scenario'."
+   },
+   {
+    "id": "AC-B-sunburst-rides-R40.16",
+    "group": "functional",
+    "text": "The folder detail renders a child-size SUNBURST diagram, RIDING R40.16's folder-as-unit + type-driven detail + child-size sunburst — verify-owner-first: reuse R40.16 (cc875e35), do NOT duplicate the folder model or the sunburst renderer."
+   },
+   {
+    "id": "AC-B-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron on phone, NEVER headless-green, TRON-ONLY] Tron verifies in-room Files/Members render as a REAL folder with a sunburst diagram, not 'no scenario'."
+   }
+  ],
+  "crossRef": [
+   "ior:instance:cc875e35-772b-4352-b99c-4070f0370a68"
+  ],
+  "crossRefNote": "RIDES R40.16 (cc875e35, Folders as real scenario units + child-size sunburst) — Tron's 'find the corresponding task'. R37.21 is the in-room Members/Files INSTANCE; NO duplicate folder model/sunburst renderer (verify-owner-first)."
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

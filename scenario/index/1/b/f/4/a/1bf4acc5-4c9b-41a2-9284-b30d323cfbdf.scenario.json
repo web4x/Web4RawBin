@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
+    "name": "Task 37.21: Room Members/Files become real Folder scenario-units with sunburst detail (rides R40.16, no dup)",
+    "slug": "task-37.21-task-37.21-room-members/files-become",
+    "description": "Deliver R37.21: room Members/Files pseudo-collections resolve to REAL Folder scenario-units with R40.16's child-size sunburst detail; reuse R40.16's folder-as-unit + sunburst, do not duplicate. Architect wires to R40.16 first (scenario-first #126).",
+    "intention": "Tron 2026-08-12: in-room Files/Members show 'no scenario'; should be a real folder unit with sunburst. Find the corresponding task (=R40.16) + wire.",
+    "context": "Covers R37.21 (80346a36) via UC roomCollection.asRealFolderUnit (c2d40f62); RIDES R40.16 cc875e35 (no dup).",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "NOT STARTED (scenario-first #126). Architect designs; expert builds; req mints chain+Test. Units on disk BEFORE implementation.",
+    "acceptanceCriteria": "- [ ] AC-B-real-folder-unit: room members-/files- pseudo-collections -> REAL Folder units (not 'no scenario').\n- [ ] AC-B-sunburst-rides-R40.16: folder detail = child-size sunburst, REUSING R40.16 (no duplicate model/renderer).\n- [ ] AC-B-DEVICE [@390 Tron]: in-room Files/Members render as real folder + sunburst, verified on device.",
+    "subtasks": "None (architect may split at design).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+    ],
+    "useCases": [
+      "ior:instance:c2d40f62-9dbe-48d9-9b00-5a418d393540"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-12"
+  }
+}

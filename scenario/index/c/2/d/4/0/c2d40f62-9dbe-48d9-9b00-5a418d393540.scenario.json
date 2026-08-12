@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c2d40f62-9dbe-48d9-9b00-5a418d393540",
+    "name": "roomCollection.asRealFolderUnit",
+    "description": "Resolve a room Members/Files pseudo-collection to a REAL Folder scenario-unit (identity/parent/children), rendering the R40.16 child-size sunburst detail — reuse R40.16's folder-as-unit path, no duplicate. Placeholder: architect wires to R40.16's Class/Method.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+}

@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
+  "name": "DnD buffer carries the ACTUAL scenario unit (never a URL/webitem/*.show link) via ONE shared drop contract across every drop target",
+  "altId": "R37.20",
+  "tasks": [
+   "ior:instance:ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f"
+  ],
+  "description": "The drag-and-drop buffer payload is the scenario UNIT JSON (the full {ior,ownerIor,model} object) — NEVER a *.show?uuid= URL, a WebItem, or any link. A FILE drags as a FILE (not a collection). Detail views actually RENDER for every /model tree selection (today empty on all). ★ FLEET-WIDE (Tron amendment 'this affects the onDrop to diagramms and everywhere else'): ONE shared serializer produces the payload ONCE + ONE shared resolver consumes it ONCE; EVERY drop target reuses it (diagram, room, /model tree/collections/folders, editor/detail drawer, and any future target) — NO per-target payload format, NO per-target parsing, NO *.show?uuid= URL fallback ANYWHERE. Same duplication-collapse shape as R40.37 (per-view if-chains -> one shared declaration).",
+  "tronQuote": "> Tron: \"this is what happens if i drag and drop the files ... but this is generally wrong.\" / \"a FILE ... SHOULD be a file. not a collection. like #file.show?uuid=...\" / \"in all cases NEVER #webitem.show?uuid=... but the actual scenario unit ... ALWAYS.\" / \"the details view dont show anything. on all of them.\" AMENDMENT: \"this affects the onDrop to diagramms and everywhere else.\"",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "date": "2026-08-12",
+   "via": "robbin-po",
+   "order": "session/tasks/TRON-ORDER-S37-dnd-units-ior-origin.md",
+   "note": "Cluster A + fleet-wide amendment. The unit-carrying drop contract is single-source across all targets; architect designs the shared serializer/resolver."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-A1-file-drags-as-file",
+    "group": "functional",
+    "text": "A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnrollDialog.ts yields the File unit, never #collection.show?uuid=file:... ."
+   },
+   {
+    "id": "AC-A2-buffer-carries-unit",
+    "group": "functional",
+    "text": "The DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases — NEVER a *.show?uuid= URL, a #webitem.show link, or any URL/webitem. ALWAYS the actual unit (this is why cross-instance drops produced plain-URL WebItems)."
+   },
+   {
+    "id": "AC-A3-details-render",
+    "group": "functional",
+    "text": "Detail views actually RENDER for EVERY /model tree selection (today: empty on all) — file details are shown for all files, not a blank drawer."
+   },
+   {
+    "id": "AC-shared-contract-fleet-wide",
+    "group": "functional",
+    "text": "ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY drop target reuses the SAME contract (diagram/room/tree-collection/editor-drawer + future) — NO per-target format, NO per-target parsing, NO *.show?uuid= URL fallback anywhere (single-source, R40.37 shape)."
+   },
+   {
+    "id": "AC-BITE-per-target-stub-must-fail",
+    "group": "gate",
+    "text": "The BITE asserts the contract PER TARGET (diagram · room · tree/collection · editor/drawer) + STUB-MUST-FAIL: make the serializer emit a URL/*.show again -> assert RED. A target that regresses to a link is caught by construction."
+   },
+   {
+    "id": "AC-6-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on device: a file drags as a file, drops onto every target carry the unit (not a URL), and detail views render."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

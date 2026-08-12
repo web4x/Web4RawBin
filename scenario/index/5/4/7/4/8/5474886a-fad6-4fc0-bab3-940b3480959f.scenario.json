@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5474886a-fad6-4fc0-bab3-940b3480959f",
+    "name": "dnd.carryUnitPayload",
+    "description": "ONE shared drop contract: a serializer produces the scenario-UNIT-JSON payload ONCE, a resolver consumes it ONCE; every drop target (diagram/room/tree/editor) reuses it — never a *.show?uuid= URL/webitem, never per-target parsing. Placeholder: architect designs serializer/resolver Class/Method.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+}
