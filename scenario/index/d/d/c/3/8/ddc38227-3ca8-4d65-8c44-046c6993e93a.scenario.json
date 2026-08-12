@@ -1,0 +1,58 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "ddc38227-3ca8-4d65-8c44-046c6993e93a",
+  "name": "Store-once theme-only names — a stored name may not embed a DERIVED field (sprint number), enforced by construction",
+  "altId": "R37.15",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "A unit stores the THEME ONLY; the sprint NUMBER (and any other DERIVED field) is DERIVED, never embedded in the stored name — model.number carries the number, so a stored 'Sprint N:' prefix guarantees double-numbering anywhere the number is re-added (the S34 double-title, planner S01-S09, and now S37 b86b53cc are the SAME embedded-number drift class). A lint/guard REFUSES (RED) a stored name that embeds its own sprint number or any derived field, folded into ci:gates with a STUB-MUST-FAIL bite, PLUS a one-time sweep that repairs existing embedded-number names across sprint units. Three manual repairs (notice-dirt -> restore-HEAD -> regen-de-double) means we are treating a generator's output instead of KILLING the generator — by-construction, a stored 'Sprint 37:' prefix becomes IMPOSSIBLE rather than merely restorable (same shape as the -a1b2 collision-generator retirement: kill the source, don't guard the output).",
+  "tronQuote": "> (No direct Tron quote) — PO-directed capture 2026-08-12: three occurrences of embedded-number drift (S34, planner S01-09, S37) is a missing guard, not bad luck; capture as a by-construction store-once req (like the -a1b2 retirement).",
+  "discoverySource": {
+   "type": "team-discovery-then-po-directed",
+   "discoveredBy": "robbin-req (measured the S37 b86b53cc instance = the 3rd occurrence, restored + de-doubled 018f3ffb7)",
+   "directedBy": "robbin-po",
+   "date": "2026-08-12",
+   "note": "The embedded-number drift CLASS: a stored name echoes a field that is DERIVED elsewhere (sprint number = model.number), so re-adding the number double-numbers. Manual repair performed 3x = kill-the-generator, per doctrine. Attribution of each dirtying = UNKNOWN (worktree-only edits, no git record) — the GUARD makes the culprit irrelevant."
+  },
+  "crossRef": [
+   "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
+   "ior:instance:29d090f2-1f25-400b-9d82-3b43502e05f4"
+  ],
+  "crossRefNote": "Naming/store-once canon family: R37.13 check-altid-canon (no bespoke C-scheme on Task name+slug/Req altId) + R37.14 fabricated-identifier (no fabricated/parent-prefix uuids) + R37.15 store-once-theme-only (no derived-field embedded in a stored name). Distinct-intent each (distinct defect, distinct Test) — NOT folded (no over-crediting). The guard MAY extend AltIdCanonGuard 13f97053 OR be a new StoreOnceGuard — architect's chain call.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-store-once",
+    "group": "functional",
+    "text": "A unit's stored name contains ONLY the theme, never a DERIVED field: a name embedding its own sprint number (e.g. a 'Sprint N:' prefix that model.number already carries) or any other derived/echoed field is FORBIDDEN. Store-once: a value derived elsewhere is never duplicated in free-text where it can drift."
+   },
+   {
+    "id": "AC-guard-refuses",
+    "group": "gate",
+    "text": "A lint/guard REFUSES (RED) a stored name that embeds its own sprint number or any derived field, folded into ci:gates — double-numbering becomes IMPOSSIBLE by construction, not merely restorable."
+   },
+   {
+    "id": "AC-stub-must-fail",
+    "group": "gate",
+    "text": "The guard is PROVEN non-vacuous by a STUB-MUST-FAIL bite: plant a 'Sprint 37:'-prefixed sprint name -> RED naming it; a clean theme-only name -> GREEN; weaken/remove the guard -> the bite suite goes RED (meta-bite)."
+   },
+   {
+    "id": "AC-sweep-existing",
+    "group": "functional",
+    "text": "A one-time SWEEP detects + repairs existing embedded-number names across ALL sprint units (the 3 known: S34, S01-S09 legacy, S37 b86b53cc + any others found), restoring each to theme-only. Idempotent, dry-run + count reported FIRST, verify-owner-first per unit (name field ONLY, never the number/derived source)."
+   },
+   {
+    "id": "AC-kills-generator",
+    "group": "by-construction",
+    "text": "BY-CONSTRUCTION: after the guard the embedded-number drift class CANNOT recur — the 3rd manual repair is the last. Per the -a1b2 precedent (kill the collision generator, not guard its output) and the fleet doctrine that a 3x-repaired defect is a missing guard, not bad luck."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
