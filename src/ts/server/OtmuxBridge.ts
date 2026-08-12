@@ -93,6 +93,9 @@ export class OtmuxBridge {
   // e.g. ssh-service → the Service AND its configuredBy ConfigFile, the 1→2 split) and emits the rooted tree via
   // buildRootedTree. The SERVER route AND check-tree-emitter both call THIS → the gate tests what the server RUNS
   // (kills the armed-but-inert / gate-points-at-an-uncalled-fn blindness). NO synthetic 'depref:' anywhere.
+  // [impl:uuid:792be0fd-a9c9-4951-95bc-30b091158f74] OtmuxBridge.buildServerManagerTree — R40.11 AC-2 crown resolver
+  // (architect MINT-OWN 1edbe2868: R40.11's OWN emitter Impl, rides R40.6 buildTypedModel e009ace7 UPSTREAM, does
+  // not own it). Gated by [test:uuid:e2b8f574…] (check-tree-emitter.ts, SERVED-path). Emits REAL typed-unit iors.
   static buildServerManagerTree(sessions: SmSession[], idx: UnitReader, nodeUuid: string): SmTreeRow[] {
     const nodeUnit = idx.get(nodeUuid);
     const nm = (nodeUnit?.model || {}) as Record<string, unknown>;
