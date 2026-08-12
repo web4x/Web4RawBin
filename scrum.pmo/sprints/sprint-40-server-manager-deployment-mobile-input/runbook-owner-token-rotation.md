@@ -1,6 +1,9 @@
 # Option B — Owner-token rotation RUNBOOK (architect, 2026-08-12)
 
-For Tron to authorize as ONE decision. The COMPLETE close of the public-`OWNER_TOKEN` exposure that D2 leaves open (D2 severs the PTY shell/RCE; this closes the remaining owner-gated HTTP: Server Manager tree, Feature Manager, Model-Driven). Prove-before-kill throughout: Tron authenticates on the NEW token BEFORE the OLD dies.
+For Tron to authorize as ONE decision. The COMPLETE close of the public-`OWNER_TOKEN` exposure. Prove-before-kill throughout: Tron authenticates on the NEW token BEFORE the OLD dies.
+
+## ★ PRECONDITION — D2 IS NOT LIVE YET (corrected 2026-08-12, PO caught the premise)
+As of writing, **served is still v0.8.92 and NO D2 commit has landed — the prod shell/RCE is STILL REACHABLE right now.** This runbook does NOT assume the shell is closed. D2 (sever the PTY ws-upgrade) is the FIRST thing that must go live; only AFTER D2 severs the shell does B1's *safe decoupled* sequence become affordable (because the remaining exposure is then HTTP surfaces, not a live shell). Until D2 lands, closing the RCE via D2 outranks starting B. Do not read any part of this runbook as evidence the shell is contained.
 
 ## Measured footprint — what the old token `41ad88c4` keys (counts, value withheld)
 - **Code:** the literal at `ServerManagerGuard.ts:12` (INV-G2 = exactly one location); `FeatureManager.bootstrapSeed()` (server.ts:3384) re-seeds the owner into allowedUsers EVERY boot — **additively/idempotent, it does NOT remove the old entry** (so a scrub is mandatory, boot won't do it).
@@ -8,7 +11,7 @@ For Tron to authorize as ONE decision. The COMPLETE close of the public-`OWNER_T
 - **Storage:** `data/users/<owner-token>/` home dir **EXISTS** → storage is keyed BY the token → naive rotation ORPHANS his home. This is identity+credential+storage CONFLATED (the R40.22 root).
 
 ## What CHANGES / what BREAKS / what Tron DOES
-Two paths — recommend **B1 (decoupled, safe)** since D2 already stopped the RCE, so we can afford the safe sequence:
+Two paths — recommend **B1 (decoupled, safe)**, affordable **once D2 is live** (D2 severs the shell → remaining exposure is HTTP surfaces, so the safe sequence is worth the extra time). If D2 is NOT yet live, get D2 live first — do not start B while the shell is open:
 
 ### B1 — decoupled (recommended): storage-rekey FIRST, then auth-only rotation
 1. Land the R40.22 storage-rekey (token → opaque non-secret `storageId`): re-key `data/users/` by storageId, rewrite the **2** owner `unitLinks` token→storageId, **byte-verify per-file hash before==after** (gated dry-run+count migration). After this, storage no longer depends on the token.
