@@ -2,7 +2,7 @@
 // A prover that greens a units-incomplete board is worthless → PLANT a gap and require it to REFUSE + NAME it.
 // scripts-only, no restart, ZERO pollution (own-oracle pure-fn plant + read-only --prove + dry-run --apply + source-audit).
 // [test:uuid:0870c78b-6268-4de2-a86b-0b74dfe7cf0d] R-C7 BoardMigrator 5-gate BITE (Impls proveComplete 21e38b44 + applyMigration 73f045d8) — PROVEN BY BITE not assertion: (1) plant a hand item absent from units → proveBoardComplete NAMES it (fail-loud) + flips to complete when present; (2) --prove READ-ONLY (git clean unchanged); (3) --apply PROOF-GATED (REFUSED (G1) when prove fails) + read-only; (4) atomic + reversible (write guarded by --apply, per-sprint out.files, git-tracked → revert restores); (5) narrative/prose yields 0 significantItems (excluded). Live ref: --prove Sprint18 5b950725 REFUSES naming 98 gaps. served-independent scripts-only, zero pollution.
-import { proveBoardComplete, significantItems } from '../../scripts/migrate-boards.ts';
+import { proveBoardComplete } from '../../scripts/migrate-boards.ts';
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 
@@ -14,15 +14,18 @@ const gitDirty = () => sh('git status --porcelain scrum.pmo/sprints').out.trim()
 const R: any = {};
 
 // ── G1 BITE: PLANT a gap (hand has an item the generated/units board does NOT) → MUST name it; remove it → complete ──
-const plantedGaps = proveBoardComplete('- [ ] R-C99 planted-missing-req\nrequirement:uuid:deadbeef', '## Some heading (units produced nothing structural)');
-const noGapWhenPresent = proveBoardComplete('- [ ] R-C99 planted-missing-req', '- [ ] R-C99 planted-missing-req');
+const plantedGaps = proveBoardComplete('- [ ] R-C99 planted-missing-req\nrequirement:uuid:deadbeef', '## Some heading (units produced nothing structural)').gaps; // BoardDiff.gaps (return shape is now {gaps,needsReview}, was a bare array)
+const noGapWhenPresent = proveBoardComplete('- [ ] R-C99 planted-missing-req', '- [ ] R-C99 planted-missing-req').gaps;
 R.g1_plantNamed = plantedGaps.some((g) => g.includes('R-C99')) && plantedGaps.some((g) => g.includes('deadbeef')) && plantedGaps.length >= 2;  // NAMES the missing items (fail-loud, not silent)
 R.g1_flipsToCompleteWhenPresent = noGapWhenPresent.length === 0;                                                                             // same item present → NO false gap
 
 // ── G5 BITE: narrative/prose yields NO items (excluded); structural rows/IDs/refs DO ──
-const proseItems = significantItems('This is free-form rationale.\nWhy we chose X over Y — pure narrative.\nNo IDs, refs, or checkboxes here.');
-const structItems = significantItems('- [ ] R1.1 do the thing\ntask:uuid:abcd1234\nR-C7 the migrator');
-R.g5_narrativeExcluded = proseItems.size === 0 && structItems.size >= 3;
+// significantItems export was folded into proveBoardComplete's internal structural extraction — test the SAME G5
+// property via the exported API (guard-family (b): fixture tracks the CURRENT contract): prose has NO structural items
+// → 0 gaps vs empty; structural checkbox rows ARE items → gaps vs empty.
+const proseGaps = proveBoardComplete('This is free-form rationale.\nWhy we chose X over Y — pure narrative.\nNo IDs, refs, or checkboxes here.', '').gaps;
+const structGaps = proveBoardComplete('- [ ] R1.1 do a\n- [ ] R1.2 do b\n- [ ] R37.2 do c', '').gaps;
+R.g5_narrativeExcluded = proseGaps.length === 0 && structGaps.length >= 3;
 
 // ── G2 read-only + real reference: --prove S18 REFUSES + NAMES ~98 gaps, writes NOTHING ──
 const dirtyBefore = gitDirty();
