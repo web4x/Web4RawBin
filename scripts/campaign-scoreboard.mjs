@@ -8,7 +8,8 @@ const IDX = path.join(R, 'scenario/index');
 const bare = s => String(s ?? '').replace('ior:instance:', '');
 const ORDER = ['Planned', 'In Progress', 'QA Review', 'Done'];
 // full sprint uuids (prefix-match on parent walk)
-const SPRINTS = { '2173e549': 'S30', '3c05f411': 'S31', '332585f3': 'S32', 'b86b53cc': 'S37', '8e8b32d6': 'S40' };
+// S30++ = EVERY sprint from S30 onward (33-36 were omitted in the first cut — scope bug, fixed 2026-08-12).
+const SPRINTS = { '2173e549': 'S30', '3c05f411': 'S31', '332585f3': 'S32', '1a1de78b': 'S33', 'bbf0ac5f': 'S34', '476d367f': 'S35', 'ce1d8d57': 'S36', 'b86b53cc': 'S37', '8e8b32d6': 'S40' };
 // CAMPAIGN-SCOPE BOUNDARY (PO ruling 2026-08-11): reqs minted DURING the finish-campaign in response to
 // what we discovered are NEXT-PHASE hardening, NOT part of the S30++ finish-count (else the target recedes
 // as fast as we advance = un-finishable). A task covering one of these leaves the remaining-count by
@@ -54,7 +55,7 @@ const sprintOf = t => {
     const par = cur.m.parent ? get(cur.m.parent) : null;
     if (!par) break; cur = par;
   }
-  const sn = String(t.m.sprintName || '').match(/Sprint (30|31|32|37|40)\b/);
+  const sn = String(t.m.sprintName || '').match(/Sprint (3[0-9]|40)\b/);
   return sn ? 'S' + sn[1] : null;
 };
 
@@ -107,7 +108,7 @@ const count = (arr, g) => arr.filter(r => r.gap === g).length;
 console.log('=== CAMPAIGN SCOREBOARD (measured from units) ===');
 console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| NEXT-PHASE(scope-excl):', rows.filter(r => r.gap === 'NEXT-PHASE').length, '| REMAINING(<QA):', remaining.length);
 console.log('\n-- per-sprint (Done / QA-Review / remaining) --');
-for (const sp of ['S30', 'S31', 'S32', 'S37', 'S40']) {
+for (const sp of ['S30', 'S31', 'S32', 'S33', 'S34', 'S35', 'S36', 'S37', 'S40']) {
   const a = perSprint(sp);
   console.log(`${sp}: total ${a.length} | Done ${a.filter(r => r.gap === 'DONE').length} | QA ${a.filter(r => r.gap === 'QA-REVIEW').length} | superseded ${a.filter(r => r.gap === 'SUPERSEDED').length} | remaining ${a.filter(r => !TERMINAL.has(r.gap)).length}`);
 }
