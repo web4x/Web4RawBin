@@ -20,7 +20,8 @@ R40.18 auto-progress is at the TASK level. **Do NOT build a QA-transition hook t
 
 ## Precedence — explicit WINS, single-sourced (the DESIGN-REQUIRED AC)
 - The `explicit currentTaskUuid` (R40.17 designation) WINS over auto **while it is still valid (its target non-terminal)**. Auto-derive fires only when no valid explicit is set → auto NEVER clobbers Tron's manual choice.
-- **★ Semantic flag for PO (my judgment, your call — mirrors R40.17's stale-hint flag):** when the explicitly-pinned currentTaskUuid's task itself flips to QA/Done (the steered task completes), the explicit is STALE → auto-derive RESUMES (the designation is a steering nudge that is "used up" when its task completes, NOT a permanent lock). This is what makes "R40.17 = steer, R40.18 = auto-progress, together = whole mechanism" true. Alternative (pure explicit-locks-forever) would freeze the pin on a completed task — I recommend explicit-wins-WHILE-valid. Confirm.
+- **★ Semantic (PO-CONFIRMED 2026-08-12 — explicit-wins-WHILE-valid):** when the explicitly-pinned currentTaskUuid's task itself flips to QA/Done (the steered task completes), the explicit is STALE → auto-derive RESUMES. The designation is a steering NUDGE, "used up" when its task completes, NOT a permanent lock — a permanent lock would freeze the pin on a completed task = the original "why does current never change" failure Tron shouted about, forcing him to manually clear a stale steer = re-creating the problem R40.18 kills.
+- **★ OBSERVABLE stale-steer transition (PO addition, the R-C6 placeholder-guard principle — never silent):** when a stale explicit steer is dropped and auto resumes, that transition MUST be OBSERVABLE — logged + surfaced (e.g. a one-line "explicit current-task steer for <task> expired (task reached <status>) → auto-progress resumed" on the pin view / server log), so nobody is surprised their steer expired. A steer silently expiring is itself a small two-source surprise; surface it. Likewise the fail-loud-UNRESOLVED path must state WHY it could not resolve (named reason), not merely that it didn't.
 - All consumers get the pin from `slotsFrom`/`resolveSprintPin` (INV-C1-9). **No QA hook keeps its own opinion.**
 
 ## Invariants + gate BITEs (extend R37.1/R40.17 INV-C1-*)
@@ -29,7 +30,8 @@ R40.18 auto-progress is at the TASK level. **Do NOT build a QA-transition hook t
 3. **explicit-wins:** explicit currentTaskUuid set to a valid task → current = it even though auto would pick another; clear/complete it → auto resumes. BITE.
 4. **lastCompleted-follows-DONE-not-QA:** flip T→QA → lastCompleted UNCHANGED; approve T→Done (R40.10) → lastCompleted = T. BITE (the false-Done guard).
 5. **no-2nd-source (grep-lint, INV-C1-9 lineage):** no current-task derivation / no pin STORE outside slotsFrom/resolveSprintPin; a QA-transition hook that writes a current-pin fails CI.
-6. **fail-loud-unresolved:** ambiguous / unresolvable task ref → UNRESOLVED named reason, never a silent pick (R37.3 lineage).
+6. **fail-loud-unresolved:** ambiguous / unresolvable task ref → UNRESOLVED with a NAMED REASON stating WHY (not just "unresolved"), never a silent pick (R37.3 lineage).
+6b. **observable-stale-steer (PO addition):** an explicit steer whose task completes → the drop-to-auto transition is LOGGED/SURFACED (named), never silent. BITE: set explicit steer, complete its task, assert the transition is emitted (not just that auto resumed).
 7. **@390 no-manual-refresh:** because it's live-derived, the view re-derives on render → the pin moves without a manual refresh; verify @390 real-WebKit the slot advances after a QA flip (device AC).
 
 ## Reuse (no new machinery)
