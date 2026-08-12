@@ -13,6 +13,7 @@
   "acceptanceCriteria": "- [ ] (add) The dialog accepts a GIT CLONE URL and a CHECKOUT LOCATION (server path); it clones the repo to that location.\n- [ ] (add) After a successful clone, the repo is registered in the dynamic registry and APPEARS in the selector.\n- [ ] (add) Clone progress/failure is surfaced (success -> repo usable; failure -> clear error, nothing half-registered).\n- [ ] (security) [PENDING Tron ratify] The clone CHECKOUT LOCATION is BOUNDED to ratified allowed roots (no arbitrary server write path); a location outside bounds is rejected before cloning.\n- [ ] (security) [PENDING Tron ratify] The clone URL / protocol is constrained per Tron ratify (e.g. allowed schemes/hosts, credential handling) - no SSRF / arbitrary-command surface.\n- [ ] (security) [PENDING Tron ratify] Cloning is gated by the ratified authorization model.\n- [ ] (security) [PENDING Tron ratify] The cloned repo registers per the ratified persistence mechanism; a failed clone leaves NOTHING half-registered.\n- [ ] (gate) GATE (DET-3x + Tron visual): clone a URL to a location -> repo appears + opens a diff; client-facing -> version-bump.",
   "subtasks": "None (atomic task, design-stage).",
   "status": "Planned",
+  "campaignDisposition": "deferred-backlog — security (add-repo-by-clone-URL); re-activate before exposed/multi-user; Tron/PO-scheduled later, leaves the actionable count by construction (law#103).",
   "coveredRequirements": [
    "ior:instance:3c9f69c1-8bee-4309-9e30-df61cea34de3"
   ],

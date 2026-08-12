@@ -13,6 +13,7 @@
   "acceptanceCriteria": "- [ ] A coherent CONCEPT is captured (req) — a plan, NOT code (facets below are DECOMPOSITION CANDIDATES, not testable ACs yet; no Test-hop until Tron authorizes build).\n- [ ] Pan/zoom is established as a SHARED viewer capability: RbPanZoom generalized into ONE shared base/mixin, not reimplemented per format.\n- [ ] EVERY embedded-format viewer pans + zooms consistently via that base (png/gif/webp/svg/html/…), not a subset; same gestures/limits across formats.\n- [ ] A new embeddable-format viewer INHERITS pan/zoom for free (extensible to future formats, no per-format reimplementation).\n- [ ] FUTURE / concept: acceptance is a coherent concept + (when authorized) the architect's shared-viewer-base design, NOT an implementation.",
   "subtasks": "None (atomic task).",
   "status": "Planned",
+  "campaignDisposition": "excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103).",
   "coveredRequirements": [
    "ior:instance:57225ee8-cb9d-46cc-9af3-0167855999e2"
   ],

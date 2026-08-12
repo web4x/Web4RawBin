@@ -28,14 +28,14 @@
 | S37 | 11 | 0 | 10 | 0 | 1 |
 | S40 | 14 | 0 | 13 | 0 | 1 |
 
-**REMAINING by blocker:** RIPE-SHARED 1 · marker 1 · build 3
+**REMAINING by blocker:** build 1
 
 | sprint | task | status | blocker | device | name |
 |--------|------|--------|---------|--------|------|
-| S30 | 06623fea | Planned | build |  | Task 30.44: Add a repository by clone URL + checkout locatio |
-| S31 | 6be9a92d | Planned | build |  | Task 31.6: Shared pan/zoom viewer capability for EVERY embed |
-| S32 | 03f5d536 | Planned | marker |  | T-R31.14: Deploy-hardening — scripted deploy + served!=commi |
-| S37 | 79fd2164 | Planned | RIPE-SHARED |  | Task 37.4: Objects self-heal (validate on init/read, never r |
+| S30 | 06623fea | Planned | DEFERRED |  | Task 30.44: Add a repository by clone URL + checkout locatio |
+| S31 | 6be9a92d | Planned | EXCLUDED |  | Task 31.6: Shared pan/zoom viewer capability for EVERY embed |
+| S32 | 03f5d536 | Planned | DEFERRED |  | T-R31.14: Deploy-hardening — scripted deploy + served!=commi |
+| S37 | 79fd2164 | Planned | EXCLUDED |  | Task 37.4: Objects self-heal (validate on init/read, never r |
 | S40 | 6e3cc1b2 | Planned | build |  | Task 40.11: deploymentRefs are scenario-first units with def |
 
 _Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **0** entries (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map). Gate results reach this board ONLY via Test-unit.status._

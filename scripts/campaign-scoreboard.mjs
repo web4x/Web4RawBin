@@ -129,6 +129,8 @@ for (const t of tasks) {
   if (t.m.supersededBy) gap = 'SUPERSEDED';          // terminal by supersession (orthogonal to derived status) — leaves remaining
   else if (coversNextPhase(t)) gap = 'NEXT-PHASE';   // campaign-scope boundary — minted-during-campaign hardening, outside the finish-count
   else if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
+  else if (/^excluded/i.test(t.m.campaignDisposition || '')) gap = 'EXCLUDED';   // law#103: UNIT-persisted disposition (concept/rollup) — not a current deliverable, leaves the ACTIONABLE count by construction
+  else if (/^deferred/i.test(t.m.campaignDisposition || '')) gap = 'DEFERRED';   // law#103: UNIT-persisted disposition (backlog) — Tron/PO-scheduled later, leaves the ACTIONABLE count by construction
   else if (BUILD_COUPLED.has(t.m.uuid)) gap = 'build-coupled'; // measured override — fictional-marker avoided; flip rides another task's build (still REMAINING)
   else if (ci.coveredByTest) gap = ripeGap(ci.coveredByTest, sharesReqWithSibling(t, reqToTasks)); // RIPE, or RIPE-SHARED if a sibling task shares the req (guard: never auto-ripe on a sibling's Test)
   else if (ci.shippedImpl) gap = ci.anyTestWired ? 'two-key' : 'gate';
@@ -141,7 +143,9 @@ for (const t of tasks) {
 
 // ---- report ----
 const TERMINAL = new Set(['DONE', 'QA-REVIEW', 'SUPERSEDED', 'NEXT-PHASE']);
-const remaining = rows.filter(r => !TERMINAL.has(r.gap));
+const remaining = rows.filter(r => !TERMINAL.has(r.gap));           // BELOW-QA (Planned/In-Progress), includes disposition-parked
+const NONACTIONABLE = new Set(['EXCLUDED', 'DEFERRED']);            // law#103 unit-persisted dispositions — leave the ACTIONABLE count BY CONSTRUCTION (not a curated list)
+const actionable = remaining.filter(r => !NONACTIONABLE.has(r.gap)); // the campaign number Tron cares about
 const perSprint = sp => rows.filter(r => r.sp === sp);
 const count = (arr, g) => arr.filter(r => r.gap === g).length;
 
@@ -153,10 +157,17 @@ if (process.argv.includes('--json')) {
   const perSprintJson = SP.map(sp => { const a = perSprint(sp); return { sp, total: a.length, done: a.filter(r => r.gap === 'DONE').length, qa: a.filter(r => r.gap === 'QA-REVIEW').length, superseded: a.filter(r => r.gap === 'SUPERSEDED').length, remaining: a.filter(r => !TERMINAL.has(r.gap)).length }; }).filter(x => x.total > 0);
   const GAPS = ['RIPE', 'RIPE-SHARED', 'two-key', 'gate', 'marker', 'build', 'build-coupled'];
   const byBlocker = GAPS.map(g => ({ gap: g, count: count(remaining, g) })).filter(x => x.count > 0);
+  const dispRows = g => remaining.filter(r => r.gap === g).map(r => {
+    const t = tasks.find(tt => (tt.m.uuid || '').slice(0, 8) === r.uuid);
+    return { sp: r.sp, uuid: r.uuid, name: r.name, disposition: t?.m.campaignDisposition || '' };
+  });
   process.stdout.write(JSON.stringify({
-    totals: { total: rows.length, done: rows.filter(r => r.gap === 'DONE').length, qa: rows.filter(r => r.gap === 'QA-REVIEW').length, superseded: rows.filter(r => r.gap === 'SUPERSEDED').length, remaining: remaining.length },
+    totals: { total: rows.length, done: rows.filter(r => r.gap === 'DONE').length, qa: rows.filter(r => r.gap === 'QA-REVIEW').length, superseded: rows.filter(r => r.gap === 'SUPERSEDED').length, remaining: remaining.length, actionable: actionable.length },
     perSprint: perSprintJson,
     byBlocker,
+    actionableTasks: [...actionable].sort((a, b) => a.sp.localeCompare(b.sp)).map(r => ({ sp: r.sp, uuid: r.uuid, derived: r.derived, gap: r.gap, name: r.name })),
+    excluded: dispRows('EXCLUDED'),   // law#103 unit-persisted — machine-measured, migrate INTO the generated region (PO ruling: region GROWS as rulings become measurable)
+    deferred: dispRows('DEFERRED'),
     remainingTasks: [...remaining].sort((a, b) => a.sp.localeCompare(b.sp)).map(r => ({ sp: r.sp, uuid: r.uuid, derived: r.derived, gap: r.gap, device: r.device, name: r.name })),
     // buildCoupled = size of the HAND-MAINTAINED override map (a declared, not-AST-measured second source — GAP B).
     // Surfaced so the board can NAME the src-build lag; target is 0 (AST-measure host-decls + delete the map).
@@ -166,7 +177,7 @@ if (process.argv.includes('--json')) {
 }
 
 console.log('=== CAMPAIGN SCOREBOARD (measured from units) ===');
-console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| NEXT-PHASE(scope-excl):', rows.filter(r => r.gap === 'NEXT-PHASE').length, '| REMAINING(<QA):', remaining.length);
+console.log('TOTAL tasks S30++:', rows.length, '| Done:', rows.filter(r => r.gap === 'DONE').length, '| QA-Review:', rows.filter(r => r.gap === 'QA-REVIEW').length, '| SUPERSEDED(terminal):', rows.filter(r => r.gap === 'SUPERSEDED').length, '| NEXT-PHASE(scope-excl):', rows.filter(r => r.gap === 'NEXT-PHASE').length, '| REMAINING(<QA):', remaining.length, '| of which ACTIONABLE:', actionable.length, '(EXCLUDED', count(remaining, 'EXCLUDED') + ' + DEFERRED ' + count(remaining, 'DEFERRED') + ' = law#103 unit-persisted, leave the count by construction)');
 console.log('\n-- per-sprint (Done / QA-Review / remaining) --');
 for (const sp of ['S30', 'S31', 'S32', 'S33', 'S34', 'S35', 'S36', 'S37', 'S40']) {
   const a = perSprint(sp);
@@ -175,6 +186,12 @@ for (const sp of ['S30', 'S31', 'S32', 'S33', 'S34', 'S35', 'S36', 'S37', 'S40']
 console.log('\n-- REMAINING by what it needs --');
 console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| RIPE-SHARED(verify-owner-first, NOT flip-ready):', count(remaining, 'RIPE-SHARED'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'), '| build-coupled:', count(remaining, 'build-coupled'));
 console.log('device-blocked (subset overlay):', remaining.filter(r => r.device).length);
+console.log('\n-- ACTIONABLE (the campaign number — REMAINING minus law#103 EXCLUDED/DEFERRED) --');
+for (const r of actionable.sort((a, b) => a.sp.localeCompare(b.sp))) console.log(`  ${r.sp} ${r.uuid} [${r.derived}] ${r.gap} : ${r.name}`);
+console.log('\n-- EXCLUDED (law#103 campaignDisposition on unit — concept/rollup, not a current deliverable) --');
+for (const r of remaining.filter(r => r.gap === 'EXCLUDED')) console.log(`  ${r.sp} ${r.uuid} : ${r.name}`);
+console.log('\n-- DEFERRED (law#103 campaignDisposition on unit — backlog, Tron/PO-scheduled later) --');
+for (const r of remaining.filter(r => r.gap === 'DEFERRED')) console.log(`  ${r.sp} ${r.uuid} : ${r.name}`);
 console.log('\n-- RIPE (closest to QA-Review, flip-ready) --');
 for (const r of remaining.filter(r => r.gap === 'RIPE')) console.log(`  ${r.sp} ${r.uuid} [${r.derived}${r.drift ? ' drift:' + r.drift : ''}] ${r.name}`);
 console.log('\n-- RIPE-SHARED (NOT flip-ready — shares a requirement with a sibling task, so a sibling Test falsely credits it; verify-owner-first REQUIRED before any flip) --');

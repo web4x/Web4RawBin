@@ -13,6 +13,7 @@
   "acceptanceCriteria": "- [ ] AC-scripted-deploy: A SCRIPTED deploy exists — one command does pull + build + VERIFY served==committed==SW==HEAD, replacing manual Ctrl-C + npm start; if any of served/committed/SW/HEAD disagree it FAILS LOUD (no silent stale serve).\n- [ ] AC-served-vs-committed-monitor: A STANDING served!=committed MONITOR runs continuously (R31.7 invariant as a LIVE ALERT); if served version/hash diverges from committed==HEAD it ALERTS IMMEDIATELY. Testable: inject a skew (commit without redeploy) → monitor fires.\n- [ ] AC-pinned-topology: Prod topology is PINNED — exactly ONE prod-serving checkout + exactly ONE restart-driver (architect); expert commits to a CLONE and does NOT deploy (no ambiguity about which checkout serves / who restarts).\n- [ ] AC-scheduled-next: Captured scenario-first, SCHEDULED NEXT/NOT-NOW — NOT dispatched for build until AFTER R32.5 go-live (PO schedules); the chain (UC→Class→Method→Impl→Test) mints onto the built fix when scheduled.",
   "subtasks": "None (atomic task).",
   "status": "Planned",
+  "campaignDisposition": "deferred-backlog — deploy-hardening (scripted deploy + served!=commit guard); scheduled after go-live; Tron/PO-scheduled later, leaves the actionable count by construction (law#103).",
   "coveredRequirements": [
    "ior:instance:167ef4a5-abf3-429f-8f4e-e7def91b657a"
   ],
