@@ -16,8 +16,13 @@ export type ResolvedRef = { uuid: string; type: string; kind?: string; unit: Rec
 // unit JSON. `opts` is a forward seam for the cross-instance origin-aware variant (Tron's IOR-origin cluster) — unused
 // today, present so a 4th importer doesn't reshape the signature. NEVER apply refUuid to a synthetic ref.
 export async function resolveRefUnit(rawRef: string, _opts?: { originHost?: string }): Promise<ResolvedRef | null> {
-  const ref = String(rawRef || '');
+  let ref = String(rawRef || '');
   if (!ref) return null;
+  // inc-3: a synthetic folder/container tree node is emitted DOUBLE-prefixed (mofFolder defaults type='collection' →
+  // `collection:rawbin:diagram`, `collection:dir:src/…`). The meaningful ref is the inner synthetic ref → strip the
+  // redundant outer `collection:` when the remainder is ITSELF synthetic. A GENUINE room collection (`collection:members-
+  // <uuid>` / `collection:files-<uuid>`) has a non-synthetic remainder → left untouched (its own branch handles it).
+  if (ref.startsWith('collection:') && isSyntheticRef(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
   const iorPath = isSyntheticRef(ref)
     ? `/api/ior/${encodeURIComponent(ref)}`                    // FULL raw ref → ensureViewUnit lazy-mint (the nav-path way)
     : `/api/ior/ior:instance:${refUuid(ref) || ref}`;          // genuine type:realUuid ref → instance lookup

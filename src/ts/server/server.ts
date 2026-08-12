@@ -1214,7 +1214,10 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     iorClass = 'ior:class:Project'; key = 'folder::' + ref; kind = 'project'; location = ref; name = proj;
     extra.projectKey = proj; // R35.3 Project fields (keyToUuid('folder::'+ref) per R35.2)
   } else if (ref.startsWith('rawbin:') || ref === 'mof-m1' || ref.startsWith('mof-m2')) {
-    iorClass = 'ior:class:Folder'; key = 'folder::' + ref; kind = 'folder'; location = ref;
+    iorClass = 'ior:class:Folder'; key = 'folder::' + ref; location = ref;
+    // inc-3 AC4: the diagrams container carries a DISTINCT kind so add-diagram (appliesTo:{kinds:['diagrams']}) is offered
+    // ONLY there (resolveRefUnit reads model.kind). Other rawbin:*/mof folders stay generic 'folder'.
+    kind = ref === 'rawbin:diagram' ? 'diagrams' : 'folder';
     name = ref.startsWith('rawbin:') ? ref.slice('rawbin:'.length) : ref.startsWith('mof-m2') ? (ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : 'M2') : 'M1';
     if (ref.startsWith('mof-m2')) extra.metaLevel = 'M2'; else if (ref === 'mof-m1') extra.metaLevel = 'M1'; // R35.3 MOF-Folder fields
     extra.synthetic = true;

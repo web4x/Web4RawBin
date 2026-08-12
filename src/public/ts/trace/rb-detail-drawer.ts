@@ -25,6 +25,7 @@ import { TraceGraph, makeObject, refUuid, type ObjectType } from '../../../ts/sh
 import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor
 import { registerUniversalActions } from './universal-actions.js'; // R35.1 view-independent item-action provider
 import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
+import { resolveRefUnit, isSyntheticRef } from './synthetic-ref.js'; // inc-3: THE sole ref→unit resolver (synthetic + real); nav/detail/action-bar all import this, none re-parse
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -97,10 +98,10 @@ export class RbDetailDrawer extends HTMLElement {
     // R35.2 NAV-RESOLVE: a SYNTHETIC view ref (dir:/file:/puml-src:/project:/rawbin:/mof-) carries its meaningful key in
     // the prefix — refUuid would strip it → only the FULL ref resolves via /api/ior to the REAL lazy-minted MODEL_STORE
     // unit. That needs a fetch → open the tab SYNC first, then point it once resolved (Scenario → uuid; Edit → store dir).
-    if (/^(dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2)/.test(rawRef)) {
+    if (isSyntheticRef(rawRef)) {
       const win = window.open('about:blank', '_blank'); // SYNC in-gesture open (iOS-safe); pointed after the async resolve
-      void fetch(`/api/ior/${encodeURIComponent(rawRef)}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
-        const u = j?.unit?.model?.uuid; if (!u) { win?.close(); return; }
+      void resolveRefUnit(rawRef).then((r) => { // inc-3: shared resolver (was an inline synthetic-regex+fetch — now can't drift from detail)
+        const u = r?.uuid; if (!u) { win?.close(); return; }
         const url = verb === 'scenario' ? `/scenario?ior=${encodeURIComponent(u)}` : scenarioEditorHref(u, 'data/model-store/index');
         if (win) win.location.href = url; else window.open(url, '_blank'); // fallback if the sync open was itself blocked
       }).catch(() => { win?.close(); /* resolve failed → close the placeholder, no dead tab */ });
@@ -233,11 +234,15 @@ export class RbDetailDrawer extends HTMLElement {
     panel.dataset.rendering = ref;
     try {
     const colonIdx = ref.indexOf(':');
-    const type = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
-    const uuid = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
-    this.showActionsForType(type, ref); // R33.6.5 item6: selection-driven — let the HOST set the action-bar for this type
+    const rawType = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
+    const rawKey = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
     // [impl:uuid:36934fe3-c15b-4429-8aa2-48c79e674688] BUG8 collection detail via parent
-    if (type === 'collection') {
+    // inc-3 (A3 root): ONLY a GENUINE room collection (members-/files-<roomUuid>) keeps this bespoke branch. A synthetic
+    // container ref (collection:rawbin:diagram, collection:dir:…) has NO roomUuid → the old `if(!roomUuid) return` swallowed
+    // it into an empty detail = A3. It now falls through to the shared resolver below (its real lazy-minted Folder unit).
+    if (rawType === 'collection' && /^(members|files)-/.test(rawKey)) {
+      this.showActionsForType(rawType, ref); // R33.6.5 item6: selection-driven — HOST sets the action-bar for this type
+      const uuid = rawKey;
       const parts = uuid.split('-');
       const kind = parts[0];
       const roomUuid = parts.slice(1).join('-');
@@ -255,8 +260,15 @@ export class RbDetailDrawer extends HTMLElement {
       } catch { panel.innerHTML = '<div class="dv-empty">Failed to load</div>'; }
       return;
     }
+    // inc-3 (A3 fix): resolve real OR synthetic ref via the ONE shared resolver (was split-at-colon + a hard-coded
+    // /api/ior/ior:instance:${key} → 404 for a path-key = permanent empty detail). {type,uuid,kind,unit} drives the tag,
+    // the graph seed AND the action-bar kind. refUuid is NEVER applied to a synthetic ref (the resolver is the sole parser).
+    const resolved = await resolveRefUnit(ref);
+    const type = (resolved?.type || rawType).toLowerCase();
+    const uuid = resolved?.uuid || (isSyntheticRef(ref) ? ref : rawKey);
+    this.showActionsForType(type, ref);
     // R30.3: Sprint / CurrentSprint nodes render directly via renderSprintDetail (extracted below).
-    if (type.toLowerCase() === 'sprint' || type.toLowerCase() === 'currentsprint') {
+    if (type === 'sprint' || type === 'currentsprint') {
       await this.renderSprintDetail(uuid, type, panel);
       return;
     }
@@ -273,10 +285,10 @@ export class RbDetailDrawer extends HTMLElement {
       modelelement: 'rb-modelelement-detail', // R32.10 (INV-M2): MDA M1 element detail (class→members+diagram / method→signature); tag string only, defined by the model bundle (stays out of /trace)
       'puml-src': 'rb-modelelement-detail', // R33.1.1: a puml/ folder source-.puml leaf mounts rb-modelelement-detail → its render() branches on the puml-src: ref → renderPumlSource → /md → /api/puml-render → SVG in-section
     };
-    const tag = tagMap[type] || 'rb-detail-view';
+    const tag = tagMap[rawType] || tagMap[type] || 'rb-detail-view'; // inc-3: rawType FIRST preserves synthetic bespoke views (puml-src→rb-modelelement-detail); else the resolved unit type (real types + file); else the generic default view
     // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,
     // so type-specific details render in scenario-view (no drawer.graph) + for chain-only units (impl/test).
-    const detailGraph = await this.resolveDetailUnit(uuid, type);
+    const detailGraph = await this.resolveDetailUnit(uuid, type, resolved?.unit as Record<string, unknown> | undefined);
     panel.innerHTML = '';
     const el = document.createElement(tag) as any;
     el.setAttribute('ref', ref);
@@ -292,13 +304,16 @@ export class RbDetailDrawer extends HTMLElement {
   // (impl/test aren't tree nodes). Mirror renderSprintDetail: fetch /api/ior and register a minimal TraceObject into
   // the (real or fallback) graph so the element resolves + renders, then loads its own rich detail. Returns the graph
   // to hand to the element. File/WebItem types fetch by uuid themselves (makeObject throws → caught → harmless).
-  private async resolveDetailUnit(uuid: string, type: string): Promise<TraceGraph | null> {
+  private async resolveDetailUnit(uuid: string, type: string, resolvedUnit?: Record<string, unknown>): Promise<TraceGraph | null> {
     if (this._graph?.get(uuid)) return this._graph;                        // real graph already has it
     const g: TraceGraph = this._graph || (this._fallbackGraph ??= new TraceGraph());
     if (!g.has(uuid)) {
       try {
-        const res = await fetch(`/api/ior/ior:instance:${uuid}`);
-        const model = (await res.json())?.unit?.model || {};
+        // inc-3: reuse the unit renderDetailForRef ALREADY resolved via the shared resolveRefUnit (no 2nd fetch), and
+        // NEVER the old hard-coded /api/ior/ior:instance:${uuid} (that 404'd for a synthetic path-key = A3). Fallback (unit
+        // absent) resolves a real type:uuid ref through the same resolver — the sole ref→unit path.
+        const model = ((resolvedUnit?.model as Record<string, unknown> | undefined)
+          ?? ((await resolveRefUnit(`${type}:${uuid}`))?.unit as { model?: Record<string, unknown> } | undefined)?.model) || {};
         const obj = makeObject(g, type as ObjectType, uuid, String(model.name || model.title || uuid));
         if (model.status) obj.status = String(model.status);
         if (model.sprint) obj.sprint = String(model.sprint);
@@ -420,9 +435,9 @@ export class RbDetailDrawer extends HTMLElement {
   // AND rb-active-diagram box-select — and drives the action bar HERE. Fixes the orphaned-signal regression: box-select's
   // {type:'modelelement'} was heard ONLY by model.ts (local shownRef), never reached universalActionBar, so element verbs
   // (incl Delete) never rendered while a diagram was open. One driver, no second driver in model.ts, no double-fire.
-  private onDetailShown = (e: Event): void => { const d = (e as CustomEvent<{ type?: string; ref?: string }>).detail; this.universalActionBar((d?.type || '').toLowerCase(), d?.ref || ''); };
+  private onDetailShown = (e: Event): void => { const d = (e as CustomEvent<{ type?: string; ref?: string }>).detail; void this.universalActionBar((d?.type || '').toLowerCase(), d?.ref || ''); };
   // R40.37: a diagram opened/closed → update the applicability ctx + re-resolve the bar (R33.9 membership verbs' when-predicate).
-  private onActiveDiagram = (e: Event): void => { this._hasActiveDiagram = !!(e as CustomEvent<{ uuid?: string | null }>).detail?.uuid; if (this._shownType) this.universalActionBar(this._shownType, this._shownRef); };
+  private onActiveDiagram = (e: Event): void => { this._hasActiveDiagram = !!(e as CustomEvent<{ uuid?: string | null }>).detail?.uuid; if (this._shownType) void this.universalActionBar(this._shownType, this._shownRef); };
 
   private showActionsForType(type: string, ref: string): void {
     const t = (type || '').toLowerCase();
@@ -439,17 +454,20 @@ export class RbDetailDrawer extends HTMLElement {
   // handled by onUniversalAction) + every registered host provider's context verbs (model = actionsForContext, R33.9
   // reused verbatim). INV-E1 universal / E2 context-verbset (default everywhere + host verbs only where registered) /
   // E3 no-fork (setActions/actionsForContext unchanged; empty/chat → cleared bar).
-  private universalActionBar(type: string, ref: string): void {
+  private async universalActionBar(type: string, ref: string): Promise<void> {
     this._shownType = type; this._shownRef = ref;
     if (!type || !ref || type === 'chat') { this.setActions([]); return; } // INV-E3: empty/chat clears the bar
     const defaults = [{ verb: 'scenario', label: '◆ Scenario', primary: true }, { verb: 'edit', label: '✎ Edit', primary: true }]; // R-A A1 universal default
-    // R40.37: resolve action applicability ONCE here (no per-view if-chains). Providers SUPPLY declarations; the shared
-    // bar filters by the selected unit's (type, status, kind) via applicableActionsFor. status/kind come from the
-    // resolved graph obj (populated by resolveDetailUnit). Absent status ⇒ status-gated actions (approve/decline) HIDE
-    // (safe: never offer the impossible). This is the AC1/AC2/AC3/AC4 fix — the impossible buttons are simply not built.
-    const uuid = refUuid(ref) || ref;
+    // R40.37: resolve action applicability ONCE here (no per-view if-chains). Providers SUPPLY declarations; the shared bar
+    // filters by the selected unit's (type, status, kind) via applicableActionsFor. inc-3 (AC4): the REAL {type,kind} comes
+    // from the shared resolveRefUnit — NEVER refUuid(ref) (refUuid('rawbin:diagram')→'diagram' stripped the prefix → missed
+    // the kind → add-diagram never matched the diagrams container). status still comes from the resolved graph obj. Absent
+    // status ⇒ status-gated actions (approve/decline) HIDE (never offer the impossible). This is the AC1..AC4 fix.
+    const r = await resolveRefUnit(ref);
+    if (this._shownRef !== ref) return; // a newer selection landed while awaiting → don't paint the stale ref's bar
+    const uuid = r?.uuid || ref;
     const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
-    const unit = { type, status: obj?.status, kind: (obj as unknown as { kind?: string } | undefined)?.kind };
+    const unit = { type: r?.type || type, status: obj?.status, kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
     const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram }, decls);
     const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)
@@ -461,14 +479,14 @@ export class RbDetailDrawer extends HTMLElement {
   // context changed, e.g. rb-active-diagram → membership verbs recompute).
   registerActionProvider(fn: (type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]): void {
     this._actionProviders.push(fn);
-    if (this._shownType) this.universalActionBar(this._shownType, this._shownRef);
+    if (this._shownType) void this.universalActionBar(this._shownType, this._shownRef);
   }
   // R40.37: register a DECLARATION provider (verbs + appliesTo), resolved once in universalActionBar via applicableActionsFor.
   registerActionDecls(fn: () => ActionDecl[]): void {
     this._declProviders.push(fn);
-    if (this._shownType) this.universalActionBar(this._shownType, this._shownRef);
+    if (this._shownType) void this.universalActionBar(this._shownType, this._shownRef);
   }
-  refreshActions(): void { if (this._shownType) this.universalActionBar(this._shownType, this._shownRef); }
+  refreshActions(): void { if (this._shownType) void this.universalActionBar(this._shownType, this._shownRef); }
 
   // R31.4 AC-maximize (Option A, PO-endorsed): full-viewport drawer = maximum terminal space, NO-disrupt — the grouped
   // attach shows the whole window (NO tmux zoom, which is a shared window property that would leak to other viewers →

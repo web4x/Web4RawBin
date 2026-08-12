@@ -9,7 +9,7 @@ import type { ActionDecl } from '../trace/action-applicability.js';
 export const MODEL_DECLS: ActionDecl[] = [
   { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact'] } },
   { verb: 'import-puml', label: '⇩ Import PUML', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user'] } },
-  { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'modelelement'] } },
+  { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { kinds: ['diagrams'] } }, // inc-3 AC4: PRECISE — offered ONLY on the diagrams container BY KIND (ensureViewUnit sets kind='diagrams' on rawbin:diagram; resolveRefUnit feeds it to the bar). Was notTypes:[…] (INTERIM, leaked onto every non-leaf).
   { verb: 're-sync', label: '⟳ Re-Sync', appliesTo: { types: ['diagram'] } },
   { verb: 'compile-puml', label: '⚙ Compile → SVG', appliesTo: { types: ['diagram'] } },
   { verb: 'new-element', label: '✚ New class', appliesTo: { types: ['modelelement'] } },
