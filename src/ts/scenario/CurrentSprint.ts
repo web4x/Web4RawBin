@@ -96,6 +96,10 @@ export class CurrentSprint {
   // `resolvedSprint` — this client-bundled class no longer derives the sprint from sprintName (that parallel
   // derivation was the 2nd source; retired, INV-C1-9). `currentTaskUuid` = the owner's task designation (INPUT-ONLY
   // from the singleton) that OVERRIDES chain-activity for the current-task slot.
+  // [impl:uuid:e9eb79e0-5258-4416-b97d-4ddd899f2af7] CurrentSprint.slotsFrom — R40.18 pin auto-progress DERIVATION
+  // (QA-Review = left-current via the STATUS ENUM not a symbol; explicit-wins-while-valid; lastCompleted-follows-
+  // DONE-not-QA; auto-derive-next; no hook / no stored pin — INV-C1-9). Gated by BITEs 1-7 (scripts/r4018-pin-
+  // autoprogress-bites.ts + tester's Tests). The 3-slot derivation body lives in getThreeSlots (called here).
   static slotsFrom(index: ScenarioIndex, resolvedSprint?: { number: number; uuid: string; name: string }, currentTaskUuid?: string): ThreeSlots {
     return new CurrentSprint(index).getThreeSlots(resolvedSprint, currentTaskUuid);
   }
