@@ -37,14 +37,30 @@ function evidence(t){
   else if(!testWired) reason='Impl shipped but NO Test wired (Impl.tests[] empty) — needs gate';
   else if(testPassNot2key) reason='Test passes but NOT two-keyed to the Impl (Test.implementations[] missing back-ref)';
   else reason='Test wired but status != pass (needs tester two-key)';
-  return {covered, reason};
+  return {covered, reason, testName};
 }
 
+// device-action AC detector (bucket 3 of the verdict-surface): a task whose ACs need Tron's DEVICE/pixel act
+// (@390 tap/render), a distinct act from approving. Measured from the task's own AC/remaining text — NOT a 2nd list.
+const DEVICE=/device-only|iOS|never.?headless|Tron device|@390|AC-5-DEVICE|real.?webkit|pixel|tap.?fires?|drawer renders/i;
+const needsDevice=t=>DEVICE.test(t.m.acceptanceCriteria||'')||DEVICE.test(t.m.remainingIssues||'')||DEVICE.test(t.m.description||'');
+
 const qa=[...byU.values()].filter(x=>x.ior==='ior:class:Task'&&sprintOf(x)&&der(x.m.statusChecklist)==='QA Review');
-const pass=[], would409=[];
-for(const t of qa){ const e=evidence(t); (e.covered?pass:would409).push({sp:sprintOf(t),uuid:(t.m.uuid||'').slice(0,8),name:(t.m.name||'').slice(0,52),reason:e.reason}); }
+const rows=qa.map(t=>{const e=evidence(t);return{sp:sprintOf(t),uuid:(t.m.uuid||'').slice(0,8),name:(t.m.name||'').slice(0,52),covered:e.covered,testName:e.testName,reason:e.reason,device:needsDevice(t),checklist:t.m.statusChecklist||''};}).sort((a,b)=>a.sp.localeCompare(b.sp)||a.uuid.localeCompare(b.uuid));
+
+// --json: SINGLE SOURCE for the verdict-surface (scripts/approve-queue-region.ts). Measured from units; the .ts
+// writer FORMATS + maps status via the shared statusSymbol (task-status.ts) — no 2nd measurement, no 2nd vocabulary.
+if(process.argv.includes('--json')){
+  process.stdout.write(JSON.stringify({
+    counts:{qaReview:rows.length, wouldPass:rows.filter(r=>r.covered).length, would409:rows.filter(r=>!r.covered).length, device:rows.filter(r=>r.device).length},
+    qaTasks:rows,
+  }));
+  process.exit(0);
+}
+
+const pass=rows.filter(r=>r.covered), would409=rows.filter(r=>!r.covered);
 console.log('=== PRE-DEPLOY QA-REVIEW EVIDENCE AUDIT (measured from units) ===');
-console.log('QA-Review tasks S30++:', qa.length, '| WOULD-PASS approve:', pass.length, '| WOULD-409:', would409.length);
+console.log('QA-Review tasks S30++:', rows.length, '| WOULD-PASS approve:', pass.length, '| WOULD-409:', would409.length, '| needs-device:', rows.filter(r=>r.device).length);
 console.log('\n-- WOULD-409 (lack two-keyed passing testing evidence) --');
 if(!would409.length) console.log('  (none — all QA-Review tasks carry two-keyed passing testing evidence)');
-for(const r of would409.sort((a,b)=>a.sp.localeCompare(b.sp))) console.log(`  ${r.sp} ${r.uuid} ${r.name} :: ${r.reason}`);
+for(const r of would409) console.log(`  ${r.sp} ${r.uuid} ${r.name} :: ${r.reason}`);

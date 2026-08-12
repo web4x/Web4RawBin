@@ -41,3 +41,18 @@ if [ "$NEED_BOARD" = 1 ]; then
   }
   git add -- scrum.pmo/campaign-scoreboard.md
 fi
+
+# Approve-queue auto-regen (Tron order #4, T37.6 pattern): keep the one-pass verdict-surface in sync BY
+# CONSTRUCTION so a QA-Review credit/advance cannot land without the approve buckets moving. Trigger = staged
+# scenario units (task status / Test evidence / device ACs) OR a staged approve-queue evidence/writer script.
+NEED_APPROVE=0
+git diff --cached --name-only | grep -qE '^scenario/index/.*\.scenario\.json$' && NEED_APPROVE=1
+git diff --cached --name-only | grep -qE '^scripts/(qa-evidence-audit\.mjs|approve-queue-region\.ts)$' && NEED_APPROVE=1
+if [ "$NEED_APPROVE" = 1 ]; then
+  RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
+  "$RB_NODE" --import tsx scripts/approve-queue-region.ts --write --staged-guard || {
+    echo "pre-commit BLOCKED: approve-queue.md verdict-surface auto-regen failed (fail-closed) — see above." >&2
+    exit 1
+  }
+  git add -- scrum.pmo/approve-queue.md
+fi
