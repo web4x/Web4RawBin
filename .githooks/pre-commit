@@ -23,3 +23,21 @@ if [ "$NEED_REGEN" = 1 ]; then
     exit 1
   }
 fi
+
+# Board auto-regen (T37.6 pattern, PO 2026-08-12): keep the campaign scoreboard's LIVE region in sync BY
+# CONSTRUCTION so a credit/flip cannot land without the board moving. Trigger = staged scenario units OR a staged
+# campaign-scoreboard script (GAP A: the classification/override logic lives IN the script, not units — editing it
+# changes board values with NO unit staged, so the trigger must watch the script too). Fail-closed. Anti-sweep:
+# only auto-stage the board if it had NO unstaged curated edits before the regen (never sweep the planner's
+# in-progress curation into someone else's commit).
+NEED_BOARD=0
+git diff --cached --name-only | grep -qE '^scenario/index/.*\.scenario\.json$' && NEED_BOARD=1
+git diff --cached --name-only | grep -qE '^scripts/campaign-scoreboard.*\.(mjs|ts)$' && NEED_BOARD=1
+if [ "$NEED_BOARD" = 1 ]; then
+  RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
+  "$RB_NODE" --import tsx scripts/campaign-scoreboard-region.ts --write --staged-guard || {
+    echo "pre-commit BLOCKED: campaign-scoreboard.md LIVE-region auto-regen failed (fail-closed) — see above." >&2
+    exit 1
+  }
+  git add -- scrum.pmo/campaign-scoreboard.md
+fi

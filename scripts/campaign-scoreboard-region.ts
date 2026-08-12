@@ -128,6 +128,17 @@ const next = replaceRegion(existing, buildRegion(d));
 if (next === null) fail('GENERATED-INDEX markers malformed.');
 
 if (WRITE) {
+  // HOOK-only anti-sweep (--staged-guard): never sweep an UNSTAGED curated edit OUTSIDE the region into another
+  // agent's commit. --write only touches the region, so out-of-region content must already match the committed/
+  // staged base; if it differs, the planner has in-progress curation — fail-closed rather than auto-stage it.
+  if (process.argv.includes('--staged-guard')) {
+    const gitShow = (ref: string): string => { try { return execFileSync('git', ['show', ref], { cwd: ROOT, encoding: 'utf-8' }); } catch { return ''; } };
+    let stagedNames: string[] = [];
+    try { stagedNames = execFileSync('git', ['diff', '--cached', '--name-only'], { cwd: ROOT, encoding: 'utf-8' }).split('\n'); } catch { /* not a git tree */ }
+    const base = stagedNames.includes(BOARD_REL) ? gitShow(`:${BOARD_REL}`) : gitShow(`HEAD:${BOARD_REL}`);
+    const outside = (s: string): string => { const b = s.indexOf(BEGIN); const e = s.indexOf(END); return (b === -1 || e === -1) ? s : s.slice(0, b) + s.slice(e + END.length); };
+    if (base !== '' && outside(existing) !== outside(base)) fail(`${BOARD_REL} has UNSTAGED curated edits OUTSIDE the region — stage or restore them first (the hook will not sweep uncommitted curation into this commit).`);
+  }
   const wrote = guardedWriteRegion(BOARD, next, BEGIN, (bn) => bn === 'campaign-scoreboard.md');
   if (!wrote) fail('--write: owned-output-guard REFUSED (markerless / wrong-name) — nothing written.');
   console.log(`OK campaign-board --write: LIVE region regenerated (Done ${d.totals.done} / QA ${d.totals.qa} / REMAINING ${d.totals.remaining}); curated sections preserved.`);
