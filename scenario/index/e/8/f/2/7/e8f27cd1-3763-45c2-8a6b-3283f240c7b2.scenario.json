@@ -1,0 +1,59 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "e8f27cd1-3763-45c2-8a6b-3283f240c7b2",
+  "name": "The board never marks a task RIPE on a SIBLING's Test — shared-requirement tasks are RIPE-SHARED (manual verify-owner-first), never auto-flip on a sibling's evidence",
+  "altId": "R37.16",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "sprintName": "Sprint 37",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "The scoreboard must NOT compute a task as RIPE (flip-ready) using a SIBLING task's passing Test. Measured defect: T37.4.3 was flagged RIPE purely because its sibling T37.4.2 (sharing requirement R37.11) had a passing Test (a7f3c1e8), while T37.4.3's OWN dominance-lint facet was RED + expert-blocked — the board proposed a task backed by SOMEONE ELSE's evidence into Tron's batch (the T40.5 borrowed-credit disease, but the BOARD is the one proposing it). The naive fix (key on Impl-ownership) is MEASURED-IMPOSSIBLE: b5f72641 has no sharedByTasks field. Use the STRUCTURAL signal instead: a task whose coveredRequirement is SHARED by sibling tasks is downgraded to RIPE-SHARED, which requires manual verify-owner-first and can NEVER auto-flip on a sibling's Test — it reaches true RIPE only when its OWN distinct-intent facet is evidenced.",
+  "tronQuote": "> (No direct Tron quote) — PO-directed capture 2026-08-12 from a planner by-construction finding (planner scoped, declined to implement at its rewind-band edge, PO endorsed; planner implements post-rewind, this capture makes it durable).",
+  "discoverySource": {
+   "type": "team-discovery-then-po-directed",
+   "discoveredBy": "robbin-planner (scoreboard flagged T37.4.3 false-RIPE via sibling T37.4.2's Test; refused the flip verify-owner-first)",
+   "directedBy": "robbin-po",
+   "date": "2026-08-12",
+   "note": "Board-side borrowed-credit: a shared-requirement traversal credits a task with a sibling's Test. The planner's verify-owner-first refusal is what kept an un-evidenced task out of Tron's batch — R37.16 makes that refusal by-construction, not vigilance."
+  },
+  "crossRef": [
+   "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9",
+   "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
+   "ior:instance:ddc38227-3ca8-4d65-8c44-046c6993e93a"
+  ],
+  "crossRefNote": "Board-honesty by-construction family: R37.13 (no bespoke-scheme ids) + R37.15 (no embedded-derived-field names) + R37.16 (no sibling-credited RIPE). All are 'the board/graph must not lie' guards, distinct-intent. R37.11 cfe02f4b is the shared-requirement instance (T37.4.2 + T37.4.3 both cover it) that surfaced the defect. Same borrowed-credit disease as T40.5 but at the SCOREBOARD layer.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-no-sibling-credit",
+    "group": "functional",
+    "text": "The scoreboard NEVER marks a task RIPE (flip-ready) using a SIBLING task's Test: a task whose coveredRequirement is shared by sibling tasks is NOT auto-RIPE from the requirement's aggregate green."
+   },
+   {
+    "id": "AC-ripe-shared",
+    "group": "functional",
+    "text": "Such a task is downgraded to a distinct RIPE-SHARED state = requires manual verify-owner-first (confirm the task's OWN facet is evidenced); it can NEVER auto-flip on a sibling's passing Test."
+   },
+   {
+    "id": "AC-structural-key",
+    "group": "functional",
+    "text": "The signal is STRUCTURAL (coveredRequirement shared by >1 task), NOT Impl-ownership — measured-impossible: the shared Impl (e.g. b5f72641) has no sharedByTasks field, so Impl-ownership cannot be the key. Derive shared-ness from the tasks' coveredRequirements, not the Impl."
+   },
+   {
+    "id": "AC-stub-must-fail",
+    "group": "gate",
+    "text": "STUB-MUST-FAIL bite (else the guard certifies nothing): construct a sibling with a passing Test on the shared requirement -> assert the OTHER sibling is NOT marked RIPE (it is RIPE-SHARED); a guard that would auto-RIPE it -> RED. Proves a sibling's passing Test does NOT mark the task ripe."
+   },
+   {
+    "id": "AC-own-facet",
+    "group": "functional",
+    "text": "A shared-requirement task reaches TRUE RIPE only when its OWN distinct-intent Test/facet passes (verify-owner-first), never the requirement's aggregate coverage — matches the shared-Impl-two-distinct-Tests anti-double-credit pattern (T40.5 discipline) applied to the board."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
