@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4715978d-8210-4441-9af0-0f7b5edc46f6",
+    "name": "currentSprint.autoProgressPin",
+    "description": "The CurrentSprint pin AUTO-PROGRESSES on a QA-Review transition, BY DERIVATION (not a stored write): on QA-Review the current slot advances + a new next is derived by sprint-completion; explicit-R40.17-designation WINS while still valid; lastCompleted follows DONE (not QA); unresolved -> fail-loud; the derivation reads the STATUS ENUM, never a symbol. ONE unified behavior (the 8 BITEs are its facets, not separate use cases). Reuses slotsFrom (no new machinery); observable stale-steer is logged (not a pin-write).",
+    "class": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121",
+    "method": "ior:instance:58f0c36a-54eb-40cd-ae7d-7f8cb7d5220f",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
+}

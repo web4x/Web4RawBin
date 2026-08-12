@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e9eb79e0-5258-4416-b97d-4ddd899f2af7",
+    "name": "CurrentSprint.slotsFrom auto-progress derivation impl (pin auto-progresses on QA-Review by DERIVATION: terminal-for-current-via-ENUM + explicit-wins-while-valid + lastCompleted-DONE-not-QA + auto-derive-next; covers BITEs 1-idempotent/2-QA-advances/3-explicit-wins/4-lastCompleted/5-enum-not-symbol/6-fail-loud/7-@390-device)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/CurrentSprint.ts",
+    "markerNote": "markerPending: expert adds [impl:uuid:e9eb79e0] on CurrentSprint.slotsFrom @CurrentSprint.ts:99 (architect chain map, backstopped). R40.18's OWN derivation Impl (architect confirmed R40.18 has own Impl, NOT reusing getThreeSlots d20855e7/R20.22 — d20855e7 SURFACES slotsFrom's output but slotsFrom @:99 IS the derivation). Test = tester's 8 BITE gates (3f9c1e75 pin-autoprogress-independent covers the core) -> measure test:uuids, wire on my confirm. Then I strict-AST-flip."
+  },
+  "ownerIor": "ior:instance:58f0c36a-54eb-40cd-ae7d-7f8cb7d5220f"
+}

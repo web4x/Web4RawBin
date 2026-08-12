@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "58f0c36a-54eb-40cd-ae7d-7f8cb7d5220f",
+    "name": "CurrentSprint.slotsFrom",
+    "implementations": [
+      "ior:instance:e9eb79e0-5258-4416-b97d-4ddd899f2af7",
+      "ior:instance:c0cfbbad-8702-45fb-bbc1-7960c48537be"
+    ]
+  },
+  "ownerIor": "ior:instance:43d570be-eb8f-45d7-a666-826e88184121"
+}

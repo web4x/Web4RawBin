@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c0cfbbad-8702-45fb-bbc1-7960c48537be",
+    "name": "R40.18 observable stale-steer LOG impl (server.ts:1739, the R40.10 transition addLog — LOG-ONLY not a pin-write; makes a stale-steer OBSERVABLE for the honesty audit; covers BITE-6b observable-stale-steer)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerNote": "markerPending: expert adds [impl:uuid:c0cfbbad] on server.ts:1739 (the addLog line). R40.18 observability facet (BITE-6b) — LOG-ONLY, never writes the pin. ★ CROSS-FILE NOTE for architect backstop: Impl B sourceFile=server.ts under Method CurrentSprint.slotsFrom (CurrentSprint.ts) — per your map (Method slotsFrom -> A + B for observability); flag if you want B under a distinct server-side Method. Test = BITE-6b gate -> measure test:uuid, wire on confirm."
+  },
+  "ownerIor": "ior:instance:58f0c36a-54eb-40cd-ae7d-7f8cb7d5220f"
+}
