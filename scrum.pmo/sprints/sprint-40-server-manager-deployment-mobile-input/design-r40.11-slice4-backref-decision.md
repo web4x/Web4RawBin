@@ -30,5 +30,34 @@ Both are real; the array-removal is mandated by **AC-5-AUTO**, so (B) keep-array
 
 **Meta (PO): identifiers/labels are our recurring failure surface** (today: non-resolving anchor hashes, a task-uuid cited as an Impl-uuid, and these swapped a/b letters). In decision docs: name by CONTENT, and always state WHICH KIND an id is (task/Impl/UC/commit) next to it.
 
+## ★ WIDER FINDING (expert grep-lint) — the array has 3 READERS → AC-5-AUTO needs a MODEL INVERSION, not a field-delete
+Scratch proved the tree INV-T==0 (byte-identical, same 5 rows same order) — good. But the grep-lint (nothing-reads-deploymentRefs) caught the array has **3 readers**, not 1:
+1. `OtmuxBridge` resolver — FIXED (units-by-back-ref).
+2. `DeploymentModel.buildTypedModel:43` — **the PRODUCER reads the array as its INPUT** (throws without it) to mint the 5 typed units. So the array is the SOURCE of the model; removing it breaks re-gen and CONTRADICTS "re-gen re-sets the back-ref" (can't re-gen from a deleted input).
+3. `rb-diagram-detail:160` — CLIENT diagram facet rows (role→basename) read the array; removal drops those rows (its own INV-T concern).
+
+**RULING = INVERT THE MODEL (correct-by-construction; this IS T40.11's goal "deploymentRefs BECOME scenario-first units", not a raw-array read-view):**
+- The **5 typed units are the SINGLE SOURCE** — they already carry `m2Type / manifestsAs / configuredBy / sourceRole` + now `deploymentNodeIor`.
+- `buildTypedModel` is **RETIRED as a runtime array-reader** — it was the ONE-TIME constructor (legacy array → units); its marker `e009ace7` (Impl kind) stays on it as the historical mint helper, but it is NOT called at runtime post-migration. Adding a future deploymentRef = author a new typed unit (scenario-first), NOT add-to-array-and-re-gen. (Re-deriving the model "from the units" would be identity — the units ARE the model.)
+- `rb-diagram-detail:160` reads **units-by-back-ref** → same facet rows.
+- THEN the array is truly dead → remove → INV-T==0 on BOTH the tree AND the diagram facet.
+
+### ★ ADDED GATE — DATA-CONSERVATION (the finding demands it; measure, don't assume)
+Before removing the array, prove **every field the raw array held is captured in the units** — the array entries are `{role, ref, note, …}`; `role→sourceRole`, `ref→manifestsAs` are captured, but ★ VERIFY the array's `note` (and any other field) is captured in a unit field, else removal SILENTLY LOSES it (same class as the room "empty" that wasn't). Do NOT infer "the array is fully represented" from the tree INV-T alone (the tree may not render `note`). Gate: array-fields ⊆ union of unit-fields, 0 dropped.
+
+### Corrected scratch gate (all before any prod put)
+tree INV-T==0 ✓(done) · **diagram-facet INV-T==0** (rb-diagram-detail rows from units byte-identical) · **grep-lint = 0 readers of `deploymentRefs`** (all 3 repointed/retired) · **data-conservation** (array fields ⊆ unit fields, 0 dropped incl `note`) · 0-new-dangling · buildTypedModel not called at runtime. WIP inert `b657ede5f` (back-ref resolver returns EMPTY until back-refs minted — do NOT deploy alone).
+
+## ★★ SCOPING RULING (PO-requested; my recommendation for Tron's timing call) — SPLIT AC-5-AUTO OUT
+Slice-4 has expanded twice (pure-delete → back-ref → full model-inversion). RULING on the PO's three questions:
+
+**(a) Is the inversion REQUIRED for AC-5-AUTO?** For the AC's LITERAL text ("array-REMOVAL … INV-T byte-diff==0") — YES: all 3 readers must stop reading the array, which is the inversion (retire the producer's array-read, repoint the client facet, then remove). A SMALLER shape — keep the array as a DERIVED PROJECTION (buildTypedModel emits it FROM the now-canonical units) — satisfies the likely INTENT (units are the source-of-truth, no client-facing change) but does NOT remove the array → fails AC-5-AUTO as written; adopting it needs the AC relaxed from "remove" to "units-canonical, array is a derived view." **Either way it is beyond a view-slice.**
+
+**(b) Slice of a view task, or its own requirement?** Its OWN requirement. It inverts the MODEL source-of-truth and touches a PRODUCER (`buildTypedModel`) + a CLIENT facet (`rb-diagram-detail`) + the authoring workflow (author units, not array). T40.11 is titled "…scenario-first units with default VIEWS (fix the permanent-Loading drawer)" — a view/render task. A model source-of-truth inversion is a distinct requirement, and bundling it makes T40.11 UNBOUNDED.
+
+**(c) Honest T40.11 QA-Review state (no faking):** the Loading BUG — T40.11's actual point — is ALREADY FIXED by slices 1–3. So: **AC-1 (typed units exist) · AC-2 (tree emits real ior) · AC-3 (generic view) · AC-4 (fail-loud) = DELIVERED + gated · AC-5-DEVICE = Tron's tap (device-pending) · AC-5-AUTO = SPLIT to a new next-phase requirement (model-inversion), recorded not dropped (supersession-honest).** T40.11 reaches QA-Review on that basis honestly — the array-removal is explicitly a separate tracked requirement, not silent incompleteness.
+
+**★ RECOMMENDATION (attach to Tron):** SPLIT AC-5-AUTO out as a next-phase requirement (the model source-of-truth inversion). Precedent = my own R40.30/31 scoping ruling — work DISCOVERED DURING a campaign is not part of the backlog as it stood; finishability is protected by splitting, not by absorbing an unbounded refactor into a view task while its 4 delivered ACs sit unreviewed. The new req scopes HOW to make units canonical (full-removal-inversion vs array-as-derived-projection) with req/Tron. Timing (does Tron want the cleanup now or next) is HIS call — this is the recommendation attached. Expert HOLDS PIN-5; nothing more built until Tron rules.
+
 ## Composition
 Composes with slice-2 (emit real ior) + slice-3 (generic view) — those use the unit iors, which the back-ref scan now supplies. Slice-4 scope honestly grows from "pure removal" to "produce back-ref (in buildTypedModel) + resolver-by-back-ref + remove array" — the correction the dry-run forced. I backstop the corrected scratch dry-run (the 6 proofs) before any prod put; r4011c re-runs after.
