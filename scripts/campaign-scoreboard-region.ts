@@ -133,8 +133,16 @@ if (process.argv.includes('--bite')) {
   const driftOnCorrupt = replaceRegion(corruptBoard, buildRegion(measure())) !== corruptBoard; // tampered region → drift
   const narrativeKept = (replaceRegion(goodBoard, buildRegion(measure())) || '').includes('HEAD-NARRATIVE') && (replaceRegion(goodBoard, buildRegion(measure())) || '').includes('TAIL-NARRATIVE');
   const ratchetOk = buildCoupledClean(0) && !buildCoupledClean(3); // GAP-B ratchet: 0 passes, non-zero fails (non-vacuous)
-  const ok = idempotentClean && driftOnCorrupt && narrativeKept && ratchetOk;
-  console.log(`bite: idempotent-clean=${idempotentClean} corrupt-detected=${driftOnCorrupt} narrative-preserved=${narrativeKept} buildcoupled-ratchet=${ratchetOk} => ${ok ? 'PASS (drift-check + ratchet non-vacuous, narrative safe)' : 'FAIL'}`);
+  // ── META-BITE (Tron order #1): a credit that lands WITHOUT the board moving must be IMPOSSIBLE-to-hide. Simulate
+  // units ADVANCING (a credit — one task reaches Done) while the board still shows the PRE-credit region; the check
+  // (what the hook + ci:gates run) MUST go RED. This is the by-construction proof: credit ⇒ board-moves, and a stale
+  // board after a credit is CAUGHT, not silently accepted. A hook/check that cannot fail here certifies nothing.
+  const afterCredit: Measure = { ...d0, totals: { ...d0.totals, done: d0.totals.done + 1, remaining: Math.max(0, d0.totals.remaining - 1) } };
+  const preCreditBoard = replaceRegion(wrap('placeholder'), buildRegion(d0));       // board reflects PRE-credit units
+  const creditWithoutRegenCaught = preCreditBoard !== null
+    && replaceRegion(preCreditBoard, buildRegion(afterCredit)) !== preCreditBoard;  // post-credit regen ≠ stale board ⇒ RED
+  const ok = idempotentClean && driftOnCorrupt && narrativeKept && ratchetOk && creditWithoutRegenCaught;
+  console.log(`bite: idempotent-clean=${idempotentClean} corrupt-detected=${driftOnCorrupt} narrative-preserved=${narrativeKept} buildcoupled-ratchet=${ratchetOk} credit-without-regen-CAUGHT=${creditWithoutRegenCaught} => ${ok ? 'PASS (drift+ratchet+credit-meta-bite non-vacuous, narrative safe)' : 'FAIL'}`);
   process.exit(ok ? 0 : 1);
 }
 
