@@ -9,6 +9,39 @@
 
 **★ S40.requirements[] AUDIT (2026-08-11, commit 84590a66c):** the list was partial — **15 parent==S40 Requirements were missing** (R40.16–R40.30, all Backlog, invisible on the board), not just R40.30 as first believed. Added all 15 → requirements[]=31 (== parent-count). A partial requirements[] under-reports scope and every count on it inherits the error; now complete.
 
+<!-- GENERATED-INDEX:BEGIN -->
+<!-- do not edit between these markers — regen: npm run regen:board (auto-staged by the pre-commit hook) -->
+
+### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
+
+- **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **40** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 5** (145 = 97+40+3+5)
+
+| Sprint | total | Done | QA-Review | superseded | remaining<QA |
+|--------|-------|------|-----------|------------|--------------|
+| S30 | 55 | 36 | 15 | 3 | 1 |
+| S31 | 21 | 19 | 1 | 0 | 1 |
+| S32 | 13 | 11 | 1 | 0 | 1 |
+| S33 | 15 | 15 | 0 | 0 | 0 |
+| S34 | 7 | 7 | 0 | 0 | 0 |
+| S35 | 4 | 4 | 0 | 0 | 0 |
+| S36 | 5 | 5 | 0 | 0 | 0 |
+| S37 | 11 | 0 | 10 | 0 | 1 |
+| S40 | 14 | 0 | 13 | 0 | 1 |
+
+**REMAINING by blocker:** RIPE-SHARED 1 · marker 1 · build 3
+
+| sprint | task | status | blocker | device | name |
+|--------|------|--------|---------|--------|------|
+| S30 | 06623fea | Planned | build |  | Task 30.44: Add a repository by clone URL + checkout locatio |
+| S31 | 6be9a92d | Planned | build |  | Task 31.6: Shared pan/zoom viewer capability for EVERY embed |
+| S32 | 03f5d536 | Planned | marker |  | T-R31.14: Deploy-hardening — scripted deploy + served!=commi |
+| S37 | 79fd2164 | Planned | RIPE-SHARED |  | Task 37.4: Objects self-heal (validate on init/read, never r |
+| S40 | 6e3cc1b2 | Planned | build |  | Task 40.11: deploymentRefs are scenario-first units with def |
+
+_Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **0** entries (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map). Gate results reach this board ONLY via Test-unit.status._
+
+<!-- GENERATED-INDEX:END -->
+
 ## Headline
 - **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **40** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 5** (145 = 97+40+3+5)
   - _★ 2026-08-12: T37.4.1 + T37.4.3 flipped into QA-Review (38→40, both verify-owner-first clean on own distinct facets — R37.16 honored, all 3 C4 siblings own-Tested); BELOW-QA 7→5 = ACTIONABLE 1 (T40.11 alone, expert-frozen) + 2 deferred + 2 excluded._
