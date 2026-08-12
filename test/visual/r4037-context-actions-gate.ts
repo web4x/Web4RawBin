@@ -14,7 +14,9 @@ g.HTMLElement = g.HTMLElement || class {};
 g.customElements = g.customElements || { define() {}, get() { return undefined; }, whenDefined() { return Promise.resolve(); } };
 g.document = g.document || { createElement: () => ({ style: {}, setAttribute() {}, addEventListener() {}, appendChild() {}, querySelector: () => null }), addEventListener() {}, querySelector: () => null, querySelectorAll: () => [] };
 g.window = g.window || g;
-const { applicableActionsFor, UNIVERSAL_DECLS } = await import('../../src/public/ts/trace/universal-actions.ts');
+// R40.37 inc-1 (5925bc7e1) separated the engine from the decls: applicableActionsFor now lives in action-applicability.ts;
+// universal-actions.ts only SUPPLIES UNIVERSAL_DECLS. Import each from its real home (re-pointed after inc-1 shipped).
+const { applicableActionsFor, UNIVERSAL_DECLS } = await import('../../src/public/ts/trace/action-applicability.ts');
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const results: Record<string, boolean> = {};
@@ -47,16 +49,17 @@ results['stub-must-fail@check'] = approveAbsentOnDone(UNIVERSAL_DECLS) === true 
 // ── (C2) APPROVE_STATUSES imported-NOT-duplicated (anti-drift, one source, two importers) ──
 const scan = (rel: string) => fs.readFileSync(path.join(ROOT, rel), 'utf-8');
 const defRe = /export\s+const\s+APPROVE_STATUSES/g;
-const allDefs = ['src/ts/scenario/task-status-constants.ts', 'src/ts/scenario/task-status.ts', 'src/ts/server/server.ts', 'src/public/ts/trace/universal-actions.ts']
+const allDefs = ['src/ts/scenario/task-status-constants.ts', 'src/ts/scenario/task-status.ts', 'src/ts/server/server.ts', 'src/public/ts/trace/universal-actions.ts', 'src/public/ts/trace/action-applicability.ts']
   .reduce((n, f) => n + (scan(f).match(defRe)?.length || 0), 0);
-const clientImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scan('src/public/ts/trace/universal-actions.ts'));
+// R40.37 inc-1: the client affordance importer moved universal-actions.ts → action-applicability.ts (where the decls now live)
+const clientImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scan('src/public/ts/trace/action-applicability.ts'));
 const serverImports = /import\s*\{[^}]*APPROVE_STATUSES[^}]*\}/.test(scan('src/ts/server/server.ts'));
 results['APPROVE_STATUSES single-source'] = allDefs === 1 && clientImports && serverImports
   && APPROVE_STATUSES.length === 1 && APPROVE_STATUSES[0] === 'QA Review';
 
 // ── (C3) rollback-actually-rolls-back (folder.createPhysicalWithUnit 0c58eb53) — PENDING the expert build ──
-const folderCreateBuilt = /createPhysicalWithUnit/.test(scan('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
-if (!folderCreateBuilt) pending.push('rollback-actually-rolls-back: folder.createPhysicalWithUnit (0c58eb53) NOT built yet — on ship: force unit-put to throw → assert the physical dir was rmdir\'d (no orphan)');
+const folderCreateBuilt = /mintRealUnit|createPhysicalWithUnit/.test(scan('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
+if (!folderCreateBuilt) pending.push('rollback-actually-rolls-back: folder.mintRealUnit (UC2 0c58eb53, architect final verb) NOT built yet — on ship: force unit-put to throw → assert the physical dir was rmdir\'d (no orphan)');
 // Also flag the container-action DECL migration (model.ts still per-context arrays, not ActionDecl+appliesTo):
 if (!/appliesTo/.test(scan('src/public/ts/model/model.ts'))) pending.push('container-action decl migration: model.ts add-diagram/add-folder/import-puml still per-context arrays (not ActionDecl+appliesTo) — on migration, import the REAL container decls and assert AC-DIAGRAMS-SPECIAL + AC-NO-CONTAINER-ON-TASK against them (§B currently proves the ENGINE, not the real decls)');
 
