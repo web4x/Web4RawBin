@@ -22,6 +22,8 @@ export async function resolveRefUnit(rawRef: string, _opts?: { originHost?: stri
   // `collection:rawbin:diagram`, `collection:dir:src/…`). The meaningful ref is the inner synthetic ref → strip the
   // redundant outer `collection:` when the remainder is ITSELF synthetic. A GENUINE room collection (`collection:members-
   // <uuid>` / `collection:files-<uuid>`) has a non-synthetic remainder → left untouched (its own branch handles it).
+  // ★ KNOWN-COMPENSATED (architect 0.3): mofFolder's type='collection' default is compensated HERE at the resolver (the
+  // single ref-interpretation point), NOT fixed at source — a future tree cleanup could have mofFolder emit the real type; not now.
   if (ref.startsWith('collection:') && isSyntheticRef(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
   const iorPath = isSyntheticRef(ref)
     ? `/api/ior/${encodeURIComponent(ref)}`                    // FULL raw ref → ensureViewUnit lazy-mint (the nav-path way)
