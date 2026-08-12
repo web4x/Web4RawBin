@@ -16,3 +16,8 @@ data/token-storage-map.json
 test/visual/*.png
 package-lock.json
 data/users-staging/
+# gate RUN-OUTPUT, not baselines (tester classified: every ref is a WRITE — screenshot/mkdir/writeFileSync;
+# case-r3013 PNGs + profile-reference-390.png are gate-WRITTEN output; r4019/STAMP.json is ad-hoc). Untrack;
+# durable gate/freshness records belong in a scenario UNIT (record-gates), not committed JSON. Files stay on disk.
+test-results/
+data/logs/
