@@ -42,7 +42,10 @@ function evidence(t){
 
 // device-action AC detector (bucket 3 of the verdict-surface): a task whose ACs need Tron's DEVICE/pixel act
 // (@390 tap/render), a distinct act from approving. Measured from the task's own AC/remaining text — NOT a 2nd list.
-const DEVICE=/device-only|iOS|never.?headless|Tron device|@390|AC-5-DEVICE|real.?webkit|pixel|tap.?fires?|drawer renders/i;
+// Device-AC convention (generalized so a NEW device AC is caught by construction, not by luck): any AC-<n>-DEVICE,
+// TRON-ONLY / Tron device, @390, iOS/real-webkit, tap/pixel/drawer-render. R40.18 BITE-7 (@390 no-refresh, Tron-only)
+// must land here, NOT silently READY. 'no device'/'headless' deliberately NOT matched (those are the non-device path).
+const DEVICE=/device-only|iOS|never.?headless|tron[ -]?(device|only)|@390|AC-\d+-DEVICE|real.?webkit|pixel|tap.?fires?|drawer renders/i;
 const needsDevice=t=>DEVICE.test(t.m.acceptanceCriteria||'')||DEVICE.test(t.m.remainingIssues||'')||DEVICE.test(t.m.description||'');
 
 const qa=[...byU.values()].filter(x=>x.ior==='ior:class:Task'&&sprintOf(x)&&der(x.m.statusChecklist)==='QA Review');
