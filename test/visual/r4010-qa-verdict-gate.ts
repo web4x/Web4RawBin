@@ -19,7 +19,9 @@ const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
 const SCRATCH = path.join('/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-b1a2-4ce7-8a87-6a8cac45eff4/scratchpad', 'r4010-idx', 'index');
 const OWNER8 = 'ce981242';
 
-// verbatim replica of server.ts:1454-1477 (the REAL verdict logic — source-audited below to prove it matches)
+// replica of the RUNNING server's (BASELINE) approve logic — what Tron taps NOW (deploy-frozen). HEAD's C4.3 DELEGATED
+// contract (approveByOwner→statusNext, NEVER direct Done, 409-on-no-evidence) is symbol-anchored source-audited below;
+// the delegated BEHAVIOR gets its mandatory LIVE re-gate post-restart per the C4.3 deploy sequence (expert-flagged).
 // [test:uuid:d94b17e0-3f8a-4c62-9b15-6e0a2d7f4c83] R40.10 TaskQaVerdict.approveByOwner (Impl 36b6ce2e) — owner-gated QA sign-off: owner→200 writes approvedBy+approvedAt+Done, non-owner→403, non-'QA Review'→409 evidence-precondition, decline→ChangeRequest; + STUB-MUST-FAIL (approveStub missing the check flips a non-reviewed task = the assertion is able to fail). This gate's OWN intent = the server verdict logic. r4010b covers the DISTINCT @390 UI-surface facet (flagged to PO: deserves its own marker/Test).
 const approveByOwner = (idx: any, taskUuid: string, tok8: string, now: string) => {
   const unit = idx.get(taskUuid);
@@ -56,7 +58,11 @@ const clientVerdictUI = () => {
 const auditServer = () => {
   // ★ read HEAD (== committed == served), NOT the shared working tree — a peer's uncommitted refactor-WIP can diverge it
   const s = execSync('git show HEAD:src/ts/server/server.ts', { cwd: REPO, encoding: 'utf8', maxBuffer: 1e8 });
-  return /status !== 'QA Review'/.test(s) && /code: 409/.test(s) && /approvedBy = ownerTok8/.test(s) && /m\.status = 'Done'/.test(s) && /ior:class:ChangeRequest/.test(s);
+  // SYMBOL-ANCHORED (not line-pinned — guard-family lesson): slice the approveByOwner fn body and assert the C4.3 DELEGATED
+  // contract — records approvedBy as evidence, DELEGATES the Done-advance to statusNext, NEVER sets status directly
+  // (single-Done-writer), surfaces 409 when the controller refuses (evidence unmet); + decline still mints a ChangeRequest.
+  const fn = s.slice(s.indexOf('function approveByOwner'), s.indexOf('function declineToChangeRequest'));
+  return /approvedBy = ownerTok8/.test(fn) && /statusNext\(idx, taskUuid, \{ target: 'Done'/.test(fn) && !/m\.status = 'Done'/.test(fn) && /code: 409/.test(fn) && /ior:class:ChangeRequest/.test(s);
 };
 
 const REAL_QA_TASK = '92bdca8b-6c08-459d-a540-98073b80c020';
