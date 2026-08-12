@@ -56,7 +56,10 @@ function runChecks() {
   c.drift_emptyRefused = empty.length > 0 && empty[0].ok === false && /scenario-index/.test(empty[0].reason || '');
   const pinDrift = consistencyStrict(mkIndex([sprint('s1', 1, ['t1']), task('t1', 'Done')])); // Closed only → no Active → pin.current null
   c.drift_pinCaught = pinDrift.some((r) => r.ok === false && /sprint-pin/.test(r.reason || ''));
-  const cleanIdx = mkIndex([sprint('s2', 2, ['t2']), task('t2', 'In Progress')]);              // one Active → pin.current present
+  // guard (b) real-artifact + CURRENT-ERA: sprint 2 is FROZEN LEGACY (num ≤ FROZEN_LEGACY_MAX=18) → excluded from the pin
+  // universe → current null (my earlier 'no real dir' read was wrong — sprintSlugOf resolves 2→sprint-02; the exclusion is the era boundary).
+  // Use a CURRENT-ERA real on-disk sprint (37) so 'one Active → current present' actually exercises the pin logic.
+  const cleanIdx = mkIndex([sprint('s37', 37, ['t2']), task('t2', 'In Progress')]);            // one CURRENT-ERA Active → pin.current present
   c.drift_cleanPinOk = refuseIfVacuous(resolveSprintPin(cleanIdx).current, { name: 'pin', expect: 'present' }).ok === true;
 
   return c;
