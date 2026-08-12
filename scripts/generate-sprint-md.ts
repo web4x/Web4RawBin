@@ -260,6 +260,20 @@ function generateAll(sprintUuids: string[], units: Map<string, ScenarioUnit>): v
 
 interface CheckResult { sprintSlug: string; missing: string[]; extra: string[]; mismatched: string[]; ok: boolean; }
 
+// [DRIFT-SCOPE PREDICATE — PO ruling 2026-08-12, single-source with the write-guard]
+// The write-guard (guardedWrite) PRESERVES a file that exists on disk WITHOUT GENERATED_HEADER_PREFIX (hand-authored,
+// e.g. the S21-29 legacy requirements.md, Tron-era 169da7... ) — it NEVER writes it. A checker that flags a file the
+// writer refuses to touch is a gate that can NEVER go green without breaking the write-guard = a bug, unfixable by
+// design. So the checker drift-compares ONLY owned-output: a file that is MISSING (would be created) or on-disk
+// carries GENERATED_HEADER_PREFIX. Hand-authored (exists, headerless) is OUT OF SCOPE — tracked as NAMED DEBT
+// (backlog.md, R37.7 C7 legacy->generated migration, units-completeness-proof-first). SAME GENERATED_HEADER_PREFIX
+// predicate the write-guard uses (via the onDiskGenerated set) — NOT a 2nd sprint list (two lists would drift).
+// NON-BLINDING: a GENERATED (headered) file is still fully compared -> real drift still RED (proven by --bite).
+export function driftScope(existsOnDisk: boolean, isOnDiskGenerated: boolean): 'missing' | 'skip-handauthored' | 'compare' {
+  if (!existsOnDisk) return 'missing';
+  return isOnDiskGenerated ? 'compare' : 'skip-handauthored';
+}
+
 function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): CheckResult {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) return { sprintSlug: sprintUuid, missing: [], extra: [], mismatched: [], ok: false };
@@ -280,12 +294,14 @@ function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): Chec
     }
   }
 
-  // Compare each generated file against on-disk
+  // Compare each generated file against on-disk — scoped by driftScope (single-source with the write-guard).
   const expectedNames = [...out.files.keys()].sort();
   for (const name of expectedNames) {
-    const expected = out.files.get(name)!;
     const fp = path.join(sprintDir, name);
-    if (!fs.existsSync(fp)) { result.missing.push(name); result.ok = false; continue; }
+    const scope = driftScope(fs.existsSync(fp), onDiskGenerated.has(name));
+    if (scope === 'missing') { result.missing.push(name); result.ok = false; continue; }
+    if (scope === 'skip-handauthored') continue; // hand-authored (headerless): write-preserved, out of drift-check scope (NAMED DEBT: backlog R37.7)
+    const expected = out.files.get(name)!;
     const onDisk = normalize(fs.readFileSync(fp, 'utf-8'));
     if (onDisk !== expected) {
       result.mismatched.push(name);
@@ -306,6 +322,30 @@ function reportCheck(r: CheckResult): void {
   for (const f of r.missing) console.log(`    missing:    ${f}`);
   for (const f of r.extra) console.log(`    extra:      ${f}`);
   for (const f of r.mismatched) console.log(`    mismatched: ${f}`);
+}
+
+// [META-BITE — PO condition 2, 2026-08-12] Prove the driftScope exclusion did NOT blind the check: a GENERATED
+// (headered) requirements.md with planted drift MUST still be COMPARED (-> RED); ONLY a hand-authored (headerless)
+// file is skipped; an ABSENT expected file is flagged missing. A check that cannot fail certifies nothing. Run:
+// `generate-sprint-md.ts --check --bite`. Weakening driftScope (e.g. skip-everything) -> these go RED.
+function runCheckScopeBite(): void {
+  const asserts: { ok: boolean; msg: string }[] = [];
+  const A = (ok: boolean, msg: string) => asserts.push({ ok, msg });
+  // (1) EXCLUSION: a hand-authored (headerless, not owned-output) file is SKIPPED — the S21-29 legacy requirements.md case.
+  A(driftScope(true, false) === 'skip-handauthored', 'EXCLUSION: hand-authored (headerless) file SKIPPED (write-preserved, out of scope)');
+  // (2) NON-BLINDING scope: a GENERATED (headered) requirements.md is COMPARED, never skipped.
+  A(driftScope(true, true) === 'compare', 'NON-BLINDING: GENERATED (headered) requirements.md is COMPARED, not skipped');
+  // (2b) NON-BLINDING content: PLANT real drift in a GENERATED requirements.md -> compared + differs -> mismatch (RED).
+  const genExpected = GENERATED_HEADER + '\n# Sprint 99 — Requirements\n- R99.1 controller';
+  const genDrifted = genExpected.replace('controller', 'DRIFTED-controller');
+  A(driftScope(true, true) === 'compare' && normalize(genDrifted) !== normalize(genExpected),
+    'NON-BLINDING: planted drift in a GENERATED requirements.md -> mismatch (RED) — exclusion did NOT blind the check');
+  // (3) MISSING: an expected owned-output file that is ABSENT is flagged missing (never silently skipped).
+  A(driftScope(false, false) === 'missing', 'MISSING: an absent expected file is flagged (never silently skipped)');
+  const failed = asserts.filter(a => !a.ok);
+  for (const a of asserts) console.log(`  ${a.ok ? '✓' : '✗ FAIL'} ${a.msg}`);
+  if (failed.length) { console.log(`\n✗ check-scope bite: ${failed.length}/${asserts.length} FAILED — driftScope predicate is WRONG`); process.exit(1); }
+  console.log(`\n✓ check-scope bite: ${asserts.length}/${asserts.length} — exclusion single-sourced to GENERATED_HEADER_PREFIX (hand-authored skipped) + GENERATED-file drift still RED (non-vacuous, not blinded)`);
 }
 
 interface PruneResult { sprintSlug: string; pruned: string[]; kept: number; }
@@ -362,8 +402,11 @@ const args = process.argv.slice(2);
 const isCheck = args.includes('--check');
 const isPrune = args.includes('--prune');
 const isDryRun = args.includes('--dry-run');
-const filtered = args.filter(a => a !== '--check' && a !== '--prune' && a !== '--dry-run');
+const isBite = args.includes('--bite');
+const filtered = args.filter(a => a !== '--check' && a !== '--prune' && a !== '--dry-run' && a !== '--bite');
 const cmd = filtered[0];
+
+if (isBite) { runCheckScopeBite(); process.exit(0); } // meta-bite: prove the driftScope exclusion did not blind the check
 
 if (cmd === '--list') {
   const units = allUnits();
