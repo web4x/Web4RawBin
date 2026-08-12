@@ -23,6 +23,7 @@ function walk(d: string, out: string[] = []): string[] {
 const fail: string[] = [];
 const check = (cond: boolean, msg: string) => { if (!cond) fail.push(msg); };
 
+// [test:uuid:3b8f21c6-9d47-4e0a-a1f5-72c604e9d8b3] T37.4.3 / R37.11 C4.3 — MvcBoundaryGuard.assertControllerDominates (Impl a5c570c9) SINGLE-Done-writer DOMINANCE: NO code sets a Task Done outside the ONE controller (grep-provable unique writer, INV-C4-8, save the frozen legacy allowlist) + approveByOwner DELEGATES to statusNext (no direct Done-set) + STUB-MUST-FAIL (plant a direct Done-write → detectDoneWrites flags it RED; a sanctioned deriveStatusEnum write is NOT flagged). DISTINCT intent from T37.4.2's a7f3c1e8 (UnitController.apply b5f72641 = the validate→apply→persist→emit pipeline) — this asserts the single-Done-WRITER property. Family: under-recorded-progress / silent-drift (two-writers variant).
 // PROPERTY: no direct Done-write outside the controller (save the legacy allowlist).
 const files = walk(SRC).map((f) => ({ file: path.relative(ROOT, f), source: fs.readFileSync(f, 'utf-8') }));
 const violations = MvcBoundaryGuard.assertControllerDominates(files);
