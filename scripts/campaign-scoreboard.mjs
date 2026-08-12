@@ -7,6 +7,44 @@ const R = '/var/dev/Workspaces/web4x/Web4RawBin';
 const IDX = path.join(R, 'scenario/index');
 const bare = s => String(s ?? '').replace('ior:instance:', '');
 const ORDER = ['Planned', 'In Progress', 'QA Review', 'Done'];
+
+// ── RIPE-SHARED GUARD (by-construction, 2026-08-12, PO-endorsed) ─────────────────────────────
+// A task whose coveredRequirement is SHARED by sibling tasks must NEVER be auto-RIPE: a sibling's
+// two-keyed passing Test on the shared req->chain would FALSELY credit it (T37.4.2 + T37.4.3 both
+// cover R37.11; Test a7f3c1e8 passed for 4.2's UnitController.apply, but 4.3's OWN dominance-lint
+// facet is RED). Downgrade to 'RIPE-SHARED' = manual verify-owner-first required; never flip-ready.
+// Kills the borrowed-credit-from-the-board class STRUCTURALLY, not by vigilance.
+const buildReqToTasks = taskList => {
+  const m = new Map();
+  for (const t of taskList) for (const r of (t.m.coveredRequirements || [])) {
+    const k = bare(r); if (!m.has(k)) m.set(k, new Set()); m.get(k).add(t.m.uuid);
+  }
+  return m;
+};
+const sharesReqWithSibling = (t, reqToTasks) => (t.m.coveredRequirements || []).some(r => (reqToTasks.get(bare(r)) || new Set()).size > 1);
+// pure ripe-gap decision (bite-testable): covered + sibling-shared => RIPE-SHARED (not flip-ready); covered + own => RIPE.
+const ripeGap = (coveredByTest, sharesSibling) => coveredByTest ? (sharesSibling ? 'RIPE-SHARED' : 'RIPE') : null;
+
+// stub-must-fail bite: `node campaign-scoreboard.mjs --bite` — proves a sibling's Test does NOT mark a task ripe.
+if (process.argv.includes('--bite')) {
+  let failed = 0;
+  const A = (cond, msg) => { if (!cond) { console.error('  BITE FAIL:', msg); failed++; } else console.log('  bite ok:', msg); };
+  const synth = [
+    { m: { uuid: 'taskA', coveredRequirements: ['ior:instance:reqR'] } },   // shares reqR
+    { m: { uuid: 'taskB', coveredRequirements: ['ior:instance:reqR'] } },   // sibling on reqR
+    { m: { uuid: 'taskSolo', coveredRequirements: ['ior:instance:reqS'] } },// own req
+  ];
+  const r2t = buildReqToTasks(synth);
+  A(sharesReqWithSibling(synth[0], r2t) === true, 'shared-req task => sharesReqWithSibling TRUE');
+  A(sharesReqWithSibling(synth[2], r2t) === false, 'solo-req task => sharesReqWithSibling FALSE');
+  A(ripeGap(true, true) === 'RIPE-SHARED', 'covered + SHARED => RIPE-SHARED (a sibling Test must NOT mark it ripe)');
+  A(ripeGap(true, false) === 'RIPE', 'covered + OWN => RIPE');
+  A(ripeGap(false, true) === null, 'not-covered => not ripe at all');
+  const weakened = cbt => cbt ? 'RIPE' : null; // guard that ignores sharing
+  A(weakened(true) === 'RIPE' && weakened(true) !== ripeGap(true, true), 'WEAKEN-PROOF: dropping the share-check regresses shared->RIPE (bite catches it)');
+  console.log(failed ? `BITE: ${failed} FAILED` : 'BITE: all pass (guard non-vacuous)');
+  process.exit(failed ? 1 : 0);
+}
 // full sprint uuids (prefix-match on parent walk)
 // S30++ = EVERY sprint from S30 onward (33-36 were omitted in the first cut — scope bug, fixed 2026-08-12).
 const SPRINTS = { '2173e549': 'S30', '3c05f411': 'S31', '332585f3': 'S32', '1a1de78b': 'S33', 'bbf0ac5f': 'S34', '476d367f': 'S35', 'ce1d8d57': 'S36', 'b86b53cc': 'S37', '8e8b32d6': 'S40' };
@@ -78,6 +116,8 @@ const DEVICE = /device-only|iOS|never.?headless|Tron device|@390 Tron|Tron-real/
 const EXCLUDERE = /superseded|deprecated|placeholder|abandoned/i;
 
 const tasks = [...byUuid.values()].filter(x => x.ior === 'ior:class:Task' && sprintOf(x));
+// reqToTasks from ALL task units (a sibling sharing a req may be in any sprint) — feeds the RIPE-SHARED guard.
+const reqToTasks = buildReqToTasks([...byUuid.values()].filter(x => x.ior === 'ior:class:Task'));
 const rows = [];
 for (const t of tasks) {
   const sp = sprintOf(t);
@@ -90,7 +130,7 @@ for (const t of tasks) {
   else if (coversNextPhase(t)) gap = 'NEXT-PHASE';   // campaign-scope boundary — minted-during-campaign hardening, outside the finish-count
   else if (derived === 'Done' || derived === 'QA Review') gap = derived === 'Done' ? 'DONE' : 'QA-REVIEW';
   else if (BUILD_COUPLED.has(t.m.uuid)) gap = 'build-coupled'; // measured override — fictional-marker avoided; flip rides another task's build (still REMAINING)
-  else if (ci.coveredByTest) gap = 'RIPE';           // chain-complete-to-Test, board-lag -> flip-ready
+  else if (ci.coveredByTest) gap = ripeGap(ci.coveredByTest, sharesReqWithSibling(t, reqToTasks)); // RIPE, or RIPE-SHARED if a sibling task shares the req (guard: never auto-ripe on a sibling's Test)
   else if (ci.shippedImpl) gap = ci.anyTestWired ? 'two-key' : 'gate';
   else if (ci.anyImpl) gap = 'marker';
   else gap = 'build';
@@ -113,10 +153,12 @@ for (const sp of ['S30', 'S31', 'S32', 'S33', 'S34', 'S35', 'S36', 'S37', 'S40']
   console.log(`${sp}: total ${a.length} | Done ${a.filter(r => r.gap === 'DONE').length} | QA ${a.filter(r => r.gap === 'QA-REVIEW').length} | superseded ${a.filter(r => r.gap === 'SUPERSEDED').length} | remaining ${a.filter(r => !TERMINAL.has(r.gap)).length}`);
 }
 console.log('\n-- REMAINING by what it needs --');
-console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'), '| build-coupled:', count(remaining, 'build-coupled'));
+console.log('RIPE(flip-ready):', count(remaining, 'RIPE'), '| RIPE-SHARED(verify-owner-first, NOT flip-ready):', count(remaining, 'RIPE-SHARED'), '| two-key:', count(remaining, 'two-key'), '| gate:', count(remaining, 'gate'), '| marker:', count(remaining, 'marker'), '| build:', count(remaining, 'build'), '| build-coupled:', count(remaining, 'build-coupled'));
 console.log('device-blocked (subset overlay):', remaining.filter(r => r.device).length);
 console.log('\n-- RIPE (closest to QA-Review, flip-ready) --');
 for (const r of remaining.filter(r => r.gap === 'RIPE')) console.log(`  ${r.sp} ${r.uuid} [${r.derived}${r.drift ? ' drift:' + r.drift : ''}] ${r.name}`);
+console.log('\n-- RIPE-SHARED (NOT flip-ready — shares a requirement with a sibling task, so a sibling Test falsely credits it; verify-owner-first REQUIRED before any flip) --');
+for (const r of remaining.filter(r => r.gap === 'RIPE-SHARED')) console.log(`  ${r.sp} ${r.uuid} [${r.derived}] ${r.name}`);
 console.log('\n-- two-key (next-closest) --');
 for (const r of remaining.filter(r => r.gap === 'two-key')) console.log(`  ${r.sp} ${r.uuid} [${r.derived}] ${r.name}`);
 console.log('\n-- ALL 13 REMAINING (sprint uuid [status] gap device? : name) --');
