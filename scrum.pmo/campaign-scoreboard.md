@@ -12,6 +12,17 @@
 ## Headline
 - **TOTAL S30++ tasks: 114** — Done **66** · QA-Review **36** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 9**
   - _Refreshed 2026-08-11 (re-run `node scripts/campaign-scoreboard.mjs`): T40.5 `a10c3329` (own chain corrected-at-source, quad-verified) + 1 more advanced QA-Review 34→36 / REMAINING 11→9. The script is the authoritative live list; the detail sections below may lag by ≤2 until re-transcribed._
+
+## ★ REMAINING 9 — BY BLOCKER TYPE (measured from units + src, 2026-08-11)
+Purpose: decide what is drivable NOW vs frozen on the walled minter / rewinding tester. Measured each chain (Impls minted? markerPending?) + src (code exists?).
+- **(a) REQ-MINT-GATED** (needs the single minter — req WALLED/rewinding → FROZEN): **T37.4.1 `236918e9`** — `src/ts/scenario/self-heal.ts` CODE-DONE (30-line registry+`selfHealOnRead`) but NO `[impl]` marker/chain-unit yet → needs marker + req chain-mint. **CLOSEST (code done, lands in ONE mint pass — protect req context).**
+- **(b) TRON-GATED to reach QA-Review**: NONE (Tron gates Done, not QA; the 36 at QA-Review are his). Deferred-backlog below are Tron-SCHEDULING-gated.
+- **(c) BUILD-GATED (codeable NOW — expert, no minter needed):** **T40.11 `6e3cc1b2`** (no Impl/code; deploymentRefs scenario-first + `buildTypedModel` first slice, LARGE) — **CLOSEST + the ONLY genuinely drive-now item; its buildTypedModel slice ALSO unblocks T40.6.** · T40.6 `95d74272` = BUILD-COUPLED on T40.11 (Impl e009ace7 mp=false but buildTypedModel≈0 real src = thin/coupling; rides T40.11).
+- **(d) GATE-GATED (built + marked, needs a gate run — tester mid-rewind):** T37.4.2 `fe6b4379` + T37.4.3 `1b8ebc9a` — 7 Impls markerPending=FALSE (UnitController.apply/emit, TaskPolicy.*, MvcBoundaryGuard; `task-policy.ts` shipped) = code done+marked; need tester gate + req Test-mint. **CLOSEST: T37.4.2 (policy#1 core).** Blocked on tester (rewinding).
+- **(e) EXCLUDE:** T31.6 `6be9a92d` (concept-only, Tron 2026-07-20 do-not-implement) · T37.4 `79fd2164` (coordination ROOT, rolls up via subtasks).
+- **Deferred-backlog (Tron-scheduled later, not active debt):** T30.44 `06623fea` (security, re-activate before multi-user) · T-R31.14 `03f5d536` (deploy-hardening after go-live; 3 Impls markerPending=true = req-mint when activated).
+
+**STRATEGIC READ (confirms the expert):** the active tail is **req-mint-gated (T37.4.1) + gate-gated-tester (T37.4.2/4.3)** — both frozen on rewinding roles — PLUS exactly ONE genuinely build-gated item **T40.11** (drive NOW, unblocks T40.6). Don't manufacture busywork; drive T40.11, protect req's context so T37.4.1 + the C4 Test-mints land in one pass.
 - At QA-Review NOW, awaiting only Tron's verdict: **34**
 - **2026-08-11 deltas:** +**T40.17** `50f51ac1` (credited-but-taskless live-pin, req-minted, entered directly at QA-Review — real work made visible, TOTAL 113→114 / QA 33→34) · the **15 S30/S32 gate re-certs** at 0.8.90 (r3035/3036/3037×2/3038/3052b/325/3041/3042/3043×2/3045/3046/3050/3052) = all 12 covering tasks (T30.35/36/37/38/39/42/43/45/46/50/52 + T32.5) were ALREADY at QA-Review = **anti-regression re-certification only, NO campaign movement** (no honest flip to claim). R30.49 skipped (still-holding). ⚠ NOT moved backward without evidence: r311/R31.1 RED = architect-diagnosed supersede-vs-regression (S31's 1 remaining, verdict pending); 5 stale-gate-suspected + r309 NOT-RUN=RED are unconfirmed, not product regressions.
 
