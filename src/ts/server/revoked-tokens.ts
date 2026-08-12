@@ -15,6 +15,14 @@
 
 import fsSync from 'node:fs';
 import crypto from 'node:crypto';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// R37.18 SINGLE SOURCE of the revoked-list path — the ONE committed location, resolved relative to THIS
+// module so the runtime (server.ts) and the CI gate (check-revoked-tokens.ts) CANNOT diverge. That very
+// divergence (server loaded data/revoked-tokens.json [absent] while the list lived here at repo-root) was
+// the fail-open bug; both now import this constant, so a third path or a copy step is impossible.
+export const REVOKED_LIST_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../revoked-token-hashes.json');
 
 // R40.22 step-3 (A) — the stored list holds SALTED HASHES, never raw tokens (architect f1ab00e21 / PO
 // ruling). A fixed-salt SHA-256 of a 128-bit-entropy UUID token CANNOT authenticate and is not
@@ -84,6 +92,20 @@ export function loadRevokedTokens(pathStr: string): Set<string> {
     for (const h of list) if (typeof h === 'string' && h.trim()) set.add(h.trim());
   } catch { /* fail-open */ }
   return set;
+}
+
+// (b) PRESENCE-AWARE load — distinguishes an ABSENT/UNREADABLE list from a legitimately-EMPTY one. This is
+// the fix for the exact bug: loaded-0-because-absent looked identical to no-revocations-exist. `present` is
+// false only when the file is missing or unparseable; an empty-but-valid file is present:true, tokens:∅.
+export function loadRevokedListStatus(pathStr: string): { tokens: Set<string>; present: boolean } {
+  if (!fsSync.existsSync(pathStr)) return { tokens: new Set(), present: false };
+  try {
+    const data = JSON.parse(fsSync.readFileSync(pathStr, 'utf-8'));
+    const list: unknown[] = Array.isArray(data) ? data : (data && Array.isArray(data.revoked) ? data.revoked : []);
+    const tokens = new Set<string>();
+    for (const h of list) if (typeof h === 'string' && h.trim()) tokens.add(h.trim());
+    return { tokens, present: true };
+  } catch { return { tokens: new Set(), present: false }; } // unreadable/corrupt = NOT present (loud when armed)
 }
 
 // The auth decision at IDENTIFY. Hashes the presented token and checks the HASH set. Fail-open for every

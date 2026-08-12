@@ -18,10 +18,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../src/ts/scenario/index.js';
 import { ServerManagerGuard } from '../src/ts/server/ServerManagerGuard.js';
-import { computeRevocationScope, EXPECTED_REVOKED_COUNT, REVOKED_ARMED, hashToken } from '../src/ts/server/revoked-tokens.js';
+import { computeRevocationScope, EXPECTED_REVOKED_COUNT, REVOKED_ARMED, hashToken, REVOKED_LIST_PATH } from '../src/ts/server/revoked-tokens.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const HASH_LIST = path.join(ROOT, 'revoked-token-hashes.json');
+const HASH_LIST = REVOKED_LIST_PATH; // R40.22 path-unify (a): the ONE source, shared with the runtime — no divergence possible
 
 // (C) ALLOWLIST HYGIENE — the ONE tracked file permitted to hold token-DERIVED (hashed) data. The
 // trace-pii-guard credential sweep is report-only and scenario-scoped (scans scenario/**/*.scenario.json),
