@@ -1,0 +1,60 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "82b25dbe-1924-49c3-893b-f472e60f557b",
+  "name": "Browser gates positively self-assert served==committed (SW-cache gate debt)",
+  "altId": "R40.32",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "16 browser gates navigate LIVE prod but do NOT positively self-assert served==committed (no served-hash / /api/config version check) — they RELY on the network-first service-worker backstop rather than proving the deploy themselves. NOT a false-green (sw.js is network-first for navigations/shell/dist, cache-first only for immutable hashed static; proven live r3014-network-first-gate GREEN DET-3x @0.8.91) — a lower-grade 'doesn't self-prove the deploy' debt. Remediation (cheap, when-touched, NOT a last-mile campaign): add the served==committed guard (/api/config {cache:no-store} + served bundle-hash, the r3014/r403b pattern) or neutralise the SW, each time a gate is next re-run for its own reason. Full 16-gate list + risk-rank durable at scrum.pmo/sw-cache-gate-debt-2026-08-12.md.",
+  "tronQuote": "> (No direct Tron quote) — PO SW retro-audit to protect Tron from signing a false-green; robbin-tester finding, handed to req as a durable backlog req (not memory).",
+  "discoverySource": {
+   "type": "team-discovery-retro-audit",
+   "discoveredBy": "robbin-tester",
+   "triggeredBy": "robbin-po SW retro-audit",
+   "date": "2026-08-12",
+   "artifact": "scrum.pmo/sw-cache-gate-debt-2026-08-12.md",
+   "note": "Lower-grade deploy-self-proof debt, NOT a false-green (network-first SW backstop proven r3014 GREEN @0.8.91). Capture-only backlog; remediate when-touched, do NOT mass-re-run 16 old gates in the campaign last-mile."
+  },
+  "artifactRef": "scrum.pmo/sw-cache-gate-debt-2026-08-12.md",
+  "crossRef": [
+   "ior:instance:70bbaec5-a445-457a-b123-db0f2822ab16"
+  ],
+  "crossRefNote": "Gate-safety family with R40.30 (gate-ROT = silently-wrong-over-time) + R40.31 (gate-POLLUTION = damages-prod-while-running). R40.32 = gate-DOESN'T-SELF-PROVE-THE-DEPLOY (relies on SW backstop). campaignScope=OUTSIDE the remaining-campaign count (next-phase hardening, same as R40.30/R40.31 — new-during-campaign discovery, target does not recede).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-self-assert",
+    "group": "functional",
+    "text": "Each of the 16 browser gates positively self-asserts served==committed (served bundle-hash / /api/config {cache:no-store} version check), rather than relying on the network-first SW backstop to deliver fresh content — the gate proves the DEPLOY, not just the cache."
+   },
+   {
+    "id": "AC-not-false-green",
+    "group": "context",
+    "text": "This is NOT a false-green: sw.js is network-first for navigations/shell/dist (cache-first only for immutable hashed static = which IS the deploy); proven live r3014-network-first-gate GREEN DET-3x @0.8.91. Lower-grade 'doesn't self-prove the deploy' debt, not a cache-blind false-green."
+   },
+   {
+    "id": "AC-standing-lock",
+    "group": "containment",
+    "text": "r3014-network-first-gate is the STANDING REGRESSION-LOCK on the SW backstop: if the SW regresses to cache-first, r3014 goes RED. The debt's containment holds while r3014 is green (r3014 EXCLUDED from the 16 — it self-asserts the served hash, safe-by-design)."
+   },
+   {
+    "id": "AC-remediate-when-touched",
+    "group": "functional",
+    "text": "Remediation is WHEN-TOUCHED (cheap, not a last-mile campaign): when any of the 16 gates is next re-run for its own reason, add the served==committed guard (r3014/r403b pattern) or neutralise the SW. Do NOT mass-re-run 16 old gates during the campaign — the network-first backstop covers them."
+   },
+   {
+    "id": "AC-durable-list",
+    "group": "tracking",
+    "text": "The full 16-gate list + risk-rank (higher=user-facing visual: drawer/vcard/lobby/file-detail/audio/task-detail/detail-chain/newtab...; lower=federation/non-visual: federated-dnd/counterpart-enrichment) is durable at scrum.pmo/sw-cache-gate-debt-2026-08-12.md — this req makes it a tracked backlog item, not memory."
+   }
+  ],
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (new-during-campaign discovery, next-phase hardening; sibling to R40.30/R40.31)"
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
