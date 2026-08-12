@@ -10,6 +10,8 @@ export interface SmPane { paneId: string; index: string; title: string; active: 
 export interface SmWindow { index: string; name: string; active: boolean; panes: SmPane[]; }
 export interface SmSession { name: string; windows: SmWindow[]; }
 export interface SmTreeRow { uuid: string; type: string; name: string; hasChildren: boolean; children?: SmTreeRow[]; }
+// Minimal read view of the scenario store (decouples OtmuxBridge from ScenarioIndex; lets the gate pass a real one).
+export interface UnitReader { list(): Iterable<string>; get(key: string): { ior: string; model?: Record<string, unknown> } | null | undefined; }
 // R40.1 per-pane RC deep-link. url=null is FAIL-CLOSED (no measured bridge → NO link + a stated reason), NEVER a
 // synthesised session_ URL. A url is emitted ONLY from a measured ~/.claude/sessions/<pid>.json.bridgeSessionId.
 export interface RcLink { url: string | null; reason?: string; agent?: string; }
@@ -84,6 +86,27 @@ export class OtmuxBridge {
     }
     console.warn(`[server-manager] WARN: WODA.prod deployment node ${nodeUuid} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
     return [{ uuid: 'depnode:unavailable', type: 'notice', name: `⚠ WODA.prod deployment node unavailable (${nodeUuid.slice(0, 8)}) — showing flat session list`, hasChildren: sessionRows.length > 0, children: sessionRows }];
+  }
+
+  // R40.11 slice-2/3 WIRING + PATH-UNIFY: the ONE served composition for /api/server-manager/tree. Resolves the
+  // node's declared deploymentRefs to the REAL slice-1 typed units (by sourceRole — a ref role may map to >1 unit,
+  // e.g. ssh-service → the Service AND its configuredBy ConfigFile, the 1→2 split) and emits the rooted tree via
+  // buildRootedTree. The SERVER route AND check-tree-emitter both call THIS → the gate tests what the server RUNS
+  // (kills the armed-but-inert / gate-points-at-an-uncalled-fn blindness). NO synthetic 'depref:' anywhere.
+  static buildServerManagerTree(sessions: SmSession[], idx: UnitReader, nodeUuid: string): SmTreeRow[] {
+    const nodeUnit = idx.get(nodeUuid);
+    const nm = (nodeUnit?.model || {}) as Record<string, unknown>;
+    const roles = new Set<string>((Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => String(d.role)));
+    const typedUnits: { uuid: string; name: string }[] = [];
+    if (roles.size) {
+      for (const key of idx.list()) {
+        const u = idx.get(key);
+        if (!u || u.ior !== 'ior:class:ModelElement') continue;
+        const m = (u.model || {}) as Record<string, unknown>;
+        if (m.sourceRole && roles.has(String(m.sourceRole))) typedUnits.push({ uuid: String(m.uuid), name: String(m.name) });
+      }
+    }
+    return OtmuxBridge.buildRootedTree(sessions, nodeUnit, nodeUuid, typedUnits);
   }
 
   // R40.1 [impl marker pending req chain] resolveRcLink(paneId) — the SELECTED pane → its claude agent's claude.ai RC
