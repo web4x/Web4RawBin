@@ -56,6 +56,7 @@ export class RbDetailDrawer extends HTMLElement {
   // the universal R-A A1 default + these on EVERY drawer usage. _shownType/_shownRef = last detail (for refreshActions).
   private _actionProviders: Array<(type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]> = []; // legacy resolved-action providers (back-compat)
   private _declProviders: Array<() => ActionDecl[]> = []; // R40.37: declaration providers; resolved ONCE via applicableActionsFor in universalActionBar
+  private _hasActiveDiagram = false; // R40.37: the shared bar's applicability ctx (R33.9 membership verbs' when-predicate); tracked from rb-active-diagram
   private _shownType = ''; private _shownRef = '';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
@@ -72,6 +73,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.addEventListener('keydown', this.onKeyDown);
     document.addEventListener('selection-changed', this.onSelectionChanged);
     document.addEventListener('rb-drawer-action', this.onUniversalAction); // R-A A1: Scenario/Edit handled universally in the shared drawer
+    document.addEventListener('rb-active-diagram', this.onActiveDiagram); // R40.37: track hasActiveDiagram for the applicability ctx (R33.9 membership verbs)
     document.addEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.24: SINGLE trigger — the type signal (from render OR box-select) drives the action bar here, no orphaned signal
     registerUniversalActions(this); // R35.1: self-register the view-independent item-action provider+handler (vcard/preview/newtab/proxy) — drawer loads everywhere → fires in room/trace/model
   }
@@ -123,6 +125,7 @@ export class RbDetailDrawer extends HTMLElement {
     document.removeEventListener('keydown', this.onKeyDown);
     document.removeEventListener('selection-changed', this.onSelectionChanged);
     document.removeEventListener('rb-drawer-action', this.onUniversalAction);
+    document.removeEventListener('rb-active-diagram', this.onActiveDiagram);
     document.removeEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.24
     this._posRo?.disconnect(); this._posRo = null; // R31.9: stop the container-query position driver
   }
@@ -418,6 +421,8 @@ export class RbDetailDrawer extends HTMLElement {
   // {type:'modelelement'} was heard ONLY by model.ts (local shownRef), never reached universalActionBar, so element verbs
   // (incl Delete) never rendered while a diagram was open. One driver, no second driver in model.ts, no double-fire.
   private onDetailShown = (e: Event): void => { const d = (e as CustomEvent<{ type?: string; ref?: string }>).detail; this.universalActionBar((d?.type || '').toLowerCase(), d?.ref || ''); };
+  // R40.37: a diagram opened/closed → update the applicability ctx + re-resolve the bar (R33.9 membership verbs' when-predicate).
+  private onActiveDiagram = (e: Event): void => { this._hasActiveDiagram = !!(e as CustomEvent<{ uuid?: string | null }>).detail?.uuid; if (this._shownType) this.universalActionBar(this._shownType, this._shownRef); };
 
   private showActionsForType(type: string, ref: string): void {
     const t = (type || '').toLowerCase();
@@ -446,7 +451,7 @@ export class RbDetailDrawer extends HTMLElement {
     const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
     const unit = { type, status: obj?.status, kind: (obj as unknown as { kind?: string } | undefined)?.kind };
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
-    const { offered } = applicableActionsFor(unit, {}, decls);
+    const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram }, decls);
     const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)
     this.setActions([...defaults, ...offered, ...legacy]);
   }

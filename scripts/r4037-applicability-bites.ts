@@ -26,6 +26,15 @@ chk('file → NO vcard/approve', !has(file, 'download-vcard') && !has(file, 'qa-
 const member = verbs({ type: 'member' }, UNIVERSAL_DECLS);
 chk('member → vcard only', JSON.stringify(member) === JSON.stringify(['download-vcard']), member);
 
+// AC3 — container actions (notTypes) are HIDDEN on a task, PRESENT on model contexts
+const containerDecls: ActionDecl[] = [{ verb: 'add-folder', label: '📁', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user'] } }];
+chk('AC3 add-folder HIDDEN on task', !applicableActionsFor({ type: 'task' }, {}, containerDecls).offered.some((a) => a.verb === 'add-folder'));
+chk('AC3 add-folder PRESENT on modelelement', applicableActionsFor({ type: 'modelelement' }, {}, containerDecls).offered.some((a) => a.verb === 'add-folder'));
+// membership when-predicate (R33.9): only with an active diagram
+const memDecls: ActionDecl[] = [{ verb: 'add-to-diagram', label: '+', appliesTo: { types: ['modelelement'], when: (c) => !!c.hasActiveDiagram } }];
+chk('membership HIDDEN with no active diagram', applicableActionsFor({ type: 'modelelement' }, {}, memDecls).offered.length === 0);
+chk('membership PRESENT with active diagram', applicableActionsFor({ type: 'modelelement' }, { hasActiveDiagram: true }, memDecls).offered.length === 1);
+
 // stub-must-fail: mutate the approve decl's statuses → any, assert task+Done now WRONGLY offers approve (the BITE
 // would catch the regression). Non-vacuous proof.
 const mutated: ActionDecl[] = UNIVERSAL_DECLS.map((d) => d.verb === 'qa-approve' ? { ...d, appliesTo: { types: ['task'] } } : d);

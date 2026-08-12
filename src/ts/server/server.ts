@@ -79,6 +79,7 @@ import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set
+import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
 import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -2364,9 +2365,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         try {
           ensureStoreSeeded();
           const { name, parent } = JSON.parse(body || '{}');
-          const out = createFolder(String(name || ''), String(parent || ''));
-          addLog(`[model] add-folder → Folder ${out.uuid?.slice(0, 8)} parent=${String(parent || '').slice(0, 8)} (store-only)`);
-          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify(out));
+          // R40.37 AC5: FolderService.createPhysicalWithUnit supersedes createFolder (28000b00, additive) — mint+persist
+          // the unit atomically + RETURN it so the itemview is one-step; write-or-nothing → a failed persist returns
+          // {ok:false} and NO unit → the client renders no phantom node (no 200-with-uuid on failure).
+          const out = FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), String(parent || ''));
+          if (!out.ok) { addLog(`[model] add-folder FAILED (no unit persisted) — ${out.error}`); res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: out.error || 'add-folder-failed' })); return; }
+          addLog(`[model] add-folder → Folder ${out.unit!.model.uuid.slice(0, 8)} parent=${String(parent || '').slice(0, 8)} (store-only, unit returned)`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: out.unit!.model.uuid, unit: out.unit }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
       });
       return;

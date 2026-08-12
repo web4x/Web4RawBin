@@ -9,6 +9,7 @@ import '../trace/rb-trace-tree.js';
 import '../trace/rb-detail-drawer.js';
 import '../trace/rb-modelelement-detail.js';
 import '../trace/rb-strip.js'; // R33.3 AC4: REUSE the S31 rb-strip primitive for the action bar (no fork)
+import type { ActionDecl } from '../trace/action-applicability.js'; // R40.37: model action DECLARATIONS fed to the shared-bar resolver
 
 type Root = { uuid: string; type: string; name: string; hasChildren?: boolean; childCount?: number; children?: Root[] };
 
@@ -57,36 +58,45 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // R33.6.5 items 5+6: the action bar now lives IN the drawer (RbDetailDrawer.setActions), SELECTION-DRIVEN. The
 // /model HOST owns the type→actions map + verb-dispatch (the shared drawer stays generic, INV-3). Page-top
 // mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
-const ACTIONS_BY_TYPE: Record<string, { verb: string; label: string }[]> = {
-  diagram: [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'add-folder', label: '📁 Add folder' }, { verb: 're-sync', label: '⟳ Re-Sync' }, { verb: 'compile-puml', label: '⚙ Compile → SVG' }], // R34.3 (R-B): Add-folder on the diagram/folder context
-  // R33.9: modelelement is now DYNAMIC (context-aware) via actionsForContext — unit verbs always + membership only when a diagram is active.
-  puml: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
-  pumlartifact: [{ verb: 'import-puml', label: '⇩ Import → diagram' }],
-};
-const DEFAULT_ACTIONS = [{ verb: 'add-diagram', label: '＋ Add Diagram' }, { verb: 'add-folder', label: '📁 Add folder' }, { verb: 'import-puml', label: '⇩ Import PUML' }]; // R34.3: Add-folder in the default/root context too
+// R40.37 — the model view's action DECLARATIONS (the old ACTIONS_BY_TYPE/DEFAULT_ACTIONS type-maps became per-action
+// appliesTo). AC3: container actions never on leaf item types. AC4: add-diagram ONLY on the diagrams container BY KIND
+// (never a name-match). R33.9 membership → the when:hasActiveDiagram predicate (resolved in the shared bar's ctx).
+const MODEL_DECLS: ActionDecl[] = [
+  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact'] } },
+  { verb: 'import-puml', label: '⇩ Import PUML', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user'] } },
+  // R40.37 AC4 — INTERIM (no-regression): off leaf/element types. PRECISE "only the diagrams container BY KIND" is
+  // PENDING an architect ruling: the diagrams container is a SYNTHETIC mofFolder tree node (rawbin:diagram, type
+  // 'collection', NO persisted unit) → "set kind:'diagrams' at creation" has no creation + no kind reaches the drawer;
+  // kinds:['diagrams'] would hide add-diagram entirely (regression). Flagged. Once the container carries a resolvable
+  // kind, switch appliesTo to { kinds: ['diagrams'] }.
+  { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'modelelement'] } },
+  { verb: 're-sync', label: '⟳ Re-Sync', appliesTo: { types: ['diagram'] } },
+  { verb: 'compile-puml', label: '⚙ Compile → SVG', appliesTo: { types: ['diagram'] } },
+  { verb: 'new-element', label: '✚ New class', appliesTo: { types: ['modelelement'] } },
+  { verb: 'rename-element', label: '✎ Rename', appliesTo: { types: ['modelelement'] } },
+  { verb: 'delete-element', label: '🗑 Delete class', appliesTo: { types: ['modelelement'] } },
+  { verb: 'add-to-diagram', label: '＋ Add to diagram', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
+  { verb: 'discover', label: '⌗ Discover related', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
+  { verb: 'remove-from-diagram', label: '✕ Remove from diagram', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
+];
 
-// [impl:uuid:a1a5be99-a715-4a85-a0bf-89964c9c3949] ModelView.actionsForContext (Method … req-repoints) — R33.9: the
-// context-aware verb set for a selected element. UNIT verbs (new/rename/delete) ALWAYS on a modelelement; MEMBERSHIP
-// verbs (add/discover/remove) ONLY when an active diagram is open — targeting THAT diagram, never a last/any scan
-// (INV-A1/A2/A3/A4: diagram-open→membership PRESENT, no-diagram→membership ABSENT = the IMG_4802/4803 fix). Others unchanged.
-function actionsForContext(type: string, hasActiveDiagram: boolean): { verb: string; label: string }[] {
-  if (type !== 'modelelement') return ACTIONS_BY_TYPE[type] || DEFAULT_ACTIONS;
-  const unit = [{ verb: 'new-element', label: '✚ New class' }, { verb: 'rename-element', label: '✎ Rename' }, { verb: 'delete-element', label: '🗑 Delete class' }];
-  const membership = hasActiveDiagram ? [{ verb: 'add-to-diagram', label: '＋ Add to diagram' }, { verb: 'discover', label: '⌗ Discover related' }, { verb: 'remove-from-diagram', label: '✕ Remove from diagram' }] : [];
-  return [...unit, ...membership];
-}
+// [impl:uuid:a1a5be99-a715-4a85-a0bf-89964c9c3949] ModelView.actionsForContext — R40.37 SUPERSEDED-BY
+// universalActions.applicableActionsFor (4018e773), POINTER-ONLY: the per-type RESOLVING is now done ONCE in the shared
+// drawer bar by applicableActionsFor; this retains its historical credit + Tests (honorSupersededBy, R30.11) and is now
+// simply the model DECLARATION SOURCE. R33.9 membership (diagram-open) became the when:hasActiveDiagram predicate above.
+function actionsForContext(): ActionDecl[] { return MODEL_DECLS; }
 
 // [impl:uuid:613bfb4a-7214-4cf6-b2fa-d32f96559d18] ModelView.wireDrawerActions (host) — listen rb-drawer-detail-shown{type,ref}
 // + rb-active-diagram{uuid} → setActions(actionsForContext); dispatch rb-drawer-action{verb} to the handlers. No fork.
 function wireDrawerActions(): void {
-  const drawer = (): (HTMLElement & { registerActionProvider?: (fn: (type: string, ref: string) => { verb: string; label: string }[]) => void; refreshActions?: () => void }) | null => document.querySelector('rb-detail-drawer');
+  const drawer = (): (HTMLElement & { registerActionDecls?: (fn: () => ActionDecl[]) => void; refreshActions?: () => void }) | null => document.querySelector('rb-detail-drawer');
   let shownRef = '';
   let activeDiagramUuid: string | null = null; // R33.9: the OPEN diagram (rb-active-diagram) — explicit membership target
   // R34.7/R-E: register model's context verbs as a PROVIDER on the shared drawer (replaces the isolated setActions);
   // the drawer's universalActionBar composes the A1 default [Scenario,Edit] + this on ALL usages. actionsForContext (R33.9)
   // reused verbatim. Idempotent (registered flag) + lazy (re-tried on detail-shown) so it survives a late-mounted drawer.
   let registered = false;
-  const ensureProvider = (): void => { if (registered) return; const dr = drawer(); if (dr?.registerActionProvider) { dr.registerActionProvider((type) => actionsForContext(type, !!activeDiagramUuid)); registered = true; } };
+  const ensureProvider = (): void => { if (registered) return; const dr = drawer(); if (dr?.registerActionDecls) { dr.registerActionDecls(actionsForContext); registered = true; } }; // R40.37: SUPPLY decls; the shared bar resolves once (membership via when:hasActiveDiagram in the bar's ctx)
   ensureProvider();
   document.addEventListener('rb-drawer-detail-shown', (e) => {
     shownRef = (e as CustomEvent<{ ref?: string }>).detail?.ref || '';

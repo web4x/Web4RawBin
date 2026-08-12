@@ -9,7 +9,8 @@
       "ior:instance:a1a5be99-a715-4a85-a0bf-89964c9c3949"
     ],
     "tests": [],
-    "markerPending": false
+    "markerPending": false,
+    "supersededBy": "ior:instance:4018e773-9b8a-483b-99a5-0f484de7b8d9"
   },
   "ownerIor": "ior:instance:35759641-51e0-4685-9337-cfee4bbbd230"
 }
