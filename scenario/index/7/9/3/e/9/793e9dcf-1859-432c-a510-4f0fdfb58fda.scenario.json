@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "793e9dcf-1859-432c-a510-4f0fdfb58fda",
+    "name": "ArtifactPathParityGuard.assertSameResolver",
+    "implementations": [
+      "ior:instance:5f58535d-0cce-46dc-9d67-3f3c8ab95c8f"
+    ]
+  },
+  "ownerIor": "ior:instance:392bdd70-a7b4-49e6-881d-c10c615613dc"
+}

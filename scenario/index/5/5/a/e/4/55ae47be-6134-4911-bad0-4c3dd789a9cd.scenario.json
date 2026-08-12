@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "55ae47be-6134-4911-bad0-4c3dd789a9cd",
+    "name": "SharedArtifactResolver.resolveArtifactPath",
+    "implementations": [
+      "ior:instance:fab5391c-30ad-4e7f-b9c6-2611145f65f0"
+    ]
+  },
+  "ownerIor": "ior:instance:10a3b048-23bf-4340-97ba-793345a6a918"
+}

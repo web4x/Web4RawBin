@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "392bdd70-a7b4-49e6-881d-c10c615613dc",
+    "name": "ArtifactPathParityGuard",
+    "sourceFile": "ior:file:scripts/check-artifact-path-parity.ts",
+    "methods": [
+      "ior:instance:793e9dcf-1859-432c-a510-4f0fdfb58fda"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:282d21ca-3312-4f3a-8204-76282dabb3fa"
+}

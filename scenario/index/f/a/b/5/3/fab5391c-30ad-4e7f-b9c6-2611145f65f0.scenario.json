@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "fab5391c-30ad-4e7f-b9c6-2611145f65f0",
+    "name": "SharedArtifactResolver.resolveArtifactPath impl (the ONE exported resolver both scripts/ gates AND src runtime import; divergence UNREPRESENTABLE by construction)",
+    "markerPending": true,
+    "designAhead": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/shared/artifact-resolver.ts",
+    "markerNote": "DESIGN-AHEAD: generic shared-resolver module does not exist yet. First concrete instance = R40.34-L1 unifyLoadPath ce8423ad (revoked-tokens.ts already imported by BOTH check-revoked-tokens.ts + server.ts). Expert builds; architect confirms uuid pre-wire."
+  },
+  "ownerIor": "ior:instance:55ae47be-6134-4911-bad0-4c3dd789a9cd"
+}

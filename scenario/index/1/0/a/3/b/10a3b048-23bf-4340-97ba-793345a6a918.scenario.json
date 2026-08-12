@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "10a3b048-23bf-4340-97ba-793345a6a918",
+    "name": "SharedArtifactResolver",
+    "sourceFile": "ior:file:src/ts/shared/artifact-resolver.ts",
+    "methods": [
+      "ior:instance:55ae47be-6134-4911-bad0-4c3dd789a9cd"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1e719c03-4c4a-40b5-9c30-8defcc39d2e9"
+}

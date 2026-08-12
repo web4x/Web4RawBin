@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "282d21ca-3312-4f3a-8204-76282dabb3fa",
+    "name": "audit.assertGateRuntimePathParity",
+    "description": "THE BITE (proof-it's-live): a ci:gate PLANTS a divergence between the gated-path and the runtime-loaded-path -> RED. Proves the single-source resolver is actually USED by both sides (not bypassed) — the prevention is live, not assumed. stub-must-fail.",
+    "class": "ior:instance:392bdd70-a7b4-49e6-881d-c10c615613dc",
+    "method": "ior:instance:793e9dcf-1859-432c-a510-4f0fdfb58fda",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:392bdd70-a7b4-49e6-881d-c10c615613dc"
+    ]
+  },
+  "ownerIor": "ior:instance:d2b6b6db-d858-45fc-9bf7-93e61a9dedca"
+}

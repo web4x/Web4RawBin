@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5f58535d-0cce-46dc-9d67-3f3c8ab95c8f",
+    "name": "ArtifactPathParityGuard.assertSameResolver impl (stub-must-fail: plant gate-path != runtime-path -> RED; proves the single-source is used not bypassed)",
+    "markerPending": true,
+    "designAhead": true,
+    "tests": [],
+    "sourceFile": "ior:file:scripts/check-artifact-path-parity.ts",
+    "markerNote": "DESIGN-AHEAD: new ci:gate. Plants a divergence between gated + runtime-loaded path -> RED. Expert builds; architect confirms uuid pre-wire."
+  },
+  "ownerIor": "ior:instance:793e9dcf-1859-432c-a510-4f0fdfb58fda"
+}

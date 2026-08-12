@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1e719c03-4c4a-40b5-9c30-8defcc39d2e9",
+    "name": "audit.resolveArtifactViaSharedSource",
+    "description": "PRIMARY (prevention): a gate and its runtime consumer resolve an artifact (list/config/bundle/version file) via ONE shared exported resolver -> gated-path and loaded-path CANNOT diverge by construction. NOT a same-named sibling, NOT a pre-build copy, NOT a differing default. First application = R40.34-L1 unifyLoadPath (revoked list; both check:revoked-tokens + server REVOKED_TOKENS_PATH resolve via it).",
+    "class": "ior:instance:10a3b048-23bf-4340-97ba-793345a6a918",
+    "method": "ior:instance:55ae47be-6134-4911-bad0-4c3dd789a9cd",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:10a3b048-23bf-4340-97ba-793345a6a918"
+    ]
+  },
+  "ownerIor": "ior:instance:d2b6b6db-d858-45fc-9bf7-93e61a9dedca"
+}

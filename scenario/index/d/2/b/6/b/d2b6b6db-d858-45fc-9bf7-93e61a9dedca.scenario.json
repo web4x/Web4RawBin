@@ -11,7 +11,10 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:1e719c03-4c4a-40b5-9c30-8defcc39d2e9",
+   "ior:instance:282d21ca-3312-4f3a-8204-76282dabb3fa"
+  ],
   "description": "A gate that certifies an ARTIFACT (revoked-list / config / bundle / version file) MUST resolve it via the SAME path/config resolution the RUNTIME consumer uses — NOT a same-named sibling in another dir, NOT a pre-build copy, NOT a default that differs from the deploy/load path. WRONG-ARTIFACT is GREEN-FOREVER: the gate certifies a file the runtime never loads, so it never REDs on its own (unlike staleness, which eventually REDs) — the worst of the gate-honesty classes, and DISTINCT from stale-gate (R37.17) and wrong-SURFACE (gate-the-AC-surface). Live instance = R40.34-L1 (gate checks revoked-token-hashes.json ROOT while the server loads data/revoked-tokens.json DATA_DIR — armed-but-inert). ★ FIX BY CONSTRUCTION (PO-prioritised, not a detector): ONE exported path-resolver (a single-source function) imported by BOTH the gate AND the runtime consumer, so the gated-path and the loaded-path CANNOT diverge — plus a stub-must-fail divergence bite that PROVES the prevention is live. Police-the-output (a detector that notices they disagree) has LOST every time this campaign; a single-source that makes divergence unrepresentable wins.",
   "tronQuote": "> (No direct Tron quote) — robbin-architect diagnosis (the WRONG-ARTIFACT class exposed by the R40.34-L1 path-mismatch), PO-directed capture 2026-08-12 into the R37 gate-honesty family; single-source PRIORITISED over a detector.",
   "discoverySource": {
@@ -55,7 +58,8 @@
     "group": "functional",
     "text": "R40.34-L1 is the FIRST application: both check:revoked-tokens AND the server's REVOKED_TOKENS_PATH resolve the revoked list via the ONE resolver (RevokedTokens.unifyLoadPath) — the live divergence (gate=revoked-token-hashes.json ROOT / server=data/revoked-tokens.json DATA_DIR) becomes unrepresentable once both import the single source."
    }
-  ]
+  ],
+  "firstInstanceNote": "R40.34-L1 unifyLoadPath ce8423ad is the FIRST concrete instance of resolveArtifactPath (both gate+runtime import the ONE resolver)."
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
