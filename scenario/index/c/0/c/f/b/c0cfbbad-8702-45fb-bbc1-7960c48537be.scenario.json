@@ -6,7 +6,7 @@
     "markerPending": true,
     "tests": [],
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerNote": "markerPending: expert adds [impl:uuid:c0cfbbad] on server.ts:1739 (the addLog line). R40.18 observability facet (BITE-6b) — LOG-ONLY, never writes the pin. ★ CROSS-FILE NOTE for architect backstop: Impl B sourceFile=server.ts under Method CurrentSprint.slotsFrom (CurrentSprint.ts) — per your map (Method slotsFrom -> A + B for observability); flag if you want B under a distinct server-side Method. Test = BITE-6b gate -> measure test:uuid, wire on confirm."
+    "markerNote": "markerPending: expert adds [impl:uuid:c0cfbbad] on server.ts:1739 (the addLog line). R40.18 observability facet (BITE-6b) — LOG-ONLY, never writes the pin. ★ RE-HOMED (architect ruling): moved OFF CurrentSprint.slotsFrom (cross-file — an Impl must materialize its owning Method; the server.ts log does NOT materialize CurrentSprint.slotsFrom in CurrentSprint.ts) -> now under NEW server-side Method StaleSteerLog.logStaleSteerExpiry 96874a18 (Class StaleSteerLog ad92f487, sourceFile server.ts), added to UC 4715978d.classes[] (multi-class UC). sourceFile now consistent with Method site. Test = SEPARATE BITE-6b server-integration gate (tester flagged 3f9c1e75's 6b is source-grep only) -> measure test:uuid, wire when that gate lands."
   },
-  "ownerIor": "ior:instance:58f0c36a-54eb-40cd-ae7d-7f8cb7d5220f"
+  "ownerIor": "ior:instance:96874a18-c7e5-457a-8440-dff16469f785"
 }

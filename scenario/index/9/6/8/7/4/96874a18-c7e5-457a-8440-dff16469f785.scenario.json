@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "96874a18-c7e5-457a-8440-dff16469f785",
+    "name": "StaleSteerLog.logStaleSteerExpiry",
+    "implementations": [
+      "ior:instance:c0cfbbad-8702-45fb-bbc1-7960c48537be"
+    ]
+  },
+  "ownerIor": "ior:instance:ad92f487-fafd-4d30-8659-f7ede24ab60d"
+}

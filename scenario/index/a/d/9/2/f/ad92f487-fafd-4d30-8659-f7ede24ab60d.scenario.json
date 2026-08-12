@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "ad92f487-fafd-4d30-8659-f7ede24ab60d",
+    "name": "StaleSteerLog",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:96874a18-c7e5-457a-8440-dff16469f785"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}
