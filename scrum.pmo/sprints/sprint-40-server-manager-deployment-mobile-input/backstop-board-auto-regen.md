@@ -26,5 +26,18 @@ A partially-covering trigger reads as "covered" while lagging — GAP A is concr
 - **#5 region-drift check goes RED + stub-must-fail — PENDING (writer not landed).** REQUIRE the `--check` compare regen-region vs committed-region and go RED on mismatch, with a stub-must-fail proving the CHECK itself fails when fed a hand-edited board (test the check, not just the writer).
 - **#6 unresolved-pin honest render — PENDING.** REQUIRE the writer render an UNRESOLVED pin as count+cause, never a guessed current (the honest-render discipline; a guessed current is the silent-failure class again).
 
+## ★ RE-BACKSTOP (LIVE — writer+hook landed, planner fa4426297) 2026-08-12
+Real verification pass (prior was design-only). campaign-scoreboard-region.ts + hook board-block now exist.
+- **(a) GAP A — CLOSED ✓** hook trigger fires on `^scripts/campaign-scoreboard.*\.(mjs|ts)$` (pre-commit:35) + staged units (:34); comment cites GAP A verbatim.
+- **(b) GAP B — HALF ✗** the src-build lag is NAMED honestly (`--json` emits `buildCoupled: BUILD_COUPLED.size` with the comment "hand-maintained … second source — GAP B … target is 0"), but the map is **RETAINED, not deleted** — the PO ruling's second half (AST-measure host-decls → DELETE the map) is PENDING. Currently benign (map is empty → buildCoupled=0), so no live-wrong value, but the hand-maintained second source still exists structurally; the disease is dormant, not cured. **COMPLETE GAP B: AST-measure host-decls and delete `BUILD_COUPLED` (the code itself declares this the target).**
+- **(c) #1 region-content positive check — PASS ✓ (excellent)** `assertMachineOnly` (region-ts:95-101): the region uses only `###`+tables, so any `##` H2 inside = a leaked curated section → hard ERROR ("Refusing"), never a silent overwrite. Exactly the positive check requested.
+- **(d) fail-closed — PASS ✓** hook `|| { … exit 1 }` (:38-40) + writer `fail()` → `process.exit(1)`.
+- **(e/f) #5 drift-check RED + stub-must-fail ON THE CHECK — PASS ✓ (excellent)** default mode = `--check` (drift=RED); `--bite` (region-ts:105-116) proves the check NON-VACUOUS: idempotent-clean (correct region → no drift) AND drift-on-corrupt (tampered region → detected) AND narrative-kept. A drift-check that couldn't go RED would certify nothing; this proves it can.
+- **(#6) unresolved-pin honest render — PASS ✓** unmeasured inputs (unresolved-pin + build-coupled lag) are NAMED placeholders in the region, never a guessed current.
+- **Anti-sweep — PASS ✓** hook only auto-stages the board if it had no unstaged curated edits (never sweeps the planner's in-progress curation).
+- **The "33 signable / 7 GREEN not written back" finding VALIDATES the mechanism, not a bug in it:** the board correctly reflected UNIT truth — the 7 gate results weren't written to their Test units, so the board honestly showed the stale count. That is the "gate results durable only as Test-unit writes" reframe proving itself; the write-back is the tester's data fix, not a board defect.
+
+**RE-BACKSTOP VERDICT: PASS on 5/6 + anti-sweep; ONE open item = GAP B deletion half (named ✓, AST-measure+delete pending, currently benign).**
+
 ## Bottom line
 Mechanism is sound (guardedWriteRegion refusal + region byte-preserve are by-construction). The load-bearing finding is **#4: the trigger under-covers — GAP A (the script's own override map, concrete) and GAP B (src-`.ts` marker reality, the script's own blind spot).** Close GAP A with a one-glob trigger widen; close or explicitly name GAP B. Wire the board regen fail-closed, add the region-content positive check (#1), and land the drift-check + unresolved-render (#5/#6) with stub-must-fail on the checks themselves.
