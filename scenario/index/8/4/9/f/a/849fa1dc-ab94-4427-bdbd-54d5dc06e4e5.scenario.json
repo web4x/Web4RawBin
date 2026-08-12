@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "849fa1dc-ab94-4427-bdbd-54d5dc06e4e5",
+    "name": "DetailFields.detailScalarFields",
+    "implementations": [
+      "ior:instance:ae806e45-c5ac-4cd8-aff1-4c95b4dd940e"
+    ]
+  },
+  "ownerIor": "ior:instance:7e7813be-6776-4ae6-a9f6-e3ba3fdf9b79"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cee1f429-97e5-4488-957a-cff15fac5d41",
+    "name": "detailFields.deriveScalarFields",
+    "description": "AC-3 field SOURCE: derive the type-driven scalar fields for a deploymentUnit from its M2 type (ConfigFile->manifestsAs, Service->configuredBy, EnvValue->fragment) via ONE shared fn — SHARED by server /api/trace/children AND the gate (no mirror = R37.18 single-source).",
+    "class": "ior:instance:7e7813be-6776-4ae6-a9f6-e3ba3fdf9b79",
+    "method": "ior:instance:849fa1dc-ab94-4427-bdbd-54d5dc06e4e5",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:7e7813be-6776-4ae6-a9f6-e3ba3fdf9b79"
+    ]
+  },
+  "ownerIor": "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5"
+}

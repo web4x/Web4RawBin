@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "613a26bb-2c37-48e0-b95d-a645ce61c4b1",
+    "name": "RbDetailView.renderTypeDrivenFields impl (ONE generic type-driven field render; deploymentUnit shows content not permanent Loading)",
+    "markerPending": true,
+    "designAhead": false,
+    "tests": [
+      "ior:instance:d81f4a06-3e57-4c92-b5a1-7f0c9e26a4b3"
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "markerNote": "REAL, code EXISTS live v0.8.92 @ rb-detail-view.ts:35 private renderTypeDrivenFields (expert prepared marker site). Expert places [impl:uuid:613a26bb] adjacent-above -> I flip. label leads with renderTypeDrivenFields."
+  },
+  "ownerIor": "ior:instance:80d4c576-7289-4a9b-ad8b-5b2389267be6"
+}

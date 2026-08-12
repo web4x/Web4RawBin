@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d81f4a06-3e57-4c92-b5a1-7f0c9e26a4b3",
+    "name": "test:R40.11 slice-3 default-view pixel @390 (r4011c) — drawer renders 6 type-driven fields on ConfigFile via renderTypeDrivenFields + detailScalarFields served (/api/trace/children fields TRUE) + AC-4 renderUnresolved fail-loud; GREEN DET-3x real-WebKit live v0.8.92, SW-blocked = asserts the LIVE served artifact (served==committed)",
+    "implementations": [
+      "ior:instance:ae806e45-c5ac-4cd8-aff1-4c95b4dd940e",
+      "ior:instance:613a26bb-2c37-48e0-b95d-a645ce61c4b1",
+      "ior:instance:b9eaac0f-9425-435b-9105-82cedd780216"
+    ],
+    "sourceFile": "ior:file:test/visual/r4011c-default-view-pixel-gate.mjs",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from r4011c-default-view-pixel-gate.mjs:1 (measure-don't-invent, valid v4). Rides all 3 slice-3 Impls the pixel gate genuinely exercises (served-fields + render + fail-loud) — NOT over-credit, the gate asserts each. Tester two-keys + confirms status:pass on mint. ★ SLICE-3 ONLY: does NOT put T40.11 at QA-Review — AC-5 requires BOTH slice-4 (deploymentRefs array-removal GATED dry-run+count INV-T byte-diff==0) AND Tron device tap @390 (un-mockable). Credit slice-3 honestly."
+  },
+  "ownerIor": "ior:instance:613a26bb-2c37-48e0-b95d-a645ce61c4b1"
+}

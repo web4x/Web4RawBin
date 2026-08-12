@@ -10,7 +10,10 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:249fdab6-2eab-4997-86cc-9f8624ff090c"
+      "ior:instance:249fdab6-2eab-4997-86cc-9f8624ff090c",
+      "ior:instance:cee1f429-97e5-4488-957a-cff15fac5d41",
+      "ior:instance:91943ec8-18be-405d-a171-af7d88703c98",
+      "ior:instance:2b7edda5-8899-4096-a974-ebf8d6237f02"
     ],
     "description": "The deploymentRefs still render buggy on the details view: the tree hands the drawer a SYNTHETIC pseudo-ref (depref:<name>) that is not a real unit ior, so the drawer shows a PERMANENT \"Loading...\" + no children (Tron: selected ssh-host-identity under WODA.prod, drawer hung forever). ROOT: R40.6 typed the M1 nodes but kept deploymentRefs as a raw STRING ARRAY read-view (34d297d91) — those strings are what the tree renders. FIX: every deploymentRef becomes a REAL scenario-first unit of its R40.6 type with a DEFAULT VIEW; the tree emits the REAL ior; unresolvable refs FAIL LOUD (never silent Loading).",
     "tronQuote": "all deploymentRefs are still buggy on the details view as long as they are not scenario-first units with default views",

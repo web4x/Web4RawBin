@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "b9eaac0f-9425-435b-9105-82cedd780216",
+    "name": "RbDetailView.renderUnresolved impl (fail-loud: explicit 'unresolved: <ior>' state, never a silent Loading spinner)",
+    "markerPending": true,
+    "designAhead": false,
+    "tests": [
+      "ior:instance:d81f4a06-3e57-4c92-b5a1-7f0c9e26a4b3"
+    ],
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-view.ts",
+    "markerNote": "REAL, code EXISTS live v0.8.92 @ rb-detail-view.ts:44 private renderUnresolved. Expert places [impl:uuid:b9eaac0f] adjacent-above -> I flip. label leads with renderUnresolved."
+  },
+  "ownerIor": "ior:instance:11fa2b4a-edac-4f47-bdc9-802246e4a9d5"
+}

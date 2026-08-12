@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "7e7813be-6776-4ae6-a9f6-e3ba3fdf9b79",
+    "name": "DetailFields",
+    "sourceFile": "ior:file:src/ts/shared/detail-fields.ts",
+    "methods": [
+      "ior:instance:849fa1dc-ab94-4427-bdbd-54d5dc06e4e5"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:cee1f429-97e5-4488-957a-cff15fac5d41"
+}

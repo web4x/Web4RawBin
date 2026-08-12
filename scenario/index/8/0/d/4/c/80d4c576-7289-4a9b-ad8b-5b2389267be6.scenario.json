@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "80d4c576-7289-4a9b-ad8b-5b2389267be6",
+    "name": "RbDetailView.renderTypeDrivenFields",
+    "implementations": [
+      "ior:instance:613a26bb-2c37-48e0-b95d-a645ce61c4b1"
+    ]
+  },
+  "ownerIor": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+}

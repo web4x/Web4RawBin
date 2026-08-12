@@ -15,6 +15,7 @@
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
 - **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **40** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 5** (145 = 97+40+3+5)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 1**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -28,17 +29,22 @@
 | S37 | 11 | 0 | 10 | 0 | 1 |
 | S40 | 14 | 0 | 13 | 0 | 1 |
 
-**REMAINING by blocker:** RIPE-SHARED 1 · marker 1 · build 3
+**ACTIONABLE by blocker:** RIPE 1
 
-| sprint | task | status | blocker | device | name |
-|--------|------|--------|---------|--------|------|
-| S30 | 06623fea | Planned | build |  | Task 30.44: Add a repository by clone URL + checkout locatio |
-| S31 | 6be9a92d | Planned | build |  | Task 31.6: Shared pan/zoom viewer capability for EVERY embed |
-| S32 | 03f5d536 | Planned | marker |  | T-R31.14: Deploy-hardening — scripted deploy + served!=commi |
-| S37 | 79fd2164 | Planned | RIPE-SHARED |  | Task 37.4: Objects self-heal (validate on init/read, never r |
-| S40 | 6e3cc1b2 | Planned | build |  | Task 40.11: deploymentRefs are scenario-first units with def |
+#### Actionable — drivable now
+| sprint | task | status | blocker | name |
+|--------|------|--------|---------|------|
+| S40 | 6e3cc1b2 | Planned | RIPE | Task 40.11: deploymentRefs are scenario-first units with def |
 
-_Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **0** entries (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map). Gate results reach this board ONLY via Test-unit.status._
+#### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
+- **S31 6be9a92d** — Task 31.6: Shared pan/zoom viewer capability for EVERY embed — _excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103)._
+- **S37 79fd2164** — Task 37.4: Objects self-heal (validate on init/read, never r — _excluded-rollup — COORDINATION ROOT of the 8-part MVC decomposition; reaches QA-Review/Done via its subtasks T37.4.1-8, never driven independently; leaves the actionable count by construction (law#103)._
+
+#### Deferred — law#103 campaignDisposition (Tron/PO-scheduled later; leaves the actionable count by construction)
+- **S32 03f5d536** — T-R31.14: Deploy-hardening — scripted deploy + served!=commi — _deferred-backlog — deploy-hardening (scripted deploy + served!=commit guard); scheduled after go-live; Tron/PO-scheduled later, leaves the actionable count by construction (law#103)._
+- **S30 06623fea** — Task 30.44: Add a repository by clone URL + checkout locatio — _deferred-backlog — security (add-repo-by-clone-URL); re-activate before exposed/multi-user; Tron/PO-scheduled later, leaves the actionable count by construction (law#103)._
+
+_Measured from units. **Unmeasured input (declared, GAP B):** src host-decl existence for build-coupled markers is not AST-measured here — the interim BUILD_COUPLED override map holds **0** entries (a hand-maintained 2nd source; target 0 via AST src-measure, then delete the map — enforced: the check FAILS if it grows). Gate results reach this board ONLY via Test-unit.status._
 
 <!-- GENERATED-INDEX:END -->
 

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "91943ec8-18be-405d-a171-af7d88703c98",
+    "name": "detailView.renderTypeDrivenFields",
+    "description": "AC-3 field RENDER: rb-detail-view renders the labeled field rows via ONE GENERIC type-driven view (the M2 type decides the fields; DRY, no per-type bespoke) so a deploymentUnit shows CONTENT instead of a permanent Loading.",
+    "class": "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07",
+    "method": "ior:instance:80d4c576-7289-4a9b-ad8b-5b2389267be6",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": [
+      "ior:instance:f2f84ce3-6f8f-4db1-9ab7-dbcfe8d3bc07"
+    ]
+  },
+  "ownerIor": "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5"
+}

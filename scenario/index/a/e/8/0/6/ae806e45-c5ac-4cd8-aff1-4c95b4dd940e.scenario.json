@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "ae806e45-c5ac-4cd8-aff1-4c95b4dd940e",
+    "name": "DetailFields.detailScalarFields impl (type-driven scalar-field extraction; shared server+gate no-mirror = R37.18 single-source instance)",
+    "markerPending": true,
+    "designAhead": false,
+    "tests": [
+      "ior:instance:d81f4a06-3e57-4c92-b5a1-7f0c9e26a4b3"
+    ],
+    "sourceFile": "ior:file:src/ts/shared/detail-fields.ts",
+    "markerNote": "REAL, code EXISTS live v0.8.92 @ src/ts/shared/detail-fields.ts:10 export function detailScalarFields (expert pre-extracted, gate PASS + stub-must-fail r405). Expert places [impl:uuid:ae806e45] adjacent-above -> I strict-AST-flip. NAMING CONTRACT: label leads with detailScalarFields."
+  },
+  "ownerIor": "ior:instance:849fa1dc-ab94-4427-bdbd-54d5dc06e4e5"
+}
