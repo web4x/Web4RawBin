@@ -40,14 +40,17 @@
         "text": "[AUTOMATABLE, ★ the silent-failure guard] An UNRESOLVABLE ref renders an EXPLICIT \"unresolved: <ior>\" error state — a permanent \"Loading...\" is a SILENT failure that HIDES the bug (that is exactly why it survived). Fail-LOUD, never silent-Loading; stub-must-fail (feed an unresolvable ref -> must show the error, not spin)."
       },
       {
-        "id": "AC-5-AUTO",
-        "group": "automatable",
-        "text": "[AUTOMATABLE — closes on slice-4 + architect backstop] The deploymentRefs array-removal is a GATED dry-run+count migration with INV-T byte-diff==0 (leaves the graph unchanged). Verifiable without the owner tap. (Split from the former AC-device-390-pixel+gated-migration by content-name per design-r40.11-slice4-backref-decision.md 859c69156 — a/b letters were swapped, PO caught it; no scope change.)"
-      },
-      {
         "id": "AC-5-DEVICE",
         "group": "device",
         "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green] Tron taps the deploymentRef node in the Server-Manager otmux tree -> the drawer RENDERS CONTENT (pixel evidence). Scopes exactly what Tron owes (his own device tap); cannot be auto-certified. (Split from the former combined AC-5 by content-name; no scope change.)"
+      }
+    ],
+    "movedACs": [
+      {
+        "id": "AC-5-AUTO",
+        "movedTo": "ior:instance:8477a592-081f-462d-9496-a9af12191aee",
+        "movedToAltId": "R40.35",
+        "reason": "Tron ruled SPLIT 2026-08-12 (via PO): the deploymentRefs array-removal is a MODEL INVERSION (3 readers: producer buildTypedModel:43 + client facet rb-diagram-detail:160), not a field-delete on T40.11. MOVED (not dropped) to R40.35 as its home; T40.11 QAs at AC-1..4 + AC-5-DEVICE (Tron's tap). Architect ruling a4d6c3535; supersession-honest."
       }
     ],
     "poSteerNote": "PO (2026-08-08): ONE generic view driven by the M2 type, not per-type views that can drift."

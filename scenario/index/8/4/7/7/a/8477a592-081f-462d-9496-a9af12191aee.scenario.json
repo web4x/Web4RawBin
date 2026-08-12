@@ -1,0 +1,76 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8477a592-081f-462d-9496-a9af12191aee",
+  "name": "deploymentRefs model inversion — the minted units become canonical, the array stops being the source of truth (AC-5-AUTO's home)",
+  "altId": "R40.35",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "NEXT-PHASE model inversion carved out of R40.11 (Tron ruled SPLIT 2026-08-12). Today the deploymentRefs STRING ARRAY is still the source of truth and is READ by two consumers — the PRODUCER buildTypedModel (reads the array as INPUT) and the CLIENT facet rb-diagram-detail (reads the array to render). R40.35 INVERTS the model: the minted scenario units (R40.11 AC-1..4) become CANONICAL; BOTH readers stop reading the array and read the units instead; THEN the deploymentRefs array is removed. Because the array is a real INPUT with 3 readers, this is a model INVERSION, not a field-delete — hence its own next-phase req (R40.30/R40.31 finishability precedent), so T40.11 can reach QA honestly on AC-1..4 + AC-5-DEVICE while this defers.",
+  "tronQuote": "> Tron ruled SPLIT (2026-08-12, via robbin-po): move the array-removal (AC-5-AUTO) off T40.11 onto its own next-phase requirement; T40.11 QAs at AC-1..4 + AC-5-DEVICE (Tron's tap).",
+  "discoverySource": {
+   "type": "architect-ruling-then-tron-split",
+   "architectRuling": "a4d6c3535 (array has 3 readers: producer buildTypedModel:43 + client facet rb-diagram-detail:160 -> array-removal = model INVERSION not field-delete)",
+   "ruledBy": "Tron (SPLIT) via robbin-po",
+   "date": "2026-08-12",
+   "note": "AC-5-AUTO MOVED here from R40.11 (supersession-honest, not dropped). Content-names not letters (a/b swapped once, mis-scopes what Tron owes)."
+  },
+  "supersedes": [
+   {
+    "fromReq": "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5",
+    "fromReqAltId": "R40.11",
+    "movedAC": "AC-5-AUTO",
+    "reason": "Tron-ruled SPLIT: array-removal is a model inversion, its home is R40.35."
+   }
+  ],
+  "crossRef": [
+   "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5"
+  ],
+  "crossRefNote": "AC-5-AUTO MOVED here from R40.11 (its origin). Finishability-carve-out precedent = R40.30/R40.31 (campaignScope=OUTSIDE next-phase). T40.11 stays QA-able at AC-1..4 + AC-5-DEVICE (Tron tap). Architect ruling a4d6c3535; design design-r40.11-slice4-backref-decision.md 859c69156.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-units-canonical",
+    "group": "functional",
+    "text": "deploymentRefs STOP being the source of truth: the minted scenario units (R40.11 AC-1..4, real R40.6-typed) become CANONICAL; nothing reads the deploymentRefs string array as authoritative input."
+   },
+   {
+    "id": "AC-producer-stops-reading",
+    "group": "functional",
+    "text": "The PRODUCER buildTypedModel (reads the array as INPUT today, buildTypedModel:43) STOPS reading the array and reads the units — single-source back-ref produced-by-buildTypedModel, no second producer."
+   },
+   {
+    "id": "AC-client-stops-reading",
+    "group": "functional",
+    "text": "The CLIENT facet (rb-diagram-detail:160) STOPS reading the array and reads the units/back-ref — no client-side array read remains (grep-provable)."
+   },
+   {
+    "id": "AC-array-removed-inv-t",
+    "group": "automatable",
+    "text": "[the moved AC-5-AUTO] AFTER both readers stop, the deploymentRefs array is REMOVED via a GATED dry-run+count migration with INV-T byte-diff==0 (the graph is unchanged). Verifiable without the owner tap."
+   },
+   {
+    "id": "AC-data-conservation",
+    "group": "automatable",
+    "text": "★ MANDATORY (architect): BEFORE any array removal, PROVE that EVERY array field (role / ref / NOTE / ...) is captured in the units — a per-FIELD conservation check. Do NOT infer full representation from tree-level INV-T byte-diff==0: the tree may not render fields like 'note', so a tree-diff can be clean while a field is silently lost. Removal is BLOCKED until per-field conservation is proven (stub-must-fail: drop a captured 'note' from the units -> the conservation gate goes RED)."
+   },
+   {
+    "id": "AC-order-pinned-emission",
+    "group": "automatable",
+    "text": "The back-ref emission is ORDER-PINNED (deterministic order), so the inverted model produces byte-stable output and INV-T byte-diff==0 is meaningful (not order-flapping)."
+   },
+   {
+    "id": "AC-no-dual-read-fallback",
+    "group": "functional",
+    "text": "NO dual-read fallback: the code NEVER falls back to reading the array when a unit is missing — a fallback reintroduces the two-sources disease (the array as a shadow source). A missing unit FAILS LOUD (R40.11 fail-loud family), never silently reads the old array."
+   }
+  ],
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase model inversion, R40.30/R40.31 finishability precedent — carved out so T40.11 QAs honestly at AC-1..4 + AC-5-DEVICE, AC-5-AUTO deferred here)"
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
