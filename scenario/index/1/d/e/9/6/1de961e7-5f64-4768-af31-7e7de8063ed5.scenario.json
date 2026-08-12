@@ -2,7 +2,7 @@
   "ior": "ior:class:UseCase",
   "model": {
     "uuid": "1de961e7-5f64-4768-af31-7e7de8063ed5",
-    "name": "universalActionBar.applicableActionsFor",
+    "name": "universalActions.applicableActionsFor",
     "description": "The SHARED universalActionBar computes which actions are OFFERED for a given unit from a PER-ACTION applicability DECLARATION (valid unit types + valid statuses), so an invalid action is hidden-or-disabled-with-reason — declared ONCE, never per-view if-statements. Covers Approve/Decline-only-at-QA, no-container-actions-on-Task, +Add-Diagram-only-on-diagrams-special-container. PLACEHOLDER: architect designs the applicability model (Class/Method) -> I confirm + wire.",
     "class": "ior:instance:a9019609-42d9-46f9-bc5a-dc547ff75cf1",
     "classes": [

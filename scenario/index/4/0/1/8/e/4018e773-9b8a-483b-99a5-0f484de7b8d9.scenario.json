@@ -4,7 +4,7 @@
     "uuid": "4018e773-9b8a-483b-99a5-0f484de7b8d9",
     "name": "universalActions.applicableActionsFor",
     "description": "Compute OFFERED/hidden/disabled-with-reason actions for a unit from PER-ACTION appliesTo declarations (types+statuses+kinds+when), resolved ONCE in the shared bar. R40.37.",
-    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/action-applicability.ts",
     "implementations": [
       "ior:instance:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab"
     ],

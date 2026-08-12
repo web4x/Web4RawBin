@@ -38,7 +38,10 @@ type ActionDecl = {
 ## Design — diagrams as a typed container BY CONSTRUCTION (AC4)
 Add a structural **`kind: 'diagrams'`** field on the diagrams-container unit, SET AT CREATION (a special container type/kind, distinct from a generic Folder). `add-diagram.appliesTo.kinds=['diagrams']` matches on that field — **never `name === 'diagrams'`**. Generic folders (kind absent / `folder`) never offer Add-Diagram. Diagrams container is minted with the kind; existing one gets the kind set by the R40.37 migration (or on next generate).
 
-## Design — Add folder creates physical dir + unit ATOMICALLY (UC 0c58eb53, AC5)
+## ★ AC5 CORRECTION (measured 2026-08-12): model folders are VIRTUAL store-units — no filesystem dir
+MEASURED: `createFolder` (28000b00, server.ts:1145) is UNIT-ONLY — mints an `ior:class:Folder` unit into `data/model-store/index` (prod scenario/index untouched); Folder unit fields = uuid/name/parent/children, **NO physical-path field**. So a model folder has NO filesystem-dir substrate; "resolve+validate a physical path" has no defined root (the expert is RIGHT not to guess — guessing = mkdir in the wrong place). RULING: **"physical" here = the committed store-UNIT appearing IMMEDIATELY (no draft/save step)** — the real AC5 intent is one-step-no-save, not a second filesystem artifact. So `FolderService.createPhysicalWithUnit` = **one atomic store-unit write** (write the Folder unit → return it → itemview renders in one step); fail-closed = write-or-nothing (no orphan draft). There is NO separate mkdir, so no orphan-dir class exists to roll back. IF Tron LITERALLY wants a real filesystem directory (per the AC wording "physical folder AND its unit"), that is a DISTINCT capability needing a defined physical-root + parent-anchor — a separate requirement (flag to Tron), NOT guessable. The block below (mkdir+rollback) is SUPERSEDED by this for the virtual-folder reality; keep it only if Tron rules real-dirs.
+
+## Design — (ONLY IF Tron rules real filesystem dirs) Add folder creates physical dir + unit ATOMICALLY (UC 0c58eb53, AC5)
 New server op behind an owner/membership-gated endpoint (guard STAYS): **`FolderService.createPhysicalWithUnit(parentRef, name)`**:
 1. Resolve+validate parent + target physical path (reject traversal/dupe — fail-closed).
 2. `mkdir` the physical folder.
