@@ -14,7 +14,8 @@
   "sprintName": "Sprint 37",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:833d3525-d269-4b98-bc23-12551c5d40b6"
+   "ior:instance:833d3525-d269-4b98-bc23-12551c5d40b6",
+   "ior:instance:4dfcf5ea-9b55-44b8-8503-0cf3ac067947"
   ],
   "description": "sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R37.6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
   "tronQuote": "> (S37 consistency-by-construction, Tron-auth #76) — architect-surfaced during R37.2 design, PO-approved as a distinct req.",

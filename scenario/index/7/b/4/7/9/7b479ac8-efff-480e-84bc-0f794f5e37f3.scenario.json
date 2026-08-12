@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "7b479ac8-efff-480e-84bc-0f794f5e37f3",
+    "name": "SelfHeal.selfHealOnRead",
+    "implementations": [
+      "ior:instance:79f2dec1-b484-4f94-8663-788012f6b242"
+    ]
+  },
+  "ownerIor": "ior:instance:5f17f9f6-853b-4322-afbb-6dd1e134ff7a"
+}

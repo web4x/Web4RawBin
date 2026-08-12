@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "4dfcf5ea-9b55-44b8-8503-0cf3ac067947",
+    "name": "overview.autoRegenOnCommit",
+    "description": "Regenerate the sprints.overview.md generated index INSIDE the commit (pre-commit hook, only when staged scenario units change) so the committed overview ALWAYS equals regen-of-committed-units BY CONSTRUCTION — killing the 3 observed T37.6 REDs (stale artifact / drift-during-work / commit-vs-write race). DISTINCT from generateOverview (which produces the content); this is the commit-time orchestration: deletion-check + guardedWriteRegion regen + shared-index safety + stub-must-fail verify + stage. Rides the R37.8 owned-output-guard family (narrative preserved byte-for-byte).",
+    "class": "ior:instance:d63e557b-c3f8-4d12-a232-7f2fa5b8cc85",
+    "method": "ior:instance:304a0da7-0863-4e12-821b-0c18669877a1",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9339cc3b-8035-403b-8bef-8c08df15edc2"
+}

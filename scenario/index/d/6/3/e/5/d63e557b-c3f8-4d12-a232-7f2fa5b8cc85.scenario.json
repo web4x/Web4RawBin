@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "d63e557b-c3f8-4d12-a232-7f2fa5b8cc85",
+    "name": "PrecommitOverviewRegen",
+    "sourceFile": "ior:file:scripts/precommit-regen-overview.ts",
+    "methods": [
+      "ior:instance:304a0da7-0863-4e12-821b-0c18669877a1"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

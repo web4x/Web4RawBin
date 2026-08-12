@@ -13,7 +13,9 @@
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
   "sprintName": "Sprint 37",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:2bf4b9c3-68ef-44a6-885d-5579ff4d2360"
+  ],
   "crossRef": [
    "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9",
    "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"

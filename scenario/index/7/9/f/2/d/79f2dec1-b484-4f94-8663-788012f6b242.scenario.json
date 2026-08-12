@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "79f2dec1-b484-4f94-8663-788012f6b242",
+    "name": "SelfHeal.selfHealOnRead impl (Task=healer #1: recompute status from checklist deriveStatusEnum on read; recompute-to-reality or throw-to-refuse; pure+unit-local, O(1) Map lookup, no recursion)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/task-policy.ts",
+    "markerNote": "markerPending: code DONE + gate GREEN (self-heal.ts registry + selfHealOnRead; registerSelfHeal(TASK_IOR,...) wired task-policy.ts:83; check:self-heal-on-read GREEN). Expert replaces the literal [impl:uuid:PENDING-req-mint]@task-policy.ts:82 with b886... NO -> with **79f2dec1**. ★ STRICT-AST FLAG: the placeholder @:82 sits above `registerSelfHeal(TASK_IOR,(unit)=>{...})` = a CALL-expression, NOT a named decl -> buildStrictImplSet may not bind. Expert: EITHER extract a named `taskStatusHealer` fn at :83, OR move the marker to the generic `export function selfHealOnRead`@self-heal.ts:26 (a clean named export = the natural Method-Impl bind). Your call; I verify-owner-first at flip. sourceFile set to task-policy.ts to match the placeholder; retarget if you move it."
+  },
+  "ownerIor": "ior:instance:7b479ac8-efff-480e-84bc-0f794f5e37f3"
+}

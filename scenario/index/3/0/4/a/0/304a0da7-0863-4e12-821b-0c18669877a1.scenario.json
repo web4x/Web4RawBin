@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "304a0da7-0863-4e12-821b-0c18669877a1",
+    "name": "PrecommitOverviewRegen.autoRegenOverview",
+    "implementations": [
+      "ior:instance:b886ef5d-afee-46fb-971b-55f8123fecbb"
+    ]
+  },
+  "ownerIor": "ior:instance:d63e557b-c3f8-4d12-a232-7f2fa5b8cc85"
+}

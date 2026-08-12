@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "5f17f9f6-853b-4322-afbb-6dd1e134ff7a",
+    "name": "SelfHeal",
+    "sourceFile": "ior:file:src/ts/scenario/self-heal.ts",
+    "methods": [
+      "ior:instance:7b479ac8-efff-480e-84bc-0f794f5e37f3"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

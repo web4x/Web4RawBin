@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2bf4b9c3-68ef-44a6-885d-5579ff4d2360",
+    "name": "selfHeal.recomputeDerivedOnRead",
+    "description": "MODEL self-heal on READ (C4.1, symmetric read-side of the C4 controller): every unit READ recomputes its DERIVED fields to reality (fresh) or REFUSES (throws, fail-loud) — never returns a silently-drifted value (C2/C6: stored status 'Planned' while checklist advanced). GENERIC: a per-ior healer REGISTERS (mirrors registerPolicy), ScenarioIndex.get invokes it on every read, a class with no healer is accepted as-is (a new class gains self-heal-on-read by registration ONLY, zero mechanism edits). Task = healer #1 (recompute status from checklist via deriveStatusEnum).",
+    "class": "ior:instance:5f17f9f6-853b-4322-afbb-6dd1e134ff7a",
+    "method": "ior:instance:7b479ac8-efff-480e-84bc-0f794f5e37f3",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+}
