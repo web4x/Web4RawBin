@@ -9,7 +9,7 @@ The deploy build consumes **only**: `src/public/ts/**` (esbuild entryPoints) + t
 This is a **strengthening** (checks exactly what makes served==committed true), not a loosening.
 
 **MUST BE CLEAN** — the served==committed set (uncommitted here = corrupted/phantom-deploy class, e.g. the blank /model page):
-- `src/**`
+- `src/**`  — ★ WHY (PO, durable so nobody later relaxes src/ts as "runtime-only"): prod RUNS `src/ts/server/server.ts` via tsx **directly from the working tree**, so dirty `src/ts` means prod EXECUTES uncommitted code — served!=committed in the most literal sense, the exact class that blanked /model. It is both a build input (esbuild bundles `src/public/ts`) AND the live server's own source.
 - `build.mjs`
 - `src/public/sw.js`  (CACHE_NAME/STATIC_SHELL rule-pair; build stamps it)
 - `scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json`  (the ONE build-input unit = version single-source)
