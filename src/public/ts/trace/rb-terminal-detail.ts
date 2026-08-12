@@ -60,12 +60,25 @@ export class RbTerminalDetail extends HTMLElement {
       try { term.resize(cols, rows); } catch { /* */ }
       if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ t: 'resize', cols, rows }));
     };
-    ws.onopen = () => { fit(); term.focus(); };
+    let terminalOpened = false;
+    ws.onopen = () => { terminalOpened = true; fit(); term.focus(); };
     ws.onmessage = (ev: MessageEvent) => {
       if (typeof ev.data === 'string') { try { const m = JSON.parse(ev.data); if (m && m.t === 'error') term.write(`\r\n\x1b[31m[${m.msg}]\x1b[0m\r\n`); } catch { /* */ } return; }
       term.write(new Uint8Array(ev.data as ArrayBuffer)); // pty output (binary)
     };
-    ws.onclose = () => { try { term.write('\r\n\x1b[33m[disconnected]\x1b[0m\r\n'); } catch { /* */ } };
+    // D2 CONTAINMENT honest-report: a close WITHOUT a prior open = the upgrade was REFUSED (terminal SEVERED for
+    // security), not a mid-session disconnect. Say so HONESTLY so Tron tells deliberate containment from a bug.
+    ws.onclose = () => {
+      try {
+        if (!terminalOpened) {
+          label.textContent = 'Terminal — SEVERED for security';
+          term.write('\r\n\x1b[33m[Terminal severed for security — deliberate containment]\x1b[0m\r\n');
+          term.write('\x1b[2mThe server-manager terminal is intentionally disabled and returns after owner-credential rotation. This is not a bug.\x1b[0m\r\n');
+        } else {
+          term.write('\r\n\x1b[33m[disconnected]\x1b[0m\r\n');
+        }
+      } catch { /* */ }
+    };
     term.onData((d: string) => { if (ws.readyState === WebSocket.OPEN) ws.send(enc.encode(d)); }); // keystrokes → binary
     term.open(host);
     this.ro = new ResizeObserver(() => fit());

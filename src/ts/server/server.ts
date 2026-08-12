@@ -3472,13 +3472,24 @@ function setupWebSocketServer(server: https.Server): void {
   server.on('upgrade', (req, socket, head) => {
     const path = (req.url || '/').split('?')[0];
     if (path === '/api/server-manager/terminal') {
-      if (!ServerManagerGuard.requireFeatureAccess(req, 'Server Manager', resolveSessionToken, featureAllowedUsers).ok) { // R31.8: data-driven ServerManager Feature gate at ws upgrade (INV-G3 destroy-before-open preserved, INV-F6 membership)
-        const ip = req.socket.remoteAddress || 'unknown';
-        addLog(`[server-manager] DENY kind=ws path=${path} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
-        socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
-      }
-      termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
+      // ★ D2 RCE-CONTAINMENT (PO-authorized 2026-08-12, architect-backstopped): the terminal PTY is reachable by
+      // the PUBLIC owner-token literal (ServerManagerGuard.ts:12) = arbitrary shell exec on the prod host. Sever
+      // the terminal ws-upgrade UNCONDITIONALLY for ALL tokens (owner INCLUDED) BEFORE any gate — fail-more-closed
+      // (grants NO ONE, so it cannot let the wrong person in), surgical, reversible (delete this block to restore
+      // the feature gate below). Interim until owner-token ROTATION (Tron's held kill-step). INV-G3 destroy-before-
+      // open preserved: no PTY ever spawns. The `severed-for-security` header lets the page report HONESTLY (not
+      // a broken spinner) so Tron can tell containment from a bug.
+      const ip = req.socket.remoteAddress || 'unknown';
+      addLog(`[server-manager] D2-CONTAINMENT terminal ws SEVERED for security (ALL tokens, owner incl) path=${path} ip=${ip}`);
+      socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\nX-RawBin-Terminal: severed-for-security\r\n\r\n'); socket.destroy();
       return;
+      // --- D2-DISABLED original feature gate (restore by deleting the D2 block above) ---
+      // if (!ServerManagerGuard.requireFeatureAccess(req, 'Server Manager', resolveSessionToken, featureAllowedUsers).ok) {
+      //   const ip = req.socket.remoteAddress || 'unknown';
+      //   addLog(`[server-manager] DENY kind=ws path=${path} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+      //   socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
+      // }
+      // termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
     }
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)); // app ws (post-connect IDENTIFY auth) — unchanged
   });
