@@ -4,7 +4,7 @@
   "model": {
     "uuid": "1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
     "name": "Task 37.21: Room Members/Files become real Folder scenario-units with sunburst detail (rides R40.16, no dup)",
-    "slug": "task-37.21-task-37.21-room-members/files-become",
+    "slug": "task-37.21-room-collections-real-folder-units",
     "description": "Deliver R37.21: room Members/Files pseudo-collections resolve to REAL Folder scenario-units with R40.16's child-size sunburst detail; reuse R40.16's folder-as-unit + sunburst, do not duplicate. Architect wires to R40.16 first (scenario-first #126).",
     "intention": "Tron 2026-08-12: in-room Files/Members show 'no scenario'; should be a real folder unit with sunburst. Find the corresponding task (=R40.16) + wire.",
     "context": "Covers R37.21 (80346a36) via UC roomCollection.asRealFolderUnit (c2d40f62); RIDES R40.16 cc875e35 (no dup).",

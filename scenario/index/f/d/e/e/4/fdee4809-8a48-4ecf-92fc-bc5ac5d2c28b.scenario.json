@@ -4,7 +4,7 @@
   "model": {
     "uuid": "fdee4809-8a48-4ecf-92fc-bc5ac5d2c28b",
     "name": "Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)",
-    "slug": "task-37.22-task-37.22-ior-carries-a",
+    "slug": "task-37.22-ior-clear-origin",
     "description": "Deliver R37.22: cross-instance IORs carry a clear origin reconciled onto the existing federated ior:instance:<uuid>@<originHost> scheme (no 2nd format); prod<->test drops resolve the real unit. Architect designs the reconciliation first (scenario-first #126).",
     "intention": "Tron 2026-08-12: IORs need a clear origin for prod<->test DnD; reconcile with the existing federated scheme, don't fork.",
     "context": "Covers R37.22 (aedd0e83) via UC ior.carryOrigin (180512d8); reconciles federated-scenario-transfer.md.",

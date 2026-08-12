@@ -4,7 +4,7 @@
   "model": {
     "uuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
     "name": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
-    "slug": "task-37.20-task-37.20-one-shared-dnd",
+    "slug": "task-37.20-shared-dnd-drop-contract",
     "description": "Deliver R37.20: a single shared serializer+resolver so the DnD buffer always carries the scenario UNIT (never a *.show URL), a file drags as a file, detail views render, and every drop target (diagram/room/tree/editor) reuses ONE contract with no URL fallback. Architect designs the shared serializer/resolver first (scenario-first #126).",
     "intention": "Tron 2026-08-12 overnight: dragging /model tree files produced #collection.show/#webitem.show URLs (generally wrong) + empty detail views; amendment makes the contract fleet-wide.",
     "context": "Covers R37.20 (03e0f803) via UC dnd.carryUnitPayload (5474886a). Chain pending architect drop-contract design.",

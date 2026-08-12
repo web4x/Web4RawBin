@@ -4,7 +4,7 @@
   "model": {
     "uuid": "d6dae432-bf5b-4a97-a967-6f98cf096a52",
     "name": "Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod",
-    "slug": "task-37.23-task-37.23-server-manager-root-discovered",
+    "slug": "task-37.23-discovered-server-manager-root",
     "description": "Deliver R37.23: the server-manager root host is read from on-disk config (ssh config), the way otmux tree items are discovered; on WODA.test the root = WODA.test. Architect designs the discovery first (scenario-first #126).",
     "intention": "Tron 2026-08-12: on WODA.test the server-manager root is still hardcoded WODA.prod; must be discovered from config on disk.",
     "context": "Covers R37.23 (185fffc7) via UC serverManager.discoverRoot (428caca1).",
