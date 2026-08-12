@@ -57,9 +57,9 @@
         "text": "3-SLOT UNIQUENESS preserved (current / next / lastCompleted distinct) — REUSE the pin's existing enforcement, do NOT reimplement."
       },
       {
-        "id": "AC-device-390-visible",
-        "group": "device-390-visible",
-        "text": "@390 real-device PIXEL gate; the progression must be VISIBLE — after a QA switch the board shows the rotated slots WITHOUT a manual refresh, or states why not."
+        "id": "AC-7-DEVICE",
+        "group": "device",
+        "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] After a QA-Review switch the pin's 3 slots visibly ROTATE on the @390 board WITHOUT a manual refresh (the auto-progress derivation reaches the render surface), or the board states why not. Real-device pixel gate — the tap/pixel verify is Tron's, never headless-green (R40.18 BITE-7). Retag of the former AC-device-390-visible to the AC-N-DEVICE convention (skill-expert request) so the device-bucket detector catch is GUARANTEED by id + tokens, not heuristic — turns Tron's device bucket 17->18."
       }
     ]
   },

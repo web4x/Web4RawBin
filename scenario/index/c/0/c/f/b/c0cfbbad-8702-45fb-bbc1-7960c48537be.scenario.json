@@ -3,10 +3,12 @@
   "model": {
     "uuid": "c0cfbbad-8702-45fb-bbc1-7960c48537be",
     "name": "R40.18 observable stale-steer LOG impl (server.ts:1739, the R40.10 transition addLog — LOG-ONLY not a pin-write; makes a stale-steer OBSERVABLE for the honesty audit; covers BITE-6b observable-stale-steer)",
-    "markerPending": true,
-    "tests": [],
+    "markerPending": false,
+    "tests": [
+      "ior:instance:7d4a1f83-2e69-4c05-b8a1-3f60d9c274eb"
+    ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
-    "markerNote": "markerPending: expert adds [impl:uuid:c0cfbbad] on server.ts:1739 (the addLog line). R40.18 observability facet (BITE-6b) — LOG-ONLY, never writes the pin. ★ RE-HOMED (architect ruling): moved OFF CurrentSprint.slotsFrom (cross-file — an Impl must materialize its owning Method; the server.ts log does NOT materialize CurrentSprint.slotsFrom in CurrentSprint.ts) -> now under NEW server-side Method StaleSteerLog.logStaleSteerExpiry 96874a18 (Class StaleSteerLog ad92f487, sourceFile server.ts), added to UC 4715978d.classes[] (multi-class UC). sourceFile now consistent with Method site. Test = SEPARATE BITE-6b server-integration gate (tester flagged 3f9c1e75's 6b is source-grep only) -> measure test:uuid, wire when that gate lands."
+    "markerNote": "STRICT-AST VERIFIED by req (verify-owner-first disk-read, e979f659a): [impl:uuid:c0cfbbad]@server.ts:836 with comment-continuation :837-838 (0 intervening named-decl) binds `static logStaleSteerExpiry`@:839 in class StaleSteerLog@:835 — full-uuid match, name+class match Method 96874a18/Class ad92f487. Expert EXTRACTED the inline addLog into the named static method (a bare inline marker failed the forward-guard — an Impl must materialize its owning Method). LOG-ONLY, never writes the pin. Test = SEPARATE BITE-6b server-integration gate (deferred, tester builds; 3f9c1e75's 6b is source-grep only). [was: expert adds marker @server.ts:1739 addLog line. R40.18 observability facet (BITE-6b) — LOG-ONLY, never writes the pin. ★ RE-HOMED (architect ruling): moved OFF CurrentSprint.slotsFrom (cross-file — an Impl must materialize its owning Method; the server.ts log does NOT materialize CurrentSprint.slotsFrom in CurrentSprint.ts) -> now under NEW server-side Method StaleSteerLog.logStaleSteerExpiry 96874a18 (Class StaleSteerLog ad92f487, sourceFile server.ts), added to UC 4715978d.classes[] (multi-class UC). sourceFile now consistent with Method site. Test = SEPARATE BITE-6b server-integration gate (tester flagged 3f9c1e75's 6b is source-grep only) -> measure test:uuid, wire when that gate lands."
   },
   "ownerIor": "ior:instance:96874a18-c7e5-457a-8440-dff16469f785"
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3f9c1e75-6a24-4d8b-b0e3-91c5a7f0e2d4",
+    "name": "test:R40.18 pin auto-progress INDEPENDENT (slotsFrom e9eb79e0) — pin advances by DERIVATION on QA-Review (terminal-for-current-via-ENUM / explicit-wins-while-valid / lastCompleted-DONE-not-QA / auto-derive-next); covers BITEs 1-idempotent/2-QA-advances/3-explicit-wins/4-lastCompleted/5-enum-not-symbol/6-fail-loud/7; bind-locked (slotsFrom 9x, getThreeSlots 0x)",
+    "implementations": [
+      "ior:instance:e9eb79e0-5258-4416-b97d-4ddd899f2af7"
+    ],
+    "sourceFile": "ior:file:test/visual/r4018-pin-autoprogress-independent-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r4018-pin-autoprogress-independent-gate.ts (measure-don't-invent, valid v4). GREEN-to-flip on origin. ★ BIND-LOCKED by tester (gate author measured the source): slotsFrom called 9x / getThreeSlots 0x = the gate EXERCISES R40.18's OWN derivation slotsFrom (e9eb79e0), NOT R20.22 getThreeSlots d20855e7 (which merely SURFACES slotsFrom's output) — T40.11 discipline, no borrowed credit. verify-owner-first: e9eb79e0 markerPending=false (just flipped, strict-AST) + tests[] was empty (clean 1st Test, no cross-wire). BITE-6b (c0cfbbad server-integration) = SEPARATE future gate (3f9c1e75's 6b is source-grep only). Under R40.18 ce2734ea."
+  },
+  "ownerIor": "ior:instance:e9eb79e0-5258-4416-b97d-4ddd899f2af7"
+}

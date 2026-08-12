@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7d4a1f83-2e69-4c05-b8a1-3f60d9c274eb",
+    "name": "test:R40.18 BITE-6b StaleSteerLog.logStaleSteerExpiry (c0cfbbad) — the OBSERVER: (1) LOG-ONLY no pin-write, (2) event-driven-ONCE at approve-success, (3) NAMED reason, stub-must-fail (planted pin-write -> RED). SOURCE-AUDIT scope (symbol-anchored, HEAD==committed). DISTINCT from 3f9c1e75 (derivation/e9eb79e0)",
+    "implementations": [
+      "ior:instance:c0cfbbad-8702-45fb-bbc1-7960c48537be"
+    ],
+    "sourceFile": "ior:file:test/visual/r4018b-stale-steer-log-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r4018b-stale-steer-log-gate.ts (measure-don't-invent, valid v4). Tester GREEN DET-3x. Closes the honest gap (was source-presence-only). Verifies the OBSERVER c0cfbbad StaleSteerLog.logStaleSteerExpiry: LOG-ONLY (no pin write — a pin-write here would be the two-source hook R40.17 bans), event-driven-ONCE at approve-success, NAMED reason, stub-must-fail (planted pin-write -> RED). SCOPE = SOURCE-AUDIT (symbol-anchored, reads HEAD==committed; the class is module-local/not-exported + R40.18 is build-not-deploy, so a live behavioural drive is a post-deploy add — tester stated). verify-owner-first: c0cfbbad markerPending=false (just flipped, strict-AST @server.ts:836) + tests[] was empty (clean 1st Test, no cross-wire). DISTINCT-INTENT from 3f9c1e75 (which tests slotsFrom derivation e9eb79e0). Under R40.18 ce2734ea."
+  },
+  "ownerIor": "ior:instance:c0cfbbad-8702-45fb-bbc1-7960c48537be"
+}
