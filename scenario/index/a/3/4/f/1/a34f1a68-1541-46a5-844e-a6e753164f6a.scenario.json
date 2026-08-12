@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a34f1a68-1541-46a5-844e-a6e753164f6a",
+    "name": "RbFolderDetail.renderSunburst impl",
+    "description": "DESIGN-AHEAD R40.16/S37-B: render folder child-size as a sunburst, a VIEW over the folder unit ONE child-size field, not a 2nd store. src/public/ts/trace/rb-folder-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-folder-detail.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:0372d533-9ea9-4127-8e07-8868ae612fc5"
+}

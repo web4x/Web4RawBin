@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "966de307-0d5e-470e-b983-37db7ee3ec60",
+    "name": "folder.sunburstDetail",
+    "description": "A real Folder scenario-unit renders a type-driven detail view with a child-size sunburst, one field one source. R40.16; S37-B room collections ride this.",
+    "class": "ior:instance:e74a8ad5-936d-4549-b7e2-b72b933e1644",
+    "classes": [
+      "ior:instance:e74a8ad5-936d-4549-b7e2-b72b933e1644"
+    ],
+    "method": "ior:instance:0372d533-9ea9-4127-8e07-8868ae612fc5",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:cc875e35-772b-4352-b99c-4070f0370a68"
+}

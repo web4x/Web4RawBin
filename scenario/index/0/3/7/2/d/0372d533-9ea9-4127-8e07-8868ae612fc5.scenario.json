@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0372d533-9ea9-4127-8e07-8868ae612fc5",
+    "name": "RbFolderDetail.renderSunburst",
+    "description": "Render a folder child-size as a sunburst diagram, a VIEW over the unit derived/stored child-size field, one source. Rides the R40.11 generic type-driven detail, NOT bespoke. R40.16 sunburst.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-folder-detail.ts",
+    "implementations": [
+      "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:e74a8ad5-936d-4549-b7e2-b72b933e1644"
+}

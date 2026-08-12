@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "e74a8ad5-936d-4549-b7e2-b72b933e1644",
+    "name": "RbFolderDetail",
+    "description": "R40.16 folder type-driven detail-view for a real Folder unit plus child-size sunburst. src/public/ts/trace/rb-folder-detail.ts",
+    "file": "ior:file:src/public/ts/trace/rb-folder-detail.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-folder-detail.ts",
+    "methods": [
+      "ior:instance:0372d533-9ea9-4127-8e07-8868ae612fc5"
+    ]
+  },
+  "ownerIor": "ior:instance:966de307-0d5e-470e-b983-37db7ee3ec60"
+}
