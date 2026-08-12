@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **40** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 5** (145 = 97+40+3+5)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 1**
+- **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **41** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 4** (145 = 97+41+3+4)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 0**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,14 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 11 | 0 | 10 | 0 | 1 |
-| S40 | 14 | 0 | 13 | 0 | 1 |
+| S40 | 14 | 0 | 14 | 0 | 0 |
 
-**ACTIONABLE by blocker:** RIPE 1
-
-#### Actionable — drivable now
-| sprint | task | status | blocker | name |
-|--------|------|--------|---------|------|
-| S40 | 6e3cc1b2 | Planned | RIPE | Task 40.11: deploymentRefs are scenario-first units with def |
+**ACTIONABLE by blocker:** (none — every actionable task at QA-Review or terminal)
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
 - **S31 6be9a92d** — Task 31.6: Shared pan/zoom viewer capability for EVERY embed — _excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103)._

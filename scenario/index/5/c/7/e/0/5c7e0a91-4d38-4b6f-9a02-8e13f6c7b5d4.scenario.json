@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5c7e0a91-4d38-4b6f-9a02-8e13f6c7b5d4",
+    "name": "test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view)/AC-4(fail-loud) — graph+disk THIRD-INDEPENDENT: typed IOR edges resolve (not strings) + crown FileBacked->real-on-disk BY QUERY + served-data derives from graph + fail-loud + meta-bite. Verifies buildTypedModel's MATERIALIZED output (distinct-intent from c5a92e14 = the PURE function). R40.11 reuses R40.6 e009ace7.",
+    "implementations": [
+      "ior:instance:e009ace7-9f2e-4188-80fb-b14f844c0e5d"
+    ],
+    "sourceFile": "ior:file:test/visual/r4011-graph-disk-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r4011-graph-disk-gate.ts:1 (measure-don't-invent, valid v4). Tester GREEN DET-3x THIRD-INDEPENDENT (expert measured RENDER r4011c@390, architect the EMITTER ROWS check:tree-emitter, this measures GRAPH+DISK — typed IOR edges from the graph not strings + crown FileBacked->real-on-disk manifestsAs resolved INLINE by fs.existsSync + served /api/trace/children derives from graph scalars + fail-loud + META-BITE stub-FileBacked-bogus-manifestsAs->crown RED + phantom-guard served==committed). ★ RIDES e009ace7 (buildTypedModel) ONLY (tester-confirmed verify-owner-first: no crown-resolver impl exists, manifestsAs resolved in-gate, so AC-1+AC-2 both verify e009ace7's materialized output). DISTINCT-INTENT 2nd Test alongside c5a92e14 (T40.6=pure 5-from-4/distinct-types function; this=materialized graph+disk+served) = correct shared-Impl-2-Tests, NOT borrowed credit. ★ R40.11 REUSES R40.6's buildTypedModel (no own AC-1/AC-2 impl); dangling UC 249fdab6 flagged to architect (R40.11 AC-1/AC-2 UC with no impl). AC-5-DEVICE (Tron tap) NOT here; AC-5-AUTO moved to R40.35."
+  },
+  "ownerIor": "ior:instance:e009ace7-9f2e-4188-80fb-b14f844c0e5d"
+}
