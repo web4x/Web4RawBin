@@ -99,21 +99,26 @@ try {
       const el = document.createElement('rb-diff-editor'); document.body.appendChild(el); await nap(2000);
       const out = {};
       // inject a true conflict + flatten -> renderMergeGutter draws the per-conflict ◄/► controls
-      el.conflicts = [{ id: 0, a: ['LEFT_P'], b: ['RIGHT_Q'], pick: 'a', span: [0, 0] }];
+      el.conflicts = [{ id: 0, a: ['LEFT_P'], b: ['RIGHT_Q'], pick: 'a', span: [0, 0], incl: { a: true, b: true }, kind: 'conflict' }]; // R30.35 both-versions: rebuildCenter reads c.incl.{a,b} (which sides included) — the field the old fixture lacked
       el.centerSeq = [{ ok: ['a'] }, { cid: 0 }, { ok: ['c'] }];
       el.rebuildCenter(); await nap(250);
       out.gutter = !!el.querySelector('[data-cid]'); // renderMergeGutter created the accept ◄/► button(s) for the conflict
-      // acceptChange: pick RIGHT -> CENTER Result (Monaco edCenter) gets RIGHT_Q, drops LEFT_P
+      // R30.35 both-versions: center shows BOTH sides by default; "take right" = rm-left (removeLine drops LEFT_P) → RIGHT_Q only.
+      // (acceptChange was replaced by addSide/removeLine per-side actions — data-act add-left/add-right/rm-left/rm-right.)
       const before = el.edCenter?.getValue?.() || '';
-      el.acceptChange(0, 'right'); await nap(250);
+      el.removeLine(0, 'left'); await nap(250);
       const after = el.edCenter?.getValue?.() || '';
       out.accept = before.includes('LEFT_P') && after.includes('RIGHT_Q') && !after.includes('LEFT_P');
       // syncScroll3: load scrollable content (else setScrollTop clamps to 0), scroll LOCAL -> CENTER+REMOTE lock
       if (el.edLocal && el.edCenter && el.edRemote) {
-        const long = Array.from({ length: 200 }, (_, k) => 'line ' + k).join('\n');
+        const long = Array.from({ length: 300 }, (_, k) => 'line ' + k).join('\n');
+        el.style.cssText = 'display:block;width:1200px;height:900px'; // give the synthetic el a layout so the editors can actually scroll
         el.edLocal.setValue(long); el.edCenter.setValue(long); el.edRemote.setValue(long); await nap(200);
+        el.edLocal.layout({ width: 380, height: 820 }); el.edCenter.layout({ width: 380, height: 820 }); el.edRemote.layout({ width: 380, height: 820 }); await nap(200);
+        el.syncScroll3(); // re-wire onDidScrollChange now the 3 Monaco editors EXIST + are laid out (mount's early call returned before Monaco async-created them)
         el.edLocal.setScrollTop(150); await nap(300);
-        out.sync = Math.abs(el.edCenter.getScrollTop() - 150) < 40 && Math.abs(el.edRemote.getScrollTop() - 150) < 40;
+        const sl = el.edLocal.getScrollTop(); // edLocal's ACTUAL scroll (layout-dependent); assert center+remote LOCK to it AND it actually moved (non-vacuous, not a clamped-to-0 false-lock)
+        out.sync = sl > 50 && Math.abs(el.edCenter.getScrollTop() - sl) < 12 && Math.abs(el.edRemote.getScrollTop() - sl) < 12;
       } else out.sync = false;
       el.remove(); return out;
     });
