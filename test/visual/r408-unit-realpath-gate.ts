@@ -51,7 +51,9 @@ for (let i = 1; i <= 3; i++) {
   const failClosed = idx.has(BOGUS) === false && !fs.existsSync(idx.filePath(BOGUS));
 
   // (3) [REAL·source-audit] unitRealPath body = has()-guard-first + idx.filePath (the ONE shard rule), NOT slug/name composition
-  const src = fs.readFileSync(path.join(REPO, 'src/ts/server/server.ts'), 'utf8').split('\n').slice(1439, 1446).join('\n');
+  const full = execSync('git show HEAD:src/ts/server/server.ts', { cwd: REPO, encoding: 'utf8', maxBuffer: 1e8 }); // git-show-HEAD (committed, not dirty tree)
+  const i0 = full.indexOf('function unitRealPath'); const i1 = full.indexOf('\nfunction ', i0 + 1);
+  const src = full.slice(i0, i1 > i0 ? i1 : i0 + 1000); // SYMBOL-ANCHORED fn body (guard-family: no line-pins — survives churn like R40.22)
   const sourceAudit = /idx\.has\(uuid\)\)\s*return null/.test(src) && /idx\.filePath\(uuid\)/.test(src) && !/model\.name|slug|slugify/.test(src);
 
   // (4) [REAL·non-owner, served] /api/unit/<uuid>/path is owner-gated → 403, no path leaked to a non-owner (+ bogus 403, no oracle)
