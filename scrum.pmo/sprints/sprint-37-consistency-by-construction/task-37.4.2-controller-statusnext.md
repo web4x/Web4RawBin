@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-Planned - C4.2 CONTROLLER statusNext single entry (subtask of T-C4 79fd2164; the PREVENTION half that stops the C2/C6 recurrence). Rides existing task-fsm.ts FSM. Chain at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = break-path RED + evidence-precondition-refuses bite. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.
+QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on ORIGIN, not relayed): Test a7f3c1e8 'test:T37.4.2 UnitController.apply' status=pass <-> Impl b5f72641 (UnitController.apply generic PRIMARY sole entry, markerPending=false) — b5f72641.tests[]=[a7f3c1e8] + a7f3c1e8.implementations[]=[b5f72641]. ★ VERIFY-OWNER-FIRST CLEAN: first-Test on a previously-EMPTY tests[], its OWN T37.4.2 test = no cross-wire / no borrowed credit (unlike T40.5). Gate GREEN DET 5/5, stub-must-fail proven incl evidence-precondition REFUSES an unevidenced advance without persisting (req chain-mint 3cce48cbb, C4.2 generic controller). All 4 In-Progress sub-steps evidenced -> QA-Review. Awaiting Tron QA verdict (0 Done till Tron).
 
 ## Traceability
 
