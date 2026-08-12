@@ -34,7 +34,7 @@
    {
     "id": "AC-count-mirror-gate",
     "group": "gate",
-    "text": "The count-mirror check stays but is REFINED to a HOME-OWNERSHIP mirror: a blanket copy-count==source-count FALSE-FLAGS a benign own-heal (the +1 = this home's own roomFsLink materialized), so the gate must classify each gained symlink as own-declared (PASS/heal) vs another-home's-file (RED). delta-broken + content-multiset stay BLIND to symlinks — the refined ownership-mirror is the load-bearing check."
+    "text": "The count-mirror check stays but is REFINED to a HOME-OWNERSHIP mirror: a blanket copy-count==source-count FALSE-FLAGS a benign own-heal (the +1 = this home's own roomFsLink materialized), so the gate must classify each gained symlink as own-declared (PASS/heal) vs another-home's-file (RED). delta-broken + content-multiset stay BLIND to symlinks — the refined ownership-mirror is the load-bearing check. [STATUS: refined home-ownership invariant COMMITTED + scratch-green — own-heal PASS / another-home-file RED / drop RED, verified 47/47 by expert.]"
    },
    {
     "id": "AC-root-cause",
@@ -49,7 +49,7 @@
    {
     "id": "AC-resume-gate",
     "group": "governance",
-    "text": "R40.22 re-key resumes ONLY after the REFINED count-mirror (own-heal PASS / another-home-file RED) goes SCRATCH-GREEN + architect review. Prod stays SAFE/INERT/gate-protected meanwhile; step-3 116-token auth-invalidation DONE + armed. (Root-cause is DONE; the remaining gate is the refined-invariant scratch-green.)"
+    "text": "R40.22 re-key resumes after: root-cause DONE (✓ HEAL-not-injection) + refined home-ownership-mirror SCRATCH-GREEN (✓ MET — 47/47 homes / 1 declared own-heal / 0 injection / 0 drop / multiset preserved / 84 rewrites / no-token-path, expert-reported) + architect review (PENDING) + Tron deploy-auth for the window (PENDING). Prod stays SAFE/INERT meanwhile."
    }
   ],
   "rootCause": {
@@ -61,7 +61,16 @@
    "distinguisher": "+1 == EXACTLY this home's own 1 file, NOT another home's files",
    "prodRisk": "NONE — no corruption, gate self-aborted out of caution"
   },
-  "premiseAmendment": "ORIGINAL framing (preserved): 'cross-home copy-contamination — home gained another home's room dir'. CORRECTED: it is a benign self-heal (own declared roomFsLink materialized), false-flagged by a blanket count-mirror. The req survives as a HOME-ISOLATION INVARIANT with a REFINED gate (own-heal OK / another-home-file RED), not a corruption blocker. Honest amend, not quiet-replace."
+  "premiseAmendment": "ORIGINAL framing (preserved): 'cross-home copy-contamination — home gained another home's room dir'. CORRECTED: it is a benign self-heal (own declared roomFsLink materialized), false-flagged by a blanket count-mirror. The req survives as a HOME-ISOLATION INVARIANT with a REFINED gate (own-heal OK / another-home-file RED), not a corruption blocker. Honest amend, not quiet-replace.",
+  "resolutionStatus": {
+   "updated": "2026-08-12",
+   "by": "robbin-expert (reported); robbin-req recorded",
+   "rootCause": "DONE (HEAL-not-injection)",
+   "refinedGateScratchGreen": "MET — expert-reported: 47/47 homes OK, 1 declared heal allowed (ce981242 own f74bd319), 0 injection, 0 drop, multiset preserved, 84 rewrites, no-token-path. Home-ownership invariant (copy==original+own-declared-heals) committed.",
+   "remaining": "architect review + Tron deploy-auth for the re-key window",
+   "prodRisk": "NONE — no corruption ever, prod safe/inert/gate-protected; step-3 116-token auth-invalidation DONE+armed",
+   "note": "Scratch-green facts are EXPERT-REPORTED (the scratch gate is the expert/tester's to run); req records the status advance, does not independently re-run the multi-home scratch."
+  }
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
