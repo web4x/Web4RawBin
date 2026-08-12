@@ -9,11 +9,12 @@ import crypto from 'node:crypto';
 export type FolderUnit = { ior: 'ior:class:Folder'; ownerIor: null; model: { uuid: string; name: string; parent: string | null; children: string[]; kind: 'folder' | 'diagrams' } };
 
 export class FolderService {
-  // [impl:uuid:0e6761c2-7b4e-472e-9c63-4793b766a288] FolderService.createPhysicalWithUnit (Method 36a73988, Class
-  // c3f261fa) — mint + persist the Folder unit atomically and RETURN it so the itemview is one-step. Atomicity = the
-  // single unit write (write-or-nothing): if the persist throws, NOTHING is written and no unit is returned → the
-  // caller renders NO phantom node (AC5). The shard mkdir is the store's FILE layout for the unit JSON, not a user dir.
-  static createPhysicalWithUnit(storeDir: string, name: string, parent: string, kind: 'folder' | 'diagrams' = 'folder'): { ok: boolean; unit?: FolderUnit; error?: string } {
+  // [impl:uuid:0e6761c2-7b4e-472e-9c63-4793b766a288] FolderService.mintRealUnit (Method 36a73988, Class c3f261fa, UC
+  // folder.mintRealUnit) — mint + persist the Folder unit atomically and RETURN it so the itemview is one-step.
+  // Atomicity = the single unit write (write-or-nothing): if the persist throws, NOTHING is written and no unit is
+  // returned → the caller renders NO phantom node (AC5). "Physical" = a REAL PERSISTED unit (Tron); the shard mkdir is
+  // the store's FILE layout for the unit JSON, not a user directory.
+  static mintRealUnit(storeDir: string, name: string, parent: string, kind: 'folder' | 'diagrams' = 'folder'): { ok: boolean; unit?: FolderUnit; error?: string } {
     const clean = String(name || '').trim().slice(0, 80);
     if (!clean) return { ok: false, error: 'empty-name' };
     const uuid = crypto.randomUUID();
