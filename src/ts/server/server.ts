@@ -78,6 +78,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { APPROVE_STATUSES } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set
 import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -1523,7 +1524,7 @@ function approveByOwner(idx: ScenarioIndex, taskUuid: string, ownerTok8: string,
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
   const m = unit.model as any;
-  if (m.status !== 'QA Review') return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' != 'QA Review' — cannot manufacture Done` } };
+  if (!APPROVE_STATUSES.includes(m.status as typeof APPROVE_STATUSES[number])) return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' not in ${JSON.stringify(APPROVE_STATUSES)} — cannot manufacture Done` } }; // R40.37: same set the client affordance hides on (anti-drift)
   m.approvedBy = ownerTok8; m.approvedAt = now; m.status = 'Done';   // Tron's QA recorded as DATA → the Done-gate is now provable
   idx.put(taskUuid, unit);
   return { code: 200, payload: { ok: true, status: 'Done', approvedBy: ownerTok8, approvedAt: now } };

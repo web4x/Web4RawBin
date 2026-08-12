@@ -6,8 +6,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from './index-store.js';
 
-export type TaskStatusEnum = 'Planned' | 'In Progress' | 'QA Review' | 'Done';
-const STATUS_ORDER: TaskStatusEnum[] = ['Planned', 'In Progress', 'QA Review', 'Done'];
+// R40.37: the enum + status sets moved to the dependency-free task-status-constants (so the browser client can share
+// APPROVE_STATUSES without bundling this file's ScenarioIndex/fs deps). Re-exported here for existing importers.
+import { STATUS_ORDER, APPROVE_STATUSES, type TaskStatusEnum } from './task-status-constants.js';
+export type { TaskStatusEnum };
+export { APPROVE_STATUSES, STATUS_ORDER };
 
 // [impl:uuid:8a032c42-abf6-4678-9ce2-9834141a0e6e] TaskStatus.deriveStatusEnum (Method f0f9eaa4) — PURE: the
 // derived status = the HIGHEST-order CHECKED top-level checkbox (Planned < In Progress < QA Review < Done);

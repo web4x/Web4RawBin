@@ -23,7 +23,8 @@ import './rb-strip.js'; // R33.6.5 item5: setActions() hosts a reused rb-strip i
 import { ChatPanel } from './ChatPanel.js';
 import { TraceGraph, makeObject, refUuid, type ObjectType } from '../../../ts/shared/TraceModel.js';
 import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor
-import { registerUniversalActions } from './universal-actions.js'; // R35.1: view-independent item-action provider (vcard/preview/newtab/proxy)
+import { registerUniversalActions } from './universal-actions.js'; // R35.1 view-independent item-action provider
+import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -53,7 +54,8 @@ export class RbDetailDrawer extends HTMLElement {
   private _mode: 'chat' | 'detail' | 'preview' = 'chat';
   // R34.7/R-E: host-registered context-verb providers (model registers actionsForContext); the shared drawer composes
   // the universal R-A A1 default + these on EVERY drawer usage. _shownType/_shownRef = last detail (for refreshActions).
-  private _actionProviders: Array<(type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]> = [];
+  private _actionProviders: Array<(type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]> = []; // legacy resolved-action providers (back-compat)
+  private _declProviders: Array<() => ActionDecl[]> = []; // R40.37: declaration providers; resolved ONCE via applicableActionsFor in universalActionBar
   private _shownType = ''; private _shownRef = '';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
@@ -297,6 +299,7 @@ export class RbDetailDrawer extends HTMLElement {
         const obj = makeObject(g, type as ObjectType, uuid, String(model.name || model.title || uuid));
         if (model.status) obj.status = String(model.status);
         if (model.sprint) obj.sprint = String(model.sprint);
+        if (model.kind) (obj as unknown as { kind?: string }).kind = String(model.kind); // R40.37: structural container kind for add-diagram applicability (never a name-match)
       } catch { /* unknown type (file/webitem) or fetch failure → element degrades gracefully */ }
     }
     return g;
@@ -435,8 +438,17 @@ export class RbDetailDrawer extends HTMLElement {
     this._shownType = type; this._shownRef = ref;
     if (!type || !ref || type === 'chat') { this.setActions([]); return; } // INV-E3: empty/chat clears the bar
     const defaults = [{ verb: 'scenario', label: '◆ Scenario', primary: true }, { verb: 'edit', label: '✎ Edit', primary: true }]; // R-A A1 universal default
-    const provided = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } });
-    this.setActions([...defaults, ...provided]);
+    // R40.37: resolve action applicability ONCE here (no per-view if-chains). Providers SUPPLY declarations; the shared
+    // bar filters by the selected unit's (type, status, kind) via applicableActionsFor. status/kind come from the
+    // resolved graph obj (populated by resolveDetailUnit). Absent status ⇒ status-gated actions (approve/decline) HIDE
+    // (safe: never offer the impossible). This is the AC1/AC2/AC3/AC4 fix — the impossible buttons are simply not built.
+    const uuid = refUuid(ref) || ref;
+    const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
+    const unit = { type, status: obj?.status, kind: (obj as unknown as { kind?: string } | undefined)?.kind };
+    const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
+    const { offered } = applicableActionsFor(unit, {}, decls);
+    const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)
+    this.setActions([...defaults, ...offered, ...legacy]);
   }
 
   // R34.7/R-E: a host registers its context verbs as a provider (model → actionsForContext); re-render so a provider
@@ -444,6 +456,11 @@ export class RbDetailDrawer extends HTMLElement {
   // context changed, e.g. rb-active-diagram → membership verbs recompute).
   registerActionProvider(fn: (type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]): void {
     this._actionProviders.push(fn);
+    if (this._shownType) this.universalActionBar(this._shownType, this._shownRef);
+  }
+  // R40.37: register a DECLARATION provider (verbs + appliesTo), resolved once in universalActionBar via applicableActionsFor.
+  registerActionDecls(fn: () => ActionDecl[]): void {
+    this._declProviders.push(fn);
     if (this._shownType) this.universalActionBar(this._shownType, this._shownRef);
   }
   refreshActions(): void { if (this._shownType) this.universalActionBar(this._shownType, this._shownRef); }

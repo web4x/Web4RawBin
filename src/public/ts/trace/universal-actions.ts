@@ -5,28 +5,11 @@ import { downloadVCard } from '../vcard-download.js';
 import { fillPreviewPane } from './content-preview.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 import { ViewBus } from './ViewBus.js'; // R40.17: notify the CurrentSprint singleton ref so the eager-lazy pin re-fetches live
+// R40.37: the applicability declarations + the pure resolver live in the browser-dep-free action-applicability module
+// (node-testable). This file SUPPLIES UNIVERSAL_DECLS to the shared drawer bar (which resolves via applicableActionsFor).
+import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
 
-type Action = { verb: string; label: string };
 const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next'];
-
-// TYPE-CONDITIONAL verb set (INV-E3 type-policy): file-verbs never leak onto a webitem, vcard only on member/user, etc.
-function universalActionsFor(type: string): Action[] {
-  const t = (type || '').toLowerCase();
-  if (t === 'member' || t === 'user') return [{ verb: 'download-vcard', label: '📇 vCard' }];
-  if (t === 'file') return [{ verb: 'preview-file', label: '👁 Preview' }, { verb: 'open-newtab', label: '↗ New tab' }];
-  if (t === 'webitem') return [{ verb: 'proxy-preview', label: '⟳ Proxy preview' }];
-  // R40.10 — the owner's QA verdict control as ACTION UNITS on any task detail (NOT a bespoke button). We do NOT
-  // client-gate on status: the SERVER is the sole authority for the Done-gate (approve 409s if not 'QA Review',
-  // decline always mints a ChangeRequest) — a client status-check would be a second source of truth that can drift.
-  // The 409/403 refusal is surfaced honestly by the handler; approve+decline ship TOGETHER (approve-only = prose again).
-  // R40.10 QA verdict + R40.17 pin designation — both surface on ANY task detail (owner-gated server-side; a non-owner
-  // tap 403s honestly). Set-current + Set-next ship TOGETHER (never one alone), like approve+decline.
-  if (t === 'task') return [
-    { verb: 'qa-approve', label: '✓ Approve' }, { verb: 'qa-decline', label: '✗ Decline' },
-    { verb: 'pin-current', label: '📌 Set current' }, { verb: 'pin-next', label: '📋 Set next' },
-  ];
-  return [];
-}
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -36,10 +19,11 @@ function universalActionsFor(type: string): Action[] {
 // buttons' EXACT effect (INV-1): vcard→downloadVCard, preview→toggle the pane + SAME fillPreviewPane lazy-fill,
 // new-tab→window.open(content url), proxy→#wi-frame src=/api/proxy. The detail's data-attrs/pane/frame are the
 // ref-context (read from the drawer body). Idempotent (wired flag) — safe on every connectedCallback.
-export function registerUniversalActions(drawer: HTMLElement & { registerActionProvider?: (fn: (type: string, ref: string) => Action[]) => void }): void {
+export function registerUniversalActions(drawer: HTMLElement & { registerActionDecls?: (fn: () => ActionDecl[]) => void }): void {
   if ((registerUniversalActions as unknown as { _wired?: boolean })._wired) return;
   (registerUniversalActions as unknown as { _wired?: boolean })._wired = true;
-  drawer.registerActionProvider?.((type) => universalActionsFor(type));
+  // R40.37: SUPPLY declarations (no gating here); the shared drawer bar resolves applicability ONCE via applicableActionsFor.
+  drawer.registerActionDecls?.(() => UNIVERSAL_DECLS);
   document.addEventListener('rb-drawer-action', (e) => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';
