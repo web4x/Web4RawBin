@@ -87,9 +87,50 @@ export function assertStatusConsistent(idx: ScenarioIndex): StatusOffender[] {
   return offenders;
 }
 
+// [BLOCKING PREDICATE — PO ruling 2026-08-12, single-source with the UNVERIFIABLE category] consistency:strict FAILS
+// only on offenders it can EVALUATE against R37.5 (status == deriveStatusEnum(checklist)): FALSE-DONE / MALFORMED /
+// DRIFT — each HAS a statusChecklist to derive from. An UNVERIFIABLE offender (kind='UNVERIFIABLE' = ABSENCE of
+// statusChecklist, DERIVED by assertStatusConsistent — NOT a hardcoded slug list) is a FROZEN-LEGACY task predating
+// the checklist schema: R37.5 cannot apply where there is no checklist, so the checker must not FAIL on it (same
+// class as check:sprint-md excluding hand-authored/headerless files the write-guard preserves). It stays LISTED
+// (never silently clean, INV-C3-2) + NAMED DEBT (backlog: give legacy tasks a checklist under R37.x). NON-BLINDING:
+// a checklist-HAVING drift (DRIFT / FALSE-DONE / MALFORMED) STILL blocks — proven by --bite.
+export function isBlockingStatusOffender(o: StatusOffender): boolean {
+  return o.kind !== 'UNVERIFIABLE';
+}
+
+// [META-BITE — PO condition, 2026-08-12] Prove the UNVERIFIABLE exclusion did NOT blind the dual-status gate: a task
+// WITH a checklist whose status drifts MUST still block (RED); only a no-checklist frozen-legacy task is excluded,
+// and it stays LISTED. Runs assertStatusConsistent over a synthetic in-memory index. `task-status.ts --bite`.
+export function runStatusScopeBite(): void {
+  const mk = (uuid: string, status: string, checklist?: string) =>
+    ({ ior: 'ior:class:Task', model: { uuid, name: uuid, status, statusChecklist: checklist } });
+  const units: Record<string, unknown> = {
+    A: mk('A', 'Done', '- [x] Planned\n- [x] In Progress\n- [x] QA Review'),        // FALSE-DONE: stored Done, Done box unchecked
+    B: mk('B', 'Planned', '- [x] Planned\n- [x] In Progress'),                        // DRIFT: checklist derives In Progress
+    C: mk('C', 'Planned', undefined),                                                 // UNVERIFIABLE: no checklist (frozen-legacy)
+    D: mk('D', 'QA Review', '- [x] Planned\n- [x] In Progress\n- [x] QA Review'),     // consistent
+  };
+  const mockIdx = { list: () => Object.keys(units), get: (u: string) => units[u] } as unknown as ScenarioIndex;
+  const off = assertStatusConsistent(mockIdx);
+  const blocking = off.filter(isBlockingStatusOffender);
+  const asserts: { ok: boolean; msg: string }[] = [];
+  const A = (ok: boolean, msg: string) => asserts.push({ ok, msg });
+  A(blocking.some((o) => o.uuid === 'A' && o.kind === 'FALSE-DONE'), 'FALSE-DONE (stored Done, Done box unchecked) BLOCKS strict');
+  A(blocking.some((o) => o.uuid === 'B' && o.kind === 'DRIFT'), 'NON-BLINDING: a task WITH a checklist that DRIFTS still BLOCKS (RED)');
+  A(!blocking.some((o) => o.uuid === 'C'), 'EXCLUSION: a no-checklist (UNVERIFIABLE frozen-legacy) task does NOT block strict');
+  A(off.some((o) => o.uuid === 'C' && o.kind === 'UNVERIFIABLE'), 'VISIBILITY: the no-checklist task is STILL LISTED as UNVERIFIABLE (never silently clean)');
+  A(!off.some((o) => o.uuid === 'D'), 'a consistent task (status == derived) is not an offender');
+  const failed = asserts.filter((a) => !a.ok);
+  for (const a of asserts) console.log(`  ${a.ok ? '✓' : '✗ FAIL'} ${a.msg}`);
+  if (failed.length) { console.log(`\n✗ status-scope bite: ${failed.length}/${asserts.length} FAILED`); process.exit(1); }
+  console.log(`\n✓ status-scope bite: ${asserts.length}/${asserts.length} — UNVERIFIABLE(no-checklist) excluded + LISTED; checklist-having DRIFT/FALSE-DONE still RED (non-vacuous, not blinded)`);
+}
+
 // CLI (fold into ci:gates): lists every offender, FALSE-DONE subset first, exits 1 if any. Guarded so importing
 // deriveStatusEnum (e.g. from the generator) never triggers the run.
 if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
+  if (process.argv.includes('--bite')) { runStatusScopeBite(); process.exit(0); } // meta-bite: prove the UNVERIFIABLE exclusion did not blind the gate
   const idx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
   const offenders = assertStatusConsistent(idx);
   const falseDone = offenders.filter((o) => o.kind === 'FALSE-DONE');
@@ -103,9 +144,10 @@ if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   // whole team's CI. By construction (status = deriveStatusEnum(checklist)) new/edited tasks can't add drift, so
   // the count only goes DOWN → flip to BLOCKING with --strict once it reaches 0 (the one-line gate promotion).
   const strict = process.argv.includes('--strict');
+  const blocking = offenders.filter(isBlockingStatusOffender);
   if (offenders.length) {
-    console.log(`\n★ ${falseDone.length} FALSE-DONE (status=Done but Done box unchecked) = PRIORITY worklist. Owner resolves checklist↔status — NO auto-flip (INV-S5a). ${strict ? 'STRICT → failing.' : 'REPORT-ONLY (pass --strict to block once count==0).'}`);
-    process.exit(strict ? 1 : 0);
+    console.log(`\n★ ${falseDone.length} FALSE-DONE + ${malformed.length} MALFORMED + ${drift} DRIFT = ${blocking.length} BLOCKING (checklist-having, evaluable against R37.5). ${unverifiable.length} UNVERIFIABLE (no checklist = frozen-legacy) = REPORT-ONLY named-debt (backlog R37.x), NOT a status-vs-checklist violation but LISTED (never silently clean). Owner resolves checklist↔status — NO auto-flip (INV-S5a). ${strict ? (blocking.length ? 'STRICT → failing on blocking.' : 'STRICT → 0 blocking → PASS (UNVERIFIABLE stay named-debt).') : 'REPORT-ONLY.'}`);
+    process.exit(strict && blocking.length ? 1 : 0);
   }
   console.log('✓ all Task status == checklist-derived');
 }

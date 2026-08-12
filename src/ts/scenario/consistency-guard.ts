@@ -13,7 +13,7 @@
 import { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
 import { resolveSprintPin } from './sprint-pin-resolver.js';
-import { assertStatusConsistent } from './task-status.js';
+import { assertStatusConsistent, isBlockingStatusOffender } from './task-status.js';
 
 export interface GuardResult { ok: boolean; reason?: string }
 export type VacuousExpect = 'present' | 'non-empty-string' | 'non-empty-array' | 'object' | 'ior-class';
@@ -87,11 +87,17 @@ export function consistencyStrict(idx: ScenarioIndex): GuardResult[] {
     results.push({ ok: false, reason: `consistency:strict/sprint-pin: ${(e as Error).message}` });
   }
 
-  // (c) dual-status consistency (R37.5): unit-status == board checkbox. Non-empty offenders = drift = fail.
+  // (c) dual-status consistency (R37.5): unit-status == board checkbox. FAILS only on BLOCKING offenders — those with
+  // a statusChecklist to evaluate against R37.5 (FALSE-DONE / MALFORMED / DRIFT). UNVERIFIABLE (no checklist =
+  // frozen-legacy) is out of R37.5 scope (nothing to derive from) -> report-only NAMED DEBT, not a refusal (single-
+  // source via isBlockingStatusOffender = kind!=='UNVERIFIABLE', PO ruling 2026-08-12; same shape as check:sprint-md
+  // excluding write-guard-preserved hand-authored files). NON-BLINDING: a checklist-having drift still refuses (bite).
   const offenders = assertStatusConsistent(idx);
-  results.push(offenders.length === 0
+  const blocking = offenders.filter(isBlockingStatusOffender);
+  const unverifiable = offenders.length - blocking.length;
+  results.push(blocking.length === 0
     ? { ok: true }
-    : { ok: false, reason: `consistency:strict/dual-status: ${offenders.length} status drift(s) (e.g. ${offenders[0].name}: declared ${offenders[0].declared} != derived ${offenders[0].derived}) — refuse` });
+    : { ok: false, reason: `consistency:strict/dual-status: ${blocking.length} status drift(s)${unverifiable ? ` (+${unverifiable} UNVERIFIABLE no-checklist = named-debt, not counted)` : ''} (e.g. ${blocking[0].name}: declared ${blocking[0].declared} != derived ${blocking[0].derived}) — refuse` });
 
   return results;
 }
