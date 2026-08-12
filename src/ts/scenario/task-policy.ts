@@ -79,7 +79,8 @@ registerPolicy(TASK_IOR, TaskPolicy);
 // source, deriveStatusEnum) so a READ never returns a stored `status` that has drifted from the checklist (C2/C6:
 // status 'Planned' while the chain had shipped). deriveStatusEnum never throws → Task always self-CORRECTS (fresh, no
 // refuse). A new class inherits self-heal-on-read by registering its own healer here — zero edits to the mechanism.
-// [impl:uuid:PENDING-req-mint] TaskPolicy self-heal-on-read registration (recompute status from checklist)
+// Task self-heal-on-read registration (recompute status from checklist). The C4.1 [impl] marker lives on
+// the selfHealOnRead declaration in self-heal.ts (the mechanism), not here on the per-class registration.
 registerSelfHeal(TASK_IOR, (unit) => {
   const m = unit.model as Record<string, unknown>;
   m.status = deriveStatusEnum(String(m.statusChecklist ?? ''));

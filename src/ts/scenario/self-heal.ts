@@ -23,6 +23,7 @@ export function registerSelfHeal(ior: string, heal: SelfHeal): void { HEALERS.se
 export function hasSelfHeal(ior: string): boolean { return HEALERS.has(ior); }
 
 /** The read-side hook: recompute-to-reality (fresh) OR throw (refuse). No-op + returns the unit when its ior has no healer. */
+// [impl:uuid:79f2dec1-b484-4f94-8663-788012f6b242] SelfHeal.selfHealOnRead — C4.1 read-side self-heal hook (recompute-to-reality on read; per-ior healers via registerSelfHeal, Task = #1). Label leads with the method name so it binds to this named export (strict-AST); migrated off the stale task-policy.ts placeholder.
 export function selfHealOnRead(unit: ScenarioUnit): ScenarioUnit {
   const heal = HEALERS.get(unit.ior);
   if (heal) heal(unit); // fresh (mutates unit.model) OR throws to refuse — never returns a silently-drifted value
