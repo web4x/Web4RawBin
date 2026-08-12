@@ -67,7 +67,7 @@ function isModelUnit(uuid: string): boolean {
     return ior === 'ior:class:ModelElement' || ior === 'ior:class:Diagram';
   } catch { return false; }
 }
-import { FeatureManager } from './FeatureManager.js';
+import { FeatureManager, loadProtectedIdentities } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { detailScalarFields } from '../shared/detail-fields.js';
@@ -2718,7 +2718,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       // (c) OBSERVABLE revocation state — armed:true ONLY when actually enforcing (intended-armed AND no health
       // error); loaded = count in memory. A 200 alone was ambiguous (not-armed vs armed-correct); this makes the
       // running state independently verifiable, and (b) returns 503 when ARMED but the list is absent/short.
-      const base = { uptime, version: getVersion(), connections: wsClients.size, rooms: roomManager.size, revoked: { armed: REVOKED_ARMED && !revokedHealthError, loaded: revokedTokens.size } };
+      // option-(iii) OBSERVABILITY (PO refinement): surface the trusted protected-identity config state so an
+      // absent/malformed config is VISIBLE here immediately (not discovered weeks later via another cast-out) —
+      // computed live per health call. error != null => the owner-safety re-seed fell back to owner-only.
+      const _pi = loadProtectedIdentities();
+      const base = { uptime, version: getVersion(), connections: wsClients.size, rooms: roomManager.size, revoked: { armed: REVOKED_ARMED && !revokedHealthError, loaded: revokedTokens.size }, protectedIdentities: { configured: _pi.ids.length, error: _pi.error } };
       if (revokedHealthError) {
         res.writeHead(503, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ status: 'unhealthy', reason: revokedHealthError, ...base }));

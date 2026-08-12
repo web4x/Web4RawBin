@@ -20,13 +20,20 @@ const SCENARIO_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..
 // self-heals to the trusted set, while a non-trusted intruder is never re-seeded/cemented. Fail-safe: an absent/
 // unreadable/malformed file → [] → fall back to seedOwnerInto only (no worse than before; never a crash).
 const PROTECTED_IDS_FILE = process.env.RAWBIN_PROTECTED_IDS || '/root/.rawbin/protected-owner-identities.json';
-function loadProtectedIdentities(): string[] {
+// Returns the trusted set with an OBSERVABLE status (PO refinement — same absent-vs-empty lesson as the revoked
+// list): the fallback stays AVAILABILITY-safe (absent/malformed → empty ids → seedOwnerInto-only, NEVER fail-closed
+// — denying everyone would cast Tron out, the very catastrophe this prevents), but the failure is made VISIBLE via
+// `error` (surfaced in a LOUD boot log + /api/health) so a vanished config is caught immediately, not weeks later.
+// error: 'config-absent' (file missing) | 'config-malformed' (unparseable/wrong-shape) | null (present & valid).
+export function loadProtectedIdentities(): { ids: string[]; present: boolean; error: string | null } {
+  if (!fs.existsSync(PROTECTED_IDS_FILE)) return { ids: [], present: false, error: 'config-absent' };
   try {
-    if (!fs.existsSync(PROTECTED_IDS_FILE)) return [];
     const data = JSON.parse(fs.readFileSync(PROTECTED_IDS_FILE, 'utf-8'));
-    const list: unknown[] = Array.isArray(data) ? data : (data && Array.isArray(data.protectedIdentities) ? data.protectedIdentities : []);
-    return list.filter((t: unknown): t is string => typeof t === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(t));
-  } catch { return []; }
+    const raw: unknown = Array.isArray(data) ? data : (data && Array.isArray(data.protectedIdentities) ? data.protectedIdentities : null);
+    if (!Array.isArray(raw)) return { ids: [], present: true, error: 'config-malformed' };
+    const ids = raw.filter((t: unknown): t is string => typeof t === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(t));
+    return { ids, present: true, error: null };
+  } catch { return { ids: [], present: false, error: 'config-malformed' }; }
 }
 
 type MinProfile = { token: string; features?: string[] };
@@ -53,6 +60,9 @@ export class FeatureManager {
   static bootstrapSeed(): void {
     let idx: ScenarioIndex;
     try { idx = new ScenarioIndex(SCENARIO_DIR); } catch { return; }
+    const pi = loadProtectedIdentities(); // once, before the loop
+    if (pi.error) console.warn(`[boot][protected-identities] ${pi.error} at ${PROTECTED_IDS_FILE} — owner-only seed fallback; Tron's non-literal identities (e.g. 05e58f81) NOT self-healed. Availability-safe but VISIBLE (not silent).`);
+    else console.log(`[boot][protected-identities] loaded ${pi.ids.length} trusted identities → re-seeding into every Feature.allowedUsers`);
     for (const uuid of idx.list()) {
       if (idx.get(uuid)?.ior !== 'ior:class:Feature') continue;
       const f = readFeature(uuid);
