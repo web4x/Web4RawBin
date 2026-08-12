@@ -27,3 +27,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] 🧪 [Task 40.28: Default actions Scenario + Edit ALWAYS open in a new tab (every surface the universalActionBar composes on), never navigate the current tab](./task-40.28-default-actions-new-tab.md)
 - [ ] 🧪 [Task 40.17: Live-pin no-refresh — pin-designate updates the sprint tree LIVE @390 (the shipped half of R40.17)](./task-40.17-live-pin-no-refresh.md)
 - [ ] 🧪 [Task 40.18: Pin auto-progress on QA-Review — pin advances BY DERIVATION (explicit-wins-over-auto, lastCompleted-follows-DONE-not-QA), the shipped auto half of the pin mechanism](./task-40.18-pin-auto-progress-qa.md)
+- [ ] ⏳ [Task 40.37: Context-sensitive actions — invalid-for-type/status actions are NOT offered (universalActionBar per-action applicability); server guard stays defense-in-depth](./task-40.37-context-sensitive-actions.md)
