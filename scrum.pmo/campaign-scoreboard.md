@@ -10,9 +10,10 @@
 **★ S40.requirements[] AUDIT (2026-08-11, commit 84590a66c):** the list was partial — **15 parent==S40 Requirements were missing** (R40.16–R40.30, all Backlog, invisible on the board), not just R40.30 as first believed. Added all 15 → requirements[]=31 (== parent-count). A partial requirements[] under-reports scope and every count on it inherits the error; now complete.
 
 ## Headline
-- **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **38** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 7** (145 = 97+38+3+7)
+- **TOTAL S30++ tasks: 145** — Done **97** · QA-Review **40** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 5** (145 = 97+40+3+5)
+  - _★ 2026-08-12: T37.4.1 + T37.4.3 flipped into QA-Review (38→40, both verify-owner-first clean on own distinct facets — R37.16 honored, all 3 C4 siblings own-Tested); BELOW-QA 7→5 = ACTIONABLE 1 (T40.11 alone, expert-frozen) + 2 deferred + 2 excluded._
   - _★ 2026-08-12: T37.4.2 + T40.6 flipped into QA-Review (36→38); REMAINING 9→7; T37.4.1 reconciled to In-Progress (impl-not-test, still in REMAINING)._
-- **★★ SIGNABLE = 31 of the 38 at QA-Review** (2026-08-12) — carry BOTH numbers to Tron (signable ≠ at-QA-Review). **7 HELD-FROM-BATCH, ALL stale-GATE with ZERO broken features (tester-diagnosed; status NOT downgraded per PO). Every stamp reads 'gate stale/unverifiable — feature NOT implicated', never a product defect:**
+- **★★ SIGNABLE = 33 of the 40 at QA-Review** (2026-08-12; 40 after the T37.4.1/T37.4.3 flips, 7 held unchanged) — carry BOTH numbers to Tron (signable ≠ at-QA-Review). **7 HELD-FROM-BATCH, ALL stale-GATE with ZERO broken features (tester-diagnosed; status NOT downgraded per PO). Every stamp reads 'gate stale/unverifiable — feature NOT implicated', never a product defect:**
   - **R37.3** (T37.3 `364785b1`) · **R37.7** (T37.7 `bb31965b`) · **R40.8** (T40.8 `b0be0668`) = status:pass over a currently-RED gate DET-3x (hollow-row).
   - **R30.9** (T30.9 `6a6a56d3`) · **R30.35** (T30.35 `16379ac9`) · **R30.50** (T30.50 `7ed31b36`) · **R30.52** (T30.52 `a0b24e6b`) = r309-backed rows, status:pass over the currently-RED r309 gate.
   - ✓ **RELEASED (now SIGNABLE): R40.10** (T40.10 `9a70ce5e`) — chain-complete-to-Test on origin via its OWN approve-facet Test `d94b17e0` (measured-from-gate, NOT the 67697d86 BUG-A facet = no borrowed credit); gate GREEN DET-3x. PO's earlier 'chain-incomplete-no-Test' was inaccurate — it was never chain-incomplete.
