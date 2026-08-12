@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "0cec1d11-a525-4abe-8a1b-4ed5168cc01f",
+    "name": "Marcel Donges: better. but i expressed myself not perfectly. i sa",
+    "text": "better. but i expressed myself not perfectly. i said doorway but i just meant door opening. now behind every door opening there is a doorway while i immediatley wanted to be in the next identical room",
+    "timestamp": 1786107653474,
+    "senderIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:8be52aa9-7db8-4e3a-8356-eed920dd1f1a",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}

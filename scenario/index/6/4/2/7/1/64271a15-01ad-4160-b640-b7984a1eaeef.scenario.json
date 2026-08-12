@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "64271a15-01ad-4160-b640-b7984a1eaeef",
+    "kind": "link",
+    "name": "Why am I here",
+    "description": "https://test.wo-da.de/EAMD.ucp/Components/uk/co/pathwayoflight/Landingpage/src/html/why-am-i-here-v7.html",
+    "url": "https://test.wo-da.de/EAMD.ucp/Components/uk/co/pathwayoflight/Landingpage/src/html/why-am-i-here-v7.html",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=test.wo-da.de&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "parentFolder": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "children": [],
+    "uploaderToken": "05e58f81-34ec-4851-b5b7-5749ca9148a3"
+  },
+  "ownerIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496"
+}

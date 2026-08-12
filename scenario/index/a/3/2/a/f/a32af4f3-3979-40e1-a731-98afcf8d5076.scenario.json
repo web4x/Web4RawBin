@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "a32af4f3-3979-40e1-a731-98afcf8d5076",
+    "id": "a32af4f3-3979-40e1-a731-98afcf8d5076",
+    "name": "ST diag3",
+    "ownerToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "isPrivate": false,
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1785154916119,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAodJF3roU8vmBxJt9caiR\ndfm0dRBZMcZwzwIQUibYcqqS7k7TOFl7duqt9UJsyaGvmHW7TAD7MbmFCeBQjg/y\nzKY+4i8tJD0ihS0aXH0xkBB7nW7uLCzZBncpcQtdYFB2H+2BTU3MPtoKMdF3KNyF\nA6yRxuQF8Fk3cok9A6TRYUCFyi4hljOAYUTBShQVYBmknb3Q8fvhKirPRwOPMVld\ngyfvMn/Sbe/lFH1KqApA9MPQw/5Z7f6AzKRyb2zOAt5VK1n/68Gi3aZg7kOcQmjM\n5ZhG9Fx0ZrzTc99hLRZkxk50+bmjNtONZ60y9wugHkTI4KsPs3BVXW8MjWsKJfC5\n3QIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "sourceFile": "scenario/index/a/3/2/a/f/a32af4f3-3979-40e1-a731-98afcf8d5076.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/ce981242-74fe-4d44-b5b6-43c641e224df/a32af4f3-3979-40e1-a731-98afcf8d5076.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

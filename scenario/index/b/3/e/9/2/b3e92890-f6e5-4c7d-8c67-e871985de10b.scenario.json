@@ -1,0 +1,127 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "b3e92890-f6e5-4c7d-8c67-e871985de10b",
+    "id": "b3e92890-f6e5-4c7d-8c67-e871985de10b",
+    "name": "SystemTester R31.12 gate",
+    "ownerToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1785156966705,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsw5jbEnLO0A4MtxLkdkL\njuzZUQS7IHaQXEWmeLMDam43K1yTsCkRCrBtD8JJBkb1DilAATnn+JjJCw00b2r9\nN+DdsTEc0lxha6nFKbUG5Yev7KSgOA4Ep22sSXdeUJ2vdjudPU7rVQWiIp0eDsUk\nnuI14bzduzVDIdz2ulcrKwklJ2obAOnfaRsqLrP4eI0wjBJCU8Ss1ACaB01r48GB\nWF6tfTds/CCMybcP3hkbdIAFiZ8y7hJuEoJofHxDNCeYTwt4jzEMRb5I1xZ2kiif\nBjB+ll6g9gwpoahTaUwuvFEbgRIsISBZWrZupae5hih/OGDP6TmKToX96eN/7Fmd\nGwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [
+      {
+        "senderId": "::ffff:195.90.209.56-1785156996819",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-0-28342",
+        "timestamp": 1785157028405
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785156996819",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-1-28758",
+        "timestamp": 1785157028805
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785156996819",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-2-29158",
+        "timestamp": 1785157029202
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785156996819",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-3-29555",
+        "timestamp": 1785157029602
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785156996819",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-4-29954",
+        "timestamp": 1785157030005
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157033651",
+        "senderName": "SystemTester",
+        "text": "r3112-own2-0-65174",
+        "timestamp": 1785157065236
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157033651",
+        "senderName": "SystemTester",
+        "text": "r3112-own2-1-65589",
+        "timestamp": 1785157065634
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157033651",
+        "senderName": "SystemTester",
+        "text": "r3112-own2-2-65987",
+        "timestamp": 1785157066035
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157033651",
+        "senderName": "SystemTester",
+        "text": "r3112-own2-3-66387",
+        "timestamp": 1785157066435
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157033651",
+        "senderName": "SystemTester",
+        "text": "r3112-own2-4-66788",
+        "timestamp": 1785157066836
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157070481",
+        "senderName": "SystemTester",
+        "text": "r3112-own3-0-1977",
+        "timestamp": 1785157102034
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157070481",
+        "senderName": "SystemTester",
+        "text": "r3112-own3-1-2386",
+        "timestamp": 1785157102432
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157070481",
+        "senderName": "SystemTester",
+        "text": "r3112-own3-2-2784",
+        "timestamp": 1785157102832
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157070481",
+        "senderName": "SystemTester",
+        "text": "r3112-own3-3-3184",
+        "timestamp": 1785157103215
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785157070481",
+        "senderName": "SystemTester",
+        "text": "r3112-own3-4-3567",
+        "timestamp": 1785157103599
+      }
+    ],
+    "members": [
+      {
+        "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+        "name": "SystemTester",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1785157107476
+      }
+    ],
+    "files": [],
+    "lastMessageIor": "ior:instance:6755cb3a-83d1-4363-8272-1a6dd46365bd",
+    "firstMessageIor": "ior:instance:2dd684df-bdb5-42f6-ba9a-46119614785e",
+    "messageCount": 15,
+    "sourceFile": "scenario/index/b/3/e/9/2/b3e92890-f6e5-4c7d-8c67-e871985de10b.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/ce981242-74fe-4d44-b5b6-43c641e224df/b3e92890-f6e5-4c7d-8c67-e871985de10b.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

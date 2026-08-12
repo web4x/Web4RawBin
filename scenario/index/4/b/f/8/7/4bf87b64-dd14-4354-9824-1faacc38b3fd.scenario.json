@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "4bf87b64-dd14-4354-9824-1faacc38b3fd",
+    "name": "Christine Dawood: This is complicated",
+    "text": "This is complicated",
+    "timestamp": 1785776726876,
+    "senderIor": "ior:instance:4af41484-637a-452b-a897-a81d0cc68788",
+    "senderName": "Christine Dawood",
+    "roomIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "prevMessage": "ior:instance:0619ba1b-0409-4ff1-9339-92b9b6a8f106",
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4af41484-637a-452b-a897-a81d0cc68788"
+}

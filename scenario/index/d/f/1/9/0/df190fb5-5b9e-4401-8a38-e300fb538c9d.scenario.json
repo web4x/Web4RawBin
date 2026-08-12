@@ -1,0 +1,67 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "df190fb5-5b9e-4401-8a38-e300fb538c9d",
+    "id": "df190fb5-5b9e-4401-8a38-e300fb538c9d",
+    "name": "SystemTester R31.12 gate",
+    "ownerToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1785155158781,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsZ3TXylbq6NZxItIuz+i\nszp20F1QSb1o007LfeaINA0MYFJbF1OzgFEjAsNtVBBZhJoFA1dG2GTOcyET66fO\nXg9s619Ytc6+5kyhhdB8HCUylcb/4m5TypJjZ88piND+1cKgNenbYesSpxKTrzqG\n5/bUoovBzdqaMGsS9O/+6OXW0KA98eOE+a1KwoSn5+QfhItroh4+1maz1h5JyMWv\nx5o1f5RCPGkHsr/yzWwl4IWQStQE/5uCqiDw0bhf6P+rxHG0O6LuJ9/UR1nS/OGO\nsOtV9YeIT+drZhV51Q6pQfMxn7Qj/j24C8dSXyEvWWpP2fl57GoQt1eC+h0hxf6p\ntwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [
+      {
+        "senderId": "::ffff:195.90.209.56-1785155188910",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-0-20403",
+        "timestamp": 1785155220477
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785155188910",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-1-20829",
+        "timestamp": 1785155220877
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785155188910",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-2-21229",
+        "timestamp": 1785155221276
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785155188910",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-3-21628",
+        "timestamp": 1785155221677
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785155188910",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-4-22033",
+        "timestamp": 1785155222075
+      }
+    ],
+    "members": [
+      {
+        "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+        "name": "SystemTester",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1785155564711
+      }
+    ],
+    "files": [],
+    "lastMessageIor": "ior:instance:80a35db7-74b0-4bb9-9d90-74a7ac8c39c3",
+    "firstMessageIor": "ior:instance:627c6f24-0ccc-477c-8a2f-318d1fc4d551",
+    "messageCount": 5,
+    "sourceFile": "scenario/index/d/f/1/9/0/df190fb5-5b9e-4401-8a38-e300fb538c9d.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/ce981242-74fe-4d44-b5b6-43c641e224df/df190fb5-5b9e-4401-8a38-e300fb538c9d.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

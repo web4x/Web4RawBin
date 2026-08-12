@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "249fdab6-2eab-4997-86cc-9f8624ff090c",
+    "name": "deploymentNode.emitTypedRefRows",
+    "description": "The Server-Manager tree emits each deploymentRef as its REAL minted typed-unit ior row (never synthetic depref:) so the drawer resolves it — R40.11 AC-1(real minted units)+AC-2(real ior). Rides R40.6 buildTypedModel upstream; owns the emitter, not the producer.",
+    "class": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006",
+    "classes": [
+      "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
+    ],
+    "method": "ior:instance:16a97b99-93ca-4bdc-b5c6-d9c69e9518fa",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5"
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "dc48165b-d944-42f2-917f-c78b79056699",
+    "kind": "link",
+    "name": "watch?v=On8AxkeHYNE",
+    "description": "https://www.youtube.com/watch?v=On8AxkeHYNE",
+    "url": "https://www.youtube.com/watch?v=On8AxkeHYNE",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=www.youtube.com&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "3231db71-d834-435a-a7f9-a801680ccd62",
+    "parentFolder": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "children": [],
+    "uploaderToken": "05e58f81-34ec-4851-b5b7-5749ca9148a3"
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

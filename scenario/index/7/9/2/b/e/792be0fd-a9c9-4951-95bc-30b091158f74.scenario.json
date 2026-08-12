@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "792be0fd-a9c9-4951-95bc-30b091158f74",
+    "name": "OtmuxBridge.buildServerManagerTree impl (R40.11 AC-2 crown resolver: emit REAL typed-unit iors, no synthetic depref:)",
+    "description": "SHIPPED slice-2 in src/ts/server/OtmuxBridge.ts:96 — resolves the deployment node deploymentRefs to their REAL slice-1 typed units (by sourceRole) + emits a real-ior row each; rides buildTypedModel(e009ace7, R40.6) UPSTREAM (does NOT own it). Expert: add [impl:uuid:792be0fd-a9c9-4951-95bc-30b091158f74] on buildServerManagerTree.",
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:16a97b99-93ca-4bdc-b5c6-d9c69e9518fa"
+}

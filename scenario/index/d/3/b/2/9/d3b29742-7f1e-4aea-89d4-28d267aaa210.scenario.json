@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "d3b29742-7f1e-4aea-89d4-28d267aaa210",
+    "name": "Change Request: Task 34.1: Universal orange «Scenario»+«Edit» default actions on ALL scenario-instance detail views (client) [R-A]",
+    "task": "ior:instance:175271d6-b8d7-4e02-b648-681bfe9dcfe7",
+    "requirements": [],
+    "reason": "the details view still has scenario and edit links which are now duplicates … the actions in the action bar are sufficient… DRY",
+    "createdBy": "sm_sessi",
+    "createdAt": "2026-08-10T13:24:17.800Z",
+    "status": "Open"
+  },
+  "ownerIor": "ior:instance:175271d6-b8d7-4e02-b648-681bfe9dcfe7"
+}

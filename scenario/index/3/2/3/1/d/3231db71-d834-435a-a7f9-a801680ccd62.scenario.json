@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1784885392218,
+    "createdAt": 1786530001091,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA74xNrG7jd1wLeUJfMqjK\naA7jpI9xeGbcgt/TXlNUMKwvjAs57KmxZwwFpCtxbjLe7NwQyn/r2nxgf1YJqLKB\nkeTZkbxT9/ekt/d8QsoP3horBqVlSzlO5bBVjaUNNGd0yHaqhC9e+vXszmAVpdtu\nugkQZ4EkUTtFbx0dbWxOB4ftcrPssYqpk3Ya9z2BTkKJIfwLKzcUSSO1Q+ncdNaL\nSr3sFAQ0kXRrTAWADJrXk5FKWtZIWtdd4hZRKkGvJLo6CQOGYPm/O7Oz8gLCUVq9\nyZamknoXoB731dOy6ao6rJ9pWWysq4rP6Wi3WvuhP5Ydumkcq9xBsMQyKP9aXq7F\n7wIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [],
@@ -20,28 +20,42 @@
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784909951536
+        "joinedAt": 1786530001091
       },
       {
         "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784909951536
+        "joinedAt": 1786530001091
       },
       {
         "ior": "ior:instance:8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
         "name": "Amos Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784909951536
+        "joinedAt": 1786530001091
       },
       {
-        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+        "ior": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1784909951536
+        "joinedAt": 1786530001091
+      },
+      {
+        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+        "name": "",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1786530001091
+      },
+      {
+        "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
+        "name": "",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1786530001091
       }
     ],
     "files": [

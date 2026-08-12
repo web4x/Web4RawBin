@@ -7,7 +7,8 @@
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
     "methods": [
       "ior:instance:7d7221d8-b2d1-43a3-b9c4-896a912454b6",
-      "ior:instance:e56fcd32-fd56-4e9d-b8e2-23764fbc951c"
+      "ior:instance:e56fcd32-fd56-4e9d-b8e2-23764fbc951c",
+      "ior:instance:16a97b99-93ca-4bdc-b5c6-d9c69e9518fa"
     ]
   },
   "ownerIor": "ior:instance:742aa04d-4dd8-46a6-bee1-f1b8ab9fa552"

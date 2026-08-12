@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "9abc3646-749b-42ba-850d-8e442c85be95",
+    "kind": "link",
+    "name": "Pathway of Light",
+    "description": "https://pathwayoflight.co.uk/",
+    "url": "https://pathwayoflight.co.uk/",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=pathwayoflight.co.uk&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "parentFolder": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "children": [],
+    "uploaderToken": "05e58f81-34ec-4851-b5b7-5749ca9148a3"
+  },
+  "ownerIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496"
+}

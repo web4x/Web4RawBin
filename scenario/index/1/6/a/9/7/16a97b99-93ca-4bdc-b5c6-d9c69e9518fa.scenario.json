@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "16a97b99-93ca-4bdc-b5c6-d9c69e9518fa",
+    "name": "OtmuxBridge.buildServerManagerTree",
+    "description": "Build the Server-Manager tree: deployment node + its typed-unit ref rows (REAL iors, no depref:) + otmux session children. R40.11 AC-1(units minted)/AC-2(real ior emit).",
+    "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
+    "implementations": [
+      "ior:instance:792be0fd-a9c9-4951-95bc-30b091158f74"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:34c7dfe6-cfde-4656-ad6a-80aeea073006"
+}

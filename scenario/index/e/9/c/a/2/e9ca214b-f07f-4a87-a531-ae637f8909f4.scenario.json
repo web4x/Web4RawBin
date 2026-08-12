@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "e9ca214b-f07f-4a87-a531-ae637f8909f4",
+    "kind": "link",
+    "name": "Nextcloud",
+    "description": "https://nextcloud.2cu.it/index.php/s/QoWXtBwaSXNSzEK",
+    "url": "https://nextcloud.2cu.it/index.php/s/QoWXtBwaSXNSzEK",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=nextcloud.2cu.it&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "parentFolder": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "children": [],
+    "uploaderToken": "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+  },
+  "ownerIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496"
+}

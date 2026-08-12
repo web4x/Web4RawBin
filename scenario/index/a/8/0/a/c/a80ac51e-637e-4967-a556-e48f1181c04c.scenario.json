@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "a80ac51e-637e-4967-a556-e48f1181c04c",
+    "kind": "link",
+    "name": "Cuadds",
+    "description": "https://www.cuadds.com/item/83MQ7eHR7tSpsSwYH",
+    "url": "https://www.cuadds.com/item/83MQ7eHR7tSpsSwYH",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=www.cuadds.com&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "parentFolder": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "children": [],
+    "uploaderToken": "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+  },
+  "ownerIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496"
+}

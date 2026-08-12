@@ -1,0 +1,67 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "93cd6417-ce8f-47b0-adc7-256ccc324715",
+    "id": "93cd6417-ce8f-47b0-adc7-256ccc324715",
+    "name": "SystemTester R31.12 gate",
+    "ownerToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1785153939709,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv3wOubZRxVe+4JLo48X/\nma2cnMZ0kURXR3YQ1SimgajwYXOgILWM3RrJJBcSGmlX+8DzwDAzUzW1fWCeqtbc\nW7HxlOV+5yDxLm0jsGNMrjp//0gSYFigm+BAhHVZG6LZw0YH6nGHoQCWsMJ/4Dmo\n+x/xPZ4v4y+cEMGuqV4QWkEnsmGswGRGFnHQNebmax8nolNLHo572EGgZXyedb8q\nsZEo2AZlw4iIzS0LJbswqkvuPKZcH00wH+/kVZjiYXLDbjtJa5VZzyVQXZdwT1rh\n+GIZY7n2HWb8vJ9I8CIQQaoWklk77K1aTeQ/1bfzUAAJvzKltM8qJKuwtzDEXkA/\nAwIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [
+      {
+        "senderId": "::ffff:195.90.209.56-1785153969823",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-0-2093",
+        "timestamp": 1785154002159
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785153969823",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-1-2512",
+        "timestamp": 1785154002557
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785153969823",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-2-2909",
+        "timestamp": 1785154002963
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785153969823",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-3-3315",
+        "timestamp": 1785154003358
+      },
+      {
+        "senderId": "::ffff:195.90.209.56-1785153969823",
+        "senderName": "SystemTester",
+        "text": "r3112-own1-4-3712",
+        "timestamp": 1785154003763
+      }
+    ],
+    "members": [
+      {
+        "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+        "name": "SystemTester",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1785154210756
+      }
+    ],
+    "files": [],
+    "lastMessageIor": "ior:instance:758817b7-124b-484e-b485-2a9d0ccfb885",
+    "firstMessageIor": "ior:instance:d4042062-fc4d-442d-922a-913795e4dd82",
+    "messageCount": 5,
+    "sourceFile": "scenario/index/9/3/c/d/6/93cd6417-ce8f-47b0-adc7-256ccc324715.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/ce981242-74fe-4d44-b5b6-43c641e224df/93cd6417-ce8f-47b0-adc7-256ccc324715.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

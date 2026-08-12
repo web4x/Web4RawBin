@@ -1,0 +1,36 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "ca0a640b-9d9e-40eb-adad-f3eb2a732593",
+    "id": "ca0a640b-9d9e-40eb-adad-f3eb2a732593",
+    "name": "Marcel test",
+    "ownerToken": "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1785241275237,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt3pqisZ8ToW/EjHPvBzR\n2gVWD2W5peGrxB5S2YR6Py8HOr6R1WE5d67HVisH3CSXLCzzfOiQRWfe4g6DlHl6\nchadGDraaYNe1+DD1vv72/zkaPcVqclVhzHMxxZLqNVeBbSeXjISHYf1S0z4CtsM\n12q4yZ2NC8+Eiqxs2yu4fYUZ5K4LUGoQRXT7trvGS4pksZOJ9Jy7H8WmCoFlahAp\nVULD20zBF2oJxe8lXJD3Nnd2Yugy1RJk7NKMOBz0rM+JZ9AhbXuCx3//9VqA5doX\nCTxHPNTeqkW+sodztte76CtvD7qydS6GkyBe3Ofv3npvg+zF43M39Z73gscSznnP\n2QIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+        "name": "Marcel Donges",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1785241539234
+      }
+    ],
+    "files": [],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/c/a/0/a/6/ca0a640b-9d9e-40eb-adad-f3eb2a732593.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/41ad88c4-4dee-49ac-afcb-8a2026657b2d/ca0a640b-9d9e-40eb-adad-f3eb2a732593.json"
+    ]
+  },
+  "ownerIor": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+}

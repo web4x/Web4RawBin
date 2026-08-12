@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "e18c1a2c-b8d2-4742-8945-da4b69beeffa",
+    "name": "SystemTester: r3112-own1-2-79988",
+    "text": "r3112-own1-2-79988",
+    "timestamp": 1785155380037,
+    "senderIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+    "senderName": "SystemTester",
+    "roomIor": "ior:instance:6d42af5f-1bac-46c3-b6fb-d40112248c0d",
+    "prevMessage": "ior:instance:2a8fc140-0a60-4800-bf91-dec057af155a",
+    "nextMessage": "ior:instance:07adc874-5f1c-45ac-9a72-c7d7b777edb6",
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

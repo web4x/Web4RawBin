@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "74fd81e2-1f65-47d6-b02d-1ff01db01000",
+    "name": "Krista Kim: Test",
+    "text": "Test",
+    "timestamp": 1785225586090,
+    "senderIor": "ior:instance:44bf9b39-481c-4725-b317-2e6597f4c1dc",
+    "senderName": "Krista Kim",
+    "roomIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:44bf9b39-481c-4725-b317-2e6597f4c1dc"
+}

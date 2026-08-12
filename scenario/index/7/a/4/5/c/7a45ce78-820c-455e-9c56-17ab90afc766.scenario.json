@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "7a45ce78-820c-455e-9c56-17ab90afc766",
+    "name": "Marcel Donges: well done",
+    "text": "well done",
+    "timestamp": 1785846545923,
+    "senderIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}

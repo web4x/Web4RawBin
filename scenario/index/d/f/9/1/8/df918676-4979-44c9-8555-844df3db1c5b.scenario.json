@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:WebItem",
+  "model": {
+    "uuid": "df918676-4979-44c9-8555-844df3db1c5b",
+    "kind": "link",
+    "name": "Claude",
+    "description": "https://claude.ai/share/33bfef59-ac56-40da-911a-dfee392509ea",
+    "url": "https://claude.ai/share/33bfef59-ac56-40da-911a-dfee392509ea",
+    "scheme": "https",
+    "icon": "https://www.google.com/s2/favicons?domain=claude.ai&sz=64",
+    "badge": "🔗",
+    "mimeType": "text/uri-list",
+    "roomUuid": "2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "parentFolder": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "children": [],
+    "uploaderToken": "41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+  },
+  "ownerIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496"
+}

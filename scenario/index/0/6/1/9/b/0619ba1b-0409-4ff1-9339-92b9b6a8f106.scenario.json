@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "0619ba1b-0409-4ff1-9339-92b9b6a8f106",
+    "name": "Marcel Donges: I think I'm logged in as you Marcel",
+    "text": "I think I'm logged in as you Marcel",
+    "timestamp": 1785776693790,
+    "senderIor": "ior:instance:4af41484-637a-452b-a897-a81d0cc68788",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "prevMessage": "ior:instance:3651ba5e-711a-425a-9bc3-3e0fe503d9df",
+    "nextMessage": "ior:instance:4bf87b64-dd14-4354-9824-1faacc38b3fd",
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4af41484-637a-452b-a897-a81d0cc68788"
+}

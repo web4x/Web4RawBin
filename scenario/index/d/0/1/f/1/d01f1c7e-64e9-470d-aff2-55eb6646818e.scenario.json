@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "d01f1c7e-64e9-470d-aff2-55eb6646818e",
+    "name": "Marcel Donges: ping",
+    "text": "ping",
+    "timestamp": 1785165201100,
+    "senderIor": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:2b1921a9-3638-4f91-b9b0-9744ff710496",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d"
+}

@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "44bf9b39-481c-4725-b317-2e6597f4c1dc",
+    "name": "Krista Kim",
+    "phones": [],
+    "emails": [],
+    "addresses": [],
+    "companies": [],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

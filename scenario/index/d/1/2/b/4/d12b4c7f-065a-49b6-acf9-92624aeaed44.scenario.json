@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "d12b4c7f-065a-49b6-acf9-92624aeaed44",
+    "name": "Change Request: Task 36.1: UmlUseCase extends UseCase — new M2 view of the same scenario (A-merge, tree-preserving) [R36.1, projections build 3rd]",
+    "task": "ior:instance:cec4747a-e235-4e65-b59b-3f82f0cbeee3",
+    "requirements": [],
+    "reason": "Task 36.1 rb-diagram-detail.ts:263 \n POST https://prod.wo-da.de:4444/api/model/diagram/add-view 400 (Bad Request)\naddView\t@\trb-diagram-detail.ts:263.  when useCase is dragged onto a diagram",
+    "createdBy": "sm_sessi",
+    "createdAt": "2026-08-10T08:21:58.912Z",
+    "status": "Open"
+  },
+  "ownerIor": "ior:instance:cec4747a-e235-4e65-b59b-3f82f0cbeee3"
+}
