@@ -8,6 +8,7 @@
  *
  * Run: /opt/node22/bin/node --import tsx scripts/check-tree-emitter.ts   (exits 1 on any failure)
  */
+// [test:uuid:e2b8f574-1a3c-4d9e-b06f-8c47a1e5d3b2] R40.11 AC-2 emitter — OtmuxBridge.buildServerManagerTree (Impl 792be0fd) emits REAL typed-unit iors for the node's deployment refs (0 synthetic depref:), INV-T session-subtree stable, stub-must-fail (a planted depref: IS detected). SERVED-path gate: exercises the SAME fn /api/server-manager/tree calls, vs the REAL scenario/index. DISTINCT-INTENT from 5c7e0a91 (graph+disk typed-model on e009ace7) — this verifies the EMISSION (real-ior, no synthetic), not the typed model.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OtmuxBridge } from '../src/ts/server/OtmuxBridge.js';
