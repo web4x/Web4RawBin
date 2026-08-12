@@ -20,6 +20,7 @@ const SCRATCH = path.join('/tmp/claude-0/-var-dev-Workspaces-AI-Claude/dd6c6fae-
 const OWNER8 = 'ce981242';
 
 // verbatim replica of server.ts:1454-1477 (the REAL verdict logic — source-audited below to prove it matches)
+// [test:uuid:d94b17e0-3f8a-4c62-9b15-6e0a2d7f4c83] R40.10 TaskQaVerdict.approveByOwner (Impl 36b6ce2e) — owner-gated QA sign-off: owner→200 writes approvedBy+approvedAt+Done, non-owner→403, non-'QA Review'→409 evidence-precondition, decline→ChangeRequest; + STUB-MUST-FAIL (approveStub missing the check flips a non-reviewed task = the assertion is able to fail). This gate's OWN intent = the server verdict logic. r4010b covers the DISTINCT @390 UI-surface facet (flagged to PO: deserves its own marker/Test).
 const approveByOwner = (idx: any, taskUuid: string, tok8: string, now: string) => {
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404 };
