@@ -10,6 +10,7 @@ import '../trace/rb-detail-drawer.js';
 import '../trace/rb-modelelement-detail.js';
 import '../trace/rb-strip.js'; // R33.3 AC4: REUSE the S31 rb-strip primitive for the action bar (no fork)
 import type { ActionDecl } from '../trace/action-applicability.js'; // R40.37: model action DECLARATIONS fed to the shared-bar resolver
+import { MODEL_DECLS } from './model-action-decls.js'; // R40.37: the REAL decls in a pure, node-testable module (test-the-code-not-a-replica)
 
 type Root = { uuid: string; type: string; name: string; hasChildren?: boolean; childCount?: number; children?: Root[] };
 
@@ -58,28 +59,7 @@ document.getElementById('gen-rawbin')?.addEventListener('click', () => {
 // R33.6.5 items 5+6: the action bar now lives IN the drawer (RbDetailDrawer.setActions), SELECTION-DRIVEN. The
 // /model HOST owns the type→actions map + verb-dispatch (the shared drawer stays generic, INV-3). Page-top
 // mountActionBar RETIRED. /trace + /scenario bundles never call this → their drawers register no actions → bar hidden.
-// R40.37 — the model view's action DECLARATIONS (the old ACTIONS_BY_TYPE/DEFAULT_ACTIONS type-maps became per-action
-// appliesTo). AC3: container actions never on leaf item types. AC4: add-diagram ONLY on the diagrams container BY KIND
-// (never a name-match). R33.9 membership → the when:hasActiveDiagram predicate (resolved in the shared bar's ctx).
-const MODEL_DECLS: ActionDecl[] = [
-  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact'] } },
-  { verb: 'import-puml', label: '⇩ Import PUML', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user'] } },
-  // R40.37 AC4 — INTERIM (no-regression): off leaf/element types. PRECISE "only the diagrams container BY KIND" is
-  // PENDING an architect ruling: the diagrams container is a SYNTHETIC mofFolder tree node (rawbin:diagram, type
-  // 'collection', NO persisted unit) → "set kind:'diagrams' at creation" has no creation + no kind reaches the drawer;
-  // kinds:['diagrams'] would hide add-diagram entirely (regression). Flagged. Once the container carries a resolvable
-  // kind, switch appliesTo to { kinds: ['diagrams'] }.
-  { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'modelelement'] } },
-  { verb: 're-sync', label: '⟳ Re-Sync', appliesTo: { types: ['diagram'] } },
-  { verb: 'compile-puml', label: '⚙ Compile → SVG', appliesTo: { types: ['diagram'] } },
-  { verb: 'new-element', label: '✚ New class', appliesTo: { types: ['modelelement'] } },
-  { verb: 'rename-element', label: '✎ Rename', appliesTo: { types: ['modelelement'] } },
-  { verb: 'delete-element', label: '🗑 Delete class', appliesTo: { types: ['modelelement'] } },
-  { verb: 'add-to-diagram', label: '＋ Add to diagram', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
-  { verb: 'discover', label: '⌗ Discover related', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
-  { verb: 'remove-from-diagram', label: '✕ Remove from diagram', appliesTo: { types: ['modelelement'], when: (ctx) => !!ctx.hasActiveDiagram } },
-];
-
+// R40.37: MODEL_DECLS moved to the pure model-action-decls.ts (imported above) so a node gate imports the REAL decls.
 // [impl:uuid:a1a5be99-a715-4a85-a0bf-89964c9c3949] ModelView.actionsForContext — R40.37 SUPERSEDED-BY
 // universalActions.applicableActionsFor (4018e773), POINTER-ONLY: the per-type RESOLVING is now done ONCE in the shared
 // drawer bar by applicableActionsFor; this retains its historical credit + Tests (honorSupersededBy, R30.11) and is now

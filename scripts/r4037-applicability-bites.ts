@@ -1,6 +1,7 @@
 // R40.37 BITE — per-(type,status/kind) applicability matrix on applicableActionsFor + stub-must-fail. Architect
 // backstops. Proves AC1/AC2/AC3/AC4 (the impossible affordance is not built) and that the check is non-vacuous.
 import { applicableActionsFor, UNIVERSAL_DECLS, type ActionDecl } from '../src/public/ts/trace/action-applicability.js';
+import { MODEL_DECLS } from '../src/public/ts/model/model-action-decls.js'; // the REAL container decls (pure module) — not a replica
 
 const verbs = (u: { type: string; status?: string; kind?: string }, decls: ActionDecl[]) =>
   applicableActionsFor(u, {}, decls).offered.map((a) => a.verb).sort();
@@ -26,14 +27,15 @@ chk('file → NO vcard/approve', !has(file, 'download-vcard') && !has(file, 'qa-
 const member = verbs({ type: 'member' }, UNIVERSAL_DECLS);
 chk('member → vcard only', JSON.stringify(member) === JSON.stringify(['download-vcard']), member);
 
-// AC3 — container actions (notTypes) are HIDDEN on a task, PRESENT on model contexts
-const containerDecls: ActionDecl[] = [{ verb: 'add-folder', label: '📁', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user'] } }];
-chk('AC3 add-folder HIDDEN on task', !applicableActionsFor({ type: 'task' }, {}, containerDecls).offered.some((a) => a.verb === 'add-folder'));
-chk('AC3 add-folder PRESENT on modelelement', applicableActionsFor({ type: 'modelelement' }, {}, containerDecls).offered.some((a) => a.verb === 'add-folder'));
-// membership when-predicate (R33.9): only with an active diagram
-const memDecls: ActionDecl[] = [{ verb: 'add-to-diagram', label: '+', appliesTo: { types: ['modelelement'], when: (c) => !!c.hasActiveDiagram } }];
-chk('membership HIDDEN with no active diagram', applicableActionsFor({ type: 'modelelement' }, {}, memDecls).offered.length === 0);
-chk('membership PRESENT with active diagram', applicableActionsFor({ type: 'modelelement' }, { hasActiveDiagram: true }, memDecls).offered.length === 1);
+// AC3 — the REAL MODEL_DECLS (pure module): container actions HIDDEN on a task, PRESENT on model contexts
+const taskOffered = verbs({ type: 'task' }, MODEL_DECLS);
+chk('AC3 add-folder HIDDEN on task (real MODEL_DECLS)', !has(taskOffered, 'add-folder'), taskOffered);
+chk('AC3 import-puml HIDDEN on task', !has(taskOffered, 'import-puml'), taskOffered);
+chk('AC3 add-diagram HIDDEN on task', !has(taskOffered, 'add-diagram'), taskOffered);
+chk('AC3 add-folder PRESENT on modelelement', has(verbs({ type: 'modelelement' }, MODEL_DECLS), 'add-folder'));
+// membership when-predicate (R33.9): only with an active diagram — REAL decls
+chk('membership HIDDEN with no active diagram', !has(verbs({ type: 'modelelement' }, MODEL_DECLS), 'add-to-diagram'));
+chk('membership PRESENT with active diagram', applicableActionsFor({ type: 'modelelement' }, { hasActiveDiagram: true }, MODEL_DECLS).offered.some((a) => a.verb === 'add-to-diagram'));
 
 // stub-must-fail: mutate the approve decl's statuses → any, assert task+Done now WRONGLY offers approve (the BITE
 // would catch the regression). Non-vacuous proof.
