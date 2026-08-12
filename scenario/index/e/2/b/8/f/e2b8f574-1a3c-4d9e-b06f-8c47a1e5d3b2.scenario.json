@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "e2b8f574-1a3c-4d9e-b06f-8c47a1e5d3b2",
+    "name": "test:R40.11 AC-2 emitter (OtmuxBridge.buildServerManagerTree 792be0fd) — the SERVED /server-manager tree emits REAL typed-unit iors for the node's deployment refs (0 synthetic depref:), INV-T session-subtree stable, stub-must-fail (a planted depref: IS detected). DISTINCT-INTENT from 5c7e0a91 (graph+disk typed-model on e009ace7): this verifies the EMISSION, not the typed model.",
+    "implementations": [
+      "ior:instance:792be0fd-a9c9-4951-95bc-30b091158f74"
+    ],
+    "sourceFile": "ior:file:scripts/check-tree-emitter.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from check-tree-emitter.ts:11 (measure-don't-invent, valid v4). Tester GREEN + placed the marker (01c23cd94, proved the gate exercises buildServerManagerTree DIRECTLY @:25: 5 real deploymentUnit rows, 0 synthetic depref:, INV-T stable, stub-must-fail @:41 a planted depref: detected). ★ RIDES 792be0fd (buildServerManagerTree) ONLY — R40.11's OWN AC-2 emitter. verify-owner-first: gate author (tester) confirmed this gate exercises 792be0fd's EMISSION (the /server-manager tree), DISTINCT endpoint from 5c7e0a91's /api/trace/children (T173 scalars, e009ace7 typed-model) — NOT the same, so this is a genuinely distinct-intent Test on a distinct Impl, NO borrowed credit. R40.6 keeps its own credit (c5a92e14/5c7e0a91 on e009ace7); this closes R40.11's AC-2 emitter chain + resolves dangling UC 249fdab6."
+  },
+  "ownerIor": "ior:instance:792be0fd-a9c9-4951-95bc-30b091158f74"
+}

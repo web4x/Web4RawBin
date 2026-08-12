@@ -6,7 +6,10 @@
     "description": "SHIPPED slice-2 in src/ts/server/OtmuxBridge.ts:96 — resolves the deployment node deploymentRefs to their REAL slice-1 typed units (by sourceRole) + emits a real-ior row each; rides buildTypedModel(e009ace7, R40.6) UPSTREAM (does NOT own it). Expert: add [impl:uuid:792be0fd-a9c9-4951-95bc-30b091158f74] on buildServerManagerTree.",
     "sourceFile": "ior:file:src/ts/server/OtmuxBridge.ts",
     "designAhead": false,
-    "tests": []
+    "markerNote": "STRICT-AST VERIFIED by req (expert marker ecdceb816, verify-owner-first disk-read): [impl:uuid:792be0fd-a9c9-4951-95bc-30b091158f74]@OtmuxBridge.ts:96, comment-continuation :97-98 (0 intervening named-decl), binds static buildServerManagerTree@:99, full-uuid + name-token match. Marker placed -> Impl fully shipped. R40.11's OWN AC-2 emitter (rides R40.6 e009ace7 upstream, does NOT own it). Test = e2b8f574 (check-tree-emitter SERVED-path, distinct-intent from 5c7e0a91 graph+disk).",
+    "tests": [
+      "ior:instance:e2b8f574-1a3c-4d9e-b06f-8c47a1e5d3b2"
+    ]
   },
   "ownerIor": "ior:instance:16a97b99-93ca-4bdc-b5c6-d9c69e9518fa"
 }
