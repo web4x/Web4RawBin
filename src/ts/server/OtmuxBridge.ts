@@ -73,15 +73,13 @@ export class OtmuxBridge {
     }));
     const nm = nodeUnit?.model as any;
     if (nm && nm.kind === 'node') {
-      // R40.11 slice-2: emit the REAL minted typed-unit iors (from Slice-1's units), NOT synthetic
-      // 'depref:'+role — so the drawer resolves each row to a real unit (graph.get hit) instead of a miss.
-      // If the node declares refs but none resolved to a typed unit → fail-LOUD ⚠ row (never revert to depref:).
-      const declaredRefs = Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : [];
-      const refRows: SmTreeRow[] = typedUnits.length
-        ? typedUnits.map((u) => ({ uuid: u.uuid, type: 'deploymentUnit', name: u.name, hasChildren: false }))
-        : (declaredRefs.length
-            ? [{ uuid: 'depunit:unresolved', type: 'notice', name: `⚠ ${declaredRefs.length} deployment ref(s) unresolved to a typed unit`, hasChildren: false }]
-            : []);
+      // R40.11 slice-2/4: emit the REAL minted typed-unit iors (resolved by deploymentNodeIor back-ref in
+      // buildServerManagerTree), NOT synthetic 'depref:'+role — the drawer resolves each row to a real unit.
+      // Slice-4: the raw deploymentRefs array is GONE — a node's deployment units are exactly the units that
+      // carry its back-ref, so "declared but unresolved" cannot occur at the tree level (a unit either carries
+      // the back-ref and resolves, or it is not declared). The bogus-ref fail-loud (AC-4) lives at the DRAWER
+      // (slice-3, r4011c #_b → '⚠ unresolved'), unaffected. NOTHING reads nm.deploymentRefs anymore.
+      const refRows: SmTreeRow[] = typedUnits.map((u) => ({ uuid: u.uuid, type: 'deploymentUnit', name: u.name, hasChildren: false }));
       return [{ uuid: String(nm.uuid), type: 'deploymentNode', name: String(nm.name), hasChildren: true, children: [...refRows, ...sessionRows] }];
     }
     console.warn(`[server-manager] WARN: WODA.prod deployment node ${nodeUuid} missing/not-a-node → tree DEGRADED to flat session list (fail-open, availability preserved).`);
@@ -95,16 +93,18 @@ export class OtmuxBridge {
   // (kills the armed-but-inert / gate-points-at-an-uncalled-fn blindness). NO synthetic 'depref:' anywhere.
   static buildServerManagerTree(sessions: SmSession[], idx: UnitReader, nodeUuid: string): SmTreeRow[] {
     const nodeUnit = idx.get(nodeUuid);
-    const nm = (nodeUnit?.model || {}) as Record<string, unknown>;
-    const roles = new Set<string>((Array.isArray(nm.deploymentRefs) ? nm.deploymentRefs : []).map((d: any) => String(d.role)));
+    // R40.11 slice-4: resolve the node's typed deployment units by the deploymentNodeIor BACK-REF that each
+    // unit carries (→ this node), NOT by deriving roles from the raw deploymentRefs array (removed in slice-4 —
+    // the array is redundant once the units self-declare their node; single-sourced via buildTypedModel so a
+    // re-gen re-sets it). idx.list() iteration order is preserved so the ref rows keep the SAME order the
+    // array-driven scan produced → INV-T byte-identical (the scratch INV-T==0 gate is the arbiter of order).
+    const nodeRef = 'ior:instance:' + nodeUuid;
     const typedUnits: { uuid: string; name: string }[] = [];
-    if (roles.size) {
-      for (const key of idx.list()) {
-        const u = idx.get(key);
-        if (!u || u.ior !== 'ior:class:ModelElement') continue;
-        const m = (u.model || {}) as Record<string, unknown>;
-        if (m.sourceRole && roles.has(String(m.sourceRole))) typedUnits.push({ uuid: String(m.uuid), name: String(m.name) });
-      }
+    for (const key of idx.list()) {
+      const u = idx.get(key);
+      if (!u || u.ior !== 'ior:class:ModelElement') continue;
+      const m = (u.model || {}) as Record<string, unknown>;
+      if (m.deploymentNodeIor && String(m.deploymentNodeIor) === nodeRef) typedUnits.push({ uuid: String(m.uuid), name: String(m.name) });
     }
     return OtmuxBridge.buildRootedTree(sessions, nodeUnit, nodeUuid, typedUnits);
   }
