@@ -5,7 +5,7 @@
     "name": "T-type-view-template: every scenario type generates .md + .html with chain-link + edit affordance",
     "slug": "type-view-template-md-html-chainlink-edit",
     "description": "R19.61: Every scenario type generates both .md and .html view templates with chain-link and edit affordance.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (54742276)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:9473a0be-d248-4277-80a3-9d9f1560f2cb"

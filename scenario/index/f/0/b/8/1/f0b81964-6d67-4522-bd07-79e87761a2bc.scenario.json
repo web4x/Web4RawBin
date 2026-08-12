@@ -5,7 +5,7 @@
     "name": "T-file-content-hash: file scenario unit stores content hash",
     "slug": "file-content-hash-scenario-unit",
     "description": "R19.49: Each file scenario unit stores a content hash.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (04558cf3)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:49a447cf-f27f-4639-aca7-4ab2b46543fb"

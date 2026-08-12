@@ -5,7 +5,7 @@
     "name": "T-file-version-array: file scenario unit has version[] array {version,ior}",
     "slug": "file-version-array-version-ior",
     "description": "R19.50: File scenario unit has a version[] array of {version, ior} entries.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (04558cf3)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:fe9922f0-e58f-4e26-9d5a-8c65f8b26c60"

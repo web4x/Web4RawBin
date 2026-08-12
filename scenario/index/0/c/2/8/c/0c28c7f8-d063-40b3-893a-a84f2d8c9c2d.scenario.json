@@ -5,7 +5,7 @@
     "name": "T-user-scenarios: Users become first-class scenario units (ior:class:User)",
     "slug": "user-first-class-scenario-units",
     "description": "R19.54: Users become first-class scenario units (ior:class:User) in the scenario index.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:3544a030-48cf-48f4-a08c-a376fb749f79"

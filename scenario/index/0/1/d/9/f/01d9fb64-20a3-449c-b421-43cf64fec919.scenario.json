@@ -5,7 +5,7 @@
     "name": "T-drawer-full-width: detail drawer full width — remove max-width cap",
     "slug": "drawer-full-width-remove-max-width-cap",
     "description": "Detail drawer is full width — remove the max-width:480px cap (app.css:271 + desktop 480px at app.css:264). Tron screenshot directive. Covers R19.52.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:dceda100-434b-4ef7-9af3-9a69ccfac6b2"

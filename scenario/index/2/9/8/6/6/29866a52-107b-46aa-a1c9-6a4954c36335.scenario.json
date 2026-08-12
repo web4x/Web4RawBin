@@ -5,7 +5,7 @@
     "name": "T-content-hash-index: scenario/content/ index-build for existing files + one-time cleanse",
     "slug": "content-hash-index-build-existing-files-cleanse",
     "description": "Build the scenario/content/ content-hash index with symlinks for EXISTING files (one-time cleanse folded into expert file-dedup-cleanse). Covers R19.51.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (fold into file-dedup-cleanse)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:33677612-5507-415c-8abf-1d2e27bc603b"

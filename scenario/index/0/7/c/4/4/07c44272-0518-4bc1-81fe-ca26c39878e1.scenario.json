@@ -5,7 +5,7 @@
     "name": "T-one-layer-prefetch: server childCount + client prefetchCache + 3 non-recursive triggers",
     "slug": "one-layer-prefetch-childcount-cache-triggers",
     "description": "Server returns childCount per node; client prefetchCache fetches one layer ahead on 3 non-recursive triggers (expand, select, mount); badges show accurate child counts from prefetched data. Covers R19.28.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:e790f0bc-590a-4b32-8df0-bfaa5db2c93c"

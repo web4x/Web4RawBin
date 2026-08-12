@@ -5,7 +5,7 @@
     "name": "T-room-dir-standardize: ONE canonical room location data/users/<u>/rooms/<r>",
     "slug": "room-dir-standardize-canonical-location",
     "description": "R19.53: ONE canonical room location on disk \u2014 data/users/<uuid>/rooms/<roomUuid>/, no stray dirs.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4c442530-92fb-48b4-81d8-54af2ca9c866"

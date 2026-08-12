@@ -5,7 +5,7 @@
     "name": "T-device-scenarios: Devices become first-class scenario units (ior:class:Device)",
     "slug": "device-first-class-scenario-units",
     "description": "R19.55: Devices become first-class scenario units (ior:class:Device) in the scenario index.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:53820063-250e-451e-b395-69948c6eee79"

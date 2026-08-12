@@ -5,7 +5,7 @@
     "name": "T-chat-lazy-load: Room holds lastMessageIor; chat lazy-loads 5 messages from scenario index",
     "slug": "chat-lazy-load-lastmessageior-scenario-index",
     "description": "Room scenario unit holds lastMessageIor; chat lazy-loads the 5 most recent messages from the scenario index on room enter. Covers R19.40.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:a0d3791e-a859-4303-b475-b3e525fce114"

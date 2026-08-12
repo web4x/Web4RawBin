@@ -5,7 +5,7 @@
     "name": "T-room-files-backfill: backfill room files[] from existing on-disk files",
     "slug": "room-files-backfill-existing-disk",
     "description": "R19.60: Pre-existing rooms backfill files[] from on-disk FileUnits so old rooms restore files on join.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:fd5ab4b4-31c6-40c5-a0b1-6f72f00fd155"

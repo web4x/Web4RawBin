@@ -5,7 +5,7 @@
     "name": "T-dropzone-visual-highlight: drop-zone onDragEnter/onDragExit visual highlight",
     "slug": "dropzone-visual-highlight-dragenter-exit",
     "description": "R19.42: Drop-zone has clear onDragEnter/onDragExit visual handlers.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:9e8b678b-c522-4929-90c3-d710c4893b6a"

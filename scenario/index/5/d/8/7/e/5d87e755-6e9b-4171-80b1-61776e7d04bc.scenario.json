@@ -5,7 +5,7 @@
     "name": "T-device-user-association: Device\u2194User association modeled like Room\u2194User",
     "slug": "device-user-association-like-room-user",
     "description": "R19.55.A: Device\u2194User association modeled like Room\u2194User \u2014 forward IOR array, ownerIor, per-user storage, unitLinks.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:150333f7-afdf-47a3-833f-4b53c6102eee"

@@ -5,7 +5,7 @@
     "name": "T-upload-status-bar: upload status bar with progress after drop",
     "slug": "upload-status-bar-progress-after-drop",
     "description": "R19.43: After drop, show an upload status bar with progress.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:fd822bbe-da7a-4121-bd80-a4ac7d05c744"

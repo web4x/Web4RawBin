@@ -5,7 +5,7 @@
     "name": "T-icon-tap-collapse: icon tap collapses item to square width",
     "slug": "icon-tap-collapse-square-width",
     "description": "Tapping the tree item icon collapses it to a square (icon-only width); tapping again expands to full name+description. Covers R19.27.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4603db83-167a-43a2-a06f-1f56167eb34b"

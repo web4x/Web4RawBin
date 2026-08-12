@@ -5,7 +5,7 @@
     "name": "T-child-count-badge: child-count number badge on tree items",
     "slug": "child-count-badge-tree-items",
     "description": "Show a numeric badge on tree items indicating the count of direct children. Covers R19.25.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:6ed53825-86ce-4ec7-80d0-ce739e876992"

@@ -5,7 +5,7 @@
     "name": "T-rawbin-user: system RawBin User owns DnD debug messages",
     "slug": "rawbin-user-system-owns-dnd-debug-messages",
     "description": "A system-level RawBin User identity owns DnD debug/dispatch messages in chat (not attributed to the dropping user). Covers R19.39.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4ed793f1-94a0-4645-b4f5-b8dff74da75c"

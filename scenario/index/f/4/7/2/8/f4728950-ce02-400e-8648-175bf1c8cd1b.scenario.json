@@ -5,7 +5,7 @@
     "name": "T-detailview-consolidate: all 7 type DetailViews show ONE consistent Traceability Chain section",
     "slug": "detailview-consolidate-consistent-chain-section",
     "description": "R19.58: All 7 type DetailViews show ONE consistent Traceability section with the real chain, not a flat method list.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:af607390-db30-4b1c-b3ac-21aba612aa60"

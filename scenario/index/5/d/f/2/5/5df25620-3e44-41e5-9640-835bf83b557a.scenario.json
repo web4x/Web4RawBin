@@ -5,7 +5,7 @@
     "name": "T-tree-owns-badges-prefetch: Tree owns computeBadges/prefetchLayer/prefetchVisibleLayer + TRACE_FWD plural-field fix",
     "slug": "tree-owns-badges-prefetch-trace-fwd-plural-fix",
     "description": "Tree component owns computeBadges(), prefetchLayer(), and prefetchVisibleLayer() \u2014 rb-object-item is passive (receives badge count, does not fetch). Also fixes TRACE_FWD plural-field bug (e.g. requirements vs requirement). Covers R19.29.",
-    "status": "Planned",
+    "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert (in flight per PO)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:a688978b-3151-4384-bb00-2adcc5fe055b"
