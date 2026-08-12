@@ -35,11 +35,20 @@ results['file→preview+newtab PRESENT'] = file.includes('preview-file') && file
 results['task→no file/vcard/proxy leak'] = ['preview-file', 'open-newtab', 'download-vcard', 'proxy-preview']
   .every((v) => !doneTask.includes(v) && !qaTask.includes(v));
 
-// ── (B) ENGINE kind-gate proven with a representative diagrams-container decl (the mechanism the container migration rides) ──
-const addDiagramDecl = [{ verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { kinds: ['diagrams'] } }];
-results['diagrams-container→add-diagram PRESENT'] = offeredVerbs({ type: 'collection', kind: 'diagrams' }, addDiagramDecl).includes('add-diagram');
-results['plain-folder→add-diagram ABSENT'] = !offeredVerbs({ type: 'collection', kind: 'folder' }, addDiagramDecl).includes('add-diagram');
-results['task→add-diagram ABSENT'] = !offeredVerbs({ type: 'task', status: 'Done' }, addDiagramDecl).includes('add-diagram');
+// ── (B) ENGINE over the REAL container-decl GRAMMAR (notTypes, exactly as MODEL_DECLS uses today) ──
+// NOTE: MODEL_DECLS itself lives in the HEAVY browser module model.ts (side-effect custom-element imports; not exported;
+// its only accessor actionsForContext is unexported + retires inc-2) → a node gate CANNOT import the real decl DATA.
+// Recommended fix (mirrors inc-1's universal-actions→action-applicability split): expert moves MODEL_DECLS to a PURE
+// exported module → then §B imports the real data. Meanwhile the grammar below mirrors the real decls EXACTLY, so the
+// REAL engine (imported applicableActionsFor) is proven against the real decl shape.
+const containerDecls = [
+  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact'] } },
+  { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'modelelement'] } },
+];
+results['task→NO container actions (notTypes)'] = ['add-folder', 'add-diagram'].every((v) => !offeredVerbs({ type: 'task', status: 'Done' }, containerDecls).includes(v));
+results['container→add-folder PRESENT'] = offeredVerbs({ type: 'collection' }, containerDecls).includes('add-folder');
+results['modelelement→add-diagram ABSENT (notTypes)'] = !offeredVerbs({ type: 'modelelement' }, containerDecls).includes('add-diagram')
+  && offeredVerbs({ type: 'modelelement' }, containerDecls).includes('add-folder'); // modelelement IS in add-diagram's notTypes but NOT add-folder's
 
 // ── (C1) STUB-MUST-FAIL aimed AT THE CHECK: mutate an applicability declaration → the matrix MUST detect the wrong offer ──
 const mutated = UNIVERSAL_DECLS.map((d) => d.verb === 'qa-approve' ? { ...d, appliesTo: { ...d.appliesTo, statuses: ['QA Review', 'Done'] } } : d);
@@ -60,8 +69,16 @@ results['APPROVE_STATUSES single-source'] = allDefs === 1 && clientImports && se
 // ── (C3) rollback-actually-rolls-back (folder.createPhysicalWithUnit 0c58eb53) — PENDING the expert build ──
 const folderCreateBuilt = /mintRealUnit|createPhysicalWithUnit/.test(scan('src/public/ts/model/model.ts')) || fs.existsSync(path.join(ROOT, 'src/ts/server/folder-create.ts'));
 if (!folderCreateBuilt) pending.push('rollback-actually-rolls-back: folder.mintRealUnit (UC2 0c58eb53, architect final verb) NOT built yet — on ship: force unit-put to throw → assert the physical dir was rmdir\'d (no orphan)');
-// Also flag the container-action DECL migration (model.ts still per-context arrays, not ActionDecl+appliesTo):
-if (!/appliesTo/.test(scan('src/public/ts/model/model.ts'))) pending.push('container-action decl migration: model.ts add-diagram/add-folder/import-puml still per-context arrays (not ActionDecl+appliesTo) — on migration, import the REAL container decls and assert AC-DIAGRAMS-SPECIAL + AC-NO-CONTAINER-ON-TASK against them (§B currently proves the ENGINE, not the real decls)');
+// AC4 add-diagram-diagrams-ONLY-by-KIND — NOT built yet: add-diagram uses notTypes (appears on ALL containers incl
+// plain folders). Flips when the expert ships the kind-switch (appliesTo→{kinds:['diagrams']}) + lazy-mints a real
+// kind:'diagrams' Folder unit via ensureViewUnit.
+// read the ACTUAL add-diagram DECL line's grammar (not a comment): notTypes = not-built; kinds:['diagrams'] = built.
+const addDiagramDeclLine = scan('src/public/ts/model/model.ts').split('\n').find((l) => /verb:\s*'add-diagram'/.test(l) && /appliesTo/.test(l)) || '';
+if (!/kinds:\s*\[\s*'diagrams'\s*\]/.test(addDiagramDeclLine))
+  pending.push("AC4 add-diagram-diagrams-ONLY-by-kind NOT built — add-diagram decl still notTypes-gated (on ALL containers). On the kind-switch deploy: assert diagrams-container(kind:'diagrams')→add-diagram PRESENT + plain-folder→ABSENT + lazy-mint IDEMPOTENT (touch twice→ONE unit, ensureViewUnit)");
+// Real MODEL_DECLS DATA import is blocked (model.ts = heavy browser module, MODEL_DECLS unexported, accessor retires inc-2):
+if (!/export\s+(const\s+MODEL_DECLS|function\s+actionDecls|function\s+modelDecls)/.test(scan('src/public/ts/model/model.ts')))
+  pending.push('§B real-DATA import BLOCKED: MODEL_DECLS is module-local in the heavy browser module model.ts — recommend expert export it from a PURE module (mirrors inc-1 universal-actions→action-applicability); then §B imports the real container decls instead of the grammar-mirror');
 
 console.log('===== R40.37 context-sensitive actions PREP gate (DET) =====');
 let green = true;
