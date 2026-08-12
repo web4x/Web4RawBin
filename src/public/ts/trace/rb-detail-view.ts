@@ -29,6 +29,27 @@ export class RbDetailView extends HTMLElement {
 
   private clearSubs(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
 
+  // R40.11 slice-3 (AC-3 field RENDER). ONE generic type-driven field view: renders the unit's own scalar
+  // `fields` (from /api/trace/children; the M2 TYPE determines which exist) as labeled rows — no per-type
+  // bespoke view (DRY). [impl] marker lands adjacent-above on req's slice-3 uuid (host: renderTypeDrivenFields).
+  private renderTypeDrivenFields(head: Element, fields: Record<string, string>): void {
+    const keys = Object.keys(fields || {});
+    if (!keys.length) return;
+    const esc = (s: string): string => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c));
+    head.insertAdjacentHTML('afterend', `<div class="dv-fields">${keys.map(k => `<div class="dv-field"><span class="dv-field-k">${esc(k)}</span><span class="dv-field-v">${esc(fields[k])}</span></div>`).join('')}</div>`);
+  }
+
+  // R40.11 slice-3 (AC-4 fail-loud). An unresolvable ref → EXPLICIT '⚠ unresolved: <ior>', never a perpetual
+  // 'Loading…' spinner (the silent failure that hid the bug). [impl] marker on req's slice-3 uuid (host: renderUnresolved).
+  private renderUnresolved(label: string): void {
+    const h = this.querySelector('.dv-head');
+    if (!h) return;
+    h.querySelector('.dv-type')!.textContent = 'unresolved';
+    h.querySelector('.dv-title')!.textContent = '⚠ unresolved: ' + label;
+    const kids = this.querySelector('.dv-scenario-children');
+    if (kids) kids.innerHTML = '<div class="dv-empty">no resolvable unit for this reference</div>';
+  }
+
   render(): void {
     this.clearSubs();
     const ref = this.getAttribute('ref') || '';
@@ -42,14 +63,6 @@ export class RbDetailView extends HTMLElement {
       // Slices 1-2 mint the typed units + emit REAL iors; this fires fail-loud whenever the unit genuinely does not
       // resolve (404). Legitimate chain-only units (impl/test) EXIST in the index → 200 via fetchDetailData → no
       // false-fail. (Was scoped to synthetic depref: only; broadened because slice-2 emits real iors now.)
-      const failLoud = (): void => {
-        const h = this.querySelector('.dv-head');
-        if (!h) return;
-        h.querySelector('.dv-type')!.textContent = 'unresolved';
-        h.querySelector('.dv-title')!.textContent = '⚠ unresolved: ' + (ref || uuid);
-        const kids = this.querySelector('.dv-scenario-children');
-        if (kids) kids.innerHTML = '<div class="dv-empty">no resolvable unit for this reference</div>';
-      };
       // Fetch the unit's own data (name, type, children) from /api/trace/children
       fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => {
         const head = this.querySelector('.dv-head');
@@ -57,24 +70,16 @@ export class RbDetailView extends HTMLElement {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
           head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
-          // R40.11 slice-3 (AC-3): ONE GENERIC type-driven field view — render the unit's own scalar fields (the M2
-          // TYPE determines which fields exist: ConfigFile→manifestsAs, Service→configuredBy, EnvValue→fragment, …).
-          // No per-type bespoke view (DRY). A typed deployment unit now shows CONTENT, not a spinner.
-          const f: Record<string, string> = data.fields || {};
-          const keys = Object.keys(f);
-          if (keys.length) {
-            const esc = (s: string): string => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c));
-            head.insertAdjacentHTML('afterend', `<div class="dv-fields">${keys.map(k => `<div class="dv-field"><span class="dv-field-k">${esc(k)}</span><span class="dv-field-v">${esc(f[k])}</span></div>`).join('')}</div>`);
-          }
+          this.renderTypeDrivenFields(head, data.fields || {}); // R40.11 slice-3 (AC-3): ONE generic type-driven field view
           // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
           // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
         } else if (head && !data) {
           // R40.11 slice-3 (AC-4): 404 = the unit genuinely does NOT resolve → EXPLICIT error, never an eternal
           // spinner. Broadened from synthetic-only: slice-2 emits REAL iors, so an unresolvable REAL ior must also
           // fail loud. Legitimate chain-only units (impl/test) exist in the index → 200 (data present) → no false-fail.
-          failLoud();
+          this.renderUnresolved(ref || uuid);
         }
-      }).catch(() => failLoud());
+      }).catch(() => this.renderUnresolved(ref || uuid));
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
         const head = this.querySelector('.dv-head');
         if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));

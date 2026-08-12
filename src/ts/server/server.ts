@@ -70,6 +70,7 @@ function isModelUnit(uuid: string): boolean {
 import { FeatureManager } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
+import { detailScalarFields } from '../shared/detail-fields.js';
 import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
@@ -2674,16 +2675,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
         const extra: Record<string, unknown> = {};
         if (type === 'Room') { extra.mode = unit.model?.mode; extra.visibility = unit.model?.visibility; extra.memberCount = Array.isArray(unit.model?.members) ? (unit.model.members as unknown[]).length : 0; extra.fileCount = Array.isArray(unit.model?.files) ? (unit.model.files as unknown[]).length : 0; }
-        // R40.11 slice-3 (AC-3): the unit's own SCALAR fields, so ONE GENERIC type-driven default view can render
-        // identity + FIELDS + parent/children for ANY unit — the M2 TYPE determines the fields (each type carries its
-        // own: ConfigFile→manifestsAs, Service→configuredBy, EnvValue→fragment, …). DRY: one extraction, no per-type view.
-        const IDENTITY_FIELDS = new Set(['uuid', 'name', 'sourceFile', 'sourceLine']);
-        const fields: Record<string, string> = {};
-        for (const [k, v] of Object.entries(unit.model as Record<string, unknown>)) {
-          if (IDENTITY_FIELDS.has(k) || v === null || v === undefined || v === '') continue;
-          if (typeof v === 'object') continue; // arrays/objects are links/children (rendered separately), not scalar fields
-          fields[k] = String(v);
-        }
+        // R40.11 slice-3 (AC-3): the unit's own type-driven SCALAR fields, so ONE GENERIC default view renders
+        // identity + FIELDS + parent/children for ANY unit. Extraction shared with the gate (detailScalarFields).
+        const fields = detailScalarFields(unit.model as Record<string, unknown>);
         res.end(JSON.stringify({ uuid, type: type === 'ModelElement' ? modelFacetType(unit.model as Record<string, unknown>, idx) : type, name: String(unit.model?.name || ''), children, parent, sourceFile, sourceLine, fields, ...extra })); // R32.3: model node display type = M2 model-facet (walk still uses real 'ModelElement' type); R40.11 slice-3: +fields (type-driven)
       } catch { res.writeHead(500); res.end('{}'); }
       return;

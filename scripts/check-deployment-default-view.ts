@@ -14,20 +14,11 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ScenarioIndex } from '../src/ts/scenario/index.js';
+import { detailScalarFields } from '../src/ts/shared/detail-fields.js'; // SHARED with the server — no mirror drift
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const idx = new ScenarioIndex(path.join(ROOT, 'scenario/index'));
-
-// MIRROR of the server extraction (server.ts /api/trace/children `fields`): scalar model fields minus identity.
-const IDENTITY_FIELDS = new Set(['uuid', 'name', 'sourceFile', 'sourceLine']);
-function scalarFields(model: Record<string, unknown>): Record<string, string> {
-  const out: Record<string, string> = {};
-  for (const [k, v] of Object.entries(model || {})) {
-    if (IDENTITY_FIELDS.has(k) || v === null || v === undefined || v === '' || typeof v === 'object') continue;
-    out[k] = String(v);
-  }
-  return out;
-}
+const scalarFields = detailScalarFields; // the gate asserts the SAME extraction the server serves
 
 // The 5 slice-1 typed deployment units (ConfigFile/Service/KeyFile/EnvValue/Certificate) + their type-key.
 const UNITS: Array<{ pfx: string; typeKey: string }> = [
