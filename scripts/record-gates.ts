@@ -74,3 +74,28 @@ const gate = {
 fs.mkdirSync(path.join(SCENARIO_INDEX, prefixPath(uuid)), { recursive: true });
 fs.writeFileSync(unitPath, JSON.stringify(gate, null, 2));
 console.log(`Gate created: ${uuid} (${gateType} ${verdict})`);
+
+// R40.11 (PO 2026-08-12): gate results are durable ONLY as TEST-UNIT writes (measured: the board reads neither a
+// dedicated Gate class — only 6 exist, unread — nor a bare Test.status; it will DERIVE held/signable from the served
+// version a gate PASSED against vs the CURRENT served). So persist `gateServedVersion` (+ verdict/commit stamp) ON the
+// gated Test unit itself — one source, one field. A row SELF-RELEASES when gateServedVersion == current served, and
+// legitimately reads HELD-STALE after any version bump until its gate re-runs (the S23-audio law: a gate that never
+// re-ran certified nothing). Only touches EXISTING ior:class:Test units; never mints, never touches Task/other classes.
+if (!version) {
+  console.warn('  ⚠ no --version given: gateServedVersion NOT stamped on the Test unit(s) — the derived board cannot self-release without it. Pass --version <served>.');
+} else {
+  for (const item of gatedItems) {
+    const u = item.replace('ior:instance:', '');
+    const p = path.join(SCENARIO_INDEX, prefixPath(u), `${u}.scenario.json`);
+    if (!fs.existsSync(p)) { console.warn(`  ⚠ gated item ${u.slice(0, 8)} not found on disk — skipped`); continue; }
+    const unit = JSON.parse(fs.readFileSync(p, 'utf-8'));
+    if (unit.ior !== 'ior:class:Test') continue; // only Test units carry the gate result
+    unit.model.gateServedVersion = version;       // the served version this gate PASSED against (derived-board input)
+    unit.model.gateVerdict = verdict;
+    if (commit) unit.model.gateCommit = commit;
+    unit.model.gatedAt = gate.model.timestamp;
+    if (verdict === 'PASS') unit.model.status = 'pass'; else if (verdict === 'FAIL') unit.model.status = 'fail';
+    fs.writeFileSync(p, JSON.stringify(unit, null, 2));
+    console.log(`  Test ${u.slice(0, 8)}: gateServedVersion=${version}${commit ? ` @${commit}` : ''} verdict=${verdict}`);
+  }
+}
