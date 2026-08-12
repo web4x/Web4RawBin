@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0c58eb53-73fc-4e4d-97d4-dbe729cc0916",
+    "name": "folder.createPhysicalWithUnit",
+    "description": "'Add folder' immediately creates a real PHYSICAL folder on disk AND its scenario unit, and the itemview renders as that new folder in one step (no separate save). PLACEHOLDER: architect designs Class/Method -> I confirm + wire.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8"
+}

@@ -1,0 +1,64 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
+  "name": "Context-sensitive actions — an action invalid for the unit's TYPE/STATUS is NOT OFFERED (not clickable-then-refused); server guard stays as defense-in-depth",
+  "altId": "R40.37",
+  "tasks": [
+   "ior:instance:2e831ffd-5eba-45ce-961e-25195b2071a3"
+  ],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [
+   "ior:instance:1de961e7-5f64-4768-af31-7e7de8063ed5",
+   "ior:instance:0c58eb53-73fc-4e4d-97d4-dbe729cc0916"
+  ],
+  "description": "An action that is invalid for the current unit's TYPE or STATUS must NOT be OFFERED at all — hidden, or disabled carrying its reason — rather than being clickable and then refused server-side. Tron hit Approve on Task 32.0 (status=Done) and got the CORRECT server refusal ('Cannot approve — status Done != QA Review'); the guard is RIGHT and STAYS (defense-in-depth — we NEVER remove a guard to fix a UI affordance). The DEFECT is that the action was OFFERED at all. The applicability capability lives ONCE in the SHARED universalActionBar, DECLARED PER ACTION (its valid types/statuses), NOT as per-view if-statements (architect designs the applicability model). Covers: Approve/Decline only at QA Review; container actions (+Add Diagram / Add folder / Import PUML) never on a Task; +Add Diagram only on the diagrams SPECIAL container; Add folder immediately creates a real physical folder + its scenario unit.",
+  "tronQuote": "> Tron (2026-08-12, on approving Task 32.0/Done -> correct refusal): \"some actions are context sensitive actions. if the state is not QA, then the buttons do not make sense\" + \"+ Add Diagram / Add folder / Import PUML ... do not make sens on tasks\" + \"[diagrams] should be a special Folder ... a container\" + \"should on Add folder immediately add the itemview as a new physical folder with a scenario-unit\".",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "date": "2026-08-12",
+   "via": "robbin-po",
+   "note": "Tron hit Approve on Done Task 32.0 -> correct guard refusal, but the button should not have been offered. Guard STAYS (defense-in-depth); UI must not OFFER invalid actions. Architect designs the applicability model — capability ONCE in universalActionBar, declared per-action, NOT per-view if-statements. Scenario-first #126: req+UCs+task on disk BEFORE implementation; ACTIONABLE 0->1 (new ordered work)."
+  },
+  "acceptanceCriteria": [
+   {
+    "id": "AC-CONTEXT-SENSITIVE-ACTIONS",
+    "group": "functional",
+    "text": "An action invalid for the current unit's TYPE or STATUS is NOT OFFERED — HIDDEN, or DISABLED carrying its reason — rather than clickable-then-refused. The server-side guard REMAINS as defense-in-depth (a guard is NEVER removed to fix a UI affordance); the two are complementary (prevention at the UI, backstop at the server)."
+   },
+   {
+    "id": "AC-APPROVE-DECLINE-ONLY-AT-QA",
+    "group": "functional",
+    "text": "Approve and Decline are OFFERED only when the task status == 'QA Review' (Tron's exact case: on a Done task they are absent, not clickable-then-refused)."
+   },
+   {
+    "id": "AC-NO-CONTAINER-ACTIONS-ON-TASKS",
+    "group": "functional",
+    "text": "Container actions ('+ Add Diagram', 'Add folder', 'Import PUML') are NOT offered on a Task unit (verbatim: 'do not make sens on tasks')."
+   },
+   {
+    "id": "AC-DIAGRAMS-IS-A-SPECIAL-CONTAINER",
+    "group": "functional",
+    "text": "'+ Add Diagram' is offered ONLY on the diagrams container; diagrams becomes a SPECIAL typed folder/CONTAINER (not a generic folder) — 'it should be a special Folder ... a container'."
+   },
+   {
+    "id": "AC-ADD-FOLDER-CREATES-PHYSICAL-FOLDER-AND-UNIT",
+    "group": "functional",
+    "text": "'Add folder' IMMEDIATELY creates a real PHYSICAL folder AND its scenario unit, and the itemview appears as that new folder — no separate save step ('should on Add folder immediately add the itemview as a new physical folder with a scenario-unit')."
+   },
+   {
+    "id": "AC-6-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on his phone that the IMPOSSIBLE buttons are GONE (Approve absent on a Done task; container actions absent on a Task) AND that 'Add folder' creates the physical folder + unit + itemview live. AC-N-DEVICE convention so the approve-queue device-scan catches it when the covering task reaches QA Review."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
