@@ -18,6 +18,7 @@
 
 import { execSync } from 'child_process';
 import { chromium } from '@playwright/test';
+import { seedSystemTester } from './system-tester-setup.mjs';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
@@ -123,11 +124,32 @@ try {
       el.remove(); return out;
     });
     await ctx2.close();
-    const interactionOk = dd.gutter && dd.accept && dd.sync;
+    // syncScroll3 on a REAL laid-out /edit deep-link diff (guard-family (b): a REAL artifact — the synthetic bare-el
+    // had NO app CSS grid → Monaco panes 0-height → un-scrollable; a real mount has layout + scrollable git content).
+    const ctx3 = await browser.newContext({ ignoreHTTPSErrors: true, serviceWorkers: 'block', viewport: { width: 1400, height: 900 } });
+    await seedSystemTester(ctx3);
+    const page3 = await ctx3.newPage();
+    await page3.goto(`${BASE}/edit/otmux?repo=oosh&left=516ebb3&right=dev&3way=1`, { waitUntil: 'networkidle' }).catch(() => {});
+    // DET: wait until the LOCAL editor is genuinely SCROLLABLE (content laid out, scrollHeight past the viewport) — not
+    // just present — before scrolling; the iter-3 flake was scrolling before layout settled.
+    await page3.waitForFunction(() => { const e = document.querySelector('rb-diff-editor'); return e && e.edLocal && e.edCenter && e.edRemote && (e.left?.content?.length > 0) && typeof e.edLocal.getScrollHeight === 'function' && e.edLocal.getScrollHeight() > 800; }, { timeout: 30000 }).catch(() => {});
+    await sleep(2000);
+    const syncReal = await page3.evaluate(async () => {
+      const nap = (ms) => new Promise(r => setTimeout(r, ms));
+      const e = document.querySelector('rb-diff-editor');
+      if (!e || !e.edLocal || !e.edCenter || !e.edRemote) return { ok: false, sl: -1 };
+      e.edLocal.layout(); e.edCenter.layout(); e.edRemote.layout(); await nap(300); // force layout before scroll (deflake)
+      e.edLocal.setScrollTop(300); await nap(500);
+      const sl = e.edLocal.getScrollTop(); // real layout → real scroll; assert center+remote LOCK to local + non-vacuous (moved >50)
+      return { ok: sl > 50 && Math.abs(e.edCenter.getScrollTop() - sl) < 12 && Math.abs(e.edRemote.getScrollTop() - sl) < 12, sl, c: e.edCenter.getScrollTop(), r: e.edRemote.getScrollTop() };
+    });
+    await ctx3.close();
+    const interactionOk = dd.gutter && dd.accept && syncReal.ok;
+    if (i === 1) console.log(`  sync(real-diff): local=${syncReal.sl} center=${syncReal.c} remote=${syncReal.r} lock=${syncReal.ok}`);
 
     const pass = diff3Ok && mountOk && mergeBaseOk && interactionOk;
     results.push(pass);
-    console.log(`iter ${i}: diff3[oL=${d.onlyLocal} oR=${d.onlyRemote} both=${d.bothNonAdj} overlap→conflict=${d.overlap} ident=${d.identical}]=${diff3Ok} | 3pane[labels=${b.threePaneLabels} panes=${b.panes} applyAll=${b.applyAll}]=${mountOk} | mergeBase[live=${mbOk} reject=${mbReject}]=${mergeBaseOk} | interaction[gutter=${dd.gutter} accept=${dd.accept} sync=${dd.sync}]=${interactionOk} => ${pass ? 'GREEN' : 'RED'}`);
+    console.log(`iter ${i}: diff3[oL=${d.onlyLocal} oR=${d.onlyRemote} both=${d.bothNonAdj} overlap→conflict=${d.overlap} ident=${d.identical}]=${diff3Ok} | 3pane[labels=${b.threePaneLabels} panes=${b.panes} applyAll=${b.applyAll}]=${mountOk} | mergeBase[live=${mbOk} reject=${mbReject}]=${mergeBaseOk} | interaction[gutter=${dd.gutter} accept=${dd.accept} sync=${syncReal.ok}(real-diff)]=${interactionOk} => ${pass ? 'GREEN' : 'RED'}`);
   }
 
   console.log('\n=== VERDICT R30.9 3-way merge (DET-3x) ===');
