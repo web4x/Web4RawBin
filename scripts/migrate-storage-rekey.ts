@@ -33,7 +33,11 @@ import { ScenarioIndex } from '../src/ts/scenario/index.js';
 // scratch before the real window). Default = the real repo.
 const ROOT = process.env.REKEY_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_USERS = path.join(ROOT, 'data', 'users');
-const MAP_PATH = path.join(ROOT, 'data', 'token-storage-map.json'); // gitignored (contains raw tokens)
+// ★ token→storageId MAP = a CREDENTIAL INVENTORY (pairs every raw token with its opaque id). PO ruling: it
+// MUST live root-only / chmod 600 / OUTSIDE the repo (same file family as the owner-token reference + protected
+// -identity set) — NEVER tracked, never gitignored-but-in-repo (that would be a fresh indexed 223-credential
+// exposure). The runtime resolver (storage-id.ts initStorageMap) must be pointed at this SAME path.
+const MAP_PATH = process.env.RAWBIN_STORAGE_MAP || '/root/.rawbin/token-storage-map.json';
 // DRY-RUN CROSS-CHECK ONLY — the first backup's fingerprint. The live tree DRIFTS past this (legit user
 // writes), so --apply NEVER gates on this constant; it captures a FRESH APPLY_REF from the quiesced state
 // in-window and verifies against THAT (PIN 1, architect). This constant only annotates the dry-run report.
@@ -132,8 +136,10 @@ console.log(`quiesced-start reference multiset: ${APPLY_REF} (${cur.files} files
 // RED. Copying only touches EXISTING homes; orphan tokens get a mapping but no copy (nothing to copy).
 const allTokens = [...new Set([...ownerTokens, ...tokensInLinks])];
 let map = mintStorageIds(loadMap(), allTokens);
-fs.writeFileSync(MAP_PATH, JSON.stringify(map, null, 2));
-console.log(`minted/loaded storageId for ${Object.keys(map).length} tokens (${ownerTokens.length} homes + ${allTokens.length - ownerTokens.length} orphan-in-unitLinks) → ${path.relative(ROOT, MAP_PATH)} (gitignored)`);
+fs.mkdirSync(path.dirname(MAP_PATH), { recursive: true, mode: 0o700 }); // root-only dir
+fs.writeFileSync(MAP_PATH, JSON.stringify(map, null, 2), { mode: 0o600 }); // credential inventory: chmod 600, outside repo
+try { fs.chmodSync(MAP_PATH, 0o600); } catch { /* best-effort tighten */ }
+console.log(`minted/loaded storageId for ${Object.keys(map).length} tokens (${ownerTokens.length} homes + ${allTokens.length - ownerTokens.length} orphan-in-unitLinks) → ${MAP_PATH} [root-only chmod 600, OUTSIDE repo, NEVER tracked]`);
 
 // (2) COPY homes token→storageId — STAGE-then-MOVE, NOT in-place. ROOT CAUSE (measured): extracting all
 // 47 homes IN-PLACE into data/users (alongside the originals) cross-contaminates — one home's copy gained
