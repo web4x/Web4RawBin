@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "c3f261fa-155e-4ec1-8c0c-00714f8342de",
+    "name": "FolderService",
+    "description": "Server-side folder creation (R40.37): physical dir + scenario unit, atomic. src/ts/server/FolderService.ts",
+    "file": "ior:file:src/ts/server/FolderService.ts",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "methods": [
+      "ior:instance:36a73988-481a-469c-b503-35d93838fef2"
+    ]
+  },
+  "ownerIor": "ior:instance:0c58eb53-73fc-4e4d-97d4-dbe729cc0916"
+}

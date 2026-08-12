@@ -29,12 +29,12 @@
 | S37 | 11 | 0 | 10 | 0 | 1 |
 | S40 | 16 | 0 | 15 | 0 | 1 |
 
-**ACTIONABLE by blocker:** build 1
+**ACTIONABLE by blocker:** marker 1
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
-| S40 | 2e831ffd | Planned | build | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
+| S40 | 2e831ffd | Planned | marker | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
 - **S31 6be9a92d** — Task 31.6: Shared pan/zoom viewer capability for EVERY embed — _excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103)._

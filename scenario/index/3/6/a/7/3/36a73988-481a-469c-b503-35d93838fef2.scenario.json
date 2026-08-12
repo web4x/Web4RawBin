@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "36a73988-481a-469c-b503-35d93838fef2",
+    "name": "FolderService.createPhysicalWithUnit",
+    "description": "Atomically create a real physical folder AND its scenario unit under a parent (fail-closed both ways, rollback on partial); returns the unit so the itemview renders in one step. R40.37 AC5.",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "implementations": [
+      "ior:instance:0e6761c2-7b4e-472e-9c63-4793b766a288"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de"
+}

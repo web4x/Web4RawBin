@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab",
+    "name": "universalActions.applicableActionsFor impl",
+    "description": "DESIGN-AHEAD (R40.37): per-action applicability resolution (types/statuses/kinds/when -> offered|hidden|disabled-with-reason). src/public/ts/trace/universal-actions.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4018e773-9b8a-483b-99a5-0f484de7b8d9"
+}
