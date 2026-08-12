@@ -71,7 +71,8 @@ import { FeatureManager, loadProtectedIdentities } from './FeatureManager.js';
 import { ProfileView, type ServerProfileRecord } from './ProfileView.js';
 import { MSG } from '../shared/MessageTypes.js';
 import { detailScalarFields } from '../shared/detail-fields.js';
-import { createUserHome, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { createUserHome, getUserHomeDir, generateUserKeypair, writeUserProfile, enrollDevice, verifyChallenge } from './UserKeys.js';
+import { initStorageMap, REKEY_APPLIED, homeKeyFor } from './storage-id.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
@@ -546,6 +547,12 @@ function saveDevices(): void {
 }
 
 loadProfiles();
+// R40.22 storage-rekey: init the token→storageId resolver map from the ROOT-ONLY runtime config (env
+// RAWBIN_STORAGE_MAP, default /root/.rawbin/token-storage-map.json — the SAME path the migration writes).
+// INERT while REKEY_APPLIED=false (homeKeyFor returns the raw token regardless of the map = zero behavior
+// change); the map only takes effect when REKEY_APPLIED flips atomically in the migration window.
+initStorageMap(process.env.RAWBIN_STORAGE_MAP || '/root/.rawbin/token-storage-map.json');
+console.log(`[boot] storage-rekey: REKEY_APPLIED=${REKEY_APPLIED}`);
 // R40.22 step-3: load the frozen revoked-token list (fail-open if absent → nobody revoked). LOUD boot log
 // so an operator sees whether the kill is armed and at the expected count.
 // R40.22 path-unify (a)(b)(f): load from the SINGLE-SOURCE path, presence-aware. FAIL-LOUD when ARMED but the
@@ -2026,7 +2033,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
             }
           }
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, roomUuid: roomId });
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId }); // R40.22 path regrowth-kill: fsKey=storageId in the roomFsLink PATH (inert: =token while REKEY_APPLIED=false)
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);
@@ -2886,7 +2893,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         return;
       }
       try {
-        const encPath = path.join(DATA_DIR, 'users', token, 'files', 'avatar.enc');
+        const encPath = path.join(getUserHomeDir(token, { mint: false }), 'files', 'avatar.enc'); // R40.22: routed through the chokepoint (was raw data/users/token); READ, no-home throw caught by this block's try/catch → 404
         const encData = await fs.readFile(encPath);
         const etag = '"' + crypto.createHash('md5').update(encData).digest('hex') + '"';
         if (req.headers['if-none-match'] === etag) { res.writeHead(304); res.end(); return; }

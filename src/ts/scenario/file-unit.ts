@@ -18,6 +18,7 @@ export interface FileUnitInput {
   content: Buffer | string;
   mimeType?: string;
   uploaderToken?: string;
+  fsKey?: string; // R40.22: opaque storageId for the roomFsLink PATH segment (caller resolves via homeKeyFor); falls back to uploaderToken
   roomUuid?: string;
   uuid?: string;
   extraUnitLinks?: string[];
@@ -71,7 +72,11 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
   const unitLinks: string[] = [contentIndexLink];
   if (input.roomUuid && input.uploaderToken) {
     const dataDir = process.env.DATA_DIR || path.join(path.dirname(idx.scenarioRoot), 'data');
-    const roomFsLink = path.join('..', 'data', 'users', input.uploaderToken, 'rooms', input.roomUuid, 'files', uuid + '.scenario.json');
+    // R40.22 PATH regrowth-kill: the home-path segment uses input.fsKey (the opaque storageId the caller resolved
+    // via homeKeyFor) so a NEW upload embeds the NON-secret id in the path, not the raw token. Falls back to
+    // uploaderToken for back-compat / inert phase (homeKeyFor returns the token while REKEY_APPLIED=false).
+    const fsKey = input.fsKey || input.uploaderToken;
+    const roomFsLink = path.join('..', 'data', 'users', fsKey, 'rooms', input.roomUuid, 'files', uuid + '.scenario.json');
     unitLinks.push(roomFsLink);
   }
   if (input.extraUnitLinks) unitLinks.push(...input.extraUnitLinks);

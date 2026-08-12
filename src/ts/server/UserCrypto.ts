@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { getUserHomeDir, getUserPublicKey, getUserPrivateKey, regenerateUserKeypair } from './UserKeys.js';
 
-function getFilesDir(token: string): string {
-  return path.join(getUserHomeDir(token), 'files');
+function getFilesDir(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getUserHomeDir(token, opts), 'files');
 }
 
 interface FileMeta {
@@ -33,7 +33,7 @@ export function encryptFile(token: string, plaintext: Buffer, mimeType: string, 
     aesKey
   );
 
-  const filesDir = getFilesDir(token);
+  const filesDir = getFilesDir(token, { mint: true }); // WRITE
   fs.mkdirSync(filesDir, { recursive: true });
 
   const name = storedName || crypto.randomBytes(8).toString('hex');
@@ -60,7 +60,7 @@ export function decryptFile(token: string, filename: string): { data: Buffer; mi
   const privKey = getUserPrivateKey(token);
   if (!privKey) throw new Error('User private key not found');
 
-  const filesDir = getFilesDir(token);
+  const filesDir = getFilesDir(token, { mint: false }); // READ (home guaranteed; a no-home throw is caught by the file-serve op boundary)
   const encPath = path.join(filesDir, `${filename}.enc`);
   const metaPath = path.join(filesDir, `${filename}.meta.json`);
 
@@ -84,8 +84,8 @@ export function decryptFile(token: string, filename: string): { data: Buffer; mi
   return { data: decrypted, mimeType: meta.mimeType };
 }
 
-export function deleteFile(token: string, filename: string): boolean {
-  const filesDir = getFilesDir(token);
+export function deleteFile(token: string, filename: string): boolean { // graceful-absent (no home → nothing to delete → false)
+  let filesDir: string; try { filesDir = getFilesDir(token, { mint: false }); } catch { return false; }
   const encPath = path.join(filesDir, `${filename}.enc`);
   const metaPath = path.join(filesDir, `${filename}.meta.json`);
   let deleted = false;
@@ -94,8 +94,8 @@ export function deleteFile(token: string, filename: string): boolean {
   return deleted;
 }
 
-export function listUserFiles(token: string): { name: string; meta: FileMeta }[] {
-  const filesDir = getFilesDir(token);
+export function listUserFiles(token: string): { name: string; meta: FileMeta }[] { // graceful-absent
+  let filesDir: string; try { filesDir = getFilesDir(token, { mint: false }); } catch { return []; }
   if (!fs.existsSync(filesDir)) return [];
   return fs.readdirSync(filesDir)
     .filter(f => f.endsWith('.meta.json'))
@@ -106,8 +106,8 @@ export function listUserFiles(token: string): { name: string; meta: FileMeta }[]
     });
 }
 
-export function fileExists(token: string, filename: string): boolean {
-  const filesDir = getFilesDir(token);
+export function fileExists(token: string, filename: string): boolean { // graceful-absent
+  let filesDir: string; try { filesDir = getFilesDir(token, { mint: false }); } catch { return false; }
   return fs.existsSync(path.join(filesDir, `${filename}.enc`)) && fs.existsSync(path.join(filesDir, `${filename}.meta.json`));
 }
 

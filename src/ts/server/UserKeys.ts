@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { homeKeyFor, homePathFor } from './storage-id.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,32 +11,37 @@ const __dirname = path.dirname(__filename);
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '../../../data');
 const USERS_DIR = path.join(DATA_DIR, 'users');
 
-export function getUserHomeDir(token: string): string {
-  return path.join(USERS_DIR, token);
+// R40.22 CHOKEPOINT: resolve token→home-key via homeKeyFor, build via homePathFor (THE structural backstop:
+// THROWS on a no-home key so a no-home READ fails LOUD, never silently resolves to the users root = every home).
+// {mint:true} = WRITE/create (mints a storageId if absent, never throws); {mint:false} = READ (returns the mapped
+// id or null → homePathFor throws). INERT while REKEY_APPLIED=false: homeKeyFor returns the raw token for BOTH
+// modes → path byte-identical to before, never throws (zero behavior change). Default mint:false = read.
+export function getUserHomeDir(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return homePathFor(USERS_DIR, homeKeyFor(token, opts));
 }
 
-function getSshDir(token: string): string {
-  return path.join(getUserHomeDir(token), '.ssh');
+function getSshDir(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getUserHomeDir(token, opts), '.ssh');
 }
 
-function getPublicKeysDir(token: string): string {
-  return path.join(getSshDir(token), 'public_keys');
+function getPublicKeysDir(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getSshDir(token, opts), 'public_keys');
 }
 
-function getPrivateKeyDir(token: string): string {
-  return path.join(getSshDir(token), 'private_key');
+function getPrivateKeyDir(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getSshDir(token, opts), 'private_key');
 }
 
-function getIdRsaPath(token: string): string {
-  return path.join(getSshDir(token), 'id_rsa');
+function getIdRsaPath(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getSshDir(token, opts), 'id_rsa');
 }
 
-function getIdRsaPubPath(token: string): string {
-  return path.join(getSshDir(token), 'id_rsa.pub');
+function getIdRsaPubPath(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getSshDir(token, opts), 'id_rsa.pub');
 }
 
-function getAuthorizedKeysPath(token: string): string {
-  return path.join(getSshDir(token), 'authorized_keys');
+function getAuthorizedKeysPath(token: string, opts: { mint: boolean } = { mint: false }): string {
+  return path.join(getSshDir(token, opts), 'authorized_keys');
 }
 
 function mkdirSafe(dir: string, mode: number = 0o700): void {
@@ -48,26 +54,26 @@ function writeKeySafe(filePath: string, content: string): void {
   try { fs.chmodSync(filePath, 0o600); } catch {}
 }
 
-export function createUserHome(token: string): void {
-  const homeDir = getUserHomeDir(token);
-  const sshDir = getSshDir(token);
-  const publicKeysDir = getPublicKeysDir(token);
-  const privateKeyDir = getPrivateKeyDir(token);
+export function createUserHome(token: string): void { // WRITE → mint:true (creates the home; mints storageId if absent)
+  const homeDir = getUserHomeDir(token, { mint: true });
+  const sshDir = getSshDir(token, { mint: true });
+  const publicKeysDir = getPublicKeysDir(token, { mint: true });
+  const privateKeyDir = getPrivateKeyDir(token, { mint: true });
 
   mkdirSafe(homeDir);
   mkdirSafe(sshDir);
   mkdirSafe(publicKeysDir);
   mkdirSafe(privateKeyDir);
 
-  const authorizedKeysPath = getAuthorizedKeysPath(token);
+  const authorizedKeysPath = getAuthorizedKeysPath(token, { mint: true });
   if (!fs.existsSync(authorizedKeysPath)) {
     writeKeySafe(authorizedKeysPath, '');
   }
 }
 
-export function generateUserKeypair(token: string): { publicKey: string; privateKey: string } {
-  const idRsaPath = getIdRsaPath(token);
-  const idRsaPubPath = getIdRsaPubPath(token);
+export function generateUserKeypair(token: string): { publicKey: string; privateKey: string } { // WRITE (creates keys) → mint:true
+  const idRsaPath = getIdRsaPath(token, { mint: true });
+  const idRsaPubPath = getIdRsaPubPath(token, { mint: true });
 
   if (fs.existsSync(idRsaPath) && fs.existsSync(idRsaPubPath)) {
     return {
@@ -85,8 +91,8 @@ export function generateUserKeypair(token: string): { publicKey: string; private
   writeKeySafe(idRsaPath, privateKey);
   writeKeySafe(idRsaPubPath, publicKey);
 
-  const publicKeysDir = getPublicKeysDir(token);
-  const privateKeyDir = getPrivateKeyDir(token);
+  const publicKeysDir = getPublicKeysDir(token, { mint: true });
+  const privateKeyDir = getPrivateKeyDir(token, { mint: true });
   mkdirSafe(publicKeysDir);
   mkdirSafe(privateKeyDir);
 
@@ -96,42 +102,42 @@ export function generateUserKeypair(token: string): { publicKey: string; private
   return { publicKey, privateKey };
 }
 
-export function hasUserKeys(token: string): boolean {
-  return fs.existsSync(getIdRsaPath(token)) && fs.existsSync(getIdRsaPubPath(token));
+export function hasUserKeys(token: string): boolean { // graceful-absent READ (no home → no keys → false, never throw)
+  try { return fs.existsSync(getIdRsaPath(token)) && fs.existsSync(getIdRsaPubPath(token)); } catch { return false; }
 }
 
 // Force a clean keypair even if (corrupt) key files already exist. generateUserKeypair is
 // idempotent (skips when files present), so deleting first guarantees regeneration. Ensures
 // the .ssh tree exists. Used to self-heal an unusable/corrupt key during avatar upload.
 export function regenerateUserKeypair(token: string): { publicKey: string; privateKey: string } {
-  createUserHome(token);
-  try { fs.rmSync(getIdRsaPath(token), { force: true }); } catch {}
-  try { fs.rmSync(getIdRsaPubPath(token), { force: true }); } catch {}
+  createUserHome(token); // ensures the home exists first
+  try { fs.rmSync(getIdRsaPath(token, { mint: true }), { force: true }); } catch {}
+  try { fs.rmSync(getIdRsaPubPath(token, { mint: true }), { force: true }); } catch {}
   return generateUserKeypair(token);
 }
 
-export function getUserPublicKey(token: string): string | null {
-  const p = getIdRsaPubPath(token);
+export function getUserPublicKey(token: string): string | null { // graceful-absent READ
+  let p: string; try { p = getIdRsaPubPath(token); } catch { return null; }
   if (!fs.existsSync(p)) return null;
   return fs.readFileSync(p, 'utf-8');
 }
 
-export function getUserPrivateKey(token: string): string | null {
-  const p = getIdRsaPath(token);
+export function getUserPrivateKey(token: string): string | null { // graceful-absent READ
+  let p: string; try { p = getIdRsaPath(token); } catch { return null; }
   if (!fs.existsSync(p)) return null;
   return fs.readFileSync(p, 'utf-8');
 }
 
-export function getAuthorizedKeys(token: string): string[] {
-  const p = getAuthorizedKeysPath(token);
+export function getAuthorizedKeys(token: string): string[] { // graceful-absent READ
+  let p: string; try { p = getAuthorizedKeysPath(token); } catch { return []; }
   if (!fs.existsSync(p)) return [];
   const content = fs.readFileSync(p, 'utf-8').trim();
   if (!content) return [];
   return content.split('\n').filter(line => line.trim().length > 0);
 }
 
-export function addAuthorizedKey(token: string, devicePublicKey: string): void {
-  const p = getAuthorizedKeysPath(token);
+export function addAuthorizedKey(token: string, devicePublicKey: string): void { // WRITE → mint:true
+  const p = getAuthorizedKeysPath(token, { mint: true });
   const existing = getAuthorizedKeys(token);
   const trimmed = devicePublicKey.trim();
   if (existing.includes(trimmed)) return;
@@ -140,7 +146,7 @@ export function addAuthorizedKey(token: string, devicePublicKey: string): void {
 }
 
 export function generateDeviceKeypair(userToken: string, deviceId: string): { publicKey: string; privateKey: string } {
-  const devKeysDir = path.join(getSshDir(userToken), 'devices');
+  const devKeysDir = path.join(getSshDir(userToken, { mint: true }), 'devices'); // WRITE (device keys) → mint:true
   mkdirSafe(devKeysDir);
 
   const devPubPath = path.join(devKeysDir, `${deviceId}.pub`);
@@ -196,8 +202,8 @@ export function verifyChallenge(userToken: string, devicePublicKey: string, chal
   } catch { return false; }
 }
 
-export function writeUserProfile(token: string, profile: object): void {
-  const homeDir = getUserHomeDir(token);
+export function writeUserProfile(token: string, profile: object): void { // WRITE → mint:true
+  const homeDir = getUserHomeDir(token, { mint: true });
   mkdirSafe(homeDir);
   const profilePath = path.join(homeDir, 'profile.json');
   fs.writeFileSync(profilePath, JSON.stringify(profile, null, 2));
