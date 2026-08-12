@@ -72,6 +72,12 @@ function emitRegionInner(d: Measure): string {
   return out.join('\n');
 }
 
+// GAP-B RATCHET predicate (PO ruling 2026-08-12): the hand-maintained BUILD_COUPLED override map is a SECOND
+// SOURCE OF TRUTH — the disease that produced this whole failure. It must stay EMPTY. Downward-only ratchet: the
+// moment size > 0, the check FAILS and forces the measured path (AST host-decl grep in the .mjs) instead of a
+// hand-add. Named + bite-tested so the guard is provably non-vacuous. Full AST-measure + map deletion = named backlog.
+const buildCoupledClean = (n: number): boolean => n === 0;
+
 function buildRegion(d: Measure): string {
   return `${BEGIN}\n<!-- do not edit between these markers — regen: npm run regen:board (auto-staged by the pre-commit hook) -->\n\n${emitRegionInner(d)}\n\n${END}`;
 }
@@ -111,8 +117,9 @@ if (process.argv.includes('--bite')) {
   const idempotentClean = replaceRegion(goodBoard, buildRegion(measure())) === goodBoard;     // correct region → no drift
   const driftOnCorrupt = replaceRegion(corruptBoard, buildRegion(measure())) !== corruptBoard; // tampered region → drift
   const narrativeKept = (replaceRegion(goodBoard, buildRegion(measure())) || '').includes('HEAD-NARRATIVE') && (replaceRegion(goodBoard, buildRegion(measure())) || '').includes('TAIL-NARRATIVE');
-  const ok = idempotentClean && driftOnCorrupt && narrativeKept;
-  console.log(`bite: idempotent-clean=${idempotentClean} corrupt-detected=${driftOnCorrupt} narrative-preserved=${narrativeKept} => ${ok ? 'PASS (drift-check non-vacuous, narrative safe)' : 'FAIL'}`);
+  const ratchetOk = buildCoupledClean(0) && !buildCoupledClean(3); // GAP-B ratchet: 0 passes, non-zero fails (non-vacuous)
+  const ok = idempotentClean && driftOnCorrupt && narrativeKept && ratchetOk;
+  console.log(`bite: idempotent-clean=${idempotentClean} corrupt-detected=${driftOnCorrupt} narrative-preserved=${narrativeKept} buildcoupled-ratchet=${ratchetOk} => ${ok ? 'PASS (drift-check + ratchet non-vacuous, narrative safe)' : 'FAIL'}`);
   process.exit(ok ? 0 : 1);
 }
 
@@ -124,6 +131,8 @@ if (inner === null) fail(`no GENERATED-INDEX region in ${BOARD_REL} yet — add 
 assertMachineOnly(inner); // #4: never silently overwrite a curated section that leaked inside the markers
 
 const d = measure();
+// GAP-B RATCHET: refuse if the hand-maintained override map grew (applies to both --write and --check).
+if (!buildCoupledClean(d.buildCoupled)) fail(`BUILD_COUPLED has ${d.buildCoupled} hand-maintained entr${d.buildCoupled === 1 ? 'y' : 'ies'} — do NOT hand-add to that map (it is a second source of truth, the disease that broke the board). Implement AST host-decl measurement in campaign-scoreboard.mjs (grep src for the Impl's host declaration) so the value is MEASURED, then this check passes.`);
 const next = replaceRegion(existing, buildRegion(d));
 if (next === null) fail('GENERATED-INDEX markers malformed.');
 
