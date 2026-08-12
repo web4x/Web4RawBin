@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "d94b17e0-3f8a-4c62-9b15-6e0a2d7f4c83",
+    "name": "test:R40.10 TaskQaVerdict.approveByOwner (36b6ce2e) — owner-gated QA sign-off: owner→200 writes approvedBy+approvedAt+Done (via C4.3 delegation to statusNext, NEVER direct Done), non-owner→403, non-'QA Review'→409 evidence-precondition, decline→ChangeRequest; + STUB-MUST-FAIL (approveStub). Server verdict-logic facet (r4010b @390 UI-surface = DISTINCT future Test)",
+    "implementations": [
+      "ior:instance:36b6ce2e-efe9-4ad8-9382-104ee07d0266"
+    ],
+    "sourceFile": "ior:file:test/visual/r4010-qa-verdict-gate.ts",
+    "status": "pass",
+    "markerNote": "FULL uuid gate-sourced from test/visual/r4010-qa-verdict-gate.ts:25 (measure-don't-invent, valid v4, no set-delta). Tester GREEN DET-3x; src-audit SYMBOL-ANCHORED to the C4.3 DELEGATED contract (approveByOwner→statusNext, NEVER direct m.status='Done', 409-on-no-evidence — slices the fn body, not line-pinned = the guard-family lesson). Asserts the server verdict logic: owner→200 approvedBy/approvedAt/Done, non-owner→403, non-'QA Review'→409 evidence-precondition, decline→ChangeRequest, + STUB-MUST-FAIL (approveStub missing the check flips a non-reviewed task = able-to-fail). verify-owner-first: 36b6ce2e markerPending=false + tests[] EMPTY (shipped, clean 1st Test, no cross-wire); NOT 67697d86 (r4010c BUG-A CR-reachable, owned by e080ef45 = different owner+facet = would-be borrowed-credit, refused). This completes R40.10 chain-to-Test = Tron's approve mechanism is signable. ★ NOTE: the DELEGATED behavior has a mandatory LIVE re-gate post-restart (expert C4.3 sequence) — separate future step, does not block this mint. r4010b @390 UI-surface facet = distinct future marker/Test (flagged to PO)."
+  },
+  "ownerIor": "ior:instance:36b6ce2e-efe9-4ad8-9382-104ee07d0266"
+}

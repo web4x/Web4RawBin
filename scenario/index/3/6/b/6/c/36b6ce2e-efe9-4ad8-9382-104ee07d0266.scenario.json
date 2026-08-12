@@ -4,7 +4,9 @@
     "uuid": "36b6ce2e-efe9-4ad8-9382-104ee07d0266",
     "name": "TaskQaVerdict.approveByOwner impl (owner-gated 403; approvedBy/approvedAt as data; evidence-precondition; flips Done-gate)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:d94b17e0-3f8a-4c62-9b15-6e0a2d7f4c83"
+    ],
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "markerNote": "STRICT-AST VERIFIED: heads function approveByOwner@1454 (owner-403 + evidence-precondition status==QA Review 409-refuse + approvedBy/approvedAt data + status->Done) @src/ts/server/server.ts (name-match, 0 intervening). ★ SCHEMA CONFIRMED single-source: status strings QA Review/In Progress/Done EXACTLY match canonical TaskStatusEnum (task-status.ts:9) — no drift. Owner-gated 403 (non-owner->forbidden verified). Served 0.8.73 (expert ca4582ae7), buildStrictImplSet=TRUE."
   },
