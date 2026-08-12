@@ -78,24 +78,8 @@ _★ CORRECTED 2026-08-12 (fresh units+src measure @ HEAD 9090873aa; supersedes 
 ## ★★ PRE-DEPLOY TRUTH-TEST (2026-08-11, `node scripts/qa-evidence-audit.mjs`)
 The hardened approve path (built, not yet deployed) enforces a testing-evidence precondition: a QA-Review task without a two-keyed passing Test would **409** on Tron's approve tap. Audited all QA-Review tasks for that exact chain-edge (Test ∈ Impl.tests[] ∧ Test.implementations[] back-ref ∧ status=pass): **WOULD-PASS approve = 36 / 36 · WOULD-409 = 0.** Every task flipped to QA-Review genuinely carries the evidence the approve path checks — the headline (36 QA-Review, zero held) is **not overstated**. (Coverage-existence test = what the precondition checks; per-flip verify-owner-first separately established each Test tests the *right* facet.)
 
-## Per-sprint (Done / QA-Review / superseded / remaining)
-| Sprint | total | Done | QA-Review | superseded | remaining<QA |
-|--------|-------|------|-----------|------------|--------------|
-| S30 | 55 | 36 | 15 | 3 | 1 |
-| S31 | 21 | 19 | 1 | 0 | 1 |
-| S32 | 13 | 11 | 1 | 0 | 1 |
-| S37 | 11 | 0 | 6 | 0 | 5 |
-| S40 | 13 | 0 | 10 | 0 | 3 |
-
-## The 11 remaining — by what each still needs
-| need | count | meaning |
-|------|-------|---------|
-| RIPE (coarse) | 1 | chain reaches a passing Test — but see caveat: T40.5 is a **cross-credit false-RIPE**, HELD |
-| gate | 3 | Impl shipped, needs a Test authored |
-| marker | 2 | Impl exists but markerPending — needs strict-AST marker-flip |
-| build | 5 | no shipped Impl yet — needs building |
-
-**⚠ RIPE caveat:** the script's RIPE (a two-keyed passing Test anywhere in the chain) CANNOT detect a **shared-Impl cross-credit** — that needs the manual verify-owner-first trace (`scratchpad/trace-task.mjs <uuid>`). T40.5 is the live example: RIPE by the coarse rule, but HELD because its passing Test belongs to a sibling req.
+## Per-sprint + remaining-by-blocker — ★ MIGRATED to the machine-measured LIVE region above (law#103 / [[status-discriminator-is-a-unit-field]])
+The per-sprint table + REMAINING-by-blocker + ACTIONABLE/EXCLUDED/DEFERRED now render LIVE in the GENERATED-INDEX region (cannot go stale; the hand-transcribed copies here had already drifted to 11/9 while the machine said 5/1 — exactly why they're deleted). Re-run `node scripts/campaign-scoreboard.mjs` or `npm run regen:board` for the authoritative numbers. The manual RIPE cross-credit caveat is now the **by-construction RIPE-SHARED guard** (see the ★★ note above + `node scripts/campaign-scoreboard.mjs --bite`).
 
 ## Drive order (verify-owner-first before every flip)
 1. **T40.10** `9a70ce5e` — ✅ **FLIPPED → QA-Review 2026-08-11** (commit `9f517ec82`). verify-owner-first PASSED: Impls distinct, Test `67697d86` is R40.10's own; approveByOwner device-verified (r4010 GREEN @390, 403 token-less). AC-6 device = Tron.
@@ -126,7 +110,7 @@ The hardened approve path (built, not yet deployed) enforces a testing-evidence 
 ## Deferred-backlog (genuine deliverables, Tron/PO-scheduled later)
 - **T30.44** `06623fea` — add-repo-by-clone-URL (security backlog). · **T-R31.14** `03f5d536` — deploy-hardening (after go-live).
 
-## Adjusted drivable
-11 remaining − T31.6 (concept) − T37.4 (rollup) = **9 real drivable** (2 of which deferred-backlog). **The campaign can reach empty.**
+## Adjusted drivable — ★ see the machine-measured **ACTIONABLE** count in the LIVE region above
+ACTIONABLE = REMAINING minus law#103 EXCLUDED/DEFERRED, **computed not curated** (a "9 real drivable" here already drifted vs the machine ACTIONABLE=1). The campaign can reach empty.
 
 _No status drift (unit.status == derived-from-checklist) across all 113._
