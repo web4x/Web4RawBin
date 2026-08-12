@@ -11,7 +11,11 @@
   "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
   "sprintName": "Sprint 40",
   "unitLinks": [],
-  "useCases": [],
+  "useCases": [
+   "ior:instance:676022a2-678b-49ca-97c0-dc59460b3f9b",
+   "ior:instance:dfa6fd5d-fbfc-472b-af10-0c0f5b81ee9c",
+   "ior:instance:cdfc1474-01f8-4acf-926e-daaedbe9d65f"
+  ],
   "description": "ARMED + absent/short revoked list = a SILENT-security failure: the feature reports itself ARMED while quietly authenticating EVERYONE (incl the 116 dormant test tokens) — fail-OPEN while claiming closed. A loud LOG is NOT a control (nobody reads a log at 3am). The honest shape is fail-CLOSED-BUT-NOT-LOCKOUT = LOUD AND CLOSED, with a governing constraint that the refusal must NEVER become a way to lock Tron out (operator-fixable in seconds, never refuse-to-boot). Architect caught this on HEAD (design d92bc3329, post-restart-verification-checklist.md ## BY-CONSTRUCTION FIX; the forbidden STATE-C = restart with REVOKED_ARMED=true + absent list). Fix = 3-layer defense-in-depth that makes the dishonest state UNREACHABLE. NO token values in this req — the tracked list holds SALTED HASHES only (a UUID is not recoverable from its hash), safe-to-track by design.",
   "tronQuote": "> (No direct Tron quote) — robbin-architect diagnosis (armed-but-empty fail-open hole on HEAD), PO-directed capture 2026-08-12 as an R40-series security req; architect maps the chain when captured.",
   "discoverySource": {

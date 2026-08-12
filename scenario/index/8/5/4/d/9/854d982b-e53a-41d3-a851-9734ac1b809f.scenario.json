@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "854d982b-e53a-41d3-a851-9734ac1b809f",
+    "name": "RevokedTokens.unifyLoadPath impl (L1 fix, DESIGN-AHEAD: server REVOKED_TOKENS_PATH loads the tracked revoked-token-hashes.json or a deterministic build-copy = gated path == runtime path)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
+    "markerNote": "markerPending DESIGN-AHEAD: the PATH-UNIFY fix (server currently loads data/revoked-tokens.json ABSENT while gate checks revoked-token-hashes.json ROOT). Expert builds; architect confirms uuid pre-wire."
+  },
+  "ownerIor": "ce8423ad-6edd-4fa9-ab70-51d4c3e90538"
+}

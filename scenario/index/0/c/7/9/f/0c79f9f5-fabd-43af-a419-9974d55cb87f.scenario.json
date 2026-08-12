@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "0c79f9f5-fabd-43af-a419-9974d55cb87f",
+    "name": "RevokedTokensCheck",
+    "sourceFile": "ior:file:scripts/check-revoked-tokens.ts",
+    "methods": [
+      "ior:instance:dd579287-863b-4720-ac6e-6b4c797c235f"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

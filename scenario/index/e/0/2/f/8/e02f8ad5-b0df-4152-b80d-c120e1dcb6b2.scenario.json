@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e02f8ad5-b0df-4152-b80d-c120e1dcb6b2",
+    "name": "IdentityRevocationGuard.identifyRefuseWhenArmedShort impl (L3 CLOSED, DESIGN-AHEAD: ARMED && loaded!=EXPECTED -> IDENTIFY refuses auth loud+closed, server stays up, operator-fixable, never refuse-boot)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "markerNote": "markerPending DESIGN-AHEAD: server.ts:3750 currently only per-token isRevoked, NO armed-short-refuse-all branch. Expert builds; architect confirms uuid pre-wire."
+  },
+  "ownerIor": "2cb915e9-32da-4496-bc19-ee751839b0d3"
+}

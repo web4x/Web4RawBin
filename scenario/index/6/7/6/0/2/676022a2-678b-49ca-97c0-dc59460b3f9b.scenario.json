@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "676022a2-678b-49ca-97c0-dc59460b3f9b",
+    "name": "revocation.commitCoupleList",
+    "description": "L1: commit-couple the revoked list to REVOKED_ARMED so armed + its list ship atomically and cannot diverge across deploys; the list holds SALTED HASHES (safe-to-track, not credentials) AND the server LOAD PATH == the gated list path (path-unify catch). Makes the armed-but-empty state unreachable.",
+    "class": "ior:instance:ba686e8b-c963-4f0d-ac4c-03ddf3d81d39",
+    "method": "ior:instance:ce8423ad-6edd-4fa9-ab70-51d4c3e90538",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:8207901a-be3e-48d9-9393-bb82af9e584a"
+}

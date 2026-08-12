@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "26a6d57d-9531-4ff8-9e43-8a3fc05040cd",
+    "name": "RevokedTokens.hashToken impl (salted sha256 of a 128-bit UUID token + fixed committed salt = irreversible, NOT a credential, safe-to-track)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
+    "markerNote": "markerPending REAL (existing code, salted-hash). Architect confirms uuid + marker site pre-wire -> I strict-AST-flip. NO token values."
+  },
+  "ownerIor": "7a94d085-5ec6-4c0d-9790-0140943b0710"
+}

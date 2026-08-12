@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "2cb915e9-32da-4496-bc19-ee751839b0d3",
+    "name": "IdentityRevocationGuard.identifyRefuseWhenArmedShort",
+    "implementations": [
+      "ior:instance:e02f8ad5-b0df-4152-b80d-c120e1dcb6b2"
+    ]
+  },
+  "ownerIor": "4273839d-0f2a-45e5-9ef3-9a8c3e1c20a1"
+}

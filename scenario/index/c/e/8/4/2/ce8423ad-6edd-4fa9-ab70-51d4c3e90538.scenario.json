@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ce8423ad-6edd-4fa9-ab70-51d4c3e90538",
+    "name": "RevokedTokens.unifyLoadPath",
+    "implementations": [
+      "ior:instance:854d982b-e53a-41d3-a851-9734ac1b809f"
+    ]
+  },
+  "ownerIor": "ba686e8b-c963-4f0d-ac4c-03ddf3d81d39"
+}

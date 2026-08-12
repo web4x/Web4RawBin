@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8f48c47a-b41f-406a-aae3-892626e730b5",
+    "name": "RevokedTokens.revokedArmedHealth impl (L3 LOUD half, REAL: ARMED && loaded!=EXPECTED -> returns error string 'refusing to report healthy')",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/server/revoked-tokens.ts",
+    "markerNote": "markerPending REAL (existing, revoked-tokens.ts:115 loud-only). The CLOSED belt (refuse-auth) is the design-ahead sibling IM_REFUSE. Architect confirms uuid pre-wire -> I flip."
+  },
+  "ownerIor": "c0785151-1594-4a80-8bba-335edb08718f"
+}

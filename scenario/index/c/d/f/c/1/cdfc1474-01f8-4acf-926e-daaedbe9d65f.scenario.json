@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cdfc1474-01f8-4acf-926e-daaedbe9d65f",
+    "name": "revocation.refuseAuthWhenArmedShort",
+    "description": "L3: runtime belt — when ARMED and loaded!=EXPECTED, IDENTIFY REFUSES to serve auth loud+CLOSED (operator-facing fix message), server STAYS UP, never refuse-boot; fail-closed-not-lockout. (revokedArmedHealth is the loud-only half already REAL; this UC adds the CLOSED refuse-auth branch.)",
+    "class": "ior:instance:4273839d-0f2a-45e5-9ef3-9a8c3e1c20a1",
+    "method": "ior:instance:2cb915e9-32da-4496-bc19-ee751839b0d3",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:8207901a-be3e-48d9-9393-bb82af9e584a"
+}

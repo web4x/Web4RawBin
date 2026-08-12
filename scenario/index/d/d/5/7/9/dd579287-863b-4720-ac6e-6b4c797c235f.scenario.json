@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "dd579287-863b-4720-ac6e-6b4c797c235f",
+    "name": "RevokedTokensCheck.assertArmedIffList",
+    "implementations": [
+      "ior:instance:8c7c76df-88be-4f19-9037-8e90675081a7"
+    ]
+  },
+  "ownerIor": "0c79f9f5-fabd-43af-a419-9974d55cb87f"
+}

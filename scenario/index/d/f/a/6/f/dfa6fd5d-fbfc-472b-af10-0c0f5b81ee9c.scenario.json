@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "dfa6fd5d-fbfc-472b-af10-0c0f5b81ee9c",
+    "name": "revocation.gateArmedIffList",
+    "description": "L2: CI gate asserts REVOKED_ARMED <=> (list present AND count==EXPECTED AND disjoint from enrolled-79/Tron/File-owners), against the UNIFIED (server-loaded) path — armed-but-empty goes RED at commit, the dishonest state cannot be committed.",
+    "class": "ior:instance:0c79f9f5-fabd-43af-a419-9974d55cb87f",
+    "method": "ior:instance:dd579287-863b-4720-ac6e-6b4c797c235f",
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:8207901a-be3e-48d9-9393-bb82af9e584a"
+}
