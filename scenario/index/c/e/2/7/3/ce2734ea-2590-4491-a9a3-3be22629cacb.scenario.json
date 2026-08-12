@@ -4,7 +4,9 @@
     "uuid": "ce2734ea-2590-4491-a9a3-3be22629cacb",
     "name": "Auto-progress current/next pin on QA-Review transition (by sprint-completion order; explicit-wins-over-auto; QA is not Done)",
     "altId": "R40.18",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:46964040-9dbb-4454-94d0-6eafa1f64be7"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

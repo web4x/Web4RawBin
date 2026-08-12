@@ -249,7 +249,7 @@
   - [ ] **(idempotent)** IDEMPOTENT: re-entering QA, or a re-run, must NOT double-rotate the slots.
   - [ ] **(fail-loud-unresolved)** FAIL-LOUD, never silent-pick: if the next-by-sprint-completion cannot be determined unambiguously, report it as UNRESOLVED — exactly as resolveSprintPin already does for the ambiguous current (it prefers saying 'I do not know' over guessing).
   - [ ] **(uniqueness-3-slot)** 3-SLOT UNIQUENESS preserved (current / next / lastCompleted distinct) — REUSE the pin's existing enforcement, do NOT reimplement.
-  - [ ] **(device-390-visible)** @390 real-device PIXEL gate; the progression must be VISIBLE — after a QA switch the board shows the rotated slots WITHOUT a manual refresh, or states why not.
+  - [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] After a QA-Review switch the pin's 3 slots visibly ROTATE on the @390 board WITHOUT a manual refresh (the auto-progress derivation reaches the render surface), or the board states why not. Real-device pixel gate — the tap/pixel verify is Tron's, never headless-green (R40.18 BITE-7). Retag of the former AC-device-390-visible to the AC-N-DEVICE convention (skill-expert request) so the device-bucket detector catch is GUARANTEED by id + tokens, not heuristic — turns Tron's device bucket 17->18.
   -> currentSprint.autoProgressPin [uc:uuid:4715978d-8210-4441-9af0-0f7b5edc46f6]
 
 - [ ] **R40.19 — Protect history back-navigation — an EXECUTING regression gate (@390 real-device, behavioural, stub-must-fail, in gate:device:live)**
