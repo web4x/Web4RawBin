@@ -41,4 +41,10 @@ One contract for every drag source and every drop target:
 - Each carries a BITE gate + stub-must-fail. Declared-not-defaulted, family-not-instance (fixing only the DnD leaves the scattered-notify + two-bus disease). 
 
 ## Constraints honored
-INV-T byte-diff==0 (render read-only, controller sole writer); @390 region re-render no-reload; reuse T103 ViewBus + R40.17 bridge + R32.6 derivation (no new machinery); declared-not-defaulted gates throughout. Build order on build-go: controller seam → migrate notify sites + retire 2nd bus → coverage gate → DnD shared resolver+contract → @390 device.
+INV-T byte-diff==0 (render read-only, controller sole writer); @390 region re-render no-reload; reuse T103 ViewBus + R40.17 bridge + R32.6 derivation (no new machinery); declared-not-defaulted gates throughout.
+
+## Build sequence (PO-RATIFIED 2026-08-17) — slices, each backstopped on ship
+1. **ONE CONTROLLER seam + retire the 2nd bus** (mutate+collect-refs+notify; grep-lint no-mutation-outside-seam).
+2. **subscribe-on-render coverage + gate** (every rendered ref MUST subscribe else RED).
+3. **T37.20 DnD shared contract routed THROUGH the controller** (canonical rb-object-ref payload + one `resolveDropPayload` + drop→controller→notify); then @390 device.
+★ **Dependency (why this order, not DnD-first):** T37.20's acceptance is "drop → item+detail views update LIVE." That live-update is produced by 1+2 (the seam notifies; views subscribe). **A drop contract shipped BEFORE the seam would resolve payloads but NOT live-update** — half the value, root untouched. So the Tron-pinned T37.20 is not deprioritised; slices 1+2 build exactly what its acceptance NEEDS. Hold the INV-T line every slice: render READ-ONLY, controller SOLE writer. Architect backstops each slice vs this design on ship.
