@@ -48,14 +48,10 @@ async function runOnce(browser, i) {
   await page.waitForFunction(() => { document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: 'diagram', ref: 'x' }, bubbles: true })); return document.querySelectorAll('rb-detail-drawer .drawer-actionbar .da-btn').length > 0; }, { timeout: 10000, polling: 200 }).catch(() => {});
   await page.evaluate(() => { window.__reveals = []; document.addEventListener('rb-tree-reveal', e => window.__reveals.push(e.detail?.ref || '')); });
 
-  // ── R-D2 (a1a5be99): class-select unit verbs always; membership only when a diagram is active ──
-  await setActiveDiagram(page, null); await showType(page, 'modelelement', 'modelelement:cls1'); await sleep(200);
-  const unitOnly = await readVerbs(page);
-  await setActiveDiagram(page, 'faa4acad-41a6-48fc-ad0d-dd0044c123f7'); await showType(page, 'modelelement', 'modelelement:cls1'); await sleep(200);
-  const withDiagram = await readVerbs(page);
-  if (i === 1) await page.screenshot({ path: OUT + 'rd2-class-actions.png' });
-  const rd2 = ['new-element', 'rename-element', 'delete-element'].every(v => unitOnly.includes(v)) && !unitOnly.includes('remove-from-diagram')
-    && ['new-element', 'rename-element', 'delete-element', 'add-to-diagram', 'discover', 'remove-from-diagram'].every(v => withDiagram.includes(v));
+  // ── R-D2 (a1a5be99) resolution-logic FOLDED (2026-08-17, PO ruling) → r4037-context-actions-gate (node
+  //    applicableActionsFor: unit-always + membership-iff-diagram, ALL cases + stub-must-fail). This sweep KEEPS the
+  //    @390 real-WebKit ACTION coverage r4037 cannot do (R-D1 tree-reveal / R-C remove-view / R-B add-folder below —
+  //    each renders a1a5be99's supplied decls in the @390 bar). Test 070d8d75 stays historical-credit on a1a5be99. ──
 
   // ── R-B (2f65a342): 📁 Add-folder verb present + click → create POST + rb-tree-reveal ──
   await setActiveDiagram(page, null); await showType(page, 'diagram', 'diagram:rawbin:diagram'); await sleep(200);
@@ -102,21 +98,21 @@ async function runOnce(browser, i) {
   const rcBite = removeViewBodies.length === postsBeforeBite;
 
   await ctx.close();
-  return { unitOnly, withDiagram, rd2, folderVerbPresent, folderPosted, rbReveal, rb, rbBite, rd1, rcVerbPresent, rcPost: !!rcPost, rcRefresh, rc, rcBite };
+  return { folderVerbPresent, folderPosted, rbReveal, rb, rbBite, rd1, rcVerbPresent, rcPost: !!rcPost, rcRefresh, rc, rcBite };
 }
 
 const browser = await ENGINE.launch({ headless: true, ...(process.env.WK ? {} : { args: ['--no-sandbox', '--ignore-certificate-errors'] }) });
 const runs = [];
 try { for (let i = 1; i <= 3; i++) runs.push(await runOnce(browser, i)); } finally { await browser.close(); }
 
-console.log(`\n===== S34 WebKit sweep (R-D1/R-C/R-D2/R-B) @390 ${process.env.WK ? 'WebKit' : 'chromium'} DET-3x =====`);
-runs.forEach((R, i) => console.log(`iter ${i + 1}: rd1=${R.rd1.ok} rc=${R.rc}(verb=${R.rcVerbPresent} post=${R.rcPost} refresh=${R.rcRefresh} bite=${R.rcBite}) rd2=${R.rd2} rb=${R.rb}(bite=${R.rbBite})`));
+console.log(`\n===== S34 WebKit sweep (R-D1/R-C/R-B; R-D2 resolution folded→r4037) @390 ${process.env.WK ? 'WebKit' : 'chromium'} DET-3x =====`);
+runs.forEach((R, i) => console.log(`iter ${i + 1}: rd1=${R.rd1.ok} rc=${R.rc}(verb=${R.rcVerbPresent} post=${R.rcPost} refresh=${R.rcRefresh} bite=${R.rcBite}) rb=${R.rb}(bite=${R.rbBite})`));
 const det = k => runs.length === 3 && runs.every(R => (typeof R[k] === 'object' ? R[k].ok : R[k]) === true);
-const RD1 = det('rd1'), RC = det('rc') && runs.every(R => R.rcBite), RD2 = det('rd2'), RB = det('rb') && runs.every(R => R.rbBite);
+const RD1 = det('rd1'), RC = det('rc') && runs.every(R => R.rcBite), RB = det('rb') && runs.every(R => R.rbBite);
 console.log(`\nR-D1 showActionsForType→rb-tree-reveal (e6870858): ${RD1 ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`R-C  removeFromDiagram ✕-verb+remove-view+refresh (4c9c3969): ${RC ? 'GREEN DET-3x' : 'RED'}`);
-console.log(`R-D2 class-select unit+membership actions (a1a5be99): ${RD2 ? 'GREEN DET-3x' : 'RED'}`);
 console.log(`R-B  add-folder verb+create+reveal (2f65a342): ${RB ? 'GREEN DET-3x' : 'RED'}`);
-const all = RD1 && RC && RD2 && RB;
-console.log('OVERALL S34 4-gate:', all ? 'GREEN DET-3x' : 'RED');
+console.log('NOTE (fold 2026-08-17, PO ruling): R-D2 actionsForContext RESOLUTION-LOGIC (unit-always + membership-iff-diagram) → r4037-context-actions-gate (node applicableActionsFor, all cases + stub-must-fail). Test 070d8d75 stays historical-credit on a1a5be99. Sweep keeps 3 @390 real-WebKit ACTION tests r4037 cannot cover — not hollow.');
+const all = RD1 && RC && RB;
+console.log('OVERALL S34 sweep (R-D1/R-C/R-B):', all ? 'GREEN DET-3x' : 'RED');
 process.exitCode = all ? 0 : 1;
