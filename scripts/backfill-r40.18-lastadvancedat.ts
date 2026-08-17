@@ -109,8 +109,10 @@ if (APPLY) {
   for (const r of rows) {
     if (!r.adv) continue; // no advance signal → leave untimestamped (honest; ranks last)
     const m = r.unit.model as Record<string, unknown>;
+    // idempotent-skip a task whose winner IS its existing genuine seam-stamp (unchanged) — don't churn a live seam value
+    if (r.source === 'seam' && String(m.lastAdvancedAt || '') === r.adv) continue;
     m.lastAdvancedAt = r.adv;
-    m.lastAdvancedAtSource = 'git-backfill';
+    m.lastAdvancedAtSource = r.source; // HONEST provenance: code-decl / code-file / checklist / seam — NOT a blanket 'git-backfill'
     m.lastAdvancedAtCommit = r.commit;
     idx.put(r.uuid, r.unit); // one-time CLI backfill, pre-transport (not a runtime seam path; scripts/ not lint-scanned)
     wrote++;
