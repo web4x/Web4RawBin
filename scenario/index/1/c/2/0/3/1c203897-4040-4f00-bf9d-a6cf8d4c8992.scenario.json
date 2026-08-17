@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "1c203897-4040-4f00-bf9d-a6cf8d4c8992",
+    "name": "task.backfillLastAdvancedFromGit",
+    "description": "One-time self-draining migration: populate lastAdvancedAt on existing S37 Task units from each unit's LAST status/checklist-CHANGING git commit (authoritative recency source), so the R40.18 max-lastAdvancedAt current-derivation has data for pre-seam tasks. A task with no status/checklist-changing commit reports UNRESOLVED (ranks-last, never faked). Report-only -> auto-strict-at-0 as the seam stamps new advances (self-draining debt). Reversible + content-conserving (deliberate metadata add, NOT INV-T byte-diff).",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
+}

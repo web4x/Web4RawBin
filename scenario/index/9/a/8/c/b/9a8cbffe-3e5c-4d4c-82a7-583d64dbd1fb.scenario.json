@@ -80,6 +80,11 @@
         "id": "AC-device-390-exact",
         "group": "device",
         "text": "@390 mobile (Tron's device): the item name renders EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>', legible, NOT truncated mid-number, with NO doubled subtitle (defect #2). Pixel-gated, Tron-visible."
+      },
+      {
+        "id": "AC-pin-role-entity-single-source",
+        "group": "dry-no-double-prefix",
+        "text": "NO double-prefix in pin/slot rows (DRY one-word-one-owner, R40.18 pin view): the ROLE word ('Current'/'Next'/'Last Completed') is the pin SLOT-LABEL's ALONE; the ENTITY word ('Task <n>.<m>:') is the taskDisplayName FORMATTER's ALONE. The formatter NEVER emits 'Current'/'Next'; the slot-label NEVER emits 'Task'. GATES: taskDisplayName output containing a role-word -> RED; a slot-label containing 'Task' -> RED. Reuses the ONE taskDisplayName (no separate pin formatter). crossRef R40.18."
       }
     ],
     "premiseAmendment": {
