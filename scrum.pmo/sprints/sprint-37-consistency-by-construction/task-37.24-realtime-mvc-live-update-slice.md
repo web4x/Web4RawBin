@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Task Description
