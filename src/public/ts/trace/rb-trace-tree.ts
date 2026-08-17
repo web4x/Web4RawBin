@@ -480,6 +480,13 @@ export class RbTraceTree extends HTMLElement {
     const csNode = this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true);
     csNode.classList.add('cs-pin-node'); // R40.18 (Tron "i DONT want it TRUNCATED"): scope the no-truncation wrap to the pin SLOT rows ONLY via a marker class (app.css .cs-pin-node) — never global .oi-name (every tree row would wrap = layout change nobody asked for)
     this.appendChild(csNode);
+    // R40.18 defect-1 FIX (Tron @390 screenshot): the CSS un-truncate is not enough — rb-object-item renders generateName(title)
+    // (SHORTENED for compact tree rows) into .oi-name, so the pin row showed "Task 37.24:…" with a LITERAL ellipsis. Set the
+    // FULL name as the `name` attr on each pin SLOT item → render uses getAttribute('name') verbatim (bypasses generateName);
+    // the scoped .cs-pin-node CSS then wraps the full string. Re-applied every pin render (this method re-runs on the emit).
+    csNode.querySelectorAll(':scope > .tt-children > .tt-node > .tt-row > rb-object-item').forEach((it) => {
+      const full = it.getAttribute('title'); if (full) it.setAttribute('name', full);
+    });
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
     // R31.3 BADGE-via-REFERENCES: carry each sprint's server task-count as childCount → buildSeedNode stamps it on the
     // node's dataset.childRefCount so the badge shows the real N before its tasks lazy-load (no nodeChildCount map).

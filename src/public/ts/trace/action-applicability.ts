@@ -22,9 +22,11 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // In-Progress. That set is the SHARED APPROVE_STATUSES the server 409-gate also enforces (anti-drift, one source).
   { verb: 'qa-approve', label: '✓ Approve', appliesTo: { types: ['task'], statuses: [...APPROVE_STATUSES] }, onInvalid: 'hide' },
   { verb: 'qa-decline', label: '✗ Decline', appliesTo: { types: ['task'], statuses: [...APPROVE_STATUSES] }, onInvalid: 'hide' },
-  // pin designation applies to ANY task regardless of status (steering is unconstrained + server-authoritative).
-  { verb: 'pin-current', label: '📌 Set current', appliesTo: { types: ['task'] } },
-  { verb: 'pin-next', label: '📋 Set next', appliesTo: { types: ['task'] } },
+  // R40.18 RETIRED (architect 7cb9617fb): pin-current / pin-next REMOVED — the pin is now DERIVED (current = In-Progress
+  // task with MAX lastAdvancedAt). A manual Set-current/Set-next is a SECOND SOURCE that can contradict the derivation —
+  // the exact two-source vector that produced the stale pick 78ea801d3 (lied to Tron for days). Retire (not a when-gate)
+  // makes the contradiction IMPOSSIBLE by construction; the /designate route + resolver override path go dead. If a real
+  // steering workflow ever surfaces it returns as a labeled, expiring, provenance-carrying override — a future req (YAGNI).
 ];
 
 // [impl:uuid:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab] universalActions.applicableActionsFor (Class universalActions

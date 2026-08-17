@@ -46,10 +46,28 @@ function tickBox(checklist: string, target: TaskStatusEnum): string {
   return `${checklist.replace(/\s*$/, '')}\n- [x] ${target}`;
 }
 
+// R40.18 sub-step primitive (found by USING the design — the agent-status skill needs it; without it agents are forced
+// into the hand-edits the mutation-seam lint now outlaws). The In-Progress sub-steps: informational progress markers UNDER
+// the 'In Progress' state. deriveStatusEnum reads ONLY the 4 top-level state boxes, so ticking a sub-step KEEPS the state.
+const IN_PROGRESS_SUBSTEPS = ['refinement', 'creating test cases', 'implementing', 'testing'];
+const escRe = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+/** Tick an INDENTED sub-step box (  - [ ] implementing →   - [x] implementing). Throws if the named box is absent. */
+function tickSubStep(checklist: string, sub: string): string {
+  const re = new RegExp(`^(\\s+- \\[) \\](\\s*${escRe(sub)}\\b.*)$`, 'm'); // \\s+ = the indent that distinguishes a sub-step from a top-level state box
+  if (re.test(checklist)) return checklist.replace(re, '$1x]$2');
+  throw new Error(`TaskPolicy: sub-step '${sub}' box not found in the checklist (cannot tick an absent sub-step)`);
+}
+
 export const TaskPolicy: UnitPolicy = {
   // [impl:uuid:ff247010-40ce-44be-99f4-a776c20257b2] TaskPolicy.validate — step-legality (re-expressed task-fsm TRANSITIONS/guardTransition) +
   // evidenceForStep precondition (5021456d). Refuses illegal skips AND advancing past a step whose chain-edge is absent.
   validate(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
+    if (intent.subStep !== undefined) { // R40.18: a sub-step tick is NOT a state advance — validate the named box, no legalNext/evidence gate (the evidence gate applies at the In Progress→QA Review state advance)
+      const sub = String(intent.subStep);
+      if (!IN_PROGRESS_SUBSTEPS.includes(sub)) throw new Error(`TaskPolicy: unknown sub-step '${sub}' (valid: ${IN_PROGRESS_SUBSTEPS.join(', ')})`);
+      if (currentState(unit) !== 'In Progress') throw new Error(`TaskPolicy: sub-step '${sub}' requires state 'In Progress' (current: ${currentState(unit)})`);
+      return;
+    }
     const cur = currentState(unit);
     const to = legalNext(cur, intent.target as TaskStatusEnum | undefined);
     const need = EVIDENCE_GATE[to];
@@ -61,8 +79,15 @@ export const TaskPolicy: UnitPolicy = {
   // [impl:uuid:1e789400-8e25-4957-b0d6-f9429f174184] TaskPolicy.apply — TICKS the next checklist box, then model.status = deriveStatusEnum (the SOLE
   // 4-state writer). NEVER writes a flat 7-state or a literal status string (MvcBoundaryGuard enforces this structurally).
   apply(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
-    const to = legalNext(currentState(unit), intent.target as TaskStatusEnum | undefined);
     const m = unit.model as Record<string, unknown>;
+    if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)
+      m.statusChecklist = tickSubStep(String(m.statusChecklist ?? ''), String(intent.subStep));
+      m.status = deriveStatusEnum(String(m.statusChecklist)); // unchanged (sub-step doesn't move the state) — recompute for the SOLE-writer invariant
+      m.lastAdvancedAt = new Date().toISOString();
+      m.lastAdvancedAtSource = 'seam';
+      return;
+    }
+    const to = legalNext(currentState(unit), intent.target as TaskStatusEnum | undefined);
     m.statusChecklist = tickBox(String(m.statusChecklist ?? ''), to);
     m.status = deriveStatusEnum(String(m.statusChecklist)); // the ONE sanctioned 4-state writer
     // R40.18: STAMP the advance time as a CONSEQUENCE of the advance — SEAM-WRITTEN, never a caller intent (apply reads
@@ -77,8 +102,8 @@ export const TaskPolicy: UnitPolicy = {
 };
 
 // [impl:uuid:47227ad1-f00a-4337-bc0d-8e63a34b1b26] TaskPolicy.statusNext — the THIN Task façade over the generic UnitController.apply (NOT a 2nd entry).
-export function statusNext(idx: ScenarioIndex, taskUuid: string, opts: { actor?: string; target?: TaskStatusEnum; publish?: PublishFn } = {}): ScenarioUnit {
-  return UnitController.apply(idx, TASK_IOR, taskUuid, { target: opts.target }, { actor: opts.actor, publish: opts.publish });
+export function statusNext(idx: ScenarioIndex, taskUuid: string, opts: { actor?: string; target?: TaskStatusEnum; subStep?: string; publish?: PublishFn } = {}): ScenarioUnit {
+  return UnitController.apply(idx, TASK_IOR, taskUuid, { target: opts.target, subStep: opts.subStep }, { actor: opts.actor, publish: opts.publish });
 }
 
 registerPolicy(TASK_IOR, TaskPolicy);
