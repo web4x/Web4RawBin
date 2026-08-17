@@ -44,17 +44,14 @@ if (process.argv[1] && /check-release-tag\.(ts|js|mjs)$/.test(process.argv[1])) 
   if (!version) { console.error('✗ check-release-tag: no package.json version. RED.'); process.exit(1); }
   const cur = tagIsValidFor(version);
 
-  // backfill gap: enumerate the DISTINCT versions in history and flag those with no valid tag (for the planner).
-  const histVersions = new Set<string>();
-  for (const sha of git(['log', '--format=%H', '--', 'package.json']).split('\n').filter(Boolean)) {
-    const v = versionAtRef(sha); if (v) histVersions.add(v);
-  }
-  const untagged = [...histVersions].filter((v) => !tagIsValidFor(v).pointsAtShip);
-
+  // ★ FORWARD GUARD is this gate's job: the CURRENT deploy must be validly tagged — impossible-to-MISS an untagged release.
+  // ★ The HISTORIC BACKFILL enumeration is the PLANNER's SINGLE SOURCE — this gate does NOT roll its own version/tag count
+  // (two independent enumerations of the same quantity = the two-source disease: my history-walk once said 514, then 357
+  // after `git fetch --tags`, vs the planner's authoritative enumeration from v0.6.0 — a gate must not publish a number that
+  // contradicts the backfill it measures). Fetch tags before reading; consult the planner's enumeration for the gap.
   console.log(`release-tag gate [${STRICT ? 'STRICT' : 'report-only'}] — served==committed==TAGGED (family: release-identity divergence)`);
   console.log(`  current version ${version}: tag ${cur.tag} exists=${cur.exists} points-at-ship=${cur.pointsAtShip}`);
-  console.log(`  backfill gap: ${untagged.length}/${histVersions.size} historic versions have NO valid tag (planner backfills these)`);
-  if (untagged.length) console.log(`      e.g. ${untagged.slice(0, 8).join(', ')}${untagged.length > 8 ? ' …' : ''}`);
+  console.log(`  backfill status: SINGLE SOURCE = planner's enumeration (scrum.pmo/standards/release-tagging.md) — NOT computed here.`);
 
   const currentOk = cur.exists && cur.pointsAtShip;
   if (currentOk) { console.log(`  ✓ current deploy ${version} is validly tagged (${cur.tag} → ships ${version}).`); process.exit(0); }
