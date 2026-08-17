@@ -56,8 +56,50 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST = false-Done BITE (distinct-intent, exercises its own AC): plant status='Done' on a task whose checklist Done-box is [ ] -> assertStatusConsistent MUST exit 1 naming it FALSE-DONE; a task with status==deriveStatusEnum(checklist) -> passes; setting status=deriveStatusEnum on a fresh edit keeps them equal (by-construction, no new drift). Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-substep-implies-parent",
+    "group": "detector-extension",
+    "text": "assertStatusConsistent EXTENDED (INV-C5-substep): a checklist with a SUB-STEP checked but its PARENT box UNCHECKED (e.g. '[x] refinement' under '[ ] In Progress') is a DRIFT — the parent MUST be checked once any sub-step is (work has started). The detector flags it as a status-drift offender alongside the existing status!=deriveStatusEnum check."
+   },
+   {
+    "id": "AC-reconcile-per-task-to-truth",
+    "group": "reconcile",
+    "text": "Each flagged task is reconciled PER-TASK to its TRUE state, evidence-driven: if the sub-work genuinely exists, TICK the parent (the honest advance); if the RAW status over-states with no work behind it, correct the RAW field DOWN — NEVER invent a status, NEVER tick a box for absent work (honors the R37.5 no-Done-flip / no-status-invention law)."
+   },
+   {
+    "id": "AC-reconcile-through-seam",
+    "group": "reconcile",
+    "text": "Reconciliation writes THROUGH the mutation seam (statusNext -> UnitController.apply): it ticks the checklist, deriveStatusEnum derives the status, lastAdvancedAt is stamped source='seam', and it emits — NEVER a hand-edit (which bypasses the seam the mutation-seam lint enforces, and does not emit). A status-reconcile is exactly the write S37 exists to route."
+   },
+   {
+    "id": "AC-phased-self-draining-sweep",
+    "group": "self-draining",
+    "text": "The 7 measured sub-step/parent drift instances (37.24 + 37.27 = S37, DONE through-seam 7a24682d0; 31.6 / 98 / 184 / 142 / iframe-pinch = 5 pending) are a PHASED sweep: report-only -> strict, with a self-draining COUNT 7->0 as the revisit trigger (auto-flip to strict when the count reaches 0). NOT a one-off edit. Do NOT execute the 5 pending now (they would delay the Tron deploy); the counter drains them over time."
+   },
+   {
+    "id": "AC-view-reads-derived-status",
+    "group": "view-correctness",
+    "text": "The CLIENT view markers (item + detail current/next) MUST read the DERIVED status (deriveStatusEnum(statusChecklist)), NEVER raw model.status — else the item view contradicts the pin (which derives). Architect: the derived status is the single truth the view surfaces (ties R40.18 view-surface + C4.1 self-heal-on-read). GATE: a view reading raw model.status for a current/next marker -> RED."
    }
-  ]
+  ],
+  "driftSweep": {
+   "detector": "assertStatusConsistent extended: sub-step-checked => parent-checked (INV-C5-substep)",
+   "measuredBy": "robbin-architect 2026-08-17",
+   "instanceCount": 7,
+   "instances": {
+    "37.24": "S37 DONE (through-seam 7a24682d0, In-Progress)",
+    "37.27": "S37 DONE (through-seam 7a24682d0, In-Progress-early: refinement genuine, implementing not-started)",
+    "37.25": "S37 checked-VERIFIED-HONEST (R37.12 refinement genuine, impls markerPending=implementing-queued; NOT a reverse-drift, no change)",
+    "31.6": "pending sweep",
+    "98": "pending sweep",
+    "184": "pending sweep",
+    "142": "pending sweep",
+    "iframe-pinch": "pending sweep"
+   },
+   "policy": "phased report-only -> strict, self-draining count 7->0 as trigger; reconcile-per-task-to-truth through-seam, never status-invention. Do-not-execute the 5 pending now (Tron deploy focus).",
+   "owner": "robbin-req (R37.5 owner)"
+  }
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
