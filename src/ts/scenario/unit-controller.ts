@@ -38,9 +38,28 @@ export class UnitController {
       policy.validate(idx, unit, intent); // (1) VALIDATE — throws to refuse (evidence-precondition lives here)
       policy.apply(idx, unit, intent);     // (2) APPLY — in-memory model mutation
     }
-    idx.put(uuid, unit);                   // (3) PERSIST — the one disk-write chokepoint
-    UnitController.emit(ior, uuid, opts.publish); // (4) EMIT
+    UnitController._write(idx, ior, uuid, unit, opts.publish); // (3) PERSIST + (4) EMIT via the shared _write chokepoint
     return unit;
+  }
+
+  // UnitController.create — the NEW-unit PRIMITIVE (sibling of apply, NOT an upsert): fail-loud if the unit ALREADY
+  // exists (mirror of apply's throw-if-absent — a typo'd create must never silently clobber an existing unit). Persist +
+  // emit through the SAME _write chokepoint so create-of-a-new-unit is LIVE — the injected publish fans out the
+  // container/list refs (R37.12 viewBus / R40.17 graph) so a new unit appears at once in list/tree views. Impl marker
+  // pending architect mint (create Method+Impl, distinct from apply's b5f72641).
+  static create(idx: ScenarioIndex, ior: string, uuid: string, unit: ScenarioUnit, opts: { actor?: string; publish?: PublishFn } = {}): ScenarioUnit {
+    if (idx.has(uuid)) throw new Error(`unitController.create: unit ${uuid} already exists (use apply to mutate)`);
+    if (unit.ior !== ior) throw new Error(`unitController.create: ior mismatch (${unit.ior} != ${ior})`);
+    UnitController._write(idx, ior, uuid, unit, opts.publish);
+    return unit;
+  }
+
+  // _write — the SINGLE persist+emit chokepoint shared by apply (mutate-existing) and create (new). ScenarioIndex.put is
+  // the sole disk-write; emit is its INSEPARABLE consequence, so no seam entry can persist WITHOUT notifying. That binding
+  // is what the mutation-seam lint enforces structurally: no idx.put / graph-write outside UnitController.{apply,create}.
+  private static _write(idx: ScenarioIndex, ior: string, uuid: string, unit: ScenarioUnit, publish?: PublishFn): void {
+    idx.put(uuid, unit);                   // (3) PERSIST — the one disk-write chokepoint
+    UnitController.emit(ior, uuid, publish); // (4) EMIT — inseparable from persist
   }
 
   // [impl:uuid:6b03b619-c55f-48fc-9753-9e9375980864] UnitController.emit — publish step-4: delegates the injected publish (the server's R37.12
