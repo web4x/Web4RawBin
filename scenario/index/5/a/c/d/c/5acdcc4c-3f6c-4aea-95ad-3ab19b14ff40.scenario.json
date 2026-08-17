@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "5acdcc4c-3f6c-4aea-95ad-3ab19b14ff40",
+    "name": "Task 37.24: Realtime-MVC live-update slice — a routed write appears live in item + detail + pin @390",
+    "slug": "task-37.24-realtime-mvc-live-update-slice",
+    "description": "The realtime-MVC live-update slice Tron is tracking ('the pixel gate at 390 passes'): route unit mutations through the ONE controller (UnitController.apply) so a change through ANY routed write path is reflected LIVE in the item view, the detail view, and the current/next pin — no reload. Slice-1 = the seam foundation (committed: 3c15eabd0/075273c97/b5c0e35d8/2617f22ab, decided routing list cd797ff27); the routing pass over the ~15 bypass sites is next on the fresh expert.",
+    "intention": "Prove Tron's realtime-MVC ask on-device: a write is visible everywhere at once, @390, with no reload.",
+    "context": "R37.11 ONE CONTROLLER (cfe02f4b) via UC mvc.applyMutation (3ee364a5) + Impl e3729f51 (UnitController.apply route-all-writes-through-seam). Seam already exists at unit-controller.ts:41; ~15 sites bypass it (server.ts idx.put x10 / EmailIndex.ts:68,71 / agent-message.ts:68,77,103 / skills.ts:59) so emit never fires + views go stale.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "implementation": "ior:instance:e3729f51-3df6-4f6d-96e3-924c37e3c3c9",
+    "acceptanceCriteria": "**AC (the exact thing Tron is tracking):** A unit change made through ANY routed write path appears in the ITEM view AND the DETAIL view AND the current/next pin WITHOUT a reload — verified by SCREENSHOT+PIXEL on real WebKit @390 (NEVER a DOM count). PLUS **no-write-outside-the-seam lint** at 0-unallowed with STUB-MUST-FAIL: a graph-write / idx.put OUTSIDE UnitController.apply -> RED. PLUS **INV-T byte-diff==0 per routed site**: rendering never mutates the model (the unit is byte-identical before==after any render). Gate procedure: robbin-tester/r37-slice1-gate-spec.md.",
+    "subtasks": [],
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+    ],
+    "useCases": [
+      "ior:instance:3ee364a5-472f-44f2-bc1b-79df494b2f0f"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-17"
+  },
+  "ownerIor": null
+}
