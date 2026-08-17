@@ -1,8 +1,14 @@
 # bootstrapSeed boot-blocking — architect ruling (code-reasoned, independent of the empirical test)
 
-robbin-architect 2026-08-17, PO-requested 2nd angle (I reason from code; expert measures empirically). **Design/ruling only — nothing built.** Do-not-deploy 0.8.97 stands.
+robbin-architect 2026-08-17, PO-requested 2nd angle (I reason from code; expert measures empirically). **Design/ruling only — nothing built.**
 
-## Q1 — Can bootstrapSeed BLOCK the event loop ~45s by construction? **YES, unambiguously.**
+## ⛔ CORRECTED 2026-08-17 — Q1 MECHANISM WAS WRONG (do not treat below as canon)
+The expert then DIRECTLY MEASURED: **boot serves in 1.3s (3 stable runs); a full scan of all 5680 units takes 0.1s.** `ScenarioIndex.get` is NOT the ~8ms/unit cost my arithmetic assumed — 5680 read+parse = 0.1s (~18µs/unit on warm FS). **bootstrapSeed does NOT block ~45s.** The earlier "~45s hang" was a **BROKEN PROBE** — node `fetch` rejects the self-signed cert and ignores `NODE_TLS_REJECT_UNAUTHORIZED`, so the probe never got a boot wall-time at all.
+- **My Q1 below is RETRACTED.** The O(corpus) scan is real but ~0.1s — a structural smell, NOT a 45s outage mechanism.
+- **EPISTEMIC LESSON (banked):** I INFERRED the cost; the empirical probe was BROKEN; **neither measured boot wall-time, so our "convergence" was NOT corroboration.** Agreement between an inference and a broken measurement is coincidence. Convergence requires ≥1 DIRECT measurement of the actual quantity (here: boot wall-time). [[verify-with-independent-method]] strengthened: the independent method must actually measure the QUANTITY, not a proxy.
+- **The REAL defect is STRUCTURAL, not perf** — see `design-type-index-feature-archaeology.md` (11 unit types, incl. testcase's 1023 units, have NO type-index; the corpus walk is the symptom). The boot-shape notes below (read-mostly, atomic write) remain valid as hygiene but are NOT an outage fix.
+
+## ~~Q1 — Can bootstrapSeed BLOCK the event loop ~45s by construction?~~ [RETRACTED — measured 1.3s boot / 0.1s scan]
 Measured code (`src/ts/server/FeatureManager.ts:60-79`, `src/ts/scenario/index-store.ts:64-86`):
 - `static bootstrapSeed(): void` is **fully synchronous — zero `await`, zero yield.**
 - `ScenarioIndex.get()` (index-store.ts:71) = `selfHealOnRead(JSON.parse(fs.readFileSync(fp,'utf-8')))` — a **synchronous `readFileSync` + `JSON.parse` per call, no cache** (each `get` re-reads its file).
