@@ -65,6 +65,14 @@ export const TaskPolicy: UnitPolicy = {
     const m = unit.model as Record<string, unknown>;
     m.statusChecklist = tickBox(String(m.statusChecklist ?? ''), to);
     m.status = deriveStatusEnum(String(m.statusChecklist)); // the ONE sanctioned 4-state writer
+    // R40.18: STAMP the advance time as a CONSEQUENCE of the advance — SEAM-WRITTEN, never a caller intent (apply reads
+    // only intent.target; a caller CANNOT express lastAdvancedAt). Omission-proof by the binding mutation-seam lint: a Task
+    // cannot advance except through this policy, which always stamps. This is RECENCY metadata for the pin predicate
+    // (current = the In-Progress task with the MAX lastAdvancedAt) — NOT status: deriveStatusEnum stays the SOLE status
+    // source and NEVER reads this field (guarded by check-recency-not-status). Source='seam' distinguishes a live stamp
+    // from a git-backfilled one (honesty metadata, read by humans/audits, never by the ranking).
+    m.lastAdvancedAt = new Date().toISOString();
+    m.lastAdvancedAtSource = 'seam';
   },
 };
 
