@@ -157,6 +157,7 @@
   - [ ] **(gate)** statusNext NEVER writes the flat 4-state status strings that approveByOwner reads (e.g. it must not emit 'QAReview'/'Refining' status writes) — it TICKS the nested checklist and lets deriveStatusEnum derive the 4-state. REMOVED HAZARD (carry as AC, not tidying): the retired flat vocabulary said 'QAReview' while approve's live gate reads 'QA Review' — had a status-write been wired live, Tron's approve would have broken SILENTLY (a button that flips nothing, found by him not us). ONE representation (nested checklist) + ONE legality set; task-fsm.ts reduces to TaskPolicy's internal legality module. BITE: a statusNext path that writes a 4-state string -> RED.
   - [ ] **(gate)** deriveStatusEnum is the SOLE writer of the 4-state model.status strings (family: status-string-writer) — a literal 'QA Review'/'Done'/'In Progress'/'Planned' status-set ANYWHERE else -> RED. This folds into mvcBoundary.assertControllerDominates as a 2nd FACET (architect ruling: one property, one home — NOT a separate unit). Proven non-vacuous by a STUB-MUST-FAIL bite (plant a literal status-set -> RED; weaken the lint -> RED).
   - [ ] **(gate)** TEST EXERCISES AC-one-entry+AC-evidence-precondition+AC-dominance (distinct-intent): a mutation bypassing apply -> RED; advancing past an evidence-absent step -> refused fail-loud; a second Done-writer -> RED. Verify Impl.tests[] on disk before flip.
+  - [ ] **(gate)** mvc.applyMutation = route ALL writes through the EXISTING UnitController.apply seam (unit-controller.ts:41; it already mutates+collects+emits). The measured defect: ~15 sites BYPASS it (server.ts idx.put x10 / EmailIndex.ts:68,71 / agent-message.ts:68,77,103 / skills.ts:59) so emit never fires + views go stale. A change through ANY write path must be visible in item+detail views with NO reload. GATE (binding lint, STUB-MUST-FAIL): a graph-write/idx.put OUTSIDE the seam -> RED.
   -> evidence.evidenceForStep [uc:uuid:be1e9403-98c4-4b0b-82e6-9f2a10a9f953]
   -> unitController.apply [uc:uuid:29b78da3-f9aa-47c6-b706-46df6e47a69a]
   -> unitController.emit [uc:uuid:339246c8-9ce8-4c12-b279-4ac4930d1a04]
@@ -164,6 +165,7 @@
   -> taskPolicy.apply [uc:uuid:8b9ad9ec-f09c-41b1-8332-82afa35c2872]
   -> taskPolicy.statusNext [uc:uuid:62c5576b-4b43-4d52-bf79-c36cb4667e99]
   -> mvcBoundary.assertControllerDominates [uc:uuid:3b7b2a6d-86e2-49d9-ad45-6c3fe7fc7f77]
+  -> mvc.applyMutation [uc:uuid:3ee364a5-472f-44f2-bc1b-79df494b2f0f]
 
 - [ ] **R37.12 — ONE VIEW BUS — model changes propagate to every view; no view renders silently stale**
   [requirement:uuid:9afbade1-6c11-4117-a05a-518af0787de5]
@@ -177,9 +179,14 @@
   - [ ] **(functional)** The live client subscribes to the ws event and on notify / focus / visibilitychange REVALIDATES the affected subtree OR marks it VISIBLY STALE (a badge) — a stale render is never indistinguishable from fresh. This is how never-return-a-silently-drifted-value reaches the RENDER surface (fixes pin-swap-not-appearing).
   - [ ] **(functional)** Unconfirmed currency == STALE, never fresh (same shape as NOT-RUN==RED): a dropped ws / skipped revision / offline -> the node goes stale; the (re)connect welcome piggybacks the current revision for reconcile. The client NEVER assumes fresh because no event arrived.
   - [ ] **(gate)** TEST EXERCISES AC-one-event+AC-scoped-debounced+AC-revalidate-or-stale+AC-fail-closed (distinct-intent): two transitions in one sprint -> exactly ONE scoped regen (RED if it regenerates unaffected sprints / fires per-event); drop the ws / skip a revision -> the open node goes STALE (RED if it renders fresh); register a throwaway projection -> works with zero pipeline edits. Verify Impl.tests[] on disk before flip.
+  - [ ] **(gate)** mvc.subscribeOnRender COVERAGE INVARIANT: EVERY view that renders a ref MUST subscribe to it -> it live-updates. GATE RED if a rendered ref is not subscribed (STUB-MUST-FAIL: render a ref without subscribing -> RED). Closes the gap where AC3 live-update marker 9ce0b153 exists but no coverage unit.
+  - [ ] **(functional)** ONE view bus, not two: the SECOND observer (trace/ViewBus ref-keyed vs top-level ViewBus classType/uuid) is RETIRED or explicitly declared so there is ONE controller/bus (the two-source disease, R40.18 class). GATE: a 2nd live bus in use -> RED (stub-must-fail).
+  - [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron, un-mockable, NEVER headless-green, TRON-ONLY] A unit change is VISIBLE in the ITEM view AND the DETAIL view with NO manual reload (live), gated @390 by SCREENSHOT+PIXEL (the changed value appears), NEVER a DOM count. AND INV-T: rendering NEVER mutates the model — the unit byte-diff before==after any render == 0. STUB-MUST-FAIL: a stale view / a render that mutates the unit -> RED. Closes Tron's 'not reflecting it in realtime currently'.
   -> viewBus.emitUnitChanged [uc:uuid:77e8a39f-642f-4f0f-8d7d-b1d5fec804c7]
   -> projection.register [uc:uuid:bfea086a-81cf-4797-93a2-051d35b1df9a]
   -> viewPipeline.revalidateOrMarkStale [uc:uuid:53a85195-4253-43b5-a6e0-c266c34f833f]
+  -> mvc.subscribeOnRender [uc:uuid:6aac0acf-23f9-4e67-a2e1-9f9633e101ff]
+  -> mvc.consolidateOneBus [uc:uuid:e530e248-8535-4bcf-b984-be916cc0aa9a]
 
 - [ ] **R37.13 — Naming is canon by construction — the bespoke C-scheme can never return (task name+slug AND req altId)**
   [requirement:uuid:5576307b-e69b-4b40-8049-e59f7253c8c9]
@@ -278,7 +285,9 @@
   - [ ] **(functional)** ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY drop target reuses the SAME contract (diagram/room/tree-collection/editor-drawer + future) — NO per-target format, NO per-target parsing, NO *.show?uuid= URL fallback anywhere (single-source, R40.37 shape).
   - [ ] **(gate)** The BITE asserts the contract PER TARGET (diagram · room · tree/collection · editor/drawer) + STUB-MUST-FAIL: make the serializer emit a URL/*.show again -> assert RED. A target that regresses to a link is caught by construction.
   - [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on device: a file drags as a file, drops onto every target carry the unit (not a URL), and detail views render.
+  - [ ] **(gate)** dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared resolver EVERY drop target calls (fail-loud on unresolvable), replacing today's 4 payload formats each target resolving itself (the per-target-resolution disease). A drop updates the view LIVE @390. GATE STUB-MUST-FAIL: a target with its own payload format/resolver -> RED.
   -> dnd.carryUnitPayload [uc:uuid:5474886a-fad6-4fc0-bab3-940b3480959f]
+  -> dnd.resolveDropPayload [uc:uuid:e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac]
 
 - [ ] **R37.21 — Room Members/Files pseudo-collections become REAL Folder scenario-units with sunburst detail (rides R40.16, no duplicate folder model)**
   [requirement:uuid:80346a36-c323-4ac5-bc3f-6286748bc074]
