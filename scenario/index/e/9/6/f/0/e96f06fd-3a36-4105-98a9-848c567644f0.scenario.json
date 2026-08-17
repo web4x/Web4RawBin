@@ -1,0 +1,62 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "e96f06fd-3a36-4105-98a9-848c567644f0",
+  "name": "Diagram has ONE scroll/pan authority — no nested scrollbars competing for the gesture (consistent pan UX)",
+  "altId": "R40.42",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "The diagram panel has TWO competing scroll authorities: an OUTER scroll container (the right-hand drawer, visible track far-right) AND an INNER diagram surface with its OWN scrollbar (bottom+right inside the dark canvas). The inner viewport is ~99pct of the content height so vertical scroll has nowhere to travel; the wheel/drag is CAPTURED by the inner container and never reaches the outer -> pan works LEFT/RIGHT but is DEAD up/down. NESTED SCROLL = TWO SOURCES OF SCROLL AUTHORITY (the same single-source law as two ViewBuses / the sprint number in 8 places). A consistent UX means EXACTLY ONE authority for moving the diagram — the pan/zoom surface itself (RbPanZoom) — with NO nested scroll container competing for the same gesture. ★ DESIGN-REQUIRED: Tron asked for ANALYSIS ('analyse how this can be solved into a CONSISTENT UX FEELING'), not a quick patch — the architect owns the analysis. CHECK-BEFORE-CREATE: sibling to R33.6.2 (page-scroll suppression during element DRAG) — DISTINCT (that = drag leaks to PAGE scroll; this = the diagram's own nested containers compete for PAN) but same scroll-authority family; may be framed as phase-2. Reuse RbPanZoom (R40.29), no fork.",
+  "tronQuote": "in the screenshot you see 2 SCROLLBARS for the diagram. this causes the panning to only be able to pan LEFT RIGHT, as the INNER scrollbar is 99pct and up down does not change anything while it cannot affect the OUTER scrollbar, that would really change the pan position up/down. analyse how this can be solved into a CONSISTENT UX FEELING. its very important.",
+  "status": "Backlog",
+  "captureOnly": true,
+  "designRequired": true,
+  "discoverySource": {
+   "type": "tron-directive",
+   "note": "Tron explicit: 'dont derive from 37 focus, but let the REQ agent plan next a fix for this' -> PLANNED requirement, NOT a preemption of S37. Priority AFTER the S37 MVC slices; does NOT touch the expert current build. Architect does the requested ANALYSIS (design job)."
+  },
+  "crossRef": [
+   "ior:instance:570b77c7-1679-4827-ba8e-9673fba5994c"
+  ],
+  "crossRefNote": "Scroll-authority family with R33.6.2 570b77c7 (suppress PAGE-scroll during element drag + bounded edge-autoscroll). R33.6.2 = drag-leaks-to-page; R40.42 = diagram's own NESTED containers compete for pan (structural two-authorities). Reuses RbPanZoom (R40.29 mouse-pan-parity, Class RbPanZoom e5e3c885) as the ONE authority. AC-e page-scroll-leakage may be phase-2 of R33.6.2 (check-before-create).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-one-scroll-authority",
+    "group": "structural",
+    "text": "The diagram has EXACTLY ONE scroll/pan authority = the RbPanZoom surface; NO nested scroll container competes for the gesture and NO inner diagram scrollbar is visible at all (the inner ~99pct scrollbar is removed, not merely hidden — by construction, e.g. overflow handled by the pan-transform not a scroll container). A grep/DOM check PROVES no second scrollable element inside the diagram viewport."
+   },
+   {
+    "id": "AC-drag-pan-both-axes",
+    "group": "functional",
+    "text": "Drag-pan moves BOTH axes: dragging the diagram background changes the pan position UP/DOWN as well as LEFT/RIGHT (the current vertical-dead defect is fixed — the gesture reaches the one authority, not a 99pct inner container)."
+   },
+   {
+    "id": "AC-wheel-defined",
+    "group": "functional",
+    "text": "Wheel behaviour is DEFINED and CONSISTENT — the architect analysis STATES which (zoom vs scroll-pan) and it is the same everywhere; NOT left ambiguous. Whichever is chosen, a gate asserts it (no accidental nested-scroll capture of the wheel)."
+   },
+   {
+    "id": "AC-390-touch-auto",
+    "group": "functional",
+    "text": "@390 AUTOMATABLE (headless real-WebKit): a pointer drag-pan on the diagram moves BOTH axes and the page does not scroll; no nested scrollbar present. (The physical two-finger/pinch is split to the device AC below.)"
+   },
+   {
+    "id": "AC-390-DEVICE",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] On real iOS: two-finger pan moves the diagram BOTH axes and pinch zooms, as ONE consistent gesture surface (real-WebKit vs Chromium emulation caveat — a synthetic gesture can false-green; Tron's device verify). The 'consistent UX feeling' Tron asked for is confirmed on-device."
+   },
+   {
+    "id": "AC-no-page-scroll-leakage",
+    "group": "functional",
+    "text": "No page-scroll leakage while interacting with the diagram (crossRef R33.6.2 — may be phase-2 of it): panning/zooming the diagram never scrolls the surrounding page/drawer. GATE (stub-must-fail): a planted nested scroll container OR a vertical-pan-dead state OR page-scroll-during-diagram-interaction -> RED."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
