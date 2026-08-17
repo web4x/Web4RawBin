@@ -1,33 +1,42 @@
 /**
- * Precommit: regenerate the AFFECTED sprint(s)' per-sprint MD (planning.md / requirements.md / task-*.md) when their
- * scenario units are staged — ITEM-1 HOLE FIX (PO 2026-08-17).
+ * Precommit: regenerate the AFFECTED sprint(s)' per-sprint MD when their scenario units are staged — ITEM-1 HOLE FIX
+ * (PO 2026-08-17), made SATISFIABLE (PO 2026-08-17 fix-1/fix-2).
  *
- * WHY: the precommit hook already regenerates the sprints.overview index + the campaign board + approve-queue on a
- * staged unit, but NOT the per-sprint MD — those were only check:sprint-md POST-HOC (CI). So a UNIT-ONLY tick-commit
- * (e.g. req advancing a task's statusChecklist, 1 file) landed a credit while the per-sprint task-MD stayed STALE
- * until the next manual regen = "a credit landed and the board did not move" — the exact promise item-1 makes
- * impossible. This closes it: staging a Task/Requirement/Sprint/UC unit regenerates its sprint's MD IN THE SAME COMMIT.
+ * WHY: the precommit hook regenerated overview + board + approve on a staged unit, but the per-sprint planning/
+ * requirements/task-MD were ONLY check:sprint-md POST-HOC (CI). So a UNIT-ONLY tick landed a credit while its sprint's
+ * task-MD stayed STALE = "a credit landed and the board did not move". This regenerates the affected sprint views IN
+ * THE SAME COMMIT — reusing the SAME generator check:sprint-md uses (generate-sprint-md.ts). One source, not a 2nd.
  *
- * ONE SOURCE, not a 2nd path: reuses generate-sprint-md.ts (the SAME generator check:sprint-md uses) —
- * affectedSprintUuids() resolves which sprint(s) render the staged units, generateSprint() writes via the C7/owned-
- * output guardedWrite (hand-authored preserved, NO deletion), checkSprint() self-verifies convergence. TARGETED (only
- * the affected sprint) so a commit never sweeps unrelated sprint drift in as a side effect.
+ * SATISFIABLE (fix-1, the important one): the hook must distinguish drift THIS COMMIT introduces (BLOCK, fail-closed)
+ * from PRE-EXISTING drift (REPORT loudly, DO NOT block) — a gate that is red-from-birth against legacy debt gets
+ * --no-verify'd, and a bypassed gate is a deleted gate. So we:
+ *   (1) SKIP frozen-legacy sprints (num <= 18, hand-authored, not generator-managed — same boundary as --check --all);
+ *   (2) write + stage ONLY the files that RENDER a staged unit (the task's own MD + planning.md for a task, etc.) — we
+ *       NEVER create/stage a sprint's OTHER (pre-existing-missing) files: that is reconciliation = PLANNER lane, and it
+ *       would sweep unrelated debt into this commit and hide it;
+ *   (3) BLOCK only on a CONVERGENCE failure — a file we JUST WROTE that still does not byte-match regen-of-units (a real
+ *       generator bug); a commit can never introduce per-sprint-MD drift that survives our targeted write;
+ *   (4) REPORT the sprint's remaining PRE-EXISTING drift LOUDLY and NAMING ALL THREE (missing / mismatched / extra) —
+ *       never block on it (fix-2: the old fail message omitted `extra`, so an orphan read as a mysterious empty failure).
  *
- * Run: node --import tsx scripts/precommit-regen-sprint-md.ts [--bite]   (default = regen staged; --bite = stub-must-fail)
+ * Run: node --import tsx scripts/precommit-regen-sprint-md.ts [--bite]
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import type { ScenarioUnit } from '../src/ts/scenario/index.js';
 import {
-  allUnits, buildSprintOutput, generateSprint, checkSprint, affectedSprintUuids,
-  SPRINTS_DIR, GENERATED_HEADER_PREFIX,
+  allUnits, buildSprintOutput, checkSprint, affectedSprintUuids,
+  SPRINTS_DIR, GENERATED_HEADER_PREFIX, isSprintMdOwnedName, type SprintOutput,
 } from './generate-sprint-md.js';
+import { guardedWrite } from './owned-output-guard.js';
+import { sprintNumOf, isCurrentEra } from '../src/ts/scenario/sprint-pin-resolver.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const bareRef = (r: unknown): string => String(r).replace('ior:instance:', '');
 const fail = (m: string): never => { console.error(`FAIL precommit-regen-sprint-md: ${m}`); process.exit(1); };
 
-// Staged scenario-unit uuids (from the sharded path scenario/index/<h>/<h>/<h>/<h>/<h>/<uuid>.scenario.json).
 function stagedUnitUuids(): Set<string> {
   const set = new Set<string>();
   let names: string[] = [];
@@ -39,48 +48,95 @@ function stagedUnitUuids(): Set<string> {
   return set;
 }
 
-// [--bite] STUB-MUST-FAIL (the PO proof, in-memory over REAL units, no disk mutation): a UNIT-ONLY checklist advance
-// must (a) make the resolver TARGET its sprint, (b) CHANGE the derived MD (so the regen is necessary + effective), and
-// (c) make checkSprint on the UN-regenerated on-disk go RED. A hook/gate that cannot catch the unit-only case is
-// exactly what we just lived through — so this asserts all three on a currently-CLEAN sprint (clean-before -> RED-after).
-function bite(): void {
-  const units = allUnits();
-  const bare = (r: unknown): string => String(r).replace('ior:instance:', '');
-  let picked: { sprint: string; task: string } | null = null;
-  for (const s of units.values()) {
-    if (s.ior !== 'ior:class:Sprint') continue;
-    const sUuid = String(s.model.uuid);
-    if (!checkSprint(sUuid, units).ok) continue; // need a CLEAN sprint so clean-before -> RED-after is unambiguous
-    for (const t of (((s.model as Record<string, unknown>).tasks as string[]) || [])) {
-      const tu = bare(t);
-      const task = units.get(tu);
-      const cl = String((task?.model as Record<string, unknown> | undefined)?.statusChecklist ?? '');
-      if (task && /- \[ \]/.test(cl)) { picked = { sprint: sUuid, task: tu }; break; }
-    }
-    if (picked) break;
+// Which of a sprint's generated files RENDER a staged unit — so we touch ONLY the staged units' views, never the
+// sprint's other (possibly pre-existing-drifted) files. Task -> planning.md + the task's own MD (the out.files entry
+// embedding [task:uuid:<u>]); Requirement/UC -> requirements.md; the Sprint itself -> planning.md + requirements.md.
+export function affectedFiles(staged: Set<string>, sprintUnit: ScenarioUnit, out: SprintOutput, units: Map<string, ScenarioUnit>): Set<string> {
+  const files = new Set<string>();
+  const m = sprintUnit.model as Record<string, unknown>;
+  if (staged.has(String(m.uuid))) { files.add('planning.md'); files.add('requirements.md'); }
+  for (const r of ((m.requirements as string[]) || [])) {
+    const ru = bareRef(r);
+    if (staged.has(ru)) files.add('requirements.md');
+    const req = units.get(ru);
+    if (req) for (const uc of (((req.model as Record<string, unknown>).useCases as string[]) || [])) if (staged.has(bareRef(uc))) files.add('requirements.md');
   }
-  if (!picked) fail('bite: found no CLEAN current sprint with an unticked-checklist task to exercise the proof');
-  const { sprint, task } = picked;
+  const seen = new Set<string>();
+  const walk = (u: string): void => {
+    if (seen.has(u)) return; seen.add(u);
+    if (staged.has(u)) {
+      files.add('planning.md');
+      for (const [name, content] of out.files) if (content.includes(`[task:uuid:${u}]`)) files.add(name);
+    }
+    const tu = units.get(u);
+    if (tu) for (const c of (((tu.model as Record<string, unknown>).children as string[]) || [])) walk(bareRef(c));
+  };
+  for (const t of ((m.tasks as string[]) || [])) walk(bareRef(t));
+  return files;
+}
 
-  const cleanBefore = checkSprint(sprint, units).ok === true;              // (pre) on-disk == regen-of-real-units
-  const targeted = affectedSprintUuids(new Set([task]), units).includes(sprint); // (a) resolver targets the sprint
+// BLOCK-vs-REPORT split (fix-1). BLOCK only a CONVERGENCE failure: a file we JUST WROTE that still mismatches
+// regen-of-units (a real generator bug). Everything else — orphaned `extra`, `missing` files we did NOT write, and
+// `mismatched` files we did NOT write — is PRE-EXISTING debt this commit did not introduce: REPORT (all three), never
+// block. Pure + exported so --bite proves it can both PASS (pre-existing -> report) and FAIL (convergence -> block).
+export function classifyDrift(
+  chk: { missing: string[]; extra: string[]; mismatched: string[] },
+  written: Set<string>,
+): { block: string[]; report: { missing: string[]; extra: string[]; mismatched: string[] } } {
+  const block = chk.mismatched.filter((f) => written.has(f)); // wrote it, still wrong => generator did not converge
+  return {
+    block,
+    report: {
+      missing: chk.missing.slice(),                              // pre-existing (planner reconciles / prunes)
+      extra: chk.extra.slice(),                                  // orphaned generated file (fix-2: NAME it)
+      mismatched: chk.mismatched.filter((f) => !written.has(f)), // drifted but not ours to fix this commit
+    },
+  };
+}
 
-  const orig = units.get(task)!;
-  const om = orig.model as Record<string, unknown>;
-  const tickedCl = String(om.statusChecklist).replace('- [ ]', '- [x]');   // simulate a UNIT-ONLY tick, in memory
-  const mod = new Map(units);
-  mod.set(task, { ...orig, model: { ...om, statusChecklist: tickedCl } });
+function bite(): void {
+  const A: { ok: boolean; msg: string }[] = [];
+  const assert = (ok: boolean, msg: string) => A.push({ ok, msg });
 
-  const before = buildSprintOutput(sprint, units)!;
-  const after = buildSprintOutput(sprint, mod)!;
-  let mdChanged = false;                                                    // (b) the tick changes the derived MD
-  for (const [name, content] of after.files) if (before.files.get(name) !== content) { mdChanged = true; break; }
+  // (fix-1 SATISFIABILITY) a sprint whose ONLY drift is a pre-existing orphan (`extra`) + a `missing` we did NOT write
+  // must NOT block — block is empty, and BOTH are reported.
+  const preExisting = classifyDrift({ missing: ['task-x.md'], extra: ['orphan.md'], mismatched: [] }, new Set());
+  assert(preExisting.block.length === 0, 'SATISFIABLE: pre-existing extra+missing (not-written) does NOT block');
+  // (fix-2) the report NAMES ALL THREE — the orphan `extra` is not swallowed into a mysterious empty failure.
+  assert(preExisting.report.extra.includes('orphan.md') && preExisting.report.missing.includes('task-x.md'),
+    'FIX-2: report names extra AND missing (all three surfaced, no mysterious empty failure)');
+  // (fix-1 STRICT) a CONVERGENCE failure — a file we WROTE still mismatches — DOES block (the gate can still fail).
+  const converge = classifyDrift({ missing: [], extra: [], mismatched: ['planning.md'] }, new Set(['planning.md']));
+  assert(converge.block.includes('planning.md'), 'STRICT: a written file that did not converge BLOCKS (gate can fail)');
+  // a mismatched file we did NOT write is pre-existing -> report, not block.
+  const notOurs = classifyDrift({ missing: [], extra: [], mismatched: ['other-task.md'] }, new Set());
+  assert(notOurs.block.length === 0 && notOurs.report.mismatched.includes('other-task.md'),
+    'SATISFIABLE: a mismatched file we did NOT write is reported, not blocked');
 
-  const redAfter = checkSprint(sprint, mod).ok === false;                   // (c) un-regenerated on-disk -> RED
+  // (promise still holds) a staged task's affected files include planning.md AND the task's own MD, on REAL units.
+  const units = allUnits();
+  let promiseOk = false, taskLabel = '';
+  for (const s of units.values()) {
+    if (s.ior !== 'ior:class:Sprint' || !isCurrentEra(sprintNumOf(s))) continue;
+    const out = buildSprintOutput(String(s.model.uuid), units);
+    if (!out) continue;
+    for (const t of (((s.model as Record<string, unknown>).tasks as string[]) || [])) {
+      const tu = bareRef(t);
+      if (!units.get(tu)) continue;
+      const files = affectedFiles(new Set([tu]), s, out, units);
+      const taskMd = [...out.files.keys()].find((n) => n !== 'planning.md' && n !== 'requirements.md' && (out.files.get(n) || '').includes(`[task:uuid:${tu}]`));
+      if (files.has('planning.md') && taskMd && files.has(taskMd)) { promiseOk = true; taskLabel = `${out.sprintSlug}/${taskMd}`; }
+      break;
+    }
+    if (promiseOk) break;
+  }
+  assert(promiseOk, `PROMISE: a staged task's affected files = planning.md + its own task-MD (${taskLabel})`);
 
-  const ok = cleanBefore && targeted && mdChanged && redAfter;
-  console.log(`bite: clean-before=${cleanBefore} resolver-targets-sprint=${targeted} unit-tick-changes-MD=${mdChanged} un-regenerated-goes-RED=${redAfter} => ${ok ? 'PASS (unit-only tick -> targeted regen necessary + un-regenerated RED; the promise a-credit-cannot-land-without-the-board-moving is enforceable)' : 'FAIL'}`);
-  process.exit(ok ? 0 : 1);
+  const failed = A.filter((a) => !a.ok);
+  for (const a of A) console.log(`  ${a.ok ? '✓' : '✗ FAIL'} ${a.msg}`);
+  if (failed.length) { console.log(`\n✗ bite: ${failed.length}/${A.length} FAILED`); process.exit(1); }
+  console.log(`\n✓ bite: ${A.length}/${A.length} — satisfiable (pre-existing REPORTED not blocked, all three named) + still strict (convergence failure BLOCKS) + promise holds (affected views move)`);
+  process.exit(0);
 }
 
 function main(): void {
@@ -90,25 +146,51 @@ function main(): void {
   if (staged.size === 0) { console.log('OK precommit-regen-sprint-md: no staged scenario units — per-sprint MD unchanged.'); return; }
   const units = allUnits();
   const affected = affectedSprintUuids(staged, units);
-  if (affected.length === 0) { console.log('OK precommit-regen-sprint-md: staged units render in no sprint MD (Class/Method/Impl/Test) — nothing to regen.'); return; }
+  if (affected.length === 0) { console.log('OK precommit-regen-sprint-md: staged units render in no sprint MD — nothing to regen.'); return; }
 
   const toStage: string[] = [];
+  const reports: { slug: string; missing: string[]; extra: string[]; mismatched: string[] }[] = [];
   for (const sprintUuid of affected) {
+    const sprintUnit = units.get(sprintUuid);
+    if (!sprintUnit) continue;
+    if (!isCurrentEra(sprintNumOf(sprintUnit))) { console.log(`  · skip frozen-legacy ${sprintUuid.slice(0, 8)} (hand-authored, not generator-managed)`); continue; }
     const out = buildSprintOutput(sprintUuid, units);
     if (!out) continue;
-    generateSprint(sprintUuid, units); // writes owned MD via guardedWrite (C7/hand-authored preserved; never deletes)
-    const chk = checkSprint(sprintUuid, units); // self-verify tripwire: freshly-written MUST byte-match regen-of-units
-    if (!chk.ok) fail(`sprint ${out.sprintSlug} did NOT converge after regen (missing=${chk.missing.join(',')} mismatched=${chk.mismatched.join(',')}) — a generator bug, not a race`);
-    for (const name of out.files.keys()) { // stage ONLY owned/generated files (never a hand-authored file)
+
+    // (2) write ONLY the files that render a staged unit — never the sprint's other (pre-existing) files.
+    const written = new Set<string>();
+    for (const name of affectedFiles(staged, sprintUnit, out, units)) {
+      const content = out.files.get(name);
+      if (content === undefined) continue;
+      if (guardedWrite(path.join(SPRINTS_DIR, out.sprintSlug, name), content, GENERATED_HEADER_PREFIX, isSprintMdOwnedName)) written.add(name);
+    }
+
+    // (3)+(4) block-vs-report split
+    const { block, report } = classifyDrift(checkSprint(sprintUuid, units), written);
+    if (block.length) fail(`sprint ${out.sprintSlug}: regen did NOT converge for [${block.join(', ')}] — a generator bug (a file we wrote still mismatches regen-of-units)`);
+    for (const name of written) { // stage ONLY the owned/generated files we wrote
       const fp = path.join(SPRINTS_DIR, out.sprintSlug, name);
       try { if (fs.existsSync(fp) && fs.readFileSync(fp, 'utf-8').startsWith(GENERATED_HEADER_PREFIX)) toStage.push(path.relative(ROOT, fp)); } catch { /* skip */ }
     }
+    if (report.missing.length || report.extra.length || report.mismatched.length) reports.push({ slug: out.sprintSlug, ...report });
   }
+
   if (toStage.length) {
     execFileSync('git', ['add', '--', ...toStage], { cwd: ROOT });
-    console.log(`OK precommit-regen-sprint-md: regenerated + staged ${toStage.length} MD file(s) across ${affected.length} affected sprint(s) — committed-MD == regen-of-units BY CONSTRUCTION.`);
+    console.log(`OK precommit-regen-sprint-md: regenerated + staged ${toStage.length} affected view(s) — the staged units' derived views moved IN THIS COMMIT (by construction).`);
   } else {
-    console.log('OK precommit-regen-sprint-md: affected sprint MD already current (nothing to stage).');
+    console.log('OK precommit-regen-sprint-md: staged units\' affected views already current (nothing to stage).');
+  }
+
+  // (4) PRE-EXISTING debt: LOUD, all three, NEVER blocks (report-only-then-strict; planner lane reconciles/prunes).
+  if (reports.length) {
+    console.warn('\n⚠ PRE-EXISTING sprint-MD debt — NOT introduced by this commit, REPORTED not blocked (planner lane to reconcile/prune):');
+    for (const r of reports) {
+      console.warn(`  ${r.slug}:`);
+      for (const f of r.missing) console.warn(`    missing:    ${f}`);
+      for (const f of r.mismatched) console.warn(`    mismatched: ${f}`);
+      for (const f of r.extra) console.warn(`    extra:      ${f}`);
+    }
   }
 }
 
