@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
-    "name": "Sprint labels show the sprint number (composed at display from number + name)",
+    "name": "Sprint/task number is a single-source ATTRIBUTE (DRY family); display EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>' everywhere (R40.4-phase-2)",
     "altId": "R40.4",
     "tasks": [],
     "tests": [],
@@ -10,38 +10,94 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "unitLinks": [],
     "useCases": [
-      "ior:instance:d6cb7ddd-9587-49a2-b6b2-a355862579da"
+      "ior:instance:d6cb7ddd-9587-49a2-b6b2-a355862579da",
+      "ior:instance:a778793d-6970-45a1-b795-4dd8847cdba9",
+      "ior:instance:c9f394b1-0743-49c3-9c69-a5636238252d"
     ],
-    "description": "Every sprint surface displays the sprint NUMBER with its theme (\"Sprint N — theme\"), composed AT THE DISPLAY LAYER by ONE shared helper from the already-first-class model.number + model.name. The number is NOT written into the name field (that would be a second source of truth and drift on rename/renumber). Fixes all sprints (their labels currently render theme-only, unidentifiable/unsortable) with NO data migration.",
-    "tronQuote": "why is it not named sprint 40 - ...",
-    "singleSourceNote": "model.number stays the ONLY home of the number; name stays theme-only. Compose the label (sprintLabel(unit)=>\"Sprint {number} — {name}\") at render, never store \"Sprint 40\" in name.",
+    "description": "R40.4-PHASE-2 (Tron 2026-08-17 OVERRIDES phase-1's no-migration deferral; highest-CMM3 DRY). The sprint number lives in exactly ONE stored place (Sprint model.number) and the task index in one (Task model.taskIndex); EVERYTHING else derives at render via ONE formatter family (sprintDisplayName='Sprint <n>: <title>' + taskDisplayName='Task <parent.sprintNumber>.<taskIndex>: <title>', colon). NO persisted sprint-number elsewhere: task model.sprintName is DELETED (derives via parent), names are bare-title, slug/dir are a CHECK not a 2nd truth. Extends the sprint-label.ts atom + check-sprint-label.ts (phase-1 shipped the display atom; phase-2 = attribute-required + exact-colon + the migration + item-dup fix). Fixes Tron's screenshots (inconsistent separators, 'Sprint 33 — Sprint 33 —' doubling, rb-object-item.ts:188 subtitle-repeats-name). MIGRATION IS PHASED (S37 first, self-draining report-only->strict gate) with the residual recorded as named DEBT, never a silent defer.",
+    "tronQuote": "highest cmm3 principle DRY. only ONE sprint number attribute... not multiple; the sprint number shall be a scenario ATTRIBUTE; item name EXACTLY 'Sprint xx: zzz' everywhere",
+    "singleSourceNote": "PHASE-2 FAMILY: Sprint.number + Task.taskIndex are the SOLE persisted number homes. sprintDisplayName/taskDisplayName compose at render everywhere; sprint-<n> dir is a migration INPUT + dir==attr consistency CHECK, not a 2nd truth; task.sprintName field is DELETED (derives via parent).",
     "acceptanceCriteria": [
       {
         "id": "AC-all-surfaces",
         "group": "display",
-        "text": "Every sprint surface shows \"Sprint N — theme\": the tree row, the detail header, AND every generated MD view (the generator requirements.md header already does this — extend the same to tree + detail)."
+        "text": "Every surface shows EXACTLY 'Sprint <n>: <title>' (sprints) / 'Task <n>.<m>: <title>' (tasks), colon: tree/item row, detail header, every generated MD view — all derive at render, none stores the composed string."
       },
       {
         "id": "AC-one-helper",
         "group": "single-source",
-        "text": "The label is composed by ONE shared helper (e.g. sprintLabel(unit) => \"Sprint {number} — {name}\") — a grep PROVES there is no second composition site."
+        "text": "The display strings are composed by the ONE formatter family sprintDisplayName/taskDisplayName — a grep PROVES no second composition site (extends sprint-label.ts; retires generator.ts:105 + sprint-overview-generator.ts:39 variants)."
       },
       {
-        "id": "AC-all-sprints-no-migration",
-        "group": "coverage",
-        "text": "Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units."
-      },
-      {
-        "id": "AC-name-unchanged",
+        "id": "AC-number-required-attribute",
         "group": "single-source",
-        "text": "The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number."
+        "text": "Sprint number = REQUIRED typed attribute model.number (declared-not-defaulted); read at RENDER from model.number (dir-parse fallback becomes MIGRATION-ONLY). GATE (stub-must-fail): a Sprint unit with no model.number -> RED."
       },
       {
-        "id": "AC-device",
+        "id": "AC-task-index-attribute",
+        "group": "single-source",
+        "text": "A task number has TWO components: the sprint part DERIVES via parent->sprint.number, the '.M' is the task's OWN model.taskIndex attribute. taskDisplayName='Task <parent.sprintNumber>.<taskIndex>: <title>'; NO stored 'Task N.M' literal, NO task.sprintName field. One number attribute per unit (sprint.number, task.taskIndex)."
+      },
+      {
+        "id": "AC-no-persisted-number-except-attribute",
+        "group": "single-source",
+        "text": "DRY (Tron's ONE-attribute): NO persisted sprint-number anywhere except Sprint.number, NO persisted task-number except Task.taskIndex. The task model.sprintName field is DELETED (derives via parent, NOT kept in sync). GATE (stub-must-fail): a persisted sprintName/sprint-number field on a Task or any non-Sprint unit -> RED."
+      },
+      {
+        "id": "AC-name-bare-title",
+        "group": "single-source",
+        "text": "model.name = bare title only; no 'Sprint <n>' / 'Task <n>.<m>' prefix ever stored. GATES: model.name matching /Sprint\\s*\\d+/ -> RED (the 'Sprint 33 — Sprint 33 —' double-prefix source); model.name matching /Task\\s*\\d+\\.\\d+/ -> RED (task-title embedded number)."
+      },
+      {
+        "id": "AC-two-formatters-exact-colon",
+        "group": "display",
+        "text": "ONE formatter family produces EXACTLY 'Sprint <n>: <title>' and 'Task <n>.<m>: <title>' (colon per Tron) on EVERY surface, derived at render. GATE (extend check-sprint-label.ts): any surface building a sprint/task DISPLAY string outside sprintDisplayName|taskDisplayName -> RED."
+      },
+      {
+        "id": "AC-item-dup-fix",
+        "group": "display",
+        "text": "Item-view dup fix (rb-object-item.ts:188,197-198): name slot = the formatter; secondary slot = description ONLY or nothing — DROP the `|| getAttribute('title')` fallback that repeats the name. GATE: an item row whose oi-desc text == its oi-name text -> RED (duplicate-line detector, any type)."
+      },
+      {
+        "id": "AC-dir-attr-consistency",
+        "group": "gate",
+        "text": "dir<->attribute consistency: for every Sprint unit, the sprint-<n> directory number == model.number -> RED on mismatch. The directory is a CHECK, not a source of truth."
+      },
+      {
+        "id": "AC-migration-reversible-conserving",
+        "group": "migration",
+        "text": "The migration (sprint + task family) is a DELIBERATE change, so acceptance is NOT INV-T byte-diff==0 but: (a) REVERSIBILITY — backup taken, zero-restore proven; (b) CONTENT-CONSERVATION — the stripped bare title is a substring of the original, the formatter recomposes to original-minus-prefix, NO title text lost. Scratch dry-run FIRST + per-unit before/after + AMBIGUOUS list; unresolvable numbers REPORTED never invented (number from the sprint-<n> dir is the authoritative input)."
+      },
+      {
+        "id": "AC-phased-migration-debt",
+        "group": "migration",
+        "text": "PHASED (PO ruling — the task family is ~hundreds of units x ~37 sprints): build the family ONCE (formatter+attribute+gates), then migrate in PHASES S37 FIRST (Tron's screenshot sprint) then sprint-by-sprint. Gates are REPORT-ONLY until the migration completes then STRICT (R37.3 dual-flip — an unsatisfiable red-from-birth gate is how gates get silently removed). ★ SELF-DRAINING + VISIBLE: each ci run the report-only gate EMITS the remaining count ('N sprints / M task units still carry an embedded number in title/slug/sprintName') — no-silent-caps — and AUTO-FLIPS to strict when the count hits 0 (the counter IS the trigger). ★ RECORDED DEBT (not a silent defer — the R40.4-deferral-IS-the-doubling lesson applied to itself): RESIDUAL RISK = until phase-N the not-yet-migrated sprints' tasks still hold embedded numbers as un-derived data (the DISPLAYED number is authoritative via the formatter; the stale copies persist); REVISIT TRIGGER = the remaining-count gate, visible every ci run, strict-flip at 0."
+      },
+      {
+        "id": "AC-device-390-exact",
         "group": "device",
-        "text": "@390 mobile: the label is legible and NOT truncated mid-number in the tree row."
+        "text": "@390 mobile (Tron's device): the item name renders EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>', legible, NOT truncated mid-number, with NO doubled subtitle (defect #2). Pixel-gated, Tron-visible."
       }
-    ]
+    ],
+    "premiseAmendment": {
+      "date": "2026-08-17",
+      "by": "Tron (via robbin-po + architect 5569f0509)",
+      "what": "Phase-1 (R40.4) chose name-theme-only + NO data migration. Tron OVERRIDES: DRY = ONE number attribute per unit + migrate the duplicates (sprint AND task family) + exact 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>'. The 2 phase-1 ACs below are SUPERSEDED (kept honest, not deleted).",
+      "supersededACs": [
+        {
+          "id": "AC-all-sprints-no-migration",
+          "group": "coverage",
+          "text": "Works for ALL existing sprints with NO data migration — fixed by the display-layer change, not by editing units.",
+          "supersededReason": "Tron 2026-08-17: DRY requires the migration (one attribute, no duplicates) — phase-2 migrates ~20 Sprint units + the task family, phased S37-first."
+        },
+        {
+          "id": "AC-name-unchanged",
+          "group": "single-source",
+          "text": "The name field is UNCHANGED (theme-only); the number is NOT duplicated into name.",
+          "supersededReason": "Direction preserved+strengthened (model.number stays single source, now REQUIRED) but phase-2 STRIPS any number embedded in name/title (bare-title) rather than leaving legacy as-is."
+        }
+      ]
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

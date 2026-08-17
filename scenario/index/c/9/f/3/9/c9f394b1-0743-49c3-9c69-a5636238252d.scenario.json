@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c9f394b1-0743-49c3-9c69-a5636238252d",
+    "name": "sprintName.migrateToAttribute",
+    "description": "The deliberate DRY migration of the FAMILY to single-source number attributes (Tron 2026-08-17: ONE number attribute, not multiple). MEASURED duplication: a TASK carries the sprint number 4x (its own model.sprintName field + slug + 'Task N.M:' title + parent-link); a SPRINT carries it 4x (model.number + name-prefix + slug + dir). ELIMINATE every copy except the one attribute per unit: (a) SPRINT units (~20) — model.number from scrum.pmo/sprints/sprint-<n>-* DIRECTORY (authoritative INPUT, not prose) + strip leading 'Sprint <n>[ :-]' from model.name (bare title); (b) TASK units — DELETE the persisted model.sprintName field (task sprint-number DERIVES via parent->sprint.number, NOT kept in sync) + strip 'Task <n>.<m>' from the task title/name + set model.taskIndex (the '.M'). slug + title + dir all DERIVE or become a CHECK, never a 2nd stored copy. ★ PHASED (PO ruling): S37 FIRST (Tron's screenshot sprint) — sprint names + S37 tasks — then sprint-by-sprint for the remaining ~hundreds of task units; the report-only gate emits the remaining count each ci run and auto-flips to strict at 0 (self-draining, no-silent-caps). Method: scratch dry-run FIRST + per-unit before/after + AMBIGUOUS list (number from DIR; unresolvable REPORTED never invented). class/method=null — architect wires on build-go. ★ Acceptance = NOT INV-T byte-diff==0 (deliberate change): REVERSIBILITY (backup + zero-restore proven) + CONTENT-CONSERVATION (bare title is a substring of the original; the formatter recomposes to original-minus-prefix; NO title text lost, no silent drops).",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+}
