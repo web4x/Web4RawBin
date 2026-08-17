@@ -37,6 +37,13 @@ export class UnitController {
     if (policy) {
       policy.validate(idx, unit, intent); // (1) VALIDATE — throws to refuse (evidence-precondition lives here)
       policy.apply(idx, unit, intent);     // (2) APPLY — in-memory model mutation
+    } else {
+      // (A) DEFAULT-MERGE (architect 5bf98afb6): no registered policy → shallow-merge the intent's fields INTO unit.model,
+      // so the INTERNAL mutate routes are mechanical + INV-T byte-diff==0 (identical bytes to the old inline `model.X=Y`).
+      // ★ INTERNAL/IN-PROCESS ONLY — this generic merge must NEVER be reached from an HTTP/agent caller (that would be an
+      // arbitrary-field write surface). GUARD: identity fields (uuid/ior/ownerIor) are NEVER overwritten.
+      const model = unit.model as Record<string, unknown>;
+      for (const [k, v] of Object.entries(intent)) if (k !== 'uuid' && k !== 'ior' && k !== 'ownerIor') model[k] = v;
     }
     UnitController._write(idx, ior, uuid, unit, opts.publish); // (3) PERSIST + (4) EMIT via the shared _write chokepoint
     return unit;
