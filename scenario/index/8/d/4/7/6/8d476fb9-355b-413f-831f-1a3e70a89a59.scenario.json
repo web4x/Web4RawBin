@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8d476fb9-355b-413f-831f-1a3e70a89a59",
+  "name": "Live-on-advance = BOTH halves (sanctioned seam endpoint + out-of-seam bypass gate; NO fs.watch)",
+  "altId": "R40.45",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "Making a task-status/checklist advance appear LIVE (no reload) for ALL task-status writes requires BOTH halves (architect e8526305a: neither alone works): (i) a SANCTIONED PATH — agent status/checklist writes route THROUGH the seam via a UDS/skill endpoint in the RUNNING server -> UnitController.apply -> emit -> live; (ii) a GATE that flags an out-of-seam task-status file-edit (mutation-seam-lint / status-drift family) so a bypass is DETECTABLE, never silent-stale. REJECTED by-construction: NO server fs.watch bridge (a 2nd emit source = the two-source disease + race hazards). FAMILY = ALL task-status writes + ALL live views, not just the pin. Grounds the liveness law: data-correct != user-saw-it-move (a mutation emits live ONLY through the process holding the client connection — the running server — never a CLI where publish=noop).",
+  "tronQuote": "> (No direct Tron quote) — architect ruling e8526305a (4) + PO capture; realizes Tron's realtime-MVC 'through web, business logic, skills' for AGENT writes. Flagged for Tron scheduling (capture-only, we do NOT start it).",
+  "discoverySource": {
+   "type": "architect-ruling-po-capture-from-req-finding",
+   "ruledBy": "robbin-architect",
+   "capturedBy": "robbin-po",
+   "foundBy": "robbin-req (liveness measurement: CLI statusNext publish=noop did NOT broadcast)",
+   "date": "2026-08-17",
+   "ruling": "e8526305a",
+   "note": "Capture-only DO-NOT-EXECUTE, OUTSIDE campaign; Tron schedules. The agent-status endpoint I flagged when refusing the false-live claim, formalized as BOTH halves + the fs.watch rejection."
+  },
+  "crossRef": [
+   "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9",
+   "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+   "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
+  ],
+  "crossRefNote": "MVC family: R37.11 controller/seam (AC-seam-ticks-substeps is the sub-step primitive this endpoint drives) + R37.12 view-bus (the live transport) + R40.18 view-surface (live current/next). The GENERALIZATION: all task-status writes + all live views, not just the pin. captureOnly OUTSIDE-campaign-count.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-sanctioned-path",
+    "group": "path-half",
+    "text": "(i) Agent status/checklist writes route THROUGH the seam via a UDS/skill endpoint IN THE RUNNING SERVER process -> UnitController.apply -> emit -> live. An agent tick reaches the running server (NOT a CLI), so the WS broadcast reaches connected clients (the emit's target is the live transport)."
+   },
+   {
+    "id": "AC-bypass-gate",
+    "group": "gate-half",
+    "text": "(ii) A GATE flags an out-of-seam task-status file-edit (mutation-seam-lint / status-drift family) so a file-edit BYPASS is DETECTABLE, never silent-stale. NEITHER HALF ALONE WORKS: the path enables live; the gate makes a bypass visible."
+   },
+   {
+    "id": "AC-reject-fs-watch",
+    "group": "rejection",
+    "text": "REJECTED by-construction: NO server fs.watch bridge to re-emit on disk changes — a 2nd emit source = the two-source disease + race hazards. Emit stays SINGLE-SOURCE (the seam). Record the rejection so it is not re-proposed."
+   },
+   {
+    "id": "AC-family-all-writes",
+    "group": "scope",
+    "text": "FAMILY = ALL task-status writes AND ALL live views, not just the pin (the MVC generalization over R37.11 controller + R37.12 view-bus). Any agent/human status advance through the sanctioned path emits live to every subscribed view."
+   },
+   {
+    "id": "AC-liveness-honesty",
+    "group": "doctrine",
+    "text": "Grounds the liveness law (req-discovered): 'the data is correct' is NOT 'the user saw it move'. A mutation emits LIVE only through the process holding the client connection (the running server); a CLI tick (publish=noop) persists data but broadcasts nothing. This req is what makes an AGENT tick actually live rather than reload-only."
+   },
+   {
+    "id": "AC-verify",
+    "group": "verify",
+    "text": "Verify: an agent tick via the endpoint appears LIVE (no reload) on a connected client @390; an out-of-seam file-edit is flagged RED by the gate; no fs.watch emit path exists."
+   }
+  ],
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect ruling, Tron-scheduled; captureOnly; realtime-MVC family R37.11/R37.12)"
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
