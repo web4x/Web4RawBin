@@ -1,0 +1,55 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
+  "name": "Boot must be READ-MOSTLY and CORPUS-INDEPENDENT — bootstrapSeed's O(all-units) scan is a latent outage (delete it; seed lazily at point-of-use)",
+  "altId": "R40.39",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "MEASURED CAUSE (two independent angles CONVERGED — expert empirically + architect from code, ruling 451c47e64): FeatureManager.bootstrapSeed is a SYNCHRONOUS, ZERO-YIELD loop that calls ScenarioIndex.get for EVERY uuid (~5677) — and get is a readFileSync+JSON.parse with NO cache — merely to filter a handful of Features. So /api/config CANNOT answer until the entire corpus is scanned: a pure O(corpus) stall present even SOLO (not contention). It is a LATENT OUTAGE THAT WORSENS DAILY with no code change (the corpus only grows). Boot must be READ-MOSTLY and CORPUS-INDEPENDENT: O(1) or O(features), never O(all-units); the preferred shape seeds features LAZILY at point-of-use (the auth path already loads allowedUsers) so boot does ZERO corpus work.",
+  "tronQuote": "> (No direct Tron quote — architect+expert converged ruling 451c47e64, routed via PO.) THE WHY (record it): the 8-minute prod OUTAGE (crash) AND the 45s boot HANG are TWO SYMPTOMS OF ONE BAD BOOT SHAPE — the architect's hypothesis is that the TypeError fix UNMASKED the stall (old code crashed FAST at the first Feature; fixed code runs the FULL corpus scan). One bad shape, two faces.",
+  "status": "Planned",
+  "designRequired": true,
+  "discoverySource": {
+   "type": "team-convergence-via-po",
+   "angles": "robbin-expert (empirical) + robbin-architect (code-reasoned)",
+   "ruling": "451c47e64",
+   "date": "2026-08-17",
+   "note": "campaignScope=OUTSIDE, ranked ABOVE other deferred items = a latent outage that worsens daily with no code change. Capture-only, do-NOT-execute-tonight; PO schedules. Architect designed the shape (ACs are the ruling)."
+  },
+  "crossRef": [
+   "ior:instance:b8e5411a-e4d6-4793-892b-2277073ffd9a"
+  ],
+  "crossRefNote": "Boot-health family with R40.36 (b8e5411a, scratch boot-smoke GATE — detects a boot failure). R40.39 is the boot-SHAPE FIX (corpus-independence — removes the cause R40.36 would catch). The 8-min outage + 45s hang are the same bad-boot-shape R40.36 gates and R40.39 eliminates.",
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase hardening, ranked ABOVE other deferred — latent outage worsening daily). Do-not-execute-tonight; PO schedules.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-1-corpus-independent",
+    "group": "functional",
+    "text": "Boot work is INDEPENDENT of corpus size — O(1) or O(features), NEVER O(all-units). DELETE the bootstrapSeed idx.get-every-unit scan; /api/config must answer without scanning the corpus. Provable: boot get-call-count does NOT grow with total-unit-count."
+   },
+   {
+    "id": "AC-2-seed-lazily-at-point-of-use",
+    "group": "functional",
+    "text": "PREFERRED shape: seed-if-absent LAZILY at point-of-use (the auth path already loads allowedUsers) so boot does ZERO corpus work. ACCEPTABLE alternatives: (a) boot as a read-only ASSERT with an EXPLICIT repair path (no silent mutation at boot); (b) FALLBACK — O(features)-via-type-index + ONE ATOMIC write (temp+rename) + a YIELDING loop. NEVER the synchronous zero-yield O(all-units) loop."
+   },
+   {
+    "id": "AC-3-gate-fails-on-corpus-scan",
+    "group": "gate",
+    "text": "A GATE FAILS if boot touches every unit: instrument the ScenarioIndex.get-call-count AND a boot completion-time BUDGET; STUB-MUST-FAIL — plant a corpus scan at boot and assert the gate goes RED. A boot that re-grows to O(corpus) is caught by construction, not by the next outage."
+   },
+   {
+    "id": "AC-4-atomic-feature-write",
+    "group": "functional",
+    "text": "Close the NON-ATOMIC whole-file read-modify-write on Feature writes: a concurrent boot can tear / lost-update the Feature file (same class as the token-reembed trap). Feature persistence uses an atomic write (temp+rename) so a concurrent reader never sees a torn file and no update is lost."
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
