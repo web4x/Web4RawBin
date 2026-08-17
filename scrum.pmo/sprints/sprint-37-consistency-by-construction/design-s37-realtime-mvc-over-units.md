@@ -43,6 +43,22 @@ One contract for every drag source and every drop target:
 ## Constraints honored
 INV-T byte-diff==0 (render read-only, controller sole writer); @390 region re-render no-reload; reuse T103 ViewBus + R40.17 bridge + R32.6 derivation (no new machinery); declared-not-defaulted gates throughout.
 
+## ★ SLICE-1 RULING — create/apply fork (architect, expert-surfaced 2026-08-17)
+Measured (expert): `UnitController.apply` (unit-controller.ts:33) is MUTATE-EXISTING ONLY — `idx.get` + THROW-if-absent → policy → put → emit. Of ~15 bypassers: **6 mutate-existing** (server.ts:1533/1548 Task, 2050 WebItem, 1789 CurrentSprint, agent-message.ts:77, EmailIndex.ts:71) and **9 create/upsert** (server.ts:1544 new CR, 530 federation import, 281/296/355/375 Profile get-or-create, EmailIndex.ts:68, agent-message.ts:68/103, skills.ts:59).
+
+**RULING: add a SEPARATE `UnitController.create(idx, ior, uuid, unit, {publish})` seam primitive — NOT apply-as-upsert.**
+- **Why not upsert:** apply's THROW-if-absent is a real correct-by-construction guard (mutating a unit that should exist but doesn't = a caught bug). apply-as-upsert would SILENTLY CREATE on a typo'd uuid — defaults the create, loses the guard (violates L5 declared-not-defaulted). Keep apply strict.
+- **A create MUST emit** (expert is right — a new ChangeRequest/imported unit/message must appear LIVE in list/tree views; create-driven staleness is the SAME defect class). So all-9-as-exceptions is WRONG.
+- **Single chokepoint preserved:** `create` and `apply` share ONE private `_write(unit)` = put + emit (step-4). Two intent-typed entries, ONE emit path → the binding gate "no `idx.put` CALL outside `UnitController`" is satisfiable for BOTH. The seam is the MODULE (`{apply, create}`), not one function.
+- **create's emit target:** the AFFECTED CONTAINER/list refs (+ `'graph'`, reusing the R40.17 bridge) — a brand-new unit has no subscribers on its OWN ref yet; it appears in the list/tree that must be notified. (Feeds slice-2 coverage: the collect-affected-refs step includes containers for creates.)
+- **get-or-create sites** (Profile 281/296/355/375, CurrentSprint singleton 1789 get-or-default, federation 530 reconcile): route via a thin **`upsert` = caller pattern** (`get` → present? `apply` : `create`), both branches emit. `upsert` is a convenience over the two primitives, NOT apply-becoming-upsert.
+
+### Exception allow-list (DECLARED, reason-required, gate-visible — never a silent default)
+- **`index-store.ts` `put` = the write PRIMITIVE the seam itself calls** — exempt BY DEFINITION (the gate is "no `idx.put` CALL outside `UnitController`"; this is the definition, and UnitController is its sole caller).
+- **Pre-transport batch writes** — bootstrapSeed / migrations / generator / self-heal-on-read: reason = "runs before/outside the live WS transport; NO subscribed view exists to notify." Allow-listed EXPLICITLY with reason (L2/L5). Constraint: if any is ever run while the server is live, it MUST route through the seam.
+- Everything else (the 15 user-facing sites) routes: 6→`apply`, 9→`create`/`upsert`.
+- **Gate:** grep-lint "no `idx.put` call outside `UnitController.{apply,create}` ∪ the declared allow-list" — report-only→strict (per the DUAL-FLIP discipline) + stub-must-fail (a new raw `idx.put` in a route handler → RED). INV-T byte-diff==0, render read-only.
+
 ## Build sequence (PO-RATIFIED 2026-08-17) — slices, each backstopped on ship
 1. **ONE CONTROLLER seam + retire the 2nd bus** (mutate+collect-refs+notify; grep-lint no-mutation-outside-seam).
 2. **subscribe-on-render coverage + gate** (every rendered ref MUST subscribe else RED).
