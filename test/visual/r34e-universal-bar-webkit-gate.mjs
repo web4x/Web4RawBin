@@ -7,6 +7,11 @@
 // (SystemTester 403) + in-room = /app chat — they mount the IDENTICAL shared rb-detail-drawer, so the universalActionBar
 // MECHANISM (ffd44b17) proven here covers them by construction (the fix is in the shared component, not per-host); a real-
 // page confirm on the gated ones = Tron device. NO seed, NO write (showActionsForType is a pure render). pixel-sample.
+// FOLD-SCOPE (2026-08-17, PO ruling — MEASURED not assumed): this gate asserts the universalActionBar RENDER + A1 nav;
+// it has NO actionsForContext context-RESOLUTION assertion (the unit-vs-membership-by-diagram LOGIC is owned by
+// r4037-context-actions-gate, node applicableActionsFor + stub-must-fail). The /model 'hasModelVerbs' check below is a
+// render-UNREGRESSED check, NOT the resolution matrix. Tests cbdb3210/d8be524e credit ffd44b17/005dbd3e
+// (universalActionBar / onUniversalAction), NOT a1a5be99 → nothing to fold here; kept intact (render+nav coverage).
 // [test:uuid:cbdb3210-a2ad-4c4f-9e32-68f6f71f16b0] S34 R-E/R34.7 + R-A A1 RbDetailDrawer.universalActionBar (Impl ffd44b17) @390 real-WebKit DET-3x: the shared drawer sets the [◆Scenario,✎Edit] universal default on EVERY detail render across ALL usages — REAL /trace + /scenario show the bar PRESENT (was MISSING on non-model usages pre-fix) with NO model verbs; /model composes the default + its FULL model verb-set (unregressed R33.9); empty/chat → cleared; ◆Scenario → /scenario?ior=; no page throws. INV-E1 universal / E2 context-verbset / E3 no-fork. server-manager/feature-manager/in-room ride the SAME shared component (mechanism-proven; gated-page real-confirm = Tron device).
 // [test:uuid:d8be524e-846e-48f5-a2b1-ffae078f873b] S34 R-A A1 / R34.1 RbDetailDrawer.onUniversalAction (Impl 005dbd3e) @390 real-WebKit DET-3x: the shared drawer handles the universal ◆Scenario/✎Edit verbs itself — ◆Scenario → location /scenario?ior=<uuid>, ✎Edit → scenarioEditorHref /edit/scenario/index/<sharded>/<uuid>.scenario.json. DISTINCT #126 Test for A1 (its own Impl+Req), NOT a ride on R-E ffd44b17 universal-default (crossRef ffd44b17 R34.7 default-pair + a1a5be99 verb-listing).
 import { chromium, webkit, devices } from '@playwright/test';
