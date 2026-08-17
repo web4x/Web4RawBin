@@ -24,7 +24,22 @@
     "createdAt": "2026-08-17",
     "lastAdvancedAt": "2026-08-17T12:14:23.685Z",
     "lastAdvancedAtSource": "seam",
-    "lastAdvancedAtCommit": "5667a8cf4"
+    "lastAdvancedAtCommit": "5667a8cf4",
+    "deviceACs": [
+      {
+        "id": "AC-live-on-advance-no-reload",
+        "status": "device-pending",
+        "device": "@390 Tron-only",
+        "text": "A routed status/sub-step advance appears LIVE (no reload) in item+detail+pin @390. MEASURED REASON it cannot close headless: the deployed v0.8.100 server has NO file-watcher + broadcasts only for self-routed changes, so an agent/CLI tick persists + shows on RELOAD but does NOT move live until the agent-status/UDS endpoint (R40.45, captured, Tron schedules). Tron @390 confirms once that endpoint ships."
+      },
+      {
+        "id": "AC-finger-truncation-confirm",
+        "status": "device-pending",
+        "device": "@390 Tron-only",
+        "text": "The pin row renders the FULL taskDisplayName with NO mid-word truncation, confirmed on Tron real device @390 (finger). Headless @390 real-WebKit shows the full name (tester GREEN), but the final device confirm is Tron."
+      }
+    ],
+    "deviceACsNote": "Split per PO (2026-08-17): the headless AC-1 (value+truncation+actions+progress) is GREEN DET-3x @390 real-WebKit (tester c032ad9b2); these 2 halves are TRON-ONLY @390, recorded device-pending with the measured reason so a headless green does NOT imply them. To be added to Tron EXISTING consolidated @390 sitting (one sitting, one pass), NOT a 2nd sitting."
   },
   "ownerIor": null
 }
