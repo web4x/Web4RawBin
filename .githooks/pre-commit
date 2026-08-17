@@ -59,9 +59,16 @@ git diff --cached --name-only | grep -qE '^scenario/index/.*\.scenario\.json$' &
 git diff --cached --name-only | grep -qE '^scripts/(qa-evidence-audit\.mjs|approve-queue-region\.ts)$' && NEED_APPROVE=1
 if [ "$NEED_APPROVE" = 1 ]; then
   RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
-  "$RB_NODE" --import tsx scripts/approve-queue-region.ts --write --staged-guard || {
+  "$RB_NODE" --import tsx scripts/approve-queue-region.ts --write --staged-guard
+  APPROVE_RC=$?
+  if [ "$APPROVE_RC" = 0 ]; then
+    git add -- scrum.pmo/approve-queue.md
+  elif [ "$APPROVE_RC" = 3 ]; then
+    # Exit 3 = planner has unstaged out-of-region curation: surface regenerated locally, deliberately NOT staged. Do NOT
+    # `git add` (would sweep). Non-blocking (PO 2026-08-17: out-of-region peer edit WARNs, never blocks the fleet).
+    echo "pre-commit NOTE: approve-queue.md carries the planner's unstaged out-of-region curation — surface regenerated locally but NOT staged (not swept, not blocking)." >&2
+  else
     echo "pre-commit BLOCKED: approve-queue.md verdict-surface auto-regen failed (fail-closed) — see above." >&2
     exit 1
-  }
-  git add -- scrum.pmo/approve-queue.md
+  fi
 fi

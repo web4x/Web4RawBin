@@ -117,18 +117,28 @@ const next = replaceRegion(existing, buildRegion(d));
 if (next === null) fail('GENERATED-INDEX markers malformed.');
 
 if (WRITE) {
-  // HOOK-only anti-sweep: never sweep an UNSTAGED curated edit OUTSIDE the region into another agent's commit.
+  // Anti-sweep, SATISFIABLE shape (PO 2026-08-17 fleet-blocker fix; same class fixed on campaign-board 414adf6e8).
+  // The OLD --staged-guard fail-CLOSED (blocked the commit) on a PEER's UNSTAGED out-of-region curation — and this hook
+  // runs on every scenario-unit commit, so one agent's WIP blocked the WHOLE fleet (unsatisfiable gate). Correct shape:
+  // fail-closed ONLY on our OWN region (--check/--bite below still go RED on in-region drift). A peer's out-of-region
+  // edit WARNs, never blocks, and is never swept: regenerate the region in the working tree but do NOT stage the doc
+  // (exit 3 → the hook skips its `git add`); the surface self-heals on the next clean regen, --check flags staleness.
+  let peerCuration = false;
   if (process.argv.includes('--staged-guard')) {
     const gitShow = (ref: string): string => { try { return execFileSync('git', ['show', ref], { cwd: ROOT, encoding: 'utf-8' }); } catch { return ''; } };
     let stagedNames: string[] = [];
     try { stagedNames = execFileSync('git', ['diff', '--cached', '--name-only'], { cwd: ROOT, encoding: 'utf-8' }).split('\n'); } catch { /* not a git tree */ }
     const base = stagedNames.includes(DOC_REL) ? gitShow(`:${DOC_REL}`) : gitShow(`HEAD:${DOC_REL}`);
     const outside = (s: string): string => { const b = s.indexOf(BEGIN); const e = s.indexOf(END); return (b === -1 || e === -1) ? s : s.slice(0, b) + s.slice(e + END.length); };
-    if (base !== '' && outside(existing) !== outside(base)) fail(`${DOC_REL} has UNSTAGED curated edits OUTSIDE the region — stage or restore them first (the hook will not sweep uncommitted curation).`);
+    peerCuration = base !== '' && outside(existing) !== outside(base);
   }
   const wrote = guardedWriteRegion(DOC, next, BEGIN, (bn) => bn === 'approve-queue.md');
   if (!wrote) fail('--write: owned-output-guard REFUSED (markerless / wrong-name) — nothing written.');
   const r = d.qaTasks.filter((x) => x.covered && !x.device).length, dev = d.qaTasks.filter((x) => x.device).length;
+  if (peerCuration) {
+    console.warn(`WARN approve-queue: the planner has UNSTAGED curation OUTSIDE the region — regenerated the surface in the working tree but did NOT stage it (peer curation NOT swept, commit NOT blocked). Stage/restore the curation + rerun \`npm run regen:approve\`; --check flags any interim staleness.`);
+    process.exit(3); // 3 = do NOT `git add` (would sweep the peer's out-of-region curation); non-blocking WARN
+  }
   console.log(`OK approve-queue --write: ${d.counts.qaReview} QA-Review -> READY ${r} / NOT-READY ${d.counts.would409} / DEVICE ${dev}.`);
   process.exit(0);
 }

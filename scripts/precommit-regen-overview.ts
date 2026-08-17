@@ -100,12 +100,13 @@ function autoRegenOverview(): void {
     : gitOrEmpty(['show', `HEAD:${OVERVIEW_REL}`]);
   const workingTree = fs.readFileSync(OVERVIEW, 'utf-8');
 
-  // ── (3) SHARED-INDEX SAFETY: never sweep an UNSTAGED hand-narrative edit into this commit. Compare the content
-  //    OUTSIDE the generated region; if it differs from what is being committed, fail-closed (don't clobber/sweep).
-  if (committedBase !== '' && narrativeOutsideRegion(workingTree) !== narrativeOutsideRegion(committedBase)) {
-    fail(`${OVERVIEW_REL} has UNSTAGED hand-narrative edits (outside the generated region). Stage or restore them first — `
-      + 'auto-regen will not sweep uncommitted narrative into your commit.');
-  }
+  // ── (3) SHARED-INDEX SAFETY, SATISFIABLE shape (PO 2026-08-17 fleet-blocker fix; same class as campaign-board
+  //    414adf6e8). Never SWEEP an UNSTAGED hand-narrative edit into this commit — but never BLOCK the whole fleet over
+  //    a peer's out-of-region WIP either (the OLD fail-closed made one agent's narrative edit block every scenario-unit
+  //    commit — an unsatisfiable gate). Correct shape: a peer's out-of-region narrative WARNs, never blocks, and is
+  //    never swept — regenerate the region in the working tree below but do NOT stage the overview (the credit's
+  //    committed-overview may lag one commit; --check flags it, and the next clean regen catches up).
+  const peerNarrative = committedBase !== '' && narrativeOutsideRegion(workingTree) !== narrativeOutsideRegion(committedBase);
 
   // ── REGEN the between-markers index from the current Sprint units, via the shared owned-output-guard.
   let out: string;
@@ -128,7 +129,12 @@ function autoRegenOverview(): void {
     fail(`overview regen threw — ${(err as Error).message}`);
   }
 
-  // ── (5) STAGE the regenerated overview so committed-overview == regen-of-units, in THIS commit.
+  // ── (5) STAGE the regenerated overview so committed-overview == regen-of-units, in THIS commit — UNLESS a peer has
+  //    unstaged out-of-region narrative, in which case staging would sweep it: WARN + skip the stage (non-blocking).
+  if (peerNarrative) {
+    console.warn(`WARN pre-commit auto-regen: ${OVERVIEW_REL} has UNSTAGED out-of-region hand-narrative — regenerated the index locally but did NOT stage it (narrative NOT swept, commit NOT blocked). Stage/restore the narrative + rerun \`npm run regen:overview\`; --check flags any interim staleness.`);
+    return;
+  }
   git(['add', '--', OVERVIEW_REL]);
   console.log(`OK pre-commit auto-regen: sprints.overview.md index regenerated from staged units + staged (${out.length} bytes; narrative preserved).`);
 }
