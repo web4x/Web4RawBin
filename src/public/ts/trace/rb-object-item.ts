@@ -185,7 +185,8 @@ export class RbObjectItem extends HTMLElement {
     const { type } = this.parts();
     const rawName = this.getAttribute('name') || generateName(this.getAttribute('title'));
     const name = rawName.startsWith('>') ? rawName.replace(/^>\s*/, '').slice(0, 50) : rawName;
-    const desc = this.getAttribute('description') || this.getAttribute('title') || '';
+    const descRaw = this.getAttribute('description') || this.getAttribute('title') || '';
+    const desc = descRaw === name ? '' : descRaw; // R40.4-phase2 defect#2 (Tron 'some TWICE'): the subtitle must NEVER repeat the name verbatim (title-fallback duplicated it when description was absent + title==name)
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';

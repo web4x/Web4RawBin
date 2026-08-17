@@ -29,7 +29,7 @@ import { Room, RoomManager, type RoomMember } from './Room.js';
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { isRevoked, EXPECTED_REVOKED_COUNT, REVOKED_ARMED, REVOKED_LIST_PATH, revokedArmedHealth, loadRevokedListStatus } from './revoked-tokens.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
-import { sprintPrefix } from '../scenario/sprint-label.js'; // R40.4 single-source sprint-number atom
+import { sprintPrefix, sprintDisplayName } from '../scenario/sprint-label.js'; // R40.4(-phase2) single-source sprint atoms
 import { generateProjectModel } from './generate-project.js'; // T36.3 shared generate-project core (HTTP handler + local CLI)
 import { PtyBridge } from './PtyBridge.js';
 import { TsToModel } from '../scenario/TsToModel.js';
@@ -1477,7 +1477,7 @@ function traceabilityRoots(): MofNode[] {
   const out: MofNode[] = [];
   // CurrentSprint node — SAME singleton uuid /trace uses (rb-trace-tree) → its expand rides the identical CurrentSprint slots.
   out.push(mofFolder('current-sprint-singleton-0000-000000000001', 'CurrentSprint', 3, 'trace', 'currentsprint'));
-  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, s.name || sprintPrefix(s.number), s.taskCount, 'trace', 'sprint')); // R40.4 single-source
+  for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, sprintDisplayName(s.name, s.number), s.taskCount, 'trace', 'sprint')); // R40.4-phase2: ONE renderer, 'Sprint N: title'
   return out;
 }
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
@@ -1802,7 +1802,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let sprintNum: number | null = null;
           for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '')); if (tasks.includes(tu)) { sprintNum = sprintNumOf(su); break; } }
           if (sprintNum == null) { res.writeHead(409, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'task is not in any numbered sprint — cannot designate' })); return; }
-          const sprintName = `Sprint ${sprintNum}`;
+          const sprintName = sprintPrefix(sprintNum); // R40.4 single-source (byte-identical)
           const CU = 'current-sprint-singleton-0000-000000000001';
           const cur = idx.get(CU);
           // R37.11 slice-1: route the designation write through the ONE mutation seam. apply (existing) default-merges the
@@ -1814,7 +1814,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (cur) UnitController.apply(idx, 'ior:class:CurrentSprint', CU, intent, { publish: publishUnitChanged });
           else UnitController.create(idx, 'ior:class:CurrentSprint', CU, { ior: 'ior:class:CurrentSprint', model: { uuid: CU, name: 'Current', ...intent }, ownerIor: null }, { publish: publishUnitChanged });
           let label = '';
-          try { const pin = resolveSprintPin(idx, slot === 'next' ? { nextSprintNumber: sprintNum } : { currentSprintNumber: sprintNum }); const s = slot === 'next' ? pin.nextBacklog : pin.current; if (s) label = `Sprint ${s.number} — ${s.status}${s.designated ? ' (designated)' : ''}`; } catch { /* label best-effort — never blocks the designation */ }
+          try { const pin = resolveSprintPin(idx, slot === 'next' ? { nextSprintNumber: sprintNum } : { currentSprintNumber: sprintNum }); const s = slot === 'next' ? pin.nextBacklog : pin.current; if (s) label = `${sprintPrefix(s.number)} — ${s.status}${s.designated ? ' (designated)' : ''}`; } catch { /* label best-effort — never blocks the designation */ }
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify({ ok: true, slot, taskUuid: tu, sprint: sprintName, label }));
           addLog(`[pin-designate] ${slot} task ${tu.slice(0, 8)} -> ${sprintName} (label: ${label || '?'}) INPUT-ONLY no-status-write`);
@@ -2517,7 +2517,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       try {
         const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
         // R35.4 DRY: SAME shared ordered-Sprint source as the traceability folder (parity by construction). Shape unchanged.
-        const sprints = sprintOverviewNodes(idx).map((s) => ({ uuid: s.uuid, type: 'Sprint', name: s.name, number: s.number, hasChildren: s.taskCount > 0, childCount: s.taskCount }));
+        const sprints = sprintOverviewNodes(idx).map((s) => ({ uuid: s.uuid, type: 'Sprint', name: sprintDisplayName(s.name, s.number), number: s.number, hasChildren: s.taskCount > 0, childCount: s.taskCount })); // R40.4-phase2: compose display once at the server node → clients render verbatim
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(sprints));
       } catch { res.writeHead(500); res.end('[]'); }
@@ -2593,7 +2593,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const nextNum = /\d+/.exec(String(model.nextSprintName || ''))?.[0];
             const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
             const cur = pin.current;
-            if (cur) pinSprintLabel = `Sprint ${cur.number} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
+            if (cur) pinSprintLabel = `${sprintPrefix(cur.number)} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
             slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined) as any;
           } catch (e: any) {
             pinSprintLabel = `⚠ UNRESOLVED — ${String(e?.message || e).slice(0, 160)}`; // honest fail-loud, not a crash
