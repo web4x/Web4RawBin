@@ -11,6 +11,7 @@ const ELLIPSIS = /[…]|\.\.\./; // literal ellipsis char OR three dots in the R
 
 const cfg = await (await fetch(`${BASE}/api/config`).catch(() => null))?.json?.().catch(() => ({})) || {};
 const served = cfg.version || '?';
+const committed = (() => { try { return JSON.parse(fs.readFileSync('package.json', 'utf-8')).version; } catch { return '?'; } })(); // phantom-guard: served==committed (no hardcoded version literal)
 
 const browser = await webkit.launch({ headless: true });
 const value = [], trunc = [];
@@ -42,7 +43,7 @@ try {
 
     // VALUE (render-based): names 37.24, not 37.4/Planned
     const valuePass = pin.found && pin.visible && pin.vw === 390 && /\b37\.24\b/.test(pin.renderedName)
-      && !/\bplanned\b/i.test(pin.renderedName) && !/\b37\.4\b(?!\d)/.test(pin.renderedName.replace(/37\.24/g, '')) && served === '0.8.99';
+      && !/\bplanned\b/i.test(pin.renderedName) && !/\b37\.4\b(?!\d)/.test(pin.renderedName.replace(/37\.24/g, '')) && served === committed;
     value.push(valuePass);
     // TRUNCATION (defect 1): the RENDERED name must NOT contain a literal ellipsis
     const notTruncated = pin.found && !ELLIPSIS.test(pin.renderedName);
