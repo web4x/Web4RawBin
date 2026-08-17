@@ -6,9 +6,7 @@
     "name": "R19.18: No contact is ever lost from a room member list.",
     "description": "Tron literal sub-clause split from R19.8 per R-I.",
     "tronQuote": "> TRON: but no contact gets ever lost",
-    "tasks": [
-      "ior:instance:fa8fffc8-8e2e-4b8c-a79b-8e7c1d1c8f0e"
-    ],
+    "tasks": [],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "unitLinks": [],
@@ -17,7 +15,8 @@
     "siblingNote": "Atomic split from R19.8 per R-I. R19.8 covers the persistent-members mechanism; R19.18 isolates the no-contact-ever-lost invariant for independent test.",
     "useCases": [
       "ior:instance:61e01080-6650-4ff1-ba50-0e2a523a2a35"
-    ]
+    ],
+    "taskLessDeclaration": "DECLARED TASK-LESS (declared-not-defaulted, PO ruling 2026-08-17): the sole tasks[] ref was a FABRICATED-PATTERN PHANTOM fa8fffc8-8e2e-4b8c-a79b-8e7c1d1c8f0e (confirmed ABSENT via full-uuid three-states probe — never a unit-file; shard fa8ff holds ONLY the REAL fa8fffc8-d75a-43b3-abaa-edb97149da92 = T-persistent-retention, an 8-char-PREFIX COLLISION not an identity). REMOVED the dangling ref (it pointed at something that never existed = a lie, nothing lost). NOT re-pointed to fa8fffc8-d75a (planner measured d75a covers DIFFERENT reqs 30dcb1a0/61e01080 -> re-pointing = cross-wire/borrowed-credit, prefix-match != intent, the 3a6f0d92 family we refused). NO task minted (S19 is OUTSIDE the S30++ campaign + Tron ordered no-new-tasks). Task-less is the honest state, recorded EXPLICITLY not silently defaulted."
   },
   "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
 }
