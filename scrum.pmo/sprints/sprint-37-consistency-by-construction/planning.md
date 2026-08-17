@@ -27,3 +27,4 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] ⏳ [Task 37.21: Room Members/Files become real Folder scenario-units with sunburst detail (rides R40.16, no dup)](./task-37.21-room-collections-real-folder-units.md)
 - [ ] ⏳ [Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)](./task-37.22-ior-clear-origin.md)
 - [ ] ⏳ [Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod](./task-37.23-discovered-server-manager-root.md)
+- [ ] ⏳ [Task 37.24: Realtime-MVC live-update slice — a routed write appears live in item + detail + pin @390](./task-37.24-realtime-mvc-live-update-slice.md)
