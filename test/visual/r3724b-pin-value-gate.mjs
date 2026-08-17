@@ -1,5 +1,6 @@
 // [test:uuid:3a6f0d92-8c14-4e7b-a5d0-9f2e1b7c6a48] T37.24 / R40.18 slice-1 AC-1 — CurrentSprint pin @390 real-WebKit VALUE + RENDER gate. Family: real-time-MVC / pin-correctness / payload-is-not-pixels.
-// ★ CATCHES a false-green I made: the pin name RENDERS "📌 Current — Task 37.24:…" with a LITERAL "…" (a JS substring truncation, NOT CSS ellipsis → textOverflow:clip, scrollWidth==clientWidth) while the payload is FULL. So a DOM-string/clamp check passes while Tron sees a truncated name. Assert the RENDERED innerText (what's on screen), never the payload. served==0.8.99 phantom-guarded. DET-3x.
+// ★ CATCHES a false-green I made: the pin name RENDERED "📌 Current — Task 37.24:…" with a LITERAL "…" while the payload was FULL, so a DOM-string/clamp check passes while Tron sees truncation. Assert the RENDERED innerText (what's on screen), never the payload/textContent (a hidden full copy + "…" fooled the first pass).
+// ★ ROOT CAUSE (MEASURED by expert+architect, 2026-08-17 — corrects my earlier GUESS of a server slot-label string-truncation, and the PO's same guess): rb-object-item generateName() = words.slice(0,5)+'…' = a RENDER-side truncation. The item received the FULL title; generateName clipped it. NOT the slot-label string, NOT CSS. Fix: the pin row passes the full name so getAttribute('name') wins and generateName is bypassed. LESSON (mine): my innerText discipline correctly CAUGHT the defect, but I GUESSED the mechanism — measure the WHY, don't relay a guess as diagnosis. served==committed dynamic phantom-guard. DET-3x @390 real-WebKit.
 // PER-DEFECT (Tron screenshot 2026-08-17): (1) TRUNCATION — rendered current-row name must be FULL (no literal '…'); (2) ACTION-VISIBILITY — 'Set current'/'Set next' on a DERIVED pin (architect ruling retire-vs-label; measured+reported); (3) PROGRESS — checklist implementing box vs derived-shipped (req reconciling; measured+reported). VALUE — current == Task 37.24 (never 37.4-Planned).
 import { webkit } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
@@ -62,7 +63,8 @@ try {
         const btns = Array.from(d?.querySelectorAll('button, .rb-drawer-action, [data-verb]') || []).map(b => (b.textContent||'').replace(/\s+/g,' ').trim());
         return {
           setCurrentBtn: btns.some(t => /set current|set next|📌/i.test(t)), // defect 2: manual override on a derived pin
-          checklistImplementing: /implementing/i.test(txt) ? (/\[x\]\s*implementing|implementing[\s\S]{0,6}\bx\b/i.test(txt) ? 'checked' : (/\[ \]\s*implementing/i.test(txt) ? 'UNCHECKED' : 'present-state-unclear')) : 'not-shown',
+          // checklist renders with Unicode boxes: ☑ (U+2611 checked) / ☐ (U+2610 unchecked). DEFECT-3: implementing must be ☑ (derived-shipped e3729f51).
+          checklistImplementing: /☑\s*implementing/i.test(txt) ? 'checked' : (/☐\s*implementing/i.test(txt) ? 'UNCHECKED' : (/implementing/i.test(txt) ? 'present-state-unclear' : 'not-shown')),
           detailLen: txt.length,
         };
       });
