@@ -2,7 +2,7 @@
  "ior": "ior:class:Requirement",
  "model": {
   "uuid": "7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
-  "name": "Boot must be READ-MOSTLY and CORPUS-INDEPENDENT — bootstrapSeed's O(all-units) scan is a latent outage (delete it; seed lazily at point-of-use)",
+  "name": "Feature is MISSING its type-index link folder — Features must resolve THROUGH the index like the other 18 types, never a corpus scan (structural regression, not performance)",
   "altId": "R40.39",
   "tasks": [],
   "tests": [],
@@ -12,8 +12,8 @@
   "sprintName": "Sprint 40",
   "unitLinks": [],
   "useCases": [],
-  "description": "MEASURED CAUSE (two independent angles CONVERGED — expert empirically + architect from code, ruling 451c47e64): FeatureManager.bootstrapSeed is a SYNCHRONOUS, ZERO-YIELD loop that calls ScenarioIndex.get for EVERY uuid (~5677) — and get is a readFileSync+JSON.parse with NO cache — merely to filter a handful of Features. So /api/config CANNOT answer until the entire corpus is scanned: a pure O(corpus) stall present even SOLO (not contention). It is a LATENT OUTAGE THAT WORSENS DAILY with no code change (the corpus only grows). Boot must be READ-MOSTLY and CORPUS-INDEPENDENT: O(1) or O(features), never O(all-units); the preferred shape seeds features LAZILY at point-of-use (the auth path already loads allowedUsers) so boot does ZERO corpus work.",
-  "tronQuote": "> (No direct Tron quote — architect+expert converged ruling 451c47e64, routed via PO.) THE WHY (record it): the 8-minute prod OUTAGE (crash) AND the 45s boot HANG are TWO SYMPTOMS OF ONE BAD BOOT SHAPE — the architect's hypothesis is that the TypeError fix UNMASKED the stall (old code crashed FAST at the first Feature; fixed code runs the FULL corpus scan). One bad shape, two faces.",
+  "description": "STRUCTURAL DEFECT (Tron 2026-08-17): scenario/sprints.md/ holds a TYPE-INDEX LINK FOLDER (ln reference links) for 18 unit types — bug/changerequest/class/currentsprint/device/file/implementation/message/method/requirement/room/skill/sprint/task/test/tracelink/usecase/user — and **feature is the ONE missing**. That is WHY bootstrapSeed walks all ~5677 units: Features have no index to resolve through, so someone wrote a corpus scan instead. This is a MISSING TYPE-INDEX (wrong shape), NOT a performance problem: measured boot is ~1.3s and a full 5680-unit scan is 0.1s, so speed was never the point. FIX: restore feature's type-index folder (same ln-link convention as the other 18, invent NO new mechanism); Features resolve THROUGH it; DELETE the walk-all-units path because it is the WRONG SHAPE. Still-real hygiene retained: boot read-mostly (seed-if-absent lazily) + non-atomic Feature write -> temp+rename. ★ AUDIT (measured): feature is NOT the only gap — 11 types-in-use lack a folder (see AC-audit).",
+  "tronQuote": "> Tron (2026-08-17): \"thats the reason for having a link folder of type features with only the references ln links... like on task, class, and all the other scenario-units... when did you lose that!!!\"",
   "status": "Planned",
   "designRequired": true,
   "discoverySource": {
@@ -27,8 +27,40 @@
    "ior:instance:b8e5411a-e4d6-4793-892b-2277073ffd9a"
   ],
   "crossRefNote": "Boot-health family with R40.36 (b8e5411a, scratch boot-smoke GATE — detects a boot failure). R40.39 is the boot-SHAPE FIX (corpus-independence — removes the cause R40.36 would catch). The 8-min outage + 45s hang are the same bad-boot-shape R40.36 gates and R40.39 eliminates.",
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase hardening, ranked ABOVE other deferred — latent outage worsening daily). Do-not-execute-tonight; PO schedules.",
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count, PRIORITY RESTORED (structural regression = a missing type-index, NOT hygiene, NOT performance). Corrected twice 2026-08-17 (not-slow refutation -> then Tron structural re-frame): the missing feature index is the real defect behind the corpus walk.",
   "acceptanceCriteria": [
+   {
+    "id": "AC-1-feature-type-index",
+    "group": "functional",
+    "text": "`feature` gets its TYPE-INDEX LINK FOLDER at scenario/sprints.md/feature/ — ln reference links to the Feature units, EXACTLY like the other 18 type folders (task, class, requirement, ...). Same convention; invent NO new mechanism. This restores what was lost."
+   },
+   {
+    "id": "AC-2-resolve-through-index",
+    "group": "functional",
+    "text": "Features resolve THROUGH the feature type-index (ln-link folder), NEVER a corpus scan. DELETE the bootstrapSeed walk-all-units path because it is the WRONG SHAPE (a type with no index got a corpus scan), NOT because it is slow."
+   },
+   {
+    "id": "AC-3-gate-no-corpus-scan-when-index-exists",
+    "group": "gate",
+    "text": "A GATE FAILS if ANY unit type is resolved by a corpus scan when a type-index folder exists for it, with STUB-MUST-FAIL: plant a corpus-scan resolution for an indexed type -> assert RED. Catches the missing-index/wrong-shape class by construction, not by the next incident."
+   },
+   {
+    "id": "AC-4-read-mostly-boot",
+    "group": "functional",
+    "text": "Boot is READ-MOSTLY: bootstrapSeed does NOT write per Feature on the boot path — seed-if-absent LAZILY at point-of-use (auth path already loads allowedUsers), OR a read-only ASSERT + explicit repair. (Real residual, survives the correction.)"
+   },
+   {
+    "id": "AC-5-atomic-feature-write",
+    "group": "functional",
+    "text": "Feature persistence uses an ATOMIC write (temp+rename): a concurrent boot never tears / lost-updates the Feature file (same class as the token-reembed trap)."
+   },
+   {
+    "id": "AC-6-audit-missing-indexes",
+    "group": "functional",
+    "text": "AUDIT — is `feature` the only type missing an index? MEASURED (2026-08-17): NO. 18 type folders exist; 11 ior:class types IN USE lack one: **Feature** (confirmed genuine, boot-used) + Company, Config, Email, Gate, ModelElement, Phone, Profile, Relationship, TestCase, WebItem. Each must be CLASSIFIED genuine-lost-index vs intentionally-excluded (runtime-PII types Company/Email/Phone/Profile/WebItem may be intentional; Config/Gate/ModelElement/Relationship/TestCase may be sub-types/newer) — architect/PO triage. 'If we lost one we may have lost more' = confirmed."
+   }
+  ],
+  "supersededACs": [
    {
     "id": "AC-1-corpus-independent",
     "group": "functional",
@@ -49,7 +81,15 @@
     "group": "functional",
     "text": "Close the NON-ATOMIC whole-file read-modify-write on Feature writes: a concurrent boot can tear / lost-update the Feature file (same class as the token-reembed trap). Feature persistence uses an atomic write (temp+rename) so a concurrent reader never sees a torn file and no update is lost."
    }
-  ]
+  ],
+  "premiseCorrection": {
+   "date": "2026-08-17",
+   "history": "TWO corrections",
+   "correction1_not-slow": "The 'O(all-units) scan makes boot slow / degrades daily / latent outage' mechanism was REFUTED by measurement (expert): boot serves ~1.3s, full 5680-unit scan 0.1s; the 45s 'hang' was a broken TLS probe (node fetch rejects self-signed certs); the 8-min outage was the OLD TypeError crash (fixed). Speed was never the point.",
+   "correction2_structural": "Tron RE-FRAMED (the real defect): scenario/sprints.md/ holds a TYPE-INDEX LINK FOLDER for 18 types (bug/changerequest/class/currentsprint/device/file/implementation/message/method/requirement/room/skill/sprint/task/test/tracelink/usecase/user) but **feature is MISSING** — so bootstrapSeed walks all ~5677 units because Features have no index to resolve through. This is a STRUCTURAL regression (a missing type-index), NOT a performance one. RESTORE priority.",
+   "removed": "O(all-units)-is-slow / degrades-daily / latent-outage framing.",
+   "kept": "read-mostly boot + atomic Feature write."
+  }
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
