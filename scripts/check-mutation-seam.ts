@@ -26,7 +26,8 @@ const ALLOW_FILES = new Set(ALLOW.map((a) => a.file));
 const PUT_RE = /\b(?:idx|index|this\.idx|this\.index|this)\.put\(/;
 
 export function scanCode(src: string): string {
-  return src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/.*$/gm, '$1');
+  // Blank comment CONTENT but PRESERVE newlines, so reported line numbers stay accurate (a collapsing replace shifted them).
+  return src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' ')).replace(/(^|[^:])\/\/.*$/gm, '$1');
 }
 
 export interface SeamFinding { file: string; line: number; text: string; }
