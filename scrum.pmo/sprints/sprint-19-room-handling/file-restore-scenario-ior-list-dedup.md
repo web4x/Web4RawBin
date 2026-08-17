@@ -9,12 +9,12 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement architect
-  - [x] creating test cases
-  - [x] implementing expert
-  - [x] testing
-- [x] QA Review
-- [x] Done
+  - [x] refinement architect (3c5af6ae — 2 UCs + 2 Methods)
+  - [ ] creating test cases
+  - [ ] implementing expert
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
 
 ## Task Description
 

@@ -9,7 +9,7 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement architect
+  - [x] refinement architect (04558cf3)
   - [ ] creating test cases
   - [ ] implementing expert
   - [ ] testing

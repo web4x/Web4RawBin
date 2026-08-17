@@ -9,7 +9,7 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement architect
+  - [ ] refinement architect
   - [ ] creating test cases
   - [ ] implementing expert
   - [ ] testing

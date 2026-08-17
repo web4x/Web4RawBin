@@ -9,12 +9,12 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [x] refinement architect
-  - [x] creating test cases
-  - [x] implementing expert
-  - [x] testing
-- [x] QA Review
-- [x] Done
+  - [x] refinement architect (04558cf3)
+  - [ ] creating test cases
+  - [ ] implementing expert
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
 
 ## Task Description
 

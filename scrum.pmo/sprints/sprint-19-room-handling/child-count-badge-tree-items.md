@@ -10,10 +10,10 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement architect
-  - [x] creating test cases
-  - [x] implementing expert
-  - [x] testing
-- [x] QA Review
+  - [ ] creating test cases
+  - [ ] implementing expert (in flight per PO)
+  - [ ] testing
+- [ ] QA Review
 - [ ] Done
 
 ## Task Description
