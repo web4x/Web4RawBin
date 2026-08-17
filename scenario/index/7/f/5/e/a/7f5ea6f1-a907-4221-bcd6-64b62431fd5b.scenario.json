@@ -2,7 +2,7 @@
  "ior": "ior:class:Requirement",
  "model": {
   "uuid": "7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
-  "name": "Feature is MISSING its type-index link folder — Features must resolve THROUGH the index like the other 18 types, never a corpus scan (structural regression, not performance)",
+  "name": "Type-registration is BOUND to index-strategy via ONE registry — every ior:class declares typeIndexed/altIndexed/singleton, folders derived from it, omission impossible (fixes feature + the whole missing-index class)",
   "altId": "R40.39",
   "tasks": [],
   "tests": [],
@@ -12,8 +12,8 @@
   "sprintName": "Sprint 40",
   "unitLinks": [],
   "useCases": [],
-  "description": "STRUCTURAL DEFECT (Tron 2026-08-17): scenario/sprints.md/ holds a TYPE-INDEX LINK FOLDER (ln reference links) for 18 unit types — bug/changerequest/class/currentsprint/device/file/implementation/message/method/requirement/room/skill/sprint/task/test/tracelink/usecase/user — and **feature is the ONE missing**. That is WHY bootstrapSeed walks all ~5677 units: Features have no index to resolve through, so someone wrote a corpus scan instead. This is a MISSING TYPE-INDEX (wrong shape), NOT a performance problem: measured boot is ~1.3s and a full 5680-unit scan is 0.1s, so speed was never the point. FIX: restore feature's type-index folder (same ln-link convention as the other 18, invent NO new mechanism); Features resolve THROUGH it; DELETE the walk-all-units path because it is the WRONG SHAPE. Still-real hygiene retained: boot read-mostly (seed-if-absent lazily) + non-atomic Feature write -> temp+rename. ★ AUDIT (measured): feature is NOT the only gap — 11 types-in-use lack a folder (see AC-audit).",
-  "tronQuote": "> Tron (2026-08-17): \"thats the reason for having a link folder of type features with only the references ln links... like on task, class, and all the other scenario-units... when did you lose that!!!\"",
+  "description": "ROOT DEFECT (architect archaeology 99f2a9d55): Feature was NEVER indexed — this is OMISSION-BY-DEFAULT, not rot. Type-registration was never BOUND to index-creation; the type set lives in MULTIPLE hardcoded PARTIAL sources (templates.ts view-registry = 17 types, no Feature -> no renderMd -> no folder; migrate-to-scenario emitClassSymlinks hardcodes 6; ScenarioIndex has NO byType) and any type in none of them silently gets nothing — so bootstrapSeed corpus-walks Features. Measured NOT a perf issue (boot 1.3s / 5680-unit scan 0.1s). ARCHITECT DESIGN (family, declared-not-defaulted): ONE type-strategy REGISTRY where every ior:class declares exactly one of {typeIndexed | altIndexed(keyField) | singleton} = a SINGLE SOURCE replacing the partial hardcoded lists. Layer 1: DERIVE the view-folders FROM the registry + add ScenarioIndex.byType + a generic template FALLBACK so EVERY declared type renders (the bootstrapSeed corpus-walk is fixed FOR FREE once byType exists — always the symptom). Layer 2 GATE: fails if any type HAS units but NO declaration, or if any typeIndexed type is resolved by corpus scan, with stub-must-fail => omission becomes IMPOSSIBLE, not merely detectable. Keep: read-mostly boot + atomic Feature write. Capture-only, do-NOT-execute — substantial structural req, waits for Tron's scheduling.",
+  "tronQuote": "> Tron (2026-08-17): \"thats the reason for having a link folder of type features with only the references ln links... like on task, class, and all the other scenario-units... when did you lose that!!!\" (Answer: never had it — omission-by-default; the fix binds type-registration to index-strategy so it can't recur.)",
   "status": "Planned",
   "designRequired": true,
   "discoverySource": {
@@ -28,27 +28,27 @@
    "ior:instance:4e1db28d-0b58-44c2-b225-46e17263bb5e"
   ],
   "crossRefNote": "Boot-health family with R40.36 (b8e5411a, scratch boot-smoke GATE — detects a boot failure). R40.39 is the boot-SHAPE FIX (corpus-independence — removes the cause R40.36 would catch). The 8-min outage + 45s hang are the same bad-boot-shape R40.36 gates and R40.39 eliminates. | R40.40 = the FAMILY-CLOSURE sibling (every type declared indexed/alt/singleton, never defaulted): R40.39 fixes the concrete losses (feature+TestCase), R40.40 closes the class so a new type can't corpus-walk by default.",
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count, PRIORITY RESTORED (structural regression = a missing type-index, NOT hygiene, NOT performance). Corrected twice 2026-08-17 (not-slow refutation -> then Tron structural re-frame): the missing feature index is the real defect behind the corpus walk.",
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count, capture-only DO-NOT-EXECUTE (substantial structural req — waits for Tron's scheduling per his standing campaign+approvals order). Corrected 3x 2026-08-17 (not-slow refutation -> structural missing-index -> architect registry design/omission-by-default). Design-complete.",
   "acceptanceCriteria": [
    {
-    "id": "AC-1-feature-type-index",
+    "id": "AC-1-type-strategy-registry",
     "group": "functional",
-    "text": "`feature` AND `testcase` each get their TYPE-INDEX LINK FOLDER at scenario/sprints.md/<type>/ — ln reference links to the units, EXACTLY like the other 18 folders. BOTH are confirmed genuine losses (measured: Feature 3 units, TestCase 1023 units — both currently corpus-walked). Same ln convention, invent NO new mechanism."
+    "text": "ONE type-strategy REGISTRY: every ior:class unit type declares EXACTLY ONE of {typeIndexed | altIndexed(keyField) | singleton} — a SINGLE SOURCE that REPLACES the multiple hardcoded partial lists (templates.ts view-registry, migrate-to-scenario emitClassSymlinks, etc.). Type-registration is BOUND to index-strategy (the missing binding was the root defect)."
    },
    {
-    "id": "AC-2-resolve-through-index",
+    "id": "AC-2-layer1-derive-and-byType",
     "group": "functional",
-    "text": "Features resolve THROUGH the feature type-index (ln-link folder), NEVER a corpus scan. DELETE the bootstrapSeed walk-all-units path because it is the WRONG SHAPE (a type with no index got a corpus scan), NOT because it is slow."
+    "text": "LAYER 1: the view-folders are DERIVED FROM the registry (not a hardcoded list); ScenarioIndex gains a byType index; a generic template FALLBACK renders any declared type. So EVERY type gets a folder + a renderer by construction — none silently gets nothing. bootstrapSeed's corpus-walk is fixed FOR FREE once byType exists (it was always the symptom, never the disease)."
    },
    {
-    "id": "AC-3-gate-no-corpus-scan-when-index-exists",
+    "id": "AC-3-layer2-gate",
     "group": "gate",
-    "text": "A GATE FAILS if ANY unit type is resolved by a corpus scan when a type-index folder exists for it, with STUB-MUST-FAIL: plant a corpus-scan resolution for an indexed type -> assert RED. Catches the missing-index/wrong-shape class by construction, not by the next incident."
+    "text": "LAYER 2 GATE: FAILS if any ior:class type HAS units but NO registry declaration, OR if any typeIndexed type is resolved by a corpus scan — with STUB-MUST-FAIL (introduce an undeclared type / corpus-scan a typeIndexed type -> RED). Omission becomes IMPOSSIBLE, not merely detectable; the next new type cannot silently get nothing."
    },
    {
     "id": "AC-4-read-mostly-boot",
     "group": "functional",
-    "text": "Boot is READ-MOSTLY: bootstrapSeed does NOT write per Feature on the boot path — seed-if-absent LAZILY at point-of-use (auth path already loads allowedUsers), OR a read-only ASSERT + explicit repair. (Real residual, survives the correction.)"
+    "text": "Boot is READ-MOSTLY: bootstrapSeed does NOT write per Feature on the boot path — seed-if-absent lazily at point-of-use, or a read-only ASSERT + explicit repair. (Real residual, survives all corrections.)"
    },
    {
     "id": "AC-5-atomic-feature-write",
@@ -56,9 +56,9 @@
     "text": "Feature persistence uses an ATOMIC write (temp+rename): a concurrent boot never tears / lost-updates the Feature file (same class as the token-reembed trap)."
    },
    {
-    "id": "AC-6-audit-missing-indexes",
+    "id": "AC-6-audit-registry-classification",
     "group": "functional",
-    "text": "AUDIT (measured 2026-08-17, PO-triaged + req-verified): 18 type folders exist; 11 ior:class types-in-use lack one. CLASSIFIED: GENUINE LOSS (need a type-index) = **Feature** (3u, boot-used) + **TestCase** (1023u — 2nd loss, same shape); ALT-INDEXED (intentional, verified scenario/alt/ holds company/email/phone by-value) = **Company, Email, Phone**; SINGLETON (intentional, index-over-one-unit pointless) = **Config**; UNCLASSIFIED (NOT in scenario/alt/, need architect ruling genuine-vs-intentional) = **Profile, WebItem**; LIKELY NEVER-WIRED newer types = **Gate, ModelElement, Relationship**. The family-closure (declared-not-defaulted) is R40.40."
+    "text": "AUDIT FINAL (architect-measured 2026-08-17) drives the registry declarations: 7 GENUINE GAPS -> typeIndexed = feature(3), TestCase(1023), modelelement(44), webitem(26), relationship(21), profile(20), gate(7). 4 INTENTIONAL = company/email/phone -> altIndexed (verified scenario/alt/ by-value) + config -> singleton (near-singleton, 2 units). Every type declared, none left in the default-corpus-scan bucket."
    }
   ],
   "supersededACs": [
@@ -89,8 +89,10 @@
    "correction1_not-slow": "The 'O(all-units) scan makes boot slow / degrades daily / latent outage' mechanism was REFUTED by measurement (expert): boot serves ~1.3s, full 5680-unit scan 0.1s; the 45s 'hang' was a broken TLS probe (node fetch rejects self-signed certs); the 8-min outage was the OLD TypeError crash (fixed). Speed was never the point.",
    "correction2_structural": "Tron RE-FRAMED (the real defect): scenario/sprints.md/ holds a TYPE-INDEX LINK FOLDER for 18 types (bug/changerequest/class/currentsprint/device/file/implementation/message/method/requirement/room/skill/sprint/task/test/tracelink/usecase/user) but **feature is MISSING** — so bootstrapSeed walks all ~5677 units because Features have no index to resolve through. This is a STRUCTURAL regression (a missing type-index), NOT a performance one. RESTORE priority.",
    "removed": "O(all-units)-is-slow / degrades-daily / latent-outage framing.",
-   "kept": "read-mostly boot + atomic Feature write."
-  }
+   "kept": "read-mostly boot + atomic Feature write.",
+   "correction3_archaeology": "Architect archaeology (99f2a9d55): the answer to Tron's 'when did you lose that' = NEVER HAD IT. scenario/sprints.md/feature never existed in git; Feature units date to S31 (648136ad6, R31.8). NOT rot -> OMISSION-BY-DEFAULT: type-registration was never BOUND to index-creation. The type set is enumerated in MULTIPLE hardcoded PARTIAL sources and Feature is in none (templates.ts view-registry lists 17 types without Feature -> generator can't renderMd a Feature -> no folder; migrate-to-scenario emitClassSymlinks hardcodes 6; ScenarioIndex has NO byType index). This guarantees the NEXT new type silently gets nothing. AUDIT FINAL (architect-measured, REFUTED the Profile/WebItem-are-alt guess): 7 GENUINE GAPS + 4 intentional (below)."
+  },
+  "absorbed": "R40.40 (family-closure sibling, 4e1db28d) folded back into R40.39 per PO re-frame to the architect registry design (R40.39 now carries Layer 1 + Layer 2 registry/family-closure)."
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

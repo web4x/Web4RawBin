@@ -14,7 +14,7 @@
   "useCases": [],
   "description": "NAME THE FAMILY, not the instance (PO ruling on the R40.39 audit): fixing only `feature` leaves TestCase corpus-walking tomorrow. Every ior:class unit type must EITHER have a TYPE-INDEX link folder (scenario/sprints.md/<type>/) OR be EXPLICITLY DECLARED alt-indexed (scenario/alt/, by-value — Company/Email/Phone) or singleton (index-over-one-unit pointless — Config) — DECLARED, never DEFAULTED to a corpus scan. A NEW unit type CANNOT be introduced without such a declaration. This is the difference between fixing a bug (R40.39: feature+TestCase) and closing a class: index-by-default-to-corpus-scan is the disease; feature and TestCase were two symptoms.",
   "tronQuote": "> (Not a Tron quote — PO ruling on Tron's 'when did you lose that' + the req audit.) The fix must name the FAMILY: every type either has a type-index or is explicitly declared alt-indexed/singleton, declared never defaulted, and a new type can't be introduced without one.",
-  "status": "Planned",
+  "status": "Superseded",
   "designRequired": true,
   "discoverySource": {
    "type": "po-ruling-on-audit",
@@ -47,7 +47,9 @@
     "group": "functional",
     "text": "The 11 currently-unindexed types are CLASSIFIED + resolved: GENUINE (Feature, TestCase -> type-index per R40.39); ALT-INDEXED (Company/Email/Phone -> declare, verified scenario/alt/); SINGLETON (Config -> declare); and Profile/WebItem/Gate/ModelElement/Relationship classified genuine-vs-intentional by architect ruling. No type left in the default-corpus-scan bucket."
    }
-  ]
+  ],
+  "supersededBy": "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
+  "supersedeNote": "SUPERSEDED-into R40.39 (7f5ea6f1). My split-call minted R40.40 as the family-closure sibling; the PO then re-framed R40.39 ITSELF to the architect's registry design, which carries the family-closure (Layer 1 derive-folders+byType + Layer 2 gate). So R40.40 is folded back into R40.39 — kept on disk (honest, not deleted) with its history. crossRef R40.39."
  },
  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
