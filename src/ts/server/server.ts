@@ -2577,7 +2577,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // owner designation (sprintName→number + currentTaskUuid). An owner designation WINS and is shown with its
           // REAL derived status ('Sprint 37 — QA-pending'); a genuinely ambiguous NO-designation state fails loud →
           // surfaced HONESTLY as UNRESOLVED, never a silent guess and never a 500. slotsFrom no longer self-derives.
-          let slots: any = { current: null, lastCompleted: null, nextBacklog: null };
+          let slots: any = { current: null, lastCompleted: null, nextBacklog: null, inProgress: [] }; // R40.18: inProgress[] default so a consumer never hits undefined.map
           let pinSprintLabel = '';
           try {
             const desNum = /\d+/.exec(String(model.sprintName || ''))?.[0];

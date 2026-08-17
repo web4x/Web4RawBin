@@ -53,6 +53,7 @@ export interface ThreeSlots {
   current: TaskSlot | null;
   lastCompleted: TaskSlot | null;
   nextBacklog: TaskSlot | null;
+  inProgress: TaskSlot[]; // R40.18 WIP=N: EVERY In-Progress task (the view marks the whole set — honest multi-current, no arbitrary single-pick); `current` = the max-lastAdvancedAt one for back-compat.
 }
 
 export interface PinData {
@@ -185,7 +186,7 @@ export class CurrentSprint {
     // nextBacklog = next not-done task in-sprint, and if the sprint has none left, the FIRST open task
     // of the next sprint (by number) — so the pin ALWAYS shows current/last/next. Forward-only + not-
     // done-only keeps the phantom (done/past) out while still surfacing genuine upcoming work.
-    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum };
+    type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum; lastAdvancedAt: string };
     const slotInfo = (uuid: string): Slot | null => {
       const unit = this.index.get(uuid);
       if (!unit || unit.ior !== 'ior:class:Task') return null;
@@ -207,6 +208,7 @@ export class CurrentSprint {
         // if a raw status carries them — the enum cannot derive those, so match the raw string as a belt-and-braces).
         terminal: TERMINAL_FOR_CURRENT.includes(status) || /^(superseded|cancelled)$/i.test(rawStatus),
         status,
+        lastAdvancedAt: String(m.lastAdvancedAt || ''), // R40.18: seam-stamped recency; '' (untimestamped) ranks LAST in the current predicate
       };
     };
 
@@ -242,16 +244,19 @@ export class CurrentSprint {
     // still current-eligible (non-terminal). Once the steered task reaches QA-Review/Done it is STALE → fall through
     // to auto-derive (the drop-to-auto is logged EVENT-DRIVEN at the R40.10 QA-transition, NOT here — a derive-time
     // log would spam every render and fight idempotency). Auto NEVER clobbers a still-valid manual steer.
+    // R40.18 (RE-RULED eb149077e — THE value Tron watches): current = the IN-PROGRESS task with the MAX lastAdvancedAt
+    // (work ACTUALLY started), replacing the old first-NON-TERMINAL rule that returned the stale Planned 37.4 = his exact
+    // complaint. Untimestamped ('') ranks LAST, never silently first. The stored singleton currentTaskUuid is RETIRED from
+    // the derivation (derive from LIVE status, never a stale stored pointer — that pointer to a Planned task is WHY 37.4
+    // stuck; R40.17). A genuine owner Set-Current is the separate designatedCurrent OVERRIDE (demote — next increment).
+    // WIP=N: the whole inProgress SET is surfaced (below) so multi-current is HONEST — no arbitrary single-pick.
+    const inProgressRanked = sprintTasks
+      .filter(t => t.status === 'In Progress')
+      .sort((a, b) => (b.lastAdvancedAt || '').localeCompare(a.lastAdvancedAt || '')); // max lastAdvancedAt first; untimestamped last
     let i = -1;
-    if (currentTaskUuid) {
-      const j = sprintTasks.findIndex(t => t.uuid === currentTaskUuid);
-      if (j >= 0 && !sprintTasks[j].terminal) i = j;
-    }
-    if (i < 0) i = sprintTasks.findIndex(t => t.focus && !t.terminal);
-    if (i < 0 && this.chain?.req) { const j = sprintTasks.findIndex(t => t.reqUuid === this.chain!.req); if (j >= 0 && !sprintTasks[j].terminal) i = j; }
-    // R40.18 AUTO-DERIVE: current = first NON-TERMINAL task in sprint-completion order (QA-Review counts as "left
-    // current"). Pure derivation → idempotent (a function of task states; running twice = same pin, no double-rotate).
-    if (i < 0) i = sprintTasks.findIndex(t => !t.terminal);
+    if (inProgressRanked.length) i = sprintTasks.indexOf(inProgressRanked[0]);
+    // FALLBACK: nothing In Progress → the first Planned (next-to-start), a REASONED pick (not the arbitrary first-any).
+    if (i < 0) i = sprintTasks.findIndex(t => t.status === 'Planned');
     // Fully-COMPLETED sprint (every task terminal — all QA-Review/Done): pin the LAST in-sprint task ("end of Sprint
     // N") rather than going blank. A REASONED pick, not a silent arbitrary one (fail-loud lineage).
     if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.terminal)) i = sprintTasks.length - 1;
@@ -313,7 +318,7 @@ export class CurrentSprint {
     const toSlot = (t: Slot | null): TaskSlot | null =>
       t ? { taskUuid: t.uuid, taskName: t.name, reqUuid: t.reqUuid } : null;
 
-    return { current: toSlot(current), lastCompleted: toSlot(lastCompleted), nextBacklog: toSlot(nextBacklog) };
+    return { current: toSlot(current), lastCompleted: toSlot(lastCompleted), nextBacklog: toSlot(nextBacklog), inProgress: inProgressRanked.map((t) => toSlot(t)!) };
   }
 
   // R20.22 override: pin a specific task as nextBacklog
