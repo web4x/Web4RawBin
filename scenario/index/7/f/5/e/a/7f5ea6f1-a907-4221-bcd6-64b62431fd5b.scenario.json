@@ -24,15 +24,16 @@
    "note": "campaignScope=OUTSIDE, ranked ABOVE other deferred items = a latent outage that worsens daily with no code change. Capture-only, do-NOT-execute-tonight; PO schedules. Architect designed the shape (ACs are the ruling)."
   },
   "crossRef": [
-   "ior:instance:b8e5411a-e4d6-4793-892b-2277073ffd9a"
+   "ior:instance:b8e5411a-e4d6-4793-892b-2277073ffd9a",
+   "ior:instance:4e1db28d-0b58-44c2-b225-46e17263bb5e"
   ],
-  "crossRefNote": "Boot-health family with R40.36 (b8e5411a, scratch boot-smoke GATE — detects a boot failure). R40.39 is the boot-SHAPE FIX (corpus-independence — removes the cause R40.36 would catch). The 8-min outage + 45s hang are the same bad-boot-shape R40.36 gates and R40.39 eliminates.",
+  "crossRefNote": "Boot-health family with R40.36 (b8e5411a, scratch boot-smoke GATE — detects a boot failure). R40.39 is the boot-SHAPE FIX (corpus-independence — removes the cause R40.36 would catch). The 8-min outage + 45s hang are the same bad-boot-shape R40.36 gates and R40.39 eliminates. | R40.40 = the FAMILY-CLOSURE sibling (every type declared indexed/alt/singleton, never defaulted): R40.39 fixes the concrete losses (feature+TestCase), R40.40 closes the class so a new type can't corpus-walk by default.",
   "campaignScope": "OUTSIDE-S30++-finish-campaign-count, PRIORITY RESTORED (structural regression = a missing type-index, NOT hygiene, NOT performance). Corrected twice 2026-08-17 (not-slow refutation -> then Tron structural re-frame): the missing feature index is the real defect behind the corpus walk.",
   "acceptanceCriteria": [
    {
     "id": "AC-1-feature-type-index",
     "group": "functional",
-    "text": "`feature` gets its TYPE-INDEX LINK FOLDER at scenario/sprints.md/feature/ — ln reference links to the Feature units, EXACTLY like the other 18 type folders (task, class, requirement, ...). Same convention; invent NO new mechanism. This restores what was lost."
+    "text": "`feature` AND `testcase` each get their TYPE-INDEX LINK FOLDER at scenario/sprints.md/<type>/ — ln reference links to the units, EXACTLY like the other 18 folders. BOTH are confirmed genuine losses (measured: Feature 3 units, TestCase 1023 units — both currently corpus-walked). Same ln convention, invent NO new mechanism."
    },
    {
     "id": "AC-2-resolve-through-index",
@@ -57,7 +58,7 @@
    {
     "id": "AC-6-audit-missing-indexes",
     "group": "functional",
-    "text": "AUDIT — is `feature` the only type missing an index? MEASURED (2026-08-17): NO. 18 type folders exist; 11 ior:class types IN USE lack one: **Feature** (confirmed genuine, boot-used) + Company, Config, Email, Gate, ModelElement, Phone, Profile, Relationship, TestCase, WebItem. Each must be CLASSIFIED genuine-lost-index vs intentionally-excluded (runtime-PII types Company/Email/Phone/Profile/WebItem may be intentional; Config/Gate/ModelElement/Relationship/TestCase may be sub-types/newer) — architect/PO triage. 'If we lost one we may have lost more' = confirmed."
+    "text": "AUDIT (measured 2026-08-17, PO-triaged + req-verified): 18 type folders exist; 11 ior:class types-in-use lack one. CLASSIFIED: GENUINE LOSS (need a type-index) = **Feature** (3u, boot-used) + **TestCase** (1023u — 2nd loss, same shape); ALT-INDEXED (intentional, verified scenario/alt/ holds company/email/phone by-value) = **Company, Email, Phone**; SINGLETON (intentional, index-over-one-unit pointless) = **Config**; UNCLASSIFIED (NOT in scenario/alt/, need architect ruling genuine-vs-intentional) = **Profile, WebItem**; LIKELY NEVER-WIRED newer types = **Gate, ModelElement, Relationship**. The family-closure (declared-not-defaulted) is R40.40."
    }
   ],
   "supersededACs": [
