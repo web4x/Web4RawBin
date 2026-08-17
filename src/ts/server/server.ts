@@ -533,7 +533,13 @@ async function federationImport(ref: any, roomId: string): Promise<{ uuid: strin
   const t = new Transfer({ index: idx, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
   const remap = new Map<string, string>();
   const rc = t.reconcileConflict(unit, originHost, remap);                 // T26.5
-  if (rc.action !== 'noop') idx.put(rc.localUuid, t.rewriteForwardRefs(rc.unit, originHost, remap)); // T26.5 remap + T26.1 provenance
+  if (rc.action !== 'noop') { // T26.5 remap + T26.1 provenance — route through the seam so an imported/updated unit appears LIVE in the room
+    const routed = t.rewriteForwardRefs(rc.unit, originHost, remap) as ScenarioUnit;
+    const rIor = String(routed.ior || rc.unit.ior);
+    // mint/remint = a NEW localUuid → create; update (same-uuid newer federated version) = apply the incoming model onto the existing unit.
+    if (idx.get(rc.localUuid)) UnitController.apply(idx, rIor, rc.localUuid, routed.model as Record<string, unknown>, { publish: publishUnitChanged });
+    else UnitController.create(idx, rIor, rc.localUuid, routed, { publish: publishUnitChanged });
+  }
   t.resolveChildrenLazily(rc.unit, originHost);                            // T26.4 — children/members stay lazy federated refs, never minted
   const room = roomManager.getRoom(roomId);
   if (room) room.addFileUnit(rc.localUuid);                               // link into the receiving room
@@ -1547,7 +1553,7 @@ function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8:
   const m = unit.model as any;
   const crUuid = crypto.randomUUID();
   const requirements = Array.isArray(m.requirements) ? m.requirements : [];   // link the CR to the task's requirement(s)
-  idx.put(crUuid, { ior: 'ior:class:ChangeRequest', model: { uuid: crUuid, name: `Change Request: ${m.name || taskUuid}`, task: `ior:instance:${taskUuid}`, requirements, reason, createdBy: ownerTok8, createdAt: now, status: 'Open' }, ownerIor: `ior:instance:${taskUuid}` });
+  UnitController.create(idx, 'ior:class:ChangeRequest', crUuid, { ior: 'ior:class:ChangeRequest', model: { uuid: crUuid, name: `Change Request: ${m.name || taskUuid}`, task: `ior:instance:${taskUuid}`, requirements, reason, createdBy: ownerTok8, createdAt: now, status: 'Open' }, ownerIor: `ior:instance:${taskUuid}` }, { publish: publishUnitChanged }); // R37.11: new ChangeRequest via the seam (create; emit → appears live)
   m.changeRequests = Array.isArray(m.changeRequests) ? m.changeRequests : [];
   m.changeRequests.push(`ior:instance:${crUuid}`);
   m.status = 'In Progress';   // declined → back into the pipeline; NEVER silently Done
