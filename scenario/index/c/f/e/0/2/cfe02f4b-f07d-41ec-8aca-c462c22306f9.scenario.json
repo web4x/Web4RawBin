@@ -87,7 +87,7 @@
    {
     "id": "AC-mvc-apply-seam",
     "group": "gate",
-    "text": "mvc.applyMutation is the ONE controller seam — it mutates the graph, collects affected refs, and notifies as ONE step, so NOTIFY is a CONSEQUENCE of applying, not a remembered/scattered step (today notify is scattered across trace/index.ts, universal-actions, RawBinClient). GATE (grep-lint, STUB-MUST-FAIL): NO graph mutation or notify happens OUTSIDE the seam -> plant a mutation/notify outside -> RED."
+    "text": "mvc.applyMutation = route ALL writes through the EXISTING UnitController.apply seam (unit-controller.ts:41; it already mutates+collects+emits). The measured defect: ~15 sites BYPASS it (server.ts idx.put x10 / EmailIndex.ts:68,71 / agent-message.ts:68,77,103 / skills.ts:59) so emit never fires + views go stale. A change through ANY write path must be visible in item+detail views with NO reload. GATE (binding lint, STUB-MUST-FAIL): a graph-write/idx.put OUTSIDE the seam -> RED."
    }
   ]
  },

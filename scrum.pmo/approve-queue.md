@@ -24,7 +24,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S30 e4dc9a19** Task 30.14: Service-Worker auto-update (visible depl — _Test: test:R30.14 BUG-C sw POST-cache guard (networ_
 - 🧪 **S30 e545614d** Task 30.46: Working-file diff — left=latest resolves — _Test: test:R30.46 W3 default-open left=WORKING pinn_
 - 🧪 **S31 5be03af7** Task 31.1: User-specific profile features section (p — _Test: test:R31.8 slice-d generalized renderFeatureG_
-- 🧪 **S37 1b8ebc9a** Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of a — _Test: test:T37.4.3 / R37.11 C4.3 MvcBoundaryGuard.a_
+- 🧪 **S37 1b8ebc9a** Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of a — _Test: test:T37.4.2 UnitController.apply (b5f72641, _
 - 🧪 **S37 236918e9** Task 37.4.1: MODEL self-heal on read — ANY unit obje — _Test: test:T37.4.1 / R37.11 C4.1 SelfHeal.selfHealO_
 - 🧪 **S37 32061171** Task 37.6: sprints.overview.md is a GENERATED view ( — _Test: test:T37.6 auto-regen-ON-COMMIT (autoRegenOve_
 - 🧪 **S37 364785b1** Task 37.3: FAIL-LOUD guard asserts pin==board==files — _Test: test:R-C3 refuseIfVacuous BITE (vacuous-path _
@@ -33,7 +33,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 97e8a6ad** Task 37.5: Dual-status reconcile — one truth (status — _Test: test:R-C5 assertStatusConsistent BITE (fail-l_
 - 🧪 **S37 9ca4b58f** Task 37.8: Generated-output writes route through a s — _Test: test:R-C8 guardedWrite BITE — write chokepoin_
 - 🧪 **S37 bb31965b** Task 37.7: Legacy hand-authored boards MIGRATED to g — _Test: test:R-C7 BoardMigrator 5-gate BITE (proveCom_
-- 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:T37.4.3 / R37.11 C4.3 MvcBoundaryGuard.a_
+- 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:T37.4.2 UnitController.apply (b5f72641, _
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
 #### ⚠️ NOT READY — 0 (at QA-Review but evidence INCOMPLETE — NOT approvable)

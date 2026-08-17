@@ -4,7 +4,8 @@
     "uuid": "5cc58e20-b27d-4ccf-93d1-80ed9ae8bff5",
     "name": "UnitController.apply",
     "implementations": [
-      "ior:instance:b5f72641-a75c-4b8f-98fc-2380ced1a42a"
+      "ior:instance:b5f72641-a75c-4b8f-98fc-2380ced1a42a",
+      "ior:instance:e3729f51-3df6-4f6d-96e3-924c37e3c3c9"
     ]
   },
   "ownerIor": "ior:instance:872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd"

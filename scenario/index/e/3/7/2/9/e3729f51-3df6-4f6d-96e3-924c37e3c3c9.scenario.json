@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "e3729f51-3df6-4f6d-96e3-924c37e3c3c9",
+    "name": "UnitController.apply route-all-writes-through-seam (slice-1): the ~15 bypass sites (server.ts idx.put x10, EmailIndex.ts:68/71, agent-message.ts:68/77/103, skills.ts:59) route through apply so emit fires + binding lint (no graph-write/idx.put outside the seam)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/unit-controller.ts",
+    "markerNote": "markerPending: slice-1 build-go (expert). DISTINCT Impl on the EXISTING Method apply 5cc58e20 (R30.11 distinct-on-shared) — the apply seam Impl b5f72641 stays; this is the ROUTE-ALL-WRITES-THROUGH-IT + binding-lint work. Expert places [impl:uuid] on the routing/lint decl -> I strict-AST-flip."
+  },
+  "ownerIor": "ior:instance:5cc58e20-b27d-4ccf-93d1-80ed9ae8bff5"
+}

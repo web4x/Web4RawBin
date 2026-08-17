@@ -3,13 +3,15 @@
   "model": {
     "uuid": "3ee364a5-472f-44f2-bc1b-79df494b2f0f",
     "name": "mvc.applyMutation",
-    "description": "The ONE controller seam: mutate the graph + collect affected refs + NOTIFY as ONE atomic step, so notify is a CONSEQUENCE of applying, never a remembered/scattered step. Replaces today's scattered notify (trace/index.ts, universal-actions, RawBinClient). Placeholder: architect wires Class/Method on build-go.",
-    "class": null,
-    "method": null,
+    "description": "ROUTE ALL WRITES THROUGH THE EXISTING SEAM: UnitController.apply (unit-controller.ts:41, the one disk-write chokepoint, emit=step-4) ALREADY EXISTS. The defect = ~15 write sites BYPASS it (server.ts idx.put x10, EmailIndex.ts:68/71, agent-message.ts:68/77/103, skills.ts:59) so their emit never fires and views go stale. mvc.applyMutation = route those writes through apply + a BINDING LINT gate (no graph-write/idx.put outside the seam). NOT 'create a seam' — it exists; bind all writes to it.",
+    "class": "ior:instance:872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd",
+    "method": "ior:instance:5cc58e20-b27d-4ccf-93d1-80ed9ae8bff5",
     "tasks": [],
     "implementations": [],
     "tests": [],
-    "classes": []
+    "classes": [
+      "ior:instance:872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd"
+    ]
   },
   "ownerIor": "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
 }
