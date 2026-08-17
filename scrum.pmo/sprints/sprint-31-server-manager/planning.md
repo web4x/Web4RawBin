@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 31 Planning — Sprint 31 - Server Manager
+# Sprint 31 Planning — Server Manager
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "fabc9784-533b-49a8-a0ce-40d36d2338d8",
-    "name": "Sprint 28 \u2014 Graph-Integrity Foundation",
+    "name": "Graph-Integrity Foundation",
     "number": 28,
     "goal": "Foundational graph-integrity instrument + repair. R27.5: canonical ref-slot registry + trace-audit calibration (token/edge/self classification, per-slot fwd/back/cross tags) so no ref-slot hides and the orphan/dangling metrics are honest. R27.6: repair the TRUE-dangling debt the registry surfaces (Method.implementation 51 + Test.parent 32 + Test.verifies 12 + Test.methods 1). Scenario-first; not-urgent/foundational; build on Tron's go.",
     "status": "Planned",

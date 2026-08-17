@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 27 Planning — Sprint 27 — Detail View Enhancements
+# Sprint 27 Planning — Detail View Enhancements
 
 ## Sprint Goal
 

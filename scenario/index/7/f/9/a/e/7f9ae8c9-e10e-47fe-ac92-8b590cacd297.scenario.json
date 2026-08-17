@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
-    "name": "Sprint 14 — Legacy Migration",
+    "name": "Legacy Migration",
     "number": 14,
     "goal": "",
     "status": "In Progress",
@@ -17,7 +17,8 @@
     "sourceLine": 1,
     "unitLinks": [
       "sprints.json/sprint-14-legacy-migration/sprint.json"
-    ]
+    ],
+    "slug": "sprint-14-legacy-migration"
   },
   "ownerIor": null
 }

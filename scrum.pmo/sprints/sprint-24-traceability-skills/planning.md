@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 24 Planning — Sprint 24 — Traceability Skills
+# Sprint 24 Planning — Traceability Skills
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 26 Planning — Sprint 26 — RawBin Federation
+# Sprint 26 Planning — RawBin Federation
 
 ## Sprint Goal
 

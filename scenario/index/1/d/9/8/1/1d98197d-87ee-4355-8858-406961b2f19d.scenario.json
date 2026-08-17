@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "1d98197d-87ee-4355-8858-406961b2f19d",
-    "name": "Sprint 26 — RawBin Federation",
+    "name": "RawBin Federation",
     "number": 26,
     "goal": "Federated scenario transfer via DnD: dragging an item between two RawBin servers transfers the scenario unit (receiver recreates it locally with provenance + unitLinks), not just a WebItem pointing at the source. Structure eager, payload lazy, identity by-reference. Greenfield federation, design-ahead chain before code (#126).",
     "status": "Planned",

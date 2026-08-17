@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "04339450-9c01-449f-88a8-a09a55970d5b",
-    "name": "Sprint 24 \u2014 Traceability Skills",
+    "name": "Traceability Skills",
     "number": 24,
     "goal": "Formalize the existing scattered traceability + MD-planning TS tools as one coherent Object.verb SKILL set (pin management, chain scoring, sprint planning, traceability audit) - OOSH-for-TS per how-to-write-skills.md, no hand-written flags, markdown=VIEW.",
     "status": "Planned",
@@ -28,7 +28,8 @@
       "robbin-planner",
       "robbin-architect",
       "skill-expert"
-    ]
+    ],
+    "slug": "sprint-24-traceability-skills"
   },
   "ownerIor": null
 }

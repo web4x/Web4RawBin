@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "4a4a5d66-d9ff-42be-8d17-201531dbb53e",
-    "name": "Sprint 23 \u2014 Media Preview",
+    "name": "Media Preview",
     "number": 23,
     "goal": "Extend the room content preview (R21.9 rb-preview-pane / ContentPreviewer) to richer media: audio files play in an HTML5 player (mp3/wav/ogg/m4a), and YouTube URLs discovered in a room render as embedded iframe players instead of plain text.",
     "status": "Planned",
@@ -22,7 +22,8 @@
     "joint": [
       "robbin-req",
       "robbin-architect"
-    ]
+    ],
+    "slug": "sprint-23-media-preview"
   },
   "ownerIor": null
 }

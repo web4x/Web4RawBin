@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 30 Requirements — Sprint 30 — Traceability Improvement
+# Sprint 30 Requirements — Traceability Improvement
 
 ## Requirements
 

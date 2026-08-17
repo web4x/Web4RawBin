@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 32 Planning — Sprint 32 — MDA Model-Driven Code Quality
+# Sprint 32 Planning — MDA Model-Driven Code Quality
 
 ## Sprint Goal
 

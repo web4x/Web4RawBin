@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 23 Planning — Sprint 23 — Media Preview
+# Sprint 23 Planning — Media Preview
 
 ## Sprint Goal
 

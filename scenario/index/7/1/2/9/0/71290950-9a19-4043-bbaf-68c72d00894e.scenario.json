@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "71290950-9a19-4043-bbaf-68c72d00894e",
-    "name": "Sprint 15 — Traceability Browser",
+    "name": "Traceability Browser",
     "number": 15,
     "goal": "",
     "status": "In Progress",
@@ -21,7 +21,8 @@
     "sourceLine": 1,
     "unitLinks": [
       "sprints.json/sprint-15-traceability-browser/sprint.json"
-    ]
+    ],
+    "slug": "sprint-15-traceability-browser"
   },
   "ownerIor": null
 }

@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "5b950725-a6f6-4d45-b802-4784ee6ef962",
-    "name": "Sprint 18 \u2014 Chain Method-Scope & Role Skills",
+    "name": "Chain Method-Scope & Role Skills",
     "number": 18,
-    "goal": "Narrow the traceability chain at Class\u2192Method to the ONE method that fulfills the current requirement (vs scenario browser which shows ALL methods); dogfood S17 scenario-unit model by authoring Sprint 18 as scenario.json FIRST and generating planning.md + task-*.md from those units; co-specify role refinement protocols as SKILL.md files (Rules 1-11 from refinement-precedence-analysis.md).",
+    "goal": "Narrow the traceability chain at Class→Method to the ONE method that fulfills the current requirement (vs scenario browser which shows ALL methods); dogfood S17 scenario-unit model by authoring Sprint 18 as scenario.json FIRST and generating planning.md + task-*.md from those units; co-specify role refinement protocols as SKILL.md files (Rules 1-11 from refinement-precedence-analysis.md).",
     "status": "Done",
     "compoundSource": "scrum.pmo/sprints/sprint-18-chain-method-scope/compound-requirement-source.md",
     "requirements": [

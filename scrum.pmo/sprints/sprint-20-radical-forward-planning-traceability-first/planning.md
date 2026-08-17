@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 20 Planning — Sprint 20 — Radical Forward Planning (Traceability-First)
+# Sprint 20 Planning — Radical Forward Planning (Traceability-First)
 
 ## Sprint Goal
 

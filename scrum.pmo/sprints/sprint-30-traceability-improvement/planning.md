@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 30 Planning — Sprint 30 — Traceability Improvement
+# Sprint 30 Planning — Traceability Improvement
 
 ## Sprint Goal
 

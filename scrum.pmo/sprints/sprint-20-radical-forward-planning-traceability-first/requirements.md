@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 20 Requirements — Sprint 20 — Radical Forward Planning (Traceability-First)
+# Sprint 20 Requirements — Radical Forward Planning (Traceability-First)
 
 ## Requirements
 

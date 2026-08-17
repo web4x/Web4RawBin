@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "9996b46a-66b7-4f8a-9298-cbea3c2edabf",
-    "name": "Sprint 22 \u2014 Traceability View Fixes",
+    "name": "Traceability View Fixes",
     "number": 22,
     "goal": "Fix two defects in the Task detail view of the traceability browser: remove the false-duplicate empty 'Traceability Chain: No chain' section so only one chain section renders, and repoint the Forward Links section to link to the MD task documentation file instead of the raw useCases IOR reference.",
     "status": "Planned",
@@ -24,7 +24,8 @@
     "joint": [
       "robbin-req",
       "robbin-architect"
-    ]
+    ],
+    "slug": "sprint-22-traceability-view-fixes"
   },
   "ownerIor": null
 }

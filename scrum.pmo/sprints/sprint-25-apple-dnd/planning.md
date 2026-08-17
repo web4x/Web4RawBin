@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 25 Planning — Sprint 25 — Apple DnD
+# Sprint 25 Planning — Apple DnD
 
 ## Sprint Goal
 

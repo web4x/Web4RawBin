@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 21 Planning — Sprint 21 — Contact Identity
+# Sprint 21 Planning — Contact Identity
 
 ## Sprint Goal
 

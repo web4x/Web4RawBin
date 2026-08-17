@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 32 Requirements — Sprint 32 — MDA Model-Driven Code Quality
+# Sprint 32 Requirements — MDA Model-Driven Code Quality
 
 ## Requirements
 

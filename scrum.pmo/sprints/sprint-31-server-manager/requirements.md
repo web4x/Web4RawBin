@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 31 Requirements — Sprint 31 - Server Manager
+# Sprint 31 Requirements — Server Manager
 
 ## Requirements
 

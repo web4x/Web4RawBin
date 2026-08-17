@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "97f513a1-db0b-4216-87c2-a85c93daae28",
-    "name": "Sprint 19 \u2014 Room Handling",
+    "name": "Room Handling",
     "number": 19,
-    "goal": "Rooms and files become first-class scenario units like every other req/task/method. Click the room name to edit the room config scenario. Visibility = public | by-invite (Apply-flow with an invite-request message carrying the requester's name+uuid, accept\u2192join) | private (password, listed only for owners). Lifecycle = live | persistent (persistent keeps offline members listed-as-offline so no contact is ever lost; persistent becomes default after this sprint, switchable to live in the editor). Members can be added and removed. Room content area has a drop-zone double the size of a tree-overview item view; below it a tree with two nodes \u2014 Members (member item views) and Files. Uploaded files are stored in the uuid index as uuid.content + uuid.scenario.json with unitLinks[] symlinks (e.g. into a room folder) \u2014 every file is a unique scenario unit.",
+    "goal": "Rooms and files become first-class scenario units like every other req/task/method. Click the room name to edit the room config scenario. Visibility = public | by-invite (Apply-flow with an invite-request message carrying the requester's name+uuid, accept→join) | private (password, listed only for owners). Lifecycle = live | persistent (persistent keeps offline members listed-as-offline so no contact is ever lost; persistent becomes default after this sprint, switchable to live in the editor). Members can be added and removed. Room content area has a drop-zone double the size of a tree-overview item view; below it a tree with two nodes — Members (member item views) and Files. Uploaded files are stored in the uuid index as uuid.content + uuid.scenario.json with unitLinks[] symlinks (e.g. into a room folder) — every file is a unique scenario unit.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-19-room-handling/compound-requirement-source.md",
     "requirements": [
@@ -188,7 +188,8 @@
       "robbin-req",
       "robbin-planner",
       "robbin-architect"
-    ]
+    ],
+    "slug": "sprint-19-room-handling"
   },
   "ownerIor": null
 }

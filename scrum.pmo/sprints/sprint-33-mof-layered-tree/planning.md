@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 33 Planning — Sprint 33 — MDA v4 MOF-layered tree
+# Sprint 33 Planning — MDA v4 MOF-layered tree
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 19 Planning — Sprint 19 — Room Handling
+# Sprint 19 Planning — Room Handling
 
 ## Sprint Goal
 

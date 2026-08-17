@@ -2,9 +2,9 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "64af2638-d011-48c1-9d5a-dbfd9784efd6",
-    "name": "Sprint 20 \u2014 Radical Forward Planning (Traceability-First)",
+    "name": "Radical Forward Planning (Traceability-First)",
     "number": 20,
-    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req\u2192UseCase\u2192Class\u2192Method\u2192Implementation\u2192Test) DESIGNED, and the Test written FIRST (or with the impl) \u2014 nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
+    "goal": "Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementation, never functional-first-then-backfill. DISCIPLINE: every requirement gets its FULL chain (Req→UseCase→Class→Method→Implementation→Test) DESIGNED, and the Test written FIRST (or with the impl) — nothing ships chain-open. Carry forward S19 open follow-ons as proper S20 chains (R19.99 broken-link, R19.100 render-inversion, R19.102 create-folder-actions), each designed-ahead. Track tonight's scheduled (22:07) radical backfill of S19 v0.5.x chain-debt.",
     "status": "Planned",
     "compoundSource": "scrum.pmo/sprints/sprint-20-traceability-first/compound-requirement-source.md",
     "requirements": [
@@ -86,7 +86,8 @@
       "ior:instance:871c5cf9-c629-42f6-b43d-9c519aaf598c",
       "ior:instance:d2389829-5727-4a2d-a3b8-915067053162",
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
-    ]
+    ],
+    "slug": "sprint-20-radical-forward-planning-traceability-first"
   },
   "ownerIor": null
 }

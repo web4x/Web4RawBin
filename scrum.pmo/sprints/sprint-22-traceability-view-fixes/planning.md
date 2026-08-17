@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 22 Planning — Sprint 22 — Traceability View Fixes
+# Sprint 22 Planning — Traceability View Fixes
 
 ## Sprint Goal
 

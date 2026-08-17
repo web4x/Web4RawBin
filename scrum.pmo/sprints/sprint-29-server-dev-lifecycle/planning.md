@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 29 Planning — Sprint 29 — Server & Dev Lifecycle
+# Sprint 29 Planning — Server & Dev Lifecycle
 
 ## Sprint Goal
 

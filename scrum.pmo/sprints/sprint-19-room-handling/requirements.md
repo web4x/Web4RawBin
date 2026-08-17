@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 19 Requirements — Sprint 19 — Room Handling
+# Sprint 19 Requirements — Room Handling
 
 ## Requirements
 

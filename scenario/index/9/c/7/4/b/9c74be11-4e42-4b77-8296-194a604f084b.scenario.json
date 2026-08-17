@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "9c74be11-4e42-4b77-8296-194a604f084b",
-    "name": "Sprint 13 — Stability",
+    "name": "Stability",
     "number": 13,
     "goal": "",
     "status": "In Progress",
@@ -30,7 +30,8 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-13-stability/planning.md",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "slug": "sprint-13-stability"
   },
   "ownerIor": null
 }

@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "d56c45de-bde0-4f11-bece-c6e8f461bf84",
-    "name": "Sprint 11 — Traceability",
+    "name": "Traceability",
     "number": 11,
     "goal": "",
     "status": "In Progress",
@@ -20,7 +20,8 @@
     ],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-11-traceability/planning.md",
     "sourceLine": 1,
-    "unitLinks": []
+    "unitLinks": [],
+    "slug": "sprint-11-traceability"
   },
   "ownerIor": null
 }

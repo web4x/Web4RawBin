@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 28 Planning — Sprint 28 — Graph-Integrity Foundation
+# Sprint 28 Planning — Graph-Integrity Foundation
 
 ## Sprint Goal
 

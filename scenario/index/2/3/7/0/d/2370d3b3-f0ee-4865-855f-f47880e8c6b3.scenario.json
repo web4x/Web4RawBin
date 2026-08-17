@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "2370d3b3-f0ee-4865-855f-f47880e8c6b3",
-    "name": "Sprint 17 — Scenario Units",
+    "name": "Scenario Units",
     "number": 17,
     "goal": "",
     "status": "In Progress",
@@ -63,7 +63,8 @@
     "sourceLine": 1,
     "unitLinks": [
       "sprints.json/sprint-17-scenario-units/sprint.json"
-    ]
+    ],
+    "slug": "sprint-17-scenario-units"
   },
   "ownerIor": null
 }

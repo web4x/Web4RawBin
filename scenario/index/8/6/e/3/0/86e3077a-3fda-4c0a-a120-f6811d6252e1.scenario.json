@@ -2,7 +2,7 @@
   "ior": "ior:class:Sprint",
   "model": {
     "uuid": "86e3077a-3fda-4c0a-a120-f6811d6252e1",
-    "name": "Sprint 12 — Editor Fixes",
+    "name": "Editor Fixes",
     "number": 12,
     "goal": "",
     "status": "In Progress",
@@ -14,7 +14,8 @@
     "sourceLine": 1,
     "unitLinks": [
       "sprints.json/sprint-12-editor-fixes/sprint.json"
-    ]
+    ],
+    "slug": "sprint-12-editor-fixes"
   },
   "ownerIor": null
 }

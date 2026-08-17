@@ -47,30 +47,30 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 | 7 | Encrypted Storage | frozen-legacy (excluded from gate) |
 | 8 | Monaco Editor | frozen-legacy (excluded from gate) |
 | 9 | Room Identity | frozen-legacy (excluded from gate) |
-| 10 | Sprint 10 — Contacts Ui | frozen-legacy (excluded from gate) |
-| 11 | Sprint 11 — Traceability | frozen-legacy (excluded from gate) |
-| 12 | Sprint 12 — Editor Fixes | frozen-legacy (excluded from gate) |
-| 13 | Sprint 13 — Stability | frozen-legacy (excluded from gate) |
-| 14 | Sprint 14 — Legacy Migration | frozen-legacy (excluded from gate) |
-| 15 | Sprint 15 — Traceability Browser | frozen-legacy (excluded from gate) |
-| 16 | Sprint 16 — Traceability Ux | frozen-legacy (excluded from gate) |
-| 17 | Sprint 17 — Scenario Units | frozen-legacy (excluded from gate) |
-| 18 | Sprint 18 — Chain Method-Scope & Role Skills | frozen-legacy (excluded from gate) |
-| 19 | Sprint 19 — Room Handling | Active |
-| 20 | Sprint 20 — Radical Forward Planning (Traceability-First) | Active |
-| 21 | Sprint 21 — Contact Identity | Active |
-| 22 | Sprint 22 — Traceability View Fixes | Closed |
-| 23 | Sprint 23 — Media Preview | Closed |
-| 24 | Sprint 24 — Traceability Skills | Closed |
-| 25 | Sprint 25 — Apple DnD | Active |
-| 26 | Sprint 26 — RawBin Federation | QA-pending |
-| 27 | Sprint 27 — Detail View Enhancements | Closed |
-| 28 | Sprint 28 — Graph-Integrity Foundation | Planned |
-| 29 | Sprint 29 — Server & Dev Lifecycle | Planned |
-| 30 | Sprint 30 — Traceability Improvement | QA-pending |
-| 31 | Sprint 31 - Server Manager | QA-pending |
-| 32 | Sprint 32 — MDA Model-Driven Code Quality | QA-pending |
-| 33 | Sprint 33 — MDA v4 MOF-layered tree | Closed |
+| 10 | Contacts Ui | frozen-legacy (excluded from gate) |
+| 11 | Traceability | frozen-legacy (excluded from gate) |
+| 12 | Editor Fixes | frozen-legacy (excluded from gate) |
+| 13 | Stability | frozen-legacy (excluded from gate) |
+| 14 | Legacy Migration | frozen-legacy (excluded from gate) |
+| 15 | Traceability Browser | frozen-legacy (excluded from gate) |
+| 16 | Traceability Ux | frozen-legacy (excluded from gate) |
+| 17 | Scenario Units | frozen-legacy (excluded from gate) |
+| 18 | Chain Method-Scope & Role Skills | frozen-legacy (excluded from gate) |
+| 19 | Room Handling | Active |
+| 20 | Radical Forward Planning (Traceability-First) | Active |
+| 21 | Contact Identity | Active |
+| 22 | Traceability View Fixes | Closed |
+| 23 | Media Preview | Closed |
+| 24 | Traceability Skills | Closed |
+| 25 | Apple DnD | Active |
+| 26 | RawBin Federation | QA-pending |
+| 27 | Detail View Enhancements | Closed |
+| 28 | Graph-Integrity Foundation | Planned |
+| 29 | Server & Dev Lifecycle | Planned |
+| 30 | Traceability Improvement | QA-pending |
+| 31 | Server Manager | QA-pending |
+| 32 | MDA Model-Driven Code Quality | QA-pending |
+| 33 | MDA v4 MOF-layered tree | Closed |
 | 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
 | 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
 | 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
