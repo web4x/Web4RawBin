@@ -1,0 +1,23 @@
+# Agent-write auth for the skill endpoint — architect ruling (2026-08-17)
+
+Blocks the SKILL half of R40.18's "through all channels" (Tron). Design only; does NOT block the current visible slice or v0.8.99.
+
+## Measured gap (my prior ruling assumed an enforcement path that does not exist)
+I ruled the agent status-switch as "skill → server endpoint → UnitController → emit → WS, auth = reuse the existing owner-gate, agent on-host, no token literal." The planner PROVED (correcting the stale pin 78ea801d3) that `POST /api/current-sprint/designate` is `requireOwnerHttp` → `resolveOwner`, and **`resolveOwner` (server.ts:933) is purely token/cookie** — a valid `sm_session` cookie (owner-gated mint) OR `assertOwner` (x-player-token/?token vs `tokenToClient`); `req.socket.remoteAddress` is ONLY logged in the 403, **NO localhost/on-host bypass**. The server binds TCP on PORT/HTTPS_PORT (network-reachable). ⇒ an on-host agent with no owner token is BLOCKED exactly as the planner was; a file write reaches disk but CANNOT push to Tron's open browser (needs a refresh). My "reuse the owner-gate on-host" was an ASSUMED auth path — the same class as my imaginary compile-tripwire (L12/L14: an enforcement path claimed, not measured).
+
+## RULING — a UNIX-DOMAIN-SOCKET endpoint, OS-permission-gated, OUTSIDE the HTTP owner-gate
+Add a SECOND server listener on a **root-only UDS** (e.g. `http.createServer(handler).listen('/root/.rawbin/agent.sock')`), socket file **owner=root, mode 0600** (or 0660 root:<agent-group>). A connection on that socket IS the authorization — the OS filesystem permission proves the caller is a root/on-host process (= an agent). The UDS handler routes the write through the SAME `UnitController` → emit → WS broadcast (server.ts:1793, broadcast-all), so an agent write reaches every browser live. The endpoint is NARROW (status-only / pin-designate, refuses Done per R40.10), NOT a general write surface.
+
+### Why UDS, having weighed the three candidates
+- **(a) UDS / loopback — CHOSEN.** Auth = OS socket permission: NO token literal, NO secret transmitted (secret-hygiene #0 holds, B1 PARKED); NOT network-reachable (no network write hole); on-host agents (root) can connect. The trust boundary becomes exactly "who can run as root on the server host" — which is ALREADY the agent trust boundary, so it opens NO new surface. The HTTP owner-gate is UNCHANGED for network requests.
+- **(b) root-only credential from `/root/.rawbin` read at boot — REJECTED.** To use it, the agent must present it → that TRANSMITS the secret (violates #0), unless a challenge-response is added = more machinery for what the UDS gives free via the OS.
+- **(c) on-host trust check the HTTP owner-gate delegates to (e.g. loopback source-IP) — REJECTED.** A source-IP-localhost bypass on the network endpoint IS a write hole (any on-host process — SSRF, a compromised local service — could write). Adding fs-permission on top just re-derives the UDS. A bare IP-trust violates constraint 3.
+
+## What MEASURES it (no assumed enforcement — the PO's requirement)
+1. **Socket permission = the auth, and it is measurable:** `stat` the socket → owner=root, mode 0600/0660; a test that a NON-root / off-host process CANNOT connect (permission denied / not-reachable). stub-must-fail: chmod the socket world-writable → the connect-as-nobody test must then SUCCEED (proving the permission is what gates), so the gate keeps it 0600.
+2. **HTTP owner-gate UNCHANGED:** curl a network request WITHOUT the owner token → still 403 (no localhost bypass added). The UDS does not weaken the network path.
+3. **Emit reaches the browser:** a WS client receives `unit-changed` after a UDS-originated write (the same broadcast-all path). This is the whole point — proves "through the skill still notifies via WS."
+4. **Narrow surface:** the UDS endpoint exposes ONLY status-only/pin-designate (refuses Done); a test that it does NOT accept an arbitrary-field write. (The mutation-seam lint already binds all writes to UnitController; the UDS handler passes a narrow status intent, not the generic merge.)
+
+## Handoff
+Expert (when the skill half builds, AFTER v0.8.99 + R40.18): add the UDS listener + narrow status/pin handler routing through UnitController; the skill/planner-drive call it (`curl --unix-socket /root/.rawbin/agent.sock …`), NOT a file write and NOT the network owner-gate. req: the endpoint's UC (agent status-write via UDS) can ride the existing skill-endpoint UC. I backstop: the 4 measurements above, esp. #1 (permission is the auth) + #2 (HTTP gate unchanged). This does NOT block the visible slice or v0.8.99 — it unblocks the SKILL channel.
