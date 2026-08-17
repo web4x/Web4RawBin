@@ -89,6 +89,11 @@
     "id": "AC-mvc-apply-seam",
     "group": "gate",
     "text": "mvc.applyMutation = route ALL writes through the EXISTING UnitController.apply seam (unit-controller.ts:41; it already mutates+collects+emits). The measured defect: ~15 sites BYPASS it (server.ts idx.put x10 / EmailIndex.ts:68,71 / agent-message.ts:68,77,103 / skills.ts:59) so emit never fires + views go stale. A change through ANY write path must be visible in item+detail views with NO reload. GATE (binding lint, STUB-MUST-FAIL): a graph-write/idx.put OUTSIDE the seam -> RED."
+   },
+   {
+    "id": "AC-seam-ticks-substeps",
+    "group": "missing-core-primitive",
+    "text": "The controller seam handles SUB-STEP checklist ticks (intent.subStep -> tick the named In-Progress sub-step via tickBox, KEEP the derived state, stamp lastAdvancedAt source=seam, emit) — NOT ONLY 4-state transitions. MISSING CORE PRIMITIVE discovered by USING the design (Tron defect-3 'no visible progress'): legalNext/apply tick only STATE boxes, so an agent progressing a sub-step (e.g. implementing done, Impl shipped) would be forced to HAND-EDIT = exactly the bypass check-mutation-seam --strict forbids. The Tron agent-status-SKILL is UNBUILDABLE without this. Part of slice-1 (UnitIntent is already open {[k]:unknown}; extend TaskPolicy.apply). GATE: a sub-step tick outside the seam -> RED; statusNext({subStep}) ticks the named sub-step + stamps + emits, state unchanged."
    }
   ]
  },

@@ -105,7 +105,8 @@
    "policy": "phased report-only -> strict, self-draining count 7->0 as trigger; reconcile-per-task-to-truth through-seam, never status-invention. Do-not-execute the 5 pending now (Tron deploy focus).",
    "owner": "robbin-req (R37.5 owner)",
    "bothDirections": "sub-step-checked=>parent-checked (over) AND Impl-shipped=>implementing-checked (under, Tron defect-3). 37.24 is the under-statement instance: implementing shipped (e3729f51) but implementing box unchecked."
-  }
+  },
+  "templateLimitation": "CAPTURE (do-not-build, PO 2026-08-17): the 4-state checklist template (Planned / In Progress[refinement/creating-test-cases/implementing/testing] / QA Review / Done) with BINARY boxes CANNOT express PARTIAL sub-step progress — e.g. 37.24 creating-test-cases is partially started (AC-2 Test f2c48a91 exists + r3724b-pin-value-gate.mjs exists, but the AC-1 slice-1 VALUE gate is incomplete/pending v0.8.99), yet a binary box is [x] or [ ] only, so it MUST understate (leave [ ] with a visible reason) rather than overstate. Recorded so the limitation is known, not rediscovered. Not built now."
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
