@@ -35,11 +35,20 @@ git diff --cached --name-only | grep -qE '^scenario/index/.*\.scenario\.json$' &
 git diff --cached --name-only | grep -qE '^scripts/campaign-scoreboard.*\.(mjs|ts)$' && NEED_BOARD=1
 if [ "$NEED_BOARD" = 1 ]; then
   RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
-  "$RB_NODE" --import tsx scripts/campaign-scoreboard-region.ts --write --staged-guard || {
+  "$RB_NODE" --import tsx scripts/campaign-scoreboard-region.ts --write --staged-guard
+  BOARD_RC=$?
+  if [ "$BOARD_RC" = 0 ]; then
+    git add -- scrum.pmo/campaign-scoreboard.md
+  elif [ "$BOARD_RC" = 3 ]; then
+    # Exit 3 = the planner has UNSTAGED out-of-region curation: the writer regenerated the LIVE region in the working
+    # tree but deliberately did NOT stage the board. Do NOT `git add` (would sweep the peer's curation). Non-blocking:
+    # the board catches up on the next clean regen:board; --check flags any interim staleness. (PO 2026-08-17: an
+    # out-of-region peer edit WARNS, never blocks — one agent's WIP must never block the whole fleet.)
+    echo "pre-commit NOTE: campaign-scoreboard.md carries the planner's unstaged out-of-region curation — LIVE region regenerated locally but board NOT staged (not swept, not blocking)." >&2
+  else
     echo "pre-commit BLOCKED: campaign-scoreboard.md LIVE-region auto-regen failed (fail-closed) — see above." >&2
     exit 1
-  }
-  git add -- scrum.pmo/campaign-scoreboard.md
+  fi
 fi
 
 # Approve-queue auto-regen (Tron order #4, T37.6 pattern): keep the one-pass verdict-surface in sync BY

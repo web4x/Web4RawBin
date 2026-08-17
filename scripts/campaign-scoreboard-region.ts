@@ -160,19 +160,33 @@ const next = replaceRegion(existing, buildRegion(d));
 if (next === null) fail('GENERATED-INDEX markers malformed.');
 
 if (WRITE) {
-  // HOOK-only anti-sweep (--staged-guard): never sweep an UNSTAGED curated edit OUTSIDE the region into another
-  // agent's commit. --write only touches the region, so out-of-region content must already match the committed/
-  // staged base; if it differs, the planner has in-progress curation — fail-closed rather than auto-stage it.
+  // Anti-sweep, SATISFIABLE shape (PO 2026-08-17 fleet-blocker fix). The OLD --staged-guard fail-CLOSED (blocked the
+  // commit) whenever a PEER (the planner) had UNSTAGED curation OUTSIDE the region. But this hook runs on EVERY
+  // scenario-unit commit, so one agent's out-of-region WIP blocked the ENTIRE fleet — an UNSATISFIABLE gate (the same
+  // class we already killed on check:sprint-md + consistency:strict; unsatisfiable gates get --no-verify'd, then
+  // silently removed). Correct shape: fail-closed ONLY on our OWN generated region — the --check and --bite paths
+  // (which go RED on real in-region drift) are UNCHANGED. A peer's OUT-OF-REGION edit WARNS, never blocks, and is never
+  // swept: we regenerate the region in the working tree (guardedWriteRegion preserves the curation byte-for-byte) but
+  // do NOT stage the board (exit 3 → the hook skips its `git add`, so the peer's curation is not swept in). The board
+  // then catches up on the next clean `regen:board`; any interim staleness is caught honestly by --check (WARN-level,
+  // self-resolving), never a fleet block.
+  let peerCuration = false;
   if (process.argv.includes('--staged-guard')) {
     const gitShow = (ref: string): string => { try { return execFileSync('git', ['show', ref], { cwd: ROOT, encoding: 'utf-8' }); } catch { return ''; } };
     let stagedNames: string[] = [];
     try { stagedNames = execFileSync('git', ['diff', '--cached', '--name-only'], { cwd: ROOT, encoding: 'utf-8' }).split('\n'); } catch { /* not a git tree */ }
     const base = stagedNames.includes(BOARD_REL) ? gitShow(`:${BOARD_REL}`) : gitShow(`HEAD:${BOARD_REL}`);
     const outside = (s: string): string => { const b = s.indexOf(BEGIN); const e = s.indexOf(END); return (b === -1 || e === -1) ? s : s.slice(0, b) + s.slice(e + END.length); };
-    if (base !== '' && outside(existing) !== outside(base)) fail(`${BOARD_REL} has UNSTAGED curated edits OUTSIDE the region — stage or restore them first (the hook will not sweep uncommitted curation into this commit).`);
+    peerCuration = base !== '' && outside(existing) !== outside(base);
   }
+  // Always regenerate the WORKING-TREE region — guardedWriteRegion preserves everything OUTSIDE the markers
+  // byte-for-byte, so a peer's out-of-region curation is untouched locally.
   const wrote = guardedWriteRegion(BOARD, next, BEGIN, (bn) => bn === 'campaign-scoreboard.md');
   if (!wrote) fail('--write: owned-output-guard REFUSED (markerless / wrong-name) — nothing written.');
+  if (peerCuration) {
+    console.warn(`WARN campaign-board: the planner has UNSTAGED curation OUTSIDE the region — regenerated the LIVE region in the working tree but did NOT stage the board (peer curation NOT swept, commit NOT blocked). Stage/restore the curation + rerun \`npm run regen:board\` to move the board; --check flags any interim staleness.`);
+    process.exit(3); // 3 = do NOT `git add` (would sweep the peer's out-of-region curation); non-blocking WARN
+  }
   console.log(`OK campaign-board --write: LIVE region regenerated (Done ${d.totals.done} / QA ${d.totals.qa} / REMAINING ${d.totals.remaining}); curated sections preserved.`);
   process.exit(0);
 }
