@@ -186,8 +186,17 @@ const wsClients = new Set<WebSocketClient>();
 // R37.11 slice-1 STEP-0: the ONE server-side publish for UnitController — generalizes the ad-hoc CurrentSprint
 // UNIT_CHANGED broadcast (was inline at the pin-designate handler) over the EXISTING wsClients transport (all-clients,
 // broadcast-safe — architect endorsed). Passed as {publish} into every routed apply/create so persist+emit are inseparable.
-const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) =>
+const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) => {
   wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior, uuid })); });
+  // R40.18 LIVE-on-advance (architect rule: an emit must reach every ref whose DERIVED value changed, not just the mutated
+  // ref): a Task change (advance/status/name) can change the DERIVED pin (current = max-lastAdvancedAt In-Progress task) —
+  // whose row subscribes to the CurrentSprint SINGLETON, not the task ref. So ALSO emit the singleton → the pin re-derives
+  // live with NO reload. server.ts owns this derived-consumer knowledge; the generic UnitController stays transport/derivation-agnostic.
+  if (ior === 'ior:class:Task') {
+    const CSU = 'current-sprint-singleton-0000-000000000001';
+    wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior: 'ior:class:CurrentSprint', uuid: CSU })); });
+  }
+};
 const tokenToClient = new Map<string, string>();
 let totalRequests = 0;
 
@@ -2601,7 +2610,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const taskName = taskUnit ? String(taskUnit.model?.name || s.slot.taskName) : s.slot.taskName;
             const isCurrent = s.label.includes('Current');
             const status = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : '';
-            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label}: ${taskName}`, hasChildren: true, status };
+            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, pinSlot: true }; // R40.18: em-dash (role=slot label + entity=taskName, one word one owner, no double-colon); pinSlot flags the client to un-truncate (scoped)
           });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           // node name surfaces the resolved sprint + its HONEST status label (R40.17); model.name as the fallback.

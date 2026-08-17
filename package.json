@@ -46,6 +46,7 @@
     "check:synthetic-ref-single-source": "node --import tsx scripts/check-synthetic-ref-single-source.ts",
     "check:mutation-seam": "node --import tsx scripts/check-mutation-seam.ts --strict",
     "check:reverse-wire": "node scripts/reverse-wire-audit.mjs",
+    "backfill:r4018": "node --import tsx scripts/backfill-r40.18-lastadvancedat.ts",
     "trace:pii-guard": "node --import tsx scripts/trace-pii-guard.ts",
     "check:revoked-tokens": "node --import tsx scripts/check-revoked-tokens.ts",
     "check:storage-rekey-security": "node --import tsx scripts/check-storage-rekey-security.ts",

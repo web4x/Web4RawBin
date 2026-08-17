@@ -477,7 +477,9 @@ export class RbTraceTree extends HTMLElement {
     this.innerHTML = '';
     // (1) CurrentSprint — 3 EAGER slot children, OPEN
     const csKids = slots.map(s => ({ uuid: s.uuid, type: s.type || 'Task', name: s.name, hasChildren: s.hasChildren !== false, status: s.status }));
-    this.appendChild(this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true));
+    const csNode = this.buildSeedNode(CS, 'CurrentSprint', `CurrentSprint: ${sprintName}`, csKids, true, undefined, undefined, undefined, true);
+    csNode.classList.add('cs-pin-node'); // R40.18 (Tron "i DONT want it TRUNCATED"): scope the no-truncation wrap to the pin SLOT rows ONLY via a marker class (app.css .cs-pin-node) — never global .oi-name (every tree row would wrap = layout change nobody asked for)
+    this.appendChild(csNode);
     // (2) Sprints collection — EAGER sprint-nodes (tasks LAZY on expand), COLLAPSED, badge=sprint count
     // R31.3 BADGE-via-REFERENCES: carry each sprint's server task-count as childCount → buildSeedNode stamps it on the
     // node's dataset.childRefCount so the badge shows the real N before its tasks lazy-load (no nodeChildCount map).

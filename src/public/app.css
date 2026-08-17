@@ -96,6 +96,8 @@ rb-object-item:hover .oi-name { white-space: normal; word-break: break-word; }
 .slot-name { font-size: 0.8rem; color: white; font-weight: 500; }
 .slot-empty { font-size: 0.75rem; color: rgba(255,255,255,0.3); font-style: italic; }
 .oi-name { color: white; font-weight: 600; font-size: 0.85rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* R40.18: the CurrentSprint PIN slot rows (📌 Current / ✅ Last / 📋 Next) render the FULL task name — Tron "i DONT want it TRUNCATED". Scoped to the pin node's direct slot rows ONLY (not global .oi-name); direct child-combinators (no :has) so it works on Safari-605 @390. */
+.cs-pin-node > .tt-children > .tt-node > .tt-row .oi-name { white-space: normal; overflow: visible; text-overflow: clip; }
 .oi-desc { color: rgba(255,255,255,0.5); font-size: 0.75rem; margin: 2px 0 0; word-wrap: break-word; overflow-wrap: break-word; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 /* T115: collapse/expand + children expander + badge */
 rb-object-item[collapsed] .oi-content { display: none; }
