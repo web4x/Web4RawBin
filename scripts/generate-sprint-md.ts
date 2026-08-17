@@ -225,8 +225,42 @@ export function buildSprintOutput(sprintUuid: string, units: Map<string, Scenari
   return { sprintSlug, files };
 }
 
+// [affected-sprint reverse map — item-1 fix, PO 2026-08-17] Which sprint(s) RENDER a given unit, so a unit-only
+// commit can regenerate EXACTLY the affected sprint MD (closing the 'credit landed, board did not move' gap: the
+// precommit hook regenerated overview/board/approve but NOT the per-sprint planning/requirements/task-MD). A unit
+// affects a sprint if it IS the Sprint, is a Task in the sprint's task-tree (tasks[] + recursive children), is a
+// Requirement in requirements[], or is a UseCase referenced by one of those Requirements (requirements.md renders UC
+// labels). Class/Method/Impl/Test do NOT render in the sprint MD, so they map to nothing here (overview/board cover
+// the index-level views). SAME generator/units as check:sprint-md — one source, not a 2nd path.
+export function affectedSprintUuids(unitUuids: Set<string>, units: Map<string, ScenarioUnit>): string[] {
+  if (unitUuids.size === 0) return [];
+  const bare = (r: unknown): string => String(r).replace('ior:instance:', '');
+  const affected = new Set<string>();
+  for (const s of units.values()) {
+    if (s.ior !== 'ior:class:Sprint') continue;
+    const sUuid = String(s.model.uuid);
+    const m = s.model as Record<string, unknown>;
+    if (unitUuids.has(sUuid)) affected.add(sUuid); // the Sprint unit itself
+    const seen = new Set<string>();
+    const walk = (u: string): void => { // task-tree: tasks[] + recursive children
+      if (seen.has(u)) return; seen.add(u);
+      if (unitUuids.has(u)) affected.add(sUuid);
+      const tu = units.get(u);
+      if (tu) for (const c of ((tu.model.children as string[]) || [])) walk(bare(c));
+    };
+    for (const t of ((m.tasks as string[]) || [])) walk(bare(t));
+    for (const r of ((m.requirements as string[]) || [])) { // requirements[] + each req's useCases[]
+      const ru = bare(r);
+      if (unitUuids.has(ru)) affected.add(sUuid);
+      const req = units.get(ru);
+      if (req) for (const uc of ((req.model.useCases as string[]) || [])) if (unitUuids.has(bare(uc))) affected.add(sUuid);
+    }
+  }
+  return [...affected].sort();
+}
+
 // [impl:uuid:41c86206-87ee-4e91-b563-a3c41c54819e] R24.4 generateSprint (sprint view generator)
-function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
+export function generateSprint(sprintUuid: string, units: Map<string, ScenarioUnit>) {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) { console.log(`Not a Sprint: ${sprintUuid}`); return; }
   const sprintDir = path.join(SPRINTS_DIR, out.sprintSlug);
@@ -274,7 +308,7 @@ export function driftScope(existsOnDisk: boolean, isOnDiskGenerated: boolean): '
   return isOnDiskGenerated ? 'compare' : 'skip-handauthored';
 }
 
-function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): CheckResult {
+export function checkSprint(sprintUuid: string, units: Map<string, ScenarioUnit>): CheckResult {
   const out = buildSprintOutput(sprintUuid, units);
   if (!out) return { sprintSlug: sprintUuid, missing: [], extra: [], mismatched: [], ok: false };
   const result: CheckResult = { sprintSlug: out.sprintSlug, missing: [], extra: [], mismatched: [], ok: true };

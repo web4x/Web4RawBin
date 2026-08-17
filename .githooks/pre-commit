@@ -24,6 +24,19 @@ if [ "$NEED_REGEN" = 1 ]; then
   }
 fi
 
+# Per-sprint MD auto-regen (ITEM-1 HOLE FIX, PO 2026-08-17): the overview/board/approve regens above fire on a staged
+# unit, but the per-sprint planning/requirements/task-MD were ONLY check:sprint-md POST-HOC (CI) — so a UNIT-ONLY tick
+# (e.g. a task's statusChecklist advance, 1 file) landed a credit while its sprint's task-MD stayed STALE = "a credit
+# landed and the board did not move". This regenerates the AFFECTED sprint's MD IN THE SAME COMMIT, reusing the SAME
+# generator check:sprint-md uses (generate-sprint-md.ts) via a targeted resolver + self-stage. Fail-closed.
+if [ "$NEED_REGEN" = 1 ]; then
+  RB_NODE="${RB_NODE:-/opt/node22/bin/node}"; [ -x "$RB_NODE" ] || RB_NODE="$(command -v node)"
+  "$RB_NODE" --import tsx scripts/precommit-regen-sprint-md.ts || {
+    echo "pre-commit BLOCKED: per-sprint MD auto-regen failed (fail-closed) — see above." >&2
+    exit 1
+  }
+fi
+
 # Board auto-regen (T37.6 pattern, PO 2026-08-12): keep the campaign scoreboard's LIVE region in sync BY
 # CONSTRUCTION so a credit/flip cannot land without the board moving. Trigger = staged scenario units OR a staged
 # campaign-scoreboard script (GAP A: the classification/override logic lives IN the script, not units — editing it
