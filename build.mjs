@@ -20,6 +20,10 @@ if (fs.existsSync(distDir)) {
 // GENERATED DERIVATIVE not the source. The returned value stamps sw.js CACHE_NAME + build-manifest + __BUILD_VERSION__
 // below → every consumer derive-equal by construction (INV-V1); no hand-copy can desync (the phantom-7.99 root).
 // Bump the version by editing the Config unit's `version` field ONLY, then build.
+// ★ TAG-ON-DEPLOY BY CONSTRUCTION: this stamp makes the version a generated derivative; the matching annotated git TAG
+// (v<version>) is created by .githooks/post-commit the moment the deploy COMMIT bumps the version (a tag needs a commit,
+// which this build-time stamp precedes) — so shipping a version without a tag is impossible, not forgotten (Tron: labels
+// lapsed after v0.7.91). Deploy pushes it with `git push --follow-tags`; the tester gates served==committed==TAGGED.
 function generateVersion() {
   const CONFIG_UNIT = 'scenario/index/c/o/n/f/i/config-singleton-0000-000000000001.scenario.json';
   const v = JSON.parse(fs.readFileSync(CONFIG_UNIT, 'utf-8')).model.version;

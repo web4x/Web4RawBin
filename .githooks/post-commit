@@ -1,0 +1,17 @@
+#!/bin/sh
+# TAG-ON-DEPLOY BY CONSTRUCTION (Tron: version labels lapsed after v0.7.91 → ~100 untagged releases; planner backfilled).
+# build.mjs stamps package.json's version from the Config unit at BUILD time (pre-commit); a git TAG needs a COMMIT, so the
+# tag is created HERE, the moment a commit BUMPS the version — making "ship a version without a tag" impossible-by-construction
+# rather than forgotten. Idempotent: skips if the tag already exists. Annotated (release metadata). The deploy PUSHES it with
+# `git push --follow-tags`; the tester gate asserts served==committed==TAGGED (stub-must-fail) as the belt to this suspenders.
+ver() { git show "$1:package.json" 2>/dev/null | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1; }
+V=$(ver HEAD)
+PREV=$(ver HEAD~1)
+if [ -n "$V" ] && [ "$V" != "$PREV" ]; then
+  if git rev-parse -q --verify "refs/tags/v$V" >/dev/null; then
+    echo "[post-commit] v$V already tagged — no-op (idempotent)."
+  else
+    git tag -a "v$V" -m "release v$V — tagged at the commit that shipped this version (tag-on-deploy by construction)"
+    echo "[post-commit] ★ tagged v$V at $(git rev-parse --short HEAD) (tag-on-deploy by construction) — push with: git push --follow-tags"
+  fi
+fi
