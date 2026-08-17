@@ -284,7 +284,7 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
     let unit = idx.get(token);
     if (!unit) {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
-      idx.put(token, unit);
+      UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
     new PhoneIndex(idx).mintAndLink(token, phone, crypto.randomUUID()); // R21.6: Phone unit + Profile.phones[] + symlink
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
@@ -299,7 +299,7 @@ function indexProfileEmail(token: string, name: string, emails: string[]): void 
     let unit = idx.get(token);
     if (!unit) {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
-      idx.put(token, unit);
+      UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
     const ei = new EmailIndex(idx);
     for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID()); }
@@ -358,7 +358,7 @@ function indexProfileAddress(token: string, name: string, addresses: string[]): 
     let unit = idx.get(token);
     if (!unit) {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
-      idx.put(token, unit);
+      UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
     const ai = new AddressIndex(idx);
     for (const line of addresses) {
@@ -378,7 +378,7 @@ function indexProfileCompany(token: string, name: string, companies: Array<strin
     let unit = idx.get(token);
     if (!unit) {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
-      idx.put(token, unit);
+      UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
     const ci = new CompanyIndex(idx);
     for (const c of companies) {
