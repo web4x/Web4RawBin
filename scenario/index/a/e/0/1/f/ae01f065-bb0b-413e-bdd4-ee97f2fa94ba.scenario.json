@@ -23,6 +23,9 @@
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
     "createdBy": "robbin-req",
-    "createdAt": "2026-08-12"
+    "createdAt": "2026-08-12",
+    "lastAdvancedAt": "2026-08-12T17:30:08+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "0f1b77d50"
   }
 }

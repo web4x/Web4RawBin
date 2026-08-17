@@ -1,25 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "fe6b4379-f116-4bf5-8b81-dd7d41d1bdba",
-  "name": "Task 37.4.2: CONTROLLER — one generic unitController.apply for ANY unit mutation (validate-via-registered-policy → apply → persist → emit); Task FSM = policy #1, statusNext = thin facade",
-  "slug": "task-37.4.2-controller-statusnext",
-  "description": "C4.2 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). SUPERSEDES the task-shaped statusNext-only framing (now merely POLICY #1). In an all-classes-are-scenario-units world a Task-specific statusNext multiplies into N controllers = the same disease at scale — so the mechanism is GENERIC and Task is the first plug-in. ONE controller entry unitController.apply(idx, ior, uuid, intent, {actor, evidenceRef?}) is the SOLE mutation entry for ANY unit (any ior:class:*): (1) VALIDATE via the REGISTERED policy for that ior (registerPolicy(ior, policy); default-accept if none); (2) APPLY the policy mutation; (3) PERSIST via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, SUBSUMING statusNext's); (4) EMIT UNIT_CHANGED{ior,uuid,revision}. Task FSM = POLICY #1 (task-fsm.ts guardTransition + the SHARED evidenceForStep predicate; apply = tick-checklist so deriveStatusEnum derives the status, NEVER hand-set). statusNext = a THIN Task facade over apply, NOT a second entry. Ride existing seams (task-fsm.ts, ScenarioIndex.put), NO fork. Family: under-recorded-progress / silent-drift.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.11 `[requirement:uuid:cfe02f4b-f07d-41ec-8aca-c462c22306f9]`\n  - down\n    - None (leaf subtask)",
-  "acceptanceCriteria": "- [ ] (functional) ONE controller entry unitController.apply(idx, ior, uuid, intent) is the SOLE mutation entry for ANY unit (any ior:class:*): validate via the REGISTERED policy for that ior -> apply -> persist -> emit. NOT a Task-specific statusNext; policies REGISTER via registerPolicy(ior, policy) (default-accept if none).\n- [ ] (functional) Task FSM = POLICY #1 (guardTransition + the SHARED evidenceForStep predicate); apply TICKS the checklist and lets deriveStatusEnum produce the status — NEVER hand-sets the enum (status stays DERIVED, R37.5). statusNext = a THIN Task facade over apply, NOT a second entry.\n- [ ] (functional) apply PERSISTS via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, subsuming statusNext's). EVIDENCE-PRECONDITION via the SHARED evidenceForStep predicate (single-source with checklist-chain-audit, hardening C): REFUSE to advance past a step whose evidence is absent — a box ticked without evidence corrupts the signal Tron steers QA by.\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL: adding a NEW class policy = REGISTRATION ONLY — register a throwaway policy in the test, assert it works AND the diff touches ONLY the registry; a controller/bus/pipeline edit for policy N+1 -> RED. + break the validate->apply->persist->emit path -> RED. FAMILY: under-recorded-progress / silent-drift.",
-  "subtasks": "None (leaf subtask).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "sprintName": "Sprint 37",
-  "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
-  "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on ORIGIN, not relayed): Test a7f3c1e8 'test:T37.4.2 UnitController.apply' status=pass <-> Impl b5f72641 (UnitController.apply generic PRIMARY sole entry, markerPending=false) — b5f72641.tests[]=[a7f3c1e8] + a7f3c1e8.implementations[]=[b5f72641]. ★ VERIFY-OWNER-FIRST CLEAN: first-Test on a previously-EMPTY tests[], its OWN T37.4.2 test = no cross-wire / no borrowed credit (unlike T40.5). Gate GREEN DET 5/5, stub-must-fail proven incl evidence-precondition REFUSES an unevidenced advance without persisting (req chain-mint 3cce48cbb, C4.2 generic controller). All 4 In-Progress sub-steps evidenced -> QA-Review. Awaiting Tron QA verdict (0 Done till Tron).",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-11"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "fe6b4379-f116-4bf5-8b81-dd7d41d1bdba",
+    "name": "Task 37.4.2: CONTROLLER — one generic unitController.apply for ANY unit mutation (validate-via-registered-policy → apply → persist → emit); Task FSM = policy #1, statusNext = thin facade",
+    "slug": "task-37.4.2-controller-statusnext",
+    "description": "C4.2 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). SUPERSEDES the task-shaped statusNext-only framing (now merely POLICY #1). In an all-classes-are-scenario-units world a Task-specific statusNext multiplies into N controllers = the same disease at scale — so the mechanism is GENERIC and Task is the first plug-in. ONE controller entry unitController.apply(idx, ior, uuid, intent, {actor, evidenceRef?}) is the SOLE mutation entry for ANY unit (any ior:class:*): (1) VALIDATE via the REGISTERED policy for that ior (registerPolicy(ior, policy); default-accept if none); (2) APPLY the policy mutation; (3) PERSIST via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, SUBSUMING statusNext's); (4) EMIT UNIT_CHANGED{ior,uuid,revision}. Task FSM = POLICY #1 (task-fsm.ts guardTransition + the SHARED evidenceForStep predicate; apply = tick-checklist so deriveStatusEnum derives the status, NEVER hand-set). statusNext = a THIN Task facade over apply, NOT a second entry. Ride existing seams (task-fsm.ts, ScenarioIndex.put), NO fork. Family: under-recorded-progress / silent-drift.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.11 `[requirement:uuid:cfe02f4b-f07d-41ec-8aca-c462c22306f9]`\n  - down\n    - None (leaf subtask)",
+    "acceptanceCriteria": "- [ ] (functional) ONE controller entry unitController.apply(idx, ior, uuid, intent) is the SOLE mutation entry for ANY unit (any ior:class:*): validate via the REGISTERED policy for that ior -> apply -> persist -> emit. NOT a Task-specific statusNext; policies REGISTER via registerPolicy(ior, policy) (default-accept if none).\n- [ ] (functional) Task FSM = POLICY #1 (guardTransition + the SHARED evidenceForStep predicate); apply TICKS the checklist and lets deriveStatusEnum produce the status — NEVER hand-sets the enum (status stays DERIVED, R37.5). statusNext = a THIN Task facade over apply, NOT a second entry.\n- [ ] (functional) apply PERSISTS via ScenarioIndex.put with the deliberate-opt flag = THE committed-class opt-in site (the guard opt-in list names unitController.apply, subsuming statusNext's). EVIDENCE-PRECONDITION via the SHARED evidenceForStep predicate (single-source with checklist-chain-audit, hardening C): REFUSE to advance past a step whose evidence is absent — a box ticked without evidence corrupts the signal Tron steers QA by.\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL: adding a NEW class policy = REGISTRATION ONLY — register a throwaway policy in the test, assert it works AND the diff touches ONLY the registry; a controller/bus/pipeline edit for policy N+1 -> RED. + break the validate->apply->persist->emit path -> RED. FAMILY: under-recorded-progress / silent-drift.",
+    "subtasks": "None (leaf subtask).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
+    "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on ORIGIN, not relayed): Test a7f3c1e8 'test:T37.4.2 UnitController.apply' status=pass <-> Impl b5f72641 (UnitController.apply generic PRIMARY sole entry, markerPending=false) — b5f72641.tests[]=[a7f3c1e8] + a7f3c1e8.implementations[]=[b5f72641]. ★ VERIFY-OWNER-FIRST CLEAN: first-Test on a previously-EMPTY tests[], its OWN T37.4.2 test = no cross-wire / no borrowed credit (unlike T40.5). Gate GREEN DET 5/5, stub-must-fail proven incl evidence-precondition REFUSES an unevidenced advance without persisting (req chain-mint 3cce48cbb, C4.2 generic controller). All 4 In-Progress sub-steps evidenced -> QA-Review. Awaiting Tron QA verdict (0 Done till Tron).",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-11",
+    "lastAdvancedAt": "2026-08-12T02:49:38+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "235edf707"
+  }
 }

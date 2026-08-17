@@ -1,25 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "236918e9-6369-450f-aec3-b741451be147",
-  "name": "Task 37.4.1: MODEL self-heal on read — ANY unit object validates on init/read (fresh-or-refuse), never returns a silently-drifted value (feeds the pipeline)",
-  "slug": "task-37.4.1-model-self-heal-on-read",
-  "description": "C4.1 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). The MODEL layer is the only healthy one but its guarantee is incomplete on READ: GENERICALLY, ANY unit object (pin/board/task and any other ior:class:*) must VALIDATE on init/read — recompute to reflect reality (fresh) OR REFUSE to run when drifted — never return a silently-drifted value. This is what feeds the pipeline a fresh-or-refused value (never a quietly-stale one); the render surface then badges stale via C4.5. C2/C6 are the measured instances (status derived Planned while the chain had shipped an Impl = a silently-drifted read). Family: under-recorded-progress / silent-drift.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`\n  - down\n    - None (leaf subtask)",
-  "acceptanceCriteria": "- [ ] (functional) ANY unit object (pin/board/task and any other class) VALIDATES on init/read: recompute to reflect reality (fresh) OR REFUSE to run when drifted (fresh-or-refuse) — generic, not per-class special-casing.\n- [ ] (functional) The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read (C2/C6 = measured instances: status derived Planned while the chain had shipped an Impl). Feeds the pipeline a fresh-or-refused value.\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL: construct a drifted unit object -> it recomputes-to-reality OR throws/refuses (never returns silently-wrong); a NEW unit class inherits self-heal-on-read with ZERO edits to the validation mechanism (generic/registration-only); break the validate-on-read path -> gate RED. FAMILY: under-recorded-progress / silent-drift.",
-  "subtasks": "None (leaf subtask).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "sprintName": "Sprint 37",
-  "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
-  "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): the self-heal bite landed -> Test 5c1e9a37 'SelfHeal.selfHealOnRead' status=pass <-> Impl 79f2dec1 (79f2dec1.tests[]=[5c1e9a37] + 5c1e9a37.implementations[]=[79f2dec1]), verify-owner-first CLEAN = its OWN Task-status-recompute intent, NOT the R19.90/R29.1 selfHeal prose-collision. Closes the impl!=test gap I caught earlier (Test now EXISTS). All 4 In-Progress sub-steps evidenced. Awaiting Tron QA verdict. --- PRIOR: In Progress 2/4 (planner reconcile 2026-08-12, MEASURED per-box — req said 'flip to QA-Review' but the chain is complete-to-IMPL NOT to-Test; heeded this unit's own 'Verify Impl.tests[] before any flip' note). EVIDENCED [x]: refinement = R37.4 -> UC 2bf4b9c3 -> Class SelfHeal 5f17f9f6 -> Method 7b479ac8 wired; implementing = Impl 79f2dec1 (SelfHeal.selfHealOnRead @self-heal.ts:27) markerPending=false STRICT-AST verified (af178943d; expert heeded the marker-placement flag, moved off the task-policy.ts:82 call-expr placeholder onto the named export, removed stale PENDING). NOT EVIDENCED [ ]: creating test cases + testing = 79f2dec1.tests[]=EMPTY; R37.4.1 self-heal-on-read has NO Test (its OWN markerNote: 'Test pending tester self-heal bite'). The 2 selfHeal Tests on disk (81f953b1=R19.90 selfHealingUpgrade, d03c8ac3=R29.1 selfHealingStart) are OTHER reqs' facets = prose-name-collision, NOT wired to 79f2dec1 (verify-owner-first). >> NEEDS the tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong) wired to 79f2dec1, then req mints the Test -> THEN QA-Review. ACTIONABLE BELOW-QA STAYS 3 (T37.4.1 NOT clearing yet). 0 Done till Tron.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-11"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "236918e9-6369-450f-aec3-b741451be147",
+    "name": "Task 37.4.1: MODEL self-heal on read — ANY unit object validates on init/read (fresh-or-refuse), never returns a silently-drifted value (feeds the pipeline)",
+    "slug": "task-37.4.1-model-self-heal-on-read",
+    "description": "C4.1 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). The MODEL layer is the only healthy one but its guarantee is incomplete on READ: GENERICALLY, ANY unit object (pin/board/task and any other ior:class:*) must VALIDATE on init/read — recompute to reflect reality (fresh) OR REFUSE to run when drifted — never return a silently-drifted value. This is what feeds the pipeline a fresh-or-refused value (never a quietly-stale one); the render surface then badges stale via C4.5. C2/C6 are the measured instances (status derived Planned while the chain had shipped an Impl = a silently-drifted read). Family: under-recorded-progress / silent-drift.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`\n  - down\n    - None (leaf subtask)",
+    "acceptanceCriteria": "- [ ] (functional) ANY unit object (pin/board/task and any other class) VALIDATES on init/read: recompute to reflect reality (fresh) OR REFUSE to run when drifted (fresh-or-refuse) — generic, not per-class special-casing.\n- [ ] (functional) The objects NEVER return a silently-drifted value — always fail-loud or self-correct on read (C2/C6 = measured instances: status derived Planned while the chain had shipped an Impl). Feeds the pipeline a fresh-or-refused value.\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL: construct a drifted unit object -> it recomputes-to-reality OR throws/refuses (never returns silently-wrong); a NEW unit class inherits self-heal-on-read with ZERO edits to the validation mechanism (generic/registration-only); break the validate-on-read path -> gate RED. FAMILY: under-recorded-progress / silent-drift.",
+    "subtasks": "None (leaf subtask).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
+    "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): the self-heal bite landed -> Test 5c1e9a37 'SelfHeal.selfHealOnRead' status=pass <-> Impl 79f2dec1 (79f2dec1.tests[]=[5c1e9a37] + 5c1e9a37.implementations[]=[79f2dec1]), verify-owner-first CLEAN = its OWN Task-status-recompute intent, NOT the R19.90/R29.1 selfHeal prose-collision. Closes the impl!=test gap I caught earlier (Test now EXISTS). All 4 In-Progress sub-steps evidenced. Awaiting Tron QA verdict. --- PRIOR: In Progress 2/4 (planner reconcile 2026-08-12, MEASURED per-box — req said 'flip to QA-Review' but the chain is complete-to-IMPL NOT to-Test; heeded this unit's own 'Verify Impl.tests[] before any flip' note). EVIDENCED [x]: refinement = R37.4 -> UC 2bf4b9c3 -> Class SelfHeal 5f17f9f6 -> Method 7b479ac8 wired; implementing = Impl 79f2dec1 (SelfHeal.selfHealOnRead @self-heal.ts:27) markerPending=false STRICT-AST verified (af178943d; expert heeded the marker-placement flag, moved off the task-policy.ts:82 call-expr placeholder onto the named export, removed stale PENDING). NOT EVIDENCED [ ]: creating test cases + testing = 79f2dec1.tests[]=EMPTY; R37.4.1 self-heal-on-read has NO Test (its OWN markerNote: 'Test pending tester self-heal bite'). The 2 selfHeal Tests on disk (81f953b1=R19.90 selfHealingUpgrade, d03c8ac3=R29.1 selfHealingStart) are OTHER reqs' facets = prose-name-collision, NOT wired to 79f2dec1 (verify-owner-first). >> NEEDS the tester self-heal bite (construct a drifted unit -> recompute-to-reality or throw, never silently-wrong) wired to 79f2dec1, then req mints the Test -> THEN QA-Review. ACTIONABLE BELOW-QA STAYS 3 (T37.4.1 NOT clearing yet). 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-11",
+    "lastAdvancedAt": "2026-08-12T04:15:55+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "5be95b6f4"
+  }
 }

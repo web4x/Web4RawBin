@@ -21,7 +21,10 @@
     "sprintName": "Sprint 37",
     "createdBy": "robbin-req",
     "createdAt": "2026-08-17",
-    "crossSprintRationale": "CROSS-SPRINT BY DESIGN (PO ruling 2026-08-17 — do NOT re-home): parented to S37 where the work EXECUTES (and Tron is pinned) while covering R40.4 which keeps its ORIGINAL S40 home (a requirement never migrates — re-homing would rewrite history). Tron rule: new work goes into the EXISTING sprint (only he increments). S37-task -> S40-req is the honest record; the bidirectional wiring (S37.tasks[] + R40.4.tasks[]) makes it legible from both ends."
+    "crossSprintRationale": "CROSS-SPRINT BY DESIGN (PO ruling 2026-08-17 — do NOT re-home): parented to S37 where the work EXECUTES (and Tron is pinned) while covering R40.4 which keeps its ORIGINAL S40 home (a requirement never migrates — re-homing would rewrite history). Tron rule: new work goes into the EXISTING sprint (only he increments). S37-task -> S40-req is the honest record; the bidirectional wiring (S37.tasks[] + R40.4.tasks[]) makes it legible from both ends.",
+    "lastAdvancedAt": "2026-08-17T11:51:54+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "fd77a67be"
   },
   "ownerIor": null
 }

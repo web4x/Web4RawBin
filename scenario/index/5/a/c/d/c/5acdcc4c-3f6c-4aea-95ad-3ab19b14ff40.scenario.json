@@ -22,8 +22,9 @@
     "sprintName": "Sprint 37",
     "createdBy": "robbin-req",
     "createdAt": "2026-08-17",
-    "lastAdvancedAt": "2026-08-17T11:36:44.394Z",
-    "lastAdvancedAtSource": "seam"
+    "lastAdvancedAt": "2026-08-17T12:32:03+02:00",
+    "lastAdvancedAtSource": "code-file",
+    "lastAdvancedAtCommit": "5667a8cf4"
   },
   "ownerIor": null
 }

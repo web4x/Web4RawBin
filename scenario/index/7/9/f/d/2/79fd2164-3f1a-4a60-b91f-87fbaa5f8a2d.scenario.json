@@ -1,25 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d",
-  "name": "Task 37.4: Objects self-heal (validate on init/read, never run silently drifted) [R37.4]",
-  "slug": "task-37.4-objects-self-heal",
-  "description": "R37.4 (build LAST). The pin and board objects VALIDATE on init/read: they reflect reality (recompute from files) or REFUSE to run drifted — they never return a silently-drifted value. Consistency is a property of the objects, not of anyone's vigilance.",
-  "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Requirement R37.4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`\n  - down (subtasks — MVC/view-pipeline decomposition)\n    - [Task 37.4.1: MODEL self-heal on read](./task-37.4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`\n    - [Task 37.4.2: CONTROLLER statusNext single entry](./task-37.4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`\n    - [Task 37.4.3: CONTROLLER single-source Done](./task-37.4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`\n    - (C4.4-C4.8 pending, created in later batches)",
-  "acceptanceCriteria": "- [ ] (functional) The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.\n- [ ] (functional) The objects NEVER return a silently-drifted value - always fail-loud or self-correct on read.\n- [ ] (gate) TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.",
-  "subtasks": "T-C4 is the COORDINATION ROOT of an 8-part MVC / view-pipeline decomposition (Tron: 'faaaaar away from mvc and a view pipeline'; analysis-c4-task-statusnext.md 63fb728a8 + architect shape 34ae87486). BATCH 1 (MODEL + CONTROLLER, the prevention layer) stood up:\n- [Task 37.4.1: MODEL self-heal on read](./task-37.4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`\n- [Task 37.4.2: CONTROLLER statusNext single entry](./task-37.4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`\n- [Task 37.4.3: CONTROLLER single-source Done](./task-37.4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`\n\nPENDING later batches: C4.4 view-pipeline (generated boards) · C4.5 view-pipeline (live client) · C4.6 notification/observer · C4.7 retain checklist-chain-audit · C4.8 MVC-boundary lint.",
-  "status": "Planned",
-  "campaignDisposition": "excluded-rollup — COORDINATION ROOT of the 8-part MVC decomposition; reaches QA-Review/Done via its subtasks T37.4.1-8, never driven independently; leaves the actionable count by construction (law#103).",
-  "coveredRequirements": [
-   "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "sprintName": "Sprint 37",
-  "remainingIssues": "Planned - cluster R37.4 (objects self-heal, validate on init/read), build LAST. Chain at build-go. Gate = Test EXERCISES drifted object -> recompute-to-reality OR refuse/throw, never silent-wrong (CI/tooling, not @390). Verify Impl.tests[] on disk before flip.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-07"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d",
+    "name": "Task 37.4: Objects self-heal (validate on init/read, never run silently drifted) [R37.4]",
+    "slug": "task-37.4-objects-self-heal",
+    "description": "R37.4 (build LAST). The pin and board objects VALIDATE on init/read: they reflect reality (recompute from files) or REFUSE to run drifted — they never return a silently-drifted value. Consistency is a property of the objects, not of anyone's vigilance.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Requirement R37.4 `[requirement:uuid:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1]`\n  - down (subtasks — MVC/view-pipeline decomposition)\n    - [Task 37.4.1: MODEL self-heal on read](./task-37.4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`\n    - [Task 37.4.2: CONTROLLER statusNext single entry](./task-37.4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`\n    - [Task 37.4.3: CONTROLLER single-source Done](./task-37.4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`\n    - (C4.4-C4.8 pending, created in later batches)",
+    "acceptanceCriteria": "- [ ] (functional) The pin/board objects VALIDATE on init/read -> either recompute to reflect reality, or REFUSE to run when drifted.\n- [ ] (functional) The objects NEVER return a silently-drifted value - always fail-loud or self-correct on read.\n- [ ] (gate) TEST EXERCISES AC-validate-on-init+AC-never-silent: construct a drifted pin/board object -> it recomputes to reality OR throws/refuses (never returns silently-wrong). Verify Impl.tests[] on disk before flip.",
+    "subtasks": "T-C4 is the COORDINATION ROOT of an 8-part MVC / view-pipeline decomposition (Tron: 'faaaaar away from mvc and a view pipeline'; analysis-c4-task-statusnext.md 63fb728a8 + architect shape 34ae87486). BATCH 1 (MODEL + CONTROLLER, the prevention layer) stood up:\n- [Task 37.4.1: MODEL self-heal on read](./task-37.4.1-model-self-heal-on-read.md) `[task:uuid:236918e9-6369-450f-aec3-b741451be147]`\n- [Task 37.4.2: CONTROLLER statusNext single entry](./task-37.4.2-controller-statusnext.md) `[task:uuid:fe6b4379-f116-4bf5-8b81-dd7d41d1bdba]`\n- [Task 37.4.3: CONTROLLER single-source Done](./task-37.4.3-controller-single-source-done.md) `[task:uuid:1b8ebc9a-7b94-468c-a0a9-f40f648e4cad]`\n\nPENDING later batches: C4.4 view-pipeline (generated boards) · C4.5 view-pipeline (live client) · C4.6 notification/observer · C4.7 retain checklist-chain-audit · C4.8 MVC-boundary lint.",
+    "status": "Planned",
+    "campaignDisposition": "excluded-rollup — COORDINATION ROOT of the 8-part MVC decomposition; reaches QA-Review/Done via its subtasks T37.4.1-8, never driven independently; leaves the actionable count by construction (law#103).",
+    "coveredRequirements": [
+      "ior:instance:c8615e9f-df2e-4ebf-b916-cbdd346ad1a1"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "remainingIssues": "Planned - cluster R37.4 (objects self-heal, validate on init/read), build LAST. Chain at build-go. Gate = Test EXERCISES drifted object -> recompute-to-reality OR refuse/throw, never silent-wrong (CI/tooling, not @390). Verify Impl.tests[] on disk before flip.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-07",
+    "lastAdvancedAt": "2026-08-07T22:26:03+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "889bb8fe8"
+  }
 }

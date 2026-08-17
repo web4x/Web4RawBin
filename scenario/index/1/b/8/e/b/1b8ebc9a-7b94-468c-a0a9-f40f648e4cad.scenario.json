@@ -1,25 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "1b8ebc9a-7b94-468c-a0a9-f40f648e4cad",
-  "name": "Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of any unit mutation; single-source Done delegation — R40.10 approve DELEGATES, tronApprove folds in (no second writer)",
-  "slug": "task-37.4.3-controller-single-source-done",
-  "description": "C4.3 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). RISK C4 exposed: TWO writers for one transition — the FSM tronApprove AND R40.10's approve endpoint (approvedBy/approvedAt) can both set Done = the two-sources disease (two sources for one fact). GENERIC fold: unitController.apply is the UNIQUE DOMINATOR of EVERY unit mutation — nothing bypasses it. Single-source Done lives WITHIN the Task policy: R40.10 approveByOwner (server.ts) DELEGATES to apply's Done step — it records approvedBy/approvedAt as the Tron-verdict EVIDENCE, then reaches Done through apply, and does NOT set Done itself; FSM tronApprove FOLDS IN as the Done applier, not a parallel writer. ONE Done-writer by construction. A dominance LINT proves it (two-bite: plant a 2nd Done-writer OR a mutation outside apply -> RED), not vigilance. Family: under-recorded-progress / silent-drift (two-sources variant — same class as the pin/board double-source).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.11 `[requirement:uuid:cfe02f4b-f07d-41ec-8aca-c462c22306f9]`\n  - down\n    - None (leaf subtask)",
-  "acceptanceCriteria": "- [ ] (functional) unitController.apply is the UNIQUE DOMINATOR of ANY unit mutation — NO path mutates a unit's status/checklist/Done outside apply (grep-provable single writer, dominance property, INV-C4-8).\n- [ ] (functional) Single-source Done delegation: R40.10 approveByOwner DELEGATES to apply's Done step — records approvedBy/approvedAt as the Tron-verdict EVIDENCE, does NOT set Done independently; FSM tronApprove FOLDS IN as the Done applier. Exactly ONE Done-writer by construction.\n- [ ] (functional) The delegation must NOT break ITEM ZERO (R40.10 is LIVE, Tron's verdicts run through it) — positive controls: approve STILL records approvedBy/approvedAt AND reaches Done end-to-end; decline STILL mints a reachable CR; non-owner STILL 403 (tester RE-RUNS r4010 after the delegation edit, hardening D).\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL dominance lint: plant a 2nd independent Done-writer (or make R40.10 set Done directly) -> lint RED; a bypass path that mutates a unit outside apply -> RED. The negative no-2nd-writer bite + the (D) positive controls together = delegation without regression. FAMILY: under-recorded-progress / silent-drift.",
-  "subtasks": "None (leaf subtask).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "sprintName": "Sprint 37",
-  "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
-  "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): Test 3b8f21c6 'MvcBoundaryGuard.assertControllerDominates' status=pass <-> Impl a5c570c9 (dominance / single-Done-writer facet, markerPending=false), both-dir. ★ VERIFY-OWNER-FIRST CLEAN = T37.4.3's OWN distinct-intent Test on its OWN facet, NOT the shared a7f3c1e8 (T37.4.2's apply pipeline). This is the RIPE-SHARED case my own guard flags, resolved honestly (own Test, no sibling-credit). Awaiting Tron QA verdict. --- PRIOR:Planned - C4.3 CONTROLLER single-source Done (subtask of T-C4 79fd2164; kills the two-writer Done risk C4 exposed). Pairs with R40.10 (approve-control) — that req's Done-write DELEGATES here. Chain at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = second-Done-writer -> lint RED. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-11"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1b8ebc9a-7b94-468c-a0a9-f40f648e4cad",
+    "name": "Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of any unit mutation; single-source Done delegation — R40.10 approve DELEGATES, tronApprove folds in (no second writer)",
+    "slug": "task-37.4.3-controller-single-source-done",
+    "description": "C4.3 (subtask of T-C4/T37.4, MVC/view-pipeline shape; RE-ISSUED generic DRY, architect 55a5e2897). RISK C4 exposed: TWO writers for one transition — the FSM tronApprove AND R40.10's approve endpoint (approvedBy/approvedAt) can both set Done = the two-sources disease (two sources for one fact). GENERIC fold: unitController.apply is the UNIQUE DOMINATOR of EVERY unit mutation — nothing bypasses it. Single-source Done lives WITHIN the Task policy: R40.10 approveByOwner (server.ts) DELEGATES to apply's Done step — it records approvedBy/approvedAt as the Tron-verdict EVIDENCE, then reaches Done through apply, and does NOT set Done itself; FSM tronApprove FOLDS IN as the Done applier, not a parallel writer. ONE Done-writer by construction. A dominance LINT proves it (two-bite: plant a 2nd Done-writer OR a mutation outside apply -> RED), not vigilance. Family: under-recorded-progress / silent-drift (two-sources variant — same class as the pin/board double-source).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.4](./task-37.4-objects-self-heal.md) `[task:uuid:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d]`\n    - Requirement R37.11 `[requirement:uuid:cfe02f4b-f07d-41ec-8aca-c462c22306f9]`\n  - down\n    - None (leaf subtask)",
+    "acceptanceCriteria": "- [ ] (functional) unitController.apply is the UNIQUE DOMINATOR of ANY unit mutation — NO path mutates a unit's status/checklist/Done outside apply (grep-provable single writer, dominance property, INV-C4-8).\n- [ ] (functional) Single-source Done delegation: R40.10 approveByOwner DELEGATES to apply's Done step — records approvedBy/approvedAt as the Tron-verdict EVIDENCE, does NOT set Done independently; FSM tronApprove FOLDS IN as the Done applier. Exactly ONE Done-writer by construction.\n- [ ] (functional) The delegation must NOT break ITEM ZERO (R40.10 is LIVE, Tron's verdicts run through it) — positive controls: approve STILL records approvedBy/approvedAt AND reaches Done end-to-end; decline STILL mints a reachable CR; non-owner STILL 403 (tester RE-RUNS r4010 after the delegation edit, hardening D).\n- [ ] (DRY-AC / gate) STUB-MUST-FAIL dominance lint: plant a 2nd independent Done-writer (or make R40.10 set Done directly) -> lint RED; a bypass path that mutates a unit outside apply -> RED. The negative no-2nd-writer bite + the (D) positive controls together = delegation without regression. FAMILY: under-recorded-progress / silent-drift.",
+    "subtasks": "None (leaf subtask).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "designRef": "ior:file:scrum.pmo/design-notes/c4-mvc-view-pipeline-shape.md?section=RE-ISSUED-DRY&commit=55a5e2897 + analysis-c4-task-statusnext.md?commit=63fb728a8",
+    "remainingIssues": "QA-Review (planner flip 2026-08-12, chain-complete-to-Test VERIFIED both-dir on origin): Test 3b8f21c6 'MvcBoundaryGuard.assertControllerDominates' status=pass <-> Impl a5c570c9 (dominance / single-Done-writer facet, markerPending=false), both-dir. ★ VERIFY-OWNER-FIRST CLEAN = T37.4.3's OWN distinct-intent Test on its OWN facet, NOT the shared a7f3c1e8 (T37.4.2's apply pipeline). This is the RIPE-SHARED case my own guard flags, resolved honestly (own Test, no sibling-credit). Awaiting Tron QA verdict. --- PRIOR:Planned - C4.3 CONTROLLER single-source Done (subtask of T-C4 79fd2164; kills the two-writer Done risk C4 exposed). Pairs with R40.10 (approve-control) — that req's Done-write DELEGATES here. Chain at req-mint (architect confirms before expert wires). useCases[] pending architect design-step. Gate = second-Done-writer -> lint RED. Verify Impl.tests[] on disk before any flip. 0 Done; no unevidenced ticks.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-11",
+    "lastAdvancedAt": "2026-08-12T04:15:55+02:00",
+    "lastAdvancedAtSource": "checklist",
+    "lastAdvancedAtCommit": "5be95b6f4"
+  }
 }
