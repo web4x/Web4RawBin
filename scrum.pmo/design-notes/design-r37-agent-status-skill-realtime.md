@@ -29,11 +29,12 @@ One write path, no second writer → satisfies the slice-1 no-write-outside-the-
 - **Pin re-render coverage (coordination flag):** the pin is derived from task statuses, so the client's pin/trace view must re-derive on this `UNIT_CHANGED`. Confirm R37.12 `subscribeOnRender` scope re-fetches the pin (or emit an additional `CurrentSprint` UNIT_CHANGED). Needed so current/next VISIBLY change — architect/expert to confirm the subscribe scope.
 - Sibling to R40.10 (`/api/task/<uuid>/{approve,decline}`, server.ts:1734) — same family, different auth (below).
 
-## ★ Auth path for an agent-side caller (the distinguishing problem)
-R40.10 + R40.17 are **owner-gated** (`requireOwnerHttp`, only Tron). Status-advance (Planned/In-Progress/QA-Review) is **agent role-work**, NOT an owner act → must NOT be owner-gated, but must NOT be open to any browser either.
-- **Proposal:** `X-Agent-Token` header, checked against a secret in `chmod-600 /var/dev/security-local/` (per the no-secret-values rule: the skill READS the token from that file, NEVER embeds/logs/commits it), + localhost-origin binding (agents run on the same host as the server on WODA.prod) as defense-in-depth.
-- Distinct from owner auth (Tron's Done verdict / pin designation stay owner-only). Agent-token = "a fleet role agent doing its own status work."
-- Open question for architect: single shared fleet-agent token vs per-agent identity (actor attribution). Recommend start = single shared token in security-local (simplest, satisfies acceptance), add per-agent actor header later for attribution.
+## ★ Auth path for an agent-side caller — ARCHITECT RULING (0.3, refereed; supersedes my earlier token proposal)
+**NO new secret, NO token literal, NO token value transmitted (B1 PARKED).** My earlier `X-Agent-Token` / security-local proposal is RETRACTED. The agent is ON-HOST, so auth reuses the existing owner-gate / an on-host trust mechanism — architect picks it from my invocation context (below).
+- **My skill's invocation context (for the architect's pick):** the skill is an **OOSH CLI / otmux script run by an agent IN ITS PANE on the WODA.prod host** (same host as the server). It is a **shell process with NO browser session/cookie**; it reaches the server via **localhost HTTP** (`curl http://localhost:<PORT>/...`).
+- ⇒ Natural fit = **on-host / localhost-origin trust**: the server accepts a status-advance from a localhost caller without a token (the owner-gate's session/secret is for the remote browser, which a CLI cannot present). No new secret, nothing transmitted.
+- **Why safe to allow on-host without the owner-gate:** the endpoint is status-only, whitelisted transitions, evidence-gated (TaskPolicy), and **CANNOT reach Done** (Done stays owner-only via R40.10). Narrow surface: an on-host agent advances its own role-work status; owner acts (Done verdict, pin designation) stay owner-gated.
+- Architect to finalize on-host-trust vs existing-session; I confirmed the invocation context so there is no new-secret path.
 
 ## The SKILL (role-facing, my OOSH lane — Object.verb, Tab-completable)
 OOSH external script `taskStatus` (canonical dispatch, per-method completion):
@@ -43,6 +44,6 @@ OOSH external script `taskStatus` (canonical dispatch, per-method completion):
 
 ## Dependencies / coordination (scenario-first — do NOT front-run)
 - **Planner:** minting the S37 TASK unit for this now — I design against the chain, coordinate, don't front-run.
-- **Expert:** owns slice-1 (the seam / mvc.applyMutation). The status ENDPOINT lands ON that seam (route through UnitController.apply). Coordinate: expert adds it, or I add it on their seam — no parallel path.
-- **Architect:** wires/backstops; confirms MvcBoundaryGuard lint covers my writer + the pin-re-render subscribe scope + the agent-auth ruling.
-- **Me (skill-expert):** the role-facing OOSH skill + the endpoint (on the seam) + agent-auth wiring, gated by pixel-@390 acceptance.
+- **Expert:** owns slice-1 (the seam) AND **builds the ONE server handler** `POST /api/task/<uuid>/status` (architect referee, 2026-08-17) — routes through UnitController.apply with a narrow status-only intent, refuses Done (reuse the approve route's fail-closed pattern), emits UNIT_CHANGED.
+- **Architect (0.3, refereeing the ONE endpoint):** picks the on-host auth mechanism (no new secret); confirms MvcBoundaryGuard covers the writer + the pin-re-render subscribe scope.
+- **Me (skill-expert):** the role-facing OOSH `taskStatus` skill that **CALLS** expert's endpoint (localhost curl, never touches the index) — advance/set, status-only, never Done, never a pin. Gated by pixel-@390 acceptance.
