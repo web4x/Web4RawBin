@@ -11,6 +11,19 @@ robbin-architect 2026-08-17. Tron (screenshots): sprint names are inconsistent (
 ## SECOND, INDEPENDENT DEFECT — item view renders the name TWICE (measured)
 `rb-object-item.ts:186-198`: `name = getAttribute('name')`; `desc = getAttribute('description') || getAttribute('title')` (line 188); renders `<span class="oi-name">${name}</span>` (197) AND `${desc ? <p class="oi-desc">${desc}</p> : ''}` (198). When a sprint has no `description`, `desc` falls back to `title`, and where `title == name` the subtitle REPEATS the name verbatim = Tron's "some TWICE." Independent of the naming format.
 
+## ★ LIVE-CONFIRMED (Tron prod:4444/model "still no consistent sprint numbering") — measured mechanism
+Measured (not accepted): every Sprint HAS `model.number` (28-40 all set), but the DISPLAY renders **raw `model.name`**, and the names are HALF-migrated: **S28-S33 EMBED the number** ("Sprint 30 — …", S31 even "Sprint 31 - …" hyphen = separator drift too) → they show a number; **S34-S40 are BARE** ("Consistency by Construction") → they show none. Root: **`sprintDisplayName`/`taskDisplayName` were NEVER BUILT** (grep of sprint-label.ts = only `sprintPrefix`/`sprintLabel`; the R40.4 formatter UC `a778793d` was designed+minted but not implemented), so NO surface composes "Sprint <n>: <title>" from the attribute — they all render raw name (or a variant: overview `S{n} {name}`, generator `Sprint N Planning — name`). Half-migration is WORSE than either end state (inconsistent = exactly Tron's complaint); a sanctioned S34 header de-dup stripped one more prefix.
+### ★ SEQUENCING-SAFE KEY: the renderer with a DEFENSIVE STRIP fixes the DISPLAY ALONE (no migration-first)
+`sprintDisplayName(unit) = 'Sprint ' + model.number + ': ' + stripEmbeddedPrefix(model.name)` — strip any leading `Sprint\s*\d+[ —:-]*` from the name BEFORE composing. Then it is CONSISTENT regardless of stored-name state: S28-33 (embedded) → "Sprint 30: Traceability Improvement" (no double-prefix), S34-40 (bare) → "Sprint 40: Server Manager…". ⇒ **the RENDERER alone makes Tron's view consistent — the strip-migration becomes pure DRY cleanup of the STORED data, done AFTER.** This honours the PO's rule "no further stripping until the renderer lands" (the renderer removes the incentive to strip-first). Same for `taskDisplayName` (strip `Task\s*\d+\.\d+`).
+### ★ EXACT SURFACES (all must route through the ONE renderer — measured)
+1. **/model tree Sprint node** — `server.ts:2520` `sprintOverviewNodes(...).map(s => ({name: s.name, number: s.number…}))` → `name = sprintDisplayName(s)` (the node already carries `number`). ★ THE ONE Tron screenshotted.
+2. **/model tree Task node** — the task rows (taskDisplayName).
+3. **sprint-overview-generator.ts:39** — `S${n} ${name}` → `sprintDisplayName`.
+4. **generator.ts:105** — `${sprintPrefix(m.number)} Planning — ${m.name}` → use `sprintDisplayName` for the sprint identity.
+5. **Detail headers** (client rb-*-detail sprint/task header) + **task rows**.
+6. **Generated MD** (planning.md / sprints.overview.md via 3+4).
+Gate (ii) = grep-lint: NO surface builds a sprint/task display string outside `sprintDisplayName`/`taskDisplayName`. Gate (i) = no STORED name matches `/Sprint\s*\d+/` (the strip-migration, after the renderer). stub-must-fail both.
+
 ## ★ DRY TIGHTENING (Tron: "highest CMM3 principle DRY. only ONE sprint number attribute") — ENUMERATED
 Measured — the sprint number is stored/embedded in a FAN of places today (task 40.11 `6e3cc1b2` + the sprint unit):
 | location | today | ruling |
