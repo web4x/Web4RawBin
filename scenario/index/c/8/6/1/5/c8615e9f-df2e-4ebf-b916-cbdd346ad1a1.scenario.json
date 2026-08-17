@@ -5,7 +5,8 @@
   "name": "Objects self-heal (validate on init/read, never run silently drifted)",
   "altId": "R37.4",
   "tasks": [
-   "ior:instance:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d"
+   "ior:instance:79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d",
+   "ior:instance:236918e9-6369-450f-aec3-b741451be147"
   ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
