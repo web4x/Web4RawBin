@@ -33,23 +33,17 @@ async function runOnce(browser) {
   await page.goto(`${BASE}/model`, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!document.querySelector('rb-detail-drawer .drawer-actionbar'), { timeout: 15000 }).catch(() => {});
   await sleep(600);
-  // a modelelement detail is shown → shownType='modelelement'
+  // FOLD (2026-08-17, PO ruling): the context-RESOLUTION LOGIC (which verbs per diagram-context) is owned by
+  // r4037-context-actions-gate (node applicableActionsFor — all cases + stub-must-fail). This gate KEEPS the piece
+  // r4037 CANNOT do: the @390 real-WebKit RENDER — the drawer action bar mounts + paints its verb buttons visibly @390.
   await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: 'modelelement', ref: 'modelelement:test-elem' }, bubbles: true })));
-  await sleep(150);
-
-  // (1) diagram OPEN → membership PRESENT + unit present
   await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid: 'test-diagram-uuid' }, bubbles: true })));
-  await sleep(200);
-  const withDiagram = await readVerbs(page);
-
-  // (2) NO diagram → membership ABSENT, unit present
-  await page.evaluate(() => document.dispatchEvent(new CustomEvent('rb-active-diagram', { detail: { uuid: null }, bubbles: true })));
-  await sleep(200);
-  const noDiagram = await readVerbs(page);
+  await sleep(300);
+  const verbs = await readVerbs(page);
   const visible = await page.evaluate(() => { const bs=[...document.querySelectorAll('rb-detail-drawer .drawer-actionbar [data-verb]')]; return bs.length>0 && bs.every(b=>b.getBoundingClientRect().width>0 && b.getBoundingClientRect().height>0); });
   const vw = await page.evaluate(()=>innerWidth);
   await ctx.close();
-  return { withDiagram, noDiagram, visible, vw };
+  return { verbs, visible, vw };
 }
 
 const browser = await ENGINE.launch({ headless: true });
@@ -57,19 +51,14 @@ const runs = [];
 try { for (let i = 0; i < 3; i++) runs.push(await runOnce(browser)); } finally { await browser.close(); }
 
 const has = (arr, set) => set.every(v => arr.includes(v));
-const none = (arr, set) => set.every(v => !arr.includes(v));
-console.log(`\n===== R33.9 action-context verb-split @390 ${ENGINE_NAME} (DET-3x) =====`);
-runs.forEach((R, i) => console.log(`iter ${i + 1}: withDiagram=[${R.withDiagram}] noDiagram=[${R.noDiagram}]`));
+console.log(`\n===== R33.9 action-bar @390 ${ENGINE_NAME} RENDER (DET-3x) — resolution-logic folded to r4037 =====`);
+runs.forEach((R, i) => console.log(`iter ${i + 1}: verbs=[${R.verbs}] visible=${R.visible}`));
 const det = f => runs.length === 3 && runs.every(f);
-const membershipPresent = det(R => has(R.withDiagram, MEMBERSHIP));            // (1) INV-A1: diagram-open → membership present
-const membershipAbsent = det(R => none(R.noDiagram, MEMBERSHIP));             // (2) INV-A2: no-diagram → membership absent
-const unitAlways = det(R => has(R.withDiagram, UNIT) && has(R.noDiagram, UNIT));
-const rendered = det(R => R.visible === true);
-const green = membershipPresent && membershipAbsent && unitAlways && (process.env.WK ? rendered : true);
-console.log(`\n(1) diagram-open → membership PRESENT (add/discover/remove): ${membershipPresent ? 'GREEN' : 'RED'}`);
-console.log(`(2) no-diagram → membership ABSENT (no fragile last-diagram): ${membershipAbsent ? 'GREEN' : 'RED'}`);
-console.log(`(3) unit verbs (new/rename/delete) present regardless: ${unitAlways ? 'GREEN' : 'RED'}`);
-console.log(`(4) drawer actions VISIBLE-rendered @390 (${ENGINE_NAME}, vw=${runs[0]&&runs[0].vw}): ${rendered ? 'GREEN' : 'RED'}`);
-console.log(`OVERALL R33.9-verb-context (${ENGINE_NAME}):`, green ? 'GREEN DET-3x' : 'RED');
-console.log('NOTE: the authed /model drawer-UI VISUAL rides Tron @390 (R33.5 pattern); this gates the actionsForContext LOGIC via the real showActions→setActions path.');
+const rendered = det(R => R.visible === true);                                 // @390 real-WebKit: bar mounts + buttons paint
+const verbsRender = det(R => R.verbs.length > 0 && has(R.verbs, UNIT));        // the resolved verbs (incl unit new/rename/delete) actually RENDER as buttons
+const green = verbsRender && (process.env.WK ? rendered : true);
+console.log(`\n(A) action-bar verb buttons RENDER (incl unit new/rename/delete): ${verbsRender ? 'GREEN' : 'RED'}`);
+console.log(`(B) buttons VISIBLE-rendered @390 (${ENGINE_NAME}, vw=${runs[0]&&runs[0].vw}): ${rendered ? 'GREEN' : 'RED'}`);
+console.log(`OVERALL R33.9 action-bar @390 RENDER (${ENGINE_NAME}):`, green ? 'GREEN DET-3x' : 'RED');
+console.log('NOTE (fold 2026-08-17, PO ruling): the context-RESOLUTION LOGIC (verbs-per-diagram-context, INV-A1/A2 membership present/absent) is owned by r4037-context-actions-gate (node applicableActionsFor + stub-must-fail, all cases). This gate KEEPS the @390 real-WebKit RENDER r4037 cannot cover — NOT hollow. Test 70ce56e9 stays historical-credit on a1a5be99 (re-point EXERCISE, not credit). MEMBERSHIP const retained for reference.');
 process.exitCode = green ? 0 : 1;
