@@ -44,6 +44,7 @@
     "check:tree-emitter": "node --import tsx scripts/check-tree-emitter.ts",
     "check:deployment-default-view": "node --import tsx scripts/check-deployment-default-view.ts",
     "check:synthetic-ref-single-source": "node --import tsx scripts/check-synthetic-ref-single-source.ts",
+    "check:mutation-seam": "node --import tsx scripts/check-mutation-seam.ts",
     "trace:pii-guard": "node --import tsx scripts/trace-pii-guard.ts",
     "check:revoked-tokens": "node --import tsx scripts/check-revoked-tokens.ts",
     "check:storage-rekey-security": "node --import tsx scripts/check-storage-rekey-security.ts",
