@@ -1,11 +1,15 @@
 // Release-identity gate (FAMILY: release-identity divergence — served vs committed vs TAGGED). served==committed is
-// guarded elsewhere (BOOT_VERSION + the version single-source); this adds the missing third leg: ==TAGGED. Every
-// deployed version MUST have a git tag `v<version>` that POINTS AT the commit that shipped it — so an untagged deploy is
-// impossible-to-MISS, not merely against a written standard. WHY (measured 2026-08-17): the tag-on-deploy habit failed —
-// last tag v0.7.91 while served/committed is 0.8.100 = ~109 untagged releases. A habit doesn't hold; only a mechanism does.
-// MODE: report-only (default) — lists the untagged CURRENT version + the backfill gap, ALWAYS exit 0 (never red-from-birth
-//       while the planner backfills the ~109 historic tags). --strict — exit 1 if the current version is untagged/mis-tagged
-//       (flip once the backfill lands AND the expert wires tag-creation into the deploy path).
+// guarded elsewhere; this is the THIRD leg: ==TAGGED. Every deployed version MUST have a git tag v<version> pointing at
+// its ship commit, so an untagged deploy is impossible-to-MISS (habit lapsed TWICE; only a mechanism holds).
+//
+// ★ SINGLE SOURCE: this gate CONSUMES the planner's enumeration `scripts/release-tag-audit.mjs --json` ({version,commit,
+// tagged}) — it does NOT roll its own version/tag count (two independent counts of one fact = the two-source disease that
+// made 357-vs-514 look divergent when they were the SAME set at different scopes). The gate ADDS the tester's check the
+// audit doesn't: the tag actually POINTS AT the ship commit (tagged-exists ≠ tagged-correctly).
+//
+// MODE: report-only (default) — reports the current deploy's tag status + the audit's gap, ALWAYS exit 0. --strict — exit 1
+//       if the CURRENT version is untagged / mis-pointed. Flip --strict + wire into ci:gates ONCE the expert's tag-on-deploy
+//       mechanism is confirmed LIVE in the deploy path (build.mjs) — else a lapse re-opens silently.
 // Run: node --import tsx scripts/check-release-tag.ts [--strict]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,48 +20,40 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const STRICT = process.argv.includes('--strict');
 const git = (args: string[]): string => { try { return execFileSync('git', args, { cwd: ROOT, encoding: 'utf-8' }).trim(); } catch { return ''; } };
 
-// committed version = the DRY single source (== served, guarded by served==committed elsewhere).
-export function versionAtRef(ref: string): string | null {
-  const raw = ref === '' ? (fs.existsSync(path.join(ROOT, 'package.json')) ? fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8') : '') : git(['show', `${ref}:package.json`]);
-  if (!raw) return null;
-  try { return JSON.parse(raw).version || null; } catch { return null; }
+export interface AuditRow { version: string; commit: string; tagged: boolean }
+// CONSUME the planner's SINGLE-SOURCE enumeration (no rival count).
+export function auditRows(): AuditRow[] {
+  try {
+    const out = execFileSync('node', [path.join(ROOT, 'scripts/release-tag-audit.mjs'), '--json'], { cwd: ROOT, encoding: 'utf-8', maxBuffer: 1 << 28 });
+    return out.split('\n').filter(Boolean).map((l) => JSON.parse(l) as AuditRow);
+  } catch { return []; }
 }
-
-// A version is VALIDLY TAGGED iff a tag `v<version>` exists AND the package.json AT that tag has the SAME version
-// (the tag points at a commit that actually shipped this version — not a stray tag on the wrong commit).
-export function tagIsValidFor(version: string): { tag: string; exists: boolean; pointsAtShip: boolean } {
-  const tag = `v${version}`;
-  const exists = git(['tag', '-l', tag]) === tag;
-  const pointsAtShip = exists && versionAtRef(tag) === version;
-  return { tag, exists, pointsAtShip };
+// The tester's ADDED check: the tag POINTS AT the ship commit the audit names (exists ≠ correct).
+export function tagPointsAtShip(row: AuditRow): boolean {
+  if (!row.tagged) return false;
+  const tagCommit = git(['rev-list', '-n', '1', `v${row.version}`]);
+  return tagCommit !== '' && tagCommit === row.commit;
 }
-
-// SELF-BITE: the validity predicate MUST reject a missing tag AND a tag pointing at a mismatched version.
-const selfBiteMissing = tagIsValidFor('0.0.0-nonexistent').pointsAtShip === false; // no such tag → invalid
-const anExistingTag = git(['tag', '-l', 'v0.7.91']) === 'v0.7.91';
-const selfBiteWrongVer = !anExistingTag || (versionAtRef('v0.7.91') === '0.7.91'); // an existing tag DOES point at its own version (control)
 
 if (process.argv[1] && /check-release-tag\.(ts|js|mjs)$/.test(process.argv[1])) {
-  if (!selfBiteMissing) { console.error('✗ check-release-tag: SELF-BITE FAILED (a nonexistent tag validated) — gate INERT. RED.'); process.exit(1); }
+  const rows = auditRows();
+  const version = (() => { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8')).version as string; } catch { return ''; } })();
+  // SELF-BITE: the single source must produce rows AND include the current version (else the gate is INERT/mis-consuming).
+  if (rows.length === 0 || !version || !rows.find((r) => r.version === version)) {
+    console.error(`✗ check-release-tag: SELF-BITE FAILED — release-tag-audit --json returned ${rows.length} rows, current ${version} ${rows.find((r) => r.version === version) ? 'present' : 'ABSENT'}. Gate INERT. RED.`);
+    process.exit(1);
+  }
+  const cur = rows.find((r) => r.version === version)!;
+  const currentOk = cur.tagged && tagPointsAtShip(cur);
+  const untagged = rows.filter((r) => !r.tagged);
 
-  const version = versionAtRef('');
-  if (!version) { console.error('✗ check-release-tag: no package.json version. RED.'); process.exit(1); }
-  const cur = tagIsValidFor(version);
+  console.log(`release-tag gate [${STRICT ? 'STRICT' : 'report-only'}] — served==committed==TAGGED (single source: release-tag-audit.mjs)`);
+  console.log(`  audit enumeration: ${rows.length} shipped versions · ${rows.length - untagged.length} tagged · ${untagged.length} UNTAGGED (planner's number, not a rival count)`);
+  console.log(`  current version ${version}: tagged=${cur.tagged} points-at-ship=${tagPointsAtShip(cur)} (ship commit ${cur.commit.slice(0, 9)})`);
 
-  // ★ FORWARD GUARD is this gate's job: the CURRENT deploy must be validly tagged — impossible-to-MISS an untagged release.
-  // ★ The HISTORIC BACKFILL enumeration is the PLANNER's SINGLE SOURCE — this gate does NOT roll its own version/tag count
-  // (two independent enumerations of the same quantity = the two-source disease: my history-walk once said 514, then 357
-  // after `git fetch --tags`, vs the planner's authoritative enumeration from v0.6.0 — a gate must not publish a number that
-  // contradicts the backfill it measures). Fetch tags before reading; consult the planner's enumeration for the gap.
-  console.log(`release-tag gate [${STRICT ? 'STRICT' : 'report-only'}] — served==committed==TAGGED (family: release-identity divergence)`);
-  console.log(`  current version ${version}: tag ${cur.tag} exists=${cur.exists} points-at-ship=${cur.pointsAtShip}`);
-  console.log(`  backfill status: SINGLE SOURCE = planner's enumeration (scrum.pmo/standards/release-tagging.md) — NOT computed here.`);
-
-  const currentOk = cur.exists && cur.pointsAtShip;
-  if (currentOk) { console.log(`  ✓ current deploy ${version} is validly tagged (${cur.tag} → ships ${version}).`); process.exit(0); }
-
-  const msg = `${STRICT ? '✗' : '⚠'} check-release-tag: current deploy ${version} is ${cur.exists ? `MIS-TAGGED (${cur.tag} points at ${versionAtRef(cur.tag) || '?'}, not ${version})` : `UNTAGGED (no ${cur.tag})`} — tag the shipping commit (expert wires tag-on-deploy).`;
+  if (currentOk) { console.log(`  ✓ current deploy ${version} is validly tagged (v${version} → ships ${cur.commit.slice(0, 9)}).`); process.exit(0); }
+  const msg = `${STRICT ? '✗' : '⚠'} check-release-tag: current deploy ${version} is ${cur.tagged ? 'MIS-POINTED (tag v' + version + ' not at ship commit ' + cur.commit.slice(0, 9) + ')' : 'UNTAGGED'} — expert's tag-on-deploy must tag the ship commit.`;
   (STRICT ? console.error : console.log)(msg);
   if (STRICT) process.exit(1);
-  console.log(`  (report-only: not failing while the planner backfills; flip --strict once the current version tags + the deploy path auto-tags. self-BITE ✓)`);
+  console.log(`  (report-only: flip --strict once the expert's tag-on-deploy is confirmed live in build.mjs. self-BITE ✓, single-source ✓)`);
 }

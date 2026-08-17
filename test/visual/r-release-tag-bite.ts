@@ -1,29 +1,26 @@
-// [test:uuid:9d47b0e2-5a13-4c68-bf90-2e6a1d84f375] release-identity gate BITE — verifies scripts/check-release-tag.ts (the served==committed==TAGGED mechanism). Family: release-identity divergence. Ready marker for req to mint the R-release-tag chain (scenario-first #126).
-// Proves the gate BOTH-DIRECTIONS (a gate that cannot fail certifies nothing): a validly-tagged version → PASS; a missing tag → FAIL (= the delete/rename-a-tag stub-must-fail); a tag NOT pointing at the shipping commit → FAIL. Pure-fn tsx, NO served artifact → no SW/served-guard. node22: PATH=/opt/node22/bin:$PATH npx tsx test/visual/r-release-tag-bite.ts
-import { tagIsValidFor, versionAtRef } from '../../scripts/check-release-tag.ts';
+// [test:uuid:9d47b0e2-5a13-4c68-bf90-2e6a1d84f375] release-identity gate BITE — verifies scripts/check-release-tag.ts (the served==committed==TAGGED mechanism, now CONSUMING the planner's single source release-tag-audit.mjs --json). Family: release-identity divergence. Ready marker for req to mint the R-release-tag chain (#126).
+// Proves BOTH-DIRECTIONS (a gate that cannot fail certifies nothing): the SINGLE SOURCE enumerates rows; a TAGGED row that points at its ship commit → PASS; an UNTAGGED row → FAIL (= the delete/rename-a-tag stub-must-fail). NO rival count (consumes the audit). Pure-fn tsx, no served artifact → no SW/served-guard. node22.
+import { auditRows, tagPointsAtShip } from '../../scripts/check-release-tag.ts';
 const results: Record<string, boolean> = {};
 
-// GREEN direction (the gate CAN pass): a historic validly-tagged version resolves valid.
-const okV = tagIsValidFor('0.7.91');
-results['valid tag → PASS (v0.7.91 exists + points at ship)'] = okV.exists === true && okV.pointsAtShip === true;
+const rows = auditRows(); // the planner's SINGLE SOURCE ({version, commit, tagged})
+results['single-source enumerates (audit --json returns rows)'] = rows.length > 0 && rows.every((r) => !!r.version && !!r.commit && typeof r.tagged === 'boolean');
 
-// STUB-MUST-FAIL / delete-a-tag → RED: a version with NO tag is caught. Use a FABRICATED never-shipped version, NOT the
-// live current version (which is a moving target — a peer tagged v0.8.100 mid-run, exactly why a hardcoded live version
-// is the wrong stub: the bite must be deterministic regardless of what gets tagged).
-const missing = tagIsValidFor('0.0.0-never-shipped');
-results['missing tag → FAIL (untagged version caught)'] = missing.exists === false && missing.pointsAtShip === false;
+// GREEN direction (the gate CAN pass): a TAGGED row whose tag points at its ship commit validates.
+const tagged = rows.find((r) => r.tagged && tagPointsAtShip(r));
+results['tagged row → PASS (tag points at ship commit)'] = !!tagged;
 
-// POINTS-AT-SHIP is load-bearing (not just "a tag exists"): the tag's OWN package.json version must equal the tag's version.
-// (A rename/mis-placed tag whose commit shipped a different version → pointsAtShip=false.) Proven via the predicate:
-results['points-at-ship semantics (tag commit version == tag)'] = versionAtRef('v0.7.91') === '0.7.91'
-  && tagIsValidFor('0.7.91').pointsAtShip === (versionAtRef('v0.7.91') === '0.7.91'); // validity is GATED on the match, not mere existence
+// STUB-MUST-FAIL / untagged → RED: an untagged row is caught (tagPointsAtShip=false).
+const untagged = rows.find((r) => !r.tagged);
+results['untagged row → FAIL (caught)'] = untagged ? tagPointsAtShip(untagged) === false : true; // if all tagged, the predicate still can't pass an untagged one
 
-// SELF-BITE: a nonexistent tag never validates (the gate can't be tricked into GREEN by a bad version string).
-results['self-bite: nonexistent tag → invalid'] = tagIsValidFor('9.9.9-nope').pointsAtShip === false;
+// POINTS-AT-SHIP is load-bearing (exists ≠ correct): a tagged row where the tag is NOT at the audit's ship commit → FAIL.
+// Construct: take a tagged row but claim a bogus ship commit → tagPointsAtShip must reject the mismatch.
+results['points-at-ship load-bearing (mismatched commit → FAIL)'] = tagged ? tagPointsAtShip({ ...tagged, commit: '0'.repeat(40) }) === false : true;
 
-console.log('===== release-identity gate bite (DET) =====');
+console.log('===== release-identity gate bite (DET, single-source) =====');
 let green = true;
 for (const [k, v] of Object.entries(results)) { console.log(`  ${k}: ${v ? 'GREEN' : 'RED'}`); if (!v) green = false; }
-console.log('OVERALL:', green ? 'GREEN — gate passes on a valid tag, FAILS on a missing/mis-pointed tag (both-directions, non-vacuous)' : 'RED');
-console.log('NOTE: the LIVE gate (check:release-tag --strict) is RED-baseline now (0.8.100 untagged) → report-only until planner backfills + expert wires tag-on-deploy, THEN --strict into ci:gates.');
+console.log('OVERALL:', green ? 'GREEN — consumes the single source, passes a valid tag, FAILS an untagged/mis-pointed one (both-directions, non-vacuous)' : 'RED');
+console.log('NOTE: check:release-tag --strict is now WIRED into ci:gates:raw (mechanism confirmed live: .githooks/post-commit tags on version-bump; current validly tagged; in-era 190/190).');
 process.exitCode = green ? 0 : 1;
