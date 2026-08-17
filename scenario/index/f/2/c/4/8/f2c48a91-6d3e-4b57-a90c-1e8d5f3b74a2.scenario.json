@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f2c48a91-6d3e-4b57-a90c-1e8d5f3b74a2",
+    "name": "test:R37.11 slice-1 AC-2 mutation-seam binding-lint bite — NO ScenarioIndex.put outside UnitController.{apply,create}; (A) live 0-un-allowed --strict exit0 / (B) STUB-MUST-FAIL planted idx.put outside seam DETECTED / (C) comment .put IGNORED (AST not raw-grep) / (D) seam-routed apply CLEAN / (E) scanCode self-bite",
+    "implementations": [
+      "ior:instance:e3729f51-3df6-4f6d-96e3-924c37e3c3c9"
+    ],
+    "sourceFile": "ior:file:test/visual/r3724-mutation-seam-bite.ts",
+    "status": "pass",
+    "markerNote": "Tester GREEN DET (committed+pushed): r3724-mutation-seam-bite.ts imports the REAL scanMutationSeam/scanCode from scripts/check-mutation-seam.ts (pollution-safe scratch). FULL test:uuid gate-sourced (measure-don't-invent — verified in gate line 1 [test:uuid:f2c48a91], names Impl e3729f51, valid v4). e3729f51.tests[] was empty (no cross-wire). This is the STRUCTURAL bypass-lint (AC-2, R37.11 slice-1) — the slice-1 VALUE gate (write->publish->live-view, R40.18 path) is SEPARATE (tester, pends seam+backfill+view+publish ship)."
+  },
+  "ownerIor": "ior:instance:e3729f51-3df6-4f6d-96e3-924c37e3c3c9"
+}
