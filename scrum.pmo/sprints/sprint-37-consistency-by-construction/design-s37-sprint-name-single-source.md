@@ -24,6 +24,14 @@ Measured (not accepted): every Sprint HAS `model.number` (28-40 all set), but th
 6. **Generated MD** (planning.md / sprints.overview.md via 3+4).
 Gate (ii) = grep-lint: NO surface builds a sprint/task display string outside `sprintDisplayName`/`taskDisplayName`. Gate (i) = no STORED name matches `/Sprint\s*\d+/` (the strip-migration, after the renderer). stub-must-fail both.
 
+### ★ FORMAT / SEPARATOR RULING (Tron literal: "Sprint <n>: <title>") — canonical = COLON, decided ONLY in the renderer
+- `sprintDisplayName(unit) = "Sprint " + number + ": " + stripEmbedded(name)` — the separator between number and title is a **COLON `": "`** (Tron's literal spec), NOT the em-dash the current embedded names carry. `taskDisplayName = "Task " + parentSprintNumber + "." + taskIndex + ": " + stripEmbedded(name)`. The em-dash/hyphen in S28-33's names is the OLD embedded format → `stripEmbedded` removes the whole `Sprint\s*\d+\s*[—:-]\s*` prefix, then the renderer re-composes with the canonical colon. **The separator is decided in ONE place (the renderer); no surface hardcodes it.** (NB: the R40.18 pin row `"📌 Current — Task 37.24: title"` uses em-dash only between the SLOT-LABEL and the entity; the entity itself is `taskDisplayName` = colon — consistent.)
+### ★ ORDER PINNED (PO acceptance data: 38 units, all have the attribute; 14 bare + 24 embedded) — renderer FIRST, strip SECOND
+1. **Renderer first** (with `stripEmbedded`): all 38 render `"Sprint <n>: <title>"` immediately, from the attribute, WITH NO DOUBLING (the strip removes the embedded prefix before the colon-compose) — the 14 bare gain the number, the 24 embedded are stripped-then-numbered. Tron's view goes consistent on the renderer alone.
+2. **Strip-migration second** (DRY cleanup of the 24 stored names). ★ REVERSED = the number DOUBLES; done together carelessly = some rows double while others fix. The defensive strip is what makes step-1 safe BEFORE step-2, which is why order is pinned.
+### ★ THIRD GATE — NO DOUBLING (PO): assert a rendered display shows EXACTLY ONE `Sprint <n>` / `Task <n>.<m>` (not two). stub-must-fail: plant an embedded number in a name → the RENDER must still show ONE (strip works) AND gate (i) flags the stored embedded number → RED; blank the renderer → RED.
+### Task-name inventory: the RENDERER does NOT need it (defensive `stripEmbedded` handles any embedded `Task <n>.<m>`); the task STRIP-migration (gate-i cleanup, later) does — get it when that migration is scheduled, not for the renderer.
+
 ## ★ DRY TIGHTENING (Tron: "highest CMM3 principle DRY. only ONE sprint number attribute") — ENUMERATED
 Measured — the sprint number is stored/embedded in a FAN of places today (task 40.11 `6e3cc1b2` + the sprint unit):
 | location | today | ruling |
