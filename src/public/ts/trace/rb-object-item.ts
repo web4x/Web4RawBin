@@ -183,10 +183,15 @@ export class RbObjectItem extends HTMLElement {
 
   render(): void {
     const { type } = this.parts();
-    const rawName = this.getAttribute('name') || generateName(this.getAttribute('title'));
+    // R40.4-phase2 (Tron "TWO implementations"): render the composed display name VERBATIM — no generateName word-cut
+    // (a SECOND truncation, redundant with the CSS `.oi-name` ellipsis which already single-lines overflow). One name,
+    // composed once (sprintDisplayName/taskDisplayName), shown once; long names ellipsis via CSS (nowrap, no re-wrap).
+    const rawName = this.getAttribute('name') || this.getAttribute('title') || '(untitled)';
     const name = rawName.startsWith('>') ? rawName.replace(/^>\s*/, '').slice(0, 50) : rawName;
-    const descRaw = this.getAttribute('description') || this.getAttribute('title') || '';
-    const desc = descRaw === name ? '' : descRaw; // R40.4-phase2 defect#2 (Tron 'some TWICE'): the subtitle must NEVER repeat the name verbatim (title-fallback duplicated it when description was absent + title==name)
+    // R40.4-phase2 defect#2 (Tron "TWO implementations / shown TWICE"): the subtitle is the DESCRIPTION only — NEVER the
+    // title. The old `|| title` fallback rendered the name a SECOND time (and an === name guard missed it because the name
+    // slot is truncated by generateName while the title is full → not equal). One name, one place: drop the title fallback.
+    const desc = this.getAttribute('description') || '';
     const icon = TRACE_ICONS[type] || '•';
     const hasChildren = this.hasAttribute('has-children');
     const childCount = this.getAttribute('child-count') || '0';
@@ -205,12 +210,6 @@ export class RbObjectItem extends HTMLElement {
   }
 }
 
-function generateName(title: string | null): string {
-  if (!title) return '(untitled)';
-  const words = title.split(/\s+/);
-  if (words.length <= 5) return title;
-  return words.slice(0, 5).join(' ') + '…';
-}
 
 function esc(s: string): string {
   return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
