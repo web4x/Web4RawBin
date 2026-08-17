@@ -1,0 +1,62 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "9cbb649a-9fb9-414b-83e0-80d5a0e556ae",
+  "name": "trace:audit orphan backlog DRAINED via delta-gate (1711 baseline, self-draining, counter-is-trigger)",
+  "altId": "R40.43",
+  "tasks": [],
+  "tests": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+  "sourceLine": 1,
+  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+  "sprintName": "Sprint 40",
+  "unitLinks": [],
+  "useCases": [],
+  "description": "The standing trace:audit backlog (1711 orphans + one-class-per-file + impl-not-reachable violations at 2026-08-17 baseline) is a SEPARATE tracked graph-integrity cleanup — it must NOT block the CI gate-composition fix (architect ruling 9eb77b30b: the ~30-gate && chain led with trace:audit:strict which is red-always, so ~29 gates behind it never executed = decorative-in-CI). The fix converts trace:audit into a DELTA gate (fail-on-any-INCREASE vs baseline = 0-NEW, emit the counts every run, auto-flip to strict-0 when a count reaches 0), which makes the backlog VISIBLE every run and self-draining. This req is the CLEANUP itself: drive the orphan/one-class-per-file/impl-not-reachable counts to 0 over time, at which point the auto-flip closes the debt by construction. The COUNTER is the revisit trigger — not a silent defer.",
+  "tronQuote": "> (No direct Tron quote) — architect CI gate-composition ruling 9eb77b30b part (c) + PO capture-directive: make the 1711-orphan backlog a tracked, self-draining DEBT item in the R40.39 graph-integrity family, not a permanent red that silently disabled ~29 gates.",
+  "discoverySource": {
+   "type": "architect-ruling-po-capture",
+   "ruledBy": "robbin-architect",
+   "capturedBy": "robbin-po",
+   "date": "2026-08-17",
+   "ruling": "9eb77b30b",
+   "design": "scrum.pmo/sprints/sprint-37-consistency-by-construction/design-ci-gate-composition.md",
+   "baseline": "1711 orphans + one-class-per-file + impl-not-reachable (2026-08-17); measured NOT a regression (none of slice-1's changed files in the failures) = a standing condition.",
+   "note": "Capture-only, DO-NOT-EXECUTE (PO/Tron schedules). The delta-gate mechanism (composition fix parts a+b) drains it; this req is the cleanup target."
+  },
+  "designRef": "scrum.pmo/sprints/sprint-37-consistency-by-construction/design-ci-gate-composition.md",
+  "crossRef": [
+   "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b"
+  ],
+  "crossRefNote": "R40.39 graph-integrity / type-index / reverse-wire family — the orphan/one-class-per-file/impl-not-reachable targets likely OVERLAP R40.39's type-index + reverse-wire debt (same graph area). Companion to the gate-composition fix (9eb77b30b (a) run-all-then-fail + (b) trace:audit delta-gate) which is the MECHANISM; R40.43 is the CLEANUP the mechanism drains. campaignScope=OUTSIDE-campaign-count (standing cleanup, next-phase).",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-baseline-count",
+    "group": "tracking",
+    "text": "The standing trace:audit backlog is RECORDED as tracked DEBT with its measured baseline: 1711 orphans + one-class-per-file violations + impl-not-reachable violations (2026-08-17). Not memory — a durable req with the count on it (no-silent-caps)."
+   },
+   {
+    "id": "AC-separate-from-composition",
+    "group": "scope",
+    "text": "This cleanup is SEPARATE from the CI gate-composition fix (9eb77b30b (a) run-all-then-fail + (b) trace:audit delta-gate) — it must NOT block that fix. The composition fix ships first + makes this backlog visible + self-draining; R40.43 is the cleanup the fix drains."
+   },
+   {
+    "id": "AC-delta-gate-mechanism",
+    "group": "mechanism",
+    "text": "trace:audit is a DELTA gate (composition fix (b)): FAIL on any INCREASE vs baseline (0-NEW = catches regressions the red-always gate could not, strictly MORE enforcement), EMIT the counts every run (no-silent-caps visibility via the runner line), auto-flip to strict-0 when a count reaches 0. A delta-report is a non-enforcing block converted into an enforcing counted report."
+   },
+   {
+    "id": "AC-counter-is-trigger",
+    "group": "self-draining",
+    "text": "The COUNTER is the revisit trigger — the backlog drains over time as the count is worked down; when a count reaches 0 the gate AUTO-FLIPS to strict (debt closed by construction), never a silent defer. Progress is measured by the emitted count, not by memory."
+   },
+   {
+    "id": "AC-graph-integrity-family",
+    "group": "family",
+    "text": "Graph-integrity / reverse-wire family with R40.39 (type-index): the orphan / one-class-per-file / impl-not-reachable targets likely OVERLAP R40.39's type-index + reverse-wire debt — coordinate so the two do not double-count or fight; a single graph-integrity cleanup pass may serve both. crossRef R40.39."
+   }
+  ],
+  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (standing graph-integrity cleanup, next-phase self-draining; family R40.39, mechanism 9eb77b30b)"
+ },
+ "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
