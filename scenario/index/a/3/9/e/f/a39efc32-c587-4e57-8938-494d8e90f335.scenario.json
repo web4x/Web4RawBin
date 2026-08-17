@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a39efc32-c587-4e57-8938-494d8e90f335",
+    "name": "Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single view bus + views subscribe-on-render, live-update coverage gated @390 (R37.12)",
+    "slug": "task-37.25-realtime-mvc-one-view-bus",
+    "description": "The R37.12 view-bus HALF of the realtime-MVC slice — the other half of what Tron SEES, parallel to Task 37.24's R37.11 controller slice. Unify the ad-hoc view-update buses into ONE viewBus and make every view SUBSCRIBE-on-render, so the controller's UNIT_CHANGED emit reaches every view live and no view renders silently stale. Covers ONLY the 2 NEW realtime UCs: subscribe-on-render (mvc.subscribeOnRender 6aac0acf) + one-bus (e530e248). NOTE: R37.12 also carries 3 EXISTING uncovered UCs (77e8a39f/bfea086a/53a85195) — those are triaged SEPARATELY (backlog / own task), NOT folded into this realtime slice (req 2026-08-17).",
+    "intention": "Prove the view-bus half on-device: a routed write reaches EVERY subscribed view live @390, no view stale, no reload.",
+    "context": "R37.12 ONE VIEW BUS (9afbade1) via UC mvc.subscribeOnRender (6aac0acf) + one-bus (e530e248). Pairs with Task 37.24 (R37.11 controller emit): the controller emits UNIT_CHANGED on the ONE bus; every view subscribes-on-render + revalidates-or-stale-badges. Multiple ad-hoc buses = two-sources-of-update -> unify to one (single-authority family).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "**AC (browser-visible — the other half of what Tron SEES):** A unit change emitted on the ONE view bus (UnitController.apply UNIT_CHANGED) is reflected LIVE in EVERY subscribed view (item + detail + pin + any registered view) WITHOUT a reload, and a view that cannot prove currency renders a VISIBLE STALE badge — verified by SCREENSHOT+PIXEL on real WebKit @390 (NEVER a DOM count). PLUS **one-bus lint (STUB-MUST-FAIL):** exactly ONE view bus; a 2nd ad-hoc update-bus/emit path -> RED. PLUS **subscribe-on-render coverage:** every view registers its subscription AT render; an unsubscribed view that misses an emitted change -> RED. Gate shape matches Task 37.24 (real-WebKit @390 pixel, never DOM-count).",
+    "subtasks": [],
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+    ],
+    "useCases": [
+      "ior:instance:6aac0acf-23f9-4e67-a2e1-9f9633e101ff",
+      "ior:instance:e530e248-8535-4bcf-b984-be916cc0aa9a"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-17"
+  },
+  "ownerIor": null
+}

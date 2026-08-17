@@ -4,7 +4,9 @@
   "uuid": "9afbade1-6c11-4117-a05a-518af0787de5",
   "name": "ONE VIEW BUS — model changes propagate to every view; no view renders silently stale",
   "altId": "R37.12",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:a39efc32-c587-4e57-8938-494d8e90f335"
+  ],
   "tests": [],
   "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
   "sourceLine": 1,
