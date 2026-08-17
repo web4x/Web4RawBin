@@ -35,12 +35,12 @@
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
-| S37 | 5acdcc4c | Planned | RIPE-SHARED | Task 37.24: Realtime-MVC live-update slice — a routed write  |
+| S37 | 5acdcc4c | In Progress | RIPE-SHARED | Task 37.24: Realtime-MVC live-update slice — a routed write  |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
 | S37 | c8e0b1d2 | Planned | RIPE-SHARED | Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY  |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
-| S37 | f5986d69 | Planned | RIPE-SHARED | Task 37.27: Sprint/task-name MIGRATION — strip embedded numb |
+| S37 | f5986d69 | In Progress | RIPE-SHARED | Task 37.27: Sprint/task-name MIGRATION — strip embedded numb |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S40 | 2e831ffd | Planned | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 
