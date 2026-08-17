@@ -87,6 +87,7 @@ import { Transfer } from './federation-transfer.js'; // T26.6: federation import
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { CurrentSprint } from '../scenario/CurrentSprint.js'; // PIN-KEEP: recompute-on-read for the /trace CurrentSprint node
+import { UnitController } from '../scenario/unit-controller.js'; // R37.11 slice-1: THE mutation seam — every unit persist routes via apply/create (persist+emit inseparable)
 import { readDir, readFile, writeFile } from './FileApi.js';
 import { RepoRegistry } from './repo-registry.js'; // R30.6.7 repo key→root allowlist
 
@@ -182,6 +183,11 @@ interface WebSocketClient {
 
 const clientSessions = new Map<string, ClientSession>();
 const wsClients = new Set<WebSocketClient>();
+// R37.11 slice-1 STEP-0: the ONE server-side publish for UnitController — generalizes the ad-hoc CurrentSprint
+// UNIT_CHANGED broadcast (was inline at the pin-designate handler) over the EXISTING wsClients transport (all-clients,
+// broadcast-safe — architect endorsed). Passed as {publish} into every routed apply/create so persist+emit are inseparable.
+const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) =>
+  wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior, uuid })); });
 const tokenToClient = new Map<string, string>();
 let totalRequests = 0;
 
@@ -1783,14 +1789,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (sprintNum == null) { res.writeHead(409, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'task is not in any numbered sprint — cannot designate' })); return; }
           const sprintName = `Sprint ${sprintNum}`;
           const CU = 'current-sprint-singleton-0000-000000000001';
-          const cur = idx.get(CU); const m = ((cur?.model as Record<string, unknown>) || { uuid: CU, name: 'Current' }) as Record<string, unknown>;
-          if (slot === 'next') { m.nextSprintName = sprintName; m.nextBacklogOverride = tu; }
-          else { m.sprintName = sprintName; m.currentTaskUuid = tu; }
-          idx.put(CU, { ior: 'ior:class:CurrentSprint', model: m, ownerIor: cur?.ownerIor ?? null }); // INPUT-ONLY; the task unit's status is NEVER touched
-          // R40.17 LIVE (Tron: actions should happen LIVE in the sprint tree): after the designate write, push a
-          // UNIT_CHANGED over the EXISTING wsClients transport (rides the broadcastRoomList pattern — no new transport)
-          // so every subscribed trace-tree re-renders (ViewBus 'graph' → render() re-fetches) with NO Refresh.
-          wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior: 'ior:class:CurrentSprint', uuid: CU })); });
+          const cur = idx.get(CU);
+          // R37.11 slice-1: route the designation write through the ONE mutation seam. apply (existing) default-merges the
+          // INPUT fields; create (first-ever) mints the singleton. The seam's step-4 emit fans out UNIT_CHANGED via the
+          // injected publishUnitChanged (was the inline wsClients broadcast) → the pin re-derives LIVE (R40.17, Tron's win),
+          // now inseparable from the persist. INPUT-ONLY; the task unit's status is NEVER touched. INV-T byte-diff==0
+          // (default-merge = the old inline model.X=Y; wrapper/model key order + ownerIor:null preserved).
+          const intent = slot === 'next' ? { nextSprintName: sprintName, nextBacklogOverride: tu } : { sprintName, currentTaskUuid: tu };
+          if (cur) UnitController.apply(idx, 'ior:class:CurrentSprint', CU, intent, { publish: publishUnitChanged });
+          else UnitController.create(idx, 'ior:class:CurrentSprint', CU, { ior: 'ior:class:CurrentSprint', model: { uuid: CU, name: 'Current', ...intent }, ownerIor: null }, { publish: publishUnitChanged });
           let label = '';
           try { const pin = resolveSprintPin(idx, slot === 'next' ? { nextSprintNumber: sprintNum } : { currentSprintNumber: sprintNum }); const s = slot === 'next' ? pin.nextBacklog : pin.current; if (s) label = `Sprint ${s.number} — ${s.status}${s.designated ? ' (designated)' : ''}`; } catch { /* label best-effort — never blocks the designation */ }
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
