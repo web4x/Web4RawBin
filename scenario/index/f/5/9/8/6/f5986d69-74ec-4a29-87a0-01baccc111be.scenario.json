@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f5986d69-74ec-4a29-87a0-01baccc111be",
+    "name": "Task 37.27: Sprint/task-name MIGRATION — strip embedded numbers to the single attribute, PHASED S37-first (R40.4-phase-2)",
+    "slug": "task-37.27-sprint-task-name-migration",
+    "description": "The deliberate DRY migration (R40.4-phase-2, UC sprintName.migrateToAttribute c9f394b1): eliminate every persisted duplicate of the number so Sprint.number + Task.taskIndex are the ONLY stored homes. Sprint units (~20): number from the sprint-<n> DIR (authoritative), strip the leading 'Sprint <n>[ :-]' from model.name. TASK family: DELETE the persisted model.sprintName field (derives via parent), strip 'Task <n>.<m>' from the title, set model.taskIndex. Scratch dry-run FIRST + per-unit before/after + AMBIGUOUS list (unresolvable REPORTED, never invented). ★ S37 ALREADY MIGRATED as the reference case (b86b53cc: name bare 'Consistency by Construction' + number 37, H1 shows the number once); ~19 sprints remain, PHASED.",
+    "intention": "One number attribute per unit; everything derives; no drift-by-construction.",
+    "context": "UC sprintName.migrateToAttribute c9f394b1 -> R40.4 9a8cbffe. Reference case + revert recipe: scrum.pmo/sprints/sprint-37-consistency-by-construction/R40.4-phase2-S37-migration-log.md.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "**AC (37.24 shape — real-WebKit @390 PIXEL, never a DOM count):** After migration a sprint/task board shows the number EXACTLY once (no doubling) @390 pixel-verified. ★ PHASED (PO ruling): S37 FIRST (DONE — reference case, verified on disk), then sprint-by-sprint. Gates are REPORT-ONLY with the COUNT EMITTED every ci run + AUTO-STRICT AT 0 (the self-draining revisit trigger — an unsatisfiable red-from-birth gate is how check:task-status got silently deleted). The phased remainder is recorded as DEBT with the residual risk (until phase-N, un-migrated sprints hold embedded numbers as un-derived data; display authoritative via the formatter) + revisit trigger (the remaining-count). Acceptance = NOT byte-diff==0 (deliberate change): REVERSIBILITY (backup + zero-restore) + CONTENT-CONSERVATION (bare title is an exact substring of the original, no theme text lost).",
+    "subtasks": [],
+    "status": "In Progress",
+    "coveredRequirements": [
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+    ],
+    "useCases": [
+      "ior:instance:c9f394b1-0743-49c3-9c69-a5636238252d"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-17"
+  },
+  "ownerIor": null
+}

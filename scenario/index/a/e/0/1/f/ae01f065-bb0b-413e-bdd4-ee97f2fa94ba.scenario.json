@@ -17,7 +17,8 @@
       "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
     ],
     "useCases": [
-      "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f"
+      "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f",
+      "ior:instance:e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac"
     ],
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",

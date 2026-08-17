@@ -4,7 +4,10 @@
     "uuid": "9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
     "name": "Sprint/task number is a single-source ATTRIBUTE (DRY family); display EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>' everywhere (R40.4-phase-2)",
     "altId": "R40.4",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c8e0b1d2-506e-4474-b649-22f1241f997b",
+      "ior:instance:f5986d69-74ec-4a29-87a0-01baccc111be"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
