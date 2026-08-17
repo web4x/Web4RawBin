@@ -27,7 +27,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import type { ScenarioUnit } from '../src/ts/scenario/index.js';
 import {
-  allUnits, buildSprintOutput, checkSprint, affectedSprintUuids,
+  allUnits, buildSprintOutput, checkSprint, affectedSprintUuids, speakingSlug,
   SPRINTS_DIR, GENERATED_HEADER_PREFIX, isSprintMdOwnedName, type SprintOutput,
 } from './generate-sprint-md.js';
 import { guardedWrite } from './owned-output-guard.js';
@@ -64,11 +64,13 @@ export function affectedFiles(staged: Set<string>, sprintUnit: ScenarioUnit, out
   const seen = new Set<string>();
   const walk = (u: string): void => {
     if (seen.has(u)) return; seen.add(u);
-    if (staged.has(u)) {
-      files.add('planning.md');
-      for (const [name, content] of out.files) if (content.includes(`[task:uuid:${u}]`)) files.add(name);
-    }
     const tu = units.get(u);
+    if (staged.has(u) && tu) {
+      files.add('planning.md');                 // the task's row + status glyph live in planning.md
+      const own = `${speakingSlug(tu)}.md`;     // the task's OWN MD (buildSprintOutput names it by slug) — NOT any file
+      if (out.files.has(own)) files.add(own);    // that merely REFERENCES the uuid (a parent uuid appears in child MDs;
+                                                 // matching that would touch siblings + could sweep THEIR pre-existing drift)
+    }
     if (tu) for (const c of (((tu.model as Record<string, unknown>).children as string[]) || [])) walk(bareRef(c));
   };
   for (const t of ((m.tasks as string[]) || [])) walk(bareRef(t));
@@ -122,10 +124,11 @@ function bite(): void {
     if (!out) continue;
     for (const t of (((s.model as Record<string, unknown>).tasks as string[]) || [])) {
       const tu = bareRef(t);
-      if (!units.get(tu)) continue;
+      const tuUnit = units.get(tu);
+      if (!tuUnit) continue;
       const files = affectedFiles(new Set([tu]), s, out, units);
-      const taskMd = [...out.files.keys()].find((n) => n !== 'planning.md' && n !== 'requirements.md' && (out.files.get(n) || '').includes(`[task:uuid:${tu}]`));
-      if (files.has('planning.md') && taskMd && files.has(taskMd)) { promiseOk = true; taskLabel = `${out.sprintSlug}/${taskMd}`; }
+      const own = `${speakingSlug(tuUnit)}.md`; // the task's OWN MD — must be exactly the file affectedFiles targets
+      if (files.has('planning.md') && out.files.has(own) && files.has(own) && files.size === 2) { promiseOk = true; taskLabel = `${out.sprintSlug}/${own}`; }
       break;
     }
     if (promiseOk) break;

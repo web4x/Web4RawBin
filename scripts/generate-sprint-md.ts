@@ -57,7 +57,7 @@ export function allUnits(): Map<string, ScenarioUnit> {
   return m;
 }
 
-function speakingSlug(unit: ScenarioUnit): string {
+export function speakingSlug(unit: ScenarioUnit): string {
   const slug = unit.model.slug as string;
   if (slug) return slug;
   const name = String(unit.model.name || '');
