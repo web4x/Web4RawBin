@@ -12,6 +12,7 @@ import crypto from 'node:crypto';
 import { iorClass, iorInstance, type ScenarioUnit } from './types.js';
 import { ScenarioIndex } from './index-store.js';
 import { FileLoader } from './classes.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: route the create through the seam (persist+emit inseparable → new File appears live)
 
 export interface FileUnitInput {
   name: string;
@@ -26,7 +27,7 @@ export interface FileUnitInput {
 
 // [impl:uuid:c546c877-9907-4f17-b61a-1157b0902765] createFileUnit
 // [impl:uuid:5fdcefe4-5404-4e0a-86d4-7979ec1a425c] R19.51 indexByContentHash
-export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): ScenarioUnit {
+export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish: PublishFn): ScenarioUnit {
   const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
   const contentHash = crypto.createHash('sha256').update(buf).digest('hex');
 
@@ -97,7 +98,7 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput): Scenar
     },
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });
-  idx.put(uuid, unit);  // syncLinks handles all symlink creation
+  UnitController.create(idx, unit.ior, uuid, unit, { publish }); // R37.11 slice-1: was idx.put (syncLinks still fires via put) — seam create (emit → live); INV-T byte-diff==0
   try { fs.unlinkSync(lockPath); } catch {}
   console.log(`[file-unit] created: uuid=${uuid.slice(0, 8)} hash=${contentHash.slice(0, 12)} links=${unitLinks.length}`);
   return unit;

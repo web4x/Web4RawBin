@@ -12,6 +12,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: the PROFILE-side put routes via the seam (index-unit-side put stays EXEMPT — no view subscribes)
 
 /**
  * Canonical E.164 `+<CountryCode><digits>`. A country code is REQUIRED so the same
@@ -63,7 +64,7 @@ export class PhoneIndex {
    * Returns the normalized key or null.
    */
   // [impl:uuid:801f53b3-c710-4204-91db-d71bcb773cd9] R21.6 Phone.mintAndLink
-  mintAndLink(profileUuid: string, rawPhone: string, phoneUuid: string): string | null {
+  mintAndLink(profileUuid: string, rawPhone: string, phoneUuid: string, publish: PublishFn): string | null {
     const key = normalizePhone(rawPhone);
     if (!isValidPhoneKey(key)) return null;
     const profile = this.index.get(profileUuid);
@@ -81,10 +82,9 @@ export class PhoneIndex {
         model: { uuid: phoneUuid, e164: key, ownerIor: `ior:instance:${profileUuid}` },
         ownerIor: `ior:instance:${profileUuid}`,
       };
-      this.index.put(phoneUuid, phoneUnit);
+      this.index.put(phoneUuid, phoneUnit); // EXEMPT (index-unit-side Phone unit — no view subscribes; declared in check-mutation-seam ALLOW[])
       phones.push(`ior:instance:${phoneUuid}`);
-      pm.phones = phones;
-      this.index.put(profileUuid, profile);
+      UnitController.apply(this.index, profile.ior, profileUuid, { phones }, { publish }); // R37.11: profile.phones[] via the seam (get re-reads; no pre-mutate) — profile updates live
     }
     this.registerSymlink(profileUuid, key);
     return key;

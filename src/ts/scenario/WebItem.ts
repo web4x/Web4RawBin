@@ -8,6 +8,7 @@
  */
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: route the create through the seam (persist+emit inseparable → new WebItem appears live)
 
 /** url protocol, lowercased ('https', 'mailto', 'tel', …); '' if none. */
 export function deriveScheme(url: string): string {
@@ -102,7 +103,7 @@ export interface WebItemInput { uuid: string; url: string; name?: string; upload
  * iframe / YouTube embed) renders it with zero extra wiring. Caller supplies the v4 uuid (crypto-free).
  */
 // [impl:uuid:1746403f-505f-4b49-8916-f499295d726b] R25.2 WebItem.createWebItemUnit
-export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput): ScenarioUnit {
+export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput, publish: PublishFn): ScenarioUnit {
   const url = (input.url || '').trim();
   const scheme = deriveScheme(url);
   const unit: ScenarioUnit = {
@@ -125,6 +126,6 @@ export function createWebItemUnit(idx: ScenarioIndex, input: WebItemInput): Scen
     },
     ownerIor: input.roomUuid ? `ior:instance:${input.roomUuid}` : null,
   };
-  idx.put(input.uuid, unit);
+  UnitController.create(idx, unit.ior, input.uuid, unit, { publish }); // R37.11 slice-1: was idx.put — seam create (emit → live); INV-T byte-diff==0 (same unit persisted, emit added)
   return unit;
 }

@@ -10,6 +10,7 @@
  */
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: the PROFILE-side put routes via the seam (index-unit-side Address put stays EXEMPT — no view subscribes)
 
 export function osmLinkFor(lat: string | number, lon: string | number): string {
   return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}`;
@@ -27,7 +28,7 @@ export class AddressIndex {
    * Returns the address uuid (existing one if duplicate), or null if profile missing.
    */
   // [impl:uuid:ce2501d3-0c49-4148-8c4a-795d2fbaba24] R21.7 AddressIndex.mintAddress
-  mintAddress(profileUuid: string, oneLine: string, addrUuid: string): string | null {
+  mintAddress(profileUuid: string, oneLine: string, addrUuid: string, publish: PublishFn): string | null {
     const line = String(oneLine || '').trim().replace(/\s+/g, ' ');
     if (!line) return null;
     const profile = this.index.get(profileUuid);
@@ -49,8 +50,7 @@ export class AddressIndex {
     };
     this.index.put(addrUuid, unit); // AC-c1: synchronous put before any network
     addresses.push(`ior:instance:${addrUuid}`);
-    pm.addresses = addresses;
-    this.index.put(profileUuid, profile);
+    UnitController.apply(this.index, profile.ior, profileUuid, { addresses }, { publish }); // R37.11: profile.addresses[] via the seam (get re-reads; no pre-mutate) — profile updates live
     return addrUuid;
   }
 

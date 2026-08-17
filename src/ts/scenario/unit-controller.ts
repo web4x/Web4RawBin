@@ -27,6 +27,10 @@ export function registerPolicy(ior: string, policy: UnitPolicy): void { POLICIES
 export function policyFor(ior: string): UnitPolicy | undefined { return POLICIES.get(ior); }
 
 export class UnitController {
+  // [impl:uuid:e3729f51-3df6-4f6d-96e3-924c37e3c3c9] UnitController.apply — R37.11 slice-1 ROUTING increment: every create/mutate
+  // bypasser now flows through this seam (WebItem/File/Message creates + the 4 *-Index profile-side puts), and check-mutation-seam.ts
+  // BINDS it --strict in ci:gates (0 un-allowed / 28 declared exemptions). Distinct Impl on the apply Method; apply's own primitive
+  // Impl b5f72641 is PRESERVED (R30.11 no-re-credit, verify-owner-first).
   // [impl:uuid:b5f72641-a75c-4b8f-98fc-2380ced1a42a] UnitController.apply — the generic PRIMARY: the SOLE mutation entry for ANY ior:class:* unit
   // (validate → apply → persist → emit). This SUBSUMES statusNext; statusNext is a thin Task façade over this.
   static apply(idx: ScenarioIndex, ior: string, uuid: string, intent: UnitIntent = {}, opts: { actor?: string; publish?: PublishFn } = {}): ScenarioUnit {

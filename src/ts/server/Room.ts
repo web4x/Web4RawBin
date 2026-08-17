@@ -10,6 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { writeRoomJson, getRoomPublicKey, type RoomJsonData } from './RoomKeys.js';
 import { createMessageUnit } from '../scenario/message-unit.js';
+import { type PublishFn } from '../scenario/unit-controller.js'; // R37.11 slice-1: addChat threads the seam publisher into createMessageUnit (complementary to the chat broadcast)
 
 export interface RoomMember {
   id: string;
@@ -278,7 +279,7 @@ export class Room {
   firstMessageIor: string | null = null;
   messageCount: number = 0;
 
-  addChat(senderId: string, senderName: string, text: string, scenarioIdx?: any): void {
+  addChat(senderId: string, senderName: string, text: string, scenarioIdx: any, publish: PublishFn): void {
     const msg: ChatMessage = { senderId, senderName, text, timestamp: Date.now() };
     this._chatHistory.push(msg);
     if (this._chatHistory.length > 100) this._chatHistory = this._chatHistory.slice(-100);
@@ -287,7 +288,7 @@ export class Room {
       try {
         const member = this.members.get(senderId);
         const token = member?.playerToken || senderId;
-        const unit = createMessageUnit(scenarioIdx, { text, senderToken: token, senderName, roomUuid: this.id, kind: 'chat' }, this.lastMessageIor);
+        const unit = createMessageUnit(scenarioIdx, { text, senderToken: token, senderName, roomUuid: this.id, kind: 'chat' }, this.lastMessageIor, publish);
         const uuid = (unit.model as any).uuid;
         if (!this.firstMessageIor) this.firstMessageIor = `ior:instance:${uuid}`;
         this.lastMessageIor = `ior:instance:${uuid}`;

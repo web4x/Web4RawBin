@@ -15,6 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: linkToProfile's PROFILE-side put routes via the seam (Company-unit-side puts stay EXEMPT — no view subscribes)
 
 const LEGAL_SUFFIXES = new Set([
   'gmbh', 'mbh', 'ag', 'se', 'kg', 'ug', 'inc', 'llc', 'ltd', 'limited', 'corp',
@@ -126,13 +127,13 @@ export class CompanyIndex {
   }
 
   /** Link a company into a profile's companies[] (forward-only, AC-e3/f2). */
-  linkToProfile(profileUuid: string, companyUuid: string): void {
+  linkToProfile(profileUuid: string, companyUuid: string, publish: PublishFn): void {
     const profile = this.index.get(profileUuid);
     if (!profile) return;
     const pm = profile.model as Record<string, unknown>;
     const companies: string[] = (pm.companies as string[]) || [];
     const ior = `ior:instance:${companyUuid}`;
-    if (!companies.includes(ior)) { companies.push(ior); pm.companies = companies; this.index.put(profileUuid, profile); }
+    if (!companies.includes(ior)) { companies.push(ior); UnitController.apply(this.index, profile.ior, profileUuid, { companies }, { publish }); } // R37.11: profile.companies[] via the seam (get re-reads; no pre-mutate) — profile updates live
   }
 
   /** Autocomplete: up to 5, ranked exact nameKey > domain > nameKey-prefix > token-overlap (AC-c1). */

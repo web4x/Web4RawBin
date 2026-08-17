@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
+import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11 slice-1: the PROFILE-side put routes via the seam (index-unit-side put stays EXEMPT — no view subscribes)
 
 /** Lowercase + trim. '' if empty. */
 export function normalizeEmail(raw: string): string {
@@ -46,7 +47,7 @@ export class EmailIndex {
    * and register the alt/email symlink. Returns the normalized key or null.
    */
   // [impl:uuid:c709147a-5596-43a7-9354-8b936b5ec3ea] R21.5 EmailIndex.mintAndLink
-  mintAndLink(profileUuid: string, rawEmail: string, emailUuid: string): string | null {
+  mintAndLink(profileUuid: string, rawEmail: string, emailUuid: string, publish: PublishFn): string | null {
     const key = normalizeEmail(rawEmail);
     if (!isValidEmailKey(key)) return null;
     const profile = this.index.get(profileUuid);
@@ -65,10 +66,9 @@ export class EmailIndex {
         model: { uuid: emailUuid, address: key, ownerIor: `ior:instance:${profileUuid}` },
         ownerIor: `ior:instance:${profileUuid}`,
       };
-      this.index.put(emailUuid, emailUnit);
+      this.index.put(emailUuid, emailUnit); // EXEMPT (index-unit-side Email unit — no view subscribes; declared in check-mutation-seam ALLOW[])
       emails.push(`ior:instance:${emailUuid}`);
-      pm.emails = emails;
-      this.index.put(profileUuid, profile);
+      UnitController.apply(this.index, profile.ior, profileUuid, { emails }, { publish }); // R37.11: profile.emails[] via the seam (get re-reads; no pre-mutate) — profile updates live
     }
     this.registerSymlink(profileUuid, key);
     return key;

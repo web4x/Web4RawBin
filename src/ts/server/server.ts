@@ -286,7 +286,7 @@ function indexProfilePhone(token: string, name: string, phone: string): void {
       unit = { ior: 'ior:class:Profile', model: { uuid: token, name, phones: [], emails: [], addresses: [], companies: [], unitLinks: [] }, ownerIor: null };
       UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
-    new PhoneIndex(idx).mintAndLink(token, phone, crypto.randomUUID()); // R21.6: Phone unit + Profile.phones[] + symlink
+    new PhoneIndex(idx).mintAndLink(token, phone, crypto.randomUUID(), publishUnitChanged); // R21.6: Phone unit + Profile.phones[] + symlink. R37.11 slice-1: seam publish (profile updates live)
   } catch (e: any) { addLog(`phone index error: ${e?.message || e}`); }
 }
 
@@ -302,7 +302,7 @@ function indexProfileEmail(token: string, name: string, emails: string[]): void 
       UnitController.create(idx, 'ior:class:Profile', token, unit, { publish: publishUnitChanged }); // R37.11: new Profile via the seam (create primitive; emit → appears live)
     }
     const ei = new EmailIndex(idx);
-    for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID()); }
+    for (const e of emails) { if (e) ei.mintAndLink(token, e, crypto.randomUUID(), publishUnitChanged); }
   } catch (e: any) { addLog(`email index error: ${e?.message || e}`); }
 }
 
@@ -364,7 +364,7 @@ function indexProfileAddress(token: string, name: string, addresses: string[]): 
     for (const line of addresses) {
       if (!line) continue;
       const u = crypto.randomUUID();
-      const addrUuid = ai.mintAddress(token, line, u); // synchronous, no network (AC-c1)
+      const addrUuid = ai.mintAddress(token, line, u, publishUnitChanged); // synchronous, no network (AC-c1). R37.11 slice-1: seam publish (profile updates live)
       if (addrUuid) enqueueAddressVerify(addrUuid, String(line).trim().replace(/\s+/g, ' '));
     }
   } catch (e: any) { addLog(`address index error: ${e?.message || e}`); }
@@ -386,7 +386,7 @@ function indexProfileCompany(token: string, name: string, companies: Array<strin
       const dom = typeof c === 'string' ? undefined : c?.domain;
       if (!cname) continue;
       const cuuid = ci.mintOrReuseShared(cname, crypto.randomUUID(), dom); // reuses existing → no dup
-      if (cuuid) ci.linkToProfile(token, cuuid);
+      if (cuuid) ci.linkToProfile(token, cuuid, publishUnitChanged); // R37.11 slice-1: seam publish (profile.companies updates live)
     }
   } catch (e: any) { addLog(`company index error: ${e?.message || e}`); }
 }
@@ -2054,7 +2054,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (isWebItem) {
             const url = extractUrl(fileData.toString('utf-8'), fileName);
             if (url) {
-              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined });
+              unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined }, publishUnitChanged); // R37.11 slice-1: seam publish (new WebItem appears live)
               addLog(`[upload] WebItem: ${(unit.model as any).badge} ${(unit.model as any).name} (${(unit.model as any).scheme}) url=${url.slice(0,60)}`);
               // v0.6.98 (R25.5): for http(s), fetch the page <title> as the NAME (distinct from description=url);
               // falls back to deriveName's hostname on timeout/failure. Only overrides a generic (non-fetched) name.
@@ -2067,7 +2067,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
             }
           }
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId }); // R40.22 path regrowth-kill: fsKey=storageId in the roomFsLink PATH (inert: =token while REKEY_APPLIED=false)
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId }, publishUnitChanged); // R40.22 path regrowth-kill: fsKey=storageId in the roomFsLink PATH (inert while REKEY_APPLIED=false). R37.11 slice-1: seam publish (new File appears live)
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);
@@ -3810,7 +3810,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
         const name = member?.name || 'Anonymous';
         const scenarioDir = path.join(__dirname, '../../../scenario/index');
         const chatIdx = new ScenarioIndex(scenarioDir);
-        room.addChat(clientId, name, text, chatIdx);
+        room.addChat(clientId, name, text, chatIdx, publishUnitChanged); // R37.11 slice-1: seam publisher for the new Message unit (complementary to CHAT_MESSAGE broadcast)
       }
       break;
     }

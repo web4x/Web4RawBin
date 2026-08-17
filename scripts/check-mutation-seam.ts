@@ -16,11 +16,28 @@ const SCAN_DIRS = ['src/ts', 'src/public/ts'];
 
 // Exempt BY DEFINITION (the seam + the disk primitive it wraps):
 const SEAM = new Set(['src/ts/scenario/unit-controller.ts', 'src/ts/scenario/index-store.ts']);
-// DECLARED exceptions (reason required; architect-audited). Populate as routing proves a site is legitimately pre-seam.
-const ALLOW: { file: string; reason: string }[] = [
-  // e.g. { file: 'src/ts/scenario/some-migration.ts', reason: 'one-time migration, runs before the WS transport is live' }
+// DECLARED exceptions (reason REQUIRED; architect-audited). PER-SITE (file + a `match` substring of the put line) so a
+// SPLIT file can route one put and exempt another — the *-Index profile-side put is ROUTED while the index-unit-side put
+// is exempt. Burden of proof on the exception: each carries a MEASURED reason. Tripwire (a) = empty reason → RED.
+const ALLOW: { file: string; match: string; reason: string }[] = [
+  // ── *-Index SPLIT: the index-unit-side entity put is exempt; the PROFILE-side put is routed via the seam. MEASURED: no trace/public view subscribes to any *-Index entity unit (grep EMPTY).
+  { file: 'src/ts/scenario/AddressIndex.ts', match: 'put(addrUuid', reason: 'index-unit-side Address entity — MEASURED no view subscribes; profile-side put routed via the seam' },
+  { file: 'src/ts/scenario/CompanyIndex.ts', match: 'put(companyUuid', reason: 'index-unit-side Company entity — MEASURED no view subscribes; profile-side linkToProfile routed via the seam' },
+  { file: 'src/ts/scenario/EmailIndex.ts', match: 'put(emailUuid', reason: 'index-unit-side Email entity — MEASURED no view subscribes; profile-side put routed via the seam' },
+  { file: 'src/ts/scenario/PhoneIndex.ts', match: 'put(phoneUuid', reason: 'index-unit-side Phone entity — MEASURED no view subscribes; profile-side put routed via the seam' },
+  // ── Mint/generator — MEASURED CLI/generate-only (imported by scripts/ not a server request handler). Tripwire (b) re-audits if a server handler imports them.
+  { file: 'src/ts/scenario/class-mint.ts', match: 'idx.put(', reason: 'mint/generator — MEASURED CLI/generate-only (imported by scripts/ not a server handler)' },
+  { file: 'src/ts/scenario/classes.ts', match: 'put(RAWBIN_SYSTEM_UUID', reason: 'RawBin-system-user bootstrap seed — CLI/generate-only, pre-transport (FileLoader is the server-imported export, not this seed)' },
+  { file: 'src/ts/scenario/skill-classes.ts', match: 'this.idx.put(', reason: 'skill mint/generator — MEASURED CLI-only (imported by scripts/ not a server handler)' },
+  { file: 'src/ts/scenario/skills.ts', match: 'idx.put(', reason: 'skill mint/generator — MEASURED CLI-only (imported by scripts/ not a server handler)' },
+  // ── agent-message — MEASURED no view subscribes + no runtime send-caller (only classes.ts loader + test fixtures). :77 Task messages[] data-merge defers to T37.4.3.
+  { file: 'src/ts/scenario/agent-message.ts', match: 'this.idx.put(', reason: 'no view subscribes + no runtime send-caller (measured: 0 send-callers); Task messages[] data-merge defers to T37.4.3' },
+  // ── CurrentSprint — DEFERRED-TO-ENDPOINT: an in-process CLI emit reaches 0 WS clients; planner-drive + skill route via the ONE narrow server endpoint (architect ruling). The RUNTIME pin handler in server.ts IS routed.
+  { file: 'src/ts/scenario/CurrentSprint.ts', match: 'this.index.put(', reason: 'DEFERRED-TO-ENDPOINT — in-process CLI emit reaches 0 WS clients; planner-drive + skill route via the narrow server endpoint (architect ruling); runtime pin handler routed' },
+  // ── approveByOwner + declineToChangeRequest — write model.status LITERALLY + Task DATA; DEFER-T37.4.3 (deriveStatusEnum sole status writer; Done stays Tron's act).
+  { file: 'src/ts/server/server.ts', match: 'idx.put(taskUuid, unit)', reason: 'approve/decline write model.status + Task data — DEFER-T37.4.3 (behavior migration; deriveStatusEnum sole status writer, Done stays Tron)' },
 ];
-const ALLOW_FILES = new Set(ALLOW.map((a) => a.file));
+const isAllowed = (f: SeamFinding): boolean => ALLOW.some((a) => a.file === f.file && f.text.includes(a.match));
 
 // A unit-persist call on a ScenarioIndex handle (idx/index/this.idx/this.index/this.put in an index-holder).
 const PUT_RE = /\b(?:idx|index|this\.idx|this\.index|this)\.put\(/;
@@ -40,7 +57,7 @@ export function scanMutationSeam(root: string): SeamFinding[] {
       if (e.isDirectory()) { if (e.name === 'node_modules' || e.name === 'dist') continue; walk(p); continue; }
       if (!/\.ts$/.test(e.name) || /\.(test|spec|d)\.ts$/.test(e.name)) continue;
       const rel = path.relative(root, p).split(path.sep).join('/');
-      if (SEAM.has(rel) || ALLOW_FILES.has(rel)) continue;
+      if (SEAM.has(rel)) continue; // ALLOW is now PER-SITE (isAllowed), filtered after the scan — a split file is scanned, not whole-file skipped
       const lines = scanCode(fs.readFileSync(p, 'utf-8')).split('\n');
       lines.forEach((ln, i) => { if (PUT_RE.test(ln)) findings.push({ file: rel, line: i + 1, text: ln.trim().slice(0, 110) }); });
     }
@@ -60,14 +77,32 @@ if (process.argv[1] && /check-mutation-seam\.(ts|js|mjs)$/.test(process.argv[1])
     console.error(`✗ check-mutation-seam: SELF-BITE FAILED (detects=${detects}, ignoresComment=${ignoresComment}) — lint INERT. RED.`);
     process.exit(1);
   }
-  const findings = scanMutationSeam(ROOT);
+  // TRIPWIRE (a): an exempt entry with NO declared reason (or match) → RED. A reason-less allow-list stops binding.
+  const reasonless = ALLOW.filter((a) => !a.reason.trim() || !a.match.trim());
+  if (reasonless.length) {
+    console.error(`✗ check-mutation-seam: ${reasonless.length} ALLOW entr(y/ies) with NO reason/match — every exemption needs a MEASURED reason (tripwire a). RED.`);
+    for (const a of reasonless) console.error(`  ${a.file} (match='${a.match}')`);
+    process.exit(1);
+  }
+  // TRIPWIRE (b): a CLI-only-declared mint/skill module IMPORTED by the server → re-audit (a runtime handler may now
+  // reach it → its writes would need routing). Report-only re-audit flag (self-draining), not RED.
+  const CLI_ONLY = ['class-mint.ts', 'skill-classes.ts', 'skills.ts', 'agent-message.ts'];
+  try {
+    const serverSrc = fs.readFileSync(path.join(ROOT, 'src/ts/server/server.ts'), 'utf-8');
+    const reimported = CLI_ONLY.filter((m) => new RegExp(`from '[^']*/${m.replace('.ts', '.js')}'`).test(serverSrc));
+    if (reimported.length) console.log(`  ⚠ tripwire(b) re-audit: server.ts imports CLI-only-declared module(s) [${reimported.join(', ')}] — confirm no runtime handler reaches their put()s.`);
+  } catch { /* server.ts absent → skip */ }
+
+  const all = scanMutationSeam(ROOT);
+  const findings = all.filter((f) => !isAllowed(f)); // UN-ALLOWED bypassers only
+  const exemptCount = all.length - findings.length;
   if (findings.length === 0) {
-    console.log(`✓ check-mutation-seam — 0 ScenarioIndex.put outside UnitController.{apply,create} (seam binds; self-BITE ✓).`);
+    console.log(`✓ check-mutation-seam — 0 UN-ALLOWED ScenarioIndex.put outside UnitController.{apply,create} (${exemptCount} declared exemptions, each with a measured reason; seam binds; self-BITE ✓).`);
     process.exit(0);
   }
-  const header = `${STRICT ? '✗' : '⚠'} check-mutation-seam: ${findings.length} unit-persist(s) BYPASS the seam (must route via UnitController.apply/create, or DECLARE with a reason):`;
+  const header = `${STRICT ? '✗' : '⚠'} check-mutation-seam: ${findings.length} UN-ALLOWED unit-persist(s) BYPASS the seam (route via UnitController.apply/create, or DECLARE with a reason) [${exemptCount} already declared]:`;
   (STRICT ? console.error : console.log)(header);
   for (const f of findings) (STRICT ? console.error : console.log)(`  ${f.file}:${f.line}  ${f.text}`);
   if (STRICT) process.exit(1);
-  console.log(`  (report-only: ${findings.length} known bypassers pending slice-1 routing; flip to --strict once routed. self-BITE ✓)`);
+  console.log(`  (report-only: ${findings.length} un-allowed pending routing; flip to --strict once 0. self-BITE ✓)`);
 }
