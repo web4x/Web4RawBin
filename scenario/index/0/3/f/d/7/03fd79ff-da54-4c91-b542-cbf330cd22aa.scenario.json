@@ -81,6 +81,11 @@
     "id": "AC-view-reads-derived-status",
     "group": "view-correctness",
     "text": "The CLIENT view markers (item + detail current/next) MUST read the DERIVED status (deriveStatusEnum(statusChecklist)), NEVER raw model.status — else the item view contradicts the pin (which derives). Architect: the derived status is the single truth the view surfaces (ties R40.18 view-surface + C4.1 self-heal-on-read). GATE: a view reading raw model.status for a current/next marker -> RED."
+   },
+   {
+    "id": "AC-substep-under-statement",
+    "group": "detector-extension",
+    "text": "assertStatusConsistent CONVERSE (INV-C5-substep-under): a task whose IMPLEMENTATION is SHIPPED (an Impl markerPending=false on its chain) while its 'implementing' sub-step box is UNCHECKED is a DRIFT in the OTHER direction (UNDER-statement) — the board tells Tron nothing is happening while work shipped all day (Tron defect-3 'no visible progress!!!!'). Resolution ticks the COMPLETED sub-step per-evidence: implementing<-shipped Impl, testing<-two-keyed passing Test; NEVER a spec/gate-doc (a spec is not test cases = the 'documented therefore done' inflation we refuse). The checklist can lie in BOTH directions; the detector + sweep catch both. Same phased self-draining treatment."
    }
   ],
   "driftSweep": {
@@ -98,7 +103,8 @@
     "iframe-pinch": "pending sweep"
    },
    "policy": "phased report-only -> strict, self-draining count 7->0 as trigger; reconcile-per-task-to-truth through-seam, never status-invention. Do-not-execute the 5 pending now (Tron deploy focus).",
-   "owner": "robbin-req (R37.5 owner)"
+   "owner": "robbin-req (R37.5 owner)",
+   "bothDirections": "sub-step-checked=>parent-checked (over) AND Impl-shipped=>implementing-checked (under, Tron defect-3). 37.24 is the under-statement instance: implementing shipped (e3729f51) but implementing box unchecked."
   }
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
