@@ -14,7 +14,8 @@
   "sprintName": "Sprint 37",
   "unitLinks": [],
   "useCases": [
-   "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f"
+   "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f",
+   "ior:instance:e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac"
   ],
   "description": "The drag-and-drop buffer payload is the scenario UNIT JSON (the full {ior,ownerIor,model} object) — NEVER a *.show?uuid= URL, a WebItem, or any link. A FILE drags as a FILE (not a collection). Detail views actually RENDER for every /model tree selection (today empty on all). ★ FLEET-WIDE (Tron amendment 'this affects the onDrop to diagramms and everywhere else'): ONE shared serializer produces the payload ONCE + ONE shared resolver consumes it ONCE; EVERY drop target reuses it (diagram, room, /model tree/collections/folders, editor/detail drawer, and any future target) — NO per-target payload format, NO per-target parsing, NO *.show?uuid= URL fallback ANYWHERE. Same duplication-collapse shape as R40.37 (per-view if-chains -> one shared declaration).",
   "tronQuote": "> Tron: \"this is what happens if i drag and drop the files ... but this is generally wrong.\" / \"a FILE ... SHOULD be a file. not a collection. like #file.show?uuid=...\" / \"in all cases NEVER #webitem.show?uuid=... but the actual scenario unit ... ALWAYS.\" / \"the details view dont show anything. on all of them.\" AMENDMENT: \"this affects the onDrop to diagramms and everywhere else.\"",
@@ -57,6 +58,11 @@
     "id": "AC-6-DEVICE",
     "group": "device",
     "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on device: a file drags as a file, drops onto every target carry the unit (not a URL), and detail views render."
+   },
+   {
+    "id": "AC-resolve-drop-payload-one-resolver",
+    "group": "gate",
+    "text": "dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared resolver EVERY drop target calls (fail-loud on unresolvable), replacing today's 4 payload formats each target resolving itself (the per-target-resolution disease). A drop updates the view LIVE @390. GATE STUB-MUST-FAIL: a target with its own payload format/resolver -> RED."
    }
   ]
  },

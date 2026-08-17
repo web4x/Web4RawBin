@@ -21,7 +21,8 @@
    "ior:instance:bab465ec-a2ba-4623-8365-140cb049eb2b",
    "ior:instance:8b9ad9ec-f09c-41b1-8332-82afa35c2872",
    "ior:instance:62c5576b-4b43-4d52-bf79-c36cb4667e99",
-   "ior:instance:3b7b2a6d-86e2-49d9-ad45-6c3fe7fc7f77"
+   "ior:instance:3b7b2a6d-86e2-49d9-ad45-6c3fe7fc7f77",
+   "ior:instance:3ee364a5-472f-44f2-bc1b-79df494b2f0f"
   ],
   "description": "Every UNIT mutation (any ior:class:*) flows through ONE controller unitController.apply (validate via the registered policy -> apply -> persist via ScenarioIndex.put deliberate-opt -> emit). The Task FSM registers as POLICY #1; statusNext is a THIN Task facade over apply, never a second entry. Done has ONE writer (R40.10 approveByOwner DELEGATES to apply's Done step, recording approvedBy/approvedAt as the evidence, never sets Done itself; tronApprove folds in). The controller REFUSES to advance past a checklist step whose evidence is absent, using the ONE shared evidenceForStep predicate (also consumed by checklist-chain-audit — no second copy). A dominance LINT proves the controller is the UNIQUE dominator of every mutation. Covers C4.2/C4.3/C4.8 (T37.4.2 + T37.4.3).",
   "tronQuote": "> Tron (pre-build, C4 shape): \"that's far away from MVC and a view pipeline\" -> RE-ISSUED DRY as TWO SINGLETONS (generic mechanism + plugged-in policy); Task = policy #1, sprint board = projection #1.",
@@ -82,6 +83,11 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST EXERCISES AC-one-entry+AC-evidence-precondition+AC-dominance (distinct-intent): a mutation bypassing apply -> RED; advancing past an evidence-absent step -> refused fail-loud; a second Done-writer -> RED. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-mvc-apply-seam",
+    "group": "gate",
+    "text": "mvc.applyMutation is the ONE controller seam — it mutates the graph, collects affected refs, and notifies as ONE step, so NOTIFY is a CONSEQUENCE of applying, not a remembered/scattered step (today notify is scattered across trace/index.ts, universal-actions, RawBinClient). GATE (grep-lint, STUB-MUST-FAIL): NO graph mutation or notify happens OUTSIDE the seam -> plant a mutation/notify outside -> RED."
    }
   ]
  },

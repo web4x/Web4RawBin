@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e530e248-8535-4bcf-b984-be916cc0aa9a",
+    "name": "mvc.consolidateOneBus",
+    "description": "Retire/declare the SECOND observer so there is ONE view bus, not two (trace/ViewBus ref-keyed vs top-level ViewBus classType/uuid = the two-source disease, R40.18 class). ONE controller/bus. Placeholder: architect wires Class/Method.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+}

@@ -74,7 +74,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 | 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
 | 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
 | 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
-| 37 | Consistency by Construction | QA-pending |
+| 37 | Sprint 37 — Consistency by Construction | QA-pending |
 | 40 | Server Manager — deployment-node model + mobile input control | QA-pending |
 
 **FROZEN-LEGACY** (excluded from the consistency gate — Tron-bounded scope, [[no silent caps]]):

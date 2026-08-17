@@ -14,7 +14,9 @@
   "useCases": [
    "ior:instance:77e8a39f-642f-4f0f-8d7d-b1d5fec804c7",
    "ior:instance:bfea086a-81cf-4797-93a2-051d35b1df9a",
-   "ior:instance:53a85195-4253-43b5-a6e0-c266c34f833f"
+   "ior:instance:53a85195-4253-43b5-a6e0-c266c34f833f",
+   "ior:instance:6aac0acf-23f9-4e67-a2e1-9f9633e101ff",
+   "ior:instance:e530e248-8535-4bcf-b984-be916cc0aa9a"
   ],
   "description": "Every model change is announced by ONE revision-stamped event UNIT_CHANGED{ior,uuid,hash} on ONE view bus (the EXISTING viewBus, extended to carry the revision), and every view format is a REGISTERED PROJECTION reached ONLY through the bus. Any projection that cannot prove it is current renders VISIBLY STALE (revalidate-or-stale-badge). Adding a view format is REGISTRATION ONLY. The revision = a compute-on-read CONTENT-HASH reusing the federation contentHash (single-source, NOT a counter, NOT a stored bump); currency is fail-closed (unconfirmed == stale). Covers C4.4/C4.5/C4.6 (T37.4.4/.5/.6).",
   "tronQuote": "> Tron (pre-build, C4 shape): \"that's far away from MVC and a view pipeline\" -> RE-ISSUED DRY as TWO SINGLETONS (generic mechanism + plugged-in policy); Task = policy #1, sprint board = projection #1.",
@@ -65,6 +67,21 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST EXERCISES AC-one-event+AC-scoped-debounced+AC-revalidate-or-stale+AC-fail-closed (distinct-intent): two transitions in one sprint -> exactly ONE scoped regen (RED if it regenerates unaffected sprints / fires per-event); drop the ws / skip a revision -> the open node goes STALE (RED if it renders fresh); register a throwaway projection -> works with zero pipeline edits. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-subscribe-on-render-coverage",
+    "group": "gate",
+    "text": "mvc.subscribeOnRender COVERAGE INVARIANT: EVERY view that renders a ref MUST subscribe to it -> it live-updates. GATE RED if a rendered ref is not subscribed (STUB-MUST-FAIL: render a ref without subscribing -> RED). Closes the gap where AC3 live-update marker 9ce0b153 exists but no coverage unit."
+   },
+   {
+    "id": "AC-one-bus-not-two",
+    "group": "functional",
+    "text": "ONE view bus, not two: the SECOND observer (trace/ViewBus ref-keyed vs top-level ViewBus classType/uuid) is RETIRED or explicitly declared so there is ONE controller/bus (the two-source disease, R40.18 class). GATE: a 2nd live bus in use -> RED (stub-must-fail)."
+   },
+   {
+    "id": "AC-item-detail-live-390-INV-T",
+    "group": "device",
+    "text": "[DEVICE-ONLY @390 pixel — Tron, un-mockable, NEVER headless-green, TRON-ONLY] A unit change is VISIBLE in the ITEM view AND the DETAIL view with NO manual reload (live), gated @390 by SCREENSHOT+PIXEL (the changed value appears), NEVER a DOM count. AND INV-T: rendering NEVER mutates the model — the unit byte-diff before==after any render == 0. STUB-MUST-FAIL: a stale view / a render that mutates the unit -> RED. Closes Tron's 'not reflecting it in realtime currently'."
    }
   ]
  },

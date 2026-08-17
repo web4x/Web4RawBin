@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac",
+    "name": "dnd.resolveDropPayload",
+    "description": "The ONE shared drop RESOLVER every drop target calls, over a CANONICAL payload (application/rb-object-ref), fail-loud on unresolvable — replacing today's 4 payload formats each target resolving itself. Sibling of dnd.carryUnitPayload (serializer). Placeholder: architect wires Class/Method.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+}

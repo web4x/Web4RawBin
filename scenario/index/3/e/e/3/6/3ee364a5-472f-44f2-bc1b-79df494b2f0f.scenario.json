@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3ee364a5-472f-44f2-bc1b-79df494b2f0f",
+    "name": "mvc.applyMutation",
+    "description": "The ONE controller seam: mutate the graph + collect affected refs + NOTIFY as ONE atomic step, so notify is a CONSEQUENCE of applying, never a remembered/scattered step. Replaces today's scattered notify (trace/index.ts, universal-actions, RawBinClient). Placeholder: architect wires Class/Method on build-go.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+}

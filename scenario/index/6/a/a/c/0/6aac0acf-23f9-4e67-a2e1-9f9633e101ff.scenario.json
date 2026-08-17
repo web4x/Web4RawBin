@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "6aac0acf-23f9-4e67-a2e1-9f9633e101ff",
+    "name": "mvc.subscribeOnRender",
+    "description": "Coverage invariant: EVERY view that renders a ref MUST subscribe to that ref (so it live-updates). Closes the gap where AC3 live-update marker 9ce0b153 exists but no coverage unit. Placeholder: architect wires Class/Method.",
+    "class": null,
+    "method": null,
+    "tasks": [],
+    "implementations": [],
+    "tests": [],
+    "classes": []
+  },
+  "ownerIor": "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+}
