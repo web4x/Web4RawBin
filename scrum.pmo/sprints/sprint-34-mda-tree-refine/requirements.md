@@ -2,7 +2,7 @@
 
 [Back to Planning](./planning.md)
 
-# Sprint 34 Requirements — Sprint 34: MDA-tree refine (retain-protect-tweak the S33 achievement)
+# Sprint 34 Requirements — MDA-tree refine (retain-protect-tweak the S33 achievement)
 
 ## Requirements
 
