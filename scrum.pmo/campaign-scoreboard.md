@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 155** — Done **97** · QA-Review **42** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 13** (155 = 97+42+3+13)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 9**
+- **TOTAL S30++ tasks: 155** — Done **97** · QA-Review **43** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 12** (155 = 97+43+3+12)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 8**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,16 +26,15 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 19 | 0 | 10 | 0 | 9 |
+| S37 | 19 | 0 | 11 | 0 | 8 |
 | S40 | 16 | 0 | 15 | 0 | 1 |
 
-**ACTIONABLE by blocker:** RIPE-SHARED 3 · gate 1 · marker 5
+**ACTIONABLE by blocker:** RIPE-SHARED 2 · gate 1 · marker 5
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
-| S37 | 5acdcc4c | In Progress | RIPE-SHARED | Task 37.24: Realtime-MVC live-update slice — a routed write  |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
 | S37 | c8e0b1d2 | Planned | RIPE-SHARED | Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY  |
