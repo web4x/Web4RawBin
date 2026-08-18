@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 155** — Done **97** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 11** (155 = 97+44+3+11)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 7**
+- **TOTAL S30++ tasks: 155** — Done **97** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 10** (155 = 97+45+3+10)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 6**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 19 | 0 | 12 | 0 | 7 |
+| S37 | 19 | 0 | 13 | 0 | 6 |
 | S40 | 16 | 0 | 15 | 0 | 1 |
 
-**ACTIONABLE by blocker:** RIPE-SHARED 1 · gate 1 · marker 5
+**ACTIONABLE by blocker:** gate 1 · marker 5
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -37,7 +37,6 @@
 | S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
-| S37 | c8e0b1d2 | Planned | RIPE-SHARED | Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY  |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S40 | 2e831ffd | Planned | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |

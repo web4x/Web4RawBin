@@ -29,5 +29,5 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] ⏳ [Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod](./task-37.23-discovered-server-manager-root.md)
 - [ ] 🧪 [Task 37.24: Realtime-MVC live-update slice — a routed write appears live in item + detail + pin @390](./task-37.24-realtime-mvc-live-update-slice.md)
 - [ ] 📝 [Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single view bus + views subscribe-on-render, live-update coverage gated @390 (R37.12)](./task-37.25-realtime-mvc-one-view-bus.md)
-- [ ] ⏳ [Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>' everywhere @390 (R40.4-phase-2)](./task-37.26-sprint-task-name-formatter.md)
+- [ ] 🧪 [Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>' everywhere @390 (R40.4-phase-2)](./task-37.26-sprint-task-name-formatter.md)
 - [ ] 🧪 [Task 37.27: Sprint/task-name MIGRATION — strip embedded numbers to the single attribute, PHASED S37-first (R40.4-phase-2)](./task-37.27-sprint-task-name-migration.md)

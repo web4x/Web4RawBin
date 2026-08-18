@@ -39,12 +39,13 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 #### ⚠️ NOT READY — 0 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - (none — every QA-Review task carries two-keyed passing testing evidence)
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 20 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 21 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S32 abaf9f83** Task 32.5: Drag itemView -> diagram VIEW (composed c — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 5acdcc4c** Task 37.24: Realtime-MVC live-update slice — a route — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S37 c8e0b1d2** Task 37.26: Sprint/task-name FORMATTER — item shows  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 f5986d69** Task 37.27: Sprint/task-name MIGRATION — strip embed — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 241a2be3** Task 40.12: File detail view renders a working type- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 46964040** Task 40.18: Pin auto-progress on QA-Review — pin adv — _device @390 — headless evidence ok; needs your tap/pixel verify_
