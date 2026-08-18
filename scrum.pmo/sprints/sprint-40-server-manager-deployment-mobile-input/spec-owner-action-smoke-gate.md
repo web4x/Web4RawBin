@@ -57,3 +57,22 @@ The "live-all-surfaces" criterion enumerated tree/row/icon/badge/detail and NEVE
 - Runs in `ci:gates` (or a pre-deploy step) — every server-side change to the action path re-exercises the owner-success branch. Report-only→strict per the DUAL-FLIP discipline (it should pass NOW that v0.8.108 fixed the crash — flip to strict once green).
 - I interpret the raw run (codes + alive-check) myself — not a subagent "green" (L10). The immediate expert run proves the path today; this gate keeps it proven.
 - Chain: an acceptance Test on the approve/make-current Impls (`approveByOwner` / make-current seam) — req mints the Test unit against this spec; I verify it exercises the SUCCESS branch (not just 403) at derive.
+
+## ★ CONSTRUCTION BACKSTOP v0.8.110 (architect) — PASS on the 4 RED conditions (construction only; NOT the acceptance)
+Measured the served/source shape:
+- **NOT per-page-opt-in ✓** — `page-bootstrap.ts` exports `bootstrapPage(opts)`, transport opens BY DEFAULT (`transport !== false`); every live entry ROUTES THROUGH it: `trace-page.ts:8`, `scenario-view.ts:11` (the bundle /trace actually serves), `model.ts:5` all call `bootstrapPage()`. Shared-default, not 3 `new RawBinClient` opt-ins. Declared opt-out = `bootstrapPage({transport:false})`.
+- **/app no-regress ✓** — `app.ts:10` `new RawBinClient()` + `:69` `client.connect()` intact.
+- **NOT throwing-bootstrap ✓** — `bootstrapPage` wraps `connectLiveBridge()` in try/catch; never crashes the shell.
+- **NOT caught-and-silent ✓ (fail-loud)** — catch logs `[page-bootstrap] ★ LIVE TRANSPORT FAILED on ${page} … cause` + sets `window.__liveTransport={state:'down',cause}` + `<html data-live-transport='down:boot-failed'>`; `connectLiveBridge` sets `'connected'` on a real open ws = the positive property the gate asserts.
+- SELF-CORRECTION (honesty): first grep used the wrong path (`ts/trace/trace-page.ts`) and showed no bootstrap → I re-measured the real entry (`ts/trace-page.ts`) before RED-ing. Measure the RIGHT target.
+
+★ CONSTRUCTION IS INADMISSIBLE AS THE ACCEPTANCE (my own AMEND-3/L13): "bundle contains connectLiveBridge" ≠ "a loaded page opens a live ws that re-renders on a remote broadcast." The ACCEPTANCE is still OPEN = the real-page two-client run (below). 
+
+## ★ REAL-PAGE TWO-CLIENT — acceptance evidence to CAPTURE (tester runs fresh; architect interprets, not a bare green — L10)
+On the isolated scratch (R40.31; never prod/never a real Done), for EACH of /trace, /model, and /app (regression):
+1. Client-2 opens the REAL page; assert `window.__liveTransport.state === 'connected'` (the observable proves the ws opened — a raw-ws or local-emit run is DISALLOWED).
+2. Owner approves a QA-Review scratch task on client-1.
+3. Assert client-2 (which did NOT act — no local emit) re-renders from the broadcast ALONE: row + badge (→green✓) + detail + **CONTROLS** (Approve/Decline vanish at Done).
+4. /app must show the SAME (no-regress). ZERO 5xx; server alive after.
+5. stub-must-fail: disable server `publishUnitChanged` → client-2 must NOT update (proves it tests the broadcast, not a shortcut); latch the action-bar at mount → controls stay (RED).
+Capture: `__liveTransport` state + the GET requests client-2 makes on the emit (surgical: `/api/ior/…<uuid>` only, no whole-tree refetch) + screenshots. I read the raw evidence per-surface myself.
