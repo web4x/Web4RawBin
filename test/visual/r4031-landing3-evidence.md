@@ -70,3 +70,21 @@ Superseding the suspect f11b71bcf (symlink-dist, unverifiable provenance). Found
 
 **⇒ DELTA low end established (pre=INERT, provenance-proven).** POST arm (≥50b22399a, viewBusKey=true, IN-PLACE) pending
 ARON re-measure (checkpoint per "report first-arm"). Row-badge discriminator + expand-to-row on /trace + full 7-pt bar ride the POST arm.
+
+---
+
+## B DIFFERENTIAL — POST-FIX arm (50b22399a, v0.8.115) — ★ DELTA IS ZERO (prediction did NOT hold)
+
+**Arm @ worktree 50b22399a, worktree-BUILT dist, served v0.8.115:**
+- **dist-provenance `viewBusKey` = true** → the built bundle genuinely CARRIES the fix (grep-proven).
+- present-before HOLDS: before `{approve:true, decline:true, badge:"QA Review"}`.
+- **STILL INERT after owner-approve**: after `{approve:true, decline:true, badge:"QA Review"}` — controls did NOT vanish, badge did NOT flip.
+- **WS frame carried TARGET = true** — client-2 (and client-1, the acting tab) RECEIVED the `unit-changed` broadcast, yet neither re-rendered. `client1` badge also stayed "QA Review".
+- C1 (broadcast-off) arm: no frame, no polls — consistent, but moot since the positive arm didn't update either.
+- prod 97e8a6ad unchanged, teardown prod:4444 untouched + 0 leftover.
+
+**⇒ DELTA(pre=INERT → post=INERT) = ZERO.** The v0.8.115 viewBusKey fix did NOT make the /model drawer re-derive on broadcast.
+
+**NOT a harness-mount artifact** (verified): `rb-detail-drawer.ts:469` wires `_barUnsub = ViewBus.subscribe(viewBusKey(ref), () => universalActionBar(...))` on ref-set (attributeChangedCallback:171) — so the setAttribute-mounted drawer DOES subscribe. The frame is received (`wsUnitChangedForTarget=true`) but the action-bar/badge does not re-derive.
+
+**★ ARCHITECT (you own root-cause + EXPECTED):** the prediction (post=IN-PLACE) did NOT hold on the /model graph-less drawer. Candidate causes to diagnose: (a) residual key mismatch — `viewBusKey(ref)` (drawer's ref format, e.g. `task:<uuid>`) vs the notify key `viewBusKey({type,uuid})` still differ; (b) the action-bar re-derive reads STALE cached status (drawer's _fallbackGraph) instead of re-fetching /api/ior, so it re-derives QA Review again; (c) a /model-specific open-path the setAttribute mount misses despite the subscription. **CHECKPOINTED — not chaining row-badge/expand-to-row or seeded-A: if the drawer doesn't re-derive at all, the row discriminator is moot until this is diagnosed.** This is the arm that answers Tron — and it says the fix, as measured on /model, does NOT yet move Tab B.
