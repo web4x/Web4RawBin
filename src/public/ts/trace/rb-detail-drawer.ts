@@ -485,7 +485,8 @@ export class RbDetailDrawer extends HTMLElement {
     // derives status at the /api/ior READ boundary so a real task always carries it — but an ABSENT status must NEVER
     // silently mean not-actionable (a data gap hiding a real action = the silent-swallow class). So it is OBSERVABLE
     // (console.error + a data attr a human AND a gate can read), not a quiet hide. Membership does not decide; status does.
-    if ((r?.type || type).toLowerCase() === 'task' && unit.status == null) {
+    const statusUnresolved = (r?.type || type).toLowerCase() === 'task' && unit.status == null;
+    if (statusUnresolved) {
       console.error(`[action-bar] ★ TASK status UNRESOLVED for ${ref} — controls suppressed on a DATA GAP, not a status decision (fail-loud, not silent-hide; ed3442d10/L15)`);
       this.setAttribute('data-status-unresolved', ref);
     } else { this.removeAttribute('data-status-unresolved'); }
@@ -494,7 +495,12 @@ export class RbDetailDrawer extends HTMLElement {
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
     const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram, taskRole }, decls);
     const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)
-    this.setActions([...defaults, ...offered, ...legacy]);
+    // v0.8.114 (architect a38cd7c91): a VISIBLE '⚠ status unresolved' bar item so an unresolved TASK status reads LOUD to
+    // TRON on-screen — not just the DOM attr + console (loud to a gate/dev, SILENT to him). An empty control-area otherwise
+    // reads to the person-who-acts as a normal not-actionable task = the exact wrong impression the original defect gave.
+    // Informational (no handler); it says the absence is a DATA GAP, not a status decision. This IS 'renders a LOUD state'.
+    const unresolved = statusUnresolved ? [{ verb: 'status-unresolved', label: '⚠ status unresolved — data gap', primary: false }] : [];
+    this.setActions([...defaults, ...offered, ...legacy, ...unresolved]);
   }
 
   // R34.7/R-E: a host registers its context verbs as a provider (model → actionsForContext); re-render so a provider
