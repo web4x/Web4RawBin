@@ -97,6 +97,24 @@ The locked bar names the ROW badge, but the baseline found TARGET not rendered (
 - If TARGET was merely deep + collapsed with no reveal expectation on that surface → **normal collapsed-tree behavior** (expand to see); (a)/(b) handle testability, no gap.
 - The tester measures: navigated-vs-merely-collapsed, and whether a reveal contract exists on that surface — that classification decides gap-vs-normal.
 
+### Q3-POST ZERO-DELTA — diagnosis + the DECISIVE INSTRUMENT (do NOT build until measured)
+The v0.8.115 viewBusKey fix moved NOTHING (PRE dist=FALSE / POST dist=TRUE, one variable, DELTA=0; drawer + acting-tab both inert, frame carries TARGET). **Single-source BUILDER ≠ single-source INPUT** (PO's hypothesis, converges with my read):
+- `viewBusKey` (ViewBus.ts:51-56) builds `type:uuid` from an OBJECT, but for a STRING ref it can only REFORMAT — **it cannot INFER a missing type.** `viewBusKey('ior:instance:<uuid>')` → strips prefix → `<uuid>` → no colon → **bare token `<uuid>`**, NOT `task:<uuid>`.
+- **Bug structure (READ):** the drawer SUBSCRIBES at rb-detail-drawer.ts:466-469 with `viewBusKey(rawRef)` — and the raw `ref` is resolved to `{type,uuid}` only LATER (resolveRefUnit at :478, AFTER the subscribe). So the SUBSCRIBE key is built from the TYPELESS raw ref while the NOTIFY key (live-bridge:14, universalActions:111) is built from the resolved `{type,uuid}`. Different INPUTS → different KEYS → mismatch survives the fix one layer deeper. /model uses `ior:instance:` refs (model.ts:165), the worst case for the typeless strip.
+- **The acting-tab clue fits:** local notify AND remote broadcast both fire `task:uuid`; the subscribe key is neither → both inert. Defect is SUBSCRIBE/RE-DERIVE side, not delivery. (Consistent with a, not b.)
+
+**PRE-REGISTERED PREDICTION (mine, falsifiable): candidate (a) — the subscribe key ≠ notify key; the callback fires ZERO times.**
+
+**DECISIVE INSTRUMENT — tell the tester to capture, during the approve, the two ACTUAL key STRINGS + the callback fire-count (bisects a/b/c unambiguously, better than fire-count alone):**
+1. Log the EXACT string the drawer registered: `viewBusKey(ref)` at rb-detail-drawer.ts:469 (the real subscribe key).
+2. Log the EXACT string fired: `viewBusKey({type,uuid})` at live-bridge.ts:14 (remote) AND universalActions.ts:111 (acting-tab local).
+3. A fire-COUNTER inside the drawer's subscribe callback.
+Then approve and read:
+- **subscribe-key ≠ notify-key AND fire-count=0 ⇒ (a) INPUT key mismatch** (predicted). FIX = canonicalize the INPUT: subscribe with the RESOLVED typed key `viewBusKey({type:r.type, uuid:r.uuid})` (move the subscribe AFTER resolveRefUnit, or resolve the ref for the key) — every string-ref subscriber that holds a typeless/ior ref has the same latent bug. Builder stays; INPUT becomes single-source too.
+- **subscribe-key == notify-key AND fire-count≥1 but no change ⇒ (b) RE-DERIVE defect** (stale `_fallbackGraph`/open-path/short-circuit); key work DONE; FIX = universalActionBar re-derives from FRESH status (mirror rb-object-item.refreshLive re-fetch), not cache.
+- **keys == but fire-count=0 ⇒ (c) a ViewBus registration/instance/timing bug** — a third root.
+These are OPPOSITE fixes → expert HOLDS until the instrument reports which. Either outcome informative; if it KILLS my (a) prediction, it's (b)/(c) and I was wrong — stated so it's falsifiable.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
