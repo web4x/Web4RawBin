@@ -19,6 +19,12 @@ Remove `/api/current-sprint/designate` + `handlePinDesignate` (the silent-winnin
 ## The product question is Tron's; my design input narrows it
 The PO rightly puts it to Tron. My input: **there is no real tradeoff to accept** — advance-based Set-as-Current gives the button with ZERO divergence risk, so "manual steer back" need NOT mean "accept a hand-set pin that can diverge." If Tron wants the button: build it advance-based. If he prefers no button: derived-only stands, R40.44 as-is. Either way, NO stored winning pin.
 
+## ★ SET-AS-NEXT ruling (2026-08-18, measured) — PERMANENTLY EMPTY cell, no button
+Set-as-Current = ADVANCE (bump lastAdvancedAt → derived current). **Set-as-Next has NO honest form:**
+- Measured (sprint-pin-resolver.ts:155-157): next = the lowest-number Planned sprint > current. Next-ORDER **is** sprint-NUMBER = fixed Tron-controlled identity (only Tron increments sprints) — there is NO reorderable per-item backlog-order to "move into," so a reorder-based set-next (the analog of advance) is NOT buildable. The sole override is the stored `nextSprintNumber`/`nextBacklogOverride` = the IDENTICAL lying-pin, one slot over → REFUSE.
+- Task level is worse: there is NO derived "next task" at all (current task = derived max-lastAdvancedAt In-Progress; "next task" has no derivation basis), so a task Set-as-next could ONLY be a stored second source with nothing to fall back to.
+- ⇒ The matrix cell is **honestly empty (no button), full stop** — not "pending a reorder input." Tron told plainly: "next" follows from sprint-number order; you make a task current by ADVANCING it; there is no "next" pin to set (a button would re-create the removed lie). Matrix: current=neither · next=Set-as-Current(advance) only · other=Set-as-Current+open-file · open-file=all. No Set-as-next anywhere.
+
 ## Handoff
 - req: R40.37 AC-SET-CURRENT-NEXT — keep the matrix + one-surface + open-file; REVISE the action semantics from "designate/store steer" to "ADVANCE (bump lastAdvancedAt via seam)" pending Tron's yes/no. AC-SET-NEXT-VISIBILITY-MATRIX matrix unchanged. R40.44 removal unaffected.
 - No build; Tron decides. If yes → Set-as-Current wires to an advance-through-seam (emits, live per the AC-3 cross-view path); gate: no stored currentTaskUuid pin written, the pin resolves purely from lastAdvancedAt, and a divergence is impossible (nothing to diverge).
