@@ -77,7 +77,7 @@ function openOwnerWs(ownerToken) {
   });
 }
 
-export async function setupFoundation() {
+export async function setupFoundation(opts = {}) {
   const ownerToken = readOwnerToken();
   const scratch = path.join('/tmp', `r4031-scratch-${process.pid}-${Date.now()}`);
   let serverProc = null, ownerWs = null;
@@ -106,6 +106,10 @@ export async function setupFoundation() {
     else execSync(`${NODE22} build.mjs`, { cwd: scratch, stdio: 'ignore' });
     // (4) seed the scratch units BEFORE boot (server loads the index at startup)
     const seeded = seedUnits(scratch);
+    // (4b) optional serverPatch(worktreeRoot) — ADDITIVE negative-test hook (expert owner-action smoke stub-must-fail):
+    // mutate the WORKTREE server source BEFORE boot (e.g. inject a post-response throw) so the scratch server runs the
+    // broken code, proving a gate BINDS. Backward-compatible (no opts → no patch). Scratch-worktree-only, torn down with it.
+    if (typeof opts.serverPatch === 'function') opts.serverPatch(scratch);
     // (5) spawn scratch server on non-4444 ports
     serverProc = spawn(NODE22, [TSX, 'src/ts/server/server.ts'], { cwd: scratch, env: { ...process.env, HTTPS_PORT: String(HTTPS_PORT), PORT: String(PORT), NODE_TLS_REJECT_UNAUTHORIZED: '0' }, stdio: ['ignore', logFd, logFd] });
     // (6) poll /api/config until up
