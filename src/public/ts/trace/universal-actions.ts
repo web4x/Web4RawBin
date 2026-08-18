@@ -104,8 +104,12 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
         // Approved when the server actually reports Done; otherwise surface the real status honestly (never a fake ✓).
         if (action === 'approve') surfaceVerdict(drawer, String(j.status) === 'Done' ? `✓ Approved — status now ${j.status} (by ${j.approvedBy} at ${j.approvedAt})` : `⚠ Recorded, but status is ${j.status} (NOT Done) — ${String(j.detail || j.error || 'the advance did not complete')}`, String(j.status) === 'Done' ? 'ok' : 'warn');
         else surfaceVerdict(drawer, `✗ Declined — Change Request ${String(j.changeRequest || '').slice(0, 8)} created; status now ${j.status}`, 'ok');
-        const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null;
-        if (badge && j.status) badge.textContent = String(j.status); // the ACTUAL server status, not an assumed one
+        // R40.45 TAB-A (PO): the ACTING tab must re-render too — after reading the REAL result, emit the SAME unit-changed
+        // onto the ONE bus LOCALLY (NOT an optimistic DOM poke = defect-3). Every subscribed surface in THIS tab
+        // (item icon, status badge, row, detail) re-renders from real state, exactly as a remote tab does off the WS —
+        // one code path, the acting tab is not a special case and does not depend on a WS round-trip to itself.
+        ViewBus.notify(`task:${uuid}`);
+        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // a Done/advance can move the derived pin too
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Your verdict was NOT recorded.', 'err');
       } else if (r.status === 409) {
@@ -136,7 +140,8 @@ function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
         surfaceVerdict(drawer, `📌 Now current — status ${j.status} (the pin follows the derivation; no stored pin)`, 'ok'); // R40.45 CLIENT-TRUTH: the ACTUAL server status, never an assumed 'In Progress'
-        const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null; if (badge && j.status) badge.textContent = String(j.status);
+        // R40.45 TAB-A: emit the SAME unit-changed onto the ONE bus locally → THIS tab's task surfaces (icon/row/badge/detail) re-render from real state (one code path, not an optimistic poke).
+        ViewBus.notify(`task:${uuid}`);
         ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Nothing changed.', 'err');
