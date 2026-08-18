@@ -80,7 +80,7 @@ export const TaskPolicy: UnitPolicy = {
     const need = EVIDENCE_GATE[to];
     if (need && !StepEvidence.evidenceForStep(resolver(idx), { ior: unit.ior, m: unit.model as Record<string, unknown> }, need))
       throw new Error(`TaskPolicy: REFUSED ${cur}→${to} — '${need}' evidence absent (no two-keyed passing Test on the chain). A box ticked without evidence corrupts Tron's QA signal.`);
-    if (to === 'Done' && !(unit.model as Record<string, unknown>).approvedBy)
+    if (to === 'Done' && !(intent.approvedBy || (unit.model as Record<string, unknown>).approvedBy)) // R40.45 AC-2 ATOMIC: accept the verdict from the SAME intent (no pre-persist); a refused Done throws here → nothing written
       throw new Error(`TaskPolicy: REFUSED ${cur}→Done — no approvedBy verdict (Done requires the owner's QA sign-off; R40.10 approve delegates it as evidence).`);
   },
   // [impl:uuid:1e789400-8e25-4957-b0d6-f9429f174184] TaskPolicy.apply — TICKS the next checklist box, then model.status = deriveStatusEnum (the SOLE
@@ -104,6 +104,15 @@ export const TaskPolicy: UnitPolicy = {
       return;
     }
     const to = legalNext(currentState(unit), intent.target as TaskStatusEnum | undefined);
+    // R40.45 AC-2 ATOMIC VERDICT: fold the owner's QA verdict INTO this same transaction. validate() already gated above
+    // (a refused advance threw before here → NOTHING is written or persisted); apply writes the verdict WITH the advance,
+    // and UnitController persists ONCE. So a refused Done never leaves approvedBy on disk (the old persist-then-throw leak).
+    if (intent.approvedBy) {
+      m.approvedBy = intent.approvedBy;
+      if (intent.approvedByName != null) m.approvedByName = intent.approvedByName;
+      m.approvedAt = intent.approvedAt ?? new Date().toISOString();
+      if (intent.approvedIntegrity != null) m.approvedIntegrity = intent.approvedIntegrity;
+    }
     m.statusChecklist = tickBox(String(m.statusChecklist ?? ''), to);
     m.status = deriveStatusEnum(String(m.statusChecklist)); // the ONE sanctioned 4-state writer
     // R40.18: STAMP the advance time as a CONSEQUENCE of the advance — SEAM-WRITTEN, never a caller intent (apply reads

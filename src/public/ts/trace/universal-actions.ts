@@ -99,10 +99,13 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
-        if (action === 'approve') surfaceVerdict(drawer, `✓ Approved — status now Done (by ${j.approvedBy} at ${j.approvedAt})`, 'ok');
-        else surfaceVerdict(drawer, `✗ Declined — Change Request ${String(j.changeRequest || '').slice(0, 8)} created; status now In Progress`, 'ok');
+        // R40.10/R40.45 CLIENT-TRUTH: render the ACTUAL server status, NEVER an assumed outcome. The old code hardcoded
+        // 'status now Done' / 'In Progress' → it manufactured success even when the seam did not advance. Only claim
+        // Approved when the server actually reports Done; otherwise surface the real status honestly (never a fake ✓).
+        if (action === 'approve') surfaceVerdict(drawer, String(j.status) === 'Done' ? `✓ Approved — status now ${j.status} (by ${j.approvedBy} at ${j.approvedAt})` : `⚠ Recorded, but status is ${j.status} (NOT Done) — ${String(j.detail || j.error || 'the advance did not complete')}`, String(j.status) === 'Done' ? 'ok' : 'warn');
+        else surfaceVerdict(drawer, `✗ Declined — Change Request ${String(j.changeRequest || '').slice(0, 8)} created; status now ${j.status}`, 'ok');
         const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null;
-        if (badge && j.status) badge.textContent = String(j.status);
+        if (badge && j.status) badge.textContent = String(j.status); // the ACTUAL server status, not an assumed one
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Your verdict was NOT recorded.', 'err');
       } else if (r.status === 409) {
@@ -132,7 +135,7 @@ function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
-        surfaceVerdict(drawer, `📌 Now current — status ${j.status || 'In Progress'} (the pin follows the derivation; no stored pin)`, 'ok');
+        surfaceVerdict(drawer, `📌 Now current — status ${j.status} (the pin follows the derivation; no stored pin)`, 'ok'); // R40.45 CLIENT-TRUTH: the ACTUAL server status, never an assumed 'In Progress'
         const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null; if (badge && j.status) badge.textContent = String(j.status);
         ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {

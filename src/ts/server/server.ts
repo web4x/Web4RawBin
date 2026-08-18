@@ -944,8 +944,18 @@ function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | 
   // needed (the standalone /server-manager page holds no ws). Prune expired on read.
   const sid = cookieFrom(req, 'sm_session');
   if (sid) { const s = smSessions.get(sid); if (s && s.owner && s.expiresAt > Date.now()) return { ok: true, token: 'sm_session' }; if (s) smSessions.delete(sid); }
-  // Token path (unchanged): live authenticated OWNER session via x-player-token / ?token (used by the /session mint).
-  return ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
+  // Token path: the OWNER_TOKEN literal (ServerManagerGuard, INV-G2) — OR (R40.45 OWNER SINGLE-SOURCE, PO): the caller's
+  // REAL identity ∈ the ONE root-only PROTECTED-IDENTITY set (which already contains his profile 05e58f81). Fixes the
+  // defect Tron hit — the real owner was 403'd on /trace while the PUBLIC literal 41ad88c4 would pass — by making BOTH
+  // owner gates trust the SAME set. Fail-closed: set absent/empty → ids=[] → only the literal path (unchanged), no bypass.
+  const g = ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
+  if (g.ok) return g;
+  const tok = ServerManagerGuard.playerTokenFrom(req);
+  if (tok) {
+    const puid = FeatureManager.profileUuidOf(tok, userProfiles as unknown as Map<string, { redirectTo?: string }>); // token → his Profile-unit uuid (redirectTo→primary→uuid)
+    if (loadProtectedIdentities().ids.includes(puid)) return { ok: true, token: tok }; // real owner by protected-identity membership (root-only, fail-closed)
+  }
+  return { ok: false };
 }
 function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
   if (resolveOwner(req).ok) return true;
@@ -1588,21 +1598,18 @@ function approveByOwner(idx: ScenarioIndex, taskUuid: string, approver: { id: st
   if (!APPROVE_STATUSES.includes(m.status as typeof APPROVE_STATUSES[number])) return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' not in ${JSON.stringify(APPROVE_STATUSES)} — cannot manufacture Done` } }; // R40.37: same set the client affordance hides on (anti-drift)
   // AC-1 (provenance, PO ruling): approvedBy = the owner's STABLE identity uuid (NOT resolveOwner's 'sm_session' placeholder,
   // NOT a truncated token, NEVER the raw OWNER_TOKEN credential — hygiene #0). approvedByName = the human label.
-  m.approvedBy = approver.id; m.approvedByName = approver.name; m.approvedAt = now;
   // ★ NAMED GAP (architect 8f4f70430, not silent): the verdict is ATTRIBUTABLE (owner-only endpoint, 403 non-owner) +
   // TAMPER-EVIDENT (R40.45 bypass-gate detects a direct unit-file write) — but NOT YET UNFORGEABLE. The root-only-HMAC
-  // server signature (detectable→impossible) is a B1-gated follow-up, deferred while B1 is parked for Tron. Do NOT
-  // over-claim: this is 'attributable + tamper-evident', never 'unforgeable', until the signature lands.
-  m.approvedIntegrity = 'attributable + tamper-evident (owner-gated endpoint + R40.45 bypass-gate); NOT yet unforgeable — root-only HMAC signature is a B1-gated follow-up';
-  idx.put(taskUuid, unit); // persist the verdict FIRST — the seam's validate reads approvedBy for the Done evidence-gate
-  // AC-2 (atomic one-truth) + AC-3 (live) + AC-5 (green Done, per architect = pure liveness): route the QA-Review→Done
-  // advance THROUGH THE SEAM instead of assigning the enum. TaskPolicy.apply TICKS the Done checklist box then DERIVES
-  // model.status (R37.5 sole 4-state writer) = checklist and status ONE truth; UnitController EMITS unit-changed → the
-  // tree row re-renders LIVE (no refresh) and the badge (reads model.status, BADGE_MAP done→green✓) goes green.
+  // server signature is a B1-gated follow-up; do NOT over-claim.
+  const approvedIntegrity = 'attributable + tamper-evident (owner-gated endpoint + R40.45 bypass-gate); NOT yet unforgeable — root-only HMAC signature is a B1-gated follow-up';
+  // AC-2 ATOMIC (R40.45, PO): fold approvedBy/approvedAt INTO the SAME UnitController.apply intent → validate→apply→persist
+  // is ONE transaction. A refused advance (evidence-gate / step-legality) throws BEFORE any write → NOTHING persists. The OLD
+  // code did idx.put(verdict) FIRST then threw on refuse, leaving approvedBy on disk on a 409 = the leak Tron hit. Now the
+  // seam writes the verdict WITH the Done tick + derives model.status (sole 4-state writer) + EMITS unit-changed (AC-3 live).
   try {
-    UnitController.apply(idx, 'ior:class:Task', taskUuid, { target: 'Done' }, { actor: approver, publish: publishUnitChanged });
+    UnitController.apply(idx, 'ior:class:Task', taskUuid, { target: 'Done', approvedBy: approver.id, approvedByName: approver.name, approvedAt: now, approvedIntegrity }, { actor: approver, publish: publishUnitChanged });
   } catch (e: any) {
-    return { code: 409, payload: { ok: false, error: 'seam-refused', detail: String(e?.message || e) } }; // Done evidence-gate / step-legality refused — surface it, never force a divergent enum
+    return { code: 409, payload: { ok: false, error: 'seam-refused', detail: String(e?.message || e) } }; // ATOMIC: nothing was persisted (validate threw before apply/persist)
   }
   const after = idx.get(taskUuid)!.model as any;
   return { code: 200, payload: { ok: true, status: after.status, approvedBy: after.approvedBy, approvedAt: after.approvedAt } };

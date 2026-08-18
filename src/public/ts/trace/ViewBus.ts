@@ -8,7 +8,7 @@
  *
  * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC3 MVC live-update
  */
-export type ViewBusListener = () => void;
+export type ViewBusListener = (payload?: unknown) => void; // T37.25 ONE BUS: optional payload so the ../ViewBus viewBus adapter can deliver a model over the SAME instance; trace views ignore it (re-render/re-fetch)
 
 class ViewBusImpl {
   private subs = new Map<string, Set<ViewBusListener>>();
@@ -28,11 +28,11 @@ class ViewBusImpl {
     if (set.size === 0) this.subs.delete(ref);
   }
 
-  /** Notify all views bound to ref to re-render. */
-  notify(ref: string): void {
+  /** Notify all views bound to ref to re-render. Optional payload (T37.25) is passed through for model-carrying subscribers. */
+  notify(ref: string, payload?: unknown): void {
     const set = this.subs.get(ref);
     if (!set) return;
-    for (const cb of [...set]) cb();
+    for (const cb of [...set]) cb(payload);
   }
 
   /** Test/diagnostic: how many listeners are bound to a ref. */
