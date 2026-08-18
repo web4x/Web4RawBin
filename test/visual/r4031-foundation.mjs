@@ -115,6 +115,9 @@ export async function setupFoundation(opts = {}) {
     execSync(`git -C ${MAIN} worktree add --detach ${scratch} ${commit}`, { stdio: 'ignore' });
     // (2) node_modules symlink (skip npm ci)
     fs.symlinkSync(path.join(MAIN, 'node_modules'), path.join(scratch, 'node_modules'));
+    // (2.5) optional clientPatch(worktreeRoot) — mutate CLIENT source BEFORE the dist build (below) so the INSTRUMENT/patch is
+    // compiled INTO the served bundle (e.g. a counter in a ViewBus subscribe callback). Must run before buildDist. Scratch-only.
+    if (typeof opts.clientPatch === 'function') opts.clientPatch(scratch);
     // (3) dist: buildDist=FORCE a worktree build (dist == THIS commit's source, provenance-provable — a symlink to main's
     // MOVING dist can't prove a pre-fix arm served a pre-fix bundle). Else symlink main's dist (fast, same-HEAD).
     const mainDist = path.join(MAIN, 'src/public/dist'), wtDist = path.join(scratch, 'src/public/dist');

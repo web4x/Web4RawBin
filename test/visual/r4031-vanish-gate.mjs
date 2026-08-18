@@ -27,6 +27,18 @@ function neuterBroadcast(root) {
   if (after === before || !after.includes('/* C1: broadcast OFF */')) throw new Error('neuterBroadcast: regex did NOT patch publishUnitChanged — instrument would be unproven');
   fs.writeFileSync(p, after);
 }
+// BISECT instrument (PO): record the FINAL keys at the ViewBus boundary (both notify & subscribe route through viewBusKey at the
+// call sites, so `ref` here IS the built key) + count whether each subscribed callback FIRES. Answers: (a) callback never fires →
+// key problem one layer deeper (notify-key vs subscribe-key differ); (b) fires but no view change → re-derive defect. clientPatch
+// runs BEFORE buildDist so this compiles into the served bundle. Throws if the regex misses = prove-the-instrument.
+function instrumentViewBus(root) {
+  const p = path.join(root, 'src/public/ts/trace/ViewBus.ts');
+  const before = fs.readFileSync(p, 'utf8');
+  let s = before.replace(/(notify\(ref: string, payload\?: unknown\): void \{)/, '$1 try{const g=globalThis;g.__nk=(g.__nk||[]);g.__nk.push(ref);}catch(e){}');
+  s = s.replace(/(subscribe\(ref: string, cb: ViewBusListener\): \(\) => void \{)/, '$1 try{const g=globalThis;g.__sk=(g.__sk||[]);g.__sk.push(ref);const _o=cb;cb=(pl)=>{try{g.__fk=(g.__fk||[]);g.__fk.push(ref);}catch(e){}return _o(pl);};}catch(e){}');
+  if (!s.includes('g.__nk') || !s.includes('g.__fk')) throw new Error('instrumentViewBus: regex did NOT patch ViewBus.ts notify/subscribe — instrument unproven');
+  fs.writeFileSync(p, s);
+}
 
 const drawerState = (page) => page.evaluate(() => {
   const d = document.querySelector('rb-detail-drawer');
@@ -42,8 +54,8 @@ async function openTask(page, u) {
   await page.waitForSelector('rb-detail-drawer .dv-status-badge', { timeout: 4000 }).catch(() => {});
 }
 
-async function runB({ serverPatch, label, commit, buildDist }) {
-  const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(commit ? { commit } : {}), ...(buildDist ? { buildDist: true } : {}), ...(serverPatch ? { serverPatch } : {}) });
+async function runB({ serverPatch, label, commit, buildDist, clientPatch, instrument }) {
+  const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(commit ? { commit } : {}), ...(buildDist ? { buildDist: true } : {}), ...(serverPatch ? { serverPatch } : {}), ...(clientPatch ? { clientPatch } : {}) });
   const oh = f.ownerHeaders(); const smSession = (/sm_session=([^;]+)/.exec(oh.Cookie || '') || [])[1] || '';
   const cookie = { name: 'sm_session', value: smSession, domain: 'localhost', path: '/', httpOnly: true, secure: true };
   const browser = await webkit.launch({ headless: true });
@@ -76,6 +88,10 @@ async function runB({ serverPatch, label, commit, buildDist }) {
     await sleep(500);
     raw.after = await drawerState(p2);                                // (3) controls ABSENT-after
     raw.latencyMs = latency;
+    if (instrument) { // BISECT: read the ViewBus keys/fires recorded in the served bundle (globalThis===window)
+      const readVB = (pg) => pg.evaluate(() => ({ sk: (globalThis.__sk || []), nk: (globalThis.__nk || []), fk: (globalThis.__fk || []) }));
+      raw.vb2 = await readVB(p2); raw.vb1 = await readVB(p1);
+    }
     raw.c2GetsAfterApprove = c2reqs.slice(reqMark).filter((r) => !r.nav && r.t >= approveAt).map((r) => r.url.replace(f.base, '')); // (1) surgical
     raw.c2NavAfterApprove = c2reqs.slice(reqMark).filter((r) => r.nav).length;
     raw.client1 = await drawerState(p1);
@@ -95,10 +111,35 @@ const prodBefore = await prodStatus(TARGET);
 // DIFFERENTIAL axis (architect 7-pt bar): COMMIT pins the arm (PRE=748cab757 pre-viewBusKey / POST=>=50b22399a fix);
 // BUILDDIST forces a worktree build so dist==THIS commit (provenance-provable, not a moving symlink). PRE_ONLY skips the
 // C1 exclusion (meaningless pre-fix — the PRE arm just establishes the INERT baseline for the pre→post DELTA).
-const COMMIT = process.env.COMMIT || null; const BUILDDIST = process.env.BUILDDIST === '1'; const PRE_ONLY = process.env.PRE_ONLY === '1';
-console.log(`R40.31 B (VANISH) — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''}${PRE_ONLY ? ' [PRE-BASELINE]' : ''}…`);
-const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST });
+const COMMIT = process.env.COMMIT || null; const BUILDDIST = process.env.BUILDDIST === '1'; const PRE_ONLY = process.env.PRE_ONLY === '1'; const INSTRUMENT = process.env.INSTRUMENT === '1';
+console.log(`R40.31 B (VANISH) — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''}${PRE_ONLY ? ' [PRE-BASELINE]' : ''}${INSTRUMENT ? ' [BISECT-INSTRUMENT]' : ''}…`);
+const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST, clientPatch: INSTRUMENT ? instrumentViewBus : undefined, instrument: INSTRUMENT });
 console.log(JSON.stringify(pos, null, 2));
+
+// ★ BISECT SHORT-CIRCUIT (PO): does the drawer's subscribe callback FIRE for TARGET? Filter the recorded ViewBus keys.
+if (INSTRUMENT) {
+  const T8 = TARGET.slice(0, 8);
+  const forT = (arr) => [...new Set((arr || []).filter((k) => String(k).includes(TARGET) || String(k).includes(T8)))];
+  const sub = forT(pos.vb2?.sk), notif = forT(pos.vb2?.nk), fired = forT(pos.vb2?.fk);
+  console.log('\n=== BISECT — does the drawer subscribe callback FIRE? (client-2, POST bundle) ===');
+  console.log(`  dist viewBusKey=${pos.distHasViewBusKey} · drawer re-rendered=${pos.after?.approve === false} (badge ${pos.before?.badge}→${pos.after?.badge})`);
+  console.log(`  SUBSCRIBE keys for TARGET: ${JSON.stringify(sub)}`);
+  console.log(`  NOTIFY    keys for TARGET: ${JSON.stringify(notif)}`);
+  console.log(`  FIRED callback keys for TARGET: ${JSON.stringify(fired)}`);
+  const callbackFired = fired.length > 0;
+  const keysMatch = sub.some((k) => notif.includes(k));
+  // ★ PROVE-THE-INSTRUMENT (architect): a 0 fire-count is only trustworthy if the counter DOES increment on a known-matching
+  // key. totalFires>0 (SOME subscriber whose key matched a notify fired) proves the wrap works → TARGET's 0 is real, not dead code.
+  const totalFires = (pos.vb2?.fk || []).length;
+  const totalSubs = (pos.vb2?.sk || []).length, totalNotifs = (pos.vb2?.nk || []).length;
+  console.log(`  SANITY (prove-the-instrument): total callback fires (any key)=${totalFires} · total subs=${totalSubs} · total notifies=${totalNotifs}`);
+  console.log(`\n  ⇒ callback FIRED for TARGET=${callbackFired} · subscribe-key matches a notify-key=${keysMatch} · instrument-proven=${totalFires > 0}`);
+  if (totalFires === 0) console.log('  ⚠ INSTRUMENT UNPROVEN — zero fires for ANY key; cannot trust a 0 (patch or subscription-timing suspect). Re-check before classifying.');
+  else if (callbackFired) console.log('  ⇒ (b) CALLBACK FIRES but view did not change → defect is the RE-DERIVE (stale cache / _fallbackGraph / open-path / render short-circuit); the KEY work is DONE.');
+  else if (!keysMatch) console.log(`  ⇒ (a) CALLBACK NEVER FIRES + keys DIFFER → INPUT key mismatch one layer deeper (architect's prediction): drawer subscribe-key vs notify-key do NOT canonicalise identically. Strings verbatim above.`);
+  else console.log(`  ⇒ (c) CALLBACK NEVER FIRES but keys MATCH → ViewBus registration/timing bug (subscribed too late / wrong instance).`);
+  process.exit(0);
+}
 let c1 = { skipped: true, distHasViewBusKey: pos.distHasViewBusKey };
 if (!PRE_ONLY) {
   console.log('\nR40.31 B — C1 STUB broadcast OFF (client-2 must NOT update)…');

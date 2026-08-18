@@ -88,3 +88,21 @@ ARON re-measure (checkpoint per "report first-arm"). Row-badge discriminator + e
 **NOT a harness-mount artifact** (verified): `rb-detail-drawer.ts:469` wires `_barUnsub = ViewBus.subscribe(viewBusKey(ref), () => universalActionBar(...))` on ref-set (attributeChangedCallback:171) — so the setAttribute-mounted drawer DOES subscribe. The frame is received (`wsUnitChangedForTarget=true`) but the action-bar/badge does not re-derive.
 
 **★ ARCHITECT (you own root-cause + EXPECTED):** the prediction (post=IN-PLACE) did NOT hold on the /model graph-less drawer. Candidate causes to diagnose: (a) residual key mismatch — `viewBusKey(ref)` (drawer's ref format, e.g. `task:<uuid>`) vs the notify key `viewBusKey({type,uuid})` still differ; (b) the action-bar re-derive reads STALE cached status (drawer's _fallbackGraph) instead of re-fetching /api/ior, so it re-derives QA Review again; (c) a /model-specific open-path the setAttribute mount misses despite the subscription. **CHECKPOINTED — not chaining row-badge/expand-to-row or seeded-A: if the drawer doesn't re-derive at all, the row discriminator is moot until this is diagnosed.** This is the arm that answers Tron — and it says the fix, as measured on /model, does NOT yet move Tab B.
+
+---
+
+## B BISECT — does the drawer subscribe callback FIRE? (POST bundle, instrumented ViewBus) — ★ (b) RE-DERIVE defect, prediction (a) REFUTED
+
+Instrument (architect spec 683470bf7): clientPatch records the FINAL keys at the ViewBus boundary (subscribe `ref` / notify `ref`
+= the built key) + a fire-counter, compiled INTO the POST bundle (before buildDist). Prove-the-instrument: 2 total fires (any key) → the counter works → a 0 would be trustworthy.
+
+**@ 50b22399a, instrumented, viewBusKey=true, client-2:**
+- **SUBSCRIBE key for TARGET (verbatim):** `task:97e8a6ad-46db-440f-a9be-cfb97ca64df4` — already TYPED (not the raw typeless ref the (a) prediction assumed).
+- **NOTIFY key for TARGET (verbatim):** `task:97e8a6ad-46db-440f-a9be-cfb97ca64df4` — **MATCHES the subscribe key.**
+- **FIRED callback keys for TARGET:** `task:97e8a6ad-...` × **2** — the drawer's subscribe callback DID fire (twice).
+- SANITY: total fires (any key)=2, subs=6, notifies=2 → instrument PROVEN (not dead code).
+- Yet `drawer re-rendered=false` (badge QA Review→QA Review, controls did not vanish). Same on client-1.
+
+**⇒ CLASSIFICATION (b): keys MATCH + callback FIRES, but the view does NOT change → the defect is the RE-DERIVE** (universalActionBar re-derives control/badge visibility from STALE cached status — the drawer's `_fallbackGraph`/cached unit — instead of the fresh post-approve status; or a render short-circuit). **The viewBusKey KEY work is DONE.** The architect's prediction (a INPUT key mismatch) is REFUTED by the verbatim strings.
+
+**★ EXPERT DIRECTION (on architect confirm):** fix the RE-DERIVE, not the key builder — on the ViewBus notify, `universalActionBar` must re-read the FRESH unit status (re-fetch /api/ior for the ref) before deriving visibility, so Approve/Decline vanish + badge flips. Then re-run this differential → expect POST IN-PLACE (DELTA pre=INERT→post=IN-PLACE). Row/expand + seeded-A still held.
