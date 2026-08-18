@@ -36,8 +36,8 @@ async function runB({ serverPatch, label }) {
     const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx1.addCookies([cookie]);
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx2.addCookies([cookie]);
     const p1 = await ctx1.newPage(); const p2 = await ctx2.newPage();
-    await p1.goto(`${f.base}/trace`, { waitUntil: 'domcontentloaded', timeout: 20000 });
-    await p2.goto(`${f.base}/trace`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await p1.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 }); // architect 70cfcdab1: /model tree-less → client-2 genuinely QUIET (B causality; /trace lazy-tree confounds the quiet-window trap)
+    await p2.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 });
     await p2.waitForFunction(() => window.__liveTransport?.state === 'connected', { timeout: 12000 }).catch(() => {});
     await p2.evaluate(() => { window.__c2s = 'c2-' + Math.random().toString(36).slice(2); window.__c2nav = 0; });
     p2.on('framenavigated', (fr) => { if (fr === p2.mainFrame()) c2reqs.push({ nav: true }); });

@@ -38,7 +38,7 @@ async function runArm(fixOn, forcedSubject) {
     const ctx = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } });
     await ctx.addCookies([{ name: 'sm_session', value: smSession, domain: 'localhost', path: '/', httpOnly: true, secure: true }]);
     const page = await ctx.newPage();
-    await page.goto(`${f.base}/trace`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await page.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 }); // architect 70cfcdab1: /model mounts the drawer GRAPH-LESS → graph-absent precondition (/trace = comprehensive graph = INVALID)
     await sleep(2500);
     // pick the subject: forced (arm-OFF reuses arm-ON's pick), else SWEEP for a QA-Review task measuring graph-ABSENT
     let subject = forcedSubject, sweep = [];
