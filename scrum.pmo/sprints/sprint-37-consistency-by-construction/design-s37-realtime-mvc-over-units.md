@@ -93,6 +93,13 @@ The lint (report-only, b5c0e35d8) found **43** seam-bypassers (the whole scenari
 - Net route-through ≈16-20 (16 runtime + the primary side of each split *-Index) — but the honesty is per-site, not the count. Routing is a careful per-site INV-T byte-diff==0 pass; do CurrentSprint×3 first; marker e3729f51 lands when routing+lint are coherent.
 - **Gate:** grep-lint "no `idx.put` call outside `UnitController.{apply,create}` ∪ the declared allow-list" — report-only→strict (per the DUAL-FLIP discipline) + stub-must-fail (a new raw `idx.put` in a route handler → RED). INV-T byte-diff==0, render read-only.
 
+## ★ RULING 2026-08-18 — bus unification (T37.25) IS THE PRECONDITION for R40.45 live-ALL-surfaces
+Measured after "live-MVC hasn't worked ~10 iterations": the WS bridge `RawBinClient.ts:100` notifies the **trace ViewBus ONLY** (its own comment admits the debt). Surfaces on the OTHER bus (`../ViewBus.ts`, never touched by the bridge) — **ProfileSheet, RoomBrowser, ProfileEditor, rb-member-badge** (User/Room/Profile) — cannot re-render on a WS unit-change BY CONSTRUCTION. So the approve-path fixes make the verdict land + the trace tree/detail update (they're on the bridged bus), but the User/Room/Profile surfaces stay stale = NOT live-all.
+- Two ways to reach all: (a) ONE bus (T37.25 `consolidateOneBus` e530e248) → bridge notifies it → every surface subscribes → live-all by construction; (b) bridge WS to BOTH buses = a BAND-AID that perpetuates the two-source disease (notify-both, drift, every new surface/emit-site must remember both = the L4 problem). **Correct-by-construction = ONE bus.**
+- **T37.25 UC consolidateOneBus e530e248 = class=null/method=null (EMPTY CHAIN) + two ViewBus files still on disk** = the board saying the MVC feature was SLICED, its foundation never built. That is the ~10-iteration failure: surfaces on the 2nd bus can never be live until the buses are one.
+- ⇒ **The approve-path fixes are NECESSARY but NOT SUFFICIENT for R40.45 live-all; T37.25 (one bus) is the missing precondition and MUST be built.** consolidateOneBus is already spec'd here (slice 1: retire the 2nd bus) — wire it on build-go.
+- ATOMICITY backstop (approve fix): the atomic-verdict must be a REAL single transaction — a refused advance persists NOTHING (validate → persist verdict+advance together) — NEVER a persist-then-compensating-delete (same non-atomic shape one layer down; a crash between persist and delete leaves an orphan verdict).
+
 ## Build sequence (PO-RATIFIED 2026-08-17) — slices, each backstopped on ship
 1. **ONE CONTROLLER seam + retire the 2nd bus** (mutate+collect-refs+notify; grep-lint no-mutation-outside-seam).
 2. **subscribe-on-render coverage + gate** (every rendered ref MUST subscribe else RED).
