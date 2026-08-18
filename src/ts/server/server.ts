@@ -1841,8 +1841,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (verb === 'approve' && out.code >= 200 && out.code < 300) StaleSteerLog.logStaleSteerExpiry(idx, taskUuid);
           res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify(out.payload));
-          addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);
-        } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); }
+          addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${approver.name} → ${out.code}`); // FIX: was ${ownerTok8} — UNDECLARED here (only a declineToChangeRequest PARAM) → ReferenceError AFTER res.end → catch double-writeHead → ERR_HTTP_HEADERS_SENT → server CRASH on every approve (the ~10-iteration live-MVC failure root)
+        } catch (e: any) { if (!res.headersSent) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); } } // headersSent guard: a throw AFTER the response was sent must never re-write headers (that IS the crash)
       });
       return;
     }
@@ -1870,11 +1870,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const status = String((unit.model as Record<string, unknown>).status || '');
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify({ ok: true, status, uuid: taskUuid }));
-          addLog(`[make-current] ${taskUuid.slice(0, 8)} by ${ownerTok8} → current (status ${status})`);
+          addLog(`[make-current] ${taskUuid.slice(0, 8)} by ${String(actor).slice(0, 8)} → current (status ${status})`); // FIX: was ${ownerTok8} (undeclared → same ReferenceError-double-writeHead crash class as approve)
         } catch (e: any) {
           const msg = String(e?.message || e);
           const code = /cannot make a|only a Planned|In-Progress task can be/.test(msg) ? 409 : 400; // validate-refuse (QA-Review/Done) → 409
-          res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: msg }));
+          if (!res.headersSent) { res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: msg })); } // headersSent guard: never re-write after the response was sent
         }
       });
       return;
