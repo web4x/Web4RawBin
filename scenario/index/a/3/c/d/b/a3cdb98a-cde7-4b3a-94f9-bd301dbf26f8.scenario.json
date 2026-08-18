@@ -21,6 +21,7 @@
   "tronQuote": "> Tron (2026-08-12, on approving Task 32.0/Done -> correct refusal): \"some actions are context sensitive actions. if the state is not QA, then the buttons do not make sense\" + \"+ Add Diagram / Add folder / Import PUML ... do not make sens on tasks\" + \"[diagrams] should be a special Folder ... a container\" + \"should on Add folder immediately add the itemview as a new physical folder with a scenario-unit\". CLARIFICATION (2026-08-12, ruling): \"'physical' = a real PERSISTED unit on disk, NOT a filesystem directory\" — mint the Folder scenario-unit immediately (no mkdir), itemview becomes the unit, atomicity = the unit write; if the write fails, nothing changes + no phantom node.",
   "status": "Planned",
   "designRequired": true,
+  "tronDeclineNote": "TRON DECLINE 2026-08-18 (verbatim: 'its not yet consistent so not ok to be approved'): the dynamic action bar is NOT APPROVABLE until action visibility is CONSISTENT — 'Open Task file' is a real dynamic action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION), every non-current task shows Set-as-Current + Set-as-next (AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS), the visibility matrix matches the architect R40.18 ruling (AC-SET-NEXT-VISIBILITY-MATRIX), and the duplicate inline links are removed AFTER the action exists (AC-NO-DUPLICATE-INLINE-LINKS). His DECLINE recorded as DATA (posture: DECLINE = his reason as testable ACs, added above). CAPTURE-ONLY — expert is mid-build on the 2-root approve fix; not interleaved.",
   "discoverySource": {
    "type": "tron-directive",
    "date": "2026-08-12",
@@ -57,6 +58,26 @@
     "id": "AC-6-DEVICE",
     "group": "device",
     "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on his phone that the IMPOSSIBLE buttons are GONE (Approve absent on a Done task; container actions absent on a Task) AND that 'Add folder' creates the physical folder + unit + itemview live. AC-N-DEVICE convention so the approve-queue device-scan catches it when the covering task reaches QA Review."
+   },
+   {
+    "id": "AC-OPEN-TASK-FILE-DYNAMIC-ACTION",
+    "group": "functional",
+    "text": "[TRON 2026-08-18, CAPTURE-ONLY he schedules] 'Open Task file' exists as a TASK DYNAMIC ACTION on the action bar (declared per-action like the others, R40.37 mechanism), NOT a plain inline link in the detail body as today. Verbatim: 'add a open Task file action as Task dynamic action.'"
+   },
+   {
+    "id": "AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS",
+    "group": "functional",
+    "text": "[TRON 2026-08-18, CAPTURE-ONLY] Every task that is NOT the current task OFFERS 'Set as Current' and 'Set as next' as dynamic actions. Verbatim: 'the task is not the current task. so all not-current tasks should show the Set as Current and Set as next action'. Underlying assign capability = R40.17 (assign-task-as-current-or-next). ★ APPARENT-CONTRADICTION (NOT a regression): R40.18 defect-2 RETIRED Set-current/next on the DERIVED PIN (verified absent). Tron asks for them on NON-CURRENT TASKS = a DIFFERENT surface = the EXPLICIT STEER from the architect R40.18 ruling, not a pin regression. Architect confirms/corrects — cite its R40.18 ruling, do not infer."
+   },
+   {
+    "id": "AC-SET-NEXT-VISIBILITY-MATRIX",
+    "group": "functional",
+    "text": "[TRON 2026-08-18, CAPTURE-ONLY; ARCHITECT rules the exact cells] The already-NEXT task does NOT offer 'Set as next' (verbatim: 'obviously not the one which is already the next task'); the CURRENT task offers NEITHER Set-as-Current nor Set-as-next. The precise visibility MATRIX (which action on which task pin-ROLE: current / next / other) is the ARCHITECT's ruling — this AC fixes Tron's two stated cells and DEFERS the full matrix to the architect R40.18 / action-applicability ruling (cite it, do not invent cells). Visibility is keyed on the DERIVED pin role (R40.18), context-sensitive per the R40.37 mechanism, NOT per-view if-statements."
+   },
+   {
+    "id": "AC-NO-DUPLICATE-INLINE-LINKS",
+    "group": "functional",
+    "text": "[TRON 2026-08-18, CAPTURE-ONLY] Once the actions exist as DYNAMIC ACTIONS in the action bar, the detail rendering must NOT DUPLICATE them as inline clickable links — the ACTION BAR is the ONE action surface; the detail BODY renders DATA. Verbatim: 'the duplicated clickable links can then be removed in the details rendering'. Today the same actions (Scenario / Edit / Task file) render TWICE — action-bar buttons AND inline body links. ★ ORDERING DEPENDENCY (his 'can THEN be removed'): the inline links come out ONLY AFTER 'Open Task file' exists as a real action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION) — removing the link first deletes the only path to the task file = a dead end. ★ SAME FAMILY as his morning DRY catch (sprint-name double-render, 'TWO implementations', R40.4): ONE THING, ONE PLACE — an action/datum has a single render home; a second render is the two-sources disease applied to ACTIONS. Name the family, not just the instance."
    }
   ]
  },
