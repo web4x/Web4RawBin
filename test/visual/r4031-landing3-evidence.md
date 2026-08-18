@@ -32,3 +32,14 @@ Real-WebKit @390. Report A and B as SEPARATE blocks (architect interprets each).
 ## NET (tester, honest — not rubber-stamped)
 - **A DIRECT = GREEN** on /model (the graph-absence precondition that was INVALID on /trace is now VALID). **A DIFFERENTIAL = confounded by stored status** (architect ruling needed).
 - **B = INVALID** (present-before precondition unmet + /model-not-quiet + noisy status detection) — the C1 negative-control + no-reload + prod-isolation all pass, but the core present→absent vanish is not yet measurable as-built. Harness refinement (mine) + a /model-tree ruling (architect) needed before a real B verdict.
+
+---
+
+## HALF B — CAUSALITY-BY-EXCLUSION run (architect 439adf982, worktree 0930018e6/v0.8.114) — INVALID (instrument) + a REAL finding
+
+Reworked per ruling: badge-element status (`.dv-status-badge`), warmup before-snapshot, WS-frame capture, C1-excludes-polls.
+- **FIXES THAT WORKED:** present-before now holds (controls approve+decline=true, badge='QA Review'); status read from the BADGE ELEMENT (not a substring).
+- **★★ REAL FINDING (needs architect premise ruling):** client-2 RECEIVED the `unit-changed` WS frame for TARGET (`wsUnitChangedForTarget=true`) but the /model drawer did **NOT re-render** — controls stayed (approve=true after), badge stayed 'QA Review' (no flip to Done). **Client-1 (the acting tab) ALSO did not update** after its own approve. So the /model drawer does not reflect the change from EITHER a local action or a broadcast. This is either **Tron's live-MVC gap reproducing on /model** OR the **graph-less /model drawer does not live-update by design** (grep: rb-detail-drawer.ts has NO ViewBus/subscribe/refreshLive path). → ARCHITECT PREMISE QUESTION: is the graph-less /model drawer EXPECTED to live-update on a broadcast? If not, /model is the wrong B surface (like the tree-less premise I already corrected).
+- **★ INSTRUMENT BUG I OWN + FIXED:** the C1 `neuterBroadcast` regex used `[^=]*`, which stops at the `=` in publishUnitChanged's type annotation `=> void` → never matched (`grep -cE`=0). The old C1 "pass" was COINCIDENTAL (the drawer never updates anyway). Fixed to `[\s\S]*?` spanning to the impl arrow + a throw-if-not-patched guard + a neuter-effect verification in the verdict (C1 must show `wsUnitChangedForTarget=false`, else INVALID not RED). prove-the-instrument-before-the-reading.
+- **VERDICT = INVALID** (not RED): the C1 exclusion control was unproven (broadcast still fired in C1). Re-run on the fixed harness pending the architect's /model-drawer-live-update premise ruling. Banked either way: prod 97e8a6ad UNCHANGED, teardown prod:4444 untouched + 0 leftover (both arms).
+- ⚠ HEAD moved mid-work ddb645b78→0930018e6 (version-provenance trap-5) — re-pin per run.

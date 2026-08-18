@@ -17,14 +17,30 @@ import { setupFoundation } from './r4031-foundation.mjs';
 const TARGET = process.env.VANISH_UUID || '97e8a6ad-46db-440f-a9be-cfb97ca64df4'; // Sprint 37 (current) QA-Review, graph-present → controls render
 const PROD = 'https://prod.wo-da.de:4444';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-function neuterBroadcast(root) { const p = path.join(root, 'src/ts/server/server.ts'); fs.writeFileSync(p, fs.readFileSync(p, 'utf8').replace(/const publishUnitChanged:[^=]*=\s*\(ior, uuid\) =>\s*\{/, 'const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) => { if (1) return; /* C1: broadcast OFF */')); }
+// C1 neuter — insert an early-return in publishUnitChanged's IMPLEMENTATION body. The old regex used [^=]* which stops at the
+// '=' in the type annotation '=> void' → never matched (grep -c=0). This matches the impl arrow specifically ([\s\S]*? spans the
+// type). teardownAsserts the neuter TOOK EFFECT (marker present) — prove-the-instrument-before-the-reading.
+function neuterBroadcast(root) {
+  const p = path.join(root, 'src/ts/server/server.ts');
+  const before = fs.readFileSync(p, 'utf8');
+  const after = before.replace(/(const publishUnitChanged:[\s\S]*?=\s*\(ior, uuid\)\s*=>\s*\{)/, '$1 if (1) return; /* C1: broadcast OFF */');
+  if (after === before || !after.includes('/* C1: broadcast OFF */')) throw new Error('neuterBroadcast: regex did NOT patch publishUnitChanged — instrument would be unproven');
+  fs.writeFileSync(p, after);
+}
 
 const drawerState = (page) => page.evaluate(() => {
-  const d = document.querySelector('rb-detail-drawer'); const t = d?.textContent || '';
+  const d = document.querySelector('rb-detail-drawer');
+  const badge = d?.querySelector('.dv-status-badge')?.textContent?.trim() || null; // architect: assert live status via the BADGE ELEMENT, not a textContent substring
   return { approve: !!d?.querySelector('button[data-verb="qa-approve"]'), decline: !!d?.querySelector('button[data-verb="qa-decline"]'),
-    statusDone: /\bDone\b/.test(t), statusQaReview: /QA Review/.test(t), sentinel: window.__c2s || null, nav: window.__c2nav || 0, len: t.length };
+    badge, sentinel: window.__c2s || null, nav: window.__c2nav || 0, len: (d?.textContent || '').length };
 });
-async function openTask(page, u) { await page.waitForSelector('rb-detail-drawer', { timeout: 15000 }); await page.evaluate((x) => { const d = document.querySelector('rb-detail-drawer'); d.setAttribute('open', ''); d.setAttribute('ref', `task:${x}`); }, u); }
+// WARMUP: open the task AND wait for the status-driven controls/badge to actually RENDER, so present-before is a real snapshot (not a too-early read).
+async function openTask(page, u) {
+  await page.waitForSelector('rb-detail-drawer', { timeout: 15000 });
+  await page.evaluate((x) => { const d = document.querySelector('rb-detail-drawer'); d.setAttribute('open', ''); d.setAttribute('ref', `task:${x}`); }, u);
+  await page.waitForSelector('rb-detail-drawer button[data-verb="qa-approve"]', { timeout: 8000 }).catch(() => {}); // warmup: controls rendered
+  await page.waitForSelector('rb-detail-drawer .dv-status-badge', { timeout: 4000 }).catch(() => {});
+}
 
 async function runB({ serverPatch, label }) {
   const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(serverPatch ? { serverPatch } : {}) });
@@ -36,7 +52,12 @@ async function runB({ serverPatch, label }) {
     const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx1.addCookies([cookie]);
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx2.addCookies([cookie]);
     const p1 = await ctx1.newPage(); const p2 = await ctx2.newPage();
-    await p1.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 }); // architect 70cfcdab1: /model tree-less → client-2 genuinely QUIET (B causality; /trace lazy-tree confounds the quiet-window trap)
+    // CAUSALITY-BY-EXCLUSION (architect 439adf982 — corrects the tree-less premise I disproved: /model DOES poll the tree). Keep the
+    // REAL page; capture client-2's WS FRAMES; the C1 arm (broadcast OFF, SAME page, SAME polls) is the EXCLUSION control: polls fire
+    // in BOTH arms but the update happens ONLY with broadcast → polls excluded as the cause, the WS broadcast IS the cause.
+    const wsFrames = [];
+    p2.on('websocket', (ws) => { ws.on('framereceived', (ev) => { try { const m = JSON.parse(ev.payload); wsFrames.push({ type: m.type, uuid: m.uuid, t: Date.now() }); } catch { /* non-JSON frame */ } }); });
+    await p1.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 });
     await p2.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 });
     await p2.waitForFunction(() => window.__liveTransport?.state === 'connected', { timeout: 12000 }).catch(() => {});
     await p2.evaluate(() => { window.__c2s = 'c2-' + Math.random().toString(36).slice(2); window.__c2nav = 0; });
@@ -58,6 +79,10 @@ async function runB({ serverPatch, label }) {
     raw.c2GetsAfterApprove = c2reqs.slice(reqMark).filter((r) => !r.nav && r.t >= approveAt).map((r) => r.url.replace(f.base, '')); // (1) surgical
     raw.c2NavAfterApprove = c2reqs.slice(reqMark).filter((r) => r.nav).length;
     raw.client1 = await drawerState(p1);
+    // CAUSALITY-BY-EXCLUSION evidence: the WS broadcast frame carrying TARGET (the cause) + proof the polls fired (excluded by C1).
+    raw.wsFramesAfterApprove = wsFrames.filter((fr) => fr.t >= approveAt).map((fr) => ({ type: fr.type, uuid: String(fr.uuid || '').slice(0, 8) }));
+    raw.wsUnitChangedForTarget = wsFrames.some((fr) => fr.type === 'unit-changed' && String(fr.uuid || '') === TARGET && fr.t >= approveAt);
+    raw.pollCountAfterApprove = raw.c2GetsAfterApprove.filter((u) => u.includes('/api/')).length; // polls DID fire (both arms) — the C1 arm excludes them as the cause
     await ctx1.close(); await ctx2.close();
   } finally { await browser.close(); raw.teardown = await f.teardown(); }
   return raw;
@@ -77,26 +102,35 @@ const prodAfter = await prodStatus(TARGET);
 
 // VERDICT
 const b = pos.before, a = pos.after;
-const presentBefore = b?.approve === true && b?.decline === true;                       // (3)
-const absentAfter = a?.approve === false && a?.decline === false;                        // (3)
-const noReload = a && b && a.sentinel === b.sentinel && a.sentinel !== null && a.nav === 0 && pos.c2NavAfterApprove === 0; // (4)
-const noPoll = pos.pollInQuietWindow === 0;                                              // (1a)
-const surgical = pos.c2GetsAfterApprove?.length > 0 && pos.c2GetsAfterApprove.every((u) => u.includes(`/api/ior/${TARGET}`)); // (1b)
-const fast = pos.latencyMs !== null && pos.latencyMs < 5000;                             // causal
-const client1Moved = pos.client1?.approve === false;                                    // Tab A moved
-const c1Falsifiable = c1.after?.approve === true && c1.latencyMs === null;               // (2) broadcast off → no update
-const prodUnchanged = prodBefore === 'QA Review' && prodAfter === 'QA Review';           // ★ isolation held for the REAL task
+const presentBefore = b?.approve === true && b?.decline === true;                        // (3) controls present-before (warmup landed)
+const absentAfter = a?.approve === false && a?.decline === false;                         // (3) controls vanished
+const badgeFlip = b?.badge === 'QA Review' && a?.badge === 'Done';                        // status via the BADGE ELEMENT flipped QA Review→Done (not a substring)
+const noReload = a && b && a.sentinel === b.sentinel && a.sentinel !== null && a.nav === 0 && pos.c2NavAfterApprove === 0; // (4) no reload
+const fast = pos.latencyMs !== null && pos.latencyMs < 5000;                              // causal window
+const client1Moved = pos.client1?.approve === false;                                     // Tab A moved too
+// ★ CAUSALITY-BY-EXCLUSION (architect 439adf982): the WS broadcast frame for TARGET arrived (cause present) AND the C1 arm
+// (broadcast OFF, SAME real page, polls STILL fired) did NOT update and received NO unit-changed frame → polls fire in BOTH
+// arms but the update happens ONLY with the broadcast → polls are EXCLUDED as the cause, the WS broadcast IS the cause.
+const wsCarried = pos.wsUnitChangedForTarget === true;
+const pollsFiredBothArms = pos.pollCountAfterApprove > 0 && c1.pollCountAfterApprove > 0;
+const c1NoUpdate = c1.after?.approve === true && c1.latencyMs === null && c1.wsUnitChangedForTarget === false; // (2) broadcast off → no update, no frame, despite polls
+const broadcastByExclusion = wsCarried && pollsFiredBothArms && c1NoUpdate;
+const prodUnchanged = prodBefore === 'QA Review' && prodAfter === 'QA Review';            // ★ isolation held for the REAL task
 const prodSafe = pos.teardown?.prodUp === true && pos.teardown?.leftover === 0 && c1.teardown?.prodUp === true && c1.teardown?.leftover === 0;
 
-console.log('\n=== VERDICT B (VANISH — Tab B moves from broadcast alone, no reload) ===');
+console.log('\n=== VERDICT B (VANISH — Tab B moves from broadcast ALONE, no reload; causality-by-exclusion) ===');
 console.log(`  subject ${TARGET} · PROVEN AT worktree ${pos.worktreeSha}/v${pos.servedVersion} (C1 @ ${c1.worktreeSha}/v${c1.servedVersion})`);
-console.log(`  (3) controls PRESENT-before=${presentBefore} → ABSENT-after=${absentAfter}  [before ${JSON.stringify(b)} after ${JSON.stringify(a)}]`);
-console.log(`  (4) NO-RELOAD positive (sentinel survived + 0 nav): ${noReload}`);
-console.log(`  (1) no-poll=${noPoll}(${pos.pollInQuietWindow}) · surgical /api/ior only=${surgical}(${JSON.stringify(pos.c2GetsAfterApprove)}) · fast<5s=${fast}(${pos.latencyMs}ms)`);
-console.log(`  Tab A moved: ${client1Moved}`);
-console.log(`  (2) STUB broadcast-OFF → client-2 did NOT update: ${c1Falsifiable}`);
-console.log(`  ★ PROD 97e8a6ad UNCHANGED (isolation held for a REAL task): ${prodUnchanged}  [${prodBefore} → ${prodAfter}]`);
-console.log(`  teardown prod:4444 untouched + 0 leftover: ${prodSafe}`);
-const green = presentBefore && absentAfter && noReload && noPoll && surgical && fast && client1Moved && c1Falsifiable && prodUnchanged && prodSafe;
-console.log(`\n${green ? '✓ GREEN' : '✗ RED'} — B VANISH (Tron's #1: Tab B moves from broadcast alone, no reload)`);
-process.exit(green ? 0 : 1);
+console.log(`  (3) controls PRESENT-before=${presentBefore} → ABSENT-after=${absentAfter} · BADGE ${b?.badge}→${a?.badge} flip=${badgeFlip}`);
+console.log(`  (4) NO-RELOAD positive (sentinel survived + 0 nav): ${noReload} · fast<5s=${fast}(${pos.latencyMs}ms) · Tab A moved=${client1Moved}`);
+console.log(`  ★ EXCLUSION: WS frame carried TARGET=${wsCarried} · polls fired both arms=${pollsFiredBothArms} (pos ${pos.pollCountAfterApprove}/C1 ${c1.pollCountAfterApprove}) · C1 broadcast-OFF→no-update+no-frame=${c1NoUpdate} ⇒ broadcast-by-exclusion=${broadcastByExclusion}`);
+console.log(`  WS frames after approve (client-2): ${JSON.stringify(pos.wsFramesAfterApprove)}`);
+console.log(`  ★ PROD 97e8a6ad UNCHANGED (isolation held for a REAL task): ${prodUnchanged}  [${prodBefore} → ${prodAfter}] · teardown prod:4444 untouched + 0 leftover: ${prodSafe}`);
+const neuterWorked = c1.wsUnitChangedForTarget === false; // ★ prove-the-instrument: C1 must have SUPPRESSED the broadcast, else the exclusion is unreadable
+const green = presentBefore && absentAfter && badgeFlip && noReload && fast && client1Moved && broadcastByExclusion && prodUnchanged && prodSafe;
+let outcome, exit;
+if (!neuterWorked) { outcome = `INVALID — C1 neuter did NOT suppress the broadcast (C1 still received unit-changed for TARGET) → instrument unproven, exclusion unreadable. prove-the-instrument-before-the-reading.`; exit = 2; }
+else if (!presentBefore) { outcome = 'INVALID — controls not present-before (precondition/warmup unmet), nothing to vanish'; exit = 2; }
+else if (green) { outcome = 'GREEN — Tab B vanished from the broadcast ALONE (causality-by-exclusion: WS frame carried it, C1 excludes the polls)'; exit = 0; }
+else { outcome = `RED — /model drawer RECEIVED the broadcast (wsCarried=${wsCarried}) but did NOT re-render (absentAfter=${absentAfter}, badgeFlip=${badgeFlip}, client1Moved=${client1Moved}) — Tron's live-MVC gap on /model OR graph-less-drawer does-not-live-update (architect premise question)`; exit = 1; }
+console.log(`\n${outcome.startsWith('GREEN') ? '✓' : outcome.startsWith('INVALID') ? '⊘' : '✗'} ${outcome}`);
+process.exit(exit);
