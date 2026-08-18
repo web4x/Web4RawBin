@@ -79,6 +79,24 @@ Result: DRAWER **bus-wide INERT** — /model AND /trace both received the WS fra
 6. **The DELTA is the proof:** pre=INERT → post=IN-PLACE, one variable (the builder) = builder causally proven. Report actual-vs-predicted.
 7. **Coverage = Tron's FULL named criteria** (anchor #78): row + badge + DETAIL + CONTROLS, no reload. Target ROW must be RENDERED (tester's expand-to-row) for the row + exclusion to be testable.
 
+### Q3-ROW-RENDERABILITY — decided IN ADVANCE (before the post arm runs)
+The locked bar names the ROW badge, but the baseline found TARGET not rendered (collapsed/lazy). Ruling, decided now:
+**(A) Approach — endorse the PO ranking, with the no-synthetic caveat as the hard line:**
+- **(a) real user-action expand = PREFERRED, admissible ONLY if a GENUINE gesture** — dispatch the tree's own expand affordance / the select→reveal flow the way a user does, NOT `element.expand()`/a synthetic DOM poke. Expansion completes BEFORE the approve; tag-then-classify on the now-rendered row.
+- **(b) a default-level TARGET = clean fallback** IF it still meets every other precondition (QA-Review status, etc.).
+- **(c) INVALID-untestable (reason stated) = last resort**, never a silent drop.
+- **MANDATORY whichever is picked: RE-RUN the PRE arm with the IDENTICAL setup.** The differential's two arms must differ in ONE variable (the builder) only; changing target/adding an expand without re-running PRE = a two-variable confound = inadmissible.
+
+**(B) DECIDE-ONCE — if the row genuinely cannot be rendered by ANY real user action:**
+1. FIRST seek ANOTHER REAL live surface where a user actually sees that task's status (list/header badge/other view). If one exists and live-updates, Tron's status-live intent is satisfied by that real path.
+2. If NONE exists → **B = PARTIAL: drawer-controls + detail GREEN (if they pass), ROW = INVALID-untestable with the reason, reported to TRON EXPLICITLY** — not silent, not fake-green, not RED (unmet precondition = INVALID per the three-outcomes doctrine). Tron rules whether partial is acceptable or the row must be made testable. **NEVER manufacture a row-green with a synthetic render.**
+3. Preference order: exhaust (a)/(b) before (B.2). INVALID-untestable only if genuinely unrenderable by a real path.
+
+**(C) PRODUCT FINDING — navigated-to task invisible in EITHER tree: measure, don't dismiss.** This may be a REAL finding, not a harness inconvenience. Rule by measurement:
+- If TARGET was NAVIGATED-TO / SELECTED (deep-link or selection) and the surface HAS a select→reveal / navigate→reveal contract (R33.7.4-style) yet the tree did NOT reveal it → **GAP** (the user is "at" a node the tree won't show) → raise as a SEPARATE finding to PO/Tron, distinct from B (same class as device-QA-regression = missing AC).
+- If TARGET was merely deep + collapsed with no reveal expectation on that surface → **normal collapsed-tree behavior** (expand to see); (a)/(b) handle testability, no gap.
+- The tester measures: navigated-vs-merely-collapsed, and whether a reveal contract exists on that surface — that classification decides gap-vs-normal.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
