@@ -33,10 +33,11 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // every other task → shown. open-task-file → ALL tasks (the bar is the ONE action surface; the body renders DATA).
   { verb: 'set-current', label: '📌 Set as Current', appliesTo: { types: ['task'], when: (ctx) => ctx.taskRole !== 'current' } },
   { verb: 'open-task-file', label: '📄 Open Task file', appliesTo: { types: ['task'] } },
-  // set-next: NOWHERE (architect fa799ca43, FINAL) — NO button, permanently EMPTY cell. 'next' = fixed sprint-number
-  // identity; there is NO derived 'next task', and a stored nextBacklog would be the lying-pin one slot over. So there is
-  // no advance-based NOR nextBacklog form — the honest cell is empty. Do NOT add a set-next decl.
-  // MATRIX (final): current task → neither steer; every other task → set-current + open-task-file; ALL tasks → open-task-file.
+  // set-next: NOT YET WIRED — capture-only, pending Tron's GO (he ordered "finish verdicts, then stop, no new tasks").
+  // PO REVERSED architect fa799ca43's 'nowhere' ruling: Tron re-listed 'Set as next' as MISSING (2nd ask) + his pin
+  // already HAS a Next Backlog slot → set-next WILL be built as an EXPLICIT STEER that EXPIRES when its target advances
+  // (R40.18 explicit-wins-while-valid) — NOT a derived next-task, NOT a permanent stored pin. Do NOT add the decl until Tron says go.
+  // MATRIX (interim, until set-next lands): current → neither steer; other → set-current + open-task-file; ALL → open-task-file.
 ];
 
 // [impl:uuid:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab] universalActions.applicableActionsFor (Class universalActions
