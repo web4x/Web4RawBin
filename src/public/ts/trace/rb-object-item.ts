@@ -70,8 +70,23 @@ export class RbObjectItem extends HTMLElement {
       document.addEventListener('selection-changed', () => this.syncSelected());
     }
     const ref = this.getAttribute('ref');
-    if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => this.render());
+    if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => void this.refreshLive()); // architect de27341b4 surgical: on a unit-changed for THIS ref, pull the fresh derived status → badge re-renders (done→green✓) live
     this.syncSelected();
+  }
+
+  // Surgical live-update: fetch this unit's fresh DERIVED status (server-computed) + re-render just this row. render()
+  // otherwise reads the stale `status` attr set at tree-build → the badge would not move on a ws unit-changed.
+  private async refreshLive(): Promise<void> {
+    const ref = this.getAttribute('ref') || '';
+    const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : '';
+    if (uuid) {
+      try {
+        const j = await fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null));
+        const st = j?.unit?.model?.status;
+        if (st != null) this.setAttribute('status', String(st)); // fresh derived status (the seam's deriveStatusEnum) → renderStatusBadge goes green✓ on Done
+      } catch { /* keep the prior attr on fetch failure — never blank a live row */ }
+    }
+    this.render();
   }
 
   // [impl:uuid:cc1dcd0e-93b2-43d5-80bb-b162cd685403] RbObjectItem.handleTapSelect

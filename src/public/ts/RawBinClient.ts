@@ -95,7 +95,11 @@ export class RawBinClient {
       this.ws.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data);
-          if (msg.type === 'unit-changed') { ViewBus.notify('graph'); return; } // R40.17 LIVE: server pushed a unit change → subscribed trace-trees re-render (ViewBus 'graph' → render() re-fetch) with NO Refresh. Transport→bus bridge.
+          if (msg.type === 'unit-changed') { // architect de27341b4: notify the unit REF (type:uuid) so per-unit subscribers re-render SURGICALLY (rb-object-item row+badge, rb-detail-view detail) — NOT a whole-tree refetch. 'graph' reserved for structural create/delete.
+            const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
+            if (t && msg.uuid) ViewBus.notify(`${t}:${msg.uuid}`); else ViewBus.notify('graph');
+            return;
+          }
           if (msg.type === 'welcome') {
             this.clientId = msg.clientId;
             if (msg.challenge && localStorage.getItem('rawbin-device-privateKey')) {

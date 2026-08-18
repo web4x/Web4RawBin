@@ -1545,14 +1545,31 @@ function unitRealPath(uuid: string): { realPath: string; dir: string } | null {
 // it, work+tests done) → a Done can NEVER be manufactured from an un-reviewed task. Extracted as named functions so
 // the verdict logic is gateable directly (not inline-in-handler). Owner-gate is applied by the caller (requireOwnerHttp).
 // [impl:uuid:36b6ce2e-efe9-4ad8-9382-104ee07d0266] TaskQaVerdict.approveByOwner (owner-gated; approvedBy/approvedAt as data; evidence-precondition; flips Done-gate)
-function approveByOwner(idx: ScenarioIndex, taskUuid: string, ownerTok8: string, now: string): { code: number; payload: Record<string, unknown> } {
+function approveByOwner(idx: ScenarioIndex, taskUuid: string, approver: { id: string; name: string }, now: string): { code: number; payload: Record<string, unknown> } {
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
   const m = unit.model as any;
   if (!APPROVE_STATUSES.includes(m.status as typeof APPROVE_STATUSES[number])) return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' not in ${JSON.stringify(APPROVE_STATUSES)} — cannot manufacture Done` } }; // R40.37: same set the client affordance hides on (anti-drift)
-  m.approvedBy = ownerTok8; m.approvedAt = now; m.status = 'Done';   // Tron's QA recorded as DATA → the Done-gate is now provable
-  idx.put(taskUuid, unit);
-  return { code: 200, payload: { ok: true, status: 'Done', approvedBy: ownerTok8, approvedAt: now } };
+  // AC-1 (provenance, PO ruling): approvedBy = the owner's STABLE identity uuid (NOT resolveOwner's 'sm_session' placeholder,
+  // NOT a truncated token, NEVER the raw OWNER_TOKEN credential — hygiene #0). approvedByName = the human label.
+  m.approvedBy = approver.id; m.approvedByName = approver.name; m.approvedAt = now;
+  // ★ NAMED GAP (architect 8f4f70430, not silent): the verdict is ATTRIBUTABLE (owner-only endpoint, 403 non-owner) +
+  // TAMPER-EVIDENT (R40.45 bypass-gate detects a direct unit-file write) — but NOT YET UNFORGEABLE. The root-only-HMAC
+  // server signature (detectable→impossible) is a B1-gated follow-up, deferred while B1 is parked for Tron. Do NOT
+  // over-claim: this is 'attributable + tamper-evident', never 'unforgeable', until the signature lands.
+  m.approvedIntegrity = 'attributable + tamper-evident (owner-gated endpoint + R40.45 bypass-gate); NOT yet unforgeable — root-only HMAC signature is a B1-gated follow-up';
+  idx.put(taskUuid, unit); // persist the verdict FIRST — the seam's validate reads approvedBy for the Done evidence-gate
+  // AC-2 (atomic one-truth) + AC-3 (live) + AC-5 (green Done, per architect = pure liveness): route the QA-Review→Done
+  // advance THROUGH THE SEAM instead of assigning the enum. TaskPolicy.apply TICKS the Done checklist box then DERIVES
+  // model.status (R37.5 sole 4-state writer) = checklist and status ONE truth; UnitController EMITS unit-changed → the
+  // tree row re-renders LIVE (no refresh) and the badge (reads model.status, BADGE_MAP done→green✓) goes green.
+  try {
+    UnitController.apply(idx, 'ior:class:Task', taskUuid, { target: 'Done' }, { actor: approver, publish: publishUnitChanged });
+  } catch (e: any) {
+    return { code: 409, payload: { ok: false, error: 'seam-refused', detail: String(e?.message || e) } }; // Done evidence-gate / step-legality refused — surface it, never force a divergent enum
+  }
+  const after = idx.get(taskUuid)!.model as any;
+  return { code: 200, payload: { ok: true, status: after.status, approvedBy: after.approvedBy, approvedAt: after.approvedAt } };
 }
 
 // [impl:uuid:90089602-d819-4df3-80a9-ef5524931ae3] TaskQaVerdict.declineToChangeRequest (owner-gated; mints ior:class:ChangeRequest linked to task/req)
@@ -1763,12 +1780,19 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('end', () => {
         try {
           const idx = new ScenarioIndex(PROD_INDEX);
-          const r = resolveOwner(req);
-          const ownerTok8 = String((r as { ok: true; token: string }).token || ServerManagerGuard.playerTokenFrom(req) || 'owner').slice(0, 8);
+          // AC-1 (architect d82149492): record the owner's STABLE identity, NOT resolveOwner's 'sm_session' placeholder nor a
+          // truncated token. Resolve the REAL owner token (the sm_session cookie stores it; else the header) → the owner's
+          // profile NAME (attributable to HIM, non-credential — the raw token is NEVER written to disk). ROOT-1 server
+          // SIGNATURE (unforgeable) is a fast-follow pending the architect's signing-key mechanism (no server secret exists yet).
+          const _sid = cookieFrom(req, 'sm_session');
+          const _ownerTok = (_sid ? smSessions.get(_sid)?.token : '') || ServerManagerGuard.playerTokenFrom(req) || '';
+          // AC-1 (architect 8f4f70430): id = the owner's PROFILE-UNIT uuid via profileUuidOf (stable, non-credential, resolves
+          // to his Profile unit = verifiable) — NOT the raw token (hygiene #0), NOT the renameable name (name rides as display).
+          const approver = { id: FeatureManager.profileUuidOf(_ownerTok, userProfiles as unknown as Map<string, { redirectTo?: string }>) || 'owner:unresolved', name: String(userProfiles.get(_ownerTok)?.name || 'RawBin Owner') };
           const now = new Date().toISOString();
           let out: { code: number; payload: Record<string, unknown> };
-          if (verb === 'approve') out = approveByOwner(idx, taskUuid, ownerTok8, now);
-          else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, ownerTok8, reason, now); }
+          if (verb === 'approve') out = approveByOwner(idx, taskUuid, approver, now);
+          else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, approver.id, reason, now); }
           // R40.18 BITE-6b observable stale-steer (LOG-ONLY, never a pin write): if the just-approved-to-Done task is
           // the current explicit steer, its designation is used up → auto-progress resumes. Delegated to StaleSteerLog.
           if (verb === 'approve' && out.code >= 200 && out.code < 300) StaleSteerLog.logStaleSteerExpiry(idx, taskUuid);
