@@ -1843,7 +1843,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
           res.end(JSON.stringify(out.payload));
           addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${approver.name} → ${out.code}`); // FIX: was ${ownerTok8} — UNDECLARED here (only a declineToChangeRequest PARAM) → ReferenceError AFTER res.end → catch double-writeHead → ERR_HTTP_HEADERS_SENT → server CRASH on every approve (the ~10-iteration live-MVC failure root)
-        } catch (e: any) { if (!res.headersSent) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); } } // headersSent guard: a throw AFTER the response was sent must never re-write headers (that IS the crash)
+        } catch (e: any) { if (!res.headersSent) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); } else { console.error(`[route] ★ POST-RESPONSE throw SWALLOWED (fail-SAFE now fail-LOUD, L15) on ${filepath} — a defect ran after res.end:`, e); } } // headersSent guard: a throw AFTER the response was sent must never re-write headers (that IS the crash); else = fail-loud so the hardening is OBSERVABLE, never a silent swallow
       });
       return;
     }
@@ -1875,7 +1875,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         } catch (e: any) {
           const msg = String(e?.message || e);
           const code = /cannot make a|only a Planned|In-Progress task can be/.test(msg) ? 409 : 400; // validate-refuse (QA-Review/Done) → 409
-          if (!res.headersSent) { res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: msg })); } // headersSent guard: never re-write after the response was sent
+          if (!res.headersSent) { res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: msg })); } else { console.error(`[route] ★ POST-RESPONSE throw SWALLOWED (fail-SAFE now fail-LOUD, L15) on ${filepath} — a defect ran after res.end:`, e); } // headersSent guard: never re-write after the response was sent; else = fail-loud so a post-response defect is OBSERVABLE, never silently swallowed
         }
       });
       return;
