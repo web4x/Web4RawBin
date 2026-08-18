@@ -43,3 +43,13 @@ Reworked per ruling: badge-element status (`.dv-status-badge`), warmup before-sn
 - **★ INSTRUMENT BUG I OWN + FIXED:** the C1 `neuterBroadcast` regex used `[^=]*`, which stops at the `=` in publishUnitChanged's type annotation `=> void` → never matched (`grep -cE`=0). The old C1 "pass" was COINCIDENTAL (the drawer never updates anyway). Fixed to `[\s\S]*?` spanning to the impl arrow + a throw-if-not-patched guard + a neuter-effect verification in the verdict (C1 must show `wsUnitChangedForTarget=false`, else INVALID not RED). prove-the-instrument-before-the-reading.
 - **VERDICT = INVALID** (not RED): the C1 exclusion control was unproven (broadcast still fired in C1). Re-run on the fixed harness pending the architect's /model-drawer-live-update premise ruling. Banked either way: prod 97e8a6ad UNCHANGED, teardown prod:4444 untouched + 0 leftover (both arms).
 - ⚠ HEAD moved mid-work ddb645b78→0930018e6 (version-provenance trap-5) — re-pin per run.
+
+---
+
+## HALF B — PRE-FIX DIAGNOSTIC BASELINE (NOT B-green; PO+architect 748cab757, worktree 748cab757/v0.8.114)
+★ CONDITION-1 DISCRIMINATOR PROVEN: REPLACED=true + IN-PLACE=true on known controls → classifications VALID (prove-the-instrument).
+★ PRE-REGISTERED PREDICTION: bus-wide INERT (no broadcast-driven in-place flip; any move = poll/wholesale).
+ACTUAL:
+- **DRAWER (DETAIL+CONTROLS): bus-wide INERT** — /model AND /trace both: drawer RECEIVED the unit-changed WS frame (wsFrame=true) but controls (approve stayed true) + badge (stayed 'QA Review') did NOT move. Transport EXONERATED (frame arrived, drawer inert) → confirms the raw-ref key-mismatch is **BUS-WIDE, not /model-specific**. **MATCHES prediction.**
+- **ROW: NOT TESTABLE** — TARGET's rb-object-item was not rendered in either tree (collapsed/lazy); row half of the prediction UNVERIFIED (not claimed). Post-fix run must expand the tree to TARGET (or pick a subject known-rendered).
+BOUNDS: divergence locus = bus-wide (drawer inert on both surfaces) → the ONE shared viewBusKey builder is the right fix. Baseline for the differential: re-run IDENTICALLY post-fix = POST-FIX ARM (one variable changed). Post-fix B-green also needs causality-by-exclusion (no in-window /api/trace/children carries new status + WS frame does) paired with the discriminator (architect condition-2).
