@@ -59,7 +59,20 @@ function seedUnits(root) {
   // refuse task: Done → approve 409 (not in APPROVE_STATUSES) AND make-current 409 (not workable), byte-identical
   const refuse = randomUUID();
   writeUnit(root, refuse, 'ior:class:Task', { name: `scratch Done/refuse task ${tag}`, status: 'Done', statusChecklist: DONE_CHECKLIST, coveredRequirements: [ref(req)] });
-  return { qaReview: qa, planned, refuse };
+  return { qaReview: qa, planned, refuse, evidenceReq: req };
+}
+
+// ADDITIVE hook: attach the seeded passing-Test evidence chain to a REAL task (in the SCRATCH worktree only) so approveByOwner
+// can reach Done+emit on it — used when landing-3 exercises a REAL non-eager QA-Review task (a full /api/ior citizen that renders
+// controls) rather than the synthetic seed (a model-store stub that doesn't). Scratch-only, torn down with the worktree.
+function attachEvidenceToTask(root, taskUuid, evidenceReq) {
+  const p = shardPath(root, taskUuid);
+  if (!fs.existsSync(p)) throw new Error(`attachEvidenceTo: task ${taskUuid} not found in worktree index`);
+  const u = JSON.parse(fs.readFileSync(p, 'utf8'));
+  u.model.coveredRequirements = Array.isArray(u.model.coveredRequirements) ? u.model.coveredRequirements : [];
+  const ref = `ior:instance:${evidenceReq}`;
+  if (!u.model.coveredRequirements.includes(ref)) u.model.coveredRequirements.push(ref); // StepEvidence walks ALL coveredReqs → the injected passing Test satisfies 'testing'
+  fs.writeFileSync(p, JSON.stringify(u, null, 2) + '\n');
 }
 
 // ── owner LIVE session: WS IDENTIFY (registers OWNER_TOKEN in tokenToClient) then POST session → sm_session cookie ──
@@ -106,6 +119,10 @@ export async function setupFoundation(opts = {}) {
     else execSync(`${NODE22} build.mjs`, { cwd: scratch, stdio: 'ignore' });
     // (4) seed the scratch units BEFORE boot (server loads the index at startup)
     const seeded = seedUnits(scratch);
+    // (4a) optional: attach the seeded passing-Test evidence chain to a REAL task (BEFORE boot → the boot-loaded idx sees it) so
+    // approveByOwner can reach Done+emit on a real non-eager QA-Review task = a full /api/ior citizen. MECHANISM FIXTURE only —
+    // proves the approve→Done→broadcast PATH, does NOT claim the real task is Done-worthy. Scratch-only, torn down with the worktree.
+    if (opts.attachEvidenceTo) { attachEvidenceToTask(scratch, opts.attachEvidenceTo, seeded.evidenceReq); seeded.realQaReview = opts.attachEvidenceTo; }
     // (4b) optional serverPatch(worktreeRoot) — ADDITIVE negative-test hook (expert owner-action smoke stub-must-fail):
     // mutate the WORKTREE server source BEFORE boot (e.g. inject a post-response throw) so the scratch server runs the
     // broken code, proving a gate BINDS. Backward-compatible (no opts → no patch). Scratch-worktree-only, torn down with it.
@@ -116,6 +133,10 @@ export async function setupFoundation(opts = {}) {
     let up = false;
     for (let i = 0; i < 90 && !up; i++) { try { const r = await fetch(`${BASE}/api/config`); up = r.ok; } catch {} if (!up) await sleep(1000); }
     if (!up) throw new Error(`scratch server did not come up on ${HTTPS_PORT} within 90s (see /tmp/r4031-server-${process.pid}.log)`);
+    // VERSION PIN (PO: HEAD is a moving target during an acceptance run — record what THIS scratch was built at, per run)
+    let worktreeSha = '?', servedVersion = '?';
+    try { worktreeSha = execSync(`git -C ${scratch} rev-parse --short HEAD`, { encoding: 'utf8' }).trim(); } catch {}
+    try { servedVersion = (await (await fetch(`${BASE}/api/config`)).json())?.version || '?'; } catch {}
     // (7) owner live session + (8) mint sm_session cookie
     const o = await openOwnerWs(ownerToken); ownerWs = o.ws;
     const sres = await fetch(`${BASE}/api/server-manager/session`, { method: 'POST', headers: { 'x-player-token': ownerToken } });
@@ -126,7 +147,7 @@ export async function setupFoundation(opts = {}) {
     // Cookie carries the sm_session for page loads. Returns a fresh object each call (no shared mutable creds).
     const ownerHeaders = () => ({ 'x-player-token': ownerToken, ...(smSession ? { Cookie: `sm_session=${smSession}` } : {}) });
 
-    return { base: BASE, ownerHeaders, seeded, ownerIsServerManager: o.isOwner, sessionMinted: !!smSession, teardown };
+    return { base: BASE, ownerHeaders, seeded, ownerIsServerManager: o.isOwner, sessionMinted: !!smSession, worktreeSha, servedVersion, teardown };
   } catch (e) {
     await teardown();
     throw e;
