@@ -14,7 +14,7 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 155** — Done **99** · QA-Review **43** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 10** (155 = 99+43+3+10)
+- **TOTAL S30++ tasks: 155** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 10** (155 = 98+44+3+10)
 - **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 6**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
@@ -26,7 +26,7 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 19 | 2 | 11 | 0 | 6 |
+| S37 | 19 | 1 | 12 | 0 | 6 |
 | S40 | 16 | 0 | 15 | 0 | 1 |
 
 **ACTIONABLE by blocker:** gate 1 · marker 5

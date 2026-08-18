@@ -480,7 +480,11 @@ export class RbDetailDrawer extends HTMLElement {
     const uuid = r?.uuid || ref;
     const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
     const rModel = (r?.unit as { model?: Record<string, unknown> } | undefined)?.model;
-    const unit = { type: r?.type || type, status: obj?.status ?? (rModel?.status as string | undefined), kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
+    // R40.31(b) FIX (architect 624f5eba3): FRESH resolved status WINS, cache is the fallback. resolveRefUnit already
+    // re-fetches /api/ior per callback (synthetic-ref.ts) so rModel.status is fresh; the old `obj?.status ?? rModel` let the
+    // STALE cached graph obj.status SHADOW it → keys matched + callback fired but the bar re-derived the old status (the
+    // live-render-never-worked root). Invert: rModel.status first, obj.status only when the resolve carried none.
+    const unit = { type: r?.type || type, status: (rModel?.status as string | undefined) ?? obj?.status, kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
     // ed3442d10 / L15 FAIL-LOUD-UNRESOLVED: control visibility follows STATUS, never graph MEMBERSHIP. attachTaskStatus now
     // derives status at the /api/ior READ boundary so a real task always carries it — but an ABSENT status must NEVER
     // silently mean not-actionable (a data gap hiding a real action = the silent-swallow class). So it is OBSERVABLE

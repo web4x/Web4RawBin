@@ -62,6 +62,12 @@ export class RbTaskDetail extends HTMLElement {
       // v0.7.6: visual statusChecklist from the full scenario model. T37.26: the 📄 Task file link moved to the bar's
       // Open-Task-file ACTION (server-computed model.taskMdHref) — the body no longer renders it (bar = the action surface).
       const model = (iorData?.unit?.model || {}) as Record<string, any>;
+      // R40.31(b) FIX (architect 624f5eba3): FRESH-WINS on the status BADGE too (mirror the action-bar precedence fix).
+      // render() paints .dv-status-badge from the possibly-STALE cached graph obj.status; the /api/ior model.status fetched
+      // here is fresh (attachTaskStatus derives it at the read boundary), so overwrite the badge → a live status change (e.g.
+      // Set-as-Current Planned→In-Progress, remote approve) flips the BADGE and the CONTROLS together, not just the controls.
+      const badge = this.querySelector('.dv-status-badge');
+      if (badge && model.status) badge.textContent = String(model.status);
       const fields = this.querySelector('.dv-fields');
       if (fields) {
         if (model.statusChecklist) fields.insertAdjacentHTML('beforeend', renderStatusChecklist(String(model.statusChecklist)));
