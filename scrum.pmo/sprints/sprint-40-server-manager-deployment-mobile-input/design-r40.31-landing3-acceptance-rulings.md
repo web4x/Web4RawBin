@@ -67,6 +67,18 @@ PO proposed one PRE-fix run (never reportable as B-green — my hold honored). I
 
 **Conditions (sharpening, not objections):** (1) PROVE THE DISCRIMINATOR INSTRUMENT first — assert it classifies a known-wholesale-re-render as REPLACED and a known-in-place as IN-PLACE, else the classifier itself is unproven (same prove-the-instrument rule as the C1 neuter). (2) A POST-fix B-green still pairs the discriminator with causality-by-EXCLUSION (Q2: no in-window poll response carries the new status + the WS frame does) — the discriminator separates in-place-vs-replaced, exclusion separates broadcast-vs-poll; both for the definitive green. (3) Hold to the pre-registered prediction — report actual-vs-predicted honestly, no goalpost-moving.
 
+### Q3-PREFIX BASELINE INTERPRETED (tester f11b71bcf / v0.8.114) — VALID PRE ARM, prediction matched
+Result: DRAWER **bus-wide INERT** — /model AND /trace both received the WS frame, neither moved = MATCHES the pre-registered prediction. Discriminator self-proven first (REPLACED+IN-PLACE, condition-1 met) → "inert" is trustworthy. Transport exonerated; divergence locus **BUS-WIDE** → confirms the one-shared-`viewBusKey`-builder fix scope by measurement. ROW unverified (target not rendered in either tree) → correctly NOT claimed. **This is the clean PRE arm of the differential — not a B-green (correct).**
+
+### POST-FIX B-GREEN BAR (locked — all required; else INVALID, not RED)
+1. **Same instrument/subjects/surfaces as pre-fix** (differential integrity); post-arm labelled with the FIX commit (trap-5); HEAD-moved-mid-run guard.
+2. **Discriminator = IN-PLACE** (genuine ViewBus liveness) on BOTH the DRAWER controls (Approve/Decline VANISH at Done) AND the ROW badge (QA-Review→Done) — NOT REPLACED (REPLACED = poll/wholesale masking, fails).
+3. **Causality-by-EXCLUSION** (Q2): no in-window `/api/trace/children` response carries the new status value + the WS frame DID → broadcast attributable by exclusion. (Discriminator separates in-place/replaced; exclusion separates broadcast/poll — BOTH required.)
+4. **BOTH tabs:** acting client-1 (own approve, local notify) AND client-2 (broadcast) both re-derive — the acting-tab gap was the same root; the fix must close both.
+5. **NO reload** (sentinel survives, 0 nav) + prod/subjects UNCHANGED (R40.31 isolation).
+6. **The DELTA is the proof:** pre=INERT → post=IN-PLACE, one variable (the builder) = builder causally proven. Report actual-vs-predicted.
+7. **Coverage = Tron's FULL named criteria** (anchor #78): row + badge + DETAIL + CONTROLS, no reload. Target ROW must be RENDERED (tester's expand-to-row) for the row + exclusion to be testable.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
