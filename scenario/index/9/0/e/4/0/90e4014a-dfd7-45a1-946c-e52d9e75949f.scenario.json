@@ -2,7 +2,7 @@
   "ior": "ior:class:Method",
   "model": {
     "uuid": "90e4014a-dfd7-45a1-946c-e52d9e75949f",
-    "name": "SprintLabel.sprintLabel",
+    "name": "SprintView.sprintLabel",
     "implementations": [
       "ior:instance:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809"
     ]
