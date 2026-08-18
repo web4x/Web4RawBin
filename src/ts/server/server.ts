@@ -88,6 +88,7 @@ import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CO
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
 import { CurrentSprint } from '../scenario/CurrentSprint.js'; // PIN-KEEP: recompute-on-read for the /trace CurrentSprint node
 import { UnitController } from '../scenario/unit-controller.js'; // R37.11 slice-1: THE mutation seam — every unit persist routes via apply/create (persist+emit inseparable)
+import '../scenario/task-policy.js'; // ★ R40.45 ROOT: side-effect import → registerPolicy(TASK_IOR, TaskPolicy). WITHOUT this NOTHING imports task-policy → the Task FSM is UNREGISTERED → UnitController.apply falls to DEFAULT-MERGE (blindly merges approvedBy, NO evidence-gate, NO Done advance, orphan approvedBy) = the approve-never-worked-~10-iterations root, masked by the ownerTok8 crash.
 import { readDir, readFile, writeFile } from './FileApi.js';
 import { RepoRegistry } from './repo-registry.js'; // R30.6.7 repo key→root allowlist
 
