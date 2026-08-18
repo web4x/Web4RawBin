@@ -63,7 +63,7 @@
    {
     "id": "AC-approve-live-all-surfaces",
     "group": "verify",
-    "text": "[DECLINE-REASON, Tron 2026-08-18 realtime-MVC approve-flow; CAPTURE-ONLY, he schedules] On APPROVE (and any status advance) the view updates LIVE across ALL surfaces — the TREE ROW and the BOARD, not only the detail panel — with NO manual Refresh. DEFECT OBSERVED: T37.27's genuine Tron approve updated the detail panel but the tree row did NOT update (partial-live reads as stale exactly where Tron is looking). The emit must reach EVERY subscribed surface (the concrete instance of AC-family-all-writes); a view live on some surfaces but not others is not live. @390 real-device."
+    "text": "[DECLINE-REASON, Tron 2026-08-18 realtime-MVC approve-flow; TRON-ORDERED FIX-IT-NOW 2026-08-18 (no longer capture-only — expert+architect building)] On APPROVE (and any status advance) the view updates LIVE across ALL surfaces — the TREE ROW and the BOARD, not only the detail panel — with NO manual Refresh. DEFECT OBSERVED: T37.27's genuine Tron approve updated the detail panel but the tree row did NOT update (partial-live reads as stale exactly where Tron is looking). The emit must reach EVERY subscribed surface (the concrete instance of AC-family-all-writes); a view live on some surfaces but not others is not live. @390 real-device."
    }
   ],
   "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect ruling, Tron-scheduled; captureOnly; realtime-MVC family R37.11/R37.12)"
