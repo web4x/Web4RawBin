@@ -150,6 +150,14 @@ The PO is right: precedence-inversion `(rModel?.status) ?? obj?.status` only hel
 - **(i) not issued OR (ii) stale ⇒ PRECEDENCE + STALENESS** → fix must RE-FETCH on the callback before deriving (what rb-object-item.refreshLive actually does), THEN use it — not one line.
 **Expert holds the line-483-only commit until this reports; both branches specified so no wasted round-trip.** Given we just paid for a confident convergent read, this one is decided by the instrument too.
 
+### Q3-FIX SHAPE RULED (fold decision) — build now on my pre-registered prediction; folded run adjudicates
+PO reversed A→FOLD on corrected cost (pre-check = a FULL heavy run, not ~2-3%; pre-check-now = 2 runs + forced rewind breaching the 75 stop; fold dominates). My Option-A feasibility held, but cost makes B win — deferred. The (i)/(ii) instrument is FOLDED into the post-fix run (code-only add now).
+**FIX SHAPE (build this now, on my pre-registered prediction that rModel is fresh at re-derive):**
+1. **rb-detail-drawer.ts:483** — invert the status precedence: `status: (rModel?.status as string | undefined) ?? obj?.status` (freshly-resolved status wins; cache only as fallback). `resolveRefUnit` already fetches live /api/ior per callback (synthetic-ref.ts:31), so this uses the fresh value instead of the stale cache-shadow.
+2. **Body/badge path — rb-task-detail.ts render()** — verify it does not carry the SAME cache-shadow; if it prefers a cached status over a fresh one, apply the same fresh-wins fix, so status AND controls both flip.
+3. **(1)+(2) hardenings ship separately** (gate proves typed-result + typeless-input stub; viewBusKey fail-loud + allow-list) — branch-independent, measured hazards.
+**The folded run adjudicates (single run, no diagnostic round-trip):** POST flips IN-PLACE ⇒ (ii) was fresh ⇒ precedence-only was correct (prediction HELD). Still-inert ⇒ the folded (i)/(ii) in the SAME run classifies: refetch-absent OR fetch-but-stale ⇒ I rule the corrected shape (add a re-fetch on the callback, mirror rb-object-item.refreshLive) IMMEDIATELY from the captured data, no new measurement. Held to the prediction publicly either way.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
