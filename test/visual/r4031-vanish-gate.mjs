@@ -39,6 +39,21 @@ function instrumentViewBus(root) {
   if (!s.includes('g.__nk') || !s.includes('g.__fk')) throw new Error('instrumentViewBus: regex did NOT patch ViewBus.ts notify/subscribe — instrument unproven');
   fs.writeFileSync(p, s);
 }
+// (i)/(ii) PRE-CHECK (PO): at each action-bar re-derive (rb-detail-drawer.ts:483), record the CACHED obj.status vs the FRESH
+// rModel.status (from resolveRefUnit's live /api/ior at :478) + which one the `??` chose. rModelStatus non-null ⇒ (i) /api/ior WAS
+// issued that fire; rModelStatus === post-approve 'Done' ⇒ (ii) fresh at re-derive. Decides precedence (rModel fresh, one-line fix)
+// vs staleness (rModel stale/absent → fix must ALSO re-fetch on the callback). Throws if anchor missing = prove-the-instrument.
+function instrumentRederive(root) {
+  const p = path.join(root, 'src/public/ts/trace/rb-detail-drawer.ts');
+  const before = fs.readFileSync(p, 'utf8');
+  // Match the `const unit = { type: ..., status: <EITHER precedence>, kind: ... };` line — works on the PRE-fix
+  // (obj ?? rModel) AND the v0.8.116 fix (rModel ?? obj), so the same instrument runs on either build.
+  const re = /(const unit = \{ type: r\?\.type \|\| type, status:[^\n]*?kind:[^\n]*?\};)/;
+  if (!re.test(before)) throw new Error('instrumentRederive: rb-detail-drawer.ts `const unit` anchor not found — instrument unproven');
+  const after = before.replace(re, '$1\n    try{const g=globalThis;g.__rd=(g.__rd||[]);g.__rd.push({objStatus:(obj?.status)??null,rModelStatus:(rModel?.status)??null,chosen:(unit.status)??null,ref:String(ref),t:Date.now()});}catch(e){}');
+  fs.writeFileSync(p, after);
+}
+const instrumentFull = (root) => { instrumentViewBus(root); instrumentRederive(root); };
 
 const drawerState = (page) => page.evaluate(() => {
   const d = document.querySelector('rb-detail-drawer');
@@ -88,9 +103,10 @@ async function runB({ serverPatch, label, commit, buildDist, clientPatch, instru
     await sleep(500);
     raw.after = await drawerState(p2);                                // (3) controls ABSENT-after
     raw.latencyMs = latency;
-    if (instrument) { // BISECT: read the ViewBus keys/fires recorded in the served bundle (globalThis===window)
+    if (instrument) { // BISECT: read the ViewBus keys/fires + the (i)/(ii) re-derive statuses recorded in the served bundle (globalThis===window)
       const readVB = (pg) => pg.evaluate(() => ({ sk: (globalThis.__sk || []), nk: (globalThis.__nk || []), fk: (globalThis.__fk || []) }));
       raw.vb2 = await readVB(p2); raw.vb1 = await readVB(p1);
+      raw.rd2 = await p2.evaluate(() => globalThis.__rd || []); raw.rd1 = await p1.evaluate(() => globalThis.__rd || []);
     }
     raw.c2GetsAfterApprove = c2reqs.slice(reqMark).filter((r) => !r.nav && r.t >= approveAt).map((r) => r.url.replace(f.base, '')); // (1) surgical
     raw.c2NavAfterApprove = c2reqs.slice(reqMark).filter((r) => r.nav).length;
@@ -113,7 +129,7 @@ const prodBefore = await prodStatus(TARGET);
 // C1 exclusion (meaningless pre-fix — the PRE arm just establishes the INERT baseline for the pre→post DELTA).
 const COMMIT = process.env.COMMIT || null; const BUILDDIST = process.env.BUILDDIST === '1'; const PRE_ONLY = process.env.PRE_ONLY === '1'; const INSTRUMENT = process.env.INSTRUMENT === '1';
 console.log(`R40.31 B (VANISH) — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''}${PRE_ONLY ? ' [PRE-BASELINE]' : ''}${INSTRUMENT ? ' [BISECT-INSTRUMENT]' : ''}…`);
-const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST, clientPatch: INSTRUMENT ? instrumentViewBus : undefined, instrument: INSTRUMENT });
+const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST, clientPatch: INSTRUMENT ? instrumentFull : undefined, instrument: INSTRUMENT });
 console.log(JSON.stringify(pos, null, 2));
 
 // ★ BISECT SHORT-CIRCUIT (PO): does the drawer's subscribe callback FIRE for TARGET? Filter the recorded ViewBus keys.
@@ -138,12 +154,22 @@ if (INSTRUMENT) {
   else if (callbackFired) console.log('  ⇒ (b) CALLBACK FIRES but view did not change → defect is the RE-DERIVE (stale cache / _fallbackGraph / open-path / render short-circuit); the KEY work is DONE.');
   else if (!keysMatch) console.log(`  ⇒ (a) CALLBACK NEVER FIRES + keys DIFFER → INPUT key mismatch one layer deeper (architect's prediction): drawer subscribe-key vs notify-key do NOT canonicalise identically. Strings verbatim above.`);
   else console.log(`  ⇒ (c) CALLBACK NEVER FIRES but keys MATCH → ViewBus registration/timing bug (subscribed too late / wrong instance).`);
-  process.exit(0);
+  // (i)/(ii) FRESHNESS (folded — if POST is still inert post-fix, this classifies precedence-only vs precedence+staleness in the SAME run)
+  const rd = pos.rd2 || [];
+  console.log('\n=== (i)/(ii) — is rModel FRESH at re-derive? (rb-detail-drawer.ts:483) ===');
+  console.log(`  re-derive samples [objStatus, rModelStatus, chosen]: ${JSON.stringify(rd.map((x) => [x.objStatus, x.rModelStatus, x.chosen]))}`);
+  const rModelFresh = rd.some((x) => x.rModelStatus === 'Done');                                        // (ii) PRIMARY
+  const iorForT = (pos.c2GetsAfterApprove || []).filter((u) => u.includes('/api/ior') && u.includes(T8)).length; // (i) corroborator
+  console.log(`  (i) /api/ior issued for TARGET (fetches=${iorForT}, rModel-resolved=${rModelFresh}): ${rModelFresh || iorForT > 0}`);
+  console.log(`  (ii) rModel.status === post-approve 'Done' at re-derive: ${rModelFresh}`);
+  if (rModelFresh) console.log('  ⇒ rModel FRESH at re-derive → precedence inversion sufficient; if POST flips IN-PLACE below, Tron has his answer.');
+  else console.log('  ⇒ rModel STALE/absent at re-derive → PRECEDENCE + STALENESS: fix must ALSO re-fetch on the callback (mirror refreshLive).');
+  // NO short-circuit — fall through to the FULL differential (C1 + B verdict) so this ONE folded run adjudicates the delta flip AND (i)/(ii).
 }
 let c1 = { skipped: true, distHasViewBusKey: pos.distHasViewBusKey };
 if (!PRE_ONLY) {
   console.log('\nR40.31 B — C1 STUB broadcast OFF (client-2 must NOT update)…');
-  c1 = await runB({ label: 'C1-broadcast-off', serverPatch: neuterBroadcast, commit: COMMIT, buildDist: BUILDDIST });
+  c1 = await runB({ label: 'C1-broadcast-off', serverPatch: neuterBroadcast, commit: COMMIT, buildDist: BUILDDIST, ...(INSTRUMENT ? { clientPatch: instrumentFull, instrument: true } : {}) });
   console.log(JSON.stringify(c1, null, 2));
 }
 const prodAfter = await prodStatus(TARGET);

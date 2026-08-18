@@ -106,3 +106,18 @@ Instrument (architect spec 683470bf7): clientPatch records the FINAL keys at the
 **⇒ CLASSIFICATION (b): keys MATCH + callback FIRES, but the view does NOT change → the defect is the RE-DERIVE** (universalActionBar re-derives control/badge visibility from STALE cached status — the drawer's `_fallbackGraph`/cached unit — instead of the fresh post-approve status; or a render short-circuit). **The viewBusKey KEY work is DONE.** The architect's prediction (a INPUT key mismatch) is REFUTED by the verbatim strings.
 
 **★ EXPERT DIRECTION (on architect confirm):** fix the RE-DERIVE, not the key builder — on the ViewBus notify, `universalActionBar` must re-read the FRESH unit status (re-fetch /api/ior for the ref) before deriving visibility, so Approve/Decline vanish + badge flips. Then re-run this differential → expect POST IN-PLACE (DELTA pre=INERT→post=IN-PLACE). Row/expand + seeded-A still held.
+
+---
+
+## B DIFFERENTIAL — POST-FIX v0.8.116 (aaf60ef61) — ★ CONTROLS DELTA FLIPS = Tab B MOVES; badge read-uncertain
+
+Folded run (INSTRUMENT): full differential + (i)/(ii), worktree-built provenance. **This is the run that answers Tron.**
+
+**POST @aaf60ef61, v0.8.116, dist viewBusKey=true:**
+- **★ CONTROLS: DELTA FLIPS pre=INERT → post=IN-PLACE.** client-2 (passive, never clicked) after approve = `approve:false, decline:false` — **Approve/Decline VANISHED from the broadcast alone**, latency 1090ms, sentinel survived + nav=0 (NO reload). client-1 (acting) also vanished. PRE baseline (748cab757) was inert (controls stayed). **⇒ Tab B MOVES — live-MVC works for the controls.**
+- **CAUSALITY:** C1 (broadcast-OFF, same build) → controls STAYED (`approve:true` after), no WS frame → the broadcast IS the cause. (The `broadcastByExclusion` flag read false only because C1 issued 0 polls — the poll-parity sub-condition, not the causality, which holds: no-broadcast→no-update.)
+- **(i)/(ii): rModel FRESH.** re-derive samples `[[QA Review,QA Review,QA Review],[QA Review,Done,Done]]` — the 2nd re-derive: cached obj.status=QA Review (stale) but rModel.status=Done (fresh) and **chosen=Done** → the precedence inversion works (fresh wins). (i) /api/ior issued=true, (ii) rModel==Done=true.
+- **BADGE: NOT cleanly captured** — positive-arm after `badge="QA Review"` (did not flip), BUT the C1 acting-tab after showed `badge="Done"`. The inconsistency ⇒ a read-TIMING artifact (my settle signal is control-vanish; the rb-task-detail `.dv-status-badge` overwrite via loadDetailData lags that), NOT a confirmed fix gap. Needs a follow-up assertion that settles on the badge too — HELD with the row work per budget.
+- prod 97e8a6ad unchanged (QA Review→QA Review), teardown prod:4444 untouched + 0 leftover.
+
+**NET (measure-first, not the auto-RED, no softening): the CONTROLS live-MVC is FIXED and PROVEN (Tab B vanishes controls from the broadcast, no reload, causal, precedence-confirmed). The BADGE flip is read-uncertain in this run (likely timing, C1 acting-tab reached Done) — flagged for a settle-on-badge follow-up, not greened, not failed.** The core question "does Tab B move" = YES for controls.
