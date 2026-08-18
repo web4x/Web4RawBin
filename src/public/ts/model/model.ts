@@ -1,6 +1,8 @@
 // R32.9 (D) Model-Driven Code Quality view (client bundle). Mounts the SHARED rb-trace-tree renderer and feeds it
 // the server's /api/model/tree `roots` (R32.3 model-tree UX reused; R32.5 ISOLATED store). Membership-gated
 // server-side (the /model route 403s non-members before this shell). Mirrors server-manager.ts / feature-manager.ts (DRY).
+import { bootstrapPage } from '../page-bootstrap.js';
+bootstrapPage(); // R40.45: shared bootstrap opens the transport→bus bridge by DEFAULT — /model was socket-less (Tron's tab) → now live
 import '../trace/rb-trace-tree.js';
 // R32.10 (PART A, INV-M1 ROOT FIX): mount the SHARED rb-detail-drawer (mirror scenario-view.ts:38-41 / trace-page) so
 // selecting a model node OPENS the drawer (was: model.ts imported only rb-trace-tree → select opened nothing). The

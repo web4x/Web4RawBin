@@ -7,6 +7,8 @@
  * [impl:uuid:a5e38244-b86a-4abd-9792-58f1a268c42c] R-M3
  */
 // [impl:uuid:4b458ad6-a795-4cc3-a622-541f633bc985] ScenarioUnit.load(json): this
+import { bootstrapPage } from './page-bootstrap.js';
+bootstrapPage(); // R40.45: shared bootstrap opens the transport→bus bridge by DEFAULT — /scenario was socket-less → now live
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';

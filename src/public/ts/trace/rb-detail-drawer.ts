@@ -26,6 +26,7 @@ import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal 
 import { registerUniversalActions } from './universal-actions.js'; // R35.1 view-independent item-action provider
 import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
 import { resolveRefUnit, isSyntheticRef } from './synthetic-ref.js'; // inc-3: THE sole ref→unit resolver (synthetic + real); nav/detail/action-bar all import this, none re-parse
+import { ViewBus } from './ViewBus.js'; // R40.45: the action bar is a SURFACE — re-derive it from the SAME unit-changed emit as the detail (controls' visibility must never latch at mount)
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -58,6 +59,7 @@ export class RbDetailDrawer extends HTMLElement {
   private _actionProviders: Array<(type: string, ref: string) => { verb: string; label: string; primary?: boolean }[]> = []; // legacy resolved-action providers (back-compat)
   private _declProviders: Array<() => ActionDecl[]> = []; // R40.37: declaration providers; resolved ONCE via applicableActionsFor in universalActionBar
   private _hasActiveDiagram = false; // R40.37: the shared bar's applicability ctx (R33.9 membership verbs' when-predicate); tracked from rb-active-diagram
+  private _barSubRef = ''; private _barUnsub: (() => void) | null = null; // R40.45: the action bar's own ViewBus subscription (re-derive controls' visibility on unit-changed)
   private _shownType = ''; private _shownRef = '';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
@@ -114,6 +116,7 @@ export class RbDetailDrawer extends HTMLElement {
   };
 
   disconnectedCallback(): void {
+    this._barUnsub?.(); this._barUnsub = null; this._barSubRef = ''; // R40.45: release the action-bar re-derive subscription
     const handle = this.querySelector('.drawer-handle');
     if (handle) {
       handle.removeEventListener('touchstart', this.onTouchStart);
@@ -456,6 +459,15 @@ export class RbDetailDrawer extends HTMLElement {
   // E3 no-fork (setActions/actionsForContext unchanged; empty/chat → cleared bar).
   private async universalActionBar(type: string, ref: string): Promise<void> {
     this._shownType = type; this._shownRef = ref;
+    // R40.45 CONTROLS-ARE-A-SURFACE: subscribe the action bar to the shown ref on the ONE bus so a unit-changed (approve→Done,
+    // etc.) RE-DERIVES the whole bar from CURRENT status — every control whose visibility derives from unit state (Approve/
+    // Decline hidden unless QA-Review, Set-as-Current per matrix, Open-Task-file always) re-evaluates on the SAME emit, never
+    // latched at mount. Re-subscribe only when the shown ref changes (no churn; the notify→re-call hits this guard as a no-op).
+    if (this._barSubRef !== ref) {
+      this._barUnsub?.();
+      this._barSubRef = ref;
+      this._barUnsub = ref ? ViewBus.subscribe(ref, () => { void this.universalActionBar(this._shownType, this._shownRef); }) : null;
+    }
     if (!type || !ref || type === 'chat') { this.setActions([]); return; } // INV-E3: empty/chat clears the bar
     const defaults = [{ verb: 'scenario', label: '◆ Scenario', primary: true }, { verb: 'edit', label: '✎ Edit', primary: true }]; // R-A A1 universal default
     // R40.37: resolve action applicability ONCE here (no per-view if-chains). Providers SUPPLY declarations; the shared bar

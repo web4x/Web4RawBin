@@ -4,6 +4,8 @@
  *
  * [impl:uuid:f2dbefd1-c76d-48cc-b397-b6d66ddbba4d] R15.7+R18.8
  */
+import { bootstrapPage } from './page-bootstrap.js';
+bootstrapPage(); // R40.45: shared bootstrap opens the transport→bus bridge by DEFAULT — /trace was socket-less (never received a unit-changed) → now live
 import { TraceRouter, viewRegistry, deserialize } from './trace/index.js';
 import './trace/rb-trace-tree.js';
 import './trace/rb-detail-drawer.js';
