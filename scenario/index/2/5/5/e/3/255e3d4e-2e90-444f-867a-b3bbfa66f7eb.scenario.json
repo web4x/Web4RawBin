@@ -4,7 +4,8 @@
     "uuid": "255e3d4e-2e90-444f-867a-b3bbfa66f7eb",
     "name": "SprintLabel",
     "methods": [
-      "ior:instance:90e4014a-dfd7-45a1-946c-e52d9e75949f"
+      "ior:instance:90e4014a-dfd7-45a1-946c-e52d9e75949f",
+      "ior:instance:72b70cfb-d1b1-4174-bb0d-ea3767183421"
     ]
   },
   "ownerIor": null

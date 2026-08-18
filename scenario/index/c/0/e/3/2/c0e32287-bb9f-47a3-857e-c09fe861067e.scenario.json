@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "c0e32287-bb9f-47a3-857e-c09fe861067e",
+    "name": "SprintLabel.sprintDisplayName impl (EXACTLY 'Sprint <n>: <title>' = sprintPrefix(number)+': '+bareTitle, colon canon; SHIPPED v0.8.101/102 @sprint-label.ts:34 across all 6 surfaces + the DRY double-render fix)",
+    "markerPending": true,
+    "tests": [],
+    "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts",
+    "markerNote": "RETROACTIVE-TO-SHIPPED-CODE (architect map confirmed 0.3, PO-directed; the formatter shipped but its chain was a PHANTOM). sprint-label.ts:34 marker was [impl:uuid:a778793d-0f8e-4c1a-9d5e-2b6f4a1c7e90] = DANGLING (no unit at that uuid) + PREFIX-COLLISION PHANTOM (shares UC a778793d-6970 8-char prefix; R37.14-forbidden -a1b2 shape; resolves to nothing) = the 3rd prefix-collision phantom of 2026-08-18. ★ EXPERT: re-mark sprint-label.ts:34 [impl:uuid:a778793d-0f8e...] -> [impl:uuid:c0e32287-bb9f-47a3-857e-c09fe861067e] (KILL the phantom) + fix the code-comment name (SprintView.sprintDisplayName -> SprintLabel.sprintDisplayName, or per the PO rename call) -> I strict-AST-flip markerPending=false. Chain: UC a778793d -> Class 255e3d4e SprintLabel -> Method 72b70cfb -> Impl c0e32287. Test = tester (sprint-name/no-doubling + check-sprint-label gates). designAhead=false (built + shipped)."
+  },
+  "ownerIor": "ior:instance:72b70cfb-d1b1-4174-bb0d-ea3767183421"
+}
