@@ -1,5 +1,11 @@
 # check-controller-dominance — gate recalibration ruling (architect, 2026-08-18)
 
+## ⚠ UPDATE — my 'false-RED' was OVERCONFIDENT (measured against myself, PO's live datapoint was right)
+DO NOT apply the recalibration below yet — it is a HYPOTHESIS, not a clearance. Measured facts that undercut 'deriveStatusEnum is the sole writer': (1) **f5986d69 (T37.27) is a CONFIRMED SPLIT-BRAIN** — stored `status='Done'` but its checklist Done box is `- [ ] Done` UNTICKED (deriveStatusEnum(checklist)='QA Review' ≠ stored 'Done'), so a Done was written OUTSIDE deriveStatusEnum. (2) **A direct Done-writer EXISTS at `task-fsm.ts:68` `m.status='Done'`** (old flat 7-state fsm, superseded per task-policy.ts:5) — live-vs-dead/allowlisted is the tester's call. ⇒ the RED is likely a REAL second-writer/split-brain signal, not merely a stale statusNext-proxy. The CURRENT approve (task-policy.ts:103 tickBox→deriveStatusEnum) is clean, so new taps won't split-brain, but the residue + task-fsm.ts:68 are real. Tester(0.5) resolves: task-fsm live/dead, repair f5986d69 + siblings, stub-must-fail. RED STANDS. This is exactly why the accused party can't self-clear.
+
+## (original recalibration hypothesis below — conditional on the tester proving sole-writer first)
+
+
 `check:controller-dominance` has been RED since v0.8.104. **It is a FALSE-RED: the code is correct; the GATE asserts a stale proxy.** Recalibrate the gate + its Test, NOT the code. Capture-only (PO schedules); do NOT touch approveByOwner.
 
 ## Why it's a false-RED (measured)
