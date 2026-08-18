@@ -109,14 +109,22 @@ export async function setupFoundation(opts = {}) {
   };
 
   try {
-    // (1) worktree of HEAD (detached — own scenario/index)
-    execSync(`git -C ${MAIN} worktree add --detach ${scratch} HEAD`, { stdio: 'ignore' });
+    // (1) worktree at opts.commit (default HEAD) — detached, own scenario/index. A differential PRE/POST run pins each arm
+    // to a specific commit (PRE=pre-viewBusKey, POST=fix) so the ONLY variable is the fix.
+    const commit = opts.commit || 'HEAD';
+    execSync(`git -C ${MAIN} worktree add --detach ${scratch} ${commit}`, { stdio: 'ignore' });
     // (2) node_modules symlink (skip npm ci)
     fs.symlinkSync(path.join(MAIN, 'node_modules'), path.join(scratch, 'node_modules'));
-    // (3) dist: symlink main's built dist (worktree HEAD == main HEAD → byte-identical) else build
+    // (3) dist: buildDist=FORCE a worktree build (dist == THIS commit's source, provenance-provable — a symlink to main's
+    // MOVING dist can't prove a pre-fix arm served a pre-fix bundle). Else symlink main's dist (fast, same-HEAD).
     const mainDist = path.join(MAIN, 'src/public/dist'), wtDist = path.join(scratch, 'src/public/dist');
-    if (fs.existsSync(mainDist)) { fs.rmSync(wtDist, { recursive: true, force: true }); fs.symlinkSync(mainDist, wtDist); }
+    if (opts.buildDist) { fs.rmSync(wtDist, { recursive: true, force: true }); execSync(`${NODE22} build.mjs`, { cwd: scratch, stdio: 'ignore' }); }
+    else if (fs.existsSync(mainDist)) { fs.rmSync(wtDist, { recursive: true, force: true }); fs.symlinkSync(mainDist, wtDist); }
     else execSync(`${NODE22} build.mjs`, { cwd: scratch, stdio: 'ignore' });
+    // (3-prov) DIST PROVENANCE (PO: proven, not assumed) — does the BUILT bundle carry the viewBusKey live-render fix?
+    // PRE arm (748cab757) → false; POST arm (>=50b22399a) → true. grep exits 1 on no-match → catch → false (no 2>&1).
+    let distHasViewBusKey = false;
+    try { distHasViewBusKey = execSync(`grep -rlE viewBusKey ${wtDist}`, { encoding: 'utf8' }).trim().length > 0; } catch { distHasViewBusKey = false; }
     // (4) seed the scratch units BEFORE boot (server loads the index at startup)
     const seeded = seedUnits(scratch);
     // (4a) optional: attach the seeded passing-Test evidence chain to a REAL task (BEFORE boot → the boot-loaded idx sees it) so
@@ -147,7 +155,7 @@ export async function setupFoundation(opts = {}) {
     // Cookie carries the sm_session for page loads. Returns a fresh object each call (no shared mutable creds).
     const ownerHeaders = () => ({ 'x-player-token': ownerToken, ...(smSession ? { Cookie: `sm_session=${smSession}` } : {}) });
 
-    return { base: BASE, ownerHeaders, seeded, ownerIsServerManager: o.isOwner, sessionMinted: !!smSession, worktreeSha, servedVersion, teardown };
+    return { base: BASE, ownerHeaders, seeded, ownerIsServerManager: o.isOwner, sessionMinted: !!smSession, worktreeSha, servedVersion, distHasViewBusKey, teardown };
   } catch (e) {
     await teardown();
     throw e;

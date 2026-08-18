@@ -53,3 +53,20 @@ ACTUAL:
 - **DRAWER (DETAIL+CONTROLS): bus-wide INERT** — /model AND /trace both: drawer RECEIVED the unit-changed WS frame (wsFrame=true) but controls (approve stayed true) + badge (stayed 'QA Review') did NOT move. Transport EXONERATED (frame arrived, drawer inert) → confirms the raw-ref key-mismatch is **BUS-WIDE, not /model-specific**. **MATCHES prediction.**
 - **ROW: NOT TESTABLE** — TARGET's rb-object-item was not rendered in either tree (collapsed/lazy); row half of the prediction UNVERIFIED (not claimed). Post-fix run must expand the tree to TARGET (or pick a subject known-rendered).
 BOUNDS: divergence locus = bus-wide (drawer inert on both surfaces) → the ONE shared viewBusKey builder is the right fix. Baseline for the differential: re-run IDENTICALLY post-fix = POST-FIX ARM (one variable changed). Post-fix B-green also needs causality-by-exclusion (no in-window /api/trace/children carries new status + WS frame does) paired with the discriminator (architect condition-2).
+
+---
+
+## B DIFFERENTIAL — PRE-FIX BASELINE (first arm) — VALID, provenance-proven
+
+Superseding the suspect f11b71bcf (symlink-dist, unverifiable provenance). Foundation now has `commit` + `buildDist`
+(force worktree `build.mjs` so dist==THIS commit) + `distHasViewBusKey` grep (proven, not assumed).
+
+**Arm @ worktree 748cab757, worktree-BUILT dist, served v0.8.114:**
+- **dist-provenance `viewBusKey` = false** → the built bundle is genuinely PRE-fix (grep of `src/public/dist/*.js`).
+- **present-before HOLDS** (warmup + badge-element): before `{approve:true, decline:true, badge:"QA Review"}`.
+- **drawer INERT after owner approve**: after `{approve:true, decline:true, badge:"QA Review"}` — controls did NOT vanish, badge did NOT flip.
+- **WS frame carried TARGET = true** — client-2's bridge RECEIVED the `unit-changed` broadcast for 97e8a6ad, yet did not re-render → confirms the ViewBus **key mismatch** (notify-key ≠ subscribe-key), the exact pre-fix gap the v0.8.115 builder closes.
+- prod 97e8a6ad unchanged (QA Review→QA Review), teardown prod:4444 untouched + 0 leftover.
+
+**⇒ DELTA low end established (pre=INERT, provenance-proven).** POST arm (≥50b22399a, viewBusKey=true, IN-PLACE) pending
+ARON re-measure (checkpoint per "report first-arm"). Row-badge discriminator + expand-to-row on /trace + full 7-pt bar ride the POST arm.

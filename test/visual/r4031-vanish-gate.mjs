@@ -42,12 +42,12 @@ async function openTask(page, u) {
   await page.waitForSelector('rb-detail-drawer .dv-status-badge', { timeout: 4000 }).catch(() => {});
 }
 
-async function runB({ serverPatch, label }) {
-  const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(serverPatch ? { serverPatch } : {}) });
+async function runB({ serverPatch, label, commit, buildDist }) {
+  const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(commit ? { commit } : {}), ...(buildDist ? { buildDist: true } : {}), ...(serverPatch ? { serverPatch } : {}) });
   const oh = f.ownerHeaders(); const smSession = (/sm_session=([^;]+)/.exec(oh.Cookie || '') || [])[1] || '';
   const cookie = { name: 'sm_session', value: smSession, domain: 'localhost', path: '/', httpOnly: true, secure: true };
   const browser = await webkit.launch({ headless: true });
-  const c2reqs = []; const raw = { label, target: TARGET, worktreeSha: f.worktreeSha, servedVersion: f.servedVersion };
+  const c2reqs = []; const raw = { label, target: TARGET, worktreeSha: f.worktreeSha, servedVersion: f.servedVersion, distHasViewBusKey: f.distHasViewBusKey };
   try {
     const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx1.addCookies([cookie]);
     const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx2.addCookies([cookie]);
@@ -92,13 +92,37 @@ async function prodStatus(u) { try { const r = await fetch(`${PROD}/api/ior/${u}
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const prodBefore = await prodStatus(TARGET);
 
-console.log('R40.31 B (VANISH) — POSITIVE (broadcast ON)…');
-const pos = await runB({ label: 'positive' });
+// DIFFERENTIAL axis (architect 7-pt bar): COMMIT pins the arm (PRE=748cab757 pre-viewBusKey / POST=>=50b22399a fix);
+// BUILDDIST forces a worktree build so dist==THIS commit (provenance-provable, not a moving symlink). PRE_ONLY skips the
+// C1 exclusion (meaningless pre-fix — the PRE arm just establishes the INERT baseline for the pre→post DELTA).
+const COMMIT = process.env.COMMIT || null; const BUILDDIST = process.env.BUILDDIST === '1'; const PRE_ONLY = process.env.PRE_ONLY === '1';
+console.log(`R40.31 B (VANISH) — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''}${PRE_ONLY ? ' [PRE-BASELINE]' : ''}…`);
+const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST });
 console.log(JSON.stringify(pos, null, 2));
-console.log('\nR40.31 B — C1 STUB broadcast OFF (client-2 must NOT update)…');
-const c1 = await runB({ label: 'C1-broadcast-off', serverPatch: neuterBroadcast });
-console.log(JSON.stringify(c1, null, 2));
+let c1 = { skipped: true, distHasViewBusKey: pos.distHasViewBusKey };
+if (!PRE_ONLY) {
+  console.log('\nR40.31 B — C1 STUB broadcast OFF (client-2 must NOT update)…');
+  c1 = await runB({ label: 'C1-broadcast-off', serverPatch: neuterBroadcast, commit: COMMIT, buildDist: BUILDDIST });
+  console.log(JSON.stringify(c1, null, 2));
+}
 const prodAfter = await prodStatus(TARGET);
+
+// PRE-BASELINE short-circuit: the pre-fix arm proves the DELTA's low end — provenance says NO viewBusKey in the bundle, and
+// the drawer is INERT (broadcast received, controls do NOT vanish). This is the EXPECTED pre-fix result, reported as a
+// labelled baseline (not RED) — it pairs with the POST arm to make pre=INERT→post=IN-PLACE the proof.
+if (PRE_ONLY) {
+  const b0 = pos.before, a0 = pos.after;
+  const inert = !(a0?.approve === false && a0?.decline === false); // controls did NOT vanish = INERT (pre-fix)
+  const provenancePreFix = pos.distHasViewBusKey === false;         // built bundle carries NO viewBusKey = genuinely pre-fix
+  console.log('\n=== PRE-FIX BASELINE (differential low end) ===');
+  console.log(`  worktree ${pos.worktreeSha}/v${pos.servedVersion} · dist-provenance viewBusKey=${pos.distHasViewBusKey} (want false)`);
+  console.log(`  drawer INERT (controls did NOT vanish): ${inert}  [before ${JSON.stringify(b0)} after ${JSON.stringify(a0)}]`);
+  console.log(`  WS frame carried TARGET (bridge received, render inert): ${pos.wsUnitChangedForTarget}`);
+  console.log(`  prod ${TARGET} unchanged: ${prodBefore === 'QA Review' && prodAfter === 'QA Review'} · teardown prod:4444 untouched+0 leftover: ${pos.teardown?.prodUp === true && pos.teardown?.leftover === 0}`);
+  const ok = provenancePreFix && inert;
+  console.log(`\n${ok ? '✓ PRE-BASELINE VALID' : '⊘ PRE-BASELINE INVALID'} — provenance-pre-fix=${provenancePreFix} AND drawer-inert=${inert} ${ok ? '(supersedes f11b71bcf symlink-dist baseline)' : '(re-check: provenance or inert failed)'}`);
+  process.exit(ok ? 0 : 2);
+}
 
 // VERDICT
 const b = pos.before, a = pos.after;
