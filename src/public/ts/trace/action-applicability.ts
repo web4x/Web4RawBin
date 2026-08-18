@@ -33,7 +33,10 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // every other task → shown. open-task-file → ALL tasks (the bar is the ONE action surface; the body renders DATA).
   { verb: 'set-current', label: '📌 Set as Current', appliesTo: { types: ['task'], when: (ctx) => ctx.taskRole !== 'current' } },
   { verb: 'open-task-file', label: '📄 Open Task file', appliesTo: { types: ['task'] } },
-  // set-next: DEFERRED to the architect's set-next semantics ruling (advance-based vs explicit nextBacklog) — wired the moment it rules.
+  // set-next: NOWHERE (architect fa799ca43, FINAL) — NO button, permanently EMPTY cell. 'next' = fixed sprint-number
+  // identity; there is NO derived 'next task', and a stored nextBacklog would be the lying-pin one slot over. So there is
+  // no advance-based NOR nextBacklog form — the honest cell is empty. Do NOT add a set-next decl.
+  // MATRIX (final): current task → neither steer; every other task → set-current + open-task-file; ALL tasks → open-task-file.
 ];
 
 // [impl:uuid:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab] universalActions.applicableActionsFor (Class universalActions
