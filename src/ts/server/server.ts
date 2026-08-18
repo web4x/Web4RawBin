@@ -1416,6 +1416,16 @@ function attachTaskMdHref(taskUuid: string, m: Record<string, unknown>, idx: Sce
   m.taskMdHref = sprintSlug ? `/md/scrum.pmo/sprints/${sprintSlug}/${slug}.md` : '';
 }
 
+// design-control-visibility-by-status-not-membership.md (architect ed3442d10): the /api/ior Task READ boundary must
+// surface the DERIVED status so control visibility (action-bar Approve/Decline) follows STATUS, not graph MEMBERSHIP. As
+// stored, model.status is undefined for a non-eager task (deep-link / prior sprint / post-rotation / ref-from-/trace) →
+// the action-bar hid Approve/Decline on Tron's own actionable QA-Review task. FIX: m.status = deriveStatusEnum(checklist)
+// — the status-getter north-star applied at READ, single-source with the FSM. COMPUTE-ON-READ: mutates only the SERVED
+// model object, NEVER persists (mirror the attach* pattern; INV-T byte-diff==0 on disk).
+function attachTaskStatus(m: Record<string, unknown>): void {
+  m.status = deriveStatusEnum(String(m.statusChecklist ?? ''));
+}
+
 function attachTaskChangeRequests(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
   const bare = (s: unknown) => String(s || '').replace('ior:instance:', '');
   const crs = new Set<string>((Array.isArray(m.changeRequests) ? m.changeRequests as string[] : []).map(bare).filter(Boolean));
@@ -2860,6 +2870,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskChangeRequests(iorUuid, result.unit.model as Record<string, unknown>, idx); // R40.10 BUG-A: durable-backref CRs so a declined CR is reachable on the task surface (compute-on-read, never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) { attachTaskPinRole(iorUuid, result.unit.model as Record<string, unknown>, idx); attachTaskMdHref(iorUuid, result.unit.model as Record<string, unknown>, idx); } // T37.26: derived pin-role (Set-as-Current matrix) + task-md href (Open-Task-file action) — compute-on-read, never writes
+        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskStatus(result.unit.model as Record<string, unknown>); // ed3442d10: derived status at the READ boundary → action-bar control visibility follows STATUS not membership (compute-on-read, never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
