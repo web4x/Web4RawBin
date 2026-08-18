@@ -481,6 +481,14 @@ export class RbDetailDrawer extends HTMLElement {
     const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
     const rModel = (r?.unit as { model?: Record<string, unknown> } | undefined)?.model;
     const unit = { type: r?.type || type, status: obj?.status ?? (rModel?.status as string | undefined), kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
+    // ed3442d10 / L15 FAIL-LOUD-UNRESOLVED: control visibility follows STATUS, never graph MEMBERSHIP. attachTaskStatus now
+    // derives status at the /api/ior READ boundary so a real task always carries it — but an ABSENT status must NEVER
+    // silently mean not-actionable (a data gap hiding a real action = the silent-swallow class). So it is OBSERVABLE
+    // (console.error + a data attr a human AND a gate can read), not a quiet hide. Membership does not decide; status does.
+    if ((r?.type || type).toLowerCase() === 'task' && unit.status == null) {
+      console.error(`[action-bar] ★ TASK status UNRESOLVED for ${ref} — controls suppressed on a DATA GAP, not a status decision (fail-loud, not silent-hide; ed3442d10/L15)`);
+      this.setAttribute('data-status-unresolved', ref);
+    } else { this.removeAttribute('data-status-unresolved'); }
     // T37.26: the shown task's DERIVED pin-role (server-computed model.pinRole) → the Set-as-Current visibility matrix (current→hide, else→show).
     const taskRole = rModel?.pinRole as 'current' | 'next' | 'other' | undefined;
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
