@@ -78,7 +78,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
-import { APPROVE_STATUSES } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set
+import { APPROVE_STATUSES, deriveStatusEnum } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role
 import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
 import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
@@ -1369,6 +1369,42 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
 // INVISIBLE on the task surface Tron declined it from (gate-the-AC-surface). The backref (task/ownerIor on the CR) is
 // durable. COMPUTE-ON-READ at /api/ior — NEVER writes the file (INV-T byte-diff==0); unions any live mirror so a
 // populated mirror is never lost. The client renderChangeRequests reads model.changeRequests → renders each CR reachable.
+// T37.26 — the DERIVED current task = the In-Progress task with the MAX lastAdvancedAt (CurrentSprint.ts:247, the value
+// Tron watches; single-source with the pin). attachTaskPinRole tags a Task's SERVED model with pinRole ∈ {current, other}
+// so the action-bar's Set-as-Current matrix (current→hide, everyone-else→show) resolves from ONE server-side truth — no
+// client re-derivation, no second source. Compute-on-read, NEVER persisted (the seam never sees pinRole). 'next' role is
+// deferred to the architect's set-next ruling.
+function derivedCurrentTaskUuid(idx: ScenarioIndex): string {
+  let best = '', bestAt = '';
+  for (const u of idx.list()) {
+    const unit = idx.get(u); if (!unit || unit.ior !== 'ior:class:Task') continue;
+    const m = unit.model as Record<string, unknown>;
+    if (deriveStatusEnum(String(m.statusChecklist ?? '')) !== 'In Progress') continue; // derive (not stored status) — the same 4-state source the pin uses
+    const at = String(m.lastAdvancedAt || '');
+    if (best === '' || at.localeCompare(bestAt) > 0) { best = String(m.uuid || u); bestAt = at; } // max ISO timestamp; untimestamped ranks last
+  }
+  return best;
+}
+function attachTaskPinRole(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
+  m.pinRole = derivedCurrentTaskUuid(idx) === taskUuid ? 'current' : 'other';
+}
+// T37.26 — the task's OWN MD href, computed server-side so the bar's 📄 Open-Task-file ACTION has ONE source (the inline
+// body link is removed — the bar is the action surface). Mirrors R22.1 taskMdHref: sourceFile (its own .md, not the shared
+// planning.md) else the parent sprint's PINNED slug + the task slug. Compute-on-read, never persisted.
+function attachTaskMdHref(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
+  const sf = String(m.sourceFile || '').replace(/^ior:file:/, '');
+  if (sf && !/(^|\/)planning\.md$/.test(sf)) { m.taskMdHref = `/md/${sf}`; return; }
+  const slug = String(m.slug || '');
+  if (!slug) { m.taskMdHref = ''; return; }
+  let sprintSlug = '';
+  for (const u of idx.list()) { // the parent sprint = the Sprint unit whose tasks[] contains this task (pinned slug, drift-proof)
+    const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue;
+    const tasks = Array.isArray((su.model as Record<string, unknown>).tasks) ? ((su.model as Record<string, unknown>).tasks as string[]) : [];
+    if (tasks.some((t) => String(t).replace('ior:instance:', '') === taskUuid)) { sprintSlug = String((su.model as Record<string, unknown>).slug || ''); break; }
+  }
+  m.taskMdHref = sprintSlug ? `/md/scrum.pmo/sprints/${sprintSlug}/${slug}.md` : '';
+}
+
 function attachTaskChangeRequests(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
   const bare = (s: unknown) => String(s || '').replace('ior:instance:', '');
   const crs = new Set<string>((Array.isArray(m.changeRequests) ? m.changeRequests as string[] : []).map(bare).filter(Boolean));
@@ -1800,6 +1836,39 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.end(JSON.stringify(out.payload));
           addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${ownerTok8} → ${out.code}`);
         } catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); }
+      });
+      return;
+    }
+
+    // T37.26 (PO ruling, architect 515260b8d) — owner-gated "Set as Current": POST /api/task/<uuid>/make-current.
+    // Advances the task through the SEAM (UnitController.apply {makeCurrent}) → stamps lastAdvancedAt → the DERIVED pin
+    // (current = the In-Progress task with MAX lastAdvancedAt) picks it up AND the seam EMITS unit-changed → live cross-view,
+    // no reload. NO stored pin written → nothing to diverge (the deleted lying-pin is NOT resurrected). A Planned task is
+    // started (advanced to In Progress) — which is exactly what "make it current" means: it becomes the task being worked.
+    const makeCurrentMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/make-current$/);
+    if (req.method === 'POST' && makeCurrentMatch) {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — only the owner steers what is current
+      const taskUuid = makeCurrentMatch[1];
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const idx = new ScenarioIndex(PROD_INDEX);
+          const t0 = idx.get(taskUuid);
+          if (!t0 || t0.ior !== 'ior:class:Task') { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'task not found' })); return; }
+          const _sid = cookieFrom(req, 'sm_session');
+          const _ownerTok = (_sid ? smSessions.get(_sid)?.token : '') || ServerManagerGuard.playerTokenFrom(req) || '';
+          const actor = FeatureManager.profileUuidOf(_ownerTok, userProfiles as unknown as Map<string, { redirectTo?: string }>) || 'owner';
+          const unit = UnitController.apply(idx, 'ior:class:Task', taskUuid, { makeCurrent: true }, { actor, publish: publishUnitChanged });
+          const status = String((unit.model as Record<string, unknown>).status || '');
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+          res.end(JSON.stringify({ ok: true, status, uuid: taskUuid }));
+          addLog(`[make-current] ${taskUuid.slice(0, 8)} by ${ownerTok8} → current (status ${status})`);
+        } catch (e: any) {
+          const msg = String(e?.message || e);
+          const code = /cannot make a|only a Planned|In-Progress task can be/.test(msg) ? 409 : 400; // validate-refuse (QA-Review/Done) → 409
+          res.writeHead(code, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: msg }));
+        }
       });
       return;
     }
@@ -2782,6 +2851,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const result = resolver.resolve(ior);
         if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskChangeRequests(iorUuid, result.unit.model as Record<string, unknown>, idx); // R40.10 BUG-A: durable-backref CRs so a declined CR is reachable on the task surface (compute-on-read, never writes)
+        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) { attachTaskPinRole(iorUuid, result.unit.model as Record<string, unknown>, idx); attachTaskMdHref(iorUuid, result.unit.model as Record<string, unknown>, idx); } // T37.26: derived pin-role (Set-as-Current matrix) + task-md href (Open-Task-file action) — compute-on-read, never writes
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {

@@ -467,9 +467,12 @@ export class RbDetailDrawer extends HTMLElement {
     if (this._shownRef !== ref) return; // a newer selection landed while awaiting → don't paint the stale ref's bar
     const uuid = r?.uuid || ref;
     const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
-    const unit = { type: r?.type || type, status: obj?.status, kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
+    const rModel = (r?.unit as { model?: Record<string, unknown> } | undefined)?.model;
+    const unit = { type: r?.type || type, status: obj?.status ?? (rModel?.status as string | undefined), kind: r?.kind ?? (obj as unknown as { kind?: string } | undefined)?.kind };
+    // T37.26: the shown task's DERIVED pin-role (server-computed model.pinRole) → the Set-as-Current visibility matrix (current→hide, else→show).
+    const taskRole = rModel?.pinRole as 'current' | 'next' | 'other' | undefined;
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
-    const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram }, decls);
+    const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram, taskRole }, decls);
     const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)
     this.setActions([...defaults, ...offered, ...legacy]);
   }

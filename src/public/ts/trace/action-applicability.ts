@@ -10,7 +10,7 @@ export type ActionDecl = {
   onInvalid?: 'hide' | { disabledReason: string };
 };
 export type ActionUnit = { type: string; status?: string; kind?: string };
-export type ActionCtx = { hasActiveDiagram?: boolean };
+export type ActionCtx = { hasActiveDiagram?: boolean; taskRole?: 'current' | 'next' | 'other' }; // T37.26: the shown task's DERIVED pin-role (server-computed model.pinRole) for the Set-as-Current visibility matrix
 
 // The universal declarations (INV-E3 type-policy now DECLARED, not if-chained).
 export const UNIVERSAL_DECLS: ActionDecl[] = [
@@ -27,6 +27,13 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // the exact two-source vector that produced the stale pick 78ea801d3 (lied to Tron for days). Retire (not a when-gate)
   // makes the contradiction IMPOSSIBLE by construction; the /designate route + resolver override path go dead. If a real
   // steering workflow ever surfaces it returns as a labeled, expiring, provenance-carrying override — a future req (YAGNI).
+  // T37.26 (PO ruling, architect 515260b8d): Set-as-Current RETURNS — but NOT as the retired stored pin. It ADVANCES the
+  // task through the seam (bumps lastAdvancedAt) so the DERIVATION ITSELF picks it → NO second source, nothing to diverge
+  // (resolves the R40.18 concern by construction). MATRIX: current task → hidden (already the one being worked); next +
+  // every other task → shown. open-task-file → ALL tasks (the bar is the ONE action surface; the body renders DATA).
+  { verb: 'set-current', label: '📌 Set as Current', appliesTo: { types: ['task'], when: (ctx) => ctx.taskRole !== 'current' } },
+  { verb: 'open-task-file', label: '📄 Open Task file', appliesTo: { types: ['task'] } },
+  // set-next: DEFERRED to the architect's set-next semantics ruling (advance-based vs explicit nextBacklog) — wired the moment it rules.
 ];
 
 // [impl:uuid:17ae8d0a-e8c6-418b-bba4-c6cbe3eafaab] universalActions.applicableActionsFor (Class universalActions

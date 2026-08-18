@@ -13,7 +13,7 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
 // [impl:uuid:a495b735-6836-4dba-84b2-b279f2da17df] RbTaskDetail.render
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor, scenarioBrowserHref } from './detail-children.js';
+import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserHref } from './detail-children.js'; // T37.26: inline Scenario/Edit link removed from the body — the bar (◆ Scenario / ✎ Edit) is the ONE action surface
 
 export class RbTaskDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -43,8 +43,8 @@ export class RbTaskDetail extends HTMLElement {
         <div class="dv-field"><label>Status</label>
           <span class="dv-status-badge">${esc(obj.status || 'PLANNED')}</span></div>
         ${obj.sprint ? `<div class="dv-field"><label>Sprint</label><span>${esc(obj.sprint)}</span></div>` : ''}
-        ${scenarioBrowserLinkFromIor(obj.uuid)}
       </div>
+      <!-- T37.26: inline 📄 Scenario / ✏️ Edit removed — duplicated the bar's ◆ Scenario / ✎ Edit (bar = action surface, body = DATA) -->
       <div class="dv-links">
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
@@ -59,17 +59,11 @@ export class RbTaskDetail extends HTMLElement {
       fetchDetailData(uuid),
       fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(async ([{ children, parent, sourceFile, sourceLine }, iorData]) => {
-      // v0.7.6: task MD-file link + visual statusChecklist, from the full scenario model.
+      // v0.7.6: visual statusChecklist from the full scenario model. T37.26: the 📄 Task file link moved to the bar's
+      // Open-Task-file ACTION (server-computed model.taskMdHref) — the body no longer renders it (bar = the action surface).
       const model = (iorData?.unit?.model || {}) as Record<string, any>;
-      // R27.3: the MD dir is the parent sprint's PINNED slug (drift-proof), fetched from the sprint unit.
-      let sprintSlug = slugifySprint(parent?.name || model.sprintName || '');
-      if (parent?.uuid) {
-        try { const sd = await fetch(`/api/ior/ior:instance:${parent.uuid}`).then(r => r.ok ? r.json() : null); const sm = sd?.unit?.model || {}; if (sm.slug) sprintSlug = String(sm.slug); else if (sm.name) sprintSlug = slugifySprint(String(sm.name)); } catch { /* keep the name-derived fallback */ }
-      }
       const fields = this.querySelector('.dv-fields');
       if (fields) {
-        const mdHref = taskMdHref(model, sprintSlug);
-        if (mdHref) fields.insertAdjacentHTML('beforeend', `<div class="dv-field"><a href="${mdHref}" style="color:#ff9800;font-size:0.75rem;text-decoration:none" title="Open the task markdown file">📄 Task file</a></div>`);
         if (model.statusChecklist) fields.insertAdjacentHTML('beforeend', renderStatusChecklist(String(model.statusChecklist)));
       }
       if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }

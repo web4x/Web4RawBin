@@ -9,7 +9,7 @@ import { ViewBus } from './ViewBus.js'; // R40.17: notify the CurrentSprint sing
 // (node-testable). This file SUPPLIES UNIVERSAL_DECLS to the shared drawer bar (which resolves via applicableActionsFor).
 import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
 
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next'];
+const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next', 'set-current', 'open-task-file'];
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -31,7 +31,9 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
     const ref = d?.ref || '';
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
     if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
-    if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation
+    if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation (retired from decls; handler kept dead)
+    if (verb === 'set-current') { handleSetCurrent(drawer, uuid); return; } // T37.26 owner Set-as-Current: advance the task via the seam (derived pin follows)
+    if (verb === 'open-task-file') { handleOpenTaskFile(uuid); return; } // T37.26 open the task MD (the bar is the ONE action surface)
     if (verb === 'download-vcard') { // was the rb-detail-view vCard button (fetch real playerToken, then download)
       void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
         const m = (j?.unit?.model || {}) as Record<string, unknown>;
@@ -120,6 +122,41 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
 // surface the server's honest label verbatim (incl. the status), and never fake success.
 //   200 → designated, pin now shows "Sprint N — <status> (designated)"   403 → owner-only, not recorded   4xx → surfaced
 // [impl:uuid:9073d5fd-701a-492c-a40b-a49846529266] universalActions.handlePinDesignate — R40.17 notify-add: on a 200 designate it calls ViewBus.notify(CurrentSprint ref) so the eager-lazy live-pin re-fetches (no Refresh @390).
+// T37.26 universalActions.handleSetCurrent — owner taps 📌 Set as Current → POST the owner-gated
+// /api/task/<uuid>/make-current. The server ADVANCES the task through the seam (bumps lastAdvancedAt) → the DERIVED pin
+// (max-lastAdvancedAt In-Progress task) picks it up AND the seam EMITS → live cross-view. NO stored pin (nothing to
+// diverge). Surfaces the server's honest result; ViewBus.notify(pin) so the eager-lazy pin re-fetches (no Refresh @390).
+function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
+  surfaceVerdict(drawer, '⏳ Setting as current…', 'warn');
+  void fetch(`/api/task/${uuid}/make-current`, { method: 'POST', credentials: 'same-origin' })
+    .then(async (r) => {
+      let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
+      if (r.status === 200 && j.ok) {
+        surfaceVerdict(drawer, `📌 Now current — status ${j.status || 'In Progress'} (the pin follows the derivation; no stored pin)`, 'ok');
+        const badge = drawer.querySelector('.dv-status-badge') as HTMLElement | null; if (badge && j.status) badge.textContent = String(j.status);
+        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
+      } else if (r.status === 403) {
+        surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Nothing changed.', 'err');
+      } else if (r.status === 409) {
+        surfaceVerdict(drawer, `⚠ Cannot make current — ${String(j.error || 'only a Planned or In-Progress task can be the one being worked')}. Nothing changed.`, 'warn');
+      } else {
+        surfaceVerdict(drawer, `⚠ Set-current failed (HTTP ${r.status}) — ${String(j.error || 'unknown')}. Nothing changed.`, 'err');
+      }
+    })
+    .catch((e) => surfaceVerdict(drawer, `⚠ set-current request failed — ${String(e?.message || e)}. Nothing changed.`, 'err'));
+}
+
+// T37.26 universalActions.handleOpenTaskFile — owner taps 📄 Open Task file → open the task's server-computed taskMdHref
+// in a NEW TAB. iOS-safe: open the tab SYNC in-gesture, point it AFTER the async resolve (window.open is popup-blocked if
+// it follows an await). The bar is the ONE action surface; the duplicated inline body link is removed.
+function handleOpenTaskFile(uuid: string): void {
+  const win = window.open('about:blank', '_blank'); // SYNC in-gesture open (iOS popup-safe); pointed after the async resolve
+  void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+    const href = String(((j?.unit?.model || {}) as Record<string, unknown>).taskMdHref || '');
+    if (href) { if (win) win.location.href = href; else window.open(href, '_blank'); } else { win?.close(); }
+  }).catch(() => { win?.close(); });
+}
+
 function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): void {
   const slot = verb === 'pin-current' ? 'current' : 'next';
   surfaceVerdict(drawer, slot === 'current' ? '⏳ Setting as current…' : '⏳ Setting as next…', 'warn');

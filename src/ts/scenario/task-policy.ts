@@ -62,6 +62,13 @@ export const TaskPolicy: UnitPolicy = {
   // [impl:uuid:ff247010-40ce-44be-99f4-a776c20257b2] TaskPolicy.validate — step-legality (re-expressed task-fsm TRANSITIONS/guardTransition) +
   // evidenceForStep precondition (5021456d). Refuses illegal skips AND advancing past a step whose chain-edge is absent.
   validate(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
+    if (intent.makeCurrent) { // T37.26 (PO ruling, architect 515260b8d): "Set as Current" = make THIS the task being worked NOW.
+      // Legal only for a task that CAN be worked: Planned (work starts → advance to In Progress) or In Progress (re-focus →
+      // recency bump). A QA-Review/Done task is past being-worked → refuse (never silently re-open review/done work).
+      const cur = currentState(unit);
+      if (cur !== 'Planned' && cur !== 'In Progress') throw new Error(`TaskPolicy: cannot make a '${cur}' task current — only a Planned or In-Progress task can be the one being worked.`);
+      return;
+    }
     if (intent.subStep !== undefined) { // R40.18: a sub-step tick is NOT a state advance — validate the named box, no legalNext/evidence gate (the evidence gate applies at the In Progress→QA Review state advance)
       const sub = String(intent.subStep);
       if (!IN_PROGRESS_SUBSTEPS.includes(sub)) throw new Error(`TaskPolicy: unknown sub-step '${sub}' (valid: ${IN_PROGRESS_SUBSTEPS.join(', ')})`);
@@ -80,6 +87,15 @@ export const TaskPolicy: UnitPolicy = {
   // 4-state writer). NEVER writes a flat 7-state or a literal status string (MvcBoundaryGuard enforces this structurally).
   apply(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
     const m = unit.model as Record<string, unknown>;
+    if (intent.makeCurrent) { // T37.26 "Set as Current" = advance-to-worked + stamp recency (the DERIVED pin = max-lastAdvancedAt In-Progress task picks it up). NO stored pin → nothing to diverge (the deleted lying-pin is not resurrected).
+      if (currentState(unit) === 'Planned') { // a Planned task can't be "current"/being-worked → start it (tick In Progress); an already-In-Progress task just re-focuses (recency bump, state unchanged)
+        m.statusChecklist = tickBox(String(m.statusChecklist ?? ''), 'In Progress');
+        m.status = deriveStatusEnum(String(m.statusChecklist)); // the SOLE 4-state writer
+      }
+      m.lastAdvancedAt = new Date().toISOString(); // SEAM-stamped recency (same field the pin ranks by); source='seam' = live stamp
+      m.lastAdvancedAtSource = 'seam';
+      return;
+    }
     if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)
       m.statusChecklist = tickSubStep(String(m.statusChecklist ?? ''), String(intent.subStep));
       m.status = deriveStatusEnum(String(m.statusChecklist)); // unchanged (sub-step doesn't move the state) — recompute for the SOLE-writer invariant
