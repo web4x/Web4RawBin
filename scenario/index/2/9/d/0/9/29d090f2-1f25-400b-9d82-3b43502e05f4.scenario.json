@@ -59,6 +59,11 @@
     "id": "AC-gate",
     "group": "gate",
     "text": "TEST/BITE (distinct-intent): plant a child uuid sharing its parent's 8-char prefix -> guard RED; plant a non-v4 / malformed / all-zero-tail id -> RED; resolvePrefix on an ambiguous 8-char -> REFUSE (fail-closed) not first-match; weaken any guard -> suite RED. Verify Impl.tests[] on disk before flip."
+   },
+   {
+    "id": "AC-mint-then-stamp-marker-integrity",
+    "group": "functional",
+    "text": "[TRON-SCHEDULE, do-NOT-start — captured 2026-08-18 after the THIRD prefix-collision phantom in one day: 3542dcb3 (PO mis-cite) / fa8fffc8-8e2e (R19.18+R19.8.A tasks[]) / a778793d-0f8e (T37.26 sprintDisplayName marker @sprint-label.ts:34)]. Phantom markers exist because markers are HAND-TYPABLE -> make them IMPOSSIBLE, not merely forbidden (PO framing): (a) MINT-THEN-STAMP ONLY — a source [impl:uuid]/[test:uuid]/[uc:uuid] marker may be written ONLY by the tool, from a REAL minted unit's FULL uuid, FAIL-CLOSED if the uuid does not resolve to an existing unit of the correct KIND (an impl-marker MUST resolve to an Implementation), full uuid NEVER an 8-char prefix. (b) STRICT-AUDIT BACKSTOP — a sweep/gate over ALL shipped source markers turns any DANGLING (uuid->no unit) OR PREFIX-SHARING (uuid shares a sibling/parent 8-char prefix) OR WRONG-KIND marker RED, stub-must-fail. Converts phantom-hunting from forbidden to impossible-by-construction. MEASURE FIRST (the open question): how many OTHER shipped deliverables carry phantom / prefix-colliding markers — three in one day is a pattern, not luck. Extends AC-manufactured-collision-guard from mint-time UNIT uuids to shipped SOURCE markers. crossRef R40.38 orphan-marker-lint + R40.43 trace:audit-orphan."
    }
   ]
  },
