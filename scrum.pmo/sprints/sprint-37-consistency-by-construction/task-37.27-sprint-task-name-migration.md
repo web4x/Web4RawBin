@@ -14,7 +14,7 @@
   - [x] implementing
   - [x] testing
 - [x] QA Review
-- [ ] Done
+- [x] Done
 
 ## Task Description
 
