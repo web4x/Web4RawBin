@@ -16,7 +16,7 @@ export function sprintPrefix(num: number | null | undefined): string {
 }
 
 /** Display label for a sprint (tree row / detail header): 'Sprint N — name'; name alone when there is no number. */
-// [impl:uuid:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809] SprintLabel.sprintLabel (Method 90e4014a, off UC d6cb7ddd sprintView.renderLabel)
+// [impl:uuid:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809] SprintView.sprintLabel (Method 90e4014a, off UC d6cb7ddd sprintView.renderLabel)
 export function sprintLabel(name: string, num: number | null | undefined): string {
   const nm = name || '(untitled)';
   return num ? `${sprintPrefix(num)} — ${nm}` : nm; // no number → name alone (never fabricate)
@@ -31,7 +31,7 @@ export function sprintLabel(name: string, num: number | null | undefined): strin
 const SPRINT_PREFIX_RE = /^(?:Sprint\s*\d+\s*[—:\-]+\s*)+/i; // leading, one-or-more, any separator (em-dash/colon/hyphen)
 export function stripSprintPrefix(name: string): string { return String(name || '').replace(SPRINT_PREFIX_RE, '').trim(); }
 
-// [impl:uuid:a778793d-0f8e-4c1a-9d5e-2b6f4a1c7e90] SprintView.sprintDisplayName (R40.4 UC a778793d — designed+minted, now IMPLEMENTED)
+// [impl:uuid:c0e32287-bb9f-47a3-857e-c09fe861067e] SprintView.sprintDisplayName (R40.4 UC a778793d — designed+minted, now IMPLEMENTED)
 export function sprintDisplayName(name: string, num: number | null | undefined): string {
   const title = stripSprintPrefix(name) || '(untitled)';
   return num ? `${sprintPrefix(num)}: ${title}` : title; // 'Sprint N: title'; no number → stripped title alone (never fabricate)
