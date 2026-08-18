@@ -1,7 +1,7 @@
 // [impl:uuid:bbd18e1c-82f0-4438-8618-f66715731212] T5+T33 websocket client
 // [impl:uuid:79568421-462d-4c7a-b1d2-bd0c3c0d9d18] ServerStrip.strip
 import { MSG } from '../../shared/MessageTypes.js';
-import { ViewBus } from './trace/ViewBus.js'; // R40.17 LIVE: transport→bus bridge (the tree's ViewBus singleton, notify('graph')). NOTED DEBT: two ViewBus files exist (this trace/ViewBus.ts CLASS the tree uses vs ../ViewBus.ts instance) → reconcile to ONE = C4 DRY item after req returns.
+import { ViewBus, viewBusKey } from './trace/ViewBus.js'; // R40.17 LIVE: transport→bus bridge (the tree's ViewBus singleton, notify('graph')). NOTED DEBT: two ViewBus files exist (this trace/ViewBus.ts CLASS the tree uses vs ../ViewBus.ts instance) → reconcile to ONE = C4 DRY item after req returns.
 
 type MessageHandler = (msg: any) => void;
 
@@ -97,7 +97,7 @@ export class RawBinClient {
           const msg = JSON.parse(event.data);
           if (msg.type === 'unit-changed') { // architect de27341b4: notify the unit REF (type:uuid) so per-unit subscribers re-render SURGICALLY (rb-object-item row+badge, rb-detail-view detail) — NOT a whole-tree refetch. 'graph' reserved for structural create/delete.
             const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
-            if (t && msg.uuid) ViewBus.notify(`${t}:${msg.uuid}`); else ViewBus.notify('graph');
+            if (t && msg.uuid) ViewBus.notify(viewBusKey({ type: t, uuid: msg.uuid })); else ViewBus.notify('graph'); // R40.45: canonical key via viewBusKey (same builder every subscribe uses)
             return;
           }
           if (msg.type === 'welcome') {

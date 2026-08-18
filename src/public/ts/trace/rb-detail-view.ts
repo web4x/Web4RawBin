@@ -11,7 +11,7 @@
  * [impl:uuid:8d98abfd-9970-4951-8344-b82828b7dac4] R15.6 DetailView (chain-navigable)
  */
 import { TraceGraph, refUuid, type ObjectRef } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
@@ -149,9 +149,9 @@ export class RbDetailView extends HTMLElement {
     });
 
     // MVC: re-render on this object OR any linked object changing
-    this.unsubs.push(ViewBus.subscribe(obj.ref(), () => this.render()));
+    this.unsubs.push(ViewBus.subscribe(viewBusKey(obj.ref()), () => this.render()));
     const linked = new Set<ObjectRef>(Object.values(links).flat());
-    for (const lref of linked) this.unsubs.push(ViewBus.subscribe(lref, () => this.render()));
+    for (const lref of linked) this.unsubs.push(ViewBus.subscribe(viewBusKey(lref), () => this.render()));
   }
 
   // R35.1: createFilePreviewButton + renderFilePreview REMOVED (INV-2) — dead file-type fallback (tagMap routes

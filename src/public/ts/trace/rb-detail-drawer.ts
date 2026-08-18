@@ -26,7 +26,7 @@ import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal 
 import { registerUniversalActions } from './universal-actions.js'; // R35.1 view-independent item-action provider
 import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
 import { resolveRefUnit, isSyntheticRef } from './synthetic-ref.js'; // inc-3: THE sole ref→unit resolver (synthetic + real); nav/detail/action-bar all import this, none re-parse
-import { ViewBus } from './ViewBus.js'; // R40.45: the action bar is a SURFACE — re-derive it from the SAME unit-changed emit as the detail (controls' visibility must never latch at mount)
+import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.45: the action bar is a SURFACE — re-derive it from the SAME unit-changed emit as the detail (controls' visibility must never latch at mount); viewBusKey = the ONE canonical key builder both notify+subscribe route through
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -466,7 +466,7 @@ export class RbDetailDrawer extends HTMLElement {
     if (this._barSubRef !== ref) {
       this._barUnsub?.();
       this._barSubRef = ref;
-      this._barUnsub = ref ? ViewBus.subscribe(ref, () => { void this.universalActionBar(this._shownType, this._shownRef); }) : null;
+      this._barUnsub = ref ? ViewBus.subscribe(viewBusKey(ref), () => { void this.universalActionBar(this._shownType, this._shownRef); }) : null; // R40.45: canonical key = matches the notify key by construction
     }
     if (!type || !ref || type === 'chat') { this.setActions([]); return; } // INV-E3: empty/chat clears the bar
     const defaults = [{ verb: 'scenario', label: '◆ Scenario', primary: true }, { verb: 'edit', label: '✎ Edit', primary: true }]; // R-A A1 universal default

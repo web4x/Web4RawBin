@@ -41,4 +41,19 @@ class ViewBusImpl {
   }
 }
 
+// R40.45 (architect 98ac90205) — the ONE canonical ViewBus key builder. BOTH notify AND every subscribe route through
+// this, so the two sides CANNOT disagree (same single-source reasoning as FROZEN_LEGACY_MAX): a key defined ad-hoc per
+// site is exactly how notify(`type:uuid`) drifted from subscribe(rawRef) → inert live-MVC (controls+badge+detail never
+// re-rendered on a remote OR the acting-tab-local emit). Canonical form = `<type-lowercased>:<uuid>` — type is
+// case-normalised, an `ior:instance:` prefix + a federated `uuid@host` suffix are stripped (identity = the local uuid).
+// Accepts a raw ref string (`Task:uuid`, `task:uuid`) OR {type,uuid}. A bare token (no colon, e.g. 'graph') passes through.
+// Enforced by check-viewbus-key-single-source (a raw-ref subscribe/notify → RED; stub-must-fail proves it binds).
+export function viewBusKey(ref: string | { type?: string; uuid?: string }): string {
+  if (typeof ref !== 'string') return `${String(ref?.type || '').toLowerCase()}:${String(ref?.uuid || '').split('@')[0]}`;
+  const s = ref.replace(/^ior:instance:/, '');
+  const i = s.indexOf(':');
+  if (i < 0) return s.toLowerCase(); // bare token (e.g. 'graph') — no type:uuid form
+  return `${s.slice(0, i).toLowerCase()}:${s.slice(i + 1).split('@')[0]}`; // type lowercased; uuid verbatim minus federated @host
+}
+
 export const ViewBus = new ViewBusImpl();

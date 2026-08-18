@@ -8,7 +8,7 @@
  * [impl:uuid:e1ad6c89-269b-47d2-96b5-1fa356cbc226] R16.2 UseCaseDetailView
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
@@ -47,7 +47,7 @@ export class RbUseCaseDetail extends HTMLElement {
         ${renderLinks(this.graph, links)}
       </div>`;
 
-    this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
 

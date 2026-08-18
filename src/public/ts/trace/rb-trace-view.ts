@@ -7,7 +7,7 @@
  *
  * [impl:uuid:9ce0b153-0c3d-4749-aa57-954b359b797d] AC2 attributes / AC3 MVC view
  */
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 
 export class RbTraceView extends HTMLElement {
   static get observedAttributes() { return ['uuid', 'type', 'title', 'ref']; }
@@ -16,7 +16,7 @@ export class RbTraceView extends HTMLElement {
   connectedCallback(): void {
     this.render();
     const ref = this.getAttribute('ref');
-    if (ref) this.unsub = ViewBus.subscribe(ref, () => this.render());
+    if (ref) this.unsub = ViewBus.subscribe(viewBusKey(ref), () => this.render());
   }
 
   disconnectedCallback(): void {
@@ -27,7 +27,7 @@ export class RbTraceView extends HTMLElement {
   attributeChangedCallback(name: string, _old: string | null, _new: string | null): void {
     if (!this.isConnected) return;
     // a changed ref re-binds the subscription
-    if (name === 'ref') { this.unsub?.(); const ref = this.getAttribute('ref'); this.unsub = ref ? ViewBus.subscribe(ref, () => this.render()) : null; }
+    if (name === 'ref') { this.unsub?.(); const ref = this.getAttribute('ref'); this.unsub = ref ? ViewBus.subscribe(viewBusKey(ref), () => this.render()) : null; }
     this.render();
   }
 

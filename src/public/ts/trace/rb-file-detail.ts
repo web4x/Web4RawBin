@@ -5,7 +5,7 @@
  * [impl:uuid:d932447e-7791-4ed8-98d6-517f2699a5ed] BUG18 File DetailView
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
 import { guessMimeFromName, fillPreviewPane } from './content-preview.js'; // R40.12: restore eager media render
@@ -84,7 +84,7 @@ export class RbFileDetail extends HTMLElement {
           }
         }
 
-        if (ref) this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+        if (ref) this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
       }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load file</div>'; });
     });
   }

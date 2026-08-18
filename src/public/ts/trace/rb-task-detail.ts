@@ -7,7 +7,7 @@
  * [impl:uuid:e1ad6c89-269b-47d2-96b5-1fa356cbc226] R16.2 TaskDetailView
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 // [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
@@ -50,7 +50,7 @@ export class RbTaskDetail extends HTMLElement {
         ${renderLinks(this.graph, links)}
       </div>`;
 
-    this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
     this.loadDetailData(obj.uuid);
   }
 

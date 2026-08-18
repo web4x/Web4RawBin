@@ -8,7 +8,7 @@
  * [impl:uuid:e1ad6c89-269b-47d2-96b5-1fa356cbc226] R16.2 RequirementDetailView
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 // [impl:uuid:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a] RbRequirementDetail.render impl
@@ -49,7 +49,7 @@ export class RbRequirementDetail extends HTMLElement {
         ${renderLinks(this.graph, links)}
       </div>`;
 
-    this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
     // R40.10 BUG A: a ChangeRequest carries a `reason` the owner typed on decline — render it PROMINENTLY (top of fields).
     // REUSE (no fork): this same detail serves Requirement + ChangeRequest (RequirementTemplate); reason shows only when present.
     fetch(`/api/ior/ior:instance:${obj.uuid}`).then(r => r.ok ? r.json() : null).then(j => {

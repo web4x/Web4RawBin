@@ -3,7 +3,7 @@
  * [impl:uuid:4b9b7203-ee0f-4d65-999f-264baf33ed01] R17 full chain
  */
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
@@ -31,7 +31,7 @@ export class RbMethodDetail extends HTMLElement {
       </div>
       </div>`;
     renderChainPathSection(this, obj.uuid);
-    this.unsubs.push(ViewBus.subscribe(ref, () => this.render()));
+    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
     this.querySelectorAll('.dv-link').forEach(row => {
       row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) }); });
     });

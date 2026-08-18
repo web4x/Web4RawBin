@@ -4,7 +4,7 @@
 import { downloadVCard } from '../vcard-download.js';
 import { fillPreviewPane } from './content-preview.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
-import { ViewBus } from './ViewBus.js'; // R40.17: notify the CurrentSprint singleton ref so the eager-lazy pin re-fetches live
+import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.17: notify the CurrentSprint singleton ref so the eager-lazy pin re-fetches live; R40.45 viewBusKey = the ONE canonical key builder
 // R40.37: the applicability declarations + the pure resolver live in the browser-dep-free action-applicability module
 // (node-testable). This file SUPPLIES UNIVERSAL_DECLS to the shared drawer bar (which resolves via applicableActionsFor).
 import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
@@ -108,7 +108,7 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
         // onto the ONE bus LOCALLY (NOT an optimistic DOM poke = defect-3). Every subscribed surface in THIS tab
         // (item icon, status badge, row, detail) re-renders from real state, exactly as a remote tab does off the WS —
         // one code path, the acting tab is not a special case and does not depend on a WS round-trip to itself.
-        ViewBus.notify(`task:${uuid}`);
+        ViewBus.notify(viewBusKey({ type: 'task', uuid })); // R40.45: acting-tab local emit through the SAME canonical key as the WS broadcast → client-1 re-derives its own drawer/row/body
         ViewBus.notify('current-sprint-singleton-0000-000000000001'); // a Done/advance can move the derived pin too
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Your verdict was NOT recorded.', 'err');
@@ -141,7 +141,7 @@ function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
       if (r.status === 200 && j.ok) {
         surfaceVerdict(drawer, `📌 Now current — status ${j.status} (the pin follows the derivation; no stored pin)`, 'ok'); // R40.45 CLIENT-TRUTH: the ACTUAL server status, never an assumed 'In Progress'
         // R40.45 TAB-A: emit the SAME unit-changed onto the ONE bus locally → THIS tab's task surfaces (icon/row/badge/detail) re-render from real state (one code path, not an optimistic poke).
-        ViewBus.notify(`task:${uuid}`);
+        ViewBus.notify(viewBusKey({ type: 'task', uuid })); // R40.45: acting-tab local emit through the SAME canonical key as the WS broadcast → client-1 re-derives its own drawer/row/body
         ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Nothing changed.', 'err');

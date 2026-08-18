@@ -25,7 +25,7 @@
 // [impl:uuid:09de2e8d-7933-464e-95ff-6717c068ad91] R15.4 defaultItemView (split for RbObjectItem.expandChildren
  * [impl:uuid:b4c8bf40-6b31-4acd-ad4a-0f93d6f7326b] R15.4 defaultItemView
  */
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
@@ -70,7 +70,7 @@ export class RbObjectItem extends HTMLElement {
       document.addEventListener('selection-changed', () => this.syncSelected());
     }
     const ref = this.getAttribute('ref');
-    if (ref && !this.unsub) this.unsub = ViewBus.subscribe(ref, () => void this.refreshLive()); // architect de27341b4 surgical: on a unit-changed for THIS ref, pull the fresh derived status → badge re-renders (done→green✓) live
+    if (ref && !this.unsub) this.unsub = ViewBus.subscribe(viewBusKey(ref), () => void this.refreshLive()); // architect de27341b4 surgical: on a unit-changed for THIS ref, pull the fresh derived status → badge re-renders (done→green✓) live
     this.syncSelected();
   }
 
@@ -121,7 +121,7 @@ export class RbObjectItem extends HTMLElement {
 
   attributeChangedCallback(name: string): void {
     if (!this.isConnected) return;
-    if (name === 'ref') { this.unsub?.(); const ref = this.getAttribute('ref'); this.unsub = ref ? ViewBus.subscribe(ref, () => this.render()) : null; }
+    if (name === 'ref') { this.unsub?.(); const ref = this.getAttribute('ref'); this.unsub = ref ? ViewBus.subscribe(viewBusKey(ref), () => this.render()) : null; }
     this.render();
   }
 

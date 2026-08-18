@@ -6,7 +6,7 @@
 // thin compat ADAPTER over it (publish→notify with the model as payload; subscribe→subscribe passing that payload to the
 // model-listener). ONE instance → every surface (list row, icon, badge, detail) subscribes to and re-renders from the
 // SAME emit, regardless of which import it used.
-import { ViewBus } from './trace/ViewBus.js';
+import { ViewBus, viewBusKey } from './trace/ViewBus.js';
 export { ViewBus };
 
 type Listener = (model: Record<string, unknown>) => void;
@@ -16,9 +16,9 @@ type Listener = (model: Record<string, unknown>) => void;
 // `classType:uuid`. A bridge notify() with no payload delivers {} → the listener re-renders from its own state.
 export const viewBus = {
   subscribe(classType: string, uuid: string, listener: Listener): () => void {
-    return ViewBus.subscribe(`${classType}:${uuid}`, (payload) => listener((payload as Record<string, unknown>) || {}));
+    return ViewBus.subscribe(viewBusKey({ type: classType, uuid }), (payload) => listener((payload as Record<string, unknown>) || {})); // R40.45: canonical key (same builder as the WS notify) — this adapter can't drift from the transport
   },
   publish(classType: string, uuid: string, model: Record<string, unknown>): void {
-    ViewBus.notify(`${classType}:${uuid}`, model);
+    ViewBus.notify(viewBusKey({ type: classType, uuid }), model); // R40.45: canonical key
   },
 };

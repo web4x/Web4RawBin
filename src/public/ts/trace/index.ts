@@ -8,7 +8,7 @@ import {
   TraceGraph, type FlatObject, type ObjectType, refUuid,
 } from '../../../ts/shared/TraceModel.js';
 import { VerbRegistry, type VerbContext, type VerbHandler } from './VerbRegistry.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import './rb-trace-view.js';
 
 export { TraceRouter, parseHash, buildHash } from './TraceRouter.js';
@@ -89,7 +89,7 @@ function listHandler(type: ObjectType): (ctx: VerbContext) => void {
 
 /**
  * link: generic mutation verb — `#<type>.link?uuid=…&to=<type:uuid>&relation=…&inverse=…`.
- * Mutates the graph then ViewBus.notify(obj.ref()) → subscribed Views re-render (AC3, no reload).
+ * Mutates the graph then ViewBus.notify(viewBusKey(obj.ref())) → subscribed Views re-render (AC3, no reload).
  */
 function linkHandler(ctx: VerbContext): void {
   const { graph, obj, params } = ctx;
@@ -97,8 +97,8 @@ function linkHandler(ctx: VerbContext): void {
   const target = graph.get(refUuid(params.to));
   if (!target) return;
   graph.link(obj, params.relation, target, params.inverse);
-  ViewBus.notify(obj.ref());
-  ViewBus.notify(target.ref());
+  ViewBus.notify(viewBusKey(obj.ref()));
+  ViewBus.notify(viewBusKey(target.ref()));
 }
 
 /** A registry with show/list/link wired for all 7 object types (T103 minimal seam proof). */

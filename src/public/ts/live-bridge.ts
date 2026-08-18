@@ -5,13 +5,13 @@
 // subscribed surface (row/icon/badge/detail/action-bar) re-renders. RawBinClient reuses notifyUnitChanged (one code
 // path); the socket-less pages call connectLiveBridge() to open a receive-only socket (bare connect = in wsClients,
 // no IDENTIFY needed to RECEIVE broadcasts).
-import { ViewBus } from './trace/ViewBus.js';
+import { ViewBus, viewBusKey } from './trace/ViewBus.js';
 
 // The ONE unit-changed → bus mapping (was inline at RawBinClient:100; extracted so /trace+/model+/scenario share it).
 export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: string }): void {
   if (!msg || msg.type !== 'unit-changed') return;
   const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
-  if (t && msg.uuid) ViewBus.notify(`${t}:${msg.uuid}`); else ViewBus.notify('graph'); // 'graph' = structural create/delete
+  if (t && msg.uuid) ViewBus.notify(viewBusKey({ type: t, uuid: msg.uuid })); else ViewBus.notify('graph'); // R40.45: notify key via the ONE viewBusKey builder (subscribe sites use the SAME) — no drift; 'graph' = structural create/delete (bare channel)
 }
 
 // R40.45 OBSERVABLE transport state (fail-LOUD, architect guard 451f3cfcc): a human (devtools) AND a gate/test can read
