@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4d9e2f81-7a3c-4b56-9e08-1c5a3f7b2d64",
+    "name": "test:T37.26 SprintView.sprintDisplayName — EXACTLY 'Sprint <n>: <title>'/'Task <n>.<m>: <title>' colon canon + NO-doubling @390 real-WebKit served DET-3x + pure-fn + stub-must-fail",
+    "description": "Bridged to test/visual/r3726-sprint-displayname-gate.mjs. DISTINCT-intent from e7fb7e65/sprintLabel (Sprint-<number> PREFIX atom, DASH). Pure-fn colon+idempotent-no-doubling+no-fabricate+stub-must-fail; @390 served detail-header renders Sprint <n>: <title> once, visible (6 sprints). Fresh gate-sourced uuid, NOT d7e4b9a1/8f3a1d05 (e7fb7e65) = no borrowed credit.",
+    "sourceFile": "ior:file:test/visual/r3726-sprint-displayname-gate.mjs",
+    "implementations": [
+      "ior:instance:c0e32287-bb9f-47a3-857e-c09fe861067e"
+    ],
+    "status": "pass",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c0e32287-bb9f-47a3-857e-c09fe861067e"
+}

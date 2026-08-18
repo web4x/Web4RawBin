@@ -4,7 +4,9 @@
     "uuid": "c0e32287-bb9f-47a3-857e-c09fe861067e",
     "name": "SprintView.sprintDisplayName impl (EXACTLY 'Sprint <n>: <title>' = sprintPrefix(number)+': '+bareTitle, colon canon; SHIPPED v0.8.101/102 @sprint-label.ts:34 across all 6 surfaces + the DRY double-render fix)",
     "markerPending": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:4d9e2f81-7a3c-4b56-9e08-1c5a3f7b2d64"
+    ],
     "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts",
     "markerNote": "STRICT-AST VERIFIED ON ORIGIN by req (verify-owner-first, git show origin/main after expert commit 0512fe918): [impl:uuid:c0e32287-bb9f-47a3-857e-c09fe861067e]@sprint-label.ts:34 adjacent-above `export function sprintDisplayName`@:35 (0 intervening named-decl, full-uuid match); the phantom [impl:uuid:a778793d-0f8e...] (DANGLING + PREFIX-COLLISION on UC a778793d-6970, 3rd phantom of 2026-08-18) is KILLED (grep=0); :19 name fixed to SprintView.sprintLabel. RETROACTIVE-TO-SHIPPED-CODE (formatter shipped v0.8.101/102 chain-less; record fixed first, then status follows). Chain: UC a778793d -> Class 255e3d4e SprintView -> Method 72b70cfb SprintView.sprintDisplayName -> Impl c0e32287. NEXT: tester two-keys formatter Test <-> c0e32287 (sprint-name/no-doubling + check-sprint-label gates) -> T37.26 chain-complete-to-Test -> I advance evidence-per-tick to QA-Review."
   },
