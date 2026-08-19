@@ -208,6 +208,14 @@ Must DISCRIMINATE H1 (read-timing artifact: badge did repaint, we settled too ea
 
 **Why this satisfies "not merely re-observe":** the last read settled on control-vanish (which precedes the badge overwrite) → looked too early. This settles on the BADGE with a generous timeout, so H1 and H2 become DISTINGUISHABLE by whether the badge ever changes; the C1 arm separates broadcast-driven (H1) from poll-driven (H3); present-before kills the vacuous pass. Report shape → tester runs → expert fix-on-demand if H2.
 
+### Q3-BADGE — my INDEPENDENT pre-registration (before the data; PO's #83 = H1 ~60/40, separate)
+Registering mine independently so two pre-registrations stand (guards post-hoc). **My lean: H1 (artifact) most likely (~65%), H2 ~25%, H3 ~10%, formed from — and discounted for — a CODE-READ:**
+- H1 rationale: the badge-repaint (rb-task-detail loadDetailData overwrite of `.dv-status-badge`) is called by `render()`, which IS the ViewBus.subscribe callback — the SAME broadcast callback that re-derived the controls, and the controls DID flip. So structurally the badge should repaint on the same emit, just after the control-vanish we settled on too early. That's H1.
+- H2 risk (~25%): the badge-overwrite may not cover the re-render/passive path (fires only on an initial-load path, a selector miss, or a guard that skips the passive client) — the expert's "render→loadDetailData→badge" is a code-read, and code-reads misled us twice this session.
+- H3 risk (~10%): the drawer badge is `/api/ior`-driven (loadDetailData), the tree poll is `/api/trace/children` — different paths, so a poll repainting the DRAWER badge is less likely; but the C1 arm measures it, not my read.
+- **Discount:** this is a code-read lean; I hold it loosely and commit to accept H2 / H3 / INVALID without argument. The runtime decides, per every lesson this session.
+**Interpretation stance (PO's ask):** read the raw INDEPENDENTLY; if the run cannot support ONE of the four verdicts cleanly (H1/H2/H3/INVALID), call it INVALID and send it back — do NOT interpret around a gap.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
