@@ -98,11 +98,30 @@ async function runB({ serverPatch, label, commit, buildDist, clientPatch, instru
     const approveAt = Date.now(); const reqMark = c2reqs.length;
     raw.client1HadApprove = !!(await p1.$('rb-detail-drawer button[data-verb="qa-approve"]'));
     if (raw.client1HadApprove) await p1.click('rb-detail-drawer button[data-verb="qa-approve"]'); // owner acts on client-1 (real UI)
-    let latency = null;
-    for (let i = 0; i < 60 && latency === null; i++) { const s = await drawerState(p2); if (s.approve === false && s.decline === false && raw.before.approve === true) latency = Date.now() - approveAt; else await sleep(100); }
+    // BADGE-SETTLE (PO): settle on the BADGE ITSELF with a GENEROUS window (not control-vanish), and record BOTH latencies —
+    // this discriminates settle-lag (badge flips late but does flip) vs a REAL badge gap (never flips while controls do). A
+    // lagging badge is CAUGHT here (up to 15s) rather than missed by settling on control-vanish.
+    let controlLatency = null, badgeLatency = null; const beforeBadge = raw.before.badge;
+    for (let i = 0; i < 150 && (controlLatency === null || badgeLatency === null); i++) { // 15s generous window; settle on BOTH
+      const s = await drawerState(p2);
+      if (controlLatency === null && s.approve === false && s.decline === false && raw.before.approve === true) controlLatency = Date.now() - approveAt;
+      if (badgeLatency === null && beforeBadge != null && s.badge !== beforeBadge) badgeLatency = Date.now() - approveAt; // badge CHANGED (present-before → changed-after; not a bare 'is Done' that passes vacuously)
+      await sleep(100);
+    }
     await sleep(500);
     raw.after = await drawerState(p2);                                // (3) controls ABSENT-after
-    raw.latencyMs = latency;
+    raw.latencyMs = controlLatency; raw.controlLatencyMs = controlLatency; raw.badgeLatencyMs = badgeLatency;
+    if (process.env.BADGE_SETTLE === '1') { // ★ PROVE-THE-INSTRUMENT (architect): the badge-settle poller must DETECT a known in-place change AND clean-timeout on a known no-change, else a 'never flipped' is untrustworthy (would falsely report H2).
+      raw.badgeSettleProven = await p2.evaluate(async () => {
+        const settle = (el, before, timeout) => new Promise((res) => { const t0 = Date.now(); const iv = setInterval(() => { if (el.textContent.trim() !== before) { clearInterval(iv); res({ changed: true }); } else if (Date.now() - t0 > timeout) { clearInterval(iv); res({ changed: false }); } }, 50); });
+        const d1 = document.createElement('div'); d1.textContent = 'QA Review'; document.body.appendChild(d1); setTimeout(() => { d1.textContent = 'Done'; }, 300);
+        const changeCase = await settle(d1, 'QA Review', 3000);       // must DETECT the in-place change
+        const d2 = document.createElement('div'); d2.textContent = 'QA Review'; document.body.appendChild(d2);
+        const noChangeCase = await settle(d2, 'QA Review', 800);      // must CLEAN-TIMEOUT on no-change
+        d1.remove(); d2.remove();
+        return { detectsChange: changeCase.changed === true, cleanTimeout: noChangeCase.changed === false };
+      });
+    }
     if (instrument) { // BISECT: read the ViewBus keys/fires + the (i)/(ii) re-derive statuses recorded in the served bundle (globalThis===window)
       const readVB = (pg) => pg.evaluate(() => ({ sk: (globalThis.__sk || []), nk: (globalThis.__nk || []), fk: (globalThis.__fk || []) }));
       raw.vb2 = await readVB(p2); raw.vb1 = await readVB(p1);
@@ -173,6 +192,34 @@ if (!PRE_ONLY) {
   console.log(JSON.stringify(c1, null, 2));
 }
 const prodAfter = await prodStatus(TARGET);
+
+// ★ SETTLE-ON-BADGE DISCRIMINATION (architect c15055d04) — must produce H1/H2/H3/INVALID distinctly or it is inadmissible.
+if (process.env.BADGE_SETTLE === '1') {
+  const b = pos.before, a = pos.after;
+  const openOnTask = b?.badge != null;                                  // precond: drawer open on the task, badge rendered
+  const presentBefore = b?.badge === 'QA Review';                       // precond: present-before (already-Done ⇒ INVALID)
+  const passiveNoReload = a && b && a.sentinel === b.sentinel && a.sentinel !== null && a.nav === 0 && pos.c2NavAfterApprove === 0; // client-2 passive
+  const proven = pos.badgeSettleProven?.detectsChange === true && pos.badgeSettleProven?.cleanTimeout === true; // prove-the-instrument
+  const versionOk = pos.servedVersion === '0.8.116' && c1.servedVersion === '0.8.116'; // HEAD/version guard (both arms)
+  const controlFlipped = b?.approve === true && a?.approve === false;   // controls DID flip this run (co-condition for H1/H2)
+  const posBadgeFlipped = pos.badgeLatencyMs !== null;                  // positive badge changed within the generous 15s window
+  const c1BadgeFlipped = c1.badgeLatencyMs !== null;                    // C1 (broadcast OFF) badge changed = poll/refetch, not broadcast
+  console.log('\n=== SETTLE-ON-BADGE DISCRIMINATION (architect c15055d04) ===');
+  console.log(`  precond: drawer-open=${openOnTask} · present-before badge='${b?.badge}'==QA Review=${presentBefore} · passive+no-reload=${passiveNoReload} · v0.8.116-both=${versionOk}`);
+  console.log(`  prove-the-instrument: detects-change=${pos.badgeSettleProven?.detectsChange} + clean-timeout=${pos.badgeSettleProven?.cleanTimeout} ⇒ proven=${proven}`);
+  console.log(`  POSITIVE: badge '${b?.badge}'→'${a?.badge}' flipped=${posBadgeFlipped} (badgeLatency=${pos.badgeLatencyMs}ms vs controlLatency=${pos.controlLatencyMs}ms) · controls flipped=${controlFlipped}`);
+  console.log(`  C1 (broadcast OFF): badge flipped=${c1BadgeFlipped} (MUST be false) · badgeLatency=${c1.badgeLatencyMs}ms`);
+  console.log(`  prod ${TARGET} unchanged=${prodBefore === 'QA Review' && prodAfter === 'QA Review'} · teardown clean=${pos.teardown?.prodUp === true && pos.teardown?.leftover === 0 && c1.teardown?.prodUp === true && c1.teardown?.leftover === 0}`);
+  let verdict, exit;
+  if (!(openOnTask && presentBefore && passiveNoReload && versionOk)) { verdict = `INVALID — precondition unmet (open=${openOnTask}/present-before=${presentBefore}/passive=${passiveNoReload}/version=${versionOk}); nothing measured, re-run`; exit = 2; }
+  else if (!proven) { verdict = `INADMISSIBLE — badge-settle instrument UNPROVEN (detects-change=${pos.badgeSettleProven?.detectsChange}, clean-timeout=${pos.badgeSettleProven?.cleanTimeout}); a 'never flipped' cannot be trusted`; exit = 2; }
+  else if (posBadgeFlipped && c1BadgeFlipped) { verdict = `H3 POLL-DRIVEN BADGE — badge flips even with broadcast OFF (C1) ⇒ NOT broadcast-MVC (a poll/refetch repaints it). Real finding.`; exit = 1; }
+  else if (posBadgeFlipped && !c1BadgeFlipped && controlFlipped) { verdict = `H1 ARTIFACT CONFIRMED — badge flips under broadcast (latency ${pos.badgeLatencyMs}ms, lag +${pos.badgeLatencyMs - pos.controlLatencyMs}ms after controls) + C1 stays + controls flipped ⇒ badge live-MVC PROVEN; the earlier miss was settling on control-vanish. R40.31 badge GREEN.`; exit = 0; }
+  else if (!posBadgeFlipped && controlFlipped) { verdict = `H2 REAL BUG — controls flipped but the badge NEVER flipped in the 15s window (instrument proven) ⇒ v0.8.116 badge-repaint did NOT cover rb-task-detail .dv-status-badge. Hand to expert.`; exit = 1; }
+  else { verdict = `INVALID — controls did not flip this run (co-condition for H1/H2 unmet)`; exit = 2; }
+  console.log(`\n${verdict.startsWith('H1') ? '✓' : (verdict.startsWith('INVALID') || verdict.startsWith('INADMISSIBLE')) ? '⊘' : '✗'} ${verdict}`);
+  process.exit(exit);
+}
 
 // PRE-BASELINE short-circuit: the pre-fix arm proves the DELTA's low end — provenance says NO viewBusKey in the bundle, and
 // the drawer is INERT (broadcast received, controls do NOT vanish). This is the EXPECTED pre-fix result, reported as a
