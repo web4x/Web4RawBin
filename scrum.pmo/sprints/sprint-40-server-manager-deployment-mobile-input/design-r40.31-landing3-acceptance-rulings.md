@@ -235,6 +235,31 @@ Data: instrument PROVEN first (detects-change + clean-timeout) ⇒ admissible. P
 - **ROW = still HELD/untested** (Tron's 4th named criterion; rides the tester's post-rewind row-clause run with the row-renderability decide-once + expand-to-row).
 ⇒ **3 of Tron's 4 named criteria (row+badge+detail+controls) PROVEN live-MVC; ROW is the only open piece.** B is NOT fully closed until the row — do not report B green whole; report 3/4 proven + row pending.
 
+### Q3-ROW SHAPE (Tron's 4th criterion; same discriminating standard as the badge — cannot come back read-uncertain)
+The ROW (tree `rb-object-item` badge) is the TRICKIEST surface: it lives INSIDE the polling tree, so poll-vs-broadcast is the crux (Tron's trap-1 lands hardest here). It also carries the row-renderability decide-once (2ba8afa1e). Combine settle + a MECHANISM discriminator + the C1 control.
+
+**PRECONDITIONS (assert-at-test-time; INVALID / INVALID-untestable if unmet):**
+- Target ROW `rb-object-item` RENDERED on client-2's tree. Per decide-once (2ba8afa1e): render via a REAL user-action expand (the tree's own affordance / select→reveal, NOT a synthetic DOM poke) OR a default-level target; genuinely unrenderable-by-real-action ⇒ INVALID-untestable (report, never drop). PRE arm identical setup.
+- **PRESENT-BEFORE on the ROW ELEMENT** (rb-object-item's badge/state == 'QA Review' captured before); already-Done ⇒ INVALID (vacuous).
+- Passive client-2 + positive no-reload (sentinel + nav=0); v0.8.116 provenance both arms + HEAD-guard.
+- **TAG the row ELEMENT before approve** (for the REPLACED-vs-IN-PLACE mechanism discriminator).
+
+**PROVE-THE-INSTRUMENT FIRST (both, else INADMISSIBLE):** (1) row-settle poller — detects a known in-place row-badge change + clean-timeout on no-change; (2) REPLACED-vs-IN-PLACE discriminator — correctly classifies a known wholesale-replace as REPLACED AND a known in-place mutation as IN-PLACE.
+
+**POSITIVE (broadcast ON):** approve on client-1; settle on the ROW badge (generous timeout, e.g. 15s); record row-latency; classify the row element **IN-PLACE (surgical refreshLive, tag survived) vs REPLACED (wholesale tree re-render, tag gone)**; record client-2 after-approve request/poll count.
+
+**C1 CONTROL (broadcast OFF, same page/tree/polling, prove-the-neuter via C1 wsFrame=false):** the ROW must NOT move; record C1 after-approve poll count (to know if a poll fired in-window).
+
+**DISCRIMINATOR (explicit verdicts, all distinct):**
+- **ROW-LIVE (GREEN):** row badge flips **IN-PLACE** (surgical, tag survived) under broadcast · C1 row does NOT move · broadcast necessary ⇒ row live-MVC via broadcast PROVEN.
+- **POLL-DRIVEN:** row badge flips BUT either (a) it's **REPLACED** (wholesale re-render = tree rebuilt from a poll, not the surgical ViewBus refreshLive) OR (b) C1 row ALSO moves (poll updated it broadcast-off) ⇒ the row updates via POLL, NOT broadcast-MVC (Tron's trap-1 for the row — only LOOKS live). Distinct finding, not green.
+- **ROW-INERT (RED):** row badge NEVER flips under broadcast while the drawer/controls DID ⇒ rb-object-item still has the key-mismatch/re-derive bug (v0.8.116 fixed the drawer path; may not cover the row) ⇒ hand expert.
+- **INVALID** (precondition unmet, incl. unrenderable-by-real-action) / **INADMISSIBLE** (instrument unproven).
+
+**Why it can't come back read-uncertain:** settle on the ROW element ITSELF (not control-vanish/a proxy) with a generous timeout; the IN-PLACE-vs-REPLACED discriminator separates surgical-broadcast from wholesale-poll BY MECHANISM; the C1 control + poll-count separates broadcast-necessity from poll; present-before kills the vacuous pass; prove-the-instrument kills a false ROW-INERT. **Belt-and-suspenders if C1's poll doesn't fire in-window** (0 after-approve polls weakens C1-stays): the IN-PLACE mechanism is the primary seal (surgical refreshLive can ONLY come from the ViewBus callback, not a poll-rerender); add exclusion-by-content (no positive-arm poll RESPONSE carried the status to the row) only if the mechanism read is ambiguous.
+
+**BUILD REUSE (PO's runway question):** the row run tests the SAME v0.8.116 code (aaf60ef61) — it asks whether the fix covers the ROW path, not new code ⇒ **REUSE the existing worktree build; NO new build.** If the badge-run worktree/dist persists, the row run is a SINGLE run (`COMMIT=aaf60ef61 BUILDDIST=1 ROW_SETTLE=1`, dist cached) ⇒ runnable at ~68%. If the worktree was torn down, it's ONE BUILDDIST re-materialize + one run — same cost profile as the badge run (which the tester ran from a fresh post-rewind window), NOT the 2-build differential. So: tester checks worktree persistence — persists ⇒ single run at ~68%; gone ⇒ one build+run, tester's measured runway call (they undershot before — measure, don't estimate).
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
