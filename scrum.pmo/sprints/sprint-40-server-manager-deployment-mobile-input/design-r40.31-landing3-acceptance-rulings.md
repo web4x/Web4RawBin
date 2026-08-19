@@ -183,6 +183,31 @@ Runtime differential: (i)/(ii) rd samples show cached `obj.status='QA Review'` (
 - **Honest status:** CONTROLS live-MVC flip in-place, passive client, NO RELOAD, broadcast-caused by controlled A/B (C1 zero-after-approve is the seal) = PROVEN. Not overclaimed — the seal is the A/B control, stated as such, not the misfiring flag.
 **(3) SCOPING precision for Tron (the PO's scope is accurate with ONE fix):** "DETAIL re-render demonstrated" must not imply the badge — the DETAIL's ACTION-BAR/CONTROLS re-derived live (PROVEN); the DETAIL's STATUS-BADGE (also a detail sub-element) is the READ-UNCERTAIN one. Frame so "detail proven" + "badge uncertain" don't read as contradictory: control-bar re-rendered = proven; status-badge = uncertain. And "CONTROLS proven" carries the causal basis = A/B (C1 off→no-update, on→update, no-reload) with polls-absent — not the FALSE broadcastByExclusion flag. Net honest scope: **CONTROLS live-MVC PROVEN (causal A/B, verify positive-arm 0-polls to seal) · DETAIL control-bar re-derived PROVEN · BADGE read-uncertain (settle-on-badge at resume) · ROW untested (held).**
 
+### Q3-BADGE SETTLE-ON-BADGE SHAPE (Tron: fix the badge first; PO set the requirement, I rule the shape)
+Must DISCRIMINATE H1 (read-timing artifact: badge did repaint, we settled too early) from H2 (real bug: v0.8.116's rb-task-detail badge-repaint doesn't fire on the passive client) — not merely re-observe. Three outcomes + INVALID.
+
+**PRECONDITIONS (assert-at-test-time — L21; INVALID if unmet, not RED):**
+- A REAL QA-Review task whose rb-task-detail badge RENDERS on client-2's OPEN drawer (drawer open on TARGET; not the row-collapse issue).
+- **PRESENT-BEFORE (req 4):** capture `.dv-status-badge` text == 'QA Review' BEFORE approve. If already 'Done' ⇒ INVALID (an 'is Done' assert passes vacuously).
+- v0.8.116 provenance BOTH arms (trap-5, commit-labelled) + HEAD-moved-mid-run guard.
+- client-2 PASSIVE (never clicks) + sentinel planted + nav-counter=0 (req 3 no-reload).
+
+**PROVE-THE-INSTRUMENT FIRST (the C1-neuter lesson — a broken settle-poller would falsely report H2):**
+- `badgeSettle(el, beforeVal, timeoutMs) → {changed, toValue, latencyMs}` = positive-wait for `el.textContent` to change from beforeVal.
+- Self-test BEFORE any real classify: (a) on a KNOWN in-place change → changed=true within window; (b) on a KNOWN no-change → changed=false at timeout (no hang, no false-positive). Fail ⇒ run INADMISSIBLE.
+
+**POSITIVE ARM (broadcast ON):** capture before-badge; approve TARGET on client-1; **badgeSettle on client-2's `.dv-status-badge` with a GENEROUS timeout (req 1: ≥5s, >> the ~1090ms control latency + any repaint lag), settling on the BADGE ITSELF, NOT control-vanish**; record badge latencyMs AND control-vanish latency in the SAME run (req 1: shows whether the badge merely lagged the controls).
+
+**C1 CONTROL ARM (broadcast-OFF, same build/setup; prove-the-neuter):** approve TARGET with broadcast neutered; badgeSettle with the SAME generous timeout. **REQUIRED: C1 badge must NOT flip** — that is what proves a positive-arm badge-flip is broadcast-caused, not a poll/refetch (req 3).
+
+**DISCRIMINATOR (explicit, all outcomes distinct — req 2; a run that cannot produce them distinctly is INADMISSIBLE):**
+- Positive badge flips 'QA Review'→'Done' within window · C1 badge STAYS · controls flipped ⇒ **H1 = READ-TIMING ARTIFACT** — badge live-MVC via broadcast PROVEN (we settled too early). GREEN. Report badge-latency vs control-latency (the lag).
+- Positive badge NEVER flips within the generous window WHILE controls DID flip same run ⇒ **H2 = REAL BUG** — v0.8.116 badge-repaint doesn't cover rb-task-detail's badge on the passive client. RED → expert fix-on-demand.
+- Positive badge flips BUT C1 badge ALSO flips ⇒ **H3 = POLL-DRIVEN badge** — a poll/refetch updates it, not the broadcast ⇒ NOT broadcast-MVC acceptance (trap-1 for the badge). A distinct finding, not green.
+- Precondition unmet ⇒ **INVALID**, not RED.
+
+**Why this satisfies "not merely re-observe":** the last read settled on control-vanish (which precedes the badge overwrite) → looked too early. This settles on the BADGE with a generous timeout, so H1 and H2 become DISTINGUISHABLE by whether the badge ever changes; the C1 arm separates broadcast-driven (H1) from poll-driven (H3); present-before kills the vacuous pass. Report shape → tester runs → expert fix-on-demand if H2.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
