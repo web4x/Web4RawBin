@@ -121,3 +121,17 @@ Folded run (INSTRUMENT): full differential + (i)/(ii), worktree-built provenance
 - prod 97e8a6ad unchanged (QA Review→QA Review), teardown prod:4444 untouched + 0 leftover.
 
 **NET (measure-first, not the auto-RED, no softening): the CONTROLS live-MVC is FIXED and PROVEN (Tab B vanishes controls from the broadcast, no reload, causal, precedence-confirmed). The BADGE flip is read-uncertain in this run (likely timing, C1 acting-tab reached Done) — flagged for a settle-on-badge follow-up, not greened, not failed.** The core question "does Tab B move" = YES for controls.
+
+---
+
+## R40.31 BADGE SETTLE (Tron's LAST OPEN ITEM) — ★ H1 ARTIFACT CONFIRMED, badge live-MVC PROVEN, GREEN
+
+Harness c72715082 (settle-on-badge, architect shape c15055d04), run `COMMIT=aaf60ef61 BUILDDIST=1 BADGE_SETTLE=1` (positive + C1, worktree-built).
+
+**Instrument SELF-TEST PASSED FIRST (admissibility gate):** badgeSettleProven = {detectsChange:true, cleanTimeout:true} → a 'never flipped' would have been trustworthy. Precond all met: drawer-open, present-before badge='QA Review', passive+no-reload, v0.8.116 both arms.
+
+**POSITIVE (broadcast ON):** badge `QA Review → Done` flipped=true · badgeLatency **1481ms** (lag **+509ms** after controls at 972ms) · controls flipped (approve true→false). client-1 (acting) also Done.
+**C1 (broadcast OFF):** badge flipped=**false** (MUST be false ✓) · no WS frame · 0 polls → the badge flip is BROADCAST-CAUSED, not a poll repaint.
+prod 97e8a6ad unchanged (QA Review), teardown prod:4444 untouched + 0 leftover.
+
+**⇒ VERDICT H1 ARTIFACT CONFIRMED — the badge DOES live-update from the broadcast; the earlier "read-uncertain" (d61c227cb) was settling on control-vanish, which lands ~509ms BEFORE the badge settles. Settle-on-badge (15s) catches it. R40.31 badge = GREEN.** Not H2 (badge did flip), not H3 (C1 didn't flip), not INVALID (instrument proven + precond met). Tron's live-MVC #1 fully resolved: row-badge lag confirmed benign (+509ms), broadcast-caused.
