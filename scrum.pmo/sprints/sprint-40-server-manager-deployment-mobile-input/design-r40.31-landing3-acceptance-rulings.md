@@ -217,6 +217,24 @@ Registering mine independently so two pre-registrations stand (guards post-hoc).
 **Interpretation stance (PO's ask):** read the raw INDEPENDENTLY; if the run cannot support ONE of the four verdicts cleanly (H1/H2/H3/INVALID), call it INVALID and send it back — do NOT interpret around a gap.
 **★ THE TWO PRE-REGISTRATIONS AGREEING DOES NOT STRENGTHEN H1 (PO, correct — the correlated-error lesson turned on ourselves).** PO's ~60/40 and my ~65/25/10 both lean H1 from the SAME basis ("v0.8.116 shipped a repaint + controls flip on the broadcast ⇒ the repaint should ride the same emit"). That is ONE argument held by two agents = a shared prior held twice, NOT two independent arguments — exactly what the bisect refuted (it killed THREE agreeing code-readers; correlated error ≠ corroboration). **Weight the two pre-registrations as ONE, and discount it.** When I read the raw: do NOT let "both predicted H1" function as evidence — read it as if we had predicted H2; H2/H3 is the prior being WRONG, which is what priors are for, not a surprise to explain away. The DATA (the discriminating shape) is the independent method; the priors are just priors. Hold the agreement as loosely as the code-read itself.
 
+### Q3-BADGE VERDICT = H1 ARTIFACT (tester 6f0606596) — my INDEPENDENT cold read, as-if-H2
+Data: instrument PROVEN first (detects-change + clean-timeout) ⇒ admissible. POSITIVE (broadcast ON): badge 'QA Review'→'Done' @ 1481ms (+509ms lag after controls @ 972ms), controls flipped, client-1 Done. C1 (broadcast OFF): badge did NOT flip, 0 polls, no frame. Preconditions met (present-before QA Review, passive, no-reload, v0.8.116 both); prod unchanged.
+**I read it cold (discounted the shared H1 prior, tried to falsify to H2/H3/INVALID):**
+- NOT H2 — the badge DID flip; my ~25% H2 prior is refuted by the data (accepted, not explained away).
+- NOT H3 — C1 (broadcast OFF) badge did NOT flip ⇒ the flip REQUIRES the broadcast (not poll-driven); the drawer badge is /api/ior-driven (loadDetailData), not the /api/trace/children tree poll. The most-important outcome is cleanly excluded by the C1 control.
+- NOT INVALID/INADMISSIBLE — preconditions met, instrument proven.
+- ⇒ **H1 ARTIFACT: badge live-MVC via broadcast PROVEN.** The +509ms lag (badge 1481ms vs controls 972ms) CONCRETELY explains the earlier read-uncertain — the harness settled on control-vanish ~509ms before the badge repainted (we looked too early). Measured explanation, not a dismissal.
+- **Note on the prior: it held BY THE DATA under an adversarial read, not because it was predicted.** Same standard as when it was refuted on the bisect.
+**★ B-BADGE = GREEN.** Badge live-MVC proven, broadcast-caused (C1 control), non-vacuous (present-before), instrument-proven.
+**PO's 3 checks — VERIFIED AGAINST THE RAW (6f0606596), not the tester summary:** (a) NEUTER TOOK — C1 shows **no WS frame** + 0 polls (the prove-the-neuter evidence the tester added after owning the earlier `[^=]*`→`=>` regex bug; the old coincidental C1-pass is closed) ⇒ C1 excludes BOTH poll AND residual-broadcast. (b) present-before is on the `.dv-status-badge` ELEMENT (the earlier textContent-substring bug was fixed), captured 'QA Review' before ⇒ non-vacuous. (c) nothing INVALIDates it — preconditions met, instrument proven `{detectsChange:true,cleanTimeout:true}`, provenance pinned aaf60ef61/BUILDDIST worktree-built, controls flipped (H1/H2 co-condition). **It HOLDS — clean H1, said plainly.**
+
+### R40.31 B — status after the badge verdict
+- **CONTROLS = GREEN** (in-place, passive, no-reload, broadcast-caused by controlled A/B — 581244186).
+- **DETAIL control-bar = GREEN** (re-derived live).
+- **BADGE = GREEN** (H1, this run).
+- **ROW = still HELD/untested** (Tron's 4th named criterion; rides the tester's post-rewind row-clause run with the row-renderability decide-once + expand-to-row).
+⇒ **3 of Tron's 4 named criteria (row+badge+detail+controls) PROVEN live-MVC; ROW is the only open piece.** B is NOT fully closed until the row — do not report B green whole; report 3/4 proven + row pending.
+
 **B acceptance surface:** the OPEN DRAWER (controls vanish + badge flip) IS a legitimate B surface — it is designed to live-update (R40.45), so B's RED/INVALID here is a REAL finding, not a wrong-surface artifact. (The tree ROW/badge is ALSO a designed live surface; either is admissible, but the drawer gap is the one Tron hit.) B stays INVALID/pending the key-reconcile fix, then re-runs. Also validates Q1c: the tester's C1-neuter-never-applied (regex broke on `=> void`, grep-c=0 → earlier C1 PASS was COINCIDENTAL) is exactly the prove-the-instrument rule — INVALID, not RED, is correct.
 
 ## Q2 — /model NOT quiet: my "tree-less" premise is CORRECTED by measurement; adopt CAUSALITY-BY-EXCLUSION
