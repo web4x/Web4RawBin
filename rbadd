@@ -1,0 +1,44 @@
+#!/bin/sh
+# rbadd — the SANCTIONED explicit-stage wrapper (R40.48 Layer-1, architect design-r40.48-two-by-construction-guards).
+#
+# WHY: a broad `git add scenario/index` / `git add -A` / `git add .` in the SHARED working tree sweeps peers'
+# unverified WIP into the committer's commit (4 measured instances). "Explicit paths, never -A" was a REMINDER that
+# kept failing. rbadd makes the right thing the ONLY reachable thing: it stages ONLY explicitly-named files and records
+# them in a per-clone manifest (.git/rb-staged) so the pre-commit subset-check can prove staged ⊆ declared. The
+# broad-add family cannot be EXPRESSED through this tool — a directory / . / -A / -u / a glob that expands to a dir is
+# REFUSED, not staged.
+#
+# USAGE:  ./rbadd <file> [<file> ...]      (name explicit files only — no dirs, no flags, no wildcards-to-dirs)
+set -eu
+
+GIT_DIR=$(git rev-parse --git-dir 2>/dev/null) || { echo "rbadd: not inside a git repository." >&2; exit 1; }
+MANIFEST="$GIT_DIR/rb-staged"
+
+[ "$#" -gt 0 ] || { echo "rbadd: name at least one file — usage: rbadd <file> [<file> ...] (explicit paths only)." >&2; exit 1; }
+
+# REFUSE the broad-add family BEFORE staging anything (fail-closed: one bad arg rejects the whole call).
+for a in "$@"; do
+  case "$a" in
+    -A|--all|-u|--update|-a|--no-all)
+      echo "rbadd: REFUSED '$a' — broad/flag adds are banned (they sweep peers' WIP). Name explicit files only." >&2; exit 1;;
+    .|./|../|*/.|*/..)
+      echo "rbadd: REFUSED '$a' — a directory/dot path stages everything under it. Name the explicit files instead." >&2; exit 1;;
+    -*)
+      echo "rbadd: REFUSED option '$a' — rbadd takes explicit file paths only, no options." >&2; exit 1;;
+  esac
+  if [ -d "$a" ]; then
+    echo "rbadd: REFUSED directory '$a' — name the explicit files inside it, not the dir (a glob that expands to a dir lands here too)." >&2; exit 1
+  fi
+  if [ ! -e "$a" ]; then
+    echo "rbadd: REFUSED '$a' — no such file (a wildcard that matched nothing, or a typo). Nothing staged." >&2; exit 1
+  fi
+done
+
+# Stage ONLY the named files, then record EXACTLY what that staged (paths as git reports them) into the manifest, so
+# the pre-commit check compares against the committer's real declared intent. Append (multiple rbadd calls accumulate
+# for one commit); the pre-commit hook clears the manifest once the commit's gates pass.
+git add -- "$@"
+git diff --cached --name-only -- "$@" >> "$MANIFEST"
+
+COUNT=$(git diff --cached --name-only -- "$@" | grep -c '' || true)
+echo "rbadd: staged + declared $COUNT path(s) → manifest $MANIFEST"

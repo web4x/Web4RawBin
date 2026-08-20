@@ -8,6 +8,18 @@ node scripts/check-camelcase-names.mjs || {
   exit 1
 }
 
+# R40.48 Layer-1: explicit-paths BY CONSTRUCTION — the staged set must be ⊆ what the committer declared via ./rbadd
+# (manifest .git/rb-staged). The broad-add family (git add -A / a dir / scenario/index) sweeps peers' unverified WIP
+# into a commit; "explicit paths" was a REMINDER that failed 4×. WARN-ONLY phase (PO rollout ruling): every undeclared
+# staged path is LOGGED (stderr + a durable per-agent measurement log) but NEVER blocks — the PO pulls the ONE toggle
+# (RB_STAGED_MODE=reject) once the undeclared count drains to 0 across all committers (time-boxed). Runs HERE, BEFORE
+# the auto-regens below (which stage generated files), so it measures ONLY the committer's own staged set. In warn mode
+# the script always exits 0 (the || block fires only under RB_STAGED_MODE=reject → that one env is the whole flip).
+node scripts/check-staged-declared.mjs || {
+  echo "pre-commit BLOCKED: staged⊆declared gate (R40.48) — the paths above were staged but not declared via ./rbadd." >&2
+  exit 1
+}
+
 # Auto-regen + deletion-guard (T37.6): when staged scenario units change, regenerate the sprints.overview.md
 # generated index INSIDE this commit and stage it — so committed-overview == regen-of-committed-units BY
 # CONSTRUCTION (no human quiesce-window race); and refuse any staged deletion of a hand-authored scrum.pmo doc.
@@ -85,3 +97,8 @@ if [ "$NEED_APPROVE" = 1 ]; then
     exit 1
   fi
 fi
+
+# R40.48 Layer-1: all gates passed → this commit proceeds, so CLEAR the declaration manifest; the NEXT commit
+# re-declares its files via ./rbadd from scratch. A commit BLOCKED above never reaches here → its declarations are
+# preserved for the retry. The per-agent measurement warn-log (.git/rb-staged-warnlog) persists across commits.
+rm -f "$(git rev-parse --git-dir)/rb-staged"
