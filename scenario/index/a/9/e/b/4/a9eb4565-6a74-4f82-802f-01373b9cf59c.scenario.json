@@ -4,7 +4,9 @@
     "uuid": "a9eb4565-6a74-4f82-802f-01373b9cf59c",
     "name": "Encrypted Storage",
     "number": 7,
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ecf3e19f-3440-4c8f-806f-aad57254ef3d"
+    ],
     "requirements": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-07-encrypted-storage/planning.md",
     "sourceLine": 1,

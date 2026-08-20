@@ -3,9 +3,9 @@
   "model": {
     "uuid": "5c54dd62-e485-4cfe-9831-927aa197f7cb",
     "name": "bySprintDisplayOrder impl",
-    "description": "DESIGN-AHEAD (R40.50 satisfaction): ONE exported sprint-display comparator bySprintDisplayOrder (b.number-a.number = DESC, Sprint 40 top) in src/ts/scenario/sprint-pin-resolver.ts (sprintNumOf home). Applied INSIDE sprintOverviewNodes + all 6 display sites; ad-hoc flips deleted; 2 algorithmic pin-hop sorts explicitly exempted. Invariant-gate: one comparator/all-import/zero-ad-hoc. Fixes R40.50-violated v0.8.118 /model-ASC drift.",
-    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
-    "designAhead": true,
+    "description": "BUILT v0.8.120 (c45f10fd6): bySprintDisplayOrder (b.number-a.number=DESC) exported from src/ts/scenario/sprint-label.ts (client-safe atom, pin-resolver re-exports server-side); applied in sprintOverviewNodes (server.ts:1524, the shared source = /model fix) + all 6 display sites; ad-hoc flips deleted; 2 pin-hop sorts explicit-exempt. Invariant: one comparator/all-import/zero-ad-hoc.",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts",
+    "designAhead": false,
     "tests": []
   },
   "ownerIor": "ior:instance:ec83425c-b59c-40c1-b478-cb9f09b89462"

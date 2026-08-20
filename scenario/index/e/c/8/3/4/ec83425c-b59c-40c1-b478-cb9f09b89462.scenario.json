@@ -4,7 +4,7 @@
     "uuid": "ec83425c-b59c-40c1-b478-cb9f09b89462",
     "name": "bySprintDisplayOrder",
     "description": "THE one canonical sprint-display comparator (DESCENDING). Every display surface imports it; no ad-hoc sprint-display sort may exist (the 2 semantic pin-hop sorts are explicitly exempt).",
-    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-label.ts",
     "implementations": [
       "ior:instance:5c54dd62-e485-4cfe-9831-927aa197f7cb"
     ],

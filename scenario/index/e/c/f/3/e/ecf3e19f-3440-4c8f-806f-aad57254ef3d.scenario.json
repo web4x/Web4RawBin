@@ -24,7 +24,16 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c",
+    "rehome": {
+      "sprint": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c",
+      "evidenceKind": "self-declared slug resolved via canonical sprintNumOf; target sprint dir exists",
+      "evidence": "slug task-7.0-md-puml-viewer -> sprintNumOf = Sprint 7 (a9eb4565), which EXISTS. One self-declared hop (stronger than a two-hop covered-req chain, weaker-evidence-kind than none).",
+      "by": "robbin-req",
+      "date": "2026-08-20",
+      "note": "PO ruling: slug self-declares its sprint via the canonical sprint-pin-resolver rule (fail-closed, must-resolve-existing-dir) = EVIDENCED. Distinct evidence KIND from covered-req."
+    }
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }
