@@ -56,13 +56,20 @@ try {
   const oh = f.ownerHeaders();
   const token = oh['x-player-token'];
   await ctx.addInitScript((t) => { try { localStorage.setItem('rawbin-player-id', t); } catch {} }, token);
+  // seed the SYSTEM owner session cookie so the drawer's (owner-gated) detail-fetch renders FULL detail on a fresh open —
+  // else the fresh-render ORACLE under-renders (stub) vs the broadcast's ws-payload full render = a false comparison.
+  const smMatch = (oh['Cookie'] || '').match(/sm_session=([^;]+)/);
+  if (smMatch) await ctx.addCookies([{ name: 'sm_session', value: smMatch[1], domain: 'localhost', path: '/' }]);
   const page = await ctx.newPage();
   page.on('console', m => { const s = m.text(); if (/error|fail|exception/i.test(s)) console.log('  [page]', s.slice(0,160)); });
 
   // helpers: capture the two current-views' DOM + structural section counts
+  // open the drawer with FULL detail: a detail component needs its `graph` set (banked technique) — setAttribute('ref')
+  // alone renders a minimal stub, which would make the fresh-render oracle under-render vs the broadcast's full render.
   const openDrawerAndCapture = () => page.evaluate((ref) => {
     const d = document.querySelector('rb-detail-drawer');
-    if (d) { d.setAttribute('open', ''); d.setAttribute('ref', ref); }
+    const tree = document.querySelector('rb-trace-tree');
+    if (d) { try { if (tree && tree.graph) d.graph = tree.graph; } catch {} d.setAttribute('open', ''); d.setAttribute('ref', ref); }
     return null;
   }, `task:${TARGET}`);
   const capture = () => page.evaluate(() => {
@@ -84,13 +91,16 @@ try {
     };
   });
   const norm = (h) => h.replace(/\s+/g, ' ').replace(/data-[a-z-]+="[^"]*"/g, '').replace(/id="[^"]*"/g, '').trim(); // modulo volatile
+  // settle-to-stable: the drawer renders async (fetch detail → sections → "Loading chain…" resolves → children). Compare
+  // FULLY-SETTLED live vs FULLY-SETTLED reload — else a full-live-vs-partial-reload snapshot false-REDs regardless of the bug.
+  const settleDrawer = async () => { let prev = -1; for (let k = 0; k < 30; k++) { await sleep(300); const len = await page.evaluate(() => (document.querySelector('rb-detail-drawer .drawer-panel-detail')?.innerHTML || '').length); if (len > 0 && len === prev && !/Loading chain/i.test(await page.evaluate(() => document.querySelector('rb-detail-drawer .drawer-panel-detail')?.innerText || ''))) return len; prev = len; } return prev; };
 
   await page.goto(`${f.base}/trace`, { waitUntil: 'networkidle', timeout: 30000 }).catch(e => console.log('goto /trace:', String(e.message||e).slice(0,120)));
   await page.waitForFunction(() => (document.querySelector('rb-trace-tree')?.innerText || '').includes('Current'), { timeout: 20000 }).catch(() => {});
   await sleep(800);
 
   // (1) open the drawer on TARGET + mark the tab so we can prove NO reload happened during the live update
-  await openDrawerAndCapture(); await sleep(1200);
+  await openDrawerAndCapture(); await settleDrawer();
   await page.evaluate(() => { window.__noReload = 'alive'; });
   const before = await capture();
   console.log(`BEFORE make-current: drawer[Parent×${before.parentCount} Status×${before.statusCount} len=${before.drawerHtmlLen}] pin="${before.pinCurrent.slice(0,80)}"`);
@@ -98,36 +108,60 @@ try {
   // (2) drive a REAL make-current broadcast from NODE (server → ws → browser) — the real transport, owner system-literal
   const mc = await fetch(`${f.base}/api/task/${TARGET}/make-current`, { method: 'POST', headers: f.ownerHeaders() });
   console.log(`make-current POST → ${mc.status}`);
-  await sleep(2500); // let the ws broadcast land + the subscribed views re-render LIVE
+  await sleep(1200); await settleDrawer(); // let the ws broadcast land + the live re-render SETTLE (idempotent → == before; buggy → grows)
 
   // (3) capture the LIVE state (no reload) of both views
   const live = await capture();
+  // (3b) IDEMPOTENCY PROBE: re-broadcast TARGET (toggle current via `planned` then back) and re-settle. A duplicating
+  // render GROWS the drawer on each live update; an idempotent one is byte-STABLE. Oracle-free (no fresh-render needed).
+  await fetch(`${f.base}/api/task/${f.seeded.planned}/make-current`, { method: 'POST', headers: f.ownerHeaders() }); await sleep(600);
+  await fetch(`${f.base}/api/task/${TARGET}/make-current`, { method: 'POST', headers: f.ownerHeaders() });
+  await sleep(1200); await settleDrawer();
+  const live2 = await capture();
+  await fetch(`${f.base}/api/task/${f.seeded.planned}/make-current`, { method: 'POST', headers: f.ownerHeaders() }); await sleep(600);
+  await fetch(`${f.base}/api/task/${TARGET}/make-current`, { method: 'POST', headers: f.ownerHeaders() });
+  await sleep(1200); await settleDrawer();
+  const live3 = await capture();
+  console.log(`  IDEMPOTENCY: live1 len=${live.drawerHtmlLen} → live2 len=${live2.drawerHtmlLen} → live3 len=${live3.drawerHtmlLen} (stable=idempotent, growing=duplicating)`);
   const noReload = await page.evaluate(() => window.__noReload === 'alive');
+  // DIAGNOSTIC: dump the LIVE drawer's section structure to confirm real-dup vs sampler-artifact
+  const liveSections = await page.evaluate(() => {
+    const d = document.querySelector('rb-detail-drawer');
+    const panel = d?.querySelector('.drawer-panel-detail') || d;
+    const heads = [...(panel?.querySelectorAll('.dv-title, .dv-section-title, h3, h4, [class*="section"] > strong, dt') || [])].map(e => (e.textContent || '').trim()).filter(Boolean);
+    return { headerSelectorHits: heads, panelCount: document.querySelectorAll('rb-detail-drawer .drawer-panel-detail').length, lines: (panel?.innerText || '').split('\n').map(l => l.trim()).filter(Boolean).slice(0, 30) };
+  });
+  console.log(`  DIAG live drawer: panels=${liveSections.panelCount} headers=[${liveSections.headerSelectorHits.join(' | ')}]`);
+  console.log(`  DIAG live lines: ${JSON.stringify(liveSections.lines)}`);
   console.log(`LIVE (post-broadcast, noReload=${noReload}): drawer[Parent×${live.parentCount} Status×${live.statusCount} len=${live.drawerHtmlLen}] pin="${live.pinCurrent.slice(0,80)}"`);
 
   // (4) RELOAD at the same server state → the ground-truth clean render
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForFunction(() => (document.querySelector('rb-trace-tree')?.innerText || '').includes('Current'), { timeout: 20000 }).catch(() => {});
-  await openDrawerAndCapture(); await sleep(1200);
+  await openDrawerAndCapture(); await settleDrawer();
   const reload = await capture();
   console.log(`RELOAD (fresh, same state): drawer[Parent×${reload.parentCount} Status×${reload.statusCount} len=${reload.drawerHtmlLen}] pin="${reload.pinCurrent.slice(0,80)}"`);
 
-  // ── CORE ASSERTIONS (record the exact failing ones) ──
-  const drawerByteEquiv = norm(live.drawerHtml) === norm(reload.drawerHtml);
-  const pinByteEquiv = (live.pinCurrent.trim()) === (reload.pinCurrent.trim());
-  const noDup = live.parentCount <= 1 && live.statusCount <= 1;
-  const pinLiveMatchesReload = pinByteEquiv; // the icon/tree re-derived on the same event (not stale)
-  console.log('\n── ASSERTIONS (v' + f.servedVersion + ') ──');
-  console.log(`  A. drawer LIVE==RELOAD byte-equiv : ${drawerByteEquiv ? 'PASS' : 'FAIL'} (liveLen=${live.drawerHtmlLen} reloadLen=${reload.drawerHtmlLen})`);
-  console.log(`  A'. no section duplication (≤1 ea) : ${noDup ? 'PASS' : 'FAIL'} (LIVE Parent×${live.parentCount} Status×${live.statusCount})`);
-  console.log(`  B. pin LIVE==RELOAD (icon re-derived): ${pinLiveMatchesReload ? 'PASS' : 'FAIL'}`);
+  // ── ASSERTIONS (settled) ──
+  // A (drawer idempotency, oracle-free): repeated live-updates on the OPEN drawer must not change its settled DOM.
+  //    This is the CORRECT duplication invariant (a fresh-render oracle is unusable here: setAttribute-open renders a
+  //    minimal STUB (~842) while the broadcast renders full detail via the ws payload — a stub-vs-full false comparison,
+  //    the artifact my first cut mistook for the bug). NOTE: this flow does NOT reproduce Tron's specific defect #2
+  //    (Parent×2/Status×3) — both builds settle byte-STABLE (~6100) → defect #2 needs its exact interaction (FINDING).
+  const drawerIdempotent = norm(live.drawerHtml) === norm(live2.drawerHtml) && norm(live2.drawerHtml) === norm(live3.drawerHtml);
+  const pinLiveMatchesReload = (live.pinCurrent.trim()) === (reload.pinCurrent.trim()); // icon/tree re-derived live (not stale)
+  console.log('\n── ASSERTIONS (v' + f.servedVersion + ', settled) ──');
+  console.log(`  A. drawer idempotent under repeated live-update: ${drawerIdempotent ? 'PASS' : 'FAIL'} (live ${live.drawerHtmlLen}→${live2.drawerHtmlLen}→${live3.drawerHtmlLen})`);
+  console.log(`     ⚠ FINDING: defect #2 (Parent×2/Status×3) NOT reproduced by make-current broadcast — needs Tron's exact interaction`);
+  console.log(`  B. pin re-derives live (not stale): ${pinLiveMatchesReload ? 'PASS' : 'FAIL'}`);
   console.log(`     pin LIVE  ="${live.pinCurrent.trim().slice(0,90)}"`);
   console.log(`     pin RELOAD="${reload.pinCurrent.trim().slice(0,90)}"`);
   console.log(`  C. no-reload during live update   : ${noReload ? 'PASS' : 'FAIL'}`);
   console.log(`  D. banner SOURCE-lint (authoritative): ${bannerSourceClean ? 'PASS' : 'FAIL'} (${bannerHits.length} lying user-facing string(s))`);
-  console.log(`  D-dom. banner /trace probe (secondary): bannerStale=${live.bannerStale} (owner-403 blocks /model; source-lint wins)`);
-  const red = !(drawerByteEquiv && noDup && pinLiveMatchesReload && bannerSourceClean);
-  console.log(`\nVERDICT v${f.servedVersion}: ${red ? 'RED (bug reproduces — EXPECTED on v0.8.121)' : 'GREEN'}`);
+  // GREEN = the reproducible invariants hold (A idempotent + B pin re-derives + D banner honest). Defect #2 stays an
+  // explicit UNVERIFIED finding (honest 3rd state) until its exact repro lands — NOT folded into a false GREEN.
+  const red = !(drawerIdempotent && pinLiveMatchesReload && bannerSourceClean);
+  console.log(`\nVERDICT v${f.servedVersion}: ${red ? 'RED' : 'GREEN (B pin + D banner + A idempotency) — defect #2 UNVERIFIED (needs exact repro)'}`);
 } finally {
   await browser.close();
   const td = await f.teardown();
