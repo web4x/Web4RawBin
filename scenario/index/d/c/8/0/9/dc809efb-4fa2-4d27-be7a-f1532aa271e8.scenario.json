@@ -22,7 +22,7 @@
       "rolesSeparation": "architect DESIGNS + RE-INSPECTS / trainer PROPAGATES the timeless+pointer shape / req (me) MINTS the AC — never the same agent"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "satisfactionStatus": "UNVERIFIED (honest third state, PO ruling 2026-08-20 — do NOT move off this yet). LINT-SIDE ACs: stub-RED OBSERVED + verified (4079d157b: seeded stale boot => violation, blindness nonexistent-root/0-boots/low-count => RED, --strict exits 1) = the FAILABILITY is proven. But the REQUIREMENT is NOT satisfied, 3 reasons (R40.54 = do-not-satisfy-on-partial-evidence): (1) CURE INCOMPLETE — 2 of 36 boots still state-bearing (trainer mid-cure); (2) enforcement still on the WARN ramp, not the terminal --strict RED (WARN-forever forbidden ad3639d83); (3) AC-discovery-single-source reworded to principle+divergence with the shared-symbol extraction as recorded DEBT (3 local copies today, verified). See terminalCriterion.",
+    "satisfactionStatus": "SATISFIED — PO ruling 2026-08-20 (robbin-po ruled; robbin-req records as status-writer; the PO does NOT write status, the builder does NOT certify own work, and the unit read UNVERIFIED at ruling time = nobody self-flipped). REQUIREMENT satisfaction on PROVEN, OBSERVED evidence (not built-claims): all terminal conditions met + observed first-hand by robbin-req AND independently by the architect running the gate. See poRuling.",
     "crossRef": [
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
       "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
@@ -39,7 +39,7 @@
           "ref": "boot-essence-lint(currency-dimension, efbc30e3e)",
           "assertion": "for each state-bearing boot: named(sprint,version)==HEAD-derived else RED"
         },
-        "stubMustFail": "OBSERVED-RED 4079d157b: seeded stale boot => violation; --strict on the real stale boots exits 1"
+        "stubMustFail": "OBSERVED-RED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): --selftest currency RED bites a stale boot (seeded v0.8.61 => RED, revert => green); source = shipped resolveSprintPin"
       },
       {
         "id": "AC-discovery-single-source",
@@ -50,7 +50,7 @@
           "ref": "structuralDiscover (shared, R40.54/R37.12)",
           "assertion": "discovery is derived-glob + divergence check (unevaluated on-disk boot => RED); a HAND-LIST => RED. (Symbol-sharing = tracked debt, not asserted here.)"
         },
-        "stubMustFail": "PENDING: a hand-list discovery (non-derived) -> RED; divergence (unlisted boot) -> RED"
+        "stubMustFail": "OBSERVED-PRINCIPLE (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): derived-glob 36 boots + divergence (brand-new/renamed agent => UNCLASSIFIED, cannot hide). Shared-SYMBOL extraction = named DEBT (does not gate, PO ruling)."
       },
       {
         "id": "AC-enumerate-not-universal-glob-divergence",
@@ -61,7 +61,7 @@
           "ref": "boot-currency glob+divergence",
           "assertion": "on-disk boot set == evaluated set; a present-but-unevaluated boot => RED"
         },
-        "stubMustFail": "OBSERVED-RED 4079d157b (divergence-sanity): 0-boots / low-count => RED (a shrunken/empty discovered set cannot pass green)."
+        "stubMustFail": "OBSERVED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): 36 boots by glob (floor 7, non-vacuous); discovery-blindness selftest PASS"
       },
       {
         "id": "AC-fail-closed-unparseable",
@@ -72,7 +72,7 @@
           "ref": "boot-currency parser",
           "assertion": "boot-unparseable OR truth-source (package.json / CurrentSprint pin) unreadable/absent => RED; never pass-green"
         },
-        "stubMustFail": "OBSERVED-RED 4079d157b (truth-source side): blindness case nonexistent-root => RED (guard fails loud when its source is unreadable). Boot-parse-unparseable side: PENDING explicit stub."
+        "stubMustFail": "OBSERVED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): fail-closed-symmetric selftest PASS (every truth-source failure => RED; unparseable boot => RED)"
       },
       {
         "id": "AC-lesson-provenance-exempt-scoped",
@@ -83,7 +83,7 @@
           "ref": "boot-currency lesson-scope",
           "assertion": "version under a marked lessons heading => exempt; the SAME version in an active-state position => RED"
         },
-        "stubMustFail": "PENDING dual-control (positional): (a) a version under a marked lessons heading -> exempt/GREEN (positive control); (b) the SAME version in an active-state (## Current/## Goal/anchor) position -> RED"
+        "stubMustFail": "OBSERVED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): positional lessons-exempt selftest PASS (lessons-heading version exempt; active-position version bites)"
       },
       {
         "id": "AC-layer1-own-stub-must-fail-isolated",
@@ -94,7 +94,7 @@
           "ref": "ci:gates (boot-currency stub fixture)",
           "assertion": "the lint's own stub, fed the stale-boot defect, is observed RED before the lint counts as wired"
         },
-        "stubMustFail": "OBSERVED-RED 4079d157b: the lint's own --selftest stub (deliberately-old boot) goes RED; passing stub would fail CI"
+        "stubMustFail": "OBSERVED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): --selftest 17/17 GREEN, each stub bites its own defect; isolated scratch + cleanup"
       },
       {
         "id": "AC-state-removal-cure-target",
@@ -105,7 +105,7 @@
           "ref": "boot-essence-lint(no-active-state assertion)",
           "assertion": "a robbin-OWNED boot with a rotting fact-about-world line (version/commit/stash-ref/path/port/hash/roster) in an active-state position => UNMET/RED; a how-to-find pointer => pass; an oosh boot with state => WARN-LOUD + excluded-not-counted (never silent-drop); an exclusion with NO close-clock => RED; coverage set includes every boot; an excluded name that does NOT resolve to an existing boot (dead exemption) => RED"
         },
-        "stubMustFail": "PENDING multi: (a) seed a ROBBIN boot with each subtle-state class -> UNMET/RED; (b) a how-to-find pointer -> pass (positive control); (c) an oosh boot with state -> WARN-LOUD + excluded-not-counted-against-satisfaction (NOT silent-drop, NOT counted); (d) a named-exclusion with NO close-clock -> RED (no permanent silent carve-out); (e) a fact-shaped line in no enumerated class -> triage-flag; (f) a named-exclusion pointing at a boot that no longer exists (dead exemption) -> RED"
+        "stubMustFail": "OBSERVED (94e24ba59 + robbin-req first-hand (--selftest GREEN + --strict PASS: 36 boots, 0 state-bearing all buckets) + architect independent re-inspect-by-running PASS): OWNED/EXCLUDED/UNCLASSIFIED classified, ALL timeless+pointer = 0 state-bearing; unclassified-state-bearing=>RED-cannot-inherit + dead-exemption flagged (selftest). PENDING (future, non-gating): subtle-state-CLASS divergence triage-flag as an explicit seeded stub."
       },
       {
         "id": "AC-delta-vs-absolute-warn-then-red",
@@ -116,7 +116,7 @@
           "ref": "boot-currency conformance flag + count",
           "assertion": "per-file: state-bearing => WARN until its cure lands then RED; timeless+pointer => pass; not-yet-cured count published, never false-drained"
         },
-        "stubMustFail": "PENDING: a boot still state-bearing AFTER its cure-flag flips -> RED; a false-drained count -> RED"
+        "stubMustFail": "OBSERVED (94e24ba59): ci flipped WARN->live --strict terminal-RED; OWNED cured => absolute-RED live; count published (36 CHECKED, floor 7), never false-drained"
       },
       {
         "id": "AC-lane-boundary-coverage-universal-remediation-coordinated",
@@ -127,14 +127,32 @@
           "ref": "boot-currency coverage set",
           "assertion": "oosh*/other-team boots ARE in the evaluated set (coverage); a missing other-team boot => RED. Remediation of oosh-owned files is process-gated on oosh-PO, not a unilateral edit."
         },
-        "stubMustFail": "PENDING: drop an oosh boot from the evaluated set -> coverage RED"
+        "stubMustFail": "OBSERVED first-hand: coverage = 36 boots incl 3 NAMED oosh (EXCLUDED, reason+closure-clock, WARN-loud not-counted); remediation scoped to owned, oosh closes on oosh-PO; dead-exemption guards stale exclusion"
       }
     ],
     "sequencingRuling": "PO ruling 2026-08-20 (recorded on the unit so it survives rewind, per this req's own doctrine): the Layer-1 currency-lint BUILD and the boot PROPAGATION proceed NOW — they are NOT blocked behind Tron device-verify. ONLY the Layer-2 WORKTREE MIGRATION (R40.48, AC-worktree-isolation-AUTHORIZED-gated) is gated on Tron confirm + live-MVC defect closure. Fixing the boots BEFORE the migration is strictly better: agents must wake correctly INTO the new structure, not carry stale wake-up files across it.",
     "extractionDebt": "DEBT (PO option a, DEFERRED): extract ONE shared structuralDiscover utility and fold the 3 local copies (R40.54 AcGuard / R37.12 live-MVC lint / scripts/check-boot-currency.ts). Deferred deliberately — a 3-lint refactor while boots are mid-cure and the L2 worktree migration is pending is the wrong moment. Owner: architect (owns R40.54 + R37.12 = the single-source-the-discovery-utility fold). WHEN extracted: revert AC-discovery-single-source to the strict shared-SYMBOL wording. crossRef R40.54/R37.12.",
     "terminalCriterion": "R40.55 becomes satisfiable ONLY when ALL hold (R40.54 fail-closed: any open wish => not-satisfiable): (i) state-bearing boots == 0 (architect re-inspect: now 1 still state-bearing, down from 2 — cure in progress); (ii) ci:gates flips from the WARN ramp to the LIVE --strict run = terminal RED (WARN-forever forbidden, ad3639d83); (iii) the terminal-RED flip's own preconditions are met: OWNED-count == 0 AND the NEW named-exclusion mechanism (designed ed9eadecb, currently UNBUILT) is built; (iv) the discovery-AC wording is reconciled (principle+divergence now; strict shared-symbol after the extractionDebt lands); (v) the 2 tracked debts (extractionDebt, contextAnchorCurrencyDebt) resolved or explicitly scoped-out. Only when the flip lands terminal-RED with the exclusion built + count==0 does a RED BASELINE exist to move satisfaction. Until then UNVERIFIED.",
     "contextAnchorCurrencyDebt": "NAMED OBLIGATION (architect D5 + PO ruling 2026-08-20, DEFERRED — tracked not hoped): the state-removal cure moves state from boots INTO context.md anchors, which themselves go days-stale (rot moved one hop, not removed — an anchor is rot-EVIDENT, not rot-PROOF, since it MUST carry state). OBLIGATION: extend the currency invariant (AC-currency-invariant) to context.md anchors once boots are fully cured + L2 migration landed. INTERIM (now): verify-dont-trust anchor framing — a fresh-me treats the anchor as evidence to re-derive against git-HEAD, never as trusted truth (trainer propagates this framing). Sibling of extractionDebt; both live in the unit so they are tracked, not remembered.",
-    "mechanismStatus": "L1 lint MECHANISM PROVEN (architect re-inspect 2026-08-20): stub-RED observed, 11/11 selftest, currency source now CORRECT = resolveSprintPin (FLAG-2 re-inspect PASS — the pin, not highest-dir, matching AC-currency-invariant's single-source). Failability is REAL, not hoped. This is MECHANISM-proven, explicitly NOT requirement-satisfied (see satisfactionStatus + terminalCriterion)."
+    "mechanismStatus": "L1 lint MECHANISM PROVEN + FLIPPED TERMINAL + INDEPENDENTLY VERIFIED (94e24ba59 + robbin-req first-hand + architect ran it): --selftest 17/17 GREEN, --strict PASS on shipped resolveSprintPin. Mechanism-proven + terminally-enforced; requirement now SATISFIED by PO ruling (above).",
+    "poRuling": {
+      "ruledBy": "robbin-po",
+      "date": "2026-08-20",
+      "verdict": "SATISFIED",
+      "provenance": "PO verified the unit on disk before ruling (satisfactionStatus was still UNVERIFIED = nobody self-flipped; AC-state-removal reads coverage-universal/remediation-coordinated, universal phrasing gone).",
+      "criteria": [
+        "(1) OWNED state-bearing == 0 — owned boots cured, run independently by BOTH expert and architect (PO cites 10/10; robbin-req --strict observed 9 OWNED boots, all timeless+pointer — count is a boot-inventory detail, 0-state-bearing is the result either way).",
+        "(2) ci flipped to terminal --strict, OBSERVED not built — 36 boots CHECKED (non-vacuous, floor 7), OWNED 9 / EXCLUDED 3 named-with-closure-clock / UNCLASSIFIED 24, exit 0; honest because exit-0 with 36-timeless proves no state-bearing boot escaped.",
+        "(3) TERMINAL BITE PROVEN — seeded v0.8.61 into an owned boot in isolated scratch => RED with the exact reason, reverted => green.",
+        "(4) discovery-wording reconciled — resolveSprintPin, retired sprintName source removed.",
+        "(5) every AC has a check that PROVABLY FAILS — selftest 17/17 incl stale-version bite / positional exemption / fail-closed on every truth-source failure / classification / dead-exemption.",
+        "(6) INDEPENDENT verification — the architect RAN it (not read the builder's report) and corrected its own design doc where prose misdescribed the shipped guard (6e626ed98)."
+      ],
+      "debtsDoNotGate": "structuralDiscover extraction (extractionDebt) + context-anchor currency (contextAnchorCurrencyDebt) stay OPEN as named obligations with their own closure conditions — debts are not wishes; they do not gate this satisfaction.",
+      "ooshDoesNotGate": "coverage is universal (guard discovers + classifies oosh), remediation scoped to what we own, exclusion explicit + reasoned + time-boxed against oosh-PO coordination."
+    },
+    "satisfactionScope": "★ REQUIREMENT satisfaction on proven evidence — NOT a task->Done. Any task associated with R40.55 still follows normal governance: Tron's QA + a real deliverable at his surface. Do not over-read the SATISFIED flag as a task completion. (PO precision, record both facts.)",
+    "satisfactionHistory": "R40.55 is the requirement that DEFINES the failable-AC family (R40.54 lineage). It took TWO refusals to satisfy it early on partial evidence (lint-side stub-RED proved mechanism, not the requirement) + ONE refusal to let the two tracked debts hold it hostage, before it could be satisfied HONESTLY on observed terminal-RED + independent verification + PO ruling. The discipline it enforces was enforced ON IT."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
