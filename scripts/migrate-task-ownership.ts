@@ -117,6 +117,9 @@ const backup = `/root/.rawbin/task-ownership-backup-${stamp}.tgz`;
 execSync(`mkdir -p /root/.rawbin && tar czf ${backup} -C ${REPO} scenario/index`);
 console.log(`BACKUP: ${backup} (restore: tar xzf it into ${REPO}, or git restore scenario/index)`);
 
+// DELTA baseline (pre-apply): non-Task units already owned by TARGET (pre-existing — e.g. Marcel's Messages/Phone).
+// I3 is DELTA (did the migration CHANGE a non-Task?), never ABSOLUTE (pre-existing owners are not regressions).
+const nonTaskOwnedBefore = all.filter((u) => u.ior !== 'ior:class:Task' && bare(u.ownerIor) === TARGET).length;
 const dUuids = plans.filter((p) => p.action === 'D' && !p.tu.endsWith(':WARN')).map((p) => p.tu);
 const bUuids = plans.filter((p) => p.action === 'B' && !p.tu.endsWith(':WARN')).map((p) => p.tu);
 let wroteA = 0, wroteB = 0, wroteD = 0;
@@ -135,7 +138,8 @@ for (const p of plans) {
 const fresh = new ScenarioIndex(path.join(REPO, 'scenario/index'));
 const freshTasks = [...fresh.list()].map((u) => fresh.get(u)!).filter((u) => u.ior === 'ior:class:Task');
 const owned = freshTasks.filter((u) => bare(u.ownerIor) === TARGET).length;
-const nonTaskChanged = [...fresh.list()].map((u) => fresh.get(u)!).filter((u) => u.ior !== 'ior:class:Task' && bare(u.ownerIor) === TARGET).length;
+const nonTaskOwnedAfter = [...fresh.list()].map((u) => fresh.get(u)!).filter((u) => u.ior !== 'ior:class:Task' && bare(u.ownerIor) === TARGET).length;
+const nonTaskChanged = nonTaskOwnedAfter - nonTaskOwnedBefore; // DELTA — 0 means the migration touched no non-Task (pre-existing owners excluded)
 // D-orphans MUST stay parent-absent (architect: never relocate them); B MUST have parent set.
 const dParentFabricated = dUuids.filter((tu) => { const m = fresh.get(tu)?.model as any; return m && m.parent != null && String(m.parent) !== ''; }).length;
 const bParentMissing = bUuids.filter((tu) => { const m = fresh.get(tu)?.model as any; return !(m && m.parent != null && String(m.parent) !== ''); }).length;
