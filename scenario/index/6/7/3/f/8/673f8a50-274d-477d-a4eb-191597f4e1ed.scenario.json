@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "673f8a50-274d-477d-a4eb-191597f4e1ed",
+    "altId": "R40.52",
+    "name": "The client transmits owner identity on every owner-gated action (owner controls are browser-unusable until it does)",
+    "description": "HEADLINE: every owner-gated UI control - Set-as-Current, Approve, Decline, designate - is STRUCTURALLY UNUSABLE from the browser FOR EVERYONE, not just Tron. NAMED FAILING STEP: the CLIENT NEVER TRANSMITS OWNER IDENTITY. Measured (architect, two EMPTY greps as evidence): (1) no client code ever POSTs /api/server-manager/session - no UI surface mints an owner cookie; (2) no client fetch ever sends x-player-token - make-current/approve/decline/designate send credentials same-origin with NO identity header. So resolveOwner's cookie branch is never minted and its protected-identity branch never receives a token; the browser can only pass via the OWNER_TOKEN literal, which no real user carries. R40.45 readied the SERVER to recognise owner 05e58f81; the CLIENT was never wired to SEND it. This is the 403 half of Tron's failed Set-as-Current (distinct from and bigger than the CR-band 409/status half).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "namedFailingStep": "THE CLIENT NEVER TRANSMITS OWNER IDENTITY",
+    "measuredSurface": {
+      "by": "robbin-expert (read-only)",
+      "date": "2026-08-20",
+      "server_no_change": "ServerManagerGuard.playerTokenFrom(req) reads req.headers[x-player-token] only; resolveOwner + R40.45 branch-3 map it to the owner profile -> 200. Server ALREADY accepts x-player-token; no server change needed.",
+      "bug_sites": "src/public/ts/trace/universal-actions.ts - make-current :138, designate :171, approve/decline (handleTaskVerdict ~:99) all fetch with credentials:same-origin and NO identity header.",
+      "token_source": "RawBinClient.playerToken (live authenticated token the client already holds; used by RoomBrowser/rb-avatar/viewBus) - NOT a scratch-minted cookie.",
+      "precedent": "server.ts:1130 (SM page shell) already fetches /api/server-manager/session with headers x-player-token:token; the send-pattern is proven, just never applied to the owner-action buttons."
+    },
+    "discoverySource": {
+      "type": "architect-diagnosis+tester-runtime",
+      "diagnosedBy": "robbin-architect c6652f88c + robbin-tester a5dcc01e2",
+      "framedBy": "robbin-po",
+      "date": "2026-08-20",
+      "evidence": "two empty greps: no client POSTs /api/server-manager/session (no owner cookie minted); no client fetch sends x-player-token (owner actions same-origin, no identity header). The live 403 on make-current is this session-recognition gap, NOT per-task ownerIor (R40.49 correctly owns the tasks but does not resolve the permission error)."
+    },
+    "crossRef": [
+      "ior:instance:8d476fb9-355b-413f-831f-1a3e70a89a59"
+    ],
+    "crossRefNote": "R40.45 made the SERVER recognise the owner (branch-3 / 05e58f81); R40.52 wires the CLIENT to SEND the identity. Server-ready-client-unwired gap. Pairs with the CR-band (409/status) as the OTHER half of Tron Set-as-Current; keep separate.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-shared-authed-fetch",
+        "group": "by-construction",
+        "text": "ONE SHARED authedFetch(url,opts) in a shared trace module merges headers[x-player-token] = RawBinClient.playerToken, and ALL 4 owner actions route through it - the 4 raw same-origin fetches in universal-actions.ts (make-current :138, designate :171, approve/decline ~:99) are REPLACED. NOT per-button: a per-call-site patch regresses the moment someone adds a button, so identity is attached at ONE shared choke point. Uses the token the client already holds (RawBinClient.playerToken), not a scratch-minted cookie."
+      },
+      {
+        "id": "AC-reuse-r40.45-server-path",
+        "group": "by-construction",
+        "text": "Reuses the EXISTING R40.45 server recognition path (ServerManagerGuard.playerTokenFrom -> resolveOwner branch-3 -> owner 05e58f81); server ALREADY accepts x-player-token so NO server change; the send-pattern is the proven precedent at server.ts:1130 (SM page shell). NO new trust surface, no new endpoint, no second identity mechanism."
+      },
+      {
+        "id": "AC-real-user-path-acceptance",
+        "group": "acceptance/real-path",
+        "text": "Acceptance MUST traverse the REAL USER PATH: a real page @390 headed/xvfb WebKit, NO manual/harness-minted cookie, an owner action returns 200 driven by the client own RawBinClient.playerToken - AND a non-owner token still 403s (fail-closed intact). Construction / local-emit / harness-session proofs are INADMISSIBLE."
+      },
+      {
+        "id": "AC-reject-manual-cookie",
+        "group": "by-construction/reject",
+        "text": "A manual-cookie or harness-minted-session workaround is EXPLICITLY REJECTED as a solution - it proves the endpoint, not the feature. The UI itself must transmit the identity."
+      },
+      {
+        "id": "AC-harness-capability-scopes-to-endpoint",
+        "group": "evidence/certification-scope",
+        "text": "A harness-granted capability the PRODUCT lacks scopes any green to the ENDPOINT, never the FEATURE. The tester earlier got true-but-useless 200s because the harness minted a session NO UI can mint; a Test whose precondition is a harness-only capability must be certified as ENDPOINT-proven, FEATURE-unproven (stub-must-fail: a FEATURE-green claimed on a harness-minted session => RED)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
