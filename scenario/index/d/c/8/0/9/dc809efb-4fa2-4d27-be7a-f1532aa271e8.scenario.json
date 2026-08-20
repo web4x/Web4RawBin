@@ -77,13 +77,13 @@
       {
         "id": "AC-lesson-provenance-exempt-scoped",
         "group": "layer1/enumerated-exemption",
-        "text": "A version inside an explicitly-marked lessons heading (e.g. '## Hard-won patterns (v0.6.0 ...)') is PROVENANCE, not active-state, and is EXEMPT — but ONLY under a marked lessons section, NEVER in a ## Current / ## Goal / anchor position. The exemption is ENUMERATED (a named lessons-heading scope), not a blanket 'ignore all versions'. Prevents a false-RED on robbin-tester's v0.6.0 lesson-stamp.",
+        "text": "A version inside an explicitly-marked lessons heading (e.g. '## Hard-won patterns (v0.6.0 ...)') is PROVENANCE, not active-state, and is EXEMPT — but ONLY under a marked lessons section, NEVER in a ## Current / ## Goal / anchor position. The exemption is POSITIONAL and ENUMERATED (a named lessons-heading scope), NOT a blanket 'ignore all versions' and NOT a self-declaring escape hatch (PO ruled positional (b) over content-sniffing (a)). A version OUTSIDE a lessons heading correctly BITES — that is a true positive, not something this exemption is meant to catch.",
         "gateRef": {
           "kind": "lint",
           "ref": "boot-currency lesson-scope",
           "assertion": "version under a marked lessons heading => exempt; the SAME version in an active-state position => RED"
         },
-        "stubMustFail": "PENDING dual-control: (a) tester v0.6.0 under lessons heading -> GREEN (no false-RED); (b) same version in a ## Current position -> RED"
+        "stubMustFail": "PENDING dual-control (positional): (a) a version under a marked lessons heading -> exempt/GREEN (positive control); (b) the SAME version in an active-state (## Current/## Goal/anchor) position -> RED"
       },
       {
         "id": "AC-layer1-own-stub-must-fail-isolated",
@@ -98,14 +98,14 @@
       },
       {
         "id": "AC-state-removal-cure-target",
-        "group": "layer2/cure-target",
-        "text": "The REAL target (deeper assertion) is that a boot carries NO active-state at all: timeless rules + identity + an ANCHOR POINTER to context.md (refreshed each save) = the R113 shape. ★ STATE IS DEFINED BY THE FACT-vs-FINDER TEST (architect D3 + PO ruling 2026-08-20): a line is STATE if it asserts a FACT ABOUT THE WORLD that ROTS -> STRIP it; a line is TIMELESS if it says HOW TO FIND the fact (a pointer to context.md, a rule, an identity) -> KEEP it. Sprint/version is only the OBVIOUS class; the lint must also catch SUBTLE state that does not look like state, ENUMERATED: (i) transient-git-ref (e.g. stash@{0}, a commit hash used as current-state), (ii) infra-path-or-hash (e.g. a NODE18 vscode-server bin hash, a hardcoded port/path), (iii) pane->role ROSTER (inline agent-pane maps). WITH a divergence/completeness check: a line matching the fact-about-the-world shape but in NO enumerated class => flagged for triage (a NEW state-shape cannot silently pass), never a fixed blind list (enumerate-not-universal, R40.54). The AC is worded so currency-checking (sprint/version) is only the INTERIM guard and does NOT entrench state-bearing boots as acceptable.",
+        "group": "layer2/cure-target-scoped-owned",
+        "text": "The REAL target (deeper assertion) is that a boot carries NO active-state: timeless rules + identity + an ANCHOR POINTER to context.md (R113 shape). ★ WHAT IS STATE — the FACT-vs-FINDER test (architect D3): a line asserting a ROTTING FACT ABOUT THE WORLD => STRIP; a HOW-TO-FIND pointer/rule/identity => KEEP. Enumerated subtle classes the sprint/version check misses: transient-git-ref (stash@{0}), infra-path-or-hash (NODE18 vscode-server bin hash, port), pane->role roster — WITH a divergence/completeness check (a fact-shaped line in no enumerated class => triage-flag, not silent-pass; enumerate-not-universal). ★ WHOSE STATE COUNTS — honest scope (PO false-UNSATISFACTION ruling; same OWNED/EXCLUDED/UNCLASSIFIED shape as named-exclusion ed9eadecb), 3 clauses: (a) COVERAGE UNIVERSAL — the guard DISCOVERS + evaluates EVERY boot fleet-wide; (b) SATISFACTION OWNED — this AC's satisfaction is judged ONLY over boots WE own (robbin-*); a robbin boot carrying active-state => UNMET; (c) EXCLUSION EXPLICIT + TIME-BOXED — other-team boots (oosh-trio, another PO's files we may not edit) are NAMED-EXCLUDED + WARN-LOUD (never silently dropped) + NOT counted against our satisfaction, and the exclusion CLOSES on an oosh-PO-coordination clock (contextAnchorCurrencyDebt-style), NEVER a permanent silent carve-out. This prevents FALSE-UNSATISFACTION (an AC permanently unmet through no fault of ours = the mirror of the false-satisfaction this family kills), while NOT entrenching state-bearing robbin boots as acceptable.",
         "gateRef": {
           "kind": "lint",
           "ref": "boot-essence-lint(no-active-state assertion)",
-          "assertion": "a boot line that is a rotting FACT-ABOUT-THE-WORLD (version/commit/stash-ref/path/port/infra-hash/roster) in an active-state position => flagged/RED; a HOW-TO-FIND pointer => pass; an unclassified fact-shaped line => triage-flag, not silent-pass"
+          "assertion": "a robbin-OWNED boot with a rotting fact-about-world line (version/commit/stash-ref/path/port/hash/roster) in an active-state position => UNMET/RED; a how-to-find pointer => pass; an oosh boot with state => WARN-LOUD + excluded-not-counted (never silent-drop); an exclusion with NO close-clock => RED; coverage set includes every boot"
         },
-        "stubMustFail": "PENDING multi: seed each subtle-state class in an active position -> flagged (a) stash@{0} transient-git-ref, (b) infra path/hash, (c) pane->role roster; AND a how-to-find pointer -> pass (positive control); AND a fact-shaped line in no enumerated class -> triage-flag not silent-pass"
+        "stubMustFail": "PENDING multi: (a) seed a ROBBIN boot with each subtle-state class -> UNMET/RED; (b) a how-to-find pointer -> pass (positive control); (c) an oosh boot with state -> WARN-LOUD + excluded-not-counted-against-satisfaction (NOT silent-drop, NOT counted); (d) a named-exclusion with NO close-clock -> RED (no permanent silent carve-out); (e) a fact-shaped line in no enumerated class -> triage-flag"
       },
       {
         "id": "AC-delta-vs-absolute-warn-then-red",
