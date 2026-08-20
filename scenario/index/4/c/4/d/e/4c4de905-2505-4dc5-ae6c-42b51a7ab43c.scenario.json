@@ -8,7 +8,9 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:f7bb0f20-0dc5-4e59-b2dd-57fcc98d74f8"
+    ],
     "unitLinks": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "crossRef": [

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "5c54dd62-e485-4cfe-9831-927aa197f7cb",
+    "name": "bySprintDisplayOrder impl",
+    "description": "DESIGN-AHEAD (R40.50 satisfaction): ONE exported sprint-display comparator bySprintDisplayOrder (b.number-a.number = DESC, Sprint 40 top) in src/ts/scenario/sprint-pin-resolver.ts (sprintNumOf home). Applied INSIDE sprintOverviewNodes + all 6 display sites; ad-hoc flips deleted; 2 algorithmic pin-hop sorts explicitly exempted. Invariant-gate: one comparator/all-import/zero-ad-hoc. Fixes R40.50-violated v0.8.118 /model-ASC drift.",
+    "sourceFile": "ior:file:src/ts/scenario/sprint-pin-resolver.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:ec83425c-b59c-40c1-b478-cb9f09b89462"
+}

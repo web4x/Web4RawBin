@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f7bb0f20-0dc5-4e59-b2dd-57fcc98d74f8",
+    "name": "sprintOrder.canonical",
+    "description": "Every surface that lists sprints orders them by the ONE canonical comparator (DESCENDING, Sprint 40 top) so /trace and /model cannot disagree (DRY). Satisfies R40.50 (shipped violated in v0.8.118).",
+    "class": "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268",
+    "classes": [
+      "ior:instance:157d1764-afd1-4708-a6a8-de0d06a8c268"
+    ],
+    "method": "ior:instance:ec83425c-b59c-40c1-b478-cb9f09b89462",
+    "tasks": [],
+    "implementations": [],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:4c4de905-2505-4dc5-ae6c-42b51a7ab43c"
+}
