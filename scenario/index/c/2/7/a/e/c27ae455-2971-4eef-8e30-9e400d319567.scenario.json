@@ -1,0 +1,54 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "c27ae455-2971-4eef-8e30-9e400d319567",
+    "name": "CR #86-3: Set-as-Current demotes the previous current to NEXT (single-focus, demotion-intent input)",
+    "task": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "contestsTest": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "requirements": [
+      "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7"
+    ],
+    "reason": "Tron literal: 'when i set Task 40.1 as Set as Current, i WANT the current task 37.25 SET AS NEXT.' A guarantee delivered ALWAYS, not a build-order coincidence.",
+    "changeType": "pin-current-next",
+    "tronDirective": "#86 (Tron 2026-08-20): T40.1 decline minted CR 4babebb1 but produced NO ACTION; CR hung off the Task not the Test; 'processing change requests' grep=0 (never built).",
+    "mechanicDesign": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-r40.1-cr-workflow-status-mechanics.md",
+    "realtime": "META-realtime: the mutation MUST emit ViewBus.notify(viewBusKey({type,uuid})) on the ONE VIEW BUS (v0.8.116 live-bridge) for every affected unit so the GUI re-renders IN-PLACE, no reload — gated by the live-MVC standard (ViewBus callback, not poll/reload).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-setcurrent-atomic-single-focus",
+        "group": "by-construction",
+        "text": "setAsCurrent(T) is atomic: set focus on T AND CLEAR focus on ALL other in-sprint tasks. INV-single-focus: <=1 designation per sprint."
+      },
+      {
+        "id": "AC-demotion-intent-input",
+        "group": "input",
+        "text": "The displaced previous-current is recorded in ONE demotion-intent INPUT field (nextHint/demotedFromCurrent), written ONLY by the set-current handler; it is an input, never a cached 'next' value; clears deterministically."
+      },
+      {
+        "id": "AC-next-derived",
+        "group": "derived",
+        "text": "next = DERIVED from (designation + demotion-intent + taskNumber order): the intent, when present+valid, places the demoted task in the next slot; else next = first not-past by taskNumber asc."
+      },
+      {
+        "id": "AC-tron-literal",
+        "group": "behaviour",
+        "text": "T40.1 Set-as-Current => T37.25 becomes next."
+      },
+      {
+        "id": "AC-no-stored-derived-value",
+        "group": "stub-must-fail",
+        "text": "A stored 'current' representation (name/taskName) OR a cached derived 'next' VALUE holding a task different from the designation -> RED. Only INPUTS are stored (designation + demotion-intent); derived facts (current/next/name/taskName/status) are never stored."
+      },
+      {
+        "id": "AC-realtime",
+        "group": "realtime",
+        "text": "setAsCurrent emits ViewBus.notify(CurrentSprint singleton) -> pin re-renders live (R40.17 live-pin), no reload."
+      }
+    ],
+    "createdBy": "robbin-req",
+    "createdByRole": "robbin-req (capturing Tron #86)",
+    "createdAt": "2026-08-20",
+    "status": "Open"
+  },
+  "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
+}

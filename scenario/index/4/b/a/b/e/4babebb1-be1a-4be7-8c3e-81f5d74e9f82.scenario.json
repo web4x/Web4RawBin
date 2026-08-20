@@ -1,0 +1,49 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "4babebb1-be1a-4be7-8c3e-81f5d74e9f82",
+    "name": "Change Request: Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)",
+    "task": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "requirements": [
+      "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
+      "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8"
+    ],
+    "reason": "its functionally correct, but its not a standard action button but a cutom button wich is wrong.",
+    "createdBy": "05e58f81-34ec-4851-b5b7-5749ca9148a3",
+    "createdAt": "2026-08-18T18:03:40.412Z",
+    "status": "Open",
+    "contestsTest": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "reparentedFrom": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "reparentNote": "Re-parented ownerIor Task->Test per #86 (Tron: 'the change request should be a child of the test, that tested maybe the wrong thing'). CR.task backref PRESERVED so the task checklist sub-step still finds it. Tron's original 'reason' kept VERBATIM (annotate-not-fabricate).",
+    "mechanicDesign": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-r40.1-cr-workflow-status-mechanics.md",
+    "realtime": "META-realtime: the mutation MUST emit ViewBus.notify(viewBusKey({type,uuid})) on the ONE VIEW BUS (v0.8.116 live-bridge) for every affected unit so the GUI re-renders IN-PLACE, no reload — gated by the live-MVC standard (ViewBus callback, not poll/reload).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-cr-owner-is-test",
+        "group": "structure",
+        "text": "ownerIor -> Test c4f8a1d6 (NOT the Task); CR.task -> T40.1 preserved as the backref the checklist reads. Two links, distinct roles."
+      },
+      {
+        "id": "AC-cr-renders-under-test",
+        "group": "render",
+        "text": "The CR renders as a CHILD of the Test on the traceability chain (Req..Test->[CR]); the prior 'no chain path' is gone."
+      },
+      {
+        "id": "AC-cr-drives-action",
+        "group": "behaviour",
+        "text": "An open CR DRIVES the workflow: the task shows the processing-CR sub-step (CR 7286d45a) and Done is blocked; a declined verdict is no longer inert."
+      },
+      {
+        "id": "AC-migration-gated",
+        "group": "migration",
+        "text": "Existing orphan CRs (ownerIor->Task) re-parent via dry-run+count: resolve the declined Test; AMBIGUOUS (multiple tests, no recorded ref) -> leave+FLAG, never guess. No CR lost, CR.task preserved, count before==after."
+      },
+      {
+        "id": "AC-realtime",
+        "group": "realtime",
+        "text": "Re-parent + new-CR emit ViewBus.notify for the Test node (CR child appears live) AND the Task (checklist sub-step) — no reload."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
+}

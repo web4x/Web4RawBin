@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "461d5db6-58a3-4ee5-a930-817b019489de",
+    "name": "CR #86-5: status is a DERIVED getter over the checklist — single-status-writer (foundation)",
+    "task": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "contestsTest": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "requirements": [
+      "ior:instance:03fd79ff-da54-4c91-b542-cbf330cd22aa",
+      "ior:instance:cfe02f4b-f07d-41ec-8aca-c462c22306f9"
+    ],
+    "reason": "Tron sighted T37.25 showing 'QA Review' NOT from its checklist = a status WRITTEN, not derived. Build FIRST: #2/#4 change status and must edit the CHECKLIST, never write status, or they re-introduce the bug.",
+    "changeType": "derived-status",
+    "tronDirective": "#86 (Tron 2026-08-20): T40.1 decline minted CR 4babebb1 but produced NO ACTION; CR hung off the Task not the Test; 'processing change requests' grep=0 (never built).",
+    "mechanicDesign": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-r40.1-cr-workflow-status-mechanics.md",
+    "realtime": "META-realtime: the mutation MUST emit ViewBus.notify(viewBusKey({type,uuid})) on the ONE VIEW BUS (v0.8.116 live-bridge) for every affected unit so the GUI re-renders IN-PLACE, no reload — gated by the live-MVC standard (ViewBus callback, not poll/reload).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-status-derived-getter",
+        "group": "by-construction",
+        "text": "model.status is NEVER stored/written imperatively; it is deriveStatusEnum(statusChecklist) computed on read. The statusChecklist is the ONE source; every state change edits the checklist and status re-derives."
+      },
+      {
+        "id": "AC-fix-known-violation",
+        "group": "fix",
+        "text": "server.ts:1639 'm.status = In Progress' on decline is REPLACED with a CHECKLIST edit (the decline adds/uncrosses the appropriate step per CR 7286d45a); status re-derives — no direct write."
+      },
+      {
+        "id": "AC-detectStatusWrites-gate",
+        "group": "gate",
+        "text": "A CI must-fail lint flags any model.status = <literal or non-derive> write (allow ONLY deriveStatusEnum(...) at the read boundary). stub-must-fail: a seeded m.status='Done' trips it RED."
+      },
+      {
+        "id": "AC-render-equals-derived",
+        "group": "render",
+        "text": "The displayed status (badge/checklist/scoreboard) MUST equal the unit's derived status at render time; the render reads the LIVE-derived value via the ViewBus (re-derives on unit-changed, never latches stale). Gate: rendered==derived at @390 badge; stub-must-fail on a seeded stale render."
+      },
+      {
+        "id": "AC-disambiguate-t3725",
+        "group": "measure-first",
+        "text": "Capture T37.25's ACTUAL rendered badge @390 FIRST: 'In Progress' => Tron mis-sighted adjacent T37.24 (non-bug); 'QA Review' => real render-drift => fix the latch/stale-bus. Do NOT design the fix before the disambiguation says which. (Planner measured stored-vs-derived DRIFT=0 board-wide, so this is RENDER-vs-derived, not stored.)"
+      },
+      {
+        "id": "AC-realtime",
+        "group": "realtime",
+        "text": "A checklist edit emits ViewBus.notify(task) -> the status badge re-derives live (as proven by the badge live-MVC at v0.8.116)."
+      }
+    ],
+    "createdBy": "robbin-req",
+    "createdByRole": "robbin-req (capturing Tron #86)",
+    "createdAt": "2026-08-20",
+    "status": "Open"
+  },
+  "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
+}

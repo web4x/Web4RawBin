@@ -1,0 +1,59 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "18ebe066-d8a0-426d-89ba-8afd9c85114f",
+    "name": "CR #86-4: current auto-advances at QA Review + next recalculated (valid-focus rejects QA, rollup parent)",
+    "task": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "contestsTest": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "requirements": [
+      "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7"
+    ],
+    "reason": "Tron workflow rule: agents work ONLY on the current task until it reaches QA Review; then current auto-progresses to next and a new next is CALCULATED. The board is 'frozen' today because there is no auto-advance (grep=0) and the pin sticks on QA-completed tasks.",
+    "changeType": "pin-auto-advance",
+    "tronDirective": "#86 (Tron 2026-08-20): T40.1 decline minted CR 4babebb1 but produced NO ACTION; CR hung off the Task not the Test; 'processing change requests' grep=0 (never built).",
+    "mechanicDesign": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-r40.1-cr-workflow-status-mechanics.md",
+    "realtime": "META-realtime: the mutation MUST emit ViewBus.notify(viewBusKey({type,uuid})) on the ONE VIEW BUS (v0.8.116 live-bridge) for every affected unit so the GUI re-renders IN-PLACE, no reload — gated by the live-MVC standard (ViewBus callback, not poll/reload).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-valid-focus-rejects-qa",
+        "group": "by-construction",
+        "text": "VALID focus = in-sprint AND not-Done AND NOT-QA-Review (extend the existing valid-focus test to also reject QA-Review). A QA-Review focus is invalid => derivation falls through."
+      },
+      {
+        "id": "AC-auto-advance-free",
+        "group": "by-construction",
+        "text": "When current reaches QA-Review the focus becomes invalid => the derivation falls through to the first not-past task, evaluated fresh each read — NO written step, NO stored transition. 'Stuck on QA' is impossible by construction."
+      },
+      {
+        "id": "AC-rollup-parent-status",
+        "group": "by-construction",
+        "text": "A parent's status is ROLLUP-DERIVED from its children (all children >=QA-Review => parent >=QA-Review; all Done => Done; any child In-Progress => parent <=In-Progress). Coordination-root 37.4 (children all QA-Review, own stored 'Planned') derives to QA-Review and is auto-rejected as current — no special case — and its lying 'Planned' is fixed by construction."
+      },
+      {
+        "id": "AC-recalc-next-deterministic",
+        "group": "deterministic",
+        "text": "new next = demotion-intent-if-still-valid ELSE first not-past not-current task by taskNumber ASC; buildOrder is DROPPED from the spec (absent 0/19 S37, 0/16 S40) — no phantom field, no silent degrade; a real build-order need becomes a separate VISIBLE fix."
+      },
+      {
+        "id": "AC-unstick-demo",
+        "group": "acceptance",
+        "text": "Because both candidate-currents are already QA-Review, the FIRST run of the derivation must VISIBLY move the pin OFF a QA-Review task to the first not-past task, LIVE, no reload."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "Seed a parent whose children are ALL QA-Review while its own checklist says 'Planned' -> derived status QA-Review AND not selectable as current; a suite where it is selectable (or shows 'Planned') = RED."
+      },
+      {
+        "id": "AC-realtime",
+        "group": "realtime",
+        "text": "Any status change that flips focus validity emits ViewBus.notify(CurrentSprint) -> pin re-renders live, no reload."
+      }
+    ],
+    "createdBy": "robbin-req",
+    "createdByRole": "robbin-req (capturing Tron #86)",
+    "createdAt": "2026-08-20",
+    "status": "Open"
+  },
+  "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
+}

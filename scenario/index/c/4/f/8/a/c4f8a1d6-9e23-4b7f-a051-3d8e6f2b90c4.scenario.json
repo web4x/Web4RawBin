@@ -14,7 +14,14 @@
       "proven_real_byconstruction": "403 before resolveRcLink runs (R31.2 choke) = leak impossible; 4 non-owner cases, 0 leak in body/log",
       "proven_harness": "fail-closed url:null+reason never synthesised, stub-must-fail, %1-never-fetches-%0",
       "not_proven_owner_page": "AC-1 button visible+fireable + AC-2 pane->agent isolation e2e (owner page only; Tron owner-QA batch)"
-    }
+    },
+    "changeRequests": [
+      "ior:instance:4babebb1-be1a-4be7-8c3e-81f5d74e9f82",
+      "ior:instance:7286d45a-38ce-47d7-bac9-6589eea78d4b",
+      "ior:instance:c27ae455-2971-4eef-8e30-9e400d319567",
+      "ior:instance:18ebe066-d8a0-426d-89ba-8afd9c85114f",
+      "ior:instance:461d5db6-58a3-4ee5-a930-817b019489de"
+    ]
   },
   "ownerIor": "ior:instance:45853b02-340f-409f-8501-449a119c8ca4"
 }

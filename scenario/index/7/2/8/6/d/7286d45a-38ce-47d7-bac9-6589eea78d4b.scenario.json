@@ -1,0 +1,60 @@
+{
+  "ior": "ior:class:ChangeRequest",
+  "model": {
+    "uuid": "7286d45a-38ce-47d7-bac9-6589eea78d4b",
+    "name": "CR #86-2: 'processing change requests' sub-step under QA Review (present iff open CR)",
+    "task": "ior:instance:7a956c21-5f37-4062-b921-9bdd5a461546",
+    "contestsTest": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4",
+    "requirements": [
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad"
+    ],
+    "reason": "Tron's exact checklist shape: Planned[x] / In Progress[x](refinement[x], creating test cases[ ], implementing[ ], testing[ ]) / QA Review[ ](processing change requests[ ]) / Done[ ]. A decline must NOT regress to In Progress and must NOT lose the QA-Review achievement.",
+    "changeType": "workflow-checklist",
+    "tronDirective": "#86 (Tron 2026-08-20): T40.1 decline minted CR 4babebb1 but produced NO ACTION; CR hung off the Task not the Test; 'processing change requests' grep=0 (never built).",
+    "mechanicDesign": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-r40.1-cr-workflow-status-mechanics.md",
+    "realtime": "META-realtime: the mutation MUST emit ViewBus.notify(viewBusKey({type,uuid})) on the ONE VIEW BUS (v0.8.116 live-bridge) for every affected unit so the GUI re-renders IN-PLACE, no reload — gated by the live-MVC standard (ViewBus callback, not poll/reload).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-substep-present-iff-open-cr",
+        "group": "derived",
+        "text": "The 'processing change requests' sub-step under QA Review is PRESENT iff the task has >=1 OPEN CR (reachable via CR.task, status=Open)."
+      },
+      {
+        "id": "AC-substep-checked-iff-resolved",
+        "group": "derived",
+        "text": "The sub-step is CHECKED iff ALL the task's CRs are resolved; while any is open it stays [ ]."
+      },
+      {
+        "id": "AC-qa-review-unchecked-under-open-cr",
+        "group": "state",
+        "text": "While any CR is open, QA Review is [ ] (NOT Done) with the sub-step; status derives to QA-Review, NEVER In Progress."
+      },
+      {
+        "id": "AC-derived-not-stored",
+        "group": "by-construction",
+        "text": "The sub-step is DERIVED from the open-CR set, not a stored flag (depends on CR 461d5db6 derived status)."
+      },
+      {
+        "id": "AC-supersedes-old-wording",
+        "group": "supersede",
+        "text": "SUPERSEDES the captured wording '77c2086c: QA Review stays [x]' — Tron's new shape (QA Review [ ] + processing-CR sub-step) WINS. Verify-owner-first: 77c2086c minted NO requirement unit (session context.md text only, 0 scenario/index files), so no prior AC/Test credit to preserve; old wording retired explicitly, not silently kept."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "Seed a task with an open CR whose checklist lacks the sub-step (or shows QA Review [x]) -> RED."
+      },
+      {
+        "id": "AC-realtime",
+        "group": "realtime",
+        "text": "CR open/resolve edits the checklist -> ViewBus.notify(task) -> sub-step + badge render live, no reload."
+      }
+    ],
+    "createdBy": "robbin-req",
+    "createdByRole": "robbin-req (capturing Tron #86)",
+    "createdAt": "2026-08-20",
+    "status": "Open",
+    "supersedes": "77c2086c ('QA Review stays [x]', captured session-text 2026-08-18, never minted as a unit)"
+  },
+  "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
+}
