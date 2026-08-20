@@ -16,7 +16,8 @@
       "(i) a peer swept the PO's board/scoreboard files into its commit",
       "(ii) the architect swept the planner's units into a commit",
       "(iii) the expert's uncommitted config-bump + build swept into the tester's 43efc40ae via a broad add -> the phantom 0.8.117 tag (this req's originating incident, cause-corrected)",
-      "(iv) LIVE self-caught 2026-08-20: architect git add scenario/index (broad dir-add) in the shared tree swept robbin-req uncommitted ecf3e19f re-home + a9eb4565 into commit 2edf66a72 (R40.50 backstop) under the architect message; landed valid ONLY because Sprint 7 was committed-real - a fresh unverified unit would have been committed under a foreign message. Confirms AC-no-broad-add-sweep by real evidence."
+      "(iv) LIVE self-caught 2026-08-20: architect git add scenario/index (broad dir-add) in the shared tree swept robbin-req uncommitted ecf3e19f re-home + a9eb4565 into commit 2edf66a72 (R40.50 backstop) under the architect message; landed valid ONLY because Sprint 7 was committed-real - a fresh unverified unit would have been committed under a foreign message. Confirms AC-no-broad-add-sweep by real evidence.",
+      "(v) 2026-08-20 architect: 2 commit attempts LOST to a peer concurrent git op on the shared .git index (recovered via atomic add+commit). DISTINCT + WORSE sub-mode: not a file-SWEEP (peer WIP rides along) but a concurrent-INDEX-RACE that DROPS commits entirely. Layer-1 (rbadd + pre-commit staged-subset) does NOT cover this - only Layer-2 per-agent WORKTREES (isolated .git index) eliminates it. Strengthens AC-worktree-isolation (currently DESIGNED-NOT-AUTHORIZED) toward authorization."
     ],
     "discoverySource": {
       "type": "team-discovery",
@@ -92,7 +93,8 @@
     ],
     "confirmedInstances": 4,
     "enforcementFalseSatisfaction": "AC-no-broad-add-sweep + AC-foreign-file-rides-along-stub existed from mint but were UNENFORCED - a REMINDER (explicit-paths), not a mechanism. So the family kept happening: 4 instances (peer-board / planner-units / 0.8.117 / the 4th 2edf66a72 swept robbin-req unverified WIP). ACs satisfied by nothing = false-satisfaction (same pattern as R40.50 shipped-green-but-violated). The fix is a by-construction ENFORCEMENT layer, not another reminder.",
-    "authoritativeDesignEnforcement": "design-r40.48-two-by-construction-guards.md (193265837)"
+    "authoritativeDesignEnforcement": "design-r40.48-two-by-construction-guards.md (193265837)",
+    "indexRaceSubMode": "The shared-mutable-tree family has TWO write-side modes: (1) broad-add SWEEP (Layer-1 rbadd/pre-commit catches) + (2) concurrent-INDEX-RACE dropping commits (only Layer-2 worktrees catch). Both are why Layer-2 is the real fix."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
