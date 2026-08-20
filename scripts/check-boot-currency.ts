@@ -112,9 +112,12 @@ export const EXCLUSIONS: { name: string; reason: string; until: string }[] = [
   { name: 'oosh-tester', reason: 'other-PO-owned (oosh team, WODA.prod ooshTeam)', until: 'oosh-PO coordinates the oosh boot cure' },
 ];
 export function classify(agent: string): 'OWNED' | 'EXCLUDED' | 'UNCLASSIFIED' {
-  if (/^robbin-/.test(agent) || agent === 'ARON' || /^scrum-master/.test(agent)) return 'OWNED'; // robbin-* + SM + ARON
+  // OWNED = the robbin team + its shared infra, by NAMED prefix/exact (not a catch-all): robbin-* · scrum-master (SM) ·
+  // ARON · agent-trainer (the fleet propagator + rewind-driver, ours — prefix covers the @WODA.prod host variant).
+  // NB `/^scrum-master/` matches the SM but NOT the camelCase scrumMaster-* OOSH script specialists (other-team).
+  if (/^robbin-/.test(agent) || agent === 'ARON' || /^scrum-master/.test(agent) || /^agent-trainer/.test(agent)) return 'OWNED';
   if (EXCLUSIONS.some((e) => e.name === agent)) return 'EXCLUDED';
-  return 'UNCLASSIFIED';
+  return 'UNCLASSIFIED'; // divergence: anything not OWNED/EXCLUDED is held to the OWNED standard (RED iff state-bearing)
 }
 
 function live(strict: boolean): number {
@@ -223,7 +226,8 @@ function selftest(): number {
 
   // ── terminal-RED flip classification (architect ed9eadecb) ──
   ck('classify robbin-* → OWNED', classify('robbin-tester') === 'OWNED' && classify('robbin-po') === 'OWNED');
-  ck('classify ARON + scrum-master → OWNED (SM + ARON)', classify('ARON') === 'OWNED' && classify('scrum-master') === 'OWNED');
+  ck('classify ARON + scrum-master + agent-trainer(+@host) → OWNED', classify('ARON') === 'OWNED' && classify('scrum-master') === 'OWNED' && classify('agent-trainer') === 'OWNED' && classify('agent-trainer@WODA.prod') === 'OWNED');
+  ck('classify scrumMaster-expert (camelCase OOSH specialist) → NOT owned', classify('scrumMaster-expert') !== 'OWNED');
   ck('classify a NAMED oosh-trio entry → EXCLUDED', classify('oosh-po@MacStudio') === 'EXCLUDED');
   ck('classify a NON-named oosh boot → UNCLASSIFIED (cannot inherit the exemption via oosh* wildcard)', classify('oosh-architect') === 'UNCLASSIFIED');
   ck('classify a brand-new unowned agent → UNCLASSIFIED (must be triaged, not silently exempt)', classify('some-new-agent') === 'UNCLASSIFIED');
