@@ -51,7 +51,7 @@
     "check:mutation-seam": "node --import tsx scripts/check-mutation-seam.ts --strict",
     "check:status-writes": "node --import tsx scripts/check-status-writes.ts",
     "check:staged-declared": "node scripts/check-staged-declared.mjs --selftest",
-    "check:boot-currency": "node --import tsx scripts/check-boot-currency.ts --selftest",
+    "check:boot-currency": "node --import tsx scripts/check-boot-currency.ts --selftest && node --import tsx scripts/check-boot-currency.ts --strict",
     "check:reverse-wire": "node scripts/reverse-wire-audit.mjs",
     "check:release-tag": "node --import tsx scripts/check-release-tag.ts --strict",
     "backfill:r4018": "node --import tsx scripts/backfill-r40.18-lastadvancedat.ts",

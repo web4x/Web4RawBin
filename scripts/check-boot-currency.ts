@@ -101,10 +101,26 @@ function discoverBoots(dir: string = AGENTS_DIR): string[] {
   return ents.filter((e) => e.isDirectory()).map((e) => path.join(dir, e.name, 'boot.md')).filter((p) => fs.existsSync(p));
 }
 
+// ── R40.55 terminal-RED flip classification (architect ed9eadecb). Every discovered boot lands in EXACTLY ONE bucket,
+// or it REDs — enumerate-not-universal applies to EXEMPTIONS too (an unnamed/wildcard exemption is how a guard quietly
+// stops guarding). OWNED = a NAMED ownership prefix WE own (not a catch-all). EXCLUDED = an EXPLICIT NAMED list of the
+// other-team boots (never `oosh*`), each with a reason + time-box (WARN-loud, we can't edit them). UNCLASSIFIED =
+// everything else => a new unowned boot cannot silently inherit the exemption; it must be explicitly triaged. ──
+export const EXCLUSIONS: { name: string; reason: string; until: string }[] = [
+  { name: 'oosh-expert', reason: 'other-PO-owned (oosh team, WODA.prod ooshTeam)', until: 'oosh-PO coordinates the oosh boot cure' },
+  { name: 'oosh-po@MacStudio', reason: 'other-PO-owned (oosh team, MacStudio)', until: 'oosh-PO coordinates the oosh boot cure' },
+  { name: 'oosh-tester', reason: 'other-PO-owned (oosh team, WODA.prod ooshTeam)', until: 'oosh-PO coordinates the oosh boot cure' },
+];
+export function classify(agent: string): 'OWNED' | 'EXCLUDED' | 'UNCLASSIFIED' {
+  if (/^robbin-/.test(agent) || agent === 'ARON' || /^scrum-master/.test(agent)) return 'OWNED'; // robbin-* + SM + ARON
+  if (EXCLUSIONS.some((e) => e.name === agent)) return 'EXCLUDED';
+  return 'UNCLASSIFIED';
+}
+
 function live(strict: boolean): number {
   let head: Head;
   try { head = { version: headVersion(), sprint: headSprint() }; }
-  catch (e) { console.error(`check:boot-currency RED (fail-closed truth-source): ${(e as Error).message} — the guard cannot read HEAD, refusing to pass-green.`); return 1; }
+  catch (e) { console.error(`check:boot-currency RED [TRUTH-SOURCE — fix the CurrentSprint designation / package.json, NOT a boot]: ${(e as Error).message} — the guard cannot read HEAD (missing/ambiguous designation or unreadable version), refusing to pass-green. NB this is a DIFFERENT failure class from a stale boot.`); return 1; }
 
   let boots: string[];
   try { boots = discoverBoots(); }
@@ -115,34 +131,53 @@ function live(strict: boolean): number {
   const floor = assertNonVacuous(boots, { name: `boot-currency discovery under ${AGENTS_DIR}`, min: MIN_BOOTS });
   if (!floor.ok) { console.error(`check:boot-currency RED (fail-closed discovery): ${floor.reason} — expected >=${MIN_BOOTS} boots (7+ robbin + oosh trio); a near-zero count means a wrong/stale RB_AGENT_WORKSPACE, refusing to pass-green.`); return 1; }
 
-  const stale: { boot: string; t: Token }[] = [];
-  const stateBearing: string[] = [];
-  const timeless: string[] = [];
+  type Row = { rel: string; agent: string; bucket: 'OWNED' | 'EXCLUDED' | 'UNCLASSIFIED'; conformance: 'timeless+pointer' | 'state-bearing'; violations: Token[] };
+  const rows: Row[] = [];
   let readError = 0;
   for (const b of boots) {
     let text: string;
     try { text = fs.readFileSync(b, 'utf8'); }
     catch { readError++; console.error(`check:boot-currency RED (fail-closed): boot unreadable, not skipped: ${b}`); continue; }
+    const agent = path.basename(path.dirname(b));
     const c = classifyBoot(scanBoot(text), head);
-    const rel = b.replace(AGENT_ROOT + '/', '');
-    if (c.violations.length) for (const t of c.violations) stale.push({ boot: rel, t });
-    if (c.conformance === 'state-bearing') stateBearing.push(rel); else timeless.push(rel);
+    rows.push({ rel: b.replace(AGENT_ROOT + '/', ''), agent, bucket: classify(agent), conformance: c.conformance, violations: c.violations });
   }
 
-  console.log(`check:boot-currency — HEAD v${head.version} / Sprint ${head.sprint}; ${boots.length} boots discovered (${timeless.length} timeless+pointer ✓, ${stateBearing.length} state-bearing).`);
-  if (stale.length) {
-    console.log(`\n  ── CURRENCY VIOLATIONS (named state != HEAD) — ${stale.length}:`);
-    for (const s of stale) console.log(`     ${s.t.kind === 'version' ? 'v' : 'Sprint '}${s.t.value} (named) != ${s.t.kind === 'version' ? 'v' + head.version : 'Sprint ' + head.sprint} (HEAD)  ·  ${s.boot}  [${s.t.raw} under "${s.t.heading || '(top)'}"]`);
+  const ownedState = rows.filter((r) => r.bucket === 'OWNED' && r.conformance === 'state-bearing');
+  const excludedState = rows.filter((r) => r.bucket === 'EXCLUDED' && r.conformance === 'state-bearing');
+  const unclassifiedState = rows.filter((r) => r.bucket === 'UNCLASSIFIED' && r.conformance === 'state-bearing');
+  const timelessCount = rows.filter((r) => r.conformance === 'timeless+pointer').length;
+  const bucketCount = (b: string) => rows.filter((r) => r.bucket === b).length;
+  // dead-exemption: every EXCLUDED name must resolve to a boot that EXISTS on disk (a stale exemption is itself rot).
+  const present = new Set(rows.map((r) => r.agent));
+  const deadExemptions = EXCLUSIONS.filter((e) => !present.has(e.name));
+
+  console.log(`check:boot-currency — HEAD v${head.version} / Sprint ${head.sprint}; ${rows.length} boots CHECKED (${timelessCount} timeless+pointer ✓) — buckets OWNED ${bucketCount('OWNED')} / EXCLUDED ${bucketCount('EXCLUDED')} (named) / UNCLASSIFIED ${bucketCount('UNCLASSIFIED')}.`);
+  const allViol = rows.flatMap((r) => r.violations.map((t) => ({ r, t })));
+  if (allViol.length) {
+    console.log(`\n  ── CURRENCY VIOLATIONS (named state != HEAD) — ${allViol.length}:`);
+    for (const { r, t } of allViol) console.log(`     [${r.bucket}] ${t.kind === 'version' ? 'v' + t.value : 'Sprint ' + t.value} != ${t.kind === 'version' ? 'v' + head.version : 'Sprint ' + head.sprint}  ·  ${r.rel}  [${t.raw} under "${t.heading || '(top)'}"]`);
   }
-  if (stateBearing.length) {
-    console.log(`\n  ── STATE-BEARING boots (WARN — cure to timeless+pointer; not-yet-cured count = ${stateBearing.length}, never false-drained):`);
-    for (const b of stateBearing) console.log(`     ${b}`);
-  }
-  console.log(`\n  NB oosh*/other-team boots are IN the evaluated set (coverage universal); remediation of an oosh-owned boot is oosh-PO-coordinated, this guard only FLAGS it.`);
+  // NAMED EXCLUSIONS always visible (files + reasons + time-box) so an exempted file is never mistaken for a passing one.
+  console.log(`\n  ── NAMED EXCLUSIONS (explicit, time-boxed DEBT — not a wildcard, not a silent skip): ${EXCLUSIONS.length}`);
+  for (const e of EXCLUSIONS) console.log(`     ${e.name} — ${e.reason}; closes when: ${e.until}${present.has(e.name) ? '' : '   ⚠ DEAD (names no boot on disk)'}`);
+  if (excludedState.length) { console.log(`\n  ── EXCLUDED boots STILL state-bearing (WARN-LOUD — other-PO-owned, we cannot fix; flagged, never green-silent):`); for (const r of excludedState) console.log(`     ${r.rel}`); }
+  if (ownedState.length) { console.log(`\n  ── OWNED boots state-bearing (must be timeless+pointer post-cure):`); for (const r of ownedState) console.log(`     ${r.rel}`); }
+  if (unclassifiedState.length) { console.log(`\n  ── UNCLASSIFIED boots state-bearing (TRIAGE: ours→cure, theirs→named-exclude-with-expiry — CANNOT inherit the exemption):`); for (const r of unclassifiedState) console.log(`     ${r.rel}`); }
 
   if (readError) return 1; // an unreadable boot is fail-closed RED regardless of mode
-  if (strict && stale.length) { console.error(`\ncheck:boot-currency RED (--strict/enforce): ${stale.length} currency violation(s) above.`); return 1; }
-  if (stale.length || stateBearing.length) console.error(`\ncheck:boot-currency WARN: ${stale.length} stale + ${stateBearing.length} state-bearing (warn-only rollout; flips to RED per-boot as cures land — AC-delta-vs-absolute). Run with --strict once cured.`);
+  // ── RED reason class 2 = STATE-BEARING/STALE-BOOT (distinct from the truth-source RED at the top — a future RED must
+  // send the next person to the right problem: this one = fix the BOOT; the truth-source one = fix the CurrentSprint
+  // designation / package.json). Dead exemptions RED in any mode (the exemption list itself must not rot). ──
+  const red: string[] = [];
+  if (deadExemptions.length) red.push(`${deadExemptions.length} DEAD exemption(s) [${deadExemptions.map((e) => e.name).join(', ')}] — a named exclusion must resolve to a real boot`);
+  if (strict && ownedState.length) red.push(`${ownedState.length} OWNED boot(s) state-bearing — an owned boot must be timeless+pointer post-cure`);
+  if (strict && unclassifiedState.length) red.push(`${unclassifiedState.length} UNCLASSIFIED boot(s) state-bearing — triage them (cannot inherit the exemption)`);
+  if (red.length) { console.error(`\ncheck:boot-currency RED [STATE-BEARING/STALE-BOOT — fix the boot, NOT the truth-source]: ${red.join('; ')}.`); return 1; }
+
+  if (excludedState.length || (!strict && (ownedState.length || unclassifiedState.length)))
+    console.error(`\ncheck:boot-currency WARN: ${excludedState.length} excluded-still-state-bearing (other-PO debt)${strict ? '' : ` + ${ownedState.length + unclassifiedState.length} owned/unclassified state-bearing (pre-flip WARN)`}.`);
+  console.log(`\ncheck:boot-currency ${strict ? 'PASS (--strict): 0 OWNED/UNCLASSIFIED state-bearing' : 'PASS (warn phase)'} over ${rows.length} boots CHECKED (non-vacuous, floor ${MIN_BOOTS}); ${excludedState.length} named-excluded still-state-bearing carried as WARN-loud debt.`);
   return 0;
 }
 
@@ -185,6 +220,16 @@ function selftest(): number {
   ck('suspiciously-low count (< floor) → refused', !assertNonVacuous(['a', 'b'], { name: 'x', min: MIN_BOOTS }).ok);
   // (k) a healthy count (>= floor) → passes the floor (guard does not false-RED a real fleet).
   ck('healthy count (>= floor) → passes floor', assertNonVacuous(new Array(MIN_BOOTS).fill('b'), { name: 'x', min: MIN_BOOTS }).ok);
+
+  // ── terminal-RED flip classification (architect ed9eadecb) ──
+  ck('classify robbin-* → OWNED', classify('robbin-tester') === 'OWNED' && classify('robbin-po') === 'OWNED');
+  ck('classify ARON + scrum-master → OWNED (SM + ARON)', classify('ARON') === 'OWNED' && classify('scrum-master') === 'OWNED');
+  ck('classify a NAMED oosh-trio entry → EXCLUDED', classify('oosh-po@MacStudio') === 'EXCLUDED');
+  ck('classify a NON-named oosh boot → UNCLASSIFIED (cannot inherit the exemption via oosh* wildcard)', classify('oosh-architect') === 'UNCLASSIFIED');
+  ck('classify a brand-new unowned agent → UNCLASSIFIED (must be triaged, not silently exempt)', classify('some-new-agent') === 'UNCLASSIFIED');
+  // dead-exemption: a named exclusion that resolves to NO boot on disk → flagged (a stale exemption is itself rot).
+  const presentMissingOne = new Set(['oosh-expert', 'oosh-tester']); // oosh-po@MacStudio absent
+  ck('dead-exemption detected (a named exclusion with no boot on disk → flagged)', EXCLUSIONS.filter((e) => !presentMissingOne.has(e.name)).length === 1);
 
   if (fail) { console.error(`check:boot-currency SELFTEST FAILED (${fail}).`); return 1; }
   console.log('check:boot-currency SELFTEST GREEN — currency RED bites on a stale boot; lessons exempt (scoped); no-state classified; fail-closed on unreadable truth. Wired.');
