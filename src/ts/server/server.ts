@@ -1634,11 +1634,17 @@ function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8:
   const crUuid = crypto.randomUUID();
   const requirements = Array.isArray(m.requirements) ? m.requirements : [];   // link the CR to the task's requirement(s)
   UnitController.create(idx, 'ior:class:ChangeRequest', crUuid, { ior: 'ior:class:ChangeRequest', model: { uuid: crUuid, name: `Change Request: ${m.name || taskUuid}`, task: `ior:instance:${taskUuid}`, requirements, reason, createdBy: ownerTok8, createdAt: now, status: 'Open' }, ownerIor: `ior:instance:${taskUuid}` }, { publish: publishUnitChanged }); // R37.11: new ChangeRequest via the seam (create; emit → appears live)
-  m.changeRequests = Array.isArray(m.changeRequests) ? m.changeRequests : [];
-  m.changeRequests.push(`ior:instance:${crUuid}`);
-  m.status = 'In Progress';   // declined → back into the pipeline; NEVER silently Done
-  idx.put(taskUuid, unit);
-  return { code: 200, payload: { ok: true, changeRequest: crUuid, status: 'In Progress' } };
+  // (5a) DERIVED-STATUS (architect 794c8c23a): reopen via the SEAM — TaskPolicy unticks QA Review/Done so deriveStatusEnum
+  // derives 'In Progress' (the SOLE status writer; NO direct m.status), the raw idx.put is GONE (UnitController persists ONCE
+  // + EMITS unit-changed → the task re-renders LIVE, no reload), and the CR-link rides the SAME transaction. Declined →
+  // back into the pipeline; NEVER silently Done. A refused reopen (task not in QA-Review/Done) throws → 409, nothing written.
+  let reopened;
+  try {
+    reopened = UnitController.apply(idx, 'ior:class:Task', taskUuid, { reopen: true, addChangeRequest: `ior:instance:${crUuid}` }, { actor: ownerTok8, publish: publishUnitChanged });
+  } catch (e: any) {
+    return { code: 409, payload: { ok: false, error: 'reopen-refused', detail: String(e?.message || e), changeRequest: crUuid } }; // CR minted (create persisted); status reopen refused
+  }
+  return { code: 200, payload: { ok: true, changeRequest: crUuid, status: String((reopened.model as Record<string, unknown>).status || '') } };
 }
 
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {

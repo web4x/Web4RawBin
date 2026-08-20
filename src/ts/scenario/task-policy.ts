@@ -46,6 +46,13 @@ function tickBox(checklist: string, target: TaskStatusEnum): string {
   return `${checklist.replace(/\s*$/, '')}\n- [x] ${target}`;
 }
 
+/** UN-tick a top-level box (- [x] Target → - [ ] Target); no-op if it isn't ticked. The reopen inverse of tickBox — so a
+ * decline stays DERIVED (untick QA Review/Done → deriveStatusEnum recomputes to In Progress), never a direct status write. */
+function untickBox(checklist: string, target: TaskStatusEnum): string {
+  const re = new RegExp(`^(\\s*- \\[)[xX]\\](\\s*${target}\\b.*)$`, 'm');
+  return re.test(checklist) ? checklist.replace(re, '$1 ]$2') : checklist;
+}
+
 // R40.18 sub-step primitive (found by USING the design — the agent-status skill needs it; without it agents are forced
 // into the hand-edits the mutation-seam lint now outlaws). The In-Progress sub-steps: informational progress markers UNDER
 // the 'In Progress' state. deriveStatusEnum reads ONLY the 4 top-level state boxes, so ticking a sub-step KEEPS the state.
@@ -67,6 +74,11 @@ export const TaskPolicy: UnitPolicy = {
       // recency bump). A QA-Review/Done task is past being-worked → refuse (never silently re-open review/done work).
       const cur = currentState(unit);
       if (cur !== 'Planned' && cur !== 'In Progress') throw new Error(`TaskPolicy: cannot make a '${cur}' task current — only a Planned or In-Progress task can be the one being worked.`);
+      return;
+    }
+    if (intent.reopen) { // (5a) decline → send a QA-Review/Done task BACK to In Progress via a CHECKLIST EDIT (untick), status stays DERIVED
+      const cur = currentState(unit);
+      if (cur !== 'QA Review' && cur !== 'Done') throw new Error(`TaskPolicy: cannot reopen a '${cur}' task — only a QA-Review or Done task can be sent back to In Progress.`);
       return;
     }
     if (intent.subStep !== undefined) { // R40.18: a sub-step tick is NOT a state advance — validate the named box, no legalNext/evidence gate (the evidence gate applies at the In Progress→QA Review state advance)
@@ -94,6 +106,17 @@ export const TaskPolicy: UnitPolicy = {
       }
       m.lastAdvancedAt = new Date().toISOString(); // SEAM-stamped recency (same field the pin ranks by); source='seam' = live stamp
       m.lastAdvancedAtSource = 'seam';
+      return;
+    }
+    if (intent.reopen) { // (5a) decline: UNTICK Done + QA Review → deriveStatusEnum derives In Progress (the SOLE 4-state writer; NO direct m.status).
+      let cl = String(m.statusChecklist ?? '');
+      cl = untickBox(cl, 'Done'); cl = untickBox(cl, 'QA Review');
+      m.statusChecklist = cl;
+      m.status = deriveStatusEnum(cl); // sole 4-state writer — recomputes to In Progress from the edited checklist
+      if (intent.addChangeRequest) { // ride the decline's CR-link in the SAME seam transaction (get() re-reads disk, so a separate push would be lost)
+        const arr = Array.isArray(m.changeRequests) ? (m.changeRequests as string[]) : [];
+        arr.push(String(intent.addChangeRequest)); m.changeRequests = arr;
+      }
       return;
     }
     if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)

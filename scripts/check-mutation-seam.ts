@@ -34,8 +34,8 @@ const ALLOW: { file: string; match: string; reason: string }[] = [
   { file: 'src/ts/scenario/agent-message.ts', match: 'this.idx.put(', reason: 'no view subscribes + no runtime send-caller (measured: 0 send-callers); Task messages[] data-merge defers to T37.4.3' },
   // ── CurrentSprint — DEFERRED-TO-ENDPOINT: an in-process CLI emit reaches 0 WS clients; planner-drive + skill route via the ONE narrow server endpoint (architect ruling). The RUNTIME pin handler in server.ts IS routed.
   { file: 'src/ts/scenario/CurrentSprint.ts', match: 'this.index.put(', reason: 'DEFERRED-TO-ENDPOINT — in-process CLI emit reaches 0 WS clients; planner-drive + skill route via the narrow server endpoint (architect ruling); runtime pin handler routed' },
-  // ── approveByOwner + declineToChangeRequest — write model.status LITERALLY + Task DATA; DEFER-T37.4.3 (deriveStatusEnum sole status writer; Done stays Tron's act).
-  { file: 'src/ts/server/server.ts', match: 'idx.put(taskUuid, unit)', reason: 'approve/decline write model.status + Task data — DEFER-T37.4.3 (behavior migration; deriveStatusEnum sole status writer, Done stays Tron)' },
+  // (5a) approveByOwner + declineToChangeRequest BOTH route through UnitController.apply now (approve=target:Done, decline=reopen)
+  // → the raw `idx.put(taskUuid, unit)` is GONE, its exemption RETIRED. deriveStatusEnum is the sole status writer for both paths.
 ];
 const isAllowed = (f: SeamFinding): boolean => ALLOW.some((a) => a.file === f.file && f.text.includes(a.match));
 
