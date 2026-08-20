@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ae2b7111-0645-4d43-ba09-1954e3fc2737",
+    "altId": "R40.51",
+    "name": "Every Task is reciprocated by exactly one Sprint — 109 orphans re-homed honestly, never fabricated",
+    "description": "Measured while validating R40.49: of 525 Tasks, 109 are ORPHANS — claimed by NO Sprint at all (in zero Sprint.tasks[]) = ~20.8% of the board, invisible in sprint grouping. Breakdown (measured): 99 are old-schema (Sprint only in ownerIor, unreciprocated) = R40.49's Case-D set; +10 are non-old-schema (9 null-owner whose model.parent Sprint does NOT list them back + 1 dual-carrier 708ec0a5) = tasks that ALREADY carry an UNRECIPROCATED parent (the drawer-says-parent-X-but-overview-unsorted drift). PRE-EXISTING, surfaced by the audit, NOT caused by our work. Each Task must be reciprocated by exactly one Sprint; the 99 (and the +10) must be RE-HOMED honestly, never by fabricating a link.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "measured": {
+      "tasks": 525,
+      "orphans_graphwide": 109,
+      "pct": 20.8,
+      "old_schema_D": 99,
+      "nonOldSchema_unreciprocated_parent": 10,
+      "multi_listed": 0,
+      "by": "robbin-req (reproduces the D=99, adds the +10 graph-wide)",
+      "date": "2026-08-20"
+    },
+    "crossRef": [
+      "ior:instance:241bf3c9-1ed7-495e-8af7-fd7abe06f62c",
+      "ior:instance:9cbb649a-9fb9-414b-83e0-80d5a0e556ae"
+    ],
+    "crossRefNote": "Surfaced by the R40.49 reciprocation audit (D=99 orphans). R40.51 is graph-wide (109) = the 99 old-schema + 10 non-old-schema tasks whose parent is not reciprocated. R40.49 explicitly does NOT re-home orphans (leaves them unsorted); R40.51 owns the re-homing.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-reciprocal-membership",
+        "group": "invariant",
+        "text": "Every ior:class:Task is claimed by EXACTLY ONE Sprint via Sprint.tasks[], reciprocated (the task and the Sprint agree). No task in zero sprints; none in multiple."
+      },
+      {
+        "id": "AC-orphan-detector",
+        "group": "detector",
+        "text": "A detector reports the orphan count GRAPH-WIDE (tasks in zero Sprint.tasks[]) + any multi-listed. Measured now: 109 orphans of 525 (20.8%) = 99 old-schema (R40.49 Case-D) + 10 non-old-schema with an unreciprocated parent; 0 multi-listed. The detector counts all 109, not only the 99 old-schema."
+      },
+      {
+        "id": "AC-rehoming-decision-path",
+        "group": "process",
+        "text": "The orphans are re-homed by an EXPLICIT decision path: (a) sprint-number embedded in the task name/slug, else (b) createdAt era, else (c) FLAGGED FOR TRON where genuinely unknowable. NO silent guess."
+      },
+      {
+        "id": "AC-never-fabricate-a-link",
+        "group": "by-construction/law",
+        "text": "A migration must NEVER fabricate a link to satisfy its own rule. Setting a task model.parent (or ownerIor) to a Sprint whose tasks[] does not list it invents data so a migration looks complete = the exact drift this req removes. An orphan stays honestly UNSORTED until a RECIPROCATED claim exists on BOTH sides. stub-must-fail: a re-home that sets a Sprint pointer without adding the task to that Sprint.tasks[] (unreciprocated) => RED."
+      },
+      {
+        "id": "AC-pre-existing-separate-from-R40.49",
+        "group": "scope",
+        "text": "Recorded as PRE-EXISTING (audit-surfaced, not caused by the ownership backfill). R40.49 explicitly does NOT re-home orphans — it sets their owner + drops the stale pointer and leaves them unsorted; R40.51 does the honest re-homing separately."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
