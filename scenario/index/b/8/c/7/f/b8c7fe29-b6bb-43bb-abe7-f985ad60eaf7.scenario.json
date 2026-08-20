@@ -75,7 +75,15 @@
         "id": "AC-architect-flag-no-auto-transition",
         "group": "architect-flag-no-auto-transition",
         "text": "★ ARCHITECT FLAG: does assigning CURRENT also TRANSITION the task (Planned -> In Progress) or leave status untouched? PO instinct = must NOT auto-transition (status stays checklist-derived per R-C5; assigning ATTENTION is not claiming WORK was started). His call — flagged, not decided."
+      },
+      {
+        "id": "AC-user-text-matches-actual-mechanism",
+        "group": "stub-must-fail/honesty",
+        "text": "Any user-facing text (banner/tooltip/label) describing the pin/current mechanism MUST describe the ACTUAL shipped mechanism: a STORED DESIGNATION input (designatedTaskUuid) that overrides the derived current (per AC-explicit-overrides-derived-SINGLE-SOURCE). stub-must-fail: user-facing text asserting the pin follows the derivation / no stored pin (contradicting the shipped designation) => grep-lint / @390 RED. (Tron v0.8.121 defect D: banner still reads no-stored-pin, the opposite of what we shipped.)"
       }
+    ],
+    "crossRef": [
+      "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
     ]
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
