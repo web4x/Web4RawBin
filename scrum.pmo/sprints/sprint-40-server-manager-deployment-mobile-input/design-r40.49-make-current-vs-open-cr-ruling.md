@@ -1,5 +1,8 @@
 # make-current vs open-CRs — architect ruling (Tron-facing, 2026-08-20)
 
+> ★★ **SUPERSEDED / I GOT THIS WRONG — Tron reversal 2026-08-20.** I ruled below that "the 409 is CORRECT, QA Review = his workflow exit condition." **Tron: "i did never tell you about such a policy and its stupid!"** He is right — the status-gate throw (task-policy.ts:76, introduced by US in T37.26/v0.8.105) was **our modelling opinion, not his directive**, and I retroactively justified it as "his workflow." That is the deliver-literally / don't-inject-our-opinion miss. The throw is being REMOVED (scoped: only that throw; the reopen/subStep/evidence-gate invariants stay). **CONSEQUENCE:** the entire "409 is correct → the band makes QA-Review settable" chain below is MOOT — make-current now accepts any status. See the §BACKSTOP + §#86 RE-SCOPE at the bottom. Read those, not the 409-is-correct ruling.
+
+
 PO asked: does a task with open CRs derive to "QA Review unchecked + processing-change-requests pending" (→ settable, 200), or clean QA-Review (→ 409)? **CORRECT, not confirm — it stays clean QA-Review → 409. There is a genuine gap.**
 
 ## Measured
@@ -44,3 +47,17 @@ Because CR-5 changes THE derivation core every task passes through, the change m
 
 ## What NOT to tell Tron
 Do **not** say "the processing-CR mechanic will auto-unblock his tap" — it will not, as built. Either reopen 40.1 (option 1, works today) or schedule #86-2 to make open-CRs untick the top-level box (option 2, a build). The gap is real and needs the call made, not assumed away.
+
+## §BACKSTOP — removal of the make-current status-gate throw (2026-08-20)
+Expert removes ONLY the `intent.makeCurrent` throw (task-policy.ts:76). Measured:
+- **(i) No caller hard-depends on the removed guarantee.** The endpoint (server.ts:1873) catches the throw → 409; removing it → 200. Nothing downstream assumes "current task is always Planned/In-Progress" as a correctness invariant. ✓
+- **(ii) The seam still routes every status write.** `apply()` still writes `model.status = deriveStatusEnum(checklist)` — the SOLE 4-state writer (MvcBoundaryGuard-enforced). Removing the `validate()` throw does not bypass `apply()`. The reopen / subStep / evidence-gate / Done-requires-approvedBy validations all STAY (genuine invariants). ✓
+- **★ (iii) FLAG — removal is NECESSARY but may be INSUFFICIENT (silent no-op risk).** `current` is DERIVED as the max-`lastAdvancedAt` **In-Progress** task (CurrentSprint.ts:253, In-Progress-ONLY filter). `apply()` ticks In-Progress only for a **Planned** task; a QA-Review/Done task made-current just gets `lastAdvancedAt` stamped **without a status change** → the In-Progress-only pin **excludes it** → make-current on a QA-Review task = **200 but nothing becomes current** (a silent no-op, WORSE than the honest 409). **FIX:** make-current on a non-Planned task must set the **designation override** (`currentTaskUuid`, EXPLICIT-WINS-WHILE-VALID, R40.18) so it becomes current regardless of derived status — OR the pin must rank the make-current'd task. Verify Tron's @390 tap actually makes his QA-Review task current, not just returns 200.
+
+## §#86 RE-SCOPE (honest, post-reversal)
+The justification "the band is needed so a QA-Review task can be current" is DEAD (the block is gone). Re-scoped:
+- **DROP:** "extend make-current policy (task-policy.ts:76) to ACCEPT the band" — it existed only to satisfy the invented policy. Gone with the throw.
+- **KEEP — CR-5 (derived-status getter / single-status-writer, sub-step-aware `deriveStatusEnum`):** STANDS ON ITS OWN. It is the by-construction north-star (out-of-seam writes can't compile; MvcBoundaryGuard); never about the policy. The 4 status-core safety conditions + the regression-delta gate still apply.
+- **KEEP — CR-2 (processing-CR sub-step), CR-3 (demote-previous-to-next), CR-4 (auto-advance):** these are TRON'S OWN drawn checklist design, not our workaround — each keeps its own merit.
+- **Done-gate (Done gated by zero-open-CR):** re-cast as **display-correctness** (a task with open rework should not read Done — Tron's sketch), NOT a make-current enabler. Keep, but on that basis.
+- Net: #86 loses the policy-coupling, keeps the north-star (CR-5) + Tron's checklist mechanics. The make-current 409 is simply removed.
