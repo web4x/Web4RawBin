@@ -101,20 +101,32 @@ function discoverBoots(dir: string = AGENTS_DIR): string[] {
   return ents.filter((e) => e.isDirectory()).map((e) => path.join(dir, e.name, 'boot.md')).filter((p) => fs.existsSync(p));
 }
 
-// ── R40.55 terminal-RED flip classification (architect ed9eadecb + 8387b65e5). Every discovered boot lands in EXACTLY
-// ONE bucket, or it REDs. EXCLUDED = other-team boots we neither own nor may edit — expressed as a PREDICATE (PO-revised
-// the "never a prefix" rule): the original NAME-LIST scoped by then-current SYMPTOM (which oosh boots were state-bearing)
-// missed 6 of the 9 oosh boots by OWNERSHIP — a name-list rots exactly like the boot hand-list that missed 3 oosh files.
-// A prefix auto-covers every oosh variant + future ones, and is SAFE here because the report PRINTS every matched file
-// each run — VISIBILITY, not enumeration, is the safety property (a classified-and-printed file is not a silent skip). ──
-export const EXCLUDED_PREDICATE = /^oosh-/;
-export const EXCLUDED_REASON = 'other-PO-owned (oosh team); we may not edit these — flagged WARN-loud, never our RED';
+// ── R40.55 terminal-RED flip classification. An exclusion has TWO ORTHOGONAL axes — a RECONCILIATION of two rulings that
+// answered DIFFERENT questions and only looked contradictory because both landed on the oosh entry (NOT an override; the
+// architect's design stands):
+//   • EXPRESSION (architect 58e2cd3f4 — HOW to express): a PREDICATE (whole team, e.g. /^oosh-/ — auto-covers every
+//     variant + future ones; a name-list rots, it once missed 6 of 9 oosh by scoping to symptom not ownership) OR a
+//     NAMED entry (a single agent). A NAMED entry keeps a DEAD-EXEMPTION liveness check (its name must resolve to a real
+//     boot — a stale name is rot); a predicate can't name a vanished file so dead-exemption is moot there.
+//   • CLOSURE KIND (PO typed-closure — WHEN it closes, typed to the REASON): OWNERSHIP ('not ours' → closes on a
+//     GOVERNANCE ACK, NEVER file-state: clean-today != not-ours-anymore; retiring on all-timeless would re-open the
+//     unfair-RED on a future regression) vs REMEDIATION ('ours-adjacent but currently dirty, can't fix' → closes when
+//     remedied = all-matched-timeless, a machine-checkable EXEMPTION-SATISFIED). Visibility (every matched file PRINTED
+//     each run) is what makes a predicate safe — a classified-and-printed file is not a silent skip. ──
+type Exclusion =
+  | { expr: 'predicate'; predicate: RegExp; label: string; kind: 'ownership' | 'remediation'; reason: string; closesOn: string }
+  | { expr: 'named'; name: string; label: string; kind: 'ownership' | 'remediation'; reason: string; closesOn: string };
+export const EXCLUSIONS: Exclusion[] = [
+  { expr: 'predicate', predicate: /^oosh-/, label: '/^oosh-/', kind: 'ownership', reason: 'other-PO-owned (oosh team); we may not edit these', closesOn: 'oosh-PO governance ACK / ownership transfer (NOT file-state)' },
+  { expr: 'named', name: 'master-product-owner', label: 'master-product-owner', kind: 'ownership', reason: 'higher-authority governance layer managing robbin-po, cross-host MacStudio; coordinate-not-rewrite; TRON-OVERRIDABLE', closesOn: 'master-PO / Tron governance decision (NOT file-state)' },
+];
+const isExcluded = (agent: string): boolean => EXCLUSIONS.some((e) => (e.expr === 'predicate' ? e.predicate.test(agent) : e.name === agent));
 export function classify(agent: string): 'OWNED' | 'EXCLUDED' | 'UNCLASSIFIED' {
   // OWNED = the robbin team + its shared infra, by NAMED prefix/exact (not a catch-all): robbin-* · scrum-master (SM) ·
   // ARON · agent-trainer (the fleet propagator + rewind-driver, ours — prefix covers the @WODA.prod host variant).
   // NB `/^scrum-master/` matches the SM but NOT the camelCase scrumMaster-* OOSH script specialists (other-team).
   if (/^robbin-/.test(agent) || agent === 'ARON' || /^scrum-master/.test(agent) || /^agent-trainer/.test(agent)) return 'OWNED';
-  if (EXCLUDED_PREDICATE.test(agent)) return 'EXCLUDED';
+  if (isExcluded(agent)) return 'EXCLUDED';
   return 'UNCLASSIFIED'; // divergence: anything not OWNED/EXCLUDED is held to the OWNED standard (RED iff state-bearing)
 }
 
@@ -150,25 +162,34 @@ function live(strict: boolean): number {
   const timelessCount = rows.filter((r) => r.conformance === 'timeless+pointer').length;
   const bucketCount = (b: string) => rows.filter((r) => r.bucket === b).length;
   const excludedRows = rows.filter((r) => r.bucket === 'EXCLUDED');
-  // CLOSURE PREDICATE evaluated EVERY run (architect 8387b65e5): all matched oosh-* timeless ⇒ the exclusion is no
-  // longer needed. A machine-checked predicate is self-enforcing; a remembered date is decoration.
-  const exclusionSatisfied = excludedRows.length > 0 && excludedRows.every((r) => r.conformance === 'timeless+pointer');
+  const present = new Set(rows.map((r) => r.agent));
+  // dead-exemption liveness: NAMED entries only (a predicate can't name a vanished file). A named exclusion whose name
+  // resolves to no discovered boot is a stale exemption = rot → RED.
+  const deadNamed = EXCLUSIONS.filter((e): e is Extract<Exclusion, { expr: 'named' }> => e.expr === 'named' && !present.has(e.name));
 
-  console.log(`check:boot-currency — HEAD v${head.version} / Sprint ${head.sprint}; ${rows.length} boots CHECKED (${timelessCount} timeless+pointer ✓) — buckets OWNED ${bucketCount('OWNED')} / EXCLUDED ${bucketCount('EXCLUDED')} (oosh-*) / UNCLASSIFIED ${bucketCount('UNCLASSIFIED')}.`);
+  console.log(`check:boot-currency — HEAD v${head.version} / Sprint ${head.sprint}; ${rows.length} boots CHECKED (${timelessCount} timeless+pointer ✓) — buckets OWNED ${bucketCount('OWNED')} / EXCLUDED ${bucketCount('EXCLUDED')} / UNCLASSIFIED ${bucketCount('UNCLASSIFIED')}.`);
   const allViol = rows.flatMap((r) => r.violations.map((t) => ({ r, t })));
   if (allViol.length) {
     console.log(`\n  ── CURRENCY VIOLATIONS (named state != HEAD) — ${allViol.length}:`);
     for (const { r, t } of allViol) console.log(`     [${r.bucket}] ${t.kind === 'version' ? 'v' + t.value : 'Sprint ' + t.value} != ${t.kind === 'version' ? 'v' + head.version : 'Sprint ' + head.sprint}  ·  ${r.rel}  [${t.raw} under "${t.heading || '(top)'}"]`);
   }
-  // EXCLUDED — PRINT EVERY matched oosh-* boot each run: visibility is the safety property that makes a PREDICATE safe
-  // (a classified-and-printed file is not a silent skip). oosh-* state-bearing ⇒ WARN-loud below, never our RED.
-  console.log(`\n  ── EXCLUDED (oosh-* predicate — ${EXCLUDED_REASON}): ${excludedRows.length} matched, ALL printed:`);
-  for (const r of excludedRows) console.log(`     ${r.agent}${r.conformance === 'state-bearing' ? '   ⚠ state-bearing (WARN-loud — oosh-PO must cure)' : '   ✓ timeless'}`);
-  // EXEMPTION-SATISFIED (REPLACES dead-exemption, architect 8387b65e5 + PO): dead-exemption is moot under a prefix (it
-  // can't name a vanished file) — the live risk is the exemption OUTLIVING ITS NEED (oosh cures → WARN-loud goes silent
-  // → a time-boxed debt quietly becomes permanent). So evaluate the closure-predicate every run + ANNOUNCE it LOUD (never
-  // RED — good news). Keeps the closure clock honest without anyone remembering to check.
-  if (exclusionSatisfied) console.log(`\n  ★★ EXCLUSION SATISFIED: all ${excludedRows.length} oosh-* boots are timeless — the oosh exclusion can be RETIRED and the coordination DEBT CLOSED (closure-predicate met this run). ★★`);
+  // EXCLUDED — per entry: PRINT every matched boot (visibility = the safety property that makes a predicate safe), then
+  // the CLOSURE typed to the entry's KIND. oosh-* / master-PO are OWNERSHIP → governance-boundary line, never all-timeless.
+  console.log(`\n  ── EXCLUDED (${excludedRows.length} boots; closure typed to REASON — ownership≠remediation):`);
+  for (const e of EXCLUSIONS) {
+    const matched = excludedRows.filter((r) => (e.expr === 'predicate' ? e.predicate.test(r.agent) : r.agent === e.name));
+    console.log(`     • ${e.expr} ${e.label}  [${e.kind}] — ${e.reason}`);
+    for (const r of matched) console.log(`         ${r.agent}${r.conformance === 'state-bearing' ? '   ⚠ state-bearing (WARN-loud — coordinate with their PO, never our RED)' : '   ✓ timeless'}`);
+    if (e.expr === 'named' && !present.has(e.name)) console.log(`         ⚠ DEAD exemption — "${e.name}" resolves to NO discovered boot (stale exemption = rot → RED)`);
+    if (e.kind === 'ownership') {
+      // OWNERSHIP boundary: closure is a GOVERNANCE event, NOT file-state (clean-today ≠ not-ours). all-timeless is IRRELEVANT.
+      console.log(`         ↳ OWNERSHIP boundary — NOT closable by file state; closes on: ${e.closesOn}`);
+    } else {
+      // REMEDIATION: the machine-checkable EXEMPTION-SATISFIED — all matched timeless ⇒ retireable. (Reserved; none today.)
+      if (matched.length > 0 && matched.every((r) => r.conformance === 'timeless+pointer'))
+        console.log(`         ★★ EXEMPTION SATISFIED (remediation): all ${matched.length} matched boots timeless — this exemption is RETIREABLE, debt CLOSABLE. ★★`);
+    }
+  }
   // NON-enforcing INVENTORY VISIBILITY (PO): a TIMELESS unclassified boot is protected (held to OWNED standard) but
   // MISLABELED — and a silent gap only surfaces by accident. Some things can be made impossible, some only EVIDENT;
   // this inventory is the latter, so print it loudly (never RED — these may genuinely not be ours). Review for owned-but-unclassified.
@@ -184,6 +205,7 @@ function live(strict: boolean): number {
   // send the next person to the right problem: this one = fix the BOOT; the truth-source one = fix the CurrentSprint
   // designation / package.json). Dead exemptions RED in any mode (the exemption list itself must not rot). ──
   const red: string[] = [];
+  if (deadNamed.length) red.push(`${deadNamed.length} DEAD named exemption(s) [${deadNamed.map((e) => e.name).join(', ')}] — a named exclusion must resolve to a real boot (a stale exemption is rot)`); // RED in any mode
   if (strict && ownedState.length) red.push(`${ownedState.length} OWNED boot(s) state-bearing — an owned boot must be timeless+pointer post-cure`);
   if (strict && unclassifiedState.length) red.push(`${unclassifiedState.length} UNCLASSIFIED boot(s) state-bearing — triage them (cannot inherit the exemption)`);
   if (red.length) { console.error(`\ncheck:boot-currency RED [STATE-BEARING/STALE-BOOT — fix the boot, NOT the truth-source]: ${red.join('; ')}.`); return 1; }
@@ -238,14 +260,20 @@ function selftest(): number {
   ck('classify robbin-* → OWNED', classify('robbin-tester') === 'OWNED' && classify('robbin-po') === 'OWNED');
   ck('classify ARON + scrum-master + agent-trainer(+@host) → OWNED', classify('ARON') === 'OWNED' && classify('scrum-master') === 'OWNED' && classify('agent-trainer') === 'OWNED' && classify('agent-trainer@WODA.prod') === 'OWNED');
   ck('classify scrumMaster-expert (camelCase OOSH specialist) → NOT owned', classify('scrumMaster-expert') !== 'OWNED');
-  ck('classify ANY oosh-* boot → EXCLUDED (predicate covers the whole oosh set + future variants, not a name-list)', classify('oosh-po@MacStudio') === 'EXCLUDED' && classify('oosh-architect') === 'EXCLUDED' && classify('oosh-po@prototype') === 'EXCLUDED');
+  ck('classify ANY oosh-* boot → EXCLUDED (predicate, whole-team + future variants)', classify('oosh-po@MacStudio') === 'EXCLUDED' && classify('oosh-architect') === 'EXCLUDED' && classify('oosh-po@prototype') === 'EXCLUDED');
+  ck('classify master-product-owner → EXCLUDED (NAMED, single agent)', classify('master-product-owner') === 'EXCLUDED');
   ck('classify a brand-new unowned agent → UNCLASSIFIED (must be triaged, not silently exempt)', classify('some-new-agent') === 'UNCLASSIFIED');
-  // EXEMPTION-SATISFIED closure predicate (replaces dead-exemption): all matched excluded boots timeless ⇒ satisfied
-  // (retireable); any state-bearing ⇒ not; zero matched ⇒ nothing to satisfy. Evaluated every run, not a remembered date.
-  const satisfied = (confs: string[]) => confs.length > 0 && confs.every((c) => c === 'timeless+pointer');
-  ck('EXEMPTION-SATISFIED: all oosh timeless → closure MET (debt closable)', satisfied(['timeless+pointer', 'timeless+pointer']));
-  ck('EXEMPTION-SATISFIED: one oosh state-bearing → closure NOT met (debt stands)', !satisfied(['timeless+pointer', 'state-bearing']));
-  ck('EXEMPTION-SATISFIED: zero excluded matched → NOT met (nothing to retire)', !satisfied([]));
+  // TYPED CLOSURE (kind ⟂ expression): only a REMEDIATION kind announces the machine-checked all-timeless SATISFIED; an
+  // OWNERSHIP boundary announces GOVERNANCE regardless of file state (clean-today ≠ not-ours). Mirrors the live gating.
+  const announcesSatisfied = (kind: string, allMatchedTimeless: boolean) => kind === 'remediation' && allMatchedTimeless;
+  ck('OWNERSHIP + all-timeless → does NOT announce SATISFIED (governance boundary, not file-state)', !announcesSatisfied('ownership', true));
+  ck('REMEDIATION + all-timeless → announces SATISFIED (reserved mechanism, kept real by this test)', announcesSatisfied('remediation', true));
+  ck('REMEDIATION + a state-bearing → does NOT announce SATISFIED', !announcesSatisfied('remediation', false));
+  ck('all current exclusions are OWNERSHIP-kind → none auto-closes on all-timeless today', EXCLUSIONS.every((e) => e.kind === 'ownership'));
+  // dead-exemption liveness (NAMED entries only — a predicate cannot name a vanished file): a named entry whose name
+  // resolves to no discovered boot → flagged (a stale exemption is rot).
+  const presentSet = new Set(['oosh-architect']); // master-product-owner absent from this fixture set
+  ck('dead-exemption (named) detected when the name resolves to no boot', EXCLUSIONS.filter((e) => e.expr === 'named' && !presentSet.has(e.name)).length === 1);
 
   if (fail) { console.error(`check:boot-currency SELFTEST FAILED (${fail}).`); return 1; }
   console.log('check:boot-currency SELFTEST GREEN — currency RED bites on a stale boot; lessons exempt (scoped); no-state classified; fail-closed on unreadable truth. Wired.');
