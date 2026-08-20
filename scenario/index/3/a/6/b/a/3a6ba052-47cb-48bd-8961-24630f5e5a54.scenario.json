@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3a6ba052-47cb-48bd-8961-24630f5e5a54",
+    "name": "test:R40.55 bootGuard.assertCurrencyAndStatelessness — both dimensions bite (version-divergence + no-active-state) + seeded-regression terminal-bite-after-cure",
+    "description": "Bridged to test/visual/r4055-boot-currency-gate.mjs (r4055, tester commit 025b4f8b3, 5/5 GREEN, isolated synthetic scratch). Distinct-intent = R40.55's OWN scope, BOTH dimensions bite: version-divergence (v0.8.61 != HEAD -> RED) AND no-active-state (sprint-seed -> RED). Adopts the guard's 22 --selftest failability cases (not re-derived) + ADDS the seeded-regression the pure selftests lacked: seed a stale/state boot into a REAL owned boot in isolated scratch -> --strict RED -> revert -> GREEN (terminal-bite-AFTER-cure, per PO). Isolated, no pollution.",
+    "sourceFile": "ior:file:test/visual/r4055-boot-currency-gate.mjs",
+    "implementations": [
+      "ior:instance:ec656cde-4b9f-4893-ac67-87d4a53b17de"
+    ],
+    "certificationScope": {
+      "state": "chain-complete-to-Test (R40.55)",
+      "gate": "r4055 5/5 GREEN isolated, tester 025b4f8b3",
+      "proves": "the shipped guard bites BOTH dimensions + terminal-bite-after-cure",
+      "note": "R40.55 requirement SATISFACTION is a SEPARATE fact (PO ruling, satisfactionStatus=SATISFIED); this Test completes the traceability CHAIN, it does not re-establish satisfaction."
+    },
+    "gate": "r4055 5/5 GREEN, tester 025b4f8b3",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:ec656cde-4b9f-4893-ac67-87d4a53b17de"
+}

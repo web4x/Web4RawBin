@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "67245a08-3f29-470f-b6a6-84d031550529",
+    "name": "BootCurrencyGuard",
+    "description": "Module-as-class for scripts/check-boot-currency.ts — the boot active-section currency + statelessness guard (R40.55): module-level functions, no literal class keyword (same module-as-class as prior script chains; the [impl] marker lands on the gate Method decl). Discovers every boot by glob, classifies OWNED/EXCLUDED/UNCLASSIFIED, gates currency-divergence + no-active-state + dead-exemption.",
+    "sourceFile": "ior:file:scripts/check-boot-currency.ts",
+    "methods": [
+      "ior:instance:5f969cfe-9277-4948-adbb-8061d8fb2e4c"
+    ]
+  },
+  "ownerIor": "ior:instance:f7945307-892a-411a-9403-b7b220977318"
+}

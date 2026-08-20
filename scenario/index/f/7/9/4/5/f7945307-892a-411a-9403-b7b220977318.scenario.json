@@ -4,8 +4,8 @@
     "uuid": "f7945307-892a-411a-9403-b7b220977318",
     "name": "bootGuard.assertCurrencyAndStatelessness",
     "description": "The currency dimension folded into the boot-essence lint: discover every session/agents/*/boot.md by glob (fleet-wide, incl oosh*/@host), assert each state-bearing boot's named sprint/version == gitHEAD.derived (fail-closed on unparseable, lessons-heading exempt), divergence-check the discovered vs evaluated set, and escalate the deeper no-active-state assertion WARN->RED per cured file. Routes through the shared structuralDiscover.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:67245a08-3f29-470f-b6a6-84d031550529",
+    "method": "ior:instance:5f969cfe-9277-4948-adbb-8061d8fb2e4c",
     "parent": "ior:instance:dc809efb-4fa2-4d27-be7a-f1532aa271e8",
     "unitLinks": [],
     "note": "Architect wires Class (extend boot-essence lint via shared structuralDiscover) + Method on build-go, then RE-INSPECTS (verify discovered-set covers new/renamed boots; verify the stub fails)."
