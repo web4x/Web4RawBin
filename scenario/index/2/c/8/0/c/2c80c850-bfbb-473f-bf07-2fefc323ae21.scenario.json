@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2c80c850-bfbb-473f-bf07-2fefc323ae21",
+    "name": "requirement.enforceFailableACs",
+    "description": "Enforce the R40.54 meta-guard: satisfiable(req) is fail-closed on any AC lacking a gateRef + proven-RED stub; the wish-sweep enumerates unfailable ACs; universal ACs require enumeration+divergence+completeness. Class AcGuard, Methods assertEveryAcFailable / sweepWishes / assertUniversalEnumerated (architect wires on build-go).",
+    "class": null,
+    "method": null,
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+}
