@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "74726bd5-e53f-4359-9df4-c51477c72a9d",
+    "name": "OwnerActionFetch",
+    "description": "Client owner-action fetch helper (R40.52). Owner-scoped identity-header attach; CSRF-safe by header (not cookie). src/public/ts/trace/universal-actions.ts",
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "methods": [
+      "ior:instance:044d64c1-138d-48bb-8647-f04083ca43db"
+    ]
+  },
+  "ownerIor": "ior:instance:db78cffa-e3ea-4f89-9300-55653b697aab"
+}

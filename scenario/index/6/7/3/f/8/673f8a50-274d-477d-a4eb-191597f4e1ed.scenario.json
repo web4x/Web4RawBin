@@ -8,7 +8,9 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:db78cffa-e3ea-4f89-9300-55653b697aab"
+    ],
     "unitLinks": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "namedFailingStep": "THE CLIENT NEVER TRANSMITS OWNER IDENTITY",

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "044d64c1-138d-48bb-8647-f04083ca43db",
+    "name": "OwnerActionFetch.authedFetch",
+    "description": "Merge x-player-token=RawBinClient.playerToken into an owner-action fetch; the ONE sanctioned path for every owner-authorized action (present+future) so no raw fetch re-introduces the missing-identity bug.",
+    "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
+    "implementations": [
+      "ior:instance:4f85fa3e-1bf4-4e95-ae43-772acac87d91"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:74726bd5-e53f-4359-9df4-c51477c72a9d"
+}
