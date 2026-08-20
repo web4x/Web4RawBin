@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "128cc39d-1417-4940-a7fb-2d71e34aa201",
+    "name": "AcGuard.assertUniversalEnumerated",
+    "description": "A universal ALL-X AC must carry enumerated-list + divergence-crosscheck + completeness (new X not enrolled -> RED).",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "implementations": [
+      "ior:instance:cd5a382f-d491-40fb-ab24-a05ca45e3288"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b6224848-10bd-476d-b285-d1c1b78893cc"
+}

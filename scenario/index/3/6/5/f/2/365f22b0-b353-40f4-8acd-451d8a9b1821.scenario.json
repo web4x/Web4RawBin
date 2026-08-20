@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "365f22b0-b353-40f4-8acd-451d8a9b1821",
+    "name": "AcGuard.sweepWishes",
+    "description": "Enumerate ALL ACs across ALL reqs, report unfailable (no gateRef / no proven-RED stub / universal-without-enumeration); --strict RED while count>0; false-drain detector.",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "implementations": [
+      "ior:instance:a7565e69-8076-452b-a1c9-62a1b5a4acc6"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b6224848-10bd-476d-b285-d1c1b78893cc"
+}

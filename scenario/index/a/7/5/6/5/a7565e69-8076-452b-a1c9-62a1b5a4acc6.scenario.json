@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "a7565e69-8076-452b-a1c9-62a1b5a4acc6",
+    "name": "AcGuard.sweepWishes impl",
+    "description": "DESIGN-AHEAD (R40.54 meta-guard): Enumerate ALL ACs across ALL reqs, report unfailable (no gateRef / no proven-RED stub / universal-without-enumeration); --strict RED while count>0; false-drain detector.",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:365f22b0-b353-40f4-8acd-451d8a9b1821"
+}

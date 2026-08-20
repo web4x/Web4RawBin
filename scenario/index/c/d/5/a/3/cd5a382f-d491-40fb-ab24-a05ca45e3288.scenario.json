@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "cd5a382f-d491-40fb-ab24-a05ca45e3288",
+    "name": "AcGuard.assertUniversalEnumerated impl",
+    "description": "DESIGN-AHEAD (R40.54 meta-guard): A universal ALL-X AC must carry enumerated-list + divergence-crosscheck + completeness (new X not enrolled -> RED).",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:128cc39d-1417-4940-a7fb-2d71e34aa201"
+}

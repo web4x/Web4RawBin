@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "b6224848-10bd-476d-b285-d1c1b78893cc",
+    "name": "AcGuard",
+    "description": "Meta-guard (R40.54): no requirement Satisfied while any AC is unfailable. src/ts/scenario/ac-guard.ts",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "methods": [
+      "ior:instance:96e5316b-3ae5-4a52-801b-9f89d6c480df",
+      "ior:instance:365f22b0-b353-40f4-8acd-451d8a9b1821",
+      "ior:instance:128cc39d-1417-4940-a7fb-2d71e34aa201"
+    ]
+  },
+  "ownerIor": "ior:instance:2c80c850-bfbb-473f-bf07-2fefc323ae21"
+}

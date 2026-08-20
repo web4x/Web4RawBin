@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "96e5316b-3ae5-4a52-801b-9f89d6c480df",
+    "name": "AcGuard.assertEveryAcFailable",
+    "description": "Fail-closed satisfaction: a req is satisfiable ONLY if EVERY AC has a gateRef + a proven-RED stub + current-GREEN gate; any wish -> not satisfiable. The primary meta-guard.",
+    "sourceFile": "ior:file:src/ts/scenario/ac-guard.ts",
+    "implementations": [
+      "ior:instance:c3b86621-e2cc-45c6-be11-04685c3f6235"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:b6224848-10bd-476d-b285-d1c1b78893cc"
+}
