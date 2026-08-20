@@ -78,9 +78,14 @@
         "text": "Stage a file the committer did NOT name (simulate a peer WIP swept in) -> pre-commit goes RED. Proves the guard bites - the exact 2edf66a72 sweep becomes impossible to commit."
       },
       {
-        "id": "AC-worktree-isolation-designed-not-authorized",
-        "group": "scope/deferred",
-        "text": "The ULTIMATE fix (per-agent git worktrees: a broad add can only touch that agent own changes, no peer WIP present to sweep = eliminates the family by isolation) is DESIGNED (193265837 Layer 2) but NOT AUTHORIZED to ship - PO is raising it with Tron (it changes every agent workflow). Layer 1 (rbadd + pre-commit) ships as the enforced interim; do NOT build worktrees until authorized."
+        "id": "AC-worktree-isolation-authorized-gated",
+        "group": "by-construction/authorized",
+        "text": "Per-agent git worktrees (Layer-2 - eliminates the file-sweep (i-iv) AND the index-race (v) by ISOLATION: each agent has its own .git index/branch, self-integrates to main when clean) are AUTHORIZED BY TRON. Migration is GATED on LIVE-MVC DEFECT CLOSURE: do NOT migrate the fleet while any live-MVC defect AC (R37.12 A/B/C + R40.17 D) is still open - Tron sequenced the migration AFTER his live-MVC defects close; Layer-1 (rbadd + pre-commit staged-subset) ships NOW regardless. The gate stays EXPLICIT (an authorization without its condition would let someone migrate the fleet mid-fix, exactly what he sequenced against). stub-must-fail: the worktree migration executed while ANY live-MVC defect AC is still open => RED."
+      },
+      {
+        "id": "AC-conflict-escalates-to-po",
+        "group": "by-construction/authorized",
+        "text": "In the worktree migration, agents SELF-INTEGRATE to main when clean; a CONFLICT (two agents on one unit = a SCOPE call, not a mechanical merge) ESCALATES to the PO - NEVER silently auto-resolved. stub-must-fail: a conflict auto-resolved / silently merged without PO escalation => RED (a silent auto-resolve defeats the entire point of the migration)."
       }
     ],
     "premiseCorrection": "Original: a post-commit hook auto-bumped the version on a non-deploy commit (intentless-automation). REFUTED by measurement (expert read-only 3rd look + PO): the hook TAGS on version-change only, never bumps; pre-commit has no version logic. Actual mechanism = a broad add swept the expert's uncommitted version-bump into an unrelated commit (shared-tree contamination). Family re-classified intentless-automation -> shared-mutable-state-without-isolation. Correct-in-place, not deleted (R40.39/R40.22 honest-amendment pattern).",
@@ -94,7 +99,8 @@
     "confirmedInstances": 4,
     "enforcementFalseSatisfaction": "AC-no-broad-add-sweep + AC-foreign-file-rides-along-stub existed from mint but were UNENFORCED - a REMINDER (explicit-paths), not a mechanism. So the family kept happening: 4 instances (peer-board / planner-units / 0.8.117 / the 4th 2edf66a72 swept robbin-req unverified WIP). ACs satisfied by nothing = false-satisfaction (same pattern as R40.50 shipped-green-but-violated). The fix is a by-construction ENFORCEMENT layer, not another reminder.",
     "authoritativeDesignEnforcement": "design-r40.48-two-by-construction-guards.md (193265837)",
-    "indexRaceSubMode": "The shared-mutable-tree family has TWO write-side modes: (1) broad-add SWEEP (Layer-1 rbadd/pre-commit catches) + (2) concurrent-INDEX-RACE dropping commits (only Layer-2 worktrees catch). Both are why Layer-2 is the real fix."
+    "indexRaceSubMode": "The shared-mutable-tree family has TWO write-side modes: (1) broad-add SWEEP (Layer-1 rbadd/pre-commit catches) + (2) concurrent-INDEX-RACE dropping commits (only Layer-2 worktrees catch). Both are why Layer-2 is the real fix.",
+    "authorizationProvenance": "Worktrees moved DESIGNED -> AUTHORIZED (Tron) on the index-race evidence: sub-mode (v) - a concurrent .git op demonstrably DROPPED 2 commits - moved worktrees from architecturally-nicer to we-demonstrably-lose-work. The decision REASON survives on disk, not just the outcome. Layer-2 full design: architect 38b0ffbd3."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
