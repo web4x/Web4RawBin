@@ -52,6 +52,15 @@ Measured: there is **no boot generator**. `/root/oosh/hiveMind` is the ONLY thin
 3. **Schedule state-strip → cure** for expert/req/planner/po/oosh-trio; as each lands, flip its conformance to `timeless+pointer` and the absolute-conformance WARN→RED for it.
 Currency-check = the interim guard; state-removal = the cure. Both designed; the guard is what makes ghost-context impossible-by-construction until the cure reaches every file.
 
+## ★ THE CURE MOVED THE ROT — context anchors (PO D5 ruling, 2026-08-20)
+Re-inspection D5 found: cured boots point at context.md anchors that are THEMSELVES days-stale (skill-expert v0.8.78, tester v0.8.91, planner v0.8.103, po v0.8.116, expert v0.8.120 — while prod is v0.8.123). A timeless boot pointing at a stale anchor still hands the next agent a dead world, one hop later. **Structural limit (load-bearing):** an anchor's JOB is to carry state, so it can NEVER be made rot-proof the way a boot can (removal isn't available) — only rot-EVIDENT. Different problem, different fix: **boots → removal; anchors → currency-check + verify-don't-trust framing.**
+- **(1) IMMEDIATE + CHEAP — anchor SHAPE = verify-don't-trust.** Every context.md RESUME-STATE/anchor head must carry: the live-truth line(s) AND the re-derive commands AND an explicit "DO NOT TRUST THIS LINE, VERIFY IT" preface. This converts an anchor from an ASSERTION into a STARTING POINT — the only honest thing a written state-snapshot can be. (robbin-po's anchor already does this; robbin-architect conformed 2026-08-20.) Trainer PROPAGATES this framing as the anchor shape (I design it, trainer applies — never the same agent).
+- **(2) DEBT, NOT NOW — extend the currency invariant to context anchors.** The right end-state: the same `boot.named==HEAD.derived` currency check applied to context-anchor named version/sprint (anchors are rot-EVIDENT via currency, since they can't be rot-proof via removal). NOT while boots are mid-cure + L2 migration pending. Recorded as explicit named debt (below), not a hope.
+
+## DEBTS (explicit named obligations, deferred per PO — not hopes)
+1. **structuralDiscover extraction** (m.extractionDebt on R40.55, req d9a541d62): extract ONE shared `structuralDiscover` util + fold the 3 local copies (R40.54 AcGuard / R37.12 live-MVC lint / check-boot-currency.ts). MY lane (I own R40.54+R37.12). On extract → ping req → AC-discovery-single-source reverts to strict shared-SYMBOL wording.
+2. **context-anchor currency extension** (PO D5, this ruling): extend the currency invariant to context.md anchors (rot-evident). Deferred until boots fully cured + L2 landed.
+
 ## HANDOFF
 - **trainer PROPAGATES** the timeless+pointer boot shape into the boot generator + each agent boot (never me — I designed).
 - **req MINTS the AC** (requirement: no boot may name a sprint/version diverging from HEAD; deeper: a boot carries no active-state — enforced by this lint, stub-must-fail). Ride the R40.54 failable-AC family (this IS an unfailable-AC-class defect: "boots are current" was an unenforced wish).
