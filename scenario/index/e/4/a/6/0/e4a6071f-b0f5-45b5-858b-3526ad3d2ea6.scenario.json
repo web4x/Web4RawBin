@@ -1,0 +1,61 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "e4a6071f-b0f5-45b5-858b-3526ad3d2ea6",
+    "altId": "R40.48",
+    "name": "Version bump fires only from an explicit deploy action, atomic with a rebuild (never a post-commit hook)",
+    "description": "A version bump belongs to an explicit DEPLOY action, never to a post-commit hook firing on arbitrary commits. MEASURED: a post-commit hook auto-bumped 0.8.116->0.8.117 on commit 43efc40ae — a PURE test-evidence commit (the tester's ROW raw output) with ZERO deploy intent. Two harms: (1) it destroys VERSION-AS-PROOF — the version no longer signals 'a deployable change went live', it moves on test noise, breaking the only mechanism that proves a fix shipped; (2) it can create INCONSISTENT builds — it bumps the source version unit + package.json post-commit but does NOT rebuild, so sw.js/dist can be left at the old stamp (this time consistent only by LUCK of a build landing, proven byte-identical after the fact, not by construction). The bump must fire ONLY from a deploy action and be ATOMIC with a rebuild.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "family": "intentless-automation — automatic machinery that acts WITHOUT explicit intent, invisible until it causes harm",
+    "familyInstances": [
+      "(i) the server auto-minting units into scenario/index with NO policy (PII + traceability) -> R40.47",
+      "(ii) the server flushing the config unit -> the 0.8.54->0.8.46 version REGRESSION (R31.7 domain)",
+      "(iii) THIS post-commit hook auto-bumping the version on a non-deploy commit (43efc40ae test-evidence -> 0.8.116->0.8.117)"
+    ],
+    "discoverySource": {
+      "type": "team-discovery",
+      "measuredBy": "robbin-expert",
+      "framedBy": "robbin-po",
+      "date": "2026-08-20",
+      "measured": "post-commit hook bumped 0.8.116->0.8.117 on 43efc40ae (pure tester ROW test-evidence, zero deploy intent). Bumped source unit + package.json post-commit, no rebuild; dist happened to be byte-identical when the expert re-ran the build = luck, not construction."
+    },
+    "crossRef": [
+      "ior:instance:15aab895-a792-45a1-b9b5-923fd6f728a0",
+      "ior:instance:f46a6558-ff0d-4444-a9d4-83b7253224bd"
+    ],
+    "crossRefNote": "R31.7 = DRY single-source app version (the config-unit the family's instance (ii) regressed); R40.47 = same FAMILY (automatic machinery acting with no intent). This is the 3rd named instance of intentless-automation.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-deploy-only-bump",
+        "group": "by-construction",
+        "text": "A version bump fires ONLY from an explicit DEPLOY action. The post-commit hook does NOT bump the version on any commit — committing is not a deploy."
+      },
+      {
+        "id": "AC-no-bump-on-nondeploy",
+        "group": "stub-must-fail",
+        "text": "A non-deploy commit (e.g. the test-evidence commit 43efc40ae) that results in a version bump => RED. Version-as-proof: it must not move on test noise."
+      },
+      {
+        "id": "AC-atomic-with-rebuild",
+        "group": "by-construction",
+        "text": "Any version bump is ATOMIC with a rebuild — the source version unit + package.json + sw.js + dist move together or not at all; no partial bump that updates the stamp without producing the matching build."
+      },
+      {
+        "id": "AC-bump-without-rebuild-stub",
+        "group": "stub-must-fail",
+        "text": "Source/package version bumped while sw.js/dist stay at the OLD stamp => RED (the inconsistent-build harm made impossible by construction, not caught by luck-of-a-build)."
+      },
+      {
+        "id": "AC-version-as-proof",
+        "group": "by-construction",
+        "text": "The version is a PROOF signal: it moves IFF a deployable change actually went live. A rebuild that produces a byte-identical dist is NOT a deployable change and MUST NOT bump — preserving the only mechanism that proves a fix shipped."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
