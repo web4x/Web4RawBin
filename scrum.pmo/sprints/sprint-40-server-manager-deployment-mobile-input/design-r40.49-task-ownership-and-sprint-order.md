@@ -12,21 +12,24 @@ Every non-null `Task.ownerIor` points at a **Sprint** (0 point at a profile; 0 a
 ⇒ A blanket `Task.ownerIor = profile` would **destroy the Sprint nav-parent on every old-style task** (orphan them from their sprint). This is the same *class* of damage the PO warned about, but the mechanism is Task-internal overload, not cross-type.
 
 ### MEASURED case split (525 Task units; these ARE the dry-run predicted counts)
+**★ RECIPROCATION-CORRECT split (supersedes A=205/B=319/C=1).** The reciprocation principle (a mutual link beats a dangling one), applied CONSISTENTLY to Case B, reveals that most "relocations" would fabricate false parents. Ownership (Tron's directive) writes owner=profile on ALL 525 — nav is unaffected (Sprint.tasks[] downward). The UPWARD-pointer handling is:
 | case | condition | count | action |
 |---|---|---|---|
-| already | ownerIor == 05e58f81 | **0** | skip |
-| **A (safe)** | ownerIor null (195), OR ownerIor→Sprint with `model.parent` == the SAME Sprint (10) | **205** | set `ownerIor = 05e58f81` (parent already correct) |
-| **B (relocate-first)** | ownerIor→Sprint AND `model.parent` ABSENT | **319** | **COPY ownerIor→`model.parent`** (+ derive `sprintName`) **THEN** set `ownerIor = 05e58f81` |
-| **C (CONFLICT → flag, do NOT auto-write)** | ownerIor→Sprint X but `model.parent`→ a DIFFERENT Sprint Y | **1** | `flagToArchitect` — which Sprint is the true parent is ambiguous; hold for architect/Tron, never silently pick one |
-| anomaly | Task ownerIor → a non-Sprint unit | **0** | fail-loud, never auto-write (guard for future) |
+| **A direct-set** | ownerIor null with `model.parent` (195), OR dual-carrier whose `model.parent` is the reciprocated Sprint (11, incl. 708ec0a5) | **206** | set `ownerIor = 05e58f81`; parent already present + authoritative |
+| **B relocate** | ownerIor→Sprint that **RECIPROCATES** (that Sprint's `tasks[]` lists this task) AND no `model.parent` | **220** | COPY ownerIor→`model.parent` (+`sprintName`) THEN set owner — preserves a VALID upward link |
+| **D orphan** | ownerIor→Sprint that is **STALE/unreciprocated** AND **no** Sprint lists the task at all | **99** | set owner; **do NOT relocate** (copying the stale pointer would fabricate a false `model.parent`). Dropping the stale ownerIor REMOVES drift; nav already shows these '(unsorted)'. Report as a batch finding, not a per-unit hold. |
+| **C conflict-hold** | genuine ambiguity (ownerIor AND parent both reciprocate different Sprints, or multi-lister) | **0** | none this run |
+| anomaly | ownerIor → non-Sprint | **0** | fail-loud |
 
-**The 1 Case-C conflict (measured):** task `708ec0a5` — `ownerIor→97f513a1` (Sprint "Room Handling") vs `model.parent→64af2638` (Sprint "Radical Forward Planning"). The two upward pointers disagree; overwriting ownerIor would silently bless `model.parent`'s sprint and erase the other claim. This is exactly req's `flagToArchitect` field (R40.49 `241bf3c9`): 524 tasks migrate, this 1 flags for a human ruling on its real sprint. (all 195 null-owner tasks have `model.parent` → 0 orphan-risk in A.)
+**708ec0a5 RESOLVED (not a conflict): MEASURED** Sprint `64af2638` (its `model.parent`) LISTS it in `tasks[]` = **reciprocated**; Sprint `97f513a1` (its `ownerIor`) does NOT (0 refs). By the nav rule (Sprint.tasks[] downward is authoritative), `64af2638` is the true sprint and the `ownerIor` is a **stale unreciprocated pointer** → folds into **Case A**. (PO's call, my measurement confirms.)
+
+**★ NEW FINDING — 99 ORPHAN TASKS (separate, pre-existing, NOT blocking):** 99 Case-B tasks have `ownerIor→Sprint` that the Sprint does NOT reciprocate, AND **no** Sprint's `tasks[]` lists them (0 recoverable, 0 multi-lister — all 99 are true orphans). Their `ownerIor` is drift; they are already '(unsorted)' in nav. The ownership migration sets their owner and drops the stale pointer (a cleanup, no new drift). **The orphaning itself is a pre-existing integrity defect surfaced by this audit** — route to req as a follow-up (which Sprint should claim each), do NOT block Tron's ownership directive on it.
 
 ### ★ RECONCILIATION (PO hard-gate: two measurements differed by 11) — ONE authoritative split
 PO hypothesis CONFIRMED + REFINED by measurement. architect-206 = req-195-null **+ 11 tasks that have `ownerIor→Sprint` AND already carry `model.parent`**. Those 11, classified + named:
 - **10 CONSISTENT dual-carriers** (`model.parent` == the same Sprint as `ownerIor`) → safe Case A (set owner direct).
 - **1 CONFLICT** — task **`708ec0a5`**: `ownerIor→97f513a1` (Sprint "Room Handling") vs `model.parent→64af2638` (Sprint "Radical Forward Planning") → **Case C flag**, never auto-write.
-⇒ req-330-old = 319 (no parent, relocate) + 11 (parented: 10 safe + 1 conflict). The two measurements are **compatible, not contradictory**. **Authoritative counts: A=205, B=319, C-flag=1, anomaly=0, total 525.** The dry-run must reproduce these five numbers exactly before `--apply`.
+⇒ req-330-old = 319 (no parent) + 11 (parented). The SCHEMA-only split (expert's 3rd read) = A=205/B=319/C=1. **But applying the reciprocation rule to BOTH the 1 conflict AND the 319 supersedes it — see the reciprocation-correct table below (A=206 / B-relocate=220 / D-orphan=99 / C=0).** The dry-run must add a reciprocation check (does each ownerIor→Sprint list the task back?) and reproduce **206 / 220 / 99 / 0** before `--apply`.
 
 ### ★ WHICH FIELD NAV READS (PO asked — decides if ownerIor-overwrite is harmless)
 **MEASURED: the server resolves a task→its Sprint via `Sprint.tasks[]` — the DOWNWARD backref** (server.ts:1414 and :1920 both scan Sprints for one whose `model.tasks[]` includes the task), NOT the task's upward `ownerIor`/`model.parent`. The client groups by a projected `t.sprint`. ⇒ **overwriting a task's ownerIor does NOT break the visible sprint grouping/nav for ANY task** — the Sprint→task backref survives. Relocation (Case B) is therefore required for **GRAPH INTEGRITY** (keep the task's own upward pointer; avoid a one-way Sprint↔Task link; preserve the drawer's parent display), **not** to save the grouping. This makes the write *safer* than the directive feared — but the relocation is still correct, because a task that no longer knows its own sprint is a real integrity defect and any upward-reader (detail drawer parent link, future features) would show it.
