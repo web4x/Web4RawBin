@@ -1,0 +1,108 @@
+R40.31 ROW — POSITIVE (broadcast ON) @aaf60ef61 buildDist=true — expand-to-row on /trace, settle on .oi-status…
+{
+  "label": "row-positive",
+  "target": "97e8a6ad-46db-440f-a9be-cfb97ca64df4",
+  "worktreeSha": "aaf60ef61",
+  "servedVersion": "0.8.116",
+  "distHasViewBusKey": true,
+  "expand": {
+    "reached": true,
+    "rounds": 1
+  },
+  "rowReachable": true,
+  "before": {
+    "statusAttr": "QA Review",
+    "oiText": "👁",
+    "oiClass": "oi-status oi-status-purple",
+    "rowMark": null,
+    "present": true
+  },
+  "rowMarkBefore": "RMt5iw9zialg",
+  "rowSettleProven": {
+    "detectsChange": true,
+    "cleanTimeout": true
+  },
+  "pollInQuietWindow": 0,
+  "__rlBeforeApprove": 0,
+  "client1HadApprove": true,
+  "after": {
+    "statusAttr": "Done",
+    "oiText": "✓",
+    "oiClass": "oi-status oi-status-green",
+    "rowMark": "RMt5iw9zialg",
+    "present": true
+  },
+  "rowLatencyMs": 1188,
+  "rlForTargetAfter": 1,
+  "rlTotalAfter": 2,
+  "c2GetsAfterApprove": [
+    "/api/ior/ior:instance:97e8a6ad-46db-440f-a9be-cfb97ca64df4",
+    "/api/ior/ior:instance:current-sprint-singleton-0000-000000000001"
+  ],
+  "c2NavAfterApprove": 0,
+  "pollCountAfterApprove": 2,
+  "pollBodyCarriedDone": true,
+  "teardown": {
+    "prodUp": true,
+    "leftover": 0
+  }
+}
+
+R40.31 ROW — C1 broadcast OFF (row must NOT move; /trace poller stays ALIVE)…
+{
+  "label": "row-C1-broadcast-off",
+  "target": "97e8a6ad-46db-440f-a9be-cfb97ca64df4",
+  "worktreeSha": "aaf60ef61",
+  "servedVersion": "0.8.116",
+  "distHasViewBusKey": true,
+  "expand": {
+    "reached": true,
+    "rounds": 1
+  },
+  "rowReachable": true,
+  "before": {
+    "statusAttr": "QA Review",
+    "oiText": "👁",
+    "oiClass": "oi-status oi-status-purple",
+    "rowMark": null,
+    "present": true
+  },
+  "rowMarkBefore": "RM5psnusipfnp",
+  "rowSettleProven": {
+    "detectsChange": true,
+    "cleanTimeout": true
+  },
+  "pollInQuietWindow": 0,
+  "__rlBeforeApprove": 0,
+  "client1HadApprove": true,
+  "after": {
+    "statusAttr": "QA Review",
+    "oiText": "👁",
+    "oiClass": "oi-status oi-status-purple",
+    "rowMark": "RM5psnusipfnp",
+    "present": true
+  },
+  "rowLatencyMs": null,
+  "rlForTargetAfter": 0,
+  "rlTotalAfter": 0,
+  "c2GetsAfterApprove": [],
+  "c2NavAfterApprove": 0,
+  "pollCountAfterApprove": 0,
+  "pollBodyCarriedDone": false,
+  "teardown": {
+    "prodUp": true,
+    "leftover": 0
+  }
+}
+
+=== ROW VERDICT (R40.31 ROW clause — architect reads COLD) ===
+  PRECOND: expand-reached=true(pos rounds 1/C1 1) · present-before 'QA Review'==QA Review=true · v0.8.116-both=true · passive-no-reload=true
+  PROVE-INSTRUMENT: detects-change=true + clean-timeout=true ⇒ proven=true
+  POSITIVE: row glyph '👁'(oi-status oi-status-purple)→'✓'(oi-status oi-status-green) moved=true latency=1188ms · statusAttr→'Done' Done=true
+  ★ CRITERION 1 IN-PLACE (footprint): rowMark RMt5iw9zialg→RMt5iw9zialg same-node=true
+  ★ CRITERION 3 MECHANISM (call-capture): refreshLive fired for TARGET after approve=1 (total 2) ⇒ callCaptured=true
+  ★ CRITERION 2 C1: row moved with broadcast OFF=false (MUST be false) · poller-alive: quiet-window polls=0, post-approve polls=0 (neuter touches broadcast only ⇒ poll timer intact)
+  TIEBREAK exclusion-by-content: positive-arm poll body carried 'Done'=true ⇒ exclusion-clean=false
+  prod 97e8a6ad-46db-440f-a9be-cfb97ca64df4 unchanged=true · teardown clean=true
+
+✓ ROW-LIVE — MECHANISM SEALED (refreshLive fired for TARGET via the ViewBus bus path, 1 call(s)) + C1 broadcast-OFF row stayed + C1 poller alive/unsuppressed. Row live-MVC PROVEN (latency 1188ms). exclusion-clean=false.
