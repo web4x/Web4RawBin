@@ -164,6 +164,12 @@ function live(strict: boolean): number {
   // NAMED EXCLUSIONS always visible (files + reasons + time-box) so an exempted file is never mistaken for a passing one.
   console.log(`\n  ── NAMED EXCLUSIONS (explicit, time-boxed DEBT — not a wildcard, not a silent skip): ${EXCLUSIONS.length}`);
   for (const e of EXCLUSIONS) console.log(`     ${e.name} — ${e.reason}; closes when: ${e.until}${present.has(e.name) ? '' : '   ⚠ DEAD (names no boot on disk)'}`);
+  // NON-enforcing INVENTORY VISIBILITY (PO): a TIMELESS unclassified boot is protected (held to OWNED standard) but
+  // MISLABELED — and a silent gap only surfaces by accident. Some things can be made impossible, some only EVIDENT;
+  // this inventory is the latter, so print it loudly (never RED — these may genuinely not be ours). Review for owned-but-unclassified.
+  const unclassifiedAll = rows.filter((r) => r.bucket === 'UNCLASSIFIED').map((r) => r.agent).sort();
+  console.log(`\n  ── UNCLASSIFIED inventory (NON-enforcing — eyeball for any owned-but-unclassified agent): ${unclassifiedAll.length}`);
+  if (unclassifiedAll.length) console.log(`     ${unclassifiedAll.join(', ')}`);
   if (excludedState.length) { console.log(`\n  ── EXCLUDED boots STILL state-bearing (WARN-LOUD — other-PO-owned, we cannot fix; flagged, never green-silent):`); for (const r of excludedState) console.log(`     ${r.rel}`); }
   if (ownedState.length) { console.log(`\n  ── OWNED boots state-bearing (must be timeless+pointer post-cure):`); for (const r of ownedState) console.log(`     ${r.rel}`); }
   if (unclassifiedState.length) { console.log(`\n  ── UNCLASSIFIED boots state-bearing (TRIAGE: ours→cure, theirs→named-exclude-with-expiry — CANNOT inherit the exemption):`); for (const r of unclassifiedState) console.log(`     ${r.rel}`); }
