@@ -89,3 +89,12 @@ Ownership is NOT derivable (a governance assignment, not a structural fact — t
 - **trainer PROPAGATES** the timeless+pointer boot shape into the boot generator + each agent boot (never me — I designed).
 - **req MINTS the AC** (requirement: no boot may name a sprint/version diverging from HEAD; deeper: a boot carries no active-state — enforced by this lint, stub-must-fail). Ride the R40.54 failable-AC family (this IS an unfailable-AC-class defect: "boots are current" was an unenforced wish).
 - I RE-INSPECT after propagation (verify the discovered-set covers new/renamed boots; verify the stub fails).
+
+## R40.55 CHAIN CLOSE — architect backstop verdict (disk-carried for fresh-PO, 2026-08-20)
+Chain: Req dc809efb → UC f7945307 → Class BootCurrencyGuard 67245a08 → Method assertCurrencyAndStatelessness 5f969cfe → Impl ec656cde → Test 3a6ba052 (wired both directions).
+**Architect backstop = PASS** (HEAD 27ce6d35c; verified by READING the decl + the unit, NOT re-running the expert/tester tooling — genuinely independent third look):
+- R4 AST-attach ✓ — `[impl:uuid:ec656cde-…]` at check-boot-currency.ts:137 adjacent-above `function assertCurrencyAndStatelessness(strict)` :138, name-matches Method 5f969cfe (full uuid).
+- Impl → the GATE, not the string-helper ✓ — marker on the renamed `live` gate; `classifyBoot:88` marker-free; Impl.ownerIor→Method, tests[3a6ba052].
+- rename `live`→`assertCurrencyAndStatelessness` clean (no residual `live`), behavior-preserving.
+- ★ MINOR (differently-failing third look, marker-tooling can't see it): Impl unit `sourceLine=133` is STALE — actual decl now :138 (marker+comment pushed it down 5 lines). NON-BLOCKING (marker is authoritative, not sourceLine); **req to fix 133→138** on the unit + name field.
+**Remaining:** tester two-keys forward+reverse ON DISK (post its own cut) → R40.55 complete-to-Test. Mechanism + chain both closed on the architect side.
