@@ -1,0 +1,605 @@
+{
+  "A": [
+    {
+      "task": "9628370d-8991-4ef5-9a9a-4aaaa1bfbf59",
+      "name": "T-move-remove-id-to-enroll: relocate red Remove-Lo",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.89 (2ad3fd18) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "67abd046-fb92-4327-a9f3-00b3497c0977",
+      "name": "T-item-init-gate: await customElements.whenDefined",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.88 (26b5f7c1) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "77122058-be05-4b22-9a0b-32973ee40a87",
+      "name": "T-url-file-opens-drawer: click url-type file item ",
+      "target": "64af2638-d011-48c1-9d5a-dbfd9784efd6",
+      "evidence": "covers R20.1 (c81c9194) -> parent Sprint 20 (64af2638)"
+    },
+    {
+      "task": "b0576d79-cee9-4710-bbe6-c1cec8622f60",
+      "name": "T-profile-uuid-restore: restore the user's UUID di",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.96 (5c325047) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "b8da64a1-9939-4de9-b47d-73f489a8258a",
+      "name": "T-tree-room-mode: add room data-mode to rb-trace-t",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.90 (20fc59cc) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "b2baea58-e3a3-43e4-b650-54479ffcdabb",
+      "name": "T-seed-tree-members-and-files: /api/trace/children",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.101 (4d185684) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "b476df5f-1eb8-44ca-9125-42b16e052a0c",
+      "name": "T-longpress-collapse: icon collapse via 500ms long",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.92 (b5688a42) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "bec78a23-a464-49dc-a565-8dbd3785f2cc",
+      "name": "T-url-preview-restore: url/webitem file click open",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.86 (01b055f1) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "0189ffbd-ef0a-4c8e-930c-d588061fe456",
+      "name": "T-version-in-header: app header shows version stri",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.94 (a5e4fb82) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "8cc07506-9827-4acc-9b0e-902275f11b04",
+      "name": "T-ios-all-types-open-drawer: on iOS, all file type",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.87 (c639acdf) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "4aa7e19d-3ada-4023-b1dd-8c6211af0328",
+      "name": "T-seed-ior-room: in-room tree uses data-seed-ior=r",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.92a (71a8954e) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "ccb5e337-93be-4fa3-99f6-7d8232d307d3",
+      "name": "T-reset-pwa-cache-on-main: red Reset PWA Cache but",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.95 (c8a480fa) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "c524c8a0-9e40-44b8-9fc1-468674648c4f",
+      "name": "T-diff-render: replace innerHTML='' nuke with diff",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.88.A (3785b104) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "aee9e758-bdfe-427a-aaa3-e8f00cbab48f",
+      "name": "T-object-item-microtask-defer: queueMicrotask in r",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.97 (ea6bb854) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "51d53769-ef94-4ca9-b0c5-fedc23b4e0c6",
+      "name": "T-room-render-inversion: identical files must rend",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.100 (ca4f8758) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "5da32d29-1e03-44e8-b216-1a8596be1580",
+      "name": "T-remove-id-full-wipe: removeLocalIdentity clears ",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.91 (4b4b61c1) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "5ab2d3b9-0813-4398-9b58-4d4bfddaeefc",
+      "name": "T-file-detail-preview: Preview button in file deta",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.93 (36becf02) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "eff42eff-3762-4653-9881-eb7dd6fb90a2",
+      "name": "T-md-safari-broken-link: identify + fix the one br",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.99 (aaa36d91) -> parent Sprint 19 (97f513a1)"
+    }
+  ],
+  "B": [
+    {
+      "task": "73297bf1-0d00-47e6-acfa-e4f5be34feb1",
+      "name": "T-move-remove-identity: re-home Remove-Local-Ident",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.89-DELETED-DUP -> supersededBy R19.89 (2ad3fd18) -> parent Sprint 19 (97f513a1)"
+    },
+    {
+      "task": "3438e110-6035-4a07-840d-491583285977",
+      "name": "T-iframe-pinch: 2-finger pinch scales preview ifra",
+      "target": "97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.85-DELETED-DUP -> supersededBy R19.85 (e29dcae1) -> parent Sprint 19 (97f513a1)"
+    }
+  ],
+  "P": [
+    {
+      "task": "ecf3e19f-3440-4c8f-806f-aad57254ef3d",
+      "name": "T7.0: MD Browser PlantUML SVG Support",
+      "target": null,
+      "evidence": null,
+      "declares": 7
+    }
+  ],
+  "C": [
+    {
+      "task": "90b208e8-98f6-4d6c-bfc9-b1fab893c342",
+      "name": "T65: rb-file-tree \u2014 Directory Browser",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "915f458e-57af-416a-951f-ba1d33e08ca5",
+      "name": "T180: Real CA cert (Let's Encrypt) for home.donges",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "988ca807-ee65-455b-adaf-b759bb277981",
+      "name": "T7: User Editor Dialog",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "98cab0df-9bdf-4a63-9a2c-120626db0edd",
+      "name": "T62: FileApi Vitest Security Tests",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "959ad06c-a3fe-4eec-afa2-b6773bec7414",
+      "name": "T52: Avatar Visible in Lobby + Profile Page",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "68dec25a-ec4e-4655-904b-0cdff10f50ad",
+      "name": "T58: Fix Link Contrast on Sprint Overview Pages",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "7b0985b9-6d81-4e37-963b-03fca2716f25",
+      "name": "T179: SW reliability \u2014 auto-activation + STATIC_SH",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "7271b4a8-8e2a-41d8-af97-e6bcb1a0839a",
+      "name": "T43: rb-member-badge + rb-member-list",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "7cb10438-c29b-4092-9f15-464640b4584e",
+      "name": "T23: Task File Audit \u2014 Sprint 1",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "7d99650e-44f4-4836-ac3a-6327b3418fa3",
+      "name": "T61: FileApi.ts \u2014 writeFile with mtime conflict",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "b054dfca-951d-4355-8d59-24d3f61c3665",
+      "name": "T39: rb-update-banner Web Component",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "b29f0e02-5d6e-4b4c-9f80-002233445566",
+      "name": "T29: Update OOSH Sprint Tool \u2014 Template Enforcemen",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "bca855a1-1cdf-42b1-9121-1ec3e5611ffb",
+      "name": "T34: One-Click Update",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "383938b1-19e3-46c5-a7c6-0e4bdbae7af1",
+      "name": "T182: Browse-source href fix \u2014 rb-task-detail.ts:4",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "3f980c63-0f51-4411-a400-9c11a3826a21",
+      "name": "T35: iOS PWA Support",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "34570c77-37d4-4233-abfe-b8d70acb6773",
+      "name": "T42: rb-chat-sheet Web Component",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "3c7d1853-a5ee-4c7c-9c94-04b2e4f5bbb4",
+      "name": "T-CURRENT-TASK: Drawer/trace DETAIL works end-to-e",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "3d4e6a88-2098-47b3-aff9-648dce307609",
+      "name": "T50: Avatar Upload Endpoint POST /api/avatar",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "3a9277da-f696-4f85-86b5-71ac7eeb92d5",
+      "name": "T41: rb-overlay Base Class",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "03fb4511-acbe-4bee-b8f2-a645d136b915",
+      "name": "Planner: S2-S9 Sprint.tasks[] Backfill \u2014 Status",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "181d5d01-17cc-4695-9dec-fa8d0583e344",
+      "name": "T44: Server-rendered Pages Shared Shell",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "1f34b93c-1d3d-4b1a-b1ea-22dd0846799f",
+      "name": "T60: FileApi.ts \u2014 readDir + readFile + sanitize + ",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "15a67f72-9746-4a5d-8fb8-7e665de72a80",
+      "name": "T73: Playwright E2E for Editor",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "8975ff1f-c486-4f4d-be1b-750b70c2ec25",
+      "name": "T57: rb-avatar Fixes \u2014 Lobby DRY, Pinch-Zoom, Crop",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "8b405c16-8995-4aeb-8637-396abc13ab5a",
+      "name": "T128.4: Method marker retrofit \u2014 fill `[impl:uuid:",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "88ea152a-ddd3-4824-859c-276e504b24b3",
+      "name": "T66: rb-code-editor \u2014 Monaco Wrapper",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "8dd36103-bbc0-48e6-ad07-f1c56fae923a",
+      "name": "T185: PlantUML class diagrams for traceability-tre",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "f116160a-4026-41d8-b4c3-bcc807c9240b",
+      "name": "T38: iOS Safe Area Inset for Room Header",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "f84b551a-ab73-4a73-a9d7-a938b350ebdf",
+      "name": "T200: Tree \u2194 Detail Sync \u2014 bi-directional selectio",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "fc5f62c4-b59a-405a-884c-536d215759a5",
+      "name": "T70: rb-editor-toolbar \u2014 Save, View Toggle, Breadc",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "f5b8c83e-3263-4d76-957b-4fe230e50269",
+      "name": "T199: Scenario data integrity \u2014 backfill `ownerIor",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "f55a0b01-9c12-4d3e-b456-006677889900",
+      "name": "T55: Avatar Fixes \u2014 Tron QA Findings",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "20e89691-a5dc-4576-85dd-e1eec19b0f10",
+      "name": "T175: Tree base + Traceability layer + typed chain",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "46b7eadf-d0ae-4950-9602-cc96390c3697",
+      "name": "T174: Drawer UX cleanup + /scenario route + mobile",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "47083e1a-454c-4a84-a310-c23751aebc28",
+      "name": "T59: Floating Back Button on /md/ File Views",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "4bd33c18-a707-4ca3-8c87-9cc1a5c2f516",
+      "name": "T178: 7-step chain DATA-FILL \u2014 populate UC\u2192Class\u2192M",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "41b0d724-dfd3-4fa0-903e-a7c2845be122",
+      "name": "T181: Strict forward-only DISPLAY \u2014 no backward li",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "424932a6-d011-4b68-b36d-b93b0d940187",
+      "name": "T25: Task File Audit \u2014 Sprint 3",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "44bef447-f036-4ec4-9c1d-8479d0438d5d",
+      "name": "T177: /scenario ior-format 'Not found' \u2014 bare-uuid",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "4da7237c-ffe3-4bd6-8ba8-a79197ad9742",
+      "name": "T54: Remove avatarCache + Verify Encrypted Storage",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "456772fb-7b52-4308-9128-7b4282147ee3",
+      "name": "T48: Default Avatar Assignment + Encrypted Storage",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c9ebef46-a418-40f3-9a0c-93db265a29cf",
+      "name": "T176: Headless test-infra unblocker \u2014 page JS must",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c7f92a8f-0094-4a23-a2e5-721cdbd336c3",
+      "name": "T51: ProfileEditor Avatar Upload via API",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c30f0e03-6e7f-4c5d-a091-003344556677",
+      "name": "T30: PO Process Documentation",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c8087df0-7fdf-4a78-b470-6fe1f9bae6c7",
+      "name": "T40: rb-header Web Component",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "cf09cf2b-b67f-44db-921b-87e7bb19d689",
+      "name": "T63: edit.html + edit.ts + CDN Monaco",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c2b27a4e-4cb6-4fd2-ab57-81931bd3b2ec",
+      "name": "T31: Service Worker + App Shell Cache",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "c2ec9189-0245-4deb-823c-64ec301933f0",
+      "name": "T68: rb-preview Markdown \u2014 Live Preview",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "ce7f0047-334b-474c-ac99-897b9590a968",
+      "name": "T12: SSH-Based Login (Challenge-Response)",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "db9091a2-9cc9-4b2f-967a-b37355b9fc88",
+      "name": "T11: vCard Download for Other Users",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "d37f0e04-7f80-4d6e-b102-004455667788",
+      "name": "T37: Hotfixes \u2014 Private Room + Version Bar",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "d32fd84e-c6e6-4495-b4c9-8fb3746bd927",
+      "name": "T24: Task File Audit \u2014 Sprint 2",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "d089a550-f65b-4dda-aabc-e53c2341cef5",
+      "name": "T64: rb-editor-layout \u2014 Three-Panel Layout",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "d0c3abf8-8a7d-4efa-9156-45b84b079a56",
+      "name": "T27: Sprint CLI Tool (OOSH Script)",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "d0c4d141-0c5f-4ba4-9f77-9f1fa52694f0",
+      "name": "T33: Auto-Reconnect + Message Queue",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "dcb79471-0f7d-4479-b13e-7a2136c4b11c",
+      "name": "T69: rb-preview PlantUML \u2014 SVG Preview",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "dc1149a4-f639-4b52-9ae2-7634a3a7321e",
+      "name": "T56: `<rb-avatar>` Web Component \u2014 Clickable Photo",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "dc46e5b0-9bad-4d49-ab4c-1968e8905cb4",
+      "name": "T49: Avatar Serving Endpoint GET /api/avatar",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "daf76389-603e-4507-af7a-1597c2633c83",
+      "name": "T186: Tree-view lazy-load at every chain level \u2014 s",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a6ab0ca4-e972-4ee4-b287-1e59ed82134b",
+      "name": "T36: Offline Data Persistence",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a6ae7989-d393-40d8-896f-273d394b2124",
+      "name": "T72: Cross-Links \u2014 /md/ \u2194 /edit/",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "ab0cbe5f-d097-42c7-a1a4-82339a468ad6",
+      "name": "T184: Forward-only API emit \u2014 strip backward keys ",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "abc78991-a98b-4221-8ab6-d2b8fa280502",
+      "name": "Strict-Champagne Defect Catalog: 21 Unreachable Te",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a37159a8-6d81-4edf-b144-a2284f800308",
+      "name": "T10: Device Key Enrollment",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a3f183b4-c5d6-4e7f-8a90-1b2c3d4e5f83",
+      "name": "T183: 7-hop CI gate \u2014 trace:audit:strict per-Test ",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a165969c-fdb7-4b93-b3e5-6aa6ae4b1402",
+      "name": "T8: Mandatory Profile Gate",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a8cfeb7d-15a0-461e-bc55-c611d967364b",
+      "name": "T26: Task Template Standardization",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "a28f0e01-4c5d-4a3b-8e7f-001122334455",
+      "name": "T28: Fix All Task Files \u2014 Web4Articles Template Co",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "add91a59-e2ea-4a72-9ad8-02647a0a06e0",
+      "name": "T67: rb-code-editor Save \u2014 Cmd+S + Dirty + Conflic",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "aae52ee0-c715-4b0c-8c7e-9467a2f3f5eb",
+      "name": "T46: Dead Code Cleanup + Bundle Verification",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "570267c3-7621-4ec2-8e29-e8b3942b7cb8",
+      "name": "T47: UserCrypto.ts \u2014 Hybrid Encryption Module",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "53b926d6-3b94-4ade-9226-910963cf1350",
+      "name": "T201: 6-step chain correction \u2014 propagate `Require",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "51d3b63f-4254-438b-a2b1-78513f9bb396",
+      "name": "T71: Mobile Layout \u2014 Single-Panel + Tab Bar",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "559a384b-5a3c-40f9-af2e-35f0957b6c87",
+      "name": "T32: Cache Headers + Asset Versioning",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "55bf8edd-90a8-455c-a1c7-0683f61767a7",
+      "name": "T45: rb-qr-popup Web Component",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "e9fdc892-64e7-4dac-9393-5d269e41357b",
+      "name": "T53: Room Member AvatarUrl from Profile",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "e7fbf79b-c564-4751-8144-dbfb6688946d",
+      "name": "T9: SSH Key Generation on Profile Commit",
+      "target": null,
+      "evidence": null
+    },
+    {
+      "task": "ec187a1f-8e12-41ea-973c-49042d15b170",
+      "name": "T-drawer-resize: grab-handle drag sets drawer heig",
+      "target": null,
+      "evidence": null
+    }
+  ]
+}
