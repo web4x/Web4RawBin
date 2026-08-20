@@ -65,14 +65,14 @@
       },
       {
         "id": "AC-fail-closed-unparseable",
-        "group": "layer1/fail-closed",
-        "text": "A boot naming a version/sprint the parser CANNOT resolve to a comparable value => RED, never skipped-as-pass. An ambiguous boot is treated as STALE until proven current (same fail-closed posture as the R3 uuid resolver).",
+        "group": "layer1/fail-closed-symmetric",
+        "text": "SYMMETRIC fail-closed, BOTH sides of the comparison. (a) COMPARED VALUE: a boot naming a version/sprint the parser CANNOT resolve to a comparable value => RED, never skipped-as-pass (an ambiguous boot is STALE until proven current). (b) TRUTH-SOURCE: if the guard's OWN source is unreadable/absent — package.json version OR the CurrentSprint pin cannot be read — the guard goes RED/error, NEVER pass-green. A guard that silently passes when it cannot read HEAD is exactly the silent-failure class this requirement kills (fail-LOUD, not fail-safe). Same fail-closed posture as the R3 uuid resolver, applied to the compared value AND the comparator's source. (Architect re-inspection hardening 2026-08-20: original AC covered only the boot-parse side.)",
         "gateRef": {
           "kind": "lint",
           "ref": "boot-currency parser",
-          "assertion": "unparseable named version/sprint => RED, not skip"
+          "assertion": "boot-unparseable OR truth-source (package.json / CurrentSprint pin) unreadable/absent => RED; never pass-green"
         },
-        "stubMustFail": "PENDING: seed an unparseable boot -> RED"
+        "stubMustFail": "PENDING dual: (a) seed an unparseable boot -> RED; (b) seed an unreadable/absent package.json OR missing CurrentSprint pin -> RED (must NOT pass-green)"
       },
       {
         "id": "AC-lesson-provenance-exempt-scoped",
