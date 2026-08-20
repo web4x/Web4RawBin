@@ -3,7 +3,7 @@
   "model": {
     "uuid": "5f969cfe-9277-4948-adbb-8061d8fb2e4c",
     "name": "BootCurrencyGuard.assertCurrencyAndStatelessness",
-    "description": "The end-to-end boot-currency+statelessness GATE (asserted-behavior): reads HEAD (package.json version + CurrentSprint pin), discovers every boot by glob, classifyBoot per-boot -> violations[version/sprint divergence] + stateBearing[no-active-state], gates OWNED/UNCLASSIFIED state-bearing -> RED + currency-divergence in the violation detail + dead-exemption -> RED, returns 0/1. REAL decl = function live(strict) @scripts/check-boot-currency.ts:133 (PO-approved behavior-preserving rename live -> assertCurrencyAndStatelessness). NOT classifyBoot(:88) = the per-token string helper (the seed->RED->revert->GREEN Test intent sits on the GATE, not the string-classifier).",
+    "description": "The end-to-end boot-currency+statelessness GATE (asserted-behavior): reads HEAD (package.json version + CurrentSprint pin), discovers every boot by glob, classifyBoot per-boot -> violations[version/sprint divergence] + stateBearing[no-active-state], gates OWNED/UNCLASSIFIED state-bearing -> RED + currency-divergence in the violation detail + dead-exemption -> RED, returns 0/1. REAL decl = function assertCurrencyAndStatelessness(strict) @scripts/check-boot-currency.ts:138 (behavior-preserving rename from live, PO-approved; the [impl] comment at :137 shifted the decl from the pre-marker :133). NOT classifyBoot(:88) = the per-token string helper (the seed->RED->revert->GREEN Test intent sits on the GATE, not the string-classifier).",
     "sourceFile": "ior:file:scripts/check-boot-currency.ts",
     "implementations": [
       "ior:instance:ec656cde-4b9f-4893-ac67-87d4a53b17de"

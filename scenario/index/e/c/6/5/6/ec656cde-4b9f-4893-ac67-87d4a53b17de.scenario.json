@@ -2,9 +2,9 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "ec656cde-4b9f-4893-ac67-87d4a53b17de",
-    "name": "assertCurrencyAndStatelessness impl — boot-currency+statelessness end-to-end gate (check-boot-currency.ts:133, renamed from live)",
+    "name": "assertCurrencyAndStatelessness impl — boot-currency+statelessness end-to-end gate (check-boot-currency.ts:138, renamed from live)",
     "sourceFile": "scripts/check-boot-currency.ts",
-    "sourceLine": 133,
+    "sourceLine": 138,
     "tests": [
       "ior:instance:3a6ba052-47cb-48bd-8961-24630f5e5a54"
     ],
