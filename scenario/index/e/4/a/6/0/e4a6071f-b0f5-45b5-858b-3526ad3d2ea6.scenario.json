@@ -15,7 +15,8 @@
     "familyInstances": [
       "(i) a peer swept the PO's board/scoreboard files into its commit",
       "(ii) the architect swept the planner's units into a commit",
-      "(iii) the expert's uncommitted config-bump + build swept into the tester's 43efc40ae via a broad add -> the phantom 0.8.117 tag (this req's originating incident, cause-corrected)"
+      "(iii) the expert's uncommitted config-bump + build swept into the tester's 43efc40ae via a broad add -> the phantom 0.8.117 tag (this req's originating incident, cause-corrected)",
+      "(iv) LIVE self-caught 2026-08-20: architect git add scenario/index (broad dir-add) in the shared tree swept robbin-req uncommitted ecf3e19f re-home + a9eb4565 into commit 2edf66a72 (R40.50 backstop) under the architect message; landed valid ONLY because Sprint 7 was committed-real - a fresh unverified unit would have been committed under a foreign message. Confirms AC-no-broad-add-sweep by real evidence."
     ],
     "discoverySource": {
       "type": "team-discovery",
@@ -68,7 +69,8 @@
         "supersededText": "A non-deploy commit (e.g. the test-evidence commit 43efc40ae) that results in a version bump => RED. Version-as-proof: it must not move on test noise.",
         "reason": "Premised on the hook bumping on a non-deploy commit (43efc40ae) — measured false. Replaced by the broad-add/sweep ACs below (the real mechanism)."
       }
-    ]
+    ],
+    "confirmedInstances": 4
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
