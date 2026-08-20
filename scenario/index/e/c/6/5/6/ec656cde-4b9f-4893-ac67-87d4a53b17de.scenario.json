@@ -8,9 +8,10 @@
     "tests": [
       "ior:instance:3a6ba052-47cb-48bd-8961-24630f5e5a54"
     ],
-    "markerPending": true,
+    "markerPending": false,
     "designAhead": false,
-    "unitLinks": []
+    "unitLinks": [],
+    "markerVerified": "robbin-req verified first-hand 2026-08-20: [impl:uuid:ec656cde-4b9f-4893-ac67-87d4a53b17de] at check-boot-currency.ts:137 is AST-attached directly above the NAME-MATCHING decl `function assertCurrencyAndStatelessness` (:138); stale `function live` GONE (renamed, not duplicated); entrypoint call updated (:290 process.exit(assertCurrencyAndStatelessness(...))); node16 false-FAIL fix (e33e2786b) touched ONLY the Test harness node-pin, NOT the assertions; gate GREEN — selftest + BOTH R40.55 dimensions bite (version-divergence + no-active-state) + seeded-regression still bites after cure. Marker credits the RIGHT decl (rename-hazard cleared)."
   },
   "ownerIor": "ior:instance:5f969cfe-9277-4948-adbb-8061d8fb2e4c"
 }
