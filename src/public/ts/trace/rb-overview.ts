@@ -39,7 +39,7 @@ export class RbOverview extends HTMLElement {
       bySprint.set(key, arr);
     }
     const groups: string[] = [];
-    for (const [sprint, group] of [...bySprint.entries()].sort((a, b) => a[0].localeCompare(b[0], undefined, { numeric: true }))) {
+    for (const [sprint, group] of [...bySprint.entries()].sort((a, b) => b[0].localeCompare(a[0], undefined, { numeric: true }))) { // R40.50: DESCENDING (Sprint 40 on top) — a<->b flipped
       const counts: Record<string, number> = {};
       for (const s of STATUSES) counts[s] = 0;
       for (const t of group) if (t.status && counts[t.status] !== undefined) counts[t.status]++;
