@@ -1,0 +1,134 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "dc809efb-4fa2-4d27-be7a-f1532aa271e8",
+    "altId": "R40.55",
+    "name": "Boots may not name a sprint/version diverging from HEAD, and carry no active-state (currency guard + state-removal cure)",
+    "description": "A rewound agent re-derives its world from its boot.md ACTIVE section; when that section carries STALE state it inherits a dead world = the GHOST-CONTEXT ROOT (measured a7ac8892: expert boots v0.8.61 ~62 versions stale, req S31, planner v0.7.65/S30-S31, while HEAD is S40/v0.8.123; 9 agents booted off these today). Two layers: (Layer 1, interim) a currency guard - for every boot naming a sprint/version in an active-state position, boot.named==gitHEAD.derived else RED, folded into the boot-essence lint via the SAME structuralDiscover (single-source), discovered BY GLOB fleet-wide with a divergence check, fail-closed on unparseable, lessons-headings exempt, own stub-must-fail; (Layer 2, the cure) state-removal - boots become timeless rules + identity + an anchor POINTER to context.md with ZERO state, worded so the guard never ENTRENCHES state-bearing boots as acceptable (WARN now, RED per-file as each cure lands).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:f7945307-892a-411a-9403-b7b220977318"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designCommit": "56aa5cf4f (design-boot-currency-and-state-removal.md)",
+      "fleetMeasurement": "a7ac8892 (PO+architect: expert v0.8.61/S36, req S31, planner v0.7.65/S30-S31 vs HEAD S40/v0.8.123; +3 stale oosh* boots the 7-name list missed)",
+      "dispatchedBy": "robbin-po",
+      "date": "2026-08-20",
+      "rolesSeparation": "architect DESIGNS + RE-INSPECTS / trainer PROPAGATES the timeless+pointer shape / req (me) MINTS the AC — never the same agent"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "satisfactionStatus": "UNVERIFIED (gates DESIGNED, lint not yet built; no stub RED observed — honest third state per R40.54, NOT green, NOT erased)",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+    ],
+    "crossRefNote": "Rides the R40.54 failable-AC family (this IS an unfailable-AC-class defect: 'boots are current' was an unenforced WISH). Discovery routes through the SAME structuralDiscover as R40.54 AcGuard + R37.12 live-MVC lint (discovery-utility-single-source, closes the recursion). Boot-essence lint = efbc30e3e; isolated-stub discipline = R40.31; enumerate-not-universal = R40.39/R40.54 lineage. Ghost-context is the intentless-automation cousin (a rewind auto-inherits a dead world).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-currency-invariant",
+        "group": "layer1/by-construction",
+        "text": "For every boot.md that NAMES a sprint/version in an ACTIVE-STATE position, boot.named(sprint,version) == gitHEAD.derived(sprint,version), else RED. gitHEAD.derived = package.json version + the CurrentSprint pin's sprint (single-sourced, the SAME source the app reads). An equality invariant like served==committed.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-essence-lint(currency-dimension, efbc30e3e)",
+          "assertion": "for each state-bearing boot: named(sprint,version)==HEAD-derived else RED"
+        },
+        "stubMustFail": "PENDING: seeded boot naming an old version must go RED (Layer-1 stub) — not yet observed, lint unbuilt"
+      },
+      {
+        "id": "AC-discovery-single-source",
+        "group": "layer1/single-source",
+        "text": "The currency guard routes through the SAME structuralDiscover utility as R40.54's AcGuard (and the R37.12 live-MVC lint) — ONE discovery source, NO copied shape-matcher. A second/divergent boot-matcher => RED (the discovery-utility-single-source fold that closes the recursion one level up).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "structuralDiscover (shared, R40.54/R37.12)",
+          "assertion": "boot-currency discovery resolves to the shared structuralDiscover symbol; a 2nd matcher => RED"
+        },
+        "stubMustFail": "PENDING: seed a copied 2nd matcher -> RED"
+      },
+      {
+        "id": "AC-enumerate-not-universal-glob-divergence",
+        "group": "layer1/enumerate-not-universal",
+        "text": "Discovery is BY GLOB of every session/agents/*/boot.md (INCLUDING other teams: oosh*, @host variants), NEVER a hand-list. Divergence check: a boot file present on disk but NOT in the lint's evaluated set => RED, so a NEW or RENAMED agent boot cannot hide by being unlisted. (This already earned its keep: the architect's glob caught 3 stale oosh* boots that a 7-name robbin list MISSED.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-currency glob+divergence",
+          "assertion": "on-disk boot set == evaluated set; a present-but-unevaluated boot => RED"
+        },
+        "stubMustFail": "PENDING: add a new boot file absent from the set -> divergence RED"
+      },
+      {
+        "id": "AC-fail-closed-unparseable",
+        "group": "layer1/fail-closed",
+        "text": "A boot naming a version/sprint the parser CANNOT resolve to a comparable value => RED, never skipped-as-pass. An ambiguous boot is treated as STALE until proven current (same fail-closed posture as the R3 uuid resolver).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-currency parser",
+          "assertion": "unparseable named version/sprint => RED, not skip"
+        },
+        "stubMustFail": "PENDING: seed an unparseable boot -> RED"
+      },
+      {
+        "id": "AC-lesson-provenance-exempt-scoped",
+        "group": "layer1/enumerated-exemption",
+        "text": "A version inside an explicitly-marked lessons heading (e.g. '## Hard-won patterns (v0.6.0 ...)') is PROVENANCE, not active-state, and is EXEMPT — but ONLY under a marked lessons section, NEVER in a ## Current / ## Goal / anchor position. The exemption is ENUMERATED (a named lessons-heading scope), not a blanket 'ignore all versions'. Prevents a false-RED on robbin-tester's v0.6.0 lesson-stamp.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-currency lesson-scope",
+          "assertion": "version under a marked lessons heading => exempt; the SAME version in an active-state position => RED"
+        },
+        "stubMustFail": "PENDING dual-control: (a) tester v0.6.0 under lessons heading -> GREEN (no false-RED); (b) same version in a ## Current position -> RED"
+      },
+      {
+        "id": "AC-layer1-own-stub-must-fail-isolated",
+        "group": "layer1/self-failability",
+        "text": "The currency lint ships with a RED-proving fixture: a seeded boot naming a deliberately-old version MUST make the lint RED. If the stub PASSES, the lint is not wired and CI blocks. Isolated: fixture in scratch, no prod mutation, cleanup-on-failure (R40.31). This is the R40.54 own-failability requirement applied to this lint itself.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (boot-currency stub fixture)",
+          "assertion": "the lint's own stub, fed the stale-boot defect, is observed RED before the lint counts as wired"
+        },
+        "stubMustFail": "PENDING: register the RED run when the lint ships"
+      },
+      {
+        "id": "AC-state-removal-cure-target",
+        "group": "layer2/cure-target",
+        "text": "The REAL target (deeper assertion, escalation) is that a boot carries NO active-state at all: timeless rules + identity + an ANCHOR POINTER to context.md (refreshed each save) = zero sprint/version/findings (R113 shape). The AC is worded so currency-checking is only the INTERIM guard and does NOT entrench state-bearing boots as acceptable — a state-bearing boot is a defect being cured, not a passing state.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-essence-lint(no-active-state assertion)",
+          "assertion": "a boot in the timeless+pointer shape carries no sprint/version/findings; state-bearing = flagged-for-cure, not passing"
+        },
+        "stubMustFail": "PENDING: seed a timeless+pointer boot -> GREEN; a state-bearing boot -> flagged"
+      },
+      {
+        "id": "AC-delta-vs-absolute-warn-then-red",
+        "group": "layer2/delta-vs-absolute",
+        "text": "The ABSOLUTE no-active-state assertion ships WARN now, and flips to RED per-file as each agent's cure-migration lands (the R40.54 delta-vs-absolute lesson: do NOT RED-gate absolute-conformance before the migration that achieves it, or it false-fails the very files being cured). Per-boot conformance flag: state-bearing vs timeless+pointer; the currency check applies to state-bearing; a timeless+pointer boot passes by construction (nothing to rot). Publish the count of not-yet-cured boots, never falsely-drained.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-currency conformance flag + count",
+          "assertion": "per-file: state-bearing => WARN until its cure lands then RED; timeless+pointer => pass; not-yet-cured count published, never false-drained"
+        },
+        "stubMustFail": "PENDING: a boot still state-bearing AFTER its cure-flag flips -> RED; a false-drained count -> RED"
+      },
+      {
+        "id": "AC-lane-boundary-coverage-universal-remediation-coordinated",
+        "group": "layer2/lane-boundary",
+        "text": "Guard COVERAGE is fleet-wide: the discovered+evaluated set INCLUDES oosh* and other-team boots (a missing other-team boot => coverage RED). But REMEDIATION is NOT unilateral: rewriting another team's boot files is coordinated with THEIR PO. The guard may FLAG an other-team stale/state-bearing boot in its report, but an edit to an oosh-owned file requires oosh-PO coordination — coverage universal, remediation coordinated.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "boot-currency coverage set",
+          "assertion": "oosh*/other-team boots ARE in the evaluated set (coverage); a missing other-team boot => RED. Remediation of oosh-owned files is process-gated on oosh-PO, not a unilateral edit."
+        },
+        "stubMustFail": "PENDING: drop an oosh boot from the evaluated set -> coverage RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
