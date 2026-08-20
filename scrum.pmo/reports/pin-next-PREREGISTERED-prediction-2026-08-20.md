@@ -39,3 +39,27 @@ Workable = 1 (`40.37` Planned, leaf). Predicted NEW CURRENT = `40.37` (2e831ffd)
 ## Recommended (NOT done — reported per PO)
 1. The rule needs an explicit **coordination-root clause**: a task with subtasks is NOT independently workable; its status rolls up from subtasks (ties into invariant (e) "status DERIVED"). Without it the pin unsticks to 37.4.
 2. buildOrder being absent is acceptable IF taskNumber == build order is validated per sprint; otherwise buildOrder must be populated (a separate visible fix with its own result, NOT a silent correction now).
+
+---
+
+## THREE OBSERVABLE PROOFS — consolidated demo acceptance (all PRE-REGISTERED before the code; PO 2026-08-20)
+
+The #86 pin/CR fix ships with THREE live, pre-committed oracles. HOLD all inputs as-is (pin, 37.4 status, buildOrder, T40.1 checklist) — hand-correcting any of them destroys the proof it backs.
+
+- **(i) PIN SELF-UNSTICK → `37.20`, not `37.4`.** With the current sprint (S37) both current candidates already QA-Review, the derived-next rule + rollup-parent status must land the pin on **37.20** (first workable LEAF). Unstick to **37.4** ⇒ coordination-root rollup NOT applied (rule/impl gap). [oracle detail above.]
+- **(ii) T40.1 DERIVES TO TRON'S OWN SKETCH.** T40.1 (`7a956c21`) today = QA-Review `[x]` while carrying 5 OPEN CRs. Post-build, its DERIVED checklist must match the shape **Tron drew in the #86 directive** (per PO relay):
+  ```
+  - [x] Planned
+  - [x] In Progress
+    - [x] refinement
+    - [ ] creating test cases
+    - [ ] implementing
+    - [ ] testing
+  - [ ] QA Review
+    - [ ] processing change requests
+  - [ ] Done
+  ```
+  Acceptance = the DERIVED state matches the picture Tron drew (not our interpretation of his words). Any hand-correction of T40.1's checklist before the build voids this oracle.
+- **(iii) BOTH HAPPEN IN THE GUI IN REALTIME, NO RELOAD.** Pin re-render + T40.1 badge/checklist re-render must occur IN-PLACE via the ONE VIEW BUS (`ViewBus.notify(viewBusKey({type,uuid}))`, v0.8.116 live-bridge) — the same live-MVC standard already proven for controls + detail + badge. A reload does not satisfy Tron.
+
+Post-build planner lane: board regen → verify DERIVED render (do not hand-shape it) → re-run reverse-wire + checklist-chain audits → compare actual vs (i) and (ii). 0 Done till Tron.
