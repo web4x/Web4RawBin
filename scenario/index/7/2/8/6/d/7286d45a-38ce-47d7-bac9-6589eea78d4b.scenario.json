@@ -17,7 +17,7 @@
       {
         "id": "AC-substep-present-iff-open-cr",
         "group": "derived",
-        "text": "The 'processing change requests' sub-step under QA Review is PRESENT iff the task has >=1 OPEN CR (reachable via CR.task, status=Open)."
+        "text": "The 'processing change requests' sub-step under QA Review is PRESENT iff the task has >=1 OPEN CR (reachable via CR.task, status=Open). The processing-CR sub-step is maintained in the SAME UnitController.apply seam transaction as the changeRequests[] edit (task-policy.ts:116) - a separate push is lost. (architect b408de988)"
       },
       {
         "id": "AC-substep-checked-iff-resolved",

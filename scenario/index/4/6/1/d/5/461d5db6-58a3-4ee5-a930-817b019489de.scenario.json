@@ -48,7 +48,12 @@
       {
         "id": "AC-substep-aware-band",
         "group": "by-construction",
-        "text": "deriveStatusEnum is SUB-STEP AWARE: an OPEN \"processing change requests\" sub-step yields a DISTINCT band = QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs). The indented sub-step is DERIVATION-BEARING, not decorative (architect ac4913493: open CRs untick the TOP-LEVEL QA Review box, behaviour not decoration). This satisfies Tron's sketch (QA Review unticked + sub-step visible) AND his no-regress rule (the derived status NEVER falls to In-Progress while a CR is open). PO ruling 2026-08-20: deriveStatusEnum becomes SUB-STEP AWARE so an open processing-CR yields a distinct band satisfying BOTH Tron directives (his unticked-QA-Review sketch AND his no-regress-to-In-Progress rule). stub-must-fail: a task with QA Review unticked + an open processing-CR that derives In-Progress (or clean QA-Review, or Done) => RED."
+        "text": "deriveStatusEnum is SUB-STEP AWARE: an OPEN \"processing change requests\" sub-step yields a DISTINCT band = QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs). The indented sub-step is DERIVATION-BEARING, not decorative (architect band design c6652f88c/b408de988: open CRs untick the TOP-LEVEL QA Review box, behaviour not decoration; SUPERSEDES the earlier ac4913493 untick->In-Progress spec). This satisfies Tron's sketch (QA Review unticked + sub-step visible) AND his no-regress rule (the derived status NEVER falls to In-Progress while a CR is open). PO ruling 2026-08-20: deriveStatusEnum becomes SUB-STEP AWARE so an open processing-CR yields a distinct band satisfying BOTH Tron directives (his unticked-QA-Review sketch AND his no-regress-to-In-Progress rule). stub-must-fail: a task with QA Review unticked + an open processing-CR that derives In-Progress (or clean QA-Review, or Done) => RED."
+      },
+      {
+        "id": "AC-band-single-derive-qa-enum",
+        "group": "by-construction/anti-two-source",
+        "text": "The band extends THE ONE deriveStatusEnum (task-status.ts:19) - NOT a parallel derive; statusSymbol(:42) and the drift detector assertStatusConsistent(:82) both DELEGATE to it, so band + Done-gate stay consistent BY CONSTRUCTION. The band is NOT a 5th enum value: deriveStatusEnum returns QA Review for QA-Review-with-open-CR band; its ONLY change is to GATE Done (Done box + an open processing-CR sub-step derives QA Review, not Done). (architect b408de988)"
       }
     ],
     "createdBy": "robbin-req",
