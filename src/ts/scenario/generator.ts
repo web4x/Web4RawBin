@@ -21,6 +21,7 @@ import { ScenarioIndex } from './index-store.js';
 import { setActiveResolver } from './templates.js';
 import { type ViewTemplateRegistry } from './templates.js';
 import { sprintPrefix } from './sprint-label.js'; // R40.4 single-source sprint-number atom
+import { bySprintDisplayOrder } from './sprint-pin-resolver.js'; // R40.50: the ONE canonical sprint display order
 
 export interface GenerateResult {
   filesWritten: number;
@@ -86,7 +87,7 @@ export class ViewGenerator {
 
   private generateSprintOverview(sprints: ScenarioUnit[], result: GenerateResult): void {
     const lines = ['# Sprint Overview\n'];
-    const sorted = [...sprints].sort((a, b) => ((a.model.number as number) || 0) - ((b.model.number as number) || 0));
+    const sorted = [...sprints].sort((a, b) => bySprintDisplayOrder({ number: (a.model.number as number) || 0 }, { number: (b.model.number as number) || 0 })); // R40.50: the ONE canonical order (was ASC)
     for (const s of sorted) {
       const m = s.model as Record<string, unknown>;
       const slug = speakingName(s);

@@ -10,7 +10,7 @@
  */
 import { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
-import { resolveSprintPin, deriveSprintStatus, sprintNumOf, isCurrentEra, FROZEN_LEGACY_MAX } from './sprint-pin-resolver.js';
+import { resolveSprintPin, deriveSprintStatus, sprintNumOf, isCurrentEra, FROZEN_LEGACY_MAX, bySprintDisplayOrder } from './sprint-pin-resolver.js';
 import { refuseIfVacuous } from './consistency-guard.js';
 
 export const BEGIN = '<!-- GENERATED-INDEX:BEGIN -->';
@@ -28,7 +28,7 @@ export class SprintOverviewGenerator {
     return sprints
       .map((s) => ({ num: sprintNumOf(s), s }))
       .filter((x): x is { num: number; s: ScenarioUnit } => x.num != null)
-      .sort((a, b) => a.num - b.num)
+      .sort((a, b) => bySprintDisplayOrder({ number: a.num }, { number: b.num })) // R40.50: the ONE canonical order (was ASC a.num-b.num)
       .map(({ num, s }) => ({ num, name: String((s.model as any).name || ''), status: deriveSprintStatus(s, this.idx).status, frozen: !isCurrentEra(num) }));
   }
 

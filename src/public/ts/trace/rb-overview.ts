@@ -13,6 +13,7 @@
 import './rb-object-item.js';
 import { TraceGraph } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
+import { bySprintDisplayOrder } from '../../../ts/scenario/sprint-label.js'; // R40.50: the ONE canonical sprint display order (client-safe atom; pin-resolver re-exports it server-side)
 
 const STATUSES = ['Planned', 'In Progress', 'QA Review', 'Done'];
 
@@ -39,7 +40,9 @@ export class RbOverview extends HTMLElement {
       bySprint.set(key, arr);
     }
     const groups: string[] = [];
-    for (const [sprint, group] of [...bySprint.entries()].sort((a, b) => b[0].localeCompare(a[0], undefined, { numeric: true }))) { // R40.50: DESCENDING (Sprint 40 on top) — a<->b flipped
+    // R40.50: route the group order through the ONE canonical comparator (no ad-hoc flip); key on the sprint number parsed from the group key ('(unsorted)' → -1 → sorts last).
+    const keyNum = (k: string): number => { const m = /(\d+)/.exec(k); return m ? parseInt(m[1], 10) : -1; };
+    for (const [sprint, group] of [...bySprint.entries()].sort((a, b) => bySprintDisplayOrder({ number: keyNum(a[0]) }, { number: keyNum(b[0]) }))) {
       const counts: Record<string, number> = {};
       for (const s of STATUSES) counts[s] = 0;
       for (const t of group) if (t.status && counts[t.status] !== undefined) counts[t.status]++;

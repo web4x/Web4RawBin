@@ -45,6 +45,11 @@ export function sprintNumOf(unit: ScenarioUnit): number | null {
   return null; // fail-closed: NEVER parse model.name
 }
 
+// R40.50 — THE one canonical sprint DISPLAY order (DESCENDING). Defined in the CLIENT-SAFE sprint-label atom (this
+// module imports node:fs → the browser trace views cannot import it); RE-EXPORTED here so the sprintNumOf home still
+// surfaces it for the server + generator callers. Single definition, single source. See sprint-label.ts for the doc.
+export { bySprintDisplayOrder } from './sprint-label.js';
+
 // [impl:uuid:f326509a-3f40-4962-86f5-60c4ecb40f1a] SprintPinResolver.sprintSlugOf — canonical slug from the on-disk
 // path, NEVER slugify(model.name) (INV-C1-8). 3-step fallback (req 936caa456), MUST resolve to an EXISTING dir else
 // REFUSE (fail-closed, ties R37.3): (1) /sprints/(sprint-…)/ in sourceFile|compoundSource; (2) model.slug if its dir
@@ -146,12 +151,16 @@ export function resolveSprintPin(idx: ScenarioIndex, hint?: SprintPinHint): Spri
     else current = null;
   }
 
+  // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering — highest-number Closed = lastCompleted. NOT a
+  // display list; MUST NOT route through bySprintDisplayOrder. Reordering breaks pin resolution.
   const closed = rows.filter((r) => r.st.status === 'Closed').sort((a, b) => b.num - a.num);
   const lastCompleted = closed.length ? slot(closed[0]) : null;
 
   const curNum = current?.number ?? lastCompleted?.number ?? -Infinity;
   // next = lowest-number Planned with number > current; a nextSprintNumber designation wins among Planned candidates
   // (same shape: designation wins → else lowest Planned ahead). Never fabricates a non-Planned next silently.
+  // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering — lowest-number Planned ahead = nextBacklog. NOT
+  // a display list; MUST NOT route through bySprintDisplayOrder. Reordering breaks pin resolution.
   const plannedAhead = rows.filter((r) => r.st.status === 'Planned' && r.num > curNum).sort((a, b) => a.num - b.num);
   const designatedNext = hint?.nextSprintNumber != null ? rows.find((r) => r.num === hint.nextSprintNumber) : undefined;
   const nextBacklog = designatedNext ? slot(designatedNext, true) : (plannedAhead.length ? slot(plannedAhead[0]) : null);

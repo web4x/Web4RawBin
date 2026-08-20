@@ -38,47 +38,47 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 | # | Sprint | Status |
 |---|--------|--------|
-| 1 | Rawbin Foundation | frozen-legacy (excluded from gate) |
-| 2 | Identity & SSH | frozen-legacy (excluded from gate) |
-| 3 | E2E Hardening | frozen-legacy (excluded from gate) |
-| 4 | Traceability | frozen-legacy (excluded from gate) |
-| 5 | PWA & Offline | frozen-legacy (excluded from gate) |
-| 6 | Web Components | frozen-legacy (excluded from gate) |
-| 7 | Encrypted Storage | frozen-legacy (excluded from gate) |
-| 8 | Monaco Editor | frozen-legacy (excluded from gate) |
-| 9 | Room Identity | frozen-legacy (excluded from gate) |
-| 10 | Contacts Ui | frozen-legacy (excluded from gate) |
-| 11 | Traceability | frozen-legacy (excluded from gate) |
-| 12 | Editor Fixes | frozen-legacy (excluded from gate) |
-| 13 | Stability | frozen-legacy (excluded from gate) |
-| 14 | Legacy Migration | frozen-legacy (excluded from gate) |
-| 15 | Traceability Browser | frozen-legacy (excluded from gate) |
-| 16 | Traceability Ux | frozen-legacy (excluded from gate) |
-| 17 | Scenario Units | frozen-legacy (excluded from gate) |
-| 18 | Chain Method-Scope & Role Skills | frozen-legacy (excluded from gate) |
-| 19 | Room Handling | Active |
-| 20 | Radical Forward Planning (Traceability-First) | Active |
-| 21 | Contact Identity | Active |
-| 22 | Traceability View Fixes | Closed |
-| 23 | Media Preview | Closed |
-| 24 | Traceability Skills | Closed |
-| 25 | Apple DnD | Active |
-| 26 | RawBin Federation | QA-pending |
-| 27 | Detail View Enhancements | Closed |
-| 28 | Graph-Integrity Foundation | Planned |
-| 29 | Server & Dev Lifecycle | Planned |
-| 30 | Traceability Improvement | QA-pending |
-| 31 | Server Manager | QA-pending |
-| 32 | MDA Model-Driven Code Quality | QA-pending |
-| 33 | MDA v4 MOF-layered tree | Closed |
-| 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
-| 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
-| 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
-| 37 | Consistency by Construction | Active |
 | 40 | Server Manager — deployment-node model + mobile input control | QA-pending |
+| 37 | Consistency by Construction | Active |
+| 36 | Unify Traceability Units with the M2 UML/TS Model | Closed |
+| 35 | Buttons->Actions + Universal On-Disk Scenarios | Closed |
+| 34 | MDA-tree refine (retain-protect-tweak the S33 achievement) | Closed |
+| 33 | MDA v4 MOF-layered tree | Closed |
+| 32 | MDA Model-Driven Code Quality | QA-pending |
+| 31 | Server Manager | QA-pending |
+| 30 | Traceability Improvement | QA-pending |
+| 29 | Server & Dev Lifecycle | Planned |
+| 28 | Graph-Integrity Foundation | Planned |
+| 27 | Detail View Enhancements | Closed |
+| 26 | RawBin Federation | QA-pending |
+| 25 | Apple DnD | Active |
+| 24 | Traceability Skills | Closed |
+| 23 | Media Preview | Closed |
+| 22 | Traceability View Fixes | Closed |
+| 21 | Contact Identity | Active |
+| 20 | Radical Forward Planning (Traceability-First) | Active |
+| 19 | Room Handling | Active |
+| 18 | Chain Method-Scope & Role Skills | frozen-legacy (excluded from gate) |
+| 17 | Scenario Units | frozen-legacy (excluded from gate) |
+| 16 | Traceability Ux | frozen-legacy (excluded from gate) |
+| 15 | Traceability Browser | frozen-legacy (excluded from gate) |
+| 14 | Legacy Migration | frozen-legacy (excluded from gate) |
+| 13 | Stability | frozen-legacy (excluded from gate) |
+| 12 | Editor Fixes | frozen-legacy (excluded from gate) |
+| 11 | Traceability | frozen-legacy (excluded from gate) |
+| 10 | Contacts Ui | frozen-legacy (excluded from gate) |
+| 9 | Room Identity | frozen-legacy (excluded from gate) |
+| 8 | Monaco Editor | frozen-legacy (excluded from gate) |
+| 7 | Encrypted Storage | frozen-legacy (excluded from gate) |
+| 6 | Web Components | frozen-legacy (excluded from gate) |
+| 5 | PWA & Offline | frozen-legacy (excluded from gate) |
+| 4 | Traceability | frozen-legacy (excluded from gate) |
+| 3 | E2E Hardening | frozen-legacy (excluded from gate) |
+| 2 | Identity & SSH | frozen-legacy (excluded from gate) |
+| 1 | Rawbin Foundation | frozen-legacy (excluded from gate) |
 
 **FROZEN-LEGACY** (excluded from the consistency gate — Tron-bounded scope, [[no silent caps]]):
-- sprints S01–S18 (needs-backfill ancient set, FROZEN not backfilled): S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18
+- sprints S01–S18 (needs-backfill ancient set, FROZEN not backfilled): S18, S17, S16, S15, S14, S13, S12, S11, S10, S9, S8, S7, S6, S5, S4, S3, S2, S1
 - design-doc planning.md (hand-authored): S01, S02, S03, S04, S05, S06, S07, S08, S09
 <!-- GENERATED-INDEX:END -->
 

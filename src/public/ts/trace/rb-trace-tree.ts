@@ -29,6 +29,7 @@
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus } from './ViewBus.js';
+import { bySprintDisplayOrder } from '../../../ts/scenario/sprint-label.js'; // R40.50: the ONE canonical sprint display order (client-safe atom; pin-resolver re-exports it server-side)
 
 const LS_KEY = 'rawbin-trace-expanded';
 
@@ -469,7 +470,7 @@ export class RbTraceTree extends HTMLElement {
       const model = (await iorRes.json())?.unit?.model || {};
       sprintName = String(model.sprintName || 'Current Sprint');
     } catch { /* degrade to whatever loaded */ }
-    sprints = (sprints || []).slice().sort((a, b) => (b.number || 0) - (a.number || 0)); // R40.50: DESCENDING (Sprint 40 on top) — a<->b flipped
+    sprints = (sprints || []).slice().sort(bySprintDisplayOrder); // R40.50: route through the ONE canonical order (was an inline flip — no per-surface copy)
     const N = sprints.length ? Math.max(...sprints.map((s) => s.number || 0)) : 0; // R40.50 COUPLING FIX: sprints[len-1] was the MAX only while ascending — Math.max is order-independent so the sprint-number label survives the flip
     const pad2 = (n: number) => String(n).padStart(2, '0');
 

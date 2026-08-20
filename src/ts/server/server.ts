@@ -80,7 +80,7 @@ import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject 
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role
 import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
-import { resolveSprintPin, sprintNumOf } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader (server-side; passed INTO CurrentSprint.slotsFrom which stays fs-free)
+import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
@@ -1521,7 +1521,7 @@ function sprintOverviewNodes(idx: ScenarioIndex): Array<{ uuid: string; name: st
     if (g?.ior !== 'ior:class:Sprint') return null;
     return { uuid: u, name: String(g.model?.name || ''), number: Number(g.model?.number || 0), taskCount: Array.isArray(g.model?.tasks) ? (g.model!.tasks as string[]).length : 0 };
   }).filter(Boolean) as Array<{ uuid: string; name: string; number: number; taskCount: number }>;
-  return sprints.sort((a, b) => a.number - b.number);
+  return sprints.sort(bySprintDisplayOrder); // R40.50: the ONE canonical order (was ASC a.number-b.number, Tron's bug) → /model + traceability folder inherit DESCENDING by construction
 }
 
 // R35.4 (uncredited helper of mofChildren b6c88d83, UC beb0af0d mofTree.traceabilityFolder) — the traceability folder

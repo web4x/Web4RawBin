@@ -279,6 +279,7 @@ export class CurrentSprint {
     // done-only (a done prior-sprint task IS a real completion, not the phantom; symmetric to the
     // nextBacklog forward-fall).
     if (!lastCompleted && currentSprint) {
+      // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering (nearest prior sprint for lastCompleted fall-back). NOT a display list; MUST NOT route through bySprintDisplayOrder; reordering breaks pin resolution.
       const backward = sprintUnits.filter(s => s.number < currentSprint!.number).sort((a, b) => b.number - a.number);
       for (const sp of backward) {
         const done = sp.tasks.map(slotInfo).filter((t): t is Slot => !!t && t.done);
@@ -300,6 +301,7 @@ export class CurrentSprint {
     let nextBacklog: Slot | null = null;
     for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].terminal) { nextBacklog = sprintTasks[k]; break; } }
     if (!nextBacklog && currentSprint) {
+      // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering (nearest later sprint for nextBacklog fall-forward). NOT a display list; MUST NOT route through bySprintDisplayOrder; reordering breaks pin resolution.
       const forward = sprintUnits.filter(s => s.number > currentSprint!.number).sort((a, b) => a.number - b.number);
       for (const sp of forward) {
         const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.terminal);

@@ -15,6 +15,15 @@ export function sprintPrefix(num: number | null | undefined): string {
   return 'Sprint ' + (num ? num : '?'); // '?' matches the generator's prior `m.number || '?'` → byte-stable output
 }
 
+// R40.50 — THE one canonical sprint DISPLAY order: DESCENDING (Sprint 40 on top, Tron's spec), keyed on the canonical
+// number. EVERY display surface (/model, /trace overview+tree, the traceability folder, the generated overview MD) sorts
+// through THIS one export → the two surfaces cannot disagree BY CONSTRUCTION. A sprint-display list that sorts by number
+// ad-hoc (a.number-b.number) is the lint/gate target — this is the only sanctioned sprint-display sort. NOT for the
+// ALGORITHMIC pin-hop sorts (sprint-pin-resolver :149/:155, CurrentSprint :282/:303 — semantic, explicitly exempt).
+// Homed HERE (the CLIENT-SAFE atom), NOT in sprint-pin-resolver (node:fs at module-top → not browser-safe); the
+// resolver re-exports it so the sprintNumOf home still surfaces it for server/generator callers.
+export const bySprintDisplayOrder = (a: { number: number }, b: { number: number }): number => b.number - a.number;
+
 /** Display label for a sprint (tree row / detail header): 'Sprint N — name'; name alone when there is no number. */
 // [impl:uuid:e7fb7e65-1ca2-4d1a-a0ad-071d9d1cd809] SprintView.sprintLabel (Method 90e4014a, off UC d6cb7ddd sprintView.renderLabel)
 export function sprintLabel(name: string, num: number | null | undefined): string {
