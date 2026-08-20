@@ -51,6 +51,11 @@
         "id": "AC-owner-single-source",
         "group": "source",
         "text": "The owner value is the owner profile UNIT (05e58f81), resolved SINGLE-SOURCE (profileUuidOf(owner) / the owner profile), not a literal scattered across call sites — the owner-gate reads the same source it is backfilled from."
+      },
+      {
+        "id": "AC-caseC-conflict-hold",
+        "group": "by-construction/measured-trap",
+        "text": "A Task whose ownerIor-Sprint != model.parent-Sprint (Case C; measured: 708ec0a5 ownerIor->Room-Handling vs parent->Radical-Forward-Planning) is HELD, NOT auto-written — a human decides which Sprint is authoritative before the task is owned. stub-must-fail: auto-setting ownerIor=profile on a Case-C dual-pointer conflict => RED."
       }
     ],
     "ownerProfile": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
@@ -60,9 +65,25 @@
       "ownerIor_is_sprint_oldSchema": 330,
       "nonTask_ownerIor_is_structural_parent": "Test 1029 / Sprint 876 / Class 635 / Impl 586 / Method 576 / Requirement 249 / UseCase 53 ... = the overload",
       "date": "2026-08-20",
-      "by": "robbin-req"
+      "by": "robbin-req",
+      "authoritativeSplit": {
+        "A_safe": 205,
+        "B_relocate": 319,
+        "C_conflict_hold": 1,
+        "note": "architect 86cf1dbb5 refined my 11 both-set: 10 are consistent dual-carriers (parent==ownerIor Sprint)->fold into A; 1 (708ec0a5) is a Case-C dual-pointer CONFLICT."
+      }
     },
-    "flagToArchitect": "The non-null Task owners are SPRINTS (structural), NOT profiles — the directive's 'other uuids in the non-null set' are structural parents. 330 old-schema Tasks need Sprint relocated to `parent` BEFORE ownerIor:=profile, or the Task->Sprint graph is clobbered."
+    "flagToArchitect": "The non-null Task owners are SPRINTS (structural), NOT profiles — the directive's 'other uuids in the non-null set' are structural parents. 330 old-schema Tasks need Sprint relocated to `parent` BEFORE ownerIor:=profile, or the Task->Sprint graph is clobbered. RESOLVED: architect confirmed + measured Case C (708ec0a5) = 1 conflicting dual-pointer, held.",
+    "caseC_conflicts": [
+      {
+        "task": "ior:instance:708ec0a5",
+        "name": "T-vcard-enrich-store",
+        "ownerIor_sprint": "ior:instance:97f513a1 (Room Handling)",
+        "parent_sprint": "ior:instance:64af2638 (Radical Forward Planning)",
+        "rule": "HOLD — do NOT auto-write. Two upward pointers name DIFFERENT sprints; setting ownerIor=profile would silently bless model.parent and erase the Room-Handling claim with no human deciding. A human resolves which Sprint is authoritative before this task is owned."
+      }
+    ],
+    "navReadClarification": "Sprint grouping is read from Sprint.tasks[] DOWNWARD (server.ts:1414/:1920), NOT the task upward pointer — so the ownerIor overwrite does not break grouping; the Sprint-parent relocation (Case B) is for GRAPH INTEGRITY (the task keeps its own upward Sprint claim), and Case-C hold prevents erasing a conflicting claim. (architect 86cf1dbb5)"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
