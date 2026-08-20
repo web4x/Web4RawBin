@@ -130,7 +130,12 @@ export function classify(agent: string): 'OWNED' | 'EXCLUDED' | 'UNCLASSIFIED' {
   return 'UNCLASSIFIED'; // divergence: anything not OWNED/EXCLUDED is held to the OWNED standard (RED iff state-bearing)
 }
 
-function live(strict: boolean): number {
+// The end-to-end GATE: discover boots → classify OWNED/EXCLUDED/UNCLASSIFIED → assert no OWNED/UNCLASSIFIED boot names a
+// stale version/sprint or ANY active-state (currency + statelessness), fail-closed on truth-source/discovery, WARN-loud
+// on EXCLUDED. The seed→RED→revert→GREEN Test (3a6ba052) asserts against THIS gate, NOT classifyBoot (the per-string
+// token helper). Renamed from `live` (R4/AST-attach: a marker must sit on a name-matching decl; the old name meant nothing).
+// [impl:uuid:ec656cde-4b9f-4893-ac67-87d4a53b17de] BootCurrencyGuard.assertCurrencyAndStatelessness (Method 5f969cfe / Class BootCurrencyGuard 67245a08; Req dc809efb → UC f7945307; Impl points at the GATE, not classifyBoot:88; Test 3a6ba052)
+function assertCurrencyAndStatelessness(strict: boolean): number {
   let head: Head;
   try { head = { version: headVersion(), sprint: headSprint() }; }
   catch (e) { console.error(`check:boot-currency RED [TRUTH-SOURCE — fix the CurrentSprint designation / package.json, NOT a boot]: ${(e as Error).message} — the guard cannot read HEAD (missing/ambiguous designation or unreadable version), refusing to pass-green. NB this is a DIFFERENT failure class from a stale boot.`); return 1; }
@@ -282,4 +287,4 @@ function selftest(): number {
 
 const args = process.argv.slice(2);
 if (args.includes('--selftest')) process.exit(selftest());
-process.exit(live(args.includes('--strict') || process.env.RB_BOOT_ENFORCE === '1'));
+process.exit(assertCurrencyAndStatelessness(args.includes('--strict') || process.env.RB_BOOT_ENFORCE === '1'));
