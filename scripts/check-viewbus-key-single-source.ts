@@ -12,7 +12,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ALLOW_FILE = 'src/public/ts/trace/ViewBus.ts'; // defines viewBusKey — exempt
 const SCAN_DIRS = ['src/ts', 'src/public/ts'];
 // FIXED channel keys — bare, identical on both sides, no type:uuid drift surface (allowlisted as a first arg).
-const FIXED = ["'graph'", "'current-sprint-singleton-0000-000000000001'"];
+// R37.12 (C) HOLE CLOSED: the CurrentSprint singleton uuid was WRONGLY here — it is a UNIT ref the notify side wraps in
+// viewBusKey({type:'CurrentSprint',uuid}) = 'currentsprint:…', so a bare-uuid subscribe DRIFTED from the notify key and
+// the pin icon never re-rendered (rb-trace-tree:104). It is NOT a fixed channel → removed so a raw-uuid subscribe is RED.
+const FIXED = ["'graph'"];
 
 // strip /* */ + // comments so a prose mention of ViewBus.subscribe/notify can't false-RED.
 export function scanCode(src: string): string {

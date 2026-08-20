@@ -1,6 +1,8 @@
 /**
  * R18.9+R18.10+R18.11+R18.12 — Detail pane: scenario children + parent + source file link.
  */
+import { upsertSection } from './detail-render.js';
+import { navigate } from './nav.js';
 
 export interface DetailChild {
   uuid: string;
@@ -85,6 +87,18 @@ export function renderSourceLink(sourceFile?: string, sourceLine?: number): stri
   const browseHref = `/md/${dirPath}/?highlight=${encodeURIComponent(fileName)}${lineParam}`;
   const label = sourceLine ? `${sourceFile}:${sourceLine}` : sourceFile;
   return `<div class="dv-source" style="margin-bottom:6px"><a href="${browseHref}" style="color:#42a5f5;font-size:0.75rem;text-decoration:none;font-family:monospace">📂 ${esc(label)}</a></div>`;
+}
+
+// R37.12 (B) idempotent inserts — the ONE way every detail view renders its Source + Parent sections. Each routes through
+// upsertSection (assign-once per marker: '.dv-source' / '.dv-parent'), so a live re-render or a superseded async tail
+// REPLACES the section instead of stacking (killed Tron's Parent×2 / source-link duplication). No exceptions — the lint
+// makes a raw insertAdjacentHTML in a detail render RED.
+export function upsertSourceLink(host: HTMLElement, sourceFile?: string, sourceLine?: number): void {
+  upsertSection(host, 'dv-source', renderSourceLink(sourceFile, sourceLine), host.querySelector('.dv-head'), 'beforeend');
+}
+export function upsertParentLink(host: HTMLElement, parent: DetailParent | null, onClick?: (p: DetailParent) => void): void {
+  const el = upsertSection(host, 'dv-parent', renderParentLink(parent), host.querySelector('.dv-head'), 'afterend');
+  if (parent && el) el.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); if (onClick) onClick(parent); else navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); });
 }
 
 function esc(s: string): string {

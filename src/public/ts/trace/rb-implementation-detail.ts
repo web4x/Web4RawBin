@@ -7,7 +7,7 @@ import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { fetchDetailData, scenarioBrowserLinkFromIor, upsertSourceLink, upsertParentLink } from './detail-children.js';
 
 export class RbImplementationDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -33,8 +33,8 @@ export class RbImplementationDetail extends HTMLElement {
     renderChainPathSection(this, obj.uuid);
     this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-      if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }
-      if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
+      upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent — replace not stack
+      upsertParentLink(this, parent);
 
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, obj.uuid);

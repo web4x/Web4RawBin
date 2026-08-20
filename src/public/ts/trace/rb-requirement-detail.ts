@@ -14,7 +14,8 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:7fcca3cf-7c87-4a3d-a64b-089c6d92cc0a] RbRequirementDetail.render impl
 // [impl:uuid:660cb423-30cd-4d32-8a3f-d7bad22f6f5e] RbRequirementDetail.render
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor, scenarioBrowserHref } from './detail-children.js';
+import { fetchDetailData, scenarioBrowserLinkFromIor, scenarioBrowserHref, upsertSourceLink, upsertParentLink } from './detail-children.js';
+import { upsertSection } from './detail-render.js'; // R37.12 (B): idempotent section insert for the CR-reason field
 
 export class RbRequirementDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -54,10 +55,10 @@ export class RbRequirementDetail extends HTMLElement {
     // REUSE (no fork): this same detail serves Requirement + ChangeRequest (RequirementTemplate); reason shows only when present.
     fetch(`/api/ior/ior:instance:${obj.uuid}`).then(r => r.ok ? r.json() : null).then(j => {
       const reason = j?.unit?.model?.reason;
-      if (reason) this.querySelector('.dv-fields')?.insertAdjacentHTML('afterbegin', `<div class="dv-field dv-cr-reason"><label>Reason</label><div style="white-space:pre-wrap;color:#e6edf3;font-size:0.85rem;margin-top:4px;padding:8px 10px;background:#161b22;border-radius:6px;border-left:3px solid #fb8c00">${esc(String(reason))}</div></div>`);
+      upsertSection(this, 'dv-cr-reason', reason ? `<div class="dv-field dv-cr-reason"><label>Reason</label><div style="white-space:pre-wrap;color:#e6edf3;font-size:0.85rem;margin-top:4px;padding:8px 10px;background:#161b22;border-radius:6px;border-left:3px solid #fb8c00">${esc(String(reason))}</div></div>` : null, this.querySelector('.dv-fields'), 'afterbegin'); // R37.12 (B): idempotent — replace not stack
     }).catch(() => { /* reason best-effort */ });
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-      if (sourceFile) { const sh = this.querySelector(".dv-head"); if (sh) sh.insertAdjacentHTML("beforeend", renderSourceLink(sourceFile, sourceLine)); } if (parent) { const h = this.querySelector('.dv-head'); if (h) { h.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); } }
+      upsertSourceLink(this, sourceFile, sourceLine); upsertParentLink(this, parent); // R37.12 (B): idempotent — replace not stack
 
       renderChainPathSection(this, obj.uuid);
       renderAllChildrenSection(this, children);

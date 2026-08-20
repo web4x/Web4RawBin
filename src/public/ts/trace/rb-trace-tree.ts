@@ -28,7 +28,7 @@
  */
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
-import { ViewBus } from './ViewBus.js';
+import { ViewBus, viewBusKey } from './ViewBus.js';
 import { bySprintDisplayOrder } from '../../../ts/scenario/sprint-label.js'; // R40.50: the ONE canonical sprint display order (client-safe atom; pin-resolver re-exports it server-side)
 
 const LS_KEY = 'rawbin-trace-expanded';
@@ -101,7 +101,10 @@ export class RbTraceTree extends HTMLElement {
       // R40.17 LIVE-pin: subscribe to the CurrentSprint singleton's OWN ref (TARGETED — NOT the broad 'graph' channel,
       // which stays flood-excluded at the block below). A pin-designate notifies this ref → re-fetch ONLY the 2-node
       // pin, so the sprint tree updates LIVE with no Refresh @390 without re-rendering (flooding) the whole tree.
-      this.unsub = ViewBus.subscribe('current-sprint-singleton-0000-000000000001', () => { void this.renderCurrentSprintEagerLazy(); });
+      // R37.12 (C): subscribe via the SAME viewBusKey builder the notify uses — the broadcast keys 'currentsprint:<uuid>'
+      // (live-bridge → viewBusKey({type,uuid})), so a RAW-uuid subscribe never matched → the pin icon/tree went stale on a
+      // live make-current. One-builder-both-sides (Q3), the site that never adopted it.
+      this.unsub = ViewBus.subscribe(viewBusKey({ type: 'CurrentSprint', uuid: 'current-sprint-singleton-0000-000000000001' }), () => { void this.renderCurrentSprintEagerLazy(); });
     }
     else if (this._items) { this.renderItems(); } else { this.render(); }
     if (!this.getAttribute('data-seed-ior') && !this.hasAttribute('data-eager-lazy') && !this._items) { // R31.8c round-4 FIX-A2(a): an ITEMS-fed tree (server-manager / feature-manager) must NOT subscribe to graph updates — render() would wipe its items to the 'no graph' placeholder

@@ -4,6 +4,7 @@
  */
 import { navigate } from './nav.js';
 import { renderSourceLink } from './detail-children.js';
+import { upsertSection } from './detail-render.js'; // R37.12 (B): the ONE idempotent section insert — these shared helpers append-once, never stack
 
 function toArr(v: unknown): string[] {
   if (!v) return [];
@@ -23,7 +24,7 @@ export function renderSupersededSection(container: HTMLElement, uuid: string): v
     if (supersededBy.length > 0) lines.push(`<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Superseded by / Refines</h4>` + supersededBy.map(ref => { const id = ref.replace('ior:instance:', ''); return `<div class="dv-link dv-sup-link" data-ref="requirement:${id}"><span class="dv-rel">refines</span><span class="dv-link-title">${id.slice(0,8)}</span></div>`; }).join(''));
     if (supersedes.length > 0) lines.push(`<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Supersedes</h4>` + supersedes.map(ref => { const id = ref.replace('ior:instance:', ''); return `<div class="dv-link dv-sup-link" data-ref="requirement:${id}"><span class="dv-rel">supersedes</span><span class="dv-link-title">${id.slice(0,8)}</span></div>`; }).join(''));
     secEl.innerHTML = lines.join('');
-    container.appendChild(secEl);
+    upsertSection(container, 'dv-superseded-section', secEl); // R37.12 (B): replace any prior superseded section, never stack
     secEl.querySelectorAll('.dv-sup-link').forEach(row => {
       row.addEventListener('click', () => {
         const lref = (row as HTMLElement).dataset.ref!;
@@ -41,7 +42,7 @@ export function renderChainPathSection(container: HTMLElement, uuid: string): vo
   secEl.className = 'dv-chain-path';
   secEl.style.cssText = 'border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px';
   secEl.innerHTML = '<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Traceability Chain</h4><div class="dv-chain-walk" style="color:rgba(255,255,255,0.4);font-size:0.75rem">Loading chain...</div>';
-  container.appendChild(secEl);
+  upsertSection(container, 'dv-chain-path', secEl); // R37.12 (B): replace any prior chain section (marker already = its className), never stack
 
   async function walkChain(nodeUuid: string, depth: number): Promise<string> {
     if (depth > 6) return '';
@@ -85,7 +86,7 @@ export function renderAllChildrenSection(container: HTMLElement, children: { uui
   secEl.style.cssText = 'border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px';
   secEl.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">All Children</h4>` +
     children.map(c => `<div class="dv-link dv-child-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
-  container.appendChild(secEl);
+  upsertSection(container, 'dv-children-section', secEl); // R37.12 (B): replace any prior children section, never stack
   secEl.querySelectorAll('.dv-child-link').forEach(row => {
     row.addEventListener('click', () => {
       const lref = (row as HTMLElement).dataset.ref!;

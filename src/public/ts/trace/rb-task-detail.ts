@@ -13,7 +13,8 @@ import { forwardOnly } from './forward-only.js';
 // [impl:uuid:1ff4d2bb-3af9-4517-8cde-8e6fc498e887] RbTaskDetail.render impl
 // [impl:uuid:a495b735-6836-4dba-84b2-b279f2da17df] RbTaskDetail.render
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserHref } from './detail-children.js'; // T37.26: inline Scenario/Edit link removed from the body — the bar (◆ Scenario / ✎ Edit) is the ONE action surface
+import { fetchDetailData, scenarioBrowserHref, upsertSourceLink, upsertParentLink } from './detail-children.js'; // T37.26: bar = action surface; R37.12: idempotent source/parent inserts
+import { upsertSection } from './detail-render.js'; // R37.12 (B): the ONE idempotent section insert (status-checklist + CRs)
 
 export class RbTaskDetail extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -59,24 +60,16 @@ export class RbTaskDetail extends HTMLElement {
       fetchDetailData(uuid),
       fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(async ([{ children, parent, sourceFile, sourceLine }, iorData]) => {
-      // v0.7.6: visual statusChecklist from the full scenario model. T37.26: the 📄 Task file link moved to the bar's
-      // Open-Task-file ACTION (server-computed model.taskMdHref) — the body no longer renders it (bar = the action surface).
+      // R37.12 (B): NO generation token — every async section below inserts via upsertSection (assign-once per marker),
+      // so a live re-render or a superseded tail REPLACES its section instead of stacking → live-DOM == fresh-DOM.
       const model = (iorData?.unit?.model || {}) as Record<string, any>;
-      // R40.31(b) FIX (architect 624f5eba3): FRESH-WINS on the status BADGE too (mirror the action-bar precedence fix).
-      // render() paints .dv-status-badge from the possibly-STALE cached graph obj.status; the /api/ior model.status fetched
-      // here is fresh (attachTaskStatus derives it at the read boundary), so overwrite the badge → a live status change (e.g.
-      // Set-as-Current Planned→In-Progress, remote approve) flips the BADGE and the CONTROLS together, not just the controls.
+      // R40.31(b): FRESH-WINS on the status BADGE — overwrite the possibly-stale cached graph obj.status with the fresh
+      // derived /api/ior model.status so badge + controls flip together on a live status change.
       const badge = this.querySelector('.dv-status-badge');
       if (badge && model.status) badge.textContent = String(model.status);
-      const fields = this.querySelector('.dv-fields');
-      if (fields) {
-        if (model.statusChecklist) fields.insertAdjacentHTML('beforeend', renderStatusChecklist(String(model.statusChecklist)));
-      }
-      if (sourceFile) { const sh = this.querySelector('.dv-head'); if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine)); }
-      if (parent) {
-        const head = this.querySelector('.dv-head');
-        if (head) { head.insertAdjacentHTML('afterend', renderParentLink(parent)); this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid }); }); }
-      }
+      upsertSection(this, 'dv-status-checklist', model.statusChecklist ? `<div class="dv-status-checklist">${renderStatusChecklist(String(model.statusChecklist))}</div>` : null, this.querySelector('.dv-fields'), 'beforeend');
+      upsertSourceLink(this, sourceFile, sourceLine);
+      upsertParentLink(this, parent);
       renderChainPathSection(this, uuid);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, uuid);
@@ -90,14 +83,14 @@ export class RbTaskDetail extends HTMLElement {
   // [impl:uuid:e080ef45-f2ae-4640-a2ee-6677040f9aa2] RbTaskDetail.renderChangeRequests (R40.10 BUG A)
   private async renderChangeRequests(model: Record<string, any>): Promise<void> {
     const crRefs: string[] = Array.isArray(model.changeRequests) ? model.changeRequests : [];
-    if (!crRefs.length || !this.isConnected) return;
+    if (!crRefs.length || !this.isConnected) { upsertSection(this, 'dv-change-requests', null); return; } // no CRs → clear any prior section (idempotent)
     const items = await Promise.all(crRefs.map((r) => String(r).replace('ior:instance:', '')).map(async (u) => {
       const cm = await fetch(`/api/ior/ior:instance:${u}`).then(x => x.ok ? x.json() : null).catch(() => null);
       const nm = String(cm?.unit?.model?.name || 'Change Request');
       const st = String(cm?.unit?.model?.status || '');
       return `<rb-object-item ref="changerequest:${u}" type="changerequest" name="${esc(nm)}"${st ? ` status="${esc(st)}"` : ''}></rb-object-item>`;
     }));
-    this.querySelector('.dv-links')?.insertAdjacentHTML('afterend', `<div class="dv-links dv-change-requests"><h4>Change Requests</h4>${items.join('')}</div>`);
+    upsertSection(this, 'dv-change-requests', `<div class="dv-links dv-change-requests"><h4>Change Requests</h4>${items.join('')}</div>`, this.querySelector('.dv-links'), 'afterend'); // R37.12 (B): idempotent — replace not stack
   }
 }
 

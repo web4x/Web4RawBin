@@ -15,8 +15,9 @@ import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
 import { selectionModel } from './selection-model.js';
 import { forwardOnly } from './forward-only.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { fetchDetailData, scenarioBrowserLinkFromIor, upsertSourceLink, upsertParentLink } from './detail-children.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
+import { upsertSection } from './detail-render.js'; // R37.12 (B): the ONE idempotent section insert (type-fields, scenario-link)
 
 export class RbDetailView extends HTMLElement {
   graph: TraceGraph | null = null;
@@ -37,7 +38,7 @@ export class RbDetailView extends HTMLElement {
     const keys = Object.keys(fields || {});
     if (!keys.length) return;
     const esc = (s: string): string => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] || c));
-    head.insertAdjacentHTML('afterend', `<div class="dv-fields">${keys.map(k => `<div class="dv-field"><span class="dv-field-k">${esc(k)}</span><span class="dv-field-v">${esc(fields[k])}</span></div>`).join('')}</div>`);
+    upsertSection(this, 'dv-fields', `<div class="dv-fields">${keys.map(k => `<div class="dv-field"><span class="dv-field-k">${esc(k)}</span><span class="dv-field-v">${esc(fields[k])}</span></div>`).join('')}</div>`, head, 'afterend'); // R37.12 (B): idempotent
   }
 
   // R40.11 slice-3 (AC-4 fail-loud). An unresolvable ref → EXPLICIT '⚠ unresolved: <ior>', never a perpetual
@@ -71,7 +72,7 @@ export class RbDetailView extends HTMLElement {
         if (head && data) {
           head.querySelector('.dv-type')!.textContent = data.type || ref.split(':')[0] || '?';
           head.querySelector('.dv-title')!.textContent = data.name || uuid;
-          head.insertAdjacentHTML('beforeend', `${scenarioBrowserLinkFromIor(uuid)}`);
+          upsertSection(this, 'dv-scenario-link', `<span class="dv-scenario-link">${scenarioBrowserLinkFromIor(uuid)}</span>`, head, 'beforeend'); // R37.12 (B): idempotent
           this.renderTypeDrivenFields(head, data.fields || {}); // R40.11 slice-3 (AC-3): ONE generic type-driven field view
           // R35.1: the vCard button (member/user) is now a universalActionBar action (download-vcard, universal-actions.ts) —
           // bespoke button REMOVED (INV-2); the bar handler fetches the real playerToken + calls downloadVCard (INV-1 same effect).
@@ -83,12 +84,8 @@ export class RbDetailView extends HTMLElement {
         }
       }).catch(() => this.renderUnresolved(ref || uuid));
       fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-        const head = this.querySelector('.dv-head');
-        if (sourceFile && head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
-        if (parent && head) {
-          head.insertAdjacentHTML('afterend', renderParentLink(parent));
-          this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => { e.preventDefault(); selectionModel.replaceWith(`${parent.type.toLowerCase()}:${parent.uuid}`); });
-        }
+        upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent
+        upsertParentLink(this, parent, (p) => selectionModel.replaceWith(`${p.type.toLowerCase()}:${p.uuid}`));
         const container = this.querySelector('.dv-scenario-children');
         if (!container || children.length === 0) { if (container) container.innerHTML = '<div class="dv-empty">no children</div>'; return; }
         container.innerHTML = `<h4 style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-bottom:4px">Children</h4>` + children.map(c => `<div class="dv-link" data-ref="${c.type.toLowerCase()}:${c.uuid}"><span class="dv-rel">${c.type}</span><span class="dv-link-title">${c.name}</span></div>`).join('');
@@ -130,20 +127,8 @@ export class RbDetailView extends HTMLElement {
 
     // R18.9+R18.10: fetch ALL children + parent (scenario mode) for the detail pane
     fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-      // R18.11+R18.12: source file link
-      if (sourceFile) {
-        const head = this.querySelector('.dv-head');
-        if (head) head.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
-      }
-      // R18.10: render parent link
-      const parentDiv = this.querySelector('.dv-head');
-      if (parentDiv && parent) {
-        parentDiv.insertAdjacentHTML('afterend', renderParentLink(parent));
-        this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => {
-          e.preventDefault();
-          selectionModel.replaceWith(`${parent.type.toLowerCase()}:${parent.uuid}`);
-        });
-      }
+      upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent — replace not stack
+      upsertParentLink(this, parent, (p) => selectionModel.replaceWith(`${p.type.toLowerCase()}:${p.uuid}`));
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, obj.uuid);
     });

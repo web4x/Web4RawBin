@@ -7,7 +7,7 @@
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus, viewBusKey } from './ViewBus.js';
 import { navigate } from './nav.js';
-import { fetchDetailData, renderParentLink, renderSourceLink, scenarioBrowserLinkFromIor } from './detail-children.js';
+import { fetchDetailData, scenarioBrowserLinkFromIor, upsertSourceLink, upsertParentLink } from './detail-children.js';
 import { guessMimeFromName, fillPreviewPane } from './content-preview.js'; // R40.12: restore eager media render
 import './rb-preview-pane.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
@@ -69,20 +69,8 @@ export class RbFileDetail extends HTMLElement {
         // 75vh pane read as Tron's empty black box). Restore it for media + FAIL-LOUD (never a visible-but-empty pane).
         this.autoRenderMediaPreview(pane, uuid, mimeType, name, token);
 
-        if (sourceFile) {
-          const sh = this.querySelector('.dv-head');
-          if (sh) sh.insertAdjacentHTML('beforeend', renderSourceLink(sourceFile, sourceLine));
-        }
-        if (parent) {
-          const h = this.querySelector('.dv-head');
-          if (h) {
-            h.insertAdjacentHTML('afterend', renderParentLink(parent));
-            this.querySelector('.dv-parent-link')?.addEventListener('click', (e) => {
-              e.preventDefault();
-              navigate(parent.type.toLowerCase(), 'show', { uuid: parent.uuid });
-            });
-          }
-        }
+        upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent — replace not stack
+        upsertParentLink(this, parent);
 
         if (ref) this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
       }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load file</div>'; });

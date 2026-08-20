@@ -122,7 +122,7 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
         // (item icon, status badge, row, detail) re-renders from real state, exactly as a remote tab does off the WS —
         // one code path, the acting tab is not a special case and does not depend on a WS round-trip to itself.
         ViewBus.notify(viewBusKey({ type: 'task', uuid })); // R40.45: acting-tab local emit through the SAME canonical key as the WS broadcast → client-1 re-derives its own drawer/row/body
-        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // a Done/advance can move the derived pin too
+        ViewBus.notify(viewBusKey({ type: 'CurrentSprint', uuid: 'current-sprint-singleton-0000-000000000001' })); // a Done/advance can move the derived pin too
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Your verdict was NOT recorded.', 'err');
       } else if (r.status === 409) {
@@ -152,10 +152,10 @@ function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
-        surfaceVerdict(drawer, `📌 Now current — status ${j.status} (the pin follows the derivation; no stored pin)`, 'ok'); // R40.45 CLIENT-TRUTH: the ACTUAL server status, never an assumed 'In Progress'
+        surfaceVerdict(drawer, `📌 Now current — status ${j.status} (you set this current; holds until it reaches Done or you set another)`, 'ok'); // R40.49: EXPLICIT-WINS designation (was the stale "no stored pin" — false since the designation shipped); R40.45 CLIENT-TRUTH = the ACTUAL server status
         // R40.45 TAB-A: emit the SAME unit-changed onto the ONE bus locally → THIS tab's task surfaces (icon/row/badge/detail) re-render from real state (one code path, not an optimistic poke).
         ViewBus.notify(viewBusKey({ type: 'task', uuid })); // R40.45: acting-tab local emit through the SAME canonical key as the WS broadcast → client-1 re-derives its own drawer/row/body
-        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
+        ViewBus.notify(viewBusKey({ type: 'CurrentSprint', uuid: 'current-sprint-singleton-0000-000000000001' })); // R40.17 pattern: the eager-lazy pin re-fetches → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Nothing changed.', 'err');
       } else if (r.status === 409) {
@@ -186,7 +186,7 @@ function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): vo
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
         surfaceVerdict(drawer, `📌 Designated ${slot} — pin now: ${j.label || j.sprint || 'updated'} (task status unchanged)`, 'ok');
-        ViewBus.notify('current-sprint-singleton-0000-000000000001'); // R40.17: the eager-lazy pin's targeted subscriber re-fetches the 2-node pin → sprint tree updates LIVE, no Refresh @390
+        ViewBus.notify(viewBusKey({ type: 'CurrentSprint', uuid: 'current-sprint-singleton-0000-000000000001' })); // R40.17: the eager-lazy pin's targeted subscriber re-fetches the 2-node pin → sprint tree updates LIVE, no Refresh @390
       } else if (r.status === 403) {
         surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Designation NOT recorded.', 'err');
       } else {
