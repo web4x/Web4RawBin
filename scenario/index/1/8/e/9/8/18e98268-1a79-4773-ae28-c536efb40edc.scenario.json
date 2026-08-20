@@ -1,0 +1,65 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "18e98268-1a79-4773-ae28-c536efb40edc",
+    "altId": "R40.54",
+    "name": "Meta-guard - no requirement is satisfied while any AC lacks a check that can PROVABLY FAIL (fail-closed)",
+    "description": "FIVE instances in one day each shipped as SATISFIED while its property was VIOLATED = a PROCESS DEFECT, not a series of misses: R40.50 (satisfied by a copy behind a value-gate), R40.48 (ACs present but UNENFORCED - 4 contaminations), check-sprint-slug-dir (guard validated the STRAY path), R32.3 (asserted no-re-fork, only checked rendering), R37.12 (asserted no-view-stale, nothing failable). Root: an AC that NAMES a behaviour but has no check that can PROVABLY FAIL is a wish (reminder-not-mechanism); a universally-quantified AC (all X / every X / no X) passes VACUOUSLY forever. The META-GUARD: a requirement may NOT be marked satisfied while any of its ACs lacks a check that can provably go RED - satisfaction is fail-closed. Architect owns the mechanism.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "designRequired": "architect owns the MECHANISM (how each AC references its gate, how the registered stub-must-fail is proven, how fail-closed satisfaction is computed, the wish-sweep). This unit captures the INVARIANT + the PO candidate shape; architect designs + I refine ACs on the design.",
+    "family": "reminder-not-mechanism / false-satisfaction - the SYSTEMIC cure. Generalizes R4 evidence-must-fail (a Test counts only if AST-attached to a failable assertion) + R6 certification-scope from Test-level to AC-level.",
+    "knownInstances": [
+      "R40.50 value-gate-copy",
+      "R40.48 unenforced-ACs-4-contaminations",
+      "check-sprint-slug-dir guard-blesses-stray (R40.53)",
+      "R32.3 asserted-no-re-fork-only-checked-rendering",
+      "R37.12 asserted-no-view-stale-nothing-failable"
+    ],
+    "crossRef": [
+      "ior:instance:4c4de905-2505-4dc5-ae6c-42b51a7ab43c",
+      "ior:instance:e4a6071f-b0f5-45b5-858b-3526ad3d2ea6",
+      "ior:instance:d07b2dc0-7499-4877-952c-655170a7a99a",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:7b0727aa-d1e4-41c0-a2f7-98b34e6273c6"
+    ],
+    "crossRefNote": "The 5 known instances this meta-guard would have caught. Seeds the wish-sweep. Generalizes the R3/R4/R6 gating-canon (session/base-skills/gating-canon.md) to every AC of every requirement.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-ac-carries-gate-ref",
+        "group": "by-construction",
+        "text": "Every AC references its GATE (the test/check unit that verifies it). An AC with no gate reference is INCOMPLETE."
+      },
+      {
+        "id": "AC-gate-has-registered-stub-must-fail",
+        "group": "by-construction",
+        "text": "That gate must carry a REGISTERED stub-must-fail proving it can go RED (evidence-must-fail at the AC level, generalizing R4). A gate never observed to fail is unproven."
+      },
+      {
+        "id": "AC-satisfaction-fail-closed",
+        "group": "by-construction",
+        "text": "Satisfaction is REFUSED (fail-closed) for any AC whose gate cannot provably fail - an AC with no failable gate is UNSATISFIED, never satisfied-by-default. A requirement is satisfied only when ALL its ACs have a proven-failable gate that is currently GREEN."
+      },
+      {
+        "id": "AC-enumerate-not-universal",
+        "group": "by-construction",
+        "text": "A universally-quantified AC (all X / every X / no X) is INADMISSIBLE as-is - it has no finite thing to check and passes vacuously. It MUST be replaced with the ENUMERATED list of X PLUS a divergence cross-check that fails when members diverge (the R37.12 (C) fix generalized: all-current-views -> pin/drawer/tree/scoreboard + any-two-disagree => RED)."
+      },
+      {
+        "id": "AC-wish-sweep",
+        "group": "detector",
+        "text": "A sweep reports EXISTING ACs across the graph that cannot provably fail (the backlog of wishes) so they can be retired or upgraded. The 5 known instances seed it; the sweep count must drain toward 0."
+      },
+      {
+        "id": "AC-meta-guard-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "The meta-guard itself is proven failable: seed a requirement with an AC that has NO failable gate and mark it satisfied => the meta-guard goes RED. If the meta-guard cannot bite on a seeded wish, the meta-guard is itself a wish."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
