@@ -8,7 +8,7 @@
 import { setupFoundation } from './r4031-foundation.mjs';
 import { webkit } from '@playwright/test';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const COMMIT = process.env.MC_COMMIT || 'bfbd85d88'; // default = the FIXED build (standing regression gate); MC_COMMIT=c3e8b22f5 for the RED baseline
+const COMMIT = process.env.MC_COMMIT || 'bb8c11eb9'; // default = the CURRENT served build v0.8.123 (marker-delegation fix; GREEN DET-3x both surfaces, behavior-identical to v0.8.122). MC_COMMIT=c3e8b22f5 = the v0.8.121 RED baseline.
 const ROUTE = process.env.ROUTE || 'trace';
 const TASK = process.env.MC_TASK || '97e8a6ad-46db-440f-a9be-cfb97ca64df4'; // real task with a Parent link ('Profile: Marcel Donges'), resolvable on both surfaces
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false,
