@@ -22,7 +22,7 @@
       "rolesSeparation": "architect DESIGNS + RE-INSPECTS / trainer PROPAGATES the timeless+pointer shape / req (me) MINTS the AC — never the same agent"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "satisfactionStatus": "UNVERIFIED (gates DESIGNED, lint not yet built; no stub RED observed — honest third state per R40.54, NOT green, NOT erased)",
+    "satisfactionStatus": "UNVERIFIED (honest third state, PO ruling 2026-08-20 — do NOT move off this yet). LINT-SIDE ACs: stub-RED OBSERVED + verified (4079d157b: seeded stale boot => violation, blindness nonexistent-root/0-boots/low-count => RED, --strict exits 1) = the FAILABILITY is proven. But the REQUIREMENT is NOT satisfied, 3 reasons (R40.54 = do-not-satisfy-on-partial-evidence): (1) CURE INCOMPLETE — 2 of 36 boots still state-bearing (trainer mid-cure); (2) enforcement still on the WARN ramp, not the terminal --strict RED (WARN-forever forbidden ad3639d83); (3) AC-discovery-single-source reworded to principle+divergence with the shared-symbol extraction as recorded DEBT (3 local copies today, verified). See terminalCriterion.",
     "crossRef": [
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
       "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
@@ -39,18 +39,18 @@
           "ref": "boot-essence-lint(currency-dimension, efbc30e3e)",
           "assertion": "for each state-bearing boot: named(sprint,version)==HEAD-derived else RED"
         },
-        "stubMustFail": "PENDING: seeded boot naming an old version must go RED (Layer-1 stub) — not yet observed, lint unbuilt"
+        "stubMustFail": "OBSERVED-RED 4079d157b: seeded stale boot => violation; --strict on the real stale boots exits 1"
       },
       {
         "id": "AC-discovery-single-source",
-        "group": "layer1/single-source",
-        "text": "The currency guard routes through the SAME structuralDiscover utility as R40.54's AcGuard (and the R37.12 live-MVC lint) — ONE discovery source, NO copied shape-matcher. A second/divergent boot-matcher => RED (the discovery-utility-single-source fold that closes the recursion one level up).",
+        "group": "layer1/single-source-principle",
+        "text": "The currency guard discovers its set by the derived-GLOB PRINCIPLE with a divergence check (the discovered set is computed, never a hand-list; a boot present on disk but unevaluated => RED) — the SAME principle as R40.54 AcGuard and R37.12 live-MVC. HONEST STATE (verified on disk check-boot-currency.ts:18-20 + grep: no shared symbol exists): there is NO literal shared `structuralDiscover` symbol today; R40.54, R37.12 and this lint each implement the principle LOCALLY = 3 copies. The AC requires the PRINCIPLE + divergence (met); the single-SYMBOL extraction that would collapse the 3 copies is recorded as explicit DEBT (see extractionDebt) — NOT papered over, because a satisfied AC claiming 'shared' over 3 copies would be a false-satisfaction breaking our own meta-guard R40.54.",
         "gateRef": {
           "kind": "lint",
           "ref": "structuralDiscover (shared, R40.54/R37.12)",
-          "assertion": "boot-currency discovery resolves to the shared structuralDiscover symbol; a 2nd matcher => RED"
+          "assertion": "discovery is derived-glob + divergence check (unevaluated on-disk boot => RED); a HAND-LIST => RED. (Symbol-sharing = tracked debt, not asserted here.)"
         },
-        "stubMustFail": "PENDING: seed a copied 2nd matcher -> RED"
+        "stubMustFail": "PENDING: a hand-list discovery (non-derived) -> RED; divergence (unlisted boot) -> RED"
       },
       {
         "id": "AC-enumerate-not-universal-glob-divergence",
@@ -61,7 +61,7 @@
           "ref": "boot-currency glob+divergence",
           "assertion": "on-disk boot set == evaluated set; a present-but-unevaluated boot => RED"
         },
-        "stubMustFail": "PENDING: add a new boot file absent from the set -> divergence RED"
+        "stubMustFail": "OBSERVED-RED 4079d157b (divergence-sanity): 0-boots / low-count => RED (a shrunken/empty discovered set cannot pass green)."
       },
       {
         "id": "AC-fail-closed-unparseable",
@@ -72,7 +72,7 @@
           "ref": "boot-currency parser",
           "assertion": "boot-unparseable OR truth-source (package.json / CurrentSprint pin) unreadable/absent => RED; never pass-green"
         },
-        "stubMustFail": "PENDING dual: (a) seed an unparseable boot -> RED; (b) seed an unreadable/absent package.json OR missing CurrentSprint pin -> RED (must NOT pass-green)"
+        "stubMustFail": "OBSERVED-RED 4079d157b (truth-source side): blindness case nonexistent-root => RED (guard fails loud when its source is unreadable). Boot-parse-unparseable side: PENDING explicit stub."
       },
       {
         "id": "AC-lesson-provenance-exempt-scoped",
@@ -94,7 +94,7 @@
           "ref": "ci:gates (boot-currency stub fixture)",
           "assertion": "the lint's own stub, fed the stale-boot defect, is observed RED before the lint counts as wired"
         },
-        "stubMustFail": "PENDING: register the RED run when the lint ships"
+        "stubMustFail": "OBSERVED-RED 4079d157b: the lint's own --selftest stub (deliberately-old boot) goes RED; passing stub would fail CI"
       },
       {
         "id": "AC-state-removal-cure-target",
@@ -130,7 +130,9 @@
         "stubMustFail": "PENDING: drop an oosh boot from the evaluated set -> coverage RED"
       }
     ],
-    "sequencingRuling": "PO ruling 2026-08-20 (recorded on the unit so it survives rewind, per this req's own doctrine): the Layer-1 currency-lint BUILD and the boot PROPAGATION proceed NOW — they are NOT blocked behind Tron device-verify. ONLY the Layer-2 WORKTREE MIGRATION (R40.48, AC-worktree-isolation-AUTHORIZED-gated) is gated on Tron confirm + live-MVC defect closure. Fixing the boots BEFORE the migration is strictly better: agents must wake correctly INTO the new structure, not carry stale wake-up files across it."
+    "sequencingRuling": "PO ruling 2026-08-20 (recorded on the unit so it survives rewind, per this req's own doctrine): the Layer-1 currency-lint BUILD and the boot PROPAGATION proceed NOW — they are NOT blocked behind Tron device-verify. ONLY the Layer-2 WORKTREE MIGRATION (R40.48, AC-worktree-isolation-AUTHORIZED-gated) is gated on Tron confirm + live-MVC defect closure. Fixing the boots BEFORE the migration is strictly better: agents must wake correctly INTO the new structure, not carry stale wake-up files across it.",
+    "extractionDebt": "DEBT (PO option a, DEFERRED): extract ONE shared structuralDiscover utility and fold the 3 local copies (R40.54 AcGuard / R37.12 live-MVC lint / scripts/check-boot-currency.ts). Deferred deliberately — a 3-lint refactor while boots are mid-cure and the L2 worktree migration is pending is the wrong moment. Owner: architect (owns R40.54 + R37.12 = the single-source-the-discovery-utility fold). WHEN extracted: revert AC-discovery-single-source to the strict shared-SYMBOL wording. crossRef R40.54/R37.12.",
+    "terminalCriterion": "R40.55 becomes satisfiable ONLY when: (i) state-bearing boots == 0 (live scan currently 36 boots, 34 cured, 2 still state-bearing — trainer mid-cure; AC-state-removal-cure-target cannot pass while >0), AND (ii) ci:gates flips from the WARN ramp to the LIVE --strict run = terminal RED (architect FORBADE WARN-forever, ad3639d83; WARN-forever is the silent-decay path), AND (iii) the discovery-AC wording is reconciled (principle+divergence now; strict shared-symbol after the extraction debt lands). Until all three: UNVERIFIED."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
