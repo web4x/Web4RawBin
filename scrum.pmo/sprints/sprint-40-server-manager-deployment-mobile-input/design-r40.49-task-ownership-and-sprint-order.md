@@ -1,5 +1,10 @@
 # R40.49 — Task ownership backfill (A) + sprint DESCENDING order (B) — architect design
 
+> ★ **AUTHORITATIVE SOURCE OF THE MEASURED SPLIT.** The task-ownership split lives HERE and only here (this file). Consumers — the requirement unit `241bf3c9`, the expert's migration, the tester — must REFERENCE this file at its current commit, NOT restate the figures (a duplicated number desynchronises on the next refinement; that is how this number went stale in flight four times).
+> **CURRENT AUTHORITATIVE SPLIT: A=206 direct · B=220 relocate · D=99 orphan (set-owner + drop-stale, NO relocate) · C=0 · anomaly=0 = 525.**
+> **SUPERSEDED — marked, not deleted:** the earlier `A=205 / B=319 / C=1` (schema-only, committed 86cf1dbb5 / 7c2863427 and restated in unit 241bf3c9) is **SUPERSEDED-BY-NEW-EVIDENCE (the reciprocation test)**. An agent holding 205/319/1 should recognise it as OLD, not read it as a live disagreement: 319 = 220 reciprocated-relocate + 99 stale-orphan; relocating the 99 fabricates parents no sprint claims.
+
+
 Tron live directive via PO. Design-only; expert implements; all three (A + B + held (5) deploy) ship in ONE restart. Target owner profile = **`05e58f81-34ec-4851-b5b7-5749ca9148a3`** (Profile "Marcel Donges", Tron-specified verbatim — note several other "Marcel Donges" profiles exist; use THIS uuid only).
 
 ## (A) OWNERSHIP BACKFILL — a GATED 2-CASE MIGRATION, scoped to `ior:class:Task` ONLY
