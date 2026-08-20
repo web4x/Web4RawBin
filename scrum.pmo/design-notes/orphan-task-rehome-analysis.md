@@ -143,3 +143,8 @@ Not re-homed. The slug (task-7.0 -> Sprint 7) is the task's OWN declaration - st
 - task-23-audit-sprint-1 (T23), task-24-audit-sprint-2 (T24), task-25-audit-sprint-3 (T25) = flat task numbers T23/24/25 whose SUBJECT is auditing sprint 1/2/3. sprintNumOf resolves the task's OWN slug (task-23 = flat, no home sprint), NOT the audit-target substring. Per the PO line, flat task numbers declare nothing = parked.
 
 *Final: 99 -> 78 re-homed (18 covered-req + 2 via-successor + 1 self-declared-slug); 78 parked (all flat T<N>, no home self-declaration).*
+
+## PO RULING (Finding 2, 2026-08-20) - canonical sprint-existence for EVIDENCE
+
+For any slug-declared re-home, the sprint EXISTS only if it resolves to the **TRACKED sprint-0N-<slug>/ path** (committed unit + git-tracked dir with real history). **Slug-only generator dirs (scrum.pmo/sprints/<slug>/, no sprint-0N- prefix) are NEVER evidence - tracked or not.** This closes the poisoning vector: a generator emitting a fresh slug-dir can never launder a fabrication into an evidenced re-home. ecf3e19f passed BECAUSE it resolves via sprint number 7 -> committed unit a9eb4565 / sprint-07-encrypted-storage/, not the fresh encrypted-storage/ dir.
+
