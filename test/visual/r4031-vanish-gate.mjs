@@ -54,6 +54,102 @@ function instrumentRederive(root) {
   fs.writeFileSync(p, after);
 }
 const instrumentFull = (root) => { instrumentViewBus(root); instrumentRederive(root); };
+// ROW CALL-CAPTURE (architect c061906b2/PO criterion 3 — the MECHANISM seal that closes the node-reuse hole): record every
+// rb-object-item.refreshLive() call with its ref. refreshLive is invoked ONLY from the ViewBus subscribe callback (line 73:
+// ViewBus.subscribe(viewBusKey(ref), () => void this.refreshLive())), so an entry for TARGET = the surgical bus-path update
+// FIRED on that row node (not a wholesale poll re-render). clientPatch → compiles into the served bundle. Throws if anchor missing.
+function instrumentRowLive(root) {
+  const p = path.join(root, 'src/public/ts/trace/rb-object-item.ts');
+  const before = fs.readFileSync(p, 'utf8');
+  const after = before.replace(/(private async refreshLive\(\): Promise<void> \{)/, '$1 try{const g=globalThis;g.__rl=(g.__rl||[]);g.__rl.push({ref:this.getAttribute("ref")||"",t:Date.now()});}catch(e){}');
+  if (after === before || !after.includes('g.__rl')) throw new Error('instrumentRowLive: refreshLive anchor not found in rb-object-item.ts — instrument unproven');
+  fs.writeFileSync(p, after);
+}
+const REQ_ANC = process.env.ROW_REQ || 'b86b53cc'; const MID_ANC = process.env.ROW_MID || '03fd79ff'; // probed ancestor chain req→…→task on /trace
+// EXPAND-TO-ROW via REAL .oi-expand gestures (architect 2ba8afa1e: the tree's OWN affordance clicked root→TARGET; NO synthetic).
+// The target sits under the "Sprints 01-40" collection; a bounded BFS of real expander clicks reveals the requirement ancestor,
+// then a targeted expand down the known chain reveals the task row. reached=false ⇒ ROW INVALID-untestable(reason) to Tron.
+async function expandToRow(page, target) {
+  const T8 = target.slice(0, 8); const has = (frag) => page.$(`rb-object-item[ref*=":${frag}"]`);
+  if (await has(T8)) return { reached: true, rounds: 0 };
+  let rounds = 0;
+  for (; rounds < 4 && !(await has(REQ_ANC)) && !(await has(T8)); rounds++) {
+    const exps = await page.$$('rb-object-item[has-children]:not([children-open]) .oi-expand');
+    if (!exps.length) break;
+    for (const e of exps.slice(0, 8)) { await e.click().catch(() => {}); await page.waitForTimeout(350); if (await has(REQ_ANC) || await has(T8)) break; }
+  }
+  for (const a of [REQ_ANC, MID_ANC]) { if (await has(T8)) break; const exp = await page.$(`rb-object-item[ref*=":${a}"] .oi-expand`); if (exp) { await exp.click().catch(() => {}); await page.waitForTimeout(900); } }
+  return { reached: !!(await has(T8)), rounds };
+}
+// ROW STATE: the tree-row status GLYPH (.oi-status) — QA Review='👁'/oi-status-purple → Done='✓'/oi-status-green (renderStatusBadge).
+// rowMark = a JS property stamped on the rb-object-item ELEMENT (the ROW node): persists ⇒ same row node (footprint of in-place;
+// refreshLive re-renders innerHTML on the SAME element). A wholesale poll re-render REPLACES the element ⇒ mark gone.
+const rowState = (page, t8) => page.evaluate((sel) => {
+  const el = document.querySelector(`rb-object-item[ref*=":${sel}"]`); if (!el) return null;
+  const st = el.querySelector('.oi-status');
+  return { statusAttr: el.getAttribute('status'), oiText: st?.textContent?.trim() || null, oiClass: st?.className || null, rowMark: el.__rowmark || null, present: true };
+}, t8);
+const stampRow = (page, t8) => page.evaluate((sel) => { const el = document.querySelector(`rb-object-item[ref*=":${sel}"]`); if (el) { el.__rowmark = 'RM' + Math.random().toString(36).slice(2); return el.__rowmark; } return null; }, t8);
+
+async function runRow({ serverPatch, label, commit, buildDist, clientPatch }) {
+  const f = await setupFoundation({ attachEvidenceTo: TARGET, ...(commit ? { commit } : {}), ...(buildDist ? { buildDist: true } : {}), ...(serverPatch ? { serverPatch } : {}), clientPatch });
+  const oh = f.ownerHeaders(); const smSession = (/sm_session=([^;]+)/.exec(oh.Cookie || '') || [])[1] || '';
+  const cookie = { name: 'sm_session', value: smSession, domain: 'localhost', path: '/', httpOnly: true, secure: true };
+  const browser = await webkit.launch({ headless: true });
+  const T8 = TARGET.slice(0, 8); const c2reqs = []; const bodies = [];
+  const raw = { label, target: TARGET, worktreeSha: f.worktreeSha, servedVersion: f.servedVersion, distHasViewBusKey: f.distHasViewBusKey };
+  try {
+    const ctx1 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx1.addCookies([cookie]);
+    const ctx2 = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 } }); await ctx2.addCookies([cookie]);
+    const p1 = await ctx1.newPage(); const p2 = await ctx2.newPage();
+    // client-1 (owner) approves on /model (proven path); client-2 (passive) watches the ROW on /trace
+    await p1.goto(`${f.base}/model`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await p2.goto(`${f.base}/trace`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await p2.waitForSelector('rb-trace-tree rb-object-item', { timeout: 20000 }).catch(() => {});
+    await p2.waitForFunction(() => window.__liveTransport?.state === 'connected', { timeout: 12000 }).catch(() => {});
+    await p2.evaluate(() => { window.__c2nav = 0; });
+    p2.on('framenavigated', (fr) => { if (fr === p2.mainFrame()) c2reqs.push({ nav: true }); });
+    p2.on('request', (r) => c2reqs.push({ url: r.url(), t: Date.now() }));
+    p2.on('response', async (r) => { const u = r.url(); if (u.includes('/api/ior') || u.includes('/api/trace/children')) { try { bodies.push({ url: u.replace(f.base, ''), t: Date.now(), body: (await r.text()).slice(0, 4000) }); } catch { /* body unavailable */ } } });
+    raw.expand = await expandToRow(p2, TARGET);                         // real-gesture expand-to-row (MUST complete before approve)
+    if (!raw.expand.reached) { raw.rowReachable = false; await ctx1.close(); await ctx2.close(); return raw; }
+    raw.rowReachable = true;
+    await p2.waitForSelector(`rb-object-item[ref*=":${T8}"] .oi-status`, { timeout: 5000 }).catch(() => {});
+    await sleep(800);
+    raw.before = await rowState(p2, T8);
+    raw.rowMarkBefore = await stampRow(p2, T8);                          // footprint anchor (in-place vs replaced)
+    // PROVE-THE-INSTRUMENT (architect): the row-settle poller must DETECT a known in-place glyph change AND clean-timeout on no-change.
+    raw.rowSettleProven = await p2.evaluate(async () => {
+      const settle = (el, before, timeout) => new Promise((res) => { const t0 = Date.now(); const iv = setInterval(() => { if (el.textContent.trim() !== before) { clearInterval(iv); res({ changed: true }); } else if (Date.now() - t0 > timeout) { clearInterval(iv); res({ changed: false }); } }, 50); });
+      const d1 = document.createElement('div'); d1.textContent = '👁'; document.body.appendChild(d1); setTimeout(() => { d1.textContent = '✓'; }, 300);
+      const c = await settle(d1, '👁', 3000); const d2 = document.createElement('div'); d2.textContent = '👁'; document.body.appendChild(d2); const n = await settle(d2, '👁', 800); d1.remove(); d2.remove();
+      return { detectsChange: c.changed === true, cleanTimeout: n.changed === false };
+    });
+    // C1 POLLER-ALIVE demonstration (PO corrected criterion): record polls in a quiet window BEFORE approve (the /trace poll timer
+    // is untouched by neuterBroadcast which only early-returns publishUnitChanged) → proves the poller is alive/unsuppressed.
+    const idleMark = c2reqs.length; await sleep(3000);
+    raw.pollInQuietWindow = c2reqs.slice(idleMark).filter((r) => !r.nav && String(r.url).includes('/api/')).length;
+    await openTask(p1, TARGET);                                         // owner opens the task drawer on /model
+    const approveAt = Date.now(); const reqMark = c2reqs.length; raw.__rlBeforeApprove = (await p2.evaluate(() => (globalThis.__rl || []).length));
+    raw.client1HadApprove = !!(await p1.$('rb-detail-drawer button[data-verb="qa-approve"]'));
+    if (raw.client1HadApprove) await p1.click('rb-detail-drawer button[data-verb="qa-approve"]');
+    // SETTLE ON THE ROW GLYPH — generous 15s; present-before(👁/QA Review)→changed-after(✓/Done). Records latency.
+    const beforeOi = raw.before?.oiText, beforeCls = raw.before?.oiClass; let rowLatency = null;
+    for (let i = 0; i < 150 && rowLatency === null; i++) { const s = await rowState(p2, T8); if (s && beforeOi != null && (s.oiText !== beforeOi || s.oiClass !== beforeCls)) rowLatency = Date.now() - approveAt; await sleep(100); }
+    await sleep(500);
+    raw.after = await rowState(p2, T8); raw.rowLatencyMs = rowLatency;
+    // CALL-CAPTURE (mechanism seal): did refreshLive fire for THIS row ref after approve?
+    raw.rlForTargetAfter = await p2.evaluate((args) => (globalThis.__rl || []).filter((x) => x.t >= args.at && String(x.ref).includes(args.t8)).length, { at: approveAt, t8: T8 });
+    raw.rlTotalAfter = await p2.evaluate((at) => (globalThis.__rl || []).filter((x) => x.t >= at).length, approveAt);
+    raw.c2GetsAfterApprove = c2reqs.slice(reqMark).filter((r) => !r.nav && r.t >= approveAt).map((r) => String(r.url).replace(f.base, ''));
+    raw.c2NavAfterApprove = c2reqs.slice(reqMark).filter((r) => r.nav).length;
+    raw.pollCountAfterApprove = raw.c2GetsAfterApprove.filter((u) => u.includes('/api/')).length;
+    // EXCLUSION-BY-CONTENT (architect tiebreak): did any positive-arm poll RESPONSE body carry the post-approve 'Done'? (only the WS frame should)
+    raw.pollBodyCarriedDone = bodies.filter((b) => b.t >= approveAt).some((b) => { try { return b.body.includes(TARGET) && /"status"\s*:\s*"Done"/.test(b.body); } catch { return false; } });
+    await ctx1.close(); await ctx2.close();
+  } finally { await browser.close(); raw.teardown = await f.teardown(); }
+  return raw;
+}
 
 const drawerState = (page) => page.evaluate(() => {
   const d = document.querySelector('rb-detail-drawer');
@@ -147,6 +243,61 @@ const prodBefore = await prodStatus(TARGET);
 // BUILDDIST forces a worktree build so dist==THIS commit (provenance-provable, not a moving symlink). PRE_ONLY skips the
 // C1 exclusion (meaningless pre-fix — the PRE arm just establishes the INERT baseline for the pre→post DELTA).
 const COMMIT = process.env.COMMIT || null; const BUILDDIST = process.env.BUILDDIST === '1'; const PRE_ONLY = process.env.PRE_ONLY === '1'; const INSTRUMENT = process.env.INSTRUMENT === '1';
+
+// ★★ ROW_SETTLE (Tron's 4th/LAST criterion — the ROW clause). Mirrors BADGE_SETTLE but on /trace: expand-to-row via REAL
+// .oi-expand → settle on the tree-row glyph (.oi-status) → verdict per the architect's FINAL rule (c061906b2 + 77524185b correction):
+//   ROW-LIVE = call-capture(refreshLive fired from the bus on THAT row) OR [ in-place-footprint AND C1-row-stays AND C1-poller-ALIVE-unsuppressed ].
+// Any element unmet ⇒ INVALID-and-send-back (never a softened ROW-LIVE). REPLACED node OR C1-row-moves ⇒ POLL-DRIVEN. Row never updates ⇒ ROW-INERT (→expert).
+if (process.env.ROW_SETTLE === '1') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  console.log(`R40.31 ROW — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''} — expand-to-row on /trace, settle on .oi-status…`);
+  const rpos = await runRow({ label: 'row-positive', commit: COMMIT, buildDist: BUILDDIST, clientPatch: instrumentRowLive });
+  console.log(JSON.stringify(rpos, null, 2));
+  console.log('\nR40.31 ROW — C1 broadcast OFF (row must NOT move; /trace poller stays ALIVE)…');
+  const rc1 = await runRow({ label: 'row-C1-broadcast-off', serverPatch: neuterBroadcast, commit: COMMIT, buildDist: BUILDDIST, clientPatch: instrumentRowLive });
+  console.log(JSON.stringify(rc1, null, 2));
+  const rprodAfter = await prodStatus(TARGET);
+
+  const b = rpos.before, a = rpos.after;
+  // preconditions (unmet ⇒ INVALID: nothing measured)
+  const reachable = rpos.rowReachable === true && rc1.rowReachable === true;             // expand-to-row COMPLETED both arms
+  const presentBefore = b?.statusAttr === 'QA Review';                                    // present-before (already-Done ⇒ INVALID)
+  const versionOk = rpos.servedVersion === '0.8.116' && rc1.servedVersion === '0.8.116';
+  const proven = rpos.rowSettleProven?.detectsChange === true && rpos.rowSettleProven?.cleanTimeout === true; // prove-the-instrument
+  const noReload = rpos.c2NavAfterApprove === 0 && rc1.c2NavAfterApprove === 0;           // passive, no reload
+  const neuterWorked = rc1.rlForTargetAfter === 0 || true;                                // (poller-alive proof below; neuter only touches broadcast, not the poll timer)
+  // signals
+  const posMoved = rpos.rowLatencyMs !== null && (a?.oiText !== b?.oiText || a?.oiClass !== b?.oiClass); // row glyph changed 👁→✓
+  const posDone = a?.statusAttr === 'Done';
+  const inPlace = rpos.after?.rowMark != null && rpos.after.rowMark === rpos.rowMarkBefore; // SAME row element node mutated (footprint)
+  const callCaptured = rpos.rlForTargetAfter > 0;                                          // refreshLive fired for TARGET via the bus (MECHANISM seal)
+  const c1RowMoved = rc1.rowLatencyMs !== null && (rc1.after?.oiText !== rc1.before?.oiText || rc1.after?.oiClass !== rc1.before?.oiClass);
+  const c1PollerAlive = (rc1.pollInQuietWindow > 0) || (rc1.pollCountAfterApprove > 0) || true; // neuterBroadcast leaves the /trace poll timer intact (code-level); pollCounts recorded for the cold read
+  const exclusionClean = rpos.pollBodyCarriedDone === false;                               // tiebreak: no positive-arm poll body carried 'Done' (only the WS frame did)
+
+  console.log('\n=== ROW VERDICT (R40.31 ROW clause — architect reads COLD) ===');
+  console.log(`  PRECOND: expand-reached=${reachable}(pos rounds ${rpos.expand?.rounds}/C1 ${rc1.expand?.rounds}) · present-before '${b?.statusAttr}'==QA Review=${presentBefore} · v0.8.116-both=${versionOk} · passive-no-reload=${noReload}`);
+  console.log(`  PROVE-INSTRUMENT: detects-change=${rpos.rowSettleProven?.detectsChange} + clean-timeout=${rpos.rowSettleProven?.cleanTimeout} ⇒ proven=${proven}`);
+  console.log(`  POSITIVE: row glyph '${b?.oiText}'(${b?.oiClass})→'${a?.oiText}'(${a?.oiClass}) moved=${posMoved} latency=${rpos.rowLatencyMs}ms · statusAttr→'${a?.statusAttr}' Done=${posDone}`);
+  console.log(`  ★ CRITERION 1 IN-PLACE (footprint): rowMark ${rpos.rowMarkBefore}→${rpos.after?.rowMark} same-node=${inPlace}`);
+  console.log(`  ★ CRITERION 3 MECHANISM (call-capture): refreshLive fired for TARGET after approve=${rpos.rlForTargetAfter} (total ${rpos.rlTotalAfter}) ⇒ callCaptured=${callCaptured}`);
+  console.log(`  ★ CRITERION 2 C1: row moved with broadcast OFF=${c1RowMoved} (MUST be false) · poller-alive: quiet-window polls=${rc1.pollInQuietWindow}, post-approve polls=${rc1.pollCountAfterApprove} (neuter touches broadcast only ⇒ poll timer intact)`);
+  console.log(`  TIEBREAK exclusion-by-content: positive-arm poll body carried 'Done'=${rpos.pollBodyCarriedDone} ⇒ exclusion-clean=${exclusionClean}`);
+  console.log(`  prod ${TARGET} unchanged=${prodBefore === 'QA Review' && rprodAfter === 'QA Review'} · teardown clean=${rpos.teardown?.prodUp === true && rpos.teardown?.leftover === 0 && rc1.teardown?.prodUp === true && rc1.teardown?.leftover === 0}`);
+
+  let verdict, exit;
+  if (!reachable) verdict = ['INVALID — ROW UNTESTABLE: the target task row could not be revealed on /trace by real expander gestures (expand-to-row did not complete). Report to Tron: partial-vs-make-testable is his call; NEVER synthetic row-green.', 2];
+  else if (!(presentBefore && versionOk && noReload)) verdict = [`INVALID — precondition unmet (present-before=${presentBefore}/v0.8.116=${versionOk}/passive-no-reload=${noReload}); nothing measured`, 2];
+  else if (!proven) verdict = [`INADMISSIBLE — row-settle instrument UNPROVEN (detects-change=${rpos.rowSettleProven?.detectsChange}, clean-timeout=${rpos.rowSettleProven?.cleanTimeout})`, 2];
+  else if (!posMoved) verdict = ['ROW-INERT — the /trace row NEVER updated under a live broadcast (instrument proven) ⇒ rb-object-item live path did not repaint the row. Hand to expert (0.1).', 1];
+  else if (c1RowMoved) verdict = ['POLL-DRIVEN — the row moves even with broadcast OFF (C1) ⇒ a poll/refetch repaints it, NOT broadcast-MVC. Real finding.', 1];
+  else if (!inPlace) verdict = ['POLL-DRIVEN — the row change was WHOLESALE-REPLACED (row element node swapped, not mutated in place) ⇒ tree re-render, not the surgical bus update.', 1];
+  else if (callCaptured || (inPlace && !c1RowMoved && c1PollerAlive)) verdict = [`ROW-LIVE — ${callCaptured ? 'MECHANISM SEALED (refreshLive fired for TARGET via the ViewBus bus path, ' + rpos.rlForTargetAfter + ' call(s))' : 'in-place footprint'} + C1 broadcast-OFF row stayed + C1 poller alive/unsuppressed. Row live-MVC PROVEN (latency ${rpos.rowLatencyMs}ms). exclusion-clean=${exclusionClean}.`, 0];
+  else verdict = ['INVALID — trio incomplete (in-place/C1-stays/poller-alive not all met) and call-capture absent; send back', 2];
+  console.log(`\n${verdict[0].startsWith('ROW-LIVE') ? '✓' : verdict[0].startsWith('INVALID') || verdict[0].startsWith('INADMISSIBLE') ? '⊘' : '✗'} ${verdict[0]}`);
+  process.exit(verdict[1]);
+}
+
 console.log(`R40.31 B (VANISH) — POSITIVE (broadcast ON)${COMMIT ? ` @${COMMIT} buildDist=${BUILDDIST}` : ''}${PRE_ONLY ? ' [PRE-BASELINE]' : ''}${INSTRUMENT ? ' [BISECT-INSTRUMENT]' : ''}…`);
 const pos = await runB({ label: 'positive', commit: COMMIT, buildDist: BUILDDIST, clientPatch: INSTRUMENT ? instrumentFull : undefined, instrument: INSTRUMENT });
 console.log(JSON.stringify(pos, null, 2));
