@@ -1,0 +1,42 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4c4de905-2505-4dc5-ae6c-42b51a7ab43c",
+    "altId": "R40.50",
+    "name": "Sprints render descending (latest on top) in both the /trace overview and the model tree",
+    "description": "Sprints must render DESCENDING by sprint number (latest — Sprint 40 — on TOP) in BOTH render surfaces: the /trace overview AND the model tree. Today they are not consistently descending, so the newest work is not where Tron looks first. ONE shared comparator so the two surfaces cannot disagree; live via the ONE VIEW BUS where applicable (a new sprint appears on top with no reload).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "crossRef": [
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+    ],
+    "crossRefNote": "R40.4 sprint display/number family (the sprint-number attribute this sorts on). Same one-source discipline as the pin (R40.17) and viewBus render laws.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-descending-both-surfaces",
+        "group": "by-construction",
+        "text": "Sprints render DESCENDING by sprint number (Sprint 40 on top) in BOTH the /trace overview AND the model tree, via ONE shared comparator (DRY — the two surfaces cannot disagree)."
+      },
+      {
+        "id": "AC-390-webkit",
+        "group": "device",
+        "text": "Verified at 390px on real WebKit (Tron's device viewport): Sprint 40 is the first sprint rendered in each surface."
+      },
+      {
+        "id": "AC-live-viewbus",
+        "group": "realtime",
+        "text": "Order updates LIVE via the ONE VIEW BUS where applicable — a newly-created sprint appears on top with NO reload."
+      },
+      {
+        "id": "AC-ascending-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "A surface rendering ASCENDING (Sprint 1 on top), OR the two surfaces disagreeing on order => RED."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

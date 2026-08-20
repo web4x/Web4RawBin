@@ -1,0 +1,68 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "241bf3c9-1ed7-495e-8af7-fd7abe06f62c",
+    "altId": "R40.49",
+    "name": "All Tasks owned by the owner profile — scoped backfill that preserves every structural parent (Task and non-Task)",
+    "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'), so the owner-gate passes. BUT ownerIor is OVERLOADED: on a Task it must be the profile owner, yet on CHAIN units it is the STRUCTURAL PARENT (Impl->Method, ChangeRequest->Test — today's re-parent). MEASURED (525 Tasks): 195 new-schema (structural Sprint in `parent`, ownerIor null = safe to set) + 330 OLD-schema (structural Sprint held IN ownerIor, no `parent` field). So a naive ownerIor:=profile would CLOBBER 330 Task->Sprint structural links = the same graph destruction the non-Task trap warns of, but INSIDE the Task class. The backfill must set Task.ownerIor=owner-profile for all 525 WHILE preserving every Task->Sprint parent, and touch NO non-Task ownerIor.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "crossRef": [
+      "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad"
+    ],
+    "crossRefNote": "R40.17 owner-gate (the 403 Set-as-Current path); R40.10 owner identity via profile (05e58f81 = the same owner-profile-unit that approvedBy uses). The re-parent we did today (CR->Test) is the exact ownerIor-is-structural case the scope-AC must not disturb.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-task-owner-is-owner-profile",
+        "group": "intent",
+        "text": "Every ior:class:Task has ownerIor = the owner profile 05e58f81 (Marcel Donges), so the Set-as-Current owner-gate passes for the owner (T40.1's 403-while-null is resolved)."
+      },
+      {
+        "id": "AC-scope-task-only",
+        "group": "by-construction/trap",
+        "text": "The backfill modifies ownerIor on ior:class:Task units ONLY. NO non-Task unit's ownerIor is modified — Impl->Method, ChangeRequest->Test, Requirement->Sprint etc. are STRUCTURAL parents, left untouched."
+      },
+      {
+        "id": "AC-nonTask-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "A seeded NON-Task unit whose ownerIor would change under the backfill => RED. (Without this, a correct-looking backfill silently destroys the traceability graph.)"
+      },
+      {
+        "id": "AC-preserve-task-sprint-parent",
+        "group": "by-construction/measured-trap",
+        "text": "Where a Task currently carries its Sprint in ownerIor (measured: 330 old-schema Tasks, no `parent`), the Sprint structural parent is FIRST relocated into the Task's `parent` field, so it is NOT lost when ownerIor becomes the profile. Post-backfill EVERY Task has ownerIor=owner-profile AND parent=its Sprint AND remains in Sprint.tasks[]."
+      },
+      {
+        "id": "AC-task-parent-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "A Task that loses its Sprint linkage after the backfill (parent unset AND absent from Sprint.tasks[]) => RED."
+      },
+      {
+        "id": "AC-gated-migration",
+        "group": "migration",
+        "text": "Gated dry-run + before/after counts (525 Tasks: 195 null->owned, 330 Sprint-in-ownerIor->parent-relocated-then-owned), reversible, ambiguous->flag; the owner profile uuid is not leaked into logs beyond the unit field."
+      },
+      {
+        "id": "AC-owner-single-source",
+        "group": "source",
+        "text": "The owner value is the owner profile UNIT (05e58f81), resolved SINGLE-SOURCE (profileUuidOf(owner) / the owner profile), not a literal scattered across call sites — the owner-gate reads the same source it is backfilled from."
+      }
+    ],
+    "ownerProfile": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+    "measured": {
+      "tasks": 525,
+      "ownerIor_null": 195,
+      "ownerIor_is_sprint_oldSchema": 330,
+      "nonTask_ownerIor_is_structural_parent": "Test 1029 / Sprint 876 / Class 635 / Impl 586 / Method 576 / Requirement 249 / UseCase 53 ... = the overload",
+      "date": "2026-08-20",
+      "by": "robbin-req"
+    },
+    "flagToArchitect": "The non-null Task owners are SPRINTS (structural), NOT profiles — the directive's 'other uuids in the non-null set' are structural parents. 330 old-schema Tasks need Sprint relocated to `parent` BEFORE ownerIor:=profile, or the Task->Sprint graph is clobbered."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
