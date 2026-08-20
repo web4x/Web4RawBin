@@ -2,10 +2,10 @@
   "ior": "ior:class:Implementation",
   "model": {
     "uuid": "4f85fa3e-1bf4-4e95-ae43-772acac87d91",
-    "name": "OwnerActionFetch.authedFetch impl",
-    "description": "DESIGN-AHEAD (R40.52): ONE shared owner-scoped fetch helper merging headers[x-player-token]=RawBinClient.playerToken; ALL 4 owner actions (make-current:138/designate:171/approve+decline ~:99) route through it. Owner-actions-ONLY NOT blanket (elevation-risk). Header-auth CSRF-safe (do NOT simplify to cookie). Reuses R40.45 server branch-3, NO server change. Expert may split to a dedicated owner-action-fetch.ts.",
+    "name": "ownerActionFetch impl",
+    "description": "BUILT v0.8.119 (5af9ca32a): standalone export ownerActionFetch(url,opts) in src/public/ts/trace/universal-actions.ts; attaches x-player-token=localStorage[rawbin-player-id] as a CSRF-safe HEADER; routes 3 owner-action sites (approve+decline/make-current/designate), reads NOT routed. Marker placed on decl. No server change (R40.45 branch-3).",
     "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
-    "designAhead": true,
+    "designAhead": false,
     "tests": []
   },
   "ownerIor": "ior:instance:044d64c1-138d-48bb-8647-f04083ca43db"
