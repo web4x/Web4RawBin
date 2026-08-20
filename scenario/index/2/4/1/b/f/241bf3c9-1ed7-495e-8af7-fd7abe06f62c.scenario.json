@@ -55,7 +55,7 @@
       {
         "id": "AC-D-orphan-no-relocate",
         "group": "by-construction/never-fabricate",
-        "text": "The 99 Case-D ORPHANS (old-schema, NO sprint reciprocates) get owner set + the stale ownerIor DROPPED, and are NOT relocated. Relocating a stale pointer into model.parent would FABRICATE a parent the named Sprint denies = 99 new drift. They were already unsorted, so nothing visible regresses; re-homing is R40.51. stub-must-fail: a migration that sets model.parent on an orphan to a Sprint whose tasks[] does not list it => RED."
+        "text": "The 99 Case-D ORPHANS (old-schema, NO sprint reciprocates) get owner set + the stale ownerIor DROPPED, and are NOT relocated. Relocating a stale pointer into model.parent would FABRICATE a parent the named Sprint denies = 99 new drift. They were already unsorted, so nothing visible regresses; re-homing is R40.51. stub-must-fail: a migration that sets model.parent on an orphan to a Sprint whose tasks[] does not list it => RED. Architect-confirmed post-apply invariant (quote, fd8c968af): for the 99 D-orphans, model.parent stays ABSENT AND ownerIor==05e58f81 (owner set, stale ownerIor->Sprint DROPPED, NO model.parent written; they remain honestly unsorted)."
       },
       {
         "id": "AC-apply-gated",
@@ -113,7 +113,8 @@
         "supersededText": "A Task whose ownerIor-Sprint != model.parent-Sprint (Case C; measured: 708ec0a5 ownerIor->Room-Handling vs parent->Radical-Forward-Planning) is HELD, NOT auto-written — a human decides which Sprint is authoritative before the task is owned. stub-must-fail: auto-setting ownerIor=profile on a Case-C dual-pointer conflict => RED.",
         "reason": "C=0 under the reciprocation test: 708ec0a5 is an ORPHAN (both pointers unreciprocated), handled by A-direct ownership + R40.51 orphan re-homing, not a pick-a-sprint conflict."
       }
-    ]
+    ],
+    "authoritativeSource": "design-r40.49-task-ownership-and-sprint-order.md (AUTHORITATIVE-SOURCE header; commits f2f205560 split + fd8c968af header). The split is a MEASUREMENT that can refine — if this unit restated figures ever DISAGREE with that design, the DESIGN WINS. The A=206/B=220/D=99/C=0 figures restated here are a snapshot as of c8e4afb16; the design is the single authoritative place."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
