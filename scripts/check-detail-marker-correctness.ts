@@ -10,10 +10,13 @@
 //   (2) within one host (file), no two calls share a marker literal (the silent-overwrite vector);
 //   (3) ★ the inserted content carries the marker class (else the next render can't find + replace it → silent re-append).
 // Content-scan of the HAZARD (upsertSection call sites) across the whole client source — NOT a component shape-matcher
-// (nothing to route through structuralDiscover; the operation names itself, same law as the sibling lint). The PRIMITIVE
-// layer that DEFINES the sanctioned inserts (detail-render.ts = upsertSection; detail-children.ts = upsertSourceLink/
-// upsertParentLink, whose function-call content renderSourceLink/renderParentLink is verified to carry .dv-source/.dv-parent)
-// is exempt from (3)'s content-class check — it is the sanctioned home, like detail-render.ts is for the raw-insert lint.
+// (nothing to route through structuralDiscover; the operation names itself, same law as the sibling lint). ★ (3) is now
+// enforced BY CONSTRUCTION (DELEGATION), not inspection: upsertSection STAMPS the marker onto the inserted root for ANY
+// content (detail-render.ts), so the section is findable+replaceable regardless of what classes the caller passed — no
+// call site or wrapper edit can break it. The static (3) check here is defense-in-depth for string-LITERAL content; the
+// wrapper layer (detail-children.ts upsertSourceLink/upsertParentLink) passes function-call content the static check can't
+// see through and is exempt from (3) NOT because it was inspected, but because the primitive it DELEGATES to guarantees
+// the marker. detail-render.ts (the definition) is skipped entirely (its signature is not a call site).
 // Registered in ci:gates:raw. Run: node --import tsx scripts/check-detail-marker-correctness.ts
 import fs from 'node:fs';
 import path from 'node:path';

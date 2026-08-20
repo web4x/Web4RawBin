@@ -14,7 +14,9 @@
  * appendChild in a detail render, or any raw-uuid ViewBus.subscribe (both discovered by pattern, not a hand-list).
  */
 
-// The inserted `content` MUST carry `marker` as (or on) its root element so a later upsert can find + replace it.
+// upsertSection STAMPS `marker` onto the inserted root itself (string content is parsed to its root element first), so
+// the caller's content need NOT declare the class — the primitive GUARANTEES the section is findable+replaceable. That
+// makes the marker-class contract by-construction (delegation), not something each call site is trusted to satisfy.
 // Returns the inserted section element (for listener wiring), or null when content is empty (prior just cleared).
 export function upsertSection(
   root: HTMLElement,
@@ -27,12 +29,19 @@ export function upsertSection(
   if (!content) return null; // empty (e.g. no parent / no source) → the prior is cleared, nothing to insert
   const target = anchor || root;
   const pos: InsertPosition = anchor ? position : 'beforeend';
+  let el: HTMLElement | null;
   if (typeof content === 'string') {
-    target.insertAdjacentHTML(pos, content);
+    const tpl = document.createElement('template'); tpl.innerHTML = content;
+    el = tpl.content.firstElementChild as HTMLElement | null; // detail sections are single-root; whitespace/empty → null
+    if (!el) return null;
   } else {
-    content.classList.add(marker); // element form (shared helpers build a secEl) — stamp the marker so it is replaceable
-    if (anchor && (pos === 'afterend' || pos === 'beforebegin' || pos === 'afterbegin')) anchor.insertAdjacentElement(pos, content);
-    else target.appendChild(content);
+    el = content; // element form (shared helpers build a secEl)
   }
-  return root.querySelector('.' + marker) as HTMLElement | null; // exactly one now (priors removed) → the fresh section
+  // ★ DELEGATION (not inspection): the PRIMITIVE stamps the marker on the inserted root for BOTH string and element
+  // content. The contract "the section is findable + replaceable by its marker on the next render" is GUARANTEED HERE,
+  // independent of whatever classes the caller's content declared — so no call site or wrapper can break it, ever (a
+  // renderParentLink/renderSourceLink edit that dropped .dv-parent/.dv-source cannot re-enable Tron's silent re-append).
+  el.classList.add(marker);
+  target.insertAdjacentElement(pos, el);
+  return el;
 }
