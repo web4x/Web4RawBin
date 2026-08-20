@@ -22,9 +22,10 @@ try {
   await sleep(1800);
   raw.itemCount = await page.evaluate(() => document.querySelectorAll('rb-object-item').length);
   raw.topLevel = await page.evaluate(() => [...document.querySelectorAll('rb-object-item')].map((el) => (el.getAttribute('name') || el.querySelector('.oi-name')?.textContent || '').slice(0, 30)));
-  // /model path to sprints (server.ts:1583→1551→1563→1571): M1 · Projects → RawBin → traceability → [CurrentSprint + Sprint N folders DESC].
-  const expandByRef = async (frag) => { const h = await page.$(`rb-object-item[ref*="${frag}"] .oi-expand`); if (h) { await h.click().catch(() => {}); await sleep(1400); return true; } return false; };
-  raw.nav = { m1: await expandByRef('mof-m1'), rawbin: await expandByRef('project:RawBin'), trace: await expandByRef('rawbin:traceability') };
+  // /model path to sprints — the architect's banked selector (PO): CurrentSprint + Sprint N folders sit under RawBin →
+  // TRACEABILITY (not diagrams). Use the expandPath METHOD (the click-.oi-expand approach found no handles).
+  raw.nav = await page.evaluate(async () => { try { const t = document.querySelector('rb-trace-tree'); await t?.expandPath?.(['mof-m1', 'project:RawBin', 'rawbin:traceability']); return 'expandPath(mof-m1/project:RawBin/rawbin:traceability)'; } catch (e) { return 'expandPath-ERR:' + (e && e.message || e); } });
+  await sleep(1800);
   raw.modelDomOrder = await page.evaluate(() => { const nums = []; for (const el of document.querySelectorAll('rb-object-item')) { const name = el.getAttribute('name') || el.querySelector('.oi-name')?.textContent || ''; const m = /^\s*Sprint\s+(\d+)\b/.exec(name); if (m) nums.push(Number(m[1])); } return nums; });
   raw.sampleNames = await page.evaluate(() => [...document.querySelectorAll('rb-object-item')].slice(0, 12).map((el) => (el.getAttribute('name') || el.querySelector('.oi-name')?.textContent || '').slice(0, 28)));
   await ctx.close();
