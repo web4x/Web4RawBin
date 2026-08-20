@@ -32,10 +32,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assertNonVacuous } from '../src/ts/scenario/consistency-guard.js'; // R-C3 shared vacuous-refusal primitive (INV-C3-2, meta-BITE-backed) — single-source, not a bespoke count check
+import { ScenarioIndex } from '../src/ts/scenario/index-store.js';
+import { resolveSprintPin } from '../src/ts/scenario/sprint-pin-resolver.js'; // R40.17 INV-C1-9: the ONE current-sprint resolver — the SAME source the app reads (NOT the retired sprintName 2nd source)
 
 const AGENT_ROOT = process.env.RB_AGENT_WORKSPACE || '/var/dev/Workspaces/AI/Claude';
 const AGENTS_DIR = path.join(AGENT_ROOT, 'session/agents');
-const SINGLETON = 'scenario/index/c/u/r/r/e/current-sprint-singleton-0000-000000000001.scenario.json';
 // Sanity FLOOR (PO): we KNOW the fleet has 7+ robbin boots plus the oosh trio (~36 today). A discovery count below this
 // is definitionally a BROKEN run (wrong/stale RB_AGENT_WORKSPACE — highly reachable once the Layer-2 worktree migration
 // moves repos) — the guard must REFUSE, never pass-green having checked near-zero. A guard that cannot detect its own
@@ -52,10 +53,18 @@ function headVersion(): string {
   return String(v);
 }
 function headSprint(): number {
-  const m = JSON.parse(fs.readFileSync(SINGLETON, 'utf8')).model;
-  const hit = /(\d+)/.exec(String(m?.sprintName ?? ''));
-  if (!hit) throw new Error(`truth-source: CurrentSprint.sprintName "${m?.sprintName}" has no sprint number`);
-  return parseInt(hit[1], 10);
+  // The SAME source the app reads (server.ts:2722-2726): the singleton's owner-DESIGNATION (sprintName→number) fed as
+  // a HINT INTO the ONE resolver resolveSprintPin — NOT sprintName read directly as current (that parallel derivation
+  // is the retired 2nd source R40.17/INV-C1-9 killed; reading it = the two-comparator false-currency the AC prevents).
+  // resolveSprintPin THROWS fail-closed on ambiguity (INV-C1-4 >1 Active) / unresolvable task ref (INV-C1-3) — that
+  // throw is the FEATURE: it bubbles to a RED truth-source (AC-fail-closed), never a silent-pick, never pass-green.
+  const idx = new ScenarioIndex(path.join(process.cwd(), 'scenario/index'));
+  const m = (idx.get('current-sprint-singleton-0000-000000000001')?.model ?? {}) as Record<string, unknown>;
+  const desNum = /\d+/.exec(String(m.sprintName || ''))?.[0];
+  const nextNum = /\d+/.exec(String(m.nextSprintName || ''))?.[0];
+  const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
+  if (!pin.current) throw new Error('truth-source: resolveSprintPin resolved NO current sprint (no Active/designation) — cannot determine HEAD sprint, refusing to pass-green');
+  return pin.current.number;
 }
 
 // ── PURE CORE 1: scan a boot's text for version/sprint tokens, tracking the enclosing heading + lessons-exemption. ──
