@@ -93,7 +93,7 @@
       {
         "id": "AC-section-renders-exactly-once",
         "group": "stub-must-fail/device-390",
-        "text": "After a live update, each detail-view section renders EXACTLY ONCE - REPLACE-not-append, NO double-subscription. stub-must-fail: a live update that yields a DUPLICATED section (e.g. Parent twice, Status three times) => RED. (Tron defect B: detail view duplicated every section = append-instead-of-replace or double-subscription.)"
+        "text": "After a live update, each detail-view section renders EXACTLY ONCE (idempotent: replace-not-append / build-complete-then-assign-once, no double-subscription). FAMILY-WIDE (architect 073991e6a, ENUMERATED not the-views): the shared idempotent-render contract covers ALL ~9 *-detail components - rb-detail-view, rb-requirement-detail, rb-file-detail, rb-test-detail, rb-implementation-detail, rb-method-detail, rb-class-detail, rb-usecase-detail, rb-task-detail - PLUS the shared append-helpers renderChainPathSection/renderAllChildrenSection/renderSupersededSection. TWO halves: (source-invariant, deploy-independent like R40.50) a lint goes RED on ANY *-detail async render-tail NOT routed through the shared idempotent contract (raw insertAdjacentHTML with no generation-guard) - so fixing rb-task-detail alone leaves 8 loaded guns => still RED; (device @390) a live update that yields a DUPLICATED section (e.g. Parent twice, Status three times) => RED. Measured root: NO shared base + NO generation-guard in the detail bodies (only the drawer has one). The fix is ONE shared contract (RbDetailBase or a renderGuarded helper), never a per-component patch (= the copy pattern one layer down). (Tron v0.8.121 defect B.)"
       },
       {
         "id": "AC-all-current-views-rederive-enumerated",
