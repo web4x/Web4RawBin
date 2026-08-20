@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4c811eb5-1941-4fb5-857f-fbcb3c40fe76",
+    "name": "test:R40.53/R37.12(B) drawer section-dup - idempotent render (upsertSection/upsertParentLink) no-duplicate on overlapping-tail race, /trace + /model @390",
+    "description": "Bridged to test/visual/r4053-model-probe.mjs (r4053, tester commit 48c480668). DET-3x: v0.8.122 3/3 GREEN, v0.8.121 3/3 RED, on BOTH /trace AND /model (Tron surface). Exercises the R37.12(B) idempotent-render fix (RbTaskDetail.render via upsertSection/upsertParentLink): a live re-render on an open detail no longer duplicates sections. CERTIFICATION-SCOPE = GATED-AWAITING-TRON-QA, NOT SATISFIED: the gate is deterministically GREEN on both surfaces (source+render proven), but ACCEPTANCE on the duplication defect is Tron device-QA @390, which he has NOT yet confirmed. Per R40.54 the gated-green vs satisfied distinction is ENFORCEABLE - this Test is gated-green; the requirement is gated-awaiting-Tron-QA, not satisfied.",
+    "sourceFile": "ior:file:test/visual/r4053-model-probe.mjs",
+    "implementations": [
+      "ior:instance:1ff4d2bb-3af9-4517-8cde-8e6fc498e887"
+    ],
+    "certificationScope": {
+      "state": "gated-awaiting-Tron-QA",
+      "gate": "r4053 DET-3x GREEN 3/3 v0.8.122 / RED 3/3 v0.8.121, both /trace + /model",
+      "acceptance": "Tron device-QA @390 on the duplication defect - NOT yet confirmed",
+      "satisfied": false,
+      "note": "gated-green != satisfied (R40.54 enforceable); do NOT mark the requirement satisfied until Tron confirms on device."
+    },
+    "gate": "r4053 GREEN DET-3x both surfaces, tester 48c480668",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:1ff4d2bb-3af9-4517-8cde-8e6fc498e887"
+}
