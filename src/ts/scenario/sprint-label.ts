@@ -22,6 +22,7 @@ export function sprintPrefix(num: number | null | undefined): string {
 // ALGORITHMIC pin-hop sorts (sprint-pin-resolver :149/:155, CurrentSprint :282/:303 — semantic, explicitly exempt).
 // Homed HERE (the CLIENT-SAFE atom), NOT in sprint-pin-resolver (node:fs at module-top → not browser-safe); the
 // resolver re-exports it so the sprintNumOf home still surfaces it for server/generator callers.
+// [impl:uuid:5c54dd62-e485-4cfe-9831-927aa197f7cb] bySprintDisplayOrder (Method ec83425c, R40.50 UC sprintOrder.canonical) — the ONE canonical DESC sprint display order
 export const bySprintDisplayOrder = (a: { number: number }, b: { number: number }): number => b.number - a.number;
 
 /** Display label for a sprint (tree row / detail header): 'Sprint N — name'; name alone when there is no number. */
