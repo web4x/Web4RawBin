@@ -4,7 +4,7 @@
     "uuid": "241bf3c9-1ed7-495e-8af7-fd7abe06f62c",
     "altId": "R40.49",
     "name": "All Tasks owned by the owner profile — scoped backfill that preserves every structural parent (Task and non-Task)",
-    "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'), so the owner-gate passes. BUT ownerIor is OVERLOADED: on a Task it must be the profile owner, yet on CHAIN units it is the STRUCTURAL PARENT (Impl->Method, ChangeRequest->Test - today's re-parent). AUTHORITATIVE MEASURED SPLIT (3-way independent agreement: req + architect 86cf1dbb5 + expert read-only dry-run, 525 Tasks): A(safe)=205 [195 null-ownerIor whose Sprint lives in model.parent + 10 dual-carriers where model.parent == the ownerIor Sprint] / B(relocate)=319 [Sprint held ONLY in ownerIor, no model.parent - relocate to parent FIRST] / C(conflict-hold)=1 [708ec0a5 dual-pointer, held] / anomaly=0. A naive ownerIor:=profile would CLOBBER the 319 Case-B Task->Sprint structural links = graph destruction INSIDE the Task class, beyond the non-Task trap. The backfill sets Task.ownerIor=owner-profile for the 524 migratable WHILE preserving every Task->Sprint parent, HOLDS the 1 conflict, and touches NO non-Task ownerIor.",
+    "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'). ownerIor is OVERLOADED: profile-owner on a Task, STRUCTURAL PARENT on chain units (Impl->Method, CR->Test). LOCKED SPLIT (reciprocation test, 525 Tasks): A(direct)=206 [195 null + 11 dual-carriers -> set owner directly] / B(relocate)=220 [old-schema the Sprint RECIPROCATES -> relocate Sprint ownerIor->model.parent] / D(set-owner-only, ORPHANS)=99 [old-schema NO sprint claims -> set owner, DROP stale pointer, NO relocation] / C=0 / anomaly=0. The 99 orphans MUST NOT be relocated: copying a stale ownerIor into model.parent would FABRICATE a parent the named sprint does not acknowledge (drawer says 'parent Sprint X' while overview shows it unsorted) = 99 fresh drift instances. A migration must NEVER fabricate a link to satisfy its own rule. The backfill touches NO non-Task ownerIor.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
@@ -35,12 +35,12 @@
       {
         "id": "AC-preserve-task-sprint-parent",
         "group": "by-construction/measured-trap",
-        "text": "Where a Task currently carries its Sprint in ownerIor (measured: 330 old-schema Tasks, no `parent`), the Sprint structural parent is FIRST relocated into the Task's `parent` field, so it is NOT lost when ownerIor becomes the profile. Post-backfill EVERY Task has ownerIor=owner-profile AND parent=its Sprint AND remains in Sprint.tasks[]."
+        "text": "RELOCATION (Case B = 220 tasks) applies ONLY to old-schema tasks the Sprint RECIPROCATES (lists in Sprint.tasks[]): copy the Sprint from ownerIor into model.parent FIRST, then set ownerIor=owner-profile — the Sprint acknowledges them, so the parent is real. Post-backfill these keep ownerIor=owner-profile AND parent=their Sprint AND remain in Sprint.tasks[]."
       },
       {
         "id": "AC-task-parent-stub-must-fail",
         "group": "stub-must-fail",
-        "text": "A Task that loses its Sprint linkage after the backfill (parent unset AND absent from Sprint.tasks[]) => RED."
+        "text": "A reciprocated Task (Case B) that loses its Sprint linkage after the backfill (parent unset AND absent from Sprint.tasks[]) => RED."
       },
       {
         "id": "AC-gated-migration",
@@ -53,9 +53,14 @@
         "text": "The owner value is the owner profile UNIT (05e58f81), resolved SINGLE-SOURCE (profileUuidOf(owner) / the owner profile), not a literal scattered across call sites — the owner-gate reads the same source it is backfilled from."
       },
       {
-        "id": "AC-caseC-conflict-hold",
-        "group": "by-construction/measured-trap",
-        "text": "A Task whose ownerIor-Sprint != model.parent-Sprint (Case C; measured: 708ec0a5 ownerIor->Room-Handling vs parent->Radical-Forward-Planning) is HELD, NOT auto-written — a human decides which Sprint is authoritative before the task is owned. stub-must-fail: auto-setting ownerIor=profile on a Case-C dual-pointer conflict => RED."
+        "id": "AC-D-orphan-no-relocate",
+        "group": "by-construction/never-fabricate",
+        "text": "The 99 Case-D ORPHANS (old-schema, NO sprint reciprocates) get owner set + the stale ownerIor DROPPED, and are NOT relocated. Relocating a stale pointer into model.parent would FABRICATE a parent the named Sprint denies = 99 new drift. They were already unsorted, so nothing visible regresses; re-homing is R40.51. stub-must-fail: a migration that sets model.parent on an orphan to a Sprint whose tasks[] does not list it => RED."
+      },
+      {
+        "id": "AC-apply-gated",
+        "group": "gating",
+        "text": "--apply stays GATED until the expert dry-run ADDS the reciprocation check and REPRODUCES A=206/B=220/D=99/C=0/anomaly=0 exactly, then the architect clears it. Not \"unblocked\" on the split alone."
       }
     ],
     "ownerProfile": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
@@ -75,16 +80,40 @@
       "reconciliation": "3-way independent agreement (req + architect 86cf1dbb5 + expert read-only dry-run): A(safe)=205 = 195 null-with-parent + 10 dual-same | B(relocate)=319 | C(conflict-hold)=1 (708ec0a5) | anomaly=0 | total 525. My earlier prose said 330 old-schema; that folded the 10 already-safe dual-carriers + the 1 conflict into old-schema-no-parent. Corrected in-place."
     },
     "flagToArchitect": "The non-null Task owners are SPRINTS (structural), NOT profiles — the directive's 'other uuids in the non-null set' are structural parents. 330 old-schema Tasks need Sprint relocated to `parent` BEFORE ownerIor:=profile, or the Task->Sprint graph is clobbered. RESOLVED: architect confirmed + measured Case C (708ec0a5) = 1 conflicting dual-pointer, held.",
-    "caseC_conflicts": [
+    "caseC_conflicts": "SUPERSEDED: 708ec0a5 reclassified orphan (both pointers unreciprocated) -> A-direct ownership + R40.51 re-homing. C=0.",
+    "navReadClarification": "Sprint grouping is read from Sprint.tasks[] DOWNWARD (server.ts:1414/:1920), NOT the task upward pointer — so the ownerIor overwrite does not break grouping; the Sprint-parent relocation (Case B) is for GRAPH INTEGRITY (the task keeps its own upward Sprint claim), and Case-C hold prevents erasing a conflicting claim. (architect 86cf1dbb5)",
+    "authoritativeSplit": {
+      "LOCKED": "A(direct)=206 / B(relocate)=220 / D(set-owner-only, orphans)=99 / C(conflict)=0 / anomaly=0 = 525",
+      "basis": "RECIPROCATION test (does the named Sprint list the task back in Sprint.tasks[]?), run across all 319 old-schema tasks — NEW EVIDENCE beyond the earlier parent-presence test.",
+      "A_direct": 206,
+      "B_relocate": 220,
+      "D_setOwnerOnly_orphans": 99,
+      "C_conflict": 0,
+      "anomaly": 0,
+      "total": 525,
+      "A_note": "195 null-ownerIor (parent present) + 11 dual-carriers (incl former-conflict 708ec0a5) — owner set DIRECTLY, no relocation.",
+      "B_note": "220 old-schema tasks the Sprint RECIPROCATES (lists in tasks[]) — safe to relocate Sprint ownerIor->model.parent.",
+      "D_note": "99 old-schema ORPHANS — NO sprint claims them (0 recoverable, 0 multi-lister). Set owner + DROP stale pointer, NO relocation (see AC-D-orphan-no-relocate).",
+      "C_note": "0 — the former Case-C 708ec0a5 is actually an ORPHAN (both its sprint-pointers unreciprocated), so there is no which-sprint-is-real to decide from pointers; it folds into A-direct for ownership + R40.51 orphan re-homing.",
+      "measuredBy": "req 4th (reproduces 99 exactly) + architect f2f205560 + expert reciprocation dry-run"
+    },
+    "supersededSplits": [
       {
-        "task": "ior:instance:708ec0a5",
-        "name": "T-vcard-enrich-store",
-        "ownerIor_sprint": "ior:instance:97f513a1 (Room Handling)",
-        "parent_sprint": "ior:instance:64af2638 (Radical Forward Planning)",
-        "rule": "HOLD — do NOT auto-write. Two upward pointers name DIFFERENT sprints; setting ownerIor=profile would silently bless model.parent and erase the Room-Handling claim with no human deciding. A human resolves which Sprint is authoritative before this task is owned."
+        "split": "205/319/1",
+        "reason": "SUPERSEDED-BY-NEW-EVIDENCE (reciprocation test): the 319 old-schema is NOT all relocatable — only 220 are reciprocated; 99 are orphans that must NOT be relocated. Correct for ~20min on the parent-presence test; kept honest, not deleted."
+      },
+      {
+        "split": "330 old-schema (my original prose)",
+        "reason": "over-counted by 11 (folded the 10 already-safe dual-carriers + 1 into old-schema-no-parent)."
       }
     ],
-    "navReadClarification": "Sprint grouping is read from Sprint.tasks[] DOWNWARD (server.ts:1414/:1920), NOT the task upward pointer — so the ownerIor overwrite does not break grouping; the Sprint-parent relocation (Case B) is for GRAPH INTEGRITY (the task keeps its own upward Sprint claim), and Case-C hold prevents erasing a conflicting claim. (architect 86cf1dbb5)"
+    "supersededACs": [
+      {
+        "id": "AC-caseC-conflict-hold",
+        "supersededText": "A Task whose ownerIor-Sprint != model.parent-Sprint (Case C; measured: 708ec0a5 ownerIor->Room-Handling vs parent->Radical-Forward-Planning) is HELD, NOT auto-written — a human decides which Sprint is authoritative before the task is owned. stub-must-fail: auto-setting ownerIor=profile on a Case-C dual-pointer conflict => RED.",
+        "reason": "C=0 under the reciprocation test: 708ec0a5 is an ORPHAN (both pointers unreciprocated), handled by A-direct ownership + R40.51 orphan re-homing, not a pick-a-sprint conflict."
+      }
+    ]
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
