@@ -1,24 +1,24 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
-  "name": "Task 33.9: Context-aware action lifecycle: unit verbs (new/rename/delete) vs membership verbs (add/remove), kill the fragile last-diagram implicit target",
-  "slug": "task-33.9-action-lifecycle",
-  "description": "R33.9 (Tron device-critique IMG_4802 diagram-open / IMG_4803 no-diagram; formalized off architect design 7e1365d60, was the narrow rename/delete/new-class capture). ACTIONS_BY_TYPE keys verbs by TYPE only, ignoring whether a diagram is open -> membership verbs (add/remove) resolve the diagram via any/LAST diagram = the fragile implicit target Tron flagged (shown in the WRONG context IMG_4803, MISSING in the RIGHT context IMG_4802). FIX (design): rb-diagram-detail dispatches rb-active-diagram{uuid} on open / {uuid:null} on disconnect; model.ts tracks activeDiagramUuid + SPLITS ACTIONS_BY_TYPE - UNIT verbs (new/rename/delete) always on a selected modelelement; MEMBERSHIP verbs (add/remove) appended ONLY when a diagram is active (targets THAT diagram); showActionsForType recomputes on selection AND on rb-active-diagram. NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (store-only, MODEL_STORE, prod-safe; delete DISTINCT from R33.8 remove-view = deletes the UNIT with guard, not just the view). Reuse R33.6.5 action-bar + wireDrawerActions, NO fork. INV-A1-4.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.9 `[requirement:uuid:bd7ed14d-8af7-41bf-9ee5-98d261b3f661]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [ ] UNIT verbs (new / rename / delete) are ALWAYS present on a selected modelelement (class) regardless of whether a diagram is open (INV-A3). rename/delete/new-class act on the UNIT itself.\n- [ ] MEMBERSHIP verbs (add / remove) are NEVER shown without an ACTIVE OPEN diagram - correct-by-construction, killing the fragile any/last-diagram implicit target (INV-A1). No membership action can ever fire against an ambiguous/last diagram.\n- [ ] When shown, membership verbs target the ACTIVE OPEN diagram EXPLICITLY (via the rb-active-diagram{uuid} signal from rb-diagram-detail; model.ts tracks activeDiagramUuid; showActionsForType recomputes on selection AND on rb-active-diagram), never a resolved any/last diagram (INV-A2).\n- [ ] IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4).\n- [ ] new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart.\n- [ ] GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED.",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "coveredRequirements": [
-   "ior:instance:bd7ed14d-8af7-41bf-9ee5-98d261b3f661"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
-  "sprintName": "Sprint 33",
-  "remainingIssues": "DONE: chain-complete-to-Test (d36cebbc9 @390 GREEN DET-3x + 4 markers, credit holds d8ab8016e) + REAL-WEBKIT @390 self-gated GREEN (3487ada2f, Safari 605.1.15 = Tron iPhone engine, drawer-UI visible). Team-gated at Tron real engine -> Done (Tron spot-checks by choice, not required).",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-31"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "291460bd-51b9-454d-8f69-4080cd5e8990",
+    "name": "Task 33.9: Context-aware action lifecycle: unit verbs (new/rename/delete) vs membership verbs (add/remove), kill the fragile last-diagram implicit target",
+    "slug": "task-33.9-action-lifecycle",
+    "description": "R33.9 (Tron device-critique IMG_4802 diagram-open / IMG_4803 no-diagram; formalized off architect design 7e1365d60, was the narrow rename/delete/new-class capture). ACTIONS_BY_TYPE keys verbs by TYPE only, ignoring whether a diagram is open -> membership verbs (add/remove) resolve the diagram via any/LAST diagram = the fragile implicit target Tron flagged (shown in the WRONG context IMG_4803, MISSING in the RIGHT context IMG_4802). FIX (design): rb-diagram-detail dispatches rb-active-diagram{uuid} on open / {uuid:null} on disconnect; model.ts tracks activeDiagramUuid + SPLITS ACTIONS_BY_TYPE - UNIT verbs (new/rename/delete) always on a selected modelelement; MEMBERSHIP verbs (add/remove) appended ONLY when a diagram is active (targets THAT diagram); showActionsForType recomputes on selection AND on rb-active-diagram. NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (store-only, MODEL_STORE, prod-safe; delete DISTINCT from R33.8 remove-view = deletes the UNIT with guard, not just the view). Reuse R33.6.5 action-bar + wireDrawerActions, NO fork. INV-A1-4.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.9 `[requirement:uuid:bd7ed14d-8af7-41bf-9ee5-98d261b3f661]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [ ] UNIT verbs (new / rename / delete) are ALWAYS present on a selected modelelement (class) regardless of whether a diagram is open (INV-A3). rename/delete/new-class act on the UNIT itself.\n- [ ] MEMBERSHIP verbs (add / remove) are NEVER shown without an ACTIVE OPEN diagram - correct-by-construction, killing the fragile any/last-diagram implicit target (INV-A1). No membership action can ever fire against an ambiguous/last diagram.\n- [ ] When shown, membership verbs target the ACTIVE OPEN diagram EXPLICITLY (via the rb-active-diagram{uuid} signal from rb-diagram-detail; model.ts tracks activeDiagramUuid; showActionsForType recomputes on selection AND on rb-active-diagram), never a resolved any/last diagram (INV-A2).\n- [ ] IMG_4802 fix: diagram-open + selected element -> membership verbs (esp. remove-from-THIS-diagram) are PRESENT. IMG_4803 fix: no-diagram + selected element -> membership verbs are ABSENT (only unit verbs show) (INV-A4).\n- [ ] new/rename/delete act on the unit via NEW guarded server endpoints POST /api/model/element/new + /rename + /delete (mirror add/remove-view store-only, MODEL_STORE, prod scenario/index untouched). delete removes the UNIT with a guard (distinct from R33.8 remove-view which only drops the diagram view-link). Server change -> boundary restart.\n- [ ] GATE @390 (screenshot/pixel + planted bite, Tron device-gated for the visual): EACH verb appears in its CORRECT context - diagram-open shows unit + membership verbs; no-diagram shows ONLY unit verbs; NO action with an ambiguous/last-diagram target; new/rename/delete mutate the unit. planted: a membership verb shown with no active diagram, or targeting a non-active diagram = RED.",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:bd7ed14d-8af7-41bf-9ee5-98d261b3f661"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+    "sprintName": "Sprint 33",
+    "remainingIssues": "DONE: chain-complete-to-Test (d36cebbc9 @390 GREEN DET-3x + 4 markers, credit holds d8ab8016e) + REAL-WEBKIT @390 self-gated GREEN (3487ada2f, Safari 605.1.15 = Tron iPhone engine, drawer-UI visible). Team-gated at Tron real engine -> Done (Tron spot-checks by choice, not required).",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-31"
+  }
 }

@@ -21,7 +21,9 @@
     "subtasks": "None (atomic task).",
     "children": [],
     "requirements": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7",
+    "sprintName": "Contact Identity"
   },
-  "ownerIor": "ior:instance:1bdfaafa-9042-40d3-8046-744cd18f22f7"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

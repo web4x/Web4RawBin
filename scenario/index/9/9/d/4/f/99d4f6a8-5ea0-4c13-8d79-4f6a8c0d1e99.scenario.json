@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
+    "sprintName": "Legacy Migration"
   },
-  "ownerIor": "ior:instance:7f9ae8c9-e10e-47fe-ac92-8b590cacd297"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

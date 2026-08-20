@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:9346ddd7-673f-497b-82dc-2164b42950f8"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+    "sprintName": "Scenario Units"
   },
-  "ownerIor": "ior:instance:2370d3b3-f0ee-4865-855f-f47880e8c6b3"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

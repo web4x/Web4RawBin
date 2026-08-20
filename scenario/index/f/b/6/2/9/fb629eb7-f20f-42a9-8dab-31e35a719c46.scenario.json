@@ -4,9 +4,9 @@
     "uuid": "fb629eb7-f20f-42a9-8dab-31e35a719c46",
     "name": "T-back-button-visible: full-width drawer must not cover top-nav back button (R19.52 regression)",
     "slug": "back-button-visible-above-fullwidth-drawer",
-    "description": "R19.57: Full-width drawer must not cover the top-nav back button \u2014 back stays visible and clickable. Regression from R19.52 full-width drawer. pageNav z-index raised above drawer.",
+    "description": "R19.57: Full-width drawer must not cover the top-nav back button — back stays visible and clickable. Regression from R19.52 full-width drawer. pageNav z-index raised above drawer.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (960a6728 \u2014 UC pageNav.backButtonVisible -> PageNav.raiseAboveDrawer)\n  - [ ] creating test cases\n  - [x] implementing expert (06344f22 v0.5.180 z-index fix)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (960a6728 — UC pageNav.backButtonVisible -> PageNav.raiseAboveDrawer)\n  - [ ] creating test cases\n  - [x] implementing expert (06344f22 v0.5.180 z-index fix)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:8b823df5-0ad9-4264-b200-6a7125010654"
     ],
@@ -14,7 +14,9 @@
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",
-    "createdBy": "robbin-planner"
+    "createdBy": "robbin-planner",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

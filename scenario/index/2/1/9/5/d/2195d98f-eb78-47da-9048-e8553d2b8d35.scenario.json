@@ -21,7 +21,9 @@
       "robbin-architect"
     ],
     "follows": "T-room-ui ae090710 - 529d5c42 v0.5.129 inline tree which this refines to shared rb-tree",
-    "atoms": "refinement of R19.11+R19.12+R19.13 per new Tron quote about rb-tree reuse - req-eng to canonicalize placeholder"
+    "atoms": "refinement of R19.11+R19.12+R19.13 per new Tron quote about rb-tree reuse - req-eng to canonicalize placeholder",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

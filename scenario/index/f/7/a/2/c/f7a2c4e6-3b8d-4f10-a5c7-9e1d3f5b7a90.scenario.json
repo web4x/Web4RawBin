@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:387d9308-9e15-41b8-b4a0-ae10f6f04fc8"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:86e3077a-3fda-4c0a-a120-f6811d6252e1",
+    "sprintName": "Editor Fixes"
   },
-  "ownerIor": "ior:instance:86e3077a-3fda-4c0a-a120-f6811d6252e1"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

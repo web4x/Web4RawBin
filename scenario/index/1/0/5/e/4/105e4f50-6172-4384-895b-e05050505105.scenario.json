@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:7c632145-e527-4d36-996c-e61066415e9a"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "sprintName": "Traceability Browser"
   },
-  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

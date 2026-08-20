@@ -1,26 +1,26 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "7a956c21-5f37-4062-b921-9bdd5a461546",
-  "name": "Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)",
-  "slug": "task-40.1-open-claude-rc-action",
-  "description": "R40.1 (Tron-authorized S40). An ACTION that opens the Claude app or web page at the AGENT's RC (remote-control) session for the SELECTED pane. Per-pane/per-agent DEEP LINK: Claude Code sessions are addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 and firing the action lands on THAT agent's RC session. Fits the selection-driven action bar (per-selection action). Reuse the existing action-bar + session-id addressing, NO fork. Scenario-first: req mints R40.1 (caab6d86) + ACs; architect designs the chain; expert implements; tester gates @390.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.1 `[requirement:uuid:caab6d86-35b8-4865-acf4-d4210670e775]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [ ] (visible-fireable) The action is visible AND fireable from the pane surface (the pane's own action affordance).\n- [ ] (resolve-chain) Firing resolves the SELECTED pane -> its agent -> its session id -> the RC deep link (claude.ai/code/<session-id>).\n- [ ] (app-else-web) Opens the Claude app if available, else the web page (app-if-available-else-web).\n- [ ] (right-agent) Opens the RIGHT agent's RC: firing on pane 0.1 must NOT open 0.0's RC (per-pane isolation, no cross-pane leak).\n- [ ] (device-gate) Verified @390 mobile REAL-WebKit: the action fires and opens the correct per-pane deep link.",
-  "subtasks": "None (atomic task).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775"
-  ],
-  "useCases": [
-   "ior:instance:350ab353-0f6b-496c-b2f5-ff0f2eaf0ce2"
-  ],
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "remainingIssues": "QA-Review: R40.1 CHAIN-COMPLETE-TO-TEST (planner disk-verified) — Impl 45853b02 RcLinkResolver.resolveRcLink (OWN chain, markerPending=false, STRICT-AST verified rc-link-resolver.ts:14, fail-closed: bash-pane->NO LINK no synthesised URL) + Test c4f8a1d6 status=pass. PROVEN = 403-by-construction + fail-closed. All 4 In-Progress sub-steps [x]. ★ CERT-SCOPE PENDING (Tron owner-device QA): owner-page ACs = RC button VISIBLE+FIREABLE + pane->agent ISOLATION e2e (right-agent, no cross-pane leak) — NOT automatably proven (owner-page-gated). Done-gate [ ] — NOT Done w/o Tron sign-off (tron-qa-batch 6-check).",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-08"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "7a956c21-5f37-4062-b921-9bdd5a461546",
+    "name": "Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)",
+    "slug": "task-40.1-open-claude-rc-action",
+    "description": "R40.1 (Tron-authorized S40). An ACTION that opens the Claude app or web page at the AGENT's RC (remote-control) session for the SELECTED pane. Per-pane/per-agent DEEP LINK: Claude Code sessions are addressable as claude.ai/code/<session-id>, so selecting robbinTeam2:0.0 and firing the action lands on THAT agent's RC session. Fits the selection-driven action bar (per-selection action). Reuse the existing action-bar + session-id addressing, NO fork. Scenario-first: req mints R40.1 (caab6d86) + ACs; architect designs the chain; expert implements; tester gates @390.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.1 `[requirement:uuid:caab6d86-35b8-4865-acf4-d4210670e775]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [ ] (visible-fireable) The action is visible AND fireable from the pane surface (the pane's own action affordance).\n- [ ] (resolve-chain) Firing resolves the SELECTED pane -> its agent -> its session id -> the RC deep link (claude.ai/code/<session-id>).\n- [ ] (app-else-web) Opens the Claude app if available, else the web page (app-if-available-else-web).\n- [ ] (right-agent) Opens the RIGHT agent's RC: firing on pane 0.1 must NOT open 0.0's RC (per-pane isolation, no cross-pane leak).\n- [ ] (device-gate) Verified @390 mobile REAL-WebKit: the action fires and opens the correct per-pane deep link.",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775"
+    ],
+    "useCases": [
+      "ior:instance:350ab353-0f6b-496c-b2f5-ff0f2eaf0ce2"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "QA-Review: R40.1 CHAIN-COMPLETE-TO-TEST (planner disk-verified) — Impl 45853b02 RcLinkResolver.resolveRcLink (OWN chain, markerPending=false, STRICT-AST verified rc-link-resolver.ts:14, fail-closed: bash-pane->NO LINK no synthesised URL) + Test c4f8a1d6 status=pass. PROVEN = 403-by-construction + fail-closed. All 4 In-Progress sub-steps [x]. ★ CERT-SCOPE PENDING (Tron owner-device QA): owner-page ACs = RC button VISIBLE+FIREABLE + pane->agent ISOLATION e2e (right-agent, no cross-pane leak) — NOT automatably proven (owner-page-gated). Done-gate [ ] — NOT Done w/o Tron sign-off (tron-qa-batch 6-check).",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-08"
+  }
 }

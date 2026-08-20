@@ -2,9 +2,9 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "5d87e755-6e9b-4171-80b1-61776e7d04bc",
-    "name": "T-device-user-association: Device\u2194User association modeled like Room\u2194User",
+    "name": "T-device-user-association: Device↔User association modeled like Room↔User",
     "slug": "device-user-association-like-room-user",
-    "description": "R19.55.A: Device\u2194User association modeled like Room\u2194User \u2014 forward IOR array, ownerIor, per-user storage, unitLinks.",
+    "description": "R19.55.A: Device↔User association modeled like Room↔User — forward IOR array, ownerIor, per-user storage, unitLinks.",
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement architect\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
@@ -14,7 +14,9 @@
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",
-    "createdBy": "robbin-planner"
+    "createdBy": "robbin-planner",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

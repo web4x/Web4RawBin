@@ -16,12 +16,14 @@
       "ior:instance:e4f5b693-2150-4484-a021-e61f78674da3",
       "ior:instance:37a27ef3-84bf-493e-9cf3-5c5f77ca8efb"
     ],
-    "gateProof": "GATE-PROVEN GREEN (tester DET-3x 2026-06-15): chain continuous 6/7 req\u2192uc\u2192class\u2192method\u2192impl\u2192test; dead-end BUG15 CLOSED (impl\u2192test 329081ca wired); broken-links 0; gate PASS; badge renders. HONEST RESIDUALS: (1) test 329081ca testCases[] empty = 7th hop incomplete (minor); (2) BUG17 4 test-uuids scanner-invisible (Tron scope-call). \u2192 QA-Review (Tron gate #106).",
+    "gateProof": "GATE-PROVEN GREEN (tester DET-3x 2026-06-15): chain continuous 6/7 req→uc→class→method→impl→test; dead-end BUG15 CLOSED (impl→test 329081ca wired); broken-links 0; gate PASS; badge renders. HONEST RESIDUALS: (1) test 329081ca testCases[] empty = 7th hop incomplete (minor); (2) BUG17 4 test-uuids scanner-invisible (Tron scope-call). → QA-Review (Tron gate #106).",
     "gates": [
       "ior:instance:d1e173c7-ab72-4c6a-a844-22e7bea7db11"
     ],
-    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN \u2014 GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green\u2713 done; (2) Gate nodes render green\u2713 PASS as tree children (Req\u21922 gates, Task\u21921). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106).",
-    "description": "Promote each describe()/it() block to a first-class ior:class:TestCase unit and each verification gate to a first-class ior:class:Gate unit in the index, and fix the related parse, verdict-render-wiring, and [test:uuid] source-marker bugs. Covers R20.20, R20.21, BUG15, BUG16, BUG17."
+    "visibleDoneProof": "VISIBLE-DONE + GATES-GREEN — GATE-PROVEN GREEN (tester DET-3x + planner source-verified 2026-06-15, v0.6.46 universal-status-badge + v0.6.47 gates[] wired on Req/Task forward-key). BOTH halves of Tron ask VISIBLE: (1) current task green✓ done; (2) Gate nodes render green✓ PASS as tree children (Req→2 gates, Task→1). Status badge colors all working: green/amber/gray/purple. RENDER-PROOF screenshots: test/visual/v647-gates-green.png + v647-expanded.png. gate-proven=true. R20.20/21/22 + status-badge = VISIBLY DONE. present-proof sent to Tron. STAY PINNED until Tron-done (#106).",
+    "description": "Promote each describe()/it() block to a first-class ior:class:TestCase unit and each verification gate to a first-class ior:class:Gate unit in the index, and fix the related parse, verdict-render-wiring, and [test:uuid] source-marker bugs. Covers R20.20, R20.21, BUG15, BUG16, BUG17.",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

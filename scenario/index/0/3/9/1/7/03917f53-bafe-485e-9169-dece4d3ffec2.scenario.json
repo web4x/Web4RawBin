@@ -2,11 +2,11 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "03917f53-bafe-485e-9169-dece4d3ffec2",
-    "name": "T-shard-cleanup: cleanup legacy multi-char index shards \u2014 migrate to single-char",
+    "name": "T-shard-cleanup: cleanup legacy multi-char index shards — migrate to single-char",
     "slug": "shard-cleanup-legacy-multichar-to-singlechar",
-    "description": "R19.56: Cleanup legacy multi-char index shards \u2014 migrate to single-char-per-level canonical paths.",
+    "description": "R19.56: Cleanup legacy multi-char index shards — migrate to single-char-per-level canonical paths.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (659b9f30)\n  - [ ] creating test cases\n  - [x] implementing expert (659b9f30 \u2014 shard migration done)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (659b9f30)\n  - [ ] creating test cases\n  - [x] implementing expert (659b9f30 — shard migration done)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b8db5c65-9fcf-4866-8f31-15aee864ba5d"
     ],
@@ -14,7 +14,9 @@
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",
-    "createdBy": "robbin-planner"
+    "createdBy": "robbin-planner",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

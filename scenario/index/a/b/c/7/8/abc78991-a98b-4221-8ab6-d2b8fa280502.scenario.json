@@ -6,15 +6,15 @@
     "slug": "task-strict-champagne-21-unreachable-defects",
     "description": "Catalog the 21 tests that are unreachable from a requirement root under the strict-champagne chain audit.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 root-cause analysis 2026-06-07)\n  - [ ] creating test cases\n  - [ ] implementing (expert \u2014 quick fix or proper fix per architect's recommendation)\n  - [ ] testing (tester \u2014 re-run strict audit, expect 44/44 reachable)\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done = TRON's gate.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — root-cause analysis 2026-06-07)\n  - [ ] creating test cases\n  - [ ] implementing (expert — quick fix or proper fix per architect's recommendation)\n  - [ ] testing (tester — re-run strict audit, expect 44/44 reachable)\n- [ ] QA Review\n- [ ] Done\n\n> QA Review + Done = TRON's gate.",
     "remainingIssues": "",
-    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Champagne metric directive (R-G/R-J test-reachability follow-on; S17 R-batch)\n- related\n  - T111 (S16 Specialized DetailViews \u2014 the funnel-point Task with no Requirement parent)\n  - impl-bridge units created by expert for shared-class fan-out (the root-cause structural issue)\n- down\n  - None (atomic defect-catalog task \u2014 fix is a single Requirement-link or impl-bridge cleanup)\n\n---",
+    "traceability": "- up\n  - [Sprint 18 Planning](./planning.md)\n  - Champagne metric directive (R-G/R-J test-reachability follow-on; S17 R-batch)\n- related\n  - T111 (S16 Specialized DetailViews — the funnel-point Task with no Requirement parent)\n  - impl-bridge units created by expert for shared-class fan-out (the root-cause structural issue)\n- down\n  - None (atomic defect-catalog task — fix is a single Requirement-link or impl-bridge cleanup)\n\n---",
     "context": "",
     "intention": "",
     "role": "",
     "acceptanceCriteria": "",
-    "qaAudit": "- 2026-06-07: Architect filed defect catalog \u2014 all 21 strict-audit-unreachable tests funnel through T111\u2192Sprint 16 (no Requirement). Two fix paths offered (quick: Requirement.tasks[] entry for T111; proper: impl-bridge restructuring).\n- Pending: expert chooses quick vs proper fix \u2192 implements \u2192 tester re-runs `trace-audit.ts --strict`, expects 44/44.",
-    "subtasks": "None (atomic \u2014 single coordinated fix: either T111 Requirement-link OR impl-bridge restructuring per architect's recommendation).",
+    "qaAudit": "- 2026-06-07: Architect filed defect catalog — all 21 strict-audit-unreachable tests funnel through T111→Sprint 16 (no Requirement). Two fix paths offered (quick: Requirement.tasks[] entry for T111; proper: impl-bridge restructuring).\n- Pending: expert chooses quick vs proper fix → implements → tester re-runs `trace-audit.ts --strict`, expects 44/44.",
+    "subtasks": "None (atomic — single coordinated fix: either T111 Requirement-link OR impl-bridge restructuring per architect's recommendation).",
     "assigned": "",
     "architectDesign": "",
     "dependencies": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

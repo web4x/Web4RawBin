@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:2aac7676-bc88-4eb0-a81b-07c913fda5ee",
+    "sprintName": "Room Identity"
   },
-  "ownerIor": "ior:instance:2aac7676-bc88-4eb0-a81b-07c913fda5ee"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

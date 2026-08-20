@@ -4,9 +4,9 @@
     "uuid": "b2baea58-e3a3-43e4-b650-54479ffcdabb",
     "name": "T-seed-tree-members-and-files: /api/trace/children returns members+files (option-B synthetic Member children)",
     "slug": "seed-tree-restore-members-and-files",
-    "description": "R19.101 fix: consolidating the in-room tree to seed-ior (R19.90/92) regressed the Members collection \u2014 only Files render now. RESTORE: in-room tree MUST show BOTH Members AND Files as top-level folder nodes (R19.21.A) via the SAME seed-ior path, without regressing the files fix. Root cause (architect): /api/trace/children must return both members[] and files[] as children of the room seed \u2014 option-B synthetic Member children \u2014 rendered as two folder-type rb-object-items. Expert implementing. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). In-room UX \u2192 Test node MUST be real E2E Playwright + screenshot; gate asserts BOTH Members AND Files render (anti-false-green standard).",
+    "description": "R19.101 fix: consolidating the in-room tree to seed-ior (R19.90/92) regressed the Members collection — only Files render now. RESTORE: in-room tree MUST show BOTH Members AND Files as top-level folder nodes (R19.21.A) via the SAME seed-ior path, without regressing the files fix. Root cause (architect): /api/trace/children must return both members[] and files[] as children of the room seed — option-B synthetic Member children — rendered as two folder-type rb-object-items. Expert implementing. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). In-room UX → Test node MUST be real E2E Playwright + screenshot; gate asserts BOTH Members AND Files render (anti-false-green standard).",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect \u2014 root-caused, option-B)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect — root-caused, option-B)\n  - [ ] creating test cases\n  - [x] implementing (expert — in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:4d185684-170a-4cb9-bddb-d47419e57337"
     ],
@@ -25,5 +25,5 @@
     ],
     "atoms": "covers R19.101 per PO directive; restore Members+Files in seed tree via /api/trace/children (option-B synthetic Member children); architect root-caused, expert implementing; E2E-gated (BOTH Members AND Files must render)"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

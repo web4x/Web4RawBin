@@ -4,9 +4,9 @@
     "uuid": "7047d04f-3226-46ff-a058-39f53f9aed58",
     "name": "T-selection-model: app-wide SelectionModel + selection-driven drawer/multi-select/drag (R20.6 compound)",
     "slug": "selection-model-compound",
-    "description": "R20.6 COMPOUND (S20, traceability-first): ONE task, ONE release v0.6.7, covering 8 atomics (R20.6a-h) \u2014 all driven by a single app-wide SelectionModel. Architect designs the SelectionModel class + per-atomic UC/Method/Impl; each atomic carries its own intendedChain + RED test in its req unit. ATOMICS: (a) Global SelectionModel \u2014 app-wide selection-array singleton; (b) nothing selected \u2192 default drawer shows in-room CHAT; (c) tap item middle \u2192 single-select \u2192 details drawer; (d) long-press toggles add/remove from selection array (multi-select); (e) selected items get CSS selected+active highlight; (f) drag one selected item \u2192 drags ALL selected; (g) consolidate multiple drawer implementations into one via SelectionModel; (h) remove awkward CSS highlight on default drawer, keep X close. S20 DISCIPLINE: full chain designed (architect: SelectionModel class + 8 chains) + RED test FIRST per atomic; UI \u2192 Playwright+screenshot gate; nothing ships chain-open. STRICT ORDER: queued AFTER BUG1 (v0.6.6). RELEASE \u2192 v0.6.7 + git tag (single release for all 8).",
+    "description": "R20.6 COMPOUND (S20, traceability-first): ONE task, ONE release v0.6.7, covering 8 atomics (R20.6a-h) — all driven by a single app-wide SelectionModel. Architect designs the SelectionModel class + per-atomic UC/Method/Impl; each atomic carries its own intendedChain + RED test in its req unit. ATOMICS: (a) Global SelectionModel — app-wide selection-array singleton; (b) nothing selected → default drawer shows in-room CHAT; (c) tap item middle → single-select → details drawer; (d) long-press toggles add/remove from selection array (multi-select); (e) selected items get CSS selected+active highlight; (f) drag one selected item → drags ALL selected; (g) consolidate multiple drawer implementations into one via SelectionModel; (h) remove awkward CSS highlight on default drawer, keep X close. S20 DISCIPLINE: full chain designed (architect: SelectionModel class + 8 chains) + RED test FIRST per atomic; UI → Playwright+screenshot gate; nothing ships chain-open. STRICT ORDER: queued AFTER BUG1 (v0.6.6). RELEASE → v0.6.7 + git tag (single release for all 8).",
     "status": "QA Review",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect \u2014 SelectionModel class design + 8 atomic UC/Method/PUML)\n  - [ ] creating test cases (tester \u2014 RED E2E per atomic a-h FIRST)\n  - [ ] implementing (expert \u2014 SelectionModel + selection-driven UI)\n  - [ ] testing (tester \u2014 RED\u2192GREEN all 8 atomics + screenshots)\n- [x] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect — SelectionModel class design + 8 atomic UC/Method/PUML)\n  - [ ] creating test cases (tester — RED E2E per atomic a-h FIRST)\n  - [ ] implementing (expert — SelectionModel + selection-driven UI)\n  - [ ] testing (tester — RED→GREEN all 8 atomics + screenshots)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:2ad98e53-fa9d-4d20-b259-24f91f66e47a",
       "ior:instance:4bc97fdc-d9a1-4104-9a09-f697abe9f98a",
@@ -38,7 +38,9 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers R20.6a-h (8 atomics, compound); app-wide SelectionModel + selection-driven drawer/multi-select/drag/consolidation; each atomic own intendedChain + RED; queued after BUG1; ONE release v0.6.7+tag"
+    "atoms": "covers R20.6a-h (8 atomics, compound); app-wide SelectionModel + selection-driven drawer/multi-select/drag/consolidation; each atomic own intendedChain + RED; queued after BUG1; ONE release v0.6.7+tag",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -17,7 +17,9 @@
     "joint": [
       "robbin-planner"
     ],
-    "atoms": "S20 meta-tracking of the 22:07 scheduled radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count; baseline 173/198"
+    "atoms": "S20 meta-tracking of the 22:07 scheduled radical backfill of S19 v0.5.x chain-debt; planner re-scores det-3x + ground-truths each flip + reports honest count; baseline 173/198",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

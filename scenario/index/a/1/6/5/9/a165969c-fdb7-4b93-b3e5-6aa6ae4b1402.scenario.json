@@ -12,7 +12,7 @@
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] First-time user sees editor immediately (no room list visible)\n- [x] Editor has no close/skip button in gate mode\n- [x] Name is required \u2014 submit disabled if empty\n- [x] After commit, room browser appears\n- [x] Returning user with committed profile goes straight to browser\n- [x] Server rejects room create/join for uncommitted profiles with ERROR message\n- [x] All tests pass",
+    "acceptanceCriteria": "- [x] First-time user sees editor immediately (no room list visible)\n- [x] Editor has no close/skip button in gate mode\n- [x] Name is required — submit disabled if empty\n- [x] After commit, room browser appears\n- [x] Returning user with committed profile goes straight to browser\n- [x] Server rejects room create/join for uncommitted profiles with ERROR message\n- [x] All tests pass",
     "qaAudit": "## Subtasks\nNone (atomic task).",
     "subtasks": "None (atomic task).",
     "assigned": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:7f004379-b327-4853-bc2f-947bd4e781d8"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

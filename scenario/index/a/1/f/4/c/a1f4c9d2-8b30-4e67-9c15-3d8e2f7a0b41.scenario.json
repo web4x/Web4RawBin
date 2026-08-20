@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84",
+    "sprintName": "Traceability"
   },
-  "ownerIor": "ior:instance:d56c45de-bde0-4f11-bece-c6e8f461bf84"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

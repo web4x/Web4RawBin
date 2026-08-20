@@ -6,7 +6,7 @@
     "slug": "room-edit-pen-opens-canonical-scenario",
     "description": "Edit pen on a room item opens the canonical scenario unit editor. Already shipped this session. Traceability-closure task.",
     "status": "QA Review",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [x] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure — feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:ca351869-b694-491e-ba0f-8c9e9623c4db"
     ],
@@ -16,7 +16,9 @@
     "createdAt": "2026-06-11",
     "createdBy": "robbin-planner",
     "traceabilityClosure": true,
-    "closureNote": "Traceability-closure task: R19.30 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+    "closureNote": "Traceability-closure task: R19.30 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development.",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -1,26 +1,26 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "ae0548ae-d4be-4349-b505-e1d0d0fb88ed",
-  "name": "Task 40.4: Sprint labels show the sprint NUMBER (display-composed 'Sprint N — theme' from model.number + name, single-source)",
-  "slug": "task-40.4-sprint-label-shows-number",
-  "description": "R40.4 (Tron: 'why is it not named sprint 40'). Every sprint surface displays the sprint NUMBER with its theme ('Sprint N — theme'), composed AT THE DISPLAY LAYER by ONE shared helper (sprintLabel(unit) => 'Sprint {number} — {name}') from the already-first-class model.number + model.name. The number is NOT written into the name field (that would be a second source of truth + drift on rename/renumber). Fixes ALL sprints (labels currently render theme-only, unidentifiable/unsortable) with NO data migration. Reuse the existing generator requirements.md header pattern (already composes the label) — extend the SAME one helper to the tree row + detail header. NO fork. Scenario-first: req minted R40.4 (9a8cbffe) + ACs; architect designs the one-helper placement; expert implements; tester gates @390 (+ grep-proof single composition site).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.4 `[requirement:uuid:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [ ] (display) Every sprint surface shows 'Sprint N — theme': the tree row, the detail header, AND every generated MD view (the generator requirements.md header already does this — extend the SAME to tree + detail).\n- [ ] (single-source) The label is composed by ONE shared helper (sprintLabel(unit) => 'Sprint {number} — {name}') — a grep PROVES there is no second composition site.\n- [ ] (coverage) Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units.\n- [ ] (single-source) The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number.\n- [ ] (device) @390 mobile: the label is legible and NOT truncated mid-number in the tree row.",
-  "subtasks": "None (atomic task).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
-  ],
-  "useCases": [
-   "ior:instance:d6cb7ddd-9587-49a2-b6b2-a355862579da"
-  ],
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "remainingIssues": "Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. QA-Review: R40.4 CHAIN-COMPLETE-TO-TEST (req 72be83fda, planner disk-verified) — Impl e7fb7e65 SprintLabel.sprintLabel (markerPending=false, STRICT-AST verified heads sprint-label.ts:19, single-source sprintPrefix atom, AC2 grep-no-2nd-site) + Test d7e4b9a1 (SINGLE-SOURCE INVARIANT, status=pass) wired both-dir + r404-sprint-label-single-source-gate GREEN DET-3x. All 4 In-Progress sub-steps done (refinement=architect 033fb688b / test-cases=d7e4b9a1 / implementing=e7fb7e65 / testing=r404 GREEN). ★ AWAITING TRON for Done (NOT Done w/o Tron per tron-qa-batch). FIRST S40 req closed-to-Test. Chain: UC sprintView.renderLabel d6cb7ddd -> Method sprintLabel -> Impl e7fb7e65 -> Test d7e4b9a1.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-08"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "ae0548ae-d4be-4349-b505-e1d0d0fb88ed",
+    "name": "Task 40.4: Sprint labels show the sprint NUMBER (display-composed 'Sprint N — theme' from model.number + name, single-source)",
+    "slug": "task-40.4-sprint-label-shows-number",
+    "description": "R40.4 (Tron: 'why is it not named sprint 40'). Every sprint surface displays the sprint NUMBER with its theme ('Sprint N — theme'), composed AT THE DISPLAY LAYER by ONE shared helper (sprintLabel(unit) => 'Sprint {number} — {name}') from the already-first-class model.number + model.name. The number is NOT written into the name field (that would be a second source of truth + drift on rename/renumber). Fixes ALL sprints (labels currently render theme-only, unidentifiable/unsortable) with NO data migration. Reuse the existing generator requirements.md header pattern (already composes the label) — extend the SAME one helper to the tree row + detail header. NO fork. Scenario-first: req minted R40.4 (9a8cbffe) + ACs; architect designs the one-helper placement; expert implements; tester gates @390 (+ grep-proof single composition site).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.4 `[requirement:uuid:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [ ] (display) Every sprint surface shows 'Sprint N — theme': the tree row, the detail header, AND every generated MD view (the generator requirements.md header already does this — extend the SAME to tree + detail).\n- [ ] (single-source) The label is composed by ONE shared helper (sprintLabel(unit) => 'Sprint {number} — {name}') — a grep PROVES there is no second composition site.\n- [ ] (coverage) Works for ALL existing sprints with NO data migration — S35/S36/S37 (and every other) are fixed by the same display-layer change, not by editing their units.\n- [ ] (single-source) The name field is UNCHANGED (theme-only); the number is NOT duplicated into name. model.number remains the single source of truth for the number.\n- [ ] (device) @390 mobile: the label is legible and NOT truncated mid-number in the tree row.",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+    ],
+    "useCases": [
+      "ior:instance:d6cb7ddd-9587-49a2-b6b2-a355862579da"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "Planned - S40 R40.4 (sprint labels show the number, display-composed single-source). Just minted (req b0229eb17); coveredRequirements + useCases (d6cb7ddd) wired. QA-Review: R40.4 CHAIN-COMPLETE-TO-TEST (req 72be83fda, planner disk-verified) — Impl e7fb7e65 SprintLabel.sprintLabel (markerPending=false, STRICT-AST verified heads sprint-label.ts:19, single-source sprintPrefix atom, AC2 grep-no-2nd-site) + Test d7e4b9a1 (SINGLE-SOURCE INVARIANT, status=pass) wired both-dir + r404-sprint-label-single-source-gate GREEN DET-3x. All 4 In-Progress sub-steps done (refinement=architect 033fb688b / test-cases=d7e4b9a1 / implementing=e7fb7e65 / testing=r404 GREEN). ★ AWAITING TRON for Done (NOT Done w/o Tron per tron-qa-batch). FIRST S40 req closed-to-Test. Chain: UC sprintView.renderLabel d6cb7ddd -> Method sprintLabel -> Impl e7fb7e65 -> Test d7e4b9a1.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-08"
+  }
 }

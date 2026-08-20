@@ -28,7 +28,9 @@
     ],
     "atoms": "covers R20.2 per req-eng request; default detail drawer wide grab-bar DRY with chat drawer; intendedChain carried for architect canonicalization + PUML; traceability-first, Test written FIRST, E2E-gated",
     "pumlLink": "ior:file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.puml",
-    "redTest": "RED confirmed (tester, pre-impl): drawer-handle 40x16 pill + X, no wide grab-bar. Awaiting expert impl 32384f12 for GREEN re-gate."
+    "redTest": "RED confirmed (tester, pre-impl): drawer-handle 40x16 pill + X, no wide grab-bar. Awaiting expert impl 32384f12 for GREEN re-gate.",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

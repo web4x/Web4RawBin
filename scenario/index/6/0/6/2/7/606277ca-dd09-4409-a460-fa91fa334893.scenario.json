@@ -28,7 +28,9 @@
     "useCases": [
       "ior:instance:b54a71be-384d-428f-8144-56e154e0bfdb"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
+    "sprintName": "Rawbin Foundation"
   },
-  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

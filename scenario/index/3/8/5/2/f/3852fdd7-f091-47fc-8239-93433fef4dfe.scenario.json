@@ -15,5 +15,5 @@
     "tronTraced": "Tron next-task 2026-06-15",
     "gateProof": "GATE-PROVEN GREEN + VISIBLE (tester DET-3x v0.6.50 + planner source-verified 2026-06-15, goal=renders-not-proxy): 👁 Preview (85x23) + ↗ Open in new tab (125x23) VISIBLE on rb-file-detail + Preview-toggles-ContentPreviewer functional. Harness RED was a post-toggle measurement artifact; DET-3x is ground truth. RELEASE: v0.6.50 deployed + tagged + sw.js CACHE_NAME rawbin-v0.6.50 → PWA update-banner pulls buttons. dist bundle has buttons (#95 RESOLVED). Screenshot: test/visual/r2028-preview-buttons.png. → QA-Review (Tron gate #106). ⚠ chain hop gate-proven=false: tester must SELF-MARK test=gate-proven + create R20.28 Gate unit (Tron #102 — planner does NOT backfill)."
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

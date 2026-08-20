@@ -30,7 +30,9 @@
       "robbin-expert"
     ],
     "atoms": "honest-chain recovery; split 11 shared-impl regressions (each method own Impl+marker, never flip); recovers ~171/201; scoped into 22:07 backfill; planner ground-truths each restored chain",
-    "progress": "9/11 GENUINELY restored @4c5f78a4 (158→168/207, det-3x; unique impls + real markers ground-truthed, NOT flipped). REMAINING: R19.31 (impl b3adefdd), R19.72 (impl 25884b0c)."
+    "progress": "9/11 GENUINELY restored @4c5f78a4 (158→168/207, det-3x; unique impls + real markers ground-truthed, NOT flipped). REMAINING: R19.31 (impl b3adefdd), R19.72 (impl 25884b0c).",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

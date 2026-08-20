@@ -4,7 +4,7 @@
     "uuid": "eff42eff-3762-4653-9881-eb7dd6fb90a2",
     "name": "T-md-safari-broken-link: identify + fix the one broken link in the md-safari room",
     "slug": "md-safari-room-one-broken-link",
-    "description": "R19.99 fix (v0.5.228, desktop Chrome macOS): one link in the md-safari room renders broken (non-clickable / wrong href / missing target) while all other links work. Identify WHICH link and fix it. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). In-room UX \u2192 Test node MUST be real E2E Playwright + screenshot (anti-false-green standard). Tester investigating.",
+    "description": "R19.99 fix (v0.5.228, desktop Chrome macOS): one link in the md-safari room renders broken (non-clickable / wrong href / missing target) while all other links work. Identify WHICH link and fix it. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27). Architect attaches useCases[]/chain (single-owner standard). In-room UX → Test node MUST be real E2E Playwright + screenshot (anti-false-green standard). Tester investigating.",
     "status": "In Progress",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
@@ -25,5 +25,5 @@
     ],
     "atoms": "covers R19.99 per PO directive; one broken link in md-safari room (v0.5.228); tester investigating; E2E-test required (in-room UX)"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

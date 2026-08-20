@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "a28f0e01-4c5d-4a3b-8e7f-001122334455",
-    "name": "T28: Fix All Task Files \u2014 Web4Articles Template Compliance",
+    "name": "T28: Fix All Task Files — Web4Articles Template Compliance",
     "slug": "task-28-fix-task-structure",
     "description": "Fix all task files to comply with the Web4Articles template.",
     "status": "Done",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:1018cc11-be1d-44a4-bc8d-6c96461e3647"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

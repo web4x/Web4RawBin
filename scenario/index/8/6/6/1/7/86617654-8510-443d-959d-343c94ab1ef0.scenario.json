@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e",
+    "sprintName": "Traceability Browser"
   },
-  "ownerIor": "ior:instance:71290950-9a19-4043-bbaf-68c72d00894e"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

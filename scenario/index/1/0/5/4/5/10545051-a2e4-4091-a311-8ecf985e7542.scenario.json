@@ -9,8 +9,10 @@
       "ior:instance:f420e98a-3d41-4c08-b5d3-936bad0fddb5"
     ],
     "useCases": [],
-    "proofNote": "RESOLVED-BY-CONSOLIDATION (tester DET-3x + source-verified on REAL DeFED.net data, PO 2026-06-14): link.url (File unit b04ea551) resolves to its OWN File detail, NOT the parent Files collection \u2014 the .url-click/leaf-file-detail behavior is correct. Resolved by drawer-consolidation (v0.6.27-29: collection-uuid fix + renderDetailForRef rename/wrapper-lookup). NO FIX NEEDED. PROVEN, present-proof (not awaiting-Tron).",
-    "description": "Fix the regression where clicking a .url file (link.url) in the room tree no longer opens its drawer detail view; restore the drawer-open behaviour lost in partial commit 862868bfe. Covers BUG13."
+    "proofNote": "RESOLVED-BY-CONSOLIDATION (tester DET-3x + source-verified on REAL DeFED.net data, PO 2026-06-14): link.url (File unit b04ea551) resolves to its OWN File detail, NOT the parent Files collection — the .url-click/leaf-file-detail behavior is correct. Resolved by drawer-consolidation (v0.6.27-29: collection-uuid fix + renderDetailForRef rename/wrapper-lookup). NO FIX NEEDED. PROVEN, present-proof (not awaiting-Tron).",
+    "description": "Fix the regression where clicking a .url file (link.url) in the room tree no longer opens its drawer detail view; restore the drawer-open behaviour lost in partial commit 862868bfe. Covers BUG13.",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

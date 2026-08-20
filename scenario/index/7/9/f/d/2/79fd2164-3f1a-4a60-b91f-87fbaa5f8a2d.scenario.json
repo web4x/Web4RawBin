@@ -1,6 +1,6 @@
 {
   "ior": "ior:class:Task",
-  "ownerIor": null,
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
   "model": {
     "uuid": "79fd2164-3f1a-4a60-b91f-87fbaa5f8a2d",
     "name": "Task 37.4: Objects self-heal (validate on init/read, never run silently drifted) [R37.4]",

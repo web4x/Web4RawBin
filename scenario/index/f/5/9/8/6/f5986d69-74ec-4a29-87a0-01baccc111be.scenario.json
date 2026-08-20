@@ -29,5 +29,5 @@
     "doneBasis": "tron-approved",
     "approvalProvenance": "GENUINE TRON VERDICT — do NOT revert (robbin-po ruling 2026-08-18, relaying Tron's verbatim confirmation + photographic proof: the task showed QA-Review with live Approve/Decline buttons at 09:51; at 09:52 the app printed '✓ Approved — status now Done (by sm_sessi at 2026-08-18T07:52:06.709Z)'; Tron: 'its not a phantom. here is the prove of what i did.'). The stored approvedBy='sm_sessi' is a BROKEN-PROVENANCE truncated SESSION id written by the approve endpoint (a real defect, captured as R40.10 AC-approve-records-tron-identifiably) — NOT a forgery and NOT a non-Tron actor. approvedBy was NOT hand-edited to invent Tron's identity (fabrication-avoidance); the endpoint fix will re-record him identifiably. doneBasis=tron-approved is the honest structured basis (his act). Done stands. My earlier false-Done conclusion was the mirror-image error of recording a fake one — corrected by his proof."
   },
-  "ownerIor": null
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

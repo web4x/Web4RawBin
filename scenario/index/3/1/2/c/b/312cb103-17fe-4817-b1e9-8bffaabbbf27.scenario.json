@@ -6,7 +6,7 @@
     "slug": "persistent-default-mode-flip",
     "description": "LIVE is the current default room mode. AFTER this sprint, PERSISTENT becomes the default mode. The mode can be switched back to LIVE in the room editor. Singular-chain by design.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 default mode=persistent + setMode editor switch)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 — default mode=persistent + setMode editor switch)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:1350d422-1133-4f04-9f9f-c0b3c4930542"
     ],
@@ -21,7 +21,9 @@
       "robbin-planner",
       "robbin-architect"
     ],
-    "atoms": "R19.10"
+    "atoms": "R19.10",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

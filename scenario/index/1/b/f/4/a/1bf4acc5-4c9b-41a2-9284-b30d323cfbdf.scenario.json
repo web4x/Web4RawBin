@@ -1,6 +1,6 @@
 {
   "ior": "ior:class:Task",
-  "ownerIor": null,
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
   "model": {
     "uuid": "1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
     "name": "Task 37.21: Room Members/Files become real Folder scenario-units with sunburst detail (rides R40.16, no dup)",

@@ -1,24 +1,24 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "eec77e5b-ffb9-4c97-ad20-f77a8fa4e08d",
-  "name": "Task 33.6.1: BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing",
-  "slug": "task-33.6.1-drag-add-new-diagram",
-  "description": "Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY diagram STILL adds nothing - the drop-to-add diagram-model write is broken specifically for new/empty diagrams (works once a diagram already has boxes). Likely related to R33.5 item-1 addDiagram / the diagram model-write path (empty-diagram init or the drop handler keying off existing elements). Route architect(diagnose measure-first)->expert(fix)->tester(catch @390). Reuse the existing drop/diagram-write path, NO fork.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.6.1 `[requirement:uuid:a5205512-ec17-4a23-b4d1-7f5c58223d10]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [x] Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.\n- [x] The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.\n- [x] GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "coveredRequirements": [
-   "ior:instance:a5205512-ec17-4a23-b4d1-7f5c58223d10"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
-  "sprintName": "Sprint 33",
-  "remainingIssues": "DONE: chain-complete-to-Test (dual-impl Test 0aaae49a, drag-add-new-diagram CLOSED) + REAL-WEBKIT @390 self-gated GREEN (r3361, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-31"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "eec77e5b-ffb9-4c97-ad20-f77a8fa4e08d",
+    "name": "Task 33.6.1: BUG: drag-to-add is broken for NEW/empty diagrams - dropping an element into a new diagram adds nothing",
+    "slug": "task-33.6.1-drag-add-new-diagram",
+    "description": "Tron item-1 (HIGHEST PRIORITY, bug). Dragging a tree element INTO a NEW or EMPTY diagram STILL adds nothing - the drop-to-add diagram-model write is broken specifically for new/empty diagrams (works once a diagram already has boxes). Likely related to R33.5 item-1 addDiagram / the diagram model-write path (empty-diagram init or the drop handler keying off existing elements). Route architect(diagnose measure-first)->expert(fix)->tester(catch @390). Reuse the existing drop/diagram-write path, NO fork.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 33 Planning](./planning.md)\n    - Requirement R33.6.1 `[requirement:uuid:a5205512-ec17-4a23-b4d1-7f5c58223d10]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [x] Dragging a tree element (class) and dropping it INTO a freshly-created NEW or EMPTY diagram adds a box to the diagram model AND renders it immediately - the drop-to-add path fires for a zero-element diagram, not only for diagrams that already contain boxes.\n- [x] The dropped element PERSISTS to the diagram model (the create/add-view write returns ok) and SURVIVES a fresh re-mount of the diagram (round-trip), identical to dropping into an already-populated diagram.\n- [x] GATE @390 on REAL drag-drop (screenshot/pixel + planted-defect bite, NOT 'loads'): create a new empty diagram -> drag a class in -> a box APPEARS and persists across re-mount; planted-defect (write rejected) -> NO box (bite). Real server restart + boot-verify if the write path is server-side.",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:a5205512-ec17-4a23-b4d1-7f5c58223d10"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+    "sprintName": "Sprint 33",
+    "remainingIssues": "DONE: chain-complete-to-Test (dual-impl Test 0aaae49a, drag-add-new-diagram CLOSED) + REAL-WEBKIT @390 self-gated GREEN (r3361, engine-swap sweep 90673e928, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-31"
+  }
 }

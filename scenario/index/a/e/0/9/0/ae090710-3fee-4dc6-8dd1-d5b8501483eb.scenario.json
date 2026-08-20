@@ -6,7 +6,7 @@
     "slug": "room-content-ui-layout",
     "description": "Room content area has a drop-content-here zone, double the size of a tree-overview item view. Below it: a tree with two nodes - Members and Files. Members displayed as item views below the Members node. Singular-chain by design.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 529d5c42 v0.5.129 \u2014 drop-zone + Members/Files tree + member items)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 529d5c42 v0.5.129 — drop-zone + Members/Files tree + member items)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:61c2661a-fb8a-489a-9d5d-abc4e819cf5d",
       "ior:instance:dc2e99eb-8e31-4337-887b-8204f7588c20",
@@ -23,7 +23,9 @@
       "robbin-planner",
       "robbin-architect"
     ],
-    "atoms": "R19.11+R19.12+R19.13"
+    "atoms": "R19.11+R19.12+R19.13",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -12,7 +12,7 @@
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] New device with committed profile prompted for secret code\n- [x] Correct code \u2192 device keypair generated, signed, stored in localStorage\n- [x] Device public key added to user's authorized_keys\n- [x] Wrong code \u2192 DEVICE_ENROLL_FAILED with reason\n- [x] User without SSH keys cannot enroll\n- [x] Device keys persist in localStorage across page reloads\n- [x] All tests pass",
+    "acceptanceCriteria": "- [x] New device with committed profile prompted for secret code\n- [x] Correct code → device keypair generated, signed, stored in localStorage\n- [x] Device public key added to user's authorized_keys\n- [x] Wrong code → DEVICE_ENROLL_FAILED with reason\n- [x] User without SSH keys cannot enroll\n- [x] Device keys persist in localStorage across page reloads\n- [x] All tests pass",
     "qaAudit": "## Subtasks\nNone (atomic task).",
     "subtasks": "None (atomic task).",
     "assigned": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:7f004379-b327-4853-bc2f-947bd4e781d8"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

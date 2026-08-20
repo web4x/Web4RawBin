@@ -1,28 +1,28 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "7887c199-9c48-4845-ba70-74d4259a7312",
-  "name": "Task 30.49: Delete a dynamic repo from the manage panel (builtins never removable)",
-  "slug": "task-30.49-delete-dynamic-repo",
-  "description": "The manage panel lets a user DELETE a dynamic (user-added) repo \u2014 after delete it is gone from the selector + the dynamic registry (via RepoRegistry.unregister). BUILTIN repos (rawbin, oosh) are NEVER removable: the delete affordance is absent/disabled and unregister refuses them. V1 delete is read-auth only (no admin-key; D4 requireAdmin stays deferred to R30.48). The pending BUILD is the delete-UI wiring onto the already-proven unregister spine.",
-  "intention": "S30 diff/merge editor \u2014 R30.49 delete-for-removable (Tron-approved, V1 push): the manage panel can remove a user-added repo, builtins protected.",
-  "context": "Covers R30.49 (37b58836) \u2192 UC e496716b \u2192 RepoRegistry.unregister spine. \u2605 CHAIN complete-to-Test BY REUSE: the mechanism is RepoRegistry.unregister (Impl 559b508b) already Tested by 6f6edecd (r3047 gate: A.unregister-dynamic + A.unregister-builtin-false). The pending BUILD = wiring the delete-UI \u2192 unregister (blocked-on-build, expert builds WITH UC7 on architect's final-matrix green-light). D4 admin-auth deferred \u2192 R30.48/BH-3.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "implementation": "QA-REVIEW: delete-for-removable BUILT+GATED v0.7.72. Gate r3049 GREEN DET-3x (ebdf8b080), chain both-directions (delete->unregister 559b508b<->Test e4741c65 + reuse 6f6edecd), served==gated. D4 admin-auth deferred R30.48. 4/4 ACs. -> Tron visual/PO -> Done.",
-  "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:37b58836-2e9c-4de3-ac53-6e3289b48203]`\n  - reuse\n    - RepoRegistry.unregister spine (Impl 559b508b \u2194 Test 6f6edecd) \u2014 the delete mechanism is already Tested; build wires the UI onto it\n  - down\n    - [UC](./planning.md) `[uc:uuid:e496716b-d3bc-4274-82be-1082c361f70a]`",
-  "acceptanceCriteria": "- [x] (delete) A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister \u2014 after delete it is gone from the selector + registry. Tested e4741c65 (r3049) + 6f6edecd (unregister spine).\n- [x] (protect) A BUILTIN repo (rawbin, oosh) is NEVER removable \u2014 delete affordance absent/disabled + unregister refuses builtins (gate A.unregister-builtin-false + r3049).\n- [x] (V1-auth) V1 delete uses read-auth only (no admin-key); D4 requireAdmin deferred (R30.48 backlog) until multi-user.\n- [x] (gate) GATE GREEN DET-3x (r3049-delete-repo-gate.mjs, ebdf8b080 v0.7.72, served==gated): add dynamic -> delete from manage panel -> gone from selector+registry; delete builtin -> refused.",
-  "subtasks": "None (atomic task).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:37b58836-2e9c-4de3-ac53-6e3289b48203"
-  ],
-  "useCases": [
-   "ior:instance:e496716b-d3bc-4274-82be-1082c361f70a"
-  ],
-  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
-  "sprintName": "Sprint 30",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-19"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "7887c199-9c48-4845-ba70-74d4259a7312",
+    "name": "Task 30.49: Delete a dynamic repo from the manage panel (builtins never removable)",
+    "slug": "task-30.49-delete-dynamic-repo",
+    "description": "The manage panel lets a user DELETE a dynamic (user-added) repo — after delete it is gone from the selector + the dynamic registry (via RepoRegistry.unregister). BUILTIN repos (rawbin, oosh) are NEVER removable: the delete affordance is absent/disabled and unregister refuses them. V1 delete is read-auth only (no admin-key; D4 requireAdmin stays deferred to R30.48). The pending BUILD is the delete-UI wiring onto the already-proven unregister spine.",
+    "intention": "S30 diff/merge editor — R30.49 delete-for-removable (Tron-approved, V1 push): the manage panel can remove a user-added repo, builtins protected.",
+    "context": "Covers R30.49 (37b58836) → UC e496716b → RepoRegistry.unregister spine. ★ CHAIN complete-to-Test BY REUSE: the mechanism is RepoRegistry.unregister (Impl 559b508b) already Tested by 6f6edecd (r3047 gate: A.unregister-dynamic + A.unregister-builtin-false). The pending BUILD = wiring the delete-UI → unregister (blocked-on-build, expert builds WITH UC7 on architect's final-matrix green-light). D4 admin-auth deferred → R30.48/BH-3.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "implementation": "QA-REVIEW: delete-for-removable BUILT+GATED v0.7.72. Gate r3049 GREEN DET-3x (ebdf8b080), chain both-directions (delete->unregister 559b508b<->Test e4741c65 + reuse 6f6edecd), served==gated. D4 admin-auth deferred R30.48. 4/4 ACs. -> Tron visual/PO -> Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:37b58836-2e9c-4de3-ac53-6e3289b48203]`\n  - reuse\n    - RepoRegistry.unregister spine (Impl 559b508b ↔ Test 6f6edecd) — the delete mechanism is already Tested; build wires the UI onto it\n  - down\n    - [UC](./planning.md) `[uc:uuid:e496716b-d3bc-4274-82be-1082c361f70a]`",
+    "acceptanceCriteria": "- [x] (delete) A DYNAMIC (user-added) repo can be deleted from the manage panel via RepoRegistry.unregister — after delete it is gone from the selector + registry. Tested e4741c65 (r3049) + 6f6edecd (unregister spine).\n- [x] (protect) A BUILTIN repo (rawbin, oosh) is NEVER removable — delete affordance absent/disabled + unregister refuses builtins (gate A.unregister-builtin-false + r3049).\n- [x] (V1-auth) V1 delete uses read-auth only (no admin-key); D4 requireAdmin deferred (R30.48 backlog) until multi-user.\n- [x] (gate) GATE GREEN DET-3x (r3049-delete-repo-gate.mjs, ebdf8b080 v0.7.72, served==gated): add dynamic -> delete from manage panel -> gone from selector+registry; delete builtin -> refused.",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:37b58836-2e9c-4de3-ac53-6e3289b48203"
+    ],
+    "useCases": [
+      "ior:instance:e496716b-d3bc-4274-82be-1082c361f70a"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19"
+  }
 }

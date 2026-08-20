@@ -1,25 +1,25 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "d14e3884-242a-4017-acc7-2daf0c47a688",
-  "name": "Task 32.6: Relationship views (attribute/getter/setter whose type is another unit)",
-  "slug": "task-32.6-relationship-views",
-  "description": "An attribute / getter / setter whose type is ANOTHER class / type / interface / TS-type is rendered as a RELATIONSHIP view from the owning class view to that other unit's view. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
-  "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.6 `[requirement:uuid:c8bc0ee4-a6c0-497a-8510-da23f51902e8]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [ ] When an attribute/getter/setter has a type that is another modeled unit (class/type/interface/TS-type), a RELATIONSHIP view is rendered from the owner to that unit.\n- [ ] The relationship resolves to the SAME-UUID target unit (identity-by-reference), not a copy.\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "coveredRequirements": [
-   "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
-  "sprintName": "Sprint 32",
-  "buildOrder": 6,
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-29"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "d14e3884-242a-4017-acc7-2daf0c47a688",
+    "name": "Task 32.6: Relationship views (attribute/getter/setter whose type is another unit)",
+    "slug": "task-32.6-relationship-views",
+    "description": "An attribute / getter / setter whose type is ANOTHER class / type / interface / TS-type is rendered as a RELATIONSHIP view from the owning class view to that other unit's view. ★ ACs are INITIAL (scenario-first per #126); the MDA-specific invariants (same-UUID-across-M-levels, PUML no-dup round-trip, action-sync) FINALIZE on architect (0.3) MDA-structure design - coordinating now. Chain (UC->Class->Method->Impl->Test) mints onto the built fix per the build order.",
+    "context": "designRef: scrum.pmo/sprints/sprint-32-mda-model-driven-code-quality/PO-vision.md + design-mda-model.md",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 32 Planning](./planning.md)\n    - Requirement R32.6 `[requirement:uuid:c8bc0ee4-a6c0-497a-8510-da23f51902e8]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [ ] When an attribute/getter/setter has a type that is another modeled unit (class/type/interface/TS-type), a RELATIONSHIP view is rendered from the owner to that unit.\n- [ ] The relationship resolves to the SAME-UUID target unit (identity-by-reference), not a copy.\n- [ ] INITIAL ACs (scenario-first #126); the MDA-structure invariants finalize on architect (0.3) design; chain mints onto built fix per the build order (R32.0->R32.8).",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:c8bc0ee4-a6c0-497a-8510-da23f51902e8"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823",
+    "sprintName": "Sprint 32",
+    "buildOrder": 6,
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-29"
+  }
 }

@@ -28,7 +28,9 @@
       "ior:instance:16a01152-d152-4a02-b152-000000115002",
       "ior:instance:16a01153-d153-4a03-b153-000000115003"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+    "sprintName": "Traceability Ux"
   },
-  "ownerIor": "ior:instance:e6a9de8c-2479-4785-8bf7-b9b38b37a42f"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

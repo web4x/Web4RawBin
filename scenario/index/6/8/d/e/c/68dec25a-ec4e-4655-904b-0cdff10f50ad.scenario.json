@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "- [x] Links clearly readable on gradient background\n- [x] Unvisited = white, visited/hover = shiny light blue",
-    "qaAudit": "- 2026-05-24: Tron \u2014 links barely readable against new background. Unvisited=WHITE, visited/hovered=SHINY LIGHT BLUE fitting color tones.",
+    "qaAudit": "- 2026-05-24: Tron — links barely readable against new background. Unvisited=WHITE, visited/hovered=SHINY LIGHT BLUE fitting color tones.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

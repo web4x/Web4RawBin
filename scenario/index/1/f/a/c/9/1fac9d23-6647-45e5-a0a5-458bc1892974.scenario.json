@@ -24,7 +24,9 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers BUG2 (Bug in delivered R20.6c+d); tap=clear+select(1), long-press=toggle off; intendedChain carried; traceability-first, Test FIRST; STRICT next; release v0.6.8+tag"
+    "atoms": "covers BUG2 (Bug in delivered R20.6c+d); tap=clear+select(1), long-press=toggle off; intendedChain carried; traceability-first, Test FIRST; STRICT next; release v0.6.8+tag",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

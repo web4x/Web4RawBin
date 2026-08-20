@@ -1,26 +1,26 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "cc3fa868-91e9-4d1e-8c2e-4b558b779d8a",
-  "name": "Task 40.9: 'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer)",
-  "slug": "task-40.9-preview-traceability-drawer-reuse",
-  "description": "R40.9 (Tron: 'preview should show that scenario's traceability and the details drawer'). The editor footer 'Preview' tab renders the scenario's traceability chain and opens the details drawer for a selected node — REUSING the existing /trace + rb-detail-drawer surfaces (no bespoke preview renderer; same DRY spirit as R40.5). Reuse /trace + rb-detail-drawer, NO fork. Scenario-first: req mints R40.9 + ACs; architect designs; expert implements; tester gates @390.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.9 `[requirement:uuid:50753cf6-59e8-4251-84e0-7d54f988ce76]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [x] [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).\n- [x] [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).\n- [x] [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).",
-  "subtasks": "None (atomic task).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:50753cf6-59e8-4251-84e0-7d54f988ce76"
-  ],
-  "useCases": [
-   "ior:instance:23af7ba9-4aad-4455-83f7-48b6ca62165d"
-  ],
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "remainingIssues": "QA-Review (units-win; planner disk-verified BOTH directions + tester two-key CLOSED): chain-complete-to-Test — Impl 0ed5cd75 (ModelView.previewTraceability, reuse /trace + rb-detail-drawer no-fork) tests[]=[a1e8d3f7] <-> Test a1e8d3f7.implementations[]=[0ed5cd75], status=pass, ownerIor=0ed5cd75 (single-impl, clean, no cross-wire). Tester KEY-2 two-key CLOSED both-dir + PUSHED (01addbba1, origin==b0d0f5a17). All In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control). Board re-derived from units (PO campaign 2026-08-09).",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-08"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "cc3fa868-91e9-4d1e-8c2e-4b558b779d8a",
+    "name": "Task 40.9: 'Preview' = traceability chain + details drawer, REUSING /trace + rb-detail-drawer (no bespoke renderer)",
+    "slug": "task-40.9-preview-traceability-drawer-reuse",
+    "description": "R40.9 (Tron: 'preview should show that scenario's traceability and the details drawer'). The editor footer 'Preview' tab renders the scenario's traceability chain and opens the details drawer for a selected node — REUSING the existing /trace + rb-detail-drawer surfaces (no bespoke preview renderer; same DRY spirit as R40.5). Reuse /trace + rb-detail-drawer, NO fork. Scenario-first: req mints R40.9 + ACs; architect designs; expert implements; tester gates @390.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.9 `[requirement:uuid:50753cf6-59e8-4251-84e0-7d54f988ce76]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [x] [AUTOMATABLE, source, stub-must-fail] Preview REUSES the existing trace + rb-detail-drawer components (grep proves NO bespoke preview renderer — plant a bespoke renderer -> gate RED; DRY like R40.5).\n- [x] [AUTOMATABLE @390 real-WebKit] Preview renders the selected scenario's traceability chain (the /trace surface).\n- [x] [AUTOMATABLE @390 real-WebKit] The details drawer opens for a selected node (the rb-detail-drawer surface).",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:50753cf6-59e8-4251-84e0-7d54f988ce76"
+    ],
+    "useCases": [
+      "ior:instance:23af7ba9-4aad-4455-83f7-48b6ca62165d"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "QA-Review (units-win; planner disk-verified BOTH directions + tester two-key CLOSED): chain-complete-to-Test — Impl 0ed5cd75 (ModelView.previewTraceability, reuse /trace + rb-detail-drawer no-fork) tests[]=[a1e8d3f7] <-> Test a1e8d3f7.implementations[]=[0ed5cd75], status=pass, ownerIor=0ed5cd75 (single-impl, clean, no cross-wire). Tester KEY-2 two-key CLOSED both-dir + PUSHED (01addbba1, origin==b0d0f5a17). All In-Progress sub-steps [x]. Done-gate [ ] = Tron's act (R40.10 approve-control). Board re-derived from units (PO campaign 2026-08-09).",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-08"
+  }
 }

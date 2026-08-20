@@ -6,7 +6,7 @@
     "slug": "room-visibility-modes",
     "description": "Room visibility = PUBLIC | BY-INVITE | PRIVATE(password). PRIVATE rooms listed only for owners. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 visibility enum + setVisibility + RoomVisibility type)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 — visibility enum + setVisibility + RoomVisibility type)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:1f1849b5-b47a-4018-8bb1-cd9690884930",
       "ior:instance:bcaa8cda-6ac6-4606-8443-8dd8ed80e673"
@@ -22,7 +22,9 @@
       "robbin-planner",
       "robbin-architect"
     ],
-    "atoms": "R19.3+R19.4"
+    "atoms": "R19.3+R19.4",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

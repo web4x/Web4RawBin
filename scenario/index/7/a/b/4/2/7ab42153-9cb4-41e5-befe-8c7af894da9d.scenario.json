@@ -12,7 +12,7 @@
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] All E2E tests pass in headless Chromium\n- [x] Full user journey covered (gate \u2192 room \u2192 chat \u2192 profile \u2192 vCard)\n- [x] Device enrollment + auto-auth verified\n- [x] Mobile viewport tested\n- [x] Server auto-starts before tests (webServer config)\n- [x] Tests run with `npm run test:e2e`",
+    "acceptanceCriteria": "- [x] All E2E tests pass in headless Chromium\n- [x] Full user journey covered (gate → room → chat → profile → vCard)\n- [x] Device enrollment + auto-auth verified\n- [x] Mobile viewport tested\n- [x] Server auto-starts before tests (webServer config)\n- [x] Tests run with `npm run test:e2e`",
     "qaAudit": "## Subtasks\nNone (atomic task).",
     "subtasks": "None (atomic task).",
     "assigned": "",
@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57",
+    "sprintName": "E2E Hardening"
   },
-  "ownerIor": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

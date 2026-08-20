@@ -27,7 +27,9 @@
     "useCases": [
       "ior:instance:71d57474-3f95-4a91-b45c-423663bb7d30"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "sprintName": "Chain Method-Scope & Role Skills"
   },
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

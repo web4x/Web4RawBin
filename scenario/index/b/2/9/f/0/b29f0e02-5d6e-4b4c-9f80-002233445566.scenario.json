@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "b29f0e02-5d6e-4b4c-9f80-002233445566",
-    "name": "T29: Update OOSH Sprint Tool \u2014 Template Enforcement",
+    "name": "T29: Update OOSH Sprint Tool — Template Enforcement",
     "slug": "task-29-update-sprint-tool",
     "description": "Update the OOSH sprint tool to enforce the task-file template.",
     "status": "Done",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:1018cc11-be1d-44a4-bc8d-6c96461e3647"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -1,36 +1,36 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "3b60b587-9dac-48ee-b5f2-b3a25d296dc0",
-  "name": "Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)",
-  "slug": "task-31.5-concept-scrollable-viewport-woda-layout",
-  "description": "UMBRELLA — the R31.5 WODA bar/compartment layout concept, decomposed into 7 ATOMIC build tasks (req decomposition bf73baec2, architect-confirmed b3f30491f; Tron AUTHORIZED BUILD 2026-07-22). Each child is its own chain-root (Req->UC->Class->Method->Impl->Test). BUILD ORDER (dependency metadata, NOT chain): FOUNDATION 5.1 rb-compartment + 5.2 rb-strip + 5.4 viewport-mode -> 5.7 drawer=Details (CRUX, early, rides the R31.4 DRY drawer fix) -> 5.3 rb-snap-nav -> 5.5 editor-instance + 5.6 WODA-instance. AC-INV-PRESENTATION (5.8 positioning!=function) cross-cuts EVERY piece (not a separate task).",
-  "intention": "Tron directive (2026-07-20): PLAN a detailed CONCEPT (req + architect + planner). DO NOT IMPLEMENT yet. Generalizes the R31.4 DRY drawer fix (positioning != function) across the whole responsive layout.",
-  "context": "Motivated by the full-width-drawer regression: a positioning-format change wrongly changed drawer FUNCTION. The concept must guarantee one function across landscape (Details compartment [D] inline) and portrait (bottom drawer) positions. Tron SPEC: CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5 `[requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]` (conceptOnly)\n  - concept traceability (NO build chain yet — deferred until Tron authorizes build)\n    - facet-ACs (decomposition candidates for the later build-requirements): AC-bar-compartment-model, AC-woda-layout, AC-editor-is-instance, AC-scrollable-viewport-snap, AC-scroll-snap-nav-bar, AC-drawer-positioning-not-function, AC-concept-not-code\n    - design docs: [CONCEPT-scrollable-viewport-woda-layout.md](./CONCEPT-scrollable-viewport-woda-layout.md) (Tron spec) + [CONCEPT-scrollable-viewport-architecture.md](./CONCEPT-scrollable-viewport-architecture.md) (architect design)",
-  "acceptanceCriteria": "- [ ] A coherent CONCEPT is captured (req) + designed (architect) — a plan, NOT code.\n- [ ] The concept defines the bar '|' / compartment '[]' duality (a bar expands into a compartment and back; one component, presentation attribute — not a fork).\n- [ ] WODA W|[O][D]|A and the 3-way editor [L]|[C]|[R] are shown as instances of the ONE model (differ only by the segment-descriptor array).\n- [ ] Portrait scrollable viewport + scroll-snap at compartment boundaries + bottom scroll-snap nav bar are specified.\n- [ ] Drawer = Details compartment: landscape [D] inline vs portrait bottom-drawer, IDENTICAL function, position-only (positioning != function invariant).\n- [ ] No implementation in this task — code is deferred to a later Tron-authorized build (facet-ACs decompose into atomic build-requirements then).",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "coveredRequirements": [
-   "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
-  "sprintName": "Sprint 31",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-20",
-  "implementation": "PLAN-ONLY (no code). The concept 'implementation' is the design-artifact pair: Tron SPEC CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91) + architect DESIGN companion CONCEPT-scrollable-viewport-architecture.md (5bce382b7 — rb-compartment/rb-strip/rb-snap-nav/viewport primitives, one-model-two-instances, drawer=Details position-only, presentation != function). Both cover Tron concept facets. Code implementation is a LATER Tron-authorized step (separate build task/sprint).",
-  "remainingIssues": "CHAMPAGNE-COMPLETE (built + gated + 5 ACs met + Test-credited, triple disk-verified). /edit-swap live-host BUILT (edit.ts:169-177 ?layout=r31.5, dist 81ecf92f9 v0.7.130) + GATED (live-route r315composed-regression-gate.mjs GREEN DET-3x @390 4a3c4bcc7 + backstop 304e4c130) + 5 R31.5.5 ACs MET (req 1de99636e) + Test-CREDIT minted (Test 2b20035d <-> Impl 3b8e6c24, req ed879c489). All 7 piece-cores done-to-Test. NO pending build, NO pending Test-marker. ONLY Tron device visual on the composed WODA/editor remains -> DONE (flips umbrella + all 7 children).",
-  "children": [
-   "ior:instance:b9e529ec-2788-4cb3-accb-7682f48be509",
-   "ior:instance:03ab7342-ab45-4383-8f25-bdd1f1013dc4",
-   "ior:instance:d871ae32-a05b-432d-b6df-8d5196fae126",
-   "ior:instance:5dc15076-f6e6-4ff0-87bd-23b9b6924bd8",
-   "ior:instance:00c67a73-be6c-42ed-9836-82d6aafb5d88",
-   "ior:instance:8efd4fcb-ebe2-4bb0-bf6d-ded7de2d788e",
-   "ior:instance:1ca14378-4800-4150-a2e0-f3ae4c5910ad"
-  ]
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "3b60b587-9dac-48ee-b5f2-b3a25d296dc0",
+    "name": "Task 31.5: Responsive bar/compartment WODA scrollable-viewport layout (CONCEPT)",
+    "slug": "task-31.5-concept-scrollable-viewport-woda-layout",
+    "description": "UMBRELLA — the R31.5 WODA bar/compartment layout concept, decomposed into 7 ATOMIC build tasks (req decomposition bf73baec2, architect-confirmed b3f30491f; Tron AUTHORIZED BUILD 2026-07-22). Each child is its own chain-root (Req->UC->Class->Method->Impl->Test). BUILD ORDER (dependency metadata, NOT chain): FOUNDATION 5.1 rb-compartment + 5.2 rb-strip + 5.4 viewport-mode -> 5.7 drawer=Details (CRUX, early, rides the R31.4 DRY drawer fix) -> 5.3 rb-snap-nav -> 5.5 editor-instance + 5.6 WODA-instance. AC-INV-PRESENTATION (5.8 positioning!=function) cross-cuts EVERY piece (not a separate task).",
+    "intention": "Tron directive (2026-07-20): PLAN a detailed CONCEPT (req + architect + planner). DO NOT IMPLEMENT yet. Generalizes the R31.4 DRY drawer fix (positioning != function) across the whole responsive layout.",
+    "context": "Motivated by the full-width-drawer regression: a positioning-format change wrongly changed drawer FUNCTION. The concept must guarantee one function across landscape (Details compartment [D] inline) and portrait (bottom drawer) positions. Tron SPEC: CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.5 `[requirement:uuid:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4]` (conceptOnly)\n  - concept traceability (NO build chain yet — deferred until Tron authorizes build)\n    - facet-ACs (decomposition candidates for the later build-requirements): AC-bar-compartment-model, AC-woda-layout, AC-editor-is-instance, AC-scrollable-viewport-snap, AC-scroll-snap-nav-bar, AC-drawer-positioning-not-function, AC-concept-not-code\n    - design docs: [CONCEPT-scrollable-viewport-woda-layout.md](./CONCEPT-scrollable-viewport-woda-layout.md) (Tron spec) + [CONCEPT-scrollable-viewport-architecture.md](./CONCEPT-scrollable-viewport-architecture.md) (architect design)",
+    "acceptanceCriteria": "- [ ] A coherent CONCEPT is captured (req) + designed (architect) — a plan, NOT code.\n- [ ] The concept defines the bar '|' / compartment '[]' duality (a bar expands into a compartment and back; one component, presentation attribute — not a fork).\n- [ ] WODA W|[O][D]|A and the 3-way editor [L]|[C]|[R] are shown as instances of the ONE model (differ only by the segment-descriptor array).\n- [ ] Portrait scrollable viewport + scroll-snap at compartment boundaries + bottom scroll-snap nav bar are specified.\n- [ ] Drawer = Details compartment: landscape [D] inline vs portrait bottom-drawer, IDENTICAL function, position-only (positioning != function invariant).\n- [ ] No implementation in this task — code is deferred to a later Tron-authorized build (facet-ACs decompose into atomic build-requirements then).",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:7bb01a7b-f5cd-4a84-a2dd-ca9b47ef8ef4"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+    "sprintName": "Sprint 31",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-20",
+    "implementation": "PLAN-ONLY (no code). The concept 'implementation' is the design-artifact pair: Tron SPEC CONCEPT-scrollable-viewport-woda-layout.md (a8f7cfa91) + architect DESIGN companion CONCEPT-scrollable-viewport-architecture.md (5bce382b7 — rb-compartment/rb-strip/rb-snap-nav/viewport primitives, one-model-two-instances, drawer=Details position-only, presentation != function). Both cover Tron concept facets. Code implementation is a LATER Tron-authorized step (separate build task/sprint).",
+    "remainingIssues": "CHAMPAGNE-COMPLETE (built + gated + 5 ACs met + Test-credited, triple disk-verified). /edit-swap live-host BUILT (edit.ts:169-177 ?layout=r31.5, dist 81ecf92f9 v0.7.130) + GATED (live-route r315composed-regression-gate.mjs GREEN DET-3x @390 4a3c4bcc7 + backstop 304e4c130) + 5 R31.5.5 ACs MET (req 1de99636e) + Test-CREDIT minted (Test 2b20035d <-> Impl 3b8e6c24, req ed879c489). All 7 piece-cores done-to-Test. NO pending build, NO pending Test-marker. ONLY Tron device visual on the composed WODA/editor remains -> DONE (flips umbrella + all 7 children).",
+    "children": [
+      "ior:instance:b9e529ec-2788-4cb3-accb-7682f48be509",
+      "ior:instance:03ab7342-ab45-4383-8f25-bdd1f1013dc4",
+      "ior:instance:d871ae32-a05b-432d-b6df-8d5196fae126",
+      "ior:instance:5dc15076-f6e6-4ff0-87bd-23b9b6924bd8",
+      "ior:instance:00c67a73-be6c-42ed-9836-82d6aafb5d88",
+      "ior:instance:8efd4fcb-ebe2-4bb0-bf6d-ded7de2d788e",
+      "ior:instance:1ca14378-4800-4150-a2e0-f3ae4c5910ad"
+    ]
+  }
 }

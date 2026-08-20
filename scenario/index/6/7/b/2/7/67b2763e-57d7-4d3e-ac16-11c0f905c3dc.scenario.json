@@ -6,7 +6,7 @@
     "slug": "persistent-room-mode",
     "description": "PERSISTENT room mode keeps everyone in the members list even when offline (shown as offline) so no contact is ever lost. Members can be added and removed from the room member list. Singular-chain by design.",
     "status": "In Progress",
-    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 \u2014 mode flag + setMode + offline-member retention)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing (commit 7d975b74 v0.5.127 — mode flag + setMode + offline-member retention)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:b6b9c0ab-0f35-4801-b7f0-cd6dc3820f23",
       "ior:instance:30dcb1a0-17b9-4fcb-9823-e71a4dc371c9",
@@ -23,7 +23,9 @@
       "robbin-planner",
       "robbin-architect"
     ],
-    "atoms": "R19.7+R19.8+R19.9"
+    "atoms": "R19.7+R19.8+R19.9",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -4,9 +4,9 @@
     "uuid": "c1b45930-6a20-4e49-a11b-8560dd10b593",
     "name": "T-file-restore-scenario: Room file-restore from scenario files[] IOR list, not symlink scan + dedup",
     "slug": "file-restore-scenario-ior-list-dedup",
-    "description": "Room file-restore is driven by the scenario unit files[] IOR list (not symlink scan). Dedup on restore \u2014 no double-add. Covers R19.46.",
+    "description": "Room file-restore is driven by the scenario unit files[] IOR list (not symlink scan). Dedup on restore — no double-add. Covers R19.46.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (3c5af6ae \u2014 2 UCs + 2 Methods)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect (3c5af6ae — 2 UCs + 2 Methods)\n  - [ ] creating test cases\n  - [ ] implementing expert\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:124d9eec-0c46-4f45-8640-b7e14618d214"
     ],
@@ -14,7 +14,9 @@
     "subtasks": [],
     "tasks": [],
     "createdAt": "2026-06-11",
-    "createdBy": "robbin-planner"
+    "createdBy": "robbin-planner",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

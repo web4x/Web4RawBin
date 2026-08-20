@@ -1,26 +1,26 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "94c1211c-85bb-4e48-acd4-8fc9334312eb",
-  "name": "Task 31.11: Traceability tree deep-nests the full chain (UC->Class->Method->Impl->Test) for every sprint",
-  "slug": "task-31.11-tree-deep-nest-chain",
-  "description": "The traceability TREE must deep-nest the FULL forward chain UC -> Class -> Method -> Impl -> Test as EXPANDABLE tree nodes, each with its type-icon + child-count badge, for EVERY sprint INCLUDING S31 - matching the S30 target (IMG_4702). BUG (IMG_4701): a S31 UC node (e.g. serverManager.ownerGuard, drawer.observePosition) STOPS at the UC in the tree - the Class->Method->Impl->Test chain appears ONLY in the bottom drawer, not as nested tree children; a S30 UC (e.g. traceTree.currentSprintEagerLazy) deep-nests the whole chain as expandable nodes (UC puzzle -> Class RbTraceTree cube badge19 -> Method terminal -> Impl </> -> Test flask green-check). NOT a data-mint gap: the chain DATA is complete and RESOLVES correctly (the drawer proves S31 chains resolve to the right units - R31.10 works). This is a TREE RENDERING / chain-walk difference - the tree deep-nests for S30 UCs but not S31 UCs. Fix in the SHARED rb-trace-tree (fixes ALL sprints by construction, DRY). Route: architect DIAGNOSES the S30-vs-S31 nesting difference (measure file:line - what makes S30 chain nodes render as expandable children while S31's don't) -> req captures this AC -> expert fixes shared rb-trace-tree -> tester gates @390 (expand a S31 Task's UC -> full Class->Method->Impl->Test nests like S30) -> Tron device re-verify. The chain (UC->...->Test) mints/re-points onto the built shared-tree fix per architect diagnosis (data=truth).",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.11 `[requirement:uuid:c56b1120-a2d5-4017-916d-02e269c50fd5]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [x] In the traceability tree, expanding a UC node deep-nests the FULL forward chain as EXPANDABLE child nodes: UC -> Class -> Method -> Impl -> Test, each an expandable tree node. The tree MUST NOT stop at the UC (the chain is not drawer-only) - the Class/Method/Impl/Test are nested tree children like S30.\n- [x] Each chain node renders its TYPE-ICON matching the S30 target (IMG_4702): UC=puzzle, Class=cube, Method=terminal, Impl=</>, Test=flask with a green check when status=pass.\n- [x] Each expandable chain node shows its CHILD-COUNT badge (e.g. Class RbTraceTree badge = its method count), matching the S30 target's eager child-count badges.\n- [x] The deep-nesting works for EVERY sprint INCLUDING S31 - the fix lives in the SHARED rb-trace-tree (DRY, by-construction all sprints). S31 UCs (serverManager.ownerGuard, drawer.observePosition) deep-nest their full Class->Method->Impl->Test exactly like S30 UCs.\n- [x] This is a TREE-RENDERING / chain-walk fix, NOT a unit-mint gap: the chain DATA is already complete and resolves to the CORRECT units (the drawer shows the right full chain for S31; R31.10 sibling-fallback is fixed). No missing units are minted to satisfy R31.11 - the shared tree-walk is fixed to nest what already exists.\n- [x] Gated @390: expand a S31 Task's UC (serverManager.ownerGuard AND drawer.observePosition) -> the full Class->Method->Impl->Test nests as expandable icon+badge nodes, matching the S30 target screenshot (IMG_4702, e.g. Task 30.1 traceTree.currentSprintEagerLazy). /trace unregressed. Tron device re-verify (S31 tree looks like the S30 target).",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "gateProof": "GATED GREEN v0.7.139: tester b6813b6e2 tree deep-nest RED->GREEN DET-3x @390 (full chain UC->Class->Method->Impl->Test as expandable nodes); chain-complete-to-Test d48fd23e (LAST S31 chain 81fbce45e); architect BACKSTOP 0d01161a6 PASS (stamp-level, expandable both modes + S30 de-dup guard); skill-expert S31 traceability CERTIFIED WHOLE 18/18 (7938e2715). Functional/gate DONE, no open build. QA-Review: Tron device @390 pending.",
-  "coveredRequirements": [
-   "ior:instance:c56b1120-a2d5-4017-916d-02e269c50fd5"
-  ],
-  "useCases": [
-   "ior:instance:8a7039eb-1062-4e26-8652-f308339cc0cf"
-  ],
-  "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
-  "sprintName": "Sprint 31",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-27"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "94c1211c-85bb-4e48-acd4-8fc9334312eb",
+    "name": "Task 31.11: Traceability tree deep-nests the full chain (UC->Class->Method->Impl->Test) for every sprint",
+    "slug": "task-31.11-tree-deep-nest-chain",
+    "description": "The traceability TREE must deep-nest the FULL forward chain UC -> Class -> Method -> Impl -> Test as EXPANDABLE tree nodes, each with its type-icon + child-count badge, for EVERY sprint INCLUDING S31 - matching the S30 target (IMG_4702). BUG (IMG_4701): a S31 UC node (e.g. serverManager.ownerGuard, drawer.observePosition) STOPS at the UC in the tree - the Class->Method->Impl->Test chain appears ONLY in the bottom drawer, not as nested tree children; a S30 UC (e.g. traceTree.currentSprintEagerLazy) deep-nests the whole chain as expandable nodes (UC puzzle -> Class RbTraceTree cube badge19 -> Method terminal -> Impl </> -> Test flask green-check). NOT a data-mint gap: the chain DATA is complete and RESOLVES correctly (the drawer proves S31 chains resolve to the right units - R31.10 works). This is a TREE RENDERING / chain-walk difference - the tree deep-nests for S30 UCs but not S31 UCs. Fix in the SHARED rb-trace-tree (fixes ALL sprints by construction, DRY). Route: architect DIAGNOSES the S30-vs-S31 nesting difference (measure file:line - what makes S30 chain nodes render as expandable children while S31's don't) -> req captures this AC -> expert fixes shared rb-trace-tree -> tester gates @390 (expand a S31 Task's UC -> full Class->Method->Impl->Test nests like S30) -> Tron device re-verify. The chain (UC->...->Test) mints/re-points onto the built shared-tree fix per architect diagnosis (data=truth).",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 31 Planning](./planning.md)\n    - Requirement R31.11 `[requirement:uuid:c56b1120-a2d5-4017-916d-02e269c50fd5]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [x] In the traceability tree, expanding a UC node deep-nests the FULL forward chain as EXPANDABLE child nodes: UC -> Class -> Method -> Impl -> Test, each an expandable tree node. The tree MUST NOT stop at the UC (the chain is not drawer-only) - the Class/Method/Impl/Test are nested tree children like S30.\n- [x] Each chain node renders its TYPE-ICON matching the S30 target (IMG_4702): UC=puzzle, Class=cube, Method=terminal, Impl=</>, Test=flask with a green check when status=pass.\n- [x] Each expandable chain node shows its CHILD-COUNT badge (e.g. Class RbTraceTree badge = its method count), matching the S30 target's eager child-count badges.\n- [x] The deep-nesting works for EVERY sprint INCLUDING S31 - the fix lives in the SHARED rb-trace-tree (DRY, by-construction all sprints). S31 UCs (serverManager.ownerGuard, drawer.observePosition) deep-nest their full Class->Method->Impl->Test exactly like S30 UCs.\n- [x] This is a TREE-RENDERING / chain-walk fix, NOT a unit-mint gap: the chain DATA is already complete and resolves to the CORRECT units (the drawer shows the right full chain for S31; R31.10 sibling-fallback is fixed). No missing units are minted to satisfy R31.11 - the shared tree-walk is fixed to nest what already exists.\n- [x] Gated @390: expand a S31 Task's UC (serverManager.ownerGuard AND drawer.observePosition) -> the full Class->Method->Impl->Test nests as expandable icon+badge nodes, matching the S30 target screenshot (IMG_4702, e.g. Task 30.1 traceTree.currentSprintEagerLazy). /trace unregressed. Tron device re-verify (S31 tree looks like the S30 target).",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "gateProof": "GATED GREEN v0.7.139: tester b6813b6e2 tree deep-nest RED->GREEN DET-3x @390 (full chain UC->Class->Method->Impl->Test as expandable nodes); chain-complete-to-Test d48fd23e (LAST S31 chain 81fbce45e); architect BACKSTOP 0d01161a6 PASS (stamp-level, expandable both modes + S30 de-dup guard); skill-expert S31 traceability CERTIFIED WHOLE 18/18 (7938e2715). Functional/gate DONE, no open build. QA-Review: Tron device @390 pending.",
+    "coveredRequirements": [
+      "ior:instance:c56b1120-a2d5-4017-916d-02e269c50fd5"
+    ],
+    "useCases": [
+      "ior:instance:8a7039eb-1062-4e26-8652-f308339cc0cf"
+    ],
+    "parent": "ior:instance:3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+    "sprintName": "Sprint 31",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-27"
+  }
 }

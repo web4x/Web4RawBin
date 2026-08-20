@@ -1,28 +1,28 @@
 {
- "ior": "ior:class:Task",
- "model": {
-  "uuid": "baae0489-9777-49a0-b7a0-1a20e142678c",
-  "name": "Task 30.43: Add a repository by server-local path",
-  "slug": "task-30.43-add-repo-by-local-path",
-  "description": "The add dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh), server-side-validates it (exists + is a git checkout; invalid rejected), and registers that existing checkout into the dynamic registry \u2192 it appears in the selector, usable for diffs/merges. \u26a0 SECURITY: path validation is the attack surface.",
-  "intention": "S30 diff/merge editor \u2014 R30.42-45 repo add/manage feature (Tron): register/manage repos dynamically (add by path, add by clone, manage worktrees) instead of a static ROOTS list.",
-  "context": "Covers R30.43 (96945512) -> UC 759c5f32 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted \u2014 supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). \u2605 HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build \u2014 task stays DESIGN-stage (refinement), NO implementation until ratified. \u26a0 SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface \u2014 PO taking security decisions to Tron). \u26a0 V1 SIMPLIFIED to .git-present-only (architect \u00a710); D2 path-traversal guard backlogged.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-  "implementation": "QA-REVIEW: V1 add-local (.git-present -> register). Gate r3043 GREEN DET-3x (50cc4295e), chain-to-Test both-directions (isGitRepo 3d1b156d<->Test 4a253cea), served==gated v0.7.71. V1 SIMPLIFIED: .git-present SOLE validation; D1 allowlist + D4 admin-key BACKLOG (AC4/5 -> R30.48/BH-3). 4/7 ACs (AC4/5 deferred, AC7 Tron-visual pending). HELD rule#9 -> Tron VISUAL -> Done.",
-  "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:96945512-3dbf-413d-ae26-734489ad8c0c]`\n  - shared-enabler\n    - Dynamic RepoRegistry (mutable/persisted) \u2014 supersedes R30.40 static ROOTS; shared across R30.42-45\n  - ratified\n    - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + \u00a79, 2026-07-19) \u2014 un-gated, build queued after R30.46\n  - down\n    - [UC](./planning.md) `[uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]`",
-  "acceptanceCriteria": "- [x] (add) The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout in the dynamic registry.\n- [x] (add) After registering, the new repo APPEARS in the selector + is usable for diffs/merges (resolves via RepoRegistry).\n- [x] (V1-validate) The chosen dir MUST contain a .git (file or folder) \u2014 the SOLE validation; no REPO_ALLOW allowlist, no admin-auth for V1; invalid dir rejected with a clear error.\n- [ ] (BACKLOG D1) [deferred, NOT lost \u2014 path-traversal/info-disclosure] realpath within HOME subtree OR REPO_ALLOW \u2014 V1 drops this (sole check = .git-present). R30.48/BH-3.\n- [ ] (BACKLOG D4) [deferred, NOT lost \u2014 write-auth] register requires admin-key \u2014 V1 drops admin-auth for add-local. R30.48/BH-3.\n- [x] (V1-persist) The registration persists in the dynamic registry (survives restart). [BACKLOG: admin-key gating of that write deferred with D4.]\n- [ ] (gate) GATE \u2014 DET-3x GREEN \u2713 (r3043 50cc4295e 'criteria GREEN, multi-worker DISPROVEN', Test 4a253cea->Impl isGitRepo 3d1b156d, served==gated v0.7.71); Tron VISUAL pending. Full: register /root/oosh -> appears + opens a diff; version-bump.",
-  "subtasks": "None (atomic task, design-stage).",
-  "status": "QA Review",
-  "coveredRequirements": [
-   "ior:instance:96945512-3dbf-413d-ae26-734489ad8c0c"
-  ],
-  "useCases": [
-   "ior:instance:759c5f32-59da-424e-ba7f-8189b2162007"
-  ],
-  "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
-  "sprintName": "Sprint 30",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-07-19"
- },
- "ownerIor": null
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "baae0489-9777-49a0-b7a0-1a20e142678c",
+    "name": "Task 30.43: Add a repository by server-local path",
+    "slug": "task-30.43-add-repo-by-local-path",
+    "description": "The add dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh), server-side-validates it (exists + is a git checkout; invalid rejected), and registers that existing checkout into the dynamic registry → it appears in the selector, usable for diffs/merges. ⚠ SECURITY: path validation is the attack surface.",
+    "intention": "S30 diff/merge editor — R30.42-45 repo add/manage feature (Tron): register/manage repos dynamically (add by path, add by clone, manage worktrees) instead of a static ROOTS list.",
+    "context": "Covers R30.43 (96945512) -> UC 759c5f32 -> Class RbDiffEditor 18165081 + RepoRegistry + server /api. Dynamic-registry SHARED enabler (RepoRegistry mutable/persisted — supersedes R30.40's static ROOTS mechanism; tracked under R30.42-45, not a separate observable). ★ HARD GATE: Tron ratifies the architect DESIGN + SECURITY decisions BEFORE any build — task stays DESIGN-stage (refinement), NO implementation until ratified. ⚠ SECURITY-sensitive (server-local-path + clone-url = path-traversal / arbitrary-clone attack surface — PO taking security decisions to Tron). ⚠ V1 SIMPLIFIED to .git-present-only (architect §10); D2 path-traversal guard backlogged.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "implementation": "QA-REVIEW: V1 add-local (.git-present -> register). Gate r3043 GREEN DET-3x (50cc4295e), chain-to-Test both-directions (isGitRepo 3d1b156d<->Test 4a253cea), served==gated v0.7.71. V1 SIMPLIFIED: .git-present SOLE validation; D1 allowlist + D4 admin-key BACKLOG (AC4/5 -> R30.48/BH-3). 4/7 ACs (AC4/5 deferred, AC7 Tron-visual pending). HELD rule#9 -> Tron VISUAL -> Done.",
+    "traceability": "  - up\n    - [Sprint 30 Planning](./planning.md)\n    - Requirement `[requirement:uuid:96945512-3dbf-413d-ae26-734489ad8c0c]`\n  - shared-enabler\n    - Dynamic RepoRegistry (mutable/persisted) — supersedes R30.40 static ROOTS; shared across R30.42-45\n  - ratified\n    - Tron RATIFIED DESIGN + SECURITY (D1-D4 safe options + §9, 2026-07-19) — un-gated, build queued after R30.46\n  - down\n    - [UC](./planning.md) `[uc:uuid:759c5f32-59da-424e-ba7f-8189b2162007]`",
+    "acceptanceCriteria": "- [x] (add) The dialog accepts a SERVER-LOCAL PATH (e.g. /root/oosh) and registers that existing checkout in the dynamic registry.\n- [x] (add) After registering, the new repo APPEARS in the selector + is usable for diffs/merges (resolves via RepoRegistry).\n- [x] (V1-validate) The chosen dir MUST contain a .git (file or folder) — the SOLE validation; no REPO_ALLOW allowlist, no admin-auth for V1; invalid dir rejected with a clear error.\n- [ ] (BACKLOG D1) [deferred, NOT lost — path-traversal/info-disclosure] realpath within HOME subtree OR REPO_ALLOW — V1 drops this (sole check = .git-present). R30.48/BH-3.\n- [ ] (BACKLOG D4) [deferred, NOT lost — write-auth] register requires admin-key — V1 drops admin-auth for add-local. R30.48/BH-3.\n- [x] (V1-persist) The registration persists in the dynamic registry (survives restart). [BACKLOG: admin-key gating of that write deferred with D4.]\n- [ ] (gate) GATE — DET-3x GREEN ✓ (r3043 50cc4295e 'criteria GREEN, multi-worker DISPROVEN', Test 4a253cea->Impl isGitRepo 3d1b156d, served==gated v0.7.71); Tron VISUAL pending. Full: register /root/oosh -> appears + opens a diff; version-bump.",
+    "subtasks": "None (atomic task, design-stage).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:96945512-3dbf-413d-ae26-734489ad8c0c"
+    ],
+    "useCases": [
+      "ior:instance:759c5f32-59da-424e-ba7f-8189b2162007"
+    ],
+    "parent": "ior:instance:2173e549-ca99-43e5-aea8-946b02141c13",
+    "sprintName": "Sprint 30",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-07-19"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

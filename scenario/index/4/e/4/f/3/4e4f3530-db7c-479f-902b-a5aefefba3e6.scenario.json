@@ -12,7 +12,7 @@
     "context": "",
     "intention": "",
     "role": "",
-    "acceptanceCriteria": "- [x] `npm run build` succeeds (esbuild bundles app.js)\n- [x] App loads in browser with no console errors\n- [x] Full room lifecycle works (create \u2192 join \u2192 chat \u2192 leave \u2192 delete)\n- [x] No references to game concepts in client code\n- [x] Responsive on mobile (PWA)",
+    "acceptanceCriteria": "- [x] `npm run build` succeeds (esbuild bundles app.js)\n- [x] App loads in browser with no console errors\n- [x] Full room lifecycle works (create → join → chat → leave → delete)\n- [x] No references to game concepts in client code\n- [x] Responsive on mobile (PWA)",
     "qaAudit": "## Subtasks\nNone (atomic task).",
     "subtasks": "None (atomic task).",
     "assigned": "",
@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:1c032272-e300-4e90-a649-d5db481964dc"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2",
+    "sprintName": "Rawbin Foundation"
   },
-  "ownerIor": "ior:instance:a4b96c49-f670-4645-bee6-573dee20d5c2"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

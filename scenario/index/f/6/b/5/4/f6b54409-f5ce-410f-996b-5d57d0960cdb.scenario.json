@@ -7,7 +7,7 @@
     "slug": "detail-narrowed-chain-singular",
     "description": "Detail-view Traceability-Chain section shows the narrowed singular chain per UC. Already shipped. Traceability-closure task.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure \u2014 feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (traceability-closure — feature already shipped)\n  - [x] creating test cases\n  - [x] implementing (already shipped)\n  - [x] testing (already verified in production)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:c9de63d7-61d4-4d14-a8cd-20f9e9b98a26"
     ],
@@ -17,7 +17,9 @@
     "createdAt": "2026-06-11",
     "createdBy": "robbin-planner",
     "traceabilityClosure": true,
-    "closureNote": "Traceability-closure task: R18.24 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development."
+    "closureNote": "Traceability-closure task: R18.24 feature already shipped and verified. This task unit exists to close the req->task chain gap, not to trigger new development.",
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "sprintName": "Chain Method-Scope & Role Skills"
   },
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

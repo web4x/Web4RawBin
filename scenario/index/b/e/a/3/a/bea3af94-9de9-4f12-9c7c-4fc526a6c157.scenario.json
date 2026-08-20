@@ -13,7 +13,7 @@
     "intention": "",
     "role": "",
     "acceptanceCriteria": "",
-    "qaAudit": "- 2026-05-23 UTC: Tron QA REJECT \u2014 private room join STILL broken. Server line 672 reads `if (room.isPrivate)` which blocks ALL private room joins unconditionally. Should be `if (room.isPrivate && room.roomKey !== msg.roomKey)` to allow joins with correct key. The fix from T22.2 was overwritten or never applied correctly.",
+    "qaAudit": "- 2026-05-23 UTC: Tron QA REJECT — private room join STILL broken. Server line 672 reads `if (room.isPrivate)` which blocks ALL private room joins unconditionally. Should be `if (room.isPrivate && room.roomKey !== msg.roomKey)` to allow joins with correct key. The fix from T22.2 was overwritten or never applied correctly.",
     "subtasks": "None (atomic task).",
     "assigned": "",
     "architectDesign": "",
@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57",
+    "sprintName": "E2E Hardening"
   },
-  "ownerIor": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

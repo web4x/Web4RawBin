@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "424932a6-d011-4b68-b36d-b93b0d940187",
-    "name": "T25: Task File Audit \u2014 Sprint 3",
+    "name": "T25: Task File Audit — Sprint 3",
     "slug": "task-25-audit-sprint-3",
     "description": "Audit the Sprint 3 task files for completeness and correctness.",
     "status": "Done",
@@ -26,5 +26,5 @@
     "useCases": [],
     "implementations": []
   },
-  "ownerIor": "ior:instance:1018cc11-be1d-44a4-bc8d-6c96461e3647"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

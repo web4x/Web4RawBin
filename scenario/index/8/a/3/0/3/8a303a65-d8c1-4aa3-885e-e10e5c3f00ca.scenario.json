@@ -1,15 +1,15 @@
 {
   "ior": "ior:class:Task",
-  "ownerIor": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
   "model": {
     "uuid": "8a303a65-d8c1-4aa3-885e-e10e5c3f00ca",
-    "name": "T202: Class.method-per-UC narrowing \u2014 shared Class picks wrong method",
+    "name": "T202: Class.method-per-UC narrowing — shared Class picks wrong method",
     "supersededBy": "ARCHITECTURAL-INFERENCE (no fixes-commit): global Class.methods[] fan-out replaced by per-node chainMethod + S36 unified M2 model",
     "slug": "class-method-per-uc-narrowing-shared-class-wrong-method",
     "description": "Sibling/follow-on to T187 R18.13 (chain narrowing). When two UseCases share a Class, the /trace tree expander uses the global Class.methods[] fan-out and picks the wrong method for the active UC. Fix: /api/trace/children passes UC chainMethod context so the expander uses UC.method not global Class.method.",
     "status": "Planned",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [ ] implementing (expert)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "- [ ] AC1: When the same Class is shared by \u22652 UseCases, expanding its node in /trace tree shows ONLY the method tied to the active UC.chainMethod (not all Class.methods[]).\n- [ ] AC2: /api/trace/children accepts/uses a UC chainMethod context parameter (or equivalent) so the expander resolves per-UC, not per-Class.\n- [ ] AC3: Tester reproduces the original defect (two UCs share a Class, current behaviour shows wrong method) and verifies the fix on real S18 chain data.\n- [ ] AC4: No regression in single-UC Class cases (T187 chain narrowing baseline preserved).\n- [ ] AC5: trace:audit:strict still passes per learning #27.\n- [ ] AC6: Rule-pair (a) package.json + (b) sw.js bump if /api/trace/children is route/bundle surface.",
+    "acceptanceCriteria": "- [ ] AC1: When the same Class is shared by ≥2 UseCases, expanding its node in /trace tree shows ONLY the method tied to the active UC.chainMethod (not all Class.methods[]).\n- [ ] AC2: /api/trace/children accepts/uses a UC chainMethod context parameter (or equivalent) so the expander resolves per-UC, not per-Class.\n- [ ] AC3: Tester reproduces the original defect (two UCs share a Class, current behaviour shows wrong method) and verifies the fix on real S18 chain data.\n- [ ] AC4: No regression in single-UC Class cases (T187 chain narrowing baseline preserved).\n- [ ] AC5: trace:audit:strict still passes per learning #27.\n- [ ] AC6: Rule-pair (a) package.json + (b) sw.js bump if /api/trace/children is route/bundle surface.",
     "coveredRequirements": [
       "ior:instance:cd5b1611-7c37-4c47-840d-2ed6188258fb"
     ],
@@ -22,6 +22,8 @@
       "architect": "robbin-architect (refinement / design)",
       "expert": "robbin-expert (impl + rule-pair)",
       "tester": "robbin-tester (verify AC1-AC5)"
-    }
+    },
+    "parent": "ior:instance:5b950725-a6f6-4d45-b802-4784ee6ef962",
+    "sprintName": "Chain Method-Scope & Role Skills"
   }
 }

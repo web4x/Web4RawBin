@@ -23,7 +23,9 @@
     "createdBy": "robbin-planner",
     "verificationHistory": [
       "R18.24 regression: detail chain narrowing (R18.24 originally required singular chain per UC in detail views; regressed when Class.methods[] fan-out was re-introduced). R19.34 re-establishes the singular-chain invariant."
-    ]
+    ],
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

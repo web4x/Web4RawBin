@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:9de1160b-7fb1-4f29-ae8e-e8b02aa4b31c"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab",
+    "sprintName": "Contacts Ui"
   },
-  "ownerIor": "ior:instance:036e545a-34b4-4fd2-b78c-b744b475bdab"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

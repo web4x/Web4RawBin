@@ -4,11 +4,11 @@
     "uuid": "322d0fcd-b928-41e2-a49f-33656e718b8c",
     "name": "T-room-file-item-rerender: file items in room tree survive re-render (mirror members lifecycle)",
     "slug": "room-file-item-rerender-lifecycle-mirror-members",
-    "description": "R19.83 fix: file item views in the in-room tree must survive a re-render \u2014 mirror the Members item lifecycle so Files items persist/refresh correctly instead of disappearing or duplicating on re-render. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
+    "description": "R19.83 fix: file item views in the in-room tree must survive a re-render — mirror the Members item lifecycle so Files items persist/refresh correctly instead of disappearing or duplicating on re-render. Expert fix in flight. Singular-chain: ONE UseCase per Task; ONE Method per UseCase (learning #27).",
     "status": "In Progress",
     "supersededBy": "ior:instance:b8da64a1-9939-4de9-b47d-73f489a8258a",
     "supersededReason": "file-item re-render lifecycle obviated by R19.90 setItems (Task b8da64a1) — RoomView imperative tree (renderRoomTreeFiles/diffRenderItems) deleted; files render via shared rb-trace-tree.setItems([membersRoot, filesRoot])",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert \u2014 mirror members re-render lifecycle; in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [ ] refinement (architect)\n  - [ ] creating test cases\n  - [x] implementing (expert — mirror members re-render lifecycle; in flight)\n  - [ ] testing (tester)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:8ba2d9ef-0560-4292-9b56-66552434799d"
     ],
@@ -24,7 +24,9 @@
       "robbin-architect",
       "robbin-expert"
     ],
-    "atoms": "covers R19.83 (file-item re-render lifecycle, mirror members) per PO directive 2026-06-11; expert fix in flight"
+    "atoms": "covers R19.83 (file-item re-render lifecycle, mirror members) per PO directive 2026-06-11; expert fix in flight",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

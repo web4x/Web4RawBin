@@ -1,24 +1,24 @@
 {
- "ior": "ior:class:Task",
- "ownerIor": null,
- "model": {
-  "uuid": "3d76a785-de51-4c78-a810-5aa5c1c123a2",
-  "name": "Task 34.5: Tree auto-expands the folder ancestor path on select->navigate (wire trigger to R33.7.4 reveal) [R-D1]",
-  "slug": "task-34.5-tree-auto-expand",
-  "description": "R-D1 (build FIRST, low-risk). On select->navigate the tree MUST auto-EXPAND the folder ancestor path to REVEAL the target class/element. Nav is already CORRECT (Tron confirmed: works when expanded); only the auto-expand/reveal is missing. FIX = wire the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4), reused wholesale. Ride-existing impl, NO fork, NO new verb/Method.",
-  "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
-  "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.5 `[requirement:uuid:6f604af0-947f-43e5-93c0-61241b04a1d7]`\n  - down\n    - None (atomic task)",
-  "acceptanceCriteria": "- [x] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).\n- [x] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.\n- [x] (functional) An off-tree / absent target is a graceful no-op (no error).\n- [x] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.",
-  "subtasks": "None (atomic task).",
-  "status": "Done",
-  "coveredRequirements": [
-   "ior:instance:6f604af0-947f-43e5-93c0-61241b04a1d7"
-  ],
-  "useCases": [],
-  "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
-  "sprintName": "Sprint 34",
-  "remainingIssues": "DONE: R-D1 built v0.8.39 (34e5ab7e7, auto-expand on select->navigate; rides R33.7.4) + chain-complete-to-Test (Impl e6870858 tests[]=[bd8c14fc,9f4bff71], markerPending=false, req mint 836ff1193 re-pointed R-D1 UC to built reality, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
-  "createdBy": "robbin-planner",
-  "createdAt": "2026-08-03"
- }
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "3d76a785-de51-4c78-a810-5aa5c1c123a2",
+    "name": "Task 34.5: Tree auto-expands the folder ancestor path on select->navigate (wire trigger to R33.7.4 reveal) [R-D1]",
+    "slug": "task-34.5-tree-auto-expand",
+    "description": "R-D1 (build FIRST, low-risk). On select->navigate the tree MUST auto-EXPAND the folder ancestor path to REVEAL the target class/element. Nav is already CORRECT (Tron confirmed: works when expanded); only the auto-expand/reveal is missing. FIX = wire the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4), reused wholesale. Ride-existing impl, NO fork, NO new verb/Method.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [x] Done",
+    "traceability": "  - up\n    - [Sprint 34 Planning](./planning.md)\n    - Requirement R34.5 `[requirement:uuid:6f604af0-947f-43e5-93c0-61241b04a1d7]`\n  - down\n    - None (atomic task)",
+    "acceptanceCriteria": "- [x] (functional) On select->navigate, the tree auto-EXPANDS the folder ancestor path and reveals/highlights the target class/element (nav already correct; only the reveal was missing).\n- [x] (functional) The fix wires the missing trigger to dispatch rb-tree-reveal{ref} / call revealModelElement->expandPath (R33.7.4) - reused wholesale, NO fork, NO new verb/Method.\n- [x] (functional) An off-tree / absent target is a graceful no-op (no error).\n- [x] (gate) GATE @390 real-WebKit: select a class (from diagram/detail) -> its folder path auto-expands + the leaf highlights, with NO manual expand.",
+    "subtasks": "None (atomic task).",
+    "status": "Done",
+    "coveredRequirements": [
+      "ior:instance:6f604af0-947f-43e5-93c0-61241b04a1d7"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:bbf0ac5f-65da-4818-82bb-989ee291a76d",
+    "sprintName": "Sprint 34",
+    "remainingIssues": "DONE: R-D1 built v0.8.39 (34e5ab7e7, auto-expand on select->navigate; rides R33.7.4) + chain-complete-to-Test (Impl e6870858 tests[]=[bd8c14fc,9f4bff71], markerPending=false, req mint 836ff1193 re-pointed R-D1 UC to built reality, two-key both-dir) + REAL-WEBKIT @390 GREEN DET-3x (S34 4-gate sweep 5744070b7, served==HEAD 0.8.42, Safari 605.1.15 = Tron iPhone engine). Team-gated at Tron real engine -> Done.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-03"
+  }
 }

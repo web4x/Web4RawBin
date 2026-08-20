@@ -21,7 +21,9 @@
     "createdAt": "2026-06-14T13:00:00.000Z",
     "createdBy": "robbin-planner",
     "joint": false,
-    "atoms": []
+    "atoms": [],
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -26,7 +26,9 @@
     "useCases": [
       "ior:instance:42d5a881-d7bb-4968-b97d-6a014fd0f787"
     ],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b",
+    "sprintName": "Stability"
   },
-  "ownerIor": "ior:instance:9c74be11-4e42-4b77-8296-194a604f084b"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

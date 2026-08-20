@@ -6,7 +6,7 @@
     "slug": "room-unit-as-scenario-and-editor",
     "description": "Room becomes a first-class scenario unit. Clicking the room name opens the room config scenario editor. Singular-chain by design: ONE UseCase per Task, ONE Method per UseCase.",
     "status": "In Progress",
-    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; Room.init Method 7b9650dc)\n  - [x] creating test cases\n  - [x] implementing (expert 7d975b74 Room class extended with visibility+mode; Room IS scenario unit baseline already in place)\n  - [ ] testing (deferred \u2014 depends on UI editor in T-room-ui)\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement (architect 5305492f singular-chain; Room.init Method 7b9650dc)\n  - [x] creating test cases\n  - [x] implementing (expert 7d975b74 Room class extended with visibility+mode; Room IS scenario unit baseline already in place)\n  - [ ] testing (deferred — depends on UI editor in T-room-ui)\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:3e14d73c-1ddb-4f42-8d33-481581a8ec95",
       "ior:instance:18ecdab4-e8d1-453f-89b2-4cae64103a80"
@@ -22,7 +22,9 @@
       "robbin-planner",
       "robbin-architect"
     ],
-    "atoms": "R19.1+R19.2"
+    "atoms": "R19.1+R19.2",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "sprintName": "Room Handling"
   },
-  "ownerIor": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

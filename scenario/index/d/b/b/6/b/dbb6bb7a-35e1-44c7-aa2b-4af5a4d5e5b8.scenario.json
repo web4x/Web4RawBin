@@ -24,7 +24,9 @@
     "children": [],
     "requirements": [],
     "useCases": [],
-    "implementations": []
+    "implementations": [],
+    "parent": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57",
+    "sprintName": "E2E Hardening"
   },
-  "ownerIor": "ior:instance:29d92990-3512-48c8-8648-e08ee757bb57"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

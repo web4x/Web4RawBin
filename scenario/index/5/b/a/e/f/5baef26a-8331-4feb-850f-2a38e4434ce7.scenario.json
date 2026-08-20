@@ -2,7 +2,7 @@
   "ior": "ior:class:Task",
   "model": {
     "uuid": "5baef26a-8331-4feb-850f-2a38e4434ce7",
-    "name": "T: breadth-vs-depth \u2014 All Children \u2260 Traceability Chain, all types (R20.30)",
+    "name": "T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)",
     "status": "QA Review",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "coveredRequirements": [
@@ -11,7 +11,9 @@
     "useCases": [
       "ior:instance:d63bf19b-fbe2-4018-b995-b971f034e44b"
     ],
-    "description": "Make the detail view's Traceability Chain (DEPTH: the single narrowed chain) and All Children (BREADTH: every child) sections distinct for all unit types, per the breadth-vs-depth model. Covers R20.30."
+    "description": "Make the detail view's Traceability Chain (DEPTH: the single narrowed chain) and All Children (BREADTH: every child) sections distinct for all unit types, per the breadth-vs-depth model. Covers R20.30.",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "sprintName": "Radical Forward Planning (Traceability-First)"
   },
-  "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }
