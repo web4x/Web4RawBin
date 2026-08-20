@@ -28,8 +28,8 @@
     "parent": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c",
     "rehome": {
       "sprint": "ior:instance:a9eb4565-6a74-4f82-802f-01373b9cf59c",
-      "evidenceKind": "self-declared slug resolved via canonical sprintNumOf; target sprint dir exists",
-      "evidence": "slug task-7.0-md-puml-viewer -> sprintNumOf = Sprint 7 (a9eb4565), which EXISTS. One self-declared hop (stronger than a two-hop covered-req chain, weaker-evidence-kind than none).",
+      "evidenceKind": "self-declared slug via canonical sprintNumOf -> COMMITTED Sprint unit (stricter test: tracked + real history), NOT a fresh dir",
+      "evidence": "slug task-7.0 -> Sprint number 7 = committed unit a9eb4565 (git-tracked, real history since 8bd3a0ebc dup-reconcile / T199); canonical dir sprint-07-encrypted-storage/ is git-TRACKED. NOT resolved via the fresh UNTRACKED slug-dir encrypted-storage/. Passes PO stricter test.",
       "by": "robbin-req",
       "date": "2026-08-20",
       "note": "PO ruling: slug self-declares its sprint via the canonical sprint-pin-resolver rule (fail-closed, must-resolve-existing-dir) = EVIDENCED. Distinct evidence KIND from covered-req."
