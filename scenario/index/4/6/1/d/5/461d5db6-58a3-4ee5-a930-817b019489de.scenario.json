@@ -44,6 +44,11 @@
         "id": "AC-realtime",
         "group": "realtime",
         "text": "A checklist edit emits ViewBus.notify(task) -> the status badge re-derives live (as proven by the badge live-MVC at v0.8.116)."
+      },
+      {
+        "id": "AC-substep-aware-band",
+        "group": "by-construction",
+        "text": "deriveStatusEnum is SUB-STEP AWARE: an OPEN \"processing change requests\" sub-step yields a DISTINCT band = QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs). The indented sub-step is DERIVATION-BEARING, not decorative (architect ac4913493: open CRs untick the TOP-LEVEL QA Review box, behaviour not decoration). This satisfies Tron's sketch (QA Review unticked + sub-step visible) AND his no-regress rule (the derived status NEVER falls to In-Progress while a CR is open). PO ruling 2026-08-20: deriveStatusEnum becomes SUB-STEP AWARE so an open processing-CR yields a distinct band satisfying BOTH Tron directives (his unticked-QA-Review sketch AND his no-regress-to-In-Progress rule). stub-must-fail: a task with QA Review unticked + an open processing-CR that derives In-Progress (or clean QA-Review, or Done) => RED."
       }
     ],
     "createdBy": "robbin-req",

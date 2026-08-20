@@ -43,6 +43,11 @@
         "id": "AC-realtime",
         "group": "realtime",
         "text": "setAsCurrent emits ViewBus.notify(CurrentSprint singleton) -> pin re-renders live (R40.17 live-pin), no reload."
+      },
+      {
+        "id": "AC-make-current-accepts-open-cr-band",
+        "group": "behaviour/status-half",
+        "text": "make-current (Set-as-Current) accepts a task whose derived status is Planned, In-Progress, OR the QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs). A CLEAN QA Review still CANNOT be current (done pending sign-off); a QA-Review-WITH-OPEN-CR CAN, because it is back in work (\"processing change requests\" = being worked). This removes the STATUS blocker on Tron's \"set Task 40.1 as current\" (40.1 has 5 open CRs -> lands in the band -> status-current-able). NECESSARY BUT NOT SUFFICIENT (measured, tester a5dcc01e2 + expert): the live 403 is the owner-SESSION-RECOGNITION gate - resolveOwner(req) does NOT read task ownerIor, so even an owned task is refused until session-recognition is fixed. That is a SEPARATE gate (see separate flag); BOTH the status band AND session-recognition must pass. This AC encodes ONLY the status half; it does not by itself grant the action. stub-must-fail: make-current on a CLEAN-QA task => rejected; on a QA-Review-with-open-CR task (owner session valid) => status-accepted."
       }
     ],
     "createdBy": "robbin-req",

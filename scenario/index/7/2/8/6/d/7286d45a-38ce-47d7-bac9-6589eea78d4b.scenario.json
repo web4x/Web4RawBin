@@ -27,7 +27,7 @@
       {
         "id": "AC-qa-review-unchecked-under-open-cr",
         "group": "state",
-        "text": "While any CR is open, QA Review is [ ] (NOT Done) with the sub-step; status derives to QA-Review, NEVER In Progress."
+        "text": "While any CR is open, the TOP-LEVEL QA Review box is unticked [ ] with the processing-CR sub-step, and the DERIVED status is the QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs) - NEVER In Progress and NEVER clean QA-Review. Depends on CR-5 AC-substep-aware-band (deriveStatusEnum reads the open processing-CR). This resolves the tension between Tron's unticked-QA-Review sketch and his no-regress-to-In-Progress rule."
       },
       {
         "id": "AC-derived-not-stored",
@@ -54,7 +54,13 @@
     "createdByRole": "robbin-req (capturing Tron #86)",
     "createdAt": "2026-08-20",
     "status": "Open",
-    "supersedes": "77c2086c ('QA Review stays [x]', captured session-text 2026-08-18, never minted as a unit)"
+    "supersedes": "77c2086c ('QA Review stays [x]', captured session-text 2026-08-18, never minted as a unit)",
+    "dependsOn": [
+      {
+        "req": "ior:instance:461d5db6-58a3-4ee5-a930-817b019489de",
+        "why": "CR-2 (processing-CR sub-step) requires CR-5 deriveStatusEnum to be SUB-STEP AWARE so the unticked-QA-Review + open-processing-CR derives the QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs), not In-Progress. Without the derivation extension the sub-step is decorative and unticking QA Review regresses to In-Progress = the exact regress Tron forbade."
+      }
+    ]
   },
   "ownerIor": "ior:instance:c4f8a1d6-9e23-4b7f-a051-3d8e6f2b90c4"
 }
