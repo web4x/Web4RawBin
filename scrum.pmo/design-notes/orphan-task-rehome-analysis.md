@@ -132,3 +132,14 @@ Not re-homed. The slug (task-7.0 -> Sprint 7) is the task's OWN declaration - st
 | ec187a1f | T-drawer-resize: grab-handle drag sets drawer heig |
 
 *78 parked. Re-open when a T-number->sprint mapping or covered-req link appears. Machine plan committed alongside as orphan-rehome-plan.json.*
+## (P) RESOLVED + slug-rule scan (PO ruling 2026-08-20)
+
+**RULE (now general):** a slug that DECLARES its home sprint (sprint.index form, e.g. task-7.0 -> S7) resolved via the canonical sprintNumOf/sprintSlugOf (fail-closed, must-resolve-an-existing-dir) = EVIDENCED. A bare flat task number that declares nothing (T65, T180) = NO evidence, stays parked. Self-declared slug is arguably STRONGER than covered-req (one self hop vs two hops through another unit).
+
+- **ecf3e19f** (task-7.0-md-puml-viewer) -> **RE-HOMED to Sprint 7 (a9eb4565)**. evidenceKind = self-declared slug via canonical sprintNumOf; dir exists. 79 -> 78.
+
+**Rule-scan of the remaining parked orphans (thorough, per PO):** 3 regex hits were FALSE POSITIVES and STAY PARKED - their slug contains sprint-N as the AUDIT TARGET in the title, not a home self-declaration:
+
+- task-23-audit-sprint-1 (T23), task-24-audit-sprint-2 (T24), task-25-audit-sprint-3 (T25) = flat task numbers T23/24/25 whose SUBJECT is auditing sprint 1/2/3. sprintNumOf resolves the task's OWN slug (task-23 = flat, no home sprint), NOT the audit-target substring. Per the PO line, flat task numbers declare nothing = parked.
+
+*Final: 99 -> 78 re-homed (18 covered-req + 2 via-successor + 1 self-declared-slug); 78 parked (all flat T<N>, no home self-declaration).*
