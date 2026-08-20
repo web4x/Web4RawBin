@@ -58,8 +58,29 @@
         "id": "AC-meta-guard-stub-must-fail",
         "group": "stub-must-fail",
         "text": "The meta-guard itself is proven failable: seed a requirement with an AC that has NO failable gate and mark it satisfied => the meta-guard goes RED. If the meta-guard cannot bite on a seeded wish, the meta-guard is itself a wish."
+      },
+      {
+        "id": "AC-policy-new-changed-fail-closed",
+        "group": "by-construction/policy",
+        "text": "(a) NEW or CHANGED ACs are FAIL-CLOSED IMMEDIATELY - no exceptions, no grandfathering. From R40.54 forward, an AC created or edited WITHOUT a failable gate CANNOT be satisfied. stub-must-fail: a newly-added/edited AC with no failable gate that is marked satisfied => RED."
+      },
+      {
+        "id": "AC-policy-existing-unverified-state",
+        "group": "by-construction/honesty",
+        "text": "(b) EXISTING ACs the sweep finds unfailable get a DISTINCT VISIBLE state satisfaction-UNVERIFIED - NOT green, NOT falsely unsatisfied, NEVER silently grandfathered. Honest: the work may well be done, we just cannot PROVE it (both-directions: do not inflate, do not erase). stub-must-fail: an existing unfailable AC rendered as GREEN (inflation) OR as UNSATISFIED (erasure) instead of UNVERIFIED => RED."
+      },
+      {
+        "id": "AC-policy-drain-by-risk",
+        "group": "process/policy",
+        "text": "(c) the sweep drains BY RISK, not alphabetically: user-facing behaviour + invariant-critical properties FIRST (where a wish costs Tron something - exactly like R37.12 cost him a duplicated drawer), housekeeping LAST. stub-must-fail: a drain that resolves a housekeeping UNVERIFIED while a user-facing/invariant-critical UNVERIFIED remains outstanding => RED (risk-order violated)."
+      },
+      {
+        "id": "AC-policy-publish-count-never-false-drained",
+        "group": "detector/honesty",
+        "text": "(d) the satisfaction-UNVERIFIED count is PUBLISHED (auditable + must monotonically shrink); drained is NEVER reported while any remain. stub-must-fail: a drained / 0-remaining claim while the published count > 0 => RED (the false-drained claim, a fresh false-satisfaction of the sweep itself)."
       }
-    ]
+    ],
+    "sweepPolicy": "PO ruling (a)-(d) encoded AS ACs so the policy cannot drift into a reminder: (a) new/changed=fail-closed-now; (b) existing=satisfaction-UNVERIFIED distinct state; (c) drain by RISK; (d) publish count, never-false-drained. satisfaction-UNVERIFIED = honest third state (not green, not erased). I own that the state is honest; architect owns the mechanism."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
