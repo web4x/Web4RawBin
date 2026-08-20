@@ -43,3 +43,9 @@ Each agent: migrate → commit-once in its worktree → verify self-FF to main w
 
 ## Execution gate
 Do NOT start until: (i) Tron's live-MVC defects are CLOSED (his screen clean), (ii) Layer-1 (rbadd + pre-commit) is shipped + running (the interim guard holds during migration), (iii) the skill-expert round-trip rehearsal (migrate+rollback) has PASSED. Then migrate in the (d) order, drivers last.
+
+## §PER-AGENT PRECONDITION + ACCEPTANCE (PO additions, from banked laws)
+Applied to EVERY agent in the (d) order, per agent — not just the fleet:
+- **(1) CLEAN-BOUNDARY PRECONDITION (the rewind rule, per agent):** an agent migrates ONLY at a clean boundary — nothing uncommitted, NO in-flight build. Migrating an agent mid-build is the mid-refactor-rewind mistake in different clothes, and "commit-or-stash at that moment" is how WIP gets mangled. Before migrating agent N: verify its working tree is clean + it has no in-flight task. If not clean → it finishes/commits first, THEN migrates. This is a precondition, not a step.
+- **(2) ACCEPTANCE = A PROVEN COMMIT→INTEGRATE ROUND-TRIP (existence != connection != execution):** "the worktree exists" proves NOTHING. An agent is "migrated" ONLY after it has actually **COMMITTED something in its new worktree AND INTEGRATED it to main successfully** (self-FF-when-clean, verified on main). Only then does the next agent migrate. This is what makes stop-the-line real: we catch one broken agent at the start, not ten at the end. A worktree created but never round-tripped = NOT migrated = the migration halts there.
+- **Sequencing consequence:** the (d) order is strictly serial with a proven round-trip gate between each — migrate agent N → N commits+integrates → VERIFY on main → only then agent N+1. The skill-expert rehearsal (c) is this same round-trip PLUS a rollback, run first.
