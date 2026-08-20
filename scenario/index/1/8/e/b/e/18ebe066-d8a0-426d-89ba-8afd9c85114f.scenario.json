@@ -17,7 +17,7 @@
       {
         "id": "AC-valid-focus-rejects-qa",
         "group": "by-construction",
-        "text": "VALID focus = in-sprint AND not-Done AND not-CLEAN-QA-Review, but a QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs) IS a valid focus (a task with open CRs is being worked = current-able). So the valid-focus derivation rejects Done + CLEAN QA-Review only; it ACCEPTS Planned, In-Progress, and QA-Review-with-open-CR. Keeps the QA-exit rule (a clean QA task cannot be current) while granting Tron's set-40.1-current."
+        "text": "VALID focus = in-sprint AND not-Done AND not-CLEAN-QA-Review, but a QA-Review-with-open-CR band (NOT clean QA-Review, NOT In-Progress, NOT Done; Done gated on zero open CRs) IS a valid focus (a task with open CRs is being worked = current-able). So the valid-focus derivation rejects Done + CLEAN QA-Review only; it ACCEPTS Planned, In-Progress, and QA-Review-with-open-CR. Keeps the QA-exit rule (a clean QA task cannot be current) while granting Tron's set-40.1-current. Reads the open-CR SUB-STEP from the checklist to accept the band (single-source; NO external CR-count override). (architect b408de988)"
       },
       {
         "id": "AC-auto-advance-free",
