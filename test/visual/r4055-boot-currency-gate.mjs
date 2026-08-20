@@ -13,7 +13,11 @@ import path from 'path';
 import os from 'os';
 
 const REPO = '/var/dev/Workspaces/web4x/Web4RawBin';
-const GUARD = 'node --import tsx scripts/check-boot-currency.ts';
+// Route the guard subprocess through the project's node-preflight so a wrong-node STANDALONE run cannot false-FAIL:
+// bare `node --import tsx` needs node18+, but the shell default is node16.11 (lacks --import → the subprocess crashes →
+// all cases false-FAIL). with-node20.mjs is node16-safe and re-runs the command under node20+/22 (same self-healing as
+// ci:gates). Same class as the node-toolchain rule (tsx/--import need node18+). (Expert-flagged.)
+const GUARD = 'node scripts/with-node20.mjs node --import tsx scripts/check-boot-currency.ts';
 const runGuard = (extra, env) => { try { execSync(`${GUARD} ${extra}`, { cwd: REPO, env: { ...process.env, ...env }, stdio: 'pipe' }); return 0; } catch (e) { return e.status || 1; } };
 
 const results = [];
