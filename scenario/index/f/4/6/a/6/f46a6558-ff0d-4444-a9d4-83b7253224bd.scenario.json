@@ -1,0 +1,60 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "f46a6558-ff0d-4444-a9d4-83b7253224bd",
+    "altId": "R40.47",
+    "name": "PII units are never committable + traceability units are durable-by-construction (split the shared scenario/index path)",
+    "description": "Today the running server mints EVERY class into scenario/index with NO git policy, so one `git add scenario/` (or git add -A) would COMMIT user Profiles and private chat Messages into the source repo — which is pushed — a PII EXPOSURE VECTOR one careless command away, by any agent. The SAME un-policied path also carries traceability units (a ChangeRequest is minted on every decline), which reach the repo only if a human notices = a durability hole. Two classes with OPPOSITE desired outcomes share ONE path, so which outcome you get is CHANCE. SPLIT the path by class: (a) traceability classes are durable-in-repo BY CONSTRUCTION; (b) PII/runtime classes are explicitly gitignored AND relocated out of scenario/index so they can NEVER be committed.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "team-discovery",
+      "measuredBy": "robbin-req (during #86 CR mint, untracked-units follow-up)",
+      "reframedBy": "robbin-po (PII-exposure-vector, privacy-first)",
+      "date": "2026-08-20",
+      "measured": "3 app-minted units untracked in git NOW = 1 Profile 76f2cda7 (Chris Ultrix) + 2 Message 2e157bb2/c1b3736e (chat); 0 traceability-class (CR 4babebb1 was the only one, now committed). NOTHING under scenario/ is gitignored (check-ignore exit=1) = NO POLICY. CR 4babebb1 was app-minted-but-git-untracked = how it evaporate-ably existed."
+    },
+    "crossRef": [
+      "ior:instance:caab6d86-35b8-4865-acf4-d4210670e775",
+      "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b"
+    ],
+    "crossRefNote": "Surfaced by the R40.1/#86 CR work (an app-minted CR was git-untracked). The single-declared-registry AC mirrors R40.39 type-strategy registry (omission-by-default -> RED); reuse that shape so a NEW class cannot silently fall into the wrong bucket.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-pii-uncommittable",
+        "group": "privacy/by-construction",
+        "text": "PII/runtime classes (Profile, Message, Email, Phone, Room, Device) are stored OUTSIDE scenario/index (data/ or equivalent) AND explicitly gitignored, so `git add scenario/` or `git add -A` CANNOT stage any PII unit. KNOWN-excluded, not accidentally-retained."
+      },
+      {
+        "id": "AC-pii-stub-must-fail",
+        "group": "privacy/stub-must-fail",
+        "text": "A seeded PII unit that IS trackable under scenario/index (stageable by git add -A, or not gitignored) => RED. Privacy fails LOUD, never silently retained."
+      },
+      {
+        "id": "AC-trace-durable",
+        "group": "durability/by-construction",
+        "text": "Traceability classes (ChangeRequest, Bug, Task, Test, Requirement, Implementation, Method, UseCase, Class, Sprint) minted by the app are durable-in-repo BY CONSTRUCTION — emitted through a git-tracked path or committed by the minting transaction, NEVER 'if a human notices'."
+      },
+      {
+        "id": "AC-trace-stub-must-fail",
+        "group": "durability/stub-must-fail",
+        "text": "A seeded app-minted traceability unit (e.g. a CR minted on decline) that does NOT reach git => RED."
+      },
+      {
+        "id": "AC-migration-gated",
+        "group": "migration",
+        "text": "The 3 existing untracked PII units (Profile 76f2cda7 + Message 2e157bb2 + Message c1b3736e) are relocated out of scenario/index + gitignored, NEVER committed; any PII already in git history is FLAGGED for a separate scrub (dry-run + count, no PII pushed)."
+      },
+      {
+        "id": "AC-single-registry",
+        "group": "by-construction/single-source",
+        "text": "The class->bucket mapping (durable-traceability | pii-excluded) is ONE declared registry (same shape as R40.39 type-strategy registry), NOT scattered hardcoded lists; a class with units but no declared bucket => RED (fail-closed — a new class cannot silently fall into the wrong bucket)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
