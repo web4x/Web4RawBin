@@ -42,17 +42,17 @@
       {
         "id": "AC-canonical-comparator-named",
         "group": "source",
-        "text": "The ONE canonical comparator is bySprintDisplayOrder (home: sprint-pin-resolver, sprintNumOf), applied in the SHARED source (R35.4 sprintOverviewNodes) AND consumed by every surface - NOT a per-surface client re-sort. A surface that re-sorts locally instead of consuming the shared comparator is the v0.8.118 defect."
+        "text": "The ONE canonical comparator is bySprintDisplayOrder (home: sprint-pin-resolver / Class SprintPinResolver, sprintNumOf), applied in the SHARED source and consumed by every surface - NOT a per-surface client re-sort. Measured root: sprintOverviewNodes:1524 sorts ASC; v0.8.118 added a /trace client re-sort on top instead of fixing the shared source, so /model stayed ASC."
       },
       {
         "id": "AC-surface-family",
         "group": "source",
-        "text": "The comparator covers the FULL family: 4 display surfaces + 2 generated views; pin-sorts are EXCLUDED (detail in design abf7ea526). Every sprint-DISPLAY surface uses it; pin-ordering is a separate concern."
+        "text": "The comparator covers the FULL family: 6 display surfaces; pin-sorts are EXCLUDED (2 pin-hop sorts exempt by an EXPLICIT allow-list). Every sprint-DISPLAY surface consumes the one comparator; the 2 pin-ordering hops are the only sanctioned exceptions (detail in design abf7ea526 / be3174ef2)."
       },
       {
-        "id": "AC-gate-checks-shared-source",
+        "id": "AC-invariant-gate",
         "group": "stub-must-fail/by-construction",
-        "text": "The stub-must-fail asserts the SHARED comparator IS the sort source (not merely that a surface happens to render descending) - so a per-surface client re-sort that looks right on one surface but not the other is caught BY CONSTRUCTION. This closes the gate gap that let v0.8.118 falsely pass. Seed a surface that renders descending via a LOCAL re-sort (shared source still ASC) => RED."
+        "text": "INVARIANT-GATE (PO L17), NOT a value-gate: the gate asserts (1) exactly ONE comparator (bySprintDisplayOrder) EXISTS, (2) EVERY display site IMPORTS it, (3) ZERO ad-hoc sprint sort anywhere - the 2 pin-hop sorts exempt by an explicit allow-list. stub-must-fail: an ad-hoc sprint sort re-introduced on ANY surface => RED. WHY: the old R40.50 value-gate (does /trace render DESC) PASSED with the duplicate client re-sort present - a value-gate cannot see a second sort source; only an invariant-gate (one-source, every-site-imports, zero-ad-hoc) catches the DRY violation BY CONSTRUCTION. This is the gate that failed us on v0.8.118."
       }
     ],
     "satisfactionStatus": "In-Progress (RE-OPENED 2026-08-20 - shipped v0.8.118 FALSELY satisfied; never actually met)",
@@ -63,7 +63,8 @@
       "ruledBy": "robbin-po 2026-08-20 (extend R40.50, do NOT mint R40.53); both-directions honesty - a req that shipped done and is provably violated must show that honestly.",
       "reDiscoveredBy": "robbin-architect abf7ea526 (Tron defect: sprints DESC /trace but ASC /model)"
     },
-    "authoritativeDesign": "design abf7ea526 (canonical bySprintDisplayOrder comparator; family = 4 display surfaces + 2 generated + pin-sorts-excluded). If this unit disagrees with the design, the design wins."
+    "authoritativeDesign": "design re-homed under R40.50: abf7ea526 -> be3174ef2 (r40.53 filename incidental). Canonical bySprintDisplayOrder; 6-display + 2-pin-hop-exempt family. Design wins on disagreement.",
+    "chainWired": "architect 1a670846d: UC f7bb0f20 sprintOrder.canonical -> Class SprintPinResolver 157d1764 (REUSED, method added) -> Method ec83425c bySprintDisplayOrder -> Impl 5c54dd62 (design-ahead). req.useCases[] wired, derive PASS (req-verified)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
