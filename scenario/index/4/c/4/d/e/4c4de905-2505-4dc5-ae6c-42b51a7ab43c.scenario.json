@@ -4,7 +4,7 @@
     "uuid": "4c4de905-2505-4dc5-ae6c-42b51a7ab43c",
     "altId": "R40.50",
     "name": "Sprints render descending (latest on top) in both the /trace overview and the model tree",
-    "description": "Sprints must render DESCENDING by sprint number (latest — Sprint 40 — on TOP) in BOTH render surfaces: the /trace overview AND the model tree. Today they are not consistently descending, so the newest work is not where Tron looks first. ONE shared comparator so the two surfaces cannot disagree; live via the ONE VIEW BUS where applicable (a new sprint appears on top with no reload).",
+    "description": "Sprints must render DESCENDING by sprint number (latest — Sprint 40 — on TOP) in BOTH render surfaces: the /trace overview AND the model tree. Today they are not consistently descending, so the newest work is not where Tron looks first. ONE shared comparator so the two surfaces cannot disagree; live via the ONE VIEW BUS where applicable (a new sprint appears on top with no reload). RE-OPENED (PO 2026-08-20): shipped v0.8.118 falsely satisfied via a per-surface /trace client re-sort; the shared source still sorts ASC so /model stayed ascending. The real fix is the ONE canonical bySprintDisplayOrder comparator in the shared source consumed by all surfaces (architect abf7ea526).",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
@@ -12,9 +12,10 @@
     "unitLinks": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "crossRef": [
-      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb",
+      "ior:instance:476d367f-cad6-4b3e-b988-d90ee5049ac3"
     ],
-    "crossRefNote": "R40.4 sprint display/number family (the sprint-number attribute this sorts on). Same one-source discipline as the pin (R40.17) and viewBus render laws.",
+    "crossRefNote": "R35.4 (476d367f) owns the shared source sprintOverviewNodes where the ASC sort currently lives (architect abf7ea526). The architect wires the corrected chain (UC sprintOrder.canonical -> Class -> Method bySprintDisplayOrder -> Impl) UNDER R40.50 (PO ruling - not a new R40.53).",
     "acceptanceCriteria": [
       {
         "id": "AC-descending-both-surfaces",
@@ -35,8 +36,32 @@
         "id": "AC-ascending-stub-must-fail",
         "group": "stub-must-fail",
         "text": "A surface rendering ASCENDING (Sprint 1 on top), OR the two surfaces disagreeing on order => RED."
+      },
+      {
+        "id": "AC-canonical-comparator-named",
+        "group": "source",
+        "text": "The ONE canonical comparator is bySprintDisplayOrder (home: sprint-pin-resolver, sprintNumOf), applied in the SHARED source (R35.4 sprintOverviewNodes) AND consumed by every surface - NOT a per-surface client re-sort. A surface that re-sorts locally instead of consuming the shared comparator is the v0.8.118 defect."
+      },
+      {
+        "id": "AC-surface-family",
+        "group": "source",
+        "text": "The comparator covers the FULL family: 4 display surfaces + 2 generated views; pin-sorts are EXCLUDED (detail in design abf7ea526). Every sprint-DISPLAY surface uses it; pin-ordering is a separate concern."
+      },
+      {
+        "id": "AC-gate-checks-shared-source",
+        "group": "stub-must-fail/by-construction",
+        "text": "The stub-must-fail asserts the SHARED comparator IS the sort source (not merely that a surface happens to render descending) - so a per-surface client re-sort that looks right on one surface but not the other is caught BY CONSTRUCTION. This closes the gate gap that let v0.8.118 falsely pass. Seed a surface that renders descending via a LOCAL re-sort (shared source still ASC) => RED."
       }
-    ]
+    ],
+    "satisfactionStatus": "In-Progress (RE-OPENED 2026-08-20 - shipped v0.8.118 FALSELY satisfied; never actually met)",
+    "falseSatisfaction": {
+      "shipped": "v0.8.118 (B deploy) rendered /trace descending and was treated as satisfied.",
+      "why_false": "The fix flipped 2 CLIENT surfaces (a /trace client re-sort) instead of the ONE canonical comparator R40.50 mandated. The SHARED source (R35.4 sprintOverviewNodes) still sorts ASC, so /model stayed ASCENDING = the two surfaces DISAGREE, violating AC-descending-both-surfaces + AC-ascending-stub-must-fail.",
+      "gate_gap": "The gate did not catch it - it asserted /trace rendered order, not that the SHARED comparator was the sort source, so a per-surface client re-sort passed while the DRY requirement was violated.",
+      "ruledBy": "robbin-po 2026-08-20 (extend R40.50, do NOT mint R40.53); both-directions honesty - a req that shipped done and is provably violated must show that honestly.",
+      "reDiscoveredBy": "robbin-architect abf7ea526 (Tron defect: sprints DESC /trace but ASC /model)"
+    },
+    "authoritativeDesign": "design abf7ea526 (canonical bySprintDisplayOrder comparator; family = 4 display surfaces + 2 generated + pin-sorts-excluded). If this unit disagrees with the design, the design wins."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
