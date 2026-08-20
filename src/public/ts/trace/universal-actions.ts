@@ -85,6 +85,19 @@ function surfaceVerdict(drawer: HTMLElement, message: string, kind: 'ok' | 'warn
 // and surface the server's verdict verbatim. NO client status pre-gate (server is the sole Done-gate authority):
 //   200 approve → status Done (approvedBy/approvedAt shown)   200 decline → ChangeRequest minted, status In Progress
 //   403 → owner-only refusal, verdict NOT recorded            409 → no-evidence (not 'QA Review'), nothing changed
+// [impl:uuid:4f85fa3e-1bf4-4e95-ae43-772acac87d91] ownerActionFetch — R40.52 (UC db78cffa ownerAction.authedFetch /
+// Class OwnerActionFetch 74726bd5 / Method authedFetch 044d64c1). THE ONE owner-scoped authed fetch: attaches the
+// caller's live player identity as the x-player-token HEADER (CSRF-safe — a header, NOT a cookie) so the server's
+// resolveOwner (R40.45 branch-3) maps it to the owner Profile → 200. WITHOUT it the browser sent no identity on any
+// owner action → 403 for EVERYONE (the buttons were decorative — the root of this whole session). OWNER ACTIONS ONLY —
+// make-current / designate / approve / decline (+ any future owner button) route through THIS; NEVER reads (attaching
+// identity to reads = credential-spread / accidental owner-elevation). SINGLE-SOURCE so a 5th owner button physically
+// cannot re-introduce the missing-header bug. NO server change (the server already reads x-player-token).
+export function ownerActionFetch(url: string, opts: RequestInit = {}): Promise<Response> {
+  const token = localStorage.getItem('rawbin-player-id') || ''; // RawBinClient's source-of-truth player token (key is 'rawbin-player-id')
+  return fetch(url, { ...opts, credentials: 'same-origin', headers: { ...(opts.headers || {}), 'x-player-token': token } });
+}
+
 // Decline prompts for an optional CR reason; CANCEL aborts so an accidental tap can't mint a ChangeRequest.
 function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): void {
   const action = verb === 'qa-approve' ? 'approve' : 'decline';
@@ -95,7 +108,7 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
     body = JSON.stringify({ reason });
   }
   surfaceVerdict(drawer, action === 'approve' ? '⏳ Approving…' : '⏳ Declining…', 'warn');
-  void fetch(`/api/task/${uuid}/${action}`, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body })
+  void ownerActionFetch(`/api/task/${uuid}/${action}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }) // R40.52: owner identity via x-player-token header
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
@@ -135,7 +148,7 @@ function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): voi
 // diverge). Surfaces the server's honest result; ViewBus.notify(pin) so the eager-lazy pin re-fetches (no Refresh @390).
 function handleSetCurrent(drawer: HTMLElement, uuid: string): void {
   surfaceVerdict(drawer, '⏳ Setting as current…', 'warn');
-  void fetch(`/api/task/${uuid}/make-current`, { method: 'POST', credentials: 'same-origin' })
+  void ownerActionFetch(`/api/task/${uuid}/make-current`, { method: 'POST' }) // R40.52: owner identity via x-player-token header
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
@@ -168,7 +181,7 @@ function handleOpenTaskFile(uuid: string): void {
 function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): void {
   const slot = verb === 'pin-current' ? 'current' : 'next';
   surfaceVerdict(drawer, slot === 'current' ? '⏳ Setting as current…' : '⏳ Setting as next…', 'warn');
-  void fetch('/api/current-sprint/designate', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskUuid: uuid, slot }) })
+  void ownerActionFetch('/api/current-sprint/designate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskUuid: uuid, slot }) }) // R40.52: owner identity via x-player-token header
     .then(async (r) => {
       let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
       if (r.status === 200 && j.ok) {
