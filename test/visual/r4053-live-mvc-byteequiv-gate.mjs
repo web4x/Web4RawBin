@@ -34,8 +34,9 @@ function bannerSourceLint(commit) {
   return hits;
 }
 
-const V0_8_121 = 'c3e8b22f5';                 // deploy(R40.49) v0.8.121 — the human-verified known-bad build
-const COMMIT = process.env.MC_COMMIT || V0_8_121;
+const V0_8_121 = 'c3e8b22f5';                 // deploy(R40.49) v0.8.121 — the human-verified known-bad RED baseline (run with MC_COMMIT=c3e8b22f5)
+const V0_8_123 = 'bb8c11eb9';                 // current served build (v0.8.123, upsertSection marker-delegation) — DEFAULT so B+D stay served==gated
+const COMMIT = process.env.MC_COMMIT || V0_8_123;
 const TARGET = process.env.MC_TASK || '97e8a6ad-46db-440f-a9be-cfb97ca64df4'; // a REAL Sprint-37 QA-Review task (resolvable in the sprint set)
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false,
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
