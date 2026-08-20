@@ -6,7 +6,9 @@
     "description": "BUILT v0.8.119 (5af9ca32a): standalone export ownerActionFetch(url,opts) in src/public/ts/trace/universal-actions.ts; attaches x-player-token=localStorage[rawbin-player-id] as a CSRF-safe HEADER; routes 3 owner-action sites (approve+decline/make-current/designate), reads NOT routed. Marker placed on decl. No server change (R40.45 branch-3).",
     "sourceFile": "ior:file:src/public/ts/trace/universal-actions.ts",
     "designAhead": false,
-    "tests": []
+    "tests": [
+      "ior:instance:4f85c052-1e40-4b52-9a7d-0c6e8f2a1b34"
+    ]
   },
   "ownerIor": "ior:instance:044d64c1-138d-48bb-8647-f04083ca43db"
 }

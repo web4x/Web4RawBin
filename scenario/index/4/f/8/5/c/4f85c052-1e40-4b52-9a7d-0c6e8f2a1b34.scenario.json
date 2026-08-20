@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "4f85c052-1e40-4b52-9a7d-0c6e8f2a1b34",
+    "name": "test:R40.52 owner-identity gate - deployed client transmits x-player-token; server resolves it alone (real-page @390 owner-200 / non-owner-403 fail-closed)",
+    "description": "Bridged to test/visual/r4052-owner-identity-gate.mjs (r4052, gate GREEN, tester commit 118590bf4). CERTIFICATION-SCOPE = FEATURE-PROVEN (NOT endpoint-only): the REAL deployed client transmits x-player-token = the user own RawBinClient.playerToken on an owner action -> 200, with NO manual/harness-minted cookie or seeded sm_session; a non-owner token -> 403; fail-closed on missing/malformed identity. Server resolves x-player-token ALONE (attribution-split holds; NO system literal on the resolution request). This exercises R40.52 AC-real-user-path-acceptance on the deployed bundle - the actual UI action, not a synthetic fetch. Distinct from the tester earlier axis test a5dcc01e2 which was correctly ENDPOINT-scope (harness-minted session). This Test = chain-complete-to-Test for R40.52 (the client-transmits-identity fix).",
+    "sourceFile": "ior:file:test/visual/r4052-owner-identity-gate.mjs",
+    "implementations": [
+      "ior:instance:4f85fa3e-1bf4-4e95-ae43-772acac87d91"
+    ],
+    "certificationScope": {
+      "scope": "FEATURE-proven",
+      "surface": "deployed bundle, real-user-path @390 headed WebKit",
+      "proven": "owner action 200 via real RawBinClient.playerToken (no manual cookie) + non-owner 403 + fail-closed on missing/malformed identity; server resolves x-player-token alone, attribution-split, no system literal.",
+      "not": "not endpoint-only; a harness-minted session would be ENDPOINT-scope (R40.52 AC-harness-capability-scopes-to-endpoint)."
+    },
+    "gate": "r4052 GREEN, tester 118590bf4",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:4f85fa3e-1bf4-4e95-ae43-772acac87d91"
+}
