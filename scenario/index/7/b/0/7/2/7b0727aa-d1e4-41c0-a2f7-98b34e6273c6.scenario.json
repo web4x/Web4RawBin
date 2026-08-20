@@ -1,0 +1,56 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "7b0727aa-d1e4-41c0-a2f7-98b34e6273c6",
+    "altId": "R40.53",
+    "name": "ONE canonical sprint-dir resolver (sprintDirOf) - every consumer + the guard route through it; slug-only emission stops",
+    "description": "There are TWO conventions for one sprint directory: CANONICAL (tracked, git history, everything references it) scrum.pmo/sprints/sprint-0N-<slug>/, and STRAY (generated, untracked, 16 of them) scrum.pmo/sprints/<slug>/ slug-only. The stray path comes from consumers using the Sprint unit model.slug (or slugify(name)) as the dir (server.ts:1416 taskMdHref; check-sprint-slug-dir.ts - the GUARD itself resolves the slug-only path, so the guard BLESSES the stray convention). A regen then materialises sprints/<slug>/. FIX by construction: ONE exported sprintDirOf(sprint) -> sprint-0N-<slug> that EVERY consumer (including the guard) routes through; slug-only emission STOPS; a sprint dir built without sprintDirOf => lint RED.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "authoritativeDesign": "design-r40.48-two-by-construction-guards.md (193265837)",
+    "discoverySource": {
+      "type": "req-finding+architect-design",
+      "foundBy": "robbin-req (R40.51 orphan verify: 16 untracked slug-only generator dirs)",
+      "designedBy": "robbin-architect 193265837",
+      "date": "2026-08-20"
+    },
+    "crossRef": [
+      "ior:instance:e4a6071f-b0f5-45b5-858b-3526ad3d2ea6",
+      "ior:instance:4c4de905-2505-4dc5-ae6c-42b51a7ab43c",
+      "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
+    ],
+    "crossRefNote": "Same design as R40.48 (193265837, two by-construction guards). Same ONE-source pattern as R40.50 (one comparator). R40.4 = sprint naming family. Surfaced by my R40.51 Finding-2 (16 untracked slug-only sprint dirs = generator output duplicating the tracked sprint-0N- dirs).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-sprintdirof",
+        "group": "by-construction",
+        "text": "ONE exported sprintDirOf(sprintUnit) -> sprint-0N-<slug> (zero-padded number + slug, derived from sprintNumOf), living next to sprintNumOf/bySprintDisplayOrder in the sprint-pin-resolver/sprint-label home. It is the SINGLE source for which directory is this sprint."
+      },
+      {
+        "id": "AC-every-consumer-routes",
+        "group": "by-construction",
+        "text": "EVERY consumer routes through sprintDirOf: the MD generator(s), server.ts:1416 taskMdHref, AND - critically - check-sprint-slug-dir.ts (the GUARD must verify the CANONICAL sprint-0N-<slug>/ exists, not the slug-only path). Today the guard resolves the slug-only path = it BLESSES the disease; routing it through sprintDirOf fixes the complicit guard."
+      },
+      {
+        "id": "AC-slug-only-emission-stops",
+        "group": "by-construction",
+        "text": "No consumer builds sprints/<model.slug>/ anymore -> slug-only emission STOPS. The canonical dir is the ONLY dir any consumer produces."
+      },
+      {
+        "id": "AC-lint-no-raw-sprint-dir",
+        "group": "stub-must-fail/invariant",
+        "text": "A consumer that builds a sprint dir path WITHOUT sprintDirOf (e.g. raw sprints/${model.slug}) => grep-lint RED. Invariant-gate (assert the shared resolver is used), NOT a value-gate (do not merely check one path renders right) - the same lesson as R40.50 AC-invariant-gate."
+      },
+      {
+        "id": "AC-strays-deleted-after",
+        "group": "migration",
+        "text": "Nobody commits the 16 stray sprints/<slug>/ dirs (they are the duplicate). Once sprintDirOf lands + regen re-emits to the canonical dir, the strays are deleted in their OWN commit. (Architect/expert owns the generator fix + the deletion; this req captures the invariant.)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

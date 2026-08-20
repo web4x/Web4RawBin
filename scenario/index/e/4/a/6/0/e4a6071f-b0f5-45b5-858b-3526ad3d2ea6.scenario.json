@@ -60,6 +60,26 @@
         "id": "AC-foreign-file-rides-along-stub",
         "group": "stub-must-fail",
         "text": "Seed a foreign dirty file (another agent's uncommitted unit, or an uncommitted version-bump) in the working tree and run a commit; if it RIDES ALONG => RED. Commit isolation is by construction."
+      },
+      {
+        "id": "AC-rbadd-wrapper",
+        "group": "by-construction/enforcement",
+        "text": "A sanctioned rbadd <explicit-file>... wrapper is the ONLY stage path: it REFUSES a directory arg, ., -A, -u, or a glob that expands to a dir; it stages ONLY named files and appends them to a per-agent manifest .git/rb-staged. A broad add is impossible AT THE TOOL."
+      },
+      {
+        "id": "AC-precommit-staged-subset",
+        "group": "by-construction/enforcement",
+        "text": "A pre-commit hook computes git diff --cached --name-only and REJECTS (exit 1) if the staged set is NOT a subset of the .git/rb-staged manifest - any file staged that the committer did NOT explicitly name => RED, commit blocked. Clears the manifest on success. Registered with the other CI gates. (A pre-commit cannot see HOW files were staged - -A and explicit produce identical staged sets - so the guard is staged-must-equal-declared, not detect--A.)"
+      },
+      {
+        "id": "AC-stub-unnamed-file-red",
+        "group": "stub-must-fail",
+        "text": "Stage a file the committer did NOT name (simulate a peer WIP swept in) -> pre-commit goes RED. Proves the guard bites - the exact 2edf66a72 sweep becomes impossible to commit."
+      },
+      {
+        "id": "AC-worktree-isolation-designed-not-authorized",
+        "group": "scope/deferred",
+        "text": "The ULTIMATE fix (per-agent git worktrees: a broad add can only touch that agent own changes, no peer WIP present to sweep = eliminates the family by isolation) is DESIGNED (193265837 Layer 2) but NOT AUTHORIZED to ship - PO is raising it with Tron (it changes every agent workflow). Layer 1 (rbadd + pre-commit) ships as the enforced interim; do NOT build worktrees until authorized."
       }
     ],
     "premiseCorrection": "Original: a post-commit hook auto-bumped the version on a non-deploy commit (intentless-automation). REFUTED by measurement (expert read-only 3rd look + PO): the hook TAGS on version-change only, never bumps; pre-commit has no version logic. Actual mechanism = a broad add swept the expert's uncommitted version-bump into an unrelated commit (shared-tree contamination). Family re-classified intentless-automation -> shared-mutable-state-without-isolation. Correct-in-place, not deleted (R40.39/R40.22 honest-amendment pattern).",
@@ -70,7 +90,9 @@
         "reason": "Premised on the hook bumping on a non-deploy commit (43efc40ae) — measured false. Replaced by the broad-add/sweep ACs below (the real mechanism)."
       }
     ],
-    "confirmedInstances": 4
+    "confirmedInstances": 4,
+    "enforcementFalseSatisfaction": "AC-no-broad-add-sweep + AC-foreign-file-rides-along-stub existed from mint but were UNENFORCED - a REMINDER (explicit-paths), not a mechanism. So the family kept happening: 4 instances (peer-board / planner-units / 0.8.117 / the 4th 2edf66a72 swept robbin-req unverified WIP). ACs satisfied by nothing = false-satisfaction (same pattern as R40.50 shipped-green-but-violated). The fix is a by-construction ENFORCEMENT layer, not another reminder.",
+    "authoritativeDesignEnforcement": "design-r40.48-two-by-construction-guards.md (193265837)"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
