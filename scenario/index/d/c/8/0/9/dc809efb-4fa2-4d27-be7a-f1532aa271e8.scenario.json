@@ -25,7 +25,8 @@
     "satisfactionStatus": "UNVERIFIED (gates DESIGNED, lint not yet built; no stub RED observed — honest third state per R40.54, NOT green, NOT erased)",
     "crossRef": [
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:e4a6071f-b0f5-45b5-858b-3526ad3d2ea6"
     ],
     "crossRefNote": "Rides the R40.54 failable-AC family (this IS an unfailable-AC-class defect: 'boots are current' was an unenforced WISH). Discovery routes through the SAME structuralDiscover as R40.54 AcGuard + R37.12 live-MVC lint (discovery-utility-single-source, closes the recursion). Boot-essence lint = efbc30e3e; isolated-stub discipline = R40.31; enumerate-not-universal = R40.39/R40.54 lineage. Ghost-context is the intentless-automation cousin (a rewind auto-inherits a dead world).",
     "acceptanceCriteria": [
@@ -128,7 +129,8 @@
         },
         "stubMustFail": "PENDING: drop an oosh boot from the evaluated set -> coverage RED"
       }
-    ]
+    ],
+    "sequencingRuling": "PO ruling 2026-08-20 (recorded on the unit so it survives rewind, per this req's own doctrine): the Layer-1 currency-lint BUILD and the boot PROPAGATION proceed NOW — they are NOT blocked behind Tron device-verify. ONLY the Layer-2 WORKTREE MIGRATION (R40.48, AC-worktree-isolation-AUTHORIZED-gated) is gated on Tron confirm + live-MVC defect closure. Fixing the boots BEFORE the migration is strictly better: agents must wake correctly INTO the new structure, not carry stale wake-up files across it."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
