@@ -1865,10 +1865,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     }
 
     // T37.26 (PO ruling, architect 515260b8d) — owner-gated "Set as Current": POST /api/task/<uuid>/make-current.
-    // Advances the task through the SEAM (UnitController.apply {makeCurrent}) → stamps lastAdvancedAt → the DERIVED pin
-    // (current = the In-Progress task with MAX lastAdvancedAt) picks it up AND the seam EMITS unit-changed → live cross-view,
-    // no reload. NO stored pin written → nothing to diverge (the deleted lying-pin is NOT resurrected). A Planned task is
-    // started (advanced to In Progress) — which is exactly what "make it current" means: it becomes the task being worked.
+    // R40.49 (architect R40.44-REVERSAL 5c330e44d — SUPERSEDES the "advance-only, no stored pin" design that was here): the
+    // tap DESIGNATES this task as current (writes singleton.currentTaskUuid through the SEAM) for ANY status — the removed
+    // T37.26 status-gate was OUR invented policy (Tron: "reviewing IS working"). getThreeSlots honors the designation
+    // EXPLICIT-WINS-WHILE-VALID (valid through QA-Review, re-checked per read, expires at Done / re-designation, expiry
+    // OBSERVED by StaleSteerLog — that observability is what makes it recorded INTENT, not the retired silent lying pin).
+    // NO auto-advance: a Planned tapped-current STAYS Planned; status advances via its own checklist flow. Seam EMITS → live.
     const makeCurrentMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/make-current$/);
     if (req.method === 'POST' && makeCurrentMatch) {
       if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — only the owner steers what is current
@@ -1885,9 +1887,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const actor = FeatureManager.profileUuidOf(_ownerTok, userProfiles as unknown as Map<string, { redirectTo?: string }>) || 'owner';
           const unit = UnitController.apply(idx, 'ior:class:Task', taskUuid, { makeCurrent: true }, { actor, publish: publishUnitChanged });
           const status = String((unit.model as Record<string, unknown>).status || '');
+          // R40.49 (architect R40.44-REVERSAL 5c330e44d): DESIGNATE this task as current — EXPLICIT-WINS-WHILE-VALID. Write
+          // singleton.currentTaskUuid through the ONE seam (getThreeSlots honors it while valid: status ∈ {Planned,In-Progress,
+          // QA-Review}, expires at Done/re-designation — re-checked per read, expiry observed by StaleSteerLog). ALWAYS designate
+          // on the tap regardless of status (one rule per intent-kind, no status branch). Also pins the current SPRINT so the
+          // resolver lands on the designated task's sprint. Same designate seam used by /api/current-sprint/designate.
+          let mcSprintNum: number | null = null;
+          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '')); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); break; } }
+          const MC_CU = 'current-sprint-singleton-0000-000000000001';
+          const desIntent: Record<string, unknown> = { currentTaskUuid: taskUuid };
+          if (mcSprintNum != null) desIntent.sprintName = sprintPrefix(mcSprintNum);
+          if (idx.get(MC_CU)) UnitController.apply(idx, 'ior:class:CurrentSprint', MC_CU, desIntent, { publish: publishUnitChanged });
+          else UnitController.create(idx, 'ior:class:CurrentSprint', MC_CU, { ior: 'ior:class:CurrentSprint', model: { uuid: MC_CU, name: 'Current', ...desIntent }, ownerIor: null }, { publish: publishUnitChanged });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-          res.end(JSON.stringify({ ok: true, status, uuid: taskUuid }));
-          addLog(`[make-current] ${taskUuid.slice(0, 8)} by ${String(actor).slice(0, 8)} → current (status ${status})`); // FIX: was ${ownerTok8} (undeclared → same ReferenceError-double-writeHead crash class as approve)
+          res.end(JSON.stringify({ ok: true, status, uuid: taskUuid, designated: true }));
+          addLog(`[make-current] ${taskUuid.slice(0, 8)} by ${String(actor).slice(0, 8)} → DESIGNATED current (status ${status}, EXPLICIT-WINS-WHILE-VALID)`); // FIX: was ${ownerTok8} (undeclared → same ReferenceError-double-writeHead crash class as approve)
         } catch (e: any) {
           const msg = String(e?.message || e);
           const code = /cannot make a|only a Planned|In-Progress task can be/.test(msg) ? 409 : 400; // validate-refuse (QA-Review/Done) → 409

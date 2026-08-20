@@ -69,11 +69,11 @@ export const TaskPolicy: UnitPolicy = {
   // [impl:uuid:ff247010-40ce-44be-99f4-a776c20257b2] TaskPolicy.validate — step-legality (re-expressed task-fsm TRANSITIONS/guardTransition) +
   // evidenceForStep precondition (5021456d). Refuses illegal skips AND advancing past a step whose chain-edge is absent.
   validate(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
-    if (intent.makeCurrent) { // T37.26 (PO ruling, architect 515260b8d): "Set as Current" = make THIS the task being worked NOW.
-      // Legal only for a task that CAN be worked: Planned (work starts → advance to In Progress) or In Progress (re-focus →
-      // recency bump). A QA-Review/Done task is past being-worked → refuse (never silently re-open review/done work).
-      const cur = currentState(unit);
-      if (cur !== 'Planned' && cur !== 'In Progress') throw new Error(`TaskPolicy: cannot make a '${cur}' task current — only a Planned or In-Progress task can be the one being worked.`);
+    if (intent.makeCurrent) { // R40.49 (Tron: "reviewing IS working" — the QA-Review restriction was OUR invented policy
+      // T37.26/v0.8.105, never his directive; architect R40.44-REVERSAL 5c330e44d): the explicit tap DESIGNATES this task
+      // as current for ANY status — NO status gate (the throw removed). Validity (through QA-Review, expiring at Done /
+      // re-designation) is enforced at READ time in getThreeSlots + observed at the Done transition (StaleSteerLog,
+      // BITE-6b). The reopen / subStep / evidence-gate / Done-requires-approvedBy validations below STAY (genuine invariants).
       return;
     }
     if (intent.reopen) { // (5a) decline → send a QA-Review/Done task BACK to In Progress via a CHECKLIST EDIT (untick), status stays DERIVED
@@ -99,12 +99,12 @@ export const TaskPolicy: UnitPolicy = {
   // 4-state writer). NEVER writes a flat 7-state or a literal status string (MvcBoundaryGuard enforces this structurally).
   apply(idx: ScenarioIndex, unit: ScenarioUnit, intent: UnitIntent): void {
     const m = unit.model as Record<string, unknown>;
-    if (intent.makeCurrent) { // T37.26 "Set as Current" = advance-to-worked + stamp recency (the DERIVED pin = max-lastAdvancedAt In-Progress task picks it up). NO stored pin → nothing to diverge (the deleted lying-pin is not resurrected).
-      if (currentState(unit) === 'Planned') { // a Planned task can't be "current"/being-worked → start it (tick In Progress); an already-In-Progress task just re-focuses (recency bump, state unchanged)
-        m.statusChecklist = tickBox(String(m.statusChecklist ?? ''), 'In Progress');
-        m.status = deriveStatusEnum(String(m.statusChecklist)); // the SOLE 4-state writer
-      }
-      m.lastAdvancedAt = new Date().toISOString(); // SEAM-stamped recency (same field the pin ranks by); source='seam' = live stamp
+    if (intent.makeCurrent) { // R40.49 (architect R40.44-REVERSAL 5c330e44d, PO (c)): the explicit tap DESIGNATES ONLY — it
+      // does NOT auto-advance status (a Planned tapped-current STAYS Planned; a QA-Review tapped-current STAYS QA-Review —
+      // "reviewing IS working"). Coupling designate+start = the two-mechanism drift we killed (R40.50 / sprint-dirs). The
+      // designation itself (singleton.currentTaskUuid, written by the make-current handler) makes it current via getThreeSlots
+      // EXPLICIT-WINS. Stamp recency only (no status change) so the derived fallback still ranks it after the designation expires.
+      m.lastAdvancedAt = new Date().toISOString();
       m.lastAdvancedAtSource = 'seam';
       return;
     }

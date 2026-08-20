@@ -261,6 +261,17 @@ export class CurrentSprint {
     // N") rather than going blank. A REASONED pick, not a silent arbitrary one (fail-loud lineage).
     if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.terminal)) i = sprintTasks.length - 1;
     let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
+    // R40.49 EXPLICIT-WINS-WHILE-VALID (architect R40.44-REVERSAL 5c330e44d): an owner make-current DESIGNATION
+    // (currentTaskUuid) OVERRIDES the derived current, VALIDITY RE-EVALUATED PER READ — wins iff the designated task is in
+    // the resolved sprint AND its status is Planned/In-Progress/QA-Review ("reviewing IS working"). It EXPIRES the moment
+    // the task reaches Done (or is re-designated / gone) → the derived current stands; the expiry is OBSERVED at the Done
+    // transition by StaleSteerLog (BITE-6b, never a silent drop). NOT the retired lying pin — it is EXPLICIT + validity-
+    // checked-here-every-read + observable-on-expiry, the 3 properties the silent stuck-on-Planned R40.17 pin lacked.
+    if (currentTaskUuid) {
+      const desU = currentTaskUuid.replace('ior:instance:', '').split('@')[0];
+      const d = sprintTasks.find(t => t.uuid === desU);
+      if (d && d.status !== 'Done') current = d; // valid designation wins; Done/gone → keep the derived current (expired)
+    }
     if (!current && this.chain?.req) {
       // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
       const cu = this.index.get(this.chain.req);

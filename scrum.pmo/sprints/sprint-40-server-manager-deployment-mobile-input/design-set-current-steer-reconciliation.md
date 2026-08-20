@@ -1,5 +1,7 @@
 # Set-as-Current — reconciling R40.44 (retire) vs R40.37 (offer): the ruling I stand behind
 
+> ★★ **SUPERSEDED for make-current 2026-08-20 (R40.44-REVERSAL, architect ratification `5c330e44d`, design-r40.49 §R40.44 REVERSAL; PO+architect converged; built v0.8.121).** The "advance-only, NO stored `currentTaskUuid` pin" ruling below is REVERSED for the explicit Set-as-Current tap: make-current now WRITES `singleton.currentTaskUuid` and `getThreeSlots` HONORS it EXPLICIT-WINS-WHILE-VALID (valid through QA-Review — Tron "reviewing IS working"; expires at Done/re-designation; validity re-evaluated PER READ; expiry OBSERVED by StaleSteerLog BITE-6b). The load-bearing correction: lying-vs-honest is **silent-stale vs validity-checked-and-observable**, NOT stored-vs-derived — the retired R40.17 pin lied by being stale+silent+auto (stuck-on-Planned); an EXPLICIT + EXPIRING + OBSERVABLE designation is recorded INTENT, not a lie. The "advance = the only honest Set-as-Current" conclusion is retired: advance couples designate+start (the two-mechanism drift), and it cannot make a QA-Review task current WITHOUT regressing it to In-Progress (violates Tron + no-regress). Read design-r40.49 §R40.44 REVERSAL, not the advance-only ruling below.
+
 robbin-architect 2026-08-18. PO caught a real contradiction between my two rulings. **Honest reconciliation, no defending.** Design-only; Tron decides the product question. req's R40.37 AC-SET-CURRENT-NEXT semantics revise per this.
 
 ## The contradiction — and which I stand behind: (A) R40.44, DERIVED-ONLY

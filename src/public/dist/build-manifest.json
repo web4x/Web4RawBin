@@ -1,14 +1,14 @@
 {
-  "version": "0.8.120",
-  "app.js": "app-YVRNL6GR.js",
-  "built": "0.8.120",
-  "edit.js": "edit-PU2ENLOI.js",
-  "trace-page.js": "trace-page-QUJ2C6LO.js",
-  "scenario-view.js": "scenario-view-MGQYUOQB.js",
-  "rb-update-banner.js": "rb-update-banner-TA3C3AZW.js",
-  "server-manager.js": "server-manager-LTMM4O5T.js",
+  "version": "0.8.121",
+  "app.js": "app-XDGOJ3RB.js",
+  "built": "0.8.121",
+  "edit.js": "edit-2ELITKNS.js",
+  "trace-page.js": "trace-page-LN3IJIO4.js",
+  "scenario-view.js": "scenario-view-YW4RAA4S.js",
+  "rb-update-banner.js": "rb-update-banner-CUWRJXA2.js",
+  "server-manager.js": "server-manager-ARPMSSG6.js",
   "server-manager.css": "server-manager-7BONO76G.css",
-  "feature-manager.js": "feature-manager-5Y5EHEDO.js",
+  "feature-manager.js": "feature-manager-GAZ5PM6U.js",
   "profile-view-entry.js": "profile-view-entry-7XGSL5XC.js",
-  "model.js": "model-BUTAYPF6.js"
+  "model.js": "model-ZHBWC7A5.js"
 }
