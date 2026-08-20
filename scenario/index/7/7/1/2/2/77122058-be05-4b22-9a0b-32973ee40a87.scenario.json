@@ -23,7 +23,15 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers R20.1 (req-only, architect-blocked); url-file click opens ContentPreviewer drawer regression; intendedChain carried; named-method impl required (SM strict); single-owner"
+    "atoms": "covers R20.1 (req-only, architect-blocked); url-file click opens ContentPreviewer drawer regression; intendedChain carried; named-method impl required (SM strict); single-owner",
+    "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+    "rehome": {
+      "sprint": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
+      "evidence": "covers R20.1 (c81c9194) -> parent Sprint 20 (64af2638)",
+      "by": "robbin-req",
+      "date": "2026-08-20",
+      "note": "Re-homed per PO per-bucket ruling; parent set + reciprocated in Sprint.tasks[]. Chain-provable, zero fabrication."
+    }
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

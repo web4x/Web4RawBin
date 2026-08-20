@@ -23,7 +23,15 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers R19.89 per PO directive 2026-06-11; relocate R19.72 red button (impl 25884b0c) from ProfileEditor to DeviceEnrollDialog secret-code screen"
+    "atoms": "covers R19.89 per PO directive 2026-06-11; relocate R19.72 red button (impl 25884b0c) from ProfileEditor to DeviceEnrollDialog secret-code screen",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "rehome": {
+      "sprint": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.89 (2ad3fd18) -> parent Sprint 19 (97f513a1)",
+      "by": "robbin-req",
+      "date": "2026-08-20",
+      "note": "Re-homed per PO per-bucket ruling; parent set + reciprocated in Sprint.tasks[]. Chain-provable, zero fabrication."
+    }
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

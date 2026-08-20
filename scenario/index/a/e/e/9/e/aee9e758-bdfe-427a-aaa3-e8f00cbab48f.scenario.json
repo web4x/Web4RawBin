@@ -23,7 +23,15 @@
       "robbin-expert",
       "robbin-tester"
     ],
-    "atoms": "covers R19.97 (architect case-5 request); queueMicrotask defer in connectedCallback; closes OPEN desktop-Chrome first-N-icon-only; refines R19.88; E2E-test required (in-room UX)"
+    "atoms": "covers R19.97 (architect case-5 request); queueMicrotask defer in connectedCallback; closes OPEN desktop-Chrome first-N-icon-only; refines R19.88; E2E-test required (in-room UX)",
+    "parent": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+    "rehome": {
+      "sprint": "ior:instance:97f513a1-db0b-4216-87c2-a85c93daae28",
+      "evidence": "covers R19.97 (ea6bb854) -> parent Sprint 19 (97f513a1)",
+      "by": "robbin-req",
+      "date": "2026-08-20",
+      "note": "Re-homed per PO per-bucket ruling; parent set + reciprocated in Sprint.tasks[]. Chain-provable, zero fabrication."
+    }
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }
