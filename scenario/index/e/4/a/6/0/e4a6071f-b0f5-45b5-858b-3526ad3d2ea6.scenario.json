@@ -3,19 +3,19 @@
   "model": {
     "uuid": "e4a6071f-b0f5-45b5-858b-3526ad3d2ea6",
     "altId": "R40.48",
-    "name": "Version bump fires only from an explicit deploy action, atomic with a rebuild (never a post-commit hook)",
-    "description": "A version bump belongs to an explicit DEPLOY action, never to a post-commit hook firing on arbitrary commits. MEASURED: a post-commit hook auto-bumped 0.8.116->0.8.117 on commit 43efc40ae — a PURE test-evidence commit (the tester's ROW raw output) with ZERO deploy intent. Two harms: (1) it destroys VERSION-AS-PROOF — the version no longer signals 'a deployable change went live', it moves on test noise, breaking the only mechanism that proves a fix shipped; (2) it can create INCONSISTENT builds — it bumps the source version unit + package.json post-commit but does NOT rebuild, so sw.js/dist can be left at the old stamp (this time consistent only by LUCK of a build landing, proven byte-identical after the fact, not by construction). The bump must fire ONLY from a deploy action and be ATOMIC with a rebuild.",
+    "name": "Version integrity by construction — version-as-proof + bump-atomic-with-rebuild + no shared-tree WIP contamination",
+    "description": "The version must be a PROOF that a deployable change went live, and a version bump must be ATOMIC with a rebuild. ORIGINAL PREMISE REFUTED: I minted this blaming a post-commit HOOK that auto-bumped 0.8.116->0.8.117 on the test-evidence commit 43efc40ae. Re-measured (expert 3rd read + PO): the post-commit hook is a TAGGER — it tags v<version> ONLY when the version ALREADY changed between commits; pre-commit has NO version logic. So NO hook bump. The 0.8.117 move was the expert's UNCOMMITTED config-bump + build being SWEPT into the tester's 43efc40ae via a BROAD ADD in the shared working tree = CROSS-AGENT WIP CONTAMINATION. The real root is a shared mutable tree with no commit isolation; the version-as-proof + atomic-bump requirements still hold, but their CAUSE moves from the hook to the sweep.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
     "useCases": [],
     "unitLinks": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
-    "family": "intentless-automation — automatic machinery that acts WITHOUT explicit intent, invisible until it causes harm",
+    "family": "shared-mutable-state-without-isolation - cross-agent WIP contamination in a shared working tree (a broad add-all (git add -A), a directory add (git add <dir>), or commit-all sweeps another agent's uncommitted files into a commit)",
     "familyInstances": [
-      "(i) the server auto-minting units into scenario/index with NO policy (PII + traceability) -> R40.47",
-      "(ii) the server flushing the config unit -> the 0.8.54->0.8.46 version REGRESSION (R31.7 domain)",
-      "(iii) THIS post-commit hook auto-bumping the version on a non-deploy commit (43efc40ae test-evidence -> 0.8.116->0.8.117)"
+      "(i) a peer swept the PO's board/scoreboard files into its commit",
+      "(ii) the architect swept the planner's units into a commit",
+      "(iii) the expert's uncommitted config-bump + build swept into the tester's 43efc40ae via a broad add -> the phantom 0.8.117 tag (this req's originating incident, cause-corrected)"
     ],
     "discoverySource": {
       "type": "team-discovery",
@@ -28,17 +28,12 @@
       "ior:instance:15aab895-a792-45a1-b9b5-923fd6f728a0",
       "ior:instance:f46a6558-ff0d-4444-a9d4-83b7253224bd"
     ],
-    "crossRefNote": "R31.7 = DRY single-source app version (the config-unit the family's instance (ii) regressed); R40.47 = same FAMILY (automatic machinery acting with no intent). This is the 3rd named instance of intentless-automation.",
+    "crossRefNote": "R31.7 = DRY single-source app version (the config-unit the family's instance (ii) regressed); R40.47 = same FAMILY (automatic machinery acting with no intent). This is the 3rd named instance of intentless-automation. + R40.47 (broad-add/no-policy sibling; the fleet explicit-paths-only rule is the operational half of AC-no-broad-add-sweep).",
     "acceptanceCriteria": [
       {
         "id": "AC-deploy-only-bump",
         "group": "by-construction",
-        "text": "A version bump fires ONLY from an explicit DEPLOY action. The post-commit hook does NOT bump the version on any commit — committing is not a deploy."
-      },
-      {
-        "id": "AC-no-bump-on-nondeploy",
-        "group": "stub-must-fail",
-        "text": "A non-deploy commit (e.g. the test-evidence commit 43efc40ae) that results in a version bump => RED. Version-as-proof: it must not move on test noise."
+        "text": "A version bump fires ONLY from an explicit DEPLOY action; there is NO uncommitted version state that a commit could pick up incidentally. (The post-commit hook only TAGS an already-changed version — it does not bump.)"
       },
       {
         "id": "AC-atomic-with-rebuild",
@@ -54,6 +49,24 @@
         "id": "AC-version-as-proof",
         "group": "by-construction",
         "text": "The version is a PROOF signal: it moves IFF a deployable change actually went live. A rebuild that produces a byte-identical dist is NOT a deployable change and MUST NOT bump — preserving the only mechanism that proves a fix shipped."
+      },
+      {
+        "id": "AC-no-broad-add-sweep",
+        "group": "by-construction/root",
+        "text": "A broad add-all (git add -A), a directory add (git add <dir>), or commit-all in the shared repo is impossible-or-caught; every commit is PATH-LIMITED in ONE step, so no agent can sweep another agent's uncommitted files (including an uncommitted version-bump) into a commit."
+      },
+      {
+        "id": "AC-foreign-file-rides-along-stub",
+        "group": "stub-must-fail",
+        "text": "Seed a foreign dirty file (another agent's uncommitted unit, or an uncommitted version-bump) in the working tree and run a commit; if it RIDES ALONG => RED. Commit isolation is by construction."
+      }
+    ],
+    "premiseCorrection": "Original: a post-commit hook auto-bumped the version on a non-deploy commit (intentless-automation). REFUTED by measurement (expert read-only 3rd look + PO): the hook TAGS on version-change only, never bumps; pre-commit has no version logic. Actual mechanism = a broad add swept the expert's uncommitted version-bump into an unrelated commit (shared-tree contamination). Family re-classified intentless-automation -> shared-mutable-state-without-isolation. Correct-in-place, not deleted (R40.39/R40.22 honest-amendment pattern).",
+    "supersededACs": [
+      {
+        "id": "AC-no-bump-on-nondeploy",
+        "supersededText": "A non-deploy commit (e.g. the test-evidence commit 43efc40ae) that results in a version bump => RED. Version-as-proof: it must not move on test noise.",
+        "reason": "Premised on the hook bumping on a non-deploy commit (43efc40ae) — measured false. Replaced by the broad-add/sweep ACs below (the real mechanism)."
       }
     ]
   },

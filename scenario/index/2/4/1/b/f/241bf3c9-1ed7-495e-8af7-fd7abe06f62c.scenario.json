@@ -4,7 +4,7 @@
     "uuid": "241bf3c9-1ed7-495e-8af7-fd7abe06f62c",
     "altId": "R40.49",
     "name": "All Tasks owned by the owner profile — scoped backfill that preserves every structural parent (Task and non-Task)",
-    "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'), so the owner-gate passes. BUT ownerIor is OVERLOADED: on a Task it must be the profile owner, yet on CHAIN units it is the STRUCTURAL PARENT (Impl->Method, ChangeRequest->Test — today's re-parent). MEASURED (525 Tasks): 195 new-schema (structural Sprint in `parent`, ownerIor null = safe to set) + 330 OLD-schema (structural Sprint held IN ownerIor, no `parent` field). So a naive ownerIor:=profile would CLOBBER 330 Task->Sprint structural links = the same graph destruction the non-Task trap warns of, but INSIDE the Task class. The backfill must set Task.ownerIor=owner-profile for all 525 WHILE preserving every Task->Sprint parent, and touch NO non-Task ownerIor.",
+    "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'), so the owner-gate passes. BUT ownerIor is OVERLOADED: on a Task it must be the profile owner, yet on CHAIN units it is the STRUCTURAL PARENT (Impl->Method, ChangeRequest->Test - today's re-parent). AUTHORITATIVE MEASURED SPLIT (3-way independent agreement: req + architect 86cf1dbb5 + expert read-only dry-run, 525 Tasks): A(safe)=205 [195 null-ownerIor whose Sprint lives in model.parent + 10 dual-carriers where model.parent == the ownerIor Sprint] / B(relocate)=319 [Sprint held ONLY in ownerIor, no model.parent - relocate to parent FIRST] / C(conflict-hold)=1 [708ec0a5 dual-pointer, held] / anomaly=0. A naive ownerIor:=profile would CLOBBER the 319 Case-B Task->Sprint structural links = graph destruction INSIDE the Task class, beyond the non-Task trap. The backfill sets Task.ownerIor=owner-profile for the 524 migratable WHILE preserving every Task->Sprint parent, HOLDS the 1 conflict, and touches NO non-Task ownerIor.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
@@ -62,7 +62,7 @@
     "measured": {
       "tasks": 525,
       "ownerIor_null": 195,
-      "ownerIor_is_sprint_oldSchema": 330,
+      "ownerIor_is_sprint_oldSchema": "CORRECTED: was 330 (over-count). Authoritative: 319 Case-B (Sprint in ownerIor, NO parent, relocate) + 10 Case-A dual-carriers (parent==ownerIor Sprint, already safe) + 1 Case-C conflict (708ec0a5). null-ownerIor=195 (all have model.parent).",
       "nonTask_ownerIor_is_structural_parent": "Test 1029 / Sprint 876 / Class 635 / Impl 586 / Method 576 / Requirement 249 / UseCase 53 ... = the overload",
       "date": "2026-08-20",
       "by": "robbin-req",
@@ -71,7 +71,8 @@
         "B_relocate": 319,
         "C_conflict_hold": 1,
         "note": "architect 86cf1dbb5 refined my 11 both-set: 10 are consistent dual-carriers (parent==ownerIor Sprint)->fold into A; 1 (708ec0a5) is a Case-C dual-pointer CONFLICT."
-      }
+      },
+      "reconciliation": "3-way independent agreement (req + architect 86cf1dbb5 + expert read-only dry-run): A(safe)=205 = 195 null-with-parent + 10 dual-same | B(relocate)=319 | C(conflict-hold)=1 (708ec0a5) | anomaly=0 | total 525. My earlier prose said 330 old-schema; that folded the 10 already-safe dual-carriers + the 1 conflict into old-schema-no-parent. Corrected in-place."
     },
     "flagToArchitect": "The non-null Task owners are SPRINTS (structural), NOT profiles — the directive's 'other uuids in the non-null set' are structural parents. 330 old-schema Tasks need Sprint relocated to `parent` BEFORE ownerIor:=profile, or the Task->Sprint graph is clobbered. RESOLVED: architect confirmed + measured Case C (708ec0a5) = 1 conflicting dual-pointer, held.",
     "caseC_conflicts": [
