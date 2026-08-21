@@ -27,6 +27,17 @@ It scans the **ACTORS, not the HAZARD.** `check-pin-single-source.ts:15-18` is a
 ## (d) RULING — the In-Progress-only filter IS a bug (same retired invented-status-policy)
 Tron: "reviewing IS working." The designation-validity set already correctly = {Planned, In-Progress, QA-Review} (CurrentSprint.ts:266). But `derivedCurrentTaskUuid`'s In-Progress-**only** filter (:1393) re-invents the status-policy we retired at T37.26 — it excludes QA-Review from ever being current, which is why T37.24 (QA-Review) always shows Set-Current. **Current-eligibility must be {Planned, In-Progress, QA-Review} everywhere.** Deleting `derivedCurrentTaskUuid` (a) removes the offending filter; the ruling ties (a)+(d): ensure `getThreeSlots`' fallback derivation uses the SAME {P/IP/QA} eligibility, not In-Progress-only — one eligibility definition, one current definition.
 
+## ★ ORDER OF WORK — GATE-FIRST on the LIVE specimen (PO promoted 2026-08-21)
+The defect is IN THE TREE RIGHT NOW (`derivedCurrentTaskUuid` present) = a **live known-positive specimen**, stronger than any seeded stub. So the sequence is NOT fix-then-gate:
+1. **BUILD the corrected gate FIRST and PROVE it goes RED on TODAY'S unmodified tree** — capture the RED baseline (raw output kept as evidence). ★ HARD RULE: if the corrected gate does NOT go RED on today's tree, it is STILL WRONG (asserting the wrong property) → **do NOT proceed to the fix.** The RED-on-real-defect is the gate's correctness proof.
+2. **THEN** delete `derivedCurrentTaskUuid` + route `pinRole` through the compute-once slots.
+3. The **SAME gate must flip GREEN** — real red→green on an actual shipped bug (strictly stronger than a seeded stub: a stub proves the gate fails on something we invented; the baseline proves it fails on the bug that shipped PAST the old gate).
+4. **PLUS** the seeded-2nd-selection stub-must-fail, for the DURABLE case (a future re-introduction).
+Both evidences required: the RED baseline (this specimen) AND the stub (future specimens). The old gate being GREEN today is the anti-proof — the reason we don't trust "gate passes."
+
+## ★ COMPUTE-ONCE is an explicit AC, not a comment (PO)
+`slotsFrom` called TWICE with DIFFERENT inputs (a different `resolveSprintPin` hint / a stale `currentTaskUuid`) is STILL two sources — same divergence, subtler. AC (not a code comment): the request computes the pin slots ONCE and every current-consumer (`pinRole`, action-bar, scoreboard, tree) reads THAT single `slots.current`. Gate: no second `slotsFrom`/`getThreeSlots` call in the current-task read path; the value is threaded, not recomputed.
+
 ## Handoff / chain
 - req mints the Requirement + ACs (each carries a gateRef + stub-must-fail per R40.54). Suggested ACs: (1) `pinRole == slots.current` by construction (delete derivedCurrentTaskUuid; compute-once); (2) expiry mirrors getThreeSlots (honest-absence-on-ambiguity); (3) the fixed single-source gate PROVABLY REDs on a seeded second task-selection (its own RED baseline); (4) current-eligibility = {P/IP/QA} everywhere, gated.
 - expert builds; tester gates @390 device (Tron sets a task → it renders current; a QA-Review task can be current; designation survives; a stale guess never overrides). I backstop against this design + verify the fixed gate reds on the real defect.
