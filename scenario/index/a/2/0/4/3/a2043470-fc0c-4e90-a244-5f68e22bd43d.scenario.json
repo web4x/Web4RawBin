@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a2043470-fc0c-4e90-a244-5f68e22bd43d",
+    "name": "currentTask.singleSourceResolve",
+    "description": "pinRole/action-bar/scoreboard/tree all read slots.current from ONE compute-once getThreeSlots call per request (designation EXPLICIT-WINS-WHILE-VALID, eligibility {P/IP/QA}, honest-absence on ambiguity); derivedCurrentTaskUuid DELETED; a hazard-based gate proves 0 Task-selection loops outside the sanctioned accessor + REDs on today's live defect first.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:44953a15-f090-45d4-9829-079626edb5bd",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the shipped decl on build-go (getThreeSlots/slotsFrom accessor + the rewritten gate) + backstops the gate reds on the real case."
+  },
+  "ownerIor": "ior:instance:44953a15-f090-45d4-9829-079626edb5bd"
+}

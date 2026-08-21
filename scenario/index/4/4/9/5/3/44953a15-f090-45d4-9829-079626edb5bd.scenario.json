@@ -1,0 +1,115 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "44953a15-f090-45d4-9829-079626edb5bd",
+    "altId": "R40.56",
+    "name": "Current-task has ONE definition site — pinRole reads the designation resolver, not a parallel guess (Tron-caught second-source)",
+    "description": "Current-task selection has EXACTLY ONE definition site. Tron set a task current, but a different task RENDERS current, because there are TWO definitions of 'current' in one system: (A) the DESIGNATION resolver getThreeSlots (CurrentSprint.ts:270) honors the owner's currentTaskUuid EXPLICIT-WINS-WHILE-VALID (make-current, R40.49) — read by pin/scoreboard; (B) a rogue parallel HEURISTIC derivedCurrentTaskUuid (server.ts:1388) that IGNORES the designation, loops all Tasks, keeps only deriveStatusEnum=='In Progress', picks max lastAdvancedAt — attachTaskPinRole (:1399) tags pinRole='current' off B and the action-bar rides B. So what Tron SETS != what RENDERS, and a QA-Review task can NEVER be current (In-Progress-only filter). FIX AT THE ROOT (one resolver, NOT a hardcode — a39efc32 appears nowhere in src): DELETE derivedCurrentTaskUuid; pinRole reads slots.current from the SAME compute-once getThreeSlots output as pin/scoreboard/tree; eligibility {Planned,In-Progress,QA-Review} everywhere; honest-absence on ambiguity. The gate must assert the HAZARD (a Task-selection loop returning a uuid by status/timestamp) not an actor-blocklist, and must be proven RED on TODAY's live defect before the fix.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:a2043470-fc0c-4e90-a244-5f68e22bd43d"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-caught + architect-design",
+      "designCommit": "0c144cd07 (design-current-task-single-source.md)",
+      "tronQuote": "did we HARDCODE current to T37.25?",
+      "measuredAnswer": "NO hardcode (a39efc32 nowhere in src) — but two definitions of current: getThreeSlots designation vs derivedCurrentTaskUuid guess",
+      "poDiagnosis": "server.ts:1400 attachTaskPinRole -> derivedCurrentTaskUuid (:1388) ignores the stored designation, picks max-lastAdvancedAt In-Progress = a guess; action-bar rides the guess so what Tron SETS != what RENDERS",
+      "verifiedBy": "robbin-req first-hand: derivedCurrentTaskUuid@:1388 (In-Progress-only :1393, max lastAdvancedAt), attachTaskPinRole@:1399 rides it, check-pin-single-source.ts=2-regex sprint-level blocklist blind to this task-level source",
+      "date": "2026-08-21"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "check:pin-single-source (scripts/check-pin-single-source.ts:15-18) is a 2-regex ACTOR BLOCKLIST (filter(status==='Active') + sprintName->number.find, both SPRINT-level) and shipped GREEN over this TASK-level second source = it asserts the WRONG property. A blocklist of code SHAPES can never prove a single-source invariant (the next divergence is always a new shape). It is REPLACED by the hazard-based gate (AC-gate-asserts-hazard-not-actors). Same failure class as R40.55's boot hand-list + the marker-name-vs-scope gate. [[scan-the-hazard-not-the-actors]]",
+    "redBaselineEvidence": "PENDING — the corrected gate's raw RED output on TODAY's unmodified tree (derivedCurrentTaskUuid present), captured BEFORE the fix per the gate-first order; recorded here when the gate is built. No fix lands until this RED baseline exists (PO hard rule).",
+    "orderOfWork": "GATE-FIRST on the live specimen (PO): 1. build the corrected gate + PROVE RED on today's tree (record raw output); if not RED it is still wrong, do NOT proceed. 2. delete derivedCurrentTaskUuid + route pinRole through compute-once slots. 3. SAME gate flips GREEN (real red->green on a shipped bug). 4. PLUS the seeded-2nd-selection stub (durable future case).",
+    "satisfactionStatus": "UNVERIFIED (nothing built; gates DESIGNED not yet built, no RED baseline captured — honest third state per R40.54).",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Rides the R40.54 failable-AC family (dogfood: each AC carries gateRef+stubMustFail). Same single-source class cured all session (R40.55 boots, R40.50 sprint-order, R40.18 pin). Root = ONE resolver getThreeSlots, NOT a hardcode. crossRef R40.49 (make-current designation the guess ignores).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-definition-site",
+        "group": "single-source",
+        "text": "ONE definition site for current-task selection: pinRole reads slots.current from the SAME resolver (getThreeSlots) as pin/scoreboard/tree; derivedCurrentTaskUuid (server.ts:1388) is DELETED. pinRole = (slots.current?.uuid === taskUuid) ? 'current' : 'other'.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:current-single-source (rewritten, hazard-based)",
+          "assertion": "0 functions outside the ONE sanctioned accessor loop ior:class:Task units + return a uuid chosen by status/timestamp comparison"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: the corrected gate must go RED on TODAY's unmodified tree (derivedCurrentTaskUuid present) BEFORE the fix — see redBaselineEvidence"
+      },
+      {
+        "id": "AC-compute-once-pass-down",
+        "group": "single-source",
+        "text": "COMPUTE-ONCE-PASS-DOWN (explicit AC, not a comment): the request computes the pin slots ONCE (slotsFrom) and every current-consumer (pinRole, action-bar, scoreboard, tree) reads THAT single slots.current. slotsFrom/getThreeSlots called TWICE with DIFFERENT inputs (different resolveSprintPin hint / stale currentTaskUuid) is STILL a second source.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:current-single-source (compute-once)",
+          "assertion": "no second slotsFrom/getThreeSlots call in the current-task read path; the value is threaded, not recomputed"
+        },
+        "stubMustFail": "PENDING: seed a 2nd slotsFrom call with different inputs in the read path -> RED"
+      },
+      {
+        "id": "AC-expiry-mirrors-getthreeslots",
+        "group": "expiry",
+        "text": "pinRole has NO opinion of its own — it MIRRORS slots.current including on expiry. Routing through getThreeSlots inherits EXPLICIT-WINS-WHILE-VALID for free (designation expires at Done/re-designate/gone). Expiry/fallback policy is decided in ONE place (getThreeSlots), pinRole follows.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:current-single-source expiry",
+          "assertion": "on designation expiry pinRole reflects getThreeSlots' fallback, never a parallel pinRole-local derivation"
+        },
+        "stubMustFail": "PENDING: seed an expired designation -> pinRole == getThreeSlots fallback, not a 2nd guess"
+      },
+      {
+        "id": "AC-honest-absence-on-ambiguity",
+        "group": "fail-closed",
+        "text": "HONEST ABSENCE on expiry/ambiguity: no task tagged current, derivation-fallback ONLY when unambiguous (a single active task); ties/ambiguity -> ABSENCE (fail-closed, R3 instinct), never a silent pick. The silent guess (max-lastAdvancedAt promoted to 'current') is exactly what made this defect invisible — a wrong current that looked authoritative.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:current-single-source ambiguity",
+          "assertion": "no valid designation + ambiguous chain-current (>=2 tied active tasks) -> current is ABSENT, no task tagged current"
+        },
+        "stubMustFail": "PENDING: seed 2 tied active tasks, no designation -> absence (not a silent pick); stub a silent-pick -> RED"
+      },
+      {
+        "id": "AC-eligibility-P-IP-QA-everywhere",
+        "group": "eligibility",
+        "text": "Current-eligibility = {Planned, In-Progress, QA-Review} EVERYWHERE (matches the designation-validity set CurrentSprint.ts:266). The In-Progress-ONLY filter (server.ts:1393) is the invented status-policy Tron retired at T37.26 ('reviewing IS working') — it wrongly excludes QA-Review from ever being current (why T37.24 always shows Set-Current). getThreeSlots' fallback uses the SAME {P/IP/QA} eligibility, not In-Progress-only.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:current-single-source eligibility",
+          "assertion": "a QA-Review task CAN be current (designated or unambiguous-fallback); In-Progress-only filter absent"
+        },
+        "stubMustFail": "PENDING: designate a QA-Review task -> it renders current; stub an In-Progress-only filter -> RED"
+      },
+      {
+        "id": "AC-gate-asserts-hazard-not-actors",
+        "group": "by-construction",
+        "text": "THE GATE asserts the HAZARD, not actors: the hazard is 'a function returns a task uuid selected as the current one'. Assert that selection has a SINGLE structurally-nameable definition site — no function body outside the ONE sanctioned accessor loops ior:class:Task + returns a uuid by status/timestamp comparison. '0 such selections outside the accessor' proves single-source in ONE number (same shape as '0 raw insertAdjacentHTML outside the primitive'). REPLACES the retired check-pin-single-source 2-regex ACTOR BLOCKLIST (see metaFinding).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:current-single-source (hazard-based, replaces actor-blocklist)",
+          "assertion": "count of Task-selection-loops-returning-a-uuid-by-status/timestamp OUTSIDE the sanctioned accessor == 0"
+        },
+        "stubMustFail": "PENDING: seed a 2nd function that returns a task uuid by status+timestamp scan (re-introduce derivedCurrentTaskUuid) -> gate RED"
+      },
+      {
+        "id": "AC-red-baseline-on-live-defect",
+        "group": "evidence/RED-baseline",
+        "text": "RED-BASELINE EVIDENCE (HARD, gate-first order): the corrected gate MUST be proven RED on TODAY's unmodified tree (derivedCurrentTaskUuid PRESENT = a live known-positive specimen) BEFORE the fix, raw output recorded on this unit (redBaselineEvidence). If the corrected gate does NOT go RED on today's tree it is STILL WRONG (asserting the wrong property) -> do NOT proceed to the fix. Then delete derivedCurrentTaskUuid + the SAME gate flips GREEN (real red->green on a shipped bug, strictly stronger than a seeded stub). A gate never RED on the real defect proves nothing (R2/R4).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "check:current-single-source RED-baseline capture",
+          "assertion": "raw RED output on the unmodified tree recorded BEFORE the fix; SAME gate GREEN after derivedCurrentTaskUuid deleted"
+        },
+        "stubMustFail": "PENDING: the RED baseline is the acceptance precondition — no fix lands until it is captured RED on the live defect"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
