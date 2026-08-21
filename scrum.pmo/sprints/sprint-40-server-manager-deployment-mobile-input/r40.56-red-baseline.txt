@@ -1,0 +1,9 @@
+(node:3608410) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3608410) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+=== R40.56 current-task single-source gate — FAIL (2 rogue current-task selections) ===
+  - src/ts/scenario/task-status.ts:61 — function assertStatusConsistent() reduces Task units to one uuid by status/recency (a SECOND current-task source; must read CurrentSprint.getThreeSlots)
+  - src/ts/server/server.ts:1388 — function derivedCurrentTaskUuid() reduces Task units to one uuid by status/recency (a SECOND current-task source; must read CurrentSprint.getThreeSlots)
+  → current-task has ONE definition site (getThreeSlots); every consumer READS slots.current, never re-derives.
