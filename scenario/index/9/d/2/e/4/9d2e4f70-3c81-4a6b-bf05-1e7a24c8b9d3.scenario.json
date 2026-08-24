@@ -15,7 +15,9 @@
       "note": "CODE COMMITTED, NOT DEPLOYED; NOT Done (Tron has not judged v0.8.126). Chain-to-Test != Done."
     },
     "gate": "r401d 16/0 GREEN, tester 6589239d1",
-    "unitLinks": []
+    "unitLinks": [],
+    "status": "pass",
+    "statusBasis": "gate GREEN, failability proven; r401d 16/0 GREEN + inverted-stub bite (tester 6589239d1); two-key GREEN both-dir 32035a91f. status=pass = the TEST passes (a chain fact); NOT Done (code committed-not-deployed, no Tron surface)."
   },
   "ownerIor": "ior:instance:44c4054a-cbd5-4405-9836-45d316603105"
 }
