@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "ff45b23f-ba76-43c8-b592-4ad1b5c38da7",
+    "name": "BareUuid.bareUuid",
+    "description": "Canonical bareUuid(ref): strips @host suffix and the ior: prefix chain, returns the bare uuid; client-safe (no node deps) so the drawer's derive-at-render + all server producers import the ONE helper. Real decl = export function bareUuid(ref) @src/ts/shared/bare-uuid.ts:13. NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable).",
+    "sourceFile": "ior:file:src/ts/shared/bare-uuid.ts",
+    "implementations": [
+      "ior:instance:3d1b5df8-0836-4754-8637-7e89aab68e39"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:a267558e-8cb9-4a6a-a7f2-5bf4ed0e5bdf"
+}

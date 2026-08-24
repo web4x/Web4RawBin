@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "2f79c7c5-db26-42b5-9623-4f132c652618",
+    "name": "test:R40.58 D2 bareUuid PROPERTY — prefix+@host strip, failability-proven (scan-hazard-not-actors)",
+    "description": "Bridged to test/visual/r4057-bareuuid-property.mjs (bareUuid PROPERTY gate, tester 5d473e459; GREEN on the general fix + failability-proven). Property: bareUuid strips ior:(instance|class|file): prefix AND @host, leaves a bare uuid untouched; scan-the-hazard-not-actors (asserts the normalization property, not a specific caller). Non-vacuous (failability proven).",
+    "sourceFile": "ior:file:test/visual/r4057-bareuuid-property.mjs",
+    "implementations": [
+      "ior:instance:3d1b5df8-0836-4754-8637-7e89aab68e39"
+    ],
+    "certificationScope": {
+      "state": "chain-complete-to-Test (R40.58 D2)",
+      "gate": "r4057-bareuuid-property, tester 5d473e459 GREEN + failability-proven",
+      "note": "D2 = PREVENTION (not the live-screen fix, D1 was). CODE DEPLOYED v0.8.126; NOT Done. UUID GENERATED for tester to ADOPT into the gate."
+    },
+    "gate": "r4057-bareuuid-property, tester 5d473e459",
+    "status": null,
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:3d1b5df8-0836-4754-8637-7e89aab68e39"
+}

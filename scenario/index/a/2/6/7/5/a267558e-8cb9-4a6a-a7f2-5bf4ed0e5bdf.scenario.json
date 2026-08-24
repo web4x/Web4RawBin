@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "a267558e-8cb9-4a6a-a7f2-5bf4ed0e5bdf",
+    "name": "BareUuid",
+    "description": "Module-as-class for src/ts/shared/bare-uuid.ts — the ONE canonical uuid-form normalizer (strip ior:(instance|class|file): prefix AND @host) every producer routes through (R40.58 D2, prevention). NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable).",
+    "sourceFile": "ior:file:src/ts/shared/bare-uuid.ts",
+    "methods": [
+      "ior:instance:ff45b23f-ba76-43c8-b592-4ad1b5c38da7"
+    ]
+  },
+  "ownerIor": "ior:instance:f148cb07-a5fc-41ff-9f35-d96954e15839"
+}

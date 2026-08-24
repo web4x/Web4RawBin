@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "31758272-b082-4e1b-8ae6-01328d2ec243",
+    "name": "RbDetailDrawer.refreshCurrentSlot",
+    "description": "Derive-at-render of the action-bar taskRole from the ONE live current-slot: the drawer subscribes the SAME CurrentSprint viewBusKey the tree uses (rb-detail-drawer.ts:87) and on that broadcast + on render fetches the live current-slot and re-derives taskRole (NO baked pinRole copy). Real decl = private async refreshCurrentSlot() @src/public/ts/trace/rb-detail-drawer.ts:95. NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-detail-drawer.ts",
+    "implementations": [
+      "ior:instance:f5928a3b-0e42-4af8-973c-6f71a31d5be4"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e"
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "3d1b5df8-0836-4754-8637-7e89aab68e39",
+    "name": "bareUuid impl — canonical uuid-form normalizer (bare-uuid.ts:13)",
+    "sourceFile": "src/ts/shared/bare-uuid.ts",
+    "sourceLine": 13,
+    "tests": [
+      "ior:instance:2f79c7c5-db26-42b5-9623-4f132c652618"
+    ],
+    "markerPending": true,
+    "designAhead": false,
+    "unitLinks": [],
+    "provenance": "R40.58 D2 bareUuid prevention (v0.8.126). NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable)."
+  },
+  "ownerIor": "ior:instance:ff45b23f-ba76-43c8-b592-4ad1b5c38da7"
+}

@@ -99,7 +99,8 @@
         "stubMustFail": "PENDING: n/a — an honesty/labelling AC verified by the crediting on D1 vs D2"
       }
     ],
-    "d1BaselineNotATest": "PO RULING 2026-08-24: the D1 SERVER baseline (test commit 280cd5674, r4057-d1-pinrole-baseline.mjs) is HISTORICAL EVIDENCE, NOT a re-runnable gate + NOT to be minted as a Test. After the fix the served payload carries NO pinRole at all, so re-running the baseline would RED on CORRECT code = the tune-to-pass trap. It stays evidence, un-chained, DELIBERATELY. If a candidate Test ever references 280cd5674 / the D1 baseline as its gate -> FLAG it, do NOT credit. (Distinct from the re-runnable gates: cross-view cbb7a0906 + bareUuid 5d473e459.)"
+    "d1BaselineNotATest": "PO RULING 2026-08-24: the D1 SERVER baseline (test commit 280cd5674, r4057-d1-pinrole-baseline.mjs) is HISTORICAL EVIDENCE, NOT a re-runnable gate + NOT to be minted as a Test. After the fix the served payload carries NO pinRole at all, so re-running the baseline would RED on CORRECT code = the tune-to-pass trap. It stays evidence, un-chained, DELIBERATELY. If a candidate Test ever references 280cd5674 / the D1 baseline as its gate -> FLAG it, do NOT credit. (Distinct from the re-runnable gates: cross-view cbb7a0906 + bareUuid 5d473e459.)",
+    "d1SupersededByAbsence": "D1 (currentSlot.readAtRealType, UC 232df40f) fix code currentTaskUuidFromSlots was itself DELETED by the R40.57 retire (0 defs remaining, server.ts:1384: attachTaskPinRole + currentTaskUuidFromSlots both DELETED). So D1 is now proven BY ABSENCE (no pinRole computed = no wrong-field read possible); no Impl for deleted code, no Test. The D1 baseline 280cd5674 stays HISTORICAL EVIDENCE (m.d1BaselineNotATest). Only D2 (bareUuid) has a re-runnable gate + Test (T58 2f79c7c5)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

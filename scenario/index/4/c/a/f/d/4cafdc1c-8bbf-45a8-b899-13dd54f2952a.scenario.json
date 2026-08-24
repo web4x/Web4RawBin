@@ -4,8 +4,8 @@
     "uuid": "4cafdc1c-8bbf-45a8-b899-13dd54f2952a",
     "name": "currentRole.deriveAtRenderAgreed",
     "description": "Every role-consumer (pin badge, tree highlight, action-bar verbs, drawer, scoreboard) derives its current-role AT RENDER from the ONE live current-slot uuid (fed by the currentsprint broadcast, read via one accessor, ONE viewBusKey builder); NO server-baked pinRole field; a pin move = one event = all consumers re-derive atomically; cross-view agreement asserted @390 by screenshot AFTER a live make-current.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+    "method": "ior:instance:31758272-b082-4e1b-8ae6-01328d2ec243",
     "parent": "ior:instance:983a2ec6-c708-4b82-92a7-472898a21923",
     "unitLinks": [],
     "note": "Architect wires Class/Method off the shipped decl post-GO (retire attachTaskPinRole payload field + drawer subscribe + derive-at-render) + backstops the agreement stub reds on injected disagreement + 0 pinRole in served payload."
