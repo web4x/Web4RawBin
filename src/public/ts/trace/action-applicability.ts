@@ -27,6 +27,9 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // In-Progress. That set is the SHARED APPROVE_STATUSES the server 409-gate also enforces (anti-drift, one source).
   { verb: 'qa-approve', label: '✓ Approve', appliesTo: { types: ['task'], statuses: [...APPROVE_STATUSES] }, onInvalid: 'hide' },
   { verb: 'qa-decline', label: '✗ Decline', appliesTo: { types: ['task'], statuses: [...APPROVE_STATUSES] }, onInvalid: 'hide' },
+  // R40.1 CR-RESOLVE (#86): 'Resolve CRs' surfaces ONLY on a task in the 'QA-Review-with-open-CR' BAND — a human ticks the
+  // processing-CR sub-step (CRs done) → band clears → clean QA Review → approvable. Owner-gated server-side (resolve-cr route).
+  { verb: 'resolve-cr', label: '✓ Resolve CRs', appliesTo: { types: ['task'], statuses: ['QA-Review-with-open-CR'] }, onInvalid: 'hide' },
   // R40.18 RETIRED (architect 7cb9617fb): pin-current / pin-next REMOVED — the pin is now DERIVED (current = In-Progress
   // task with MAX lastAdvancedAt). A manual Set-current/Set-next is a SECOND SOURCE that can contradict the derivation —
   // the exact two-source vector that produced the stale pick 78ea801d3 (lied to Tron for days). Retire (not a when-gate)
