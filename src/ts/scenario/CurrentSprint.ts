@@ -7,7 +7,7 @@ import { ScenarioIndex } from './index-store.js';
 import { fwdRefs } from '../shared/chain-model.js';
 import { bareUuid } from '../shared/bare-uuid.js'; // R40.58 D2: the ONE canonical uuid normaliser (strip prefix+@host) — the designation producer routes through it
 import type { ScenarioUnit } from './types.js';
-import { deriveStatusEnum, type TaskStatusEnum } from './task-status.js';
+import { deriveStatusEnum, rollupParentStatus, childTaskUuids, type TaskStatusEnum } from './task-status.js'; // R40.1 (d): parent status ROLLS UP from children (weakest-link) — a coordination root derives from its subtasks, not its lying stored status
 
 // R40.18 pin auto-progress (design-r40.18-pin-auto-progress.md): a task has "LEFT current" once it reaches a
 // TERMINAL-FOR-CURRENT status — QA-Review or Done (or raw Superseded/Cancelled). Detected via the STATUS ENUM
@@ -188,18 +188,38 @@ export class CurrentSprint {
     // of the next sprint (by number) — so the pin ALWAYS shows current/last/next. Forward-only + not-
     // done-only keeps the phantom (done/past) out while still surfacing genuine upcoming work.
     type Slot = { uuid: string; name: string; reqUuid: string; focus: boolean; done: boolean; terminal: boolean; status: TaskStatusEnum; lastAdvancedAt: string };
+    // R40.1 (d) — DERIVED task status with PARENT ROLLUP (CR 18ebe066, design §3). A task with resolvable subtask
+    // children derives the WEAKEST-LINK rollup of the children's derived statuses (children-rollup is AUTHORITATIVE for a
+    // parent — its own stored/checklist status is IGNORED). A leaf keeps deriveStatusEnum(checklist), else the declared
+    // model.status normalized (no-checklist legacy). Recursive (a child may itself be a parent) with a cycle-guard;
+    // READ-side only, no disk write (single-writer intact). So coordination-root 37.4 derives QA-Review from its
+    // QA-Review children → terminal-for-current → auto-rejected as the pin, no special case (its lying 'Planned' fixed).
+    const leafStatus = (m: Record<string, unknown>): TaskStatusEnum => {
+      const checklist = String(m.statusChecklist || '');
+      if (checklist) return deriveStatusEnum(checklist);
+      const rawStatus = String(m.status || '');
+      return (['Planned', 'In Progress', 'QA Review', 'Done'] as TaskStatusEnum[]).find((s) => s.toLowerCase() === rawStatus.toLowerCase()) || 'Planned';
+    };
+    const rolledStatus = (uuid: string, seen: Set<string> = new Set()): TaskStatusEnum => {
+      const key = bareUuid(uuid);
+      const unit = this.index.get(key);
+      if (!unit || unit.ior !== 'ior:class:Task' || seen.has(key)) return 'Planned';
+      const m = unit.model as Record<string, unknown>;
+      const childUuids = childTaskUuids(m, key).filter((c) => { const cu = this.index.get(c); return !!cu && cu.ior === 'ior:class:Task'; });
+      if (!childUuids.length) return leafStatus(m); // real leaf — unaffected
+      const next = new Set(seen); next.add(key);
+      const rolled = rollupParentStatus(childUuids.map((c) => rolledStatus(c, next)));
+      return rolled ?? leafStatus(m);
+    };
     const slotInfo = (uuid: string): Slot | null => {
       const unit = this.index.get(uuid);
       if (!unit || unit.ior !== 'ior:class:Task') return null;
       const m = unit.model as Record<string, unknown>;
       const reqIors = (m.coveredRequirements as string[]) || [];
-      // R40.18: status via the ENUM. Single-source = deriveStatusEnum(statusChecklist); fall back to the declared
-      // model.status ONLY when a task carries no checklist (normalized to the enum) — never a glyph/symbol.
+      // R40.18/R40.1(d): status via the ENUM with PARENT ROLLUP — single-source = rolledStatus (children-rollup for a
+      // parent, deriveStatusEnum for a leaf); never a glyph/symbol, never the stored status for a parent.
       const rawStatus = String(m.status || '');
-      const checklist = String(m.statusChecklist || '');
-      const status: TaskStatusEnum = checklist
-        ? deriveStatusEnum(checklist)
-        : ((['Planned', 'In Progress', 'QA Review', 'Done'] as TaskStatusEnum[]).find((s) => s.toLowerCase() === rawStatus.toLowerCase()) || 'Planned');
+      const status: TaskStatusEnum = rolledStatus(uuid);
       return {
         uuid, name: String(m.name || ''),
         reqUuid: reqIors.length > 0 ? ior(reqIors[0]) : '',
