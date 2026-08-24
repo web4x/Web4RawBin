@@ -940,6 +940,15 @@ function cookieFrom(req: http.IncomingMessage, name: string): string {
   for (const part of raw.split(';')) { const i = part.indexOf('='); if (i > 0 && part.slice(0, i).trim() === name) return part.slice(i + 1).trim(); }
   return '';
 }
+// R40.x SECURITY: the ONE owner-by-protected-identity check — a GENUINE registered profile player-token (userProfiles
+// is keyed by profile.token) whose profileUuidOf resolves into the untracked root-only protected-identity set. A bare
+// public uuid is NEVER a profiles KEY (keys are player tokens) → rejected cold AND ws-live-forged (unlike the forgeable
+// tokenToClient liveness). Fail-closed: no token / not a profile / not protected → false.
+function ownerByToken(token: string): boolean {
+  if (!token || !userProfiles.has(token)) return false;
+  const puid = FeatureManager.profileUuidOf(token, userProfiles as unknown as Map<string, { redirectTo?: string }>);
+  return loadProtectedIdentities().ids.includes(puid);
+}
 function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | { ok: false } {
   // Cookie path: a valid sm_session IS the proof (minted after an owner-gated POST) — no tokenToClient live-session
   // needed (the standalone /server-manager page holds no ws). Prune expired on read.
@@ -952,10 +961,7 @@ function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | 
   const g = ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
   if (g.ok) return g;
   const tok = ServerManagerGuard.playerTokenFrom(req);
-  if (tok) {
-    const puid = FeatureManager.profileUuidOf(tok, userProfiles as unknown as Map<string, { redirectTo?: string }>); // token → his Profile-unit uuid (redirectTo→primary→uuid)
-    if (loadProtectedIdentities().ids.includes(puid)) return { ok: true, token: tok }; // real owner by protected-identity membership (root-only, fail-closed)
-  }
+  if (tok && ownerByToken(tok)) return { ok: true, token: tok }; // real owner by protected-identity, gated on a GENUINE profile key
   return { ok: false };
 }
 function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
@@ -974,7 +980,11 @@ function resolveSessionToken(req: http.IncomingMessage): string {
   const sid = cookieFrom(req, 'sm_session');
   if (sid) { const s = smSessions.get(sid); if (s && s.expiresAt > Date.now()) return s.token; if (s) smSessions.delete(sid); }
   const t = ServerManagerGuard.playerTokenFrom(req);
-  return (t && tokenToClient.has(t)) ? t : '';
+  // R40.x SECURITY: require a GENUINE registered profile player-token (userProfiles is keyed by profile.token). The old
+  // `tokenToClient.has(t)` liveness gate is FORGEABLE — ws-IDENTIFY (CREATE_ROOM/JOIN_ROOM) sets tokenToClient with an
+  // UNVALIDATED playerToken, so an attacker can make ANY public value (e.g. the public protected-id uuid) "live". A
+  // profile-map KEY cannot be forged (a bare uuid is never a key). So membership auth needs a real profile, not liveness.
+  return (t && userProfiles.has(t)) ? t : '';
 }
 // R31.8: allowedUsers of a Feature by name (scan the ior:class:Feature units on disk). Fail-closed: unknown/empty → []
 // (INV-F5). Admin-only low-QPS path; a fresh ScenarioIndex per call keeps it revoke-immediate (no stale cache).
@@ -1021,6 +1031,7 @@ function attachChainMethod(entry: Record<string, unknown>, type: string, ct: str
 function featuresForToken(token: string): { uuid: string; name: string; icon: string; launchPage: string }[] {
   const out: { uuid: string; name: string; icon: string; launchPage: string }[] = [];
   if (!token) return out;
+  const owner = ownerByToken(token); // R40.x: the protected-identity owner sees every feature (owner access = identity, not an allowedUsers seed)
   try {
     const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
     for (const uuid of fidx.list()) {
@@ -1028,14 +1039,16 @@ function featuresForToken(token: string): { uuid: string; name: string; icon: st
       if (u?.ior !== 'ior:class:Feature') continue;
       const m = u.model as { name?: string; icon?: string; launchPage?: string; allowedUsers?: unknown };
       // R32.9 (C) INV-D3: carry the Feature's data-driven launchPage → the profile launch is Feature.launchPage, not a name-ternary.
-      if (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token)) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || ''), launchPage: String(m.launchPage || '') });
+      // R40.x: the protected-identity OWNER sees EVERY feature (owner access is by identity, not an allowedUsers seed — the seed was removed so the raw secret never lands in a tracked unit); non-owners still see only their explicit grants.
+      if (owner || (Array.isArray(m.allowedUsers) && (m.allowedUsers as string[]).includes(token))) out.push({ uuid, name: String(m.name || 'Feature'), icon: String(m.icon || ''), launchPage: String(m.launchPage || '') });
     }
   } catch { /* fail-closed */ }
   return out;
 }
 // R31.8 HTTP wrapper for the ServerManager feature gate (the /api/server-manager/* + /server-manager choke-point).
 function requireFeatureAccessHttp(req: http.IncomingMessage, res: http.ServerResponse, featureName: string): boolean {
-  if (ServerManagerGuard.requireFeatureAccess(req, featureName, resolveSessionToken, featureAllowedUsers).ok) return true;
+  if (resolveOwner(req).ok) return true; // R40.x: the OWNER enters via protected-identity (resolveOwner), NOT an allowedUsers token-seed — so the raw owner secret NEVER needs to be persisted into a (tracked) Feature.allowedUsers unit
+  if (ServerManagerGuard.requireFeatureAccess(req, featureName, resolveSessionToken, featureAllowedUsers).ok) return true; // explicit NON-owner grants (membership)
   const ip = req.socket.remoteAddress || 'unknown';
   addLog(`[server-manager] DENY kind=http feature=${featureName} path=${req.url} token=${(resolveSessionToken(req) || 'none').slice(0, 8)} ip=${ip}`);
   res.writeHead(403, { 'Content-Type': 'application/json' }); res.end('{"error":"forbidden"}');
@@ -4053,7 +4066,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: profileViewDataForToken(token, { connectedDeviceIds, profile }), connectedDeviceIds, serverManager: ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4-fix RED-1: m.profileViewData via the SHARED profileViewDataForToken ENRICH (merges deviceRecords) — SAME path the FM granted-user handler now uses → /profile render === drawer render by construction
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: profileViewDataForToken(token, { connectedDeviceIds, profile }), connectedDeviceIds, serverManager: ownerByToken(profile.token) || ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R40.x: owner flag via protected-identity (seed removed → the flag can no longer come from an allowedUsers token-seed) // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4-fix RED-1: m.profileViewData via the SHARED profileViewDataForToken ENRICH (merges deviceRecords) — SAME path the FM granted-user handler now uses → /profile render === drawer render by construction
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's

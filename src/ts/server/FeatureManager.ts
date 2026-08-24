@@ -69,7 +69,10 @@ export class FeatureManager {
       if (!f) continue;
       const au: string[] = Array.isArray(f.unit.model.allowedUsers) ? f.unit.model.allowedUsers : [];
       const before = au.length;
-      ServerManagerGuard.seedOwnerInto(au);
+      // R40.x SECURITY (Tron A): do NOT seed the RAW owner secret into allowedUsers — that persists the secret into
+      // TRACKED Feature units = the exact vector that leaked the old owner literal into the repo. The owner is now
+      // authorized at the choke-point via resolveOwner (protected-identity), NOT allowedUsers membership. allowedUsers
+      // therefore holds ONLY explicit non-owner grants + the PUBLIC protected-id uuids below (identities, never a secret).
       // option-(iii): additively re-seed the TRUSTED protected owner-identity set (from the root-only config) so a
       // wiped/reset allowedUsers self-heals ALL of Tron's identities (e.g. 05e58f81), not only the 41ad88c4 literal
       // — the recurring cast-out gap. Additive only: never removes, never propagates a non-trusted member.
