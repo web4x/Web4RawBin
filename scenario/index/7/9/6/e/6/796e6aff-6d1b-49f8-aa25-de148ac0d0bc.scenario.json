@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "796e6aff-6d1b-49f8-aa25-de148ac0d0bc",
+    "name": "TaskStatus.rollupParentStatus",
+    "description": "A parent-with-children's status is the WEAKEST-LINK rollup of its children's DERIVED statuses: the least-advanced child caps the parent (<=In-Progress) — a coordination root can never be past its least-advanced child; children-rollup is AUTHORITATIVE for a parent-with-children (kills the lying stored 'Planned' on coord-root 37.4). R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). Real decl = export function rollupParentStatus(childStatuses) @src/ts/scenario/task-status.ts:42.",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "implementations": [
+      "ior:instance:44c4054a-cbd5-4405-9836-45d316603105"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07"
+}

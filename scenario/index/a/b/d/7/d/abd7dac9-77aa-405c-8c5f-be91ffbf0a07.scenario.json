@@ -6,7 +6,9 @@
     "file": "src/ts/scenario/task-status.ts",
     "methods": [
       "ior:instance:f0f9eaa4-d9a6-4cd4-891d-5697ebb5cfcb",
-      "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8"
+      "ior:instance:1d96bae3-febc-43bd-bda3-ce2e3a22aca8",
+      "ior:instance:796e6aff-6d1b-49f8-aa25-de148ac0d0bc",
+      "ior:instance:85d916a3-8524-45fc-b4fb-993db87d9792"
     ],
     "useCases": [],
     "sourceFile": "ior:file:src/ts/scenario/task-status.ts"

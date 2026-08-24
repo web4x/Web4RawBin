@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "44c4054a-cbd5-4405-9836-45d316603105",
+    "name": "rollupParentStatus impl — weakest-link parent rollup (task-status.ts:42)",
+    "sourceFile": "src/ts/scenario/task-status.ts",
+    "sourceLine": 42,
+    "tests": [],
+    "markerPending": true,
+    "designAhead": false,
+    "unitLinks": [],
+    "provenance": "R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). PRIMARY marker target: the code comment at task-status.ts carries [impl-marker PENDING req mint #126] on rollupParentStatus."
+  },
+  "ownerIor": "ior:instance:796e6aff-6d1b-49f8-aa25-de148ac0d0bc"
+}

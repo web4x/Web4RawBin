@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "85d916a3-8524-45fc-b4fb-993db87d9792",
+    "name": "TaskStatus.childTaskUuids",
+    "description": "Returns the child Task uuids of a model (the set rollupParentStatus rolls up); supports the parent-rollup. R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). Real decl = export function childTaskUuids(model, selfUuid?) @src/ts/scenario/task-status.ts:57.",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "implementations": [
+      "ior:instance:6537e99c-c266-4dc5-9002-3b952d2cc1c3"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07"
+}
