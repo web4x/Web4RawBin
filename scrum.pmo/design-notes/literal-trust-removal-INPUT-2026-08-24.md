@@ -1,6 +1,28 @@
 # Structural literal-trust removal (server-manager RCE root) — MEASURED design INPUT for architect ratify
 
-**Author:** robbin-expert · **2026-08-24** · Shape architect-RATIFIED (note 314ea6ca1) + PO-confirmed — BUILD to the CORRECTED SHAPE below. **NOT deployable until Tron ROTATES the token** + architect re-backstops the FULL chain. Terminal stays SEVERED (server.ts:3705) = safe state.
+## 🛑🛑 CANCELLED 2026-08-24 (Tron via PO) — THIS REFACTOR IS NOT BUILT. Kept as ANALYSIS only.
+**Tron: "I never ordered to fix it — it's a Server Manager."** A server-manager terminal IS arbitrary shell-exec on the host — **that is the FEATURE, not a vulnerability.** We mislabeled the product's purpose an "RCE" and severed the feature for 12 days + designed a 54-file auth re-architecture he never asked for. The ONLY real problem was a **credential leaked into tracked files**, whose correct fix is **ROTATE THE CREDENTIAL** (a 2-minute owner action). The structural literal-trust removal / resolveOwner path-(b) redesign / whole refactor below = **CANCELLED, build NOTHING.** (Everything below is retained as the auth-surface analysis that informed the rotation decision.)
+
+### ✅ THE ONLY WORK (small): rotation + un-sever. UN-SEVER RUNBOOK — READY, **HOLD until Tron ROTATES** (leaked token is live until then; un-severing first = terminal reachable by any repo-holder).
+1. **Tron ROTATES** the owner token (his action, ~2 min — PO asking). ⇒ the leaked public `41ad88c4` stops being the owner credential.
+2. **Un-sever = DELETE the D2 containment block** (server.ts ~3715-3733), restoring the original feature gate that sits commented beside it — a DELETION, not a redesign (reversible by design, the inverse of d26cc132c v0.8.93). Exact edit: replace the `403 severed + socket.destroy + return` body with the uncommented original gate:
+   ```
+   if (path === '/api/server-manager/terminal') {
+     if (!ServerManagerGuard.requireFeatureAccess(req, 'Server Manager', resolveSessionToken, featureAllowedUsers).ok) {
+       const ip = req.socket.remoteAddress || 'unknown';
+       addLog(`[server-manager] DENY kind=ws path=${path} token=${(ServerManagerGuard.playerTokenFrom(req) || 'none').slice(0, 8)} ip=${ip}`);
+       socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
+     }
+     termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
+   }
+   ```
+   All referenced symbols current (requireFeatureAccess/resolveSessionToken/featureAllowedUsers per server.ts:1038; termWss @3712; PtyBridge.attachPane @3740). Guaranteed to compile (pre-containment state).
+3. **Deploy** (client-facing — terminal returns to Tron's view): bump SOURCE config unit → `node build.mjs` → commit via rbadd (server.ts + package.json + sw.js + dist) → restart server:0.2 → verify served==committed + terminal ws connects for the owner. Optional follow: drop the now-moot `severed-for-security` notice in rb-terminal-detail.ts.
+4. **DO NOT un-sever before rotation.** Rotation first, un-sever immediately after.
+- ★ ONE small guard is the PO's PROPOSAL TO TRON (his call, NOT ours to build unasked): a lint failing if any owner-auth value appears in a tracked file (prevents a credential re-leak). Do NOT build unless Tron says so.
+
+---
+**Author:** robbin-expert · **2026-08-24** · [ANALYSIS ONLY — refactor CANCELLED above] Shape was architect-RATIFIED (note 314ea6ca1) + PO-confirmed before Tron cancelled — retained as the measured auth-surface analysis. **NOT deployable until Tron ROTATES the token** + architect re-backstops the FULL chain. Terminal stays SEVERED (server.ts:3705) = safe state.
 
 ## ★★★ THE PRIMARY DELIVERABLE IS THE LINT (PO headline), not the auth string-fix
 **TWO-FOR-TWO: two independent, competent fixes BOTH reopened arbitrary shell-exec.** (1) my sm_session gate — the public literal mints a session. (2) my protected-identity finding — 05e58f81 is PUBLIC (10 files), path-(b) has no live-session check, `profileUuidOf(uuid)=uuid` ⇒ present the bare public uuid COLD → owner → PTY. **Both swapped one public value for another public value.** ⇒ THE REAL ROOT, generalised: it is not WHICH value is trusted — it is that **ANY value found in the repo is trusted AT ALL, presented cold with no session.** Every fix that names a specific value reproduces this. So the **INV-G2 LINT EXTENSION — "no owner-auth path accepts ANY value that appears in a TRACKED file, presented cold" — IS THE HEADLINE.** The auth change fixes today's two strings; the LINT makes the THIRD instance impossible-by-construction. **Failable test covers the 05e58f81-COLD attack too** (a test covering only 41ad88c4 would have passed the protected-identity fix while it was wide open). ★ BANKED ON THE SURFACE: nobody edits owner-auth here without the architect backstop — not process, the **measured failure rate** (2/2 competent fixes reopened RCE).
