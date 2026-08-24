@@ -13,8 +13,7 @@
   - [x] creating test cases
   - [x] implementing
   - [x] testing
-- [ ] QA Review
-  - [ ] processing change requests
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues

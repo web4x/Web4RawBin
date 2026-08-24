@@ -78,7 +78,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
-import { APPROVE_STATUSES, deriveStatusEnum } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role
+import { APPROVE_STATUSES, deriveStatusEnum, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
 import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
@@ -1638,6 +1638,21 @@ function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8:
   return { code: 200, payload: { ok: true, changeRequest: crUuid, status: String((reopened.model as Record<string, unknown>).status || '') } };
 }
 
+// R40.1 CR-RESOLVE (#86) — owner-gated: a human decides the change requests are DONE → tick the band's 'processing change
+// requests' sub-step through the EXISTING generic subStep seam (task-policy tickSubStep) → hasOpenCrSubstep goes false →
+// deriveStatusEnum recomputes to clean 'QA Review' (approvable). NO status literal (the seam derives), NO auto-tick (fires
+// ONLY on this explicit owner action). A non-band task → the subStep validate throws (band-state-only) → 409, nothing written.
+function resolveCr(idx: ScenarioIndex, taskUuid: string, actor: { id: string; name: string }): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(taskUuid);
+  if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
+  try {
+    const resolved = UnitController.apply(idx, 'ior:class:Task', taskUuid, { subStep: PROCESSING_CR_SUBSTEP }, { actor, publish: publishUnitChanged });
+    return { code: 200, payload: { ok: true, status: String((resolved.model as Record<string, unknown>).status || '') } }; // clean 'QA Review' once the band clears
+  } catch (e: any) {
+    return { code: 409, payload: { ok: false, error: 'resolve-refused', detail: String(e?.message || e) } }; // e.g. not a band task (no open processing-CR sub-step)
+  }
+}
+
 async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
   trackClient(req);
   try {
@@ -1822,7 +1837,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
 
     // R40.10 — owner-gated task QA verdict: POST /api/task/<uuid>/{approve,decline}. Owner-only (403 non-owner);
     // approve records Tron's QA as DATA + is evidence-gated (cannot manufacture Done); decline mints a ChangeRequest.
-    const taskVerdictMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/(approve|decline)$/);
+    const taskVerdictMatch = filepath.match(/^\/api\/task\/([0-9a-fA-F-]+)\/(approve|decline|resolve-cr)$/);
     if (req.method === 'POST' && taskVerdictMatch) {
       if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — a non-owner can never record a QA verdict
       const taskUuid = taskVerdictMatch[1], verb = taskVerdictMatch[2];
@@ -1843,6 +1858,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const now = new Date().toISOString();
           let out: { code: number; payload: Record<string, unknown> };
           if (verb === 'approve') out = approveByOwner(idx, taskUuid, approver, now);
+          else if (verb === 'resolve-cr') out = resolveCr(idx, taskUuid, approver); // R40.1 CR-resolve: tick the band's processing-CR sub-step → clean QA-Review (owner-gated above)
           else { let reason = ''; try { reason = String(JSON.parse(body || '{}').reason || '').slice(0, 2000); } catch { /* reason optional */ } out = declineToChangeRequest(idx, taskUuid, approver.id, reason, now); }
           // R40.18 BITE-6b observable stale-steer (LOG-ONLY, never a pin write): if the just-approved-to-Done task is
           // the current explicit steer, its designation is used up → auto-progress resumes. Delegated to StaleSteerLog.

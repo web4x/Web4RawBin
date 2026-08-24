@@ -12,7 +12,7 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 
 ## Tasks
 
-- [ ] 🔁 [Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)](./task-40.1-open-claude-rc-action.md)
+- [ ] 🧪 [Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)](./task-40.1-open-claude-rc-action.md)
 - [ ] 🧪 [Task 40.2: WODA.prod as a UML deployment-Node (SSH/domain/letsencrypt refs + otmux sessions->windows->panes children)](./task-40.2-woda-prod-uml-deployment-node.md)
 - [ ] 🧪 [Task 40.3: Suppress OS (iOS) keyboard + configurable Keyboard Controller (suppression + controller shell + config model)](./task-40.3-suppress-keyboard-controller.md)
 - [ ] 🧪 [Task 40.4: Sprint labels show the sprint NUMBER (display-composed 'Sprint N — theme' from model.number + name, single-source)](./task-40.4-sprint-label-shows-number.md)
