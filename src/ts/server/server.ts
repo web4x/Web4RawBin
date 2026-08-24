@@ -1592,7 +1592,12 @@ function approveByOwner(idx: ScenarioIndex, taskUuid: string, approver: { id: st
   const unit = idx.get(taskUuid);
   if (!unit || unit.ior !== 'ior:class:Task') return { code: 404, payload: { ok: false, error: 'task-not-found' } };
   const m = unit.model as any;
-  if (!APPROVE_STATUSES.includes(m.status as typeof APPROVE_STATUSES[number])) return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `status '${m.status}' not in ${JSON.stringify(APPROVE_STATUSES)} — cannot manufacture Done` } }; // R40.37: same set the client affordance hides on (anti-drift)
+  // R40.59: gate on the DERIVED status (deriveStatusEnum of the checklist), NOT stored m.status — so a task in the
+  // 'QA-Review-with-open-CR' band (open CR sub-step) is NOT approvable by construction (band ∉ APPROVE_STATUSES → 409),
+  // and a stale/drifted m.status can never open the Done-gate. Done is gated on zero open CRs (a resolved CR ticks the
+  // sub-step → derives clean 'QA Review' → approvable).
+  const derivedStatus = deriveStatusEnum(String(m.statusChecklist ?? ''));
+  if (!APPROVE_STATUSES.includes(derivedStatus as typeof APPROVE_STATUSES[number])) return { code: 409, payload: { ok: false, error: 'no-evidence', detail: `derived status '${derivedStatus}' not in ${JSON.stringify(APPROVE_STATUSES)} — cannot manufacture Done${derivedStatus === 'QA-Review-with-open-CR' ? ' (task has an open change request — resolve it first)' : ''}` } }; // R40.37/R40.59: same set the client affordance hides on (anti-drift), derived not stored
   // AC-1 (provenance, PO ruling): approvedBy = the owner's STABLE identity uuid (NOT resolveOwner's 'sm_session' placeholder,
   // NOT a truncated token, NEVER the raw OWNER_TOKEN credential — hygiene #0). approvedByName = the human label.
   // ★ NAMED GAP (architect 8f4f70430, not silent): the verdict is ATTRIBUTABLE (owner-only endpoint, 403 non-owner) +

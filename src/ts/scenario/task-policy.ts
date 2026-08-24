@@ -13,7 +13,7 @@
  */
 import { ScenarioIndex } from './index-store.js';
 import type { ScenarioUnit } from './types.js';
-import { deriveStatusEnum, type TaskStatusEnum } from './task-status.js';
+import { deriveStatusEnum, PROCESSING_CR_SUBSTEP, type TaskStatusEnum } from './task-status.js';
 import { StepEvidence, type EvidenceStep, type ResolveRef } from './step-evidence.js';
 import { UnitController, registerPolicy, type UnitPolicy, type UnitIntent, type PublishFn } from './unit-controller.js';
 import { registerSelfHeal } from './self-heal.js'; // C4.1 self-heal on read (Task healer registers below)
@@ -51,6 +51,19 @@ function tickBox(checklist: string, target: TaskStatusEnum): string {
 function untickBox(checklist: string, target: TaskStatusEnum): string {
   const re = new RegExp(`^(\\s*- \\[)[xX]\\](\\s*${target}\\b.*)$`, 'm');
   return re.test(checklist) ? checklist.replace(re, '$1 ]$2') : checklist;
+}
+
+// R40.59 (T40.1 decline-band): INSERT the OPEN processing-CR sub-step so a declined QA-Review/Done task derives the
+// 'QA-Review-with-open-CR' band (NOT In Progress). IDEMPOTENT — no-op if the sub-step already exists (open OR resolved),
+// so a re-run never double-inserts. Placed under the QA Review line for readability (position is irrelevant to the
+// derivation — deriveStatusEnum ignores indented lines; hasOpenCrSubstep scans anywhere), else appended.
+function insertOpenCrSubstep(checklist: string): string {
+  if (new RegExp(`^\\s+-\\s*\\[[ xX]\\]\\s*${PROCESSING_CR_SUBSTEP}\\b`, 'im').test(checklist)) return checklist;
+  const sub = `  - [ ] ${PROCESSING_CR_SUBSTEP}`;
+  const lines = checklist.split('\n');
+  const qaIdx = lines.findIndex((l) => /^-\s*\[[ xX]\]\s*QA Review\b/i.test(l));
+  if (qaIdx >= 0) { lines.splice(qaIdx + 1, 0, sub); return lines.join('\n'); }
+  return `${checklist.replace(/\s*$/, '')}\n${sub}`;
 }
 
 // R40.18 sub-step primitive (found by USING the design — the agent-status skill needs it; without it agents are forced
@@ -108,11 +121,15 @@ export const TaskPolicy: UnitPolicy = {
       m.lastAdvancedAtSource = 'seam';
       return;
     }
-    if (intent.reopen) { // (5a) decline: UNTICK Done + QA Review → deriveStatusEnum derives In Progress (the SOLE 4-state writer; NO direct m.status).
+    if (intent.reopen) { // (5a→R40.59 BAND) decline: UNTICK Done + QA Review AND insert the OPEN processing-CR sub-step so
+      // deriveStatusEnum derives the BAND 'QA-Review-with-open-CR' (NOT In Progress) — the SOLE writer, NO direct m.status.
+      // ★ ATOMIC PAIR (architect 0557e1532 inv-1): the untick and the sub-step land TOGETHER in this one seam write. An
+      // untick WITHOUT the sub-step would derive In Progress = the Tron-forbidden regress (that is the tester RED baseline).
       let cl = String(m.statusChecklist ?? '');
       cl = untickBox(cl, 'Done'); cl = untickBox(cl, 'QA Review');
+      cl = insertOpenCrSubstep(cl); // the open sub-step lifts the unticked checklist out of In-Progress into the band
       m.statusChecklist = cl;
-      m.status = deriveStatusEnum(cl); // sole 4-state writer — recomputes to In Progress from the edited checklist
+      m.status = deriveStatusEnum(cl); // sole status writer — derives the band from the edited checklist (single-source)
       if (intent.addChangeRequest) { // ride the decline's CR-link in the SAME seam transaction (get() re-reads disk, so a separate push would be lost)
         const arr = Array.isArray(m.changeRequests) ? (m.changeRequests as string[]) : [];
         arr.push(String(intent.addChangeRequest)); m.changeRequests = arr;

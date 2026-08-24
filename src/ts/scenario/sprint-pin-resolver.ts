@@ -94,6 +94,7 @@ export function deriveSprintStatus(sprint: ScenarioUnit, idx: ScenarioIndex): Sp
     switch (deriveStatusEnum(String(tm.statusChecklist ?? ''))) {
       case 'Done': counts.done++; break;
       case 'In Progress': counts.inProgress++; break;
+      case 'QA-Review-with-open-CR': counts.qa++; break; // R40.59 band rolls up as QA for the sprint (else falls to default=planned, wrong)
       case 'QA Review': counts.qa++; break;
       default: counts.planned++;
     }

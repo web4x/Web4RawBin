@@ -272,7 +272,9 @@ export class CurrentSprint {
     // stuck; R40.17). A genuine owner Set-Current is the separate designatedCurrent OVERRIDE (demote — next increment).
     // WIP=N: the whole inProgress SET is surfaced (below) so multi-current is HONEST — no arbitrary single-pick.
     const inProgressRanked = sprintTasks
-      .filter(t => t.status === 'In Progress')
+      // R40.59 inv-3 (the ONE current-eligibility place): the band is current-able (processing a CR IS working) — it is
+      // already non-terminal (TERMINAL_FOR_CURRENT stays ['QA Review','Done']), so accept it here alongside In Progress.
+      .filter(t => t.status === 'In Progress' || t.status === 'QA-Review-with-open-CR')
       .sort((a, b) => (b.lastAdvancedAt || '').localeCompare(a.lastAdvancedAt || '')); // max lastAdvancedAt first; untimestamped last
     let i = -1;
     if (inProgressRanked.length) i = sprintTasks.indexOf(inProgressRanked[0]);

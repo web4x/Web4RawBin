@@ -17,6 +17,16 @@ export { APPROVE_STATUSES, STATUS_ORDER };
 // derived status = the HIGHEST-order CHECKED top-level checkbox (Planned < In Progress < QA Review < Done);
 // indented sub-steps are ignored (top-level only); a malformed/non-string checklist is handled safely (→ 'Planned',
 // never throws). This is THE single-source derivation — a Task writer sets model.status = deriveStatusEnum(checklist).
+// R40.59 (T40.1 decline-band): the ONE indented sub-step whose OPEN (unchecked) presence lifts a QA-Review/In-Progress
+// task into the 'QA-Review-with-open-CR' band. deriveStatusEnum ignores indented lines for the top-level state, so the
+// band is derived SEPARATELY from this sub-step — never a top-level checkbox, never stored. When the CR resolves the
+// sub-step is TICKED ([x]) → hasOpenCrSubstep goes false → the task falls back to its clean top-level status (the
+// complementary CR-resolve seam is a named follow-on). Single-source: this is the ONLY place the band is derived.
+export const PROCESSING_CR_SUBSTEP = 'processing change requests';
+export function hasOpenCrSubstep(checklist: string): boolean {
+  return typeof checklist === 'string' && new RegExp(`^\\s+-\\s*\\[ \\]\\s*${PROCESSING_CR_SUBSTEP}\\b`, 'im').test(checklist);
+}
+
 export function deriveStatusEnum(checklist: string): TaskStatusEnum {
   if (typeof checklist !== 'string') return 'Planned'; // malformed non-string checklist → safe default, no crash
   let best = 0; // index into STATUS_ORDER; default = Planned when nothing is checked
@@ -27,6 +37,10 @@ export function deriveStatusEnum(checklist: string): TaskStatusEnum {
     const idx = STATUS_ORDER.findIndex((s) => s.toLowerCase() === m[2].trim().toLowerCase());
     if (idx > best) best = idx;                        // keep the highest-order checked box
   }
+  // R40.59 BAND (architect 0557e1532 inv-2, DERIVED-not-stored): a non-Done task carrying an OPEN processing-CR sub-step
+  // derives the band. Checked AFTER the top-level loop so it layers on the highest checked box; NOT for a Done task (a
+  // Done task with a stray open sub-step stays Done — Done is terminal, never silently reopened by a sub-step).
+  if (STATUS_ORDER[best] !== 'Done' && hasOpenCrSubstep(checklist)) return 'QA-Review-with-open-CR';
   return STATUS_ORDER[best];
 }
 
@@ -74,10 +88,11 @@ export function childTaskUuids(model: Record<string, unknown>, selfUuid?: string
 // invisible): ⏳ Planned · 📝 designed(refinement done) · 🔧 implementing · ✅ impl-shipped · 🧪 QA-Review(testing) ·
 // 🏁 Done. BOTH the sprint-board generator (planning.md) AND the verdict-surface import THIS one function — the
 // no-2nd-source grep-lint (scripts/check-status-symbol-single-source) enforces that the glyphs live only here.
-export const STATUS_GLYPHS = ['⏳', '📝', '🔧', '✅', '🧪', '🏁'] as const;
+export const STATUS_GLYPHS = ['⏳', '📝', '🔧', '✅', '🧪', '🔁', '🏁'] as const; // R40.59: 🔁 = QA-Review-with-open-CR band
 export function statusSymbol(checklist: string): string {
   switch (deriveStatusEnum(checklist)) {
     case 'Done': return '🏁';
+    case 'QA-Review-with-open-CR': return '🔁'; // R40.59 band — else it would fall to the In-Progress default glyph
     case 'QA Review': return '🧪';
     case 'Planned': return '⏳';
     default: { // In Progress → finer glyph from the indented sub-steps (still the checklist = single-source)
@@ -193,10 +208,40 @@ export function runRollupBite(): void {
   console.log(`\n✓ rollup-parent bite: ${asserts.length}/${asserts.length} — coordination root derives from children (weakest-link), lying 'Planned' fixed by construction, leaf unaffected`);
 }
 
+// [BITE — R40.59 T40.1 decline-band, architect 0557e1532] Prove the band derivation + the atomic-pair RED baseline:
+// (1) a QA-Review checklist with QA Review UNTICKED + an OPEN processing-CR sub-step derives the BAND, not In Progress;
+// (2) the SAME checklist WITHOUT the sub-step derives In Progress = the Tron-forbidden regress the atomic untick+sub-step
+// pair prevents (the tester RED baseline); (3) a resolved (TICKED) sub-step clears the band → clean QA Review; (4) a Done
+// task with a stray open sub-step stays Done (the band never silently reopens Done); (5) the band is NOT approvable
+// (∉ APPROVE_STATUSES) → cannot manufacture Done; (6) current-able ordering (past In-Progress, below clean QA Review);
+// (7) the 🔁 glyph. `task-status.ts --band-bite`.
+export function runBandBite(): void {
+  const asserts: { ok: boolean; msg: string }[] = [];
+  const A = (ok: boolean, msg: string) => asserts.push({ ok, msg });
+  const declined = '- [x] Planned\n- [x] In Progress\n- [ ] QA Review';           // QA Review UNTICKED (a decline)
+  const withOpenCr = declined + '\n  - [ ] processing change requests';           // + OPEN processing-CR sub-step
+  const withResolvedCr = '- [x] Planned\n- [x] In Progress\n- [x] QA Review\n  - [x] processing change requests';
+  const doneWithStray = '- [x] Planned\n- [x] In Progress\n- [x] QA Review\n- [x] Done\n  - [ ] processing change requests';
+  A(deriveStatusEnum(withOpenCr) === 'QA-Review-with-open-CR', 'BAND: QA-Review unticked + an OPEN processing-CR sub-step ⇒ derives the band');
+  A(deriveStatusEnum(declined) === 'In Progress', 'RED BASELINE (STUB-MUST-FAIL): the SAME untick WITHOUT the sub-step derives In Progress = the Tron-forbidden regress — the ATOMIC untick+sub-step pair is what prevents it');
+  A(hasOpenCrSubstep(withOpenCr) && !hasOpenCrSubstep(declined) && !hasOpenCrSubstep(withResolvedCr), 'hasOpenCrSubstep: true ONLY for an OPEN [ ] sub-step; a resolved [x] one does NOT count');
+  A(deriveStatusEnum(withResolvedCr) === 'QA Review', 'RESOLVE: a TICKED processing-CR sub-step clears the band → clean QA Review (approvable again)');
+  A(deriveStatusEnum(doneWithStray) === 'Done', 'DONE TERMINAL: a Done task with a stray open sub-step stays Done (the band never silently reopens Done)');
+  A(!(APPROVE_STATUSES as readonly string[]).includes('QA-Review-with-open-CR') && (APPROVE_STATUSES as readonly string[]).includes('QA Review'), 'DONE-GATE: the band is NOT approvable (∉ APPROVE_STATUSES) → cannot manufacture Done; clean QA Review is');
+  const bandIdx = STATUS_ORDER.indexOf('QA-Review-with-open-CR');
+  A(bandIdx > STATUS_ORDER.indexOf('In Progress') && bandIdx < STATUS_ORDER.indexOf('QA Review'), 'CURRENT-ABLE ordering: the band ranks past In-Progress and below clean QA Review (non-terminal ⇒ current-eligible)');
+  A(statusSymbol(withOpenCr) === '🔁', 'GLYPH: the band renders 🔁 (not the In-Progress default)');
+  const failed = asserts.filter((a) => !a.ok);
+  for (const a of asserts) console.log(`  ${a.ok ? '✓' : '✗ FAIL'} ${a.msg}`);
+  if (failed.length) { console.log(`\n✗ decline-band bite: ${failed.length}/${asserts.length} FAILED`); process.exit(1); }
+  console.log(`\n✓ decline-band bite: ${asserts.length}/${asserts.length} — band derives (not In-Progress); untick-without-substep=In-Progress RED baseline; resolve clears; Done stays terminal; not approvable; current-able ordering; 🔁 glyph`);
+}
+
 // CLI (fold into ci:gates): lists every offender, FALSE-DONE subset first, exits 1 if any. Guarded so importing
 // deriveStatusEnum (e.g. from the generator) never triggers the run.
 if (process.argv[1] && process.argv[1].endsWith('task-status.ts')) {
   if (process.argv.includes('--rollup-bite')) { runRollupBite(); process.exit(0); } // R40.1 (d): prove the rollup + child-resolver bite
+  if (process.argv.includes('--band-bite')) { runBandBite(); process.exit(0); } // R40.59: prove the decline-band derivation + RED baseline
   if (process.argv.includes('--bite')) { runStatusScopeBite(); process.exit(0); } // meta-bite: prove the UNVERIFIABLE exclusion did not blind the gate
   const idx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
   const offenders = assertStatusConsistent(idx);
