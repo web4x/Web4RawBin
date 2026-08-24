@@ -5,7 +5,9 @@
     "name": "childTaskUuids impl — child-task-uuid extraction (task-status.ts:57)",
     "sourceFile": "src/ts/scenario/task-status.ts",
     "sourceLine": 58,
-    "tests": [],
+    "tests": [
+      "ior:instance:5b7c1a83-6f42-4e90-a3d1-8c05e6b47f21"
+    ],
     "markerPending": false,
     "designAhead": false,
     "unitLinks": [],

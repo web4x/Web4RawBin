@@ -5,7 +5,9 @@
     "name": "rollupParentStatus impl — weakest-link parent rollup (task-status.ts:42)",
     "sourceFile": "src/ts/scenario/task-status.ts",
     "sourceLine": 42,
-    "tests": [],
+    "tests": [
+      "ior:instance:9d2e4f70-3c81-4a6b-bf05-1e7a24c8b9d3"
+    ],
     "markerPending": false,
     "designAhead": false,
     "unitLinks": [],
