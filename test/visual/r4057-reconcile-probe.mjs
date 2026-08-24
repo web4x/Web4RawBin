@@ -45,3 +45,6 @@ try {
   const td = await f.teardown();
   console.log(`teardown: prodUp=${td.prodUp} leftover=${td.leftover}`);
 }
+
+// ── PARK-then-DESIGNATE read-after-write (matches my agreement RED's staging) — bug(ii) discriminator ──
+// (the above is a fresh foundation per run; this block re-runs the exact park→designate→immediate-read sequence)
