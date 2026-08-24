@@ -25,8 +25,9 @@ try{
   await p.evaluate(x=>document.dispatchEvent(new CustomEvent('selection-changed',{detail:{selected:['task:'+x]}})),T40); // open drawer on 40.1 (NOT current yet)
   await sleep(1400); const before=await read();
   console.log('OPEN 40.1 (park='+park?.slice(0,8)+' current): csu="'+before.csuFull+'" ref="'+before.refFull+'" type='+before.shownType+' offers='+before.offers);
-  await mc(T40); // DESIGNATE 40.1 → broadcast (drawer already open)
-  await sleep(1800); const after=await read();
+  await mc(T40); // DESIGNATE 40.1 → broadcast (drawer already open); WATCH the bar over several seconds
+  const watch=[]; for(const t of [500,2000,5000]){ await sleep(t===500?500:t-watch[watch.length-1]?.t||t); const r=await read(); watch.push({t, csu:r.csuFull.slice(0,8), offers:r.offers}); console.log(`  t+${t}ms: _currentSlotUuid=${r.csuFull.slice(0,8)} bar-offers=${r.offers}`); }
+  const after=await read();
   console.log('\nAFTER make-current(40.1) [drawer open, settled] — VERBATIM comparison sides:');
   console.log('  _currentSlotUuid = "'+after.csuFull+'" (len '+after.csuFull.length+')');
   console.log('  _shownRef        = "'+after.refFull+'" (len '+after.refFull.length+')  type='+after.shownType);
