@@ -10,7 +10,7 @@ export type ActionDecl = {
   onInvalid?: 'hide' | { disabledReason: string };
 };
 export type ActionUnit = { type: string; status?: string; kind?: string };
-export type ActionCtx = { hasActiveDiagram?: boolean; taskRole?: 'current' | 'next' | 'other' }; // T37.26: the shown task's DERIVED pin-role (server-computed model.pinRole) for the Set-as-Current visibility matrix
+export type ActionCtx = { hasActiveDiagram?: boolean; taskRole?: 'current' | 'next' | 'other' }; // R40.57/R40.58 D3: the shown task's role, DERIVED AT RENDER by the consumer from the live current-slot (NOT a server-baked pinRole — that copy is retired), for the Set-as-Current visibility matrix
 
 // The universal declarations (INV-E3 type-policy now DECLARED, not if-chained).
 export const UNIVERSAL_DECLS: ActionDecl[] = [
