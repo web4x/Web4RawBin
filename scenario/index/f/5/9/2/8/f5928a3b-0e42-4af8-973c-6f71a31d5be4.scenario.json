@@ -4,14 +4,15 @@
     "uuid": "f5928a3b-0e42-4af8-973c-6f71a31d5be4",
     "name": "refreshCurrentSlot impl — drawer derive-at-render from live CurrentSprint pin (rb-detail-drawer.ts:95)",
     "sourceFile": "src/public/ts/trace/rb-detail-drawer.ts",
-    "sourceLine": 95,
+    "sourceLine": 96,
     "tests": [
       "ior:instance:4e3547dd-3654-4071-9a70-01d86f65cd71"
     ],
-    "markerPending": true,
+    "markerPending": false,
     "designAhead": false,
     "unitLinks": [],
-    "provenance": "R40.57 cross-view agreement (v0.8.126). NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable). ★ The RETIRE half (attachTaskPinRole + currentTaskUuidFromSlots both DELETED, 0 defs) is an ABSENCE — no Impl for deleted code; the by-construction proof is the gate asserting 0 pinRole in the served payload."
+    "provenance": "R40.57 cross-view agreement (v0.8.126). NAMES verbatim off SHIPPED decls (PO path-a, measured-not-invented); flagged architect 0.3 for light review (correctable). ★ The RETIRE half (attachTaskPinRole + currentTaskUuidFromSlots both DELETED, 0 defs) is an ABSENCE — no Impl for deleted code; the by-construction proof is the gate asserting 0 pinRole in the served payload.",
+    "markerVerified": "robbin-req strict-AST verified first-hand 2026-08-24: [impl:uuid:f5928a3b-0e42-4af8-973c-6f71a31d5be4] adjacent-above the name-matching decl refreshCurrentSlot @src/public/ts/trace/rb-detail-drawer.ts:96; correct uuid on the RIGHT decl (PO message had the two uuids swapped; expert resolved from disk-truth, no swap propagated); markerPending false; sourceLine 95->96 (marker-comment shift)."
   },
   "ownerIor": "ior:instance:31758272-b082-4e1b-8ae6-01328d2ec243"
 }
