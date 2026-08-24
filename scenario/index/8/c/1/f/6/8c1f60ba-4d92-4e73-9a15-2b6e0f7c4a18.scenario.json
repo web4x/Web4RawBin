@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8c1f60ba-4d92-4e73-9a15-2b6e0f7c4a18",
+    "name": "test:R40.57 cross-view AGREEMENT — RED baseline on v0.8.126 (agreement NOT closed; current-task fix INCOMPLETE)",
+    "description": "Bridged to test/visual/r4056-diagnose.mjs (cbb7a0906 cross-view-AGREEMENT gate on /trace, both consumers readable). RESULT re-run on served v0.8.126 (a50b75359) = STILL RED, DET 2/2 — the agreement is NOT closed. Tron defect #5 STILL LIVE: in the live-update flow (drawer open BEFORE + the Set-as-Current broadcast = his actual tap), /api/trace/children?mode=trace returns role current=none for the designated task while the pin reads slots.current=40.1. ★ THIRD independent computation of who-is-current (after derivedCurrentTaskUuid DELETED [R40.56] + the bareUuid comparison [R40.58]) = evidence of a MISSING INVARIANT, not a 3rd separate defect (the argument for R37.24). ★ RED baseline VERBATIM + UNADJUSTED: the tester did NOT touch the gate to make it fire (D1 tune-to-pass discipline). DISTINCT from the derive-at-render Test 4e3547dd (GREEN — a different, WEAKER property; the derive-at-render green does NOT cover this agreement property).",
+    "sourceFile": "ior:file:test/visual/r4056-diagnose.mjs",
+    "implementations": [
+      "ior:instance:f5928a3b-0e42-4af8-973c-6f71a31d5be4"
+    ],
+    "certificationScope": {
+      "state": "RED-BASELINE (agreement NOT met on v0.8.126)",
+      "gate": "cbb7a0906 r4056-diagnose /trace, RED DET 2/2 on v0.8.126 (a50b75359)",
+      "proves": "the cross-view AGREEMENT property FAILS on v0.8.126 (pin says current 40.1, drawer bar offers Set-as-Current) = fix INCOMPLETE",
+      "verbatimUnadjusted": "tester did NOT modify the gate to force the RED (D1 tune-to-pass discipline); the RED is the real bug",
+      "thirdSource": "3rd independent who-is-current computation (/api/trace/children mode=trace role=none) = missing-invariant evidence, argues R37.24",
+      "note": "RED baseline, NOT a pass. R40.57 INCOMPLETE not merely un-gated. Nothing reaches Tron (tester declared item #5 NOT-GUARANTEED). NOT Done."
+    },
+    "gate": "cbb7a0906 r4056-diagnose /trace RED DET 2/2 v0.8.126",
+    "status": "fail",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:f5928a3b-0e42-4af8-973c-6f71a31d5be4"
+}
