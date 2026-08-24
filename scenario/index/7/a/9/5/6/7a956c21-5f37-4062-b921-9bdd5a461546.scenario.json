@@ -23,6 +23,7 @@
     "createdBy": "robbin-planner",
     "createdAt": "2026-08-08",
     "lastAdvancedAt": "2026-08-20T14:58:15.415Z",
-    "lastAdvancedAtSource": "seam"
+    "lastAdvancedAtSource": "seam",
+    "t40_1_boundaryRecord": "★ BOUNDARY (architect owns bundling error + confirms; robbin-req verified shared work-tree = v0.8.130 HEAD 79fea0ea1): T40.1 REMAINING = 3 STEPS ONLY: (1) tester GUARANTEE pass on v0.8.130; (2) RESOLVE the 5 CRs (#86-1..5 ALL SHIPPED: #86-1 v0.8.128 / #86-2 v0.8.127 / #86-3+#86-4 v0.8.130 / #86-5 functional) via the shipped CR-RESOLVE action (v0.8.129, apply re-ticks QA Review on resolve) -> band clears -> clean QA-Review -> approvable; (3) Tron ONE approve. NOTHING else gates T40.1. ★ SEPARATE non-gating (do NOT re-bundle): (i) terminal server-manager RCE structural literal-trust removal + rotation (POST-CUT, severed until removal AND rotation); (ii) :301/:296/:1914 DONE-only denylist eligibility leak -> named-DESIGNATION_ELIGIBLE allowlist (POST-CUT; = robbin-req R40.56/59 eligibility divergence, architect-ruled narrow-code). ★ SPLIT: #86-3/#86-4 are R40.17 SLOT behaviour (not RC, bundled by timing) - split evidence stands but MOOT for T40.1 timeline since they SHIPPED v0.8.130 (resolved same CR-resolve pass, no waiting). Tron may split for cleanliness; not blocking."
   }
 }
