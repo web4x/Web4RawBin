@@ -18,6 +18,11 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   { verb: 'preview-file', label: '👁 Preview', appliesTo: { types: ['file'] } },
   { verb: 'open-newtab', label: '↗ New tab', appliesTo: { types: ['file'] } },
   { verb: 'proxy-preview', label: '⟳ Proxy preview', appliesTo: { types: ['webitem'] } },
+  // R40.1 CR#86-1 (T40.1 Open-Claude.ai-RC): RC is a STANDARD universal action, NOT a bespoke private button (the custom
+  // button was exactly what Tron declined). Applies to a terminal/pane detail (type 'otmuxpane', uuid = the tmux pane_id).
+  // Owner-gating is server-side in the handler's RcLinkResolver.resolveRcLink (url for owner, null+reason for non-owner) —
+  // the SAME visible-in-bar + server-gated pattern as qa-approve/decline (no client owner-signal redesign).
+  { verb: 'open-rc', label: '↗ Claude.ai RC', appliesTo: { types: ['otmuxpane'] } },
   // AC2: qa-approve/qa-decline surface ONLY on a task whose status ∈ APPROVE_STATUSES (QA Review) → HIDDEN on Done/
   // In-Progress. That set is the SHARED APPROVE_STATUSES the server 409-gate also enforces (anti-drift, one source).
   { verb: 'qa-approve', label: '✓ Approve', appliesTo: { types: ['task'], statuses: [...APPROVE_STATUSES] }, onInvalid: 'hide' },

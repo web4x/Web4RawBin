@@ -8,8 +8,9 @@ import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.17: notify the Curren
 // R40.37: the applicability declarations + the pure resolver live in the browser-dep-free action-applicability module
 // (node-testable). This file SUPPLIES UNIVERSAL_DECLS to the shared drawer bar (which resolves via applicableActionsFor).
 import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
+import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 CR#86-1: per-pane owner-gated RC deep-link (the ONE existing chain — reused, not redesigned)
 
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next', 'set-current', 'open-task-file'];
+const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -34,6 +35,15 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
     if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation (retired from decls; handler kept dead)
     if (verb === 'set-current') { handleSetCurrent(drawer, uuid); return; } // T37.26 owner Set-as-Current: advance the task via the seam (derived pin follows)
     if (verb === 'open-task-file') { handleOpenTaskFile(uuid); return; } // T37.26 open the task MD (the bar is the ONE action surface)
+    if (verb === 'open-rc') { // R40.1 CR#86-1: RC as a STANDARD action — the ref is 'otmuxpane:%N' → uuid = the tmux pane_id.
+      // REUSE the existing owner-gated chain (RcLinkResolver.resolveRcLink); url → open the universal link (app-else-web),
+      // url==null → surface the STATED reason, NEVER a synthesised/fabricated URL (fail-closed, INV-1 = the old button's effect).
+      void RcLinkResolver.resolveRcLink(uuid).then((link) => {
+        if (link.url) window.open(link.url, '_blank', 'noopener');
+        else surfaceVerdict(drawer, 'No RC link for this pane: ' + (link.reason || 'no measured bridge session'), 'warn');
+      }).catch(() => surfaceVerdict(drawer, 'RC lookup failed (network)', 'err'));
+      return;
+    }
     if (verb === 'download-vcard') { // was the rb-detail-view vCard button (fetch real playerToken, then download)
       void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
         const m = (j?.unit?.model || {}) as Record<string, unknown>;
