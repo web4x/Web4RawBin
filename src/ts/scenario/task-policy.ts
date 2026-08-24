@@ -145,8 +145,14 @@ export const TaskPolicy: UnitPolicy = {
       return;
     }
     if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)
-      m.statusChecklist = tickSubStep(String(m.statusChecklist ?? ''), String(intent.subStep));
-      m.status = deriveStatusEnum(String(m.statusChecklist)); // unchanged (sub-step doesn't move the state) — recompute for the SOLE-writer invariant
+      let cl = tickSubStep(String(m.statusChecklist ?? ''), String(intent.subStep));
+      // R40.1 CR-RESOLVE (#86): resolving the processing-CR sub-step returns the task to CLEAN 'QA Review' (approvable).
+      // The band's decline UNTICKED QA Review, so re-tick it here — the INVERSE of that untick. Ticking the sub-step alone
+      // clears hasOpenCrSubstep but would leave the top-level at In Progress (the forbidden regress); re-ticking QA Review
+      // lands the clean 'QA Review' the owner approves from. (An In-Progress sub-step tick keeps its state → no re-tick.)
+      if (String(intent.subStep) === PROCESSING_CR_SUBSTEP) cl = tickBox(cl, 'QA Review');
+      m.statusChecklist = cl;
+      m.status = deriveStatusEnum(cl); // SOLE writer — recompute from the edited checklist (no status literal)
       m.lastAdvancedAt = new Date().toISOString();
       m.lastAdvancedAtSource = 'seam';
       return;
