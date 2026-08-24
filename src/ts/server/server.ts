@@ -2750,8 +2750,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const taskUnit = idx.get(s.slot.taskUuid);
             const taskName = taskUnit ? String(taskUnit.model?.name || s.slot.taskName) : s.slot.taskName;
             const isCurrent = s.role === 'current'; // from the resolver's slot classification, NOT the display label
-            const status = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : '';
-            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, pinSlot: true, role: s.role }; // R40.57/R40.58 D3: role stamped from slotsFrom classification; the drawer derives taskRole at render from role:'current'. R40.18: em-dash; pinSlot un-truncates
+            // R40.1 CR#86: the pin-slot ROW's workflow status = the SAME deriveStatusEnum(checklist) the DETAIL shows —
+            // one unit, one meaning, one value. Was chain-HOP labels (GATE-PROVEN / IMPL-DONE / IN-PROGRESS) stamped onto
+            // the field the row renders AS workflow status → a band (QA-Review-with-open-CR) task showed a FALSE 'IN-PROGRESS'
+            // on Tron's board = the exact regress he forbade. Chain-progress is PRESERVED in its OWN field (chainProgress).
+            const status = taskUnit ? deriveStatusEnum(String((taskUnit.model as Record<string, unknown>).statusChecklist ?? '')) : '';
+            const chainProgress = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : ''; // chain-progress info kept, NOT conflated with workflow status
+            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, chainProgress, pinSlot: true, role: s.role }; // R40.57/R40.58 D3: role stamped from slotsFrom classification; the drawer derives taskRole at render from role:'current'. R40.18: em-dash; pinSlot un-truncates
           });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           // node name surfaces the resolved sprint + its HONEST status label (R40.17); model.name as the fallback.
