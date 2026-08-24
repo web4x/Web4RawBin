@@ -1380,34 +1380,11 @@ function resolveUsedIn(elementUuid: string): { kind: string; ref: string }[] {
 // INVISIBLE on the task surface Tron declined it from (gate-the-AC-surface). The backref (task/ownerIor on the CR) is
 // durable. COMPUTE-ON-READ at /api/ior — NEVER writes the file (INV-T byte-diff==0); unions any live mirror so a
 // populated mirror is never lost. The client renderChangeRequests reads model.changeRequests → renders each CR reachable.
-// T37.26 — the DERIVED current task = the In-Progress task with the MAX lastAdvancedAt (CurrentSprint.ts:247, the value
-// Tron watches; single-source with the pin). attachTaskPinRole tags a Task's SERVED model with pinRole ∈ {current, other}
-// so the action-bar's Set-as-Current matrix (current→hide, everyone-else→show) resolves from ONE server-side truth — no
-// client re-derivation, no second source. Compute-on-read, NEVER persisted (the seam never sees pinRole). 'next' role is
-// deferred to the architect's set-next ruling.
-// R40.56 SINGLE-SOURCE: the ONE current-task read routes through the SAME designation-honoring resolver as the pin /
-// scoreboard / tree (resolveSprintPin → CurrentSprint.slotsFrom → slots.current) — NOT a parallel derivation. The rogue
-// `derivedCurrentTaskUuid` (loop Tasks, In-Progress-ONLY, max lastAdvancedAt) is DELETED: it IGNORED the owner
-// designation, so "what Tron SET" and "what rendered current" diverged, and its In-Progress-only filter re-invented the
-// status-policy retired at T37.26 (a QA-Review designated task could never be current). Eligibility is now ONE definition
-// (getThreeSlots: designation wins while status ∈ {Planned/In-Progress/QA-Review}, else the derived cascade). Honest
-// ABSENCE ('') on expiry/ambiguity — resolver throw (ambiguity) → '' → Set-Current shows on all, never a silent guess.
-function currentTaskUuidFromSlots(idx: ScenarioIndex): string {
-  const model = (idx.get('current-sprint-singleton-0000-000000000001')?.model ?? {}) as Record<string, unknown>;
-  const desNum = /\d+/.exec(String(model.sprintName || ''))?.[0];
-  const nextNum = /\d+/.exec(String(model.nextSprintName || ''))?.[0];
-  try {
-    const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
-    const cur = pin.current;
-    const slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined);
-    return String(slots.current?.taskUuid || ''); // R40.58 D1: consume the real ThreeSlots type (no cast) → compiler enforces .taskUuid (was .uuid via a lying as-cast → '' → every task 'other')
-  } catch { return ''; } // fail-closed: resolver ambiguity (>1 Active / unresolvable) → honest absence, never a guess
-}
-// COMPUTE-ONCE-PASS-DOWN (AC): the caller computes the current uuid ONCE per request via currentTaskUuidFromSlots and
-// threads it here — a 2nd slotsFrom with different inputs would itself be a 2nd source. pinRole MIRRORS slots.current.
-function attachTaskPinRole(taskUuid: string, m: Record<string, unknown>, currentUuid: string): void {
-  m.pinRole = currentUuid && currentUuid === taskUuid ? 'current' : 'other'; // honest absence ('') → all 'other'
-}
+// R40.57/R40.58 D3 — the SERVER-BAKED pinRole is RETIRED. It was a per-request COPY on the task's /api/ior model
+// (attachTaskPinRole + currentTaskUuidFromSlots, both DELETED) — a copy that could go stale vs the live pin, and it
+// silenced cross-view agreement bugs. taskRole is now DERIVED AT RENDER by the CONSUMER (the drawer) from the ONE live
+// recompute source (/api/trace/children/<CS>?mode=trace, the role:'current' slot), so pin + action-bar AGREE by
+// construction (no copy = nothing to go stale). By-construction proof: 0 pinRole survives the served payload.
 // T37.26 — the task's OWN MD href, computed server-side so the bar's 📄 Open-Task-file ACTION has ONE source (the inline
 // body link is removed — the bar is the action surface). Mirrors R22.1 taskMdHref: sourceFile (its own .md, not the shared
 // planning.md) else the parent sprint's PINNED slug + the task slug. Compute-on-read, never persisted.
@@ -2738,19 +2715,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           } catch (e: any) {
             pinSprintLabel = `⚠ UNRESOLVED — ${String(e?.message || e).slice(0, 160)}`; // honest fail-loud, not a crash
           }
-          const slotEntries: Array<{ label: string; slot: any }> = [
-            { label: '📌 Current', slot: slots.current },
-            { label: '✅ Last Completed', slot: slots.lastCompleted },
-            { label: '📋 Next Backlog', slot: slots.nextBacklog },
+          // R40.57/R40.58 D3: `role` is stamped FROM slotsFrom's OWN slot classification (which slot IS .current /
+          // .lastCompleted / .nextBacklog) — a structural label ON the resolver output, NOT re-derived from the display
+          // label. The drawer reads children.find(role==='current') = the ONE resolver's answer (single-source).
+          const slotEntries: Array<{ label: string; slot: any; role: 'current' | 'lastCompleted' | 'nextBacklog' }> = [
+            { label: '📌 Current', slot: slots.current, role: 'current' },
+            { label: '✅ Last Completed', slot: slots.lastCompleted, role: 'lastCompleted' },
+            { label: '📋 Next Backlog', slot: slots.nextBacklog, role: 'nextBacklog' },
           ];
           const hopStates = (model.hopStates as Record<string, any>) || {};
           const isGateProven = hopStates.test?.status === 'gate-proven';
           const children = slotEntries.filter(s => s.slot?.taskUuid).map(s => {
             const taskUnit = idx.get(s.slot.taskUuid);
             const taskName = taskUnit ? String(taskUnit.model?.name || s.slot.taskName) : s.slot.taskName;
-            const isCurrent = s.label.includes('Current');
+            const isCurrent = s.role === 'current'; // from the resolver's slot classification, NOT the display label
             const status = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : '';
-            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, pinSlot: true }; // R40.18: em-dash (role=slot label + entity=taskName, one word one owner, no double-colon); pinSlot flags the client to un-truncate (scoped)
+            return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, pinSlot: true, role: s.role }; // R40.57/R40.58 D3: role stamped from slotsFrom classification; the drawer derives taskRole at render from role:'current'. R40.18: em-dash; pinSlot un-truncates
           });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           // node name surfaces the resolved sprint + its HONEST status label (R40.17); model.name as the fallback.
@@ -2898,7 +2878,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         const result = resolver.resolve(ior);
         if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskChangeRequests(iorUuid, result.unit.model as Record<string, unknown>, idx); // R40.10 BUG-A: durable-backref CRs so a declined CR is reachable on the task surface (compute-on-read, never writes)
-        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) { attachTaskPinRole(iorUuid, result.unit.model as Record<string, unknown>, currentTaskUuidFromSlots(idx)); attachTaskMdHref(iorUuid, result.unit.model as Record<string, unknown>, idx); } // T37.26: derived pin-role (Set-as-Current matrix) + task-md href (Open-Task-file action) — compute-on-read, never writes
+        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) { attachTaskMdHref(iorUuid, result.unit.model as Record<string, unknown>, idx); } // T37.26 task-md href (Open-Task-file). R40.57/R40.58 D3: pinRole NO LONGER baked here — the consumer derives taskRole at render from the live recompute (0 pinRole in payload, by construction)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskStatus(result.unit.model as Record<string, unknown>); // ed3442d10: derived status at the READ boundary → action-bar control visibility follows STATUS not membership (compute-on-read, never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
