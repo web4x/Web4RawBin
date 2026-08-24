@@ -6,10 +6,11 @@
     "sourceFile": "src/ts/scenario/task-status.ts",
     "sourceLine": 42,
     "tests": [],
-    "markerPending": true,
+    "markerPending": false,
     "designAhead": false,
     "unitLinks": [],
-    "provenance": "R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). PRIMARY marker target: the code comment at task-status.ts carries [impl-marker PENDING req mint #126] on rollupParentStatus."
+    "provenance": "R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). PRIMARY marker target: the code comment at task-status.ts carries [impl-marker PENDING req mint #126] on rollupParentStatus.",
+    "markerVerified": "robbin-req verified first-hand 2026-08-24: [impl:uuid:44c4054a-cbd5-4405-9836-45d316603105] adjacent-above the name-matching decl rollupParentStatus @task-status.ts:42 (impl:marker:strict exit 0 per expert); markerPending flipped false; sourceLine 42->42 (marker shift)."
   },
   "ownerIor": "ior:instance:796e6aff-6d1b-49f8-aa25-de148ac0d0bc"
 }

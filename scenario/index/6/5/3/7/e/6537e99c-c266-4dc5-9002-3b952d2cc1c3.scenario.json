@@ -4,12 +4,13 @@
     "uuid": "6537e99c-c266-4dc5-9002-3b952d2cc1c3",
     "name": "childTaskUuids impl — child-task-uuid extraction (task-status.ts:57)",
     "sourceFile": "src/ts/scenario/task-status.ts",
-    "sourceLine": 57,
+    "sourceLine": 58,
     "tests": [],
-    "markerPending": true,
+    "markerPending": false,
     "designAhead": false,
     "unitLinks": [],
-    "provenance": "R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). Helper for rollupParentStatus."
+    "provenance": "R40.1 (d) rollup-parent-status; CR 18ebe066 AC-rollup-parent-status (design section 3); shipped commit 1a318c050 (NOT deployed). Helper for rollupParentStatus.",
+    "markerVerified": "robbin-req verified first-hand 2026-08-24: [impl:uuid:6537e99c-c266-4dc5-9002-3b952d2cc1c3] adjacent-above the name-matching decl childTaskUuids @task-status.ts:58 (impl:marker:strict exit 0 per expert); markerPending flipped false; sourceLine 57->58 (marker shift)."
   },
   "ownerIor": "ior:instance:85d916a3-8524-45fc-b4fb-993db87d9792"
 }
