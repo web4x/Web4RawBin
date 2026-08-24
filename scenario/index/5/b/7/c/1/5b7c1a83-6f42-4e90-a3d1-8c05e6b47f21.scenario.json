@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "5b7c1a83-6f42-4e90-a3d1-8c05e6b47f21",
+    "name": "test:R40.1(d) childTaskUuids — structured children + legacy-prose [task:uuid:] + dedup + no-self",
+    "description": "Bridged to test/visual/r401d-rollup-parent-gate.ts (r401d, tester commit 6589239d1, GREEN, failability PROVEN). Distinct intent: childTaskUuids extraction — structured children[] array; legacy prose [task:uuid:] markers in subtasks TEXT (37.4's real on-disk shape); dedup; no-self (a task is not its own child). NON-VACUOUS: an inverted structured-only stub that DROPS legacy prose MUST miss the 37.4-shape children (BITE).",
+    "sourceFile": "ior:file:test/visual/r401d-rollup-parent-gate.ts",
+    "implementations": [
+      "ior:instance:6537e99c-c266-4dc5-9002-3b952d2cc1c3"
+    ],
+    "certificationScope": {
+      "state": "chain-complete-to-Test (R40.1 d rollup)",
+      "gate": "r401d GREEN + inverted-stub bite, tester 6589239d1",
+      "proves": "childTaskUuids extracts structured + legacy-prose children, dedups, excludes self",
+      "note": "CODE COMMITTED, NOT DEPLOYED; NOT Done. Chain-to-Test != Done."
+    },
+    "gate": "r401d GREEN, tester 6589239d1",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:6537e99c-c266-4dc5-9002-3b952d2cc1c3"
+}

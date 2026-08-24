@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "9d2e4f70-3c81-4a6b-bf05-1e7a24c8b9d3",
+    "name": "test:R40.1(d) rollupParentStatus — weakest-link parent rollup (incl the real 37.4 coordination-root case)",
+    "description": "Bridged to test/visual/r401d-rollup-parent-gate.ts (r401d, tester commit 6589239d1, pure-function 16/0 GREEN, failability PROVEN). Distinct intent: rollupParentStatus weakest-link semantics — all-QA-Review children => QA-Review (the REAL 37.4 case: parent's stored 'Planned' is IGNORED, children-rollup wins); a Planned child pulls the parent to Planned (weakest link); order-independence. NON-VACUOUS: the SAME table is re-run against an INVERTED strongest-link stub that MUST fail every mixed case (BITE).",
+    "sourceFile": "ior:file:test/visual/r401d-rollup-parent-gate.ts",
+    "implementations": [
+      "ior:instance:44c4054a-cbd5-4405-9836-45d316603105"
+    ],
+    "certificationScope": {
+      "state": "chain-complete-to-Test (R40.1 d rollup)",
+      "gate": "r401d 16/0 GREEN + inverted-stub bite, tester 6589239d1",
+      "proves": "rollupParentStatus weakest-link incl the 37.4 coordination-root; parent stored status ignored, children-rollup authoritative",
+      "note": "CODE COMMITTED, NOT DEPLOYED; NOT Done (Tron has not judged v0.8.126). Chain-to-Test != Done."
+    },
+    "gate": "r401d 16/0 GREEN, tester 6589239d1",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:44c4054a-cbd5-4405-9836-45d316603105"
+}
