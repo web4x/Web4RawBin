@@ -96,6 +96,14 @@ export const TaskPolicy: UnitPolicy = {
     }
     if (intent.subStep !== undefined) { // R40.18: a sub-step tick is NOT a state advance — validate the named box, no legalNext/evidence gate (the evidence gate applies at the In Progress→QA Review state advance)
       const sub = String(intent.subStep);
+      // R40.1 CR-RESOLVE (#86): the band's 'processing change requests' sub-step is resolved on a QA-Review-with-open-CR
+      // (BAND) task, NOT In-Progress — a human ticking it (CRs done) → hasOpenCrSubstep goes false → deriveStatusEnum
+      // recomputes to clean 'QA Review' → approvable. Reuses the SAME generic tickSubStep seam (apply below); the only
+      // difference is the eligible state. NEVER auto-ticked (this validate fires only on an explicit owner resolve-cr).
+      if (sub === PROCESSING_CR_SUBSTEP) {
+        if (currentState(unit) !== 'QA-Review-with-open-CR') throw new Error(`TaskPolicy: '${PROCESSING_CR_SUBSTEP}' can only be resolved on a QA-Review-with-open-CR (band) task (current: ${currentState(unit)})`);
+        return;
+      }
       if (!IN_PROGRESS_SUBSTEPS.includes(sub)) throw new Error(`TaskPolicy: unknown sub-step '${sub}' (valid: ${IN_PROGRESS_SUBSTEPS.join(', ')})`);
       if (currentState(unit) !== 'In Progress') throw new Error(`TaskPolicy: sub-step '${sub}' requires state 'In Progress' (current: ${currentState(unit)})`);
       return;
