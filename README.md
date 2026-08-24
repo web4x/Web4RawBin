@@ -59,6 +59,10 @@ rawbin/
 - **Organization**: [web4x](https://github.com/web4x)
 - **License**: MIT
 
+## Operations
+
+- **Owner auth recovery** (locked out of Server Manager / terminal — `owner auth unavailable`): [docs/owner-auth-recovery.md](docs/owner-auth-recovery.md) — a ~5-minute host fix.
+
 ## App
 
 **[Open RawBin App](https://home.donges.it:4444/app)**
