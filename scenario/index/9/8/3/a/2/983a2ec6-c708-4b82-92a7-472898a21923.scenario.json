@@ -1,0 +1,104 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "983a2ec6-c708-4b82-92a7-472898a21923",
+    "altId": "R40.57",
+    "name": "Cross-view role AGREEMENT — every consumer agrees on current-role atomically, no server-baked role copy (closes Tron's R40.56 surface reject)",
+    "description": "Every role-consumer AGREES about a task's current-role on ONE rendered screen — by construction, atomically, ACROSS a live make-current. Tron rejected R40.56 at his surface (record aa3fa299): the pin reads '📌 Current — Task 40.1' while THAT task's drawer still offers '📌 Set as Current' — two views on one screen disagree. ROOT (verified first-hand): pinRole is BAKED into the served task payload at fetch time (attachTaskPinRole, server.ts:2901 -> rb-detail-drawer.ts:498), and the drawer NEVER subscribes to the currentsprint broadcast — so a live make-current re-derives the SUBSCRIBED tree but leaves the drawer's copy STALE. R40.56 fixed the derivation SITE (source); THIS is the LIFECYCLE gap = a second COPY with its own staleness. FIX by construction: (iii) RETIRE pinRole from the payload (a derived role is a pure fn of (thisTaskUuid, currentSlotUuid), both already live client-side — no copy = nothing to go stale = the class is ELIMINATED not mitigated); (ii) the drawer subscribes the SAME viewBusKey({type:CurrentSprint, uuid:singleton}) the tree uses (one-builder-both-sides, R37.12 Q3) and derives role AT RENDER from the ONE live current-slot -> a pin move = one event = all consumers re-derive = agreement atomic by construction.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:4cafdc1c-8bbf-45a8-b899-13dd54f2952a"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-surface-reject + architect-design",
+      "designCommit": "08d90e60f (design-cross-view-role-agreement.md)",
+      "tronRejectRecord": "aa3fa299",
+      "testerEvidence": "4e196902a",
+      "tronObservation": "pin reads '📌 Current — Task 40.1' while that task's drawer still offers '📌 Set as Current' — two views on one screen disagree",
+      "verifiedBy": "robbin-req first-hand: attachTaskPinRole bakes pinRole into the /api/ior served payload (server.ts region 2901); drawer reads rModel.pinRole (rb-detail-drawer.ts:498) WITHOUT subscribing to the currentsprint broadcast = stale copy while the subscribed tree updates live",
+      "date": "2026-08-24"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "★ SINGLE-SOURCE MEANS EVERY CONSUMER AGREES, not merely that the source is right (PO, load-bearing). R40.56's gates asserted the SOURCE (single derivation-site, resolver-correct) and PASSED; Tron's EYE asserted the AGREEMENT and FAILED it — and the eye was the stronger test. A consumer can read the correct resolver and STILL render a contradiction if its own COPY of the result is stale (a lifecycle gap, not a derivation gap). This is the 2nd time Tron's glance beat our green on this requirement. NEW GATE CLASS: consumer-vs-consumer on the RENDERED artifact (two artifacts compared to EACH OTHER), not artifact-vs-model — the class the session was missing. [[single-source-means-every-consumer-agrees]] [[assert-the-rendered-artifact-not-a-proxy]]",
+    "satisfactionStatus": "UNVERIFIED (nothing built; ACs designed, no dynamic gate red-then-green yet — honest third state per R40.54). Dynamic-post-broadcast red-then-green is the acceptance.",
+    "crossRef": [
+      "ior:instance:44953a15-f090-45d4-9829-079626edb5bd",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+    ],
+    "crossRefNote": "Closes what R40.56 left at the surface: R40.56 = single derivation-SITE (source, fixed); R40.57 = single live VALUE + derive-at-render (AGREEMENT, the stronger Tron-facing invariant). Both needed. viewBusKey ONE-builder-both-sides = R37.12 Q3. Rides R40.54 failable-AC family.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-retire-pinRole-from-payload",
+        "group": "by-construction/no-copy",
+        "text": "RETIRE pinRole from the served payload: a derived role is a pure fn of (thisTaskUuid, currentSlotUuid), both already live on the client; no copy = nothing to go stale = the disagreement class ELIMINATED, not mitigated. attachTaskPinRole retired as a payload field (server.ts:2901).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cross-view-role-agreement (no-baked-role)",
+          "assertion": "0 pinRole (or any baked role field) survives in the served task payload"
+        },
+        "stubMustFail": "PENDING: seed pinRole back into the served model -> gate RED"
+      },
+      {
+        "id": "AC-one-event-atomic-agreement",
+        "group": "by-construction/atomic",
+        "text": "ONE-EVENT ATOMIC AGREEMENT: the drawer subscribes the SAME viewBusKey({type:CurrentSprint,uuid:singleton}) the tree uses (ONE builder both sides, R37.12 Q3 — a raw-uuid subscribe is exactly why the tree once went stale) and derives taskRole AT RENDER by comparing its shown task's uuid to the ONE live current-slot uuid. A pin move = one event = ALL consumers re-derive = 'derived-role and pin-slot change atomically for all consumers' IS the invariant.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cross-view drawer-subscribes-currentsprint-key",
+          "assertion": "drawer subscribes viewBusKey({type:CurrentSprint,uuid:singleton}) via the ONE builder; role derived at render, not read from a baked field"
+        },
+        "stubMustFail": "PENDING: suppress the drawer subscribe -> drawer role stale after a live make-current -> RED"
+      },
+      {
+        "id": "AC-cross-view-agreement-rendered-artifact",
+        "group": "cross-view/NEW-gate-class",
+        "text": "★ CROSS-VIEW AGREEMENT (a NEW gate class: consumer-vs-consumer on the RENDERED artifact). On ONE rendered screen @390, for the SAME task, the pin/tree role and the action-bar's offered verbs MUST agree: current => Set-as-Current ABSENT; not-current => PRESENT. Asserted by SCREENSHOT, the two views checked against EACH OTHER — NOT each against the model. Every other gate we own compares an artifact to a model; THIS compares two artifacts (the gate Tron's eye is). [[assert-the-rendered-artifact-not-a-proxy]]",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cross-view-role-agreement @390 screenshot",
+          "assertion": "on one @390 screenshot: pin/tree role and action-bar verbs agree for the same task (current<=>Set-Current-absent), views compared to each other"
+        },
+        "stubMustFail": "PENDING: render a screen where tree shows current but drawer offers Set-as-Current -> RED"
+      },
+      {
+        "id": "AC-dynamic-post-broadcast-mandatory",
+        "group": "cross-view/dynamic",
+        "text": "DYNAMIC-POST-BROADCAST IS MANDATORY (written INTO the AC so nobody later 'simplifies' it): the agreement assertion MUST be made AFTER a live make-current on a DIFFERENT task via the LIVE path (broadcast, NO drawer re-fetch), THEN screenshot. An initial-load check would PASS and MISS this bug entirely — the STATE UNDER TEST (post-broadcast, no re-fetch) IS PART OF THE ASSERTION. Initial-fetch agreement is trivial + would false-pass.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cross-view-role-agreement DYNAMIC",
+          "assertion": "the screenshot is taken AFTER a live make-current via broadcast (no re-fetch); agreement holds ACROSS the live event, not merely on initial load"
+        },
+        "stubMustFail": "PENDING: assert on initial-load only -> the stub disagreement would false-PASS -> that is itself the failure (must assert post-broadcast)"
+      },
+      {
+        "id": "AC-enumerate-consumers-divergence-fail-closed",
+        "group": "enumerate-not-universal",
+        "text": "ENUMERATE the role-consumers on a screen (pin badge · tree highlight · action-bar verbs · drawer · scoreboard) + a DIVERGENCE check: a NEW role-consumer must be added to the agreement set or the gate flags it (a consumer outside the cross-check can silently disagree). FAIL-CLOSED: if any enumerated consumer's role can't be read for the comparison, RED — never skip-as-pass.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cross-view-role-agreement (consumer enumeration + divergence)",
+          "assertion": "every enumerated role-consumer is in the agreement cross-check; a new/unreadable consumer => RED (not skip)"
+        },
+        "stubMustFail": "PENDING: add a new role-consumer NOT in the agreement set -> divergence RED; make a consumer's role unreadable -> RED"
+      },
+      {
+        "id": "AC-stub-inject-disagreement-reds",
+        "group": "stub-must-fail",
+        "text": "STUB-MUST-FAIL: inject a disagreement — re-bake a stale pinRole into the payload OR suppress the drawer's broadcast subscription -> a screen where the tree shows current but the drawer offers Set-as-Current -> the gate MUST RED. A gate that can't be made to fail by injecting a disagreement is not asserting agreement. This IS the R40.56-defect specimen at the RENDER layer (the strongest baseline).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cross-view-role-agreement stub",
+          "assertion": "injected disagreement (stale pinRole re-baked / drawer-subscribe suppressed) => gate RED"
+        },
+        "stubMustFail": "PENDING: the injected-disagreement stub is the acceptance proof the gate asserts AGREEMENT, not source"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
