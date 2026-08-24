@@ -3733,6 +3733,7 @@ function setupWebSocketServer(server: https.Server): void {
         socket.write('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'); socket.destroy(); return;
       }
       termWss.handleUpgrade(req, socket, head, (ws) => termWss.emit('connection', ws, req));
+      return; // R31.2 (RESTORED — my un-sever restore dropped this): the terminal upgrade is handled; do NOT fall through to the app-ws dispatch below (double handleUpgrade on the same socket crashes the server)
     }
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req)); // app ws (post-connect IDENTIFY auth) — unchanged
   });
