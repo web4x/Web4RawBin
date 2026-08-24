@@ -87,7 +87,21 @@
     "trainingCorpus": "The 5 crossRef instances (R40.50/R40.48/R32.3/R37.12/R40.53) are the RETROACTIVE regression corpus: the meta-guard, run against them, MUST flag each one original unfailable AC. If it does not flag a known wish, the meta-guard is inert.",
     "chainDesign": "architect 29fa9868b: UC requirement.enforceFailableACs -> Class AcGuard -> Methods assertEveryAcFailable (per-req fail-closed) / sweepWishes (the audit) / assertUniversalEnumerated.",
     "recursionClosed": "PO caught: the completeness check must know what SHOULD enroll. If that set were DECLARED it inherits the drift. RESOLVED: DERIVED by structural discovery (AST/pattern on the shape), compared against the enrolled set, RED on discovered-but-not-enrolled. A declared should-enroll list is inadmissible. This closes the recursion - the completeness check is by-construction, not the 6th reminder.",
-    "discoveryUtilitySingleSource": "PO flag: AcGuard.assertUniversalEnumerated discovery + the live-MVC lint (expert, R37.12 B) discovery are the SAME kind (find components by shape). They must NOT become two implementations = the family problem recursed. ONE shared discovery utility both route through. Architect owns the check-before-create (does one exist / do they overlap)."
+    "discoveryUtilitySingleSource": "PO flag: AcGuard.assertUniversalEnumerated discovery + the live-MVC lint (expert, R37.12 B) discovery are the SAME kind (find components by shape). They must NOT become two implementations = the family problem recursed. ONE shared discovery utility both route through. Architect owns the check-before-create (does one exist / do they overlap).",
+    "corpusMaintenanceCandidateAC": {
+      "id": "AC-candidate-behavioural-over-source-grep",
+      "group": "gate-quality/corpus-maintenance",
+      "status": "CANDIDATE (PO 2026-08-24; tester promotes during the binding pass)",
+      "text": "Gate assertions prefer BEHAVIOURAL over SOURCE-SHAPE wherever the behaviour is observable: assert the PROPERTY (e.g. the pin re-renders post-broadcast with no reload), NOT which identifier the code uses to subscribe. A behavioural gate SURVIVES a legitimate refactor; a source-grep gate ROTS against its own codebase (reds on a legit change while the behaviour is correct). Where behaviour is observable, a source-shape grep as the OVERALL verdict is inadmissible.",
+      "gateRef": {
+        "kind": "lint",
+        "ref": "check:gate-corpus-behavioural (candidate)",
+        "assertion": "a gate whose OVERALL verdict is a source-shape grep, where the behaviour is observable, is flagged for behavioural retarget"
+      },
+      "stubMustFail": "CANDIDATE: a gate that source-greps a subscribe-identifier and REDs on a legit viewBusKey refactor while the behaviour is GREEN -> flagged (this is the r4017 instance)"
+    },
+    "corpusFalseRedInstance": "★ FALSE RED in our own gate corpus 2026-08-24 (robbin-req verified first-hand): r4017-live-pin-norefresh-gate.mjs:33 source-greps subscribe('<CS>') (the RETIRED raw-uuid subscribe) as part of its OVERALL verdict; the code legitimately moved to viewBusKey at R37.12/R40.17, so the source-grep half returns false -> OVERALL RED. The BEHAVIOUR is GREEN (the pin moves without a refresh, corroborated INDEPENDENTLY by the agreement gate seeing the pin re-render post-broadcast). => GATE MAINTENANCE, NOT a product defect. Tester retargets r4017 to the behavioural assertion during the binding pass. Nothing to Tron.",
+    "bothFailureDirectionsFinding": "★ THE CORPUS NOW HAS BOTH FAILURE DIRECTIONS = evidence it needs a MAINTENANCE PROPERTY, not just more gates (PO). A FALSE GREEN fools us once (a weaker property passes for the one that matters - our 4 weaker-property misses: R40.56 source-not-agreement, R40.57 derive-at-render-not-agreement, etc); a FALSE RED is corrosive DIFFERENTLY - it teaches the fleet to DISTRUST gates, and a fleet that routinely discounts reds will eventually wave through a REAL one. ROOT IDENTICAL (our recurring one): measuring a PROXY instead of the thing that matters - false-green gated a weaker property + PASSED; false-red gated an implementation detail (source shape) + FAILED. Cure (both directions): assert the PROPERTY, not a proxy. [[measure-the-property-not-a-proxy-both-directions]]"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
