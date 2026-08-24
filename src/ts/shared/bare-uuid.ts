@@ -10,6 +10,7 @@
  * "a leading <word>: decoration on a uuid"). A bare uuid has no colon, so it is left untouched. Client-safe (no node
  * deps): the drawer's derive-at-render + the server producers all import it. [[scan-the-hazard-not-the-actors]] [[full-uuid-data-writes-and-prefix-negative-conclusions]]
  */
+// [impl:uuid:3d1b5df8-0836-4754-8637-7e89aab68e39] BareUuid.bareUuid — canonical uuid-form normalizer (R40.58 D2 identity half)
 export function bareUuid(ref: string | null | undefined): string {
   return String(ref ?? '').replace(/@.*$/, '').replace(/^([a-z][a-z0-9-]*:)+/i, '');
 }

@@ -92,6 +92,7 @@ export class RbDetailDrawer extends HTMLElement {
   // — per-request slotsFrom, NEVER the stale persisted model.slots snapshot) and re-derive the action bar. The current
   // slot is the recompute child stamped role:'current' (from slotsFrom's slot classification). HONEST ABSENCE: no such
   // child → _currentSlotUuid '' → every task derives 'other' → Set-Current shows on all (a guess is never made).
+  // [impl:uuid:f5928a3b-0e42-4af8-973c-6f71a31d5be4] RbDetailDrawer.refreshCurrentSlot — derive-at-render from the live CurrentSprint pin (R40.57 lifecycle half)
   private async refreshCurrentSlot(): Promise<void> {
     const CS = 'current-sprint-singleton-0000-000000000001';
     try {
