@@ -1399,8 +1399,8 @@ function currentTaskUuidFromSlots(idx: ScenarioIndex): string {
   try {
     const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
     const cur = pin.current;
-    const slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined) as { current?: { uuid?: string } };
-    return String(slots?.current?.uuid || ''); // honest absence: no valid current → ''
+    const slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined);
+    return String(slots.current?.taskUuid || ''); // R40.58 D1: consume the real ThreeSlots type (no cast) → compiler enforces .taskUuid (was .uuid via a lying as-cast → '' → every task 'other')
   } catch { return ''; } // fail-closed: resolver ambiguity (>1 Active / unresolvable) → honest absence, never a guess
 }
 // COMPUTE-ONCE-PASS-DOWN (AC): the caller computes the current uuid ONCE per request via currentTaskUuidFromSlots and
@@ -1469,7 +1469,7 @@ function reconcileCanonical(uuid: string, m: Record<string, unknown>, ior?: stri
   // Trace base (prod) → merge the generated M1 counterpart from MODEL_STORE (deterministic key). Files stay pristine.
   if (!isModelUnit(uuid) && key !== uuid && isModelUnit(key)) {
     let g: Record<string, unknown> | undefined;
-    try { g = (new ScenarioIndex(MODEL_STORE).get(key) as { model?: Record<string, unknown> } | undefined)?.model; } catch { /* no counterpart */ }
+    try { g = new ScenarioIndex(MODEL_STORE).get(key)?.model as Record<string, unknown> | undefined; } catch { /* no counterpart */ } // R40.58 D1: consume ScenarioUnit; the loose model is a property-cast, not a call-cast
     if (g) {
       const facets = new Set<string>([...(Array.isArray(m.instanceOf) ? m.instanceOf as string[] : []), ...(Array.isArray(g.instanceOf) ? g.instanceOf as string[] : [])]);
       if (facets.size) m.instanceOf = [...facets]; // UNION — never drop a side's facet
@@ -2387,7 +2387,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // renderFacet uses) — NOT the old hardcoded 'class' that rendered every drop as a class box. Resolve the element
           // (prod index, else MODEL_STORE), FAIL-CLOSED on an unknown/unresolvable type (400 — never store a silent 'class').
           let elUnit: { ior?: string; model?: Record<string, unknown> } | null = null;
-          try { elUnit = new ScenarioIndex(PROD_INDEX).get(elementUuid) as any; } catch { /* fall through to model-store */ }
+          try { elUnit = new ScenarioIndex(PROD_INDEX).get(elementUuid) ?? null; } catch { /* fall through to model-store */ } // R40.58 D1: consume ScenarioUnit (was `as any` — a type-checker defeat on our own typed fn)
           if (!elUnit) { try { const ef = path.join(MODEL_STORE, ...String(elementUuid).slice(0, 5).split(''), `${elementUuid}.scenario.json`); if (fsSync.existsSync(ef)) elUnit = JSON.parse(fsSync.readFileSync(ef, 'utf-8')); } catch { /* unresolvable */ } }
           const viewKind = elUnit ? deriveViewKind(elUnit.ior, elUnit.model) : null;
           if (!viewKind) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"unknown-view-kind","detail":"element type has no facet mapping — refusing to store a silent class default"}'); return; }
@@ -2734,7 +2734,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const pin = resolveSprintPin(idx, { currentSprintNumber: desNum ? Number(desNum) : null, nextSprintNumber: nextNum ? Number(nextNum) : null });
             const cur = pin.current;
             if (cur) pinSprintLabel = `${sprintPrefix(cur.number)} — ${cur.status}${cur.designated ? ' (designated)' : ''}`;
-            slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined) as any;
+            slots = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(model.currentTaskUuid || '') || undefined); // R40.58 D1: consume ThreeSlots (was `as any` — a type-checker defeat on our own typed fn)
           } catch (e: any) {
             pinSprintLabel = `⚠ UNRESOLVED — ${String(e?.message || e).slice(0, 160)}`; // honest fail-loud, not a crash
           }
