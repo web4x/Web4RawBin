@@ -86,7 +86,10 @@ async function runSequence(route, mode, DESIG, DESIG_NUM, PARK) {
   // 2) DESIGNATE DESIG via the seam (node POST → server make-current → ws broadcast to the open page). This is the REAL
   //    live-broadcast path (as R40.53): the subscribed tree re-derives; the drawer (per architect) does not. Drawer STAYS open.
   const mcStatus = await fetch(`${f.base}/api/task/${DESIG}/make-current`, { method: 'POST', headers: oh }).then(r => r.status).catch(() => 0);
-  await sleep(2500); // ★ DYNAMIC POST-BROADCAST: the live update lands (NO manual refresh) — this is the state under test
+  // ★ DYNAMIC POST-BROADCAST-SETTLE: the live re-derive chain (broadcast → _csPinUnsub → refreshCurrentSlot fetch →
+  // :103 universalActionBar re-render) completes ~3.4s later (trace r4057-live-trace). Poll until the action-bar text
+  // STABILISES (2 identical reads) up to 9s — a fixed 2.5s read caught the bar MID-re-derive = a settle-timing false-RED.
+  let prevBar = null; for (let k = 0; k < 30; k++) { await sleep(300); const b = await page.evaluate(() => document.querySelector('rb-detail-drawer .drawer-actionbar')?.innerText || ''); if (b && b === prevBar) break; prevBar = b; }
   const tapped = `POST:${mcStatus}`;
 
   // 3) ASSERT CONSUMER-VS-CONSUMER (post-broadcast, no refetch): pin-consumer vs bar-consumer about the SAME task DESIG
