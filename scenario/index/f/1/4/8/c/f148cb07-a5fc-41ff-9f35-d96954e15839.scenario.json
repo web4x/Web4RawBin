@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f148cb07-a5fc-41ff-9f35-d96954e15839",
+    "name": "uuid.bareCanonical",
+    "description": "ONE bareUuid(s) strips ior:(instance|class|file): prefix + @host; every producer routes through it; identity via one helper, raw === across producers forbidden; hazard guard 0 ad-hoc prefix-replace/@-split outside bareUuid. Prevention, NOT the live fix.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the shipped decl on build-go."
+  },
+  "ownerIor": "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339"
+}

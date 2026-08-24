@@ -28,7 +28,8 @@
     "crossRef": [
       "ior:instance:44953a15-f090-45d4-9829-079626edb5bd",
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339"
     ],
     "crossRefNote": "Closes what R40.56 left at the surface: R40.56 = single derivation-SITE (source, fixed); R40.57 = single live VALUE + derive-at-render (AGREEMENT, the stronger Tron-facing invariant). Both needed. viewBusKey ONE-builder-both-sides = R37.12 Q3. Rides R40.54 failable-AC family.",
     "acceptanceCriteria": [
@@ -98,7 +99,8 @@
         },
         "stubMustFail": "PENDING: the injected-disagreement stub is the acceptance proof the gate asserts AGREEMENT, not source"
       }
-    ]
+    ],
+    "reconciliationNote": "2026-08-24 (additive, scope UNCHANGED — architect: R40.57 STANDS as-is): the uuid-form hypothesis was MEASURED + KILLED; the LIVE current-role bug is D1 = a field-read (.uuid vs .taskUuid, false as-cast server.ts:1402) minted as sibling R40.58 44864641. R40.57 = D3 (lifecycle/AGREEMENT) is MASKED today (pinRole always 'other' via D1) and becomes the visible bug once D1 lands. R40.57's derive-at-render comparison must use D2's canonical bareUuid (R40.58) so the client does not re-introduce a form gap. ONE build/deploy order D1->D3->D2."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

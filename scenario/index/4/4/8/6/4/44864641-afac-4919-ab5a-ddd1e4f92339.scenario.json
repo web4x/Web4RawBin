@@ -1,0 +1,104 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "44864641-afac-4919-ab5a-ddd1e4f92339",
+    "altId": "R40.58",
+    "name": "Current-role LIVE fix — resolver result read at its real type (.taskUuid, no false as-cast) + canonical bareUuid prevention",
+    "description": "The LIVE current-role bug (D1, measured): currentTaskUuidFromSlots (server.ts:1395) returns '' for EVERY task so all pinRole='other' 2/2 — a designated task's pin never renders current. ROOT (architect ran the resolver, uuid-form hypothesis KILLED — both ids are bare full uuids, NO @host/prefix mismatch): line 1402 casts the slotsFrom result `as { current?: { uuid?: string } }` and reads slots.current.uuid, but ThreeSlots.current is a TaskSlot whose field is taskUuid (CurrentSprint.ts:47, toSlot :331) — .uuid is undefined -> String(undefined||'')='' -> the currentUuid guard short-circuits -> every task 'other'. TypeScript did NOT catch it because the FALSE structural `as` cast told the compiler .uuid exists; the real ThreeSlots type would have ERRORED. The unsafe `as` cast defeated the type checker = the actual hazard, and the cast IS a SECOND DEFINITION of a shared truth (the slot shape). D1 = the screen fix (delete the cast, consume the real type, read .taskUuid). D2 = the LATENT uuid-form normalization class (canonical bareUuid) — prevention, NOT the live fix.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:232df40f-81f4-4a34-b202-a6031a952fd0",
+      "ior:instance:f148cb07-a5fc-41ff-9f35-d96954e15839"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-measured-reconciliation",
+      "designCommit": "a8118ed06 (design-cross-view-role-agreement.md ## RECONCILED ROOT)",
+      "measured": "architect ran a probe replicating currentTaskUuidFromSlots vs the live index: DESIGNATION+iorUuid both bare full uuids, currentUuid='' (EMPTY), slots.current={taskUuid:...} -> RAW=== false -> pinRole OTHER, 2/2 both sprints. uuid-form (@host/prefix) hypothesis KILLED.",
+      "verifiedBy": "robbin-req first-hand: server.ts:1402 `as { current?: { uuid?: string } }` false cast + returns slots.current.uuid; TaskSlot.taskUuid (CurrentSprint.ts:47), toSlot :331 sets {taskUuid:t.uuid} -> .uuid undefined -> ''",
+      "date": "2026-08-24"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "★ AN UNSAFE `as` CAST DEFEATED THE TYPE CHECKER = the actual hazard. A FALSE structural cast (`as {current?:{uuid?}}`) is a SECOND DEFINITION of a shared truth (the slot shape): getThreeSlots defines {taskUuid}; the cast re-declared {uuid} and told the compiler .uuid exists, so TS could not catch the wrong-field read. The PO's principle (retire beats repair / one definition of a shared truth) HOLDS — only the mechanism was mis-identified: the shared truth with two definitions was the SLOT SHAPE, not the uuid form. Cure = consume the ONE real exported type, retire the ad-hoc re-declaration (the cast), don't patch the field name blind. Guard the hazard by-construction: 0 ad-hoc `as {…}` casts on resolver results. [[an-as-cast-is-a-second-definition-of-a-type]] [[measure-the-mechanism-before-crediting-the-hypothesis]]",
+    "redBaselineEvidence": "PENDING — raw output of a DESIGNATED task's served pinRole=='other'/'' on TODAY's unmodified tree (the D1 live specimen), captured BEFORE the fix, citing the FIELD-READ (empty currentUuid), NOT @host. No fix lands until this RED baseline exists (gate-first). Architect backstops it cites the field-read.",
+    "satisfactionStatus": "UNVERIFIED (nothing built; D1 gate RED baseline not captured, D2 guards unbuilt — honest third state per R40.54).",
+    "crossRef": [
+      "ior:instance:983a2ec6-c708-4b82-92a7-472898a21923",
+      "ior:instance:44953a15-f090-45d4-9829-079626edb5bd",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "THREE layered defects, ONE build/ONE deploy (order D1->D3->D2, no intermediate ship). D1(this)=the LIVE field-read bug (credit). D3=R40.57 cross-view lifecycle/AGREEMENT — MASKED today (pinRole always 'other' via D1), becomes visible once D1 lands; R40.57 STANDS as-is, and its derive-at-render comparison must use D2's bareUuid. D2(this, secondary)=uuid-form prevention. R40.56=single derivation-site (D1 makes that resolver's output actually reach pinRole). Rides R40.54 failable family.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-D1-consume-real-slot-type",
+        "group": "D1/retire-second-definition",
+        "text": "DELETE the `as { current?: { uuid?: string } }` cast in currentTaskUuidFromSlots (server.ts:1402); consume the REAL exported ThreeSlots type so TS enforces the shape; read slots.current.taskUuid (not .uuid). The false cast is a SECOND DEFINITION of the slot shape (getThreeSlots defines {taskUuid}; the cast re-declared {uuid}) — retire the re-declaration, don't patch the field name blind.",
+        "gateRef": {
+          "kind": "typecheck",
+          "ref": "tsc (real ThreeSlots type, no as-cast on the result)",
+          "assertion": "currentTaskUuidFromSlots consumes ThreeSlots at its exported type and reads .taskUuid; a stray `.uuid` read would be a TS ERROR"
+        },
+        "stubMustFail": "PENDING: seed slots.current.uuid read (or re-add the false cast) -> tsc ERROR / gate RED"
+      },
+      {
+        "id": "AC-D1-hazard-guard-no-adhoc-cast",
+        "group": "D1/by-construction",
+        "text": "HAZARD guard (by-construction, one number): 0 ad-hoc `as {…}` STRUCTURAL casts on a slotsFrom/getThreeSlots result anywhere — a resolver result MUST be consumed at its exported type, never re-shaped by a cast (a cast re-declares the type = a second source of the shape). Same one-number single-source shape as the other hazard guards.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-adhoc-slot-cast",
+          "assertion": "count of `as {…}` structural casts on slotsFrom/getThreeSlots results == 0"
+        },
+        "stubMustFail": "PENDING: seed a false-shape `as {…}` cast on a slotsFrom result -> gate RED"
+      },
+      {
+        "id": "AC-D1-red-baseline-live-specimen",
+        "group": "D1/RED-baseline/evidence",
+        "text": "RED-BASELINE (gate-first on the LIVE specimen): a DESIGNATED task's served pinRole must be 'current'. On TODAY's unmodified tree it is 'other'/'' (the live D1 bug) — capture that RED raw output BEFORE the fix (redBaselineEvidence). The RED must cite the FIELD-READ ('' currentUuid / pinRole=='other' for the designated task), NOT @host (uuid-form was measured-killed). If the gate does not RED on the designated-task-'other' case it asserts the wrong property -> do NOT proceed. THEN delete the cast + the SAME gate greens (designated task -> 'current').",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:D1 designated-task-pinRole @ live tree",
+          "assertion": "designated task served pinRole=='current' after fix; RED baseline pinRole=='other'/'' captured on today's tree BEFORE fix, citing the field-read"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: fill redBaselineEvidence with raw pinRole=='other'-for-designated-task output before the fix"
+      },
+      {
+        "id": "AC-D2-canonical-bareUuid",
+        "group": "D2/prevention/one-definition",
+        "text": "ONE canonical bareUuid(s): strips the ior:(instance|class|file): prefix AND @host suffix; EVERY producer routes through it (server.ts:2894 which retains @host, :272 which strips it, and others). A federated uuid@originHost id would fail raw equality today = a REAL latent bug, but MEASURED NOT the current failure (all ids bare). Same PO cure (retire beats repair / one definition of a shared truth) as D1, applied to the uuid FORM.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:bareuuid-single-source",
+          "assertion": "all uuid-normalization producers call bareUuid; identity comparison via one helper"
+        },
+        "stubMustFail": "PENDING: seed a producer that retains @host / a raw === between two producers' uuids -> gate RED"
+      },
+      {
+        "id": "AC-D2-hazard-guard-no-adhoc-normalize",
+        "group": "D2/by-construction",
+        "text": "HAZARD guard: 0 ad-hoc prefix-replace / `@`-split normalizations OUTSIDE bareUuid; raw `===` between two producers' uuids forbidden (route through the one identity helper). The hazard names itself (a uuid form-strip outside the canonical fn).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:bareuuid-single-source (hazard)",
+          "assertion": "count of ad-hoc prefix-replace/@-split outside bareUuid == 0"
+        },
+        "stubMustFail": "PENDING: seed an ad-hoc @-split outside bareUuid -> gate RED"
+      },
+      {
+        "id": "AC-D2-secondary-not-the-credit",
+        "group": "D2/honesty",
+        "text": "D2 is SECONDARY prevention and MUST NOT be credited as the live-screen fix. D1 (the field-read) fixes what Tron sees; D2 prevents the latent @host identity class from ever causing it. Recording both honestly: the screen went 'other' because of the field-read, NOT because of a form mismatch (that was the killed hypothesis).",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "unit metaFinding + this AC",
+          "assertion": "D1 carries the live-fix credit; D2 is labelled prevention-only, not the fix"
+        },
+        "stubMustFail": "PENDING: n/a — an honesty/labelling AC verified by the crediting on D1 vs D2"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

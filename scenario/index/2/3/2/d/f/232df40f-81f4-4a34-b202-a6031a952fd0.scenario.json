@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "232df40f-81f4-4a34-b202-a6031a952fd0",
+    "name": "currentSlot.readAtRealType",
+    "description": "currentTaskUuidFromSlots consumes the real ThreeSlots type (no as-cast) + reads slots.current.taskUuid so a designated task's pinRole resolves 'current'; hazard guard 0 ad-hoc as-casts on resolver results; gate-first RED baseline on today's designated-task-'other'.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the shipped decl on build-go."
+  },
+  "ownerIor": "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339"
+}
