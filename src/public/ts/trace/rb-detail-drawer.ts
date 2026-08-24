@@ -27,6 +27,7 @@ import { registerUniversalActions } from './universal-actions.js'; // R35.1 view
 import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
 import { resolveRefUnit, isSyntheticRef } from './synthetic-ref.js'; // inc-3: THE sole ref→unit resolver (synthetic + real); nav/detail/action-bar all import this, none re-parse
 import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.45: the action bar is a SURFACE — re-derive it from the SAME unit-changed emit as the detail (controls' visibility must never latch at mount); viewBusKey = the ONE canonical key builder both notify+subscribe route through
+import { bareUuid } from '../../../ts/shared/bare-uuid.js'; // R40.58 D2: the ONE canonical uuid compare (strip prefix+@host) — cross-producer identity, form-independent
 import './rb-file-detail.js';
 import './rb-webitem-detail.js';
 // R30.21: the drawer instantiates these type-specific detail elements via createElement in renderDetailForRef —
@@ -60,6 +61,7 @@ export class RbDetailDrawer extends HTMLElement {
   private _declProviders: Array<() => ActionDecl[]> = []; // R40.37: declaration providers; resolved ONCE via applicableActionsFor in universalActionBar
   private _hasActiveDiagram = false; // R40.37: the shared bar's applicability ctx (R33.9 membership verbs' when-predicate); tracked from rb-active-diagram
   private _barSubRef = ''; private _barUnsub: (() => void) | null = null; // R40.45: the action bar's own ViewBus subscription (re-derive controls' visibility on unit-changed)
+  private _currentSlotUuid = ''; private _csPinUnsub: (() => void) | null = null; // R40.57/R40.58 D3: the ONE live current-slot uuid (from the recompute source) + the CurrentSprint-pin subscription — taskRole is DERIVED from these at render (NO baked pinRole copy)
   private _shownType = ''; private _shownRef = '';
 
   // [impl:uuid:94f6e1f8-84a8-4ca5-9a44-6108ef6201bc] R20.6 selectionDriven drawer
@@ -79,6 +81,26 @@ export class RbDetailDrawer extends HTMLElement {
     document.addEventListener('rb-active-diagram', this.onActiveDiagram); // R40.37: track hasActiveDiagram for the applicability ctx (R33.9 membership verbs)
     document.addEventListener('rb-drawer-detail-shown', this.onDetailShown); // R40.24: SINGLE trigger — the type signal (from render OR box-select) drives the action bar here, no orphaned signal
     registerUniversalActions(this); // R35.1: self-register the view-independent item-action provider+handler (vcard/preview/newtab/proxy) — drawer loads everywhere → fires in room/trace/model
+    // R40.57/R40.58 D3: subscribe the CurrentSprint pin (the SAME viewBusKey the tree uses, rb-trace-tree:107) so a live
+    // make-current re-derives the action bar's taskRole; fetch the live current-slot once now. No baked pinRole — the
+    // consumer derives at render → pin + action bar AGREE by construction.
+    this._csPinUnsub = ViewBus.subscribe(viewBusKey({ type: 'CurrentSprint', uuid: 'current-sprint-singleton-0000-000000000001' }), () => { void this.refreshCurrentSlot(); });
+    void this.refreshCurrentSlot();
+  }
+
+  // R40.57/R40.58 D3: fetch the ONE live current-slot uuid from the recompute source (/api/trace/children/<CS>?mode=trace
+  // — per-request slotsFrom, NEVER the stale persisted model.slots snapshot) and re-derive the action bar. The current
+  // slot is the recompute child stamped role:'current' (from slotsFrom's slot classification). HONEST ABSENCE: no such
+  // child → _currentSlotUuid '' → every task derives 'other' → Set-Current shows on all (a guess is never made).
+  private async refreshCurrentSlot(): Promise<void> {
+    const CS = 'current-sprint-singleton-0000-000000000001';
+    try {
+      const res = await fetch(`/api/trace/children/${encodeURIComponent(CS)}?mode=trace`);
+      const data = res.ok ? await res.json() : null;
+      const kids: Array<{ uuid?: string; role?: string }> = Array.isArray(data?.children) ? data.children : [];
+      this._currentSlotUuid = bareUuid(kids.find((k) => k.role === 'current')?.uuid || '');
+    } catch { this._currentSlotUuid = ''; } // honest absence on fetch failure — never a stale guess
+    if (this._shownType) void this.universalActionBar(this._shownType, this._shownRef); // re-derive the bar with the fresh current
   }
 
   // R-A A1 (universal default verbs): the shared drawer ITSELF handles ◆ Scenario / ✎ Edit for ANY scenario-instance
@@ -117,6 +139,7 @@ export class RbDetailDrawer extends HTMLElement {
 
   disconnectedCallback(): void {
     this._barUnsub?.(); this._barUnsub = null; this._barSubRef = ''; // R40.45: release the action-bar re-derive subscription
+    this._csPinUnsub?.(); this._csPinUnsub = null; // R40.57/R40.58 D3: release the CurrentSprint-pin subscription
     const handle = this.querySelector('.drawer-handle');
     if (handle) {
       handle.removeEventListener('touchstart', this.onTouchStart);
@@ -494,8 +517,12 @@ export class RbDetailDrawer extends HTMLElement {
       console.error(`[action-bar] ★ TASK status UNRESOLVED for ${ref} — controls suppressed on a DATA GAP, not a status decision (fail-loud, not silent-hide; ed3442d10/L15)`);
       this.setAttribute('data-status-unresolved', ref);
     } else { this.removeAttribute('data-status-unresolved'); }
-    // T37.26: the shown task's DERIVED pin-role (server-computed model.pinRole) → the Set-as-Current visibility matrix (current→hide, else→show).
-    const taskRole = rModel?.pinRole as 'current' | 'next' | 'other' | undefined;
+    // R40.57/R40.58 D3: taskRole is DERIVED AT RENDER from the ONE live current-slot (NO baked pinRole copy in the payload
+    // — that was the stale-able copy). Compare via bareUuid (D2, form-independent). Honest absence: no live current →
+    // _currentSlotUuid '' → 'other' → Set-Current shows. The CurrentSprint-pin subscription re-derives this on a pin-move.
+    const taskRole: 'current' | 'other' | undefined = (r?.type || type).toLowerCase() === 'task'
+      ? (this._currentSlotUuid && bareUuid(ref) === this._currentSlotUuid ? 'current' : 'other')
+      : undefined;
     const decls: ActionDecl[] = this._declProviders.flatMap((fn) => { try { return fn() || []; } catch { return []; } });
     const { offered } = applicableActionsFor(unit, { hasActiveDiagram: this._hasActiveDiagram, taskRole }, decls);
     const legacy = this._actionProviders.flatMap((fn) => { try { return fn(type, ref) || []; } catch { return []; } }); // back-compat path (empty once providers migrate to decls)

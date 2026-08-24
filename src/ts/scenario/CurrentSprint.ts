@@ -5,6 +5,7 @@
  */
 import { ScenarioIndex } from './index-store.js';
 import { fwdRefs } from '../shared/chain-model.js';
+import { bareUuid } from '../shared/bare-uuid.js'; // R40.58 D2: the ONE canonical uuid normaliser (strip prefix+@host) — the designation producer routes through it
 import type { ScenarioUnit } from './types.js';
 import { deriveStatusEnum, type TaskStatusEnum } from './task-status.js';
 
@@ -268,7 +269,7 @@ export class CurrentSprint {
     // transition by StaleSteerLog (BITE-6b, never a silent drop). NOT the retired lying pin — it is EXPLICIT + validity-
     // checked-here-every-read + observable-on-expiry, the 3 properties the silent stuck-on-Planned R40.17 pin lacked.
     if (currentTaskUuid) {
-      const desU = currentTaskUuid.replace('ior:instance:', '').split('@')[0];
+      const desU = bareUuid(currentTaskUuid); // R40.58 D2: canonical strip (prefix+@host) — single-source with the drawer's compare
       const d = sprintTasks.find(t => t.uuid === desU);
       if (d && d.status !== 'Done') current = d; // valid designation wins; Done/gone → keep the derived current (expired)
     }
