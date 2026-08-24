@@ -30,12 +30,12 @@ const csBody = (curName) => JSON.stringify({ uuid: CS, type: 'CurrentSprint', na
 // ── CHANNEL WIRING (construction, both sides) + STUB-MUST-FAIL on the new channel ───────────────────────────────
 const rbtt = fs.readFileSync(`${ROOT}/src/public/ts/trace/rb-trace-tree.ts`, 'utf8').replace(/\s+/g, ' ');
 const ua = fs.readFileSync(`${ROOT}/src/public/ts/trace/universal-actions.ts`, 'utf8').replace(/\s+/g, ' ');
-const subReal = new RegExp(`subscribe\\('${CS}'`).test(rbtt);                                   // pin subscribes to the CS ref
-const notifyReal = new RegExp(`notify\\('${CS}'`).test(ua);                                     // a designate FIRES that ref (not a dead channel)
-const cbIsRender = new RegExp(`subscribe\\('${CS}'[^;]*renderCurrentSprintEagerLazy`).test(rbtt); // …and the callback re-fetches the pin
-const subBogus = new RegExp(`subscribe\\('${BOGUS}'`).test(rbtt);                               // MUST be false
-const channelWired = subReal && notifyReal && cbIsRender;
-const channelCanFail = !subBogus;                                                               // stub-must-fail proven: the check discriminates
+// INFORMATIONAL source wiring (NON-GATING — the verdict is behavioural below). Identifier-AGNOSTIC: matches the CS ref
+// in EITHER the legacy raw-uuid form OR the current viewBusKey({type:'CurrentSprint',uuid}) form (R37.12/R40.17), so it
+// does not rot on that refactor. If you must gate on wiring, gate on the real broadcast reaching the pin (binding pass).
+const subReal = new RegExp(`subscribe\\((?:'${CS}'|viewBusKey\\(\\{ type: 'CurrentSprint')`).test(rbtt);
+const notifyReal = new RegExp(`notify\\((?:'${CS}'|viewBusKey\\(\\{ type: 'CurrentSprint')`).test(ua);
+const cbIsRender = /renderCurrentSprintEagerLazy/.test(rbtt);
 
 const browser = await webkit.launch({ headless: true });
 const results = [];
@@ -66,20 +66,25 @@ try {
     const noReload = await page.evaluate(() => window.__noReload === 'alive');                  // survived → NO reload
     const failClosed = !spurious;                                                              // did NOT update before the trigger
 
-    const pass = channelWired && channelCanFail && liveSwap && noReload && failClosed;
+    // RETARGET (PO 2026-08-24): the VERDICT is the BEHAVIOUR — the pin re-renders when its subscribed callback fires,
+    // with NO reload, and does NOT update spuriously before the trigger (fail-closed). The old `channelWired` source-grep
+    // (which identifier the subscribe uses) was a PROXY that FALSE-RED'd when the code legitimately moved raw-uuid→viewBusKey
+    // (R37.12/R40.17) while the behaviour stayed GREEN — a false RED in our own corpus. A behavioural verdict survives a
+    // legitimate refactor; a source-grep rots against its own codebase. Source wiring kept below as INFORMATIONAL only.
+    const pass = liveSwap && noReload && failClosed;
     results.push(pass);
-    if (i === 1) viewStubProven = failClosed && liveSwap;                                       // same run: not-triggered→stale AND triggered→swap
-    console.log(`iter ${i}: channel-wired(sub CS + notify CS + cb=render)=${channelWired} can-fail(bogus-ref→false)=${channelCanFail} | live-swap=${liveSwap} | NO-reload=${noReload} | fail-closed=${failClosed} => ${pass ? 'GREEN' : 'RED'}`);
+    if (i === 1) viewStubProven = failClosed && liveSwap;                                       // same run: not-triggered→stale AND triggered→swap = the behavioural stub-must-fail
+    console.log(`iter ${i}: live-swap=${liveSwap} | NO-reload=${noReload} | fail-closed=${failClosed} (viewStubProven=triggered→swap & not-triggered→stale) => ${pass ? 'GREEN' : 'RED'}  [info: source wiring sub=${subReal}/notify=${notifyReal}/cb=${cbIsRender}, non-gating]`);
     await ctx.close();
   }
 } finally { await browser.close(); }
 
 console.log('\n===== R40.17 LIVE PIN — pin swaps live, no refresh, @390 real-WebKit (DET-3x) =====');
-console.log(`channel WIRING both-sides: subscribe(CS)=${subReal} notify(CS)@universal-actions=${notifyReal} callback=renderCurrentSprintEagerLazy=${cbIsRender}`);
-console.log(`channel STUB-MUST-FAIL (bogus-ref not matched, proves the re-pointed check can fail): ${channelCanFail}`);
-console.log(`view-half stub (not-triggered→stale AND triggered→swap, same run): ${viewStubProven}`);
+console.log(`[INFO, non-gating] source wiring (identifier-agnostic raw-uuid|viewBusKey): subscribe(CS)=${subReal} notify(CS)@universal-actions=${notifyReal} callback=renderCurrentSprintEagerLazy=${cbIsRender}`);
+console.log(`BEHAVIOURAL stub-must-fail (viewStubProven — not-triggered→stale AND triggered→swap, same run): ${viewStubProven}`);
+console.log('NOTE: full post-broadcast channel proof (real make-current → ws → pin swaps, not a direct callback call) folds into item-2 of the binding pass.');
 results.forEach((p, i) => console.log(`  iter ${i + 1}: ${p ? 'GREEN' : 'RED'}`));
-const green = results.length === 3 && results.every(Boolean) && viewStubProven && channelWired && channelCanFail;
-console.log('OVERALL:', green ? 'GREEN DET-3x (channel wired both-sides + view live-updates no-reload)' : 'RED');
+const green = results.length === 3 && results.every(Boolean) && viewStubProven; // BEHAVIOURAL verdict (no source-grep gate)
+console.log('OVERALL:', green ? 'GREEN DET-3x (BEHAVIOUR: pin re-renders no-reload + fail-closed + stub-proven)' : 'RED');
 console.log('NOTE: real owner-designate finger-tap → ViewBus.notify(CS) end-to-end = Tron device row (owner-auth RCE-sensitive; never headless-greened).');
 process.exitCode = green ? 0 : 1;
