@@ -2,20 +2,23 @@
   "ior": "ior:class:Test",
   "model": {
     "uuid": "4e3547dd-3654-4071-9a70-01d86f65cd71",
-    "name": "test:R40.57 cross-view consumer AGREEMENT — pin/tree role vs action-bar verbs post-broadcast, oracle-free",
-    "description": "Bridged to test/visual/r4056-diagnose.mjs (cross-view CONSUMER gate, tester cbb7a0906; RED on v0.8.125, GREEN on v0.8.126 verify 0f3cd2e66 = caught the residual that would have reached Tron as fixed a 3rd time). Consumer-vs-consumer on the RENDERED artifact, POST-broadcast, oracle-free: the pin/tree role and the action-bar verbs agree (current<=>Set-Current-absent) AFTER a live make-current. Proves the drawer derive-at-render + the pinRole retire (absence) hold across the live event.",
-    "sourceFile": "ior:file:test/visual/r4056-diagnose.mjs",
+    "name": "test:R40.57 refreshCurrentSlot DERIVE-AT-RENDER — drawer derives current-slot role at render (bar hides Set-as-Current for the current task)",
+    "description": "Bridged to test/visual/r4057-consumer-verify.mjs (tester gate-author, marker adopted 1c4e11043; Scenario A open-after-designation + B full-reload -> the drawer DERIVES the current-slot role at render and the action bar HIDES Set-as-Current for the current task, GREEN on v0.8.126). Proves Impl f5928a3b refreshCurrentSlot derive-at-render. ★ RE-POINTED from r4056-diagnose.mjs (robbin-req verified first-hand: r4056-diagnose self-flags 'CAUSE: UNDETERMINED — report setup finding, NOT a green'; it is the cross-view-DISAGREEMENT diagnostic that could not stage both readable consumers, NOT a clean derive-at-render green). SCOPE CORRECTED: this Test proves DERIVE-AT-RENDER (its Impl refreshCurrentSlot), NOT cross-view-agreement — see the residual on R40.57.",
+    "sourceFile": "ior:file:test/visual/r4057-consumer-verify.mjs",
     "implementations": [
       "ior:instance:f5928a3b-0e42-4af8-973c-6f71a31d5be4"
     ],
     "certificationScope": {
-      "state": "chain-complete-to-Test (R40.57)",
-      "gate": "r4056-diagnose cross-view, RED v0.8.125 -> GREEN v0.8.126 (cbb7a0906/0f3cd2e66)",
-      "note": "CODE DEPLOYED v0.8.126 consumer-GREEN; NOT Done (Tron has not judged v0.8.126). Chain-to-Test != Done. UUID GENERATED for tester to ADOPT into the gate (gate carries no marker yet)."
+      "state": "chain-complete-to-Test (R40.57 derive-at-render)",
+      "gate": "r4057-consumer-verify Scenario A+B GREEN v0.8.126, tester 1c4e11043",
+      "proves": "refreshCurrentSlot derives the current-slot role at render; bar hides Set-as-Current for the current task",
+      "doesNotProve": "cross-view consumer-vs-consumer AGREEMENT (that property is un-gated today: r4056-diagnose UNDETERMINED). See R40.57 crossViewAgreementGateResidual.",
+      "note": "CODE DEPLOYED v0.8.126; NOT Done (Tron has not judged). markerPending on Impl f5928a3b until expert places [impl:uuid]."
     },
-    "gate": "r4056-diagnose cross-view consumer, tester cbb7a0906",
+    "gate": "r4057-consumer-verify Scenario A+B GREEN v0.8.126, tester 1c4e11043",
     "status": null,
-    "unitLinks": []
+    "unitLinks": [],
+    "sourceFileWas": "ior:file:test/visual/r4056-diagnose.mjs (re-pointed 2026-08-24; r4056-diagnose UNDETERMINED, not a clean green — kept visible, annotate-never-overwrite)"
   },
   "ownerIor": "ior:instance:f5928a3b-0e42-4af8-973c-6f71a31d5be4"
 }
