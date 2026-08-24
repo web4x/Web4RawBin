@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 import type http from 'node:http';
 
 // R31.2 Server-Manager OWNER-GATE — the SINGLE shared guard (architect Method ServerManagerGuard.assertOwner
@@ -8,8 +9,25 @@ import type http from 'node:http';
 // one guard, fail-closed. INV-G1 (non-owner refused everywhere) / INV-G2 (single literal) / INV-G3 (rejected ws
 // upgrade never opens). Correct-by-construction: callers cannot reach a resource without passing THIS method.
 export class ServerManagerGuard {
-  // INV-G2: the OWNER_TOKEN literal appears in EXACTLY ONE module location — here.
-  private static readonly OWNER_TOKEN = '41ad88c4-4dee-49ac-afcb-8a2026657b2d';
+  // ROTATION (ops 2026-08-24, PO+architect backstopped): the owner token is NO LONGER a tracked literal — the old
+  // value leaked into the repo, so it was rotated to an UNTRACKED secret and the leaked value is retired. Sourced
+  // (INV-G2 becomes: NO owner-token literal in source) from env RAWBIN_OWNER_TOKEN → else the untracked file
+  // /root/.rawbin/owner-token (mode 600) → else a per-boot RANDOM with a LOUD boot log (fail-closed: a missing secret
+  // can NEVER fall back to a known/public value; the hardcoded-owner path just goes inert and owner access =
+  // protected-identity only). The value is NEVER committed. NOTE: this rotation retires the leaked owner literal; it
+  // does NOT change the cold-public-value gate on requireFeatureAccess (the seeded+public protected-id) — that remains
+  // and is why the terminal STAYS severed (deferred fix, Tron's call).
+  private static readonly OWNER_TOKEN = ServerManagerGuard.loadOwnerToken();
+  private static loadOwnerToken(): string {
+    const env = (process.env.RAWBIN_OWNER_TOKEN || '').trim();
+    if (env) return env;
+    try {
+      const v = fs.readFileSync(process.env.RAWBIN_OWNER_TOKEN_FILE || '/root/.rawbin/owner-token', 'utf-8').trim();
+      if (v) return v;
+    } catch { /* fall through to the fail-loud random */ }
+    console.error('[boot][owner-token] no RAWBIN_OWNER_TOKEN and no readable /root/.rawbin/owner-token — the hardcoded-owner path is DISABLED (per-boot random); owner access = protected-identity only. Write the untracked secret file to enable it.');
+    return crypto.randomBytes(32).toString('hex');
+  }
 
   // R31.2 AC-cookie-only: HEADER-ONLY (x-player-token). The ?token/?playerToken QUERY fallback is REMOVED — a URL
   // token leaks via logs / referrer / history. The Server-Manager credential is the sm_session COOKIE (minted by the
