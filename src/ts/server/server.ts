@@ -1899,11 +1899,21 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // QA-Review}, expires at Done/re-designation — re-checked per read, expiry observed by StaleSteerLog). ALWAYS designate
           // on the tap regardless of status (one rule per intent-kind, no status branch). Also pins the current SPRINT so the
           // resolver lands on the designated task's sprint. Same designate seam used by /api/current-sprint/designate.
-          let mcSprintNum: number | null = null;
-          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '')); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); break; } }
           const MC_CU = 'current-sprint-singleton-0000-000000000001';
+          // R40.1 CR#86-3 SINGLE-FOCUS: the task being DISPLACED as current (the singleton's PRIOR currentTaskUuid) is
+          // demoted to NEXT — not lost, not a 2nd current. Capture it BEFORE we overwrite currentTaskUuid below.
+          const priorCurrent = String((idx.get(MC_CU)?.model as Record<string, unknown>)?.currentTaskUuid || '').replace('ior:instance:', '').split('@')[0];
+          let mcSprintNum: number | null = null;
+          let priorInSprint = false; // is the displaced prior-current in the SAME sprint as the new current (single-focus within one sprint)?
+          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '').split('@')[0]); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); priorInSprint = !!priorCurrent && tasks.includes(priorCurrent); break; } }
           const desIntent: Record<string, unknown> = { currentTaskUuid: taskUuid };
           if (mcSprintNum != null) desIntent.sprintName = sprintPrefix(mcSprintNum);
+          // Demote prior → next iff it is a REAL, NON-terminal (not Done), in-sprint Task and not the same task being re-designated.
+          if (priorCurrent && priorCurrent !== taskUuid && priorInSprint) {
+            const pu = idx.get(priorCurrent);
+            const priorDone = pu ? deriveStatusEnum(String((pu.model as Record<string, unknown>).statusChecklist ?? '')) === 'Done' : true;
+            if (pu && pu.ior === 'ior:class:Task' && !priorDone) desIntent.nextBacklogOverride = priorCurrent; // getThreeSlots reads nextBacklogOverride for the NEXT slot → single-focus preserved
+          }
           if (idx.get(MC_CU)) UnitController.apply(idx, 'ior:class:CurrentSprint', MC_CU, desIntent, { publish: publishUnitChanged });
           else UnitController.create(idx, 'ior:class:CurrentSprint', MC_CU, { ior: 'ior:class:CurrentSprint', model: { uuid: MC_CU, name: 'Current', ...desIntent }, ownerIor: null }, { publish: publishUnitChanged });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });

@@ -293,7 +293,12 @@ export class CurrentSprint {
     if (currentTaskUuid) {
       const desU = bareUuid(currentTaskUuid); // R40.58 D2: canonical strip (prefix+@host) — single-source with the drawer's compare
       const d = sprintTasks.find(t => t.uuid === desU);
-      if (d && d.status !== 'Done') current = d; // valid designation wins; Done/gone → keep the derived current (expired)
+      // R40.1 CR#86-4 auto-advance at CLEAN QA: a designated current whose status is clean 'QA Review' has left the
+      // being-worked set → its designation EXPIRES here too (not only at Done) → current falls to the derived next, and
+      // nextBacklog recalculates off it. The 'QA-Review-with-open-CR' BAND is NOT excluded (processing a CR IS working) →
+      // it STAYS current. So: designation wins while status ∈ {Planned, In-Progress, QA-Review-with-open-CR}; expires at
+      // clean 'QA Review' / Done / gone (re-checked per read, expiry observed by StaleSteerLog).
+      if (d && d.status !== 'Done' && d.status !== 'QA Review') current = d;
     }
     if (!current && this.chain?.req) {
       // chain points to a non-Task (Bug/CR) or a task outside any sprint → current-only slot (guard !done; LIVE name)
