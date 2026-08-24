@@ -108,3 +108,21 @@ I wrote board-liveness "confirmed complete by #3." PO caught it: that was a CLAI
 - **ACT:** #3 build PROCEEDS NOW — the agreement-gate RED (current=none vs slots.current=40.1 at the pin-slot membership) is a real measured defect and #3 is its cause. Sufficient to act.
 - **CLAIM:** board-liveness is recorded **"EXPECTED to be closed by #3, RUNTIME-UNVERIFIED"** — NOT confirmed-complete — until observed.
 - **THE FALSIFIER, folded into the tester's binding device pass at ~zero marginal cost:** after the combined deploy, **seam-tick a REGULAR (non-pin) task and observe its badge update @390 with NO reload.** Green → the row-self-subscribe account is OBSERVED (inference → observation), board-liveness truly closed by #3. Stale → there IS a second gap (a key-mismatch) and WE find it, not Tron a fifth time. This is an explicit item in the pass, not a hope.
+
+## ★ ELIGIBILITY doc-vs-code divergence — RULING = (a) NARROW THE CODE (2026-08-24, req flagged, ae0dd4ebe)
+`CurrentSprint.ts:296` designation check = `if (d && d.status !== 'Done')` (a "not-Done" DENYLIST). ACs/design say the eligible set {Planned, In-Progress, QA-Review-with-open-CR, QA-Review}. **RULING: (a) the CODE is the bug; the AC intent is right. Do NOT widen the ACs (b).**
+
+### Why (a), grounded first-hand
+- The code ITSELF models raw dead statuses: CurrentSprint.ts:13 "or raw Superseded/Cancelled"; :230 `terminal: TERMINAL_FOR_CURRENT.includes(status) || /^(superseded|cancelled)$/i.test(rawStatus)`. So **Superseded/Cancelled are real statuses the resolver treats as terminal-for-current everywhere EXCEPT :296.**
+- `d.status !== 'Done'` only excludes Done → a designated **Superseded/Cancelled** task passes and becomes current. That is wrong (a dead task cannot be current) and it is INCONSISTENT with the code's own terminal-for-current model.
+- **Denylist-vs-allowlist (the recurring asymmetry):** `!== 'Done'` is a permissive denylist — it already leaks two statuses (Superseded/Cancelled) and rots the instant any new dead status is added. The fix is an explicit designation-eligible ALLOWLIST (fail-closed: a new status is excluded-by-default from being current, not included-by-default). Widening the ACs to "not Done" (b) would SANCTION a Cancelled task as current AND is widening-a-spec-to-bless-a-code-bug (the answer-fitting trap — never move the spec to match a buggy implementation).
+
+### The fix (precise — note TWO legitimately-different eligibility axes, do not conflate)
+- **Auto-derived-current** (:277) = {In Progress, band} — actively-worked; QA-Review is intentionally EXCLUDED from auto-derive (you don't auto-promote a QA-Review task). Correct, leave it.
+- **Designation-eligible** (:296) = {Planned, In-Progress, QA-Review-with-open-CR, QA-Review} = "not (Done | Superseded | Cancelled)" — an owner CAN designate a Planned or QA-Review task. NOTE: this is NOT `!d.terminal` (`.terminal` includes QA-Review, which IS designation-eligible) and NOT `!== 'Done'` (leaks Superseded/Cancelled). It is its OWN explicit set.
+- **FIX:** replace `d.status !== 'Done'` with membership in an explicit named `DESIGNATION_ELIGIBLE` set (or exclude the full dead set {Done, Superseded, Cancelled}). Reference the ONE named set — this satisfies R40.59 AC-one-eligibility-set (today there are 3 ad-hoc expressions: :277 auto, :296 `!==Done`, :230 terminal — the designation one must be a named set, not ad-hoc).
+
+### Gate (the divergence is exactly why req's gate would have false-passed)
+The gate must TEST the code, not restate the AC: **stub-must-fail — designate a Superseded or Cancelled task → it must NOT be current (RED baseline on today's code, which wrongly accepts it).** A gate written to {P/IP/QA-Review} that only checks the happy set would PASS on the buggy `!== 'Done'` code (req's exact point) — so the gate MUST include the dead-status rejection. And extend the current-eligibility single-source: an ad-hoc `status !== '…'` / `status === '…'` for current-eligibility OUTSIDE the one named set → RED (no parallel eligibility expression).
+
+**req: keep the ACs as-is ({P/IP/QA-Review}+band); flag the CODE fix (narrow :296 to the named DESIGNATION_ELIGIBLE set); the gate carries the Superseded/Cancelled-designation RED baseline. R40.56/R40.59 clear their eligibilityCodeVsAcDivergence once the code narrows.**
