@@ -52,6 +52,12 @@ export interface RevocationScope {
 const bare = (s: string): string => String(s || '').replace('ior:instance:', '').split('@')[0].trim();
 const hasDeviceKey = (m: any): boolean => !!(m && m.devicePublicKey && String(m.devicePublicKey).trim());
 
+// EXPLICIT revocations (R40.x, ops 2026-08-24): compromised tokens revoked UNCONDITIONALLY, independent of the
+// device-derived scope. A revocation list is exactly where naming a compromised PUBLIC value is correct (the opposite
+// of a credential-in-source). 41ad88c4 = the owner literal that leaked into the repo (37 files); now rotated + retired,
+// and revoked here so it authenticates NOWHERE via the feature/session path (isRevoked is now enforced there too).
+export const EXPLICIT_REVOKED: string[] = ['41ad88c4-4dee-49ac-afcb-8a2026657b2d'];
+
 // Derive from ior:class:Device units: a token is ENROLLED if ANY of its Device units carries a
 // devicePublicKey; UNENROLLED-ONLY tokens (never keyed) minus enrolled minus the owner = revoked.
 // Owner exclusion goes through the injected isOwner predicate so the OWNER_TOKEN literal stays in its
@@ -72,7 +78,10 @@ export function computeRevocationScope(idx: UnitSource, isOwner: (t: string) => 
       if (o && o.length === 36) fileOwners.add(o);
     }
   }
-  const revoked = [...unenrolled].filter(t => !enrolled.has(t) && !isOwner(t)).sort();
+  // device-derived (unenrolled minus enrolled minus owner) UNION the explicit compromised-token revocations (which are
+  // unconditional except they never revoke the CURRENT owner). Dedup + sort → deterministic.
+  const derived = [...unenrolled].filter(t => !enrolled.has(t) && !isOwner(t));
+  const revoked = [...new Set([...derived, ...EXPLICIT_REVOKED.filter(t => !isOwner(t))])].sort();
   return { revoked, enrolled, unenrolled, fileOwners };
 }
 

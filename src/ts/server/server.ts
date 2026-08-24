@@ -945,7 +945,7 @@ function cookieFrom(req: http.IncomingMessage, name: string): string {
 // public uuid is NEVER a profiles KEY (keys are player tokens) → rejected cold AND ws-live-forged (unlike the forgeable
 // tokenToClient liveness). Fail-closed: no token / not a profile / not protected → false.
 function ownerByToken(token: string): boolean {
-  if (!token || !userProfiles.has(token)) return false;
+  if (!token || isRevoked(token, revokedTokens) || !userProfiles.has(token)) return false; // R40.x: a REVOKED token (e.g. the leaked 41ad88c4) authenticates NOWHERE, even if it is a genuine profile key
   const puid = FeatureManager.profileUuidOf(token, userProfiles as unknown as Map<string, { redirectTo?: string }>);
   return loadProtectedIdentities().ids.includes(puid);
 }
@@ -978,13 +978,13 @@ function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): 
 // Feature.allowedUsers membership.
 function resolveSessionToken(req: http.IncomingMessage): string {
   const sid = cookieFrom(req, 'sm_session');
-  if (sid) { const s = smSessions.get(sid); if (s && s.expiresAt > Date.now()) return s.token; if (s) smSessions.delete(sid); }
+  if (sid) { const s = smSessions.get(sid); if (s && s.expiresAt > Date.now()) return isRevoked(s.token, revokedTokens) ? '' : s.token; if (s) smSessions.delete(sid); } // R40.x: a REVOKED minting token no longer resolves
   const t = ServerManagerGuard.playerTokenFrom(req);
   // R40.x SECURITY: require a GENUINE registered profile player-token (userProfiles is keyed by profile.token). The old
   // `tokenToClient.has(t)` liveness gate is FORGEABLE — ws-IDENTIFY (CREATE_ROOM/JOIN_ROOM) sets tokenToClient with an
   // UNVALIDATED playerToken, so an attacker can make ANY public value (e.g. the public protected-id uuid) "live". A
   // profile-map KEY cannot be forged (a bare uuid is never a key). So membership auth needs a real profile, not liveness.
-  return (t && userProfiles.has(t)) ? t : '';
+  return (t && !isRevoked(t, revokedTokens) && userProfiles.has(t)) ? t : '';
 }
 // R31.8: allowedUsers of a Feature by name (scan the ior:class:Feature units on disk). Fail-closed: unknown/empty → []
 // (INV-F5). Admin-only low-QPS path; a fresh ScenarioIndex per call keeps it revoke-immediate (no stale cache).
