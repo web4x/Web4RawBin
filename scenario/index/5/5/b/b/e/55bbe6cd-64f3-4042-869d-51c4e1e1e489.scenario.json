@@ -64,9 +64,9 @@
         "gateRef": {
           "kind": "test",
           "ref": "test:decline-band current-ability",
-          "assertion": "a task in QA-Review-with-open-CR is current-eligible via the ONE getThreeSlots eligibility set (not a parallel list)"
+          "assertion": "a task in QA-Review-with-open-CR is current-eligible via the ONE getThreeSlots eligibility set (not a parallel list); eligibility resolves via ONE named DESIGNATION_ELIGIBLE set; a designated Superseded/Cancelled task is NOT current"
         },
-        "stubMustFail": "PENDING: seed the band added to a SECOND eligibility list (not the one set) -> gate RED; a band task rejected as current => RED"
+        "stubMustFail": "PENDING: seed the band added to a SECOND eligibility list (not the one set) -> gate RED; a band task rejected as current => RED; ★ dead-status-designation RED baseline (architect 2daa5fc83): designate a SUPERSEDED or CANCELLED task -> it must NOT be current (RED on TODAY's code, which the :296 !==Done denylist wrongly accepts); + any ad-hoc status-compare for eligibility OUTSIDE the named DESIGNATION_ELIGIBLE set (3 ad-hoc exprs :277/:296/:230 today) -> RED"
       },
       {
         "id": "AC-single-source-one-derivation",
@@ -80,7 +80,7 @@
         "stubMustFail": "PENDING: seed a 2nd band-derivation outside deriveStatusEnum -> gate RED"
       }
     ],
-    "eligibilityCodeVsAcDivergence": "DOC/AC-vs-CODE DIVERGENCE (expert found proactively, robbin-req verified first-hand 2026-08-24): CurrentSprint.ts:296 CODE = `if (d && d.status !== 'Done') current = d;` = anything NOT-Done is honorable as current (BROAD). The design comment + this AC specify the NARROWER {Planned, In-Progress, QA-Review}. The CODE is BROADER than its own comment + this AC. BENIGN today (a declined band task IS honorable => band & #3 do NOT conflict, no regression). ★ THE AC DESCRIBES AN INTENTION, not the code: a gate written to {P/IP/QA} would PASS while the system accepts anything not-Done (e.g. Superseded/Cancelled). FLAGGED ARCHITECT to RULE which is correct - narrow the CODE to {P/IP/QA}, or widen the AC/comment to not-Done - do NOT silently align either side. This AC stays UNVERIFIED pending the ruling."
+    "eligibilityCodeVsAcDivergence": "★ RULING 2026-08-24 (architect 2daa5fc83): (a) NARROW THE CODE - it's a bug; the ACs STAND (correct). :296 `d.status !== 'Done'` is an ad-hoc DENYLIST that only excludes Done -> a designated Superseded/Cancelled task WRONGLY becomes current, INCONSISTENT with the code's OWN terminal model (:230 TERMINAL_FOR_CURRENT + /superseded|cancelled/). DO NOT widen the ACs to not-Done (answer-fitting: it would sanction a Cancelled task as current + widen a spec to bless a code bug). FIX = membership in a NAMED DESIGNATION_ELIGIBLE set = {Planned, In-Progress, band, QA-Review} = 'not (Done|Superseded|Cancelled)', single-source (collapses the 3 ad-hoc exprs today: :277 auto-derived / :296 designation / :230 terminal). TWO legit-different axes, don't conflate: auto-derived-current(:277)={In Progress, band} (QA-Review rightly excluded from AUTO); designation-eligible(:296)={Planned, In-Progress, band, QA-Review}. NOT !d.terminal (.terminal includes QA-Review which IS designation-eligible) and NOT !==Done (leaks dead). GATE stub-must-fail: designate a Superseded OR Cancelled task -> must NOT be current = RED baseline on TODAY's code (which accepts it); + any ad-hoc status-compare for eligibility OUTSIDE the named set -> RED. eligibilityCodeVsAcDivergence CLEARS once the code narrows. Expert builds the :296 narrow-to-DESIGNATION_ELIGIBLE; architect backstops named-set + gate-reds-on-Cancelled-designation."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
