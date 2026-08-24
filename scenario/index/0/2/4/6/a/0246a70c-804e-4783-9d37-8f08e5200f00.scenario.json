@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0246a70c-804e-4783-9d37-8f08e5200f00",
+    "name": "viewBus.consumerRefNotValue",
+    "description": "Every subscriber consumes a CustomEvent/ViewBus detail ONLY as a ref/signal to re-derive from the authoritative source, never paints its detail field value (no stored copy); one ViewBus instance (root adapter deleted); User-surfaces subscribe-on-render + re-derive-live; gated structurally (consumer-property + one-instance) + @390 consumer-vs-consumer post-broadcast (RED baseline: a stored-copy consumer renders a different value).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:ac6a5b89-93ff-40f8-8744-29ef9070f111",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the shipped decl on build-go (per increment) + backstops the gate reds on the real stored-copy shape."
+  },
+  "ownerIor": "ior:instance:ac6a5b89-93ff-40f8-8744-29ef9070f111"
+}

@@ -1,0 +1,104 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "ac6a5b89-93ff-40f8-8744-29ef9070f111",
+    "altId": "R37.24",
+    "name": "ONE VIEW BUS by elimination — no subscriber paints a pushed copy; detail is a ref to re-derive (realtime-MVC single-source, T37.25)",
+    "description": "ONE VIEW BUS by ELIMINATION, not reconciliation: retire every SECOND source of a shared model-truth around the already-unified bus instance, in 4 bounded increments. THE HAZARD (the whole design's property): a SUBSCRIBER that RENDERS a field VALUE carried in an event.detail (a pushed COPY that can go stale) instead of using detail ONLY as a ref/signal to RE-DERIVE from the authoritative source. Measured second-sources: (1) the root adapter ../ViewBus.ts (24-line model-carrying API over the SAME instance, TWO import paths, 4 User-surfaces, RawBinClient flags it as DRY debt); (2) parallel window.dispatchEvent(CustomEvent('rb-*')) model-truth channels (rb-avatar-updated x6, rb-avatar-changed) whose subscribers PAINT detail values. Cure = eliminate the copy: subscribe-on-render + re-derive-live, and gate the CONSUMER PROPERTY (a detail is a ref only) so the KEEP set FALLS OUT of the property and a NEW model-carrying event cannot hide (no hand-list — the check:pin-single-source actor-blocklist failure mode).",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:0246a70c-804e-4783-9d37-8f08e5200f00"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designCommit": "6de15a296 (design-t37.25-one-view-bus.md); discriminator close 0dfa7f959",
+      "dispatchedBy": "robbin-po",
+      "date": "2026-08-24",
+      "measured": "one real bus instance (trace/ViewBus.ts, R40.45); SECOND-SOURCE-1 root adapter ../ViewBus.ts (24-line model-carrying, 2 import paths, 4 User-surfaces, RawBinClient DRY-debt flag); SECOND-SOURCE-2 parallel rb-* model-truth CustomEvents (rb-avatar-updated x6) whose subscribers paint detail values",
+      "verifiedBy": "robbin-req: adapter src/public/ts/ViewBus.ts exists (increment-1 delete target)"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "incrementBank": "FOUR BOUNDED INCREMENTS, each banked independently (the 6-edit-recipe model): 1 retire-adapter(elimination) / 2 subscribe-on-render-no-copy / 3 consumer-property-ref-not-value(KEEP falls out, +secondary divergence net) / 4 single-source gate(structural + @390 consumer-vs-consumer post-broadcast RED-baseline). A mid-slice wall costs ONE increment, not the slice. Expert builds increment-by-increment on build-go.",
+    "metaFinding": "★ ELIMINATION, NOT RECONCILIATION: retire the second definition, never synchronize it (an adapter kept-in-step IS the reconciliation to eliminate). ★ The gate asserts the HAZARD (a subscriber painting a pushed copy), NOT an event KEEP-list — a hand-list is exactly how check:pin-single-source shipped GREEN over Tron's defect. The KEEP set FALLS OUT of the consumer-property; a new model-carrying event cannot hide by construction. ★ POST-BROADCAST is load-bearing timing: an initial-load check false-passes. [[scan-the-hazard-not-the-actors]] [[keep-set-falls-out-of-the-property-never-enumerated]] [[assert-the-rendered-artifact-not-a-proxy]]",
+    "satisfactionStatus": "UNVERIFIED throughout (design-only, no build yet; the @390 consumer-vs-consumer post-broadcast RED-then-green is the acceptance). None of it is Done.",
+    "crossRef": [
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:983a2ec6-c708-4b82-92a7-472898a21923",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Extends R37.12 (ONE CONTROLLER / ONE VIEW BUS) with the elimination gate + the consumer-property. Sibling of R40.57 (cross-view consumer-vs-consumer on the rendered artifact — same NEW gate class). Rides R40.54 failable family. Queues BEHIND the band R40.59 (critical path).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-inc1-retire-adapter",
+        "group": "increment-1/elimination",
+        "text": "RETIRE the root adapter: migrate the 4 User-surfaces (ProfileEditor:188 publish, ProfileSheet:51 / RoomBrowser:117 / rb-member-badge:14 subscribe) to import the canonical ViewBus + viewBusKey from trace/ViewBus.ts directly, keyed viewBusKey({type:'User',uuid:token}), and DELETE src/public/ts/ViewBus.ts. ELIMINATION not synchronization — the adapter is GONE (one file, one API, one import path), not kept-in-step; kills the two-import-paths re-divergence risk.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:viewbus-key-single-source (adapter-gone)",
+          "assertion": "src/public/ts/ViewBus.ts does NOT exist; 0 imports of ../ViewBus.ts; no 2nd `new ViewBusImpl`"
+        },
+        "stubMustFail": "PENDING: reintroduce ../ViewBus.ts (or a 2nd ViewBusImpl) -> gate RED"
+      },
+      {
+        "id": "AC-inc2-subscribe-on-render-no-copy",
+        "group": "increment-2/no-stored-copy",
+        "text": "SUBSCRIBE-ON-RENDER, no stored model-copy: the User-surfaces subscribe-on-render to the User:token key and on notify RE-DERIVE live (re-read the authoritative profile / shared store), NEVER cache the pushed model; the notify goes PAYLOAD-FREE (re-render/re-fetch). Retires the displayName PUSH — a pushed copy IS a mini-second-source that can go stale (measured: stale model.slots / baked pinRole).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:viewbus-key-single-source (no-stored-copy)",
+          "assertion": "User-surface consumers hold no cached/pushed model copy; notify carries no model payload; role/value re-derived on notify"
+        },
+        "stubMustFail": "PENDING: seed a cached pushed-model copy in a User-surface consumer -> gate RED"
+      },
+      {
+        "id": "AC-inc3-consumer-property-ref-not-value",
+        "group": "increment-3/consumer-property/CORE",
+        "text": "★ THE CONSUMER PROPERTY (the whole cure, gate asserts THIS not an event list): NO subscriber may PAINT event.detail.<modelValue>; a CustomEvent detail may be consumed ONLY as a ref/target/signal (re-derive/re-fetch keyed by it), never as the model itself. ⇒ the KEEP set FALLS OUT of the property (orchestration events carry no painted value = nothing to fix), NEVER enumerated. A NEW model-carrying event CANNOT hide: paints its detail value => RED; uses only a ref => genuinely orchestration. Subsumes the avatar case (rb-avatar-updated subscribers re-derive the avatar from the authoritative profile on the signal, NOT paint detail.url). Sharper than a hand-classification (rb-model-resynced {refs, no painted value} = genuine orchestration, not folded).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:viewbus-key-single-source (consumer-property)",
+          "assertion": "0 subscribers render event.detail.<modelValue> as the model; every CustomEvent detail is consumed as a ref/signal only (re-derive keyed by it)"
+        },
+        "stubMustFail": "PENDING: seed a consumer that renders event.detail.<value> as the model -> gate RED (a new model-carrying event can't hide by construction)"
+      },
+      {
+        "id": "AC-inc3-divergence-net-secondary",
+        "group": "increment-3/divergence-secondary",
+        "text": "SECONDARY belt-and-suspenders divergence net: a lint ALSO flags any NEW rb-* CustomEvent NAME not previously seen, for one-time triage (a novel channel surfaces LOUD). But the PRIMARY decision is the CONSUMER PROPERTY (AC-inc3-consumer-property), NOT the name list — the net is a safety supplement, never the gate's basis (a name-list-as-the-gate is the check:pin-single-source actor-blocklist rot).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check new-rb-event-name divergence (secondary)",
+          "assertion": "a never-seen rb-* event name => triage-flag (LOUD); the primary pass/fail is the consumer-property, not this list"
+        },
+        "stubMustFail": "PENDING: add a novel rb-* event name -> triage-flag surfaces (secondary net); primary gate still decides on the consumer-property"
+      },
+      {
+        "id": "AC-inc4-structural-one-instance",
+        "group": "increment-4/structural-gate",
+        "text": "STRUCTURAL gate (extend check-viewbus-key-single-source), TWO hazard assertions, neither an actor list: (i) ONE ViewBus file/instance — ../ViewBus.ts GONE, no second `new ViewBusImpl`; (ii) the CONSUMER property (Increment 3) — no subscriber paints a field VALUE carried in a CustomEvent detail (detail = ref/signal only), catching a model-truth second-source by its SHAPE so the KEEP set needs no enumeration.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:viewbus-key-single-source (structural, extended)",
+          "assertion": "one ViewBus instance (no 2nd file/new ViewBusImpl) AND 0 consumers painting event.detail.<value> — both by hazard-shape, no actor list"
+        },
+        "stubMustFail": "PENDING dual: (a) a 2nd bus file / new ViewBusImpl -> RED; (b) a consumer rendering event.detail.<value> as model -> RED"
+      },
+      {
+        "id": "AC-inc4-runtime-390-consumer-vs-consumer-post-broadcast",
+        "group": "increment-4/runtime/RED-baseline",
+        "text": "RUNTIME R37.12 @390 (CONSUMER-vs-CONSUMER, POST-BROADCAST): after a mutation BROADCAST, two CONSUMERS of the same ref render the SAME value on the RENDERED artifact (e.g. displayName in ProfileSheet DOM == rb-member-badge DOM == RoomBrowser DOM), @390 real-WebKit. NOT view-vs-model. NOT at initial load (a load-time variant must be PROVEN to false-pass and is rejected — the state-under-test is post-broadcast). ★ RED BASELINE (live known-positive shape): a consumer holding a STORED STALE copy renders a DIFFERENT value post-broadcast -> the gate MUST RED. Prove the gate can fail on that shape before trusting a GREEN.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R37.24 @390 consumer-vs-consumer post-broadcast",
+          "assertion": "post-broadcast: >=2 consumers of a ref render the SAME rendered-DOM value @390; a stored-stale-copy consumer rendering a DIFFERENT value => RED"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: a stored-copy consumer renders a different value post-broadcast -> gate RED (proves it asserts consumer-agreement, not view-vs-model or initial-load)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
