@@ -19,6 +19,27 @@ const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTo
 const OUT = 'test-results/r4057-consumer'; fs.mkdirSync(OUT, { recursive: true });
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
+// ── PROPERTY (PO condition-1 for Test 4e3547dd): refreshCurrentSlot must RE-DERIVE on the broadcast, NOT paint a value
+// from event.detail. Deploy-independent SOURCE check (immune to the live-flow entanglement): the CurrentSprint
+// subscription callback (rb-detail-drawer.ts:87) must IGNORE the payload (no-arg arrow → refreshCurrentSlot), and
+// refreshCurrentSlot's body must re-derive via fetch(/api/trace/children) with NO event/detail/payload read. This FAILS
+// if a future change starts painting from event.detail. stub-must-fail: a synthetic paint-from-detail callback is flagged.
+const drawerSrc = fs.readFileSync('src/public/ts/trace/rb-detail-drawer.ts', 'utf8');
+const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+const code = stripComments(drawerSrc);
+// the CurrentSprint subscribe callback re-derives (no-arg arrow calling refreshCurrentSlot), payload ignored
+const subCallbackReDerives = /subscribe\(\s*viewBusKey\(\{\s*type:\s*'CurrentSprint'[\s\S]{0,120}?\}\)\s*,\s*\(\s*\)\s*=>\s*\{?\s*void this\.refreshCurrentSlot\(\)/.test(code);
+// refreshCurrentSlot body re-derives via fetch and does NOT read a broadcast payload (no e.detail / event.detail / payload.)
+const bodyMatch = code.match(/refreshCurrentSlot\s*\([^)]*\)\s*:\s*Promise<void>\s*\{([\s\S]*?)\n {2}\}/);
+const body = bodyMatch ? bodyMatch[1] : '';
+const bodyReDerives = /fetch\(`?\/api\/trace\/children/.test(body) && !/\.detail\b|\bevent\b|\bpayload\b/.test(body);
+// STUB-MUST-FAIL: a paint-from-detail callback form must be REJECTED by the same predicate
+const paintStub = "subscribe(viewBusKey({ type: 'CurrentSprint', uuid: 'x' }), (e) => { this._currentSlotUuid = e.detail.uuid; })";
+const stubRejected = !/\(\s*\)\s*=>\s*\{?\s*void this\.refreshCurrentSlot\(\)/.test(paintStub); // no-arg-arrow predicate rejects the (e)=>paint form
+console.log(`── PROPERTY (re-derive-not-paint): subCallbackIgnoresPayload=${subCallbackReDerives} · bodyReDerivesViaFetch-noDetail=${bodyReDerives} · STUB-MUST-FAIL(paint-from-detail rejected)=${stubRejected}`);
+const propertyGreen = subCallbackReDerives && bodyReDerives && stubRejected;
+if (!propertyGreen) { console.log('PROPERTY RED — refreshCurrentSlot does not provably re-derive (or paints from payload); NOT a derive-at-render green.'); process.exit(1); }
+
 const f = await setupFoundation({ commit: 'HEAD', buildDist: true });
 const oh = f.ownerHeaders();
 console.log(`scratch: ${f.base} servedVersion=${f.servedVersion} sha=${f.worktreeSha}`);

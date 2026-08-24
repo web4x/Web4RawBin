@@ -1,3 +1,4 @@
+// [test:uuid:8c1f60ba-4d92-4e73-9a15-2b6e0f7c4a18] R40.57 cross-view AGREEMENT (pin-render vs bar-render) → Impl f5928a3b. RED BASELINE, status=fail: the cbb7a0906 gate VERBATIM (unadjusted) — DETERMINISTICALLY RED 2/2 on served v0.8.126 (pin renders 'Current 40.1' while that drawer bar still offers 'Set as Current', post-broadcast, both consumers readable on /trace). Distinct from derive-at-render 4e3547dd. Re-pointed here from r4056-diagnose (HEAD version = UNDETERMINED; this file = the cbb7a0906 verbatim that fires the clean RED) — pending req sourceFile re-point.
 // R40.56 Tron-open-defect DIAGNOSIS (discriminate, do NOT fix). Symptom /model @390 v0.8.124: pin row reads
 // "📌 Current — Task 40.1" while THAT SAME task's drawer still offers "📌 Set as Current" (7a956c21). Two views, one
 // screen, disagreeing. Discriminate 3 causes, cheapest-eliminator-first:
