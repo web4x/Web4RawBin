@@ -1,3 +1,4 @@
+// [test:uuid:4e3547dd-3654-4071-9a70-01d86f65cd71] R40.57 refreshCurrentSlot derive-at-render → Impl f5928a3b. This gate (Scenario A open-after-designation + B full-reload) cleanly proves the drawer DERIVES the current-slot role at render (bar hides Set-as-Current for the current task) GREEN on v0.8.126 — the faithful scope-prover for f5928a3b. (Re-pointed here from r4056-diagnose by gate-author measure: r4056-diagnose is a cross-view-DISAGREEMENT diagnostic that self-flags UNDETERMINED on v0.8.126, NOT a clean derive-at-render green; pending req sourceFile re-point.)
 // R40.57 CONSUMER decisive verify on v0.8.125 — distinguish a REAL consumer-RED from a harness artifact before reporting.
 // The fix (rb-detail-drawer.ts:91-102,523-524): drawer fetches the live current-slot uuid into _currentSlotUuid, derives
 // taskRole = bareUuid(ref)==_currentSlotUuid ? 'current':'other', re-derives on a CurrentSprint-pin subscription.

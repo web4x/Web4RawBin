@@ -14,7 +14,7 @@
       "note": "D2 = PREVENTION (not the live-screen fix, D1 was). CODE DEPLOYED v0.8.126; NOT Done. UUID GENERATED for tester to ADOPT into the gate."
     },
     "gate": "r4057-bareuuid-property, tester 5d473e459",
-    "status": null,
+    "status": "pass",
     "unitLinks": []
   },
   "ownerIor": "ior:instance:3d1b5df8-0836-4754-8637-7e89aab68e39"

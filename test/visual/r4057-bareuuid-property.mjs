@@ -1,3 +1,4 @@
+// [test:uuid:2f79c7c5-db26-42b5-9623-4f132c652618] R40.57 bareUuid property → Impl 3d1b5df8 (bareUuid canonical normalizer). GREEN 46-decoration property + failability-proven (stub-must-fail vs OLD ior-only form REDs 38/46).
 // R40.57 bareUuid PROPERTY stub-must-fail (architect design 91dd0c2d1) — scan-the-HAZARD not the actors.
 // CONTRACT: bareUuid reduces ANY decorated ref-form to the bare uuid. PROPERTY: for every decoration d in the FULL set
 // (all type-prefixes + ior forms + @host + combos + NOVEL/never-enumerated prefixes), bareUuid(decorate(u)) === u.
