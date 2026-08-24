@@ -57,13 +57,13 @@
       {
         "id": "AC-inc3-consumer-property-ref-not-value",
         "group": "increment-3/consumer-property/CORE",
-        "text": "★ THE CONSUMER PROPERTY (the whole cure, gate asserts THIS not an event list): NO subscriber may PAINT event.detail.<modelValue>; a CustomEvent detail may be consumed ONLY as a ref/target/signal (re-derive/re-fetch keyed by it), never as the model itself. ⇒ the KEEP set FALLS OUT of the property (orchestration events carry no painted value = nothing to fix), NEVER enumerated. A NEW model-carrying event CANNOT hide: paints its detail value => RED; uses only a ref => genuinely orchestration. Subsumes the avatar case (rb-avatar-updated subscribers re-derive the avatar from the authoritative profile on the signal, NOT paint detail.url). Sharper than a hand-classification (rb-model-resynced {refs, no painted value} = genuine orchestration, not folded).",
+        "text": "★ THE CONSUMER PROPERTY (the whole cure, gate asserts THIS not an event list): NO subscriber may PAINT event.detail.<modelValue>; a CustomEvent detail may be consumed ONLY as a ref/target/signal (re-derive/re-fetch keyed by it), never as the model itself. ⇒ the KEEP set FALLS OUT of the property (orchestration events carry no painted value = nothing to fix), NEVER enumerated. A NEW model-carrying event CANNOT hide: paints its detail value => RED; uses only a ref => genuinely orchestration. Subsumes the avatar case (rb-avatar-updated subscribers re-derive the avatar from the authoritative profile on the signal, NOT paint detail.url). Sharper than a hand-classification (rb-model-resynced {refs, no painted value} = genuine orchestration, not folded). ★ EXTENDED 2026-08-24 (architect 954dbf994, promotion): the property GENERALIZES from 'no CLIENT subscriber paints event.detail.<value>' to ANY CONSUMER (client render OR SERVER endpoint) READS the shared truth and NEVER RE-PRODUCES it — a server endpoint that derives current-role OR calls slotsFrom with its OWN/missing inputs is the SAME hazard (a 2nd source), enforced across BOTH trees (src/ts server AND src/public/ts client). This closes the #3 hole (/api/trace/children?mode=trace recomputed a disagreeing slots).",
         "gateRef": {
           "kind": "lint",
           "ref": "check:viewbus-key-single-source (consumer-property)",
-          "assertion": "0 subscribers render event.detail.<modelValue> as the model; every CustomEvent detail is consumed as a ref/signal only (re-derive keyed by it)"
+          "assertion": "0 consumers (client OR server) paint a pushed value OR recompute the shared truth; every consumer READS the ONE per-request slots.current (getThreeSlots), never re-derives/re-produces it — scanned across src/ts + src/public/ts"
         },
-        "stubMustFail": "PENDING: seed a consumer that renders event.detail.<value> as the model -> gate RED (a new model-carrying event can't hide by construction)"
+        "stubMustFail": "PENDING: seed a consumer that renders event.detail.<value> as the model -> gate RED (a new model-carrying event can't hide by construction); ALSO: a SERVER endpoint deriving role / calling slotsFrom with its own inputs -> RED"
       },
       {
         "id": "AC-inc3-divergence-net-secondary",
@@ -79,27 +79,28 @@
       {
         "id": "AC-inc4-structural-one-instance",
         "group": "increment-4/structural-gate",
-        "text": "STRUCTURAL gate (extend check-viewbus-key-single-source), TWO hazard assertions, neither an actor list: (i) ONE ViewBus file/instance — ../ViewBus.ts GONE, no second `new ViewBusImpl`; (ii) the CONSUMER property (Increment 3) — no subscriber paints a field VALUE carried in a CustomEvent detail (detail = ref/signal only), catching a model-truth second-source by its SHAPE so the KEEP set needs no enumeration.",
+        "text": "STRUCTURAL gate (extend check-viewbus-key-single-source), TWO hazard assertions, neither an actor list: (i) ONE ViewBus file/instance — ../ViewBus.ts GONE, no second `new ViewBusImpl`; (ii) the CONSUMER property (Increment 3) — no subscriber paints a field VALUE carried in a CustomEvent detail (detail = ref/signal only), catching a model-truth second-source by its SHAPE so the KEEP set needs no enumeration. ★ EXTENDED (server tree): the gate scans BOTH src/ts (server) AND src/public/ts (client) — NO site outside the ONE getThreeSlots computes current-role OR recomputes slots with local inputs.",
         "gateRef": {
           "kind": "lint",
           "ref": "check:viewbus-key-single-source (structural, extended)",
-          "assertion": "one ViewBus instance (no 2nd file/new ViewBusImpl) AND 0 consumers painting event.detail.<value> — both by hazard-shape, no actor list"
+          "assertion": "one ViewBus instance (no 2nd file/new ViewBusImpl) AND 0 consumers painting event.detail.<value> — both by hazard-shape, no actor list; AND scanned across BOTH trees, 0 server-or-client sites recompute slots / derive current-role outside getThreeSlots"
         },
-        "stubMustFail": "PENDING dual: (a) a 2nd bus file / new ViewBusImpl -> RED; (b) a consumer rendering event.detail.<value> as model -> RED"
+        "stubMustFail": "PENDING dual: (a) a 2nd bus file / new ViewBusImpl -> RED; (b) a consumer rendering event.detail.<value> as model -> RED; (c) a SERVER endpoint calling slotsFrom with its own inputs / deriving current-role -> RED"
       },
       {
         "id": "AC-inc4-runtime-390-consumer-vs-consumer-post-broadcast",
         "group": "increment-4/runtime/RED-baseline",
-        "text": "RUNTIME R37.12 @390 (CONSUMER-vs-CONSUMER, POST-BROADCAST): after a mutation BROADCAST, two CONSUMERS of the same ref render the SAME value on the RENDERED artifact (e.g. displayName in ProfileSheet DOM == rb-member-badge DOM == RoomBrowser DOM), @390 real-WebKit. NOT view-vs-model. NOT at initial load (a load-time variant must be PROVEN to false-pass and is rejected — the state-under-test is post-broadcast). ★ RED BASELINE (live known-positive shape): a consumer holding a STORED STALE copy renders a DIFFERENT value post-broadcast -> the gate MUST RED. Prove the gate can fail on that shape before trusting a GREEN.",
+        "text": "RUNTIME R37.12 @390 (CONSUMER-vs-CONSUMER, POST-BROADCAST): after a mutation BROADCAST, two CONSUMERS of the same ref render the SAME value on the RENDERED artifact (e.g. displayName in ProfileSheet DOM == rb-member-badge DOM == RoomBrowser DOM), @390 real-WebKit. NOT view-vs-model. NOT at initial load (a load-time variant must be PROVEN to false-pass and is rejected — the state-under-test is post-broadcast). ★ RED BASELINE (live known-positive shape): a consumer holding a STORED STALE copy renders a DIFFERENT value post-broadcast -> the gate MUST RED. Prove the gate can fail on that shape before trusting a GREEN. ★ EXTENDED (Tron's real sequence): the @390 gate MUST run the OPEN-BEFORE-then-broadcast sequence (drawer open BEFORE the Set-as-Current broadcast = Tron's actual tap), NOT open-AFTER. The derive-at-render green false-greened precisely because it was measured on the clean OPEN-AFTER sequence; #3's endpoint (/api/trace/children) fires in the OPEN-BEFORE flow, where the bar's slots DISAGREES with the pin's slots.current post-broadcast. R37.24's POST-BROADCAST + CONSUMER-vs-CONSUMER property catches #3 by construction on this sequence.",
         "gateRef": {
           "kind": "test",
           "ref": "test:R37.24 @390 consumer-vs-consumer post-broadcast",
           "assertion": "post-broadcast: >=2 consumers of a ref render the SAME rendered-DOM value @390; a stored-stale-copy consumer rendering a DIFFERENT value => RED"
         },
-        "stubMustFail": "PENDING RED-BASELINE: a stored-copy consumer renders a different value post-broadcast -> gate RED (proves it asserts consumer-agreement, not view-vs-model or initial-load)"
+        "stubMustFail": "PENDING RED-BASELINE: a stored-copy consumer renders a different value post-broadcast -> gate RED (proves it asserts consumer-agreement, not view-vs-model or initial-load); the gate MUST run OPEN-BEFORE-then-broadcast (an open-AFTER-only variant false-greened on #3 -> rejected)"
       }
     ],
-    "referenceImplNote": "EVIDENCE the inc3 consumer-property is implementable + already holds in ONE consumer (PO 2026-08-24): rb-detail-drawer.ts:87 subscribes the CurrentSprint viewBusKey with a callback that IGNORES the payload and calls refreshCurrentSlot() to RE-DERIVE = inc3 (detail=ref, never a painted value) satisfied by construction in the very consumer that produced Tron defect. REFERENCE IMPLEMENTATION when inc3 enumerates by property. Does NOT credit R37.24 - the property must be proven ACROSS consumers, not in one; R37.24 stays UNVERIFIED."
+    "referenceImplNote": "EVIDENCE the inc3 consumer-property is implementable + already holds in ONE consumer (PO 2026-08-24): rb-detail-drawer.ts:87 subscribes the CurrentSprint viewBusKey with a callback that IGNORES the payload and calls refreshCurrentSlot() to RE-DERIVE = inc3 (detail=ref, never a painted value) satisfied by construction in the very consumer that produced Tron defect. REFERENCE IMPLEMENTATION when inc3 enumerates by property. Does NOT credit R37.24 - the property must be proven ACROSS consumers, not in one; R37.24 stays UNVERIFIED.",
+    "serverExtension": "★ PROMOTED + EXTENDED-TO-SERVER (architect 954dbf994): unified principle = 'who is current' has ONE definition site (the ONE per-request slots from getThreeSlots(resolveSprintPin, designation)); EVERY consumer client-OR-server READS that slots.current, NONE re-derives it, NONE recomputes slots with its own inputs — enforced across BOTH trees. Unifies R40.56 (single-site) + R40.56-compute-once + R37.24 (read-never-reproduce). R37.24 is not a parallel feature, it is the gate that would have caught #3 and makes #4 impossible. SEQUENCING: #3 IMMEDIATE (endpoint reads the ONE per-request slots = first consumer under the extended invariant, expert builds) THEN R37.24 as the structural closure."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

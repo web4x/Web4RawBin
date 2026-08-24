@@ -109,7 +109,8 @@
         },
         "stubMustFail": "PENDING: the RED baseline is the acceptance precondition — no fix lands until it is captured RED on the live defect"
       }
-    ]
+    ],
+    "computeOnceServerHole": "★ HOLE FOUND 2026-08-24 (architect 954dbf994): AC-compute-once-pass-down NAMED the 'slotsFrom twice with different inputs = still two sources' subtlety but NEVER ENFORCED it on the SERVER render path. #3 (Tron defect #5 live on v0.8.126): /api/trace/children?mode=trace calls slotsFrom with DIFFERENT/missing designation inputs, computing a slots that DISAGREES with the pin's slots.current = the compute-once hole, server-side. The drawer path (server.ts:2725) reads slots.current correctly; the /trace endpoint does not. FIX (#3 immediate): the endpoint reads the SAME per-request slots the pin uses (compute-once-pass-down), never its own slotsFrom call. This is the compute-once invariant landing on #3; the DURABLE closure is R37.24 (extended to scan the server tree). R40.56's compute-once AC was client-render-scoped in practice; R37.24 generalizes it to client-OR-server."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
