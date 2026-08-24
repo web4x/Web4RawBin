@@ -79,7 +79,8 @@
         },
         "stubMustFail": "PENDING: seed a 2nd band-derivation outside deriveStatusEnum -> gate RED"
       }
-    ]
+    ],
+    "eligibilityCodeVsAcDivergence": "DOC/AC-vs-CODE DIVERGENCE (expert found proactively, robbin-req verified first-hand 2026-08-24): CurrentSprint.ts:296 CODE = `if (d && d.status !== 'Done') current = d;` = anything NOT-Done is honorable as current (BROAD). The design comment + this AC specify the NARROWER {Planned, In-Progress, QA-Review}. The CODE is BROADER than its own comment + this AC. BENIGN today (a declined band task IS honorable => band & #3 do NOT conflict, no regression). ★ THE AC DESCRIBES AN INTENTION, not the code: a gate written to {P/IP/QA} would PASS while the system accepts anything not-Done (e.g. Superseded/Cancelled). FLAGGED ARCHITECT to RULE which is correct - narrow the CODE to {P/IP/QA}, or widen the AC/comment to not-Done - do NOT silently align either side. This AC stays UNVERIFIED pending the ruling."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

@@ -101,7 +101,20 @@
       "stubMustFail": "CANDIDATE: a gate that source-greps a subscribe-identifier and REDs on a legit viewBusKey refactor while the behaviour is GREEN -> flagged (this is the r4017 instance)"
     },
     "corpusFalseRedInstance": "★ FALSE RED in our own gate corpus 2026-08-24 (robbin-req verified first-hand): r4017-live-pin-norefresh-gate.mjs:33 source-greps subscribe('<CS>') (the RETIRED raw-uuid subscribe) as part of its OVERALL verdict; the code legitimately moved to viewBusKey at R37.12/R40.17, so the source-grep half returns false -> OVERALL RED. The BEHAVIOUR is GREEN (the pin moves without a refresh, corroborated INDEPENDENTLY by the agreement gate seeing the pin re-render post-broadcast). => GATE MAINTENANCE, NOT a product defect. Tester retargets r4017 to the behavioural assertion during the binding pass. Nothing to Tron.",
-    "bothFailureDirectionsFinding": "★ THE CORPUS NOW HAS BOTH FAILURE DIRECTIONS = evidence it needs a MAINTENANCE PROPERTY, not just more gates (PO). A FALSE GREEN fools us once (a weaker property passes for the one that matters - our 4 weaker-property misses: R40.56 source-not-agreement, R40.57 derive-at-render-not-agreement, etc); a FALSE RED is corrosive DIFFERENTLY - it teaches the fleet to DISTRUST gates, and a fleet that routinely discounts reds will eventually wave through a REAL one. ROOT IDENTICAL (our recurring one): measuring a PROXY instead of the thing that matters - false-green gated a weaker property + PASSED; false-red gated an implementation detail (source shape) + FAILED. Cure (both directions): assert the PROPERTY, not a proxy. [[measure-the-property-not-a-proxy-both-directions]]"
+    "bothFailureDirectionsFinding": "★ THE CORPUS NOW HAS BOTH FAILURE DIRECTIONS = evidence it needs a MAINTENANCE PROPERTY, not just more gates (PO). A FALSE GREEN fools us once (a weaker property passes for the one that matters - our 4 weaker-property misses: R40.56 source-not-agreement, R40.57 derive-at-render-not-agreement, etc); a FALSE RED is corrosive DIFFERENTLY - it teaches the fleet to DISTRUST gates, and a fleet that routinely discounts reds will eventually wave through a REAL one. ROOT IDENTICAL (our recurring one): measuring a PROXY instead of the thing that matters - false-green gated a weaker property + PASSED; false-red gated an implementation detail (source shape) + FAILED. Cure (both directions): assert the PROPERTY, not a proxy. [[measure-the-property-not-a-proxy-both-directions]]",
+    "artifactDriftsFromRealityFamily": "★ THIRD INSTANCE of one family (PO 2026-08-24): an ARTIFACT DRIFTING FROM THE REALITY IT DESCRIBES. (1) a STALE BOOT file misdescribing the sprint (R40.55 boot-currency); (2) a STALE GATE GREP for a retired code shape (r4017 false-red, corpusFalseRedInstance); (3) a STALE DESIGN COMMENT/AC misdescribing the code - CurrentSprint.ts:296 code is BROADER (not-Done) than its comment ({P/IP/QA}). Someone reading the drifted artifact reasons correctly FROM it and is WRONG about the system - exactly how the planner's container-reading went astray. Three times in different clothes = the corpus/artifact set needs a MAINTENANCE property, not just more artifacts.",
+    "corpusMaintenanceCandidateAC_commentVsCode": {
+      "id": "AC-candidate-comment-states-constraint-enforced-or-visible",
+      "group": "artifact-maintenance/comment-vs-code",
+      "status": "CANDIDATE (PO 2026-08-24)",
+      "text": "Where a COMMENT (or an AC) states a CONSTRAINT, either the constraint is ENFORCED in code, OR the comment is describing an INTENT the code does NOT hold - and the second case MUST be VISIBLE (flagged), never silent. A comment/AC narrower or broader than the code it annotates is a drift that makes a correct reader wrong about the system; a gate written to the drifted artifact passes/fails against an intent the code does not implement.",
+      "gateRef": {
+        "kind": "lint",
+        "ref": "check:comment-constraint-enforced (candidate)",
+        "assertion": "a comment/AC stating an enumerated constraint that the adjacent code does not enforce => flagged (not silent)"
+      },
+      "stubMustFail": "CANDIDATE: a comment enumerating {P/IP/QA} beside code testing only !==Done => flagged as intent-not-enforced (the CurrentSprint.ts:296 instance)"
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
