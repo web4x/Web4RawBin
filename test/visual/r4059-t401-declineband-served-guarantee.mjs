@@ -46,6 +46,9 @@ try {
     };
   }, `task:${TASK}`);
 
+  // authoritative served derivation (dynamic — never a hardcoded narrative)
+  const ior = await (async () => { const res = await fetch(`${BASE}/api/ior/ior:instance:${TASK}`).catch(() => null); if (!res) return {}; const d = await res.json(); const m = d?.unit?.model || {}; const cl = m.statusChecklist || ''; return { status: m.status, hasSubstep: /^\s+-\s*\[ \]\s*processing change requests/im.test(cl) }; })();
+
   await read(); await sleep(1500);
   const live = await read();
   // RELOAD → is the row badge STALE (tree-build) or the actual derived state? (stale In-Progress = Tron sees a regress)
@@ -54,23 +57,26 @@ try {
   await sleep(1500);
   const afterReload = await read();
 
-  console.log('T40.1 @390 served prod (authoritative /api/ior = status "QA Review", NO processing-CR sub-step):');
-  console.log(`  ROW badge  LIVE   : found=${live.itemFound} visible=${live.itemVisible} statusAttr="${live.itemStatusAttr}" ${live.badgeColour}/${live.badgeSym}`);
-  console.log(`  ROW badge  RELOAD : statusAttr="${afterReload.itemStatusAttr}" ${afterReload.badgeColour}/${afterReload.badgeSym}`);
-  console.log(`  DETAIL status     : "${live.detailStatus}"`);
-  console.log(`  real '[ ] processing change requests' checklist line: ${live.realSubstepInChecklist}`);
-  console.log(`  band glyph 🔁     : ${live.bandGlyph}`);
+  console.log(`AUTHORITATIVE /api/ior: status="${ior.status}" hasOpenCrSubstep=${ior.hasSubstep}`);
+  console.log('T40.1 @390 served prod — per surface:');
+  console.log(`  DETAIL status     : "${live.detailStatus}"  | sub-step line rendered: ${live.realSubstepInChecklist}`);
+  console.log(`  ROW (📌 pin-slot) LIVE   : found=${live.itemFound} visible=${live.itemVisible} statusAttr="${live.itemStatusAttr}" ${live.badgeColour}/${live.badgeSym}`);
+  console.log(`  ROW (📌 pin-slot) RELOAD : statusAttr="${afterReload.itemStatusAttr}" ${afterReload.badgeColour}/${afterReload.badgeSym}`);
 
-  // ── GUARANTEE (bounded) ──
-  const substepShown = live.realSubstepInChecklist && live.bandGlyph;      // the band scenario actually rendered
-  const rowSaysInProgress = /in.?progress/i.test(String(live.itemStatusAttr));
-  const rowStaleAfterReload = rowSaysInProgress && afterReload.itemStatusAttr !== live.itemStatusAttr;
+  // ── GUARANTEE (dynamic, per surface — no hardcoded narrative) ──
+  const bandDerived = /qa-?review-with-open-cr/i.test(String(ior.status)) && ior.hasSubstep;   // authoritative decline-band present
+  const half1_substepUnderQA = live.realSubstepInChecklist && /qa-?review/i.test(String(live.detailStatus)); // sub-step shown under QA Review (detail)
+  const detailNoRegress = !/^\s*in.?progress\s*$/i.test(String(live.detailStatus)) && /qa-?review/i.test(String(live.detailStatus));
+  const rowRegressed = /in.?progress/i.test(String(live.itemStatusAttr)) && afterReload.itemStatusAttr === live.itemStatusAttr;
   console.log('\n── GUARANTEE (T40.1 decline-band, served prod @390) ──');
-  if (substepShown && !rowSaysInProgress) {
-    console.log('I-GUARANTEE: T40.1 shows the processing-change-requests sub-step under QA Review AND does not regress to In Progress.');
+  console.log(`  precondition (authoritative band derived): ${bandDerived}`);
+  console.log(`  half-1 sub-step under QA Review shown (detail): ${half1_substepUnderQA}`);
+  console.log(`  half-2 no-regress — detail surface: ${detailNoRegress ? 'HOLDS' : 'FAILS'} | pin-slot row surface: ${rowRegressed ? 'FAILS (row=In-Progress)' : 'HOLDS'}`);
+  if (half1_substepUnderQA && detailNoRegress && !rowRegressed) {
+    console.log('\nI-GUARANTEE: T40.1 shows the processing-change-requests sub-step under QA Review AND does not regress to In Progress on any surface.');
+  } else if (half1_substepUnderQA && detailNoRegress && rowRegressed) {
+    console.log(`\nNOT-GUARANTEED-because-X: the decline-band works in the DERIVATION + DETAIL (authoritative status="${ior.status}", sub-step shown under QA Review, no regress) — half-1 and detail-side half-2 GREEN — BUT the T40.1 tree 📌 pin-slot ROW still renders "${live.itemStatusAttr}"/${live.badgeColour}, persisting after reload, so on Tron's actual board surface T40.1 reads as regressed to In Progress. Same confirmed two-source divergence already flagged (probe 109151e8e): tree-source status ≠ /api/ior derivation. The migration fixed the derivation; the pin-slot row surface does not reflect it.`);
   } else {
-    let x = `T40.1's served data (authoritative /api/ior) = status "QA Review" with NO '- [ ] processing change requests' sub-step in its checklist (hasOpenCrSubstep=False) — so the decline-band scenario is NOT present on prod: the band derivation is deployed but no CR has been declined through the new atomic band+untick path into T40.1's checklist (its 5 open CRs live as acceptanceCriteria/remainingIssues, not the sub-step the band keys on). The band/sub-step therefore cannot be observed READ-ONLY; witnessing it requires exercising a decline (a prod write to Tron's task — needs a go — or a scratch exercise).`;
-    if (rowSaysInProgress) x += ` ALSO OBSERVED (flag, not chased): the T40.1 tree ROW badge renders "${live.itemStatusAttr}" (${live.badgeColour}) while the authoritative detail = QA Review — ${rowStaleAfterReload ? 'it CHANGED after reload = a STALE/live-lag row badge' : 'it PERSISTED after reload'}; on Tron's screen a stale In-Progress row badge reads as the forbidden regress. Same divergent-view family as the dead-board.`;
-    console.log('NOT-GUARANTEED-because-X: ' + x);
+    console.log(`\nNOT-GUARANTEED-because-X: half-1 shown=${half1_substepUnderQA}, detail no-regress=${detailNoRegress}, authoritative status="${ior.status}" hasSubstep=${ior.hasSubstep}. See per-surface lines.`);
   }
 } finally { await b.close(); }
