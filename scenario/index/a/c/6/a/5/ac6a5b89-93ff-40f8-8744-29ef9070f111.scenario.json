@@ -98,7 +98,8 @@
         },
         "stubMustFail": "PENDING RED-BASELINE: a stored-copy consumer renders a different value post-broadcast -> gate RED (proves it asserts consumer-agreement, not view-vs-model or initial-load)"
       }
-    ]
+    ],
+    "referenceImplNote": "EVIDENCE the inc3 consumer-property is implementable + already holds in ONE consumer (PO 2026-08-24): rb-detail-drawer.ts:87 subscribes the CurrentSprint viewBusKey with a callback that IGNORES the payload and calls refreshCurrentSlot() to RE-DERIVE = inc3 (detail=ref, never a painted value) satisfied by construction in the very consumer that produced Tron defect. REFERENCE IMPLEMENTATION when inc3 enumerates by property. Does NOT credit R37.24 - the property must be proven ACROSS consumers, not in one; R37.24 stays UNVERIFIED."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
