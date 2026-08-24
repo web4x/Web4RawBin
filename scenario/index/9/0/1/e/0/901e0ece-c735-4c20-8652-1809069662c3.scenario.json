@@ -6,7 +6,6 @@
     "description": "The MDA / Model-Driven Code Quality feature (Sprint 32, R32.1-R32.8): drop a TS file -> generate M1/M2 model units on the isolated store -> the model TREE (R32.3) + interactive SVG DIAGRAM with UML boxes (R32.4) + relationship EDGES (R32.6) + PUML export/import round-trip (R32.7) + action Re-Sync from source (R32.8). Owner/member-gated; launches to /model. R32.9 registers it so the FeatureManager DISCOVERS + lists it (correct-by-construction, no hardcoded seed).",
     "icon": "📐",
     "allowedUsers": [
-      "41ad88c4-4dee-49ac-afcb-8a2026657b2d",
       "05e58f81-34ec-4851-b5b7-5749ca9148a3",
       "c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
     ],
