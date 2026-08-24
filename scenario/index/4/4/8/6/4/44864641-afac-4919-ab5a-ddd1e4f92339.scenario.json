@@ -98,7 +98,8 @@
         },
         "stubMustFail": "PENDING: n/a — an honesty/labelling AC verified by the crediting on D1 vs D2"
       }
-    ]
+    ],
+    "d1BaselineNotATest": "PO RULING 2026-08-24: the D1 SERVER baseline (test commit 280cd5674, r4057-d1-pinrole-baseline.mjs) is HISTORICAL EVIDENCE, NOT a re-runnable gate + NOT to be minted as a Test. After the fix the served payload carries NO pinRole at all, so re-running the baseline would RED on CORRECT code = the tune-to-pass trap. It stays evidence, un-chained, DELIBERATELY. If a candidate Test ever references 280cd5674 / the D1 baseline as its gate -> FLAG it, do NOT credit. (Distinct from the re-runnable gates: cross-view cbb7a0906 + bareUuid 5d473e459.)"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
