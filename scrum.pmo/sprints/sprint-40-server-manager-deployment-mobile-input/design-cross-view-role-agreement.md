@@ -27,3 +27,26 @@ Answering the PO's three options:
 
 ## Handoff / chain
 req mints the Requirement + ACs (cross-view-agreement carries its screenshot gateRef + the dynamic-post-broadcast stub-must-fail). Ties to R40.56 (same current-role subsystem): R40.56 = single derivation-site (source); THIS = single live value + derive-at-render (agreement). Both needed; agreement is the stronger, Tron-facing one. expert builds post-GO (budget/build rules apply); tester gates @390 cross-view screenshot AFTER a live make-current; I backstop the stub reds on an injected disagreement + that no server-baked role field survives (grep: 0 `pinRole` in served payload).
+
+## ★★ RECONCILED ROOT — MEASURED, uuid-form hypothesis KILLED (2026-08-24, architect ran the resolver)
+PO/expert hypothesis = uuid FORM mismatch (@host / prefix). **I ran the actual comparison (probe replicating currentTaskUuidFromSlots against the live index) — the hypothesis is KILLED; the real root is different and decisive:**
+```
+DESIGNATION   = "7a956c21-5f37-4062-b921-9bdd5a461546"   (bare)
+iorUuid       = "7a956c21-5f37-4062-b921-9bdd5a461546"   (bare, len 36)
+currentUuid   = ""                                        (EMPTY, len 0)   ← the bug
+slots.current = { taskUuid: "7a956c21…", taskName:…, reqUuid:… }
+RAW===        = false  =>  pinRole OTHER
+```
+Both ids are BARE full uuids — NO form mismatch. `currentTaskUuidFromSlots` returns **`''`** because it reads `slots.current.uuid`, but `ThreeSlots.current` is a `TaskSlot = { taskUuid, taskName, reqUuid }` (CurrentSprint.ts:331 `toSlot`) — the field is **`taskUuid`, not `uuid`**. `.uuid` is `undefined` → `String(undefined||'')=''` → the `currentUuid &&` guard short-circuits → **every task 'other', 2/2, both sprints.** Exactly the tester's data (slots.current==self TRUE — it IS the designated task; pinRole OTHER — the reader took the wrong field).
+
+**Why TypeScript didn't catch it:** server.ts:1402 casts the result `as { current?: { uuid?: string } }` — a FALSE structural cast that told the compiler `.uuid` exists. The real `ThreeSlots` type would have ERRORED on `.uuid`. **An unsafe `as` cast defeated the type checker** = the actual hazard.
+
+## ★ THE PO's PRINCIPLE HOLDS — only the MECHANISM was mis-identified
+PO ruled "retire beats repair; one definition of a shared truth" (for uuid normalization). That principle is CORRECT and TRANSFERS — the shared truth with two definitions here is the **SLOT SHAPE**: `getThreeSlots` defines it (`{taskUuid}`); the consumer re-declared it via a false cast (`{uuid}`). The `as` cast IS the second definition. So the cure is the same shape as the PO's: **consume the ONE real exported type, retire the ad-hoc re-declaration (the cast), don't patch the field name blind.**
+
+## RECONCILED ONE-SPEC — three layered defects, ONE build, ONE deploy
+- **D1 — THE LIVE BUG (measured): false-cast slot-shape read.** FIX: DELETE the `as { current?: { uuid?: string } }` cast in `currentTaskUuidFromSlots`; consume the real `ThreeSlots` type so TS enforces the shape; read `slots.current.taskUuid`. GATE (gate-first on the live specimen): a designated task's served `pinRole` must be `current` — TODAY it is `other`/`''` (RED baseline on the live tree, captured before the fix). Guard (hazard, by-construction): **0 ad-hoc `as {…}` structural casts on a `slotsFrom`/`getThreeSlots` result** — a resolver result must be consumed at its exported type, never re-shaped by a cast. Stub-must-fail: seed a false-shape cast → RED. (Same one-number single-source shape as the other guards.)
+- **D2 — uuid-form normalization asymmetry (LATENT prevention, NOT the live bug).** The expert's @host / 2894-retains-@host vs 272-strips-@host gap is a REAL latent bug (a federated `uuid@originHost` id would fail equality) but MEASURED NOT the current failure (all ids bare). Adopt the PO's cure as PREVENTION: ONE canonical `bareUuid(s)` (strip `ior:(instance|class|file):` prefix AND `@host`), every producer calls it (2894, 272, others), comparison via one identity helper, raw `===` between two producers' uuids forbidden; hazard guard = 0 ad-hoc prefix-replace / `@`-split outside `bareUuid`. RULED SECONDARY — do NOT credit it as the live-screen fix; it prevents the class, D1 fixes the screen.
+- **D3 — lifecycle staleness (R40.57), independent.** Masked TODAY (pinRole always 'other' via D1); becomes the visible bug once D1 lands (pinRole correct at fetch, then goes stale on pin-move). R40.57 retire-copy + subscribe + derive-at-render STANDS. Its derive-at-render comparison must use `bareUuid` (D2) so the client doesn't re-introduce a form gap. GATE = cross-view-agreement @390 dynamic-post-broadcast (above).
+
+**Order within the one build/deploy:** D1 (real type + `.taskUuid`) → pinRole correct at fetch → D3 (retire baked copy + subscribe + derive-at-render) → correct across pin-move → D2 (canonical `bareUuid`) → identity class prevented. All three gate-first where a live specimen exists (D1: today's 'other'; D3: cross-view stub post-broadcast). ONE deploy — no intermediate ship.
