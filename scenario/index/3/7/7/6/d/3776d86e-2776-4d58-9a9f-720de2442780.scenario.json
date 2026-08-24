@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "3776d86e-2776-4d58-9a9f-720de2442780",
+    "name": "taskStatus.deriveOpenCrBand",
+    "description": "deriveStatusEnum derives the QA-Review-with-open-CR band from (QA-Review checklist state + open-CR signal from the processing-CR sub-step), atomically with the QA-untick (no half-state), joins the ONE getThreeSlots current-eligible set, single-source (0 band-derivations elsewhere); gate reds on untick-without-band=In-Progress.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:55bbe6cd-64f3-4042-869d-51c4e1e1e489",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the shipped decl on build-go (deriveStatusEnum band extension + STATUS_ORDER + getThreeSlots eligibility) + backstops the atomicity RED baseline."
+  },
+  "ownerIor": "ior:instance:55bbe6cd-64f3-4042-869d-51c4e1e1e489"
+}

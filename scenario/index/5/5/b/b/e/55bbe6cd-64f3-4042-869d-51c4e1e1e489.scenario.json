@@ -1,0 +1,85 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "55bbe6cd-64f3-4042-869d-51c4e1e1e489",
+    "altId": "R40.59",
+    "name": "QA-Review-with-open-CR band — derived, atomic with QA-untick, current-able, single-source (T40.1 decline shape, Tron-ruled)",
+    "description": "A task with an open change-request on its QA-Review derives a NEW distinct band 'QA-Review-with-open-CR' — QA Review UNTICKED + a processing-CR sub-step + a derived band distinct from clean QA-Review / In-Progress / Done, and the band IS current-able. Tron ruled the SHAPE (CR 7286d45a authoritative; the older stays-checked wording SUPERSEDED). This is a deriveStatusEnum STATUS-CORE change gated by the architect chokepoint (ruling 0557e1532 = PROCEED under 4 invariants, NOT a bypass). ★ THE LOAD-BEARING INVARIANT: unticking QA-Review WITHOUT the band existing derives In-Progress = the exact regress Tron forbade — so the band-derivation and the QA-untick MUST land in ONE atomic change, and the gate must CATCH untick-without-band (proving atomicity is ENFORCED, not hoped).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:3776d86e-2776-4d58-9a9f-720de2442780"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-ruled-shape + architect-chokepoint-ruling",
+      "designCommit": "0557e1532 (design-t40.1-decline-band-chokepoint.md)",
+      "tronRuling": "QA Review UNTICKED + processing-CR sub-step + NEW derived band QA-Review-with-open-CR (distinct from clean-QA/In-Progress/Done), band IS current-able; CR 7286d45a authoritative, stays-checked wording SUPERSEDED",
+      "chokepointStatus": "UNBLOCKED — architect delivered the chokepoint ruling (PROCEED under 4 invariants, NOT a bypass); expert building atomically now (was HELD, now released, per PO 2026-08-24)",
+      "verifiedBy": "robbin-req first-hand: deriveStatusEnum @task-status.ts:20 (top-level-only today), STATUS_ORDER in task-status-constants (4 states, no band), eligibility {P/IP/QA} in getThreeSlots",
+      "date": "2026-08-24"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "supersedes": "the older 'QA Review STAYS CHECKED [x]' decline wording (CR 7286d45a-era) — SUPERSEDED by Tron's band ruling (QA Review UNTICKED + band). Do NOT carry stays-checked into any AC.",
+    "metaFinding": "★ THE ATOMIC-LANDING INVARIANT IS THE LOAD-BEARING ONE (expert-measured): untick-QA WITHOUT the band derives In-Progress = Tron's forbidden regress, so the gate must prove atomicity is ENFORCED not hoped — it REDs on untick-without-band=In-Progress (a RED baseline written INTO the AC). The band is a DERIVED REFINEMENT of QA-Review (distinct + current-able), NOT a 5th stored state; the STATUS_ORDER/deriveStatusEnum change is the status-core touch the chokepoint gates, kept single-source (one enum, one derivation). [[atomicity-must-be-enforced-by-a-gate-not-hoped]] [[status-discriminator-is-a-unit-field]]",
+    "redBaselineEvidence": "PENDING — raw output of the atomicity gate REDding on a seeded untick-without-band (deriveStatusEnum returns In-Progress = the forbidden regress), proving the atomic-landing invariant is enforced. Captured when the gate is built; no half-state ships.",
+    "satisfactionStatus": "UNVERIFIED (band unbuilt; atomicity gate red-then-green + current-ability + single-source not yet proven — honest third state per R40.54). Acceptance = the atomicity gate reds-then-greens.",
+    "crossRef": [
+      "ior:instance:44953a15-f090-45d4-9829-079626edb5bd",
+      "ior:instance:983a2ec6-c708-4b82-92a7-472898a21923",
+      "ior:instance:44864641-afac-4919-ab5a-ddd1e4f92339",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:7286d45a-38ce-47d7-bac9-6589eea78d4b"
+    ],
+    "crossRefNote": "Band = the derived refinement joining the current-role subsystem: current-eligibility added in the ONE place R40.56/57/58 established. Derived-not-stored ties CR 461d5db6 (derived-status single-writer); the open-CR signal ties CR 7286d45a (processing-CR sub-step). Rides R40.54 failable family. Architect chokepoint ruling 0557e1532.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-atomic-landing",
+        "group": "atomic/RED-baseline/load-bearing",
+        "text": "ATOMIC LANDING (load-bearing): the band-derivation and the QA-Review-unticking land in ONE atomic change. There is NO committed state (no intermediate commit, no half-deploy) in which the untick behavior is live but the band is NOT derived — that state derives In-Progress = Tron's forbidden regress. deriveStatusEnum's new band + the untick ship together or not at all. ★ The GATE must CATCH untick-without-band: assert that unticking-QA-without-the-band DERIVES In-Progress (the forbidden regress) -> the gate REDs on it = proof atomicity is ENFORCED not hoped. RED baseline written into this AC.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:decline-band atomicity (untick-without-band => In-Progress => RED)",
+          "assertion": "no committed/intermediate state has untick-live + band-absent; a seeded untick-without-band deriving In-Progress => gate RED"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: seed the untick WITHOUT the band -> deriveStatusEnum returns In-Progress -> gate RED (proves the atomicity invariant is enforced). Recorded in redBaselineEvidence when captured."
+      },
+      {
+        "id": "AC-derived-not-stored",
+        "group": "derived/single-writer",
+        "text": "DERIVED, not stored/hand-stamped: the band is DERIVED by deriveStatusEnum from (QA-Review checklist state + an OPEN-CR signal), never a stored status field. The open-CR signal is a DERIVABLE input (the processing-CR sub-step / CR 7286d45a state), so the band is single-sourced through deriveStatusEnum. No stored band copy anywhere (consistent with the derived-status single-writer, CR 461d5db6).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:status-writes (band derived, no stored band)",
+          "assertion": "no model.status stores the band; band comes only from deriveStatusEnum(QA-state + open-CR signal)"
+        },
+        "stubMustFail": "PENDING: seed a stored band status field -> gate RED"
+      },
+      {
+        "id": "AC-current-able-one-eligibility-set",
+        "group": "current-able/one-place",
+        "text": "CURRENT-ABLE: the band joins the current-eligible set {Planned, In-Progress, QA-Review, QA-Review-with-open-CR} in the ONE existing place (getThreeSlots eligibility, CurrentSprint.ts) — never a second list. A task in the band can be the designated current. Ties to the current-role path (R40.56/57/58): eligibility is defined in ONE place; the band is added THERE.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:decline-band current-ability",
+          "assertion": "a task in QA-Review-with-open-CR is current-eligible via the ONE getThreeSlots eligibility set (not a parallel list)"
+        },
+        "stubMustFail": "PENDING: seed the band added to a SECOND eligibility list (not the one set) -> gate RED; a band task rejected as current => RED"
+      },
+      {
+        "id": "AC-single-source-one-derivation",
+        "group": "by-construction/single-source",
+        "text": "SINGLE-SOURCE: one enum, one derivation — deriveStatusEnum is the ONLY producer of the band; ZERO band-derivations outside deriveStatusEnum. STATUS_ORDER (task-status-constants) + deriveStatusEnum (task-status.ts:20) extend to the band single-source, no parallel band-derivation elsewhere. Hazard-scan (0 band-derivations outside deriveStatusEnum), same shape as the current-role single-source guards.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:band-single-source (hazard)",
+          "assertion": "count of band ('QA-Review-with-open-CR') derivations outside deriveStatusEnum == 0"
+        },
+        "stubMustFail": "PENDING: seed a 2nd band-derivation outside deriveStatusEnum -> gate RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
