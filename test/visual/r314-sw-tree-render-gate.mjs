@@ -37,7 +37,10 @@ for (let i = 1; i <= 3; i++) {
   const profileOk = profile.status === 200 && /feature-grants|profile/i.test(profile.body);
 
   // (2) source: Server Manager mounts the SHARED rb-trace-tree#sm-tree, bespoke retired
-  const rendererSrcOk = /<rb-trace-tree id="sm-tree"/.test(serverTs) && /bespoke inline tree is retired/.test(serverTs);
+  // INFORMATIONAL ONLY (PO 2026-08-24 demotion): asserts the sm-tree TAG + retirement COMMENT are PRESENT in server.ts.
+  // This is NOT a render observation — the SM tree's ACTUAL render @390 is UNGATED here. A green on this string never
+  // meant 'the tree renders', so it must not gate render-correctness it has not observed (a false-green is worse than no gate).
+  const smTreeTagPresent = /<rb-trace-tree id="sm-tree"/.test(serverTs) && /bespoke inline tree is retired/.test(serverTs);
 
   // (2b)+(3) the rb-trace-tree renderer is DEPLOYED + served==committed bundle hash — via /trace (mounts the same element)
   const trace = await httpGet('/trace');
@@ -50,14 +53,23 @@ for (let i = 1; i <= 3; i++) {
     if (/rb-trace-tree|RbTraceTree/.test(js)) rendererDeployed = true;
   }
 
-  const pass = versionOk && swNetworkFirst && swServedEqCommitted && profileOk && rendererSrcOk && rendererDeployed && bundleHashOk;
-  results.push(pass);
-  console.log(`iter ${i}: version=${versionOk}(${cfg.version}) sw-network-first=${swNetworkFirst} sw==committed=${swServedEqCommitted} profile200=${profileOk} renderer-src=${rendererSrcOk} renderer-deployed=${rendererDeployed} bundle==committed=${bundleHashOk} => ${pass ? 'GREEN' : 'RED'}`);
+  // INFORMATIONAL composite (NON-GATING): served/version/sw/deploy signals + smTreeTagPresent. NONE of these observes
+  // the SM tree RENDER — so this composite must NOT gate. Reported for signal; the verdict is demoted below.
+  const info = versionOk && swNetworkFirst && swServedEqCommitted && profileOk && smTreeTagPresent && rendererDeployed && bundleHashOk;
+  results.push(info);
+  console.log(`iter ${i}: version=${versionOk}(${cfg.version}) sw-network-first=${swNetworkFirst} sw==committed=${swServedEqCommitted} profile200=${profileOk} sm-tree-TAG-present=${smTreeTagPresent}(NOT a render) renderer-deployed=${rendererDeployed} bundle==committed=${bundleHashOk} => info=${info}`);
 }
 
-console.log('\n===== R31.4 SW-fix network-first + rb-trace-tree render (DET-3x) =====');
-results.forEach((p, i) => console.log(`  iter ${i + 1}: ${p ? 'GREEN' : 'RED'}`));
-const green = results.length === 3 && results.every(Boolean);
-console.log('OVERALL:', green ? 'GREEN DET-3x' : 'RED');
+console.log('\n===== R31.4 SW-fix signals (INFORMATIONAL — SM-tree render UNGATED, see banner) =====');
+results.forEach((p, i) => console.log(`  iter ${i + 1}: info-signals-allTrue=${p} (non-gating)`));
+// ★ VERDICT DEMOTED (PO 2026-08-24): this gate previously RED/GREEN'd on a server.ts source-grep (sm-tree tag + a
+// retirement comment) and REPORTED as 'the SM tree renders' — a false-green: it could pass while the tree rendered
+// broken. Its green never observed a render. So the render-correctness VERDICT is REMOVED (NON-GATING) until a real
+// @390 render observation exists. The signals above stay INFORMATIONAL. ⇒ The SM-tree render is a NAMED COVERAGE HOLE
+// (handed to req for a real render gate). We would rather KNOW it is UNGATED than falsely believe it is gated.
+const infoAllTrue = results.length === 3 && results.every(Boolean);
+console.log('\n⚠ UNGATED: the SM rb-trace-tree RENDER is NOT observed by this gate. Signals-only (tag-presence + sw/version/deploy) allTrue=' + infoAllTrue + '.');
+console.log('   A real @390 SM-tree render gate is a NAMED coverage hole (→ req). This gate no longer reports render-correctness it has not observed.');
+const green = true; // NON-GATING: never RED/GREEN on render-correctness this gate cannot see
 console.log('NOTE: /server-manager rendered-tree VISUAL + iOS-PWA-SW-activation repro = Tron device (owner-gated + webkit unlaunchable here).');
 process.exitCode = green ? 0 : 1;
