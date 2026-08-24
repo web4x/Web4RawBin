@@ -45,14 +45,14 @@
       },
       {
         "id": "AC-D1-hazard-guard-no-adhoc-cast",
-        "group": "D1/by-construction",
-        "text": "HAZARD guard (by-construction, one number): 0 ad-hoc `as {…}` STRUCTURAL casts on a slotsFrom/getThreeSlots result anywhere — a resolver result MUST be consumed at its exported type, never re-shaped by a cast (a cast re-declares the type = a second source of the shape). Same one-number single-source shape as the other hazard guards.",
+        "group": "D1/by-construction-generalized",
+        "text": "HAZARD guard (by-construction, GENERALIZED — architect fold f2049ed5c + PO): 0 `as`-shape STRUCTURAL casts that re-declare the return shape of ANY of OUR OWN exported, typed functions (NOT just slotsFrom/getThreeSlots — that narrower scope was scan-the-ACTORS drift; the next as-cast on a DIFFERENT typed fn re-opens the identical class). A typed result MUST be consumed at its exported type; `as` is allowed ONLY at genuinely-untyped boundaries (JSON.parse / external IO). A cast that silences TS = a DEFEATED detector, worse than a missing guard. (Reworded from the narrow 'slotsFrom/getThreeSlots result' scope — narrowing kept visible: scan-the-HAZARD not the actors.)",
         "gateRef": {
           "kind": "lint",
           "ref": "check:no-adhoc-slot-cast",
-          "assertion": "count of `as {…}` structural casts on slotsFrom/getThreeSlots results == 0"
+          "assertion": "count of `as`-shape structural casts re-declaring the return of ANY our-exported typed fn == 0; `as` only at untyped boundaries (JSON.parse/external IO)"
         },
-        "stubMustFail": "PENDING: seed a false-shape `as {…}` cast on a slotsFrom result -> gate RED"
+        "stubMustFail": "PENDING: seed an `as`-re-declaration of ANY typed function's return (not only a slots result) -> gate RED"
       },
       {
         "id": "AC-D1-red-baseline-live-specimen",
