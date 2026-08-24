@@ -30,15 +30,15 @@ export function deriveStatusEnum(checklist: string): TaskStatusEnum {
   return STATUS_ORDER[best];
 }
 
-// TaskStatus.rollupParentStatus (R40.1 CR 18ebe066 AC-rollup-parent-status, design §3) — [impl-marker PENDING req mint #126] —
-// a parent-with-children's status is the WEAKEST-LINK rollup of its children's DERIVED statuses: the least-advanced
-// child by STATUS_ORDER. So all Done ⇒ Done; all ≥QA-Review ⇒ QA-Review; any child In-Progress/Planned ⇒ the parent is
-// AT MOST that (≤In-Progress) — a coordination root can never be past its least-advanced child. children-rollup is
-// AUTHORITATIVE for a parent-with-children (design §3): the parent's OWN stored/checklist status is IGNORED when it has
-// children, so coordination-root 37.4 (children all QA-Review, own stored 'Planned') derives QA-Review — its lying
-// 'Planned' fixed BY CONSTRUCTION, NO disk write (single-writer intact; this is a READ-side derivation). PURE: takes
-// the child derived-statuses; the child-FINDING (index) is childTaskUuids + the caller. Empty ⇒ null (caller uses the
-// leaf deriveStatusEnum). NOT a status-core change to deriveStatusEnum (that is the CR-5 band, held behind the chokepoint).
+// TaskStatus.rollupParentStatus (R40.1 CR 18ebe066 AC-rollup-parent-status, design §3) — a parent-with-children's status
+// is the WEAKEST-LINK rollup of its children's DERIVED statuses: the least-advanced child by STATUS_ORDER. So all Done ⇒
+// Done; all ≥QA-Review ⇒ QA-Review; any child In-Progress/Planned ⇒ the parent is AT MOST that (≤In-Progress) — a
+// coordination root can never be past its least-advanced child. children-rollup is AUTHORITATIVE for a parent-with-children
+// (design §3): the parent's OWN stored/checklist status is IGNORED when it has children, so coordination-root 37.4
+// (children all QA-Review, own stored 'Planned') derives QA-Review — its lying 'Planned' fixed BY CONSTRUCTION, NO disk
+// write (single-writer intact; this is a READ-side derivation). PURE: takes the child derived-statuses; the child-FINDING
+// (index) is childTaskUuids + the caller. Empty ⇒ null (caller uses the leaf deriveStatusEnum).
+// [impl:uuid:44c4054a-cbd5-4405-9836-45d316603105] TaskStatus.rollupParentStatus (Method 796e6aff, R40.1 CR 18ebe066)
 export function rollupParentStatus(childStatuses: TaskStatusEnum[]): TaskStatusEnum | null {
   if (!childStatuses.length) return null; // not a parent (no resolvable children) → caller uses leaf deriveStatusEnum
   let minIdx = STATUS_ORDER.length - 1; // start at Done; take the least-advanced (weakest link)
@@ -46,14 +46,15 @@ export function rollupParentStatus(childStatuses: TaskStatusEnum[]): TaskStatusE
   return STATUS_ORDER[minIdx];
 }
 
-// TaskStatus.childTaskUuids (R40.1 CR 18ebe066) — [impl-marker PENDING req mint #126] — resolve a task's SUBTASK children as
-// bare uuids. Prefers the STRUCTURED form (a `children`/`subtasks` ARRAY of refs = the clean target shape); falls back
-// to the LEGACY prose form — `[task:uuid:<uuid>]` markers inside the `subtasks` TEXT field (37.4's real on-disk shape;
-// the children's own `parent` points at a common ancestor, not the coordination root, so it is NOT a usable link). ONLY
-// the `subtasks` field is marker-scanned (semantically = children); `traceability` is NOT (it mixes up-refs). Reuses the
-// canonical TraceConsistency marker pattern (single-source). Canonical bareUuid compare (never raw ===), dedup, no self.
+// TaskStatus.childTaskUuids (R40.1 CR 18ebe066) — resolve a task's SUBTASK children as bare uuids. Prefers the STRUCTURED
+// form (a `children`/`subtasks` ARRAY of refs = the clean target shape); falls back to the LEGACY prose form —
+// `[task:uuid:<uuid>]` markers inside the `subtasks` TEXT field (37.4's real on-disk shape; the children's own `parent`
+// points at a common ancestor, not the coordination root, so it is NOT a usable link). ONLY the `subtasks` field is
+// marker-scanned (semantically = children); `traceability` is NOT (it mixes up-refs). Reuses the canonical
+// TraceConsistency marker pattern (single-source). Canonical bareUuid compare (never raw ===), dedup, no self.
 // ★ DATA-DEBT (flagged, not silently absorbed): prose `subtasks` should be a structured ref array — named follow-on.
 const TASK_MARKER_RE = /\[task:uuid:([0-9a-fA-F-]{36})\]/g;
+// [impl:uuid:6537e99c-c266-4dc5-9002-3b952d2cc1c3] TaskStatus.childTaskUuids (Method 85d916a3, R40.1 CR 18ebe066)
 export function childTaskUuids(model: Record<string, unknown>, selfUuid?: string): string[] {
   const out = new Set<string>();
   const self = selfUuid ? bareUuid(selfUuid) : '';
