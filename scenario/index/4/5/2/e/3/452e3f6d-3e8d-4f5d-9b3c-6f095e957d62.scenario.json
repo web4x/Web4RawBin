@@ -1,0 +1,110 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "452e3f6d-3e8d-4f5d-9b3c-6f095e957d62",
+    "altId": "R40.60",
+    "name": "Change Requests are first-class traceability children, individually approved (no bulk accept-all) — Tron ruling",
+    "description": "Change Requests are FIRST-CLASS TRACEABILITY CHILDREN of the task, each INDIVIDUALLY approved — no bulk accept-all. Tron ruled (verbatim) our shipped CR model has TWO structural errors: (1) CRs sit in a SEPARATE 'Change Requests' list (renderChangeRequests reading model.changeRequests), NOT in the traceability chain — they must appear as CHILDREN exactly like Requirements do (his T40.1 screenshot: Traceability Chain / All Children with UseCase + Requirement; CRs belong THERE, same shape, same treatment); (2) the '✓ Resolve CRs' action (resolveCr, server.ts:1658) is a BULK ACCEPT-ALL (one processing-CR sub-step tick clears the band for all) — that must NOT exist. EACH CR is approved INDIVIDUALLY, AT the task, and the band derives from 'ANY CR not-yet-approved' so it clears ONLY when EVERY CR is individually approved. Per-CR approval is Tron's QA JUDGMENT and genuinely his (owner-gated, attributable — the R40.10 discipline, per CR). ★ This also RETIRES the bulk resolve mechanism (which is why it could not/should not be fired). REPLACE the mechanism, do not route around it.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:b6194958-1d92-4355-b1d7-e0f051d63a5e"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "tronQuote": "CR requests must be listed in traceability the same way as requirements as children. There is no accept-all-CR — each CR must be approved AT each task.",
+    "discoverySource": {
+      "type": "tron-ruling-verbatim",
+      "date": "2026-08-25",
+      "relayedBy": "robbin-po",
+      "verifiedBy": "robbin-req measured the current wrong model: CRs render in a separate 'Change Requests' list (renderChangeRequests/model.changeRequests, server.ts:1428/1395), no per-CR approval field (CR 4babebb1), resolveCr (server.ts:1658) = bulk one-sub-step tick, band = R40.59 hasOpenCrSubstep single-substep"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "retires": "resolveCr BULK action (server.ts:1658) / the single processing-CR-sub-step-tick band derivation (R40.59 hasOpenCrSubstep) / the separate 'Change Requests' list render (renderChangeRequests) — Tron: no accept-all-CR, CRs are traceability children.",
+    "answersBlocker": "This is why the bulk CR-resolve could not/should not be fired (robbin-req was blocked; the bulk action SHOULD NOT EXIST per Tron). REPLACE the mechanism (per-CR approval), do not route around the block.",
+    "architectDesignRequired": "Architect designs the mechanics: CR-as-traceability-child render + per-CR approval state + per-CR owner-gated approve action + band-derives-from-any-CR-unapproved + retire bulk resolveCr. ★ EXACT PARENTAGE to rule: Tron NOW says traceability child of the TASK (like Requirement); the earlier #86 'CR child of the TEST' (4babebb1 ownerIor->Test c4f8a1d6) is in tension — architect reconciles (likely: traceability child of the TASK per this ruling, contestsTest kept as a crossRef).",
+    "noBuildUntilTronSeesShape": "PO: NO code build authorised until Tron SEES this shape. This req (scenario-first #126) + the architect design ARE the shape he reviews. Report the shape; build only on his approval.",
+    "satisfactionStatus": "UNVERIFIED (design-required, no build; the shape awaits Tron's review then per-CR-approve + band-derives + no-bulk gates red-then-green).",
+    "crossRef": [
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad",
+      "ior:instance:55bbe6cd-64f3-4042-869d-51c4e1e1e489",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:4babebb1-be1a-4be7-8c3e-81f5d74e9f82",
+      "ior:instance:7286d45a-38ce-47d7-bac9-6589eea78d4b",
+      "ior:instance:c27ae455-2971-4eef-8e30-9e400d319567",
+      "ior:instance:18ebe066-d8a0-426d-89ba-8afd9c85114f",
+      "ior:instance:461d5db6-58a3-4ee5-a930-817b019489de"
+    ],
+    "crossRefNote": "Re-models the 5 T40.1 CRs. R40.10 = owner QA verdict (per-CR approve reuses its owner-gated-attributable discipline). R40.59 = the band (re-derived from any-CR-unapproved, not the single sub-step). The 5 CRs (#86-1..5) migrate to traceability children.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-cr-is-traceability-child",
+        "group": "structure/render",
+        "text": "A CR renders as a CHILD in the task's Traceability Chain / All Children, the SAME shape + treatment as a Requirement (and UseCase) — NOT a separate 'Change Requests' list. The separate-list render (renderChangeRequests / model.changeRequests-as-a-sidebar) is retired; CRs join the traceability children.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R40.60 CR-renders-as-traceability-child",
+          "assertion": "on the task surface, each CR appears in the Traceability Chain / All Children with the same shape as a Requirement child, not in a separate CR list"
+        },
+        "stubMustFail": "PENDING: a CR rendered only in a separate 'Change Requests' list (not as a traceability child) => RED"
+      },
+      {
+        "id": "AC-per-cr-approval-state",
+        "group": "approval/per-CR",
+        "text": "Each CR carries its OWN approval state (approvedBy + approvedAt PER CR), approved INDIVIDUALLY. No shared/bulk state. A CR is either individually-approved or not-yet-approved, tracked on the CR unit itself.",
+        "gateRef": {
+          "kind": "graph",
+          "ref": "CR unit per-CR approval fields",
+          "assertion": "every CR has its own approvedBy/approvedAt; there is no single shared 'all-CRs-resolved' flag"
+        },
+        "stubMustFail": "PENDING: a single shared resolve flag standing in for per-CR approval => RED"
+      },
+      {
+        "id": "AC-no-bulk-accept-all",
+        "group": "approval/no-bulk/RETIRE",
+        "text": "NO bulk accept-all: the '✓ Resolve CRs' bulk action (resolveCr, server.ts:1658 — one processing-CR sub-step tick for the whole task) is RETIRED / MUST NOT exist. Approval is PER-CR only — the owner approves EACH CR individually AT the task. Tron: 'There is no accept-all-CR.'",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-bulk-cr-resolve",
+          "assertion": "0 bulk CR-resolve action (one action that approves/clears >1 CR at once); the per-CR approve is the only path"
+        },
+        "stubMustFail": "PENDING: a bulk resolve-all path (approves/clears all CRs in one action) => RED (this is the shipped resolveCr, to be removed)"
+      },
+      {
+        "id": "AC-band-derives-from-any-cr-not-approved",
+        "group": "band/by-construction",
+        "text": "The QA-Review-with-open-CR band derives from 'ANY CR NOT-YET-INDIVIDUALLY-APPROVED' — it clears ONLY when EVERY CR is individually approved, NEVER by one sub-step tick. Done is gated on ZERO unapproved CRs. Replaces the single-processing-CR-sub-step-tick derivation (R40.59 hasOpenCrSubstep).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R40.60 band = any-CR-unapproved",
+          "assertion": "band present iff >=1 CR unapproved; clears iff ALL CRs individually approved; Done blocked while any CR unapproved"
+        },
+        "stubMustFail": "PENDING: the band clearing on a single tick while a CR remains unapproved => RED; Done reachable with an unapproved CR => RED"
+      },
+      {
+        "id": "AC-per-cr-approve-is-his-QA-judgment",
+        "group": "owner-gated/his-judgment",
+        "text": "Each per-CR approve is OWNER-GATED and attributable to Tron (his profile-unit uuid, non-credential — the R40.10 discipline applied PER CR); it is genuinely HIS QA judgment at the task, never team-performed nor self-certified. (Contrast: closure MECHANICS the team may perform; a CR APPROVAL is his verdict.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R40.60 per-CR approve owner-gated",
+          "assertion": "a non-owner cannot approve a CR (403); an approved CR records the owner's identity attributably, per CR"
+        },
+        "stubMustFail": "PENDING: a non-owner approving a CR / a team-performed CR approval => RED"
+      },
+      {
+        "id": "AC-migrate-existing-5-crs",
+        "group": "migration",
+        "text": "The 5 existing T40.1 CRs (4babebb1 #86-1 / 7286d45a #86-2 / c27ae455 #86-3 / 18ebe066 #86-4 / 461d5db6 #86-5) are re-modeled as traceability children of T40.1 with per-CR approval state (gated migration; no CR lost; each becomes individually-approvable). Their current separate-list + Test-parentage is reconciled to the traceability-child shape (architect rules exact parentage: traceability child of the TASK per this ruling; contestsTest may remain a crossRef).",
+        "gateRef": {
+          "kind": "migration",
+          "ref": "gated re-model of the 5 T40.1 CRs",
+          "assertion": "the 5 CRs become traceability children with per-CR approval; count before==after; none lost"
+        },
+        "stubMustFail": "PENDING: a CR lost or left in the old separate-list-only shape after migration => RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
