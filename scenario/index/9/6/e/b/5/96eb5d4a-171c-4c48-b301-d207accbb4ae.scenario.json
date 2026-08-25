@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "96eb5d4a-171c-4c48-b301-d207accbb4ae",
+    "name": "TaskStatus.deriveTaskStatus",
+    "description": "The SINGLE band-definition site (R40.60): deriveTaskStatus(task, crChildren) composes deriveStatusEnum(checklist) + hasUnapprovedCr(crChildren) — band = QA-Review-with-open-CR iff ANY CR child is unapproved; clears iff EVERY CR individually approved. Mirrors rollupParentStatus's single-site. Retires hasOpenCrSubstep + PROCESSING_CR_SUBSTEP as band source. Every consumer reads THIS. DESIGN-AHEAD (R40.60, scenario-first #126, PO GO 2026-08-25) — RE-POINT-PENDING: architect RE-POINTS to the shipped decl off design 1345a7564 (do NOT re-mint = dup trap); expert marks; tester Tests off gate markers. NO fabricated built-reality until re-pointed.",
+    "sourceFile": "ior:file:src/ts/scenario/task-status.ts",
+    "implementations": [
+      "ior:instance:1343d3a0-ab5e-49d0-a577-88e7b04435a1"
+    ],
+    "tests": [],
+    "designAhead": true,
+    "rePointPending": true
+  },
+  "ownerIor": "ior:instance:abd7dac9-77aa-405c-8c5f-be91ffbf0a07"
+}

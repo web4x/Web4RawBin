@@ -4,11 +4,12 @@
     "uuid": "b6194958-1d92-4355-b1d7-e0f051d63a5e",
     "name": "changeRequest.traceabilityChildPerCrApprove",
     "description": "CRs render as traceability children of the task (same shape as Requirement); each carries its own approval state; the owner approves EACH CR individually AT the task (owner-gated, his QA judgment); the band derives from any-CR-unapproved and clears only when every CR is individually approved; the bulk resolve action is retired. Architect wires Class/Method off the shipped decl on build-go (POST-Tron-review).",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:7e690516-f3e4-4420-894b-cea02c0debd7",
+    "method": "ior:instance:4f34cb82-ace6-43d8-9005-ac13cf650177",
     "parent": "ior:instance:452e3f6d-3e8d-4f5d-9b3c-6f095e957d62",
     "unitLinks": [],
-    "note": "Architect designs mechanics + wires on build-go, AFTER Tron sees the shape. NO build until his approval."
+    "note": "Architect designs mechanics + wires on build-go, AFTER Tron sees the shape. NO build until his approval.",
+    "supportingBandSite": "ior:instance:96eb5d4a-171c-4c48-b301-d207accbb4ae"
   },
   "ownerIor": "ior:instance:452e3f6d-3e8d-4f5d-9b3c-6f095e957d62"
 }

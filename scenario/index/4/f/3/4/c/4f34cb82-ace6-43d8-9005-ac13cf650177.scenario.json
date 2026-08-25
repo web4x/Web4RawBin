@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "4f34cb82-ace6-43d8-9005-ac13cf650177",
+    "name": "ChangeRequestVerdict.approveCr",
+    "description": "Per-CR approve: owner approves ONE CR at the task (owner-gated, attributable to the owner, non-credential); sets that CR's own approval state; the band re-derives via deriveTaskStatus (clears iff all approved). Replaces the retired bulk resolveCr. DESIGN-AHEAD (R40.60, scenario-first #126, PO GO 2026-08-25) — RE-POINT-PENDING: architect RE-POINTS to the shipped decl off design 1345a7564 (do NOT re-mint = dup trap); expert marks; tester Tests off gate markers. NO fabricated built-reality until re-pointed.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:407c809a-077b-4c95-ae81-522577d2b25e"
+    ],
+    "tests": [],
+    "designAhead": true,
+    "rePointPending": true
+  },
+  "ownerIor": "ior:instance:7e690516-f3e4-4420-894b-cea02c0debd7"
+}

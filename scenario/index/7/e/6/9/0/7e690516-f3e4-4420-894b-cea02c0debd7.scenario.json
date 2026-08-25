@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "7e690516-f3e4-4420-894b-cea02c0debd7",
+    "name": "ChangeRequestVerdict",
+    "description": "Per-CR owner-gated approval (R40.60): the owner approves EACH CR individually AT the task (his QA judgment; uses the EXISTING owner mechanism, R40.10 discipline per-CR — architect does NOT touch owner-auth). NO bulk. DESIGN-AHEAD (R40.60, scenario-first #126, PO GO 2026-08-25) — RE-POINT-PENDING: architect RE-POINTS to the shipped decl off design 1345a7564 (do NOT re-mint = dup trap); expert marks; tester Tests off gate markers. NO fabricated built-reality until re-pointed.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "methods": [
+      "ior:instance:4f34cb82-ace6-43d8-9005-ac13cf650177"
+    ],
+    "designAhead": true,
+    "rePointPending": true
+  },
+  "ownerIor": "ior:instance:b6194958-1d92-4355-b1d7-e0f051d63a5e"
+}
