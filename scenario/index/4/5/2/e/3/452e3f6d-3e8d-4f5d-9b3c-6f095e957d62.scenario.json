@@ -41,11 +41,11 @@
       {
         "id": "AC-cr-is-traceability-child",
         "group": "structure/render",
-        "text": "A CR renders as a CHILD in the task's Traceability Chain / All Children, the SAME shape + treatment as a Requirement (and UseCase) — NOT a separate 'Change Requests' list. The separate-list render (renderChangeRequests / model.changeRequests-as-a-sidebar) is retired; CRs join the traceability children.",
+        "text": "A CR is an ior:class:ChangeRequest UNIT that is a TRACEABILITY CHILD of the TASK: ownerIor -> Task (mirrors how a Requirement parents), rendered in the Traceability Chain / All Children with the SAME shape as a Requirement. ★ PARENT RULED (architect 1345a7564): parent = TASK per Tron's ruling (NOT #86's ownerIor->Test); contestsTest is kept as a crossRef (the CR contests a Test, but its traceability PARENT is the Task). RETIRE the m.changeRequests STRING array + the separate 'Change Requests' list render.",
         "gateRef": {
           "kind": "test",
           "ref": "test:R40.60 CR-renders-as-traceability-child",
-          "assertion": "on the task surface, each CR appears in the Traceability Chain / All Children with the same shape as a Requirement child, not in a separate CR list"
+          "assertion": "each CR = a ChangeRequest unit with ownerIor->Task, rendered as a traceability child (Requirement shape); 0 m.changeRequests string arrays; contestsTest=crossRef only"
         },
         "stubMustFail": "PENDING: a CR rendered only in a separate 'Change Requests' list (not as a traceability child) => RED"
       },
@@ -63,22 +63,22 @@
       {
         "id": "AC-no-bulk-accept-all",
         "group": "approval/no-bulk/RETIRE",
-        "text": "NO bulk accept-all: the '✓ Resolve CRs' bulk action (resolveCr, server.ts:1658 — one processing-CR sub-step tick for the whole task) is RETIRED / MUST NOT exist. Approval is PER-CR only — the owner approves EACH CR individually AT the task. Tron: 'There is no accept-all-CR.'",
+        "text": "NO bulk accept-all: the '✓ Resolve CRs' bulk action (resolveCr, server.ts:1658 — one processing-CR sub-step tick for the whole task) is RETIRED / MUST NOT exist. Approval is PER-CR only — the owner approves EACH CR individually AT the task. Tron: 'There is no accept-all-CR.' ★ RETIRE resolveCr (task-policy.ts:99-104 + server.ts:1658) — the per-CR approve REPLACES it, no one-step clear (architect 1345a7564).",
         "gateRef": {
           "kind": "lint",
           "ref": "check:no-bulk-cr-resolve",
-          "assertion": "0 bulk CR-resolve action (one action that approves/clears >1 CR at once); the per-CR approve is the only path"
+          "assertion": "0 bulk CR-resolve action (one action that approves/clears >1 CR at once); the per-CR approve is the only path; resolveCr (task-policy:99-104 + server.ts:1658) removed"
         },
         "stubMustFail": "PENDING: a bulk resolve-all path (approves/clears all CRs in one action) => RED (this is the shipped resolveCr, to be removed)"
       },
       {
         "id": "AC-band-derives-from-any-cr-not-approved",
         "group": "band/by-construction",
-        "text": "The QA-Review-with-open-CR band derives from 'ANY CR NOT-YET-INDIVIDUALLY-APPROVED' — it clears ONLY when EVERY CR is individually approved, NEVER by one sub-step tick. Done is gated on ZERO unapproved CRs. Replaces the single-processing-CR-sub-step-tick derivation (R40.59 hasOpenCrSubstep).",
+        "text": "The band is RE-SOURCED to a SINGLE definition site: ONE deriveTaskStatus(task, crChildren) that composes deriveStatusEnum(checklist) + hasUnapprovedCr (mirrors rollupParentStatus's single-site) — every consumer reads it. The band = QA-Review-with-open-CR iff ANY CR child is not-yet-approved; clears iff EVERY CR is individually approved (NEVER one tick). Done gated zero-unapproved. ★ RETIRE hasOpenCrSubstep + PROCESSING_CR_SUBSTEP as the band source (R40.59). R40.59 invariants PRESERVED: band is current-able + band NOT-IN APPROVE_STATUSES => Done-with-open-CR impossible by construction.",
         "gateRef": {
           "kind": "test",
           "ref": "test:R40.60 band = any-CR-unapproved",
-          "assertion": "band present iff >=1 CR unapproved; clears iff ALL CRs individually approved; Done blocked while any CR unapproved"
+          "assertion": "band derives ONLY from deriveTaskStatus(task,crChildren)=deriveStatusEnum+hasUnapprovedCr (one site); band iff any-CR-unapproved; Done impossible while any CR unapproved; 0 hasOpenCrSubstep/PROCESSING_CR_SUBSTEP band sources"
         },
         "stubMustFail": "PENDING: the band clearing on a single tick while a CR remains unapproved => RED; Done reachable with an unapproved CR => RED"
       },
@@ -100,11 +100,23 @@
         "gateRef": {
           "kind": "migration",
           "ref": "gated re-model of the 5 T40.1 CRs",
-          "assertion": "the 5 CRs become traceability children with per-CR approval; count before==after; none lost"
+          "assertion": "GATED migration changeRequests[] string-array -> ChangeRequest units (ownerIor->Task), dry-run+count, no CR lost, count before==after"
         },
         "stubMustFail": "PENDING: a CR lost or left in the old separate-list-only shape after migration => RED"
+      },
+      {
+        "id": "AC-decline-mints-cr-child",
+        "group": "decline/by-construction",
+        "text": "A DECLINE mints a CR CHILD (unapproved) on the task -> the band DERIVES from it (via deriveTaskStatus). Cleaner than #86's untick-QA + tick-sub-step ATOMIC PAIR: there is no checklist untick/tick to keep atomic — the band is a pure derivation of the CR children's approval states.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R40.60 decline-mints-cr-child",
+          "assertion": "a decline mints an unapproved CR child; the band derives from it; no untick+substep atomic pair"
+        },
+        "stubMustFail": "PENDING: a decline that unticks QA + ticks a sub-step (the #86 atomic-pair mechanism) instead of minting a CR child => RED"
       }
-    ]
+    ],
+    "architectDesign": "1345a7564 (design-notes/r40.60-cr-traceability-child-remodel.md) — mechanizes the shape; parent-tension RULED parent=TASK (contestsTest=crossRef); deriveTaskStatus single band-site (mirrors rollupParentStatus); retire resolveCr+hasOpenCrSubstep+PROCESSING_CR_SUBSTEP+m.changeRequests; decline=mint-CR-child; R40.59 invariants preserved; gated migration; failable gate. Architect does NOT touch owner-auth (closed surface); per-CR approve uses the EXISTING owner mechanism."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
