@@ -74,11 +74,11 @@
       {
         "id": "AC-band-derives-from-any-cr-not-approved",
         "group": "band/by-construction",
-        "text": "The band is RE-SOURCED to a SINGLE definition site: ONE deriveTaskStatus(task, crChildren) that composes deriveStatusEnum(checklist) + hasUnapprovedCr (mirrors rollupParentStatus's single-site) — every consumer reads it. The band = QA-Review-with-open-CR iff ANY CR child is not-yet-approved; clears iff EVERY CR is individually approved (NEVER one tick). Done gated zero-unapproved. ★ RETIRE hasOpenCrSubstep + PROCESSING_CR_SUBSTEP as the band source (R40.59). R40.59 invariants PRESERVED: band is current-able + band NOT-IN APPROVE_STATUSES => Done-with-open-CR impossible by construction.",
+        "text": "The band is RE-SOURCED to a SINGLE definition site: ONE deriveTaskStatus(task, crChildren) that composes deriveStatusEnum(checklist) + hasUnapprovedCr (mirrors rollupParentStatus's single-site) — every consumer reads it. The band = QA-Review-with-open-CR iff ANY CR child is not-yet-approved; clears iff EVERY CR is individually approved (NEVER one tick). Done gated zero-unapproved. ★ RETIRE hasOpenCrSubstep + PROCESSING_CR_SUBSTEP as the band source (R40.59). ★ CORRECTED (Tron 'status QA means next task', architect owns #86-4 reversal, design 58c4cdc39): the band's ONLY roles are (1) track CRs awaiting the owner's per-CR approval + (2) gate Done (band NOT-IN APPROVE_STATUSES => Done-with-open-CR impossible). The band is NOT current-able (SUPERSEDES the earlier R40.59/R40.60 'band is current-able' clause). Band still DERIVES via deriveTaskStatus for CR-approval tracking, but never holds current.",
         "gateRef": {
           "kind": "test",
           "ref": "test:R40.60 band = any-CR-unapproved",
-          "assertion": "band derives ONLY from deriveTaskStatus(task,crChildren)=deriveStatusEnum+hasUnapprovedCr (one site); band iff any-CR-unapproved; Done impossible while any CR unapproved; 0 hasOpenCrSubstep/PROCESSING_CR_SUBSTEP band sources"
+          "assertion": "band derives ONLY from deriveTaskStatus(task,crChildren)=deriveStatusEnum+hasUnapprovedCr (one site); band iff any-CR-unapproved; Done impossible while any CR unapproved; 0 hasOpenCrSubstep/PROCESSING_CR_SUBSTEP band sources; band NOT-IN APPROVE_STATUSES; band is NOT current-able (a task in the band is not current)"
         },
         "stubMustFail": "PENDING: the band clearing on a single tick while a CR remains unapproved => RED; Done reachable with an unapproved CR => RED"
       },
@@ -114,9 +114,21 @@
           "assertion": "a decline mints an unapproved CR child; the band derives from it; no untick+substep atomic pair"
         },
         "stubMustFail": "PENDING: a decline that unticks QA + ticks a sub-step (the #86 atomic-pair mechanism) instead of minting a CR child => RED"
+      },
+      {
+        "id": "AC-qa-review-advances-current",
+        "group": "current-eligibility/Tron-corrected",
+        "text": "★ CURRENT-ELIGIBILITY = {Planned, In-Progress} ONLY (Tron 'status QA means next task', architect 58c4cdc39). A task at QA-Review OR 'QA-Review-with-open-CR' (band) ADVANCES -> current moves to the next in-sprint task; nextBacklog recalcs. Code fold (into R40.60 build): CurrentSprint.ts:277 auto-derive DROPS the band -> {In Progress}; :301 designation-valid EXPIRES at QA-Review AND band (not just Done + clean-QA). SUPERSEDES the earlier auto-derived {In Progress, band} + designation-eligible {P/IP/band/QA} — QA-Review + band are NOT current-eligible on EITHER axis.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:R40.60 QA-review-advances-current",
+          "assertion": "a task reaching QA-Review OR band => current advances to next in-sprint; auto-derive :277 = {In Progress} only; designation expires at QA-Review AND band"
+        },
+        "stubMustFail": "PENDING: a task at QA-Review OR band held as current (not advanced) => RED; auto-derive :277 including the band => RED"
       }
     ],
-    "architectDesign": "1345a7564 (design-notes/r40.60-cr-traceability-child-remodel.md) — mechanizes the shape; parent-tension RULED parent=TASK (contestsTest=crossRef); deriveTaskStatus single band-site (mirrors rollupParentStatus); retire resolveCr+hasOpenCrSubstep+PROCESSING_CR_SUBSTEP+m.changeRequests; decline=mint-CR-child; R40.59 invariants preserved; gated migration; failable gate. Architect does NOT touch owner-auth (closed surface); per-CR approve uses the EXISTING owner mechanism."
+    "architectDesign": "1345a7564 (design-notes/r40.60-cr-traceability-child-remodel.md) — mechanizes the shape; parent-tension RULED parent=TASK (contestsTest=crossRef); deriveTaskStatus single band-site (mirrors rollupParentStatus); retire resolveCr+hasOpenCrSubstep+PROCESSING_CR_SUBSTEP+m.changeRequests; decline=mint-CR-child; R40.59 invariants preserved; gated migration; failable gate. Architect does NOT touch owner-auth (closed surface); per-CR approve uses the EXISTING owner mechanism.",
+    "tronRulingCorrection": "★ Tron 2026-08-26 'status QA means next task' -> the band + QA-Review are NOT current-eligible; a task there ADVANCES (current->next, nextBacklog recalcs). Architect OWNS the #86-4 'band stays current' error (design 58c4cdc39). SUPERSEDES 'band is current-able' on R40.59 AC-current-able-one-eligibility-set + R40.56 DESIGNATION_ELIGIBLE (which had {P/IP/band/QA}) + R40.60. New current-eligibility = {Planned, In-Progress} both axes; band's only roles = track-unapproved-CRs + gate-Done. Folded into AC-band-derives + AC-qa-review-advances-current."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

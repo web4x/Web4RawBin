@@ -60,7 +60,7 @@
       {
         "id": "AC-current-able-one-eligibility-set",
         "group": "current-able/one-place",
-        "text": "CURRENT-ABLE: the band joins the current-eligible set {Planned, In-Progress, QA-Review, QA-Review-with-open-CR} in the ONE existing place (getThreeSlots eligibility, CurrentSprint.ts) — never a second list. A task in the band can be the designated current. Ties to the current-role path (R40.56/57/58): eligibility is defined in ONE place; the band is added THERE.",
+        "text": "CURRENT-ABLE: the band joins the current-eligible set {Planned, In-Progress, QA-Review, QA-Review-with-open-CR} in the ONE existing place (getThreeSlots eligibility, CurrentSprint.ts) — never a second list. A task in the band can be the designated current. Ties to the current-role path (R40.56/57/58): eligibility is defined in ONE place; the band is added THERE. ★★ SUPERSEDED-IN-PART 2026-08-26 (Tron 'status QA means next task', architect 58c4cdc39): the band is NOT current-able. This AC's 'band joins the current-eligible set' clause is REVERSED — a task at QA-Review OR band ADVANCES (current->next). New current-eligibility = {Planned, In-Progress} only. The band's roles reduce to track-unapproved-CRs + gate-Done (see R40.60 AC-qa-review-advances-current). Kept visible: original said the band was current-able.",
         "gateRef": {
           "kind": "test",
           "ref": "test:decline-band current-ability",
