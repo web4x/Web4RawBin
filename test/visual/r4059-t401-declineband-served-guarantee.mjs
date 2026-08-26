@@ -67,12 +67,14 @@ try {
   const bandDerived = /qa-?review-with-open-cr/i.test(String(ior.status)) && ior.hasSubstep;   // authoritative decline-band present
   const half1_substepUnderQA = live.realSubstepInChecklist && /qa-?review/i.test(String(live.detailStatus)); // sub-step shown under QA Review (detail)
   const detailNoRegress = !/^\s*in.?progress\s*$/i.test(String(live.detailStatus)) && /qa-?review/i.test(String(live.detailStatus));
+  const rowFound = live.itemFound === true;                                   // FAIL-CLOSED: target-not-found (e.g. the pin moved) is NEVER a pass
   const rowRegressed = /in.?progress/i.test(String(live.itemStatusAttr)) && afterReload.itemStatusAttr === live.itemStatusAttr;
+  const rowSurfaceHolds = rowFound && !rowRegressed;                          // a missing/moved specimen cannot satisfy the property
   console.log('\n── GUARANTEE (T40.1 decline-band, served prod @390) ──');
   console.log(`  precondition (authoritative band derived): ${bandDerived}`);
   console.log(`  half-1 sub-step under QA Review shown (detail): ${half1_substepUnderQA}`);
-  console.log(`  half-2 no-regress — detail surface: ${detailNoRegress ? 'HOLDS' : 'FAILS'} | pin-slot row surface: ${rowRegressed ? 'FAILS (row=In-Progress)' : 'HOLDS'}`);
-  if (half1_substepUnderQA && detailNoRegress && !rowRegressed) {
+  console.log(`  half-2 no-regress — detail surface: ${detailNoRegress ? 'HOLDS' : 'FAILS'} | pin-slot row surface: ${!rowFound ? 'FAIL-CLOSED (target row not found — pin may have moved; NOT a pass)' : (rowSurfaceHolds ? 'HOLDS' : 'FAILS (row=In-Progress)')}`);
+  if (half1_substepUnderQA && detailNoRegress && rowSurfaceHolds) {
     console.log('\nI-GUARANTEE: T40.1 shows the processing-change-requests sub-step under QA Review AND does not regress to In Progress on any surface.');
   } else if (half1_substepUnderQA && detailNoRegress && rowRegressed) {
     console.log(`\nNOT-GUARANTEED-because-X: the decline-band works in the DERIVATION + DETAIL (authoritative status="${ior.status}", sub-step shown under QA Review, no regress) — half-1 and detail-side half-2 GREEN — BUT the T40.1 tree 📌 pin-slot ROW still renders "${live.itemStatusAttr}"/${live.badgeColour}, persisting after reload, so on Tron's actual board surface T40.1 reads as regressed to In Progress. Same confirmed two-source divergence already flagged (probe 109151e8e): tree-source status ≠ /api/ior derivation. The migration fixed the derivation; the pin-slot row surface does not reflect it.`);
