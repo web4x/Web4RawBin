@@ -80,6 +80,32 @@ export function childTaskUuids(model: Record<string, unknown>, selfUuid?: string
   return [...out];
 }
 
+// TaskStatus.rolledTaskStatus (Build #86-4) — the SHARED recursive parent-status ROLLUP READ, factored out of
+// CurrentSprint's private `rolledStatus` (:203) so EVERY read boundary (the /api/ior action-bar surface, the trace
+// node, the pin-slot row) rolls a coordination-root up from its children instead of showing its lying leaf/stored
+// status. A parent with resolvable Task-children derives the WEAKEST-LINK rollup of its children's ROLLED statuses
+// (children-rollup is AUTHORITATIVE — the parent's own stored/checklist status is IGNORED when it has children); a
+// real leaf keeps deriveStatusEnum(statusChecklist). Recursive (a child may itself be a parent) with a cycle-guard
+// `seen` Set. READ-side only — no disk write (single-writer intact). ★ index-store STAYS OUT of this module: the
+// caller INJECTS a `getUnit` getter (e.g. (u)=>idx.get(u)) so task-status.ts imports no ScenarioIndex (matches the
+// dependency-free constraint that let the browser client share this file's constants). So coordination-root 37.4
+// (children all QA-Review, own stored 'Planned') reads QA-Review everywhere it is shown — its lying 'Planned' fixed.
+export function rolledTaskStatus(
+  getUnit: (uuid: string) => { ior: string; model: Record<string, unknown> } | null | undefined,
+  uuid: string,
+  seen: Set<string> = new Set(),
+): TaskStatusEnum {
+  const key = bareUuid(uuid);
+  const unit = getUnit(key);
+  if (!unit || unit.ior !== 'ior:class:Task' || seen.has(key)) return 'Planned'; // unresolvable/non-task/cycle → floor
+  const m = unit.model;
+  const childUuids = childTaskUuids(m, key).filter((c) => { const cu = getUnit(c); return !!cu && cu.ior === 'ior:class:Task'; });
+  if (!childUuids.length) return deriveStatusEnum(String(m.statusChecklist ?? '')); // real leaf — unaffected
+  const next = new Set(seen); next.add(key);
+  const rolled = rollupParentStatus(childUuids.map((c) => rolledTaskStatus(getUnit, c, next)));
+  return rolled ?? deriveStatusEnum(String(m.statusChecklist ?? '')); // rollup null (no resolvable children) → leaf
+}
+
 // TaskStatus.statusSymbol — the SINGLE at-a-glance status glyph for a task. ★ It CALLS deriveStatusEnum for the
 // status enum (NO independent status re-derivation — the two-source disease is killed by delegating, PO hard-condition
 // 2026-08-12); it only REFINES the In-Progress substate glyph on top, reading the indented sub-steps that

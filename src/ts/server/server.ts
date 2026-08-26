@@ -78,7 +78,7 @@ import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js
 import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
-import { APPROVE_STATUSES, deriveStatusEnum, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
+import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
 import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
@@ -1421,8 +1421,14 @@ function attachTaskMdHref(taskUuid: string, m: Record<string, unknown>, idx: Sce
 // the action-bar hid Approve/Decline on Tron's own actionable QA-Review task. FIX: m.status = deriveStatusEnum(checklist)
 // — the status-getter north-star applied at READ, single-source with the FSM. COMPUTE-ON-READ: mutates only the SERVED
 // model object, NEVER persists (mirror the attach* pattern; INV-T byte-diff==0 on disk).
-function attachTaskStatus(m: Record<string, unknown>): void {
-  m.status = deriveStatusEnum(String(m.statusChecklist ?? ''));
+// Build #86-4: with an index in scope, roll a coordination-root up from its children (rolledTaskStatus) so a
+// parent-with-children surfaces the WEAKEST-LINK rollup, not its lying leaf/stored status (T37.4 children all
+// QA-Review, own stored 'Planned' → reads QA-Review). A leaf is unaffected (rollup falls through to deriveStatusEnum).
+// No idx (defensive) → the prior leaf-only derivation, so control visibility still follows STATUS not membership.
+function attachTaskStatus(m: Record<string, unknown>, idx?: ScenarioIndex): void {
+  m.status = idx
+    ? rolledTaskStatus((u) => idx.get(u), String(m.uuid ?? ''))
+    : deriveStatusEnum(String(m.statusChecklist ?? ''));
 }
 
 function attachTaskChangeRequests(taskUuid: string, m: Record<string, unknown>, idx: ScenarioIndex): void {
@@ -2646,7 +2652,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!obj) continue;
           if (iorType !== baseType) (obj as any).type = iorType;
           if (unit.model.name) obj.title = String(unit.model.name);
-          if (unit.model.status) obj.status = String(unit.model.status);
+          // Build #86-4: a Task node's display status ROLLS UP from its children (a coordination-root shows the
+          // weakest-link, not its lying stored/leaf status); non-task nodes keep their stored status field.
+          if (unit.ior === 'ior:class:Task') obj.status = rolledTaskStatus((u) => idx.get(u), uuid);
+          else if (unit.model.status) obj.status = String(unit.model.status);
           if (iorType === 'gate' && (unit.model as any).verdict) obj.status = String((unit.model as any).verdict);
           for (const key of scenarioFwd(iorType)) {
             const refs = (unit.model as Record<string, unknown>)[key];
@@ -2777,7 +2786,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             // one unit, one meaning, one value. Was chain-HOP labels (GATE-PROVEN / IMPL-DONE / IN-PROGRESS) stamped onto
             // the field the row renders AS workflow status → a band (QA-Review-with-open-CR) task showed a FALSE 'IN-PROGRESS'
             // on Tron's board = the exact regress he forbade. Chain-progress is PRESERVED in its OWN field (chainProgress).
-            const status = taskUnit ? deriveStatusEnum(String((taskUnit.model as Record<string, unknown>).statusChecklist ?? '')) : '';
+            const status = taskUnit ? rolledTaskStatus((u) => idx.get(u), s.slot.taskUuid) : ''; // Build #86-4: pin-slot row rolls a parent up from its children (weakest-link), not the leaf/stored status
             const chainProgress = isCurrent ? (isGateProven ? 'GATE-PROVEN' : (hopStates.impl?.status === 'done' ? 'IMPL-DONE' : 'IN-PROGRESS')) : ''; // chain-progress info kept, NOT conflated with workflow status
             return { uuid: s.slot.taskUuid, type: 'Task', name: `${s.label} — ${taskName}`, hasChildren: true, status, chainProgress, pinSlot: true, role: s.role }; // R40.57/R40.58 D3: role stamped from slotsFrom classification; the drawer derives taskRole at render from role:'current'. R40.18: em-dash; pinSlot un-truncates
           });
@@ -2928,7 +2937,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (result.unit?.model) reconcileCanonical(iorUuid, result.unit.model as Record<string, unknown>, result.unit.ior); // R36.1/R36.2 part-2: compute-on-read A-merge + UseCase→UmlUseCase facet (canonical view; never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskChangeRequests(iorUuid, result.unit.model as Record<string, unknown>, idx); // R40.10 BUG-A: durable-backref CRs so a declined CR is reachable on the task surface (compute-on-read, never writes)
         if (result.unit?.ior === 'ior:class:Task' && result.unit.model) { attachTaskMdHref(iorUuid, result.unit.model as Record<string, unknown>, idx); } // T37.26 task-md href (Open-Task-file). R40.57/R40.58 D3: pinRole NO LONGER baked here — the consumer derives taskRole at render from the live recompute (0 pinRole in payload, by construction)
-        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskStatus(result.unit.model as Record<string, unknown>); // ed3442d10: derived status at the READ boundary → action-bar control visibility follows STATUS not membership (compute-on-read, never writes)
+        if (result.unit?.ior === 'ior:class:Task' && result.unit.model) attachTaskStatus(result.unit.model as Record<string, unknown>, idx); // ed3442d10: derived status at the READ boundary → action-bar control visibility follows STATUS not membership (compute-on-read, never writes)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify(result));
       } catch (e: any) {
