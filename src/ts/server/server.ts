@@ -1930,8 +1930,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // Demote prior → next iff it is a REAL, NON-terminal (not Done), in-sprint Task and not the same task being re-designated.
           if (priorCurrent && priorCurrent !== taskUuid && priorInSprint) {
             const pu = idx.get(priorCurrent);
-            const priorDone = pu ? deriveStatusEnum(String((pu.model as Record<string, unknown>).statusChecklist ?? '')) === 'Done' : true;
-            if (pu && pu.ior === 'ior:class:Task' && !priorDone) desIntent.nextBacklogOverride = priorCurrent; // getThreeSlots reads nextBacklogOverride for the NEXT slot → single-focus preserved
+            const pm = pu ? (pu.model as Record<string, unknown>) : null;
+            // R40.1 CR#86-3 / L-S40o fix: demote the displaced prior to NEXT only if it is a LIVE task — exclude Done AND
+            // Superseded AND Cancelled. The old Done-ONLY check leaked a dead (superseded/cancelled) prior into the NEXT
+            // slot; a terminal/dead task must never become 'next backlog'. (Superseded/Cancelled are separate fields, NOT
+            // deriveStatusEnum outputs, so they need their own check.)
+            const priorTerminal = !pm
+              || deriveStatusEnum(String(pm.statusChecklist ?? '')) === 'Done'
+              || (pm.supersededBy != null && pm.supersededBy !== '')
+              || (pm.cancelledReason != null && pm.cancelledReason !== '');
+            if (pu && pu.ior === 'ior:class:Task' && !priorTerminal) desIntent.nextBacklogOverride = priorCurrent; // getThreeSlots reads nextBacklogOverride for the NEXT slot → single-focus preserved
           }
           if (idx.get(MC_CU)) UnitController.apply(idx, 'ior:class:CurrentSprint', MC_CU, desIntent, { publish: publishUnitChanged });
           else UnitController.create(idx, 'ior:class:CurrentSprint', MC_CU, { ior: 'ior:class:CurrentSprint', model: { uuid: MC_CU, name: 'Current', ...desIntent }, ownerIor: null }, { publish: publishUnitChanged });
