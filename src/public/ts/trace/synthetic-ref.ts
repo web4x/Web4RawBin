@@ -5,7 +5,10 @@
 import { refUuid } from '../../../ts/shared/TraceModel.js';
 
 // A synthetic view ref carries its meaning in the PREFIX + a path/key that is NOT a real instance uuid.
-export const SYNTHETIC_PREFIX = /^(dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2|collection)/;
+// r4011 (architect 5a83f4c76): depref: (OtmuxBridge deployment-ref, uuid='depref:'+role) IS synthetic — it was MISSING here,
+// so isSyntheticRef('depref:…') read false → callers applied refUuid+graph.get → a tree-node shell → EMPTY render instead of
+// the fail-loud '⚠ unresolved'. Adding it routes depref through the SOLE resolver (resolveRefUnit → /api/ior/<FULL rawRef>).
+export const SYNTHETIC_PREFIX = /^(depref:|dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2|collection)/;
 export const isSyntheticRef = (rawRef: string): boolean => SYNTHETIC_PREFIX.test(rawRef);
 
 export type ResolvedRef = { uuid: string; type: string; kind?: string; unit: Record<string, unknown> };

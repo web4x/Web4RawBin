@@ -13,6 +13,7 @@
 // (one number proves unevadability AND completeness — the 8 that exist AND the 9th nobody has written yet).
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus, viewBusKey } from './ViewBus.js';
+import { isSyntheticRef, resolveRefUnit } from './synthetic-ref.js';
 
 export interface DetailCtx {
   ref: string;              // the full ref ("task:<uuid>")
@@ -47,21 +48,40 @@ export abstract class RbDetailBase extends HTMLElement {
   }
 
   // AXIS-2: resolve the model from the ONE source, then hand the type-specific element a full ctx to render.
+  // r4011 (architect 5a83f4c76): a SYNTHETIC ref (depref:/dir:/file:/puml-src:/project:/rawbin:/mof-/collection:) resolves
+  // ONLY through the SOLE resolver resolveRefUnit(FULL rawRef) — NEVER refUuid+graph.get+ior:instance. A synthetic ref with
+  // a graph TREE-NODE would make graph.get(refUuid) return a non-null shell → an EMPTY render that never hits the fail-loud
+  // (the fail-safe-replacing-fail-loud L15 bug + the synthetic-ref-contract violation). Unresolvable synthetic → fail-LOUD.
   private async resolveAndRender(): Promise<void> {
     this.clearSubs();
     const ref = this.getAttribute('ref') || '';
-    const uuid = refUuid(ref);
-    const obj = this.graph?.get(uuid) || null;
-    let model: Record<string, any> | null = obj ? this.modelFromObj(obj) : null;
-    if (!model) {
-      const j = await fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null);
-      if (!j?.unit) { this.innerHTML = `<div class="dv-empty">⚠ unresolved: ${escHtml(ref || uuid)}</div>`; this.announceShown(ref); return; } // honest-empty, NEVER a thin stub — but STILL announce (else the action bar keeps the PREVIOUS unit's verbs on an unresolved detail)
-      model = (j.unit.model || {}) as Record<string, any>;
+    let uuid: string; let obj: any | null = null; let model: Record<string, any> | null = null;
+    if (isSyntheticRef(ref)) {
+      const resolved = await resolveRefUnit(ref); // → /api/ior/<FULL rawRef> → ensureViewUnit; the ONE synthetic parser (no refUuid)
+      if (!resolved) { this.renderUnresolved(ref); return; } // fail-LOUD '⚠ unresolved', NEVER an empty shell
+      uuid = resolved.uuid; model = ((resolved.unit as any)?.model || {}) as Record<string, any>;
+    } else {
+      uuid = refUuid(ref); // genuine type:realUuid ref — the graph fast-path ELSE the instance fetch (unchanged)
+      obj = this.graph?.get(uuid) || null;
+      model = obj ? this.modelFromObj(obj) : null;
+      if (!model) {
+        const j = await fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null);
+        if (!j?.unit) { this.renderUnresolved(ref || uuid); return; } // honest fail-loud, NEVER a thin stub
+        model = (j.unit.model || {}) as Record<string, any>;
+      }
     }
     this.renderDetail({ ref, uuid, obj, model });
     this.announceShown(ref);
     // MVC: a unit-changed on THIS ref re-derives (data-change re-render; not a ref-change so it bypasses the funnel).
     this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.forceRerender()));
+  }
+
+  // r4011 fail-LOUD: an unresolvable ref renders an EXPLICIT unresolved detail (dv-type='unresolved' + dv-title carrying the
+  // ref) — NEVER an empty region (the user-visible L15 bug Tron saw). STILL announces (else the action bar keeps the PREVIOUS
+  // unit's verbs on an unresolved detail). Shared by both the synthetic and the instance unresolved paths (one fail-loud site).
+  private renderUnresolved(ref: string): void {
+    this.innerHTML = `<div class="dv-type">unresolved</div><div class="dv-title">⚠ unresolved: ${escHtml(ref)}</div>`;
+    this.announceShown(ref);
   }
 
   // R37.24 inc2 AXIS-3: the ELEMENT is the SINGLE owner of the shown-signal — EVERY render path (content OR honest-empty)
