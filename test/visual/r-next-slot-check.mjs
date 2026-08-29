@@ -6,7 +6,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED='0';
 const CS='current-sprint-singleton-0000-000000000001';
 const B='9a70ce5e-7e88-45f9-b921-0f8e9caf07a6'; // Sprint-40 Task 40.10
 const HARD=setTimeout(()=>{console.log('RED: WATCHDOG');process.exit(1);},180000);
-const f=await setupFoundation({commit:'HEAD',buildDist:true}); const oh=f.ownerHeaders();
+const COMMIT=process.env.MC_COMMIT||'HEAD'; // RED-first: run at the pre-fix commit → MUST fail (proves the gate detects the no-op)
+const f=await setupFoundation({commit:COMMIT,buildDist:true}); const oh=f.ownerHeaders();
 const slots=async()=>{const r=await fetch(`${f.base}/api/trace/children/${CS}?mode=trace`,{signal:AbortSignal.timeout(15000)}).catch(()=>null); if(!r)return{}; const d=await r.json(); const ch=d.children||[];
   const pick=role=>{const c=(Array.isArray(ch)?ch:[]).find(x=>x.role===role||new RegExp(role,'i').test(x.name||'')); return c?{uuid:(c.uuid||'').slice(0,8),name:(c.name||'').slice(0,50)}:null;};
   return {current:pick('current'), next:pick('next|backlog'), last:pick('last|completed')};};
@@ -21,9 +22,14 @@ try{
   console.log('AFTER  make-current: current=',JSON.stringify(after.current),' next=',JSON.stringify(after.next));
   const currentIsB = /40\.10/.test(after.current?.name||'') || after.current?.uuid==='9a70ce5e';
   const priorUuid = before.current?.uuid;
-  const nextIsDemotedPrior = priorUuid && after.next && after.next.uuid===priorUuid;
+  const nextIsDemotedPrior = priorUuid && after.next && after.next.uuid===priorUuid; // AC-surface: Tron sees the displaced current in NEXT
   const nextChanged = JSON.stringify(before.next)!==JSON.stringify(after.next);
-  console.log(`\n  current moved to B: ${currentIsB} | NEXT shows demoted-prior (${priorUuid}): ${nextIsDemotedPrior} | NEXT changed at all: ${nextChanged}`);
-  console.log(nextIsDemotedPrior ? 'GREEN: NEXT slot updates to the demoted prior current (fact-2 NOT reproduced on scratch)'
-    : `RED: NEXT slot did NOT become the demoted prior (${priorUuid}) — after.next=${JSON.stringify(after.next)} = fact-2 (NEXT never updates) REPRODUCED on scratch = a DATA/derivation defect`);
-} finally { const td=await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`); clearTimeout(HARD); process.exit(0); }
+  // REGRESSION GUARD (no-designation → auto-scan): BEFORE the make-current, NEXT must be the AUTO-SCAN (a forward task),
+  // NOT already the prior-current — proving the demotion is CAUSED by make-current, not a standing/phantom always-on override.
+  const beforeIsAutoScan = !!before.next && before.next.uuid!==priorUuid;
+  const pass = currentIsB && nextIsDemotedPrior && beforeIsAutoScan;
+  console.log(`\n  [@${COMMIT}] current→B: ${currentIsB} | NEXT==demoted-prior(${priorUuid}): ${nextIsDemotedPrior} | regression-guard BEFORE==auto-scan(not prior): ${beforeIsAutoScan} | NEXT changed: ${nextChanged}`);
+  console.log(pass ? 'GREEN: make-current demotes prior→NEXT (fact-2 FIXED) + no phantom (BEFORE=auto-scan)'
+    : `RED: fact-2 NEXT-demotion ${nextIsDemotedPrior?'':'BROKEN (NEXT stayed auto-scan '+JSON.stringify(after.next)+', prior '+priorUuid+' never demoted)'}${!beforeIsAutoScan?' [regression-guard TRIP: BEFORE already showed prior=phantom]':''}`);
+  clearTimeout(HARD); const td=await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`); process.exit(pass?0:1);
+} catch(e){ clearTimeout(HARD); console.log('RED: ERR',String(e.message||e).slice(0,120)); try{await f.teardown();}catch{} process.exit(1); }
