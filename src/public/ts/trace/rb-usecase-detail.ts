@@ -13,47 +13,32 @@ import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, scenarioBrowserLinkFromIor, scenarioBrowserHref, upsertSourceLink, upsertParentLink } from './detail-children.js';
+import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source) — extract-once, no per-element copy
 
-export class RbUseCaseDetail extends HTMLElement {
-  graph: TraceGraph | null = null;
-  static get observedAttributes() { return ['ref']; }
-  private unsubs: Array<() => void> = [];
-
-  connectedCallback(): void { this.render(); }
-  disconnectedCallback(): void { this.clearSubs(); }
-  attributeChangedCallback(): void { if (this.isConnected) this.render(); }
-
-  private clearSubs(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
-
-  render(): void {
-    this.clearSubs();
-    const ref = this.getAttribute('ref') || '';
-    const obj = this.graph?.get(refUuid(ref));
-    if (!obj) { this.innerHTML = '<div class="dv-empty">Use case not found</div>'; return; }
-
-    const links = forwardOnly(obj);
+export class RbUseCaseDetail extends RbDetailBase {
+  // R37.24 inc2: funnel + one-source resolution live in RbDetailBase (extract-once). This element implements ONLY its type DOM.
+  protected renderDetail({ uuid, obj, model }: DetailCtx): void {
+    const links = obj ? forwardOnly(obj) : {};
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge dv-type-usecase">Use Case</span>
-        <h3>${esc(obj.title)}</h3>
-        <code class="dv-uuid">${obj.uuid}</code>
+        <h3>${esc(String(model.name || uuid))}</h3>
+        <code class="dv-uuid">${uuid}</code>
       </div>
       <div class="dv-fields">
-        ${obj.status ? `<div class="dv-field"><label>Status</label><span class="dv-status-badge">${esc(obj.status)}</span></div>` : ''}
-        ${scenarioBrowserLinkFromIor(obj.uuid)}
+        ${model.status ? `<div class="dv-field"><label>Status</label><span class="dv-status-badge">${esc(String(model.status))}</span></div>` : ''}
+        ${scenarioBrowserLinkFromIor(uuid)}
       </div>
       <div class="dv-links">
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
       </div>`;
 
-    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
-    fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+    fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       upsertSourceLink(this, sourceFile, sourceLine); upsertParentLink(this, parent); // R37.12 (B): idempotent — replace not stack
-
-      renderChainPathSection(this, obj.uuid);
+      renderChainPathSection(this, uuid);
       renderAllChildrenSection(this, children);
-      renderSupersededSection(this, obj.uuid);
+      renderSupersededSection(this, uuid);
     });
   }
 }

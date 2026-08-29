@@ -8,39 +8,24 @@ import { navigate } from './nav.js';
 import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, scenarioBrowserLinkFromIor, upsertSourceLink, upsertParentLink } from './detail-children.js';
+import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source) — extract-once, no per-element copy
 
-export class RbMethodDetail extends HTMLElement {
-  graph: TraceGraph | null = null;
-  static get observedAttributes() { return ['ref']; }
-  private unsubs: Array<() => void> = [];
-  connectedCallback(): void { this.render(); }
-  disconnectedCallback(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
-  attributeChangedCallback(): void { if (this.isConnected) this.render(); }
-  render(): void {
-    for (const u of this.unsubs) u(); this.unsubs = [];
-    const ref = this.getAttribute('ref') || '';
-    const obj = this.graph?.get(refUuid(ref));
-    if (!obj) { this.innerHTML = '<div class="dv-empty">Method not found</div>'; return; }
-    const links = forwardOnly(obj);
+export class RbMethodDetail extends RbDetailBase {
+  // R37.24 inc2: funnel + one-source resolution live in RbDetailBase (extract-once). This element implements ONLY its type DOM.
+  protected renderDetail({ uuid, model }: DetailCtx): void {
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge" style="background:rgba(198,40,40,0.25);color:#ef5350">Method</span>
-        <h3>${esc(obj.title)}</h3>
-        <code class="dv-uuid">${obj.uuid}</code>
-        ${scenarioBrowserLinkFromIor(obj.uuid)}
-      </div>
+        <h3>${esc(String(model.name || uuid))}</h3>
+        <code class="dv-uuid">${uuid}</code>
+        ${scenarioBrowserLinkFromIor(uuid)}
       </div>`;
-    renderChainPathSection(this, obj.uuid);
-    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
-    this.querySelectorAll('.dv-link').forEach(row => {
-      row.addEventListener('click', () => { const lref = (row as HTMLElement).dataset.ref!; navigate(lref.split(':')[0], 'show', { uuid: refUuid(lref) }); });
-    });
-    fetchDetailData(obj.uuid).then(({ children, parent, sourceFile, sourceLine }) => {
+    renderChainPathSection(this, uuid);
+    fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent — replace not stack
       upsertParentLink(this, parent);
-
       renderAllChildrenSection(this, children);
-      renderSupersededSection(this, obj.uuid);
+      renderSupersededSection(this, uuid);
     });
   }
 }
