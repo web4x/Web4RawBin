@@ -6,7 +6,15 @@
     "name": "Truth-decay / no-freshness-invariant family — no authoritative artifact may be stored-and-silent (derive OR revalidate+visible-stale)",
     "description": "An artifact EXISTS, LOOKS AUTHORITATIVE, and NOTHING keeps it TRUE/ACTIONABLE at read — a stored value or constraint with no invariant re-checking it against the reality it claims. It does not fail loud; it silently misleads and is still trusted. This is the FAMILY (>=8 measured specimens in one day, incl the design-note's own author and the PO), not N instance-fixes. The by-construction CURE, per artifact-class in priority order: (a) DERIVE-first from the single source on each read (no stored copy to rot); ELSE (b) STORED with provenance RE-VALIDATED PER READ + rendered VISIBLY STALE on failure; NEVER (c) stored-and-silent. Each class's cure is FAILABLE (R40.54): a lint/gate that RENDERS-STALE or REDs with a stub-must-fail. Per-instance fixes (R40.55 boot currency+state-removal, fact-2 derived-slot) CITE this as their family root, not duplicate.",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:61718883-195a-4bd4-bbc9-ead8ecff8412",
+      "ior:instance:bd0e5f4a-ef1c-4d06-b019-a66d6057aa7b",
+      "ior:instance:25772198-1c7d-4e6b-81b9-e35a2a082252",
+      "ior:instance:968d966d-ea74-404b-9751-f611fdab475e",
+      "ior:instance:2af98c11-cb0d-439c-a294-1ea0d3402d62",
+      "ior:instance:afe976e3-20fa-44b4-8170-1caea4e04528",
+      "ior:instance:e2068636-2980-4e14-a150-7266b7582bf1"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:194398d2-b165-445a-926f-be163ee4b9c7"
