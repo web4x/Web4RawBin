@@ -68,6 +68,14 @@ const auditServer = () => {
 const REAL_QA_TASK = '92bdca8b-6c08-459d-a540-98073b80c020';
 
 async function run() {
+  // ★★ SAFETY NEUTER (PO 2026-08-29): part (a) fires a REAL owner-authenticated approve at prod:4444 (httpsPost with
+  // OWNER_LITERAL, ~line 96) → it wrote a FALSE 'Done by ce981242' to Tron's board on every deploy run. A gate must NEVER
+  // mutate the system it verifies. Until it is rewired to an R40.31 ISOLATED scratch server, it REFUSES to run the live-POST
+  // path (no scratch base env set = deploy.mjs context) → ZERO mutation. Set R4010_SCRATCH_BASE (non-4444) to re-enable.
+  if (!process.env.R4010_SCRATCH_BASE) {
+    console.error('R4010 REFUSES TO RUN — part (a) does a REAL owner approve on prod:4444 (leaked a false Done). It must target an R40.31 ISOLATED scratch server (R4010_SCRATCH_BASE, non-4444), NEVER prod. Skipping, ZERO mutation.');
+    process.exit(2);
+  }
   const results: boolean[] = [];
   const acAudit = auditServer();
   const acUI = clientVerdictUI();                                  // (a)

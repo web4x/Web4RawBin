@@ -6,7 +6,17 @@
 // surfaces the server's verdict VERBATIM — a 200 shows 'Approved — Done', a 403 shows the REFUSAL and NEVER a fake
 // 'Approved' (a client that pre-decided Done would be a false second authority). FINAL owner-tap sliver → Tron device.
 import { webkit, devices } from '@playwright/test';
-const BASE = 'https://prod.wo-da.de:4444';
+// ★★ SAFETY NEUTER (PO 2026-08-29): this gate TAPS A REAL approve button. Its "pollution-safe" route-interception
+// (**/api/task/*/approve) is NOT a guarantee — a moved endpoint / the unroute window let a REAL approve reach prod and
+// wrote a FALSE 'Done by ce981242' to Tron's board (the invariant we defend all session). A gate that mutates the system
+// it verifies is a defect with a green light. FIX (correct-by-construction): it may run ONLY against an R40.31 ISOLATED
+// scratch server (non-4444, torn down, prod-untouched-asserted) — NEVER prod:4444. Set R4010B_BASE to a scratch base.
+// With no scratch base it REFUSES to run (no mutation). Full scratch-wiring via setupFoundation is the follow-up.
+const BASE = process.env.R4010B_BASE || '';
+if (!BASE || /:4444(\b|\/|$)|prod\.wo-da/.test(BASE)) {
+  console.error('R4010B REFUSES TO RUN — it taps a real approve and its interception is not a guarantee (leaked a real Done to prod). Requires an R40.31 ISOLATED scratch base via R4010B_BASE (non-4444), NEVER prod:4444. Skipping, ZERO mutation.');
+  process.exit(2);
+}
 const TASK = 'task:92bdca8b-6c08-459d-a540-98073b80c020'; // a real QA-Review task; POST is intercepted so nothing is written
 const iPhone = devices['iPhone 12'];
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
