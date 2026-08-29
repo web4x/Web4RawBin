@@ -2,7 +2,7 @@
   "ior": "ior:class:Requirement",
   "model": {
     "uuid": "20148749-0c79-49a9-9beb-f901a1289c22",
-    "altId": "R40.63",
+    "altId": "R40.67",
     "name": "State-file currency — boot-currency guard covers agent state files (context.md/learnings.md) by structural discovery, not just boot.md",
     "description": "Extend the boot-currency guard (R40.55) to agent STATE files (context.md/learnings.md), not just boot.md — the SAME blind-side as check:pin-single-source: the boot-currency lint globs boot.md ONLY, so a stale STATE file outside the scan walks past (a deprecated bare <role>/context.md nearly false-flagged ARON). Activates the deferred PO-D5 context-anchor-currency debt. PRINCIPLE (from the boot arc): BOOTS get removal (rot-PROOF); STATE files MUST carry state -> only rot-EVIDENT. So the lint does NOT demand freshness; it asserts the properties that make a stale state file self-evidently a starting-point AND stop it being READ AS CURRENT. STRUCTURAL scope (no governance judgment): the ACTIVE/read set = every state file a boot.md points at (via its Context:/Deep-files: pointer) -> gate RED; DORMANT orphans (no boot points at them) = WARN-latent, never CI-RED (delta-vs-absolute). oosh-* shadows route through the EXISTING /^oosh-/ EXCLUDED predicate (reuse R40.55, WARN-loud, never our CI-RED).",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
@@ -74,7 +74,8 @@
         },
         "stubMustFail": "PENDING (the defining stub): seed a NEW-KIND state file (e.g. session/agents/<role>/notes.md) present-but-unevaluated -> RED on the unenrolled kind"
       }
-    ]
+    ],
+    "renumberNote": "R40.63 -> R40.67 (2026-08-29, PO ruling): R40.63 was already SPENT in shipped git history (deploy 8a920ba78 v0.8.139) for a different feature, invisible to a unit-altId scan (the hole). Number reallocated verified against BOTH scenario unit altIds AND git log --grep. UUID 20148749-0c79-49a9-9beb-f901a1289c22 + all ACs UNCHANGED — only the human number moved. R40.63 is reserved for the #126 backfill of the shipped feature."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
