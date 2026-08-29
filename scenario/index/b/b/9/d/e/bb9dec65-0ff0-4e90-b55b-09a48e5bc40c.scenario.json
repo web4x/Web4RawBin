@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": null,
+  "model": {
+    "uuid": "bb9dec65-0ff0-4e90-b55b-09a48e5bc40c",
+    "name": "Task 40.62: Render the CR diagram file-artefact — a CR dropped on a diagram renders as a FILE-shaped artefact reusing the existing file/pumlartifact path (no forked CR-diagram kind)",
+    "slug": "task-40.62-render-cr-diagram-artefact",
+    "description": "R40.62 diagram half (AC-render-diagram-file-artefact). Tron IMG_5175/5176: dragging a ChangeRequest onto a DIAGRAM accepts the drop (green + badge) but renders NOTHING. The AC was minted (1cbe69cd2, tree+diagram halves) but only the TREE half was built — the diagram half has no implementing task (the invisible untasked-AC the ac-untasked-audit now flags). This task implements the diagram render: a CR on a diagram renders as a FILE-shaped ARTEFACT reusing the EXISTING file/pumlartifact artefact path (Tron verbatim 'on diagrams an artefact like a file'), NOT a new CR-specific diagram kind. DRY gate: a forked CR-specific diagram renderer => RED (reuse the rb-modelelement-detail puml/artefact render, don't fork — DRY-by-copy is how the page-bootstrap bug got in). PLAN-NOT-BUILD (Tron: plan-a-task-to-fix-later): QUEUED AFTER the T40.1 checklist deploy + R37.24; architect supplies useCases + design at activation.",
+    "intention": "Tron IMG_5175/6 device-QA (drag-CR-onto-diagram renders nothing) — plan the implementing task for R40.62's unbuilt diagram-render half. Covering task (#126) for req R40.62 AC-render-diagram-file-artefact; queued after the critical path per Tron 'plan-not-build-now'.",
+    "context": "Covers R40.62 (a4c9340d) AC-render-diagram-file-artefact via the existing file/pumlartifact artefact render (rb-modelelement-detail). useCases pending architect design at activation (plan-not-build). The tree half (AC-render-tree-shared-itemview) shipped without a task = the meta-finding this task + the ac-untasked-audit detector close.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 40 Planning](./planning.md)\n    - Requirement R40.62 `[requirement:uuid:a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5]`\n  - down\n    - None (atomic task, plan-not-build; architect designs useCases at activation)",
+    "acceptanceCriteria": "- [ ] Dragging a ChangeRequest onto a DIAGRAM renders it as a FILE-shaped ARTEFACT (not just an accepted drop with a badge and nothing shown) — the artefact appears on the diagram. Closes Tron IMG_5175/5176 (drop accepted but renders nothing).\n- [ ] The render REUSES the EXISTING file/pumlartifact artefact path (rb-modelelement-detail puml/artefact treatment), NOT a new CR-specific diagram kind. DRY.\n- [ ] GATE (DRY, @390 + Tron device): a CR on a diagram routes through the existing file/pumlartifact artefact render and the artefact is VISIBLE; a forked CR-specific diagram renderer => RED (reuse, don't fork).",
+    "subtasks": "None (atomic task, plan-not-build).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-29"
+  }
+}
