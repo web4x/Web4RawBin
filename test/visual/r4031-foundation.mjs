@@ -23,12 +23,16 @@ const PORT = Number(process.env.R4031_PORT || 4743);
 const BASE = `https://localhost:${HTTPS_PORT}`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// ── owner cred: read the OWNER_TOKEN literal at RUNTIME (ServerManagerGuard.ts, INV-G2 one-location). NEVER logged. ──
+// ── owner cred: read the owner token at RUNTIME from the SAME canonical source the server's ServerManagerGuard.loadOwnerToken
+// uses (post-security-remediation: INV-G2 = NO owner-token literal in source; the secret lives in env RAWBIN_OWNER_TOKEN
+// or the untracked file /root/.rawbin/owner-token, NOT git). The scratch server (spawned with this process.env) loads the
+// same value → client header matches. NEVER logged/echoed/committed (headers only). ──
 function readOwnerToken() {
-  const src = fs.readFileSync(path.join(MAIN, 'src/ts/server/ServerManagerGuard.ts'), 'utf8');
-  const m = /OWNER_TOKEN\s*=\s*'([0-9a-fA-F-]{36})'/.exec(src);
-  if (!m) throw new Error('OWNER_TOKEN literal not found (ServerManagerGuard.ts) — cannot owner-auth');
-  return m[1];
+  const env = (process.env.RAWBIN_OWNER_TOKEN || '').trim();
+  if (env) return env;
+  const file = process.env.RAWBIN_OWNER_TOKEN_FILE || '/root/.rawbin/owner-token';
+  try { const v = fs.readFileSync(file, 'utf8').trim(); if (v) return v; } catch { /* fall through */ }
+  throw new Error(`owner token unavailable — no RAWBIN_OWNER_TOKEN env and no readable ${file} (post-remediation the token is not in source; owner-auth needs the untracked secret)`);
 }
 
 // ── seed: write a sharded scenario unit into the worktree index ──
