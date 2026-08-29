@@ -3,7 +3,7 @@
 Planner raised it; PO asked for ONE family, not N instance-fixes. This note frames the class + the by-construction cure so per-instance fixes CITE it instead of re-discovering it. Loci measured on disk by planner (measure-first), corroborated here.
 
 ## The disease (one sentence)
-**An artifact EXISTS, LOOKS AUTHORITATIVE, and NOTHING keeps it TRUE OVER TIME** — a stored value with no invariant re-checking it against the reality it claims. It does not fail loud; it silently drifts to false and is still trusted.
+**An artifact EXISTS, LOOKS AUTHORITATIVE, and NOTHING keeps it TRUE/ACTIONABLE** — a stored value or constraint with no invariant re-checking it against the reality it claims. It does not fail loud; it silently misleads and is still trusted. (Generalized from "true over time" to "true/actionable at read" per PO — the class includes a constraint that was never satisfiable, not only one that drifted; both share: authoritative-reading artifact, nothing validates it, silent.)
 
 ## Corpus (enumerated, not "there are some" — enumerate-not-universal)
 LIVE specimens (planner-measured):
@@ -14,7 +14,12 @@ CURED specimen (BEFORE→AFTER proof the cure lands):
 Prior/this-week specimens the family SUBSUMES:
 4. **boot-currency** (R40.55, my finding) — boot names a stale sprint/version, no invariant holds it==HEAD. Cure already designed: Layer-1 currency-lint + Layer-2 state-removal.
 5. **fact-2 nextBacklogOverride** (commit 46c68e1fc) — a stored NEXT slot that rots; cured by derive-don't-store.
+6. **circular-ruling / unsatisfiable-constraint** (PO's own, 2026-08-29) — the "merge-after-live-MVC while live-MVC-waits-for-reconcile" ruling read as an authoritative plan but was a DEADLOCK from birth; nothing checked it for satisfiability/liveness → it silently blocked a fix. VARIANT: not "decayed over time" but "never actionable, unchecked" — still the family meta-shape (authoritative artifact, nothing validates it, silent). Cure: a stored CONSTRAINT/RULING must be liveness-checked when read and render VISIBLY BLOCKED (not silently block work). Distinct from the missing-mechanism sibling: here an authoritative artifact EXISTS and misleads; there none exists.
+7. **★ self-catch (this note's author, 2026-08-29)** — I reported DEPLOY-STATE.md as a live stale-instruction specimen by REPEATING a peer's earlier measurement of its lines instead of RE-READING the live file (which had been corrected, d042d1c59, and WAS on my disk). I delivered a design about silently-decaying stored artifacts WHILE being misled by one. Root: a relayed measurement is ITSELF a stored artifact with no freshness — it was true when the peer read it, stale when I cited it, and nothing re-validated it at point-of-use. The class is pervasive enough to catch the author of its own design-note. **The visible-stale half of the cure is exactly what would have saved me** — had DEPLOY-STATE rendered its own supersededness, or had I re-derived at use, no stale claim ships. Corpus is ≥7, not 3.
 Lineage (same disease, already ruled): pin two-writer, sprint-name double-number, R37.12 revalidate-or-stale-badge, R-C9 done-provenance, R40.11 two-store 33-overlaps.
+
+## Sub-lesson (from #7): a RELAYED MEASUREMENT decays too
+A peer's measurement (line numbers, counts, "X is absent/present") is a stored value with a timestamp of THEIR read, not yours. RE-DERIVE at point-of-use before asserting it as current — especially for anything you put in a durable artifact or a report. (I re-measured after the catch: DEPLOY-STATE was indeed corrected — my error; req's R40.69 units were indeed still absent — that one held. Measure-first sorted which was which; relaying would not have.)
 
 ## NOT in the family — the SIBLING boundary (planner caught this; keep it separate)
 **missing-mechanism ≠ stale-artifact.** T40.1 residual `resolveChangeRequest` grep=0 — the substep CAN'T tick because no close mechanism exists at all. That is *absence of a producer*, not *a stored value gone stale*. Truth-decay presumes the artifact was once true and drifted; missing-mechanism was never wired to become true. Different cure (build the mechanism), different note. Do not fold it in — over-claiming the family dilutes it (a lone mis-classification weakens the doctrine).
