@@ -3,7 +3,7 @@
   "model": {
     "uuid": "23e77b77-60f7-413d-9d00-81a83486022b",
     "altId": "R40.69",
-    "name": "File units carry FILENAMES not UUIDs (name/location/sourceFile real, ownerIor set) — Tron prod regression, two-server bisect",
+    "name": "Second-store root: File units carry FILENAMES not UUIDs — one canonical store, model-store writer correct shape (Tron prod regression)",
     "description": "A File unit MUST carry its FILENAME in name (name=filename, location=real path, sourceFile=ior:file:<real path>, ownerIor SET) — never a raw UUID where the name belongs. TRON MAJOR REGRESSION (relayed via PO 2026-08-29, prod.wo-da.de:4444): prod File-unit JSON shows ownerIor=NULL; name=a raw UUID (b9fa43a2-ea98-…) instead of a filename; location=the SAME raw uuid; sourceFile=ior:file:b9fa43a2-… — File units carry UUIDs where the NAME belongs. It RENDERS CORRECTLY on an OLDER TEST server = a two-server bisect (the data/generation changed between test and prod, not the renderer). ROOT is the ARCHITECT's (code/data/generation — diffing the same File unit from prod vs test); THIS req captures the SYMPTOM + the correct shape + failable gates. SYMPTOM-ONLY, do NOT build a fix until the root is known.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [
@@ -27,7 +27,7 @@
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
     "rootPending": "ARCHITECT owns the root (code/data/generation) by diffing the same File unit prod vs test. THIS req = the SYMPTOM requirement (correct File shape + failable gates). Do NOT build a fix until the root is named. useCases/chain wired at diagnosis.",
-    "satisfactionStatus": "UNVERIFIED (symptom captured; root pending architect diff; File-shape gates unbuilt; no RED baseline — honest third state).",
+    "satisfactionStatus": "UNVERIFIED (root RULED [second store] + MEASURED [33 overlap agrees, 5 symptom units model-store-only]; class-kill ACs added; fix + one-store lint unbuilt — honest third state).",
     "crossRef": [
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
     ],
@@ -87,8 +87,43 @@
           "assertion": "the prod-vs-test File-unit diff isolates the generation/data change; the fix's RED baseline = the prod b9fa43a2 uuid-name specimen"
         },
         "stubMustFail": "PENDING (root-first): architect diffs prod vs test -> names the code/data/generation root -> THEN the fix + RED baseline"
+      },
+      {
+        "id": "AC-one-canonical-store",
+        "group": "root/class-kill",
+        "text": "ONE canonical store: scenario/index is the canonical scenario-unit store; a unit lives in EXACTLY ONE store. The 33 uuids currently in BOTH scenario/index AND data/model-store are a defect (even byte-identical = a unit in two stores). Eliminate (retire the 2nd copy) if the model-store copy is an accidental duplicate, or reconcile to one-owner if data/model-store is a legitimate M1 concern — a unit is never in two stores.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-store-per-unit",
+          "assertion": "0 uuids present in BOTH scenario/index and data/model-store; an overlapping uuid => RED (one-unit-one-store)"
+        },
+        "stubMustFail": "PENDING: seed a uuid in both stores -> RED (the 33 overlap is the RED baseline)"
+      },
+      {
+        "id": "AC-model-store-writer-correct-shape",
+        "group": "root/writer",
+        "text": "The data/model-store File WRITER produces the CORRECT shape: name=filename (never a raw uuid), ownerIor SET (never null), location/sourceFile real. The 5 model-store-ONLY symptom units (name=uuid, owner-null; incl 5fbed155 name=b9fa43a2) are the RED baseline — they were written by the runtime path with the source-file uuid in the NAME field. Either fix the writer OR derive model-store File units from the canonical store (single source).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:model-store-file-shape",
+          "assertion": "0 data/model-store File units with name==uuid or ownerIor null; the 5 store-only symptom units flip GREEN after the writer/derive fix"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: the 5 model-store-only name=uuid/owner-null units (5fbed155/bf97ffdb/b48ad831/0941ec68/ac1c2f47) before the fix"
+      },
+      {
+        "id": "AC-what-writes-each-ruled",
+        "group": "root/shape-ruling",
+        "text": "RULE THE SHAPE (architect): what WRITES scenario/index vs what WRITES data/model-store, WHY the second store exists (M1 model vs scenario units), and which is CANONICAL — recorded so a future reader knows the store boundary. If data/model-store is legitimate (separate M1 concern) it derives-from / does-not-duplicate the canonical store; if accidental it is ELIMINATED. Measured evidence: stores largely disjoint (33 of 720+5777), overlap agrees => leans legitimate-M1, 33 still a defect.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "store-boundary design-note + one-store lint",
+          "assertion": "the store boundary (what-writes-each, why-2nd-exists, canonical) is documented + enforced by the one-store lint; an undocumented 2nd store => flag"
+        },
+        "stubMustFail": "PENDING: architect/expert name what-writes-each; the ruling is recorded on the unit"
       }
-    ]
+    ],
+    "rootRuling": "ARCHITECT RULED (second-store-ruling-PRESERVED.md, trainer-preserved before wall): ROOT = a SECOND STORE. data/model-store (runtime, gitignored, 720 units, same sharded .scenario.json format) alongside scenario/index (5777, git-tracked CANONICAL). Same disease all week, now at STORAGE level: two stores, copy-not-derive. ★ robbin-req MEASURED (the architect's requested measurement): OVERLAP = 33 uuids in BOTH stores, and all 33 copies are BYTE-IDENTICAL (name agrees, full JSON agrees) = the overlap does NOT disagree. The 5 SYMPTOM units (name=uuid, ownerIor=NULL) are data/model-store-ONLY (NOT in scenario/index) — e.g. model-store unit 5fbed155 whose NAME is 'b9fa43a2…' = Tron's prod specimen. Stores are LARGELY DISJOINT (33 shared of 720+5777) => data/model-store is LIKELY a legitimate separate M1-model concern, NOT an accidental full duplicate — but per the ruling the 33 overlap is STILL a defect (a unit must live in exactly ONE store), and the model-store File WRITER produces the name=uuid/owner-null symptom (the runtime generation/persistence path, matching the git-has-only-partial-symptom bisect signal). CANONICAL = scenario/index; the class-kill is below.",
+    "outranksNote": "This second-store ROOT + one-store class-kill OUTRANKS repairing the 5/13 units — repairing units inside a duplicated store fixes the instance and leaves the class (architect + PO)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
