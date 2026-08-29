@@ -55,16 +55,21 @@ export abstract class RbDetailBase extends HTMLElement {
     let model: Record<string, any> | null = obj ? this.modelFromObj(obj) : null;
     if (!model) {
       const j = await fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.ok ? r.json() : null).catch(() => null);
-      if (!j?.unit) { this.innerHTML = `<div class="dv-empty">⚠ unresolved: ${escHtml(ref || uuid)}</div>`; return; } // honest-empty, NEVER a thin stub
+      if (!j?.unit) { this.innerHTML = `<div class="dv-empty">⚠ unresolved: ${escHtml(ref || uuid)}</div>`; this.announceShown(ref); return; } // honest-empty, NEVER a thin stub — but STILL announce (else the action bar keeps the PREVIOUS unit's verbs on an unresolved detail)
       model = (j.unit.model || {}) as Record<string, any>;
     }
     this.renderDetail({ ref, uuid, obj, model });
-    // R37.24 inc2 AXIS-3: the ELEMENT is the SINGLE owner of the shown-signal — it announces its OWN rendered ref so the
-    // action bar derives ref+type from the same source as the content (no separate drawer-side _shownRef that can split →
-    // no Approve/Decline on a unit the user is not reading). The drawer's onDetailShown listener drives the bar from THIS.
-    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: (ref.split(':')[0] || '').toLowerCase(), ref }, bubbles: true }));
+    this.announceShown(ref);
     // MVC: a unit-changed on THIS ref re-derives (data-change re-render; not a ref-change so it bypasses the funnel).
     this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.forceRerender()));
+  }
+
+  // R37.24 inc2 AXIS-3: the ELEMENT is the SINGLE owner of the shown-signal — EVERY render path (content OR honest-empty)
+  // announces its OWN rendered ref so the action bar derives ref+type from the same source as the content (the drawer's
+  // onDetailShown drives the bar from THIS; no separate drawer-side ref that can split → no verb on a unit not being read).
+  // A render WITHOUT this announce = the bar's memo goes stale vs the content (the hazard-gate REDs on a render-without-dispatch).
+  private announceShown(ref: string): void {
+    document.dispatchEvent(new CustomEvent('rb-drawer-detail-shown', { detail: { type: (ref.split(':')[0] || '').toLowerCase(), ref }, bubbles: true }));
   }
 
   // A data-change re-render (not a ref-change) — resets the funnel key so the SAME ref re-resolves + repaints. Used by
