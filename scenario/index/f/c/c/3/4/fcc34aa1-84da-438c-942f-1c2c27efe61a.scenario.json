@@ -15,12 +15,12 @@
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
     "discoverySource": {
       "type": "architect-design",
-      "designNote": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-truth-decay-freshness-invariant-family.md (e31458f92)",
+      "designNote": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-truth-decay-freshness-invariant-family.md (fcf8fe21b (Arm A/B; e31458f92 original))",
       "raisedBy": "robbin-planner (measure-first loci)",
       "framedBy": "robbin-architect",
       "homeConfirmedBy": "robbin-po (S37, no new sprint)",
       "date": "2026-08-29",
-      "corpus": ">=8 specimens in one day: deploy-instruction(DEPLOY-STATE.md) / req-satisfaction(R40.50 untasked) / guard-coverage(T40.1 CURED proof) / boot-state(R40.55) / derived-slot(fact-2 46c68e1fc) / circular-ruling(PO deadlock) / relayed-measurement author-#7 + PO-#8 — pervasive enough to catch the design-note author + the PO."
+      "corpus": ">=10 specimens (+#9 standing-repeat-directive +#10 end-to-end-pairing/recorder) in one day: deploy-instruction(DEPLOY-STATE.md) / req-satisfaction(R40.50 untasked) / guard-coverage(T40.1 CURED proof) / boot-state(R40.55) / derived-slot(fact-2 46c68e1fc) / circular-ruling(PO deadlock) / relayed-measurement author-#7 + PO-#8 — pervasive enough to catch the design-note author + the PO."
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
     "familyMembers": "per-instance fixes CITE this root, do not duplicate: R40.55 (boot currency Layer-1 + state-removal Layer-2, SATISFIED = landed proof-of-cure) / fact-2 nextBacklogOverride derived-slot (46c68e1fc) / R40.50 untasked-AC / T40.1 guard-coverage (CURED worked-proof)",
@@ -37,13 +37,13 @@
       {
         "id": "AC-meta-invariant",
         "group": "meta/by-construction",
-        "text": "NO artifact CLASS that reads as AUTHORITATIVE may store its value STORED-AND-SILENT (a stored authoritative value with no re-check). One of two MUST hold, in priority: (a) DERIVE-first — the artifact derives from its single source on each read, no stored copy to rot (failure mode structurally impossible); ELSE (b) STORED-with-revalidation + VISIBLE-STALE — provenance RE-VALIDATED PER READ, renders VISIBLY STALE on failure. Silence (c) IS the entire family and is forbidden.",
+        "text": "The family has TWO ARMS, both enforced. ARM A (WENT-STALE -> freshness): NO artifact CLASS that reads as authoritative may be STORED-AND-SILENT; it must (a) DERIVE-first from its single source each read, ELSE (b) be STORED with provenance RE-VALIDATED PER READ + rendered VISIBLY STALE + show-age on failure. ARM B (BORN-FALSE -> provenance/positive-control): NO authoritative claim may be asserted from a guess, an unvalidated instrument, or ONE HALF of a required pairing — existence of one half proves nothing. Silence (Arm A) and assert-from-one-half/unproven-instrument (Arm B) are BOTH forbidden. Arm B differs because revalidating a born-false claim re-runs the SAME wrong instrument and re-confirms it — Arm B validates the INSTRUMENT and DEMANDS THE OTHER HALF, not just freshness.",
         "gateRef": {
           "kind": "lint",
           "ref": "ci:gates truth-decay meta-lint",
-          "assertion": "every authoritative-artifact class resolves to (a) derive-first OR (b) stored+revalidated+visible-stale; any class stored-and-silent => RED"
+          "assertion": "every authoritative-artifact class resolves to Arm-A (derive OR revalidate+visible-stale) AND every negative/composed claim satisfies Arm-B (positive-control + other-half); a stored-and-silent OR born-false-unchecked class => RED"
         },
-        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed an authoritative class stored with no re-check (stored-and-silent) => RED"
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): (A) seed a stored-and-silent class => RED; (B) seed a negative claim with no positive-control AND a one-half composed claim => RED"
       },
       {
         "id": "AC-cure-priority-derive-over-revalidate",
@@ -114,13 +114,13 @@
       {
         "id": "AC-enumerate-not-universal-corpus",
         "group": "meta/enumerate-not-universal",
-        "text": "The artifact-CLASS set is ENUMERATED (corpus >=8 specimens: deploy-instruction, req-satisfaction, guard-coverage, boot-state, derived-slot, circular-ruling/unsatisfiable-constraint, relayed-measurement x2) WITH a divergence/completeness check: a NEW authoritative-artifact class matching the meta-shape (authoritative-reading + nothing-validates + silent) that is NOT enrolled => flagged for triage, never silent-pass. A hand-maintained class list rots exactly like the artifacts it polices (self-application, R40.55 owner-list lesson).",
+        "text": "The artifact-CLASS set is ENUMERATED (corpus >=10 specimens: deploy-instruction, req-satisfaction, guard-coverage, boot-state, derived-slot, circular-ruling/unsatisfiable-constraint, relayed-measurement x2 + standing-repeat-directive(#9) + end-to-end-pairing/assert-one-half(#10, the recorder case)) WITH a divergence/completeness check: a NEW authoritative-artifact class matching the meta-shape (authoritative-reading + nothing-validates + silent) that is NOT enrolled => flagged for triage, never silent-pass. A hand-maintained class list rots exactly like the artifacts it polices (self-application, R40.55 owner-list lesson).",
         "gateRef": {
           "kind": "lint",
           "ref": "truth-decay meta-lint (class divergence)",
           "assertion": "an authoritative-artifact class matching the shape but not enrolled => flagged; a hand-list with no divergence check => RED"
         },
-        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a new authoritative-artifact class not enrolled => triage-flag (not silent-pass)"
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a new authoritative-artifact class (or a new born-false shape) not enrolled => triage-flag (not silent-pass)"
       },
       {
         "id": "AC-relayed-measurement-revalidate-at-use",
@@ -143,8 +143,42 @@
           "assertion": "each per-class gate has a registered RED observation on its own defect; a green-only (never-RED) class gate => UNPROVEN/RED"
         },
         "stubMustFail": "PENDING (scenario-first #126, nothing built yet): each class stub seeded with its defect must be observed RED before that class counts cured"
+      },
+      {
+        "id": "AC-armB-negative-claim-positive-control",
+        "group": "armB/born-false",
+        "text": "A NEGATIVE / ABSENCE claim (grep=0, 'missing', 'absent', 'not implemented') is INADMISSIBLE until the INSTRUMENT is shown able to SUCCEED — a POSITIVE CONTROL attached in the same gate/report (the query returns >0 on a known-present target; the tool CAN find something). An absence-based ESCALATION (grep=0 -> BLOCKER) must carry its positive control at the FIRST escalation, else inadmissible. Would have stopped specimen #8 (resolveChangeRequest grep=0 relayed+escalated-to-Tron-3x on a WRONG name while approveChangeRequest EXISTS). The stub-must-fail IS the positive control: prove the query finds a known-present thing before trusting its 0.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay Arm-B: negative-claim positive-control",
+          "assertion": "a negative/absence claim (or an absence-escalation) with no attached positive-control (instrument-proven-able-to-succeed) => RED/inadmissible"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a grep=0 absence-claim with no positive control => RED; positive-control present (query finds a known target) => admissible"
+      },
+      {
+        "id": "AC-armB-end-to-end-pairing",
+        "group": "armB/pairing",
+        "text": "A claim about a COMPOSED system (ARMED, wired, deployed, covered end-to-end) must present EVIDENCE FROM EACH PART of the pairing — NOT one half + inferred whole. Concretely: client-marker-present AND sink-returns-403-not-404; producer AND consumer; payload AND rendered-artifact; local-emit AND passive-2nd-client-received. Asserting the whole from one end is inadmissible (a proxy/one-half shares the whole's blind spot: assert the RENDERED artifact, not a proxy). This is BROADER than grep=0 and MUST fire on it. Fires on specimen #10 (client bundle 'ARMED' while server sink 404'd = capture INERT) and on the R40.70 local-emit-is-not-a-broadcast case.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay Arm-B: end-to-end pairing",
+          "assertion": "a composed-system claim presenting evidence from only ONE part of a required pairing => RED; each part must show its own evidence"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed an 'ARMED' claim with client-marker-only (sink unchecked/404) => RED; both halves evidenced (marker AND sink-403) => admissible"
+      },
+      {
+        "id": "AC-repeat-directive-re-derive-before-repeat",
+        "group": "armB/repeat-directive",
+        "text": "A STANDING repeat-directive ('repeat X every report', 'keep saying X', a carried blocker) is itself an authoritative artifact with no freshness — it re-injects a stale fact on every cycle (WORSE than a one-time relay). It MUST carry a RE-DERIVE-BEFORE-REPEAT clause: what it asserts is re-derived at point-of-use each repeat, never relayed-from-store — especially a BLOCKER, re-derived at each report. This is derive-per-read applied to the reporting loop itself. Fires on specimen #9 (planner carried 'T40.1 BLOCKED: resolveChangeRequest grep=0' in its anchor + every report for days under a keep-repeating instruction; the close-path approveChangeRequest existed all along).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay Arm-B: repeat-directive freshness",
+          "assertion": "a standing repeat-directive (esp. a carried blocker) with no per-repeat re-derivation of what it asserts => flagged; a re-asserted stale blocker => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a carried blocker re-asserted across reports with no re-derivation => flagged/RED; a per-repeat re-derived claim => admissible"
       }
-    ]
+    ],
+    "armStructure": "Arm A (WENT-STALE->freshness): derive OR revalidate+visible-stale+show-age. Arm B (BORN-FALSE->provenance): positive-control for negative claims + other-half for composed/pairing claims + re-derive-before-repeat for standing directives. Arm B validates the INSTRUMENT + demands the OTHER HALF (revalidation alone re-confirms a born-false claim)."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
