@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
+  "model": {
+    "uuid": "bd0e5f4a-ef1c-4d06-b019-a66d6057aa7b",
+    "name": "Task 37.28.1: boot-state (sprint/version) freshness guard — state-removal OR currency-lint boot==HEAD",
+    "slug": "task-37-28-1-boot-state",
+    "description": "Per-class freshness guard for the boot-state artifact-class (R37.25 truth-decay / no-freshness-invariant family; architect design ior:file:scrum.pmo/design-notes/design-truth-decay-freshness-invariant-family.md?commit=e31458f92). CURE = derive-first ELSE stored-with-revalidation+visible-stale; never stored-and-silent. This subtask builds the FAILABLE gate for this class (stub-must-fail). Family coord-root: Task 37.28.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Parent [Task 37.28](./task-37-28-truth-decay-freshness-family.md) `[task:uuid:61718883-195a-4bd4-bbc9-ead8ecff8412]`\n    - Requirement R37.25 `[requirement:uuid:fcc34aa1-84da-438c-942f-1c2c27efe61a]`\n  - down\n    - None (leaf subtask)",
+    "acceptanceCriteria": "- [ ] (functional) boot-state (sprint/version): (a) state-removal (R40.55 Layer-2, timeless+pointer) ELSE (b) currency-lint boot==HEAD (R40.55 Layer-1). CITES R40.55 as the already-landed per-instance fix; does NOT duplicate its design.\n- [ ] (gate) STUB-MUST-FAIL + 3-LINK CREDIT: a satisfaction credited via this gate needs THREE resolvable links — (1) resolvable satisfyingGate CITE, (2) GREEN-on-HEAD, (3) ASSERTS-THIS-AC (scope-match not name-match). Links 2+3 = the TESTER verdict (proof-builder separation; planner/req/architect may NOT self-credit). Bite: cite-only+gate-RED-on-HEAD => uncredited; gate-green-but-asserts-a-DIFFERENT-AC (name-match) => uncredited. FAMILY: truth-decay / no-freshness-invariant.",
+    "subtasks": "None (leaf subtask).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:61718883-195a-4bd4-bbc9-ead8ecff8412",
+    "sprintName": "Sprint 37",
+    "designRef": "ior:file:scrum.pmo/design-notes/design-truth-decay-freshness-invariant-family.md?commit=e31458f92",
+    "buildOrder": 1,
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-29"
+  }
+}
