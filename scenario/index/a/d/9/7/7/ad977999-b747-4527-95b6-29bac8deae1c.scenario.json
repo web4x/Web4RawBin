@@ -4,7 +4,9 @@
     "uuid": "ad977999-b747-4527-95b6-29bac8deae1c",
     "name": "User Admin — thorough merge + delete of profiles / duplicate users (zero dangling refs)",
     "altId": "R40.13",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:4968e400-1790-46f0-8ab3-f7022d30b8c3"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

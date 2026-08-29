@@ -4,7 +4,9 @@
     "uuid": "4b12b6c4-407e-47ad-8415-7e278363a249",
     "name": "Facet-type is single-sourced through deriveViewKind (no hardcoded viewKind / no silent 'class' default anywhere)",
     "altId": "R40.23",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c61eae9d-6c4c-46e3-8557-5bbcadc34d16"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

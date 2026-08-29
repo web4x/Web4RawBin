@@ -4,7 +4,9 @@
     "uuid": "e8ab7aa2-92e2-423e-b3d1-794796c530fe",
     "name": "Portable encrypted loginToken — download from profile, drag-drop to log in (User.Name.web4ID)",
     "altId": "R40.14",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:88183260-40e1-4a4e-89ab-83a433642b71"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

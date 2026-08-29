@@ -4,7 +4,9 @@
     "uuid": "9163e71f-f700-4b9b-96eb-c07b9f3b5976",
     "name": "Protect history back-navigation — an EXECUTING regression gate (@390 real-device, behavioural, stub-must-fail, in gate:device:live)",
     "altId": "R40.19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c53bc75d-e0c3-4510-8a16-617759dae643"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

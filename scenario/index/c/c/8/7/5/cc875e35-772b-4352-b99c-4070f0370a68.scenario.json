@@ -4,7 +4,9 @@
     "uuid": "cc875e35-772b-4352-b99c-4070f0370a68",
     "name": "Folders as real scenario units — type-driven detail view + item actions + child-size sunburst",
     "altId": "R40.16",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:5899aeb2-8456-45fc-8f43-0071356fb9dd"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
