@@ -30,3 +30,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] ✅ [Task 40.37: Context-sensitive actions — invalid-for-type/status actions are NOT offered (universalActionBar per-action applicability); server guard stays defense-in-depth](./task-40.37-context-sensitive-actions.md)
 - [ ] ⏳ [Task 40.62: Render the CR diagram file-artefact — a CR dropped on a diagram renders as a FILE-shaped artefact reusing the existing file/pumlartifact path (no forked CR-diagram kind)](./task-40.62-render-cr-diagram-artefact.md)
 - [ ] ⏳ [Task 40.66: PROD regression — File units carry UUIDs where names belong + lost ownerIor (works on older TEST, broken on PROD)](./task-40.66-file-unit-uuid-name-regression.md)
+- [ ] ⏳ [Task 40.70: Add-folder/add-diagram is MVC-live in the tree + cross-client broadcast — a SECOND PASSIVE client re-renders from the broadcast ALONE (no reload)](./task-40.70-add-folder-live-cross-client-broadcast.md)
