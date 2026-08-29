@@ -44,3 +44,20 @@ The adapter delivered a MODEL payload (`displayName`) = a pushed COPY that can g
 
 ## Handoff
 req mints the Req + ACs per increment (each gateRef + stub-must-fail; the @390 AC carries the POST-BROADCAST-not-initial-load evidence + the stored-copy RED baseline). Expert builds increment-by-increment, banking each; a mid-slice wall costs ONE increment, not the slice. Tester proves @390 consumer-vs-consumer post-broadcast. I wire Class/Method off the shipped decl on build-go + backstop the gate reds on the real stored-copy shape. Design-only, no build until build-go (expert paused awaiting its own cut).
+
+## ★ INC-2 SCOPE RULING — the DETAIL double-render + thin-source (2026-08-29, expert-measured, both axes)
+Expert KILLED the ../ViewBus-adapter hypothesis (not the driver here). Real defect = TWO producers on the SAME trace ViewBus + element lifecycle. Rule BOTH axes as CLASS-elimination (delete the producer / one source — never guard/debounce/order; Tron L-S40x):
+
+**AXIS 1 — RENDER OWNER = the ELEMENT (rb-detail-view). DELETE the drawer's render (Producer A).**
+- `RbDetailDrawer.renderDetailForRef` (createElement + `el.graph=detailGraph` + the `dataset.rendering` GUARD) is DELETED. The drawer becomes a CONTAINER: on selection-changed it MOUNTS the element (once) + sets the `ref` attribute — it does NOT render, does NOT resolve/pass a graph, does NOT subscribe. (A web component owns its own render; the drawer was the duplicate producer AND the guard is moot once the class is gone — don't keep it.)
+- The ELEMENT is the single render+subscribe owner: renders ONCE per ref-change (idempotent, keyed on the `ref` value — connected + attrChanged funnel to one renderIfRefChanged, no double), subscribes ViewBus for its own ref + linked refs. **CMM4: render entry-points/selection = 1.**
+
+**AXIS 2 (the worse one, PO caught) — MODEL SOURCE = ONE, retire the thin fallback.**
+- DELETE `_fallbackGraph` + `resolveDetailUnit`'s else-thin branch. The element derives its model from ONE source: use the real graph if it holds the uuid; if NOT, **FETCH the FULL unit** (reuse `fetchDetailData`/a full-unit fetch — it MUST return the full model incl `statusChecklist`, never a thin stub); if genuinely unresolvable → the existing fail-loud `⚠ unresolved` (honestly empty), **NEVER silently thinner**. This kills the full-vs-thin split BY CONSTRUCTION (one source; absence is fetched or honest-empty, never a copy). **CMM4: consumers reading a copy = 0.**
+- pinRole/who-is-current: the element derives it from the single source (slots.current, R40.56), never a baked copy. **CMM4: who-is-current computations = 1.**
+
+**SCOPE boundaries (build ONCE):**
+- `../ViewBus` adapter retire = **SEPARABLE** (confirmed NOT the driver). Keep it as a later DRY increment (one-file/one-import); do NOT bundle into this fix — smaller blast radius, one-thing-to-step-6.
+- Do NOT add a guard/order/debounce anywhere — the two DELETES (drawer render, thin fallback) ARE the fix.
+
+**DoD (Tron six-step):** RED baseline (tester: >1 render entry-point/selection AND a ref-only-in-fallback renders thin) → DELETE both producers → GREEN (1 render, full-or-fetched-or-honest-empty) → verified on TRON'S surface @390 from his tree entry (40.2 AND 40.3 both full-with-checklist) → atomic served==committed → tester GUARANTEES {render=1, copy-reads=0} or NOT-GUARANTEED-because-X.
