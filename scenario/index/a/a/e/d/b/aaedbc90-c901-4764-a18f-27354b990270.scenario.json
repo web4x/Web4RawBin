@@ -1,0 +1,13 @@
+{
+ "ior": "ior:class:Class",
+ "model": {
+  "uuid": "aaedbc90-c901-4764-a18f-27354b990270",
+  "name": "TaskStatusSymbolGuard",
+  "description": "The task-status-symbol coverage guard (R40.64). Asserts the client badge table covers the shared STATUS_ORDER enum + is wired strict in ci:gates. Base scripts/check-status-symbol.ts",
+  "sourceFile": "ior:file:scripts/check-status-symbol.ts",
+  "methods": [
+   "ior:instance:39593421-0a2d-4b87-93ce-74e5ce85b904"
+  ]
+ },
+ "ownerIor": "ior:instance:4f2dbcc4-bd97-4521-95de-1a6b4cfc6e71"
+}

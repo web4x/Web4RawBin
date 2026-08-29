@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:Method",
+ "model": {
+  "uuid": "39593421-0a2d-4b87-93ce-74e5ce85b904",
+  "name": "TaskStatusSymbolGuard.assertClientCoversStatusOrder",
+  "description": "The client-coverage lint: assert the CLIENT badge render covers EVERY shared STATUS_ORDER enum entry (incl the band); a status with no client glyph => RED. NO vocab-unifying glyph extraction (that is a separate Tron UX call). 3-failure-modes: exists+wired-strict+covers-the-class; stub REDs on the live missing-band defect.",
+  "sourceFile": "ior:file:scripts/check-status-symbol.ts",
+  "implementations": [
+   "ior:instance:84b0e064-fa33-4b4a-b600-86960f36ba8c"
+  ],
+  "tests": []
+ },
+ "ownerIor": "ior:instance:aaedbc90-c901-4764-a18f-27354b990270"
+}

@@ -1,0 +1,12 @@
+{
+ "ior": "ior:class:Implementation",
+ "model": {
+  "uuid": "84b0e064-fa33-4b4a-b600-86960f36ba8c",
+  "name": "TaskStatusSymbolGuard.assertClientCoversStatusOrder impl",
+  "description": "DESIGN-AHEAD (coverage lint, ruling fe495e32d/d33919390): extend scripts/check-status-symbol.ts to assert the CLIENT badge table covers every STATUS_ORDER entry (task-status-constants.ts) incl the band; missing => RED. WIRED strict into ci:gates:raw; stub REDs on TODAY's missing-band. Expert attaches [impl:uuid:84b0e064-fa33-4b4a-b600-86960f36ba8c] on build.",
+  "sourceFile": "ior:file:scripts/check-status-symbol.ts",
+  "designAhead": true,
+  "tests": []
+ },
+ "ownerIor": "ior:instance:39593421-0a2d-4b87-93ce-74e5ce85b904"
+}
