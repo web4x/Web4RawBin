@@ -53,7 +53,10 @@ try {
   }, `task:${TASK}`);
 
   // authoritative served derivation (dynamic — never a hardcoded narrative)
-  const ior = await (async () => { const res = await fetch(`${BASE}/api/ior/ior:instance:${TASK}`, { signal: AbortSignal.timeout(15000) }).catch(() => null); if (!res) return {}; const d = await res.json(); const m = d?.unit?.model || {}; const cl = m.statusChecklist || ''; return { status: m.status, hasSubstep: /^\s+-\s*\[ \]\s*processing change requests/im.test(cl) }; })();
+  // ★ AUTHORED-STATE read (Tron R40.59 has TWO parts: sub-step EXISTS **and** QA Review stays [x]). The band status
+  // 'QA-Review-with-open-CR' derives PRECISELY BECAUSE QA Review is unticked + sub-step open → it MASKS an untick regress.
+  // So assert the AUTHORED checkbox (statusChecklist), never the derived/rendered status which papers over the regress.
+  const ior = await (async () => { const res = await fetch(`${BASE}/api/ior/ior:instance:${TASK}`, { signal: AbortSignal.timeout(15000) }).catch(() => null); if (!res) return {}; const d = await res.json(); const m = d?.unit?.model || {}; const cl = m.statusChecklist || ''; return { status: m.status, hasSubstep: /^\s+-\s*\[ \]\s*processing change requests/im.test(cl), qaTicked: /^\s*-\s*\[x\]\s*QA Review/im.test(cl) }; })();
 
   // ★ DETAIL captured FIRST in the CLEAN pre-nav state — tree navigation re-renders and confounds the detail read
   // (DOM-inspection r4059-substep-dom-inspect.mjs proves the sub-step renders when read clean). Open the ref ONCE, wait on
@@ -108,13 +111,19 @@ try {
   // Tron-facing and holds the guarantee OPEN even when both literal halves pass. Flips true when the one-sourced fix ships.
   const rowBadgeRawText = /qa-?review-with-open-cr/i.test(String(liveRow.badgeSym)) || (liveRow.badgeColour === 'gray' && /open-cr/i.test(String(liveRow.badgeSym)));
   const rowBadgeProper = rowFound && !rowBadgeRawText;
+  // ★ AUTHORED-STATE half (the thing the fix changes): a decline must KEEP QA Review [x]. Unticked = the Tron regress the
+  // band derivation masks. RED now on 0.8.139 (QA Review is [ ]); flips GREEN when the expert's checklist fix (dc514665b) lands.
+  const authoredQaTicked = ior.qaTicked === true;
   console.log('\n── GUARANTEE (T40.1 decline-band, served prod @390) ──');
   console.log(`  precondition (authoritative band derived): ${bandDerived}`);
+  console.log(`  ★ AUTHORED no-regress — QA Review box stays [x]: ${authoredQaTicked ? 'HOLDS' : 'FAILS ([ ] — decline unticked it; band masks it as not-In-Progress)'}`);
   console.log(`  half-1 sub-step under QA Review shown (detail): ${half1_substepUnderQA}`);
   console.log(`  half-2 no-regress — detail surface: ${detailNoRegress ? 'HOLDS' : 'FAILS'} | tree row surface: ${!rowFound ? 'FAIL-CLOSED (row not found — NOT a pass)' : (rowSurfaceHolds ? 'HOLDS' : 'FAILS (row=In-Progress)')}`);
   console.log(`  badge glyph (row shows 🔁 not gray raw-text): ${rowBadgeProper ? 'HOLDS' : `FAILS (badge=${liveRow.badgeColour}/${liveRow.badgeSym})`}`);
-  if (half1_substepUnderQA && detailNoRegress && rowSurfaceHolds && rowBadgeProper) {
-    console.log('\nI-GUARANTEE: T40.1 shows the processing-change-requests sub-step under QA Review, does not regress to In Progress, AND the row badge renders a proper band glyph.');
+  if (authoredQaTicked && half1_substepUnderQA && detailNoRegress && rowSurfaceHolds && rowBadgeProper) {
+    console.log('\nI-GUARANTEE: a decline KEEPS QA Review [x] + adds the [ ] processing-change-requests sub-step, the detail shows it under QA Review, no surface regresses to In Progress, AND the row badge renders a proper band glyph.');
+  } else if (!authoredQaTicked) {
+    console.log(`\nNOT-GUARANTEED-because-X: the AUTHORED checklist has QA Review UNTICKED ([ ]) — the decline REGRESSED it (reopen:true). Tron's R40.59 AC is "a decline must NOT untick QA Review, only add the [ ] sub-step". The band status '${ior.status}' MASKS this (derives not-In-Progress precisely because QA Review is unticked), so the render/derivation looks right while the authored state regressed. Sub-step present=${half1_substepUnderQA}, badge-proper=${rowBadgeProper}. This RED is the live baseline the expert's checklist fix dc514665b flips (decline keeps QA Review [x]).${rowBadgeProper ? '' : ' (Also open: badge-map glyph gap — separate one-source fix.)'}`);
   } else if (half1_substepUnderQA && detailNoRegress && rowSurfaceHolds && !rowBadgeProper) {
     console.log(`\nNOT-GUARANTEED-because-X: both guarantee halves HOLD (sub-step shown under QA Review + no regress, derivation/detail/row-status all = band) — BUT the tree ROW BADGE renders gray raw-text "${liveRow.badgeSym}" instead of the 🔁 band glyph (BADGE_MAP has no 'qa-review-with-open-cr' entry = STATUS_GLYPHS/BADGE_MAP duplicate-source). Tron's board shows raw enum text. RED baseline r4059-badge-glyph-single-source-lint.mjs owns this; flips GREEN when the one-sourced fix ships. Half-green is not a guarantee.`);
   } else if (half1_substepUnderQA && detailNoRegress && rowRegressed) {
