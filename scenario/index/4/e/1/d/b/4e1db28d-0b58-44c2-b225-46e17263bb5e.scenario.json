@@ -1,55 +1,57 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "4e1db28d-0b58-44c2-b225-46e17263bb5e",
-  "name": "Every unit type is DECLARED indexed / alt-indexed / singleton — never DEFAULTED to a corpus scan; a new type cannot be introduced without a declaration (close the missing-index class)",
-  "altId": "R40.40",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [],
-  "description": "NAME THE FAMILY, not the instance (PO ruling on the R40.39 audit): fixing only `feature` leaves TestCase corpus-walking tomorrow. Every ior:class unit type must EITHER have a TYPE-INDEX link folder (scenario/sprints.md/<type>/) OR be EXPLICITLY DECLARED alt-indexed (scenario/alt/, by-value — Company/Email/Phone) or singleton (index-over-one-unit pointless — Config) — DECLARED, never DEFAULTED to a corpus scan. A NEW unit type CANNOT be introduced without such a declaration. This is the difference between fixing a bug (R40.39: feature+TestCase) and closing a class: index-by-default-to-corpus-scan is the disease; feature and TestCase were two symptoms.",
-  "tronQuote": "> (Not a Tron quote — PO ruling on Tron's 'when did you lose that' + the req audit.) The fix must name the FAMILY: every type either has a type-index or is explicitly declared alt-indexed/singleton, declared never defaulted, and a new type can't be introduced without one.",
-  "status": "Superseded",
-  "designRequired": true,
-  "discoverySource": {
-   "type": "po-ruling-on-audit",
-   "date": "2026-08-17",
-   "note": "PO ruling extending the R40.39 audit (11 types lack a folder) from instance to class. campaignScope=OUTSIDE, family-closure hardening. Do-not-execute; PO schedules. Sibling to R40.39."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4e1db28d-0b58-44c2-b225-46e17263bb5e",
+    "name": "Every unit type is DECLARED indexed / alt-indexed / singleton — never DEFAULTED to a corpus scan; a new type cannot be introduced without a declaration (close the missing-index class)",
+    "altId": "R40.40",
+    "tasks": [
+      "ior:instance:755a7be4-9f61-410b-8733-68d9181b2802"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "NAME THE FAMILY, not the instance (PO ruling on the R40.39 audit): fixing only `feature` leaves TestCase corpus-walking tomorrow. Every ior:class unit type must EITHER have a TYPE-INDEX link folder (scenario/sprints.md/<type>/) OR be EXPLICITLY DECLARED alt-indexed (scenario/alt/, by-value — Company/Email/Phone) or singleton (index-over-one-unit pointless — Config) — DECLARED, never DEFAULTED to a corpus scan. A NEW unit type CANNOT be introduced without such a declaration. This is the difference between fixing a bug (R40.39: feature+TestCase) and closing a class: index-by-default-to-corpus-scan is the disease; feature and TestCase were two symptoms.",
+    "tronQuote": "> (Not a Tron quote — PO ruling on Tron's 'when did you lose that' + the req audit.) The fix must name the FAMILY: every type either has a type-index or is explicitly declared alt-indexed/singleton, declared never defaulted, and a new type can't be introduced without one.",
+    "status": "Superseded",
+    "designRequired": true,
+    "discoverySource": {
+      "type": "po-ruling-on-audit",
+      "date": "2026-08-17",
+      "note": "PO ruling extending the R40.39 audit (11 types lack a folder) from instance to class. campaignScope=OUTSIDE, family-closure hardening. Do-not-execute; PO schedules. Sibling to R40.39."
+    },
+    "crossRef": [
+      "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b"
+    ],
+    "crossRefNote": "R40.39 fixes the concrete instance losses (feature + TestCase type-index folders); R40.40 is the FAMILY-CLOSURE — every type declared indexed/alt/singleton, never defaulted, new type can't be introduced without a declaration. Bug-fix vs class-closure.",
+    "campaignScope": "OUTSIDE-S30++-finish-campaign-count (family-closure hardening; sibling R40.39). Do-not-execute; PO schedules.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-every-type-declared",
+        "group": "functional",
+        "text": "Every ior:class unit type IN USE is DECLARED in a registry as EXACTLY ONE of: type-indexed (scenario/sprints.md/<type>/ ln folder), alt-indexed (scenario/alt/<type>/ by-value), or singleton — DECLARED, never DEFAULTED. NO type resolves by a corpus-scan-because-unclassified."
+      },
+      {
+        "id": "AC-2-new-type-requires-declaration",
+        "group": "functional",
+        "text": "A NEW unit type CANNOT be introduced without an index/alt/singleton declaration — by construction: the loader/resolver REFUSES an undeclared type (fail-loud) rather than silently falling back to a corpus scan. Adding a type = adding its declaration, or it does not load."
+      },
+      {
+        "id": "AC-3-gate-undeclared-type",
+        "group": "gate",
+        "text": "A GATE FAILS if ANY ior:class type in use lacks a declaration (index OR alt OR singleton), with STUB-MUST-FAIL: introduce an undeclared type (or drop a declaration) -> assert RED. Closes the class by construction, so the next missing index is caught at the gate, not the next incident."
+      },
+      {
+        "id": "AC-4-triage-the-11-resolved",
+        "group": "functional",
+        "text": "The 11 currently-unindexed types are CLASSIFIED + resolved: GENUINE (Feature, TestCase -> type-index per R40.39); ALT-INDEXED (Company/Email/Phone -> declare, verified scenario/alt/); SINGLETON (Config -> declare); and Profile/WebItem/Gate/ModelElement/Relationship classified genuine-vs-intentional by architect ruling. No type left in the default-corpus-scan bucket."
+      }
+    ],
+    "supersededBy": "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
+    "supersedeNote": "SUPERSEDED-into R40.39 (7f5ea6f1). My split-call minted R40.40 as the family-closure sibling; the PO then re-framed R40.39 ITSELF to the architect's registry design, which carries the family-closure (Layer 1 derive-folders+byType + Layer 2 gate). So R40.40 is folded back into R40.39 — kept on disk (honest, not deleted) with its history. crossRef R40.39."
   },
-  "crossRef": [
-   "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b"
-  ],
-  "crossRefNote": "R40.39 fixes the concrete instance losses (feature + TestCase type-index folders); R40.40 is the FAMILY-CLOSURE — every type declared indexed/alt/singleton, never defaulted, new type can't be introduced without a declaration. Bug-fix vs class-closure.",
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (family-closure hardening; sibling R40.39). Do-not-execute; PO schedules.",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-1-every-type-declared",
-    "group": "functional",
-    "text": "Every ior:class unit type IN USE is DECLARED in a registry as EXACTLY ONE of: type-indexed (scenario/sprints.md/<type>/ ln folder), alt-indexed (scenario/alt/<type>/ by-value), or singleton — DECLARED, never DEFAULTED. NO type resolves by a corpus-scan-because-unclassified."
-   },
-   {
-    "id": "AC-2-new-type-requires-declaration",
-    "group": "functional",
-    "text": "A NEW unit type CANNOT be introduced without an index/alt/singleton declaration — by construction: the loader/resolver REFUSES an undeclared type (fail-loud) rather than silently falling back to a corpus scan. Adding a type = adding its declaration, or it does not load."
-   },
-   {
-    "id": "AC-3-gate-undeclared-type",
-    "group": "gate",
-    "text": "A GATE FAILS if ANY ior:class type in use lacks a declaration (index OR alt OR singleton), with STUB-MUST-FAIL: introduce an undeclared type (or drop a declaration) -> assert RED. Closes the class by construction, so the next missing index is caught at the gate, not the next incident."
-   },
-   {
-    "id": "AC-4-triage-the-11-resolved",
-    "group": "functional",
-    "text": "The 11 currently-unindexed types are CLASSIFIED + resolved: GENUINE (Feature, TestCase -> type-index per R40.39); ALT-INDEXED (Company/Email/Phone -> declare, verified scenario/alt/); SINGLETON (Config -> declare); and Profile/WebItem/Gate/ModelElement/Relationship classified genuine-vs-intentional by architect ruling. No type left in the default-corpus-scan bucket."
-   }
-  ],
-  "supersededBy": "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b",
-  "supersedeNote": "SUPERSEDED-into R40.39 (7f5ea6f1). My split-call minted R40.40 as the family-closure sibling; the PO then re-framed R40.39 ITSELF to the architect's registry design, which carries the family-closure (Layer 1 derive-folders+byType + Layer 2 gate). So R40.40 is folded back into R40.39 — kept on disk (honest, not deleted) with its history. crossRef R40.39."
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

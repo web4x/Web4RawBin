@@ -1,61 +1,63 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "2d9e000a-1e01-464b-8f5e-158a32db4caf",
-  "name": "Live code-stamp of lastAdvancedAt on a marked-declaration commit (the LIVE half of code-recency)",
-  "altId": "R40.46",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [],
-  "description": "The backfill code-recency (lastAdvancedAt = MAX of the checklist-changing commit + the commit touching the task's MARKED DECLARATION, git-derived) is shipped. F1 is the LIVE half: when a CODE commit touches a task's marked declaration, lastAdvancedAt is stamped LIVE (source='code') THROUGH THE SEAM at commit-time, so the pin's code-recency moves without waiting for a backfill re-run. RESIDUAL named: 'code-file' OVER-CREDIT on a SHARED file (e.g. unit-controller.ts, where -L cannot scope to the marked decl -> file-level attribution), DETECTABLE via the source label ('code-file' vs 'code') so it is visible not silent. Architect follow-up F1 (design-r40.18-followups.md).",
-  "tronQuote": "> (No direct Tron quote) — architect R40.18 follow-up F1 (design-r40.18-followups.md) + PO capture; realizes the LIVE half of the code-recency advance signal. Flagged for Tron scheduling (capture-only).",
-  "discoverySource": {
-   "type": "architect-followup-po-capture",
-   "ruledBy": "robbin-architect",
-   "capturedBy": "robbin-po",
-   "date": "2026-08-17",
-   "design": "scrum.pmo/design-notes/design-r40.18-followups.md",
-   "followup": "F1",
-   "note": "Capture-only DO-NOT-EXECUTE, OUTSIDE campaign; Tron schedules. Backfill code-recency shipped (git-derived); this is the live-at-commit-time half + the code-file over-credit residual detection."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2d9e000a-1e01-464b-8f5e-158a32db4caf",
+    "name": "Live code-stamp of lastAdvancedAt on a marked-declaration commit (the LIVE half of code-recency)",
+    "altId": "R40.46",
+    "tasks": [
+      "ior:instance:a93426a1-d08f-47dc-838b-c21a1b52c7f5"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "The backfill code-recency (lastAdvancedAt = MAX of the checklist-changing commit + the commit touching the task's MARKED DECLARATION, git-derived) is shipped. F1 is the LIVE half: when a CODE commit touches a task's marked declaration, lastAdvancedAt is stamped LIVE (source='code') THROUGH THE SEAM at commit-time, so the pin's code-recency moves without waiting for a backfill re-run. RESIDUAL named: 'code-file' OVER-CREDIT on a SHARED file (e.g. unit-controller.ts, where -L cannot scope to the marked decl -> file-level attribution), DETECTABLE via the source label ('code-file' vs 'code') so it is visible not silent. Architect follow-up F1 (design-r40.18-followups.md).",
+    "tronQuote": "> (No direct Tron quote) — architect R40.18 follow-up F1 (design-r40.18-followups.md) + PO capture; realizes the LIVE half of the code-recency advance signal. Flagged for Tron scheduling (capture-only).",
+    "discoverySource": {
+      "type": "architect-followup-po-capture",
+      "ruledBy": "robbin-architect",
+      "capturedBy": "robbin-po",
+      "date": "2026-08-17",
+      "design": "scrum.pmo/design-notes/design-r40.18-followups.md",
+      "followup": "F1",
+      "note": "Capture-only DO-NOT-EXECUTE, OUTSIDE campaign; Tron schedules. Backfill code-recency shipped (git-derived); this is the live-at-commit-time half + the code-file over-credit residual detection."
+    },
+    "crossRef": [
+      "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb",
+      "ior:instance:8d476fb9-355b-413f-831f-1a3e70a89a59"
+    ],
+    "crossRefNote": "lastAdvancedAt recency family: R40.18 (pin derivation = max lastAdvancedAt) + R40.45 (live-on-advance endpoint) + R40.46 (this = live code-stamp). Source labels seam / git-backfill / code / code-file = honesty-by-provenance (a reader/audit knows the stamp's precision + any over-credit). campaignScope=OUTSIDE.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-live-code-stamp",
+        "group": "functional",
+        "text": "A CODE commit touching a task's MARKED DECLARATION stamps lastAdvancedAt LIVE (source='code') THROUGH THE SEAM at commit-time — the pin's code-recency moves without waiting for a backfill re-run (the live half of the shipped git-derived code-recency)."
+      },
+      {
+        "id": "AC-through-seam-single-source",
+        "group": "functional",
+        "text": "The live code-stamp routes THROUGH THE SEAM (not a bare write) and is SINGLE-SOURCE with the backfill's code-recency (both = MAX of checklist-commit + marked-declaration-commit); no 2nd stamping path that could diverge."
+      },
+      {
+        "id": "AC-code-file-over-credit-detectable",
+        "group": "honesty",
+        "text": "When -L cannot scope to the marked declaration (TS static methods etc), the fallback is FILE-level + LABELED source='code-file' so the over-credit (a whole-file commit attributed to one marked decl on a SHARED file like unit-controller.ts) is VISIBLE, never silent. The label distinguishes precise ('code') from file-fallback ('code-file')."
+      },
+      {
+        "id": "AC-residual-named",
+        "group": "tracking",
+        "text": "The residual (code-file over-credit on the shared unit-controller.ts) is NAMED + detectable via the source label, tracked not hidden — a reader/audit can see which stamps are precise vs file-fallback."
+      },
+      {
+        "id": "AC-family-provenance",
+        "group": "family",
+        "text": "Same lastAdvancedAt recency family as R40.18 (derivation) + R40.45 (live-on-advance); the source-label set = seam / git-backfill / code / code-file (honesty-by-provenance: never claim more precision than the signal supports)."
+      }
+    ],
+    "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect follow-up F1, Tron-scheduled; captureOnly)"
   },
-  "crossRef": [
-   "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb",
-   "ior:instance:8d476fb9-355b-413f-831f-1a3e70a89a59"
-  ],
-  "crossRefNote": "lastAdvancedAt recency family: R40.18 (pin derivation = max lastAdvancedAt) + R40.45 (live-on-advance endpoint) + R40.46 (this = live code-stamp). Source labels seam / git-backfill / code / code-file = honesty-by-provenance (a reader/audit knows the stamp's precision + any over-credit). campaignScope=OUTSIDE.",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-live-code-stamp",
-    "group": "functional",
-    "text": "A CODE commit touching a task's MARKED DECLARATION stamps lastAdvancedAt LIVE (source='code') THROUGH THE SEAM at commit-time — the pin's code-recency moves without waiting for a backfill re-run (the live half of the shipped git-derived code-recency)."
-   },
-   {
-    "id": "AC-through-seam-single-source",
-    "group": "functional",
-    "text": "The live code-stamp routes THROUGH THE SEAM (not a bare write) and is SINGLE-SOURCE with the backfill's code-recency (both = MAX of checklist-commit + marked-declaration-commit); no 2nd stamping path that could diverge."
-   },
-   {
-    "id": "AC-code-file-over-credit-detectable",
-    "group": "honesty",
-    "text": "When -L cannot scope to the marked declaration (TS static methods etc), the fallback is FILE-level + LABELED source='code-file' so the over-credit (a whole-file commit attributed to one marked decl on a SHARED file like unit-controller.ts) is VISIBLE, never silent. The label distinguishes precise ('code') from file-fallback ('code-file')."
-   },
-   {
-    "id": "AC-residual-named",
-    "group": "tracking",
-    "text": "The residual (code-file over-credit on the shared unit-controller.ts) is NAMED + detectable via the source label, tracked not hidden — a reader/audit can see which stamps are precise vs file-fallback."
-   },
-   {
-    "id": "AC-family-provenance",
-    "group": "family",
-    "text": "Same lastAdvancedAt recency family as R40.18 (derivation) + R40.45 (live-on-advance); the source-label set = seam / git-backfill / code / code-file (honesty-by-provenance: never claim more precision than the signal supports)."
-   }
-  ],
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect follow-up F1, Tron-scheduled; captureOnly)"
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

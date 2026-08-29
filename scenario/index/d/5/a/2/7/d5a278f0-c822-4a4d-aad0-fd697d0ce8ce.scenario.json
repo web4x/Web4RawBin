@@ -1,54 +1,56 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "d5a278f0-c822-4a4d-aad0-fd697d0ce8ce",
-  "name": "Production build serves NO sourcemaps — the prod boot build runs in PRODUCTION mode (start.mjs step-4 rebuilds in DEV, shipping .map); a gate asserts no .map is reachable on the served surface",
-  "altId": "R40.41",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [],
-  "description": "MEASURED (expert, during the inc-3 deploy): start.mjs step-4 rebuilds on EVERY boot in DEV mode, so prod ships SOURCEMAPS (.map). Pre-existing (NOT caused by inc-3) and deliberately NOT fixed inside a deploy. The prod boot build must run in PRODUCTION mode: no sourcemaps emitted, OR emitted-but-not-served / access-controlled (architect picks the shape). The deterministic pinned-esbuild property and the on-every-boot rebuild are KEPT — do NOT trade determinism away for this. WHY: shipped sourcemaps disclose source structure, which carries MORE WEIGHT in a codebase that has already had a credential exposure (R40.21/R40.22 family).",
-  "tronQuote": "> (Not a Tron quote — expert measurement during inc-3 deploy, routed via PO.) Prod ships .map because start.mjs step-4 builds in DEV mode on every boot; fix outside a deploy, keep determinism, gate that no .map is served.",
-  "status": "Planned",
-  "designRequired": true,
-  "discoverySource": {
-   "type": "expert-measurement-via-po",
-   "date": "2026-08-17",
-   "context": "inc-3 deploy (v0.8.97)",
-   "note": "Pre-existing prod-build-hygiene defect, NOT inc-3-caused, deliberately not fixed in a deploy. campaignScope=OUTSIDE normal priority (below R40.39). Capture-only, do-NOT-execute; Tron schedules."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d5a278f0-c822-4a4d-aad0-fd697d0ce8ce",
+    "name": "Production build serves NO sourcemaps — the prod boot build runs in PRODUCTION mode (start.mjs step-4 rebuilds in DEV, shipping .map); a gate asserts no .map is reachable on the served surface",
+    "altId": "R40.41",
+    "tasks": [
+      "ior:instance:0dc65cc2-3c05-4beb-8387-b441e9399ac0"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "MEASURED (expert, during the inc-3 deploy): start.mjs step-4 rebuilds on EVERY boot in DEV mode, so prod ships SOURCEMAPS (.map). Pre-existing (NOT caused by inc-3) and deliberately NOT fixed inside a deploy. The prod boot build must run in PRODUCTION mode: no sourcemaps emitted, OR emitted-but-not-served / access-controlled (architect picks the shape). The deterministic pinned-esbuild property and the on-every-boot rebuild are KEPT — do NOT trade determinism away for this. WHY: shipped sourcemaps disclose source structure, which carries MORE WEIGHT in a codebase that has already had a credential exposure (R40.21/R40.22 family).",
+    "tronQuote": "> (Not a Tron quote — expert measurement during inc-3 deploy, routed via PO.) Prod ships .map because start.mjs step-4 builds in DEV mode on every boot; fix outside a deploy, keep determinism, gate that no .map is served.",
+    "status": "Planned",
+    "designRequired": true,
+    "discoverySource": {
+      "type": "expert-measurement-via-po",
+      "date": "2026-08-17",
+      "context": "inc-3 deploy (v0.8.97)",
+      "note": "Pre-existing prod-build-hygiene defect, NOT inc-3-caused, deliberately not fixed in a deploy. campaignScope=OUTSIDE normal priority (below R40.39). Capture-only, do-NOT-execute; Tron schedules."
+    },
+    "crossRef": [
+      "ior:instance:1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61"
+    ],
+    "crossRefNote": "Disclosure family with R40.21/R40.22 (credential/identity exposure): shipped sourcemaps disclose source structure = the extra weight is BECAUSE of the prior credential exposure. Also boot/deploy-hygiene sibling to R40.36 (boot-smoke) / R40.39 (boot shape).",
+    "campaignScope": "OUTSIDE-S30++-finish-campaign-count, NORMAL priority (below R40.39). Prod-build-hygiene / disclosure-reduction. Do-not-execute; Tron schedules.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-1-prod-mode-no-sourcemaps",
+        "group": "functional",
+        "text": "The prod boot build (start.mjs step-4) runs in PRODUCTION mode: NO sourcemaps emitted, OR emitted-but-NOT-SERVED / access-controlled (architect picks the shape). Prod stops shipping .map on the public served surface."
+      },
+      {
+        "id": "AC-2-gate-no-map-served",
+        "group": "gate",
+        "text": "A GATE asserts NO .map is REACHABLE on the served surface (fetch the served /dist and assert no .map resolves), with STUB-MUST-FAIL: plant a served .map -> assert RED. Served-surface, not build-dir — it is about what prod EXPOSES."
+      },
+      {
+        "id": "AC-3-keep-determinism",
+        "group": "functional",
+        "text": "KEEP the deterministic pinned-esbuild property AND the on-every-boot rebuild — do NOT trade determinism (served==committed==build reproducibility) away for this. Production-mode is added, determinism is preserved."
+      },
+      {
+        "id": "AC-4-why-disclosure",
+        "group": "functional",
+        "text": "WHY (recorded): shipped sourcemaps DISCLOSE source structure; this carries MORE WEIGHT in a codebase that has already had a credential exposure (R40.21/R40.22). Disclosure-reduction, not a cosmetic build cleanup."
+      }
+    ]
   },
-  "crossRef": [
-   "ior:instance:1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61"
-  ],
-  "crossRefNote": "Disclosure family with R40.21/R40.22 (credential/identity exposure): shipped sourcemaps disclose source structure = the extra weight is BECAUSE of the prior credential exposure. Also boot/deploy-hygiene sibling to R40.36 (boot-smoke) / R40.39 (boot shape).",
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count, NORMAL priority (below R40.39). Prod-build-hygiene / disclosure-reduction. Do-not-execute; Tron schedules.",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-1-prod-mode-no-sourcemaps",
-    "group": "functional",
-    "text": "The prod boot build (start.mjs step-4) runs in PRODUCTION mode: NO sourcemaps emitted, OR emitted-but-NOT-SERVED / access-controlled (architect picks the shape). Prod stops shipping .map on the public served surface."
-   },
-   {
-    "id": "AC-2-gate-no-map-served",
-    "group": "gate",
-    "text": "A GATE asserts NO .map is REACHABLE on the served surface (fetch the served /dist and assert no .map resolves), with STUB-MUST-FAIL: plant a served .map -> assert RED. Served-surface, not build-dir — it is about what prod EXPOSES."
-   },
-   {
-    "id": "AC-3-keep-determinism",
-    "group": "functional",
-    "text": "KEEP the deterministic pinned-esbuild property AND the on-every-boot rebuild — do NOT trade determinism (served==committed==build reproducibility) away for this. Production-mode is added, determinism is preserved."
-   },
-   {
-    "id": "AC-4-why-disclosure",
-    "group": "functional",
-    "text": "WHY (recorded): shipped sourcemaps DISCLOSE source structure; this carries MORE WEIGHT in a codebase that has already had a credential exposure (R40.21/R40.22). Disclosure-reduction, not a cosmetic build cleanup."
-   }
-  ]
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

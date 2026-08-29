@@ -1,60 +1,62 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "cebdf352-ed42-4859-82e7-ab8c36dd0fa2",
-  "name": "REMOVE the dead /api/current-sprint/designate route + handlePinDesignate (dead code, not a broken feature)",
-  "altId": "R40.44",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [],
-  "description": "/api/current-sprint/designate + handlePinDesignate are DEAD since currentTaskUuid was retired (R40.17/R40.18: the pin derives from live status, no stored pointer). Architect ruled REMOVE OUTRIGHT (e8526305a) — dead code, NOT a broken feature: a dead OWNER-GATED WRITE endpoint is a latent TWO-SOURCE RE-ENTRY point (re-wire a button and the drift R40.17/R40.18 killed returns) PLUS needless attack surface. A future explicit-steer is a CLEAN NEW req + NEW route, NEVER this route resurrected.",
-  "tronQuote": "> (No direct Tron quote) — architect hygiene ruling e8526305a (3), PO capture-directive; flagged for Tron's scheduling list (capture-only, we do NOT start it).",
-  "discoverySource": {
-   "type": "architect-ruling-po-capture",
-   "ruledBy": "robbin-architect",
-   "capturedBy": "robbin-po",
-   "date": "2026-08-17",
-   "ruling": "e8526305a",
-   "note": "Capture-only DO-NOT-EXECUTE, OUTSIDE campaign count; Tron schedules. Dead since the currentTaskUuid retirement (derive-from-live-status)."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "cebdf352-ed42-4859-82e7-ab8c36dd0fa2",
+    "name": "REMOVE the dead /api/current-sprint/designate route + handlePinDesignate (dead code, not a broken feature)",
+    "altId": "R40.44",
+    "tasks": [
+      "ior:instance:b749e786-fc67-44ac-810d-827718eb639b"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "/api/current-sprint/designate + handlePinDesignate are DEAD since currentTaskUuid was retired (R40.17/R40.18: the pin derives from live status, no stored pointer). Architect ruled REMOVE OUTRIGHT (e8526305a) — dead code, NOT a broken feature: a dead OWNER-GATED WRITE endpoint is a latent TWO-SOURCE RE-ENTRY point (re-wire a button and the drift R40.17/R40.18 killed returns) PLUS needless attack surface. A future explicit-steer is a CLEAN NEW req + NEW route, NEVER this route resurrected.",
+    "tronQuote": "> (No direct Tron quote) — architect hygiene ruling e8526305a (3), PO capture-directive; flagged for Tron's scheduling list (capture-only, we do NOT start it).",
+    "discoverySource": {
+      "type": "architect-ruling-po-capture",
+      "ruledBy": "robbin-architect",
+      "capturedBy": "robbin-po",
+      "date": "2026-08-17",
+      "ruling": "e8526305a",
+      "note": "Capture-only DO-NOT-EXECUTE, OUTSIDE campaign count; Tron schedules. Dead since the currentTaskUuid retirement (derive-from-live-status)."
+    },
+    "crossRef": [
+      "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
+      "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
+    ],
+    "crossRefNote": "Cleanup of the currentTaskUuid retirement (R40.17 explicit-steer / R40.18 pin-derives-live). Removing the dead write endpoint makes drift RE-ENTRY impossible-by-construction. captureOnly OUTSIDE-campaign-count.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-remove-outright",
+        "group": "functional",
+        "text": "/api/current-sprint/designate + handlePinDesignate are REMOVED OUTRIGHT (deleted, not disabled/commented) — the owner-gated write endpoint no longer exists in the server."
+      },
+      {
+        "id": "AC-two-source-reentry",
+        "group": "rationale",
+        "text": "Rationale: leaving it is a latent TWO-SOURCE RE-ENTRY point — a re-wired button writes a stored pin pointer and the drift R40.17/R40.18 killed returns. Removal makes re-entry impossible-by-construction."
+      },
+      {
+        "id": "AC-attack-surface",
+        "group": "security",
+        "text": "Removes needless owner-gated-write attack surface (a live write endpoint nothing uses)."
+      },
+      {
+        "id": "AC-future-clean-req",
+        "group": "prohibition",
+        "text": "A future explicit-steer capability is a CLEAN NEW req + NEW route, NEVER this route resurrected — recorded so no one revives the dead path instead of designing fresh."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "Verify: no reference to /api/current-sprint/designate or handlePinDesignate remains (grep-clean, no caller/button wired)."
+      }
+    ],
+    "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect hygiene, Tron-scheduled; captureOnly)"
   },
-  "crossRef": [
-   "ior:instance:b8c7fe29-b6bb-43bb-abe7-f985ad60eaf7",
-   "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
-  ],
-  "crossRefNote": "Cleanup of the currentTaskUuid retirement (R40.17 explicit-steer / R40.18 pin-derives-live). Removing the dead write endpoint makes drift RE-ENTRY impossible-by-construction. captureOnly OUTSIDE-campaign-count.",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-remove-outright",
-    "group": "functional",
-    "text": "/api/current-sprint/designate + handlePinDesignate are REMOVED OUTRIGHT (deleted, not disabled/commented) — the owner-gated write endpoint no longer exists in the server."
-   },
-   {
-    "id": "AC-two-source-reentry",
-    "group": "rationale",
-    "text": "Rationale: leaving it is a latent TWO-SOURCE RE-ENTRY point — a re-wired button writes a stored pin pointer and the drift R40.17/R40.18 killed returns. Removal makes re-entry impossible-by-construction."
-   },
-   {
-    "id": "AC-attack-surface",
-    "group": "security",
-    "text": "Removes needless owner-gated-write attack surface (a live write endpoint nothing uses)."
-   },
-   {
-    "id": "AC-future-clean-req",
-    "group": "prohibition",
-    "text": "A future explicit-steer capability is a CLEAN NEW req + NEW route, NEVER this route resurrected — recorded so no one revives the dead path instead of designing fresh."
-   },
-   {
-    "id": "AC-verify",
-    "group": "verify",
-    "text": "Verify: no reference to /api/current-sprint/designate or handlePinDesignate remains (grep-clean, no caller/button wired)."
-   }
-  ],
-  "campaignScope": "OUTSIDE-S30++-finish-campaign-count (architect hygiene, Tron-scheduled; captureOnly)"
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
