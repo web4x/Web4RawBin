@@ -114,7 +114,7 @@
       {
         "id": "AC-enumerate-not-universal-corpus",
         "group": "meta/enumerate-not-universal",
-        "text": "The artifact-CLASS set is ENUMERATED (corpus >=10 specimens: deploy-instruction, req-satisfaction, guard-coverage, boot-state, derived-slot, circular-ruling/unsatisfiable-constraint, relayed-measurement x2 + standing-repeat-directive(#9) + end-to-end-pairing/assert-one-half(#10, the recorder case)) WITH a divergence/completeness check: a NEW authoritative-artifact class matching the meta-shape (authoritative-reading + nothing-validates + silent) that is NOT enrolled => flagged for triage, never silent-pass. A hand-maintained class list rots exactly like the artifacts it polices (self-application, R40.55 owner-list lesson). Each enumerated class has EITHER a dedicated gate AC OR an explicit enrolled-not-CI-gated-by-nature marking with a written reason (constraint-liveness #6 = the split case: visible-blocked half gated, authoring-satisfiability half enrolled-with-reason); an enumerated class with NEITHER a gate NOR a reasoned enrollment => the born-false coverage-claimed-nothing-enforces-it disease => RED.",
+        "text": "The artifact-CLASS set is ENUMERATED (corpus >=10 specimens: deploy-instruction, req-satisfaction, guard-coverage, boot-state, derived-slot, circular-ruling/unsatisfiable-constraint, relayed-measurement x2 + standing-repeat-directive(#9) + end-to-end-pairing/assert-one-half(#10, the recorder case)) WITH a divergence/completeness check: a NEW authoritative-artifact class matching the meta-shape (authoritative-reading + nothing-validates + silent) that is NOT enrolled => flagged for triage, never silent-pass. A hand-maintained class list rots exactly like the artifacts it polices (self-application, R40.55 owner-list lesson). Each enumerated class has EITHER a dedicated gate AC OR an explicit enrolled-not-CI-gated-by-nature marking with a written reason (constraint-liveness #6 3-way split: STRUCTURAL cycle => GATED [AC-armB-constraint-cycle], true PROSE ruling => ungated-list [AC-armB-prose-ruling-ungated], and the gate SELF-REPORTS gated/ungated counts every run [AC-coverage-self-report] so no hole hides); an enumerated class with NEITHER a gate NOR a reasoned enrollment => the born-false coverage-claimed-nothing-enforces-it disease => RED.",
         "gateRef": {
           "kind": "lint",
           "ref": "truth-decay meta-lint (class divergence)",
@@ -178,19 +178,41 @@
         "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a carried blocker re-asserted across reports with no re-derivation => flagged/RED; a per-repeat re-derived claim => admissible"
       },
       {
-        "id": "AC-class-constraint-liveness",
-        "group": "per-class/constraint-liveness",
-        "text": "constraint-liveness / circular-ruling (specimen #6, a stored CONSTRAINT/RULING that read as an authoritative plan but was a DEADLOCK from birth — unsatisfiable/non-live, and it SILENTLY blocked work). SPLIT CURE, honest about what is CI-gatable: (1) CI-FAILABLE HALF — a stored ruling/constraint that gates work MUST render VISIBLY BLOCKED when read (liveness surfaced at point-of-use), NEVER silently block; a constraint that halts work with no visible-blocked render => RED. This half IS gated. (2) AUTHORING-DISCIPLINE HALF — satisfiability/no-deadlock at AUTHORING time (the author checks a ruling is live/achievable before issuing it) is NOT generically CI-lintable (you cannot statically prove an arbitrary governance ruling is satisfiable). It is EXPLICITLY ENROLLED as cure=authoring-discipline, NOT-CI-GATED-BY-NATURE, with this WRITTEN REASON (asymmetry rule R40.55: an exemption carries a written reason + stays visible, never a silent carve-out). This is honest-enumeration, not silent-pass — it satisfies AC-8's 'triage-flag not silent' rather than faking a CI gate (faking one would itself be the born-false 'coverage-claimed / nothing-enforces-it' disease this family kills).",
+        "id": "AC-armB-constraint-cycle",
+        "group": "armB/constraint-liveness-gated",
+        "text": "Where a constraint/ruling is expressed STRUCTURALLY (a blocker graph / task deps / 'X waits on Y'), run CYCLE + NO-SATISFYING-PATH detection => RED on a dependency cycle or a constraint unsatisfiable-from-birth. Specimen #6 (the reconcile<->live-MVC deadlock) IS a 2-node cycle = GATED here, NOT ungatable (this corrects the earlier 'authoring-discipline only' framing: the structural half of constraint-liveness is machine-detectable).",
         "gateRef": {
           "kind": "lint",
-          "ref": "truth-decay: constraint-liveness (visible-blocked half)",
-          "assertion": "a stored ruling/constraint that gates work with no visible-blocked render at read => RED (CI-failable half); the authoring-satisfiability half is enrolled-not-CI-gated-by-nature with a written reason, flagged if that reason is absent"
+          "ref": "truth-decay Arm-B: constraint-cycle detection",
+          "assertion": "a structural constraint/blocker graph with a dependency cycle OR no satisfying path => RED"
         },
-        "stubMustFail": "PENDING (scenario-first #126): (CI half) seed a stored constraint/ruling that silently blocks work (no visible-blocked render) => RED; (enrollment half) a constraint-liveness cure marked not-CI-gated with NO written reason => flagged (must be reasoned + visible, not silent — R40.55 dead-exemption/asymmetry)"
+        "stubMustFail": "PENDING (scenario-first #126): seed 'A waits B, B waits A' (2-node cycle, the specimen #6 shape) => RED; a satisfiable chain => admissible"
+      },
+      {
+        "id": "AC-armB-prose-ruling-ungated",
+        "group": "armB/constraint-liveness-ungated",
+        "text": "A free-text ruling with NO structural form is not CI-detectable => DECLARED in the ungated list, cured by AUTHORING-DISCIPLINE (author checks satisfiability before issuing). This remainder is kept AS SMALL AS HONESTLY ACHIEVABLE — only TRUE prose (anything structural goes to AC-armB-constraint-cycle). Honest enumeration with a written reason (R40.55 asymmetry), never a silent carve-out.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "truth-decay Arm-B: prose-ruling ungated list",
+          "assertion": "a prose ruling with no structural form is enrolled in the ungated list with a written reason; a STRUCTURAL constraint hiding in the ungated list => RED (misfiled: it is gatable)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a structural constraint parked in the prose-ungated list => RED (belongs in the cycle gate); a true free-text ruling => admissible in the list"
+      },
+      {
+        "id": "AC-coverage-self-report",
+        "group": "meta/coverage-self-report",
+        "text": "The family gate OUTPUT must EMIT, EVERY run, 'N classes GATED / M UNGATED (listed BY NAME)' — the prose-ungated remainder MUST appear in that surfaced count, not only in the design note. A cure that implies FULL coverage while hiding its holes IS the disease (born-false coverage-claimed). This meta-gate catches its OWN silent hole: an ungated class absent from the emitted run output => RED.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "truth-decay meta: coverage self-report",
+          "assertion": "every run emits gated-count + ungated-list-by-name; an ungated/enrolled class missing from that emitted output => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed an ungated class NOT listed in the gate's run output => RED (meta-gate surfaces its own hole); all ungated classes named in output => admissible"
       }
     ],
     "armStructure": "Arm A (WENT-STALE->freshness): derive OR revalidate+visible-stale+show-age. Arm B (BORN-FALSE->provenance): positive-control for negative claims + other-half for composed/pairing claims + re-derive-before-repeat for standing directives. Arm B validates the INSTRUMENT + demands the OTHER HALF (revalidation alone re-confirms a born-false claim).",
-    "reInspectionClose": "Architect re-inspected the Arm-B ACs (read off origin/main, applied Arm-B to their own read = positive control), PASS on ACs 11/12/13 + meta AC-1; found ONE gap: specimen #6 constraint-liveness was enumerated (AC-8) but ungated = the enumerated-but-ungated born-false shape. FIXED with AC-class-constraint-liveness (split: CI-failable visible-blocked half + explicit authoring-discipline enrolled-not-CI-gated-by-nature half with written reason) — chose a hybrid over the architect's (b) so the gatable half is actually gated and the un-gatable half is honestly marked, not faked."
+    "reInspectionClose": "Architect re-inspect (PASS on Arm-B 11/12/13 + meta) found specimen #6 enumerated-but-ungated. PO ruled it 3 ways (design 2301a30d6); replaced my single AC-class-constraint-liveness with: (1) AC-armB-constraint-cycle GATED (structural blocker-graph cycle/no-path => RED; #6 = 2-node cycle, so GATABLE not exempt — my hybrid under-gated it) + (2) AC-armB-prose-ruling-ungated (true free-text only, authoring-discipline, kept minimal, structural-in-list => RED) + (3) AC-coverage-self-report META (gate emits N-gated/M-ungated-by-name every run; hidden hole => RED). Adopted the architect sharpening: the structural half IS machine-detectable; keep the honestly-ungated remainder small AND surfaced."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
