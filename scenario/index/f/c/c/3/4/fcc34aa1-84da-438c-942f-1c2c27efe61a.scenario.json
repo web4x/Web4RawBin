@@ -1,0 +1,150 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fcc34aa1-84da-438c-942f-1c2c27efe61a",
+    "altId": "R37.25",
+    "name": "Truth-decay / no-freshness-invariant family — no authoritative artifact may be stored-and-silent (derive OR revalidate+visible-stale)",
+    "description": "An artifact EXISTS, LOOKS AUTHORITATIVE, and NOTHING keeps it TRUE/ACTIONABLE at read — a stored value or constraint with no invariant re-checking it against the reality it claims. It does not fail loud; it silently misleads and is still trusted. This is the FAMILY (>=8 measured specimens in one day, incl the design-note's own author and the PO), not N instance-fixes. The by-construction CURE, per artifact-class in priority order: (a) DERIVE-first from the single source on each read (no stored copy to rot); ELSE (b) STORED with provenance RE-VALIDATED PER READ + rendered VISIBLY STALE on failure; NEVER (c) stored-and-silent. Each class's cure is FAILABLE (R40.54): a lint/gate that RENDERS-STALE or REDs with a stub-must-fail. Per-instance fixes (R40.55 boot currency+state-removal, fact-2 derived-slot) CITE this as their family root, not duplicate.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:194398d2-b165-445a-926f-be163ee4b9c7"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designNote": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-truth-decay-freshness-invariant-family.md (e31458f92)",
+      "raisedBy": "robbin-planner (measure-first loci)",
+      "framedBy": "robbin-architect",
+      "homeConfirmedBy": "robbin-po (S37, no new sprint)",
+      "date": "2026-08-29",
+      "corpus": ">=8 specimens in one day: deploy-instruction(DEPLOY-STATE.md) / req-satisfaction(R40.50 untasked) / guard-coverage(T40.1 CURED proof) / boot-state(R40.55) / derived-slot(fact-2 46c68e1fc) / circular-ruling(PO deadlock) / relayed-measurement author-#7 + PO-#8 — pervasive enough to catch the design-note author + the PO."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "familyMembers": "per-instance fixes CITE this root, do not duplicate: R40.55 (boot currency Layer-1 + state-removal Layer-2, SATISFIED = landed proof-of-cure) / fact-2 nextBacklogOverride derived-slot (46c68e1fc) / R40.50 untasked-AC / T40.1 guard-coverage (CURED worked-proof)",
+    "siblingBoundaryOut": "missing-mechanism (a producer that does not exist) is a CONCEPTUAL sibling, NOT in this family — separate task. Its cited instance (resolveChangeRequest grep=0) EVAPORATED on re-derivation (approveChangeRequest EXISTS + works, 2 CRs approved) = specimen #8, so the sibling currently has NO verified live instance. Keep OUT.",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126: family req minted BEFORE any per-class guard is built; planner stands up per-class guard tasks -> expert wires -> architect re-inspects -> I mint Tests off tester markers. Honest third state per R40.54, NOT green.)",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:dc809efb-4fa2-4d27-be7a-f1532aa271e8",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:cebdf352-ed42-4859-82e7-ab8c36dd0fa2"
+    ],
+    "crossRefNote": "Rides the R40.54 failable-AC family: truth-decay IS the 'unenforced-wish' generalized from a single AC to over-time/at-read across artifact classes. R40.55 (boot) + R40.44 (explicit-wins-while-valid + observable-expiry) + R37.12 (revalidate-or-stale-badge) are per-class instances of cure (b). The enumerate-not-universal + class-divergence + self-application (a hand class-list rots like its artifacts) reuse the R40.55 owner-list lesson.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-meta-invariant",
+        "group": "meta/by-construction",
+        "text": "NO artifact CLASS that reads as AUTHORITATIVE may store its value STORED-AND-SILENT (a stored authoritative value with no re-check). One of two MUST hold, in priority: (a) DERIVE-first — the artifact derives from its single source on each read, no stored copy to rot (failure mode structurally impossible); ELSE (b) STORED-with-revalidation + VISIBLE-STALE — provenance RE-VALIDATED PER READ, renders VISIBLY STALE on failure. Silence (c) IS the entire family and is forbidden.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "ci:gates truth-decay meta-lint",
+          "assertion": "every authoritative-artifact class resolves to (a) derive-first OR (b) stored+revalidated+visible-stale; any class stored-and-silent => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed an authoritative class stored with no re-check (stored-and-silent) => RED"
+      },
+      {
+        "id": "AC-cure-priority-derive-over-revalidate",
+        "group": "meta/priority",
+        "text": "DERIVE-first (a) is the REQUIRED cure wherever derivation is possible; STORED-with-revalidation (b) is admissible ONLY when derivation is genuinely impossible and the artifact MUST be stored. A class that stores+revalidates where it could instead derive is a WEAKER cure than available => flagged (prefer-derive).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay meta-lint (prefer-derive)",
+          "assertion": "a class using (b) where (a) is feasible => flagged; (b) with no revalidation OR no visible-stale => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a derivable class that stores+revalidates instead => flagged; a (b) class missing visible-stale => RED"
+      },
+      {
+        "id": "AC-class-deploy-instruction",
+        "group": "per-class/deploy-instruction",
+        "text": "deploy-instruction (DEPLOY-STATE.md): (a) DERIVE the instruction from BRANCH REALITY (branch-contains + main..HEAD), OR (b) stamp it with the commit-range it was true for + render STALE when HEAD moves past that range. A stored 'do NOT merge/DELETE branch' with no re-check against branch state (14 hotfix commits incl shipped v0.8.143) => the pure specimen.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay: deploy-instruction",
+          "assertion": "HEAD past the instruction's stated commit-range => VISIBLE STALE banner (not silent); or the instruction derives from branch-contains"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a deploy-instruction whose stated range HEAD has passed => VISIBLE STALE (stub-must-fail: silent => RED)"
+      },
+      {
+        "id": "AC-class-req-satisfaction",
+        "group": "per-class/req-satisfaction",
+        "text": "req-satisfaction: (a) DERIVE 'satisfied' from a tracked COVERING TASK's state — NEVER store 'satisfied' as an authored flag. An AC with tasks[]==empty is UN-SATISFIABLE-BY-CONSTRUCTION (rides R40.54 failable family + the untasked-AC audit). Specimen: R40.50 4c4de905 had 7 ACs / tasks[]=empty, shipped falsely-satisfied v0.8.118 then reopened.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "ac-untasked-audit (strict per class)",
+          "assertion": "an AC-bearing req with tasks[]==empty => RED; satisfaction derives from a covering Task's state, never an authored flag"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed an AC-bearing req with tasks[]==empty => RED (untasked-AC audit, tier-1 made strict)"
+      },
+      {
+        "id": "AC-class-guard-coverage",
+        "group": "per-class/guard-coverage",
+        "text": "guard-coverage: (a) coverage DERIVES from the guard being IN ci:gates + the substep present — never an assertion that a guard 'is wired' with nothing checking it. Worked CURE proof: T40.1 7a956c21 now carries '- [ ] processing change requests' + status DERIVES QA-Review-with-open-CR (R40.59 task-status.ts:43).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay: guard-coverage",
+          "assertion": "a guard claimed as coverage but absent from ci:gates (or its substep absent) => RED; coverage derives from presence-in-gates"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a guard claimed-wired but not in ci:gates => RED"
+      },
+      {
+        "id": "AC-class-boot-state",
+        "group": "per-class/boot-state",
+        "text": "boot-state (sprint/version): (a) state-removal (R40.55 Layer-2, timeless+pointer) ELSE (b) currency-lint boot==HEAD (R40.55 Layer-1). CITES R40.55 as the already-landed per-instance fix; does NOT duplicate its design.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:boot-currency (R40.55)",
+          "assertion": "boot-named sprint/version != HEAD-derived => RED (Layer-1); or boot carries no state (Layer-2)"
+        },
+        "stubMustFail": "OBSERVED (R40.55 SATISFIED, per-instance): check:boot-currency --strict live, stub-RED proven — cited as the family's landed proof-of-cure"
+      },
+      {
+        "id": "AC-class-derived-slot",
+        "group": "per-class/derived-slot",
+        "text": "derived-slot (NEXT/CURRENT): (a) DERIVE from single source; DROP stored overrides. Specimen: fact-2 nextBacklogOverride (46c68e1fc) = a stored NEXT that rots; cured by derive-don't-store. CITES fact-2 fix; does not duplicate.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay: derived-slot",
+          "assertion": "a stored NEXT/CURRENT slot alongside its derivation => RED; the slot derives (designated-vs-derived / max-lastAdvancedAt)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a stored NEXT slot holding a value != the derived slot => RED"
+      },
+      {
+        "id": "AC-enumerate-not-universal-corpus",
+        "group": "meta/enumerate-not-universal",
+        "text": "The artifact-CLASS set is ENUMERATED (corpus >=8 specimens: deploy-instruction, req-satisfaction, guard-coverage, boot-state, derived-slot, circular-ruling/unsatisfiable-constraint, relayed-measurement x2) WITH a divergence/completeness check: a NEW authoritative-artifact class matching the meta-shape (authoritative-reading + nothing-validates + silent) that is NOT enrolled => flagged for triage, never silent-pass. A hand-maintained class list rots exactly like the artifacts it polices (self-application, R40.55 owner-list lesson).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay meta-lint (class divergence)",
+          "assertion": "an authoritative-artifact class matching the shape but not enrolled => flagged; a hand-list with no divergence check => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a new authoritative-artifact class not enrolled => triage-flag (not silent-pass)"
+      },
+      {
+        "id": "AC-relayed-measurement-revalidate-at-use",
+        "group": "meta/relayed-measurement",
+        "text": "A RELAYED MEASUREMENT (a peer's line-numbers/counts/'X absent-or-present') is itself a STORED artifact timestamped at THEIR read, not yours — it decays. It MUST be RE-DERIVED at point-of-use before being asserted as current, ESPECIALLY into a durable artifact or a report. Specimens #7 (author cited a peer's stale DEPLOY-STATE read) + #8 (PO escalated a wrong-name resolveChangeRequest grep=0 to Tron 3x). Enforcement is process-failable: a durable claim citing a measurement must carry its own point-of-use re-derivation or be marked RELAYED-UNVERIFIED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "truth-decay: relayed-measurement provenance",
+          "assertion": "a durable claim asserting a measurement with no point-of-use re-derivation and not marked RELAYED-UNVERIFIED => flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): seed a durable report asserting a relayed count as current with no re-derivation => flagged"
+      },
+      {
+        "id": "AC-failable-each-class-stub-must-fail",
+        "group": "meta/R40.54-failability",
+        "text": "The family cure is REAL only if it can FAIL: each artifact-class gets a lint/gate that RENDERS-STALE or REDs when its invariant breaks, WITH a stub-must-fail (a seeded broken artifact of that class observed RED before the gate counts as wired). Generalizes R40.54 evidence-must-fail from a single AC to the whole family. A class whose gate has never been shown RED on its own defect = UNPROVEN.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates per-class truth-decay stubs",
+          "assertion": "each per-class gate has a registered RED observation on its own defect; a green-only (never-RED) class gate => UNPROVEN/RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, nothing built yet): each class stub seeded with its defect must be observed RED before that class counts cured"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
