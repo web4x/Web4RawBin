@@ -1258,6 +1258,13 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     const isDir = ref.startsWith('dir:');
     const rel = (isDir ? ref.slice('dir:'.length) : ref.slice('file:'.length)).replace(/^\/+/, '');
     if (!rel) return null;
+    // R40.66 CLASS-KILL (architect b09bb0308): REFUSE a bare-uuid file:/dir: payload (fail-closed). A uuid is an
+    // IDENTIFIER, not a file PATH — minting a view unit from it sets name==location==uuid (the raw-UUID-name regression).
+    // No caller can produce name==uuid again regardless of who misbehaves. Failable: ensureViewUnit('file:<v4-uuid>')→null.
+    if (/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(rel)) {
+      try { addLog(`[ensureViewUnit] REFUSED ${isDir ? 'dir' : 'file'}:<uuid> payload '${rel.slice(0, 8)}' — a uuid is not a file path (would mint name==location==uuid); caller must pass a real path`); } catch { /* addLog best-effort */ }
+      return null;
+    }
     iorClass = isDir ? 'ior:class:Folder' : 'ior:class:File'; key = (isDir ? 'folder::' : 'file::') + rel;
     kind = isDir ? 'folder' : 'file'; location = rel; name = rel.split('/').pop() || rel;
     if (!isDir) { extra.sourceFile = `ior:file:${rel}`; const e = rel.split('.').pop(); if (e && e !== rel) extra.ext = e; } // R35.3 File fields
