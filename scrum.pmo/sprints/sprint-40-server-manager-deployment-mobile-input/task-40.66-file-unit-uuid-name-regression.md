@@ -22,7 +22,7 @@ TRON MAJOR REGRESSION (relayed via PO 2026-08-29). SYMPTOM on PROD (prod.wo-da.d
 
 ## Context
 
-Covers a NEW Requirement (req formalizes + canonicalizes the placeholder 29c3a3a5). Architect diagnoses root (code/data/generation) by diffing the same File unit from prod vs test; useCases + chain wired at diagnosis. Not to be built until root is known — task it as symptom+evidence per Tron.
+Covers R40.69 (23e77b77, File units carry filenames not UUIDs — Tron prod regression). Architect diagnoses root (code/data/generation) by diffing the same File unit from prod vs test; useCases + chain wired at diagnosis. Not to be built until root is known — task it as symptom+evidence per Tron.
 
 ## Intention
 
