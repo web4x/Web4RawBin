@@ -6,7 +6,9 @@
     "name": "ChangeRequest shape — Task master-list (authoritative) + Test parent + affected-units children (Tron verbatim, supersedes R40.60 parent=Task)",
     "description": "The ChangeRequest traceability SHAPE per Tron verbatim ('the task has a list of CR as master … each CR needs to parent to a test that has to be reevaluated from task traced down to the test … so the CR has all traceability units as children that are affected to be changed'). THREE links, each authoritative for a different fact: (1) Task->CRs MASTER = task.changeRequests[] is the AUTHORITATIVE Task->CR list (the server.ts:1391 'losable mirror' comment is now WRONG); (2) CR->Test PARENT = ChangeRequest.ownerIor -> ior:class:Test (the Test that must be re-evaluated/changed to resolve the CR; renders under the Test); (3) CR->affected units CHILDREN = CR.affects[] = the traceability units along Task->covered-Requirement->UseCase->Class->Method->Impl->Test that must change for the fix to land. SUPERSEDES R40.60's CR-ownerIor->Task ruling — Tron reverses it: parent IS the Test. The band (R40.60 deriveTaskStatus) finds a task's CRs by model.task backref (server.ts:1441), so parent=Test does not disturb it. ★ FLAGGED DEFECT (bring fix-shape, do NOT silently fix): task.changeRequests[] is EMPTY on ALL tasks (0 carry it) while CR units exist (found only via model.task backref) — under Tron's model the empty master list is a DEFECT; gated backfill decided by PO.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:bb9dec65-0ff0-4e90-b55b-09a48e5bc40c"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:0b25395a-7ac0-4022-8941-0b96158c6d6a"
