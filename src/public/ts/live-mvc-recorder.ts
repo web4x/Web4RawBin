@@ -38,8 +38,10 @@ export type RecEvent = { k: 'frame' | 'render' | 'socket' | 'sub' | 'unsub'; t: 
 export function sanitizeRef(ref: unknown): string {
   const s = String(ref ?? '').split('@')[0].toLowerCase().replace(/[^a-z0-9:_-]/g, '');
   const i = s.indexOf(':');
-  const out = i < 0 ? s : `${s.slice(0, i)}:${s.slice(i + 1).replace(/:/g, '')}`; // at most one colon (type:uuid)
-  return out.slice(0, REF_MAX);
+  const out = (i < 0 ? s : `${s.slice(0, i)}:${s.slice(i + 1).replace(/:/g, '')}`).slice(0, REF_MAX); // at most one colon (type:uuid)
+  // Self-validating: a degenerate result (empty, or an empty type before ':' e.g. a non-ascii type stripped away)
+  // can NEVER leave as a malformed key — it collapses to the neutral 'graph' token. This is the assertable no-PII guarantee.
+  return /^[a-z0-9_-]+(:[a-z0-9_-]+)?$/.test(out) ? out : 'graph';
 }
 
 /** A bounded ring buffer (pure, gate-testable). */
