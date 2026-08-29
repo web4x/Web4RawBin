@@ -1,7 +1,7 @@
 {
   "ior": "ior:class:Requirement",
   "model": {
-    "uuid": "29c3a3a5-e8cd-4697-8eaa-77282b7a6068",
+    "uuid": "23e77b77-60f7-413d-9d00-81a83486022b",
     "altId": "R40.69",
     "name": "File units carry FILENAMES not UUIDs (name/location/sourceFile real, ownerIor set) — Tron prod regression, two-server bisect",
     "description": "A File unit MUST carry its FILENAME in name (name=filename, location=real path, sourceFile=ior:file:<real path>, ownerIor SET) — never a raw UUID where the name belongs. TRON MAJOR REGRESSION (relayed via PO 2026-08-29, prod.wo-da.de:4444): prod File-unit JSON shows ownerIor=NULL; name=a raw UUID (b9fa43a2-ea98-…) instead of a filename; location=the SAME raw uuid; sourceFile=ior:file:b9fa43a2-… — File units carry UUIDs where the NAME belongs. It RENDERS CORRECTLY on an OLDER TEST server = a two-server bisect (the data/generation changed between test and prod, not the renderer). ROOT is the ARCHITECT's (code/data/generation — diffing the same File unit from prod vs test); THIS req captures the SYMPTOM + the correct shape + failable gates. SYMPTOM-ONLY, do NOT build a fix until the root is known.",
@@ -22,7 +22,8 @@
       "prodSpecimen": "File unit b9fa43a2-ea98-… : ownerIor=NULL, name=raw-uuid, location=same-uuid, sourceFile=ior:file:<uuid>; renders CORRECT on older TEST (two-server bisect)",
       "verifiedBy": "robbin-req measured on-disk (main): 95 File units, 1 with name==uuid (569c4e79 name=325e17b6…, location empty, ownerIor SET) = a PARTIAL/related on-disk manifestation; the FULL prod symptom (uuid name+location+sourceFile + null owner) is prod-data — architect confirms via prod-vs-test diff",
       "tronVerbatimStatus": "NOT a direct quote — symptom relayed via PO/planner task b981f1c9; exact Tron words pending if needed (not fabricated)",
-      "date": "2026-08-29"
+      "date": "2026-08-29",
+      "placeholderNote": "planner RETIRED the plausible-hex placeholder 29c3a3a5 (a real-looking uuid reads as FALSE COVERAGE to any scan incl the ac-untasked-audit = the exists/passes-scan class); this req is minted with a FRESH uuid 23e77b77 to avoid placeholder-baggage. Content unchanged."
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
     "rootPending": "ARCHITECT owns the root (code/data/generation) by diffing the same File unit prod vs test. THIS req = the SYMPTOM requirement (correct File shape + failable gates). Do NOT build a fix until the root is named. useCases/chain wired at diagnosis.",
@@ -30,7 +31,7 @@
     "crossRef": [
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
     ],
-    "crossRefNote": "Adopted the planner placeholder 29c3a3a5 (real uuidgen v4, learning #43) as canonical — no re-point needed. Symptom req; root is architect's prod-vs-test diff. Rides R40.54 failable-AC family. Task 40.66 b981f1c9 both-dir.",
+    "crossRefNote": "Minted with a FRESH uuid (planner retired the 29c3a3a5 placeholder as false-coverage — a real-looking placeholder reads as covered to a scan). Symptom req; root is architect's prod-vs-test diff. Rides R40.54 failable-AC family. Task 40.66 b981f1c9 both-dir.",
     "acceptanceCriteria": [
       {
         "id": "AC-file-name-is-filename-not-uuid",
