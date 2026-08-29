@@ -949,6 +949,17 @@ function ownerByToken(token: string): boolean {
   const puid = FeatureManager.profileUuidOf(token, userProfiles as unknown as Map<string, { redirectTo?: string }>);
   return loadProtectedIdentities().ids.includes(puid);
 }
+// R40.x SECURITY (RCE fix, architect design 5fd3dd034) — CLOSE the bare-public-uuid→owner hole: a protected-identity
+// owner determination via ownerByToken ALSO requires a CHALLENGE-AUTHENTICATED live session — the token must have a live
+// ws client that passed the ENROLLED-device signed challenge (verifyChallenge → authMethod='device-key'). Since the owner
+// profile is token==uuid PUBLIC (its uuid appears in unauthenticated ownerIor output), a bare uuid replayed with NO
+// device-key session is NOT owner (empirically: bare token → ownerByToken TRUE, but hasDeviceKeyAuth FALSE → denied).
+// Enrolling a device requires the 4-digit secretCode (DEVICE_ENROLL_REQUEST) and the signature must verify against an
+// AUTHORIZED key (verifyChallenge/getAuthorizedKeys) — both SECRETS, never the public uuid. The OWNER_TOKEN-secret path
+// (assertOwner + timingSafeEqual) is UNTOUCHED: our tooling authenticates with the secret, already gated, not the hole.
+function hasDeviceKeyAuth(token: string): boolean {
+  return !!token && [...wsClients].some((c) => c.playerToken === token && c.authenticated && c.authMethod === 'device-key');
+}
 function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | { ok: false } {
   // Cookie path: a valid sm_session IS the proof (minted after an owner-gated POST) — no tokenToClient live-session
   // needed (the standalone /server-manager page holds no ws). Prune expired on read.
@@ -961,7 +972,7 @@ function resolveOwner(req: http.IncomingMessage): { ok: true; token: string } | 
   const g = ServerManagerGuard.assertOwner(req, (t) => tokenToClient.has(t));
   if (g.ok) return g;
   const tok = ServerManagerGuard.playerTokenFrom(req);
-  if (tok && ownerByToken(tok)) return { ok: true, token: tok }; // real owner by protected-identity, gated on a GENUINE profile key
+  if (tok && ownerByToken(tok) && hasDeviceKeyAuth(tok)) return { ok: true, token: tok }; // real owner by protected-identity — RCE fix: ALSO requires a device-key challenge-authed live session (a bare public uuid without the signed challenge is NOT owner)
   return { ok: false };
 }
 function requireOwnerHttp(req: http.IncomingMessage, res: http.ServerResponse): boolean {
@@ -1031,7 +1042,7 @@ function attachChainMethod(entry: Record<string, unknown>, type: string, ct: str
 function featuresForToken(token: string): { uuid: string; name: string; icon: string; launchPage: string }[] {
   const out: { uuid: string; name: string; icon: string; launchPage: string }[] = [];
   if (!token) return out;
-  const owner = ownerByToken(token); // R40.x: the protected-identity owner sees every feature (owner access = identity, not an allowedUsers seed)
+  const owner = ownerByToken(token) && hasDeviceKeyAuth(token); // R40.x + RCE fix: owner sees every feature — protected-identity AND a device-key challenge-authed session (never a bare public uuid)
   try {
     const fidx = new ScenarioIndex(path.join(path.dirname(fileURLToPath(import.meta.url)), '../../../scenario/index'));
     for (const uuid of fidx.list()) {
@@ -4162,7 +4173,7 @@ function handleMessage(clientId: string, ws: WebSocket, msg: any): void {
       // Only send THIS user's devices
       const myDevices = deviceRecords.filter(d => d.ownerToken === token);
       const connectedDeviceIds = [...wsClients].filter(c => c.playerToken === token && c.deviceId).map(c => c.deviceId);
-      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: profileViewDataForToken(token, { connectedDeviceIds, profile }), connectedDeviceIds, serverManager: ownerByToken(profile.token) || ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R40.x: owner flag via protected-identity (seed removed → the flag can no longer come from an allowedUsers token-seed) // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4-fix RED-1: m.profileViewData via the SHARED profileViewDataForToken ENRICH (merges deviceRecords) — SAME path the FM granted-user handler now uses → /profile render === drawer render by construction
+      send({ type: MSG.PROFILE, profile: { ...profile, devices: myDevices }, profileViewData: profileViewDataForToken(token, { connectedDeviceIds, profile }), connectedDeviceIds, serverManager: (ownerByToken(profile.token) && hasDeviceKeyAuth(profile.token)) || ServerManagerGuard.isOwner(profile.token), features: featuresForToken(profile.token) }); // R40.x + RCE fix: owner flag = protected-identity AND device-key session (not a bare public uuid), OR the OWNER_TOKEN-secret (seed removed → the flag can no longer come from an allowedUsers token-seed) // R31.1 owner flag + R31.8 slice-d: m.features = memberships. R31.8c round-4-fix RED-1: m.profileViewData via the SHARED profileViewDataForToken ENRICH (merges deviceRecords) — SAME path the FM granted-user handler now uses → /profile render === drawer render by construction
 
       // UC-RM.4 (T93): owner connects → ensure ALL their on-disk rooms are registered (any
       // missed at startup) and carry creatorToken, then advertise. Per-user scan so a user's
