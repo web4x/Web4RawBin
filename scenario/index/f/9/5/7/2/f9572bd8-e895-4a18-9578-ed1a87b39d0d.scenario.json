@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f9572bd8-e895-4a18-9578-ed1a87b39d0d",
+    "name": "treeAdd.liveBroadcastEveryClient",
+    "description": "add-folder/add-diagram creates the unit, MVC-live inserts the node in the tree (no reload), and broadcasts a cross-client ws event on the one ViewBus so EVERY connected client (incl a passive 2nd client that took no action) re-renders from the broadcast alone; asserted @390 post-broadcast on a second client, local/self emit inadmissible.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the add-folder/add-diagram handler + ViewBus broadcast on build-go; tester owns the two-real-client @390 gate + the local-emit RED stub."
+  },
+  "ownerIor": "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530"
+}
