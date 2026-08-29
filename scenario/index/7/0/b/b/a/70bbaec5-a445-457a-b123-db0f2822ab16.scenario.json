@@ -1,64 +1,66 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "70bbaec5-a445-457a-b123-db0f2822ab16",
-  "name": "Gates cannot pollute production — isolated store BY CONSTRUCTION, cleanup survives failure/timeout/crash, and a BITE proves no prod-state touch",
-  "altId": "R40.31",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [],
-  "description": "A gate must NEVER be able to DAMAGE production state while it runs. DISTINCT from R40.30 gate-ROT (rot = a gate goes silently WRONG over time); POLLUTION = a gate MUTATES prod while running. By-construction: a gate targets an ISOLATED store (scratch registry / temp key / dry-run) so mutating production is IMPOSSIBLE — not merely tidied afterward; cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate (not happy-path-only); and a BITE PROVES a gate cannot touch prod. Tron-emphatic ('cannot happen ever again', post room-pollution). First offender: r3043-uc4addlocal registered 2 repos in the LIVE registry (tester cleaned via authorized DELETE, builtins-only verified) — BLOCKED from re-run until isolated.",
-  "tronQuote": "> TRON (emphatic, post room-pollution, via robbin-po -> tester): this cannot happen ever again — a gate must not damage production while it runs.",
-  "discoverySource": {
-   "type": "po-ruling-tron-emphatic",
-   "ruledBy": "robbin-po",
-   "relayedBy": "robbin-tester",
-   "date": "2026-08-11",
-   "firstOffender": "r3043-uc4addlocal (registered 2 repos in the LIVE registry; cleaned via authorized DELETE builtins-only; BLOCKED from re-run until isolated)",
-   "note": "Tron-emphatic post room-pollution. Codifies by-construction the gate-safety lessons: gate-never-real-save-on-served-repo + gate-live-write-cleanup-survive-timeout + dont-force-prod-mutation-build-safe-test. NOT folded into R40.30 gate-rot (distinct concern); cross-ref."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "70bbaec5-a445-457a-b123-db0f2822ab16",
+    "name": "Gates cannot pollute production — isolated store BY CONSTRUCTION, cleanup survives failure/timeout/crash, and a BITE proves no prod-state touch",
+    "altId": "R40.31",
+    "tasks": [
+      "ior:instance:ede07b67-4c22-4626-8cea-b4ca9a722753"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [],
+    "description": "A gate must NEVER be able to DAMAGE production state while it runs. DISTINCT from R40.30 gate-ROT (rot = a gate goes silently WRONG over time); POLLUTION = a gate MUTATES prod while running. By-construction: a gate targets an ISOLATED store (scratch registry / temp key / dry-run) so mutating production is IMPOSSIBLE — not merely tidied afterward; cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate (not happy-path-only); and a BITE PROVES a gate cannot touch prod. Tron-emphatic ('cannot happen ever again', post room-pollution). First offender: r3043-uc4addlocal registered 2 repos in the LIVE registry (tester cleaned via authorized DELETE, builtins-only verified) — BLOCKED from re-run until isolated.",
+    "tronQuote": "> TRON (emphatic, post room-pollution, via robbin-po -> tester): this cannot happen ever again — a gate must not damage production while it runs.",
+    "discoverySource": {
+      "type": "po-ruling-tron-emphatic",
+      "ruledBy": "robbin-po",
+      "relayedBy": "robbin-tester",
+      "date": "2026-08-11",
+      "firstOffender": "r3043-uc4addlocal (registered 2 repos in the LIVE registry; cleaned via authorized DELETE builtins-only; BLOCKED from re-run until isolated)",
+      "note": "Tron-emphatic post room-pollution. Codifies by-construction the gate-safety lessons: gate-never-real-save-on-served-repo + gate-live-write-cleanup-survive-timeout + dont-force-prod-mutation-build-safe-test. NOT folded into R40.30 gate-rot (distinct concern); cross-ref."
+    },
+    "crossRef": [
+      "ior:instance:dc353c14-ec76-4c79-a809-81ec318e8dbe"
+    ],
+    "crossRefNote": "SIBLING gate-integrity req to R40.30 (behavioural gates target STABLE test hooks = gate-ROT, silently-wrong-over-time). R40.31 = gate-POLLUTION (damages prod WHILE running). Distinct concerns, both 'a gate you cannot trust' — do NOT fold. Tron-emphatic class.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-isolated-by-construction",
+        "group": "isolation",
+        "text": "A gate targets an ISOLATED store BY CONSTRUCTION — scratch registry / temp key / dry-run — so mutating PRODUCTION is IMPOSSIBLE, not merely cleaned-up-after. The gate CANNOT reach the live store (routing PROVEN, not asserted: prove the write lands in scratch, not prod — a no-op PUT is not read-only if the server normalizes)."
+      },
+      {
+        "id": "AC-cleanup-survives-failure",
+        "group": "cleanup",
+        "text": "Cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate — NOT happy-path-only. An EXTERNAL post-run cleanup (finally / trap / harness-level) guarantees no residue survives an abort; a gate that half-writes then times out leaves ZERO prod residue."
+      },
+      {
+        "id": "AC-bite-proves-no-prod-touch",
+        "group": "bite",
+        "text": "A BITE PROVES a gate cannot touch prod state (STUB-MUST-FAIL): attempt a prod-write from inside the gate -> REFUSED / routed-to-scratch (RED if it reaches prod); AND a stub gate that DOES touch prod -> the bite turns RED (proving the bite would catch a regression, not vacuously pass)."
+      },
+      {
+        "id": "AC-first-offender-blocked",
+        "group": "offender",
+        "text": "NAMED OFFENDER (no-silent-caps): r3043-uc4addlocal (registered 2 repos in the LIVE registry) is BLOCKED from re-run until isolated; its fix = target a scratch registry / temp key + cleanup-on-failure. Tracked, not silently dropped; unblocked only once isolated + bited."
+      },
+      {
+        "id": "AC-never-force-prod-mutation",
+        "group": "isolation",
+        "text": "A Test/gate that appears to NEED a production write is REDESIGNED to dry-run / scratch — NEVER sanctioned as a real prod mutation ('the test needs it' is not a license to mutate prod)."
+      },
+      {
+        "id": "AC-verify",
+        "group": "verify",
+        "text": "VERIFIED: a full gate run leaves the live store BYTE-IDENTICAL before==after (git clean-check / live-registry-count unchanged), INCLUDING on an injected mid-gate failure/timeout. The isolation + cleanup are gate-proven, not asserted."
+      }
+    ],
+    "campaignScope": "★ CAMPAIGN SCOPE (PO ruling 2026-08-11): OUTSIDE the S30++ finish-campaign count. NEW requirement created DURING the campaign from a finding (gate-pollution / room-pollution), NOT backlog-as-it-stood-from-S30 — EXCLUDED from the remaining-11 so the target does not recede as we discover. Captured + cross-ref (R40.30) + scheduled as NEXT-PHASE hardening. ★ IMMEDIATE (the CONSTRAINT, not the task): r3043-uc4addlocal stays BLOCKED-until-isolated regardless of scheduling."
   },
-  "crossRef": [
-   "ior:instance:dc353c14-ec76-4c79-a809-81ec318e8dbe"
-  ],
-  "crossRefNote": "SIBLING gate-integrity req to R40.30 (behavioural gates target STABLE test hooks = gate-ROT, silently-wrong-over-time). R40.31 = gate-POLLUTION (damages prod WHILE running). Distinct concerns, both 'a gate you cannot trust' — do NOT fold. Tron-emphatic class.",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-isolated-by-construction",
-    "group": "isolation",
-    "text": "A gate targets an ISOLATED store BY CONSTRUCTION — scratch registry / temp key / dry-run — so mutating PRODUCTION is IMPOSSIBLE, not merely cleaned-up-after. The gate CANNOT reach the live store (routing PROVEN, not asserted: prove the write lands in scratch, not prod — a no-op PUT is not read-only if the server normalizes)."
-   },
-   {
-    "id": "AC-cleanup-survives-failure",
-    "group": "cleanup",
-    "text": "Cleanup runs even on FAILURE / TIMEOUT / crash-mid-gate — NOT happy-path-only. An EXTERNAL post-run cleanup (finally / trap / harness-level) guarantees no residue survives an abort; a gate that half-writes then times out leaves ZERO prod residue."
-   },
-   {
-    "id": "AC-bite-proves-no-prod-touch",
-    "group": "bite",
-    "text": "A BITE PROVES a gate cannot touch prod state (STUB-MUST-FAIL): attempt a prod-write from inside the gate -> REFUSED / routed-to-scratch (RED if it reaches prod); AND a stub gate that DOES touch prod -> the bite turns RED (proving the bite would catch a regression, not vacuously pass)."
-   },
-   {
-    "id": "AC-first-offender-blocked",
-    "group": "offender",
-    "text": "NAMED OFFENDER (no-silent-caps): r3043-uc4addlocal (registered 2 repos in the LIVE registry) is BLOCKED from re-run until isolated; its fix = target a scratch registry / temp key + cleanup-on-failure. Tracked, not silently dropped; unblocked only once isolated + bited."
-   },
-   {
-    "id": "AC-never-force-prod-mutation",
-    "group": "isolation",
-    "text": "A Test/gate that appears to NEED a production write is REDESIGNED to dry-run / scratch — NEVER sanctioned as a real prod mutation ('the test needs it' is not a license to mutate prod)."
-   },
-   {
-    "id": "AC-verify",
-    "group": "verify",
-    "text": "VERIFIED: a full gate run leaves the live store BYTE-IDENTICAL before==after (git clean-check / live-registry-count unchanged), INCLUDING on an injected mid-gate failure/timeout. The isolation + cleanup are gate-proven, not asserted."
-   }
-  ],
-  "campaignScope": "★ CAMPAIGN SCOPE (PO ruling 2026-08-11): OUTSIDE the S30++ finish-campaign count. NEW requirement created DURING the campaign from a finding (gate-pollution / room-pollution), NOT backlog-as-it-stood-from-S30 — EXCLUDED from the remaining-11 so the target does not recede as we discover. Captured + cross-ref (R40.30) + scheduled as NEXT-PHASE hardening. ★ IMMEDIATE (the CONSTRAINT, not the task): r3043-uc4addlocal stays BLOCKED-until-isolated regardless of scheduling."
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

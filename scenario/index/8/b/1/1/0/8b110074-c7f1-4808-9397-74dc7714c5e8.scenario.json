@@ -4,7 +4,9 @@
     "uuid": "8b110074-c7f1-4808-9397-74dc7714c5e8",
     "name": "Discover-related completeness: adds the UseCase<->Class relationship EDGE + parents + traceability children to the diagram (not just nodes)",
     "altId": "R40.26",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b500f345-b58f-40ca-8273-57c9ab9097e7"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

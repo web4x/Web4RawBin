@@ -4,7 +4,9 @@
     "uuid": "dc353c14-ec76-4c79-a809-81ec318e8dbe",
     "name": "Behavioural gates target STABLE test hooks (not CSS class names) + drift NAMES ITSELF (hook-missing, not -1) — gate-rot protection",
     "altId": "R40.30",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6edfda45-5a42-4b53-8e8c-0299eb29abd4"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

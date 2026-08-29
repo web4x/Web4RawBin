@@ -4,7 +4,9 @@
     "uuid": "c7feeb18-ad82-4ef3-a028-434860d0a93d",
     "name": "Diagram background-drag pans the viewport with a MOUSE (parity with touch) — unify on POINTER events, one handler",
     "altId": "R40.29",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:e7fe421d-0c1a-400a-8c8e-bdcaecc14c64"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
