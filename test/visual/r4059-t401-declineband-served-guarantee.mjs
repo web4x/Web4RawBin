@@ -10,6 +10,10 @@ const BASE = 'https://prod.wo-da.de:4444';
 const TASK = '7a956c21-5f37-4062-b921-9bdd5a461546';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+// ★ TERMINATION pattern (PO completion-condition 2026-08-29, class 'NON-TERMINATION HAS NO RED'): hard watchdog turns a
+// never-terminate into a RED exit; finally always closes the browser + process.exit forces drain; node fetch gets a timeout.
+const HARD_MS = Number(process.env.GATE_HARD_MS || 180000);
+const WD = setTimeout(() => { console.log(`RED: WATCHDOG — gate exceeded ${HARD_MS}ms without terminating (never-terminate = RED).`); process.exit(1); }, HARD_MS);
 
 const b = await webkit.launch({ headless: true });
 try {
@@ -47,8 +51,16 @@ try {
   }, `task:${TASK}`);
 
   // authoritative served derivation (dynamic — never a hardcoded narrative)
-  const ior = await (async () => { const res = await fetch(`${BASE}/api/ior/ior:instance:${TASK}`).catch(() => null); if (!res) return {}; const d = await res.json(); const m = d?.unit?.model || {}; const cl = m.statusChecklist || ''; return { status: m.status, hasSubstep: /^\s+-\s*\[ \]\s*processing change requests/im.test(cl) }; })();
+  const ior = await (async () => { const res = await fetch(`${BASE}/api/ior/ior:instance:${TASK}`, { signal: AbortSignal.timeout(15000) }).catch(() => null); if (!res) return {}; const d = await res.json(); const m = d?.unit?.model || {}; const cl = m.statusChecklist || ''; return { status: m.status, hasSubstep: /^\s+-\s*\[ \]\s*processing change requests/im.test(cl) }; })();
 
+  // NAVIGATE to T40.1's tree row (Tron's board surface) — expand toward Sprint 40 until the row renders, so the ROW
+  // surface is actually EVALUATED (not fail-closed as 'not in default view'). Bounded rounds; each expand settles.
+  for (let round = 0; round < 10; round++) {
+    const found = await p.evaluate(() => [...document.querySelectorAll('rb-object-item')].some(x => (x.getAttribute('ref') || '').includes('7a956c21')));
+    if (found) { console.log(`  T40.1 row reached (round ${round})`); break; }
+    await p.evaluate(() => { for (const it of document.querySelectorAll('rb-object-item')) { const t = it.innerText || ''; if (/Sprints?\b|Sprint 40|Sprint40|Marcel Donges/i.test(t)) { const tog = it.querySelector('.expander,.toggle,[class*="expand"],[class*="chevron"],.oi-toggle,.oi-expand') || it; try { tog.click(); } catch {} } } });
+    await sleep(1000);
+  }
   await read(); await sleep(1500);
   const live = await read();
   // RELOAD → is the row badge STALE (tree-build) or the actual derived state? (stale In-Progress = Tron sees a regress)
@@ -81,4 +93,4 @@ try {
   } else {
     console.log(`\nNOT-GUARANTEED-because-X: half-1 shown=${half1_substepUnderQA}, detail no-regress=${detailNoRegress}, authoritative status="${ior.status}" hasSubstep=${ior.hasSubstep}. See per-surface lines.`);
   }
-} finally { await b.close(); }
+} finally { await b.close().catch(() => {}); clearTimeout(WD); process.exit(process.exitCode || 0); }
