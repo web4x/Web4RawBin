@@ -1,34 +1,44 @@
-# ⚠️ SERVED-REF DIVERGENCE — READ BEFORE ANY DEPLOY OR `git checkout`
+# ⚠️ SERVED-REF DIVERGENCE — READ BEFORE ANY DEPLOY, `git checkout`, OR BRANCH DELETE
 
 **The live prod server (prod.wo-da.de:4444, pane `server:0.2`) is SERVING branch
-`hotfix/t40.1-checklist-band` (v0.8.140) — NOT `main`.** This is deliberate and temporary.
+`hotfix/t40.1-checklist-band` (v0.8.143) — NOT `main`.** This is deliberate and temporary.
 
-## Why (PO ruling B, robbin-po, 2026-08-29)
-Ship Tron's **T40.1 checklist-band fix ALONE**, isolated from `main`. `main` is 30+ commits
-ahead of the served base (v0.8.139, tag `6666ebb05`) and carries UNDEPLOYED, TESTER-GATED
-work — notably **R37.24 inc-2** (detail-drawer elimination, DoD 4-6 not cleared). Deploying
-`main` now would ship R37.24 **ungated onto Tron's primary surface** (the detail drawer).
+## ★ CORRECTED 2026-08-29 late (robbin-expert, per robbin-po + planner flag) — the prior "delete this branch" was a REVOKED-DIRECTIVE landmine
+The earlier version of this file (written when the branch held ONLY the cherry-picked band fix
+`b00984bab`) said the fix was already on `main` and the branch should be **DELETED**. **That is now
+FALSE and DANGEROUS.** MEASURED (`git merge-base --is-ancestor` + `origin/main..HEAD`): the branch
+now carries **14 commits UNIQUE to hotfix, NOT on `main`**, including:
+- **`3fb338004` — the SHIPPED DEPLOY of the R37.24 live-MVC traceability tree (v0.8.143)** — hotfix-only.
+- **`87a3e4134` (+ deploy `52547b90d`) — the RCE owner-credential closure** — hotfix-only.
+
+A fresh agent obeying "DELETE this branch" would **LOSE the deployed live-MVC tree AND the RCE fix.**
 
 ## The branch
-- Base: v0.8.139 (`6666ebb05`). Delta vs base = EXACTLY the checklist-band fix
-  (`src/ts/scenario/task-policy.ts` + `src/ts/server/server.ts`) + the version bump. Nothing else.
-- Serves: **v0.8.140**.
+- Base: v0.8.139 (`6666ebb05`). It has since GAINED the merge of `main`'s R37.24 live-MVC work, the
+  v0.8.143 deploy, and the RCE closure — **14 commits `origin/main` does not have.**
+- Serves: **v0.8.143.**
 
 ## DO NOT
-- ❌ Do NOT `git checkout main` + restart/deploy until **R37.24 clears DoD 4-6**. That deploys ungated R37.24.
-- ❌ Do NOT merge this branch back into `main` — the fix is ALREADY on `main` (commit `dc514665b`;
-  cherry-picked here as `b00984bab`). A merge would DUPLICATE it.
+- ❌ Do NOT `git checkout main` + restart/deploy. `main` is **BEHIND** this branch — it lacks the
+  v0.8.143 live-MVC deploy AND the RCE closure. Deploying `main` now would **REGRESS prod** (un-ship
+  both). (This inverts the old reason: it is no longer "main is ahead with ungated work" — it is
+  "main is behind, missing shipped work".)
+- ❌ Do NOT DELETE this branch. It holds 14 unique commits of shipped, Tron-facing work.
+- ❌ Do NOT merge `hotfix → main` YET — see the sequencing below.
 
-## RETIRE TRIGGER
-When R37.24 inc-2 clears DoD 4-6 (tester): deploy `main` (which already contains this fix) and
-**DELETE this branch** (`git branch -D hotfix/t40.1-checklist-band`). The divergence ends there.
+## RETIRE / MERGE PLAN (PO ruling, robbin-po 2026-08-29 late — SUPERSEDES the old delete-trigger)
+- Direction is **merge `hotfix/t40.1-checklist-band` INTO `main`** (NOT delete, NOT duplicate — the
+  "already on main / would duplicate" note applied only to the old cherry-pick-only state).
+- **Merge is PENDING and HELD until the live-MVC tree actually WORKS on Tron's device** (fact-1 +
+  fact-2 clear on his real iOS). PO ruling: **repo surgery mid-live-defect blinds a future bisect** —
+  keep the branch topology stable while the live-MVC defects are open.
+- The old **"delete this branch" retire-trigger is SUPERSEDED** (it would destroy unique shipped work).
 
-## Provenance note (self-correcting record)
+## Provenance note (self-correcting record, retained)
 The artifact commit `098880909` is titled *"deploy: build artifacts v0.8.139"* but the artifacts
 ARE **v0.8.140** — `deploy.mjs` stamped its message from a `committedVersion()` read taken BEFORE
 its own build stamped `package.json` (the bump was made via the Config unit only, without a
-pre-build). **Content is correct** (v0.8.140 across config unit / package.json / sw.js / served,
-verified four-way); only the commit *title* is mislabeled. History NOT rewritten (immutable);
-corrected here and in the following commit message.
+pre-build). **Content is correct** (verified four-way at the time); only the commit *title* is
+mislabeled. History NOT rewritten (immutable); corrected here.
 
-Owner: robbin-expert · Ruling: robbin-po (B) · 2026-08-29
+Owner: robbin-expert · Rulings: robbin-po (B, then merge-hold) · 2026-08-29
