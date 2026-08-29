@@ -30,6 +30,10 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // R40.1 CR-RESOLVE (#86): 'Resolve CRs' surfaces ONLY on a task in the 'QA-Review-with-open-CR' BAND — a human ticks the
   // processing-CR sub-step (CRs done) → band clears → clean QA Review → approvable. Owner-gated server-side (resolve-cr route).
   { verb: 'resolve-cr', label: '✓ Resolve CRs', appliesTo: { types: ['task'], statuses: ['QA-Review-with-open-CR'] }, onInvalid: 'hide' },
+  // R40.63 (Tron: "i could approve this if there was a button"): per-CR APPROVE surfaces on an OPEN ChangeRequest detail —
+  // records a VERDICT on that ONE CR (owner-gated /api/change-request/<uuid>/approve). Does NOT clear the parent task band
+  // (that is the separate R40.60 status-core + normalize). ADDITIVE — the task-level resolve-cr above is untouched.
+  { verb: 'cr-approve', label: '✓ Approve CR', appliesTo: { types: ['changerequest'], statuses: ['Open'] }, onInvalid: 'hide' },
   // R40.18 RETIRED (architect 7cb9617fb): pin-current / pin-next REMOVED — the pin is now DERIVED (current = In-Progress
   // task with MAX lastAdvancedAt). A manual Set-current/Set-next is a SECOND SOURCE that can contradict the derivation —
   // the exact two-source vector that produced the stale pick 78ea801d3 (lied to Tron for days). Retire (not a when-gate)

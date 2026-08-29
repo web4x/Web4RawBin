@@ -10,7 +10,7 @@ import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.17: notify the Curren
 import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
 import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 CR#86-1: per-pane owner-gated RC deep-link (the ONE existing chain — reused, not redesigned)
 
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'resolve-cr', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
+const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'resolve-cr', 'cr-approve', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -33,6 +33,7 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
     if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
     if (verb === 'resolve-cr') { handleResolveCr(drawer, uuid); return; } // R40.1 CR#86: owner ticks the processing-CR sub-step → band clears → clean QA-Review
+    if (verb === 'cr-approve') { handleCrApprove(drawer, uuid); return; } // R40.63: owner records a VERDICT on ONE ChangeRequest (does NOT clear the task band — that is R40.60 status-core)
     if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation (retired from decls; handler kept dead)
     if (verb === 'set-current') { handleSetCurrent(drawer, uuid); return; } // T37.26 owner Set-as-Current: advance the task via the seam (derived pin follows)
     if (verb === 'open-task-file') { handleOpenTaskFile(uuid); return; } // T37.26 open the task MD (the bar is the ONE action surface)
@@ -164,6 +165,29 @@ function handleResolveCr(drawer: HTMLElement, uuid: string): void {
       else surfaceVerdict(drawer, `⚠ resolve-cr failed (HTTP ${r.status}) — ${String(j.error || 'unknown')}. Nothing was changed.`, 'err');
     })
     .catch((e) => surfaceVerdict(drawer, `⚠ resolve-cr request failed — ${String(e?.message || e)}. Nothing was changed.`, 'err'));
+}
+
+// R40.63 (Tron: "i could approve this if there was a button … other CRs are still open") — the owner records a VERDICT on
+// ONE ChangeRequest: POST the owner-gated /api/change-request/<crUuid>/approve → the server stamps approvedBy/approvedAt/
+// status=Approved on that ONE CR. HONEST: this records the per-CR verdict; it does NOT clear the parent task's band (that
+// is the separate R40.60 status-core + normalize). Re-emit on the ONE bus so the CR's own badge (→ Approved) + the parent
+// task re-render. Idempotent (already-approved = a benign 200).
+function handleCrApprove(drawer: HTMLElement, uuid: string): void {
+  if (!window.confirm('Approve this change request? It is recorded as resolved. (Other open CRs on the task remain; the task band clears separately.)')) return;
+  surfaceVerdict(drawer, '⏳ Approving change request…', 'warn');
+  void ownerActionFetch(`/api/change-request/${uuid}/approve`, { method: 'POST' }) // R40.52: owner identity via x-player-token header
+    .then(async (r) => {
+      let j: any = {}; try { j = await r.json(); } catch { /* non-JSON body */ }
+      if (r.status === 200 && j.ok) {
+        surfaceVerdict(drawer, `✓ Change request approved${j.alreadyApproved ? ' (already approved)' : ` by ${j.approvedBy} at ${j.approvedAt}`}`, 'ok');
+        ViewBus.notify(viewBusKey({ type: 'changerequest', uuid })); // the CR's own badge → Approved
+        const taskUuid = String(j.task || '').replace('ior:instance:', '').split('@')[0];
+        if (taskUuid) ViewBus.notify(viewBusKey({ type: 'task', uuid: taskUuid })); // the parent task detail/row re-render (band UNCHANGED on main)
+      } else if (r.status === 403) surfaceVerdict(drawer, '⚠ Not permitted — owner only (403). Nothing was changed.', 'err');
+      else if (r.status === 404) surfaceVerdict(drawer, '⚠ Change request not found (404). Nothing was changed.', 'warn');
+      else surfaceVerdict(drawer, `⚠ cr-approve failed (HTTP ${r.status}) — ${String(j.error || 'unknown')}. Nothing was changed.`, 'err');
+    })
+    .catch((e) => surfaceVerdict(drawer, `⚠ cr-approve request failed — ${String(e?.message || e)}. Nothing was changed.`, 'err'));
 }
 
 // R40.17 universalActions.handlePinDesignate — the pin-designate client action (the notify-add below IS the live-pin push).

@@ -1657,6 +1657,23 @@ function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8:
   return { code: 200, payload: { ok: true, changeRequest: crUuid, status: String((reopened.model as Record<string, unknown>).status || '') } };
 }
 
+// R40.63 (Tron: "i could approve this if there was a button … other CRs are still open") — owner-gated PER-CR approve:
+// stamps approvedBy/approvedAt/status='Approved' on the ONE ChangeRequest unit via the seam (records a VERDICT on that CR).
+// STANDALONE: it does NOT clear the parent task's band (the band still derives from the checklist sub-step on main —
+// band-clearing is the separate R40.60 status-core + normalize, pending Tron's GO). Idempotent (re-approve = no-op 200).
+// Emits the parent Task so the acting tab re-renders. NO bridge: never ticks the old sub-step (that would be a 2nd band writer).
+function approveChangeRequest(idx: ScenarioIndex, crUuid: string, approver: { id: string; name: string }, now: string): { code: number; payload: Record<string, unknown> } {
+  const unit = idx.get(crUuid);
+  if (!unit || unit.ior !== 'ior:class:ChangeRequest') return { code: 404, payload: { ok: false, error: 'change-request-not-found' } };
+  const m = unit.model as Record<string, unknown>;
+  if (m.approvedBy) return { code: 200, payload: { ok: true, alreadyApproved: true, approvedBy: m.approvedBy, approvedAt: m.approvedAt, task: String(m.task || unit.ownerIor || '') } }; // idempotent
+  UnitController.apply(idx, 'ior:class:ChangeRequest', crUuid, { approvedBy: approver.id, approvedByName: approver.name, approvedAt: now, status: 'Approved' }, { actor: approver, publish: publishUnitChanged });
+  const after = idx.get(crUuid)!.model as Record<string, unknown>;
+  const taskUuid = String(after.task || unit.ownerIor || '').replace('ior:instance:', '').split('@')[0]; // emit the parent task so its detail/row re-render live (band UNCHANGED on main — R40.60 clears it, not this)
+  if (taskUuid && idx.get(taskUuid)) publishUnitChanged('ior:class:Task', taskUuid);
+  return { code: 200, payload: { ok: true, approvedBy: after.approvedBy, approvedAt: after.approvedAt, task: `ior:instance:${taskUuid}` } };
+}
+
 // R40.1 CR-RESOLVE (#86) — owner-gated: a human decides the change requests are DONE → tick the band's 'processing change
 // requests' sub-step through the EXISTING generic subStep seam (task-policy tickSubStep) → hasOpenCrSubstep goes false →
 // deriveStatusEnum recomputes to clean 'QA Review' (approvable). NO status literal (the seam derives), NO auto-tick (fires
@@ -1886,6 +1903,30 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.end(JSON.stringify(out.payload));
           addLog(`[task-verdict] ${verb} ${taskUuid.slice(0, 8)} by ${approver.name} → ${out.code}`); // FIX: was ${ownerTok8} — UNDECLARED here (only a declineToChangeRequest PARAM) → ReferenceError AFTER res.end → catch double-writeHead → ERR_HTTP_HEADERS_SENT → server CRASH on every approve (the ~10-iteration live-MVC failure root)
         } catch (e: any) { if (!res.headersSent) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); } else { console.error(`[route] ★ POST-RESPONSE throw SWALLOWED (fail-SAFE now fail-LOUD, L15) on ${filepath} — a defect ran after res.end:`, e); } } // headersSent guard: a throw AFTER the response was sent must never re-write headers (that IS the crash); else = fail-loud so the hardening is OBSERVABLE, never a silent swallow
+      });
+      return;
+    }
+
+    // R40.63 — owner-gated PER-CR approve: POST /api/change-request/<crUuid>/approve. Owner-only (403 non-owner via the
+    // SAME requireOwnerHttp choke the task verdict uses); stamps approvedBy/approvedAt on the ONE ChangeRequest unit.
+    // Records a per-CR VERDICT; does NOT clear the parent task band (that is R40.60 status-core + normalize, Tron-gated).
+    const crApproveMatch = filepath.match(/^\/api\/change-request\/([0-9a-fA-F-]+)\/approve$/);
+    if (req.method === 'POST' && crApproveMatch) {
+      if (!requireOwnerHttp(req, res)) return; // owner-gated 403 — a non-owner can never approve a change request
+      const crUuid = crApproveMatch[1];
+      let body = '';
+      req.on('data', (chunk: Buffer) => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const idx = new ScenarioIndex(PROD_INDEX);
+          const _sid = cookieFrom(req, 'sm_session'); // mirror the task-verdict approver resolution exactly (stable profile-uuid id, non-credential name)
+          const _ownerTok = (_sid ? smSessions.get(_sid)?.token : '') || ServerManagerGuard.playerTokenFrom(req) || '';
+          const approver = { id: FeatureManager.profileUuidOf(_ownerTok, userProfiles as unknown as Map<string, { redirectTo?: string }>) || 'owner:unresolved', name: String(userProfiles.get(_ownerTok)?.name || 'RawBin Owner') };
+          const out = approveChangeRequest(idx, crUuid, approver, new Date().toISOString());
+          res.writeHead(out.code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+          res.end(JSON.stringify(out.payload));
+          addLog(`[cr-approve] ${crUuid.slice(0, 8)} by ${approver.name} → ${out.code}`);
+        } catch (e: any) { if (!res.headersSent) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: String(e?.message || e) })); } else { console.error(`[route] ★ POST-RESPONSE throw SWALLOWED on ${filepath}:`, e); } }
       });
       return;
     }
@@ -2864,6 +2905,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R20.15: unified expectedChildTypes from chain-model
         const allowedTypes = expectedChildTypes(type);
         const ucMethodIor = type === 'UseCase' ? String((unit.model as Record<string, unknown>).method || '').replace('ior:instance:', '') : '';
+        // R40.64 (Tron: CRs "never rendered" even after R40.61): a ChangeRequest hangs under its ownerIor parent but is in
+        // NO forward key, so a Test/Task that owns CRs computed childCount=0 → hasChildren=false → rendered a LEAF (no
+        // chevron) → the client never requested its children → R40.61's reverse-CR append never ran on the RENDER path.
+        // Count reverse-ownerIor CRs into every child's childCount (once-per-request map) so an owner-of-CRs advertises a
+        // chevron and is EXPANDABLE. Pairs with the R40.61 append below (same ownerIor link, no data change, no migration).
+        const crOwnerCounts = new Map<string, number>();
+        for (const cru of idx.list()) { const cu = idx.get(cru); if (cu?.ior === 'ior:class:ChangeRequest') { const o = String(cu.ownerIor || '').replace('ior:instance:', ''); if (o) crOwnerCounts.set(o, (crOwnerCounts.get(o) || 0) + 1); } }
         const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);
           if (child) {
@@ -2880,7 +2928,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               const addRef = (r: unknown): void => { const s = String((typeof r === 'object' && r) ? ((r as { ior?: string; uuid?: string }).ior || (r as { ior?: string; uuid?: string }).uuid || '') : r).replace('ior:instance:', ''); if (/^[0-9a-f]{8}-/.test(s)) cRefSet.add(s); };
               if (Array.isArray(v)) v.forEach(addRef); else if (typeof v === 'string') addRef(v);
             }
-            const childCount = cRefSet.size;
+            const childCount = cRefSet.size + (crOwnerCounts.get(ref) || 0); // R40.64: + reverse-CR children so a CR-owner (Test/Task) is expandable
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
             // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
             const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');

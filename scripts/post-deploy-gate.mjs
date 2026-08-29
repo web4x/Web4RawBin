@@ -10,13 +10,27 @@
 //   silenceable. A future bypass must be a committed, authored, VISIBLE override, never a silent skip.
 // Run (deploy final step): node scripts/post-deploy-gate.mjs   (exit 0 = GREEN/verified, exit 1 = RED/NOT-RUN/unverified)
 import { spawnSync, execSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import https from 'node:https';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PROD = 'https://localhost:4444';
+
+// R40.65 (Tron: "the device gate MUST run … it means YOU failed"): the gate lane + record-gates need node>=18 (Playwright
+// + `--import tsx`), but this host's default `node` is v16 → the gate fail-closed and EVERY deploy shipped as
+// served-but-UNVERIFIED, making Tron's eyes our only device check. Resolve a node>=18 (prefer the runtime the SERVER
+// runs on) and route BOTH the gate lane AND record-gates through it. This is NOT a bypass (INV-PDG-5 intact) — it makes
+// the gate ACTUALLY EXECUTE so the deploy is genuinely device-verified, which is the whole point of INV-PDG.
+function nodeMajor(p) { try { return parseInt(String(spawnSync(p, ['--version'], { encoding: 'utf-8' }).stdout || '').replace(/^v/, '').split('.')[0], 10) || 0; } catch { return 0; } }
+function resolveNode18() {
+  if (nodeMajor(process.execPath) >= 18) return process.execPath; // deploy.mjs already invoked us on node>=18
+  for (const c of ['/opt/node22/bin/node']) if (existsSync(c) && nodeMajor(c) >= 18) return c; // the known node22 the prod server runs on
+  return process.execPath; // last resort — if <18 the gate reports NOT-RUN=RED (honest, never a silent pass)
+}
+const NODE18 = resolveNode18();
+const GATE_ENV = { ...process.env, PATH: `${path.dirname(NODE18)}:${process.env.PATH}` }; // the gate's internal `node test/*.mjs` resolve to node>=18
 
 function servedVersion() {
   return new Promise((resolve) => {
@@ -30,7 +44,7 @@ const committedVersion = () => { try { return JSON.parse(readFileSync(path.join(
 const headCommit = () => { try { return execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch { return 'unknown'; } };
 
 function record(verdict, version, commit, evidence) {
-  const r = spawnSync('node', ['--import', 'tsx', path.join(ROOT, 'scripts/record-gates.ts'), '--type', 'device-gate', '--verdict', verdict, '--evidence', `v${version} @${commit} — ${evidence}`, '--gated-by', 'post-deploy-trigger', '--version', String(version), '--commit', commit], { cwd: ROOT, stdio: 'inherit' });
+  const r = spawnSync(NODE18, ['--import', 'tsx', path.join(ROOT, 'scripts/record-gates.ts'), '--type', 'device-gate', '--verdict', verdict, '--evidence', `v${version} @${commit} — ${evidence}`, '--gated-by', 'post-deploy-trigger', '--version', String(version), '--commit', commit], { cwd: ROOT, stdio: 'inherit', env: GATE_ENV }); // R40.65: node>=18 (was bare 'node'=v16 → --import unsupported → unit never written)
   if (r.status !== 0) console.error('[post-deploy-gate] ⚠ record-gates failed — the durable unit was NOT written (INV-PDG-3 at risk).');
 }
 function notify(msg) { try { spawnSync('tmux', ['send-keys', '-t', 'robbinTeam2:0.0', msg, 'Enter']); } catch { /* notify best-effort; the non-zero exit + unit are the primary loud signals */ } }
@@ -45,8 +59,8 @@ async function main() {
   if (!served) return fail('NOT-RUN', committed, commit, 'server not serving /api/config (unreachable) — cannot certify a live artifact', 'server unreachable');
   if (served !== committed) return fail('NOT-RUN', served, commit, `served v${served} != committed v${committed} — stale/mid-flight artifact (INV-PDG-7 freshness)`, `served v${served} != committed v${committed} — restart before gating`);
 
-  console.log(`▸ post-deploy-gate: running gate:device:live (WebKit@390) against LIVE prod v${served} @${commit} …`);
-  const r = spawnSync('npm', ['run', 'gate:device:live'], { cwd: ROOT, stdio: 'inherit', timeout: 180000 });
+  console.log(`▸ post-deploy-gate: running gate:device:live (WebKit@390) against LIVE prod v${served} @${commit} … [node ${nodeMajor(NODE18)} via ${NODE18}]`);
+  const r = spawnSync('npm', ['run', 'gate:device:live'], { cwd: ROOT, stdio: 'inherit', timeout: 180000, env: GATE_ENV }); // R40.65: node>=18 in PATH so the gate's `node test/*.mjs` don't hit v16
 
   if (r.error || r.status === null) return fail('NOT-RUN', served, commit, `gate:device:live could not run (${r.error?.message || 'timeout/killed before asserting'}) — webkit/runner/device unavailable`, 'device lane unrunnable');
   if (r.status !== 0) return fail('RED', served, commit, `gate:device:live FAILED (exit ${r.status}) — a live device assertion regressed`, 'device gate FAILED');
