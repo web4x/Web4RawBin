@@ -6,7 +6,9 @@
     "name": "Current-task has ONE definition site — pinRole reads the designation resolver, not a parallel guess (Tron-caught second-source)",
     "description": "Current-task selection has EXACTLY ONE definition site. Tron set a task current, but a different task RENDERS current, because there are TWO definitions of 'current' in one system: (A) the DESIGNATION resolver getThreeSlots (CurrentSprint.ts:270) honors the owner's currentTaskUuid EXPLICIT-WINS-WHILE-VALID (make-current, R40.49) — read by pin/scoreboard; (B) a rogue parallel HEURISTIC derivedCurrentTaskUuid (server.ts:1388) that IGNORES the designation, loops all Tasks, keeps only deriveStatusEnum=='In Progress', picks max lastAdvancedAt — attachTaskPinRole (:1399) tags pinRole='current' off B and the action-bar rides B. So what Tron SETS != what RENDERS, and a QA-Review task can NEVER be current (In-Progress-only filter). FIX AT THE ROOT (one resolver, NOT a hardcode — a39efc32 appears nowhere in src): DELETE derivedCurrentTaskUuid; pinRole reads slots.current from the SAME compute-once getThreeSlots output as pin/scoreboard/tree; eligibility {Planned,In-Progress,QA-Review} everywhere; honest-absence on ambiguity. The gate must assert the HAZARD (a Task-selection loop returning a uuid by status/timestamp) not an actor-blocklist, and must be proven RED on TODAY's live defect before the fix.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:80ab1930-488b-4c5c-8fba-f325726a8590"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:a2043470-fc0c-4e90-a244-5f68e22bd43d"

@@ -6,7 +6,9 @@
     "name": "All Tasks owned by the owner profile — scoped backfill that preserves every structural parent (Task and non-Task)",
     "description": "Tron's Set-as-Current on Task 40.1 returned 403 'owner only' because that Task's ownerIor is null. His rule: EVERY Task is owned by his profile (05e58f81 'Marcel Donges'). ownerIor is OVERLOADED: profile-owner on a Task, STRUCTURAL PARENT on chain units (Impl->Method, CR->Test). LOCKED SPLIT (reciprocation test, 525 Tasks): A(direct)=206 [195 null + 11 dual-carriers -> set owner directly] / B(relocate)=220 [old-schema the Sprint RECIPROCATES -> relocate Sprint ownerIor->model.parent] / D(set-owner-only, ORPHANS)=99 [old-schema NO sprint claims -> set owner, DROP stale pointer, NO relocation] / C=0 / anomaly=0. The 99 orphans MUST NOT be relocated: copying a stale ownerIor into model.parent would FABRICATE a parent the named sprint does not acknowledge (drawer says 'parent Sprint X' while overview shows it unsorted) = 99 fresh drift instances. A migration must NEVER fabricate a link to satisfy its own rule. The backfill touches NO non-Task ownerIor.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:ca03557b-53bd-40d9-8361-23191e22f6b6"
+    ],
     "tests": [],
     "useCases": [],
     "unitLinks": [],

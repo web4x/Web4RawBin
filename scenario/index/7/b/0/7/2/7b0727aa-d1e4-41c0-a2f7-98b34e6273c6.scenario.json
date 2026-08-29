@@ -6,7 +6,9 @@
     "name": "ONE canonical sprint-dir resolver (sprintDirOf) - every consumer + the guard route through it; slug-only emission stops",
     "description": "There are TWO conventions for one sprint directory: CANONICAL (tracked, git history, everything references it) scrum.pmo/sprints/sprint-0N-<slug>/, and STRAY (generated, untracked, 16 of them) scrum.pmo/sprints/<slug>/ slug-only. The stray path comes from consumers using the Sprint unit model.slug (or slugify(name)) as the dir (server.ts:1416 taskMdHref; check-sprint-slug-dir.ts - the GUARD itself resolves the slug-only path, so the guard BLESSES the stray convention). A regen then materialises sprints/<slug>/. FIX by construction: ONE exported sprintDirOf(sprint) -> sprint-0N-<slug> that EVERY consumer (including the guard) routes through; slug-only emission STOPS; a sprint dir built without sprintDirOf => lint RED.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6134f49c-9317-4392-815f-9f1cdd1b4be7"
+    ],
     "tests": [],
     "useCases": [],
     "unitLinks": [],

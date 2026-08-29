@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "f2b24cdb-c418-4c2e-8d0d-cbe69fbf38b9",
+    "name": "Task 40.52: The client transmits owner identity on every",
+    "slug": "task-40-52-the-client-transmits-owner-identity-on-every",
+    "description": "Deliver + verify requirement R40.52 (The client transmits owner identity on every). Retroactive task unit minted scenario-first from the existing requirement (#126 gap: the req existed, its Task unit was never minted). Covers R40.52; status derived from reality, staged by planner.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "",
+    "acceptanceCriteria": [],
+    "subtasks": [],
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:673f8a50-274d-477d-a4eb-191597f4e1ed"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "statusBasis": "FLOOR: Planned (backlog). #126 retroactive task-mint — req existed, task never minted; planner stages status to reality. NOT assumed-Done.",
+    "remainingIssues": "",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-29"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}
