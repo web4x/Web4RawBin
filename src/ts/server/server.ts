@@ -2892,6 +2892,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           return null; // v0.6.92: skip dangling refs (unit removed/missing) — never render a raw UUID as a name
         }).filter(Boolean);
+        // R40.61 (Tron VERBATIM: "if the parent is the test thats ok, but it never was rendered in the tree view!!!"):
+        // a ChangeRequest is a traceability CHILD of the unit it is parented to (ownerIor→Test/Task) but sits in NO forward
+        // chain key, so the forward-array walk above never surfaces it → Tron could not see/expand/reach the 5 CRs. ADDITIVELY
+        // append CR children by REVERSE ownerIor lookup — this FOLLOWS THE EXISTING parent link Tron confirmed is correct
+        // (ownerIor→Test stays; NO re-parent, NO data write, NO migration, chain-config untouched). SCOPED to ChangeRequest so
+        // no other type's tree shape changes. Leaf node (hasChildren:false) → click opens its detail, never cycles back to the parent.
+        const fwdChildUuids = new Set((children as Array<Record<string, unknown>>).map((c) => String(c.uuid)));
+        for (const cru of idx.list()) {
+          const cu = idx.get(cru);
+          if (!cu || cu.ior !== 'ior:class:ChangeRequest') continue;
+          if (String(cu.ownerIor || '').replace('ior:instance:', '') !== uuid) continue; // only CRs whose PARENT is this node
+          const cm = cu.model as Record<string, unknown>;
+          const cuUuid = String(cm.uuid || cru);
+          if (fwdChildUuids.has(cuUuid)) continue; // never double-render
+          fwdChildUuids.add(cuUuid);
+          const crStatus = String(cm.status || (cm.approvedBy ? 'Approved' : 'Open')); // Open/Approved drives the per-CR approve verb (R40.60 applicability)
+          (children as Array<Record<string, unknown>>).push({ uuid: cuUuid, type: 'ChangeRequest', name: String(cm.name || 'Change Request'), hasChildren: false, childCount: 0, status: crStatus });
+        }
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         const ownerIor = String(unit.ownerIor || '').replace('ior:instance:', '');
         let parent: { uuid: string; type: string; name: string } | null = null;
