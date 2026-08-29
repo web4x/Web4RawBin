@@ -30,15 +30,15 @@
     "crossRefNote": "Same single-source-of-a-shared-truth + wired-guard family as R40.63 (state-file currency) / R40.55 (boot currency) / R40.56 (current single-source). Rides R40.54 failable-AC family. The band = R40.59 QA-Review-with-open-CR (task-status-constants.ts). The user-visible glyph fix lands under existing T40.1 (no req, PO scope-split).",
     "acceptanceCriteria": [
       {
-        "id": "AC-exists-shared-source",
-        "group": "guard/mode-1-EXISTS",
-        "text": "EXISTS: a SHARED dep-free task-status source (expert proposal task-status-glyphs.ts) that BOTH server and client import — client task rows derive their glyph/badge from it; the generic NON-task badges (pass/fail/impl-done…) stay in BADGE_MAP. ONE source for task-status symbols; the client no longer keeps a second table. (Today: 2 tables — server STATUS_GLYPHS + client BADGE_MAP; target = 1 shared task-status source.)",
+        "id": "AC-shared-source-is-the-enum",
+        "group": "guard/mode-1-EXISTS-reframed",
+        "text": "EXISTS (REFRAMED per architect shape-ruling d33919390, landed AFTER my mint — my original mandated a vocab-unifying glyph EXTRACTION task-status-glyphs.ts, which would RESTYLE Tron's board (his ⚡/○/👁 -> server glyphs) = a separate Tron-surface UX decision, NOT required for the class-kill; kept visible as the corrected-away over-spec). The SHARED SOURCE is the EXISTING STATUS_ORDER enum (already shared, task-status-constants.ts) — NO new glyph extraction. The class-kill = the CLIENT-COVERAGE LINT over that enum: the client badge render must cover the shared STATUS_ORDER, and a status with no client glyph REDs. The client keeps its own glyph vocabulary (BADGE_MAP); only COVERAGE of the shared enum is enforced, not a unified glyph set.",
         "gateRef": {
           "kind": "lint",
-          "ref": "check:task-status-symbol-source (single source)",
-          "assertion": "task-status glyphs resolve from the ONE shared source on both server+client; a 2nd task-status symbol table => RED"
+          "ref": "check:task-status-symbol-source (client covers the shared STATUS_ORDER enum)",
+          "assertion": "the client badge render covers every value of the shared STATUS_ORDER enum (task-status-constants.ts); a status with no client glyph => RED. NO glyph-extraction/vocab-unification asserted (separate Tron-surface decision)."
         },
-        "stubMustFail": "PENDING: seed a 2nd task-status symbol table (or a client-local band glyph) diverging from the shared source => RED"
+        "stubMustFail": "PENDING: seed a STATUS_ORDER value with no client glyph -> RED (the r4059 lint already does this on the band; wire it strict)"
       },
       {
         "id": "AC-wired-strict-not-report-only",
@@ -75,7 +75,8 @@
       }
     ],
     "redBaselineEvidence": "✅ CAPTURED (tester 357a3f8ac; PO-verified; robbin-req re-verified NODE-true-exit=1 no-pipe): SERVER 5 statuses / CLIENT BADGE_MAP 14 keys / UNCOVERED = the band 'QA-Review-with-open-CR' -> gray raw-text; non-vacuous stub. AC-4 satisfied-as-delivered; satisfaction stays UNVERIFIED until the shared-source fix flips this RED green AND the lint is wired strict.",
-    "campaignEvidence": "Two self-catches recorded as evidence the doctrine holds UNDER PRESSURE (both = the same class the campaign fights, caught in the instrument-maker's own hands): (1) TESTER self-catch — its first lint cut tested ONLY the band because a regex broke on a readonly type annotation = a HAND-LIST OF ONE, the exact under-coverage it had just condemned in check-status-symbol.ts; found mid-build + fixed to all 5. (2) PO near-miss — nearly reported 'the lint prints RED but exits 0' because the run was piped to tail and read TAIL's exit code, NOT node's; rerun without the pipe gave 1 = measured a PROXY (pipeline exit) instead of the ARTIFACT (node exit), the same proxy-not-artifact class as everything else. robbin-req applied that lesson here: verified node's TRUE exit directly, no pipe."
+    "campaignEvidence": "Two self-catches recorded as evidence the doctrine holds UNDER PRESSURE (both = the same class the campaign fights, caught in the instrument-maker's own hands): (1) TESTER self-catch — its first lint cut tested ONLY the band because a regex broke on a readonly type annotation = a HAND-LIST OF ONE, the exact under-coverage it had just condemned in check-status-symbol.ts; found mid-build + fixed to all 5. (2) PO near-miss — nearly reported 'the lint prints RED but exits 0' because the run was piped to tail and read TAIL's exit code, NOT node's; rerun without the pipe gave 1 = measured a PROXY (pipeline exit) instead of the ARTIFACT (node exit), the same proxy-not-artifact class as everything else. robbin-req applied that lesson here: verified node's TRUE exit directly, no pipe.",
+    "immediateFixNote": "The user-visible fix lands under EXISTING T40.1 (PO scope-split, NOT this req): BADGE_MAP += band entry ('qa-review-with-open-cr': {color, symbol:'🔁'}) so the band renders its glyph instead of gray raw-text. That flips the r4059 RED baseline GREEN. THIS req (R40.64) = the CLASS: the client-coverage lint (over STATUS_ORDER) wired strict so a NEW uncovered status can never recur. Glyph EXTRACTION/vocab-unification (would restyle Tron's board) = a SEPARATE Tron-surface decision the PO takes to Tron, NOT part of the class-kill."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
