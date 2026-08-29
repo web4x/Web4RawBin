@@ -2036,28 +2036,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // on the tap regardless of status (one rule per intent-kind, no status branch). Also pins the current SPRINT so the
           // resolver lands on the designated task's sprint. Same designate seam used by /api/current-sprint/designate.
           const MC_CU = 'current-sprint-singleton-0000-000000000001';
-          // R40.1 CR#86-3 SINGLE-FOCUS: the task being DISPLACED as current (the singleton's PRIOR currentTaskUuid) is
-          // demoted to NEXT — not lost, not a 2nd current. Capture it BEFORE we overwrite currentTaskUuid below.
-          const priorCurrent = String((idx.get(MC_CU)?.model as Record<string, unknown>)?.currentTaskUuid || '').replace('ior:instance:', '').split('@')[0];
+          // fact-2 (architect 11ec76c93 B-refined): make-current stores ONLY the designation. The old auto-demote
+          // (priorCurrent → nextBacklogOverride) is REMOVED — it captured the R40.18-retired stored currentTaskUuid, NOT
+          // the DERIVED current Tron sees, so NEXT went silent-stale (stayed 37.2 after make-current 40.1→40.10). The
+          // displaced current is now derived per-read in getThreeSlots (masked-derived-current, tier 2). Owner explicit
+          // designate-next (POST /api/current-sprint/designate slot:next) is UNTOUCHED — it still writes nextBacklogOverride.
           let mcSprintNum: number | null = null;
-          let priorInSprint = false; // is the displaced prior-current in the SAME sprint as the new current (single-focus within one sprint)?
-          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '').split('@')[0]); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); priorInSprint = !!priorCurrent && tasks.includes(priorCurrent); break; } }
+          for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '').split('@')[0]); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); break; } }
           const desIntent: Record<string, unknown> = { currentTaskUuid: taskUuid };
           if (mcSprintNum != null) desIntent.sprintName = sprintPrefix(mcSprintNum);
-          // Demote prior → next iff it is a REAL, NON-terminal (not Done), in-sprint Task and not the same task being re-designated.
-          if (priorCurrent && priorCurrent !== taskUuid && priorInSprint) {
-            const pu = idx.get(priorCurrent);
-            const pm = pu ? (pu.model as Record<string, unknown>) : null;
-            // R40.1 CR#86-3 / L-S40o fix: demote the displaced prior to NEXT only if it is a LIVE task — exclude Done AND
-            // Superseded AND Cancelled. The old Done-ONLY check leaked a dead (superseded/cancelled) prior into the NEXT
-            // slot; a terminal/dead task must never become 'next backlog'. (Superseded/Cancelled are separate fields, NOT
-            // deriveStatusEnum outputs, so they need their own check.)
-            const priorTerminal = !pm
-              || deriveStatusEnum(String(pm.statusChecklist ?? '')) === 'Done'
-              || (pm.supersededBy != null && pm.supersededBy !== '')
-              || (pm.cancelledReason != null && pm.cancelledReason !== '');
-            if (pu && pu.ior === 'ior:class:Task' && !priorTerminal) desIntent.nextBacklogOverride = priorCurrent; // getThreeSlots reads nextBacklogOverride for the NEXT slot → single-focus preserved
-          }
           if (idx.get(MC_CU)) UnitController.apply(idx, 'ior:class:CurrentSprint', MC_CU, desIntent, { publish: publishUnitChanged });
           else UnitController.create(idx, 'ior:class:CurrentSprint', MC_CU, { ior: 'ior:class:CurrentSprint', model: { uuid: MC_CU, name: 'Current', ...desIntent }, ownerIor: null }, { publish: publishUnitChanged });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });

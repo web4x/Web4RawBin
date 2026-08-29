@@ -284,6 +284,7 @@ export class CurrentSprint {
     // N") rather than going blank. A REASONED pick, not a silent arbitrary one (fail-loud lineage).
     if (i < 0 && sprintTasks.length && sprintTasks.every(t => t.terminal)) i = sprintTasks.length - 1;
     let current: Slot | null = i >= 0 ? sprintTasks[i] : null;
+    const derivedCurrent: Slot | null = current; // fact-2 (architect 11ec76c93 B-refined): the AUTO-derived current (max-lastAdvancedAt) captured BEFORE the EXPLICIT-WINS override — what a valid designation MASKS; becomes NEXT (displacement-by-derivation, single-source with current, re-derived per read).
     // R40.49 EXPLICIT-WINS-WHILE-VALID (architect R40.44-REVERSAL 5c330e44d): an owner make-current DESIGNATION
     // (currentTaskUuid) OVERRIDES the derived current, VALIDITY RE-EVALUATED PER READ — wins iff the designated task is in
     // the resolved sprint AND its status is Planned/In-Progress/QA-Review ("reviewing IS working"). It EXPIRES the moment
@@ -337,19 +338,31 @@ export class CurrentSprint {
     // R40.18: next = the task FOLLOWING current in completion order, SKIPPING TERMINAL (a QA-Review task is not
     // upcoming backlog — it has left the WIP set). Auto-scan uses !terminal; the explicit override below keeps the
     // design's not-Done validation (a steered next may legitimately be anything not yet Done).
+    // fact-2 (architect 11ec76c93, B-refined) — NEXT is THREE-TIER, mirroring current's priority:
+    //  (1) owner EXPLICIT designate-next (validity-checked per read: not-done, not the current) — the R40.44-conformant
+    //      stored-with-revalidation owner steer via /api/current-sprint/designate slot:next. KEPT (a real owner capability).
+    //  (2) ELSE the MASKED derived-current: when a valid EXPLICIT-WINS designation moved `current` to D and that masked a
+    //      DIFFERENT auto-derived current R (D !== R), the displaced R IS next — the SAME single source as current,
+    //      re-derived per read. REPLACES the make-current AUTO-write of nextBacklogOverride (the silent-stale bug: it
+    //      captured the R40.18-retired stored pointer, NOT the derived current Tron sees → NEXT never tracked displacement).
+    //  (3) ELSE the forward auto-scan (first not-done after current in-sprint, then fall-forward to the next sprint).
     let nextBacklog: Slot | null = null;
-    for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].terminal) { nextBacklog = sprintTasks[k]; break; } }
-    if (!nextBacklog && currentSprint) {
-      // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering (nearest later sprint for nextBacklog fall-forward). NOT a display list; MUST NOT route through bySprintDisplayOrder; reordering breaks pin resolution.
-      const forward = sprintUnits.filter(s => s.number > currentSprint!.number).sort((a, b) => a.number - b.number);
-      for (const sp of forward) {
-        const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.terminal);
-        if (open) { nextBacklog = open; break; }
+    // (1) owner explicit designate-next (validity-checked per read — the honor, kept; forward across sprints is fine, reject only a stale DONE/past/self override)
+    if (this.nextBacklogOverride) { const o = slotInfo(this.nextBacklogOverride); if (o && !o.done && o.uuid !== currentUuid) nextBacklog = o; }
+    // (2) ELSE the masked derived-current (displacement-by-derivation — the fact-2 fix)
+    if (!nextBacklog && derivedCurrent && current && derivedCurrent.uuid !== current.uuid && !derivedCurrent.terminal) nextBacklog = derivedCurrent;
+    // (3) ELSE forward auto-scan + fall-forward to the next sprint's first open task
+    if (!nextBacklog) {
+      for (let k = i + 1; k < sprintTasks.length; k++) { if (!sprintTasks[k].terminal) { nextBacklog = sprintTasks[k]; break; } }
+      if (!nextBacklog && currentSprint) {
+        // ⚠ R40.50 EXEMPT (lint allow-list): ALGORITHMIC pin-hop ordering (nearest later sprint for nextBacklog fall-forward). NOT a display list; MUST NOT route through bySprintDisplayOrder; reordering breaks pin resolution.
+        const forward = sprintUnits.filter(s => s.number > currentSprint!.number).sort((a, b) => a.number - b.number);
+        for (const sp of forward) {
+          const open = sp.tasks.map(slotInfo).find((t): t is Slot => !!t && !t.terminal);
+          if (open) { nextBacklog = open; break; }
+        }
       }
     }
-    // honor an explicit nextBacklog pin if it points to a NOT-DONE task (forward across sprints is
-    // fine — that's real upcoming work; reject only a stale DONE/past override = the phantom source).
-    if (this.nextBacklogOverride) { const o = slotInfo(this.nextBacklogOverride); if (o && !o.done && o.uuid !== currentUuid) nextBacklog = o; }
 
     // BUG-C invariant: no UUID appears in more than one slot.
     const lcUuid = lastCompleted?.uuid || '';
