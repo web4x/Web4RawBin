@@ -1,98 +1,60 @@
-// TRON TWO-CLIENT ACCEPTANCE HARNESS (prep for Tron's R40.10 approve → live second-tab measurement, @390 real-WebKit).
-// Tron's act: approve a QA-Review task in ONE client → the OTHER client's views update LIVE (no refresh, no poll).
-// ★ The REAL end-to-end (owner-auth approve → server publishUnitChanged → WS fan-out → both tabs re-render) is Tron's
-//   OWNER-authenticated device tap (RCE-sensitive; NEVER headless-greened — same law as r4017). This harness proves,
-//   before he touches anything: (A) the wiring BOTH-SIDES by construction + stub-must-fail; (B) the RECEIVE+RENDER half
-//   behaviorally in a 2nd client — a 'graph' notify (what the WS 'unit-changed' bridge fires) makes the tree re-render
-//   the QA-Review→Done flip with NO reload; (C) the per-surface watchers Tron will read (tree ROW / status BADGE / DETAIL
-//   / approve-queue) so I report per-surface, never a general green. Rehearsed on a THROWAWAY route (never Tron's task).
-// MECHANISM (measured, served 0.8.103): approveByOwner (server.ts:1562) → UnitController.apply(target:Done, publish:
-//   publishUnitChanged); RawBinClient.ts:98  msg 'unit-changed' → ViewBus.notify('graph'); rb-trace-tree.ts:107
-//   ViewBus.subscribe('graph', ()=>this.render()). TASKS: T37.26 c8e0b1d2 (Planned — NO approve, NO set-current[retired
-//   R40.18] = both correct-absent); T37.24 5acdcc4c (QA Review — approve half + it IS the realtime-MVC slice task).
+// TRON TWO-CLIENT APPROVE→OBSERVER gate — the REAL broadcast→receive→render path, no mock.
+// ★ RETARGET (PO 2026-08-29): this was a MOCKED FALSE-GREEN (the mock-blindness class audit's 1 blind gate) — it
+//   route.fulfill'd /api/trace/children with a fake Done flip AND called t.render() DIRECTLY, standing in for the exact
+//   ViewBus.subscribe('graph')→render receive path it claimed to prove. It greened even if that path were fully broken.
+//   This is TRON'S defect class (approve on one tab → the OTHER tab's view must update live), so a blind gate here was
+//   blind exactly where it mattered. NOW: client-1 does a REAL owner approve on scratch (owner-auth headless-provable via
+//   r4031-foundation); PASSIVE client-2 must re-render from the SERVER BROADCAST ALONE — no reload, no direct render call,
+//   no route mock. Transition-checked (QA-Review → Done, a real change) + precondition (server actually reached Done) +
+//   fail-closed (detail not found ≠ pass) + unscoreable runs EXCLUDED, not counted. RED if client-2 stays stale; GREEN
+//   only when the real WS→ViewBus→render receive path delivers. Mechanism: approveByOwner(server.ts) → publishUnitChanged
+//   → RawBinClient 'unit-changed' → ViewBus.notify → the observer view re-derives.
+import { setupFoundation } from './r4031-foundation.mjs';
 import { webkit } from '@playwright/test';
-import fs from 'node:fs';
-import { execSync } from 'node:child_process';
-import { seedSystemTester } from './system-tester-setup.mjs';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
-const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false,
-  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const NODE = 'tron-twoclient-parent-0001';
-const SENT = 'Task 37.24: LIVE-FLIP-SENTINEL';
-const body = (done) => JSON.stringify({ uuid: NODE, type: 'Sprint', name: 'Sprint 37 — Active', hasChildren: true, children: [
-  { uuid: '5acdcc4c-3f6c-4aea-95ad-3ab19b14ff40', type: 'Task', name: done ? SENT : 'Task 37.24: awaiting verdict', hasChildren: false, status: done ? 'Done' : 'QA Review' }] });
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-// ── (A) WIRING both-sides by construction + STUB-MUST-FAIL ──
-// ★ SERVED-HONEST: read the COMMITTED code (git show HEAD:) == what is BUILT+SERVED, NEVER the working tree — a peer's
-//   uncommitted fix in the tree would false-green a claim about the running build (the exact near-miss I owned 2026-08-18).
-//   Caller must also confirm served==committed==tagged before trusting this against the live build.
-const showHead = (rel) => { try { return execSync(`git show HEAD:${rel}`, { cwd: ROOT, encoding: 'utf8' }).replace(/\s+/g, ' '); } catch { return ''; } };
-const dirty = execSync('git status --porcelain src/ts/server/server.ts src/public/ts/RawBinClient.ts src/public/ts/trace/rb-trace-tree.ts', { cwd: ROOT, encoding: 'utf8' }).trim();
-const rbc = showHead('src/public/ts/RawBinClient.ts');
-const tree = showHead('src/public/ts/trace/rb-trace-tree.ts');
-const srv = showHead('src/ts/server/server.ts');
-const bridgeWired = /'unit-changed'.{0,40}ViewBus\.notify\('graph'\)/.test(rbc);          // WS transport → bus
-const subWired = /ViewBus\.subscribe\('graph',\s*\(\)\s*=>\s*this\.render\(\)\)/.test(tree); // bus → tree re-render
-const emitWired = /approveByOwner[\s\S]{0,600}?UnitController\.apply\([^)]*target:\s*'Done'[\s\S]{0,80}?publish:\s*publishUnitChanged/.test(srv); // approve → seam emit
-const canFail = !/ViewBus\.subscribe\('BOGUS-NO-CHANNEL'/.test(tree);                       // stub-must-fail: the check discriminates
-const wiring = bridgeWired && subWired && emitWired;
+const f = await setupFoundation({ commit: 'HEAD', buildDist: true });
+const oh = f.ownerHeaders();
+const QA = f.seeded.qaReview;   // full-evidence QA-Review task → approveByOwner genuinely reaches Done + fires the broadcast
+console.log(`two-client approve→observer, scratch@HEAD ${f.servedVersion}, task ${QA.slice(0, 8)} (QA-Review, full evidence)`);
+const statusOf = async (u) => { const r = await fetch(`${f.base}/api/ior/ior:instance:${u}`).catch(() => null); if (!r) return '?'; const d = await r.json(); return d?.unit?.model?.status ?? '?'; };
 
-const surfaces = (page) => page.evaluate(() => {
-  const t = document.querySelector('rb-trace-tree');
-  const txt = t?.innerText || '';
-  const greenBadge = !!t?.querySelector('.badge-done, .status-done, [data-status="Done"], .de-badge-green');
-  return { row24: txt.includes('37.24'), sentinel: txt.includes('LIVE-FLIP-SENTINEL'), awaiting: txt.includes('awaiting verdict'), greenBadge, len: txt.length };
-});
-
-const browser = await webkit.launch({ headless: true });
-let pass = false, note = '';
+const b = await webkit.launch({ headless: true });
 try {
-  // TWO clients on the SAME view, both showing T37.24 = QA Review (armed=false)
-  const mk = async (armedRef) => {
-    const ctx = await browser.newContext({ ...IOS, serviceWorkers: 'block' });
-    await seedSystemTester(ctx);
-    await ctx.route('**/api/trace/children/**', (r) => r.request().url().includes(NODE)
-      ? r.fulfill({ status: 200, contentType: 'application/json', body: body(armedRef.v) })
-      : r.continue());
-    const page = await ctx.newPage();
-    await page.goto(`${BASE}/trace?seed=${NODE}`, { waitUntil: 'networkidle' }).catch(() => {});
-    await page.evaluate(() => { window.__noReload = 'alive'; });
-    return { ctx, page };
-  };
-  const aArm = { v: false }, bArm = { v: false };
-  const A = await mk(aArm), B = await mk(bArm);
-  // inject the seed so both trees fetch our NODE (route-controlled) — mount a seeded tree
-  const mountSeed = async (page) => { await page.evaluate((n) => { let t = document.querySelector('rb-trace-tree'); if (!t) { t = document.createElement('rb-trace-tree'); document.body.appendChild(t); } t.setAttribute('data-seed-ior', `sprint:${n}`); t.setAttribute('ref', `sprint:${n}`); }, NODE); await sleep(1500); };
-  await mountSeed(A.page); await mountSeed(B.page);
+  const mk = async () => { const c = await b.newContext({ ...IOS, serviceWorkers: 'block' }); await c.addInitScript(t => { try { localStorage.setItem('rawbin-player-id', t) } catch {} }, oh['x-player-token']); const sm = (oh['Cookie'] || '').match(/sm_session=([^;]+)/); if (sm) await c.addCookies([{ name: 'sm_session', value: sm[1], domain: 'localhost', path: '/' }]); return c; };
+  // client-2 = PASSIVE observer: open the task detail (QA-Review), then never touch it again
+  const c2 = await mk(); const p2 = await c2.newPage();
+  await p2.goto(`${f.base}/trace`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+  await p2.waitForFunction(() => !!customElements.get('rb-detail-drawer'), { timeout: 20000 }).catch(() => {});
+  await p2.evaluate((ref) => { const d = document.querySelector('rb-detail-drawer'); if (d) { d.setAttribute('open', ''); d.setAttribute('ref', ref); } }, `task:${QA}`);
+  await sleep(1500);
+  await p2.evaluate(() => { window.__nr = 'alive'; });
+  const detailStatus = () => p2.evaluate(() => { const d = document.querySelector('rb-detail-drawer'); const panel = d?.querySelector('.drawer-panel-detail') || d; for (const el of (panel?.querySelectorAll('.sv-field,.dv-field,[class*=field],li,tr,div') || [])) { const m = (el.textContent || '').trim().match(/^Status[:\s]+(.+)$/i); if (m) return m[1].trim().slice(0, 30); } return null; });
+  const before = await detailStatus();
+  console.log(`client-2 observer detail status BEFORE: "${before}"`);
 
-  const a0 = await surfaces(A.page), b0 = await surfaces(B.page);
-  // FAIL-CLOSED: arm B's data to Done but do NOT fire the bus → B must STILL show QA Review (no spurious live-update)
-  bArm.v = true; await sleep(600);
-  const bSpurious = (await surfaces(B.page)).sentinel;
-  // (B) RECEIVE+RENDER: fire the 'graph' subscriber in tab B (what the WS 'unit-changed' bridge triggers) → re-render
-  await B.page.evaluate(() => { const t = document.querySelector('rb-trace-tree'); if (t && typeof t.render === 'function') t.render(); });
-  await B.page.waitForFunction(() => (document.querySelector('rb-trace-tree')?.innerText || '').includes('LIVE-FLIP-SENTINEL'), { timeout: 8000 }).catch(() => {});
-  const b1 = await surfaces(B.page);
-  const a1 = await surfaces(A.page); // tab A NOT re-fired → stays QA Review (per-client receive, not a shared reload)
-  const bNoReload = await B.page.evaluate(() => window.__noReload === 'alive');
+  // client-1 = actor: REAL owner approve (its own page action would also work; a fetch is the same server broadcast trigger)
+  const c1 = await mk(); const p1 = await c1.newPage(); await p1.goto(`${f.base}/trace`, { waitUntil: 'domcontentloaded' }).catch(() => {});
+  const ap = await fetch(`${f.base}/api/task/${QA}/approve`, { method: 'POST', headers: oh }).then(r => r.status).catch(() => 0);
+  const svr = await statusOf(QA);
+  console.log(`client-1 approve → ${ap}; server status now "${svr}"`);
 
-  const liveFlip = b1.sentinel && !bSpurious;          // B updated ONLY after the notify (fail-closed)
-  const perClient = a1.awaiting || !a1.sentinel;        // A untouched → it's a targeted re-render, not a global reload
-  fs.mkdirSync(`${ROOT}/test-results/rtron-twoclient`, { recursive: true });
-  await A.page.screenshot({ path: `${ROOT}/test-results/rtron-twoclient/tabA-qareview.png` }).catch(() => {});
-  await B.page.screenshot({ path: `${ROOT}/test-results/rtron-twoclient/tabB-liveflip-done.png` }).catch(() => {});
-  pass = wiring && canFail && liveFlip && bNoReload && perClient;
-  note = `wiring(bridge=${bridgeWired} sub=${subWired} emit=${emitWired})=${wiring} can-fail=${canFail} | B fail-closed(no-spurious)=${!bSpurious} live-flip=${b1.sentinel} NO-reload=${bNoReload} | A-untouched=${perClient}`;
-  await A.ctx.close(); await B.ctx.close();
-} finally { await browser.close(); }
+  // client-2 must re-render to Done from the BROADCAST alone
+  let flippedAt = null; const t0 = Date.now();
+  while (Date.now() - t0 <= 8000) { const s = await detailStatus(); if (s && /done/i.test(s)) { flippedAt = Date.now() - t0; break; } await sleep(250); }
+  const noReload = await p2.evaluate(() => window.__nr === 'alive');
+  const after = await detailStatus();
 
-console.log('===== TRON TWO-CLIENT ACCEPTANCE HARNESS — prep (@390 real-WebKit) =====');
-console.log('WIRING read from COMMITTED HEAD (git show HEAD:) = served-honest.', dirty ? ('DIRTY tree (served==committed only after expert deploys): ' + dirty.replace(/\n/g, ' | ')) : '(clean tree)');
-console.log('  approve-EMIT served-wired (approveByOwner→UnitController.apply+publishUnitChanged):', emitWired, emitWired ? '' : '← NOT in served build yet (Tron will see NO live update until the fix deploys)');
-console.log(note);
-console.log('SURFACES to read per-client on Tron approve: (1) tree ROW text flips, (2) status BADGE → green Done, (3) DETAIL panel, (4) approve-queue drops the row.');
-console.log('READY:', pass ? 'GREEN — wiring both-sides + receive/render half proven; observer rig + evidence capture ready for Tron\'s owner-tap' : 'RED — see note');
-console.log('★ REAL owner-approve → publishUnitChanged → WS → both tabs = TRON\'s owner-auth device tap (RCE-sensitive, never headless-greened). This harness proves RECEIVE+WIRING; his tap proves EMIT.');
-process.exitCode = pass ? 0 : 1;
+  const precondition = ap === 200 && /done/i.test(String(svr));           // the approve genuinely reached Done server-side
+  const transition = before !== null && !/done/i.test(String(before));    // observer was NOT already Done → a real change is required
+  const found = before !== null && after !== null;
+  console.log(`client-2 observer detail status AFTER: "${after}" | flipped-to-Done @${flippedAt !== null ? flippedAt + 'ms' : 'NEVER within 8s'} | noReload=${noReload}`);
+  console.log('\n── VERDICT (two-client approve→observer, scratch) ──');
+  if (!found) console.log('FAIL-CLOSED: observer detail not found — cannot score as a pass.');
+  else if (!precondition) console.log(`UNSCOREABLE (excluded): approve did not reach Done server-side (status=${ap}/${svr}) — not misattributing to the receive path.`);
+  else if (!transition) console.log('UNSCOREABLE (excluded): observer was already Done before approve — no transition to observe.');
+  else if (flippedAt !== null && noReload) console.log(`GREEN: client-2 re-rendered QA-Review→Done from the broadcast alone @${flippedAt}ms, no reload — the real WS→ViewBus→render receive path delivers.`);
+  else console.log(`RED (Tron's defect class): client-1 approve reached Done server-side, but PASSIVE client-2's view stayed "${after}" for 8s with no reload — the broadcast→receive→render path did NOT update the observer.`);
+} finally { await b.close(); const td = await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`); }
