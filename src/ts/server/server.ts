@@ -2028,6 +2028,26 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const _sid = cookieFrom(req, 'sm_session');
           const _ownerTok = (_sid ? smSessions.get(_sid)?.token : '') || ServerManagerGuard.playerTokenFrom(req) || '';
           const actor = FeatureManager.profileUuidOf(_ownerTok, userProfiles as unknown as Map<string, { redirectTo?: string }>) || 'owner';
+          const MC_CU = 'current-sprint-singleton-0000-000000000001';
+          // fact-2 (architect 1c38064c9 REVISED per expert R7-flag): capture the PRE-WRITE DERIVED current (the real prior the
+          // user saw) BEFORE the makeCurrent apply STAMPS taskUuid.lastAdvancedAt=now — that stamp makes the new target the
+          // max-lastAdvancedAt derived current, DESTROYING the prior's identity so post-write derivation cannot recover it.
+          // Store the prior as nextBacklogOverride (CORRECT source = pre-write DERIVED, NOT the R40.18-retired stored pointer =
+          // the old silent-stale bug). The honor block (:352) re-validates it per read → stored-WITH-revalidation, not silent-stale.
+          let displacedPrior = '';
+          try {
+            const csm = (idx.get(MC_CU)?.model || {}) as Record<string, unknown>;
+            const dNum = /\d+/.exec(String(csm.sprintName || ''))?.[0];
+            const pin = resolveSprintPin(idx, { currentSprintNumber: dNum ? Number(dNum) : null, nextSprintNumber: null });
+            const cur = pin.current;
+            const pre = CurrentSprint.slotsFrom(idx, cur ? { number: cur.number, uuid: cur.uuid, name: cur.name } : undefined, String(csm.currentTaskUuid || '') || undefined);
+            const priorUuid = pre.current?.taskUuid || '';
+            if (priorUuid && priorUuid !== taskUuid) { // demote iff a real, non-terminal, distinct-from-new-target Task
+              const pm = idx.get(priorUuid)?.model as Record<string, unknown> | undefined;
+              const priorTerminal = !pm || deriveStatusEnum(String(pm.statusChecklist ?? '')) === 'Done' || (pm.supersededBy != null && pm.supersededBy !== '') || (pm.cancelledReason != null && pm.cancelledReason !== '');
+              if (idx.get(priorUuid)?.ior === 'ior:class:Task' && !priorTerminal) displacedPrior = priorUuid;
+            }
+          } catch { /* best-effort capture — a failure leaves NEXT to auto-scan, never blocks the designation */ }
           const unit = UnitController.apply(idx, 'ior:class:Task', taskUuid, { makeCurrent: true }, { actor, publish: publishUnitChanged });
           const status = String((unit.model as Record<string, unknown>).status || '');
           // R40.49 (architect R40.44-REVERSAL 5c330e44d): DESIGNATE this task as current — EXPLICIT-WINS-WHILE-VALID. Write
@@ -2035,16 +2055,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // QA-Review}, expires at Done/re-designation — re-checked per read, expiry observed by StaleSteerLog). ALWAYS designate
           // on the tap regardless of status (one rule per intent-kind, no status branch). Also pins the current SPRINT so the
           // resolver lands on the designated task's sprint. Same designate seam used by /api/current-sprint/designate.
-          const MC_CU = 'current-sprint-singleton-0000-000000000001';
-          // fact-2 (architect 11ec76c93 B-refined): make-current stores ONLY the designation. The old auto-demote
-          // (priorCurrent → nextBacklogOverride) is REMOVED — it captured the R40.18-retired stored currentTaskUuid, NOT
-          // the DERIVED current Tron sees, so NEXT went silent-stale (stayed 37.2 after make-current 40.1→40.10). The
-          // displaced current is now derived per-read in getThreeSlots (masked-derived-current, tier 2). Owner explicit
-          // designate-next (POST /api/current-sprint/designate slot:next) is UNTOUCHED — it still writes nextBacklogOverride.
           let mcSprintNum: number | null = null;
           for (const u of idx.list()) { const su = idx.get(u); if (su?.ior !== 'ior:class:Sprint') continue; const tasks = (((su.model as Record<string, unknown>).tasks as string[]) || []).map((t) => String(t).replace('ior:instance:', '').split('@')[0]); if (tasks.includes(taskUuid)) { mcSprintNum = sprintNumOf(su); break; } }
           const desIntent: Record<string, unknown> = { currentTaskUuid: taskUuid };
           if (mcSprintNum != null) desIntent.sprintName = sprintPrefix(mcSprintNum);
+          if (displacedPrior) desIntent.nextBacklogOverride = displacedPrior; // fact-2: the captured pre-write derived prior = the displaced-NEXT (honor :352 re-validates per read)
           if (idx.get(MC_CU)) UnitController.apply(idx, 'ior:class:CurrentSprint', MC_CU, desIntent, { publish: publishUnitChanged });
           else UnitController.create(idx, 'ior:class:CurrentSprint', MC_CU, { ior: 'ior:class:CurrentSprint', model: { uuid: MC_CU, name: 'Current', ...desIntent }, ownerIor: null }, { publish: publishUnitChanged });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
