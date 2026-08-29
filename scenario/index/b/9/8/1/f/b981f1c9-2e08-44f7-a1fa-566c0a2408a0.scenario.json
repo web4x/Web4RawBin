@@ -12,9 +12,8 @@
     "acceptanceCriteria": "- [ ] A File unit's name renders/resolves to its FILENAME (not a raw UUID), its location is the real path (not the uuid), sourceFile is the real file ref (not ior:file:<uuid>), and ownerIor is PRESENT — matching the working TEST render, on PROD.\n- [ ] ROOT DETERMINED (architect diff prod-vs-test): code vs DATA vs generation is identified and recorded here before the fix; RENDER-ONLY vs PERSISTED is answered (persisted => a data repair of all File units written since the regression is required on top of the code fix).\n- [ ] If PERSISTED: the affected File units (uuid-as-name / null-owner) are repaired via a gated, counted, idempotent data fix (dry-run + before/after counts, no unit lost); none left uuid-named.\n- [ ] GATE: the same File unit fetched from PROD renders identically to TEST (name=filename, owner present) — a prod unit still showing uuid-as-name or null ownerIor => RED. Regression-guard so it cannot recur.",
     "subtasks": "None (atomic task; architect may split at diagnosis).",
     "status": "Planned",
-    "coveredRequirements": [
-      "ior:instance:29c3a3a5-e8cd-4697-8eaa-77282b7a6068"
-    ],
+    "coveredRequirements": [],
+    "reqPending": "REQ-PENDING — the covering Requirement is NOT YET MINTED. coveredRequirements is intentionally EMPTY: a plausible-hex placeholder was RETIRED per PO because a real-looking uuid reads as FALSE COVERAGE to any scan (including the ac-untasked-audit this session shipped) = the exists/passes-a-scan/nothing-behind-it class. req formalizes the File-unit-name-regression Requirement, then wires it both-directionally. DO NOT read 40.66 as 'covered' until a real Requirement uuid is wired.",
     "useCases": [],
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "sprintName": "Sprint 40",
