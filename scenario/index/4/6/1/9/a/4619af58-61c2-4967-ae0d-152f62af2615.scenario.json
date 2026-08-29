@@ -1,0 +1,79 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4619af58-61c2-4967-ae0d-152f62af2615",
+    "altId": "R40.64",
+    "name": "Task-status symbols: ONE shared source (server+client), all statuses incl the band, enforced by a WIRED-strict RED-on-live lint",
+    "description": "The task-status SYMBOL rendering has ONE source, both server and client, covering ALL statuses including the band — enforced by a lint that is WIRED strict and PROVEN RED on the live defect. DEFECT (verified first-hand): Tron's board renders raw gray text 'qa-review-with-open-cr' instead of the band glyph, because the SERVER STATUS_GLYPHS (task-status.ts:117, 🔁 = QA-Review-with-open-CR) HAS it but the CLIENT BADGE_MAP (rb-object-item.ts:233) does NOT — two symbol tables maintained SEPARATELY; the band status falls through BADGE_MAP[status]||…||null -> raw text. CLASS FIX (what this req mints): a shared dep-free task-status source both import + its enforcing lint. NOTE: the user-visible band-glyph fix itself lands under EXISTING T40.1 units (no new req — repairing a broken render of a feature T40.1 owns); THIS req is the CLASS work.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:4f2dbcc4-bd97-4521-95de-1a6b4cfc6e71"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-board-defect + PO-scope-split",
+      "poRuling": "class work = shared task-status source + enforcing lint; the user-visible band-glyph fix lands under EXISTING T40.1 units (no new req)",
+      "tronObservation": "board renders raw gray 'qa-review-with-open-cr' instead of the band glyph",
+      "verifiedBy": "robbin-req first-hand: server STATUS_GLYPHS (task-status.ts:117) has 🔁 band; client BADGE_MAP (rb-object-item.ts:233) LACKS the band -> falls through to null -> raw text; check-status-symbol.ts NOT in package.json (0 mentions = unwired) + exits 0 (green) while its 2nd-vocab detector is report-only + it never covers BADGE_MAP",
+      "date": "2026-08-29"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "★ check-status-symbol.ts PASSES GREEN (exit 0) while the defect it is NAMED FOR stands — it does not merely FAIL TO CATCH, it CERTIFIES. WORSE than no guard, because the board reads it as coverage. Root: it EXISTS but is UNWIRED (0 mentions in package.json), its 2nd-vocabulary detector is REPORT-ONLY (never --strict), and it covers the SERVER vocabulary while the CLIENT BADGE_MAP + the band go unchecked. ★ A GUARD HAS THREE FAILURE MODES — EXISTS / WIRED / COVERS-THE-CLASS — all three must be closed or the green is HOLLOW; plus RED-ON-THE-LIVE-DEFECT (a lint that cannot red on its own motivating defect is the wrong lint). [[a-green-that-certifies-over-its-own-defect-is-worse-than-no-guard]] [[a-guard-has-three-failure-modes-exists-wired-covers]]",
+    "satisfactionStatus": "UNVERIFIED (shared source + lint unbuilt; RED baseline not captured; the certifying check-status-symbol still green over the live defect — honest third state).",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:20148749-0c79-49a9-9beb-f901a1289c22"
+    ],
+    "crossRefNote": "Same single-source-of-a-shared-truth + wired-guard family as R40.63 (state-file currency) / R40.55 (boot currency) / R40.56 (current single-source). Rides R40.54 failable-AC family. The band = R40.59 QA-Review-with-open-CR (task-status-constants.ts). The user-visible glyph fix lands under existing T40.1 (no req, PO scope-split).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-exists-shared-source",
+        "group": "guard/mode-1-EXISTS",
+        "text": "EXISTS: a SHARED dep-free task-status source (expert proposal task-status-glyphs.ts) that BOTH server and client import — client task rows derive their glyph/badge from it; the generic NON-task badges (pass/fail/impl-done…) stay in BADGE_MAP. ONE source for task-status symbols; the client no longer keeps a second table. (Today: 2 tables — server STATUS_GLYPHS + client BADGE_MAP; target = 1 shared task-status source.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:task-status-symbol-source (single source)",
+          "assertion": "task-status glyphs resolve from the ONE shared source on both server+client; a 2nd task-status symbol table => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd task-status symbol table (or a client-local band glyph) diverging from the shared source => RED"
+      },
+      {
+        "id": "AC-wired-strict-not-report-only",
+        "group": "guard/mode-2-WIRED",
+        "text": "WIRED: the lint is in ci:gates:raw as STRICT, NEVER report-only. Report-only is EXACTLY how check-status-symbol.ts hid: it EXISTS, was NEVER wired (0 mentions in package.json, measured), and its 2nd-vocabulary detector was REPORT-ONLY so it missed BADGE_MAP entirely. A lint not in the strict gate does not exist for CI. (Target: 1 strict gate entry; report-only=0.)",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates:raw (check present + --strict)",
+          "assertion": "the lint runs in ci:gates:raw with --strict (non-zero exit on violation); a report-only/absent wiring => the gate itself fails"
+        },
+        "stubMustFail": "PENDING: set the lint report-only (or remove from ci:gates) while the defect stands -> the wiring-check => RED"
+      },
+      {
+        "id": "AC-covers-the-class-client-and-band",
+        "group": "guard/mode-3-COVERS",
+        "text": "COVERS THE CLASS: the lint covers the CLIENT badge render AND ALL statuses INCLUDING the band (QA-Review-with-open-CR), not just the server table. The check-status-symbol miss was covering the server vocabulary while the CLIENT BADGE_MAP + the band status went unchecked. Every TaskStatusEnum value (Planned/In Progress/QA-Review-with-open-CR/QA Review/Done) MUST have a render on both surfaces via the shared source.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:task-status-symbol-source (client+all-statuses coverage)",
+          "assertion": "every TaskStatusEnum incl the band renders (no raw-text fallthrough) on the CLIENT surface via the shared source; a status with no client glyph => RED"
+        },
+        "stubMustFail": "PENDING: seed a TaskStatusEnum value (e.g. the band) with no client glyph in the shared source -> raw-text fallthrough => RED"
+      },
+      {
+        "id": "AC-red-on-the-live-defect",
+        "group": "guard/mode-4-RED-BASELINE",
+        "text": "RED-ON-THE-LIVE-DEFECT: the lint MUST be PROVEN to go RED on TODAY's unfixed tree (BADGE_MAP lacks the band => raw gray 'qa-review-with-open-cr' text) BEFORE the fix lands — that evidence is available NOW and is the strongest we can get (tester owns the RED). A lint that cannot RED on its own motivating defect is the WRONG lint. THEN the shared-source fix + the SAME lint greens.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:task-status-symbol-source RED-baseline (tester-owned)",
+          "assertion": "raw RED output on today's tree (client band = raw text) captured BEFORE the fix; SAME lint greens after the shared source lands"
+        },
+        "stubMustFail": "PENDING RED-BASELINE (tester): capture the lint RED on the live BADGE_MAP-lacks-band defect before the fix"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
