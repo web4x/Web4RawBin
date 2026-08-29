@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c7d92925-41ad-4c88-bbf6-8f8478293e8b",
+    "name": "deploy.targetPostBuildVersion",
+    "description": "deploy.mjs derives the target version AFTER the build stamps package.json (or directly from the Config unit); the served==committed poll targets that post-build version so a config-unit-only bump cannot false-abort a successful deploy; the un-skippable device-gate step 5 always runs (INV-PDG-5 by construction).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:62a19849-1c9d-4fd8-ac48-91e5dacbb542",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off deploy.mjs on build-go; expert fixes the read-order (name-it-not-fix-inline held); tester owns the RED baseline (v0.8.140 stale-read specimen)."
+  },
+  "ownerIor": "ior:instance:62a19849-1c9d-4fd8-ac48-91e5dacbb542"
+}

@@ -1,0 +1,69 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "62a19849-1c9d-4fd8-ac48-91e5dacbb542",
+    "altId": "R40.68",
+    "name": "deploy.mjs targets the POST-BUILD version — a config-unit-only bump cannot false-abort the served==committed poll or skip the device-gate",
+    "description": "deploy.mjs must target the POST-BUILD version, not a version read once BEFORE its own build stamps it — else a successful deploy is served-but-UNGATED. DEFECT (verified first-hand): scripts/deploy.mjs reads committedVersion() from package.json ONCE at start (:34) BEFORE the build step (:40) stamps package.json from the Config unit. On a CONFIG-UNIT-ONLY bump (no pre-build before deploy.mjs), the read is STALE. CONSEQUENCES measured live on v0.8.140: (a) the build-artifacts commit MESSAGE stamps the STALE version (098880909 says v0.8.139 while artifacts are v0.8.140); (b) the served==committed POLL targets the stale version -> a FALSE served!=committed abort on a SUCCESSFUL deploy -> the un-skippable device-gate step 5 NEVER RUNS = a served-but-UNGATED deploy (INV-PDG-5 defeated BY CONSTRUCTION). FIX (name-it, not inline): read the target version AFTER the build (or directly from the Config unit), OR enforce build+commit-package.json BEFORE the version read.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:c7d92925-41ad-4c88-bbf6-8f8478293e8b"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "expert-tooling-defect (name-it-not-fix-inline)",
+      "reportedBy": "robbin-expert",
+      "measuredLive": "v0.8.140 deploy: commit 098880909 'build artifacts v0.8.139' (stale) while artifacts are v0.8.140; served==committed poll targeted the stale version -> false abort -> device-gate step 5 never ran = served-but-UNGATED",
+      "verifiedBy": "robbin-req first-hand: deploy.mjs committedVersion():22 read at :34 BEFORE build at :40; commit 098880909 stamps v0.8.139",
+      "date": "2026-08-29",
+      "workspace": "minted in a detached worktree at origin/main (shared checkout is on the hotfix deploy branch — git-branch-before-every-commit)"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "★ A gate DEFEATED BY CONSTRUCTION: a version read ONCE before the build is stale-by-construction, so the served==committed poll false-aborts a SUCCESSFUL deploy and the un-skippable device-gate NEVER RUNS = served-but-UNGATED (INV-PDG-5 defeated). Same GATE-NEVER-RUNS family as check-status-symbol certifying-green (R40.66) — a gate that passes/aborts without ever exercising the real invariant. Sibling of version-bump-mandatory-on-client-fix. The read-ORDER (before vs after build) is the root, not the poll logic. [[a-gate-defeated-by-construction-never-runs]] [[read-order-before-vs-after-the-stamp-is-the-root]]",
+    "satisfactionStatus": "UNVERIFIED (defect named, fix not built; RED baseline not captured — honest third state; name-it-not-fix-inline per expert).",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:4619af58-61c2-4967-ae0d-152f62af2615"
+    ],
+    "crossRefNote": "Same gate-never-runs / guard-defeated family as R40.66 (task-status certifies-green) + the every-check-wired meta-check. Rides R40.54 failable-AC family. Sibling of version-bump-mandatory-on-client-fix. INV-PDG-5 = the un-skippable post-deploy device-gate.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-version-read-after-build",
+        "group": "fix/read-order",
+        "text": "deploy.mjs reads the target version AFTER the build stamps package.json (or directly from the Config unit), NEVER once-at-start-before-build. A CONFIG-UNIT-ONLY bump (no pre-build) => deploy.mjs targets the CORRECT post-build version. The single-read-before-build is a stale-by-construction proxy.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:deploy-version-read-order",
+          "assertion": "the target version deploy.mjs uses == the post-build package.json version on a config-unit-only bump"
+        },
+        "stubMustFail": "PENDING: seed a config-unit-only bump with a pre-build stale read -> deploy targets the wrong version -> RED"
+      },
+      {
+        "id": "AC-poll-target-equals-post-build",
+        "group": "by-construction/gate-runs",
+        "text": "The served==committed POLL targets the POST-BUILD version, so a successful deploy does NOT false-abort; the un-skippable device-gate step 5 ALWAYS runs (INV-PDG-5 holds by construction). This closes the served-but-UNGATED hole: today a stale poll-target false-aborts a SUCCESSFUL deploy and the gate never runs. + a BITE: poll-target == post-build version.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:deploy-poll-target-post-build (+ gate-runs)",
+          "assertion": "poll-target == post-build version; on a successful deploy the device-gate step 5 runs (no false served!=committed abort)"
+        },
+        "stubMustFail": "PENDING (bite/stub-must-fail): seed a STALE version read -> poll false-aborts + gate does NOT run -> RED (the live v0.8.140 specimen)"
+      },
+      {
+        "id": "AC-red-baseline-live-specimen",
+        "group": "RED-baseline/evidence",
+        "text": "RED-BASELINE on the live specimen: the v0.8.140 deploy (commit 098880909 stamps v0.8.139 while artifacts are v0.8.140; poll false-aborted; gate did NOT run) is the pre-fix RED evidence. The gate/test must be PROVEN RED on this stale-read case BEFORE the fix; then the read-order fix flips it GREEN (post-build target + gate runs). A gate that cannot RED on this shipped mis-deploy is the wrong gate.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "deploy-version-read-order RED-baseline",
+          "assertion": "RED captured on the v0.8.140 stale-read (poll-target stale / gate-skipped) before the fix; GREEN after (post-build target / gate runs)"
+        },
+        "stubMustFail": "PENDING RED-BASELINE: capture the stale-read RED (098880909 v0.8.139 vs v0.8.140 artifacts) before the fix"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
