@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "56f7808a-fdfd-4365-8a08-5fa0c5f0f6f0",
+    "name": "Task 37.18: A gate resolves an artifact the SAME WAY",
+    "slug": "task-37-18-a-gate-resolves-an-artifact-the-same-way",
+    "description": "Deliver + verify requirement R37.18 (A gate resolves an artifact the SAME WAY). Retroactive task unit minted scenario-first from the existing CURRENT-sprint requirement (#126 gap: active S37 work untracked). Covers R37.18; status derived from reality, staged by planner.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "",
+    "acceptanceCriteria": [],
+    "subtasks": [],
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:d2b6b6db-d858-45fc-9bf7-93e61a9dedca"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "statusBasis": "FLOOR: Planned. #126 retroactive task-mint for an ACTIVE S37 req; planner stages status to reality (structural, never assumed-Done).",
+    "remainingIssues": "",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-29"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}
