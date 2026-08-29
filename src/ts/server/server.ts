@@ -1737,6 +1737,41 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
     let filepath = rawUrl.split('?')[0];
     const urlParams = new URLSearchParams(rawUrl.includes('?') ? rawUrl.split('?')[1] : '');
 
+    // ── fact-1 live-MVC FLIGHT RECORDER sink (PO-ruled ACTIVE) — a passive client records the seconds before Tron's
+    // fix-reload and beacons them here. Conditions: (1) OWNER-GATED like every write endpoint (also scopes capture to
+    // the owner's device — non-owner refused); (2) payload CAPPED + oversized/malformed rejected; (3) retention rides
+    // the rawbin-*.log 7-day sweep (bounded + disposable, cleanupOldLogs); (4) FAIL-SILENT (never throws out of the
+    // sink); (5) NO-PII schema — technical keys only, ref must be a `type:uuid` key, anything else rejected.
+    if (filepath === '/api/diag/live-mvc') {
+      if (req.method !== 'POST') { res.writeHead(405, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'method' })); return; }
+      if (!requireOwnerHttp(req, res)) return; // (1) non-owner → 403 by the guard (its own DENY log)
+      const CAP = 65536; // (2) bound the write
+      let body = ''; let over = false;
+      req.on('data', (chunk: Buffer) => { if (over) return; body += chunk; if (body.length > CAP) over = true; });
+      req.on('end', () => {
+        try {
+          if (over) { res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'too-large' })); return; }
+          let parsed: { events?: unknown };
+          try { parsed = JSON.parse(body || '{}'); } catch { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'malformed' })); return; }
+          const events = Array.isArray(parsed?.events) ? parsed.events as Record<string, unknown>[] : null;
+          const ALLOWED = new Set(['k', 't', 'ref', 'conn', 'listeners', 'threw', 'state']);
+          const KINDS = new Set(['frame', 'render', 'socket', 'sub', 'unsub']);
+          const refOk = (r: unknown) => r === undefined || (typeof r === 'string' && r.length <= 80 && /^[a-z0-9_-]+(:[a-z0-9_-]+)?$/.test(r)); // (5) a ref can ONLY be a technical type:uuid key
+          const clean = !!events && events.length <= 200 && events.every(e =>
+            e && typeof e === 'object' && KINDS.has(e.k as string) && refOk(e.ref) && Object.keys(e).every(k => ALLOWED.has(k)));
+          if (!clean) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'schema' })); return; }
+          try {
+            fsSync.mkdirSync(LOGS_DIR, { recursive: true });
+            const d = new Date();
+            const name = `rawbin-live-mvc-diag-${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.log`; // (3) rides cleanupOldLogs (rawbin-*.log, 7-day)
+            fsSync.appendFileSync(path.join(LOGS_DIR, name), JSON.stringify({ at: Date.now(), owner8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8), events }) + '\n');
+          } catch { /* (4) fail-silent: a diag write failure must never surface to the client */ }
+          res.writeHead(204); res.end();
+        } catch { try { res.writeHead(204); res.end(); } catch { /* client gone */ } } // (4) never throw out of the sink
+      });
+      return;
+    }
+
     // R31.2/R31.3 server-manager OWNER-GATE choke-point (by construction, INV-G1): the /server-manager PAGE AND
     // every /api/server-manager/* route are gated HERE first by the SOLE assertOwner guard — no route (page or API)
     // can bypass it, and a future sub-route added inside this block inherits the gate. Handlers below run ONLY for

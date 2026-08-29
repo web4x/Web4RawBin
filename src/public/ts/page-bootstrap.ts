@@ -6,6 +6,7 @@
 // { transport: false } — an explicit declaration, never a silent default. A NEW live page that forgets to bootstrap is
 // caught by check-live-transport (the grep-lint BACKSTOP), so socket-less can't ship again.
 import { connectLiveBridge } from './live-bridge.js';
+import { installLiveMvcRecorder } from './live-mvc-recorder.js';
 
 export interface PageBootstrapOpts {
   transport?: boolean; // default true = open the ws→ONE-bus bridge; false = DECLARED opt-out (a page with no live units)
@@ -22,6 +23,7 @@ export function bootstrapPage(opts: PageBootstrapOpts = {}): void {
   // gate can read. (connectLiveBridge sets 'connected' on a real open ws — what the transport-connection gate asserts.)
   try {
     connectLiveBridge();
+    installLiveMvcRecorder(); // fact-1 diag: DORMANT — no-op unless opted in (?diag=live-mvc / window.__liveMvcDiag / local flag). Fail-silent internally.
   } catch (e) {
     const page = (typeof location !== 'undefined' ? location.pathname : '?');
     const cause = String((e as Error)?.message || e);
