@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fcebf924-ecf2-4727-bb98-8e0b40781701",
+    "name": "fileUnit.filenameNotUuidShape",
+    "description": "A File unit carries name=filename, location=real path, sourceFile=ior:file:<real path>, ownerIor set — never a raw uuid where the name belongs. Failable gates catch uuid-name/uuid-location/uuid-sourceFile/null-owner. Root (why prod File units regressed to uuid-shape while older test is correct) = architect prod-vs-test diff; chain wired at diagnosis.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:29c3a3a5-e8cd-4697-8eaa-77282b7a6068",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method at root-diagnosis (prod-vs-test File diff); symptom-not-fix, do not build until root known."
+  },
+  "ownerIor": "ior:instance:29c3a3a5-e8cd-4697-8eaa-77282b7a6068"
+}

@@ -1,0 +1,93 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "29c3a3a5-e8cd-4697-8eaa-77282b7a6068",
+    "altId": "R40.69",
+    "name": "File units carry FILENAMES not UUIDs (name/location/sourceFile real, ownerIor set) — Tron prod regression, two-server bisect",
+    "description": "A File unit MUST carry its FILENAME in name (name=filename, location=real path, sourceFile=ior:file:<real path>, ownerIor SET) — never a raw UUID where the name belongs. TRON MAJOR REGRESSION (relayed via PO 2026-08-29, prod.wo-da.de:4444): prod File-unit JSON shows ownerIor=NULL; name=a raw UUID (b9fa43a2-ea98-…) instead of a filename; location=the SAME raw uuid; sourceFile=ior:file:b9fa43a2-… — File units carry UUIDs where the NAME belongs. It RENDERS CORRECTLY on an OLDER TEST server = a two-server bisect (the data/generation changed between test and prod, not the renderer). ROOT is the ARCHITECT's (code/data/generation — diffing the same File unit from prod vs test); THIS req captures the SYMPTOM + the correct shape + failable gates. SYMPTOM-ONLY, do NOT build a fix until the root is known.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [
+      "ior:instance:b981f1c9-2e08-44f7-a1fa-566c0a2408a0"
+    ],
+    "tests": [],
+    "useCases": [
+      "ior:instance:fcebf924-ecf2-4727-bb98-8e0b40781701"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-major-regression (relayed via PO) + planner-tasked",
+      "relayedVia": "robbin-po 2026-08-29",
+      "prodServer": "prod.wo-da.de:4444",
+      "prodSpecimen": "File unit b9fa43a2-ea98-… : ownerIor=NULL, name=raw-uuid, location=same-uuid, sourceFile=ior:file:<uuid>; renders CORRECT on older TEST (two-server bisect)",
+      "verifiedBy": "robbin-req measured on-disk (main): 95 File units, 1 with name==uuid (569c4e79 name=325e17b6…, location empty, ownerIor SET) = a PARTIAL/related on-disk manifestation; the FULL prod symptom (uuid name+location+sourceFile + null owner) is prod-data — architect confirms via prod-vs-test diff",
+      "tronVerbatimStatus": "NOT a direct quote — symptom relayed via PO/planner task b981f1c9; exact Tron words pending if needed (not fabricated)",
+      "date": "2026-08-29"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "rootPending": "ARCHITECT owns the root (code/data/generation) by diffing the same File unit prod vs test. THIS req = the SYMPTOM requirement (correct File shape + failable gates). Do NOT build a fix until the root is named. useCases/chain wired at diagnosis.",
+    "satisfactionStatus": "UNVERIFIED (symptom captured; root pending architect diff; File-shape gates unbuilt; no RED baseline — honest third state).",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Adopted the planner placeholder 29c3a3a5 (real uuidgen v4, learning #43) as canonical — no re-point needed. Symptom req; root is architect's prod-vs-test diff. Rides R40.54 failable-AC family. Task 40.66 b981f1c9 both-dir.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-file-name-is-filename-not-uuid",
+        "group": "shape/name",
+        "text": "File.name is the FILENAME, NEVER a raw UUID. Gate: 0 File units whose name matches a uuid-v4 regex => RED (the exact prod symptom: name=b9fa43a2-…).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-unit-shape (name not uuid)",
+          "assertion": "no ior:class:File unit has name matching ^[0-9a-f]{8}-[0-9a-f]{4}-… ; a uuid-named File => RED"
+        },
+        "stubMustFail": "PENDING: seed a File unit with name=a raw uuid -> RED (the prod b9fa43a2 specimen)"
+      },
+      {
+        "id": "AC-file-location-is-path-not-uuid",
+        "group": "shape/location",
+        "text": "File.location is a real path/location, NEVER the raw uuid. Gate RED on a File whose location == its uuid (or matches a uuid regex).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-unit-shape (location not uuid)",
+          "assertion": "no File unit has location == a raw uuid; location=uuid => RED"
+        },
+        "stubMustFail": "PENDING: seed a File with location=uuid -> RED"
+      },
+      {
+        "id": "AC-file-sourcefile-is-real-path",
+        "group": "shape/sourceFile",
+        "text": "File.sourceFile is ior:file:<real path>, NEVER ior:file:<uuid>. Gate RED on sourceFile=ior:file:<uuid>.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-unit-shape (sourceFile real path)",
+          "assertion": "no File unit has sourceFile matching ior:file:<uuid>; ior:file:<uuid> => RED"
+        },
+        "stubMustFail": "PENDING: seed a File with sourceFile=ior:file:<uuid> -> RED"
+      },
+      {
+        "id": "AC-file-ownerior-set",
+        "group": "shape/owner",
+        "text": "File.ownerIor is SET (non-null) — a File belongs to a parent (its containing folder/room/project). The prod symptom has ownerIor=NULL. Gate RED on a File unit with null ownerIor (scoped to the classes that must own a File).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:file-unit-shape (ownerIor set)",
+          "assertion": "no ior:class:File unit has ownerIor null/absent; null-owner File => RED"
+        },
+        "stubMustFail": "PENDING: seed a File with ownerIor=null -> RED"
+      },
+      {
+        "id": "AC-two-server-bisect-root-pending",
+        "group": "evidence/bisect",
+        "text": "TWO-SERVER BISECT (evidence, symptom-not-fix): the regression reproduces on PROD (File b9fa43a2: uuid-name + null owner) and renders CORRECT on an OLDER TEST server -> the DATA/GENERATION changed between them, not the renderer. ROOT is the ARCHITECT's diff-diagnosis (prod File JSON vs test File JSON: code/data/generation). This AC holds the evidence; the fix + its RED baseline attach once the root is known. Do NOT build a fix until the architect names the root.",
+        "gateRef": {
+          "kind": "analysis",
+          "ref": "architect prod-vs-test File-unit diff",
+          "assertion": "the prod-vs-test File-unit diff isolates the generation/data change; the fix's RED baseline = the prod b9fa43a2 uuid-name specimen"
+        },
+        "stubMustFail": "PENDING (root-first): architect diffs prod vs test -> names the code/data/generation root -> THEN the fix + RED baseline"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
