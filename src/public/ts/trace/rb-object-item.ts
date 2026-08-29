@@ -239,6 +239,7 @@ const BADGE_MAP: Record<string, { color: string; symbol: string }> = {
   'impl-done': { color: 'blue', symbol: '⚡' },
   'planned': { color: 'gray', symbol: '○' }, 'pending': { color: 'gray', symbol: '○' },
   'qa-review': { color: 'purple', symbol: '👁' }, 'qa review': { color: 'purple', symbol: '👁' },
+  'qa-review-with-open-cr': { color: 'purple', symbol: '🔁' }, // R40.66 (T40.1): the decline band — reuse the SERVER glyph 🔁 (task-status.ts) so the board shows the band indicator, not raw gray text
 };
 
 function renderStatusBadge(status: string): string {
