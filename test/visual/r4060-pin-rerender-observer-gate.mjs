@@ -13,6 +13,12 @@ const CS = 'current-sprint-singleton-0000-000000000001';
 const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+// ★ HANG-CLASS FIX (PO 2026-08-29): a gate MUST guarantee TERMINATION, not just bounded observer-waits. A leaked browser
+// handle (or any unbounded await) makes a logically-DONE gate hang forever with no RED. Hard watchdog turns never-terminate
+// into a RED exit; the finally ALWAYS closes the browser; process.exit() forces drain. (This run's 3.2h hang = leaked b.)
+const HARD_MS = Number(process.env.GATE_HARD_MS || 240000);
+const WD = setTimeout(() => { console.log(`RED: WATCHDOG — gate exceeded ${HARD_MS}ms without terminating (never-terminate = RED, not a hang).`); process.exit(1); }, HARD_MS);
+
 const f = await setupFoundation({ commit: 'HEAD', buildDist: true });
 const oh = f.ownerHeaders();
 console.log(`scratch@HEAD served=${f.servedVersion} sha=${f.worktreeSha} owner=${f.ownerIsServerManager}`);
@@ -69,4 +75,9 @@ try {
       ? `RED (Tron's defect reproduced — OBSERVER path): client-1's pin stayed on A for 10s after an external make-current(B); only a RELOAD showed B. The WS broadcast → CurrentSprint pin re-fetch is broken for an open observer page.`
       : `INCONCLUSIVE: pin didn't update live AND reload didn't show B either — server/broadcast setup issue, re-check (not a clean observer RED).`);
   }
-} finally { const td = await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`); }
+} finally {
+  await b.close().catch(() => {});                       // ★ was LEAKED → the 3.2h hang; a browser handle keeps node's event loop alive forever
+  const td = await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`);
+  clearTimeout(WD);
+  process.exit(process.exitCode || 0);                   // ★ force drain — never rely on a clean natural exit
+}
