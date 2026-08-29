@@ -1764,7 +1764,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             fsSync.mkdirSync(LOGS_DIR, { recursive: true });
             const d = new Date();
             const name = `rawbin-live-mvc-diag-${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}.log`; // (3) rides cleanupOldLogs (rawbin-*.log, 7-day)
-            fsSync.appendFileSync(path.join(LOGS_DIR, name), JSON.stringify({ at: Date.now(), owner8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8), events }) + '\n');
+            fsSync.appendFileSync(path.join(LOGS_DIR, name), JSON.stringify({ at: Date.now(), version: getVersion(), owner8: ServerManagerGuard.playerTokenFrom(req).slice(0, 8), events }) + '\n'); // PROVENANCE (PO): stamp the SERVED build (getVersion=BOOT_VERSION=/api/config) so every recording self-identifies which build produced it — dissolves the deploy-hold ambiguity (a capture before/during/after a deploy is now unambiguous). Server-only field; no client change.
           } catch { /* (4) fail-silent: a diag write failure must never surface to the client */ }
           res.writeHead(204); res.end();
         } catch { try { res.writeHead(204); res.end(); } catch { /* client gone */ } } // (4) never throw out of the sink
