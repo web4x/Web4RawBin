@@ -5,11 +5,11 @@
     "name": "Task 37.13: Naming is canon by construction — the be",
     "slug": "task-37-13-naming-is-canon-by-construction-the-be",
     "description": "Deliver + verify requirement R37.13 (Naming is canon by construction — the be). Retroactive task unit minted scenario-first from the existing CURRENT-sprint requirement (#126 gap: active S37 work untracked). Covers R37.13; status derived from reality, staged by planner.",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [x] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "traceability": "",
     "acceptanceCriteria": [],
     "subtasks": [],
-    "status": "Planned",
+    "status": "In Progress",
     "coveredRequirements": [
       "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9"
     ],
@@ -17,7 +17,7 @@
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
     "statusBasis": "FLOOR: Planned. #126 retroactive task-mint for an ACTIVE S37 req; planner stages status to reality (structural, never assumed-Done).",
-    "remainingIssues": "",
+    "remainingIssues": "In-Progress staged from disk evidence (S37 R37.13-19 backfill, planner 2026-08-29): chain has a SHIPPED Impl (StepEvidence implementing) but NO two-keyed passing Test yet -> In-Progress, NOT QA-Review. ⚠ GATE-BLIND CAVEAT (same axis as R40.55): impl-shipped/no-Test-unit MAY be gate-satisfied (a lint/gate my Test-walk cannot see); if so the TESTER 3-link verdict (cite+green-on-HEAD+asserts-THIS-AC) bumps it to QA-Review — I do NOT self-credit a gate. Dup-check STRUCTURAL: 0 shadows.",
     "createdBy": "robbin-req",
     "createdAt": "2026-08-29"
   },
