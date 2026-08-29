@@ -243,32 +243,24 @@ export class RbDetailDrawer extends HTMLElement {
 
   private _graph: any = null;
   set graph(g: any) { this._graph = g; }
-  private _fallbackGraph: TraceGraph | null = null; // R30.21: holds units fetched when the real graph is absent/incomplete
+  // R37.24 inc2 AXIS-2: _fallbackGraph DELETED — it was the thin second model source. The element fetches the FULL unit.
 
   // [impl:uuid:dbddf408-60f3-4094-91b6-268861d651c6] R20.10 renderDetailForRef
   private async renderDetailForRef(ref: string): Promise<void> {
     this.setMode('detail');
     const panel = this.detailPanel;
     if (!panel || panel.dataset.currentRef === ref) return;
-    // R31.4 leak fix (CLIENT root, architect 08b66194f — kills the drawer double-render): onSelectionChanged invokes
-    // renderDetailForRef TWICE per select (attributeChangedCallback:119 via setAttribute('ref') + the sameRef:92 path).
-    // This method is ASYNC, so its currentRef guard (above) can't dedupe two SYNCHRONOUS invocations — and R27.8(d)'s
-    // :86 currentRef='' clears it anyway → 2 renders → 2 terminal elements → 2 ws → the 1st orphans mid-connect = the
-    // leaked sm_. A SYNCHRONOUS per-ref in-flight guard, set BEFORE any await + cleared in finally, collapses the two
-    // to EXACTLY 1 render/element/ws; a later DELIBERATE re-select (after finally) still re-renders (R27.8(d) intact).
-    // Pairs with the server PtyBridge readyState reap (defense-in-depth). SHARED drawer → applies to /trace+/scenario.
-    if (panel.dataset.rendering === ref) return;
-    panel.dataset.rendering = ref;
-    try {
+    // R37.24 inc2 AXIS-1/2: the drawer is a CONTAINER. It MOUNTS the type element (REUSING it when the tag is unchanged so
+    // the double-invoke per select never creates two elements) + sets its ref; the ELEMENT owns render (its RbDetailBase
+    // funnel = one render per ref-change) and its ONE model source (real graph ELSE fetch the full unit). DELETED: the
+    // drawer's own render, the el.graph FALLBACK-thin source (resolveDetailUnit/_fallbackGraph), and the dataset.rendering
+    // double-render guard (it guarded the DRAWER's render — retired; the element's funnel dedupes now).
     const colonIdx = ref.indexOf(':');
     const rawType = colonIdx > 0 ? ref.slice(0, colonIdx) : 'unknown';
     const rawKey = colonIdx > 0 ? ref.slice(colonIdx + 1) : ref;
-    // [impl:uuid:36934fe3-c15b-4429-8aa2-48c79e674688] BUG8 collection detail via parent
-    // inc-3 (A3 root): ONLY a GENUINE room collection (members-/files-<roomUuid>) keeps this bespoke branch. A synthetic
-    // container ref (collection:rawbin:diagram, collection:dir:…) has NO roomUuid → the old `if(!roomUuid) return` swallowed
-    // it into an empty detail = A3. It now falls through to the shared resolver below (its real lazy-minted Folder unit).
+    // GENUINE room collection (members-/files-<roomUuid>) — bespoke inline render, no detail element → the drawer owns its bar.
     if (rawType === 'collection' && /^(members|files)-/.test(rawKey)) {
-      this.showActionsForType(rawType, ref); // R33.6.5 item6: selection-driven — HOST sets the action-bar for this type
+      this.showActionsForType(rawType, ref);
       const uuid = rawKey;
       const parts = uuid.split('-');
       const kind = parts[0];
@@ -287,68 +279,51 @@ export class RbDetailDrawer extends HTMLElement {
       } catch { panel.innerHTML = '<div class="dv-empty">Failed to load</div>'; }
       return;
     }
-    // inc-3 (A3 fix): resolve real OR synthetic ref via the ONE shared resolver (was split-at-colon + a hard-coded
-    // /api/ior/ior:instance:${key} → 404 for a path-key = permanent empty detail). {type,uuid,kind,unit} drives the tag,
-    // the graph seed AND the action-bar kind. refUuid is NEVER applied to a synthetic ref (the resolver is the sole parser).
+    // inc-3: the ONE shared resolver → {type,uuid} drives the tag. (No graph resolve here — the element owns its model source.)
     const resolved = await resolveRefUnit(ref);
     const type = (resolved?.type || rawType).toLowerCase();
     const uuid = resolved?.uuid || (isSyntheticRef(ref) ? ref : rawKey);
-    this.showActionsForType(type, ref);
-    // R30.3: Sprint / CurrentSprint nodes render directly via renderSprintDetail (extracted below).
+    // R30.3: Sprint / CurrentSprint render inline (no detail element) → the drawer owns their bar signal.
     if (type === 'sprint' || type === 'currentsprint') {
+      this.showActionsForType(type, ref);
       await this.renderSprintDetail(uuid, type, panel);
       return;
     }
-    panel.dataset.currentRef = ref;
     const tagMap: Record<string, string> = {
       requirement: 'rb-requirement-detail', task: 'rb-task-detail', usecase: 'rb-usecase-detail',
       changerequest: 'rb-requirement-detail', // R40.10 BUG A: ChangeRequest uses RequirementTemplate → REUSE its detail (renders the reason)
       class: 'rb-class-detail', method: 'rb-method-detail', implementation: 'rb-implementation-detail',
       test: 'rb-test-detail', file: 'rb-file-detail', webitem: 'rb-webitem-detail',
-      otmuxpane: 'rb-terminal-detail', // R31.4 DRY: Server Manager terminal = a detail-view (defined by the server-manager bundle; tag string only → no xterm in /trace bundles)
-      feature: 'rb-feature-detail', // R31.8b/c: FeatureManager view = a detail-view (defined by the feature-manager bundle; tag string only → stays out of /trace)
-      profile: 'rb-profile-detail', // R31.8c NODE-4: granted-user detail (revoke); tag string only, defined by the feature-manager bundle
-      diagram: 'rb-diagram-detail', // R32.4: MDA SVG diagram surface (additive; drawer self-imports it above — no fork)
-      modelelement: 'rb-modelelement-detail', // R32.10 (INV-M2): MDA M1 element detail (class→members+diagram / method→signature); tag string only, defined by the model bundle (stays out of /trace)
-      'puml-src': 'rb-modelelement-detail', // R33.1.1: a puml/ folder source-.puml leaf mounts rb-modelelement-detail → its render() branches on the puml-src: ref → renderPumlSource → /md → /api/puml-render → SVG in-section
+      otmuxpane: 'rb-terminal-detail', // R31.4 DRY: Server Manager terminal = a detail-view (tag string only → no xterm in /trace bundles)
+      feature: 'rb-feature-detail', // R31.8b/c: FeatureManager view = a detail-view (tag string only → stays out of /trace)
+      profile: 'rb-profile-detail', // R31.8c NODE-4: granted-user detail (revoke); tag string only
+      diagram: 'rb-diagram-detail', // R32.4: MDA SVG diagram surface
+      modelelement: 'rb-modelelement-detail', // R32.10 (INV-M2): MDA M1 element detail
+      'puml-src': 'rb-modelelement-detail', // R33.1.1: a puml/ source-.puml leaf mounts rb-modelelement-detail
     };
-    const tag = tagMap[rawType] || tagMap[type] || 'rb-detail-view'; // inc-3: rawType FIRST preserves synthetic bespoke views (puml-src→rb-modelelement-detail); else the resolved unit type (real types + file); else the generic default view
-    // R30.21: resolve a graph that HAS the unit (real graph, or a fetched fallback) BEFORE the element mounts,
-    // so type-specific details render in scenario-view (no drawer.graph) + for chain-only units (impl/test).
-    const detailGraph = await this.resolveDetailUnit(uuid, type, resolved?.unit as Record<string, unknown> | undefined);
-    panel.innerHTML = '';
-    const el = document.createElement(tag) as any;
-    el.setAttribute('ref', ref);
-    el.setAttribute('uuid', uuid);
-    if (detailGraph) el.graph = detailGraph;
-    panel.appendChild(el);
-    } finally { if (panel.dataset.rendering === ref) delete panel.dataset.rendering; } // R31.4 leak fix: release the in-flight guard AFTER the async render completes → a later deliberate re-select re-renders (R27.8(d)); the 2nd sync invocation of THIS select already returned above
+    const tag = tagMap[rawType] || tagMap[type] || 'rb-detail-view'; // rawType FIRST preserves synthetic bespoke views; else resolved type; else the generic default
+    panel.dataset.currentRef = ref;
+    // MOUNT once (reuse the element when the tag is unchanged → the double-invoke per select updates the ref, never a 2nd
+    // element). Pass the REAL graph ONLY (this._graph — may be null in scenario-view); the element derives from that ONE
+    // source (graph obj ELSE fetch-full) and dispatches rb-drawer-detail-shown on its OWN render (AXIS-3: bar ⟵ element ref).
+    let el = panel.firstElementChild as (HTMLElement & { graph?: unknown }) | null;
+    if (!el || String(el.tagName || '').toLowerCase() !== tag) {
+      panel.innerHTML = '';
+      el = document.createElement(tag) as HTMLElement & { graph?: unknown };
+      if (this._graph) el.graph = this._graph;
+      el.setAttribute('uuid', uuid);
+      el.setAttribute('ref', ref); // set BEFORE append → connectedCallback renders once with the ref present
+      panel.appendChild(el);
+    } else {
+      if (this._graph) el.graph = this._graph;
+      el.setAttribute('uuid', uuid);
+      el.setAttribute('ref', ref); // reuse: attributeChangedCallback → the element funnel renders once per ref-change (no-op if unchanged)
+    }
   }
 
-  // [impl:uuid:159fb8f0-856e-4c89-afd8-19b7579d91cd] R30.21 RbDetailDrawer.resolveDetailUnit
-  // Graph-INDEPENDENT detail resolution. The type-specific detail elements read this.graph.get(uuid) and hard-fail
-  // to "not found" when the drawer has no graph (scenario-view never sets drawer.graph) or the unit is chain-only
-  // (impl/test aren't tree nodes). Mirror renderSprintDetail: fetch /api/ior and register a minimal TraceObject into
-  // the (real or fallback) graph so the element resolves + renders, then loads its own rich detail. Returns the graph
-  // to hand to the element. File/WebItem types fetch by uuid themselves (makeObject throws → caught → harmless).
-  private async resolveDetailUnit(uuid: string, type: string, resolvedUnit?: Record<string, unknown>): Promise<TraceGraph | null> {
-    if (this._graph?.get(uuid)) return this._graph;                        // real graph already has it
-    const g: TraceGraph = this._graph || (this._fallbackGraph ??= new TraceGraph());
-    if (!g.has(uuid)) {
-      try {
-        // inc-3: reuse the unit renderDetailForRef ALREADY resolved via the shared resolveRefUnit (no 2nd fetch), and
-        // NEVER the old hard-coded /api/ior/ior:instance:${uuid} (that 404'd for a synthetic path-key = A3). Fallback (unit
-        // absent) resolves a real type:uuid ref through the same resolver — the sole ref→unit path.
-        const model = ((resolvedUnit?.model as Record<string, unknown> | undefined)
-          ?? ((await resolveRefUnit(`${type}:${uuid}`))?.unit as { model?: Record<string, unknown> } | undefined)?.model) || {};
-        const obj = makeObject(g, type as ObjectType, uuid, String(model.name || model.title || uuid));
-        if (model.status) obj.status = String(model.status);
-        if (model.sprint) obj.sprint = String(model.sprint);
-        if (model.kind) (obj as unknown as { kind?: string }).kind = String(model.kind); // R40.37: structural container kind for add-diagram applicability (never a name-match)
-      } catch { /* unknown type (file/webitem) or fetch failure → element degrades gracefully */ }
-    }
-    return g;
-  }
+  // R37.24 inc2 AXIS-2: resolveDetailUnit + the _fallbackGraph it built are DELETED. That fallback was the THIN second
+  // model source (a minimal TraceObject with name/status only) — the full-vs-thin content Tron photographed. The element
+  // now derives from ONE source (RbDetailBase: real graph obj ELSE fetch the full /api/ior unit ELSE honest-empty).
 
   // [impl:uuid:0267036c-ec5a-4e13-a74e-1a89f45412b3] RbDetailDrawer.renderSprintDetail — R30.3 sprint selection populates the detail drawer
   // R30.3: Sprint / CurrentSprint nodes come from /api/trace/sprints (not the in-memory graph), so the
@@ -502,7 +477,7 @@ export class RbDetailDrawer extends HTMLElement {
     const r = await resolveRefUnit(ref);
     if (this._shownRef !== ref) return; // a newer selection landed while awaiting → don't paint the stale ref's bar
     const uuid = r?.uuid || ref;
-    const obj = this._graph?.get(uuid) || this._fallbackGraph?.get(uuid);
+    const obj = this._graph?.get(uuid); // R37.24 inc2: real graph only — no fallback-thin source (deleted)
     const rModel = (r?.unit as { model?: Record<string, unknown> } | undefined)?.model;
     // R40.31(b) FIX (architect 624f5eba3): FRESH resolved status WINS, cache is the fallback. resolveRefUnit already
     // re-fetches /api/ior per callback (synthetic-ref.ts) so rModel.status is fresh; the old `obj?.status ?? rModel` let the

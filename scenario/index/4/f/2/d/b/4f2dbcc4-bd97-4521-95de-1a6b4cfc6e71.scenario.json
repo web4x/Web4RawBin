@@ -1,0 +1,17 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "4f2dbcc4-bd97-4521-95de-1a6b4cfc6e71",
+  "name": "taskStatusSymbol.oneSharedSourceWiredCovered",
+  "description": "A shared dep-free task-status symbol source both server (STATUS_GLYPHS) and client (task rows) import — the client keeps generic non-task badges in BADGE_MAP but derives TASK-status glyphs from the shared source; the enforcing lint is WIRED strict in ci:gates:raw, COVERS the client render + ALL TaskStatusEnum incl the band, and is PROVEN RED on the live BADGE_MAP-lacks-band defect before the fix.",
+  "class": "ior:instance:aaedbc90-c901-4764-a18f-27354b990270",
+  "method": "ior:instance:39593421-0a2d-4b87-93ce-74e5ce85b904",
+  "parent": "ior:instance:4619af58-61c2-4967-ae0d-152f62af2615",
+  "unitLinks": [],
+  "note": "Architect wires Class/Method off the shipped decls (task-status-glyphs.ts + the lint) on build-go; expert builds shared source + lint + wires ci:gates strict; tester owns the RED baseline.",
+  "classes": [
+   "ior:instance:aaedbc90-c901-4764-a18f-27354b990270"
+  ]
+ },
+ "ownerIor": "ior:instance:4619af58-61c2-4967-ae0d-152f62af2615"
+}

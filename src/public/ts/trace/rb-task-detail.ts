@@ -15,44 +15,30 @@ import { forwardOnly } from './forward-only.js';
 import { renderSupersededSection, renderAllChildrenSection, renderChainPathSection } from './detail-superseded.js';
 import { fetchDetailData, scenarioBrowserHref, upsertSourceLink, upsertParentLink } from './detail-children.js'; // T37.26: bar = action surface; R37.12: idempotent source/parent inserts
 import { upsertSection } from './detail-render.js'; // R37.12 (B): the ONE idempotent section insert (status-checklist + CRs)
+import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source) — extract-once, no per-element copy
 
-export class RbTaskDetail extends HTMLElement {
-  graph: TraceGraph | null = null;
-  static get observedAttributes() { return ['ref']; }
-  private unsubs: Array<() => void> = [];
-
-  connectedCallback(): void { this.render(); }
-  disconnectedCallback(): void { this.clearSubs(); }
-  attributeChangedCallback(): void { if (this.isConnected) this.render(); }
-
-  private clearSubs(): void { for (const u of this.unsubs) u(); this.unsubs = []; }
-
-  render(): void {
-    this.clearSubs();
-    const ref = this.getAttribute('ref') || '';
-    const obj = this.graph?.get(refUuid(ref));
-    if (!obj) { this.innerHTML = '<div class="dv-empty">Task not found</div>'; return; }
-
-    const links = forwardOnly(obj);
+export class RbTaskDetail extends RbDetailBase {
+  // R37.24 inc2: the single-render FUNNEL + the one-model-source resolution live in RbDetailBase (extract-once). This
+  // element implements ONLY its Task-specific DOM via renderDetail(ctx) — no funnel, no fetch, no not-found path here.
+  protected renderDetail({ uuid, obj, model }: DetailCtx): void {
+    const links = obj ? forwardOnly(obj) : {};
     this.innerHTML = `
       <div class="dv-head">
         <span class="dv-type-badge dv-type-task">Task</span>
-        <h3>${esc(obj.title)}</h3>
-        <code class="dv-uuid">${obj.uuid}</code>
+        <h3>${esc(String(model.name || uuid))}</h3>
+        <code class="dv-uuid">${uuid}</code>
       </div>
       <div class="dv-fields">
         <div class="dv-field"><label>Status</label>
-          <span class="dv-status-badge">${esc(obj.status || 'PLANNED')}</span></div>
-        ${obj.sprint ? `<div class="dv-field"><label>Sprint</label><span>${esc(obj.sprint)}</span></div>` : ''}
+          <span class="dv-status-badge">${esc(String(model.status || 'PLANNED'))}</span></div>
+        ${model.sprint ? `<div class="dv-field"><label>Sprint</label><span>${esc(String(model.sprint))}</span></div>` : ''}
       </div>
       <!-- T37.26: inline 📄 Scenario / ✏️ Edit removed — duplicated the bar's ◆ Scenario / ✎ Edit (bar = action surface, body = DATA) -->
       <div class="dv-links">
         <h4>Forward Links</h4>
         ${renderLinks(this.graph, links)}
       </div>`;
-
-    this.unsubs.push(ViewBus.subscribe(viewBusKey(ref), () => this.render()));
-    this.loadDetailData(obj.uuid);
+    this.loadDetailData(uuid); // fills status(FRESH-WINS)/checklist/children/CRs from the full fetched model — incl the under-task CR master list (R40.62)
   }
 
   private loadDetailData(uuid: string): void {

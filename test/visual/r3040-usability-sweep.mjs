@@ -152,4 +152,9 @@ const bySev = s => findings.filter(f => f.sev === s);
 console.log(`HIGH: ${bySev('HIGH').length} | MED: ${bySev('MED').length} | LOW: ${bySev('LOW').length}`);
 findings.forEach(f => console.log(`  [${f.sev}] ${f.area}: ${f.msg}`));
 console.log(findings.length === 0 ? 'CLEAN — fully usable, no gaps found' : `${findings.length} gap(s) — see above`);
-process.exitCode = 0;
+// R40.54 FIX (2026-08-29): this previously set exitCode=0 UNCONDITIONALLY — a gate that could never go RED under ANY
+// condition. A sweep still has to be ABLE to fail on what it finds, or it reports success forever (R40.54: no check
+// may count that cannot provably fail). It now FAILS on any HIGH-severity usability gap (a real defect); MED = advisory.
+const blockers = bySev('HIGH').length;
+console.log(`VERDICT: ${blockers === 0 ? 'PASS (no HIGH-severity gaps)' : `FAIL — ${blockers} HIGH-severity gap(s)`}${bySev('MED').length ? ` (+${bySev('MED').length} MED advisory)` : ''}`);
+process.exitCode = blockers > 0 ? 1 : 0;

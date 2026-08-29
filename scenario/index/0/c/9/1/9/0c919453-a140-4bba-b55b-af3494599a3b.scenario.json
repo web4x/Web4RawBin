@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0c919453-a140-4bba-b55b-af3494599a3b",
+    "name": "stateFileGuard.currencyByStructuralDiscovery",
+    "description": "Discover ALL agent state files by structure/glob (session/agents/*/context.md, */learnings.md, */@*/… ) with a divergence/completeness check (present-but-unevaluated or new-KIND => RED); for the boot-pointed ACTIVE set assert shadow-single-source (bare-vs-@host), rot-evident preface, and deprecation-marker fail-closed-on-unparseable-date; dormant orphans WARN-latent; oosh-* via the reused /^oosh-/ EXCLUDED predicate.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:20148749-0c79-49a9-9beb-f901a1289c22",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off the boot-currency lint (extend via shared structuralDiscover) on build-go + re-inspects post-propagation; trainer propagates the marker convention + verify-don't-trust preface."
+  },
+  "ownerIor": "ior:instance:20148749-0c79-49a9-9beb-f901a1289c22"
+}

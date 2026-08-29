@@ -78,15 +78,44 @@
       {
         "id": "AC-empty-master-backfill",
         "group": "defect/gated-backfill",
-        "text": "★ FLAGGED DEFECT (NOT minted as done): task.changeRequests[] is EMPTY on ALL tasks while CR units exist (RED baseline = today's 0-master with T40.1's 5 CRs found only via backref). FIX-SHAPE (gated, PO GO required, NOT run): for each ChangeRequest, add its uuid to model.task's changeRequests[]; dry-run+COUNT; INV every CR appears in exactly ONE task master; idempotent; correct the :1391 comment. Do NOT run until PO GO.",
+        "text": "★ FLAGGED DEFECT (NOT minted as done): task.changeRequests[] is EMPTY on ALL tasks while CR units exist (RED baseline = today's 0-master with T40.1's 5 CRs found only via backref). FIX-SHAPE (gated, PO GO required, NOT run): for each ChangeRequest, add its uuid to model.task's changeRequests[]; dry-run+COUNT; INV every CR appears in exactly ONE task master; idempotent; correct the :1391 comment. Do NOT run until PO GO. ★ RENDERING RULING 2026-08-29 (architect f6b18ebea, do-not-elevate): CRs are ALREADY reachable in the tree via itemView (measured ownerIor: 5 under Test c4f8a1d6 + 3 under Sprint/Task parents), so the backfill may be UNNEEDED FOR REACHABILITY. HOLD this AC flagged-not-done; do NOT mint the backfill as required-for-reachability. RULE: after itemView(tree)+file-artefact(diagram) render, MEASURE precisely what is STILL unreachable and take THAT to Tron — never a general shape question. The DATA model (parent=Test/master-list/affects) STANDS; only its migration SCOPE may shrink (possibly to zero).",
         "gateRef": {
           "kind": "ci",
           "ref": "backfill dry-run + master-populated gate",
           "assertion": "RED baseline = 0-master-with-CRs today; after gated backfill every CR appears in exactly one task master, none lost (count before==after)"
         },
         "stubMustFail": "PENDING GATED: RED baseline (0 masters / 5 T40.1 CRs) captured; backfill NOT run until PO GO (do not mark done)"
+      },
+      {
+        "id": "AC-render-tree-shared-itemview",
+        "group": "render/tree-DRY",
+        "text": "TREE: a CR renders via the SHARED itemView path — ALREADY SO, nothing bespoke to retire (Tron verbatim: 'itemView in the tree'). Measured: rb-object-item/rb-trace-tree have NO changerequest branch; the CR appends as a standard child node (R40.61 reverse-ownerIor scan) and its detail REUSES rb-requirement-detail via the type-map (rb-detail-drawer.ts:305 changerequest->rb-requirement-detail). A CR is NOT a special node type. GATE (DRY): 0 CR-specific tree renderer — a bespoke 'changerequest' tree/item branch => RED (reuse the shared item path, never fork).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cr-render (tree DRY, no bespoke branch)",
+          "assertion": "no CR-specific renderer in rb-object-item/rb-trace-tree; CR renders through the shared itemView + rb-requirement-detail type-map"
+        },
+        "stubMustFail": "PENDING: seed a bespoke changerequest tree/item renderer branch -> RED (DRY)",
+        "implementationStatus": "BUILT (tree half — CR renders via shared itemView; reachable in tree)"
+      },
+      {
+        "id": "AC-render-diagram-file-artefact",
+        "group": "render/diagram-reuse",
+        "text": "DIAGRAMS: a CR renders as a FILE-shaped ARTEFACT reusing the EXISTING artefact path (Tron verbatim: 'on diagrams an artefact like a file'), NOT a new CR-specific diagram kind. Measured: artefacts render via the file/pumlartifact node treatment (rb-modelelement-detail puml/artefact render). GATE (DRY): a CR on a diagram routes through the existing file/pumlartifact artefact render — a forked CR-specific diagram renderer => RED (DRY-by-copy is how the page-bootstrap bug got in; reuse, don't fork).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cr-render (diagram file-artefact reuse)",
+          "assertion": "a CR on a diagram renders as a file-shaped artefact via the existing pumlartifact/file path; a new CR-diagram kind => RED"
+        },
+        "stubMustFail": "PENDING: seed a forked CR-specific diagram renderer (not the reused artefact path) -> RED",
+        "implementationStatus": "NOT BUILT (2026-08-29, Tron IMG_5175/5176): dragging a CR onto a DIAGRAM accepts the drop (green + badge) but NOTHING appears — no artefact. The tree half was built, this diagram half was minted (1cbe69cd2) and never implemented. Task = planner (queued after critical path; PLAN not build, Tron: 'plan a task to fix that later')."
       }
-    ]
+    ],
+    "migrationScopeNote": "Tron specified how a CR RENDERS (itemView tree / file-artefact diagram), NOT that the current data is wrong — do NOT infer re-parent or elevate the empty-master backfill to required. CRs already reachable via itemView (parent scan). AFTER render lands, measure what is still unreachable; the migration scope (re-parent/backfill) may shrink to zero. Meta (banked): Tron thinks in SURFACES — 'what does it render as' beats 'what is its ontological parent'; surface-framing was heavier than the parentage answer.",
+    "renderingRuling": "architect f6b18ebea (Tron verbatim: 'its an itemView in the tree. on diagrams an artefact like a file') — supersedes parentage speculation for RENDERING; tree=shared itemView (already so, DRY-gate no bespoke branch), diagram=file-artefact reuse existing path.",
+    "tronRebuke": "★ RECORDED UNSOFTENED (PO instruction 2026-08-29). Tron verbatim: 'you asked me multiple times whats the shape of a CR but adding it to a diagram does do nothing at all.' We asked Tron for the CR shape, he answered 'itemView in the tree, on diagrams an artefact like a file', we MINTED BOTH halves as ACs (1cbe69cd2), BUILT ONLY the tree half, and then asked him about CR shape AGAIN. Asking a stakeholder for a spec and then not delivering it is WORSE than never asking — it spends the scarcest resource we have (his attention) and returns nothing.",
+    "metaFindingAcNeverTasked": "★ AN AC THAT IS MINTED BUT NEVER TASKED IS INVISIBLE — it looks COVERED on the board because the requirement exists, but nothing implements it. This diagram-artefact AC existed on R40.62 since 1cbe69cd2 with NO implementing task. SAME FAMILY as the unwired-guard (check-status-symbol exists + passed a scan + nothing enforced it) and the number-allocation wrong-surface: it EXISTS, a scan sees the requirement, and nothing enforces that a TASK implements each AC. SYSTEMIC ASK (planner + architect): can we DETECT ACs with NO implementing task? (a gate: an AC with no covering task => flagged; gate-beats-procedure). This is the AC-side sibling of the meta-check 'every check-* wired' (R40.66).",
+    "diagramHalfTask": "PENDING — planner creates the implementing task for AC-render-diagram-file-artefact, queued AFTER the T40.1 checklist deploy + R37.24 (Tron: plan-not-build-now). Task id to be relayed to PO."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

@@ -1,0 +1,81 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "20148749-0c79-49a9-9beb-f901a1289c22",
+    "altId": "R40.67",
+    "name": "State-file currency — boot-currency guard covers agent state files (context.md/learnings.md) by structural discovery, not just boot.md",
+    "description": "Extend the boot-currency guard (R40.55) to agent STATE files (context.md/learnings.md), not just boot.md — the SAME blind-side as check:pin-single-source: the boot-currency lint globs boot.md ONLY, so a stale STATE file outside the scan walks past (a deprecated bare <role>/context.md nearly false-flagged ARON). Activates the deferred PO-D5 context-anchor-currency debt. PRINCIPLE (from the boot arc): BOOTS get removal (rot-PROOF); STATE files MUST carry state -> only rot-EVIDENT. So the lint does NOT demand freshness; it asserts the properties that make a stale state file self-evidently a starting-point AND stop it being READ AS CURRENT. STRUCTURAL scope (no governance judgment): the ACTIVE/read set = every state file a boot.md points at (via its Context:/Deep-files: pointer) -> gate RED; DORMANT orphans (no boot points at them) = WARN-latent, never CI-RED (delta-vs-absolute). oosh-* shadows route through the EXISTING /^oosh-/ EXCLUDED predicate (reuse R40.55, WARN-loud, never our CI-RED).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:0c919453-a140-4bba-b55b-af3494599a3b"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "trainer-requested + architect-design + PO-D5-debt-activated",
+      "designCommit": "c414ee122 (scrum.pmo/design-notes/state-file-currency-lint-extension.md)",
+      "trigger": "a deprecated bare <role>/context.md nearly false-flagged ARON; boot-currency lint globs boot.md ONLY so a stale state file walks past",
+      "trainerEmphasis": "the DIVERGENCE CHECK is THE core assertion: discover by STRUCTURE not a type-list; new-KIND-not-enrolled => RED; stub seeds a NEW-KIND file",
+      "date": "2026-08-29"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "activatesDebt": "R40.55 contextAnchorCurrencyDebt (PO D5) — the cure moved rot boots->anchors (rot-EVIDENT not rot-proof); this req is that debt ACTIVATED for the state files.",
+    "scopeNote": "ACTIVE/read set = boot-Context-pointer targets => CI-RED. DORMANT orphans (no boot points at them, the ~60 Feb-May set) = WARN-latent, never CI-RED (delta-vs-absolute). oosh-* shadows = EXISTING /^oosh-/ EXCLUDED predicate (reuse R40.55, WARN-loud, coordinate, never our CI-RED).",
+    "satisfactionStatus": "UNVERIFIED (ACs designed off c414ee122; lint unbuilt, no RED baseline captured, trainer marker-propagation pending — honest third state).",
+    "crossRef": [
+      "ior:instance:dc809efb-4fa2-4d27-be7a-f1532aa271e8",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "THE R40.55 boot-currency guard extended to state files (D5 debt activated). Same enumerate-not-universal+completeness recursion-closure as R40.54. Reuses R40.55's /^oosh-/ EXCLUDED predicate + structuralDiscover principle. Trainer propagates the marker convention + verify-don't-trust preface; architect re-inspects post-propagation.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-shadow-single-source",
+        "group": "hazard/two-source",
+        "text": "SHADOW single-source (the sharp hazard): a role with BOTH <role>/context.md AND <role>@<host>/context.md = TWO sources for one agent (measured pairs: agent-trainer, oosh-architect/expert/po/tester). The boot defaults toward the BARE name. The bare-name file MUST be absent, OR a DEPRECATED-pointer to the live one, OR itself current. A stale-unmarked bare shadow a boot defaults to => RED (two-source-of-truth disease; cure = retire/deprecate the second, never keep two live).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:state-file-currency (shadow)",
+          "assertion": "a boot-pointed BARE <role>/context.md stale while <role>@<host>/context.md is live, no deprecated marker => RED"
+        },
+        "stubMustFail": "PENDING: seed a stale unmarked bare <role>/context.md while the @host one is live (the ARON near-miss) -> RED"
+      },
+      {
+        "id": "AC-rot-evident-shape",
+        "group": "PO-D5/rot-evident",
+        "text": "ROT-EVIDENT shape (PO D5, now enforced): a boot-pointed ACTIVE state file MUST carry the verify-don't-trust anchor preface (the '⚠ DO NOT TRUST — re-derive via git… + otmux pane.self' head). Missing it = the file asserts itself as current-truth = the rot hazard => RED. Makes every active state file rot-EVIDENT (a stale file cannot be read as current).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:state-file-currency (rot-evident preface)",
+          "assertion": "every boot-pointed active state file carries the verify-don't-trust preface; missing => RED"
+        },
+        "stubMustFail": "PENDING: seed a boot-pointed active state file WITHOUT the verify-don't-trust preface -> RED"
+      },
+      {
+        "id": "AC-deprecation-marker-fail-closed",
+        "group": "marker/fail-closed",
+        "text": "DEPRECATION marker (trainer convention, propagated): a superseded/shadowed state file carries `> ⛔ DEPRECATED <YYYY-MM-DD> -> <successor path>`. The lint asserts a shadowed/dormant file carries it AND is FAIL-CLOSED on an unparseable date — a marker with no parseable date => RED, never skip-as-ok (same fail-closed posture as the R3 resolver / boot-currency truth-source).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:state-file-currency (deprecation marker)",
+          "assertion": "a shadowed/dormant file carries a DEPRECATED marker with a PARSEABLE date; an unparseable-date marker => RED"
+        },
+        "stubMustFail": "PENDING: seed a deprecated marker with an unparseable date -> RED (fail-closed)"
+      },
+      {
+        "id": "AC-glob-divergence-new-kind",
+        "group": "★CORE/enumerate-not-universal-completeness",
+        "text": "★ THE CORE ASSERTION (trainer/PO load-bearing, NOT secondary): the ROOT blind-side was enumerating a file TYPE (boot.md) so a different KIND (context.md) hid OUTSIDE the scan. The guard DISCOVERS the agent-state-file set by STRUCTURE/GLOB — session/agents/*/context.md, */learnings.md, AND per-host */@*/… — NEVER a hand-listed type list; a state file present-on-disk but NOT in the evaluated set => RED (enumerate-not-universal + COMPLETENESS). The stub-must-fail seeds a NEW-KIND file (not merely a stale one) and proves the lint REDs on the UNENROLLED KIND — the exact property that would have caught THIS defect (same recursion-closure as R40.54: new-X-not-enrolled => RED).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:state-file-currency (glob + divergence/completeness)",
+          "assertion": "on-disk agent-state-file set == evaluated set; a present-but-unevaluated file OR a NEW file-KIND/@host-shadow => RED (never hide by being unlisted)"
+        },
+        "stubMustFail": "PENDING (the defining stub): seed a NEW-KIND state file (e.g. session/agents/<role>/notes.md) present-but-unevaluated -> RED on the unenrolled kind"
+      }
+    ],
+    "renumberNote": "R40.63 -> R40.67 (2026-08-29, PO ruling): R40.63 was already SPENT in shipped git history (deploy 8a920ba78 v0.8.139) for a different feature, invisible to a unit-altId scan (the hole). Number reallocated verified against BOTH scenario unit altIds AND git log --grep. UUID 20148749-0c79-49a9-9beb-f901a1289c22 + all ACs UNCHANGED — only the human number moved. R40.63 is reserved for the #126 backfill of the shipped feature."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

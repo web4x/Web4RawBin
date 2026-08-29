@@ -1,0 +1,96 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4619af58-61c2-4967-ae0d-152f62af2615",
+    "altId": "R40.66",
+    "name": "Task-status symbols: ONE shared source (server+client), all statuses incl the band, enforced by a WIRED-strict RED-on-live lint",
+    "description": "The task-status SYMBOL rendering has ONE source, both server and client, covering ALL statuses including the band — enforced by a lint that is WIRED strict and PROVEN RED on the live defect. DEFECT (verified first-hand): Tron's board renders raw gray text 'qa-review-with-open-cr' instead of the band glyph, because the SERVER STATUS_GLYPHS (task-status.ts:117, 🔁 = QA-Review-with-open-CR) HAS it but the CLIENT BADGE_MAP (rb-object-item.ts:233) does NOT — two symbol tables maintained SEPARATELY; the band status falls through BADGE_MAP[status]||…||null -> raw text. CLASS FIX (what this req mints): a shared dep-free task-status source both import + its enforcing lint. NOTE: the user-visible band-glyph fix itself lands under EXISTING T40.1 units (no new req — repairing a broken render of a feature T40.1 owns); THIS req is the CLASS work.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:4f2dbcc4-bd97-4521-95de-1a6b4cfc6e71"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-board-defect + PO-scope-split",
+      "poRuling": "class work = shared task-status source + enforcing lint; the user-visible band-glyph fix lands under EXISTING T40.1 units (no new req)",
+      "tronObservation": "board renders raw gray 'qa-review-with-open-cr' instead of the band glyph",
+      "verifiedBy": "robbin-req first-hand: server STATUS_GLYPHS (task-status.ts:117) has 🔁 band; client BADGE_MAP (rb-object-item.ts:233) LACKS the band -> falls through to null -> raw text; check-status-symbol.ts NOT in package.json (0 mentions = unwired) + exits 0 (green) while its 2nd-vocab detector is report-only + it never covers BADGE_MAP",
+      "date": "2026-08-29"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "metaFinding": "★ check-status-symbol.ts PASSES GREEN (exit 0) while the defect it is NAMED FOR stands — it does not merely FAIL TO CATCH, it CERTIFIES. WORSE than no guard, because the board reads it as coverage. Root: it EXISTS but is UNWIRED (0 mentions in package.json), its 2nd-vocabulary detector is REPORT-ONLY (never --strict), and it covers the SERVER vocabulary while the CLIENT BADGE_MAP + the band go unchecked. ★ A GUARD HAS THREE FAILURE MODES — EXISTS / WIRED / COVERS-THE-CLASS — all three must be closed or the green is HOLLOW; plus RED-ON-THE-LIVE-DEFECT (a lint that cannot red on its own motivating defect is the wrong lint). [[a-green-that-certifies-over-its-own-defect-is-worse-than-no-guard]] [[a-guard-has-three-failure-modes-exists-wired-covers]]",
+    "satisfactionStatus": "UNVERIFIED (shared source + lint unbuilt; RED baseline not captured; the certifying check-status-symbol still green over the live defect — honest third state).",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:20148749-0c79-49a9-9beb-f901a1289c22"
+    ],
+    "crossRefNote": "Same single-source-of-a-shared-truth + wired-guard family as R40.63 (state-file currency) / R40.55 (boot currency) / R40.56 (current single-source). Rides R40.54 failable-AC family. The band = R40.59 QA-Review-with-open-CR (task-status-constants.ts). The user-visible glyph fix lands under existing T40.1 (no req, PO scope-split).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-shared-source-is-the-enum",
+        "group": "guard/mode-1-EXISTS-reframed",
+        "text": "EXISTS (REFRAMED per architect shape-ruling d33919390, landed AFTER my mint — my original mandated a vocab-unifying glyph EXTRACTION task-status-glyphs.ts, which would RESTYLE Tron's board (his ⚡/○/👁 -> server glyphs) = a separate Tron-surface UX decision, NOT required for the class-kill; kept visible as the corrected-away over-spec). The SHARED SOURCE is the EXISTING STATUS_ORDER enum (already shared, task-status-constants.ts) — NO new glyph extraction. The class-kill = the CLIENT-COVERAGE LINT over that enum: the client badge render must cover the shared STATUS_ORDER, and a status with no client glyph REDs. The client keeps its own glyph vocabulary (BADGE_MAP); only COVERAGE of the shared enum is enforced, not a unified glyph set.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:task-status-symbol-source (client covers the shared STATUS_ORDER enum)",
+          "assertion": "the client badge render covers every value of the shared STATUS_ORDER enum (task-status-constants.ts); a status with no client glyph => RED. NO glyph-extraction/vocab-unification asserted (separate Tron-surface decision)."
+        },
+        "stubMustFail": "PENDING: seed a STATUS_ORDER value with no client glyph -> RED (the r4059 lint already does this on the band; wire it strict)"
+      },
+      {
+        "id": "AC-wired-strict-not-report-only",
+        "group": "guard/mode-2-WIRED",
+        "text": "WIRED: the lint is in ci:gates:raw as STRICT, NEVER report-only. Report-only is EXACTLY how check-status-symbol.ts hid: it EXISTS, was NEVER wired (0 mentions in package.json, measured), and its 2nd-vocabulary detector was REPORT-ONLY so it missed BADGE_MAP entirely. A lint not in the strict gate does not exist for CI. (Target: 1 strict gate entry; report-only=0.)",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates:raw (check present + --strict)",
+          "assertion": "the lint runs in ci:gates:raw with --strict (non-zero exit on violation); a report-only/absent wiring => the gate itself fails"
+        },
+        "stubMustFail": "PENDING: set the lint report-only (or remove from ci:gates) while the defect stands -> the wiring-check => RED"
+      },
+      {
+        "id": "AC-covers-the-class-client-and-band",
+        "group": "guard/mode-3-COVERS",
+        "text": "COVERS THE CLASS: the lint covers the CLIENT badge render AND ALL statuses INCLUDING the band (QA-Review-with-open-CR), not just the server table. The check-status-symbol miss was covering the server vocabulary while the CLIENT BADGE_MAP + the band status went unchecked. Every TaskStatusEnum value (Planned/In Progress/QA-Review-with-open-CR/QA Review/Done) MUST have a render on both surfaces via the shared source.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:task-status-symbol-source (client+all-statuses coverage)",
+          "assertion": "every TaskStatusEnum incl the band renders (no raw-text fallthrough) on the CLIENT surface via the shared source; a status with no client glyph => RED"
+        },
+        "stubMustFail": "PENDING: seed a TaskStatusEnum value (e.g. the band) with no client glyph in the shared source -> raw-text fallthrough => RED"
+      },
+      {
+        "id": "AC-red-on-the-live-defect",
+        "group": "guard/mode-4-RED-BASELINE",
+        "text": "RED-ON-THE-LIVE-DEFECT: the lint MUST be PROVEN to go RED on TODAY's unfixed tree (BADGE_MAP lacks the band => raw gray 'qa-review-with-open-cr' text) BEFORE the fix lands — that evidence is available NOW and is the strongest we can get (tester owns the RED). A lint that cannot RED on its own motivating defect is the WRONG lint. THEN the shared-source fix + the SAME lint greens.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "check:task-status-symbol-source RED-baseline (tester-owned)",
+          "assertion": "raw RED output on today's tree (client band = raw text) captured BEFORE the fix; SAME lint greens after the shared source lands"
+        },
+        "stubMustFail": "✅ DELIVERED + PO-verified + robbin-req re-verified first-hand via NODE's TRUE exit (no pipe) = exit 1 RED on today's unfixed tree (test/visual/r4059-badge-glyph-single-source-lint.mjs, commit 357a3f8ac). Names EXACTLY 1 uncovered status (the band 'QA-Review-with-open-CR') of 5 server-derived; STUB non-vacuous (adding the band key clears the 1 finding -> PASS). QUALIFIES as more than a red: (a) server status list DERIVED from STATUS_ORDER+band, NOT a hand-list (the under-coverage it exists to prevent); (b) mirrors the EXACT client lookup incl lowercase + char-strip fallback = tests the REAL render path; (c) stub non-vacuous. THE FIX must flip this SAME RED green + the lint must be WIRED (AC-2)."
+      },
+      {
+        "id": "AC-meta-check-every-guard-wired",
+        "group": "guard-that-guards-the-guards",
+        "text": "META-CHECK (PO-adopted + architect fold): EVERY scripts/check-*.{mjs,ts} appears in ci:gates:raw — an existing-but-UNWIRED guard => RED. This is the guard-that-guards-the-guards: it generalizes AC-wired-strict-not-report-only from THIS lint to the WHOLE check-* family, killing the unwired-guard class BY CONSTRUCTION (a gate, not a procedure — does not depend on the next agent remembering to wire). Would have caught check-status-symbol.ts (unwired since Aug 12, 0 in package.json, exits-0 = certified green over its own defect) AND check-detail-primitive.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "check:all-guards-wired (in ci:gates:raw)",
+          "assertion": "every scripts/check-*.{mjs,ts} is referenced in ci:gates:raw; an existing check-* not wired => RED"
+        },
+        "stubMustFail": "PENDING: add an unwired scripts/check-*.{mjs,ts} (present but absent from ci:gates:raw) -> the meta-check => RED"
+      }
+    ],
+    "redBaselineEvidence": "✅ CAPTURED (tester 357a3f8ac; PO-verified; robbin-req re-verified NODE-true-exit=1 no-pipe): SERVER 5 statuses / CLIENT BADGE_MAP 14 keys / UNCOVERED = the band 'QA-Review-with-open-CR' -> gray raw-text; non-vacuous stub. AC-4 satisfied-as-delivered; satisfaction stays UNVERIFIED until the shared-source fix flips this RED green AND the lint is wired strict.",
+    "campaignEvidence": "Two self-catches recorded as evidence the doctrine holds UNDER PRESSURE (both = the same class the campaign fights, caught in the instrument-maker's own hands): (1) TESTER self-catch — its first lint cut tested ONLY the band because a regex broke on a readonly type annotation = a HAND-LIST OF ONE, the exact under-coverage it had just condemned in check-status-symbol.ts; found mid-build + fixed to all 5. (2) PO near-miss — nearly reported 'the lint prints RED but exits 0' because the run was piped to tail and read TAIL's exit code, NOT node's; rerun without the pipe gave 1 = measured a PROXY (pipeline exit) instead of the ARTIFACT (node exit), the same proxy-not-artifact class as everything else. robbin-req applied that lesson here: verified node's TRUE exit directly, no pipe.",
+    "immediateFixNote": "The user-visible fix lands under EXISTING T40.1 (PO scope-split, NOT this req): BADGE_MAP += band entry ('qa-review-with-open-cr': {color, symbol:'🔁'}) so the band renders its glyph instead of gray raw-text. That flips the r4059 RED baseline GREEN. THIS req (R40.64) = the CLASS: the client-coverage lint (over STATUS_ORDER) wired strict so a NEW uncovered status can never recur. Glyph EXTRACTION/vocab-unification (would restyle Tron's board) = a SEPARATE Tron-surface decision the PO takes to Tron, NOT part of the class-kill.",
+    "renumberNote": "R40.64 -> R40.66 (2026-08-29, PO ruling): R40.64 was already SPENT in shipped git history (deploy 8a920ba78 v0.8.139) for a different feature, invisible to a unit-altId scan (the hole). Number reallocated verified against BOTH scenario unit altIds AND git log --grep. UUID 4619af58-61c2-4967-ae0d-152f62af2615 + all ACs UNCHANGED — only the human number moved. R40.64 is reserved for the #126 backfill of the shipped feature.",
+    "chainWired": "UC 4f2dbcc4 -> Class TaskStatusSymbolGuard aaedbc90 -> Method assertClientCoversStatusOrder 39593421 -> Impl 84b0e064 (design-ahead, architect 81bc167cf; expert has the marker uuid 84b0e064). On the fix (BADGE_MAP+=band under T40.1 + coverage-lint wired strict) the r4059 RED baseline (357a3f8ac) flips GREEN -> I mint the Test off the tester GREEN marker + flip designAhead/markerPending.",
+    "relatedFutureMint": "NUMBER-ALLOCATION guard (my suggestion, architect+PO agreed = same wrong-surface guard-family): a check:number-allocation lint — a new R40.<n> in a commit message OR a unit not unique across BOTH surfaces (unit-altIds AND git log --grep) => RED. Separate future mint, non-blocking, when scheduled (the gate-beats-procedure form of my number-allocation fix)."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
