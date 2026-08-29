@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "a3712bf2-be96-4520-b84b-e0529fd94ff5",
+    "name": "modelStore.dedupeModelElements",
+    "description": "Remove the 33 ModelElements wrongly duplicated in scenario/index (they belong in data/model-store), so no ModelElement lives in >1 store. GATED: dry-run + count (33->0 in scenario/index), model-store copies unchanged (byte-diff==0, the 33 already agree), idempotent, no ModelElement lost.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method on build (dedupe from scenario/index, keep model-store). Gated migration, dry-run+count first."
+  },
+  "ownerIor": "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b"
+}
