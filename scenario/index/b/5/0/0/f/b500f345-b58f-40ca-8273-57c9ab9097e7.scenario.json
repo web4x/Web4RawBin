@@ -5,11 +5,11 @@
     "name": "Task 40.26: Discover-related completeness: adds the UseC",
     "slug": "task-40-26-discover-related-completeness-adds-the-usec",
     "description": "Deliver + verify requirement R40.26 (Discover-related completeness: adds the UseC). Retroactive task unit minted scenario-first from the existing requirement (#126 gap: the req existed, its Task unit was never minted). Covers R40.26; status derived from reality, staged by planner.",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "traceability": "",
     "acceptanceCriteria": [],
     "subtasks": [],
-    "status": "Planned",
+    "status": "QA Review",
     "coveredRequirements": [
       "ior:instance:8b110074-c7f1-4808-9397-74dc7714c5e8"
     ],
@@ -17,7 +17,7 @@
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "sprintName": "Sprint 40",
     "statusBasis": "FLOOR: Planned (backlog). #126 retroactive task-mint — req existed, task never minted; planner stages status to reality. NOT assumed-Done.",
-    "remainingIssues": "",
+    "remainingIssues": "QA-Review staged from disk evidence (S40 task-backfill, planner 2026-08-29): chain-complete-to-Test (shipped Impl + two-keyed passing Test, StepEvidence). Device/@390 AC is Tron-pending -> QA-Review NOT Done (no approvedBy/approvedAt on disk). Dup-check STRUCTURAL: 0 other tasks cover this req (no shadow).",
     "createdBy": "robbin-req",
     "createdAt": "2026-08-29"
   },
