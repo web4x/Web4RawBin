@@ -71,9 +71,11 @@
           "ref": "check:task-status-symbol-source RED-baseline (tester-owned)",
           "assertion": "raw RED output on today's tree (client band = raw text) captured BEFORE the fix; SAME lint greens after the shared source lands"
         },
-        "stubMustFail": "PENDING RED-BASELINE (tester): capture the lint RED on the live BADGE_MAP-lacks-band defect before the fix"
+        "stubMustFail": "✅ DELIVERED + PO-verified + robbin-req re-verified first-hand via NODE's TRUE exit (no pipe) = exit 1 RED on today's unfixed tree (test/visual/r4059-badge-glyph-single-source-lint.mjs, commit 357a3f8ac). Names EXACTLY 1 uncovered status (the band 'QA-Review-with-open-CR') of 5 server-derived; STUB non-vacuous (adding the band key clears the 1 finding -> PASS). QUALIFIES as more than a red: (a) server status list DERIVED from STATUS_ORDER+band, NOT a hand-list (the under-coverage it exists to prevent); (b) mirrors the EXACT client lookup incl lowercase + char-strip fallback = tests the REAL render path; (c) stub non-vacuous. THE FIX must flip this SAME RED green + the lint must be WIRED (AC-2)."
       }
-    ]
+    ],
+    "redBaselineEvidence": "✅ CAPTURED (tester 357a3f8ac; PO-verified; robbin-req re-verified NODE-true-exit=1 no-pipe): SERVER 5 statuses / CLIENT BADGE_MAP 14 keys / UNCOVERED = the band 'QA-Review-with-open-CR' -> gray raw-text; non-vacuous stub. AC-4 satisfied-as-delivered; satisfaction stays UNVERIFIED until the shared-source fix flips this RED green AND the lint is wired strict.",
+    "campaignEvidence": "Two self-catches recorded as evidence the doctrine holds UNDER PRESSURE (both = the same class the campaign fights, caught in the instrument-maker's own hands): (1) TESTER self-catch — its first lint cut tested ONLY the band because a regex broke on a readonly type annotation = a HAND-LIST OF ONE, the exact under-coverage it had just condemned in check-status-symbol.ts; found mid-build + fixed to all 5. (2) PO near-miss — nearly reported 'the lint prints RED but exits 0' because the run was piped to tail and read TAIL's exit code, NOT node's; rerun without the pipe gave 1 = measured a PROXY (pipeline exit) instead of the ARTIFACT (node exit), the same proxy-not-artifact class as everything else. robbin-req applied that lesson here: verified node's TRUE exit directly, no pipe."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
