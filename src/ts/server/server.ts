@@ -1659,9 +1659,11 @@ function declineToChangeRequest(idx: ScenarioIndex, taskUuid: string, ownerTok8:
 
 // R40.63 (Tron: "i could approve this if there was a button … other CRs are still open") — owner-gated PER-CR approve:
 // stamps approvedBy/approvedAt/status='Approved' on the ONE ChangeRequest unit via the seam (records a VERDICT on that CR).
-// STANDALONE: it does NOT clear the parent task's band (the band still derives from the checklist sub-step on main —
-// band-clearing is the separate R40.60 status-core + normalize, pending Tron's GO). Idempotent (re-approve = no-op 200).
-// Emits the parent Task so the acting tab re-renders. NO bridge: never ticks the old sub-step (that would be a 2nd band writer).
+// ★ fe495e32d (R40.59 Tron AC "I approved one and nothing moved"): when THIS approve resolves the LAST open CR, it ALSO
+// ticks the processing-CR sub-step → the band clears BY DERIVATION (a clean 'QA Review' to judge). This is NOT a 2nd band
+// writer — on the served model the checklist sub-step IS the band's single source (hasOpenCrSubstep), so ticking it writes
+// THE source, not a parallel one. Non-last approve leaves the sub-step [ ] (band stays). Idempotent (re-approve = no-op 200).
+// Emits the parent Task so the acting tab re-renders. (R40.60 status-core reaches the SAME semantics via deriveTaskStatus.)
 function approveChangeRequest(idx: ScenarioIndex, crUuid: string, approver: { id: string; name: string }, now: string): { code: number; payload: Record<string, unknown> } {
   const unit = idx.get(crUuid);
   if (!unit || unit.ior !== 'ior:class:ChangeRequest') return { code: 404, payload: { ok: false, error: 'change-request-not-found' } };
@@ -1669,9 +1671,30 @@ function approveChangeRequest(idx: ScenarioIndex, crUuid: string, approver: { id
   if (m.approvedBy) return { code: 200, payload: { ok: true, alreadyApproved: true, approvedBy: m.approvedBy, approvedAt: m.approvedAt, task: String(m.task || unit.ownerIor || '') } }; // idempotent
   UnitController.apply(idx, 'ior:class:ChangeRequest', crUuid, { approvedBy: approver.id, approvedByName: approver.name, approvedAt: now, status: 'Approved' }, { actor: approver, publish: publishUnitChanged });
   const after = idx.get(crUuid)!.model as Record<string, unknown>;
-  const taskUuid = String(after.task || unit.ownerIor || '').replace('ior:instance:', '').split('@')[0]; // emit the parent task so its detail/row re-render live (band UNCHANGED on main — R40.60 clears it, not this)
-  if (taskUuid && idx.get(taskUuid)) publishUnitChanged('ior:class:Task', taskUuid);
-  return { code: 200, payload: { ok: true, approvedBy: after.approvedBy, approvedAt: after.approvedAt, task: `ior:instance:${taskUuid}` } };
+  const taskUuid = String(after.task || unit.ownerIor || '').replace('ior:instance:', '').split('@')[0]; // emit the parent task so its detail/row re-render live
+  // ★ fe495e32d (architect+PO, R40.59 Tron AC "I approved one and nothing moved"): when THIS approve resolves the LAST
+  // open CR on the task (all the task's CRs now approvedBy), tick the processing-CR sub-step so the band CLEARS BY
+  // DERIVATION → Tron gets a clean 'QA Review' to judge. Non-last → leave the sub-step [ ] (band stays). This is a
+  // CHECKLIST write via the SAME resolve seam (band derives via hasOpenCrSubstep; NEVER a direct m.status; single-writer).
+  let bandCleared = false;
+  const taskUnit = taskUuid ? idx.get(taskUuid) : undefined;
+  if (taskUnit && taskUnit.ior === 'ior:class:Task') {
+    const norm = (s: unknown) => String(s || '').replace('ior:instance:', '').split('@')[0];
+    let total = 0, approvedCount = 0; // enumerate the task's CRs by durable backref (CR.task / CR.ownerIor → task), per R40.10
+    for (const cru of idx.list()) {
+      const cu = idx.get(cru);
+      if (!cu || cu.ior !== 'ior:class:ChangeRequest') continue;
+      const cm = cu.model as Record<string, unknown>;
+      if (norm(cm.task) === taskUuid || norm(cu.ownerIor) === taskUuid) { total++; if (cm.approvedBy) approvedCount++; }
+    }
+    const cs = deriveStatusEnum(String((taskUnit.model as Record<string, unknown>).statusChecklist ?? ''));
+    if (total > 0 && approvedCount === total && cs === 'QA-Review-with-open-CR') { // last CR + in the band (the seam 409s otherwise)
+      UnitController.apply(idx, 'ior:class:Task', taskUuid, { subStep: PROCESSING_CR_SUBSTEP }, { actor: approver, publish: publishUnitChanged });
+      bandCleared = true; // hasOpenCrSubstep → false → deriveStatusEnum recomputes to clean 'QA Review'
+    }
+    publishUnitChanged('ior:class:Task', taskUuid);
+  }
+  return { code: 200, payload: { ok: true, approvedBy: after.approvedBy, approvedAt: after.approvedAt, task: `ior:instance:${taskUuid}`, bandCleared } };
 }
 
 // R40.1 CR-RESOLVE (#86) — owner-gated: a human decides the change requests are DONE → tick the band's 'processing change
