@@ -62,8 +62,21 @@
           "assertion": "RED captured on the v0.8.140 stale-read (poll-target stale / gate-skipped) before the fix; GREEN after (post-build target / gate runs)"
         },
         "stubMustFail": "PENDING RED-BASELINE: capture the stale-read RED (098880909 v0.8.139 vs v0.8.140 artifacts) before the fix"
+      },
+      {
+        "id": "AC-sweep-how-many-past-deploys-ungated",
+        "group": "sweep/class-not-instance",
+        "text": "★ SWEEP (PO, class-not-instance): HOW MANY PAST DEPLOYS went out SERVED-but-UNGATED? The abort is DETERMINISTIC given a config-unit-only bump before deploy.mjs, so this is ANSWERABLE FROM git HISTORY, not guesswork (scan deploy commits where the stamped version != the actual artifacts version / where step-5 did not run). SCOPE = a QUESTION TO ANSWER (measure the historical count), NOT work-to-do-now. Fixing v0.8.140 while an unknown number of prior deploys never ran their device gate = fixing the INSTANCE and leaving the CLASS. When you find one instance, the first question is how many others.",
+        "gateRef": {
+          "kind": "analysis",
+          "ref": "deploy-history sweep (git log deploy commits)",
+          "assertion": "the count of past served-but-ungated deploys is MEASURED from history before the fix is accepted as complete; an unmeasured count => the class is not closed"
+        },
+        "stubMustFail": "PENDING (question-not-work): produce the historical count of config-unit-only-bump deploys where step-5 gate did not run; a fix landing with the count UNMEASURED = instance-fixed/class-open"
       }
-    ]
+    ],
+    "whyItDidNotHurtToday": "★ LOAD-BEARING — DO NOT REMOVE THE MANUAL STEP (PO 2026-08-29): the AUTOMATED device gate has NOT been running (this very defect false-aborts it), so the TESTER'S MANUAL @390 verification on TRON'S surface is the ONLY device verification we currently have. That is why 'the deploy script exited 0' was REFUSED as done — the guarantee discipline was NOT belt-and-braces, it was the ACTUAL gate. A future reader MUST NOT remove the manual @390 step believing the automated gate covers it — it does NOT, until R40.68 is fixed AND its RED baseline flips GREEN AND the sweep confirms no prior served-but-ungated deploys remain unaccounted. Until then: manual @390 = the real gate.",
+    "poReframe": "Expert reported a provenance nit (commit message stamps a stale version). robbin-req MEASURED the CONSEQUENCE: deploy.mjs false-aborts on the stale poll BEFORE step 5, so the device gate NEVER RUNS = served-but-UNGATED, INV-PDG-5 defeated by construction. The 4th instance this week of exists / passes-a-scan / nothing-enforces-it — and the most consequential, on the path to Tron's surface."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
