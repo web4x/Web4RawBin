@@ -34,7 +34,8 @@
       "ior:instance:7286d45a-38ce-47d7-bac9-6589eea78d4b",
       "ior:instance:c27ae455-2971-4eef-8e30-9e400d319567",
       "ior:instance:18ebe066-d8a0-426d-89ba-8afd9c85114f",
-      "ior:instance:461d5db6-58a3-4ee5-a930-817b019489de"
+      "ior:instance:461d5db6-58a3-4ee5-a930-817b019489de",
+      "ior:instance:a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5"
     ],
     "crossRefNote": "Re-models the 5 T40.1 CRs. R40.10 = owner QA verdict (per-CR approve reuses its owner-gated-attributable discipline). R40.59 = the band (re-derived from any-CR-unapproved, not the single sub-step). The 5 CRs (#86-1..5) migrate to traceability children.",
     "acceptanceCriteria": [
@@ -128,7 +129,8 @@
       }
     ],
     "architectDesign": "1345a7564 (design-notes/r40.60-cr-traceability-child-remodel.md) — mechanizes the shape; parent-tension RULED parent=TASK (contestsTest=crossRef); deriveTaskStatus single band-site (mirrors rollupParentStatus); retire resolveCr+hasOpenCrSubstep+PROCESSING_CR_SUBSTEP+m.changeRequests; decline=mint-CR-child; R40.59 invariants preserved; gated migration; failable gate. Architect does NOT touch owner-auth (closed surface); per-CR approve uses the EXISTING owner mechanism.",
-    "tronRulingCorrection": "★ Tron 2026-08-26 'status QA means next task' -> the band + QA-Review are NOT current-eligible; a task there ADVANCES (current->next, nextBacklog recalcs). Architect OWNS the #86-4 'band stays current' error (design 58c4cdc39). SUPERSEDES 'band is current-able' on R40.59 AC-current-able-one-eligibility-set + R40.56 DESIGNATION_ELIGIBLE (which had {P/IP/band/QA}) + R40.60. New current-eligibility = {Planned, In-Progress} both axes; band's only roles = track-unapproved-CRs + gate-Done. Folded into AC-band-derives + AC-qa-review-advances-current."
+    "tronRulingCorrection": "★ Tron 2026-08-26 'status QA means next task' -> the band + QA-Review are NOT current-eligible; a task there ADVANCES (current->next, nextBacklog recalcs). Architect OWNS the #86-4 'band stays current' error (design 58c4cdc39). SUPERSEDES 'band is current-able' on R40.59 AC-current-able-one-eligibility-set + R40.56 DESIGNATION_ELIGIBLE (which had {P/IP/band/QA}) + R40.60. New current-eligibility = {Planned, In-Progress} both axes; band's only roles = track-unapproved-CRs + gate-Done. Folded into AC-band-derives + AC-qa-review-advances-current.",
+    "supersededInPartBy": "R40.62 a4c9340d (2026-08-29, additive — R40.60 scope otherwise UNCHANGED): Tron REVERSED CR-parentage — CR.ownerIor is the TEST (not the Task). R40.60's 'CR ownerIor->Task, crossRef->Test' is superseded on the PARENT link only; R40.60's band/per-CR-approve/no-bulk mechanics stand. Both links legitimate: Task master-list (task.changeRequests[]) + Test parent (CR.ownerIor)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

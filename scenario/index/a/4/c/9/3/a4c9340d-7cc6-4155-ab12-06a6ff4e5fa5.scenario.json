@@ -1,0 +1,92 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5",
+    "altId": "R40.62",
+    "name": "ChangeRequest shape — Task master-list (authoritative) + Test parent + affected-units children (Tron verbatim, supersedes R40.60 parent=Task)",
+    "description": "The ChangeRequest traceability SHAPE per Tron verbatim ('the task has a list of CR as master … each CR needs to parent to a test that has to be reevaluated from task traced down to the test … so the CR has all traceability units as children that are affected to be changed'). THREE links, each authoritative for a different fact: (1) Task->CRs MASTER = task.changeRequests[] is the AUTHORITATIVE Task->CR list (the server.ts:1391 'losable mirror' comment is now WRONG); (2) CR->Test PARENT = ChangeRequest.ownerIor -> ior:class:Test (the Test that must be re-evaluated/changed to resolve the CR; renders under the Test); (3) CR->affected units CHILDREN = CR.affects[] = the traceability units along Task->covered-Requirement->UseCase->Class->Method->Impl->Test that must change for the fix to land. SUPERSEDES R40.60's CR-ownerIor->Task ruling — Tron reverses it: parent IS the Test. The band (R40.60 deriveTaskStatus) finds a task's CRs by model.task backref (server.ts:1441), so parent=Test does not disturb it. ★ FLAGGED DEFECT (bring fix-shape, do NOT silently fix): task.changeRequests[] is EMPTY on ALL tasks (0 carry it) while CR units exist (found only via model.task backref) — under Tron's model the empty master list is a DEFECT; gated backfill decided by PO.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:0b25395a-7ac0-4022-8941-0b96158c6d6a"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-verbatim + architect-design",
+      "designCommit": "3be8ae900 (scrum.pmo/design-notes/r40.62-cr-shape-test-parent-master-list.md)",
+      "tronVerbatim": "the task has a list of CR as master … each CR needs to parent to a test that has to be reevaluated from task traced down to the test … so the CR has all traceability units as children that are affected to be changed",
+      "verifiedBy": "robbin-req first-hand: T40.1 changeRequests[]=None (empty master = the flagged defect); the 5 CRs are ownerIor=Test c4f8a1d6 already (parent=Test disk-aligned) + carry model.task backref",
+      "date": "2026-08-29"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "supersedes": "R40.60 CR-ownerIor->Task ruling — Tron REVERSES it: parent IS the Test (resolving the CR may require that Test to change). Both links legitimate (Task master-list + Test parent), not either/or.",
+    "flaggedDefect": "task.changeRequests[] EMPTY on ALL tasks (0 populate it) while CR units exist (found only via model.task backref). Under Tron's model the empty master IS a defect. Fix = a GATED backfill (AC-empty-master-backfill), PO GO required, NOT run — brought as fix-shape, not silently fixed.",
+    "satisfactionStatus": "UNVERIFIED (shape ACs designed; parent-is-Test disk-aligned but the master-list is empty=defect + affects[]/trace-down unbuilt — honest third state).",
+    "crossRef": [
+      "ior:instance:452e3f6d-3e8d-4f5d-9b3c-6f095e957d62",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:33451271-29db-4e54-acaa-d0d9f59c04ad"
+    ],
+    "crossRefNote": "Supersedes R40.60 CR-parent=Task (parent=Test now). Per-CR approve = R40.10. Rides R40.54 failable family. Render 5e9a1d887 (CR leaf under Test parent; affects[] children forward-note).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-cr-parent-is-Test",
+        "group": "shape/parent",
+        "text": "ChangeRequest.ownerIor resolves to an ior:class:Test — the Test that must be re-evaluated/changed to resolve the CR. Renders under the Test (reverse-ownerIor scan, 5e9a1d887). SUPERSEDES R40.60 CR-ownerIor->Task; on disk the 5 T40.1 CRs are already ownerIor=Test (R40.60 Task-migration never ran) so this is disk-aligned, not a migration.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cr-shape (parent-is-Test)",
+          "assertion": "every ChangeRequest.ownerIor resolves to ior:class:Test; a non-Test CR parent => RED"
+        },
+        "stubMustFail": "PENDING: seed a CR with ownerIor->Task (or non-Test) -> gate RED"
+      },
+      {
+        "id": "AC-task-master-list-bidirectional",
+        "group": "shape/master-single-source",
+        "text": "task.changeRequests[] is the AUTHORITATIVE Task->CR master list (NOT a losable mirror — correct the server.ts:1391 comment to MASTER). Bidirectional single-source: every CR in task.changeRequests[] has model.task===that task, AND every CR unit with model.task===T is in T.changeRequests[]. ONE master (the task list); the backref MUST equal it.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cr-shape (master<->backref)",
+          "assertion": "master<->backref agree both ways; a CR in NO master OR in TWO, or a backref mismatch => RED"
+        },
+        "stubMustFail": "PENDING: seed a CR whose model.task is not in that task's changeRequests[] (or in two masters) -> RED"
+      },
+      {
+        "id": "AC-cr-children-affected",
+        "group": "shape/affected-children",
+        "text": "CR.affects[] = the traceability units along the Task->…->Test trace that must change for the fix to land consistently; the CR is the CONTAINER of what changes and renders CR -> affected-units (forward children, hasChildren from affects[].length). Each affects[] ref is a REAL unit on the Task->Test trace.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:cr-shape (affects-real)",
+          "assertion": "every CR.affects[] ref resolves to a real unit on the Task->Test trace; a dangling/off-trace affects-ref => RED"
+        },
+        "stubMustFail": "PENDING: seed a CR.affects[] entry pointing at a non-existent / off-trace unit -> RED"
+      },
+      {
+        "id": "AC-trace-down-reevaluate",
+        "group": "mechanic/evidence-gated",
+        "text": "Resolving a CR raised at a Task traces DOWN Task->coveredRequirement->UseCase->Class->Method->Impl->Test; the Test(s) needing change = the CR's parent(s), the units on that path that must change = affects[]. CR.status -> Resolved ONLY when the parent Test re-evaluates GREEN WITH the change (evidence-gated, NOT stamped) — so the change lands consistently across the chain.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:cr-trace-down-reevaluate",
+          "assertion": "CR.status->Resolved requires the parent Test green-with-change evidence; a stamp-without-reeval => RED"
+        },
+        "stubMustFail": "PENDING: stamp CR Resolved without the parent-Test green-with-change -> RED"
+      },
+      {
+        "id": "AC-empty-master-backfill",
+        "group": "defect/gated-backfill",
+        "text": "★ FLAGGED DEFECT (NOT minted as done): task.changeRequests[] is EMPTY on ALL tasks while CR units exist (RED baseline = today's 0-master with T40.1's 5 CRs found only via backref). FIX-SHAPE (gated, PO GO required, NOT run): for each ChangeRequest, add its uuid to model.task's changeRequests[]; dry-run+COUNT; INV every CR appears in exactly ONE task master; idempotent; correct the :1391 comment. Do NOT run until PO GO.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "backfill dry-run + master-populated gate",
+          "assertion": "RED baseline = 0-master-with-CRs today; after gated backfill every CR appears in exactly one task master, none lost (count before==after)"
+        },
+        "stubMustFail": "PENDING GATED: RED baseline (0 masters / 5 T40.1 CRs) captured; backfill NOT run until PO GO (do not mark done)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

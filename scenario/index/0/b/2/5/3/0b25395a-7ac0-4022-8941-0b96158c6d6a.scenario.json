@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0b25395a-7ac0-4022-8941-0b96158c6d6a",
+    "name": "changeRequest.shapeTestParentMasterList",
+    "description": "CR unit: ownerIor->Test (parent, re-evaluated to resolve), model.task->Task (backref = the authoritative task.changeRequests[] master), affects[]->the Task->Test trace units that must change (forward children). Resolving traces down Task->...->Test, re-evaluates the parent Test + affects[] evidence-gated. Master<->backref bidirectional single-source; empty-master is a gated-backfill defect.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5",
+    "unitLinks": [],
+    "note": "Architect wires Class/Method off shipped decls on build-go + backstop; PO gates the empty-master backfill."
+  },
+  "ownerIor": "ior:instance:a4c9340d-7cc6-4155-ab12-06a6ff4e5fa5"
+}
