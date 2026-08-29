@@ -8,6 +8,15 @@ T-number). Items here are NOT in any sprint's scope.
 
 ## Untriaged
 
+- **ACCEPTED-DEFERRED DEBT — #126 task-coverage gap + unit-without-VIEW gap in legacy sprints** *(planner, deferred 2026-08-29; PO value-order ruling; measured STRUCTURAL sweep scratchpad/coverage-sweep.mjs + check:sprint-md --check --all)*
+  Graph-wide #126 sweep found **86 reqs uncovered** (no `req.tasks[]` and no `task.coveredRequirements` pointing at them — structural, never name-match). NON-frozen sizes, **ACCEPTED not unknown** — sized, dated, visible; NOT silently dropped ([[surface-accepted-risk-and-invert-canary]]):
+  - **S19 (Room Handling) — #126-gap 14 uncovered reqs · view-drift 18 missing task-MDs + planning.md mismatch.**
+  - **S20 (Radical Forward Planning) — #126-gap 19 uncovered reqs · view-drift 1 missing task-MD + planning.md mismatch.**
+  - **S32 — requirements.md mismatch (view-drift).**
+  - **WHY DEFERRED (PO 2026-08-29):** S19/S20 are OLD + largely-shipped; retroactive task-minting there is low-information paperwork that would consume the fleet while Tron's #1 (live-MVC) is undiagnosed. If Tron wants them, we do them.
+  - ⚠️ **HAZARD — view-regen here is NOT safe in isolation; it MOVES statuses.** Regenerating S19/S20 planning.md/task-MD from units would DOWNGRADE ~25 rows (S19 units are R-C9-reverted to In-Progress; the MD views never followed) = a COSMETIC view-fix silently riding a SEMANTIC status change. **Nobody may "just regenerate the views" for S19/S20** without PO sanction — it demotes real work. Report-only until then.
+  - **ACTIVE (NOT deferred, tracked elsewhere):** S37 #126-gap 7 (R37.13-19) = handed to req to mint (current sprint, operational). **orphan-24** (reqs wired to NO sprint at all) = root-cause with ARCHITECT (is sprint-association enforced at mint? should sprint-less req-mint be structurally impossible?) — SYMPTOM, do NOT backfill-attach. S18 + older = frozen, no action.
+
 - **NAMED-DEBT — status-symbol single-source (task-fsm STATE_SYMBOLS latent fork)** *(planner, 2026-08-12; PO branch-(i) ruling)*
   `src/ts/scenario/task-status.ts` `statusSymbol()` (glyphs ⏳📝🔧✅🧪🏁, derives from checklist via `deriveStatusEnum`) is the single source consumed by the sprint-board generator. `src/ts/scenario/task-fsm.ts` ALSO exports `STATE_SYMBOLS` (status→glyph) = a SECOND status vocabulary — the two-source disease. Measured branch (i): task-fsm `STATE_SYMBOLS` is EXPORTED (barrel index.ts) but **UNCONSUMED** (grep = def + re-export only, ZERO render sites) = a LATENT fork, no live surface renders it. PO ruling: LAND the statusSymbol rollout + keep `scripts/check-status-symbol.ts` no-2nd-source lint **REPORT-ONLY** (not ci-failing) + record this as named debt; **no value-alignment needed now** (nothing renders task-fsm's glyphs). CONSOLIDATE next phase: retire `STATE_SYMBOLS`, point any future consumer at `statusSymbol`, then flip the lint to `--strict`. Pattern: [[status-discriminator-is-a-unit-field]] — one glyph vocabulary, single-source.
   **Touches:** `task-fsm.ts` (retire STATE_SYMBOLS), `check-status-symbol.ts` (--strict flip when clean).
