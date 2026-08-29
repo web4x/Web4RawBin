@@ -1,90 +1,76 @@
-// [test:uuid:9c2e7b41-5d38-4a06-b1e9-7f0c3a2d64e8] R40.17 LIVE PIN — Tron's AC: "actions … should happen LIVE in the
-// sprint tree" — a designate (Set current/next) makes the SPRINT-TREE pin slots CHANGE WITH NO REFRESH, @390. Fix v0.8.90:
-// the eager-lazy pin subscribes to the CurrentSprint singleton's OWN ref on ViewBus (rb-trace-tree:101, callback =
-// renderCurrentSprintEagerLazy) and a designate fires ViewBus.notify(that-ref) (universal-actions:146) → the pin re-fetches
-// ONLY its 2-node subtree, no reload. The dead 'current-sprint-changed' DOM event was removed (it was the gap I flagged).
+// [test:uuid:9c2e7b41-5d38-4a06-b1e9-7f0c3a2d64e8] R40.17 LIVE PIN — Tron's AC: a designate (Set-as-Current) makes the
+// SPRINT-TREE pin slot change LIVE, no refresh, @390. RELIABLY — not "eventually", not "on a lucky run".
 //
-// ★ CHANNEL RE-POINT (this gate now targets the ViewBus CS-ref channel, NOT RawBinClient 'unit-changed'). ViewBus is a
-//   module-scoped in-memory singleton — NOT reachable from page.evaluate and only fired by an owner-designate (owner-auth,
-//   RCE-sensitive under containment) → the real end-to-end notify = Tron's device row, never headless-greened. So the
-//   channel WIRING is proven by CONSTRUCTION (both sides present + callback identity), made PROVABLY-ABLE-TO-FAIL
-//   (stub-must-fail: the same check on a BOGUS ref must be false — a re-pointed gate that can't fail is vacuous). The
-//   VIEW half (the subscribed callback actually re-fetches+swaps, no reload, fail-closed) is gated behaviorally @390.
-// FAMILY = channel-wiring-both-sides-or-vacuous (subscribe-to-a-channel-nothing-fires = the trap). DET-3x.
+// ★ RETARGET (PO 2026-08-29): the prior version MOCKED the CurrentSprint channel (page.route served the CS body) and
+//   DIRECTLY called renderCurrentSprintEagerLazy() — so it proved the callback swaps mock data while mocking AWAY the exact
+//   real make-current→ViewBus.notify→eager-lazy-re-fetch→render path where the RACE lives. It GREENed while the real
+//   behaviour is racy (measured r4060: sometimes a 3.5-5.6s lag, sometimes NEVER re-renders even after the re-fetch
+//   resolves). That is a timing-dependent false-GREEN — a gate that passes when the re-render happens to fire.
+//   NOW: exercise the REAL owner make-current on SCRATCH (owner-auth proven headless via the R40.31 foundation; the old
+//   "never headless-greened" caveat is obsolete) over N iterations, and REQUIRE the pin to re-render to the designated
+//   task within a TIGHT window EVERY time. FAIL on the racy-never case AND on the multi-second lag (a 3.5s+ stale pin
+//   after an explicit action is not acceptable). RED now (defect live) → GREEN when the expert makes the re-render fire
+//   reliably + cuts the ~5s CS re-fetch. A behavioural gate on the REAL path does not rot on a source rename.
+// FAMILY = reliable-live-render-or-timing-dependent-green (a gate that greens on a lucky re-render = the trap).
+import { setupFoundation } from './r4031-foundation.mjs';
 import { webkit } from '@playwright/test';
-import fs from 'node:fs';
-import { seedSystemTester } from './system-tester-setup.mjs';
-const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
-const BASE = 'https://prod.wo-da.de:4444';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const A = '9f11a990-79bd-46e4-95e2-abe066f4b95b'; // Sprint-40 Task 40.28 (declined to a band so the designation STICKS)
+const B = '9a70ce5e-7e88-45f9-b921-0f8e9caf07a6'; // Sprint-40 Task 40.10 (band)
 const CS = 'current-sprint-singleton-0000-000000000001';
-const BOGUS = 'current-sprint-singleton-DEADBEEF-vacuity-probe';   // a ref NOTHING wires — the stub-must-fail control
-const SENTINEL = 'PIN-SWAPPED-9c2e7b41';
-const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false,
-  userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const csBody = (curName) => JSON.stringify({ uuid: CS, type: 'CurrentSprint', name: 'Sprint 37 — Active', hasChildren: true, children: [
-  { uuid: 't-cur', type: 'Task', name: `📌 Current: ${curName}`, hasChildren: true, status: 'IN-PROGRESS' },
-  { uuid: 't-last', type: 'Task', name: '✅ Last Completed: Task 36.5', hasChildren: true, status: '' },
-  { uuid: 't-next', type: 'Task', name: '📋 Next Backlog: Task 37.2', hasChildren: true, status: '' }] });
+const WINDOW_MS = 2500;   // "reliable" bar: an explicit action's pin re-render must land within 2.5s (a 3.5s+ stale pin is a fail)
+const ITERS = 4;          // catch the RACE: any single non-re-render across N designations = RED (no timing-dependent green)
+const IOS = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: false, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', ignoreHTTPSErrors: true };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const tag = (u) => u === A ? '40.28' : '40.10';
 
-// ── CHANNEL WIRING (construction, both sides) + STUB-MUST-FAIL on the new channel ───────────────────────────────
-const rbtt = fs.readFileSync(`${ROOT}/src/public/ts/trace/rb-trace-tree.ts`, 'utf8').replace(/\s+/g, ' ');
-const ua = fs.readFileSync(`${ROOT}/src/public/ts/trace/universal-actions.ts`, 'utf8').replace(/\s+/g, ' ');
-// INFORMATIONAL source wiring (NON-GATING — the verdict is behavioural below). Identifier-AGNOSTIC: matches the CS ref
-// in EITHER the legacy raw-uuid form OR the current viewBusKey({type:'CurrentSprint',uuid}) form (R37.12/R40.17), so it
-// does not rot on that refactor. If you must gate on wiring, gate on the real broadcast reaching the pin (binding pass).
-const subReal = new RegExp(`subscribe\\((?:'${CS}'|viewBusKey\\(\\{ type: 'CurrentSprint')`).test(rbtt);
-const notifyReal = new RegExp(`notify\\((?:'${CS}'|viewBusKey\\(\\{ type: 'CurrentSprint')`).test(ua);
-const cbIsRender = /renderCurrentSprintEagerLazy/.test(rbtt);
+const f = await setupFoundation({ commit: 'HEAD', buildDist: true });
+const oh = f.ownerHeaders();
+console.log(`R40.17 retarget — REAL make-current pin re-render reliability, scratch@HEAD ${f.servedVersion} (${ITERS}× within ${WINDOW_MS}ms each)`);
+const serverCurrent = async () => { const r = await fetch(`${f.base}/api/trace/children/${CS}?mode=trace`).catch(() => null); if (!r) return null; const d = await r.json(); const ch = d.children || d; const c = (Array.isArray(ch) ? ch : []).find(x => x.role === 'current'); return c ? c.uuid : null; };
 
-const browser = await webkit.launch({ headless: true });
+const b = await webkit.launch({ headless: true });
 const results = [];
-let viewStubProven = false;
 try {
-  for (let i = 1; i <= 3; i++) {
-    const ctx = await browser.newContext({ ...IOS, serviceWorkers: 'block' }); // block SW so my route (not the cache) serves the CS fetch
-    await seedSystemTester(ctx);
-    let armed = false;                                                                          // false → V1 slots; true → V2 (swapped current slot)
-    await ctx.route('**/api/trace/children/**', async (route) => {
-      if (!route.request().url().includes(CS)) return route.continue();
-      return route.fulfill({ status: 200, contentType: 'application/json', body: csBody(armed ? SENTINEL : 'Task 37.4 (initial)') });
-    });
-    const page = await ctx.newPage();
-    await page.goto(`${BASE}/trace`, { waitUntil: 'networkidle' });
-    await page.waitForFunction(() => (document.querySelector('rb-trace-tree')?.innerText || '').includes('Current:'), { timeout: 20000 }).catch(() => {});
-    await page.evaluate(() => { window.__noReload = 'alive'; });                                // wiped by any real navigation/reload
-    const has = async (s) => (await page.evaluate(() => document.querySelector('rb-trace-tree')?.innerText || '')).includes(s);
+  await fetch(`${f.base}/api/task/${A}/decline`, { method: 'POST', headers: oh }).catch(() => {}); // both bands so designations stick
+  await fetch(`${f.base}/api/task/${B}/decline`, { method: 'POST', headers: oh }).catch(() => {});
+  const ctx = await b.newContext({ ...IOS, serviceWorkers: 'block' });
+  await ctx.addInitScript(t => { try { localStorage.setItem('rawbin-player-id', t) } catch {} }, oh['x-player-token']);
+  const sm = (oh['Cookie'] || '').match(/sm_session=([^;]+)/); if (sm) await ctx.addCookies([{ name: 'sm_session', value: sm[1], domain: 'localhost', path: '/' }]);
+  const p = await ctx.newPage();
+  await p.goto(`${f.base}/trace`, { waitUntil: 'networkidle', timeout: 30000 }).catch(() => {});
+  await p.waitForFunction(() => (document.querySelector('rb-trace-tree')?.innerText || '').includes('Current'), { timeout: 20000 }).catch(() => {});
+  await sleep(1000);
+  const pinShows = (t) => p.evaluate(s => (document.querySelector('rb-trace-tree')?.innerText || '').includes(`Task ${s}`) && /📌 Current/.test(document.querySelector('rb-trace-tree')?.innerText || ''), t);
+  const setCurrent = (uuid) => p.evaluate((ref) => { const d = document.querySelector('rb-detail-drawer'); if (d) { d.setAttribute('open', ''); d.setAttribute('ref', ref); } }, `task:${uuid}`)
+    .then(() => p.waitForFunction(() => [...document.querySelectorAll('button,[data-verb]')].some(e => /set as current/i.test(e.textContent || '') || e.getAttribute?.('data-verb') === 'set-current'), { timeout: 12000 }).catch(() => {}))
+    .then(() => p.evaluate(() => { const x = [...document.querySelectorAll('button,[data-verb]')].find(e => /set as current/i.test(e.textContent || '') || e.getAttribute?.('data-verb') === 'set-current'); if (x) x.click(); }));
 
-    const beforeInitial = await has('Task 37.4 (initial)');
-    // ARM the swapped data but do NOT trigger the pin → it MUST still show the OLD slot (fail-closed: no spurious/false-fresh)
-    armed = true; await sleep(600);
-    const spurious = await has(SENTINEL);
-    // Fire the subscribed callback (renderCurrentSprintEagerLazy IS the ViewBus(CS) subscriber, rb-trace-tree:101) → re-fetch the 2-node subtree.
-    await page.evaluate(() => { const t = document.querySelector('rb-trace-tree'); void t.renderCurrentSprintEagerLazy(); });
-    await page.waitForFunction((s) => (document.querySelector('rb-trace-tree')?.innerText || '').includes(s), SENTINEL, { timeout: 8000 }).catch(() => {});
-    const liveSwap = (await has(SENTINEL)) && beforeInitial;                                    // slot CONTENT actually changed
-    const noReload = await page.evaluate(() => window.__noReload === 'alive');                  // survived → NO reload
-    const failClosed = !spurious;                                                              // did NOT update before the trigger
-
-    // RETARGET (PO 2026-08-24): the VERDICT is the BEHAVIOUR — the pin re-renders when its subscribed callback fires,
-    // with NO reload, and does NOT update spuriously before the trigger (fail-closed). The old `channelWired` source-grep
-    // (which identifier the subscribe uses) was a PROXY that FALSE-RED'd when the code legitimately moved raw-uuid→viewBusKey
-    // (R37.12/R40.17) while the behaviour stayed GREEN — a false RED in our own corpus. A behavioural verdict survives a
-    // legitimate refactor; a source-grep rots against its own codebase. Source wiring kept below as INFORMATIONAL only.
-    const pass = liveSwap && noReload && failClosed;
-    results.push(pass);
-    if (i === 1) viewStubProven = failClosed && liveSwap;                                       // same run: not-triggered→stale AND triggered→swap = the behavioural stub-must-fail
-    console.log(`iter ${i}: live-swap=${liveSwap} | NO-reload=${noReload} | fail-closed=${failClosed} (viewStubProven=triggered→swap & not-triggered→stale) => ${pass ? 'GREEN' : 'RED'}  [info: source wiring sub=${subReal}/notify=${notifyReal}/cb=${cbIsRender}, non-gating]`);
-    await ctx.close();
+  for (let i = 1; i <= ITERS; i++) {
+    // designate whichever band task is NOT currently pinned, so success REQUIRES a genuine transition (no vacuous OK)
+    const svrBefore = await serverCurrent();
+    const target = svrBefore === B ? A : B;
+    const wasShowingTarget = await pinShows(tag(target));   // must be false → the OK below proves a real change
+    await p.evaluate(() => { window.__nr = 'alive'; });
+    await setCurrent(target);
+    let renderedAt = null; const t0 = Date.now();
+    while (Date.now() - t0 <= WINDOW_MS) { if (await pinShows(tag(target))) { renderedAt = Date.now() - t0; break; } await sleep(200); }
+    const noReload = await p.evaluate(() => window.__nr === 'alive');
+    const precondition = (await serverCurrent()) === target;        // server actually moved to target
+    const transition = !wasShowingTarget;                           // pin was NOT already on target → a real re-render is required
+    const ok = precondition && transition && renderedAt !== null && noReload;
+    results.push({ i, target: tag(target), renderedAt, noReload, precondition, transition, ok });
+    console.log(`iter ${i}: designate ${tag(target)} (pin was ${wasShowingTarget ? 'ALREADY '+tag(target)+' — vacuous, skip' : 'other'}) → re-rendered ${renderedAt !== null ? `@${renderedAt}ms` : `NEVER within ${WINDOW_MS}ms`} | server-moved=${precondition} noReload=${noReload} => ${ok ? 'OK' : (!precondition ? 'PRECOND-FAIL' : !transition ? 'VACUOUS-SKIP' : 'MISS')}`);
+    await sleep(800);
   }
-} finally { await browser.close(); }
+  await ctx.close();
+} finally { await b.close(); const td = await f.teardown(); console.log(`teardown prodUp=${td.prodUp} leftover=${td.leftover}`); }
 
-console.log('\n===== R40.17 LIVE PIN — pin swaps live, no refresh, @390 real-WebKit (DET-3x) =====');
-console.log(`[INFO, non-gating] source wiring (identifier-agnostic raw-uuid|viewBusKey): subscribe(CS)=${subReal} notify(CS)@universal-actions=${notifyReal} callback=renderCurrentSprintEagerLazy=${cbIsRender}`);
-console.log(`BEHAVIOURAL stub-must-fail (viewStubProven — not-triggered→stale AND triggered→swap, same run): ${viewStubProven}`);
-console.log('NOTE: full post-broadcast channel proof (real make-current → ws → pin swaps, not a direct callback call) folds into item-2 of the binding pass.');
-results.forEach((p, i) => console.log(`  iter ${i + 1}: ${p ? 'GREEN' : 'RED'}`));
-const green = results.length === 3 && results.every(Boolean) && viewStubProven; // BEHAVIOURAL verdict (no source-grep gate)
-console.log('OVERALL:', green ? 'GREEN DET-3x (BEHAVIOUR: pin re-renders no-reload + fail-closed + stub-proven)' : 'RED');
-console.log('NOTE: real owner-designate finger-tap → ViewBus.notify(CS) end-to-end = Tron device row (owner-auth RCE-sensitive; never headless-greened).');
+console.log('\n===== R40.17 LIVE PIN — REAL make-current re-renders the pin RELIABLY @390 (fail on ANY valid miss) =====');
+results.forEach(r => console.log(`  iter ${r.i} (${r.target}): ${r.ok ? 'OK' : (!r.precondition ? 'PRECOND-FAIL' : !r.transition ? 'VACUOUS-SKIP' : 'MISS')}${r.renderedAt !== null ? ` @${r.renderedAt}ms` : ''}`));
+const valid = results.filter(r => r.precondition && r.transition);         // iterations that genuinely required a re-render
+const misses = valid.filter(r => !r.ok).length;                            // valid designations whose pin did NOT re-render in-window
+const green = valid.length >= 2 && misses === 0;                           // need real coverage AND zero racy/slow misses
+if (valid.length < 2) console.log(`INSUFFICIENT-COVERAGE: only ${valid.length} valid transition(s) — cannot certify (fix setup, do not score GREEN).`);
+console.log('OVERALL:', green ? `GREEN (pin re-rendered within ${WINDOW_MS}ms on ALL ${valid.length} valid designations)` : `RED — ${misses}/${valid.length} valid designations did NOT re-render the pin within ${WINDOW_MS}ms (racy/slow live-pin = Tron's defect)`);
 process.exitCode = green ? 0 : 1;
