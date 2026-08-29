@@ -16,16 +16,25 @@ Expert routed by PO: architect rules shape → expert builds → tester verifies
 - **NEXT (displaced slot)** = **the `derived` current that the designation is MASKING**, i.e. when `designated` is valid AND `designated.uuid !== derived.uuid`, NEXT = `derived`. Otherwise NEXT = the existing auto-scan (first non-terminal after current). No stored override.
 - Rationale: after make-current(40.10), `designated`=40.10 (shown as current via EXPLICIT-WINS), `derived`=40.1 (still max-`lastAdvancedAt`; make-current does NOT bump it) → NEXT = 40.1. The displacement is a pure function of the two values current already computes. The demote is impossible to get "stale" because there is nothing stored to go stale — it is re-derived per read, same as current (R40.44 honest = validity-checked-and-observable, not silent-stale).
 
-## make-current write change
-- KEEP: `desIntent.currentTaskUuid = taskUuid` (+ `sprintName`) — the ONE sanctioned authored source (validated per read, expiring at Done per R40.44).
-- **DROP: the `priorCurrent` capture (server.ts:2006) and the `nextBacklogOverride` write entirely.** The displaced-NEXT is now derived in getThreeSlots from (designated vs derived); make-current stores nothing about NEXT.
-- Also DROP the `nextBacklogOverride` load (constructor :86-118) and the honor block (:356). One fewer stored field, one fewer second-source.
+## make-current write change (scope-corrected)
+- KEEP: `desIntent.currentTaskUuid = taskUuid` (+ `sprintName`) — the ONE sanctioned authored source for CURRENT (validated per read, expiring at Done per R40.44).
+- **DROP: the `priorCurrent` capture (server.ts:2006) and make-current's `nextBacklogOverride` write.** The displaced-NEXT is now derived in getThreeSlots from (designated vs derived); make-current stores nothing about NEXT.
+- **KEEP (do NOT drop):** the `nextBacklogOverride` field/load (:79/:118), the honor block (:352), `setNextBacklog`/`clearNextBacklogOverride`, and the owner `POST slot:next` — they serve the LEGITIMATE owner explicit designate-next (validity-checked per read = R40.44-conformant). Only make-current's AUTO-write of it dies.
 
-## Invariants
-- **INV-1 (displacement-by-derivation):** with a valid designation D masking derived-current R (D≠R), getThreeSlots → current=D, next=R. No stored next field consulted.
-- **INV-2 (no second source):** grep — `nextBacklogOverride` has 0 references after the fix (field, writer, loader, honorer all gone). The displacement derives solely from designated-vs-derived.
-- **INV-3 (BUG-C preserved):** no uuid in >1 slot (the existing dedup at :358+ stands; verify D≠R≠lastCompleted).
-- **INV-4 (expiry inherited):** when D reaches Done/re-designated/gone (R40.44 expiry), current falls back to R and the displacement vanishes — no orphaned stored next lingering (it was the failure mode of the removed override).
+## ★ SCOPE CORRECTION (expert-flagged, escalate-not-assume) — TWO writers, only ONE dies
+`nextBacklogOverride` has a SECOND writer I missed: the OWNER explicit **`POST /api/current-sprint/designate` slot:next** (server.ts:2105) + `setNextBacklog`/`clearNextBacklogOverride`. That is a LEGITIMATE owner feature — the NEXT-slot analog of designate-CURRENT — and its honor block (CurrentSprint.ts:352) ALREADY re-validates per read (`!o.done && o.uuid !== currentUuid`) + the symmetric clear (:452) drops it when it becomes current. That is the R40.44 SANCTIONED "stored-with-revalidation" cure, NOT the silent-stale disease. So this is **(B-refined), not full-eliminate (A):**
+- **KILL only** the make-current AUTO-demote: the `priorCurrent` capture (server.ts:2006, reads the R40.18-retired stored pointer) + make-current's auto-write of `nextBacklogOverride`. That auto-captured value is the silent-stale second-source = the bug.
+- **KEEP** the owner explicit designate-next (POST slot:next + setNextBacklog + the :352 honor + :452 clear) — a sanctioned explicit override, already validity-checked per read.
+- Meta: fact-2's fix IS an instance of the truth-decay family cure — the AUTO/silent stored value dies; the EXPLICIT/revalidated stored value lives. Never stored-and-silent; stored-with-revalidation is fine.
+
+## PRIORITY (three-tier, mirrors current's designated-ELSE-derived)
+NEXT = **owner-explicit designate-next** (if valid, :352 honor) ELSE **masked-derived-current** (the displacement: derived current R when a valid designation D masks it, D≠R) ELSE **auto-scan** (first non-terminal after current).
+
+## Invariants (REVISED)
+- **INV-1 (displacement-by-derivation):** absent an owner explicit-next, with a valid designation D masking derived-current R (D≠R), getThreeSlots → current=D, next=R. No stored next field written or read for the DISPLACEMENT.
+- **INV-2 (no AUTO second source):** grep — the **make-current path** writes `nextBacklogOverride` 0 times (the auto-demote capture + write are gone). `nextBacklogOverride` survives ONLY as the owner explicit designate-next, and ONLY via its validity-checked-per-read honor (:352) — never silent-stale, never auto-captured.
+- **INV-3 (BUG-C preserved):** no uuid in >1 slot (existing dedup at :358+; verify explicit-next / D / R / lastCompleted don't collide).
+- **INV-4 (expiry):** the owner explicit-next expires per read (:352 done-check + :452 became-current clear); the make-current displacement is derived so it cannot linger (its removal fixes the orphan-stale failure mode of the old auto-write).
 
 ## FAILABLE (R40.54 family — stub-must-fail)
 Tester's RED baseline: seed derived-current=Y, make-current(X≠Y) → assert NEXT slot == Y. Pre-fix this is RED (NEXT stays auto-scan/37.2); post-fix GREEN. Second stub: with NO designation, NEXT == auto-scan (regression guard that removing the override didn't break the normal next-backlog). Both must be able to fail (isolated fixture sprint, no prod mutation, R40.31).
