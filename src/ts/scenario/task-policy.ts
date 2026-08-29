@@ -129,13 +129,16 @@ export const TaskPolicy: UnitPolicy = {
       m.lastAdvancedAtSource = 'seam';
       return;
     }
-    if (intent.reopen) { // (5a→R40.59 BAND) decline: UNTICK Done + QA Review AND insert the OPEN processing-CR sub-step so
-      // deriveStatusEnum derives the BAND 'QA-Review-with-open-CR' (NOT In Progress) — the SOLE writer, NO direct m.status.
-      // ★ ATOMIC PAIR (architect 0557e1532 inv-1): the untick and the sub-step land TOGETHER in this one seam write. An
-      // untick WITHOUT the sub-step would derive In Progress = the Tron-forbidden regress (that is the tester RED baseline).
+    if (intent.reopen) { // (5a→R40.59 BAND→fe495e32d) decline: KEEP QA Review [x], layer the OPEN processing-CR sub-step so
+      // deriveStatusEnum derives the BAND 'QA-Review-with-open-CR'. ★ FIX (architect fe495e32d, Tron AC "QA Review stays [x]"):
+      // a decline NEVER unticks QA Review. The earlier untick MASKED the regression — the band read right while the AUTHORED
+      // QA-Review box had regressed to [ ] (weaker-property substitution: we asserted the DERIVED band, not the authored state
+      // it derives from). Now: untick ONLY Done (a declined Done returns to the band, not stays Done); ENSURE QA Review [x];
+      // then insert the open sub-step so the band layers on TOP of a ticked QA Review — the SOLE writer, NO direct m.status.
       let cl = String(m.statusChecklist ?? '');
-      cl = untickBox(cl, 'Done'); cl = untickBox(cl, 'QA Review');
-      cl = insertOpenCrSubstep(cl); // the open sub-step lifts the unticked checklist out of In-Progress into the band
+      cl = untickBox(cl, 'Done');      // a declined Done returns to the band; QA Review is NEVER unticked
+      cl = tickBox(cl, 'QA Review');    // ★ QA Review STAYS [x] (Tron AC) — idempotent ensure (was: untickBox = the masked regress)
+      cl = insertOpenCrSubstep(cl);    // the open sub-step lifts the QA-Review [x] checklist into the 'QA-Review-with-open-CR' band
       m.statusChecklist = cl;
       m.status = deriveStatusEnum(cl); // sole status writer — derives the band from the edited checklist (single-source)
       if (intent.addChangeRequest) { // ride the decline's CR-link in the SAME seam transaction (get() re-reads disk, so a separate push would be lost)
@@ -146,10 +149,10 @@ export const TaskPolicy: UnitPolicy = {
     }
     if (intent.subStep !== undefined) { // R40.18: tick the NAMED In-Progress sub-step, KEEP the state, stamp + emit (seam)
       let cl = tickSubStep(String(m.statusChecklist ?? ''), String(intent.subStep));
-      // R40.1 CR-RESOLVE (#86): resolving the processing-CR sub-step returns the task to CLEAN 'QA Review' (approvable).
-      // The band's decline UNTICKED QA Review, so re-tick it here — the INVERSE of that untick. Ticking the sub-step alone
-      // clears hasOpenCrSubstep but would leave the top-level at In Progress (the forbidden regress); re-ticking QA Review
-      // lands the clean 'QA Review' the owner approves from. (An In-Progress sub-step tick keeps its state → no re-tick.)
+      // R40.1 CR-RESOLVE (#86): resolving the processing-CR sub-step returns the task to CLEAN 'QA Review' (approvable) —
+      // ticking the sub-step clears hasOpenCrSubstep → deriveStatusEnum recomputes to 'QA Review'. Since fe495e32d the decline
+      // KEEPS QA Review [x] (never unticks), so this re-tick is now an IDEMPOTENT belt-and-braces ENSURE (QA Review is already
+      // [x]); it also stays robust if any other path left it unticked. (An In-Progress sub-step tick keeps its state → no re-tick.)
       if (String(intent.subStep) === PROCESSING_CR_SUBSTEP) cl = tickBox(cl, 'QA Review');
       m.statusChecklist = cl;
       m.status = deriveStatusEnum(cl); // SOLE writer — recompute from the edited checklist (no status literal)
