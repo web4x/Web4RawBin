@@ -29,3 +29,11 @@ The expert is measuring Tron's ACTUAL resolved uuid + his resolution graph. Two 
 
 ## Handoff
 Expert reports Tron's resolved uuid + which edge type reaches 05e58f81; I confirm the edge is authenticated (sub-case 1) or rule the un-consolidated path (sub-case 2, no loose widening). Then build the derived check + the two stubs; tester verifies Tron accesses his own tasks @390 AND a same-phone non-owner is still 403. Security-widening: nothing ships until the loose-edge-excluded RED baseline passes.
+
+## ★ FINAL RULING (2026-08-29, after measurement) — USE 05e58f81, NO consolidation, NO traversal
+Expert measured: **05e58f81 is auth-reachable by Tron** (committed, 4-digit secretCode, 16 devices enrolled) AND **all 6 of his other identities are PUBLIC** (token==uuid). Consequences:
+- **THE FIX = Tron authenticates AS 05e58f81** (his secret-gated owner, on all 16 devices). Zero-risk, zero-change, zero data-write, no auth-widening. Unblocks him now.
+- **RULE AGAINST consolidation:** all 6 are public-token → NO genuine secret identity to merge. A public `redirectTo → 05e58f81` makes the OWNER forgeable PERMANENTLY (anyone presenting that public token = owner = RCE). With all-6-public it is not "merge the genuine ones" — it is widening the owner's attack surface to 6 forgeable entry points for zero benefit. SECURITY DOWNGRADE. The 6 stay non-owner (retire if stale — his call; never promote).
+- **RULE AGAINST the derived traversal (as originally designed):** his chain routes through REVOKED 41ad88c4 + public c09087ec — a traversal walks owner-auth into revoked/forgeable identities. The principle (derive, don't hand-list) is sound; the actual graph is poisoned, so the answer is NOT a cleverer traversal.
+- **Honest answer to Tron** ("all my uuids should be owner"): use 05e58f81 (covers your 16 devices); the 6 are public tokens that cannot safely BE owner. To make a specific one owner, ROTATE its token to secret FIRST — but you don't need to.
+- **SEPARATE security-audit (independent):** does session-mint require the secretCode or accept a bare public token? A bare-public-token session-mint is an RCE regardless of this — fix by secret-gating session-mint, a follow-on. Amos 8d9be587 excluded; revoked 41ad88c4 never touched.
