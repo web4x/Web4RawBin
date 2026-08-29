@@ -29,3 +29,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] 🧪 [Task 40.18: Pin auto-progress on QA-Review — pin advances BY DERIVATION (explicit-wins-over-auto, lastCompleted-follows-DONE-not-QA), the shipped auto half of the pin mechanism](./task-40.18-pin-auto-progress-qa.md)
 - [ ] ✅ [Task 40.37: Context-sensitive actions — invalid-for-type/status actions are NOT offered (universalActionBar per-action applicability); server guard stays defense-in-depth](./task-40.37-context-sensitive-actions.md)
 - [ ] ⏳ [Task 40.62: Render the CR diagram file-artefact — a CR dropped on a diagram renders as a FILE-shaped artefact reusing the existing file/pumlartifact path (no forked CR-diagram kind)](./task-40.62-render-cr-diagram-artefact.md)
+- [ ] ⏳ [Task 40.66: PROD regression — File units carry UUIDs where names belong + lost ownerIor (works on older TEST, broken on PROD)](./task-40.66-file-unit-uuid-name-regression.md)
