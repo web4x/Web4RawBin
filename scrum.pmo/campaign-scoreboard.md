@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 155** — Done **98** · QA-Review **43** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 11** (155 = 98+43+3+11)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 7**
+- **TOTAL S30++ tasks: 155** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 10** (155 = 98+44+3+10)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 6**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 19 | 1 | 12 | 0 | 6 |
-| S40 | 16 | 0 | 14 | 0 | 2 |
+| S40 | 16 | 0 | 15 | 0 | 1 |
 
-**ACTIONABLE by blocker:** RIPE 1 · gate 1 · marker 5
+**ACTIONABLE by blocker:** gate 1 · marker 5
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -40,7 +40,6 @@
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
-| S40 | 7a956c21 | In Progress | RIPE | Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep l |
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
 - **S31 6be9a92d** — Task 31.6: Shared pan/zoom viewer capability for EVERY embed — _excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103)._
