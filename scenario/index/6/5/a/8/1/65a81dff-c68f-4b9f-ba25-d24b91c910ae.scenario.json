@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "65a81dff-c68f-4b9f-ba25-d24b91c910ae",
+    "name": "detailRender.convergeOnFailLoudBase",
+    "description": "Every File/WebItem detail-render component extends the ONE fail-loud primitive RbDetailBase (never HTMLElement); an unresolvable ref fails LOUD not silent; in-room delegates via renderDetailForRef; a /trace File/WebItem detail-render coverage gate exists gate-first before PhaseA migration. Convergence lint + fail-loud test + @390 regression gate, each stub-must-fail.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:b910550a-076a-44b8-8613-3e8b4a828641",
+    "unitLinks": [],
+    "note": "Architect wires Class (RbDetailBase convergence + the detail-render-base lint) + Method(s) on build-go, then re-inspects; planner mints covering task; I mint Tests off tester markers."
+  },
+  "ownerIor": "ior:instance:b910550a-076a-44b8-8613-3e8b4a828641"
+}

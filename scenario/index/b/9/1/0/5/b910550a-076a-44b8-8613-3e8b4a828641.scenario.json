@@ -1,0 +1,115 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b910550a-076a-44b8-8613-3e8b4a828641",
+    "altId": "R37.26",
+    "name": "File/WebItem detail-renders converge on the ONE fail-loud primitive (all extend RbDetailBase; HTMLElement-bypass is RED)",
+    "description": "Every File/WebItem DETAIL-RENDER component must EXTEND the ONE fail-loud primitive RbDetailBase (r4011) — never extend HTMLElement directly and hand-paint, which BYPASSES fail-loud on BOTH the /trace page and in-room. Expert measured 3 parallel render paths: (1) RoomView.openFilePreview hand-paint + SILENT-FAIL (852101d1); (2) RbFileDetail (d932447e) + RbWebItemDetail (2598da09/accc6a00) extend HTMLElement NOT RbDetailBase -> bypass r4011 fail-loud on /trace too; (3) RbDetailBase + 8 subclasses (CORRECT). CONVERGE all three onto RbDetailBase so an unresolvable ref fails LOUD (visible error) not silent (permanent Loading / parent-collection / blank). By-construction convergence invariant (R37.11 ONE-controller / R37.12 ONE-view-bus sibling): one detail primitive, every component extends it, HTMLElement-bypass => RED. Kills the RoomView preview-fork RECURRENCE ROOT (backlog e4dafc536: shared fixes don't reach in-room -> BUG18-class recurs until DRY'd).",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:65a81dff-c68f-4b9f-ba25-d24b91c910ae"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "expert-measurement-planner-routed",
+      "measuredBy": "robbin-expert (3 parallel render paths)",
+      "routedBy": "robbin-planner",
+      "rNumberRuledBy": "robbin-req (structural: S37 consistency-by-construction convergence, distinct from R37.12 idempotent-render + R40.11 deploymentRef-fail-loud)",
+      "date": "2026-08-30",
+      "paths": "(1) RoomView.openFilePreview hand-paint+silent-fail 852101d1 / (2) RbFileDetail d932447e + RbWebItemDetail 2598da09,accc6a00 extend HTMLElement NOT RbDetailBase (bypass r4011 on /trace) / (3) RbDetailBase + 8 subclasses correct",
+      "recurrenceRoot": "backlog e4dafc536 (RoomView preview-fork: shared fixes don't reach in-room -> BUG18-class recurs until DRY'd)"
+    },
+    "failableACFamily": "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+    "crossRef": [
+      "ior:instance:83528e2f-60d3-4d62-acf3-2e3b4068fce5",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b",
+      "ior:instance:c9fa4f49-caa1-4032-ae47-7144646c4fd0"
+    ],
+    "crossRefNote": "Rides r4011 fail-loud primitive (R40.11 deploymentRef default-views = the specific fail-loud origin; this is the FLEET convergence of ALL File/WebItem detail renders onto it). Sibling to R37.11 ONE-controller + R37.12 ONE-view-bus (R37.12 owns RbDetailBase for IDEMPOTENT-render/no-double-subscribe = a DISTINCT property; this owns fail-loud-ref-resolution convergence, so NEW req not an R37.12 extension). crossRef R40.69 File-units (data shape) + R40.12 File-detail preview content. Motivated by BUG18 (949ee3c2) regression; the @390 gate is BUG18's permanent close. Backlog e4dafc536 = the recurrence root this DRY's out.",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; gate-first: the /trace coverage gate must exist+GREEN before PhaseA migration lands. Planner mints the covering task; architect+tester diagnose code-vs-data; expert builds; I mint Tests off tester markers.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-extend-rbdetailbase",
+        "group": "by-construction",
+        "text": "Every File/WebItem detail-render component EXTENDS RbDetailBase (the r4011 fail-loud primitive), NEVER HTMLElement directly. A detail component extending HTMLElement (or otherwise not routing through RbDetailBase's fail-loud) => RED. The 2 stragglers RbFileDetail (d932447e) + RbWebItemDetail (2598da09/accc6a00) migrate to extend RbDetailBase.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "detail-render-base convergence lint",
+          "assertion": "a detail-render component not extending RbDetailBase (extends HTMLElement / forks its own paint) => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): seed a detail component extending HTMLElement not RbDetailBase => RED; extending RbDetailBase => not flagged"
+      },
+      {
+        "id": "AC-fail-loud-not-silent",
+        "group": "fail-loud",
+        "text": "An unresolvable / missing ref in ANY detail render fails LOUD via RbDetailBase (a VISIBLE error), NEVER silent — no hand-paint, no permanent 'Loading...', no parent-collection fallback, no blank box. RoomView.openFilePreview's silent-fail (852101d1) is eliminated: it delegates, not hand-paints.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "r4011 fail-loud (extended to File/WebItem)",
+          "assertion": "an unresolvable ref in a File/WebItem detail render => visible fail-loud error, never silent/blank/parent"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): feed an unresolvable ref to a File/WebItem detail render => fail-loud visible; a resolvable ref => renders detail"
+      },
+      {
+        "id": "AC-room-delegates-renderdetailforref",
+        "group": "DRY",
+        "text": "In-room preview DELEGATES through the shared renderDetailForRef path (same primitive as /trace), NOT a forked hand-paint. This kills the RoomView preview-fork RECURRENCE ROOT (e4dafc536): a shared detail fix now reaches in-room by construction, so BUG18-class defects cannot recur via the fork.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "one-detail-path (no room fork)",
+          "assertion": "in-room detail render routes through renderDetailForRef/RbDetailBase; a separate in-room hand-paint fork => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): seed an in-room detail hand-paint fork (not via renderDetailForRef) => RED"
+      },
+      {
+        "id": "AC-gate-first-trace-coverage",
+        "group": "gate-first",
+        "text": "★ PO CONDITION: a /trace File/WebItem detail-render COVERAGE GATE must EXIST and PASS *before* PhaseA migration lands. Refactoring Tron's main surface against an UNGATED path = handing him a new regression. The coverage gate is the PRECONDITION for the migration, not a follow-up.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates /trace File/WebItem detail-render coverage",
+          "assertion": "the /trace File+WebItem detail-render coverage gate exists+GREEN BEFORE any PhaseA migration commit; migration against no-gate => inadmissible"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): attempt PhaseA migration with no /trace detail-render coverage gate present => inadmissible/RED (gate-first)"
+      },
+      {
+        "id": "AC-phased-A-stragglers-B-room",
+        "group": "phased",
+        "text": "PHASED: PhaseA migrates the 2 cross-page stragglers (RbFileDetail/RbWebItemDetail -> extend RbDetailBase) FIRST; PhaseB makes the room delegate via renderDetailForRef. Order matters: converge the shared primitive before re-pointing the room at it.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "phased migration order",
+          "assertion": "PhaseA (stragglers) precedes PhaseB (room delegate); a PhaseB-before-PhaseA landing => flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): seed PhaseB (room delegate) landing before PhaseA (stragglers migrated) => flagged out-of-order"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL (prove-the-prover): a synthetic detail component extending HTMLElement with an unresolvable ref => the convergence gate FLAGS it (RED); a component extending RbDetailBase with fail-loud => NOT flagged. A gate that cannot go RED on a real bypass certifies nothing.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "convergence gate self-stub",
+          "assertion": "synthetic HTMLElement-extending + unresolvable-ref => RED; RbDetailBase-extending + fail-loud => not flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): the gate's own stub (HTMLElement bypass) observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-390-regression-gate",
+        "group": "verify",
+        "text": "@390 REGRESSION GATE (the deliverable that keeps BUG18-class CLOSED): clicking a FILE or WebItem in a room -> the FILE/WebItem detail renders (correct type-appropriate view), NOT the PARENT collection / uuid-named unit / silent blank; a missing ref shows fail-loud, not a silent wrong-surface. Real @390 device, asserts the RENDERED artifact (Arm-B: not a proxy).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "@390 File/WebItem detail render (regression gate)",
+          "assertion": "@390: click File/WebItem => its own detail renders (or fail-loud on missing), never the parent collection / blank"
+        },
+        "stubMustFail": "PENDING (scenario-first #126, gate-first before PhaseA): @390 click a file => file detail (not parent collection); an unresolvable => fail-loud not silent"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
