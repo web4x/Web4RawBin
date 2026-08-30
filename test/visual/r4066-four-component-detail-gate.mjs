@@ -98,7 +98,9 @@ const renderProbe = async (page, tag, ref, stubRenderDetail) => {
 // identity/room. GUARDRAIL: the gate already refuses a :4444/prod BASE, so this privileged session is scratch-only.
 let OWNER = '', smSession = '', authStatus = '?';
 try {
-  OWNER = fs.readFileSync('/root/.rawbin/owner-token', 'utf8').trim();
+  // GATE_OWNER_TOKEN_PATH lets the expert hand me the PATH to the scratch's own owner-token file (option i): read the VALUE
+  // at runtime, never printed, never crosses a pane. Default = the host token (works when the scratch reads it — option ii).
+  OWNER = fs.readFileSync(process.env.GATE_OWNER_TOKEN_PATH || '/root/.rawbin/owner-token', 'utf8').trim();
   const sres = await fetch(BASE + '/api/server-manager/session', { method: 'POST', headers: { 'x-player-token': OWNER } });
   authStatus = String(sres.status);
   const setCookies = (typeof sres.headers.getSetCookie === 'function' ? sres.headers.getSetCookie() : [sres.headers.get('set-cookie') || '']).join(' ; ');
