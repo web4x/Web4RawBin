@@ -455,3 +455,19 @@ A recurring pattern: a requirement is device-verified by Tron and/or its fix is 
 
 ---
 **Maintained by:** robbin-planner (2026-08-10, PO ruling — device-real-chain-unwired credit-lag)
+
+---
+
+## ★ RECURRENCE ROOT (higher value than a normal debt item): RoomView preview FORKS the shared fail-loud path
+**Captured:** 2026-08-30 · **By:** robbin-planner (PO ruling) · **Source:** BUG18 diagnosis 316b60c15 · **Status:** ACCEPTED-DEFERRED · **Size:** small-medium (refactor RoomView.ts:386-402 to route through rb-detail-base shared detail flow)
+
+**Deferred (agreed):** expert correctly deferred part-3 (DRY the RoomView in-room preview through the shared fail-loud path) to the NEXT cycle so it does not delay Tron's visible BUG18 fix (Task 37.29). The re-fix ships; the DRY is the follow-on.
+
+**Why this is a RECURRENCE ROOT, not a plain refactor:** RoomView.ts:386-402 FORKED its own preview render (`panel.innerHTML`) instead of reusing the shared detail path — so r4011's fail-loud guard is PRESENT in the codebase but BYPASSED in-room. **Until this is DRY'd, any future shared drawer/preview fix will NOT apply in-room, and BUG18-class regressions should be EXPECTED to recur** — every shared fix we ship silently fails to reach RoomView. Same disease as the 4 live-MVC page-entries that opened no websocket (DRY-by-copy). Frame it as what it is: *shared fixes do not reach this code path* — not 'refactor deferred' (which reads optional in three weeks).
+
+**Revisit trigger:** next cycle, OR the moment any shared drawer/preview fix ships (it will silently miss in-room until then). Owner = expert (route RoomView preview through the shared flow); planner tracks.
+
+**Cross-ref:** BUG18 949ee3c2 / Task 37.29, r4011 fail-loud, generic-behavior-in-shared-component, dont-fork-the-shared-mechanism, live-MVC websocket DRY-by-copy.
+
+---
+**Maintained by:** robbin-planner (2026-08-30, PO ruling — RoomView preview-fork recurrence root)
