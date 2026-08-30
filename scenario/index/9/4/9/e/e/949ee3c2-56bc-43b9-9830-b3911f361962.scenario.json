@@ -27,7 +27,8 @@
     },
     "tasks": [
       "ior:instance:802a9597-5665-4d14-84e2-ced70b51f5a5"
-    ]
+    ],
+    "crossBranchNote": "VISIBLE-NOT-SILENT (co-location-pending, NOT dangling): this req/bug unit + its reverse-wire (tasks[]) are on origin/MAIN (canonical unit home); its covering Task was minted by the planner on the SERVED/hotfix tree, so on main the tasks[] ref co-locates with its Task FILE only after the hotfix->main reconcile. Units durable on main, tasks+code+gates durable on hotfix/served, NOTHING LOST — a reader must read 'pending-merge', not 'broken-chain'. ★ NOT-VERIFIABLE-ON-MAIN-TODAY: a chain that resolves only cross-branch is NOT verifiable on main until the merge — honesty over reassurance. MERGE TRIGGER (PO-dated, concrete — no longer 'until live-MVC clears'): the hotfix->main reconcile runs when BOTH (1) Tron's iOS acceptance verdict is IN (either way) AND (2) the Phase-A land is served; not re-deferred without an explicit new dated PO decision. Ownership: architect DESIGNS the reconcile (holds the 44/42-divergence context), expert EXECUTES, tester GATES no served-surface regression (a real merge, its own gate). (Tron-facing note: the planner confirms the chains render NON-dangling ON SERVED — expert carried each — so Tron's live /trace is not blocked by the reconcile; the main-side split is a durability/unification concern, important-not-urgent-for-Tron.) 0 Done till Tron regardless."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
