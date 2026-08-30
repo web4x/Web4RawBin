@@ -14,7 +14,8 @@
       "satisfied": false,
       "gate": "r4065-ios-resync-gate.mjs GREEN DET-3x 612f44711"
     },
-    "twoKeyStatus": "REQ-MINTED CANDIDATE (fresh measured-random v4, R37.14-compliant, NOT invented-with-structure) — TESTER must two-key-verify: confirm/adopt this uuid + AST-attach to the r4065 3 arms. No tester test:uuid existed on disk to adopt (measure-first: r4065 carries no marker), so req minted the candidate; tester owns the verify."
+    "twoKeyStatus": "ADOPTED + VERIFIED by tester (6e62bd479, marker [test:uuid:3e84d26a] attached to r4065-ios-resync-gate.mjs, pushed origin/hotfix). Tester verified both-dir on disk; candidate mint accurate, adopted as-is. Two-key COMPLETE.",
+    "crossBranchNote": "VISIBLE-NOT-SILENT (not dangling): the Test UNIT 3e84d26a + forward Impl.tests[] wire are on origin/MAIN (52d8f4052, canonical unit home); the Test sourceFile r4065-ios-resync-gate.mjs + the [impl:uuid:dba2b25d] source marker are on hotfix/t40.1-checklist-band (tester marker 6e62bd479 / expert fix v0.8.147). They CO-LOCATE on the pending hotfix->main reconciliation (the units-on-main/code-on-hotfix fork, architect-escalated all session). Until the merge, the sourceFile+marker resolve cross-branch, NOT silently-dangling — recorded so an auditor reads pending-merge, not broken-chain. R37.27 stays UNVERIFIED (Tron real-iOS) regardless of branch."
   },
   "ownerIor": "ior:instance:dba2b25d-3e7f-46e8-944b-d9754108098e"
 }
