@@ -30,7 +30,10 @@ const WS_DEAD = `window.WebSocket = Object.assign(class { constructor(){ this.re
 // neuter: swallow the resync trigger so a stubbed no-op helper turns the suite RED (stub-must-fail control).
 const NEUTER_VIS = `(() => { const o = document.addEventListener.bind(document); document.addEventListener = (t,h,c) => { if (t === 'visibilitychange') return; return o(t,h,c); }; })();`;
 
-const f = await setupFoundation();
+// buildDist:true FORCES a fresh esbuild of the scratch worktree's dist from HEAD source (which carries the fix) — the
+// DEFAULT symlinks main's committed (stale, pre-fix) dist. This is the PO's resolution to the chicken-and-egg: prove the
+// mechanism on a HEAD-built scratch with ZERO prod exposure, before any prod land serves the change to Tron.
+const f = await setupFoundation({ buildDist: true });
 const OWNER = fs.readFileSync('/root/.rawbin/owner-token', 'utf8').trim();
 const smSession = (/sm_session=([^;]+)/.exec(f.ownerHeaders().Cookie || '') || [])[1] || '';
 R(`scratch up: ${f.base} v${f.servedVersion} sha=${f.worktreeSha}`);
@@ -64,7 +67,10 @@ try {
   // SERVED bundle the browser loads, else a RED means "not built yet", NOT "fix broken". Distinguishes the two cleanly.
   bundleHasFix = await actor.page.evaluate(async () => {
     for (const u of [...document.querySelectorAll('script[src]')].map((s) => s.src)) {
-      try { if (/wireTransportResync|down:resync/.test(await (await fetch(u)).text())) return true; } catch { /* skip */ }
+      // 'pageshow' = the fix's foreground-resync listener, a string literal that SURVIVES esbuild minification and is 0 in
+      // the pre-fix trace bundle (measured) — 'wireTransportResync' gets mangled away, so grepping it false-negatives a
+      // correctly-built minified bundle (the inverse of what this guard is for). 'wireTransportResync' kept for source/unminified.
+      try { if (/wireTransportResync|pageshow/.test(await (await fetch(u)).text())) return true; } catch { /* skip */ }
     }
     return false;
   });
