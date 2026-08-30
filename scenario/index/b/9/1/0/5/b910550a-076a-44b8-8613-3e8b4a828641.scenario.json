@@ -6,7 +6,9 @@
     "name": "File/WebItem detail-renders converge on the ONE fail-loud primitive (all extend RbDetailBase; HTMLElement-bypass is RED)",
     "description": "Every File/WebItem DETAIL-RENDER component must EXTEND the ONE fail-loud primitive RbDetailBase (r4011) — never extend HTMLElement directly and hand-paint, which BYPASSES fail-loud on BOTH the /trace page and in-room. Expert measured 3 parallel render paths: (1) RoomView.openFilePreview hand-paint + SILENT-FAIL (852101d1); (2) RbFileDetail (d932447e) + RbWebItemDetail (2598da09/accc6a00) extend HTMLElement NOT RbDetailBase -> bypass r4011 fail-loud on /trace too; (3) RbDetailBase + 8 subclasses (CORRECT). CONVERGE all three onto RbDetailBase so an unresolvable ref fails LOUD (visible error) not silent (permanent Loading / parent-collection / blank). By-construction convergence invariant (R37.11 ONE-controller / R37.12 ONE-view-bus sibling): one detail primitive, every component extends it, HTMLElement-bypass => RED. Kills the RoomView preview-fork RECURRENCE ROOT (backlog e4dafc536: shared fixes don't reach in-room -> BUG18-class recurs until DRY'd).",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6541850f-ce0f-47d9-ae27-6ccf2862122e"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:65a81dff-c68f-4b9f-ba25-d24b91c910ae"
