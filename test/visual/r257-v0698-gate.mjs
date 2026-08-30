@@ -12,9 +12,11 @@ import { chromium } from '@playwright/test';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = 'https://prod.wo-da.de:4444';
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const SCEN = `${REPO}/scenario/index`;
 const DND = '3231db71-d834-435a-a7f9-a801680ccd62';
 const full = (p) => { try { return execSync(`find ${SCEN}/${p[0]}/${p[1]}/${p[2]}/${p[3]}/${p[4]} -name '${p}*.scenario.json'`, { encoding: 'utf8' }).trim().split('\n')[0].split('/').pop().replace('.scenario.json', ''); } catch { return ''; } };

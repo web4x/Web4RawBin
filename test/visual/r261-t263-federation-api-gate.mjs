@@ -9,12 +9,15 @@
 
 import https from 'https';
 import { execSync } from 'child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const HOST = 'prod.wo-da.de', PORT = 4444, ORIGIN = `https://${HOST}:${PORT}`;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const WEBITEM = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // unit JSON
 const ICS = 'b57d2f42-0cc4-4fa4-84c6-acaebe40a48a';       // File with content
-const SCEN = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const SCEN = path.join(__repo, 'scenario/index');
 const CHILDREN_UNIT = execSync(`find ${SCEN}/2/3/a/3/f -name '23a3f882*.scenario.json'`, { encoding: 'utf8' }).trim().split('/').pop().replace('.scenario.json', ''); // WebItem w/ 1 child
 
 const get = (path) => new Promise((res) => {

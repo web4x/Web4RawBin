@@ -11,9 +11,12 @@ import { chromium } from '@playwright/test';
 import { seedSystemTester } from './system-tester-setup.mjs';
 import fs from 'node:fs';
 import { execSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 const BASE = 'https://prod.wo-da.de:4444';
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const REPOS_PATH = '/var/dev/Workspaces/web4x/Web4RawBin/data/repos.json';
+const REPOS_PATH = path.join(__repo, 'data/repos.json');
 const OOSH_WORKTREE = execSync('readlink -f ~/oosh').toString().trim();   // .git is a FILE here (linked worktree)
 const IN_REPO_ALLOW = repoAllowRoots();
 function repoAllowRoots() { const home = execSync('echo $HOME').toString().trim(); const op = execSync('dirname "$(readlink -f ~/oosh)"').toString().trim(); return [home, op]; }
@@ -21,8 +24,8 @@ const outsideAllow = (p) => !IN_REPO_ALLOW.some(r => p === r || p.startsWith(r +
 const preExisted = fs.existsSync(REPOS_PATH);
 const backup = preExisted ? fs.readFileSync(REPOS_PATH) : null;
 
-const REAL_GIT_FOLDER = '/var/dev/Workspaces/web4x/Web4RawBin';        // .git FOLDER, OUTSIDE REPO_ALLOW
-const OUTSIDE_REPO = '/var/dev/Workspaces/2cuGitHub/Web4Articles';     // .git FOLDER, OUTSIDE REPO_ALLOW (explicit §10)
+const REAL_GIT_FOLDER = __repo;        // .git FOLDER, OUTSIDE REPO_ALLOW
+const OUTSIDE_REPO = path.join(__repo, '..', 'Web4Articles');     // .git FOLDER, OUTSIDE REPO_ALLOW (explicit §10)
 const WORKTREE_FILE = OOSH_WORKTREE;                                   // .git FILE (worktree)
 
 const post = (page, bodyObj) => page.evaluate(async (b) => { const r = await fetch('/api/git/repos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }); let j = null; try { j = await r.json(); } catch {} return { status: r.status, body: j }; }, bodyObj);
@@ -84,7 +87,7 @@ try {
   console.log(`  registered keys (pending restart-flush): ${JSON.stringify(registered)}`);
 
   // source-audit: the POST handler has NO requireAdmin (read-auth) + SOLE check is isGitRepo
-  const srv = fs.readFileSync('/var/dev/Workspaces/web4x/Web4RawBin/src/ts/server/server.ts', 'utf-8');
+  const srv = fs.readFileSync(path.join(__repo, 'src/ts/server/server.ts'), 'utf-8');
   const postBlock = srv.slice(srv.indexOf("filepath === '/api/git/repos'"), srv.indexOf("filepath === '/api/git/repos'") + 1200);
   chk('5.no-requireAdmin-in-handler', !/requireAdmin/.test(postBlock) && /isGitRepo/.test(postBlock));
 

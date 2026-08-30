@@ -9,9 +9,12 @@
 import { chromium } from '@playwright/test';
 import { execSync } from 'child_process';
 import https from 'https';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = 'https://prod.wo-da.de:4444';
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const S26_TASK = '026af82c-3668-4d94-ae01-51e5276f851b'; // sprint-26 task-26.6 (no sourceFile — 404'd before)
 const S27_TASK = '788bc972-145d-476a-877b-8fecbf037ef4'; // sprint-27 task (no sourceFile)
 const S26 = '1d98197d-87ee-4355-8858-406961b2f19d';

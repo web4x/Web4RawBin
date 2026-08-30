@@ -5,8 +5,11 @@
 // emitClaudeSkills is gated via the pure emitClaudeSkillText('Chain') (no real-file mutation).
 
 import { execSync } from 'child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const run = (cmd) => { try { return execSync(cmd, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 60000 }); } catch (e) { return (e.stdout || '') + (e.stderr || ''); } };
 const OV = 'npx tsx scripts/objectVerb.ts';
 

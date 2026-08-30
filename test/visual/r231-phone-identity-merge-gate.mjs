@@ -16,9 +16,11 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
-const ROOT = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const ROOT = __repo;
 const PROFILES = `${ROOT}/data/profiles.json`;
 const LANDLINE = '+4981422917723';
 const PRIMARY = '8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd';

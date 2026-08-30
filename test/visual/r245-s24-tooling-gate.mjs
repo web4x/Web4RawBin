@@ -7,7 +7,10 @@
 // [test:uuid:1b3682c8-a347-4e85-8188-f1faef3f5ae3] T24.5 Audit.strict — trace audit strict runs + reports
 
 import { execSync } from 'child_process';
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
+const REPO = __repo;
 const run = (cmd) => { try { return { out: execSync(cmd, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 }), code: 0 }; } catch (e) { return { out: (e.stdout || '') + (e.stderr || ''), code: e.status ?? 1 }; } };
 const OV = 'npx tsx scripts/objectVerb.ts';
 

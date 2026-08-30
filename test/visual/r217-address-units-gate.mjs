@@ -6,7 +6,7 @@
 // /search; HIT -> applyVerification verified:true + osmLink + gmapsLink). Badge endpoint
 // GET /api/address/<uuid> -> { verified, osmLink, gmapsLink, oneLine }.
 //
-// Prod serves from THIS checkout (tsx watch .../2cuGitHub/Web4RawBin) so scenario/index
+// Prod serves from THIS checkout (tsx watch the repo root, resolved via __repo) so scenario/index
 // is on local disk — used ONLY to discover the minted Address uuid (an internal id with
 // no public list endpoint). All ACCEPTANCE assertions go through the live API.
 //
@@ -20,9 +20,11 @@ import https from 'https';
 import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const HOST = 'prod.wo-da.de', PORT = 4444, WSS = `wss://${HOST}:${PORT}`;
-const SCEN = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const SCEN = path.join(__repo, 'scenario/index');
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const norm = (s) => String(s || '').trim().replace(/\s+/g, ' ');

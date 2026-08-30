@@ -16,9 +16,11 @@ import { chromium } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
-const SCEN = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const SCEN = path.join(__repo, 'scenario/index');
 const DND_ROOM = '3231db71-d834-435a-a7f9-a801680ccd62';
 const RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

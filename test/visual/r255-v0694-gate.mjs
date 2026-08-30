@@ -13,11 +13,14 @@
 
 import { chromium } from '@playwright/test';
 import fs from 'fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = 'https://prod.wo-da.de:4444';
 const FULL = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // existing message: WebItem in dnd room
 const KNOWN_PHONE = '+4981422917723';                   // Tron primary 8f74dfba
-const PROFILES = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/data/profiles.json';
+const PROFILES = path.join(__repo, 'data/profiles.json');
 const committedDupCount = () => JSON.parse(fs.readFileSync(PROFILES, 'utf8')).filter(p => p.profileCommitted && String(p.phone || '').replace(/\s/g, '') === KNOWN_PHONE && !p.redirectTo).length;
 
 const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--ignore-certificate-errors'] });

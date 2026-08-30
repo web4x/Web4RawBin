@@ -16,9 +16,11 @@ import WebSocket from 'ws';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = 'https://prod.wo-da.de:4444';
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const SCEN = `${REPO}/scenario/index`;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const HEART = '6c04f959-f3d6-42eb-818f-5e2e4498bf91';

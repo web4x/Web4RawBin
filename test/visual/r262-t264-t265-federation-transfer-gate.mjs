@@ -7,8 +7,11 @@
 //   (3) R26.5 reconcileConflict diff-origin collision → re-mint fresh uuid + provenance (remapped).
 
 import { execSync } from 'child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const EXISTING = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d'; // real local unit in the index
 
 function transferChecks() {

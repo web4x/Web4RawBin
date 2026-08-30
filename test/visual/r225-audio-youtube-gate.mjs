@@ -15,9 +15,11 @@ import { chromium } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
-const SCEN = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const SCEN = path.join(__repo, 'scenario/index');
 const YT_UUID = '2746ab4a-55d5-4bae-83dc-b38c6968515e';   // Heartspaces YouTube .url (uri-list)
 const YT_ID = 'a-_CuBOu6BA';
 const shardPath = (u) => path.join(SCEN, ...u.slice(0, 5).split(''), u + '.scenario.json');

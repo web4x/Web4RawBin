@@ -12,12 +12,14 @@ import WebSocket from 'ws';
 import fs from 'fs';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const WSS = 'wss://prod.wo-da.de:4444';
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const ROOM = '68d0f039-8668-4d2f-a904-2a23c5d6ecc3'; // System Test Room (SystemTester's)
-const PROFILES = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/data/profiles.json';
-const IDX = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const PROFILES = path.join(__repo, 'data/profiles.json');
+const IDX = path.join(__repo, 'scenario/index');
 const CORRECT = '1357', WRONG = '9999', RUN = randomUUID().slice(0, 8);
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const profCount = () => { try { return JSON.parse(fs.readFileSync(PROFILES, 'utf8')).length; } catch { return -1; } };

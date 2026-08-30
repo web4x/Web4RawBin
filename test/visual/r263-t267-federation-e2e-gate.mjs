@@ -10,10 +10,12 @@
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const HOST = 'prod.wo-da.de', PORT = 4444;
 const ST = 'ce981242-74fe-4d44-b5b6-43c641e224df';
-const SCEN = '/var/dev/Workspaces/2cuGitHub/Web4RawBin/scenario/index';
+const SCEN = path.join(__repo, 'scenario/index');
 const SYNTH = 'fed00000-0000-4000-8000-00000000e2e7';         // fixed synthetic uuid (deterministic + deletable)
 const ORIGIN = 'https://origin-a.example';                    // a DIFFERENT (remote) origin
 const shard = (u) => path.join(SCEN, ...u.slice(0, 5).split(''), u + '.scenario.json');

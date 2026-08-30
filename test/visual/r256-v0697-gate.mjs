@@ -14,9 +14,11 @@ import { chromium } from '@playwright/test';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'node:url';
+const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 
 const BASE = 'https://prod.wo-da.de:4444';
-const REPO = '/var/dev/Workspaces/2cuGitHub/Web4RawBin';
+const REPO = __repo;
 const WEBITEM = 'c8dc9d0d-ad6d-4d1e-a3af-7967cccdb37d';   // existing message: WebItem (dnd room)
 const FILE_UUID = 'b57d2f42';                             // existing File (Volker engels.ics) — full resolved below
 const SCEN = `${REPO}/scenario/index`;
