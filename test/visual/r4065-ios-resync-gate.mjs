@@ -1,3 +1,4 @@
+// [test:uuid:3e84d26a-c75d-4cb1-b6dc-935078ecbf52] R37.27 TransportLifecycle.resyncOnResume / wireTransportResync (Impl dba2b25d) — iOS foreground-resync severed-channel gate, 3 arms (ARM-A resync-heals / ARM-B stub-must-fail control / ARM-C fail-loud down:resync), GREEN DET-3x 612f44711. certScope HONEST: PROVEN=scratch mechanism only; NOT-PROVEN=Tron real-iOS device (desktop-green inadmissible) → R37.27 satisfied=FALSE until Tron. Adopted the req-minted candidate uuid (measure-first: no prior marker on disk).
 // iOS-RESYNC GATE (Tron #1, off robbin-tester r4064b verdict + architect fix 0b9aa6dc7 in live-bridge.ts:48-66).
 // The fix: on visibilitychange→visible OR pageshow(bfcache), resync() reopens a dead socket AND — the LOAD-BEARING half —
 // ViewBus.notify(CurrentSprint) forces renderCurrentSprintEagerLazy to RE-FETCH from the server (a reconnect that does not
