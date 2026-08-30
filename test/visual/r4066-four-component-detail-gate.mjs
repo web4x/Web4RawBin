@@ -19,6 +19,7 @@
 // Scratch-only; a bogus/synthetic ref can MINT on the server it hits (BUG18/r4010) → NEVER prod (gate refuses a :4444 base).
 import { webkit } from '@playwright/test';
 import fs from 'node:fs';
+import WebSocket from 'ws';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,
@@ -96,17 +97,26 @@ const renderProbe = async (page, tag, ref, stubRenderDetail) => {
 // own pages). Read the scratch's owner token at runtime (NEVER printed) + mint an sm_session — SAME mechanism as
 // setupFoundation. Using existing auth to LOAD owner-gated pages (read-only render) — NOT modifying auth, NOT prod, creates no
 // identity/room. GUARDRAIL: the gate already refuses a :4444/prod BASE, so this privileged session is scratch-only.
-let OWNER = '', smSession = '', authStatus = '?';
+let OWNER = '', smSession = '', authStatus = '?', ownerWs = null;
 try {
   // GATE_OWNER_TOKEN_PATH lets the expert hand me the PATH to the scratch's own owner-token file (option i): read the VALUE
   // at runtime, never printed, never crosses a pane. Default = the host token (works when the scratch reads it — option ii).
   OWNER = fs.readFileSync(process.env.GATE_OWNER_TOKEN_PATH || '/root/.rawbin/owner-token', 'utf8').trim();
+  // STEP 1 (REQUIRED, expert-corrected): open an owner WS + IDENTIFY so the server registers OWNER_TOKEN in tokenToClient
+  // (server.ts:952) — a POST /session ALONE 403s regardless of token. Exact setupFoundation sequence. Keep the WS OPEN.
+  ownerWs = await new Promise((resolve, reject) => {
+    const ws = new WebSocket(BASE.replace(/^https/, 'wss'), { rejectUnauthorized: false });
+    const t = setTimeout(() => reject(new Error('owner WS: no PROFILE within 15s')), 15000);
+    ws.on('message', (raw) => { let m; try { m = JSON.parse(raw.toString()); } catch { return; } if (m.type === 'welcome') ws.send(JSON.stringify({ type: 'IDENTIFY', playerToken: OWNER, deviceId: 'r4066-owner', name: 'r4066-owner', screenWidth: 1, screenHeight: 1, platform: 'node' })); else if (m.type === 'PROFILE') { clearTimeout(t); resolve(ws); } });
+    ws.on('error', (e) => { clearTimeout(t); reject(e); });
+  });
+  // STEP 2: now the token is registered → POST /session mints sm_session
   const sres = await fetch(BASE + '/api/server-manager/session', { method: 'POST', headers: { 'x-player-token': OWNER } });
   authStatus = String(sres.status);
   const setCookies = (typeof sres.headers.getSetCookie === 'function' ? sres.headers.getSetCookie() : [sres.headers.get('set-cookie') || '']).join(' ; ');
   smSession = (/sm_session=([^;]+)/.exec(setCookies) || [])[1] || '';
-} catch (e) { authStatus = 'ERR:' + String(e && e.message).slice(0, 40); }
-R(`owner-auth (scratch-only): owner-token=${OWNER ? 'read' : 'MISSING'} sessionPOST=${authStatus} sm_session=${smSession ? 'minted' : 'none'}`);
+} catch (e) { authStatus = 'ERR:' + String(e && e.message).slice(0, 50); }
+R(`owner-auth (scratch-only): owner-token=${OWNER ? 'read' : 'MISSING'} ownerWS=${ownerWs ? 'IDENTIFIED' : 'no'} sessionPOST=${authStatus} sm_session=${smSession ? 'minted' : 'none'}`);
 
 const browser = await webkit.launch();
 const results = [];
@@ -172,6 +182,7 @@ try {
   await ctx.close();
 } finally {
   await browser.close().catch(() => {});
+  try { ownerWs && ownerWs.close(); } catch { /* owner WS teardown */ }
   if (foundation) { const td = await foundation.teardown(); R(`teardown: prod:4444 up=${td.prodUp} leftover=${td.leftover}`); }
 }
 
