@@ -1,6 +1,6 @@
 // R37.27 fact-1 (iOS-Safari BFCache/freeze) — the ONE shared transport-lifecycle helper (architect design 0b9aa6dc7),
 // used by BOTH the /trace live-bridge AND the /app RawBinClient so the foreground re-sync CANNOT drift between two copies.
-// [impl:uuid:PENDING] — marker attaches on req mint of R37.27 (no fabricated uuid; single-minter's lane).
+// [impl] marker for R37.27 (dba2b25d, req-minted) is attached on wireTransportResync below.
 //
 // MEASURED (robbin-tester r4064b, DET-3x @390): Tron's "current-sprint pin updates only after reload" is iOS-Safari-
 // SPECIFIC — the GENERAL render-gap is ELIMINATED (passive client flipped from the broadcast ALONE on desktop-WebKit).
@@ -28,6 +28,7 @@ function errMsg(e: unknown): string { return String((e as { message?: string })?
  * The fire path is: verify-or-reconnect (fail-loud on throw) → resync/refetch (fail-loud on reject). Both guarded so a
  * throw in either half becomes an OBSERVABLE state, never an unhandled rejection or a silent no-op.
  */
+// [impl:uuid:dba2b25d-3e7f-46e8-944b-d9754108098e] R37.27 TransportLifecycle.resyncOnResume — wireTransportResync (shared foreground resync, both transports)
 export function wireTransportResync(t: TransportLifecycle): () => void {
   const fire = (): void => {
     try { if (!t.isOpen()) void t.reconnect(); } catch (e) { t.onResyncError(`reconnect: ${errMsg(e)}`); }
