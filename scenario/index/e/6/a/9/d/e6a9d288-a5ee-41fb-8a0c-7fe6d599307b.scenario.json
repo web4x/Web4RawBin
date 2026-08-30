@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e6a9d288-a5ee-41fb-8a0c-7fe6d599307b",
+    "name": "transportLifecycle.resyncOnResume",
+    "description": "ONE shared transport-lifecycle helper across both transports: on visibilitychange->visible + pageshow(bfcache), verify-or-reconnect + resync by REFETCH (never trust in-memory) + fail-loud on failure, NO UA-sniff. Severed-channel gate + Tron real-iOS acceptance.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:9ad82c6e-ce09-4bd9-9019-bef5f06e3203",
+    "unitLinks": [],
+    "note": "Expert fix pre-built (8d04af8a2, design 0b9aa6dc7); architect wires Class(shared transport-lifecycle helper)+Method on build-go + re-inspects; I mint Tests off tester markers."
+  },
+  "ownerIor": "ior:instance:9ad82c6e-ce09-4bd9-9019-bef5f06e3203"
+}
