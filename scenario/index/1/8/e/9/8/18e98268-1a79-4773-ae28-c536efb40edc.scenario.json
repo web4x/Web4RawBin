@@ -6,7 +6,9 @@
     "name": "Meta-guard - no requirement is satisfied while any AC lacks a check that can PROVABLY FAIL (fail-closed)",
     "description": "FIVE instances in one day each shipped as SATISFIED while its property was VIOLATED = a PROCESS DEFECT, not a series of misses: R40.50 (satisfied by a copy behind a value-gate), R40.48 (ACs present but UNENFORCED - 4 contaminations), check-sprint-slug-dir (guard validated the STRAY path), R32.3 (asserted no-re-fork, only checked rendering), R37.12 (asserted no-view-stale, nothing failable). Root: an AC that NAMES a behaviour but has no check that can PROVABLY FAIL is a wish (reminder-not-mechanism); a universally-quantified AC (all X / every X / no X) passes VACUOUSLY forever. The META-GUARD: a requirement may NOT be marked satisfied while any of its ACs lacks a check that can provably go RED - satisfaction is fail-closed. Architect owns the mechanism.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:bebe4f98-a6c3-472f-80cf-9defdfbc2ff4"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:2c80c850-bfbb-473f-bf07-2fefc323ae21"

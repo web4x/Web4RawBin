@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a3932852-6ed9-41fa-8fd8-bf46c0e3a1be",
+    "name": "Task 40.21: Credentials-in-URLs -> capability-not-identi",
+    "slug": "task-40-21-credentials-in-urls-capability-not-identi",
+    "description": "Deliver + verify requirement R40.21 (Credentials-in-URLs -> capability-not-identi). Retroactive task unit minted scenario-first from the existing requirement (#126 gap: the req existed, its Task unit was never minted). Covers R40.21; status derived from reality, staged by planner.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "",
+    "acceptanceCriteria": [],
+    "subtasks": [],
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "statusBasis": "FLOOR: Planned (backlog). #126 retroactive task-mint — req existed, task never minted; planner stages status to reality. NOT assumed-Done.",
+    "remainingIssues": "",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-29"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}

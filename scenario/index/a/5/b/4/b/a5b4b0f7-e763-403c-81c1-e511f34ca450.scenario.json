@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "a5b4b0f7-e763-403c-81c1-e511f34ca450",
+    "name": "Task 40.39: Type-registration is BOUND to index-strategy",
+    "slug": "task-40-39-type-registration-is-bound-to-index-strategy",
+    "description": "Deliver + verify requirement R40.39 (Type-registration is BOUND to index-strategy). Retroactive task unit minted scenario-first from the existing requirement (#126 gap: the req existed, its Task unit was never minted). Covers R40.39; status derived from reality, staged by planner.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "",
+    "acceptanceCriteria": [],
+    "subtasks": [],
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:7f5ea6f1-a907-4221-bcd6-64b62431fd5b"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "statusBasis": "FLOOR: Planned (backlog). #126 retroactive task-mint — req existed, task never minted; planner stages status to reality. NOT assumed-Done.",
+    "remainingIssues": "",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-29"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}

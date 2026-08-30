@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 155** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 10** (155 = 98+44+3+10)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 6**
+- **TOTAL S30++ tasks: 209** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 62** (209 = 98+44+3+62)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 58**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,20 +26,72 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 19 | 1 | 12 | 0 | 6 |
-| S40 | 16 | 0 | 15 | 0 | 1 |
+| S37 | 26 | 1 | 12 | 0 | 13 |
+| S40 | 63 | 0 | 15 | 0 | 46 |
 
-**ACTIONABLE by blocker:** gate 1 · marker 5
+**ACTIONABLE by blocker:** RIPE 7 · two-key 1 · gate 2 · marker 14 · build 34
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
+| S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
 | S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
+| S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
+| S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
+| S37 | 9cb80055 | Planned | build | Task 37.17: Gates must not encode a SNAPSHOT of the  |
+| S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
+| S37 | c18c2efb | Planned | build | Task 37.15: Store-once theme-only names — a stored n |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
+| S37 | ff834c77 | In Progress | gate | Task 37.13: Naming is canon by construction — the be |
+| S40 | 05d86575 | Planned | build | Task 40.67: State-file currency — boot-currency guard co |
+| S40 | 0dc65cc2 | Planned | build | Task 40.41: Production build serves NO sourcemaps — the  |
+| S40 | 0f1df43c | Planned | RIPE | Task 40.57: Cross-view role AGREEMENT — every consumer a |
+| S40 | 1398b20d | Planned | build | Task 40.22: Storage/identity RE-KEY — key data/users/ by |
+| S40 | 146e4444 | Planned | build | Task 40.59: QA-Review-with-open-CR band — derived, atomi |
+| S40 | 257b54f0 | Planned | build | Task 40.45: Live-on-advance = BOTH halves (sanctioned se |
+| S40 | 2b7356ac | Planned | build | Task 40.42: Diagram has ONE scroll/pan authority — no ne |
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
+| S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
+| S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
+| S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
+| S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
+| S40 | 5899aeb2 | Planned | marker | Task 40.16: Folders as real scenario units — type-driven |
+| S40 | 6134f49c | Planned | build | Task 40.53: ONE canonical sprint-dir resolver (sprintDir |
+| S40 | 658c05fe | Planned | marker | Task 40.60: Change Requests are first-class traceability |
+| S40 | 681c6659 | Planned | build | Task 40.47: PII units are never committable + traceabili |
+| S40 | 691fd8a9 | Planned | marker | Task 40.66: Task-status symbols: ONE shared source (serv |
+| S40 | 6ba813f4 | Planned | RIPE | Task 40.24: Selecting a diagram element changes the acti |
+| S40 | 71334df3 | In Progress | two-key | Task 40.55: Boots may not name a sprint/version divergin |
+| S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
+| S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
+| S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |
+| S40 | 80ab1930 | Planned | build | Task 40.56: Current-task has ONE definition site — pinRo |
+| S40 | 88183260 | Planned | build | Task 40.14: Portable encrypted loginToken — download fro |
+| S40 | 902c6dea | Planned | build | Task 40.36: Scratch boot-smoke gate — a server change fi |
+| S40 | 9b04c9e2 | Planned | marker | Task 40.34: Armed revocation must fail-CLOSED-but-not-lo |
+| S40 | 9b91d0bf | Planned | RIPE | Task 40.27: Class facet completeness: renders TS method  |
+| S40 | 9e047912 | Planned | build | Task 40.68: deploy.mjs targets the POST-BUILD version —  |
+| S40 | a3932852 | Planned | build | Task 40.21: Credentials-in-URLs -> capability-not-identi |
+| S40 | a5b4b0f7 | Planned | build | Task 40.39: Type-registration is BOUND to index-strategy |
+| S40 | a93426a1 | Planned | build | Task 40.46: Live code-stamp of lastAdvancedAt on a marke |
+| S40 | b500f345 | Planned | RIPE | Task 40.26: Discover-related completeness: adds the UseC |
+| S40 | b749e786 | Planned | build | Task 40.44: REMOVE the dead /api/current-sprint/designat |
+| S40 | bebe4f98 | Planned | marker | Task 40.54: Meta-guard - no requirement is satisfied whi |
+| S40 | bf6c70d8 | Planned | build | Task 40.51: Every Task is reciprocated by exactly one Sp |
+| S40 | c53bc75d | Planned | RIPE | Task 40.19: Protect history back-navigation — an EXECUTI |
+| S40 | c61eae9d | Planned | build | Task 40.23: Facet-type is single-sourced through deriveV |
+| S40 | c68be2f7 | Planned | RIPE | Task 40.58: Current-role LIVE fix — resolver result read |
+| S40 | c78d1084 | Planned | build | Task 40.15: secretCode hardening — hash+salt at rest, ra |
+| S40 | ca03557b | Planned | build | Task 40.49: All Tasks owned by the owner profile — scope |
+| S40 | cc6eadc6 | Planned | build | Task 40.38: An [impl:uuid] marker on a method declaratio |
+| S40 | e6663c08 | Planned | build | Task 40.32: Browser gates positively self-assert served= |
+| S40 | e7fe421d | Planned | RIPE | Task 40.29: Diagram background-drag pans the viewport wi |
+| S40 | efef7f6a | Planned | marker | Task 40.25: Post-deploy device-gate trigger — every depl |
+| S40 | f2b24cdb | Planned | marker | Task 40.52: The client transmits owner identity on every |
+| S40 | f873ec0e | Planned | build | Task 40.20: First key toggles native keyboard while RETA |
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
 - **S31 6be9a92d** — Task 31.6: Shared pan/zoom viewer capability for EVERY embed — _excluded-concept — Tron 2026-07-20 'FUTURE/CONCEPT ONLY, do NOT implement now; deferred until Tron authorizes build'; not a current deliverable, leaves the actionable count by construction (law#103)._

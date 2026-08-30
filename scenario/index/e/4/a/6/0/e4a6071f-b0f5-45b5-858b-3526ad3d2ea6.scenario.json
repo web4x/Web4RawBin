@@ -6,7 +6,9 @@
     "name": "Version integrity by construction — version-as-proof + bump-atomic-with-rebuild + no shared-tree WIP contamination",
     "description": "The version must be a PROOF that a deployable change went live, and a version bump must be ATOMIC with a rebuild. ORIGINAL PREMISE REFUTED: I minted this blaming a post-commit HOOK that auto-bumped 0.8.116->0.8.117 on the test-evidence commit 43efc40ae. Re-measured (expert 3rd read + PO): the post-commit hook is a TAGGER — it tags v<version> ONLY when the version ALREADY changed between commits; pre-commit has NO version logic. So NO hook bump. The 0.8.117 move was the expert's UNCOMMITTED config-bump + build being SWEPT into the tester's 43efc40ae via a BROAD ADD in the shared working tree = CROSS-AGENT WIP CONTAMINATION. The real root is a shared mutable tree with no commit isolation; the version-as-proof + atomic-bump requirements still hold, but their CAUSE moves from the hook to the sweep.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:4ea81b33-c9fd-42ed-885f-20985821ea8a"
+    ],
     "tests": [],
     "useCases": [],
     "unitLinks": [],

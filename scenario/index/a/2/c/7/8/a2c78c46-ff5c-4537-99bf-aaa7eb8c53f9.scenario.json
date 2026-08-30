@@ -4,7 +4,9 @@
     "uuid": "a2c78c46-ff5c-4537-99bf-aaa7eb8c53f9",
     "name": "Selecting a diagram element changes the action bar to show element-context verbs (remove-from-diagram / delete / find-linked)",
     "altId": "R40.24",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:6ba813f4-5e48-4bf3-883c-c5918b34616c"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

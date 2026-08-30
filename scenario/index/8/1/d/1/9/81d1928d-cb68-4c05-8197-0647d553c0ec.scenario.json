@@ -4,7 +4,9 @@
     "uuid": "81d1928d-cb68-4c05-8197-0647d553c0ec",
     "name": "Class facet completeness: renders TS method signatures + attributes/properties + relationships via the single renderFacet path",
     "altId": "R40.27",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9b91d0bf-0a84-42d3-8694-808b954bc11f"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

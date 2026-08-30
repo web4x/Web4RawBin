@@ -4,7 +4,9 @@
     "uuid": "7fee0120-a5dc-43df-838f-b91ab86711b1",
     "name": "Post-deploy device-gate trigger — every deploy auto-runs gate:device:live on live prod; NOT-RUN==RED; no bypass; version-stamped + Tron-visible",
     "altId": "R40.25",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:efef7f6a-d97a-469a-876c-156e121ad8bb"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

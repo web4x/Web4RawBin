@@ -34,7 +34,7 @@ The thing Tron keeps screenshotting broken. ONE focused feature, full chain to D
 
 <!-- GENERATED-INDEX:BEGIN -->
 ## 📌 Sprint pointers (generated — R37.1 pin + R37.5 rollup)
-- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1/R40.17 FAIL-LOUD (INV-C1-4): 6 Active sprints [21, 20, 40, 19, 37, 25] and NO owner designation — ambiguous current, never silent-pick. Designate the current sprint, or resolve checklists to one In-Progress. (pending sprint closure: Tron A1 sign-off + A2 dispositions)
+- **current:** ⚠️ UNRESOLVED — pin ambiguous — R37.1 FAIL-CLOSED: sprint 'sprint-40-server-manager-deployment-mobile-input' has an unresolvable task ref bb9dec65-0ff0-4e90-b55b-09a48e5bc40c — refusing (never silent-skip). (pending sprint closure: Tron A1 sign-off + A2 dispositions)
 
 | # | Sprint | Status |
 |---|--------|--------|

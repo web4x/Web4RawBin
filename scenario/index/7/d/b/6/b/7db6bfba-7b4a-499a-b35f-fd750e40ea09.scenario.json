@@ -4,7 +4,9 @@
     "uuid": "7db6bfba-7b4a-499a-b35f-fd750e40ea09",
     "name": "First key toggles native keyboard while RETAINING the artificial key bar (input-accessory retention, device-only) — extends R40.3",
     "altId": "R40.20",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:f873ec0e-4128-4995-8f24-fd52783afc13"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

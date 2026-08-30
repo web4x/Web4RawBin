@@ -6,7 +6,9 @@
     "name": "Change Requests are first-class traceability children, individually approved (no bulk accept-all) — Tron ruling",
     "description": "Change Requests are FIRST-CLASS TRACEABILITY CHILDREN of the task, each INDIVIDUALLY approved — no bulk accept-all. Tron ruled (verbatim) our shipped CR model has TWO structural errors: (1) CRs sit in a SEPARATE 'Change Requests' list (renderChangeRequests reading model.changeRequests), NOT in the traceability chain — they must appear as CHILDREN exactly like Requirements do (his T40.1 screenshot: Traceability Chain / All Children with UseCase + Requirement; CRs belong THERE, same shape, same treatment); (2) the '✓ Resolve CRs' action (resolveCr, server.ts:1658) is a BULK ACCEPT-ALL (one processing-CR sub-step tick clears the band for all) — that must NOT exist. EACH CR is approved INDIVIDUALLY, AT the task, and the band derives from 'ANY CR not-yet-approved' so it clears ONLY when EVERY CR is individually approved. Per-CR approval is Tron's QA JUDGMENT and genuinely his (owner-gated, attributable — the R40.10 discipline, per CR). ★ This also RETIRES the bulk resolve mechanism (which is why it could not/should not be fired). REPLACE the mechanism, do not route around it.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:658c05fe-6c52-41a9-889b-2bfa56dd9f77"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:b6194958-1d92-4355-b1d7-e0f051d63a5e"

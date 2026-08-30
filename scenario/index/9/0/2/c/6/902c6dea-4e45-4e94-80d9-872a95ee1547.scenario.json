@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "902c6dea-4e45-4e94-80d9-872a95ee1547",
+    "name": "Task 40.36: Scratch boot-smoke gate — a server change fi",
+    "slug": "task-40-36-scratch-boot-smoke-gate-a-server-change-fi",
+    "description": "Deliver + verify requirement R40.36 (Scratch boot-smoke gate — a server change fi). Retroactive task unit minted scenario-first from the existing requirement (#126 gap: the req existed, its Task unit was never minted). Covers R40.36; status derived from reality, staged by planner.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "traceability": "",
+    "acceptanceCriteria": [],
+    "subtasks": [],
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:b8e5411a-e4d6-4793-892b-2277073ffd9a"
+    ],
+    "useCases": [],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "statusBasis": "FLOOR: Planned (backlog). #126 retroactive task-mint — req existed, task never minted; planner stages status to reality. NOT assumed-Done.",
+    "remainingIssues": "",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-08-29"
+  },
+  "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
+}

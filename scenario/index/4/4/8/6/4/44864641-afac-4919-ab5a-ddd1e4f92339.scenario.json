@@ -6,7 +6,9 @@
     "name": "Current-role LIVE fix — resolver result read at its real type (.taskUuid, no false as-cast) + canonical bareUuid prevention",
     "description": "The LIVE current-role bug (D1, measured): currentTaskUuidFromSlots (server.ts:1395) returns '' for EVERY task so all pinRole='other' 2/2 — a designated task's pin never renders current. ROOT (architect ran the resolver, uuid-form hypothesis KILLED — both ids are bare full uuids, NO @host/prefix mismatch): line 1402 casts the slotsFrom result `as { current?: { uuid?: string } }` and reads slots.current.uuid, but ThreeSlots.current is a TaskSlot whose field is taskUuid (CurrentSprint.ts:47, toSlot :331) — .uuid is undefined -> String(undefined||'')='' -> the currentUuid guard short-circuits -> every task 'other'. TypeScript did NOT catch it because the FALSE structural `as` cast told the compiler .uuid exists; the real ThreeSlots type would have ERRORED. The unsafe `as` cast defeated the type checker = the actual hazard, and the cast IS a SECOND DEFINITION of a shared truth (the slot shape). D1 = the screen fix (delete the cast, consume the real type, read .taskUuid). D2 = the LATENT uuid-form normalization class (canonical bareUuid) — prevention, NOT the live fix.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c68be2f7-8cde-4226-8ad9-8499121332a2"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:232df40f-81f4-4a34-b202-a6031a952fd0",

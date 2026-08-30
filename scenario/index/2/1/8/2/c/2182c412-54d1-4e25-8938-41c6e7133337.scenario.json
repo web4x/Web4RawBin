@@ -4,7 +4,9 @@
     "uuid": "2182c412-54d1-4e25-8938-41c6e7133337",
     "name": "secretCode hardening — hash+salt at rest, rate-limit/lockout, never-logged (device-link auth)",
     "altId": "R40.15",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c78d1084-a590-4be3-89b9-a7147510ef2f"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

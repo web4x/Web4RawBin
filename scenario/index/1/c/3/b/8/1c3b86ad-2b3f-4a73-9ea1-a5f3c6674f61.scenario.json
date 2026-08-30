@@ -4,7 +4,9 @@
     "uuid": "1c3b86ad-2b3f-4a73-9ea1-a5f3c6674f61",
     "name": "Credentials-in-URLs -> capability-not-identity — in-app auth off URL params (header/cookie), shareable links carry expiring scoped capability tokens",
     "altId": "R40.21",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:a3932852-6ed9-41fa-8fd8-bf46c0e3a1be"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

@@ -4,7 +4,9 @@
     "uuid": "acbfe6e7-cb3f-4845-82c9-e749cbd7d1ff",
     "name": "Storage/identity RE-KEY — key data/users/ by a non-secret opaque storageId (never accepted for auth) so a credential rotation touches ONLY auth + ZERO path bytes (no orphaned home)",
     "altId": "R40.22",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1398b20d-860b-4f34-80d1-73dd8609f1c2"
+    ],
     "tests": [],
     "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",

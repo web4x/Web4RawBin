@@ -1,65 +1,67 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "d2b6b6db-d858-45fc-9bf7-93e61a9dedca",
-  "name": "A gate resolves an artifact the SAME WAY the runtime consumer does — ONE shared exported resolver both import, so gated-path and loaded-path CANNOT diverge by construction",
-  "altId": "R37.18",
-  "tasks": [],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "sprintName": "Sprint 37",
-  "unitLinks": [],
-  "useCases": [
-   "ior:instance:1e719c03-4c4a-40b5-9c30-8defcc39d2e9",
-   "ior:instance:282d21ca-3312-4f3a-8204-76282dabb3fa"
-  ],
-  "description": "A gate that certifies an ARTIFACT (revoked-list / config / bundle / version file) MUST resolve it via the SAME path/config resolution the RUNTIME consumer uses — NOT a same-named sibling in another dir, NOT a pre-build copy, NOT a default that differs from the deploy/load path. WRONG-ARTIFACT is GREEN-FOREVER: the gate certifies a file the runtime never loads, so it never REDs on its own (unlike staleness, which eventually REDs) — the worst of the gate-honesty classes, and DISTINCT from stale-gate (R37.17) and wrong-SURFACE (gate-the-AC-surface). Live instance = R40.34-L1 (gate checks revoked-token-hashes.json ROOT while the server loads data/revoked-tokens.json DATA_DIR — armed-but-inert). ★ FIX BY CONSTRUCTION (PO-prioritised, not a detector): ONE exported path-resolver (a single-source function) imported by BOTH the gate AND the runtime consumer, so the gated-path and the loaded-path CANNOT diverge — plus a stub-must-fail divergence bite that PROVES the prevention is live. Police-the-output (a detector that notices they disagree) has LOST every time this campaign; a single-source that makes divergence unrepresentable wins.",
-  "tronQuote": "> (No direct Tron quote) — robbin-architect diagnosis (the WRONG-ARTIFACT class exposed by the R40.34-L1 path-mismatch), PO-directed capture 2026-08-12 into the R37 gate-honesty family; single-source PRIORITISED over a detector.",
-  "discoverySource": {
-   "type": "architect-diagnosis-po-directed",
-   "discoveredBy": "robbin-architect (R40.34-L1 path-mismatch generalised to the class)",
-   "directedBy": "robbin-po",
-   "date": "2026-08-12",
-   "note": "Kill-the-generator over police-the-output: R37.15 killed the naming generator, R37.16 the sibling-credit path, R37.17 snapshot-encoding, the no-flush guard the config-flush chokepoint — each a single-source that made the defect unrepresentable, never a detector. R37.18 applies it to gate/runtime artifact resolution."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d2b6b6db-d858-45fc-9bf7-93e61a9dedca",
+    "name": "A gate resolves an artifact the SAME WAY the runtime consumer does — ONE shared exported resolver both import, so gated-path and loaded-path CANNOT diverge by construction",
+    "altId": "R37.18",
+    "tasks": [
+      "ior:instance:56f7808a-fdfd-4365-8a08-5fa0c5f0f6f0"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1e719c03-4c4a-40b5-9c30-8defcc39d2e9",
+      "ior:instance:282d21ca-3312-4f3a-8204-76282dabb3fa"
+    ],
+    "description": "A gate that certifies an ARTIFACT (revoked-list / config / bundle / version file) MUST resolve it via the SAME path/config resolution the RUNTIME consumer uses — NOT a same-named sibling in another dir, NOT a pre-build copy, NOT a default that differs from the deploy/load path. WRONG-ARTIFACT is GREEN-FOREVER: the gate certifies a file the runtime never loads, so it never REDs on its own (unlike staleness, which eventually REDs) — the worst of the gate-honesty classes, and DISTINCT from stale-gate (R37.17) and wrong-SURFACE (gate-the-AC-surface). Live instance = R40.34-L1 (gate checks revoked-token-hashes.json ROOT while the server loads data/revoked-tokens.json DATA_DIR — armed-but-inert). ★ FIX BY CONSTRUCTION (PO-prioritised, not a detector): ONE exported path-resolver (a single-source function) imported by BOTH the gate AND the runtime consumer, so the gated-path and the loaded-path CANNOT diverge — plus a stub-must-fail divergence bite that PROVES the prevention is live. Police-the-output (a detector that notices they disagree) has LOST every time this campaign; a single-source that makes divergence unrepresentable wins.",
+    "tronQuote": "> (No direct Tron quote) — robbin-architect diagnosis (the WRONG-ARTIFACT class exposed by the R40.34-L1 path-mismatch), PO-directed capture 2026-08-12 into the R37 gate-honesty family; single-source PRIORITISED over a detector.",
+    "discoverySource": {
+      "type": "architect-diagnosis-po-directed",
+      "discoveredBy": "robbin-architect (R40.34-L1 path-mismatch generalised to the class)",
+      "directedBy": "robbin-po",
+      "date": "2026-08-12",
+      "note": "Kill-the-generator over police-the-output: R37.15 killed the naming generator, R37.16 the sibling-credit path, R37.17 snapshot-encoding, the no-flush guard the config-flush chokepoint — each a single-source that made the defect unrepresentable, never a detector. R37.18 applies it to gate/runtime artifact resolution."
+    },
+    "crossRef": [
+      "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
+      "ior:instance:ddc38227-3ca8-4d65-8c44-046c6993e93a",
+      "ior:instance:e8f27cd1-3763-45c2-8a6b-3283f240c7b2",
+      "ior:instance:c40735d0-7370-48c3-b219-215347231f6c",
+      "ior:instance:8207901a-be3e-48d9-9393-bb82af9e584a"
+    ],
+    "crossRefNote": "Gate/board-honesty by-construction family: R37.13 (no bespoke ids) + R37.15 (no embedded-derived-field names) + R37.16 (no sibling-credited RIPE) + R37.17 (no snapshot-rot gates) + R37.18 (gate resolves the SAME artifact as runtime) + R40.32 (gates self-assert served==committed). R37.18 is the WRONG-ARTIFACT sibling of R37.17's STALE class (staleness eventually REDs; wrong-artifact never does). First application = R40.34-L1 (its unifyLoadPath is the single-resolver instance).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-single-source-resolver",
+        "group": "by-construction",
+        "text": "PRIMARY (prevention, not detection): ONE exported path/config RESOLVER (a single-source function) is imported by BOTH the gate AND the runtime consumer, so the gated-path and the runtime-loaded-path CANNOT diverge by construction. NOT a detector that notices they disagree — police-the-output has lost every campaign instance (R37.15/16/17 + no-flush all killed the generator/chokepoint, never policed the output)."
+      },
+      {
+        "id": "AC-not-a-detector",
+        "group": "by-construction",
+        "text": "The fix must make divergence UNREPRESENTABLE, not merely detectable: a same-named sibling in another dir, a pre-build copy, or a default that differs from the deploy/load path are all FORBIDDEN because both sides resolve through the ONE function. A design that relies on a detector noticing the mismatch has already failed this AC."
+      },
+      {
+        "id": "AC-stub-must-fail-divergence",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL divergence BITE: plant a DIVERGENCE between the gated-path and the runtime-loaded-path (e.g. gate checks fileX while runtime loads fileY, the R40.34-L1 shape) -> the guard MUST go RED. Proves the single-source prevention is LIVE, not assumed. A guard that cannot fail on a planted divergence certifies nothing."
+      },
+      {
+        "id": "AC-wrong-artifact-distinct",
+        "group": "context",
+        "text": "WRONG-ARTIFACT is DISTINCT from stale-gate (R37.17 = the product's shape changed; staleness eventually REDs) and wrong-SURFACE (gate-the-AC-surface = tests the abandoned surface). Wrong-artifact = the gate certifies a file the runtime never loads = GREEN-FOREVER, never self-REDs = the worst of the three (nothing surfaces it but a manual audit)."
+      },
+      {
+        "id": "AC-first-application",
+        "group": "functional",
+        "text": "R40.34-L1 is the FIRST application: both check:revoked-tokens AND the server's REVOKED_TOKENS_PATH resolve the revoked list via the ONE resolver (RevokedTokens.unifyLoadPath) — the live divergence (gate=revoked-token-hashes.json ROOT / server=data/revoked-tokens.json DATA_DIR) becomes unrepresentable once both import the single source."
+      }
+    ],
+    "firstInstanceNote": "R40.34-L1 unifyLoadPath ce8423ad is the FIRST concrete instance of resolveArtifactPath (both gate+runtime import the ONE resolver)."
   },
-  "crossRef": [
-   "ior:instance:5576307b-e69b-4b40-8049-e59f7253c8c9",
-   "ior:instance:ddc38227-3ca8-4d65-8c44-046c6993e93a",
-   "ior:instance:e8f27cd1-3763-45c2-8a6b-3283f240c7b2",
-   "ior:instance:c40735d0-7370-48c3-b219-215347231f6c",
-   "ior:instance:8207901a-be3e-48d9-9393-bb82af9e584a"
-  ],
-  "crossRefNote": "Gate/board-honesty by-construction family: R37.13 (no bespoke ids) + R37.15 (no embedded-derived-field names) + R37.16 (no sibling-credited RIPE) + R37.17 (no snapshot-rot gates) + R37.18 (gate resolves the SAME artifact as runtime) + R40.32 (gates self-assert served==committed). R37.18 is the WRONG-ARTIFACT sibling of R37.17's STALE class (staleness eventually REDs; wrong-artifact never does). First application = R40.34-L1 (its unifyLoadPath is the single-resolver instance).",
-  "acceptanceCriteria": [
-   {
-    "id": "AC-single-source-resolver",
-    "group": "by-construction",
-    "text": "PRIMARY (prevention, not detection): ONE exported path/config RESOLVER (a single-source function) is imported by BOTH the gate AND the runtime consumer, so the gated-path and the runtime-loaded-path CANNOT diverge by construction. NOT a detector that notices they disagree — police-the-output has lost every campaign instance (R37.15/16/17 + no-flush all killed the generator/chokepoint, never policed the output)."
-   },
-   {
-    "id": "AC-not-a-detector",
-    "group": "by-construction",
-    "text": "The fix must make divergence UNREPRESENTABLE, not merely detectable: a same-named sibling in another dir, a pre-build copy, or a default that differs from the deploy/load path are all FORBIDDEN because both sides resolve through the ONE function. A design that relies on a detector noticing the mismatch has already failed this AC."
-   },
-   {
-    "id": "AC-stub-must-fail-divergence",
-    "group": "gate",
-    "text": "STUB-MUST-FAIL divergence BITE: plant a DIVERGENCE between the gated-path and the runtime-loaded-path (e.g. gate checks fileX while runtime loads fileY, the R40.34-L1 shape) -> the guard MUST go RED. Proves the single-source prevention is LIVE, not assumed. A guard that cannot fail on a planted divergence certifies nothing."
-   },
-   {
-    "id": "AC-wrong-artifact-distinct",
-    "group": "context",
-    "text": "WRONG-ARTIFACT is DISTINCT from stale-gate (R37.17 = the product's shape changed; staleness eventually REDs) and wrong-SURFACE (gate-the-AC-surface = tests the abandoned surface). Wrong-artifact = the gate certifies a file the runtime never loads = GREEN-FOREVER, never self-REDs = the worst of the three (nothing surfaces it but a manual audit)."
-   },
-   {
-    "id": "AC-first-application",
-    "group": "functional",
-    "text": "R40.34-L1 is the FIRST application: both check:revoked-tokens AND the server's REVOKED_TOKENS_PATH resolve the revoked list via the ONE resolver (RevokedTokens.unifyLoadPath) — the live divergence (gate=revoked-token-hashes.json ROOT / server=data/revoked-tokens.json DATA_DIR) becomes unrepresentable once both import the single source."
-   }
-  ],
-  "firstInstanceNote": "R40.34-L1 unifyLoadPath ce8423ad is the FIRST concrete instance of resolveArtifactPath (both gate+runtime import the ONE resolver)."
- },
- "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

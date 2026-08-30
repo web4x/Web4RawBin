@@ -31,3 +31,17 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] 📝 [Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single view bus + views subscribe-on-render, live-update coverage gated @390 (R37.12)](./task-37.25-realtime-mvc-one-view-bus.md)
 - [ ] 🧪 [Task 37.26: Sprint/task-name FORMATTER — item shows EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>: <title>' everywhere @390 (R40.4-phase-2)](./task-37.26-sprint-task-name-formatter.md)
 - [x] 🏁 [Task 37.27: Sprint/task-name MIGRATION — strip embedded numbers to the single attribute, PHASED S37-first (R40.4-phase-2)](./task-37.27-sprint-task-name-migration.md)
+- [ ] *61718883-195a-4bd4-bbc9-ead8ecff8412 (not found)*
+- [ ] *bd0e5f4a-ef1c-4d06-b019-a66d6057aa7b (not found)*
+- [ ] *25772198-1c7d-4e6b-81b9-e35a2a082252 (not found)*
+- [ ] *968d966d-ea74-404b-9751-f611fdab475e (not found)*
+- [ ] *2af98c11-cb0d-439c-a294-1ea0d3402d62 (not found)*
+- [ ] *afe976e3-20fa-44b4-8170-1caea4e04528 (not found)*
+- [ ] *e2068636-2980-4e14-a150-7266b7582bf1 (not found)*
+- [ ] ✅ [Task 37.13: Naming is canon by construction — the be](./task-37-13-naming-is-canon-by-construction-the-be.md)
+- [ ] ⏳ [Task 37.14: Identifiers are measured-random v4 by co](./task-37-14-identifiers-are-measured-random-v4-by-co.md)
+- [ ] ⏳ [Task 37.15: Store-once theme-only names — a stored n](./task-37-15-store-once-theme-only-names-a-stored-n.md)
+- [ ] ⏳ [Task 37.16: The board never marks a task RIPE on a S](./task-37-16-the-board-never-marks-a-task-ripe-on-a-s.md)
+- [ ] ⏳ [Task 37.17: Gates must not encode a SNAPSHOT of the ](./task-37-17-gates-must-not-encode-a-snapshot-of-the.md)
+- [ ] ⏳ [Task 37.18: A gate resolves an artifact the SAME WAY](./task-37-18-a-gate-resolves-an-artifact-the-same-way.md)
+- [ ] ⏳ [Task 37.19: New req-specific Class units root to the](./task-37-19-new-req-specific-class-units-root-to-the.md)
