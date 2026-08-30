@@ -6,7 +6,9 @@
     "name": "Gate invocation integrity — a spawned gate returns the tool's real result; a broken invocation marks-not-silences (counted, never removed)",
     "description": "A ci:gate that RUNS but returns NULL on its SPAWNED-tool invocation is a broken PROVER masquerading as a result — the gate's null could read as pass or as fail, neither true. MEASURED (expert): 2 revived gates run-but-null on spawn while the tool is GREEN STANDALONE (r241-objectverb: scoreboard=null but tool standalone=537 reqs GREEN; r245-s24: T24.4 gen-md=null, T24.5 audit.strict=false). Root = STALE subprocess cwd / output-parse in the gate SPAWN (NOT a repoint regression: siblings r217/r218/r218b GREEN; NOT the tools). FIX the spawn invocation so a spawned gate returns the tool's REAL result. INTERIM (mark-not-silence, R37.25 doctrine): a gate whose invocation is known-broken STAYS + RUNS + carries a KNOWN-BROKEN-INVOCATION marker naming this task (status EXPLAINED not hidden), NEVER removed/disabled (= the check:task-status silent-deletion mistake); the marker set is COUNTED + can-only-shrink.",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:b43278f7-191a-4449-9e49-7bb4bd14a6d9"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:12d58b12-8972-456a-99e4-ff74616a5d91"
