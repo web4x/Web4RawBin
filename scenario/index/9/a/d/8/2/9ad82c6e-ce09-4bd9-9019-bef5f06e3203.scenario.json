@@ -1,0 +1,115 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9ad82c6e-ce09-4bd9-9019-bef5f06e3203",
+    "altId": "R37.27",
+    "name": "Live transport survives suspend/resume — reconnect + refetch-resync on visibility/pageshow, fail-loud, no UA-sniff (iOS lifecycle)",
+    "description": "The live-MVC transport must SURVIVE suspend/resume. Live-MVC symptom is iOS-Safari-SPECIFIC (tester: a passive client updated from broadcast ALONE 3/3 on desktop-WebKit -> the general render path is RULED OUT). MECHANISM: iOS suspends WebSockets on background/lock -> the socket dies QUIETLY -> the DOM stays STALE -> only a manual reload resyncs = exactly Tron's symptom. FIX: ONE shared transport-lifecycle helper across BOTH transports; on visibilitychange->visible AND pageshow (bfcache restore): verify-or-reconnect + RE-SYNC by REFETCH (never trust in-memory after a suspend gap) + FAIL-LOUD if resync fails. NO UA-sniff — general-correct (fix the mechanism, works everywhere). Distinct LAYER from R37.12/R37.24 (view-bus/no-2nd-source, which ASSUME a live transport) and R40.45 (the sanctioned EMIT path); this is the TRANSPORT layer that keeps the bus alive to a resumed client. Grounds the liveness law one layer down: 'the user saw it move' requires the TRANSPORT survived, not just that data was correct + emitted.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:e6a9d288-a5ee-41fb-8a0c-7fe6d599307b"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "tester-measurement-planner-routed",
+      "measuredBy": "robbin-tester (passive desktop-WebKit 3/3 -> general render path RULED OUT -> iOS-Safari-transport-specific)",
+      "routedBy": "robbin-planner",
+      "rNumberRuledBy": "robbin-req (structural: transport LAYER, distinct from R37.12/R37.24 view-bus + R40.45 emit-path; S37 realtime-MVC family)",
+      "date": "2026-08-30",
+      "priority": "TRON #1 PATH (outranks other mints)",
+      "expertFix": "pre-built 8d04af8a2 to design 0b9aa6dc7, marker PENDING",
+      "mechanism": "iOS suspends WS on bg/lock -> socket dies quietly -> DOM stale -> manual reload only resync"
+    },
+    "failableACFamily": "ior:instance:8d476fb9-355b-413f-831f-1a3e70a89a59",
+    "crossRef": [
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:ac6a5b89-93ff-40f8-8744-29ef9070f111",
+      "ior:instance:8d476fb9-355b-413f-831f-1a3e70a89a59"
+    ],
+    "crossRefNote": "The TRANSPORT layer under the realtime-MVC stack: R37.12 (ONE VIEW BUS) + R37.24 (bus-by-elimination) ASSUME a live transport — this keeps it alive across suspend/resume so their bus actually reaches a resumed iOS client. R40.45 (live-on-advance, sanctioned seam endpoint) is the EMIT-PATH this transport delivers; its liveness law (data-correct != user-saw-it-move) extends here one layer down: user-saw-it-move requires the TRANSPORT survived. NEW req not an extension: none of the three scope transport-lifecycle-resilience (reconnect/refetch-resync on visibility/pageshow, fail-loud, no UA-sniff).",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; expert fix pre-built, marker pending. CLOSING = TRON REAL-iOS acceptance, un-mockable: desktop-green is NOT fixed. Planner mints covering task; tester severed-channel gate + Tron real-device confirm; I mint Tests off tester markers.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-shared-helper-both-transports",
+        "group": "by-construction",
+        "text": "ONE shared transport-lifecycle helper handles BOTH transports (no per-transport fork of reconnect/resync logic) — the DRY single-source that makes the behaviour identical across every live connection.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "transport-lifecycle single-helper",
+          "assertion": "reconnect/resync logic lives in ONE shared helper used by both transports; a per-transport fork => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): seed a 2nd transport with its own forked reconnect logic (not the shared helper) => RED"
+      },
+      {
+        "id": "AC-visibility-pageshow-resync",
+        "group": "functional",
+        "text": "On visibilitychange->visible AND on pageshow (incl bfcache-restored persisted=true), the helper VERIFIES-OR-RECONNECTS the transport and RE-SYNCS the view. Both events are handled (pageshow catches the bfcache path visibilitychange misses).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "visibility+pageshow resync",
+          "assertion": "after a suspend gap, visibilitychange->visible AND pageshow(bfcache) each trigger verify-or-reconnect + resync"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): seed a bfcache restore (pageshow persisted) with a dead socket -> resync fires; not handling pageshow => stale"
+      },
+      {
+        "id": "AC-refetch-never-trust-memory",
+        "group": "fail-loud",
+        "text": "RESYNC refetches from the SOURCE (never trusts in-memory/DOM state after the gap) — a suspended client's in-memory model is presumed STALE until refetched.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "resync-refetch-not-memory",
+          "assertion": "resync REFETCHES current truth from source; a resync that reuses in-memory stale state => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): seed a resync that trusts in-memory state (no refetch) while source has changed => stale/RED"
+      },
+      {
+        "id": "AC-fail-loud-on-resync-fail",
+        "group": "fail-loud",
+        "text": "If reconnect OR resync FAILS, the client FAILS LOUD (a visible stale/disconnected indicator), NEVER silent-stale. A dead-but-silent transport is the exact defect (the DOM looks live but is frozen).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "resync fail-loud",
+          "assertion": "reconnect/resync failure => visible fail-loud state, never a silently-frozen live-looking DOM"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): seed a reconnect that cannot succeed -> visible fail-loud; a silent-frozen DOM on failure => RED"
+      },
+      {
+        "id": "AC-no-ua-sniff-general-correct",
+        "group": "by-construction",
+        "text": "NO UA-sniff / iOS-detection / platform branch — the fix is GENERAL-CORRECT via the standard lifecycle events (visibilitychange/pageshow), so it works on every browser that suspends, not just today's iOS Safari. A UA/platform branch in the transport-lifecycle path => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "no-ua-sniff transport",
+          "assertion": "transport-lifecycle uses standard lifecycle events only; a UA-sniff/iOS-detection branch => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): seed a UA-sniff/navigator.platform branch gating the resync => RED"
+      },
+      {
+        "id": "AC-severed-channel-gate",
+        "group": "gate",
+        "text": "TESTER SEVERED-CHANNEL GATE (stub-must-fail): programmatically SEVER the socket, mutate the data at source, then foreground/visibility-restore -> the view RESYNCS to current (not stale). A build where the severed-then-foregrounded view stays stale => RED. Proves the resync actually catches a dead channel.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "severed-channel resync gate",
+          "assertion": "sever socket -> change data -> foreground -> view resyncs to current; stays-stale => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): the gate's own stub (severed + stale-after-foreground) observed RED before the fix counts as proven"
+      },
+      {
+        "id": "AC-tron-real-ios-acceptance",
+        "group": "verify-device",
+        "text": "★ CLOSING ACCEPTANCE (un-mockable, the deliverable): TRON on a REAL iOS device — background/lock the app, a change occurs, foreground -> the view is LIVE-CURRENT with NO manual reload. Headless/desktop-WebKit CANNOT mock the iOS transport-suspend, so DESKTOP-GREEN IS NOT FIXED. Only Tron's real-device confirm closes this (asserts the RENDERED live state on his actual device, not a proxy).",
+        "gateRef": {
+          "kind": "device",
+          "ref": "Tron real-iOS acceptance",
+          "assertion": "real iOS: bg/lock -> change -> foreground -> view live-current, no reload; desktop-green does NOT satisfy"
+        },
+        "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): Tron real-device bg->change->foreground: live, no reload (un-mockable; desktop-green inadmissible as proof)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
