@@ -480,18 +480,5 @@ A recurring pattern: a requirement is device-verified by Tron and/or its fix is 
 ---
 **Maintained by:** robbin-planner (2026-08-30, PO ruling — RoomView preview-fork recurrence root)
 
----
+<!-- NOTE: the R37.27 /app frozen-OPEN zombie liveness-probe residual lives as a NAMED-DEBT entry above (robbin-expert commit 5e42d9bc8, credits architect recommendation). My earlier standalone dup (1c842f26f) removed here to keep single-source. -->
 
-## RawBinClient /app frozen-OPEN zombie — liveness probe (R37.27 fact-1 residual)
-**Captured:** 2026-08-30 · **By:** robbin-planner (architect capture) · **Source:** R37.27 fact-1 (design 0b9aa6dc7 / built 8d04af8a2, re-inspected PASS) · **Status:** ACCEPTED-DEFERRED (not-unknown)
-
-**Deferred residual:** the built iOS transport-lifecycle fix (8d04af8a2) covers the COMMON iOS case (socket CLOSED post-freeze -> reconnect -> snapshot) AND Tron's actual surface (live-bridge /trace pin) FULLY via state-independent HTTP refetch (which catches even a zombie). The RESIDUAL is the **/app RawBinClient frozen-OPEN case**: iOS can leave `readyState` LYING OPEN (zombie socket) after a freeze, so a reconnect isn't triggered. Fix = a lightweight **liveness PROBE** on `visibilitychange->visible` that reconnects+resyncs even when readyState lies OPEN.
-
-**Why deferred (not unknown):** avoid a risky re-identify on the MAIN /app client under capture pressure — a bad fix > no fix. **Safe shape = liveness-probe (staleness check that reconnects+resyncs), NOT an unconditional re-join.** live-bridge + Tron's surface are UNAFFECTED (already fully covered by the shipped fix).
-
-**Revisit trigger:** next cycle, OR when /app main-client work is scheduled with room to re-identify safely. Owner = expert; planner tracks.
-
-**Cross-ref:** R37.27 / T37.31, fact-1, r4011 lint-widen (same owed-debt-in-backlog rule — commit-message-only = stored-and-silent).
-
----
-**Maintained by:** robbin-planner (2026-08-30, architect capture — /app frozen-OPEN liveness-probe residual)
