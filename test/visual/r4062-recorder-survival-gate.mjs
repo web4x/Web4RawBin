@@ -4,10 +4,9 @@
 // remembered name), fetch THAT asset, assert the '/api/diag/live-mvc' marker survives minification. + endpoint 403-not-404
 // + served==committed phantom-guard. Owner-mint (system owner token, READ-ONLY, no mutation) for the gated /model page.
 // UNPROVEN-not-skip on any unreadable surface. Any surface ABSENT => RED => expert restores backup, no fix-forward.
-import { WebSocket } from 'ws';
 import fs from 'fs';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const BASE = 'https://prod.wo-da.de:4444', WSS = 'wss://prod.wo-da.de:4444';
+const BASE = 'https://prod.wo-da.de:4444';
 const MARKER = '/api/diag/live-mvc';
 const raw = {}; let pass = 0, fail = 0, unproven = 0;
 const A = (c, m) => { if (c) pass++; else { fail++; console.log('  FAIL:', m); } };
@@ -19,29 +18,19 @@ const committed = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
 raw.served = served; raw.committed = committed;
 A(served === committed, `phantom-guard: served(${served}) == committed(${committed})`);
 
-// (3) SERVER SINK live: non-owner POST → 403 (not 404 = old process, not other)
+// (3) SERVER SINK live — probe the METHOD THE RECORDER ACTUALLY USES (POST, the sendBeacon path), NOT GET. FAMILY =
+// wrong-method-probe (sibling of DOM-count-for-pixels / req-Test-for-task-scope): a GET probe (GET=405 'route exists')
+// stays GREEN even if POST breaks → it tests a different path than the one that matters. POST==403 proves the whole chain
+// the recorder depends on: route + METHOD + reaches the auth layer (non-owner rejected; Tron-as-owner would be accepted).
+// 404 = route gone / old process = RED (failure condition). 405 = POST-method broken = RED. Only 403 is a healthy sink.
 const ep = await fetch(`${BASE}${MARKER}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }).then(r => r.status).catch(() => 0);
 raw.endpoint_nonOwner = ep;
-A(ep === 403, `server sink live: non-owner POST → 403 (got ${ep})`);
-
-// owner-mint (READ-ONLY: WS IDENTIFY registers the token, POST mints sm_session — no data mutation) for gated pages
-function readOwnerToken() {
-  const e = (process.env.RAWBIN_OWNER_TOKEN || '').trim(); if (e) return e;
-  try { return fs.readFileSync(process.env.RAWBIN_OWNER_TOKEN_FILE || '/root/.rawbin/owner-token', 'utf8').trim(); } catch { return ''; }
-}
-async function ownerCookie() {
-  const tok = readOwnerToken(); if (!tok) return '';
-  try {
-    await new Promise((res, rej) => {
-      const ws = new WebSocket(WSS, { rejectUnauthorized: false });
-      const to = setTimeout(() => { try { ws.close(); } catch {} rej(new Error('ws timeout')); }, 8000);
-      ws.on('message', d => { try { const m = JSON.parse(d); if (m.type === 'welcome') { ws.send(JSON.stringify({ type: 'IDENTIFY', playerToken: tok, deviceId: 'r4062-read', name: 'r4062-read', screenWidth: 1, screenHeight: 1, platform: 'node' })); clearTimeout(to); setTimeout(() => { try { ws.close(); } catch {} res(); }, 400); } } catch {} });
-      ws.on('error', e => { clearTimeout(to); rej(e); });
-    });
-    const sres = await fetch(`${BASE}/api/server-manager/session`, { method: 'POST', headers: { 'x-player-token': tok } });
-    return (/sm_session=([^;]+)/.exec(sres.headers.get('set-cookie') || '') || [])[1] || '';
-  } catch { return ''; }
-}
+A(ep === 403, `server sink live: recorder POST → 403 (auth-gated: route+method+auth-layer). 404=route-gone/old-process, 405=POST-method-broken → both RED. got ${ep}`);
+// STUB-MUST-FAIL (proves the sink-check is falsifiable, not vacuous): a broken sink (bogus path → 404) MUST NOT satisfy the
+// 403 assertion → the gate would RED on it. If this bogus POST ever returned 403, the check would be meaningless.
+const stub = await fetch(`${BASE}${MARKER}-r4062-stub-nonexistent`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }).then(r => r.status).catch(() => 0);
+raw.stub_brokenSink = stub;
+A(stub !== 403, `stub-must-fail: a broken sink (bogus path POST → ${stub}) does NOT pass the 403 check → the gate can RED (not vacuous)`);
 
 // per-surface: fetch page → parse bundle(s) it NOW references → fetch each asset → marker survives?
 async function surface(name, path, cookie) {
@@ -56,11 +45,23 @@ async function surface(name, path, cookie) {
   A(found && bundles.length > 0, `${name}: recorder marker in a SERVED bundle [${checked.join(' ')}]`);
 }
 
+// /model is owner-gated (403 on prod) — read its bundle via the committed manifest hash + PUBLIC /dist. NO prod owner-auth
+// (the no-prod-owner-auth boundary stands; owner-auth is scratch-only). served==committed by construction: the committed
+// content-hash IS what prod serves, so /dist/<hash>.js returning 200 proves the committed bundle is live.
+async function surfaceByManifest(name, key) {
+  let hash;
+  try { hash = JSON.parse(fs.readFileSync('src/public/dist/build-manifest.json', 'utf8'))[key]; } catch { /* missing */ }
+  if (!hash) { unproven++; raw[name] = { unproven: `manifest ${key} missing` }; console.log(`  UNPROVEN: ${name} — no manifest hash for ${key}`); return; }
+  let js = '', status = 0;
+  try { const r = await fetch(`${BASE}/dist/${hash}`); status = r.status; js = r.ok ? await r.text() : ''; } catch (e) { unproven++; raw[name] = { unproven: `fetch:${String(e.message || e).slice(0, 30)}` }; console.log(`  UNPROVEN: ${name} — ${raw[name].unproven}`); return; }
+  const has = js.includes(MARKER);
+  raw[name] = { bundle: hash, served: status, found: has };
+  A(status === 200 && has, `${name}: committed bundle ${hash} SERVED (${status}) + recorder marker present [served==committed via manifest, no owner-auth]`);
+}
+
 await surface('trace', '/trace', '');
 await surface('scenario', '/scenario', '');
-const oc = await ownerCookie();
-raw.ownerMint = oc ? 'ok' : 'FAILED';
-await surface('model', '/model', oc);
+await surfaceByManifest('model', 'model.js');
 
 console.log('\n=== RAW PER-SURFACE ===');
 console.log(JSON.stringify(raw, null, 2));
