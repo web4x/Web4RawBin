@@ -7,8 +7,10 @@
     "sourceFile": "ior:file:src/public/ts/transport-lifecycle.ts",
     "sourceLine": 31,
     "designAhead": false,
-    "markerPending": true,
-    "tests": []
+    "markerPending": false,
+    "tests": [
+      "ior:instance:3e84d26a-c75d-4cb1-b6dc-935078ecbf52"
+    ]
   },
   "ownerIor": "ior:instance:c053a8f7-ffc9-4ee4-8e39-d062c5f810df"
 }
