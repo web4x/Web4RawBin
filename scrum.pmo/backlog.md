@@ -482,3 +482,9 @@ A recurring pattern: a requirement is device-verified by Tron and/or its fix is 
 
 <!-- NOTE: the R37.27 /app frozen-OPEN zombie liveness-probe residual lives as a NAMED-DEBT entry above (robbin-expert commit 5e42d9bc8, credits architect recommendation). My earlier standalone dup (1c842f26f) removed here to keep single-source. -->
 
+
+## LATENT — surface-assignment rule is IMPLICIT and UNENFORCED (architect finding, 2026-08-30, Phase-A)
+**Size:** small-medium (one gate + an explicit rule) · **Blocking:** NO (Phase-A land proceeds) · **Class:** truth-decay-adjacent.
+**What:** which detail-type renders on which tree (/trace = scenario-trace units incl File/WebItem artifacts · /feature-manager = owner grants · /model = MDA M1) is a real DOMAIN separation and is CORRECT — the shared render funnel across 3 surfaces is the migration's goal ACHIEVED, not a smell. **But the assignment rule itself is nowhere written and nothing enforces it**, so it can drift silently: a detail-type could start rendering on the wrong tree, or stop rendering on its own, and no gate would notice.
+**Why it matters:** an unenforced implicit rule is the same shape as every truth-decay defect this sprint — it is true today only by convention. Also: because the 4 components span THREE surfaces (two owner-gated), any "all components verified" coverage claim MUST state which surfaces were reachable, or the number lies.
+**Proposed fix:** make it explicit + gated — "a detail renders on the tree(s) whose domain OWNS its unit type" — asserted by a gate that discovers components (never a hand-list) and fails on a mis-assignment.
