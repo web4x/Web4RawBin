@@ -24,7 +24,10 @@
       "ruledBy": "robbin-req",
       "date": "2026-08-30",
       "reFixSurface": "S37 realtime-MVC/detail surface (planner covering task); origin S20, re-fix executes S37"
-    }
+    },
+    "tasks": [
+      "ior:instance:802a9597-5665-4d14-84e2-ced70b51f5a5"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
