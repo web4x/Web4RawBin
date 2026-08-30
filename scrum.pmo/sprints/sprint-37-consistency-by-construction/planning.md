@@ -47,4 +47,4 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] ⏳ [Task 37.19: New req-specific Class units root to the](./task-37-19-new-req-specific-class-units-root-to-the.md)
 - [ ] 📝 [Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a room shows the PARENT collection, not the file's own detail; rewire + @390 regression gate](./task-37.29-bug18-file-detail-regression.md)
 - [ ] 🔧 [Task 37.30: File/WebItem detail render CONVERGENCE onto the fail-loud primitive (RbDetailBase) — cross-page; retires the RoomView preview fork (recurrence-root cure)](./task-37.30-detail-render-converge-fail-loud.md)
-- [ ] ✅ [Task 37.31: iOS transport-lifecycle RESYNC — live-MVC recovers after background/lock (both transports, refetch + fail-loud); Tron real-iOS acceptance](./task-37.31-ios-transport-lifecycle-resync.md)
+- [ ] 🧪 [Task 37.31: iOS transport-lifecycle RESYNC — live-MVC recovers after background/lock (both transports, refetch + fail-loud); Tron real-iOS acceptance](./task-37.31-ios-transport-lifecycle-resync.md)

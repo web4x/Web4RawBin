@@ -10,15 +10,15 @@
 - [x] Planned
 - [x] In Progress
   - [x] refinement
-  - [ ] creating test cases
+  - [x] creating test cases
   - [x] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-STOOD UP In-Progress (PO Tron-#1-path 2026-08-30) on req's R37.27 9ad82c6e. HONEST committed-evidence floor: refinement[x] (architect design 0b9aa6dc7 committed + re-inspect PASS), implementing[x] (expert fix 8d04af8a2 BUILT/committed, pre-served). creating-test-cases[ ]+testing[ ] = tester severed-channel gate PENDING; marker PENDING (chain-to-Test not yet established) -> req mints Test on tester marker. Minted SERVED tree for Tron visibility; ⚠ R37.27 9ad82c6e + UC e6a9d288 + fix 8d04af8a2 are origin/main-only -> flagged expert to carry to served. CLOSING gate = Tron real-iOS (desktop-green != fixed). Residual /app frozen-OPEN = deferred backlog 1c842f26f (NOT this task).
+ADVANCED -> QA-Review (2026-08-30, req-directed + VERIFIED on disk not relayed): chain-complete-to-Test BOTH-DIR (Impl dba2b25d wireTransportResync markerPending=false tests[]=[3e84d26a] <-> Test 3e84d26a implementations[]=[dba2b25d]) + gate r4065-ios-resync-gate.mjs tester-GREEN DET-3x (612f44711; 3 arms resync-heals/stub-must-fail/fail-loud on isolated scratch). ★ QA-Review is the CEILING (NOT Done): certScope.satisfied=FALSE — TRON REAL-iOS DEVICE-PENDING (un-mockable, desktop-green inadmissible = closing AC). RESIDUAL (honest, non-blocking for QA-Review — mechanism already tester-gate-proven): Test 3e84d26a = req-minted CANDIDATE uuid; tester two-key AST-attach to r4065 arms PENDING (uuid-adoption hygiene). ⚠ Test 3e84d26a + Impl dba2b25d origin/main-only -> flagged expert to carry to served so /trace renders the chain. Residual /app frozen-OPEN = backlog NAMED-DEBT (NOT this task).
 
 ## Task Description
 
