@@ -1,6 +1,8 @@
 # Gate-invocation null findings (2 gates) — tracked, PO-routed (2026-08-30)
 
-**By:** robbin-expert (measured) → robbin-planner (tracked, R1/gating-canon). **Status:** TRACKED — pending PO disposition. **DO NOT let sit as permanent RED** (a permanent-RED gate = learned-to-ignore = worse than none).
+**By:** robbin-expert (measured) → robbin-planner (tracked, R1/gating-canon). **Status:** DISPOSED (PO 2026-08-30) — task **T37.32** (b43278f7, owner=EXPERT, priority below iOS+PhaseA-gate) minting via req R-number. **DO NOT let sit as permanent RED** (a permanent-RED gate = learned-to-ignore = worse than none).
+
+**PO disposition (AC design for T37.32):** (a) fix the spawn invocation; (b) INTERIM **mark-not-silence** — gates STAY in suite + KEEP RUNNING + carry a KNOWN-BROKEN-INVOCATION marker naming T37.32 (RED reads 'gate cannot invoke its tool (tracked: T37.32)', not 'product broken'); NEVER remove/disable (= the check:task-status weakening mistake — status-EXPLAINED never status-HIDDEN); (c) the marker is **COUNTED** — suite emits 'N gates / M known-broken (listed)', can only shrink (else a quiet dumping ground = decay by another name). Interim marking flagged to expert now (suite honesty can't wait for the full fix).
 
 ## The finding: "can EXECUTE but cannot INVOKE" — one layer up from the 22 inert gates
 The R37.26 22-gate repoint revived coverage; 2 of the revived gates now RUN but return **null on a spawned-tool call**:
