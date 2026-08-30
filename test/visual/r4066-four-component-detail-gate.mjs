@@ -91,6 +91,21 @@ const renderProbe = async (page, tag, ref, stubRenderDetail) => {
   return { ...dom, paintedFrac };
 };
 
+// OWNER-AUTH (PO + architect AUTHORIZED, SCRATCH ONLY): reach the owner-gated REAL surfaces /feature-manager + /model where
+// rb-feature-detail / rb-modelelement-detail are registered (they deliberately stay off /trace — selection-triggered on their
+// own pages). Read the scratch's owner token at runtime (NEVER printed) + mint an sm_session — SAME mechanism as
+// setupFoundation. Using existing auth to LOAD owner-gated pages (read-only render) — NOT modifying auth, NOT prod, creates no
+// identity/room. GUARDRAIL: the gate already refuses a :4444/prod BASE, so this privileged session is scratch-only.
+let OWNER = '', smSession = '', authStatus = '?';
+try {
+  OWNER = fs.readFileSync('/root/.rawbin/owner-token', 'utf8').trim();
+  const sres = await fetch(BASE + '/api/server-manager/session', { method: 'POST', headers: { 'x-player-token': OWNER } });
+  authStatus = String(sres.status);
+  const setCookies = (typeof sres.headers.getSetCookie === 'function' ? sres.headers.getSetCookie() : [sres.headers.get('set-cookie') || '']).join(' ; ');
+  smSession = (/sm_session=([^;]+)/.exec(setCookies) || [])[1] || '';
+} catch (e) { authStatus = 'ERR:' + String(e && e.message).slice(0, 40); }
+R(`owner-auth (scratch-only): owner-token=${OWNER ? 'read' : 'MISSING'} sessionPOST=${authStatus} sm_session=${smSession ? 'minted' : 'none'}`);
+
 const browser = await webkit.launch();
 const results = [];
 let servedVersion = '?';
@@ -98,6 +113,8 @@ let servedBundle = null, surfaceOk = false;
 const EXPECTED_BUNDLE = process.env.GATE_BUNDLE || 'trace-page-FUSJBIA3.js'; // the migration build (prod is PA4Q6SXO)
 try {
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
+  if (smSession) await ctx.addCookies([{ name: 'sm_session', value: smSession, domain: 'localhost', path: '/' }]);
+  if (OWNER) await ctx.addInitScript((t) => { try { localStorage.setItem('rawbin-player-id', t); } catch {} }, OWNER);
   const page = await ctx.newPage();
   await page.goto(BASE + '/trace', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => !!customElements.get('rb-detail-base') || document.querySelector('rb-trace-tree'), { timeout: 20000 }).catch(() => {});
