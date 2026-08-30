@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c053a8f7-ffc9-4ee4-8e39-d062c5f810df",
+    "name": "TransportLifecycle.resyncOnResume",
+    "description": "On foreground/resume (visibilitychange->visible + pageshow/bfcache), verify-or-reconnect the transport + resync by REFETCH + fail-loud on failure; NO UA-sniff. Realised by the shared helper wireTransportResync. Called by BOTH transports.",
+    "sourceFile": "ior:file:src/public/ts/transport-lifecycle.ts",
+    "implementations": [
+      "ior:instance:dba2b25d-3e7f-46e8-944b-d9754108098e"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:6d49b8a3-8638-41f4-9335-5db09a55d142"
+}
