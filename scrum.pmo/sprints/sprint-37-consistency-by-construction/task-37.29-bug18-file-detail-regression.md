@@ -9,7 +9,7 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [ ] refinement
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
