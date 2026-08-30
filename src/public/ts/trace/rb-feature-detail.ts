@@ -1,13 +1,16 @@
-// R31.8c FeatureManager user-selector — RbFeatureDetail: a first-class drawer detail-view for ONE Feature (uuid attr =
-// the Feature uuid), reached via the standard selection path (tagMap feature→rb-feature-detail; REUSES the shared
-// RbDetailDrawer, NO fork). Native-tree reframe: Features + their members render in the itemView tree; THIS detail-view
-// is the owner-only GRANT surface — feature info + a c2 user-search-and-grant. Grant/revoke WRITES = hardcoded owner.
+// R31.8c FeatureManager user-selector — RbFeatureDetail: a first-class drawer detail-view for ONE Feature.
+// R37.26-CONVERGENCE (Phase A, architect design 19c340d4f/f0999a5e1): NOW extends RbDetailBase — the render FUNNEL, the
+// ONE model-source (graph ELSE /api/ior fetch), and the fail-LOUD renderUnresolved live in the base. This element
+// implements ONLY its Feature DOM + the owner grant-surface via renderDetail(ctx). Deleted: its own connectedCallback/
+// attributeChangedCallback funnel, its own fetch(/api/ior) unit-model source, and the SILENT 'Feature' default on fetch
+// failure (a data-gap now shows the base's honest '⚠ unresolved', never a fake-named empty). The grant input + c2
+// user-search/grant is EXTRA interactive behavior (architect supplemental boundary) — its listeners tear down via the
+// base's unsub registry on disconnect.
 type UserHit = { token: string; name: string; avatar?: string; uuid?: string; identifiers: string[] };
-type FeatureInfo = { name: string; icon: string; description: string };
 const esc = (s: string): string => String(s).replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] as string));
+import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source + fail-loud)
 
-export class RbFeatureDetail extends HTMLElement {
-  static get observedAttributes() { return ['uuid']; }
+export class RbFeatureDetail extends RbDetailBase {
   private featureUuid = '';
   private input: HTMLInputElement | null = null;
   private dropdown: HTMLElement | null = null;
@@ -16,20 +19,15 @@ export class RbFeatureDetail extends HTMLElement {
   private active = -1;
   private onKey: ((e: KeyboardEvent) => void) | null = null;
 
-  connectedCallback(): void { void this.mount(); }
-  disconnectedCallback(): void { this.teardown(); }
-  attributeChangedCallback(): void { if (this.isConnected && (this.getAttribute('uuid') || '') !== this.featureUuid) void this.mount(); }
-
-  // [impl:uuid:965e810c-f01d-4047-ae2b-9f6682084953] RbFeatureDetail.mount (Method 29130d6e, off Class a085d2d1) —
-  // R31.8c NODE-3: render the selected Feature's info (name/icon/description) + the grant INPUT container (a text input
-  // + an empty dropdown container that userComplete populates). teardown in disconnectedCallback. feature-info /
-  // input-container = private helpers. The members themselves render in the native itemView tree (not here).
-  private async mount(): Promise<void> {
-    const uuid = this.getAttribute('uuid') || '';
+  // R37.24 inc2: the funnel + one-model-source + honest-empty-on-unresolved live in RbDetailBase. This element renders
+  // ONLY its Feature DOM from the resolved ctx.model (name/icon/description) + the owner grant surface.
+  // [impl:uuid:965e810c-f01d-4047-ae2b-9f6682084953] RbFeatureDetail.renderDetail (Method 29130d6e, off Class a085d2d1) — R31.8c NODE-3 (carried onto renderDetail — R37.26 convergence)
+  protected renderDetail({ uuid, model }: DetailCtx): void {
+    this.teardown(); // clear any prior grant-input listeners before a re-render (base already cleared unsubs)
     this.featureUuid = uuid;
+    const m = model || {};
+    const info = { name: String(m.name || 'Feature'), icon: String(m.icon || '🔑'), description: String(m.description || '') };
     this.style.cssText = 'display:block;text-align:left;padding:10px 6px';
-    this.innerHTML = '<div class="dv-loading">Loading…</div>';
-    const info = await this.fetchFeatureInfo(uuid);
     this.innerHTML = '';
     this.appendChild(this.renderFeatureInfo(info));
     this.appendChild(this.renderGrantInput());
@@ -37,17 +35,10 @@ export class RbFeatureDetail extends HTMLElement {
       this.input.addEventListener('input', () => this.userComplete());
       this.input.addEventListener('blur', () => setTimeout(() => this.closeDropdown(), 150)); // allow mousedown-select first
     }
+    this.unsubs.push(() => this.teardown()); // base disconnectedCallback → clearSubs → tears down debounce/keys
   }
 
-  private async fetchFeatureInfo(uuid: string): Promise<FeatureInfo> {
-    try {
-      const r = await fetch(`/api/ior/ior:instance:${encodeURIComponent(uuid)}`, { credentials: 'same-origin' });
-      const m = ((await r.json()) as { unit?: { model?: Record<string, unknown> } })?.unit?.model || {};
-      return { name: String(m.name || 'Feature'), icon: String(m.icon || '🔑'), description: String(m.description || '') };
-    } catch { return { name: 'Feature', icon: '🔑', description: '' }; }
-  }
-
-  private renderFeatureInfo(info: FeatureInfo): HTMLElement {
+  private renderFeatureInfo(info: { name: string; icon: string; description: string }): HTMLElement {
     const h = document.createElement('div');
     h.innerHTML = `<h3 style="color:#fff;margin:0 0 4px;font-size:1rem">${esc(info.icon)} ${esc(info.name)}</h3>`
       + (info.description ? `<p style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin:0 0 12px">${esc(info.description)}</p>` : '<div style="height:8px"></div>');
@@ -71,10 +62,7 @@ export class RbFeatureDetail extends HTMLElement {
     return wrap;
   }
 
-  // [impl:uuid:9b54bc91-f8fc-4585-84bf-fb45cbab98e3] RbFeatureDetail.userComplete (Method ca286163, off Class a085d2d1)
-  // — R31.8c NODE-2 OOSH-c2 completion: debounced GET /api/feature-manager/users?q= → searchUsers → masked/ranked
-  // dropdown + keyboard nav (↑/↓/Enter/Esc) → on select applyGrant(feature, token, 'grant'). debounce/dropdown/keys =
-  // private helpers. Interdependent with mount (node-3), which provides the input + dropdown container.
+  // [impl:uuid:9b54bc91-f8fc-4585-84bf-fb45cbab98e3] RbFeatureDetail.userComplete (Method ca286163, off Class a085d2d1) — R31.8c NODE-2 OOSH-c2 completion
   private userComplete(): void {
     if (this.debounceTimer) clearTimeout(this.debounceTimer);
     const q = (this.input?.value || '').trim();
@@ -137,14 +125,11 @@ export class RbFeatureDetail extends HTMLElement {
   }
 
   // [impl:uuid:cfde8f48-a004-4a0a-818e-7306c0d0c2dd] RbFeatureDetail.applyGrant (Method ee4143df, off Class a085d2d1)
-  // — POST /api/feature-manager {action,feature,token} (owner-gated root-of-trust; auth via the sm_session cookie,
-  // credentials:same-origin) → grant adds an allowedUsers ref (the native tree re-renders the member), revoke removes.
-  // Non-owner → 403 (write is hardcoded-owner, not membership). KEPT across the R31.8c reframe (name-matches).
   private async applyGrant(action: 'grant' | 'revoke', feature: string, token: string): Promise<void> {
     try {
       const r = await fetch('/api/feature-manager', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action, feature, token }) });
       this.flash(r.ok ? (action === 'grant' ? 'Granted ✓' : 'Revoked ✓') : (r.status === 403 ? 'Forbidden (owner only)' : 'Failed (' + r.status + ')'), r.ok);
-      if (r.ok) document.dispatchEvent(new CustomEvent('fm-tree-refresh')); // R31.8c round-2 item(b): grant success auto-refreshes the tree (new member appears)
+      if (r.ok) document.dispatchEvent(new CustomEvent('fm-tree-refresh')); // R31.8c round-2 item(b): grant success auto-refreshes the tree
     } catch { this.flash('Request failed', false); }
   }
 
@@ -162,4 +147,4 @@ export class RbFeatureDetail extends HTMLElement {
     setTimeout(() => el.remove(), 2400);
   }
 }
-customElements.define('rb-feature-detail', RbFeatureDetail);
+if (!customElements.get('rb-feature-detail')) customElements.define('rb-feature-detail', RbFeatureDetail);
