@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "b43278f7-191a-4449-9e49-7bb4bd14a6d9",
+    "name": "Task 37.32: Gate-harness invokes faithfully or marks BROKEN — fix the 2 null-invoke gates + mark-not-silence + counted known-broken (owner: expert)",
+    "slug": "task-37.32-gate-invocation-faithful-or-mark-broken",
+    "description": "Gate-integrity infra (owner=EXPERT — measured it + holds the root hypothesis). Two revived gates (R37.26 repoint) RUN but return NULL on a spawned-tool call = 'can EXECUTE but cannot INVOKE', one layer up from the 22 inert gates: r241-objectverb-gate (scoreboard=null; but `objectVerb Chain scoreboard` runs GREEN standalone = 537 reqs full table => the GATE INVOCATION nulls, not the tool) + r245-s24-tooling-gate (T24.4 generate-md=null, T24.5 audit.strict=false). SUSPECTED ROOT (expert): stale subprocess cwd / output-parse in the gate SPAWN (the gate shells out with an assumption that broke). NOT a repoint regression: scenario/index reads work, the tools work standalone, 3 sibling gates (r217/r218/r218b) repointed GREEN. Findings: scrum.pmo/reports/gate-invocation-null-findings-2026-08-30.md. Reuse the existing gate harness, NO fork. PRIORITY: BELOW Tron's iOS land (T37.31) + the 4-component Phase-A gate — infrastructure yields to his open complaint.",
+    "intention": "A gate either INVOKES its tool faithfully, or it is explicitly MARKED known-broken (never silently null, never removed). Status explained, never status hidden.",
+    "context": "Covers R37.28 9d70d9dd (gateHarness.invokeFaithfullyOrMarkBroken, UC 12d58b12). NEW gate-INTEGRITY family (R37.17 no-snapshot / R37.18 gate-resolves-same-as-runtime = distinct props; this = invocation-mechanics). crossRef R37.17/R37.18/R37.25/R40.54. Owner=expert (PO disposition 2026-08-30).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "- [ ] FIX-SPAWN: the gate-spawn invocation is corrected so r241-objectverb + r245-s24 INVOKE their tools faithfully (return the real result, not null) — root = stale subprocess cwd / output-parse in the spawn.\n- [ ] MARK-NOT-SILENCE (never remove): any gate that cannot currently invoke its tool STAYS in the suite + KEEPS RUNNING + carries a KNOWN-BROKEN-INVOCATION marker naming its tracking task, so its RED reads 'gate cannot invoke its tool (tracked: T<n>)' not 'product broken'. NEVER remove/disable a gate to make CI green (= the check:task-status weakening mistake). Status-EXPLAINED, never status-HIDDEN.\n- [ ] COUNTED, CAN-ONLY-SHRINK: the suite EMITS 'N gates / M known-broken (listed)' so the known-broken set is VISIBLE and can only shrink; a growing known-broken set is a flagged regression, never a quiet dumping ground (R37.25 coverage-self-report shape).\n- [ ] EVIDENCE / POSITIVE-CONTROL: the fix is proven at the SPAWN layer, not the tool and not the repoint — positive control that the tools run GREEN standalone (objectVerb = 537 reqs) + 3 sibling gates (r217/r218/r218b) repointed GREEN, isolating the failure to the spawn invocation (R37.25 Arm-B).",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:9d70d9dd-b797-4b8e-ab73-0e88a3588e4a"
+    ],
+    "useCases": [
+      "ior:instance:12d58b12-8972-456a-99e4-ff74616a5d91"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "remainingIssues": "STOOD UP Planned (PO disposition 2026-08-30) on req's R37.28 9d70d9dd. OWNER = EXPERT (measured + holds the spawn-cwd/parse root hypothesis). PRIORITY below Tron-iOS (T37.31) + PhaseA-gate. ★ INTERIM mark-not-silence flagged to expert NOW (suite honesty can't wait for the full fix) — gates keep running with a KNOWN-BROKEN-INVOCATION marker naming T37.32 (b43278f7), NEVER removed. Planned floor = fix not yet committed; advances when expert commits the interim marking / spawn fix. UC full-uuid 12d58b12-8972-456a-99e4-ff74616a5d91 resolved from R37.28.useCases[] on origin/main (NOT a fabricated suffix). Minted SERVED tree for Tron visibility; ⚠ R37.28 9d70d9dd + UC main-only -> flag expert carry to served. Findings: scrum.pmo/reports/gate-invocation-null-findings-2026-08-30.md.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-30"
+  },
+  "ownerIor": null
+}
