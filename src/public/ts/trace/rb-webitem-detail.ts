@@ -5,10 +5,16 @@
  * (mailto/message/tel/calendar/sms/…) → NO preview + an Open card.
  * Regression fix (v0.7.8 mailto-routed-everything): a DECLARED scheme→kind MAP, not an if/else cascade — adding a
  * launcher scheme is an independent map entry and CANNOT capture the previewable branch (correct-by-construction).
+ *
+ * R37.24-CONVERGENCE (Phase A, architect design 19c340d4f): NOW extends RbDetailBase — the render FUNNEL, the ONE
+ * model-source (graph obj ELSE /api/ior fetch), and the fail-LOUD renderUnresolved live in the base (extract-once).
+ * This element implements ONLY its WebItem DOM via renderDetail(ctx). Deleted: its own connectedCallback/
+ * attributeChangedCallback funnel, its own fetch(/api/ior) unit-model source, and its own not-found paths (WebItem
+ * not found / Failed to load WebItem) — a genuine 404 is the base's honest-empty '⚠ unresolved' before renderDetail runs.
  */
-import { refUuid } from '../../../ts/shared/TraceModel.js';
 import { scenarioBrowserLinkFromIor } from './detail-children.js'; // R26.2: universal 📄 Scenario link
 import { RbPanZoom } from './pan-zoom.js'; // R22.2/R25.x pan-zoom (reset() drives the overlay)
+import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source + fail-loud)
 
 function esc(s: string): string {
   return String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
@@ -31,21 +37,14 @@ export function kindOf(url: string, contentType?: string): WebItemKind {
 
 const BTN = 'padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.8rem;cursor:pointer;border:none';
 
-export class RbWebItemDetail extends HTMLElement {
-  static get observedAttributes() { return ['ref', 'uuid']; }
+export class RbWebItemDetail extends RbDetailBase {
   private pz?: RbPanZoom;
-  connectedCallback(): void { this.render(); }
-  attributeChangedCallback(): void { if (this.isConnected) this.render(); }
 
-  // [impl:uuid:2598da09-7b89-4939-92f6-9e916d645e3c] R25.2 RbWebItemDetail.render — WebItem card (now type-routed)
-  render(): void {
-    const ref = this.getAttribute('ref') || '';
-    const uuid = this.getAttribute('uuid') || refUuid(ref);
-    if (!uuid) { this.innerHTML = '<div class="dv-empty">WebItem not found</div>'; return; }
-    this.innerHTML = '<div class="dv-empty">Loading…</div>';
-    fetch(`/api/ior/ior:instance:${uuid}`).then(r => r.json()).then(data => {
-      this.previewByType((data.unit?.model || {}) as Record<string, unknown>, uuid);
-    }).catch(() => { this.innerHTML = '<div class="dv-empty">Failed to load WebItem</div>'; });
+  // R37.24 inc2: the funnel + one-model-source + fail-loud live in RbDetailBase. This element implements ONLY its
+  // WebItem DOM from the resolved ctx — no funnel, no unit fetch, no not-found path here.
+  // [impl:uuid:2598da09-7b89-4939-92f6-9e916d645e3c] R25.2 RbWebItemDetail.renderDetail — WebItem card (type-routed) (carried onto renderDetail — R37.24 convergence)
+  protected renderDetail({ uuid, model }: DetailCtx): void {
+    this.previewByType((model || {}) as Record<string, unknown>, uuid);
   }
 
   // [impl:uuid:accc6a00-5c92-4de0-b38f-029a45b86852] R27.7 RbWebItemDetail.previewByType — declared type-router → previewable vs launcher layout
