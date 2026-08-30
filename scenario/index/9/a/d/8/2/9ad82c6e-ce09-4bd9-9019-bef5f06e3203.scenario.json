@@ -6,7 +6,9 @@
     "name": "Live transport survives suspend/resume — reconnect + refetch-resync on visibility/pageshow, fail-loud, no UA-sniff (iOS lifecycle)",
     "description": "The live-MVC transport must SURVIVE suspend/resume. Live-MVC symptom is iOS-Safari-SPECIFIC (tester: a passive client updated from broadcast ALONE 3/3 on desktop-WebKit -> the general render path is RULED OUT). MECHANISM: iOS suspends WebSockets on background/lock -> the socket dies QUIETLY -> the DOM stays STALE -> only a manual reload resyncs = exactly Tron's symptom. FIX: ONE shared transport-lifecycle helper across BOTH transports; on visibilitychange->visible AND pageshow (bfcache restore): verify-or-reconnect + RE-SYNC by REFETCH (never trust in-memory after a suspend gap) + FAIL-LOUD if resync fails. NO UA-sniff — general-correct (fix the mechanism, works everywhere). Distinct LAYER from R37.12/R37.24 (view-bus/no-2nd-source, which ASSUME a live transport) and R40.45 (the sanctioned EMIT path); this is the TRANSPORT layer that keeps the bus alive to a resumed client. Grounds the liveness law one layer down: 'the user saw it move' requires the TRANSPORT survived, not just that data was correct + emitted.",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:c0157a03-81c0-49a8-8631-687b57eccd6c"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:e6a9d288-a5ee-41fb-8a0c-7fe6d599307b"
