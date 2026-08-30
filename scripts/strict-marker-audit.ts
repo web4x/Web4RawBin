@@ -1,7 +1,15 @@
-// Strict-test marker audit (planner, 2026-06-14) — encodes SM/PO locked strict-test.
-// PASS iff [impl:uuid] marker (a) HEADS a named member decl (function/method/field-arrow/const-fn),
-//   OR (b) is IN-BODY of a named member whose name MATCHES the marker's label-method.
-// FAIL: split-for cluster / heads-const / anon-closure / in-body-name-mismatch / no-named-member / css / fake-suffix.
+// ★★ SUPERSEDED / RETIRED 2026-08-30 (PO ruling, R37.26 dead-guard sweep) — DO NOT USE. ★★
+// The CANONICAL [impl]-marker audit is **scripts/impl-marker-audit.ts** (`npm run impl:marker:strict`), backed by
+// src/ts/scenario/impl-marker-attach.ts: repo-relative, self-contained (NO /tmp/credited.json), honest 3-bucket +
+// mirror-error-safe (a file-header/class-scope marker is CREDIT, never a false FAIL; an UNPROVEN name is needs-reattach,
+// never auto-fictional). This older script FAIL-flagged legit class-level markers (inflating the defect count) and
+// depended on a dead macOS ROOT + an external /tmp/credited.json (it crashed on Linux, was absent from ci:gates).
+// Kept for git-history evidence ONLY (quarantine-not-delete). A SUPERSEDED DUPLICATE THAT STILL PRODUCES NUMBERS IS A
+// TRAP — two audits with no marked authority yield contradictory counts, and whichever runs first becomes "the truth".
+// So it REFUSES to run and redirects. (Override for a one-off history comparison: RUN_SUPERSEDED_AUDIT=1.)
+//
+// [original header] Strict-test marker audit (planner, 2026-06-14) — PASS iff [impl:uuid] heads a named member OR is
+// in-body of a name-matching member. FAIL: split-for / heads-const / anon / mismatch / no-named-member / css / fake-suffix.
 import * as ts from 'typescript';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -11,6 +19,13 @@ import { fileURLToPath } from 'url';
 // audit was SILENTLY INERT since the move. Derive from the script's own location so it follows the repo — NEVER a 2nd hardcode.
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const roots = [path.join(ROOT, 'src'), path.join(ROOT, 'scripts')];
+
+// ★ RETIRED GUARD (PO ruling): refuse to run so this superseded duplicate can never emit numbers that compete with the
+// canonical impl-marker-audit.ts. History-comparison override: RUN_SUPERSEDED_AUDIT=1.
+if (!process.env.RUN_SUPERSEDED_AUDIT) {
+  console.error('✗ strict-marker-audit.ts is SUPERSEDED/RETIRED (2026-08-30). Use the CANONICAL audit: npm run impl:marker:strict (scripts/impl-marker-audit.ts). Set RUN_SUPERSEDED_AUDIT=1 only for a one-off history comparison.');
+  process.exit(2);
+}
 function walk(d: string, o: string[]) {
   if (!fs.existsSync(d)) return;
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
