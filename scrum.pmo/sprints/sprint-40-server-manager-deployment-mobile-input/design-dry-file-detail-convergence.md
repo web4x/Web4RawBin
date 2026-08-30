@@ -32,5 +32,23 @@ The hazard-gate asserts "0 own-funnel outside the primitive," yet these 2 violat
 - **Predicate = inheritance-agnostic:** any `*-detail.ts` NOT extending RbDetailBase AND NOT in the gate-owned allow-list → RED. Each allow-list entry carries a STRUCTURAL reason (rb-terminal: primary-source = live ws pty; rb-diagram: renders a diagram artifact, not a unit-detail). The justification for an exemption = "primary source is NOT a scenario-unit-instance rendered as detail" — feature/modelelement FAIL that test (they render a unit-instance) → migrate, not exempt.
 - This is a concrete specimen for the lint-over-lints / text-not-structure family: **a guard keyed to inheritance is a guard keyed to the actors** (specimen #5) — and its FIX must not reintroduce an actor-keyed dodge (self-declared marker), which is why the exemption is gate-owned + shrinking + self-reported.
 
+## ★ FINALIZED PREDICATE (2026-08-30, for expert's code lane) — glob-discovery caught a THIRD artifact
+Phase-A migrated all 4 escapees (File/WebItem/Feature/ModelElement now `extends RbDetailBase`, verified). **But glob-discovery (my inheritance-agnostic scan) found the expert's allow-list {rb-terminal, rb-diagram} is INCOMPLETE — a THIRD non-base `*-detail` exists: `rb-profile-detail`.** Measured: it fetches `/api/feature-manager/granted-user` + `/users` + POST (revoke), NOT `/api/ior/ior:instance:` → its primary source is the feature-manager granted-user masked view, NOT a scenario-unit-instance → it PASSES the structural exemption test on merit = a genuine artifact (the base's model-source doesn't resolve feature-manager views). So the allow-list is **3, not 2** — and this is discovery doing exactly its job (the same way Feature/ModelElement turned out to be escapees-not-artifacts, rb-profile turns out to be a 3rd artifact the hand-count missed).
+
+**GATE-OWNED ALLOW-LIST (in check-detail-primitive.mjs, K=3):**
+```
+const DETAIL_ARTIFACTS = {            // gate-OWNED (touching this = reviewed); each earns it via the structural test
+  'rb-terminal-detail':    'live WebSocket /terminal pty — not a scenario-unit; ior fetch is only a keymap',
+  'rb-diagram-detail':     'renders a diagram artifact (SVG/PlantUML), not a unit-detail',
+  'rb-profile-detail':     'feature-manager granted-user masked view (/api/feature-manager/granted-user), not a scenario-unit-instance',
+};
+const CEILING = 3; // delta-gate: allow-list may only SHRINK; raising CEILING is a deliberate reviewed change
+```
+**PREDICATE (inheritance-agnostic):** for every `src/public/ts/trace/*-detail.ts` that `customElements.define`s an element — if the class `extends RbDetailBase` → PASS; else if its tag ∈ DETAIL_ARTIFACTS → EXEMPT (log the reason); else → **RED** ("non-primitive detail element not on the primitive and not a declared artifact"). Discover by GLOB, never by inheritance — so a future non-inheriting straggler is seen.
+**COVERAGE-SELF-REPORT (every run):** print "N *-detail scanned / M extend RbDetailBase / K exempt: <tag — reason>…" so the exemption set can never grow silently.
+**DELTA-GATE:** assert `Object.keys(DETAIL_ARTIFACTS).length <= CEILING`; a new entry REDs unless CEILING is deliberately bumped (visible in the gate diff).
+**STUB-MUST-FAIL (self-bite, inheritance-agnostic):** (1) plant an `extends HTMLElement` `zzz-detail.ts` NOT in the list → MUST RED (proves the widened gate fires on a non-inheritor — closes the blind spot); (2) a listed artifact → passes; (3) the gate itself must key on `extends RbDetailBase` structurally + glob-discovery, never on a name pattern (else it's specimen #5 of its own family).
+**Each artifact's reason must satisfy the exemption test** (primary source NOT a scenario-unit-instance rendered as detail) — rb-profile earned it on merit (measured), not by grandfathering; if the base is ever generalized to resolve non-scenario sources, artifacts migrate and K shrinks toward 0.
+
 ## Handoff
 req/planner mint+task Phase A (own version/gate) then Phase B; expert implements on the ruled shape (mode=A/presentation!=function; supplemental-fetch with the boundary); tester gates A (trace-page file/webitem detail via primitive + fail-loud) then B (room file-tap → primitive, fail-loud inherited, media pan-zoom preserved) @390. I re-inspect: 2 elements extend RbDetailBase (0 own funnel/fail), hazard-gate exemption removed, room delegates (no hand-paint), mode = one element two panels. Caller-fix (BUG18) is separate + ships now.
