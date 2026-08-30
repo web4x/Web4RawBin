@@ -1,0 +1,85 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "9d70d9dd-b797-4b8e-ab73-0e88a3588e4a",
+    "altId": "R37.28",
+    "name": "Gate invocation integrity — a spawned gate returns the tool's real result; a broken invocation marks-not-silences (counted, never removed)",
+    "description": "A ci:gate that RUNS but returns NULL on its SPAWNED-tool invocation is a broken PROVER masquerading as a result — the gate's null could read as pass or as fail, neither true. MEASURED (expert): 2 revived gates run-but-null on spawn while the tool is GREEN STANDALONE (r241-objectverb: scoreboard=null but tool standalone=537 reqs GREEN; r245-s24: T24.4 gen-md=null, T24.5 audit.strict=false). Root = STALE subprocess cwd / output-parse in the gate SPAWN (NOT a repoint regression: siblings r217/r218/r218b GREEN; NOT the tools). FIX the spawn invocation so a spawned gate returns the tool's REAL result. INTERIM (mark-not-silence, R37.25 doctrine): a gate whose invocation is known-broken STAYS + RUNS + carries a KNOWN-BROKEN-INVOCATION marker naming this task (status EXPLAINED not hidden), NEVER removed/disabled (= the check:task-status silent-deletion mistake); the marker set is COUNTED + can-only-shrink.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:12d58b12-8972-456a-99e4-ff74616a5d91"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "expert-measurement-po-disposed-planner-routed",
+      "measuredBy": "robbin-expert (2 revived gates run-but-null on spawn; tools GREEN standalone; siblings r217/218/218b GREEN)",
+      "disposedBy": "robbin-po",
+      "routedBy": "robbin-planner",
+      "rNumberRuledBy": "robbin-req (structural: gate-INVOCATION-mechanics integrity, distinct from R37.17 no-snapshot + R37.18 gate-resolves-same-as-runtime; S37 gate-integrity family)",
+      "date": "2026-08-30",
+      "priority": "infra (below Tron-iOS-land + below 4-component PhaseA-gate)",
+      "root": "stale subprocess cwd / output-parse in the gate SPAWN",
+      "evidence": "r241-objectverb scoreboard=null vs standalone 537 GREEN; r245-s24 T24.4 gen-md=null / T24.5 audit.strict=false; siblings r217/r218/r218b GREEN => spawn not repoint not tools",
+      "owner": "expert"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "crossRef": [
+      "ior:instance:c40735d0-7370-48c3-b219-215347231f6c",
+      "ior:instance:d2b6b6db-d858-45fc-9bf7-93e61a9dedca",
+      "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Gate-integrity family sibling: R37.17 (gates not a product-shape SNAPSHOT) + R37.18 (a gate resolves an artifact the SAME WAY runtime does) — this adds INVOCATION-mechanics integrity (the spawn faithfully returns the tool's result), a DISTINCT property. The mark-not-silence + counted-can-only-shrink interim IS R37.25's coverage-self-report + named-debt doctrine (never delete a gate to go green = the check:task-status mistake). The 'null while standalone-GREEN' diagnosis is R37.25 Arm-B positive-control (validate a result against the instrument's proven ability to succeed). Rides R40.54 failable.",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; infra priority. Planner mints the covering task (owner=expert); expert fixes the spawn + adds the mark-not-silence-counted marker; I mint Tests off tester markers.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-fix-spawn-invocation",
+        "group": "fix",
+        "text": "Fix the gate SPAWN so a spawned-tool invocation returns the tool's REAL result — resolve the stale subprocess cwd + the output-parse that produced NULL. After the fix, r241-objectverb returns the real scoreboard (~537 reqs) and r245-s24 returns real T24.4/T24.5 results, matching standalone.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "gate-spawn returns real result",
+          "assertion": "a spawned gate's result == the tool's standalone result (no null-from-stale-cwd/parse)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a gate spawn with a stale cwd/parse => null; after fix => real result matching standalone"
+      },
+      {
+        "id": "AC-mark-not-silence-never-remove",
+        "group": "by-construction",
+        "text": "INTERIM: a gate with a known-broken invocation STAYS in ci:gates and RUNS, carrying a KNOWN-BROKEN-INVOCATION marker that NAMES this task (status EXPLAINED, not hidden). It is NEVER removed or disabled — removing/disabling a gate to make the suite green is the check:task-status silent-deletion mistake (a deleted gate certifies nothing + hides the hole).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "known-broken-gate marker present",
+          "assertion": "a gate with a broken invocation carries a KNOWN-BROKEN marker naming its task; a removed/disabled gate (to dodge the failure) => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a gate removed/disabled to hide a broken invocation => RED; marked-known-broken + still-runs => admissible"
+      },
+      {
+        "id": "AC-counted-can-only-shrink",
+        "group": "meta/coverage-self-report",
+        "text": "The suite EMITS 'N gates / M known-broken (listed by name)' every run, and the M set can ONLY SHRINK (a known-broken marker is removed only by FIXING the gate, never by hiding it). A marker set that grows silently, or a known-broken gate absent from the emitted list, => RED (else the marker becomes a quiet dumping ground = decay). Same shape as R37.25 AC-coverage-self-report.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "known-broken gate counted-self-report",
+          "assertion": "every run emits N-gates/M-known-broken-by-name; a known-broken gate missing from the list OR the M-set grown-without-fix => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a known-broken gate absent from the emitted M list => RED; M grown by hiding (not fixing) => RED"
+      },
+      {
+        "id": "AC-evidence-suspect-spawn-positive-control",
+        "group": "armB/positive-control",
+        "text": "The diagnosis is EVIDENCED, not assumed: the tools are GREEN STANDALONE (positive control = the instrument CAN succeed) AND the repoint siblings (r217/r218/r218b) are GREEN => the suspect is the SPAWN invocation, NOT the tools and NOT a repoint regression. A gate's NULL is validated against the tool's standalone result before it is trusted as pass-or-fail (R37.25 Arm-B: a result asserted from a broken instrument is inadmissible).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "gate-result validated vs standalone positive-control",
+          "assertion": "a gate null/result is checked against the tool's standalone result; null-while-standalone-GREEN => classified broken-invocation, not a real fail"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a gate null while the tool is GREEN standalone => classified KNOWN-BROKEN-INVOCATION (not a real fail, not a silent pass)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

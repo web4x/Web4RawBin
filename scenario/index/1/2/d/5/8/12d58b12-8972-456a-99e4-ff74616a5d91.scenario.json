@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "12d58b12-8972-456a-99e4-ff74616a5d91",
+    "name": "gateHarness.invokeFaithfullyOrMarkBroken",
+    "description": "A ci:gate's spawned-tool invocation returns the tool's REAL result (fix stale cwd/parse); a known-broken invocation stays+runs+carries a KNOWN-BROKEN marker naming its task, counted+can-only-shrink, never removed; a gate null is validated against the tool's standalone positive-control.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:9d70d9dd-b797-4b8e-ab73-0e88a3588e4a",
+    "unitLinks": [],
+    "note": "owner=expert; architect wires Class(gate-harness spawn)+Method on build-go + re-inspects; planner mints covering task; I mint Tests off tester markers."
+  },
+  "ownerIor": "ior:instance:9d70d9dd-b797-4b8e-ab73-0e88a3588e4a"
+}
