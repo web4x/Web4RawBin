@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "dba2b25d-3e7f-46e8-944b-d9754108098e",
+    "name": "wireTransportResync (shared foreground-resync helper) @ transport-lifecycle.ts",
+    "description": "export function wireTransportResync(t: TransportLifecycle) @ src/public/ts/transport-lifecycle.ts:31 — the shared iOS-suspend foreground re-sync. REAL shipped code (built fix 8d04af8a2, design 0b9aa6dc7), NOT design-ahead. Real callers BOTH transports: RawBinClient.ts:55 + live-bridge.ts:55 (verified caller = not orphan, R40.38). Marker [impl:uuid:dba2b25d-3e7f-46e8-944b-d9754108098e] to be attached on wireTransportResync by the expert (single-minter gave the uuid; expert does not self-mint). markerPending until attached.",
+    "sourceFile": "ior:file:src/public/ts/transport-lifecycle.ts",
+    "sourceLine": 31,
+    "designAhead": false,
+    "markerPending": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c053a8f7-ffc9-4ee4-8e39-d062c5f810df"
+}

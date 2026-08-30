@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3e84d26a-c75d-4cb1-b6dc-935078ecbf52",
+    "name": "test:R37.27 iOS transport-lifecycle resync — severed-channel 3-arm gate (r4065)",
+    "description": "Bridged to test/visual/r4065-ios-resync-gate.mjs (tester GREEN DET-3x 612f44711; RED baseline b86b853bb; buildDist -> esbuilds the fix into an ISOLATED worktree dist on a scratch port, served==committed guard). CERTIFICATION SPLIT (honest, mechanism-proven != satisfied): PROVEN [3 arms, isolated scratch] — ARM-A resync-heals (severed-WS passive client, backgrounded during a cross-sprint make-current, foregrounds LIVE no-reload) + ARM-B stub-must-fail control (neuter the visibility listener -> stays STALE, proves the gate can go RED) + ARM-C fail-loud (forced refetch-500 -> data-live-transport=down:resync visible, not silent). NOT PROVEN — TRON REAL-iOS DEVICE-PENDING (R37.27 AC-tron-real-ios-acceptance): un-mockable, headless/desktop-WebKit cannot mock iOS transport-suspend, so DESKTOP-GREEN IS NOT FIXED. This Test = chain-complete-to-Test for the MECHANISM arms only; R37.27 satisfaction stays UNVERIFIED until Tron's real-device confirm. certScope=GATED-AWAITING-TRON-REAL-iOS.",
+    "sourceFile": "ior:file:test/visual/r4065-ios-resync-gate.mjs",
+    "implementations": [
+      "ior:instance:dba2b25d-3e7f-46e8-944b-d9754108098e"
+    ],
+    "certificationScope": {
+      "proven": "3 arms on isolated scratch: resync-heals / stub-must-fail-control / fail-loud (mechanism)",
+      "notProven": "Tron real-iOS device acceptance (un-mockable; desktop-green inadmissible)",
+      "satisfied": false,
+      "gate": "r4065-ios-resync-gate.mjs GREEN DET-3x 612f44711"
+    },
+    "twoKeyStatus": "REQ-MINTED CANDIDATE (fresh measured-random v4, R37.14-compliant, NOT invented-with-structure) — TESTER must two-key-verify: confirm/adopt this uuid + AST-attach to the r4065 3 arms. No tester test:uuid existed on disk to adopt (measure-first: r4065 carries no marker), so req minted the candidate; tester owns the verify."
+  },
+  "ownerIor": "ior:instance:dba2b25d-3e7f-46e8-944b-d9754108098e"
+}

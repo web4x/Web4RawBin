@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "6d49b8a3-8638-41f4-9335-5db09a55d142",
+    "name": "TransportLifecycle",
+    "description": "The shared transport-lifecycle object (src/public/ts/transport-lifecycle.ts): ONE foreground-resync helper used by BOTH transports (RawBinClient + live-bridge), so reconnect/refetch-resync behaviour cannot drift between them (R37.27).",
+    "sourceFile": "ior:file:src/public/ts/transport-lifecycle.ts",
+    "methods": [
+      "ior:instance:c053a8f7-ffc9-4ee4-8e39-d062c5f810df"
+    ]
+  },
+  "ownerIor": "ior:instance:e6a9d288-a5ee-41fb-8a0c-7fe6d599307b"
+}
