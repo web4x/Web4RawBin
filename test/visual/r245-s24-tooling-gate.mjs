@@ -9,6 +9,7 @@
 import { execSync } from 'child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { knownBrokenBanner } from './_known-broken-gates.mjs'; // R37.28/T37.32: mark-not-silence (RED reads tracked-infra, not product-broken)
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 const REPO = __repo;
 const run = (cmd) => { try { return { out: execSync(cmd, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 }), code: 0 }; } catch (e) { return { out: (e.stdout || '') + (e.stderr || ''), code: e.status ?? 1 }; } };
@@ -40,4 +41,5 @@ console.log('\n=== VERDICT S24 tooling T24.4/T24.5 (DET-3x) ===');
 results.forEach((p, i) => console.log(`  run ${i + 1}: ${p ? 'GREEN' : 'RED'}`));
 const green = results.length === 3 && results.every(Boolean);
 console.log('OVERALL:', green ? 'GREEN DET-3x' : 'RED');
+if (!green) console.log(knownBrokenBanner('r245-s24-tooling-gate')); // R37.28/T37.32 mark-not-silence: this RED is tracked gate-invocation infra, NOT a product regression
 process.exit(green ? 0 : 1);
