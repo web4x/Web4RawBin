@@ -2,6 +2,7 @@
 // [impl:uuid:79568421-462d-4c7a-b1d2-bd0c3c0d9d18] ServerStrip.strip
 import { MSG } from '../../shared/MessageTypes.js';
 import { ViewBus, viewBusKey } from './trace/ViewBus.js'; // R40.17 LIVE: transport→bus bridge (the tree's ViewBus singleton, notify('graph')). NOTED DEBT: two ViewBus files exist (this trace/ViewBus.ts CLASS the tree uses vs ../ViewBus.ts instance) → reconcile to ONE = C4 DRY item after req returns.
+import { wireTransportResync } from './transport-lifecycle.js'; // R37.27 fact-1: the SHARED iOS-suspend foreground re-sync (same helper live-bridge uses — no drift)
 
 type MessageHandler = (msg: any) => void;
 
@@ -21,6 +22,7 @@ export class RawBinClient {
   private backoffTimer: ReturnType<typeof setTimeout> | null = null;
   private autoReconnect: boolean = false;
   private online: boolean = typeof navigator !== 'undefined' ? navigator.onLine : true;
+  private _resyncTeardown: (() => void) | null = null; // R37.27 fact-1: remove the foreground-resync listeners on destroy()
   clientId: string = '';
   connected: boolean = false;
   readonly playerToken: string;
@@ -44,6 +46,17 @@ export class RawBinClient {
         this.online = false;
         this.emit('offline', {});
         this.cancelReconnect();
+      });
+      // R37.27 fact-1 (iOS-Safari BFCache/freeze) — wire the SHARED foreground re-sync (same helper as /trace live-bridge).
+      // For /app the authoritative room state is delivered by the server SNAPSHOT on re-join, so reconnect() IS the refetch
+      // (not trusting in-memory); a healthy OPEN socket already carries live broadcasts so resync is a no-op then. OWED
+      // (architect liveness-probe): a frozen-but-OPEN socket (readyState lies) needs an active probe to force a refetch —
+      // flagged; today the common iOS case (socket reads CLOSED after freeze → reconnect → snapshot) is covered.
+      this._resyncTeardown = wireTransportResync({
+        isOpen: () => !!this.ws && this.ws.readyState === WebSocket.OPEN,
+        reconnect: () => { void this.reconnect(); },                          // re-join → server room snapshot = authoritative refetch (not in-memory)
+        resync: async () => { /* covered by reconnect()'s snapshot when the socket was dead; OPEN+healthy = live broadcasts */ },
+        onResyncError: (cause) => this.emit('reconnecting', { cause }),        // FAIL-LOUD via the existing observable event
       });
     }
   }
@@ -207,6 +220,7 @@ export class RawBinClient {
   destroy(): void {
     this.autoReconnect = false;
     this.cancelReconnect();
+    if (this._resyncTeardown) { this._resyncTeardown(); this._resyncTeardown = null; } // R37.27: drop the foreground-resync listeners
     if (this.ws) { try { this.ws.close(); } catch {} }
     this.ws = null;
     this.connected = false;

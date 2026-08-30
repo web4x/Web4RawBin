@@ -6,6 +6,7 @@
 // path); the socket-less pages call connectLiveBridge() to open a receive-only socket (bare connect = in wsClients,
 // no IDENTIFY needed to RECEIVE broadcasts).
 import { ViewBus, viewBusKey } from './trace/ViewBus.js';
+import { wireTransportResync } from './transport-lifecycle.js'; // R37.27 fact-1: shared iOS-suspend foreground re-sync (both transports)
 
 // The ONE unit-changed → bus mapping (was inline at RawBinClient:100; extracted so /trace+/model+/scenario share it).
 export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: string }): void {
@@ -29,6 +30,7 @@ function setLiveState(s: LiveState): void {
 // Open a RECEIVE-ONLY ws on a page that has no full RawBinClient (/trace, /model, /scenario) so it joins wsClients and
 // its surfaces live-update off the broadcast. Idempotent + guarded: /app already has the full client → skip.
 let _wired = false;
+let _ws: WebSocket | null = null;
 export function connectLiveBridge(): void {
   if (_wired || (window as unknown as { __rawbinClient?: unknown }).__rawbinClient) return; // /app owns the full client
   _wired = true;
@@ -36,10 +38,29 @@ export function connectLiveBridge(): void {
     const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
     setLiveState({ state: 'connecting', at: Date.now() });
     const ws = new WebSocket(`${proto}//${location.host}/`);
+    _ws = ws;
     ws.addEventListener('open', () => setLiveState({ state: 'connected', at: Date.now() })); // OBSERVABLE: a real open ws (what the gate asserts)
     ws.addEventListener('message', (ev) => { try { notifyUnitChanged(JSON.parse(ev.data)); } catch { /* non-JSON frame */ } });
     ws.addEventListener('error', () => setLiveState({ state: 'down', cause: 'ws-error', at: Date.now() })); // fail-LOUD: visible not-live state
     ws.addEventListener('close', () => { setLiveState({ state: 'down', cause: 'ws-closed', at: Date.now() }); setTimeout(open, 3000); }); // auto-reconnect
   };
   open();
+
+  // R37.27 fact-1 (iOS-Safari BFCache/freeze) — wire the SHARED foreground re-sync (transport-lifecycle.ts; RawBinClient
+  // uses the SAME helper — one code path, no drift). Tron's /trace pin is the LOAD-BEARING case: resync REFETCHES the
+  // authoritative CurrentSprint state over HTTP (state-independent → catches a frozen-but-OPEN socket too), then drives
+  // the pin subscribers (rb-trace-tree.renderCurrentSprintEagerLazy + rb-detail-drawer.refreshCurrentSlot re-FETCH on the
+  // key) to re-derive — never trusting the possibly-stale in-memory DOM.
+  const CS_PIN = 'current-sprint-singleton-0000-000000000001';
+  wireTransportResync({
+    isOpen: () => !!_ws && _ws.readyState === WebSocket.OPEN,
+    reconnect: () => { if (!_ws || _ws.readyState >= WebSocket.CLOSING) open(); },   // reopen only when definitively dead (2/3) → no dup sockets
+    resync: async () => {
+      const r = await fetch(`/api/ior/ior:instance:${CS_PIN}`);                       // REFETCH authoritative pin state — a real read that FAILS LOUD if offline
+      if (!r.ok) throw new Error(`CurrentSprint refetch HTTP ${r.status}`);
+      ViewBus.notify(viewBusKey({ type: 'CurrentSprint', uuid: CS_PIN }));            // subscribers re-derive from fresh server state (Tron's exact complaint)
+      ViewBus.notify('graph');                                                        // structural surfaces (rows/badges) missed while backgrounded re-sync too
+    },
+    onResyncError: (cause) => setLiveState({ state: 'down', cause: `resync:${cause}`, at: Date.now() }), // FAIL-LOUD: visible not-live state, never a silent half-resync
+  });
 }
