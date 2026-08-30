@@ -21,12 +21,47 @@ const TRACE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../src
 const read = (f) => readFileSync(path.join(TRACE, f), 'utf-8');
 const fails = [];
 
-// A — unit-field elements must be on the primitive. Key on the DERIVED property (renders unit fields ⇒ reads this.graph),
-// NOT a name-list. Artifacts render own-source content (no this.graph unit-field read) ⇒ excluded by criterion.
-const detailFiles = readdirSync(TRACE).filter((f) => (f.endsWith('-detail.ts') || f === 'rb-detail-view.ts') && f !== 'rb-detail-base.ts');
-const hazards = detailFiles.filter((f) => { const s = read(f); return !/extends\s+RbDetailBase/.test(s) && /this\.graph\b/.test(s); });
-const onBase = detailFiles.filter((f) => /extends\s+RbDetailBase/.test(read(f)));
-if (hazards.length) fails.push(`A UNIT-FIELD-FUNNEL: ${hazards.length} unit-field detail element(s) render a scenario unit's fields (read this.graph) with their OWN funnel instead of extending RbDetailBase — migrate to the primitive: ${hazards.join(', ')}`);
+// A (R37.26 gate-widen, architect design 0f6437824) — GLOB-DISCOVERY hazard scan, INHERITANCE-AGNOSTIC. The OLD A keyed
+// on `this.graph` (a proxy for "renders unit fields") → it was BLIND to escapees that render unit fields via their OWN
+// fetch(/api/ior) and never touch this.graph (rb-file/webitem/feature/modelelement — AND rb-profile would have hidden the
+// same way). New rule: glob EVERY trace/*-detail.ts that REGISTERS a custom element; each MUST either extend RbDetailBase
+// (the primitive: ONE funnel + one-model-source + fail-loud) OR be a declared DETAIL_ARTIFACT (own-source content, NOT a
+// scenario-unit-field read — each reason must satisfy that STRUCTURAL test, earned not grandfathered). Anything else =
+// an escapee rolling its own funnel/fetch/fail → RED. Keys on extends-RbDetailBase STRUCTURALLY + glob, NEVER a name
+// pattern (else the gate is specimen #5 of its own family). So a future non-inheritor is SEEN, not blind-passed.
+const DETAIL_ARTIFACTS = {
+  'rb-terminal-detail': 'live ws /terminal pty — own source, not a scenario-unit',
+  'rb-diagram-detail': 'diagram artifact SVG render — own source, not a scenario-unit',
+  'rb-profile-detail': 'feature-manager granted-user masked view — own source, not a scenario-unit',
+};
+const ARTIFACT_CEILING = 3; // delta-gate: the exempt set may only SHRINK; raising this is a deliberate reviewed edit
+const classifyDetail = (src) => {
+  if (!/customElements\.(define|get)\s*\(/.test(src)) return { kind: 'unregistered' }; // not a registered element → out of scope
+  const tag = (src.match(/customElements\.define\s*\(\s*['"]([^'"]+)['"]/) || [])[1] || '';
+  if (/class\s+\w+\s+extends\s+RbDetailBase\b/.test(src)) return { kind: 'primitive', tag };
+  if (tag && Object.prototype.hasOwnProperty.call(DETAIL_ARTIFACTS, tag)) return { kind: 'artifact', tag };
+  return { kind: 'escapee', tag };
+};
+// SELF-BITE: the classifier MUST flag a planted escapee (extends HTMLElement, tag NOT listed), pass a base-extender, and
+// exempt a listed artifact — else the glob-discovery is inert (a gate that can't catch a planted non-inheritor is vacuous).
+const _bE = classifyDetail(`class RbZzzDetail extends HTMLElement {}\ncustomElements.define('rb-zzz-detail', RbZzzDetail);`);
+const _bP = classifyDetail(`class RbZzzDetail extends RbDetailBase {}\ncustomElements.define('rb-zzz-detail', RbZzzDetail);`);
+const _bA = classifyDetail(`class RbTerminalDetail extends HTMLElement {}\ncustomElements.define('rb-terminal-detail', RbTerminalDetail);`);
+if (_bE.kind !== 'escapee' || _bP.kind !== 'primitive' || _bA.kind !== 'artifact') {
+  console.error(`✗ check-detail-primitive A SELF-BITE FAILED (escapee=${_bE.kind}, primitive=${_bP.kind}, artifact=${_bA.kind}) — the glob-discovery classifier is INERT.`); process.exit(1);
+}
+const detailFiles = readdirSync(TRACE).filter((f) => f.endsWith('-detail.ts') && f !== 'rb-detail-base.ts');
+const A = { scanned: [], primitive: [], artifact: [], escapee: [] };
+for (const f of detailFiles) {
+  const c = classifyDetail(read(f));
+  if (c.kind === 'unregistered') continue;
+  A.scanned.push(f);
+  if (c.kind === 'primitive') A.primitive.push(f);
+  else if (c.kind === 'artifact') A.artifact.push(`${c.tag}: ${DETAIL_ARTIFACTS[c.tag]}`);
+  else A.escapee.push(`${f}${c.tag ? ` [${c.tag}]` : ''}`);
+}
+if (A.escapee.length) fails.push(`A GLOB-DISCOVERY: ${A.escapee.length} *-detail element(s) neither extend RbDetailBase nor are a declared DETAIL_ARTIFACT → migrate to the primitive OR add to DETAIL_ARTIFACTS with a structural (own-source, not-a-scenario-unit) reason: ${A.escapee.join(', ')}`);
+if (Object.keys(DETAIL_ARTIFACTS).length > ARTIFACT_CEILING) fails.push(`A DELTA-GATE: DETAIL_ARTIFACTS has ${Object.keys(DETAIL_ARTIFACTS).length} entries > CEILING ${ARTIFACT_CEILING} — the exempt set may only SHRINK; raise the ceiling only as a deliberate reviewed edit`);
 
 // B — single-writer memo, by construction.
 const drawer = read('rb-detail-drawer.ts');
@@ -42,4 +77,4 @@ if (!/rb-drawer-detail-shown/.test(base)) fails.push('C BASE-DISPATCH: RbDetailB
 if (announceCalls < 2) fails.push(`C BASE-DISPATCH-EVERY-RENDER: announceShown called ${announceCalls}× — EVERY render path (content + honest-empty) must announce (≥2), else a render leaves the bar showing the previous unit's verbs`);
 
 if (fails.length) { console.error('✗ check-detail-primitive FAILED (R37.24 inc2 elimination has DECAYED):\n' + fails.map((x) => '  ✗ ' + x).join('\n')); process.exit(1); }
-console.log(`✓ check-detail-primitive GREEN — A: ${onBase.length} unit-field detail elements on RbDetailBase, 0 own-funnel hazards (${detailFiles.length} scanned; artifacts excluded by the no-unit-field-read criterion) · B: _shownRef/_shownType single-writer (1 site each) · C: base announces on every render (${announceCalls}×).`);
+console.log(`✓ check-detail-primitive GREEN — A(glob-discovery): ${A.scanned.length} *-detail scanned / ${A.primitive.length} on RbDetailBase / ${A.artifact.length} exempt artifact(s) [${A.artifact.join(' ; ')}] / 0 escapees (self-bite live, ceiling ${ARTIFACT_CEILING}) · B: _shownRef/_shownType single-writer (1 site each) · C: base announces on every render (${announceCalls}×).`);
