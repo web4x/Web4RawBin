@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 211** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 64** (211 = 98+44+3+64)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 60**
+- **TOTAL S30++ tasks: 212** — Done **98** · QA-Review **44** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 65** (212 = 98+44+3+65)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 61**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 28 | 1 | 12 | 0 | 15 |
+| S37 | 29 | 1 | 12 | 0 | 16 |
 | S40 | 63 | 0 | 15 | 0 | 46 |
 
-**ACTIONABLE by blocker:** RIPE 7 · two-key 1 · gate 2 · marker 15 · build 35
+**ACTIONABLE by blocker:** RIPE 7 · two-key 1 · gate 2 · marker 15 · build 36
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -44,6 +44,7 @@
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
+| S37 | c0157a03 | In Progress | build | Task 37.31: iOS transport-lifecycle RESYNC — live-MVC recove |
 | S37 | c18c2efb | Planned | build | Task 37.15: Store-once theme-only names — a stored n |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |

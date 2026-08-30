@@ -1,0 +1,47 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 37.31: iOS transport-lifecycle RESYNC — live-MVC recovers after background/lock (both transports, refetch + fail-loud); Tron real-iOS acceptance
+
+[task:uuid:c0157a03-81c0-49a8-8631-687b57eccd6c]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [ ] creating test cases
+  - [x] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Remaining Issues
+
+STOOD UP In-Progress (PO Tron-#1-path 2026-08-30) on req's R37.27 9ad82c6e. HONEST committed-evidence floor: refinement[x] (architect design 0b9aa6dc7 committed + re-inspect PASS), implementing[x] (expert fix 8d04af8a2 BUILT/committed, pre-served). creating-test-cases[ ]+testing[ ] = tester severed-channel gate PENDING; marker PENDING (chain-to-Test not yet established) -> req mints Test on tester marker. Minted SERVED tree for Tron visibility; ⚠ R37.27 9ad82c6e + UC e6a9d288 + fix 8d04af8a2 are origin/main-only -> flagged expert to carry to served. CLOSING gate = Tron real-iOS (desktop-green != fixed). Residual /app frozen-OPEN = deferred backlog 1c842f26f (NOT this task).
+
+## Task Description
+
+Tron's #1 live-MVC symptom is iOS-Safari-SPECIFIC (tester closing run: passive client updated from broadcast ALONE 3/3 on desktop-WebKit => the general render path is RULED OUT). MECHANISM: iOS SUSPENDS WebSockets on background/lock -> the socket dies QUIETLY -> the DOM stays STALE -> only a manual reload resyncs = exactly his symptom. REPRO: background/lock the app on real iOS -> a change occurs server-side -> foreground shows the STALE state (not the change) until manual reload. FIX (architect design 0b9aa6dc7, expert pre-built 8d04af8a2, re-inspect PASS): ONE shared transport-lifecycle helper across BOTH transports; on visibilitychange->visible AND pageshow(bfcache): verify-or-reconnect + RE-SYNC by REFETCH (never trust in-memory) + FAIL-LOUD if the resync fails; NO UA-sniff, general-correct. Scope = the COMMON case + Tron's live-bridge/trace-pin surface (fully covered by state-independent HTTP refetch). The /app frozen-OPEN zombie residual is a SEPARATE deferred backlog item (1c842f26f) — NOT this task. Reuse the existing transport clients, NO fork.
+
+## Context
+
+Covers R37.27 9ad82c6e (transportLifecycle.resyncOnResume, UC e6a9d288). Structural NEW = the TRANSPORT LAYER (R37.12/R37.24 view-bus ASSUME a live transport; R40.45 = sanctioned emit-path; none scope WS-survives-suspend/resume). S37 realtime-MVC family. Deferred residual: /app frozen-OPEN zombie liveness-probe (backlog 1c842f26f).
+
+## Intention
+
+Keep R37.12's view-bus ALIVE to a RESUMED iOS client: a suspended/dead socket self-heals on resume via refetch, or fails loud — never silently-stale.
+
+## Acceptance Criteria
+
+- [ ] SHARED HELPER, BOTH TRANSPORTS: one transport-lifecycle helper covers BOTH transports (not a per-transport copy) — the resync logic lives in ONE place.
+- [ ] RESYNC ON RESUME: on visibilitychange->visible AND pageshow (bfcache restore), the helper verifies-or-reconnects the transport and resyncs.
+- [ ] REFETCH NEVER TRUST MEMORY: the resync RE-FETCHES authoritative state from the server; it never trusts in-memory / stale DOM state to be current after a suspend.
+- [ ] FAIL-LOUD ON RESYNC FAIL: if reconnect/refetch fails, the client FAILS LOUD (visible error/retry) — never silently-stale.
+- [ ] GENERAL-CORRECT, NO UA-SNIFF: the fix uses standard visibilitychange/pageshow (no iOS UA-sniff); desktop transports are unaffected.
+- [ ] ★ SEVERED-CHANNEL GATE (tester stub, non-vacuous): a test SEVERS the channel (simulate iOS WS suspend), a change occurs, the client RESUMES -> asserts it REFETCHES + renders FRESH; planted-defect (stays stale on resume) = RED.
+- [ ] ★ CLOSING AC — TRON REAL-iOS ACCEPTANCE (un-mockable, headless-GREEN is NOT 'fixed'): on Tron's REAL iOS device, background/lock -> change -> foreground shows the FRESH state. The bug is iOS-specific -> a desktop-WebKit green does NOT close it; his device is the acceptance.
+
+## Subtasks
+
+None (atomic task).
