@@ -264,7 +264,7 @@ export function emitClaudeSkillText(object: string): string {
   out.push(`taskChain ${object.toLowerCase()}.<verb> [args]                                  # OOSH shells (Tab-completes)`);
   out.push('```');
   out.push('');
-  out.push(`Repo: /Users/Shared/Workspaces/2cuGitHub/Web4RawBin. Run from repo root (or cd there) so the scenario index resolves.`);
+  out.push(`Repo: ${REPO} (resolved from the script location — the scenario index resolves regardless of cwd).`); // R37.26-repair: was a stale hardcoded pre-move path (cosmetic only — resolution already uses the derived REPO)
   out.push('');
   out.push('## Verbs');
   out.push('');

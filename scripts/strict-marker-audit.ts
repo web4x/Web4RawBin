@@ -5,7 +5,11 @@
 import * as ts from 'typescript';
 import * as fs from 'fs';
 import * as path from 'path';
-const ROOT = '/Users/Shared/Workspaces/2cuGitHub/Web4RawBin';
+import { fileURLToPath } from 'url';
+// R37.26-repair (post-move DEAD-GUARD): ROOT was hardcoded to a dead /Users/Shared/Workspaces/2cuGitHub/Web4RawBin path
+// (repo moved to web4x) → fs.existsSync(dead)=false → walk() found 0 files → EVERY marker read as absent = the marker
+// audit was SILENTLY INERT since the move. Derive from the script's own location so it follows the repo — NEVER a 2nd hardcode.
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const roots = [path.join(ROOT, 'src'), path.join(ROOT, 'scripts')];
 function walk(d: string, o: string[]) {
   if (!fs.existsSync(d)) return;
@@ -108,16 +112,27 @@ function classify(mk: Marker) {
   return { v: 'FAIL', r: 'no-named-member(const/header/nothing)', loc };
 }
 
-const credited = JSON.parse(fs.readFileSync('/tmp/credited.json', 'utf-8'));
+// R37.26-repair: the credited subset (/tmp/credited.json, produced ad-hoc from the scoreboard) is now OPTIONAL — it was
+// the ONLY external dependency + it crashed the audit when absent (ENOENT). Present → audit that credited subset (the
+// original scoreboard cross-check). Absent → audit EVERY [impl:uuid] marker discovered in the tree (self-contained,
+// no external input; a superset marker-HEALTH view — finds ALL invalid markers, not just credited ones).
+const CREDITED_PATH = '/tmp/credited.json';
 const out: any[] = [];
-for (const c of credited) {
-  const pre = c.implShort;
-  if (!pre) { out.push({ ...c, verdict: '?', reason: 'no-short' }); continue; }
-  const hits = markers.filter(mk => mk.uuid.slice(0, 8) === pre);
-  if (!hits.length) { out.push({ ...c, verdict: 'FAIL', reason: 'marker-absent', loc: '' }); continue; }
-  let chosen: any = null;
-  for (const mk of hits) { const r = classify(mk); if (r.v === 'PASS') { chosen = { verdict: 'PASS', reason: r.r, loc: r.loc }; break; } if (!chosen) chosen = { verdict: 'FAIL', reason: r.r, loc: r.loc }; }
-  out.push({ ...c, ...chosen });
+if (fs.existsSync(CREDITED_PATH)) {
+  const credited = JSON.parse(fs.readFileSync(CREDITED_PATH, 'utf-8'));
+  for (const c of credited) {
+    const pre = c.implShort;
+    if (!pre) { out.push({ ...c, verdict: '?', reason: 'no-short' }); continue; }
+    const hits = markers.filter(mk => mk.uuid.slice(0, 8) === pre);
+    if (!hits.length) { out.push({ ...c, verdict: 'FAIL', reason: 'marker-absent', loc: '' }); continue; }
+    let chosen: any = null;
+    for (const mk of hits) { const r = classify(mk); if (r.v === 'PASS') { chosen = { verdict: 'PASS', reason: r.r, loc: r.loc }; break; } if (!chosen) chosen = { verdict: 'FAIL', reason: r.r, loc: r.loc }; }
+    out.push({ ...c, ...chosen });
+  }
+  console.log(`MODE=credited-subset (from ${CREDITED_PATH})`);
+} else {
+  for (const mk of markers) { const r = classify(mk); out.push({ implShort: mk.uuid.slice(0, 8), uuid: mk.uuid, verdict: r.v, reason: r.r, loc: r.loc }); }
+  console.log(`MODE=all-markers (self-contained; ${CREDITED_PATH} absent) — audited every [impl:uuid] in src/+scripts/`);
 }
 const pass = out.filter(o => o.verdict === 'PASS').length, fail = out.filter(o => o.verdict === 'FAIL').length;
 const reasons: Record<string, number> = {};
