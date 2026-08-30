@@ -390,7 +390,7 @@ export class RoomView {
         const srcEl = panel.querySelector('[data-src-uuid]');
         if (srcEl) srcEl.addEventListener('click', (ev: Event) => { ev.preventDefault(); this.openFilePreview(childUuid); });
         if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
-        drawer.setAttribute('ref', `file:${uuid}`);
+        drawer.setAttribute('ref', uuid); // r4011 CALLER FIX (architect 316b60c15): reference the REAL File unit by its scenario uuid — NOT `file:${uuid}` (a SYNTHETIC prefix → the drawer's resolveRefUnit→ensureViewUnit lazy-MINTED a bogus dup File name=uuid/ownerIor=null = the Tron-facing name=uuid regression). A bare instance uuid resolves the real unit (LinkedIn Banner.png), no mint.
         drawer.setAttribute('open', '');
         return;
       }
@@ -398,7 +398,7 @@ export class RoomView {
       // [impl:uuid:b8714c1d-58b2-4324-93ba-da5e0f760221] R19.78 buttons above filename
       panel.innerHTML = `${preview}<h3 style="margin:8px 0 0;font-size:0.9rem;color:white">${(fm.name || uuid).replace(/[<>]/g, '')}</h3>`;
       if ((drawer as RbDetailDrawer).setMode) (drawer as RbDetailDrawer).setMode('preview');
-      drawer.setAttribute('ref', `file:${uuid}`);
+      drawer.setAttribute('ref', uuid); // r4011 CALLER FIX (architect 316b60c15): reference the REAL File unit by its scenario uuid — NOT `file:${uuid}` (a SYNTHETIC prefix → the drawer's resolveRefUnit→ensureViewUnit lazy-MINTED a bogus dup File name=uuid/ownerIor=null = the Tron-facing name=uuid regression). A bare instance uuid resolves the real unit (LinkedIn Banner.png), no mint.
       drawer.setAttribute('open', '');
       wireUrlActions(panel); // R21.9: toggle lazily fills the rb-preview-pane (RbPanZoom)
     } catch {}

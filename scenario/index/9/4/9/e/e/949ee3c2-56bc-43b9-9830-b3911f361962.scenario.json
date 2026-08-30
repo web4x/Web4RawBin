@@ -6,7 +6,7 @@
     "name": "BUG18: clicking a FILE in a room shows the PARENT collection in the drawer, not the file detail (regression)",
     "description": "REGRESSION (Tron screenshot): clicking a FILE in a room (e.g. 16CDAA25...jpeg in 'Jesus Munich' Files) shows the PARENT 'Files(2)' collection in the detail drawer instead of the file's OWN detail. file-detail-on-click is mis-wired to render the parent collection.",
     "acceptanceCriteria": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE.",
-    "status": "Done",
+    "status": "Open",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
     "tronTraced": "Screenshot regression, URGENT (PO/Tron 2026-06-15)",
@@ -14,7 +14,20 @@
       "ior:instance:fdcbb079-f8c8-489a-95bd-89516f29dd66"
     ],
     "followOn": "CORE DONE (Tron-confirmed). Follow-on (preview+new-tab buttons) MOVED to separate next task 3852fdd7-f091-47fc-8239-93433fef4dfe (Tron: make it the NEXT task).",
-    "tronDone": "Tron confirmed this is fixed — file detail renders (visually verified) 2026-06-15."
+    "tronDone": "Tron confirmed this is fixed — file detail renders (visually verified) 2026-06-15.",
+    "regressionRecord": {
+      "regressed": true,
+      "originalTronDone": "Tron confirmed this is fixed — file detail renders (visually verified) 2026-06-15.",
+      "originalDoneDate": "2026-06-15",
+      "regressionObserved": "2026-08-30 (LIVE on prod, Tron watching; PO #1 priority). BUG18 symptom recurs: clicking a FILE in a room shows the PARENT collection/uuid-named unit, not the file detail.",
+      "ruling": "RE-OPENED (status Done->Open) because a Done status while the bug is live-regressed is a status that LIES (truth-decay). The 2026-06-15 tronDone is PRESERVED verbatim as history (annotate-not-fabricate, never erase Tron verdict), NOT overwritten. Re-Done requires a NEW Tron verdict (Done=Tron); the re-fix executes in the planner covering task (parent S37, cross-sprint precedent T37.27). Rejected keep-Done-with-note: it leaves a lying Done.",
+      "ruledBy": "robbin-req",
+      "date": "2026-08-30",
+      "reFixSurface": "S37 realtime-MVC/detail surface (planner covering task); origin S20, re-fix executes S37"
+    },
+    "tasks": [
+      "ior:instance:802a9597-5665-4d14-84e2-ced70b51f5a5"
+    ]
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
