@@ -3,17 +3,17 @@
 // fail-LOUD renderUnresolved). This gate BLOCKS the Phase-A land: GREEN fires the pre-authorized land, RED = HOLD.
 // ★ DELTA-2 BINDING: report each of the 4 INDIVIDUALLY. ALL-4-OR-HOLD — ANY fail = HOLD (expert fixes renderDetail), NOT a
 //   partial land, NOT a DETAIL_ARTIFACTS exemption (revoked). Do NOT shade toward green; a RED is a valid deliverable.
-// Per component, @390 real-WebKit on the SERVED scratch surface:
-//   (A) RENDER: mount with a REAL committed-index uuid of its type → the element renders THAT unit's detail — assert
-//       screenshot+PIXEL painted (region not blank, never a DOM element-count) AND dv-title is real (not '⚠ unresolved',
-//       not a bare-uuid [BUG18 symptom], not raw-JSON), name matches the server's model.name.
-//   (B) FAIL-LOUD: mount with a BOGUS uuid → RbDetailBase renderUnresolved: dv-type='unresolved' + dv-title '⚠ unresolved'
-//       VISIBLE (never a silent blank). This fail-loud-via-base is ALSO the migration discriminator (an un-migrated escapee
-//       would blank or fail-loud its own way) — it is the behavioural phantom-guard that all 4 route through the base.
-//   (C) META-BITE (stub-must-fail): stub ONE component's renderDetail → the suite MUST go RED for it → proves the gate can fail.
-// PHANTOM-GUARD (served==the-build-I'm-gating): served /api/config version recorded + all-4-fail-loud-via-base asserted (a
-//   back-version / un-migrated surface would not produce the base's '⚠ unresolved' for the escapees). Expert-supplied minify-
-//   surviving discriminator folds in here when provided.
+// MEASURED MIGRATION INVARIANT (architect ruling; STATED==IMPLEMENTED — the code below asserts exactly this, no proxy):
+//   (1) RENDERS REAL RESOLVED UNIT DATA: mount a REAL committed-index uuid → screenshot+PIXEL painted (region not blank,
+//       never a DOM element-count) + the resolved model's real name appears + not '⚠ unresolved' / bare-uuid / raw-JSON.
+//   (2) BASE FAIL-LOUD: mount a BOGUS uuid → the element renders the BASE's '⚠ unresolved' (RbDetailBase.renderUnresolved,
+//       rb-detail-base:83) — an own-funnel/unmigrated component renders its OWN 'not found' → fails this = the clean
+//       migration discriminator (positive control that the base funnel ran).
+//   (C) META-BITE (stub-must-fail): stub a component's renderUnresolved to emit an OWN fail-string on a bogus ref → the
+//       base-fail-loud assertion MUST go RED → proves the gate catches an escapee that self-handles the fail path.
+//   RETIRED (measured NON-discriminators, asserted NOWHERE): shown-event (3 dispatch sites incl the drawer → fires regardless
+//   of the base) and type-specific dv-* funnel classes (dv-head/dv-field/dv-rel — decoration, varies per component).
+// SURFACE PRE-CHECK (right-server only, NOT proof of migration): served trace-page bundle == the migration build (from the page).
 // BASE: GATE_BASE env = the expert's R40.31 scratch URL (the acceptance surface). Absent → spin my own buildDist scratch
 //   (validates the harness + captures the RED-baseline on my HEAD, where feature/modelelement may still be escapees).
 // Scratch-only; a bogus/synthetic ref can MINT on the server it hits (BUG18/r4010) → NEVER prod (gate refuses a :4444 base).
@@ -52,27 +52,23 @@ if (BASE) {
 }
 
 // mount a detail component with a ref; return rendered {dvType,dvTitle,contentLen} + a pixel-painted flag from a screenshot
-const renderProbe = async (page, tag, ref, stubRenderDetail) => {
-  if (stubRenderDetail) await page.evaluate((t) => { const C = customElements.get(t); if (C && C.prototype) C.prototype.renderDetail = function () { /* STUBBED no-op — meta-BITE */ }; }, tag);
-  // wire the rb-drawer-detail-shown listener ONCE + CLEAR the ring before each mount (the base fires it on EVERY render path)
-  await page.evaluate(() => { window.__shown = []; if (!window.__shownWired) { window.__shownWired = true; document.addEventListener('rb-drawer-detail-shown', (e) => { try { window.__shown.push((e.detail && e.detail.ref) || ''); } catch {} }); } });
+const renderProbe = async (page, tag, ref, stubOwnFail) => {
+  // META-BITE stub (architect-specified): override renderUnresolved to emit an OWN fail-string (the UNMIGRATED tell) instead of
+  // routing through RbDetailBase.renderUnresolved's '⚠ unresolved' — a component that self-handles the fail path must go RED.
+  if (stubOwnFail) await page.evaluate((t) => { const C = customElements.get(t); if (C && C.prototype) C.prototype.renderUnresolved = function () { this.innerHTML = '<div class="dv-type">error</div><div class="dv-title">not found (own fail-string)</div>'; }; }, tag);
   await page.evaluate(({ t, r }) => { const old = document.getElementById('__g'); if (old) old.remove(); const el = document.createElement(t); el.id = '__g'; el.setAttribute('ref', r); document.body.appendChild(el); }, { t: tag, r: ref });
   await sleep(1600);
   const dom = await page.evaluate(() => {
     const el = document.getElementById('__g'); if (!el) return null;
     const txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
-    // FUNNEL SIGNATURE (architect/PO honest discriminator): the shared renderDetail DOM + the shown event. Capture a spread of
-    // candidate funnel classes so the run REVEALS the real structure (measure-first — I mis-guessed .dv-title once already).
-    const has = (s) => !!el.querySelector(s);
+    // Capture ONLY the MEASURED-invariant signals (architect ruling, STATED==IMPLEMENTED): the base fail-loud DOM (dv-type +
+    // dv-title carry RbDetailBase.renderUnresolved's '⚠ unresolved' :83) + the real rendered text/name. DELIBERATELY NOT
+    // captured or asserted — shown-event (3 dispatch sites incl rb-detail-drawer:446 → fires regardless of the base, NOT a
+    // discriminator) and type-specific dv-* funnel classes (dv-head/dv-field/dv-rel — decoration, varies per component, NO
+    // base invariant). dv-type/dv-title here are the BASE fail-loud strings, not per-component decoration.
     return {
       dvType: el.querySelector('.dv-type')?.textContent?.trim() || '',
       dvTitle: el.querySelector('.dv-title')?.textContent?.trim() || '',
-      dvHead: has('.dv-head'), dvFields: has('.dv-fields'), dvParentChildren: has('.dv-parent-children, .dv-children, .dv-parent, .dv-parents'),
-      // the HONEST shared funnel signature (type-specific DOM varies: file=dv-head/dv-fields/dv-parent, webitem=dv-field) =
-      // ANY dv-* element BEYOND the unresolved shell (dv-type/dv-title). Falsifiable on revert: own-funnel → no dv-* + no shown.
-      dvBeyondShell: [...el.querySelectorAll('[class*="dv-"]')].some((n) => !/\bdv-(type|title)\b/.test(' ' + n.className + ' ')),
-      funnelClasses: [...el.querySelectorAll('[class*="dv-"]')].map((n) => n.className).slice(0, 8).join('|'),
-      shownFired: (window.__shown || []).length > 0,
       contentLen: txt.length, text: txt.slice(0, 220),
     };
   });
@@ -152,31 +148,39 @@ try {
     // REAL model.name appears in the rendered text + NOT the unresolved marker + not a bare-uuid (BUG18) + not raw-JSON.
     const rnd = await renderProbe(page, c.tag, c.uuid, false);
     const nameKey = (unit.name || '').replace(/\s+/g, ' ').trim().slice(0, 12);
-    // FUNNEL SIGNATURE (the honest per-component discriminator; version-stamp DEMOTED to surface-only): shown-event fired +
-    // the shared renderDetail DOM present. Both DISAPPEAR if a component is reverted to its own-funnel → can't false-green.
-    const funnelSig = !!rnd && rnd.shownFired && rnd.dvBeyondShell; // shared signature (type-DOM-agnostic; covers file dv-fields AND webitem dv-field)
-    const renderPass = registered && funnelSig && rnd.paintedFrac > 0.02 && rnd.dvType !== 'unresolved' && !/⚠?\s*unresolved/i.test(rnd.text)
+    // ═══ MEASURED MIGRATION INVARIANT (architect ruling; STATED==IMPLEMENTED — asserted below, no shown-event/dv-* proxy) ═══
+    // A component routes through RbDetailBase iff, per component on its REAL surface:
+    //   (1) RENDERS REAL RESOLVED UNIT DATA — the resolved model's real name painted (not thin/fabricated/bare-uuid/raw-JSON), AND
+    //   (2) BASE FAIL-LOUD — an unresolvable ref renders the BASE '⚠ unresolved' (rb-detail-base:83), NOT an own 'not found'.
+    // RETIRED (measured NON-discriminators, asserted NOWHERE): shown-event (3 dispatch sites incl rb-detail-drawer:446 → fires
+    // regardless of the base) and type-specific dv-* funnel classes (dv-head/dv-field/dv-rel — decoration, varies, no invariant).
+    // (1) RENDER — real resolved unit data:
+    const renderPass = registered && rnd.paintedFrac > 0.02 && rnd.dvType !== 'unresolved' && !/⚠?\s*unresolved/i.test(rnd.text)
       && rnd.contentLen > 20 && !isUuid(rnd.text) && (nameKey.length >= 3 ? rnd.text.includes(nameKey) : rnd.contentLen > 40);
-    // (B) FAIL-LOUD (bogus ref) — base '⚠ unresolved' + shown-event (announceShown fires on the unresolved path too)
+    // (2) BASE FAIL-LOUD — bogus ref MUST render the BASE '⚠ unresolved' (proves it routed through RbDetailBase.renderUnresolved);
+    // an own-funnel/unmigrated component renders its OWN 'not found' here → fails this = the clean migration discriminator.
     const fl = await renderProbe(page, c.tag, BOGUS, false);
-    const failLoudPass = !!fl && fl.dvType === 'unresolved' && /unresolved/i.test(fl.dvTitle) && fl.shownFired;
+    const failLoudPass = !!fl && fl.dvType === 'unresolved' && /⚠\s*unresolved/i.test(fl.dvTitle);
     const pass = renderPass && failLoudPass;
-    results.push({ ...c, registered, unitResolves: unit.ok, unitName: unit.name, renderPass, failLoudPass, funnelSig, pass, rnd, fl });
+    results.push({ ...c, registered, unitResolves: unit.ok, unitName: unit.name, renderPass, failLoudPass, pass, rnd, fl });
     R(`  ${c.tag.padEnd(24)} @${c.page} registered=${registered} unit(${c.type})=${unit.ok ? 'resolves:"' + (unit.name || '').slice(0, 24) + '"' : 'ABSENT'}`);
-    R(`      RENDER=${renderPass} [shown=${rnd.shownFired} funnel(head=${rnd.dvHead}/fields=${rnd.dvFields}/pc=${rnd.dvParentChildren}) painted=${rnd.paintedFrac.toFixed(2)} name-in-text=${nameKey.length >= 3 ? rnd.text.includes(nameKey) : 'n/a'} classes="${rnd.funnelClasses.slice(0, 60)}" text="${rnd.text.slice(0, 40)}"]`);
-    R(`      FAIL-LOUD=${failLoudPass} [type=${fl.dvType} title="${fl.dvTitle.slice(0, 22)}" shown=${fl.shownFired}] => ${pass ? 'PASS' : 'FAIL'}`);
+    R(`      (1)REAL-DATA=${renderPass} [painted=${rnd.paintedFrac.toFixed(2)} name-in-text=${nameKey.length >= 3 ? rnd.text.includes(nameKey) : 'n/a'} text="${rnd.text.slice(0, 46)}"]`);
+    R(`      (2)BASE-FAIL-LOUD=${failLoudPass} [type=${fl.dvType} title="${fl.dvTitle.slice(0, 28)}"] => ${pass ? 'PASS' : 'FAIL'}`);
   }
 
-  // (C) META-BITE: stub ONE component's renderDetail on a FRESH context → its render MUST fail (proves the gate can go RED)
+  // (C) META-BITE (architect-specified stub-must-fail): stub a component's renderUnresolved to emit an OWN fail-string (the
+  // UNMIGRATED tell) instead of the base '⚠ unresolved', mount a BOGUS ref → the BASE-FAIL-LOUD assertion MUST go RED (own
+  // string ≠ base string) = the gate CATCHES an escapee that self-handles the fail path instead of RbDetailBase.renderUnresolved.
   const biteCtx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   const bitePage = await biteCtx.newPage();
   await bitePage.goto(BASE + '/trace', { waitUntil: 'domcontentloaded' });
   await bitePage.waitForFunction(() => !!customElements.get('rb-file-detail'), { timeout: 20000 }).catch(() => {});
   await sleep(400);
-  const biteTag = COMPONENTS[0].tag; // rb-file-detail
-  const bitten = await renderProbe(bitePage, biteTag, COMPONENTS[0].uuid, true);
-  const bitePassesStub = !(bitten.hasTitleEl && bitten.dvTitle.length > 0 && bitten.paintedFrac > 0.01); // stubbed renderDetail → NO real detail
-  R(`  META-BITE stub ${biteTag}.renderDetail → suite-detects-RED=${bitePassesStub} (title="${bitten.dvTitle.slice(0, 20)}" painted=${bitten.paintedFrac.toFixed(3)})`);
+  const biteTag = COMPONENTS[0].tag; // rb-file-detail (registered on /trace)
+  const bitten = await renderProbe(bitePage, biteTag, BOGUS, true); // stubOwnFail=true → own 'not found' string on the bogus ref
+  const biteBaseFailLoud = !!bitten && bitten.dvType === 'unresolved' && /⚠\s*unresolved/i.test(bitten.dvTitle);
+  const bitePassesStub = !biteBaseFailLoud; // own fail-string must NOT satisfy base-fail-loud → gate correctly detects RED
+  R(`  META-BITE stub ${biteTag}.renderUnresolved→own-fail-string → base-fail-loud DETECTED-RED=${bitePassesStub} (title="${bitten.dvTitle.slice(0, 30)}")`);
   results._bite = bitePassesStub;
   await biteCtx.close();
   await ctx.close();
@@ -188,6 +192,7 @@ try {
 
 // ── verdict: ALL-4-OR-HOLD ──
 R(`\n═══ PHASE-A 4-COMPONENT DETAIL GATE (@390, served v${servedVersion}) ═══`);
+R(`DEFINITION IN FORCE (architect measured invariant): (1) renders REAL resolved unit data (real name painted, not a stub) + (2) BASE FAIL-LOUD (unresolvable ref → base '⚠ unresolved', not an own 'not found'). RETIRED: shown-event (3 dispatch sites) + dv-* (decoration). Applied to ALL 4 (never feature-only).`);
 for (const r of results) R(`  ${r.tag.padEnd(24)} ${r.pass ? 'PASS' : 'FAIL'}  (render=${r.renderPass} fail-loud=${r.failLoudPass}${r.unitResolves ? '' : ' unit-ABSENT'})`);
 const bite = results._bite === true;
 R(`  META-BITE (stub-must-fail):   ${bite ? 'PASS (gate can go RED)' : 'FAIL (gate CANNOT fail — INVALID)'}`);
@@ -196,7 +201,7 @@ const all4 = results.length === 4 && results.every((r) => r.pass);
 const green = all4 && bite && surfaceOk;
 const failing = results.filter((r) => !r.pass).map((r) => r.tag).join(', ');
 if (green) {
-  R(`\nVERDICT: GREEN — all 4 render scenario-unit detail via the shared funnel (shown-event + funnel DOM) + fail-loud '⚠ unresolved', meta-BITE valid, right surface → Phase-A land AUTHORIZED.`);
+  R(`\nVERDICT: GREEN — all 4 render REAL resolved unit data + BASE fail-loud '⚠ unresolved' (routed through RbDetailBase.renderUnresolved), meta-BITE valid (own-fail-string → RED), right surface → Phase-A land AUTHORIZED.`);
 } else {
   // RED DISAMBIGUATION (PO/architect: guard==assertion → re-confirm the SURFACE before blaming the migration)
   R(`\nVERDICT: HOLD (ALL-4-OR-HOLD — no partial land, no DETAIL_ARTIFACTS exemption).`);
@@ -207,7 +212,7 @@ if (green) {
     const notReg = results.filter((r) => !r.pass && !r.registered);
     const renderFails = results.filter((r) => !r.pass && r.registered);
     if (notReg.length) R(`     ⚠ SURFACE/LOADING FINDING (NOT a renderDetail bug — do NOT send the expert to debug renderDetail): ${notReg.map((r) => r.tag + ' NOT-REGISTERED@' + r.page).join(', ')}. Not loaded on the gated surface (feature registers only via /feature-manager, modelelement only via /model; both routes are owner-gated 403 on the scratch). Migration renderDetail for these is UNVERIFIED, not failed. ARCHITECT to rule the correct surface: (a) load all 4 on /trace, or (b) the scratch exposes /feature-manager + /model under owner-auth so the gate can reach them.`);
-    if (renderFails.length) R(`     MIGRATION/renderDetail DEFECT (registered but funnel signature absent): ${renderFails.map((r) => r.tag).join(', ')} — expert fixes renderDetail.`);
+    if (renderFails.length) R(`     MIGRATION/renderDetail DEFECT (registered but BASE signature absent — no shown-event, or no real resolved content): ${renderFails.map((r) => r.tag).join(', ')} — expert fixes renderDetail.`);
     if (!bite) R(`     META-BITE INVALID — the gate could not be shown to fail; fix the bite before trusting any green.`);
   }
 }
