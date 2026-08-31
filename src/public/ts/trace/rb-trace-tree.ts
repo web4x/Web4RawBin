@@ -6,7 +6,6 @@
 // [impl:uuid:49cb3038-9a42-455d-b636-71b60276a155] RbTraceTree.chainToTest
 // [impl:uuid:4042da6f-e083-4564-bab7-562558b7464b] RbTraceTree.ancestorGuard
 // [impl:uuid:4846d57e-610e-4977-a189-662074030cb1] RbTraceTree.cycleGuard
-// [impl:uuid:3d3a4239-5939-4f5b-ae8d-bba2d2c086da] RbTraceTree.prefetchLayer
 // [impl:uuid:eb038984-43bb-415c-91ed-25f6db3114f9] RbTraceTree.lazyAppend
 // [impl:uuid:5d4ba96f-68f2-4f33-8b8f-636c704b2ee1] RbTraceTree.fetchAndRenderChildren
 // [impl:uuid:5a552045-cc8d-4aaa-9d3c-d8c834f59df1] PathHeader.clickNavigate
@@ -44,8 +43,6 @@ export class RbTraceTree extends HTMLElement {
   private expanded = new Set<string>();
   private unsub: (() => void) | null = null;
   private pendingReveal: string | null = null;
-  private prefetchCache = new Map<string, any[]>();
-  private prefetchInFlight = new Set<string>();
   // R31.3 BADGE-via-REFERENCES: the eager nodeChildCount side-map is RETIRED — the badge count now lives on each
   // node's dataset.childRefCount (an array length stamped at build), so there is no colon-keyed map to diverge.
   private _items: TreeNode[] | null = null;
@@ -304,7 +301,7 @@ export class RbTraceTree extends HTMLElement {
       for (const obj of orphans) this.appendChild(this.nodeEl(obj.ref(), new Set()));
     }
     this.computeBadges();
-    this.prefetchVisibleLayer();
+    // R-fanout (732558d07): eager prefetch removed — bounded eager (roots only, never descendants); root badges from the server response
     if (this.pendingReveal) { const u = this.pendingReveal; this.pendingReveal = null; requestAnimationFrame(() => this.revealNode(u)); }
   }
 
@@ -383,7 +380,6 @@ export class RbTraceTree extends HTMLElement {
       this.innerHTML = '';
       this.appendChild(frag);
       this.computeBadges();
-      this.prefetchVisibleLayer();
       this._seedAbort = null;
     } catch (e: any) { if (e?.name !== 'AbortError') { this.innerHTML = '<div class="tt-empty">Failed to load</div>'; this._seedAbort = null; } }
   }
@@ -601,47 +597,30 @@ export class RbTraceTree extends HTMLElement {
     });
   }
 
-  private prefetchLayer(node: HTMLElement): Promise<void> {
-    const item = node.querySelector(':scope > .tt-row rb-object-item');
-    const uuid = refUuid(item?.getAttribute('ref') || ''); // same colon-in-uuid safety as computeBadges (refUuid = after the FIRST colon)
-    if (!uuid || this.prefetchCache.has(uuid) || this.prefetchInFlight.has(uuid)) return Promise.resolve();
-    this.prefetchInFlight.add(uuid);
-    return fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`)
-      .then(r => r.ok ? r.json() : null)
-      .then(data => { if (data) { this.prefetchCache.set(uuid, data.children || []); node.dataset.childRefCount = String((data.children || []).length); if (item) item.setAttribute('child-count', String((data.children || []).length)); } }) // R31.3: stamp the actual prefetched count on the node → computeBadges' single source
-      .catch(() => {})
-      .finally(() => this.prefetchInFlight.delete(uuid));
-  }
-
-  prefetchVisibleLayer(root?: HTMLElement): Promise<void> {
-    const scope = root || this;
-    const nodes = [...scope.querySelectorAll('.tt-node')].filter(n => n.querySelector(':scope > .tt-row rb-object-item[has-children]'));
-    return Promise.all(nodes.map(n => this.prefetchLayer(n as HTMLElement))).then(() => {});
-  }
+  // R-fanout (architect 732558d07): prefetchLayer + prefetchVisibleLayer REMOVED — they fired one /children fetch PER
+  // visible child to re-derive a count the PARENT payload already carries (child.hasChildren/childCount) = the N-request
+  // fan-out per expand. Expansion + initial render are now O(1)/bounded. [impl 3d3a4239 RbTraceTree.prefetchLayer RETIRED
+  // — req to unlink the marker/unit; the fan-out task's chain owns the removal.]
 
   private async fetchAndRenderChildren(uuid: string, container: HTMLElement, ancestors?: Set<string>): Promise<void> {
     const branchVisited = new Set(ancestors || []);
     branchVisited.add(uuid);
     try {
-      let children: any[];
-      const cached = this.prefetchCache.get(uuid);
-      if (cached) {
-        children = cached;
-        this.prefetchCache.delete(uuid);
-      } else {
-        const res = await fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`);
-        if (!res.ok) return;
-        const data = await res.json();
-        children = data.children || [];
-      }
+      // R-fanout (architect contract 732558d07): STRICT 1 request per expand — fetch THIS node's children ONCE, NO
+      // per-child prefetch. Badges/chevrons come from the PARENT payload (child.hasChildren + child.childCount, stamped by
+      // buildSeedNode). The removed prefetchVisibleLayer re-fetched EACH child's children purely to re-derive a count the
+      // parent already carries = the N-request fan-out per expand (67 reqs at sprint level). Now O(1) request per expand.
+      const res = await fetch(`${this.childrenUrl}${encodeURIComponent(uuid)}${this.modeParam}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const children: any[] = data.children || [];
       for (const child of children) {
-        // R31.3 BADGE-via-REFERENCES: pass the child's server count → buildSeedNode stamps node.dataset.childRefCount (no map, level-by-level badge correct before ITS children load)
+        // R31.3 BADGE-via-REFERENCES: the child's server count → buildSeedNode stamps node.dataset.childRefCount (parent-sourced, no per-child fetch)
         container.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, [], child.hasChildren, new Set(branchVisited), (child as any).chainMethod, (child as any).description, false, (child as any).status, (child as any).childCount));
       }
       const parentItem = container.parentElement?.querySelector(':scope > .tt-row rb-object-item');
       if (parentItem) parentItem.setAttribute('child-count', String(children.length));
       this.computeBadges(container);
-      this.prefetchVisibleLayer(container);
     } catch { /* silently fail — node stays collapsed */ }
   }
 }
