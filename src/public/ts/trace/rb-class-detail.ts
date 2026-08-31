@@ -25,7 +25,7 @@ export class RbClassDetail extends RbDetailBase {
       </div>`;
     renderChainPathSection(this, uuid);
     fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-      upsertSourceLink(this, sourceFile, sourceLine); upsertParentLink(this, parent); // R37.12 (B): idempotent — replace not stack
+      upsertSourceLink(this, sourceFile, sourceLine, true); upsertParentLink(this, parent); // R37.12 (B) idempotent; T36.3: mark "source not available" not blank
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, uuid);
     });

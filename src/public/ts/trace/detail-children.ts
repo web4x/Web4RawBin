@@ -78,8 +78,13 @@ export function scenarioBrowserLinkFromIor(uuid: string): string {
     + `<a href="${scenarioEditorHref(uuid)}" style="${lnk};margin-left:10px" title="Edit this scenario unit">✏️ Edit</a></div>`;
 }
 
-export function renderSourceLink(sourceFile?: string, sourceLine?: number): string {
-  if (!sourceFile) return '';
+export function renderSourceLink(sourceFile?: string, sourceLine?: number, markIfEmpty = false): string {
+  // T36.3 (R40.71): a Method/Class with no derivable source used to render a BLANK — indistinguishable from a bug.
+  // When markIfEmpty (method/class detail), show an explicit muted "source not available" so a user gets a DEFINITE
+  // answer (the system knows there is nothing to show) instead of a broken-looking empty space.
+  if (!sourceFile) return markIfEmpty
+    ? '<div class="dv-source" style="margin-bottom:6px;color:rgba(255,255,255,0.35);font-size:0.75rem;font-style:italic">source not available</div>'
+    : '';
   const parts = sourceFile.split('/');
   const fileName = parts.pop() || sourceFile;
   const dirPath = parts.join('/');
@@ -93,8 +98,8 @@ export function renderSourceLink(sourceFile?: string, sourceLine?: number): stri
 // upsertSection (assign-once per marker: '.dv-source' / '.dv-parent'), so a live re-render or a superseded async tail
 // REPLACES the section instead of stacking (killed Tron's Parent×2 / source-link duplication). No exceptions — the lint
 // makes a raw insertAdjacentHTML in a detail render RED.
-export function upsertSourceLink(host: HTMLElement, sourceFile?: string, sourceLine?: number): void {
-  upsertSection(host, 'dv-source', renderSourceLink(sourceFile, sourceLine), host.querySelector('.dv-head'), 'beforeend');
+export function upsertSourceLink(host: HTMLElement, sourceFile?: string, sourceLine?: number, markIfEmpty = false): void {
+  upsertSection(host, 'dv-source', renderSourceLink(sourceFile, sourceLine, markIfEmpty), host.querySelector('.dv-head'), 'beforeend');
 }
 export function upsertParentLink(host: HTMLElement, parent: DetailParent | null, onClick?: (p: DetailParent) => void): void {
   const el = upsertSection(host, 'dv-parent', renderParentLink(parent), host.querySelector('.dv-head'), 'afterend');

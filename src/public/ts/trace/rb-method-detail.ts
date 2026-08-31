@@ -22,7 +22,7 @@ export class RbMethodDetail extends RbDetailBase {
       </div>`;
     renderChainPathSection(this, uuid);
     fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
-      upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent — replace not stack
+      upsertSourceLink(this, sourceFile, sourceLine, true); // R37.12 (B) idempotent; T36.3: mark "source not available" not blank
       upsertParentLink(this, parent);
       renderAllChildrenSection(this, children);
       renderSupersededSection(this, uuid);
