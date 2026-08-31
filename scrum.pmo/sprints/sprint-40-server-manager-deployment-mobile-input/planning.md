@@ -78,6 +78,7 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] ⏳ [Task 40.66: Task-status symbols: ONE shared source (serv](./task-40-66-task-status-symbols-one-shared-source-serv.md)
 - [ ] ⏳ [Task 40.67: State-file currency — boot-currency guard co](./task-40-67-state-file-currency-boot-currency-guard-co.md)
 - [ ] ⏳ [Task 40.68: deploy.mjs targets the POST-BUILD version — ](./task-40-68-deploy-mjs-targets-the-post-build-version.md)
-- [ ] ⏳ [Task 40.71: Method/Class detail panel is BARE @390 (no source link / no signature / no description) — derive from impl.sourceFile](./task-40.71-method-detail-bare-390.md)
+- [ ] 📝 [Task 40.71: Method/Class detail panel is BARE @390 (no source link / no signature / no description) — derive from impl.sourceFile](./task-40.71-method-detail-bare-390.md)
 - [ ] ⏳ [Task 40.73: 3 unreachable methods — in no Class.methods[], invisible in the tree, user cannot navigate to them @390](./task-40.73-unreachable-methods-390.md)
 - [ ] ⏳ [Task 40.72: Dangling tree links expand to EMPTY @390 — a user taps a chevron and gets nothing; some resolve by carry, not a code fix](./task-40.72-dangling-tree-links-empty-390.md)
+- [ ] ⏳ [Task 40.74: Method detail full-signature render @390 — visibility name(params):returnType + docs (distinct-kind: parse/enrich signature data FIRST, 0/657 carry it)](./task-40.74-method-full-signature-render-390.md)

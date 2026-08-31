@@ -794,6 +794,7 @@
   - [ ] **(user-visible@390)** The detail shows a description body + populated sections, not just badge+name+uuid. Screenshot: the body is non-empty for a live method.
   - [ ] **(user-visible@390)** For the 328/344 methods whose implementation carries sourceFile, the link is DERIVED from impl.sourceFile (forward edge) and renders — a user never sees a bare panel for a method that has a shipped impl. Screenshot: such a method shows 📄 path:line.
   - [ ] **(measurable)** The count of Method/Class detail panels that render with NO source link AND NO description trends toward 0 for units that have a derivable source; the remaining (genuinely source-less) are explicitly marked, not blank.
+  - [ ] **(partial-cannot-read-as-done)** R40.71 is satisfied ONLY when ALL FOUR conditions render @390; the v0.8.151 ship delivered 1 of 4 = PARTIAL, NOT done. (1) METHOD source-link — DELIVERED (v0.8.151, derive sourceFile from impl, 328/344, screenshot-verified @390). (2) METHOD full-signature render — OPEN, SPLIT to R40.74 (distinct-kind; 0/657 carry signature data). (3) ~16 residual methods (344 minus 328 derivable) with no impl carrying sourceFile — OPEN, still bare; must be explicitly MARKED, not blank. (4) CLASS detail — OPEN, 78 classes render no source link on served tree (PO-ruled: 60 absent + 18 mis-populated=R40.75); class source-link BUILT-AND-HELD (v0.8.152 committed NOT served); signature=R40.74; 18-data=R40.75. A board that reads the v0.8.151 ship as done is WRONG: 3 of 4 remain. Screenshot each condition @390.
   -> methodDetail.showsSourceLink [uc:uuid:b9d8950e-c54b-4e9a-8e44-60e1d77459fb]
 
 - [ ] **R40.72 — Dangling tree links — a user clicks a chevron/link and it expands to EMPTY @390**
@@ -812,3 +813,24 @@
   - [ ] **(user-visible@390)** On 390px, every Method is reachable by navigation: expanding its Class shows it in the methods list. Screenshot: the 3 currently-orphaned methods appear under a Class, not nowhere.
   - [ ] **(measurable)** The count of Method units in no Class.methods[] (baseline 3) is 0; a method with a shipped impl but no Class path is surfaced, never silently invisible.
   -> method.reachableFromClass [uc:uuid:ba6edc39-4c82-4a0f-8ab0-948eb00150d6]
+
+- [ ] **R40.74 — Method detail does not render the full signature @390 — visibility name(parameters):returnType + docs (distinct-kind: signature data absent, needs parsing/enrichment)**
+  [requirement:uuid:35c9767f-c47d-435b-bc94-65ec14125ea4]
+  USER-VISIBLE DEFECT (split from R40.71 condition-2, PO 2026-08-31). A user opening a method detail @390 sees the name + (post v0.8.151) the source link, but NO full-signature line — visibility name(parameters):returnType — and no docs. R36.3 AC-gate-390 requires the Method unit to SHOW the full signature + docs @390. ★ DISTINCT KIND of work (why it must NOT be smuggled into the shipped v0.8.151 source-link fix): the source-link is a DATA DERIVATION (the implementation already carries sourceFile, the server surfaces it). The signature render is a RENDER feature that FIRST needs signature DATA which does NOT exist as a ready field on the Method unit — MEASURED (robbin-req): 0 of 657 Method units carry a signature/parameters/returnType field. So it needs source-signature PARSING or a new enriched field before anything can render. Different fix path, different owner-effort = its own item.
+  **Acceptance criteria:**
+  - [ ] **(user-visible@390)** On 390px, a live method detail SHOWS the full signature line: visibility {public|private|protected} name(parameters):returnType. Screenshot: the signature line is present, matching an enriched method.
+  - [ ] **(user-visible@390)** The detail renders the method docs (oosh-style) below the signature. Screenshot: docs body present, not empty.
+  - [ ] **(distinct-kind)** The signature DATA exists before render: either parsed from the source declaration or an enriched Method-unit field (visibility/parameters/returnType). Today 0/657 carry it — the render cannot succeed without this step. NOT satisfiable by the sourceFile-derive (which only surfaces the file link).
+  - [ ] **(provenance)** This is tracked as its own item, NOT closed by the v0.8.151 source-link ship. A board reading v0.8.151 as satisfying the signature render is WRONG.
+  - [ ] **(gate)** STUB-MUST-FAIL: a method with signature data present but the detail rendering no signature line => RED; renders the line => GREEN.
+  -> methodDetail.rendersFullSignature [uc:uuid:87561c8d-afae-4a3d-8ee4-2d38c1851b83]
+
+- [ ] **R40.75 — 18 Class units have a mis-populated sourceFile pointing at their own scenario.json instead of real source (masked by v0.8.152 derivation, DEFERRED)**
+  [requirement:uuid:0d1394a6-48e7-4ed0-ab39-00eb9b1cabd6]
+  DATA-QUALITY DEFECT (PO capture 2026-08-31, DEFERRED pending Tron). MEASURED (robbin-req reproduced): 18 of 192 Class units carry a sourceFile that points at their OWN scenario.json file (scenario/index/.../uuid.scenario.json) instead of real source; the server CORRECTLY rejects a .scenario.json path so the detail renders no source link (these are the 18 that, with the 60 sourceFile-absent, make the PO-ruled 78 user-facing no-source-link classes). ★ THE v0.8.152 serve-time derivation MASKS the symptom (users stop seeing the empty detail) but the STORED DATA REMAINS WRONG. A paper-over that nobody records becomes a lie later. This captures the data defect explicitly so the mask is not mistaken for a fix. Functionality-first fixes what users see first; it does NOT forget what we know.
+  **Acceptance criteria:**
+  - [ ] **(data-quality)** The 18 Class units' stored sourceFile points at REAL source (the class's .ts declaration), NOT the unit's own .scenario.json path.
+  - [ ] **(honesty)** It is recorded that v0.8.152 MASKS the symptom at the surface (derives a link) but does NOT fix the stored data; the mask is explicitly not counted as the data fix.
+  - [ ] **(discovered-not-hand-listed)** The mis-populated set is discovered by measuring (sourceFile contains .scenario.json), not a hand-list; re-run reports the current count (18 today).
+  - [ ] **(deferred)** Marked DEFERRED pending Tron scheduling; no work starts until scheduled (functionality-first).
+  -> classSourceFile.pointsAtRealSource [uc:uuid:245e71df-7be4-47d5-adf6-5056bf75920c]

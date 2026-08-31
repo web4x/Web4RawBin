@@ -1,0 +1,45 @@
+<!-- GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT -->
+
+[Back to Planning](./planning.md)
+
+# Task 40.71: Method/Class detail panel is BARE @390 (no source link / no signature / no description) — derive from impl.sourceFile
+
+[task:uuid:f431c5a4-61a1-47b0-ac92-7ff138c1534c]
+
+## Status
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
+- [ ] Done
+
+## Remaining Issues
+
+IN-PROGRESS, PARTIAL 1-of-4 (PO RESTATE 2026-08-31, board-status lane; I own T40.71 BOARD status, req owns R40.71 REQUIREMENT matrix — SAME language, no drift; append-only-safe). NEVER Done till Tron. MATRIX: (1) method source-link DELIVERED v0.8.151 @390-verified; (2) method full-signature OPEN -> SPLIT to R40.74/T40.74 (render feature/parsed-signature, distinct kind, req minted 35c9767f); (3) ~16 residual no-derivable-impl OPEN -> mark 'source not available'; (4) class OPEN count=78 (60 field-absent + 18 invalid .scenario.json sourceFile -> the 18 = R40.75 0d1394a6 data-defect DEFERRED pending Tron, NO task), class fix BUILT v0.8.152 but NOT restarted = NOT landed. refinement[x]=architect root-confirm. Coordinating wording with req (pinged, matrices must match). Served LOCAL-only not pushed (Tron push-hold). UC b9d8950e verified. 0 Done till Tron.
+
+## Task Description
+
+USER-VISIBLE DEFECT (prod sweep, served v0.8.150; covers R40.71). REPRO @390: a user clicks a Method (or Class) in /trace or /model and the detail panel opens BARE — red 'Method' badge + name + uuid, but NO source-file link, NO signature line, NO description body, empty sections = nothing to act on. MEASURED (req reproduced architect): 344/657 Method units (52%) + 60/192 Class (31%) have no model.sourceFile. SURFACE (expert): sourceFile absent -> renderSourceLink() returns '' in rb-method-detail (fetchDetailData -> /api/trace/children data.sourceFile). ★ FIX-APPROACH: 328/344 of those methods HAVE an implementation carrying sourceFile (the FORWARD edge, R37.32) -> DERIVE the link + signature from impl.sourceFile; genuinely-source-less remainder marked explicitly, never blank. Reuse rb-method-detail + the forward impl edge, NO fork.
+
+## Context
+
+Covers R40.71 b5e4646c (UC b9d8950e). User-visible face of the traceability-integrity family (R37.29 referential / R37.32 forward-authoritative); authoritative AC = R36.3 d4048137 AC-gate-390 (full signature+docs) + R40.27 81d1928d (Class analog). Delivery-first (Law 2): user-visible @390 defect, screenshot-checkable.
+
+## Intention
+
+A user never sees a bare method/class panel for a unit that has a shipped impl — the source link + full signature + description render, derived from the forward edge.
+
+## Acceptance Criteria
+
+PARTIAL — 1 of 4 conditions DELIVERED (PO status-matrix 2026-08-31; mirrors req R40.71 matrix, SAME language so board+req cannot drift). In-Progress, NEVER Done till Tron.
+- [x] (1) METHOD SOURCE LINK — DELIVERED + verified @390 on v0.8.151 (expert serve-time derive sourceFile from impl.sourceFile forward edge); screenshots to Tron.
+- [ ] (2) METHOD FULL SIGNATURE — OPEN, SPLIT OUT to R40.74 35c9767f / T40.74 (req minted 2026-08-31): a DIFFERENT KIND of work — a render feature needing PARSED signature data (0/657 carry it, needs enrich FIRST), NOT this task's data-derivation. T40.71 no longer owns condition-2; tracked under T40.74.
+- [ ] (3) ~16 RESIDUAL methods with NO derivable impl — OPEN; to be MARKED 'source not available' (explicit), never left blank.
+- [ ] (4) CLASS details — OPEN; count = 78 (60 field-absent + 18 whose sourceFile wrongly points at a .scenario.json path; the 18 = data defect DEFERRED to R40.75 0d1394a6 pending Tron, NO task now). Class source-link fix BUILT v0.8.152 but deliberately NOT restarted = NOT landed (do NOT record as shipped).
+
+## Subtasks
+
+None (atomic task).
