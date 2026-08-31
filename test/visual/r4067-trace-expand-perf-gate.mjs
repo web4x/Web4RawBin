@@ -20,6 +20,25 @@
 // count===1 → PASS (proves the gate GREENs when bounded = the architect's fixed state), alongside the natural fan-out → RED.
 // Read-only (GET /children; no mint, no owner-auth, no writes).
 import { chromium } from '@playwright/test';
+import fs from 'node:fs';
+
+// ── ASSERTION (b) STRUCTURAL (PO brief BRIEF-server-perf-fix.md, network-INDEPENDENT = "the thing we control"): the
+// /api/trace/children server handler must compute per-child counts O(children), NOT full-index-scan idx.list() over
+// ~5777 units per request (server.ts:2992 CR-owner map + :3028 reverse-CR append + :3048 parent-scan). The fix = a
+// cached CR-owner reverse-index (built once, invalidated on CR write). Assert the STRUCTURE, not a timing. String-
+// anchored on the route conditions (anti-rot, the r301 lesson — NEVER a line number). Scans HEAD source = the deployable
+// structure; GREEN-verify in GATE_BUILDDIST mode (served==HEAD worktree) so structural + behavioral reflect the same build.
+function structuralAssertion() {
+  try {
+    const src = fs.readFileSync(new URL('../../src/ts/server/server.ts', import.meta.url), 'utf8');
+    const start = src.indexOf("filepath.startsWith('/api/trace/children/')");
+    const end = src.indexOf("filepath.startsWith('/api/ior/')", start + 1);
+    if (start < 0 || end <= start) return { scans: -1, pass: false, note: 'anchors-not-found (route strings changed — update the gate)' };
+    const region = src.slice(start, end);
+    const scans = (region.match(/idx\.list\(\)/g) || []).length;
+    return { scans, pass: scans === 0, note: scans === 0 ? 'O(children)' : `${scans} full-index-scan(s) on the children path — O(total-units) per request` };
+  } catch (e) { return { scans: -1, pass: false, note: `read-failed: ${String(e && e.message).slice(0, 80)}` }; }
+}
 
 // BASE: prod (read-only, default) OR — GATE_BUILDDIST=1 — a buildDist-from-HEAD scratch (contains the expert's fan-out fix;
 // verifies count===1 + isolates task-latency WITHOUT fan-out pressure = the PO's coupling test done with the REAL fix).
@@ -122,10 +141,13 @@ const measured = results.filter((r) => !r.missing);
 const fanOut = measured.filter((r) => !r.countPass);
 const slow = measured.filter((r) => !r.latencyPass);
 const nonVacuous = posControl && posControl.pass; // count===1 is REACHABLE (the gate GREENs when bounded) = not always-RED
+const structural = structuralAssertion(); // (b) server O(children), source-structural
 console.log(`\n═══ /trace EXPAND PERF GATE ═══`);
+console.log(`  (b) STRUCTURAL: idx.list() full-scans in the /api/trace/children handler = ${structural.scans} → ${structural.pass ? 'PASS (O(children))' : 'RED'} [${structural.note}]`);
 console.log(`DEFINITION (stated==implemented, architect 732558d07 + PO latency-ruling): TWO HARD assertions, both required — (1) COUNT: each LAZY expand === ${EXPECT_REQUESTS} /children request (mechanism, network-independent); (2) LATENCY: expand < ${LATENCY_BUDGET_MS}ms @ ${NET_RTT_MS}ms-RTT (the AC — count-only false-greens while a 28s client-render still makes Tron wait). A level RED if EITHER fails. Targets DERIVED from the live tree (anti-rot, r301 lesson). FAMILY: perf-AC-gated-on-a-different-surface.`);
 for (const r of results) console.log(`  ${String(r.type).padEnd(11)} ${r.missing ? 'NOT-FOUND' : `count=${r.count} (${r.clabel}) latency=${r.ms}ms (${r.latencyPass ? 'OK' : 'SLOW'})`}`);
 console.log(`  NON-VACUOUS (positive control: count===1 reachable with prefetch blocked): ${nonVacuous}`);
-const green = measured.length >= 1 && fanOut.length === 0 && slow.length === 0 && nonVacuous;
-console.log(`\nVERDICT: ${green ? 'GREEN — every lazy expand is O(1)-bounded (===1) + within budget' : 'RED (baseline — the fix has a target) — FAN-OUT: [' + fanOut.map((r) => r.type + ':' + r.count + 'req').join(', ') + '] SLOW: [' + slow.map((r) => r.type + ':' + r.ms + 'ms').join(', ') + ']. Client rb-trace-tree prefetchVisibleLayer (:644) fans out O(children) instead of using the parent childCount → HOLD until per-expand===1.'}`);
+const green = measured.length >= 1 && fanOut.length === 0 && slow.length === 0 && nonVacuous && structural.pass;
+console.log(`\nVERDICT: ${green ? 'GREEN — (a) every lazy expand O(1)-bounded (===1) + (b) server O(children) no full-scan + (c) within budget' : 'RED (baseline — the fix has targets) — (a)FAN-OUT: [' + fanOut.map((r) => r.type + ':' + r.count + 'req').join(', ') + '] (c)SLOW: [' + slow.map((r) => r.type + ':' + r.ms + 'ms').join(', ') + '] (b)STRUCTURAL: ' + (structural.pass ? 'ok' : structural.scans + ' full-index-scan(s) on the children path') + '. (a) client fan-out=prefetchVisibleLayer(rb-trace-tree:644); (b) server O(total) scan=server.ts:2992/3028/3048 → cached CR-owner reverse-index. HOLD until all three assertions GREEN.'}`);
+console.log(`NOTE (c): LATENCY budget ${LATENCY_BUDGET_MS}ms @ ${NET_RTT_MS}ms-RTT is the ASPIRATIONAL placeholder — reset to the MEASURED achievable floor (O(children) + 1 RTT) once the fix is measurable in GATE_BUILDDIST mode (PO ruling: a bare 100ms rots like r301).`);
 process.exit(green ? 0 : 1);
