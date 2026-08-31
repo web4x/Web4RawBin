@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "0137dd13-f4e3-4fc2-8373-00fc19f617cd",
+    "name": "Task 40.73: 3 unreachable methods — in no Class.methods[], invisible in the tree, user cannot navigate to them @390",
+    "slug": "task-40.73-unreachable-methods-390",
+    "description": "USER-VISIBLE DEFECT (prod sweep, served v0.8.150; covers R40.73). REPRO @390: 3 Method units are in NO Class.methods[] array -> INVISIBLE in the tree -> a user cannot navigate to them from their Class at all (no chain path exists to render them under). MEASURED (req reproduced architect): exactly 3 unreachable. SURFACE: the navigation face of the forward-edge model (R37.32) — a Method not forward-referenced by any Class has no path. FIX-APPROACH: surface every Method under a reachable Class (wire the missing forward Class.methods[] edge for the 3, or render an explicit 'no class path' surfacing) — a method with a shipped impl is never silently invisible. Reuse the forward Class->methods edge + tree render, NO fork.",
+    "intention": "Every method is reachable by navigation @390 — expanding its Class shows it; a method with a shipped impl is never invisible.",
+    "context": "Covers R40.73 04dc74bd (UC ba6edc39). Navigation face of the traceability-integrity family (R37.29 referential / R37.32 forward-authoritative). Delivery-first (Law 2): user-visible @390 defect, screenshot-checkable.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "- [ ] @390 METHOD-UNDER-CLASS: every Method is reachable by navigation — expanding its Class shows it in the methods list. Screenshot: the 3 currently-orphaned methods appear under a Class, not nowhere.\n- [ ] MEASURABLE: count of Method units in no Class.methods[] (baseline 3) is 0; a method with a shipped impl but no Class path is surfaced, never silently invisible.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:04dc74bd-8447-4a5e-bf6c-fff3659a91fd"
+    ],
+    "useCases": [
+      "ior:instance:ba6edc39-4c82-4a0f-8ab0-948eb00150d6"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP Planned (PO delivery-first, covers R40.73 04dc74bd, user-visible-regression served v0.8.150). Role flow: architect confirm-root (3 methods no Class.methods[]) -> expert wire forward edge / surface -> tester @390 screenshot-gate. UC full-uuid ba6edc39-4c82-4a0f-8ab0-948eb00150d6 verified from R40.73.useCases[]. Minted SERVED tree; ⚠ R40.73 chain main/local-only -> req reverse-wires 04dc74bd.tasks[]. NOT pushed (Tron push-hold). 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-31"
+  },
+  "ownerIor": null
+}

@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 224** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 76** (224 = 98+45+3+76)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 72**
+- **TOTAL S30++ tasks: 226** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 78** (226 = 98+45+3+78)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 74**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 38 | 1 | 13 | 0 | 24 |
-| S40 | 66 | 0 | 15 | 0 | 49 |
+| S40 | 68 | 0 | 15 | 0 | 51 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 46
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 48
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -57,6 +57,7 @@
 | S37 | e2068636 | Planned | build | Task 37.28.6: constraint-cycle (structural) freshness guard  |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S37 | ff834c77 | In Progress | gate | Task 37.13: Naming is canon by construction — the be |
+| S40 | 0137dd13 | Planned | build | Task 40.73: 3 unreachable methods — in no Class.methods[], i |
 | S40 | 05d86575 | Planned | build | Task 40.67: State-file currency — boot-currency guard co |
 | S40 | 0dc65cc2 | Planned | build | Task 40.41: Production build serves NO sourcemaps — the  |
 | S40 | 0f1df43c | Planned | RIPE | Task 40.57: Cross-view role AGREEMENT — every consumer a |
@@ -105,6 +106,7 @@
 | S40 | e7fe421d | Planned | RIPE | Task 40.29: Diagram background-drag pans the viewport wi |
 | S40 | efef7f6a | Planned | marker | Task 40.25: Post-deploy device-gate trigger — every depl |
 | S40 | f2b24cdb | Planned | marker | Task 40.52: The client transmits owner identity on every |
+| S40 | f431c5a4 | Planned | build | Task 40.71: Method/Class detail panel is BARE @390 (no sourc |
 | S40 | f873ec0e | Planned | build | Task 40.20: First key toggles native keyboard while RETA |
 
 #### Excluded — law#103 campaignDisposition (not a current deliverable; leaves the actionable count by construction)
