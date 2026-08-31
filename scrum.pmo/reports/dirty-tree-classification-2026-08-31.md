@@ -8,8 +8,9 @@ Server re-derives these; a checkout/reset loses nothing durable.
 
 ## 2. PII-ADJACENT — NEVER `git add`; a broad add PUSHES real user data (7)
 - 6× `?? Profile` (server-minted user profiles): 36319584, 38aaec34, adda3408, c081dc09, e42687cf, ea413529.
-- 1× `?? scenario/alt/phone/+4915251315645` (real phone, PII).
-- DEFENSE: explicit path-by-path staging only; nothing under scenario/ is gitignored [[git-add-explicit-not-all]] PII TEETH.
+- 1× `?? scenario/alt/phone/<REDACTED — phone-index unit, value withheld>` (a real phone-index unit, PII).
+- ★ REDACTION NOTE (2026-08-31): this report originally pasted the raw phone VALUE here — a PII-by-value leak, the exact [[never-write-secret-values-refer-by-uuid]] failure while documenting the PII rule. Redacted to REFERENCE (the phone-index unit, value withheld). A PII finding is recorded by reference (unit class / uuid), NEVER by value.
+- DEFENSE: explicit path-by-path staging only; nothing under scenario/ is gitignored [[git-add-explicit-not-all]] PII TEETH. STRUCTURAL fix (gitignore/relocate PII classes out of scenario/index) escalated to Tron by PO — behavioural care is not a control.
 
 ## 3. REAL PEER WIP — AT-RISK from any broad checkout/reset; protect (~37)
 Uncommitted in-flight work of tester/expert/req/architect — a `git checkout .` / `reset --hard` would LOSE it.
