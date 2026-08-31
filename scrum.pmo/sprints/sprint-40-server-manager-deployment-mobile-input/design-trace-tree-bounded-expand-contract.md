@@ -20,6 +20,20 @@ Tron P0-B: expanding Sprint-40 takes ~a minute; UseCase hop 25.2s. Tester measur
 - **INV-DEPTH-LAZY:** no request is made for a node that is not currently expanded (a collapsed child pulls 0 requests until its own toggle).
 - ★ **SURFACE:** the perf gate MUST run on **/trace** (Tron's surface). The existing r332b gate runs on **/model** = a GREEN gate on a surface the user doesn't use = the AC-surface law we ruled in Phase-A (never gate a surface the user does not use). Port/duplicate the bounded-expand gate onto /trace; keep /model's too. `hasChildren`-from-payload is the shared contract both trees already rely on.
 
+## ★ RESIDUAL server latency — OPTIMIZABLE, not intrinsic (measured; the realistic bounded-latency clause)
+After the client fan-out fix (count 67→1, task 27894ms→453ms — the 28s WAS pool-starvation from the fan-out, confirming my (c) falsifier; REQ-B retracted), each expand still ~0.45s because the server `/api/trace/children` is ~0.4s. MEASURED cause — it is **NOT intrinsic**:
+- **server.ts:2992** — `for (const cru of idx.list()) { idx.get(cru); … }` = a **FULL-INDEX SCAN (~5777 units, each a file-read + JSON.parse) on EVERY request**, to build the R40.64 CR-owner-count map (so an owner-of-CRs shows a chevron). This is **O(total-units), independent of the expand's child count** — the dominant fixed ~0.4s.
+- **server.ts:2856** — `new ScenarioIndex(scenarioDir)` is constructed PER REQUEST → the list/get caches start COLD each request, so the 2992 scan re-reads the whole dir every time.
+- Per-child work (2993+, `idx.get(ref)` + childCount via forward-keys) is O(children) — bounded, fine. The killer is the O(total) CR scan, not the per-child resolution.
+
+**FIX (same bounded-thinking as the client — O(total)→O(children)):** (1) replace the per-request full scan with a **cached CR-owner reverse-index** (built once / invalidated on CR write), so a child's CR-count is an O(1) map lookup for only the N rendered children; (2) reuse a **warm/persistent ScenarioIndex** (or its list-cache) across requests instead of `new ScenarioIndex` per call. Then the endpoint is O(children) file-reads + O(1) CR lookup.
+
+**REALISTIC BOUNDED-LATENCY CLAUSE (states what is ACHIEVABLE, not Tron's wish — avoids the aspirational-invariant trap #11):**
+- **Server compute:** MUST be **O(children), not O(total-units)** — a bounded number of unit reads per expand + O(1) indexed CR-count. (Gateable: assert the handler does not call `idx.list()`/full-scan on the children path; or measure server-compute is flat as total-units grows.)
+- **Total expand latency floor = 1 network RTT** (intrinsic — a server round-trip cannot be < the RTT; ~80ms under the measured throttle). Achievable expand ≈ 1 RTT + O(children) I/O.
+- **So: ~100ms is REACHABLE, but ONLY after removing the O(total) CR-scan** — dominated then by the single intrinsic RTT (~80–150ms under an 80ms-RTT throttle). Until that server fix lands, 100ms is a false-RED (the endpoint is O(total)≈400ms). The AC should read "**expand fires O(1) requests AND server-compute is O(children); end-to-end ≤ ~1 RTT + O(children) (≈100–150ms under the reference throttle)**" — NOT a bare "≤100ms" that the current O(total) endpoint cannot meet.
+- If, after the O(children) fix, the measured floor still exceeds 100ms (pure RTT), THAT is the intrinsic number to take to Tron — let him decide whether the architecture's RTT floor is acceptable or worth further spend (e.g. a batch/prefetch-on-idle scheme). Do not leave a bare 100ms AC on the books unmet.
+
 ## Routing
 - Design→ req folds/sharpens the eager-lazy AC `94c1211c` into the bounded contract (O(1)-per-expand + eager≤K + gate-on-/trace), ride R40.54 failable. Planner stands up the task. Expert removes the line-644 fan-out + drives chevrons from `hasChildren`. Tester builds the /trace request-count gate (stub-must-fail) + the isolated-UseCase timing measurement for (c). I backstop: request-count==1 on expand + eager≤K + the gate runs on /trace.
 - Do NOT queue the build behind P0-A's carry (PO sequences). (c)'s separate slow-resolve gets its own req IF the isolated measurement confirms it.
