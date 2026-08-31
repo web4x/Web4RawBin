@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 226** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 78** (226 = 98+45+3+78)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 74**
+- **TOTAL S30++ tasks: 227** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 79** (227 = 98+45+3+79)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 75**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 38 | 1 | 13 | 0 | 24 |
-| S40 | 68 | 0 | 15 | 0 | 51 |
+| S40 | 69 | 0 | 15 | 0 | 52 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 48
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 49
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -67,6 +67,7 @@
 | S40 | 2b7356ac | Planned | build | Task 40.42: Diagram has ONE scroll/pan authority — no ne |
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
 | S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
+| S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
