@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b9d8950e-c54b-4e9a-8e44-60e1d77459fb",
+    "name": "methodDetail.showsSourceLink",
+    "description": "User-visible @390: Method/Class detail panel shows NO code location — a user clicks a method and gets a bare, useless panel @390",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:b5e4646c-e772-4b18-bf8c-7a5e1e64adc8",
+    "unitLinks": [],
+    "note": "Defect UC; expert wires the fix path, tester screenshot-@390 verifies. Class/Method on build-go."
+  },
+  "ownerIor": "ior:instance:b5e4646c-e772-4b18-bf8c-7a5e1e64adc8"
+}

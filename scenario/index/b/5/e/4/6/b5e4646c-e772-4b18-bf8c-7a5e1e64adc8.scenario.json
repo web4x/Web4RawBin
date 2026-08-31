@@ -1,0 +1,61 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b5e4646c-e772-4b18-bf8c-7a5e1e64adc8",
+    "altId": "R40.71",
+    "name": "Method/Class detail panel shows NO code location — a user clicks a method and gets a bare, useless panel @390",
+    "description": "USER-VISIBLE DEFECT (architect+expert prod sweep, served v0.8.150). A user clicks a Method or Class in /trace or /model and the detail panel opens BARE: the red 'Method' badge + the name + the uuid, but NO source-file link, NO description body, empty sections = nothing to act on. MEASURED (robbin-req reproduced architect exactly): 344/657 Method units (52%) + 60/192 Class units (31%) have no model.sourceFile. Root (expert): sourceFile absent -> renderSourceLink() returns '' in rb-method-detail (fetchDetailData -> /api/trace/children data.sourceFile). ★ DERIVABLE: 328 of the 344 methods HAVE an implementation that carries sourceFile (the FORWARD edge, R37.32) = the fix derives the link from impl.sourceFile.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:b9d8950e-c54b-4e9a-8e44-60e1d77459fb"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "user-visible-regression (served v0.8.150 prod sweep)",
+    "discoverySource": {
+      "type": "prod-sweep-defect",
+      "measuredBy": "robbin-architect served-tree + robbin-req reproduced",
+      "date": "2026-08-31",
+      "note": "PO delivery-first capture (LAW 2): user-visible @390 defect, screenshot-checkable AC. Fix ships in parallel; capture does not block delivery."
+    },
+    "crossRef": [
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+      "ior:instance:b46bc99f-a35d-4ef1-bfe0-a8198d930279",
+      "ior:instance:d4048137-c73c-4132-a27e-2b2fae53c5b8",
+      "ior:instance:81d1928d-cb68-4c05-8197-0647d553c0ec"
+    ],
+    "crossRefNote": "Surfaces the user-visible face of the traceability-integrity family (R37.29 referential-integrity / R37.32 forward-authoritative). Same root, but stated in what the USER SEES @390, not model contents.",
+    "satisfactionStatus": "UNVERIFIED — OPEN DEFECT on served v0.8.150; fix ships (expert), Tron prioritizes; screenshot-@390 verifies.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-390-source-link-shows",
+        "group": "user-visible@390",
+        "text": "On a 390px screen, opening a LIVE method's detail shows a '📄 <path>:<line>' source link — a screenshot shows the link present, matching an already-enriched method's panel. Today it is absent = the defect."
+      },
+      {
+        "id": "AC-390-full-signature",
+        "group": "user-visible@390",
+        "text": "On 390px, a live method detail SHOWS the full signature line — visibility name(parameters):returnType — plus docs, per R36.3 AC-gate-390 (the authoritative AC). A screenshot shows the signature line present, matching an enriched method. Today it is absent (tester rendered @390: no signature/params/returnType/description) = the confirmed defect. NOTE: deriving sourceFile alone (the 📄 link) does NOT satisfy this — the signature must render too."
+      },
+      {
+        "id": "AC-390-description-body",
+        "group": "user-visible@390",
+        "text": "The detail shows a description body + populated sections, not just badge+name+uuid. Screenshot: the body is non-empty for a live method."
+      },
+      {
+        "id": "AC-derive-from-impl-sourcefile",
+        "group": "user-visible@390",
+        "text": "For the 328/344 methods whose implementation carries sourceFile, the link is DERIVED from impl.sourceFile (forward edge) and renders — a user never sees a bare panel for a method that has a shipped impl. Screenshot: such a method shows 📄 path:line."
+      },
+      {
+        "id": "AC-no-bare-panel-count",
+        "group": "measurable",
+        "text": "The count of Method/Class detail panels that render with NO source link AND NO description trends toward 0 for units that have a derivable source; the remaining (genuinely source-less) are explicitly marked, not blank."
+      }
+    ],
+    "authoritativeAC": "R36.3 d4048137 AC-gate-390 (Method unit SHOWS full signature + docs @390) + AC-method-signature; R40.27 81d1928d AC-a-method-signatures (Class analog) + AC-d-empty-vs-absent (fail-visible). Tester rendered-@390 evidence = direct AC-gate-390 violation; defect CONFIRMED, scope = full signature not just the source link."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

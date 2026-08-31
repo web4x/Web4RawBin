@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b6d381d8-409b-4048-bb77-d1f44088ba48",
+    "name": "traceTree.linksResolveOrHide",
+    "description": "User-visible @390: Dangling tree links — a user clicks a chevron/link and it expands to EMPTY @390",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:0deb7ab5-745b-4f16-9c30-6e62f4f27a42",
+    "unitLinks": [],
+    "note": "Defect UC; expert wires the fix path, tester screenshot-@390 verifies. Class/Method on build-go."
+  },
+  "ownerIor": "ior:instance:0deb7ab5-745b-4f16-9c30-6e62f4f27a42"
+}

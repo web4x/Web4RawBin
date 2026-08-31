@@ -1,0 +1,48 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0deb7ab5-745b-4f16-9c30-6e62f4f27a42",
+    "altId": "R40.72",
+    "name": "Dangling tree links — a user clicks a chevron/link and it expands to EMPTY @390",
+    "description": "USER-VISIBLE DEFECT (architect prod sweep, served v0.8.150). A forward ref in the trace/model tree points to a unit that does NOT exist, so when a user taps the chevron or link it expands to EMPTY — a dead click. MEASURED: architect 41 dangling forward refs ON THE SERVED TREE (the user-facing number); robbin-req measured 469 on the working tree (dirtier — uncommitted peer churn/branch-diff), so the SERVED 41 is authoritative for what a user hits (measure-honesty: served != working). Sibling of R37.29 referential-integrity (a ref that does not resolve), surfaced here as the USER symptom.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:b6d381d8-409b-4048-bb77-d1f44088ba48"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "user-visible-regression (served v0.8.150 prod sweep)",
+    "discoverySource": {
+      "type": "prod-sweep-defect",
+      "measuredBy": "robbin-architect served-tree + robbin-req reproduced",
+      "date": "2026-08-31",
+      "note": "PO delivery-first capture (LAW 2): user-visible @390 defect, screenshot-checkable AC. Fix ships in parallel; capture does not block delivery."
+    },
+    "crossRef": [
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+      "ior:instance:b46bc99f-a35d-4ef1-bfe0-a8198d930279"
+    ],
+    "crossRefNote": "Surfaces the user-visible face of the traceability-integrity family (R37.29 referential-integrity / R37.32 forward-authoritative). Same root, but stated in what the USER SEES @390, not model contents.",
+    "satisfactionStatus": "UNVERIFIED — OPEN DEFECT on served v0.8.150; fix ships (expert), Tron prioritizes; screenshot-@390 verifies.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-390-no-empty-expansion",
+        "group": "user-visible@390",
+        "text": "On 390px, tapping any visible chevron/link expands to REAL content, never a blank/empty node. Screenshot: no expanded node is empty."
+      },
+      {
+        "id": "AC-dangling-hidden-or-marked",
+        "group": "user-visible@390",
+        "text": "A forward ref whose target does not exist is NOT shown as a clickable chevron (hidden or shown disabled-with-reason), so a user cannot dead-click into emptiness. Screenshot: no live chevron yields nothing."
+      },
+      {
+        "id": "AC-served-count-to-zero",
+        "group": "measurable",
+        "text": "The served-tree dangling-forward-ref count (architect baseline 41) trends to 0; the gate measures the SERVED build, not a fixture."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

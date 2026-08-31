@@ -1,0 +1,43 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "04dc74bd-8447-4a5e-bf6c-fff3659a91fd",
+    "altId": "R40.73",
+    "name": "Unreachable methods — 3 methods are in no Class, a user cannot navigate to them at all @390",
+    "description": "USER-VISIBLE DEFECT (architect prod sweep, served v0.8.150). 3 Method units are in NO Class.methods[] array, so they are INVISIBLE in the tree — a user cannot navigate to them from their Class at all (no path exists). MEASURED: robbin-req reproduced 3 unreachable exactly. This is the navigation face of the forward-edge model (R37.32): a Method not forward-referenced by any Class has no chain path to render under.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:ba6edc39-4c82-4a0f-8ab0-948eb00150d6"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "user-visible-regression (served v0.8.150 prod sweep)",
+    "discoverySource": {
+      "type": "prod-sweep-defect",
+      "measuredBy": "robbin-architect served-tree + robbin-req reproduced",
+      "date": "2026-08-31",
+      "note": "PO delivery-first capture (LAW 2): user-visible @390 defect, screenshot-checkable AC. Fix ships in parallel; capture does not block delivery."
+    },
+    "crossRef": [
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+      "ior:instance:b46bc99f-a35d-4ef1-bfe0-a8198d930279"
+    ],
+    "crossRefNote": "Surfaces the user-visible face of the traceability-integrity family (R37.29 referential-integrity / R37.32 forward-authoritative). Same root, but stated in what the USER SEES @390, not model contents.",
+    "satisfactionStatus": "UNVERIFIED — OPEN DEFECT on served v0.8.150; fix ships (expert), Tron prioritizes; screenshot-@390 verifies.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-390-method-under-class",
+        "group": "user-visible@390",
+        "text": "On 390px, every Method is reachable by navigation: expanding its Class shows it in the methods list. Screenshot: the 3 currently-orphaned methods appear under a Class, not nowhere."
+      },
+      {
+        "id": "AC-no-orphan-method-count",
+        "group": "measurable",
+        "text": "The count of Method units in no Class.methods[] (baseline 3) is 0; a method with a shipped impl but no Class path is surfaced, never silently invisible."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

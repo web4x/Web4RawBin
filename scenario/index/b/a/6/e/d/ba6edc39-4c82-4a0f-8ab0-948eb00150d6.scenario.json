@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ba6edc39-4c82-4a0f-8ab0-948eb00150d6",
+    "name": "method.reachableFromClass",
+    "description": "User-visible @390: Unreachable methods — 3 methods are in no Class, a user cannot navigate to them at all @390",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:04dc74bd-8447-4a5e-bf6c-fff3659a91fd",
+    "unitLinks": [],
+    "note": "Defect UC; expert wires the fix path, tester screenshot-@390 verifies. Class/Method on build-go."
+  },
+  "ownerIor": "ior:instance:04dc74bd-8447-4a5e-bf6c-fff3659a91fd"
+}
