@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "424d6aac-1fc9-45d3-91be-d8df5e78552e",
+    "name": "deployGuard.coversClientAndServerHalves",
+    "description": "The served==committed/version guard detects a client-dist change live under an old server version string (both halves), not server-only. Deferred.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:e57df4b4-dcd3-4aee-be87-dbc717203922",
+    "unitLinks": [],
+    "note": "Deferred pending Tron; extends R40.32/R40.48 to the client half."
+  },
+  "ownerIor": "ior:instance:e57df4b4-dcd3-4aee-be87-dbc717203922"
+}
