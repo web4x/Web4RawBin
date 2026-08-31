@@ -75,7 +75,7 @@ import { createUserHome, getUserHomeDir, generateUserKeypair, writeUserProfile, 
 import { initStorageMap, REKEY_APPLIED, homeKeyFor } from './storage-id.js';
 import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanUserRooms, getRoomDir } from './RoomKeys.js';
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
-import { scanRepo, validate as validateTrace } from './TraceConsistency.js';
+import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
@@ -3017,22 +3017,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
         }
         childRefs = [...new Set(childRefs)].filter(ref => ref !== uuid); // R31.11: de-dup — an S30 UC carries BOTH 'class'+'classes' keys, so the ['class','classes'] resolve would push the SAME Class twice → double-render without this Set
-        // Fallback: if scenario index has no forward UUID arrays, consult scanRepo graph
-        if (childRefs.length === 0) {
-          try {
-            const sprintsDir = path.join(__dirname, '../../../scrum.pmo/sprints');
-            const srcDir = path.join(__dirname, '../../../src');
-            const testDir = path.join(__dirname, '../../../test');
-            const { graph } = scanRepo(sprintsDir, srcDir, testDir);
-            const graphObj = graph.get(uuid);
-            if (graphObj) {
-              const links = graphObj.toJSON().links || {};
-              for (const key of (fwdKeys)) {
-                if (links[key]) for (const r of links[key]) childRefs.push(r.replace(/^[a-z]+:/, ''));
-              }
-            }
-          } catch { /* scanRepo fallback failed — empty children */ }
-        }
+        // v0.8.151 (BRIEF server-perf-fix, THIRD O(total) site — expertMeasuredResidual R37.30): the empty-forward fallback
+        // here was a full REPO dir-scan (~0.4s) on EVERY empty-forward request, building a whole-repo graph of which only
+        // one node was read. REMOVED (architect ruling = SKIP-is-a-FIX, gated on a differential): children-WITHOUT the
+        // repo-scan (forward arrays + reverse-CR index) === children-WITH it for 28/28 sampled MD-chain empty-forward nodes
+        // (delta 0); the sole non-zero delta (Test c4f8a1d6 → its own ownerIor Impl) was a BACKWARDS/cycle edge (chain is
+        // forward-only, Impl→Test), never a legit forward child — so skipping both KILLS the ~0.4s AND drops a wrong
+        // parent-as-child = a correctness improvement, not a data loss. Non-MD-chain types (TestCase/Device/Message/…) got
+        // nothing from it by construction (the repo graph only holds sprint-MD chain nodes). A genuinely empty-forward node
+        // is a LEAF — it renders with no forward children (+ reverse-CRs appended below), which is correct.
+        // (Follow-up, separate: a general ancestor cycle-guard so a backwards edge to ANY ancestor is dropped, not just self==child.)
         // R20.15: unified expectedChildTypes from chain-model
         const allowedTypes = expectedChildTypes(type);
         const ucMethodIor = type === 'UseCase' ? String((unit.model as Record<string, unknown>).method || '').replace('ior:instance:', '') : '';
@@ -3041,8 +3035,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // chevron) → the client never requested its children → R40.61's reverse-CR append never ran on the RENDER path.
         // Count reverse-ownerIor CRs into every child's childCount (once-per-request map) so an owner-of-CRs advertises a
         // chevron and is EXPANDABLE. Pairs with the R40.61 append below (same ownerIor link, no data change, no migration).
-        // BRIEF server-perf-fix: was an O(total-units) full-index scan here EVERY request. Now the warm CR-owner reverse-index
-        // (built once, invalidated on CR write + bounded 5s TTL) → per-child count is O(1) = O(children) total, no idx.list() on the render path.
+        // BRIEF server-perf-fix: was an O(total-units) full-index enumeration here EVERY request. Now the warm CR-owner
+        // reverse-index (built once, invalidated on CR write + bounded 5s TTL) → per-child count is O(1) = O(children) total,
+        // with NO full-index enumeration on the render path (see the request-scoped scan-counter guard).
         const crOwnerIdx = getCrOwnerIndex(idx);
         const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);
