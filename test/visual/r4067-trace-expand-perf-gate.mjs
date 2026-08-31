@@ -21,7 +21,11 @@
 // Read-only (GET /children; no mint, no owner-auth, no writes).
 import { chromium } from '@playwright/test';
 
-const BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+// BASE: prod (read-only, default) OR — GATE_BUILDDIST=1 — a buildDist-from-HEAD scratch (contains the expert's fan-out fix;
+// verifies count===1 + isolates task-latency WITHOUT fan-out pressure = the PO's coupling test done with the REAL fix).
+let BASE = process.env.GATE_BASE || 'https://prod.wo-da.de:4444';
+let foundation = null;
+if (process.env.GATE_BUILDDIST) { const { setupFoundation } = await import('./r4031-foundation.mjs'); foundation = await setupFoundation({ buildDist: true }); BASE = foundation.base; console.log(`(buildDist scratch from HEAD ${foundation.worktreeSha}, v${foundation.servedVersion})`); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const EXPECT_REQUESTS = 1;     // architect 732558d07: EXACTLY 1 /children per lazy expand (the node's own children).
 const LATENCY_BUDGET_MS = 100; // req 94c1211c "~100ms". Measured under the throttled profile.
@@ -108,7 +112,7 @@ try {
   }
   await c2.close();
   await ctx.close();
-} finally { await browser.close().catch(() => {}); }
+} finally { await browser.close().catch(() => {}); if (foundation) { const td = await foundation.teardown(); console.log(`teardown: prod:4444 up=${td.prodUp} leftover=${td.leftover}`); } }
 
 // ── verdict ──
 const measured = results.filter((r) => !r.missing);
