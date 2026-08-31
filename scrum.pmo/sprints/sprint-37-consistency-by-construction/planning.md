@@ -49,3 +49,4 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] 🔧 [Task 37.30: File/WebItem detail render CONVERGENCE onto the fail-loud primitive (RbDetailBase) — cross-page; retires the RoomView preview fork (recurrence-root cure)](./task-37.30-detail-render-converge-fail-loud.md)
 - [ ] 🧪 [Task 37.31: iOS transport-lifecycle RESYNC — live-MVC recovers after background/lock (both transports, refetch + fail-loud); Tron real-iOS acceptance](./task-37.31-ios-transport-lifecycle-resync.md)
 - [ ] ⏳ [Task 37.32: Gate-harness invokes faithfully or marks BROKEN — fix the 2 null-invoke gates + mark-not-silence + counted known-broken (owner: expert)](./task-37.32-gate-invocation-faithful-or-mark-broken.md)
+- [ ] ⏳ [Task 37.33: Referential-integrity by construction — every committed-tree ref RESOLVES or the carry fails loud + ci-gate (kills the incomplete-carry cause)](./task-37.33-referential-integrity-committed-tree.md)

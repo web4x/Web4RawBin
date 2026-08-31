@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "9b140eee-14fe-4276-b7ce-7cbdfccfee83",
+    "name": "Task 37.33: Referential-integrity by construction — every committed-tree ref RESOLVES or the carry fails loud + ci-gate (kills the incomplete-carry cause)",
+    "slug": "task-37.33-referential-integrity-committed-tree",
+    "description": "The REAL P0-A deliverable (owner=EXPERT) — kills the CAUSE, not the symptoms. The incident (R37.1 fail-closed the pin -> empty CurrentSprint -> blocked MVC + Tron iOS verdict) was a SYMPTOM: units minted on main were referenced by served sprint units but never carried to the served tree = dangling refs. The 3-agent parallel carry (5+7+... dangles across sprint-40 AND sprint-37) fixed the symptoms; THIS makes it impossible by construction. Same class as the 47-tasks-invisible (main-only, board referenced them, never carried) — a referential-integrity gate would have caught BOTH. Reuse the existing ScenarioIndex ref-walk + ci:gates harness, NO fork.",
+    "intention": "A committed tree is referentially COMPLETE or the write fails loud — a ref to an absent unit can never merge/deploy silently.",
+    "context": "Covers R37.29 38aa4fb4 (referential-integrity, UC 02c03f7e). P0-A prevention (symptom carry = expert end-to-end; this = the by-construction cause-fix). crossRef R37.1 (runtime fail-close = the symptom this gate makes a build-time RED). Owner=expert.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "- [ ] RESOLVE-IN-COMMITTED-TREE: every unit ref (Sprint.tasks[]/requirements[], Task.coveredRequirements/useCases, chain refs) RESOLVES within the SAME committed tree; a ref to a unit absent on that tree is a referential-integrity violation (R37.1's runtime fail-close made a build-time check).\n- [ ] DATA-CARRY COMPLETE-OR-FAIL-LOUD: a cross-tree carry brings the COMPLETE closure (unit + all transitively-referenced units) or FAILS LOUD — never a partial carry that leaves dangling refs (the incomplete-carry cause).\n- [ ] CI-GATE: a ci:gates check enforces referential integrity on the served/committed tree — RED on any unresolvable ref, so an incomplete carry cannot merge/deploy silently (would have caught the 47-tasks-invisible + the 5+7 sprint dangles).\n- [ ] DISCOVERED-NOT-HAND-LISTED: the gate DISCOVERS all refs structurally by walking the units (never a hand-maintained ref-type/sprint list) — a new ref-type or sprint is covered by construction.\n- [ ] STUB-MUST-FAIL: proven NON-VACUOUS — a planted dangling ref -> RED (bite).\n- [ ] STATED==IMPLEMENTED: the gate's stated scope EQUALS what it actually checks (no gap between the AC claim and the enforced check).",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b"
+    ],
+    "useCases": [
+      "ior:instance:02c03f7e-d694-4b87-8837-39ed7f137441"
+    ],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "remainingIssues": "STOOD UP Planned (P0-A prevention, req R37.29 38aa4fb4). OWNER = EXPERT (ci-gate implementation, like T37.32). The SYMPTOM fix (carry the dangling units) = expert end-to-end, in flight; THIS task = the by-construction CAUSE fix so it can't recur. UC full-uuid 02c03f7e-d694-4b87-8837-39ed7f137441 resolved from R37.29.useCases[] on origin/main (NOT a fabricated suffix). Minted SERVED tree; ⚠ R37.29 38aa4fb4 + UC 02c03f7e main-only -> chain carry is the EXPERT's lane now (fold into their sweep, I do NOT carry). req reverse-wires 38aa4fb4.tasks[].",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-08-31"
+  },
+  "ownerIor": null
+}

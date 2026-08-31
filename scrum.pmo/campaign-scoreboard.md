@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 223** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 75** (223 = 98+45+3+75)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 71**
+- **TOTAL S30++ tasks: 224** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 76** (224 = 98+45+3+76)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 72**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 37 | 1 | 13 | 0 | 23 |
+| S37 | 38 | 1 | 13 | 0 | 24 |
 | S40 | 66 | 0 | 15 | 0 | 49 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 45
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 46
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -44,6 +44,7 @@
 | S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
 | S37 | 802a9597 | In Progress | marker | Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a r |
 | S37 | 968d966d | Planned | build | Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness |
+| S37 | 9b140eee | Planned | build | Task 37.33: Referential-integrity by construction — every co |
 | S37 | 9cb80055 | Planned | build | Task 37.17: Gates must not encode a SNAPSHOT of the  |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
