@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "87561c8d-afae-4a3d-8ee4-2d38c1851b83",
+    "name": "methodDetail.rendersFullSignature",
+    "description": "User-visible @390: method detail renders visibility name(parameters):returnType + docs, after signature data is parsed/enriched (0/657 carry it today).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:35c9767f-c47d-435b-bc94-65ec14125ea4",
+    "unitLinks": [],
+    "note": "Needs signature-data step (parse/enrich) THEN render; expert/architect wire on build-go."
+  },
+  "ownerIor": "ior:instance:35c9767f-c47d-435b-bc94-65ec14125ea4"
+}

@@ -1,0 +1,55 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0d1394a6-48e7-4ed0-ab39-00eb9b1cabd6",
+    "altId": "R40.75",
+    "name": "18 Class units have a mis-populated sourceFile pointing at their own scenario.json instead of real source (masked by v0.8.152 derivation, DEFERRED)",
+    "description": "DATA-QUALITY DEFECT (PO capture 2026-08-31, DEFERRED pending Tron). MEASURED (robbin-req reproduced): 18 of 192 Class units carry a sourceFile that points at their OWN scenario.json file (scenario/index/.../uuid.scenario.json) instead of real source; the server CORRECTLY rejects a .scenario.json path so the detail renders no source link (these are the 18 that, with the 60 sourceFile-absent, make the PO-ruled 78 user-facing no-source-link classes). ★ THE v0.8.152 serve-time derivation MASKS the symptom (users stop seeing the empty detail) but the STORED DATA REMAINS WRONG. A paper-over that nobody records becomes a lie later. This captures the data defect explicitly so the mask is not mistaken for a fix. Functionality-first fixes what users see first; it does NOT forget what we know.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:245e71df-7be4-47d5-adf6-5056bf75920c"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "data-quality (stored sourceFile wrong); SURFACE-MASKED by v0.8.152 derivation; DEFERRED",
+    "deferredPendingTron": true,
+    "surfaceMask": "v0.8.152 serve-time derivation renders a derived link so users do not see the empty detail; the stored sourceFile is still the wrong .scenario.json path underneath.",
+    "discoverySource": {
+      "type": "po-capture-data-defect",
+      "measuredBy": "robbin-req 2026-08-31",
+      "measured": "18/192 Class units sourceFile -> own .scenario.json (e.g. b4824ba0, 33cd07d8, 31cad114); server rejects => no link.",
+      "note": "low-priority, nobody works it now; Tron schedules."
+    },
+    "crossRef": [
+      "ior:instance:b5e4646c-e772-4b18-bf8c-7a5e1e64adc8",
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b"
+    ],
+    "crossRefNote": "The 18 are the mis-populated half of R40.71 condition-4 (78 total). A sourceFile pointing at the wrong file is a referential-quality issue (R37.29 family). Masked at surface by v0.8.152, not fixed in the DATA.",
+    "satisfactionStatus": "UNVERIFIED — DEFERRED pending Tron scheduling; NOT worked now. The surface is masked (v0.8.152) but the data is unfixed. Recorded so the mask is not mistaken for a fix.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-stored-sourcefile-real",
+        "group": "data-quality",
+        "text": "The 18 Class units' stored sourceFile points at REAL source (the class's .ts declaration), NOT the unit's own .scenario.json path."
+      },
+      {
+        "id": "AC-mask-recorded-not-a-fix",
+        "group": "honesty",
+        "text": "It is recorded that v0.8.152 MASKS the symptom at the surface (derives a link) but does NOT fix the stored data; the mask is explicitly not counted as the data fix."
+      },
+      {
+        "id": "AC-discovered-by-measuring",
+        "group": "discovered-not-hand-listed",
+        "text": "The mis-populated set is discovered by measuring (sourceFile contains .scenario.json), not a hand-list; re-run reports the current count (18 today)."
+      },
+      {
+        "id": "AC-deferred-explicit",
+        "group": "deferred",
+        "text": "Marked DEFERRED pending Tron scheduling; no work starts until scheduled (functionality-first)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

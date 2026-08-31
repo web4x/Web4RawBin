@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "245e71df-7be4-47d5-adf6-5056bf75920c",
+    "name": "classSourceFile.pointsAtRealSource",
+    "description": "Data-quality: a Class unit's stored sourceFile points at real .ts source, not its own .scenario.json. Deferred; masked at surface by v0.8.152.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:0d1394a6-48e7-4ed0-ab39-00eb9b1cabd6",
+    "unitLinks": [],
+    "note": "Deferred pending Tron; a gated data repair when scheduled."
+  },
+  "ownerIor": "ior:instance:0d1394a6-48e7-4ed0-ab39-00eb9b1cabd6"
+}

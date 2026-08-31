@@ -1,0 +1,58 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "35c9767f-c47d-435b-bc94-65ec14125ea4",
+    "altId": "R40.74",
+    "name": "Method detail does not render the full signature @390 — visibility name(parameters):returnType + docs (distinct-kind: signature data absent, needs parsing/enrichment)",
+    "description": "USER-VISIBLE DEFECT (split from R40.71 condition-2, PO 2026-08-31). A user opening a method detail @390 sees the name + (post v0.8.151) the source link, but NO full-signature line — visibility name(parameters):returnType — and no docs. R36.3 AC-gate-390 requires the Method unit to SHOW the full signature + docs @390. ★ DISTINCT KIND of work (why it must NOT be smuggled into the shipped v0.8.151 source-link fix): the source-link is a DATA DERIVATION (the implementation already carries sourceFile, the server surfaces it). The signature render is a RENDER feature that FIRST needs signature DATA which does NOT exist as a ready field on the Method unit — MEASURED (robbin-req): 0 of 657 Method units carry a signature/parameters/returnType field. So it needs source-signature PARSING or a new enriched field before anything can render. Different fix path, different owner-effort = its own item.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:87561c8d-afae-4a3d-8ee4-2d38c1851b83"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "user-visible-regression (R36.3 AC-gate-390 unmet on served surface); distinct-kind render+data feature",
+    "discoverySource": {
+      "type": "po-split-from-R40.71-cond2",
+      "measuredBy": "robbin-req 2026-08-31",
+      "measured": "0/657 Method units carry signature/parameters/returnType field = signature data does not exist ready; render needs parsing/enrichment.",
+      "note": "PO: mint as its own item, must not be smuggled into the shipped source-link fix."
+    },
+    "crossRef": [
+      "ior:instance:d4048137-c73c-4132-a27e-2b2fae53c5b8",
+      "ior:instance:b5e4646c-e772-4b18-bf8c-7a5e1e64adc8"
+    ],
+    "crossRefNote": "Implements R36.3 AC-gate-390 (Method SHOWS full signature+docs @390) + AC-method-signature (data). Splits R40.71 condition-2 (signature-render) into its own item because the FIX PATH differs (parsing/enrichment vs data-derivation). R40.71 stays OPEN until all 4 conditions incl this.",
+    "satisfactionStatus": "UNVERIFIED — signature does NOT render on served v0.8.151 (source-link only). Needs signature-data (parsing/new field) THEN render. 0 Done till Tron.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-390-signature-line",
+        "group": "user-visible@390",
+        "text": "On 390px, a live method detail SHOWS the full signature line: visibility {public|private|protected} name(parameters):returnType. Screenshot: the signature line is present, matching an enriched method."
+      },
+      {
+        "id": "AC-390-docs",
+        "group": "user-visible@390",
+        "text": "The detail renders the method docs (oosh-style) below the signature. Screenshot: docs body present, not empty."
+      },
+      {
+        "id": "AC-signature-data-exists-first",
+        "group": "distinct-kind",
+        "text": "The signature DATA exists before render: either parsed from the source declaration or an enriched Method-unit field (visibility/parameters/returnType). Today 0/657 carry it — the render cannot succeed without this step. NOT satisfiable by the sourceFile-derive (which only surfaces the file link)."
+      },
+      {
+        "id": "AC-not-smuggled",
+        "group": "provenance",
+        "text": "This is tracked as its own item, NOT closed by the v0.8.151 source-link ship. A board reading v0.8.151 as satisfying the signature render is WRONG."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL: a method with signature data present but the detail rendering no signature line => RED; renders the line => GREEN."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

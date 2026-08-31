@@ -59,7 +59,7 @@
       {
         "id": "AC-all-four-conditions-status",
         "group": "partial-cannot-read-as-done",
-        "text": "R40.71 is satisfied ONLY when ALL FOUR conditions render @390; the v0.8.151 ship delivered 1 of 4 = PARTIAL, NOT done. (1) METHOD source-link — DELIVERED (v0.8.151, derive sourceFile from impl, 328/344, screenshot-verified @390). (2) METHOD full-signature render (visibility name(parameters):returnType + docs, per R36.3 AC-gate-390) — OPEN, NOT delivered (sourceFile-derive does not render the signature). (3) ~16 residual methods (344 minus 328 derivable) with no impl carrying sourceFile — OPEN, still bare; must be explicitly MARKED, not blank. (4) CLASS detail source+members (60/192 Class no sourceFile) — OPEN, methods-only ship did not touch classes; tester gating. A board that reads the v0.8.151 ship as done is WRONG: 3 of 4 remain. Screenshot each condition @390."
+        "text": "R40.71 is satisfied ONLY when ALL FOUR conditions render @390; the v0.8.151 ship delivered 1 of 4 = PARTIAL, NOT done. (1) METHOD source-link — DELIVERED (v0.8.151, derive sourceFile from impl, 328/344, screenshot-verified @390). (2) METHOD full-signature render — OPEN, SPLIT to R40.74 (distinct-kind; 0/657 carry signature data). (3) ~16 residual methods (344 minus 328 derivable) with no impl carrying sourceFile — OPEN, still bare; must be explicitly MARKED, not blank. (4) CLASS detail — OPEN, 78 classes render no source link on served tree (PO-ruled: 60 absent + 18 mis-populated=R40.75); v0.8.152 class-half prepared-not-restarted, prod still v0.8.151 methods-only. A board that reads the v0.8.151 ship as done is WRONG: 3 of 4 remain. Screenshot each condition @390."
       }
     ],
     "authoritativeAC": "R36.3 d4048137 AC-gate-390 (Method unit SHOWS full signature + docs @390) + AC-method-signature; R40.27 81d1928d AC-a-method-signatures (Class analog) + AC-d-empty-vs-absent (fail-visible). Tester rendered-@390 evidence = direct AC-gate-390 violation; defect CONFIRMED, scope = full signature not just the source link.",
@@ -67,12 +67,16 @@
     "fixLanded": "v0.8.151 SERVED (expert 39ba8e891, tag v0.8.151, served==committed, boot-checked; LOCAL not pushed per Tron hold). SERVE-TIME code-only fix (NO scenario-unit write - deliberately avoids the PII-laden scenario/index under the history-hold): the server DERIVES top-level sourceFile/sourceLine from the method implementation when absent (328/344 derivable, the forward edge R37.32). VERIFIED @390 before/after screenshots sent to Tron (not a claim): FileApi.writeFile before=no source link -> after=📂 src/ts/server/FileApi.ts. scanRepo-skip differential rode the same deploy.",
     "deliveryStatusMatrix": {
       "1-method-source-link": "DELIVERED v0.8.151 (39ba8e891, 328/344, @390 verified before/after FileApi.writeFile).",
-      "2-method-full-signature": "OPEN — visibility name(params):returnType + docs (R36.3 d4048137 AC-gate-390) NOT rendered by sourceFile-derive; the signature-render half is undelivered.",
+      "2-method-full-signature": "OPEN — SPLIT into its own item R40.74 35c9767f (signature-render, distinct-kind: needs parsing/enriched field, 0/657 carry signature data). Not delivered by v0.8.151.",
       "3-residual-16-methods": "OPEN — ~16 of 344 have no derivable impl-sourceFile => still bare; must be marked not blank.",
-      "4-class-detail": "OPEN — 60/192 Class units no sourceFile; v0.8.151 methods-only; tester gating whether classes improved.",
+      "4-class-detail": "PARTIAL — v0.8.152 DEPLOYED (expert 2c5e46d7f) the class SOURCE-LINK half (extends the derive to Classes); tester confirms rendered. Of 78 no-source-link classes: 60 sourceFile-absent (derive covers), 18 mis-populated=R40.75 (masked by derive, data still wrong). Class SIGNATURE render still open (R40.74 covers methods+applies to classes via R40.27). Source-link half shipping; signature+data halves open.",
       "verdict": "PARTIAL = 1 of 4 delivered. Satisfaction UNVERIFIED, 0 Done till Tron. AC-all-four-conditions-status blocks a 1-of-4 green."
     },
-    "restateShapeDecision": "PO offered split-into-reqs OR explicit-4-condition-status; robbin-req chose the STATUS-MATRIX in ONE req (one user-facing concern = a detail panel that is not bare; one T40.71 task; transparent sub-status). IF a remainder needs a distinct FIX approach/owner, split it into its own defect req then (mint-on-need, not now). Class-half + signature-half are the split candidates if the tester/expert measure shows different fix paths."
+    "restateShapeDecision": "PO offered split-into-reqs OR explicit-4-condition-status; robbin-req chose the STATUS-MATRIX in ONE req (one user-facing concern = a detail panel that is not bare; one T40.71 task; transparent sub-status). IF a remainder needs a distinct FIX approach/owner, split it into its own defect req then (mint-on-need, not now). Class-half + signature-half are the split candidates if the tester/expert measure shows different fix paths.",
+    "splitInto": [
+      "ior:instance:35c9767f-c47d-435b-bc94-65ec14125ea4",
+      "ior:instance:0d1394a6-48e7-4ed0-ab39-00eb9b1cabd6"
+    ]
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
