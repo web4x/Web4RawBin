@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "02c03f7e-d694-4b87-8837-39ed7f137441",
+    "name": "referentialIntegrity.resolveInCommittedTreeOrFailLoud",
+    "description": "Every ref-bearing unit's refs (sprint.tasks[]/ownerIor/parent/children/coveredRequirements/useCases/chain) resolve in the tree they are committed to; a cross-tree carry is referentially complete or fails loud; enforced in ci:gates (trace-audit family); ref set discovered-not-hand-listed; stub-must-fail.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+    "unitLinks": [],
+    "note": "architect wires Class(referential-integrity audit + data-carry gate)+Method on build-go + backstop; planner mints task; I mint Tests off tester markers."
+  },
+  "ownerIor": "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b"
+}
