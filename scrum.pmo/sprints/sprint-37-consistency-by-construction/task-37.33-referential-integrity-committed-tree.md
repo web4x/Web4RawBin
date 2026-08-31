@@ -40,6 +40,7 @@ A committed tree is referentially COMPLETE or the write fails loud — a ref to 
 - [ ] DISCOVERED-NOT-HAND-LISTED: the gate DISCOVERS all refs structurally by walking the units (never a hand-maintained ref-type/sprint list) — a new ref-type or sprint is covered by construction.
 - [ ] STUB-MUST-FAIL: proven NON-VACUOUS — a planted dangling ref -> RED (bite).
 - [ ] STATED==IMPLEMENTED: the gate's stated scope EQUALS what it actually checks (no gap between the AC claim and the enforced check).
+- [ ] REPORT-ALL-NOT-ABORT-ON-FIRST (architect d443674de): the gate reports EVERY unresolvable ref in ONE pass, never aborts on the first — so all dangles are fixed in a single carry, not discovered iteratively. This incident's exact friction: R37.1 aborts on the FIRST hit -> 3 agents fixed different partial scopes (me sprint-40, expert sprint-37+, architect); the gate MUST enumerate the FULL dangle set [[enumerate-full-dangle-set-not-just-first-failclose-hit]].
 
 ## Subtasks
 
