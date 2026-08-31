@@ -23,7 +23,8 @@
       "rNumberRuledBy": "robbin-req (structural: WRITE-side/carry referential-integrity, distinct from R27.4/R40.43 single-tree orphan-audit + R37.1 read-side pin; S37 consistency-by-construction, write-side dual of R37.1)",
       "date": "2026-08-31",
       "priority": "P0-A follow-up (the REAL P0 deliverable: repairing the 3 dangling units leaves the CAUSE=incomplete-carry alive)",
-      "coveredIncidents": "this session's 47-S40-tasks-invisible (units-on-main/tasks-on-served partial carry) + the 4 cross-branch chains (BUG18/R37.26/R37.27/R37.28: units on main, tasks/markers/gates on hotfix) — a single-tree orphan-audit misses these because the ref resolves on the other branch"
+      "coveredIncidents": "this session's 47-S40-tasks-invisible (units-on-main/tasks-on-served partial carry) + the 4 cross-branch chains (BUG18/R37.26/R37.27/R37.28: units on main, tasks/markers/gates on hotfix) — a single-tree orphan-audit misses these because the ref resolves on the other branch",
+      "designAmended": "dd91889f6 (##Q2 report-ALL); truth-decay family specimen #12 (0786be3fe): R37.1 abort-on-first + subset-message under-scoped 3 agents"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
     "crossRef": [
@@ -100,6 +101,17 @@
           "assertion": "every ref-kind + both enforcement halves stated in this req are actually enforced; a claimed-but-unchecked ref-kind => RED"
         },
         "stubMustFail": "PENDING (scenario-first #126): seed a ref-kind listed in scope but not enforced by the guard => RED (stated!=implemented)"
+      },
+      {
+        "id": "AC-report-all-not-abort-on-first",
+        "group": "completeness",
+        "text": "The guard ENUMERATES EVERY unresolvable ref across EVERY ref-bearing unit and reports the FULL set — it NEVER aborts at the first, and never names only a subset (e.g. one sprint). This is the completeness half of the referential-integrity contract. ROOT (family specimen #12): R37.1 aborts-on-first + its message named only sprint-40, which UNDER-SCOPED three agents to a subset when the true dangling set was ~10 spanning Sprint 37. A partial report reads as a complete one and hides the rest = the same false-coverage disease.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "referential-integrity report-ALL",
+          "assertion": "the guard reports EVERY unresolvable ref across all units/sprints (count + each named), never aborts-on-first, never names only a subset"
+        },
+        "stubMustFail": "PENDING (#126): plant 3 dangling refs across 2 DIFFERENT sprints -> the guard reports ALL 3 (not 1, not one-sprint); a guard that reports fewer than planted => RED"
       }
     ]
   },
