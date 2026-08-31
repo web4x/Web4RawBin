@@ -3113,17 +3113,29 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         }
         let rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
         let derivedLine: number | undefined;
-        // T36.3 (R40.71): 344/657 Method units carry NO sourceFile of their own → the detail rendered a bare header
-        // (name+uuid, no source link), the code location buried only in the chain's Implementation row. Derive the
-        // method's source from its implementation so the surface shows "📂 file:line" like an enriched method. Serve-time
-        // (no scenario-unit write — the model's own field is unchanged); 328/344 are derivable via impl.sourceFile.
-        if ((!rawSource || rawSource.includes('.scenario.json')) && type === 'Method') {
-          const impls = Array.isArray(unit.model?.implementations) ? (unit.model!.implementations as unknown[]) : [];
-          for (const iref of impls) {
-            const iu = idx.get(String(iref).replace('ior:instance:', ''));
-            const im = (iu?.model as Record<string, unknown>) || {};
+        // T36.3 (R40.71 source-link half): Method (344/657) AND Class (78/192) units often carry NO sourceFile of their
+        // own → the detail rendered a bare header (name+uuid, no source link), the code location buried only in the chain.
+        // Derive it at SERVE TIME (no scenario-unit write — model field unchanged; deliberate under the history-hold) so the
+        // surface shows "📂 file:line" like an enriched unit. Method→its implementation; Class→a method's own source or its
+        // method's implementation (a class lives in its methods' file). Derivable: 328/344 methods, 58/78 classes.
+        const deriveFromImpls = (refs: unknown): boolean => {
+          for (const iref of (Array.isArray(refs) ? refs : [])) {
+            const im = (idx.get(String(iref).replace('ior:instance:', ''))?.model as Record<string, unknown>) || {};
             const isf = String(im.sourceFile || '').replace('ior:file:', '');
-            if (isf && !isf.includes('.scenario.json')) { rawSource = isf; derivedLine = (im.sourceLine as number) || undefined; break; }
+            if (isf && !isf.includes('.scenario.json')) { rawSource = isf; derivedLine = (im.sourceLine as number) || undefined; return true; }
+          }
+          return false;
+        };
+        if (!rawSource || rawSource.includes('.scenario.json')) {
+          if (type === 'Method') {
+            deriveFromImpls(unit.model?.implementations);
+          } else if (type === 'Class') {
+            for (const mref of (Array.isArray(unit.model?.methods) ? unit.model!.methods as unknown[] : [])) {
+              const mm = (idx.get(String(mref).replace('ior:instance:', ''))?.model as Record<string, unknown>) || {};
+              const msf = String(mm.sourceFile || '').replace('ior:file:', '');
+              if (msf && !msf.includes('.scenario.json')) { rawSource = msf; derivedLine = (mm.sourceLine as number) || undefined; break; }
+              if (deriveFromImpls(mm.implementations)) break;
+            }
           }
         }
         const sourceFile = (rawSource && !rawSource.includes('.scenario.json')) ? rawSource : undefined;
