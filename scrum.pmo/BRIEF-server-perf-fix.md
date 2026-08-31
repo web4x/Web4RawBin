@@ -33,3 +33,14 @@ A wrong badge is worse than a slow one: **slow is visible, wrong is not.**
 Version-bump + atomic + boot-check + recorder-survival (POST-sink 403) + served==committed. Path-limited one-step commit (`git commit -m MSG -- <explicit paths>`), never `-A`; verify `git show --stat HEAD` lists only your paths (a peer's file rode along once today).
 
 **Report scope honestly:** never "(B) fixed" until (b) and (c) both hold.
+
+---
+
+## NEXT AFTER the perf fix — Q1 fail-loud surfacing (do NOT let this stay orphaned)
+**Status: designed (architect `edc2e9620`/`dd91889f6`), NOT shipped.** I checked: `pinSprintLabel` is still only COMPUTED (server.ts ~2887/2896) and never emitted — so a refused pin STILL renders as an open, empty node with no reason.
+
+**Why it matters even though the referential-integrity gate (T37.33) will prevent dangling refs by construction:** this is the defect that made Tron experience a *correct* fail-closed as *"the current is open and empty… a new regression"*. He lost time, we burned a P0 cycle, and the system had already written the honest reason — the UI just dropped it. Guards that refuse silently are indistinguishable from bugs. T37.33 stops the cause; Q1 makes any *future* refusal legible. Defense in depth, and cheap.
+
+**Fix:** emit a NOTICE CHILD row carrying `pinSprintLabel` where the 3 slots would have been (`children = slotEntries.filter(s => s.slot?.taskUuid)` yields `[]` on a refused pin ⇒ open+empty). Same law as the Phase-A base `⚠ unresolved` — a refusal the user cannot see is fail-SILENT.
+
+**Acceptance:** with a deliberately unresolvable ref, /trace and /model must render the ⚠ reason text where children would be — asserted on the REAL surfaces, screenshot+pixel, stub-must-fail (suppress the emit ⇒ RED). Code-only, no prod data write.
