@@ -1,0 +1,107 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "38aa4fb4-3a58-48f1-b710-da285f80973b",
+    "altId": "R37.29",
+    "name": "Referential integrity — every ref resolves in the tree it is committed to (write-side dual of R37.1; carry-complete-or-fail-loud)",
+    "description": "REFERENTIAL-INTEGRITY guard = the WRITE-side dual of R37.1's read-side fail-closed. ANY ref a unit carries — sprint.tasks[], ownerIor, parent/child, coveredRequirements, useCases, or any chain link — that does NOT RESOLVE IN THE TREE IT IS COMMITTED TO is RED. A single-tree orphan-audit (R27.4/R40.43) MISSES the cross-branch/partial-carry class because the ref resolves on the OTHER branch: this session's 47-tasks-invisible incident + the 4 cross-branch chains (units on main, tasks/markers/gates on hotfix) are that class. Enforced BOTH (a) as a DATA-CARRY gate — a cross-branch/tree carry is referentially COMPLETE (every carried ref resolves in the TARGET tree) or FAILS LOUD, never a silent partial-carry; AND (b) in ci:gates (trace-audit family) — a committed tree with a ref that doesn't resolve in-tree => RED. Repairing the individual dangling units leaves the CAUSE (incomplete carry) alive — this kills the cause. Doctrine: DISCOVERED-not-hand-listed (glob every ref-bearing unit), STUB-MUST-FAIL (plant a dangling ref -> RED), STATED==IMPLEMENTED.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [
+      "ior:instance:9b140eee-14fe-4276-b7ce-7cbdfccfee83"
+    ],
+    "tests": [],
+    "useCases": [
+      "ior:instance:02c03f7e-d694-4b87-8837-39ed7f137441"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "architect-design-po-widened",
+      "designedBy": "robbin-architect",
+      "design": "design-currentsprint-unresolved-surfacing-and-referential-integrity.md ## Q2 (edc2e9620)",
+      "widenedBy": "robbin-po (to the cross-branch partial-carry class)",
+      "rNumberRuledBy": "robbin-req (structural: WRITE-side/carry referential-integrity, distinct from R27.4/R40.43 single-tree orphan-audit + R37.1 read-side pin; S37 consistency-by-construction, write-side dual of R37.1)",
+      "date": "2026-08-31",
+      "priority": "P0-A follow-up (the REAL P0 deliverable: repairing the 3 dangling units leaves the CAUSE=incomplete-carry alive)",
+      "coveredIncidents": "this session's 47-S40-tasks-invisible (units-on-main/tasks-on-served partial carry) + the 4 cross-branch chains (BUG18/R37.26/R37.27/R37.28: units on main, tasks/markers/gates on hotfix) — a single-tree orphan-audit misses these because the ref resolves on the other branch"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "crossRef": [
+      "ior:instance:91486de1-0cdd-4d57-b07e-9a5ce945702a",
+      "ior:instance:e205f7c3-97d8-474a-a4e6-053a7a7f30aa",
+      "ior:instance:9cbb649a-9fb9-414b-83e0-80d5a0e556ae",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "WRITE-side DUAL of R37.1 (pin COMPUTED from files = read-side fail-closed): this is the write/carry side (a ref must resolve in the tree it is written to). DISTINCT from R27.4 (resolve/prune dangling UC refs + orphans) + R40.43 (trace:audit orphan backlog) which are SINGLE-TREE audits — the novel property is 'resolve in the COMMITTED tree', which catches the cross-branch/partial-carry class those miss. Rides R40.54 failable-AC family; discovered-not-hand-listed reuses the R40.55 owner-list-rots lesson. SEPARATE non-blocking backlog (do NOT conflate): atomic-put hardening (ScenarioIndex.put index-store.ts:57 non-atomic writeFileSync -> temp+rename+shape-validate) = a DIFFERENT malformed-shape cause (crash-mid-write truncation), flagged to planner-backlog.",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; P0-A follow-up. Planner stands up the task; architect wires chain + backstop; expert builds the data-carry gate + ci:gate; I mint Tests off tester markers.)",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-resolve-in-committed-tree",
+        "group": "by-construction",
+        "text": "ANY ref a unit carries (sprint.tasks[], ownerIor, parent, children, coveredRequirements, useCases, class/method/implementations/tests, any chain link) MUST resolve to an existing unit IN THE TREE THE REF IS COMMITTED TO. A ref that resolves only on another branch/tree => RED (referential-integrity violation).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "trace-audit: resolve-in-committed-tree",
+          "assertion": "every ref in a committed tree resolves to a unit present in THAT tree; a ref resolving only cross-branch => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): plant a ref to a uuid absent from the committed tree (present only on another branch) => RED"
+      },
+      {
+        "id": "AC-data-carry-complete-or-fail-loud",
+        "group": "data-carry/write-side",
+        "text": "The WRITE/CARRY side dual of R37.1 (read fails closed): a cross-branch/cross-tree CARRY is referentially COMPLETE — every ref of every carried unit resolves in the TARGET tree — or it FAILS LOUD. NEVER a silent partial-carry (the 47-tasks-invisible + cross-branch-chain shape). The carry either brings the whole referential closure or reports exactly which refs would dangle.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "data-carry referential-completeness",
+          "assertion": "a carry that would leave any carried unit's ref unresolved in the target tree => FAILS LOUD (names the dangling refs), never silent-partial"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a partial carry (unit carried, its ref-target left behind) => fails loud naming the dangling ref; complete carry => admissible"
+      },
+      {
+        "id": "AC-ci-gate-trace-audit-family",
+        "group": "ci",
+        "text": "Enforced in ci:gates as part of the trace-audit family: the audit resolves EVERY ref-bearing unit's refs against the committed tree and REDs on any in-tree-unresolvable ref. Report-only-loud first if a baseline of debt exists, strict when the offender count reaches 0 (R40.43 delta-gate precedent).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates referential-integrity audit",
+          "assertion": "ci:gates fails on any in-tree-unresolvable ref (report-only->strict at 0 per R40.43 precedent)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a committed tree with an in-tree-dangling ref => ci:gates RED (or counted debt in report-only phase)"
+      },
+      {
+        "id": "AC-discovered-not-hand-listed",
+        "group": "enumerate-not-universal",
+        "text": "The ref-bearing unit set + the ref-field set are DISCOVERED by glob/structural scan (every unit, every ref field), NEVER a hand-maintained list — a new unit-type or a new ref field cannot silently escape the guard (a hand-list rots exactly like the artifacts it polices, R40.55 owner-list lesson). A ref-bearing shape present but not evaluated => flagged.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "referential-integrity discovery",
+          "assertion": "ref-bearing units + ref fields discovered structurally; a ref-bearing unit/field absent from the evaluated set => flagged; a hand-list => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): add a new ref field/unit-type absent from the evaluated set => flagged (not silent-pass)"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL (prove-the-prover): plant a dangling ref (a ref to a uuid not in the committed tree) => the guard REDs; remove/weaken the guard => the suite REDs. A referential-integrity guard that cannot go RED on a real dangling ref certifies nothing.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "referential-integrity self-stub",
+          "assertion": "planted dangling ref => RED; weakened guard => suite RED; a fully-resolved tree => GREEN"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the guard's own stub (planted dangling ref) observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-stated-equals-implemented",
+        "group": "doctrine",
+        "text": "STATED==IMPLEMENTED: the guard's scope as written (all listed ref kinds, both the data-carry gate AND the ci:gate) equals what the code enforces — no ref kind claimed-covered but unchecked, no gate half stated but not wired. (Guards against the reminder-not-mechanism / false-coverage class.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "stated==implemented coverage",
+          "assertion": "every ref-kind + both enforcement halves stated in this req are actually enforced; a claimed-but-unchecked ref-kind => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a ref-kind listed in scope but not enforced by the guard => RED (stated!=implemented)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
