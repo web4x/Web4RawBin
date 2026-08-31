@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "5ee38fed-b8e5-4eda-9464-e656775b1db6",
+    "name": "traceParent.declareAuthoritativeNotion",
+    "description": "Name the parent notions (stored=ownerIor|parent, forward=who-lists-it); after the architect chain-model read declares which is authoritative, assert every parent-consuming surface (strict-impl credit, chain-completeness, /trace breadcrumb server.ts:3096-3116, scoreboard) reads the declared notion and does not silently mix; triage the 3 discrepancy sub-classes (wiring-gap->R37.29 / two-parents / ambiguous). Discovered by measuring stored-vs-forward, never a hand-list.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:b46bc99f-a35d-4ef1-bfe0-a8198d930279",
+    "unitLinks": [],
+    "note": "BLOCKED on architect chain-model read (which notion is authoritative + what each means). Architect wires Class/Method after the read. ANALYSIS-ONLY / DO-NOT-BUILD until PO sequences."
+  },
+  "ownerIor": "ior:instance:b46bc99f-a35d-4ef1-bfe0-a8198d930279"
+}

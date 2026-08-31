@@ -1,0 +1,124 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b46bc99f-a35d-4ef1-bfe0-a8198d930279",
+    "altId": "R37.32",
+    "name": "Parent-notion authority — stored-parent (ownerIor|parent) vs forward-scan parent must have ONE declared authoritative notion; consumers declare which, no silent mix (analysis-first)",
+    "description": "PARENT-NOTION DISCREPANCY (analysis-first, routed by expert via PO; NO fix — measurement + architect chain-model read). A unit has MULTIPLE 'parent' notions that DISAGREE, and nothing declares which is authoritative: (a) STORED-PARENT = ownerIor OR model.parent (the mint/storage parent), itself SPLIT across two fields; (b) FORWARD-SCAN parent = whoever lists this uuid in a forward array (tasks/useCases/methods/implementations/tests/coveredRequirements/...). MEASURED: robbin-expert 889/3439 owned = 26% disagree (FWD_SCAN reverse-parent); robbin-req independent repro 286/1374 owned = 20.8% (ownerIor||parent as stored; population differs by method — same CLASS, same magnitude; the exact FWD_SCAN definition is the architect's chain-model read to fix). DISAGREEMENT SPLITS INTO THREE SUB-CLASSES (robbin-req characterization): (1) 177/286 (62%) STORED-BUT-NO-FORWARD-PARENT — a stored parent claims the unit but NO forward array points to it = a WIRING GAP (existence!=connection; the write-side dual R37.29 already guards); (2) 65/286 (23%) SINGLE-FORWARD != STORED — exactly one unit wires it, a DIFFERENT unit than the stored parent = genuine two-different-parents; (3) 44/286 (15%) MULTI-FORWARD — several units wire it = ambiguous forward-parent. By KIND the disagreers are chain-link units (Requirement 104, Class 46, UseCase 36, Test 35, Method 23) + PII (Phone 16/Address 6/Email 1) + Bug 12/Task 7. Already MIXED in one surface: the /trace breadcrumb (server.ts:3096-3116) prefers ownerIor then falls to a FWD_SCAN when ownerIor empty. This requirement does NOT rule which is authoritative — it NAMES the notions, requires ONE declared authoritative (architect chain-model read), triages the 3 sub-classes (stale-wiring vs legitimate dual-meaning), and requires downstream consumers to declare which notion they read and NOT silently mix.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:5ee38fed-b8e5-4eda-9464-e656775b1db6"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "expert-measurement+po-routed-analysis",
+      "routedBy": "robbin-expert via PO (v0.8.151 parent-scan perf work)",
+      "measuredBy": "robbin-req independent repro 2026-08-31",
+      "expertMeasured": "889/3439 owned = 26% FWD_SCAN reverse-parent disagrees with ownerIor",
+      "reqMeasured": "286/1374 owned = 20.8% (stored=ownerIor||parent); 3 sub-classes: 177 stored-but-no-forward / 65 single-mismatch / 44 multi-ambiguous; disagreers = Requirement 104/Class 46/UseCase 36/Test 35/Method 23 chain-links + Phone 16/Address 6/Email 1 PII + Bug 12/Task 7",
+      "methodNote": "populations differ (1374 vs 3439) by the exact stored/forward field definitions — SAME class + magnitude; architect chain-model read fixes the canonical FWD_SCAN definition. Also: stored parent itself split ownerIor(24) vs model.parent(1350) = a 3rd notion.",
+      "analysisOnly": "NO FIX. Expert fixing the PERF (reverse-parent index, O(1), identical output) WITHOUT touching data = decoupled from this analysis."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "satisfactionStatus": "UNVERIFIED (analysis-first #126; ANALYSIS-ONLY per PO/expert; needs the ARCHITECT chain-model read to declare which notion is authoritative before any gate is built or data repaired).",
+    "crossRef": [
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "The 62% stored-but-no-forward bucket IS the write-side dual R37.29 guards (existence!=connection) = route there. The mismatch/ambiguous buckets = dual-meaning to NAME. Same discovered-not-hand-listed + categories-distinct shape as R37.31. NEEDS architect chain-model read (routed) to declare the authoritative notion + reconcile the exact FWD_SCAN definition.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-name-the-parent-notions",
+        "group": "name-the-thing",
+        "text": "The distinct parent notions are NAMED and defined: STORED-PARENT (ownerIor|model.parent = mint/storage parent) and FORWARD-SCAN parent (who lists the uuid in a forward array = chain-forward parent). Sub-finding: the stored notion is itself split across TWO fields (ownerIor vs parent, measured 24 vs 1350) — the split is named too.",
+        "gateRef": {
+          "kind": "doc+lint",
+          "ref": "parent-notion registry",
+          "assertion": "the two (three) parent notions are declared with meaning; a surface using 'parent' without saying WHICH => flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-one-declared-authoritative",
+        "group": "by-construction",
+        "text": "EXACTLY ONE parent notion is declared AUTHORITATIVE (architect chain-model read resolves which + what each MEANS). No unit or consumer may rely on an undeclared 'the parent' — the authoritative notion is a single named source, the other is derived/advisory.",
+        "gateRef": {
+          "kind": "doc+lint",
+          "ref": "authoritative-parent declaration",
+          "assertion": "a consumer reading a parent notion NOT declared authoritative (without an explicit reason) => flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-triage-the-three-subclasses",
+        "group": "classification",
+        "text": "The disagreement is triaged into the THREE measured sub-classes, kept distinct (merging destroys meaning, R37.31 lineage): stored-but-no-forward (wiring gap, 62%) vs single-forward-mismatch (two-parents, 23%) vs multi-forward (ambiguous, 15%). Each is counted separately; the wiring-gap bucket is a DATA-INTEGRITY defect (route to R37.29 referential-integrity), the mismatch/ambiguous buckets are the DUAL-MEANING that must be NAMED or repaired.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "parent-discrepancy triage",
+          "assertion": "the 3 sub-class counts are reported separately; a merge that hides one => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-consumers-declare-which-notion",
+        "group": "no-silent-mix",
+        "text": "Every downstream consumer DECLARES which parent notion it reads and does NOT silently mix: strict-impl CREDIT, chain-completeness, the /trace breadcrumb (server.ts:3096-3116 — currently MIXES ownerIor-then-FWD_SCAN in one surface), the scoreboard. A consumer that silently falls between notions => flagged (the breadcrumb is the exemplar).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "consumer-parent-notion audit",
+          "assertion": "each parent-consuming surface names its notion; a surface mixing ownerIor and FWD_SCAN without a declared rule => flagged"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-no-wrong-notion-credit",
+        "group": "correctness",
+        "text": "Nothing that assigns CREDIT (strict-impl, chain-completeness, no-double-credit) may depend on the WRONG notion. If credit uses FWD_SCAN but a stored-but-unwired unit exists, the credit is wrong; if it uses stored but the forward array is authoritative, likewise. The architect read declares which; the gate asserts credit uses ONLY the authoritative notion.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "credit-uses-authoritative-notion",
+          "assertion": "strict-impl/chain-completeness credit computed from the declared-authoritative parent; a credit path reading the other notion => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-discovered-not-hand-listed",
+        "group": "discovered-not-hand-listed",
+        "text": "The discrepancy set is DISCOVERED by measuring stored-vs-forward across all units (as done here), never a hand-list; re-run reports the current count + 3-class split. Method + population stated (measure-honesty: expert 26%/3439 vs req 20.8%/1374 = same class, exact FWD_SCAN definition per architect).",
+        "gateRef": {
+          "kind": "lint+test",
+          "ref": "parent-discrepancy sweep",
+          "assertion": "a new disagreeing unit surfaces by the sweep; the reported count == measured, method+population declared"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL: plant a unit whose stored parent and forward-scan parent disagree in a way the declared rule forbids => the guard REDs; align them (or mark the legitimate dual-meaning) => GREEN.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "parent-discrepancy self-stub",
+          "assertion": "planted forbidden stored/forward disagreement => RED; aligned-or-marked => GREEN"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-stated-equals-implemented",
+        "group": "gate",
+        "text": "STATED==IMPLEMENTED: every property here (named notions, one authoritative, 3-class triage, consumers-declare, credit-uses-authoritative) maps to a check; an AC with no enforcing check => RED (R40.54 failable-family).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "parent-discrepancy coverage",
+          "assertion": "each AC maps to a check; an unenforced AC => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
