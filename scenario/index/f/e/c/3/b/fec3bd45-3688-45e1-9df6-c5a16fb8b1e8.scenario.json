@@ -1,0 +1,123 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fec3bd45-3688-45e1-9df6-c5a16fb8b1e8",
+    "altId": "R37.31",
+    "name": "Phantom-coverage-at-scale — every gate is invoked-by-a-runner or marked-not-invoked-with-reason, count reported (discovered-not-hand-listed)",
+    "description": "PHANTOM-COVERAGE-AT-SCALE: a gate that is committed but NEVER INVOKED by a runner silently means 'gated WHEN A HUMAN REMEMBERS' — so it rots invisibly and a real breach reaches production. MEASURED 2026-08-31 (robbin-req, first-hand): 272 test/visual/r*.mjs gates exist on disk; only 4 are referenced by ANY runner (r3729/r4011/r4012/r4019, all in gate:device:live:raw); ci:gates:raw is ALL check:/bite: scripts with ZERO visual gates => 268 un-invoked. That is why a 250x perf breach reached Tron. The only two runners are ci:gates:raw + gate:device:live:raw. INVARIANT: every gate is EITHER invoked by a runner OR explicitly MARKED not-invoked WITH a reason, and the COUNT of un-invoked is REPORTED — discovered-not-hand-listed (glob all r*.mjs), so no gate rots silently. Sibling of R37.28 (gate-INVOCATION-mechanics: a spawned gate returns a real result) but a DISTINCT property: invocation-EXISTENCE/WIRING (a gate must be wired to a runner or marked-not). Same scale-invariant shape as R37.30 server-compute-flat (coverage-flat + compute-flat as the corpus grows = one family). An O(total)/uninvoked defect is INVISIBLE behind small fixtures / a human-run gate — it only appears at scale.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:9ab3faf9-8c52-4bd5-b210-ae678be67d7f"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "po-directive+measurement",
+      "source": "PO BRIEF-req-queue.md P2",
+      "measuredBy": "robbin-req first-hand 2026-08-31",
+      "measured": "272 test/visual/r*.mjs on disk; 4 runner-referenced (r3729/r4011/r4012/r4019, gate:device:live:raw); ci:gates:raw = 0 visual gates => 268 un-invoked. r301 = Sprint-30-hardcoded + in no runner (would RED if run). r241/r245 = known-broken-invocation (count 2).",
+      "note": "Relayed number was ~180; MEASURED 272 (measure-wins; encode the measured figure)."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; DO-NOT-BUILD per PO no-urgency; lint check:gate-invocation not yet built, no stub RED observed).",
+    "crossRef": [
+      "ior:instance:9d70d9dd-b797-4b8e-ab73-0e88a3588e4a",
+      "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Sibling of R37.28 (gate-invocation-MECHANICS: spawned gate returns a real result) — DISTINCT property: invocation-EXISTENCE/WIRING. Reuses R37.25 coverage-self-report + discovered-not-hand-listed. Same scale-invariant family as R37.30 server-compute-flat (coverage-flat + compute-flat). Actor-attribution AC ties the display-message/R40.48-hook mis-attribution hazard.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-invoked-or-marked-with-reason",
+        "group": "by-construction",
+        "text": "Every test/visual/r*.mjs gate is EITHER invoked by a runner (ci:gates:raw or gate:device:live:raw — the only two, grepped) OR explicitly MARKED not-invoked WITH a reason. A gate that is neither invoked nor marked => RED. 'Gated' must mean 'runs in CI', never 'runs when a human remembers'.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation (NEW)",
+          "assertion": "each r*.mjs is in a runner OR in the marked-not-invoked list with a reason; neither => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): plant a gate neither invoked nor marked => RED, before the lint counts as wired"
+      },
+      {
+        "id": "AC-un-invoked-count-reported",
+        "group": "self-report",
+        "text": "The COUNT of un-invoked gates is REPORTED every run (self-report, R37.25 lineage), never silently drained. Today: 272 on disk / 4 invoked / 268 un-invoked. The number is published so a narrowing of coverage is visible.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation count",
+          "assertion": "reported un-invoked count == (globbed r*.mjs) minus (runner-referenced) minus (marked-not); a false-drained count => RED"
+        },
+        "stubMustFail": "PENDING: seed a false-drained count (report fewer than measured) => RED"
+      },
+      {
+        "id": "AC-discovered-not-hand-listed",
+        "group": "discovered-not-hand-listed",
+        "text": "The gate set is DISCOVERED by glob of test/visual/r*.mjs, never a hand-list; a NEW gate committed but absent from every runner AND from the marked-not list surfaces automatically (divergence). A hand-maintained gate roster rots exactly like the boot/owner hand-lists.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation glob+divergence",
+          "assertion": "a newly-added r*.mjs not in any runner and not marked => flagged; the evaluated set == the globbed set"
+        },
+        "stubMustFail": "PENDING: add a new r*.mjs absent from runners + marked-list => divergence flags it"
+      },
+      {
+        "id": "AC-categories-distinct",
+        "group": "classification",
+        "text": "The un-invoked set keeps its categories DISTINCT (merging destroys the number's meaning): STALE-HARDCODED-UNINVOKED (e.g. r301 pinned to Sprint-30 literals, in no runner, would RED if run) vs KNOWN-BROKEN-INVOCATION (e.g. r241/r245, count stays 2). Each category is counted separately; a merge that hides one behind the other => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation categories",
+          "assertion": "stale-hardcoded-uninvoked and known-broken-invocation are reported as SEPARATE counts; merging them => RED"
+        },
+        "stubMustFail": "PENDING: seed a stale-hardcoded gate counted under known-broken (or vice-versa) => RED"
+      },
+      {
+        "id": "AC-derive-dont-hardcode",
+        "group": "by-construction",
+        "text": "A gate cannot rot by hardcoding: gate assertions derive their targets (sprint/version/paths) from the live source (deriveSprintPin / package.json / structuralDiscover), never a pinned literal. r301 (Sprint-30 hardcode) is the exemplar defect. A gate with a pinned era-literal in an assertion position => flagged for derive-repair.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation derive (r301 exemplar)",
+          "assertion": "a gate asserting against a hardcoded sprint/version literal => flagged; a derived assertion => pass"
+        },
+        "stubMustFail": "PENDING: seed a gate with a hardcoded sprint/version literal => flagged for derive-repair"
+      },
+      {
+        "id": "AC-actor-attribution-correct",
+        "group": "attribution",
+        "text": "A gate that reports its ACTOR must attribute the REAL actor, not an ambient/attached value. MEASURED root: tmux display-message resolves to the ATTACHED pane, not the acting pane (it mislabelled robbin-req as robbin-expert@v60211; the R40.48 commit-attribution hook mis-attributes the PO's commits to robbin-expert the same way). A gate/hook that misattributes its actor reports the WRONG owner => the coverage/ownership report is a lie. Actor resolves via pane.self / the acting identity, never the attached pane.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation actor (display-message hazard)",
+          "assertion": "a gate/hook deriving actor from the attached pane (display-message) => flagged; actor derived from the acting identity (pane.self) => pass"
+        },
+        "stubMustFail": "PENDING: seed a gate/hook resolving actor via display-message (attached pane) => flagged"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL (prove-the-prover): plant an un-invoked gate (a new r*.mjs in no runner, not marked) => the invocation lint REDs; wire it or mark it with a reason => GREEN. A phantom-coverage guard that cannot go RED on a planted un-invoked gate certifies nothing.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "gate-invocation self-stub",
+          "assertion": "planted un-invoked gate => RED; wired-or-marked => GREEN; weakened lint => suite RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the lint's own stub (planted un-invoked gate) observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-stated-equals-implemented",
+        "group": "gate",
+        "text": "STATED==IMPLEMENTED: the invariant as written (every gate invoked-or-marked, count reported, categories distinct, actor correct) equals what the lint enforces — no AC names a property the lint does not check.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:gate-invocation coverage",
+          "assertion": "every AC here maps to a check in the lint; an AC with no enforcing check => RED (R40.54 failable-family)"
+        },
+        "stubMustFail": "PENDING: an AC here with no mapped check in the lint => RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

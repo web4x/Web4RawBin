@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "9ab3faf9-8c52-4bd5-b210-ae678be67d7f",
+    "name": "gateRunner.assertEveryGateInvokedOrMarked",
+    "description": "Discover every test/visual/r*.mjs by glob; assert each is referenced by a runner (ci:gates:raw | gate:device:live:raw) OR in the marked-not-invoked list with a reason; report the un-invoked count with STALE-HARDCODED vs KNOWN-BROKEN categories distinct; derive-don't-hardcode + correct actor-attribution (pane.self not attached pane). Routes through the shared structuralDiscover.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:fec3bd45-3688-45e1-9df6-c5a16fb8b1e8",
+    "unitLinks": [],
+    "note": "Architect wires Class (check:gate-invocation lint via shared structuralDiscover) + Method on build-go, then re-inspects. DO-NOT-BUILD until Tron/PO schedules."
+  },
+  "ownerIor": "ior:instance:fec3bd45-3688-45e1-9df6-c5a16fb8b1e8"
+}
