@@ -1,0 +1,111 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "0f3bb500-d7ad-45ac-a372-7df1e1b425fd",
+    "altId": "R37.30",
+    "name": "Server scale-invariance — per-request compute is O(children) never O(total-units) (shared warm index; achievable latency bound; discovered by measuring compute-vs-corpus)",
+    "description": "SERVER SCALE-INVARIANCE: a per-request response path's server COMPUTE must be O(children)/O(1), NEVER O(total-units). An O(total) cost is INVISIBLE behind small fixtures — it only appears at production scale (sibling of gate-with-representative-data). ROOT (P0-B residual, Tron's 'task does nothing for a minute'): server handlers do a FULL-INDEX SCAN per request — idx.list()+get each (~5777 reads) to compute one badge, and new ScenarioIndex(...) per call (cold cache every request). MEASURED breadth first-hand 2026-08-31: 18 idx.list() + 40 new-ScenarioIndex sites in server.ts = a recurring HAZARD CLASS, not one-off. ★ SCOPE THE HAZARD NOT THE ACTOR: the brief's specific line numbers (2992/2856) had ALREADY DRIFTED when measured = proof a line-list rots; the invariant is DISCOVERED by measuring compute-vs-corpus (grow the corpus -> a scale-invariant path stays FLAT), NEVER a hand-list of line numbers. CROSS-CUTTING FIX: one SHARED WARM ScenarioIndex (list/get cache reused) + a cached CR reverse-index, instead of new-per-request. Same scale-invariant family as R37.31 phantom-coverage-at-scale (compute-flat + coverage-flat as the corpus grows). Realistic bound: O(1) requests + O(children) compute + ~1 RTT floor (~80ms) => an ACHIEVABLE ~100-150ms AC, NOT a bare aspirational 100ms on O(total) that would sit RED forever and rot (aspirational-invariant trap).",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:62949b5f-3c25-4160-8036-a2ee3bee5cdd"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "architect-diagnosis+po-directive+measurement",
+      "source": "PO BRIEF-req-queue.md P3; architect sweep f68abf777",
+      "measuredBy": "robbin-req first-hand 2026-08-31",
+      "measured": "18 idx.list() + 40 new-ScenarioIndex sites in server.ts = O(total-units)-per-request hazard class. Brief's cited lines 2992/2856 had already DRIFTED (line-list rots).",
+      "note": "P0-B residual: fan-out fixed 27.9s->0.6s; the ~0.45s/expand residual = server O(total) scan, optimizable (architect corrected 'not-a-req' -> IS a server-perf req)."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "satisfactionStatus": "UNVERIFIED (scenario-first #126; DO-NOT-BUILD per PO no-urgency; warm-index/reverse-index fix + scale-probe gate not yet built).",
+    "crossRef": [
+      "ior:instance:fec3bd45-3688-45e1-9df6-c5a16fb8b1e8",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "SCALE-INVARIANT FAMILY with R37.31 phantom-coverage-at-scale: compute-flat (this) + coverage-flat (R37.31) as the corpus grows = two members, same invisible-behind-small-fixtures shape. Failable-AC family R40.54. r4067 = the existing latency gate; extend it with the corpus-scaling probe.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-compute-o-children-not-o-total",
+        "group": "by-construction",
+        "text": "A per-request response path's server compute is O(children)/O(1), NEVER O(total-units). No full-index scan (idx.list() over the whole corpus) on a children/detail path; per-request work scales with the RESPONSE size, not the corpus size.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "r4067-style compute-vs-corpus",
+          "assertion": "grow total-units Nx with children fixed => the path's compute/latency stays FLAT (within noise); a path that grows with N => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-discovered-by-measuring-not-hand-listed",
+        "group": "discovered-not-hand-listed",
+        "text": "The hazard is DISCOVERED by measuring compute-vs-corpus (scale the corpus, watch the path), NEVER a hand-list of line numbers. Provenance: the brief's cited server.ts:2992/2856 had ALREADY DRIFTED when measured — a line-list rots exactly like the boot/owner/gate hand-lists. Measured class breadth: 18 idx.list() + 40 new-ScenarioIndex sites.",
+        "gateRef": {
+          "kind": "lint+test",
+          "ref": "scale-probe (corpus-grow harness)",
+          "assertion": "a new O(total) path added to a response handler surfaces by the corpus-scaling probe, not by a maintained line-list"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-shared-warm-index-not-per-request",
+        "group": "by-construction",
+        "text": "The cross-cutting fix: ONE shared WARM ScenarioIndex (list/get cache reused across requests) + a cached CR reverse-index, instead of new ScenarioIndex(...) per request (cold cache every call). A per-request new-index on a hot path => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:server-warm-index",
+          "assertion": "a hot response path constructing new ScenarioIndex() per request (cold) => flagged; reuse of the shared warm index => pass"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-achievable-latency-bound-not-aspirational",
+        "group": "achievable-not-aspirational",
+        "text": "The latency AC states an ACHIEVABLE bound: ~100-150ms, with the 1-RTT network floor (~80ms) stated explicitly. NOT a bare aspirational 100ms measured on an O(total) path — that would sit RED forever and rot (aspirational-invariant trap). The bound is O(1) requests + O(children) compute + ~1 RTT, and it is network-independent in the COMPUTE dimension.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "r4067 latency (achievable bound)",
+          "assertion": "children-path latency <= ~150ms at production corpus scale (RTT floor ~80ms acknowledged); a bound set below the RTT floor => the AC itself is RED (unachievable-by-construction)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-invisible-behind-small-fixtures",
+        "group": "representative-data",
+        "text": "The defect shape is encoded: an O(total) cost is INVISIBLE behind small fixtures and only appears at production scale (sibling of gate-with-representative-data). The gate MUST run at a representative corpus size, not a toy fixture, or it green-lies.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "scale-probe representative corpus",
+          "assertion": "the gate runs at production-representative corpus size; a gate passing only because the fixture is tiny => RED (green-lie)"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "STUB-MUST-FAIL: plant an O(total) scan on a children path (idx.list() over the whole corpus) => the scale-invariance gate REDs as the corpus grows; replace with O(children) => GREEN. A scale-invariance guard that cannot go RED on a planted full-scan certifies nothing.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "scale-invariance self-stub",
+          "assertion": "planted O(total) path => RED at scale; O(children) fix => GREEN; weakened gate => suite RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      },
+      {
+        "id": "AC-stated-equals-implemented",
+        "group": "gate",
+        "text": "STATED==IMPLEMENTED: every property here (O(children), warm-index, achievable-bound, representative-corpus) maps to a check; an AC with no enforcing check => RED (R40.54 failable-family).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "scale-invariance coverage",
+          "assertion": "each AC maps to a gate assertion; an unenforced AC => RED"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "62949b5f-3c25-4160-8036-a2ee3bee5cdd",
+    "name": "serverPath.assertComputeScaleInvariant",
+    "description": "For each per-request response path: assert server compute is O(children)/O(1) not O(total-units) by measuring compute-vs-corpus (scale the corpus, path stays flat); route reads through ONE shared warm ScenarioIndex + cached CR reverse-index (no new-per-request); latency bound achievable (~100-150ms, RTT floor ~80ms) at representative corpus. Discovered by measuring, never a line-list.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:0f3bb500-d7ad-45ac-a372-7df1e1b425fd",
+    "unitLinks": [],
+    "note": "Architect wires Class (shared warm ScenarioIndex + CR reverse-index) + Method + the scale-probe gate on build-go, then re-inspects. DO-NOT-BUILD until scheduled."
+  },
+  "ownerIor": "ior:instance:0f3bb500-d7ad-45ac-a372-7df1e1b425fd"
+}
