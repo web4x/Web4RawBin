@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 216** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 68** (216 = 98+45+3+68)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 64**
+- **TOTAL S30++ tasks: 223** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 75** (223 = 98+45+3+75)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 71**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,27 +26,34 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 30 | 1 | 13 | 0 | 16 |
+| S37 | 37 | 1 | 13 | 0 | 23 |
 | S40 | 66 | 0 | 15 | 0 | 49 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 38
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 45
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
 | S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
+| S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
+| S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
+| S37 | 61718883 | Planned | build | Task 37.28: Truth-decay / no-freshness-invariant family — co |
 | S37 | 6541850f | In Progress | build | Task 37.30: File/WebItem detail render CONVERGENCE onto the  |
 | S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
 | S37 | 802a9597 | In Progress | marker | Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a r |
+| S37 | 968d966d | Planned | build | Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness |
 | S37 | 9cb80055 | Planned | build | Task 37.17: Gates must not encode a SNAPSHOT of the  |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
+| S37 | afe976e3 | Planned | build | Task 37.28.5: guard-coverage freshness guard — coverage DERI |
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
+| S37 | bd0e5f4a | Planned | build | Task 37.28.1: boot-state (sprint/version) freshness guard —  |
 | S37 | c18c2efb | Planned | build | Task 37.15: Store-once theme-only names — a stored n |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
+| S37 | e2068636 | Planned | build | Task 37.28.6: constraint-cycle (structural) freshness guard  |
 | S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S37 | ff834c77 | In Progress | gate | Task 37.13: Naming is canon by construction — the be |
 | S40 | 05d86575 | Planned | build | Task 40.67: State-file currency — boot-currency guard co |

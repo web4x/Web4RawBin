@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "194398d2-b165-445a-926f-be163ee4b9c7",
+    "name": "freshnessInvariant.assertNoStoredAndSilent",
+    "description": "Per authoritative-artifact class, assert the freshness/provenance invariant: the class either DERIVES from its single source on each read, or is STORED with provenance revalidated-per-read + rendered visibly-stale on failure; a stored-and-silent class => RED. Enumerate the class corpus by structural discovery with a divergence check (a new authoritative-artifact class matching the meta-shape but unenrolled => flag), and require each class gate to carry a stub-must-fail (R40.54). Routes through the shared structuralDiscover (single-source with R40.54 AcGuard + R40.55 boot-currency).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a",
+    "unitLinks": [],
+    "note": "Architect wires Class (a truth-decay meta-lint reusing structuralDiscover) + per-class Methods on build-go, then re-inspects; planner stands up the per-class guard tasks; I mint Tests off tester markers."
+  },
+  "ownerIor": "ior:instance:fcc34aa1-84da-438c-942f-1c2c27efe61a"
+}
