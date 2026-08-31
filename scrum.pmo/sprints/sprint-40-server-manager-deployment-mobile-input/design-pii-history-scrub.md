@@ -20,6 +20,8 @@ My first pass scoped ONLY the contact shape (and undercounted it on hotfix). Re-
   - `Room` → redact `senderName`/`members` → `[REDACTED]`
   - Discriminate by the unit's `ior:class` + field-presence (field-shape), so the ~293 legit `text` units (AC/checklist) are UNTOUCHED. Keep uuids + all structural fields → refs resolve → NO dangling cascade.
 - The callback is a small pure function (blob-in → redacted-blob-out); it never PRINTS a value, only replaces PII field contents. It runs across ALL history, rewriting every ref/branch/tag (filter-repo default) — `main` + `hotfix` + tags.
+- **★ MANDATORY — FAIL-CLOSED ON UNPARSEABLE / UNRECOGNISED (PO condition):** if the callback hits a `.scenario.json` blob it CANNOT parse (malformed/empty — we hit exactly this today, the bb9dec65 class), OR a blob that parses but whose `ior` is NOT in the recognised set, it MUST **HALT THE ENTIRE RUN**, log the offending blob by **oid/path only (never contents)**, and stop. NEVER skip-and-continue: a silently-skipped blob = un-redacted PII surviving a scrub we then declare successful = the exposure persists AND we stop looking. An unrecognised ior is NOT assumed benign — halt, surface it, extend the callback, re-run. (This makes the callback total over the corpus: every blob is either redacted-per-its-shape or the run stops.)
+- **★ MANDATORY — PER-SHAPE REDACTION COUNTS (PO condition):** the run COUNTS redactions per shape and asserts they match the pre-scan: **Profile == 20, Message == 107, Room == 13** (my measured origin/main field-shape counts). Fewer-than-measured = a partial scrub wearing a green → HALT. (The pre-scan counts + the fail-closed-on-unrecognised-ior together are belt-and-suspenders: the counts catch an under-redaction of a KNOWN shape; the halt catches an UNKNOWN shape I didn't count.)
 - **PLUS docs with raw PII** (prose, not JSON): the classification reports (`216c962ad` `dirty-tree-classification-2026-08-31.md`) — redact by field-shape regex (phone/email pattern) in those markdown paths. Discovered by the field-shape scan (d).
 
 ## (b) BACKUP FIRST, verifiable (a rewrite has no undo; ~37 files live peer WIP)
@@ -48,5 +50,11 @@ On a SCRATCH clone (not origin, not any live tree): run filter-repo → then ver
 - **FIELD-SHAPE pre-commit + ci:gate (all three shapes):** RED on a git-tracked unit carrying a Profile-contact / Message-content / Room-membership field with a value (discovered-not-hand-listed, field-shape NOT className, prose-aware). Stub-must-fail: stage a Message with a `text` body → RED. A PII value can never be committed again.
 - This makes the scrub ONE force-push / ONE fleet re-sync (all three shapes in the single pass — a second scrub would be a second re-sync, i.e. a habit; scoping all three now avoids it, per the PO).
 
-## Sequence
-PO go → (b) backup+restore-test → (c) scratch dry-run + full verify → PO go on the result → (e) force-push + serial fleet re-sync (WIP-bundled-first) → (d) post-push verification on origin → (f) prevention guard + relocation land → THEN the reconcile (now on clean history). I backstop each gate; nothing to origin until the scratch is green.
+## Sequence (PO GO given on 3-shape scope; force-push holds for a SECOND go from the fresh PO)
+1. **Expert builds** the fail-closed unit-aware `--blob-callback` (halt-on-unparseable/unrecognised-ior, per-shape counters). Architect backstops the callback (fail-closed real, counts wired).
+2. **(b) backup + restore-test** (sealed mirror+bundle, access-controlled).
+3. **(c) scratch dry-run** (scratch clone, NOT origin): run filter-repo → the callback halts if any blob is unparseable/unknown-ior → per-shape counts assert 20/107/13 → (d) field-shape scan all-history = 0 for all 3 shapes → `npm build` GREEN + serves + R37.29 0-dangling + ~180 uuids resolve.
+4. **★ REPORT the verification numbers to the PO BEFORE the force-push** (per-shape redacted counts, all-history-clean proof, build/serve/R37.29) → **fresh PO gives the SECOND go on the result.**
+5. **(e) force-push** main+hotfix+tags → serial fleet re-sync (WIP-bundled-first, recovery-drivers LAST).
+6. **(d) post-push verification** on origin → **(f) prevention** guard + relocation land → THEN the reconcile (now on clean history).
+Pushes FROZEN until step 5's second go. I backstop each gate; NOTHING to origin until the scratch is green + the PO's second go.
