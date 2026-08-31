@@ -8,9 +8,13 @@
 // fan-out is prefetchVisibleLayer (rb-trace-tree:644): expanding Sprint-40 fires 1 (sprint) + 63 (one per task) = 64. Per-
 // expand (per toggle), NOT cumulative — a manual deep path is O(depth-clicked), fine; the violated invariant is per-expand==1.
 //
-// STATED==IMPLEMENTED — asserts EXACTLY: (1) ★ each LAZY expand issues === 1 /children request (PRIMARY, network-INDEPENDENT =
-// the real defect; a latency-only gate false-greens on a fast net while fanning out 64x). (2) expand LATENCY under a throttled
-// ~Tron-Chrome profile (secondary, reported; the COUNT is the hard gate). DERIVE-DON'T-HARDCODE (anti-rot, the r301 lesson):
+// STATED==IMPLEMENTED — asserts EXACTLY, BOTH HARD (a level RED if EITHER fails; (B) DONE only when BOTH hold — PO ruling):
+//   (1) ★ COUNT: each LAZY expand issues === 1 /children request (the MECHANISM; network-INDEPENDENT = the fan-out defect).
+//   (2) ★ LATENCY: expand < 100ms under a throttled ~Tron-Chrome profile (the REQUIREMENT — Tron's AC is '<100ms', NOT '1
+//       request'; count-only would false-green while the 28s task-level client-render still makes Tron wait). Count is the
+//       MECHANISM, latency is the REQUIREMENT — a level may pass count and FAIL latency, and that is RED (a SECOND bottleneck:
+//       measured client-side render, NOT the fan-out — all 3 task-level server calls are 0.4s, yet the client burns ~28s).
+// DERIVE-DON'T-HARDCODE (anti-rot, the r301 lesson):
 // discover the sprint + walk each level from the LIVE tree at runtime — NO literal sprint number/uuid to go stale.
 // STUB-MUST-FAIL / non-vacuous: a POSITIVE control blocks the per-child prefetch (route-abort /children except the target) →
 // count===1 → PASS (proves the gate GREENs when bounded = the architect's fixed state), alongside the natural fan-out → RED.
@@ -112,7 +116,7 @@ const fanOut = measured.filter((r) => !r.countPass);
 const slow = measured.filter((r) => !r.latencyPass);
 const nonVacuous = posControl && posControl.pass; // count===1 is REACHABLE (the gate GREENs when bounded) = not always-RED
 console.log(`\n═══ /trace EXPAND PERF GATE ═══`);
-console.log(`DEFINITION (stated==implemented, architect 732558d07): each LAZY expand issues EXACTLY ${EXPECT_REQUESTS} /children request (network-independent — the real defect). Latency < ${LATENCY_BUDGET_MS}ms @ ${NET_RTT_MS}ms-RTT (secondary). Targets DERIVED from the live tree (no hardcoded sprint = anti-rot, the r301 lesson). FAMILY: perf-AC-gated-on-a-different-surface.`);
+console.log(`DEFINITION (stated==implemented, architect 732558d07 + PO latency-ruling): TWO HARD assertions, both required — (1) COUNT: each LAZY expand === ${EXPECT_REQUESTS} /children request (mechanism, network-independent); (2) LATENCY: expand < ${LATENCY_BUDGET_MS}ms @ ${NET_RTT_MS}ms-RTT (the AC — count-only false-greens while a 28s client-render still makes Tron wait). A level RED if EITHER fails. Targets DERIVED from the live tree (anti-rot, r301 lesson). FAMILY: perf-AC-gated-on-a-different-surface.`);
 for (const r of results) console.log(`  ${String(r.type).padEnd(11)} ${r.missing ? 'NOT-FOUND' : `count=${r.count} (${r.countPass ? 'OK' : 'FAN-OUT'}) latency=${r.ms}ms (${r.latencyPass ? 'OK' : 'SLOW'})`}`);
 console.log(`  NON-VACUOUS (positive control: count===1 reachable with prefetch blocked): ${nonVacuous}`);
 const green = measured.length >= 1 && fanOut.length === 0 && slow.length === 0 && nonVacuous;
