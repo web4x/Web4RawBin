@@ -28,9 +28,9 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] 🧪 [Task 40.17: Live-pin no-refresh — pin-designate updates the sprint tree LIVE @390 (the shipped half of R40.17)](./task-40.17-live-pin-no-refresh.md)
 - [ ] 🧪 [Task 40.18: Pin auto-progress on QA-Review — pin advances BY DERIVATION (explicit-wins-over-auto, lastCompleted-follows-DONE-not-QA), the shipped auto half of the pin mechanism](./task-40.18-pin-auto-progress-qa.md)
 - [ ] ✅ [Task 40.37: Context-sensitive actions — invalid-for-type/status actions are NOT offered (universalActionBar per-action applicability); server guard stays defense-in-depth](./task-40.37-context-sensitive-actions.md)
-- [ ] *bb9dec65-0ff0-4e90-b55b-09a48e5bc40c (not found)*
-- [ ] *b981f1c9-2e08-44f7-a1fa-566c0a2408a0 (not found)*
-- [ ] *800fa79d-a280-4d22-89e2-10b4da10f655 (not found)*
+- [ ] ⏳ [Task 40.62: Render the CR diagram file-artefact — a CR dropped on a diagram renders as a FILE-shaped artefact reusing the existing file/pumlartifact path (no forked CR-diagram kind)](./task-40.62-render-cr-diagram-artefact.md)
+- [ ] ⏳ [Task 40.66: PROD regression — File units carry UUIDs where names belong + lost ownerIor (works on older TEST, broken on PROD)](./task-40.66-file-unit-uuid-name-regression.md)
+- [ ] ⏳ [Task 40.70: Add-folder/add-diagram is MVC-live in the tree + cross-client broadcast — a SECOND PASSIVE client re-renders from the broadcast ALONE (no reload)](./task-40.70-add-folder-live-cross-client-broadcast.md)
 - [ ] ⏳ [Task 40.13: User Admin — thorough merge + delete of prof](./task-40-13-user-admin-thorough-merge-delete-of-prof.md)
 - [ ] ⏳ [Task 40.14: Portable encrypted loginToken — download fro](./task-40-14-portable-encrypted-logintoken-download-fro.md)
 - [ ] ⏳ [Task 40.15: secretCode hardening — hash+salt at rest, ra](./task-40-15-secretcode-hardening-hash-salt-at-rest-ra.md)

@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 213** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 65** (213 = 98+45+3+65)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 61**
+- **TOTAL S30++ tasks: 216** — Done **98** · QA-Review **45** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 68** (216 = 98+45+3+68)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 64**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 30 | 1 | 13 | 0 | 16 |
-| S40 | 63 | 0 | 15 | 0 | 46 |
+| S40 | 66 | 0 | 15 | 0 | 49 |
 
-**ACTIONABLE by blocker:** RIPE 7 · two-key 1 · gate 2 · marker 15 · build 36
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 38
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -71,6 +71,7 @@
 | S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
 | S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
 | S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |
+| S40 | 800fa79d | Planned | build | Task 40.70: Add-folder/add-diagram is MVC-live in the tree + |
 | S40 | 80ab1930 | Planned | build | Task 40.56: Current-task has ONE definition site — pinRo |
 | S40 | 88183260 | Planned | build | Task 40.14: Portable encrypted loginToken — download fro |
 | S40 | 902c6dea | Planned | build | Task 40.36: Scratch boot-smoke gate — a server change fi |
@@ -82,6 +83,8 @@
 | S40 | a93426a1 | Planned | build | Task 40.46: Live code-stamp of lastAdvancedAt on a marke |
 | S40 | b500f345 | Planned | RIPE | Task 40.26: Discover-related completeness: adds the UseC |
 | S40 | b749e786 | Planned | build | Task 40.44: REMOVE the dead /api/current-sprint/designat |
+| S40 | b981f1c9 | Planned | RIPE | Task 40.66: PROD regression — File units carry UUIDs where n |
+| S40 | bb9dec65 | Planned | build | Task 40.62: Render the CR diagram file-artefact — a CR dropp |
 | S40 | bebe4f98 | Planned | marker | Task 40.54: Meta-guard - no requirement is satisfied whi |
 | S40 | bf6c70d8 | Planned | build | Task 40.51: Every Task is reciprocated by exactly one Sp |
 | S40 | c53bc75d | Planned | RIPE | Task 40.19: Protect history back-navigation — an EXECUTI |
