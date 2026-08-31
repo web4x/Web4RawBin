@@ -23,7 +23,7 @@
       "analysisOnly": "NO FIX. Expert fixing the PERF (reverse-parent index, O(1), identical output) WITHOUT touching data = decoupled from this analysis."
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "satisfactionStatus": "UNVERIFIED (analysis-first #126; ANALYSIS-ONLY per PO/expert; needs the ARCHITECT chain-model read to declare which notion is authoritative before any gate is built or data repaired).",
+    "satisfactionStatus": "UNVERIFIED — architect chain-model read RECEIVED (f0c6b06e1); ACs refined to it. Now ANALYSIS-COMPLETE / BUILD-BLOCKED: the cure (derive-back-ref-at-read + coordinate R37.29/R37.32/perf into ONE forward-single-source) is POST-FREEZE + POST-SCRUB (no chain-migration during the PII scrub, architect). The 62% wiring-gap rides R37.29. No parallel guard. PO sequences the build after the scrub + reconcile.",
     "crossRef": [
       "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
@@ -44,18 +44,18 @@
       {
         "id": "AC-one-declared-authoritative",
         "group": "by-construction",
-        "text": "EXACTLY ONE parent notion is declared AUTHORITATIVE (architect chain-model read resolves which + what each MEANS). No unit or consumer may rely on an undeclared 'the parent' — the authoritative notion is a single named source, the other is derived/advisory.",
+        "text": "AUTHORITATIVE = the FORWARD-CHAIN edge (who forward-references the unit); the chain is forward-only (Rule 1). ownerIor + model.parent are DERIVED back-ref views, never a second source; ownerIor SHOULD equal the inverse of the forward edge. For a Task, model.parent=nav-Sprint is a LEGIT DIFFERENT concern (navParent), not drift. A consumer treating a stored back-ref as authoritative => flagged.",
         "gateRef": {
           "kind": "doc+lint",
           "ref": "authoritative-parent declaration",
-          "assertion": "a consumer reading a parent notion NOT declared authoritative (without an explicit reason) => flagged"
+          "assertion": "authority read = the forward edge; a stored back-ref (ownerIor/parent) used as the authoritative parent => flagged"
         },
         "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
       },
       {
         "id": "AC-triage-the-three-subclasses",
         "group": "classification",
-        "text": "The disagreement is triaged into the THREE measured sub-classes, kept distinct (merging destroys meaning, R37.31 lineage): stored-but-no-forward (wiring gap, 62%) vs single-forward-mismatch (two-parents, 23%) vs multi-forward (ambiguous, 15%). Each is counted separately; the wiring-gap bucket is a DATA-INTEGRITY defect (route to R37.29 referential-integrity), the mismatch/ambiguous buckets are the DUAL-MEANING that must be NAMED or repaired.",
+        "text": "The disagreement is triaged to the ARCHITECT-RULED dispositions, kept distinct: (1) 62% stored-but-no-forward = DATA BUG -> route R37.29 (existence!=connection, write-side-dual F8); (2) 23% single-forward!=stored = CLASSIFY chain-vs-nav (LEGIT dual -> NAME chainParent/navParent) vs both-chain (stale-drift -> fix); (3) 15% multi-forward = TYPE-dependent: multi-parent CLASS = LEGIT reuse (R27.2 canonical Class shared across UCs), multi-parent LEAF (Method/Impl/Test) = chain violation -> dedup.",
         "gateRef": {
           "kind": "lint",
           "ref": "parent-discrepancy triage",
@@ -77,11 +77,11 @@
       {
         "id": "AC-no-wrong-notion-credit",
         "group": "correctness",
-        "text": "Nothing that assigns CREDIT (strict-impl, chain-completeness, no-double-credit) may depend on the WRONG notion. If credit uses FWD_SCAN but a stored-but-unwired unit exists, the credit is wrong; if it uses stored but the forward array is authoritative, likewise. The architect read declares which; the gate asserts credit uses ONLY the authoritative notion.",
+        "text": "CREDIT + chain-completeness MUST read the FORWARD edge, NEVER a stored back-ref. A stale back-ref read = FALSE completeness = phantom-coverage at the CHAIN layer (the 62% wiring-gap wearing a green). Checked (creditCheckResult): trace-audit reads forward▸, back-refs are resolve-only = no live false-credit found at grep level; the gate asserts credit reads ONLY the forward edge and RED on any ownerIor-for-credit.",
         "gateRef": {
           "kind": "test",
           "ref": "credit-uses-authoritative-notion",
-          "assertion": "strict-impl/chain-completeness credit computed from the declared-authoritative parent; a credit path reading the other notion => RED"
+          "assertion": "credit/completeness computed from the forward edge; any credit path reading ownerIor/parent as the completeness source => RED (live false-credit)"
         },
         "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
       },
@@ -117,8 +117,33 @@
           "assertion": "each AC maps to a check; an unenforced AC => RED"
         },
         "stubMustFail": "PENDING (scenario-first #126): gate observed RED on the defect this AC forbids before it counts as wired"
+      },
+      {
+        "id": "AC-cure-derive-backref-at-read-single-source",
+        "group": "by-construction",
+        "text": "CURE (post-freeze/post-scrub, NO chain-migration during the PII scrub): the back-ref is DERIVED from forward refs at READ-time (a reverse-index, same shape as the approved perf parent-index), so a stored back-ref cannot DRIFT from the forward edge by construction (single-source). R37.29 + R37.32 + the perf reverse-parent-index are ONE forward-single-source mechanism, not three parallel guards; the 62% wiring-gap fix RIDES R37.29.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "forward-single-source (one mechanism)",
+          "assertion": "back-ref is read-time-derived from forward refs; a STORED back-ref that can diverge from the forward edge => flagged; a parallel 2nd guard duplicating R37.29 => flagged"
+        },
+        "stubMustFail": "PENDING (post-scrub): mutate a stored back-ref away from its forward edge => the derived value ignores it / flags the stale store"
+      },
+      {
+        "id": "AC-collapse-stored-parent-to-one",
+        "group": "single-source",
+        "text": "The stored back-ref is ONE field, not the current split (ownerIor 24 vs model.parent 1350 = a 3rd copy). Collapse to one derived-at-read back-ref; a Task's nav-Sprint (navParent) is a NAMED separate concern, not a competing copy of the chain parent.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "single-stored-parent-field",
+          "assertion": "a unit carrying BOTH ownerIor and model.parent as chain-parent copies => flagged; navParent named-distinct => allowed"
+        },
+        "stubMustFail": "PENDING (post-scrub): a unit with ownerIor and model.parent disagreeing as chain-parent => flagged"
       }
-    ]
+    ],
+    "architectRuling": "architect design-r37.32-parent-notion-authority.md (f0c6b06e1), 2026-08-31: AUTHORITATIVE = the FORWARD-CHAIN edge (who forward-references the unit; chain is forward-only by Rule 1). ownerIor + model.parent are DENORMALIZED BACK-REF views that DRIFTED — the 20.8% disagreement IS the drift (the whole-session stored-copy-nothing-keeps-true disease). ownerIor SHOULD be the inverse of the forward edge; model.parent is the legacy back-ref (for a Task = the nav-Sprint, a LEGIT different concern per Rule 1). ownerIor(24)-vs-model.parent(1350) = a 3rd copy = collapse to one. CURE (post-freeze/post-scrub, NO chain-migration during the PII scrub): DERIVE the back-ref from forward refs at READ-time (reverse-index) = kills drift by construction, single-source. COORDINATE R37.29 + R37.32 + the perf reverse-parent-index into ONE forward-single-source mechanism, not 3; the 62% wiring-gap fix RIDES R37.29 (no parallel guard).",
+    "creditCheckResult": "robbin-req checked (architect's Q3, grep-level not full-runtime): the chain/completeness auditor trace-audit.ts models forward▸ as the chain (line 43) and treats parent/@ownerIor as BACK-EDGES-that-must-RESOLVE (line 253, R37.29-style referential integrity), NOT as the completeness authority. The ownerIor references in src/ts/scenario/*.ts (WebItem/message-unit/AddressIndex/CompanyIndex) are MINT-TIME WRITES, not credit READS. => NO live false-credit bug FOUND at grep level. LIMIT stated: this is grep, not a full runtime trace of the completeness computation; architect confirms the runtime credit path reads the forward edge definitively. If any credit path is later found reading ownerIor => a live false-credit bug (62% wiring-gap wearing green = phantom-coverage at the chain layer).",
+    "rulingRefinement": "ACs below refined from the analysis-first framing (which posed the 3 questions) to the architect ruling (forward=authoritative, back-refs=derived-single-source). The pre-ruling framing is preserved in discoverySource.reqMeasured + this note (annotate-not-erase)."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
