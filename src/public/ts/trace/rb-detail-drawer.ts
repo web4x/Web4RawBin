@@ -319,6 +319,14 @@ export class RbDetailDrawer extends HTMLElement {
       el.setAttribute('uuid', uuid);
       el.setAttribute('ref', ref); // reuse: attributeChangedCallback → the element funnel renders once per ref-change (no-op if unchanged)
     }
+    // R40.01 REGRESSION FIX (by-construction — R34.7 INV-E1, INV-E3 no-fork-no-regression): the SHARED DRAWER emits the
+    // action-bar signal itself for EVERY mount, exactly like the sprint-inline path (:288). e55e5de7e (AXIS-3) had moved
+    // the trigger onto the detail ELEMENT self-dispatching rb-drawer-detail-shown on its own render — but rb-terminal-detail
+    // extends HTMLElement, NOT RbDetailBase, so it never self-dispatched → the otmuxpane/terminal mount got NO bar (Tron's
+    // R40.01 regression). Emitting from the drawer restores ONE trigger for ALL 7 mount sites and, crucially, any FUTURE
+    // detail element that does not extend the base keeps its bar BY CONSTRUCTION. Idempotent: universalActionBar re-derives
+    // (R40.45), so a RbDetailBase element that also self-dispatches just re-runs it harmlessly (no double-render).
+    this.showActionsForType(type, ref);
   }
 
   // R37.24 inc2 AXIS-2: resolveDetailUnit + the _fallbackGraph it built are DELETED. That fallback was the THIN second
