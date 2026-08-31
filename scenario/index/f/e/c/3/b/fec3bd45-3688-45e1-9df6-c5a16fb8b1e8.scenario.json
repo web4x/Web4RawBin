@@ -116,8 +116,21 @@
           "assertion": "every AC here maps to a check in the lint; an AC with no enforcing check => RED (R40.54 failable-family)"
         },
         "stubMustFail": "PENDING: an AC here with no mapped check in the lint => RED"
+      },
+      {
+        "id": "AC-discovers-un-tasked-acs",
+        "group": "phantom-coverage-family",
+        "text": "PHANTOM-COVERAGE, ONE SHAPE / TWO LAYERS (PO 2026-08-31): the same disease as un-invoked gates, one layer up — an AC that EXISTS on a requirement but has NO implementing TASK 'looks covered, nothing implements it'. Exemplar: R40.62 AC-render-diagram-file-artefact existed since commit 1cbe69cd2 with no task (metaFindingAcNeverTasked). The guard DISCOVERS un-tasked ACs the SAME way it discovers un-invoked gates: glob all requirement ACs, and an AC not reachable from any Task's coveredRequirements-with-an-implementing-plan is REPORTED (with count), discovered-not-hand-listed. Un-invoked gate (a gate that never RUNS) and un-tasked AC (an AC that is never IMPLEMENTED) are two members of one phantom-coverage family: both read as coverage on a board and neither protects anything.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:phantom-coverage (gate-invocation + ac-tasking)",
+          "assertion": "an AC with no implementing task => reported as un-tasked (count published); an un-invoked gate => reported as un-invoked; same discovered-not-hand-listed sweep, two layers"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): mint an AC with no implementing task => the guard reports it un-tasked (a green board over an un-tasked AC => the AC fails)"
       }
-    ]
+    ],
+    "phantomCoverageFamily": "Named family (PO 2026-08-31): PHANTOM-COVERAGE = exists-on-the-board / protects-nothing. Members: (1) UN-INVOKED GATE — a test/visual gate committed but in no runner (272/4 measured); (2) UN-TASKED AC — an AC minted on a req but never given an implementing task (R40.62 diagram-artefact since 1cbe69cd2, metaFindingAcNeverTasked). One discovered-not-hand-listed shape, two layers. Sibling of R37.30 scale-invariance (compute-flat) — all three = a property that is INVISIBLE unless discovered by measuring, never by a hand-list.",
+    "strengthenLog": "2026-08-31 APPEND (PO): +AC-discovers-un-tasked-acs + phantomCoverageFamily note. APPEND-ONLY, 0 existing ACs touched. The un-tasked-AC layer came from the P4 finding (R40.62 AC never tasked) — the PO asked to encode it as the sibling of un-invoked-gate."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

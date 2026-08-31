@@ -135,7 +135,8 @@
       "preRouteLegit": "27 sites before the first route = module/boot/CLI/helper scope where a full scan is CORRECT (boot warm-up, one-shot tooling). O(total) is legitimate there; the invariant applies to REQUEST paths only.",
       "invariantScopeNote": "AC-compute-o-children-not-o-total applies to the 31 request-path sites (confirm per-site). Priority: /api/trace family (9) + /api/model (2) + /api/ior (1) = the 12 Tron directly touches, then /api/bug-status (4) /profile (3) /current-sprint/designate (2). This scope is what stops R37.30 reading as 'fixed' when only 1 path was.",
       "sequencing": "PO sequences the fixes BEHIND the branch reconcile; analysis-only, nobody builds off this yet."
-    }
+    },
+    "expertMeasuredResidual": "robbin-expert v0.8.150 (d827bd00e), measured localhost pure-compute: CR double-scan (:2992 + :3028 append) FIXED = Task-with-forward-children ~0.40s->0.018s (22x), badge-correct (reverse-index==full-scan, 0 mismatch). ★ THIRD O(total) path DISCOVERED BY MEASURING (validates AC-discovered-by-measuring-not-hand-listed): scanRepo(sprints,src,test) = a SEPARATE O(repo) full-scan that f68abf777 NEVER named — nodes whose forwardKeysForMode() yields EMPTY childRefs (Tests e.g. c4f8a1d6 = impls+CRs no trace-forward-key, + CurrentSprint eager path) fall through to it at ~0.35-0.60s. So: O(children) nodes = ~18ms server + ~80ms RTT = ~100ms (MEETS AC-achievable-latency); empty-forward/Test/Sprint nodes = ~0.4s+80 = ~480ms > floor (would RED on scanRepo, outside the CR-scan fix). Confirms hazardTriageScope: the CLASS is not fixed, one more path found by measuring not by the line-list. scanRepo scope-call = architect/PO (expert will not self-expand; recommend v0.8.151 SWR-cache-or-skip). Recorded as R37.30 invariant scope, not a ruling."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
