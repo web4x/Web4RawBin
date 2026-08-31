@@ -6,7 +6,9 @@
     "name": "Referential integrity — every ref resolves in the tree it is committed to (write-side dual of R37.1; carry-complete-or-fail-loud)",
     "description": "REFERENTIAL-INTEGRITY guard = the WRITE-side dual of R37.1's read-side fail-closed. ANY ref a unit carries — sprint.tasks[], ownerIor, parent/child, coveredRequirements, useCases, or any chain link — that does NOT RESOLVE IN THE TREE IT IS COMMITTED TO is RED. A single-tree orphan-audit (R27.4/R40.43) MISSES the cross-branch/partial-carry class because the ref resolves on the OTHER branch: this session's 47-tasks-invisible incident + the 4 cross-branch chains (units on main, tasks/markers/gates on hotfix) are that class. Enforced BOTH (a) as a DATA-CARRY gate — a cross-branch/tree carry is referentially COMPLETE (every carried ref resolves in the TARGET tree) or FAILS LOUD, never a silent partial-carry; AND (b) in ci:gates (trace-audit family) — a committed tree with a ref that doesn't resolve in-tree => RED. Repairing the individual dangling units leaves the CAUSE (incomplete carry) alive — this kills the cause. Doctrine: DISCOVERED-not-hand-listed (glob every ref-bearing unit), STUB-MUST-FAIL (plant a dangling ref -> RED), STATED==IMPLEMENTED.",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9b140eee-14fe-4276-b7ce-7cbdfccfee83"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:02c03f7e-d694-4b87-8837-39ed7f137441"
