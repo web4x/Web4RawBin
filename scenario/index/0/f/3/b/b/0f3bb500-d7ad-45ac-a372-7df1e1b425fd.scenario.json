@@ -105,7 +105,37 @@
         },
         "stubMustFail": "PENDING (scenario-first #126): the gate's stub, fed the defect this AC forbids, observed RED before it counts as wired"
       }
-    ]
+    ],
+    "hazardTriageScope": {
+      "measuredBy": "robbin-req first-hand 2026-08-31 (PO-directed, analysis-only)",
+      "method": "grep idx.list()/new-ScenarioIndex in server.ts; attribute each to nearest preceding `filepath ===/startsWith` route. HEURISTIC: a site in a helper fn defined between routes can mis-attribute; the request-path count is an UPPER BOUND needing per-site confirmation before any fix. Names the limit, does not hide it.",
+      "total": 58,
+      "requestPathAttributed": 31,
+      "preRouteBootCliModule": 27,
+      "finding": "The expert fixed TWO sites, BOTH on /api/trace/children (the path Tron hit). The DEFECT CLASS is not fixed — ~29 other request-path O(total) sites remain across ~16 endpoints. Any of them taxes the next user 0.4s+ and reads as a NEW regression we will have 'already fixed'.",
+      "requestPathOffendersByEndpoint_TronTouchFirst": {
+        "/api/trace": 2,
+        "/api/trace/children/": 4,
+        "/api/trace/roots": 2,
+        "/api/trace/sprints": 1,
+        "/api/model/tree": 1,
+        "/api/model/diagram/add-view": 1,
+        "/api/ior/": 1,
+        "/api/bug-status": 4,
+        "/profile": 3,
+        "/api/current-sprint/designate": 2,
+        "/api/room/": 2,
+        "/api/federation/import": 2,
+        "/api/gate-status": 2,
+        "/api/server-manager/tree": 1,
+        "/api/phone/": 1,
+        "/api/company/suggest": 1,
+        "/api/address/": 1
+      },
+      "preRouteLegit": "27 sites before the first route = module/boot/CLI/helper scope where a full scan is CORRECT (boot warm-up, one-shot tooling). O(total) is legitimate there; the invariant applies to REQUEST paths only.",
+      "invariantScopeNote": "AC-compute-o-children-not-o-total applies to the 31 request-path sites (confirm per-site). Priority: /api/trace family (9) + /api/model (2) + /api/ior (1) = the 12 Tron directly touches, then /api/bug-status (4) /profile (3) /current-sprint/designate (2). This scope is what stops R37.30 reading as 'fixed' when only 1 path was.",
+      "sequencing": "PO sequences the fixes BEHIND the branch reconcile; analysis-only, nobody builds off this yet."
+    }
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
