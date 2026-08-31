@@ -3111,9 +3111,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             }
           }
         }
-        const rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
+        let rawSource = String(unit.model?.sourceFile || '').replace('ior:file:', '');
+        let derivedLine: number | undefined;
+        // T36.3 (R40.71): 344/657 Method units carry NO sourceFile of their own → the detail rendered a bare header
+        // (name+uuid, no source link), the code location buried only in the chain's Implementation row. Derive the
+        // method's source from its implementation so the surface shows "📂 file:line" like an enriched method. Serve-time
+        // (no scenario-unit write — the model's own field is unchanged); 328/344 are derivable via impl.sourceFile.
+        if ((!rawSource || rawSource.includes('.scenario.json')) && type === 'Method') {
+          const impls = Array.isArray(unit.model?.implementations) ? (unit.model!.implementations as unknown[]) : [];
+          for (const iref of impls) {
+            const iu = idx.get(String(iref).replace('ior:instance:', ''));
+            const im = (iu?.model as Record<string, unknown>) || {};
+            const isf = String(im.sourceFile || '').replace('ior:file:', '');
+            if (isf && !isf.includes('.scenario.json')) { rawSource = isf; derivedLine = (im.sourceLine as number) || undefined; break; }
+          }
+        }
         const sourceFile = (rawSource && !rawSource.includes('.scenario.json')) ? rawSource : undefined;
-        const sourceLine = sourceFile ? ((unit.model?.sourceLine as number) || undefined) : undefined;
+        const sourceLine = sourceFile ? (((unit.model?.sourceLine as number) || derivedLine) || undefined) : undefined;
         const extra: Record<string, unknown> = {};
         if (type === 'Room') { extra.mode = unit.model?.mode; extra.visibility = unit.model?.visibility; extra.memberCount = Array.isArray(unit.model?.members) ? (unit.model.members as unknown[]).length : 0; extra.fileCount = Array.isArray(unit.model?.files) ? (unit.model.files as unknown[]).length : 0; }
         // R40.11 slice-3 (AC-3): the unit's own type-driven SCALAR fields, so ONE GENERIC default view renders
