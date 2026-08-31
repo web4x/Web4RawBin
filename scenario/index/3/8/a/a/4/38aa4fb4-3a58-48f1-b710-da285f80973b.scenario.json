@@ -100,8 +100,31 @@
           "assertion": "every ref-kind + both enforcement halves stated in this req are actually enforced; a claimed-but-unchecked ref-kind => RED"
         },
         "stubMustFail": "PENDING (scenario-first #126): seed a ref-kind listed in scope but not enforced by the guard => RED (stated!=implemented)"
+      },
+      {
+        "id": "AC-report-all-not-abort-first",
+        "group": "completeness",
+        "text": "The guard REPORTS ALL unresolvable refs in ONE full/fixpoint sweep — it NEVER aborts on the first. A fail-closed error message names only WHERE IT STOPPED, not the full damage: today two agents under-scoped this P0 (they fixed 3 and 5 refs) because they scoped from the error message; the TRUE set was 10, found only by a full sweep. The guard's output is the COMPLETE per-unit set of dangling refs, not the first refusal.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "referential-integrity full-sweep (report-all)",
+          "assertion": "N dangling refs across the corpus => all N reported in one pass; the guard does NOT stop at the first unresolvable ref"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): plant 3 dangling refs across 2 sprints => the guard reports ALL 3 (a report of only the first => the AC fails)"
+      },
+      {
+        "id": "AC-cover-frozen-sprints",
+        "group": "coverage",
+        "text": "The guard walks the FULL committed corpus including FROZEN sprints (<=18), not only current-era. The expert verified frozen sprints clean today, but a guard that walks only current-era reports a FALSE all-clear when a frozen-sprint ref dangles. Coverage is the whole corpus (discovered-not-hand-listed), frozen included; the coverage count is reported so a narrowed walk is visible, never silent.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "referential-integrity coverage=full-corpus",
+          "assertion": "a dangling ref in a frozen (<=18) sprint => RED; the reported coverage count == the full committed sprint set, not just current-era"
+        },
+        "stubMustFail": "PENDING (scenario-first #126): plant a dangling ref in a FROZEN (<=18) sprint => RED (not skipped as out-of-era / not a false all-clear)"
       }
-    ]
+    ],
+    "strengthenLog": "2026-08-31 (robbin-req, PO BRIEF-req-queue.md P1): APPENDED AC-report-all-not-abort-first + AC-cover-frozen-sprints. APPEND-ONLY — 0 existing ACs rewritten/removed (PO guardrail: a strengthen that replaces ACs is a rewrite that silently orphans dependents = how bb9dec65/R40.62 lost its render scope). Provenance: today two agents under-scoped the P0 from the fail-closed error message (named only where it stopped); true dangling set was 10 vs scoped 3/5 — hence report-ALL-via-full-sweep. Frozen-<=18 coverage added because a current-era-only walk gives a false all-clear."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
