@@ -6,7 +6,9 @@
     "name": "Method/Class detail panel shows NO code location — a user clicks a method and gets a bare, useless panel @390",
     "description": "USER-VISIBLE DEFECT (architect+expert prod sweep, served v0.8.150). A user clicks a Method or Class in /trace or /model and the detail panel opens BARE: the red 'Method' badge + the name + the uuid, but NO source-file link, NO description body, empty sections = nothing to act on. MEASURED (robbin-req reproduced architect exactly): 344/657 Method units (52%) + 60/192 Class units (31%) have no model.sourceFile. Root (expert): sourceFile absent -> renderSourceLink() returns '' in rb-method-detail (fetchDetailData -> /api/trace/children data.sourceFile). ★ DERIVABLE: 328 of the 344 methods HAVE an implementation that carries sourceFile (the FORWARD edge, R37.32) = the fix derives the link from impl.sourceFile.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:f431c5a4-61a1-47b0-ac92-7ff138c1534c"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:b9d8950e-c54b-4e9a-8e44-60e1d77459fb"
