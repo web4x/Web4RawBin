@@ -197,7 +197,60 @@ const publishUnitChanged: (ior: string, uuid: string) => void = (ior, uuid) => {
     const CSU = 'current-sprint-singleton-0000-000000000001';
     wsClients.forEach((c) => { if (c.ws.readyState === 1) c.ws.send(JSON.stringify({ type: 'unit-changed', ior: 'ior:class:CurrentSprint', uuid: CSU })); });
   }
+  // BRIEF server-perf-fix (freshness path #1 — server-side CR writes): EVERY server unit-write routes through the ONE
+  // mutation seam UnitController._write → publishUnitChanged(ior,uuid) (lint forbids idx.put outside it), so hooking here
+  // covers mint (declineToChangeRequest→create), approve (apply), and ANY future CR write BY CONSTRUCTION — one place.
+  // O(1) INCREMENTAL update (NOT a scan, NOT a block) so the write is reflected on the VERY NEXT request — PO ruling on (b):
+  // gate determinism, a blocking rebuild would make one-in-N requests slow → flaky latency gate.
+  if (ior === 'ior:class:ChangeRequest') noteCrWrite(uuid);
 };
+
+// BRIEF server-perf-fix: CR-owner REVERSE-INDEX (ownerUuid → the ChangeRequest uuids parented to it by ownerIor). Kills the
+// two O(total-units) full-index scans on /api/trace/children (was: `for (cru of idx.list()) { idx.get(cru) }` ×2 per request,
+// ~5777 file-read+JSON.parse each — the fixed ~0.4s independent of children count). Consumers query O(this-node's-CRs); NO
+// request path ever BLOCKS on idx.list()/a full scan (PO ruling on assertion (b): steady-state AND worst-case request are
+// O(children)). CR STATUS is NOT cached here — the append consumer still idx.get()s each CR (get = always disk-fresh, no
+// content cache), so approve/decline status is always current; the index holds OWNERSHIP only.
+// FRESHNESS (two paths, both deterministic — no request waits on the scan):
+//   (#1) SERVER CR writes → noteCrWrite() via the publishUnitChanged seam above: O(1) incremental add, reflected next request
+//        immediately. Disable it → server mint not reflected next request = RED (stub-must-fail).
+//   (#2) EXTERNAL disk writes (carry / generate-project / any process writing CR units under a running server — T36.3 + the
+//        14-unit carry precedent) → STALE-WHILE-REVALIDATE (PO ruling): on TTL expiry serve the CURRENT (≤5s-stale) map
+//        INSTANTLY and rebuild ASYNC off the request path (setImmediate). Staleness ≤ CR_INDEX_TTL_MS + one async rebuild,
+//        STATED. Disable the async rebuild → carry never reflected = RED. (Not a fixed interval: SWR = no-block + event-driven
+//        freshness from #1 + no idle CPU burn.)
+// Built EAGERLY at server boot (warmCrOwnerIndex) so even the first request never blocks on the cold build.
+const PROD_SCENARIO_DIR = path.join(__dirname, '../../../scenario/index');
+let crOwnerIndex: Map<string, string[]> | null = null;
+let crOwnerBuiltAt = 0;
+let crOwnerRebuilding = false;
+const CR_INDEX_TTL_MS = 5000; // disk-change SWR safety-net window; == ScenarioIndex.list() TTL. STATED bound for the staleness gate.
+function buildCrOwnerIndex(idx: ScenarioIndex): Map<string, string[]> {
+  const m = new Map<string, string[]>();
+  for (const cru of idx.list()) { const cu = idx.get(cru); if (cu?.ior === 'ior:class:ChangeRequest') { const o = String(cu.ownerIor || '').replace('ior:instance:', ''); if (o) { const arr = m.get(o); if (arr) arr.push(cru); else m.set(o, [cru]); } } }
+  return m;
+}
+function warmCrOwnerIndex(idx: ScenarioIndex): void { crOwnerIndex = buildCrOwnerIndex(idx); crOwnerBuiltAt = Date.now(); }
+// SWR read: NEVER blocks except the one-time cold build (eliminated by warmCrOwnerIndex at boot). Past-TTL → serve stale now + async rebuild.
+function getCrOwnerIndex(idx: ScenarioIndex): Map<string, string[]> {
+  if (!crOwnerIndex) { warmCrOwnerIndex(idx); return crOwnerIndex!; }
+  if ((Date.now() - crOwnerBuiltAt) > CR_INDEX_TTL_MS && !crOwnerRebuilding) {
+    crOwnerRebuilding = true;
+    setImmediate(() => { try { const m = buildCrOwnerIndex(idx); crOwnerIndex = m; crOwnerBuiltAt = Date.now(); } catch { /* keep serving prior map */ } finally { crOwnerRebuilding = false; } });
+  }
+  return crOwnerIndex;
+}
+// #1 incremental: read the just-written CR's ownerIor (one O(1) disk read; get() is always fresh) and ensure it is in the map.
+// Covers mint (add). No CR delete/re-own path exists server-side today; the #2 SWR rebuild reconciles anything external.
+function noteCrWrite(crUuid: string): void {
+  if (!crOwnerIndex) return; // not warmed yet → the first getCrOwnerIndex build will include this CR
+  try {
+    const cu = new ScenarioIndex(PROD_SCENARIO_DIR).get(crUuid);
+    if (cu?.ior !== 'ior:class:ChangeRequest') return;
+    const o = String(cu.ownerIor || '').replace('ior:instance:', ''); if (!o) return;
+    const arr = crOwnerIndex.get(o); if (arr) { if (!arr.includes(crUuid)) arr.push(crUuid); } else crOwnerIndex.set(o, [crUuid]);
+  } catch { /* incremental best-effort; #2 SWR reconciles */ }
+}
 const tokenToClient = new Map<string, string>();
 let totalRequests = 0;
 
@@ -2988,8 +3041,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // chevron) → the client never requested its children → R40.61's reverse-CR append never ran on the RENDER path.
         // Count reverse-ownerIor CRs into every child's childCount (once-per-request map) so an owner-of-CRs advertises a
         // chevron and is EXPANDABLE. Pairs with the R40.61 append below (same ownerIor link, no data change, no migration).
-        const crOwnerCounts = new Map<string, number>();
-        for (const cru of idx.list()) { const cu = idx.get(cru); if (cu?.ior === 'ior:class:ChangeRequest') { const o = String(cu.ownerIor || '').replace('ior:instance:', ''); if (o) crOwnerCounts.set(o, (crOwnerCounts.get(o) || 0) + 1); } }
+        // BRIEF server-perf-fix: was an O(total-units) full-index scan here EVERY request. Now the warm CR-owner reverse-index
+        // (built once, invalidated on CR write + bounded 5s TTL) → per-child count is O(1) = O(children) total, no idx.list() on the render path.
+        const crOwnerIdx = getCrOwnerIndex(idx);
         const children = childRefs.filter(ref => ref !== uuid).map(ref => {
           const child = idx.get(ref);
           if (child) {
@@ -3006,7 +3060,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               const addRef = (r: unknown): void => { const s = String((typeof r === 'object' && r) ? ((r as { ior?: string; uuid?: string }).ior || (r as { ior?: string; uuid?: string }).uuid || '') : r).replace('ior:instance:', ''); if (/^[0-9a-f]{8}-/.test(s)) cRefSet.add(s); };
               if (Array.isArray(v)) v.forEach(addRef); else if (typeof v === 'string') addRef(v);
             }
-            const childCount = cRefSet.size + (crOwnerCounts.get(ref) || 0); // R40.64: + reverse-CR children so a CR-owner (Test/Task) is expandable
+            const childCount = cRefSet.size + (crOwnerIdx.get(ref)?.length || 0); // R40.64: + reverse-CR children (O(1) from the warm reverse-index) so a CR-owner (Test/Task) is expandable
             const childStatus = ct === 'Gate' ? String(childModel.verdict || childModel.status || '') : String(childModel.status || '');
             // R22.3 per-child sourceFile+sourceLine (mirrors top-level logic below) — plumbing in an anon route callback, no chain Method
             const cRawSrc = String(childModel.sourceFile || '').replace('ior:file:', '');
@@ -3024,11 +3078,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // append CR children by REVERSE ownerIor lookup — this FOLLOWS THE EXISTING parent link Tron confirmed is correct
         // (ownerIor→Test stays; NO re-parent, NO data write, NO migration, chain-config untouched). SCOPED to ChangeRequest so
         // no other type's tree shape changes. Leaf node (hasChildren:false) → click opens its detail, never cycles back to the parent.
+        // BRIEF server-perf-fix: was a SECOND O(total-units) full-index scan here (find CRs whose ownerIor === this node).
+        // Now O(this-node's-CRs) via the warm reverse-index — only THIS node's CR uuids, each idx.get() fresh (status current).
         const fwdChildUuids = new Set((children as Array<Record<string, unknown>>).map((c) => String(c.uuid)));
-        for (const cru of idx.list()) {
+        for (const cru of (crOwnerIdx.get(uuid) || [])) {
           const cu = idx.get(cru);
-          if (!cu || cu.ior !== 'ior:class:ChangeRequest') continue;
-          if (String(cu.ownerIor || '').replace('ior:instance:', '') !== uuid) continue; // only CRs whose PARENT is this node
+          if (!cu || cu.ior !== 'ior:class:ChangeRequest') continue; // index maps ownership; get() confirms current type/status from disk
+          if (String(cu.ownerIor || '').replace('ior:instance:', '') !== uuid) continue; // re-confirm fresh ownerIor (guards any external re-own before the SWR rebuild — wrong badge > slow)
           const cm = cu.model as Record<string, unknown>;
           const cuUuid = String(cm.uuid || cru);
           if (fwdChildUuids.has(cuUuid)) continue; // never double-render
@@ -3797,6 +3853,7 @@ async function startServers(httpOnly: boolean = false): Promise<void> {
       setupWebSocketServer(httpsServer);
       void PtyBridge.reapOrphans(addLog); // R31.4 boot-sweep: kill stale sm_* grouped sessions orphaned by a prior restart/crash (none attached at boot → safe)
       FeatureManager.bootstrapSeed(); // R31.8 boot: idempotently seed the hardcoded owner into ServerManager+FeatureManager allowedUsers (seeded membership, INV-G2==1) — no grant path exists that doesn't originate at the owner
+      try { warmCrOwnerIndex(new ScenarioIndex(PROD_SCENARIO_DIR)); } catch { /* first /children request builds it lazily */ } // BRIEF server-perf-fix: eager-warm the CR-owner reverse-index so even the FIRST request never blocks on the cold scan
     } catch { await startServers(true); }
   }
 }
