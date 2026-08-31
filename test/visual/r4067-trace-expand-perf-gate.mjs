@@ -34,9 +34,13 @@ function structuralAssertion() {
     const start = src.indexOf("filepath.startsWith('/api/trace/children/')");
     const end = src.indexOf("filepath.startsWith('/api/ior/')", start + 1);
     if (start < 0 || end <= start) return { scans: -1, pass: false, note: 'anchors-not-found (route strings changed — update the gate)' };
-    const region = src.slice(start, end);
-    const scans = (region.match(/idx\.list\(\)/g) || []).length;
-    return { scans, pass: scans === 0, note: scans === 0 ? 'O(children)' : `${scans} full-index-scan(s) on the children path — O(total-units) per request` };
+    // strip // line-comments FIRST — else the count matches the literal 'idx.list()' inside a comment like
+    // "no idx.list() on the render path" (a marker-gate must never match its own MENTION — caught v0.8.150).
+    const region = src.slice(start, end).replace(/\/\/[^\n]*/g, '');
+    const idxScans = (region.match(/idx\.list\(\)/g) || []).length;   // parent-scan fallback (server.ts:~3104, parentless nodes)
+    const scanRepo = (region.match(/scanRepo\(/g) || []).length;      // O(repo) empty-forward fallback (~3026, v0.8.151)
+    const scans = idxScans + scanRepo;
+    return { scans, idxScans, scanRepo, pass: scans === 0, note: scans === 0 ? 'O(children) — no full-scan on the request path' : `${idxScans} idx.list() (parent-scan, parentless nodes) + ${scanRepo} scanRepo (empty-forward, v0.8.151) = ${scans} O(total) source(s) on the children path [CR double-scan REMOVED in v0.8.150 ✓]` };
   } catch (e) { return { scans: -1, pass: false, note: `read-failed: ${String(e && e.message).slice(0, 80)}` }; }
 }
 
@@ -47,7 +51,12 @@ let foundation = null;
 if (process.env.GATE_BUILDDIST) { const { setupFoundation } = await import('./r4031-foundation.mjs'); foundation = await setupFoundation({ buildDist: true }); BASE = foundation.base; console.log(`(buildDist scratch from HEAD ${foundation.worktreeSha}, v${foundation.servedVersion})`); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const EXPECT_REQUESTS = 1;     // architect 732558d07: EXACTLY 1 /children per lazy expand (the node's own children).
-const LATENCY_BUDGET_MS = 100; // req 94c1211c "~100ms". Measured under the throttled profile.
+// MEASURED FLOOR (v0.8.150 prod, robbin-tester, replacing the aspirational 100ms per PO ruling — a bare 100ms rots like
+// r301): O(children) nodes (Task/UseCase/Method, ownerIor resolves parent O(1)) = ~18ms server + ~80ms RTT = ~95ms
+// observed → GREEN threshold 150ms (floor + margin). O(total) RESIDUALS (v0.8.151, do NOT green, do NOT false-RED-blame
+// the CR fix): (A) PARENT-SCAN idx.list() (server.ts:~3104) → parentLESS nodes (Sprint/top-level, no ownerIor) ~330ms;
+// (B) scanRepo (~3026) → empty-forward nodes (Test/CR-owner/CurrentSprint-eager) ~375ms. CR double-scan REMOVED v0.8.150.
+const LATENCY_BUDGET_MS = 150; // measured O(children) floor (~95ms) + margin. O(total) residuals classified separately below.
 const NET_RTT_MS = 80;         // realistic desktop RTT (NOT loopback) so the fan-out serialises like Tron sees it.
 const childOf = (url) => { const m = /\/api\/trace\/children\/([^?]+)/.exec(url); return m ? decodeURIComponent(m[1]) : null; };
 
@@ -148,6 +157,6 @@ console.log(`DEFINITION (stated==implemented, architect 732558d07 + PO latency-r
 for (const r of results) console.log(`  ${String(r.type).padEnd(11)} ${r.missing ? 'NOT-FOUND' : `count=${r.count} (${r.clabel}) latency=${r.ms}ms (${r.latencyPass ? 'OK' : 'SLOW'})`}`);
 console.log(`  NON-VACUOUS (positive control: count===1 reachable with prefetch blocked): ${nonVacuous}`);
 const green = measured.length >= 1 && fanOut.length === 0 && slow.length === 0 && nonVacuous && structural.pass;
-console.log(`\nVERDICT: ${green ? 'GREEN — (a) every lazy expand O(1)-bounded (===1) + (b) server O(children) no full-scan + (c) within budget' : 'RED (baseline — the fix has targets) — (a)FAN-OUT: [' + fanOut.map((r) => r.type + ':' + r.count + 'req').join(', ') + '] (c)SLOW: [' + slow.map((r) => r.type + ':' + r.ms + 'ms').join(', ') + '] (b)STRUCTURAL: ' + (structural.pass ? 'ok' : structural.scans + ' full-index-scan(s) on the children path') + '. (a) client fan-out=prefetchVisibleLayer(rb-trace-tree:644); (b) server O(total) scan=server.ts:2992/3028/3048 → cached CR-owner reverse-index. HOLD until all three assertions GREEN.'}`);
-console.log(`NOTE (c): LATENCY budget ${LATENCY_BUDGET_MS}ms @ ${NET_RTT_MS}ms-RTT is the ASPIRATIONAL placeholder — reset to the MEASURED achievable floor (O(children) + 1 RTT) once the fix is measurable in GATE_BUILDDIST mode (PO ruling: a bare 100ms rots like r301).`);
+console.log(`\nVERDICT: ${green ? 'GREEN — (a) every lazy expand O(1)-bounded (===1) + (b) server O(children) no full-scan + (c) within budget' : 'RED (baseline — the fix has targets) — (a)FAN-OUT: [' + fanOut.map((r) => r.type + ':' + r.count + 'req').join(', ') + '] (c)SLOW: [' + slow.map((r) => r.type + ':' + r.ms + 'ms').join(', ') + '] (b)STRUCTURAL: ' + (structural.pass ? 'ok' : structural.scans + ' O(total) source(s): ' + structural.idxScans + ' parent-scan idx.list()(:3104) + ' + structural.scanRepo + ' scanRepo(:3026, v0.8.151)') + '. (a) client fan-out=prefetchVisibleLayer(rb-trace-tree:644); (b) residuals: parent-scan(parentless nodes) + scanRepo(empty-forward) — CR double-scan already removed v0.8.150. HOLD until v0.8.151 clears both.'}`);
+console.log(`NOTE (c) PER-NODE-TYPE (measured v0.8.150): budget ${LATENCY_BUDGET_MS}ms = the MEASURED O(children) floor (~95ms + margin), NOT aspirational. O(children) nodes (Task/UseCase/Method, ownerIor→parent O(1)) GREEN ~95ms. TWO O(total) RESIDUALS still SLOW, classified separately, PENDING v0.8.151 (do NOT green, do NOT false-RED-blame the CR fix): (A) parent-scan idx.list() server.ts:~3104 → parentLESS nodes (Sprint ~330ms, flat across childCount 5→66); (B) scanRepo ~3026 → empty-forward nodes (Test/CR-owner ~375ms). (b) STRUCTURAL now counts BOTH sources (idx.list()=${structural.idxScans} parent-scan + scanRepo=${structural.scanRepo}); CR double-scan removed ✓. (c)+(b) STAY RED overall until v0.8.151 clears both — a RED is a valid deliverable.`);
 process.exit(green ? 0 : 1);
