@@ -4,7 +4,7 @@
     "uuid": "0deb7ab5-745b-4f16-9c30-6e62f4f27a42",
     "altId": "R40.72",
     "name": "Dangling tree links — a user clicks a chevron/link and it expands to EMPTY @390",
-    "description": "USER-VISIBLE DEFECT (architect prod sweep, served v0.8.150). A forward ref in the trace/model tree points to a unit that does NOT exist, so when a user taps the chevron or link it expands to EMPTY — a dead click. MEASURED: architect 41 dangling forward refs ON THE SERVED TREE (the user-facing number); robbin-req measured 469 on the working tree (dirtier — uncommitted peer churn/branch-diff), so the SERVED 41 is authoritative for what a user hits (measure-honesty: served != working). Sibling of R37.29 referential-integrity (a ref that does not resolve), surfaced here as the USER symptom.",
+    "description": "USER-VISIBLE DEFECT (architect prod sweep, served v0.8.150; TYPE-CORRECT re-measure). A forward ref the tree TRAVERSES points to a unit that does not exist, so tapping the chevron/link expands to EMPTY. CORRECTED COUNT (architect owned an over-count): 17 user-facing dangling on the rendered surface = 15 Requirement.useCases -> dead UseCases + 1 Class + 1 Task. The earlier 41 (architect) and 469 (robbin-req working-tree) BOTH over-counted by including refs on keys the tree does NOT traverse (type-incorrect) + working-tree churn; 17 is the type-correct served number a user actually hits. RENDERED PROOF (better than any count): Requirement 1c3b86ad declares ONE useCase, that useCase is DEAD, prod returns ZERO children -> a user sees a Requirement whose ENTIRE chain is invisible. ★ CAVEAT (architect): a chunk of these are CROSS-BRANCH-UNCARRIED (the hotfix-vs-main divergence class) - some may VANISH on a carry, NOT need a code fix; an AC that assumes a code fix would be wrong.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
     "tests": [],
@@ -30,7 +30,7 @@
       {
         "id": "AC-390-no-empty-expansion",
         "group": "user-visible@390",
-        "text": "On 390px, tapping any visible chevron/link expands to REAL content, never a blank/empty node. Screenshot: no expanded node is empty."
+        "text": "On 390px, tapping any visible chevron/link expands to REAL content, never empty. RENDERED ANCHOR: Requirement 1c3b86ad today expands to zero children (its one useCase is dead) = the user sees a Requirement with an invisible chain. Screenshot: no expanded node is empty."
       },
       {
         "id": "AC-dangling-hidden-or-marked",
@@ -40,9 +40,11 @@
       {
         "id": "AC-served-count-to-zero",
         "group": "measurable",
-        "text": "The served-tree dangling-forward-ref count (architect baseline 41) trends to 0; the gate measures the SERVED build, not a fixture."
+        "text": "The type-correct served-tree dangling count (17: 15 Requirement.useCases->dead UseCase + 1 Class + 1 Task; traversed keys ONLY) trends to 0. Some resolve by a cross-branch CARRY (hotfix->main uncarried), not a code fix - the gate distinguishes carry-resolvable from code-fix-needed, and measures the SERVED build."
       }
-    ]
+    ],
+    "renderedProofAnchor": "Requirement 1c3b86ad: 1 declared useCase, DEAD, prod 0 children => entire chain invisible to the user @390.",
+    "crossBranchCaveat": "Some of the 17 are cross-branch-uncarried (hotfix vs main); may resolve on a CARRY not a code fix. AC must NOT assume code-fix-only."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

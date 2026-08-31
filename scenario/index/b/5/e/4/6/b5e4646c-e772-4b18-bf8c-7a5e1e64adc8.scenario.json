@@ -55,7 +55,8 @@
         "text": "The count of Method/Class detail panels that render with NO source link AND NO description trends toward 0 for units that have a derivable source; the remaining (genuinely source-less) are explicitly marked, not blank."
       }
     ],
-    "authoritativeAC": "R36.3 d4048137 AC-gate-390 (Method unit SHOWS full signature + docs @390) + AC-method-signature; R40.27 81d1928d AC-a-method-signatures (Class analog) + AC-d-empty-vs-absent (fail-visible). Tester rendered-@390 evidence = direct AC-gate-390 violation; defect CONFIRMED, scope = full signature not just the source link."
+    "authoritativeAC": "R36.3 d4048137 AC-gate-390 (Method unit SHOWS full signature + docs @390) + AC-method-signature; R40.27 81d1928d AC-a-method-signatures (Class analog) + AC-d-empty-vs-absent (fail-visible). Tester rendered-@390 evidence = direct AC-gate-390 violation; defect CONFIRMED, scope = full signature not just the source link.",
+    "renderedProofAnchor": "CONFIRMED ON RENDERED SURFACE (PO/architect): Method 00d63275 FileApi.writeFile returns sourceFile MISSING + description NONE = a bare detail a human sees @390. Grounds the widened full-signature defect."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
