@@ -15,9 +15,16 @@ Root of 3 incidents today: prod serves `hotfix/t40.1-checklist-band`; work lande
 |---|---|---|
 | scenario DATA units | R37.25-29 chains, S37/S40 task backfills (incl the 47), family ACs, bidirectional `tasks[]` wires | **CARRY ALL** (additive; the exact units whose absence caused the P0s) |
 | R37.29 double-mint | `8d2eeab1` on main == the hotfix R37.29 | **CARRY + DEDUP** — keep one (content-identical); the double-mint reconciles to a single unit |
-| planning docs | backfill status-staging, orphan worklists, backlog records | **REGENERATE from units** after the data carry (boards are `GENERATED_HEADER` from units) OR carry; never hand-merge |
+| planning docs — GENERATED (70 of 76) | sprint planning.md, task-*.md (carry `GENERATED FROM SCENARIO UNITS — DO NOT HAND-EDIT`) | **REGENERATE from units** after the data carry (derivable — safe) |
+| planning docs — HAND-AUTHORED (6 of 76, ★ PO-PROBE) | see below | **NEVER regenerate — CARRY-as-file / MERGE** (no unit to regen from = truth-decay class) |
 | 2 audit scripts | `second-store-audit.mjs`, `ac-untasked-audit.mjs` | **CARRY** (standalone `scripts/`, not `src/` → no build-break) |
 0 experiments, 0 drops. Every main-only commit is this session's design/req/planner output stranded by the split.
+
+### ★ PLANNING-DERIVABILITY PROBE (PO-asked, measured BEFORE regen) — 6 hand-authored files regen would silently DROP
+Classified all 76 planning files the 57 touch by `GENERATED_HEADER`: **70 generated (regenerable), 6 hand-authored (no unit → regen drops them).** All 6 are class (ii) (content living only in a file, no scenario unit = truth-decay):
+- **4 MAIN-ONLY (would be LOST entirely):** `reports/orphan-sprintless-reqs-2026-08-29.md`, `design-notes/owner-session-mint-secret-gate.md`, `design-notes/owner-identity-derived-not-handlist.md`, `design-notes/t40.1-checklist-regression-repair.md` → **CARRY AS FILES** (path-limited, alongside the data).
+- **2 DIVERGENT (both branches edited → regen/bulk-pick clobbers one side):** `backlog.md`, `campaign-scoreboard.md` → **explicit content MERGE** (reconcile both sides; flag for review; NEVER wave a diff as "formatting").
+**VERIFICATION GATE (the PO's diff, made a gate):** after carry+regen on the scratch, `diff` the regen output against main's planning files. Expected: the 70 generated → **0 diff** (derivability CONFIRMED); the 6 hand-authored → diff (that is the carry-as-file/merge set, accounted-for, not dropped). ★ A non-empty diff on a supposedly-GENERATED file = **(i) a unit we failed to carry** → investigate + carry the unit, never wave through. Design notes generally are file-only artifacts (no unit) — treat any `design-notes/*` / `reports/*` / `backlog`/`scoreboard` as CARRY-not-regen by default.
 
 ## (c) DATA vs CODE — treated separately + integrity check after
 - **CODE:** hotfix authoritative; main-only src = 0 (measured) → **no code merge, no build-break**. Verify by a build on the scratch post-carry (trivially green — no code changed).
