@@ -1,0 +1,64 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "c638d72c-17ce-4863-b939-a00aa09e6c30",
+    "altId": "R40.78",
+    "name": "Add-folder ALSO inside a room Files collection (nested room folders) — needs a defined per-room on-disk storage target (OPEN design question)",
+    "description": "Tron chose the WIDER Add-folder scope (PO asked directly 2026-09-01): the Add-folder action appears NOT ONLY on real on-disk folders but ALSO INSIDE a room Files collection, creating NESTED room folders. This is genuinely NEW capability beyond T37.21 part-2 (mkdir on the /model side). ★ OPEN DESIGN QUESTION, stated plainly (NOT hidden): a room Files collection is VIRTUAL today with NO location on disk to mkdir into — so WHERE ON DISK does a room nested folder live? The architect must define a PER-ROOM STORAGE TARGET before this is buildable. Once the target is defined, Add-folder-in-room follows the SAME Tron BOTH ruling as part 2 (mint the unit AND mkdir the real directory at that target) + the same live-MVC + WS-fan-out.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:65b07a49-a33f-4888-9ca3-d8464ddd78fb"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "NEW capability (Tron wider-scope choice); BLOCKED on architect design (per-room storage target)",
+    "openDesignQuestion": "WHERE ON DISK does a room nested folder live? A room Files collection is virtual today (no mkdir location). Architect defines a per-room storage target BEFORE buildable. State-it-plainly, do not hide.",
+    "discoverySource": {
+      "type": "tron-directive-wider-scope",
+      "source": "PO asked Tron directly 2026-09-01; Tron chose ALSO-inside-room-Files",
+      "note": "crossRef part 2 (R40.70); architect flagged the storage-target gap."
+    },
+    "crossRef": [
+      "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
+      "ior:instance:cc875e35-772b-4352-b99c-4070f0370a68",
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+    ],
+    "crossRefNote": "Extends part-2 R40.70 (add-folder mkdir on /model) to the ROOM side (nested room folders). Rides R40.16 (folder-as-unit). Sibling of R37.21 (room collections as real folders). The BOTH ruling (unit AND directory) + live-MVC + WS from R40.70 apply once the storage target is defined.",
+    "satisfactionStatus": "UNVERIFIED — NEW; BLOCKED on the architect's per-room-storage-target design (open question); 0 Done till Tron; scenario-first #126 (minted before the fresh expert builds).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-add-folder-inside-room-files",
+        "group": "user-visible@390",
+        "text": "The Add-folder action is AVAILABLE inside a room Files collection (not only on real on-disk folders), creating a NESTED room folder. @390 screenshot: opening a room Files collection shows an Add-folder affordance; firing it creates a nested folder."
+      },
+      {
+        "id": "AC-per-room-storage-target-DEFINED",
+        "group": "open-design/by-construction",
+        "text": "★ OPEN DESIGN QUESTION (architect answers BEFORE buildable): a room nested folder has a DEFINED per-room on-disk STORAGE TARGET (a room Files collection is virtual today with no mkdir location). The AC is NOT buildable until the architect states where on disk a room nested folder lives. Do NOT build against a guessed location."
+      },
+      {
+        "id": "AC-BOTH-unit-and-directory-at-target",
+        "group": "by-construction",
+        "text": "Once the storage target is defined: Add-folder-in-room mints the folder scenario-UNIT **AND** mkdirs the REAL directory at that per-room target (same Tron BOTH ruling as R40.70 part 2). Fail-clean: dir-exists / invalid-name / mint-fails-after-mkdir => leave nothing behind (half-created worse than failed)."
+      },
+      {
+        "id": "AC-nested-live-and-ws",
+        "group": "user-visible@390",
+        "text": "The nested room folder appears LIVE in the room tree with NO reload [browser 1] AND a second browser updates over WS [rides R40.70 AC-create-live-no-reload + AC-broadcast/2nd-passive-client]. reload-to-see = FAIL; single-browser-only = FAIL."
+      },
+      {
+        "id": "AC-nested-is-real-folder-unit",
+        "group": "by-construction",
+        "text": "The nested room folder is a REAL Folder scenario-unit (rides R40.16, NO duplicate folder model)."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "stub-must-fail: Add-folder-in-room that creates a unit but NO physical directory (or a directory but no unit) => RED; Add-folder built against an UNDEFINED storage target => RED (must not guess the location)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

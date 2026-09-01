@@ -42,6 +42,11 @@
         "id": "AC-B-DEVICE",
         "group": "device",
         "text": "[DEVICE-ONLY @390 pixel — Tron on phone, NEVER headless-green, TRON-ONLY] Tron verifies in-room Files/Members render as a REAL folder with a sunburst diagram, not 'no scenario'."
+      },
+      {
+        "id": "AC-B-sunburst-size-is-on-disk-bytes",
+        "group": "T37.21-part4-size-metric@390",
+        "text": "The sunburst ARC SIZE = the ACTUAL ON-DISK CONTENT SIZE in BYTES, NOT a uniform per-file count (Tron 2026-09-01: 'the actual content size on disk, real bytes per file or child'). DERIVED metric per unit type: (1) a FILE's size = its byte size on disk; (2) a FOLDER's size = the RECURSIVE SUM of all descendant file bytes; (3) a VIRTUAL unit with no physical location (e.g. a room collection) = the recursive byte-sum of its RESOLVABLE children (it AGGREGATES its children's real bytes), which is 0 if none are byte-bearing; (4) EMPTY (0 children) = the defined empty-state (size 0, a defined empty ring, NEVER blank) — the existing empty-state AC still holds; (5) a ZERO-BYTE or no-bytes child renders a MINIMUM-visible arc (a small floor) so it does NOT vanish, preserving arc-count == direct-child-count. The PROPORTIONALITY discriminator is KEPT: LARGEST size = LARGEST arc — only the METRIC changes from count to bytes. @390 screenshot-checkable: a folder containing a large file shows a proportionally LARGER arc than a folder containing a small file (not equal arcs). stub-must-fail: uniform sizing (equal arcs for children of UNEQUAL byte size) => RED."
       }
     ],
     "crossRef": [
@@ -51,7 +56,8 @@
     "evidence": [
       "ior:instance:9ef3c23b-39b8-407c-9b07-49f6ff5e9127",
       "ior:instance:03110815-a754-468e-bbfc-8bba7c41d1e8"
-    ]
+    ],
+    "part4SizeMetricSupersede": "TRON RULING 2026-09-01: the sunburst SIZE dimension = on-disk BYTES. This SUPERSEDES (a) the v0.8.155 shipped childCount sizing and (b) the architect single-source ruling sizeOf=max(childCount,1) — FOR THE SIZE DIMENSION ONLY. UNCHANGED and still binding: one-renderer-no-fork, arc-count == direct-child-count, the defined empty-state, and visible @390. The size accessor changes from count to a recursive-byte-sum (with a min-arc floor); keep it a SINGLE accessor (no fork). Annotate-not-erase: the count-metric is recorded as superseded, not deleted."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
