@@ -9,11 +9,11 @@
 ## Status
 - [x] Planned
 - [x] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Task Description
@@ -30,17 +30,19 @@ Tron: a room collection / puml collection is a REAL folder unit with a sunburst 
 
 ## Acceptance Criteria
 
-5-PART (Tron verbatim; ACs MIRROR req's landed requirements — all 5 landed req bafb665c0, AC-ids cited per part; coveredRequirements = R37.21 80346a36 + R40.70 542946c4 + R40.5 e152177d + R40.77 70c6b806). NEVER Done till Tron from QA-Review.
-- [ ] PART 1 REAL-FOLDER-UNITS: room Members/Files pseudo-collections resolve to REAL Folder scenario-units (VIRTUAL — 'Files (5) IS A FOLDER even if not on disk'), riding R40.16 cc875e35, NO duplicate folder model. [R37.21 80346a36]
-- [ ] PART 2 ADD-FOLDER-PHYSICAL (★TRON 2026-09-01 ruled 'BOTH, unit now, real directory too' = FOUR checkable assertions, ALL required): the EXISTING 'Add folder' action (bar Scenario/Edit/ADD-FOLDER/IMPORT-PUML) (a) MINTS/persists the folder SCENARIO-UNIT + (b) CREATES the actual FILESYSTEM DIRECTORY (mkdir; model+fs stay in step) + (c) live-MVC updates the tree with NO reload + (d) a SECOND BROWSER on a similar view updates immediately over WS. ERROR-CLEAN (mkdir now in scope): dir-already-exists / invalid-name / mkdir-ok-but-mint-fails -> FAIL CLEANLY leaving NOTHING behind (a half-created folder is worse than a failed one). Refresh-to-see=FAIL; single-browser-only=FAIL. [R40.70 542946c4 carries c+d (live-no-reload + 2nd-passive/broadcast); req appends (a)=unit-persisted AND (b)=fs-directory; architect designs mkdir + error paths]
-- [ ] PART 3 DEDUPE-DETAIL-LINKS: remove the redundant Scenario/Edit LINKS repeated in the detail BODY (the action bar already provides them). Do NOT remove the action-bar buttons (R34.7/R33.6.5, Tron-verified v0.8.153). [R40.5 e152177d AC-detail-body-scenario-edit-links-removed (NEW); expert]
-- [ ] PART 4 SUNBURST-IN-DETAIL: render the MISSING sunburst in the detail view (child-size, reuse R40.16, no dup renderer). [R37.21 sunburst AC; expert]
-- [ ] PART 5 PUML-PHYSICAL-TREE: keep the VIRTUAL puml collection AND beneath it surface the REAL on-disk folder paths where the .puml files live, as a tree of physical folder scenario-units. Evidence: 61 entries w/ class-diagram.puml x4 + object-verb-usecases/pwa-update-workflow/avatar-crop-lifecycle x2 each = same names in DIFFERENT physical folders. [R40.77 70c6b806 all-6-ACs (NEW); architect design]
-- [ ] DEVICE @390 (Tron closing gate): every part verified @390 real-WebKit, SCREENSHOT evidence (never DOM); part-2 WS fan-out proven with TWO browsers (tester harness). Tron approves from QA-Review.
+WALKED TO QA-REVIEW for Tron's morning approval (PO-directed 2026-09-01) — HONEST state, NOTHING rounded up. ZERO Done flips; Tron approves from QA-Review. Some parts carry Tron's OWN device-confirmation @0.8.158; others are honestly OPEN with their reason.
+- [x] PART 1 REAL-FOLDER-UNITS: DEVICE-CONFIRMED BY TRON @0.8.158 ('live and good') + tester-GATED (fail-proof). [R37.21 80346a36 AC-B-real-folder-unit]
+- [ ] PART 2 ADD-FOLDER-PHYSICAL (Tron 'BOTH' 4-assert): SERVER-HALF DONE+PROVEN via the REAL route — (a) unit persisted OK + (b) real DIRECTORY created OK + traversal fail-closed OK + (d) WS frame reaching the passive 2ND BROWSER OK. OPEN: (c) client live-INSERT = the remaining piece, EXPERT BUILDING. [R40.70 542946c4 AC-physical-BOTH-unit-and-directory + existing live/broadcast/2nd-passive]
+- [x] PART 3 DEDUPE-DETAIL-LINKS: tester-GATED BOTH DIRECTIONS. [R40.5 e152177d AC-detail-body-scenario-edit-links-removed]
+- [x] PART 4a SUNBURST RENDERS: DEVICE-CONFIRMED BY TRON @0.8.158 ('live and good') + tester-GATED (proportional discriminator proven on 86 arcs: the largest-childCount child has the largest measured arc). [R37.21 AC-B-sunburst-rides-R40.16]
+- [ ] ★ PART 4b SUNBURST-SIZE = ON-DISK BYTES: OPEN + UNBUILT — TRON CORRECTED THE METRIC 2026-09-01: it shipped sizing by childCount; he ruled the arc size must be ACTUAL ON-DISK BYTES. req minted AC-B-sunburst-size-is-on-disk-bytes (R37.21 80346a36). ★ A REQUIREMENT CHANGED UNDER A PASSING GATE — the old childCount green does NOT satisfy the current BYTES requirement; the earlier green must NOT hide this.
+- [x] PART 5a PUML-PHYSICAL-TREE STRUCTURE: tester-GATED (the four-distinct-dirs reveal). [R40.77 70c6b806]
+- [ ] PART 5b derived dir-folder SUNBURST: HELD on a known small server fix (sourceDirTree hard-codes 'src'); NOT one of Tron's 5 asks -> does NOT block QA-Review. [R40.77]
+- [ ] DEVICE @390 closing (Tron): parts 1 + 4a-render Tron-device-confirmed @0.8.158; the OPENS (part-2 client-insert / part-4b bytes / part-5b derived) await build + Tron's final approval from QA-Review.
 
 ## Implementation
 
-IN PROGRESS (scenario-first #126): scope extended to Tron's 5 parts; req minting the 5 requirements from the quotes; architect designing parts 2+5; expert on 3+4; tester building the 2-browser WS harness. ACs mirror req's requirements AS THEY LAND. Drive to QA-Review by tomorrow AM; Done is Tron's act.
+AT QA-REVIEW (PO-directed 2026-09-01; Tron asked for it AT QA-Review for morning approval = the deliverable SHAPE). HONEST per-part state in acceptanceCriteria, NOTHING rounded up: PART1 Tron-device-confirmed @0.8.158 + gated · PART2 server-half DONE+PROVEN via real route (unit persisted + real dir created + traversal fail-closed + WS frame to passive 2nd browser), client live-INSERT OPEN (expert building) · PART3 gated both-directions · PART4a-render Tron-device-confirmed @0.8.158 + gated (86-arc proportional discriminator) · ★PART4b-size OPEN+UNBUILT: Tron corrected the metric childCount->ACTUAL-ON-DISK-BYTES, req minted AC-B-sunburst-size-is-on-disk-bytes (R37.21 80346a36) = a REQUIREMENT CHANGED UNDER A PASSING GATE, old green must NOT hide it · PART5a-structure gated (four-distinct-dirs reveal) · PART5b-derived-sunburst HELD on a known small server fix (sourceDirTree hard-codes 'src'), NOT a Tron-5-ask = non-blocking. ★ NEW REQ RECORDED: R40.78 c638d72c nested-room-folders — carries an UNANSWERED design question the ARCHITECT owes (where on disk a nested room folder lives); NOT part of this 5-part QA-Review, needs its own design-then-task (scenario-first) — flagging req+architect. evidence[]=req-wired (untouched). ZERO Done flips; Tron approves from QA-Review.
 
 ## Subtasks
 

@@ -24,7 +24,7 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] 🧪 [Task 37.4.2: CONTROLLER — one generic unitController.apply for ANY unit mutation (validate-via-registered-policy → apply → persist → emit); Task FSM = policy #1, statusNext = thin facade](./task-37.4.2-controller-statusnext.md)
 - [ ] 🧪 [Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of any unit mutation; single-source Done delegation — R40.10 approve DELEGATES, tronApprove folds in (no second writer)](./task-37.4.3-controller-single-source-done.md)
 - [ ] ⏳ [Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target](./task-37.20-shared-dnd-drop-contract.md)
-- [ ] 🔧 [Task 37.21: TRON 5-PART extended scope — room collections=real Folder units + sunburst + Add-folder-physical(live-MVC/WS) + dedupe detail links + puml physical-folder-tree](./task-37.21-room-collections-real-folder-units.md)
+- [ ] 🧪 [Task 37.21: TRON 5-PART extended scope — room collections=real Folder units + sunburst + Add-folder-physical(live-MVC/WS) + dedupe detail links + puml physical-folder-tree](./task-37.21-room-collections-real-folder-units.md)
 - [ ] ⏳ [Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)](./task-37.22-ior-clear-origin.md)
 - [ ] ⏳ [Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod](./task-37.23-discovered-server-manager-root.md)
 - [ ] 🧪 [Task 37.24: Realtime-MVC live-update slice — a routed write appears live in item + detail + pin @390](./task-37.24-realtime-mvc-live-update-slice.md)
