@@ -71,26 +71,43 @@ try {
 
   const b1 = await mk('browser-1 (actor)');
   const b2 = await mk('browser-2 (PASSIVE)');
-  // ★ expert TEST TARGET: expand BOTH browsers to dir:ts (src/ts, physical location=ts + a rendered synthetic-ref folder
-  // node that buildSeedNode SUBSCRIBES). Path mof-m1→project:RawBin→rawbin:ts→dir:ts. Only a rendered+subscribed parent can
-  // reDeriveDirectChildren-insert the new child — creating under an unrendered parent proves nothing about the live-insert.
-  const PARENT = 'dir:ts';
+  // ★ expert TEST TARGET: expand BOTH browsers to the physical ts dir. R37.33 (v0.8.165) made dir refs REPO-RELATIVE:
+  // dir:ts → dir:src/ts. Path mof-m1→project:RawBin→rawbin:ts→dir:src/ts. Only a rendered+subscribed parent can
+  // reDeriveDirectChildren-insert the new child. DETECTION FIX (anchor): rb-trace-tree subscribes viewBusKey(node.uuid)
+  // where node.uuid is the RAW ref 'dir:src/ts' — match on the raw uuid across attrs, tolerating a 'collection:'/'type:'
+  // display prefix (endsWith), not the display itemRef literally (the prior false-'rendered=false').
+  const PARENT = 'dir:src/ts';
+  const MATCH = (par) => `(() => { const t = document.getElementById('model-tree'); if (!t) return null;
+    const raw = ${JSON.stringify(par)};
+    const nodes = [...t.querySelectorAll('rb-object-item, [ref], [data-ref], [uuid], [data-uuid], .tt-node, .tt-row')];
+    const hit = nodes.find((n) => [...n.attributes].some((a) => { const v = a.value; return v === raw || v.endsWith(':' + raw) || v === 'collection:' + raw; }));
+    if (hit) return { found: true, attrs: [...hit.attributes].map((a) => a.name + '=' + a.value).slice(0, 6) };
+    // diagnostic when NOT found: is the ref anywhere in the tree, and what do the nodes look like?
+    const html = t.innerHTML || '';
+    const sample = nodes.slice(0, 5).map((n) => n.tagName + '[' + [...n.attributes].map((a) => a.name + '=' + a.value).slice(0, 3).join(',') + ']');
+    return { found: false, htmlHasRaw: html.includes(raw), htmlHasSrcTs: html.includes('src/ts'), nodeCount: nodes.length, sample }; })()`;
   const expandTo = async (page, label) => {
     const ok = await page.evaluate(async (p) => { const t = document.getElementById('model-tree'); if (t && t.expandPath) { await t.expandPath(p); return true; } return false; }, ['mof-m1', 'project:RawBin', 'rawbin:ts', PARENT]);
-    await page.waitForFunction((par) => { const t = document.getElementById('model-tree'); return t && [...t.querySelectorAll('rb-object-item, [ref], [data-ref]')].some((i) => (i.getAttribute('ref') || i.getAttribute('data-ref') || '') === par); }, PARENT, { timeout: 15000 }).catch(() => {});
+    await page.waitForFunction(`(${MATCH(PARENT)})?.found === true`, { timeout: 15000 }).catch(() => {});
     await sleep(700);
-    const rendered = await page.evaluate((par) => { const t = document.getElementById('model-tree'); return !!t && [...t.querySelectorAll('rb-object-item, [ref], [data-ref]')].some((i) => (i.getAttribute('ref') || i.getAttribute('data-ref') || '') === par); }, PARENT);
-    R(`  ${label}: expandPath(${ok})→ dir:ts rendered+subscribed=${rendered}`);
+    const m = await page.evaluate(MATCH(PARENT));
+    R(`  ${label}: expandPath(${ok})→ ${PARENT} rendered+subscribed=${m?.found} ${m?.found ? 'attrs=' + JSON.stringify(m.attrs) : `DIAG htmlHasRaw=${m?.htmlHasRaw} htmlHasSrcTs=${m?.htmlHasSrcTs} nodes=${m?.nodeCount} sample=${JSON.stringify(m?.sample)}`}`);
+    return m?.found === true;
   };
-  await expandTo(b1.page, 'browser-1 expand'); await expandTo(b2.page, 'browser-2 expand');
+  const b1Rendered = await expandTo(b1.page, 'browser-1 expand'); const b2Rendered = await expandTo(b2.page, 'browser-2 expand');
   // sentinels: a window prop a full reload would WIPE → positive 'no reload' proof for each browser.
   const setSentinel = (page) => page.evaluate(() => { window.__sent = 'S' + Math.floor(performance.now()); return window.__sent; });
   const s1 = await setSentinel(b1.page), s2 = await setSentinel(b2.page);
   const b2Before = await treeText(b2.page);
   await b2.page.evaluate(() => { window.__frames = []; }); // clear pre-action frames on the passive client
 
-  // ── PART-2 presence: the real '📁 Add folder' verb exists in browser-1's action bar (select a node → drawer bar) ──
-  await b1.page.evaluate(() => { const row = document.querySelector('#model-tree rb-object-item, #model-tree [data-ref], #model-tree .tt-row'); if (row) row.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
+  // ── PART-2 presence: the real '📁 Add folder' verb exists in browser-1's action bar. SELECT the subscribed dir:src/ts
+  //    node (not row 0) so the verb + create target the rendered+subscribed physical parent (live-insert can only fire there).
+  await b1.page.evaluate((raw) => {
+    const t = document.getElementById('model-tree');
+    const node = [...t.querySelectorAll('rb-object-item, [ref], [data-ref], [uuid], [data-uuid]')].find((n) => [...n.attributes].some((a) => { const v = a.value; return v === raw || v.endsWith(':' + raw) || v === 'collection:' + raw; }));
+    (node || t.querySelector('#model-tree rb-object-item, .tt-row'))?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  }, PARENT);
   await sleep(1200);
   const addFolderBtn = await b1.page.evaluate(() => { const els = [...document.querySelectorAll('button, .rb-strip *, [role="button"]')]; return els.some((e) => /add folder/i.test(e.textContent || '')); });
   R(`  verb '📁 Add folder' present in action bar: ${addFolderBtn}`);
