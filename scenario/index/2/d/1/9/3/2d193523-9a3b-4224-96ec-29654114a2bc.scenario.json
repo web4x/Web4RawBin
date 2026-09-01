@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2d193523-9a3b-4224-96ec-29654114a2bc",
+    "name": "dirNamespace.resolveBase",
+    "description": "ONE resolveDirRefAbs(ref)=PROJECT_ROOT-join over a repo-relative dir: ref (no baseKind, no heuristic); every dir->abs consumer routes through it; sourceDirTree emits repo-relative dir:src/<rel>. Retires the FolderService heuristic + puml-dir regex.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503",
+    "unitLinks": [],
+    "note": "Architect mints Class + Method(resolveDirRefAbs) + Impl; expert places marker. Gated migration sweep of dead lazy dir: units."
+  },
+  "ownerIor": "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503"
+}

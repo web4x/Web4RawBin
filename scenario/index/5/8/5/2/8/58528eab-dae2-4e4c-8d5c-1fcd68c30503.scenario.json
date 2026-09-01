@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "58528eab-dae2-4e4c-8d5c-1fcd68c30503",
+    "altId": "R37.33",
+    "name": "Dir-namespace single base-resolution — ALL dir: refs repo-relative, ONE resolveDirRefAbs, retire the 2 correct-by-incident special-cases (gated migration of dead lazy dir: units)",
+    "description": "DIR-NAMESPACE SINGLE BASE-RESOLUTION (correct-by-construction follow-up, architect design 71e7c87ab, PO-dispatched to expert). ROOT (measured): the dir: ref namespace carries TWO base conventions - sourceDirTree emits SRC-relative dir:<childRel> (walk=PROJECT_ROOT/src/rel), pumlPhysicalTree emits REPO-relative dir:<dirRel> - while file: refs are ALREADY repo-relative. So dir: is the outlier, and TWO correct-by-INCIDENT special-cases paper over it: the createPhysicalWithUnit existence-heuristic (FolderService:65-66, pinned as a deadline measure) and the puml-dir regex (server.ts:1706). This is the SAME root behind the Tron-facing Add-folder-on-/model bug (dir:ts location=src-relative -> mkdir PROJECT_ROOT/ts -> ENOENT) AND the P5 sourceDirTree base gap. FIX (remove the ambiguity, don't heuristically resolve it): make ALL dir: refs REPO-RELATIVE (one convention, aligned with file:), so ONE shared resolveDirRefAbs(ref)=path.resolve(PROJECT_ROOT, ref-without-dir-prefix) is a trivial join with NO discrimination and NO heuristic; retire both special-cases.",
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:2d193523-9a3b-4224-96ec-29654114a2bc"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+    "discoverySource": {
+      "type": "architect-design+po-dispatch",
+      "designCommit": "71e7c87ab (## FOLLOW-UP DESIGN)",
+      "poDispatch": "PO dispatched resolveDirRefAbs to expert (relayed by architect); req minted scenario-first #126 so the req exists before build - AUTHORIZATION/priority flagged to PO.",
+      "measured": "dir: 2 conventions (sourceDirTree src-rel / pumlPhysicalTree repo-rel); root of the Add-folder-on-/model ENOENT bug + P5 sourceDirTree gap."
+    },
+    "crossRef": [
+      "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
+      "ior:instance:70c6b806-d4be-4dc9-b23f-cfd61c8c7eea",
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b"
+    ],
+    "crossRefNote": "Retires the R40.70 part-2 createPhysicalWithUnit heuristic (pinned deadline measure) + closes the R40.77 P5 sourceDirTree base gap - SAME root (dir: 2 conventions). Referential-integrity family with R37.29 (a ref must resolve one way). Correct-by-construction: remove the ambiguity, don't heuristically resolve it.",
+    "satisfactionStatus": "UNVERIFIED — NEW follow-up (post-QA correctness-by-construction cleanup, NOT blocking T37.21 QA-Review); scenario-first #126; architect mints Class+Method(resolveDirRefAbs)+Impl; build per PO sequencing; 0 Done till Tron.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-dir-convention-repo-relative",
+        "group": "by-construction",
+        "text": "ALL dir: refs are REPO-RELATIVE (one convention, aligned with the existing file: convention). sourceDirTree emits dir:src/<childRel> (was dir:<childRel>); no ref carries a SRC-relative base. Two dir: base conventions => the defect this eliminates."
+      },
+      {
+        "id": "AC-one-resolver-resolveDirRefAbs",
+        "group": "by-construction",
+        "text": "There is ONE resolver: resolveDirRefAbs(ref) = path.resolve(PROJECT_ROOT, ref.replace(/^dir:/,'')) -> the absolute disk path (abs-string only, NO {abs,baseKind} - baseKind is ELIMINATED because there is ONE base=PROJECT_ROOT). Every dir:->abs consumer (createPhysicalWithUnit, sourceDirTree walk, ensureViewUnit location) routes through it; empty/invalid -> '' and the caller confines."
+      },
+      {
+        "id": "AC-retire-both-special-cases",
+        "group": "correct-by-construction",
+        "text": "The two correct-by-INCIDENT special-cases are RETIRED: (a) the createPhysicalWithUnit existence-heuristic (FolderService:65-66, the pinned deadline measure) and (b) the puml-dir base regex (server.ts:1706). Resolution is correct-by-CONSTRUCTION (one convention + one resolver), never correct-by-fallback. stub: any dir-base resolution NOT through resolveDirRefAbs (a surviving heuristic/special-case) => RED."
+      },
+      {
+        "id": "AC-gated-migration-dead-dir-units",
+        "group": "migration",
+        "text": "The dir:ts->dir:src/ts change moves keyToUuid('folder::ts')->keyToUuid('folder::src/ts') = the LAZY Folder unit identity; old uuids become DEAD MODEL_STORE view-units (dir: folders are lazy, re-minted on access). A GATED sweep removes the orphaned dir: units: DRY-RUN + COUNT first (before==after accounting), never a blind delete. No ACTIVE data loss (only re-mintable lazy view-units are touched)."
+      },
+      {
+        "id": "AC-no-active-data-loss",
+        "group": "safety",
+        "text": "The migration touches ONLY lazy, re-mintable dir: view-units (dead uuids), NEVER active data; confinement (createPhysicalWithUnit) is unchanged. stub: a sweep that removes a NON-lazy / referenced unit => RED."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "stub-must-fail: (1) a dir: ref emitted SRC-relative (dir:ts not dir:src/ts) => RED; (2) a dir->abs path computed by a heuristic/special-case instead of resolveDirRefAbs => RED; (3) the migration sweep run without a dry-run+count => RED."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}
