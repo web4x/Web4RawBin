@@ -13,6 +13,9 @@ What happened tonight: the files ATTACHED to the brief were an older upload batc
 
 ---
 
+## ★ P5-DIR-SUNBURST GREEN @390 (tester r4021d, v0.8.165) — R37.33 fix confirmed ON THE RENDERED SURFACE
+Tester mounted dir:scrum.pmo/sprints/sprint-20/diagrams (9 .puml, 576..6464B): 9 arcs==9 pumls (NOT over-zero — resolveDirRefAbs populated them), proportional-to-BYTES (6464B=largest arc 443.1, 576B=sliver 123.3, ratio 3.59, equal-angle stub→RED able-to-fail), same renderer a34f1a68 as the room gate now firing on a physical dir. My code+scratch backstop of R37.33 is now confirmed on the pixel surface Tron sees (the tester's @390 gate — the rigor that caught my earlier by-ref/src-relative blind spots — closes the loop on the fix).
+
 ## ★ resolveDirRefAbs DEPLOYED + RE-BACKSTOP = PASS (v0.8.165, R37.33) — one-resolver landed correct-by-construction
 Code 8/8 scratch (uniform repo-relative 'src/ts'→dir at src/ts WITHOUT heuristic; OLD bare 'ts' now correctly fails = heuristic genuinely retired; resolver fail-closed ''/'..' root-injectable; confinement+atomicity intact) + LIVE (rawbin:ts→dir:src/public/shared/ts repo-relative; P5 dir sprint-07/diagrams→2 .puml POPULATES; DOUBLE-SRC=0). ★ **UNBLOCKS P5-DIR-SUNBURST** (was sunburst-over-zero — the P5 dir children now resolve by resolved-uuid → the sunburst fires; tester can gate). MIGRATION: 10-12 dead Folder units, ALL synthetic source-tree view-units (public/ts/*, ts/server, scenario/index — re-mintable) = **0 ACTIVE LOSS verified**. Marker 8ac3ba20 placed. Note: the puml-dir CHILDREN-TYPE regex (server.ts:1706) remains (orthogonal to base-path — optional further cleanup: generic dir-lister by extension). Expert's honest R31.7-landmine note (stop-before-commit → INV-V3 EPERM → 10min down) = the commit-atomically-then-restart lesson.
 
