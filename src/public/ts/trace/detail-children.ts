@@ -68,14 +68,16 @@ export function scenarioEditorHref(uuid: string, storeDir = 'scenario/index'): s
   // (data/model-store/index), NOT prod scenario/index — Edit must target their ACTUAL store so OEdit resolves.
   return `/edit/${storeDir}/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
 }
-// R26.2: EVERY detail view renders this 📄 Scenario link — no view may lack it (source of truth).
-// v0.7.0 (3): + a ✏️ pencil next to it that opens the EDITOR directly.
-// [impl:uuid:2179d235-be01-4f0b-a1cb-bcfda316a5b4] R25.6 RbDetailView.scenarioBrowserLinkFromIor (renderScenarioLink)
-export function scenarioBrowserLinkFromIor(uuid: string): string {
-  if (!uuid) return '';
-  const lnk = 'color:#ff9800;font-size:0.75rem;text-decoration:none';
-  return `<div class="dv-field"><a href="${scenarioFileHref(uuid)}" style="${lnk}" title="Scenario unit on disk (source of truth)">📄 Scenario</a>`
-    + `<a href="${scenarioEditorHref(uuid)}" style="${lnk};margin-left:10px" title="Edit this scenario unit">✏️ Edit</a></div>`;
+// R26.2 was: EVERY detail view renders a 📄 Scenario / ✏️ Edit link in its BODY (source of truth).
+// ★ SUPERSEDED by R-A A1 (T37.21, Tron 2026-09-01): the shared drawer now composes the UNIVERSAL default
+// [◆ Scenario, ✎ Edit] bar for EVERY detail (rb-detail-drawer.ts:479), so the body pair was REDUNDANT — Tron:
+// "we already have std action bar buttons for scenario and edit so we see redundant links in the details."
+// Body = DATA, bar = action surface. This extends T37.26 (same removal on the task view) to ALL views at the ONE
+// shared source. Returns '' now (call sites harmless) and the function + R25.6 marker are KEPT so the chain stays
+// intact — the affordance lives in the bar; req may re-point/retire the marker (flagged).
+// [impl:uuid:2179d235-be01-4f0b-a1cb-bcfda316a5b4] R25.6 RbDetailView.scenarioBrowserLinkFromIor (renderScenarioLink) — now bar-superseded (T37.21)
+export function scenarioBrowserLinkFromIor(_uuid: string): string {
+  return ''; // superseded by the universal A1 ◆ Scenario / ✎ Edit bar; the detail body renders DATA only (T37.21)
 }
 
 export function renderSourceLink(sourceFile?: string, sourceLine?: number, markIfEmpty = false): string {

@@ -1,7 +1,10 @@
-// R40.37 AC5 — FolderService (Class c3f261fa). "Add folder" mints a REAL PERSISTED scenario-unit (Tron's ruling:
-// "physical" = a persisted unit on disk, NOT a filesystem directory — there is NO user-facing mkdir). Supersedes the
-// unit-only server.createFolder (28000b00, supersede-with-record — kept, additive). The itemview BECOMES the returned
-// unit in ONE step (no separate save).
+// R40.37 AC5 — FolderService (Class c3f261fa). "Add folder" mints a REAL PERSISTED scenario-unit.
+// ★ DEFINITION CHANGED — TRON RULING 2026-09-01 (T37.21): "physical" = BOTH a persisted unit on disk AND a real
+// filesystem directory (mkdir), so the model and the filesystem stay in step. This CORRECTS the earlier comment here
+// which said "physical" = a persisted unit NOT a directory / no user-facing mkdir and ATTRIBUTED that to Tron — that
+// attribution is now WRONG and it misled the team once (2026-09-01). The mkdir lives in createPhysicalWithUnit
+// (BOTH-or-neither atomicity). Supersedes the unit-only server.createFolder (28000b00, supersede-with-record — kept,
+// additive). The itemview BECOMES the returned unit in ONE step (no separate save).
 import fsSync from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
