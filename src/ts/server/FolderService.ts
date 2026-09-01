@@ -19,6 +19,18 @@ const FORBIDDEN_ROOTS = ['scenario/index', 'data/model-store', '.git', 'node_mod
 
 export type FolderUnit = { ior: 'ior:class:Folder'; ownerIor: null; model: { uuid: string; name: string; parent: string | null; children: string[]; kind: 'folder' | 'diagrams'; location?: string } };
 
+// [impl:uuid:8ac3ba20] DirRef.resolveDirRefAbs (Class 3758a4d1 DirRef, Method c5d3bca9, UC 2d193523 = R37.33; architect
+// design 71e7c87ab / chain 1b46283cf) — the ONE dir-ref→absolute-path resolver. CORRECT-BY-CONSTRUCTION: all dir: refs
+// are REPO-RELATIVE now (aligned with file: which already is), so this is a trivial root-join with NO src-vs-repo
+// discriminator — it RETIRES the existence-based heuristic. Used by createPhysicalWithUnit + sourceDirTree +
+// ensureViewUnit-location so the dir: namespace has ONE base-resolution. root injectable for the R40.31 scratch-root
+// fs-backstop/tester. Fail-closed: '' on empty or '..'-traversal ref (the caller still confines = defense-in-depth).
+export function resolveDirRefAbs(ref: string, root: string = PROJECT_ROOT): string {
+  const rel = String(ref).replace(/^dir:/, '').replace(/^\/+/, '');
+  if (!rel || rel.includes('..')) return '';
+  return path.resolve(root, rel);
+}
+
 export class FolderService {
   // [impl:uuid:0e6761c2-7b4e-472e-9c63-4793b766a288] FolderService.mintRealUnit (Method 36a73988, Class c3f261fa, UC
   // folder.mintRealUnit) — mint + persist the Folder unit atomically and RETURN it so the itemview is one-step.
@@ -61,15 +73,11 @@ export class FolderService {
     if (!parentLoc) return { ok: false, error: 'parent-not-physical' };
 
     const relpath = `${parentLoc}/${clean}`;
-    // ★ dir: namespace is INCONSISTENT (architect-measured 2026-09-01): /model ts dirs are SRC-relative (location='ts' →
-    // <root>/src/ts), P5 puml dirs are REPO-relative (location='scrum.pmo/…' → <root>/scrum.pmo/…). Resolve the REAL parent
-    // base — repo-relative if it exists, else src-relative — else Add-folder mkdir's <root>/ts (missing) → ENOENT, the exact
-    // tap-fail Tron would see on a real /model folder. ⚠ DEADLINE HEURISTIC (existence-based = correct-by-INCIDENT, NOT the
-    // design): the correct-by-construction fix is ONE shared dir-ref→abs resolver used by createPhysicalWithUnit AND
-    // sourceDirTree AND ensureViewUnit-location, so the dir: namespace has ONE base-resolution. This fallback is a deadline
-    // measure — pinned here explicitly, must not silently become the architecture (PO law: a heuristic must be pinned, not drift).
-    let parentBase = path.resolve(rootDir, parentLoc);
-    if (!fsSync.existsSync(parentBase)) parentBase = path.resolve(rootDir, 'src', parentLoc);
+    // R37.33 (architect 71e7c87ab): the dir: namespace is now UNIFORMLY repo-relative → the ONE resolver replaces the old
+    // existence-based src-vs-repo heuristic. parentLoc is repo-relative (e.g. 'src/ts', 'scrum.pmo/…') → resolveDirRefAbs
+    // joins it to rootDir by construction, no fallback. Fail-closed if the parent location is empty/traversal.
+    const parentBase = resolveDirRefAbs('dir:' + parentLoc, rootDir);
+    if (!parentBase) return { ok: false, error: 'bad-parent-loc' };
     const target = path.join(parentBase, clean);
 
     // (ii) CONFINEMENT — strict subpath of rootDir AND not in any store/system dir; reject traversal/absolute

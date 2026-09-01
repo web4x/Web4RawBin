@@ -79,7 +79,7 @@ import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
-import { FolderService } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive)
+import { FolderService, resolveDirRefAbs } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it (supersedes createFolder 28000b00, additive). R37.33: resolveDirRefAbs = the ONE dir-ref→abs resolver (dir: uniformly repo-relative)
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -1403,14 +1403,15 @@ function countTsUnder(dir: string): number {
 // 123, not just the ~25 with generated M1 elements). Mirrors pumlChildren's disk walk. file: leaf childCount = its
 // MODEL_STORE M1 element count (0 = a source file not yet modeled; the file: case still resolves its elements, else empty).
 function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
-  const abs = path.join(__dirname, '../../..', 'src', rel); // R33.10 fix (architect backstop): PROJECT_ROOT is NOT module-level (only a local in the /md handler) → ReferenceError → {}; mirror pumlChildren's __dirname join
+  const abs = resolveDirRefAbs('dir:' + rel); // R37.33: dir: is repo-relative now (rel e.g. 'src/ts', or 'src' for the ts root) → the ONE resolver, no hard src-join
+  if (!abs) return [];
   let entries: fsSync.Dirent[] = [];
   try { entries = fsSync.readdirSync(abs, { withFileTypes: true }); } catch { return []; }
   const dirs: MofNode[] = [], files: MofNode[] = [];
   for (const e of entries) {
     const childRel = rel ? `${rel}/${e.name}` : e.name;
     if (e.isDirectory()) { const n = countTsUnder(path.join(abs, e.name)); if (n > 0) dirs.push(mofFolder(`dir:${childRel}`, e.name, n, 'mof-project', 'collection', diskBytes(path.join(abs, e.name)))); } // folders only if they contain .ts; R37.21 size = recursive bytes
-    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:src/${childRel}`, e.name, m1Count.get(`src/${childRel}`) || 0, 'mof-project', 'collection', diskBytes(path.join(abs, e.name)))); // R37.21 size = .ts byte size
+    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:${childRel}`, e.name, m1Count.get(childRel) || 0, 'mof-project', 'collection', diskBytes(path.join(abs, e.name)))); // R37.33: childRel now repo-relative (src/…) → file:${childRel} (no double-src) + m1Count key is bare-repo-relative by construction. R37.21 size = .ts byte size
   }
   return [...dirs.sort((a, b) => a.name.localeCompare(b.name)), ...files.sort((a, b) => a.name.localeCompare(b.name))];
 }
@@ -1706,7 +1707,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     if (uuid.startsWith('dir:')) { const rel = uuid.slice('dir:'.length); if (/^scrum\.pmo\/sprints\/.+\/diagrams$/.test(rel)) { const leaves = pumlLeavesForDir(rel); if (leaves.length) return leaves; } }
     const m1Count = new Map<string, number>();
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
-    return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
+    return sourceDirTree(uuid === 'rawbin:ts' ? 'src' : uuid.slice('dir:'.length), m1Count); // R37.33: ts root walks repo-relative 'src' (was '' + a hard src-join); dir: children are dir:src/… → uuid.slice gives 'src/…' by construction
   }
   if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
   if (uuid === 'rawbin:puml') return [...pumlChildren(els), ...pumlPhysicalTree()]; // R33.5 item4: flat .puml + imported artifacts; R37.21 Part 5: + the REAL physical folder tree beneath (reveals dup names across distinct sprint dirs)
