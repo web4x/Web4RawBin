@@ -45,7 +45,7 @@ export function sunburstSegments(children: SunburstChild[] | null | undefined): 
   return items.map((c) => { const size = sizeOf(c); const a1 = a0 + (size / total) * 360; const seg = { name: c.name, size, startDeg: a0, endDeg: a1 }; a0 = a1; return seg; });
 }
 
-// [impl:uuid:PENDING-req-mint] R37.21 Part 4 renderChildSizeSunburst — flagged to req for the Part-4 Impl uuid
+// [impl:uuid:a34f1a68-1541-46a5-844e-a6e753164f6a] R37.21 renderChildSizeSunburst (Method renderSunburst) — req-minted, designAhead→REAL, sourceFile=this
 export function renderChildSizeSunburst(children: SunburstChild[] | null | undefined): string {
   const items = Array.isArray(children) ? children : [];
   const wrap = (inner: string) =>
