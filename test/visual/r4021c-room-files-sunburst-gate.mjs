@@ -12,6 +12,9 @@
 // max/min arc-length >> 1 (the 10MB png dwarfs the 43B doc); an equal-angle stub makes every wedge identical → max/min
 // == 1. That ratio is the decisive, geometry-agnostic able-to-fail signal. We also map the LARGEST measured arc to its
 // title byte-size and require it to be the png, and require the doc's arc to sit at the minimum.
+// [test:uuid:f805cfe0-cc8c-455b-9608-c48e2c8ece1f] T37.21 P4b — room Files sunburst arc size = real ON-DISK BYTES (Tron's
+// corrected childCount→bytes metric): rendered .dv-sunburst arcs proportional to /api/trace/children model.size (sunburst.ts
+// sizeOf accessor + (size/total)*360 segments), largest arc=png(10MB) tiny=doc(43B), able-to-fail. Verifies the sunburst-bytes Impl.
 import { webkit } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const ROOM = '6c04f959-f3d6-42eb-818f-5e2e4498bf91';          // Heartspaces (Tron's screenshot room)
