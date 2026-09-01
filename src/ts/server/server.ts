@@ -1337,6 +1337,15 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     name = ref.startsWith('rawbin:') ? ref.slice('rawbin:'.length) : ref.startsWith('mof-m2') ? (ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : 'M2') : 'M1';
     if (ref.startsWith('mof-m2')) extra.metaLevel = 'M2'; else if (ref === 'mof-m1') extra.metaLevel = 'M1'; // R35.3 MOF-Folder fields
     extra.synthetic = true;
+  } else if (ref.startsWith('roomcoll:')) {
+    // R37.21 Part 1 (architect): a room Members/Files collection as a REAL VIRTUAL Folder unit (no disk dir), backed by
+    // LIVE room data. ref = roomcoll:<roomUuid>:<kind>. Children resolve LIVE in the /api/trace/children roomcoll branch.
+    const rest = ref.slice('roomcoll:'.length); const ci = rest.indexOf(':');
+    const roomUuid = ci < 0 ? rest : rest.slice(0, ci); const ck = ci < 0 ? '' : rest.slice(ci + 1);
+    if (!roomUuid || (ck !== 'members' && ck !== 'files')) return null;
+    iorClass = 'ior:class:Folder'; key = 'folder::room-' + roomUuid + '-' + ck; kind = 'folder'; location = ref;
+    name = ck === 'members' ? 'Members' : 'Files';
+    extra.roomRef = roomUuid; extra.collectionKind = ck; extra.virtual = true;
   } else return null; // non-view ref → normal resolver
   const uuid = keyToUuid(key);
   const dfile = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
@@ -2933,6 +2942,24 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           res.end(JSON.stringify({ uuid, type: 'collection', name: '', hasChildren: mofKids.length > 0, children: mofKids, parent: null }));
           return;
         }
+        // R37.21 Part 1 (architect): a room Members/Files VIRTUAL folder → its children = the room's LIVE members/files
+        // (room lives in prod scenario/index; members are live room data, NOT idx forward-refs). Special-cased BEFORE the
+        // isModelUnit split. childCount = length → feeds the badge + the Part-4 sunburst by construction (one source).
+        if (uuid.startsWith('roomcoll:')) {
+          const rest2 = uuid.slice('roomcoll:'.length); const ci2 = rest2.indexOf(':');
+          const roomU = ci2 < 0 ? rest2 : rest2.slice(0, ci2); const ck2 = ci2 < 0 ? '' : rest2.slice(ci2 + 1);
+          const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          const rUnit = pidx.get(roomU);
+          if (!rUnit || (ck2 !== 'members' && ck2 !== 'files')) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
+          const rmodel = rUnit.model as Record<string, unknown>;
+          const arr = Array.isArray(rmodel[ck2]) ? rmodel[ck2] as any[] : [];
+          const kids = ck2 === 'members'
+            ? arr.map((m: any) => ({ uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''), type: 'Member', name: String(m.name || '?'), description: String(m.status || m.role || ''), hasChildren: false }))
+            : arr.map((f: any) => { const fUuid = String(f).replace('ior:instance:', ''); const fu = pidx.get(fUuid); return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false }; });
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+          res.end(JSON.stringify({ uuid, type: 'folder', name: `${ck2 === 'members' ? 'Members' : 'Files'} (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
+          return;
+        }
         // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
         const scenarioDir = isModelUnit(uuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
         const idx = new ScenarioIndex(scenarioDir);
@@ -3020,8 +3047,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false };
           });
           const roomChildren = [
-            { uuid: 'members-' + uuid, type: 'collection', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, children: memberItems },
-            { uuid: 'files-' + uuid, type: 'collection', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, children: fileItems },
+            // R37.21 Part 1: emit a synthetic REF (not a bare 'members-<uuid>' id) so ensureViewUnit resolves each as a REAL
+            // VIRTUAL Folder unit → /api/ior renders the folder detail → the Part-4 child-size sunburst appears on it (the
+            // task-title pairing: "Room Members/Files become real Folder scenario-units WITH sunburst detail").
+            { uuid: 'roomcoll:' + uuid + ':members', type: 'folder', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, childCount: memberItems.length, children: memberItems },
+            { uuid: 'roomcoll:' + uuid + ':files', type: 'folder', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, childCount: fileItems.length, children: fileItems },
           ];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           const ownerIor2 = String(unit.ownerIor || '').replace('ior:instance:', '');
