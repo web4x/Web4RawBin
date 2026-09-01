@@ -64,10 +64,26 @@ Today browser-1 updates via a client `await load()` = a full data refetch (teste
 
 **Concrete shape for expert:** add `pumlPhysicalTree()` next to the puml-collection builder (server.ts ~1585); emit its root as a child section of the puml node (e.g. a `dir:`-rooted subtree, or a labelled "physical folders" node whose children are the distinct dir: roots). Node uuids = `keyToUuid('folder::'+relpath)` — assert 0 newly-minted Folder models beyond the `ensureViewUnit` dir: identities (a count gate: distinct dir: nodes == distinct physical dirs, and each already resolves through ensureViewUnit).
 
-## Parts 1 / 3 / 4 (not the hard two — noted for owners)
-- **Part 1 (Members/Files ARE folders, virtual):** same folder-model reuse — the room pseudo-collections become real `Folder` units (virtual: no disk dir → unit-only, the Part-A "virtual parent" branch). **DEPENDENCY:** the shots show these File units currently fail to resolve ("File unit not found" / name=uuid) — that's the `file:<uuid>` regression (RoomView.ts:393/401). Part 1's rendering is blocked until that caller-fix lands. Flag to PO whether it's in-scope here.
-- **Part 3 (kill redundant Scenario/Edit links in detail body):** remove the `scenarioBrowserLinkFromIor(uuid)` call from the detail body (detail-children.ts:74) — the action bar already provides them (R34.7, Tron-verified v0.8.153). Do NOT touch the action-bar buttons. Trivial; expert or me.
-- **Part 4 (sunburst missing from detail):** the task's required sunburst isn't rendered — add it to the detail view. Needs its own render spec (separate small design); flag if it's mine.
+## Parts 1 / 3 / 4 — backstop criteria + the Part-4 sunburst SPEC (expert blocked on this)
+
+### Part 1 (Members/Files ARE folders, virtual)
+Same folder-model reuse — room pseudo-collections become real `Folder` units (virtual: no disk dir → unit-only). File-unit-not-found regression is OUT OF SCOPE (Tron/PO). Backstop: the collection renders as a `Folder` unit (type-driven), no dup model.
+
+### Part 3 (remove redundant Scenario/Edit LINKS from the detail BODY) — expert owns; my backstop criteria
+The `scenarioBrowserLinkFromIor(uuid)` body link is called in EVERY `*-detail` component body: measured in rb-class-detail:24, rb-implementation-detail:21, rb-file-detail:46, rb-method-detail:21 (+ usecase/requirement/task/test-detail — grep all). Part 3 = remove those body calls.
+**★ SURVIVAL CHECK (the thing to check HARDEST — removing it would be the 3rd regression of that bar, Tron-verified v0.8.153):** the **action-bar** Scenario + Edit buttons (emitted by `showActionsForType` in `renderDetailForRef`) MUST survive on every detail path. Backstop asserts BOTH, @390: (a) 0 Scenario/Edit LINKS in the detail body; (b) the action-bar Scenario + Edit buttons PRESENT and functional. Do not conflate the two — the body link goes, the bar button stays.
+
+### Part 4 (sunburst) — SPEC + the R40.16 single-source child-size field (expert is BLOCKED on this; t3721-EXPERT-FINDINGS)
+Measured: **no sunburst renderer exists** (0 hits) → whoever builds it first creates the ONE renderer (no dup risk). Expert builds the pure-view SVG-arc renderer and asked me to **name the single-source child-size field** so the view doesn't read size ad-hoc.
+- **★ SINGLE-SOURCE CHILD-SIZE FIELD = `childCount`** — the SAME per-node value already computed server-side for the tree's child-count badge (`mofFolder(uuid,name,childCount,icon,type)` server.ts:1223; threaded to `rb-object-item` child-count). The sunburst reads **`childCount` per direct child through ONE accessor, identical to the badge** — NO new size field, NO ad-hoc view-side count. This IS the R40.16 convergence: one child-size source feeding both the badge and the sunburst (they can never disagree). `size(child) = max(childCount, 1)` so leaves (childCount 0) still occupy an arc instead of vanishing.
+- **What the sunburst MUST render (what "correct" is — for the tester's gate; "renders the requirement, not merely something round"):**
+  1. One SVG arc per **direct child** of the folder → **arc count == direct-child count** (assert equality, not "a circle exists").
+  2. Each arc's angle is **PROPORTIONAL to that child's `childCount`**: `angle(child) = 360° × size(child) / Σ size`. Assert the child with the largest `childCount` has the largest arc (proportionality, not equal slices) — this is the check that separates "the specified sunburst" from "something round".
+  3. **Deterministic order** (stable — by name, or size-desc) so the gate is reproducible.
+  4. **Empty folder (0 children)** → a defined empty state (a "no children" indicator / no arcs), never a blank/broken circle.
+  5. Rendered IN the folder/task detail view; visible @390 real-WebKit (screenshot, not DOM counts).
+- **One renderer, shared:** the same sunburst view serves parts 1/2/5 folder details (folder-as-unit convergence) — do not fork a per-type variant. Ride the `childCount` accessor.
+- **CHAIN:** ties to R40.16 (`cc875e35`). The child-size accessor is the DESIGN-REQUIRED single-source; expert wires the renderer to it. I backstop: arc-count==children, proportional-to-childCount, badge and sunburst read the same field.
 
 ## Handoff
 - **req:** mint requirements for A (physical-mkdir + live-MVC + WS-fanout, 3 assertions) + B (physical-folder-tree-reuses-dir:-model, no-dup gate) + 1/3/4; scenario-first before build.
