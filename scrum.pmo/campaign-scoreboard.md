@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 229** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 80** (229 = 98+46+3+80)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 76**
+- **TOTAL S30++ tasks: 230** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 81** (230 = 98+46+3+81)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 77**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 38 | 1 | 14 | 0 | 23 |
+| S37 | 39 | 1 | 14 | 0 | 24 |
 | S40 | 71 | 0 | 15 | 0 | 54 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 16 · build 49
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 17 · build 49
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -45,6 +45,7 @@
 | S37 | 968d966d | Planned | build | Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness |
 | S37 | 9b140eee | Planned | build | Task 37.33: Referential-integrity by construction — every co |
 | S37 | 9cb80055 | Planned | build | Task 37.17: Gates must not encode a SNAPSHOT of the  |
+| S37 | 9cd50dde | Planned | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
