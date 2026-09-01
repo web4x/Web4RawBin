@@ -29,7 +29,7 @@
 | S37 | 38 | 1 | 14 | 0 | 23 |
 | S40 | 71 | 0 | 15 | 0 | 54 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 50
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 16 · build 49
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -81,7 +81,7 @@
 | S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
 | S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
 | S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |
-| S40 | 800fa79d | Planned | build | Task 40.70: Add-folder/add-diagram is MVC-live in the tree + |
+| S40 | 800fa79d | Planned | marker | Task 40.70: Add-folder/add-diagram is MVC-live in the tree + |
 | S40 | 80ab1930 | Planned | build | Task 40.56: Current-task has ONE definition site — pinRo |
 | S40 | 88183260 | Planned | build | Task 40.14: Portable encrypted loginToken — download fro |
 | S40 | 902c6dea | Planned | build | Task 40.36: Scratch boot-smoke gate — a server change fi |

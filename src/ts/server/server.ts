@@ -1216,11 +1216,24 @@ function renderFeatureGrants(): string {
 // TOP layer (M2/M1 folders, hasChildren+childCount, NO inline deep tree). Every deeper layer (metaclass→instances,
 // project→file-folders→classes→members) lazy-loads via /api/trace/children → mofChildren (MODEL_STORE) on expand →
 // bounds the initial payload+DOM at 390px (was: inline ~1195 nodes = @390 flood). Members already lazy (mofElNode).
-type MofNode = { uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string; children?: MofNode[] };
+type MofNode = { uuid: string; type: string; name: string; hasChildren: boolean; childCount: number; icon?: string; children?: MofNode[]; size?: number };
 type MofEl = { uuid: string; ior: string; m: Record<string, unknown> };
 const MOF_STRIP = (r: string): string => String(r).replace(/^ior:instance:/, '').replace(/^modelelement:/, '');
+// R37.21 ★ TRON SUNBURST-SIZE CORRECTION (2026-09-01): CONTENT BYTES on disk — file → stat size; folder → recursive
+// descendant byte sum. The sunburst arc reads this per child (client sizeOf = max(size, 1) floor); byte sizes vary far more
+// widely than counts = a STRONGER proportional discriminator (largest content = largest arc). Best-effort (unreadable → 0
+// → client floors to a minimum visible arc so arc-count still == child-count).
+function diskBytes(abs: string): number {
+  try {
+    const st = fsSync.statSync(abs);
+    if (st.isFile()) return st.size;
+    if (st.isDirectory()) { let n = 0; for (const e of fsSync.readdirSync(abs)) n += diskBytes(path.join(abs, e)); return n; }
+  } catch { /* unreadable → 0 */ }
+  return 0;
+}
 // bounded folder: hasChildren + childCount, NO inline children array → client lazy-fetches via /api/trace/children.
-const mofFolder = (uuid: string, name: string, childCount: number, icon: string, type = 'collection'): MofNode => ({ uuid, type, name, hasChildren: childCount > 0, childCount, icon });
+// size = content bytes on disk (R37.21 Tron correction) — the sunburst arc's proportional value (was childCount).
+const mofFolder = (uuid: string, name: string, childCount: number, icon: string, type = 'collection', size?: number): MofNode => ({ uuid, type, name, hasChildren: childCount > 0, childCount, icon, ...(size != null ? { size } : {}) });
 // a real ModelElement (class) node — members stay LAZY (hasChildren+childCount, no inline members), INV-MOF3 uuid unchanged.
 const mofElNode = (x: MofEl): MofNode => { const memberCount = (Array.isArray(x.m.members) ? (x.m.members as string[]) : []).length; return { uuid: String(x.m.uuid || x.uuid), type: 'modelelement', name: String(x.m.name || ''), hasChildren: memberCount > 0, childCount: memberCount, icon: String(x.m.kind || 'class') }; };
 function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl[]; m1Roots: MofEl[] } {
@@ -1396,8 +1409,8 @@ function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
   const dirs: MofNode[] = [], files: MofNode[] = [];
   for (const e of entries) {
     const childRel = rel ? `${rel}/${e.name}` : e.name;
-    if (e.isDirectory()) { const n = countTsUnder(path.join(abs, e.name)); if (n > 0) dirs.push(mofFolder(`dir:${childRel}`, e.name, n, 'mof-project')); } // folders only if they contain .ts
-    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:src/${childRel}`, e.name, m1Count.get(`src/${childRel}`) || 0, 'mof-project'));
+    if (e.isDirectory()) { const n = countTsUnder(path.join(abs, e.name)); if (n > 0) dirs.push(mofFolder(`dir:${childRel}`, e.name, n, 'mof-project', 'collection', diskBytes(path.join(abs, e.name)))); } // folders only if they contain .ts; R37.21 size = recursive bytes
+    else if (e.name.endsWith('.ts')) files.push(mofFolder(`file:src/${childRel}`, e.name, m1Count.get(`src/${childRel}`) || 0, 'mof-project', 'collection', diskBytes(path.join(abs, e.name)))); // R37.21 size = .ts byte size
   }
   return [...dirs.sort((a, b) => a.name.localeCompare(b.name)), ...files.sort((a, b) => a.name.localeCompare(b.name))];
 }
@@ -1603,9 +1616,10 @@ function pumlChildren(els: MofEl[]): MofNode[] {
 // fork (R40.16). Walks the REAL on-disk dir under PROJECT_ROOT (repo-relative rel), NOT sourceDirTree (which is .ts+src-only).
 function pumlLeavesForDir(dirRel: string): MofNode[] {
   const relBody = dirRel.replace('scrum.pmo/sprints/', '');
+  const absDir = path.join(__dirname, '../../..', dirRel);
   let entries: string[] = [];
-  try { entries = fsSync.readdirSync(path.join(__dirname, '../../..', dirRel)); } catch { return []; }
-  return entries.filter((f) => f.endsWith('.puml')).sort().map((f) => mofFolder(`puml-src:${relBody}/${f}`, f, 0, 'puml', 'puml'));
+  try { entries = fsSync.readdirSync(absDir); } catch { return []; }
+  return entries.filter((f) => f.endsWith('.puml')).sort().map((f) => mofFolder(`puml-src:${relBody}/${f}`, f, 0, 'puml', 'puml', diskBytes(path.join(absDir, f)))); // R37.21: size = the .puml byte size (sunburst arc)
 }
 // [impl:uuid:PENDING-req-mint] R37.21 Part 5 (architect design): server.pumlPhysicalTree — BENEATH the flat puml
 // collection, surface the REAL physical folder tree. The flat pumlChildren list flattens every .puml to one level (Tron:
@@ -1630,7 +1644,7 @@ function pumlPhysicalTree(): MofNode[] {
   return [...byDir.keys()].sort().map((dirRel) => {
     const pumls = byDir.get(dirRel)!;
     const relBody = dirRel.replace('scrum.pmo/sprints/', ''); // '<sp>/diagrams' — the puml-src ref body convention (pumlChildren)
-    const node = mofFolder(`dir:${dirRel}`, relBody, pumls.length, 'folder', 'folder'); // dir: ref → ensureViewUnit Folder; explicit distinctive name
+    const node = mofFolder(`dir:${dirRel}`, relBody, pumls.length, 'folder', 'folder', diskBytes(path.join(__dirname, '../../..', dirRel))); // R37.21: dir size = recursive descendant bytes (the rawbin:puml sunburst sizes dirs by real content, not count)
     node.children = pumlLeavesForDir(dirRel); // inline leaves reveal the real path (ONE source, shared with the on-tap branch)
     return node;
   });

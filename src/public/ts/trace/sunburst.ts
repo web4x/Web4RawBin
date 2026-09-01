@@ -7,10 +7,13 @@
 // equal slices) · size(child)=max(childCount,1) so a leaf (childCount 0) still occupies an arc · deterministic order
 // (preserves the API child order, which is index-stable) · a DEFINED empty-state for 0 children (never a blank ring).
 
-export type SunburstChild = { name: string; childCount?: number };
+export type SunburstChild = { name: string; childCount?: number; size?: number };
 
-// THE single accessor — identical semantics to the tree badge (childCount, floored at 1 so leaves render).
-export function sizeOf(c: SunburstChild): number { return Math.max(Number(c?.childCount ?? 0), 1); }
+// THE single accessor — ★ TRON CORRECTION (R37.21, 2026-09-01): arc size = real CONTENT BYTES on disk (server-emitted per
+// child: file = byte size, folder/virtual = recursive descendant byte sum), NOT childCount (one-per-file was the exact
+// defect Tron reported). Floor 1 = a minimum visible arc for a zero-byte child so arc-count STILL equals child-count. Byte
+// sizes vary far more widely than counts → a STRONGER proportional discriminator (largest content = largest arc).
+export function sizeOf(c: SunburstChild): number { return Math.max(Number(c?.size ?? 0), 1); }
 
 function esc(s: string): string {
   return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c] as string));
