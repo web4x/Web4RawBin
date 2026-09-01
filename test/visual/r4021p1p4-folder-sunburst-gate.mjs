@@ -67,10 +67,16 @@ try {
   });
 
   // ── P4-FIRES on the room Members folder (P1+P4 integration) ──
+  // gap-3 (expert): rb-detail-view fetches children by the RESOLVED keyToUuid, but the server roomcoll children branch is
+  // keyed on the roomcoll REF → children 404 → a sunburst could render over ZERO children and false-pass as "present".
+  // So the LOAD-BEARING assertion (PO): arc-count == the real child count == the "Members (N)" LABEL the user sees, N>0.
+  // This ties the render to the DATA (childCount==label proven in P1), not to itself.
+  const childrenByResolvedUuid = await page.evaluate(async (u) => { const j = await (await fetch(`/api/trace/children/${u}`)).json().catch(() => ({})); return (j.children || []).length; }, p1.members.uuid);
   await mount(`roomcoll:${ROOM}:members`);
   const rm = await readSun();
-  const p4fires = rm.present && rm.arcCount === p1.members.childCount && rm.visible && !rm.empty;
-  R(`P4-on-room: detail "${rm.title}" (dv-type=${rm.dvType}) sunburst-present=${rm.present} arc-count=${rm.arcCount}(==childCount ${p1.members.childCount}) visible=${rm.visible}`);
+  const childrenLoaded = rm.present && rm.arcCount > 0 && rm.arcCount === p1.members.labelCount; // arcs == "Members (N)" label, N>0 (NOT sunburst-over-zero)
+  const p4fires = childrenLoaded && rm.visible && !rm.empty;
+  R(`P4-on-room: detail "${rm.title}" (dv-type=${rm.dvType}) sunburst-present=${rm.present} arc-count=${rm.arcCount} (label=Members(${p1.members.labelCount}), children-by-resolved-uuid=${childrenByResolvedUuid}) children-loaded=${childrenLoaded} visible=${rm.visible}${rm.present && rm.arcCount === 0 && p1.members.labelCount > 0 ? ' ⚠ SUNBURST-OVER-ZERO (gap-3: children did not load via the resolved-uuid path)' : ''}`);
   await page.screenshot({ path: 'test-results/r4021p1p4/room-members.png' }).catch(() => {});
 
   // ── P4-PROPORTIONAL on rawbin:puml (25 dir children, VARIED childCounts) ──
@@ -103,8 +109,8 @@ try {
     ? `GREEN — room Members(${p1.members.childCount}) + Files(${p1.files.childCount}) resolve to REAL ior:class:Folder units (kind=folder, collectionKind, virtual, real uuid), childCount==label. Resolvable Folder, not a synthetic pseudo-node. ${CAV}`
     : `RED — a roomcoll ref did NOT resolve to a real Folder (members:${JSON.stringify(p1.members)} files:${JSON.stringify(p1.files)}). ${CAV}`}`);
   R(`\n═══ T37.21 P4 verdict ═══\n${p4Green
-    ? `GREEN — sunburst FIRES on the real room folder (arc-count==childCount, visible) AND is PROPORTIONAL over rawbin:puml's varied childCounts (largest-cc child = largest MEASURED arc), single-source sizes in stable order, failable. ${CAV}`
-    : `RED/RECONCILE — p4-fires-on-room=${p4fires}(present=${rm.present} arc=${rm.arcCount}/${p1.members.childCount} vis=${rm.visible}) · proportional[arcCount=${arcCountOk} size=${sizeSourceOk} largest=${largestOk} vis=${propVisible}] · failable=${propBites}. ${!rm.present ? `⚠ sunburst did NOT render on roomcoll:members (dv-type="${rm.dvType}"); rb-detail-view:84 gates on model.type||ref-prefix ∈ {collection,folder,project} and the roomcoll model has kind=folder(no type)+roomcoll prefix — CANNOT RECONCILE with the "type=folder fires" backstop, flag architect.` : ''} ${CAV}`}`);
+    ? `GREEN — sunburst FIRES on the real room folder with CHILDREN ACTUALLY LOADED (arc-count==${p1.members.labelCount}==the "Members (N)" label the user sees, N>0 — not a sunburst-over-zero), visible; AND is PROPORTIONAL over rawbin:puml's varied childCounts (largest-cc child = largest MEASURED arc), single-source sizes in stable order, failable. ${CAV}`
+    : `RED (real 3-gap wiring, architect+PO-ruled) — p4-fires-on-room=${p4fires}(present=${rm.present} arc=${rm.arcCount} label=${p1.members.labelCount} loaded=${childrenLoaded} vis=${rm.visible}) · proportional[arcCount=${arcCountOk} size=${sizeSourceOk} largest=${largestOk} vis=${propVisible}] · failable=${propBites}. GAPS: (1) roomcoll∉SYNTHETIC_PREFIX→unresolved; (2) sunburst type-gate reads model.type not kind→never fires on folders; (3) children keyed on roomcoll-ref not resolved-uuid→/api/trace/children/${(p1.members.uuid || '').slice(0, 8)}=empty→sunburst-over-zero. RE-GATE asserts CHILDREN LOAD (arc==label>0), not element-present. ${CAV}`}`);
   exit = (p1ok && p4Green) ? 0 : 1;
 } finally { await browser.close().catch(() => {}); }
 process.exit(exit);
