@@ -29,7 +29,7 @@
 | S37 | 39 | 1 | 14 | 0 | 24 |
 | S40 | 71 | 0 | 15 | 0 | 54 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 17 · build 49
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 16 · build 49
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -71,7 +71,7 @@
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
-| S40 | 5899aeb2 | Planned | marker | Task 40.16: Folders as real scenario units — type-driven |
+| S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
 | S40 | 6134f49c | Planned | build | Task 40.53: ONE canonical sprint-dir resolver (sprintDir |
 | S40 | 658c05fe | Planned | marker | Task 40.60: Change Requests are first-class traceability |
 | S40 | 681c6659 | Planned | build | Task 40.47: PII units are never committable + traceabili |
