@@ -75,8 +75,14 @@
           "assertion": "the @390 assertion is taken on the passive client AFTER the live broadcast, not on initial load"
         },
         "stubMustFail": "PENDING: assert on initial-load only -> the local-emit stub would false-pass -> that is itself the failure"
+      },
+      {
+        "id": "AC-physical-BOTH-unit-and-directory",
+        "group": "T37.21-part2-user-visible@390",
+        "text": "TRON RULED 2026-09-01 — BOTH: the Add-folder action MINTS the folder scenario-UNIT **AND** CREATES the actual filesystem DIRECTORY (model and filesystem stay in step). Part 2 = FOUR checkable assertions: (a) the persisted UNIT exists; (b) a REAL DIRECTORY exists on disk (mkdir); (c) live-MVC tree update with NO reload [browser 1] (= AC-create-and-live-tree-no-reload); (d) a SECOND browser updates over WS [= AC-broadcast + AC-second-passive-client]. reload-to-see = FAIL; single-browser-only = FAIL. FAIL-CLEAN: if the dir already exists, the name is invalid, or mkdir succeeds but the mint fails, it must fail cleanly and leave NOTHING behind (a half-created folder is worse than a failed one). @390 screenshot-checkable: after Add-folder, BOTH the unit and a real directory exist + tree updates live + 2nd browser updates. stub-must-fail: unit-without-directory OR directory-without-unit => RED."
       }
-    ]
+    ],
+    "t3721Part2DefinitionChange": "TRON RULING 2026-09-01: 'physical' = BOTH persisted unit AND filesystem directory. This SUPERSEDES the prior definition. ★ FALSE-ATTRIBUTION TO CORRECT (expert build action, recorded here): FolderService.ts:2 states physical=persisted-unit-and-explicitly-NOT-a-filesystem-directory and ATTRIBUTES that to Tron — now WRONG; it misled the tester once tonight (they correctly stopped rather than guessing). Correct the comment + record the definition changed by Tron ruling 2026-09-01 (a stale comment carrying a false attribution makes the next person confidently build the wrong thing)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

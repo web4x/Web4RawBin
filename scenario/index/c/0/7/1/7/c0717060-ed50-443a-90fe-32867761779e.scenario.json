@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "c0717060-ed50-443a-90fe-32867761779e",
+    "name": "pumlCollection.surfacePhysicalFolderTree",
+    "description": "Beneath the virtual puml collection, render a tree of physical folder scenario-units showing the real on-disk paths where .puml files live; dup names disambiguated by folder. Rides R40.16.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:70c6b806-d4be-4dc9-b23f-cfd61c8c7eea",
+    "unitLinks": [],
+    "note": "Architect designs part 5 mechanics; expert builds. @390 screenshot-verified."
+  },
+  "ownerIor": "ior:instance:70c6b806-d4be-4dc9-b23f-cfd61c8c7eea"
+}

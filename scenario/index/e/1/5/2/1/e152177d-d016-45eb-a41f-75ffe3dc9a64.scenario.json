@@ -40,6 +40,11 @@
         "id": "AC-device-visual-390",
         "group": "device",
         "text": "[DEVICE/VISUAL @390 - Tron] The migrated detail/feature-view bars render @390 unchanged-or-better (pixel; Tron final visual, esp. any owner-gated surface a non-owner cannot load)."
+      },
+      {
+        "id": "AC-detail-body-scenario-edit-links-removed",
+        "group": "T37.21-part3-user-visible@390",
+        "text": "T37.21 part 3 (Tron): the detail BODY must NOT repeat the Scenario/Edit LINKS — the action bar's [◆ Scenario][✎ Edit] buttons are the SINGLE source (this dedup invariant). Tron: 'we already have std action bar buttons for scenario and edit so we see redundant links in the details.' @390 screenshot-checkable: the detail body shows NO 📄 Scenario / ✎ Edit links above the content; the action-bar buttons REMAIN untouched (do NOT touch the bar — R34.7/R33.6.5, Tron-verified v0.8.153). stub-must-fail: the detail body still renders the Scenario/Edit links => RED (logical action implemented twice = this req's dedup violation)."
       }
     ],
     "scopeNote": "EDITOR CHROME EXPLICITLY EXCLUDED (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) and this exclusion is RECORDED so a future reader does not think it was missed — its distinct chrome is NOT a defect; only the DUPLICATED extra buttons on detail/feature views are."

@@ -1,0 +1,63 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "70c6b806-d4be-4dc9-b23f-cfd61c8c7eea",
+    "altId": "R40.77",
+    "name": "Virtual puml collection ALSO surfaces the real on-disk physical-folder tree beneath it (physical folders as scenario-units) — T37.21 part 5",
+    "description": "T37.21 part 5 (Tron verbatim): 'we see the puml files under puml but not in the physical folders as they are. puml is a virtual collection with no physical folder - below I want the folder paths where the real puml files are, as a tree of physical folders as scenario-first units.' The puml collection is VIRTUAL (no physical dir). MEASURED (robbin-req re-derived vs disk, not the transcription): class-diagram.puml appears 4x across 4 DISTINCT physical folders (sprint-02/08/09/31 .../diagrams), use-cases.puml 3x - the SAME name in DIFFERENT physical folders = exactly the information the physical tree must reveal (the dup names Tron saw). KEEP the virtual collection; BENEATH it surface the actual on-disk folder PATHS as a tree of PHYSICAL folder scenario-units (rides R40.16 folder-as-unit, NO duplicate folder model).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:c0717060-ed50-443a-90fe-32867761779e"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "defectType": "T37.21 part 5 — new feature (no existing req); user-visible @390",
+    "discoverySource": {
+      "type": "tron-directive-T37.21",
+      "source": "T37.21-TRON-EXTENDED-SCOPE.md part 5 (Tron verbatim) + PO transcription (PO-sourced)",
+      "measuredBy": "robbin-req re-derived vs disk 2026-09-01",
+      "measured": "class-diagram.puml x4 across sprint-02/08/09/31 diagrams, use-cases.puml x3 = dup names across physical folders."
+    },
+    "crossRef": [
+      "ior:instance:cc875e35-772b-4352-b99c-4070f0370a68",
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+    ],
+    "crossRefNote": "Rides R40.16 (folders as real scenario-units) — the physical folders are real Folder units. Sibling of R37.21 (room collections as real folders). The virtual/physical distinction mirrors R37.21's virtual room-collections.",
+    "satisfactionStatus": "UNVERIFIED — new T37.21 part 5; scenario-first (#126), build pending; 0 Done till Tron; QA-Review by deadline.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-390-physical-tree-below-virtual",
+        "group": "user-visible@390",
+        "text": "Below the VIRTUAL puml collection, a TREE of physical-folder scenario-units renders showing the REAL on-disk folder paths where the .puml files live. @390 screenshot: under 'puml (61)', the physical folder tree is visible."
+      },
+      {
+        "id": "AC-dup-names-disambiguated",
+        "group": "user-visible@390",
+        "text": "A puml name appearing in multiple folders (measured: class-diagram.puml x4) renders under EACH real physical folder, so the user sees WHICH folder each lives in — the duplicate names are EXPLAINED by the physical tree. Screenshot: the 4 class-diagram.puml appear under 4 distinct folder paths, not as 4 identical siblings."
+      },
+      {
+        "id": "AC-physical-folders-are-units",
+        "group": "by-construction",
+        "text": "The physical folders are REAL Folder scenario-units (rides R40.16, NO duplicate folder model — reuse the folder-as-unit type)."
+      },
+      {
+        "id": "AC-virtual-kept",
+        "group": "user-visible@390",
+        "text": "The virtual puml collection is KEPT (not replaced): virtual collection above, physical-folder tree below. Screenshot: both are present."
+      },
+      {
+        "id": "AC-390-device",
+        "group": "device@390",
+        "text": "[DEVICE @390 - Tron] Tron verifies on his phone that the physical folder tree renders beneath the virtual puml collection with the real paths."
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "gate",
+        "text": "stub-must-fail: a puml name that lives in multiple physical folders but renders under only ONE (or none) => RED (the physical tree must reveal all real locations)."
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
