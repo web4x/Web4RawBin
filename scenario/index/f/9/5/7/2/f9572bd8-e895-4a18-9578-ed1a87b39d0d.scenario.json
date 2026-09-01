@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f9572bd8-e895-4a18-9578-ed1a87b39d0d",
+    "name": "modelTree.liveInsertChild",
+    "description": "A newly-created child (add-folder/add-diagram) INSERTS LIVE into the trace/model tree with NO reload, by re-deriving the parent direct children on the ViewBus event. Piece-2 client render of R40.70 add-folder MVC-live.",
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+    "method": "ior:instance:1e5c4233-5468-44a6-b91a-d2e4deb1cad2",
+    "parent": "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
+    "unitLinks": [],
+    "repairNote": "MINTED to repair a DANGLING ref: R40.70.useCases[] pointed at f9572bd8 but the unit did not exist (R37.29 referential-integrity gap, architect flagged as no-UC). Minted the missing target in place -> ref resolves + chain completes. Not a fresh dup."
+  },
+  "ownerIor": "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530"
+}
