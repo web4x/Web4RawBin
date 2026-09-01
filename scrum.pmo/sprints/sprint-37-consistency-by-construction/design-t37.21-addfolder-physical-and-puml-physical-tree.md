@@ -66,8 +66,16 @@ Today browser-1 updates via a client `await load()` = a full data refetch (teste
 
 ## Parts 1 / 3 / 4 — backstop criteria + the Part-4 sunburst SPEC (expert blocked on this)
 
-### Part 1 (Members/Files ARE folders, virtual)
-Same folder-model reuse — room pseudo-collections become real `Folder` units (virtual: no disk dir → unit-only). File-unit-not-found regression is OUT OF SCOPE (Tron/PO). Backstop: the collection renders as a `Folder` unit (type-driven), no dup model.
+### Part 1 (Members/Files ARE folders, virtual) — MEASURED GAP + build-ready (2026-09-01)
+**Measured (server.ts:2993):** `roomChildren = [{uuid:'members-'+roomUuid, type:'collection', name:'Members (N)', children:memberItems}, {files similarly}]`. ⇒ **The render half IS done** (folder icon + count badge, `type:'collection'` — matches Tron's shot1). **The AC's "REAL Folder scenario-units" half is NOT** — `members-<uuid>`/`files-<uuid>` are synthetic ids that don't resolve to a persisted `ior:class:Folder`; **nothing mints them.**
+**Missing half (build-ready):** emit each room collection as a REAL VIRTUAL Folder unit — `uuid = keyToUuid('folder::room-'+roomUuid+'-members')` (and `-files`), `ior:class:Folder`, `kind='folder'`, **no disk dir (virtual)**, `childCount = memberItems.length` (feeds badge + sunburst; R40.16 one model, no dup). The node emits THAT uuid so `/api/ior` resolves it → folder detail + child-size sunburst render; members/files stay as its children. Small server change, same folder-as-unit model as parts 2/5. File-unit-not-found regression stays OUT OF SCOPE (Tron/PO).
+
+### Part 5 — BUILD-READY plug-in (2026-09-01, sunburst level of detail)
+- **WHERE:** `pumlChildren(els)` server.ts:1578 — currently walks `scrum.pmo/sprints/<sp>/diagrams/*.puml` → FLAT `puml-src:<sp>/diagrams/<f>` nodes (the flattening that hides physical location). Add `pumlPhysicalTree(els)` beneath the virtual collection (KEEP the flat list).
+- **ACCESSOR:** the SAME `.puml` enumeration; each file's physical parent-dir relpath = `scrum.pmo/sprints/<sp>/diagrams`.
+- **BUILD:** group `.puml` by DISTINCT parent-dir relpath → per dir emit `{ uuid: keyToUuid('folder::'+dirRelpath), type:'folder', name:'<sp>/diagrams', hasChildren:true, childCount:<#puml in dir>, children:[ puml-src:<dirRelpath>/<f> leaves ] }`; sort dirs by relpath (deterministic). Each Folder node resolves via `ensureViewUnit('dir:'+dirRelpath)` → the ONE folder model = **0 new mints (R40.16 no-dup)**.
+- **EMPTY:** no `.puml` → physical section absent (defined, not broken). **SINGLE-FOLDER:** all in one dir → one dir node with all leaves.
+- **THE REVEAL (must render):** `class-diagram.puml` under EACH distinct dir it lives in (sprint-02/08/09/31 → 4 dir nodes each with a class-diagram.puml leaf); `object-verb-usecases` ×2. `childCount` per dir also feeds the sunburst.
 
 ### Part 3 (remove redundant Scenario/Edit LINKS from the detail BODY) — expert owns; my backstop criteria
 The `scenarioBrowserLinkFromIor(uuid)` body link is called in EVERY `*-detail` component body: measured in rb-class-detail:24, rb-implementation-detail:21, rb-file-detail:46, rb-method-detail:21 (+ usecase/requirement/task/test-detail — grep all). Part 3 = remove those body calls.
