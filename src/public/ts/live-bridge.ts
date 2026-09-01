@@ -6,13 +6,20 @@
 // path); the socket-less pages call connectLiveBridge() to open a receive-only socket (bare connect = in wsClients,
 // no IDENTIFY needed to RECEIVE broadcasts).
 import { ViewBus, viewBusKey } from './trace/ViewBus.js';
+import { isSyntheticRef } from './trace/synthetic-ref.js'; // R37.21 Part 2 piece-2: synthetic-ref uuids key on the REF STRING
 import { wireTransportResync } from './transport-lifecycle.js'; // R37.27 fact-1: shared iOS-suspend foreground re-sync (both transports)
 
 // The ONE unit-changed → bus mapping (was inline at RawBinClient:100; extracted so /trace+/model+/scenario share it).
 export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: string }): void {
   if (!msg || msg.type !== 'unit-changed') return;
   const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
-  if (t && msg.uuid) ViewBus.notify(viewBusKey({ type: t, uuid: msg.uuid })); else ViewBus.notify('graph'); // R40.45: notify key via the ONE viewBusKey builder (subscribe sites use the SAME) — no drift; 'graph' = structural create/delete (bare channel)
+  if (!msg.uuid) { ViewBus.notify('graph'); return; } // structural create/delete (bare channel)
+  // R37.21 Part 2 piece-2 (architect canonical key): a SYNTHETIC-ref uuid (dir:/rawbin:/roomcoll:/project:/…) keys on the
+  // REF STRING — viewBusKey('dir:src/foo')='dir:src/foo' — so subscribe==notify BY CONSTRUCTION (the tree node's uuid IS
+  // the full ref, the server emits shownRef as the uuid; NO type-mapping, folder-vs-collection can't diverge). A REAL uuid
+  // (no colon) keeps the {type,uuid} form — pin/CR unaffected. R37.12 one-builder-both-sides, the ONE input = the ref string.
+  const key = isSyntheticRef(String(msg.uuid)) ? viewBusKey(String(msg.uuid)) : (t ? viewBusKey({ type: t, uuid: msg.uuid }) : 'graph');
+  ViewBus.notify(key);
 }
 
 // R40.45 OBSERVABLE transport state (fail-LOUD, architect guard 451f3cfcc): a human (devtools) AND a gate/test can read

@@ -28,6 +28,7 @@
 import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus, viewBusKey } from './ViewBus.js';
+import { isSyntheticRef } from './synthetic-ref.js'; // R37.21 Part 2 piece-2: folder/collection nodes live-subscribe on the REF-STRING key
 import { bySprintDisplayOrder } from '../../../ts/scenario/sprint-label.js'; // R40.50: the ONE canonical sprint display order (client-safe atom; pin-resolver re-exports it server-side)
 
 const LS_KEY = 'rawbin-trace-expanded';
@@ -112,12 +113,38 @@ export class RbTraceTree extends HTMLElement {
     document.addEventListener('rb-model-resynced', this.onModelResynced); // R32.8: re-render a MODEL (seed) tree after Re-Sync
     document.addEventListener('rb-tree-reveal', this.onTreeReveal); // R33.7.4: diagram box-select → reveal that element in the tree
   }
+  private _nodeUnsubs: Array<() => void> = []; // R37.21 Part 2 piece-2: per folder/collection node live-subscribes (cleared on re-render + disconnect)
+  private clearNodeSubs(): void { for (const u of this._nodeUnsubs) { try { u(); } catch { /* best-effort */ } } this._nodeUnsubs = []; }
+
   disconnectedCallback(): void {
     this.unsub?.(); this.unsub = null;
+    this.clearNodeSubs();
     this.removeEventListener('toggle-children', this.onToggleChildren as EventListener);
     window.removeEventListener('hashchange', this.onHashChange);
     document.removeEventListener('rb-model-resynced', this.onModelResynced);
     document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
+  }
+
+  // [impl:uuid:PENDING-req-mint] R37.21 Part 2 piece-2 — reDeriveDirectChildren: on a unit-changed for a folder's ref (an
+  // Add-folder under it), re-fetch its DIRECT children (ONE level) and INSERT any new child node — NO full reload, NO flash
+  // (existing children untouched). Both the acting tab and a passive 2nd browser run this from the SAME all-clients
+  // publishUnitChanged broadcast → the tree updates live. Collapsed node → skip (its badge refreshes on next open).
+  private async reDeriveDirectChildren(node: HTMLElement, ref: string): Promise<void> {
+    const kids = node.querySelector(':scope > .tt-children') as HTMLElement | null;
+    if (!kids) return;
+    try {
+      const res = await fetch(`${this.childrenUrl}${encodeURIComponent(ref)}${this.modeParam}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const existing = new Set(Array.from(kids.querySelectorAll(':scope > .tt-node > .tt-row > rb-object-item')).map((i) => i.getAttribute('ref') || ''));
+      for (const child of (data.children || []) as TreeNode[]) {
+        const cref = `${(child.type || 'task').toLowerCase()}:${child.uuid}`;
+        if (existing.has(cref)) continue; // reconcile: ADD only new children, never rebuild the existing ones
+        const gk = child.children || [];
+        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, gk, gk.length > 0 || child.hasChildren === true, undefined, child.chainMethod, child.description, false, child.status, child.childCount));
+      }
+      this.computeBadges();
+    } catch { /* best-effort live-insert */ }
   }
 
   // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4 (RED-fix,
@@ -364,6 +391,7 @@ export class RbTraceTree extends HTMLElement {
 
   private async _doRenderSeed(uuid: string): Promise<void> {
     if (this._seedAbort) this._seedAbort.abort();
+    this.clearNodeSubs(); // R37.21 Part 2 piece-2: drop stale per-node live-subs before rebuilding the tree
     const ctrl = new AbortController();
     this._seedAbort = ctrl;
     this.innerHTML = '<div class="tt-empty">Loading…</div>';
@@ -409,6 +437,9 @@ export class RbTraceTree extends HTMLElement {
     console.log(`[buildSeedNode] ref=${itemRef} children=${children.length} hasChildren=${hasChildren}`);
     row.appendChild(item);
     node.appendChild(row);
+    // R37.21 Part 2 piece-2: a synthetic-ref folder/collection node live-subscribes to its OWN ref (canonical REF-STRING
+    // key, architect ruling — subscribe==notify by construction) → an Add-folder under it re-derives its DIRECT children live.
+    if (isSyntheticRef(uuid)) this._nodeUnsubs.push(ViewBus.subscribe(viewBusKey(uuid), () => void this.reDeriveDirectChildren(node, uuid)));
     if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';

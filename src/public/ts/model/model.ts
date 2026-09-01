@@ -132,7 +132,9 @@ async function addFolder(ref: string): Promise<void> {
     const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) });
     const d = await r.json();
     if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
-    await load(); // refresh; the Folder unit shows under the model tree once R-A enumerates File/Folder in mofChildren
+    // R37.21 Part 2 piece-2: NO full reload — the server broadcasts publishUnitChanged on the PARENT (all-clients), so
+    // BOTH this acting tab AND a passive 2nd browser live-insert via the tree's per-node ViewBus subscribe → reDeriveDirectChildren
+    // (one-level re-fetch, no reload). Removing load() is the "no-reload" assertion. Reveal stays best-effort (drains via rAF).
     if (d.uuid) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: `folder:${d.uuid}` }, bubbles: true })); // best-effort reveal (R33.7.4)
   } catch (e: unknown) { if (err) err.textContent = 'Add folder failed: ' + (e instanceof Error ? e.message : String(e)); }
 }
