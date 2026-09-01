@@ -1,11 +1,12 @@
-// R37.21 Part 4 — child-size SUNBURST (pure view). RIDES R40.16 (architect c165e2506): the single-source child-size
-// field is `childCount` — the SAME per-node value the tree child-count badge uses (server mofFolder, server.ts:1223),
-// read here through the ONE accessor `sizeOf` so badge + sunburst can NEVER disagree. NO new size field, NO ad-hoc count.
+// R37.21 Part 4 — child-size SUNBURST (pure view). ★ TRON CORRECTION 2026-09-01: the arc metric is real CONTENT BYTES on
+// disk (server-emitted `size` per child: file = byte size, folder = recursive descendant byte sum, room File = model.size),
+// read through the ONE accessor `sizeOf` — was childCount, which rendered one-per-file (the exact defect Tron reported).
 // This is THE one sunburst renderer (nothing pre-existed to fork). Pure function → SVG string; unit-testable in node.
 //
-// Acceptance (architect): arc-count == direct-child-count · angle ∝ childCount (largest childCount = largest arc, NOT
-// equal slices) · size(child)=max(childCount,1) so a leaf (childCount 0) still occupies an arc · deterministic order
-// (preserves the API child order, which is index-stable) · a DEFINED empty-state for 0 children (never a blank ring).
+// Acceptance: arc-count == direct-child-count · angle ∝ size-BYTES (largest content = largest arc, NOT equal slices) ·
+// sizeOf(child)=max(size,1) so a zero-byte child still occupies a minimum arc (arc-count preserved) · deterministic order
+// (preserves the API child order, index-stable) · a DEFINED empty-state for 0 children (never a blank ring). Byte sizes vary
+// far more widely than counts → a stronger proportional discriminator.
 
 export type SunburstChild = { name: string; childCount?: number; size?: number };
 

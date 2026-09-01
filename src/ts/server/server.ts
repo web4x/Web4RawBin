@@ -1604,7 +1604,7 @@ function pumlChildren(els: MofEl[]): MofNode[] {
     for (const sp of fsSync.readdirSync(base).sort()) {
       let entries: string[] = [];
       try { entries = fsSync.readdirSync(path.join(base, sp, 'diagrams')); } catch { continue; }
-      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/diagrams/${f}`, f, 0, 'puml', 'puml')); // R33.6.3-fix: ref must carry the FULL relpath incl 'diagrams/' (files live at <sprint>/diagrams/<f>) — else /md fetch + import-puml 404
+      for (const f of entries) if (f.endsWith('.puml')) out.push(mofFolder(`puml-src:${sp}/diagrams/${f}`, f, 0, 'puml', 'puml', diskBytes(path.join(base, sp, 'diagrams', f)))); // R33.6.3-fix: ref carries the FULL relpath; R37.21 (architect note B): flat leaves carry .puml bytes so the WHOLE puml sunburst is byte-proportional
     }
   } catch { /* no sprints dir → just imported artifacts */ }
   for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
@@ -3015,7 +3015,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const arr = Array.isArray(rmodel[rcKind]) ? rmodel[rcKind] as any[] : [];
           const kids = rcKind === 'members'
             ? arr.map((m: any) => ({ uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''), type: 'Member', name: String(m.name || '?'), description: String(m.status || m.role || ''), hasChildren: false }))
-            : arr.map((f: any) => { const fUuid = String(f).replace('ior:instance:', ''); const fu = pidx.get(fUuid); return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false }; });
+            : arr.map((f: any) => { const fUuid = String(f).replace('ior:instance:', ''); const fu = pidx.get(fUuid); const fm = (fu?.model || {}) as Record<string, unknown>; return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fm.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false, size: Number(fm.size) || 0 }; }); // R37.21 Tron: room File units carry model.size (real uploaded byte size) → the room Files sunburst sizes by real content (png vs mp3 vs doc), not one-per-file
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type: 'folder', name: `${rcKind === 'members' ? 'Members' : 'Files'} (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
           return;
@@ -3104,7 +3104,8 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const fileItems = filesArr.map((f: any) => {
             const fUuid = String(f).replace('ior:instance:', '');
             const fu = idx.get(fUuid);
-            return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false };
+            const fm = (fu?.model || {}) as Record<string, unknown>;
+            return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fm.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false, size: Number(fm.size) || 0 }; // R37.21 Tron: real uploaded byte size (model.size) → room Files sunburst is byte-proportional
           });
           const roomChildren = [
             // R37.21 Part 1: emit a synthetic REF (not a bare 'members-<uuid>' id) so ensureViewUnit resolves each as a REAL
