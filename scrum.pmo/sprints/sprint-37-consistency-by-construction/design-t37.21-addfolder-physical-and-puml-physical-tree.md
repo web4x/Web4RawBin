@@ -13,6 +13,9 @@ What happened tonight: the files ATTACHED to the brief were an older upload batc
 
 ---
 
+## ★ resolveDirRefAbs DEPLOYED + RE-BACKSTOP = PASS (v0.8.165, R37.33) — one-resolver landed correct-by-construction
+Code 8/8 scratch (uniform repo-relative 'src/ts'→dir at src/ts WITHOUT heuristic; OLD bare 'ts' now correctly fails = heuristic genuinely retired; resolver fail-closed ''/'..' root-injectable; confinement+atomicity intact) + LIVE (rawbin:ts→dir:src/public/shared/ts repo-relative; P5 dir sprint-07/diagrams→2 .puml POPULATES; DOUBLE-SRC=0). ★ **UNBLOCKS P5-DIR-SUNBURST** (was sunburst-over-zero — the P5 dir children now resolve by resolved-uuid → the sunburst fires; tester can gate). MIGRATION: 10-12 dead Folder units, ALL synthetic source-tree view-units (public/ts/*, ts/server, scenario/index — re-mintable) = **0 ACTIVE LOSS verified**. Marker 8ac3ba20 placed. Note: the puml-dir CHILDREN-TYPE regex (server.ts:1706) remains (orthogonal to base-path — optional further cleanup: generic dir-lister by extension). Expert's honest R31.7-landmine note (stop-before-commit → INV-V3 EPERM → 10min down) = the commit-atomically-then-restart lesson.
+
 ## ★ FOLLOW-UP DESIGN: resolveDirRefAbs — ONE dir-ref→abs resolver (retires the Add-folder heuristic + P5 special-case)
 Root (measured): the dir: namespace has TWO base conventions — `sourceDirTree:1412` emits SRC-relative `dir:${childRel}` (walk=PROJECT_ROOT/src/rel), `pumlPhysicalTree:1647` emits REPO-relative `dir:${dirRel}`. Meanwhile `file:` refs are ALREADY repo-relative (`file:src/...`). So dir: is the outlier, and the existence-heuristic (FolderService:65-66) + the puml-dir regex special-case (server.ts:1706) both paper over it.
 
