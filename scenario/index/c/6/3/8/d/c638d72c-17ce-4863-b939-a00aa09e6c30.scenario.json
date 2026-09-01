@@ -36,7 +36,7 @@
       {
         "id": "AC-per-room-storage-target-DEFINED",
         "group": "open-design/by-construction",
-        "text": "★ OPEN DESIGN QUESTION (architect answers BEFORE buildable): a room nested folder has a DEFINED per-room on-disk STORAGE TARGET (a room Files collection is virtual today with no mkdir location). The AC is NOT buildable until the architect states where on disk a room nested folder lives. Do NOT build against a guessed location."
+        "text": "★ Architect MEASURED (b3c8981c3) the room on-disk home = getRoomDir(userToken,roomId) = data/users/<storageId>/rooms/<roomId>/ (PER-USER, storageId-keyed, R40.22 chokepoint). RECOMMENDED TARGET: getRoomDir(...)/files/<nestedPath>/ — mkdir THROUGH the homeKeyFor chokepoint, NEVER a raw path. ★ REMAINING OPEN SUB-QUESTION (Tron/PO scope call, do-not-guess=>RED): storage is per-user AND files are shared-across-rooms, so is a nested room folder (i) PER-USER (each member mkdirs in their own home — matches today's storage model) OR (ii) CANONICAL PER-ROOM (one shared folder needing a share/sync mechanism = bigger scope)? Architect RECOMMENDS (i). Not buildable until (i)/(ii) is CONFIRMED; the chain (Class/Method) stays null until the storage MODEL is locked — no fabricated path."
       },
       {
         "id": "AC-BOTH-unit-and-directory-at-target",
@@ -58,7 +58,15 @@
         "group": "gate",
         "text": "stub-must-fail: Add-folder-in-room that creates a unit but NO physical directory (or a directory but no unit) => RED; Add-folder built against an UNDEFINED storage target => RED (must not guess the location)."
       }
-    ]
+    ],
+    "storageModelOpenSubQuestion": {
+      "measuredHome": "getRoomDir(userToken,roomId)=data/users/<storageId>/rooms/<roomId>/ (per-user, R40.22 chokepoint)",
+      "recommendedTarget": "getRoomDir(...)/files/<nestedPath>/ via homeKeyFor chokepoint, never raw",
+      "openFork": "(i) PER-USER nested folder (matches today) vs (ii) CANONICAL per-room (needs share/sync = bigger scope)",
+      "architectRecommends": "(i)",
+      "decisionOwner": "Tron/PO (scope call)",
+      "status": "BLOCKED on (i)/(ii) confirm; finalizes after Part 2 ships (not blocking Part 2); architect mints chain on lock."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
