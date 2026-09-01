@@ -13,6 +13,22 @@ What happened tonight: the files ATTACHED to the brief were an older upload batc
 
 ---
 
+## ★ FOLLOW-UP DESIGN: resolveDirRefAbs — ONE dir-ref→abs resolver (retires the Add-folder heuristic + P5 special-case)
+Root (measured): the dir: namespace has TWO base conventions — `sourceDirTree:1412` emits SRC-relative `dir:${childRel}` (walk=PROJECT_ROOT/src/rel), `pumlPhysicalTree:1647` emits REPO-relative `dir:${dirRel}`. Meanwhile `file:` refs are ALREADY repo-relative (`file:src/...`). So dir: is the outlier, and the existence-heuristic (FolderService:65-66) + the puml-dir regex special-case (server.ts:1706) both paper over it.
+
+**(1) SIGNATURE:** `export function resolveDirRefAbs(ref: string): string` (shared module, e.g. `src/ts/server/dir-ref.ts`). Input: a `dir:<repo-rel>` ref (or bare repo-rel). Output: `path.resolve(PROJECT_ROOT, ref.replace(/^dir:/,''))` — the absolute disk path. `''` on empty/invalid; the CALLER confines (createPhysicalWithUnit already does). **abs string only — no `{abs,baseKind}`, because baseKind is ELIMINATED (one base = PROJECT_ROOT).**
+
+**(2) DISCRIMINATOR = ELIMINATED (the correct-by-construction win):** make ALL dir: refs REPO-RELATIVE (one convention, aligning dir: with the existing file: convention). Fix `sourceDirTree` to emit `dir:src/${childRel}` (was `dir:${childRel}`). Then every dir: ref is repo-relative → resolveDirRefAbs is a trivial PROJECT_ROOT-join, NO discrimination, NO existence-heuristic. (Don't heuristically resolve the ambiguity — remove it.)
+- ★ MIGRATION (flag + gate): `dir:ts`→`dir:src/ts` changes `keyToUuid('folder::ts')`→`keyToUuid('folder::src/ts')` = the lazy Folder unit identity. dir: folders are LAZY view-units (re-minted on access) → old uuids become DEAD MODEL_STORE units (harmless, cleanable via a gated sweep). No active data loss. Gate a dry-run+count sweep of the orphaned dir: units.
+
+**(3) 3 ADOPTION CONTRACTS (all become correct-by-construction, not correct-by-fallback):**
+- **sourceDirTree**: emit `dir:src/${childRel}` (repo-relative); walk base = `resolveDirRefAbs(uuid)` instead of hard-coded `PROJECT_ROOT/src/rel`. Now uniform for src + any repo-relative dir.
+- **ensureViewUnit dir: branch** (server.ts:1310): `rel = ref.slice('dir:')` (now repo-relative, e.g. 'src/ts'); `location = rel`; `uuid = keyToUuid('folder::'+rel)`. Location is now repo-relative → downstream resolves correctly.
+- **createPhysicalWithUnit**: RETIRE the heuristic (FolderService:65-66). `parentBase = resolveDirRefAbs('dir:'+parent.location)` — location is repo-relative ('src/ts') → PROJECT_ROOT/src/ts, correct, no fallback. Confinement unchanged.
+- (BONUS) the puml-dir children regex (server.ts:1706) is a CHILDREN-TYPE distinction (.puml vs .ts), orthogonal to base-path — a further cleanup = a generic dir-lister emitting whatever's on disk by extension retires that special-case too.
+
+**(4) IMPL UNIT:** resolveDirRefAbs is a NEW shared Method — NOT covered by the Part-2 createPhysicalWithUnit unit (different method; its `[impl:uuid:PENDING]` is its own). So **req mints the follow-up req + UC** (the PO-dispatched dir-namespace-single-base-resolution req); **I mint Class + Method(resolveDirRefAbs) + Impl**; expert places the marker. Not covered by an existing T37.21 unit.
+
 ## ★ MINT1 BACKSTOP = PASS (v0.8.163) — sunburst size = on-disk bytes, verified
 Client sunburst.ts:16 `sizeOf(c)=max(Number(c.size??0),1)` — ONE accessor moved childCount→size(bytes), floor keeps arc-count==child-count, geometry unchanged. Server emits recursive-descendant byte sums: rawbin:ts → public=8162760, ts=928729, shared=70 (full coverage, strongly varied → largest-bytes=largest-arc). **Cleanest proportional gate target = rawbin:ts** (full byte coverage). 2 non-blocking notes: (A) HYGIENE — sunburst.ts header comment still says "childCount" (STALE; sizeOf reads size — the FolderService.ts:2 stale-comment lesson, update it); (B) rawbin:puml partial (61 flat puml-src leaves floor to 1, only 25 physical-dir nodes carry bytes) — optional enhancement: flat leaves carry .puml file bytes.
 
