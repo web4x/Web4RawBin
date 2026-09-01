@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8693dc2b-680e-4866-8fab-37c0fe2c6cae",
+    "name": "RbTraceTree.reDeriveDirectChildren impl",
+    "description": "BUILT v0.8.159 (R37.21 Part-2 piece-2 client live-insert): on a unit-changed for a folder ref (Add-folder under it), re-fetch DIRECT children ONE level + INSERT only new nodes (reconcile, no reload/flash). rb-trace-tree.ts:132. Expert adds [impl:uuid:8693dc2b-680e-4866-8fab-37c0fe2c6cae] marker (currently PENDING-req-mint).",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:1e5c4233-5468-44a6-b91a-d2e4deb1cad2"
+}

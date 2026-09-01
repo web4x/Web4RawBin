@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "1e5c4233-5468-44a6-b91a-d2e4deb1cad2",
+    "name": "RbTraceTree.reDeriveDirectChildren",
+    "description": "Live-insert a new child folder node with no reload: unit-changed on the parent ref -> one-level children re-fetch -> insert-only-new. Subscribe==notify by construction (viewBusKey ref-string). Rides R40.70 live-MVC+WS.",
+    "sourceFile": "ior:file:src/public/ts/trace/rb-trace-tree.ts",
+    "implementations": [
+      "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+}
