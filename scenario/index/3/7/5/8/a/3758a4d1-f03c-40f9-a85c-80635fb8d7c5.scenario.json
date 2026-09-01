@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "3758a4d1-f03c-40f9-a85c-80635fb8d7c5",
+    "name": "DirRef",
+    "description": "dir: namespace single-base resolution (R37.33): ONE resolveDirRefAbs, all dir: refs repo-relative. src/ts/server/FolderService.ts (expert may home in FolderService module or split to dir-ref.ts).",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "methods": [
+      "ior:instance:c5d3bca9-28a3-4bb9-9735-11f4ffbe2c15"
+    ]
+  },
+  "ownerIor": "ior:instance:2d193523-9a3b-4224-96ec-29654114a2bc"
+}

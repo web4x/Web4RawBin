@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "8ac3ba20-646a-454b-94c1-2b6a3ff546e2",
+    "name": "DirRef.resolveDirRefAbs impl",
+    "description": "DESIGN-AHEAD (R37.33 post-QA cleanup): resolveDirRefAbs(ref,root=PROJECT_ROOT)=path.resolve(root, ref.replace(/^dir:/,).replace(/^\\/+/,));  on empty/.. (fail-closed). ONE dir-ref->abs, no baseKind. Retires FolderService heuristic(65-66)+puml-dir regex(1706) by making ALL dir: refs repo-relative (sourceDirTree emits dir:src/<rel>, aligns with file:). Gated migration = dead lazy folder:: units swept. Expert homes it (FolderService module or dir-ref.ts) + places [impl:uuid].",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c5d3bca9-28a3-4bb9-9735-11f4ffbe2c15"
+}

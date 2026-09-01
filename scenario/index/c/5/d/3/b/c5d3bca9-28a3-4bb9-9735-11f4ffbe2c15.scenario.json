@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "c5d3bca9-28a3-4bb9-9735-11f4ffbe2c15",
+    "name": "DirRef.resolveDirRefAbs",
+    "description": "Resolve a dir:<repo-rel> ref to its absolute disk path via ONE PROJECT_ROOT-join (root param injectable for scratch/R40.31). Correct-by-construction: all dir: refs uniform repo-relative -> no src-vs-repo discriminator. Used by createPhysicalWithUnit (mkdir base) + sourceDirTree (walk base) + ensureViewUnit-location.",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "implementations": [
+      "ior:instance:8ac3ba20-646a-454b-94c1-2b6a3ff546e2"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:3758a4d1-f03c-40f9-a85c-80635fb8d7c5"
+}
