@@ -1598,6 +1598,15 @@ function pumlChildren(els: MofEl[]): MofNode[] {
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+// R37.21 Part 5 (architect DRY): the .puml children of ONE physical diagrams dir, as puml-src leaves. The SINGLE source
+// used by BOTH pumlPhysicalTree's inline tree-build AND the on-tap dir: children branch (mofChildren) — one mapping, no
+// fork (R40.16). Walks the REAL on-disk dir under PROJECT_ROOT (repo-relative rel), NOT sourceDirTree (which is .ts+src-only).
+function pumlLeavesForDir(dirRel: string): MofNode[] {
+  const relBody = dirRel.replace('scrum.pmo/sprints/', '');
+  let entries: string[] = [];
+  try { entries = fsSync.readdirSync(path.join(__dirname, '../../..', dirRel)); } catch { return []; }
+  return entries.filter((f) => f.endsWith('.puml')).sort().map((f) => mofFolder(`puml-src:${relBody}/${f}`, f, 0, 'puml', 'puml'));
+}
 // [impl:uuid:PENDING-req-mint] R37.21 Part 5 (architect design): server.pumlPhysicalTree — BENEATH the flat puml
 // collection, surface the REAL physical folder tree. The flat pumlChildren list flattens every .puml to one level (Tron:
 // "we see the puml files under puml but not in the physical folders as they are"), so class-diagram.puml appears 4× with
@@ -1622,7 +1631,7 @@ function pumlPhysicalTree(): MofNode[] {
     const pumls = byDir.get(dirRel)!;
     const relBody = dirRel.replace('scrum.pmo/sprints/', ''); // '<sp>/diagrams' — the puml-src ref body convention (pumlChildren)
     const node = mofFolder(`dir:${dirRel}`, relBody, pumls.length, 'folder', 'folder'); // dir: ref → ensureViewUnit Folder; explicit distinctive name
-    node.children = pumls.map((f) => mofFolder(`puml-src:${relBody}/${f}`, f, 0, 'puml', 'puml')); // inline leaves reveal the real path
+    node.children = pumlLeavesForDir(dirRel); // inline leaves reveal the real path (ONE source, shared with the on-tap branch)
     return node;
   });
 }
@@ -1678,6 +1687,9 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     ];
   }
   if (uuid === 'rawbin:ts' || uuid.startsWith('dir:')) { // R33.10: ts/ = the FULL src/ directory tree (ALL 123 .ts + folder hierarchy), not just the ~25 files with generated M1 elements (INV-T1/T2 completeness+folders)
+    // R37.21 Part 5 (architect fix): a physical PUML diagrams dir holds .puml (not .ts) at a REPO-relative path — sourceDirTree
+    // (src-scoped, .ts-only) would 404 it → its dir-folder sunburst was empty. Return its .puml leaves BEFORE sourceDirTree.
+    if (uuid.startsWith('dir:')) { const rel = uuid.slice('dir:'.length); if (/^scrum\.pmo\/sprints\/.+\/diagrams$/.test(rel)) { const leaves = pumlLeavesForDir(rel); if (leaves.length) return leaves; } }
     const m1Count = new Map<string, number>();
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
     return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
