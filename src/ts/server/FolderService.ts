@@ -61,7 +61,16 @@ export class FolderService {
     if (!parentLoc) return { ok: false, error: 'parent-not-physical' };
 
     const relpath = `${parentLoc}/${clean}`;
-    const target = path.resolve(rootDir, parentLoc, clean);
+    // ★ dir: namespace is INCONSISTENT (architect-measured 2026-09-01): /model ts dirs are SRC-relative (location='ts' →
+    // <root>/src/ts), P5 puml dirs are REPO-relative (location='scrum.pmo/…' → <root>/scrum.pmo/…). Resolve the REAL parent
+    // base — repo-relative if it exists, else src-relative — else Add-folder mkdir's <root>/ts (missing) → ENOENT, the exact
+    // tap-fail Tron would see on a real /model folder. ⚠ DEADLINE HEURISTIC (existence-based = correct-by-INCIDENT, NOT the
+    // design): the correct-by-construction fix is ONE shared dir-ref→abs resolver used by createPhysicalWithUnit AND
+    // sourceDirTree AND ensureViewUnit-location, so the dir: namespace has ONE base-resolution. This fallback is a deadline
+    // measure — pinned here explicitly, must not silently become the architecture (PO law: a heuristic must be pinned, not drift).
+    let parentBase = path.resolve(rootDir, parentLoc);
+    if (!fsSync.existsSync(parentBase)) parentBase = path.resolve(rootDir, 'src', parentLoc);
+    const target = path.join(parentBase, clean);
 
     // (ii) CONFINEMENT — strict subpath of rootDir AND not in any store/system dir; reject traversal/absolute
     const rootAbs = path.resolve(rootDir);
