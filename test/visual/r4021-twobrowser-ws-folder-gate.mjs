@@ -71,6 +71,18 @@ try {
 
   const b1 = await mk('browser-1 (actor)');
   const b2 = await mk('browser-2 (PASSIVE)');
+  // DIAGNOSTIC: (a) does the SCRATCH have the same hierarchy prod does (API), (b) does expandPath actually drill (render)?
+  const topDump = await b1.page.evaluate(async () => {
+    const kids = async (ref) => { try { return ((await (await fetch(`/api/trace/children/${encodeURIComponent(ref)}`)).json()).children || []).map((c) => c.uuid); } catch { return ['ERR']; } };
+    const api = { 'mof-m1': await kids('mof-m1'), 'project:RawBin': await kids('project:RawBin'), 'rawbin:ts': await kids('rawbin:ts') };
+    const t = document.getElementById('model-tree');
+    await t.expandPath(['mof-m1', 'project:RawBin', 'rawbin:ts', 'dir:src/ts']);
+    await new Promise((r) => setTimeout(r, 2500));
+    const html = t.innerHTML || '';
+    return { api, render: { hasProject: html.includes('project:RawBin'), hasRawbinTs: html.includes('rawbin:ts'), hasSrcTs: html.includes('dir:src/ts') } };
+  });
+  R(`  SCRATCH-API mof-m1→${JSON.stringify(topDump.api['mof-m1']?.slice(0, 4))} project:RawBin→${JSON.stringify(topDump.api['project:RawBin']?.slice(0, 4))} rawbin:ts→${JSON.stringify(topDump.api['rawbin:ts']?.slice(0, 4))}`);
+  R(`  RENDER-after-expandPath hasProject=${topDump.render.hasProject} hasRawbinTs=${topDump.render.hasRawbinTs} hasSrcTs=${topDump.render.hasSrcTs}`);
   // ★ expert TEST TARGET: expand BOTH browsers to the physical ts dir. R37.33 (v0.8.165) made dir refs REPO-RELATIVE:
   // dir:ts → dir:src/ts. Path mof-m1→project:RawBin→rawbin:ts→dir:src/ts. Only a rendered+subscribed parent can
   // reDeriveDirectChildren-insert the new child. DETECTION FIX (anchor): rb-trace-tree subscribes viewBusKey(node.uuid)
