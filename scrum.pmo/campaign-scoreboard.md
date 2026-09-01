@@ -29,13 +29,13 @@
 | S37 | 38 | 1 | 13 | 0 | 24 |
 | S40 | 70 | 0 | 15 | 0 | 53 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 50
+**ACTIONABLE by blocker:** RIPE 8 · RIPE-SHARED 1 · two-key 1 · gate 2 · marker 14 · build 50
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
-| S37 | 1bf4acc5 | In Progress | marker | Task 37.21: TRON 5-PART extended scope — room collections=re |
+| S37 | 1bf4acc5 | In Progress | RIPE-SHARED | Task 37.21: TRON 5-PART extended scope — room collections=re |
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
