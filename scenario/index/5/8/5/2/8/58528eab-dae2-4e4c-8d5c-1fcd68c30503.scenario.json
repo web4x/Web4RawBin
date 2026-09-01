@@ -56,8 +56,14 @@
         "id": "AC-stub-must-fail",
         "group": "gate",
         "text": "stub-must-fail: (1) a dir: ref emitted SRC-relative (dir:ts not dir:src/ts) => RED; (2) a dir->abs path computed by a heuristic/special-case instead of resolveDirRefAbs => RED; (3) the migration sweep run without a dry-run+count => RED."
+      },
+      {
+        "id": "AC-migration-both-directions",
+        "group": "migration/gated-both-directions",
+        "text": "★ The dead-lazy-dir-unit migration is GATED in BOTH DIRECTIONS (PO 2026-09-01 — this is the one part of the change that touches EXISTING data, not new behaviour; a resolver change that quietly re-points units is discovered much later). (A) NOTHING LOST: the sweep removes ONLY UNREFERENCED lazy dir: units; a before==after count reconciles (swept == orphaned-lazy, 0 referenced/active units removed); a sweep that would delete a referenced/non-lazy unit => RED. (B) NOTHING WRONGLY RE-POINTED: every dir: ref whose base convention changes (dir:ts -> dir:src/ts) resolves to the CORRECT new lazy-unit identity keyToUuid('folder::'+repo-rel), and a REVERSE check confirms every consumer of a re-pointed dir: unit now resolves to the new unit — NO ref left dangling on a dead old uuid, NO ref re-pointed to a WRONG uuid. stub-must-fail: (i) a referenced unit swept => RED; (ii) a dir: ref left on a dead old uuid after migration => RED; (iii) a dir: ref re-pointed to a uuid != keyToUuid(new-repo-rel-key) => RED. Same both-sides discipline as R37.29 referential-integrity."
       }
-    ]
+    ],
+    "poMigrationGateConfirm": "PO 2026-09-01: migration must prove BOTH nothing-lost AND nothing-wrongly-re-pointed. AC-migration-both-directions asserts both + reverse-check + 3 stubs. Authorized; builds NEXT (resolveDirRefAbs == the sourceDirTree item, one root; then R40.78 last). part-2-live-insert + sunburst-bytes DONE+deployed+green."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
