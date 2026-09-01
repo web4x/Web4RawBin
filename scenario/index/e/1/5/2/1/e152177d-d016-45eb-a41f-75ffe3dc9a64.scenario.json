@@ -47,7 +47,10 @@
         "text": "T37.21 part 3 (Tron): the detail BODY must NOT repeat the Scenario/Edit LINKS — the action bar's [◆ Scenario][✎ Edit] buttons are the SINGLE source (this dedup invariant). Tron: 'we already have std action bar buttons for scenario and edit so we see redundant links in the details.' @390 screenshot-checkable: the detail body shows NO 📄 Scenario / ✎ Edit links above the content; the action-bar buttons REMAIN untouched (do NOT touch the bar — R34.7/R33.6.5, Tron-verified v0.8.153). stub-must-fail: the detail body still renders the Scenario/Edit links => RED (logical action implemented twice = this req's dedup violation)."
       }
     ],
-    "scopeNote": "EDITOR CHROME EXPLICITLY EXCLUDED (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) and this exclusion is RECORDED so a future reader does not think it was missed — its distinct chrome is NOT a defect; only the DUPLICATED extra buttons on detail/feature views are."
+    "scopeNote": "EDITOR CHROME EXPLICITLY EXCLUDED (Code/Open-Diff/Save/Files-Editor-Preview-footer/header-Back) and this exclusion is RECORDED so a future reader does not think it was missed — its distinct chrome is NOT a defect; only the DUPLICATED extra buttons on detail/feature views are.",
+    "evidence": [
+      "ior:instance:540fc200-c1cd-4b72-a3f8-6d112c44274e"
+    ]
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

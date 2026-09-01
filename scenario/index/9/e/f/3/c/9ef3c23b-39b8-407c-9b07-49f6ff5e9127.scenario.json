@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "9ef3c23b-39b8-407c-9b07-49f6ff5e9127",
+    "name": "T37.21 evidence — shot1: Heartspaces room, Members(5)/Files(5) render as FOLDERS @v0.8.153",
+    "description": "Tron device screenshot @390, PROD app Heartspaces room at v0.8.153. Shows the Heartspaces tree card with Members(5) and Files(5) rendered with FOLDER icons + count badges, and the drawer listing the five files and two WebItems. EVIDENCES PART 1: Members/Files ARE folders (real Folder scenario-units, virtual with no physical dir). Tron information is authoritative.",
+    "kind": "image/png (Tron device screenshot @390, prod)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/t3721-tron-evidence/shot1-heartspaces-members-files-folders-v0.8.153.png",
+    "binaryStatus": "PENDING — the PNG bytes exist only inside Tron's message; drop the real file at model.sourceFile path and it resolves. Do NOT block the task on the bytes.",
+    "evidencesTask": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
+    "evidencesRequirements": [
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+    ],
+    "evidencesParts": [
+      1
+    ],
+    "prodContext": "v0.8.153 (Tron device @390); Tron information is authoritative."
+  },
+  "ownerIor": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+}

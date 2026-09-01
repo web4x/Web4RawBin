@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "03110815-a754-468e-bbfc-8bba7c41d1e8",
+    "name": "T37.21 evidence — shot4: /model Task 37.21 detail, chain roomCollection.asRealFolderUnit->FolderService.mintRealUnit, NO sunburst",
+    "description": "Tron device screenshot @390, PROD /model Task 37.21 detail. Action bar [Scenario, Edit, Open-Task-file]; status Planned; the full status checklist through QA Review and Done; traceability chain from useCase roomCollection.asRealFolderUnit to FolderService.mintRealUnit; and NO sunburst rendered. EVIDENCES PART 4 (the required sunburst is missing from the detail) and the QA-Review target. Tron information is authoritative.",
+    "kind": "image/png (Tron device screenshot @390, prod)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/t3721-tron-evidence/shot4-model-task3721-detail-no-sunburst-qa-checklist.png",
+    "binaryStatus": "PENDING — the PNG bytes exist only inside Tron's message; drop the real file at model.sourceFile path and it resolves. Do NOT block the task on the bytes.",
+    "evidencesTask": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
+    "evidencesRequirements": [
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
+    ],
+    "evidencesParts": [
+      4
+    ],
+    "prodContext": "v0.8.153 (Tron device @390); Tron information is authoritative."
+  },
+  "ownerIor": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+}

@@ -57,6 +57,9 @@
         "group": "gate",
         "text": "stub-must-fail: a puml name that lives in multiple physical folders but renders under only ONE (or none) => RED (the physical tree must reveal all real locations)."
       }
+    ],
+    "evidence": [
+      "ior:instance:b35e863f-4d65-4b05-8acf-9f8b9cea9252"
     ]
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"

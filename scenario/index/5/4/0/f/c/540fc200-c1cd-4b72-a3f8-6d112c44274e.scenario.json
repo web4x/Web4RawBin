@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "540fc200-c1cd-4b72-a3f8-6d112c44274e",
+    "name": "T37.21 evidence — shot2: /model server collection, action bar [Scenario,Edit,Add folder,Import puml], redundant body links",
+    "description": "Tron device screenshot @390, PROD /model with the server collection selected. Action bar reads [Scenario, Edit, ADD FOLDER, IMPORT PUML]; the body shows COLLECTION server (uuid 5e4695a9-2f5e-4712-a734-55e33f5815be) with redundant Scenario and Edit LINKS and no children. EVIDENCES PART 2 (the Add-folder action is a real existing button) AND PART 3 (redundant Scenario/Edit links in the detail body). Tron information is authoritative.",
+    "kind": "image/png (Tron device screenshot @390, prod)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/t3721-tron-evidence/shot2-model-server-collection-addfolder-redundant-links.png",
+    "binaryStatus": "PENDING — the PNG bytes exist only inside Tron's message; drop the real file at model.sourceFile path and it resolves. Do NOT block the task on the bytes.",
+    "evidencesTask": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
+    "evidencesRequirements": [
+      "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
+      "ior:instance:e152177d-d016-45eb-a41f-75ffe3dc9a64"
+    ],
+    "evidencesParts": [
+      2,
+      3
+    ],
+    "prodContext": "v0.8.153 (Tron device @390); Tron information is authoritative."
+  },
+  "ownerIor": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+}

@@ -25,6 +25,12 @@
     "createdAt": "2026-08-12",
     "lastAdvancedAt": "2026-08-29T20:40:04.247Z",
     "lastAdvancedAtSource": "seam",
-    "lastAdvancedAtCommit": "0f1b77d50"
+    "lastAdvancedAtCommit": "0f1b77d50",
+    "evidence": [
+      "ior:instance:9ef3c23b-39b8-407c-9b07-49f6ff5e9127",
+      "ior:instance:540fc200-c1cd-4b72-a3f8-6d112c44274e",
+      "ior:instance:b35e863f-4d65-4b05-8acf-9f8b9cea9252",
+      "ior:instance:03110815-a754-468e-bbfc-8bba7c41d1e8"
+    ]
   }
 }

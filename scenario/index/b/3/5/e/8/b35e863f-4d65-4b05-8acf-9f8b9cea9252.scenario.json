@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "b35e863f-4d65-4b05-8acf-9f8b9cea9252",
+    "name": "T37.21 evidence — shot3: /model puml(61) expanded, dup names (class-diagram.puml x4) across physical folders",
+    "description": "Tron device screenshot @390, PROD /model with puml(61) expanded. Shows class-diagram.puml FOUR times, and object-verb-usecases / pwa-update-workflow / avatar-crop-lifecycle TWICE each. EVIDENCES PART 5: those files live in DIFFERENT physical folders (robbin-req re-measured vs disk: class-diagram.puml x4 across sprint-02/08/09/31 .../diagrams) — the physical-folder tree must reveal which folder each lives in. Tron information is authoritative.",
+    "kind": "image/png (Tron device screenshot @390, prod)",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/t3721-tron-evidence/shot3-model-puml61-dup-names-across-folders.png",
+    "binaryStatus": "PENDING — the PNG bytes exist only inside Tron's message; drop the real file at model.sourceFile path and it resolves. Do NOT block the task on the bytes.",
+    "evidencesTask": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf",
+    "evidencesRequirements": [
+      "ior:instance:70c6b806-d4be-4dc9-b23f-cfd61c8c7eea"
+    ],
+    "evidencesParts": [
+      5
+    ],
+    "prodContext": "v0.8.153 (Tron device @390); Tron information is authoritative."
+  },
+  "ownerIor": "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+}
