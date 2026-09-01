@@ -45,7 +45,7 @@
 | S37 | 968d966d | Planned | build | Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness |
 | S37 | 9b140eee | Planned | build | Task 37.33: Referential-integrity by construction — every co |
 | S37 | 9cb80055 | Planned | build | Task 37.17: Gates must not encode a SNAPSHOT of the  |
-| S37 | 9cd50dde | Planned | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
+| S37 | 9cd50dde | In Progress | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |

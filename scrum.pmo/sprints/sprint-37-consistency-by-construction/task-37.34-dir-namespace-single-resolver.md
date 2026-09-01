@@ -8,8 +8,8 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -41,7 +41,7 @@ Mirrors R37.33's 7 ACs. NEVER Done till Tron.
 
 ## Implementation
 
-STOOD UP Planned (build-NEXT per PO; resolveDirRefAbs==the old sourceDirTree item = ONE root closing both the Add-folder heuristic + P5 gap, then R40.78 LAST). Chain design-ahead (architect-minted, req derive-verified 7/7): R37.33 58528eab -> UC 2d193523 -> Class 3758a4d1 DirRef -> Method c5d3bca9 resolveDirRefAbs -> Impl 8ac3ba20. UC full-uuid 2d193523-9a3b-4224-96ec-29654114a2bc verified from R37.33.useCases[]. ★ T-NUMBER = 37.34 (Task 37.33 was taken by the R37.29 task 9b140eee); coveredRequirements=R37.33 is the structural link. Minted SERVED; req reverse-wires R37.33.tasks[] += 9cd50dde. LOCAL not pushed. 0 Done till Tron.
+IN-PROGRESS (2026-09-01): ★ core resolveDirRefAbs DEPLOYED v0.8.165 (Impl 8ac3ba20 real, marker FolderService.ts:22) — the src/ts dir-namespace bug FIXED, which UNBLOCKED T37.21 P2. Still PENDING: the full 7-AC scope (retire-both-special-cases + gated BOTH-directions migration of dead lazy dir: units + stubs) + the tester gate + req's R37.33 Test (pends tester marker). refinement[x]=architect design. Was: STOOD UP Planned (build-NEXT per PO; resolveDirRefAbs==the old sourceDirTree item = ONE root closing both the Add-folder heuristic + P5 gap, then R40.78 LAST). Chain design-ahead (architect-minted, req derive-verified 7/7): R37.33 58528eab -> UC 2d193523 -> Class 3758a4d1 DirRef -> Method c5d3bca9 resolveDirRefAbs -> Impl 8ac3ba20. UC full-uuid 2d193523-9a3b-4224-96ec-29654114a2bc verified from R37.33.useCases[]. ★ T-NUMBER = 37.34 (Task 37.33 was taken by the R37.29 task 9b140eee); coveredRequirements=R37.33 is the structural link. Minted SERVED; req reverse-wires R37.33.tasks[] += 9cd50dde. LOCAL not pushed. 0 Done till Tron.
 
 ## Subtasks
 
