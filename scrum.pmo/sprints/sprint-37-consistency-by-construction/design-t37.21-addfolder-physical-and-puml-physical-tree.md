@@ -13,6 +13,9 @@ What happened tonight: the files ATTACHED to the brief were an older upload batc
 
 ---
 
+## ★ MINT1 BACKSTOP = PASS (v0.8.163) — sunburst size = on-disk bytes, verified
+Client sunburst.ts:16 `sizeOf(c)=max(Number(c.size??0),1)` — ONE accessor moved childCount→size(bytes), floor keeps arc-count==child-count, geometry unchanged. Server emits recursive-descendant byte sums: rawbin:ts → public=8162760, ts=928729, shared=70 (full coverage, strongly varied → largest-bytes=largest-arc). **Cleanest proportional gate target = rawbin:ts** (full byte coverage). 2 non-blocking notes: (A) HYGIENE — sunburst.ts header comment still says "childCount" (STALE; sizeOf reads size — the FolderService.ts:2 stale-comment lesson, update it); (B) rawbin:puml partial (61 flat puml-src leaves floor to 1, only 25 physical-dir nodes carry bytes) — optional enhancement: flat leaves carry .puml file bytes.
+
 ## ★ MINT1 (R37.21 AC-B) — sunburst SIZE = on-disk BYTES (supersedes childCount for the size dimension)
 The ONE accessor's metric changes from `childCount` to **recursive byte-sum**; all discriminators STAY (arc-count==child-count, largest=largest-arc, empty-state, one-renderer-no-fork). Keep ONE accessor.
 - **SERVER** (/api/trace/children emits a `bytes` field per child): FILE (`file:`/scenario File unit) = on-disk byte size (`fs.statSync(abs).size`, or the File unit's stored `size`); FOLDER (`dir:`) = **recursive** sum of all descendant file bytes (walk); VIRTUAL (`roomcoll:`) = sum of resolvable children's bytes (room attachment sizes); PumlArtifact (`puml-src:`) = the `.puml` file's bytes.
