@@ -10,7 +10,9 @@
     "verifies": "R37.21 AC-B-sunburst-size-is-on-disk-bytes",
     "gateFile": "test/visual/r4021c-room-files-sunburst-gate.mjs (tester 05d9cf2c4)",
     "markerProvenance": "ADOPTED from tester AST-attached marker [test:uuid:f805cfe0] (measure-my-marker, not invented). Tester two-keys both directions.",
-    "certificationScope": "FEATURE-PROVEN: the RENDERED room-Files sunburst @390 real-WebKit on Tron's surface shows arc size = real on-disk bytes, with a proven RED baseline (equal-angle stub 1.00 vs real 7.58). Not endpoint-only; the user-visible render is proven. satisfied on the PROVEN set."
+    "certificationScope": "FEATURE-PROVEN: the RENDERED room-Files sunburst @390 real-WebKit on Tron's surface shows arc size = real on-disk bytes, with a proven RED baseline (equal-angle stub 1.00 vs real 7.58). Not endpoint-only; the user-visible render is proven. satisfied on the PROVEN set.",
+    "status": "pass",
+    "statusNote": "pass = r4021c gate GREEN DET-3x + tester two-keyed both-dir. Requirement satisfaction SEPARATE (ceiling QA-Review, Tron-device @390 pending; 0 Done till Tron)."
   },
   "ownerIor": "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
 }
