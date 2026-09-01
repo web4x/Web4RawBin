@@ -2960,11 +2960,23 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (uuid.startsWith('roomcoll:')) {
           const rest2 = uuid.slice('roomcoll:'.length); const ci2 = rest2.indexOf(':');
           rcRoom = ci2 < 0 ? rest2 : rest2.slice(0, ci2); rcKind = ci2 < 0 ? '' : rest2.slice(ci2 + 1);
-        } else { // the keyToUuid of a room-collection Folder unit (ensureViewUnit roomcoll: branch persisted roomRef+collectionKind to MODEL_STORE)
+        } else { // the keyToUuid of a MODEL_STORE view-Folder (ensureViewUnit) — rb-detail-base resolves a synthetic ref TO this uuid before /children
           try {
             const msf = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
-            if (fsSync.existsSync(msf)) { const mm = (JSON.parse(fsSync.readFileSync(msf, 'utf-8'))?.model || {}) as Record<string, unknown>; if (mm.collectionKind && mm.roomRef) { rcRoom = String(mm.roomRef); rcKind = String(mm.collectionKind); } }
-          } catch { /* not a room-collection folder → fall through to the normal resolver */ }
+            if (fsSync.existsSync(msf)) {
+              const mm = (JSON.parse(fsSync.readFileSync(msf, 'utf-8'))?.model || {}) as Record<string, unknown>;
+              if (mm.collectionKind && mm.roomRef) { rcRoom = String(mm.roomRef); rcKind = String(mm.collectionKind); } // roomcoll → live room members/files
+              else { // FIX-3 GENERALIZED (rawbin/dir/project/file/mof view-Folder): resolve children by its LOCATION ref via mofChildren
+                const loc = String(mm.location || '');
+                if (/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(loc)) {
+                  const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), loc) || []; // same children the REF path returns → varied childCounts feed the sunburst (proportionality provable) + Part 5 dir sunburst
+                  res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+                  res.end(JSON.stringify({ uuid, type: 'folder', name: String(mm.name || loc), hasChildren: mofKids.length > 0, childCount: mofKids.length, children: mofKids }));
+                  return;
+                }
+              }
+            }
+          } catch { /* not a view folder → fall through to the normal resolver */ }
         }
         if (rcRoom && (rcKind === 'members' || rcKind === 'files')) {
           const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
