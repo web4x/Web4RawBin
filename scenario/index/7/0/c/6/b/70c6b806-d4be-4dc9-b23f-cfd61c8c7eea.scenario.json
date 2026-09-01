@@ -6,7 +6,9 @@
     "name": "Virtual puml collection ALSO surfaces the real on-disk physical-folder tree beneath it (physical folders as scenario-units) — T37.21 part 5",
     "description": "T37.21 part 5 (Tron verbatim): 'we see the puml files under puml but not in the physical folders as they are. puml is a virtual collection with no physical folder - below I want the folder paths where the real puml files are, as a tree of physical folders as scenario-first units.' The puml collection is VIRTUAL (no physical dir). MEASURED (robbin-req re-derived vs disk, not the transcription): class-diagram.puml appears 4x across 4 DISTINCT physical folders (sprint-02/08/09/31 .../diagrams), use-cases.puml 3x - the SAME name in DIFFERENT physical folders = exactly the information the physical tree must reveal (the dup names Tron saw). KEEP the virtual collection; BENEATH it surface the actual on-disk folder PATHS as a tree of PHYSICAL folder scenario-units (rides R40.16 folder-as-unit, NO duplicate folder model).",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:1bf4acc5-4c9b-41a2-9284-b30d323cfbdf"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:c0717060-ed50-443a-90fe-32867761779e"
