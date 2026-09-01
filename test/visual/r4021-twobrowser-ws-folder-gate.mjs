@@ -38,7 +38,7 @@ const folderUnitOnDisk = (name) => {
   if (!MODEL_STORE || !fs.existsSync(MODEL_STORE)) return null;
   const walk = (d) => { let out = []; for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) out = out.concat(walk(p)); else if (e.name.endsWith('.scenario.json')) out.push(p); } return out; };
   for (const file of walk(MODEL_STORE)) {
-    try { const u = JSON.parse(fs.readFileSync(file, 'utf8')); if (u?.ior === 'ior:class:Folder' && u?.model?.name === name) return { uuid: u.model.uuid, file }; } catch {}
+    try { const u = JSON.parse(fs.readFileSync(file, 'utf8')); if (u?.ior === 'ior:class:Folder' && u?.model?.name === name) return { uuid: u.model.uuid, file, location: u.model.location || null }; } catch {}
   }
   return null;
 };
@@ -98,9 +98,19 @@ try {
   }
   await sleep(4500); // allow the POST + client load() + any WS fan-out to land
 
+  // ── confinement arm (architect fail-closed): a traversal name must be REJECTED (ok:false, NO unit, NO dir) ──
+  const TRAV = `../gate-escape-${scratchDir ? scratchDir.slice(-6) : 'x'}`;
+  const trav = await b1.page.evaluate(async (name) => { try { const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent: '' }) }); return { status: r.status, ok: (await r.json().catch(() => ({}))).ok === true }; } catch (e) { return { status: 0, ok: false, err: String(e) }; } }, TRAV);
+  const travEscaped = scratchDir ? fs.existsSync(path.join(path.dirname(scratchDir), path.basename(TRAV))) : false; // did a dir escape the root?
+  const travRejected = trav.ok === false && !travEscaped; // fail-closed: rejected + nothing left behind
+
   // ── assertions ──
   const disk = folderUnitOnDisk(FOLDER);
-  const dir = folderDirOnDisk(FOLDER);
+  // (2a-dir) EXACT PATH (architect formula): PROJECT_ROOT(=scratchDir) / unit.location (relpath = parentLocation/sanitizedName).
+  const relpath = disk ? (disk.location || FOLDER) : null; // location field is part of the build; until then a root folder's relpath == its name
+  const expectedDir = disk && scratchDir ? path.join(scratchDir, relpath) : null;
+  const dirExact = expectedDir ? (fs.existsSync(expectedDir) && fs.statSync(expectedDir).isDirectory()) : false;
+  const anyDir = folderDirOnDisk(FOLDER); // diagnostic: a dir by that name anywhere (wrong-path detector)
   const b1After = await treeText(b1.page);
   const b2After = await treeText(b2.page);
   const b1Sent = await b1.page.evaluate(() => window.__sent);
@@ -109,23 +119,24 @@ try {
   const b2FrameForFolder = disk ? b2Frames.some((fr) => (fr.uuid === disk.uuid) || /folder/i.test(fr.ior || '')) : b2Frames.length > 0;
 
   const aUnit = !!disk;                                               // (2a-unit) persisted Folder unit file on disk
-  const aDir = !!dir;                                                 // (2a-dir) REAL filesystem directory on disk (Tron BOTH)
+  const aDir = dirExact;                                              // (2a-dir) REAL directory at the EXACT architect path (Tron BOTH)
   const b1NoReload = b1Sent === s1;                                   // (2b) browser-1 did not full-reload
   const b1Shows = b1After.includes(FOLDER);                           // (2b) browser-1's tree reflects it
   const b2NoReload = b2Sent === s2;                                   // browser-2 never reloaded
   const b2FrameGot = b2FrameForFolder;                               // (2c transport) WS frame reached browser-2
   const b2Shows = b2After.includes(FOLDER) && b2After !== b2Before;   // (2c render) browser-2 live-inserted the node
 
-  R(`  (2a-unit)  persisted Folder UNIT on disk: ${aUnit}${disk ? ` (uuid ${disk.uuid.slice(0, 8)})` : ''}`);
-  R(`  (2a-dir)   REAL filesystem DIRECTORY on disk (Tron BOTH ruling): ${aDir}${dir ? ` (${dir})` : ' — mkdir unbuilt/path-convention-pending'}`);
+  R(`  (2a-unit)  persisted Folder UNIT on disk: ${aUnit}${disk ? ` (uuid ${disk.uuid.slice(0, 8)}, location=${relpath})` : ''}`);
+  R(`  (2a-dir)   REAL DIRECTORY at exact path ${expectedDir || '?'}: ${aDir}${!aDir ? ' — mkdir unbuilt' : ''}${anyDir && !aDir ? ` (⚠ a dir by that name exists elsewhere: ${anyDir})` : ''}`);
+  R(`  (confine)  traversal name '${TRAV}' rejected fail-closed (ok:false + nothing left): ${travRejected} (resp ok=${trav.ok}, escaped=${travEscaped})`);
   R(`  (2b B1)    no-reload=${b1NoReload} showsFolder=${b1Shows}`);
   R(`  (2c B2-FRAME transport) WS unit-changed reached passive browser-2: ${b2FrameGot} (frames=${b2Frames.length})`);
   R(`  (2c B2-DOM render)      browser-2 live-inserted the node (no reload): ${b2Shows} (b2NoReload=${b2NoReload})`);
 
-  const green = aUnit && aDir && b1NoReload && b1Shows && b2FrameGot && b2Shows && b2NoReload && addFolderBtn;
-  if (green) verdict = `GREEN — Add folder creates BOTH the Folder unit (${disk.uuid.slice(0, 8)}) AND a real directory (${dir}) on disk, browser-1 updates with no reload, AND passive browser-2 received the WS frame + live-inserted the node without reloading. Four-assertion Part-2 WORKS. (Mechanism @390 real-WebKit; scratch.)`;
+  const green = aUnit && aDir && b1NoReload && b1Shows && b2FrameGot && b2Shows && b2NoReload && addFolderBtn && travRejected;
+  if (green) verdict = `GREEN — Add folder creates BOTH the Folder unit (${disk.uuid.slice(0, 8)}) AND a real directory at ${expectedDir} on disk, browser-1 updates no-reload, passive browser-2 received the WS frame + live-inserted no-reload, AND a traversal name is rejected fail-closed. Four-assertion Part-2 + confinement WORKS. (@390 real-WebKit; scratch.)`;
   else if (!aUnit) verdict = `RED — the Folder UNIT was NOT persisted to disk (MODEL_STORE) after Add folder. addFolderBtn=${addFolderBtn}. Create path failed or auth-blocked; investigate before the rest.`;
-  else verdict = `RED (EXPECTED pre-fix) — Part-2 four-assertion baseline: (2a-unit)UNIT=${aUnit}(${disk.uuid.slice(0, 8)}) · (2a-dir)REAL-DIR=${aDir} · (2b)browser-1 no-reload=${b1NoReload}/shows=${b1Shows} · (2c)browser-2 WS-frame=${b2FrameGot}(${b2Frames.length} frames)/live-insert=${b2Shows}. UNBUILT halves (source-confirmed): [dir] FolderService does NO user mkdir (only the shard dir for the unit file) → Tron's real-directory ruling (2026-09-01) needs the mkdir built; [WS] /api/model/folder/create does not publishUnitChanged + /model has no ViewBus.subscribe → second-browser fan-out unbuilt. EXPERT/ARCHITECT: (a) mkdir the real dir atomically-with-mint (fail clean, no half-folder), (b) broadcast on folder-create, (c) /model subscribe+insert → re-run → GREEN. ⚠ I need the mkdir PATH CONVENTION to tighten (2a-dir) from an any-name scan to the exact expected path.`;
+  else verdict = `RED (EXPECTED pre-fix) — Part-2 four-assertion baseline @exact-path: (2a-unit)UNIT=${aUnit}(${disk.uuid.slice(0, 8)}) · (2a-dir)REAL-DIR@${expectedDir}=${aDir} · (2b)browser-1 no-reload=${b1NoReload}/shows=${b1Shows} · (2c)browser-2 WS-frame=${b2FrameGot}(${b2Frames.length})/live-insert=${b2Shows} · (confine)traversal-rejected=${travRejected}. UNBUILT (source-confirmed): [dir] FolderService does NO user mkdir → Tron's real-directory ruling needs mkdir at PROJECT_ROOT/<parentLocation>/<sanitizedName>, confined to a strict subpath (reject scenario/index·data/model-store·.git·node_modules·..·absolute); [WS] folder/create no publishUnitChanged + /model no ViewBus.subscribe → second-browser fan-out unbuilt. EXPERT: (a) mkdir atomically-with-mint, fail-clean/no-half-folder + carry unit.location=relpath; (b) broadcast on create; (c) /model subscribe+insert → re-run → GREEN.`;
 } catch (e) {
   verdict = `ERROR: ${String(e && e.message).slice(0, 200)}`;
 } finally {
