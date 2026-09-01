@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "accf56ab-1218-4031-ac58-aaad916171ad",
+    "name": "RoomFilesService.addNestedFolder",
+    "description": "Add a nested folder under a room Files collection: mkdir getRoomDir(userToken,roomId)/files/<nestedPath>/ via homeKeyFor chokepoint (R40.22) + mint a Folder unit (roomcoll child, virtual->now real per-user path); both-or-neither atomicity like createPhysicalWithUnit; rides R40.70.",
+    "sourceFile": "ior:file:src/ts/server/RoomFilesService.ts",
+    "implementations": [
+      "ior:instance:70916a80-8900-4201-9fe9-32face8db119"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:75c52485-f18f-4851-a164-26b26267fbf2"
+}

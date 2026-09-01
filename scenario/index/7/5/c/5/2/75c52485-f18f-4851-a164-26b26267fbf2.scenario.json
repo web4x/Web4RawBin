@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "model": {
+    "uuid": "75c52485-f18f-4851-a164-26b26267fbf2",
+    "name": "RoomFilesService",
+    "description": "Per-user room-file nested-folder operations (R40.78). Storage target Tron-locked = per-user getRoomDir/files. Base src/ts/server/RoomFilesService.ts",
+    "sourceFile": "ior:file:src/ts/server/RoomFilesService.ts",
+    "methods": [
+      "ior:instance:accf56ab-1218-4031-ac58-aaad916171ad"
+    ]
+  },
+  "ownerIor": "ior:instance:65b07a49-a33f-4888-9ca3-d8464ddd78fb"
+}

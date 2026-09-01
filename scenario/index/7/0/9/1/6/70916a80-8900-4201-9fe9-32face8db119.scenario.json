@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "70916a80-8900-4201-9fe9-32face8db119",
+    "name": "RoomFilesService.addNestedFolder impl",
+    "description": "DESIGN-AHEAD (#126, build-last per PO): nested room folder under getRoomDir(userToken,roomId)/files/<nestedPath> via the R40.22 homeKeyFor chokepoint (never raw mkdir), PER-USER (Tron-locked i, 2026-09-01); mints a real Folder unit (roomcoll child) + mkdir, rides R40.70 BOTH+live-MVC+WS. Expert attaches [impl:uuid] at build.",
+    "sourceFile": "ior:file:src/ts/server/RoomFilesService.ts",
+    "designAhead": true,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:accf56ab-1218-4031-ac58-aaad916171ad"
+}
