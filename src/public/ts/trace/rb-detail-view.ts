@@ -18,6 +18,7 @@ import { forwardOnly } from './forward-only.js';
 import { fetchDetailData, scenarioBrowserLinkFromIor, upsertSourceLink, upsertParentLink } from './detail-children.js';
 import { renderSupersededSection, renderAllChildrenSection } from './detail-superseded.js';
 import { upsertSection } from './detail-render.js'; // R37.12 (B): the ONE idempotent section insert (type-fields, scenario-link)
+import { renderChildSizeSunburst } from './sunburst.js'; // R37.21 Part 4: child-size sunburst (rides R40.16 childCount)
 import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source) — extract-once, no per-element copy
 
 export class RbDetailView extends RbDetailBase {
@@ -75,7 +76,17 @@ export class RbDetailView extends RbDetailBase {
     const head = this.querySelector('.dv-head');
     if (head) {
       upsertSection(this, 'dv-scenario-link', `<span class="dv-scenario-link">${scenarioBrowserLinkFromIor(uuid)}</span>`, head, 'beforeend'); // R37.12 (B): idempotent
-      fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => { if (data && head.isConnected) this.renderTypeDrivenFields(head, data.fields || {}); }).catch(() => {}); // R40.11 slice-3 (AC-3)
+      fetch(`/api/trace/children/${uuid}`).then(r => r.ok ? r.json() : null).then(data => {
+        if (!data || !head.isConnected) return;
+        this.renderTypeDrivenFields(head, data.fields || {}); // R40.11 slice-3 (AC-3)
+        // R37.21 Part 4: a folder/collection detail renders a child-size SUNBURST over its direct children's childCount
+        // (rides R40.16's single-source childCount; architect c165e2506). data.children each carry childCount from the API.
+        const t = String(model.type || ref.split(':')[0] || '').toLowerCase();
+        if (['collection', 'folder', 'project'].includes(t)) {
+          const anchor = this.querySelector('.dv-fields') || head;
+          upsertSection(this, 'dv-sunburst', renderChildSizeSunburst(data.children || []), anchor as Element, 'afterend');
+        }
+      }).catch(() => {}); // R40.11 slice-3 (AC-3)
     }
     fetchDetailData(uuid).then(({ children, parent, sourceFile, sourceLine }) => {
       upsertSourceLink(this, sourceFile, sourceLine); // R37.12 (B): idempotent
