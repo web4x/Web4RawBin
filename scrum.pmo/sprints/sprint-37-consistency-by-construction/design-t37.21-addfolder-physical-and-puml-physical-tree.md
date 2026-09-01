@@ -13,6 +13,12 @@ What happened tonight: the files ATTACHED to the brief were an older upload batc
 
 ---
 
+## ★ PIECE-2 CANONICAL viewBusKey RULING (2026-09-01) — key on the REF STRING, type-independent
+Root (measured ViewBus.ts:51): `viewBusKey('dir:src/foo')`="dir:src/foo" (parses ref by 1st colon) but `viewBusKey({type:'folder',uuid:'dir:src/foo'})`="folder:dir:src/foo" — subscribe≠notify (the stale-pin/R37.12 class) because the two sides fed DIFFERENT inputs (display-type 'collection' vs ior 'folder'). FIX = both sides pass the SAME **ref string** to the ONE builder: SUBSCRIBE `viewBusKey(node.uuid)` (node.uuid = raw ref 'dir:src/foo', NOT {type,uuid}); SERVER `publishUnitChanged(ior, shownRef)` (full ref as uuid); CLIENT live-bridge notifies `viewBusKey(msg.uuid)` [ref-string form] for synthetic refs (real uuids keep {type,uuid}; pin/CR unaffected). → both = "dir:src/foo" by construction, no type-mapping. Cleaner than mapping collection→folder→project.
+
+## ★ ADD-FOLDER ON VIRTUAL COLLECTIONS — Tron chose B; Part 2 ships AS-SCOPED first
+My ruling was (A) [add-folder only on real dir folders; virtual room collections have no mkdir target]. **Tron chose (B)** — add-folder ALSO inside room Files as nested room folders. My reasoning stands as naming B's COST: a virtual collection has no `location` to mkdir into, so **B requires a DEFINED per-room storage target**. PO scoping: **Part 2 ships AS-SCOPED FIRST** — add-folder on REAL /model on-disk folders, registered BY CONSTRUCTION in the universal bar (MODEL_DECLS provider) so it surfaces where applicable (R40.01: the control must surface where it applies). **NESTED ROOM FOLDERS = a SEPARATE requirement** (req minting). **★ ARCHITECT OWES (after Part 2): the design answer "where on disk does a room nested folder actually live"** — the per-room storage target that makes B buildable.
+
 ## PART 2 (A) — "Add folder": mint the unit **AND** mkdir a real dir + live-MVC (no reload) + WS fan-out to a 2nd browser
 
 Tron ruling 2026-09-01 = **BOTH** (unit + real directory, kept in step). **FOUR checkable assertions** (was three): (1) the Folder **unit** exists; (2) a real **directory** exists on disk; (3) browser-1 **live-MVC inserts** the node with **no reload**; (4) a **2nd browser** updates over websocket.
