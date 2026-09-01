@@ -6,7 +6,9 @@
     "name": "Dir-namespace single base-resolution — ALL dir: refs repo-relative, ONE resolveDirRefAbs, retire the 2 correct-by-incident special-cases (gated migration of dead lazy dir: units)",
     "description": "DIR-NAMESPACE SINGLE BASE-RESOLUTION (correct-by-construction follow-up, architect design 71e7c87ab, PO-dispatched to expert). ROOT (measured): the dir: ref namespace carries TWO base conventions - sourceDirTree emits SRC-relative dir:<childRel> (walk=PROJECT_ROOT/src/rel), pumlPhysicalTree emits REPO-relative dir:<dirRel> - while file: refs are ALREADY repo-relative. So dir: is the outlier, and TWO correct-by-INCIDENT special-cases paper over it: the createPhysicalWithUnit existence-heuristic (FolderService:65-66, pinned as a deadline measure) and the puml-dir regex (server.ts:1706). This is the SAME root behind the Tron-facing Add-folder-on-/model bug (dir:ts location=src-relative -> mkdir PROJECT_ROOT/ts -> ENOENT) AND the P5 sourceDirTree base gap. FIX (remove the ambiguity, don't heuristically resolve it): make ALL dir: refs REPO-RELATIVE (one convention, aligned with file:), so ONE shared resolveDirRefAbs(ref)=path.resolve(PROJECT_ROOT, ref-without-dir-prefix) is a trivial join with NO discrimination and NO heuristic; retire both special-cases.",
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:9cd50dde-7237-4b95-b75f-ce181a74e347"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:2d193523-9a3b-4224-96ec-29654114a2bc"
@@ -63,7 +65,7 @@
         "text": "★ The dead-lazy-dir-unit migration is GATED in BOTH DIRECTIONS (PO 2026-09-01 — this is the one part of the change that touches EXISTING data, not new behaviour; a resolver change that quietly re-points units is discovered much later). (A) NOTHING LOST: the sweep removes ONLY UNREFERENCED lazy dir: units; a before==after count reconciles (swept == orphaned-lazy, 0 referenced/active units removed); a sweep that would delete a referenced/non-lazy unit => RED. (B) NOTHING WRONGLY RE-POINTED: every dir: ref whose base convention changes (dir:ts -> dir:src/ts) resolves to the CORRECT new lazy-unit identity keyToUuid('folder::'+repo-rel), and a REVERSE check confirms every consumer of a re-pointed dir: unit now resolves to the new unit — NO ref left dangling on a dead old uuid, NO ref re-pointed to a WRONG uuid. stub-must-fail: (i) a referenced unit swept => RED; (ii) a dir: ref left on a dead old uuid after migration => RED; (iii) a dir: ref re-pointed to a uuid != keyToUuid(new-repo-rel-key) => RED. Same both-sides discipline as R37.29 referential-integrity."
       }
     ],
-    "poMigrationGateConfirm": "PO 2026-09-01: migration must prove BOTH nothing-lost AND nothing-wrongly-re-pointed. AC-migration-both-directions asserts both + reverse-check + 3 stubs. Authorized; builds NEXT (resolveDirRefAbs == the sourceDirTree item, one root; then R40.78 last). part-2-live-insert + sunburst-bytes DONE+deployed+green."
+    "poMigrationGateConfirm": "PO 2026-09-01: migration must prove BOTH nothing-lost AND nothing-wrongly-re-pointed. AC-migration-both-directions asserts both + reverse-check + 3 stubs. Authorized; builds NEXT (resolveDirRefAbs == the sourceDirTree item, one root; then R40.78 last). ★ (PO-RELAYED, NOT req-first-hand-verified): part-2-live-insert + sunburst-bytes reported DONE+deployed+green-on-Tron-surface by PO. robbin-req has minted NO P2/P4b Test units (no tester marker reached me) - do NOT treat this note as verified flip-evidence; the tester owns the gate uuids + Tron-device-confirm status."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
