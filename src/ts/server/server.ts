@@ -1588,6 +1588,35 @@ function pumlChildren(els: MofEl[]): MofNode[] {
   for (const x of els.filter((x) => x.ior === 'ior:class:PumlArtifact')) out.push(mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'puml'), 0, 'puml', 'pumlartifact'));
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
+
+// [impl:uuid:PENDING-req-mint] R37.21 Part 5 (architect design): server.pumlPhysicalTree — BENEATH the flat puml
+// collection, surface the REAL physical folder tree. The flat pumlChildren list flattens every .puml to one level (Tron:
+// "we see the puml files under puml but not in the physical folders as they are"), so class-diagram.puml appears 4× with
+// NO way to see they live in DIFFERENT sprint dirs. Here we group the SAME .puml enumeration by DISTINCT physical
+// parent-dir relpath → one Folder node per dir, emitted as a dir:<relpath> ref that RESOLVES via ensureViewUnit
+// (= keyToUuid('folder::'+relpath), 0 new mint, no duplicate folder model — R40.16 one-model), with the puml-src leaves
+// INLINE under each (the src-scoped dir: children walk is not for scrum.pmo, so the tree carries the leaves directly).
+// Deterministic order (relpath sort). EMPTY → []. SINGLE dir → one node w/ all leaves. childCount per dir feeds the
+// parent puml collection's sunburst. THE REVEAL: class-diagram.puml under each distinct sprint dir it lives in.
+function pumlPhysicalTree(): MofNode[] {
+  const byDir = new Map<string, string[]>(); // physical dir relpath (scrum.pmo/sprints/<sp>/diagrams) → sorted .puml filenames
+  try {
+    const base = path.join(__dirname, '../../..', 'scrum.pmo', 'sprints');
+    for (const sp of fsSync.readdirSync(base).sort()) {
+      let entries: string[] = [];
+      try { entries = fsSync.readdirSync(path.join(base, sp, 'diagrams')); } catch { continue; } // no diagrams/ → skip
+      const pumls = entries.filter((f) => f.endsWith('.puml')).sort();
+      if (pumls.length) byDir.set(`scrum.pmo/sprints/${sp}/diagrams`, pumls);
+    }
+  } catch { /* no sprints dir → empty physical tree */ }
+  return [...byDir.keys()].sort().map((dirRel) => {
+    const pumls = byDir.get(dirRel)!;
+    const relBody = dirRel.replace('scrum.pmo/sprints/', ''); // '<sp>/diagrams' — the puml-src ref body convention (pumlChildren)
+    const node = mofFolder(`dir:${dirRel}`, relBody, pumls.length, 'folder', 'folder'); // dir: ref → ensureViewUnit Folder; explicit distinctive name
+    node.children = pumls.map((f) => mofFolder(`puml-src:${relBody}/${f}`, f, 0, 'puml', 'puml')); // inline leaves reveal the real path
+    return node;
+  });
+}
 // R35.4 DRY fix (architect cb9168e8c) — the ONE ordered-Sprint source: ior:class:Sprint by number (= /trace's
 // sprints.overview order). SHARED so the /api/trace/sprints endpoint (which /trace consumes) AND traceabilityRoots()
 // derive the SAME sprint set+order → the traceability folder CANNOT drift from /trace (parity BY CONSTRUCTION). Zero fork.
@@ -1645,7 +1674,7 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     return sourceDirTree(uuid === 'rawbin:ts' ? '' : uuid.slice('dir:'.length), m1Count);
   }
   if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
-  if (uuid === 'rawbin:puml') return pumlChildren(els); // R33.5 item4: 55 source .puml + imported artifacts
+  if (uuid === 'rawbin:puml') return [...pumlChildren(els), ...pumlPhysicalTree()]; // R33.5 item4: flat .puml + imported artifacts; R37.21 Part 5: + the REAL physical folder tree beneath (reveals dup names across distinct sprint dirs)
   if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
   if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
