@@ -2978,12 +2978,15 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             if (fsSync.existsSync(msf)) {
               const mm = (JSON.parse(fsSync.readFileSync(msf, 'utf-8'))?.model || {}) as Record<string, unknown>;
               if (mm.collectionKind && mm.roomRef) { rcRoom = String(mm.roomRef); rcKind = String(mm.collectionKind); } // roomcoll → live room members/files
-              else { // FIX-3 GENERALIZED (rawbin/dir/project/file/mof view-Folder): resolve children by its LOCATION ref via mofChildren
+              else { // FIX-3 GENERALIZED (rawbin/dir/project/file/mof view-Folder): resolve children by its ref via mofChildren
                 const loc = String(mm.location || '');
-                if (/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(loc)) {
-                  const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), loc) || []; // same children the REF path returns → varied childCounts feed the sunburst (proportionality provable) + Part 5 dir sunburst
+                // ★ rawbin:/mof/project: units store location = the PREFIXED ref; dir:/file: units store location = the BARE
+                // relpath (ensureViewUnit inconsistency) → reconstruct the ref so mofChildren dispatches (else dir folders 404).
+                const vref = /^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(loc) ? loc : (String(mm.kind) === 'file' ? `file:${loc}` : `dir:${loc}`);
+                if (loc && /^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(vref)) {
+                  const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), vref) || []; // same children the REF path returns → varied childCounts feed the sunburst (proportional) + P5 dir sunburst (.puml via the puml-dir branch)
                   res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-                  res.end(JSON.stringify({ uuid, type: 'folder', name: String(mm.name || loc), hasChildren: mofKids.length > 0, childCount: mofKids.length, children: mofKids }));
+                  res.end(JSON.stringify({ uuid, type: 'folder', name: String(mm.name || vref), hasChildren: mofKids.length > 0, childCount: mofKids.length, children: mofKids }));
                   return;
                 }
               }
