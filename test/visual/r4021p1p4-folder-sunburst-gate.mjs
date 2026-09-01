@@ -97,8 +97,10 @@ try {
     R(`P4-proportional (rawbin:puml): sunburst-present=${pu.present} title="${pu.title}" dv-type=${pu.dvType} — NO sunburst to measure`);
   }
 
-  // ── failability: proportional discriminator MUST be able to fail (synthetic unequal sizes / equal lengths) ──
-  const propBites = (() => { const s = [5, 1, 2], l = [10, 10, 10]; return argmax(s) !== argmax(l); })();
+  // ── failability: the proportional discriminator MUST be able to fail. It asserts idxMaxSize===idxMaxLen. It BITES when
+  // the largest-childCount arc is NOT the first arc (index 0): a NON-proportional (equal-angle) renderer would put every
+  // arc at equal length → argmax(lengths)=0 ≠ argmax(sizes) → the assertion would FAIL → the gate catches "something round".
+  const propBites = pu.present && pu.arcs.length > 1 && argmax(pu.arcs.map((a) => a.size)) !== 0;
   const arcBites = pu.present && pu.arcCount > 1; // dropping a path would change the count (structural failability)
   R(`FAILABILITY: proportional bites=${propBites} (unequal size / equal len → largest≠largest) · arc-count structural=${arcBites}`);
 
