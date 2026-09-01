@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "f805cfe0-cc8c-455b-9608-c48e2c8ece1f",
+    "name": "test:R37.21 sunburst arc-size = ON-DISK BYTES (renderChildSizeSunburst, gate r4021c)",
+    "description": "Verifies R37.21 AC-B-sunburst-size-is-on-disk-bytes. Bridged to test/visual/r4021c-room-files-sunburst-gate.mjs (tester commit local 05d9cf2c4, push-freeze). GREEN DET-3x @390 REAL-WebKit on Tron's surface (the Heartspaces room Files sunburst). PROVEN: arc size = REAL on-disk BYTES not childCount — png 10916416 = LARGEST arc, doc 43 bytes = sliver, arc byte-sizes == the /api/trace/children sizes Tron sees. RED-BASELINE DISCRIMINATOR (evidence-must-fail SATISFIED): an equal-angle one-per-file stub → max/min arc-length ratio 1.00 (RED); REAL = 7.58. Exercises Impl a34f1a68 renderChildSizeSunburst end-to-end (sunburst.ts: sizeOf(c)=max(size,1) accessor line 17 -> (size/total)*360 segments line 49 -> .dv-sunburst SVG line 56; server byte-emit per child server.ts:1223).",
+    "implementations": [
+      "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
+    ],
+    "verifies": "R37.21 AC-B-sunburst-size-is-on-disk-bytes",
+    "gateFile": "test/visual/r4021c-room-files-sunburst-gate.mjs (tester 05d9cf2c4)",
+    "markerProvenance": "ADOPTED from tester AST-attached marker [test:uuid:f805cfe0] (measure-my-marker, not invented). Tester two-keys both directions.",
+    "certificationScope": "FEATURE-PROVEN: the RENDERED room-Files sunburst @390 real-WebKit on Tron's surface shows arc size = real on-disk bytes, with a proven RED baseline (equal-angle stub 1.00 vs real 7.58). Not endpoint-only; the user-visible render is proven. satisfied on the PROVEN set."
+  },
+  "ownerIor": "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
+}

@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD R40.16/S37-B: render folder child-size as a sunburst, a VIEW over the folder unit ONE child-size field, not a 2nd store. src/public/ts/trace/rb-folder-detail.ts",
     "sourceFile": "ior:file:src/public/ts/trace/sunburst.ts",
     "designAhead": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:f805cfe0-cc8c-455b-9608-c48e2c8ece1f"
+    ],
     "shippedProvenance": "v0.8.155 commit 40545ce9d (T37.21 Part 4): child-size sunburst on generic folder/collection detail, ONE accessor sizeOf=max(childCount,1) fed by trace-children, gated to collection/folder/project, 12/12 ACs node-tested, ONE renderer no fork. Flipped design-ahead->real by robbin-req (expert unblock).",
     "satisfiesAC": "R37.21 80346a36 AC-B-sunburst-rides-R40.16 (existing part-4 AC being MET, not a new req).",
     "markerNote": "EXPERT: place [impl:uuid:a34f1a68-1541-46a5-844e-a6e753164f6a] on the shipped renderSunburst; confirm/fix model.sourceFile to the exact file (currently rb-folder-detail.ts; PO cited rb-detail-view + sizeOf@sunburst.ts)."
