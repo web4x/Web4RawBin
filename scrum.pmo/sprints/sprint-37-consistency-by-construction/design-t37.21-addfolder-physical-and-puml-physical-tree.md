@@ -37,6 +37,17 @@ Today browser-1 updates via a client `await load()` = a full data refetch (teste
   - Net: unit-and-dir both appear, or neither does. Model and filesystem stay in step (Tron's requirement).
 - **Room virtual collections (part 1):** Members/Files have NO disk dir → they stay **unit-only** (the virtual-parent branch); mkdir applies only where the parent has a real physical location. (Confirm with PO if Tron wants a dir even for room virtuals — the spec says room collections are "virtual, no physical dir".)
 
+### MKDIR PATH CONVENTION (given to tester for the exact-path assertion)
+- **ROOT** = `PROJECT_ROOT = path.join(__dirname,'../../..')` (repo root — same base as `MODEL_STORE=<root>/data/model-store/index`, `PROD_INDEX=<root>/scenario/index`, server.ts:122-123).
+- **name→relpath**: new dir relpath = `<parentFolder.location>/<sanitizedName>` (parentLocation = the parent Folder unit's `location` = its `dir:` relpath, e.g. `src/ts/server`; sanitizedName = `[A-Za-z0-9._-]+`, no `/`, no `..`, ≤80).
+- **EXACT PATH**: `path.join(PROJECT_ROOT, parentLocation, sanitizedName)` exists as a real dir. Unit carries `location=<relpath>` + `uuid=keyToUuid('folder::'+relpath)` (dedups with Part-5 dir: identity).
+- **CONFINEMENT (fail-closed)**: `path.resolve(target)` MUST be a strict subpath of PROJECT_ROOT AND NOT resolve into `scenario/index` | `data/model-store` | `.git` | `node_modules` | `.env` | `.certs`; reject traversal/absolute → `{ok:false}`, no dir, no unit.
+- **★ OPEN CONFINEMENT DECISION (PO/Tron, non-blocking for the assertion):** whether Add-folder may mkdir INSIDE the repo `src/` tree (Tron's `server` example is a source folder, so "in step" implies yes) vs a dedicated data area. Recommend: allow under PROJECT_ROOT minus store/system dirs. Building proceeds on the formula regardless.
+- **NOTE — current `mintRealUnit` uses `crypto.randomUUID()` + no `location`; `createPhysicalWithUnit` must switch to `keyToUuid('folder::'+relpath)` + set `location`** so the physical folder dedups with the `ensureViewUnit('dir:'+relpath)` identity (one folder model).
+
+### ADD-FOLDER verb exclusion (tester's find) — INTENDED, consistent with Part 5
+`appliesTo` excludes `file`/`member`/`puml` → the button shows only on COLLECTIONS. Correct: (a) Part 2 adds folders to real collections; (b) Part 5 SURFACES the physical tree beneath the VIRTUAL puml node (a read-only reveal) — you don't add a folder to a virtual grouping, so excluding the puml node is right. **The physical folder nodes Part 5 surfaces have `kind='folder'` (NOT puml/file/member), so Add-folder ALREADY applies to THEM** — a real puml-holding dir remains add-folder-capable by construction. No defect. Confirm with Tron only if he wants Add-folder on the virtual puml collection node itself (unlikely — it has no single physical dir to mkdir into).
+
 **★ CHOKEPOINT (expert HOLDS for my backstop):** prod **filesystem mutation** (mkdir/rmdir) + store write. Confine root, reject traversal, fail-closed on exists/invalid, write-or-nothing BOTH directions. Do not route the mint through an auto-reuse path. Hold for my backstop before it runs on the served tree. Gate isolated (R40.31, scratch root, cleanup-on-failure, stub-must-fail: invalid-name and exists must each return ok:false with NO dir and NO unit left behind).
 
 ## PART B — puml VIRTUAL collection + REAL physical-folder tree beneath (no dup folder model, R40.16)
