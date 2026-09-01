@@ -85,6 +85,11 @@ Measured: **no sunburst renderer exists** (0 hits) → whoever builds it first c
 - **One renderer, shared:** the same sunburst view serves parts 1/2/5 folder details (folder-as-unit convergence) — do not fork a per-type variant. Ride the `childCount` accessor.
 - **CHAIN:** ties to R40.16 (`cc875e35`). The child-size accessor is the DESIGN-REQUIRED single-source; expert wires the renderer to it. I backstop: arc-count==children, proportional-to-childCount, badge and sunburst read the same field.
 
+## ★ BACKSTOP VERDICT — Parts 3 + 4 = BOTH PASS (2026-09-01, served v0.8.155, source-measured)
+- **Part 3 PASS:** `scenarioBrowserLinkFromIor` → `return ''` at the ONE shared source (detail-children.ts) — served bundle has **0** "Scenario unit on disk" markup (DRY, one-place; R25.6 marker `2179d235` KEPT, chain intact). ★ **SURVIVAL:** the action-bar `[◆ Scenario, ✎ Edit]` universal default (rb-detail-drawer.ts:479) is INTACT + in the served bundles — body-link gone, **bar-button stays** (no 3rd bar regression). Follow-up: 2179d235 bar-superseded → req may re-point/retire (flagged).
+- **Part 4 PASS:** ONE renderer (`sunburst.ts`, nothing forked). `sizeOf = max(childCount,1)` = the single accessor over the SAME `childCount` the tree badge uses (R40.16, can't disagree). `sunburstSegments` = one seg/child, sweep ∝ size (largest childCount = largest arc, NOT equal slices — discriminator holds), Σ==360, defined empty-state, single-child full-ring, idempotent `upsertSection`, gated to collection/folder/project. Pure fn = node-testable failability core. Follow-up: sunburst IMPL marker PENDING req Part-4 uuid → I mint+wire the Impl when req provides it.
+- **Restart:** ENDORSED batching 3+4's `/api/config` version-sync with Part 2's required WS-route restart (client-only + live-served; no gratuitous prod restart).
+
 ## Handoff
 - **req:** mint requirements for A (physical-mkdir + live-MVC + WS-fanout, 3 assertions) + B (physical-folder-tree-reuses-dir:-model, no-dup gate) + 1/3/4; scenario-first before build.
 - **expert:** build A (`FolderService.createPhysicalWithUnit` + `publishUnitChanged(parent)` on the create endpoint) + B (`pumlPhysicalTree()`), HOLD on the Part-A chokepoint (prod fs-mutation) for my backstop.
