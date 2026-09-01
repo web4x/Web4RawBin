@@ -2775,12 +2775,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         try {
           ensureStoreSeeded();
           const { name, parent } = JSON.parse(body || '{}');
-          // R40.37 AC5: FolderService.createPhysicalWithUnit supersedes createFolder (28000b00, additive) — mint+persist
-          // the unit atomically + RETURN it so the itemview is one-step; write-or-nothing → a failed persist returns
-          // {ok:false} and NO unit → the client renders no phantom node (no 200-with-uuid on failure).
-          const out = FolderService.mintRealUnit(MODEL_STORE, String(name || ''), String(parent || ''));
-          if (!out.ok) { addLog(`[model] add-folder FAILED (no unit persisted) — ${out.error}`); res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: out.error || 'add-folder-failed' })); return; }
-          addLog(`[model] add-folder → Folder ${out.unit!.model.uuid.slice(0, 8)} parent=${String(parent || '').slice(0, 8)} (store-only, unit returned)`);
+          // R37.21 Part 2 (Tron PHYSICAL=BOTH, 2026-09-01): createPhysicalWithUnit mkdir's the REAL directory AND mints the
+          // unit — BOTH or NEITHER (architect body 74c553d43, 6-case fs backstop). Resolve the parent folder unit first for
+          // its physical location; a virtual parent (no location) fails-closed 'parent-not-physical'.
+          const parentUnit = parent ? ensureViewUnit(String(parent)) : null;
+          const out = FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parentUnit);
+          if (!out.ok) {
+            const halfState = String(out.error || '').startsWith('half-created');
+            if (halfState) addLog(`[model] add-folder HALF-STATE — ${out.error}`); // LOUD at the route (addLog available here; FolderService already console.error'd the orphan)
+            res.writeHead(halfState ? 500 : 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: out.error || 'add-folder-failed' })); return;
+          }
+          // R37.21 Part 2 (piece-1 WS fan-out): emit on the PARENT so a SECOND browser re-derives the parent's direct children
+          // and live-inserts the new folder with NO reload — ride the EXISTING publishUnitChanged transport (server.ts:190).
+          if (parentUnit) publishUnitChanged(String(parentUnit.ior || 'ior:class:Folder'), String(parent));
+          addLog(`[model] add-folder → Folder ${out.unit!.model.uuid.slice(0, 8)} + real dir ${out.unit!.model.location} (unit+dir in step)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: out.unit!.model.uuid, unit: out.unit }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
       });
