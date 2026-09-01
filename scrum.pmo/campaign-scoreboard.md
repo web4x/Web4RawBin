@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 228** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 79** (228 = 98+46+3+79)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 75**
+- **TOTAL S30++ tasks: 229** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 80** (229 = 98+46+3+80)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 76**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 38 | 1 | 14 | 0 | 23 |
-| S40 | 70 | 0 | 15 | 0 | 53 |
+| S40 | 71 | 0 | 15 | 0 | 54 |
 
-**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 14 · build 50
+**ACTIONABLE by blocker:** RIPE 8 · two-key 1 · gate 2 · marker 15 · build 50
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -77,6 +77,7 @@
 | S40 | 691fd8a9 | Planned | marker | Task 40.66: Task-status symbols: ONE shared source (serv |
 | S40 | 6ba813f4 | Planned | RIPE | Task 40.24: Selecting a diagram element changes the acti |
 | S40 | 71334df3 | In Progress | two-key | Task 40.55: Boots may not name a sprint/version divergin |
+| S40 | 7193c129 | Planned | marker | Task 40.78: Add-folder ALSO inside a room Files collection ( |
 | S40 | 724fa12b | Planned | build | Task 40.43: trace:audit orphan backlog DRAINED via delta |
 | S40 | 755a7be4 | Planned | build | Task 40.40: Every unit type is DECLARED indexed / alt-in |
 | S40 | 7cbc4241 | Planned | build | Task 40.35: deploymentRefs model inversion — the minted  |

@@ -82,3 +82,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] ⏳ [Task 40.73: 3 unreachable methods — in no Class.methods[], invisible in the tree, user cannot navigate to them @390](./task-40.73-unreachable-methods-390.md)
 - [ ] ⏳ [Task 40.72: Dangling tree links expand to EMPTY @390 — a user taps a chevron and gets nothing; some resolve by carry, not a code fix](./task-40.72-dangling-tree-links-empty-390.md)
 - [ ] ⏳ [Task 40.74: Method detail full-signature render @390 — visibility name(params):returnType + docs (distinct-kind: parse/enrich signature data FIRST, 0/657 carry it)](./task-40.74-method-full-signature-render-390.md)
+- [ ] ⏳ [Task 40.78: Add-folder ALSO inside a room Files collection (nested room folders) — mint unit AND mkdir at the per-user room target (build-last)](./task-40.78-nested-room-folders.md)
