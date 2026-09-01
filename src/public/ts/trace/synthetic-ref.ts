@@ -8,7 +8,7 @@ import { refUuid } from '../../../ts/shared/TraceModel.js';
 // r4011 (architect 5a83f4c76): depref: (OtmuxBridge deployment-ref, uuid='depref:'+role) IS synthetic — it was MISSING here,
 // so isSyntheticRef('depref:…') read false → callers applied refUuid+graph.get → a tree-node shell → EMPTY render instead of
 // the fail-loud '⚠ unresolved'. Adding it routes depref through the SOLE resolver (resolveRefUnit → /api/ior/<FULL rawRef>).
-export const SYNTHETIC_PREFIX = /^(depref:|dir:|file:|puml-src:|project:|rawbin:|mof-m1|mof-m2|collection)/;
+export const SYNTHETIC_PREFIX = /^(depref:|dir:|file:|puml-src:|project:|rawbin:|roomcoll:|mof-m1|mof-m2|collection)/; // R37.21 Part 1 FIX-1: roomcoll: (else isSyntheticRef('roomcoll:…')=false → client fetches /api/ior/ior:instance:roomcoll → 404; server /api/ior/roomcoll: resolves)
 export const isSyntheticRef = (rawRef: string): boolean => SYNTHETIC_PREFIX.test(rawRef);
 
 export type ResolvedRef = { uuid: string; type: string; kind?: string; unit: Record<string, unknown> };

@@ -128,7 +128,7 @@ async function addFolder(ref: string): Promise<void> {
   if (!name) return;
   if (err) err.textContent = '';
   try {
-    const parent = ref.split(':').pop() || '';
+    const parent = ref; // R37.21 Part 2 (architect): send the FULL view-ref (shownRef), NOT ref.split(':').pop() — the server does ensureViewUnit(parent) which needs the full ref for the parent's physical location; split-to-bare was the Add-folder regression
     const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) });
     const d = await r.json();
     if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));

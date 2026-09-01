@@ -81,7 +81,7 @@ export class RbDetailView extends RbDetailBase {
         this.renderTypeDrivenFields(head, data.fields || {}); // R40.11 slice-3 (AC-3)
         // R37.21 Part 4: a folder/collection detail renders a child-size SUNBURST over its direct children's childCount
         // (rides R40.16's single-source childCount; architect c165e2506). data.children each carry childCount from the API.
-        const t = String(model.type || ref.split(':')[0] || '').toLowerCase();
+        const t = String(model.type || model.kind || ref.split(':')[0] || '').toLowerCase(); // R37.21 Part 4 FIX-2 (architect): folder units carry model.KIND='folder' not model.type → the gate must read kind too (fixes roomcoll AND dir:/rawbin: folders)
         if (['collection', 'folder', 'project'].includes(t)) {
           const anchor = this.querySelector('.dv-fields') || head;
           upsertSection(this, 'dv-sunburst', renderChildSizeSunburst(data.children || []), anchor as Element, 'afterend');

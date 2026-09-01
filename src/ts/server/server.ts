@@ -2953,19 +2953,30 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // R37.21 Part 1 (architect): a room Members/Files VIRTUAL folder → its children = the room's LIVE members/files
         // (room lives in prod scenario/index; members are live room data, NOT idx forward-refs). Special-cased BEFORE the
         // isModelUnit split. childCount = length → feeds the badge + the Part-4 sunburst by construction (one source).
+        // FIX-3: resolve BOTH the roomcoll: REF and the resolved keyToUuid — rb-detail-base resolves a synthetic ref to
+        // model.uuid (=keyToUuid) BEFORE fetching children (rb-detail-base.ts:62), so the sunburst's /children/<keyToUuid>
+        // must resolve here too, else 0 children → no sunburst on the room-collection folder detail (the headline).
+        let rcRoom = '', rcKind = '';
         if (uuid.startsWith('roomcoll:')) {
           const rest2 = uuid.slice('roomcoll:'.length); const ci2 = rest2.indexOf(':');
-          const roomU = ci2 < 0 ? rest2 : rest2.slice(0, ci2); const ck2 = ci2 < 0 ? '' : rest2.slice(ci2 + 1);
+          rcRoom = ci2 < 0 ? rest2 : rest2.slice(0, ci2); rcKind = ci2 < 0 ? '' : rest2.slice(ci2 + 1);
+        } else { // the keyToUuid of a room-collection Folder unit (ensureViewUnit roomcoll: branch persisted roomRef+collectionKind to MODEL_STORE)
+          try {
+            const msf = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+            if (fsSync.existsSync(msf)) { const mm = (JSON.parse(fsSync.readFileSync(msf, 'utf-8'))?.model || {}) as Record<string, unknown>; if (mm.collectionKind && mm.roomRef) { rcRoom = String(mm.roomRef); rcKind = String(mm.collectionKind); } }
+          } catch { /* not a room-collection folder → fall through to the normal resolver */ }
+        }
+        if (rcRoom && (rcKind === 'members' || rcKind === 'files')) {
           const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
-          const rUnit = pidx.get(roomU);
-          if (!rUnit || (ck2 !== 'members' && ck2 !== 'files')) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
+          const rUnit = pidx.get(rcRoom);
+          if (!rUnit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
           const rmodel = rUnit.model as Record<string, unknown>;
-          const arr = Array.isArray(rmodel[ck2]) ? rmodel[ck2] as any[] : [];
-          const kids = ck2 === 'members'
+          const arr = Array.isArray(rmodel[rcKind]) ? rmodel[rcKind] as any[] : [];
+          const kids = rcKind === 'members'
             ? arr.map((m: any) => ({ uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''), type: 'Member', name: String(m.name || '?'), description: String(m.status || m.role || ''), hasChildren: false }))
             : arr.map((f: any) => { const fUuid = String(f).replace('ior:instance:', ''); const fu = pidx.get(fUuid); return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fu.model?.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false }; });
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
-          res.end(JSON.stringify({ uuid, type: 'folder', name: `${ck2 === 'members' ? 'Members' : 'Files'} (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
+          res.end(JSON.stringify({ uuid, type: 'folder', name: `${rcKind === 'members' ? 'Members' : 'Files'} (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
           return;
         }
         // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
