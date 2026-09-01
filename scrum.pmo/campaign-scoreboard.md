@@ -35,7 +35,7 @@
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
-| S37 | 1bf4acc5 | Planned | marker | Task 37.21: Room Members/Files become real Folder scenario-u |
+| S37 | 1bf4acc5 | In Progress | marker | Task 37.21: TRON 5-PART extended scope — room collections=re |
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
