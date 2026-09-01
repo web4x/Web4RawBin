@@ -71,6 +71,18 @@ try {
 
   const b1 = await mk('browser-1 (actor)');
   const b2 = await mk('browser-2 (PASSIVE)');
+  // ★ expert TEST TARGET: expand BOTH browsers to dir:ts (src/ts, physical location=ts + a rendered synthetic-ref folder
+  // node that buildSeedNode SUBSCRIBES). Path mof-m1→project:RawBin→rawbin:ts→dir:ts. Only a rendered+subscribed parent can
+  // reDeriveDirectChildren-insert the new child — creating under an unrendered parent proves nothing about the live-insert.
+  const PARENT = 'dir:ts';
+  const expandTo = async (page, label) => {
+    const ok = await page.evaluate(async (p) => { const t = document.getElementById('model-tree'); if (t && t.expandPath) { await t.expandPath(p); return true; } return false; }, ['mof-m1', 'project:RawBin', 'rawbin:ts', PARENT]);
+    await page.waitForFunction((par) => { const t = document.getElementById('model-tree'); return t && [...t.querySelectorAll('rb-object-item, [ref], [data-ref]')].some((i) => (i.getAttribute('ref') || i.getAttribute('data-ref') || '') === par); }, PARENT, { timeout: 15000 }).catch(() => {});
+    await sleep(700);
+    const rendered = await page.evaluate((par) => { const t = document.getElementById('model-tree'); return !!t && [...t.querySelectorAll('rb-object-item, [ref], [data-ref]')].some((i) => (i.getAttribute('ref') || i.getAttribute('data-ref') || '') === par); }, PARENT);
+    R(`  ${label}: expandPath(${ok})→ dir:ts rendered+subscribed=${rendered}`);
+  };
+  await expandTo(b1.page, 'browser-1 expand'); await expandTo(b2.page, 'browser-2 expand');
   // sentinels: a window prop a full reload would WIPE → positive 'no reload' proof for each browser.
   const setSentinel = (page) => page.evaluate(() => { window.__sent = 'S' + Math.floor(performance.now()); return window.__sent; });
   const s1 = await setSentinel(b1.page), s2 = await setSentinel(b2.page);
@@ -93,10 +105,10 @@ try {
   }, FOLDER);
   // fallback if the verb button wasn't reachable: drive the exact endpoint the verb hits (same POST), so the WS half is still gated
   if (clicked === 'no-btn') {
-    // createPhysicalWithUnit needs a PHYSICAL parent (a folder unit WITH a location) — parent:'' → parentUnit=null →
-    // fails-closed 'parent-not-physical' (correct safety, server.ts:2781). Use a real dir: parent (location='test') so the
-    // create fires: mkdir PROJECT_ROOT/test/<name> on the SCRATCH (torn down) + emit on the parent for the fan-out.
-    await b1.page.evaluate(async (name) => { await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent: 'dir:test' }) }); }, FOLDER);
+    // create under the SUBSCRIBED physical parent dir:ts (both browsers expandPath-ed to it) → emit publishUnitChanged on
+    // dir:ts → live-bridge ref-string notify viewBusKey(dir:ts) → the subscribed dir:ts node reDeriveDirectChildren-inserts
+    // the new child in BOTH browsers. mkdir src/ts/<name> on the SCRATCH (torn down). parent:'' would fail-closed (no location).
+    await b1.page.evaluate(async ({ name, parent }) => { await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) }); }, { name: FOLDER, parent: PARENT });
     R(`  (verb button not reachable → drove the identical POST endpoint as fallback)`);
   }
   await sleep(4500); // allow the POST + client load() + any WS fan-out to land
