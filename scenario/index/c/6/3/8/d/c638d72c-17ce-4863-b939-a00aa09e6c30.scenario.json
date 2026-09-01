@@ -26,7 +26,7 @@
       "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074"
     ],
     "crossRefNote": "Extends part-2 R40.70 (add-folder mkdir on /model) to the ROOM side (nested room folders). Rides R40.16 (folder-as-unit). Sibling of R37.21 (room collections as real folders). The BOTH ruling (unit AND directory) + live-MVC + WS from R40.70 apply once the storage target is defined.",
-    "satisfactionStatus": "UNVERIFIED — NEW; BLOCKED on the architect's per-room-storage-target design (open question); 0 Done till Tron; scenario-first #126 (minted before the fresh expert builds).",
+    "satisfactionStatus": "UNVERIFIED — storage model LOCKED per-user (Tron); chain buildable (architect mints), fresh expert builds AFTER part 2 (PO priority order); 0 Done till Tron.",
     "acceptanceCriteria": [
       {
         "id": "AC-add-folder-inside-room-files",
@@ -35,8 +35,8 @@
       },
       {
         "id": "AC-per-room-storage-target-DEFINED",
-        "group": "open-design/by-construction",
-        "text": "★ Architect MEASURED (b3c8981c3) the room on-disk home = getRoomDir(userToken,roomId) = data/users/<storageId>/rooms/<roomId>/ (PER-USER, storageId-keyed, R40.22 chokepoint). RECOMMENDED TARGET: getRoomDir(...)/files/<nestedPath>/ — mkdir THROUGH the homeKeyFor chokepoint, NEVER a raw path. ★ REMAINING OPEN SUB-QUESTION (Tron/PO scope call, do-not-guess=>RED): storage is per-user AND files are shared-across-rooms, so is a nested room folder (i) PER-USER (each member mkdirs in their own home — matches today's storage model) OR (ii) CANONICAL PER-ROOM (one shared folder needing a share/sync mechanism = bigger scope)? Architect RECOMMENDS (i). Not buildable until (i)/(ii) is CONFIRMED; the chain (Class/Method) stays null until the storage MODEL is locked — no fabricated path."
+        "group": "storage-target-LOCKED@390",
+        "text": "★ LOCKED (Tron 2026-09-01, asked directly, verbatim: PER-USER, each member own): a nested room folder lives under EACH MEMBER own room dir = getRoomDir(userToken,roomId)/files/<nestedPath>/ (per-user, storageId-keyed), mkdir THROUGH the R40.22 homeKeyFor chokepoint, NEVER a raw mkdir — matching how room storage works today. NO share/sync machinery (option ii CANONICAL-per-room was NOT chosen). The chain (Class/Method) is now buildable; architect mints it; fresh expert builds AFTER part 2 ships."
       },
       {
         "id": "AC-BOTH-unit-and-directory-at-target",
@@ -56,7 +56,7 @@
       {
         "id": "AC-stub-must-fail",
         "group": "gate",
-        "text": "stub-must-fail: Add-folder-in-room that creates a unit but NO physical directory (or a directory but no unit) => RED; Add-folder built against an UNDEFINED storage target => RED (must not guess the location)."
+        "text": "stub-must-fail: (1) Add-folder-in-room creates a unit but NO physical directory (or a directory but no unit) => RED; (2) mkdir NOT through the R40.22 chokepoint / a RAW path => RED; (3) the nested folder placed anywhere OTHER than the LOCKED per-user getRoomDir(...)/files/<nestedPath> (e.g. a canonical-per-room shared path) => RED. (The prior undefined-target-=>-RED is RESOLVED: the target is locked per-user; the stub now asserts the LOCKED target, not the open question.)"
       }
     ],
     "storageModelOpenSubQuestion": {
@@ -65,7 +65,8 @@
       "openFork": "(i) PER-USER nested folder (matches today) vs (ii) CANONICAL per-room (needs share/sync = bigger scope)",
       "architectRecommends": "(i)",
       "decisionOwner": "Tron/PO (scope call)",
-      "status": "BLOCKED on (i)/(ii) confirm; finalizes after Part 2 ships (not blocking Part 2); architect mints chain on lock."
+      "status": "LOCKED (i) PER-USER by Tron 2026-09-01 (asked directly, verbatim per-user each-member-own). Option (ii) canonical-per-room NOT chosen. Buildable after part 2.",
+      "tronProvenance": "Tron verbatim 2026-09-01: PER-USER, each member own (the architect recommendation). Via PO."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
