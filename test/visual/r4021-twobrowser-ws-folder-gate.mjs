@@ -209,10 +209,16 @@ try {
   //    endpoint-missing-the-child = FETCH/DATA (resolution excludes new folders) · endpoint-has-it-but-loop-skipped = KIDS-MISMATCH (cref/existing).
   const childCheck = disk ? await b2.page.evaluate(async ({ parent, uuid }) => {
     try { const r = await fetch('/api/trace/children/' + encodeURIComponent(parent)); const d = await r.json(); const ch = d.children || [];
-      return { ok: r.ok, status: r.status, count: ch.length, hasNew: ch.some((c) => c.uuid === uuid), crefs: ch.map((c) => `${(c.type || 'task').toLowerCase()}:${String(c.uuid).slice(0, 8)}`) };
+      return { ok: r.ok, status: r.status, count: ch.length, hasNew: ch.some((c) => c.uuid === uuid), crefs: ch.map((c) => `${(c.type || 'task').toLowerCase()}:${c.uuid}`) };
     } catch (e) { return { err: String(e && e.message) }; } }, { parent: PARENT, uuid: disk.uuid }) : null;
   R(`  ★b2-DISCRIMINATOR GET /api/trace/children/${PARENT} (new uuid=${disk ? disk.uuid.slice(0, 8) : '?'}): ${JSON.stringify(childCheck)}`);
   R(`  ★★ b2 SUB-CAUSE → ${childCheck && childCheck.hasNew ? 'KIDS-MISMATCH — endpoint RETURNS the new folder but the client loop skipped it (cref/existing computation bug)' : `FETCH/DATA — the children endpoint for ${PARENT} does NOT return the newly-created folder (resolution excludes new folders / stale index)`}`);
+  // ── EXPERT CONFIRM (staleness hypothesis): is the SCRATCH server running reverted resolveDirRefAbs code, or correct code with a deeper resolution diff? ──
+  let scratchRDRA = '?', scratchServerPath = scratchDir ? path.join(scratchDir, 'src/ts/server/server.ts') : null;
+  try { scratchRDRA = (fs.readFileSync(scratchServerPath, 'utf8').match(/resolveDirRefAbs/g) || []).length; } catch (e) { scratchRDRA = 'ERR:' + (e && e.message); }
+  R(`  ★CONFIRM-1 full scratch crefs of /children/${PARENT}: ${JSON.stringify(childCheck && childCheck.crefs)}`);
+  R(`  ★CONFIRM-2 resolveDirRefAbs count in the SCRATCH server.ts it actually runs (${scratchServerPath}): ${scratchRDRA}  [2=current, 0=reverted]`);
+  R(`  ★CONFIRM-3 new folder ${disk ? disk.uuid : '?'} on disk: expectedDir=${expectedDir} exists=${dirExact} | anyDirByName=${anyDir || 'none'}`);
   const b2FrameForFolder = disk ? b2Frames.some((fr) => (fr.uuid === disk.uuid) || /folder/i.test(fr.ior || '')) : b2Frames.length > 0;
 
   // ★ PO-APPROVED PROBE (one comparison, no exploring): the EXACT msg.uuid on the frame b2 received vs the key the parent
