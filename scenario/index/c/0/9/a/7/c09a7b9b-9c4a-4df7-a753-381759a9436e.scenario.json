@@ -6,7 +6,9 @@
     "name": "Sunburst sizes render human-readable (B/kB/MB/GB/TB), not raw bytes — legend and center",
     "description": "Tron (screenshot @v0.8.165, room Files folder detail): the sunburst LEGEND currently renders RAW BYTES — his own values 10916416, 43, 4717922, 1, 1 — and he wants them human-formatted: bytes -> kB -> MB -> GB -> TB, so 10916416 shows as ~10.9 MB and 43 stays 43 B. ROUNDING (derived from HIS stated value 10916416 -> 10.9 MB = SI 1000-based, since 10916416/1e6=10.92): units are SI (1 kB=1000 B, 1 MB=1e6, etc.), 1 decimal place for kB and above, integer for B (43 B, 1 B). Applies to the legend AND the centre total (R40.79). Screenshot = acceptance.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:dd2326a2-a7b7-44d8-93e9-4afe160b20c7"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:59a7550f-de7d-4374-95e9-b8977eccd244"
