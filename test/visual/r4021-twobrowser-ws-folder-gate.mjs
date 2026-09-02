@@ -151,11 +151,11 @@ try {
   R(`  b1 create '${FOLDER}' under ${PARENT} → HTTP ${created.status} ok=${created.ok}`);
   await sleep(4500); // allow the POST + client load() + any WS fan-out to land
 
-  // ── confinement arm (architect fail-closed): a traversal name must be REJECTED (ok:false, NO unit, NO dir) ──
-  const TRAV = `../gate-escape-${scratchDir ? scratchDir.slice(-6) : 'x'}`;
-  const trav = await b1.page.evaluate(async (name) => { try { const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent: '' }) }); return { status: r.status, ok: (await r.json().catch(() => ({}))).ok === true }; } catch (e) { return { status: 0, ok: false, err: String(e) }; } }, TRAV);
-  const travEscaped = scratchDir ? fs.existsSync(path.join(path.dirname(scratchDir), path.basename(TRAV))) : false; // did a dir escape the root?
-  const travRejected = trav.ok === false && !travEscaped; // fail-closed: rejected + nothing left behind
+  // ── (confinement/traversal arm REMOVED 2026-09-02 — Tron: WE ARE IN DEVELOPMENT; no security control he did not order
+  //    by name. PO directive: drop the confinement + traversal cases; keep ONLY what Tron asked for + both-or-neither
+  //    correctness. Folder-create = mkdir + mint, both-or-neither (a half-folder is a broken feature, that's correctness,
+  //    not security). Do NOT re-add a traversal/confinement/forbidden-roots assertion as "hardening" — report a genuine
+  //    danger to PO in one line and keep building; never design it back into an AC or a gate.) ──
 
   // ── assertions ──
   const disk = folderUnitOnDisk(FOLDER);
@@ -190,15 +190,14 @@ try {
 
   R(`  (2a-unit)  persisted Folder UNIT on disk: ${aUnit}${disk ? ` (uuid ${disk.uuid.slice(0, 8)}, location=${relpath})` : ''}`);
   R(`  (2a-dir)   REAL DIRECTORY at exact path ${expectedDir || '?'}: ${aDir}${!aDir ? ' — mkdir unbuilt' : ''}${anyDir && !aDir ? ` (⚠ a dir by that name exists elsewhere: ${anyDir})` : ''}`);
-  R(`  (confine)  traversal name '${TRAV}' rejected fail-closed (ok:false + nothing left): ${travRejected} (resp ok=${trav.ok}, escaped=${travEscaped})`);
   R(`  (2b B1)    no-reload=${b1NoReload} showsFolder=${b1Shows}`);
   R(`  (2c B2-FRAME transport) WS unit-changed reached passive browser-2: ${b2FrameGot} (frames=${b2Frames.length})`);
   R(`  (2c B2-DOM render)      browser-2 live-inserted the node (no reload): ${b2Shows} (b2NoReload=${b2NoReload})`);
 
-  const green = aUnit && aDir && b1NoReload && b1Shows && b2FrameGot && b2Shows && b2NoReload && addFolderBtn && travRejected;
-  if (green) verdict = `GREEN — CLIENT HALF PROVEN IN SCRATCH (localhost:4643), NOT prod: the prod path required a real user credential and the expert correctly refused to route around the guard protecting it, so we prove it where no credential is needed — scratch changes WHERE we prove it, not WHAT. The measure≠mutate split SURVIVES intact: browser-1 is the ACTOR that creates, browser-2 is a PASSIVE OBSERVER in an independent context that updates on its own without being touched. THREE separate results (each proven able-to-fail): (2b) browser-1 SHOWS the folder no-reload=${b1Shows} · (2c-FRAME) passive browser-2 RECEIVED the WS unit-changed frame=${b2FrameGot} · (2c-DOM) browser-2 LIVE-INSERTED the node no-reload=${b2Shows}. Plus create-half (unit ${disk.uuid.slice(0, 8)} + real dir ${expectedDir}) + traversal fail-closed. @390 real-WebKit.`;
+  const green = aUnit && aDir && b1NoReload && b1Shows && b2FrameGot && b2Shows && b2NoReload && addFolderBtn;
+  if (green) verdict = `GREEN — CLIENT HALF PROVEN IN SCRATCH (localhost:4643), NOT prod: the prod path required a real user credential and the expert correctly refused to route around the guard protecting it, so we prove it where no credential is needed — scratch changes WHERE we prove it, not WHAT. The measure≠mutate split SURVIVES intact: browser-1 is the ACTOR that creates, browser-2 is a PASSIVE OBSERVER in an independent context that updates on its own without being touched. THREE separate results (each proven able-to-fail): (2b) browser-1 SHOWS the folder no-reload=${b1Shows} · (2c-FRAME) passive browser-2 RECEIVED the WS unit-changed frame=${b2FrameGot} · (2c-DOM) browser-2 LIVE-INSERTED the node no-reload=${b2Shows}. Plus create-half (unit ${disk.uuid.slice(0, 8)} + real dir ${expectedDir}, both-or-neither). @390 real-WebKit.`;
   else if (!aUnit) verdict = `RED — the Folder UNIT was NOT persisted to disk (MODEL_STORE) after Add folder. addFolderBtn=${addFolderBtn}. Create path failed or auth-blocked; investigate before the rest.`;
-  else verdict = `RED — CLIENT PIECE ONLY (server side DONE @0.8.158, measured via the REAL /api/model/folder/create route with a physical parent): (2a-unit)UNIT=${aUnit}(${disk.uuid.slice(0, 8)}) ✅ · (2a-dir)REAL-DIR@${expectedDir}=${aDir} ✅ mkdir E2E via createPhysicalWithUnit · (confine)traversal-rejected=${travRejected} ✅ · (2c-FRAME)browser-2 WS unit-changed frame=${b2FrameGot}(${b2Frames.length}) ✅ server fan-out reaches passive browser · (2b)browser-1 no-reload SHOWS=${b1Shows} ⏳ · (2c-DOM)browser-2 live-insert=${b2Shows} ⏳. REMAINING = CLIENT ONLY: /model ViewBus.subscribe + live-insert (both browsers) — the frame ARRIVES, the client must consume it (expert's piece-2). The frame-arrives result means this is a small client problem, not a missing broadcast.`;
+  else verdict = `RED — CLIENT PIECE ONLY (server side DONE @0.8.158, measured via the REAL /api/model/folder/create route with a physical parent): (2a-unit)UNIT=${aUnit}(${disk.uuid.slice(0, 8)}) ✅ · (2a-dir)REAL-DIR@${expectedDir}=${aDir} ✅ mkdir E2E via createPhysicalWithUnit (both-or-neither) · (2c-FRAME)browser-2 WS unit-changed frame=${b2FrameGot}(${b2Frames.length}) ✅ server fan-out reaches passive browser · (2b)browser-1 no-reload SHOWS=${b1Shows} ⏳ · (2c-DOM)browser-2 live-insert=${b2Shows} ⏳. REMAINING = CLIENT ONLY: /model ViewBus.subscribe + live-insert (both browsers) — the frame ARRIVES, the client must consume it (expert's piece-2). The frame-arrives result means this is a small client problem, not a missing broadcast.`;
 } catch (e) {
   verdict = `ERROR: ${String(e && e.message).slice(0, 200)}`;
 } finally {
