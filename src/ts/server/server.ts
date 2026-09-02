@@ -1707,7 +1707,20 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     if (uuid.startsWith('dir:')) { const rel = uuid.slice('dir:'.length); if (/^scrum\.pmo\/sprints\/.+\/diagrams$/.test(rel)) { const leaves = pumlLeavesForDir(rel); if (leaves.length) return leaves; } }
     const m1Count = new Map<string, number>();
     for (const x of m1Roots.filter(isSrc)) { const sf = String(x.m.sourceFile); m1Count.set(sf, (m1Count.get(sf) || 0) + 1); } // per-file generated-element count → file: leaf childCount
-    return sourceDirTree(uuid === 'rawbin:ts' ? 'src' : uuid.slice('dir:'.length), m1Count); // R37.33: ts root walks repo-relative 'src' (was '' + a hard src-join); dir: children are dir:src/… → uuid.slice gives 'src/…' by construction
+    const dirRel = uuid === 'rawbin:ts' ? 'src' : uuid.slice('dir:'.length); // R37.33: ts root walks repo-relative 'src'; dir: children are dir:src/… → uuid.slice gives 'src/…' by construction
+    const fsKids = sourceDirTree(dirRel, m1Count);
+    // R37.21 Part 2 piece-2 FIX (children surface a freshly Add-folder'd EMPTY dir → the live-insert data path): sourceDirTree's
+    // R33.10 filter hides a directory with 0 .ts (countTsUnder>0), so a just-created empty user folder never appears in /children
+    // → reDeriveDirectChildren appends 0 → no live-insert. MERGE the MODEL_STORE Folder units (createPhysicalWithUnit-minted)
+    // that are DIRECT children of dirRel and not already surfaced by the fs-walk. Reuses the `els` scan mofModelEls already did
+    // (NO new full-scan). R33.10 stays intact for non-user empty fs folders; a folder that later gains .ts dedups by ref (seen).
+    const seen = new Set(fsKids.map((k) => k.uuid));
+    const userDirs = els
+      .filter((x) => x.ior === 'ior:class:Folder' && typeof x.m.location === 'string' && (x.m.location as string).startsWith(dirRel + '/') && !(x.m.location as string).slice(dirRel.length + 1).includes('/'))
+      .map((x) => { const loc = String(x.m.location); return mofFolder('dir:' + loc, loc.split('/').pop() || loc, 0, 'mof-project', 'collection', 0); })
+      .filter((d) => !seen.has(d.uuid))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    return [...fsKids, ...userDirs];
   }
   if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
   if (uuid === 'rawbin:puml') return [...pumlChildren(els), ...pumlPhysicalTree()]; // R33.5 item4: flat .puml + imported artifacts; R37.21 Part 5: + the REAL physical folder tree beneath (reveals dup names across distinct sprint dirs)
