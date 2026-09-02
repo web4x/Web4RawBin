@@ -8,7 +8,8 @@
     "designAhead": false,
     "tests": [
       "ior:instance:919e3f36-bf75-432c-b4ff-544bb3bde8cd"
-    ]
+    ],
+    "sourceMarkerUpdateNeeded": "★★ FRESH-EXPERT READ THIS (recorded next-to-the-work 2026-09-02 per PO; the expert was rewound clean, no memory of the finding): the source marker at rb-trace-tree.ts:128 says [impl:uuid:PENDING-req-mint] — it is STALE. UPDATE it to THIS Impl uuid 8693dc2b-1541... (full: run git grep). DO NOT MINT A NEW IMPL — reDeriveDirectChildren already EXISTS as THIS unit (built v0.8.159, owns Method 1e5c4233, P2 Test 919e3f36 wired here). This is a marker-UPDATE (code edit PENDING-req-mint -> 8693dc2b), NOT a req mint and NOT a second Impl. Minting a 2nd would be double-credit on a shared surface. (rb-trace-tree.ts was a restored file post-revert-blast, so the stale PENDING marker likely pre-dates the restore.)"
   },
   "ownerIor": "ior:instance:1e5c4233-5468-44a6-b91a-d2e4deb1cad2"
 }
