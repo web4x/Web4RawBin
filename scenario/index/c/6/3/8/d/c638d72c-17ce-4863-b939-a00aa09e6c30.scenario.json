@@ -68,7 +68,7 @@
       {
         "id": "AC-add-folder-ordinary-physical-BOTH",
         "group": "by-construction/TRON",
-        "text": "Add-folder inside Files = the ORDINARY physical-equals-BOTH case: mint the Folder unit AND mkdir the real subdirectory in the room's files dir, exactly as add-folder works anywhere else. NO exception. (both-or-neither = correctness.)"
+        "text": "Add-folder inside Files = the ORDINARY physical-equals-BOTH case: mint the Folder unit AND mkdir the real subdirectory at getRoomDir(roomId)/files/<nestedPath> (THE room folder, NOT per-user), key folder::<relpath> (no storageId). both-or-neither = correctness. NO exception."
       },
       {
         "id": "AC-routes-to-room-endpoint-not-model",
@@ -88,7 +88,7 @@
       {
         "id": "AC-location-real-relpath-retire-logical",
         "group": "by-construction/TRON-resolved",
-        "text": "The nested Folder unit's location is a REAL relpath under the room's files dir (mirrors the on-disk subdir). The earlier LOGICAL roomcoll-ref location is RETIRED — one real location, no logical/real split."
+        "text": "The nested Folder unit key = folder::<relpath> (real relpath under getRoomDir(roomId)/files, no storageId/per-user). The earlier LOGICAL roomcoll-ref location + per-user storageId key are RETIRED — one plain real location."
       },
       {
         "id": "AC-one-folder-creation-mechanism-DRY",
@@ -117,7 +117,8 @@
     "attachmentsOpenForTron": "★ SEPARATE OPEN ITEM pending TRON (architect flagged PO, NOT in this req's scope): attachments are UNIT-EMBEDDED today, not real files. Tron's ask here is physical SUBFOLDERS = buildable NOW (this req). Whether ATTACHMENTS ALSO become real files on disk = a BIGGER SEPARATE AC, pending Tron's confirm. Do NOT fold it into R40.78; capture as its own req IF Tron confirms. Recorded so the subfolder work is not blocked on the attachment question.",
     "tronRulingArchitectRelay": "Architect's relay of the same Tron ruling: 'the room Files collection IS the room physical folder and can create physical sub folders in it.' (Same ruling as the PO relay in tronRuling; both Tron-attributed, both say Files IS the physical folder.)",
     "strippedPerTronDirective": "★ SECURITY STRIPPED 2026-09-02 (Tron via PO, 3rd time; deliberate NOT forgotten — do NOT re-add 'for completeness'): Tron never ordered these, they were designed on top WITHOUT him asking, in DEVELOPMENT. REMOVED: AC-per-user-isolation-stays + AC-per-room-storage-target-DEFINED (per-user isolation layer / R40.22 chokepoint); the 'mkdir-not-through-chokepoint/raw-path => RED' clause of the stub. Also gone from the accompanying design: confinement roots, path-traversal rejection, forbidden-directory lists, owner-gating, credential handoff. KEPT: what Tron asked (real folder on disk, live-no-reload, 2nd-browser, Files IS the room physical folder) + CORRECTNESS (both-or-neither / fail-clean-no-half-state — a half-created folder is a broken feature, not a security control) + the DRY one-mechanism. Architect re-issues the folder-create design STRIPPED to mkdir+mint+both-or-neither, one mechanism two endpoints differing only in parent path. STANDING RULE (in development): add NO security property/guard/isolation/gate unless Tron asked by name.",
-    "architectReRule": "Architect re-rule f6f1463e0, now STRIPPED per Tron: Files node resolves to the room's real files dir (drop per-user isolation framing); add-folder = mkdir+mint both-or-neither, one mechanism, two endpoints differ only in parent path. SIMPLER, no security layer."
+    "architectReRule": "Architect re-rule f6f1463e0, now STRIPPED per Tron: Files node resolves to the room's real files dir (drop per-user isolation framing); add-folder = mkdir+mint both-or-neither, one mechanism, two endpoints differ only in parent path. SIMPLER, no security layer.",
+    "architectReissue": "Architect re-issued the STRIPPED folder-create design (059107c35): DELETE confinement-root/traversal-reject/forbidden-roots/per-user-isolation/owner-gate/credential/name-charset-length-validation. KEEP DRY one-mechanism (check-single-mkdir-mint failable) + correctness rollback (both-or-neither/no-half-state + stubMustFail) + feature ACs. Room parentAbsPath=getRoomDir(roomId)/files/<nestedPath> (THE room folder, not per-user), key folder::<relpath>. My strip aligns exactly; applied the getRoomDir(roomId)+folder::<relpath> precision."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
