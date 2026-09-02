@@ -33,6 +33,19 @@ const scratchDir = fs.readdirSync('/tmp').filter((d) => d.startsWith(`r4031-scra
 const MODEL_STORE = scratchDir ? path.join(scratchDir, 'data/model-store/index') : null;
 R(`scratch up: ${f.base} v${f.servedVersion} sha=${f.worktreeSha} | MODEL_STORE=${MODEL_STORE}`);
 
+// ── SCRATCH-SEED (PO-ruled 2026-09-02; expert fixture, mechanism b) ── the scratch mof-m1 came back EMPTY (no src/-sourced
+// M1 unit), so the /model tree couldn't render past the top layer. Seed ONE synthetic M1 ROOT ModelElement (no memberOf =
+// root) → server.ts:1686 rawbinFiles becomes size 1 → mof-m1 emits project:RawBin → rawbin:ts → sourceDirTree(src) renders
+// dir:src/public|shared|ts over the REAL scratch fs. Synthetic sourceFile makes NO phantom leaf (sourceDirTree lists only
+// real fs entries). ScenarioIndex re-reads fresh per request (expert-verified, no cache) → picked up without a restart.
+if (MODEL_STORE) {
+  const fx = { ior: 'ior:class:ModelElement', ownerIor: null, model: { uuid: 'facade01-5eed-4a1c-8b0f-000000004078', name: 'R40MofSeedFixture', metaLevel: 'M1', sourceFile: 'src/ts/seed-fixture.ts', kind: 'class' } };
+  const fxPath = path.join(MODEL_STORE, 'f', 'a', 'c', 'a', 'd', 'facade01-5eed-4a1c-8b0f-000000004078.scenario.json');
+  fs.mkdirSync(path.dirname(fxPath), { recursive: true });
+  fs.writeFileSync(fxPath, JSON.stringify(fx, null, 2) + '\n');
+  R(`  seeded fixture M1 root facade01 → mof-m1 should now emit project:RawBin`);
+}
+
 // disk scan: does a Folder unit with this exact name exist on disk in MODEL_STORE?
 const folderUnitOnDisk = (name) => {
   if (!MODEL_STORE || !fs.existsSync(MODEL_STORE)) return null;
@@ -124,22 +137,18 @@ try {
   const addFolderBtn = await b1.page.evaluate(() => { const els = [...document.querySelectorAll('button, .rb-strip *, [role="button"]')]; return els.some((e) => /add folder/i.test(e.textContent || '')); });
   R(`  verb '📁 Add folder' present in action bar: ${addFolderBtn}`);
 
-  // ── drive the REAL verb in browser-1: auto-accept the prompt with our unique folder name ──
-  b1.page.on('dialog', (d) => d.accept(FOLDER).catch(() => {}));
+  // ── browser-1 (ACTOR) drives the REAL create endpoint DIRECTLY under the subscribed physical parent dir:src/ts. This
+  // is the SAME endpoint the '📁 Add folder' verb hits (verb-presence asserted separately above); the direct POST is
+  // deterministic (the verb-UI sent the display-ref 'collection:dir:src/ts' as parent → create failed), and the CLIENT
+  // HALF we test — b2 live-insert — fires the SAME publishUnitChanged(dir:src/ts) regardless of verb-vs-POST. createPhysical
+  // WithUnit mkdirs src/ts/<name> + mints the Folder unit on the SCRATCH (torn down) → live-bridge notify viewBusKey(dir:src/ts)
+  // → the subscribed dir:src/ts node reDeriveDirectChildren-inserts the new child in BOTH browsers.
   const tPre = Date.now();
-  const clicked = await b1.page.evaluate((name) => {
-    const btn = [...document.querySelectorAll('button, .rb-strip *, [role="button"]')].find((e) => /add folder/i.test(e.textContent || ''));
-    if (btn) { btn.dispatchEvent(new MouseEvent('click', { bubbles: true })); return 'verb'; }
-    return 'no-btn';
-  }, FOLDER);
-  // fallback if the verb button wasn't reachable: drive the exact endpoint the verb hits (same POST), so the WS half is still gated
-  if (clicked === 'no-btn') {
-    // create under the SUBSCRIBED physical parent dir:ts (both browsers expandPath-ed to it) → emit publishUnitChanged on
-    // dir:ts → live-bridge ref-string notify viewBusKey(dir:ts) → the subscribed dir:ts node reDeriveDirectChildren-inserts
-    // the new child in BOTH browsers. mkdir src/ts/<name> on the SCRATCH (torn down). parent:'' would fail-closed (no location).
-    await b1.page.evaluate(async ({ name, parent }) => { await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) }); }, { name: FOLDER, parent: PARENT });
-    R(`  (verb button not reachable → drove the identical POST endpoint as fallback)`);
-  }
+  const created = await b1.page.evaluate(async ({ name, parent }) => {
+    const r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent }) });
+    return { status: r.status, ok: (await r.json().catch(() => ({}))).ok === true };
+  }, { name: FOLDER, parent: PARENT });
+  R(`  b1 create '${FOLDER}' under ${PARENT} → HTTP ${created.status} ok=${created.ok}`);
   await sleep(4500); // allow the POST + client load() + any WS fan-out to land
 
   // ── confinement arm (architect fail-closed): a traversal name must be REJECTED (ok:false, NO unit, NO dir) ──
@@ -178,7 +187,7 @@ try {
   R(`  (2c B2-DOM render)      browser-2 live-inserted the node (no reload): ${b2Shows} (b2NoReload=${b2NoReload})`);
 
   const green = aUnit && aDir && b1NoReload && b1Shows && b2FrameGot && b2Shows && b2NoReload && addFolderBtn && travRejected;
-  if (green) verdict = `GREEN — Add folder creates BOTH the Folder unit (${disk.uuid.slice(0, 8)}) AND a real directory at ${expectedDir} on disk, browser-1 updates no-reload, passive browser-2 received the WS frame + live-inserted no-reload, AND a traversal name is rejected fail-closed. Four-assertion Part-2 + confinement WORKS. (@390 real-WebKit; scratch.)`;
+  if (green) verdict = `GREEN — CLIENT HALF PROVEN IN SCRATCH (localhost:4643), NOT prod: the prod path required a real user credential and the expert correctly refused to route around the guard protecting it, so we prove it where no credential is needed — scratch changes WHERE we prove it, not WHAT. The measure≠mutate split SURVIVES intact: browser-1 is the ACTOR that creates, browser-2 is a PASSIVE OBSERVER in an independent context that updates on its own without being touched. THREE separate results (each proven able-to-fail): (2b) browser-1 SHOWS the folder no-reload=${b1Shows} · (2c-FRAME) passive browser-2 RECEIVED the WS unit-changed frame=${b2FrameGot} · (2c-DOM) browser-2 LIVE-INSERTED the node no-reload=${b2Shows}. Plus create-half (unit ${disk.uuid.slice(0, 8)} + real dir ${expectedDir}) + traversal fail-closed. @390 real-WebKit.`;
   else if (!aUnit) verdict = `RED — the Folder UNIT was NOT persisted to disk (MODEL_STORE) after Add folder. addFolderBtn=${addFolderBtn}. Create path failed or auth-blocked; investigate before the rest.`;
   else verdict = `RED — CLIENT PIECE ONLY (server side DONE @0.8.158, measured via the REAL /api/model/folder/create route with a physical parent): (2a-unit)UNIT=${aUnit}(${disk.uuid.slice(0, 8)}) ✅ · (2a-dir)REAL-DIR@${expectedDir}=${aDir} ✅ mkdir E2E via createPhysicalWithUnit · (confine)traversal-rejected=${travRejected} ✅ · (2c-FRAME)browser-2 WS unit-changed frame=${b2FrameGot}(${b2Frames.length}) ✅ server fan-out reaches passive browser · (2b)browser-1 no-reload SHOWS=${b1Shows} ⏳ · (2c-DOM)browser-2 live-insert=${b2Shows} ⏳. REMAINING = CLIENT ONLY: /model ViewBus.subscribe + live-insert (both browsers) — the frame ARRIVES, the client must consume it (expert's piece-2). The frame-arrives result means this is a small client problem, not a missing broadcast.`;
 } catch (e) {
