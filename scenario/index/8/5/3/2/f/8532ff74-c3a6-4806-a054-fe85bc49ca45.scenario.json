@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "8532ff74-c3a6-4806-a054-fe85bc49ca45",
+    "name": "test:R37.21 P5b DIR-folder sunburst arc-size = on-disk bytes (renderChildSizeSunburst, gate r4021d) — PHYSICAL-DIR surface via resolveDirRefAbs",
+    "description": "The RENDERED dir-folder sunburst @390 real-WebKit shows arc size = real on-disk bytes (9 .puml children, ratio 3.59, equal-angle stub->1.00 RED baseline). DISTINCT from P4b f805cfe0 by SURFACE + RESOLUTION PATH, NOT by size variance: the tester MEASURED that room Files are varied-byte too (png 10916416 vs doc 43), so 'equal-size leaves' is NOT the distinction. The real distinction: f805cfe0 renders the ROOM-COLLECTION surface (roomcoll:...:files resolution), r4021d renders the PHYSICAL-DIR surface (dir: resolution via R37.33 resolveDirRefAbs). Same Impl a34f1a68, DIFFERENT resolution path -> a distinct 2nd Test, NOT double-credit. ★ r4021d UNIQUELY proves R37.33: the dir children POPULATE by resolved-uuid (arc-count==children>0), where before it was sunburst-over-zero which the arc==children>0 assertion correctly refused. (Basis corrected per tester+PO: distinctness = surface/resolution + R37.33-dir-populate, not leaf-size-variance.)",
+    "implementations": [
+      "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
+    ],
+    "verifies": "R37.21 AC-B-sunburst-size-is-on-disk-bytes (DIR surface / proportionality half)",
+    "gateFile": "test/visual/r4021d-p5-dir-sunburst-gate.mjs (tester 6db5ef321, DET-3x @390)",
+    "markerProvenance": "ADOPTED from tester AST-attached marker [test:uuid:8532ff74-c3a6-4806-a054-fe85bc49ca45] stamped in r4021d (measure-my-marker, NOT invented). Tester two-keys both directions.",
+    "surface": "PHYSICAL-DIR (dir: resolution via R37.33 resolveDirRefAbs) — named explicitly so the two Tests on a34f1a68 never read as duplicates: f805cfe0=ROOM-COLLECTION surface (roomcoll:), this=PHYSICAL-DIR surface (dir:). Distinction is SURFACE + RESOLUTION PATH, NOT leaf-size (tester measured Files are varied-byte too).",
+    "certificationScope": "FEATURE-PROVEN: the RENDERED PHYSICAL-DIR sunburst @390 real-WebKit shows arc size = real on-disk bytes (9 arcs, ratio 3.59) with a proven able-to-fail baseline (equal-angle stub 1.00). DISTINCT from f805cfe0 by SURFACE + RESOLUTION PATH (dir: via resolveDirRefAbs vs roomcoll:), NOT by leaf-size variance (tester measured room Files are varied-byte too: png 10916416 vs doc 43 -> the PO's size-variance reason was false, corrected here). r4021d UNIQUELY proves R37.33 populates the dir children (arc-count==children>0, was over-zero). Not endpoint-only; user-visible render proven. satisfied on the PROVEN set.",
+    "provesForR37_33": "R37.33 (8ac3ba20 resolveDirRefAbs) has NO distinct gate; its fix is proven THROUGH this P5b gate (architect 0d8ef17f8). No separate R37.33 Test is invented — the record shows R37.33's proof rides r4021d.",
+    "status": "pass",
+    "statusNote": "pass = r4021d gate GREEN DET-3x @390 (6db5ef321) + architect-confirmed 0d8ef17f8. Requirement satisfaction SEPARATE (T37.21 QA-Review ceiling, Tron-device @390 pending; 0 Done till Tron)."
+  },
+  "ownerIor": "ior:instance:a34f1a68-1541-46a5-844e-a6e753164f6a"
+}
