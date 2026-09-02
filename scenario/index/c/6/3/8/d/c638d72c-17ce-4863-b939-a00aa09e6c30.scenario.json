@@ -67,8 +67,8 @@
       },
       {
         "id": "AC-files-node-IS-room-physical-folder",
-        "group": "by-construction/TRON",
-        "text": "Per Tron: the room Files collection IS the room's PHYSICAL folder — Files resolves to the room's real physical directory (per-user room storage), NOT a synthesised grouping over it. (Architect re-rules whether the Files-node RESOLUTION must change to point at the real dir vs being synthesised — pending; do not guess.)"
+        "group": "by-construction/TRON-resolved",
+        "text": "Per Tron, RESOLVED by architect re-rule (f6f1463e0): the room Files node resolves to the REAL per-user directory getRoomDir/files (NOT virtual, NOT synthesised). The Files collection IS that physical folder. Nested folder location = REAL relpath under getRoomDir/files; the logical roomcoll-ref location is RETIRED."
       },
       {
         "id": "AC-add-folder-ordinary-physical-BOTH",
@@ -88,12 +88,22 @@
       {
         "id": "AC-live-mvc-no-reload-ws",
         "group": "user-visible@390",
-        "text": "Live-MVC no-reload + 2nd-browser-WS: the new subfolder appears without reload via publishUnitChanged on the room parent ref. 2-browser: shows live in both."
+        "text": "Live-MVC no-reload + 2nd-browser-WS: the new subfolder appears without reload via publishUnitChanged on the ROOMCOLL PARENT ref (shared with P2). 2-browser: shows live in both."
       },
       {
         "id": "AC-fail-clean-no-half-state",
         "group": "by-construction",
         "text": "Fail-clean, no half-state (architect 6-case atomicity): a failure leaves neither an orphan unit nor an orphan dir."
+      },
+      {
+        "id": "AC-location-real-relpath-retire-logical",
+        "group": "by-construction/TRON-resolved",
+        "text": "The nested Folder unit's location is a REAL relpath under getRoomDir/files (mirrors the on-disk subdir). The earlier LOGICAL roomcoll-ref location is RETIRED — one real location, no logical/real split (consistent with Tron: Files IS the physical folder)."
+      },
+      {
+        "id": "AC-one-folder-creation-mechanism-DRY",
+        "group": "DRY/by-construction",
+        "text": "DRY (Tron standing law): the ROOM add-folder and the MODEL add-folder call ONE shared folder-creation MECHANISM (mkdir + mint both-or-neither, the 5 failure paths + 12/12 backstop of createPhysicalWithUnit), differing ONLY in which PARENT PATH they resolve (room=getRoomDir/files vs model dir). The two that exist today (createPhysicalWithUnit + addNestedFolder) CONVERGE to ONE — addNestedFolder must delegate to the canonical mechanism, NOT be a parallel mkdir-plus-mint. A second implementation => a second set of atomicity bugs + a second rollback path + only one backstopped => RED."
       }
     ],
     "storageModelOpenSubQuestion": {
@@ -107,8 +117,10 @@
     },
     "tronRuling": "★ TRON RULING VERBATIM 2026-09-02 (via PO), SUPERSEDES the earlier virtual framing — captured so nobody re-derives the old one from a stale doc: 'it should be the physical folder of that room and can create physical sub folders in it.' MEANING: the room Files collection IS NOT virtual and is NOT a display grouping — it IS the room's PHYSICAL FOLDER (the Files node IS that directory, not a view of it, not a grouping over it, it IS it). Add-folder inside it is therefore the ORDINARY physical-equals-BOTH case: mint the Folder unit AND mkdir the real subdirectory, exactly as anywhere else — NO nested-virtual concept, NO separate logical-vs-real location, NO exception. Per-user isolation stays (the room storage is already per-user, Tron-locked).",
     "supersedes_virtual_framing": "SUPERSEDED (do NOT re-derive): (1) PO's 'virtual room collection with no disk directory' framing = WRONG premise (PO self-corrected); (2) architect's 'virtual only at the top NODE, real underneath' half-step = SUPERSEDED — Tron says the Files node IS the directory, not a grouping above it. Both replaced by: Files resolves to the room's real physical directory; add-folder = ordinary physical-BOTH.",
-    "architectReRulePending": "PO asked the architect to RE-RULE R40.78 on Tron's basis + say what changes in the 3 pieces (endpoint / mkdir / whether Files-node resolution must point at the real dir vs synthesised). Expected SIMPLER not harder (no virtual case). Architect re-rules; I refine ACs if the wording needs it; I mint Tests off tester markers as gates land.",
-    "tronScreenshotRefresh": "Tron re-confirmed @v0.8.165 Add-folder still totally missing on the room Files folder detail (drawer = Scenario+Edit only; ref roomcoll:6c04f959:files). Screenshot = acceptance."
+    "tronScreenshotRefresh": "Tron re-confirmed @v0.8.165 Add-folder still totally missing on the room Files folder detail (drawer = Scenario+Edit only; ref roomcoll:6c04f959:files). Screenshot = acceptance.",
+    "architectReRuled": "Architect RE-RULED on Tron's basis (design f6f1463e0, 2026-09-02): Files node resolves to the REAL per-user getRoomDir/files dir (not virtual); add-folder = ordinary physical=BOTH (mint per-user Folder unit + mkdir real subdir under getRoomDir/files); location = REAL relpath (retire logical roomcoll-ref); live-MVC via publishUnitChanged on roomcoll parent (shared with P2); 6-case no-half-state per-user; per-user isolation. SIMPLER not harder = no virtual case. Converges with the Tron-verbatim capture; this req now reflects the re-rule.",
+    "attachmentsOpenForTron": "★ SEPARATE OPEN ITEM pending TRON (architect flagged PO, NOT in this req's scope): attachments are UNIT-EMBEDDED today, not real files. Tron's ask here is physical SUBFOLDERS = buildable NOW (this req). Whether ATTACHMENTS ALSO become real files on disk = a BIGGER SEPARATE AC, pending Tron's confirm. Do NOT fold it into R40.78; capture as its own req IF Tron confirms. Recorded so the subfolder work is not blocked on the attachment question.",
+    "tronRulingArchitectRelay": "Architect's relay of the same Tron ruling: 'the room Files collection IS the room physical folder and can create physical sub folders in it.' (Same ruling as the PO relay in tronRuling; both Tron-attributed, both say Files IS the physical folder.)"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

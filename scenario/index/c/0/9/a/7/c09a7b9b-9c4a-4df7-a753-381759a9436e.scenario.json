@@ -41,8 +41,14 @@
         "id": "AC-applies-legend-and-center",
         "group": "consistency",
         "text": "The same human format applies to BOTH the legend AND the centre total (R40.79) — no surface shows raw bytes. Screenshot: neither the legend nor the centre shows a raw byte count."
+      },
+      {
+        "id": "AC-one-size-formatter-DRY",
+        "group": "DRY/single-source",
+        "text": "DRY (Tron standing law): ONE size formatter renders the human-readable size EVERYWHERE — the sunburst CENTRE total (R40.79), the LEGEND per-file sizes, and ANY size rendered elsewhere in the product. NOT one formatter for the centre and another for the legend. If two call sites can EVER disagree about how 10916416 renders, we have failed => a second size-format impl => RED. Check-before-create: extend the existing formatter if one exists, do not add a rival."
       }
-    ]
+    ],
+    "drySingleFormatter": "Tron DRY standing law 2026-09-02: this human-readable size formatter is the SINGLE product-wide size formatter (centre + legend + everywhere). R40.79 center MUST call this, not reimplement."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
