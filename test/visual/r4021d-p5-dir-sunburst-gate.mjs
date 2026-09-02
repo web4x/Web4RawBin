@@ -4,6 +4,11 @@
 // reads on-disk BYTES). Mount a physical /model puml dir with 9 .puml children of widely varied byte sizes and prove the
 // sunburst FIRES and is PROPORTIONAL TO BYTES + visibly different + able-to-fail — measured from the RENDERED SVG, tied
 // to the /api/trace/children sizes. Read-only live prod; no mutation.
+// [test:uuid:8532ff74-c3a6-4806-a054-fe85bc49ca45] T37.21 P5b — DIR-folder sunburst arc size = real ON-DISK BYTES,
+// PROPORTIONAL over VARIED sizes on the PHYSICAL-DIR surface (dir: via R37.33 resolveDirRefAbs — children populate, was
+// sunburst-over-zero). Distinct from f805cfe0 (room-collection surface): different resolution path + R37.33-populated dir
+// children (9 arcs==9 pumls, not over-zero). Verifies Impl a34f1a68 renderChildSizeSunburst on the dir surface. Also the
+// R37.33 proof rode here (arc-count==children>0). GREEN DET-3x, largest arc=6464B puml, 576B sliver, ratio 3.59, able-to-fail.
 import { webkit } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
 const DIR_REF = 'dir:scrum.pmo/sprints/sprint-20-traceability-first/diagrams'; // 9 .puml, bytes 576..6464 (ratio 11.2)
