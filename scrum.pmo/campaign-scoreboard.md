@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 230** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 81** (230 = 98+46+3+81)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 77**
+- **TOTAL S30++ tasks: 232** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 83** (232 = 98+46+3+83)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 79**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 39 | 1 | 14 | 0 | 24 |
-| S40 | 71 | 0 | 15 | 0 | 54 |
+| S40 | 73 | 0 | 15 | 0 | 56 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 16 · build 49
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 16 · build 51
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -105,6 +105,8 @@
 | S40 | ca03557b | Planned | build | Task 40.49: All Tasks owned by the owner profile — scope |
 | S40 | cc6eadc6 | Planned | build | Task 40.38: An [impl:uuid] marker on a method declaratio |
 | S40 | cfe0fc7e | Planned | build | Task 40.74: Method detail full-signature render @390 — visib |
+| S40 | d47ec615 | Planned | build | Task 40.79: Sunburst center circle shows TOTAL size of all c |
+| S40 | dd2326a2 | Planned | build | Task 40.80: ONE human-readable size formatter (B/kB/MB/GB/TB |
 | S40 | e6663c08 | Planned | build | Task 40.32: Browser gates positively self-assert served= |
 | S40 | e7fe421d | Planned | RIPE | Task 40.29: Diagram background-drag pans the viewport wi |
 | S40 | efef7f6a | Planned | marker | Task 40.25: Post-deploy device-gate trigger — every depl |
