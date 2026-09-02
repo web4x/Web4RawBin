@@ -68,12 +68,32 @@ const folderDirOnDisk = (name) => {
 const browser = await webkit.launch();
 let verdict = 'INCONCLUSIVE', exit = 1;
 const FOLDER = `gate-ws-folder-${f.worktreeSha}-${scratchDir ? scratchDir.slice(-6) : 'x'}`;
+// ── STEP-0 (a)/(b) LIFECYCLE PROBE (expert 0.1, architect measure-first) — wrap the REAL reDeriveDirectChildren
+//    (rb-trace-tree.ts:132, a prototype method; TS `private` erases in the bundle) BEFORE the element upgrades. Per fire:
+//    { ref, node.isConnected AT FIRE TIME, has direct .tt-children, appended = (kids.children after) − (before) }.
+//    MAP: never-fires(for the parent ref)=(a) notify-not-reaching · isConnected:false=(b1) detached/stale node ·
+//    connected+appended0=(b2) fetch/kids-mismatch · connected+appended≥1=(b3) CSS/collapsed. No source commit — scratch only. ──
+const LIFECYCLE_PROBE = `(() => { window.__probe = [];
+  const iv = setInterval(() => {
+    const C = customElements.get('rb-trace-tree'); if (!C || !C.prototype || !C.prototype.reDeriveDirectChildren) return; clearInterval(iv);
+    const orig = C.prototype.reDeriveDirectChildren;
+    C.prototype.reDeriveDirectChildren = async function(node, ref) {
+      const kids = (node && node.querySelector) ? node.querySelector(':scope > .tt-children') : null;
+      const before = kids ? kids.children.length : -1;
+      const rec = { ref: String(ref), isConnected: node ? !!node.isConnected : null, hasTtChildren: !!kids, before, appended: null };
+      window.__probe.push(rec);
+      try { const r = await orig.apply(this, arguments); rec.appended = (kids && before >= 0) ? (kids.children.length - before) : null; return r; }
+      catch (e) { rec.err = String(e && e.message); throw e; }
+    };
+  }, 4);
+})()`;
 try {
   const mk = async (label) => {
     const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
     if (smSession) await ctx.addCookies([{ name: 'sm_session', value: smSession, domain: 'localhost', path: '/' }]);
     await ctx.addInitScript((t) => { try { localStorage.setItem('rawbin-player-id', t); } catch {} }, OWNER);
     await ctx.addInitScript(WS_RECORDER);
+    await ctx.addInitScript(LIFECYCLE_PROBE);
     const page = await ctx.newPage();
     await page.goto(f.base + '/model', { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => { const t = document.getElementById('model-tree'); return t && t.querySelectorAll('rb-object-item, .tt-row, [data-ref]').length > 0; }, { timeout: 20000 }).catch(() => {});
@@ -169,6 +189,30 @@ try {
   const b1Sent = await b1.page.evaluate(() => window.__sent);
   const b2Sent = await b2.page.evaluate(() => window.__sent);
   const b2Frames = await b2.page.evaluate(() => window.__frames || []);
+
+  // ── STEP-0 LIFECYCLE PROBE read (expert): did reDeriveDirectChildren FIRE (for the PARENT ref), was the node ATTACHED, did it APPEND? ──
+  const readProbe = (page) => page.evaluate(() => window.__probe || []);
+  const b1Probe = await readProbe(b1.page), b2Probe = await readProbe(b2.page);
+  const forParent = (pr) => pr.filter((r) => r.ref === PARENT || r.ref.endsWith(':' + PARENT) || r.ref.includes('src/ts'));
+  const b1PP = forParent(b1Probe), b2PP = forParent(b2Probe);
+  const bucketOf = (pp) => { if (!pp.length) return '(a) NEVER-FIRES = notify NOT reaching the subscriber (register-twice / never-register)';
+    const r = pp[pp.length - 1];
+    if (r.isConnected === false) return `(b1) isConnected=FALSE = insert targets a stale/DETACHED node (wrong parent). appended=${r.appended}`;
+    if (r.appended === 0) return '(b2) connected + appended=0 = fetch/data or kids mismatch (no new child added)';
+    if ((r.appended || 0) >= 1) return `(b3) connected + appended=${r.appended} but NOT visible in the tree text = CSS/collapsed`;
+    return `INDETERMINATE (isConnected=${r.isConnected} appended=${r.appended} hasTtChildren=${r.hasTtChildren})`; };
+  R(`  ★LIFECYCLE-PROBE b2(PASSIVE, load-bearing): total-fires=${b2Probe.length} for-parent=${JSON.stringify(b2PP)}`);
+  R(`  ★LIFECYCLE-PROBE b1(actor): total-fires=${b1Probe.length} for-parent=${JSON.stringify(b1PP)}`);
+  R(`  ★★ b2 PASSIVE BUCKET → ${bucketOf(b2PP)}`);
+  R(`  ★★ b1 ACTOR BUCKET  → ${bucketOf(b1PP)}`);
+  // ── DISCRIMINATE within (b2): does the SAME children endpoint the client re-fetches actually RETURN the new folder? ──
+  //    endpoint-missing-the-child = FETCH/DATA (resolution excludes new folders) · endpoint-has-it-but-loop-skipped = KIDS-MISMATCH (cref/existing).
+  const childCheck = disk ? await b2.page.evaluate(async ({ parent, uuid }) => {
+    try { const r = await fetch('/api/trace/children/' + encodeURIComponent(parent)); const d = await r.json(); const ch = d.children || [];
+      return { ok: r.ok, status: r.status, count: ch.length, hasNew: ch.some((c) => c.uuid === uuid), crefs: ch.map((c) => `${(c.type || 'task').toLowerCase()}:${String(c.uuid).slice(0, 8)}`) };
+    } catch (e) { return { err: String(e && e.message) }; } }, { parent: PARENT, uuid: disk.uuid }) : null;
+  R(`  ★b2-DISCRIMINATOR GET /api/trace/children/${PARENT} (new uuid=${disk ? disk.uuid.slice(0, 8) : '?'}): ${JSON.stringify(childCheck)}`);
+  R(`  ★★ b2 SUB-CAUSE → ${childCheck && childCheck.hasNew ? 'KIDS-MISMATCH — endpoint RETURNS the new folder but the client loop skipped it (cref/existing computation bug)' : `FETCH/DATA — the children endpoint for ${PARENT} does NOT return the newly-created folder (resolution excludes new folders / stale index)`}`);
   const b2FrameForFolder = disk ? b2Frames.some((fr) => (fr.uuid === disk.uuid) || /folder/i.test(fr.ior || '')) : b2Frames.length > 0;
 
   // ★ PO-APPROVED PROBE (one comparison, no exploring): the EXACT msg.uuid on the frame b2 received vs the key the parent
