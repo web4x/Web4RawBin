@@ -102,8 +102,14 @@
       },
       {
         "id": "AC-one-folder-creation-mechanism-DRY",
-        "group": "DRY/by-construction",
-        "text": "DRY (Tron standing law): the ROOM add-folder and the MODEL add-folder call ONE shared folder-creation MECHANISM (mkdir + mint both-or-neither, the 5 failure paths + 12/12 backstop of createPhysicalWithUnit), differing ONLY in which PARENT PATH they resolve (room=getRoomDir/files vs model dir). The two that exist today (createPhysicalWithUnit + addNestedFolder) CONVERGE to ONE — addNestedFolder must delegate to the canonical mechanism, NOT be a parallel mkdir-plus-mint. A second implementation => a second set of atomicity bugs + a second rollback path + only one backstopped => RED."
+        "group": "DRY/failable-R40.54",
+        "text": "DRY (Tron standing law): the ROOM add-folder and the MODEL add-folder call ONE shared folder-creation MECHANISM (mkdir + mint both-or-neither, the 5 failure paths + 12/12 backstop of createPhysicalWithUnit), differing ONLY in which PARENT PATH they resolve (room=getRoomDir/files vs model dir). The two that exist today (createPhysicalWithUnit + addNestedFolder) CONVERGE to ONE — addNestedFolder must delegate to the canonical mechanism, NOT be a parallel mkdir-plus-mint. A second implementation => a second set of atomicity bugs + a second rollback path + only one backstopped => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check-single-mkdir-mint (scan-the-hazard, self-naming)",
+          "assertion": "the mkdir+mint PAIR (fsSync.mkdirSync leaf + unit writeFileSync persist) appears in EXACTLY ONE place (createPhysicalWithUnit) and 0 elsewhere; a 2nd occurrence of the pair (incl a lingering addNestedFolder copy) => RED. Hazard names itself (raw mkdir-then-persist outside the core) = unevadable, no discovery mechanism needed."
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a 2nd mkdir+mint pair (or a lingering addNestedFolder copy) outside createPhysicalWithUnit -> the lint goes RED. Converts we-agreed-DRY into the-build-fails-if-we-arent. Architect backstops the lint + the ONE core on generalization."
       }
     ],
     "storageModelOpenSubQuestion": {
