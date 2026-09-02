@@ -125,7 +125,7 @@ export class RbTraceTree extends HTMLElement {
     document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
   }
 
-  // [impl:uuid:PENDING-req-mint] R37.21 Part 2 piece-2 — reDeriveDirectChildren: on a unit-changed for a folder's ref (an
+  // [impl:uuid:8693dc2b-680e-4866-8fab-37c0fe2c6cae] R37.21 Part 2 piece-2 — reDeriveDirectChildren: on a unit-changed for a folder's ref (an
   // Add-folder under it), re-fetch its DIRECT children (ONE level) and INSERT any new child node — NO full reload, NO flash
   // (existing children untouched). Both the acting tab and a passive 2nd browser run this from the SAME all-clients
   // publishUnitChanged broadcast → the tree updates live. Collapsed node → skip (its badge refreshes on next open).
