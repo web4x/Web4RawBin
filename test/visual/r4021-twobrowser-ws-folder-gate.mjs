@@ -171,6 +171,15 @@ try {
   const b2Frames = await b2.page.evaluate(() => window.__frames || []);
   const b2FrameForFolder = disk ? b2Frames.some((fr) => (fr.uuid === disk.uuid) || /folder/i.test(fr.ior || '')) : b2Frames.length > 0;
 
+  // ★ PO-APPROVED PROBE (one comparison, no exploring): the EXACT msg.uuid on the frame b2 received vs the key the parent
+  //   node subscribed on. rb-trace-tree:442 subscribes viewBusKey(uuid)='dir:src/ts' (synthetic ref → itself). notifyUnit
+  //   Changed:21 keys on viewBusKey(msg.uuid) IF msg.uuid is a synthetic ref, else `${type}:${uuid}`. So: frame.uuid ===
+  //   the PARENT ref → notify==subscribe (EQUAL); frame.uuid === the resolved CHILD uuid → notify='folder:<uuid>' ≠ subscribe (DIFFER).
+  R(`  ★PROBE: parent subscribe-ref='${PARENT}' · created-child-uuid='${disk ? disk.uuid : '?'}' · b2 frames=${JSON.stringify(b2Frames.map((fr) => ({ ior: fr.ior, uuid: fr.uuid })))}`);
+  const frameOnParent = b2Frames.some((fr) => String(fr.uuid) === PARENT);
+  const frameOnChild = disk ? b2Frames.some((fr) => String(fr.uuid) === disk.uuid) : false;
+  R(`  ★PROBE VERDICT: frame-keyed-on-PARENT(${PARENT})=${frameOnParent} · frame-keyed-on-resolved-CHILD=${frameOnChild} → ${frameOnParent ? 'EQUAL — notify key == subscribe key; emit path correct, so re-derive fires-but-insert-noops OR notify not delivered (NOT a key mismatch)' : frameOnChild ? 'DIFFER — emit keyed on the RESOLVED CHILD uuid, not the parent synthetic ref → fix = canonicalise the parent ref to ONE form (the acting shownRef was a resolved uuid at create time)' : 'NEITHER — frame refs need inspection (values logged above)'}`);
+
   const aUnit = !!disk;                                               // (2a-unit) persisted Folder unit file on disk
   const aDir = dirExact;                                              // (2a-dir) REAL directory at the EXACT architect path (Tron BOTH)
   const b1NoReload = b1Sent === s1;                                   // (2b) browser-1 did not full-reload
