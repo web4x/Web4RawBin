@@ -44,8 +44,14 @@
       },
       {
         "id": "AC-one-size-formatter-DRY",
-        "group": "DRY/single-source",
-        "text": "DRY (Tron standing law): ONE size formatter renders the human-readable size EVERYWHERE — the sunburst CENTRE total (R40.79), the LEGEND per-file sizes, and ANY size rendered elsewhere in the product. NOT one formatter for the centre and another for the legend. If two call sites can EVER disagree about how 10916416 renders, we have failed => a second size-format impl => RED. Check-before-create: extend the existing formatter if one exists, do not add a rival."
+        "group": "DRY/failable-R40.54",
+        "text": "DRY (Tron standing law): ONE size formatter renders the human-readable size EVERYWHERE — the sunburst CENTRE total (R40.79), the LEGEND per-file sizes, and ANY size rendered elsewhere in the product. NOT one formatter for the centre and another for the legend. If two call sites can EVER disagree about how 10916416 renders, we have failed => a second size-format impl => RED. Check-before-create: extend the existing formatter if one exists, do not add a rival.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check-single-size-formatter (scan-the-hazard, SUFFIX-literal)",
+          "assertion": "the byte-unit SUFFIX literals (' B' / ' KB' / ' kB' / ' MB' / ' GB' / ' TB') appear ONLY inside format-bytes.ts; ANY occurrence outside => RED. Key on the SUFFIX (self-naming: only a byte-size render emits those) NOT the /1024|/1000 division (ambiguous, used for other things). After migration RoomView.ts:344 + rb-file-detail.ts:29 become formatBytes(n) calls with NO suffix literal => 0 outside the formatter."
+        },
+        "stubMustFail": "PENDING (scenario-first #126): seed a 2nd ad-hoc size string e.g. (x/1024)+\" KB\" outside format-bytes.ts -> the lint goes RED. Architect backstops the lint + the ONE formatBytes on generalization."
       }
     ],
     "drySingleFormatter": "Tron DRY standing law 2026-09-02: this human-readable size formatter is the SINGLE product-wide size formatter (centre + legend + everywhere). R40.79 center MUST call this, not reimplement."
