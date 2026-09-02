@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "b394dbec-1641-4405-8039-82de4f763ed9",
+    "name": "sunburst.renderCenterTotal",
+    "description": "User-visible @390: Sunburst center circle displays the TOTAL size of all children (human-formatted)",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:408bdc6f-eb3d-47e0-9dc8-0591c805ee38",
+    "unitLinks": [],
+    "note": "Expert builds the render, tester screenshot-@390 gates, I mint Test off marker. Class/Method on build-go."
+  },
+  "ownerIor": "ior:instance:408bdc6f-eb3d-47e0-9dc8-0591c805ee38"
+}

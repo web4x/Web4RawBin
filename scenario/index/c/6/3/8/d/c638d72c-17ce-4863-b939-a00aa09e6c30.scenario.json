@@ -59,6 +59,41 @@
         "id": "AC-stub-must-fail",
         "group": "gate",
         "text": "stub-must-fail: (1) Add-folder-in-room creates a unit but NO physical directory (or a directory but no unit) => RED; (2) mkdir NOT through the R40.22 chokepoint / a RAW path => RED; (3) the nested folder placed anywhere OTHER than the LOCKED per-user getRoomDir(...)/files/<nestedPath> (e.g. a canonical-per-room shared path) => RED. (The prior undefined-target-=>-RED is RESOLVED: the target is locked per-user; the stub now asserts the LOCKED target, not the open question.)"
+      },
+      {
+        "id": "AC-add-folder-verb-appears-in-room-context",
+        "group": "user-visible@390",
+        "text": "Tron (screenshot @v0.8.165): Add-folder is TOTALLY MISSING on the room Files folder detail — drawer shows only Scenario and Edit. AC: on 390px, the Add-folder verb APPEARS on the room Files folder detail (in the ROOM context) and works. Screenshot: the Add-folder control is visibly present, not absent. (Root cause measured by architect: add-folder was a /MODEL-view verb, never offered in the room context = service-built-but-UNWIRED.)"
+      },
+      {
+        "id": "AC-files-node-IS-room-physical-folder",
+        "group": "by-construction/TRON",
+        "text": "Per Tron: the room Files collection IS the room's PHYSICAL folder — Files resolves to the room's real physical directory (per-user room storage), NOT a synthesised grouping over it. (Architect re-rules whether the Files-node RESOLUTION must change to point at the real dir vs being synthesised — pending; do not guess.)"
+      },
+      {
+        "id": "AC-add-folder-ordinary-physical-BOTH",
+        "group": "by-construction/TRON",
+        "text": "Add-folder inside Files = the ORDINARY physical-equals-BOTH case: mint the Folder unit AND mkdir the real subdirectory at the room's per-user files dir, exactly as add-folder works anywhere else. NO nested-virtual, NO separate logical/real location, NO exception."
+      },
+      {
+        "id": "AC-per-user-isolation-stays",
+        "group": "by-construction",
+        "text": "Per-user isolation stays as ruled — the room storage is already per-user (R40.22 chokepoint, Tron-locked). Add-folder writes to the acting user's room files dir."
+      },
+      {
+        "id": "AC-routes-to-room-endpoint-not-model",
+        "group": "wiring",
+        "text": "The verb routes to the ROOM folder-create path (RoomFilesService), NOT /api/model/folder/create — the surfacing+wiring the architect measured as missing."
+      },
+      {
+        "id": "AC-live-mvc-no-reload-ws",
+        "group": "user-visible@390",
+        "text": "Live-MVC no-reload + 2nd-browser-WS: the new subfolder appears without reload via publishUnitChanged on the room parent ref. 2-browser: shows live in both."
+      },
+      {
+        "id": "AC-fail-clean-no-half-state",
+        "group": "by-construction",
+        "text": "Fail-clean, no half-state (architect 6-case atomicity): a failure leaves neither an orphan unit nor an orphan dir."
       }
     ],
     "storageModelOpenSubQuestion": {
@@ -69,7 +104,11 @@
       "decisionOwner": "Tron/PO (scope call)",
       "status": "LOCKED (i) PER-USER by Tron 2026-09-01 (asked directly, verbatim per-user each-member-own). Option (ii) canonical-per-room NOT chosen. Buildable after part 2.",
       "tronProvenance": "Tron verbatim 2026-09-01: PER-USER, each member own (the architect recommendation). Via PO."
-    }
+    },
+    "tronRuling": "★ TRON RULING VERBATIM 2026-09-02 (via PO), SUPERSEDES the earlier virtual framing — captured so nobody re-derives the old one from a stale doc: 'it should be the physical folder of that room and can create physical sub folders in it.' MEANING: the room Files collection IS NOT virtual and is NOT a display grouping — it IS the room's PHYSICAL FOLDER (the Files node IS that directory, not a view of it, not a grouping over it, it IS it). Add-folder inside it is therefore the ORDINARY physical-equals-BOTH case: mint the Folder unit AND mkdir the real subdirectory, exactly as anywhere else — NO nested-virtual concept, NO separate logical-vs-real location, NO exception. Per-user isolation stays (the room storage is already per-user, Tron-locked).",
+    "supersedes_virtual_framing": "SUPERSEDED (do NOT re-derive): (1) PO's 'virtual room collection with no disk directory' framing = WRONG premise (PO self-corrected); (2) architect's 'virtual only at the top NODE, real underneath' half-step = SUPERSEDED — Tron says the Files node IS the directory, not a grouping above it. Both replaced by: Files resolves to the room's real physical directory; add-folder = ordinary physical-BOTH.",
+    "architectReRulePending": "PO asked the architect to RE-RULE R40.78 on Tron's basis + say what changes in the 3 pieces (endpoint / mkdir / whether Files-node resolution must point at the real dir vs synthesised). Expected SIMPLER not harder (no virtual case). Architect re-rules; I refine ACs if the wording needs it; I mint Tests off tester markers as gates land.",
+    "tronScreenshotRefresh": "Tron re-confirmed @v0.8.165 Add-folder still totally missing on the room Files folder detail (drawer = Scenario+Edit only; ref roomcoll:6c04f959:files). Screenshot = acceptance."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

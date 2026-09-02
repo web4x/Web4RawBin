@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "59a7550f-de7d-4374-95e9-b8977eccd244",
+    "name": "sunburst.formatHumanReadableSize",
+    "description": "User-visible @390: Sunburst sizes render human-readable (B/kB/MB/GB/TB), not raw bytes — legend and center",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:c09a7b9b-9c4a-4df7-a753-381759a9436e",
+    "unitLinks": [],
+    "note": "Expert builds the render, tester screenshot-@390 gates, I mint Test off marker. Class/Method on build-go."
+  },
+  "ownerIor": "ior:instance:c09a7b9b-9c4a-4df7-a753-381759a9436e"
+}
