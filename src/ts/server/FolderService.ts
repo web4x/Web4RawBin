@@ -14,8 +14,6 @@ import { keyToUuid } from '../scenario/TsToModel.js'; // R37.21 Part 2: determin
 // ESM __dirname shim (tsx runs from src/): src/ts/server → ../../.. = repo root
 const FS_DIRNAME = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(FS_DIRNAME, '../../..');
-// dirs that are NEVER user folders (stores + system) — reject a target resolving into any of them (R37.21 Part 2 confinement)
-const FORBIDDEN_ROOTS = ['scenario/index', 'data/model-store', '.git', 'node_modules', '.env', '.certs'];
 
 export type FolderUnit = { ior: 'ior:class:Folder'; ownerIor: null; model: { uuid: string; name: string; parent: string | null; children: string[]; kind: 'folder' | 'diagrams'; location?: string } };
 
@@ -90,8 +88,8 @@ export class FolderService {
   // MODEL endpoint resolver (Tron dev-mode STRIPPED): resolve parentAbsPath + location from the parent folder unit, then
   // DELEGATE to the ONE core. NO name-validation / confinement / forbidden-roots / dir-exists (mkdir throws on exists) /
   // per-user / owner-gate — all removed. bad-parent-loc is CORRECTNESS (resolveDirRefAbs fail-closed = nowhere to create).
-  // rootDir INJECTABLE (default PROJECT_ROOT) so the fs-backstop/tester run in a scratch root (R40.31). [ROOM resolver +
-  // addNestedFolder retirement are CARVED OUT pending the architect's shared-room-folder path ruling — per-user vs per-room.]
+  // rootDir INJECTABLE (default PROJECT_ROOT) so the fs-backstop/tester run in a scratch root (R40.31). The ROOM endpoint is
+  // RoomFilesService.addNestedFolder (built, shared per-room via getRoomDir(creator)/files) — both resolvers call this same core.
   static createPhysicalWithUnit(
     storeDir: string,
     name: string,
