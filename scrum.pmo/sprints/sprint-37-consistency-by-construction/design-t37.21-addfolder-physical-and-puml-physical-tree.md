@@ -212,3 +212,28 @@ When the P2 fix lands + R40.78 piece-3 wires, I backstop BOTH surfaces in one pa
 `addNestedFolder` RETIRES into a thin room-parent-resolver that computes its opts and delegates to the ONE core. **Result: one atomicity impl, one rollback path, one backstop (the existing 12/12) covers BOTH surfaces.** My earlier "distinct room endpoint" is corrected: the ENDPOINTS may differ (different parent resolution), the MECHANISM must not. ★ Since `addNestedFolder` already has its own atomicity copy (which I backstopped service-PASS), this unification RETIRES that copy before it ever wires — so we never ship a 2nd un-cross-backstopped mkdir+mint.
 **3. LIVE-INSERT — already ONE root (P2 + R40.78 piece-3 share the client-subscribe path). Unchanged: one fix, one backstop.**
 **GENERAL FORM:** before adding a fn/endpoint/formatter/verb, check for an existing one to extend. This campaign's worst bugs were duplication of INTENT (sunburst gate keyed on a ref-prefix not the one `kind` field; children lookup wired roomcoll-only not generally) — each cost a full cycle. DRY-by-construction, not by-review.
+
+## ★★★ RE-ISSUE — STRIPPED TO WHAT TRON ASKED (2026-09-02, Tron: "we are in development, I never ordered security"). SUPERSEDES all security-shaped content above for folder-create.
+**I over-designed security Tron never ordered — I own generating it (confinement roots, traversal rejection, forbidden-dir lists, per-user isolation, R40.22 chokepoint, owner-gating, credential handoff). STRIP ALL of it.** Keep ONLY correctness.
+
+**THE WHOLE FOLDER-CREATE MECHANISM (one, both endpoints call it):**
+```
+createPhysicalFolder({ parentAbsPath, name, storeDir, location }):
+  target = path.join(parentAbsPath, name)
+  mkdirSync(target)                         // the real folder on disk (Tron's ask)
+   ↳ throws → return {ok:false, error}       // (bad/duplicate name fails naturally; both-or-neither = NO mint, nothing left behind)
+  mint + persist Folder unit { location, kind:'folder' }
+   ↳ throws → rmdirSync(target); return {ok:false}   // both-or-neither (CORRECTNESS)
+       ↳ rmdir throws → log LOUD; return {ok:false}    // never silently leave half a folder
+  return {ok:true, unit}
+```
+That is IT. **NO** confinement root, **NO** traversal/`..` rejection, **NO** forbidden-roots list, **NO** name charset/length validation, **NO** per-user isolation, **NO** owner gate, **NO** credential. `both-or-neither` STAYS — it is correctness (a half-created folder is a broken feature), not a security control.
+
+**TWO ENDPOINTS — differ ONLY in `parentAbsPath` (the parent-path resolver):**
+- **model** `/api/model/folder/create`: `parentAbsPath = resolveDirRefAbs(parentUnit.location)`.
+- **room** `/api/room/folder/create`: `parentAbsPath = getRoomDir(roomId)/files/<nestedPath>` — the ROOM's folder (NOT per-user; stripping per-user isolation ALIGNS with Tron's "Files IS *the* room physical folder", one folder for the room).
+Both then call the ONE `createPhysicalFolder`. Unit `location` = the real relpath; drop the per-user key scheme — a plain `folder::<relpath>` key.
+
+**KEPT (Tron asked for these — features, not security):** live-MVC no-reload + 2nd-browser via `publishUnitChanged(parentRef)`; Files-node resolves to the real room dir; ONE `formatBytes`; sunburst centre = total. **KEPT ACs:** DRY one-mechanism (`check-single-mkdir-mint`) + the correctness rollback (both-or-neither). **DELETED ACs:** confinement, traversal, forbidden-roots, per-user-isolation, owner-gate, credential.
+
+**STANDING RULE banked (Tron, 3rd time): WE ARE IN DEVELOPMENT.** Do not add a security property / guard / isolation boundary / gate unless TRON ASKS FOR IT BY NAME. If something is genuinely dangerous → REPORT IT TO PO IN ONE LINE and KEEP BUILDING. Do not design it in, do not slip it into an AC, do not call it hardening. (Sharper operational form of LAW-1.)
