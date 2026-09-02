@@ -24,13 +24,13 @@ const servedVer = (cfg.match(/"version":"([^"]*)"/) || [])[1] || '?';
 const verOk = servedVer === EXPECT_VER;
 R(`(1a) served /api/config version = ${servedVer} (expect ${EXPECT_VER}, boot-frozen ⇒ the restarted process) → ${verOk ? 'OK' : 'MISMATCH'}`);
 
-// (1b) served client bundle == committed dist bundle
-const modelHtml = curl(`${BASE}/model`);
-const servedBundle = (modelHtml.match(/model-[A-Z0-9]+\.js/i) || [])[0] || '?';
+// (1b) served client bundle == committed dist bundle — DIRECT static GET (the /model PAGE is owner-gated per R33.1, so
+//      scraping its HTML returns the auth page; the static /dist/ asset is NOT page-gated → GET the committed filename, 200 = served==committed).
 let committedBundle = '?';
 for (const d of ['src/public/dist', 'dist']) { try { const f = fs.readdirSync(path.join(REPO, d)).find((x) => /^model-[A-Z0-9]+\.js$/i.test(x)); if (f) { committedBundle = f; break; } } catch {} }
-const bundleOk = servedBundle !== '?' && servedBundle === committedBundle;
-R(`(1b) served /model bundle = ${servedBundle} · committed dist = ${committedBundle} → ${bundleOk ? 'MATCH' : (servedBundle === '?' ? 'could-not-read-served' : 'MISMATCH')}`);
+const bundleCode = committedBundle !== '?' ? execSync(`curl -s -o /dev/null -w "%{http_code}" ${BASE}/dist/${committedBundle} --insecure`, { encoding: 'utf8' }).trim() : '?';
+const bundleOk = bundleCode === '200';
+R(`(1b) committed dist bundle ${committedBundle} served at /dist/ → HTTP ${bundleCode} → ${bundleOk ? 'SERVED==COMMITTED (bundle)' : 'NOT-SERVED'}`);
 
 // (2) read-only live confirmation: /children returns correct structure for a known dir (public GET, no auth, no mutation)
 const kids = (ref) => { try { return JSON.parse(curl(`${BASE}/api/trace/children/${encodeURIComponent(ref)}`)).children || []; } catch { return null; } };
@@ -41,11 +41,11 @@ R(`(2) read-only /children/dir:src/ts → ${srcTs ? srcTs.length + ' children' :
 const emptyFolderSurfaced = Array.isArray(srcTs) && srcTs.some((c) => c.hasChildren === false && String(c.uuid).includes('/'));
 R(`(2b) mofChildren behavioural signal (an empty folder surfaced by /children): ${emptyFolderSurfaced ? 'PRESENT' : 'not observable read-only (no empty folder on this dir) — covered by the owner-authed insert / Tron device create'}`);
 
-const servedIsCommitted = verOk && (bundleOk || servedBundle === '?'); // version is the primary server-fix signal; bundle corroborates the client
+const servedIsCommitted = verOk && bundleOk; // version (boot-frozen) = server-fix signal; bundle (direct static GET) = client corroboration — require both
 const readOnlyOk = srcTsOk;
 const pass = servedIsCommitted && readOnlyOk;
 R(`\n═══ P2 LIVE RE-GATE VERDICT ═══`);
 R(pass
-  ? `LIVE PARTIAL-GREEN (stated plainly). SERVED == COMMITTED at ${servedVer}: /api/config boot-frozen version = ${EXPECT_VER} (the restarted process serves the atomic commit with mofChildren + new-folder core)${bundleOk ? ` + served client bundle ${servedBundle} == committed dist` : ''}. READ-ONLY LIVE CONFIRMATION: /children returns correct structure. ★ NOT COVERED ON PROD, plainly: the full owner-authed 2-browser live-INSERT — it needs owner-auth (the credential guard that sent P2 to scratch; R33.1 /model 403 STAYS). I did NOT build a proxy and did NOT touch the guard. That part's acceptance = Tron creating a folder on his own device. Item-1 = this live result (tester) + Tron device-create (acceptance) + chain credit; each attributed honestly. Scratch DET-4x already proved the client subscribe→notify→re-derive→insert works with a real delta.`
+  ? `LIVE PARTIAL-GREEN (stated plainly). SERVED == COMMITTED at ${servedVer}: /api/config boot-frozen version = ${EXPECT_VER} (the restarted process serves the atomic commit with mofChildren + new-folder core)${bundleOk ? ` + served client bundle ${committedBundle} == committed dist (HTTP ${bundleCode})` : ''}. READ-ONLY LIVE CONFIRMATION: /children returns correct structure. ★ NOT COVERED ON PROD, plainly: the full owner-authed 2-browser live-INSERT — it needs owner-auth (the credential guard that sent P2 to scratch; R33.1 /model 403 STAYS). I did NOT build a proxy and did NOT touch the guard. That part's acceptance = Tron creating a folder on his own device. Item-1 = this live result (tester) + Tron device-create (acceptance) + chain credit; each attributed honestly. Scratch DET-4x already proved the client subscribe→notify→re-derive→insert works with a real delta.`
   : `LIVE RE-GATE FAILED — HOLD, do NOT close: verOk=${verOk}(served ${servedVer} vs ${EXPECT_VER}) bundleOk=${bundleOk}(served ${servedBundle} vs committed ${committedBundle}) readOnlyOk=${readOnlyOk}. Served behaviour differs from expected → report loudly, hold rather than close.`);
 process.exit(pass ? 0 : 1);

@@ -1,3 +1,4 @@
+// [test:uuid:919e3f36-bf75-432c-b4ff-544bb3bde8cd] R37.21 P2 client-half — reDeriveDirectChildren live-insert: a passive 2nd browser LIVE-INSERTS a new folder from the WS broadcast (no reload). RED->GREEN DET-4x on fix cb4c7634d (mofChildren) + live re-gate served==committed 0.8.166. For req to mint the P2 Test -> wire to reDeriveDirectChildren Impl (rb-trace-tree.ts:128, was PENDING-req-mint).
 // T37.21 PART 2 — TWO-BROWSER WS FAN-OUT (Tron's long pole). "When Add folder creates a folder, a SECOND browser already
 // on a similar /model view must update IMMEDIATELY over websocket — no reload." Three required assertions (all must hold):
 //   (2a DISK)   the created folder EXISTS ON DISK afterwards, not merely in the view.
