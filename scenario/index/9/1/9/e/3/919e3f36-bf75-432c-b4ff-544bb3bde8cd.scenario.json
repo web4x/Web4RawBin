@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "919e3f36-bf75-432c-b4ff-544bb3bde8cd",
+    "name": "test:R37.21 P2 client-half — reDeriveDirectChildren live-insert (a passive 2nd browser inserts a new folder from the WS broadcast, no reload); gate r4021",
+    "description": "The client-half of Add-folder live-insert: on a unit-changed for a folder's ref, reDeriveDirectChildren re-fetches the DIRECT children (one level) and inserts any new child node with NO reload. PARTIAL-GREEN (stated plainly, tester): the READ-ONLY structure half is proven on prod; the full owner-authed two-browser live INSERT is NOT covered on prod because it needs owner auth behind the credential guard (sent to scratch; R33.1 model 403 stays; no proxy built, guard untouched) — that half is accepted by TRON creating a folder on his own device (PENDING).",
+    "implementations": [
+      "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
+    ],
+    "verifies": "R37.21 P2 (client-half reDeriveDirectChildren live-insert); R40.70 add-folder-physical-BOTH live-MVC half",
+    "gateFile": "test/visual/r4021-twobrowser-ws-folder-gate.mjs (tester; RED->GREEN DET-4x on fix cb4c7634d mofChildren + live re-gate served==committed 0.8.166)",
+    "markerProvenance": "ADOPTED from tester AST-attached marker [test:uuid:919e3f36-bf75-432c-b4ff-544bb3bde8cd] stamped r4021:1 (measure-my-marker, VERIFIED on disk, NOT invented). Tester two-keys both directions.",
+    "certificationScope": "PARTIAL-GREEN (honesty preserved, NOT smoothed to a pass). PROVEN (tester-live @0.8.166): served==committed both ways at 0.8.166; the restarted process serves the atomic commit with mofChildren + the new-folder core; the committed bundle is actually being served; /api/trace/children returns the correct structure READ-ONLY. NOT COVERED on prod: the full OWNER-AUTHED two-browser live INSERT — it needs owner auth behind the credential guard that sent the whole thing to scratch; R33.1 model 403 stays; no proxy was built and the guard was not touched. That uncovered half is ACCEPTED BY TRON creating a folder on his own device (PENDING). satisfied ONLY on the PROVEN read-only-structure set.",
+    "satisfactionGating": "Satisfaction gated on: (a) tester-live (read-only structure + served==committed 0.8.166) = MET; (b) Tron-device acceptance (owner-authed live insert on his own device) = PENDING. 0 Done until Tron accepts.",
+    "status": "partial-pass",
+    "statusNote": "partial-pass = r4021 gate RED->GREEN DET-4x on the READ-ONLY structure half (served==committed 0.8.166); the owner-authed 2-browser live-INSERT half is Tron-device-pending (behind the credential guard, guard untouched, R33.1 403 stays). NOT a full pass; recorded partial by tester statement.",
+    "implNote": "VERIFY-OWNER-FIRST: wired to the EXISTING canonical Impl 8693dc2b (RbTraceTree.reDeriveDirectChildren, built v0.8.159, owns Method 1e5c4233) — NO new Impl minted (would double-credit). The source marker rb-trace-tree.ts:128 says [impl:uuid:PENDING-req-mint] = STALE; expert updates it to 8693dc2b (marker-update, not a mint)."
+  },
+  "ownerIor": "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
+}
