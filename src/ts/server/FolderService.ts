@@ -52,74 +52,56 @@ export class FolderService {
     return { ok: true, unit };
   }
 
-  // [impl:uuid:PENDING-req-mint] R37.21 Part 2 (architect body 74c553d43) — createPhysicalWithUnit: "Add folder" mints the
-  // Folder unit AND mkdir's the REAL directory — BOTH, or NEITHER (no half-state). TRON RULING 2026-09-01: physical = unit
-  // AND fs dir. rootDir INJECTABLE (default PROJECT_ROOT) so the architect fs-backstop + tester gate run in a SCRATCH root
-  // (R40.31), never mutating the real repo. 5 failure paths: invalid-name / confinement(+FORBIDDEN_ROOTS) / dir-exists /
-  // mint-fails→rmdir / rmdir-fails→LOUD-name-orphan. uuid=keyToUuid('folder::'+relpath) = the ensureViewUnit dir identity (no dup, R40.16).
+  // [impl:uuid:PENDING-req-mint] createPhysicalFolder — the ONE stripped folder-create CORE (Tron dev-mode 2026-09-02, architect
+  // 059107c35): mkdir the target + mint+persist the Folder unit, BOTH-or-NEITHER. NOTHING else — NO confinement / traversal /
+  // forbidden-roots / name-validation / per-user isolation / owner-gate / credential (all UNORDERED security, STRIPPED — Tron:
+  // do not design security into a feature he did not name). Both-or-neither STAYS = CORRECTNESS (a half-created folder is a
+  // broken feature, Tron: do not strip correctness). mkdir throws (missing parent, EEXIST, perms) → NO mint, return not-ok;
+  // mint throws → rmdir the target; rmdir throws → log LOUD (orphan). uuid = keyToUuid('folder::'+location) = the R40.16 folder
+  // identity (no dup). The TWO endpoints (model / room) differ ONLY in the parentAbsPath + location they pass — ONE mechanism (DRY).
+  static createPhysicalFolder(opts: { parentAbsPath: string; name: string; storeDir: string; location: string }): { ok: boolean; unit?: FolderUnit; error?: string } {
+    const target = path.join(opts.parentAbsPath, opts.name);
+    try {
+      fsSync.mkdirSync(target); // non-recursive: a missing parent OR an existing dir throws → NO mint (both-or-neither)
+    } catch (e) {
+      return { ok: false, error: `mkdir-failed: ${(e as Error)?.message || e}` };
+    }
+    const uuid = keyToUuid('folder::' + opts.location);
+    const unit: FolderUnit = {
+      ior: 'ior:class:Folder', ownerIor: null,
+      model: { uuid, name: opts.name, location: opts.location, kind: 'folder', parent: null, children: [] },
+    };
+    const f = path.join(opts.storeDir, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+    try {
+      fsSync.mkdirSync(path.dirname(f), { recursive: true }); // shard dir for the unit FILE (store layout), not a user folder
+      fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
+    } catch (e) {
+      try {
+        fsSync.rmdirSync(target); // both-or-neither: undo the mkdir on a mint failure
+      } catch (rmErr) {
+        console.error(`[FolderService] HALF-STATE: minted-dir ${target} could NOT be removed after persist failure (${(rmErr as Error)?.message || rmErr}) — ORPHAN DIRECTORY, manual cleanup required`);
+        return { ok: false, error: `half-created: orphan dir ${opts.location}` };
+      }
+      return { ok: false, error: `persist-failed: ${(e as Error)?.message || e}` };
+    }
+    return { ok: true, unit };
+  }
+
+  // MODEL endpoint resolver (Tron dev-mode STRIPPED): resolve parentAbsPath + location from the parent folder unit, then
+  // DELEGATE to the ONE core. NO name-validation / confinement / forbidden-roots / dir-exists (mkdir throws on exists) /
+  // per-user / owner-gate — all removed. bad-parent-loc is CORRECTNESS (resolveDirRefAbs fail-closed = nowhere to create).
+  // rootDir INJECTABLE (default PROJECT_ROOT) so the fs-backstop/tester run in a scratch root (R40.31). [ROOM resolver +
+  // addNestedFolder retirement are CARVED OUT pending the architect's shared-room-folder path ruling — per-user vs per-room.]
   static createPhysicalWithUnit(
     storeDir: string,
     name: string,
     parent: { model?: { location?: string; uuid?: string } } | null,
     rootDir: string = PROJECT_ROOT,
   ): { ok: boolean; unit?: FolderUnit; error?: string } {
-    // (i) NAME VALIDATION — fail-closed, no mkdir, no mint
     const clean = String(name || '').trim();
-    if (!clean || clean.length > 80 || !/^[A-Za-z0-9._-]+$/.test(clean) || clean === '.' || clean === '..') {
-      return { ok: false, error: 'invalid-name' };
-    }
-    // parent must be a PHYSICAL folder (carries a location); a virtual parent (room collection) never reaches here
     const parentLoc = String(parent?.model?.location || '').replace(/^\/+|\/+$/g, '');
-    if (!parentLoc) return { ok: false, error: 'parent-not-physical' };
-
-    const relpath = `${parentLoc}/${clean}`;
-    // R37.33 (architect 71e7c87ab): the dir: namespace is now UNIFORMLY repo-relative → the ONE resolver replaces the old
-    // existence-based src-vs-repo heuristic. parentLoc is repo-relative (e.g. 'src/ts', 'scrum.pmo/…') → resolveDirRefAbs
-    // joins it to rootDir by construction, no fallback. Fail-closed if the parent location is empty/traversal.
-    const parentBase = resolveDirRefAbs('dir:' + parentLoc, rootDir);
-    if (!parentBase) return { ok: false, error: 'bad-parent-loc' };
-    const target = path.join(parentBase, clean);
-
-    // (ii) CONFINEMENT — strict subpath of rootDir AND not in any store/system dir; reject traversal/absolute
-    const rootAbs = path.resolve(rootDir);
-    if (target !== rootAbs && !target.startsWith(rootAbs + path.sep)) return { ok: false, error: 'confinement' };
-    const relFromRoot = path.relative(rootAbs, target);
-    if (relFromRoot.startsWith('..') || path.isAbsolute(relFromRoot)) return { ok: false, error: 'confinement' };
-    if (FORBIDDEN_ROOTS.some((fr) => relFromRoot === fr || relFromRoot.startsWith(fr + path.sep))) return { ok: false, error: 'confinement' };
-
-    // (iii) DIR EXISTS — fail-closed, mint nothing
-    if (fsSync.existsSync(target)) return { ok: false, error: 'exists' };
-
-    // MKDIR the real directory (non-recursive: parent must already exist; a missing parent is a real error, not silent)
-    try {
-      fsSync.mkdirSync(target, { recursive: false });
-    } catch (e) {
-      return { ok: false, error: `mkdir-failed: ${(e as Error)?.message || e}` };
-    }
-
-    // MINT+PERSIST the unit — uuid = the ensureViewUnit('dir:'+relpath) identity ⇒ ONE folder model, no dup (R40.16)
-    const uuid = keyToUuid('folder::' + relpath);
-    const unit: FolderUnit = {
-      ior: 'ior:class:Folder', ownerIor: null,
-      model: { uuid, name: clean, location: relpath, kind: 'folder', parent: (parent?.model?.uuid ? `ior:instance:${parent.model.uuid}` : null), children: [] },
-    };
-    const f = path.join(storeDir, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
-    try {
-      fsSync.mkdirSync(path.dirname(f), { recursive: true }); // shard dir for the unit FILE (store layout) — not a user folder
-      fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
-    } catch (e) {
-      // (iv) MINT FAILS AFTER MKDIR → remove the dir we just made (write-or-nothing, both directions)
-      try {
-        fsSync.rmdirSync(target);
-      } catch (rmErr) {
-        // (v) RMDIR FAILS → LOUD, never silent; name the orphan so a human can clean it (addLog is server-local → console.error, module-safe)
-        console.error(`[FolderService] HALF-STATE: minted-dir ${target} could NOT be removed after persist failure (${(rmErr as Error)?.message || rmErr}) — ORPHAN DIRECTORY, manual cleanup required`);
-        return { ok: false, error: `half-created: orphan dir ${relpath}` };
-      }
-      return { ok: false, error: `persist-failed: ${(e as Error)?.message || e}` };
-    }
-
-    // unit AND dir both exist, in step
-    return { ok: true, unit };
+    const parentAbsPath = resolveDirRefAbs('dir:' + parentLoc, rootDir);
+    if (!parentAbsPath) return { ok: false, error: 'bad-parent-loc' };
+    return FolderService.createPhysicalFolder({ parentAbsPath, name: clean, storeDir, location: `${parentLoc}/${clean}` });
   }
 }
