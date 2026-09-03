@@ -42,16 +42,19 @@ try {
       const t = document.getElementById('model-tree'); if (!t) return { err: 'no tree' };
       const node = [...t.querySelectorAll('rb-object-item, .tt-node, [ref]')].find((n) => [...n.attributes].some((a) => a.value === raw || a.value.endsWith(':' + raw) || a.value === 'collection:' + raw));
       if (!node) return { err: 'node not found: ' + raw };
-      (node.closest('.tt-row') || node).click();
-      await new Promise((r) => setTimeout(r, 1000));
-      // pierce shadow roots to find the Add-folder verb element anywhere on the page
+      // the node's FULL ref (= what a tree selection sets as shownRef). Open its detail in the shared drawer = exactly what
+      // selection does (fires rb-drawer-detail-shown → model sets shownRef + populates the MODEL_DECLS action bar). NOT a POST.
+      const nodeRef = ([...node.attributes].find((a) => /^(collection:)?dir:/.test(a.value) || a.value === raw) || {}).value || raw;
+      let drawer = document.querySelector('rb-detail-drawer'); if (!drawer) { drawer = document.createElement('rb-detail-drawer'); document.body.appendChild(drawer); }
+      drawer.removeAttribute('ref'); drawer.setAttribute('ref', nodeRef); drawer.setAttribute('open', '');
+      await new Promise((r) => setTimeout(r, 1400));
+      // find the real Add-folder verb in the drawer bar (shadow-pierced), click it → app's addFolder(shownRef) → app's own POST
       const walk = (root, out) => { for (const el of root.querySelectorAll('*')) { const t = (el.textContent || ''); if ((/add folder/i.test(t) || /📁/.test(t)) && t.length < 40) out.push(el); if (el.shadowRoot) walk(el.shadowRoot, out); } return out; };
       const found = walk(document, []);
       const btn = found.sort((a, b) => (a.textContent || '').length - (b.textContent || '').length)[0];
-      const stripTags = [...document.querySelectorAll('*')].filter((e) => /strip|action|verb|toolbar/i.test(e.tagName + ' ' + e.className)).map((e) => e.tagName.toLowerCase() + (e.className ? '.' + String(e.className).slice(0, 20) : '')).slice(0, 8);
-      if (!btn) return { err: 'NO Add-folder element (shadow-pierced)', selRef: [...node.attributes].map((a) => a.name + '=' + a.value).slice(0, 4), stripTags };
+      if (!btn) return { err: 'NO Add-folder verb in drawer bar after opening detail', nodeRef, selRef: [...node.attributes].map((a) => a.name + '=' + a.value).slice(0, 4) };
       (btn.closest('button, [role="button"], [class*="item"], [class*="compartment"], [class*="action"]') || btn).click();
-      return { clicked: true, btnText: (btn.textContent || '').trim().slice(0, 30), foundCount: found.length, selRef: [...node.attributes].map((a) => a.name + '=' + a.value).slice(0, 4) };
+      return { clicked: true, verbBtn: (btn.textContent || '').trim().slice(0, 24), nodeRef };
     }, rawDir);
     await sleep(2500);
     const p = posts[posts.length - 1];
