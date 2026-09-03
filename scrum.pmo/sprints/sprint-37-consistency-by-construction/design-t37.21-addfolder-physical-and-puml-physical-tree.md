@@ -237,3 +237,24 @@ Both then call the ONE `createPhysicalFolder`. Unit `location` = the real relpat
 **KEPT (Tron asked for these — features, not security):** live-MVC no-reload + 2nd-browser via `publishUnitChanged(parentRef)`; Files-node resolves to the real room dir; ONE `formatBytes`; sunburst centre = total. **KEPT ACs:** DRY one-mechanism (`check-single-mkdir-mint`) + the correctness rollback (both-or-neither). **DELETED ACs:** confinement, traversal, forbidden-roots, per-user-isolation, owner-gate, credential.
 
 **STANDING RULE banked (Tron, 3rd time): WE ARE IN DEVELOPMENT.** Do not add a security property / guard / isolation boundary / gate unless TRON ASKS FOR IT BY NAME. If something is genuinely dangerous → REPORT IT TO PO IN ONE LINE and KEEP BUILDING. Do not design it in, do not slip it into an AC, do not call it hardening. (Sharper operational form of LAW-1.)
+
+## ★ RESOLVER-WRAPPER SPEC (Option B, PO-approved 2026-09-03) — fixes bad-parent-loc's 2 causes in ONE place
+**Problem (measured):** parent='collection:dir:src/ts' → ensureViewUnit has no `collection:` branch → null → parentLoc='' → bad-parent-loc (cause 1); and 'ts' (a203e126) carries synthetic `location='rawbin:ts'` (cause 2, latent). Both must ship together.
+**ONE resolver** (extend/wrap `resolveDirRefAbs` in FolderService/DirRef):
+```
+export function resolveFolderRefToDir(rawRef: string, root = PROJECT_ROOT): string {
+  let ref = String(rawRef);
+  // (cause 1) strip the mofFolder type='collection' outer prefix when the remainder is itself synthetic
+  //   (reuse synthetic-ref.ts's rule: 'collection:dir:src/ts' → 'dir:src/ts'); a genuine room collection remainder is left.
+  if (ref.startsWith('collection:') && isSyntheticRef(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
+  // (cause 2) map synthetic rawbin: refs to their real repo-relative dir via the EXISTING mapping (server.ts:1710):
+  //   rawbin:ts → 'src'; other rawbin:<x> → the mapped dir. Then treat as a repo-relative dir.
+  if (ref.startsWith('rawbin:')) ref = 'dir:' + rawbinToRepoDir(ref);   // rawbinToRepoDir centralizes server.ts:1710
+  // dir: (repo-relative) → the existing trivial join; fail-closed '' on empty/'..' (unchanged contract)
+  return resolveDirRefAbs(ref, root);   // returns '' ⇒ maps nowhere ⇒ caller's bad-parent-loc keeps its fail-closed meaning
+}
+```
+**Model endpoint change:** resolve `parentAbsPath` from the **RAW REF** through this one resolver, NOT from `parent.model.location`:
+`const parentAbsPath = resolveFolderRefToDir(String(parent));` (parent = the client's shownRef). Drop the `resolveDirRefAbs('dir:'+parent.location)` path. `location` field UNTOUCHED (no migration, no reader-audit — server.ts:1719 tree-builder reads it unchanged).
+**Invariants:** collection:/dir:/rawbin: all → a real physical dir OR '' (bad-parent-loc only when genuinely nowhere). One resolution point; endpoints differ only in the raw ref they pass. DRY guard (optional): a lint that no folder-create path resolves a parent from `.location` instead of the one resolver.
+**Backstop (independent — architect, NOT the builder):** exercise resolveFolderRefToDir on the REPRESENTATIVE shapes: `collection:dir:src/ts`→src/ts (200), `dir:src/ts`→src/ts (200), `rawbin:ts`→src (200), `src/shared`/`dir:src/shared`→src/shared (200), a genuinely-nowhere ref→'' (bad-parent-loc). Both Tron nodes (ts a203e126 + shared e5900195) must create. Gate the SHAPE THE USER CLICKS, not the internal one that passes.
