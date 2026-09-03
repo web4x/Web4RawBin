@@ -32,21 +32,24 @@ try {
   R(`  detail resolved=${d2.resolved} | buttons=${JSON.stringify(d2.buttons)} | add-folder present=${d2.hasAddFolder}`);
   R(`  → ${d2.hasAddFolder ? 'FIXED: room Files folder NOW offers Add folder' : 'STILL ABSENT: no Add-folder button (RED)'}${!d2.resolved ? ' ⚠ (detail read unresolved even on prod — flag)' : ''}`);
 
-  // DEFECT 3: sunburst human-readable sizes + centre total + no single-child blob (mount the room Files sunburst)
-  const d3 = await page.evaluate(async ({ ref, uuid }) => {
-    let drawer = document.querySelector('rb-detail-drawer') || document.querySelector('rb-detail-view');
-    for (const r of [ref, `folder:${uuid}`, uuid]) { try { drawer.setAttribute('ref', r); drawer.setAttribute('open', ''); } catch {} }
-    await new Promise((rz) => setTimeout(rz, 1600));
-    const sun = document.querySelector('.dv-sunburst, [class*="sunburst"], svg');
-    const arcs = sun ? [...sun.querySelectorAll('path, [class*="arc"]')].length : 0;
-    const allText = (document.querySelector('rb-detail-drawer, rb-detail-view')?.textContent || '');
-    // human-readable size tokens: bytes/kB/MB/GB/TB
-    const sizeTokens = (allText.match(/\d[\d.,]*\s?(bytes|B|kB|KB|MB|GB|TB)\b/g) || []);
-    const centreTotal = /total|Σ|centre|center/i.test(allText) || sizeTokens.length > 0;
-    return { hasSunburst: !!sun, arcs, sizeTokens: sizeTokens.slice(0, 8), centreTotal };
-  }, { ref: FILES_REF, uuid: FILES_UUID });
+  // DEFECT 3: mount the room Files sunburst the WAY r4021c proved renders on prod (drawer→.trace-page, single ref, wait for .dv-sunburst)
+  await page.evaluate((r) => { let d = document.querySelector('rb-detail-drawer'); if (!d) { d = document.createElement('rb-detail-drawer'); (document.querySelector('.trace-page') || document.body).appendChild(d); } d.removeAttribute('ref'); d.setAttribute('ref', r); d.setAttribute('open', ''); }, FILES_REF);
+  await page.waitForFunction(() => { const v = document.querySelector('rb-detail-view, rb-detail-drawer'); return v && (v.querySelector('.dv-sunburst') || v.querySelector('.dv-title')); }, { timeout: 12000 }).catch(() => {});
+  await sleep(1000);
+  const d3 = await page.evaluate(() => {
+    const wrap = document.querySelector('.dv-sunburst');
+    if (!wrap) return { hasSunburst: false };
+    const arcs = wrap.querySelectorAll('path, [class*="arc"]').length;
+    const empty = !!wrap.querySelector('.dv-sunburst-empty');
+    const allText = (document.querySelector('rb-detail-view, rb-detail-drawer')?.textContent || '');
+    const humanTokens = (allText.match(/\d[\d.,]*\s?(bytes|kB|KB|MB|GB|TB)\b/g) || []).slice(0, 8); // human-readable (defect-3 fix)
+    const rawByteTokens = (allText.match(/\b\d{6,}\b/g) || []).slice(0, 6);                          // raw bytes (the OLD un-fixed form)
+    const centreText = (wrap.querySelector('.dv-sunburst-total, [class*="total"], text')?.textContent || '').trim();
+    return { hasSunburst: true, arcs, empty, humanTokens, rawByteTokens, centreText };
+  });
   R(`\n──────── DEFECT 3: sunburst human-readable sizes + centre total (prod, rendered) ────────`);
-  R(`  hasSunburst=${d3.hasSunburst} arcs=${d3.arcs} | human-size tokens=${JSON.stringify(d3.sizeTokens)} | centre-total-signal=${d3.centreTotal}`);
-  R(`  → ${d3.sizeTokens.length > 0 ? 'human-readable sizes PRESENT' : 'no human-readable size tokens observed (flag / may need the room surface)'}`);
+  R(`  hasSunburst=${d3.hasSunburst} arcs=${d3.arcs} empty=${d3.empty} | HUMAN-size labels=${JSON.stringify(d3.humanTokens)} | RAW-byte tokens=${JSON.stringify(d3.rawByteTokens)} | centreText=${JSON.stringify(d3.centreText)}`);
+  const humanN = (d3.humanTokens || []).length, rawN = (d3.rawByteTokens || []).length;
+  R(`  → ${humanN > 0 && rawN === 0 ? 'FIXED: sizes are HUMAN-READABLE (kB/MB/GB), no raw-byte blobs' : humanN > 0 ? `MIXED: ${humanN} human + ${rawN} raw-byte tokens still present` : rawN > 0 ? 'STILL RAW BYTES (defect-3 NOT fixed on this surface)' : 'no size labels observed'} · ${d3.arcs >= 2 ? 'no single-child blob (arcs=' + d3.arcs + ')' : 'SINGLE arc (blob?)'}`);
   await page.screenshot({ path: 'test-results/r4021-prod-defects23.png' }).catch(() => {});
 } finally { await browser.close().catch(() => {}); }
