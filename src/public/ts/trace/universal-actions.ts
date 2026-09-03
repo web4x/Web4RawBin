@@ -22,10 +22,17 @@ const VERBS = ['add-folder', 'download-vcard', 'preview-file', 'open-newtab', 'p
 // new-tab→window.open(content url), proxy→#wi-frame src=/api/proxy. The detail's data-attrs/pane/frame are the
 // ref-context (read from the drawer body). Idempotent (wired flag) — safe on every connectedCallback.
 export function registerUniversalActions(drawer: HTMLElement & { registerActionDecls?: (fn: () => ActionDecl[]) => void }): void {
+  // T37.21 defect-2 (cause 2 — the room bar has NO class actions): the UNIVERSAL_DECLS provider MUST be registered on
+  // EVERY drawer instance (PER-INSTANCE) — it was gated behind the global `_wired` flag below, so in the SPA the 2nd+
+  // drawer (the room #room-file-preview, mounted after an earlier view already registered one) was STARVED of the
+  // provider → its action bar could populate NO universal/class action (add-folder incl.). Register it first, unguarded,
+  // so a resolved Folder detail POPULATES its class actions on every surface (the architect's cause-2 intent, mechanism-
+  // correct: the room-chat opt-outs at :235/:383 are positioning/terminal-lifecycle only and never gated the bar).
+  drawer.registerActionDecls?.(() => UNIVERSAL_DECLS);
+  // R40.37: SUPPLY declarations above (no gating). The GLOBAL guard covers ONLY the document-level rb-drawer-action
+  // HANDLER below — that is a document listener and must wire exactly ONCE (a per-drawer listener would multi-fire).
   if ((registerUniversalActions as unknown as { _wired?: boolean })._wired) return;
   (registerUniversalActions as unknown as { _wired?: boolean })._wired = true;
-  // R40.37: SUPPLY declarations (no gating here); the shared drawer bar resolves applicability ONCE via applicableActionsFor.
-  drawer.registerActionDecls?.(() => UNIVERSAL_DECLS);
   document.addEventListener('rb-drawer-action', (e) => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';

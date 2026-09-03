@@ -6,10 +6,17 @@ import { APPROVE_STATUSES } from '../../../ts/scenario/task-status-constants.js'
 export type Action = { verb: string; label: string; primary?: boolean };
 export type ActionDecl = {
   verb: string; label: string; primary?: boolean;
-  appliesTo?: { types?: string[]; notTypes?: string[]; statuses?: string[]; kinds?: string[]; when?: (ctx: ActionCtx) => boolean };
+  // T37.21 (Tron: "add-folder is part of CLASS Folder, ALWAYS"): `classes` keys on the unit's IMMUTABLE ior:class, so a
+  // class's action is offered under EVERY display type by construction (a new surface/display-type CANNOT silently lack it).
+  // `types`/`notTypes`/`kinds` remain for genuinely display-specific actions (re-sync/compile-puml on diagrams, element ops
+  // on modelelements, add-diagram on the diagrams kind) — additive, those are UNCHANGED. A decl uses ONE keying, not both.
+  appliesTo?: { classes?: string[]; types?: string[]; notTypes?: string[]; statuses?: string[]; kinds?: string[]; when?: (ctx: ActionCtx) => boolean };
   onInvalid?: 'hide' | { disabledReason: string };
 };
-export type ActionUnit = { type: string; status?: string; kind?: string };
+export type ActionUnit = { type: string; status?: string; kind?: string; ior?: string }; // T37.21: ior = the full 'ior:class:X' (from resolveRefUnit's unit) → class keying reads classOf(ior)
+
+// classOf('ior:class:Folder') → 'Folder' (the class token the `classes` dimension matches; '' when absent/malformed).
+export function classOf(ior: string | undefined | null): string { return String(ior || '').split(':')[2] || ''; }
 export type ActionCtx = { hasActiveDiagram?: boolean; taskRole?: 'current' | 'next' | 'other' }; // R40.57/R40.58 D3: the shown task's role, DERIVED AT RENDER by the consumer from the live current-slot (NOT a server-baked pinRole — that copy is retired), for the Set-as-Current visibility matrix
 
 // The universal declarations (INV-E3 type-policy now DECLARED, not if-chained).
@@ -20,7 +27,9 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // by PROVENANCE: a roomcoll:*:files ref → the ROOM endpoint (creator dir), any model dir/rawbin/collection ref → the
   // MODEL endpoint. Same container-only appliesTo as before (excludes leaves + CR); folder-create fail-closes server-side
   // (bad-parent-loc) for a genuinely non-physical parent, so an offer on a virtual bucket is harmless.
-  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact', 'changerequest'] } },
+  // T37.21 (Tron ruling): CLASS-KEYED — a unit of ior:class:Folder HAS add-folder, on every surface + every display type,
+  // by construction (was notTypes on display type = "sometimes a button" relocated to the type layer). classOf(ior)==='Folder'.
+  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { classes: ['Folder'] } },
   { verb: 'download-vcard', label: '📇 vCard', appliesTo: { types: ['member', 'user'] } },
   { verb: 'preview-file', label: '👁 Preview', appliesTo: { types: ['file'] } },
   { verb: 'open-newtab', label: '↗ New tab', appliesTo: { types: ['file'] } },
@@ -70,11 +79,14 @@ export function applicableActionsFor(unit: ActionUnit, ctx: ActionCtx, decls: Ac
   for (const d of decls) {
     const a = d.appliesTo || {};
     const okType = (!a.types || a.types.map((x) => x.toLowerCase()).includes(t)) && (!a.notTypes || !a.notTypes.map((x) => x.toLowerCase()).includes(t));
+    // T37.21 class keying: a decl with `classes` is offered iff the unit's ior:class ∈ classes — INDEPENDENT of display type
+    // (structural, not display-accidental). No `classes` on the decl ⇒ okClass=true (type/kind-keyed actions unaffected).
+    const okClass = !a.classes || (unit.ior != null && a.classes.map((x) => x.toLowerCase()).includes(classOf(unit.ior).toLowerCase()));
     const okStatus = !a.statuses || (unit.status != null && a.statuses.includes(unit.status));
     const okKind = !a.kinds || (unit.kind != null && a.kinds.includes(unit.kind));
     const okWhen = !a.when || !!a.when(ctx);
     const action: Action = { verb: d.verb, label: d.label, primary: d.primary };
-    if (okType && okStatus && okKind && okWhen) { offered.push(action); continue; }
+    if (okType && okClass && okStatus && okKind && okWhen) { offered.push(action); continue; }
     const onInvalid = d.onInvalid ?? 'hide';
     // DISABLE-with-reason only for a TRANSIENT block (right type, not-yet-eligible status); else HIDE (structural N/A
     // or terminal — e.g. approve on a Done task → absent). AC1/AC2.
