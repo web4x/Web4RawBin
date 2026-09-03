@@ -29,6 +29,40 @@ export function resolveDirRefAbs(ref: string, root: string = PROJECT_ROOT): stri
   return path.resolve(root, rel);
 }
 
+// The synthetic view-ref prefixes the SERVER mints (mirror of server.ts ensureViewUnit's branches + the client
+// synthetic-ref.ts SYNTHETIC_PREFIX). Used ONLY to decide whether a redundant outer `collection:` wraps an inner
+// synthetic ref (so we strip it) vs a genuine room-collection remainder (left for its own branch). Server-side twin of
+// the client rule at synthetic-ref.ts:30 — ONE rule, replicated because src/ts (server) cannot import src/public (client).
+const SERVER_SYNTHETIC_PREFIX = /^(dir:|file:|puml-src:|project:|rawbin:|roomcoll:|mof-m1|mof-m2)/;
+
+// [impl:uuid:PENDING-req-mint] rawbinToRepoDir — the ONE source for the rawbin:* → real repo-relative dir mapping
+// (was inlined at server.ts:1710 `uuid === 'rawbin:ts' ? 'src' : …`). Only rawbin:ts is filesystem-backed (= the whole
+// src/ tree); rawbin:puml / rawbin:diagram / rawbin:traceability are VIRTUAL buckets (puml artifacts / diagrams /
+// trace) with no single real dir → '' (fail-closed at the caller = a genuine bad-parent-loc, you cannot mkdir under them).
+export function rawbinToRepoDir(ref: string): string {
+  return String(ref) === 'rawbin:ts' ? 'src' : '';
+}
+
+// [impl:uuid:PENDING-req-mint] resolveFolderRefToDir (architect Option B, design-t37.21 85c71828b) — map ANY folder-ish
+// ref → its physical dir, fixing BOTH bad-parent-loc causes at ONE point (no data change, no migration; the location
+// FIELD is left untouched so the server.ts tree-builder still reads it). CAUSE 1: strip the redundant outer
+// `collection:` display prefix when the remainder is itself synthetic (mofFolder emits type='collection' → e.g.
+// 'collection:dir:src/ts'); a genuine room-collection remainder (non-synthetic) is left untouched → fails closed here.
+// CAUSE 2: map rawbin: synthetic refs through rawbinToRepoDir (rawbin:ts → 'src'). Then delegate to resolveDirRefAbs
+// (repo-relative join, fail-closed). Returns '' when the ref maps to NO real dir → the caller returns bad-parent-loc,
+// which thus keeps its fail-closed meaning (fires ONLY for a genuinely non-physical parent).
+export function resolveFolderRefToDir(rawRef: string, root: string = PROJECT_ROOT): string {
+  let ref = String(rawRef || '').replace(/^ior:instance:/, ''); // defensive: an instance-wrapped ref never carries a dir
+  if (!ref) return '';
+  // CAUSE 1 — reuse synthetic-ref.ts:30's rule: peel a redundant outer collection: only when the inner is synthetic.
+  if (ref.startsWith('collection:') && SERVER_SYNTHETIC_PREFIX.test(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
+  // CAUSE 2 — rawbin: buckets: rawbin:ts → src (real), other rawbin:* → no real dir (fail-closed).
+  if (ref.startsWith('rawbin:')) { const rb = rawbinToRepoDir(ref); return rb ? resolveDirRefAbs('dir:' + rb, root) : ''; }
+  // dir: refs resolve directly; everything else (bare uuid, project:, file:, roomcoll:, …) has no model physical dir here.
+  if (ref.startsWith('dir:')) return resolveDirRefAbs(ref, root);
+  return '';
+}
+
 export class FolderService {
   // [impl:uuid:0e6761c2-7b4e-472e-9c63-4793b766a288] FolderService.mintRealUnit (Method 36a73988, Class c3f261fa, UC
   // folder.mintRealUnit) — mint + persist the Folder unit atomically and RETURN it so the itemview is one-step.
@@ -85,21 +119,24 @@ export class FolderService {
     return { ok: true, unit };
   }
 
-  // MODEL endpoint resolver (Tron dev-mode STRIPPED): resolve parentAbsPath + location from the parent folder unit, then
-  // DELEGATE to the ONE core. NO name-validation / confinement / forbidden-roots / dir-exists (mkdir throws on exists) /
-  // per-user / owner-gate — all removed. bad-parent-loc is CORRECTNESS (resolveDirRefAbs fail-closed = nowhere to create).
-  // rootDir INJECTABLE (default PROJECT_ROOT) so the fs-backstop/tester run in a scratch root (R40.31). The ROOM endpoint is
-  // RoomFilesService.addNestedFolder (built, shared per-room via getRoomDir(creator)/files) — both resolvers call this same core.
+  // MODEL endpoint resolver (Tron dev-mode STRIPPED): resolve parentAbsPath from the RAW parent REF through the ONE
+  // resolveFolderRefToDir (architect Option B, 85c71828b) — NOT from parent.model.location (the old path was blind to the
+  // collection: display prefix = cause 1, and trusted the synthetic rawbin: location = cause 2). NO name-validation /
+  // confinement / forbidden-roots / dir-exists (mkdir throws on exists) / per-user / owner-gate. bad-parent-loc stays
+  // CORRECTNESS + fail-closed (the resolver returns '' only when the ref maps to NO real dir). rootDir INJECTABLE so the
+  // fs-backstop/tester run in a scratch root (R40.31). The location FIELD is derived from the resolved abs path (repo-relative)
+  // so it stays the bare dir: convention the tree-builder reads. The ROOM endpoint is RoomFilesService.addNestedFolder
+  // (shared per-room via getRoomDir(creator)/files) — both resolvers call this same createPhysicalFolder core (DRY).
   static createPhysicalWithUnit(
     storeDir: string,
     name: string,
-    parent: { model?: { location?: string; uuid?: string } } | null,
+    parentRawRef: string | null,
     rootDir: string = PROJECT_ROOT,
   ): { ok: boolean; unit?: FolderUnit; error?: string } {
     const clean = String(name || '').trim();
-    const parentLoc = String(parent?.model?.location || '').replace(/^\/+|\/+$/g, '');
-    const parentAbsPath = resolveDirRefAbs('dir:' + parentLoc, rootDir);
+    const parentAbsPath = resolveFolderRefToDir(String(parentRawRef || ''), rootDir);
     if (!parentAbsPath) return { ok: false, error: 'bad-parent-loc' };
-    return FolderService.createPhysicalFolder({ parentAbsPath, name: clean, storeDir, location: `${parentLoc}/${clean}` });
+    const relParent = path.relative(rootDir, parentAbsPath).split(path.sep).join('/'); // repo-relative parent for the unit's location field
+    return FolderService.createPhysicalFolder({ parentAbsPath, name: clean, storeDir, location: `${relParent}/${clean}` });
   }
 }

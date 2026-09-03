@@ -5,6 +5,7 @@
 // [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
 // [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
+import { formatBytes } from './format-bytes.js'; // T37.21 defect-3: the ONE human-byte formatter (was an inline /1024 copy)
 import { ProfileEditor } from './ProfileEditor.js';
 import { ProfileSheet } from './ProfileSheet.js';
 import { MSG } from '../../shared/MessageTypes.js';
@@ -341,7 +342,7 @@ export class RoomView {
   // R26.1: typed one-line summary of the clipboard content for the confirm dialog.
   private clipboardPreview(files: File[], text: string): string {
     const parts: string[] = [];
-    for (const f of files) if (f.type.startsWith('image/')) parts.push(`🖼 Image (${f.type.split('/')[1]}, ${Math.round(f.size / 1024)} KB)`);
+    for (const f of files) if (f.type.startsWith('image/')) parts.push(`🖼 Image (${f.type.split('/')[1]}, ${formatBytes(f.size)})`);
     if (text) {
       const url = text.split('\n').map(l => l.trim()).find(l => l && !l.startsWith('#')) || '';
       if (/^(mailto|message):/i.test(url)) parts.push(`📧 Email: ${this.deriveClipUrlName(url)}`);

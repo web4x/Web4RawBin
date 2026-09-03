@@ -1,6 +1,6 @@
 {
   "name": "rawbin",
-  "version": "0.8.166",
+  "version": "0.8.167",
   "description": "RawBin — AI Server Management Interface",
   "type": "module",
   "scripts": {
@@ -43,6 +43,8 @@
     "check:checklist-chain": "node --import tsx scripts/checklist-chain-audit.mjs",
     "check:facet-single-source": "node --import tsx scripts/check-facet-single-source.ts",
     "check:detail-bespoke": "node --import tsx scripts/check-detail-bespoke-actions.ts",
+    "check:folder-verb-single-source": "node scripts/check-folder-verb-single-source.mjs",
+    "check:raw-bytes-format": "node scripts/check-raw-bytes-format.mjs",
     "check:device-ac": "node scripts/check-device-ac-lint.mjs",
     "check:owned-output": "node --import tsx scripts/owned-output-guard-bites.ts",
     "check:deployment-typed-model": "node --import tsx scripts/check-deployment-typed-model.ts",
@@ -70,7 +72,7 @@
     "gate:device:live:raw": "node test/visual/r4012-music-player-pixel-gate.mjs && node test/visual/r4011-carveout-unresolved-gate.mjs && node test/visual/r4019-history-back-gate.mjs && node test/visual/r3729-file-detail-render-gate.mjs",
     "gate:device:live": "node scripts/with-node20.mjs npm run gate:device:live:raw",
     "prepare": "git config core.hooksPath .githooks 2>/dev/null || true",
-    "ci:gates:raw": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md && npm run check:camelcase && npm run check:task-status && npm run consistency:strict && npm run test:marker:strict && npm run impl:marker:strict && npm run check:sprint-label && npm run check:sprint-slug-dir && npm run check:regen-leaf && npm run check:detail-bespoke && npm run check:device-ac && npm run check:owned-output && npm run check:facet-single-source && npm run check:pin-single-source && npm run check:checklist-chain && npm run check:deployment-typed-model && npm run check:self-heal-on-read && npm run trace:pii-guard && npm run check:revoked-tokens && npm run check:storage-rekey-security && npm run check:controller-dominance && npm run check:tree-emitter && npm run check:deployment-default-view && npm run check:synthetic-ref-single-source && npm run check:viewbus-key-single-source && npm run check:detail-idempotent-render && npm run check:detail-marker-correctness && npm run check:mutation-seam && npm run check:status-writes && npm run check:status-symbol && npm run check:staged-declared && npm run check:boot-currency && npm run check:no-cast-on-typed-return && npm run check:reverse-wire && npm run check:release-tag && npm run check:board && npm run bite:board && npm run bite:rollup && npm run bite:rolled-read && npm run bite:band && npm run bite:rc-action && npm run bite:cr-resolve && npm run bite:pin-focus",
+    "ci:gates:raw": "npm run trace:audit:strict && npm run rule-pair:strict && npm run check:sprint-md && npm run check:camelcase && npm run check:task-status && npm run consistency:strict && npm run test:marker:strict && npm run impl:marker:strict && npm run check:sprint-label && npm run check:sprint-slug-dir && npm run check:regen-leaf && npm run check:detail-bespoke && npm run check:folder-verb-single-source && npm run check:raw-bytes-format && npm run check:device-ac && npm run check:owned-output && npm run check:facet-single-source && npm run check:pin-single-source && npm run check:checklist-chain && npm run check:deployment-typed-model && npm run check:self-heal-on-read && npm run trace:pii-guard && npm run check:revoked-tokens && npm run check:storage-rekey-security && npm run check:controller-dominance && npm run check:tree-emitter && npm run check:deployment-default-view && npm run check:synthetic-ref-single-source && npm run check:viewbus-key-single-source && npm run check:detail-idempotent-render && npm run check:detail-marker-correctness && npm run check:mutation-seam && npm run check:status-writes && npm run check:status-symbol && npm run check:staged-declared && npm run check:boot-currency && npm run check:no-cast-on-typed-return && npm run check:reverse-wire && npm run check:release-tag && npm run check:board && npm run bite:board && npm run bite:rollup && npm run bite:rolled-read && npm run bite:band && npm run bite:rc-action && npm run bite:cr-resolve && npm run bite:pin-focus",
     "ci:gates": "node scripts/with-node20.mjs npm run ci:gates:raw",
     "migrate": "tsx src/ts/server/migrate-cli.ts all",
     "migrate:rooms": "tsx src/ts/server/migrate-cli.ts rooms",

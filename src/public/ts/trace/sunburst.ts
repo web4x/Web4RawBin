@@ -8,6 +8,8 @@
 // (preserves the API child order, index-stable) · a DEFINED empty-state for 0 children (never a blank ring). Byte sizes vary
 // far more widely than counts → a stronger proportional discriminator.
 
+import { formatBytes } from '../format-bytes.js'; // T37.21 defect-3: human-readable sizes (was raw integer bytes) — ONE formatter
+
 export type SunburstChild = { name: string; childCount?: number; size?: number };
 
 // THE single accessor — ★ TRON CORRECTION (R37.21, 2026-09-01): arc size = real CONTENT BYTES on disk (server-emitted per
@@ -61,27 +63,35 @@ export function renderChildSizeSunburst(children: SunburstChild[] | null | undef
   }
 
   const cx = 100, cy = 100, ro = 92, ri = 46;
+  const total = items.reduce((s, c) => s + sizeOf(c), 0); // T37.21 defect-3: the centre total (sum of arc bytes)
 
-  // single child → a FULL ring (a 360° sector can't be one arc); label it whole.
+  // single child → a FULL ring (a 360° sector can't be one arc); a stroked donut ring around an OPEN centre hole (the
+  // centre total sits in it) — never a filled disc/"blob" (Tron's defect). label it whole.
   let paths: string;
   if (items.length === 1) {
     const outer = `M${cx} ${cy - ro} A${ro} ${ro} 0 1 1 ${cx - 0.01} ${cy - ro} Z`;
     const inner = `M${cx} ${cy - ri} A${ri} ${ri} 0 1 0 ${cx - 0.01} ${cy - ri} Z`;
-    paths = `<path d="${outer} ${inner}" fill="${arcColor(0)}" fill-rule="evenodd"><title>${esc(items[0].name)} — ${sizeOf(items[0])}</title></path>`;
+    paths = `<path d="${outer} ${inner}" fill="${arcColor(0)}" fill-rule="evenodd" stroke="#1b1b1f" stroke-width="1"><title>${esc(items[0].name)} — ${formatBytes(sizeOf(items[0]))}</title></path>`;
   } else {
     paths = sunburstSegments(items).map((s, i) =>
-      `<path d="${sectorPath(cx, cy, ri, ro, s.startDeg, s.endDeg)}" fill="${arcColor(i)}" stroke="#1b1b1f" stroke-width="1"><title>${esc(s.name)} — ${s.size}</title></path>`
+      `<path d="${sectorPath(cx, cy, ri, ro, s.startDeg, s.endDeg)}" fill="${arcColor(i)}" stroke="#1b1b1f" stroke-width="1"><title>${esc(s.name)} — ${formatBytes(s.size)}</title></path>`
     ).join('');
   }
 
-  // legend — deterministic, arc-count rows, each naming its childCount (the sized value)
+  // T37.21 defect-3: the CENTRE TOTAL inside the donut hole (human-readable) — makes even a single-child ring read as a
+  // donut, and gives the "no total anywhere" Tron flagged. Two lines: the size, and a muted 'total' label.
+  const centre =
+    `<text x="${cx}" y="${cy - 2}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,255,255,0.92)" font-size="17" font-weight="600" font-family="system-ui,sans-serif">${esc(formatBytes(total))}</text>`
+    + `<text x="${cx}" y="${cy + 16}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,255,255,0.45)" font-size="10" font-family="system-ui,sans-serif">total</text>`;
+
+  // legend — deterministic, arc-count rows, each naming its HUMAN size (the sized value)
   const legend = items.map((c, i) =>
-    `<div style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:rgba(255,255,255,0.7)"><span style="width:10px;height:10px;border-radius:2px;background:${arcColor(i)};flex-shrink:0"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.name)}</span><span style="margin-left:auto;color:rgba(255,255,255,0.45)">${sizeOf(c)}</span></div>`
+    `<div style="display:flex;align-items:center;gap:6px;font-size:0.72rem;color:rgba(255,255,255,0.7)"><span style="width:10px;height:10px;border-radius:2px;background:${arcColor(i)};flex-shrink:0"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.name)}</span><span style="margin-left:auto;color:rgba(255,255,255,0.45)">${formatBytes(sizeOf(c))}</span></div>`
   ).join('');
 
   return wrap(
     `<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">`
-    + `<svg viewBox="0 0 200 200" width="160" height="160" role="img" aria-label="child size sunburst, ${items.length} children" style="flex-shrink:0">${paths}</svg>`
+    + `<svg viewBox="0 0 200 200" width="160" height="160" role="img" aria-label="child size sunburst, ${items.length} children, total ${esc(formatBytes(total))}" style="flex-shrink:0">${paths}${centre}</svg>`
     + `<div style="display:flex;flex-direction:column;gap:3px;min-width:120px;flex:1">${legend}</div>`
     + `</div>`
   );

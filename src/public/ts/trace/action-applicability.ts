@@ -14,6 +14,13 @@ export type ActionCtx = { hasActiveDiagram?: boolean; taskRole?: 'current' | 'ne
 
 // The universal declarations (INV-E3 type-policy now DECLARED, not if-chained).
 export const UNIVERSAL_DECLS: ActionDecl[] = [
+  // T37.21 defect-2 (Tron DRY, PO ruling): 'add-folder' is UNIVERSAL — the offer follows the unit onto EVERY folder-like
+  // surface (model dir/collection AND room Files), NOT just the /model page bar (where it used to live in MODEL_DECLS and
+  // was invisible on the shared-drawer room/trace surfaces). ONE dispatch point (universal-actions.handleAddFolder) routes
+  // by PROVENANCE: a roomcoll:*:files ref → the ROOM endpoint (creator dir), any model dir/rawbin/collection ref → the
+  // MODEL endpoint. Same container-only appliesTo as before (excludes leaves + CR); folder-create fail-closes server-side
+  // (bad-parent-loc) for a genuinely non-physical parent, so an offer on a virtual bucket is harmless.
+  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact', 'changerequest'] } },
   { verb: 'download-vcard', label: '📇 vCard', appliesTo: { types: ['member', 'user'] } },
   { verb: 'preview-file', label: '👁 Preview', appliesTo: { types: ['file'] } },
   { verb: 'open-newtab', label: '↗ New tab', appliesTo: { types: ['file'] } },

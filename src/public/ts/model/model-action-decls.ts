@@ -7,7 +7,9 @@ import type { ActionDecl } from '../trace/action-applicability.js';
 // container BY KIND' is inc-3 (the container is a synthetic mofFolder ref; the drawer synthetic-ref key/kind path needs
 // alignment first — likely a SHARED ROOT with Tron's A3 '/model detail shows nothing'). R33.9 membership → when:hasActiveDiagram.
 export const MODEL_DECLS: ActionDecl[] = [
-  { verb: 'add-folder', label: '📁 Add folder', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'puml', 'pumlartifact', 'changerequest'] } }, // R40.62 (Tron: a CR detail must not offer FOLDER verbs): exclude changerequest from the NEGATIVE-match folder verbs (a ChangeRequest is a traceability unit, not a model container)
+  // T37.21 defect-2 (Tron DRY: "it cannot be that folders SOMETIMES have Add folder buttons"): 'add-folder' MOVED to
+  // UNIVERSAL_DECLS (action-applicability.ts) so the offer follows the unit onto EVERY folder-like surface (model + room
+  // Files), dispatched at ONE point by provenance. It MUST NOT live here — the folder-verb lint (check-folder-verb-single-source.mjs) REDs on it.
   { verb: 'import-puml', label: '⇩ Import PUML', appliesTo: { notTypes: ['task', 'file', 'webitem', 'member', 'user', 'changerequest'] } }, // R40.62: same — no Import-PUML on a ChangeRequest
   { verb: 'add-diagram', label: '＋ Add Diagram', appliesTo: { kinds: ['diagrams'] } }, // inc-3 AC4: PRECISE — offered ONLY on the diagrams container BY KIND (ensureViewUnit sets kind='diagrams' on rawbin:diagram; resolveRefUnit feeds it to the bar). Was notTypes:[…] (INTERIM, leaked onto every non-leaf).
   { verb: 're-sync', label: '⟳ Re-Sync', appliesTo: { types: ['diagram'] } },

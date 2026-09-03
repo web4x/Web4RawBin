@@ -9,8 +9,9 @@ import { ViewBus, viewBusKey } from './ViewBus.js'; // R40.17: notify the Curren
 // (node-testable). This file SUPPLIES UNIVERSAL_DECLS to the shared drawer bar (which resolves via applicableActionsFor).
 import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
 import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 CR#86-1: per-pane owner-gated RC deep-link (the ONE existing chain — reused, not redesigned)
+import { isSyntheticRef } from './synthetic-ref.js'; // T37.21 defect-2: strip the redundant outer collection: prefix (same rule as the resolver)
 
-const VERBS = ['download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'resolve-cr', 'cr-approve', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
+const VERBS = ['add-folder', 'download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'resolve-cr', 'cr-approve', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -30,6 +31,7 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
     const verb = d?.verb || '';
     if (!VERBS.includes(verb)) return; // host/model verbs handled by their own provider
     const ref = d?.ref || '';
+    if (verb === 'add-folder') { void handleAddFolder(drawer, ref); return; } // T37.21 defect-2: the ONE add-folder dispatch — provenance-routed (room Files vs model dir), uses the FULL ref (not the uuid-slice)
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
     if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
     if (verb === 'resolve-cr') { handleResolveCr(drawer, uuid); return; } // R40.1 CR#86: owner ticks the processing-CR sub-step → band clears → clean QA-Review
@@ -76,6 +78,37 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
       return;
     }
   });
+}
+
+// [impl:uuid:PENDING-req-mint] universalActions.handleAddFolder — T37.21 defect-2 (Tron DRY): THE ONE add-folder
+// dispatch, shared by every surface (model dir/collection AND room Files) since the decl moved to UNIVERSAL_DECLS.
+// PROVENANCE routing (PO/architect ruling, NOT hand-wired per surface): a room Files ref (roomcoll:<roomId>:files[/nested])
+// POSTs the ROOM endpoint (server resolves the room CREATOR's shared files dir); any model ref (dir:/rawbin:/collection:…)
+// POSTs the MODEL endpoint (resolveFolderRefToDir maps it to a repo dir). A roomcoll members/other collection → folders
+// live only under Files (honest refusal, no failed POST). Reveal the new folder best-effort (same as the old model path).
+async function handleAddFolder(drawer: HTMLElement, rawRef: string): Promise<void> {
+  let ref = String(rawRef || '');
+  // strip the redundant outer collection: display prefix (mofFolder emits collection:<synthetic>) — same rule as the server resolver
+  if (ref.startsWith('collection:') && isSyntheticRef(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
+  const roomMatch = /^roomcoll:([^:]+):files(?:\/(.*))?$/.exec(ref); // room Files (root or nested) → room endpoint
+  if (!roomMatch && ref.startsWith('roomcoll:')) { surfaceVerdict(drawer, 'Folders can only be added under Files.', 'warn'); return; } // Members/other room collection
+  const name = (window.prompt('New folder name:', 'New folder') || '').trim();
+  if (!name) return;
+  try {
+    let r: Response;
+    if (roomMatch) {
+      const roomId = roomMatch[1]; const nestedPath = roomMatch[2] || '';
+      const playerToken = localStorage.getItem('rawbin-player-id') || ''; // the caller's live player token (the room upload route auths the same way)
+      r = await fetch(`/api/room/${encodeURIComponent(roomId)}/folder`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, nestedPath, playerToken }) });
+    } else {
+      r = await fetch('/api/model/folder/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, parent: ref }) }); // model dir/collection provenance
+    }
+    const j = await r.json().catch(() => ({} as Record<string, unknown>));
+    if (!r.ok || !j.ok) throw new Error(String(j.error || ('HTTP ' + r.status)));
+    if (j.uuid) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: `folder:${j.uuid}` }, bubbles: true })); // best-effort reveal (the WS publishUnitChanged live-inserts it too)
+  } catch (e: unknown) {
+    surfaceVerdict(drawer, 'Add folder failed: ' + (e instanceof Error ? e.message : String(e)), 'err');
+  }
 }
 
 // R40.10 — surface the QA-verdict outcome INSIDE the drawer detail, honestly (never a fake success, never a hidden

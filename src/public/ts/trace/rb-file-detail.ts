@@ -15,6 +15,7 @@ import { guessMimeFromName, fillPreviewPane } from './content-preview.js'; // R4
 import './rb-preview-pane.js';
 import type { RbPreviewPane } from './rb-preview-pane.js';
 import { RbDetailBase, type DetailCtx } from './rb-detail-base.js'; // R37.24 inc2: the ONE detail primitive (funnel + one-source + fail-loud)
+import { formatBytes } from '../format-bytes.js'; // T37.21 defect-3: the ONE human-byte formatter (was an inline /1024 copy)
 
 export class RbFileDetail extends RbDetailBase {
   // R37.24 inc2: the funnel + one-model-source + honest-empty-on-unresolved live in RbDetailBase (extract-once). This
@@ -26,7 +27,7 @@ export class RbFileDetail extends RbDetailBase {
     const mimeType = String(m.mimeType || m.contentType || guessMimeFromName(name) || '');
     const size = Number(m.size || 0);
     const token = String(m.uploaderToken || '');
-    const sizeLabel = size > 1024 ? `${(size / 1024).toFixed(1)} KB` : `${size} B`;
+    const sizeLabel = formatBytes(size);
     const contentUrl = `/api/room/file/${uuid}/content${token ? '?token=' + encodeURIComponent(token) : ''}`;
 
     // R21.9 reorder: buttons TOP → 75vh preview MIDDLE → metadata BOTTOM
