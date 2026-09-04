@@ -47,6 +47,18 @@
         "id": "AC-B-sunburst-size-is-on-disk-bytes",
         "group": "T37.21-part4-size-metric@390",
         "text": "The sunburst ARC SIZE = the ACTUAL ON-DISK CONTENT SIZE in BYTES, NOT a uniform per-file count (Tron 2026-09-01: 'the actual content size on disk, real bytes per file or child'). DERIVED metric per unit type: (1) a FILE's size = its byte size on disk; (2) a FOLDER's size = the RECURSIVE SUM of all descendant file bytes; (3) a VIRTUAL unit with no physical location (e.g. a room collection) = the recursive byte-sum of its RESOLVABLE children (it AGGREGATES its children's real bytes), which is 0 if none are byte-bearing; (4) EMPTY (0 children) = the defined empty-state (size 0, a defined empty ring, NEVER blank) — the existing empty-state AC still holds; (5) a ZERO-BYTE or no-bytes child renders a MINIMUM-visible arc (a small floor) so it does NOT vanish, preserving arc-count == direct-child-count. The PROPORTIONALITY discriminator is KEPT: LARGEST size = LARGEST arc — only the METRIC changes from count to bytes. @390 screenshot-checkable: a folder containing a large file shows a proportionally LARGER arc than a folder containing a small file (not equal arcs). stub-must-fail: uniform sizing (equal arcs for children of UNEQUAL byte size) => RED."
+      },
+      {
+        "id": "AC-narrow-B-wiring-regression-gate",
+        "group": "regression/failable",
+        "text": "The live-insert WIRING (WS notify -> RbTraceTree.reDeriveDirectChildren -> view update) fires end-to-end on an insert, provable on SCRATCH WITHOUT owner identity (the mechanism is owner-agnostic once past the R33.1 guard). RED before the client-subscribe fix, GREEN after. It does NOT mock the mechanism under test: it tests the WIRING (a different, real mechanism), NEVER owner-auth. HARD CONSTRAINTS (PO ruling 2026-09-04): NO owner credential, NO fabricated identity, NO prod write — scratch seed-unit + scratch identity ONLY; the gate MUST be able to FAIL (red-before-green proven). If building it starts to require fabricating identity, STOP + escalate to PO: that means it has drifted into full-B (REFUSED).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "PENDING tester marker (client-half wiring gate; stamped after expert localizes+fixes the client-subscribe cause)",
+          "assertion": "scratch insert -> WS notify observed -> reDeriveDirectChildren runs -> view updates; owner-agnostic; RED pre-fix / GREEN post-fix"
+        },
+        "stubMustFail": "PENDING: seed the wiring broken (no WS notify OR no re-derive call OR no view update) -> RED; must be shown RED before GREEN",
+        "certScopeNote": "narrow-B GREEN proves WIRING ONLY, NOT owner-auth. Decisive question: if owner-auth were broken in prod this gate would STILL go green — BY DESIGN, because it does not test auth. Owner-auth is proven separately by A (Tron-device). FEATURE = narrow-B(wiring) + A(Tron-device auth); narrow-B green != P2 feature-done."
       }
     ],
     "crossRef": [
@@ -57,7 +69,21 @@
       "ior:instance:9ef3c23b-39b8-407c-9b07-49f6ff5e9127",
       "ior:instance:03110815-a754-468e-bbfc-8bba7c41d1e8"
     ],
-    "part4SizeMetricSupersede": "TRON RULING 2026-09-01: the sunburst SIZE dimension = on-disk BYTES. This SUPERSEDES (a) the v0.8.155 shipped childCount sizing and (b) the architect single-source ruling sizeOf=max(childCount,1) — FOR THE SIZE DIMENSION ONLY. UNCHANGED and still binding: one-renderer-no-fork, arc-count == direct-child-count, the defined empty-state, and visible @390. The size accessor changes from count to a recursive-byte-sum (with a min-arc floor); keep it a SINGLE accessor (no fork). Annotate-not-erase: the count-metric is recorded as superseded, not deleted."
+    "part4SizeMetricSupersede": "TRON RULING 2026-09-01: the sunburst SIZE dimension = on-disk BYTES. This SUPERSEDES (a) the v0.8.155 shipped childCount sizing and (b) the architect single-source ruling sizeOf=max(childCount,1) — FOR THE SIZE DIMENSION ONLY. UNCHANGED and still binding: one-renderer-no-fork, arc-count == direct-child-count, the defined empty-state, and visible @390. The size accessor changes from count to a recursive-byte-sum (with a min-arc floor); keep it a SINGLE accessor (no fork). Annotate-not-erase: the count-metric is recorded as superseded, not deleted.",
+    "p2ClientHalfRuling": {
+      "decision": "A (Tron-device) for the FEATURE proof + narrow-B (wiring regression) worth building; full-B REFUSED",
+      "date": "2026-09-04",
+      "provenance": "PO ruling relayed to req; recorded on-unit so it survives rewind (not a pane message)",
+      "A_feature": "Tron creates the folder on his own device = REAL R33.1 guard + REAL owner identity = STRONGER than any scratch simulation for the owner-auth half; the owner-auth half is exactly where a scratch stand-in is most likely useless.",
+      "narrowB_regression": "a gate on the WIRING (WS notify -> reDeriveDirectChildren -> view update), owner-agnostic once past the guard, scratch-only, must-fail; earns regression protection on the plumbing WITHOUT simulating auth.",
+      "fullB_REFUSED_reasons": [
+        "(1) MOCKS-THE-MECHANISM-UNDER-TEST = structurally blind: a fixture fabricating owner identity to pass the guard tests our SIMULATION of auth, not auth. Decisive question: if owner-auth were broken in prod, it would STILL go green => certifies nothing about the thing it names = harness-useless-200; green-forever-while-real-path-rots.",
+        "(2) SECURITY-ADJACENT: building an owner-credential-injection artifact next to the R33.1 boundary is security work = Tron-authorization ABSOLUTE, not held and not to be sought for a test fixture when narrow-B exists."
+      ],
+      "hardConstraints": "no owner credential / no fabricated identity / no prod write / scratch seed-unit + scratch identity only / must be able to FAIL (red-before-green); if it starts requiring fabricated identity => STOP + escalate to PO (drifted into full-B).",
+      "poSelfCorrection": "PO withdrew an earlier 'build the P2 client-half from scratch' instruction to the expert: half-1 piece-2 is already built+gated (Test 919e3f36). Take the PROBE, not a rebuild.",
+      "sequencing": "downstream of the EXPERT PROBE RESULT (which of 2 remaining causes the client-subscribe fails). expert localizes -> fixes -> narrow-B gate RED->GREEN on scratch -> tester stamps marker -> I adopt+mint the client-half Test (measure-not-invent, never backstop)."
+    }
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
