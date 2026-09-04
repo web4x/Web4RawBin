@@ -8,6 +8,7 @@
 // ★ SUPERSEDES the earlier per-user / storageId / R40.22-chokepoint shape: Tron's strip ruling RETIRED per-user + the
 // chokepoint + raw-reject (planner strip commit) — that was a PRE-STRIP design, NOT a live Tron lock. DRY: model + room
 // endpoints differ ONLY in the parentAbsPath they resolve.
+import fsSync from 'node:fs';
 import path from 'node:path';
 import { getRoomDir } from './RoomKeys.js';
 import { FolderService, type FolderUnit } from './FolderService.js';
@@ -28,6 +29,15 @@ export class RoomFilesService {
     const nrel = String(nestedPath || '').replace(/^\/+|\/+$/g, '');
     const roomDir = getRoomDir(creatorToken, roomId, { mint: true }); // the creator's canonical room dir (same path room-DELETE uses)
     const filesBase = path.join(roomDir, 'files');
+    // T37.21 FIX (PO GO): ENSURE the room's Files CONTAINER dir exists before createPhysicalFolder. Nothing else creates it —
+    // createRoomHome makes only roomDir/.ssh, and an upload writes a scenario File unit (recursive), NOT this dir — so in a
+    // room that has never held a file (e.g. "System Evidence") <roomDir>/files/ is ABSENT and createPhysicalFolder's
+    // NON-RECURSIVE mkdir of the target ENOENT-fails on the missing parent. This mkdir is ROOM-PATH-ONLY + on the CONTAINER,
+    // NOT the user folder: filesBase backs the VIRTUAL roomcoll:<id>:files collection (a synthetic unit, no persisted Folder
+    // unit) → materialising it introduces NO unit-less-directory window. createPhysicalFolder STILL mkdirs the target folder
+    // non-recursively + mints atomically → BOTH-OR-NEITHER intact; a genuinely-missing NESTED parent still fail-closes there
+    // (we do NOT recursively create parentAbsPath, only the Files base) so bad-parent-loc semantics are untouched.
+    fsSync.mkdirSync(filesBase, { recursive: true });
     const parentAbsPath = nrel ? path.join(filesBase, nrel) : filesBase;
     const fullNested = nrel ? `${nrel}/${clean}` : clean;
     const location = `roomcoll:${roomId}:files/${fullNested}`; // logical roomcoll ref (shared, per-room; out of resolveDirRefAbs's repo namespace)
