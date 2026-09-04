@@ -95,8 +95,13 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
 // live only under Files (honest refusal, no failed POST). Reveal the new folder best-effort (same as the old model path).
 async function handleAddFolder(drawer: HTMLElement, rawRef: string): Promise<void> {
   let ref = String(rawRef || '');
-  // strip the redundant outer collection: display prefix (mofFolder emits collection:<synthetic>) — same rule as the server resolver
-  if (ref.startsWith('collection:') && isSyntheticRef(ref.slice('collection:'.length))) ref = ref.slice('collection:'.length);
+  // T37.21 MIS-ROUTE FIX (Tron v0.8.169 in-room red): the ref reaching here is DISPLAY-TYPE-PREFIXED — the room Files node
+  // announces `folder:roomcoll:<id>:files` (itemRef = `<type>:<uuid>`), NOT the bare `roomcoll:…`. The old code peeled only a
+  // leading `collection:`, so `folder:roomcoll:…` fell through to the MODEL endpoint (server log: POST /api/model/folder/create
+  // → 403 owner-gated → nothing created). PEEL ANY leading display-type wrapper (folder:/collection:/…) down to the innermost
+  // SYNTHETIC ref, so provenance routing sees the real ref. Guarded by isSyntheticRef(remainder): stops at dir:/rawbin:/roomcoll:
+  // (their own remainder isn't synthetic) and never strips a real `folder:<uuid>` (bare uuid not synthetic).
+  while (ref.includes(':') && isSyntheticRef(ref.slice(ref.indexOf(':') + 1))) ref = ref.slice(ref.indexOf(':') + 1);
   const roomMatch = /^roomcoll:([^:]+):files(?:\/(.*))?$/.exec(ref); // room Files (root or nested) → room endpoint
   if (!roomMatch && ref.startsWith('roomcoll:')) { surfaceVerdict(drawer, 'Folders can only be added under Files.', 'warn'); return; } // Members/other room collection
   const name = (window.prompt('New folder name:', 'New folder') || '').trim();
