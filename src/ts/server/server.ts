@@ -2561,14 +2561,18 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const fsKey = homeKeyFor(creatorToken, { mint: true });
           const roomDir = getRoomDir(creatorToken, roomId, { mint: true });
           const filesBase = path.join(roomDir, 'files');
-          const target = path.join(filesBase, nrel, cleanName);
-          try { fsSync.mkdirSync(filesBase, { recursive: true }); fsSync.mkdirSync(target); } // ensure Files container + the real folder dir (non-recursive: a missing nested parent is a real error)
+          try { fsSync.mkdirSync(filesBase, { recursive: true }); } // ensure the Files-container infra dir (recursive; not a user folder)
           catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: `mkdir-failed: ${e?.message || e}` })); return; }
+          // R40.93 (architect 79edbc54a): the real folder dir is created by the ONE owner FolderService.createPhysicalDir, NOT a
+          // raw inline mkdir — green-by-routing (the :2565 INFRA_ALLOW entry comes out). NO Folder-unit mint here → the createFileUnit
+          // below is the sole unit (the R40.84/A5 items-tree path, untouched) → no double-mint.
+          const dir = FolderService.createPhysicalDir(path.join(filesBase, nrel), cleanName);
+          if (!dir.ok) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: dir.error })); return; }
           let unit: any;
           try {
             unit = createFileUnit(idx, { kind: 'folder', name: cleanName, location: `roomcoll:${roomId}:files/${nrel ? nrel + '/' : ''}${cleanName}`, parent: parentIor, roomUuid: roomId, uploaderToken: creatorToken, fsKey }, publishUnitChanged); // THE ONE become-a-room-unit path (same as a file)
           } catch (e: any) {
-            try { fsSync.rmdirSync(target); } catch { /* both-or-neither: undo the mkdir if the mint failed */ }
+            try { fsSync.rmdirSync(dir.absPath!); } catch { /* both-or-neither: undo the owner's mkdir if the mint failed */ }
             res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: `mint-failed: ${e?.message || e}` })); return;
           }
           const folderUuid = unit.model.uuid;

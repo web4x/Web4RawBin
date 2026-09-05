@@ -109,22 +109,32 @@ export class FolderService {
     return { ok: true, unit };
   }
 
-  // [physical-folder-owner] R40.88: the SOLE owner of a real user-directory mkdir — every physical folder-create routes through
-  // HERE, reached only via the physicality-gated model-endpoint branch (R40.87). A user-dir mkdir anywhere else = RED.
-  // [impl:uuid:PENDING-req-mint] createPhysicalFolder — the ONE stripped folder-create CORE (Tron dev-mode 2026-09-02, architect
-  // 059107c35): mkdir the target + mint+persist the Folder unit, BOTH-or-NEITHER. NOTHING else — NO confinement / traversal /
-  // forbidden-roots / name-validation / per-user isolation / owner-gate / credential (all UNORDERED security, STRIPPED — Tron:
-  // do not design security into a feature he did not name). Both-or-neither STAYS = CORRECTNESS (a half-created folder is a
-  // broken feature, Tron: do not strip correctness). mkdir throws (missing parent, EEXIST, perms) → NO mint, return not-ok;
-  // mint throws → rmdir the target; rmdir throws → log LOUD (orphan). uuid = keyToUuid('folder::'+location) = the R40.16 folder
-  // identity (no dup). The TWO endpoints (model / room) differ ONLY in the parentAbsPath + location they pass — ONE mechanism (DRY).
-  static createPhysicalFolder(opts: { parentAbsPath: string; name: string; storeDir: string; location: string }): { ok: boolean; unit?: FolderUnit; error?: string } {
-    const target = path.join(opts.parentAbsPath, opts.name);
+  // [physical-folder-owner] R40.88/R40.93 (architect design-r40.93 79edbc54a): the SOLE raw user-directory mkdir primitive —
+  // EVERY physical folder-create's mkdir routes THROUGH here (createPhysicalFolder = the model+Folder-unit path; the server.ts
+  // room route = the createFileUnit/items-tree path). A user-dir mkdir anywhere else = RED. NO unit mint here → the caller mints
+  // its OWN (a Folder unit, or a room file-unit) = ONE mkdir owner, NO double-mint. Non-recursive: a missing parent OR an
+  // existing dir throws (both-or-neither is completed at the caller, which rmdir's absPath on its own mint failure).
+  // [impl:uuid:PENDING-req-mint] createPhysicalDir (R40.93) — mkdir the target dir + return its abs path (owner marker moved here from createPhysicalFolder).
+  static createPhysicalDir(parentAbsPath: string, name: string): { ok: boolean; absPath?: string; error?: string } {
+    const target = path.join(parentAbsPath, name);
     try {
-      fsSync.mkdirSync(target); // non-recursive: a missing parent OR an existing dir throws → NO mint (both-or-neither)
+      fsSync.mkdirSync(target); // non-recursive: a missing parent OR an existing dir throws → NO dir (both-or-neither at the caller)
     } catch (e) {
       return { ok: false, error: `mkdir-failed: ${(e as Error)?.message || e}` };
     }
+    return { ok: true, absPath: target };
+  }
+
+  // [impl:uuid:PENDING-req-mint] createPhysicalFolder — the model+Folder-unit path (Tron dev-mode 2026-09-02, architect
+  // 059107c35): mkdir via the ONE owner createPhysicalDir (R40.93 — the owner marker moved there), then mint+persist the Folder
+  // unit, BOTH-or-NEITHER. NOTHING else — NO confinement / traversal / forbidden-roots / name-validation / per-user isolation /
+  // owner-gate / credential (all UNORDERED security, STRIPPED — Tron: do not design security into a feature he did not name).
+  // Both-or-neither STAYS = CORRECTNESS. mkdir fails → return its error (no mint); mint throws → rmdir absPath; rmdir throws →
+  // log LOUD (orphan). uuid = keyToUuid('folder::'+location) = the R40.16 folder identity. Model + room differ only in the caller.
+  static createPhysicalFolder(opts: { parentAbsPath: string; name: string; storeDir: string; location: string }): { ok: boolean; unit?: FolderUnit; error?: string } {
+    const dir = FolderService.createPhysicalDir(opts.parentAbsPath, opts.name);
+    if (!dir.ok) return { ok: false, error: dir.error };
+    const target = dir.absPath!;
     const uuid = keyToUuid('folder::' + opts.location);
     const unit: FolderUnit = {
       ior: 'ior:class:Folder', ownerIor: null,
