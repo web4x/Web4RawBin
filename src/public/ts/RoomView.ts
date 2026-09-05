@@ -54,6 +54,7 @@ export class RoomView {
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
+      dropDispatcher.setRoomContext(this.roomId, this.client.playerToken); // R40.86: room context for folder-drop (acceptDropIntoContainer) — set on join, same roomId+token as dispatch()
       this.roomName = msg.room.name;
       this.hostId = msg.room.hostId; this.roomOwnerToken = msg.room.ownerToken || ''; this.roomVisibility = msg.room.visibility || (msg.room.isPrivate ? 'private' : 'public'); this.roomMode = msg.room.mode || 'persistent';
       this.members = msg.members || [];
@@ -131,7 +132,7 @@ export class RoomView {
     }) as EventListener);
   }
 
-  show(roomId: string): void { this.roomId = roomId; this.render(); }
+  show(roomId: string): void { this.roomId = roomId; dropDispatcher.setRoomContext(roomId, this.client.playerToken); this.render(); } // R40.86: give the dispatcher the active-room context so a folder-drop (acceptDropIntoContainer) uses the SAME roomId+token as dispatch()
 
   hide(): void {
     this.container.innerHTML = '';
