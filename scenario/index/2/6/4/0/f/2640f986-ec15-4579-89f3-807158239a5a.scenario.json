@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "2640f986-ec15-4579-89f3-807158239a5a",
+    "name": "dropArea.uploadFile",
+    "description": "A file dropped on the drop area is recognized AND uploaded/stored (all types) — the upload POST completes, the file lands in the room.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741",
+    "unitLinks": [],
+    "note": "Architect roots the regression (deploy diff) + wires the upload Class/Method; expert fixes; tester gates member-session @390 + the upload-dies stub."
+  },
+  "ownerIor": "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741"
+}

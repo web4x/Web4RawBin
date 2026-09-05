@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "af1bf20b-9000-45db-9c55-9d93f4822a7c",
+    "name": "folder.acceptDropIntoContainer",
+    "description": "A folder is a drop target; dropped content resolves the target folder by the one roomcoll identity and lands INSIDE it, updating that node in place.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:a7bd184b-af45-47c1-a8f7-2488bde5f71d",
+    "unitLinks": [],
+    "note": "Architect wires the folder-drop-target Class/Method (drop -> resolve dest by one identity -> upload into that folder -> in-place node update) on build-go; expert builds; tester gates member-session @390 containment + stubs."
+  },
+  "ownerIor": "ior:instance:a7bd184b-af45-47c1-a8f7-2488bde5f71d"
+}
