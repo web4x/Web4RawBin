@@ -1428,6 +1428,25 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
   return kids;
 }
 
+// [impl:uuid:PENDING-req-mint] resolveDropContainer (R40.86 container unification, architect design 9ee5504ad) — the ONE
+// ref → drop-target resolution, retiring the endpoint's inline if(parentRef){folder}else{root} fork. A room folder ref → nest
+// under that folder (parent unit + its location + publish on the folder ref); ANY other ref (absent / room-root / unresolvable)
+// → the room-root container (no parent unit, publish on the Files root) — room-root is JUST ANOTHER CONTAINER, not a skipped
+// branch, so the caller never forks with-parent vs without. Behaviour-preserving vs the prior inline block (root files stay
+// location-less as R40.85 shipped; the "root carries a location" refinement is deferred until the prod-log cause is measured).
+function resolveDropContainer(containerRef: string, roomId: string, idx: ScenarioIndex): { parentIor: string | null; folderLocation: string | null; publishRef: string } {
+  const rootRef = `roomcoll:${roomId}:files`;
+  if (containerRef) {
+    const uuid = containerRef.replace(/^ior:instance:/, '').split('@')[0];
+    const pu = /^[0-9a-fA-F-]{16,40}$/.test(uuid) ? idx.get(uuid) : null;
+    const pm = (pu?.model || null) as Record<string, unknown> | null;
+    if (pu && pu.ior === 'ior:class:Folder' && pm && String(pm.location || '').startsWith(rootRef)) {
+      return { parentIor: `ior:instance:${uuid}`, folderLocation: String(pm.location), publishRef: String(pm.location) }; // nest under the folder
+    }
+  }
+  return { parentIor: null, folderLocation: null, publishRef: rootRef }; // room-root = the default container (absent/unresolvable ref → fail-safe to root, never a 500)
+}
+
 // [impl:uuid:4e029387-b53b-4d4e-a1e5-3d6a74de4733] roomFolderByLocation = RoomFolder.resolveUnitAndChildren (architect
 // cc9b90286 + OOP-home d2e85c81f: ONE canonical roomcoll-location identity, two projections — detail-resolve + children).
 // design-nested-roomcoll-detail-resolve — THE ONE
@@ -2646,8 +2665,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               }
             }
           }
-          addLog(`[upload] parsed: file=${fileName} mime=${mimeType} size=${fileData.length}b token=${playerToken.slice(0,8)}`);
-          if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed token=${playerToken.slice(0,8)}`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          // R40.86 (PO diagnosability): ONE-read upload diagnostic — every field needed to indict/exonerate a failed upload (the
+          // size=0 detector, boundary, token PRESENCE, container ref, outcome). PII-safe: sizes/types/refs + booleans ONLY —
+          // NEVER file CONTENT, NEVER a token VALUE (was token.slice(0,8) = a partial value; now presence-only).
+          addLog(`[upload] parsed: file=${fileName} mime=${mimeType} size=${fileData.length}b boundary=yes token=${playerToken ? 'present' : 'MISSING'} container=${parentRef || 'room-root'} related=${relatedFile ? 'yes' : 'no'}`);
+          if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed (token ${playerToken ? 'present-but-unknown' : 'MISSING'}, size=${fileData.length}b) → likely a stale service-worker dropped the body`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
           if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
           addLog(`[upload] creating unit...`);
@@ -2677,16 +2699,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // R40.86 folders-are-drop-targets: drop INTO a folder → resolve the target folder unit (in THIS room) → nest the new
           // file under it (parent + child location on the ONE createFileUnit — no double-mint) + publish on the FOLDER's ref so
           // R40.84 re-derives the FOLDER (live-insert INSIDE, not at root). A non-folder/invalid parent falls back to Files root.
-          let parentIor: string | null = null; let childLocation: string | undefined; let parentPublishRef = `roomcoll:${roomId}:files`;
-          if (parentRef) {
-            const pUuid = parentRef.replace(/^ior:instance:/, '').split('@')[0];
-            const pu = /^[0-9a-fA-F-]{16,40}$/.test(pUuid) ? idx.get(pUuid) : null;
-            const pm = (pu?.model || null) as Record<string, unknown> | null;
-            if (pu && pu.ior === 'ior:class:Folder' && pm && String(pm.location || '').startsWith(`roomcoll:${roomId}:files`)) {
-              parentIor = `ior:instance:${pUuid}`; childLocation = `${String(pm.location)}/${fileName}`; parentPublishRef = String(pm.location); // nest under the folder + live-insert on the folder's own ref
-            } else { addLog(`[upload] parent ${parentRef.slice(0, 24)} not a room folder in ${roomId.slice(0, 8)} → file lands at Files root`); }
-          }
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: childLocation } : {}) }, publishUnitChanged); // R40.86: parent+location set when dropped into a folder (STILL ONE createFileUnit — no double-mint). R40.22/R37.11 as before.
+          const dropc = resolveDropContainer(parentRef, roomId, idx); // R40.86 unification: ONE resolver — room-root is the DEFAULT container (no caller-side if(parentRef)else fork); folder ref → nest, anything else → root
+          const parentIor = dropc.parentIor; const parentPublishRef = dropc.publishRef;
+          if (parentRef && !parentIor) addLog(`[upload] parent ${parentRef.slice(0, 24)} not a room folder in ${roomId.slice(0, 8)} → file lands at Files root`);
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: `${dropc.folderLocation}/${fileName}` } : {}) }, publishUnitChanged); // R40.86: parent+location when the container is a folder; room-root → neither (behaviour-preserving vs R40.85). STILL ONE createFileUnit — no double-mint.
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}${parentIor ? ' parent=' + parentIor.slice(13, 21) : ''}`);
           room.addFileUnit(fileUuid);

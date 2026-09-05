@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.8.185';
+const CACHE_NAME = 'rawbin-v0.8.186';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -38,6 +38,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting(); // R40.86-outage FIX (expert-diagnosed): without skipWaiting a NEW SW WAITS while the old one keeps controlling the tab → a device stays stranded on a stale body-dropping worker (Tron: uploads received 0b). skipWaiting + clients.claim(activate) → the new SW activates on next open and its guards run. Pairs with the existing update-banner/reload flow.
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
