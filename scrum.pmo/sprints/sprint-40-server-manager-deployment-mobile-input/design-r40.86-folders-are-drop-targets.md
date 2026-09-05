@@ -51,5 +51,26 @@ Read `parent` from the FormData; when present, resolve it to `parentIor` + deriv
 - one-path: grep — the drop routes through DropDispatcher.acceptDropIntoContainer → uploadFile → createFileUnit; no bespoke container-mint/derivation.
 - @390 device (Tron): drop a file on a room folder → it lands inside (pixel).
 
+## ★ RENDER-FIX ADDENDUM (tester gate 9c779ad32 RED, v0.8.184 — architect owns the miss)
+**My miss:** R40.86 constraint-2 asserted "renders inside via R40.84 + R40.92" but I did NOT verify the ROOM files derivation nests FILES — R40.92's `folderChildrenUnder` fixed the MODEL tree only. The data is CORRECT (tester: file.parent==folder, location `roomcoll:<id>:files/DropTarget/<file>`, folder.children[] has it, EXACTLY ONE unit) — but `roomFilesChildren` (server.ts:1393) nests FOLDERS by `model.location` yet emits FILES **only at root (`else if (!nrel)`), FLAT, ignoring location/parent** → a dropped file shows at the Files ROOT and never inside the folder. offered⟺succeeds⟺VISIBLE fails at VISIBLE — the identical R40.92 defect, on the room path that was never routed through the derivation.
+
+**Fix — extract the ONE "direct-child-of-this-node" PREDICATE; do NOT route room node-building through folderChildrenUnder.** The genuinely-shared canonical rule is *"is this unit a direct child of node N?"* (byLoc: its containing dir == N's prefix; byParent: its parent == N's ref). Extract it once:
+```ts
+// THE ONE direct-child rule (R40.86) — shared by folderChildrenUnder (model) AND roomFilesChildren (room), so "nested-here"
+// means the same thing in both. byParent OR byLoc; a unit with no location/parent belongs to the ROOT prefix only.
+function isDirectChildOfNode(m: Record<string, unknown>, nodeRef: string, prefix: string, rootPrefix: string): boolean {
+  if (String(m.parent || '') === nodeRef) return true;                 // byParent (the drop sets file.parent = folder ior)
+  const loc = typeof m.location === 'string' ? m.location : '';
+  const containingDir = loc ? loc.slice(0, loc.lastIndexOf('/')) : rootPrefix; // no location ⇒ a root-level unit
+  return containingDir === prefix;                                     // byLoc: direct child iff its containing dir IS this node's prefix
+}
+```
+- **`roomFilesChildren` FILE branch:** replace `else if (!nrel)` with `else if (isDirectChildOfNode(x.m, <folderRef>, currentPrefix, rootPrefix))` (rootPrefix = `roomcoll:${rcRoom}:files`). This (a) NESTS a file into its folder (at the folder's level its containingDir == currentPrefix), and (b) EXCLUDES a parented file from ROOT (at root a file located under a subfolder has containingDir ≠ rootPrefix → not emitted) — appears ONCE, nested, not twice, not flat. Legacy no-location root files still emit at root (containingDir == rootPrefix). Also give a nested folder `hasChildren` from its file children too (currently childCount counts only sub-FOLDERS — extend `directChildFolders` → direct children of BOTH kinds so a folder holding only files shows a chevron).
+- **`folderChildrenUnder` (R40.92, model):** refactor its inner byParent/byLoc filter to call the SAME `isDirectChildOfNode` — so the model and room derivations share ONE definition of "nested here" and cannot drift. (Node-BUILDING stays each derivation's own — model emits mofFolder nodes, room emits file/folder items with size/sunburst; routing room node-building through folderChildrenUnder would need a mode flag to switch node shapes = the R40.93 dual-behaviour smell. Share the PREDICATE, not the node-builder.)
+
+**Why predicate-not-whole-function** (measure-beats-relay on the tester/PO "extend folderChildrenUnder" pointer): folderChildrenUnder returns MODEL mofFolder nodes; roomFilesChildren returns ROOM items (files carry size for the sunburst, folders carry childCount). Making one function yield both shapes = a mode flag = exactly the dual-behaviour smell ruled out in R40.93. The thing that was actually inconsistent — and must be ONE — is the *nesting rule*, so THAT is what's extracted. Honors "no second derivation of what nested means" without conflating node shapes.
+
+**Re-gate ACs (add to the existing four):** children[folder ref] now CONTAINS the dropped file (nested); children[roomcoll:files ROOT] does NOT list it (excluded, appears once); a folder holding only files shows a chevron (hasChildren). Stub-must-fail: revert the file-branch to `!nrel` → file reappears flat at root + folder empty → RED (the current baseline 9c779ad32).
+
 ## Handoff
-Expert (0.1): build steps 1-4 (client rb-object-item drop-target + acceptDropIntoContainer + uploadFile parent + upload-endpoint parent), seat `[impl:uuid:75edb563]` on acceptDropIntoContainer, flip its Impl designAhead→false. Version bump + restart (server endpoint change). I backstop (one-mint, renders-inside, delegates-not-duplicates) + tester gates. No chokepoint touched.
+Expert (0.1): build steps 1-4 + the RENDER-FIX ADDENDUM (extract isDirectChildOfNode; roomFilesChildren file-branch + childCount-both-kinds; folderChildrenUnder routes through the shared predicate) (client rb-object-item drop-target + acceptDropIntoContainer + uploadFile parent + upload-endpoint parent), seat `[impl:uuid:75edb563]` on acceptDropIntoContainer, flip its Impl designAhead→false. Version bump + restart (server endpoint change). I backstop (one-mint, renders-inside, delegates-not-duplicates) + tester gates. No chokepoint touched.
