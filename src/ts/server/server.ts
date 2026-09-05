@@ -1355,6 +1355,15 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     // LIVE room data. ref = roomcoll:<roomUuid>:<kind>. Children resolve LIVE in the /api/trace/children roomcoll branch.
     const rest = ref.slice('roomcoll:'.length); const ci = rest.indexOf(':');
     const roomUuid = ci < 0 ? rest : rest.slice(0, ci); const ck = ci < 0 ? '' : rest.slice(ci + 1);
+    // T37.21 A5 detail-resolve (architect cc9b90286): a NESTED folder ref (ck='files/<path>') is a REAL persisted Folder unit,
+    // NOT a virtual collection → resolve it to the REAL unit by model.location (the SAME ref children uses) so its detail +
+    // sunburst render from the real model and the Folder verbs (add-folder) appear with NO fallback. members/files stay
+    // synthetic below (they are truly virtual). Fail-closed: a genuine miss → null (never a synthetic phantom).
+    if (roomUuid && ck.startsWith('files/')) {
+      const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); // room + its files[] Folder units live in prod scenario/index (same source the children branch reads)
+      const rUnit = pidx.get(roomUuid);
+      return rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, ref, pidx) : null; // the REAL Folder unit (own uuid/name/kind/children) OR null
+    }
     if (!roomUuid || (ck !== 'members' && ck !== 'files')) return null;
     iorClass = 'ior:class:Folder'; key = 'folder::room-' + roomUuid + '-' + ck; kind = 'folder'; location = ref;
     name = ck === 'members' ? 'Members' : 'Files';
@@ -1393,6 +1402,24 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
     }
   }
   return kids;
+}
+
+// [impl:uuid:PENDING-req-mint] roomFolderByLocation (architect cc9b90286, design-nested-roomcoll-detail-resolve) — THE ONE
+// location→unit lookup: which of a room's files[] Folder units sits at a given roomcoll LOCATION ref (model.location === ref).
+// A nested folder is a REAL persisted Folder unit and the tree node ref IS its model.location (roomFilesChildren emits uuid:loc),
+// so detail must resolve that SAME ref to the REAL unit — NOT a synthetic dup (LAW-9) and NOT a second real-uuid identity.
+// Shared by ensureViewUnit's nested-folder detail arm (below); roomFilesChildren stays the child-listing derivation (untouched).
+// Fail-closed: null on a genuine miss (→ ensureViewUnit returns null, not a phantom).
+function roomFolderByLocation(rmodel: Record<string, unknown>, ref: string, idx: ScenarioIndex): { ior: string; ownerIor: null; model: Record<string, unknown> } | null {
+  const refs = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
+  for (const r of refs) {
+    const u = String(r).replace('ior:instance:', '');
+    const fu = idx.get(u);
+    if (fu && String(fu.ior) === 'ior:class:Folder' && String((fu.model as Record<string, unknown>)?.location || '') === ref) {
+      return { ior: String(fu.ior), ownerIor: null, model: fu.model as Record<string, unknown> };
+    }
+  }
+  return null;
 }
 
 // [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
