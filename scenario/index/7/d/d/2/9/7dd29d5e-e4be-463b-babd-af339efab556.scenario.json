@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de",
+  "model": {
+    "uuid": "7dd29d5e-e4be-463b-babd-af339efab556",
+    "name": "FolderService.createPhysicalFolder",
+    "class": "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "implementations": [
+      "ior:instance:a1988163-163e-4edd-8879-e86241d316f7"
+    ],
+    "tests": [],
+    "description": "The ONE canonical owner of physical user-folder creation (mkdir + Folder unit, both-or-neither). Every physical folder-create routes THROUGH this (R40.88 sole-owner). R40.93 room-folder createThroughSingleOwner rides it."
+  }
+}

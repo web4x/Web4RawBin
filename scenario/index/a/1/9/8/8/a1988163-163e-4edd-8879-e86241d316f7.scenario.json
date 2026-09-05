@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:7dd29d5e-e4be-463b-babd-af339efab556",
+  "model": {
+    "uuid": "a1988163-163e-4edd-8879-e86241d316f7",
+    "name": "FolderService.createPhysicalFolder impl",
+    "sourceFile": "ior:file:src/ts/server/FolderService.ts",
+    "designAhead": false,
+    "tests": [],
+    "description": "BUILT (shipped) FolderService.ts:121 — the ONE stripped folder-create CORE + SOLE physical-folder-owner (R40.88). Expert replaces the [impl:uuid:PENDING-req-mint] at FolderService.ts:114 with this uuid (queued AFTER R40.92)."
+  }
+}

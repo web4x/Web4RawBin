@@ -4,11 +4,14 @@
     "uuid": "a638e7fb-7590-4a13-a313-e9fb738550d4",
     "name": "roomFolder.createThroughSingleOwner",
     "description": "The add-room-folder handler creates the room's physical folder by DELEGATING to the ONE physical-folder owner (FolderService.createPhysicalFolder / RoomFilesService, which gates room-physical at server.ts:47), replacing the raw inline fsSync.mkdirSync(target) at server.ts:2565. On fix, server.ts:2565 leaves the INFRA_ALLOW list — green by routing, not by listing.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de",
+    "method": "ior:instance:7dd29d5e-e4be-463b-babd-af339efab556",
     "parent": "ior:instance:e0c95904-80b9-481f-bb0a-38d4bc425623",
     "unitLinks": [],
-    "note": "Rides the EXISTING owner (FolderService.createPhysicalFolder / RoomFilesService:47) — architect wires Class/Method to the existing owner on build-go if the chain is wanted; no new Method/Impl otherwise."
+    "note": "Rides the EXISTING owner (FolderService.createPhysicalFolder / RoomFilesService:47) — architect wires Class/Method to the existing owner on build-go if the chain is wanted; no new Method/Impl otherwise.",
+    "classes": [
+      "ior:instance:c3f261fa-155e-4ec1-8c0c-00714f8342de"
+    ]
   },
   "ownerIor": "ior:instance:e0c95904-80b9-481f-bb0a-38d4bc425623"
 }
