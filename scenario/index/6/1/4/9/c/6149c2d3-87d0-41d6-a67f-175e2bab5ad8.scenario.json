@@ -28,7 +28,7 @@
       "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
     ],
     "crossRefNote": "Same room-folder surface as R40.83 (dual-identity resolution). Same live-MVC law as R37.12 (ONE VIEW BUS: a mutation updates the affected node in place, not a wholesale rebuild/reload). R40.82 (folder owns children) = the node whose children update in place. The unit-IS-the-MVC-model framing ties the deferred USECASE-IMPLEMENTS-MODEL direction.",
-    "satisfactionStatus": "UNVERIFIED (captured scenario-first; in-place-update fix + gates unbuilt; no stub RED observed).",
+    "satisfactionStatus": "CORE PROVEN chain-complete-to-Test (2026-09-05): DET-3x 3/3 GREEN prod 0.8.178, add-child updates node IN PLACE no-collapse, expanded survives. Chain UC 973f66af -> Class RbTraceTree -> Method reDeriveDirectChildren 1e5c4233 -> Impl 8693dc2b (REUSED) -> Test 248fc071 (distinct-intent 2nd test alongside P2 919e3f36). R40.84-B root fixed + GUARDED by R40.91 (one-translator). Tron @390 device-visible = separate acceptance. req.tests[] left empty (traversal is source).",
     "acceptanceCriteria": [
       {
         "id": "AC-add-child-updates-node-in-place",
@@ -94,7 +94,7 @@
     },
     "root": "RoomView.ts:84 FILE_ADDED handler -> tree.renderSeed(roomId) = full root re-seed on EVERY file/folder add, clobbering the working per-node path (server publishUnitChanged:2553 -> node-sub rb-trace-tree:442 -> reDeriveDirectChildren:132 in-place insert). The binding EXISTS and works; the re-seed overrides it.",
     "fix": "SMALL (not structural): delete the re-seed (RoomView:84-85) + add upload-path publishUnitChanged(ior:class:File, roomcoll:room:files) at server.ts:2630 mirroring folder-add:2553 = ONE path both add types (files + folders). Architect design e0b8cb582.",
-    "testMintHold": "HOLD: the FIX is unbuilt (RoomView:84 re-seed still clobbering). Trigger: expert deletes the re-seed + adds the upload-path publish -> tester gates (pre-existing EXPANDED nodes SURVIVE the add + collapse-on-add stub RED->GREEN) + stamps a marker -> I adopt+mint the R40.84 Test onto EXISTING Impl 8693dc2b as a DISTINCT-INTENT 2nd test (add-child-manifests-in-place-no-collapse, distinct from P2 919e3f36 read-only-structure) — verify-owner-first, NO cross-wire, NO new Impl. Impl 8693dc2b stays 1-test until then."
+    "testMintHold": "RESOLVED: tester placed real marker 248fc071 (666d7caf1, not fixture) -> Test minted onto EXISTING 8693dc2b, no dup Impl, distinct-intent. Fixture 22222222 refused (measure-my-marker held)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

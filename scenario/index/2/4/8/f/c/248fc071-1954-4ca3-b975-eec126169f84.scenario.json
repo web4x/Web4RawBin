@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "248fc071-1954-4ca3-b975-eec126169f84",
+    "name": "test:R40.84 add-child updates that node IN PLACE — no full-tree collapse/rebuild, expanded survives",
+    "description": "Verifies R40.84: adding a child updates THAT node in place (reDeriveDirectChildren), the tree does NOT collapse or rebuild wholesale, expanded state survives. DET-3x 3/3 GREEN on prod 0.8.178: reDerive 9/9 fires every run (100% appended:1); C6 empty-room-FIRST-folder GREEN x3 (childless-container FIX-2); C1-C5 GREEN x3; content-integrity + prod-provenance GREEN x3. DISTINCT-INTENT 2nd test on the shared Impl 8693dc2b: this proves add-in-place-no-collapse, distinct from P2 919e3f36 (read-only structure). Bridged to test/visual/r4023-tree-inplace-on-add-gate.mjs.",
+    "implementations": [
+      "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
+    ],
+    "verifies": "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8",
+    "gateFile": "test/visual/r4023-tree-inplace-on-add-gate.mjs",
+    "markerProvenance": "ADOPTED tester marker 248fc071 (measured at r4023 line 1; tester commit 666d7caf1; freshly-minted v4, NOT the PLAYER=22222222 fixture I refused). measure-not-invent.",
+    "certificationScope": "WE-VERIFIED (tester DET-3x 3/3 GREEN on deployed prod 0.8.178): the folder-add renders IN PLACE on the target node (reDerive 9/9 every run, appended:1 100%), no full-tree collapse/rebuild, empty-room-first-folder (childless-container) GREEN, content-integrity + prod-provenance GREEN. The R40.84-B root (a 2nd drifted unit-changed->notify translator) is fixed (FIX-1 shared notifyUnitChanged + FIX-2 childless-container:135, both causes WITHIN Impl 8693dc2b, no separate Impl units) and now GUARDED by R40.91. DISTINCT-INTENT from P2 919e3f36 (read-only structure) — no cross-wire, no over-credit, no duplicate Impl. Tron device @390 visible-move-no-reload = SEPARATE acceptance (his experience), not required for this in-place-render proof.",
+    "satisfactionGating": "CORE in-place-render PROVEN (DET-3x 3/3 GREEN prod 0.8.178). Tron @390 device-visible = separate acceptance (customer experience), not this Test."
+  },
+  "ownerIor": "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
+}
