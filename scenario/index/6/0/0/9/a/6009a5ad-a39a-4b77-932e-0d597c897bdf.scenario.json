@@ -1,0 +1,93 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6009a5ad-a39a-4b77-932e-0d597c897bdf",
+    "altId": "R40.92",
+    "name": "Add folder to a model collection succeeds but the folder never appears",
+    "description": "Tron adds a folder to a MODEL COLLECTION (e.g. diagrams) — it mints successfully but appears NOWHERE. ROOT (measured in code): the collection children derivation at server.ts:1789 (rawbin:diagram) returns ONLY ior:class:Diagram units and NEVER Folder units; and a store-only model Folder (mintRealUnit) carries parent=rawbin:diagram but NO location, so the location-based dir: merge at server.ts:1780 cannot find it either. Both paths exclude a store-only Folder parented under a model collection. SAME SHAPE AS R40.84-B / R40.87: succeeds INVISIBLY — offered<=>succeeds<=>visible is violated. c83c02f2 is only HALF fixed from Tron's point of view: the error stopped, but he still SEES NOTHING when he adds a folder to diagrams. FIX: the derivation includes parent-linked (parent=rawbin:<collection>) store-only Folder units so the folder RENDERS in the collection after add + persists.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:fe9a2e26-3809-4155-ba2a-8adb43138f62"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-measurement",
+      "measuredBy": "robbin-architect",
+      "dispatchedBy": "robbin-po",
+      "date": "2026-09-05",
+      "mechanism": "server.ts:1789 rawbin:diagram children = els.filter(ior==Diagram) only (never Folder); store-only Folder parent=rawbin:diagram has NO location so the :1780 dir: merge (location.startsWith(dirRel+'/')) cannot find it. Verified in code by req (measure-not-relay).",
+      "symptomFirst": "literal Tron symptom in the name (R40.90 pattern); root NAMED this time"
+    },
+    "tronReportHome": "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "satisfactionStatus": "UNVERIFIED (fix unbuilt; no stub RED observed — honest third state per R40.54, NOT green)",
+    "crossRef": [
+      "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
+      "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+      "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
+    ],
+    "crossRefNote": "CHILD/sibling of Bug c83c02f2 (bad-parent-loc = Tron's ONE tracked home for this repeat) so his report does not scatter into a new thread. Sibling of R40.87 (2afa97a9, the ROUTING/fail-closed lane — NOT attached here per PO: 87 stops the error, 92 makes the result visible). Same succeeds-invisibly shape as R40.84-B. Same store-vs-view DRY law as R40.81 (parent-link is truth, not a physical dir).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-folder-renders-in-collection-after-add",
+        "group": "symptom/by-construction",
+        "text": "THE SYMPTOM (Tron literal): after add-folder on a MODEL COLLECTION (e.g. diagrams), the new folder RENDERS as a child of that collection in the model view, and PERSISTS across reload. Not 'mints successfully' — VISIBLE. offered<=>succeeds<=>appears.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "/api/trace/children(rawbin:diagram) after add + reload",
+          "assertion": "the added store-only Folder appears in the collection's children on first render and after reload"
+        },
+        "stubMustFail": "PENDING: pre-fix behaviour (folder minted but absent from children) -> RED"
+      },
+      {
+        "id": "AC-children-include-parent-linked-store-only-folders",
+        "group": "root/by-construction",
+        "text": "ROOT NAMED: the model-collection children derivation (server.ts:1789, rawbin:diagram) must include ior:class:Folder units parented under that collection, NOT filter to ior:class:Diagram only. A store-only Folder (mintRealUnit, parent=rawbin:<collection>) is surfaced as a child.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "/api/trace/children(rawbin:diagram) derivation",
+          "assertion": "children of a model collection include Folder units whose parent=that collection; a Diagram-only filter that drops them => RED"
+        },
+        "stubMustFail": "PENDING: seed a Folder parented rawbin:diagram -> children MUST include it, else RED"
+      },
+      {
+        "id": "AC-found-by-parent-link-not-location",
+        "group": "root/DRY",
+        "text": "A store-only model Folder is found by its PARENT link (parent=rawbin:diagram), NOT by a filesystem location. The location-based dir: merge (server.ts:1780) cannot find a locationless store-only Folder; the derivation must resolve parent-linked-but-locationless units, never silently drop them. (Same store-vs-view DRY law as R40.81: the unit's declared parent is the truth, not a physical dir.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "children derivation parent-resolution",
+          "assertion": "a Folder with parent=rawbin:diagram and NO location is surfaced by parent-link; requiring a location to appear => RED"
+        },
+        "stubMustFail": "PENDING: seed a locationless parent-linked Folder -> appears, else RED"
+      },
+      {
+        "id": "AC-offered-implies-succeeds-implies-visible",
+        "group": "invariant/ties-bug",
+        "text": "The VIOLATED invariant (ties Bug c83c02f2 + R40.84-B + R40.87): if add-folder is OFFERED on a surface, a successful add is VISIBLE on THAT surface. succeeds-invisibly is a defect, not a pass. This half-fix (error stopped, folder still unseen) does NOT satisfy the Bug from Tron's point of view.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "offered<=>visible parity on model collection",
+          "assertion": "add-folder offered on a surface + add succeeds => folder visible on that same surface; visible-nowhere => RED"
+        },
+        "stubMustFail": "PENDING: add succeeds but renders nowhere -> RED"
+      },
+      {
+        "id": "AC-failable-gate-self-stub",
+        "group": "self-failability",
+        "text": "The gate ships with a RED-proving fixture: seed a store-only Folder parented under rawbin:diagram (no location); /api/trace/children(rawbin:diagram) MUST include it. Fed the pre-fix Diagram-only derivation, the gate goes RED. If the stub passes, the gate is not wired (R40.54 own-failability; isolated per R40.31).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (model-collection-folder-visibility fixture)",
+          "assertion": "the gate's own stub, fed the Diagram-only exclusion, is observed RED before it counts as wired"
+        },
+        "stubMustFail": "PENDING: register the RED run when the gate ships"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

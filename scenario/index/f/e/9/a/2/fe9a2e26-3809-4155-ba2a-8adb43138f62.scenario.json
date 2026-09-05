@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "fe9a2e26-3809-4155-ba2a-8adb43138f62",
+    "name": "collectionChildren.includeParentLinkedFolders",
+    "description": "The model-collection children derivation (server.ts children resolver for rawbin:<collection>, e.g. rawbin:diagram) surfaces ior:class:Folder units parented under the collection (parent=rawbin:<collection>) BY PARENT LINK, not only by filesystem location and not filtered to ior:class:Diagram — so a store-only Folder added to a model collection RENDERS as its child and persists. Ties offered<=>visible (Bug c83c02f2).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:6009a5ad-a39a-4b77-932e-0d597c897bdf",
+    "unitLinks": [],
+    "note": "Architect wires Class (the mof children resolver / ScenarioIndex byParent) + Method on build-go, then re-inspects; sequences vs R40.87 routing (87 stops error, 92 makes visible)."
+  },
+  "ownerIor": "ior:instance:6009a5ad-a39a-4b77-932e-0d597c897bdf"
+}

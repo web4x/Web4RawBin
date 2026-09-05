@@ -20,7 +20,8 @@
     "fixedByRequirement": "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
     "relatedRequirements": [
       "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
-      "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503"
+      "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503",
+      "ior:instance:6009a5ad-a39a-4b77-932e-0d597c897bdf"
     ],
     "intakeGapNote": "Before this: 0 scenario units carried bad-parent-loc; it lived only in code + as principle/fix reqs (R40.37 Planned, R37.33 Unverified), so his repeats scattered + neither req was delivered. This unit is the tracked home; future repeats attach here.",
     "createdBy": "robbin-req (PO process-fix ruling)",
