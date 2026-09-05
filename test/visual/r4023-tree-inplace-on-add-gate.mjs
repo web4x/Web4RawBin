@@ -124,11 +124,16 @@ try {
   const addUnder = async (parentSel, nm, waitMs = 4200) => { await openRoomFiles(); await parentSel(); await sleep(700); const fired = await pressAddFolder(nm); await sleep(waitMs); await openRoomFiles(); const shown = (await treeTextNow()).includes(nm); R(`    setup add '${nm}': verb=${fired} appears-in-tree=${shown}`); return shown; };
   await openRoomFiles();
   const shownFlags = [];
-  shownFlags.push(await addUnder(() => selectNode(FILES), 'Alpha'));
+  // ★ 4TH-CAUSE / FIX-2 (childless-container, rb-trace-tree:135): the VERY FIRST folder into an EMPTY Files node (which has NO
+  //   .tt-children container yet) — a gate that only adds a 2nd folder MISSES this path. Assert it EXPLICITLY + un-maskably.
+  const firstFolderRenders = await addUnder(() => selectNode(FILES), 'Alpha');
+  shownFlags.push(firstFolderRenders);
+  results.emptyRoomFirstFolder = firstFolderRenders;
+  R(`  ★ C6 4TH-CAUSE empty-room FIRST folder (childless-container FIX-2): 'Alpha' into EMPTY Files renders = ${firstFolderRenders}`);
   shownFlags.push(await addUnder(() => clickByName('Alpha'), 'AlphaChild'));
   for (const nm of ['Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta']) shownFlags.push(await addUnder(() => selectNode(FILES), nm, 3200));
   const setupShown = shownFlags.filter(Boolean).length;
-  R(`  SETUP POPULATION: ${setupShown}/${shownFlags.length} added folders visible in tree`);
+  R(`  SETUP POPULATION: ${setupShown}/${shownFlags.length} added folders visible in tree (first-folder/childless=${firstFolderRenders})`);
   results.setupPopulated = setupShown;
   // put the tree into a KNOWN expanded state: Files open + Alpha open (showing AlphaChild)
   await openRoomFiles(); await expandByName('Alpha'); await sleep(1000);
@@ -186,11 +191,13 @@ R(`  C1 no-collapse       : ${results.C1_noCollapse ? 'GREEN' : 'RED'}`);
 R(`  C2 stays-expanded    : ${results.C2_staysExpanded ? 'GREEN' : 'RED'}`);
 R(`  C3 outside-unchanged : ${results.C3_outsideUnchanged ? 'GREEN' : 'RED'}`);
 R(`  C4 scroll-preserved  : ${results.C4_scrollPreserved ? 'GREEN' : 'RED'}`);
-R(`  C5 added-renders+persists (the (b) half) : ${results.C5_addedRendersPersists ? 'GREEN' : 'RED'}`);
-// GATE BOTH: (a) no-collapse (C1-C4) AND (b) the added folder RENDERS+persists (C5). A green that only proves (a) is a
-// hollow green (the invisible-add regression) — do NOT accept it. Setup-population already fails-loud before here if (b) is broken.
-const allGreen = results.C1_noCollapse && results.C2_staysExpanded && results.C3_outsideUnchanged && results.C4_scrollPreserved && results.C5_addedRendersPersists;
-R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN (a: no-collapse + b: renders+persists)' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
+R(`  C5 added-renders+persists (the (b) half)            : ${results.C5_addedRendersPersists ? 'GREEN' : 'RED'}`);
+R(`  C6 empty-room first-folder (4th-cause/childless FIX-2): ${results.emptyRoomFirstFolder ? 'GREEN' : 'RED'}`);
+// GATE ALL: (a) no-collapse (C1-C4) AND (b) subsequent add RENDERS+persists (C5) AND (4th-cause) the EMPTY-ROOM FIRST folder
+// renders (C6, childless-container FIX-2). A green missing C5 or C6 is a hollow/partial green — reject it. C5 covers the
+// notify-translator fix (2nd+ folder); C6 covers the childless-container fix (1st folder) — DISTINCT stacked causes, both gated.
+const allGreen = results.C1_noCollapse && results.C2_staysExpanded && results.C3_outsideUnchanged && results.C4_scrollPreserved && results.C5_addedRendersPersists && results.emptyRoomFirstFolder;
+R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN (a no-collapse + b renders+persists + 4th-cause first-folder)' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
 if (R4023_PROBE) {
   R(`\n═══ R40.84 PROBE STACKS (the instrument payload — route to architect 0.3) — ${probeStacks.length} captured ═══`);
   probeStacks.forEach((s, i) => R(`  [${i + 1}] ${s}`));
