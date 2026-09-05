@@ -79,10 +79,10 @@
         "text": "CUSTOMER EXPERIENCE / ACCEPTANCE (Tron @390), NOT verification: after the fix, Tron EXPERIENCES his folder VISIBLE in tree + detail. This is his ACCEPTANCE (sign-off on delivered verified work), NOT a test he is asked to run and NOT our proof. STANDING LAW (Tron 2026-09-05): verification of the real user path is COMPLETE by a FIXED HARNESS BEFORE he sees anything; cannot-verify = DO-NOT-SHIP, never ship-and-ask-him. If the real-path harness gap blocks verification, ESCALATE THE GAP with a fix proposal (tester real-room-reach), never as a request for Tron to confirm/re-try/check. ★ AND render-green != ownership: his seeing the folder (behavioural) is a SEPARATE signal from structural ownership (12->0); neither substitutes.",
         "gateRef": {
           "kind": "harness+acceptance",
-          "ref": "fixed-harness real-path verification (tester lane) THEN Tron acceptance",
-          "assertion": "real user path VERIFIED by a fixed harness before Tron sees it; Tron seeing = acceptance not proof"
+          "ref": "tester MEMBER-session gate r4022 (room nest-test, WS IDENTIFY, no owner rights) THEN Tron acceptance",
+          "assertion": "real user path (member-gated add-folder) VERIFIED by the tester with a live MEMBER session before Tron sees it; NO owner rights, NO security harness; Tron seeing = acceptance not proof"
         },
-        "stubMustFail": "N/A structurally (acceptance step); the FAILABLE verification is the fixed-harness real-path gate (tester) + the structural ownership guard (9ef91a551), both complete before acceptance"
+        "stubMustFail": "N/A (acceptance step); the FAILABLE verification is the MEMBER-session real-path gate (tester) + the structural ownership guard (9ef91a551), both complete before acceptance"
       }
     ],
     "guardDelivered": {
@@ -109,7 +109,7 @@
       "renderGreenIsNotOwnership": "RENDER-GREEN IS NOT OWNERSHIP. Behavioural green (folder appears, AC-device-folder-visible-390) and structural ownership (12->0, AC-folder-children-single-owner + AC-no-surface-derives-children-otherwise) are SEPARATE signals answering different questions; a shared helper would GREEN BOTH while BEING the defect. Neither substitutes for the other. Hardest to hold at the exact moment Tron folder finally appears and everyone wants to call it done — HOLD IT.",
       "shapeRuling": "PO: BUILD THE PER-TYPE FORM — each type owns its own children method, the tree asks the OBJECT, NO resolver switch. Cheapest now (expert has not started the 12-site rewire); retrofitting after costs the rewire twice. Architect confirms against actual code with the add-a-new-type test before finalising (trainer caveat: ruled on a description)."
     },
-    "customerNotTester": "Standing law (Tron 2026-09-05): Tron is the CUSTOMER, not the tester. Verification complete (fixed harness) BEFORE he sees anything; acceptance != testing; a real-path harness gap is escalated as a defect with a fix proposal, never routed-around by asking Tron to verify. The tester real-room-reach capability is the blocking harness fix (tester/PO lane)."
+    "customerNotTester": "Standing law (Tron 2026-09-05): Tron is the CUSTOMER, not the tester. Verification complete (fixed harness) BEFORE he sees anything; acceptance != testing; a real-path harness gap is escalated as a defect with a fix proposal, never routed-around by asking Tron to verify. The tester real-room-reach capability is the blocking harness fix (tester/PO lane). SECURITY-STOP (Tron 2026-09-05): the real-path verification is a MEMBER session (add-folder is member-gated, no owner rights, no security harness). The owner-test-identity harness is KILLED / never ordered; do not build/spec/mint it. Basic functionality only."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
