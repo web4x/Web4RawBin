@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "fedfbb06-36ae-4760-9d85-0758267f236d",
+    "name": "RoomFolder.childrenByLocation",
+    "description": "THE ONE derivation of a room folder/Files-node direct children from room.files[] nested by each Folder unit model.location (server.ts:1388 roomFilesChildren). The Model-tier children source; the client tree reDeriveDirectChildren FETCHES this (never re-derives).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:87f83fdf-8074-453d-a39f-414559dc7796"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1"
+}

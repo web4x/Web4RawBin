@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "53eaca1c-4968-4989-8879-4d4b6d1549dd",
+    "name": "server.pumlPhysicalTree impl",
+    "description": "Beneath the flat puml list, the physical directory tree of .puml artifacts (server.ts:1687 pumlPhysicalTree). REAL (code EXISTS in src/ts/server/server.ts; replaces stale [impl:uuid:PENDING-req-mint]). Expert swaps the PENDING marker for [impl:uuid:53eaca1c-4968-4989-8879-4d4b6d1549dd].",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:62636acd-6680-4e89-b748-e824033f5b42"
+}

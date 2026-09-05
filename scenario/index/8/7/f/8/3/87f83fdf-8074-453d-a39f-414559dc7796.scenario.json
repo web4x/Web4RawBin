@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "87f83fdf-8074-453d-a39f-414559dc7796",
+    "name": "roomFilesChildren impl",
+    "description": "THE ONE derivation of a room folder/Files-node direct children from room.files[] nested by each Folder unit model.location (server.ts:1388 roomFilesChildren). The Model-tier children source; the client tree reDeriveDirectChildren FETCHES this (never re-derives). REAL (code EXISTS in src/ts/server/server.ts; replaces stale [impl:uuid:PENDING-req-mint]). Expert swaps the PENDING marker for [impl:uuid:87f83fdf-8074-453d-a39f-414559dc7796].",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "tests": []
+  },
+  "ownerIor": "ior:instance:fedfbb06-36ae-4760-9d85-0758267f236d"
+}

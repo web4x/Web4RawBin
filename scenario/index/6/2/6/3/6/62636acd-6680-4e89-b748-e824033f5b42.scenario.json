@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "62636acd-6680-4e89-b748-e824033f5b42",
+    "name": "server.pumlPhysicalTree",
+    "description": "Beneath the flat puml list, the physical directory tree of .puml artifacts (server.ts:1687 pumlPhysicalTree).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:53eaca1c-4968-4989-8879-4d4b6d1549dd"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}
