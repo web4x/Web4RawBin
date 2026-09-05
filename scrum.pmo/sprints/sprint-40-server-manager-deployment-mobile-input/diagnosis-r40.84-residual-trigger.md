@@ -28,3 +28,26 @@ This is one cheap instrumented run that converts "I can't find it" into the exac
 
 ## Handoff
 Expert (or tester in the r4023 harness): add the 3 probes, re-run r4023 @390, paste the `[r4023]` console lines + stacks. I convert that to the exact fix immediately. R40.87/R40.88 backstops stay queued behind this. No chokepoint involved.
+
+## ★ ROOT FOUND (2026-09-05, via sourcemap map of 310:7277) — STALE BUILD, not a code trigger
+The tester's decisive stack pointed at `app-T63M63I4.js:310:7277` (a client.on WS-emit handler). Mapped it by reading the minified bundle at that offset:
+```
+this.client.on(b.FILE_ADDED, i=>{ if(this.roomId!==i.roomId)return;
+  let r=document.getElementById("room-tree"); r?.renderSeed && r.renderSeed(this.roomId),   // ← THE COLLAPSE
+  this.chatSheet?.addMessage("system","System",`File uploaded: ${i.name}`) })
+```
+The **served bundle's FILE_ADDED handler STILL calls `r.renderSeed(this.roomId)`** — but the **current SOURCE (RoomView.ts:82-88) has it REMOVED** (my R40.84 fix; only the chat message remains). Verified:
+- Source `grep renderSeed RoomView.ts` = ONLY :84 (comment) + :214 (federation drag-drop). NOT in FILE_ADDED. ✓
+- `git show --stat e0b8cb582` = **0 `public/dist` files** — the R40.84 fix (source delete, landed d9eddfce5) changed SOURCE ONLY, never rebuilt the client dist.
+- `git log -- src/public/dist/app-T63M63I4.js` last build = **04f0e517c**, an ANCESTOR of d9eddfce5. So the committed/served bundle predates the source fix = STALE.
+- folder-add emits `FILE_ADDED` (a room folder is a file-unit) → the stale handler's `renderSeed(roomId)` fires → full root re-seed → collapse. `reDeriveDirectChildren` never fires because the re-seed rebuilds the whole tree first.
+
+**Severity:** the R40.84 fix NEVER DEPLOYED — prod v0.8.176 serves this same stale bundle, so the re-seed clobber is still LIVE in prod, not just in the gate.
+
+## THE FIX (hand to expert — NO source change, source is already correct)
+1. **REBUILD the client dist from HEAD source** (`npm run build` / the esbuild client bundle) — this removes the FILE_ADDED `renderSeed` BY CONSTRUCTION (source has no such call). New content-hash filename replaces app-T63M63I4.js.
+2. **Verify the new bundle**: grep it for `FILE_ADDED` — the handler must have NO `renderSeed`; folder-add then rides the LIVE path (server `publishUnitChanged(Files-ref, 2553)` → per-node ViewBus sub → `reDeriveDirectChildren` in-place, R40.86/8693dc2b).
+3. **Commit the dist ATOMICALLY** with the version bump (served==committed==source, R31.7) + deploy + boot-check. Revert the 3 temp probes in the SAME commit.
+4. **Tester**: r4023 goes GREEN once served==source. NOTE a harness gap the tester found — r4023's `buildDist` served the STALE COMMITTED bundle despite ARM_BUILD=1 (it did not rebuild the app bundle); the gate was testing committed-dist, not source. Fix the harness to rebuild (else a stale committed dist hides a real source-vs-served drift) — this is why the "necessary-but-not-sufficient" fix looked residual: the gate never saw the source fix.
+
+**No chokepoint. No new code.** The delegate-to-reDeriveDirectChildren the expert asked about is ALREADY the source behavior; the bug was purely that it was never built+shipped.
