@@ -80,7 +80,6 @@ import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject 
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
 import { FolderService, resolveDirRefAbs, resolveFolderRefToDir, rawbinToRepoDir } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it. R37.33: resolveDirRefAbs = the ONE dir-ref→abs resolver. T37.21 Option B: resolveFolderRefToDir maps ANY folder-ish ref→physical dir (fixes bad-parent-loc causes 1+2); rawbinToRepoDir = the ONE rawbin:*→repo-dir source
-import { RoomFilesService } from './RoomFilesService.js'; // T37.21 defect-2: room Files add-folder (shared per-room via the creator dir) — same createPhysicalFolder core as the model endpoint (DRY)
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -2447,19 +2446,47 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
           if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
-          // SHARED per-room: the folder lands under the ROOM CREATOR's dir (not the caller's) → every member sees the SAME folder (Tron "Files IS the room folder").
+          // SHARED per-room: the folder lands under the ROOM CREATOR's dir (where the room's files + the sunburst already are).
           const creatorToken = String(room.creatorToken || '');
           if (!creatorToken) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'room-no-creator' })); return; }
-          const out = RoomFilesService.addNestedFolder(MODEL_STORE, roomId, creatorToken, String(nestedPath || ''), String(name || '')); // ONE createPhysicalFolder core (DRY with the model endpoint)
-          if (!out.ok) {
-            const half = String(out.error || '').startsWith('half-created');
-            if (half) addLog(`[room] add-folder HALF-STATE — ${out.error}`);
-            res.writeHead(half ? 500 : 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: out.error || 'add-folder-failed' })); return;
-          }
+          const cleanName = String(name || '').trim();
+          if (!cleanName) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'empty-name' })); return; }
           const nrel = String(nestedPath || '').replace(/^\/+|\/+$/g, '');
-          publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files${nrel ? '/' + nrel : ''}`); // live-insert into the Files node (2nd browser re-derives its direct children)
-          addLog(`[room] add-folder → ${out.unit!.model.location} (room ${roomId.slice(0, 8)})`);
-          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: out.unit!.model.uuid, unit: out.unit }));
+          // ★ T37.21 Option A (Tron: everything is a unit; the unit IS the model; REUSE the file path): a folder becomes a room
+          // unit through the SAME path a FILE does — createFileUnit(kind:folder) + room.addFileUnit — model in scenario/index +
+          // symlinked into the room files dir beside file siblings. NO MODEL_STORE mint (that second representation was the bug),
+          // NO fs-enumeration in the listing (files[] is the single source). Nesting = the parent folder unit's ior + children[].
+          const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          // resolve the NESTING parent: the room files[] Folder unit whose location == this nested path (null = top-level under Files)
+          let parentIor: string | null = null; let parentUnitFile = '';
+          if (nrel) {
+            const parentLoc = `roomcoll:${roomId}:files/${nrel}`;
+            for (const ref of (Array.isArray((room.model as any).files) ? (room.model as any).files : [])) {
+              const pu = String(ref).replace('ior:instance:', ''); const puf = path.join(__dirname, '../../../scenario/index', ...pu.slice(0, 5).split(''), `${pu}.scenario.json`);
+              try { const j = JSON.parse(fsSync.readFileSync(puf, 'utf-8')); if (j.ior === 'ior:class:Folder' && String(j.model.location) === parentLoc) { parentIor = `ior:instance:${pu}`; parentUnitFile = puf; break; } } catch { /* skip */ }
+            }
+            if (!parentIor) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'parent-folder-not-found' })); return; }
+          }
+          const fsKey = homeKeyFor(creatorToken, { mint: true });
+          const roomDir = getRoomDir(creatorToken, roomId, { mint: true });
+          const filesBase = path.join(roomDir, 'files');
+          const target = path.join(filesBase, nrel, cleanName);
+          try { fsSync.mkdirSync(filesBase, { recursive: true }); fsSync.mkdirSync(target); } // ensure Files container + the real folder dir (non-recursive: a missing nested parent is a real error)
+          catch (e: any) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: `mkdir-failed: ${e?.message || e}` })); return; }
+          let unit: any;
+          try {
+            unit = createFileUnit(idx, { kind: 'folder', name: cleanName, location: `roomcoll:${roomId}:files/${nrel ? nrel + '/' : ''}${cleanName}`, parent: parentIor, roomUuid: roomId, uploaderToken: creatorToken, fsKey }, publishUnitChanged); // THE ONE become-a-room-unit path (same as a file)
+          } catch (e: any) {
+            try { fsSync.rmdirSync(target); } catch { /* both-or-neither: undo the mkdir if the mint failed */ }
+            res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: `mint-failed: ${e?.message || e}` })); return;
+          }
+          const folderUuid = unit.model.uuid;
+          room.addFileUnit(folderUuid);                            // register in the room's units EXACTLY as a file (items-tree reads these)
+          if (parentUnitFile) { try { const pj = JSON.parse(fsSync.readFileSync(parentUnitFile, 'utf-8')); pj.model.children = Array.isArray(pj.model.children) ? pj.model.children : []; if (!pj.model.children.includes(`ior:instance:${folderUuid}`)) pj.model.children.push(`ior:instance:${folderUuid}`); fsSync.writeFileSync(parentUnitFile, JSON.stringify(pj, null, 2) + '\n'); } catch { /* parent children update best-effort */ } } // folder OWNS its children (model)
+          room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: folderUuid, name: cleanName, size: 0, mimeType: 'inode/directory' });
+          publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files${nrel ? '/' + nrel : ''}`); // parent re-derives its direct children (live-insert, no reload)
+          addLog(`[room] add-folder → unit ${folderUuid.slice(0, 8)} in scenario/index + symlink (room ${roomId.slice(0, 8)}, parent=${parentIor ? parentIor.slice(13, 21) : 'root'}) — folder-is-a-file`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: folderUuid, unit }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'add-folder-failed' })); }
       });
       return;
@@ -3064,27 +3091,27 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             res.end(JSON.stringify({ uuid, type: 'folder', name: `Members (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
             return;
           }
-          // FILES (root or nested): the uploaded File units (root only) + the REAL nested folders under the CREATOR's shared files dir.
+          // FILES (root or nested) — T37.21 Option A (PO ruling): the ONE source is the room's UNITS (files[]), nested by each
+          // Folder unit's model.location. NO filesystem enumeration (that was the second source = the disease). A folder is a
+          // room unit like a file (createFileUnit + addFileUnit); folders nest by location; uploaded Files are top-level.
           const nrel = (rcKind === 'files' ? '' : rcKind.slice('files/'.length)).replace(/^\/+|\/+$/g, '');
+          const currentPrefix = `roomcoll:${rcRoom}:files${nrel ? '/' + nrel : ''}`;
+          const refs = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
+          const units = refs.map((ref: any) => { const u = String(ref).replace('ior:instance:', ''); const fu = pidx.get(u); return { u, ior: String(fu?.ior || ''), m: (fu?.model || {}) as Record<string, unknown> }; });
+          const folderLocs = units.filter((x) => x.ior === 'ior:class:Folder').map((x) => String(x.m.location || ''));
+          const directChildFolders = (prefix: string) => folderLocs.filter((l) => l.startsWith(prefix + '/') && !l.slice(prefix.length + 1).includes('/')).length; // direct nested folders, one level (from the model)
           const kids: any[] = [];
-          if (!nrel) { // root Files: the uploaded File units (existing behaviour) — model.size = real uploaded bytes → sunburst sizes by content
-            const arr = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
-            for (const f of arr) { const fUuid = String(f).replace('ior:instance:', ''); const fu = pidx.get(fUuid); const fm = (fu?.model || {}) as Record<string, unknown>; kids.push({ uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fm.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false, size: Number(fm.size) || 0 }); }
-          }
-          try { // nested folders = real subdirs of the room CREATOR's files dir (shared per-room) → the Add-folder'd folder shows + is expandable
-            const creatorToken = String((roomManager.getRoom(rcRoom) as { creatorToken?: string } | undefined)?.creatorToken || '');
-            const roomDir = creatorToken ? getRoomDir(creatorToken, rcRoom, { mint: false }) : null;
-            const dirAbs = roomDir ? path.join(roomDir, 'files', nrel) : '';
-            if (dirAbs && fsSync.existsSync(dirAbs)) {
-              for (const ent of fsSync.readdirSync(dirAbs, { withFileTypes: true })) {
-                if (!ent.isDirectory()) continue;
-                const childRel = nrel ? `${nrel}/${ent.name}` : ent.name;
-                const sub = path.join(dirAbs, ent.name);
-                let subCount = 0; try { subCount = fsSync.readdirSync(sub).length; } catch { /* unreadable → 0 */ }
-                kids.push({ uuid: `roomcoll:${rcRoom}:files/${childRel}`, type: 'collection', name: ent.name, hasChildren: subCount > 0, childCount: subCount, size: diskBytes(sub), icon: 'mof-project' }); // type 'collection' → add-folder is offered (nested folders too)
+          for (const x of units) {
+            if (x.ior === 'ior:class:Folder') {
+              const loc = String(x.m.location || '');
+              if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
+                const cc = directChildFolders(loc);
+                kids.push({ uuid: loc, type: 'collection', name: String(x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' });
               }
+            } else if (!nrel) { // uploaded File — top-level under Files only (model.size feeds the sunburst)
+              kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 });
             }
-          } catch { /* creator dir unreadable → just the uploaded files, no crash */ }
+          }
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type: 'folder', name: `Files (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
           return;
