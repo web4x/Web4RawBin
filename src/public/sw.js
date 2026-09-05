@@ -13,7 +13,7 @@ const STATIC_SHELL = [
   '/dist/trace-page-ATXM42LZ.js',
   '/scenario',
   '/dist/scenario-view-V2KE2A7E.js',
-  '/dist/app-ETJKV2YL.js',
+  '/dist/app-X5CBVGWJ.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
