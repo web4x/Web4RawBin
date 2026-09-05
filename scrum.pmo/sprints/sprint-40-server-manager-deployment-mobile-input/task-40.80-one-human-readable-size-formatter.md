@@ -38,7 +38,7 @@ One size-formatting verb for the whole product; two call sites can never disagre
 - [ ] BOTH SUNBURST CALL SITES render via THIS formatter: LEGEND (per-file size) AND CENTER (total) — neither formats inline/ad-hoc.
 - [ ] PRODUCT-WIDE: every other size-render site in the product routes through the same one formatter (Tron: DRY everywhere).
 - [ ] FORBID A 2ND (stub-must-fail): a lint/gate scans for raw-byte->human size formatting OUTSIDE the one function -> RED if a second call site/impl exists (scan the HAZARD not the actors); proven able-to-fail on a planted duplicate.
-- [ ] @390 TEAM-VERIFIED (rewordProvenance 2026-09-05, customer-not-tester law): WE verify @390 real-WebKit that legend + center show human-readable sizes (not raw bytes) — sizes ARE verifiable by us, 'un-mockable/his-screen' was WRONG; Tron ACCEPTS delivered verified work.
+- [ ] @390 SCREENSHOT ACCEPTANCE: legend + center show human-readable sizes (not raw bytes) on Tron's device surface — un-mockable, his screen is the acceptance.
 
 ## Subtasks
 
