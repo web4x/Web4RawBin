@@ -84,6 +84,17 @@
           "assertion": "scans the inline-key-build hazard op, not a hand-list of actors; a drift anywhere => RED"
         },
         "stubMustFail": "PENDING: seed a drift in an unlisted file -> RED"
+      },
+      {
+        "id": "AC-harden-marker-based-filename-independent",
+        "group": "robustness/follow-up",
+        "text": "FOLLOW-UP HARDENING (architect flagged, req accepted): the built guard keys the owner by FILE (live-bridge.ts) — a rename makes ownerCount=0 -> RED (fail-closed + safe, but NOISY on a legit rename). Harden to MARKER-BASED (the [translator-owner:unit-changed] marker seed is placed on notifyUnitChanged) = filename-INDEPENDENT, matching the R40.82 children-owner (9ef91a551) + R40.88 patterns. Then the owner is resolved by the marker, not the filename, and a rename is a no-op.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-unit-changed-translator (marker-based owner resolution)",
+          "assertion": "owner resolved by the [translator-owner:unit-changed] marker, not filename; a rename of the owner file does NOT flip ownerCount to 0"
+        },
+        "stubMustFail": "PENDING: rename the owner file -> owner still resolved via marker -> still GREEN (not a false RED)"
       }
     ],
     "chainWire": {
@@ -92,7 +103,13 @@
       "chain": "UC 089da882 notifyTranslator.singleOwner -> Class TransportBusBridge f0739bfe (live-bridge.ts, the bridge that OWNS the unit-changed->notify translation notifyUnitChanged) -> Method TransportBusBridge.assertSingleTranslator 3494d2b3 -> Impl 561bcfb8 (designAhead:true, scripts/check-one-unit-changed-translator.ts, NOT built).",
       "classNameAccepted": "TransportBusBridge = correct OOP owner (root lens: the object that DOES the translation owns the single-translator invariant). No re-point."
     },
-    "testMintHold": "HOLD: Impl 561bcfb8 is designAhead (check + selftest unbuilt). Trigger: guard-code lane builds scripts/check-one-unit-changed-translator.ts + ci:gates + attaches [impl:uuid:561bcfb8] -> tester gates + self-stub GREEN -> I flip 561bcfb8 designAhead->false + flip R40.91 off UNVERIFIED + mint the Test off the guard marker 561bcfb8 (measure-not-invent) -> trainer canonizes. Do NOT mint on design-ahead."
+    "testMintHold": "HOLD (build DONE, flip on tester gate): Impl 561bcfb8 code + marker are BUILT (measured). Trigger = TESTER gates check:one-unit-changed-translator GREEN in ci:gates + confirms the 5-fixture self-stub -> I flip 561bcfb8 designAhead->false + R40.91 off UNVERIFIED + mint the Test off the tester gate marker (measure-not-invent) -> trainer canonizes. Do NOT flip on the architect build alone (need the tester ci:gates GREEN + self-stub, same as R40.83/R40.88).",
+    "guardBuilt": {
+      "commit": "d7c3bc2aa",
+      "verifiedBy": "robbin-req (measured on disk)",
+      "state": "BUILT + registered ci:gates:raw. GREEN: translatorOwnerCount=1 (live-bridge notifyUnitChanged) + inlineNonOwnerTranslators=0. Impl 561bcfb8 marker on scripts/check-one-unit-changed-translator.ts line 1 (verified 561bcfb8-89cc-4601-a20f-88537740c117); [translator-owner:unit-changed] marker on live-bridge.ts:13; check:one-unit-changed-translator in package.json ci:gates.",
+      "selfBite": "BUILT-IN per-run selftest over 5 fixtures: planted inline translator / EXACT pre-FIX-1 RawBinClient original / legit bare acting-tab emit (0-noise must-not-flag) / owner-present / owner-deleted (fail-closed). A rotted detector fails its own selftest."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
