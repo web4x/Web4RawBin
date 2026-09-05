@@ -56,7 +56,8 @@
         "stubMustFail": "PENDING (scenario-first #126): seed a 2nd ad-hoc size string e.g. (x/1024)+\" KB\" outside format-bytes.ts -> the lint goes RED. Architect backstops the lint + the ONE formatBytes on generalization."
       }
     ],
-    "drySingleFormatter": "Tron DRY standing law 2026-09-02: this human-readable size formatter is the SINGLE product-wide size formatter (centre + legend + everywhere). R40.79 center MUST call this, not reimplement."
+    "drySingleFormatter": "Tron DRY standing law 2026-09-02: this human-readable size formatter is the SINGLE product-wide size formatter (centre + legend + everywhere). R40.79 center MUST call this, not reimplement.",
+    "lawNineClassification": "CASE-TWO NOT-A-VIOLATION (PO canon 2026-09-05, NAMED example): a byte-size formatter is a pure value transform on a primitive that NO type owns — the shape is innocent, nothing is displaced. The single-size-formatter DRY here is legitimate and must NOT be false-flagged as a functional-construct LAW-9 violation. THE SHAPE IS INNOCENT, DISPLACED OWNERSHIP IS THE CRIME."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

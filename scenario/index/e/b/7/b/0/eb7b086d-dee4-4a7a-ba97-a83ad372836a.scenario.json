@@ -32,7 +32,7 @@
       {
         "id": "AC-every-type-implements-parent-children-interface",
         "group": "by-construction",
-        "text": "EVERY node type implements the per-type parent-children interface (node.children()). A type that can contain children but derives them off-interface => RED. This is the OOP shape: children are answered BY the object, per type.",
+        "text": "EVERY node type implements the per-type parent-children interface (node.children()). A type that can contain children but derives them off-interface => RED. This is the OOP shape: children are answered BY the object, per type. ★ DECISIVE add-a-new-type test (LAW-9 case-3): adding a new type must NOT require editing a resolver/central switch — a new type-CLASS owns its own children() method. If adding a type edits a resolver => VIOLATION (resolver owns what the type should). PO shape ruling: per-type form, tree asks the OBJECT, no resolver switch.",
         "gateRef": {
           "kind": "lint",
           "ref": "check:parent-children-interface-implemented",
@@ -76,7 +76,7 @@
       {
         "id": "AC-device-folder-visible-390",
         "group": "acceptance/DEVICE-390",
-        "text": "SCREENSHOT ACCEPTANCE (Tron @390): after the fix, Tron's folder is VISIBLE — the child that was invisible renders in both the tree and the detail, live. This is the defect Tron can SEE; the fix is proven when he sees the folder on his own device.",
+        "text": "SCREENSHOT ACCEPTANCE (Tron @390): after the fix, Tron's folder is VISIBLE — the child that was invisible renders in both the tree and the detail, live. This is the defect Tron can SEE; the fix is proven when he sees the folder on his own device. ★ RENDER-GREEN IS NOT OWNERSHIP: this behavioural @390 green is a SEPARATE signal from structural ownership (12->0). It does NOT satisfy the ownership ACs; a shared helper would green this AND the structural counter while BEING the defect. Both required; neither substitutes.",
         "gateRef": {
           "kind": "device",
           "ref": "Tron @390 folder-visible confirm",
@@ -100,6 +100,14 @@
       "helperEscapeIsAutomaticFail": "routing the surfaces through a shared fetch/children helper = defect by definition, AUTOMATIC FAIL even if green; per-site test = asks-object-for-own-children, not raw-call-gone",
       "flagToArchitect": "RESOLVED-CONFIRMED by architect scratch measurement: the shared-helper escape CANNOT go green, TWO independent RED paths — (1) two-owners (1c0db0f84 one-owner-file: children-owner in 2 files => RED) + (2) MODULE-NOT-OBJECT (5b899416e: owner fetch must be a this.ref METHOD; a children(ref) helper takes a param ref, no this.ref = free-function/provider = RED). Worst case (helper mistaken for SOLE owner) still REDs on (2) no-this.ref. Gate proves ASKS-OBJECT-FOR-OWN-CHILDREN (node.children()=a this.ref method), NOT raw-fetch-gone. Verified both commits on disk myself.",
       "enforcedByConstruction": "node.children()=a this.ref method is the ONLY sanctioned answer; two guard checks (one-owner-file 1c0db0f84 + object-vs-module 5b899416e) make the functional-construct escape a structural RED = Tron LAW-9 enforced by construction, not a judgement call."
+    },
+    "lawNineTestCanon": {
+      "principle": "VIOLATION = ownership DISPLACED outside its type. NOT-a-violation = nothing owns it. THE SHAPE IS INNOCENT, DISPLACED OWNERSHIP IS THE CRIME.",
+      "case1_violation": "a service/helper/resolver answering FOR an object owns what the type should own -> truth in a 2nd place -> diverges. Structural, at write time, green or not.",
+      "case2_not_violation": "a pure value transform on a primitive that NO type owns (byte-size formatter = the example) — nothing displaced because nothing owned it. Necessary boundary, not a concession: without it the law reads all-functions-are-defects (absurd, would be ignored).",
+      "case3_middle_decisive_test": "per-type children BELONG to each type but live in the resolver = VIOLATION. DECISIVE TEST: add a new type — if you must EDIT THE RESOLVER it is a violation (resolver owns what the type should); if you add a new type-CLASS owning its own children method, compliant.",
+      "renderGreenIsNotOwnership": "RENDER-GREEN IS NOT OWNERSHIP. Behavioural green (folder appears, AC-device-folder-visible-390) and structural ownership (12->0, AC-folder-children-single-owner + AC-no-surface-derives-children-otherwise) are SEPARATE signals answering different questions; a shared helper would GREEN BOTH while BEING the defect. Neither substitutes for the other. Hardest to hold at the exact moment Tron folder finally appears and everyone wants to call it done — HOLD IT.",
+      "shapeRuling": "PO: BUILD THE PER-TYPE FORM — each type owns its own children method, the tree asks the OBJECT, NO resolver switch. Cheapest now (expert has not started the 12-site rewire); retrofitting after costs the rewire twice. Architect confirms against actual code with the add-a-new-type test before finalising (trainer caveat: ruled on a description)."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
