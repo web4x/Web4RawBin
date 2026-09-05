@@ -4,11 +4,14 @@
     "uuid": "87be8da5-823c-4195-b30b-c4273c7fa4c0",
     "name": "roomFolder.resolveUnitAndChildren",
     "description": "From one folder selection, resolve BOTH the folder unit (real uuid -> verbs incl add-folder) AND its children (contents) via one canonical identity resolution, so neither /ior nor /children leaves a detail half broken.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1",
+    "method": "ior:instance:a1640bd6-adb5-4f53-b1d0-53ef955106d1",
     "parent": "ior:instance:107b28dc-41e2-4a51-9f36-74b658422a2e",
     "unitLinks": [],
-    "note": "Architect wires the unified folder-identity resolver Class/Method on build-go (one resolution serving /ior + /children), designs the dual-identity unification; expert builds; tester gates member-session @390 + the two split stubs."
+    "note": "Architect wires the unified folder-identity resolver Class/Method on build-go (one resolution serving /ior + /children), designs the dual-identity unification; expert builds; tester gates member-session @390 + the two split stubs.",
+    "classes": [
+      "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1"
+    ]
   },
   "ownerIor": "ior:instance:107b28dc-41e2-4a51-9f36-74b658422a2e"
 }

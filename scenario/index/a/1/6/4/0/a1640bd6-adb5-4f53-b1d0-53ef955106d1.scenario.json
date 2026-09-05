@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "a1640bd6-adb5-4f53-b1d0-53ef955106d1",
+    "name": "RoomFolder.resolveUnitAndChildren",
+    "description": "Resolve a room folder from its ONE canonical identity (roomcoll location ref) to BOTH its unit (for /api/ior detail+verbs) and its children (for /api/trace/children) via one location-match — dual-identity unified, no split-face broken half.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:4e029387-b53b-4d4e-a1e5-3d6a74de4733"
+    ],
+    "tests": []
+  },
+  "ownerIor": "ior:instance:db568edc-dd4e-406f-a840-19b4deba5dc1"
+}
