@@ -6,7 +6,9 @@
     "name": "ModelFolderMkdirGuard.assertNoMkdirForModelFolder impl",
     "sourceFile": "ior:file:scripts/check-no-mkdir-for-a-model-folder.ts",
     "designAhead": false,
-    "tests": [],
+    "tests": [
+      "ior:instance:7a7c1365-3ecf-4e7c-81e9-2c0e0ce61b94"
+    ],
     "description": "BUILT + GREEN + in ci:gates: the R40.88 no-mkdir-for-a-model-folder hazard-scan (e2/e3/e4 CLOSED, e1 named residual). Expert seats [impl:uuid:2ba767f2-d1e2-48b8-8d54-8fdd04e97840] in the guard header (after R40.92). Tester places [test:uuid] on the gate."
   }
 }
