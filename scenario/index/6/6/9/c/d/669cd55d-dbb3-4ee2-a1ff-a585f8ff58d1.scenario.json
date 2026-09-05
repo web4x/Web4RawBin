@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "669cd55d-dbb3-4ee2-a1ff-a585f8ff58d1",
+    "name": "ruling.enforceFailableInvariant",
+    "description": "Discover every standing-ruling-bearing unit (shared structuralDiscover), assert each carries a registered failable guard that goes RED on contradiction, self-stub each guard (RED on its own violation), run in ci:gates (build-time not Tron-screen). One mechanism shared with the ARON/trainer doctrine.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2",
+    "unitLinks": [],
+    "note": "Architect extends the R40.54 AcGuard structuralDiscover to ruling-bearing units + wires Class/Method on build-go, coordinated with ARON (one mechanism). Worked-example guard = check:no-mkdir-for-a-model-folder."
+  },
+  "ownerIor": "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2"
+}

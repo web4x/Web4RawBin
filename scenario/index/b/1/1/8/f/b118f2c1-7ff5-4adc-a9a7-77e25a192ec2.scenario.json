@@ -1,0 +1,106 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "b118f2c1-7ff5-4adc-a9a7-77e25a192ec2",
+    "altId": "R40.88",
+    "name": "Standing rulings are FAILABLE INVARIANTS — every ruling carries a guard that trips RED when a later feature contradicts it (extends R40.54 to the ruling level)",
+    "description": "PO ruling 2026-09-05 (the most valuable thing today; stops the WHOLE CLASS, not one instance): a standing ruling that lives only as PROSE is a REMINDER, and a reminder can be silently CONTRADICTED by a later feature with nothing to trip. That is the reminder-not-mechanism / false-satisfaction disease ONE LEVEL UP — at the RULING level (same family as knowing-a-rule-is-not-the-guard, the mechanical step is). ROOT (worked, on disk): R40.37 RULED folder!=directory on 2026-08-12; R40.78 (room physical folders) RE-INTRODUCED mkdir/physical-dir; NO guard caught the contradiction -> the recurring bad-parent-loc Tron reported multiple times. CURE: every standing ruling carries a FAILABLE INVARIANT (a CI gate that goes RED on contradiction), the guard itself is stub-must-fail (cannot certify nothing), and it is ONE mechanism shared with the trainer/ARON doctrine (not two). Extends R40.54 (failable ACs) to failable RULINGS.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:669cd55d-dbb3-4ee2-a1ff-a585f8ff58d1"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "po-ruling-class-fix",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "diagnosedBy": "robbin-req (measure-beats-relay: R40.37 ruled-then-R40.78-overrode)",
+      "coordinateWith": "ARON/trainer (raising the same gap as doctrine — one mechanism)",
+      "workedExample": "R40.37 folder!=directory vs R40.78 mkdir re-introduction -> bad-parent-loc"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "extendsR4054": "R40.54 made ACs failable; R40.88 makes RULINGS failable. Same family, one level up.",
+    "buildable": "meta-guard (class-fix). Architect extends the R40.54 AcGuard / shared structuralDiscover to ruling-bearing units.",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:dc809efb-4fa2-4d27-be7a-f1532aa271e8",
+      "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
+      "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+      "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
+    ],
+    "crossRefNote": "Extends R40.54 (failable-AC meta-guard) to RULINGS. Shares R40.55/R40.54 single-source structuralDiscover (AC-one-mechanism-with-aron). R40.37 = the worked-example ruling; R40.87 = its enforcement (routing + no-mkdir-for-model-Folder); tracked defect c83c02f2 = the recurrence this class-fix prevents. Coordinate with ARON: requirement-side + trainer-doctrine-side = ONE mechanism.",
+    "satisfactionStatus": "UNVERIFIED (class-fix captured; the ruling-guard mechanism + per-ruling guards unbuilt; no stub RED observed — honest third state).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-every-ruling-carries-a-failable-guard",
+        "group": "by-construction/ROOT",
+        "text": "Every STANDING RULING (a captured Tron/architect/PO ruling that CONSTRAINS the system) carries a FAILABLE INVARIANT — a registered gate that goes RED when a feature CONTRADICTS it. A ruling with NO failable guard is UNENFORCED (a reminder, not a mechanism) and is flagged. Prose ruling = reminder (overridable invisibly); ruling-as-gate = mechanism.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:every-ruling-has-a-failable-guard",
+          "assertion": "each standing-ruling-bearing unit has a registered failable guard; a ruling with none => RED (unenforced)"
+        },
+        "stubMustFail": "PENDING: seed a standing ruling with no guard -> RED"
+      },
+      {
+        "id": "AC-worked-example-folder-not-directory",
+        "group": "worked-example/CONCRETE",
+        "text": "WORKED EXAMPLE (concrete, not aspirational): the folder!=directory ruling (R40.37, 2026-08-12) carries the guard \"a ior:class:Folder unit needs NO physical dir; a mkdir / physical-create for a MODEL Folder (a no-physical-dir parent) trips RED in CI.\" A later feature re-introducing mkdir-for-a-model-Folder (as R40.78 did, uncaught) trips RED at CI, NOT on Tron screen weeks later. Enforcement = R40.87 routing branch + this lint.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-mkdir-for-a-model-folder",
+          "assertion": "a physical-create/mkdir on a no-physical-dir Folder parent => RED; the folder!=directory ruling is CI-enforced"
+        },
+        "stubMustFail": "PENDING: seed a mkdir-for-a-model-Folder -> RED (the R40.78-class violation)"
+      },
+      {
+        "id": "AC-guard-own-stub-must-fail",
+        "group": "self-failability/PO-required",
+        "text": "The ruling-guard mechanism ITSELF ships with a RED-proving fixture: seed a ruling-VIOLATION (e.g. mkdir-for-a-model-Folder) and the guard MUST go RED before it counts as wired. A ruling-guard NEVER shown RED on its own violation = unproven = counts as UNGUARDED (it cannot be a gate that certifies nothing). Generalizes R40.54 evidence-must-fail to the RULING level.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (ruling-guard self-stub)",
+          "assertion": "the guard, fed its own ruling-violation, is observed RED before it counts"
+        },
+        "stubMustFail": "PENDING: register the RED run per ruling-guard"
+      },
+      {
+        "id": "AC-caught-at-CI-not-on-tron-screen",
+        "group": "shift-left/the-point",
+        "text": "The contradiction is caught at CI (BUILD-TIME), NOT weeks later on Tron screen. The gate lives in ci:gates. This is the whole point: shift-left from customer-sighting (a recurring Tron report) to CI. A ruling violation reaching a deploy/Tron => the guard was missing or inert => RED.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates placement",
+          "assertion": "ruling-contradiction gates run in ci:gates before deploy; a violation reaching prod => the guard was missing"
+        },
+        "stubMustFail": "N/A (placement; failable via the per-ruling guards)"
+      },
+      {
+        "id": "AC-one-mechanism-with-aron-single-discovery",
+        "group": "single-source/coordinate",
+        "text": "The requirement-side (rulings-are-failable-invariants) and the trainer/ARON DOCTRINE-side are ONE mechanism, NOT two (PO). The ruling-guard discovery routes through the SAME structuralDiscover as R40.54 (AcGuard) + R40.55 (boot-currency) — single-source discovery, no 2nd matcher. Coordinated with ARON so the trainer-doctrine + this requirement share one enforcement.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "shared structuralDiscover (R40.54/R40.55)",
+          "assertion": "ruling-guard discovery resolves to the shared structuralDiscover; a 2nd/divergent mechanism => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd ruling-guard mechanism -> RED"
+      },
+      {
+        "id": "AC-enumerate-not-universal",
+        "group": "enumerate-not-universal",
+        "text": "The set of standing rulings is DISCOVERED (by a structural marker on ruling-bearing units), NEVER a hand-list; a NEW ruling without a guard => RED (a ruling cannot hide by being unlisted). R40.54/R40.55 lineage.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:ruling-set discovered+divergence",
+          "assertion": "on-disk ruling set == guarded set; a ruling present but unguarded => RED"
+        },
+        "stubMustFail": "PENDING: add a new ruling absent from the guarded set -> RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
