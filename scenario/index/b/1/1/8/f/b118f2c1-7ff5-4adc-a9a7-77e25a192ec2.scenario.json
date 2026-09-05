@@ -118,6 +118,14 @@
       "mechanism": "by-construction HAZARD-SCAN of the forbidden OPERATION (mkdir / physical-dir creation for a model Folder) so a re-introduction is UNEVADABLE + self-naming (scan-the-hazard-not-the-actors). Extends the R40.54 AcGuard enforcement-gate to the RULING level + stub-must-fail on the guard ITSELF.",
       "discovery": "SHARED structuralDiscover (R40.54/R40.55) — single-source, NO 2nd matcher.",
       "lanes": "trainer/ARON = framing + guard-design; robbin-req = encode into R40.88 (home); ARCHITECT = wire the guard CODE (hazard-scan lint + AcGuard extension); expert builds; tester gates guard + self-stub."
+    },
+    "trainerConvergence": {
+      "date": "2026-09-05",
+      "status": "CONVERGED, one mechanism, no fork (trainer verified R40.88 carries all contributions; framing good as-worded)",
+      "doctrineBankedTrainerSide": "[[standing-ruling-is-a-committed-testable-invariant-not-prose]] -> points to R40.88 as the worked instance",
+      "fleetCanonPromotion": "DEFERRED until the TESTER gates R40.88 guard GREEN — canonize a PROVEN worked example, never an unproven guard (mirrors satisfaction-UNVERIFIED honesty at the doctrine level).",
+      "sequence": "architect wires the ONE guard (shared structuralDiscover, no 2nd matcher) -> tester gates guard + its self-stub GREEN -> THEN trainer promotes doctrine fleet-wide pointing to proven R40.88.",
+      "codeLane": "handed to ARCHITECT per the on-unit guardDesign.lanes."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
