@@ -25,11 +25,29 @@ const f = await setupFoundation({ commit: COMMIT, buildDist: process.env.ARM_BUI
 R(`scratch up: ${f.base} v${f.servedVersion} sha=${f.worktreeSha} arm=${COMMIT}`);
 
 const results = {};
+// ── R40.84 INSTRUMENT MODE (R4023_PROBE=1) — capture the RUNTIME caller of the residual full-rebuild (architect 6c726abc1
+//    eliminated every STATIC render path; the trigger is runtime). Belt-and-suspenders: (a) forward the page console so the
+//    expert's console.trace probes reach stdout; (b) our OWN prototype-wrap logs new Error().stack for the 3 methods —
+//    guarantees the full caller stack even if console.trace doesn't serialize through Playwright, and arg0 discriminates
+//    reDeriveDirectChildren-on-the-ROOT-node vs a child node. Gated by env so a normal fix-gate run stays clean. ──
+const R4023_PROBE = process.env.R4023_PROBE === '1';
+const probeStacks = [];
+const PROTO_PROBE = `(() => { const T = ['renderSeed','render','reDeriveDirectChildren'];
+  const iv = setInterval(() => { const C = customElements.get('rb-trace-tree'); if (!C || !C.prototype || !T.every(m => C.prototype[m])) return; clearInterval(iv);
+    for (const m of T) { const orig = C.prototype[m]; C.prototype[m] = function(...a) {
+      try { const seed = this.getAttribute && this.getAttribute('data-seed-ior'); console.log('[PROBE:'+m+'] seedIor='+seed+' arg0='+String(a[0]).slice(0,80)+' STACK<<'+((new Error().stack)||'').replace(/\\n/g,' | ')+'>>'); } catch {}
+      return orig.apply(this, a); }; }
+    console.log('[PROBE] wrapped '+T.join('/')+' on rb-trace-tree'); }, 4); })()`;
 const browser = await webkit.launch();
 try {
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   await ctx.addInitScript((tok) => { try { localStorage.setItem('rawbin-player-id', tok); } catch {} }, PLAYER);
+  if (R4023_PROBE) await ctx.addInitScript(PROTO_PROBE); // wrap the 3 render methods BEFORE any navigation
   const page = await ctx.newPage();
+  if (R4023_PROBE) {
+    page.on('console', (m) => { const t = m.text(); const line = `[PAGE:${m.type()}] ${t}`; if (/^\[PROBE/.test(t)) probeStacks.push(t); R(line); });
+    page.on('pageerror', (e) => R(`[PAGEERROR] ${e && e.message}`));
+  }
   await page.goto(f.base + '/app', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => (window.__rawbinClient && window.__rawbinClient.connected) === true, { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => { const c = window.__rawbinClient; if (c && c.send) c.send({ type: 'UPDATE_PROFILE', name: 'TreeStableMember', secretCode: '4084' }); });
@@ -119,4 +137,9 @@ R(`  C3 outside-unchanged : ${results.C3_outsideUnchanged ? 'GREEN' : 'RED'}`);
 R(`  C4 scroll-preserved  : ${results.C4_scrollPreserved ? 'GREEN' : 'RED'}`);
 const allGreen = results.C1_noCollapse && results.C2_staysExpanded && results.C3_outsideUnchanged && results.C4_scrollPreserved;
 R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN' : 'RED (baseline: the re-seed collapses the tree on child-add)'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
+if (R4023_PROBE) {
+  R(`\n═══ R40.84 PROBE STACKS (the instrument payload — route to architect 0.3) — ${probeStacks.length} captured ═══`);
+  probeStacks.forEach((s, i) => R(`  [${i + 1}] ${s}`));
+  if (!probeStacks.length) R(`  (none — the expert's console.trace probes are not in this build AND the prototype-wrap saw no fire; check the build has rb-trace-tree upgraded)`);
+}
 process.exit(allGreen ? 0 : 1);
