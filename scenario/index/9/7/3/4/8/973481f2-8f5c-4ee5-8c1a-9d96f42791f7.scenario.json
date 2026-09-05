@@ -7,11 +7,12 @@
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "sourceLine": 1747,
     "designAhead": false,
-    "markerSeatPending": true,
+    "markerSeatPending": false,
     "tests": [
       "ior:instance:30797b47-b750-4c59-a7f6-59ddae28d537"
     ],
-    "unitLinks": []
+    "unitLinks": [],
+    "markerSeatedNote": "[impl:uuid:973481f2] seated on folderChildrenUnder @ server.ts:1740 (expert marker-only commit); verified in source by req (grep, measure-not-trust)."
   },
   "ownerIor": "ior:instance:0f0af4c6-cbef-492b-8b96-bedee1fa585d"
 }

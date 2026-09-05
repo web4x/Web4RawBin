@@ -23,7 +23,7 @@
     },
     "tronReportHome": "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "satisfactionStatus": "CHAIN-COMPLETE-TO-TEST (unit level) — NOT YET 6/6 SATISFIED. The [impl:uuid:973481f2] source-marker seat is OPEN (expert queued, marker-only edit at src/ts/server/server.ts:1740 on folderChildrenUnder (currently PENDING-req-mint)); until it lands the Method->Impl SOURCE link is not verifiable = the impl hop is genuinely open (tester measured the marker ABSENT). Downgraded from a PREMATURE 'SATISFIED' per tester measure-first (R4 evidence-must-fail: a hop is not proven until its marker lands in source). FLIPS to satisfied when the expert seats [impl:uuid:973481f2] and I verify it in code.",
+    "satisfactionStatus": "SATISFIED — 6/6 chain-complete, source-stamped. UC fe9a2e26 -> Class server c0a0921d -> Method 0f0af4c6 server.folderChildrenUnder -> Impl 973481f2 (marker SEATED @server.ts:1740, verified in source) -> Test 30797b47 (DET-3x GREEN, tester f26ec8919, both-dir). Closes Tron's add-folder-invisible complaint end-to-end: fixed + deployed v0.8.182 + regression-proven + chain-complete both directions + source-stamped. (Downgrade->reflip trail: premature SATISFIED ae8fab2e6 -> now genuinely 6/6.)",
     "crossRef": [
       "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
       "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
@@ -89,7 +89,7 @@
       }
     ],
     "chainCompleteToTest": true,
-    "implMarkerSeatPending": true
+    "implMarkerSeatPending": false
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
