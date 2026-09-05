@@ -4,11 +4,14 @@
     "uuid": "973f66af-e615-43dd-ab5e-a44786298ded",
     "name": "folderTree.addChildInPlace",
     "description": "On add-child, the controller mutates the model node children and the view re-renders JUST that node via the ONE VIEW BUS — the tree does not collapse or rebuild wholesale, expanded state survives.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e",
+    "method": "ior:instance:1e5c4233-5468-44a6-b91a-d2e4deb1cad2",
     "parent": "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8",
     "unitLinks": [],
-    "note": "Architect wires the in-place-node-update Class/Method (add-child -> targeted ViewBus.notify, no full-tree render) on build-go; expert builds; tester gates member-session @390 (tree-stays-put + expanded-survives) + collapse-on-add stub."
+    "note": "Architect wires the in-place-node-update Class/Method (add-child -> targeted ViewBus.notify, no full-tree render) on build-go; expert builds; tester gates member-session @390 (tree-stays-put + expanded-survives) + collapse-on-add stub.",
+    "classes": [
+      "ior:instance:5a057914-9106-439a-8733-dd1d0058ca5e"
+    ]
   },
   "ownerIor": "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8"
 }
