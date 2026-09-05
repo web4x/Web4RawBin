@@ -3,8 +3,19 @@
  * object, not inherently a directory). A TRACEABILITY QUERY, not a linter. Enforce, do NOT document.
  *
  * SCAN THE HAZARD, NOT THE ACTORS (lift R40.82 check-children-single-owner 9ef91a551): the forbidden OPERATION names
- * itself — a physical user-directory creation reached for a MODEL folder. ONE NUMBER proves unevadability AND
- * completeness: nonOwnerMkdir + ungatedPhysCall == 0, reached BY ROUTING (never by exempting).
+ * itself — a physical user-directory creation reached for a MODEL folder. ONE NUMBER — nonOwnerMkdir + ungatedPhysCall == 0,
+ * reached BY ROUTING (never by exempting) — proves the IDIOMATIC hazard is absent + complete.
+ *
+ * ★ SCOPE (accurate, NOT "unevadable" — tester R40.88 e1/e2/e3, same honesty correction as R40.91's deleted "unevadable"):
+ * the guard catches the hazard as it is IDIOMATICALLY spelled (a direct fsSync.mkdirSync(<userTarget>) / a bare
+ * createPhysicalWithUnit|createPhysicalFolder call). ACCEPTED RESIDUAL (written down, PENDING architect ruling on design-r40.88):
+ *  - e1 OBFUSCATION: an ALIASED mkdir (`const mk = fsSync.mkdirSync; mk(t)`) evades — a sabotage threat model, not idiomatic drift.
+ *  - e2 NO-OP DISCRIMINATOR: a resolveFolderRefToDir() call in scope that does nothing FALSELY-GATES (the discriminator is
+ *    trusted structurally, its return not proven used).
+ *  - e3 SELF-ATTESTED MARKER (the notable one): the `physicality-gated` gate marker is a bare comment any site can add —
+ *    NOT count/architect-validated like R40.91's owner-marker — so a rogue model mkdir can hide behind the comment.
+ * The self-bite proves the IDIOMATIC forms only; it does NOT claim e1/e2/e3. Architect owns the hardening decision
+ * (validate the marker/discriminator via a count or an architect-list, OR accept + keep this written-down residual).
  *
  * THE HAZARD, made precise + self-naming (design §"The hazard"):
  *  - HAZARD = a NON-recursive mkdirSync(<userTarget>) that is NOT inside the ONE physical-folder-owner
