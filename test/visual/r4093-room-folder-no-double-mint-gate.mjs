@@ -19,13 +19,16 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const results = {};
 
 // count on-disk scenario units whose model.name === name (a double-mint = 2: the createFileUnit File-folder + a rogue Folder unit)
+// count DISTINCT logical units (by uuid) of REAL unit files named `name` across BOTH real stores. ★ SKIP SYMLINKS: a room
+// folder-is-a-file makes a SYMLINK under data/users/.../rooms/<id>/files/ pointing at the SAME scenario/index uuid — counting
+// it double-counted ONE logical unit (the R40.93 (b) false-RED, diagnosed 2026-09-05). Dedup-by-uuid + skip-symlinks = one
+// logical unit counts ONCE, while a genuine 2nd mint (createPhysicalFolder Folder unit → MODEL_STORE, a DISTINCT uuid) still counts.
 const countUnitsNamed = (scratchDir, name) => {
-  if (!scratchDir) return -1; let n = 0;
+  if (!scratchDir) return -1; const uuids = new Set();
   const walk = (d) => { let e = []; try { e = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
-    for (const x of e) { const p = path.join(d, x.name); if (x.isDirectory()) walk(p); else if (x.name.endsWith('.scenario.json')) { try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); if (j?.model?.name === name) n++; } catch {} } } };
-  // BOTH stores: a real double-mint = the File unit (createFileUnit → scenario/index) + a rogue Folder unit (createPhysicalFolder → MODEL_STORE under data/)
+    for (const x of e) { if (x.isSymbolicLink()) continue; const p = path.join(d, x.name); if (x.isDirectory()) walk(p); else if (x.name.endsWith('.scenario.json')) { try { const j = JSON.parse(fs.readFileSync(p, 'utf8')); if (j?.model?.name === name && j?.model?.uuid) uuids.add(j.model.uuid); } catch {} } } };
   ['scenario/index', 'data'].forEach((r) => walk(path.join(scratchDir, r)));
-  return n;
+  return uuids.size;
 };
 // enter a live room as a member and return {page, ctx, roomId, base, H}
 const enterRoom = async (f, browser) => {
