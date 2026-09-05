@@ -48,6 +48,40 @@ try {
   results.precondition = filesHasChildren && lazyChildren.length > 0 && withSize === lazyChildren.length;
   console.log(`  #2 PRECONDITION: Files.hasChildren=${filesHasChildren} | lazy children=${lazyChildren.length} (worse-than-flat if 0) | carry size=${withSize}/${lazyChildren.length} => ${results.precondition ? 'GREEN' : 'RED'}`);
 
+  // ── A6 NO-ENTITY-LOSS: the fix SWITCHES the items-tree source from the Room-type flat branch to the roomcoll branch. Both
+  //    exist today, so assert set-conservation NOW: every entity the OLD (flat) branch lists must be reachable by RECURSIVELY
+  //    walking the NEW (roomcoll) branch — same set, different shape, none missing, none newly duplicated. Files carry real
+  //    uuids in BOTH branches → key by uuid; folders get a synthetic path ref in roomcoll → key by name (unique in this room).
+  //    (Guards the loss found in analysis: expanding Trash by its REAL uuid returns empty children[] — only the roomcoll
+  //    synthetic ref reaches duplicates; a mis-wired fix that hands Trash its real uuid would silently drop duplicates.)
+  // Consistent cross-branch identity: FILES carry a real uuid in both branches → key by uuid; FOLDERS get a real uuid in the
+  // Room-type branch but a synthetic path ref in roomcoll → key by name (folder names are unique within a room level). Detect
+  // folder-ness by type OR a non-uuid ref, so the SAME folder keys identically regardless of which branch surfaced it.
+  const isRealUuid = (u) => /^[0-9a-f]{8}-[0-9a-f]{4}-/.test(String(u));
+  const keyOf = (c) => (/folder|collection|project/i.test(String(c.type)) || !isRealUuid(c.uuid)) ? `folder:${c.name}` : String(c.uuid);
+  const collectRecursive = async (entryRef, inlineChildren) => {
+    const out = []; const seen = new Set();
+    const visit = async (children) => {
+      for (const c of (children || [])) {
+        out.push({ key: keyOf(c), name: c.name, type: c.type });
+        if (c.hasChildren) { const ref = String(c.uuid); if (!seen.has(ref)) { seen.add(ref); const sub = await fetch(`${base}/api/trace/children/${encodeURIComponent(ref)}`).then((r) => r.ok ? r.json() : null).catch(() => null); if (sub) await visit(sub.children || []); } }
+      }
+    };
+    await visit(inlineChildren);
+    return out;
+  };
+  // OLD (flat): the Files node's inline children from the Room-type room response
+  const oldSet = filesEntry ? await collectRecursive(null, filesEntry.children || []) : [];
+  // NEW (roomcoll): recursive walk from the Files collection ref
+  const newRoot = await fetch(`${base}/api/trace/children/roomcoll:${ROOM}:files`).then((r) => r.ok ? r.json() : null).catch(() => null);
+  const newSet = await collectRecursive(null, newRoot?.children || []);
+  const ms = (arr) => arr.reduce((m, e) => (m.set(e.key, (m.get(e.key) || 0) + 1), m), new Map());
+  const oldMs = ms(oldSet), newMs = ms(newSet);
+  const missing = [...oldMs.keys()].filter((k) => (newMs.get(k) || 0) < oldMs.get(k)); // in OLD, not reachable in NEW = LOST
+  const dupd = [...newMs.keys()].filter((k) => (newMs.get(k) || 0) > (oldMs.get(k) || 0)); // more in NEW than OLD = new duplication
+  results.a6 = oldSet.length > 0 && missing.length === 0 && dupd.length === 0 && newSet.length === oldSet.length;
+  console.log(`  A6 NO-ENTITY-LOSS: old(flat)=${oldSet.length} new(roomcoll recursive)=${newSet.length} | missing=${JSON.stringify(missing)} newlyDuplicated=${JSON.stringify(dupd)} => ${results.a6 ? 'GREEN' : 'RED'}`);
+
   // ── #3 SUNBURST (rendered artifact) ──
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   const page = await ctx.newPage();
@@ -88,6 +122,7 @@ console.log(`\n═══ RENDER-FIX READINESS (${ARM ? 'scratch ' + ARM : 'basel
 console.log(`  #2 precondition (Files lazy, not empty)   : ${results.precondition ? 'GREEN' : 'RED'}`);
 console.log(`  #3 sunburst (arcs proportional, un-regressed): ${results.sunburst ? 'GREEN' : 'RED'}`);
 console.log(`  #4 envelope (Members + shape unchanged)   : ${results.envelope ? 'GREEN' : 'RED'}`);
-const green = results.precondition && results.sunburst && results.envelope;
+console.log(`  A6 no-entity-loss (same set, diff shape)  : ${results.a6 ? 'GREEN' : 'RED'}`);
+const green = results.precondition && results.sunburst && results.envelope && results.a6;
 console.log(`OVERALL: ${green ? 'GREEN' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
 process.exit(green ? 0 : 1);
