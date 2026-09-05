@@ -1390,21 +1390,38 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
 // their own direct-child count) + uploaded Files at root; deeper levels reached lazily via each folder node's roomcoll
 // LOCATION ref. Shared by the lazy /api/trace/children roomcoll branch AND the Room-type Files handle — ONE derivation,
 // no copy (kills the LAW-9 second, flat, hasChildren:false derivation that used to live in the Room-type branch).
+// [impl:uuid:PENDING-req-mint] isDirectChildOfNode (R40.86 render-fix, architect design f8fae978c) — THE ONE "is this unit a
+// DIRECT child of node N?" rule, SHARED by folderChildrenUnder (model) AND roomFilesChildren (room) so "nested here" means the
+// SAME thing in both (they cannot drift — R40.92-on-the-room-path was the drift). byParent (the drop sets file.parent = folder
+// ior) OR byLoc (its containing dir IS N's prefix); a unit with NO location belongs to the rootPrefix only. Only the RULE is
+// shared — each derivation builds its OWN node shape (model mofFolder vs room file/folder item); sharing the node-builder would
+// need a mode flag = the R40.93 dual-behaviour smell.
+function isDirectChildOfNode(m: Record<string, unknown>, nodeRef: string, prefix: string, rootPrefix: string): boolean {
+  if (String(m.parent || '') === nodeRef) return true;                          // byParent (the drop set file.parent = the folder's ior)
+  const loc = typeof m.location === 'string' ? (m.location as string) : '';
+  const containingDir = loc ? loc.slice(0, loc.lastIndexOf('/')) : rootPrefix;   // no location ⇒ a rootPrefix-level unit
+  return containingDir === prefix;                                              // byLoc: direct child iff its containing dir IS this node's prefix
+}
+
 function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel: string, idx: ScenarioIndex): Array<Record<string, unknown>> {
+  const rootPrefix = `roomcoll:${rcRoom}:files`;
   const currentPrefix = `roomcoll:${rcRoom}:files${nrel ? '/' + nrel : ''}`;
   const refs = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
   const units = refs.map((ref: any) => { const u = String(ref).replace('ior:instance:', ''); const fu = idx.get(u); return { u, ior: String(fu?.ior || ''), m: (fu?.model || {}) as Record<string, unknown> }; });
-  const folderLocs = units.filter((x) => x.ior === 'ior:class:Folder').map((x) => String(x.m.location || ''));
-  const directChildFolders = (prefix: string) => folderLocs.filter((l) => l.startsWith(prefix + '/') && !l.slice(prefix.length + 1).includes('/')).length;
+  // R40.86: the current folder's OWN ior (for byParent) — '' at root; the file's model.parent points at this when dropped in.
+  const selfFolder = nrel ? roomFolderByLocation(rmodel, currentPrefix, idx) : null;
+  const nodeRef = selfFolder ? `ior:instance:${String(selfFolder.model.uuid)}` : '';
+  // R40.86: a folder's hasChildren counts DIRECT children of BOTH kinds (folder + file) by location, so a folder holding only files shows a chevron.
+  const directChildCount = (prefix: string): number => units.filter((x) => { const l = typeof x.m.location === 'string' ? (x.m.location as string) : ''; const cd = l ? l.slice(0, l.lastIndexOf('/')) : rootPrefix; return cd === prefix; }).length;
   const kids: Array<Record<string, unknown>> = [];
   for (const x of units) {
     if (x.ior === 'ior:class:Folder') {
       const loc = String(x.m.location || '');
       if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
-        const cc = directChildFolders(loc);
+        const cc = directChildCount(loc); // R40.86: folders + files under it → chevron even if it holds only files
         kids.push({ uuid: loc, type: 'collection', name: String(x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' });
       }
-    } else if (!nrel) { // uploaded File — top-level under Files only (model.size feeds the sunburst)
+    } else if (isDirectChildOfNode(x.m, nodeRef, currentPrefix, rootPrefix)) { // R40.86: a File is emitted where it is NESTED — inside its folder (byLoc/byParent), EXCLUDED from root when parented, ONCE. Legacy no-location files still emit at root (containingDir==rootPrefix).
       kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 });
     }
   }
@@ -1745,14 +1762,16 @@ function traceabilityRoots(): MofNode[] {
 // derivation (not two derivations → the R40.91 two-source drift cannot arise). Fixes: model-collection add-folder SUCCEEDS
 // (unit minted) but the parent-linked/location-less Folder was excluded by both children paths → never appeared.
 function folderChildrenUnder(nodeRef: string, dirRel: string | null, els: MofEl[], seen: Set<string>): MofNode[] {
+  // R40.86: route the byParent/byLoc filter through the ONE shared isDirectChildOfNode (model + room can't drift on "nested here").
+  // The MODEL has no byLoc-root — a no-location folder is a collection child (byParent-only), never a byLoc child; and when dirRel
+  // is null (a collection node like rawbin:diagram) byLoc is disabled entirely. Two DISTINCT never-matching sentinels encode both:
+  // a located folder byLoc-matches iff its containing dir === dirRel (== the old R40.92 predicate); a no-location folder → containingDir
+  // = the root sentinel ≠ the prefix sentinel → byLoc false → byParent-only. Behaviour-identical to R40.92 (which is GREEN).
+  const prefix = dirRel ?? ' ::model-no-byloc-prefix::';
+  const rootPrefix = ' ::model-no-location-root::';
   return els
     .filter((x) => x.ior === 'ior:class:Folder')
-    .filter((x) => {
-      const loc = typeof x.m.location === 'string' ? (x.m.location as string) : '';
-      const byParent = String(x.m.parent || '') === nodeRef;                                             // collection child (parent-link, no location)
-      const byLoc = !!dirRel && loc.startsWith(dirRel + '/') && !loc.slice(dirRel.length + 1).includes('/'); // direct physical child (== the old userDirs predicate)
-      return byParent || byLoc;
-    })
+    .filter((x) => isDirectChildOfNode(x.m, nodeRef, prefix, rootPrefix))
     .map((x) => {
       const loc = String(x.m.location || '');
       const ref = loc ? 'dir:' + loc : String(x.m.uuid || x.uuid);                                       // physical → dir:loc ; model-store → its uuid (the ior the drawer resolves)
