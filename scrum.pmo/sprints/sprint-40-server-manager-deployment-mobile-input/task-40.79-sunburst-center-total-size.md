@@ -37,7 +37,7 @@ Center shows the true total of the children's bytes, formatted the one product-w
 - [ ] CENTER = TOTAL: the sunburst center circle displays the SUM of all children's sizes (total bytes of the rendered arcs).
 - [ ] TOTAL CORRECTNESS: center total == sum of the arc byte-values tied to /api/trace sizes (same on-disk-bytes source as P4b, not childCount); proven with a stub where a wrong sum -> RED.
 - [ ] HUMAN-FORMATTED VIA THE SHARED FORMATTER (DRY): the center formats the total through R40.80's ONE formatHumanReadableSize — NOT its own inline logic; center and legend cannot disagree by construction.
-- [ ] @390 SCREENSHOT ACCEPTANCE: center shows the human-formatted total on Tron's device surface — un-mockable, his screen is the acceptance.
+- [ ] @390 TEAM-VERIFIED (rewordProvenance 2026-09-05, customer-not-tester law): WE verify @390 real-WebKit that the center shows the human-formatted total; Tron ACCEPTS delivered verified work.
 
 ## Subtasks
 
