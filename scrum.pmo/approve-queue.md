@@ -39,7 +39,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 #### ⚠️ NOT READY — 0 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - (none — every QA-Review task carries two-keyed passing testing evidence)
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 22 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 25 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -50,18 +50,21 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 c8e0b1d2** Task 37.26: Sprint/task-name FORMATTER — item shows  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 241a2be3** Task 40.12: File detail view renders a working type- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 46964040** Task 40.18: Pin auto-progress on QA-Review — pin adv — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 49822597** Task 40.85: Plain file upload via the drop area SUCC — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 50f51ac1** Task 40.17: Live-pin no-refresh — pin-designate upda — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 6e3cc1b2** Task 40.11: deploymentRefs are scenario-first units  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🔁 **S40 7a956c21** Task 40.1: Action — Open Claude.ai RC (per-pane/agen — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 9a70ce5e** Task 40.10: Tron renders his QA verdict FROM the tas — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 9f11a990** Task 40.28: Default actions Scenario + Edit ALWAYS o — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 a10c3329** Task 40.5: Detail/feature-view EXTRA action buttons  — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 a4fe4dc0** Task 40.84: Adding a child updates that node IN PLAC — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 ae0548ae** Task 40.4: Sprint labels show the sprint NUMBER (dis — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 b0be0668** Task 40.8: 'Files' shows the REAL measured on-disk p — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 b6e4a7dd** Task 40.7: Back = real history.back(); the path labe — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 cc3fa868** Task 40.9: 'Preview' = traceability chain + details  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 ce92294f** Task 40.2: WODA.prod as a UML deployment-Node (SSH/d — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 d884d8d9** Task 40.3: Suppress OS (iOS) keyboard + configurable — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 e42e0d2e** Task 40.87: Add folder SUCCEEDS on a model collectio — _device @390 — headless evidence ok; needs your tap/pixel verify_
 
 _Readiness = MEASURED two-keyed passing Test (unit-level). Gate-served freshness (SIGNABLE) is a separate not-yet-derived signal — if a served gate looks stale, spot-check before approving._
 
