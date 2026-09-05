@@ -88,13 +88,13 @@
       {
         "id": "AC-harden-marker-based-filename-independent",
         "group": "robustness/follow-up",
-        "text": "FOLLOW-UP HARDENING (architect flagged, req accepted): the built guard keys the owner by FILE (live-bridge.ts) — a rename makes ownerCount=0 -> RED (fail-closed + safe, but NOISY on a legit rename). Harden to MARKER-BASED (the [translator-owner:unit-changed] marker seed is placed on notifyUnitChanged) = filename-INDEPENDENT, matching the R40.82 children-owner (9ef91a551) + R40.88 patterns. Then the owner is resolved by the marker, not the filename, and a rename is a no-op.",
+        "text": "FOLLOW-UP HARDENING (architect flagged, req accepted): the built guard keys the owner by FILE (live-bridge.ts) — a rename makes ownerCount=0 -> RED (fail-closed + safe, but NOISY on a legit rename). Harden to MARKER-BASED (the [translator-owner:unit-changed] marker seed is placed on notifyUnitChanged) = filename-INDEPENDENT, matching the R40.82 children-owner (9ef91a551) + R40.88 patterns. Then the owner is resolved by the marker, not the filename, and a rename is a no-op. ★ SATISFIED (architect 3e3b17081): the check ALREADY resolves the owner via the [translator-owner:unit-changed] MARKER, not the filename = filename-independent. Follow-up DONE.",
         "gateRef": {
           "kind": "lint",
           "ref": "check:one-unit-changed-translator (marker-based owner resolution)",
           "assertion": "owner resolved by the [translator-owner:unit-changed] marker, not filename; a rename of the owner file does NOT flip ownerCount to 0"
         },
-        "stubMustFail": "PENDING: rename the owner file -> owner still resolved via marker -> still GREEN (not a false RED)"
+        "stubMustFail": "DONE: owner resolved by marker; a rename of the owner file does NOT flip ownerCount to 0 (marker-based, verified in the hardened guard)."
       }
     ],
     "chainWire": {
@@ -103,12 +103,18 @@
       "chain": "UC 089da882 notifyTranslator.singleOwner -> Class TransportBusBridge f0739bfe (live-bridge.ts, the bridge that OWNS the unit-changed->notify translation notifyUnitChanged) -> Method TransportBusBridge.assertSingleTranslator 3494d2b3 -> Impl 561bcfb8 (designAhead:true, scripts/check-one-unit-changed-translator.ts, NOT built).",
       "classNameAccepted": "TransportBusBridge = correct OOP owner (root lens: the object that DOES the translation owns the single-translator invariant). No re-point."
     },
-    "testMintHold": "HOLD (build DONE, flip on tester gate): Impl 561bcfb8 code + marker are BUILT (measured). Trigger = TESTER gates check:one-unit-changed-translator GREEN in ci:gates + confirms the 5-fixture self-stub -> I flip 561bcfb8 designAhead->false + R40.91 off UNVERIFIED + mint the Test off the tester gate marker (measure-not-invent) -> trainer canonizes. Do NOT flip on the architect build alone (need the tester ci:gates GREEN + self-stub, same as R40.83/R40.88).",
+    "testMintHold": "HOLD (build DONE + HARDENED 3e3b17081): flip waits on the TESTER re-gate of c2/c3 in ci:gates + confirms the permanent self-bite fixtures GREEN. On tester GREEN -> I flip 561bcfb8 designAhead->false + R40.91 off UNVERIFIED + mint the Test off the tester gate marker (measure-not-invent) -> trainer canonizes. Do NOT flip on the hardened build alone.",
     "guardBuilt": {
       "commit": "d7c3bc2aa",
       "verifiedBy": "robbin-req (measured on disk)",
       "state": "BUILT + registered ci:gates:raw. GREEN: translatorOwnerCount=1 (live-bridge notifyUnitChanged) + inlineNonOwnerTranslators=0. Impl 561bcfb8 marker on scripts/check-one-unit-changed-translator.ts line 1 (verified 561bcfb8-89cc-4601-a20f-88537740c117); [translator-owner:unit-changed] marker on live-bridge.ts:13; check:one-unit-changed-translator in package.json ci:gates.",
       "selfBite": "BUILT-IN per-run selftest over 5 fixtures: planted inline translator / EXACT pre-FIX-1 RawBinClient original / legit bare acting-tab emit (0-noise must-not-flag) / owner-present / owner-deleted (fail-closed). A rotted detector fails its own selftest."
+    },
+    "acceptedRisk": {
+      "surface": "NAMED + SURFACED, never silent (architect 3e3b17081; PO ruled harden after the tester found 2 evasions; the false unevadable claim was DELETED from the guard + marker).",
+      "caught": "idiomatic spellings — literal / local const / MSG.UNIT_CHANGED / aliased ViewBus.notify (c2/c3 hardened + PERMANENT self-bite fixtures).",
+      "notCaught": "DELIBERATE OBFUSCATION — computed member access ViewBus[\"notify\"] / notify passed as a higher-order callback / runtime-assembled type-string = a SABOTAGE threat model, NOT idiomatic drift.",
+      "framing": "the guard defends against idiomatic DRIFT (the real R40.84-B failure mode), NOT against a saboteur. Obfuscation is out of scope BY DESIGN, surfaced honestly — never claimed-away. Same discipline as never-over-claim-a-guarantee-label / a-stated-limit-beats-a-silent-one."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
