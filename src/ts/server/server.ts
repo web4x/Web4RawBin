@@ -1362,7 +1362,14 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     if (roomUuid && ck.startsWith('files/')) {
       const pidx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index')); // room + its files[] Folder units live in prod scenario/index (same source the children branch reads)
       const rUnit = pidx.get(roomUuid);
-      return rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, ref, pidx) : null; // the REAL Folder unit (own uuid/name/kind/children) OR null
+      const real = rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, ref, pidx) : null;
+      if (!real) return null; // genuine miss → fail-closed (no synthetic phantom)
+      // OUTWARD IDENTITY = the roomcoll ref (architect cc9b90286, R40.83): the detail keeps ONE ref END-TO-END. rb-detail-base
+      // adopts uuid = resolved.uuid, so returning the real uuid would flip the identity OFF the roomcoll ref and the body's
+      // children fetch (/api/trace/children/<real-uuid>) hits the generic branch → EMPTY (the blank-panel/no-sunburst root).
+      // Set the outward model.uuid to the roomcoll ref so that fetch keys the SAME ref → roomFilesChildren (contents+sunburst).
+      // The real unit's fields/verbs (name/kind='folder'/location) render from real; the real uuid stays internal only.
+      return { ior: real.ior, ownerIor: null, model: { ...real.model, uuid: ref } };
     }
     if (!roomUuid || (ck !== 'members' && ck !== 'files')) return null;
     iorClass = 'ior:class:Folder'; key = 'folder::room-' + roomUuid + '-' + ck; kind = 'folder'; location = ref;
