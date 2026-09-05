@@ -230,7 +230,11 @@ try {
   //    tree hands it: (1) nested /api/ior returns a REAL unit (not null — the dual-identity collapse); (2) the add-folder verb
   //    APPEARS (folder-can-contain-folder, NO fallback); (3) the detail body LISTS its child F2 (not the prod blank 'no
   //    children'); (4) the sunburst is SIZED (≥1 arc, not empty). STUB-MUST-FAIL: null unit OR zero verb ⇒ RED. ──
-  await clickByName(F1); await sleep(3600); // detail fetch (children + sunburst) is async — settle before reading
+  // FRESH selection: the detail keys on ref (renderIfRefChanged) — NestGateOuter was already selected earlier (to add F2, when
+  // it had 0 children), so a bare re-click would read a STALE 0-child detail. Select a DIFFERENT node first to force a ref
+  // change + re-fetch of children AFTER F2 exists.
+  await clickByName(F2); await sleep(900);   // select the child → ref changes
+  await clickByName(F1); await sleep(3600);  // re-select the parent → fresh children/sunburst fetch (F2 now exists)
   const nestedRef = await page.evaluate((name) => { const t = document.getElementById('room-tree'); const n = [...(t?.querySelectorAll('rb-object-item') || [])].find((e) => ((e.getAttribute('title') || '') + (e.textContent || '')).includes(name)); return n ? (n.getAttribute('ref') || n.getAttribute('data-ref') || '') : ''; }, F1);
   const iorReal = await page.evaluate(async (ref) => { const uuid = String(ref).replace(/^[a-z]+:/, ''); try { const r = await fetch(`/api/ior/ior:instance:${encodeURIComponent(uuid)}`); const j = await r.json().catch(() => null); return { status: r.status, hasUnit: !!(j && (j.unit || j.model)), ior: (j?.unit?.ior || j?.ior || null) }; } catch (e) { return { status: 0, hasUnit: false }; } }, nestedRef);
   // ISOLATION DIAG: does the CHILDREN DATA resolve via the roomcoll ref (what the detail's children/sunburst should fetch)?
