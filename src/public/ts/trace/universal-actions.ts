@@ -102,7 +102,19 @@ async function handleAddFolder(drawer: HTMLElement, rawRef: string): Promise<voi
   // SYNTHETIC ref, so provenance routing sees the real ref. Guarded by isSyntheticRef(remainder): stops at dir:/rawbin:/roomcoll:
   // (their own remainder isn't synthetic) and never strips a real `folder:<uuid>` (bare uuid not synthetic).
   while (ref.includes(':') && isSyntheticRef(ref.slice(ref.indexOf(':') + 1))) ref = ref.slice(ref.indexOf(':') + 1);
-  const roomMatch = /^roomcoll:([^:]+):files(?:\/(.*))?$/.exec(ref); // room Files (root or nested) → room endpoint
+  let roomMatch = /^roomcoll:([^:]+):files(?:\/(.*))?$/.exec(ref); // room Files (root or nested) → room endpoint
+  // ★ T37.21 A2-A4 FALLBACK (architect ruling): a surface that hands only `folder:<uuid>` / a bare uuid carries NO synthetic
+  // provenance. DERIVE IT FROM THE THING, never the ref-string/name: resolve the unit and read its OWN model.location
+  // (roomcoll:…:files/<path>) so a nested room folder routes to the ROOM endpoint by its recorded location, not by guessing
+  // the ref shape (the week's antipattern one level deeper). Only fires when the peeled ref is non-synthetic (bare/folder:uuid).
+  if (!roomMatch && !isSyntheticRef(ref)) {
+    const uuid = ref.includes(':') ? ref.slice(ref.lastIndexOf(':') + 1) : ref;
+    try {
+      const ju = await fetch(`/api/ior/ior:instance:${uuid}`).then((rr) => (rr.ok ? rr.json() : null));
+      const loc = String((ju?.unit?.model as Record<string, unknown> | undefined)?.location || '');
+      if (loc) { ref = loc; roomMatch = /^roomcoll:([^:]+):files(?:\/(.*))?$/.exec(ref); } // adopt the unit's OWN location as the provenance-carrying ref
+    } catch { /* unresolved → falls through to model routing (unchanged) */ }
+  }
   if (!roomMatch && ref.startsWith('roomcoll:')) { surfaceVerdict(drawer, 'Folders can only be added under Files.', 'warn'); return; } // Members/other room collection
   const name = (window.prompt('New folder name:', 'New folder') || '').trim();
   if (!name) return;
@@ -117,7 +129,13 @@ async function handleAddFolder(drawer: HTMLElement, rawRef: string): Promise<voi
     }
     const j = await r.json().catch(() => ({} as Record<string, unknown>));
     if (!r.ok || !j.ok) throw new Error(String(j.error || ('HTTP ' + r.status)));
-    if (j.uuid) document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: `folder:${j.uuid}` }, bubbles: true })); // best-effort reveal (the WS publishUnitChanged live-inserts it too)
+    // ★ PROJECTION (architect): reveal the new folder by a ref that PROJECTS its provenance — for a ROOM folder that is its OWN
+    // roomcoll location (from the created unit), so selecting it to nest deeper routes to the room endpoint BY CONSTRUCTION at
+    // every depth; NEVER folder:<uuid> for a room folder (that loses the room = the A2-A4 nested defect). Model folders keep folder:<uuid>.
+    const revealRef = roomMatch
+      ? (String((j.unit as { model?: { location?: string } } | undefined)?.model?.location || '') || `roomcoll:${roomMatch[1]}:files/${roomMatch[2] ? roomMatch[2] + '/' : ''}${name}`)
+      : `folder:${j.uuid}`;
+    document.dispatchEvent(new CustomEvent('rb-tree-reveal', { detail: { ref: revealRef }, bubbles: true })); // best-effort reveal (WS publishUnitChanged live-inserts it too)
   } catch (e: unknown) {
     surfaceVerdict(drawer, 'Add folder failed: ' + (e instanceof Error ? e.message : String(e)), 'err');
   }
