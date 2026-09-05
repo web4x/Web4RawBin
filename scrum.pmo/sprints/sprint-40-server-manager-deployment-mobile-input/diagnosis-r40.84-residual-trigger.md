@@ -71,3 +71,23 @@ Wrap `reDeriveDirectChildren` (and log inside it) on folder-add, capture:
 4. If appended, is `kids` the LIVE visible container (not collapsed/detached)?
 
 Each branch has a pre-identified ONE-LINE fix; the probe picks the branch deterministically. Then I hand the expert that exact line. MAX PRIORITY; probe is minutes.
+
+### R40.84-B fix #1 — MEASUREMENT CONTRADICTS "childless never subscribes"; 2-line disambiguation needed before shipping to live prod
+Probe fact-1 = reDerive 0 fires (subscription). But I measured the exact subscription + key math and the code is ALREADY correct:
+- `buildSeedNode`: `itemRef = ${type}:${uuid}` = `folder:roomcoll:<id>:files`, so the subscription arg `uuid` is the BARE `roomcoll:<id>:files` (NOT the display-prefixed itemRef).
+- line 442 `if (isSyntheticRef(uuid))` — `isSyntheticRef('roomcoll:<id>:files')` = TRUE (SYNTHETIC_PREFIX includes `roomcoll:`), and it is UNCONDITIONAL on hasChildren. So a childless synthetic Files node DOES subscribe.
+- key math: subscribe `viewBusKey('roomcoll:<id>:files')` = `roomcoll:<id>:files`; publish (server 2553 → live-bridge:21) `viewBusKey('roomcoll:<id>:files')` = `roomcoll:<id>:files`. **IDENTICAL.**
+
+⇒ By the source, the childless node subscribes AND the key matches AND it should fire. "Subscribe the childless node / align the key" is ALREADY the code — applying it "precisely" is a no-op. So the probe's 0-fires vs the source is an AIRTIGHT contradiction = a runtime value differs from source (we JUST hit served≠source), OR reDerive fires-but-early-returns and the wrap read it as non-firing.
+
+**2-LINE DISAMBIGUATION (add to the SAME held build, one run, ~5 min — beats shipping a proven-no-op guess to LIVE prod):**
+- A) at rb-trace-tree.ts:442, log the actual subscribe: `if (isSyntheticRef(uuid)) { console.log('[sub]', uuid, viewBusKey(uuid)); ... }`
+- B) at reDeriveDirectChildren:133 entry (BEFORE `if(!kids)return`): `console.log('[reDerive-entry]', ref, !!node.querySelector(':scope > .tt-children'))`
+Plus C) at live-bridge:21 log the publish key: `console.log('[notify]', key)`.
+
+**Pre-staged exact fixes by outcome:**
+- If [sub] logs `roomcoll:<id>:files` AND [notify] logs the SAME but [reDerive-entry] NEVER prints → the ViewBus subscribe/notify plumbing drops it (key equal but no dispatch) → fix in ViewBus dispatch (report the exact keys).
+- If [sub] key ≠ [notify] key → align them (the exact fix = the logged delta; likely a display-prefix on one runtime path).
+- If [reDerive-entry] DOES print with `false` (no .tt-children) → the sub fires but a CHILDLESS node early-returns at :135 → **fix rb-trace-tree.ts:135**: replace `if (!kids) return;` with "create the `.tt-children` container (+ set has-children) when the node gained its first child, then continue" — a childless container learning it stopped being empty. (This is the PO's exact framing; safe + necessary regardless.)
+
+I will hand the expert the ONE exact line the instant the 2-line run picks the branch. I refuse to blind-ship onto code I measured correct — that risks telling Tron "fixed" when it is not.
