@@ -81,8 +81,10 @@ export class RoomView {
     // [impl:uuid:e3fad3ac-a09f-4a4c-88ce-78e0ca273cc0] FILE_ADDED handler
     this.client.on(MSG.FILE_ADDED, (msg) => {
       if (this.roomId !== msg.roomId) return;
-      const tree = document.getElementById('room-tree') as any;
-      if (tree?.renderSeed) tree.renderSeed(this.roomId);
+      // R40.84 (architect e0b8cb582): the re-seed (tree.renderSeed) that COLLAPSED + rebuilt the WHOLE tree on every add is
+      // REMOVED — it clobbered the working per-node in-place path (rebuild-the-world = not MVC, Tron). The server now
+      // publishUnitChanged's the Files ref on upload (mirroring folder-add), so the tree's per-node subscriber re-derives
+      // JUST that node's direct children and live-inserts the new file; expanded state lives in the model → survives by construction.
       this.chatSheet?.addMessage('system', 'System', `File uploaded: ${msg.name}`);
     });
     this.client.on('disconnected', () => this.chatSheet?.setWsStatus('disconnected'));

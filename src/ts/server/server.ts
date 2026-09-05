@@ -2627,6 +2627,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const fileUuid = (unit.model as any).uuid;
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
           room.addFileUnit(fileUuid);
+          publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`); // R40.84 (architect e0b8cb582): upload rides the SAME one-node re-derive path as folder-add (2553) — the Files node re-derives its direct children + live-inserts the new file, NO full re-seed (the client renderSeed clobber is removed). Both add types → ONE path.
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });
