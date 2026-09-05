@@ -32,17 +32,17 @@
       {
         "id": "AC-390-legend-human-readable",
         "group": "user-visible@390",
-        "text": "On 390px, the legend shows human-readable sizes, NOT raw bytes. Screenshot: 10916416 renders as '10.9 MB', 43 as '43 B', 4717922 as '4.7 MB', 1 as '1 B' — his exact values, human-formatted."
+        "text": "WE verify @390 real-WebKit: the legend shows human-readable sizes, NOT raw bytes — 10916416 renders as '10.9 MB', 43 as '43 B', 4717922 as '4.7 MB', 1 as '1 B' (his exact values, human-formatted). Sizes ARE verifiable by us @390 real-WebKit (the 'un-mockable/his-screen' framing was WRONG); Tron accepts."
       },
       {
         "id": "AC-format-rule-SI-stated",
         "group": "format",
-        "text": "The format is SI (1000-based): 1 kB=1000 B, 1 MB=1e6 B, GB=1e9, TB=1e12; 1 decimal place for kB and above, integer for B. Derived from Tron's own 10916416->10.9 MB. Rounding is stated so the screenshot check is unambiguous."
+        "text": "The format is SI (1000-based): 1 kB=1000 B, 1 MB=1e6 B, GB=1e9, TB=1e12; 1 decimal for kB+, integer for B. Derived from Tron's own 10916416->10.9 MB example. Rounding is stated so OUR @390 real-WebKit verification is unambiguous."
       },
       {
         "id": "AC-applies-legend-and-center",
         "group": "consistency",
-        "text": "The same human format applies to BOTH the legend AND the centre total (R40.79) — no surface shows raw bytes. Screenshot: neither the legend nor the centre shows a raw byte count."
+        "text": "The same human format applies to BOTH the legend AND the centre total (R40.79) — no surface shows raw bytes. WE verify @390 real-WebKit: neither the legend nor the centre shows a raw byte count."
       },
       {
         "id": "AC-one-size-formatter-DRY",
@@ -57,7 +57,8 @@
       }
     ],
     "drySingleFormatter": "Tron DRY standing law 2026-09-02: this human-readable size formatter is the SINGLE product-wide size formatter (centre + legend + everywhere). R40.79 center MUST call this, not reimplement.",
-    "lawNineClassification": "CASE-TWO NOT-A-VIOLATION (PO canon 2026-09-05, NAMED example): a byte-size formatter is a pure value transform on a primitive that NO type owns — the shape is innocent, nothing is displaced. The single-size-formatter DRY here is legitimate and must NOT be false-flagged as a functional-construct LAW-9 violation. THE SHAPE IS INNOCENT, DISPLACED OWNERSHIP IS THE CRIME."
+    "lawNineClassification": "CASE-TWO NOT-A-VIOLATION (PO canon 2026-09-05, NAMED example): a byte-size formatter is a pure value transform on a primitive that NO type owns — the shape is innocent, nothing is displaced. The single-size-formatter DRY here is legitimate and must NOT be false-flagged as a functional-construct LAW-9 violation. THE SHAPE IS INNOCENT, DISPLACED OWNERSHIP IS THE CRIME.",
+    "rewordProvenance": "reworded per CUSTOMER-NOT-TESTER law (planner coord 2026-09-05, tron-resting-acs buckets): WE verify @390 real-WebKit [+ member-session where the path is member-gated]; Tron ACCEPTS delivered verified work. Was: Screenshot/his-screen/Tron-verifies/un-mockable."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

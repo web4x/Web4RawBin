@@ -32,7 +32,7 @@
       {
         "id": "AC-390-center-shows-total",
         "group": "user-visible@390",
-        "text": "On a 390px screen, the sunburst's centre circle shows the TOTAL size = the SUM of all child sizes. Screenshot: the centre displays a total, not blank."
+        "text": "WE verify @390 real-WebKit: the sunburst centre circle shows the TOTAL size = the SUM of all child sizes; the centre displays a total, not blank. Tron accepts."
       },
       {
         "id": "AC-total-equals-sum-of-children",
@@ -42,10 +42,11 @@
       {
         "id": "AC-center-human-formatted",
         "group": "user-visible@390",
-        "text": "The centre total is rendered by the ONE product-wide size formatter (R40.80 AC-one-size-formatter-DRY), NOT a centre-specific reimplementation. Screenshot @390: the centre value uses the SAME format as the legend (e.g. 15.6 MB). DRY: centre and legend can never disagree."
+        "text": "The centre total is rendered by the ONE product-wide size formatter (R40.80 AC-one-size-formatter-DRY), NOT a centre-specific reimplementation. WE verify @390 real-WebKit: the centre value uses the SAME format as the legend (e.g. 15.6 MB). DRY: centre and legend can never disagree."
       }
     ],
-    "drySharesFormatter": "R40.79 center total uses the R40.80 single formatter (Tron DRY), never its own — center and legend are the same formatter by construction."
+    "drySharesFormatter": "R40.79 center total uses the R40.80 single formatter (Tron DRY), never its own — center and legend are the same formatter by construction.",
+    "rewordProvenance": "reworded per CUSTOMER-NOT-TESTER law (planner coord 2026-09-05, tron-resting-acs buckets): WE verify @390 real-WebKit [+ member-session where the path is member-gated]; Tron ACCEPTS delivered verified work. Was: Screenshot/his-screen/Tron-verifies/un-mockable."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

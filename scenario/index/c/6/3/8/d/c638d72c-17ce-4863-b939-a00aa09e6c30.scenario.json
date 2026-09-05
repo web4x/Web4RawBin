@@ -33,7 +33,7 @@
       {
         "id": "AC-add-folder-inside-room-files",
         "group": "user-visible@390",
-        "text": "The Add-folder action is AVAILABLE inside a room Files collection (not only on real on-disk folders), creating a NESTED room folder. @390 screenshot: opening a room Files collection shows an Add-folder affordance; firing it creates a nested folder."
+        "text": "The Add-folder action is AVAILABLE inside a room Files collection (not only on real on-disk folders), creating a NESTED room folder. WE verify @390 real-WebKit in a live TEST-MEMBER room (room is MEMBER-gated, server.ts:2414 memberOf, no owner rights): opening a room Files folder shows the Add-folder affordance. Tron accepts."
       },
       {
         "id": "AC-BOTH-unit-and-directory-at-target",
@@ -58,7 +58,7 @@
       {
         "id": "AC-add-folder-verb-appears-in-room-context",
         "group": "user-visible@390",
-        "text": "Tron (screenshot @v0.8.165): Add-folder is TOTALLY MISSING on the room Files folder detail — drawer shows only Scenario and Edit. AC: on 390px, the Add-folder verb APPEARS on the room Files folder detail (in the ROOM context) and works. Screenshot: the Add-folder control is visibly present, not absent. (Root cause measured by architect: add-folder was a /MODEL-view verb, never offered in the room context = service-built-but-UNWIRED.)"
+        "text": "Tron reported (screenshot @v0.8.165): Add-folder was TOTALLY MISSING on the room Files folder detail (drawer showed only Scenario+Edit). AC: WE verify @390 real-WebKit in a test-member room — the Add-folder verb appears in the room Files context. Tron accepts delivered verified work."
       },
       {
         "id": "AC-files-node-IS-room-physical-folder",
@@ -118,7 +118,8 @@
     "tronRulingArchitectRelay": "Architect's relay of the same Tron ruling: 'the room Files collection IS the room physical folder and can create physical sub folders in it.' (Same ruling as the PO relay in tronRuling; both Tron-attributed, both say Files IS the physical folder.)",
     "strippedPerTronDirective": "★ SECURITY STRIPPED 2026-09-02 (Tron via PO, 3rd time; deliberate NOT forgotten — do NOT re-add 'for completeness'): Tron never ordered these, they were designed on top WITHOUT him asking, in DEVELOPMENT. REMOVED: AC-per-user-isolation-stays + AC-per-room-storage-target-DEFINED (per-user isolation layer / R40.22 chokepoint); the 'mkdir-not-through-chokepoint/raw-path => RED' clause of the stub. Also gone from the accompanying design: confinement roots, path-traversal rejection, forbidden-directory lists, owner-gating, credential handoff. KEPT: what Tron asked (real folder on disk, live-no-reload, 2nd-browser, Files IS the room physical folder) + CORRECTNESS (both-or-neither / fail-clean-no-half-state — a half-created folder is a broken feature, not a security control) + the DRY one-mechanism. Architect re-issues the folder-create design STRIPPED to mkdir+mint+both-or-neither, one mechanism two endpoints differing only in parent path. STANDING RULE (in development): add NO security property/guard/isolation/gate unless Tron asked by name.",
     "architectReRule": "Architect re-rule f6f1463e0, now STRIPPED per Tron: Files node resolves to the room's real files dir (drop per-user isolation framing); add-folder = mkdir+mint both-or-neither, one mechanism, two endpoints differ only in parent path. SIMPLER, no security layer.",
-    "architectReissue": "Architect re-issued the STRIPPED folder-create design (059107c35): DELETE confinement-root/traversal-reject/forbidden-roots/per-user-isolation/owner-gate/credential/name-charset-length-validation. KEEP DRY one-mechanism (check-single-mkdir-mint failable) + correctness rollback (both-or-neither/no-half-state + stubMustFail) + feature ACs. Room parentAbsPath=getRoomDir(roomId)/files/<nestedPath> (THE room folder, not per-user), key folder::<relpath>. My strip aligns exactly; applied the getRoomDir(roomId)+folder::<relpath> precision."
+    "architectReissue": "Architect re-issued the STRIPPED folder-create design (059107c35): DELETE confinement-root/traversal-reject/forbidden-roots/per-user-isolation/owner-gate/credential/name-charset-length-validation. KEEP DRY one-mechanism (check-single-mkdir-mint failable) + correctness rollback (both-or-neither/no-half-state + stubMustFail) + feature ACs. Room parentAbsPath=getRoomDir(roomId)/files/<nestedPath> (THE room folder, not per-user), key folder::<relpath>. My strip aligns exactly; applied the getRoomDir(roomId)+folder::<relpath> precision.",
+    "rewordProvenance": "reworded per CUSTOMER-NOT-TESTER law (planner coord 2026-09-05, tron-resting-acs buckets): WE verify @390 real-WebKit [+ member-session where the path is member-gated]; Tron ACCEPTS delivered verified work. Was: Screenshot/his-screen/Tron-verifies/un-mockable. Room path is MEMBER-gated (server.ts:2414) => a test-member room verifies it by us today; no owner rights, no security."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

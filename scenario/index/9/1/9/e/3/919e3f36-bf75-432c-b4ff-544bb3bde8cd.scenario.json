@@ -15,7 +15,8 @@
     "status": "partial-pass",
     "statusNote": "partial-pass = r4021 gate RED->GREEN DET-4x on the READ-ONLY structure half (served==committed 0.8.166); the owner-authed 2-browser live-INSERT half is Tron-device-pending (behind the credential guard, guard untouched, R33.1 403 stays). NOT a full pass; recorded partial by tester statement.",
     "implNote": "VERIFY-OWNER-FIRST: wired to the EXISTING canonical Impl 8693dc2b (RbTraceTree.reDeriveDirectChildren, built v0.8.159, owns Method 1e5c4233) — NO new Impl minted (would double-credit). The source marker rb-trace-tree.ts:128 says [impl:uuid:PENDING-req-mint] = STALE; expert updates it to 8693dc2b (marker-update, not a mint).",
-    "realPathGate": "tester member-session room nest-test gate r4022 (live member via WS IDENTIFY, tokenToClient server.ts:2447, NO owner rights, no Tron) — the real-path verification for the member-gated add-folder live-insert. RED baseline running; on GREEN + a tester marker I mint/wire the P2 room-path Test off it (measure-not-invent). Owner-auth harness NOT built (security-stop)."
+    "realPathGate": "tester member-session room nest-test gate r4022 (live member via WS IDENTIFY, tokenToClient server.ts:2447, NO owner rights, no Tron) — the real-path verification for the member-gated add-folder live-insert. RED baseline running; on GREEN + a tester marker I mint/wire the P2 room-path Test off it (measure-not-invent). Owner-auth harness NOT built (security-stop).",
+    "p2Reclassify": "Planner reclassify 2026-09-05: the 2-browser-WS-insert is NOT a gap — the room is MEMBER-gated, so TWO live test-members = two-browser verifiable by US (tester r4022, no owner rights). NOT owner-authed, NOT Tron-resting. (Distinct from the still-open client-subscribe piece awaiting the expert probe = a real open bug, not a Tron-resting AC.)"
   },
   "ownerIor": "ior:instance:8693dc2b-680e-4866-8fab-37c0fe2c6cae"
 }

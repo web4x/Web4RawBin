@@ -101,7 +101,7 @@
       {
         "id": "AC-tron-real-ios-acceptance",
         "group": "verify-device",
-        "text": "★ CLOSING ACCEPTANCE (un-mockable, the deliverable): TRON on a REAL iOS device — background/lock the app, a change occurs, foreground -> the view is LIVE-CURRENT with NO manual reload. Headless/desktop-WebKit CANNOT mock the iOS transport-suspend, so DESKTOP-GREEN IS NOT FIXED. Only Tron's real-device confirm closes this (asserts the RENDERED live state on his actual device, not a proxy).",
+        "text": "DEFERRED (bucket-2, 2026-09-05) — NOT a closing condition now and MUST NOT be closed via a Tron-confirms AC. iOS transport-suspend resync is a transport-lifecycle FUNCTIONALITY concern (NOT security, NOT owner-auth, NOT basic-functionality-for-the-folder); un-mockable in headless/desktop-WebKit. When prioritized, verification = a real-iOS-DEVICE driver (no auth, no owner) = OUR harness, never ship-and-ask-Tron. Recorded, no harness proposed now (STOP-SECURITY aligned). Tron on a real device would be ACCEPTANCE, never our verification.",
         "gateRef": {
           "kind": "device",
           "ref": "Tron real-iOS acceptance",
@@ -109,7 +109,8 @@
         },
         "stubMustFail": "PENDING (scenario-first #126; expert fix pre-built 8d04af8a2 to design 0b9aa6dc7, marker pending): Tron real-device bg->change->foreground: live, no reload (un-mockable; desktop-green inadmissible as proof)"
       }
-    ]
+    ],
+    "bucket2Deferred": "iOS transport-suspend (T37.31/R37.27): DEFERRED behind basic functionality; NOT security/owner/basic-func; no harness proposed now; verification concept = real-iOS-device driver (later), never a Tron-confirms AC."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

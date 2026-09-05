@@ -41,7 +41,7 @@
       {
         "id": "AC-B-DEVICE",
         "group": "device",
-        "text": "[DEVICE-ONLY @390 pixel — Tron on phone, NEVER headless-green, TRON-ONLY] Tron verifies in-room Files/Members render as a REAL folder with a sunburst diagram, not 'no scenario'."
+        "text": "[VERIFIED BY US @390 real-WebKit + live MEMBER session (tester gate r4022, WS IDENTIFY, no owner rights), THEN Tron ACCEPTS] WE verify in-room Files/Members render as a REAL folder with a sunburst diagram in a live test-member room (member-gated, no owner rights, no security harness). Tron ACCEPTS delivered verified work — he experiences it @390, he does not run the test. Was: TRON-ONLY/never-headless/Tron-verifies (customer-not-tester correction)."
       },
       {
         "id": "AC-B-sunburst-size-is-on-disk-bytes",
@@ -83,7 +83,8 @@
       "hardConstraints": "no owner credential / no fabricated identity / no prod write / scratch seed-unit + scratch identity only / must be able to FAIL (red-before-green); if it starts requiring fabricated identity => STOP + escalate to PO (drifted into full-B).",
       "poSelfCorrection": "PO withdrew an earlier 'build the P2 client-half from scratch' instruction to the expert: half-1 piece-2 is already built+gated (Test 919e3f36). Take the PROBE, not a rebuild.",
       "sequencing": "downstream of the EXPERT PROBE RESULT (which of 2 remaining causes the client-subscribe fails). expert localizes -> fixes -> narrow-B gate RED->GREEN on scratch -> tester stamps marker -> I adopt+mint the client-half Test (measure-not-invent, never backstop)."
-    }
+    },
+    "rewordProvenance": "reworded per CUSTOMER-NOT-TESTER law (planner coord 2026-09-05, tron-resting-acs buckets): WE verify @390 real-WebKit [+ member-session where the path is member-gated]; Tron ACCEPTS delivered verified work. Was: Screenshot/his-screen/Tron-verifies/un-mockable. AC-B-DEVICE was TRON-ONLY/Tron-verifies -> WE verify @390 real-WebKit + member-session r4022; Tron accepts."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
