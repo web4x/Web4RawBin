@@ -1,0 +1,115 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "107b28dc-41e2-4a51-9f36-74b658422a2e",
+    "altId": "R40.83",
+    "name": "Room folder dual-identity resolves to BOTH faces (contents + verbs) from one selection — no split-identity broken half",
+    "description": "DEFECT FAMILY (tester-measured root, Tron saw the prod face): a room folder has TWO identities — a real folder UUID (resolved by /api/ior) and a roomcoll LOCATION REF (resolved by /api/trace/children) — and NEITHER api resolves BOTH. So whichever ref the tree uses, one half of the detail breaks. TWO FACES of ONE root: prod 0.8.174 shows the verbs with an EMPTY BODY (children unresolved by real uuid; the face Tron has SEEN); scratch-with-fix shows the nesting with NO VERBS (unit unresolved by roomcoll ref). FIX: one selection resolves BOTH faces (unit->verbs incl add-folder AND children->contents) via ONE canonical folder-identity resolution. User terms (Tron): selecting a folder shows its contents and lets you add a folder inside it.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:87be8da5-823c-4195-b30b-c4273c7fa4c0"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tester-measured-root + Tron-saw-prod",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "measuredRoot": "tester: /api/ior resolves the folder real uuid; /api/trace/children resolves its roomcoll location ref; neither resolves both -> whichever ref the tree uses, one detail half breaks.",
+      "twoFaces": "prod 0.8.174 = verbs + EMPTY body (children unresolved by real uuid, Tron saw this); scratch-with-fix = nesting + NO verbs (unit unresolved by roomcoll ref)",
+      "customerNotTester": "Tron SEEING the prod empty-body face = OUR verification failure (a customer experiencing a bug), not a step; WE verify via member-session @390, he accepts."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "buildable": "basic functionality (the folder Tron sees broken on prod) — buildable-NOW, not capture-only-deferred.",
+    "crossRef": [
+      "ior:instance:030a1801-4ce0-4e08-85c0-80bf774b0794",
+      "ior:instance:c638d72c-17ce-4863-b939-a00aa09e6c30",
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074",
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
+    ],
+    "crossRefNote": "The dual-identity resolution that makes BOTH the verbs face (R40.78 add-folder) AND the children/contents face (R40.82 folder-owns-children) work from one selection. Resolution sibling of R35.2 (every item resolves to a real unit, both buttons work) — this names the SPECIFIC two-API-two-ref split. Room Files real-Folder-unit context = R37.21. Root lens: one canonical identity, the split IS the duplication defect.",
+    "satisfactionStatus": "UNVERIFIED (root measured, two faces reproduced; unified resolution + gates unbuilt, no stub RED observed — honest third state).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-single-selection-resolves-both",
+        "group": "by-construction/ROOT",
+        "text": "ROOT FIX: selecting a room folder resolves BOTH faces from ONE selection — the real folder UUID (its unit -> verbs incl add-folder) AND its children (its contents). Neither /api/ior-by-real-uuid ALONE nor /api/trace/children-by-roomcoll-ref ALONE is sufficient. A resolution that yields only ONE face => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:room-folder-resolves-both (unit + children from one selection)",
+          "assertion": "one selection resolves the folder unit (verbs) AND its children (contents); only-one-face => RED"
+        },
+        "stubMustFail": "PENDING: seed a selection that resolves only the unit OR only the children -> RED"
+      },
+      {
+        "id": "AC-contents-populate",
+        "group": "render/prod-face",
+        "text": "The face Tron SAW on prod 0.8.174: selecting a folder shows verbs with an EMPTY body (children unresolved by real uuid). AC: a folder with children shows its CONTENTS, not an empty body. Empty-body-on-a-folder-that-has-children => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:folder-contents-populate",
+          "assertion": "children non-empty for a folder with children; empty body => RED"
+        },
+        "stubMustFail": "PENDING: seed a folder w/ children resolved only by real-uuid (no children) -> RED (the prod face)"
+      },
+      {
+        "id": "AC-verbs-present",
+        "group": "render/scratch-face",
+        "text": "The other face (scratch-with-fix): nesting shows but NO verbs (unit unresolved by roomcoll ref). AC: a selected folder shows its verbs (incl add-folder). No-verbs-on-a-resolved-folder => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:folder-verbs-present",
+          "assertion": "verbs (incl add-folder) present on a resolved folder; no-verbs => RED"
+        },
+        "stubMustFail": "PENDING: seed a folder resolved only by roomcoll-ref (no unit/verbs) -> RED (the scratch face)"
+      },
+      {
+        "id": "AC-user-terms-contents-and-add",
+        "group": "acceptance/USER-TERMS",
+        "text": "Tron in user terms: selecting a folder SHOWS ITS CONTENTS and LETS YOU ADD A FOLDER INSIDE IT — both together, from one selection. This is the user-facing acceptance; both halves work at once, not one-or-the-other.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:select-folder-contents-and-add-folder",
+          "assertion": "a selected folder shows contents AND offers a working add-folder; either missing => RED"
+        },
+        "stubMustFail": "PENDING: seed the dual-identity split -> one half missing -> RED"
+      },
+      {
+        "id": "AC-one-resolution-DRY",
+        "group": "by-construction/root-lens",
+        "text": "ROOT LENS (DRY): a room folder has ONE resolution serving BOTH faces (contents + verbs), NOT two APIs each keyed to a different ref that can diverge. The dual identity (real uuid + roomcoll location ref) is UNIFIED into one canonical resolution; the tree does not pick a ref that breaks one detail half. A second/divergent identity resolution => RED. The split identity IS the defect (two places the folder identity lives, they diverge into two broken faces).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-folder-identity-resolution",
+          "assertion": "a room folder resolves to ONE canonical identity serving /ior + /children; a 2nd divergent resolver => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd divergent folder-identity resolver -> RED"
+      },
+      {
+        "id": "AC-stub-must-fail-both-faces",
+        "group": "stub-must-fail",
+        "text": "The exact two-face split must trip RED BOTH ways: (a) a folder resolvable by real uuid (unit/verbs) but NOT by roomcoll ref (children) => RED (prod face); (b) a folder resolvable by roomcoll ref (children) but NOT real uuid (unit/verbs) => RED (scratch face). A suite green on either split is inadmissible.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (dual-identity split fixtures)",
+          "assertion": "both seeded split faces (uuid-only, roomcoll-only) observed RED before the fix counts"
+        },
+        "stubMustFail": "PENDING: register both RED runs when the fix ships"
+      },
+      {
+        "id": "AC-verify-member-session",
+        "group": "verify/customer-not-tester",
+        "text": "WE verify @390 real-WebKit in a live TEST-MEMBER room (member-gated, tester gate r4022, no owner rights): selecting a folder shows contents AND add-folder works. Tron ACCEPTS delivered verified work — he SAW the prod empty-body face, which is OUR verification failure, not a step we ask him to run. NOT Tron-verifies.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "tester r4022 member-session @390",
+          "assertion": "WE verify contents+add-folder @390 in a test-member room before Tron sees it; Tron accepts"
+        },
+        "stubMustFail": "N/A (acceptance step; the failable verification is the member-session gate + the split stubs)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
