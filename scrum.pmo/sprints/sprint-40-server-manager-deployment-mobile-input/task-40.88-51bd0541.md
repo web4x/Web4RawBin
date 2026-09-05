@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-STOOD UP Planned 2026-09-05 (PO GO). Planned (extends R40.54 to the ruling level; guard flips GREEN on R40.87). UC full-uuid 669cd55d-dbb3-4ee2-a1ff-a585f8ff58d1 resolved from R40.88.useCases[] on disk (NOT fabricated). ACs mirrored from the req (no-drift). Minted LOCAL (push-freeze), path-limited. req reverse-wires R40.88.tasks[]. 0 Done till Tron.
+DRIFT-FIXED Planned -> QA-Review-with-open-CR 2026-09-05 (PO board-resync): I minted it Planned, but R40.88 is chain-complete-to-Test + SATISFIED-at-req-level (890e1fa59, guard hardened through 3 rounds of independent tester attack e2/e3/e4 CLOSED, e1 named residual, Test on the standing evasion harness). ★ OPEN ITEM (NOT a defect): the Impl source-code marker is UNSEATED (expert task 379) = 5/6 hops, so req is NOT-satisfied (req downgraded its OWN claim for exactly this reason) — a traceability seat, not a product bug. Done BLOCKED by the marker-seat AND Tron. UC full-uuid 669cd55d disk-resolved. ACs mirrored no-drift. LOCAL push-freeze, path-limited. 0 Done till Tron.
 
 ## Task Description
 

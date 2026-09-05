@@ -7,10 +7,10 @@
     "description": "Planned (extends R40.54 to the ruling level; guard flips GREEN on R40.87). Covers R40.88 (b118f2c1), UC 669cd55d. Minted 2026-09-05 (PO GO after the R40.84-firefight coverage gap; planner was skipped, gap now closed). verify-owner-first: full-index scan confirmed NO prior covering task (no double-mint).",
     "intention": "Board-track R40.88 at its honest status; declare the ONE canonical planning unit for this requirement (traceability = DRY enforcement).",
     "context": "Planned (extends R40.54 to the ruling level; guard flips GREEN on R40.87).",
-    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "acceptanceCriteria": "Mirrors R40.88 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.\n- [ ] AC-every-ruling-carries-a-failable-guard: every STANDING RULING (a captured Tron/architect/PO ruling that constrains the system) carries a FAILABLE INVARIANT — a registered gate that goes RED when a feature CONTRADICTS it.\n- [ ] AC-ruling-is-a-committed-testable-invariant: a ruling is a COMMITTED TESTABLE INVARIANT (an assertion ON DISK), NOT prose in an anchor/doc.\n- [ ] AC-worked-example-folder-not-directory: worked example — the folder!=directory ruling (R40.37) carries the guard 'a ior:class:Folder unit needs NO physical dir; a mkdir / physical-assumption for a model Folder => RED'.\n- [ ] AC-guard-own-stub-must-fail: the ruling-guard mechanism ITSELF ships with a RED-proving fixture (seed a ruling-violation e.g. mkdir-for-a-model-Folder -> the guard MUST go RED before it counts as wired).\n- [ ] AC-caught-at-CI-not-on-tron-screen: the contradiction is caught at CI (build-time), NOT weeks later on Tron's screen; the gate lives in ci:gates (shift-left from customer-sighting).\n- [ ] AC-one-mechanism-with-aron-single-discovery: the requirement-side (rulings-are-failable-invariants) and the trainer/ARON doctrine-side are ONE mechanism, not two (same glob-discovery principle).\n- [ ] AC-enumerate-not-universal: the set of standing rulings is DISCOVERED by a structural marker on ruling-bearing units, NEVER a hand-list; a NEW ruling without a guard => RED.",
     "subtasks": "None (atomic task).",
-    "status": "Planned",
+    "status": "QA-Review-with-open-CR",
     "coveredRequirements": [
       "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2"
     ],
@@ -19,7 +19,7 @@
     ],
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "sprintName": "Sprint 40",
-    "remainingIssues": "STOOD UP Planned 2026-09-05 (PO GO). Planned (extends R40.54 to the ruling level; guard flips GREEN on R40.87). UC full-uuid 669cd55d-dbb3-4ee2-a1ff-a585f8ff58d1 resolved from R40.88.useCases[] on disk (NOT fabricated). ACs mirrored from the req (no-drift). Minted LOCAL (push-freeze), path-limited. req reverse-wires R40.88.tasks[]. 0 Done till Tron.",
+    "remainingIssues": "DRIFT-FIXED Planned -> QA-Review-with-open-CR 2026-09-05 (PO board-resync): I minted it Planned, but R40.88 is chain-complete-to-Test + SATISFIED-at-req-level (890e1fa59, guard hardened through 3 rounds of independent tester attack e2/e3/e4 CLOSED, e1 named residual, Test on the standing evasion harness). ★ OPEN ITEM (NOT a defect): the Impl source-code marker is UNSEATED (expert task 379) = 5/6 hops, so req is NOT-satisfied (req downgraded its OWN claim for exactly this reason) — a traceability seat, not a product bug. Done BLOCKED by the marker-seat AND Tron. UC full-uuid 669cd55d disk-resolved. ACs mirrored no-drift. LOCAL push-freeze, path-limited. 0 Done till Tron.",
     "createdBy": "robbin-planner",
     "createdAt": "2026-09-05"
   },

@@ -14,7 +14,7 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 238** — Done **98** · QA-Review **49** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 86** (238 = 98+49+3+86)
+- **TOTAL S30++ tasks: 241** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 86** (241 = 98+52+3+86)
 - **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 82**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
@@ -27,7 +27,7 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 39 | 1 | 14 | 0 | 24 |
-| S40 | 79 | 0 | 18 | 0 | 59 |
+| S40 | 82 | 0 | 21 | 0 | 59 |
 
 **ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 18 · build 52
 
@@ -66,11 +66,11 @@
 | S40 | 257b54f0 | Planned | build | Task 40.45: Live-on-advance = BOTH halves (sanctioned se |
 | S40 | 2b7356ac | Planned | build | Task 40.42: Diagram has ONE scroll/pan authority — no ne |
 | S40 | 2e831ffd | In Progress | gate | Task 40.37: Context-sensitive actions — invalid-for-type/sta |
+| S40 | 311df491 | Planned | marker | Task 40.93: Room-folder physical create routes through the O |
 | S40 | 38609d01 | Planned | marker | Task 40.50: Sprints render descending (latest on top) in |
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
-| S40 | 51bd0541 | Planned | marker | Task 40.88: Standing rulings are FAILABLE INVARIANTS — every |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
 | S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
 | S40 | 6134f49c | Planned | build | Task 40.53: ONE canonical sprint-dir resolver (sprintDir |

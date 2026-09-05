@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "311df491-4c68-46b5-8d72-5d85f7754d15",
+    "name": "Task 40.93: Room-folder physical create routes through the ONE owner (createPhysicalFolder), not a raw inline mkdir",
+    "slug": "task-40.93-311df491",
+    "description": "Captured, chain wired, expert BUILDING (PO). Planned. Single-owner for raw-mkdir (R40.88 no-mkdir-guard family). Covers R40.93 (e0c95904), UC a638e7fb. Minted 2026-09-05 (PO GO — 3rd firefight-skip, PO-owned; planner now dispatched same-breath as req). verify-owner-first: full-index scan confirmed NO prior covering task.",
+    "intention": "Board-track R40.93 at its honest status; declare the ONE canonical planning unit (traceability=DRY enforcement).",
+    "context": "Captured, chain wired, expert BUILDING (PO). Planned. Single-owner for raw-mkdir (R40.88 no-mkdir-guard family).",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "Mirrors R40.93 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.\n- [ ] AC-route-through-single-owner: a room folder's PHYSICAL create routes through the ONE physical-folder owner (FolderService.createPhysicalFolder / RoomFilesService, which already gates room-physical).\n- [ ] AC-no-raw-mkdir-at-2565: the raw fsSync.mkdirSync(target) at server.ts:2565 is REMOVED for the room-folder create — the create is delegated to the owner.\n- [ ] AC-green-by-routing-not-listing: on fix, the INFRA_ALLOW-list entry for server.ts:2565 COMES OUT — the guard stays GREEN because the create ROUTES through the owner, NOT because the raw mkdir is allow-LISTED.\n- [ ] AC-failable-self-stub: once the INFRA_ALLOW entry is gone, a seeded raw mkdir for a room folder (outside the owner) makes the guard go RED (self-bites, R40.88 pattern).\n- [ ] AC-legit-today-named-not-blocking: NAMED honestly — the current raw mkdir is LEGIT room-physical-by-construction (a room folder IS a real dir), currently INFRA_ALLOW-listed with the guard GREEN = NOT a live defect, NOT blocking.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:e0c95904-80b9-481f-bb0a-38d4bc425623"
+    ],
+    "useCases": [
+      "ior:instance:a638e7fb-7590-4a13-a313-e9fb738550d4"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP Planned 2026-09-05 (PO GO). Captured, chain wired, expert BUILDING (PO). Planned. Single-owner for raw-mkdir (R40.88 no-mkdir-guard family). UC full-uuid a638e7fb-7590-4a13-a313-e9fb738550d4 disk-resolved from R40.93.useCases[] (NOT fabricated). ACs mirrored no-drift. LOCAL push-freeze, path-limited. req reverse-wires R40.93.tasks[]. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-05"
+  },
+  "ownerIor": null
+}
