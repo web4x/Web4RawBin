@@ -16,9 +16,7 @@ import { UnitController, type PublishFn } from './unit-controller.js'; // R37.11
 
 export interface FileUnitInput {
   name: string;
-  content?: Buffer | string;      // T37.21: OPTIONAL — a folder is a room unit with NO content (everything is a unit)
-  kind?: 'file' | 'folder';       // T37.21: 'folder' → the SAME become-a-room-unit path, ior:class:Folder, no content
-  location?: string;              // T37.21 folder: its roomcoll location (for parity with the model-side Folder unit)
+  content: Buffer | string;
   mimeType?: string;
   uploaderToken?: string;
   fsKey?: string; // R40.22: opaque storageId for the roomFsLink PATH segment (caller resolves via homeKeyFor); falls back to uploaderToken
@@ -30,29 +28,7 @@ export interface FileUnitInput {
 // [impl:uuid:c546c877-9907-4f17-b61a-1157b0902765] createFileUnit
 // [impl:uuid:5fdcefe4-5404-4e0a-86d4-7979ec1a425c] R19.51 indexByContentHash
 export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish: PublishFn): ScenarioUnit {
-  // T37.21 (Tron: "everything is a scenario-unit; the unit IS the model"): a FOLDER is a room unit like a File — SAME path,
-  // no content. It lands in scenario/index (where models live) + gets the room-FS unitLink → syncLinks symlinks it into the
-  // room files dir beside the file siblings. This is the ONE become-a-room-unit path taking a folder (the path changed to
-  // accept it, per Tron — NOT a folder-shaped copy). The caller keeps the real mkdir + calls room.addFileUnit(uuid), exactly
-  // as a file upload does. RETIRES the MODEL_STORE folder mint (that was the SECOND representation = the actual bug).
-  if (input.kind === 'folder') {
-    const uuid = input.uuid || crypto.randomUUID();
-    const unitLinks: string[] = [];
-    if (input.roomUuid && (input.fsKey || input.uploaderToken)) {
-      const fsKey = input.fsKey || input.uploaderToken!;
-      unitLinks.push(path.join('..', 'data', 'users', fsKey, 'rooms', input.roomUuid, 'files', uuid + '.scenario.json')); // the room symlink (same convention as a file)
-    }
-    if (input.extraUnitLinks) unitLinks.push(...input.extraUnitLinks);
-    const folderUnit: ScenarioUnit = {
-      ior: iorClass('Folder'),
-      model: { uuid, name: input.name, kind: 'folder', location: input.location || '', children: [], parent: null, unitLinks },
-      ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
-    } as ScenarioUnit;
-    UnitController.create(idx, folderUnit.ior, uuid, folderUnit, { publish }); // scenario/index + syncLinks (room symlink) + emit (live) — same seam as a file
-    console.log(`[file-unit] folder unit created: uuid=${uuid.slice(0, 8)} room=${(input.roomUuid || '').slice(0, 8)} links=${unitLinks.length}`);
-    return folderUnit;
-  }
-  const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content || ''), 'utf-8');
+  const buf = Buffer.isBuffer(input.content) ? input.content : Buffer.from(String(input.content), 'utf-8');
   const contentHash = crypto.createHash('sha256').update(buf).digest('hex');
 
   // O(1) dedup via content-index symlink (atomic lock to prevent race)
