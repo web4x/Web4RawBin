@@ -1411,7 +1411,9 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
   return kids;
 }
 
-// [impl:uuid:PENDING-req-mint] roomFolderByLocation (architect cc9b90286, design-nested-roomcoll-detail-resolve) — THE ONE
+// [impl:uuid:4e029387-b53b-4d4e-a1e5-3d6a74de4733] roomFolderByLocation = RoomFolder.resolveUnitAndChildren (architect
+// cc9b90286 + OOP-home d2e85c81f: ONE canonical roomcoll-location identity, two projections — detail-resolve + children).
+// design-nested-roomcoll-detail-resolve — THE ONE
 // location→unit lookup: which of a room's files[] Folder units sits at a given roomcoll LOCATION ref (model.location === ref).
 // A nested folder is a REAL persisted Folder unit and the tree node ref IS its model.location (roomFilesChildren emits uuid:loc),
 // so detail must resolve that SAME ref to the REAL unit — NOT a synthetic dup (LAW-9) and NOT a second real-uuid identity.
