@@ -6,7 +6,9 @@
     "description": "DESIGN-AHEAD (#126). Unified room-folder identity resolver in src/ts/server/server.ts: ONE resolution (roomFolderByLocation: match room.files[] Folder unit by model.location===roomcoll ref) serves BOTH faces — /api/ior returns the REAL unit+verbs (resolveViewUnit files/<path> arm, ruling cc9b90286) and /api/trace/children returns roomFilesChildren of that unit (render fix eea1fb136). Dual-identity unified: the roomcoll LOCATION ref is THE identity; no divergent 2nd resolver. Expert marks [impl:uuid:4e029387-b53b-4d4e-a1e5-3d6a74de4733] on the shared resolver.",
     "sourceFile": "ior:file:src/ts/server/server.ts",
     "designAhead": false,
-    "tests": []
+    "tests": [
+      "ior:instance:a8ab1e2f-2001-4242-81ae-8dce6f5a5a98"
+    ]
   },
   "ownerIor": "ior:instance:a1640bd6-adb5-4f53-b1d0-53ef955106d1"
 }
