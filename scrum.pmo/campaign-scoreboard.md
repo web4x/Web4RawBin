@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 241** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 86** (241 = 98+52+3+86)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 82**
+- **TOTAL S30++ tasks: 241** — Done **98** · QA-Review **53** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 85** (241 = 98+53+3+85)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 81**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 39 | 1 | 14 | 0 | 24 |
-| S40 | 82 | 0 | 21 | 0 | 59 |
+| S40 | 82 | 0 | 22 | 0 | 58 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 18 · build 52
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 17 · build 52
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -94,7 +94,6 @@
 | S40 | a5b4b0f7 | Planned | build | Task 40.39: Type-registration is BOUND to index-strategy |
 | S40 | a93426a1 | Planned | build | Task 40.46: Live code-stamp of lastAdvancedAt on a marke |
 | S40 | b500f345 | Planned | RIPE | Task 40.26: Discover-related completeness: adds the UseC |
-| S40 | b60afb24 | Planned | marker | Task 40.86: Folders are drop targets — dropping content onto |
 | S40 | b749e786 | Planned | build | Task 40.44: REMOVE the dead /api/current-sprint/designat |
 | S40 | b981f1c9 | Planned | RIPE | Task 40.66: PROD regression — File units carry UUIDs where n |
 | S40 | bb9dec65 | Planned | build | Task 40.62: Render the CR diagram file-artefact — a CR dropp |

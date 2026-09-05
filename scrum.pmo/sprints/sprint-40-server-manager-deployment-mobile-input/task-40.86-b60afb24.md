@@ -8,17 +8,17 @@
 
 ## Status
 - [x] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-STOOD UP Planned 2026-09-05 (PO GO). WIRED, not built (PO). Planned. UC full-uuid af1bf20b-9000-45db-9c55-9d93f4822a7c resolved from R40.86.useCases[] on disk (NOT fabricated). ACs mirrored from the req (no-drift). Minted LOCAL (push-freeze), path-limited. req reverse-wires R40.86.tasks[]. 0 Done till Tron.
+ADVANCED Planned -> QA-Review 2026-09-05 (Tron-designated HIGH priority; built+gated fast so the In-Progress step was skipped — honest final = QA-Review, gated). TESTER-GATED GREEN (VERIFIED on disk not relayed): commit 6933f7c97 'R40.86 render fix VERIFIED — ALL GREEN', DET 3/3, v0.8.185 (fix 9febe7a64, shared isDirectChildOfNode predicate byParent||byLoc, RED->GREEN of the r4086 baseline): drop nests INSIDE the folder + RENDERS as a child + NOT double-listed at root + exactly ONE unit + no regression. This is the item that MET Tron's done+green stop-condition. Done pending TRON only. UC full-uuid af1bf20b disk-resolved. ACs mirrored no-drift. LOCAL push-freeze, path-limited. 0 Done till Tron.
 
 ## Task Description
 

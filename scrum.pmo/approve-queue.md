@@ -39,7 +39,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 #### ⚠️ NOT READY — 1 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 27 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 28 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -62,6 +62,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S40 adc068c5** Task 40.92: Add folder to a model collection SUCCEED — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 ae0548ae** Task 40.4: Sprint labels show the sprint NUMBER (dis — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 b0be0668** Task 40.8: 'Files' shows the REAL measured on-disk p — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 b60afb24** Task 40.86: Folders are drop targets — dropping cont — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 b6e4a7dd** Task 40.7: Back = real history.back(); the path labe — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 cc3fa868** Task 40.9: 'Preview' = traceability chain + details  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 ce92294f** Task 40.2: WODA.prod as a UML deployment-Node (SSH/d — _device @390 — headless evidence ok; needs your tap/pixel verify_
