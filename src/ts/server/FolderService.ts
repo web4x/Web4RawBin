@@ -63,6 +63,31 @@ export function resolveFolderRefToDir(rawRef: string, root: string = PROJECT_ROO
   return '';
 }
 
+// [impl:uuid:PENDING-req-mint] isVirtualModelParent (R40.87-B, architect) — the DISCRIMINATOR that makes the model add-folder
+// '' branch FAIL-CLOSED. A parent that resolves to NO physical dir (resolveFolderRefToDir === '') is minted as a store-only
+// unit ONLY when it is a LEGITIMATE virtual/model container; a genuinely MALFORMED ref must NOT mint (it returns bad-parent-loc).
+// LEGIT = (a) a recognized model COLLECTION/bucket ref the mof tree emits as a container (rawbin:diagram = the diagrams
+// collection, project:*, mof-m1/m2, a collection: ref), OR (b) an EXISTING persisted Folder unit in MODEL_STORE (nesting under
+// an already-minted virtual folder). A bare display-name ('diagram', 'RawBin'), a random string, or a type-prefixed dangling
+// ref (task:0000…) matches NEITHER → false → bad-parent-loc. Mirrors offered⟺succeeds: the verb is only legitimately offered on
+// a REAL model container, so a ref that resolves to no container is never a legitimate add-folder target. FAIL-CLOSED by default.
+export function isVirtualModelParent(rawRef: string, storeDir: string): boolean {
+  const ref = String(rawRef || '').replace(/^ior:instance:/, '');
+  if (!ref) return false;
+  // (a) a recognized model collection/bucket ref (canonical synthetic containers the mof tree derives)
+  if (/^(rawbin:(diagram|ts|puml|traceability)\b|project:|mof-m[12]\b|collection:)/.test(ref)) return true;
+  // (b) an existing persisted Folder unit in MODEL_STORE (nest under an already-minted virtual folder)
+  const uuid = ref.includes(':') ? ref.slice(ref.lastIndexOf(':') + 1) : ref;
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)) {
+    try {
+      const f = path.join(storeDir, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+      const u = JSON.parse(fsSync.readFileSync(f, 'utf8'));
+      if (u && u.ior === 'ior:class:Folder') return true;
+    } catch { /* not found → not a virtual parent */ }
+  }
+  return false;
+}
+
 export class FolderService {
   // [impl:uuid:0e6761c2-7b4e-472e-9c63-4793b766a288] FolderService.mintRealUnit (Method 36a73988, Class c3f261fa, UC
   // folder.mintRealUnit) — mint + persist the Folder unit atomically and RETURN it so the itemview is one-step.

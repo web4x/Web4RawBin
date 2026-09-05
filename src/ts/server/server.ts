@@ -2943,12 +2943,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // object, NOT inherently a directory → ROUTE the model add-folder by PARENT PHYSICALITY (the ONE resolveFolderRefToDir
           // discriminator). A real-dir-backed parent (dir:*, rawbin:ts→src) resolves to an abs dir → createPhysicalWithUnit (mkdir +
           // unit, R37.21 physical=BOTH). A virtual/model collection (diagrams, or any Folder with NO physical location → resolver
-          // returns '') → mintRealUnit (store-only MODEL_STORE child, NO mkdir, prod untouched). So add-folder SUCCEEDS wherever the
-          // verb is offered (offered⟺succeeds); bad-parent-loc reverts to a TRUE fail-closed only for a genuinely malformed ref.
-          const physicalDir = resolveFolderRefToDir(parentRef); // '' = a virtual/model collection with no physical directory
+          // returns '') → mintRealUnit ONLY when the '' parent is a LEGITIMATE virtual container (isVirtualModelParent). R40.87-B
+          // FIX (architect; tester RED gate dcf282ec7): the '' branch previously minted UNCONDITIONALLY, so a MALFORMED ref
+          // (bare display-name / random string / task:0000…) silently CREATED a garbage unit instead of failing. Now: physical
+          // dir → mkdir+unit; a KNOWN virtual/model container → store-only unit; a genuinely malformed ref → bad-parent-loc
+          // (fail-closed, NO unit). That is the TRUE property (the prior comment claimed this fail-closed but the code did not do it).
+          const physicalDir = resolveFolderRefToDir(parentRef); // '' = no physical directory (virtual container OR malformed)
           const out = physicalDir
             ? FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parentRef) // physicality-gated: real-dir parent → physical mkdir + unit
-            : FolderService.mintRealUnit(MODEL_STORE, String(name || ''), parentRef, 'folder'); // virtual/model parent → store-only unit (no dir)
+            : FolderService.isVirtualModelParent(parentRef, MODEL_STORE)
+              ? FolderService.mintRealUnit(MODEL_STORE, String(name || ''), parentRef, 'folder') // KNOWN virtual/model container → store-only unit (no dir)
+              : { ok: false as const, error: 'bad-parent-loc' }; // ★ malformed / unresolvable ref → FAIL-CLOSED, never mint a garbage unit
           if (!out.ok) {
             const halfState = String(out.error || '').startsWith('half-created');
             if (halfState) addLog(`[model] add-folder HALF-STATE — ${out.error}`); // LOUD at the route (addLog available here; FolderService already console.error'd the orphan)
