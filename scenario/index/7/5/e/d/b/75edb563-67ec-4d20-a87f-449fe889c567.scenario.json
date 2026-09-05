@@ -7,6 +7,6 @@
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
     "designAhead": false,
     "tests": [],
-    "description": "DESIGN-AHEAD (R40.86 NEW capability). DropDispatcher recognizes folder-as-drop-target + resolves destination; the child LANDS + renders in-place by DELEGATING to R40.84 reDeriveDirectChildren (Impl 8693dc2b) — NO duplicate containment path here. Expert builds routing only + attaches [impl:uuid:75edb563]; flag architect if it needs its own add (then reconsider placement)."
+    "description": "BUILT v0.8.185 (expert 9febe7a64): DropDispatcher.acceptDropIntoContainer routes each dropped file through uploadFile(intoFolder) + DELEGATES in-place render to R40.84 reDeriveDirectChildren (no 2nd containment path). Render nests via the shared isDirectChildOfNode predicate. Architect backstop PASS."
   }
 }
