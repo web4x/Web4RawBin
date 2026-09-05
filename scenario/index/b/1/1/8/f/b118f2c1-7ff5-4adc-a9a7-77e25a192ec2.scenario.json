@@ -32,7 +32,7 @@
       "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
     ],
     "crossRefNote": "Extends R40.54 (failable-AC meta-guard) to RULINGS. Shares R40.55/R40.54 single-source structuralDiscover (AC-one-mechanism-with-aron). R40.37 = the worked-example ruling; R40.87 = its enforcement (routing + no-mkdir-for-model-Folder); tracked defect c83c02f2 = the recurrence this class-fix prevents. Coordinate with ARON: requirement-side + trainer-doctrine-side = ONE mechanism.",
-    "satisfactionStatus": "SATISFIED — chain-complete-to-Test. Guard ModelFolderMkdirGuard (Impl 2ba767f2, scripts/check-no-mkdir-for-a-model-folder.ts) real/GREEN; Test 7a7c1365 (standing evasion-reverify harness, tester f26ec8919) proves idiomatic mkdir-for-model-folder drift is CAUGHT = the failable-invariant thesis. e1 aliased-mkdir = named residual. (Expert seats [impl:uuid:2ba767f2] in the guard header, queued after R40.92 — code already GREEN; tester two-keys the forward Impl.tests[].)",
+    "satisfactionStatus": "CHAIN-COMPLETE-TO-TEST (unit level) — NOT YET 6/6 SATISFIED. The [impl:uuid:2ba767f2] source-marker seat is OPEN (expert queued, marker-only edit at scripts/check-no-mkdir-for-a-model-folder.ts guard header on assertNoMkdirForModelFolder); until it lands the Method->Impl SOURCE link is not verifiable = the impl hop is genuinely open (tester measured the marker ABSENT). Downgraded from a PREMATURE 'SATISFIED' per tester measure-first (R4 evidence-must-fail: a hop is not proven until its marker lands in source). FLIPS to satisfied when the expert seats [impl:uuid:2ba767f2] and I verify it in code.",
     "acceptanceCriteria": [
       {
         "id": "AC-every-ruling-carries-a-failable-guard",
@@ -137,7 +137,8 @@
       "provenRedNow": "the guard run against TODAY tree = RED (ModelView.addFolder calls physical UNCONDITIONALLY, no branch) -> flips GREEN exactly when R40.87 branch ships = the guard proving itself (same as R40.82 9->0). So R40.88 satisfaction is COUPLED to R40.87 delivery.",
       "sequence": "expert writes scripts/check-no-mkdir-for-a-model-folder.ts + ci:gates (after R40.85->87) -> tester gates + self-stub GREEN -> trainer canonizes -> I flip R40.88 off UNVERIFIED + mint Test off guard marker -> architect wires UC->Method->Impl (marker-sanctioned, filename-independent). No chokepoint touched."
     },
-    "chainCompleteToTest": true
+    "chainCompleteToTest": true,
+    "implMarkerSeatPending": true
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
