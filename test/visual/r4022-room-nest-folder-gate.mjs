@@ -171,7 +171,10 @@ try {
   await expandByName(F1);
   await sleep(900);
   const afterF2 = await treeText();
-  const A2 = afterF2.includes(F2); // second folder accepted + revealed, no page reload
+  // Tron reframe: a folder that CANNOT contain a folder is not working, however well it renders → A2 credits ONLY the REAL
+  // verb path. The server-POST fallback creates F2 for DIAGNOSIS (to show server/render work) but does NOT credit A2/A3/A5a.
+  const verbPresent = !!addBtn2.pressed;
+  const A2 = verbPresent && afterF2.includes(F2); // second folder accepted via the real add-folder verb, no page reload
   results.A2_nestedAccept = A2;
   // A3 nesting: F2's create carried nestedPath=F1 in the POST BODY (nested under F1, not the room root).
   const f2Post = posts.find((p) => p.name === F2);
@@ -201,9 +204,9 @@ try {
     const deeper = depth(inner) > depth(outer);
     return { ok: selectorFound && nestedUnderOuter && !sameContainer && deeper, selectorFound, nestedUnderOuter, sameContainer, outerDepth: depth(outer), innerDepth: depth(inner), dump };
   }, { outerName: F1, innerName: F2 });
-  results.A5a_newFoldersRenderNested = !!a5a.ok;
+  results.A5a_newFoldersRenderNested = verbPresent && !!a5a.ok; // render credited only when reached via the real verb path
   try { await page.screenshot({ path: 'test-results/r4022-A5a-new-folders-nested.png', fullPage: true }); } catch {}
-  R(`  A5a render-nested (NEW folders, @390): '${F2}' DOM-child of '${F1}' (structural, not padding) = ${a5a.ok} | ${JSON.stringify(a5a)} | shot test-results/r4022-A5a-new-folders-nested.png`);
+  R(`  A5a render-nested (NEW folders, @390): verb=${verbPresent} + '${F2}' DOM-child of '${F1}' (render=${a5a.ok}) => ${results.A5a_newFoldersRenderNested} | ${JSON.stringify(a5a)} | shot test-results/r4022-A5a-new-folders-nested.png`);
 
   // A4 on disk: BOTH folders are UNITS in the ONE store, symlinked like files (not bare dirs). Scan the scratch trees.
   const diskA4 = (() => {
@@ -222,6 +225,37 @@ try {
   results.A4_oneStoreUnits = diskA4.ok;
   R(`  A4 one-store-units: BOTH folders are units in the ONE store (scenario/index) = ${diskA4.ok} | units=${JSON.stringify(diskA4.units)} symlinks=${diskA4.symlinks} bareDirs=${diskA4.bareDirs} dupStoreHits=${JSON.stringify(diskA4.dupStore)}`);
 
+  // ── ★ CORE (Tron: a folder that CANNOT contain a folder is NOT working, however well it renders; PO: gate BOTH symptoms —
+  //    ONE ref resolves BOTH halves). Select the nested-parent folder F1 (now contains F2) and require, from the SINGLE ref the
+  //    tree hands it: (1) nested /api/ior returns a REAL unit (not null — the dual-identity collapse); (2) the add-folder verb
+  //    APPEARS (folder-can-contain-folder, NO fallback); (3) the detail body LISTS its child F2 (not the prod blank 'no
+  //    children'); (4) the sunburst is SIZED (≥1 arc, not empty). STUB-MUST-FAIL: null unit OR zero verb ⇒ RED. ──
+  await clickByName(F1); await sleep(3600); // detail fetch (children + sunburst) is async — settle before reading
+  const nestedRef = await page.evaluate((name) => { const t = document.getElementById('room-tree'); const n = [...(t?.querySelectorAll('rb-object-item') || [])].find((e) => ((e.getAttribute('title') || '') + (e.textContent || '')).includes(name)); return n ? (n.getAttribute('ref') || n.getAttribute('data-ref') || '') : ''; }, F1);
+  const iorReal = await page.evaluate(async (ref) => { const uuid = String(ref).replace(/^[a-z]+:/, ''); try { const r = await fetch(`/api/ior/ior:instance:${encodeURIComponent(uuid)}`); const j = await r.json().catch(() => null); return { status: r.status, hasUnit: !!(j && (j.unit || j.model)), ior: (j?.unit?.ior || j?.ior || null) }; } catch (e) { return { status: 0, hasUnit: false }; } }, nestedRef);
+  // ISOLATION DIAG: does the CHILDREN DATA resolve via the roomcoll ref (what the detail's children/sunburst should fetch)?
+  const childData = await page.evaluate(async (ref) => { const rc = String(ref).replace(/^[a-z]+:/, ''); try { const r = await fetch(`/api/trace/children/${encodeURIComponent(rc)}`); const j = await r.json().catch(() => null); return { status: r.status, count: (j?.children || []).length, names: (j?.children || []).map((c) => c.name) }; } catch (e) { return { status: 0, count: -1 }; } }, nestedRef);
+  const detailStruct = await page.evaluate(() => { const d = document.querySelector('.drawer-panel-detail') || document.querySelector('rb-detail-view'); if (!d) return 'no-detail'; return [...d.querySelectorAll('*')].map((e) => e.className || e.tagName).filter((c) => /dv-|sunburst|children/i.test(String(c))).slice(0, 8).join(' | '); });
+  R(`  DIAG children-via-roomcoll(${nestedRef.replace(/^[a-z]+:/, '').slice(0, 46)}): status=${childData.status} count=${childData.count} names=${JSON.stringify(childData.names)} | detail-sections=[${detailStruct}]`);
+  // Read the DETAIL PANEL ONLY (not the whole drawer, which contains the tree → false 'child listed'). Prefer the drawer's
+  // dedicated detail container; the sunburst + children-list live INSIDE it.
+  const core = await page.evaluate((innerName) => {
+    const verbPresent = [...document.querySelectorAll('button, [role="button"], .rb-strip *')].some((e) => /add folder/i.test(e.textContent || ''));
+    const detail = document.querySelector('.drawer-panel-detail') || document.querySelector('rb-detail-view') || null;
+    const dtxt = detail ? (detail.textContent || '') : '';
+    const childList = detail?.querySelector('.dv-scenario-children');
+    const childrenListed = !!childList && childList.textContent.includes(innerName); // the child in the DETAIL's children list
+    const noChildren = /no children/i.test(childList?.textContent || dtxt);
+    const sun = detail?.querySelector('.dv-sunburst');
+    const sunPaths = sun ? sun.querySelectorAll('path').length : -1;
+    const sunburstSized = !!sun && !sun.querySelector('.dv-sunburst-empty') && sunPaths > 0;
+    return { verbPresent, detailFound: !!detail, detailLen: dtxt.length, childrenListed, noChildren, sunPresent: !!sun, sunPaths, sunburstSized, sample: dtxt.replace(/\s+/g, ' ').slice(0, 100) };
+  }, F2);
+  results.CORE_folderContainsFolder = iorReal.hasUnit && core.verbPresent && core.childrenListed && !core.noChildren && core.sunburstSized;
+  try { await page.screenshot({ path: 'test-results/r4022-CORE-nested-detail.png', fullPage: true }); } catch {}
+  R(`  ★ CORE (folder-can-contain-folder, ONE ref '${nestedRef.slice(0, 40)}' resolves BOTH): iorRealUnit=${iorReal.hasUnit}(${iorReal.status}) + verb=${core.verbPresent}(no-fallback) + body-lists-'${F2}'=${core.childrenListed} + sunburst-sized=${core.sunburstSized}(paths=${core.sunPaths}) (noChildren=${core.noChildren} detailFound=${core.detailFound} len=${core.detailLen}) => ${results.CORE_folderContainsFolder ? 'GREEN' : 'RED'} | sample="${core.sample}"`);
+  R(`  DIAG (isolation, not a pass): render-nests-when-created=${a5a.ok} · server-nests-via-fallback=${f2ViaFallback} — GREEN render/server here with CORE RED = the fix nests but the user-path (verb+detail) is still broken`);
+
   R(`  ROUTE-INTERCEPT (corroboration): ${JSON.stringify(posts)}`);
   await ctx.close();
 } catch (e) {
@@ -239,6 +273,7 @@ R(`  A2 nested-accept (F2 into F1, no reload)         : ${results.A2_nestedAccep
 R(`  A3 nesting-correct (F2 under F1, not root)       : ${results.A3_nestingCorrect ? 'GREEN' : 'RED'}`);
 R(`  A4 one-store-units (both units, one store)       : ${results.A4_oneStoreUnits ? 'GREEN' : 'RED'}`);
 R(`  A5a render-nested (NEW folders indented @390)    : ${results.A5a_newFoldersRenderNested ? 'GREEN' : 'RED'}`);
-const allGreen = results.A1_itemsTree && results.A2_nestedAccept && results.A3_nestingCorrect && results.A4_oneStoreUnits && results.A5a_newFoldersRenderNested;
+R(`  ★ CORE folder-can-contain-folder (verb+ior+body+sunburst, ONE ref) : ${results.CORE_folderContainsFolder ? 'GREEN' : 'RED'}`);
+const allGreen = results.CORE_folderContainsFolder && results.A1_itemsTree && results.A2_nestedAccept && results.A3_nestingCorrect && results.A4_oneStoreUnits && results.A5a_newFoldersRenderNested;
 R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
 process.exit(allGreen ? 0 : 1);
