@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "58fb8080-c6ef-423c-bbce-8173dcf99b62",
+    "name": "node.childrenThroughInterface",
+    "description": "Every node type answers its own children via the per-type parent-children interface node.children(); Folder.children() is the single canonical owner; tree + detail both render from node.children() on the same instance; a failable guard fails if any surface derives children off-interface.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+    "unitLinks": [],
+    "note": "Architect wires the parent-children interface Class + Folder.children() Method + the off-interface guard on build-go; expert builds; tester gates + @390."
+  },
+  "ownerIor": "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
+}

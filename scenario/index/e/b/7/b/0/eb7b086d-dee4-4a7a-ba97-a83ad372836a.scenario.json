@@ -1,0 +1,90 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+    "altId": "R40.82",
+    "name": "Folder owns its children through a per-type parent-children interface (ONE canonical derivation, tree+detail same instance)",
+    "description": "Tron root lens 2026-09-05 (via PO): what belongs to the object lives ON the object, data AND behaviour. Children are answered BY the object through a per-type parent-children interface (node.children()). Folder.children() is the SINGLE owner of its answer; BOTH the tree and the detail render from node.children() on the SAME instance; NO surface derives children by any other means. The measured defect this fixes: the tree and the detail each derived children THEIR OWN WAY = a duplicate derivation = the exact duplication the traceability graph exists to make impossible/visible. This is the fix for the defect Tron can SEE (his folder is still invisible) and everything else waits behind it. Same law as R40.81 one-physical-store: data (store) and behaviour (children) both belong ON the object.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:58fb8080-c6ef-423c-bbce-8173dcf99b62"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-directive-root-lens",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "urgency": "BLOCKING — expert stalled scenario-first waiting for these ACs; the fix for the visible defect (invisible folder). Buildable NOW (NOT capture-only, unlike R40.81 store).",
+      "rootLens": "traceability IS DRY enforcement; a 2nd children-derivation is a TRACEABILITY DEFECT, not a refactor note"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "buildable": "NOW — this is the blocking OOP children fix (visible defect), NOT capture-only. Distinct from R40.81 store (capture-only, non-blocking).",
+    "crossRef": [
+      "ior:instance:80346a36-c323-4ac5-bc3f-6286748bc074",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
+    ],
+    "crossRefNote": "Fixes the duplicate-derivation behind R37.21 P2 client-subscribe (tree vs detail each deriving children own way); once Folder.children() is the single owner + tree/detail render from one instance, the live-insert propagates to both BY CONSTRUCTION (subsumes the narrow-B wiring path). Same DRY law as R40.81 (data-on-object) — this is behaviour-on-object. Rides R40.54 failable-AC family.",
+    "satisfactionStatus": "UNVERIFIED (ACs captured scenario-first; interface + guard + fix unbuilt; no stub RED observed — honest third state).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-every-type-implements-parent-children-interface",
+        "group": "by-construction",
+        "text": "EVERY node type implements the per-type parent-children interface (node.children()). A type that can contain children but derives them off-interface => RED. This is the OOP shape: children are answered BY the object, per type.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:parent-children-interface-implemented",
+          "assertion": "every ior:class that can have children implements children(); an off-interface child-derivation => RED"
+        },
+        "stubMustFail": "PENDING: seed a type that derives children without implementing the interface -> RED"
+      },
+      {
+        "id": "AC-folder-children-single-owner",
+        "group": "by-construction/ONE-canonical",
+        "text": "Folder.children() is the SINGLE owner of its answer — the canonical derivation of a Folder's children lives ON the Folder, exactly once. A SECOND derivation of a Folder's children anywhere in the codebase => RED (the duplication the traceability graph exists to stop; per the root lens, a 2nd derivation is a TRACEABILITY DEFECT not paperwork).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:single-owner-of-children (Folder)",
+          "assertion": "exactly ONE Folder.children() derivation; a 2nd code path computing a Folder's children => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd Folder-children derivation -> RED"
+      },
+      {
+        "id": "AC-tree-and-detail-same-instance",
+        "group": "render/ONE-derivation/DEVICE-390",
+        "text": "BOTH the tree AND the detail render from node.children() on the SAME instance — one derivation, not two parallel ones (the measured duplicate-derivation bug: tree and detail each deriving children their own way). Screenshot-checkable @390: the children shown in the tree == the children shown in the detail, sourced from ONE node.children() call on ONE node instance. Divergence => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:tree-detail-children-same-source @390",
+          "assertion": "tree children and detail children resolve from one node.children() on one instance; any divergence => RED"
+        },
+        "stubMustFail": "PENDING @390: seed tree and detail deriving children by different paths -> divergent render -> RED"
+      },
+      {
+        "id": "AC-no-surface-derives-children-otherwise",
+        "group": "by-construction/THE-GUARD/traceability-query",
+        "text": "THE failable guard (a TRACEABILITY QUERY, per the root lens = the system USED as DRY enforcement, not a ledger): NO surface derives children by ANY means other than node.children(). A surface that walks/queries/computes children off-interface => RED. This is the by-construction guarantee that one-derivation cannot be bypassed.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-off-interface-children-derivation",
+          "assertion": "0 surfaces derive children except via node.children(); any off-interface derivation => RED (stub-must-fail proven)"
+        },
+        "stubMustFail": "PENDING: seed a surface deriving children off-interface -> RED"
+      },
+      {
+        "id": "AC-device-folder-visible-390",
+        "group": "acceptance/DEVICE-390",
+        "text": "SCREENSHOT ACCEPTANCE (Tron @390): after the fix, Tron's folder is VISIBLE — the child that was invisible renders in both the tree and the detail, live. This is the defect Tron can SEE; the fix is proven when he sees the folder on his own device.",
+        "gateRef": {
+          "kind": "device",
+          "ref": "Tron @390 folder-visible confirm",
+          "assertion": "Tron creates/opens the folder and its children render in tree + detail on his device @390"
+        },
+        "stubMustFail": "N/A (device-acceptance; Tron-confirmed, not a self-stub)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
