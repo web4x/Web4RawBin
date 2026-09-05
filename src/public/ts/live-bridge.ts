@@ -13,7 +13,8 @@ import { wireTransportResync } from './transport-lifecycle.js'; // R37.27 fact-1
 // [translator-owner:unit-changed] R40.91 (architect 561bcfb8): THE single sanctioned unit-changed→notify key translator.
 // check:one-unit-changed-translator asserts exactly ONE function carries this marker; any OTHER site matching a
 // `=== 'unit-changed'` WS-frame test that builds the notify key INLINE (viewBusKey/ViewBus.notify) instead of delegating
-// to notifyUnitChanged is RED (the R40.84-B drifted-duplicate defect, unevadable).
+// to notifyUnitChanged is RED (the R40.84-B drifted-duplicate defect). The guard catches the idiomatic spellings (literal /
+// local const / MSG.UNIT_CHANGED / aliased ViewBus.notify); deliberate obfuscation is an accepted residual (see the check header).
 export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: string }): void {
   if (!msg || msg.type !== 'unit-changed') return;
   const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
