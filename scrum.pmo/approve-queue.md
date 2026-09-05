@@ -36,11 +36,10 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:R37.11 slice-1 AC-2 mutation-seam bindin_
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
-#### ⚠️ NOT READY — 2 (at QA-Review but evidence INCOMPLETE — NOT approvable)
-- 🧪 **S40 51bd0541** Task 40.88: Standing rulings are FAILABLE INVARIANTS — _needs: Impl exists but markerPending (not shipped)_
+#### ⚠️ NOT READY — 1 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 26 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 27 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -53,6 +52,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S40 46964040** Task 40.18: Pin auto-progress on QA-Review — pin adv — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 49822597** Task 40.85: Plain file upload via the drop area SUCC — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 50f51ac1** Task 40.17: Live-pin no-refresh — pin-designate upda — _device @390 — headless evidence ok; needs your tap/pixel verify_
+- 🧪 **S40 51bd0541** Task 40.88: Standing rulings are FAILABLE INVARIANTS — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 6e3cc1b2** Task 40.11: deploymentRefs are scenario-first units  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🔁 **S40 7a956c21** Task 40.1: Action — Open Claude.ai RC (per-pane/agen — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 9a70ce5e** Task 40.10: Tron renders his QA verdict FROM the tas — _device @390 — headless evidence ok; needs your tap/pixel verify_

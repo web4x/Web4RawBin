@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-DRIFT-FIXED Planned -> QA-Review-with-open-CR 2026-09-05 (PO board-resync): I minted it Planned, but R40.88 is chain-complete-to-Test + SATISFIED-at-req-level (890e1fa59, guard hardened through 3 rounds of independent tester attack e2/e3/e4 CLOSED, e1 named residual, Test on the standing evasion harness). ★ OPEN ITEM (NOT a defect): the Impl source-code marker is UNSEATED (expert task 379) = 5/6 hops, so req is NOT-satisfied (req downgraded its OWN claim for exactly this reason) — a traceability seat, not a product bug. Done BLOCKED by the marker-seat AND Tron. UC full-uuid 669cd55d disk-resolved. ACs mirrored no-drift. LOCAL push-freeze, path-limited. 0 Done till Tron.
+DRIFT-FIXED Planned -> QA-Review-with-open-CR 2026-09-05 (PO board-resync): I minted it Planned, but R40.88 is chain-complete-to-Test + SATISFIED-at-req-level (890e1fa59, guard hardened through 3 rounds of independent tester attack e2/e3/e4 CLOSED, e1 named residual, Test on the standing evasion harness). ★ RESOLVED 6/6 (updated 2026-09-05, minutes after the 5/6 fix — another stale-by-minutes flip): the Impl marker [impl:uuid:2ba767f2-d1e2-48b8-8d54-8fdd04e97840] is now SEATED at scripts/check-no-mkdir-for-a-model-folder.ts:186 (commit bebb235cb, VERIFIED on disk by me not relayed), req SATISFIED 6/6, implMarkerSeatPending->false. Advanced past QA-Review-with-open-CR to clean QA-Review. ⚠ NOTE: PO said 'keep at 5/6' minutes earlier — the marker seated SINCE; I advanced on the disk-verified 6/6 + FLAGGED PO (surface, not silent-countermand). Done pending TRON only. UC full-uuid 669cd55d disk-resolved. ACs mirrored no-drift. LOCAL push-freeze, path-limited. 0 Done till Tron.
 
 ## Task Description
 
