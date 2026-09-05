@@ -36,12 +36,11 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 fe6b4379** Task 37.4.2: CONTROLLER — one generic unitController — _Test: test:R37.11 slice-1 AC-2 mutation-seam bindin_
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
-#### ⚠️ NOT READY — 3 (at QA-Review but evidence INCOMPLETE — NOT approvable)
+#### ⚠️ NOT READY — 2 (at QA-Review but evidence INCOMPLETE — NOT approvable)
 - 🧪 **S40 51bd0541** Task 40.88: Standing rulings are FAILABLE INVARIANTS — _needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
-- 🧪 **S40 adc068c5** Task 40.92: Add folder to a model collection SUCCEED — _needs: Impl exists but markerPending (not shipped)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 25 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 26 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
@@ -60,6 +59,7 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S40 9f11a990** Task 40.28: Default actions Scenario + Edit ALWAYS o — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 a10c3329** Task 40.5: Detail/feature-view EXTRA action buttons  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 a4fe4dc0** Task 40.84: Adding a child updates that node IN PLAC — _device @390 + needs: Impl exists but markerPending (not shipped)_
+- 🧪 **S40 adc068c5** Task 40.92: Add folder to a model collection SUCCEED — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S40 ae0548ae** Task 40.4: Sprint labels show the sprint NUMBER (dis — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 b0be0668** Task 40.8: 'Files' shows the REAL measured on-disk p — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S40 b6e4a7dd** Task 40.7: Back = real history.back(); the path labe — _device @390 — headless evidence ok; needs your tap/pixel verify_
