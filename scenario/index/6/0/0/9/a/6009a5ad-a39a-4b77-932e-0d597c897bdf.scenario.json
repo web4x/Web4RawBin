@@ -6,7 +6,9 @@
     "name": "Add folder to a model collection succeeds but the folder never appears",
     "description": "Tron adds a folder to a MODEL COLLECTION (e.g. diagrams) — it mints successfully but appears NOWHERE. ROOT (measured in code): the collection children derivation at server.ts:1789 (rawbin:diagram) returns ONLY ior:class:Diagram units and NEVER Folder units; and a store-only model Folder (mintRealUnit) carries parent=rawbin:diagram but NO location, so the location-based dir: merge at server.ts:1780 cannot find it either. Both paths exclude a store-only Folder parented under a model collection. SAME SHAPE AS R40.84-B / R40.87: succeeds INVISIBLY — offered<=>succeeds<=>visible is violated. c83c02f2 is only HALF fixed from Tron's point of view: the error stopped, but he still SEES NOTHING when he adds a folder to diagrams. FIX: the derivation includes parent-linked (parent=rawbin:<collection>) store-only Folder units so the folder RENDERS in the collection after add + persists.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:adc068c5-c319-414b-ab55-c3d6c91bf012"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:fe9a2e26-3809-4155-ba2a-8adb43138f62"

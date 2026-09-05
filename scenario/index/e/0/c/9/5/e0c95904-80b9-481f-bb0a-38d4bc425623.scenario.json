@@ -6,7 +6,9 @@
     "name": "Room-folder physical create routes through the ONE owner (createPhysicalFolder), not a raw inline mkdir",
     "description": "server.ts:2565 creates a ROOM folder via a RAW mkdir ('mkdirSync(filesBase,{recursive:true}); mkdirSync(target)') instead of going through the ONE physical-folder owner FolderService.createPhysicalFolder (RoomFilesService already gates room-physical at server.ts:47). It is LEGIT room-physical-by-construction (NOT a model-folder hazard), currently INFRA_ALLOW-listed so the guard is GREEN — so NOT blocking. But it is a SINGLE-OWNER violation of the shape Tron cares most about: ONE canonical owner for physical-folder creation; duplicate physical-create paths ARE the defect (same family as R40.81 one-store / R40.91 one-translator two-source). FIX: the room-folder create routes through the owner; on fix the INFRA_ALLOW entry for server.ts:2565 COMES OUT — the guard stays GREEN by ROUTING, not by LISTING. Was HIDDEN until R40.88 e4 close (3f9a2d309) removed the recursive:true that masked it.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:311df491-4c68-46b5-8d72-5d85f7754d15"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:a638e7fb-7590-4a13-a313-e9fb738550d4"

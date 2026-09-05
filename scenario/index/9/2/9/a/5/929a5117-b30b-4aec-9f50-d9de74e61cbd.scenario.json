@@ -6,7 +6,9 @@
     "name": "Exactly ONE unit-changed->notify translator — a 2nd drifted copy is the R40.84-B 4-round defect",
     "description": "Architect guard design (d5228cf40, PO-queued after R40.84-B): there must be EXACTLY ONE unit-changed -> notify TRANSLATOR (the owner = notifyUnitChanged). A 2nd site that builds the notify key INLINE on a msg.type===\"unit-changed\" match (instead of delegating to notifyUnitChanged) is a DRIFTED COPY = the R40.84-B 4-round defect (the second translator diverged, causing the 4-round re-render). The guard = check:one-unit-changed-translator: scan the NARROW hazard (inline-key-build on unit-changed), legit ViewBus.notify(viewBusKey) emits NOT flagged (0-noise). Single-owner by construction, same family as R40.82 (children-single-owner) + R40.88 (no-mkdir); an R40.88 instance (a ruling enforced by a failable guard with a per-run selftest).",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-    "tasks": [],
+    "tasks": [
+      "ior:instance:773a1173-e616-4c8e-9224-7fa532340c39"
+    ],
     "tests": [],
     "useCases": [
       "ior:instance:089da882-48b1-4a10-8442-683d6e1f9276"
