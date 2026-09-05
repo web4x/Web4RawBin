@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "35031bf7-1a71-4533-b84d-bda828866e59",
+    "name": "iosSafari.realTestPath",
+    "description": "Run our gates against actual iOS Safari (version-specific) via a physical device or a cloud device service; until then, iOS-specific ACs are code-proof + signature-match only and are labeled so (never device-verified-by-us), enforced by the no-false-iOS-green guard.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:893e78df-5cf6-4d1d-baec-f13fd501585d",
+    "unitLinks": [],
+    "note": "Acquisition = infra (PO/fleet: device or cloud device service). The enforceable guards (no-ios-coverage-claim-via-playwright-webkit + ios-ac-not-claim-device-verified-without-path) are lints the architect/expert can wire now. Tester gates them."
+  },
+  "ownerIor": "ior:instance:893e78df-5cf6-4d1d-baec-f13fd501585d"
+}

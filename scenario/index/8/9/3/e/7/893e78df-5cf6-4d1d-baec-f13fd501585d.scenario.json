@@ -1,0 +1,82 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "893e78df-5cf6-4d1d-baec-f13fd501585d",
+    "altId": "R40.89",
+    "name": "No real iOS Safari test capability — acquire a real iOS Safari path (device or cloud service); Playwright WebKit (Linux) misses iOS-Safari-version-specific bugs",
+    "description": "CAPABILITY GAP (tester-named, PO 2026-09-05; a real weakness, not a one-off): WE HAVE NO REAL iOS SAFARI TEST CAPABILITY. Playwright WebKit IS Linux WebKit and does NOT carry iOS-Safari-version-specific bugs — this exact service-worker STREAMED-BODY DROP was INVISIBLE to it. CONSEQUENCE (stated honestly): iOS-only defects will keep reaching us through TRON DEVICE rather than through our gates, and any iOS-specific AC we write can only ever be CODE-PROOF + SIGNATURE-MATCH, NEVER device-verified BY US. That is a GAP IN WHAT OUR GREENS CAN MEAN, so it belongs on the RECORD, not in someone memory. FRAME: acquire a real iOS Safari path (a physical device OR a cloud device service). This is WHY Tron keeps finding what we cannot.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:35031bf7-1a71-4533-b84d-bda828866e59"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "capability-gap",
+      "namedBy": "robbin-tester",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "workedExample": "service-worker streamed-body drop, invisible to Playwright WebKit, reached us via Tron device",
+      "notSecurity": "this is a device/browser TEST-CAPABILITY gap (iOS Safari), NOT the killed owner-auth harness — no auth/credential/owner."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "standingItem": true,
+    "buildable": "STANDING CAPABILITY item — the acquisition (device/cloud service) is infra; the honesty guards (no-false-iOS-green, honest-label) are enforceable NOW.",
+    "crossRef": [
+      "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2",
+      "ior:instance:9ad82c6e-ce09-4bd9-9019-bef5f06e3203",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "The ROOT of the bucket-2 deferred iOS/device ACs (R37.27 transport-suspend, R40.20/R22.2/R40.3 keyboard/touch, R19.87 iOS preview) — they are deferred-with-the-gap-named precisely BECAUSE of this missing capability. An R40.88 instance: a ruling about what our iOS greens can mean, carrying a failable guard (no-false-iOS-device-verification-claim). Ties customer-not-tester (the harness gap IS the defect) + recurring-report-one-home (iOS defects route here).",
+    "satisfactionStatus": "STANDING-GAP / UNVERIFIED: the capability is NOT acquired (honest); the honesty guards (no-false-iOS-green, honest-label-until-acquired) are enforceable now; acquisition is a standing infra target. NEVER mark iOS-specific ACs device-verified-by-us until the real-iOS-path lands.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-acquire-real-ios-safari-path",
+        "group": "capability/target",
+        "text": "A real iOS Safari test path EXISTS — a physical iOS device OR a cloud device service — that runs our gates against ACTUAL iOS Safari (version-specific), NOT Linux/Playwright WebKit. This is the standing acquisition TARGET; until it lands, the honesty guards below hold.",
+        "gateRef": {
+          "kind": "infra",
+          "ref": "iOS Safari device / cloud-device-service",
+          "assertion": "our gates can run against real iOS Safari (version-specific); not-acquired => the honesty guards apply"
+        },
+        "stubMustFail": "N/A (acquisition target; the failable part is the honesty guards below)"
+      },
+      {
+        "id": "AC-playwright-webkit-is-not-ios-safari",
+        "group": "failable/false-green",
+        "text": "Playwright WebKit == LINUX WebKit and does NOT carry iOS-Safari-version-specific bugs. A gate or AC claiming iOS-Safari coverage VIA Playwright WebKit => RED (false-green). WORKED EXAMPLE: the service-worker streamed-body drop was INVISIBLE to Playwright WebKit and reached us only through Tron device.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-ios-coverage-claim-via-playwright-webkit",
+          "assertion": "no gate/AC claims iOS-Safari coverage through Playwright(Linux) WebKit; such a claim => RED"
+        },
+        "stubMustFail": "PENDING: seed an AC marked iOS-device-covered whose only gate is Playwright WebKit -> RED"
+      },
+      {
+        "id": "AC-ios-ac-honest-label-until-acquired",
+        "group": "failable/third-state/R40.88-instance",
+        "text": "UNTIL the capability is acquired, every iOS-SPECIFIC AC is labeled HONESTLY = CODE-PROOF + SIGNATURE-MATCH ONLY, NEVER device-verified-BY-US (deferred-with-the-gap-named, the third honest state). An iOS-specific AC claiming device-verification-by-us WITHOUT a real-iOS-path => RED (false-claim). This is an R40.88 instance: a ruling about what our iOS greens CAN MEAN, carrying its own failable guard.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:ios-ac-not-claim-device-verified-without-path",
+          "assertion": "an iOS-specific AC marked device-verified-by-us while no real-iOS-path exists => RED"
+        },
+        "stubMustFail": "PENDING: seed an iOS AC claiming we device-verified it with no path -> RED"
+      },
+      {
+        "id": "AC-ios-defects-route-to-this-home",
+        "group": "process/one-home",
+        "text": "iOS-only defects reaching us THROUGH TRON DEVICE (not our gates) are ROUTED to this standing item (tracked), NOT treated as one-offs. This is the recurring-report-gets-ONE-home rule applied to the iOS capability gap: it is WHY Tron keeps finding what we cannot.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "iOS-defect routing to R40.89",
+          "assertion": "an iOS-only Tron-device defect attaches to this standing item, not scattered"
+        },
+        "stubMustFail": "N/A (routing/process record)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
