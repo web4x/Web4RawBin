@@ -5,8 +5,12 @@
 // .dv-sunburst) vs blank. Read-only: GETs only, no writes, no folders, no touching Tron's data. Screenshot @390.
 import { webkit } from '@playwright/test';
 const BASE = 'https://prod.wo-da.de:4444';
-const DUP = '3344ade1-a49b-40f1-be20-af67eaf0dcc5'; // duplicates (Tron's selected folder)
-const TRASH = '3e041bff-cce4-4c70-a355-12bd8062937c';
+// Mount by the ROOMCOLL LOCATION ref — the ref the (fixed) items-tree hands a room folder, i.e. what Tron's REAL selection
+// uses. On the OLD build /api/ior for this ref is null → empty; on the FIXED build it resolves → children+sunburst. So this
+// is both faithful-to-Tron AND a clean RED→GREEN discriminator. (Real uuids 3344ade1/3e041bff kept in comments for reference.)
+const ROOM = '3231db71-d834-435a-a7f9-a801680ccd62';
+const DUP = `roomcoll:${ROOM}:files/Trash/duplicates`; // duplicates (Tron's selected folder); real uuid 3344ade1, child a161cc8a=dupChildTest
+const TRASH = `roomcoll:${ROOM}:files/Trash`;          // real uuid 3e041bff
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,
   userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1' };
