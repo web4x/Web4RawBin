@@ -85,7 +85,14 @@
         },
         "stubMustFail": "PENDING: seed a drift in an unlisted file -> RED"
       }
-    ]
+    ],
+    "chainWire": {
+      "commit": "c54b83a22",
+      "deriveVerifiedBy": "robbin-req (measured, bidirectional PASS)",
+      "chain": "UC 089da882 notifyTranslator.singleOwner -> Class TransportBusBridge f0739bfe (live-bridge.ts, the bridge that OWNS the unit-changed->notify translation notifyUnitChanged) -> Method TransportBusBridge.assertSingleTranslator 3494d2b3 -> Impl 561bcfb8 (designAhead:true, scripts/check-one-unit-changed-translator.ts, NOT built).",
+      "classNameAccepted": "TransportBusBridge = correct OOP owner (root lens: the object that DOES the translation owns the single-translator invariant). No re-point."
+    },
+    "testMintHold": "HOLD: Impl 561bcfb8 is designAhead (check + selftest unbuilt). Trigger: guard-code lane builds scripts/check-one-unit-changed-translator.ts + ci:gates + attaches [impl:uuid:561bcfb8] -> tester gates + self-stub GREEN -> I flip 561bcfb8 designAhead->false + flip R40.91 off UNVERIFIED + mint the Test off the guard marker 561bcfb8 (measure-not-invent) -> trainer canonizes. Do NOT mint on design-ahead."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
