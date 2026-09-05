@@ -1,3 +1,9 @@
+// [test:uuid:a8ab1e2f-2001-4242-81ae-8dce6f5a5a98] R40.83 room-folder DUAL-IDENTITY nested-folder detail resolve (Impl
+// roomFolderByLocation, server.ts:1414) — member-session @390 verification of the ★ CORE: from the ONE roomcoll ref a nested
+// room folder resolves BOTH halves — /api/ior=REAL unit + add-folder verb (no fallback) AND the detail body LISTS its child +
+// the sunburst SIZES. RED→GREEN across the sha ladder: ef35cf29b (verb gap) → bca64654a (unit resolves, body empty) →
+// f7297452a GREEN DET-3x (both halves, one ref). Verified LIVE on prod 0.8.175 on Tron's real room (Trash→duplicates nested,
+// duplicates detail lists dupChildTest + sized sunburst, no entity loss). STUB-MUST-FAIL: empty body OR zero verb ⇒ CORE RED.
 // TRON'S SPECIFIED TEST — PERMANENT STANDING GATE (PO build-order 2026-09-05): add a folder in a room, then
 // IMMEDIATELY add another folder INSIDE it (same session, NO reload). Tests the folder is a genuine FIRST-CLASS UNIT
 // by USING it as a parent — exercises everything-is-a-unit / unit-is-the-model / parent-child-real-not-rendered.
