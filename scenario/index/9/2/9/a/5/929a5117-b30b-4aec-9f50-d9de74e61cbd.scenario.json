@@ -1,0 +1,91 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "929a5117-b30b-4aec-9f50-d9de74e61cbd",
+    "altId": "R40.91",
+    "name": "Exactly ONE unit-changed->notify translator — a 2nd drifted copy is the R40.84-B 4-round defect",
+    "description": "Architect guard design (d5228cf40, PO-queued after R40.84-B): there must be EXACTLY ONE unit-changed -> notify TRANSLATOR (the owner = notifyUnitChanged). A 2nd site that builds the notify key INLINE on a msg.type===\"unit-changed\" match (instead of delegating to notifyUnitChanged) is a DRIFTED COPY = the R40.84-B 4-round defect (the second translator diverged, causing the 4-round re-render). The guard = check:one-unit-changed-translator: scan the NARROW hazard (inline-key-build on unit-changed), legit ViewBus.notify(viewBusKey) emits NOT flagged (0-noise). Single-owner by construction, same family as R40.82 (children-single-owner) + R40.88 (no-mkdir); an R40.88 instance (a ruling enforced by a failable guard with a per-run selftest).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:089da882-48b1-4a10-8442-683d6e1f9276"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-single-notify-translator-guard.md",
+    "discoverySource": {
+      "type": "architect-guard-design",
+      "designCommit": "d5228cf40",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "root": "R40.84-B 4-round defect = a 2nd drifted unit-changed->notify translator diverged from notifyUnitChanged."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "crossRef": [
+      "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8",
+      "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2",
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5"
+    ],
+    "crossRefNote": "Prevents the R40.84-B 4-round defect recurrence (a 2nd drifted translator). An R40.88 INSTANCE (ruling-with-a-failable-guard, per-run selftest = R40.88 guard-own-stub-must-fail). Same single-owner/hazard-scan pattern as R40.82 (children-owner 9ef91a551) + R40.88 (no-mkdir). Notify/ViewBus context = R37.12 ONE VIEW BUS.",
+    "satisfactionStatus": "UNVERIFIED (guard designed d5228cf40; check + selftest unbuilt; no stub RED observed).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-single-owner-translator",
+        "group": "by-construction/ROOT",
+        "text": "Exactly ONE unit-changed -> notify TRANSLATOR (the owner = notifyUnitChanged). A 2nd site that matches msg.type===\"unit-changed\" and builds the notify key INLINE (instead of delegating to notifyUnitChanged) => RED. A 2nd drifted copy IS the R40.84-B 4-round defect (the drifted translator diverged).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-unit-changed-translator",
+          "assertion": "one unit-changed->notify translator (notifyUnitChanged); an inline-key-build translator on unit-changed => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd inline unit-changed translator -> RED"
+      },
+      {
+        "id": "AC-measured-counts",
+        "group": "measured/PO-required",
+        "text": "NAMED MEASURED COUNTS (zero is a measured number, not an assertion): ownerCount === 1 AND inlineNonOwnerTranslators === 0. The guard reports both counts; ownerCount!=1 OR inlineNonOwnerTranslators!=0 => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-unit-changed-translator (counts)",
+          "assertion": "ownerCount===1 && inlineNonOwnerTranslators===0; else RED with both counts named"
+        },
+        "stubMustFail": "PENDING: seed a violation -> inlineNonOwnerTranslators>=1 -> RED"
+      },
+      {
+        "id": "AC-legit-emits-not-flagged",
+        "group": "0-noise/scan-narrow",
+        "text": "LEGIT local ViewBus.notify(viewBusKey) emits are NOT flagged — the guard scans the NARROW hazard (an inline notify-key build on a msg.type===\"unit-changed\" site), NOT legit emits. 0-noise, or it gets switched off. A false-positive on a legit ViewBus.notify => the guard is too broad => fix the scan.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-unit-changed-translator (narrow)",
+          "assertion": "legit ViewBus.notify(viewBusKey) emits produce 0 findings; only inline unit-changed translators flag"
+        },
+        "stubMustFail": "PENDING: assert a legit ViewBus.notify site is NOT flagged (0-noise)"
+      },
+      {
+        "id": "AC-selftest-self-bites",
+        "group": "self-failability/PO-required/R40.88-instance",
+        "text": "FAILABLE via a BUILT-IN PER-RUN SELFTEST: the guard injects a SYNTHETIC violation + asserts RED EACH RUN (self-bites, not just passes-today) + stub-must-fail. A guard that never goes RED on its own injected violation = unproven = counts as UNGUARDED (R40.88 guard-own-stub-must-fail).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (built-in selftest)",
+          "assertion": "the guard self-injects a violation each run and asserts RED before its real scan counts"
+        },
+        "stubMustFail": "PENDING: the per-run selftest is observed asserting RED"
+      },
+      {
+        "id": "AC-scan-the-hazard-not-actors",
+        "group": "by-construction/R40.82-pattern",
+        "text": "Scan the HAZARD (the inline notify-key-build OPERATION on unit-changed), NOT the actors -> a drifted copy anywhere is UNEVADABLE + self-naming (same pattern as R40.82 children-owner 9ef91a551 + R40.88 no-mkdir). Filename-independent, marker-sanctioned.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-unit-changed-translator (hazard-scan)",
+          "assertion": "scans the inline-key-build hazard op, not a hand-list of actors; a drift anywhere => RED"
+        },
+        "stubMustFail": "PENDING: seed a drift in an unlisted file -> RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

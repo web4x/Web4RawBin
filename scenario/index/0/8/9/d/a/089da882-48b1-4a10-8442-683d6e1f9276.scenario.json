@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "089da882-48b1-4a10-8442-683d6e1f9276",
+    "name": "notifyTranslator.singleOwner",
+    "description": "Exactly one unit-changed->notify translator (notifyUnitChanged); a 2nd inline-key-build translator on unit-changed => RED. Narrow hazard-scan (0-noise on legit ViewBus.notify), measured counts (ownerCount===1, inlineNonOwnerTranslators===0), built-in per-run selftest that self-bites.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:929a5117-b30b-4aec-9f50-d9de74e61cbd",
+    "unitLinks": [],
+    "note": "Architect wires UC -> Class (TransportBusBridge?) -> Method -> Impl (scripts/check-one-unit-changed-translator.ts) + ci:gates; tester gates + self-stub; trainer canonizes. class/method=null until wire."
+  },
+  "ownerIor": "ior:instance:929a5117-b30b-4aec-9f50-d9de74e61cbd"
+}
