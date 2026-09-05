@@ -37,13 +37,15 @@ try {
   await ctx.addInitScript((tok) => { try { localStorage.setItem('rawbin-player-id', tok); } catch {} }, PLAYER);
   const page = await ctx.newPage();
 
-  // route-intercept (CORROBORATION only, never the pass) — record which endpoint each real verb-press POSTs
+  // route-intercept (CORROBORATION only, never the pass) — record which endpoint each real verb-press POSTs AND its BODY
+  // (the nesting parent travels in the JSON body as `nestedPath`, NOT the URL — server.ts:2444 / universal-actions.ts:114).
   const posts = [];
   await page.route('**/api/**', async (route) => {
     const req = route.request();
     if (req.method() === 'POST' && /\/api\/(room\/[^/]+\/folder|model\/folder\/create)/.test(req.url())) {
+      let body = {}; try { body = JSON.parse(req.postData() || '{}'); } catch {}
       const resp = await route.fetch();
-      posts.push({ url: req.url().replace(f.base, ''), status: resp.status() });
+      posts.push({ url: req.url().replace(f.base, ''), status: resp.status(), name: body.name || '', nestedPath: body.nestedPath || '', parent: body.parent || '' });
       await route.fulfill({ response: resp });
     } else await route.continue();
   });
@@ -51,6 +53,16 @@ try {
   await page.goto(f.base + '/app', { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => (window.__rawbinClient && window.__rawbinClient.connected) === true, { timeout: 20000 }).catch(() => {});
   R(`  WS connected (IDENTIFY → live member): ${await page.evaluate(() => (window.__rawbinClient && window.__rawbinClient.connected) === true)}`);
+
+  // COMMIT the member profile first — CREATE_ROOM is gated on profileCommitted + sshKeysGenerated (server.ts:4247-4248);
+  // a single UPDATE_PROFILE with a name flips BOTH (server.ts:4640 commits, :4654 generates the SSH keypair). This is the
+  // exact real member path (r233 pattern) — still NO owner rights, just a live member with a committed profile.
+  await page.evaluate(async () => {
+    const c = window.__rawbinClient; if (!c || !c.send) return;
+    c.send({ type: 'UPDATE_PROFILE', name: 'NestGateMember', secretCode: '4022' });
+  });
+  await sleep(2000); // profile-commit + SSH keygen (synchronous server-side)
+  R(`  profile committed (member NestGateMember) → CREATE_ROOM now permitted`);
 
   // CREATE_ROOM as this live member → creator+member of a live room + createRoomHome (Files base)
   const roomId = await page.evaluate(async () => {
@@ -67,6 +79,18 @@ try {
 
   const FILES = `roomcoll:${roomId}:files`;
   const treeText = () => page.evaluate(() => (document.getElementById('room-tree')?.textContent || '').replace(/\s+/g, ' ').trim());
+
+  // ── ONE-SHOT DIAGNOSTIC: what does the room seed actually expose (API children) + render (DOM node refs)? ──
+  const diag = await page.evaluate(async (roomId) => {
+    const kids = async (ref) => { try { return ((await (await fetch(`/api/trace/children/${encodeURIComponent(ref)}`)).json()).children || []).map((c) => ({ uuid: c.uuid, name: c.name, ior: c.ior || c.iorClass })); } catch (e) { return ['ERR:' + (e && e.message)]; } };
+    const t = document.getElementById('room-tree');
+    const nodes = [...(t?.querySelectorAll('rb-object-item, [ref], [data-ref], [uuid], [data-uuid]') || [])].slice(0, 12)
+      .map((n) => n.tagName + '[' + [...n.attributes].map((a) => a.name + '=' + a.value).slice(0, 4).join(',') + ']');
+    return { roomChildren: await kids(roomId), filesChildren: await kids(`roomcoll:${roomId}:files`), nodeCount: (t?.querySelectorAll('rb-object-item,[ref],[data-ref],[uuid],[data-uuid]') || []).length, nodes };
+  }, roomId);
+  R(`  DIAG room-children(${roomId.slice(0,8)}): ${JSON.stringify(diag.roomChildren)}`);
+  R(`  DIAG files-children: ${JSON.stringify(diag.filesChildren)}`);
+  R(`  DIAG tree nodeCount=${diag.nodeCount} nodes=${JSON.stringify(diag.nodes)}`);
   // find + click a node in #room-tree whose raw ref matches (tolerate a display-type prefix like 'folder:'/'collection:')
   const selectNode = (raw) => page.evaluate((raw) => {
     const t = document.getElementById('room-tree'); if (!t) return false;
@@ -84,36 +108,57 @@ try {
     return { pressed: true };
   }, name);
 
-  // expand Files + select it
-  await page.evaluate(async (fref) => { const t = document.getElementById('room-tree'); if (t?.expandPath) await t.expandPath([fref]).catch(() => {}); }, FILES);
-  await sleep(800);
+  // find a rendered node by its NAME (title attr / row text) — after a re-seed the new folder's ref is a REAL unit uuid
+  // (folder:<uuid>), unknown ahead of time, so we locate it by the name we created it with.
+  const clickByName = (name) => page.evaluate((name) => { const t = document.getElementById('room-tree'); if (!t) return false; const hit = [...t.querySelectorAll('rb-object-item')].find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes(name)); if (!hit) return false; hit.dispatchEvent(new MouseEvent('click', { bubbles: true })); return true; }, name);
+  const expandByName = (name) => page.evaluate((name) => { const t = document.getElementById('room-tree'); if (!t) return false; const hit = [...t.querySelectorAll('rb-object-item')].find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes(name)); if (!hit) return false; hit.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } })); return true; }, name);
+  // Re-OPEN room→Files after a WS FILE_ADDED re-seed (RoomView.ts:82 → tree.renderSeed collapses the tree). This is the app's
+  // OWN live refresh path + normal expansion — NO page reload. Returns the tree text with the (now revealed) Files children.
+  const openRoomFiles = async () => {
+    await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.expandPath) await t.expandPath([`room:${rid}`]).catch(() => {}); }, roomId);
+    await sleep(700);
+    await page.evaluate(async (fref) => { const t = document.getElementById('room-tree'); if (t?.expandPath) await t.expandPath([fref]).catch(() => {}); }, FILES);
+    await sleep(700);
+  };
+
+  // The initial seed can race AHEAD of the Room unit persisting (root then renders with no expander). Re-seed now that the
+  // Room resolves (API confirmed hasChildren:true + [Members,Files]), then open room→Files (empty) and select it.
+  await page.evaluate((rid) => { const t = document.getElementById('room-tree'); if (t?.renderSeed) t.renderSeed(rid); }, roomId);
+  await sleep(1800);
+  await openRoomFiles();
   const filesSelected = await selectNode(FILES);
   await sleep(1000);
   const addBtn1 = await pressAddFolder(F1);
   R(`  Files node selected=${filesSelected} | verb '📁 Add folder' pressed(F1)=${addBtn1.pressed}`);
-  await sleep(4000); // create + live-insert, NO reload
+  await sleep(4500); // POST → WS FILE_ADDED → RoomView renderSeed re-seed (collapses); NO page reload
 
+  // the re-seed collapsed the tree — re-open room→Files to REVEAL the new folder (app's live refresh + normal expand, no reload)
+  await openRoomFiles();
   const afterF1 = await treeText();
-  const A1 = afterF1.includes(F1); // first folder visible in the items-tree beside files, no reload
+  const A1 = afterF1.includes(F1); // first folder now in the live items-tree beside files, no page reload
   results.A1_itemsTree = A1;
-  R(`  A1 items-tree: '${F1}' visible in #room-tree beside files (no reload) = ${A1}`);
+  R(`  A1 items-tree: '${F1}' in #room-tree after WS-reseed+expand (no page reload) = ${A1}`);
 
-  // IMMEDIATELY (no reload) add a folder INSIDE F1
-  const f1Selected = await selectNode(F1);
-  await sleep(800);
+  // IMMEDIATELY (no reload) add a folder INSIDE F1 — F1 must be a usable PARENT right now: select it, press Add-folder
+  const f1Selected = await clickByName(F1);
+  await sleep(900);
   const addBtn2 = await pressAddFolder(F2);
   R(`  '${F1}' selected=${f1Selected} | verb '📁 Add folder' pressed(F2 inside F1)=${addBtn2.pressed}`);
-  await sleep(4000);
+  await sleep(4500);
 
+  // re-seed collapsed again — re-open room→Files→F1 to reveal F2 under F1
+  await openRoomFiles();
+  await expandByName(F1);
+  await sleep(900);
   const afterF2 = await treeText();
-  const A2 = afterF2.includes(F2); // second folder accepted, no reload
+  const A2 = afterF2.includes(F2); // second folder accepted + revealed, no page reload
   results.A2_nestedAccept = A2;
-  // A3 nesting: F2's on-disk/tree parent is F1, not the room root. Check the room folder-create POST target for F2
-  //    carried F1 in its path (roomcoll:<id>:files/NestGateOuter), i.e. nested under F1 not root.
-  const nestPost = posts.find((p) => /NestGateOuter/.test(decodeURIComponent(p.url)) || /files%2FNestGateOuter|files\/NestGateOuter/.test(p.url));
-  results.A3_nestingCorrect = A2 && !!nestPost; // accepted AND routed under F1
-  R(`  A2 nested-accept: '${F2}' accepted into '${F1}' (no reload) = ${A2}`);
-  R(`  A3 nesting-correct: '${F2}' under '${F1}' (not room root) = ${results.A3_nestingCorrect} (post=${nestPost ? nestPost.url + ' ' + nestPost.status : 'none'})`);
+  // A3 nesting: F2's create carried nestedPath=F1 in the POST BODY (nested under F1, not the room root).
+  const f2Post = posts.find((p) => p.name === F2);
+  const nestedUnderF1 = !!f2Post && f2Post.nestedPath === F1;
+  results.A3_nestingCorrect = A2 && nestedUnderF1; // accepted AND routed under F1 (body nestedPath)
+  R(`  A2 nested-accept: '${F2}' accepted into '${F1}' (no page reload) = ${A2}`);
+  R(`  A3 nesting-correct: '${F2}' nestedPath='${f2Post ? f2Post.nestedPath : 'none'}' === '${F1}' (not room root) = ${results.A3_nestingCorrect}`);
 
   // A4 on disk: BOTH folders are UNITS in the ONE store, symlinked like files (not bare dirs). Scan the scratch trees.
   const diskA4 = (() => {
