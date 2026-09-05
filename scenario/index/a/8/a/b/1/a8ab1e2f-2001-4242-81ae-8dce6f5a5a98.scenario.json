@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "a8ab1e2f-2001-4242-81ae-8dce6f5a5a98",
+    "name": "test:R40.83 room-folder dual-identity — ONE roomcoll ref resolves BOTH faces (unit+verbs AND children+sizes)",
+    "description": "Verifies the CORE dual-identity: from the ONE roomcoll ref a nested room folder resolves BOTH halves — /api/ior REAL unit + add-folder verb (NO fallback) AND detail body LISTS child + sunburst SIZES. RED->GREEN across the sha ladder: ef35cf29b (verb gap RED) -> bca64654a (unit resolves / body empty RED) -> f7297452a GREEN DET-3x. Both split faces demonstrated RED then GREEN (the AC-stub-must-fail-both-faces ladder). Bridged to test/visual/r4022-room-nest-folder-gate.mjs.",
+    "implementations": [
+      "ior:instance:4e029387-b53b-4d4e-a1e5-3d6a74de4733"
+    ],
+    "verifies": "ior:instance:107b28dc-41e2-4a51-9f36-74b658422a2e",
+    "gateFile": "test/visual/r4022-room-nest-folder-gate.mjs",
+    "markerProvenance": "ADOPTED tester marker a8ab1e2f (measured in gate file line 1, tester commit ca576b33f; measure-not-invent, NOT the 11111111 fixture).",
+    "certificationScope": "WE-VERIFIED (member-session, NOT Tron-verified): r4022 member-session @390 GREEN DET-3x on prod 0.8.175, verified in a live room — Trash->duplicates nested, duplicates detail lists dupChildTest + sized sunburst, A6 no-entity-loss 25==25 — the three symptoms (nested render / contents populate / blank panel closed) ALL from the ONE roomcoll ref = the unified resolver proven (RoomFolder.resolveUnitAndChildren, roomFolderByLocation server.ts). Tron ACCEPTS on his real room (experience/acceptance), which is his sign-off on delivered VERIFIED work, NOT a test he ran. COVERS: AC-single-selection-resolves-both / AC-contents-populate (prod face) / AC-verbs-present (scratch face) / AC-user-terms / AC-stub-must-fail-both-faces (the RED ladder) / AC-verify-member-session. AC-one-resolution-DRY (no-2nd-resolver) = structural, ensured by the architect unified-resolver design (one canonical roomcoll-location identity, two projections); a static no-2nd-resolver lint is a SEPARATE structural gate if wanted (not this runtime Test).",
+    "satisfactionGating": "CORE dual-identity PROVEN (member-session @390 DET-3x + both faces RED->GREEN + live 0.8.175 real room) AND Tron ACCEPTED on his real room. Done=Tron (his acceptance recorded)."
+  },
+  "ownerIor": "ior:instance:4e029387-b53b-4d4e-a1e5-3d6a74de4733"
+}

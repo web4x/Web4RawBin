@@ -30,7 +30,7 @@
       "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
     ],
     "crossRefNote": "The dual-identity resolution that makes BOTH the verbs face (R40.78 add-folder) AND the children/contents face (R40.82 folder-owns-children) work from one selection. Resolution sibling of R35.2 (every item resolves to a real unit, both buttons work) — this names the SPECIFIC two-API-two-ref split. Room Files real-Folder-unit context = R37.21. Root lens: one canonical identity, the split IS the duplication defect.",
-    "satisfactionStatus": "UNVERIFIED (root measured, two faces reproduced; unified resolution + gates unbuilt, no stub RED observed — honest third state).",
+    "satisfactionStatus": "CORE PROVEN + TRON ACCEPTED (2026-09-05): WE-verified member-session r4022 @390 GREEN DET-3x on prod 0.8.175 (nested render / contents 25==25 no-loss / blank panel closed, all from the ONE roomcoll ref = unified resolver); both split faces RED->GREEN on the sha ladder; Tron ACCEPTS on his real room (his acceptance of delivered verified work, NOT Tron-verified). Chain complete-to-Test: UC 87be8da5 -> Class RoomFolder db568edc -> Method a1640bd6 -> Impl 4e029387 (designAhead->false) -> Test a8ab1e2f. RESIDUAL: AC-one-resolution-DRY no-2nd-resolver = structural, design-ensured; a static lint is a separate optional gate. req.tests[] left EMPTY (traversal is the single source, my schema finding).",
     "acceptanceCriteria": [
       {
         "id": "AC-single-selection-resolves-both",
@@ -121,7 +121,7 @@
       "subsumes": "architect 2 prior rulings folded in; crossRef R35.2/ensureViewUnit = correct extension point."
     },
     "law8DupSmellFlag": "Architect flag (not-his-task, later consolidation): RoomFolder + FolderService + RoomFilesService = 3 classes for room-folder behaviour = LAW-8 duplication smell (root lens: one canonical class per code-class). TRACKED, NOT minted now (basic-functionality focus; the fix reuses RoomFolder as the OOP home). Candidate for a later dedup requirement once basic functionality is mature.",
-    "testMintHold": "HOLD: Impl 4e029387 is designAhead=true (NOT built). I do NOT mint the Test on design-ahead. Trigger: expert marks [impl:uuid:4e029387] when built -> tester gates (r4022 member-session @390 + the 2 split stubs) RED->GREEN + stamps a marker -> I adopt+mint the Test off the marker (measure-not-invent, both-dir), flip Impl designAhead->false only on the real marker."
+    "testMintHold": "RESOLVED: both markers real on disk (tester a8ab1e2f ca576b33f + expert impl-marker c45c9cacc) -> Test minted, designAhead flipped. measure-not-invent honoured (adopted from gate file, not fixture; not minted on design-ahead)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
