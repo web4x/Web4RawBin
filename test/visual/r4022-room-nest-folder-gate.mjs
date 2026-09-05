@@ -25,8 +25,12 @@ const R = (v) => console.log(v);
 const PLAYER = '11111111-2222-4333-8444-555555555555'; // a live MEMBER token (not the owner) — registered via WS IDENTIFY
 const F1 = 'NestGateOuter', F2 = 'NestGateInner';
 
-const COMMIT = process.env.ARM_COMMIT || 'HEAD'; // ARM_COMMIT=66670ff31^ (or any) for a differential arm; default HEAD = current build
-const f = await setupFoundation({ commit: COMMIT });
+const COMMIT = process.env.ARM_COMMIT || 'HEAD'; // ARM_COMMIT=<sha> pins any commit — incl. a PRE-DEPLOY fix the expert only COMMITTED (no prod deploy in the loop)
+// ARM_BUILD=1 → FORCE a dist build of THIS commit's client source (provenance-provable served bundle). REQUIRED when gating a
+// pre-deploy CLIENT change (e.g. the items-tree provenance emit) where main's dist is stale; a SERVER-only fix needs it NOT
+// (the scratch runs the worktree's tsx server directly). Default off = symlink main's dist (fast, correct only same-HEAD).
+const BUILD = process.env.ARM_BUILD === '1';
+const f = await setupFoundation({ commit: COMMIT, buildDist: BUILD });
 const scratchDir = fs.readdirSync('/tmp').filter((d) => d.startsWith(`r4031-scratch-${process.pid}-`)).map((d) => path.join('/tmp', d))[0] || null;
 R(`scratch up: ${f.base} v${f.servedVersion} sha=${f.worktreeSha} arm=${COMMIT} | scratchDir=${scratchDir}`);
 
