@@ -21,7 +21,11 @@ const R = (v) => console.log(v);
 const PLAYER = '22222222-3333-4444-8555-666666666666';
 
 const COMMIT = process.env.ARM_COMMIT || 'HEAD';
-const f = await setupFoundation({ commit: COMMIT, buildDist: process.env.ARM_BUILD === '1' });
+// R40.84 HARNESS FIX #1: BUILD FRESH FROM SOURCE BY DEFAULT (was: symlink main's committed dist unless ARM_BUILD=1 — that
+// served a STALE committed bundle and the gate false-RED'd on pre-fix code). A CLIENT gate must test the built HEAD source,
+// never a committed/symlinked bundle. buildDist=true rebuilds dist from the scratch worktree; the F2 guard below then PROVES
+// the browser loaded that fresh bundle (not a stale one). Set ARM_BUILD=0 only to deliberately test the served committed dist.
+const f = await setupFoundation({ commit: COMMIT, buildDist: process.env.ARM_BUILD !== '0' });
 R(`scratch up: ${f.base} v${f.servedVersion} sha=${f.worktreeSha} arm=${COMMIT}`);
 
 const results = {};
@@ -49,6 +53,16 @@ try {
     page.on('pageerror', (e) => R(`[PAGEERROR] ${e && e.message}`));
   }
   await page.goto(f.base + '/app', { waitUntil: 'domcontentloaded' });
+  // ── F2 BUNDLE-INTEGRITY GUARD (R40.84 harness trap): src/public/dist is COMMITTED, so a source-only fix commit leaves the
+  //    committed bundle STALE; a scratch that symlinks main's dist (buildDist off) serves PRE-FIX code → the gate false-RED'd.
+  //    A gate on a stale bundle makes the verdict meaningless. Assert the ACTUALLY-LOADED bundle is a FRESH build of HEAD, not
+  //    the stale committed one. (Durable: content-hashed names → a real rebuild of changed source yields a new hash.) ──
+  const committedBundle = (() => { try { return fs.readdirSync(path.join(f.mainRoot || process.cwd(), 'src/public/dist')).find((n) => /^app-[A-Z0-9]+\.js$/.test(n)) || '?'; } catch { return '?'; } })();
+  const loadedBundle = await page.evaluate(() => { const s = [...document.querySelectorAll('script[src]')].map((x) => x.src).find((u) => /app-[A-Z0-9]+\.js/.test(u)); return (s && (s.match(/app-[A-Z0-9]+\.js/) || [])[0]) || '?'; });
+  results.loadedBundle = loadedBundle; results.committedBundle = committedBundle;
+  const bundleStale = loadedBundle !== '?' && loadedBundle === committedBundle; // loaded == the known-stale committed bundle → NOT rebuilt from source
+  R(`  F2 BUNDLE-INTEGRITY: browser-loaded=${loadedBundle} | committed-main(=stale here)=${committedBundle} | rebuilt-from-source=${!bundleStale}`);
+  if (bundleStale) { results.instrument = `STALE-BUNDLE: browser loaded ${loadedBundle} which EQUALS the committed dist — dist was NOT rebuilt from HEAD source. Any RED/GREEN here is meaningless. (buildDist=${process.env.ARM_BUILD !== '0'})`; throw new Error('stale-bundle'); }
   await page.waitForFunction(() => (window.__rawbinClient && window.__rawbinClient.connected) === true, { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => { const c = window.__rawbinClient; if (c && c.send) c.send({ type: 'UPDATE_PROFILE', name: 'TreeStableMember', secretCode: '4084' }); });
   await sleep(2000);
@@ -85,15 +99,21 @@ try {
   });
 
   // ── BUILD an EXPANDED tree state: Files → [Alpha (has a child), Beta, …fillers for scroll] ──
+  const treeTextNow = () => page.evaluate(() => (document.getElementById('room-tree')?.textContent || '').replace(/\s+/g, ' ').trim());
+  const addUnder = async (parentSel, nm, waitMs = 4200) => { await openRoomFiles(); await parentSel(); await sleep(700); const fired = await pressAddFolder(nm); await sleep(waitMs); await openRoomFiles(); const shown = (await treeTextNow()).includes(nm); R(`    setup add '${nm}': verb=${fired} appears-in-tree=${shown}`); return shown; };
   await openRoomFiles();
-  await selectNode(FILES); await sleep(800);
-  await pressAddFolder('Alpha'); await sleep(4200); await openRoomFiles();
-  await clickByName('Alpha'); await sleep(1200);
-  await pressAddFolder('AlphaChild'); await sleep(4200); await openRoomFiles(); // Alpha now has a child → expandable
-  // a few filler folders so the tree can overflow @390 (meaningful scroll test)
-  for (const nm of ['Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta']) { await openRoomFiles(); await selectNode(FILES); await sleep(500); await pressAddFolder(nm); await sleep(3200); }
+  const shownFlags = [];
+  shownFlags.push(await addUnder(() => selectNode(FILES), 'Alpha'));
+  shownFlags.push(await addUnder(() => clickByName('Alpha'), 'AlphaChild'));
+  for (const nm of ['Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta']) shownFlags.push(await addUnder(() => selectNode(FILES), nm, 3200));
+  const setupShown = shownFlags.filter(Boolean).length;
+  R(`  SETUP POPULATION: ${setupShown}/${shownFlags.length} added folders visible in tree`);
+  results.setupPopulated = setupShown;
   // put the tree into a KNOWN expanded state: Files open + Alpha open (showing AlphaChild)
   await openRoomFiles(); await expandByName('Alpha'); await sleep(1000);
+  // GATE-INTEGRITY: a no-collapse assertion on an EMPTY/thin tree is HOLLOW (nothing to collapse). Require a populated tree
+  // before trusting C1-C4 — else report the population gap honestly instead of a false GREEN.
+  if (setupShown < 3) { results.instrument = `HOLLOW-TREE: only ${setupShown}/${shownFlags.length} setup folders rendered — the no-collapse checks would pass vacuously. Either the setup needs adapting to the fixed in-place behavior, OR new folders do NOT appear in-place without a re-expand (a real 'add folder → see it' question for the expert). NOT a valid GREEN.`; throw new Error('hollow-tree'); }
   // scroll down so we can prove scroll-preservation
   await page.evaluate(() => { const t = document.getElementById('room-tree'); const sc = t.closest('[style*="overflow"], .rrc, #rrc-root') || t.parentElement; if (sc) sc.scrollTop = Math.max(0, sc.scrollHeight - 200); });
   await sleep(600);
@@ -126,7 +146,7 @@ try {
   R(`  C3 outside-unchanged (non-target nodes keep depth+exist)  : ${results.C3_outsideUnchanged ? 'GREEN' : 'RED'} (changed=${JSON.stringify(outsideChanged)} vanished=${JSON.stringify(outsideVanished.slice(0, 12))})`);
   R(`  C4 scroll-preserved  (scrollTop unchanged; scrollable=${before.scrollable}) : ${before.scrollable ? (results.C4_scrollPreserved ? 'GREEN' : 'RED') : 'INCONCLUSIVE(no-overflow)'} (${before.scroll} → ${after.scroll})`);
   await ctx.close();
-} catch (e) { if (!/no-room-render/.test(String(e && e.message))) results.error = String(e && e.message).slice(0, 200); }
+} catch (e) { if (!/no-room-render|stale-bundle|hollow-tree/.test(String(e && e.message))) results.error = String(e && e.message).slice(0, 200); }
 finally { await browser.close().catch(() => {}); const td = await f.teardown(); R(`teardown: prod:4444 up=${td.prodUp} leftoverScratch=${td.leftover}`); }
 
 R(`\n═══ R40.84 add-child-in-place (tree must NOT collapse) — arm=${COMMIT} ═══`);
