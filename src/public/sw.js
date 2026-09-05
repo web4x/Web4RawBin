@@ -64,6 +64,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.protocol === 'ws:' || url.protocol === 'wss:') return;
+  // T37.21 UPLOAD FIX (PO GO 2026-09-05): NEVER intercept a non-GET request. respondWith → networkFirst re-issues the
+  // request via fetch(event.request), which DROPS a streamed multipart body (an XHR file upload) → the server receives
+  // 0 bytes AND an empty token (the whole multipart body is gone) → "Upload failed" for EVERY installed-PWA user, not
+  // just one device. POSTs/PUTs are uncacheable anyway (see networkFirst: only GET is cached), so passing them straight
+  // through to the browser's native network stack loses nothing and keeps the body intact. Minimal guard — no restructure.
+  if (event.request.method !== 'GET') return;
   event.respondWith(navigationStrategy(event.request, url));
 });
 
