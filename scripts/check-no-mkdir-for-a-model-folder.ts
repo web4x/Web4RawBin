@@ -75,8 +75,9 @@ function scan(files: Array<{ file: string; src: string }>): { ownerMarkFiles: Se
       }
       // (2) PHYS_CALL call-site (exclude the DEFINITION) NOT reached through a physicality gate
       if (PHYS_CALL.test(line) && !PHYS_DEF.test(line)) {
-        const win = code.slice(Math.max(0, i - SCOPE), i + 1).join('\n');
-        const gated = GATE_MARK.test(win) || DISCRIMINATOR.test(win);
+        const rawWin = raw.slice(Math.max(0, i - SCOPE), i + 1).join('\n');   // GATE_MARK lives in a COMMENT → search RAW (a physicality-gated marker states a by-construction gate, R40.88 room ruling 0c9acf712)
+        const codeWin = code.slice(Math.max(0, i - SCOPE), i + 1).join('\n'); // DISCRIMINATOR is real code → search comment-stripped (a prose mention must not gate)
+        const gated = GATE_MARK.test(rawWin) || DISCRIMINATOR.test(codeWin);
         const site: Site = { file: rel(file), line: i + 1, text: raw[i].trim().slice(0, 88) };
         if (gated) continue;
         if (isExempt(file, i + 1)) exempted.push(site); else ungatedPhysCall.push(site);
@@ -90,14 +91,16 @@ function scan(files: Array<{ file: string; src: string }>): { ownerMarkFiles: Se
 function selfBite(): void {
   const owner = { file: 'x/owner.ts', src: '// [physical-folder-owner]\nstatic createPhysicalFolder(o){\n  fsSync.mkdirSync(target);\n  fsSync.mkdirSync(path.dirname(f), { recursive: true });\n}' };
   const gatedCall = { file: 'x/model.ts', src: 'const abs = resolveFolderRefToDir(parent);\nFolderService.createPhysicalWithUnit(S, name, parent);' };
+  const markerGatedCall = { file: 'x/room.ts', src: '// [physicality-gated: room-folder-is-physical-by-construction]\nreturn FolderService.createPhysicalFolder({ parentAbsPath, name });' }; // MUST NOT flag: gated by the COMMENT marker (R40.88 room ruling), no resolveFolderRefToDir
   const plantMkdir = { file: 'x/rogue.ts', src: 'fsSync.mkdirSync(userTarget);' };            // MUST flag: non-owner user mkdir
   const plantCall = { file: 'x/rogue2.ts', src: 'FolderService.createPhysicalFolder({parentAbsPath, name});' }; // MUST flag: ungated PHYS_CALL
   const proseOnly = { file: 'x/doc.ts', src: '// mkdirSync(target) and createPhysicalFolder( are described here only' }; // MUST NOT flag
-  const r = scan([owner, gatedCall, plantMkdir, plantCall, proseOnly]);
+  const r = scan([owner, gatedCall, markerGatedCall, plantMkdir, plantCall, proseOnly]);
   const fails: string[] = [];
   if (r.nonOwnerMkdir.some((s) => s.file === 'x/owner.ts')) fails.push('owner mkdir wrongly flagged');
   if (!r.nonOwnerMkdir.some((s) => s.file === 'x/rogue.ts')) fails.push('planted non-owner mkdir NOT caught');
-  if (r.ungatedPhysCall.some((s) => s.file === 'x/model.ts')) fails.push('gated PHYS_CALL wrongly flagged');
+  if (r.ungatedPhysCall.some((s) => s.file === 'x/model.ts')) fails.push('discriminator-gated PHYS_CALL wrongly flagged');
+  if (r.ungatedPhysCall.some((s) => s.file === 'x/room.ts')) fails.push('marker-gated PHYS_CALL wrongly flagged (comment marker not recognized)');
   if (!r.ungatedPhysCall.some((s) => s.file === 'x/rogue2.ts')) fails.push('planted ungated PHYS_CALL NOT caught');
   if (r.nonOwnerMkdir.concat(r.ungatedPhysCall).some((s) => s.file === 'x/doc.ts')) fails.push('prose mention false-flagged');
   if (r.ownerMarkFiles.size !== 1) fails.push(`owner-mark files = ${r.ownerMarkFiles.size} (want 1 in the fixture)`);
