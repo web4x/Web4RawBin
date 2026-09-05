@@ -91,7 +91,9 @@
       "provenRed": "9 non-owner sites",
       "dod": "non-owner derivations==0",
       "local": true,
-      "note": "The 9 non-owner children derivations ARE the fictional things Tron named (code deriving children owned by nobody). Guard COUNTS (9); the model view should eventually SHOW them; the fix is dragging them into the Folder/parent-children interface (9->0 as expert builds node.children() + migrates the 9 sites). Diagram-shows-them = architect design-thinking, NOT a build now."
+      "note": "The 9 non-owner children derivations ARE the fictional things Tron named (code deriving children owned by nobody). Guard COUNTS (9); the model view should eventually SHOW them; the fix is dragging them into the Folder/parent-children interface (9->0 as expert builds node.children() + migrates the 9 sites). Diagram-shows-them = architect design-thinking, NOT a build now.",
+      "hardenedBy": "1c0db0f84",
+      "unfakeable": "exemptions architect-only + separate-number + one-owner-file -> 9->0 CANNOT be faked/gamed (the DoD is unbypassable). Guard is now proven-RED@9 AND unfakeable."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
