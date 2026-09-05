@@ -92,11 +92,11 @@
       {
         "id": "AC-one-mechanism-with-aron-single-discovery",
         "group": "single-source/coordinate",
-        "text": "The requirement-side (rulings-are-failable-invariants) and the trainer/ARON DOCTRINE-side are ONE mechanism, NOT two (PO). The ruling-guard discovery routes through the SAME structuralDiscover as R40.54 (AcGuard) + R40.55 (boot-currency) — single-source discovery, no 2nd matcher. Coordinated with ARON so the trainer-doctrine + this requirement share one enforcement.",
+        "text": "The requirement-side (rulings-are-failable-invariants) and the trainer/ARON DOCTRINE-side are ONE mechanism, NOT two (PO). The ruling-guard follows the SAME glob-discovery PRINCIPLE (no-site-hides-by-being-unlisted) as R40.54 (AcGuard) + R40.55 (boot-currency) — REALIZED PER-GUARD, NOT a literal shared symbol. Architect MEASURED: there is no literal structuralDiscover symbol in the tree; a SELF-NAMING operation (mkdir) needs NO matcher at all — a glob for the named op IS the principle, so there is genuinely no 2nd matcher. Coordinated with ARON: trainer-doctrine + this requirement share the ONE principle + the ONE guard.",
         "gateRef": {
           "kind": "lint",
           "ref": "shared structuralDiscover (R40.54/R40.55)",
-          "assertion": "ruling-guard discovery resolves to the shared structuralDiscover; a 2nd/divergent mechanism => RED"
+          "assertion": "the ruling-guard is a glob-scan for the self-naming hazard op (no shape-matcher); no 2nd/divergent discovery mechanism => RED"
         },
         "stubMustFail": "PENDING: seed a 2nd ruling-guard mechanism -> RED"
       },
@@ -126,6 +126,16 @@
       "fleetCanonPromotion": "DEFERRED until the TESTER gates R40.88 guard GREEN — canonize a PROVEN worked example, never an unproven guard (mirrors satisfaction-UNVERIFIED honesty at the doctrine level).",
       "sequence": "architect wires the ONE guard (shared structuralDiscover, no 2nd matcher) -> tester gates guard + its self-stub GREEN -> THEN trainer promotes doctrine fleet-wide pointing to proven R40.88.",
       "codeLane": "handed to ARCHITECT per the on-unit guardDesign.lanes."
+    },
+    "guardDesignBuilt": {
+      "commit": "767350ee9 (design-r40.88-no-mkdir-for-model-folder-guard.md)",
+      "by": "robbin-architect",
+      "guard": "check:no-mkdir-for-a-model-folder — lifts R40.82 children-single-owner (9ef91a551) to the ruling level. HAZARD-not-actors: forbidden OP = physical dir creation (mkdir/createPhysical*) reached for a MODEL folder. ONE NUMBER: non-gated physical-folder-creations == 0 BY ROUTING.",
+      "structuralDiscoverReconciled": "MEASURED: no literal structuralDiscover symbol; it is the PRINCIPLE (glob-discovery, no-site-hides). A self-naming op needs nothing to route through it = glob-scan = the principle, no 2nd matcher.",
+      "precisionTrapClosed": "store-shard mkdir(recursive:true, unit-JSON layout, not a user folder) is EXCLUDED STRUCTURALLY — only NON-recursive user-folder mkdir is the hazard. Routing proof = physicality-gated marker on ModelView.addFolder branch (downstream resolveFolderRefToDir) + physical-folder-owner marker on createPhysicalFolder.",
+      "guardOnTheGuard": "R40.82 pattern: 0-by-routing-not-exempting (architect-only EXEMPT list, separate number), object-not-module, sole-owner.",
+      "provenRedNow": "the guard run against TODAY tree = RED (ModelView.addFolder calls physical UNCONDITIONALLY, no branch) -> flips GREEN exactly when R40.87 branch ships = the guard proving itself (same as R40.82 9->0). So R40.88 satisfaction is COUPLED to R40.87 delivery.",
+      "sequence": "expert writes scripts/check-no-mkdir-for-a-model-folder.ts + ci:gates (after R40.85->87) -> tester gates + self-stub GREEN -> trainer canonizes -> I flip R40.88 off UNVERIFIED + mint Test off guard marker -> architect wires UC->Method->Impl (marker-sanctioned, filename-independent). No chokepoint touched."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
