@@ -37,7 +37,7 @@ const OWNER_SCOPE = 30; // lines below the owner marker that count as the owner 
 // comment). Each entry: file:line + a `call` matcher (drift-guard) + reason + approvedBy. Reported as a SEPARATE number.
 // Add/change ONLY by an architect ruling (editing this list = editing the guard = review). A physical-create call NOT here = RED.
 const GATE: { file: string; line: number; call: RegExp; reason: string; approvedBy: string }[] = [
-  { file: 'src/ts/server/server.ts', line: 2953, call: /createPhysicalWithUnit/, reason: 'model add-folder router — physicality-gated by isVirtualModelParent/resolveFolderRefToDir (R40.87-B); real-dir parent only reaches here', approvedBy: 'architect f506ac659' },
+  { file: 'src/ts/server/server.ts', line: 2978, call: /createPhysicalWithUnit/, reason: 'model add-folder router — physicality-gated by isVirtualModelParent/resolveFolderRefToDir (R40.87-B); real-dir parent only reaches here (line 2953→2978 after R40.92 folderChildrenUnder helper insertion; drift-guard caught it)', approvedBy: 'architect f506ac659' },
   { file: 'src/ts/server/FolderService.ts', line: 167, call: /createPhysicalFolder/, reason: 'createPhysicalWithUnit delegating to the physical-create core, downstream of the model physicality gate', approvedBy: 'architect f506ac659' },
   { file: 'src/ts/server/RoomFilesService.ts', line: 47, call: /createPhysicalFolder/, reason: 'room-folder-is-physical-by-construction (a room folder IS a real fs dir under getRoomDir(creator)/files, never a model folder)', approvedBy: 'architect f506ac659 (amends 0c9acf712: GATE-list, not a bare comment)' },
 ];

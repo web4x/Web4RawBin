@@ -1737,6 +1737,31 @@ function traceabilityRoots(): MofNode[] {
   for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, sprintDisplayName(s.name, s.number), s.taskCount, 'trace', 'sprint')); // R40.4-phase2: ONE renderer, 'Sprint N: title'
   return out;
 }
+// [impl:uuid:PENDING-req-mint] folderChildrenUnder (R40.92, architect design 18e3f4e2f; R40.81 DRY) — the ONE canonical
+// "direct-child Folder units of a node", by EITHER parentage scheme: a model-store Folder (mintRealUnit) has
+// model.parent === nodeRef and NO location (collections have no dir); a physical Folder (createPhysicalFolder) has
+// model.location directly under dirRel (dirRel null ⇒ N/A). Returns mofFolder nodes deduped against `seen` (fs-walk uuids).
+// NOT a 2nd scan — reuses the `els` model scan. BOTH the dir: branch and the collection branch are CALL-SITES of this ONE
+// derivation (not two derivations → the R40.91 two-source drift cannot arise). Fixes: model-collection add-folder SUCCEEDS
+// (unit minted) but the parent-linked/location-less Folder was excluded by both children paths → never appeared.
+function folderChildrenUnder(nodeRef: string, dirRel: string | null, els: MofEl[], seen: Set<string>): MofNode[] {
+  return els
+    .filter((x) => x.ior === 'ior:class:Folder')
+    .filter((x) => {
+      const loc = typeof x.m.location === 'string' ? (x.m.location as string) : '';
+      const byParent = String(x.m.parent || '') === nodeRef;                                             // collection child (parent-link, no location)
+      const byLoc = !!dirRel && loc.startsWith(dirRel + '/') && !loc.slice(dirRel.length + 1).includes('/'); // direct physical child (== the old userDirs predicate)
+      return byParent || byLoc;
+    })
+    .map((x) => {
+      const loc = String(x.m.location || '');
+      const ref = loc ? 'dir:' + loc : String(x.m.uuid || x.uuid);                                       // physical → dir:loc ; model-store → its uuid (the ior the drawer resolves)
+      const name = String(x.m.name || (loc ? loc.split('/').pop() : '') || 'folder');
+      return mofFolder(ref, name, 0, 'mof-project', 'collection', 0);
+    })
+    .filter((d) => !seen.has(d.uuid))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
 function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
   if (!/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) return null;
   const { els, m1, m2, m1Roots } = mofModelEls(idx);
@@ -1777,16 +1802,16 @@ function mofChildren(idx: ScenarioIndex, uuid: string): MofNode[] | null {
     // that are DIRECT children of dirRel and not already surfaced by the fs-walk. Reuses the `els` scan mofModelEls already did
     // (NO new full-scan). R33.10 stays intact for non-user empty fs folders; a folder that later gains .ts dedups by ref (seen).
     const seen = new Set(fsKids.map((k) => k.uuid));
-    const userDirs = els
-      .filter((x) => x.ior === 'ior:class:Folder' && typeof x.m.location === 'string' && (x.m.location as string).startsWith(dirRel + '/') && !(x.m.location as string).slice(dirRel.length + 1).includes('/'))
-      .map((x) => { const loc = String(x.m.location); return mofFolder('dir:' + loc, loc.split('/').pop() || loc, 0, 'mof-project', 'collection', 0); })
-      .filter((d) => !seen.has(d.uuid))
-      .sort((a, b) => a.name.localeCompare(b.name));
+    const userDirs = folderChildrenUnder(uuid, dirRel, els, seen); // R40.92: route the dir: merge through the ONE helper (byLoc == the old location predicate; also picks up any parent-linked folder here)
     return [...fsKids, ...userDirs];
   }
   if (uuid === 'rawbin:traceability') return traceabilityRoots(); // R35.4: 4th folder expands into the REAL trace tree (each Requirement root walks via /api/trace/children — reuse rb-trace-tree, no fork)
   if (uuid === 'rawbin:puml') return [...pumlChildren(els), ...pumlPhysicalTree()]; // R33.5 item4: flat .puml + imported artifacts; R37.21 Part 5: + the REAL physical folder tree beneath (reveals dup names across distinct sprint dirs)
-  if (uuid === 'rawbin:diagram') return els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
+  if (uuid === 'rawbin:diagram') { // R40.92: Diagrams as before + collection-child Folder units found BY PARENT-LINK (add-folder-to-collection now renders)
+    const diagrams = els.filter((x) => x.ior === 'ior:class:Diagram').map((x) => mofFolder(String(x.m.uuid || x.uuid), String(x.m.name || 'Diagram'), 0, 'diagram', 'diagram')).sort((a, b) => a.name.localeCompare(b.name));
+    const seen = new Set(diagrams.map((d) => d.uuid));
+    return [...diagrams, ...folderChildrenUnder('rawbin:diagram', null, els, seen)];
+  }
   if (uuid.startsWith('file:')) { const sf = uuid.slice('file:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || '') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   if (uuid.startsWith('project:')) { const sf = uuid.slice('project:'.length); return m1Roots.filter((x) => String(x.m.sourceFile || 'model') === sf).map(mofElNode).sort((a, b) => a.name.localeCompare(b.name)); }
   return [];
