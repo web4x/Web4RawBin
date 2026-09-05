@@ -38,7 +38,7 @@
         "text": "ROOT FIX: selecting a room folder resolves BOTH faces from ONE selection — the real folder UUID (its unit -> verbs incl add-folder) AND its children (its contents). Neither /api/ior-by-real-uuid ALONE nor /api/trace/children-by-roomcoll-ref ALONE is sufficient. A resolution that yields only ONE face => RED.",
         "gateRef": {
           "kind": "test",
-          "ref": "test:room-folder-resolves-both (unit + children from one selection)",
+          "ref": "test: RoomFolder.resolveUnitAndChildren (Method a1640bd6 / resolveViewUnit:1358) — one selection -> unit(verbs)+children(contents)",
           "assertion": "one selection resolves the folder unit (verbs) AND its children (contents); only-one-face => RED"
         },
         "stubMustFail": "PENDING: seed a selection that resolves only the unit OR only the children -> RED"
@@ -93,7 +93,7 @@
         "text": "The exact two-face split must trip RED BOTH ways: (a) a folder resolvable by real uuid (unit/verbs) but NOT by roomcoll ref (children) => RED (prod face); (b) a folder resolvable by roomcoll ref (children) but NOT real uuid (unit/verbs) => RED (scratch face). A suite green on either split is inadmissible.",
         "gateRef": {
           "kind": "ci",
-          "ref": "ci:gates (dual-identity split fixtures)",
+          "ref": "ci: stub A = /api/ior nested-ref -> null (RED, prod face); stub B = /api/trace/children real-uuid -> empty (RED, scratch face); GREEN = one ref (roomcoll location) resolves BOTH",
           "assertion": "both seeded split faces (uuid-only, roomcoll-only) observed RED before the fix counts"
         },
         "stubMustFail": "PENDING: register both RED runs when the fix ships"
@@ -109,7 +109,19 @@
         },
         "stubMustFail": "N/A (acceptance step; the failable verification is the member-session gate + the split stubs)"
       }
-    ]
+    ],
+    "chainWire": {
+      "commit": "d2e85c81f",
+      "deriveVerifiedBy": "robbin-req (measured on disk)",
+      "chain": "UC 87be8da5 roomFolder.resolveUnitAndChildren -> Class RoomFolder db568edc (OOP-home, reused, 2 methods — the folder object resolves ITSELF, NOT FolderService/RoomFilesService service-classes = the LAW-9 smell avoided) -> Method a1640bd6 RoomFolder.resolveUnitAndChildren -> Impl 4e029387 (designAhead=true, expert marks [impl:uuid:4e029387] on the shared resolver when built)."
+    },
+    "unifiedResolverDesign": {
+      "principle": "roomcoll LOCATION ref = THE one canonical identity; ONE resolution serves BOTH faces (root-lens: one identity, two projections, no divergent 2nd resolver).",
+      "mechanism": "roomFolderByLocation(room,ref) matches room.files[] Folder unit by model.location===ref -> the REAL unit (Trash/duplicates carry model.location=the roomcoll ref). /api/ior projects UNIT+verbs (resolveViewUnit files/<path> arm, ruling cc9b90286, extension point resolveViewUnit:1358 = R35.2/ensureViewUnit). /api/trace/children projects CONTENTS (roomFilesChildren, render fix eea1fb136, the ONE shared children derivation). The real-uuid identity is DERIVED from the resolved unit, never a separate resolution path -> the split-face is gone BY CONSTRUCTION.",
+      "subsumes": "architect 2 prior rulings folded in; crossRef R35.2/ensureViewUnit = correct extension point."
+    },
+    "law8DupSmellFlag": "Architect flag (not-his-task, later consolidation): RoomFolder + FolderService + RoomFilesService = 3 classes for room-folder behaviour = LAW-8 duplication smell (root lens: one canonical class per code-class). TRACKED, NOT minted now (basic-functionality focus; the fix reuses RoomFolder as the OOP home). Candidate for a later dedup requirement once basic functionality is mature.",
+    "testMintHold": "HOLD: Impl 4e029387 is designAhead=true (NOT built). I do NOT mint the Test on design-ahead. Trigger: expert marks [impl:uuid:4e029387] when built -> tester gates (r4022 member-session @390 + the 2 split stubs) RED->GREEN + stamps a marker -> I adopt+mint the Test off the marker (measure-not-invent, both-dir), flip Impl designAhead->false only on the real marker."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
