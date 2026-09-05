@@ -91,3 +91,26 @@ Plus C) at live-bridge:21 log the publish key: `console.log('[notify]', key)`.
 - If [reDerive-entry] DOES print with `false` (no .tt-children) → the sub fires but a CHILDLESS node early-returns at :135 → **fix rb-trace-tree.ts:135**: replace `if (!kids) return;` with "create the `.tt-children` container (+ set has-children) when the node gained its first child, then continue" — a childless container learning it stopped being empty. (This is the PO's exact framing; safe + necessary regardless.)
 
 I will hand the expert the ONE exact line the instant the 2-line run picks the branch. I refuse to blind-ship onto code I measured correct — that risks telling Tron "fixed" when it is not.
+
+### R40.84-B ROOT (measured, reconciles sub-fires + notify-0): a DIVERGENT 2nd unit-changed→notify translator on /app
+The /app room uses `RawBinClient`, NOT the live-bridge path — `connectLiveBridge` early-returns `if (window.__rawbinClient) return; // /app owns the full client` (live-bridge.ts:43). So live-bridge:21 (where [R84B notify] was probed) never runs on /app → the tester's "notify 0" was at the wrong site. The ACTUAL translator is **RawBinClient.ts:113**, and it DIVERGED from live-bridge's canonical key logic:
+```
+if (t && msg.uuid) ViewBus.notify(viewBusKey({ type: t, uuid: msg.uuid })); else ViewBus.notify('graph');   // OBJECT form — WRONG for synthetic refs
+```
+- folder-add: ior=`ior:class:Folder`→t=`folder`, uuid=`roomcoll:<id>:files`. Object-form `viewBusKey({type:'folder',uuid:'roomcoll:<id>:files'})` = **`folder:roomcoll:<id>:files`**.
+- the tree subscribes (rb-trace-tree:442) with STRING-form `viewBusKey('roomcoll:<id>:files')` = **`roomcoll:<id>:files`**.
+- **KEY MISMATCH** → notify fires on `folder:roomcoll:…` which has NO subscriber → reDerive never called. live-bridge:21 does it RIGHT (`isSyntheticRef(uuid) ? viewBusKey(STRING) : viewBusKey({type,uuid})`); RawBinClient's inline copy is missing that branch. This is the one-builder-both-sides law broken by a SECOND translator.
+
+### THE FIX (0.8.178) — TWO stacked fixes, ship together (answer to "anything behind this?": YES, the childless one)
+**FIX-1 (PRIMARY, RawBinClient.ts:111-115) — route /app through the ONE shared translator (DRY, kills the divergent 2nd):**
+`import { notifyUnitChanged } from './live-bridge.js';` then replace the inline block with:
+```
+if (msg.type === 'unit-changed') { notifyUnitChanged(msg); return; }
+```
+(notifyUnitChanged has the isSyntheticRef branch → correct `roomcoll:<id>:files` key → matches the sub → reDerive fires.) Fallback if any import cycle: `import { isSyntheticRef }` and inline the live-bridge:21 expression. Fixes r4023 + all in-room folder/file live-insert.
+
+**FIX-2 (STACKED 4th cause, rb-trace-tree.ts:135) — childless container:** once notify fires, a CHILDLESS Files node (empty room, first folder — `hasChildren=false`, no `.tt-children` created) still early-returns at `if (!kids) return`. Fix: when `!kids`, CREATE+append a `.tt-children` div (+ set has-children on the node) and continue the fetch+append. r4023 masks this via filler folders, so ADD an EMPTY-room-first-folder case to r4023 to gate it. This is my earlier candidate (C) — NOT dead, just DOWNSTREAM of the notify gap.
+
+**Is there a 5th behind these?** I traced the full chain post-both-fixes: notify(correct key)→reDerive fires→kids created if childless→fetch roomFilesChildren (no-cache, RETURNS the new folder)→append (not in existing)→visible, for empty AND non-empty rooms. I do NOT see a 5th. Gate: r4023 (non-empty) + a new empty-room variant.
+
+**Stacked-cause tally (why it took 4 rounds):** (1) stale build [FIX-shipped] → exposed (2) assumed-subscription [measured correct] → which unmasked (3) the notify-key divergence [FIX-1] → behind which sits (4) the childless-container early-return [FIX-2]. Each fix exposed the next; naming (4) now so we ship both in 0.8.178 and stop the ladder. Remove the 3 R84B temp probes with the fix.
