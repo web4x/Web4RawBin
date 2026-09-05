@@ -69,7 +69,7 @@
         "gateRef": {
           "kind": "lint",
           "ref": "scripts/check-children-single-owner.ts (DELIVERED 9ef91a551)",
-          "assertion": "the gate must test ASKS-OBJECT-FOR-OWN-CHILDREN (node.children()), NOT raw-fetch-gone; a shared children/fetch helper taking a ref => RED even if 0 raw /api/trace/children fetches remain (shared-helper escape closed)"
+          "assertion": "the gate must test ASKS-OBJECT-FOR-OWN-CHILDREN (node.children()), NOT raw-fetch-gone; a shared children/fetch helper taking a ref => RED even if 0 raw /api/trace/children fetches remain (shared-helper escape closed) [CONFIRMED by scratch measurement: helper-escape REDs 2 ways - two-owners 1c0db0f84 + object-vs-module/no-this.ref 5b899416e]"
         },
         "stubMustFail": "PROVEN RED: 9 non-owner sites on current divergence (guard 9ef91a551); GREEN at 0 = the DoD. Registered RED observation (R40.54 stubMustFail SATISFIED) — this AC is now a PROVEN-failable gate, not a wish."
       },
@@ -98,7 +98,8 @@
     "functionalConstructRuling": {
       "law": "functional constructs are defects by definition (Tron 2026-09-05, top-level lens)",
       "helperEscapeIsAutomaticFail": "routing the surfaces through a shared fetch/children helper = defect by definition, AUTOMATIC FAIL even if green; per-site test = asks-object-for-own-children, not raw-call-gone",
-      "flagToArchitect": "the guard 9ef91a551 scans the RAW /api/trace/children fetch hazard; CONFIRM it also catches the SHARED-HELPER escape (a helper centralizing the fetch could show ONE non-owner site or be mistaken for the owner). Per Tron the test must be asks-object, not raw-fetch-gone. If the guard can go green on a helper-escape, that is a gate-gap to close (one-owner-file hardening may already cover it — verify)."
+      "flagToArchitect": "RESOLVED-CONFIRMED by architect scratch measurement: the shared-helper escape CANNOT go green, TWO independent RED paths — (1) two-owners (1c0db0f84 one-owner-file: children-owner in 2 files => RED) + (2) MODULE-NOT-OBJECT (5b899416e: owner fetch must be a this.ref METHOD; a children(ref) helper takes a param ref, no this.ref = free-function/provider = RED). Worst case (helper mistaken for SOLE owner) still REDs on (2) no-this.ref. Gate proves ASKS-OBJECT-FOR-OWN-CHILDREN (node.children()=a this.ref method), NOT raw-fetch-gone. Verified both commits on disk myself.",
+      "enforcedByConstruction": "node.children()=a this.ref method is the ONLY sanctioned answer; two guard checks (one-owner-file 1c0db0f84 + object-vs-module 5b899416e) make the functional-construct escape a structural RED = Tron LAW-9 enforced by construction, not a judgement call."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
