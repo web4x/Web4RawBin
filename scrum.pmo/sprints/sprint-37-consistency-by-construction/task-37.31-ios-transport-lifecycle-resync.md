@@ -40,7 +40,7 @@ Keep R37.12's view-bus ALIVE to a RESUMED iOS client: a suspended/dead socket se
 - [ ] FAIL-LOUD ON RESYNC FAIL: if reconnect/refetch fails, the client FAILS LOUD (visible error/retry) — never silently-stale.
 - [ ] GENERAL-CORRECT, NO UA-SNIFF: the fix uses standard visibilitychange/pageshow (no iOS UA-sniff); desktop transports are unaffected.
 - [ ] ★ SEVERED-CHANNEL GATE (tester stub, non-vacuous): a test SEVERS the channel (simulate iOS WS suspend), a change occurs, the client RESUMES -> asserts it REFETCHES + renders FRESH; planted-defect (stays stale on resume) = RED.
-- [ ] ★ CLOSING AC — TRON REAL-iOS ACCEPTANCE (un-mockable, headless-GREEN is NOT 'fixed'): on Tron's REAL iOS device, background/lock -> change -> foreground shows the FRESH state. The bug is iOS-specific -> a desktop-WebKit green does NOT close it; his device is the acceptance.
+- [ ] ★ DEFERRED — NOT A CLOSING CONDITION (rewordProvenance 2026-09-05, customer-not-tester law): iOS transport-suspend resync (background/lock -> change -> foreground shows FRESH state) is un-mockable in headless/desktop-WebKit, but it MUST NOT close via a Tron-confirms AC (never ask the customer to verify). It is NOT security / NOT owner-auth / NOT basic-functionality. A real-iOS-DEVICE driver (no auth, no owner) would let US verify it LATER; DEFERRED behind basic functionality, no harness proposed now. Recorded so it is never silently closed by asking Tron to confirm.
 
 ## Subtasks
 
