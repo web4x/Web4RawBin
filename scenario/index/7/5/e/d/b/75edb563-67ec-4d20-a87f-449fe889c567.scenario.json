@@ -5,7 +5,7 @@
     "uuid": "75edb563-67ec-4d20-a87f-449fe889c567",
     "name": "DropDispatcher.acceptDropIntoContainer impl",
     "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
-    "designAhead": true,
+    "designAhead": false,
     "tests": [],
     "description": "DESIGN-AHEAD (R40.86 NEW capability). DropDispatcher recognizes folder-as-drop-target + resolves destination; the child LANDS + renders in-place by DELEGATING to R40.84 reDeriveDirectChildren (Impl 8693dc2b) — NO duplicate containment path here. Expert builds routing only + attaches [impl:uuid:75edb563]; flag architect if it needs its own add (then reconsider placement)."
   }

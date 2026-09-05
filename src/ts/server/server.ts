@@ -2601,13 +2601,16 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
           if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
           const parts = body.toString('binary').split('--' + boundary);
-          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '';
+          let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '', parentRef = '';
           for (const part of parts) {
             if (part.includes('name="playerToken"')) {
               playerToken = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
             }
             if (part.includes('name="relatedFile"')) { // v0.6.91: WebItem forward-ref to its source file
               relatedFile = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
+            }
+            if (part.includes('name="parent"')) { // R40.86: drop INTO a folder → the target folder ref (nest the new file under it)
+              parentRef = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
             }
             if (part.includes('name="file"')) {
               const disp = part.match(/filename="([^"]+)"/);
@@ -2652,11 +2655,32 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
               if (relatedFile) { room.removeFileUnit(relatedFile); addLog(`[upload] demoted source ${relatedFile.slice(0,8)} → child of WebItem`); }
             }
           }
-          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId }, publishUnitChanged); // R40.22 path regrowth-kill: fsKey=storageId in the roomFsLink PATH (inert while REKEY_APPLIED=false). R37.11 slice-1: seam publish (new File appears live)
+          // R40.86 folders-are-drop-targets: drop INTO a folder → resolve the target folder unit (in THIS room) → nest the new
+          // file under it (parent + child location on the ONE createFileUnit — no double-mint) + publish on the FOLDER's ref so
+          // R40.84 re-derives the FOLDER (live-insert INSIDE, not at root). A non-folder/invalid parent falls back to Files root.
+          let parentIor: string | null = null; let childLocation: string | undefined; let parentPublishRef = `roomcoll:${roomId}:files`;
+          if (parentRef) {
+            const pUuid = parentRef.replace(/^ior:instance:/, '').split('@')[0];
+            const pu = /^[0-9a-fA-F-]{16,40}$/.test(pUuid) ? idx.get(pUuid) : null;
+            const pm = (pu?.model || null) as Record<string, unknown> | null;
+            if (pu && pu.ior === 'ior:class:Folder' && pm && String(pm.location || '').startsWith(`roomcoll:${roomId}:files`)) {
+              parentIor = `ior:instance:${pUuid}`; childLocation = `${String(pm.location)}/${fileName}`; parentPublishRef = String(pm.location); // nest under the folder + live-insert on the folder's own ref
+            } else { addLog(`[upload] parent ${parentRef.slice(0, 24)} not a room folder in ${roomId.slice(0, 8)} → file lands at Files root`); }
+          }
+          if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: childLocation } : {}) }, publishUnitChanged); // R40.86: parent+location set when dropped into a folder (STILL ONE createFileUnit — no double-mint). R40.22/R37.11 as before.
           const fileUuid = (unit.model as any).uuid;
-          addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}`);
+          addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}${parentIor ? ' parent=' + parentIor.slice(13, 21) : ''}`);
           room.addFileUnit(fileUuid);
-          publishUnitChanged('ior:class:Folder', `roomcoll:${roomId}:files`); // R40.84 (architect e0b8cb582): upload rides the SAME one-node re-derive path as folder-add (2553) — the Files node re-derives its direct children + live-inserts the new file, NO full re-seed (the client renderSeed clobber is removed). Both add types → ONE path.
+          if (parentIor) { // R40.86: the folder OWNS its children (model.children[]) — add the file, MIRRORING the folder-nest path (server.ts:2580), so the folder's children-listing renders it (live via R40.84 + on reload)
+            try {
+              const pUuid = parentIor.replace('ior:instance:', '');
+              const pf = path.join(scenarioDir, ...pUuid.slice(0, 5).split(''), `${pUuid}.scenario.json`);
+              const pj = JSON.parse(fsSync.readFileSync(pf, 'utf-8'));
+              pj.model.children = Array.isArray(pj.model.children) ? pj.model.children : [];
+              if (!pj.model.children.includes(`ior:instance:${fileUuid}`)) { pj.model.children.push(`ior:instance:${fileUuid}`); fsSync.writeFileSync(pf, JSON.stringify(pj, null, 2) + '\n'); }
+            } catch { /* parent children update best-effort (mirrors 2580) */ }
+          }
+          publishUnitChanged('ior:class:Folder', parentPublishRef); // R40.84/R40.86: re-derive the target node (the FOLDER when nested, else Files root) → live-insert the new file INSIDE, no full re-seed. ONE path for both add types.
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });

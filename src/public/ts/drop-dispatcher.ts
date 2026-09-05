@@ -12,10 +12,15 @@ export class DropDispatcher {
   private enterCount = 0;
   state: 'idle' | 'dragover' | 'uploading' | 'complete' = 'idle';
   private statusCb: StatusCallback | null = null;
+  private roomCtx: { roomId: string; token: string } | null = null; // R40.86: the active room's drop context (set by RoomView; the SAME roomId+token dispatch() is called with)
 
   constructor(private baseUrl: string = '') {}
 
   onStatus(cb: StatusCallback): void { this.statusCb = cb; }
+
+  // R40.86: RoomView sets the active-room context so a container-drop (acceptDropIntoContainer) uses the SAME roomId+token as dispatch().
+  setRoomContext(roomId: string, token: string): void { this.roomCtx = { roomId, token }; }
+  private dropContext(): { roomId: string; token: string } { return this.roomCtx ?? { roomId: '', token: '' }; }
 
   register(mimePrefix: string, handler: DropHandler): void {
     this.handlers.set(mimePrefix, handler);
@@ -50,15 +55,27 @@ export class DropDispatcher {
   }
 
   // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
-  async uploadFile(file: File, roomId: string, playerToken: string, relatedFileUuid?: string): Promise<{ uuid: string; name: string; size: number } | null> {
+  async uploadFile(file: File, roomId: string, playerToken: string, relatedFileUuid?: string, opts?: { intoFolder?: string }): Promise<{ uuid: string; name: string; size: number } | null> {
     const fd = new FormData();
     fd.append('file', file);
     fd.append('playerToken', playerToken);
     if (relatedFileUuid) fd.append('relatedFile', relatedFileUuid); // v0.6.91: WebItem forward-ref to its source file
+    if (opts?.intoFolder) fd.append('parent', opts.intoFolder); // R40.86: drop INTO a folder → server nests the new unit under it (parent=folder; STILL ONE createFileUnit)
 
     const resp = await fetch(`${this.baseUrl}/api/room/${roomId}/upload`, { method: 'POST', body: fd });
     if (!resp.ok) return null;
     return resp.json();
+  }
+
+  // [impl:uuid:75edb563-67ec-4d20-a87f-449fe889c567] DropDispatcher.acceptDropIntoContainer (R40.86, Method a81ed3db, UC af1bf20b folder.acceptDropIntoContainer) —
+  // a FOLDER is a drop target: ROUTE each dropped file through the ONE upload→createFileUnit path with the target folder as parent,
+  // then DELEGATE the in-place render to R40.84 reDeriveDirectChildren (fired by the upload's publishUnitChanged) → the item live-inserts
+  // INSIDE the folder + persists (R40.92 folderChildrenUnder renders it on reload). DropDispatcher carries NO 2nd containment/add path
+  // (req root-lens guard, LAW-8) — it reuses uploadFile; the ONLY new thing is threading parent=targetFolderRef. ONE mint per file (no double-mint).
+  async acceptDropIntoContainer(files: File[], targetFolderRef: string): Promise<void> {
+    const { roomId, token } = this.dropContext(); // the SAME room context dispatch() uses (set by RoomView.setRoomContext)
+    if (!roomId || !token) { this.statusCb?.('error', 'No room context for folder drop'); return; }
+    for (const f of files) await this.uploadFile(f, roomId, token, undefined, { intoFolder: targetFolderRef }); // parent=folder → server nests it; no client re-derive (R40.84 live-inserts via publishUnitChanged)
   }
 
   // [impl:uuid:0bd88871-d496-448e-84b7-7daf8bee595a] DropDispatcher.uploadWithProgress

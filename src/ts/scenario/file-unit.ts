@@ -120,6 +120,10 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
       roomUuid: input.roomUuid || '',
       contentHash,
       unitLinks,
+      // R40.86 folders-are-drop-targets: a FILE dropped INTO a folder carries the folder as parent + a child location under it
+      // (the folder branch already threaded these; the File branch omitted them → a nested file never linked to its folder).
+      ...(input.parent != null ? { parent: input.parent } : {}),
+      ...(input.location ? { location: input.location } : {}),
     },
     ownerIor: input.roomUuid ? iorInstance(input.roomUuid) : null,
   });

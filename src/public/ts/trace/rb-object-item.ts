@@ -68,6 +68,20 @@ export class RbObjectItem extends HTMLElement {
       this.addEventListener('touchend', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
       this.addEventListener('touchmove', () => { if (this._longPressTimer) { clearTimeout(this._longPressTimer); this._longPressTimer = null; } }, { passive: true });
       document.addEventListener('selection-changed', () => this.syncSelected());
+      // R40.86 folders-are-drop-targets (architect design 167c94ca4): a FOLDER node accepts a file drop; its OWN ref is the target
+      // container. stopPropagation so the room-root drop zone does NOT also fire = exactly ONE acceptance. Case-insensitive
+      // 'folder' — a room folder is an ior:class:Folder unit → the tree derives type 'Folder' (capital) from the ior class; the
+      // check must match that AND the lowercase form, while still EXCLUDING model 'collection' nodes (scope: room folders IN, model OUT).
+      const isFolderTarget = (): boolean => (this.getAttribute('type') || '').toLowerCase() === 'folder';
+      this.addEventListener('dragover', (e) => { if (!isFolderTarget()) return; e.preventDefault(); e.stopPropagation(); const dt = (e as DragEvent).dataTransfer; if (dt) dt.dropEffect = 'copy'; this.classList.add('drop-target'); });
+      this.addEventListener('dragleave', () => this.classList.remove('drop-target'));
+      this.addEventListener('drop', (e) => {
+        if (!isFolderTarget()) return;
+        e.preventDefault(); e.stopPropagation(); this.classList.remove('drop-target');
+        const files = [...((e as DragEvent).dataTransfer?.files ?? [])];
+        const ref = this.getAttribute('ref');
+        if (files.length && ref) void dropDispatcher.acceptDropIntoContainer(files, ref); // ROUTE+DELEGATE (no client re-derive; R40.84 live-inserts inside the folder)
+      });
     }
     const ref = this.getAttribute('ref');
     if (ref && !this.unsub) this.unsub = ViewBus.subscribe(viewBusKey(ref), () => void this.refreshLive()); // architect de27341b4 surgical: on a unit-changed for THIS ref, pull the fresh derived status → badge re-renders (done→green✓) live
