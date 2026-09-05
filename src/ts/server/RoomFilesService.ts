@@ -41,10 +41,9 @@ export class RoomFilesService {
     const parentAbsPath = nrel ? path.join(filesBase, nrel) : filesBase;
     const fullNested = nrel ? `${nrel}/${clean}` : clean;
     const location = `roomcoll:${roomId}:files/${fullNested}`; // logical roomcoll ref (shared, per-room; out of resolveDirRefAbs's repo namespace)
-    // [physicality-gated: room-folder-is-physical-by-construction] R40.88 (architect ruling 0c9acf712): a ROOM folder IS a real
-    // fs directory under getRoomDir(creator)/files — the room domain is ALWAYS-physical BY CONSTRUCTION (never a MODEL folder,
-    // so the R40.88 model-hazard cannot arise here). This physical-create is gated by that invariant, NOT by the model
-    // resolveFolderRefToDir discriminator. NOT a self-exempt: the marker STATES the by-construction physicality gate the guard recognizes.
+    // R40.88 (architect ruling f506ac659): a ROOM folder IS a real fs dir under getRoomDir(creator)/files — physical BY
+    // CONSTRUCTION, never a MODEL folder. This physical-create is SANCTIONED in the guard's architect-maintained GATE list
+    // (check-no-mkdir-for-a-model-folder.ts), NOT by any in-file comment (a self-attested marker would be e3-gameable).
     return FolderService.createPhysicalFolder({ parentAbsPath, name: clean, storeDir, location });
   }
 }
