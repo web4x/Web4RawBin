@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "e270939b-3239-4912-a48c-fddaf9152da6",
+    "name": "Task 40.90: expandPath waitForNode TIMEOUT on the room ROOT node (tester-observed, un-owned symptom — tracked defect)",
+    "slug": "task-40.90-e270939b",
+    "description": "Planned. SYMPTOM-ONLY, root UNOWNED — architect diagnoses the root BEFORE any fix; do NOT imply a known root. NOT attached to R40.84. Covers R40.90 (393e297a), UC bf89dd5c. Minted 2026-09-05 (PO GO after the R40.84-firefight coverage gap; planner was skipped, gap now closed). verify-owner-first: full-index scan confirmed NO prior covering task (no double-mint).",
+    "intention": "Board-track R40.90 at its honest status; declare the ONE canonical planning unit for this requirement (traceability = DRY enforcement).",
+    "context": "Planned. SYMPTOM-ONLY, root UNOWNED — architect diagnoses the root BEFORE any fix; do NOT imply a known root. NOT attached to R40.84.",
+    "statusChecklist": "- [x] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "Mirrors R40.90 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.\n- [ ] AC-symptom-literal: LITERAL SYMPTOM (verbatim so an intake search by what the tester SEES finds it): expandPath waitForNode TIMEOUT on the room ROOT node. Observed REPEATEDLY by the tester.\n- [ ] AC-root-unowned-symptom-only: the ROOT is NOT yet owned; this captures the SYMPTOM + the correct shape ONLY (expandPath should resolve the room root without timeout); do NOT build a fix until the root is diagnosed (architect).\n- [ ] AC-distinct-from-r40.84: DISTINCT from R40.84 and NOT attached — folders render via the reDerive IN-PLACE path (Impl 8693dc2b), NOT via expandPath; this timeout did NOT affect the R40.84 verdict.\n- [ ] AC-expandpath-resolves-root-no-timeout: the EVENTUAL gate (once the root is known + fixed): expandPath waitForNode RESOLVES the room ROOT node WITHOUT timeout; a waitForNode timeout on the room root => RED.",
+    "subtasks": "None (atomic task).",
+    "status": "Planned",
+    "coveredRequirements": [
+      "ior:instance:393e297a-238e-4d89-85f3-d8afa5e43ce3"
+    ],
+    "useCases": [
+      "ior:instance:bf89dd5c-4835-4066-a2e2-9531e21d6cc4"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP Planned 2026-09-05 (PO GO). Planned. SYMPTOM-ONLY, root UNOWNED — architect diagnoses the root BEFORE any fix; do NOT imply a known root. NOT attached to R40.84. UC full-uuid bf89dd5c-4835-4066-a2e2-9531e21d6cc4 resolved from R40.90.useCases[] on disk (NOT fabricated). ACs mirrored from the req (no-drift). Minted LOCAL (push-freeze), path-limited. req reverse-wires R40.90.tasks[]. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-05"
+  },
+  "ownerIor": null
+}

@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 232** — Done **98** · QA-Review **46** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 83** (232 = 98+46+3+83)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 79**
+- **TOTAL S30++ tasks: 238** — Done **98** · QA-Review **49** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 86** (238 = 98+49+3+86)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 82**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 39 | 1 | 14 | 0 | 24 |
-| S40 | 73 | 0 | 15 | 0 | 56 |
+| S40 | 79 | 0 | 18 | 0 | 59 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 16 · build 51
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 17 · build 53
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -70,6 +70,7 @@
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
+| S40 | 51bd0541 | Planned | build | Task 40.88: Standing rulings are FAILABLE INVARIANTS — every |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
 | S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
 | S40 | 6134f49c | Planned | build | Task 40.53: ONE canonical sprint-dir resolver (sprintDir |
@@ -93,6 +94,7 @@
 | S40 | a5b4b0f7 | Planned | build | Task 40.39: Type-registration is BOUND to index-strategy |
 | S40 | a93426a1 | Planned | build | Task 40.46: Live code-stamp of lastAdvancedAt on a marke |
 | S40 | b500f345 | Planned | RIPE | Task 40.26: Discover-related completeness: adds the UseC |
+| S40 | b60afb24 | Planned | marker | Task 40.86: Folders are drop targets — dropping content onto |
 | S40 | b749e786 | Planned | build | Task 40.44: REMOVE the dead /api/current-sprint/designat |
 | S40 | b981f1c9 | Planned | RIPE | Task 40.66: PROD regression — File units carry UUIDs where n |
 | S40 | bb9dec65 | Planned | build | Task 40.62: Render the CR diagram file-artefact — a CR dropp |
@@ -107,6 +109,7 @@
 | S40 | cfe0fc7e | Planned | build | Task 40.74: Method detail full-signature render @390 — visib |
 | S40 | d47ec615 | Planned | build | Task 40.79: Sunburst center circle shows TOTAL size of all c |
 | S40 | dd2326a2 | Planned | build | Task 40.80: ONE human-readable size formatter (B/kB/MB/GB/TB |
+| S40 | e270939b | Planned | build | Task 40.90: expandPath waitForNode TIMEOUT on the room ROOT  |
 | S40 | e6663c08 | Planned | build | Task 40.32: Browser gates positively self-assert served= |
 | S40 | e7fe421d | Planned | RIPE | Task 40.29: Diagram background-drag pans the viewport wi |
 | S40 | efef7f6a | Planned | marker | Task 40.25: Post-deploy device-gate trigger — every depl |

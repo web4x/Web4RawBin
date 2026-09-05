@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "49822597-25c7-41ea-8edc-dcdb60d5603b",
+    "name": "Task 40.85: Plain file upload via the drop area SUCCEEDS (0.8.175 regression: recognition works then upload dies) — all uploads",
+    "slug": "task-40.85-49822597",
+    "description": "CLOSED (PO): SW-upload regression fix v0.8.176. QA-Review — Done pending TRON acceptance. Covers R40.85 (deeeec90), UC 2640f986. Minted 2026-09-05 (PO GO after the R40.84-firefight coverage gap; planner was skipped, gap now closed). verify-owner-first: full-index scan confirmed NO prior covering task (no double-mint).",
+    "intention": "Board-track R40.85 at its honest status; declare the ONE canonical planning unit for this requirement (traceability = DRY enforcement).",
+    "context": "CLOSED (PO): SW-upload regression fix v0.8.176. QA-Review — Done pending TRON acceptance.",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "Mirrors R40.85 req ACs (no-drift, disk-resolved UC). NEVER Done till Tron.\n- [ ] AC-upload-succeeds-drop-area: a file dropped on the drop area UPLOADS (recognition -> stored) for ALL types; the 0.8.175 face (png recognized then Upload FAILED) is gone.\n- [ ] AC-regression-root-identified: the regression is traced to the specific DEPLOY change that broke the upload path (recognition works; POST/store died) and the fix RESTORES it — US breaking something, our regression.\n- [ ] AC-scope-all-uploads-not-folder: scope = ALL drop-area uploads, NOT a folder-specific case; distinct from R40.86 (folders-as-drop-targets). Do not conflate.\n- [ ] AC-verify-member-session: WE verify @390 member-session (drop a png -> uploads + lands); Tron ACCEPTS — he hit this as a CUSTOMER (our regression = our verification failure), NOT a check we hand him.\n- [ ] AC-stub-must-fail: seed recognized-then-POST/store-dies => RED; a suite green on recognition-without-store is inadmissible.",
+    "subtasks": "None (atomic task).",
+    "status": "QA Review",
+    "coveredRequirements": [
+      "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741"
+    ],
+    "useCases": [
+      "ior:instance:2640f986-ec15-4579-89f3-807158239a5a"
+    ],
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "remainingIssues": "STOOD UP QA Review 2026-09-05 (PO GO). CLOSED (PO): SW-upload regression fix v0.8.176. QA-Review — Done pending TRON acceptance. UC full-uuid 2640f986-ec15-4579-89f3-807158239a5a resolved from R40.85.useCases[] on disk (NOT fabricated). ACs mirrored from the req (no-drift). Minted LOCAL (push-freeze), path-limited. req reverse-wires R40.85.tasks[]. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-05"
+  },
+  "ownerIor": null
+}
