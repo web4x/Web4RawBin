@@ -22,6 +22,6 @@
 
 ---
 
-**Full-sweep note:** a grep for Tron-resting phrases across `scenario/index` returned **24 units** (tasks/reqs/tests); the active board ACs above are the load-bearing ones. The remaining ~19 are mostly Test *descriptions* mentioning Tron-real-iOS (descriptive, not closing conditions) — req + I sweep them for wording as the reword lands.
+**Full-sweep note — CORRECTED 2026-09-05 (req's actual sweep beat my estimate):** a grep returned 24 units; I characterized the remainder as "~19 mostly descriptive, not closing conditions" — that was an UNDER-VERIFIED ESTIMATE (I examined the active tasks, not all 24). req then SWEPT the remainder and found **~12 REQUIREMENT ACs still carrying real Tron-verifies / Tron-ONLY / un-mockable CLOSING conditions across OTHER features** (list with PO). **~half are Bucket-2 real-device / iOS / touch gaps that MUST DEFER** (calling them we-verify would be a lie). req recorded them as a tracked backlog and asked PO sweep-now-vs-defer (recommends DEFER — not basic-functionality). On PO go: req triages per-AC + pings me to mirror same-turn. LESSON (mine): a loose "mostly descriptive" is an assumption; the sweep is the measurement — [[distrust-your-own-negative-reverify]].
 
 **Reword ownership:** requirement-AC rewordings = req's lane (I coordinate, do not rewrite unilaterally); I mirror the task side once req rewords. **Does not delay the folder fix — runs alongside.**
