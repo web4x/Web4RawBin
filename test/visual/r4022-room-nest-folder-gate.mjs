@@ -165,6 +165,31 @@ try {
   R(`  A2 nested-accept: '${F2}' accepted into '${F1}' (no page reload) = ${A2}`);
   R(`  A3 nesting-correct: '${F2}' nestedPath='${f2Post ? f2Post.nestedPath : 'none'}' === '${F1}' (not room root) = ${results.A3_nestingCorrect}`);
 
+  // ── A5a RENDER-NESTED (the RENDERED artifact, not the API): does NestGateInner VISUALLY draw as a CHILD of NestGateOuter?
+  //    STRUCTURAL judgement (this tree indents via nested containers + CSS margin, NOT per-row padding, so containment — not
+  //    paddingLeft — is the truth): inner's tree-node must be DOM-contained inside outer's node AND deeper by exactly the
+  //    ancestor-container count, NOT a sibling in the same container as outer. Dumps the real hierarchy so a RED is provable. ──
+  const a5a = await page.evaluate(({ outerName, innerName }) => {
+    const tree = document.getElementById('room-tree'); if (!tree) return { ok: false, why: 'no tree' };
+    const NODE_SEL = '.tt-node', KIDS_SEL = '.tt-children';
+    const items = [...tree.querySelectorAll('rb-object-item')];
+    const depth = (el) => { let d = 0, p = el?.closest(NODE_SEL); while (p) { const up = p.parentElement?.closest(NODE_SEL); if (!up) break; d++; p = up; } return d; };
+    // dump every folder-ish node: name + structural depth (# of ancestor tree-nodes)
+    const dump = items.map((n) => { const nm = ((n.getAttribute('title') || '') + (n.textContent || '')).replace(/\s+/g, ' ').trim().slice(0, 24); return { nm, depth: depth(n), hasNodeAncestor: !!n.closest(NODE_SEL) }; });
+    const node = (name) => items.find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes(name));
+    const outer = node(outerName), inner = node(innerName);
+    if (!outer || !inner) return { ok: false, why: 'node missing', hasOuter: !!outer, hasInner: !!inner, dump };
+    const outerTt = outer.closest(NODE_SEL), innerTt = inner.closest(NODE_SEL);
+    const selectorFound = !!outerTt && !!innerTt; // guard the null===null false-RED
+    const nestedUnderOuter = selectorFound && outerTt !== innerTt && outerTt.contains(innerTt);
+    const sameContainer = selectorFound && innerTt.parentElement?.closest(KIDS_SEL) === outerTt.parentElement?.closest(KIDS_SEL);
+    const deeper = depth(inner) > depth(outer);
+    return { ok: selectorFound && nestedUnderOuter && !sameContainer && deeper, selectorFound, nestedUnderOuter, sameContainer, outerDepth: depth(outer), innerDepth: depth(inner), dump };
+  }, { outerName: F1, innerName: F2 });
+  results.A5a_newFoldersRenderNested = !!a5a.ok;
+  try { await page.screenshot({ path: 'test-results/r4022-A5a-new-folders-nested.png', fullPage: true }); } catch {}
+  R(`  A5a render-nested (NEW folders, @390): '${F2}' DOM-child of '${F1}' (structural, not padding) = ${a5a.ok} | ${JSON.stringify(a5a)} | shot test-results/r4022-A5a-new-folders-nested.png`);
+
   // A4 on disk: BOTH folders are UNITS in the ONE store, symlinked like files (not bare dirs). Scan the scratch trees.
   const diskA4 = (() => {
     if (!scratchDir) return { ok: false, why: 'no scratchDir' };
@@ -198,6 +223,7 @@ R(`  A1 items-tree (F1 beside files, no reload)      : ${results.A1_itemsTree ? 
 R(`  A2 nested-accept (F2 into F1, no reload)         : ${results.A2_nestedAccept ? 'GREEN' : 'RED'}`);
 R(`  A3 nesting-correct (F2 under F1, not root)       : ${results.A3_nestingCorrect ? 'GREEN' : 'RED'}`);
 R(`  A4 one-store-units (both units, one store)       : ${results.A4_oneStoreUnits ? 'GREEN' : 'RED'}`);
-const allGreen = results.A1_itemsTree && results.A2_nestedAccept && results.A3_nestingCorrect && results.A4_oneStoreUnits;
+R(`  A5a render-nested (NEW folders indented @390)    : ${results.A5a_newFoldersRenderNested ? 'GREEN' : 'RED'}`);
+const allGreen = results.A1_itemsTree && results.A2_nestedAccept && results.A3_nestingCorrect && results.A4_oneStoreUnits && results.A5a_newFoldersRenderNested;
 R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
 process.exit(allGreen ? 0 : 1);
