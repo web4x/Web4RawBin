@@ -83,6 +83,17 @@
           "assertion": "real user path (member-gated add-folder) VERIFIED by the tester with a live MEMBER session before Tron sees it; NO owner rights, NO security harness; Tron seeing = acceptance not proof"
         },
         "stubMustFail": "N/A (acceptance step); the FAILABLE verification is the MEMBER-session real-path gate (tester) + the structural ownership guard (9ef91a551), both complete before acceptance"
+      },
+      {
+        "id": "AC-client-reflects-never-computes-children",
+        "group": "by-construction/tier-split",
+        "text": "The client tree ONLY FETCHES the one Model-tier children derivation (RoomFolder.childrenByLocation / roomFilesChildren endpoint) and reconciles the DOM incrementally — it NEVER computes room children LOCALLY (no client-side files[]/location logic). A client-side room-children derivation => RED (that WOULD re-introduce the R40.83 dual-face divergence: two derivations of the same children). ONE source (Model/server), the View reflects, never recomputes. Architect-ruled legit-by-construction 2026-09-05.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-client-side-room-children-computation",
+          "assertion": "the client tree fetches roomFilesChildren + DOM-reconciles; any client-side files[]/location children computation => RED"
+        },
+        "stubMustFail": "PENDING: seed a client-side room-children derivation (files[]/location logic in the tree) -> RED"
       }
     ],
     "guardDelivered": {
