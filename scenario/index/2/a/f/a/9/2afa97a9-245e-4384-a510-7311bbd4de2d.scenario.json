@@ -1,0 +1,119 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "2afa97a9-245e-4384-a510-7311bbd4de2d",
+    "altId": "R40.87",
+    "name": "Add folder SUCCEEDS on a model collection (route to model-store when no physical dir) — truthful applicability, offered implies succeeds",
+    "description": "Tron ruling (reported MULTIPLE TIMES; architect design 5cfa4f9dd): Add folder must SUCCEED on a model collection like diagrams, NOT be suppressed — suppressing recreates the sometimes-a-button behaviour he explicitly rejected. ROOT: the model endpoint routes EVERY add-folder through the PHYSICAL create path, which returns the error bad-parent-loc for a parent with no real directory (the uncovered THIRD bad-parent-loc cause = a virtual Folder with no physical dir). FIX is ROUTING: branch to the MODEL-STORE create when the parent has no physical dir (both paths already exist). DOCTRINE (the valuable part): a Folder unit is a MODEL OBJECT, not inherently a directory; we assumed folder == directory and THAT assumption is the defect. TRUTHFUL APPLICABILITY: if we offer a verb it must succeed — offered implies succeeds by construction. The literal error Tron sees: bad-parent-loc.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:abac573a-9525-4d73-8273-a0765058d4bf"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-addfolder-diagrams-applicability-ruling.md",
+    "discoverySource": {
+      "type": "tron-ruling-recurring",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "designCommit": "5cfa4f9dd",
+      "reportedMultipleTimes": true,
+      "errorString": "bad-parent-loc",
+      "trackedDefect": "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "buildable": "basic-functionality (Tron hits it, reported multiple times) — buildable-NOW.",
+    "crossRef": [
+      "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
+      "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503",
+      "ior:instance:107b28dc-41e2-4a51-9f36-74b658422a2e",
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+      "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
+      "ior:instance:c638d72c-17ce-4863-b939-a00aa09e6c30"
+    ],
+    "crossRefNote": "COMPLETES R40.37 applicability into the biconditional offered<=>can-succeed (R40.37 = invalid->not-offered; this = offered->must-succeed, by SUCCEEDING not suppressing). R37.33 = the dir base-resolution (other bad-parent-loc causes); this is the 3rd cause (virtual Folder no physical dir). R40.83 room-folder dual-identity + R40.82 folder-owns-children (folder is a model object) = the containment family. Tracked defect c83c02f2 is the ONE home for Tron repeat reports (carries the error string).",
+    "satisfactionStatus": "UNVERIFIED (captured against design 5cfa4f9dd; routing fix + gates unbuilt; no stub RED observed).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-add-folder-succeeds-on-model-collection",
+        "group": "behaviour/USER-TERMS",
+        "text": "Pressing Add folder on a MODEL COLLECTION (like diagrams) CREATES the folder and it APPEARS — NOT suppressed, NOT failed. (Suppressing it would recreate the sometimes-a-button behaviour Tron explicitly rejected.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:add-folder-model-collection-succeeds",
+          "assertion": "Add-folder on a model collection creates a Folder unit + it renders; suppressed-or-failed => RED"
+        },
+        "stubMustFail": "PENDING: seed the 0.8.175 bad-parent-loc on a diagrams-collection add -> RED"
+      },
+      {
+        "id": "AC-routing-branch-to-model-store",
+        "group": "by-construction/root-fix",
+        "text": "The model add-folder endpoint BRANCHES to the MODEL-STORE create when the parent has NO physical dir (both paths ALREADY EXIST) — it does NOT route EVERY add-folder through the PHYSICAL-create path (the root: the physical path returns bad-parent-loc for a parent with no real directory = the uncovered THIRD cause, a virtual Folder with no physical dir).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:add-folder-routes-by-parent-physicality",
+          "assertion": "no-physical-dir parent => model-store create (success); physical-dir parent => physical create; never all-through-physical"
+        },
+        "stubMustFail": "PENDING: seed a virtual-parent add routed through physical create -> bad-parent-loc -> RED"
+      },
+      {
+        "id": "AC-truthful-applicability-offered-implies-succeeds",
+        "group": "doctrine/by-construction",
+        "text": "TRUTHFUL APPLICABILITY: if a verb is OFFERED, it MUST SUCCEED — offered IMPLIES succeeds, BY CONSTRUCTION. A verb that is offered but then fails => RED. This is SUCCEED-not-suppress: we do NOT hide the verb, we make it work. Completes R40.37 applicability into a biconditional: offered <=> can-succeed. A shown button that then fails is a BROKEN PROMISE.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:offered-implies-succeeds",
+          "assertion": "every offered verb has a succeeding path for the context it is offered in; an offered-but-failing verb => RED"
+        },
+        "stubMustFail": "PENDING: seed an offered verb with no success path -> RED"
+      },
+      {
+        "id": "AC-stub-must-fail-malformed-still-bad-parent-loc",
+        "group": "stub-must-fail/fail-closed-stays-real",
+        "text": "A MALFORMED non-Folder ref STILL returns bad-parent-loc — the fail-closed remains REAL. We route VALID virtual Folders to the model store, but a genuinely broken/non-Folder ref must still fail-closed (we do NOT paper over real errors). Stub: a malformed non-Folder ref that SUCCEEDS => RED.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (malformed-ref fail-closed fixture)",
+          "assertion": "malformed non-Folder ref -> bad-parent-loc (fail-closed); if it succeeds => RED"
+        },
+        "stubMustFail": "PENDING: register the malformed-ref RED-stays run"
+      },
+      {
+        "id": "AC-doctrine-folder-is-model-object",
+        "group": "doctrine/RECORD",
+        "text": "DOCTRINE (the valuable part): a Folder unit is a MODEL OBJECT, NOT inherently a directory. We ASSUMED folder == directory, and THAT ASSUMPTION IS THE DEFECT. A Folder with no physical dir is a VALID model Folder (lives in the model store); a physical dir is one REALIZATION of a Folder, not its identity.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "doctrine record on-unit",
+          "assertion": "folder != directory; a Folder can exist as a pure model object with no physical dir"
+        },
+        "stubMustFail": "N/A (doctrine record)"
+      },
+      {
+        "id": "AC-delete-harmless-comment",
+        "group": "cleanup/broken-promise",
+        "text": "The HARMLESS comment in action-applicability.ts (treating offer-then-fail on a virtual parent as acceptable) is DELETED — a button we show that then fails is a BROKEN PROMISE, never harmless. Gate: no code comment sanctions offering a verb that cannot succeed.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "grep action-applicability.ts",
+          "assertion": "the harmless-offer-on-virtual comment is removed; offering-then-failing is never annotated as acceptable"
+        },
+        "stubMustFail": "PENDING: assert the harmless comment is gone"
+      },
+      {
+        "id": "AC-verify-member-session",
+        "group": "verify/customer-not-tester",
+        "text": "WE verify @390 member-session (Add folder on a diagrams model collection -> folder created + appears). Tron ACCEPTS delivered verified work — he reported this MULTIPLE TIMES as a customer (our verification + intake failure), NOT a test he runs.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "tester member-session @390 model-collection add-folder",
+          "assertion": "WE verify Add-folder-on-model-collection succeeds before Tron sees it; Tron accepts"
+        },
+        "stubMustFail": "N/A (acceptance; failable via the succeed + routing + stub gates)"
+      }
+    ],
+    "doctrineReconciliation": "MEASURE-BEATS-RELAY (robbin-req, from R40.37 on disk): the folder != directory doctrine was NOT a naive original assumption — R40.37 AC-ADD-FOLDER-MINTS-REAL-UNIT-IMMEDIATELY already ruled it on 2026-08-12 (Tron: physical = a real PERSISTED unit, NOT a filesystem directory, NO mkdir). The assumption was RE-INTRODUCED by the R40.78 room-physical-folder work (Files IS the room physical folder -> createPhysicalWithUnit does mkdir). Applying that PHYSICAL-create path to MODEL collections (diagrams, no physical dir) is what returns bad-parent-loc. So R40.87 is not a new doctrine — it RECONCILES R40.37 (unit-only path, virtual parent) with R40.78 (physical path, room parent) by ROUTING on parent physicality: physical dir -> physical create (R40.78); no physical dir -> model-store unit create (R40.37). Both paths already exist; the endpoint must branch, not force every add through physical."
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

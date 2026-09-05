@@ -1,85 +1,101 @@
 {
- "ior": "ior:class:Requirement",
- "model": {
-  "uuid": "a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
-  "name": "Context-sensitive actions — an action invalid for the unit's TYPE/STATUS is NOT OFFERED (not clickable-then-refused); server guard stays as defense-in-depth",
-  "altId": "R40.37",
-  "tasks": [
-   "ior:instance:2e831ffd-5eba-45ce-961e-25195b2071a3"
-  ],
-  "tests": [],
-  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
-  "sourceLine": 1,
-  "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
-  "sprintName": "Sprint 40",
-  "unitLinks": [],
-  "useCases": [
-   "ior:instance:1de961e7-5f64-4768-af31-7e7de8063ed5",
-   "ior:instance:0c58eb53-73fc-4e4d-97d4-dbe729cc0916"
-  ],
-  "description": "An action that is invalid for the current unit's TYPE or STATUS must NOT be OFFERED at all — hidden, or disabled carrying its reason — rather than being clickable and then refused server-side. Tron hit Approve on Task 32.0 (status=Done) and got the CORRECT server refusal ('Cannot approve — status Done != QA Review'); the guard is RIGHT and STAYS (defense-in-depth — we NEVER remove a guard to fix a UI affordance). The DEFECT is that the action was OFFERED at all. The applicability capability lives ONCE in the SHARED universalActionBar, DECLARED PER ACTION (its valid types/statuses), NOT as per-view if-statements (architect designs the applicability model). Covers: Approve/Decline only at QA Review; container actions (+Add Diagram / Add folder / Import PUML) never on a Task; +Add Diagram only on the diagrams SPECIAL container; Add folder immediately MINTS a real persisted Folder scenario-unit on disk (Tron clarification: NOT a filesystem directory, no mkdir — the itemview becomes the unit at once; atomicity = the unit write).",
-  "tronQuote": "> Tron (2026-08-12, on approving Task 32.0/Done -> correct refusal): \"some actions are context sensitive actions. if the state is not QA, then the buttons do not make sense\" + \"+ Add Diagram / Add folder / Import PUML ... do not make sens on tasks\" + \"[diagrams] should be a special Folder ... a container\" + \"should on Add folder immediately add the itemview as a new physical folder with a scenario-unit\". CLARIFICATION (2026-08-12, ruling): \"'physical' = a real PERSISTED unit on disk, NOT a filesystem directory\" — mint the Folder scenario-unit immediately (no mkdir), itemview becomes the unit, atomicity = the unit write; if the write fails, nothing changes + no phantom node.",
-  "status": "Planned",
-  "designRequired": true,
-  "tronDeclineNote": "TRON DECLINE 2026-08-18 (verbatim: 'its not yet consistent so not ok to be approved'): the dynamic action bar is NOT APPROVABLE until action visibility is CONSISTENT — 'Open Task file' is a real dynamic action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION), every non-current task shows Set-as-Current + Set-as-next (AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS), the visibility matrix matches the architect R40.18 ruling (AC-SET-NEXT-VISIBILITY-MATRIX), and the duplicate inline links are removed AFTER the action exists (AC-NO-DUPLICATE-INLINE-LINKS). His DECLINE recorded as DATA (posture: DECLINE = his reason as testable ACs, added above). CAPTURE-ONLY — expert is mid-build on the 2-root approve fix; not interleaved.",
-  "discoverySource": {
-   "type": "tron-directive",
-   "date": "2026-08-12",
-   "via": "robbin-po",
-   "note": "Tron hit Approve on Done Task 32.0 -> correct guard refusal, but the button should not have been offered. Guard STAYS (defense-in-depth); UI must not OFFER invalid actions. Architect designs the applicability model — capability ONCE in universalActionBar, declared per-action, NOT per-view if-statements. Scenario-first #126: req+UCs+task on disk BEFORE implementation; ACTIONABLE 0->1 (new ordered work)."
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
+    "name": "Context-sensitive actions — an action invalid for the unit's TYPE/STATUS is NOT OFFERED (not clickable-then-refused); server guard stays as defense-in-depth",
+    "altId": "R40.37",
+    "tasks": [
+      "ior:instance:2e831ffd-5eba-45ce-961e-25195b2071a3"
+    ],
+    "tests": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "sourceLine": 1,
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "sprintName": "Sprint 40",
+    "unitLinks": [],
+    "useCases": [
+      "ior:instance:1de961e7-5f64-4768-af31-7e7de8063ed5",
+      "ior:instance:0c58eb53-73fc-4e4d-97d4-dbe729cc0916"
+    ],
+    "description": "An action that is invalid for the current unit's TYPE or STATUS must NOT be OFFERED at all — hidden, or disabled carrying its reason — rather than being clickable and then refused server-side. Tron hit Approve on Task 32.0 (status=Done) and got the CORRECT server refusal ('Cannot approve — status Done != QA Review'); the guard is RIGHT and STAYS (defense-in-depth — we NEVER remove a guard to fix a UI affordance). The DEFECT is that the action was OFFERED at all. The applicability capability lives ONCE in the SHARED universalActionBar, DECLARED PER ACTION (its valid types/statuses), NOT as per-view if-statements (architect designs the applicability model). Covers: Approve/Decline only at QA Review; container actions (+Add Diagram / Add folder / Import PUML) never on a Task; +Add Diagram only on the diagrams SPECIAL container; Add folder immediately MINTS a real persisted Folder scenario-unit on disk (Tron clarification: NOT a filesystem directory, no mkdir — the itemview becomes the unit at once; atomicity = the unit write).",
+    "tronQuote": "> Tron (2026-08-12, on approving Task 32.0/Done -> correct refusal): \"some actions are context sensitive actions. if the state is not QA, then the buttons do not make sense\" + \"+ Add Diagram / Add folder / Import PUML ... do not make sens on tasks\" + \"[diagrams] should be a special Folder ... a container\" + \"should on Add folder immediately add the itemview as a new physical folder with a scenario-unit\". CLARIFICATION (2026-08-12, ruling): \"'physical' = a real PERSISTED unit on disk, NOT a filesystem directory\" — mint the Folder scenario-unit immediately (no mkdir), itemview becomes the unit, atomicity = the unit write; if the write fails, nothing changes + no phantom node.",
+    "status": "Planned",
+    "designRequired": true,
+    "tronDeclineNote": "TRON DECLINE 2026-08-18 (verbatim: 'its not yet consistent so not ok to be approved'): the dynamic action bar is NOT APPROVABLE until action visibility is CONSISTENT — 'Open Task file' is a real dynamic action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION), every non-current task shows Set-as-Current + Set-as-next (AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS), the visibility matrix matches the architect R40.18 ruling (AC-SET-NEXT-VISIBILITY-MATRIX), and the duplicate inline links are removed AFTER the action exists (AC-NO-DUPLICATE-INLINE-LINKS). His DECLINE recorded as DATA (posture: DECLINE = his reason as testable ACs, added above). CAPTURE-ONLY — expert is mid-build on the 2-root approve fix; not interleaved.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "date": "2026-08-12",
+      "via": "robbin-po",
+      "note": "Tron hit Approve on Done Task 32.0 -> correct guard refusal, but the button should not have been offered. Guard STAYS (defense-in-depth); UI must not OFFER invalid actions. Architect designs the applicability model — capability ONCE in universalActionBar, declared per-action, NOT per-view if-statements. Scenario-first #126: req+UCs+task on disk BEFORE implementation; ACTIONABLE 0->1 (new ordered work)."
+    },
+    "acceptanceCriteria": [
+      {
+        "id": "AC-CONTEXT-SENSITIVE-ACTIONS",
+        "group": "functional",
+        "text": "An action invalid for the current unit's TYPE or STATUS is NOT OFFERED — HIDDEN, or DISABLED carrying its reason — rather than clickable-then-refused. The server-side guard REMAINS as defense-in-depth (a guard is NEVER removed to fix a UI affordance); the two are complementary (prevention at the UI, backstop at the server)."
+      },
+      {
+        "id": "AC-APPROVE-DECLINE-ONLY-AT-QA",
+        "group": "functional",
+        "text": "Approve and Decline are OFFERED only when the task status == 'QA Review' (Tron's exact case: on a Done task they are absent, not clickable-then-refused)."
+      },
+      {
+        "id": "AC-NO-CONTAINER-ACTIONS-ON-TASKS",
+        "group": "functional",
+        "text": "Container actions ('+ Add Diagram', 'Add folder', 'Import PUML') are NOT offered on a Task unit (verbatim: 'do not make sens on tasks')."
+      },
+      {
+        "id": "AC-DIAGRAMS-IS-A-SPECIAL-CONTAINER",
+        "group": "functional",
+        "text": "'+ Add Diagram' is offered ONLY on the diagrams container; diagrams becomes a SPECIAL typed folder/CONTAINER (not a generic folder) — 'it should be a special Folder ... a container'."
+      },
+      {
+        "id": "AC-ADD-FOLDER-MINTS-REAL-UNIT-IMMEDIATELY",
+        "group": "functional",
+        "text": "[TRON CLARIFICATION 2026-08-12, his ruling] 'physical' means a REAL PERSISTED unit ON DISK, NOT a filesystem directory: 'Add folder' IMMEDIATELY MINTS a real persisted Folder scenario-unit (as opposed to a synthetic/virtual tree node), and the itemview BECOMES that unit at once — NO mkdir, NO filesystem write; atomicity = the unit write. If the unit write FAILS, nothing changes and NO phantom itemview node appears. (AC renamed from AC-ADD-FOLDER-CREATES-PHYSICAL-FOLDER-AND-UNIT — 'PHYSICAL-FOLDER' read as filesystem; content-name per the letters-swap lesson.)"
+      },
+      {
+        "id": "AC-6-DEVICE",
+        "group": "device",
+        "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on his phone that the IMPOSSIBLE buttons are GONE (Approve absent on a Done task; container actions absent on a Task) AND that 'Add folder' creates the physical folder + unit + itemview live. AC-N-DEVICE convention so the approve-queue device-scan catches it when the covering task reaches QA Review."
+      },
+      {
+        "id": "AC-OPEN-TASK-FILE-DYNAMIC-ACTION",
+        "group": "functional",
+        "text": "[TRON 2026-08-18, CAPTURE-ONLY he schedules] 'Open Task file' exists as a TASK DYNAMIC ACTION on the action bar (declared per-action like the others, R40.37 mechanism), NOT a plain inline link in the detail body as today. Verbatim: 'add a open Task file action as Task dynamic action.'"
+      },
+      {
+        "id": "AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS",
+        "group": "functional",
+        "text": "[TRON 2026-08-18, CAPTURE-ONLY] Every task that is NOT the current task OFFERS 'Set as Current' and 'Set as next' as dynamic actions. Verbatim: 'the task is not the current task. so all not-current tasks should show the Set as Current and Set as next action'. Underlying assign capability = R40.17 (assign-task-as-current-or-next). ★ APPARENT-CONTRADICTION (NOT a regression): R40.18 defect-2 RETIRED Set-current/next on the DERIVED PIN (verified absent). Tron asks for them on NON-CURRENT TASKS. VISIBILITY (this AC — the button is OFFERED on non-current tasks per the matrix) is SETTLED; only the ACTION SEMANTICS (what Set-as-Current DOES) is open. ★ ACTION SEMANTICS HELD FOR TRON'S CALL (architect reconciliation 515260b8d, self-corrected by measuring the prior ruling): the earlier claim — that Set-as-Current writes an explicit steer CurrentSprint.currentTaskUuid via the designate seam (server.ts:1801) — is WITHDRAWN, because that designate mechanism IS the stored-winning-pin 2nd-source that R40.44 (7cb9617fb) RETIRED (/api/current-sprint/designate removed; the removal STANDS regardless). ★ SET-AS-CURRENT SEMANTICS RESOLVED + BUILT v0.8.105 (expert 215138bff; PO ruling + architect 515260b8d) = ADVANCE-BASED, NO stored pin: TaskPolicy makeCurrent intent advances Planned->In-Progress + stamps lastAdvancedAt (In-Progress->re-stamp; QA/Done->refuse) -> the DERIVED pin (max-lastAdvancedAt In-Progress) picks it + EMITS live cross-view. NOT designate/currentTaskUuid (that 2nd-source stays retired R40.44). SERVER POST /api/task/<uuid>/make-current owner-gated (VERIFIED 403 non-owner); /api/ior attaches model.pinRole (compute-on-read). Pin STAYS DERIVED = NOT a R40.18 regression, confirmed by build. ★ SET-AS-NEXT still DEFERRED — architect's set-next-semantics ruling pending (advance-based vs explicit nextBacklog); client decls+matrix ready, expert wires on the ruling. @390 owner-tap = Tron's device confirm (he's at the screen). ⏳ R40.37 CHAIN-WIRING NEEDED: the makeCurrent / open-task-file / pinRole code shipped v0.8.105 but is NOT yet in a scenario chain (Method/Impl/Test) — same shipped-chain-less pattern as the T37.26 formatter; architect maps -> I mint retroactive-to-shipped-code -> expert marks -> tester Tests, so R40.37 does not ship chain-less."
+      },
+      {
+        "id": "AC-SET-NEXT-VISIBILITY-MATRIX",
+        "group": "functional",
+        "text": "[TRON 2026-08-18, CAPTURE-ONLY; MATRIX RULED by architect] Tron's two fixed cells: the already-NEXT task does NOT offer 'Set as next' (verbatim: 'obviously not the one which is already the next task'); the CURRENT task offers NEITHER Set-as-Current nor Set-as-next. ★ FULL MATRIX RULED (design-task-action-visibility-matrix-ruling.md @ de27341b4, sprint-40) — declared via the R40.37 appliesTo{when} mechanism with predicates isCurrent/isNext, onInvalid:'hide': CURRENT task = NEITHER (both hidden); NEXT task = Set-as-Current ONLY (set-next hidden, already-next); EVERY OTHER task = BOTH set-current + set-next; open-file = ALL tasks (nav/read action, no currency condition). Encoded: set-as-current appliesTo{types:['task'], when:!isCurrent}; set-as-next appliesTo{types:['task'], when:!isCurrent && !isNext}; open-file appliesTo{types:['task']}. Keyed on the DERIVED pin role, context-sensitive (NOT per-view if-statements). Tron's 2 cells match the ruling."
+      },
+      {
+        "id": "AC-NO-DUPLICATE-INLINE-LINKS",
+        "group": "functional",
+        "text": "[TRON 2026-08-18, CAPTURE-ONLY] Once the actions exist as DYNAMIC ACTIONS in the action bar, the detail rendering must NOT DUPLICATE them as inline clickable links — the ACTION BAR is the ONE action surface; the detail BODY renders DATA. Verbatim: 'the duplicated clickable links can then be removed in the details rendering'. Today the same actions (Scenario / Edit / Task file) render TWICE — action-bar buttons AND inline body links. ★ ORDERING DEPENDENCY (his 'can THEN be removed'): the inline links come out ONLY AFTER 'Open Task file' exists as a real action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION) — removing the link first deletes the only path to the task file = a dead end. ★ SAME FAMILY as his morning DRY catch (sprint-name double-render, 'TWO implementations', R40.4): ONE THING, ONE PLACE — an action/datum has a single render home; a second render is the two-sources disease applied to ACTIONS. Name the family, not just the instance."
+      },
+      {
+        "id": "AC-ENUMERATE-VIRTUAL-COLLECTION-ADD-FOLDER",
+        "group": "enumerated-case/Tron-recurring",
+        "text": "[TRON reported MULTIPLE TIMES — enumerated 2026-09-05, was a code-comment-only case] Add-folder OFFERED on a VIRTUAL / non-physical COLLECTION in the MODEL view (e.g. diagrams) where it fails with error bad-parent-loc is EXPLICITLY covered here. Resolution is NOT suppression (suppressing recreates the sometimes-a-button behaviour Tron rejected) but SUCCESS by construction: R40.87 routes the add to the model-store when the parent has no physical dir. Applicability here = OFFERED-IMPLIES-SUCCEEDS — the verb stays offered AND is made to succeed. Its prior life as only a code comment in action-applicability.ts (which called offer-then-fail harmless) is RETIRED: a shown button that fails is a broken promise. Tracked defect: c83c02f2; fix: R40.87.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:add-folder-model-collection-succeeds (R40.87)",
+          "assertion": "add-folder on a virtual/non-physical model collection SUCCEEDS (routed to model-store), never offered-then-bad-parent-loc"
+        },
+        "stubMustFail": "PENDING: seed add-folder on a diagrams collection returning bad-parent-loc -> RED"
+      }
+    ],
+    "priority": "CRITICAL-PATH (PO 2026-09-05): Tron keeps hitting this, which outranks the prior ordering. Was Planned; now on the critical path. Enumerates the recurring virtual-collection add-folder case; resolution completes via R40.87.",
+    "crossRef": [
+      "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+      "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
+    ]
   },
-  "acceptanceCriteria": [
-   {
-    "id": "AC-CONTEXT-SENSITIVE-ACTIONS",
-    "group": "functional",
-    "text": "An action invalid for the current unit's TYPE or STATUS is NOT OFFERED — HIDDEN, or DISABLED carrying its reason — rather than clickable-then-refused. The server-side guard REMAINS as defense-in-depth (a guard is NEVER removed to fix a UI affordance); the two are complementary (prevention at the UI, backstop at the server)."
-   },
-   {
-    "id": "AC-APPROVE-DECLINE-ONLY-AT-QA",
-    "group": "functional",
-    "text": "Approve and Decline are OFFERED only when the task status == 'QA Review' (Tron's exact case: on a Done task they are absent, not clickable-then-refused)."
-   },
-   {
-    "id": "AC-NO-CONTAINER-ACTIONS-ON-TASKS",
-    "group": "functional",
-    "text": "Container actions ('+ Add Diagram', 'Add folder', 'Import PUML') are NOT offered on a Task unit (verbatim: 'do not make sens on tasks')."
-   },
-   {
-    "id": "AC-DIAGRAMS-IS-A-SPECIAL-CONTAINER",
-    "group": "functional",
-    "text": "'+ Add Diagram' is offered ONLY on the diagrams container; diagrams becomes a SPECIAL typed folder/CONTAINER (not a generic folder) — 'it should be a special Folder ... a container'."
-   },
-   {
-    "id": "AC-ADD-FOLDER-MINTS-REAL-UNIT-IMMEDIATELY",
-    "group": "functional",
-    "text": "[TRON CLARIFICATION 2026-08-12, his ruling] 'physical' means a REAL PERSISTED unit ON DISK, NOT a filesystem directory: 'Add folder' IMMEDIATELY MINTS a real persisted Folder scenario-unit (as opposed to a synthetic/virtual tree node), and the itemview BECOMES that unit at once — NO mkdir, NO filesystem write; atomicity = the unit write. If the unit write FAILS, nothing changes and NO phantom itemview node appears. (AC renamed from AC-ADD-FOLDER-CREATES-PHYSICAL-FOLDER-AND-UNIT — 'PHYSICAL-FOLDER' read as filesystem; content-name per the letters-swap lesson.)"
-   },
-   {
-    "id": "AC-6-DEVICE",
-    "group": "device",
-    "text": "[DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on his phone that the IMPOSSIBLE buttons are GONE (Approve absent on a Done task; container actions absent on a Task) AND that 'Add folder' creates the physical folder + unit + itemview live. AC-N-DEVICE convention so the approve-queue device-scan catches it when the covering task reaches QA Review."
-   },
-   {
-    "id": "AC-OPEN-TASK-FILE-DYNAMIC-ACTION",
-    "group": "functional",
-    "text": "[TRON 2026-08-18, CAPTURE-ONLY he schedules] 'Open Task file' exists as a TASK DYNAMIC ACTION on the action bar (declared per-action like the others, R40.37 mechanism), NOT a plain inline link in the detail body as today. Verbatim: 'add a open Task file action as Task dynamic action.'"
-   },
-   {
-    "id": "AC-SET-CURRENT-NEXT-ON-NON-CURRENT-TASKS",
-    "group": "functional",
-    "text": "[TRON 2026-08-18, CAPTURE-ONLY] Every task that is NOT the current task OFFERS 'Set as Current' and 'Set as next' as dynamic actions. Verbatim: 'the task is not the current task. so all not-current tasks should show the Set as Current and Set as next action'. Underlying assign capability = R40.17 (assign-task-as-current-or-next). ★ APPARENT-CONTRADICTION (NOT a regression): R40.18 defect-2 RETIRED Set-current/next on the DERIVED PIN (verified absent). Tron asks for them on NON-CURRENT TASKS. VISIBILITY (this AC — the button is OFFERED on non-current tasks per the matrix) is SETTLED; only the ACTION SEMANTICS (what Set-as-Current DOES) is open. ★ ACTION SEMANTICS HELD FOR TRON'S CALL (architect reconciliation 515260b8d, self-corrected by measuring the prior ruling): the earlier claim — that Set-as-Current writes an explicit steer CurrentSprint.currentTaskUuid via the designate seam (server.ts:1801) — is WITHDRAWN, because that designate mechanism IS the stored-winning-pin 2nd-source that R40.44 (7cb9617fb) RETIRED (/api/current-sprint/designate removed; the removal STANDS regardless). ★ SET-AS-CURRENT SEMANTICS RESOLVED + BUILT v0.8.105 (expert 215138bff; PO ruling + architect 515260b8d) = ADVANCE-BASED, NO stored pin: TaskPolicy makeCurrent intent advances Planned->In-Progress + stamps lastAdvancedAt (In-Progress->re-stamp; QA/Done->refuse) -> the DERIVED pin (max-lastAdvancedAt In-Progress) picks it + EMITS live cross-view. NOT designate/currentTaskUuid (that 2nd-source stays retired R40.44). SERVER POST /api/task/<uuid>/make-current owner-gated (VERIFIED 403 non-owner); /api/ior attaches model.pinRole (compute-on-read). Pin STAYS DERIVED = NOT a R40.18 regression, confirmed by build. ★ SET-AS-NEXT still DEFERRED — architect's set-next-semantics ruling pending (advance-based vs explicit nextBacklog); client decls+matrix ready, expert wires on the ruling. @390 owner-tap = Tron's device confirm (he's at the screen). ⏳ R40.37 CHAIN-WIRING NEEDED: the makeCurrent / open-task-file / pinRole code shipped v0.8.105 but is NOT yet in a scenario chain (Method/Impl/Test) — same shipped-chain-less pattern as the T37.26 formatter; architect maps -> I mint retroactive-to-shipped-code -> expert marks -> tester Tests, so R40.37 does not ship chain-less."
-   },
-   {
-    "id": "AC-SET-NEXT-VISIBILITY-MATRIX",
-    "group": "functional",
-    "text": "[TRON 2026-08-18, CAPTURE-ONLY; MATRIX RULED by architect] Tron's two fixed cells: the already-NEXT task does NOT offer 'Set as next' (verbatim: 'obviously not the one which is already the next task'); the CURRENT task offers NEITHER Set-as-Current nor Set-as-next. ★ FULL MATRIX RULED (design-task-action-visibility-matrix-ruling.md @ de27341b4, sprint-40) — declared via the R40.37 appliesTo{when} mechanism with predicates isCurrent/isNext, onInvalid:'hide': CURRENT task = NEITHER (both hidden); NEXT task = Set-as-Current ONLY (set-next hidden, already-next); EVERY OTHER task = BOTH set-current + set-next; open-file = ALL tasks (nav/read action, no currency condition). Encoded: set-as-current appliesTo{types:['task'], when:!isCurrent}; set-as-next appliesTo{types:['task'], when:!isCurrent && !isNext}; open-file appliesTo{types:['task']}. Keyed on the DERIVED pin role, context-sensitive (NOT per-view if-statements). Tron's 2 cells match the ruling."
-   },
-   {
-    "id": "AC-NO-DUPLICATE-INLINE-LINKS",
-    "group": "functional",
-    "text": "[TRON 2026-08-18, CAPTURE-ONLY] Once the actions exist as DYNAMIC ACTIONS in the action bar, the detail rendering must NOT DUPLICATE them as inline clickable links — the ACTION BAR is the ONE action surface; the detail BODY renders DATA. Verbatim: 'the duplicated clickable links can then be removed in the details rendering'. Today the same actions (Scenario / Edit / Task file) render TWICE — action-bar buttons AND inline body links. ★ ORDERING DEPENDENCY (his 'can THEN be removed'): the inline links come out ONLY AFTER 'Open Task file' exists as a real action (AC-OPEN-TASK-FILE-DYNAMIC-ACTION) — removing the link first deletes the only path to the task file = a dead end. ★ SAME FAMILY as his morning DRY catch (sprint-name double-render, 'TWO implementations', R40.4): ONE THING, ONE PLACE — an action/datum has a single render home; a second render is the two-sources disease applied to ACTIONS. Name the family, not just the instance."
-   }
-  ]
- },
- "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

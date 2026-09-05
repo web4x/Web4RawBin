@@ -24,7 +24,9 @@
     "crossRef": [
       "ior:instance:542946c4-045f-4aab-8313-2f926ceaf530",
       "ior:instance:70c6b806-d4be-4dc9-b23f-cfd61c8c7eea",
-      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b"
+      "ior:instance:38aa4fb4-3a58-48f1-b710-da285f80973b",
+      "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+      "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
     ],
     "crossRefNote": "Retires the R40.70 part-2 createPhysicalWithUnit heuristic (pinned deadline measure) + closes the R40.77 P5 sourceDirTree base gap - SAME root (dir: 2 conventions). Referential-integrity family with R37.29 (a ref must resolve one way). Correct-by-construction: remove the ambiguity, don't heuristically resolve it.",
     "satisfactionStatus": "UNVERIFIED — NEW follow-up (post-QA correctness-by-construction cleanup, NOT blocking T37.21 QA-Review); scenario-first #126; architect mints Class+Method(resolveDirRefAbs)+Impl; build per PO sequencing; 0 Done till Tron.",
@@ -65,7 +67,8 @@
         "text": "★ The dead-lazy-dir-unit migration is GATED in BOTH DIRECTIONS (PO 2026-09-01 — this is the one part of the change that touches EXISTING data, not new behaviour; a resolver change that quietly re-points units is discovered much later). (A) NOTHING LOST: the sweep removes ONLY UNREFERENCED lazy dir: units; a before==after count reconciles (swept == orphaned-lazy, 0 referenced/active units removed); a sweep that would delete a referenced/non-lazy unit => RED. (B) NOTHING WRONGLY RE-POINTED: every dir: ref whose base convention changes (dir:ts -> dir:src/ts) resolves to the CORRECT new lazy-unit identity keyToUuid('folder::'+repo-rel), and a REVERSE check confirms every consumer of a re-pointed dir: unit now resolves to the new unit — NO ref left dangling on a dead old uuid, NO ref re-pointed to a WRONG uuid. stub-must-fail: (i) a referenced unit swept => RED; (ii) a dir: ref left on a dead old uuid after migration => RED; (iii) a dir: ref re-pointed to a uuid != keyToUuid(new-repo-rel-key) => RED. Same both-sides discipline as R37.29 referential-integrity."
       }
     ],
-    "poMigrationGateConfirm": "PO 2026-09-01: migration must prove BOTH nothing-lost AND nothing-wrongly-re-pointed. AC-migration-both-directions asserts both + reverse-check + 3 stubs. Authorized; builds NEXT (resolveDirRefAbs == the sourceDirTree item, one root; then R40.78 last). ★ (PO-RELAYED, NOT req-first-hand-verified): part-2-live-insert + sunburst-bytes reported DONE+deployed+green-on-Tron-surface by PO. robbin-req has minted NO P2/P4b Test units (no tester marker reached me) - do NOT treat this note as verified flip-evidence; the tester owns the gate uuids + Tron-device-confirm status."
+    "poMigrationGateConfirm": "PO 2026-09-01: migration must prove BOTH nothing-lost AND nothing-wrongly-re-pointed. AC-migration-both-directions asserts both + reverse-check + 3 stubs. Authorized; builds NEXT (resolveDirRefAbs == the sourceDirTree item, one root; then R40.78 last). ★ (PO-RELAYED, NOT req-first-hand-verified): part-2-live-insert + sunburst-bytes reported DONE+deployed+green-on-Tron-surface by PO. robbin-req has minted NO P2/P4b Test units (no tester marker reached me) - do NOT treat this note as verified flip-evidence; the tester owns the gate uuids + Tron-device-confirm status.",
+    "priority": "CRITICAL-PATH (PO 2026-09-05): was deprioritized behind T37.21 QA-Review (its own text said not-blocking); Tron keeps hitting bad-parent-loc, which outranks that ordering. Now on the critical path as a covering fix (dir base-resolution) for the recurring defect."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "abac573a-9525-4d73-8273-a0765058d4bf",
+    "name": "addFolder.routeByParentPhysicality",
+    "description": "Add-folder resolves the parent; if it has a physical dir -> physical create; if NOT (a virtual/model Folder) -> model-store create. Both paths exist; the endpoint branches instead of forcing every add through the physical path. A malformed non-Folder ref still fail-closes to bad-parent-loc.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+    "unitLinks": [],
+    "note": "Architect wires the routing branch Class/Method (design 5cfa4f9dd) on build-go; expert builds; tester gates member-session @390 + malformed-ref fail-closed stub + delete-harmless-comment."
+  },
+  "ownerIor": "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d"
+}

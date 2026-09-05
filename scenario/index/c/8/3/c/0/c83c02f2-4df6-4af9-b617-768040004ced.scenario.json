@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "c83c02f2-4df6-4af9-b617-768040004ced",
+    "name": "bad-parent-loc: Add folder fails in the MODEL view on a collection (Tron, reported MULTIPLE TIMES)",
+    "description": "TRACKED DEFECT (the ONE home Tron repeat reports attach to; carries the LITERAL error string so an intake search by what he SEES finds it). Tron, verbatim behaviour: \"Add folder failed bad-parent-loc in the model view on a collection\" — reported MULTIPLE TIMES. The verb is OFFERED but FAILS with error bad-parent-loc. Root: the model endpoint routes every add-folder through the physical-create path (FolderService.ts:138 returns {ok:false,error:bad-parent-loc}) for a parent with no real directory (a virtual/model Folder, e.g. diagrams collection). Doctrine: folder != directory. Fixed by R40.87 (routing branch to model-store) + enumerated on R40.37 (applicability) + R37.33 (dir base-resolution).",
+    "errorString": "bad-parent-loc",
+    "status": "Open",
+    "reportedBy": "Tron",
+    "reportedMultipleTimes": true,
+    "tronReports": [
+      "2026-09-05 (model view, diagrams collection)",
+      "prior reports (multiple, exact dates not on disk — the intake gap this defect fixes)"
+    ],
+    "surfaces": [
+      "MODEL view",
+      "TRACE view",
+      "virtual/non-physical collection (diagrams)"
+    ],
+    "fixedByRequirement": "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
+    "relatedRequirements": [
+      "ior:instance:a3cdb98a-cde7-4b3a-94f9-bd301dbf26f8",
+      "ior:instance:58528eab-dae2-4e4c-8d5c-1fcd68c30503"
+    ],
+    "intakeGapNote": "Before this: 0 scenario units carried bad-parent-loc; it lived only in code + as principle/fix reqs (R40.37 Planned, R37.33 Unverified), so his repeats scattered + neither req was delivered. This unit is the tracked home; future repeats attach here.",
+    "createdBy": "robbin-req (PO process-fix ruling)",
+    "createdAt": "2026-09-05"
+  },
+  "ownerIor": "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d"
+}
