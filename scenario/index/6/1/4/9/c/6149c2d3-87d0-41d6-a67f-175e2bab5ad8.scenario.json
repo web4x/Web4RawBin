@@ -85,7 +85,16 @@
         },
         "stubMustFail": "PENDING: register the RED run when the fix ships"
       }
-    ]
+    ],
+    "chainWire": {
+      "commits": "e0b8cb582 (design-tree-child-add-in-place-no-reseed.md) + 4ee326b99 (chain)",
+      "deriveVerifiedBy": "robbin-req (measured)",
+      "chain": "UC 973f66af folderTree.addChildInPlace -> Class RbTraceTree 5a057914 -> Method RbTraceTree.reDeriveDirectChildren 1e5c4233 -> Impl 8693dc2b (ALREADY BUILT, REUSED).",
+      "reuseNotMint": "NO new Method/Impl minted (LAW-8/DRY, root lens): the in-place-add behavior ALREADY has the canonical Method+Impl (reDeriveDirectChildren 8693dc2b, the same one P2/R37.21 uses). A 2nd would be the duplication the graph exists to stop. The defect is NOT a missing method — it is an imperative RE-SEED clobbering the working per-node path."
+    },
+    "root": "RoomView.ts:84 FILE_ADDED handler -> tree.renderSeed(roomId) = full root re-seed on EVERY file/folder add, clobbering the working per-node path (server publishUnitChanged:2553 -> node-sub rb-trace-tree:442 -> reDeriveDirectChildren:132 in-place insert). The binding EXISTS and works; the re-seed overrides it.",
+    "fix": "SMALL (not structural): delete the re-seed (RoomView:84-85) + add upload-path publishUnitChanged(ior:class:File, roomcoll:room:files) at server.ts:2630 mirroring folder-add:2553 = ONE path both add types (files + folders). Architect design e0b8cb582.",
+    "testMintHold": "HOLD: the FIX is unbuilt (RoomView:84 re-seed still clobbering). Trigger: expert deletes the re-seed + adds the upload-path publish -> tester gates (pre-existing EXPANDED nodes SURVIVE the add + collapse-on-add stub RED->GREEN) + stamps a marker -> I adopt+mint the R40.84 Test onto EXISTING Impl 8693dc2b as a DISTINCT-INTENT 2nd test (add-child-manifests-in-place-no-collapse, distinct from P2 919e3f36 read-only-structure) — verify-owner-first, NO cross-wire, NO new Impl. Impl 8693dc2b stays 1-test until then."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
