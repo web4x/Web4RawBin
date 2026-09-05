@@ -46,13 +46,24 @@
         "stubMustFail": "PENDING: seed a standing ruling with no guard -> RED"
       },
       {
+        "id": "AC-ruling-is-a-committed-testable-invariant",
+        "group": "framing/trainer",
+        "text": "FRAMING (trainer/ARON, folded into R40.88): a ruling is a COMMITTED TESTABLE INVARIANT — an assertion ON DISK — NOT prose in an anchor. A ruling captured only as anchor/doc prose (no on-disk testable assertion + no registered guard) is NOT an enforced ruling => flagged. Knowing a rule is not the guard; the on-disk testable assertion + its gate is.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:ruling-is-a-testable-assertion",
+          "assertion": "each standing ruling exists as an on-disk testable invariant (not only anchor prose); prose-only => RED"
+        },
+        "stubMustFail": "PENDING: seed a ruling that lives only as anchor prose (no on-disk assertion) -> RED"
+      },
+      {
         "id": "AC-worked-example-folder-not-directory",
         "group": "worked-example/CONCRETE",
         "text": "WORKED EXAMPLE (concrete, not aspirational): the folder!=directory ruling (R40.37, 2026-08-12) carries the guard \"a ior:class:Folder unit needs NO physical dir; a mkdir / physical-create for a MODEL Folder (a no-physical-dir parent) trips RED in CI.\" A later feature re-introducing mkdir-for-a-model-Folder (as R40.78 did, uncaught) trips RED at CI, NOT on Tron screen weeks later. Enforcement = R40.87 routing branch + this lint.",
         "gateRef": {
           "kind": "lint",
           "ref": "check:no-mkdir-for-a-model-folder",
-          "assertion": "a physical-create/mkdir on a no-physical-dir Folder parent => RED; the folder!=directory ruling is CI-enforced"
+          "assertion": "the guard SCANS THE HAZARD (the mkdir / physical-dir-creation OPERATION itself), NOT the actors -> a re-introduction ANYWHERE is UNEVADABLE and the guard NAMES ITSELF (scan-the-hazard-not-the-actors, same pattern as R40.82 children-owner guard 9ef91a551). A physical-create/mkdir on a no-physical-dir Folder parent => RED"
         },
         "stubMustFail": "PENDING: seed a mkdir-for-a-model-Folder -> RED (the R40.78-class violation)"
       },
@@ -100,7 +111,14 @@
         },
         "stubMustFail": "PENDING: add a new ruling absent from the guarded set -> RED"
       }
-    ]
+    ],
+    "guardDesign": {
+      "source": "trainer + ARON (converged to R40.88, PO one-mechanism-not-two)",
+      "framing": "a ruling is a committed TESTABLE INVARIANT (assertion on disk), not prose in an anchor.",
+      "mechanism": "by-construction HAZARD-SCAN of the forbidden OPERATION (mkdir / physical-dir creation for a model Folder) so a re-introduction is UNEVADABLE + self-naming (scan-the-hazard-not-the-actors). Extends the R40.54 AcGuard enforcement-gate to the RULING level + stub-must-fail on the guard ITSELF.",
+      "discovery": "SHARED structuralDiscover (R40.54/R40.55) — single-source, NO 2nd matcher.",
+      "lanes": "trainer/ARON = framing + guard-design; robbin-req = encode into R40.88 (home); ARCHITECT = wire the guard CODE (hazard-scan lint + AcGuard extension); expert builds; tester gates guard + self-stub."
+    }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
