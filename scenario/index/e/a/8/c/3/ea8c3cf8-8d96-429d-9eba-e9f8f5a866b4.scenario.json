@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "ea8c3cf8-8d96-429d-9eba-e9f8f5a866b4",
+    "name": "unitStore.assertSinglePhysicalStore",
+    "description": "Assert ONE physical unit store: exactly one tree holds real *.scenario.json (scenario/index); every other index tree is symlink-only; no uuid has a 2nd real file anywhere (fail-closed + name-both on divergence). Migration: collapse the 33 overlap to symlinks + relocate the 744 model-store-only units into the one store then symlink back. Reuses the R17.5 / room-files symlink-tree shape.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+    "unitLinks": [],
+    "note": "Architect wires Class (one-store lint + migration scripts) + Method on build-go, designs migration shape + sequencing vs add-folder, then re-inspects."
+  },
+  "ownerIor": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
+}

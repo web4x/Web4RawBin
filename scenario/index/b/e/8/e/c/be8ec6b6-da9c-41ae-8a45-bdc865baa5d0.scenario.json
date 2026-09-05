@@ -1,0 +1,127 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+    "altId": "R40.81",
+    "name": "ONE physical unit store; every other index/view is a symlink tree into it (a duplicate physical store is forbidden)",
+    "description": "Tron architectural directive verbatim (relayed via PO 2026-09-05): he does NOT want a data model-store; units can have ln links in redundant index trees, so we can have a model-tree FOLDER but NOT a duplicate index. THE PRINCIPLE: ONE physical store of unit files (scenario/index), every other index or view is a SYMLINK tree into it, a duplicate PHYSICAL store is forbidden. MEASURED current state: scenario/index = 5947 real files / 0 symlink (the one store); data/model-store = 777 real files / 0 symlink (a 2nd physical store = the violation); 33 UUIDs are real files in BOTH (byte-identical now, no divergence yet, NO rule for which wins if they do); 744 model-store units are model-store-ONLY (so 'delete the dupes' alone leaves 744 = rule half-applied). Correct shape already exists elsewhere: data/users room-file dirs are 53/53 symlinks into scenario/index (+ R17.5 speaking-name tree, sprints.json). The gate that FAILS on a duplicate real file for an existing UUID is the by-construction guarantee.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:ea8c3cf8-8d96-429d-9eba-e9f8f5a866b4"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-directive",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "measuredBy": "robbin-req (verified on disk, not relayed): scenario/index 5947 real/0 link; data/model-store 777 real/0 link; 33 real-in-both byte-identical; 744 model-store-only; data/users 53/53 symlink precedent",
+      "capureOnly": "CAPTURE-ONLY, do NOT block add-folder delivery (Tron folder still invisible, ships first); architect sequences migration vs the in-flight add-folder fix + designs the migration shape."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "supersedes": {
+      "req": "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b",
+      "ruling": "b09bb0308 (two stores BOTH LEGITIMATE)",
+      "what": "Tron overturns two-store-legitimacy: data/model-store is NOT a legitimate 2nd physical store; it becomes a symlink tree. R40.69 File-uuid-name symptom ACs PRESERVED; only its two-store ruling + AC-no-modelelement-in-multiple-stores (weaker dedupe form) subsumed.",
+      "authority": "Tron verbatim > prior PO/architect ruling"
+    },
+    "satisfactionStatus": "UNVERIFIED (directive captured + state MEASURED; one-store lint + migration DESIGNED-BY-ARCHITECT-PENDING, unbuilt, no stub RED observed — honest third state per R40.54).",
+    "crossRef": [
+      "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b"
+    ],
+    "crossRefNote": "Supersedes R40.69's two-store-legitimacy ruling (see supersedes field). Reuses the correct-shape precedents: R17.5 speaking-name symlink tree + data/users room-file symlink dirs. Rides the R40.54 failable-AC family (each AC carries gateRef+stubMustFail). CAPTURE-ONLY, non-blocking on the add-folder fix (architect sequences).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-exactly-one-physical-store",
+        "group": "by-construction",
+        "text": "There is EXACTLY ONE physical store of unit files: scenario/index (measured 5947 real files, 0 symlink). Every other index/view tree (data/model-store model tree, scenario/sprints.json speaking-name, room Files dirs) is a SYMLINK tree INTO it. A SECOND tree containing REAL (non-symlink) *.scenario.json files => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:one-physical-unit-store",
+          "assertion": "count trees holding real *.scenario.json == 1 (scenario/index); any 2nd tree with a real unit file => RED"
+        },
+        "stubMustFail": "PENDING: seed a real *.scenario.json under data/model-store -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-additional-index-is-symlink-only",
+        "group": "by-construction",
+        "text": "Any ADDITIONAL index tree contains ONLY symlinks that resolve into the one store — never a real file. Correct-shape precedent already exists: data/users room-file dirs (measured 53/53 symlinks) + the R17.5 speaking-name symlink tree + scenario/sprints.json. A real file appearing in ANY index tree => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:index-tree-symlink-only",
+          "assertion": "every *.scenario.json outside scenario/index is a symlink resolving to a real file inside scenario/index; a real file => RED"
+        },
+        "stubMustFail": "PENDING: seed a real file inside the model tree -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-no-duplicate-real-file-for-uuid",
+        "group": "by-construction/THE-GATE",
+        "text": "THE by-construction guarantee (Tron's core ask): a UUID that already exists as a REAL file in the one store may NOT have a SECOND real file anywhere in the repo. The gate FAILS if a duplicate real file appears for a UUID already present in the one store. (Measured today: 33 UUIDs are real in BOTH scenario/index AND data/model-store = the current violation.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-duplicate-real-unit-file",
+          "assertion": "for every uuid: at most ONE real *.scenario.json across the whole repo; a 2nd real file for an existing uuid => RED"
+        },
+        "stubMustFail": "PENDING: seed a 2nd real file for an existing scenario/index uuid -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-migration-33-overlap-collapse",
+        "group": "migration/gated",
+        "text": "The 33 byte-identical overlap dupes (real in both stores, MEASURED byte-identical now) are collapsed: KEEP the scenario/index real file, replace the model-store copy with a symlink into it (or remove). Gated dry-run + count; no unit lost; count before==after.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "migrate:collapse-overlap-to-symlink (dry-run)",
+          "assertion": "33 overlap uuids: model-store copy becomes a symlink into scenario/index; 0 units lost; count preserved"
+        },
+        "stubMustFail": "PENDING: dry-run reports the 33 before mutating; a run that drops or diverges a unit -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-migration-744-model-store-only-relocate",
+        "group": "migration/gated/MEASURED-NUANCE",
+        "text": "MEASURED NUANCE (beyond the directive's stated 33): data/model-store holds 777 real files but only 33 overlap scenario/index — 744 are model-store-ONLY. Deleting just the 33 dupes would LEAVE 744 as a second physical store = the rule HALF-APPLIED. So the 744 are RELOCATED into the one store (scenario/index) and symlinked back into the model tree — NOT left as real files. Gated dry-run + count; every model-tree entry resolves to a real file in the one store afterward.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "migrate:relocate-model-store-only (dry-run)",
+          "assertion": "744 model-store-only units moved into scenario/index + symlinked back; 0 in model tree remain real; 0 lost"
+        },
+        "stubMustFail": "PENDING: dry-run reports 744 + 0 real-remaining-after; any model-tree real file post-migration -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-divergence-which-wins-fail-closed",
+        "group": "fail-closed",
+        "text": "TODAY there is NO rule for which copy wins if the 33 diverge (measured: 0 diverged now, all byte-identical). The migration makes divergence IMPOSSIBLE by construction (a symlink is ONE file). UNTIL it lands, if any of the 33 diverges it is FAIL-CLOSED: STOP + architect/Tron rules which wins, NEVER a silent pick. (Encodes the gap the directive named: 'no rule for which wins if they do'.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:no-duplicate-real-unit-file (divergence arm)",
+          "assertion": "if 2 real files exist for a uuid AND they differ -> RED + name both; never auto-pick"
+        },
+        "stubMustFail": "PENDING: seed 2 real files for a uuid, byte-different -> RED (must not silently choose) (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-one-store-lint-own-stub-must-fail",
+        "group": "self-failability",
+        "text": "The one-store lint ships with a RED-proving fixture: a seeded duplicate real unit file MUST make it RED before it counts as wired (R40.54 own-failability). Isolated: fixture in scratch, no prod mutation, cleanup-on-failure (R40.31).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (one-store stub fixture)",
+          "assertion": "the lint's own stub, fed a duplicate-real-file, is observed RED before the lint counts as wired"
+        },
+        "stubMustFail": "PENDING: register the RED run when the lint ships (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+      },
+      {
+        "id": "AC-supersedes-R40.69-two-store-legitimacy",
+        "group": "supersede/LOUD",
+        "text": "LOUD SUPERSEDE (Tron verbatim outranks a prior ruling): Tron's directive 2026-09-05 (he does NOT want a data model-store; ONE physical store, symlink trees, a duplicate physical store is FORBIDDEN) SUPERSEDES R40.69's ruling b09bb0308 that 'the two stores are BOTH LEGITIMATE'. The model-store is NOT a legitimate 2nd physical store — it becomes a symlink tree. VERIFY-OWNER-FIRST: R40.69 KEEPS its File-uuid-name symptom ACs (name/location/sourceFile/ownerIor + ensureViewUnit-refuses-uuid) — those stand, untouched; ONLY its two-store-legitimacy ruling + AC-no-modelelement-in-multiple-stores (dedupe-overlap = the WEAKER form) are subsumed by R40.81's stronger one-physical-store form. Architect reconciles R40.69's store-boundary ruling (AC-what-writes-each) to the one-store shape.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "R40.81 supersede pointer + R40.69 forward-note",
+          "assertion": "R40.69 b09bb0308 two-store-legitimacy marked superseded-by R40.81; R40.69 symptom ACs preserved"
+        },
+        "stubMustFail": "N/A (supersede-record AC; the enforcement is AC-exactly-one-physical-store + AC-no-duplicate-real-file)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
