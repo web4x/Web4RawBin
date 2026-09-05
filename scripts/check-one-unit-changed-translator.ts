@@ -133,6 +133,11 @@ const EVADE_LOCAL_CONST = // c3b: hoisted local const
 const EVADE_ALIAS_NOTIFY = // c2: aliased ViewBus.notify
   `const n = ViewBus.notify.bind(ViewBus); function j(msg){ if (msg.type === 'unit-changed') { n(viewBusKey(msg.uuid)); } }`;
 
+// [test:uuid:3c426966-b3c5-4be2-9e44-421ee95807f7] R40.91 TransportBusBridge.assertSingleTranslator (Impl 561bcfb8) — this
+// selfBite IS the Test/evidence: it plants each drift-idiom and asserts the guard CATCHES it, fail-closed, zero cry-wolf —
+// (a) inline non-owner · (b) exact pre-FIX-1 RawBinClient original · (c) legit bare emit NOT flagged · (d) FIX-1 delegate NOT
+// flagged · (e) marked owner counted once · (f) owner-deleted fail-closed · (g) c3 MSG.UNIT_CHANGED-const · (g2) c3b local-const
+// · (h) c2 aliased ViewBus.notify. The guard that is its own regression proof for the R40.84-B second-translator drift class.
 function selfBite(): string[] {
   const fails: string[] = [];
   // (a) plant an inline non-owner translator → caught as a nonOwner
