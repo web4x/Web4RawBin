@@ -65,11 +65,11 @@
       {
         "id": "AC-no-surface-derives-children-otherwise",
         "group": "by-construction/THE-GUARD/traceability-query",
-        "text": "THE failable guard (a TRACEABILITY QUERY, per the root lens = the system USED as DRY enforcement, not a ledger): NO surface derives children by ANY means other than node.children(). A surface that walks/queries/computes children off-interface => RED. This is the by-construction guarantee that one-derivation cannot be bypassed.",
+        "text": "THE failable guard (a TRACEABILITY QUERY, per the root lens = the system USED as DRY enforcement, not a ledger): NO surface derives children by ANY means other than node.children(). A surface that walks/queries/computes children off-interface => RED. This is the by-construction guarantee that one-derivation cannot be bypassed. ★ AUTOMATIC-FAIL RULING (Tron 2026-09-05): the per-site test is NOT did-the-raw-fetch-disappear but DOES THIS SURFACE ASK AN OBJECT FOR ITS OWN CHILDREN (node.children()). Routing surfaces through a SHARED FETCH/CHILDREN HELPER (import a function, pass it a ref) is a DEFECT BY DEFINITION (a functional construct owning what the object should own = a 2nd place the truth lives) and is an AUTOMATIC FAIL even if the raw-fetch guard goes GREEN. The helper-escape does NOT satisfy this AC.",
         "gateRef": {
           "kind": "lint",
           "ref": "scripts/check-children-single-owner.ts (DELIVERED 9ef91a551)",
-          "assertion": "non-owner children derivations == 0; scans the raw /api/trace/children hazard OUTSIDE the one children-owner (hazard-not-actors); ONE number proves unevadability + completeness; filename-independent, marker-sanctioned"
+          "assertion": "the gate must test ASKS-OBJECT-FOR-OWN-CHILDREN (node.children()), NOT raw-fetch-gone; a shared children/fetch helper taking a ref => RED even if 0 raw /api/trace/children fetches remain (shared-helper escape closed)"
         },
         "stubMustFail": "PROVEN RED: 9 non-owner sites on current divergence (guard 9ef91a551); GREEN at 0 = the DoD. Registered RED observation (R40.54 stubMustFail SATISFIED) — this AC is now a PROVEN-failable gate, not a wish."
       },
@@ -94,6 +94,11 @@
       "note": "The 9 non-owner children derivations ARE the fictional things Tron named (code deriving children owned by nobody). Guard COUNTS (9); the model view should eventually SHOW them; the fix is dragging them into the Folder/parent-children interface (9->0 as expert builds node.children() + migrates the 9 sites). Diagram-shows-them = architect design-thinking, NOT a build now.",
       "hardenedBy": "1c0db0f84",
       "unfakeable": "exemptions architect-only + separate-number + one-owner-file -> 9->0 CANNOT be faked/gamed (the DoD is unbypassable). Guard is now proven-RED@9 AND unfakeable."
+    },
+    "functionalConstructRuling": {
+      "law": "functional constructs are defects by definition (Tron 2026-09-05, top-level lens)",
+      "helperEscapeIsAutomaticFail": "routing the surfaces through a shared fetch/children helper = defect by definition, AUTOMATIC FAIL even if green; per-site test = asks-object-for-own-children, not raw-call-gone",
+      "flagToArchitect": "the guard 9ef91a551 scans the RAW /api/trace/children fetch hazard; CONFIRM it also catches the SHARED-HELPER escape (a helper centralizing the fetch could show ONE non-owner site or be mistaken for the owner). Per Tron the test must be asks-object, not raw-fetch-gone. If the guard can go green on a helper-escape, that is a gate-gap to close (one-owner-file hardening may already cover it — verify)."
     }
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
