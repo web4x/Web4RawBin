@@ -19,8 +19,9 @@ import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'src', 'public', 'ts');
-const HAZARD = /\/api\/trace\/children/;   // the dangerous OPERATION
+const HAZARD = /\/api\/trace\/children|childrenUrl/;   // the dangerous OPERATION — the endpoint literal OR its ALIAS
 const FETCH = /\bfetch\s*\(/;              // a real call-site (not a comment)
+const ALIAS_DECL = /\bchildrenUrl\b\s*[:(]|get\s+childrenUrl/; // an alias GETTER/field that holds the endpoint = a covert non-owner holder
 const OWNER_MARK = /children-owner/;       // the ONE interface impl marks its fetch(es)
 
 // ★ ARCHITECT-ONLY exemptions — a site is exempt ONLY if listed HERE (never self-declared in-file).
@@ -50,7 +51,7 @@ const ownerNotMethod: string[] = [];
 for (const file of walk(ROOT)) {
   const lines = readFileSync(file, 'utf8').split('\n');
   for (let i = 0; i < lines.length; i++) {
-    if (!HAZARD.test(lines[i]) || !FETCH.test(lines[i])) continue;
+    if (!HAZARD.test(lines[i]) || !(FETCH.test(lines[i]) || ALIAS_DECL.test(lines[i]))) continue; // a fetch OR an alias-getter that holds the endpoint (childrenUrl) — both are children-derivation outside the owner
     const win = lines.slice(Math.max(0, i - 2), i + 2).join('\n');
     const site = `${rel(file)}:${i + 1}  ${lines[i].trim().slice(0, 88)}`;
     if (OWNER_MARK.test(win)) { ownerFiles.add(rel(file)); if (!/this\./.test(win)) ownerNotMethod.push(site); continue; } // routed through the interface — must be a METHOD on the object (this.ref), not a free fn(ref)
