@@ -10,7 +10,7 @@
     "mode": "persistent",
     "roomKey": "",
     "state": "active",
-    "createdAt": 1788607499762,
+    "createdAt": 1788610460378,
     "sshKeysGenerated": true,
     "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA74xNrG7jd1wLeUJfMqjK\naA7jpI9xeGbcgt/TXlNUMKwvjAs57KmxZwwFpCtxbjLe7NwQyn/r2nxgf1YJqLKB\nkeTZkbxT9/ekt/d8QsoP3horBqVlSzlO5bBVjaUNNGd0yHaqhC9e+vXszmAVpdtu\nugkQZ4EkUTtFbx0dbWxOB4ftcrPssYqpk3Ya9z2BTkKJIfwLKzcUSSO1Q+ncdNaL\nSr3sFAQ0kXRrTAWADJrXk5FKWtZIWtdd4hZRKkGvJLo6CQOGYPm/O7Oz8gLCUVq9\nyZamknoXoB731dOy6ao6rJ9pWWysq4rP6Wi3WvuhP5Ydumkcq9xBsMQyKP9aXq7F\n7wIDAQAB\n-----END PUBLIC KEY-----\n",
     "chatHistory": [
@@ -27,35 +27,42 @@
         "name": "SystemTester",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1788607499762
+        "joinedAt": 1788610460378
       },
       {
         "ior": "ior:instance:8d9be587-c45e-4ff4-bc03-7d809f1e4b7e",
         "name": "Amos Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1788607499762
+        "joinedAt": 1788610460378
       },
       {
         "ior": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1788607499762
+        "joinedAt": 1788610460378
       },
       {
         "ior": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
         "name": "Marcel Donges",
         "role": "member",
         "status": "offline",
-        "joinedAt": 1788607499762
+        "joinedAt": 1788610460378
+      },
+      {
+        "ior": "ior:instance:41ad88c4-4dee-49ac-afcb-8a2026657b2d",
+        "name": "",
+        "role": "member",
+        "status": "offline",
+        "joinedAt": 1788610460378
       },
       {
         "ior": "ior:instance:8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd",
         "name": "",
         "role": "owner",
         "status": "online",
-        "joinedAt": 1788607499762
+        "joinedAt": 1788610460378
       }
     ],
     "files": [
@@ -75,7 +82,13 @@
       "ior:instance:f08ec274-8665-4bd6-a3bb-e60c9870cd36",
       "ior:instance:dfa9263a-7460-447a-9bad-8bbb0d37ef0d",
       "ior:instance:e4043596-7e55-4d3d-b0d2-e4607a9e768a",
-      "ior:instance:3e041bff-cce4-4c70-a355-12bd8062937c"
+      "ior:instance:3e041bff-cce4-4c70-a355-12bd8062937c",
+      "ior:instance:8f09d16f-aa86-46ac-bcef-4461543f6120",
+      "ior:instance:a3954504-be23-402b-8e22-8c71a278bc9d",
+      "ior:instance:4d198344-a462-42f6-964c-f4f893236eb4",
+      "ior:instance:548f01c3-fb89-42bf-ac1c-4e83a8acc814",
+      "ior:instance:c688a1e8-6e80-4309-9aa7-ad5561e36750",
+      "ior:instance:e67d887c-769d-45c4-8efc-330c1664af45"
     ],
     "lastMessageIor": null,
     "firstMessageIor": null,
