@@ -106,7 +106,11 @@ try {
   const pressAddFolder = (name) => page.evaluate(async (name) => {
     // the real verb: the '📁 Add folder' button in the detail-drawer action bar (universal-actions dispatch)
     const btn = [...document.querySelectorAll('button, [role="button"], .rb-strip *')].find((e) => /add folder/i.test(e.textContent || ''));
-    if (!btn) return { pressed: false };
+    if (!btn) { // diagnostic: what verbs ARE offered on the selected node (drawer open? which actions?)
+      const verbs = [...document.querySelectorAll('.rb-strip *, .drawer-panel-detail button, [role="button"]')].map((e) => (e.textContent || '').replace(/\s+/g, ' ').trim()).filter((t) => t && t.length < 30).slice(0, 12);
+      const drawerOpen = !!document.querySelector('rb-detail-drawer[open], .drawer-panel-detail');
+      return { pressed: false, drawerOpen, verbs };
+    }
     // the app prompts for a name — stub window.prompt to return our name, then click the real button
     window.prompt = () => name;
     btn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
@@ -146,9 +150,20 @@ try {
 
   // IMMEDIATELY (no reload) add a folder INSIDE F1 — F1 must be a usable PARENT right now: select it, press Add-folder
   const f1Selected = await clickByName(F1);
-  await sleep(900);
+  await sleep(2600); // fixed build: the folder detail fetches children (sunburst) → action bar may render later
   const addBtn2 = await pressAddFolder(F2);
-  R(`  '${F1}' selected=${f1Selected} | verb '📁 Add folder' pressed(F2 inside F1)=${addBtn2.pressed}`);
+  R(`  '${F1}' selected=${f1Selected} | verb '📁 Add folder' pressed(F2 inside F1)=${addBtn2.pressed}${addBtn2.pressed ? '' : ` | DIAG drawerOpen=${addBtn2.drawerOpen} verbsOffered=${JSON.stringify(addBtn2.verbs)}`}`);
+  // ISOLATE the fix's RENDER target from the UI-verb question: if the nested-folder detail offered no add-folder verb,
+  // create F2 via a DIRECT server POST (same endpoint the verb uses) so we can still measure whether F2 RENDERS nested.
+  let f2ViaFallback = false;
+  if (!addBtn2.pressed) {
+    const fb = await page.evaluate(async ({ roomId, parent, name }) => {
+      try { const r = await fetch(`/api/room/${roomId}/folder`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ name, nestedPath: parent, playerToken: localStorage.getItem('rawbin-player-id') }) }); return { status: r.status, body: (await r.text()).slice(0, 120) }; } catch (e) { return { status: 0, body: String(e && e.message) }; }
+    }, { roomId, parent: F1, name: F2 });
+    f2ViaFallback = fb.status === 200;
+    results.A2b_verbGap = true; // record: the nested-folder detail offered NO add-folder verb (create-inside blocked in UI)
+    R(`  FALLBACK (verb gap): POST /api/room/<id>/folder nestedPath=${F1} → ${fb.status} ${fb.body} | server-nests=${f2ViaFallback}`);
+  }
   await sleep(4500);
 
   // re-seed collapsed again — re-open room→Files→F1 to reveal F2 under F1
