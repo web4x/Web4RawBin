@@ -183,22 +183,29 @@ function selfBite(): void {
   if (F.length) { console.error('✗ SELF-BITE FAILED — the detector is inert / mis-discriminates:\n' + F.map((x) => '  ✗ ' + x).join('\n')); process.exit(1); }
 }
 
-selfBite();
-const stale = [...driftStale(GATE), ...infraStale(INFRA_ALLOW)];
-if (stale.length) { console.error('✗ GATE/INFRA list STALE (drift) — an architect-sanctioned line no longer holds its sanctioned call/mkdir:\n' + stale.map((s) => '  ✗ ' + s).join('\n') + '\n  → update the list line numbers (architect review).'); process.exit(1); }
+// [impl:uuid:2ba767f2-d1e2-48b8-8d54-8fdd04e97840] ModelFolderMkdirGuard.assertNoMkdirForModelFolder (R40.88, Method
+// bf05c5bd) — the guard's ONE assertion, extracted as a named member so the R40.88 chain credits the Impl: run the
+// self-bite → drift-check the architect GATE/INFRA lists → scan src/ts → RED (exit 1) on any non-sanctioned physical
+// folder-create, else print GREEN. Called immediately at module level so `npm run check:no-mkdir-for-a-model-folder` is unchanged.
+export function assertNoMkdirForModelFolder(): void {
+  selfBite();
+  const stale = [...driftStale(GATE), ...infraStale(INFRA_ALLOW)];
+  if (stale.length) { console.error('✗ GATE/INFRA list STALE (drift) — an architect-sanctioned line no longer holds its sanctioned call/mkdir:\n' + stale.map((s) => '  ✗ ' + s).join('\n') + '\n  → update the list line numbers (architect review).'); process.exit(1); }
 
-const files = walk(ROOT).map((file) => ({ file, src: readFileSync(file, 'utf8') }));
-const { ownerMarkFiles, nonOwnerMkdir, ungatedPhysCall, gateListed, infraAllowed } = scan(files, GATE);
+  const files = walk(ROOT).map((file) => ({ file, src: readFileSync(file, 'utf8') }));
+  const { ownerMarkFiles, nonOwnerMkdir, ungatedPhysCall, gateListed, infraAllowed } = scan(files, GATE);
 
-console.log(`=== R40.88 no-mkdir-for-a-model-folder (scan src/ts) ===`);
-console.log(`nonOwnerMkdir: ${nonOwnerMkdir.length}  |  ungatedPhysCall: ${ungatedPhysCall.length}  |  GATE-listed physical-creates: ${gateListed.length}  |  INFRA-allowed recursive mkdirs (architect-listed, NOT model folders): ${infraAllowed.length}  |  physical-folder-owner file(s): ${[...ownerMarkFiles].join(', ') || '(none!)'}`);
-for (const s of gateListed) console.log(`  ⓘ gate-listed: ${s.file}:${s.line}  ${s.text}`);
-for (const s of nonOwnerMkdir) console.log(`  ✗ non-owner mkdir: ${s.file}:${s.line}  ${s.text}`);
-for (const s of ungatedPhysCall) console.log(`  ✗ ungated physical-create: ${s.file}:${s.line}  ${s.text}`);
+  console.log(`=== R40.88 no-mkdir-for-a-model-folder (scan src/ts) ===`);
+  console.log(`nonOwnerMkdir: ${nonOwnerMkdir.length}  |  ungatedPhysCall: ${ungatedPhysCall.length}  |  GATE-listed physical-creates: ${gateListed.length}  |  INFRA-allowed recursive mkdirs (architect-listed, NOT model folders): ${infraAllowed.length}  |  physical-folder-owner file(s): ${[...ownerMarkFiles].join(', ') || '(none!)'}`);
+  for (const s of gateListed) console.log(`  ⓘ gate-listed: ${s.file}:${s.line}  ${s.text}`);
+  for (const s of nonOwnerMkdir) console.log(`  ✗ non-owner mkdir: ${s.file}:${s.line}  ${s.text}`);
+  for (const s of ungatedPhysCall) console.log(`  ✗ ungated physical-create: ${s.file}:${s.line}  ${s.text}`);
 
-let fail = false;
-if (ownerMarkFiles.size === 0) { console.error('\n✗ physical-folder-owner marker on NO file — fail-closed (owner deleted / marker lost).'); fail = true; }
-if (ownerMarkFiles.size > 1) { console.error(`\n✗ TWO owners: physical-folder-owner in ${ownerMarkFiles.size} files (${[...ownerMarkFiles].join(', ')}). Exactly ONE.`); fail = true; }
-if (nonOwnerMkdir.length || ungatedPhysCall.length) { console.error(`\n✗ ${nonOwnerMkdir.length + ungatedPhysCall.length} physical folder-create(s) not sanctioned. A physical-create is legitimate ONLY inside the sole owner (mkdir) or on a GATE-listed call-site — route it + add an architect GATE entry (a // comment does NOT suppress).`); fail = true; }
-if (fail) process.exit(1);
-console.log(`\n✓ R40.88 GREEN — 0 non-sanctioned physical folder-creations (${gateListed.length} architect-GATE-listed, ${nonOwnerMkdir.length} rogue mkdir, ${ungatedPhysCall.length} ungated). A MODEL folder cannot get a mkdir; suppression is architect-validated (e2/e3 closed), e1 aliased-mkdir is accepted residual.`);
+  let fail = false;
+  if (ownerMarkFiles.size === 0) { console.error('\n✗ physical-folder-owner marker on NO file — fail-closed (owner deleted / marker lost).'); fail = true; }
+  if (ownerMarkFiles.size > 1) { console.error(`\n✗ TWO owners: physical-folder-owner in ${ownerMarkFiles.size} files (${[...ownerMarkFiles].join(', ')}). Exactly ONE.`); fail = true; }
+  if (nonOwnerMkdir.length || ungatedPhysCall.length) { console.error(`\n✗ ${nonOwnerMkdir.length + ungatedPhysCall.length} physical folder-create(s) not sanctioned. A physical-create is legitimate ONLY inside the sole owner (mkdir) or on a GATE-listed call-site — route it + add an architect GATE entry (a // comment does NOT suppress).`); fail = true; }
+  if (fail) process.exit(1);
+  console.log(`\n✓ R40.88 GREEN — 0 non-sanctioned physical folder-creations (${gateListed.length} architect-GATE-listed, ${nonOwnerMkdir.length} rogue mkdir, ${ungatedPhysCall.length} ungated). A MODEL folder cannot get a mkdir; suppression is architect-validated (e2/e3 closed), e1 aliased-mkdir is accepted residual.`);
+}
+assertNoMkdirForModelFolder();
