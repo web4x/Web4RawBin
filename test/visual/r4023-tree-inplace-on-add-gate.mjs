@@ -46,6 +46,7 @@ const PROTO_PROBE = `(() => {
     //   (3) shouldInsert = folders in data.children NOT already in the existing rendered refs (else dedup/reconcile-key mismatch)
     //   (4) appended + isConnected + hasTtChildren = was it appended to a LIVE VISIBLE kids container (else collapsed/detached)
     const orig = C.prototype.reDeriveDirectChildren; C.prototype.reDeriveDirectChildren = async function(node, ref) {
+      console.log('[PROBE:reDerive:ENTRY] ref='+String(ref).slice(0,50)); // logs BEFORE orig runs → distinguishes never-called (no ENTRY) from early-return (ENTRY but no completion line). NOTE: a prototype-wrap is still bypassed if the caller holds a reference captured before this wrap attached — source-level entry log is authoritative.
       const kids = (node && node.querySelector) ? node.querySelector(':scope > .tt-children') : null; const before = kids ? kids.children.length : -1;
       const existingRefs = kids ? [...kids.querySelectorAll(':scope > .tt-node > .tt-row > rb-object-item')].map(i => i.getAttribute('ref') || '') : [];
       const rec = { ref: String(ref).slice(0,50), fires: true, isConnected: node ? !!node.isConnected : null, hasTtChildren: !!kids, before, existing: existingRefs.length };
