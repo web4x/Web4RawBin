@@ -1369,6 +1369,32 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
   return unit;
 }
 
+// [impl:uuid:PENDING-req-mint] roomFilesChildren — THE ONE derivation of a room Files node's children at a nested path,
+// from the room's UNITS (files[]) nested by each Folder unit's model.location. Top-level folders (chevron+childCount from
+// their own direct-child count) + uploaded Files at root; deeper levels reached lazily via each folder node's roomcoll
+// LOCATION ref. Shared by the lazy /api/trace/children roomcoll branch AND the Room-type Files handle — ONE derivation,
+// no copy (kills the LAW-9 second, flat, hasChildren:false derivation that used to live in the Room-type branch).
+function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel: string, idx: ScenarioIndex): Array<Record<string, unknown>> {
+  const currentPrefix = `roomcoll:${rcRoom}:files${nrel ? '/' + nrel : ''}`;
+  const refs = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
+  const units = refs.map((ref: any) => { const u = String(ref).replace('ior:instance:', ''); const fu = idx.get(u); return { u, ior: String(fu?.ior || ''), m: (fu?.model || {}) as Record<string, unknown> }; });
+  const folderLocs = units.filter((x) => x.ior === 'ior:class:Folder').map((x) => String(x.m.location || ''));
+  const directChildFolders = (prefix: string) => folderLocs.filter((l) => l.startsWith(prefix + '/') && !l.slice(prefix.length + 1).includes('/')).length;
+  const kids: Array<Record<string, unknown>> = [];
+  for (const x of units) {
+    if (x.ior === 'ior:class:Folder') {
+      const loc = String(x.m.location || '');
+      if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
+        const cc = directChildFolders(loc);
+        kids.push({ uuid: loc, type: 'collection', name: String(x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' });
+      }
+    } else if (!nrel) { // uploaded File — top-level under Files only (model.size feeds the sunburst)
+      kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 });
+    }
+  }
+  return kids;
+}
+
 // [impl:uuid:0dca728f-0372-4edc-ac28-51f9f5943bd4] server.renameElement (R33.9 unit-verb) — set model.name on an M1
 // unit in MODEL_STORE (store-only, prod-safe).
 function renameElement(elementUuid: string, name: string): { ok: boolean; error?: string; status?: number } {
@@ -3095,27 +3121,10 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             res.end(JSON.stringify({ uuid, type: 'folder', name: `Members (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
             return;
           }
-          // FILES (root or nested) — T37.21 Option A (PO ruling): the ONE source is the room's UNITS (files[]), nested by each
-          // Folder unit's model.location. NO filesystem enumeration (that was the second source = the disease). A folder is a
-          // room unit like a file (createFileUnit + addFileUnit); folders nest by location; uploaded Files are top-level.
+          // FILES (root or nested) — the ONE source is the room's UNITS (files[]) nested by each Folder unit's model.location,
+          // via the shared roomFilesChildren derivation (also feeds the Room-type Files handle — no 2nd/flat derivation).
           const nrel = (rcKind === 'files' ? '' : rcKind.slice('files/'.length)).replace(/^\/+|\/+$/g, '');
-          const currentPrefix = `roomcoll:${rcRoom}:files${nrel ? '/' + nrel : ''}`;
-          const refs = Array.isArray(rmodel.files) ? rmodel.files as any[] : [];
-          const units = refs.map((ref: any) => { const u = String(ref).replace('ior:instance:', ''); const fu = pidx.get(u); return { u, ior: String(fu?.ior || ''), m: (fu?.model || {}) as Record<string, unknown> }; });
-          const folderLocs = units.filter((x) => x.ior === 'ior:class:Folder').map((x) => String(x.m.location || ''));
-          const directChildFolders = (prefix: string) => folderLocs.filter((l) => l.startsWith(prefix + '/') && !l.slice(prefix.length + 1).includes('/')).length; // direct nested folders, one level (from the model)
-          const kids: any[] = [];
-          for (const x of units) {
-            if (x.ior === 'ior:class:Folder') {
-              const loc = String(x.m.location || '');
-              if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
-                const cc = directChildFolders(loc);
-                kids.push({ uuid: loc, type: 'collection', name: String(x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' });
-              }
-            } else if (!nrel) { // uploaded File — top-level under Files only (model.size feeds the sunburst)
-              kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 });
-            }
-          }
+          const kids = roomFilesChildren(rmodel, rcRoom, nrel, pidx);
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type: 'folder', name: `Files (${kids.length})`, hasChildren: kids.length > 0, childCount: kids.length, children: kids }));
           return;
@@ -3195,24 +3204,22 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (type === 'Room') {
           const model = unit.model as Record<string, unknown>;
           const membersArr = Array.isArray(model.members) ? model.members : [];
-          const filesArr = Array.isArray(model.files) ? model.files : [];
           const memberItems = membersArr.map((m: any) => ({
             uuid: String(m.ior || m.uuid || m.token || '').replace('ior:instance:', ''),
             type: 'Member', name: String(m.name || '?'),
             description: String(m.status || m.role || ''), hasChildren: false,
           }));
-          const fileItems = filesArr.map((f: any) => {
-            const fUuid = String(f).replace('ior:instance:', '');
-            const fu = idx.get(fUuid);
-            const fm = (fu?.model || {}) as Record<string, unknown>;
-            return { uuid: fUuid, type: fu ? ((fu.ior || '').split(':')[2] || 'File') : 'File', name: fu ? String(fm.name || fUuid.slice(0, 8)) : fUuid.slice(0, 8), hasChildren: false, size: Number(fm.size) || 0 }; // R37.21 Tron: real uploaded byte size (model.size) → room Files sunburst is byte-proportional
-          });
+          // ★ T37.21 A5 (architect eea1fb136): Files is a LAZY handle — top-level count via the SHARED roomFilesChildren
+          // derivation, NO inline children. Expand fetches /api/trace/children/roomcoll:<room>:files → the SAME derivation
+          // (top-level-only + per-folder chevron + location-nesting), and each folder node carries its roomcoll LOCATION ref
+          // so its detail/sunburst route through that branch too (the 2-sites-collapse-to-1). DELETED the old eager flat
+          // fileItems (hasChildren:false, inlined ALL files[] flat) = the LAW-9 2nd derivation that made folders unable to nest.
+          // Members UNTOUCHED (flat leaf list is correct). Client lazy-fetches a hasChildren:true node with no inline children (verified rb-trace-tree featureRoots precedent).
+          const topFiles = roomFilesChildren(model, uuid, '', idx);
           const roomChildren = [
-            // R37.21 Part 1: emit a synthetic REF (not a bare 'members-<uuid>' id) so ensureViewUnit resolves each as a REAL
-            // VIRTUAL Folder unit → /api/ior renders the folder detail → the Part-4 child-size sunburst appears on it (the
-            // task-title pairing: "Room Members/Files become real Folder scenario-units WITH sunburst detail").
+            // synthetic REF (not a bare id) so ensureViewUnit resolves each as a REAL VIRTUAL Folder unit → /api/ior detail + sunburst.
             { uuid: 'roomcoll:' + uuid + ':members', type: 'folder', name: `Members (${memberItems.length})`, hasChildren: memberItems.length > 0, childCount: memberItems.length, children: memberItems },
-            { uuid: 'roomcoll:' + uuid + ':files', type: 'folder', name: `Files (${fileItems.length})`, hasChildren: fileItems.length > 0, childCount: fileItems.length, children: fileItems },
+            { uuid: 'roomcoll:' + uuid + ':files', type: 'folder', name: `Files (${topFiles.length})`, hasChildren: topFiles.length > 0, childCount: topFiles.length },
           ];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           const ownerIor2 = String(unit.ownerIor || '').replace('ior:instance:', '');
