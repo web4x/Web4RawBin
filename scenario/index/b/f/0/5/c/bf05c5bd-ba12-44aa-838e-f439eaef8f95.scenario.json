@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:31491bca-af8a-4188-a17e-81909af54372",
+  "model": {
+    "uuid": "bf05c5bd-ba12-44aa-838e-f439eaef8f95",
+    "name": "ModelFolderMkdirGuard.assertNoMkdirForModelFolder",
+    "class": "ior:instance:31491bca-af8a-4188-a17e-81909af54372",
+    "sourceFile": "ior:file:scripts/check-no-mkdir-for-a-model-folder.ts",
+    "implementations": [
+      "ior:instance:2ba767f2-d1e2-48b8-8d54-8fdd04e97840"
+    ],
+    "tests": [],
+    "description": "Assert a MODEL folder can never get a physical mkdir: scan the HAZARD (physical user-dir creation) not the actors; nonOwnerMkdir+ungatedPhysCall==0 by ROUTING; suppression architect-listed (GATE/INFRA_ALLOW), drift-guarded, self-biting. The R40.88 failable-invariant enforcement (exemplar of ruling.enforceFailableInvariant)."
+  }
+}

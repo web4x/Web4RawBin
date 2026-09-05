@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:669cd55d-7590-4a13-a313-e9fb738550d4",
+  "model": {
+    "uuid": "31491bca-af8a-4188-a17e-81909af54372",
+    "name": "ModelFolderMkdirGuard",
+    "sourceFile": "ior:file:scripts/check-no-mkdir-for-a-model-folder.ts",
+    "methods": [
+      "ior:instance:bf05c5bd-ba12-44aa-838e-f439eaef8f95"
+    ],
+    "description": "R40.88 guard: standing-ruling FAILABLE INVARIANT enforcement that a MODEL folder cannot get a physical mkdir. One dedicated *Guard class per check script (precedent: BootCurrencyGuard/TaskStatusSymbolGuard) — distinct from FolderService (the creation OWNER); guard != guarded."
+  }
+}

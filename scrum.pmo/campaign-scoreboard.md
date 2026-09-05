@@ -29,7 +29,7 @@
 | S37 | 39 | 1 | 14 | 0 | 24 |
 | S40 | 79 | 0 | 18 | 0 | 59 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 17 · build 53
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 18 · build 52
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -70,7 +70,7 @@
 | S40 | 45ae067e | Planned | build | Task 40.72: Dangling tree links expand to EMPTY @390 — a use |
 | S40 | 4968e400 | Planned | build | Task 40.13: User Admin — thorough merge + delete of prof |
 | S40 | 4ea81b33 | Planned | build | Task 40.48: Version integrity by construction — version- |
-| S40 | 51bd0541 | Planned | build | Task 40.88: Standing rulings are FAILABLE INVARIANTS — every |
+| S40 | 51bd0541 | Planned | marker | Task 40.88: Standing rulings are FAILABLE INVARIANTS — every |
 | S40 | 5233d578 | Planned | build | Task 40.33: Re-key home-copy home-isolation invariant —  |
 | S40 | 5899aeb2 | Planned | RIPE | Task 40.16: Folders as real scenario units — type-driven |
 | S40 | 6134f49c | Planned | build | Task 40.53: ONE canonical sprint-dir resolver (sprintDir |
