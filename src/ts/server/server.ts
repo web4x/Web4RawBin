@@ -79,7 +79,7 @@ import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
 import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
-import { FolderService, resolveDirRefAbs, resolveFolderRefToDir, rawbinToRepoDir } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it. R37.33: resolveDirRefAbs = the ONE dir-ref→abs resolver. T37.21 Option B: resolveFolderRefToDir maps ANY folder-ish ref→physical dir (fixes bad-parent-loc causes 1+2); rawbinToRepoDir = the ONE rawbin:*→repo-dir source
+import { FolderService, resolveDirRefAbs, resolveFolderRefToDir, isVirtualModelParent, rawbinToRepoDir } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it. R37.33: resolveDirRefAbs = the ONE dir-ref→abs resolver. T37.21 Option B: resolveFolderRefToDir maps ANY folder-ish ref→physical dir (fixes bad-parent-loc causes 1+2); rawbinToRepoDir = the ONE rawbin:*→repo-dir source
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
 import { deriveViewKind } from '../shared/facet-type.js'; // R32.11-B2 / BUG D: the ONE ior-class→facet-type derivation (shared w/ client renderFacet)
 import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): deterministic uuid for lazy-minted Folder/File units
@@ -2951,7 +2951,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const physicalDir = resolveFolderRefToDir(parentRef); // '' = no physical directory (virtual container OR malformed)
           const out = physicalDir
             ? FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parentRef) // physicality-gated: real-dir parent → physical mkdir + unit
-            : FolderService.isVirtualModelParent(parentRef, MODEL_STORE)
+            : isVirtualModelParent(parentRef, MODEL_STORE)
               ? FolderService.mintRealUnit(MODEL_STORE, String(name || ''), parentRef, 'folder') // KNOWN virtual/model container → store-only unit (no dir)
               : { ok: false as const, error: 'bad-parent-loc' }; // ★ malformed / unresolvable ref → FAIL-CLOSED, never mint a garbage unit
           if (!out.ok) {
