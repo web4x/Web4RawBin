@@ -1737,7 +1737,7 @@ function traceabilityRoots(): MofNode[] {
   for (const s of sprintOverviewNodes(tidx)) out.push(mofFolder(s.uuid, sprintDisplayName(s.name, s.number), s.taskCount, 'trace', 'sprint')); // R40.4-phase2: ONE renderer, 'Sprint N: title'
   return out;
 }
-// [impl:uuid:PENDING-req-mint] folderChildrenUnder (R40.92, architect design 18e3f4e2f; R40.81 DRY) — the ONE canonical
+// [impl:uuid:973481f2-8f5c-4ee5-8c1a-9d96f42791f7] folderChildrenUnder (R40.92, architect design 18e3f4e2f; R40.81 DRY) — the ONE canonical
 // "direct-child Folder units of a node", by EITHER parentage scheme: a model-store Folder (mintRealUnit) has
 // model.parent === nodeRef and NO location (collections have no dir); a physical Folder (createPhysicalFolder) has
 // model.location directly under dirRel (dirRel null ⇒ N/A). Returns mofFolder nodes deduped against `seen` (fs-walk uuids).
