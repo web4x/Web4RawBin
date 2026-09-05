@@ -61,24 +61,27 @@ const INFRA_ALLOW: { file: string; line: number; target: RegExp; reason: string;
   { file: 'src/ts/scenario/generator.ts', line: 144, target: /outputDir/, reason: 'generator sprint outputDir', approvedBy: 'architect e4' },
   { file: 'src/ts/scenario/skill-classes.ts', line: 667, target: /snapDir/, reason: 'skill snapshot dir', approvedBy: 'architect e4' },
   { file: 'src/ts/scenario/file-unit.ts', line: 92, target: /indexDir/, reason: 'file-unit index dir', approvedBy: 'architect e4' },
-  // SURFACED BY e4 (was hidden: the line's `recursive:true` on filesBase excluded the whole line, incl the room-folder mkdir(target)).
-  // Room-physical-by-construction (NOT a model folder — same class as the RoomFilesService gate). FLAG: it is a RAW-mkdir room path
-  // that ideally routes through the ONE owner (single-owner) — a cleanup for the expert, NOT a model-folder hazard.
-  { file: 'src/ts/server/server.ts', line: 2565, target: /filesBase/, reason: 'room Files-container base + room folder (room-physical-by-construction, raw-mkdir room path — flagged for owner-routing, not a model-folder hazard)', approvedBy: 'architect e4' },
+  // R40.93 GREEN-BY-ROUTING: the conflated :2565 entry (which masked a raw room-folder mkdir behind filesBase's recursive:true) is
+  // GONE — the folder-create now ROUTES through createPhysicalDir (GATE-listed above), so the raw mkdir is genuinely removed, not
+  // excused. Only the honest Files-CONTAINER infra dir remains (its own clean entry, same class as RoomFilesService.ts:40).
+  { file: 'src/ts/server/server.ts', line: 2564, target: /filesBase/, reason: 'room Files-container base dir (infra; the room folder itself now routes through createPhysicalDir, R40.93)', approvedBy: 'architect 79edbc54a' },
 ];
 const isInfraAllowed = (infra: typeof INFRA_ALLOW, file: string, line: number, text: string) => infra.some((a) => a.file === file && a.line === line && a.target.test(text));
-const PHYS_CALL = /\b(createPhysicalWithUnit|createPhysicalFolder)\s*\(/;  // the physical-create path (call OR def)
-const PHYS_DEF = /\bstatic\s+(createPhysicalWithUnit|createPhysicalFolder)\s*\(/; // the DEFINITION (not a call-site)
-const OWNER_MARK = /physical-folder-owner/;                                // the ONE mkdir owner (createPhysicalFolder) — sole-owner-count validated
+const PHYS_CALL = /\b(createPhysicalWithUnit|createPhysicalFolder|createPhysicalDir)\s*\(/;  // the physical-create path (R40.93: createPhysicalDir = the extracted mkdir primitive; its callers gate too)
+const PHYS_DEF = /\bstatic\s+(createPhysicalWithUnit|createPhysicalFolder|createPhysicalDir)\s*\(/; // the DEFINITION (not a call-site)
+const OWNER_MARK = /physical-folder-owner/;                                // the ONE mkdir owner (R40.93: createPhysicalDir, the extracted primitive) — sole-owner-count validated
 const OWNER_SCOPE = 30; // lines below the owner marker that count as the owner method body (its non-recursive mkdir is the owner's)
 
 // ★ ARCHITECT-MAINTAINED GATE list — the ONLY thing that suppresses a physical-create call-site (e3 fix: NOT an in-file
 // comment). Each entry: file:line + a `call` matcher (drift-guard) + reason + approvedBy. Reported as a SEPARATE number.
 // Add/change ONLY by an architect ruling (editing this list = editing the guard = review). A physical-create call NOT here = RED.
 const GATE: { file: string; line: number; call: RegExp; reason: string; approvedBy: string }[] = [
-  { file: 'src/ts/server/server.ts', line: 2978, call: /createPhysicalWithUnit/, reason: 'model add-folder router — physicality-gated by isVirtualModelParent/resolveFolderRefToDir (R40.87-B); real-dir parent only reaches here (line 2953→2978 after R40.92 folderChildrenUnder helper insertion; drift-guard caught it)', approvedBy: 'architect f506ac659' },
-  { file: 'src/ts/server/FolderService.ts', line: 167, call: /createPhysicalFolder/, reason: 'createPhysicalWithUnit delegating to the physical-create core, downstream of the model physicality gate', approvedBy: 'architect f506ac659' },
+  { file: 'src/ts/server/server.ts', line: 2982, call: /createPhysicalWithUnit/, reason: 'model add-folder router — physicality-gated by isVirtualModelParent/resolveFolderRefToDir (R40.87-B); real-dir parent only reaches here (2978→2982 after R40.93 createPhysicalDir extraction; drift-guard caught it)', approvedBy: 'architect f506ac659' },
+  { file: 'src/ts/server/FolderService.ts', line: 177, call: /createPhysicalFolder/, reason: 'createPhysicalWithUnit delegating to the model+Folder-unit path, downstream of the model physicality gate (167→177 after R40.93 extraction)', approvedBy: 'architect f506ac659' },
   { file: 'src/ts/server/RoomFilesService.ts', line: 47, call: /createPhysicalFolder/, reason: 'room-folder-is-physical-by-construction (a room folder IS a real fs dir under getRoomDir(creator)/files, never a model folder)', approvedBy: 'architect f506ac659 (amends 0c9acf712: GATE-list, not a bare comment)' },
+  // R40.93: createPhysicalDir is the extracted mkdir primitive; its two legit callers are GATE-listed (the primitive is sole-owned; a NEW/rogue caller = RED until reviewed).
+  { file: 'src/ts/server/FolderService.ts', line: 135, call: /createPhysicalDir/, reason: 'createPhysicalFolder (model+Folder-unit path) obtaining its dir via the ONE mkdir owner — downstream of the model physicality gate', approvedBy: 'architect 79edbc54a' },
+  { file: 'src/ts/server/server.ts', line: 2569, call: /createPhysicalDir/, reason: 'room /add-folder routing its folder-create through the ONE mkdir owner (R40.93 — replaces the raw mkdir(target) that was INFRA_ALLOW-excused at :2565); room-physical-by-construction, mints its own createFileUnit items-tree unit (no double-mint)', approvedBy: 'architect 79edbc54a' },
 ];
 
 function walk(dir: string): string[] {
