@@ -10,6 +10,10 @@ import { isSyntheticRef } from './trace/synthetic-ref.js'; // R37.21 Part 2 piec
 import { wireTransportResync } from './transport-lifecycle.js'; // R37.27 fact-1: shared iOS-suspend foreground re-sync (both transports)
 
 // The ONE unit-changed → bus mapping (was inline at RawBinClient:100; extracted so /trace+/model+/scenario share it).
+// [translator-owner:unit-changed] R40.91 (architect 561bcfb8): THE single sanctioned unit-changed→notify key translator.
+// check:one-unit-changed-translator asserts exactly ONE function carries this marker; any OTHER site matching a
+// `=== 'unit-changed'` WS-frame test that builds the notify key INLINE (viewBusKey/ViewBus.notify) instead of delegating
+// to notifyUnitChanged is RED (the R40.84-B drifted-duplicate defect, unevadable).
 export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: string }): void {
   if (!msg || msg.type !== 'unit-changed') return;
   const t = String(msg.ior || '').split(':')[2]?.toLowerCase() || '';
