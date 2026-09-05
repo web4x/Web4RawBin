@@ -1,26 +1,33 @@
 /**
  * T37.21 — CHILDREN SINGLE-OWNER guard (architect; Tron "the Folder OWNS the children").
- * A TRACEABILITY QUERY, not a linter: it proves there is exactly ONE owner of children-derivation.
+ * A TRACEABILITY QUERY, not a linter: proves there is exactly ONE owner of children-derivation.
  *
- * SCAN THE HAZARD, NOT THE ACTORS: do NOT enumerate the surfaces we know about — scan for the
- * dangerous OPERATION: any client children-derivation (a raw fetch of /api/trace/children) that does
- * NOT go through the ONE interface implementation. A surface nobody thought of therefore cannot
- * quietly reintroduce the divergence, and the guard stays complete as the codebase grows.
+ * SCAN THE HAZARD, NOT THE ACTORS: scan for the dangerous OPERATION — any client children-derivation
+ * (a raw fetch of /api/trace/children) that does NOT go through the ONE interface implementation.
+ * ONE NUMBER proves unevadability AND completeness: nonOwner == 0 (reached BY ROUTING).
  *
- * ONE NUMBER proves BOTH unevadability AND completeness: nonOwnerChildrenDerivations == 0.
- * The ONE sanctioned site carries the marker `children-owner` (the type's children() backing,
- * e.g. Folder.children()). Every other /api/trace/children fetch is a divergence → RED.
- *
- * FAILABLE + self-biting: deliberately derive children outside the interface (scratch) → this RED.
+ * ★ GUARD-ON-THE-GUARD (PO 2026-09-05): zero MUST be reached by ROUTING, never by EXEMPTING.
+ *  - A site CANNOT exempt itself. There is NO in-file exempt marker. Exemptions live ONLY in the
+ *    architect-maintained EXEMPT list below (structural, architect-approved, reason+approvedBy).
+ *  - Exempted sites are a SEPARATE number, NEVER folded into the zero.
+ *  - The OWNER is exactly ONE file (the interface impl). Two owner-files = two owners = RED.
+ *  - A hard site that is genuinely a DIFFERENT query is a DESIGN DECISION → architect+PO, not a self-exempt.
+ * FAILABLE + self-biting: derive children outside the interface (scratch) → RED (proven at 9 before green).
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'src', 'public', 'ts');
-const HAZARD = /\/api\/trace\/children/;           // the dangerous OPERATION (children-derivation endpoint)
-const OWNER_MARK = /children-owner/;                // the ONE sanctioned interface impl marks itself
-const FETCH = /\bfetch\s*\(/;                       // a real call-site (not a comment about it)
+const HAZARD = /\/api\/trace\/children/;   // the dangerous OPERATION
+const FETCH = /\bfetch\s*\(/;              // a real call-site (not a comment)
+const OWNER_MARK = /children-owner/;       // the ONE interface impl marks its fetch(es)
+
+// ★ ARCHITECT-ONLY exemptions — a site is exempt ONLY if listed HERE (never self-declared in-file).
+// Each MUST carry a reason + approvedBy(design-note/commit). Reported as a SEPARATE number, never folded into 0.
+const EXEMPT: { file: string; line: number; reason: string; approvedBy: string }[] = [
+  // (empty) — 9→0 is by ROUTING. Add ONLY after an architect+PO design decision that a site is a distinct query.
+];
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((n) => {
@@ -29,25 +36,30 @@ function walk(dir: string): string[] {
     return p.endsWith('.ts') ? [p] : [];
   });
 }
+const rel = (f: string) => f.replace(ROOT, 'src/public/ts');
+const isExempt = (f: string, ln: number) => EXEMPT.some((e) => e.file === rel(f) && e.line === ln);
 
-const violations: string[] = [];
+const ownerFiles = new Set<string>();
+const nonOwner: string[] = [];
+const exempted: string[] = [];
 for (const file of walk(ROOT)) {
   const lines = readFileSync(file, 'utf8').split('\n');
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (!HAZARD.test(line) || !FETCH.test(line)) continue;         // only real fetch call-sites of the endpoint
-    // sanctioned iff the fetch line OR its enclosing 3-line window carries the children-owner marker
+    if (!HAZARD.test(lines[i]) || !FETCH.test(lines[i])) continue;
     const win = lines.slice(Math.max(0, i - 2), i + 2).join('\n');
-    if (OWNER_MARK.test(win)) continue;
-    violations.push(`${file.replace(ROOT, 'src/public/ts')}:${i + 1}  ${line.trim().slice(0, 90)}`);
+    const site = `${rel(file)}:${i + 1}  ${lines[i].trim().slice(0, 88)}`;
+    if (OWNER_MARK.test(win)) { ownerFiles.add(rel(file)); continue; }   // routed through the interface
+    if (isExempt(file, i + 1)) { exempted.push(site); continue; }         // architect-approved distinct query
+    nonOwner.push(site);
   }
 }
 
-console.log(`children-derivation sites outside the one owner: ${violations.length} (${violations.length === 0 ? 'PASS' : 'FAIL'})`);
-for (const v of violations) console.log('  ✗ ' + v);
-if (violations.length) {
-  console.error(`\n✗ ${violations.length} surface(s) derive children by a raw /api/trace/children fetch instead of node.children().`);
-  console.error(`  Route ALL children-derivation through the ONE interface (Folder.children()); mark it 'children-owner'. Zero non-owner derivations = one owner by construction.`);
-  process.exit(1);
-}
-console.log('✓ ONE owner of children-derivation — no surface bypasses the interface (Tron: the Folder owns its children).');
+console.log(`non-owner children-derivations: ${nonOwner.length} (must be 0 BY ROUTING)  |  exempted (architect-approved): ${exempted.length}  |  owner-file(s): ${[...ownerFiles].join(', ') || '(none yet)'}`);
+for (const v of nonOwner) console.log('  ✗ non-owner: ' + v);
+for (const v of exempted) console.log('  ⓘ exempt: ' + v);
+
+let fail = false;
+if (ownerFiles.size > 1) { console.error(`\n✗ TWO owners: children-owner appears in ${ownerFiles.size} files (${[...ownerFiles].join(', ')}). There must be exactly ONE owner.`); fail = true; }
+if (nonOwner.length) { console.error(`\n✗ ${nonOwner.length} surface(s) derive children by raw /api/trace/children instead of node.children(). Route them (do NOT exempt). Distinct query → architect+PO design decision.`); fail = true; }
+if (fail) process.exit(1);
+console.log(`✓ ONE owner of children-derivation (${exempted.length} architect-approved exemptions, listed separately). Divergence class dead by construction.`);
