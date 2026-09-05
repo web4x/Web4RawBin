@@ -130,6 +130,7 @@ export class RbTraceTree extends HTMLElement {
   // (existing children untouched). Both the acting tab and a passive 2nd browser run this from the SAME all-clients
   // publishUnitChanged broadcast → the tree updates live. Collapsed node → skip (its badge refreshes on next open).
   private async reDeriveDirectChildren(node: HTMLElement, ref: string): Promise<void> {
+    console.log('[r4023] reDerive', ref); // R40.84 TEMP PROBE (architect diagnosis-r40.84-residual-trigger) — remove after the trigger is named
     const kids = node.querySelector(':scope > .tt-children') as HTMLElement | null;
     if (!kids) return;
     try {
@@ -298,6 +299,7 @@ export class RbTraceTree extends HTMLElement {
   }
 
   render(): void {
+    console.trace('[r4023] render'); // R40.84 TEMP PROBE (architect diagnosis-r40.84-residual-trigger) — remove after the trigger is named
     if (this._items) { this.renderItems(); return; } // R31.8c round-4 FIX-A2(b): items-fed tree renders its items, never the 'no graph' branch (a stray render() must not wipe server-manager/feature-manager)
     const seedIor = this.getAttribute('data-seed-ior');
     if (seedIor) { if (!this._seedAbort) this.renderSeed(seedIor); return; }
@@ -384,6 +386,7 @@ export class RbTraceTree extends HTMLElement {
   }
 
   async renderSeed(rawUuid: string): Promise<void> {
+    console.trace('[r4023] renderSeed', rawUuid); // R40.84 TEMP PROBE (architect diagnosis-r40.84-residual-trigger) — remove after the trigger is named
     const uuid = rawUuid.replace(/^ior:instance:/, '').replace(/\.scenario\.json$/, '').trim();
     cancelAnimationFrame(this._seedRafId);
     this._seedRafId = requestAnimationFrame(() => this._doRenderSeed(uuid));
