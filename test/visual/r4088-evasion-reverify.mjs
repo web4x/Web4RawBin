@@ -1,3 +1,7 @@
+// [test:uuid:7a7c1365-3ecf-4e7c-81e9-2c0e0ce61b94] R40.88 no-mkdir-for-a-model-folder guard (Impl = scripts/check-no-mkdir-for-a-model-folder.ts) —
+// the tester-owned INDEPENDENT adversarial Test: plants own seeds into the guard's REAL repo-scan (not its self-bite) and certifies
+// e3 self-attest-comment CAUGHT · e2 discriminator CAUGHT · e4 recursive:true idiomatic CAUGHT · e1 aliased-mkdir honest residual ·
+// control raw-mkdir CAUGHT · baseline 0-noise on legit recursive:true outside the shard-store path.
 // R40.88 STANDING EVASION RE-VERIFY — the guard's own self-bite is necessary but INSUFFICIENT (a self-bite can be gamed
 // alongside the guard). This attacks the HARDENED guard (scripts/check-no-mkdir-for-a-model-folder.ts) with an INDEPENDENT
 // tester's OWN seeds, planted into the guard's REAL src/ts repo-scan and run through the ACTUAL guard binary — the way the PO
