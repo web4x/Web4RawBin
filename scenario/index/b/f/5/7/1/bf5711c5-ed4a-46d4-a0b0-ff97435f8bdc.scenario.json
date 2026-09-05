@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "bf5711c5-ed4a-46d4-a0b0-ff97435f8bdc",
+    "name": "js",
+    "location": "src/demo/js",
+    "kind": "folder",
+    "parent": "ior:instance:7d5d9712-be73-428e-a0dd-5140ba00ceae",
+    "children": []
+  }
+}

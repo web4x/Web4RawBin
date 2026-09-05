@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "0d10c3a0-966d-4c52-a742-b3f7653cce52",
+    "name": "public",
+    "location": "public",
+    "kind": "folder",
+    "parent": null,
+    "children": []
+  }
+}

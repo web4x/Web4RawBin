@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "5e4695a9-2f5e-4712-a734-55e33f5815be",
+    "name": "server",
+    "location": "ts/server",
+    "kind": "folder",
+    "parent": "ior:instance:a1166386-aba4-4a0e-ac47-319570bdfbe1",
+    "children": []
+  }
+}

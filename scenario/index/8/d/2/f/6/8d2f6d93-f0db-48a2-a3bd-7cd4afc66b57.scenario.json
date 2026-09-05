@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8d2f6d93-f0db-48a2-a3bd-7cd4afc66b57",
+    "name": "diagram",
+    "location": "rawbin:diagram",
+    "kind": "diagrams",
+    "synthetic": true,
+    "parent": null,
+    "children": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f6071db4-87e1-4f48-a797-e11232ccc7df",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-18-chain-method-scope",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams/sprint-18-chain-method-scope-chains.puml",
+      "file:scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams/sprint-18-chain-method-scope-chains.svg"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "bad9bae8-0f3f-4b64-a4c2-6d4e1ccecbec",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-21-contact-identity/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-21-contact-identity",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21-address-verify.svg",
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21-contact-identity-chains.puml",
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21-contact-identity-chains.svg",
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21-device-link.svg",
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21.puml",
+      "file:scrum.pmo/sprints/sprint-21-contact-identity/diagrams/sprint-21.svg"
+    ]
+  }
+}

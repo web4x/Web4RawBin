@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "41566033-8ab4-4a11-a572-c6bef6a9425f",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-31-server-manager/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-31-server-manager",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-31-server-manager/diagrams/class-diagram.puml",
+      "file:scrum.pmo/sprints/sprint-31-server-manager/diagrams/sprint-31-server-manager-chains.puml",
+      "file:scrum.pmo/sprints/sprint-31-server-manager/diagrams/use-cases.puml"
+    ]
+  }
+}

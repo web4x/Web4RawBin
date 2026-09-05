@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ff884589-0152-4376-ae75-f96acb49bc6d",
+    "name": "components",
+    "location": "public/ts/components",
+    "kind": "folder",
+    "parent": "ior:instance:e3d031b2-a394-4921-a50a-9038301506c5",
+    "children": []
+  }
+}

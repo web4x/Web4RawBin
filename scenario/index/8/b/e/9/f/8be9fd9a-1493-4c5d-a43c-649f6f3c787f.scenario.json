@@ -1,0 +1,39 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8be9fd9a-1493-4c5d-a43c-649f6f3c787f",
+    "name": "ts",
+    "location": "src/public/ts",
+    "kind": "folder",
+    "parent": "ior:instance:a2b7689b-6bde-4726-ab9b-6a206a73e885",
+    "children": [
+      "file:src/public/ts/DeviceEnrollDialog.ts",
+      "file:src/public/ts/ProfileEditor.ts",
+      "file:src/public/ts/ProfileSheet.ts",
+      "file:src/public/ts/RawBinClient.ts",
+      "file:src/public/ts/RoomBrowser.ts",
+      "file:src/public/ts/RoomView.ts",
+      "file:src/public/ts/ViewBus.ts",
+      "file:src/public/ts/app.ts",
+      "dir:src/public/ts/components",
+      "file:src/public/ts/drop-dispatcher.ts",
+      "file:src/public/ts/edit.ts",
+      "dir:src/public/ts/feature-manager",
+      "file:src/public/ts/format-bytes.ts",
+      "file:src/public/ts/live-bridge.ts",
+      "file:src/public/ts/live-mvc-recorder.ts",
+      "ior:instance:c1c84ba9-f36b-45bd-ad50-75e38b80a138",
+      "file:src/public/ts/page-bootstrap.ts",
+      "file:src/public/ts/profile-view-entry.ts",
+      "file:src/public/ts/scenario-view.ts",
+      "ior:instance:86e030dc-8acf-4320-a2f6-e7ae8d63b694",
+      "ior:instance:53d6b81f-6d6d-4a3e-ac1c-68e9b5ef0d2c",
+      "file:src/public/ts/trace-page.ts",
+      "file:src/public/ts/transport-lifecycle.ts",
+      "file:src/public/ts/vcard-download.ts",
+      "file:src/public/ts/vcard-parse.ts",
+      "dir:src/public/ts/vendor"
+    ]
+  }
+}

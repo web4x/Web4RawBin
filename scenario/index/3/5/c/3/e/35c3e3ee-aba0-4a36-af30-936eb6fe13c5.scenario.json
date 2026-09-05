@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "35c3e3ee-aba0-4a36-af30-936eb6fe13c5",
+    "name": "ts",
+    "location": "src/ts",
+    "kind": "folder",
+    "parent": "ior:instance:ef8c2e8b-46e0-46a9-a134-f2b1a56cc56a",
+    "children": [
+      "ior:instance:60f591a3-9064-4856-a136-a55be974ee61",
+      "ior:instance:ca181209-ab80-4b6f-a27e-ac10515bb475",
+      "ior:instance:8bf6b92f-cf8a-4ae3-a74d-e517f768b400"
+    ]
+  }
+}

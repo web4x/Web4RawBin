@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "850f169b-6b39-4c12-a770-a7a300c3b8b6",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-25-apple-dnd/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-25-apple-dnd",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-25-apple-dnd/diagrams/sprint-25-apple-dnd-chains.puml",
+      "file:scrum.pmo/sprints/sprint-25-apple-dnd/diagrams/sprint-25-apple-dnd-chains.svg"
+    ]
+  }
+}

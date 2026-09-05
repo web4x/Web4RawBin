@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "83d6f2c7-c79f-49fc-ad37-cb2828f96135",
+    "name": "traceability",
+    "location": "rawbin:traceability",
+    "kind": "folder",
+    "synthetic": true,
+    "parent": null,
+    "children": []
+  }
+}

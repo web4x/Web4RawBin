@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "7d5d9712-be73-428e-a0dd-5140ba00ceae",
+    "name": "demo",
+    "location": "src/demo",
+    "kind": "folder",
+    "parent": "ior:instance:ef8c2e8b-46e0-46a9-a134-f2b1a56cc56a",
+    "children": [
+      "ior:instance:bf5711c5-ed4a-46d4-a0b0-ff97435f8bdc",
+      "ior:instance:ca85dfa1-1249-477b-aa5a-bfd2fe55e40a"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a2b7689b-6bde-4726-ab9b-6a206a73e885",
+    "name": "public",
+    "location": "src/public",
+    "kind": "folder",
+    "parent": "ior:instance:ef8c2e8b-46e0-46a9-a134-f2b1a56cc56a",
+    "children": [
+      "file:src/public/app.css",
+      "file:src/public/app.html",
+      "dir:src/public/dist",
+      "file:src/public/edit.html",
+      "file:src/public/icon-180.png",
+      "file:src/public/icon-192.png",
+      "file:src/public/icon-512.png",
+      "file:src/public/index.html",
+      "file:src/public/manifest.json",
+      "file:src/public/splash-1125x2436.png",
+      "file:src/public/splash-1170x2532.png",
+      "file:src/public/splash-1179x2556.png",
+      "file:src/public/splash-1284x2778.png",
+      "file:src/public/splash-1290x2796.png",
+      "file:src/public/splash-1668x2388.png",
+      "file:src/public/splash-2048x2732.png",
+      "file:src/public/splash-750x1334.png",
+      "file:src/public/splash-828x1792.png",
+      "file:src/public/sw.js",
+      "ior:instance:8be9fd9a-1493-4c5d-a43c-649f6f3c787f"
+    ]
+  }
+}

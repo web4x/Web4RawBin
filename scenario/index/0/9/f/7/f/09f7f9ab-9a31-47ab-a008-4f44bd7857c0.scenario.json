@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "09f7f9ab-9a31-47ab-a008-4f44bd7857c0",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-09-room-identity/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-09-room-identity",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/Room Identity — Use Cases.svg",
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/Sprint 9 — Room as SSH Identity.svg",
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/class-diagram.puml",
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/class-diagram.svg",
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/use-cases.puml",
+      "file:scrum.pmo/sprints/sprint-09-room-identity/diagrams/use-cases.svg"
+    ]
+  }
+}

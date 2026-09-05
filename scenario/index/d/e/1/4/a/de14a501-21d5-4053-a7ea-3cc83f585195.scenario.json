@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "de14a501-21d5-4053-a7ea-3cc83f585195",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-07-encrypted-storage",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams/Avatar Lifecycle — Bug Analysis.svg",
+      "file:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams/avatar-crop-lifecycle.puml",
+      "file:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams/avatar-crop-lifecycle.svg",
+      "file:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams/avatar-lifecycle.puml",
+      "file:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams/avatar-lifecycle.svg"
+    ]
+  }
+}

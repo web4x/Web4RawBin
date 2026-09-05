@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "4773c4e1-3c5e-44c8-a9df-9033bdc02fd0",
+    "name": "puml",
+    "location": "rawbin:puml",
+    "kind": "folder",
+    "synthetic": true,
+    "parent": null,
+    "children": []
+  }
+}

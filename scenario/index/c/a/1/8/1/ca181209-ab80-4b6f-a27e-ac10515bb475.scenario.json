@@ -1,0 +1,38 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ca181209-ab80-4b6f-a27e-ac10515bb475",
+    "name": "server",
+    "location": "src/ts/server",
+    "kind": "folder",
+    "parent": "ior:instance:35c3e3ee-aba0-4a36-af30-936eb6fe13c5",
+    "children": [
+      "dir:src/ts/server/.certs",
+      "file:src/ts/server/DeploymentModel.ts",
+      "file:src/ts/server/FeatureManager.ts",
+      "file:src/ts/server/FileApi.ts",
+      "file:src/ts/server/FolderService.ts",
+      "file:src/ts/server/Migration.ts",
+      "file:src/ts/server/OtmuxBridge.ts",
+      "file:src/ts/server/ProfileView.ts",
+      "file:src/ts/server/PtyBridge.ts",
+      "file:src/ts/server/Room.ts",
+      "file:src/ts/server/RoomFilesService.ts",
+      "file:src/ts/server/RoomKeys.ts",
+      "file:src/ts/server/ServerManagerGuard.ts",
+      "file:src/ts/server/TraceConsistency.ts",
+      "file:src/ts/server/UserCrypto.ts",
+      "file:src/ts/server/UserKeys.ts",
+      "file:src/ts/server/federation-transfer.ts",
+      "file:src/ts/server/generate-project.ts",
+      "file:src/ts/server/migrate-cli.ts",
+      "file:src/ts/server/proxy-fetch.ts",
+      "file:src/ts/server/repo-registry.ts",
+      "file:src/ts/server/revoked-tokens.ts",
+      "file:src/ts/server/server.ts",
+      "file:src/ts/server/storage-id.ts",
+      "file:src/ts/server/trace-cli.ts"
+    ]
+  }
+}

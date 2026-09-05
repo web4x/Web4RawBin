@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1596581a-2f81-433c-af5f-2df0829e6696",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-02-identity-ssh/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-02-identity-ssh",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/RawBin Sprint 2 — Challenge-Response Auth Flow.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/RawBin Sprint 2 — Class Diagram.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/RawBin Sprint 2 — Device Enrollment Flow.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/RawBin Sprint 2 — Use Cases.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/class-diagram.puml",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/class-diagram.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/sequence-auth.puml",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/sequence-auth.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/sequence-enrollment.puml",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/sequence-enrollment.svg",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/use-case.puml",
+      "file:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams/use-case.svg"
+    ]
+  }
+}

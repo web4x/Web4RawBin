@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "b52fd0ca-a759-41ff-a7c4-5153256d9172",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-20-traceability-first/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-20-traceability-first",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/cr1-unify-chain-label.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-13-current-sprint-class.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-13-current-sprint-class.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-3-default-collapsed-chain.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-3-default-collapsed-chain.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-6-selection-model-chain.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/r20-6-selection-model-chain.svg",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/sprint-20-traceability-first-chains.puml",
+      "file:scrum.pmo/sprints/sprint-20-traceability-first/diagrams/sprint-20-traceability-first-chains.svg"
+    ]
+  }
+}

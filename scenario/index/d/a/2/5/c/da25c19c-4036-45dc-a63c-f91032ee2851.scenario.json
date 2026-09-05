@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "da25c19c-4036-45dc-a63c-f91032ee2851",
+    "name": "New folder",
+    "parent": "RawBin",
+    "children": []
+  }
+}

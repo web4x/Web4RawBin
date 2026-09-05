@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d09ae6c9-089c-44be-a79c-cf27b2c212cd",
+    "name": "Members",
+    "location": "roomcoll:6c04f959-f3d6-42eb-818f-5e2e4498bf91:members",
+    "kind": "folder",
+    "roomRef": "6c04f959-f3d6-42eb-818f-5e2e4498bf91",
+    "collectionKind": "members",
+    "virtual": true,
+    "parent": null,
+    "children": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "22ca0bd1-8729-4045-af9d-8c2a8f6b749e",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-08-monaco-editor/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-08-monaco-editor",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/Monaco Editor — Class Diagram.svg",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/Monaco Editor — Edit + Save Sequence.svg",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/Monaco Editor — Use Cases.svg",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/class-diagram.puml",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/class-diagram.svg",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/sequence-edit.puml",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/sequence-edit.svg",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/use-cases.puml",
+      "file:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams/use-cases.svg"
+    ]
+  }
+}

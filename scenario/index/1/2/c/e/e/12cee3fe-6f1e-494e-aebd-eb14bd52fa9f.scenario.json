@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "12cee3fe-6f1e-494e-aebd-eb14bd52fa9f",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-26-federation/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-26-federation",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-26-federation/diagrams/sprint-26-federation-chains.puml",
+      "file:scrum.pmo/sprints/sprint-26-federation/diagrams/sprint-26-federation-chains.svg"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "c1c84ba9-f36b-45bd-ad50-75e38b80a138",
+    "name": "model",
+    "location": "src/public/ts/model",
+    "kind": "folder",
+    "parent": "ior:instance:8be9fd9a-1493-4c5d-a43c-649f6f3c787f",
+    "children": [
+      "file:src/public/ts/model/model-action-decls.ts",
+      "file:src/public/ts/model/model.ts"
+    ]
+  }
+}

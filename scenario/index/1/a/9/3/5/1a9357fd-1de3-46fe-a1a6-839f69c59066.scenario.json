@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1a9357fd-1de3-46fe-a1a6-839f69c59066",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-30-traceability-improvement",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.32-CURRENT-rawbin-v0.7.46.webp",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.32-TARGET-rider-merge-connectors.png",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.35-merge-actions-matrix.puml",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.35-merge-actions-matrix.svg",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.53-bug-left-not-collapsed-landscape.png",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.53-bug-left-not-collapsed-portrait.png",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/R30.53-bug2-fold-affordance-missing-below.png",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/Sprint 30 — Class Diagram.svg",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/Sprint 30 — IntelliJ 3-way Merge Flow.svg",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/Sprint 30 — Use Cases.svg",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/s30-class.puml",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/s30-merge-sequence.puml",
+      "file:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams/s30-usecases.puml"
+    ]
+  }
+}

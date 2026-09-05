@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "7386e1f1-4c80-4b6b-ab23-3a3a09744730",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-31-server-manager-deployment-mobile-input/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-31-server-manager-deployment-mobile-input",
+    "children": []
+  }
+}

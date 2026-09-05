@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e81be409-2c5d-4c70-a1f2-fe24dd14b622",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-19-room-handling/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-19-room-handling",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-lifecycle-audit.puml",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-lifecycle-audit.svg",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-oop-invariant.puml",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-oop-invariant.svg",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-state-machine.puml",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/r19-item-state-machine.svg",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.puml",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/s19-task-chain.svg",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/sprint-19-room-handling-chains.puml",
+      "file:scrum.pmo/sprints/sprint-19-room-handling/diagrams/sprint-19-room-handling-chains.svg"
+    ]
+  }
+}

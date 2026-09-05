@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ef8c2e8b-46e0-46a9-a134-f2b1a56cc56a",
+    "name": "src",
+    "location": "src",
+    "kind": "folder",
+    "parent": null,
+    "children": [
+      "ior:instance:7d5d9712-be73-428e-a0dd-5140ba00ceae",
+      "ior:instance:a2b7689b-6bde-4726-ab9b-6a206a73e885",
+      "dir:src/sh",
+      "ior:instance:e5900195-9d4e-42e2-a526-7de082a475d8",
+      "ior:instance:35c3e3ee-aba0-4a36-af30-936eb6fe13c5"
+    ]
+  }
+}

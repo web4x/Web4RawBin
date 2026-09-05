@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "c1c79fb0-c8ab-4895-af8b-37a7bb53c4b2",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-23-media-preview/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-23-media-preview",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-23-media-preview/diagrams/sprint-23-media-preview-chains.puml",
+      "file:scrum.pmo/sprints/sprint-23-media-preview/diagrams/sprint-23-media-preview-chains.svg"
+    ]
+  }
+}

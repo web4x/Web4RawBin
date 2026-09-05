@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f0104f18-90e3-482a-a12e-19ff1fbe468e",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-28-graph-integrity-foundation",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams/sprint-28-graph-integrity-foundation-chains.puml",
+      "file:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams/sprint-28-graph-integrity-foundation-chains.svg"
+    ]
+  }
+}

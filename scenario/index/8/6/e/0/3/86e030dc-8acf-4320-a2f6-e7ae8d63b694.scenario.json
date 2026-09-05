@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "86e030dc-8acf-4320-a2f6-e7ae8d63b694",
+    "name": "server-manager",
+    "location": "src/public/ts/server-manager",
+    "kind": "folder",
+    "parent": "ior:instance:8be9fd9a-1493-4c5d-a43c-649f6f3c787f",
+    "children": [
+      "file:src/public/ts/server-manager/server-manager.ts"
+    ]
+  }
+}

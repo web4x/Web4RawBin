@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ade15302-306b-4f71-acb5-bca26cf484bf",
+    "name": "a1d2e3f4-0000-4a1b-8c2d-000000000009",
+    "location": "mof-m2:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+    "kind": "folder",
+    "metaLevel": "M2",
+    "synthetic": true,
+    "parent": null,
+    "children": []
+  }
+}

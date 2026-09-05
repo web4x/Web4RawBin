@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "056d94a0-c603-4ef7-a95b-fb0314e5b9df",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-16-traceability-ux/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-16-traceability-ux",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+      "file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/s16-usecases.svg",
+      "file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/sprint-16-traceability-ux-chains.puml",
+      "file:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams/sprint-16-traceability-ux-chains.svg"
+    ]
+  }
+}

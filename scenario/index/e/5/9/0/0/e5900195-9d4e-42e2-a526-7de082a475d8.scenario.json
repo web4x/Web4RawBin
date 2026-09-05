@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e5900195-9d4e-42e2-a526-7de082a475d8",
+    "name": "shared",
+    "location": "src/shared",
+    "kind": "folder",
+    "parent": "ior:instance:ef8c2e8b-46e0-46a9-a134-f2b1a56cc56a",
+    "children": [
+      "file:src/shared/MessageTypes.ts",
+      "ior:instance:dffe3481-e949-410f-a61a-33f2bb6af638"
+    ]
+  }
+}

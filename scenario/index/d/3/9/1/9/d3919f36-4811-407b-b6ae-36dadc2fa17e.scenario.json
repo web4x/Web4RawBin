@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d3919f36-4811-407b-b6ae-36dadc2fa17e",
+    "name": "folder1",
+    "parent": "diagram",
+    "children": [],
+    "kind": "folder"
+  }
+}

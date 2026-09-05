@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1a6b8d42-1c9b-4d1c-a1a9-7fbf89134215",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-13-stability/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-13-stability",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/Avatar — Persist + Keyless Upload.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/PWA — Version Update Bar.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/README.md",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/Rooms — Multi-Room Lobby Load From Disk.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/avatar-workflow.puml",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/avatar-workflow.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/pwa-update-workflow.puml",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/pwa-update-workflow.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/rooms-workflow.puml",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/rooms-workflow.svg",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/sprint-13-stability-chains.puml",
+      "file:scrum.pmo/sprints/sprint-13-stability/diagrams/sprint-13-stability-chains.svg"
+    ]
+  }
+}

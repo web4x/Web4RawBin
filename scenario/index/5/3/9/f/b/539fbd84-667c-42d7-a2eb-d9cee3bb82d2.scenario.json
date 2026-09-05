@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "539fbd84-667c-42d7-a2eb-d9cee3bb82d2",
+    "name": "scenario",
+    "location": "ts/scenario",
+    "kind": "folder",
+    "parent": "ior:instance:a1166386-aba4-4a0e-ac47-319570bdfbe1",
+    "children": []
+  }
+}

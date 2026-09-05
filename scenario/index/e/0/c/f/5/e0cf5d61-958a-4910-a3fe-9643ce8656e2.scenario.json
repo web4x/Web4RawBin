@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e0cf5d61-958a-4910-a3fe-9643ce8656e2",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-17-scenario-units/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-17-scenario-units",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.puml",
+      "file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-architecture.svg",
+      "file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.puml",
+      "file:scrum.pmo/sprints/sprint-17-scenario-units/diagrams/s17-usecases.svg"
+    ]
+  }
+}

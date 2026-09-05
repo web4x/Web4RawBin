@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "ownerIor": null,
+  "model": {
+    "uuid": "32a12b28-d03f-4ee1-aab9-3c4c936322ef",
+    "name": "diagrams",
+    "location": "scrum.pmo/sprints/sprint-15-traceability-browser/diagrams",
+    "kind": "folder",
+    "parent": "dir:scrum.pmo/sprints/sprint-15-traceability-browser",
+    "children": [
+      "file:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams/Object.verb Use Cases — Traceability Browser.svg",
+      "file:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams/README.md",
+      "file:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams/object-verb-usecases.puml",
+      "file:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams/object-verb-usecases.svg"
+    ]
+  }
+}
