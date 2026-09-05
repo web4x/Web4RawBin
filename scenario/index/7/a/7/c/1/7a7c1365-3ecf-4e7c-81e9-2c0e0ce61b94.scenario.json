@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "7a7c1365-3ecf-4e7c-81e9-2c0e0ce61b94",
+    "name": "test:R40.88 no-mkdir-for-a-model-folder guard is a FAILABLE invariant — idiomatic mkdir-for-model-folder drift is CAUGHT",
+    "description": "Bridged to test/visual/r4088-evasion-reverify.mjs (marker :1) — a STANDING HARNESS that attacks the guard (scripts/check-no-mkdir-for-a-model-folder.ts) with the tester's OWN seeds through the guard's REAL repo-scan (stronger than a self-bite, which can be gamed alongside the guard it lives in). Certifies: e2/e3/e4 idiomatic mkdir-for-model-folder drift CAUGHT, control raw-mkdir CAUGHT, baseline 0-noise on legit recursive:true outside the shard-store; e1 aliased-mkdir = HONEST named residual (matching the header claim). Proves R40.88's thesis: a standing ruling is a FAILABLE invariant (guard can and does go RED on the forbidden shape), not a passes-today rubber stamp.",
+    "sourceFile": "ior:file:test/visual/r4088-evasion-reverify.mjs",
+    "implementations": [
+      "ior:instance:2ba767f2-d1e2-48b8-8d54-8fdd04e97840"
+    ],
+    "unitLinks": [],
+    "certificationScope": {
+      "proven": "REAL repo-scan: the guard CATCHES idiomatic mkdir-for-a-model-folder drift (e2/e3/e4) + a control raw-mkdir, with 0-noise on legit recursive:true outside the shard-store — via a standing harness attacking the guard's real scan (not the guard's own self-bite).",
+      "notProven": "e1 aliased-mkdir = HONEST NAMED RESIDUAL (the header claims only what is caught); an aliased mkdir spelling is a named accepted gap, not silently green.",
+      "satisfied": true,
+      "satisfiedNote": "PROVEN-COMPLETE for the guard's declared scope (idiomatic-drift catch + control + 0-noise), the failable-invariant thesis. Code-invariant guard, not device-facing = no Tron-experience gate. e1 residual named, not hidden."
+    },
+    "twoKeyNote": "REVERSE key by robbin-req (Test.implementations + ownerIor->Impl 2ba767f2). FORWARD (Impl.tests[] += 7a7c1365) is the TESTER's path-limited single-writer key. Marker adopted+MEASURED from the gate :1, never invented.",
+    "implMarkerNote": "Impl 2ba767f2's [impl:uuid] seat in the guard header is an EXPERT marker-only edit queued AFTER R40.92 (architect noted it); the Impl code is real/GREEN now, only the source marker-seat is pending (does not block this Test — the Test attaches to the real Impl unit)."
+  },
+  "ownerIor": "ior:instance:2ba767f2-d1e2-48b8-8d54-8fdd04e97840"
+}

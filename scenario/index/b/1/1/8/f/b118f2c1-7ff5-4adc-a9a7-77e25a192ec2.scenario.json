@@ -32,7 +32,7 @@
       "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced"
     ],
     "crossRefNote": "Extends R40.54 (failable-AC meta-guard) to RULINGS. Shares R40.55/R40.54 single-source structuralDiscover (AC-one-mechanism-with-aron). R40.37 = the worked-example ruling; R40.87 = its enforcement (routing + no-mkdir-for-model-Folder); tracked defect c83c02f2 = the recurrence this class-fix prevents. Coordinate with ARON: requirement-side + trainer-doctrine-side = ONE mechanism.",
-    "satisfactionStatus": "UNVERIFIED (class-fix captured; the ruling-guard mechanism + per-ruling guards unbuilt; no stub RED observed — honest third state).",
+    "satisfactionStatus": "SATISFIED — chain-complete-to-Test. Guard ModelFolderMkdirGuard (Impl 2ba767f2, scripts/check-no-mkdir-for-a-model-folder.ts) real/GREEN; Test 7a7c1365 (standing evasion-reverify harness, tester f26ec8919) proves idiomatic mkdir-for-model-folder drift is CAUGHT = the failable-invariant thesis. e1 aliased-mkdir = named residual. (Expert seats [impl:uuid:2ba767f2] in the guard header, queued after R40.92 — code already GREEN; tester two-keys the forward Impl.tests[].)",
     "acceptanceCriteria": [
       {
         "id": "AC-every-ruling-carries-a-failable-guard",
@@ -136,7 +136,8 @@
       "guardOnTheGuard": "R40.82 pattern: 0-by-routing-not-exempting (architect-only EXEMPT list, separate number), object-not-module, sole-owner.",
       "provenRedNow": "the guard run against TODAY tree = RED (ModelView.addFolder calls physical UNCONDITIONALLY, no branch) -> flips GREEN exactly when R40.87 branch ships = the guard proving itself (same as R40.82 9->0). So R40.88 satisfaction is COUPLED to R40.87 delivery.",
       "sequence": "expert writes scripts/check-no-mkdir-for-a-model-folder.ts + ci:gates (after R40.85->87) -> tester gates + self-stub GREEN -> trainer canonizes -> I flip R40.88 off UNVERIFIED + mint Test off guard marker -> architect wires UC->Method->Impl (marker-sanctioned, filename-independent). No chokepoint touched."
-    }
+    },
+    "chainCompleteToTest": true
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
