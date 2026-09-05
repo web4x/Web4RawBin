@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "3c426966-b3c5-4be2-9e44-421ee95807f7",
+    "name": "test:R40.91 exactly-one unit-changed->notify translator — drifted 2nd translator (idiomatic + aliased) is CAUGHT, fail-closed, self-biting",
+    "description": "Bridged to scripts/check-one-unit-changed-translator.ts (the ci:gates guard, marker at :136). DET GREEN post-hardening (3e3b17081); INDEPENDENT re-attack by tester (NOT the selftest): seeded 2nd-translator idioms ALL caught RED — c2 aliased ViewBus.notify / c3 const-UC / c3b MSG.UNIT_CHANGED-const idiom / literal violation; legit bare ViewBus.notify(viewBusKey) emits = 0-noise (scan-narrow); fail-CLOSED on marker-delete; rename-resistant (owner resolved by the [translator-owner:unit-changed] MARKER, not the filename). Per-run selfBite bakes g/g2/h fixtures (:150-155) asserting caught + hard-exit each run (a guard that never self-REDs = unguarded, R40.88).",
+    "sourceFile": "ior:file:scripts/check-one-unit-changed-translator.ts",
+    "implementations": [
+      "ior:instance:561bcfb8-89cc-4601-a20f-88537740c117"
+    ],
+    "unitLinks": [],
+    "certificationScope": {
+      "proven": "REAL: the guard CATCHES a drifted 2nd unit-changed->notify translator across idiomatic + aliased spellings (c2/c3/c3b + literal), is fail-CLOSED on marker-delete, rename-resistant (marker-based owner), 0-noise on legit emits, and self-bites g/g2/h each run. Guard is in ci:gates + GREEN; DET via tester independent re-attack.",
+      "notProven": "NOT proven against DELIBERATE OBFUSCATION (computed-property access / higher-order indirection) — written as an ACCEPTED RESIDUAL (architect+PO 3e3b17081/7be0c4a2b); the false 'unevadable' claim was DELETED. Threat model = idiomatic DRIFT, not sabotage.",
+      "satisfied": true,
+      "satisfiedNote": "PROVEN-COMPLETE for the guard's declared scope (idiomatic-drift catch + fail-closed + self-bite). Code-invariant guard, not device-facing = no Tron-experience gate needed; the accepted-obfuscation residual is NAMED, not a hidden gap."
+    },
+    "twoKeyNote": "REVERSE key written by robbin-req (Test.implementations + ownerIor->Impl 561bcfb8). FORWARD key (Impl.tests[] += 3c426966) is the TESTER's to write (single-writer-per-unit). Marker adopted+measured from the gate file :136, never invented."
+  },
+  "ownerIor": "ior:instance:561bcfb8-89cc-4601-a20f-88537740c117"
+}
