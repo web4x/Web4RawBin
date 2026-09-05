@@ -1,0 +1,91 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6149c2d3-87d0-41d6-a67f-175e2bab5ad8",
+    "altId": "R40.84",
+    "name": "Adding a child updates that node in place — the tree must not collapse or rebuild wholesale (MVC, expanded state survives)",
+    "description": "Tron defect on 0.8.175 (via PO): adding a child to a folder causes a FULL TREE COLLAPSE + wholesale RERENDER instead of updating just that node in place — his words, far from MVC. Architecture violation, NOT a UX-polish item: the unit IS the MVC model, so adding a child should update THAT node children IN PLACE (controller mutates the model node, the view re-renders just that node via the ONE VIEW BUS); the tree must NOT collapse and must NOT rebuild wholesale; any expanded state must survive. User terms: when I add a folder the tree stays exactly where it was and only the folder I added into changes.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:973f66af-e615-43dd-ab5e-a44786298ded"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "tron-defect",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "onVersion": "0.8.175",
+      "framing": "architecture violation (MVC), not UX polish (PO explicit)"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "buildable": "basic-functionality (the folder surface Tron is using) — same room-folder surface as R40.83.",
+    "crossRef": [
+      "ior:instance:107b28dc-41e2-4a51-9f36-74b658422a2e",
+      "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
+    ],
+    "crossRefNote": "Same room-folder surface as R40.83 (dual-identity resolution). Same live-MVC law as R37.12 (ONE VIEW BUS: a mutation updates the affected node in place, not a wholesale rebuild/reload). R40.82 (folder owns children) = the node whose children update in place. The unit-IS-the-MVC-model framing ties the deferred USECASE-IMPLEMENTS-MODEL direction.",
+    "satisfactionStatus": "UNVERIFIED (captured scenario-first; in-place-update fix + gates unbuilt; no stub RED observed).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-add-child-updates-node-in-place",
+        "group": "by-construction/MVC-ROOT",
+        "text": "The unit IS the MVC model: adding a child updates THAT node children IN PLACE (the controller mutates the model node, the view re-renders JUST that node via the ONE VIEW BUS). The tree does NOT collapse and does NOT rebuild wholesale. A full-tree rebuild OR collapse on a single add => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:add-child-updates-node-in-place",
+          "assertion": "on add-child: only the target node re-renders (in-place); a full-tree rebuild/collapse => RED"
+        },
+        "stubMustFail": "PENDING: seed the 0.8.175 behaviour (add -> full tree collapse+rebuild) -> RED"
+      },
+      {
+        "id": "AC-expanded-state-survives",
+        "group": "render/state",
+        "text": "Any EXPANDED state survives the add — the tree stays exactly where it was (scroll + expansion preserved). Collapsed-or-reset-after-add => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:expanded-state-survives-add",
+          "assertion": "expanded nodes stay expanded across an add; collapse/reset => RED"
+        },
+        "stubMustFail": "PENDING: seed a collapse-on-add -> RED"
+      },
+      {
+        "id": "AC-user-terms-tree-stays-put",
+        "group": "acceptance/USER-TERMS",
+        "text": "Tron in user terms: when I add a folder, the tree stays exactly where it was and ONLY the folder I added into changes. WE verify @390 member-session (the add path, no owner rights); Tron ACCEPTS delivered verified work (not Tron-verified).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "tester member-session @390 add-folder-in-place",
+          "assertion": "add a folder -> tree unchanged except the target node gains the child; WE verify, Tron accepts"
+        },
+        "stubMustFail": "N/A (acceptance step; failable via the in-place + expanded-survives + stub gates)"
+      },
+      {
+        "id": "AC-targeted-notify-not-wholesale",
+        "group": "by-construction/ONE-VIEW-BUS",
+        "text": "The add path emits a TARGETED node update (ViewBus.notify for the affected node only, R37.12 ONE VIEW BUS), NEVER a full-tree re-render or reload. A wholesale re-render / reload on a single add => RED. (Same live-MVC law as R37.12: mutation -> in-place node re-render, not a rebuild.)",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:add-emits-targeted-node-notify",
+          "assertion": "the add-child seam emits a per-node ViewBus.notify, not a full-tree rebuild; wholesale rebuild => RED"
+        },
+        "stubMustFail": "PENDING: seed an add that fires a full-tree render -> RED"
+      },
+      {
+        "id": "AC-stub-must-fail",
+        "group": "stub-must-fail",
+        "text": "Seed the exact 0.8.175 defect — an add-child that triggers a full tree COLLAPSE + wholesale RERENDER (losing expanded state) => RED. A suite green on a collapse-on-add is inadmissible.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates (collapse-on-add fixture)",
+          "assertion": "the seeded collapse-on-add is observed RED before the fix counts"
+        },
+        "stubMustFail": "PENDING: register the RED run when the fix ships"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
