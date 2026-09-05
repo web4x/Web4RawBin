@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "model": {
+    "uuid": "0f0af4c6-cbef-492b-8b96-bedee1fa585d",
+    "name": "server.folderChildrenUnder",
+    "description": "THE ONE canonical derivation of a node's direct-child Folder units by EITHER parentage scheme — parent-link (model-store collection children, no location: model.parent===nodeRef) OR location (physical dir children under dirRel). Reused by BOTH the dir: userDirs merge (server.ts:1805) AND the rawbin:diagram collection branch (server.ts:1813) = ONE derivation, TWO call-sites (R40.81 DRY, no 2nd path). This is what makes a store-only Folder added to a model collection actually RENDER (R40.92).",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "sourceLine": 1747,
+    "implementations": [
+      "ior:instance:973481f2-8f5c-4ee5-8c1a-9d96f42791f7"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c0a0921d-b70e-4b28-a452-a4a806a0bba0"
+}

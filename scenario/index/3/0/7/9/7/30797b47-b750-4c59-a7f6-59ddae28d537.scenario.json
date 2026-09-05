@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:Test",
+  "model": {
+    "uuid": "30797b47-b750-4c59-a7f6-59ddae28d537",
+    "name": "test:R40.92 model-collection add-folder RENDERS + persists (folderChildrenUnder by-parent-link)",
+    "description": "Bridged to test/visual/r4092-model-collection-folder-gate.mjs (marker :8). DET-3x GREEN v0.8.182 (tester f26ec8919). PROVES: a store-only Folder minted under a model collection (parent=rawbin:diagram, no location) is found by folderChildrenUnder byParent -> RENDERS in the collection's children + PERSISTS across reload; stub-must-fail: revert byParent -> the folder VANISHES -> RED (isolated R40.31 scratch). Closes Tron's 'add folder succeeds but never appears' end-to-end (R40.84 collapse + R40.87 routing + R40.87-B fail-closed + R40.92 visible).",
+    "sourceFile": "ior:file:test/visual/r4092-model-collection-folder-gate.mjs",
+    "implementations": [
+      "ior:instance:973481f2-8f5c-4ee5-8c1a-9d96f42791f7"
+    ],
+    "unitLinks": [],
+    "certificationScope": {
+      "proven": "REAL @390/DOM: add-folder-to-model-collection -> folder RENDERS + persists (DET-3x), by-parent-link derivation; stub-must-fail bites (revert byParent -> vanishes -> RED).",
+      "satisfied": true,
+      "satisfiedNote": "PROVEN-COMPLETE: the symptom (folder never appears) is fixed + gated DET-3x. This is a real-page render gate, not endpoint-only."
+    }
+  },
+  "ownerIor": "ior:instance:973481f2-8f5c-4ee5-8c1a-9d96f42791f7"
+}

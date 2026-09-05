@@ -23,7 +23,7 @@
     },
     "tronReportHome": "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "satisfactionStatus": "UNVERIFIED (fix unbuilt; no stub RED observed — honest third state per R40.54, NOT green)",
+    "satisfactionStatus": "SATISFIED — chain-complete-to-Test; folderChildrenUnder shipped v0.8.182, Test 30797b47 DET-3x GREEN (tester f26ec8919). Closes Tron's add-folder-invisible complaint end-to-end. (Impl marker seat is an expert marker-only edit, queued.)",
     "crossRef": [
       "ior:instance:c83c02f2-4df6-4af9-b617-768040004ced",
       "ior:instance:2afa97a9-245e-4384-a510-7311bbd4de2d",
@@ -87,7 +87,8 @@
         },
         "stubMustFail": "PENDING: register the RED run when the gate ships"
       }
-    ]
+    ],
+    "chainCompleteToTest": true
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

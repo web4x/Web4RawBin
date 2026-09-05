@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Implementation",
+  "model": {
+    "uuid": "973481f2-8f5c-4ee5-8c1a-9d96f42791f7",
+    "name": "folderChildrenUnder (server.ts) — parent-link OR location direct-child Folder derivation",
+    "description": "REAL/SHIPPED: folderChildrenUnder at src/ts/server/server.ts:1747 (architect design 18e3f4e2f, expert build 48de1dcb3, v0.8.182, DET-3x GREEN tester f26ec8919). ROUTED both call-sites through it (dir: merge :1805 byLoc==old predicate + rawbin:diagram :1813 byParent). ★ EXPERT ACTION: seat the marker — swap [impl:uuid:PENDING-req-mint] @server.ts:1740 -> [impl:uuid:973481f2] (marker-only edit, no bump/deploy). ONE Impl (no dup): two call-sites, one derivation.",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "sourceLine": 1747,
+    "designAhead": false,
+    "markerSeatPending": true,
+    "tests": [
+      "ior:instance:30797b47-b750-4c59-a7f6-59ddae28d537"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:0f0af4c6-cbef-492b-8b96-bedee1fa585d"
+}
