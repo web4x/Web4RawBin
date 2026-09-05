@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Message",
+  "model": {
+    "uuid": "fb2ee501-66d2-4840-a088-857c92ac013f",
+    "name": "Marcel Donges: AIzaSyB_N5J1n9in3bbNF9vFvrukaG52biMLyl4",
+    "text": "AIzaSyB_N5J1n9in3bbNF9vFvrukaG52biMLyl4",
+    "timestamp": 1788527971576,
+    "senderIor": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
+    "senderName": "Marcel Donges",
+    "roomIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62",
+    "prevMessage": null,
+    "nextMessage": null,
+    "kind": "chat",
+    "unitLinks": []
+  },
+  "ownerIor": "ior:instance:c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6"
+}

@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "ea413529-5834-4256-a7e1-2027b85c3d33",
+    "name": "r218b-d733b8e7-3",
+    "phones": [],
+    "emails": [],
+    "addresses": [],
+    "companies": [
+      "ior:instance:22ce55e6-e6d2-4772-8325-09083ad963ff",
+      "ior:instance:259728ad-4593-4f20-b06f-84debd20332b"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

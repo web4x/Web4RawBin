@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Company",
+  "model": {
+    "uuid": "259728ad-4593-4f20-b06f-84debd20332b",
+    "name": "Appled733b8e73",
+    "nameKey": "appled733b8e73",
+    "domain": "appled733b8e73-fruit.de",
+    "aliases": [],
+    "unitLinks": [
+      "alt/company-domain/appled733b8e73-fruit.de.scenario.json"
+    ]
+  },
+  "ownerIor": null
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Company",
+  "model": {
+    "uuid": "f0d40bba-c6eb-4753-8502-eec3cdaadd4a",
+    "name": "Zorblax02bda1a43 GmbH & Co KG",
+    "nameKey": "zorblax02bda1a43",
+    "domain": null,
+    "aliases": [],
+    "unitLinks": [
+      "alt/company/zorblax02bda1a43.scenario.json"
+    ]
+  },
+  "ownerIor": null
+}

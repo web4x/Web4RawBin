@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "88c9a8b0-e155-4751-bc85-87437720303b",
+    "name": "device-gate: RED",
+    "gateType": "device-gate",
+    "verdict": "RED",
+    "evidence": "v0.8.145 @94876261b — gate:device:live FAILED (exit 1) — a live device assertion regressed",
+    "gatedItems": [],
+    "timestamp": "2026-08-29T22:55:51.651Z",
+    "gatedBy": "post-deploy-trigger"
+  },
+  "ownerIor": null
+}

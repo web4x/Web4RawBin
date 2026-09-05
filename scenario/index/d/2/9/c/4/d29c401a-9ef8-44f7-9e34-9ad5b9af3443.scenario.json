@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Company",
+  "model": {
+    "uuid": "d29c401a-9ef8-44f7-9e34-9ad5b9af3443",
+    "name": "Appled733b8e71",
+    "nameKey": "appled733b8e71",
+    "domain": "appled733b8e71.com",
+    "aliases": [],
+    "unitLinks": [
+      "alt/company/appled733b8e71.scenario.json",
+      "alt/company-domain/appled733b8e71.com.scenario.json"
+    ]
+  },
+  "ownerIor": null
+}

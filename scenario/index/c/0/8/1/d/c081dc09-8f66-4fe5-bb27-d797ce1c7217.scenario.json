@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Profile",
+  "model": {
+    "uuid": "c081dc09-8f66-4fe5-bb27-d797ce1c7217",
+    "name": "r218-A-02bda1a4",
+    "phones": [],
+    "emails": [],
+    "addresses": [],
+    "companies": [
+      "ior:instance:8c52177f-4b11-466b-bdbe-9e542bf2ac19",
+      "ior:instance:3ae0b230-1d85-4c81-8549-e74766e3a85d",
+      "ior:instance:f0d40bba-c6eb-4753-8502-eec3cdaadd4a"
+    ],
+    "unitLinks": []
+  },
+  "ownerIor": null
+}

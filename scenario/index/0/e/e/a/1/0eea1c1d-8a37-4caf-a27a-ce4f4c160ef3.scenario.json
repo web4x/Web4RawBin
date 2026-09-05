@@ -1,0 +1,39 @@
+{
+  "ior": "ior:class:Room",
+  "model": {
+    "uuid": "0eea1c1d-8a37-4caf-a27a-ce4f4c160ef3",
+    "id": "0eea1c1d-8a37-4caf-a27a-ce4f4c160ef3",
+    "name": "SysTester SW-upload test (temp)",
+    "ownerToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "isPrivate": false,
+    "visibility": "public",
+    "mode": "persistent",
+    "roomKey": "",
+    "state": "active",
+    "createdAt": 1788628039544,
+    "sshKeysGenerated": true,
+    "sshPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxJdklROCOJCsD8M+RJku\nMvYCYbUud8W5el3jeQiTRxH5NsL1MqdPOepGtfs4jbR2sj7QRJCP9khJmkVg00WZ\nfYlA65mkrGchVA5RKD0E2u9RYjh+xb9QbPnesfZ5FvrSgUKyL8eUQkfFh8xLi1F6\nNtJnCTH/+Z0gWm6vISp72aVe6XsK8jd3VnWLniEkayfmZlVRNEbrSWYwY+r9DGfq\njdRjFaVRYdLqkiGtvhTR+6TkdAYiGEtcdozT6y+c0p3UMbtXccweng9AVL/pSAN9\naLJGbLTJ3RBIQjnZY/M+O/CWsx0YBCI3nLiJFruOnYqmsIzlerH2THfecJlKq07f\nbQIDAQAB\n-----END PUBLIC KEY-----\n",
+    "chatHistory": [],
+    "members": [
+      {
+        "ior": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df",
+        "name": "SystemTester",
+        "role": "owner",
+        "status": "online",
+        "joinedAt": 1788628040704
+      }
+    ],
+    "files": [
+      "ior:instance:8d6be126-7c40-49f1-a54d-c92b48533c8a",
+      "ior:instance:2c2af3e3-d2b9-4811-bf2a-fc266cf78a0b"
+    ],
+    "lastMessageIor": null,
+    "firstMessageIor": null,
+    "messageCount": 0,
+    "sourceFile": "scenario/index/0/e/e/a/1/0eea1c1d-8a37-4caf-a27a-ce4f4c160ef3.scenario.json",
+    "unitLinks": [
+      "sprints.json/rooms/ce981242-74fe-4d44-b5b6-43c641e224df/0eea1c1d-8a37-4caf-a27a-ce4f4c160ef3.json"
+    ]
+  },
+  "ownerIor": "ior:instance:ce981242-74fe-4d44-b5b6-43c641e224df"
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Gate",
+  "model": {
+    "uuid": "2e3c9726-059a-45cc-baeb-5406acd5416b",
+    "name": "device-gate: GREEN",
+    "gateType": "device-gate",
+    "verdict": "GREEN",
+    "evidence": "v0.8.142 @219b327fc — gate:device:live PASS on WebKit@390 live prod",
+    "gatedItems": [],
+    "timestamp": "2026-08-29T17:05:36.353Z",
+    "gatedBy": "post-deploy-trigger"
+  },
+  "ownerIor": null
+}

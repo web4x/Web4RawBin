@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Folder",
+  "model": {
+    "uuid": "f3edf45e-4ac1-4b7c-812e-78f98d7a8515",
+    "name": "screenshots",
+    "kind": "folder",
+    "location": "roomcoll:a16262b8-337c-41b5-b2c8-1a298efa7b6c:files/screenshots",
+    "children": [],
+    "parent": null,
+    "unitLinks": [
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/a16262b8-337c-41b5-b2c8-1a298efa7b6c/files/f3edf45e-4ac1-4b7c-812e-78f98d7a8515.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:a16262b8-337c-41b5-b2c8-1a298efa7b6c"
+}

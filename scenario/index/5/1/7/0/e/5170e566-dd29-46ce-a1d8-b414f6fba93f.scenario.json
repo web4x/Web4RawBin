@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Address",
+  "model": {
+    "uuid": "5170e566-dd29-46ce-a1d8-b414f6fba93f",
+    "oneLine": "DE Berlin 10178 Karl-Liebknecht-Strasse 5",
+    "verified": true,
+    "osmLink": "https://www.openstreetmap.org/?mlat=52.5191046&mlon=13.4028284#map=18/52.5191046/13.4028284",
+    "gmapsLink": "https://www.google.com/maps?q=52.5191046,13.4028284",
+    "ownerIor": "ior:instance:36319584-d0d8-4304-a9d6-7e71c9d2ccd1"
+  },
+  "ownerIor": "ior:instance:36319584-d0d8-4304-a9d6-7e71c9d2ccd1"
+}
