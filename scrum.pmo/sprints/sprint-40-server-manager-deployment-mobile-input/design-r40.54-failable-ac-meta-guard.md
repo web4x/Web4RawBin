@@ -1,5 +1,7 @@
 # R40.54 — the meta-guard: no requirement satisfied while any AC is unfailable (architect mechanism design, 2026-08-20)
 
+> **NOTE (2026-09-05, architect — symbol-vs-principle honesty, req flag):** `structuralDiscover` below is the **PRINCIPLE** (glob/AST discovery so no site hides by being unlisted), realised in **3 local copies today** (R40.54 AcGuard / R37.12 live-MVC / check-boot-currency.ts) — there is **NO literal shared `structuralDiscover` symbol** in the tree yet (verified: check-boot-currency.ts:18-20). Read "the ONE `structuralDiscover` utility" as the **design target**; the single-SYMBOL extraction that makes it literal is **R40.55 extractionDebt** (my lane). On extraction, `discoveryUtilitySingleSource` reverts to strict shared-SYMBOL wording. Authoritative honest statement: requirements.md R-boot-currency AC (layer1/single-source-principle).
+
 req minted R40.54 (`18e98268`); I own the mechanism. **Invariant (PO): a requirement MAY NOT be marked satisfied while any AC lacks a check that can PROVABLY FAIL (fail-closed).** This is the systemic cure for the defect that recurred **5×** today — R40.50 (value-gate), R40.48 (unenforced no-broad-add AC), R32.3 (tree-renderer), R37.12 (ONE VIEW BUS "every view subscribes" with no failable AC), R40.53 (dir guard). Every one asserted a property with no failable check = a WISH, and the requirement was (falsely) satisfiable.
 
 ## The unit of enforcement: an AC is only real if its gate can go RED on the defect
