@@ -57,12 +57,20 @@ try {
   //    committed bundle STALE; a scratch that symlinks main's dist (buildDist off) serves PRE-FIX code → the gate false-RED'd.
   //    A gate on a stale bundle makes the verdict meaningless. Assert the ACTUALLY-LOADED bundle is a FRESH build of HEAD, not
   //    the stale committed one. (Durable: content-hashed names → a real rebuild of changed source yields a new hash.) ──
-  const committedBundle = (() => { try { return fs.readdirSync(path.join(f.mainRoot || process.cwd(), 'src/public/dist')).find((n) => /^app-[A-Z0-9]+\.js$/.test(n)) || '?'; } catch { return '?'; } })();
-  const loadedBundle = await page.evaluate(() => { const s = [...document.querySelectorAll('script[src]')].map((x) => x.src).find((u) => /app-[A-Z0-9]+\.js/.test(u)); return (s && (s.match(/app-[A-Z0-9]+\.js/) || [])[0]) || '?'; });
-  results.loadedBundle = loadedBundle; results.committedBundle = committedBundle;
-  const bundleStale = loadedBundle !== '?' && loadedBundle === committedBundle; // loaded == the known-stale committed bundle → NOT rebuilt from source
-  R(`  F2 BUNDLE-INTEGRITY: browser-loaded=${loadedBundle} | committed-main(=stale here)=${committedBundle} | rebuilt-from-source=${!bundleStale}`);
-  if (bundleStale) { results.instrument = `STALE-BUNDLE: browser loaded ${loadedBundle} which EQUALS the committed dist — dist was NOT rebuilt from HEAD source. Any RED/GREEN here is meaningless. (buildDist=${process.env.ARM_BUILD !== '0'})`; throw new Error('stale-bundle'); }
+  // CONTENT-based, NOT hash-based: the SAME source builds to DIFFERENT hashes (deployed app-DNFJDBE6.js vs a local build
+  // app-P223HX33.js), so comparing hashes is fragile AND a "different hash" does not PROVE the fix is present. Instead prove
+  // the LOADED bundle CARRIES THE FIX: the FILE_ADDED handler must NOT call renderSeed (the re-seed clobber R40.84 removed).
+  // Anchor on the stable user-facing literal 'File uploaded' (emitted inside that handler) and scan its neighbourhood.
+  const loadedUrl = await page.evaluate(() => { const s = [...document.querySelectorAll('script[src]')].map((x) => x.src).find((u) => /app-[A-Z0-9]+\.js/.test(u)); return s || ''; });
+  const loadedBundle = (loadedUrl.match(/app-[A-Z0-9]+\.js/) || ['?'])[0];
+  const bundleText = loadedUrl ? await page.evaluate(async (u) => { try { return await (await fetch(u)).text(); } catch { return ''; } }, loadedUrl) : '';
+  const faIdx = bundleText.indexOf('File uploaded');
+  const faRegion = faIdx >= 0 ? bundleText.slice(Math.max(0, faIdx - 400), faIdx + 120) : '';
+  const clobberNearFileAdded = /renderSeed/.test(faRegion); // renderSeed adjacent to the FILE_ADDED handler = the PRE-FIX re-seed clobber
+  const fixInBundle = faIdx >= 0 && !clobberNearFileAdded;
+  results.loadedBundle = loadedBundle; results.fixInBundle = fixInBundle;
+  R(`  F2 BUNDLE-INTEGRITY (content): loaded=${loadedBundle} | FILE_ADDED-anchor-found=${faIdx >= 0} | renderSeed-clobber-near-FILE_ADDED=${clobberNearFileAdded} → fix-carried-by-loaded-bundle=${fixInBundle}`);
+  if (!fixInBundle) { results.instrument = `BUNDLE-DOES-NOT-CARRY-FIX: loaded=${loadedBundle} FILE_ADDED-found=${faIdx >= 0} clobber-near=${clobberNearFileAdded} — the SERVED bundle still has the re-seed clobber (pre-fix) OR the anchor is missing. Refusing to emit RED/GREEN on a bundle that does not provably carry the R40.84 fix.`; throw new Error('stale-bundle'); }
   await page.waitForFunction(() => (window.__rawbinClient && window.__rawbinClient.connected) === true, { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => { const c = window.__rawbinClient; if (c && c.send) c.send({ type: 'UPDATE_PROFILE', name: 'TreeStableMember', secretCode: '4084' }); });
   await sleep(2000);
@@ -128,6 +136,16 @@ try {
   await page.screenshot({ path: 'test-results/r4023-after-add.png', fullPage: true }).catch(() => {});
   R(`  AFTER add:  nodeCount=${after.nodeCount} deepVisible=${JSON.stringify(after.deepVisible)} scroll=${after.scroll}`);
 
+  // ── C5 (b) — the ADDED folder must RENDER in place (NO re-expand) AND PERSIST. This is the half a no-collapse-only GREEN
+  //    would miss: the invisible-add regression (fix removed the re-seed but the in-place render must actually insert the node).
+  //    Tron in user terms: "I add a folder → I SEE it appear, and it stays." Assert AddedNode is in the tree right after the
+  //    add with no re-expand, and still there after a settle (persist). ──
+  const addedRenders = (await treeTextNow()).includes('AddedNode');
+  await sleep(1500);
+  const addedPersists = (await treeTextNow()).includes('AddedNode');
+  results.C5_addedRendersPersists = addedRenders && addedPersists;
+  R(`  C5 added-renders+persists (AddedNode visible in place, no re-expand, and stays)  : ${results.C5_addedRendersPersists ? 'GREEN' : 'RED'} (renders=${addedRenders} persists=${addedPersists})`);
+
   // ── FOUR NAMED CHECKS (Tron's ACs, measured on the RENDER) ──
   const beforeVis = new Set(before.visible), afterVis = new Set(after.visible);
   // C1 no-collapse: the visible tree does not shrink to the root — after keeps at least the before nodes (add is +1 in place)
@@ -155,8 +173,11 @@ R(`  C1 no-collapse       : ${results.C1_noCollapse ? 'GREEN' : 'RED'}`);
 R(`  C2 stays-expanded    : ${results.C2_staysExpanded ? 'GREEN' : 'RED'}`);
 R(`  C3 outside-unchanged : ${results.C3_outsideUnchanged ? 'GREEN' : 'RED'}`);
 R(`  C4 scroll-preserved  : ${results.C4_scrollPreserved ? 'GREEN' : 'RED'}`);
-const allGreen = results.C1_noCollapse && results.C2_staysExpanded && results.C3_outsideUnchanged && results.C4_scrollPreserved;
-R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN' : 'RED (baseline: the re-seed collapses the tree on child-add)'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
+R(`  C5 added-renders+persists (the (b) half) : ${results.C5_addedRendersPersists ? 'GREEN' : 'RED'}`);
+// GATE BOTH: (a) no-collapse (C1-C4) AND (b) the added folder RENDERS+persists (C5). A green that only proves (a) is a
+// hollow green (the invisible-add regression) — do NOT accept it. Setup-population already fails-loud before here if (b) is broken.
+const allGreen = results.C1_noCollapse && results.C2_staysExpanded && results.C3_outsideUnchanged && results.C4_scrollPreserved && results.C5_addedRendersPersists;
+R(`OVERALL (arm=${COMMIT}): ${allGreen ? 'ALL GREEN (a: no-collapse + b: renders+persists)' : 'RED'} ${results.error ? '(err: ' + results.error + ')' : ''}`);
 if (R4023_PROBE) {
   R(`\n═══ R40.84 PROBE STACKS (the instrument payload — route to architect 0.3) — ${probeStacks.length} captured ═══`);
   probeStacks.forEach((s, i) => R(`  [${i + 1}] ${s}`));
