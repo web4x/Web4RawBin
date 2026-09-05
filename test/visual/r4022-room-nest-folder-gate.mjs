@@ -45,8 +45,9 @@ try {
     if (req.method() === 'POST' && /\/api\/(room\/[^/]+\/folder|model\/folder\/create)/.test(req.url())) {
       let body = {}; try { body = JSON.parse(req.postData() || '{}'); } catch {}
       const resp = await route.fetch();
-      posts.push({ url: req.url().replace(f.base, ''), status: resp.status(), name: body.name || '', nestedPath: body.nestedPath || '', parent: body.parent || '' });
-      await route.fulfill({ response: resp });
+      let respText = ''; try { respText = await resp.text(); } catch {}
+      posts.push({ url: req.url().replace(f.base, ''), status: resp.status(), name: body.name || '', nestedPath: body.nestedPath || '', parent: body.parent || '', respBody: resp.status() >= 400 ? respText.slice(0, 300) : '' });
+      await route.fulfill({ response: resp, body: respText });
     } else await route.continue();
   });
 
