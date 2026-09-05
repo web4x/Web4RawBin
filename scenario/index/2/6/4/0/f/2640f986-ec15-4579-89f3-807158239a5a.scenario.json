@@ -4,11 +4,14 @@
     "uuid": "2640f986-ec15-4579-89f3-807158239a5a",
     "name": "dropArea.uploadFile",
     "description": "A file dropped on the drop area is recognized AND uploaded/stored (all types) — the upload POST completes, the file lands in the room.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "method": "ior:instance:9905fbfa-e41a-4177-b625-f6fee373efd2",
     "parent": "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741",
     "unitLinks": [],
-    "note": "Architect roots the regression (deploy diff) + wires the upload Class/Method; expert fixes; tester gates member-session @390 + the upload-dies stub."
+    "note": "Architect roots the regression (deploy diff) + wires the upload Class/Method; expert fixes; tester gates member-session @390 + the upload-dies stub.",
+    "classes": [
+      "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d"
+    ]
   },
   "ownerIor": "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741"
 }

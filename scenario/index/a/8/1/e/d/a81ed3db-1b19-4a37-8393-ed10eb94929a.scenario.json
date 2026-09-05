@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+  "model": {
+    "uuid": "a81ed3db-1b19-4a37-8393-ed10eb94929a",
+    "name": "DropDispatcher.acceptDropIntoContainer",
+    "class": "ior:instance:3fca4816-cc22-45ea-aa59-d7b23ac19d8d",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "implementations": [
+      "ior:instance:75edb563-67ec-4d20-a87f-449fe889c567"
+    ],
+    "tests": [],
+    "description": "A folder is a drop target: accept dropped content and place it INSIDE that folder (containment family, crossRef R40.83/R40.84). New route beside the 7 existing drop methods."
+  }
+}

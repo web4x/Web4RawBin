@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:a81ed3db-1b19-4a37-8393-ed10eb94929a",
+  "model": {
+    "uuid": "75edb563-67ec-4d20-a87f-449fe889c567",
+    "name": "DropDispatcher.acceptDropIntoContainer impl",
+    "sourceFile": "ior:file:src/public/ts/drop-dispatcher.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.86 folders-are-drop-targets, NEW capability — does not exist today): route a dropped file/content to be CONTAINED by the target folder node (drop lands INSIDE the folder). Expert builds + attaches [impl:uuid:75edb563-67ec-4d20-a87f-449fe889c567]."
+  }
+}
