@@ -51,3 +51,23 @@ The **served bundle's FILE_ADDED handler STILL calls `r.renderSeed(this.roomId)`
 4. **Tester**: r4023 goes GREEN once served==source. NOTE a harness gap the tester found — r4023's `buildDist` served the STALE COMMITTED bundle despite ARM_BUILD=1 (it did not rebuild the app bundle); the gate was testing committed-dist, not source. Fix the harness to rebuild (else a stale committed dist hides a real source-vs-served drift) — this is why the "necessary-but-not-sufficient" fix looked residual: the gate never saw the source fix.
 
 **No chokepoint. No new code.** The delegate-to-reDeriveDirectChildren the expert asked about is ALREADY the source behavior; the bug was purely that it was never built+shipped.
+
+## R40.84-B (invisible added folders, v0.8.177 — collapse fixed, new folder does not render)
+PO: removing the re-seed removed the child-refresh; the in-place reDerive never renders the new child. I traced the FULL folder-add live path — **every link is correct, there is NO missing wire:**
+- server room folder POST: `createFileUnit` (server.ts:2544) links the Folder unit into `room.files[]` (MUST — the re-seed showed it, and re-seed reads the same units), then `publishUnitChanged('ior:class:Folder','roomcoll:<id>:files')` (2553).
+- `publishUnitChanged` (190) sends `{type:'unit-changed', ior, uuid:'roomcoll:<id>:files'}` to all ws clients.
+- live-bridge (21): synthetic uuid → `viewBusKey('roomcoll:<id>:files')`.
+- the Files node is built with uuid `roomcoll:<id>:files` (server.ts:3259) and subscribes at rb-trace-tree.ts:442 `ViewBus.subscribe(viewBusKey(uuid), ()=>reDeriveDirectChildren(node,uuid))` — **key matches the publish by construction.**
+- lazy-expand (`fetchAndRenderChildren`, onToggleChildren) renders INTO the Files node's kids without rebuilding it → the :442 subscription survives.
+- `reDeriveDirectChildren` (133) fetches `/api/trace/children/roomcoll:<id>:files` → the roomcoll branch (3164) → `roomFilesChildren` (1393), which RETURNS the new folder (direct-child-by-location filter confirmed) with `Cache-Control: no-cache` (3165, fresh) → appends any child not in `existing`.
+
+**Conclusion: the mechanism the PO/expert want is ALREADY the code. No wiring change is correct here — the bug is that reDerive doesn't FIRE or doesn't APPEND at runtime, which a static read cannot resolve and a guess would only churn correct code.** (Same lesson that just paid off twice: measure, don't ship a guess.)
+
+### The decisive probe (tester's proven prototype-wrap harness — one run names it)
+Wrap `reDeriveDirectChildren` (and log inside it) on folder-add, capture:
+1. **Does it FIRE?** (log `ref` on entry). If NEVER → subscription/key bug: log the runtime Files-node `uuid` actually subscribed vs the publish `msg.uuid` (a display-prefix like `folder:roomcoll:…` on one side = viewBusKey mismatch).
+2. If it fires, **`data.children`** — does it contain the new folder? If NO → server read-after-write: the Folder isn't in `room.files[]` at fetch time (ordering: publish before the files[] link commits) → fix = link-then-publish ordering.
+3. If `data.children` HAS it, **`existing`** set + the child `cref` — is the new folder's `cref` (`${type}:${uuid}`=`collection:roomcoll:<id>:files/<name>`) wrongly already in `existing` (blocking the append), or does buildSeedNode's itemRef differ from the `existing` `ref` attribute (reconcile-key mismatch) → fix = align the cref/itemRef key.
+4. If appended, is `kids` the LIVE visible container (not collapsed/detached)?
+
+Each branch has a pre-identified ONE-LINE fix; the probe picks the branch deterministically. Then I hand the expert that exact line. MAX PRIORITY; probe is minutes.
