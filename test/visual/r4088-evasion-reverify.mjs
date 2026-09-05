@@ -9,10 +9,8 @@
 //   e2  no-op `resolveFolderRefToDir()` discriminator in scope → MUST be CAUGHT (a discriminator does not gate)
 //   e1  aliased mkdir (`const mk = fsSync.mkdirSync; mk(t)`)     → MUST NOT be caught = the HONEST accepted residual (matches header)
 //   control  raw non-owner `mkdirSync(t)` (no recursive)        → MUST be CAUGHT (proves the hazard side is not inert)
-// TRACKED-OPEN (reported, not yet asserted):
-//   e4  idiomatic `mkdirSync(userDir, { recursive: true })`     → PO RULED must-close (recursive:true is the commonest form; a
-//       global SHARD_EXCLUDE defeats the guard). Architect is narrowing SHARD_EXCLUDE to the shard-store path + adding e4 as a
-//       permanent self-bite fixture. ★ WHEN THAT LANDS: move e4 into SEEDS with expectCaught:true and delete this note.
+//   e4  idiomatic `mkdirSync(userDir, { recursive: true })`     → MUST be CAUGHT (architect 3f9a2d309 scoped SHARD_EXCLUDE to the
+//       shard-store path; recursive:true is the commonest mkdir form so a global exclusion defeats the guard — now closed).
 // Run: node test/visual/r4088-evasion-reverify.mjs   (exit 0 = certified; exit 1 = a certified invariant regressed)
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -39,19 +37,17 @@ const SEEDS = [
     src: `import fsSync from 'node:fs';\nexport function planted(t: string) { const mk = fsSync.mkdirSync; mk(t); }\n` },
   { key: 'control-raw-mkdir',     expectCaught: true,  file: '_r4088_ctl_mine.ts', // hazard side must be LIVE (no recursive:true)
     src: `import fsSync from 'node:fs';\nexport function planted(t: string) { fsSync.mkdirSync(t); }\n` },
+  { key: 'e4-recursive-idiomatic', expectCaught: true, file: '_r4088_e4_mine.ts', // CLOSED by architect 3f9a2d309 (SHARD_EXCLUDE scoped to the shard-store path); recursive:true is the commonest form → must be caught outside that path
+    src: `import fsSync from 'node:fs';\nexport function planted(t: string) { fsSync.mkdirSync(t + '/userfolder', { recursive: true }); }\n` },
 ];
 
 const baseline = runGuard();
 console.log(`BASELINE (no seed): ${baseline ? 'GREEN' : 'RED'}`);
 const results = SEEDS.map((s) => { const caught = plantRunClean(s.file, s.src); const pass = caught === s.expectCaught; console.log(`  ${s.key.padEnd(24)} expect-caught=${String(s.expectCaught).padEnd(5)} caught=${String(caught).padEnd(5)} => ${pass ? 'PASS' : 'FAIL'}`); return pass; });
 
-// TRACKED-OPEN e4 — report only (do NOT fail the harness on it yet; PO-ruled must-close, pending architect SHARD_EXCLUDE narrowing)
-const e4Caught = plantRunClean('_r4088_e4_mine.ts', `import fsSync from 'node:fs';\nexport function planted(t: string) { fsSync.mkdirSync(t + '/userfolder', { recursive: true }); }\n`);
-console.log(`  e4-recursive-evasion     ${e4Caught ? 'CAUGHT (architect fix has LANDED → promote e4 into SEEDS expectCaught:true)' : 'OPEN — evades via SHARD_EXCLUDE (PO-ruled must-close, pending architect narrowing; not yet asserted)'}`);
-
 const leftover = fs.readdirSync(SEEDDIR).filter((n) => SEED_RE.test(n));
 const restGreen = runGuard();
 console.log(`\ncleanup: leftover-seeds=${JSON.stringify(leftover)}  guard-green-after=${restGreen}`);
 const certified = baseline && results.every(Boolean) && leftover.length === 0 && restGreen;
-console.log(`\n===== R40.88 EVASION RE-VERIFY: ${certified ? 'CERTIFIED (e2/e3 closed, e1 residual honest, hazard live, clean)' : 'REGRESSED'} ${e4Caught ? '' : '| e4 still OPEN (tracked)'} =====`);
+console.log(`\n===== R40.88 EVASION RE-VERIFY: ${certified ? 'CERTIFIED (e2/e3/e4 closed, e1 residual honest, hazard live, clean)' : 'REGRESSED'} =====`);
 process.exit(certified ? 0 : 1);
