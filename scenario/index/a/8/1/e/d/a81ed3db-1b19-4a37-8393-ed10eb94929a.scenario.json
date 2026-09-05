@@ -10,6 +10,6 @@
       "ior:instance:75edb563-67ec-4d20-a87f-449fe889c567"
     ],
     "tests": [],
-    "description": "A folder is a drop target: accept dropped content and place it INSIDE that folder (containment family, crossRef R40.83/R40.84). New route beside the 7 existing drop methods."
+    "description": "A folder is a drop target: DropDispatcher ROUTES a drop onto a folder node (recognize folder-as-target + resolve dest by one identity). ★ CONTAINMENT DELEGATES to R40.84 RbTraceTree.reDeriveDirectChildren (Method 1e5c4233 / Impl 8693dc2b) for the in-place add+render — DropDispatcher MUST NOT carry a 2nd containment/add path (req root-lens guard, LAW-8). crossRef R40.83/R40.84 containment family."
   }
 }
