@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:089da882-48b1-4a10-8442-683d6e1f9276",
+  "model": {
+    "uuid": "f0739bfe-7bc3-4de9-b3e2-f6319d3b4315",
+    "name": "TransportBusBridge",
+    "sourceFile": "ior:file:src/public/ts/live-bridge.ts",
+    "methods": [
+      "ior:instance:3494d2b3-0240-45e5-bd19-01f0135bcf30"
+    ],
+    "description": "The transport->ViewBus bridge (notifyUnitChanged = the ONE unit-changed->notify key translator). R40.91 guard asserts its single ownership."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:f0739bfe-7bc3-4de9-b3e2-f6319d3b4315",
+  "model": {
+    "uuid": "3494d2b3-0240-45e5-bd19-01f0135bcf30",
+    "name": "TransportBusBridge.assertSingleTranslator",
+    "class": "ior:instance:f0739bfe-7bc3-4de9-b3e2-f6319d3b4315",
+    "sourceFile": "ior:file:scripts/check-one-unit-changed-translator.ts",
+    "implementations": [
+      "ior:instance:561bcfb8-89cc-4601-a20f-88537740c117"
+    ],
+    "tests": [],
+    "description": "Guard: exactly ONE unit-changed->notify translator (notifyUnitChanged). Scan-the-hazard-not-actors (R40.82 9ef91a551 pattern), filename-independent, 0-noise (legit local viewBusKey emits excluded), selftest self-bites each run."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:3494d2b3-0240-45e5-bd19-01f0135bcf30",
+  "model": {
+    "uuid": "561bcfb8-89cc-4601-a20f-88537740c117",
+    "name": "TransportBusBridge.assertSingleTranslator impl",
+    "sourceFile": "ior:file:scripts/check-one-unit-changed-translator.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.91 guard, script not yet built): check:one-unit-changed-translator — scan the narrow hazard (a site matching msg.type===unit-changed that builds the notify key INLINE vs delegating to notifyUnitChanged); assert translatorOwnerCount===1 && inlineNonOwnerTranslators===0; built-in per-run --selftest injects a synthetic violation + asserts RED (self-bites); + ci:gates. Expert/guard-lane builds + attaches [impl:uuid:561bcfb8-89cc-4601-a20f-88537740c117]."
+  }
+}
