@@ -18,7 +18,7 @@
    "ior:instance:04e3b795-d1ab-46fa-ae04-ca1ad76247b2"
   ],
   "unitLinks": [],
-  "status": "next-backlog",
+  "status": "active",
   "scheduleNote": "NEXT, NOT-NOW (PO 2026-07-27): captured scenario-first but NOT dispatched - R31.12 is the active item. PO schedules the build; do not create build tasks / dispatch architect until then.",
   "discoverySource": {
    "type": "team-discovery",
@@ -27,8 +27,14 @@
    "date": "2026-07-27",
    "note": "Recurring push-vs-serve deploy lag: pushed commit != served build until a manual Ctrl-C+npm start (no auto rebuild+reload). Operational complement to R31.7 (single-source version) + R31.13 (deterministic build) - the clean ARTIFACT must actually be SERVED. Captured NEXT; PO schedules."
   },
-  "crossRef": [],
-  "crossRefNote": "R31.7 single-source version + R31.13 deterministic build = the clean-deploy ARTIFACT (served==committed==tree-clean by construction). R31.14 = the DEPLOY MECHANISM that guarantees the serving process actually runs that artifact (scripted deploy + live monitor + pinned topology). Together = a fully-closed clean-deploy loop: build clean -> serve clean -> alert if ever skewed.",
+  "crossRef": [
+   "ior:instance:06ac71d5-5308-44ea-9720-ec5c01921915",
+   "ior:instance:e57df4b4-dcd3-4aee-be87-dbc717203922",
+   "ior:instance:929a5117-b30b-4aec-9f50-d9de74e61cbd",
+   "ior:instance:7fee0120-a5dc-43df-838f-b91ab86711b1",
+   "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+  ],
+  "crossRefNote": "R31.7 single-source version + R31.13 deterministic build = the clean-deploy ARTIFACT (served==committed==tree-clean by construction). R31.14 = the DEPLOY MECHANISM that guarantees the serving process actually runs that artifact (scripted deploy + live monitor + pinned topology). Together = a fully-closed clean-deploy loop: build clean -> serve clean -> alert if ever skewed. ★ EXTENDED 2026-09-05 (PO route A, the served==committed mint): activated + 5 evidence instances + 4 failable ACs (served-must-be-verified NET-NEW / client-half-now-scheduled folds R40.76 / carries-measured-values / authorized-but-unbuilt=no-invariant). crossRef R30.28 (ship-time guarantee it rides, INV-D6) + R40.76 (client-half, now folded/scheduled) + R40.91 (the two-source-drift law a parallel guard would violate = why we EXTEND not mint) + R40.25 (device-gate served-but-unverified, now HARD-refuse) + R40.54 (satisfaction-fail-closed). check-before-create caught this: the invariant already existed; the gap was activation, not a missing requirement.",
   "acceptanceCriteria": [
    {
     "id": "AC-scripted-deploy",
@@ -79,9 +85,93 @@
     "id": "AC-inv-D6-rides-R30.28",
     "group": "invariant",
     "text": "INV-D6: served==committed comparison RIDES R30.28 (b6946e59.assertVersionAtHead) — NOT a second copy. Distinct intent: R30.28 is the ship-time GUARANTEE; R31.14 is orchestration + drift MONITOR + pinned topology."
+   },
+   {
+    "id": "AC-served-must-be-verified",
+    "group": "invariant/net-new (PO)",
+    "text": "What is SERVED must have been VERIFIED. Deploying an UNVERIFIED fix onto prod is a DEFECT, not merely 'recorded as unverified' — 0.8.180 was an unverified fix shipped onto a working-with-a-hole prod and made it STRICTLY WORSE. BOTH DIRECTIONS ARE DEFECTS: committed-but-not-served AND served-but-not-verified. Strengthens R40.25/INV-D2 from 'record served-but-unverified' to 'a deploy whose device-gate has not run GREEN is REFUSED, fail-loud' (the un-verified path does not reach prod).",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "deploy gate (rides R40.25 device-gate, made a HARD refuse)",
+     "assertion": "a deploy of a version whose device-gate has not run GREEN is REFUSED (fail-loud), never served-then-recorded"
+    },
+    "stubMustFail": "PENDING: seed a deploy of an un-gated/unverified version -> RED/refused"
+   },
+   {
+    "id": "AC-client-half-now-scheduled",
+    "group": "coverage/fold-R40.76",
+    "text": "The served==committed guard covers BOTH halves — the SERVER version AND the CLIENT loaded-bundle marker: a source-only client commit does NOT ship until dist is rebuilt AND served, and the guard MEASURES the served client bundle marker independently of the server version. Folds R40.76 (client-half coverage gap) in as NOW-SCHEDULED, not deferred — instance E1 (4-round hunt) is precisely this gap biting.",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "served-client-bundle-marker == committed-client-source",
+     "assertion": "served client bundle marker == committed client source; a source-only client change not rebuilt+served => RED (looks-shipped-but-isnt)"
+    },
+    "stubMustFail": "PENDING: seed a source-only client commit with stale dist -> RED"
+   },
+   {
+    "id": "AC-carries-measured-values",
+    "group": "evidence/like-R31.7-R40.91",
+    "text": "The guard/monitor output CARRIES the MEASURED values — served version, committed version (HEAD), and the client loaded-bundle marker — as evidence, NOT a bare pass/fail (same evidence-not-boolean discipline as R31.7 single-source version + R40.91 measured guard). A user/agent can read the three numbers and see the skew directly.",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "monitor output schema",
+     "assertion": "monitor emits {servedVersion, committedVersion, clientBundleMarker}; a bare-boolean output with no measured values => RED"
+    },
+    "stubMustFail": "PENDING: seed a values-less boolean monitor -> RED"
+   },
+   {
+    "id": "AC-authorized-but-unbuilt-equals-no-invariant",
+    "group": "meta/satisfaction-fail-closed (R40.54)",
+    "text": "An AUTHORIZED-BUT-UNBUILT invariant is INDISTINGUISHABLE FROM NO INVARIANT (PO finding: R31.14 build-authorized 2026-08-10, never activated, so today's 4 committed-not-served fixes went uncaught). This requirement is NOT satisfied until the monitor/gate is OBSERVABLY RUNNING (heartbeat + CI asserts liveness), never merely 'authorized' or 'built'. Same satisfaction-fail-closed discipline as R40.54; same meta-pattern as committed-but-not-served (a thing that exists but does not RUN is not shipped).",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "monitor liveness heartbeat + CI assertion",
+     "assertion": "the served!=committed monitor is observably RUNNING (recent heartbeat) and CI asserts it; monitor-authorized-but-not-running => RED"
+    },
+    "stubMustFail": "PENDING: seed monitor-not-running (authorized only) -> RED"
    }
   ],
-  "reHomeNote": "RE-PARENTED S31 (server-manager, CLOSED) -> S32 (mda-model-driven-code-quality, active 332585f3) by robbin-po authority 2026-07-30 (re-home within an existing sprint, NOT a new sprint = no Tron-auth needed). altId stays R31.14 and discoverySource=team-discovery is PRESERVED (honest provenance: the deploy-hardening gap was discovered during S31; it builds in S32). status stays next-backlog; planner stands up T-R31.14 in the S32 backlog, scheduled AFTER R32.5 (the go-live milestone). 2nd version-skew occurrence -> its served!=committed auto-monitor removes the manual-measure dependency (correct-by-construction)."
+  "reHomeNote": "RE-PARENTED S31 (server-manager, CLOSED) -> S32 (mda-model-driven-code-quality, active 332585f3) by robbin-po authority 2026-07-30 (re-home within an existing sprint, NOT a new sprint = no Tron-auth needed). altId stays R31.14 and discoverySource=team-discovery is PRESERVED (honest provenance: the deploy-hardening gap was discovered during S31; it builds in S32). status stays next-backlog; planner stands up T-R31.14 in the S32 backlog, scheduled AFTER R32.5 (the go-live milestone). 2nd version-skew occurrence -> its served!=committed auto-monitor removes the manual-measure dependency (correct-by-construction).",
+  "activationNote": "PO-ACTIVATED 2026-09-05 (route A: EXTEND as the single canonical deploy-integrity home, not a 6th parallel guard — a parallel served==committed guard would BE the two-source drift R40.91 forbids). ★ FINDING (PO, named explicitly): R31.14 was BUILD-AUTHORIZED 2026-08-10 and NEVER ACTIVATED — so the requirement was never the gap; the gap is that AUTHORIZED WORK SILENTLY NEVER SHIPPED, the SAME meta-pattern as today's four committed-but-not-served fixes. An authorized-but-unbuilt invariant is INDISTINGUISHABLE FROM NO INVARIANT (encoded as AC-authorized-but-unbuilt-equals-no-invariant). Expert builds on this extension.",
+  "evidenceInstances": [
+   {
+    "id": "E1-client-stale-bundle",
+    "date": "2026-09-05",
+    "direction": "committed-not-served (CLIENT half)",
+    "detail": "R40.84 fix committed but dist NEVER REBUILT = stale bundle served; a source-only client fix looked shipped and was not. Cost a 4-ROUND HUNT on an already-fixed bug. This is exactly the R40.76 client-half coverage gap (deferred) biting.",
+    "maps": "R40.76"
+   },
+   {
+    "id": "E2-committed-no-restart",
+    "date": "2026-09-05",
+    "direction": "committed-not-served (SERVER half)",
+    "detail": "R40.87 committed, NO RESTART, Tron's defect stayed LIVE on prod.",
+    "maps": "R30.28+R31.14-monitor"
+   },
+   {
+    "id": "E3-0.8.180-unserved-14-polls",
+    "date": "2026-09-05",
+    "direction": "committed-not-served (SERVER half)",
+    "detail": "R40.87-B committed at 0.8.180, sat UNSERVED through ~14 human polls before anyone noticed.",
+    "maps": "R31.14-monitor"
+   },
+   {
+    "id": "E4-0.8.181-hotfix-unserved",
+    "date": "2026-09-05",
+    "direction": "committed-not-served (SERVER half)",
+    "detail": "the 0.8.181 hotfix likewise committed-but-not-served until a human polled.",
+    "maps": "R31.14-monitor"
+   },
+   {
+    "id": "E5-0.8.180-served-unverified",
+    "date": "2026-09-05",
+    "direction": "served-not-VERIFIED (the net-new failure mode)",
+    "detail": "0.8.180 = an UNVERIFIED fix DEPLOYED onto a working-with-a-hole prod, making it STRICTLY WORSE. Served, but never verified before shipping. NOT covered by the prior family (which assumes the committed thing is correct and only wants it served).",
+    "maps": "AC-served-must-be-verified (NEW)"
+   }
+  ],
+  "evidenceNote": "All 5 were caught ONLY because a human polled — the standing monitor (AC-served-vs-committed-monitor) was authorized 2026-08-10 but never running. Both DIRECTIONS are defects: committed-but-not-served (E2-E4) AND served-but-not-verified (E5).",
+  "satisfactionStatus": "UNVERIFIED — ACTIVATED 2026-09-05 but the monitor/gate is NOT YET RUNNING (expert building). Per its own AC-authorized-but-unbuilt-equals-no-invariant, this stays UNVERIFIED until the monitor is observably running + gates GREEN. Honest third state (R40.54): not satisfied, not erased."
  },
  "ownerIor": "ior:instance:332585f3-f37a-478e-a632-36c657bfe823"
 }
