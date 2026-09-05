@@ -36,12 +36,24 @@ const results = {};
 //    reDeriveDirectChildren-on-the-ROOT-node vs a child node. Gated by env so a normal fix-gate run stays clean. ──
 const R4023_PROBE = process.env.R4023_PROBE === '1';
 const probeStacks = [];
-const PROTO_PROBE = `(() => { const T = ['renderSeed','render','reDeriveDirectChildren'];
-  const iv = setInterval(() => { const C = customElements.get('rb-trace-tree'); if (!C || !C.prototype || !T.every(m => C.prototype[m])) return; clearInterval(iv);
-    for (const m of T) { const orig = C.prototype[m]; C.prototype[m] = function(...a) {
-      try { const seed = this.getAttribute && this.getAttribute('data-seed-ior'); console.log('[PROBE:'+m+'] seedIor='+seed+' arg0='+String(a[0]).slice(0,80)+' STACK<<'+((new Error().stack)||'').replace(/\\n/g,' | ')+'>>'); } catch {}
-      return orig.apply(this, a); }; }
-    console.log('[PROBE] wrapped '+T.join('/')+' on rb-trace-tree'); }, 4); })()`;
+const PROTO_PROBE = `(() => {
+  const iv = setInterval(() => { const C = customElements.get('rb-trace-tree'); if (!C || !C.prototype || !C.prototype.reDeriveDirectChildren || !C.prototype.renderSeed) return; clearInterval(iv);
+    // renderSeed/render: log the CALLER (is a full re-seed STILL firing on add, or genuinely gone?)
+    for (const m of ['renderSeed','render']) { const o = C.prototype[m]; C.prototype[m] = function(...a) { try { console.log('[PROBE:'+m+'] arg0='+String(a[0]).slice(0,60)+' STACK<<'+((new Error().stack)||'').replace(/\\n/g,' | ')+'>>'); } catch {} return o.apply(this, a); }; }
+    // reDeriveDirectChildren(node, ref): the in-place path. Capture the FOUR FACTS (each → a pre-staged one-line fix):
+    //   (1) FIRES? = a [PROBE:reDerive] line appears at all for the Files ref on an add (else key/subscription mismatch)
+    //   (2) dataChildren/childNames = does the re-fetched /api/trace/children CONTAIN the new folder? (else link-then-publish ORDER)
+    //   (3) shouldInsert = folders in data.children NOT already in the existing rendered refs (else dedup/reconcile-key mismatch)
+    //   (4) appended + isConnected + hasTtChildren = was it appended to a LIVE VISIBLE kids container (else collapsed/detached)
+    const orig = C.prototype.reDeriveDirectChildren; C.prototype.reDeriveDirectChildren = async function(node, ref) {
+      const kids = (node && node.querySelector) ? node.querySelector(':scope > .tt-children') : null; const before = kids ? kids.children.length : -1;
+      const existingRefs = kids ? [...kids.querySelectorAll(':scope > .tt-node > .tt-row > rb-object-item')].map(i => i.getAttribute('ref') || '') : [];
+      const rec = { ref: String(ref).slice(0,50), fires: true, isConnected: node ? !!node.isConnected : null, hasTtChildren: !!kids, before, existing: existingRefs.length };
+      try { const r = await orig.apply(this, arguments); rec.appended = kids ? (kids.children.length - before) : null;
+        try { const d = await (await fetch('/api/trace/children/' + encodeURIComponent(ref))).json(); const ch = (d.children||[]).map(c => ({ n: c.name, cref: (c.type||'task').toLowerCase()+':'+c.uuid })); rec.dataChildren = ch.length; rec.childNames = ch.map(c=>c.n).slice(0,14); rec.shouldInsert = ch.filter(c => !existingRefs.includes(c.cref)).map(c=>c.n).slice(0,14); } catch(fe) { rec.fetchErr = String(fe&&fe.message); }
+        console.log('[PROBE:reDerive] '+JSON.stringify(rec)); return r; }
+      catch (e) { rec.err = String(e && e.message); console.log('[PROBE:reDerive] '+JSON.stringify(rec)); throw e; } };
+    console.log('[PROBE] wrapped renderSeed/render/reDeriveDirectChildren'); }, 4); })()`;
 const browser = await webkit.launch();
 try {
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
