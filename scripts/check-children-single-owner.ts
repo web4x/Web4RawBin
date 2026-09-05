@@ -42,13 +42,18 @@ const isExempt = (f: string, ln: number) => EXEMPT.some((e) => e.file === rel(f)
 const ownerFiles = new Set<string>();
 const nonOwner: string[] = [];
 const exempted: string[] = [];
+// ★ OBJECT vs MODULE (PO 2026-09-05): 9→0 can also be faked by a shared children(ref) HELPER all surfaces call — one
+// owner file, zero raw fetches outside, guard green, but it is the PROVIDER by another name. The OWNER must be the OBJECT:
+// node.children() a METHOD on the type (uses this.ref), NOT a free function taking a ref. An owner fetch with no `this.`
+// in scope is a module-owns-on-the-object's-behalf service → RED.
+const ownerNotMethod: string[] = [];
 for (const file of walk(ROOT)) {
   const lines = readFileSync(file, 'utf8').split('\n');
   for (let i = 0; i < lines.length; i++) {
     if (!HAZARD.test(lines[i]) || !FETCH.test(lines[i])) continue;
     const win = lines.slice(Math.max(0, i - 2), i + 2).join('\n');
     const site = `${rel(file)}:${i + 1}  ${lines[i].trim().slice(0, 88)}`;
-    if (OWNER_MARK.test(win)) { ownerFiles.add(rel(file)); continue; }   // routed through the interface
+    if (OWNER_MARK.test(win)) { ownerFiles.add(rel(file)); if (!/this\./.test(win)) ownerNotMethod.push(site); continue; } // routed through the interface — must be a METHOD on the object (this.ref), not a free fn(ref)
     if (isExempt(file, i + 1)) { exempted.push(site); continue; }         // architect-approved distinct query
     nonOwner.push(site);
   }
@@ -60,6 +65,7 @@ for (const v of exempted) console.log('  ⓘ exempt: ' + v);
 
 let fail = false;
 if (ownerFiles.size > 1) { console.error(`\n✗ TWO owners: children-owner appears in ${ownerFiles.size} files (${[...ownerFiles].join(', ')}). There must be exactly ONE owner.`); fail = true; }
+if (ownerNotMethod.length) { console.error(`\n✗ ${ownerNotMethod.length} owner fetch(es) are NOT a method on the object (no this.ref) = a free-function children(ref) service = the PROVIDER escape Tron rejected. The owner must be the OBJECT (node.children()), not a module.`); for (const v of ownerNotMethod) console.error('  ✗ module-not-object: ' + v); fail = true; }
 if (nonOwner.length) { console.error(`\n✗ ${nonOwner.length} surface(s) derive children by raw /api/trace/children instead of node.children(). Route them (do NOT exempt). Distinct query → architect+PO design decision.`); fail = true; }
 if (fail) process.exit(1);
 console.log(`✓ ONE owner of children-derivation (${exempted.length} architect-approved exemptions, listed separately). Divergence class dead by construction.`);
