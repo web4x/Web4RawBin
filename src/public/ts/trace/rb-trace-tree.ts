@@ -130,9 +130,16 @@ export class RbTraceTree extends HTMLElement {
   // (existing children untouched). Both the acting tab and a passive 2nd browser run this from the SAME all-clients
   // publishUnitChanged broadcast → the tree updates live. Collapsed node → skip (its badge refreshes on next open).
   private async reDeriveDirectChildren(node: HTMLElement, ref: string): Promise<void> {
-    console.log('[R84B reDerive-entry]', JSON.stringify(ref), 'kidsExists=', !!node.querySelector(':scope > .tt-children')); // R40.84-B TEMP PROBE (architect a5156b926) — remove with the fix
-    const kids = node.querySelector(':scope > .tt-children') as HTMLElement | null;
-    if (!kids) return;
+    let kids = node.querySelector(':scope > .tt-children') as HTMLElement | null;
+    if (!kids) {
+      // R40.84-B FIX-2 (architect 0e5f3343e): a CHILDLESS container (an empty room's FIRST folder — built hasChildren=false, so
+      // no .tt-children div yet) previously hit `if(!kids)return` = silent invisible. CREATE the container (visible) + mark the
+      // node has-children so its first child renders IN PLACE; then continue the normal fetch+append below.
+      kids = document.createElement('div');
+      kids.className = 'tt-children';
+      node.appendChild(kids);
+      node.querySelector(':scope > .tt-row > rb-object-item')?.setAttribute('has-children', '');
+    }
     try {
       const res = await fetch(`${this.childrenUrl}${encodeURIComponent(ref)}${this.modeParam}`);
       if (!res.ok) return;
@@ -440,7 +447,7 @@ export class RbTraceTree extends HTMLElement {
     node.appendChild(row);
     // R37.21 Part 2 piece-2: a synthetic-ref folder/collection node live-subscribes to its OWN ref (canonical REF-STRING
     // key, architect ruling — subscribe==notify by construction) → an Add-folder under it re-derives its DIRECT children live.
-    if (isSyntheticRef(uuid)) { console.log('[R84B sub]', JSON.stringify(uuid), '->', JSON.stringify(viewBusKey(uuid))); this._nodeUnsubs.push(ViewBus.subscribe(viewBusKey(uuid), () => void this.reDeriveDirectChildren(node, uuid))); } // R40.84-B TEMP PROBE (architect a5156b926) — remove with the fix
+    if (isSyntheticRef(uuid)) this._nodeUnsubs.push(ViewBus.subscribe(viewBusKey(uuid), () => void this.reDeriveDirectChildren(node, uuid)));
     if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';

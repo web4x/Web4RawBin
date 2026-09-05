@@ -19,7 +19,6 @@ export function notifyUnitChanged(msg: { type?: string; ior?: string; uuid?: str
   // the full ref, the server emits shownRef as the uuid; NO type-mapping, folder-vs-collection can't diverge). A REAL uuid
   // (no colon) keeps the {type,uuid} form — pin/CR unaffected. R37.12 one-builder-both-sides, the ONE input = the ref string.
   const key = isSyntheticRef(String(msg.uuid)) ? viewBusKey(String(msg.uuid)) : (t ? viewBusKey({ type: t, uuid: msg.uuid }) : 'graph');
-  console.log('[R84B notify]', JSON.stringify(key)); // R40.84-B TEMP PROBE (architect a5156b926) — remove with the fix
   ViewBus.notify(key);
 }
 
