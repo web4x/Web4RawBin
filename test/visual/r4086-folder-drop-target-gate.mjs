@@ -25,7 +25,9 @@ const childrenNames = (page, base, ref) => page.evaluate(async (a) => { try { co
 const addFolder = (page, base, roomId, name) => page.evaluate(async (a) => { const r = await fetch(`${a.base}/api/room/${a.roomId}/folder`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: a.name, nestedPath: '', playerToken: a.tok }) }); const j = await r.json().catch(() => ({})); return j.uuid || null; }, { base, roomId, name, tok: PLAYER });
 const uploadFile = (page, base, roomId, fileName, parentRef) => page.evaluate(async (a) => { const fd = new FormData(); fd.append('playerToken', a.tok); if (a.parent) fd.append('parent', a.parent); fd.append('file', new Blob([a.fileName + '::' + Date.now() + '::' + Math.random()], { type: 'text/plain' }), a.fileName); try { const r = await fetch(`${a.base}/api/room/${a.roomId}/upload`, { method: 'POST', body: fd }); const j = await r.json().catch(() => ({})); return { status: r.status, uuid: j.uuid || null }; } catch (e) { return { status: 0, err: String(e && e.message) }; } }, { base, roomId, fileName, parent: parentRef || '', tok: PLAYER });
 // seed a fresh tree at the folder + expand → does the file render as its child?
-const rendersUnder = async (page, folderUuid, fileName) => { const pid = 'r4086probe'; await page.evaluate((a) => { const t = document.createElement('rb-trace-tree'); t.id = a.pid; t.setAttribute('data-seed-ior', a.ref); document.body.appendChild(t); }, { pid, ref: folderUuid }); await sleep(1200); await page.evaluate((a) => { const t = document.getElementById(a.pid); return t?.expandPath ? t.expandPath([a.ref]).catch(() => {}) : null; }, { pid, ref: `folder:${folderUuid}` }); await sleep(1400); const ok = await page.evaluate((a) => (document.getElementById(a.pid)?.textContent || '').includes(a.nm), { pid, nm: fileName }); await page.evaluate((a) => document.getElementById(a.pid)?.remove(), { pid }); return ok; };
+// seed a tree at the folder's ROOMCOLL ref (the room tree surfaces a folder's children via its location roomcoll:<id>:files/<folder>,
+// NOT the bare uuid — diagnosed 2026-09-05) + expand → does the dropped file render as a child?
+const rendersUnder = async (page, seedRef, fileName) => { const pid = 'r4086probe'; await page.evaluate((a) => { const t = document.createElement('rb-trace-tree'); t.id = a.pid; t.setAttribute('data-seed-ior', a.ref); document.body.appendChild(t); }, { pid, ref: seedRef }); await sleep(1200); await page.evaluate((a) => { const t = document.getElementById(a.pid); if (t?.expandPath) t.expandPath([a.ref]).catch(() => {}); }, { pid, ref: seedRef }); await sleep(1400); const ok = await page.evaluate((a) => (document.getElementById(a.pid)?.textContent || '').includes(a.nm), { pid, nm: fileName }); await page.evaluate((a) => document.getElementById(a.pid)?.remove(), { pid }); return ok; };
 
 // (7) source: model collections are NOT drop targets — isFolderTarget matches type 'folder' only, excludes 'collection'
 const src = fs.readFileSync('src/public/ts/trace/rb-object-item.ts', 'utf8');
@@ -36,7 +38,7 @@ try {
   const f = await setupFoundation({ commit: 'HEAD', buildDist: process.env.ARM_BUILD !== '0' });
   const scratchDir = scratchOf();
   R(`ARM-1 HEAD: ${f.base} v${f.servedVersion} scratch=${scratchDir ? scratchDir.slice(-8) : 'none'}`);
-  results.g5_served = f.servedVersion === '0.8.184';
+  results.g5_served = f.servedVersion === '0.8.185';
   const ctx = await browser.newContext({ ...IPHONE, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   await ctx.addInitScript((t) => { try { localStorage.setItem('rawbin-player-id', t); } catch {} }, PLAYER);
   const page = await ctx.newPage();
@@ -59,15 +61,23 @@ try {
     const insideParent = m?.parent === `ior:instance:${folderUuid}`;                                   // (1) parent == the folder
     const insideLoc = typeof m?.location === 'string' && m.location === `${folderLoc}/${fn}`;           // (1) nested location, NOT Files-root
     const oneUnit = countUnitsNamed(scratchDir, fn) === 1;                                              // (3)
-    const inData = (await childrenNames(page, f.base, folderUuid)).includes(fn);                        // (2) data: folder children
-    const rendered = await rendersUnder(page, folderUuid, fn);                                          // (2) render: real child node
+    const inData = (await childrenNames(page, f.base, folderLoc)).includes(fn);                          // (2) INSIDE: folder children (folder's ROOMCOLL ref) include it
+    const rootKids = await childrenNames(page, f.base, `roomcoll:${roomId}:files`);
+    const notAtRoot = !rootKids.includes(fn);                                                           // (2) ★ DECIDER: NOT double-listed flat at Files-root
+    const rendered = await rendersUnder(page, folderLoc, fn);                                           // (2) render: real child node of the folder (seed at the roomcoll ref)
     await sleep(500);
-    const persists = (await childrenNames(page, f.base, folderUuid)).includes(fn);                      // (2) persists
-    const pass = up.status === 200 && insideParent && insideLoc && oneUnit && inData && rendered && persists;
+    const persists = (await childrenNames(page, f.base, folderLoc)).includes(fn);                       // (2) persists
+    const pass = up.status === 200 && insideParent && insideLoc && oneUnit && inData && notAtRoot && rendered && persists;
     runs.push(pass);
-    R(`  (1/2/3) iter ${i} '${fn}': up=${up.status} parent-is-folder=${insideParent} nested-loc=${insideLoc}(${m?.location || '-'}) one-unit=${oneUnit} in-data=${inData} renders=${rendered} persists=${persists} => ${pass ? 'GREEN' : 'RED'}`);
+    R(`  (1/2/3) iter ${i} '${fn}': up=${up.status} parent-is-folder=${insideParent} nested-loc=${insideLoc}(${m?.location || '-'}) one-unit=${oneUnit} in-folder=${inData} NOT-at-root=${notAtRoot} renders=${rendered} persists=${persists} => ${pass ? 'GREEN' : 'RED'}`);
   }
   results.core_insideRendersOne = runs.length === 3 && runs.every(Boolean);
+
+  // childCount/chevron: a folder holding ONLY files must show as EXPANDABLE at Files-root (architect: childCount counts BOTH kinds)
+  const rootFull = folderUuid ? await page.evaluate(async (a) => { try { return ((await (await fetch(`${a.base}/api/trace/children/${encodeURIComponent('roomcoll:' + a.roomId + ':files')}`)).json()).children || []).map((c) => ({ name: c.name, hasChildren: c.hasChildren, childCount: c.childCount })); } catch { return []; } }, { base: f.base, roomId }) : [];
+  const dt = rootFull.find((c) => c.name === 'DropTarget');
+  results.g_childCount = !!dt && (dt.hasChildren === true || (dt.childCount || 0) >= 1);
+  R(`  childCount/chevron: DropTarget hasChildren=${dt?.hasChildren} childCount=${dt?.childCount} → expandable=${results.g_childCount}`);
 
   // (4) NO REGRESSION — a drop with NO parent lands at Files-root (existing path intact)
   let rootOk = false;
@@ -78,10 +88,11 @@ try {
 } finally { await browser.close().catch(() => {}); }
 
 R(`\n═══ R40.86 folders-are-drop-targets — FULL SCOPE ═══`);
-R(`  (1/2/3) inside-folder + renders+persists + exactly-one-unit (DET-3x) : ${results.core_insideRendersOne ? 'GREEN' : 'RED'}`);
-R(`  (4) no regression (no-parent drop → Files-root)                      : ${results.g4_noRegression ? 'GREEN' : 'RED'}`);
-R(`  (5) served==committed==0.8.184                                       : ${results.g5_served ? 'GREEN' : 'RED'}`);
-R(`  (7) model-collection NOT a drop target (source: type 'folder' only)  : ${results.g7_modelCollectionOut ? 'GREEN' : 'RED'}`);
-const allGreen = results.core_insideRendersOne && results.g4_noRegression && results.g5_served && results.g7_modelCollectionOut;
+R(`  (1/2/3) inside-folder + renders + NOT-at-root + persists + one-unit (DET-3x) : ${results.core_insideRendersOne ? 'GREEN' : 'RED'}`);
+R(`  childCount/chevron: folder-with-only-files is expandable                    : ${results.g_childCount ? 'GREEN' : 'RED'}`);
+R(`  (4) no regression (no-parent drop → Files-root)                             : ${results.g4_noRegression ? 'GREEN' : 'RED'}`);
+R(`  (5) served==committed==0.8.185                                              : ${results.g5_served ? 'GREEN' : 'RED'}`);
+R(`  (7) model-collection NOT a drop target (source: type 'folder' only)         : ${results.g7_modelCollectionOut ? 'GREEN' : 'RED'}`);
+const allGreen = results.core_insideRendersOne && results.g_childCount && results.g4_noRegression && results.g5_served && results.g7_modelCollectionOut;
 R(`OVERALL: ${allGreen ? 'ALL GREEN' : 'RED'}`);
 process.exit(allGreen ? 0 : 1);
