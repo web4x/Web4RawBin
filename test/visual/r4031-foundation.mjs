@@ -134,6 +134,9 @@ export async function setupFoundation(opts = {}) {
     try { distHasViewBusKey = execSync(`grep -rlE viewBusKey ${wtDist}`, { encoding: 'utf8' }).trim().length > 0; } catch { distHasViewBusKey = false; }
     // (4) seed the scratch units BEFORE boot (server loads the index at startup)
     const seeded = seedUnits(scratch);
+    // (4-extra) optional seedExtra(scratchRoot) — write ADDITIONAL fixtures into the worktree index BEFORE boot, so the
+    // boot-time index/room snapshot includes them (a POST-boot write can miss a room's boot-cached files[]). Scratch-only.
+    if (typeof opts.seedExtra === 'function') opts.seedExtra(scratch);
     // (4a) optional: attach the seeded passing-Test evidence chain to a REAL task (BEFORE boot → the boot-loaded idx sees it) so
     // approveByOwner can reach Done+emit on a real non-eager QA-Review task = a full /api/ior citizen. MECHANISM FIXTURE only —
     // proves the approve→Done→broadcast PATH, does NOT claim the real task is Done-worthy. Scratch-only, torn down with the worktree.
