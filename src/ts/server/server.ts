@@ -2461,8 +2461,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           let parentIor: string | null = null; let parentUnitFile = '';
           if (nrel) {
             const parentLoc = `roomcoll:${roomId}:files/${nrel}`;
-            for (const ref of (Array.isArray((room.model as any).files) ? (room.model as any).files : [])) {
-              const pu = String(ref).replace('ior:instance:', ''); const puf = path.join(__dirname, '../../../scenario/index', ...pu.slice(0, 5).split(''), `${pu}.scenario.json`);
+            // ★ FIX (T37.21 nested 500): the LIVE Room object has NO .model — its room-content units live in room.fileUnits
+            // (Set<string> of bare uuids, line 102; model.files[] is only the PERSISTED serialization). The prior `(room.model
+            // as any).files` cast switched off the type-check that would have caught this → runtime TypeError. Iterate the real
+            // typed field, no cast. Resolve each unit + match its recorded model.location to find the nesting parent folder.
+            for (const pu of room.fileUnits) {
+              const puf = path.join(__dirname, '../../../scenario/index', ...pu.slice(0, 5).split(''), `${pu}.scenario.json`);
               try { const j = JSON.parse(fsSync.readFileSync(puf, 'utf-8')); if (j.ior === 'ior:class:Folder' && String(j.model.location) === parentLoc) { parentIor = `ior:instance:${pu}`; parentUnitFile = puf; break; } } catch { /* skip */ }
             }
             if (!parentIor) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'parent-folder-not-found' })); return; }
