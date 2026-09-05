@@ -1,3 +1,8 @@
+// [test:uuid:248fc071-1954-4ca3-b975-eec126169f84] R40.84 RbTraceTree.reDeriveDirectChildren (Impl 8693dc2b) — add-child-in-place:
+// a folder-add updates ONE node IN PLACE (no collapse/rebuild) + the added folder RENDERS+PERSISTS + the empty-room FIRST folder
+// (childless container) renders. Behavioral @390 WebKit, DET-3x 3/3 GREEN on 0.8.178. DISTINCT-INTENT 2nd test on 8693dc2b
+// alongside P2 919e3f36 (read-only structure). FIX-1 (shared notifyUnitChanged) + FIX-2 (childless-container) are the two causes
+// fixed WITHIN reDeriveDirectChildren — no separate Impl units, no dup.
 // R40.84 — adding a child must UPDATE THAT NODE IN PLACE, not collapse+rebuild the whole tree (Tron 0.8.175, framed as an
 // MVC violation: the unit IS the model, a child-add is a mutation on ONE node). Tron's ACs in user terms: when I add a folder
 // the tree STAYS exactly where it was and only the folder I added into changes. Assert the RENDER, not a proxy — capture the
