@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "bf89dd5c-4835-4066-a2e2-9531e21d6cc4",
+    "name": "expandPath.resolveRoomRootNode",
+    "description": "expandPath waitForNode resolves the room ROOT node without timeout (root pending diagnosis; symptom-only).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:393e297a-238e-4d89-85f3-d8afa5e43ce3",
+    "unitLinks": [],
+    "note": "Architect diagnoses the root (why waitForNode times out on the room root) BEFORE any fix; then wires Class/Method; tester gates no-timeout-on-root."
+  },
+  "ownerIor": "ior:instance:393e297a-238e-4d89-85f3-d8afa5e43ce3"
+}

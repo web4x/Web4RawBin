@@ -1,0 +1,81 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "393e297a-238e-4d89-85f3-d8afa5e43ce3",
+    "altId": "R40.90",
+    "name": "expandPath waitForNode TIMEOUT on the room ROOT node (tester-observed, un-owned symptom — tracked defect)",
+    "description": "TRACKED DEFECT (PO 2026-09-05, do-not-lose): the tester observed REPEATEDLY during R40.84-B that expandPath waitForNode TIMES OUT on the room ROOT node. It did NOT affect the R40.84 verdict (folders render via the reDerive IN-PLACE path, Impl 8693dc2b, NOT expandPath) but it is a REAL UN-OWNED SYMPTOM and must not be lost. SYMPTOM-ONLY: the root is not yet owned; captured scenario-first as its OWN req with the literal symptom text (intake-search finds it). Do NOT attach to R40.84 (distinct code path). Literal symptom: expandPath waitForNode TIMEOUT on the room ROOT node.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:bf89dd5c-4835-4066-a2e2-9531e21d6cc4"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "errorSymptom": "expandPath waitForNode TIMEOUT on the room ROOT node",
+    "discoverySource": {
+      "type": "tester-observed-symptom",
+      "observedBy": "robbin-tester",
+      "during": "R40.84-B",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-05",
+      "note": "did NOT affect R40.84 verdict (in-place reDerive path != expandPath); un-owned symptom, root pending; do-not-attach-to-R40.84."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "symptomOnly": true,
+    "buildable": "SYMPTOM-CAPTURED, root-unowned — do NOT build a fix until architect diagnoses the root (R40.69 discipline).",
+    "crossRef": [
+      "ior:instance:6149c2d3-87d0-41d6-a67f-175e2bab5ad8"
+    ],
+    "crossRefNote": "Observed DURING R40.84-B but DISTINCT + NOT attached (folders render via reDerive in-place 8693dc2b, not expandPath). Carries the literal symptom per the recurring-report-gets-one-tracked-home rule.",
+    "satisfactionStatus": "SYMPTOM-CAPTURED / ROOT-UNOWNED (honest): the symptom + correct shape are recorded; the fix + gate wait on the architect root diagnosis. NOT satisfied.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-symptom-literal",
+        "group": "symptom/intake",
+        "text": "LITERAL SYMPTOM (carried verbatim so an intake search by what the tester SEES finds it): expandPath waitForNode TIMEOUT on the room ROOT node. Observed REPEATEDLY by the tester during R40.84-B.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "literal symptom on-unit",
+          "assertion": "the unit carries the verbatim symptom text expandPath-waitForNode-TIMEOUT-on-the-room-ROOT-node"
+        },
+        "stubMustFail": "N/A (symptom record)"
+      },
+      {
+        "id": "AC-root-unowned-symptom-only",
+        "group": "symptom-only/R40.69-discipline",
+        "text": "The ROOT is NOT yet owned. This captures the SYMPTOM + the correct shape only (expandPath should resolve the room root without timeout); do NOT build a fix until the root is diagnosed (R40.69 symptom-only discipline). Architect diagnoses root.",
+        "gateRef": {
+          "kind": "analysis",
+          "ref": "architect root diagnosis",
+          "assertion": "the expandPath-waitForNode-root-timeout root is isolated before any fix"
+        },
+        "stubMustFail": "N/A (root pending)"
+      },
+      {
+        "id": "AC-distinct-from-r40.84",
+        "group": "scope/do-not-attach",
+        "text": "DISTINCT from R40.84 and NOT attached to it: folders render via the reDerive IN-PLACE path (Impl 8693dc2b), NOT via expandPath. This timeout did NOT affect the R40.84 verdict (PO). Do NOT conflate or attach it to R40.84.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "scope separation",
+          "assertion": "this symptom is its own tracked item, not an R40.84 AC/attachment"
+        },
+        "stubMustFail": "N/A (scope record)"
+      },
+      {
+        "id": "AC-expandpath-resolves-root-no-timeout",
+        "group": "failable/eventual-gate",
+        "text": "THE eventual gate (when the root is known + fixed): expandPath waitForNode RESOLVES the room ROOT node WITHOUT timeout. A waitForNode timeout on the room root node => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test:expandpath-resolves-room-root-no-timeout",
+          "assertion": "expandPath waitForNode resolves the room root; a timeout on the root => RED"
+        },
+        "stubMustFail": "PENDING: seed/observe the root-node waitForNode timeout -> RED (the current symptom)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
