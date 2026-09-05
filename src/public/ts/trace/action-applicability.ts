@@ -25,8 +25,9 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // surface (model dir/collection AND room Files), NOT just the /model page bar (where it used to live in MODEL_DECLS and
   // was invisible on the shared-drawer room/trace surfaces). ONE dispatch point (universal-actions.handleAddFolder) routes
   // by PROVENANCE: a roomcoll:*:files ref → the ROOM endpoint (creator dir), any model dir/rawbin/collection ref → the
-  // MODEL endpoint. Same container-only appliesTo as before (excludes leaves + CR); folder-create fail-closes server-side
-  // (bad-parent-loc) for a genuinely non-physical parent, so an offer on a virtual bucket is harmless.
+  // MODEL endpoint. Same container-only appliesTo as before (excludes leaves + CR). R40.87: the MODEL endpoint now ROUTES by
+  // parent physicality — a virtual/model collection (no physical dir, e.g. diagrams) mints a store-only Folder unit → the
+  // offer SUCCEEDS everywhere it is shown (offered⟺succeeds); a shown verb that fails is a broken promise, never "harmless".
   // T37.21 (Tron ruling): CLASS-KEYED — a unit of ior:class:Folder HAS add-folder, on every surface + every display type,
   // by construction (was notTypes on display type = "sometimes a button" relocated to the type layer). classOf(ior)==='Folder'.
   { verb: 'add-folder', label: '📁 Add folder', appliesTo: { classes: ['Folder'] } },

@@ -84,6 +84,8 @@ export class FolderService {
     return { ok: true, unit };
   }
 
+  // [physical-folder-owner] R40.88: the SOLE owner of a real user-directory mkdir — every physical folder-create routes through
+  // HERE, reached only via the physicality-gated model-endpoint branch (R40.87). A user-dir mkdir anywhere else = RED.
   // [impl:uuid:PENDING-req-mint] createPhysicalFolder — the ONE stripped folder-create CORE (Tron dev-mode 2026-09-02, architect
   // 059107c35): mkdir the target + mint+persist the Folder unit, BOTH-or-NEITHER. NOTHING else — NO confinement / traversal /
   // forbidden-roots / name-validation / per-user isolation / owner-gate / credential (all UNORDERED security, STRIPPED — Tron:

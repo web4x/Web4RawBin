@@ -2938,11 +2938,17 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         try {
           ensureStoreSeeded();
           const { name, parent } = JSON.parse(body || '{}');
-          // R37.21 Part 2 (Tron PHYSICAL=BOTH) + T37.21 Option B (architect 85c71828b): createPhysicalWithUnit mkdir's the
-          // REAL directory AND mints the unit — BOTH or NEITHER — resolving parentAbsPath from the RAW parent REF through the
-          // ONE resolveFolderRefToDir (strips the collection: display prefix = cause 1, maps the rawbin: synthetic = cause 2).
-          // NOT from parent.model.location (that path was blind to both). bad-parent-loc fires only for a genuinely non-physical parent.
-          const out = FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parent ? String(parent) : null);
+          const parentRef = parent ? String(parent) : '';
+          // [impl:uuid:PENDING-req-mint] R40.87 (architect design-addfolder-diagrams-applicability-ruling): a Folder is a MODEL
+          // object, NOT inherently a directory → ROUTE the model add-folder by PARENT PHYSICALITY (the ONE resolveFolderRefToDir
+          // discriminator). A real-dir-backed parent (dir:*, rawbin:ts→src) resolves to an abs dir → createPhysicalWithUnit (mkdir +
+          // unit, R37.21 physical=BOTH). A virtual/model collection (diagrams, or any Folder with NO physical location → resolver
+          // returns '') → mintRealUnit (store-only MODEL_STORE child, NO mkdir, prod untouched). So add-folder SUCCEEDS wherever the
+          // verb is offered (offered⟺succeeds); bad-parent-loc reverts to a TRUE fail-closed only for a genuinely malformed ref.
+          const physicalDir = resolveFolderRefToDir(parentRef); // '' = a virtual/model collection with no physical directory
+          const out = physicalDir
+            ? FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parentRef) // physicality-gated: real-dir parent → physical mkdir + unit
+            : FolderService.mintRealUnit(MODEL_STORE, String(name || ''), parentRef, 'folder'); // virtual/model parent → store-only unit (no dir)
           if (!out.ok) {
             const halfState = String(out.error || '').startsWith('half-created');
             if (halfState) addLog(`[model] add-folder HALF-STATE — ${out.error}`); // LOUD at the route (addLog available here; FolderService already console.error'd the orphan)
@@ -2951,7 +2957,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // R37.21 Part 2 (piece-1 WS fan-out): emit on the PARENT ref so a SECOND browser re-derives the parent's direct
           // children and live-inserts the new folder with NO reload — ride the EXISTING publishUnitChanged transport (server.ts:190).
           if (parent) publishUnitChanged('ior:class:Folder', String(parent));
-          addLog(`[model] add-folder → Folder ${out.unit!.model.uuid.slice(0, 8)} + real dir ${out.unit!.model.location} (unit+dir in step)`);
+          addLog(`[model] add-folder → Folder ${out.unit!.model.uuid.slice(0, 8)} (${physicalDir ? 'physical dir ' + out.unit!.model.location : 'model-store unit, no dir — virtual parent'})`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: out.unit!.model.uuid, unit: out.unit }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e?.message || 'add-folder-failed' })); }
       });
