@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "cd3a0d38-73c3-46a6-ab71-71019a703edf",
+    "name": "modelStore.migrateIntoOneStoreAndPreserveResettability",
+    "description": "Migrate every data/model-store unit into scenario/index (the ONE store) with zero data loss + no regression, and re-point every writer/reader off the second store; convert re-generate to idempotent-in-place / replace-by-deterministic-key / never-wipe-a-store so resettability survives without the 2nd store. One canonical owner afterwards.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:36878dd4-b16e-4b10-8a40-8296edc123c5",
+    "unitLinks": [],
+    "note": "Architect designs the migration mechanism + wires Class/Method on build-go (rides R40.81 relocate/collapse); tester captures the pre-migration baseline for AC-no-regression."
+  },
+  "ownerIor": "ior:instance:36878dd4-b16e-4b10-8a40-8296edc123c5"
+}
