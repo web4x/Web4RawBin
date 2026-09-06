@@ -20,9 +20,10 @@ const iorLoc = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/i
 async function dropOnFolder(page, roomId, { rbObjectRef, withFile }) {
   const before = page.__moveUnitPosts?.length || 0;
   const fired = await page.evaluate(({ rbObjectRef, withFile }) => {
-    // select the SPECIFIC folder NodeTarget (not the Members/Files collections which are also type=folder)
-    const folder = [...document.querySelectorAll('rb-object-item')].find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes('NodeTarget')) || [...document.querySelectorAll('rb-object-item')].find((n) => (n.getAttribute('type') || '').toLowerCase() === 'folder');
-    if (!folder) return { ok: false, why: 'no folder node' };
+    // select the SPECIFIC folder NodeTarget: a folder-TYPE rb-object-item whose name is NodeTarget (NOT the Members/Files collections)
+    const folders = [...document.querySelectorAll('rb-object-item')].filter((n) => (n.getAttribute('type') || '').toLowerCase() === 'folder');
+    const folder = folders.find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes('NodeTarget'));
+    if (!folder) return { ok: false, why: 'NodeTarget folder node not rendered', folders: folders.map((f) => (f.getAttribute('title') || (f.textContent || '').slice(0, 16))) };
     const dt = new DataTransfer();
     if (rbObjectRef) { dt.setData('application/rb-object-ref', rbObjectRef); dt.setData('application/rb-unit', rbObjectRef); dt.setData('text/plain', rbObjectRef); }
     if (withFile) dt.items.add(new File([new Uint8Array([1, 2, 3])], 'n.bin', { type: 'application/octet-stream' }));
@@ -53,8 +54,10 @@ try {
   const up = await page.request.post(`${BASE}/api/room/${roomId}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B}` }, data: upBody });
   const fUuid = (await up.json().catch(() => ({}))).uuid || '';
   await sleep(1200);
+  await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.renderSeed) t.renderSeed(rid); }, roomId);
+  await sleep(1400);
   await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.expandPath) { await t.expandPath([`room:${rid}`]).catch(() => {}); await t.expandPath([`roomcoll:${rid}:files`]).catch(() => {}); } }, roomId);
-  await sleep(1000);
+  await sleep(1200);
   R(`  room=${roomId.slice(0, 12)} served=${servedVersion} folder=NodeTarget file=${fUuid.slice(0, 8)}`);
 
   // ── MAIN: synthetic unit-ref drop on the folder NODE → reparentUnitsIntoContainer must FIRE (move-unit POST) + F re-parents ──

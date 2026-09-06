@@ -41,8 +41,10 @@ try {
   const locBefore = (await iorModel(fUuid)).location || '(root)';
   R(`  setup: folder MoveTarget + file F=${fUuid.slice(0, 8)} loc-before='${locBefore}'`);
 
-  // ── SERVER RE-PARENT: the exact endpoint the in-app folder-drop path calls ──
-  const mv = await post(`/api/room/${roomId}/move-unit`, { unit: fUuid, target: folderLoc, playerToken: SYS });
+  // ── SERVER RE-PARENT: the exact endpoint the in-app folder-drop path calls, WITH THE CLIENT'S DISPLAY-PREFIXED target format
+  //    (a10b proved the client drop POSTs target='folder:roomcoll:…' — the v0.8.207 fix = resolveDropContainer owns the item-ref
+  //    spelling, i.e. the server strips 'folder:'. This verifies the fix at the layer that changed). ──
+  const mv = await post(`/api/room/${roomId}/move-unit`, { unit: fUuid, target: `folder:${folderLoc}`, playerToken: SYS });
   await sleep(1500);
   const fModel = await iorModel(fUuid);
   const fLoc = String(fModel.location || '');
