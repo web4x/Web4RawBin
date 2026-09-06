@@ -31,6 +31,12 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // T37.21 (Tron ruling): CLASS-KEYED — a unit of ior:class:Folder HAS add-folder, on every surface + every display type,
   // by construction (was notTypes on display type = "sometimes a button" relocated to the type layer). classOf(ior)==='Folder'.
   { verb: 'add-folder', label: '📁 Add folder', appliesTo: { classes: ['Folder'] } },
+  // T37.20 INC-2 (Tron: mobile-first discoverable MOVE): the explicit "Move…" affordance on a room file / natural-class
+  // detail — the SECOND affordance for move (drag is the first, fixed in v0.8.207). Both end in the SAME object.move →
+  // reparentUnitsIntoContainer → /api/room/<id>/move-unit (two affordances, ONE mechanism). Registered as a Command
+  // (registerAction('move', …) in RoomView); the picker renders folders by REUSING rb-object-item (the tree's Folder render),
+  // NOT a bespoke list. Applies to the movable room unit kinds (File + the natural classes + WebItem). OCP: a 7th class = one type here.
+  { verb: 'move', label: '📁 Move…', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
   { verb: 'download-vcard', label: '📇 vCard', appliesTo: { types: ['member', 'user'] } },
   { verb: 'preview-file', label: '👁 Preview', appliesTo: { types: ['file'] } },
   { verb: 'open-newtab', label: '↗ New tab', appliesTo: { types: ['file'] } },

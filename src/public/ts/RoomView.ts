@@ -20,6 +20,7 @@ import { scenarioEditorHref } from './trace/detail-children.js'; // v0.7.0 (3): 
 import './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
 import { resolveDropPayload } from './dnd-contract.js'; // T37.20 DEFECT-1 (Proxy): the ONE drop entry — returns a RefProxy (local vs remote chosen once by originHost); the handler branches on NOTHING
+import { registerAction } from './trace/universal-actions.js'; // T37.20 INC-2: register the room 'move' Command (explicit "Move…" affordance) on the ONE Command registry
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
 import type { RbDetailDrawer } from './trace/rb-detail-drawer.js';
@@ -53,6 +54,10 @@ export class RoomView {
     this.onLeave = onLeave;
     this.profileEditor = new ProfileEditor(client);
     this.profileSheet = new ProfileSheet(client);
+    // T37.20 INC-2: the explicit "Move…" affordance = a Command on the ONE registry (INC-1). Its picker reuses rb-object-item
+    // (the tree's Folder render, NOT a bespoke list) and ends in the SAME dropDispatcher.reparentUnitsIntoContainer → move-unit
+    // that the drag affordance uses (two affordances, ONE mechanism). Registered once here; arrow captures this RoomView.
+    registerAction('move', (c) => void this.openMovePicker(c.uuid));
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -369,6 +374,47 @@ export class RoomView {
       const rest = decodeURIComponent(url.slice(scheme.length + 1).replace(/^\/*/, ''));
       return `${scheme}: ${rest.slice(0, 50)}`;
     } catch { return url.slice(0, 50); }
+  }
+
+  // T37.20 INC-2 — the explicit "Move…" affordance (Command 'move'). object.move as an OBJECT action: pick a target folder,
+  // then the SAME dropDispatcher.reparentUnitsIntoContainer → /api/room/<id>/move-unit the DRAG affordance uses (two
+  // affordances, ONE mechanism — DRY). The picker RENDERS folders by REUSING rb-object-item (the tree's Folder render), never
+  // a bespoke list; the item's own click is disabled (pointerEvents:none) so the row wrapper drives the move. OCP: a 3rd
+  // affordance or a 7th movable class needs 0 edits here — only its registerAction/decl.
+  private async openMovePicker(unitRef: string): Promise<void> {
+    const bare = String(unitRef || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
+    if (!bare) return;
+    let folders: Array<{ ref: string; name: string }> = [];
+    try {
+      const r = await fetch(`/api/trace/children/${encodeURIComponent(`roomcoll:${this.roomId}:files`)}`, { credentials: 'same-origin' });
+      const d = await r.json();
+      folders = (d.children || []).filter((c: { type?: string }) => String(c.type || '').toLowerCase() === 'collection').map((c: { uuid: string; name: string }) => ({ ref: String(c.uuid), name: String(c.name) }));
+    } catch { /* no folders → root only */ }
+    const ov = document.createElement('div');
+    ov.setAttribute('style', 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center');
+    const sheet = document.createElement('div');
+    sheet.setAttribute('style', 'background:#161b22;color:#e6edf3;width:100%;max-width:520px;max-height:70vh;overflow:auto;border-radius:12px 12px 0 0;padding:12px 12px max(env(safe-area-inset-bottom),12px);font:14px system-ui,sans-serif');
+    sheet.innerHTML = '<div style="font-weight:600;margin:2px 4px 10px">Move to…</div>';
+    const close = (): void => ov.remove();
+    const targets: Array<{ ref: string; name: string }> = [{ ref: `roomcoll:${this.roomId}:files`, name: 'Files (root)' }, ...folders];
+    for (const t of targets) {
+      const row = document.createElement('div');
+      row.setAttribute('style', 'cursor:pointer;border-radius:8px');
+      const item = document.createElement('rb-object-item') as HTMLElement & { data?: Record<string, unknown> };
+      item.data = { ref: t.ref, type: 'folder', title: t.name };
+      item.style.pointerEvents = 'none'; // the item RENDERS; the row wrapper captures the tap (avoid the item's own nav/toggle)
+      row.appendChild(item);
+      row.addEventListener('click', () => { close(); void dropDispatcher.reparentUnitsIntoContainer([bare], t.ref).then(() => { this.chatSheet?.addMessage('system', 'System', `Moved to ${t.name}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); });
+      sheet.appendChild(row);
+    }
+    const cancel = document.createElement('button');
+    cancel.textContent = 'Cancel';
+    cancel.setAttribute('style', 'margin:10px 4px 2px;background:#30363d;color:#e6edf3;border:0;border-radius:6px;padding:8px 14px;cursor:pointer');
+    cancel.addEventListener('click', close);
+    sheet.appendChild(cancel);
+    ov.appendChild(sheet);
+    ov.addEventListener('click', (e) => { if (e.target === ov) close(); });
+    document.body.appendChild(ov);
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)
