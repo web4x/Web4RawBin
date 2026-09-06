@@ -1,0 +1,90 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "fc201015-2fd8-4a05-b9b1-32e0355a130d",
+    "altId": "R40.105",
+    "name": "Each natural class OWNS its name — derives its own display name from its content (derivedName; displayName overrides, originalName preserved)",
+    "description": "The DERIVATION half of the naming design (pairs with R40.104 rename = the OVERRIDE half). Each natural class COMPUTES ITS OWN display name from its content — Image from its capture datetime, Email from its subject, Contact from its full name, CalendarEntry from its title+date, File from a clean basename — the class owns its name, no external namer. THREE names: derivedName (what the CLASS computes), displayName (what the USER sets — WINS when present, R40.104), originalName (the raw input string — PRESERVED but NEVER shown as the name). Display resolves displayName ?? derivedName; originalName is never the displayed name. Scenario-first-retroactive: the expert is already building this (increment #3) — this req routes the in-flight work so it is traceable, not orphaned in code.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:e72ca5b1-1a91-4205-80de-e4b61054dbd3"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "scenario-first-retroactive",
+      "note": "Expert building the derivation as increment #3 with no req behind it (build-ahead-of-req = the orphan pattern). PO-authorized 2026-09-06 to route the in-flight work so it is traceable.",
+      "relayedBy": "robbin-po"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "TIER-A — expert increment #3 (rename prep), AHEAD of R40.104 rename (#4).",
+    "extendsRequirement": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+    "crossRef": [
+      "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+      "ior:instance:069b1f8d-ec87-475c-8dee-a15cd0dcfd40",
+      "ior:instance:ddc38227-3ca8-4d65-8c44-046c6993e93a",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "DERIVATION half of the naming design; R40.104 is the OVERRIDE half (two halves of one design). Extends R40.99 (the natural class owns its behaviour — here, its name-derivation, alongside toUnit/fromUnit/render). R37.15 (store-once, don't-embed-a-derived-field) is the STORED-name discipline, distinct + compatible.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-each-class-derives-own-name",
+        "group": "oop/derivation",
+        "text": "Each natural class DERIVES its own display name from its content: Image from capture datetime, Email from subject, Contact from full name, CalendarEntry from title+date, File from a clean basename. The class owns the derivation — there is no external namer/free naming function for a type.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test per-class name-derivation",
+          "assertion": "each natural class computes its own derivedName from its content; an external namer or a class not deriving its own name => RED"
+        },
+        "stubMustFail": "seed a free naming function (or an external namer) computing a class's name outside the class -> RED"
+      },
+      {
+        "id": "AC-originalname-preserved-never-shown",
+        "group": "naming/original",
+        "text": "originalName (the raw input string) is PRESERVED on the object but NEVER shown as the object's name (this is the string we were wrongly displaying).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test name display",
+          "assertion": "originalName is stored + never rendered as the name; originalName shown as the name => RED"
+        },
+        "stubMustFail": "seed the raw originalName rendered as the object's name -> RED"
+      },
+      {
+        "id": "AC-derivedname-is-fallback",
+        "group": "naming/resolution",
+        "text": "derivedName is the FALLBACK display name when no displayName (user override, R40.104) is set: displayed name = displayName ?? derivedName. With no displayName, the class's derivedName shows.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test name resolution",
+          "assertion": "displayed name = displayName if set else derivedName; a no-displayName object showing anything other than its derivedName => RED"
+        },
+        "stubMustFail": "seed an object with no displayName that shows something other than its derivedName -> RED"
+      },
+      {
+        "id": "AC-registered-per-class-zero-central-switch",
+        "group": "dry/open-closed",
+        "text": "Name-derivation is registered PER CLASS: a 7th class derives its own name with ZERO central-switch edits — both open-set and closed-set lints stay 0 (no if/switch enumerating classes for naming).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint no-central-switch (naming)",
+          "assertion": "adding a class's name-derivation requires no central switch edit; a switch/if-chain enumerating classes for naming => RED"
+        },
+        "stubMustFail": "seed a central switch enumerating classes to decide name-derivation -> RED"
+      },
+      {
+        "id": "AC-three-names-consistent-with-rename",
+        "group": "naming/pairs-r40104",
+        "text": "The three-name model is CONSISTENT with R40.104 rename: derivedName (class-computed, this req) + displayName (user-set, wins, R40.104) + originalName (preserved, never shown). The two reqs are two halves of ONE naming design — no divergent name model.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test name-model consistency",
+          "assertion": "the derivedName/displayName/originalName model matches across R40.105 (derive) + R40.104 (override); a divergent name model => RED"
+        },
+        "stubMustFail": "seed a name model where displayName does not win over derivedName, or the two reqs disagree -> RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

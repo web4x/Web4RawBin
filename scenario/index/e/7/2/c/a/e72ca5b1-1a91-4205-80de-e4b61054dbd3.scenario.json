@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "e72ca5b1-1a91-4205-80de-e4b61054dbd3",
+    "name": "naturalClass.deriveOwnName",
+    "description": "Each natural class computes its own derivedName from its content (Image=capture datetime, Email=subject, Contact=full name, CalendarEntry=title+date, File=clean basename); registered per class (no central switch); derivedName is the fallback when no user displayName (R40.104); originalName preserved never shown.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:fc201015-2fd8-4a05-b9b1-32e0355a130d",
+    "unitLinks": [],
+    "note": "class/method=null - architect wires per-class deriveName registration on build-go; extends R40.99; pairs R40.104."
+  },
+  "ownerIor": "ior:instance:fc201015-2fd8-4a05-b9b1-32e0355a130d"
+}
