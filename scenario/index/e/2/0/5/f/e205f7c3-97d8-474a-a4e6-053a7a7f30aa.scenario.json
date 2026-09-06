@@ -26,7 +26,7 @@
       "ior:instance:64965538-2725-4ef2-92e7-c1be6cd58d6f",
       "ior:instance:79bc8e34-9acb-4338-bbd0-c1f7e817ca7d"
     ],
-    "crossRefNote": "Sibling graph-integrity cleanup to R27.2 (class-dedup) \u2014 SEPARATE (0 of 12 dangling intersect the dup-collapse set). Enforced by R24.5 trace:audit:strict as the recurrence gate. Ordering: independent of R27.2; run either order (orphan re-measure after R27.2 may reduce the 51 since dedup repoints some methods).",
+    "crossRefNote": "Sibling graph-integrity cleanup to R27.2 (class-dedup) — SEPARATE (0 of 12 dangling intersect the dup-collapse set). Enforced by R24.5 trace:audit:strict as the recurrence gate. Ordering: independent of R27.2; run either order (orphan re-measure after R27.2 may reduce the 51 since dedup repoints some methods).",
     "acceptanceCriteria": [
       {
         "id": "AC-no-dangling",
@@ -73,7 +73,7 @@
       "total": 51,
       "attachAll": 51,
       "realSource": 51,
-      "staleMarkersTo\u0421lear": 37,
+      "staleMarkersToСlear": 37,
       "genuineDesignAheadExempt": 0,
       "dangling": 12,
       "note": "PO-LOCKED 2026-07-01. All 51 orphan Methods have impls with real sourceFiles -> attach all + clear 37 stale orphanByDesign markers. Exempt set empty now; CI marker-keyed for future genuine design-stage (impl with no sourceFile). trace:audit:strict also flags lying-marker + attach-on-wire auto-clears.",
@@ -85,7 +85,9 @@
       "trace_audit_2207": "BENIGN broad metric: units unreachable from Requirement roots via CANONICAL_FORWARD edges (Requirement->useCases NOT tasks), all-types, excludes TraceLink+Sprint. ~2207 = mostly Tasks + non-chain data (TestCase/Device/Room/File) that can never be 0. NOT debt, NOT R27.4 scope.",
       "ci_gate": "METHOD-scoped orphan (+orphan-Impls), broad-metric reported-only",
       "confirmedBy": "req read trace-audit.ts CANONICAL_FORWARD + expert + architect + PO, 2026-07-01"
-    }
+    },
+    "dispatchState": "UNSCHEDULED — below the two-item queue (Tron: CURRENT Task 40.81 root / NEXT Task 37.20, NOTHING ELSE). R27.4 is NOT in the queue. Minted + real; NOT handed to any agent. Scheduling is the PO call on a recommendation, not mine.",
+    "withdrawnGo": "A prior \"R27.4 PO-GO\" relayed to the architect 2026-09-06 was NOT PO-authorized and is WITHDRAWN. A PO-GO comes ONLY from robbinTeam2:0.0 — req cannot issue, relay, or infer one (not from a task file, an old anchor, or a previous instance). A documented GO is NOT a live GO. DO NOT re-infer a GO from this unit. Requirement stays minted; unscheduled until the PO ranks it."
   },
   "ownerIor": "ior:instance:c1c63a2e-7b62-48b0-a031-bd91bab14d2a"
 }
