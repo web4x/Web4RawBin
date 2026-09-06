@@ -8,7 +8,7 @@
     "intention": "Keep BUG18 closed for good: rewire file-detail-on-click AND ship a @390 regression gate so it can never silently re-break a third time. The TEST is the deliverable that outlives the fix.",
     "context": "Covers Bug BUG18 949ee3c2 (origin Sprint 20, Tron-traced/Tron-done then regressed). UC fdcbb079 file-detail-on-click (reused, not forked). Cross-sprint: bug keeps its S20 origin; the re-fix executes in S37 (realtime-MVC/detail surface, Tron pinned) per the T37.27 precedent.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "- [ ] REPRO CLOSED: in a room with Files, clicking a FILE renders that FILE's OWN detail in the drawer @390 — NOT the parent 'Files(N)' collection, NOT a raw uuid-named / unit-JSON view. (Bug's own AC.)\n- [ ] SURFACE/REWIRE: the file-detail-on-click resolution is corrected so a file ref resolves to the file unit's detail, not its parent collection (architect confirms exact component + CODE-vs-DATA on diagnosis; fix is a rewire, no fork).\n- [ ] NAVIGATION preserved (BUG18 2nd AC): from the file detail, the action NAVIGATES to BROWSE-FILE with the file HIGHLIGHTED, enabling the scenario Monaco editor.\n- [ ] ★ REGRESSION GATE @390 (THE keep-it-closed deliverable): a real-WebKit @390 test opens a file in a room and asserts the FILE's own detail renders; planted-defect (parent collection or uuid-name shown) = RED; wired into ci:gates so a third silent re-break is impossible. Tron device @390 confirms.",
+    "acceptanceCriteria": "- [ ] AC-bug18-repro-closed: REPRO CLOSED: in a room with Files, clicking a FILE renders that FILEs OWN detail in the drawer .\n- [ ] AC-bug18-surface-rewire: SURFACE/REWIRE: the file-detail-on-click resolution is corrected so a file ref resolves to the f.\n- [ ] AC-bug18-navigation-preserved: NAVIGATION preserved: from the file detail, the action NAVIGATES to BROWSE-FILE with the file HI.\n- [ ] AC-bug18-regression-gate-390: REGRESSION GATE @390 (keep-it-closed): a real-WebKit @390 test opens a file in a room and assert.",
     "subtasks": "None (atomic task).",
     "status": "In Progress",
     "coveredRequirements": [
@@ -24,7 +24,8 @@
     "createdBy": "robbin-planner",
     "createdAt": "2026-08-30",
     "lastAdvancedAt": "2026-08-30T09:13:29.344Z",
-    "lastAdvancedAtSource": "seam"
+    "lastAdvancedAtSource": "seam",
+    "acParitySource": "GENERATED from BUG18 949ee3c2 (single-source, 4 failable ACs promoted from this task then projected back, PO 2026-09-06)."
   },
   "ownerIor": null
 }

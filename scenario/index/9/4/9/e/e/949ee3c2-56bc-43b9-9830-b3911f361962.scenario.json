@@ -5,7 +5,52 @@
     "altId": "BUG18",
     "name": "BUG18: clicking a FILE in a room shows the PARENT collection in the drawer, not the file detail (regression)",
     "description": "REGRESSION (Tron screenshot): clicking a FILE in a room (e.g. 16CDAA25...jpeg in 'Jesus Munich' Files) shows the PARENT 'Files(2)' collection in the detail drawer instead of the file's OWN detail. file-detail-on-click is mis-wired to render the parent collection.",
-    "acceptanceCriteria": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-bug18-repro-closed",
+        "group": "bug18/repro",
+        "text": "REPRO CLOSED: in a room with Files, clicking a FILE renders that FILEs OWN detail in the drawer @390 — NOT the parent Files(N) collection, NOT a raw uuid-named / unit-JSON view.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 file-detail-render",
+          "assertion": "click a file in a room -> its OWN detail renders @390; the parent collection or a uuid/unit-JSON view shown => RED"
+        },
+        "stubMustFail": "plant the parent Files(N) collection (or uuid-named view) rendering on a file click -> RED"
+      },
+      {
+        "id": "AC-bug18-surface-rewire",
+        "group": "bug18/resolution",
+        "text": "SURFACE/REWIRE: the file-detail-on-click resolution is corrected so a file ref resolves to the file units detail, not its parent collection (rewire, no fork; architect confirms exact component + CODE-vs-DATA).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test file-ref resolution",
+          "assertion": "a file ref resolves to the file units detail; resolving to its parent collection => RED"
+        },
+        "stubMustFail": "seed a file ref that resolves to its parent collection -> RED"
+      },
+      {
+        "id": "AC-bug18-navigation-preserved",
+        "group": "bug18/navigation",
+        "text": "NAVIGATION preserved: from the file detail, the action NAVIGATES to BROWSE-FILE with the file HIGHLIGHTED, enabling the scenario Monaco editor.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test file-detail nav",
+          "assertion": "from file detail -> BROWSE-FILE with the file highlighted + Monaco enabled; missing nav or not-highlighted => RED"
+        },
+        "stubMustFail": "seed a file-detail action that does not navigate/highlight -> RED"
+      },
+      {
+        "id": "AC-bug18-regression-gate-390",
+        "group": "bug18/regression-gate",
+        "text": "REGRESSION GATE @390 (keep-it-closed): a real-WebKit @390 test opens a file in a room and asserts the FILEs own detail renders; planted-defect (parent collection or uuid-name) = RED; wired into ci:gates so a third silent re-break is impossible. Tron @390 confirms.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "ci:gates r-bug18 @390",
+          "assertion": "@390 opens a file in a room -> the files own detail renders; a planted parent/uuid render => RED (wired ci:gates)"
+        },
+        "stubMustFail": "plant the parent-collection/uuid defect in the @390 gate -> RED (self-proving)"
+      }
+    ],
     "status": "Open",
     "parent": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6",
     "sprint": "Sprint 20",
@@ -27,7 +72,9 @@
     },
     "tasks": [
       "ior:instance:802a9597-5665-4d14-84e2-ced70b51f5a5"
-    ]
+    ],
+    "originalSummary": "Clicking a file shows the FILEs own detail (not parent collection). From file detail, click NAVIGATES to BROWSE-FILE (file browser) with the file HIGHLIGHTED, enabling the scenario MONACO editor. All pieces exist — REWIRE.",
+    "acPromotedFrom": "T37.29 802a9597 hand-written ACs PROMOTED UP to BUG18 (PO 2026-09-06): orphaned criteria given a req home + made FAILABLE, never deleted to satisfy parity. originalSummary preserved."
   },
   "ownerIor": "ior:instance:64af2638-d011-48c1-9d5a-dbfd9784efd6"
 }
