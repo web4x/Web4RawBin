@@ -2,24 +2,20 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE canonical payload (application/rb-object-ref) + ONE shared resolver every target calls [R37.20, slice 1/6 of the DnD drop contract]",
+    "name": "Current: Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1) [R40.81 = THE ROOT: drop/upload/render/traceability all resolve against ONE store]",
     "chain": {
-      "req": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
-      "uc": "e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac",
-      "class": "822e663b-f528-484e-92f9-825f402fdc8d",
-      "method": "dc4938a6-2d67-4ed7-b608-30be00d50e21",
+      "req": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "uc": "",
+      "class": "",
+      "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 4,
-    "sprintName": "Sprint 37",
-    "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (ONE canonical payload + ONE shared resolver, fail-loud) — slice 1/6 of T37.20 DnD drop contract",
+    "activeHop": 1,
+    "sprintName": "Sprint 40",
+    "taskName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1 convergence)",
     "hopStates": {
-      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" },
-      "uc": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" },
-      "class": { "status": "done", "owner": "robbin-architect", "updatedAt": "2026-09-06" },
-      "method": { "status": "done", "owner": "robbin-architect", "updatedAt": "2026-09-06" },
-      "impl": { "status": "in-progress", "owner": "robbin-expert", "updatedAt": "2026-09-06" }
+      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" }
     },
     "nextSprintName": "Sprint 37",
     "nextBacklogOverride": "",
@@ -28,9 +24,9 @@
     "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
     "slots": {
       "current": {
-        "taskUuid": "68364f5e-4392-4d2d-ada5-819060b05110",
-        "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (ONE canonical payload + ONE shared resolver, fail-loud) — slice 1/6 of T37.20 DnD drop contract",
-        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+        "taskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
+        "taskName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1 convergence)",
+        "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
       },
       "lastCompleted": {
         "taskUuid": "b5948931-5a36-4779-806d-abe60153aba8",
@@ -38,12 +34,12 @@
         "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
       "nextBacklog": {
-        "taskUuid": "369b8636-f449-45cd-b553-c523112d26b3",
-        "taskName": "Task 37.20.4: ONE shared serializer + resolver fleet-wide (depends on the resolver half) [R37.20 AC-shared-contract + AC-A2 fleet]",
+        "taskUuid": "68364f5e-4392-4d2d-ada5-819060b05110",
+        "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (the P0 drop/upload path, NEXT — behind the ONE-store root)",
         "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       }
     },
-    "currentTaskUuid": "68364f5e-4392-4d2d-ada5-819060b05110"
+    "currentTaskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413"
   },
   "ownerIor": null
 }
