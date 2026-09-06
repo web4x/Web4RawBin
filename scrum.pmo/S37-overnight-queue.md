@@ -12,7 +12,8 @@
 1. **'folder:' prefix-fix** — may unblock Tron's drop TONIGHT (highest value first). [T37.20.4 `369b8636` area — in-app-unit→folder move; the iOS touch-drag that failed v0.8.206]
 2. **Move-to** built to the architect's OBJECT-ACTION design (Command+Registry). [closes T37.20.4]
 3. **class-owns-its-name** (rename prep — the class owns its own name)
-4. **rename** as a SECOND registered action [covers req's rename requirement]
+4. **rename** as a SECOND registered action [✓ req minted R40.104 `069b1f8d`; boarded **T37.42** `af84c07e`, owner expert, TIER-A-behind-Move]
+   - ⏸ **increment #3 (class-owns-its-name / derivedName) HELD pending PO GO**: req RULED it needs its OWN requirement (measured NOT covered — R40.99 has no name-derivation AC; R37.15 is store-once, a different concern). It's the DERIVATION half (each class computes its display name: Image←capture, Email←subject, Contact←full-name, CalendarEntry←title+date, File←clean basename), extends R40.99, PAIRS R40.104 (derivedName←class computes / displayName←user overrides). Minting = NEW SCOPE → req does NOT mint unilaterally (night-posture + governance); req is recommending it to PO. **On PO GO: req mints scenario-first → planner boards increment #3.** Until then, expert does #1 folder-prefix → #2 Move → #4 rename; #3 slots between #2 and #4 when authorized.
 
 ### TESTER — in order
 1. **touch-harness** after the Move increment lands [T37.41 `cb015b3d` — URGENT, must cover the TOUCH gesture]

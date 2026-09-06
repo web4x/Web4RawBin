@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 255** — Done **98** · QA-Review **57** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (255 = 98+57+3+95)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
+- **TOTAL S30++ tasks: 256** — Done **98** · QA-Review **57** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (256 = 98+57+3+96)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 52 | 1 | 19 | 0 | 32 |
+| S37 | 53 | 1 | 19 | 0 | 33 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 21 · build 57
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 21 · build 58
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -55,6 +55,7 @@
 | S37 | 9cd50dde | In Progress | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
+| S37 | af84c07e | Planned | build | Task 37.42: RENAME as the object's own behaviour — unit.rena |
 | S37 | afe976e3 | Planned | build | Task 37.28.5: guard-coverage freshness guard — coverage DERI |
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
 | S37 | bd0e5f4a | Planned | build | Task 37.28.1: boot-state (sprint/version) freshness guard —  |
