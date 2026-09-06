@@ -51,3 +51,21 @@ Tron: *"the team still fails on using it as live mvc state changes like it works
 **GATE (tester, same 1→0 shape as the ownership lints):** count (a) unit mutations that do NOT flow through UnitController + (b) client view-rebuild/DOM-patch/reload paths OUTSIDE the owning object's re-derive == **0** (positional exceptions: the owner's own re-derive, legit full-reload for device-enroll/app-update). Failable: seed a bespoke handler → RED.
 
 **CONVERGENCE (one law):** T37.20 (the drop contract carries a UNIT) + R37.4 (the unit changes → the owning OBJECT re-renders) are one law — a mutation publishes on the owner, the owner self-heals its view. The upload collapse, the board-as-generated-view (R37.2/R37.3), and this are the SAME one-owner/by-construction discipline at three layers. NEXT: complete the NEEDS-SCAN enumeration, then route each bypasser through UnitController + retire its bespoke handler. Priority: Tron's upload (capture→SLICE-A) still outranks; this is designed now, built as S37.
+
+## ★★ R37.4 ENUMERATION — CORRECTED + tester-folded (2026-09-06)
+Definition (tester, adopted so the counts reconcile): a live-MVC violation is a **MUTATION HANDLER that rebuilds** — NOT any `innerHTML`/initial render (tester rejected counting innerHTML=133 as over-broad; most are legit initial renders).
+
+**TWO corrections to my first pass (honesty both ways):**
+- **federation import RIDES — NOT a bypasser** (my earlier claim was a STALE read): RoomView.ts:216 shows the `tree.renderSeed` re-seed was DELETED (R40.84) → it now `ViewBus.notify(viewBusKey(roomcoll:<id>:files))` → the owning Node re-derives in place. Corrected.
+- **FILE_ADDED RIDES** (RoomView:84, R40.84 — renderSeed removed, per-node in-place). Confirmed rider.
+
+**BYPASSERS — MEASURED (tester's 8, a client-WS FLOOR, all RoomView.ts):**
+ROOM_JOINED (:62 render), MEMBER_JOINED (:65), MEMBER_LEFT (:66), MEMBER_DISCONNECTED (:67), MEMBER_RECONNECTED (:68), HOST_CHANGED (:69) → renderMemberList(); ROOM_CONFIG_UPDATED (:73 render); ROOM_DELETED (:72 onLeave — arguably legit leave, flag for review). These mutate CLIENT arrays (`this.members`) + re-render, NOT via the unit path — members/room-config would need to be UNITS mutated through UnitController → publish → owner re-derives. + avatar (`/api/avatar`), vcard (`/api/vcard`) base64-JSON (bypass the unit path).
+**Total bypassers ≥ 8 (client-WS) + avatar + vcard.** (8 is a FLOOR, not the total.)
+
+**STILL GENUINELY UNMEASURED (do NOT assert):** file/folder **delete**, **rename/move** — NO FILE_DELETED/RENAMED/MOVED WS handler in RoomView (grep clean); IF they flow through UnitController (via Room.ts/file-unit riders) they RIDE, but that is UNCONFIRMED. + the server-side mutation seam (which server mutations bypass UnitController.apply). This is the enumeration's remaining scan.
+
+**Design (unchanged):** members + room-config become UNITS mutated through UnitController → publish on the owning ref → the owning object re-derives; RETIRE the RoomView render()/renderMemberList() mutation-handlers (they become owner-self-heal subscribers); avatar/vcard → unit path. GATE: 0 mutation-handlers-that-rebuild outside the owner + 0 mutations-outside-UnitController; failable (seed one → RED).
+
+## T37.20 AC COUNT — CORRECTED to 7 (req measured the unit json)
+My first map said 6; **req measured the UNIT has 7** — I missed **AC-resolve-drop-payload-one-resolver** (dnd.resolveDropPayload = ONE canonical drop payload `application/rb-object-ref` + ONE shared RESOLVER/deserializer, UC e3fcf5b3). `AC-shared-contract` = the SERIALIZER/fleet-wide half; `AC-resolve-drop-payload` = the RESOLVER/CONSUME half — distinct sides of the contract, both core. ★ NOTE: the generated task-md shows 6 while the unit has 7 = a live `view != f(units)` drift — the EXACT R37.3 disease, caught in our own board. SLICE-A still closes AC-A2 + AC-shared-contract (upload serialize side); the RESOLVER AC (deserialize/round-trip) stays in the core wiring, must not be dropped. Corrected core = 7 ACs.
