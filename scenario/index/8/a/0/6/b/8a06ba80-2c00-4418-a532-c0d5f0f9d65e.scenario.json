@@ -1,0 +1,71 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "8a06ba80-2c00-4418-a532-c0d5f0f9d65e",
+  "altId": "R37.35",
+  "name": "Coordination-root parent renders a ROLLED summary of children (weakest-link + per-child mini-state), not its empty checklist",
+  "description": "The RENDER half of AXIS-3 (paired with R37.34's AXIS-3 LINT, T37.36): a COORDINATION-ROOT parent pin/detail must RENDER a ROLLED SUMMARY of its children's state - weakest-link status + a per-child mini-state - instead of its own EMPTY stored checklist. Tron's exact words: a parent pin shows 'no state at all', because today the rollup is status-ENUM-only (R40.1 CR-4 AC-rollup-parent-status DERIVES the parent status enum) and there is NO rolled-CHECKLIST render. This is the VIEW counterpart of that derivation: the pin/detail renders the rolled child-state so a coordination root is never blank while its children carry state. NOT a lint (that is T37.36/R37.34 AXIS-3) and NOT the structural byte-check (R37.3) - a distinct RENDER feature, owner=expert.",
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "tasks": [],
+  "tests": [],
+  "useCases": [
+   "ior:instance:73decca6-3733-4dde-9ac2-7ca2983af5a6"
+  ],
+  "unitLinks": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "discoverySource": {
+   "type": "planner-finding",
+   "flaggedBy": "robbin-planner (pin-rollup finding)",
+   "ruledBy": "robbin-po (approved off the finding)",
+   "date": "2026-09-06",
+   "note": "AXIS-3 RENDER-half. Root: rollup is status-ENUM-only (R40.1 CR-4 derives the enum) with NO rolled-CHECKLIST render, so a coordination-root pin shows 'no state at all' (Tron). Leaf-pin already shows real state (6e3b320c6); this is the parent-rollup RENDER = ENHANCEMENT, not a blocker."
+  },
+  "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+  "queuePriority": "LOW / ENHANCEMENT - BELOW the resolver-half build + the SLICE-A ship-gate (leaf-pin already shows real state 6e3b320c6; parent-rollup render is an enhancement, not a blocker). Owner=EXPERT (render).",
+  "structuralRuling": "NEW S37 sibling req (NOT an AC on R37.34, NOT a child of R37.3). Rationale (check-before-create): the render-half is the VIEW counterpart of the rollup-parent-STATUS derivation (R40.1 CR-4 18ebe066), a DIFFERENT KIND than R37.34's failable LINTS (tester-owned) and R37.3's structural byte-check. Pairing it as an AC on R37.34 would pollute that req's guard-coherence + split its owner (lint=tester / render=expert). So: sibling req, crossRef-linked to the AXIS-3 lint + the rollup law.",
+  "crossRef": [
+   "ior:instance:18ebe066-d8a0-426d-89ba-8afd9c85114f",
+   "ior:instance:7698c63b-2a1f-4066-be62-a439065ef161",
+   "ior:instance:9afbade1-6c11-4117-a05a-518af0787de5",
+   "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+   "ior:instance:ce2734ea-2590-4491-a9a3-3be22629cacb"
+  ],
+  "crossRefNote": "RENDER half of AXIS-3 - paired with R37.34's AXIS-3 LINT (T37.36 993b3f2d, owner tester). The VIEW counterpart of R40.1 CR-4 AC-rollup-parent-status (18ebe066, the enum DERIVATION). Renders LIVE via the ONE VIEW BUS (R37.12). Pin context = R40.18.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-parent-renders-rolled-summary",
+    "group": "render/by-construction",
+    "text": "A coordination-root parent pin/detail RENDERS a rolled summary of its children: (a) weakest-link status (the parent's derived-status enum, R40.1 CR-4) AND (b) a per-child mini-state list. It does NOT render its own empty stored checklist.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "pin/detail render @390",
+     "assertion": "a parent with children renders weakest-link + per-child mini-state; renders its own empty checklist instead => RED"
+    },
+    "stubMustFail": "PENDING: render unbuilt; RED stub on build (empty-parent-while-children-have-state -> RED)"
+   },
+   {
+    "id": "AC-no-blank-parent-with-stateful-children",
+    "group": "render/stub-must-fail",
+    "text": "A coordination-root parent must NEVER render 'no state at all' while any child carries state - the exact Tron defect. Seed a parent with stateful children whose pin renders blank => RED. 1->0.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "blank-parent stub",
+     "assertion": "seed parent+stateful-children rendering blank => RED (reproduces Tron 'no state at all')"
+    },
+    "stubMustFail": "PENDING: render unbuilt; RED stub on build (empty-parent-while-children-have-state -> RED)"
+   },
+   {
+    "id": "AC-render-live-via-view-bus",
+    "group": "render/liveness",
+    "text": "The rolled summary re-renders LIVE when a child's state changes (via the ONE VIEW BUS, R37.12) - no reload; a child advancing updates the parent's rolled render in place.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "live rollup re-render",
+     "assertion": "child state-change emits ViewBus.notify -> parent rolled summary re-renders in place, no reload"
+    },
+    "stubMustFail": "PENDING: render unbuilt; RED stub on build (empty-parent-while-children-have-state -> RED)"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "73decca6-3733-4dde-9ac2-7ca2983af5a6",
+  "name": "coordinationRoot.renderRolledChildSummary",
+  "description": "A coordination-root parent pin/detail renders a rolled summary of its children (weakest-link status + per-child mini-state), live via the ONE VIEW BUS; never blank while children carry state. Render counterpart of R40.1 CR-4 rollup-parent-status derivation.",
+  "class": null,
+  "method": null,
+  "parent": "ior:instance:8a06ba80-2c00-4418-a532-c0d5f0f9d65e",
+  "unitLinks": [],
+  "note": "class/method=null - architect wires chain on build-go; owner=expert (render). LOW priority."
+ },
+ "ownerIor": "ior:instance:8a06ba80-2c00-4418-a532-c0d5f0f9d65e"
+}
