@@ -8,7 +8,7 @@
     "intention": "A class knows how to name itself; the tree/detail show a class-derived display name, not a raw ref or a filename, and never via a central type-switch.",
     "context": "Covers R40.105 fc201015 (each natural class derives its display name), extends R40.99, PAIRS R40.104. Rides the architect's OBJECT-ACTION design. parent S37 b86b53cc.",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "PROJECTED from R40.105 fc201015 (5 failable ACs, single-source) — not hand-copied; req parity-projects + 3-pt verifies. See coveredRequirement for the authoritative ACs.",
+    "acceptanceCriteria": "- [ ] AC-each-class-derives-own-name: Each natural class DERIVES its own display name from its content: Image from capture datetime, E.\n- [ ] AC-originalname-preserved-never-shown: originalName (the raw input string) is PRESERVED on the object but NEVER shown as the object's n.\n- [ ] AC-derivedname-is-fallback: derivedName is the FALLBACK display name when no displayName (user override, R40.104) is set: di.\n- [ ] AC-registered-per-class-zero-central-switch: Name-derivation is registered PER CLASS: a 7th class derives its own name with ZERO central-swit.\n- [ ] AC-three-names-consistent-with-rename: The three-name model is CONSISTENT with R40.104 rename: derivedName (class-computed, this req) +.",
     "subtasks": "None (atomic increment).",
     "status": "Planned",
     "coveredRequirements": [
@@ -19,7 +19,8 @@
     "sprintName": "Sprint 37",
     "remainingIssues": "STOOD UP Planned (2026-09-06) on req R40.105 (derivedName req minted 1011d344c, PO GO'd increment #3). OWNER=EXPERT, overnight lane increment #3 (between #2 Move + #4 rename). Scenario-first BACKFILL (build was ahead of req). AC string = PROJECTION of R40.105 (never hand-written; req projects + 3-pt verifies). Expert marks against fc201015. 0 Done till Tron.",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-06"
+    "createdAt": "2026-09-06",
+    "acParitySource": "GENERATED from R40.105 fc201015 (single-source, 5 ACs) - projection not hand-copy."
   },
   "ownerIor": null
 }
