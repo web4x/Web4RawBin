@@ -6,7 +6,11 @@
   "name": "Semantic drift guards — task/req AC parity + QA-switch-state validity + metric-completeness (the axes R37.3's byte-check is blind to)",
   "description": "R37.3's fail-loud guard asserts pin==board==files by BYTE-IDENTITY (view==f(units)) — but that STRUCTURAL byte-check is BLIND to SEMANTIC drift the planner's 4-axis finding exposed. This requirement folds the 3 unguarded SEMANTIC drift axes into ci as FAILABLE guards (same 1->0 shape), extending R37.3 to the semantic siblings its structural guard cannot see: (AXIS-2) task<->req AC PARITY - a task's coveredRequirements ACs must match the covering requirement's ACs (T37.20 showed task-md 6 vs req 7 while the byte-check stayed GREEN); (AXIS-3) QA-IS-A-SWITCH-STATE VALIDITY - a QA-Review item must carry a named waiting-on + switch-direction, and evidence-invalidated => NOT QA (T40.85 sat done-while-broken); (AXIS-4) METRIC-COMPLETENESS - the drift --check must NOT silently exclude frozen-legacy/missing-file-creation (it undercounted true drift ~28x, 7 vs 200): every excluded category is COUNTED or DECLARED-excluded, never silently dropped.",
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:33b28f6b-6cfe-489a-999a-206b67ec4dfe",
+   "ior:instance:993b3f2d-f51d-4b6a-844b-b0904dd73655",
+   "ior:instance:e48a1e0a-9c9f-4a1f-8492-1672e9565809"
+  ],
   "tests": [],
   "useCases": [
    "ior:instance:7b6d5d23-bd0f-4565-b045-a0b5f0489928"
