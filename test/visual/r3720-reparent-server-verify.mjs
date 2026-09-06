@@ -51,7 +51,7 @@ try {
   R(`  MOVE-UNIT: status=${mv.status} action=${mv.body?.action} err=${mv.body?.error || '-'} | F.location '${locBefore}'→'${fLoc}' ⇒ re-parented=${res.reparent.reparented ? 'YES' : 'NO'}`);
 
   // ── NATIVE upload into the SAME folder still works (files path un-regressed) — POST folder-scoped upload via nestedPath ──
-  const nBody = Buffer.concat([Buffer.from(`--${B}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B}\r\nContent-Disposition: form-data; name="parent"\r\n\r\n${folderLoc}\r\n--${B}\r\nContent-Disposition: form-data; name="file"; filename="native-into-folder.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('NAT'), Buffer.from(`\r\n--${B}--\r\n`, 'utf8')]);
+  const nBody = Buffer.concat([Buffer.from(`--${B}\r\nContent-Disposition: form-data; name="playerToken"\r\n\r\n${SYS}\r\n--${B}\r\nContent-Disposition: form-data; name="parent"\r\n\r\n${folderLoc}\r\n--${B}\r\nContent-Disposition: form-data; name="file"; filename="native-into-folder.bin"\r\nContent-Type: application/octet-stream\r\n\r\n`, 'utf8'), Buffer.from('native-nest-' + roomId), Buffer.from(`\r\n--${B}--\r\n`, 'utf8')]);
   const nUp = await page.request.post(`${BASE}/api/room/${roomId}/upload`, { headers: { 'content-type': `multipart/form-data; boundary=${B}` }, data: nBody });
   const nBodyJson = await nUp.json().catch(() => ({}));
   await sleep(1200);
