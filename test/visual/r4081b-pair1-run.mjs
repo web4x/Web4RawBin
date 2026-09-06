@@ -17,9 +17,30 @@ const S = (x) => JSON.stringify(x);
 const HARNESS = 'test/baseline/premigration-behavioural.mjs';
 const BASELINE = 'test/baseline/premigration-behavioural.json';
 
+const REPO = process.cwd();
+const SNAP_TAR = `${REPO}/test/baseline/model-store-premigration-v0.8.186.tar.gz`; // architect's PINNED snapshot (784 units) — NOT cp-live
+const lsScratch = () => new Set(fs.readdirSync('/tmp').filter((d) => d.startsWith('r4031-scratch-')));
+
 async function capture(commit, out) {
+  const before = lsScratch();
   const f = await setupFoundation({ commit });
   try {
+    // ── SEED MODEL_STORE into the scratch (gitignored → absent from a commit build) via the PINNED snapshot TAR (architect ruling).
+    //    TAR (never cp -a / cp -l / rsync --link-dest) so every file is a NEW inode — a hardlinked 'copy' shares the LIVE inode and
+    //    the harness would write THROUGH to the MODEL_STORE we are mid-migrating (PO hazard). Identical-both-sides by construction.
+    const scratchRoot = [...lsScratch()].filter((d) => !before.has(d)).map((d) => `/tmp/${d}`)[0];
+    if (!scratchRoot) throw new Error('could not locate the new scratch root to seed MODEL_STORE');
+    execSync(`tar xzf ${SNAP_TAR} -C ${scratchRoot}`);
+    // ── PROVE ISOLATION (PO: verify inodes, do not trust the command). An existing MODEL_STORE file must have a DIFFERENT inode in
+    //    scratch vs LIVE, else it is a passthrough hazard → ABORT before the harness can write through.
+    const walk = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = `${d}/${e.name}`; if (e.isDirectory()) { const r = walk(p); if (r) return r; } else if (e.name.endsWith('.scenario.json')) return p; } return null; };
+    const scratchMS = `${scratchRoot}/data/model-store/index`, liveMS = `${REPO}/data/model-store/index`;
+    const sample = walk(scratchMS);
+    if (sample) { const rel = sample.slice(scratchMS.length); const liveFile = liveMS + rel;
+      if (fs.existsSync(liveFile)) { const ss = fs.statSync(sample), ls = fs.statSync(liveFile);
+        if (ss.ino === ls.ino || ss.nlink !== 1) throw new Error(`ISOLATION HAZARD (${commit}): scratch ${rel} inode=${ss.ino} nlink=${ss.nlink} vs live inode=${ls.ino} — same-inode or nlink>1 = hardlink passthrough → ABORT (would corrupt live MODEL_STORE)`);
+        console.log(`  isolation PROVEN (${commit}): ${rel.split('/').pop()} scratch-inode=${ss.ino} (nlink=1) != live-inode=${ls.ino}`);
+      } }
     execSync(`node ${HARNESS}`, { stdio: 'pipe', env: { ...process.env, BASE: f.base, SERVED_VERSION: commit } });
     fs.copyFileSync(BASELINE, out);
     return { base: f.base, sha: f.worktreeSha };
