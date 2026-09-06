@@ -1,6 +1,33 @@
 # Sprint 37 — OVERNIGHT PULL QUEUE (to 09:00 CET)
 
-**Pull top-down, do not wait for the PO.** Effort tiers measured from each unit's ACs + checklist depth. DoD is in Tron's terms (what he SEES / what can no longer break). **0 Done till Tron — flip to QA-Review, never Done.**
+**Pull top-down, do not wait for the PO.** DoD in Tron's terms. **0 Done till Tron — flip to QA-Review, never Done.**
+
+## ★★ OVERNIGHT LANES (PO orchestration to 09:00 — AUTHORITATIVE ORDER; pull within your lane)
+**CONSTRAINT on EVERY increment: OOP-DRY-MVC; both open/closed lints stay 0; any increment needing a CENTRAL CONDITIONAL is the WRONG SHAPE → back to the architect.** Expert ships each increment as its OWN version bump. Planner keeps sequence honest + flags stalls / two-agents-one-file to PO.
+
+### ARCHITECT — design only, hands to expert
+- **OBJECT-ACTION mechanism**: move + rename as CLASS-REGISTERED actions (Command + Registry, MVC-in-object). No central switch. Feeds expert #2 (Move-to) + #4 (rename).
+
+### EXPERT — our ONLY builder (the bottleneck); ship each as its own increment, in order
+1. **'folder:' prefix-fix** — may unblock Tron's drop TONIGHT (highest value first). [T37.20.4 `369b8636` area — in-app-unit→folder move; the iOS touch-drag that failed v0.8.206]
+2. **Move-to** built to the architect's OBJECT-ACTION design (Command+Registry). [closes T37.20.4]
+3. **class-owns-its-name** (rename prep — the class owns its own name)
+4. **rename** as a SECOND registered action [covers req's rename requirement]
+
+### TESTER — in order
+1. **touch-harness** after the Move increment lands [T37.41 `cb015b3d` — URGENT, must cover the TOUCH gesture]
+2. **2-BROWSER FAN-OUT harness** — the multi-user promise, NEVER machine-verified [proves T37.21 `1bf4acc5` PART2 client-half, its open piece]
+3. **remaining lints** — T37.35 `33b28f6b` / T37.36 `993b3f2d` / T37.37 `e48a1e0a` (axis) + the freshness guards (TIER-A below)
+
+### SKILL-EXPERT — in order
+1. **mint-path born-at-parity fix** (new tasks born at AC-parity, not reconciled after)
+2. **drift-completeness** (38/728 coverage → raise)
+
+### REQ
+- **rename requirement** + AC rulings ONLY (mints the rename req → planner boards the covering task; class-owns-its-name may need a req too — flagging).
+
+---
+*(Legacy TIER structure below = reference for the tester's lint pulls + the expert's freshness guards once the folder/move/rename lane clears.)*
 
 ## TIER-A — CHEAP (<1h, a gate/lint/generator, no architecture) — PULL FIRST
 | # | Task | DoD (what it guarantees) | Owner |
