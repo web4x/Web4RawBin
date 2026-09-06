@@ -56,6 +56,10 @@ try {
   const linkedIntoC = cAfter.includes(F) && !inCBefore; // F is NOW in C and was NOT before = a REAL fresh link
   const sys = await page.evaluate(() => [...document.querySelectorAll('[class*="message"]')].map((n) => n.textContent || '').filter((t) => /drop|link|federation|fail|error/i.test(t)).slice(-4));
   const sysFailed = sys.some((t) => /fail|403|error/i.test(t));
+  // PO close: EXPAND room C's Files node BEFORE asserting render (rules out 'rendered-but-collapsed'). A still-invisible unit
+  // after expand = a REAL render defect (link in the API but the user never sees it = the same complaint in a new costume).
+  await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.expandPath) { await t.expandPath([`room:${rid}`]).catch(() => {}); await t.expandPath([`roomcoll:${rid}:files`]).catch(() => {}); } }, roomC);
+  await sleep(1500);
   const renders = await page.evaluate((F) => (document.getElementById('room-tree')?.textContent || '').includes('fresh-src') || [...(document.getElementById('room-tree')?.querySelectorAll('rb-object-item') || [])].some((n) => [...n.attributes].some((a) => a.value.includes(F))), F);
   const cls = await iorClass(F);
   res = { F, linkedIntoC, zeroFetch, sysFailed, renders, cls, sys, pass: linkedIntoC && zeroFetch && !sysFailed && /File/i.test(cls || '') };
