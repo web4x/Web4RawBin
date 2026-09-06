@@ -11,8 +11,12 @@
     "acceptanceCriteria": "- [ ] Detail views actually RENDER for EVERY /model tree selection (today: empty on all) — file details are shown for all files, not a blank drawer.",
     "subtasks": "None (atomic slice).",
     "status": "Planned",
-    "coveredRequirements": [ "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57" ],
-    "useCases": [],
+    "coveredRequirements": [
+      "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
+    ],
+    "useCases": [
+      "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f"
+    ],
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
     "remainingIssues": "STOOD UP Planned (2026-09-06), T37.20 slice 3/6. OWNER=EXPERT. Covers R37.20 AC-A3. Coordinate with T37.30 detail-convergence (one primitive, no 2nd path). req 3-pt verifies + wires UC. 0 Done till Tron.",
