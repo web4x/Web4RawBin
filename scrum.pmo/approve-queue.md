@@ -41,13 +41,12 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
 
-#### 📱 NEEDS YOUR DEVICE ACTION — 31 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
+#### 📱 NEEDS YOUR DEVICE ACTION — 30 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)
 - 🧪 **S30 16379ac9** Task 30.35: Diff coloring by kind + per-block merge- — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 3591abf8** Task 30.36: Diff-nav aids — brighter current-change  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S30 4b624e1e** Task 30.37: Per-change RESOLVED-state toggle (green  — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S32 abaf9f83** Task 32.5: Drag itemView -> diagram VIEW (composed c — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 1bf4acc5** Task 37.21: TRON 5-PART extended scope — room collec — _device @390 — headless evidence ok; needs your tap/pixel verify_
-- 🧪 **S37 369b8636** Task 37.20.4: ONE shared serializer + resolver, EVER — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S37 3dd05daa** Task 37.20.2: A FILE drags as a FILE (its File unit) — _device @390 + needs: Impl exists but markerPending (not shipped)_
 - 🧪 **S37 5acdcc4c** Task 37.24: Realtime-MVC live-update slice — a route — _device @390 — headless evidence ok; needs your tap/pixel verify_
 - 🧪 **S37 68364f5e** Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPaylo — _device @390 + needs: Impl exists but markerPending (not shipped)_

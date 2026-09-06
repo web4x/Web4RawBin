@@ -7,9 +7,9 @@
 [task:uuid:369b8636-f449-45cd-b553-c523112d26b3]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
-STOOD UP Planned (2026-09-06), T37.20 slice 4/6 = SERIALIZE-half + fleet-wide. OWNER=EXPERT. Covers R37.20 AC-shared-contract-fleet-wide + carries AC-A2 to fleet completion (SLICE-A = upload only). Depends on T37.20.1 resolver. req 3-pt verifies + wires UC. 0 Done till Tron.
+★ BACK TO WORK QA-Review -> In-Progress (PO 2026-09-06, TRON TESTED ON iPHONE v0.8.206, screenshot): dragging a jpeg onto the 'screenshots' FOLDER in a room's Files — the drag ghost renders over the folder row but the file does NOT move. VERIFIED server-side + wiring; REAL USER GESTURE ON iOS = FAILS to move. Back to work. This is EXACTLY the recorded caveat (his drag was the missing evidence — the full drag-onto-tree GESTURE was never machine-verified; synthetic webkit drag could not deliver the payload) — his gesture says FAIL. FIX (expert): the iOS TOUCH-drag path must deliver the unit-ref payload to the tree-folder handler so reparentUnitsIntoContainer fires on a real touch drag. T37.41 harness (now URGENT) must cover the TOUCH gesture, not only a synthetic desktop drag. PRIOR (server-side, still true): -> QA-Review (PO 2026-09-06, served v0.8.205, no-op CLOSED): an in-app unit dropped on a folder now RE-PARENTS — POST /api/room/<id>/move-unit -> 200, action='reparented', location moved '(root)' -> ':files/MoveTarget/moveme.bin'; native upload still works; client keeps BOTH paths (rb-object-item.ts:83-91: files->acceptDropIntoContainer KEPT, resolveDragUnit->reparentUnitsIntoContainer ADDED); both open/closed lints untouched. req AC-tree-folder-drop-target-routes-contract went VERIFIED-RED -> now satisfied. ⚠ CAVEAT (recorded, NOT buried): the end-to-end USER DRAG onto a tree node could NOT be exercised in-harness — a synthetic webkit drag does not deliver the payload to that handler; tester verified the SERVER endpoint (the exact one the in-app path calls) + the client wiring BY READ. Mechanism + wiring PROVEN; the full user gesture is INSTRUMENT-LIMITED. Closing confirmation = Tron's own drag (same shape as T37.31 device-accept; one drag he does anyway on accept). 0 Done till Tron.
 
 ## Task Description
 
@@ -34,8 +34,14 @@ One serializer, one resolver, one contract across diagram/room/tree-collection/e
 
 ## Acceptance Criteria
 
-- [ ] ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY drop target reuses the SAME contract (diagram/room/tree-collection/editor-drawer + future) — NO per-target format, NO per-target parsing, NO *.show?uuid= URL fallback anywhere.
-- [ ] AC-A2 fleet-wide: the DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases — never a *.show?uuid= URL / #webitem link (fixes cross-instance drops producing plain-URL WebItems), on EVERY target not just upload.
+- [ ] **(functional)** A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnrollDialog.ts yields the File unit, never #collection.show?uuid=file:... .
+- [ ] **(functional)** The DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases — NEVER a *.show?uuid= URL, a #webitem.show link, or any URL/webitem. ALWAYS the actual unit (this is why cross-instance drops produced plain-URL WebItems).
+- [ ] **(functional)** Detail views actually RENDER for EVERY /model tree selection (today: empty on all) — file details are shown for all files, not a blank drawer.
+- [ ] **(functional)** ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY drop target reuses the SAME contract (diagram/room/tree-collection/editor-drawer + future) — NO per-target format, NO per-target parsing, NO *.show?uuid= URL fallback anywhere (single-source, R40.37 shape).
+- [ ] **(gate)** The BITE asserts the contract PER TARGET (diagram · room · tree/collection · editor/drawer) + STUB-MUST-FAIL: make the serializer emit a URL/*.show again -> assert RED. A target that regresses to a link is caught by construction.
+- [ ] **(device)** [DEVICE-ONLY @390 pixel — Tron on phone, un-mockable, NEVER headless-green, TRON-ONLY] Tron verifies on device: a file drags as a file, drops onto every target carry the unit (not a URL), and detail views render.
+- [ ] **(gate)** dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared resolver EVERY drop target calls (fail-loud on unresolvable), replacing today's 4 payload formats each target resolving itself (the per-target-resolution disease). A drop updates the view LIVE @390. GATE STUB-MUST-FAIL: a target with its own payload format/resolver -> RED.
+- [ ] **(serialize-fleet/.4/VERIFIED-RED)** STANDING RULE (DRY): EVERY drop target asks the ONE resolver — an in-app UNIT dropped onto a tree FOLDER routes through the shared drop contract as a unit->folder MOVE/re-parent (lands INSIDE per R40.86). ★ A NATIVE OS file dropped on a folder legitimately reads dataTransfer.files (that path MUST keep working); the rule targets IN-APP UNIT drops, which must NOT be handled by a files-only read. The gate distinguishes the two: an in-app UNIT that bypasses the contract => RED; a native file reading files is NOT a violation.
 
 ## Subtasks
 

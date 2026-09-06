@@ -2,7 +2,7 @@
 
 **Deadline 22:00 CET.** Each item is machine-verified + at QA-Review awaiting **your** accept (0 Done till Tron). Accept in one pass, top-down — ordered fastest-to-verify-on-your-own-screen first.
 
-**★ Waiting on: YOUR accept — and nothing else.** Every row below is machine-verified and gated; the only thing between it and Done is your word. **Nothing is waiting on us** (we checked each one). Two rows need your *gesture*, not our work, and they're yours to do on accept anyway: **T37.31** = your real-iOS device (background/lock → foreground); **T37.20.4** = your drag of an in-app item onto a tree folder. Both are being machine-hardened too (T37.41), so they'll need no gesture soon.
+**★ Waiting on: YOUR accept — and nothing else.** Every row below is machine-verified and gated; the only thing between it and Done is your word. **Nothing is waiting on us.** One row needs your *gesture*, not our work: **T37.31** = your real-iOS device (background/lock → foreground). *(T37.20.4 folder-move was PULLED — your iPhone test v0.8.206 caught a real fail: the file doesn't move on an iOS touch drag. Back to work, off this list. Exactly the caveat we recorded — your gesture was the missing evidence and it said FAIL.)*
 
 ## A · VISUAL — verify by glancing at your screen (fastest)
 | # | Delivers | Evidence |
@@ -44,4 +44,4 @@
 |---|----------|----------|
 | **T37.20.2** | A file drags as its own File unit (not a collection) | tester PASS |
 | **T37.39** Image · **T37.40** CalendarEntry | image → Image, .ics → CalendarEntry — each renders as itself | 4/4 class-distinct GREEN v0.8.204 · d2f95670a |
-| **T37.20.4** | **Drag an in-app item onto a folder → it moves inside (re-parents); a native file onto a folder still uploads** | server v0.8.205 (POST `/api/room/../move-unit` → 200 `reparented`) + client wiring verified by read. **⚠ caveat:** the full drag-onto-a-tree-node gesture is instrument-limited (a synthetic webkit drag can't deliver the payload) — **your own drag closes it**, same as the device items, one drag you'd do on accept |
+| ~~T37.20.4~~ | **PULLED — back to work.** Your iPhone test (v0.8.206) shows the file does NOT move on an iOS touch drag onto the folder. Server + wiring were verified; the real gesture fails. Not on this list until fixed + machine-verified (T37.41). | — |

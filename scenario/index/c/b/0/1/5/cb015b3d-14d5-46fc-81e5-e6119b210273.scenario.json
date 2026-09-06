@@ -17,7 +17,7 @@
     "useCases": [],
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
-    "remainingIssues": "STOOD UP Planned (2026-09-06) on PO ruling off the planner's customer-not-tester flag (the drag-onto-tree limit is a HARNESS gap, not un-mockable — tester already synthesized a room-target drag tonight). OWNER=TESTER, TIER-A, take AFTER A2 (T37.36). On GREEN -> removes T37.20.4's caveat. Covers R37.20 AC-tree-folder-drop-target-routes-contract (machine-verify). req 3-pt verifies. 0 Done till Tron.",
+    "remainingIssues": "★★ NOW URGENT (PO 2026-09-06) — NOT a nicety: Tron tested the folder move on his iPHONE (v0.8.206) and the file does NOT MOVE on a real iOS TOUCH drag. This task exists precisely to catch THIS class, and it now GATES T37.20.4's return to QA-Review. ★ SCOPE EXPANDED: it must cover the TOUCH gesture (iOS touch-drag delivers the unit-ref payload to the tree-folder handler so reparentUnitsIntoContainer fires), NOT ONLY a synthetic desktop drag. If a real touch-drag is genuinely un-mockable in-harness (unlike the desktop synthetic drag), that is a finding to escalate — but attempt the touch-gesture machine-verification first. OWNER=TESTER (pull ahead of other TIER-A). On GREEN -> the expert's iOS-touch fix is proven + T37.20.4 returns to QA-Review. Covers R37.20 AC-tree-folder-drop-target-routes-contract. 0 Done till Tron.",
     "createdBy": "robbin-planner",
     "createdAt": "2026-09-06",
     "acParitySource": "GENERATED from R37.20 03e0f803 (single source, 8 ACs) - faithful projection NOT hand-copy. Reconciled to parity (PO ratchet 2026-09-06)."
