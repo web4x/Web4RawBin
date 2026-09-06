@@ -58,6 +58,9 @@ export class RoomView {
     // (the tree's Folder render, NOT a bespoke list) and ends in the SAME dropDispatcher.reparentUnitsIntoContainer → move-unit
     // that the drag affordance uses (two affordances, ONE mechanism). Registered once here; arrow captures this RoomView.
     registerAction('move', (c) => void this.openMovePicker(c.uuid));
+    // T37.20 INC-3 (R40.104): the "Rename…" Command — the object sets its own USER displayName via the room rename route →
+    // UnitController.apply (the ONE seam). displayName wins; originalName preserved server-side; uuid stable; live re-render.
+    registerAction('rename', (c) => void this.openRename(c.ref));
 
     this.client.on(MSG.ROOM_JOINED, (msg) => {
       this.roomId = msg.room.id;
@@ -415,6 +418,23 @@ export class RoomView {
     ov.appendChild(sheet);
     ov.addEventListener('click', (e) => { if (e.target === ov) close(); });
     document.body.appendChild(ov);
+  }
+
+  // T37.20 INC-3 (R40.104) — "Rename…": the object sets its OWN user displayName. Prefill from the current name (displayName
+  // ?? name), then the room rename route → UnitController.apply sets model.displayName (WINS), preserves originalName, keeps
+  // uuid/ior stable, and publishUnitChanged re-renders every surface with no reload. prompt() = a mobile-reliable inline edit.
+  private async openRename(unitRef: string): Promise<void> {
+    const bare = String(unitRef || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0];
+    if (!bare) return;
+    let current = '';
+    try { const j = await fetch(`/api/ior/ior:instance:${bare}`, { credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null)); const m = (j?.unit?.model || {}) as Record<string, unknown>; current = String(m.displayName || m.name || ''); } catch { /* no prefill */ }
+    const nm = (window.prompt('Rename to:', current) || '').trim();
+    if (!nm || nm === current) return;
+    try {
+      const res = await fetch(`/api/room/${encodeURIComponent(this.roomId)}/rename-unit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ unit: bare, displayName: nm, playerToken: this.client.playerToken }) }).then((r) => r.json());
+      if (res?.ok) { this.chatSheet?.addMessage('system', 'System', `Renamed to ${nm}`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }
+      else this.chatSheet?.addMessage('system', 'System', `Rename failed: ${res?.error || '?'}`);
+    } catch (e) { this.chatSheet?.addMessage('system', 'System', `Rename error: ${(e as Error)?.message || e}`); }
   }
 
   // [impl:uuid:852101d1-ec42-478a-bc73-59ddff7feb49] R19.86 openFilePreview (split)

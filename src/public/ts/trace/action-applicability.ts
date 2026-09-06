@@ -37,6 +37,11 @@ export const UNIVERSAL_DECLS: ActionDecl[] = [
   // (registerAction('move', …) in RoomView); the picker renders folders by REUSING rb-object-item (the tree's Folder render),
   // NOT a bespoke list. Applies to the movable room unit kinds (File + the natural classes + WebItem). OCP: a 7th class = one type here.
   { verb: 'move', label: '📁 Move…', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
+  // T37.20 INC-3 (R40.104): the "Rename…" action = the object sets its own USER displayName (wins over derivedName;
+  // originalName preserved, never shown; uuid stable). Command dispatched to the room rename → UnitController.apply (the ONE
+  // mutation seam, NO bespoke write). On files/natural classes (by type) AND folders (by class). OCP: a 7th class = one line here.
+  { verb: 'rename', label: '✎ Rename…', appliesTo: { types: ['file', 'image', 'email', 'contact', 'calendarentry', 'webitem'] } },
+  { verb: 'rename', label: '✎ Rename…', appliesTo: { classes: ['Folder'] } },
   { verb: 'download-vcard', label: '📇 vCard', appliesTo: { types: ['member', 'user'] } },
   { verb: 'preview-file', label: '👁 Preview', appliesTo: { types: ['file'] } },
   { verb: 'open-newtab', label: '↗ New tab', appliesTo: { types: ['file'] } },

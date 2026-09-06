@@ -1463,10 +1463,10 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
       const loc = String(x.m.location || '');
       if (loc.startsWith(currentPrefix + '/') && !loc.slice(currentPrefix.length + 1).includes('/')) { // a DIRECT child folder of the current node (by model location)
         const cc = directChildCount(loc); // R40.86: folders + files under it → chevron even if it holds only files
-        kids.push({ uuid: loc, type: 'collection', name: String(x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' });
+        kids.push({ uuid: loc, type: 'collection', name: String(x.m.displayName || x.m.name || loc.slice(loc.lastIndexOf('/') + 1)), hasChildren: cc > 0, childCount: cc, size: 0, icon: 'mof-project' }); // R40.104: displayName WINS (user rename), else derived/original name
       }
     } else if (isDirectChildOfNode(x.m, nodeRef, currentPrefix, rootPrefix)) { // R40.86: a File is emitted where it is NESTED — inside its folder (byLoc/byParent), EXCLUDED from root when parented, ONCE. Legacy no-location files still emit at root (containingDir==rootPrefix).
-      kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 });
+      kids.push({ uuid: x.u, type: (x.ior.split(':')[2] || 'File'), name: String(x.m.displayName || x.m.name || x.u.slice(0, 8)), hasChildren: false, size: Number(x.m.size) || 0 }); // R40.104: displayName WINS
     }
   }
   return kids;
@@ -2681,6 +2681,33 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[room] add-folder → unit ${folderUuid.slice(0, 8)} in scenario/index + symlink (room ${roomId.slice(0, 8)}, parent=${parentIor ? parentIor.slice(13, 21) : 'root'}) — folder-is-a-file`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: folderUuid, unit }));
         } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'add-folder-failed' })); }
+      });
+      return;
+    }
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/rename-unit')) { // T37.20 INC-3 (R40.104): set a USER displayName on a unit — via the ONE mutation seam UnitController.apply, NOT a bespoke write path
+      const roomId = filepath.split('/')[3];
+      let rbody = '';
+      req.on('data', (chunk: Buffer) => { rbody += chunk; });
+      req.on('end', () => {
+        try {
+          const { unit, displayName, playerToken } = JSON.parse(rbody || '{}');
+          if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; }
+          const uuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
+          if (!/^[0-9a-fA-F-]{16,40}$/.test(uuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
+          const nm = String(displayName || '').trim().slice(0, 200);
+          if (!nm) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'empty-name' })); return; }
+          const idx = new ScenarioIndex(path.join(__dirname, '../../../scenario/index'));
+          const u = idx.get(uuid);
+          if (!u) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
+          const m = u.model as Record<string, unknown>;
+          // R40.104 naming law: displayName = user-set (WINS in render); originalName = preserved ONCE, NEVER overwritten/shown;
+          // uuid + ior STABLE (rename is a DISPLAY change, not identity — same law as VCard→Contact). ONE seam = live re-render everywhere.
+          const intent: Record<string, unknown> = { displayName: nm };
+          if (!m.originalName && m.name) intent.originalName = String(m.name);
+          UnitController.apply(idx, String(u.ior), uuid, intent, { publish: publishUnitChanged });
+          addLog(`[room] rename-unit ${uuid.slice(0, 8)} → displayName "${nm.slice(0, 40)}" (room ${roomId.slice(0, 8)})`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid, displayName: nm }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'rename-failed' })); }
       });
       return;
     }
