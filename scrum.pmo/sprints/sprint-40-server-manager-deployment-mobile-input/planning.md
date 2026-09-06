@@ -86,7 +86,7 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] ⏳ [Task 40.80: ONE human-readable size formatter (B/kB/MB/GB/TB) — single-source, consumed by sunburst LEGEND and CENTER + product-wide (DRY)](./task-40.80-one-human-readable-size-formatter.md)
 - [ ] ⏳ [Task 40.79: Sunburst center circle shows TOTAL size of all children (human-formatted via the ONE R40.80 formatter)](./task-40.79-sunburst-center-total-size.md)
 - [ ] 🧪 [Task 40.84: Adding a child updates that node IN PLACE — tree must not collapse/rebuild (MVC, expanded state survives)](./task-40.84-a4fe4dc0.md)
-- [ ] 🧪 [Task 40.85: Plain file upload via the drop area SUCCEEDS (0.8.175 regression: recognition works then upload dies) — all uploads](./task-40.85-49822597.md)
+- [ ] 📝 [Task 40.85: Plain file upload via the drop area SUCCEEDS (0.8.175 regression: recognition works then upload dies) — all uploads](./task-40.85-49822597.md)
 - [ ] 🧪 [Task 40.86: Folders are drop targets — dropping content onto a folder places it INSIDE that folder](./task-40.86-b60afb24.md)
 - [ ] 🧪 [Task 40.87: Add folder SUCCEEDS on a model collection (route to model-store when no physical dir) — offered implies succeeds](./task-40.87-e42e0d2e.md)
 - [ ] 🧪 [Task 40.88: Standing rulings are FAILABLE INVARIANTS — every ruling carries a guard that trips RED when a later feature contradicts it](./task-40.88-51bd0541.md)
