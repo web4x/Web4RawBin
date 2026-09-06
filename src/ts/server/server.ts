@@ -1481,11 +1481,20 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
 function resolveDropContainer(containerRef: string, roomId: string, idx: ScenarioIndex): { parentIor: string | null; folderLocation: string | null; publishRef: string } {
   const rootRef = `roomcoll:${roomId}:files`;
   if (containerRef) {
+    // (a) a UUID / ior:instance ref → the Folder unit directly.
     const uuid = containerRef.replace(/^ior:instance:/, '').split('@')[0];
     const pu = /^[0-9a-fA-F-]{16,40}$/.test(uuid) ? idx.get(uuid) : null;
     const pm = (pu?.model || null) as Record<string, unknown> | null;
     if (pu && pu.ior === 'ior:class:Folder' && pm && String(pm.location || '').startsWith(rootRef)) {
       return { parentIor: `ior:instance:${uuid}`, folderLocation: String(pm.location), publishRef: String(pm.location) }; // nest under the folder
+    }
+    // (b) T37.20 .4 FIX: the room folder TREE NODE ref is a roomcoll LOCATION ref (server.ts:1466 emits uuid:location, node ref = location),
+    // NOT a uuid — so a NATIVE file dropped on a folder used to fall through to root (location=''). Resolve the room's Folder unit AT that
+    // location via the ONE roomFolderByLocation (same identity the move-unit re-parent + the listing use → ONE destination resolver, no fork).
+    if (containerRef.startsWith(rootRef + '/')) {
+      const rUnit = idx.get(roomId);
+      const folder = rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, containerRef, idx) : null;
+      if (folder) { const fu = String((folder.model as Record<string, unknown>).uuid); return { parentIor: `ior:instance:${fu}`, folderLocation: containerRef, publishRef: containerRef }; }
     }
   }
   return { parentIor: null, folderLocation: null, publishRef: rootRef }; // room-root = the default container (absent/unresolvable ref → fail-safe to root, never a 500)
@@ -2685,16 +2694,13 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const mf = shard(movedUuid);
           if (!fsSync.existsSync(mf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
           const mj = JSON.parse(fsSync.readFileSync(mf, 'utf-8'));
-          // Resolve the TARGET container from its roomcoll LOCATION ref (the tree node ref is the location, server.ts:1466):
-          // Files ROOT (roomcoll:<id>:files) = top-level; else a nested Folder unit in room.fileUnits whose model.location === target.
-          const tgt = String(target || ''); const rootRef = `roomcoll:${roomId}:files`;
-          let targetIor: string | null = null; let targetFolderFile = ''; let targetLoc = rootRef;
-          if (tgt && tgt !== rootRef) {
-            for (const pu of room.fileUnits) { // the live room units (NO room.model — fileUnits is the source, mirrors add-folder :2637)
-              try { const j = JSON.parse(fsSync.readFileSync(shard(pu), 'utf-8')); if (j.ior === 'ior:class:Folder' && String(j.model.location) === tgt) { targetIor = `ior:instance:${pu}`; targetFolderFile = shard(pu); targetLoc = tgt; break; } } catch { /* skip */ }
-            }
-            if (!targetIor) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'target-folder-not-found' })); return; }
-          }
+          // Resolve the TARGET via the ONE resolver (uuid OR roomcoll-location) — the SAME destination resolution the NATIVE
+          // upload path uses (resolveDropContainer), NOT a second local resolver (PO DRY). null parentIor = Files root.
+          const idx = new ScenarioIndex(sdir);
+          const dc = resolveDropContainer(String(target || ''), roomId, idx);
+          const targetIor: string | null = dc.parentIor;
+          const targetLoc = dc.folderLocation || `roomcoll:${roomId}:files`;
+          const targetFolderFile = targetIor ? shard(targetIor.replace('ior:instance:', '')) : '';
           const name = String(mj.model.name || movedUuid.slice(0, 8));
           const oldParent = String(mj.model.parent || '');
           // RE-PARENT the moved unit: parent + location follow the target (folder OR root). The object moves itself; both-sides children stay consistent.

@@ -7,18 +7,18 @@
 [task:uuid:369b8636-f449-45cd-b553-c523112d26b3]
 
 ## Status
-- [x] Planned
-- [x] In Progress
-  - [x] refinement
-  - [x] creating test cases
-  - [x] implementing
-  - [x] testing
-- [x] QA Review
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement
+  - [ ] creating test cases
+  - [ ] implementing
+  - [ ] testing
+- [ ] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
--> QA-Review (PO 2026-09-06, served v0.8.205, no-op CLOSED): an in-app unit dropped on a folder now RE-PARENTS — POST /api/room/<id>/move-unit -> 200, action='reparented', location moved '(root)' -> ':files/MoveTarget/moveme.bin'; native upload still works; client keeps BOTH paths (rb-object-item.ts:83-91: files->acceptDropIntoContainer KEPT, resolveDragUnit->reparentUnitsIntoContainer ADDED); both open/closed lints untouched. req AC-tree-folder-drop-target-routes-contract went VERIFIED-RED -> now satisfied. ⚠ CAVEAT (recorded, NOT buried): the end-to-end USER DRAG onto a tree node could NOT be exercised in-harness — a synthetic webkit drag does not deliver the payload to that handler; tester verified the SERVER endpoint (the exact one the in-app path calls) + the client wiring BY READ. Mechanism + wiring PROVEN; the full user gesture is INSTRUMENT-LIMITED. Closing confirmation = Tron's own drag (same shape as T37.31 device-accept; one drag he does anyway on accept). 0 Done till Tron.
+STOOD UP Planned (2026-09-06), T37.20 slice 4/6 = SERIALIZE-half + fleet-wide. OWNER=EXPERT. Covers R37.20 AC-shared-contract-fleet-wide + carries AC-A2 to fleet completion (SLICE-A = upload only). Depends on T37.20.1 resolver. req 3-pt verifies + wires UC. 0 Done till Tron.
 
 ## Task Description
 
