@@ -30,26 +30,36 @@ R(`  A1 CLIENT model-store path literals : ${a1Hits.length}  ${a1Hits.length ===
 for (const h of a1Hits) R(`     ${h}`);
 R(`  A1 FAILABLE (inject a client store-literal → RED): ${a1Teeth ? 'PASS' : 'FAIL'}`);
 
-// ── A2: behavioural — PUT /api/files to a model-store relPath must be REFUSED (isolated scratch) ──
-const put = (base, relPath) => new Promise((res) => { const u = new URL(`${base}/api/files/${encodeURIComponent(relPath)}`); const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'PUT', rejectUnauthorized: false, headers: { 'Content-Type': 'application/json' } }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => res({ status: r.statusCode, body: d.slice(0, 120) })); }); req.on('error', (e) => res({ status: 0, body: String(e.message) })); req.end(JSON.stringify({ content: 'EVASION_PROBE_SHOULD_BE_REFUSED' })); });
-let a2 = { refused: false, status: '?' };
+// ── A2: FAITHFUL behavioural probe (PO ordering: PROVE THE HAZARD IS LIVE FIRST). Seed the real model-store into the scratch
+//    (tar, r4081c rig) → pick an EXISTING model uuid → PUT-overwrite it with same-origin auth → the write MUST land in the
+//    scratch model-store PRE-fix (hazard-live RED). Only then does a POST-fix REFUSED distinguish 'hole closed' from 'never
+//    reached'. Same-origin auth via Origin header = f.base (server.ts:3688 origin.includes(`localhost:${HTTPS_PORT}`)). ──
+const SNAP_TAR = path.join(ROOT, 'test/baseline/model-store-premigration-v0.8.186.tar.gz');
+const put = (base, relPath, content) => new Promise((res) => { const u = new URL(`${base}/api/files/${encodeURIComponent(relPath)}`); const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'PUT', rejectUnauthorized: false, headers: { 'Content-Type': 'application/json', 'Origin': base } }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => res({ status: r.statusCode, body: d.slice(0, 140) })); }); req.on('error', (e) => res({ status: 0, body: String(e.message) })); req.end(JSON.stringify({ content })); });
+let a2 = { refused: false, wrote: false, inconclusive: true, status: '?' };
+const before = new Set(fs.readdirSync('/tmp').filter((d) => d.startsWith('r4031-scratch-')));
 const f = await setupFoundation({ commit: process.env.ARM_COMMIT || 'HEAD' });
 try {
-  const rel = 'data/model-store/index/f/a/c/a/d/facade77-0000-4000-8000-000000000081.scenario.json'; // a model-store relPath
-  const r = await put(f.base, rel);
-  const scratchFile = path.join('/tmp', (fs.readdirSync('/tmp').filter((d) => d.startsWith('r4031-scratch-')).sort().pop() || ''), rel);
-  const wroteToStore = (() => { try { return fs.readFileSync(scratchFile, 'utf8').includes('EVASION_PROBE'); } catch { return false; } })();
-  // ★ REFUSE-CONFOUNDED: a 404/401 is NOT a proven refusal — writeFile is OVERWRITE-ONLY (server.ts:3698, refuses to CREATE a
-  // non-existent file) + the route needs auth (3689). This probe used a NON-existent uuid with no auth → 404 = overwrite/auth
-  // miss, NOT a model-store rejection. A faithful A2 must EDIT an EXISTING model unit → needs model-store SEEDED into the scratch
-  // (tar, r4081c rig) + a real playerToken/same-origin. Verdicts: reached+WROTE(200,wroteToStore)=hazard-live RED; reached+
-  // REJECTED-as-model-store(specific 4xx, no write)=GREEN; 404/401/no-write-but-not-reached = INCONCLUSIVE (not a verdict).
-  const reached = r.status === 200 || wroteToStore || /model-store|forbidden|refus/i.test(r.body || '');
-  a2 = { status: r.status, wroteToStore, reached, wrote: wroteToStore, refused: reached && !wroteToStore, inconclusive: !reached };
-  R(`  A2 PUT /api/files → model-store relPath : status=${r.status} wroteToStore=${wroteToStore} → ${a2.inconclusive ? 'INCONCLUSIVE (probe did NOT reach the overwrite path: overwrite-only+auth; needs seeded model-store + existing uuid + token)' : a2.refused ? 'REFUSED (GREEN)' : 'WROTE / NOT REFUSED (RED)'}`);
-  R(`     faithful A2 = seed model-store (tar) → PUT-overwrite an EXISTING model uuid with a live token → pre-fix WRITES (RED), post-fix REFUSED (GREEN). A 404/401 proves nothing.`);
-} finally { await f.teardown(); }
-R(`  A2 FAILABLE: a refusal that can be disabled → the write lands = RED (this probe IS that check — pre-fix it writes, post-fix it is refused).`);
+  const scratchRoot = [...fs.readdirSync('/tmp').filter((d) => d.startsWith('r4031-scratch-'))].filter((d) => !before.has(d)).map((d) => `/tmp/${d}`)[0];
+  const { execSync } = await import('node:child_process');
+  execSync(`tar xzf ${SNAP_TAR} -C ${scratchRoot}`); // seed the REAL model-store (existing model units to edit)
+  const msRoot = `${scratchRoot}/data/model-store/index`;
+  const findReal = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = `${d}/${e.name}`; if (e.isSymbolicLink()) continue; if (e.isDirectory()) { const r = findReal(p); if (r) return r; } else if (e.name.endsWith('.scenario.json')) return p; } return null; };
+  const target = findReal(msRoot);
+  const relPath = target.slice(scratchRoot.length + 1); // data/model-store/index/<shard>/<uuid>.scenario.json
+  const original = fs.readFileSync(target, 'utf8');
+  const marker = `"__EVASION_PROBE__":"r4081e-${process.pid}"`;
+  const edited = original.replace(/\{/, `{${marker},`); // a valid-JSON edit
+  const r = await put(f.base, relPath, edited);
+  const after = fs.readFileSync(target, 'utf8');
+  const wrote = after.includes('__EVASION_PROBE__');
+  // reached-and-wrote = hazard live (RED); reached-and-rejected (200-not-written is impossible; a real refusal = 4xx w/ no write
+  // AFTER we know the write path is auth+existing-reachable) = GREEN; anything ambiguous (couldn't seed / no target) = INCONCLUSIVE.
+  a2 = { status: r.status, wrote, refused: r.status >= 400 && !wrote, inconclusive: !target, relPath };
+  R(`  A2 FAITHFUL (seeded model-store, EXISTING uuid, same-origin auth) — PUT-overwrite ${relPath?.slice(0, 60)}`);
+  R(`     status=${r.status} wroteToModelStore=${wrote} → ${a2.inconclusive ? 'INCONCLUSIVE (no seed/target)' : wrote ? 'WROTE the model store OUTSIDE the locator = HAZARD LIVE (RED, as it must be PRE-fix)' : a2.refused ? 'REFUSED, no write (GREEN)' : `status ${r.status} no write — inspect (body: ${r.body})`}`);
+  R(`     PRE-fix expectation = WROTE=true (proves the hole is real + the probe reaches it); POST-fix expectation = REFUSED + wrote=false. Pre-RED→post-GREEN on THIS rig is the only proof.`);
+} catch (e) { R(`  A2 rig error: ${String(e.message).slice(0, 140)}`); a2 = { inconclusive: true }; } finally { await f.teardown(); }
 
 const green = a1Hits.length === 0 && a1Teeth && a2.refused;
 const a2Label = a2.refused ? 'GREEN' : a2.inconclusive ? 'INCONCLUSIVE (not a verdict — needs the seeded rig)' : 'RED (route writes the model store)';
