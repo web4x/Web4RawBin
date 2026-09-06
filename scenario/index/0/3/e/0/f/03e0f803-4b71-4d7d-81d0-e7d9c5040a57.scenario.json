@@ -66,7 +66,7 @@
    },
    {
     "id": "AC-tree-folder-drop-target-routes-contract",
-    "group": "serialize-fleet/.4/standing-rule",
+    "group": "serialize-fleet/.4/VERIFIED-RED",
     "text": "STANDING RULE (DRY): EVERY drop target asks the ONE resolver — an in-app UNIT dropped onto a tree FOLDER routes through the shared drop contract as a unit->folder MOVE/re-parent (lands INSIDE per R40.86). ★ A NATIVE OS file dropped on a folder legitimately reads dataTransfer.files (that path MUST keep working); the rule targets IN-APP UNIT drops, which must NOT be handled by a files-only read. The gate distinguishes the two: an in-app UNIT that bypasses the contract => RED; a native file reading files is NOT a violation.",
     "gateRef": {
      "kind": "test",
@@ -74,7 +74,7 @@
      "assertion": "an in-app unit dropped on a tree folder routes through the shared contract (re-parent); a native OS file still reads files + uploads. An in-app unit handled by a files-only path => RED; a native-file read is NOT flagged."
     },
     "stubMustFail": "seed an IN-APP UNIT (not a native file) dropped on a tree folder that is handled by a files-only read (bypasses the contract) -> RED",
-    "verificationStatus": "UNVERIFIED — not RED, not GREEN (PO 2026-09-06). Whether the CODE currently satisfies this is UNMEASURED + CONTESTED: planner read rb-object-item.ts:82 as files-only; TESTER measured .4 PASS (all 4 unit-drop paths route through the contract). Hypothesis: the file has BOTH a native-file read (legit) AND a contract path for unit-refs. DO NOT board work under this AC or fail .4 on it until the expert/tester measurement lands (in-app unit on a folder: does it re-parent? native file on a folder: does it still upload?). If it already routes, this AC is already SATISFIED and .4 passes with a stronger rule attached. Adopted as a RULE, not as defect-evidence."
+    "verificationStatus": "VERIFIED-RED (tester, live v0.8.204, 2026-09-06). MEASURED: an in-app UNIT dropped on a FOLDER is a SILENT NO-OP — the app sets the unit-ref payload but dt.files=0, so the folder handler files-only read at rb-object-item.ts:82 never fires acceptDropIntoContainer; folder children 0->0. Tester WALKED BACK its earlier .4 PASS on this. .4 STAYS WORK; do-not-board is LIFTED — board the covering task under this AC. FIX (expert building now): ADD the in-app unit-ref path via the shared contract (re-parent/MOVE, lands inside per R40.86), KEEP the native dataTransfer.files path (native OS file onto folder still uploads). The AC scoping (native-file-read legit vs in-app-unit-bypass defect) is the exact line the fix follows — a flat files-only=>RED would have broken native upload."
    }
   ],
   "buildFraming": {
