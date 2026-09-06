@@ -1,0 +1,80 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "72cb9032-8ae6-454d-92c4-3b967b9844d9",
+    "altId": "R40.102",
+    "name": "Post-Slice-3, the R40.81 reader-source toggle is REMOVED — model-unit readers hardwired to the ONE store",
+    "description": "R40.81's Slice-2 repoint is built behind a TEMPORARY reader-source toggle (for verification + reversibility). A SURVIVING toggle = a 2nd reader path = exactly the DRY/one-owner violation the migration exists to kill. So the toggle's REMOVAL is a TRACKED REQUIREMENT, not a doc intention: post-Slice-3, the reader-source toggle is REMOVED — model-unit readers are HARDWIRED to scenario/index (the ONE store), zero flag, zero branch. GATED on Slice-3 completion (the removal happens after Slice-3; this requirement is minted scenario-first NOW so the removal is tracked before it is built).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:53d04d46-9ac5-41cc-8e7f-3f7a0f301645"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designDoc": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/r40.81-overlap-reconciliation.md ## TOGGLE-REMOVAL",
+      "dispatchedBy": "robbin-architect (queued, PO condition)",
+      "date": "2026-09-06",
+      "poCondition": "the toggle's REMOVAL must be a tracked requirement, not a doc intention — a surviving toggle = a 2nd reader path = the DRY/one-owner violation the migration kills"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "gated on Slice-3 completion (removal is post-Slice-3; requirement minted scenario-first now)",
+    "dispatchState": "QUEUED-not-dispatched; architect wires the chain on build-go",
+    "crossRef": [
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2"
+    ],
+    "crossRefNote": "Closes R40.81's temporary-toggle escape hatch (the Slice-2 repoint is behind a reversible reader-source toggle; a surviving toggle re-opens the two-source disease). Failable lint = R40.88-family (reader-source branches == 0). Gated on Slice-3.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-toggle-removed-hardwired",
+        "group": "by-construction",
+        "text": "Post-Slice-3, the reader-source toggle is REMOVED: model-unit readers are hardwired to scenario/index (the ONE store) — no flag, no branch, no second reader path.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "reader-source-branch-scan (R40.88-family)",
+          "assertion": "reader-source branches for model units == 0 post-removal"
+        },
+        "stubMustFail": "PENDING: removal gated on Slice-3; lint unbuilt, no RED observed"
+      },
+      {
+        "id": "AC-zero-reader-branches-stub",
+        "group": "self-failability",
+        "text": "Failable gate (tester lint, R40.88-family): seed a reader-source branch/flag for a model unit -> RED. A surviving toggle cannot pass.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "ci:gates reader-source-branch fixture",
+          "assertion": "seed-a-violation (a reader-source branch for model units) => RED"
+        },
+        "stubMustFail": "PENDING: removal gated on Slice-3; lint unbuilt, no RED observed"
+      },
+      {
+        "id": "AC-gated-on-slice3",
+        "group": "gating/delta-vs-absolute",
+        "text": "The removal is GATED on Slice-3 completion — the absolute zero-branch assertion is WARN until Slice-3 lands, then RED (delta-vs-absolute, do not RED-gate before the migration that achieves it).",
+        "gateRef": {
+          "kind": "script",
+          "ref": "slice3-gate",
+          "assertion": "zero-branch RED only after Slice-3 complete; before => WARN, not false-RED"
+        },
+        "stubMustFail": "PENDING: removal gated on Slice-3; lint unbuilt, no RED observed"
+      },
+      {
+        "id": "AC-one-source-no-regression",
+        "group": "by-construction",
+        "text": "After removal, exactly ONE reader source (scenario/index) — the R40.81 one-store invariant holds with no toggle escape hatch re-introducing a second path.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "one-reader-source",
+          "assertion": "two reader sources for a model unit => RED (ties R40.81 AC-exactly-one-physical-store)"
+        },
+        "stubMustFail": "PENDING: removal gated on Slice-3; lint unbuilt, no RED observed"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

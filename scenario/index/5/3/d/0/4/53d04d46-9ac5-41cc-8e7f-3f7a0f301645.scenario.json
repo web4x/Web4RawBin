@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "53d04d46-9ac5-41cc-8e7f-3f7a0f301645",
+    "name": "readerSource.hardwireToOneStore",
+    "description": "Post-Slice-3, remove the reader-source toggle: model-unit readers resolve ONLY through scenario/index (the one store), zero flag/branch; a reader-source branch for a model unit => lint RED (R40.88-family). Gated on Slice-3.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:72cb9032-8ae6-454d-92c4-3b967b9844d9",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires chain on build-go, gated on Slice-3."
+  },
+  "ownerIor": "ior:instance:72cb9032-8ae6-454d-92c4-3b967b9844d9"
+}
