@@ -63,6 +63,17 @@
     "id": "AC-resolve-drop-payload-one-resolver",
     "group": "gate",
     "text": "dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared resolver EVERY drop target calls (fail-loud on unresolvable), replacing today's 4 payload formats each target resolving itself (the per-target-resolution disease). A drop updates the view LIVE @390. GATE STUB-MUST-FAIL: a target with its own payload format/resolver -> RED."
+   },
+   {
+    "id": "AC-tree-folder-drop-target-routes-contract",
+    "group": "serialize-fleet/.4",
+    "text": "EVERY drop target includes the TREE FOLDER target (rb-object-item.ts:82): an in-app UNIT dropped onto a FOLDER routes through the ONE shared drop contract as a unit->folder MOVE/re-parent (the content lands INSIDE the folder, R40.86 destination) — it must NOT read dataTransfer.files ONLY (which handles native files but silently drops in-app units). A drop target reading dataTransfer.files-only / bypassing the shared contract for an in-app unit is the concrete proof .4 (serialize-fleet = EVERY target) is NOT subsumed. crossRef R40.86.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "per-target BITE (tree folder)",
+     "assertion": "an in-app unit dropped on a tree folder routes through the shared contract (unit->folder move); a drop target reading dataTransfer.files-only for an in-app unit => RED"
+    },
+    "stubMustFail": "seed a tree folder drop-target that reads dataTransfer.files only + drop an in-app unit -> the unit is dropped/not-routed -> RED"
    }
   ],
   "buildFraming": {
@@ -72,7 +83,10 @@
    "whyBothRequired": "a serializer WITHOUT a single resolver is HALF A CONTRACT: the buffer carries the unit correctly, then every drop target keeps its own bespoke PARSING = per-target read-side branching surviving under a compliant-looking wrapper = the exact one-owner-write / N-owners-read disease T37.20 BITE forbids. Serializer-only would ship as T37.20-done and leave the disease intact.",
    "acCount": 7
   },
-  "queuePriority": "NEXT (Tron 2026-09-06: \"next is Task 37.20, NOTHING ELSE\"). CURRENT=R40.81 root; R37.20 is the ONLY next. Its mechanism = R40.96/97/98/99/101/103 (extendsRequirement children, NOT separate queue items)."
+  "queuePriority": "NEXT (Tron 2026-09-06: \"next is Task 37.20, NOTHING ELSE\"). CURRENT=R40.81 root; R37.20 is the ONLY next. Its mechanism = R40.96/97/98/99/101/103 (extendsRequirement children, NOT separate queue items).",
+  "crossRef": [
+   "ior:instance:a7bd184b-af45-47c1-a8f7-2488bde5f71d"
+  ]
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
