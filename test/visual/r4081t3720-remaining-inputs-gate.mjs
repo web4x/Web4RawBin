@@ -15,10 +15,10 @@ const iorClass = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api
 
 const INPUTS = [
   { key: 'URL→WebItem', kind: 'url', payload: 'https://example.com/t3720-webitem', want: /WebItem/i, ios: false },
-  { key: 'image→Image (iOS-photo repro)', kind: 'file', name: 't.png', mime: 'image/png', bytes: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4], want: /Image|File/i, ios: true },
-  { key: '.eml→Email (iOS-Mail repro)', kind: 'file', name: 't.eml', mime: 'message/rfc822', bytes: [...Buffer.from('From: a@b\r\nSubject: t\r\n\r\nhi')], want: /Email|File/i, ios: true },
-  { key: '.vcf→Contact', kind: 'file', name: 't.vcf', mime: 'text/vcard', bytes: [...Buffer.from('BEGIN:VCARD\r\nFN:T\r\nEND:VCARD')], want: /Contact|File/i, ios: false },
-  { key: '.ics→CalendarEntry', kind: 'file', name: 't.ics', mime: 'text/calendar', bytes: [...Buffer.from('BEGIN:VCALENDAR\r\nEND:VCALENDAR')], want: /Calendar|File/i, ios: false },
+  { key: 'image→Image (iOS-photo repro)', kind: 'file', name: 't.png', mime: 'image/png', bytes: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4], want: /Image/i, ios: true },
+  { key: '.eml→Email (iOS-Mail repro)', kind: 'file', name: 't.eml', mime: 'message/rfc822', bytes: [...Buffer.from('From: a@b\r\nSubject: t\r\n\r\nhi')], want: /Email/i, ios: true },
+  { key: '.vcf→Contact', kind: 'file', name: 't.vcf', mime: 'text/vcard', bytes: [...Buffer.from('BEGIN:VCARD\r\nFN:T\r\nEND:VCARD')], want: /Contact/i, ios: false },
+  { key: '.ics→CalendarEntry', kind: 'file', name: 't.ics', mime: 'text/calendar', bytes: [...Buffer.from('BEGIN:VCALENDAR\r\nEND:VCALENDAR')], want: /CalendarEntry|Calendar/i, ios: false },
 ];
 
 const browser = await webkit.launch();
