@@ -7,6 +7,6 @@
     "sourceFile": "ior:file:src/public/ts/trace/rb-folder-detail.ts",
     "designAhead": true,
     "tests": [],
-    "description": "DESIGN-AHEAD (build-go): Folder implements DropTarget; drop path -> target.acceptDrop (polymorphic, no surface branch). ★ BUILD the MODEL_STORE blob-create path (missing impl, NOT an exclusion): a file dropped on a model/diagrams folder mints a File unit in MODEL_STORE parented to it. Expert seats [impl:uuid:4d4ac272-17b9-49cf-8fd0-dd4bc3922994] on build + flips designAhead false."
+    "description": "DESIGN-AHEAD (build-go): Folder implements DropTarget; drop path -> target.acceptDrop (polymorphic, no surface branch). ★ CORRECTED (Tron no-2nd-store): a dropped file mints a SCENARIO UNIT IN scenario/index parented by the folder ref — NOT a parallel MODEL_STORE (that build item is RETRACTED; MODEL_STORE elimination is its own migration, measurement-model-store-elimination.md). ONE store. Expert seats [impl:uuid:4d4ac272] on build + flips designAhead false."
   }
 }
