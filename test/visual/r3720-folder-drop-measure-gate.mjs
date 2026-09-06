@@ -12,6 +12,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const BASE = 'https://prod.wo-da.de:4444';
 const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
 const children = (ref) => new Promise((res) => { const u = new URL(`${BASE}/api/trace/children/${encodeURIComponent(ref)}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).children || []); } catch { res([]); } }); }).on('error', () => res([])); });
+// ROBUST re-parent signal: the FILE'S OWN unit location. Re-parent moves F under the folder → its location contains the folder name.
+const iorLocation = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/ior:instance:${uuid}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { const j = JSON.parse(d); res(String(j?.unit?.model?.location || j?.model?.location || '')); } catch { res(''); } }); }).on('error', () => res('')); });
 
 const browser = await webkit.launch();
 let servedVersion = '?', roomId = null;
@@ -57,9 +59,12 @@ try {
     return { ok: true, dtTypes: types, fileCount };
   }, { fUuid });
   await sleep(3500);
+  const locBefore = await iorLocation(fUuid); // measured before drop is at Files root
   const folderKidsAfterA = (await children(folderRef)).length;
-  res.inAppReparent = { fired: aFired, before: folderKidsBeforeA, after: folderKidsAfterA, reparented: folderKidsAfterA > folderKidsBeforeA };
-  R(`  (A) IN-APP unit → folder: dtTypes=${JSON.stringify(aFired.dtTypes)} dt.files=${aFired.fileCount} | folder children ${folderKidsBeforeA}→${folderKidsAfterA} ⇒ re-parent=${res.inAppReparent.reparented ? 'YES' : 'NO (silent no-op)'}`);
+  const fLocAfter = await iorLocation(fUuid);
+  const reparented = /DropTargetFolder/.test(fLocAfter); // F's OWN location now under the folder = re-parented (robust; folder-children query is unreliable for nested refs)
+  res.inAppReparent = { fired: aFired, fLocAfter, reparented };
+  R(`  (A) IN-APP unit → folder: dtTypes=${JSON.stringify(aFired.dtTypes)} dt.files=${aFired.fileCount} | F.location='${fLocAfter}' folderKids=${folderKidsAfterA} ⇒ re-parent=${reparented ? 'YES (F now under folder)' : 'NO (silent no-op — F still at root)'}`);
 
   // ── (B) NATIVE file onto folder: dispatch a drop with dataTransfer.files=[nativeFile] on the FOLDER node → should upload into it.
   const bFired = await page.evaluate(() => {
