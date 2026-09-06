@@ -8,7 +8,7 @@
     "intention": "A file/folder renames by calling its own rename() method (registered action), not by a handler switching on type; the user's displayName overrides the class's derived name.",
     "context": "Covers R40.104 069b1f8d (rename = object own behaviour, 2nd class-registered action, 7 failable ACs). PAIRS with increment #3 derivedName (class computes its display name — new req, PO-GO-pending). Rides the architect's OBJECT-ACTION (Command+Registry) design. parent S37 b86b53cc.",
     "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "PROJECTED from R40.104 069b1f8d (7 failable ACs, single-source) — not hand-copied; req parity-projects + 3-pt verifies. See coveredRequirement for the authoritative ACs.",
+    "acceptanceCriteria": "- [ ] AC-rename-is-object-behaviour: Rename is the OBJECT'S OWN behaviour: unit.rename(newName) on the object, NOT a dialog/handler w.\n- [ ] AC-three-names-distinct: THREE distinct names, never conflated: originalName (raw input string.\n- [ ] AC-rename-file-and-folder-from-tree: A FILE and a FOLDER can both be renamed from the room tree (the action is available on each).\n- [ ] AC-persists-renders-everywhere-no-reload: The new name PERSISTS and RENDERS EVERYWHERE the object appears (tree, detail, preview) with NO .\n- [ ] AC-rename-identity-stable: Rename does NOT change identity: the uuid is STABLE, links/children intact (same law as the VCar.\n- [ ] AC-empty-whitespace-rejected: An empty or whitespace-only new name is REJECTED (the rename does not apply; the object keeps it.\n- [ ] AC-registered-per-class-zero-central-switch: The rename action is REGISTERED PER CLASS, so a 7th class gains rename with ZERO central-switch .",
     "subtasks": "None (atomic increment).",
     "status": "Planned",
     "coveredRequirements": [
@@ -19,7 +19,8 @@
     "sprintName": "Sprint 37",
     "remainingIssues": "STOOD UP Planned (2026-09-06) on req R40.104 (rename requirement minted 7b3804eaf). OWNER=EXPERT, overnight lane increment #4 (TIER-A behind the Move). AC string = a PROJECTION of R40.104 (never hand-written; req projects + 3-pt verifies). Ship as its own increment. 0 Done till Tron.",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-06"
+    "createdAt": "2026-09-06",
+    "acParitySource": "GENERATED from R40.104 069b1f8d (single-source, 7 ACs) - projection not hand-copy."
   },
   "ownerIor": null
 }
