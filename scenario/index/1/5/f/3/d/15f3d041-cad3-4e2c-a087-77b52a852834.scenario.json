@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "15f3d041-cad3-4e2c-a087-77b52a852834",
+    "name": "nativeFileIngress.toUnit",
+    "description": "One ingress boundary owns native-file multipart entry + content-type param parse, emitting a scenario unit; multipart never propagates inward.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:4d6e701b-4750-4e51-8992-9790e55ce817",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+  },
+  "ownerIor": "ior:instance:4d6e701b-4750-4e51-8992-9790e55ce817"
+}

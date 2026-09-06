@@ -1,0 +1,78 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "3b205cfb-e538-4692-9999-8fe0d9ca2b1d",
+    "altId": "R40.100",
+    "name": "Self-heal emerges BY CONSTRUCTION from the OOP model — retire the functional 419 handshake",
+    "description": "Tron: 'we screwed it functional; reevaluate it OOP, then it CANNOT NOT self heal.' Self-healing is NOT a handshake — it EMERGES from the OOP model: an object owns its state + an idempotent unit-JSON PUT-by-uuid (R40.96) + hash-dedup no-op (R40.98) means a re-sync is a safe no-op by construction, so drift self-corrects with no protocol. RETIRE the functional 419 self-heal handshake (Tron killed it; superseded in a85ea536a via architect REV2 1bd093d53). Do NOT mint the handshake. (DISTINCT from the MODEL-object self-heal of the Task 37.4 family, which STAYS.)",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:dcafb763-80b0-402c-80ec-41ad499017ed"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designDoc": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-mimetype-class-model.md (REV2 1bd093d53 + REV3 1f17c6682 + framing 169830249)",
+      "tronDirective": "Tron 2026-09-06 verbatim: 'transport IS the scenario. json... NOTHING ELSE' / 'scenario unit json IS THE MODEL AND THE ONLY THING TRANSFERED IN REST AND ANY OTHER TRANSPORT' / 'THINK WHAT REST MEANS' / 'sure native files come as multipart binaries in but then become scenario units within the system' / '7: no! as you completely screwed it functional. we will reevaluate it oop... then it cannot not self heal'",
+      "dispatchedBy": "robbin-po (GO + verbatim provenance)",
+      "date": "2026-09-06"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "PRIO-1",
+    "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
+    "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-self-heal-emergent-not-handshake",
+        "group": "by-construction",
+        "text": "Self-heal is a PROPERTY that emerges from idempotent PUT-by-uuid (R40.96) + hash-dedup (R40.98) + object-owns-state — NOT a functional handshake. A re-sync of the same uuid/content is a no-op.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "re-sync no-op",
+          "assertion": "re-PUT of an object's current unit is a no-op; drift re-PUT converges without a protocol"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-retire-419-handshake",
+        "group": "retire/supersede",
+        "text": "The functional 419 self-heal handshake req/ACs are RETIRED (Tron-killed, superseded a85ea536a). No handshake requirement is minted. If a standalone handshake req unit exists, it is marked superseded-not-deleted (annotate-not-fabricate) — FLAGGED to architect/PO for the exact unit.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "handshake-absent",
+          "assertion": "no functional 419 handshake requirement is active; a re-introduced handshake req => flag"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-distinct-from-task-374-selfheal",
+        "group": "boundary",
+        "text": "This is DISTINCT from the MODEL-object self-heal (Task 37.4 family), which STAYS. Retiring the 419 handshake must not touch the 37.4 model self-heal.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "37.4-selfheal-intact",
+          "assertion": "the Task 37.4 model self-heal is untouched by the 419 retirement"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-self-heal-stub",
+        "group": "self-failability",
+        "text": "Seed a divergent re-PUT -> converges to one unit (else RED); seed a re-introduced handshake -> flag.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates self-heal fixture",
+          "assertion": "seeded divergent re-PUT converges-or-RED before the property counts as proven"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

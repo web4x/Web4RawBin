@@ -1,0 +1,80 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "d7deea49-398e-4ed4-9602-c45fccce172e",
+    "altId": "R40.96",
+    "name": "REST transport is the scenario unit JSON — internal content moves as an idempotent unit-JSON PUT by uuid, never multipart",
+    "description": "THINK WHAT REST MEANS: REpresentational State Transfer — the representation of state IS the scenario unit JSON, so every internal transfer carries unit JSON and NOTHING ELSE. In-app content transfers as an IDEMPOTENT unit-JSON PUT by uuid (same uuid + same content = no-op), NOT multipart, NOT a bespoke payload. Deletes the hand-rolled transport layer that caused the week-long outage.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:06444973-7f6f-4bb4-81c0-2b23715f8d79"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designDoc": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-mimetype-class-model.md (REV2 1bd093d53 + REV3 1f17c6682 + framing 169830249)",
+      "tronDirective": "Tron 2026-09-06 verbatim: 'transport IS the scenario. json... NOTHING ELSE' / 'scenario unit json IS THE MODEL AND THE ONLY THING TRANSFERED IN REST AND ANY OTHER TRANSPORT' / 'THINK WHAT REST MEANS' / 'sure native files come as multipart binaries in but then become scenario units within the system' / '7: no! as you completely screwed it functional. we will reevaluate it oop... then it cannot not self heal'",
+      "dispatchedBy": "robbin-po (GO + verbatim provenance)",
+      "date": "2026-09-06"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "PRIO-1",
+    "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
+    "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
+    "crossRef": [
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-transport-is-scenario-unit",
+        "group": "cross-cutting/transport",
+        "text": "CROSS-CUTTING (planner constraint on every req in this set): the scenario-unit JSON is the model AND the only payload over REST or any transport (except the single NativeFileIngress edge, R40.97). No bespoke/per-target payload.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "transport-payload-scan",
+          "assertion": "any internal transport carrying a non-unit-JSON payload => RED"
+        },
+        "stubMustFail": "PENDING: seed a non-unit-JSON internal payload -> RED"
+      },
+      {
+        "id": "AC-put-by-uuid-idempotent",
+        "group": "by-construction",
+        "text": "In-app content transfer = a unit-JSON PUT keyed by uuid; re-PUT of the same uuid+content is a no-op (idempotent), not a duplicate.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "PUT /unit/:uuid idempotency",
+          "assertion": "same uuid+content PUT twice => one unit, no dup; divergent => defined reconcile"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-no-non-unit-payload-internal",
+        "group": "gate",
+        "text": "No internal transport (REST route, ws, bus) carries a non-unit-JSON payload.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "internal-transport-payload-scan",
+          "assertion": "a route emitting/accepting a non-unit-JSON body on an internal path => RED"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-no-transport-layer-self-stub",
+        "group": "self-failability",
+        "text": "Seed a bespoke/multipart internal payload -> the scan goes RED (own stub, isolated R40.31).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates transport-scan fixture",
+          "assertion": "seeded bespoke internal payload observed RED before the gate counts as wired"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

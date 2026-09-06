@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "0e4944d6-de41-46b1-97e1-7e35b6ea668a",
+    "name": "binaryUnit.base64AndHashDedup",
+    "description": "Binary within the unit: base64 inline on the wire, .content sidecar + sha256 dedup at rest; class owns toUnit/fromUnit.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:97ce5ac6-3c7c-408b-81fe-1081c3370c48",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+  },
+  "ownerIor": "ior:instance:97ce5ac6-3c7c-408b-81fe-1081c3370c48"
+}

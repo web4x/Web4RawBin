@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "dcafb763-80b0-402c-80ec-41ad499017ed",
+    "name": "selfHeal.byConstruction",
+    "description": "Self-heal emerges from idempotent PUT-by-uuid + hash-dedup + object-owns-state; retire the functional 419 handshake, keep Task 37.4 model self-heal.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:3b205cfb-e538-4692-9999-8fe0d9ca2b1d",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+  },
+  "ownerIor": "ior:instance:3b205cfb-e538-4692-9999-8fe0d9ca2b1d"
+}

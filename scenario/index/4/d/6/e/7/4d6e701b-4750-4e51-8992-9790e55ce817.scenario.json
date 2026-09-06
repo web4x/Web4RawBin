@@ -1,0 +1,79 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "4d6e701b-4750-4e51-8992-9790e55ce817",
+    "altId": "R40.97",
+    "name": "NativeFileIngress is the ONE edge that owns native-file multipart entry + content-type param parse, converting to a unit immediately",
+    "description": "Tron's exemption, encoded exactly: native files DO come in as multipart binaries (Finder/picker) — but ONLY at ONE ingress boundary, converted to a scenario unit IMMEDIATELY, never propagating inward. That single owner (NativeFileIngress) ALSO owns the content-type parameter parse (dequote boundary / strip params) ONCE — which makes the boundary-outage fix PERMANENT BY CONSTRUCTION (no second place parses content-type, so no second place can re-break it).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:15f3d041-cad3-4e2c-a087-77b52a852834"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "architect-design",
+      "designDoc": "scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/design-mimetype-class-model.md (REV2 1bd093d53 + REV3 1f17c6682 + framing 169830249)",
+      "tronDirective": "Tron 2026-09-06 verbatim: 'transport IS the scenario. json... NOTHING ELSE' / 'scenario unit json IS THE MODEL AND THE ONLY THING TRANSFERED IN REST AND ANY OTHER TRANSPORT' / 'THINK WHAT REST MEANS' / 'sure native files come as multipart binaries in but then become scenario units within the system' / '7: no! as you completely screwed it functional. we will reevaluate it oop... then it cannot not self heal'",
+      "dispatchedBy": "robbin-po (GO + verbatim provenance)",
+      "date": "2026-09-06"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "PRIO-1",
+    "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
+    "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
+    "crossRef": [
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "acceptanceCriteria": [
+      {
+        "id": "AC-one-ingress-owns-native-entry",
+        "group": "by-construction",
+        "text": "Exactly ONE boundary (NativeFileIngress) accepts native-file multipart entry and emits a scenario unit; the multipart representation never propagates past it.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "NativeFileIngress emits unit",
+          "assertion": "a native file entering the system is a scenario unit past the ingress edge, never multipart inward"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-content-type-parse-single-owner",
+        "group": "by-construction",
+        "text": "The content-type parameter parse (dequote boundary / strip params) lives ONLY inside NativeFileIngress — the outage fix is permanent because no second parser exists to re-break.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "content-type parse ownership",
+          "assertion": "the boundary/content-type parse resolves to NativeFileIngress; a duplicate parser => RED"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-scan-hazard-multipart-outside",
+        "group": "gate/scan-hazard",
+        "text": "Any multipart / boundary / content-type-string operation OUTSIDE NativeFileIngress == 0.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "multipart-op-scan",
+          "assertion": "a multipart/boundary/content-type op outside NativeFileIngress => RED"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-seed-violation-red",
+        "group": "self-failability",
+        "text": "Seed a multipart parse outside NativeFileIngress -> RED (own stub, isolated).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates ingress-scan fixture",
+          "assertion": "seeded outside-edge multipart op observed RED before the gate counts as wired"
+        },
+        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      }
+    ],
+    "outageFixProvenance": "content-type.split('boundary=') kept iOS QUOTED boundary -> 0 parts -> 401/419; single-owner parse makes the v0.8.190 fix permanent by construction"
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

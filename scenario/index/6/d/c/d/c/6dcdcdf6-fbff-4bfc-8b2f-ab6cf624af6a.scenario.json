@@ -1,0 +1,98 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "6dcdcdf6-fbff-4bfc-8b2f-ab6cf624af6a",
+    "altId": "R40.101",
+    "name": "iOS-shaped upload correctness — content-type boundary parameter handling (quoted boundary + charset params)",
+    "description": "#126 BACKFILL, named as such: the single most critical fix this week — the iOS-shaped upload outage fix — shipped CHAIN-LESS because it arose as a Tron priority-override during a live outage instead of scenario-first, so it has NO covering requirement/task and the permanent gate r4090 (c9c6acb8a) is referenced by NO Test/Impl. THE REQUIREMENT: iOS-shaped upload correctness = content-type BOUNDARY parameter handling (a QUOTED boundary + trailing ;charset params) so a native-file upload parses on EVERY client. Root of the outage: content-type.split('boundary=') kept the iOS QUOTED boundary -> 0 parts -> 401/419. Re-point to BUILT REALITY (R30.11 pattern, NOT design-ahead): the shipped fix = server.ts boundary extraction, v0.8.190, commit 7cc4717fb (surgical dequote, body byte-unchanged). We close the rule-break rather than argue it.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:37032845-7f02-4e3e-b80e-e5351d433667"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "backfill-126",
+      "namedAs": "#126 BACKFILL (rule broken by an emergency Tron priority-override during a live outage; we close it, not argue it)",
+      "flaggedBy": "robbin-planner (coverage gap measured on disk)",
+      "ruledBy": "robbin-po",
+      "date": "2026-09-06",
+      "shippedCode": "server.ts boundary extraction, v0.8.190, commit 7cc4717fb (surgical dequote, body byte-unchanged)",
+      "gate": "r4090 c9c6acb8a (upload-parser RED baseline; permanent gate, was referenced by NO Test/Impl)"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "PRIO-1 (TOP of queue — ahead of the OOP split; cheap to close, highest-value chain debt)",
+    "dispatchState": "QUEUED-not-dispatched; architect wires chain (re-point to built reality), planner mints covering task same-turn",
+    "repointToBuiltReality": {
+      "impl": "server.ts boundary extraction v0.8.190 (7cc4717fb)",
+      "test": "r4090 c9c6acb8a",
+      "pattern": "R30.11 do-not-design-ahead"
+    },
+    "satisfactionStatus": "CHAIN-BACKFILL: fix SHIPPED + PROD-confirmed (v0.8.190); r4090 matrix GREEN on prod. NOT marked SATISFIED until the chain is wired (architect) + the r4090 gate is attached as a real Test unit (tester, measure-not-invent). Honest: the CODE is done; the TRACEABILITY is being backfilled.",
+    "crossRef": [
+      "ior:instance:4d6e701b-4750-4e51-8992-9790e55ce817",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "R40.97 (NativeFileIngress single-owner) is the FORWARD, by-construction generalization that makes THIS fix permanent (one owner of the content-type parse). R40.101 = the retroactive chain for the ALREADY-SHIPPED emergency fix; R40.97 = the OOP architecture it converges into. Distinct satisfaction states (101 shipped-done / 97 to-build).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-boundary-matrix-all-green",
+        "group": "matrix/prod",
+        "text": "r4090's matrix all GREEN with byte round-trip, ON THE PROD SURFACE (not a worktree): V0 control / V1 file-first / V2 token-first / V3 quoted boundary / V4 quoted+charset params.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test r4090 (gate c9c6acb8a) matrix V0-V4 on prod",
+          "assertion": "V0-V4 all 200 + byte-sha round-trip on the prod surface; any RED => fail"
+        },
+        "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
+      },
+      {
+        "id": "AC-quoted-boundary-parsed",
+        "group": "correctness",
+        "text": "A QUOTED content-type boundary (iOS) is dequoted and parsed to >0 parts (the exact outage: quoted boundary -> 0 parts -> 401/419 is fixed).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "quoted-boundary parse",
+          "assertion": "content-type with a quoted boundary yields >0 multipart parts; 0 parts => RED"
+        },
+        "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
+      },
+      {
+        "id": "AC-charset-params-stripped",
+        "group": "correctness",
+        "text": "Trailing ;charset (and other) parameters after boundary are stripped, not folded into the boundary value.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "boundary-with-charset",
+          "assertion": "boundary followed by ;charset parses correctly; param-in-boundary => RED"
+        },
+        "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
+      },
+      {
+        "id": "AC-byte-roundtrip",
+        "group": "integrity",
+        "text": "The uploaded bytes round-trip byte-identical (sha256) — the fix is boundary-only, body byte-unchanged.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "upload byte-sha round-trip",
+          "assertion": "stored bytes sha256 == uploaded bytes sha256"
+        },
+        "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
+      },
+      {
+        "id": "AC-chain-to-shipped-not-designahead",
+        "group": "provenance/R30.11",
+        "text": "The chain re-points to BUILT REALITY: Impl = server.ts boundary extraction v0.8.190 (commit 7cc4717fb); Test = r4090 gate c9c6acb8a. NOT design-ahead. Architect wires UC->Class->Method->Impl(shipped)->Test.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "chain-to-7cc4717fb",
+          "assertion": "the Impl marker seats on the shipped v0.8.190 boundary code; a design-ahead/unseated Impl => flag"
+        },
+        "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

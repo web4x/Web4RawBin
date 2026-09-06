@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "f4b10768-caa2-4065-82d6-cd9e8d103ad6",
+    "name": "naturalClass.unitConvertible",
+    "description": "Each natural domain class implements UnitConvertible {isBinary/load/toUnit/fromUnit} and owns its conversion; reuse WebItem/Email, reconcile Contact(VCard-lens), mint Image/CalendarEntry.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+  },
+  "ownerIor": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5"
+}

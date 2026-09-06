@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "06444973-7f6f-4bb4-81c0-2b23715f8d79",
+    "name": "unitTransport.putByUuid",
+    "description": "Internal content transfer as an idempotent unit-JSON PUT by uuid; no multipart/bespoke payload on any internal transport.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:d7deea49-398e-4ed4-9602-c45fccce172e",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+  },
+  "ownerIor": "ior:instance:d7deea49-398e-4ed4-9602-c45fccce172e"
+}

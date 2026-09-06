@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "37032845-7f02-4e3e-b80e-e5351d433667",
+    "name": "uploadIngress.parseContentTypeBoundary",
+    "description": "Parse the multipart content-type boundary correctly on every client: dequote a quoted boundary (iOS), strip trailing ;charset and other params, yield >0 parts, bytes byte-identical. Re-points to shipped server.ts boundary extraction v0.8.190 (7cc4717fb); Test = r4090 c9c6acb8a.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:6dcdcdf6-fbff-4bfc-8b2f-ab6cf624af6a",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires UC->Class->Method->Impl(SHIPPED v0.8.190 7cc4717fb, re-point-to-built-reality R30.11)->Test(r4090 c9c6acb8a). Do NOT design-ahead."
+  },
+  "ownerIor": "ior:instance:6dcdcdf6-fbff-4bfc-8b2f-ab6cf624af6a"
+}
