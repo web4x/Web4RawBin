@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:dc4938a6-2d67-4ed7-b608-30be00d50e21",
+  "model": {
+    "uuid": "ee03f867-d437-4c96-9399-5fcbd0f10de9",
+    "name": "DndContract.resolveDragUnit impl",
+    "sourceFile": "ior:file:src/public/ts/dnd-contract.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (T37.20): ONE resolver at every drop target — application/rb-unit -> text/plain unit-ref (iOS strip) -> dataTransfer.files=MINT-then-ride -> selectionModel. NEVER a URL/href parse. Expert builds + seats [impl:uuid:ee03f867-d437-4c96-9399-5fcbd0f10de9]."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": "ior:instance:5474886a-fad6-4fc0-bab3-940b3480959f",
+  "model": {
+    "uuid": "822e663b-f528-484e-92f9-825f402fdc8d",
+    "name": "DndContract",
+    "sourceFile": "ior:file:src/public/ts/dnd-contract.ts",
+    "methods": [
+      "ior:instance:4d4d6a68-a57c-4b9d-8353-2299b7436ee7",
+      "ior:instance:dc4938a6-2d67-4ed7-b608-30be00d50e21"
+    ],
+    "description": "The ONE shared DnD serializer+resolver (T37.20). Buffer carries the scenario UNIT under application/rb-unit, never a *.show URL. NOT DropDispatcher (that is the upload mechanism)."
+  }
+}

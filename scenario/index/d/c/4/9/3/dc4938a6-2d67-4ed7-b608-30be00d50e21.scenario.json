@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:822e663b-f528-484e-92f9-825f402fdc8d",
+  "model": {
+    "uuid": "dc4938a6-2d67-4ed7-b608-30be00d50e21",
+    "name": "DndContract.resolveDragUnit",
+    "class": "ior:instance:822e663b-f528-484e-92f9-825f402fdc8d",
+    "sourceFile": "ior:file:src/public/ts/dnd-contract.ts",
+    "implementations": [
+      "ior:instance:ee03f867-d437-4c96-9399-5fcbd0f10de9"
+    ],
+    "tests": [],
+    "description": "The ONE resolver every drop target calls; returns the resolved scenario UNIT(s). Fixed order, no URL fallback. Retires RoomView html-href / rb-object-item files-only / diagram / ProfileEditor per-target reads."
+  }
+}
