@@ -208,13 +208,19 @@ export class RoomView {
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
-        // T26.6: a cross-origin FEDERATED reference — hand it to OUR server (fetch origin + reconcile + store),
-        // NOT to dispatchUrl (which would store it as a plain URL). Read sync — DataTransfer is event-scoped.
-        const fedRef = dt.getData('application/rb-federated-ref');
-        if (fedRef) {
-          fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: JSON.parse(fedRef), roomId: this.roomId, token: this.client.playerToken }) })
+        // T26.6/T37.20 (Tron: ask the OBJECT where it lives, do NOT branch on the payload format): federation import — an
+        // origin-FETCH — is ONLY for a genuinely REMOTE origin (a DIFFERENT server). A same-origin in-app drag ALSO carries
+        // application/rb-federated-ref (rb-object-item sets originHost = THIS origin), so the old fedRef-FIRST branch made the
+        // server fetch ITSELF → 'origin fetch failed: origin 403' → the in-app object never linked. Now: only a fedRef whose
+        // originHost differs from this origin takes the remote-import path; a same-origin (or unparseable) fedRef FALLS THROUGH
+        // to the ONE contract below, which relinks the LOCAL unit (no self-fetch). Read sync — DataTransfer is event-scoped.
+        const fedRaw = dt.getData('application/rb-federated-ref');
+        let remoteFed: { originHost?: string } | null = null;
+        if (fedRaw) { try { const fr = JSON.parse(fedRaw); const here = (typeof location !== 'undefined' && location.origin) || ''; if (fr && fr.originHost && fr.originHost !== here) remoteFed = fr; } catch { /* not a parseable fed ref → not remote */ } }
+        if (remoteFed) {
+          fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: remoteFed, roomId: this.roomId, token: this.client.playerToken }) })
             .then(r => r.json()).then(res => {
-              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); } // radical-OOP Slice 1: was a full tree.renderSeed re-seed (DELETED) → publish ONE "Files container gained a child" → the owning Node renders its own children in place
+              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); } // radical-OOP Slice 1: publish ONE "Files container gained a child" → the owning Node renders its own children in place
               else log(`[federation] import failed: ${res?.error || '?'}`);
             }).catch(err => log(`[federation] import error: ${err?.message || err}`));
           return;
