@@ -40,4 +40,33 @@ These are the OOP-correct requirements; the planner maps located functional task
 
 ---
 
+## Skill-expert FINDING — chain-scoreboard status + SHELL defects (PO lane: found-existing + chain-status)
+
+Measured via the REAL chain scorer (`Chain.buildStrictImplSet`, tsx-free esbuild harness, det). Mapped the architect class-model collapse-targets (`design-radical-oop-class-model.md`, per slice) to EXISTING scenario units. **CHAIN-SCOREBOARD status is a DIFFERENT board from the planner's task-FSM** (the distinction PO drew re R40.84 — task-board can be honest while the chain-scoreboard reads a false green, and vice-versa). Planner owns task-FSM current/next; this is the traceability/chain view.
+
+**★ SHELL = the chain reads COMPLETE (credited-green) but the impl lives in a VIEW / server free-fn / service — NOTHING owns the invariant. A SHELL is a DEFECT, not a green** (exactly the void that produced R40.84: nobody owned "I gained a child, render me"). These are the dangerous rows — a green scoreboard hides an unowned invariant.
+
+| Slice | behaviour (collapse-target) | existing unit | sourceFile (where behaviour lives now) | chain-scoreboard | SHELL? | → owner (class model) | found existing task/req |
+|---|---|---|---|---|---|---|---|
+| S1 | reDeriveDirectChildren | Impl 8693dc2b | rb-trace-tree.ts (VIEW) | **credited** | ★ **SHELL** | `Node.renderChildren()` | R40.84 (just closed — green BUT a shell) |
+| S1 | buildSeedNode | Impl 5b3d9f1a | rb-trace-tree.ts (VIEW) | **credited** | ★ **SHELL** | `Node` construction | — |
+| S1 | renderSeed | Impl ee897257 | rb-trace-tree.ts (VIEW) | open | (behaviour-outside, chain incomplete) | delete → each Node renders own | — |
+| S1 | fetchAndRenderChildren | Impl 5d4ba96f | rb-trace-tree.ts (VIEW) | open | — | `Node.renderChildren()` | — |
+| S2 | folderChildrenUnder | Impl 973481f2 | server.ts (FREE-FN) | **credited** | ★ **SHELL** | `Folder.children()` | — |
+| S2 | FolderService.mintRealUnit | Impl 0e6761c2 | server/FolderService.ts (SERVICE) | **credited** | ★ **SHELL** | `Folder.createChild()` | Task 40.93 (311df491) · Req e0c95904 |
+| S2 | FolderService.createPhysicalFolder | Impl a1988163 | server/FolderService.ts | open | — | `Folder.createChild()` | Task 40.93 (311df491) |
+| S2 | ModelView.addFolder | Impl 2f65a342 | model.ts (VIEW) | open | — | `Folder.createChild()` | UC addFolder.routeByParentPhysicality (abac573a) |
+| S3 | roomFilesChildren | Impl 87f83fdf | server.ts (FREE-FN) | open | — | `Room.files()` | — |
+| S4 | createFileUnit | (TestCase 6c390367 only; no Impl unit) | src/ts/scenario/file-unit.ts | no-impl-unit | — | `File.create()` | — |
+| S5 | server.isModelUnit | Impl 010f3e23 | server.ts (FREE-FN) | **credited** | ★ **SHELL** | `Unit.resolve()` (store-fork) | Task 35.2 (7b3c6a57) · Req 23e77b77 |
+| S5 | server.ensureViewUnit | Impl a09b474d | server.ts (FREE-FN) | **credited** | ★ **SHELL** | `Unit.resolve()` | UC modelTree.ensureViewUnit (c3902503) |
+| S5 | server.mofChildren | Impl b6c88d83 | server.ts (FREE-FN) | open | — | `Node.children()`/`Unit.children()` | UC model.mofChildren (8bdeda90) |
+| S5 | server.pumlChildren | Impl 9eb2c39c | server.ts (FREE-FN) | open | — | `Unit.children()` | UC diagram.pumlChildren (c1a629e4) |
+
+**Headline: 6 credited-green SHELLS** (8693dc2b, 5b3d9f1a, 973481f2, 0e6761c2, 010f3e23, a09b474d) — the scoreboard says COMPLETE, but the behaviour lives in a view/server free-fn/service and no domain class owns it. Correcting these to radical-OOP does NOT change the chain-scoreboard number (they already read green) — which is precisely why they're dangerous: **the metric will not tell you they're wrong; only "does a domain class own it?" will.** Recommend the OOP change requests treat a credited SHELL as an OPEN ownership defect.
+
+*Skill-expert (0.2) contribution 2026-09-06 — chain-scoreboard finding + SHELL flags. Coordinated through the artifact, no fork. Report to PO only.*
+
+---
+
 *Seeded by robbin-req 2026-09-06 (first-mover, shared artifact — do NOT fork). Requirement column + rubric are the req contribution; planner populates task rows, skill-expert reviews OOP correctness. Report to PO only.*
