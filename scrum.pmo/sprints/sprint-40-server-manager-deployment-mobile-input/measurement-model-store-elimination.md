@@ -5,8 +5,15 @@ Tron: *"FULL MIGRATION… AND NO REGRESSION!!!!"* — eliminate MODEL_STORE, one
 ## (1) What MODEL_STORE IS today — a GENUINELY SEPARATE STORE, not a façade
 `server.ts:122  const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index')` — a real, physically separate directory (`data/model-store/index`), distinct from prod `scenario/index`. Reads/writes go to that dir via `new ScenarioIndex(MODEL_STORE)` and direct `path.join(MODEL_STORE, ...)` file writes. NOT an index/view over the same files — its own shard tree of `.scenario.json` files. Also a sidecar `data/model-store/usage-index.json` (server.ts:1544).
 
-## (2) UNITS LIVING ONLY IN MODEL_STORE = **784** (★ the data-loss-risk number)
-By type: **ModelElement 661, Folder 86, File 19, Diagram 6, PumlArtifact 6, Project 3, UmlTraceRelationship 3.** These exist ONLY in `data/model-store/index` — none of them is in `scenario/index`. Every one must migrate with zero loss / zero orphan. (NOTE: the File=19 + Folder=86 here are the model-collection folders/files — exactly the R40.86 surface.)
+## (2) 784 units in MODEL_STORE = **669 ONLY there + 115 overlap (BYTE-IDENTICAL)** ★ CORRECTED + DE-RISKED
+784 total by type: ModelElement 661, Folder 86, File 19, Diagram 6, PumlArtifact 6, Project 3, UmlTraceRelationship 3. **★ I originally ASSERTED "none is in scenario/index" WITHOUT cross-checking — WRONG. Measured cross-check (scenario/index = 6111 units):**
+- **669 live ONLY in MODEL_STORE** → must RELOCATE into scenario/index (the data-loss-risk set).
+- **115 OVERLAP** (same uuid present in both stores) — and **all 115 are BYTE-IDENTICAL** (0 divergent). → collapsing them to one copy is **LOSS-FREE, no "which copy wins" conflict**. Dropping the MODEL_STORE duplicate loses nothing.
+- **0 DIVERGENT overlaps** = the de-dup is clean; no conflict-resolution step needed. Big de-risk.
+(The File=19 + Folder=86 are the model-collection folders/files — the R40.86 surface.)
+
+## (2b) TARGET STATE (Tron clarification 2026-09-06) — DE-DUP STORAGE, not delete STRUCTURE
+FORBIDDEN = a SECOND INDEX (units stored twice / a parallel store of unit files). VALID = a MODEL TREE of folders holding LINKS/REFS into the ONE scenario index (structure-by-reference is fine; a view holding refs is NOT a second owner). So the migration is a **de-duplication of storage, not a deletion of the model tree**: (1) every unit lives EXACTLY ONCE in scenario/index (relocate the 669, collapse the 115 to one copy); (2) the model tree SURVIVES as folders-of-refs (MOF tree / diagrams / collections keep working, resolved BY LINK); (3) `data/model-store` stops being an INDEX of units → becomes a link/view structure or is derived from refs; (4) mofChildren / isModelUnit-fork / trace-merge stop forking on WHICH store, resolve from the one index. Same shape as everything: ONE canonical owner of DATA, many VIEWS by reference. Resettability EASIER: re-generate replaces units in the ONE index by deterministic key (idempotent-in-place), the link-tree is derived/rebuilt from refs — nothing to wipe.
 
 ## (3) BLAST RADIUS (~67 src refs; all in src/ts/server/server.ts unless noted)
 **WHY it exists (server.ts:52, deliberate):** *"generate writes ONLY here; model reads reroute here; trace reads stay prod; store is RESETTABLE; prod scenario/index NEVER touched."* The isolation's SOLE purpose is a **resettable re-generate** (re-run TsToModel without clobbering prod). That is the only property unification must preserve — achievable in one store via replace-on-regen by deterministic key.
