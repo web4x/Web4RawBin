@@ -2,14 +2,6 @@
 
 **Deadline 22:00 CET.** Each item is machine-verified + at QA-Review awaiting **your** accept (0 Done till Tron). Accept in one pass, top-down — ordered fastest-to-verify-on-your-own-screen first.
 
-## ★ HEADLINE — Task 37.20 (the DnD drop contract) + T37.20.1 resolver — BUILT & GATED GREEN ON LIVE PROD
-**On your screen:** drop a **photo**, an **email**, a **contact card**, a **calendar invite**, a **link**, and an **in-app object** into a room — each becomes its OWN kind of thing and shows AS ITSELF; and dragging an in-app object now actually **lands** instead of doing nothing.
-**Evidence (measured on live prod, not claimed):**
-- **v0.8.202** — same-origin drops link with ZERO fetch (GoF Proxy, 0 originHost compare); an external unit links into a fresh room AND renders visible on expand.
-- **v0.8.203** — `MimeType.from` Factory + self-registering registry: image / .eml / .vcf / .ics instantiate **Image / Email / Contact / CalendarEntry**, 0 bare File; open/closed lint 2→0.
-- **v0.8.204** — per-class RENDER registry: 4/4 class-DISTINCT markup, mutual-distinctness green, render open/closed lint 0.
-- commits `6dbfb6c7c` / `599d1a745` / `96121fee3` · gates `d2f95670a`. **T37.20 + T37.20.1 → QA-Review (your accept = Done).**
-
 ## A · VISUAL — verify by glancing at your screen (fastest)
 | # | Delivers | Evidence |
 |---|----------|----------|
