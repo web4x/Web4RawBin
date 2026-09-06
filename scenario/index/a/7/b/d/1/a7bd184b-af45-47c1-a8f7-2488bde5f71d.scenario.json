@@ -111,14 +111,14 @@
       },
       {
         "id": "AC-folder-implements-droptarget",
-        "group": "class-capability/OOP-first",
-        "text": "Folder IMPLEMENTS DropTarget — EVERY Folder, EVERY surface (room, model, anywhere), by virtue of being a Folder. The drop-target capability belongs to the Folder CLASS, not the rendering/surface context; a Folder is never a drop target in one place and not another. (OOP-first, sibling of R40.82 Folder-owns-its-children: capability-on-the-class, not a per-context helper — a per-surface carve-out IS the functional-construct defect.)",
+        "group": "class-capability/OOP-first (architect design 980b81c76)",
+        "text": "Every Folder IS a DropTarget — CLASS-KEYED, offered on EVERY folder surface with NO per-surface gate; no folder answers false to 'are you a drop target'. A drop into a MODEL-COLLECTION folder mints a File unit in MODEL_STORE UNDER it + renders INSIDE it + PERSISTS across reload. The capability belongs to the Folder CLASS, not the rendering/surface context (OOP-first, R40.82 sibling — a per-surface carve-out IS the functional-construct defect). UC generalises to folder.acceptDrop (the DropTarget contract).",
         "gateRef": {
           "kind": "test",
-          "ref": "Folder.dropTarget capability",
-          "assertion": "a Folder rendered on ANY surface accepts a drop by virtue of its class; a Folder that accepts on one surface but not another => RED"
+          "ref": "Folder/DropTarget contract gate",
+          "assertion": "every folder surface offers drop (class-keyed, no per-surface gate) AND a model-collection-folder drop mints a File unit in MODEL_STORE under it + renders inside + persists"
         },
-        "stubMustFail": "PENDING: seed a Folder on the model surface, assert it accepts a drop (currently would not) -> RED until built"
+        "stubMustFail": "DUAL stub-must-fail: (a) a SURFACE CARVE-OUT (a folder that is a drop target on one surface but not another) -> RED; (b) a model-folder drop that mints NOTHING (no File unit in MODEL_STORE) -> RED. A suite green on either => inadmissible."
       },
       {
         "id": "AC-model-blob-create-path-required",
