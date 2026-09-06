@@ -201,10 +201,34 @@
           "assertion": "the data has exactly one owner (scenario/index); reference-views (model tree, symlink trees) are unbounded and legitimate; a second OWNER (duplicate physical store) => RED"
         },
         "stubMustFail": "Seed a view that OWNS a copy (stores the unit itself) rather than a ref -> RED; a ref-holding view -> GREEN."
+      },
+      {
+        "id": "AC-divergence-reasserted-at-apply",
+        "group": "apply-time/fail-closed",
+        "text": "The divergence check is RE-ASSERTED AT APPLY, not trusted from the plan-time dry-run. The measured \"0 diverged now\" is a PLAN-time snapshot; between plan and apply a copy can diverge, so the migration RE-CHECKS byte-identity per overlapping uuid AT APPLY and FAILS-CLOSED (STOP, name both, architect/Tron rules) if any differ — never applies on a stale clean measurement.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "migration --apply divergence re-check",
+          "assertion": "at apply: any overlapping uuid whose 2 real files differ => RED + STOP (re-measured at apply, not from the plan)"
+        },
+        "stubMustFail": "seed a uuid clean at plan then diverged at apply -> the apply RE-CHECK goes RED (proves it does not trust the plan-time snapshot)"
+      },
+      {
+        "id": "AC-post-apply-inv-data",
+        "group": "apply-time/post-invariant",
+        "text": "POST-APPLY INV-DATA: after the migration applies, the data invariant holds — EVERY unit resolves through the one store (scenario/index), the unit count is preserved (before==after), there is ZERO dangling symlink and ZERO orphaned real file left in a 2nd store. Asserted AFTER apply, fail-closed.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "post-apply INV-DATA gate",
+          "assertion": "post-apply: all units resolve via one store + count preserved + 0 dangling symlink + 0 orphan real file, else RED"
+        },
+        "stubMustFail": "seed a post-apply state with a dangling symlink OR a leftover model-store real file -> INV-DATA gate RED"
       }
     ],
     "foldedFrom": "R40.95 (36878dd4) retired into this canonical home 2026-09-06 (PO ruling FOLD-not-mint, same precedent as R31.14): two reqs both 'eliminate the second store' = the duplicate-owner defect the req is about. Net-new ACs (resettability-without-2nd-store, no-regression-baseline, one-canonical-owner-zero-residual, migration-stub, authored-vs-regenerable, snapshot-first) moved here.",
-    "tronRefinement": "2026-09-06 (verbatim): 'a model tree folder holding links to the scenario index is absolutely valid but NOT a second Index!!!!' CORRECTED GOAL: it is NOT 'eliminate the model tree'. FORBIDDEN = a SECOND INDEX (units stored twice). VALID = a model tree of folders holding LINKS/REFS into the ONE scenario index (resolved by link, not by owning copies). zero-data-loss rephrased to relocate+collapse (de-dup, nothing deleted). Principle recorded: one owner of the DATA, many views by reference. This aligns with R40.81's original AC-additional-index-is-symlink-only (a ref-view was always valid)."
+    "tronRefinement": "2026-09-06 (verbatim): 'a model tree folder holding links to the scenario index is absolutely valid but NOT a second Index!!!!' CORRECTED GOAL: it is NOT 'eliminate the model tree'. FORBIDDEN = a SECOND INDEX (units stored twice). VALID = a model tree of folders holding LINKS/REFS into the ONE scenario index (resolved by link, not by owning copies). zero-data-loss rephrased to relocate+collapse (de-dup, nothing deleted). Principle recorded: one owner of the DATA, many views by reference. This aligns with R40.81's original AC-additional-index-is-symlink-only (a ref-view was always valid).",
+    "rootFraming": "ROOT OF ALL (Tron 2026-09-06, PO-relayed): the ONE store is the PRECONDITION every other path resolves against — drop/upload/render/traceability ALL READ the store, so a SPLIT store REGENERATES all of them (a 2nd physical store re-forks every reader that resolves a unit). Fixing R40.81 first is why the drop/upload/render fixes can hold: they resolve against ONE canonical store, not a which-store fork. R40.81 = CURRENT anchor; the drop/upload path (R37.20 family + R40.103) is NEXT, riding behind the root.",
+    "queuePriority": "PRIO-1 / CURRENT — the ROOT anchor (Tron 2026-09-06 verbatim: r40.81 is the root of all and needs to be prio 1). Every other path (drop/upload/render/traceability) resolves against the one store; NEXT = drop/upload (R37.20 family + R40.103). Planner: set the current-task pin to R40.81 build task."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
