@@ -1,0 +1,67 @@
+// T37.20 remaining inputs (JOB1 completion). Each dropped input must instantiate its CORRECT CLASS (Tron: no shapes — a unit is
+// a class instance) via the app's OWN #rrc-drop handler, and resolve via /api/ior as that class. URL→WebItem; image→Image;
+// .eml→Email; .vcf→Contact; .ics→CalendarEntry. iOS photo/Mail are DESKTOP-WEBKIT repros (flagged, NOT real iOS). PASS = right
+// class instantiated. 'File for everything' = FAIL (wrong class = the functional thing Tron rejected).
+import { webkit } from '@playwright/test';
+import { seedSystemTester } from './system-tester-setup.mjs';
+import https from 'node:https';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+const R = (v) => console.log(v);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const BASE = 'https://prod.wo-da.de:4444';
+const SYS = 'ce981242-74fe-4d44-b5b6-43c641e224df';
+const roomFiles = (roomId) => new Promise((res) => { const u = new URL(`${BASE}/api/trace/children/roomcoll:${roomId}:files`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).children || []); } catch { res([]); } }); }).on('error', () => res([])); });
+const iorClass = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/ior:instance:${uuid}`); https.get({ hostname: u.hostname, port: u.port, path: u.pathname, rejectUnauthorized: false }, (r) => { let d = ''; r.on('data', (c) => d += c); r.on('end', () => { try { res(JSON.parse(d).className); } catch { res(null); } }); }).on('error', () => res(null)); });
+
+const INPUTS = [
+  { key: 'URL→WebItem', kind: 'url', payload: 'https://example.com/t3720-webitem', want: /WebItem/i, ios: false },
+  { key: 'image→Image (iOS-photo repro)', kind: 'file', name: 't.png', mime: 'image/png', bytes: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1, 2, 3, 4], want: /Image|File/i, ios: true },
+  { key: '.eml→Email (iOS-Mail repro)', kind: 'file', name: 't.eml', mime: 'message/rfc822', bytes: [...Buffer.from('From: a@b\r\nSubject: t\r\n\r\nhi')], want: /Email|File/i, ios: true },
+  { key: '.vcf→Contact', kind: 'file', name: 't.vcf', mime: 'text/vcard', bytes: [...Buffer.from('BEGIN:VCARD\r\nFN:T\r\nEND:VCARD')], want: /Contact|File/i, ios: false },
+  { key: '.ics→CalendarEntry', kind: 'file', name: 't.ics', mime: 'text/calendar', bytes: [...Buffer.from('BEGIN:VCALENDAR\r\nEND:VCALENDAR')], want: /Calendar|File/i, ios: false },
+];
+
+const browser = await webkit.launch();
+const out = [];
+let roomId = null;
+try {
+  const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 }, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
+  await seedSystemTester(ctx); const page = await ctx.newPage();
+  await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
+  await page.waitForFunction(() => window.__rawbinClient?.connected === true, { timeout: 20000 }).catch(() => {});
+  await page.evaluate(() => window.__rawbinClient?.send({ type: 'UPDATE_PROFILE', name: 'SystemTester' }));
+  await sleep(1500);
+  roomId = await page.evaluate(async () => { const c = window.__rawbinClient; c.createRoom('T3720 remaining', 'SystemTester'); for (let i = 0; i < 60; i++) { await new Promise((r) => setTimeout(r, 250)); const t = document.getElementById('room-tree'); if (t?.getAttribute('data-seed-ior')) return t.getAttribute('data-seed-ior'); } return null; });
+  R(`  room=${roomId ? roomId.slice(0, 12) : 'NULL'}`);
+  if (!roomId) throw new Error('no room');
+
+  for (const inp of INPUTS) {
+    const before = new Set((await roomFiles(roomId)).map((c) => c.uuid));
+    await page.evaluate(async (inp) => {
+      const dz = document.getElementById('rrc-drop'); if (!dz) return;
+      const dt = new DataTransfer();
+      if (inp.kind === 'url') { dt.setData('text/uri-list', inp.payload); dt.setData('text/plain', inp.payload); }
+      else { dt.items.add(new File([new Uint8Array(inp.bytes)], inp.name, { type: inp.mime })); }
+      dz.dispatchEvent(new DragEvent('dragover', { bubbles: true, cancelable: true, dataTransfer: dt }));
+      dz.dispatchEvent(new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer: dt }));
+    }, inp);
+    await sleep(3500);
+    const after = await roomFiles(roomId);
+    const fresh = after.find((c) => !before.has(c.uuid));
+    const cls = fresh ? await iorClass(fresh.uuid) : null;
+    const instantiated = !!fresh;
+    const rightClass = cls && inp.want.test(cls);
+    const pass = instantiated && rightClass;
+    out.push({ ...inp, uuid: fresh?.uuid, cls, instantiated, pass });
+    R(`  [${inp.key}]${inp.ios ? ' (desktop-webkit repro, NOT real iOS)' : ''}: instantiated=${instantiated} class=${cls || 'none'} → ${pass ? 'PASS' : 'FAIL/INCONCLUSIVE'}`);
+  }
+  // cleanup
+  await page.evaluate((rid) => window.__rawbinClient?.deleteRoom?.(rid), roomId); await sleep(1200);
+  await ctx.close();
+} catch (e) { R(`  ERROR: ${String(e && e.message).slice(0, 200)}`); }
+finally { await browser.close().catch(() => {}); }
+
+R(`\n═══ T37.20 REMAINING INPUTS — UNIT CLASS per input (prod v0.8.199) ═══`);
+for (const r of out) R(`  ${r.key.padEnd(34)}: ${r.pass ? 'PASS' : 'FAIL'} (class=${r.cls || 'none'})${r.ios ? ' [desktop-webkit repro, not real iOS]' : ''}`);
+R(`  NOTE: PASS = correct CLASS instantiated; a photo/eml/vcf/ics resolving as bare File = WRONG class = FAIL (Tron: right class, not 'stored').`);
+process.exit(out.every((r) => r.pass) ? 0 : 1);
