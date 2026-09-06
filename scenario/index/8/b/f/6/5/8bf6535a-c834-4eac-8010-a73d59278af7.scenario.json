@@ -1,0 +1,101 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "8bf6535a-c834-4eac-8010-a73d59278af7",
+    "altId": "R40.103",
+    "name": "The object owns its upload — all upload transports collapse to ONE owner (client one-owner + server NativeFileIngress)",
+    "description": "Tron: 'EVERYWHERE by oop' — the OBJECT owns its own upload. The architect MEASURED the P0: FOUR upload transports exist, not one — un-owned paths scattered across client + server (client fetch @drop-dispatcher.ts:59 + client xhr @drop-dispatcher.ts:92 = the 2 the r4088 lint RED-baselines; + server multipart parse [pairs r4096, must live only in NativeFileIngress R40.97]; + the 4th per architect measurement 8a9144558). EACH scattered transport is an un-owned second path = the DRY/one-owner violation and the ROOT of the still-broken upload. THE REQUIREMENT: the uploaded object OWNS its upload — ALL upload transports collapse to EXACTLY ONE owner (client-side one owner-object; server-side NativeFileIngress). This is the P0 upload-ownership collapse; the r4088-family lint already RED-baselines it (RED=2, flips GREEN 2->1 on collapse) — re-point to that BUILT lint, do not design-ahead.",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:65a9e22b-62fa-42d9-a736-7e0c365cbc96"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "discoverySource": {
+      "type": "p0-coverage-gap",
+      "measuredBy": "robbin-req (check-before-create: NO covering req for upload-ownership; the r4088 lint is chain-less)",
+      "ruledBy": "robbin-po (P0 jumps the queue if it needs coverage)",
+      "architectMeasurement": "FOUR upload transports (8a9144558 P0 upload OOP collapse); Tron 'EVERYWHERE by oop'",
+      "date": "2026-09-06",
+      "builtLint": "r4088-family upload-ownership lint RED-baseline 6d21619ce (RED=2, drop-dispatcher.ts:59 fetch + :92 xhr); pairs r4096 server multipart"
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "P0 — JUMPS THE QUEUE (Tron upload still broken, migration paused; the upload-ownership collapse is the current P0). Ahead of the OOP split + the SHELL corrections.",
+    "dispatchState": "P0 — architect wires chain (re-point to built r4088/r4096 lint), planner mints covering task at P0",
+    "repointToBuiltReality": {
+      "lint": "r4088 upload-ownership (6d21619ce) + r4096 server-multipart",
+      "pattern": "R30.11 do-not-design-ahead",
+      "state": "RED=2 client, flips GREEN on collapse to 1"
+    },
+    "satisfactionStatus": "UNVERIFIED — the P0 is OPEN (upload still broken, collapse not landed). Lint RED-baseline exists (honest RED, not a false green). SATISFIED only when count==1 client + NativeFileIngress-only server, lint GREEN, Tron's upload works.",
+    "crossRef": [
+      "ior:instance:d7deea49-398e-4ed4-9602-c45fccce172e",
+      "ior:instance:4d6e701b-4750-4e51-8992-9790e55ce817",
+      "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+      "ior:instance:6dcdcdf6-fbff-4bfc-8b2f-ab6cf624af6a",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+      "ior:instance:b118f2c1-7ff5-4adc-a9a7-77e25a192ec2"
+    ],
+    "crossRefNote": "The upload-ownership half of the OOP/REST set: R40.96 (REST unit-JSON transport) + R40.97 (NativeFileIngress = the server one-owner) + R40.99 (natural class owns toUnit/fromUnit) define the target; R40.103 is the COLLAPSE requirement that makes the object own its upload and kills the 4 scattered transports. R40.101 = the boundary correctness of the surviving edge. R40.88 = the failable-invariant pattern the lint is built under. This is the covering requirement the chain-less r4088 lint lacked.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-object-owns-its-upload",
+        "group": "by-construction/OOP",
+        "text": "The uploaded object OWNS its upload (obj.upload() / obj.toUnit()-then-PUT) — callers ASK the object; there is no free upload function/service/scattered transport. A free upload path for a type => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "upload-ownership lint (r4088-family, RED-baseline 6d21619ce)",
+          "assertion": "client multipart/FormData upload constructions == EXACTLY 1 owner; >1 => RED"
+        },
+        "stubMustFail": "PENDING: P0 collapse not landed; lint RED-baseline exists (RED=2), flips GREEN on collapse to 1"
+      },
+      {
+        "id": "AC-all-transports-collapse-to-one",
+        "group": "by-construction",
+        "text": "ALL measured upload transports (architect: FOUR — client fetch drop-dispatcher:59, client xhr drop-dispatcher:92, server multipart, + the 4th) collapse to ONE owner: client-side one owner-object, server-side NativeFileIngress (R40.97). Post-collapse count == 1.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "upload-transport-scan (client r4088 + server r4096)",
+          "assertion": "upload transports for a given side > 1 => RED (client==1 owner, server==NativeFileIngress only)"
+        },
+        "stubMustFail": "PENDING: P0 collapse not landed; lint RED-baseline exists (RED=2), flips GREEN on collapse to 1"
+      },
+      {
+        "id": "AC-server-multipart-only-native-ingress",
+        "group": "by-construction",
+        "text": "The server multipart upload parse lives ONLY in NativeFileIngress (R40.97) — pairs r4096; a server multipart parse elsewhere => RED.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "r4096 server-multipart-scan",
+          "assertion": "server multipart/boundary op outside NativeFileIngress => RED"
+        },
+        "stubMustFail": "PENDING: P0 collapse not landed; lint RED-baseline exists (RED=2), flips GREEN on collapse to 1"
+      },
+      {
+        "id": "AC-repoint-to-built-lint",
+        "group": "provenance/R30.11",
+        "text": "Re-point to BUILT reality: the r4088-family upload-ownership lint EXISTS (RED-baseline 6d21619ce, RED=2 on drop-dispatcher fetch+xhr). This requirement covers that chain-less lint (it shipped as a measurement with no covering req). Impl/Test = the r4088 + r4096 gates; architect wires. NOT design-ahead.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "chain-to-r4088-r4096",
+          "assertion": "the r4088/r4096 lint gates are attached as this requirement's Test; a chain-less lint => flag"
+        },
+        "stubMustFail": "PENDING: P0 collapse not landed; lint RED-baseline exists (RED=2), flips GREEN on collapse to 1"
+      },
+      {
+        "id": "AC-green-only-on-collapse",
+        "group": "gate/delta",
+        "text": "The lint flips GREEN only when the count is 1 (client) / NativeFileIngress-only (server); until the collapse lands it is RED (honest — the upload is still broken), not WARN-suppressed.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "upload-ownership GREEN==collapsed",
+          "assertion": "GREEN requires count==1; a GREEN with >1 transport => inadmissible/RED"
+        },
+        "stubMustFail": "PENDING: P0 collapse not landed; lint RED-baseline exists (RED=2), flips GREEN on collapse to 1"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}

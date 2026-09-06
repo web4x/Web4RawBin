@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "65a9e22b-62fa-42d9-a736-7e0c365cbc96",
+    "name": "upload.ownedByObjectOneTransport",
+    "description": "The uploaded object owns its upload; all upload transports collapse to ONE owner (client one owner-object, server NativeFileIngress). Re-points to the built r4088/r4096 lint; GREEN only when count==1.",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:8bf6535a-c834-4eac-8010-a73d59278af7",
+    "unitLinks": [],
+    "note": "class/method=null — architect wires chain on build-go, re-point to built r4088/r4096 lint (R30.11). P0."
+  },
+  "ownerIor": "ior:instance:8bf6535a-c834-4eac-8010-a73d59278af7"
+}
