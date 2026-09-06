@@ -26,6 +26,7 @@ import { WebSocketServer, WebSocket } from 'ws';
 import fetch from 'node-fetch';
 import { marked } from 'marked';
 import { Room, RoomManager, type RoomMember } from './Room.js';
+import { captureUploadRequest, captureUploadOutcome } from './upload-capture.js'; // P0 upload capture — PII-safe framing/headers/offsets to a file (bypasses addLog isTTY/IS_PRODUCTION blindness) to catch Tron's real device bytes
 import { ServerManagerGuard } from './ServerManagerGuard.js';
 import { isRevoked, EXPECTED_REVOKED_COUNT, REVOKED_ARMED, REVOKED_LIST_PATH, revokedArmedHealth, loadRevokedListStatus } from './revoked-tokens.js';
 import { OtmuxBridge } from './OtmuxBridge.js';
@@ -2633,8 +2634,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       req.on('data', (chunk: Buffer) => { totalSize += chunk.length; if (totalSize <= MAX_UPLOAD) chunks.push(chunk); });
       req.on('end', async () => {
         try {
-          if (totalSize > MAX_UPLOAD) { res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
+          if (totalSize > MAX_UPLOAD) { captureUploadOutcome('pre-' + Date.now().toString(36), 413, 'too-large:' + totalSize); res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
+          const _capId = captureUploadRequest(roomId, req.headers as Record<string, unknown>, body); // P0: PII-safe framing capture to file (runs BEFORE any parse/branch → catches even no-boundary/auth-fail); correlate outcome via _capId
           // DISCRIMINATOR (PO): log the declared Content-Length ALONGSIDE the RAW received body (this count is Buffer.concat
           // of the req.on('data') chunks, BEFORE any parse below). content-length>0 WITH received 0b = the client declared a
           // body but 0 bytes arrived = a mid-flight STRIP (stale SW re-issuing without the streamed body), NOT a parser fault
@@ -2648,7 +2650,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // buffer-native rewrite is a SEPARATE later improvement, not an outage fix; you do not rewrite a working parser mid-outage.
           let boundary = ((req.headers['content-type'] || '').split('boundary=')[1] || '').trim();
           boundary = boundary.replace(/^"(.*)"$/, '$1').split(';')[0].trim(); // dequote + drop trailing params + trim (iOS Safari)
-          if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
+          if (!boundary) { captureUploadOutcome(_capId, 400, 'no-boundary'); addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
           const parts = body.toString('binary').split('--' + boundary);
           let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '', parentRef = '';
           for (const part of parts) {
@@ -2680,9 +2682,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // size=0 detector, boundary, token PRESENCE, container ref, outcome). PII-safe: sizes/types/refs + booleans ONLY —
           // NEVER file CONTENT, NEVER a token VALUE (was token.slice(0,8) = a partial value; now presence-only).
           addLog(`[upload] parsed: file=${fileName} mime=${mimeType} size=${fileData.length}b boundary=yes token=${playerToken ? 'present' : 'MISSING'} container=${parentRef || 'room-root'} related=${relatedFile ? 'yes' : 'no'}`);
-          if (!playerToken || !tokenToClient.has(playerToken)) { addLog(`[upload] ERROR: auth failed (token ${playerToken ? 'present-but-unknown' : 'MISSING'}, size=${fileData.length}b) → likely a stale service-worker dropped the body`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+          if (!playerToken || !tokenToClient.has(playerToken)) { captureUploadOutcome(_capId, 401, playerToken ? 'auth-token-present-but-unknown' : 'auth-token-missing'); addLog(`[upload] ERROR: auth failed (token ${playerToken ? 'present-but-unknown' : 'MISSING'}, size=${fileData.length}b) → likely a stale service-worker dropped the body`); res.writeHead(401); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
           const room = roomManager.getRoom(roomId);
-          if (!room) { addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+          if (!room) { captureUploadOutcome(_capId, 404, 'room-not-found'); addLog(`[upload] ERROR: room ${roomId.slice(0,8)} not found`); res.writeHead(404); res.end(JSON.stringify({ error: 'Room not found' })); return; }
           addLog(`[upload] creating unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
           const idx = new ScenarioIndex(scenarioDir);
@@ -2728,10 +2730,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           publishUnitChanged('ior:class:Folder', parentPublishRef); // R40.84/R40.86: re-derive the target node (the FOLDER when nested, else Files root) → live-insert the new file INSIDE, no full re-seed. ONE path for both add types.
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
+          captureUploadOutcome(_capId, 200, isWebItem ? 'success-webitem' : 'success-file'); // the CONTROL fires here too (a succeeding synthetic upload → diff vs a failing real one)
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ uuid: fileUuid, name: fileName, size: fileData.length }));
         } catch (e: any) {
+          captureUploadOutcome(_capId, 500, 'exception:' + (e?.message || e));
           addLog(`[upload] ERROR: ${e?.message || e}\n${e?.stack || ''}`);
           res.writeHead(500); res.end(JSON.stringify({ error: 'Upload failed' }));
         }
