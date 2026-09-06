@@ -36,3 +36,10 @@
 | **T37.20** + **T37.20.1** | **Drop anything into a room and it becomes its OWN kind of thing, and shows as itself.** A photo → Image (renders a real image, not a filename row) · an email → Email card · a contact card → Contact card · a calendar invite → CalendarEntry card · a link → WebItem. **And dragging an in-app object now actually lands** instead of silently doing nothing. | **SEE it: drop those 6 things into a room.** Live prod v0.8.204 (served==committed). Class 7/7 · render-as-class 4/4 class-distinct (mutual-distinctness GREEN) · in-app drop links (roomcoll 0→1) + renders + ZERO fetch. Commits 6dbfb6c7c / 599d1a745 / 96121fee3 · gates d2f95670a |
 
 **By-the-book, not patched:** GoF **Proxy** (local vs remote chosen once — the origin branch DELETED, not reordered) + **Factory-Method** (`MimeType.from`) + **self-registering Registry** for both mime AND render. **Open/Closed proven on BOTH layers by failable lints = 0**: a 6th class is one `register()` line with **zero edits to any central conditional**, in the drop path or the view path.
+
+### ★ Also flipped tonight (part of the T37.20 contract, awaiting your accept)
+| # | Delivers | Evidence |
+|---|----------|----------|
+| **T37.20.2** | A file drags as its own File unit (not a collection) | tester PASS |
+| **T37.39** Image · **T37.40** CalendarEntry | image → Image, .ics → CalendarEntry — each renders as itself | 4/4 class-distinct GREEN v0.8.204 · d2f95670a |
+| **T37.20.4** | **Drag an in-app item onto a folder → it moves inside (re-parents); a native file onto a folder still uploads** | server v0.8.205 (POST `/api/room/../move-unit` → 200 `reparented`) + client wiring verified by read. **⚠ caveat:** the full drag-onto-a-tree-node gesture is instrument-limited (a synthetic webkit drag can't deliver the payload) — **your own drag closes it**, same as the device items, one drag you'd do on accept |

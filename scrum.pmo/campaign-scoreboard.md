@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **57** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 94** (254 = 98+57+3+94)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 90**
+- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **58** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 93** (254 = 98+58+3+93)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 89**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 51 | 1 | 19 | 0 | 31 |
+| S37 | 51 | 1 | 20 | 0 | 30 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 20 · build 57
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 19 · build 57
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -39,7 +39,6 @@
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 33b28f6b | Planned | build | Task 37.35: AXIS-2 lint — task<->req AC PARITY (task-md AC s |
-| S37 | 369b8636 | In Progress | marker | Task 37.20.4: ONE shared serializer + resolver, EVERY drop t |
 | S37 | 4c083193 | Planned | marker | Task 37.20.5: BITE asserts the contract PER TARGET + stub-mu |
 | S37 | 53571e22 | Planned | marker | Task 37.20.6: DEVICE @390 — Tron verifies on phone: file dra |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |

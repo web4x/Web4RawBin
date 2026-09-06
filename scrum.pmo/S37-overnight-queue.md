@@ -33,10 +33,10 @@
 ## ✅ UNBLOCKED → TIER-A (2026-09-06: req upgraded R37.14-19 requirement ACs to failable/single-source, 35 total, task-md renders via coverage; PO OK'd into pull queue)
 T37.14 (measured-random v4 ids) · T37.15 (store-once theme-only names) · T37.16 (never-RIPE-on-snapshot) · T37.17 (gates encode no snapshot) · T37.18 (gate resolves artifact same-way) · T37.19 (req-specific Class units root). **6 tasks now TIER-A — pullable; ACs live on their requirements.**
 
-## 🔧 T37.20.4 folder-drop — VERIFIED-RED, BOARDED AS WORK (measurement resolved)
-- **Measured (tester walked back its .4 PASS, live v0.8.204):** an in-app UNIT dropped on a FOLDER = SILENT NO-OP (app sets unit-ref payload but `dt.files=0`, so the files-only read at `rb-object-item.ts:82` never fires `acceptDropIntoContainer`; folder children 0→0). Real defect, **in-app-units only** — the native-file path is legit.
-- **req's AC `AC-tree-folder-drop-target-routes-contract` (04d458285/583f145b1) = VERIFIED-RED** — caught a real defect on its first use (best possible AC debut).
-- **BOARDED under .4:** T37.20.4 `369b8636` → **In-Progress** (refinement[x], defect diagnosed). **Expert building:** ADD the in-app unit-ref path via the ONE shared contract (re-parent/MOVE, lands inside per R40.86); KEEP the native `dataTransfer.files` path (two input kinds, each to its owner). **.4 stays WORK — does NOT flip to QA-Review until the tester re-verifies the fix.** Accept queue stays 19.
+## ✅ T37.20.4 folder-drop — FIXED + QA-Review (served v0.8.205, no-op CLOSED)
+- The full arc: flagged → held-to-verify → VERIFIED-RED (in-app unit on folder = silent no-op v0.8.204) → **FIXED v0.8.205**: in-app unit re-parents (POST `/api/room/<id>/move-unit` → 200 `action='reparented'`, `(root)` → `:files/MoveTarget/moveme.bin`); native upload still works; client keeps BOTH paths (`rb-object-item.ts:83-91`); both open/closed lints untouched.
+- **⚠ CAVEAT ON THE ROW (not buried):** the end-to-end USER DRAG onto a tree node is INSTRUMENT-LIMITED — a synthetic webkit drag doesn't deliver the payload to that handler, so the tester verified the SERVER endpoint (the exact one the in-app path calls) + the client wiring BY READ. Mechanism + wiring proven; the full gesture needs **Tron's own drag** (same shape as T37.31 device-accept, one drag he does anyway on accept).
+- **T37.20.4 `369b8636` → QA-Review.** Accept queue → 21.
 
 ## ★ T37.20 IMPLEMENTATION — RE-MEASURED vs what shipped tonight (SUBSUMED analysis — PO RULES, do NOT mark Done)
 Shipped tonight: GoF **Proxy** (v0.8.202) + **MimeType.from Factory** + self-registering **mime registry** (v0.8.203) + per-class **render registry** (v0.8.204). Mapping each slice to it:
