@@ -50,3 +50,8 @@ SLICED per-AC (2026-09-06, PO+req: nothing drifts to unscheduled; SLICE-A upload
 - [Task 37.20.4: ONE shared serializer+resolver fleet-wide](./task-37.20.4-shared-contract-fleet-wide.md) `[task:uuid:369b8636-f449-45cd-b553-c523112d26b3]` (AC-shared-contract + AC-A2 fleet)
 - [Task 37.20.5: per-target BITE stub-must-fail](./task-37.20.5-bite-per-target-stub-must-fail.md) `[task:uuid:4c083193-699c-44b9-85bd-0f61f9c57e88]` (AC-BITE)
 - [Task 37.20.6: DEVICE @390 Tron acceptance](./task-37.20.6-device-390-tron-acceptance.md) `[task:uuid:53571e22-2c58-4451-8e05-6bfb76647008]` (AC-6-DEVICE)
+
+THEN the NATURAL CLASSES (Tron: NO 'shapes' — a drop RESOLVES to a scenario UNIT of a CLASS that is INSTANTIATED and renders ITSELF; a mime/format-string switch IS the defect; layered DndContract -> MultipartMime -> MimeType.from -> natural class; DoD = right CLASS instantiated AND rendering itself, not bytes stored):
+- [Task 37.39: Image natural class](./task-37.39-image-natural-class.md) `[task:uuid:bc0302dd-cef7-4d55-b71f-1da410ca76d3]` (MINTED, R40.99)
+- [Task 37.40: CalendarEntry natural class](./task-37.40-calendarentry-natural-class.md) `[task:uuid:257ab50f-a1fc-4920-a5c6-b523230355c9]` (MINTED, R40.99)
+- WebItem / Email / Contact (VCard->Contact, uuid-stable): build-go released; EXISTING coverage on disk (WebItem-unit 7c526ba6 · Emails-as-units 3960168e · vCard tasks) — radical-OOP re-frame (class renders itself) = req STRUCTURAL ruling (correct-existing vs mint), do NOT mint parallel (check-before-create).
