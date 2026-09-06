@@ -434,3 +434,12 @@
   - [ ] **(semantic-drift/completeness)** AXIS-4: the drift --check must NOT silently exclude any category (frozen-legacy, missing-file-creation) - every excluded unit/category is COUNTED or explicitly DECLARED-excluded (with a named reason), never silently dropped. The ~28x undercount (7 reported vs 200 true) => RED. Refines R37.3 no-vacuous-truth from all-or-nothing to per-category-accounted. 1->0.
   - [ ] **(self-failability)** Each axis lint is FAILABLE with its own RED-proving stub (same 1->0 shape as the existing R37.3/R37.2 gates) - a lint that cannot go RED on its axis's seeded drift is unproven and inadmissible (generalizes R37.3 AC-BITE to the 3 semantic axes).
   -> ciGuard.assertSemanticDriftAxes [uc:uuid:7b6d5d23-bd0f-4565-b045-a0b5f0489928]
+
+- [ ] **R37.35 — Coordination-root parent renders a ROLLED summary of children (weakest-link + per-child mini-state), not its empty checklist**
+  [requirement:uuid:8a06ba80-2c00-4418-a532-c0d5f0f9d65e]
+  The RENDER half of AXIS-3 (paired with R37.34's AXIS-3 LINT, T37.36): a COORDINATION-ROOT parent pin/detail must RENDER a ROLLED SUMMARY of its children's state - weakest-link status + a per-child mini-state - instead of its own EMPTY stored checklist. Tron's exact words: a parent pin shows 'no state at all', because today the rollup is status-ENUM-only (R40.1 CR-4 AC-rollup-parent-status DERIVES the parent status enum) and there is NO rolled-CHECKLIST render. This is the VIEW counterpart of that derivation: the pin/detail renders the rolled child-state so a coordination root is never blank while its children carry state. NOT a lint (that is T37.36/R37.34 AXIS-3) and NOT the structural byte-check (R37.3) - a distinct RENDER feature, owner=expert.
+  **Acceptance criteria:**
+  - [ ] **(render/by-construction)** A coordination-root parent pin/detail RENDERS a rolled summary of its children: (a) weakest-link status (the parent's derived-status enum, R40.1 CR-4) AND (b) a per-child mini-state list. It does NOT render its own empty stored checklist.
+  - [ ] **(render/stub-must-fail)** A coordination-root parent must NEVER render 'no state at all' while any child carries state - the exact Tron defect. Seed a parent with stateful children whose pin renders blank => RED. 1->0.
+  - [ ] **(render/liveness)** The rolled summary re-renders LIVE when a child's state changes (via the ONE VIEW BUS, R37.12) - no reload; a child advancing updates the parent's rolled render in place.
+  -> coordinationRoot.renderRolledChildSummary [uc:uuid:73decca6-3733-4dde-9ac2-7ca2983af5a6]

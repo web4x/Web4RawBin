@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 251** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (251 = 98+52+3+96)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
+- **TOTAL S30++ tasks: 252** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 97** (252 = 98+52+3+97)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 93**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,15 +26,16 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 48 | 1 | 14 | 0 | 33 |
+| S37 | 49 | 1 | 14 | 0 | 34 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 23 · build 56
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 23 · build 57
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
 |--------|------|--------|---------|------|
 | S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
+| S37 | 22560ea2 | Planned | build | Task 37.38: Coordination-root parent renders a ROLLED summar |
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 33b28f6b | Planned | build | Task 37.35: AXIS-2 lint — task<->req AC PARITY (task-md AC s |
