@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "f3739622-3238-46c3-a1ab-4e914beb3738",
+  "name": "image.unitConvertibleRendersItself",
+  "description": "A dropped image resolves via MimeType.from to the Image class, which implements UnitConvertible and renders ITSELF (MVC-in-object). Extends R40.99.",
+  "class": null,
+  "method": null,
+  "parent": "ior:instance:bc0e6b7c-c598-4ba9-b1b5-b5de90403f19",
+  "unitLinks": [],
+  "note": "class/method=null - architect wires on build-go; extends R40.99."
+ },
+ "ownerIor": "ior:instance:bc0e6b7c-c598-4ba9-b1b5-b5de90403f19"
+}

@@ -1,0 +1,67 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "04fdefc5-3917-405b-bee6-57366e582afa",
+  "altId": "R37.40",
+  "name": "CalendarEntry is a natural CLASS (UnitConvertible + MVC-renders-itself) — a dropped calendar-entry instantiates the CalendarEntry object",
+  "description": "CalendarEntry is a CLASS implementing UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a calendar-entry drop (.ics/text-calendar) to the CalendarEntry class (NO content-type string-switch outside MimeType). A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the CalendarEntry object owns model+view+controller and RENDERS ITSELF (detail + date fields) — not bytes-stored, not a handler branch. Specific CalendarEntry behaviour that extends the R40.99 natural-class contract; re-homed from the T40 task (was orphaned hand-written ACs, PO 2026-09-06).",
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "tasks": [],
+  "tests": [],
+  "useCases": [
+   "ior:instance:1ea191ee-e6c5-459d-aa8a-83711f465d4c"
+  ],
+  "unitLinks": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "discoverySource": {
+   "type": "re-home",
+   "from": "orphaned hand-written task ACs (T40)",
+   "capturedNote": "image-calendarentry-specific-acs-captured.md",
+   "authorizedBy": "robbin-po (before Tron accepts)",
+   "date": "2026-09-06"
+  },
+  "extendsRequirement": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+  "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+  "crossRef": [
+   "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+   "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+  ],
+  "crossRefNote": "Class-SPECIFIC extension of R40.99 (natural-class UnitConvertible MVC ruling). Gives the CalendarEntry-specific ACs a single-source req home so T40 covers a specific req, not the broad umbrella.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-calendar-entry-unitconvertible-mimetype",
+    "group": "radical-oop/dispatch",
+    "text": "CalendarEntry implements UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a calendar-entry drop (.ics/text-calendar) to the CalendarEntry class; NO content-type string-switch outside MimeType.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "test MimeType.from(calendar-entry)",
+     "assertion": "a calendar-entry drop resolves to the CalendarEntry class via MimeType.from; a content-type switch for calendar-entrys outside MimeType => RED"
+    },
+    "stubMustFail": "seed a content-type/format switch selecting behaviour for a calendar-entry -> RED"
+   },
+   {
+    "id": "AC-calendar-entry-instantiated-renders-itself",
+    "group": "radical-oop/mvc",
+    "text": "A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the CalendarEntry object owns model+view+controller and RENDERS ITSELF (detail + date fields) — not bytes-stored, not a handler branch.",
+    "gateRef": {
+     "kind": "test",
+     "ref": "test CalendarEntry.rendersItself",
+     "assertion": "a dropped calendar entry instantiates the CalendarEntry and it renders its own detail+date fields; bytes-stored-without-CalendarEntry-instantiated => RED"
+    },
+    "stubMustFail": "seed a calendar entry drop that stores bytes without instantiating the CalendarEntry (or an external renderer) -> RED"
+   },
+   {
+    "id": "AC-calendar-entry-dod-class-renders",
+    "group": "radical-oop/dod",
+    "text": "DEFINITION OF DONE: the right CLASS (CalendarEntry) is instantiated AND rendering itself; a mime/format switch handling calendar-entrys = RED (the defect).",
+    "gateRef": {
+     "kind": "test",
+     "ref": "test CalendarEntry DoD",
+     "assertion": "done = CalendarEntry instantiated + rendering itself; a mime/format switch handling calendar-entrys => RED"
+    },
+    "stubMustFail": "seed done-claimed with bytes-stored-only / a mime-switch for calendar-entrys -> RED"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

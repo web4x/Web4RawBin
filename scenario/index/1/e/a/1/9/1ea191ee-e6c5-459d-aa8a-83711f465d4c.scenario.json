@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "1ea191ee-e6c5-459d-aa8a-83711f465d4c",
+  "name": "calendarEntry.unitConvertibleRendersItself",
+  "description": "A dropped calendar-entry resolves via MimeType.from to the CalendarEntry class, which implements UnitConvertible and renders ITSELF (MVC-in-object). Extends R40.99.",
+  "class": null,
+  "method": null,
+  "parent": "ior:instance:04fdefc5-3917-405b-bee6-57366e582afa",
+  "unitLinks": [],
+  "note": "class/method=null - architect wires on build-go; extends R40.99."
+ },
+ "ownerIor": "ior:instance:04fdefc5-3917-405b-bee6-57366e582afa"
+}
