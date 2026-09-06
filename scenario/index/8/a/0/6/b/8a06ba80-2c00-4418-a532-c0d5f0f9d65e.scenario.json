@@ -6,7 +6,9 @@
   "name": "Coordination-root parent renders a ROLLED summary of children (weakest-link + per-child mini-state), not its empty checklist",
   "description": "The RENDER half of AXIS-3 (paired with R37.34's AXIS-3 LINT, T37.36): a COORDINATION-ROOT parent pin/detail must RENDER a ROLLED SUMMARY of its children's state - weakest-link status + a per-child mini-state - instead of its own EMPTY stored checklist. Tron's exact words: a parent pin shows 'no state at all', because today the rollup is status-ENUM-only (R40.1 CR-4 AC-rollup-parent-status DERIVES the parent status enum) and there is NO rolled-CHECKLIST render. This is the VIEW counterpart of that derivation: the pin/detail renders the rolled child-state so a coordination root is never blank while its children carry state. NOT a lint (that is T37.36/R37.34 AXIS-3) and NOT the structural byte-check (R37.3) - a distinct RENDER feature, owner=expert.",
   "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
-  "tasks": [],
+  "tasks": [
+   "ior:instance:22560ea2-316c-4bc7-b89e-985b85de4edc"
+  ],
   "tests": [],
   "useCases": [
    "ior:instance:73decca6-3733-4dde-9ac2-7ca2983af5a6"

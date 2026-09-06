@@ -14,7 +14,9 @@
     "coveredRequirements": [
       "ior:instance:8a06ba80-2c00-4418-a532-c0d5f0f9d65e"
     ],
-    "useCases": [],
+    "useCases": [
+      "ior:instance:73decca6-3733-4dde-9ac2-7ca2983af5a6"
+    ],
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
     "remainingIssues": "STOOD UP Planned (2026-09-06) on req R37.35 8a06ba80 = AXIS-3 RENDER-half. OWNER=EXPERT. queuePriority=LOW/ENHANCEMENT — BELOW resolver-half (T37.20.1) + the SLICE-A ship-gate; the leaf-pin already shows real state (6e3b320c6), so this is polish not a blocker. Pairs T37.36 (lint half, tester). useCases=[] — req wires on 3-pt verify (their lane). Seeds the 'no state at all' defect as a RED. 0 Done till Tron.",
