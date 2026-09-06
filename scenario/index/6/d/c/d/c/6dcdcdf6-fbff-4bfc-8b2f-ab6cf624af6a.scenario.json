@@ -23,7 +23,7 @@
       "gate": "r4090 c9c6acb8a (upload-parser RED baseline; permanent gate, was referenced by NO Test/Impl)"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "PRIO-1 (TOP of queue — ahead of the OOP split; cheap to close, highest-value chain debt)",
+    "queuePriority": "P0 — the drop/upload MECHANISM that makes the path WORK (natural-class/MimeType + NativeFileIngress + upload-collapse + REST=unit-JSON). PO decision 2026-09-06 (single-writer=req): P0, not prio-3; Tron request IS the order.",
     "dispatchState": "QUEUED-not-dispatched; architect wires chain (re-point to built reality), planner mints covering task same-turn",
     "repointToBuiltReality": {
       "impl": "server.ts boundary extraction v0.8.190 (7cc4717fb)",

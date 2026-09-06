@@ -22,7 +22,7 @@
       "builtLint": "r4088-family upload-ownership lint RED-baseline 6d21619ce (RED=2, drop-dispatcher.ts:59 fetch + :92 xhr); pairs r4096 server multipart"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "P0 — JUMPS THE QUEUE (Tron upload still broken, migration paused; the upload-ownership collapse is the current P0). Ahead of the OOP split + the SHELL corrections.",
+    "queuePriority": "P0 — the drop/upload MECHANISM that makes the path WORK (natural-class/MimeType + NativeFileIngress + upload-collapse + REST=unit-JSON). PO decision 2026-09-06 (single-writer=req): P0, not prio-3; Tron request IS the order.",
     "dispatchState": "P0 — architect wires chain (re-point to built r4088/r4096 lint), planner mints covering task at P0",
     "repointToBuiltReality": {
       "lint": "r4088 upload-ownership (6d21619ce) + r4096 server-multipart",

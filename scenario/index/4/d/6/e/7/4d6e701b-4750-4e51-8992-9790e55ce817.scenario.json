@@ -21,7 +21,7 @@
       "date": "2026-09-06"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "PRIO-1",
+    "queuePriority": "P0 — the drop/upload MECHANISM that makes the path WORK (natural-class/MimeType + NativeFileIngress + upload-collapse + REST=unit-JSON). PO decision 2026-09-06 (single-writer=req): P0, not prio-3; Tron request IS the order.",
     "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
     "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
     "crossRef": [
