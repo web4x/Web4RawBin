@@ -78,8 +78,42 @@
      "assertion": "each axis lint observed RED on its seeded drift before it counts as wired"
     },
     "stubMustFail": "PENDING: lint unbuilt; RED-proving stub per axis on build (1->0)"
+   },
+   {
+    "id": "AC-axis2-baseline-ratchet-never-increase",
+    "group": "axis2/ratchet",
+    "text": "RATCHET rollout (PO 2026-09-06): the parity lint RED count is a BASELINE (measured 140 across 417 tasks: 67 zero-AC + 73 count-mismatch) that must NEVER INCREASE. TOUCH-IT-FIX-IT: any task anyone TOUCHES (commits) must come out AT PARITY. A right rule with a wrong rollout gets abandoned; a ratchet converges without stopping delivery.",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "ci:gates parity-ratchet",
+     "assertion": "the RED count never exceeds the recorded baseline; a committed task left below parity => RED (touch-it-fix-it)"
+    },
+    "stubMustFail": "seed a committed task that drifts a task-md AC below its req parity -> RED (count would increase)"
+   },
+   {
+    "id": "AC-axis2-current-era-zero",
+    "group": "axis2/current-era",
+    "text": "CURRENT-ERA MUST REACH ZERO: every S37 task that is In-Progress or QA-Review reconciles to parity (a bounded small set = the rows Tron reads). A current-era (In-Progress/QA-Review) task with an AC-count drift => RED.",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "ci:gates parity-current-era",
+     "assertion": "0 parity mismatches among S37 In-Progress + QA-Review tasks; any such task with drift => RED"
+    },
+    "stubMustFail": "seed an S37 QA-Review task with a task-md AC count != its req -> RED"
+   },
+   {
+    "id": "AC-axis2-no-silent-exclusion",
+    "group": "axis2/no-exclusion",
+    "text": "NO SILENT EXCLUSION EVER: the lint counts ALL 417 tasks and reports N-and-falling; the DENOMINATOR is never shrunk to make the number look better (ties AXIS-4 metric-completeness). A task silently excluded from the parity scan, or a shrunk denominator, => RED.",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "ci:gates parity-denominator",
+     "assertion": "the parity scan denominator == total tasks (417); a silently-excluded task or shrunk denominator => RED"
+    },
+    "stubMustFail": "seed the parity lint excluding a task from the scan (denominator < total) -> RED"
    }
-  ]
+  ],
+  "axis2RolloutRuling": "PO 2026-09-06: (1) fix T37.20 parity NOW (done 68aebd310); (2) current-era In-Progress/QA-Review -> zero; (3) legacy = baseline-140-ratchet touch-it-fix-it; (4) no silent exclusion (count all 417, report N-falling)."
  },
  "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
