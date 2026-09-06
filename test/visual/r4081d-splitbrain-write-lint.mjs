@@ -24,12 +24,19 @@ const STORE_LITERAL = /\bMODEL_STORE\b|\bPROD_INDEX\b/;
 // the resolver's OWN body legitimately names the literals to CHOOSE between them — exclude it POSITIONALLY (the ternary that
 // reads MODEL_READ_SOURCE). Detected by the flag reference on/near the line, not by a phrase.
 const isResolverLine = (l) => /MODEL_READ_SOURCE/.test(l);
+// ★ ARCHITECT COUPLE-or-EXEMPT ruling (PO 2026-09-06) is encoded STRUCTURALLY, NEVER a name-based allowlist (an allowlist rots
+// the moment a 7th write site is added). If the architect rules a write EXEMPT (a regenerable view-unit that legitimately lives
+// only in MODEL_STORE), the exemption MUST be POSITIONAL — the write sits inside a designated owner FILE/region the ruling names
+// by PATH, and every EXEMPT write RELOCATES into that owner so the exemption is 'is-it-in-the-owner?' not 'is-it-on-this-list?'.
+// Until the ruling lands, EXEMPT_OWNER is empty → all 6 count (RED). Wire the architect's positional owner here, do NOT list names.
+const EXEMPT_OWNER = null; // e.g. /view-store-generator\.ts$/ once the architect designates the regenerable-view owner by path
+const isExempt = (_l) => false; // positional-only; stays false until a PATH-scoped owner is wired (never a name allowlist)
 
 function scan(lines) {
   const hits = [];
   lines.forEach((l, i) => {
     if (l.trim().startsWith('//') || l.trim().startsWith('*')) return;
-    if (WRITE_OP.test(l) && STORE_LITERAL.test(l) && !isResolverLine(l)) hits.push({ line: i + 1, text: l.trim().slice(0, 120) });
+    if (WRITE_OP.test(l) && STORE_LITERAL.test(l) && !isResolverLine(l) && !isExempt(l)) hits.push({ line: i + 1, text: l.trim().slice(0, 120) });
   });
   return hits;
 }
