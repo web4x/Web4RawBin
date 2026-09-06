@@ -2,7 +2,7 @@
 
 **Deadline 22:00 CET.** Each item is machine-verified + at QA-Review awaiting **your** accept (0 Done till Tron). Accept in one pass, top-down — ordered fastest-to-verify-on-your-own-screen first.
 
-**★ Waiting on: YOUR accept — and nothing else.** Every row below is machine-verified and gated; the only thing between it and Done is your word. **Nothing is waiting on us.** One row needs your *gesture*, not our work: **T37.31** = your real-iOS device (background/lock → foreground). *(T37.20.4 folder-move was PULLED — your iPhone test v0.8.206 caught a real fail: the file doesn't move on an iOS touch drag. Back to work, off this list. Exactly the caveat we recorded — your gesture was the missing evidence and it said FAIL.)*
+**★ Waiting on: YOUR accept — and nothing else.** Every row below is machine-verified and gated; the only thing between it and Done is your word. **Nothing is waiting on us.** One row needs your *device*, and only for a genuine physics limit: **T37.31** — its whole app-side mechanism is machine-verified (r4065 GREEN DET-3x); the only thing we cannot fake is a real iOS OS suspend→foreground (iOS actually severing the socket + a real Safari foreground event). Your background/lock→foreground on the phone is the one thing left. *(T37.20.4 folder-move was PULLED — your iPhone test v0.8.206 caught a real fail: the file doesn't move on an iOS touch drag. Back to work, off this list. Exactly the caveat we recorded — your gesture was the missing evidence and it said FAIL.)*
 
 ## A · VISUAL — verify by glancing at your screen (fastest)
 | # | Delivers | Evidence |
