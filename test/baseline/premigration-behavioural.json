@@ -1,0 +1,6609 @@
+{
+  "capturedAt": "2026-09-06T10:12:09Z",
+  "base": "https://prod.wo-da.de:4444",
+  "servedVersion": "0.8.185",
+  "nodeCap": 1200,
+  "modelNodesWalked": 211,
+  "refsCaptured": 212,
+  "authoredListings": {
+    "diagrams": [
+      {
+        "uuid": "5164fe56-9630-44ea-aaf6-65d37d8908c7",
+        "name": "Model diagram (1 classes)"
+      },
+      {
+        "uuid": "5b1e1dac-723d-43e6-873f-4613cf53c88c",
+        "name": "demo"
+      },
+      {
+        "uuid": "b7f284d5-9845-4576-acbe-cd348f827014",
+        "name": "Profile diagram"
+      },
+      {
+        "uuid": "d4e3d709-051b-4cec-9c30-71cf669290d8",
+        "name": "Model diagram"
+      },
+      {
+        "uuid": "f8d8986a-a360-4c49-b181-a08a623ea423",
+        "name": "another diagram"
+      },
+      {
+        "uuid": "faa4acad-41a6-48fc-ad0d-dd0044c123f7",
+        "name": "Model diagram (3 classes)"
+      },
+      {
+        "uuid": "fbe6d717-7738-4b57-8600-b5794eb0efd1",
+        "name": "Task State"
+      }
+    ],
+    "pumls": [
+      {
+        "uuid": "55979a79-cb07-4c03-a35c-81834bf34764",
+        "name": "sprint-29-server-dev-lifecycle-chains.puml"
+      },
+      {
+        "uuid": "6a4cb10c-ce77-48a1-a51c-53a0486310d1",
+        "name": "avatar-crop-lifecycle.puml"
+      },
+      {
+        "uuid": "85f2de9d-6dae-4623-a6a1-a1d47dd6b935",
+        "name": "pwa-update-workflow.puml"
+      },
+      {
+        "uuid": "980c16df-7862-4e4f-a215-4bf13beb859b",
+        "name": "use-case.puml"
+      },
+      {
+        "uuid": "c5275945-435f-4ca4-a055-bca79ff4179b",
+        "name": "r20-4-bug-changerequest-chain.puml"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams",
+        "name": "sprint-02-identity-ssh/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams",
+        "name": "sprint-07-encrypted-storage/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams",
+        "name": "sprint-08-monaco-editor/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-09-room-identity/diagrams",
+        "name": "sprint-09-room-identity/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-10-contacts-ui/diagrams",
+        "name": "sprint-10-contacts-ui/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-11-traceability/diagrams",
+        "name": "sprint-11-traceability/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-13-stability/diagrams",
+        "name": "sprint-13-stability/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-14-legacy-migration/diagrams",
+        "name": "sprint-14-legacy-migration/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams",
+        "name": "sprint-15-traceability-browser/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams",
+        "name": "sprint-16-traceability-ux/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-17-scenario-units/diagrams",
+        "name": "sprint-17-scenario-units/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams",
+        "name": "sprint-18-chain-method-scope/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-19-room-handling/diagrams",
+        "name": "sprint-19-room-handling/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-20-traceability-first/diagrams",
+        "name": "sprint-20-traceability-first/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-21-contact-identity/diagrams",
+        "name": "sprint-21-contact-identity/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-22-traceability-view-fixes/diagrams",
+        "name": "sprint-22-traceability-view-fixes/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-23-media-preview/diagrams",
+        "name": "sprint-23-media-preview/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-24-traceability-skills/diagrams",
+        "name": "sprint-24-traceability-skills/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-25-apple-dnd/diagrams",
+        "name": "sprint-25-apple-dnd/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-26-federation/diagrams",
+        "name": "sprint-26-federation/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-27-detail-view-enhancements/diagrams",
+        "name": "sprint-27-detail-view-enhancements/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams",
+        "name": "sprint-28-graph-integrity-foundation/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/diagrams",
+        "name": "sprint-29-server-dev-lifecycle/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams",
+        "name": "sprint-30-traceability-improvement/diagrams"
+      },
+      {
+        "uuid": "dir:scrum.pmo/sprints/sprint-31-server-manager/diagrams",
+        "name": "sprint-31-server-manager/diagrams"
+      },
+      {
+        "uuid": "e9e5f347-2e9f-4d9d-a4b0-48e6aec8a8b8",
+        "name": "object-verb-usecases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-02-identity-ssh/diagrams/class-diagram.puml",
+        "name": "class-diagram.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-auth.puml",
+        "name": "sequence-auth.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-enrollment.puml",
+        "name": "sequence-enrollment.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-02-identity-ssh/diagrams/use-case.puml",
+        "name": "use-case.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-crop-lifecycle.puml",
+        "name": "avatar-crop-lifecycle.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-lifecycle.puml",
+        "name": "avatar-lifecycle.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-08-monaco-editor/diagrams/class-diagram.puml",
+        "name": "class-diagram.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-08-monaco-editor/diagrams/sequence-edit.puml",
+        "name": "sequence-edit.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-08-monaco-editor/diagrams/use-cases.puml",
+        "name": "use-cases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-09-room-identity/diagrams/class-diagram.puml",
+        "name": "class-diagram.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-09-room-identity/diagrams/use-cases.puml",
+        "name": "use-cases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-10-contacts-ui/diagrams/sprint-10-contacts-ui-chains.puml",
+        "name": "sprint-10-contacts-ui-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-11-traceability/diagrams/sprint-11-traceability-chains.puml",
+        "name": "sprint-11-traceability-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-13-stability/diagrams/avatar-workflow.puml",
+        "name": "avatar-workflow.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-13-stability/diagrams/pwa-update-workflow.puml",
+        "name": "pwa-update-workflow.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-13-stability/diagrams/rooms-workflow.puml",
+        "name": "rooms-workflow.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-13-stability/diagrams/sprint-13-stability-chains.puml",
+        "name": "sprint-13-stability-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-14-legacy-migration/diagrams/migration-workflow.puml",
+        "name": "migration-workflow.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-15-traceability-browser/diagrams/object-verb-usecases.puml",
+        "name": "object-verb-usecases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+        "name": "s16-usecases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-16-traceability-ux/diagrams/sprint-16-traceability-ux-chains.puml",
+        "name": "sprint-16-traceability-ux-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-architecture.puml",
+        "name": "s17-architecture.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-usecases.puml",
+        "name": "s17-usecases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-18-chain-method-scope/diagrams/sprint-18-chain-method-scope-chains.puml",
+        "name": "sprint-18-chain-method-scope-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-lifecycle-audit.puml",
+        "name": "r19-item-lifecycle-audit.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-oop-invariant.puml",
+        "name": "r19-item-oop-invariant.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-state-machine.puml",
+        "name": "r19-item-state-machine.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-19-room-handling/diagrams/s19-task-chain.puml",
+        "name": "s19-task-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-19-room-handling/diagrams/sprint-19-room-handling-chains.puml",
+        "name": "sprint-19-room-handling-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.puml",
+        "name": "bug1-chain-excludes-self.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml",
+        "name": "cr1-unify-chain-label.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-13-current-sprint-class.puml",
+        "name": "r20-13-current-sprint-class.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.puml",
+        "name": "r20-2-grab-bar-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-3-default-collapsed-chain.puml",
+        "name": "r20-3-default-collapsed-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.puml",
+        "name": "r20-4-bug-changerequest-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.puml",
+        "name": "r20-5-detail-view-sections-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-6-selection-model-chain.puml",
+        "name": "r20-6-selection-model-chain.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-20-traceability-first/diagrams/sprint-20-traceability-first-chains.puml",
+        "name": "sprint-20-traceability-first-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21-contact-identity-chains.puml",
+        "name": "sprint-21-contact-identity-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21.puml",
+        "name": "sprint-21.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-22-traceability-view-fixes/diagrams/sprint-22-traceability-view-fixes-chains.puml",
+        "name": "sprint-22-traceability-view-fixes-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-23-media-preview/diagrams/sprint-23-media-preview-chains.puml",
+        "name": "sprint-23-media-preview-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-24-traceability-skills/diagrams/sprint-24-traceability-skills-chains.puml",
+        "name": "sprint-24-traceability-skills-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-25-apple-dnd/diagrams/sprint-25-apple-dnd-chains.puml",
+        "name": "sprint-25-apple-dnd-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-26-federation/diagrams/sprint-26-federation-chains.puml",
+        "name": "sprint-26-federation-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-27-detail-view-enhancements/diagrams/sprint-27-detail-view-enhancements-chains.puml",
+        "name": "sprint-27-detail-view-enhancements-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-28-graph-integrity-foundation/diagrams/sprint-28-graph-integrity-foundation-chains.puml",
+        "name": "sprint-28-graph-integrity-foundation-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-29-server-dev-lifecycle/diagrams/sprint-29-server-dev-lifecycle-chains.puml",
+        "name": "sprint-29-server-dev-lifecycle-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/R30.35-merge-actions-matrix.puml",
+        "name": "R30.35-merge-actions-matrix.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-class.puml",
+        "name": "s30-class.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-merge-sequence.puml",
+        "name": "s30-merge-sequence.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-usecases.puml",
+        "name": "s30-usecases.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-31-server-manager/diagrams/class-diagram.puml",
+        "name": "class-diagram.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-31-server-manager/diagrams/sprint-31-server-manager-chains.puml",
+        "name": "sprint-31-server-manager-chains.puml"
+      },
+      {
+        "uuid": "puml-src:sprint-31-server-manager/diagrams/use-cases.puml",
+        "name": "use-cases.puml"
+      }
+    ]
+  },
+  "trees": {
+    "mof-m1": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "project:RawBin",
+          "name": "RawBin",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "project:test/fixtures/r32.2-sample.ts",
+          "name": "test/fixtures/r32.2-sample.ts",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "project:test/fixtures/r325-golive-drop.ts",
+          "name": "test/fixtures/r325-golive-drop.ts",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "project:RawBin": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "rawbin:diagram",
+          "name": "diagrams",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "rawbin:puml",
+          "name": "puml",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "rawbin:traceability",
+          "name": "traceability",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 39
+        },
+        {
+          "uuid": "rawbin:ts",
+          "name": "ts",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 32
+        }
+      ]
+    },
+    "project:test/fixtures/r32.2-sample.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 5,
+      "children": [
+        {
+          "uuid": "0ce4d2fb-4023-4db8-ac2d-4376ce16815c",
+          "name": "Shape",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "54ea2a17-7b18-4d0f-ab41-feb6efe9ae64",
+          "name": "Circle",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "6b9bf49f-79df-418c-a7a5-b9e7cc565ef9",
+          "name": "Point",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "a5f83190-3a42-4c62-ad75-a36e7f775f41",
+          "name": "makeId",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "f51234b0-0233-4fd6-a802-5467f64accc2",
+          "name": "Id",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "project:test/fixtures/r325-golive-drop.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "7ca28924-bd14-406c-a6c6-684b60af08a9",
+          "name": "R325Widget",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "c7514da9-f87c-4fa9-a82e-afe4e631599c",
+          "name": "R325Base",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e6f48498-d2fb-4109-a7c7-2a3cef27aa4f",
+          "name": "R325Iface",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 1
+        }
+      ]
+    },
+    "rawbin:diagram": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 7,
+      "children": [
+        {
+          "uuid": "5164fe56-9630-44ea-aaf6-65d37d8908c7",
+          "name": "Model diagram (1 classes)",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "5b1e1dac-723d-43e6-873f-4613cf53c88c",
+          "name": "demo",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b7f284d5-9845-4576-acbe-cd348f827014",
+          "name": "Profile diagram",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d4e3d709-051b-4cec-9c30-71cf669290d8",
+          "name": "Model diagram",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "f8d8986a-a360-4c49-b181-a08a623ea423",
+          "name": "another diagram",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "faa4acad-41a6-48fc-ad0d-dd0044c123f7",
+          "name": "Model diagram (3 classes)",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "fbe6d717-7738-4b57-8600-b5794eb0efd1",
+          "name": "Task State",
+          "type": "diagram",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "rawbin:puml": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 86,
+      "children": [
+        {
+          "uuid": "55979a79-cb07-4c03-a35c-81834bf34764",
+          "name": "sprint-29-server-dev-lifecycle-chains.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6a4cb10c-ce77-48a1-a51c-53a0486310d1",
+          "name": "avatar-crop-lifecycle.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "85f2de9d-6dae-4623-a6a1-a1d47dd6b935",
+          "name": "pwa-update-workflow.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "980c16df-7862-4e4f-a215-4bf13beb859b",
+          "name": "use-case.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c5275945-435f-4ca4-a055-bca79ff4179b",
+          "name": "r20-4-bug-changerequest-chain.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams",
+          "name": "sprint-02-identity-ssh/diagrams",
+          "type": "folder",
+          "size": 375931,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams",
+          "name": "sprint-07-encrypted-storage/diagrams",
+          "type": "folder",
+          "size": 157065,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams",
+          "name": "sprint-08-monaco-editor/diagrams",
+          "type": "folder",
+          "size": 283675,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-09-room-identity/diagrams",
+          "name": "sprint-09-room-identity/diagrams",
+          "type": "folder",
+          "size": 188206,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-10-contacts-ui/diagrams",
+          "name": "sprint-10-contacts-ui/diagrams",
+          "type": "folder",
+          "size": 7459,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-11-traceability/diagrams",
+          "name": "sprint-11-traceability/diagrams",
+          "type": "folder",
+          "size": 1457,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-13-stability/diagrams",
+          "name": "sprint-13-stability/diagrams",
+          "type": "folder",
+          "size": 207939,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-14-legacy-migration/diagrams",
+          "name": "sprint-14-legacy-migration/diagrams",
+          "type": "folder",
+          "size": 86492,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams",
+          "name": "sprint-15-traceability-browser/diagrams",
+          "type": "folder",
+          "size": 67437,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams",
+          "name": "sprint-16-traceability-ux/diagrams",
+          "type": "folder",
+          "size": 115467,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-17-scenario-units/diagrams",
+          "name": "sprint-17-scenario-units/diagrams",
+          "type": "folder",
+          "size": 196120,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams",
+          "name": "sprint-18-chain-method-scope/diagrams",
+          "type": "folder",
+          "size": 57262,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-19-room-handling/diagrams",
+          "name": "sprint-19-room-handling/diagrams",
+          "type": "folder",
+          "size": 423406,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-20-traceability-first/diagrams",
+          "name": "sprint-20-traceability-first/diagrams",
+          "type": "folder",
+          "size": 163683,
+          "hasChildren": true,
+          "childCount": 9
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-21-contact-identity/diagrams",
+          "name": "sprint-21-contact-identity/diagrams",
+          "type": "folder",
+          "size": 104233,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-22-traceability-view-fixes/diagrams",
+          "name": "sprint-22-traceability-view-fixes/diagrams",
+          "type": "folder",
+          "size": 15467,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-23-media-preview/diagrams",
+          "name": "sprint-23-media-preview/diagrams",
+          "type": "folder",
+          "size": 11601,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-24-traceability-skills/diagrams",
+          "name": "sprint-24-traceability-skills/diagrams",
+          "type": "folder",
+          "size": 19279,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-25-apple-dnd/diagrams",
+          "name": "sprint-25-apple-dnd/diagrams",
+          "type": "folder",
+          "size": 43587,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-26-federation/diagrams",
+          "name": "sprint-26-federation/diagrams",
+          "type": "folder",
+          "size": 22357,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-27-detail-view-enhancements/diagrams",
+          "name": "sprint-27-detail-view-enhancements/diagrams",
+          "type": "folder",
+          "size": 28191,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams",
+          "name": "sprint-28-graph-integrity-foundation/diagrams",
+          "type": "folder",
+          "size": 2745,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/diagrams",
+          "name": "sprint-29-server-dev-lifecycle/diagrams",
+          "type": "folder",
+          "size": 27256,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams",
+          "name": "sprint-30-traceability-improvement/diagrams",
+          "type": "folder",
+          "size": 1807597,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "dir:scrum.pmo/sprints/sprint-31-server-manager/diagrams",
+          "name": "sprint-31-server-manager/diagrams",
+          "type": "folder",
+          "size": 22933,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "e9e5f347-2e9f-4d9d-a4b0-48e6aec8a8b8",
+          "name": "object-verb-usecases.puml",
+          "type": "pumlartifact",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 5176,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-auth.puml",
+          "name": "sequence-auth.puml",
+          "type": "puml",
+          "size": 2879,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-enrollment.puml",
+          "name": "sequence-enrollment.puml",
+          "type": "puml",
+          "size": 2527,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/use-case.puml",
+          "name": "use-case.puml",
+          "type": "puml",
+          "size": 2931,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-crop-lifecycle.puml",
+          "name": "avatar-crop-lifecycle.puml",
+          "type": "puml",
+          "size": 3101,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-lifecycle.puml",
+          "name": "avatar-lifecycle.puml",
+          "type": "puml",
+          "size": 6086,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 4064,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/sequence-edit.puml",
+          "name": "sequence-edit.puml",
+          "type": "puml",
+          "size": 2512,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 3816,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-09-room-identity/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 3979,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-09-room-identity/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 3822,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-10-contacts-ui/diagrams/sprint-10-contacts-ui-chains.puml",
+          "name": "sprint-10-contacts-ui-chains.puml",
+          "type": "puml",
+          "size": 734,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-11-traceability/diagrams/sprint-11-traceability-chains.puml",
+          "name": "sprint-11-traceability-chains.puml",
+          "type": "puml",
+          "size": 214,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/avatar-workflow.puml",
+          "name": "avatar-workflow.puml",
+          "type": "puml",
+          "size": 2802,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/pwa-update-workflow.puml",
+          "name": "pwa-update-workflow.puml",
+          "type": "puml",
+          "size": 2726,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/rooms-workflow.puml",
+          "name": "rooms-workflow.puml",
+          "type": "puml",
+          "size": 2332,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/sprint-13-stability-chains.puml",
+          "name": "sprint-13-stability-chains.puml",
+          "type": "puml",
+          "size": 2517,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-14-legacy-migration/diagrams/migration-workflow.puml",
+          "name": "migration-workflow.puml",
+          "type": "puml",
+          "size": 3795,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-15-traceability-browser/diagrams/object-verb-usecases.puml",
+          "name": "object-verb-usecases.puml",
+          "type": "puml",
+          "size": 3980,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+          "name": "s16-usecases.puml",
+          "type": "puml",
+          "size": 6975,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-16-traceability-ux/diagrams/sprint-16-traceability-ux-chains.puml",
+          "name": "sprint-16-traceability-ux-chains.puml",
+          "type": "puml",
+          "size": 1115,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-architecture.puml",
+          "name": "s17-architecture.puml",
+          "type": "puml",
+          "size": 10272,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-usecases.puml",
+          "name": "s17-usecases.puml",
+          "type": "puml",
+          "size": 7768,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-18-chain-method-scope/diagrams/sprint-18-chain-method-scope-chains.puml",
+          "name": "sprint-18-chain-method-scope-chains.puml",
+          "type": "puml",
+          "size": 5016,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-lifecycle-audit.puml",
+          "name": "r19-item-lifecycle-audit.puml",
+          "type": "puml",
+          "size": 3424,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-oop-invariant.puml",
+          "name": "r19-item-oop-invariant.puml",
+          "type": "puml",
+          "size": 3557,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-state-machine.puml",
+          "name": "r19-item-state-machine.puml",
+          "type": "puml",
+          "size": 2308,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/s19-task-chain.puml",
+          "name": "s19-task-chain.puml",
+          "type": "puml",
+          "size": 1714,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/sprint-19-room-handling-chains.puml",
+          "name": "sprint-19-room-handling-chains.puml",
+          "type": "puml",
+          "size": 25713,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.puml",
+          "name": "bug1-chain-excludes-self.puml",
+          "type": "puml",
+          "size": 804,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml",
+          "name": "cr1-unify-chain-label.puml",
+          "type": "puml",
+          "size": 837,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-13-current-sprint-class.puml",
+          "name": "r20-13-current-sprint-class.puml",
+          "type": "puml",
+          "size": 1429,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.puml",
+          "name": "r20-2-grab-bar-chain.puml",
+          "type": "puml",
+          "size": 576,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-3-default-collapsed-chain.puml",
+          "name": "r20-3-default-collapsed-chain.puml",
+          "type": "puml",
+          "size": 775,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.puml",
+          "name": "r20-4-bug-changerequest-chain.puml",
+          "type": "puml",
+          "size": 1513,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.puml",
+          "name": "r20-5-detail-view-sections-chain.puml",
+          "type": "puml",
+          "size": 1492,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-6-selection-model-chain.puml",
+          "name": "r20-6-selection-model-chain.puml",
+          "type": "puml",
+          "size": 2076,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/sprint-20-traceability-first-chains.puml",
+          "name": "sprint-20-traceability-first-chains.puml",
+          "type": "puml",
+          "size": 6464,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21-contact-identity-chains.puml",
+          "name": "sprint-21-contact-identity-chains.puml",
+          "type": "puml",
+          "size": 2849,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21.puml",
+          "name": "sprint-21.puml",
+          "type": "puml",
+          "size": 4276,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-22-traceability-view-fixes/diagrams/sprint-22-traceability-view-fixes-chains.puml",
+          "name": "sprint-22-traceability-view-fixes-chains.puml",
+          "type": "puml",
+          "size": 1416,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-23-media-preview/diagrams/sprint-23-media-preview-chains.puml",
+          "name": "sprint-23-media-preview-chains.puml",
+          "type": "puml",
+          "size": 1046,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-24-traceability-skills/diagrams/sprint-24-traceability-skills-chains.puml",
+          "name": "sprint-24-traceability-skills-chains.puml",
+          "type": "puml",
+          "size": 1680,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-25-apple-dnd/diagrams/sprint-25-apple-dnd-chains.puml",
+          "name": "sprint-25-apple-dnd-chains.puml",
+          "type": "puml",
+          "size": 3532,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-26-federation/diagrams/sprint-26-federation-chains.puml",
+          "name": "sprint-26-federation-chains.puml",
+          "type": "puml",
+          "size": 1987,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-27-detail-view-enhancements/diagrams/sprint-27-detail-view-enhancements-chains.puml",
+          "name": "sprint-27-detail-view-enhancements-chains.puml",
+          "type": "puml",
+          "size": 2476,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-28-graph-integrity-foundation/diagrams/sprint-28-graph-integrity-foundation-chains.puml",
+          "name": "sprint-28-graph-integrity-foundation-chains.puml",
+          "type": "puml",
+          "size": 437,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-29-server-dev-lifecycle/diagrams/sprint-29-server-dev-lifecycle-chains.puml",
+          "name": "sprint-29-server-dev-lifecycle-chains.puml",
+          "type": "puml",
+          "size": 2423,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/R30.35-merge-actions-matrix.puml",
+          "name": "R30.35-merge-actions-matrix.puml",
+          "type": "puml",
+          "size": 6035,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-class.puml",
+          "name": "s30-class.puml",
+          "type": "puml",
+          "size": 3271,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-merge-sequence.puml",
+          "name": "s30-merge-sequence.puml",
+          "type": "puml",
+          "size": 2518,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-usecases.puml",
+          "name": "s30-usecases.puml",
+          "type": "puml",
+          "size": 3801,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 5723,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/sprint-31-server-manager-chains.puml",
+          "name": "sprint-31-server-manager-chains.puml",
+          "type": "puml",
+          "size": 12549,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 4661,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "rawbin:traceability": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 39,
+      "children": [
+        {
+          "uuid": "00fcab21-b05e-4242-a694-eee83aa1b95a",
+          "name": "Sprint 8: Monaco Editor",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "036e545a-34b4-4fd2-b78c-b744b475bdab",
+          "name": "Sprint 10: Contacts Ui",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "04339450-9c01-449f-88a8-a09a55970d5b",
+          "name": "Sprint 24: Traceability Skills",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "1018cc11-be1d-44a4-bc8d-6c96461e3647",
+          "name": "Sprint 4: Traceability",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "186ccb53-07ca-4c5a-96fd-6fc94443b45e",
+          "name": "Sprint 29: Server & Dev Lifecycle",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "1a1de78b-a0e5-4d17-8922-cd68a51c0383",
+          "name": "Sprint 33: MDA v4 MOF-layered tree",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 15
+        },
+        {
+          "uuid": "1bdfaafa-9042-40d3-8046-744cd18f22f7",
+          "name": "Sprint 21: Contact Identity",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 9
+        },
+        {
+          "uuid": "1d98197d-87ee-4355-8858-406961b2f19d",
+          "name": "Sprint 26: RawBin Federation",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "2173e549-ca99-43e5-aea8-946b02141c13",
+          "name": "Sprint 30: Traceability Improvement",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 55
+        },
+        {
+          "uuid": "2370d3b3-f0ee-4865-855f-f47880e8c6b3",
+          "name": "Sprint 17: Scenario Units",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 50
+        },
+        {
+          "uuid": "29d92990-3512-48c8-8648-e08ee757bb57",
+          "name": "Sprint 3: E2E Hardening",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "2aac7676-bc88-4eb0-a81b-07c913fda5ee",
+          "name": "Sprint 9: Room Identity",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "332585f3-f37a-478e-a632-36c657bfe823",
+          "name": "Sprint 32: MDA Model-Driven Code Quality",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 13
+        },
+        {
+          "uuid": "3c05f411-5e6e-4dfa-940e-b85ad55d7bea",
+          "name": "Sprint 31: Server Manager",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 14
+        },
+        {
+          "uuid": "4a4a5d66-d9ff-42be-8d17-201531dbb53e",
+          "name": "Sprint 23: Media Preview",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "5b950725-a6f6-4d45-b802-4784ee6ef962",
+          "name": "Sprint 18: Chain Method-Scope & Role Skills",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 19
+        },
+        {
+          "uuid": "64af2638-d011-48c1-9d5a-dbfd9784efd6",
+          "name": "Sprint 20: Radical Forward Planning (Traceability-First)",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 17
+        },
+        {
+          "uuid": "71290950-9a19-4043-bbaf-68c72d00894e",
+          "name": "Sprint 15: Traceability Browser",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 8
+        },
+        {
+          "uuid": "7f004379-b327-4853-bc2f-947bd4e781d8",
+          "name": "Sprint 2: Identity & SSH",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "7f9ae8c9-e10e-47fe-ac92-8b590cacd297",
+          "name": "Sprint 14: Legacy Migration",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "86e3077a-3fda-4c0a-a120-f6811d6252e1",
+          "name": "Sprint 12: Editor Fixes",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+          "name": "Sprint 40: Server Manager — deployment-node model + mobile input control",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 82
+        },
+        {
+          "uuid": "97f513a1-db0b-4216-87c2-a85c93daae28",
+          "name": "Sprint 19: Room Handling",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 82
+        },
+        {
+          "uuid": "9996b46a-66b7-4f8a-9298-cbea3c2edabf",
+          "name": "Sprint 22: Traceability View Fixes",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "9c74be11-4e42-4b77-8296-194a604f084b",
+          "name": "Sprint 13: Stability",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "9e1952d5-f4a6-4947-9ac6-d063ffb6b385",
+          "name": "Sprint 6: Web Components",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "a4b96c49-f670-4645-bee6-573dee20d5c2",
+          "name": "Sprint 1: Rawbin Foundation",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 11
+        },
+        {
+          "uuid": "a9eb4565-6a74-4f82-802f-01373b9cf59c",
+          "name": "Sprint 7: Encrypted Storage",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "afb010c8-1402-42ff-bba8-9859e9c36962",
+          "name": "Sprint 5: PWA & Offline",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b86b53cc-13cb-409a-81d6-2025b5f2979e",
+          "name": "Sprint 37: Consistency by Construction",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 39
+        },
+        {
+          "uuid": "bbf0ac5f-65da-4818-82bb-989ee291a76d",
+          "name": "Sprint 34: MDA-tree refine (retain-protect-tweak the S33 achievement)",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "c1c63a2e-7b62-48b0-a031-bd91bab14d2a",
+          "name": "Sprint 27: Detail View Enhancements",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "c7d700c6-eaf6-4ba7-9d14-bfa8700a101d",
+          "name": "Sprint 25: Apple DnD",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "ce1d8d57-e845-428d-9dc9-9c241b17c479",
+          "name": "Sprint 36: Unify Traceability Units with the M2 UML/TS Model",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "current-sprint-singleton-0000-000000000001",
+          "name": "CurrentSprint",
+          "type": "currentsprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "d56c45de-bde0-4f11-bece-c6e8f461bf84",
+          "name": "Sprint 11: Traceability",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "deeba407-b61e-4e5c-9f6d-7331b83f96da",
+          "name": "Sprint 35: Buttons->Actions + Universal On-Disk Scenarios",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "e6a9de8c-2479-4785-8bf7-b9b38b37a42f",
+          "name": "Sprint 16: Traceability Ux",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 12
+        },
+        {
+          "uuid": "fabc9784-533b-49a8-a0ce-40d36d2338d8",
+          "name": "Sprint 28: Graph-Integrity Foundation",
+          "type": "sprint",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        }
+      ]
+    },
+    "rawbin:ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "dir:src/demo",
+          "name": "demo",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "dir:src/public",
+          "name": "public",
+          "type": "collection",
+          "size": 8348985,
+          "hasChildren": true,
+          "childCount": 88
+        },
+        {
+          "uuid": "dir:src/shared",
+          "name": "shared",
+          "type": "collection",
+          "size": 70,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:src/ts",
+          "name": "ts",
+          "type": "collection",
+          "size": 967059,
+          "hasChildren": true,
+          "childCount": 70
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-02-identity-ssh/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 5176,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-auth.puml",
+          "name": "sequence-auth.puml",
+          "type": "puml",
+          "size": 2879,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/sequence-enrollment.puml",
+          "name": "sequence-enrollment.puml",
+          "type": "puml",
+          "size": 2527,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-02-identity-ssh/diagrams/use-case.puml",
+          "name": "use-case.puml",
+          "type": "puml",
+          "size": 2931,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-07-encrypted-storage/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-crop-lifecycle.puml",
+          "name": "avatar-crop-lifecycle.puml",
+          "type": "puml",
+          "size": 3101,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-07-encrypted-storage/diagrams/avatar-lifecycle.puml",
+          "name": "avatar-lifecycle.puml",
+          "type": "puml",
+          "size": 6086,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-08-monaco-editor/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 4064,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/sequence-edit.puml",
+          "name": "sequence-edit.puml",
+          "type": "puml",
+          "size": 2512,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-08-monaco-editor/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 3816,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-09-room-identity/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-09-room-identity/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 3979,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-09-room-identity/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 3822,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-10-contacts-ui/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-10-contacts-ui/diagrams/sprint-10-contacts-ui-chains.puml",
+          "name": "sprint-10-contacts-ui-chains.puml",
+          "type": "puml",
+          "size": 734,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-11-traceability/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-11-traceability/diagrams/sprint-11-traceability-chains.puml",
+          "name": "sprint-11-traceability-chains.puml",
+          "type": "puml",
+          "size": 214,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-13-stability/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/avatar-workflow.puml",
+          "name": "avatar-workflow.puml",
+          "type": "puml",
+          "size": 2802,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/pwa-update-workflow.puml",
+          "name": "pwa-update-workflow.puml",
+          "type": "puml",
+          "size": 2726,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/rooms-workflow.puml",
+          "name": "rooms-workflow.puml",
+          "type": "puml",
+          "size": 2332,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-13-stability/diagrams/sprint-13-stability-chains.puml",
+          "name": "sprint-13-stability-chains.puml",
+          "type": "puml",
+          "size": 2517,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-14-legacy-migration/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-14-legacy-migration/diagrams/migration-workflow.puml",
+          "name": "migration-workflow.puml",
+          "type": "puml",
+          "size": 3795,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-15-traceability-browser/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-15-traceability-browser/diagrams/object-verb-usecases.puml",
+          "name": "object-verb-usecases.puml",
+          "type": "puml",
+          "size": 3980,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-16-traceability-ux/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-16-traceability-ux/diagrams/s16-usecases.puml",
+          "name": "s16-usecases.puml",
+          "type": "puml",
+          "size": 6975,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-16-traceability-ux/diagrams/sprint-16-traceability-ux-chains.puml",
+          "name": "sprint-16-traceability-ux-chains.puml",
+          "type": "puml",
+          "size": 1115,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-17-scenario-units/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-architecture.puml",
+          "name": "s17-architecture.puml",
+          "type": "puml",
+          "size": 10272,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-17-scenario-units/diagrams/s17-usecases.puml",
+          "name": "s17-usecases.puml",
+          "type": "puml",
+          "size": 7768,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-18-chain-method-scope/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-18-chain-method-scope/diagrams/sprint-18-chain-method-scope-chains.puml",
+          "name": "sprint-18-chain-method-scope-chains.puml",
+          "type": "puml",
+          "size": 5016,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-19-room-handling/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 5,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-lifecycle-audit.puml",
+          "name": "r19-item-lifecycle-audit.puml",
+          "type": "puml",
+          "size": 3424,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-oop-invariant.puml",
+          "name": "r19-item-oop-invariant.puml",
+          "type": "puml",
+          "size": 3557,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/r19-item-state-machine.puml",
+          "name": "r19-item-state-machine.puml",
+          "type": "puml",
+          "size": 2308,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/s19-task-chain.puml",
+          "name": "s19-task-chain.puml",
+          "type": "puml",
+          "size": 1714,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-19-room-handling/diagrams/sprint-19-room-handling-chains.puml",
+          "name": "sprint-19-room-handling-chains.puml",
+          "type": "puml",
+          "size": 25713,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-20-traceability-first/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 9,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/bug1-chain-excludes-self.puml",
+          "name": "bug1-chain-excludes-self.puml",
+          "type": "puml",
+          "size": 804,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/cr1-unify-chain-label.puml",
+          "name": "cr1-unify-chain-label.puml",
+          "type": "puml",
+          "size": 837,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-13-current-sprint-class.puml",
+          "name": "r20-13-current-sprint-class.puml",
+          "type": "puml",
+          "size": 1429,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-2-grab-bar-chain.puml",
+          "name": "r20-2-grab-bar-chain.puml",
+          "type": "puml",
+          "size": 576,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-3-default-collapsed-chain.puml",
+          "name": "r20-3-default-collapsed-chain.puml",
+          "type": "puml",
+          "size": 775,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-4-bug-changerequest-chain.puml",
+          "name": "r20-4-bug-changerequest-chain.puml",
+          "type": "puml",
+          "size": 1513,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-5-detail-view-sections-chain.puml",
+          "name": "r20-5-detail-view-sections-chain.puml",
+          "type": "puml",
+          "size": 1492,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/r20-6-selection-model-chain.puml",
+          "name": "r20-6-selection-model-chain.puml",
+          "type": "puml",
+          "size": 2076,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-20-traceability-first/diagrams/sprint-20-traceability-first-chains.puml",
+          "name": "sprint-20-traceability-first-chains.puml",
+          "type": "puml",
+          "size": 6464,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-21-contact-identity/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21-contact-identity-chains.puml",
+          "name": "sprint-21-contact-identity-chains.puml",
+          "type": "puml",
+          "size": 2849,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-21-contact-identity/diagrams/sprint-21.puml",
+          "name": "sprint-21.puml",
+          "type": "puml",
+          "size": 4276,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-22-traceability-view-fixes/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-22-traceability-view-fixes/diagrams/sprint-22-traceability-view-fixes-chains.puml",
+          "name": "sprint-22-traceability-view-fixes-chains.puml",
+          "type": "puml",
+          "size": 1416,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-23-media-preview/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-23-media-preview/diagrams/sprint-23-media-preview-chains.puml",
+          "name": "sprint-23-media-preview-chains.puml",
+          "type": "puml",
+          "size": 1046,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-24-traceability-skills/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-24-traceability-skills/diagrams/sprint-24-traceability-skills-chains.puml",
+          "name": "sprint-24-traceability-skills-chains.puml",
+          "type": "puml",
+          "size": 1680,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-25-apple-dnd/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-25-apple-dnd/diagrams/sprint-25-apple-dnd-chains.puml",
+          "name": "sprint-25-apple-dnd-chains.puml",
+          "type": "puml",
+          "size": 3532,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-26-federation/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-26-federation/diagrams/sprint-26-federation-chains.puml",
+          "name": "sprint-26-federation-chains.puml",
+          "type": "puml",
+          "size": 1987,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-27-detail-view-enhancements/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-27-detail-view-enhancements/diagrams/sprint-27-detail-view-enhancements-chains.puml",
+          "name": "sprint-27-detail-view-enhancements-chains.puml",
+          "type": "puml",
+          "size": 2476,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-28-graph-integrity-foundation/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-28-graph-integrity-foundation/diagrams/sprint-28-graph-integrity-foundation-chains.puml",
+          "name": "sprint-28-graph-integrity-foundation-chains.puml",
+          "type": "puml",
+          "size": 437,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-29-server-dev-lifecycle/diagrams/sprint-29-server-dev-lifecycle-chains.puml",
+          "name": "sprint-29-server-dev-lifecycle-chains.puml",
+          "type": "puml",
+          "size": 2423,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-30-traceability-improvement/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/R30.35-merge-actions-matrix.puml",
+          "name": "R30.35-merge-actions-matrix.puml",
+          "type": "puml",
+          "size": 6035,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-class.puml",
+          "name": "s30-class.puml",
+          "type": "puml",
+          "size": 3271,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-merge-sequence.puml",
+          "name": "s30-merge-sequence.puml",
+          "type": "puml",
+          "size": 2518,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-30-traceability-improvement/diagrams/s30-usecases.puml",
+          "name": "s30-usecases.puml",
+          "type": "puml",
+          "size": 3801,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:scrum.pmo/sprints/sprint-31-server-manager/diagrams": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/class-diagram.puml",
+          "name": "class-diagram.puml",
+          "type": "puml",
+          "size": 5723,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/sprint-31-server-manager-chains.puml",
+          "name": "sprint-31-server-manager-chains.puml",
+          "type": "puml",
+          "size": 12549,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "puml-src:sprint-31-server-manager/diagrams/use-cases.puml",
+          "name": "use-cases.puml",
+          "type": "puml",
+          "size": 4661,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/demo": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "dir:src/demo/js",
+          "name": "js",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "dir:src/demo/trash",
+          "name": "trash",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "dir:src/demo/ts",
+          "name": "ts",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "dir:src/public/ts",
+          "name": "ts",
+          "type": "collection",
+          "size": 755017,
+          "hasChildren": true,
+          "childCount": 88
+        }
+      ]
+    },
+    "dir:src/shared": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "dir:src/shared/test",
+          "name": "test",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/shared/MessageTypes.ts",
+          "name": "MessageTypes.ts",
+          "type": "collection",
+          "size": 70,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "dir:src/ts/scenario",
+          "name": "scenario",
+          "type": "collection",
+          "size": 343122,
+          "hasChildren": true,
+          "childCount": 39
+        },
+        {
+          "uuid": "dir:src/ts/server",
+          "name": "server",
+          "type": "collection",
+          "size": 588499,
+          "hasChildren": true,
+          "childCount": 24
+        },
+        {
+          "uuid": "dir:src/ts/shared",
+          "name": "shared",
+          "type": "collection",
+          "size": 35438,
+          "hasChildren": true,
+          "childCount": 7
+        }
+      ]
+    },
+    "dir:src/demo/js": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "dir:src/demo/trash": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "dir:src/demo/ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "dir:src/public/ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 26,
+      "children": [
+        {
+          "uuid": "dir:src/public/ts/components",
+          "name": "components",
+          "type": "collection",
+          "size": 167105,
+          "hasChildren": true,
+          "childCount": 13
+        },
+        {
+          "uuid": "dir:src/public/ts/feature-manager",
+          "name": "feature-manager",
+          "type": "collection",
+          "size": 2976,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:src/public/ts/model",
+          "name": "model",
+          "type": "collection",
+          "size": 21814,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "dir:src/public/ts/server-manager",
+          "name": "server-manager",
+          "type": "collection",
+          "size": 3206,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "dir:src/public/ts/trace",
+          "name": "trace",
+          "type": "collection",
+          "size": 414638,
+          "hasChildren": true,
+          "childCount": 50
+        },
+        {
+          "uuid": "dir:src/public/ts/vendor",
+          "name": "vendor",
+          "type": "collection",
+          "size": 8765,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "file:src/public/ts/app.ts",
+          "name": "app.ts",
+          "type": "collection",
+          "size": 3124,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/DeviceEnrollDialog.ts",
+          "name": "DeviceEnrollDialog.ts",
+          "type": "collection",
+          "size": 3927,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/drop-dispatcher.ts",
+          "name": "drop-dispatcher.ts",
+          "type": "collection",
+          "size": 10647,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/edit.ts",
+          "name": "edit.ts",
+          "type": "collection",
+          "size": 9920,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/format-bytes.ts",
+          "name": "format-bytes.ts",
+          "type": "collection",
+          "size": 923,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/live-bridge.ts",
+          "name": "live-bridge.ts",
+          "type": "collection",
+          "size": 6528,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/live-mvc-recorder.ts",
+          "name": "live-mvc-recorder.ts",
+          "type": "collection",
+          "size": 6507,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/page-bootstrap.ts",
+          "name": "page-bootstrap.ts",
+          "type": "collection",
+          "size": 2827,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/profile-view-entry.ts",
+          "name": "profile-view-entry.ts",
+          "type": "collection",
+          "size": 386,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/ProfileEditor.ts",
+          "name": "ProfileEditor.ts",
+          "type": "collection",
+          "size": 13104,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/ProfileSheet.ts",
+          "name": "ProfileSheet.ts",
+          "type": "collection",
+          "size": 3921,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/RawBinClient.ts",
+          "name": "RawBinClient.ts",
+          "type": "collection",
+          "size": 14168,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/RoomBrowser.ts",
+          "name": "RoomBrowser.ts",
+          "type": "collection",
+          "size": 10902,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/RoomView.ts",
+          "name": "RoomView.ts",
+          "type": "collection",
+          "size": 33542,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/scenario-view.ts",
+          "name": "scenario-view.ts",
+          "type": "collection",
+          "size": 3416,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace-page.ts",
+          "name": "trace-page.ts",
+          "type": "collection",
+          "size": 2434,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/transport-lifecycle.ts",
+          "name": "transport-lifecycle.ts",
+          "type": "collection",
+          "size": 3463,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/vcard-download.ts",
+          "name": "vcard-download.ts",
+          "type": "collection",
+          "size": 3531,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/vcard-parse.ts",
+          "name": "vcard-parse.ts",
+          "type": "collection",
+          "size": 1364,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/ViewBus.ts",
+          "name": "ViewBus.ts",
+          "type": "collection",
+          "size": 1879,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/shared/test": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "dir:src/shared/test/demo",
+          "name": "demo",
+          "type": "collection",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/shared/MessageTypes.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "dir:src/ts/scenario": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 39,
+      "children": [
+        {
+          "uuid": "file:src/ts/scenario/AddressIndex.ts",
+          "name": "AddressIndex.ts",
+          "type": "collection",
+          "size": 3998,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/agent-message.ts",
+          "name": "agent-message.ts",
+          "type": "collection",
+          "size": 6332,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "file:src/ts/scenario/class-mint.ts",
+          "name": "class-mint.ts",
+          "type": "collection",
+          "size": 2510,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "file:src/ts/scenario/classes.ts",
+          "name": "classes.ts",
+          "type": "collection",
+          "size": 5292,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/CompanyIndex.ts",
+          "name": "CompanyIndex.ts",
+          "type": "collection",
+          "size": 8686,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "file:src/ts/scenario/consistency-guard.ts",
+          "name": "consistency-guard.ts",
+          "type": "collection",
+          "size": 7119,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "file:src/ts/scenario/CurrentSprint.ts",
+          "name": "CurrentSprint.ts",
+          "type": "collection",
+          "size": 30912,
+          "hasChildren": true,
+          "childCount": 9
+        },
+        {
+          "uuid": "file:src/ts/scenario/EmailIndex.ts",
+          "name": "EmailIndex.ts",
+          "type": "collection",
+          "size": 4182,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/federated-ior.ts",
+          "name": "federated-ior.ts",
+          "type": "collection",
+          "size": 3436,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "file:src/ts/scenario/file-unit.ts",
+          "name": "file-unit.ts",
+          "type": "collection",
+          "size": 8521,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/generator.ts",
+          "name": "generator.ts",
+          "type": "collection",
+          "size": 7044,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/impl-marker-attach.ts",
+          "name": "impl-marker-attach.ts",
+          "type": "collection",
+          "size": 13320,
+          "hasChildren": true,
+          "childCount": 11
+        },
+        {
+          "uuid": "file:src/ts/scenario/index-store.ts",
+          "name": "index-store.ts",
+          "type": "collection",
+          "size": 7272,
+          "hasChildren": true,
+          "childCount": 1
+        },
+        {
+          "uuid": "file:src/ts/scenario/index.ts",
+          "name": "index.ts",
+          "type": "collection",
+          "size": 2391,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/ior-resolver.ts",
+          "name": "ior-resolver.ts",
+          "type": "collection",
+          "size": 3850,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "file:src/ts/scenario/message-unit.ts",
+          "name": "message-unit.ts",
+          "type": "collection",
+          "size": 1934,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "file:src/ts/scenario/ModelValidator.ts",
+          "name": "ModelValidator.ts",
+          "type": "collection",
+          "size": 5253,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "file:src/ts/scenario/mvc-boundary-guard.ts",
+          "name": "mvc-boundary-guard.ts",
+          "type": "collection",
+          "size": 2987,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/PhoneIndex.ts",
+          "name": "PhoneIndex.ts",
+          "type": "collection",
+          "size": 4803,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/self-heal.ts",
+          "name": "self-heal.ts",
+          "type": "collection",
+          "size": 2334,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/skill-classes.ts",
+          "name": "skill-classes.ts",
+          "type": "collection",
+          "size": 51662,
+          "hasChildren": true,
+          "childCount": 15
+        },
+        {
+          "uuid": "file:src/ts/scenario/skills.ts",
+          "name": "skills.ts",
+          "type": "collection",
+          "size": 5838,
+          "hasChildren": true,
+          "childCount": 8
+        },
+        {
+          "uuid": "file:src/ts/scenario/source-location.ts",
+          "name": "source-location.ts",
+          "type": "collection",
+          "size": 5869,
+          "hasChildren": true,
+          "childCount": 11
+        },
+        {
+          "uuid": "file:src/ts/scenario/sprint-label.ts",
+          "name": "sprint-label.ts",
+          "type": "collection",
+          "size": 5258,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "file:src/ts/scenario/sprint-overview-generator.ts",
+          "name": "sprint-overview-generator.ts",
+          "type": "collection",
+          "size": 8048,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "file:src/ts/scenario/sprint-pin-resolver.ts",
+          "name": "sprint-pin-resolver.ts",
+          "type": "collection",
+          "size": 12762,
+          "hasChildren": true,
+          "childCount": 9
+        },
+        {
+          "uuid": "file:src/ts/scenario/step-evidence.ts",
+          "name": "step-evidence.ts",
+          "type": "collection",
+          "size": 2924,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/task-fsm.ts",
+          "name": "task-fsm.ts",
+          "type": "collection",
+          "size": 2828,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "file:src/ts/scenario/task-policy.ts",
+          "name": "task-policy.ts",
+          "type": "collection",
+          "size": 17051,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/task-status-constants.ts",
+          "name": "task-status-constants.ts",
+          "type": "collection",
+          "size": 1555,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/task-status.ts",
+          "name": "task-status.ts",
+          "type": "collection",
+          "size": 26529,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "file:src/ts/scenario/templates.ts",
+          "name": "templates.ts",
+          "type": "collection",
+          "size": 20857,
+          "hasChildren": true,
+          "childCount": 13
+        },
+        {
+          "uuid": "file:src/ts/scenario/test-marker-attach.ts",
+          "name": "test-marker-attach.ts",
+          "type": "collection",
+          "size": 9827,
+          "hasChildren": true,
+          "childCount": 13
+        },
+        {
+          "uuid": "file:src/ts/scenario/trace-link.ts",
+          "name": "trace-link.ts",
+          "type": "collection",
+          "size": 2006,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "file:src/ts/scenario/trace-tree.ts",
+          "name": "trace-tree.ts",
+          "type": "collection",
+          "size": 4448,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "file:src/ts/scenario/TsToModel.ts",
+          "name": "TsToModel.ts",
+          "type": "collection",
+          "size": 19410,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "file:src/ts/scenario/types.ts",
+          "name": "types.ts",
+          "type": "collection",
+          "size": 989,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "file:src/ts/scenario/unit-controller.ts",
+          "name": "unit-controller.ts",
+          "type": "collection",
+          "size": 6151,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/scenario/WebItem.ts",
+          "name": "WebItem.ts",
+          "type": "collection",
+          "size": 6934,
+          "hasChildren": true,
+          "childCount": 10
+        }
+      ]
+    },
+    "dir:src/ts/server": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 24,
+      "children": [
+        {
+          "uuid": "file:src/ts/server/DeploymentModel.ts",
+          "name": "DeploymentModel.ts",
+          "type": "collection",
+          "size": 4545,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/FeatureManager.ts",
+          "name": "FeatureManager.ts",
+          "type": "collection",
+          "size": 23705,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/federation-transfer.ts",
+          "name": "federation-transfer.ts",
+          "type": "collection",
+          "size": 5886,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/FileApi.ts",
+          "name": "FileApi.ts",
+          "type": "collection",
+          "size": 6223,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/FolderService.ts",
+          "name": "FolderService.ts",
+          "type": "collection",
+          "size": 14177,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/generate-project.ts",
+          "name": "generate-project.ts",
+          "type": "collection",
+          "size": 3065,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/migrate-cli.ts",
+          "name": "migrate-cli.ts",
+          "type": "collection",
+          "size": 1457,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/Migration.ts",
+          "name": "Migration.ts",
+          "type": "collection",
+          "size": 7567,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/OtmuxBridge.ts",
+          "name": "OtmuxBridge.ts",
+          "type": "collection",
+          "size": 11401,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/ProfileView.ts",
+          "name": "ProfileView.ts",
+          "type": "collection",
+          "size": 2684,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/proxy-fetch.ts",
+          "name": "proxy-fetch.ts",
+          "type": "collection",
+          "size": 7982,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/PtyBridge.ts",
+          "name": "PtyBridge.ts",
+          "type": "collection",
+          "size": 6517,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/repo-registry.ts",
+          "name": "repo-registry.ts",
+          "type": "collection",
+          "size": 9507,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/revoked-tokens.ts",
+          "name": "revoked-tokens.ts",
+          "type": "collection",
+          "size": 8814,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/Room.ts",
+          "name": "Room.ts",
+          "type": "collection",
+          "size": 19872,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/RoomFilesService.ts",
+          "name": "RoomFilesService.ts",
+          "type": "collection",
+          "size": 4302,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/RoomKeys.ts",
+          "name": "RoomKeys.ts",
+          "type": "collection",
+          "size": 10192,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/server.ts",
+          "name": "server.ts",
+          "type": "collection",
+          "size": 389013,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/ServerManagerGuard.ts",
+          "name": "ServerManagerGuard.ts",
+          "type": "collection",
+          "size": 6885,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/storage-id.ts",
+          "name": "storage-id.ts",
+          "type": "collection",
+          "size": 8665,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/trace-cli.ts",
+          "name": "trace-cli.ts",
+          "type": "collection",
+          "size": 2524,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/TraceConsistency.ts",
+          "name": "TraceConsistency.ts",
+          "type": "collection",
+          "size": 15328,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/UserCrypto.ts",
+          "name": "UserCrypto.ts",
+          "type": "collection",
+          "size": 6097,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/server/UserKeys.ts",
+          "name": "UserKeys.ts",
+          "type": "collection",
+          "size": 9272,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/ts/shared": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 7,
+      "children": [
+        {
+          "uuid": "file:src/ts/shared/bare-uuid.ts",
+          "name": "bare-uuid.ts",
+          "type": "collection",
+          "size": 1517,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/chain-model.ts",
+          "name": "chain-model.ts",
+          "type": "collection",
+          "size": 6348,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/detail-fields.ts",
+          "name": "detail-fields.ts",
+          "type": "collection",
+          "size": 1148,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/facet-type.ts",
+          "name": "facet-type.ts",
+          "type": "collection",
+          "size": 1729,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/MessageTypes.ts",
+          "name": "MessageTypes.ts",
+          "type": "collection",
+          "size": 2062,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/puml-serializer.ts",
+          "name": "puml-serializer.ts",
+          "type": "collection",
+          "size": 6191,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/ts/shared/TraceModel.ts",
+          "name": "TraceModel.ts",
+          "type": "collection",
+          "size": 16443,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/components": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 13,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/components/rb-avatar.ts",
+          "name": "rb-avatar.ts",
+          "type": "collection",
+          "size": 11113,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-code-editor.ts",
+          "name": "rb-code-editor.ts",
+          "type": "collection",
+          "size": 4143,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-diff-editor.ts",
+          "name": "rb-diff-editor.ts",
+          "type": "collection",
+          "size": 106625,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-editor-layout.ts",
+          "name": "rb-editor-layout.ts",
+          "type": "collection",
+          "size": 11584,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-editor-toolbar.ts",
+          "name": "rb-editor-toolbar.ts",
+          "type": "collection",
+          "size": 4786,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-file-tree.ts",
+          "name": "rb-file-tree.ts",
+          "type": "collection",
+          "size": 5486,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-header.ts",
+          "name": "rb-header.ts",
+          "type": "collection",
+          "size": 3601,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-member-badge.ts",
+          "name": "rb-member-badge.ts",
+          "type": "collection",
+          "size": 2097,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-member-list.ts",
+          "name": "rb-member-list.ts",
+          "type": "collection",
+          "size": 1341,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-overlay.ts",
+          "name": "rb-overlay.ts",
+          "type": "collection",
+          "size": 1823,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-preview.ts",
+          "name": "rb-preview.ts",
+          "type": "collection",
+          "size": 5192,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-qr-popup.ts",
+          "name": "rb-qr-popup.ts",
+          "type": "collection",
+          "size": 3052,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/components/rb-update-banner.ts",
+          "name": "rb-update-banner.ts",
+          "type": "collection",
+          "size": 6262,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/feature-manager": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/feature-manager/feature-manager.ts",
+          "name": "feature-manager.ts",
+          "type": "collection",
+          "size": 2976,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/model": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/model/model-action-decls.ts",
+          "name": "model-action-decls.ts",
+          "type": "collection",
+          "size": 2617,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/model/model.ts",
+          "name": "model.ts",
+          "type": "collection",
+          "size": 19197,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/server-manager": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/server-manager/server-manager.ts",
+          "name": "server-manager.ts",
+          "type": "collection",
+          "size": 3206,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/trace": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 50,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/trace/action-applicability.ts",
+          "name": "action-applicability.ts",
+          "type": "collection",
+          "size": 9861,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/ChatPanel.ts",
+          "name": "ChatPanel.ts",
+          "type": "collection",
+          "size": 5994,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/content-preview.ts",
+          "name": "content-preview.ts",
+          "type": "collection",
+          "size": 9652,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/detail-children.ts",
+          "name": "detail-children.ts",
+          "type": "collection",
+          "size": 6860,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/detail-render.ts",
+          "name": "detail-render.ts",
+          "type": "collection",
+          "size": 3206,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/detail-superseded.ts",
+          "name": "detail-superseded.ts",
+          "type": "collection",
+          "size": 6169,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/diagram-view-model.ts",
+          "name": "diagram-view-model.ts",
+          "type": "collection",
+          "size": 18892,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/forward-only.ts",
+          "name": "forward-only.ts",
+          "type": "collection",
+          "size": 641,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/icons.ts",
+          "name": "icons.ts",
+          "type": "collection",
+          "size": 5636,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/index.ts",
+          "name": "index.ts",
+          "type": "collection",
+          "size": 7947,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/nav.ts",
+          "name": "nav.ts",
+          "type": "collection",
+          "size": 746,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/pan-zoom.ts",
+          "name": "pan-zoom.ts",
+          "type": "collection",
+          "size": 14686,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-class-detail.ts",
+          "name": "rb-class-detail.ts",
+          "type": "collection",
+          "size": 2850,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-compartment.ts",
+          "name": "rb-compartment.ts",
+          "type": "collection",
+          "size": 3500,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-detail-base.ts",
+          "name": "rb-detail-base.ts",
+          "type": "collection",
+          "size": 7398,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-detail-drawer.ts",
+          "name": "rb-detail-drawer.ts",
+          "type": "collection",
+          "size": 52410,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-detail-view.ts",
+          "name": "rb-detail-view.ts",
+          "type": "collection",
+          "size": 8568,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-diagram-detail.ts",
+          "name": "rb-diagram-detail.ts",
+          "type": "collection",
+          "size": 34673,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-feature-detail.ts",
+          "name": "rb-feature-detail.ts",
+          "type": "collection",
+          "size": 9233,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-file-detail.ts",
+          "name": "rb-file-detail.ts",
+          "type": "collection",
+          "size": 6234,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-implementation-detail.ts",
+          "name": "rb-implementation-detail.ts",
+          "type": "collection",
+          "size": 2510,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-keyboard-bar.ts",
+          "name": "rb-keyboard-bar.ts",
+          "type": "collection",
+          "size": 3709,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-list-overview.ts",
+          "name": "rb-list-overview.ts",
+          "type": "collection",
+          "size": 4173,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-method-detail.ts",
+          "name": "rb-method-detail.ts",
+          "type": "collection",
+          "size": 2491,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-modelelement-detail.ts",
+          "name": "rb-modelelement-detail.ts",
+          "type": "collection",
+          "size": 9032,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-object-item.ts",
+          "name": "rb-object-item.ts",
+          "type": "collection",
+          "size": 15038,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-overview.ts",
+          "name": "rb-overview.ts",
+          "type": "collection",
+          "size": 3397,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-preview-pane.ts",
+          "name": "rb-preview-pane.ts",
+          "type": "collection",
+          "size": 1804,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-profile-detail.ts",
+          "name": "rb-profile-detail.ts",
+          "type": "collection",
+          "size": 4950,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-profile-view.ts",
+          "name": "rb-profile-view.ts",
+          "type": "collection",
+          "size": 7319,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-requirement-detail.ts",
+          "name": "rb-requirement-detail.ts",
+          "type": "collection",
+          "size": 4734,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-snap-nav.ts",
+          "name": "rb-snap-nav.ts",
+          "type": "collection",
+          "size": 2320,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-strip.ts",
+          "name": "rb-strip.ts",
+          "type": "collection",
+          "size": 5541,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-task-detail.ts",
+          "name": "rb-task-detail.ts",
+          "type": "collection",
+          "size": 8653,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-terminal-detail.ts",
+          "name": "rb-terminal-detail.ts",
+          "type": "collection",
+          "size": 9173,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-test-detail.ts",
+          "name": "rb-test-detail.ts",
+          "type": "collection",
+          "size": 2539,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-trace-tree.ts",
+          "name": "rb-trace-tree.ts",
+          "type": "collection",
+          "size": 43706,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-trace-view.ts",
+          "name": "rb-trace-view.ts",
+          "type": "collection",
+          "size": 1928,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-usecase-detail.ts",
+          "name": "rb-usecase-detail.ts",
+          "type": "collection",
+          "size": 3358,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-webitem-detail.ts",
+          "name": "rb-webitem-detail.ts",
+          "type": "collection",
+          "size": 7827,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rb-woda.ts",
+          "name": "rb-woda.ts",
+          "type": "collection",
+          "size": 1327,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/rc-link-resolver.ts",
+          "name": "rc-link-resolver.ts",
+          "type": "collection",
+          "size": 1602,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/selection-model.ts",
+          "name": "selection-model.ts",
+          "type": "collection",
+          "size": 1050,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/singular-chain.ts",
+          "name": "singular-chain.ts",
+          "type": "collection",
+          "size": 2283,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/sunburst.ts",
+          "name": "sunburst.ts",
+          "type": "collection",
+          "size": 7177,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/synthetic-ref.ts",
+          "name": "synthetic-ref.ts",
+          "type": "collection",
+          "size": 3871,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/TraceRouter.ts",
+          "name": "TraceRouter.ts",
+          "type": "collection",
+          "size": 3249,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/universal-actions.ts",
+          "name": "universal-actions.ts",
+          "type": "collection",
+          "size": 30029,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/VerbRegistry.ts",
+          "name": "VerbRegistry.ts",
+          "type": "collection",
+          "size": 1579,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "file:src/public/ts/trace/ViewBus.ts",
+          "name": "ViewBus.ts",
+          "type": "collection",
+          "size": 3113,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "dir:src/public/ts/vendor": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "file:src/public/ts/vendor/diff3.ts",
+          "name": "diff3.ts",
+          "type": "collection",
+          "size": 8765,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/public/ts/app.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/DeviceEnrollDialog.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/drop-dispatcher.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/edit.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/format-bytes.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/live-bridge.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/live-mvc-recorder.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/page-bootstrap.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/profile-view-entry.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/ProfileEditor.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/ProfileSheet.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/RawBinClient.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/RoomBrowser.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/RoomView.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/scenario-view.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace-page.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/transport-lifecycle.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/vcard-download.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/vcard-parse.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/ViewBus.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "dir:src/shared/test/demo": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/AddressIndex.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "6d9be734-aaa3-4a0d-a487-ea9b5f9223c7",
+          "name": "AddressIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "ae0e6713-0a84-4af3-a847-001f34d24666",
+          "name": "gmapsLinkFor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d0b6d283-03e0-4a0c-a06c-aca412b1d2c9",
+          "name": "osmLinkFor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/agent-message.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "251ed6ac-eddf-4450-a411-d94db351e763",
+          "name": "MessageKind",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "3c6e8aeb-a1be-4f98-a370-a7e87bbfdf3e",
+          "name": "freshUuid",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6ecdd44c-075e-4854-a04b-a0c659da9fe3",
+          "name": "AgentMessageModel",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 9
+        },
+        {
+          "uuid": "c209e609-6c81-413b-a5a2-301ac89e0eea",
+          "name": "AgentMessage",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        }
+      ]
+    },
+    "file:src/ts/scenario/class-mint.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "3252f090-09c3-4bed-ae2d-7138c2d64357",
+          "name": "mintOrReuseClass",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "db602f19-bbda-4b74-a6c0-62ae29794cf3",
+          "name": "MintOrReuseResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "file:src/ts/scenario/classes.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "841d68f7-b3d6-41a0-ae34-f3bb2f2c8f08",
+          "name": "loader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e9ddca3f-0bae-4798-a4db-276d4385321a",
+          "name": "ClassRegistry",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "efb3c9b1-1a92-43db-ab48-9abff3532a33",
+          "name": "ensureRawBinUser",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/CompanyIndex.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "7f7621dd-e7ea-470a-a244-b48e90feba1c",
+          "name": "companyDomain",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "a09319a5-d5bd-4318-afef-e0cecb98b830",
+          "name": "companyNameKey",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e9766c7f-4b50-4583-a255-84ed0df83b01",
+          "name": "CompanySuggestion",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "f8643e13-c457-4572-a0ae-97b4b95cb18d",
+          "name": "CompanyIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 9
+        }
+      ]
+    },
+    "file:src/ts/scenario/consistency-guard.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 7,
+      "children": [
+        {
+          "uuid": "19a59547-a908-49c1-abfc-604e6bef7fe0",
+          "name": "VacuousExpect",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "39b2c5f4-a140-4684-af1f-7695611bbec7",
+          "name": "refuseIfVacuous",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "723794fc-a864-4aaf-aa92-137a91a31035",
+          "name": "assertNonVacuous",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "aaef1ce5-a3fe-4506-af6d-ffc67a2bd9fd",
+          "name": "consistencyStrict",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d162b85b-c7c6-4fc9-ab7d-a9eee3839a0c",
+          "name": "vacuousReason",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d1d0294f-9608-4323-af2b-32f83b7d090a",
+          "name": "GuardResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "de7267a7-a599-4c9c-aeef-3a2b2915054a",
+          "name": "VacuousOpts",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "file:src/ts/scenario/CurrentSprint.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 9,
+      "children": [
+        {
+          "uuid": "2331f163-511f-4d12-aedf-9f9db6a14afb",
+          "name": "PinData",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "2da5a2da-a4d6-4d70-ac35-eec26701f0ff",
+          "name": "ChainRefs",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "50c359d2-0550-4810-a124-6da71766ae57",
+          "name": "CurrentSprint",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 28
+        },
+        {
+          "uuid": "74098a8d-7e57-4b7a-a60d-c865e0d6a6b9",
+          "name": "ThreeSlots",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "9cd2e395-d641-4944-a290-9f63a5541fc2",
+          "name": "ChainHop",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "b2738ae2-0051-4fb9-a7d1-ecf054f5e9b0",
+          "name": "TaskSlot",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "c456f560-6a5b-43c8-ab06-209f1f8da69e",
+          "name": "ior",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "dd1030e6-9d68-487d-aad4-9dd3a0a47ea7",
+          "name": "HopState",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "f8a8d2bb-b2a2-473f-a59d-12a37540348b",
+          "name": "HopStatus",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/EmailIndex.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "1f5cabaa-017e-4fe3-a54b-cf3cfba121b2",
+          "name": "EmailIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "7cdfcee7-008d-4130-a7ce-c730c6d0457a",
+          "name": "normalizeEmail",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "aa219f06-4470-42a3-a520-ceec0e2822b8",
+          "name": "isValidEmailKey",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/federated-ior.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 10,
+      "children": [
+        {
+          "uuid": "04d414bc-0683-4474-a4c9-845f40441f2f",
+          "name": "FederatedRef",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "244a4018-a2b2-4ca6-afd0-f8b82c0c00c9",
+          "name": "federatedIor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "60e03e73-1e64-4932-ae5c-88dc558f15a2",
+          "name": "isLocalOrigin",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "63cc0407-aaa8-4025-a3cb-ff683be7584c",
+          "name": "FederatedLoader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6d10f3ff-6c6d-4386-aac2-5bc044090208",
+          "name": "resolveFederated",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "764dc7b4-3fe7-4460-ac30-c60860e9039a",
+          "name": "hasFederatedLoader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "a42037db-a050-4e0f-aa11-62350f5f2920",
+          "name": "registerFederatedLoader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "bde9ef81-d39b-4a0b-ac2c-496adfd8ef49",
+          "name": "LocalLoader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e8b0e799-8784-4ce7-a606-84b675bfb3db",
+          "name": "parseFederatedIor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ea11873f-8d0f-4535-a740-cf3be2f65e3b",
+          "name": "federatedProvenance",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/file-unit.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "05c6c99c-6672-454c-a089-7434573a6677",
+          "name": "createFileUnit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "3b93356f-6044-4eeb-a953-d6185ff820f8",
+          "name": "readFileUnitContent",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b95045e5-32bd-4a9e-aebf-d29f19a5eda2",
+          "name": "FileUnitInput",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        }
+      ]
+    },
+    "file:src/ts/scenario/generator.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "0b8039a4-9f43-4957-a480-a6c0bf850ea2",
+          "name": "GenerateResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "aff00c2d-92f1-4277-ac6a-a1f07a8afad4",
+          "name": "speakingName",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "f6b6e7dc-be3e-4a45-a409-4fb1b696cca6",
+          "name": "ViewGenerator",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        }
+      ]
+    },
+    "file:src/ts/scenario/impl-marker-attach.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 11,
+      "children": [
+        {
+          "uuid": "1031f99d-a842-4c04-a557-350fa760aae8",
+          "name": "validMethodLabel",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "11d188b0-4721-4926-aa5e-f78580c7dbb9",
+          "name": "scanImplMarkers",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "1c4d6717-f1f9-4c32-a92e-ea8d209fa00f",
+          "name": "ownerDecl",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "33d1d9c9-66f9-454f-ad30-2642a3adabbb",
+          "name": "ImplBucket",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "35f871e4-07eb-404e-a720-41dd35173065",
+          "name": "classifyImplMarker",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6d3d91cc-5e0c-46a3-a3e4-047d5833e926",
+          "name": "ImplMarkerRef",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "8464042b-325e-4bd6-ad94-0ac4788aefc5",
+          "name": "isImplMarkerAttached",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "94609e31-f8cf-47b5-a764-fa1e1b6a29a5",
+          "name": "ImplMarkerBuckets",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 10
+        },
+        {
+          "uuid": "9fb0f004-7b49-45c5-abeb-d33ab1ccdf61",
+          "name": "collectDecls",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e3657f5c-5b51-4311-a28b-51ceedcd1eb7",
+          "name": "labelMethod",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "eeb8040b-523e-4cdc-adb1-c14ceab3d9d1",
+          "name": "Decl",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        }
+      ]
+    },
+    "file:src/ts/scenario/index-store.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 1,
+      "children": [
+        {
+          "uuid": "83fde3d3-dadd-43ad-a091-3064016e3eea",
+          "name": "ScenarioIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 19
+        }
+      ]
+    },
+    "file:src/ts/scenario/index.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/ior-resolver.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "a505d119-0d09-4531-a85b-7cef87d6cca1",
+          "name": "IORResolver",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "ee04368e-8b11-46b5-ade7-c4b4059d3a25",
+          "name": "IORResolution",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 9
+        }
+      ]
+    },
+    "file:src/ts/scenario/message-unit.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "1c5990be-f496-4983-a214-7bf182ccfbf5",
+          "name": "createMessageUnit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ee007677-0f71-406e-a104-aa91d32fd329",
+          "name": "MessageInput",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        }
+      ]
+    },
+    "file:src/ts/scenario/ModelValidator.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 5,
+      "children": [
+        {
+          "uuid": "1dc6aaa9-8730-4e9d-adca-5c26a35f5ce9",
+          "name": "Elem",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "22839408-2fd5-4ebf-a7c4-d75e46487d01",
+          "name": "MetaLevel",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "a39af185-909c-4447-a6c1-561cc2ef8ee2",
+          "name": "ModelValidator",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "cd8bf4e2-daf8-48b1-abb5-65cb23c1caaa",
+          "name": "UnitIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "e73af71b-3f35-4992-a2b6-e7cd26a4ae0a",
+          "name": "ModelViolation",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "file:src/ts/scenario/mvc-boundary-guard.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/PhoneIndex.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "46076aa7-0599-43c0-a2e7-aa09748723b6",
+          "name": "PhoneIndex",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "7cfb3e28-d9e2-4cfb-a951-1fd8649f12ba",
+          "name": "isValidPhoneKey",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "cd806f57-967e-4d92-a9be-d5448467abff",
+          "name": "normalizePhone",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/self-heal.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/skill-classes.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 15,
+      "children": [
+        {
+          "uuid": "09c5d8a0-c89a-49bc-ab26-7e61df46733b",
+          "name": "Audit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "0a3d9347-fd52-4196-a3c9-839e2e46c230",
+          "name": "OpenNode",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "35a076ca-c214-4dbc-ab7f-2c4c5c323940",
+          "name": "CompleteEntry",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "4936ec15-7f07-4e36-a9c0-342a773da6a4",
+          "name": "FollowUpResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "5456d7c7-c09b-4455-aa7f-f4bcf5b85ae0",
+          "name": "Scenario",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "560bd1e2-15a3-4441-a681-ccbb26299564",
+          "name": "Rules",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "666daa9b-cdb3-4b9d-afee-4f65aab61206",
+          "name": "Chain",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 30
+        },
+        {
+          "uuid": "6a894176-d862-4f8a-a3a7-4385881b8ae2",
+          "name": "LintFinding",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "6af7a6fc-656b-4798-abe8-8f793924be1c",
+          "name": "WireResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "6f65f697-8fdc-4088-adde-3a8edc340183",
+          "name": "ior",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ce31274b-bb1f-4338-aaeb-33b38040d954",
+          "name": "RenameResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "ce3f9081-375d-40f8-a0a0-c6bd07b7b9c0",
+          "name": "short",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e10465e0-d7c2-4ad5-a130-1fe5ba290f75",
+          "name": "Velocity",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "e187a0cf-adfa-4276-a96d-168a7162c414",
+          "name": "ChainRow",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 11
+        },
+        {
+          "uuid": "ff56a4ce-f707-4ad7-a512-d39e00811999",
+          "name": "VelocityResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 8
+        }
+      ]
+    },
+    "file:src/ts/scenario/skills.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 8,
+      "children": [
+        {
+          "uuid": "0e212bf6-17b8-44c9-a0b7-817003669885",
+          "name": "captureQuote",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "1fc4ea0c-2cd9-46cb-a6ec-156491b96f97",
+          "name": "TaskSpec",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "21ed51f1-8031-45a2-ab38-dbc9629e1f67",
+          "name": "statusTransition",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "344aea92-5150-4f6e-ad2c-f00d47d14795",
+          "name": "SkillResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "5b334100-3270-41d9-af00-00de9d6b52e9",
+          "name": "ChainStep",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "8699030d-c5af-4959-a517-f9679827dce9",
+          "name": "proposeTask",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "92f43f3c-a96a-4140-a8b8-107a008b98ac",
+          "name": "walkChain",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "99fb9b3d-ad93-480e-ade8-35939ff934fb",
+          "name": "TaskVerb",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/source-location.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 11,
+      "children": [
+        {
+          "uuid": "0c2ad947-aa82-4d9c-ad82-4f69d8383cf8",
+          "name": "validateAllSources",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "24605220-a734-4f5b-aa61-0ccd1037266a",
+          "name": "SourceLocation",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        },
+        {
+          "uuid": "26f063c0-72f1-4453-a3d8-1bb14803a303",
+          "name": "extractTsMethodRanges",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "38d778b8-d627-44c4-a002-d2228145f9c3",
+          "name": "buildSourceIor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "4bf94518-9351-4079-a70f-87ca1c943f58",
+          "name": "validateNoBackRefs",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "4d01a55c-a94b-47f1-a01b-1042c35737b8",
+          "name": "SourceIssue",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "4dfcfec5-5aaf-4664-ada0-9cf9a3ddda8e",
+          "name": "extractTsClassRanges",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "548dc938-62c8-4351-a0fb-070e7a873358",
+          "name": "getFileCommit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b5676d00-d512-4815-ab0c-ddd79efa5272",
+          "name": "makeSource",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d7b0ed3c-c8d5-4f7e-a531-b8dd81832f19",
+          "name": "extractPumlUseCaseRanges",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e1aa78a7-5e61-422a-ad7c-f1efacfbcf8c",
+          "name": "validateSource",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/sprint-label.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "1b3f54f7-4543-4c42-ac28-e333253eef1d",
+          "name": "sprintPrefix",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "8e218581-914d-4800-af1e-fc57a718b692",
+          "name": "sprintLabel",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/sprint-overview-generator.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 2,
+      "children": [
+        {
+          "uuid": "845a8119-810b-4517-a8a1-2711b35d9cdb",
+          "name": "SprintOverviewGenerator",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "a4b05b92-e20b-44b5-a201-9a0e642e370d",
+          "name": "OverviewCheck",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "file:src/ts/scenario/sprint-pin-resolver.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 9,
+      "children": [
+        {
+          "uuid": "676a51bc-19e3-485e-ad5b-ec37545f73c0",
+          "name": "SprintPin",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "6dbb0879-a8af-4b9b-a268-b46dcb29c894",
+          "name": "SprintSlot",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "7a54a495-d5df-40de-a4fb-520d7d900476",
+          "name": "SprintStatusEnum",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "8412e4f0-fab9-490e-a21f-b3f0d62b498e",
+          "name": "deriveSprintStatus",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "9511e7e2-899f-47f4-a1a2-487eb304ba53",
+          "name": "resolveSprintPin",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "9b6b3a8f-5326-417a-ae13-7a26b208acab",
+          "name": "sprintNumOf",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b507ced7-a961-4ad5-ae70-fea04b14e68f",
+          "name": "sprintSlugOf",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c059bd50-3a27-4dd9-a193-498d3bbb1bb5",
+          "name": "SprintStatus",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "ff959f3d-f807-4216-a345-51a0a6900929",
+          "name": "isCurrentEra",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/step-evidence.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/task-fsm.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 10,
+      "children": [
+        {
+          "uuid": "01493f22-2557-464a-a0a9-fe445345d458",
+          "name": "startImplementing",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "2ea31fe3-d27e-49db-aaca-6ca923fca5f1",
+          "name": "TaskState",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6aec1b88-bb4a-4b41-a57c-affdbf78705b",
+          "name": "guardTransition",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6b6a20a4-8821-497a-a8fd-1dc4f361de9b",
+          "name": "startTesting",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "70a78d3f-dd04-48c8-a513-668a984ecd1c",
+          "name": "canTransition",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "919dfd94-7aa4-40bb-a8f8-698598f78e10",
+          "name": "tronApprove",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "bc269778-729c-44f2-a1ad-5a53c9a9988b",
+          "name": "startCreatingTestCases",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "eb81d783-3c9c-4b32-aa6e-b884a5cb17a7",
+          "name": "resetToPlanned",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ecb21992-c8ef-47d8-abf0-bec8193a0c5d",
+          "name": "startRefinement",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "f15f5af3-6154-44a0-aacc-5e49d1dc9b8f",
+          "name": "requestQAReview",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/task-policy.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/task-status-constants.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/task-status.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 4,
+      "children": [
+        {
+          "uuid": "61b7fab4-2861-4f35-a6ae-7e06d3cb9859",
+          "name": "TaskStatusEnum",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "81125292-71a0-41f1-a4ec-0015e45b7d8b",
+          "name": "assertStatusConsistent",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "bd102ea1-3a64-462f-aa20-c2e2a2c070a5",
+          "name": "deriveStatusEnum",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "be8610d8-51b1-4bc7-a75b-4aada882e5c0",
+          "name": "StatusOffender",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 5
+        }
+      ]
+    },
+    "file:src/ts/scenario/templates.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 13,
+      "children": [
+        {
+          "uuid": "16e39fbc-cdbd-4df9-af31-9816250c230b",
+          "name": "renderStatusHtml",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "52ef7312-cadd-42da-a4ee-d7d2386886d8",
+          "name": "renderChainSection",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "5a168e7b-d305-433b-af1f-224e2d3bba06",
+          "name": "renderSourceEdit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "60091db4-60a3-43c6-ab65-03792624cce0",
+          "name": "renderChainLinkMd",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "99002cb1-432a-48d1-aecf-8a77bd60ded6",
+          "name": "renderChainLinkHtml",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "9a8fd065-1e87-4023-ad18-cf6411a163d0",
+          "name": "defaultTemplateRegistry",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "9e5f7c5b-797b-4527-a616-9bdf42b249a8",
+          "name": "esc",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b07b1c47-6b2d-455c-ac2e-b9b0b254e5bf",
+          "name": "speakingSlug",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "befd5361-8f62-4e92-aee0-94f98a39ecce",
+          "name": "renderScenarioLink",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "d222aac4-1d3d-4b77-a042-63bcf48a24f8",
+          "name": "SlugResolver",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "db408f2c-c828-4876-a891-a8d4216b7d48",
+          "name": "ViewTemplateRegistry",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "f737af95-5fed-49d8-a2b5-8e8841ec8b2d",
+          "name": "ViewTemplate",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 2
+        },
+        {
+          "uuid": "f9a7c6eb-948c-46d6-afa8-32fba528e2c7",
+          "name": "setActiveResolver",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/test-marker-attach.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 13,
+      "children": [
+        {
+          "uuid": "07427319-70c5-43f9-a43b-6b82363a7111",
+          "name": "collectTestBlocks",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "2e88110e-d9f8-4450-ad97-0fefc5922924",
+          "name": "ScanResult",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "7652cbc4-2614-40e7-a15c-b200dbf9328c",
+          "name": "tokens",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "7abff237-da32-49f7-a0e7-017a27014629",
+          "name": "fileHasGateAssertions",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "906df676-42d1-4dc3-af7d-e78e11433c5b",
+          "name": "scanTestMarkers",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "a29b48ec-16eb-4481-a8d0-548718715c26",
+          "name": "TestMarkerBuckets",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "b2568cb4-3401-4c11-a2a1-0af592ad35a9",
+          "name": "nameMatch",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ca016ae2-b2f6-4d1d-aadf-94a9d2348aec",
+          "name": "TestBucket",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "cb0938e2-64b3-4882-ae15-d01b4c8370df",
+          "name": "TestMarkerRef",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "d78db08d-77c1-4fb0-ac57-fac77163b878",
+          "name": "TestBlock",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 4
+        },
+        {
+          "uuid": "e1e32444-599e-4d7e-aef5-c7748d356562",
+          "name": "isTestMarkerAttached",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ff24293c-a87c-4891-abad-9e5d4770829a",
+          "name": "classifyTestMarker",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ff7437e8-9121-40a1-affa-d58660f2e7cf",
+          "name": "analyzeTestMarkers",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/trace-link.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "b7fc2116-330f-463d-ae11-2af1eab3736a",
+          "name": "LinkRelation",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c3874e9a-5b68-4c0a-a980-0519a3395253",
+          "name": "inverseRelation",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ddf772ea-2ae7-4361-a2fe-ec6220f06d38",
+          "name": "createTraceLink",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/trace-tree.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 10,
+      "children": [
+        {
+          "uuid": "20b98515-16ae-4463-a8a8-587e2e6e9df5",
+          "name": "walkUp",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "2741027b-a43c-4763-a05d-e06a1dd511d6",
+          "name": "esc",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "4e6f5577-8d8f-4ed6-a347-efa717b3c4a8",
+          "name": "renderTraceTreeHtml",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "530806a0-c7b1-4fd5-a91d-b44f0419e815",
+          "name": "renderNodeMd",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6a24cd75-763f-4093-a2b9-e8a6043b462b",
+          "name": "buildTraceTree",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "7e2d504e-8c01-4a1a-a3eb-2932c70f8fff",
+          "name": "renderNodeHtml",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "80d4a991-206c-45f2-ae96-cd350369a28e",
+          "name": "speakSlug",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "ab4def11-ca98-4801-acd8-4d9ee089e306",
+          "name": "TraceNode",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "b8609d6a-ae03-4876-aeff-c4b30434ae35",
+          "name": "walkDown",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c8d1420a-8df7-4287-abd6-bede3d456e17",
+          "name": "renderTraceTreeMd",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/scenario/TsToModel.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 7,
+      "children": [
+        {
+          "uuid": "0aa95da5-352d-4444-a865-09815dfae184",
+          "name": "TsToModel",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 6
+        },
+        {
+          "uuid": "1ac56b78-2703-4442-aec5-9497a7a139b5",
+          "name": "M1Unit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "27543353-633b-414c-a9be-dd21c2d5e38c",
+          "name": "Draft",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 15
+        },
+        {
+          "uuid": "77d6e24f-feef-4aed-a830-b72935565982",
+          "name": "memberVisibility",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "b9d05f9e-8fa7-4db5-a0e5-f08efa402fe4",
+          "name": "keyToUuid",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c4bd04bb-d66e-490b-a505-658ae3013959",
+          "name": "jsDocText",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "e8c9f3c9-1fd4-471a-afbc-a5985e9cc7bb",
+          "name": "M1Model",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 17
+        }
+      ]
+    },
+    "file:src/ts/scenario/types.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 7,
+      "children": [
+        {
+          "uuid": "2e779be1-685c-466e-a404-35c543832aea",
+          "name": "iorInstance",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "348369f7-c247-423b-a7b0-94a52252d103",
+          "name": "iorFile",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "399667ad-26a2-4520-a429-890843f51433",
+          "name": "parseIor",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "4db208c8-599b-4867-acae-363ff12c3ef2",
+          "name": "iorClass",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "589e6fc9-76e4-45ff-a2ca-a975472f1fa2",
+          "name": "IORType",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "58ba2162-86a7-4ae2-af0f-01908b1febc5",
+          "name": "ScenarioUnit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        },
+        {
+          "uuid": "9454a396-0084-4749-a072-4c0584765048",
+          "name": "ClassLoader",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 3
+        }
+      ]
+    },
+    "file:src/ts/scenario/unit-controller.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/scenario/WebItem.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": true,
+      "childCount": 10,
+      "children": [
+        {
+          "uuid": "08e1f14c-904a-4c28-acef-0d652942ef95",
+          "name": "deriveScheme",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "104aa12d-71e2-4652-af9a-aed5ffc971d7",
+          "name": "createWebItemUnit",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "1637b6db-679c-4ad9-a326-811454495a3f",
+          "name": "parseWebloc",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "6181e1b9-1368-49b5-acb7-b311581e89c5",
+          "name": "parseDesktop",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "7a387be2-cbb2-4b33-af8b-9648012e6b81",
+          "name": "WebItemInput",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 7
+        },
+        {
+          "uuid": "887d2de8-2d97-497b-ae89-f523e4dbed7f",
+          "name": "extractUrl",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "94c15512-9515-4584-ace5-2ce6386135f9",
+          "name": "deriveName",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "9c41bee2-3236-4180-a665-dd1741a303ee",
+          "name": "deriveBadge",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "bac6465f-c869-4033-a7bd-126b64408b04",
+          "name": "parseUrlFile",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        },
+        {
+          "uuid": "c7b8d98b-41a7-47ed-ab29-8dcd3358e9b0",
+          "name": "deriveFavicon",
+          "type": "modelelement",
+          "size": 0,
+          "hasChildren": false,
+          "childCount": 0
+        }
+      ]
+    },
+    "file:src/ts/server/DeploymentModel.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/FeatureManager.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/federation-transfer.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/FileApi.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/FolderService.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/generate-project.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/migrate-cli.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/Migration.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/OtmuxBridge.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/ProfileView.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/proxy-fetch.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/PtyBridge.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/repo-registry.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/revoked-tokens.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/Room.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/RoomFilesService.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/RoomKeys.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/server.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/ServerManagerGuard.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/storage-id.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/trace-cli.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/TraceConsistency.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/UserCrypto.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/server/UserKeys.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/bare-uuid.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/chain-model.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/detail-fields.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/facet-type.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/MessageTypes.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/puml-serializer.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/ts/shared/TraceModel.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-avatar.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-code-editor.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-diff-editor.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-editor-layout.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-editor-toolbar.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-file-tree.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-header.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-member-badge.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-member-list.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-overlay.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-preview.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-qr-popup.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/components/rb-update-banner.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/feature-manager/feature-manager.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/model/model-action-decls.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/model/model.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/server-manager/server-manager.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/action-applicability.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/ChatPanel.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/content-preview.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/detail-children.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/detail-render.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/detail-superseded.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/diagram-view-model.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/forward-only.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/icons.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/index.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/nav.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/pan-zoom.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-class-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-compartment.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-detail-base.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-detail-drawer.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-detail-view.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-diagram-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-feature-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-file-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-implementation-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-keyboard-bar.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-list-overview.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-method-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-modelelement-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-object-item.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-overview.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-preview-pane.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-profile-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-profile-view.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-requirement-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-snap-nav.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-strip.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-task-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-terminal-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-test-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-trace-tree.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-trace-view.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-usecase-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-webitem-detail.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rb-woda.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/rc-link-resolver.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/selection-model.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/singular-chain.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/sunburst.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/synthetic-ref.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/TraceRouter.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/universal-actions.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/VerbRegistry.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/trace/ViewBus.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "file:src/public/ts/vendor/diff3.ts": {
+      "type": "collection",
+      "name": "",
+      "hasChildren": false,
+      "childCount": 0,
+      "children": []
+    },
+    "current-sprint-singleton-0000-000000000001": {
+      "type": "CurrentSprint",
+      "name": "Sprint 40 — Active (designated)",
+      "hasChildren": true,
+      "childCount": 3,
+      "children": [
+        {
+          "uuid": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
+          "name": "📋 Next Backlog — Task 37.2: Board is a GENERATED view + one-time reconcile-all [R37.2]",
+          "type": "Task",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 0
+        },
+        {
+          "uuid": "7a956c21-5f37-4062-b921-9bdd5a461546",
+          "name": "📌 Current — Task 40.1: Action — Open Claude.ai RC (per-pane/agent deep link to the selected agent's remote-control session)",
+          "type": "Task",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 0
+        },
+        {
+          "uuid": "b5948931-5a36-4779-806d-abe60153aba8",
+          "name": "✅ Last Completed — Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
+          "type": "Task",
+          "size": 0,
+          "hasChildren": true,
+          "childCount": 0
+        }
+      ]
+    }
+  }
+}
