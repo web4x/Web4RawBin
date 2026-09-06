@@ -1,4 +1,6 @@
-# Multipart upload parse — buffer-based, order-independent, binary-safe (architect RULING, 2026-09-05)
+# Multipart upload parse — buffer-based, order-independent, binary-safe (architect design, 2026-09-05)
+
+> ★★ RE-INDICTED — HOLD LIFTED (2026-09-06, PO on fresh measured evidence). Earlier HELD: size=0 was the TESTER'S INSTRUMENT (Playwright FormData not serializing). NOW: Tron CLEARED his PWA cache + fresh worker on v0.8.188 → BYTE-IDENTICAL 'Upload failed' → RULES OUT the SW cause. My withdrawal of the parser cause had a HOLE (PO caught it): a parser can be UNCHANGED while its INPUT changes — byte-identical to working v0.6.99, but 0.6.x sent token-FIRST TEXT while Tron now sends a REAL FILE-FIRST BINARY png; same parser, new input, breaks. **A latent bug that new input reaches IS the regression.** Fits every fact (worked-0.6.x / iOS / file-correct-at-client / server-side / immune to both SW fixes AND the cache clear). Trigger = REQUEST SHAPE not platform → reproducible on DESKTOP, no iOS needed. **This design SHIPS.** ★ REPRODUCTION MUST USE REAL SERIALIZATION (curl -F / node raw body / genuine browser multipart) — NOT Playwright FormData (that instrument caused the false retraction). RED-baseline BOTH orders (token-first vs file-first) with a real binary PNG; discriminator: received==content-length with parsed fileData size=0 → PARSER. ★ ADDENDUM — HARDEN BOUNDARY EXTRACTION: the buffer-native parse below still takes `boundary` from `content-type.split('boundary=')[1]`; iOS Safari may QUOTE it (`boundary="…"`) or append params (`; charset=…`) → dequote + cut at ';' + trim, else even the buffer parse inherits the same miss. See ## ADDENDUM.
 
 Tester reproduced on Linux WebKit (NOT iOS-only): v0.8.185 room upload via the REAL client path returns **size=0** — file bytes lost between the browser File and the server parse. This is defect **(2)**, stacked with defect (1) the divergent drop paths (fixed by the container unification, design-r40.86-drop-target-container-unification.md). **Same ship.**
 
@@ -62,3 +64,13 @@ Ship BOTH. (2) can land first/fast to restore service; (1) makes the drop paths 
 
 ## Handoff
 Expert (0.1), service-first: replace the `body.toString('binary').split` parse with the buffer-native parser above (drop-in — same variables out: fileName/mimeType/fileData/playerToken/relatedFile/parentRef). No other endpoint change. Version bump + restart → uploads restored on all clients. I backstop (binary round-trip intact + field-order matrix) + tester re-gates with a real binary file-first fixture. This parser is the ONE correct one — not one that suits one client.
+
+## ADDENDUM (2026-09-06) — harden the boundary extraction (a gap in my own ruling)
+The buffer-native parse keys everything off `boundary`, still taken as `(content-type||'').split('boundary=')[1]`. That is fragile to real-world (esp. iOS Safari) content-type formatting and could itself be the iOS trigger even with the buffer parse:
+```ts
+let boundary = (req.headers['content-type'] || '').split('boundary=')[1] || '';
+boundary = boundary.trim().replace(/^"(.*)"$/, '$1'); // dequote:  boundary="----X"  → ----X
+boundary = boundary.split(';')[0].trim();             // strip trailing params:  ----X; charset=… → ----X
+if (!boundary) { /* 400 no-boundary */ }
+```
+Without this, a quoted/param'd boundary makes `Buffer.from('--'+boundary)` never match → 0 parts → fileData size=0 — the SAME symptom, from the header not the body. Backstop asserts BOTH: a plain boundary AND a quoted/param boundary parse identically. This is complementary to the buffer-native body fix; ship together.
