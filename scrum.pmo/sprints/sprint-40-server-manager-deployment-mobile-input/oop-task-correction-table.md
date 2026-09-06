@@ -69,4 +69,23 @@ Measured via the REAL chain scorer (`Chain.buildStrictImplSet`, tsx-free esbuild
 
 ---
 
+## Requirement column — OOP change requests for the 6 credited SHELLs (req 0.4)
+
+Per the skill-expert's rec (a credited SHELL = an OPEN ownership defect) I re-express each SHELL's functional impl as an OWNERSHIP AC. **CHECK-BEFORE-CREATE (measured): all 6 map to an EXISTING requirement — CORRECT it, do NOT mint parallel (a duplicate is the DRY defect).** Zero new reqs needed for the SHELLs.
+
+| SHELL (impl) | functional-as-written | OOP CHANGE REQUEST (ownership AC to add) | corrects EXISTING req |
+|---|---|---|---|
+| S1 reDeriveDirectChildren `8693dc2b` | rb-trace-tree VIEW re-derives a node's children | `Node.renderChildren()` OWNS it; the view ASKS `node.renderChildren()`; 0 child-derivation in rb-trace-tree; a view deriving children => RED | **R40.84** `6149c2d3` (add-child-in-place — the exact void that spawned it) |
+| S1 buildSeedNode `5b3d9f1a` | VIEW constructs the seed node | `Node` owns its own construction/seed; the view does not build nodes; a view constructing a Node => RED | **R40.84** `6149c2d3` |
+| S2 folderChildrenUnder `973481f2` | server FREE-FN returns a folder's children | `Folder.children()` OWNS it; the free-fn collapses INTO the class; a free children-fn => RED | **R40.82** `eb7b086d` (Folder owns children via interface; R40.92 `6009a5ad` is the symptom that seated it) |
+| S2 FolderService.mintRealUnit `0e6761c2` | SERVICE mints a folder's real unit | `Folder.createChild()` OWNS mint; no FolderService; a service minting a child => RED | **R40.93** `e0c95904` (room-folder physical create through the one owner) |
+| S5 server.isModelUnit `010f3e23` | server FREE-FN forks store by model-ness | `Unit.resolve()` OWNS the store-fork; no free isModelUnit; a free store-fork => RED | **R40.81** `be8ec6b6` (one store / Unit.resolve; R40.69 `23e77b77` superseded) |
+| S5 server.ensureViewUnit `a09b474d` | server FREE-FN ensures a view unit | `Unit.resolve()` OWNS view-unit ensuring; no free ensureViewUnit; a free ensure => RED | **R40.81** `be8ec6b6` (owns UC `c3902503` modelTree.ensureViewUnit) |
+
+**Every OOP-change AC above is FAILABLE (a view/free-fn/service owning the behaviour => RED) — a SHELL passing the ownership lint is inadmissible.** The correction does NOT move the chain-scoreboard (already green); the ownership lint is the only metric that catches it (skill-expert's point). Corrections land on R40.81/82/84/93 at build-go; architect wires, planner sets current/next. NO parallel mints.
+
+*Req (0.4) contribution 2026-09-06 — requirement column for the SHELL rows, check-before-create (all correct-existing). Coordinated through the artifact, no fork. Report to PO only.*
+
+---
+
 *Seeded by robbin-req 2026-09-06 (first-mover, shared artifact — do NOT fork). Requirement column + rubric are the req contribution; planner populates task rows, skill-expert reviews OOP correctness. Report to PO only.*
