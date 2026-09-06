@@ -1,11 +1,13 @@
 // R40.84 AXIS (c) — RENDER-OWNERSHIP LINT (Tron radical-OOP: "a container renders its OWN children; not fixed everywhere
 // again as a DRY violation"). Companion to r4023's behavioural (a) no-collapse + (b) renders+persists. SCAN THE HAZARD, NOT
 // THE ACTORS: count every implementation of "add a child to the tree and render it" — a whole-tree RE-SEED call, or a manual
-// node-append into a `.tt-children` kids container — that lives OUTSIDE the single owning class (rb-trace-tree.ts, which owns
-// reDeriveDirectChildren + renderSeed). That count MUST be 0. The owner is excepted POSITIONALLY (by file path), NEVER by a
-// phrase the file writes about itself. One number proves BOTH unevadability AND completeness across EVERY add path
-// (folder-add / upload / drop / federation-import / FILE_ADDED / room-collection): a fix that only repairs folder-add is a
-// FALSE GREEN under this law — this lint still REDs on any other path that re-seeds or hand-appends.
+// node-append into a `.tt-children` kids container — that lives OUTSIDE the ONE owning CLASS. Owner-identity = the CLASS METHOD
+// the container-object owns its child-rendering through: Node.renderChildren()/onChildAdded() (architect class model 996a39408;
+// this ABSORBS + DELETES the old free-function reDeriveDirectChildren). The exception is POSITIONAL — the owner's FILE
+// (trace/rb-trace-tree.ts), NEVER a symbol name (rename-safe: reDeriveDirectChildren→renderChildren must not false-flip this)
+// and NEVER a phrase the file writes about itself. That count MUST be 0. One number proves BOTH unevadability AND completeness
+// across EVERY add path (folder-add / upload / drop / federation-import / FILE_ADDED / room-collection): a fix that only repairs
+// folder-add is a FALSE GREEN under Tron's DRY law — this lint still REDs on any other path that re-seeds or hand-appends.
 import fs from 'node:fs';
 import path from 'node:path';
 
