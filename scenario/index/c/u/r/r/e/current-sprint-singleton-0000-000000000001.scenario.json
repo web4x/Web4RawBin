@@ -2,40 +2,35 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
+    "name": "Current: Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target [R37.20]",
     "chain": {
-      "req": "eec7ebb7-5dd3-431f-9700-a50429c3de03",
+      "req": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
       "uc": "",
       "class": "",
       "method": "",
       "impl": "",
       "test": ""
     },
-    "activeHop": 4,
-    "sprintName": "Sprint 40",
-    "taskName": "Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
+    "activeHop": 0,
+    "sprintName": "Sprint 37",
+    "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
     "hopStates": {
       "req": {
         "status": "done",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-08-07"
-      },
-      "impl": {
-        "status": "in-progress",
-        "owner": "robbin-skill-expert",
-        "updatedAt": "2026-08-07"
+        "owner": "robbin-req",
+        "updatedAt": "2026-08-12"
       }
     },
     "nextSprintName": "Sprint 37",
-    "nextBacklogOverride": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
+    "nextBacklogOverride": "",
     "lastCompletedUuid": "b5948931-5a36-4779-806d-abe60153aba8",
     "lastCompletedName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
     "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
     "slots": {
       "current": {
-        "taskUuid": "4bc1b3d5-bab5-4d05-ba2c-e9a545734ff9",
-        "taskName": "Task C2: Board is a GENERATED view + one-time reconcile-all [R-C2]",
-        "reqUuid": "eec7ebb7-5dd3-431f-9700-a50429c3de03"
+        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+        "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
+        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       },
       "lastCompleted": {
         "taskUuid": "b5948931-5a36-4779-806d-abe60153aba8",
@@ -43,12 +38,12 @@
         "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
       "nextBacklog": {
-        "taskUuid": "97e8a6ad-46db-440f-a9be-cfb97ca64df4",
-        "taskName": "Task C5: Dual-status reconcile — one truth (status vs statusChecklist), no Done-ness flip [R-C5]",
-        "reqUuid": "03fd79ff-da54-4c91-b542-cbf330cd22aa"
+        "taskUuid": "",
+        "taskName": "PENDING: T37.20 own-AC decomposition (SLICE-A buffer-carries-unit + one-serializer/resolver, then details-render / file-drags-as-file / per-target BITE / @390) — architect splits at design, req 3-pt verifies each mint",
+        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       }
     },
-    "currentTaskUuid": "a39efc32-c587-4e57-8938-494d8e90f335"
+    "currentTaskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
   },
   "ownerIor": null
 }
