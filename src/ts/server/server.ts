@@ -87,6 +87,7 @@ import { keyToUuid } from '../scenario/TsToModel.js'; // R-A A2 (R32.2): determi
 import { Transfer } from './federation-transfer.js'; // T26.6: federation import wiring
 import { ProxyFetch } from './proxy-fetch.js'; // R27.7 UC27.7b: SSRF-guarded CORS/X-Frame fallback proxy
 import { parseFederatedIor, isLocalOrigin } from '../scenario/federated-ior.js';
+import { MimeType } from '../scenario/mime-type.js'; // T37.20 DEFECT-2: the Factory Method — natural class by mime lens (replaces uri-list?WebItem:File)
 import { CurrentSprint } from '../scenario/CurrentSprint.js'; // PIN-KEEP: recompute-on-read for the /trace CurrentSprint node
 import { UnitController } from '../scenario/unit-controller.js'; // R37.11 slice-1: THE mutation seam — every unit persist routes via apply/create (persist+emit inseparable)
 import '../scenario/task-policy.js'; // ★ R40.45 ROOT: side-effect import → registerPolicy(TASK_IOR, TaskPolicy). WITHOUT this NOTHING imports task-policy → the Task FSM is UNREGISTERED → UnitController.apply falls to DEFAULT-MERGE (blindly merges approvedBy, NO evidence-gate, NO Done advance, orphan approvedBy) = the approve-never-worked-~10-iterations root, masked by the ownerTok8 crash.
@@ -2695,10 +2696,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const jparentRef = String(jp?.parent || ''); const jrelated = String(jp?.relatedFile || '');
             const jscenarioDir = path.join(__dirname, '../../../scenario/index');
             const jidx = new ScenarioIndex(jscenarioDir);
-            const jln = dec.name.toLowerCase();
-            const jIsWebItem = dec.mimeType === 'text/uri-list' || jln.endsWith('.url') || jln.endsWith('.webloc') || jln.endsWith('.desktop'); // MIRROR the multipart branch's drop-router (url→WebItem, else File)
+            const jNat = MimeType.from(dec.mimeType, dec.name); // T37.20 DEFECT-2 Factory: natural class by mime lens (WebItem/Image/Email/Contact/CalendarEntry/File) — replaces the uri-list?WebItem:File ternary
             let junit: any;
-            if (jIsWebItem) {
+            if (jNat.ior === 'ior:class:WebItem') {
               const jurl = extractUrl(dec.content.toString('utf-8'), dec.name);
               if (jurl) {
                 junit = createWebItemUnit(jidx, { uuid: crypto.randomUUID(), url: jurl, name: dec.name, uploaderToken: jpt, roomUuid: roomId, relatedFile: jrelated || undefined }, publishUnitChanged);
@@ -2709,6 +2709,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             const jdrop = resolveDropContainer(jparentRef, roomId, jidx); // room-root default; folder ref → nest
             if (!junit) junit = createFileUnit(jidx, { name: dec.name, content: dec.content, mimeType: dec.mimeType, uploaderToken: jpt, fsKey: homeKeyFor(jpt, { mint: true }), roomUuid: roomId, uuid: dec.uuid, ...(jdrop.parentIor ? { parent: jdrop.parentIor, location: `${jdrop.folderLocation}/${dec.name}` } : {}) }, publishUnitChanged); // uuid=dec.uuid → idempotent-by-uuid; sha256 dedup makes a re-send a no-op
             const jFileUuid = (junit.model as any).uuid;
+            // T37.20 DEFECT-2: stamp the natural class the Factory chose (Image/Email/Contact/CalendarEntry) so the unit
+            // instantiates + renders AS its class (WebItem set its own ior above; File = fallback, already ior:class:File).
+            if (jNat.ior !== 'ior:class:WebItem' && jNat.ior !== 'ior:class:File') { junit.ior = jNat.ior; (junit.model as any).kind = jNat.kind; jidx.put(jFileUuid, junit); }
             jroom.addFileUnit(jFileUuid);
             if (jdrop.parentIor) { // mirror the folder-owns-children write (server.ts multipart branch) so a nested file renders inside the folder
               try {
@@ -2721,7 +2724,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             }
             publishUnitChanged('ior:class:Folder', jdrop.publishRef); // live-insert into the target node (folder or Files root)
             jroom.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: jFileUuid, name: dec.name, size: dec.content.length, mimeType: dec.mimeType });
-            captureUploadOutcome(_capId, 200, jIsWebItem ? 'success-webitem-unit' : 'success-file-unit');
+            captureUploadOutcome(_capId, 200, jNat.ior === 'ior:class:WebItem' ? 'success-webitem-unit' : 'success-file-unit');
             addLog(`[upload] unit-JSON SUCCESS: ${dec.name} (${dec.content.length}b) uuid=${jFileUuid} room=${roomId.slice(0, 8)}`);
             res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ uuid: jFileUuid, name: dec.name, size: dec.content.length }));
             return;
@@ -2777,12 +2780,12 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           addLog(`[upload] creating unit...`);
           const scenarioDir = path.join(__dirname, '../../../scenario/index');
           const idx = new ScenarioIndex(scenarioDir);
-          // R25.2 drop-router (single dispatch point): url-types (uri-list / .url / .webloc / .desktop) → WebItem
-          // (a reference to a remote resource), NOT a File (a stored byte artifact). Everything else → File.
-          const lname = fileName.toLowerCase();
-          const isWebItem = mimeType === 'text/uri-list' || lname.endsWith('.url') || lname.endsWith('.webloc') || lname.endsWith('.desktop');
+          // T37.20 DEFECT-2 Factory (GoF Factory Method): MimeType.from returns the natural class by its registered mime
+          // lens — replaces the uri-list?WebItem:File ternary. WebItem = a remote-resource reference; Image/Email/Contact/
+          // CalendarEntry = the natural byte classes; File = fallback. A new class edits NOTHING here (self-registered in mime-type.ts).
+          const nat = MimeType.from(mimeType, fileName);
           let unit;
-          if (isWebItem) {
+          if (nat.ior === 'ior:class:WebItem') {
             const url = extractUrl(fileData.toString('utf-8'), fileName);
             if (url) {
               unit = createWebItemUnit(idx, { uuid: crypto.randomUUID(), url, name: fileName, uploaderToken: playerToken, roomUuid: roomId, relatedFile: relatedFile || undefined }, publishUnitChanged); // R37.11 slice-1: seam publish (new WebItem appears live)
@@ -2806,6 +2809,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (parentRef && !parentIor) addLog(`[upload] parent ${parentRef.slice(0, 24)} not a room folder in ${roomId.slice(0, 8)} → file lands at Files root`);
           if (!unit) unit = createFileUnit(idx, { name: fileName, content: fileData, mimeType, uploaderToken: playerToken, fsKey: homeKeyFor(playerToken, { mint: true }), roomUuid: roomId, ...(parentIor ? { parent: parentIor, location: `${dropc.folderLocation}/${fileName}` } : {}) }, publishUnitChanged); // R40.86: parent+location when the container is a folder; room-root → neither (behaviour-preserving vs R40.85). STILL ONE createFileUnit — no double-mint.
           const fileUuid = (unit.model as any).uuid;
+          // T37.20 DEFECT-2: stamp the natural class the Factory chose (Image/Email/Contact/CalendarEntry) so the unit
+          // instantiates + renders AS its class (WebItem set its own ior above; File = fallback, already ior:class:File).
+          if (nat.ior !== 'ior:class:WebItem' && nat.ior !== 'ior:class:File') { (unit as any).ior = nat.ior; (unit.model as any).kind = nat.kind; idx.put(fileUuid, unit); }
           addLog(`[upload] unit created: ${fileUuid} contentPath=${(unit.model as any).contentPath}${parentIor ? ' parent=' + parentIor.slice(13, 21) : ''}`);
           room.addFileUnit(fileUuid);
           if (parentIor) { // R40.86: the folder OWNS its children (model.children[]) — add the file, MIRRORING the folder-nest path (server.ts:2580), so the folder's children-listing renders it (live via R40.84 + on reload)
@@ -2819,7 +2825,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           }
           publishUnitChanged('ior:class:Folder', parentPublishRef); // R40.84/R40.86: re-derive the target node (the FOLDER when nested, else Files root) → live-insert the new file INSIDE, no full re-seed. ONE path for both add types.
           room.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid, name: fileName, size: fileData.length, mimeType });
-          captureUploadOutcome(_capId, 200, isWebItem ? 'success-webitem' : 'success-file'); // the CONTROL fires here too (a succeeding synthetic upload → diff vs a failing real one)
+          captureUploadOutcome(_capId, 200, nat.ior === 'ior:class:WebItem' ? 'success-webitem' : 'success-file'); // the CONTROL fires here too (a succeeding synthetic upload → diff vs a failing real one)
           addLog(`[upload] SUCCESS: ${fileName} (${fileData.length}b) uuid=${fileUuid} room=${roomId.slice(0,8)}`);
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ uuid: fileUuid, name: fileName, size: fileData.length }));

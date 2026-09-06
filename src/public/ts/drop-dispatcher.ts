@@ -82,14 +82,13 @@ export class DropDispatcher {
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
   // [impl:uuid:4a159912-978e-46bc-a839-5201857461c5] R25.1 DropDispatcher.routeUnknown
-  async routeUnknown(file: File, roomId: string, playerToken: string, sendChat: (text: string) => void): Promise<void> {
+  async routeUnknown(file: File, _roomId: string, _playerToken: string, _sendChat: (text: string) => void): Promise<boolean> {
+    // Registry lookup (the EXISTING self-registration seam): a natural class that registered a mime prefix handles its own.
+    // Returns whether it handled — the caller uploads the bytes by default (the SERVER Factory classifies) if none matched.
     for (const [prefix, handler] of this.handlers) {
-      if (file.type.startsWith(prefix)) {
-        await handler(file, roomId, playerToken);
-        return;
-      }
+      if (file.type.startsWith(prefix)) { await handler(file, _roomId, _playerToken); return true; }
     }
-    sendChat(`[drop-debug] ${file.name} (${file.type || 'unknown'}) — no handler registered`);
+    return false;
   }
 
   // [impl:uuid:05ed9488-cef2-41f5-83b2-f8e046fcd77a] DropDispatcher.feedbackCycle
@@ -98,11 +97,11 @@ export class DropDispatcher {
     this.state = 'uploading';
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
     let result: { uuid: string; name: string; size: number } | null = null;
-    if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type.startsWith('message/')) { // v0.6.81: audio/+video/; v0.6.90: message/ (iOS .eml email drop)
-      result = await this.saveFileUnit(file, roomId, playerToken, { onProgress: (pct) => { this.statusCb?.('uploading', `${file.name} ${pct}%`); } }); // SLICE-A: object-owned unit-JSON upload (progress = param)
-    } else {
-      await this.routeUnknown(file, roomId, playerToken, sendChat);
-    }
+    // T37.20 DEFECT-2: NO hardcoded mime allowlist. A registered natural-class handler (the registry) wins first; otherwise
+    // the bytes upload via the ONE transport and the SERVER Factory (MimeType.from) classifies them into their natural class
+    // (Image/Email/Contact/CalendarEntry/File). A 6th class self-registers — this dispatch edits nothing.
+    const handled = await this.routeUnknown(file, roomId, playerToken, sendChat);
+    if (!handled) result = await this.saveFileUnit(file, roomId, playerToken, { onProgress: (pct) => { this.statusCb?.('uploading', `${file.name} ${pct}%`); } }); // object-owned unit-JSON upload (progress = param)
     this.state = 'complete';
     this.statusCb?.(result ? 'complete' : 'error', result ? `Uploaded ${file.name}` : `Failed: ${file.name}`);
     setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
