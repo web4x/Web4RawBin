@@ -37,19 +37,28 @@ function walk(dir, acc) { let e = []; try { e = fs.readdirSync(dir, { withFileTy
 function scan() {
   const files = ROOTS.flatMap((r) => walk(path.join(ROOT, r), []));
   const hits = []; let ownerFileFound = null;
+  const CAPTURE_FIXTURE = path.join(ROOT, 'test/baseline/tron-captured-upload-request.bin'); // removal TRIGGER: Tron's real request captured
+  const CAPTURE_LANDED = fs.existsSync(CAPTURE_FIXTURE); // upload-capture.ts exemption EXPIRES the moment this exists (mandatory time-box)
   for (const f of files) {
     const rel = f.replace(ROOT + '/', '');
     const isOwner = OWNER_RE.test(rel);
     if (isOwner) ownerFileFound = rel;
+    // R40.96 TIME-BOXED EXEMPTION (PO ruling): upload-capture.ts is TEMPORARY Tron-capture instrumentation — exempt by path
+    // ONLY while the capture is still pending. REMOVAL CONDITION: once his request is captured (CAPTURE_FIXTURE exists) the
+    // exemption EXPIRES → it counts again → RED if the file still exists. A 'temporary' handler that outlives its purpose is the
+    // permanent-second-owner defect (same trap as the migration toggle). NOT a standing exemption.
+    const isDiagExempt = rel.includes('upload-capture') && !CAPTURE_LANDED;
+    const exempt = isOwner || isDiagExempt;
     const lines = fs.readFileSync(f, 'utf8').split('\n');
     // skip comments AND log calls: a `boundary=` literal inside an addLog/console string is diagnostics, NOT multipart handling
     // (tighten after r4096 false-positived on server.ts:2682 `addLog('[upload] parsed: … boundary=yes …')` — noted, does not move the RED baseline).
-    lines.forEach((l, i) => { if (isComment(l) || /addLog\(|console\.(log|error|warn|info)/.test(l)) return; for (const h of HAZARDS) { if (h.re.test(l)) { if (!isOwner) hits.push({ rel, line: i + 1, key: h.key, text: l.trim().slice(0, 90) }); break; } } });
+    lines.forEach((l, i) => { if (isComment(l) || /addLog\(|console\.(log|error|warn|info)/.test(l)) return; for (const h of HAZARDS) { if (h.re.test(l)) { if (!exempt) hits.push({ rel, line: i + 1, key: h.key, text: l.trim().slice(0, 90) }); break; } } });
   }
-  return { hits, ownerFileFound, fileCount: files.length };
+  return { hits, ownerFileFound, fileCount: files.length, captureLanded: CAPTURE_LANDED };
 }
 
-const { hits, ownerFileFound, fileCount } = scan();
+const { hits, ownerFileFound, fileCount, captureLanded } = scan();
+R(`  TIME-BOXED EXEMPTION (upload-capture.ts, PO ruling): ${captureLanded ? '⛔ EXPIRED — Tron capture LANDED but upload-capture.ts still present → it now COUNTS (delete the temporary instrumentation)' : 'ACTIVE — capture pending; upload-capture.ts exempt by path; REMOVAL CONDITION = deleted once test/baseline/tron-captured-upload-request.bin exists'}`);
 R(`═══ R40.96 TRANSPORT-OWNERSHIP LINT — multipart handling OUTSIDE the NativeFileIngress owner ═══`);
 R(`  scanned ${fileCount} product .ts (src/ts + src/public/ts) ; owner file (positional /native-file-ingress/) = ${ownerFileFound || 'NONE YET (pre-refactor)'}`);
 R(`  multipart-transport hazards OUTSIDE the owner : ${hits.length}  ${hits.length === 0 ? 'GREEN' : 'RED'}`);
