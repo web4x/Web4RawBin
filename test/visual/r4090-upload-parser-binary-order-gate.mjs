@@ -37,12 +37,21 @@ const tokenPart = () => Buffer.from(`--${B}\r\nContent-Disposition: form-data; n
 const closing = () => Buffer.from(`--${B}--\r\n`, 'utf8');
 const body = (order, buf, name, mime) => order === 'file' ? Buffer.concat([filePart(buf, name, mime), tokenPart(), closing()]) : Buffer.concat([tokenPart(), filePart(buf, name, mime), closing()]);
 
+const shaOf = (b) => crypto.createHash('sha256').update(b).digest('hex');
 // NODE-NATIVE raw multipart POST — the exact Content-Type header string is under our control (that is the header-side variant).
 const rawPost = (base, roomId, contentType, bodyBuf) => new Promise((resolve) => {
   const u = new URL(`${base}/api/room/${roomId}/upload`);
   const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname, method: 'POST', rejectUnauthorized: false, headers: { 'Content-Type': contentType, 'Content-Length': bodyBuf.length } }, (res) => { let d = ''; res.on('data', (c) => (d += c)); res.on('end', () => { let j = {}; try { j = JSON.parse(d); } catch {} resolve({ status: res.statusCode, body: j }); }); });
   req.on('error', (e) => resolve({ status: 0, body: { error: String(e.message) } }));
   req.write(bodyBuf); req.end();
+});
+// CONTENT-INTEGRITY (PO): fetch the STORED bytes back and sha-compare to source — GREEN means the file is byte-correct, not just
+// a matching size number (EXISTS ⊂ CORRECT). A parser that recovers the right LENGTH but shifted/mangled bytes still fails here.
+const getContent = (base, uuid) => new Promise((resolve) => {
+  const u = new URL(`${base}/api/room/file/${encodeURIComponent(uuid)}/content?token=${encodeURIComponent(PLAYER)}`);
+  const req = https.request({ hostname: u.hostname, port: u.port, path: u.pathname + u.search, method: 'GET', rejectUnauthorized: false }, (res) => { const chunks = []; res.on('data', (c) => chunks.push(c)); res.on('end', () => resolve({ status: res.statusCode, buf: Buffer.concat(chunks) })); });
+  req.on('error', () => resolve({ status: 0, buf: Buffer.alloc(0) }));
+  req.end();
 });
 
 const f = await setupFoundation({ commit: process.env.ARM_COMMIT || 'HEAD' });
@@ -70,24 +79,30 @@ try {
   ];
   for (const v of variants) {
     const bodyBuf = body(v.order, v.buf, v.fn, v.mime);
+    const srcSha = shaOf(v.buf);
     const up = await rawPost(f.base, roomId, v.ct, bodyBuf);
     const parsedSize = Number(up.body.size);
     const tokenExtracted = up.status !== 401;
-    const pass = up.status === 200 && parsedSize === v.buf.length && tokenExtracted;
-    results.push({ ...v, status: up.status, parsedSize, sent: bodyBuf.length, srcSize: v.buf.length, tokenExtracted, err: up.body.error, pass });
-    R(`  ${v.id}: status=${up.status} sent=${bodyBuf.length}b parsed=${Number.isFinite(parsedSize) ? parsedSize : 'n/a'}b (src=${v.buf.length}) token=${tokenExtracted ? 'extracted' : 'MISSING→401'} err=${up.body.error || '-'} ⇒ ${pass ? 'PASS' : 'FAIL'} [expect ${v.expect}]`);
+    const sizeOk = up.status === 200 && parsedSize === v.buf.length && tokenExtracted;
+    // CONTENT-INTEGRITY: round-trip the stored bytes and sha-compare (only meaningful once the upload was accepted)
+    let integrityOk = false, servedSha = '-';
+    if (up.status === 200 && up.body.uuid) { const g = await getContent(f.base, up.body.uuid); servedSha = g.buf.length ? shaOf(g.buf).slice(0, 12) : '-'; integrityOk = g.status === 200 && shaOf(g.buf) === srcSha; }
+    const pass = sizeOk && integrityOk;
+    results.push({ ...v, status: up.status, parsedSize, sent: bodyBuf.length, srcSize: v.buf.length, tokenExtracted, integrityOk, err: up.body.error, pass });
+    R(`  ${v.id}: status=${up.status} sent=${bodyBuf.length}b parsed=${Number.isFinite(parsedSize) ? parsedSize : 'n/a'}b (src=${v.buf.length}) token=${tokenExtracted ? 'extracted' : 'MISSING→401'} byteSha=${integrityOk ? 'MATCH' : servedSha} err=${up.body.error || '-'} ⇒ ${pass ? 'PASS' : 'FAIL'} [expect ${v.expect}]`);
     await sleep(300);
   }
   await ctx.close();
 } catch (e) { R(`  ERROR: ${String(e && e.message).slice(0, 200)}`); }
 finally { await browser.close().catch(() => {}); }
 
-// ── DISCRIMINATOR: the server's own [upload] log lines (received==content-length ⇒ header/parser fault, not transport) ──
-R(`\n─── server [upload] log (received vs content-length + parsed size + token) ───`);
-try { const log = fs.readFileSync(SERVER_LOG, 'utf8'); for (const line of log.split('\n')) if (/\[upload\]/.test(line)) R(`  ${line.replace(/^.*?\[upload\]/, '[upload]').slice(0, 160)}`); } catch (e) { R(`  (log unreadable: ${e.message})`); }
-
-const td = await f.teardown();
+const td = await f.teardown(); // kills the scratch server → its buffered stdout flushes to the log fd
 R(`teardown: prod:4444 up=${td.prodUp} leftoverScratch=${td.leftover}`);
+await sleep(800);
+// ── DISCRIMINATOR (hygiene, PO): the server's own [upload] log — received==content-length ⇒ header/parser fault, not transport.
+// The verdict rests on the response matrix (stronger); this channel is kept working so future diagnoses have it (blind twice today).
+R(`\n─── server [upload] log (received vs content-length + parsed size + token) ───`);
+try { const log = fs.readFileSync(SERVER_LOG, 'utf8'); const lines = log.split('\n').filter((l) => l.includes('[upload]')); if (!lines.length) R(`  (no [upload] lines captured — server stdout may be unflushed)`); for (const line of lines) R(`  ${line.replace(/^.*?\[upload\]/, '[upload]').slice(0, 160)}`); } catch (e) { R(`  (log unreadable: ${e.message})`); }
 R(`\n═══ R40.90 UPLOAD PARSER (binary × order × boundary-form) MATRIX ═══`);
 for (const r of results) R(`  ${r.id}: ${r.pass ? 'GREEN' : 'RED '} (status ${r.status}, parsed ${r.parsedSize}/${r.srcSize}b, token ${r.tokenExtracted ? 'ok' : 'MISSING'}) [expect ${r.expect}]`);
 const control = results.find((r) => r.id.startsWith('V0'));
