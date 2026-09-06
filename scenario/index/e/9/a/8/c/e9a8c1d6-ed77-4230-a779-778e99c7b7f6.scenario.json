@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e9a8c1d6-ed77-4230-a779-778e99c7b7f6",
+    "name": "reqUuid",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "TaskSlot.reqUuid",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:b2738ae2-0051-4fb9-a7d1-ecf054f5e9b0"
+  }
+}

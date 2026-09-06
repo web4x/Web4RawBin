@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "676a51bc-19e3-485e-ad5b-ec37545f73c0",
+    "name": "SprintPin",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/sprint-pin-resolver.ts",
+    "qualifiedName": "SprintPin",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:caadaa19-cadf-4826-a5f7-7217dc7f9af7",
+      "ior:instance:685a2537-46a0-4820-ab7e-3dc27e07d096",
+      "ior:instance:4bf9700c-4e49-4a62-a9f7-0ad390858bd8"
+    ]
+  }
+}

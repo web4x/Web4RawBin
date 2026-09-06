@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "7dd09aa9-da44-429f-ab6b-4a52374d5658",
+    "name": "senderToken",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/message-unit.ts",
+    "qualifiedName": "MessageInput.senderToken",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:ee007677-0f71-406e-a104-aa91d32fd329"
+  }
+}

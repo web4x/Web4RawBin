@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:File",
+  "ownerIor": null,
+  "model": {
+    "uuid": "cc480c68-b627-4c2e-a4d8-31debc31de38",
+    "name": "package.json",
+    "location": "package.json",
+    "kind": "file",
+    "sourceFile": "ior:file:package.json",
+    "ext": "json"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ce31274b-bb1f-4338-aaeb-33b38040d954",
+    "name": "RenameResult",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "RenameResult",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:7d2d760f-aa95-4d58-ac15-0e624489871d",
+      "ior:instance:e760e775-ed92-4764-a502-6dcf9f0a4408",
+      "ior:instance:e4992c23-cb1a-4443-a02c-e0491ffcf229",
+      "ior:instance:6aab3dcc-5903-437d-a19f-fe29d7239a7f",
+      "ior:instance:7838d9f4-9b41-447f-a38e-3b979d5a75fa"
+    ],
+    "relatedFrom": [
+      "ior:instance:181e723c-4b80-4f14-a65d-f82ac2576c8b"
+    ]
+  }
+}

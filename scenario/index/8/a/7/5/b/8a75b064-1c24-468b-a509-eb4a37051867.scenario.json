@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8a75b064-1c24-468b-a509-eb4a37051867",
+    "name": "md",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/ior-resolver.ts",
+    "qualifiedName": "IORResolution.md",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:ee04368e-8b11-46b5-ade7-c4b4059d3a25"
+  }
+}

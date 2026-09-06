@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a505d119-0d09-4531-a85b-7cef87d6cca1",
+    "name": "IORResolver",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/ior-resolver.ts",
+    "qualifiedName": "IORResolver",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:5671d055-53e9-4da6-a850-1ee75e4e34e2",
+      "ior:instance:5ceaed1a-f8be-4b85-ae98-d38139e44cd0"
+    ]
+  }
+}

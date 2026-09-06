@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8c3e5b97-4d47-437f-a2fd-92d86f4382ef",
+    "name": "list",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Rules.list",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:560bd1e2-15a3-4441-a681-ccbb26299564",
+    "visibility": "public",
+    "parameters": [],
+    "documentation": "List all team protocol rules (rule-*, ship-*, verify-*) with their one-line hooks",
+    "parentClass": "ior:instance:560bd1e2-15a3-4441-a681-ccbb26299564"
+  }
+}

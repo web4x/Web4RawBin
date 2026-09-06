@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1637b6db-679c-4ad9-a326-811454495a3f",
+    "name": "parseWebloc",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/WebItem.ts",
+    "qualifiedName": "parseWebloc",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "content",
+        "type": "string"
+      }
+    ],
+    "returnType": "string",
+    "documentation": "macOS .webloc (plist XML) → <key>URL</key><string>…</string>."
+  }
+}

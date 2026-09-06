@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "560bd1e2-15a3-4441-a681-ccbb26299564",
+    "name": "Rules",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Rules",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:cc28555d-4120-4374-ab02-f908527aef20",
+      "ior:instance:8c3e5b97-4d47-437f-a2fd-92d86f4382ef",
+      "ior:instance:649cb70b-602c-415b-a6a8-dd430a6b7545",
+      "ior:instance:08a0ce6f-4a89-4e8c-a9cf-8951fdbc0879"
+    ]
+  }
+}

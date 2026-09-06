@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "38d778b8-d627-44c4-a002-d2228145f9c3",
+    "name": "buildSourceIor",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/source-location.ts",
+    "qualifiedName": "buildSourceIor",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "file",
+        "type": "string"
+      },
+      {
+        "name": "commit",
+        "type": "string"
+      },
+      {
+        "name": "lines"
+      }
+    ],
+    "returnType": "string"
+  }
+}

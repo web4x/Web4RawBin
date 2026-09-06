@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "0411fa64-3d2d-44e2-a425-16056204ce38",
+    "name": "assertNoLiveInjection",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/agent-message.ts",
+    "qualifiedName": "AgentMessage.assertNoLiveInjection",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "sendSource",
+        "type": "string"
+      }
+    ],
+    "returnType": "void",
+    "documentation": "Hard invariant: the delivery path must NOT inject text+Enter into a recipient's live prompt.\nThrows if the given send-path source contains a tmux/otmux keystroke-submit — the interrupt bug.",
+    "parentClass": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea"
+  }
+}

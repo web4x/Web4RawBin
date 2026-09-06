@@ -1,0 +1,49 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "50c359d2-0550-4810-a124-6da71766ae57",
+    "name": "CurrentSprint",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "CurrentSprint",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:c8146038-c286-4670-af0d-d2e90d5bce5b",
+      "ior:instance:a2959144-1e32-4c6f-a1aa-58703c53e415",
+      "ior:instance:558ea596-54e2-4a4c-a605-947901628fa9",
+      "ior:instance:15bfc97d-9671-4c5c-aad5-ed4a97988e06",
+      "ior:instance:71827c10-b339-4160-abdf-0c38fbf19888",
+      "ior:instance:fc365be1-59c1-4932-a9e3-fc5e5b8a4839",
+      "ior:instance:aac5561b-f5bd-4465-a01b-e7ba98bcfdbc",
+      "ior:instance:2612899c-599a-4556-ac15-267ec83fb84d",
+      "ior:instance:fc7b8517-bbbb-40f1-a061-aee5b39a3a89",
+      "ior:instance:b6cce49d-6a3d-41b0-a735-5913db53531e",
+      "ior:instance:f1a14bfd-57d4-4241-a958-5c334e3882d6",
+      "ior:instance:4d61d581-2024-47fd-a63c-794d8406e268",
+      "ior:instance:8888c9b6-5ff4-43e1-af0f-27418efd09f0",
+      "ior:instance:55e467a2-cb7f-4019-af82-3e0e2102a345",
+      "ior:instance:7e181ada-d34f-41cd-ac16-94fdd5a38a20",
+      "ior:instance:f9beee35-079d-40c4-ab1d-be4fb84fda1f",
+      "ior:instance:a0ea40f9-51ba-45fa-ae3c-ad45be96d1eb",
+      "ior:instance:4049b5ff-0ab7-4e02-a9ff-415a685b3e0c",
+      "ior:instance:bebf728b-7b21-461f-a45e-6c0672a5ef58",
+      "ior:instance:23b84e25-7424-4225-aee9-e0477361e2d7",
+      "ior:instance:6dd5ff7b-6eb4-4a04-afad-84a9a8dadc17",
+      "ior:instance:f6292750-709a-440d-add7-1f7682585137",
+      "ior:instance:d9cb9107-c8aa-4047-a46c-a87e115b402b",
+      "ior:instance:a7848712-d147-49b3-af1c-cb24a90cb011",
+      "ior:instance:082ff338-69dd-414f-a6ec-f725a2bf8994",
+      "ior:instance:e612f08c-4c5c-4fb7-a390-a5b82c424f65",
+      "ior:instance:fd48afde-1715-4451-aa15-b47960d047a7",
+      "ior:instance:a954d0ca-f6cb-427c-ace7-f74c32f98b02"
+    ],
+    "relatedFrom": [
+      "ior:instance:4d61d581-2024-47fd-a63c-794d8406e268"
+    ]
+  }
+}

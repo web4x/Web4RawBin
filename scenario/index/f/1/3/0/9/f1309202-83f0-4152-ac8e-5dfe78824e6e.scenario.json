@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f1309202-83f0-4152-ac8e-5dfe78824e6e",
+    "name": "commit",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/agent-message.ts",
+    "qualifiedName": "AgentMessage.commit",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea",
+    "visibility": "private",
+    "parameters": [
+      {
+        "name": "paths",
+        "type": "string[]"
+      },
+      {
+        "name": "message",
+        "type": "string"
+      }
+    ],
+    "returnType": "void",
+    "parentClass": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea"
+  }
+}

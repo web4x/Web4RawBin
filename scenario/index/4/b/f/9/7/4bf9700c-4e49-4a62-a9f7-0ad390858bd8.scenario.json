@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "4bf9700c-4e49-4a62-a9f7-0ad390858bd8",
+    "name": "nextBacklog",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/sprint-pin-resolver.ts",
+    "qualifiedName": "SprintPin.nextBacklog",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:676a51bc-19e3-485e-ad5b-ec37545f73c0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UmlTraceRelationship",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ae9bfa66-c9a7-42d3-a134-2e22a4ec5bf4",
+    "from": "ior:instance:5f17f9f6-853b-4322-afbb-6dd1e134ff7a",
+    "to": "ior:instance:7b479ac8-efff-480e-84bc-0f794f5e37f3",
+    "fromType": "usecase",
+    "toType": "method",
+    "relation": "traces",
+    "direction": "directed",
+    "label": "traces"
+  }
+}

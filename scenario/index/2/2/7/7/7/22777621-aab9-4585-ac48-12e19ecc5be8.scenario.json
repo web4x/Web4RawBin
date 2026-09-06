@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "22777621-aab9-4585-ac48-12e19ecc5be8",
+    "name": "commit",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/source-location.ts",
+    "qualifiedName": "SourceLocation.commit",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:24605220-a734-4f5b-aa61-0ccd1037266a"
+  }
+}

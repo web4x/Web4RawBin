@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f833f671-6a7a-4121-ad9d-48cbf8a8a405",
+    "name": "strict",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Audit.strict",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:09c5d8a0-c89a-49bc-ab26-7e61df46733b",
+    "visibility": "public",
+    "parameters": [],
+    "returnType": "string",
+    "documentation": "Structural trace audit, strict mode (orphans, back-refs, cardinality) — dispatches trace:audit:strict",
+    "parentClass": "ior:instance:09c5d8a0-c89a-49bc-ab26-7e61df46733b"
+  }
+}

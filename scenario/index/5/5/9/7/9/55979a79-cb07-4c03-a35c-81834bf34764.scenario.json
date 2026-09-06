@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:PumlArtifact",
+  "ownerIor": null,
+  "model": {
+    "uuid": "55979a79-cb07-4c03-a35c-81834bf34764",
+    "name": "sprint-29-server-dev-lifecycle-chains.puml",
+    "location": "sprint-29-server-dev-lifecycle/diagrams/sprint-29-server-dev-lifecycle-chains.puml",
+    "kind": "puml",
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-29-server-dev-lifecycle/diagrams/sprint-29-server-dev-lifecycle-chains.puml",
+    "format": "plantuml"
+  }
+}

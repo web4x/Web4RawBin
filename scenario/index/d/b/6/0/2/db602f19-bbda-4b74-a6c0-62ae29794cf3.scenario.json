@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "db602f19-bbda-4b74-a6c0-62ae29794cf3",
+    "name": "MintOrReuseResult",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/class-mint.ts",
+    "qualifiedName": "MintOrReuseResult",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:ddeb24b5-20df-4ec3-aac7-876bb68873fd",
+      "ior:instance:5e7bb92c-5799-4b2a-aea6-0350d4457f93",
+      "ior:instance:f07e2f45-d5bd-46d5-a950-b6f31e64f998"
+    ]
+  }
+}

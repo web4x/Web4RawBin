@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "2331f163-511f-4d12-aedf-9f9db6a14afb",
+    "name": "PinData",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "PinData",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:e95f3baa-d44f-478b-a3f7-45868eefd759",
+      "ior:instance:0fd09807-ff2e-4308-a2d4-b5f65f31509c",
+      "ior:instance:a6c091fa-a863-4645-afff-c3b38e41223b",
+      "ior:instance:6849bc9c-42bb-4b99-a6b6-f9b649e4ac9e",
+      "ior:instance:8aba1567-44bc-4f54-a4cf-964be16b37a5"
+    ],
+    "relatedFrom": [
+      "ior:instance:4049b5ff-0ab7-4e02-a9ff-415a685b3e0c"
+    ]
+  }
+}

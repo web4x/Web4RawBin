@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d222aac4-1d3d-4b77-a042-63bcf48a24f8",
+    "name": "SlugResolver",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "SlugResolver",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ]
+  }
+}

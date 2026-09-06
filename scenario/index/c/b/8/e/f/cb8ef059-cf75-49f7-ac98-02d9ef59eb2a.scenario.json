@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "cb8ef059-cf75-49f7-ac98-02d9ef59eb2a",
+    "name": "kind",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/agent-message.ts",
+    "qualifiedName": "AgentMessageModel.kind",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:6ecdd44c-075e-4854-a04b-a0c659da9fe3",
+    "relatesTo": [
+      "ior:instance:251ed6ac-eddf-4450-a411-d94db351e763"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:251ed6ac-eddf-4450-a411-d94db351e763",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000010"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "22839408-2fd5-4ebf-a7c4-d75e46487d01",
+    "name": "MetaLevel",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "MetaLevel",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ],
+    "relatedFrom": [
+      "ior:instance:d8ff0fbc-d7a0-465e-aef2-8f1942913363"
+    ]
+  }
+}

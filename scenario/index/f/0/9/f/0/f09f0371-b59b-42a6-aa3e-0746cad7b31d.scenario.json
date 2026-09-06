@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f09f0371-b59b-42a6-aa3e-0746cad7b31d",
+    "name": "unproven",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/test-marker-attach.ts",
+    "qualifiedName": "TestMarkerBuckets.unproven",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:a29b48ec-16eb-4481-a8d0-548718715c26",
+    "relatesTo": [
+      "ior:instance:cb0938e2-64b3-4882-ae15-d01b4c8370df"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:cb0938e2-64b3-4882-ae15-d01b4c8370df",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000010"
+      }
+    ]
+  }
+}

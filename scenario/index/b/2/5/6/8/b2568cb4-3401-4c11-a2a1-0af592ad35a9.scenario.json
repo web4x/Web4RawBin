@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "b2568cb4-3401-4c11-a2a1-0af592ad35a9",
+    "name": "nameMatch",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/test-marker-attach.ts",
+    "qualifiedName": "nameMatch",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "unitName",
+        "type": "string"
+      }
+    ],
+    "returnType": "boolean",
+    "documentation": "Intent-match: ≥1 significant token shared between the block title and the Test unit's name (fail-closed: empty→false)."
+  }
+}

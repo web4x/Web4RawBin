@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1ac56b78-2703-4442-aec5-9497a7a139b5",
+    "name": "M1Unit",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/TsToModel.ts",
+    "qualifiedName": "M1Unit",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:6538a052-cd81-492a-a1ff-7096c0c4649b",
+      "ior:instance:c7ccca3d-5ca6-4c3a-a5d3-7888b6f2c6e4",
+      "ior:instance:89d1f9b6-14d3-4e3f-a5a6-2bcf5082cc91"
+    ]
+  }
+}

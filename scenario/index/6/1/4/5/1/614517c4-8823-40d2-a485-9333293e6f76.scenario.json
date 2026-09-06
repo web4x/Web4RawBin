@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "614517c4-8823-40d2-a485-9333293e6f76",
+    "name": "radius",
+    "metaLevel": "M1",
+    "kind": "property",
+    "sourceFile": "test/fixtures/r32.2-sample.ts",
+    "qualifiedName": "Circle.radius",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000007",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000018"
+    ],
+    "memberOf": "ior:instance:54ea2a17-7b18-4d0f-ab41-feb6efe9ae64"
+  }
+}

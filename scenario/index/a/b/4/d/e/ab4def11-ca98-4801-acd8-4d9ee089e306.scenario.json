@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ab4def11-ca98-4801-acd8-4d9ee089e306",
+    "name": "TraceNode",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/trace-tree.ts",
+    "qualifiedName": "TraceNode",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:c6dd62b4-2d36-4d58-a14a-cdde82a22688",
+      "ior:instance:7c388cd4-59a8-4f56-aefe-9be7ac665f4d",
+      "ior:instance:75373cf2-e593-47cb-adda-3901045bf2e6",
+      "ior:instance:54ae7465-52da-4709-ad5a-ed3413d41f40",
+      "ior:instance:0e7dbea5-631e-4d60-a48f-c82b4e829438",
+      "ior:instance:3d1e04c7-e555-492e-a381-6418a224037a"
+    ],
+    "relatedFrom": [
+      "ior:instance:3d1e04c7-e555-492e-a381-6418a224037a"
+    ]
+  }
+}

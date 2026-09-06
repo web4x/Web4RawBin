@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "7f7ec06d-f3be-4918-ad4f-0a70de22cead",
+    "name": "renderHtml",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "ViewTemplateRegistry.renderHtml",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:db408f2c-c828-4876-a891-a8d4216b7d48",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "scenario",
+        "type": "ScenarioUnit"
+      }
+    ],
+    "returnType": "string",
+    "parentClass": "ior:instance:db408f2c-c828-4876-a891-a8d4216b7d48"
+  }
+}

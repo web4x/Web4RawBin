@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "739efe9b-4086-47b3-aaa2-d3ce4ae2e4ea",
+    "name": "number",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/sprint-pin-resolver.ts",
+    "qualifiedName": "SprintSlot.number",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:6dbb0879-a8af-4b9b-a268-b46dcb29c894"
+  }
+}

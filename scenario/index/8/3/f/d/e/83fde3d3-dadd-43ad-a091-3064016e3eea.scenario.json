@@ -1,0 +1,40 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "83fde3d3-dadd-43ad-a091-3064016e3eea",
+    "name": "ScenarioIndex",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "qualifiedName": "ScenarioIndex",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:0dd6c852-dac7-4424-a701-74afa8c0ffd5",
+      "ior:instance:7292af1a-3595-42c1-ab3e-854435c18a4e",
+      "ior:instance:1ce1288f-2d55-42ae-a5b2-f8a70cba9634",
+      "ior:instance:1577e125-fee3-40c2-a247-d6b04d219d2c",
+      "ior:instance:19f69c05-a8af-4dfd-a544-f533ef86bacc",
+      "ior:instance:37670f21-5e36-4aa6-a113-b412adb03826",
+      "ior:instance:09831b99-7746-4043-aebe-4c361b2e3906",
+      "ior:instance:9d81911f-84a5-4f20-af45-5abd7eba8a99",
+      "ior:instance:88acd989-7bf0-4dac-a2c0-1fa9dbf66b24",
+      "ior:instance:04ef115b-caa5-4259-accb-24348041fd96",
+      "ior:instance:81de95ac-60f7-48ae-a008-0ed1e31f96b4",
+      "ior:instance:c9afbec3-eb1f-44a8-a5c8-99a23f6fbc83",
+      "ior:instance:8b2cbd2d-fe57-449e-a904-0424c3af52fa",
+      "ior:instance:d74073cf-dfc5-4506-a38d-3818dbb5ffe5",
+      "ior:instance:f8fbca3e-24e4-48e2-a174-f8eace28aa38",
+      "ior:instance:deec73e5-81e0-49a6-a351-0ba35283143f",
+      "ior:instance:36353bc9-15bf-4971-a703-982a214e68aa",
+      "ior:instance:c83c5a59-2a40-4743-a642-a2fd0ba5bea3",
+      "ior:instance:1409c936-c156-4878-a5bc-bb4a6e4cc9ff"
+    ],
+    "relatedFrom": [
+      "ior:instance:a2959144-1e32-4c6f-a1aa-58703c53e415"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1031f99d-a842-4c04-a557-350fa760aae8",
+    "name": "validMethodLabel",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/impl-marker-attach.ts",
+    "qualifiedName": "validMethodLabel",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "label",
+        "type": "string"
+      }
+    ],
+    "returnType": "boolean",
+    "documentation": "An explicit Class.method label = a clean JS identifier (the handler-attach intent-match; prose like 'in-room' fails)."
+  }
+}

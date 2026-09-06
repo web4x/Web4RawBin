@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "558ea596-54e2-4a4c-a605-947901628fa9",
+    "name": "chain",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "CurrentSprint.chain",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57"
+  }
+}

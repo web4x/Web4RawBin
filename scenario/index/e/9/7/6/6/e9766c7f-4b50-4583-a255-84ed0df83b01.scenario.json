@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e9766c7f-4b50-4583-a255-84ed0df83b01",
+    "name": "CompanySuggestion",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/CompanyIndex.ts",
+    "qualifiedName": "CompanySuggestion",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:a505a5cc-1e27-485d-a358-10e0521d5bdc",
+      "ior:instance:e544b41e-c3fd-45dd-a848-5dde6b7df04a",
+      "ior:instance:16550a55-c429-4723-a589-892de50e444a",
+      "ior:instance:e14d0e7d-bffa-4cb2-a11c-07d70d1dfce3"
+    ],
+    "relatedFrom": [
+      "ior:instance:3186551a-88ae-47a6-a150-6dc930d13d9e"
+    ]
+  }
+}

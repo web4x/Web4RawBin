@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "cc28555d-4120-4374-ab02-f908527aef20",
+    "name": "ruleFiles",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Rules.ruleFiles",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:560bd1e2-15a3-4441-a681-ccbb26299564",
+    "visibility": "private",
+    "parameters": [],
+    "returnType": "string[]",
+    "parentClass": "ior:instance:560bd1e2-15a3-4441-a681-ccbb26299564"
+  }
+}

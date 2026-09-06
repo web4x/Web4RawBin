@@ -1,0 +1,46 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ee98f598-978d-4096-a26e-f04beec98c97",
+    "name": "walkReq",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain.walkReq",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "visibility": "private",
+    "parameters": [
+      {
+        "name": "reqUuid",
+        "type": "string"
+      },
+      {
+        "name": "hasRealImpl"
+      },
+      {
+        "name": "hasRealTest"
+      },
+      {
+        "name": "implRefs",
+        "type": "Map<string, number>"
+      }
+    ],
+    "returnType": "ChainRow[]",
+    "documentation": "CANONICAL chain walk for ONE requirement — produces one row per\n(UC, Class, Method, Impl, Test) combination, exactly the po-chain-follow-up\nsemantics (validated against baseline 9/154 on 2026-06-11).",
+    "parentClass": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "relatesTo": [
+      "ior:instance:e187a0cf-adfa-4276-a96d-168a7162c414"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:e187a0cf-adfa-4276-a96d-168a7162c414",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+      }
+    ]
+  }
+}

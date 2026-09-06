@@ -1,0 +1,29 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "104aa12d-71e2-4652-af9a-aed5ffc971d7",
+    "name": "createWebItemUnit",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/WebItem.ts",
+    "qualifiedName": "createWebItemUnit",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "idx",
+        "type": "ScenarioIndex"
+      },
+      {
+        "name": "input",
+        "type": "WebItemInput"
+      }
+    ],
+    "returnType": "ScenarioUnit",
+    "documentation": "Mint an ior:class:WebItem LINK unit with derived scheme/badge/favicon/name. mimeType='text/uri-list'\nso the existing preview (content-preview.ts fillPreviewPane url-list branch → scheme launcher card /\niframe / YouTube embed) renders it with zero extra wiring. Caller supplies the v4 uuid (crypto-free)."
+  }
+}

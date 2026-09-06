@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "589e6fc9-76e4-45ff-a2ca-a975472f1fa2",
+    "name": "IORType",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/types.ts",
+    "qualifiedName": "IORType",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ]
+  }
+}

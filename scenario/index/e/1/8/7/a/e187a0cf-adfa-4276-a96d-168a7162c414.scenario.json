@@ -1,0 +1,33 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e187a0cf-adfa-4276-a96d-168a7162c414",
+    "name": "ChainRow",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "ChainRow",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:9df92007-1c89-41ca-a94e-3c1a170efff2",
+      "ior:instance:665c7f85-fa9a-4fe2-af77-9ddd5d9f476e",
+      "ior:instance:88b35829-ce2a-4f3f-ad57-c15197dbfe12",
+      "ior:instance:cac99736-6d2a-4cef-aacc-b14753f5250f",
+      "ior:instance:fb00246b-b154-4c4c-acca-14abb9378760",
+      "ior:instance:8977ad90-a644-4107-a3de-46d42655d999",
+      "ior:instance:e5b5489b-45f4-45ca-acff-34909349943b",
+      "ior:instance:01fb16df-9537-4480-af67-83ba97bd2e0f",
+      "ior:instance:d3384639-f312-4f49-a3e9-ab6a035c53b3",
+      "ior:instance:fe38d1d6-d389-4095-af89-4eddfb18c820",
+      "ior:instance:dee8e1fc-6c6d-4b1d-a703-1c8adf4727f9"
+    ],
+    "relatedFrom": [
+      "ior:instance:ee98f598-978d-4096-a26e-f04beec98c97",
+      "ior:instance:e3d0d9f2-581d-4ce5-a261-ed4ec821ee88"
+    ]
+  }
+}

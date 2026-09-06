@@ -1,0 +1,27 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "fffbdbd0-6a27-4254-a87e-6793eb1ebb47",
+    "name": "read",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/agent-message.ts",
+    "qualifiedName": "AgentMessage.read",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "msgUuid",
+        "type": "string"
+      }
+    ],
+    "returnType": "boolean",
+    "documentation": "Mark a message read once consumed (so it leaves the inbox).",
+    "parentClass": "ior:instance:c209e609-6c81-413b-a5a2-301ac89e0eea"
+  }
+}

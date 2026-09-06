@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "bde9ef81-d39b-4a0b-ac2c-496adfd8ef49",
+    "name": "LocalLoader",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/federated-ior.ts",
+    "qualifiedName": "LocalLoader",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ]
+  }
+}

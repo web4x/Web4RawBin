@@ -1,0 +1,32 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "52ef7312-cadd-42da-a4ee-d7d2386886d8",
+    "name": "renderChainSection",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "renderChainSection",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "model",
+        "type": "Record<string, unknown>"
+      },
+      {
+        "name": "format",
+        "type": "'md' | 'html'"
+      },
+      {
+        "name": "resolve",
+        "type": "SlugResolver"
+      }
+    ],
+    "returnType": "string"
+  }
+}

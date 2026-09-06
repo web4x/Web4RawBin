@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:File",
+  "ownerIor": null,
+  "model": {
+    "uuid": "4d25a188-ee01-4416-a37d-5b0f63cc38ca",
+    "name": "selection-model.ts",
+    "location": "src/public/ts/trace/selection-model.ts",
+    "kind": "file",
+    "sourceFile": "ior:file:src/public/ts/trace/selection-model.ts",
+    "ext": "ts"
+  }
+}

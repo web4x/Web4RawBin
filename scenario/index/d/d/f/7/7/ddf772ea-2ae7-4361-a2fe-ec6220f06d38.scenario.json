@@ -1,0 +1,43 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ddf772ea-2ae7-4361-a2fe-ec6220f06d38",
+    "name": "createTraceLink",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/trace-link.ts",
+    "qualifiedName": "createTraceLink",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "fromUuid",
+        "type": "string"
+      },
+      {
+        "name": "fromType",
+        "type": "string"
+      },
+      {
+        "name": "toUuid",
+        "type": "string"
+      },
+      {
+        "name": "toType",
+        "type": "string"
+      },
+      {
+        "name": "relation",
+        "type": "LinkRelation"
+      },
+      {
+        "name": "opts"
+      }
+    ],
+    "returnType": "ScenarioUnit"
+  }
+}

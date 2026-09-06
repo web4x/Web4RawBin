@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8c480f22-56f9-4e72-a704-a423978cb9ff",
+    "name": "instanceOf",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "Elem.instanceOf",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:1dc6aaa9-8730-4e9d-adca-5c26a35f5ce9"
+  }
+}

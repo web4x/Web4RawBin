@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f9a7c6eb-948c-46d6-afa8-32fba528e2c7",
+    "name": "setActiveResolver",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "setActiveResolver",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "r",
+        "type": "SlugResolver | undefined"
+      }
+    ],
+    "returnType": "void"
+  }
+}

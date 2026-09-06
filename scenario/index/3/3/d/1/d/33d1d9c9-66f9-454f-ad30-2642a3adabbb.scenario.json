@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "33d1d9c9-66f9-454f-ad30-2642a3adabbb",
+    "name": "ImplBucket",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/impl-marker-attach.ts",
+    "qualifiedName": "ImplBucket",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ]
+  }
+}

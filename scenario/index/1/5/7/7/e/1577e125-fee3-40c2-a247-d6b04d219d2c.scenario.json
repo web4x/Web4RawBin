@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1577e125-fee3-40c2-a247-d6b04d219d2c",
+    "name": "BUILD_OWNED_UUIDS",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "qualifiedName": "ScenarioIndex.BUILD_OWNED_UUIDS",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:83fde3d3-dadd-43ad-a091-3064016e3eea"
+  }
+}

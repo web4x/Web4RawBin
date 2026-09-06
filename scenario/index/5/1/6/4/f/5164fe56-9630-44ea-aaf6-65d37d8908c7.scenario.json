@@ -1,0 +1,41 @@
+{
+  "ior": "ior:class:Diagram",
+  "ownerIor": null,
+  "model": {
+    "uuid": "5164fe56-9630-44ea-aaf6-65d37d8908c7",
+    "name": "Model diagram (1 classes)",
+    "views": [
+      {
+        "unit": "modelelement:6d9be734-aaa3-4a0d-a487-ea9b5f9223c7",
+        "x": 73,
+        "y": 309,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:e9ddca3f-0bae-4798-a4db-276d4385321a",
+        "x": 70,
+        "y": 105,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:0aa95da5-352d-4444-a865-09815dfae184",
+        "x": 424,
+        "y": 190,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:46076aa7-0599-43c0-a2e7-aa09748723b6",
+        "x": 88,
+        "y": 489,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:95508bd3-3ce3-4254-8970-83e2cec51577",
+        "x": 633,
+        "y": 538,
+        "viewKind": "tsClass"
+      }
+    ],
+    "zoom": 0.34660993178466337
+  }
+}

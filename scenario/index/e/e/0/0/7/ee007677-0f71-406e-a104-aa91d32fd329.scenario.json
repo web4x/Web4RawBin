@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ee007677-0f71-406e-a104-aa91d32fd329",
+    "name": "MessageInput",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/message-unit.ts",
+    "qualifiedName": "MessageInput",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:e175d1fb-57dc-4f1c-a7cb-b2b49ddeec33",
+      "ior:instance:7dd09aa9-da44-429f-ab6b-4a52374d5658",
+      "ior:instance:c3fbd220-8462-473a-ad5d-1094cbe728fb",
+      "ior:instance:2c7f2d1c-351d-4eba-ae48-624049a79d1d",
+      "ior:instance:dada0a61-9b5e-46f5-a50d-6ebaba38bef3"
+    ]
+  }
+}

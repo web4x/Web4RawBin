@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "13f3fadb-b6e9-48f3-a5d1-27826a74e874",
+    "name": "renderIndex",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/sprint-overview-generator.ts",
+    "qualifiedName": "SprintOverviewGenerator.renderIndex",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:845a8119-810b-4517-a8a1-2711b35d9cdb",
+    "visibility": "private",
+    "parameters": [],
+    "returnType": "string",
+    "documentation": "Regenerate ONLY the between-markers index block (the content that goes inside BEGIN/END). Pure.",
+    "parentClass": "ior:instance:845a8119-810b-4517-a8a1-2711b35d9cdb"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "04125e62-5ce0-4aca-af03-db206428405a",
+    "name": "list",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "UnitIndex.list",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:cd8bf4e2-daf8-48b1-abb5-65cb23c1caaa",
+    "visibility": "public",
+    "parameters": [],
+    "returnType": "string[]",
+    "parentClass": "ior:instance:cd8bf4e2-daf8-48b1-abb5-65cb23c1caaa"
+  }
+}

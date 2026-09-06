@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1b4cddb9-410e-4ac7-a941-b20e9a8a4dcc",
+    "name": "from",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/agent-message.ts",
+    "qualifiedName": "AgentMessageModel.from",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:6ecdd44c-075e-4854-a04b-a0c659da9fe3"
+  }
+}

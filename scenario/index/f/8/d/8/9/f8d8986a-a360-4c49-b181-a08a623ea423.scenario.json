@@ -1,0 +1,65 @@
+{
+  "ior": "ior:class:Diagram",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f8d8986a-a360-4c49-b181-a08a623ea423",
+    "name": "another diagram",
+    "views": [
+      {
+        "unit": "modelelement:be1e9403-98c4-4b0b-82e6-9f2a10a9f953",
+        "x": 113,
+        "y": 179,
+        "viewKind": "UmlUseCase"
+      },
+      {
+        "unit": "modelelement:29b78da3-f9aa-47c6-b706-46df6e47a69a",
+        "x": 144,
+        "y": 270,
+        "viewKind": "UmlUseCase"
+      },
+      {
+        "unit": "modelelement:872ab2b8-e6a3-4b70-b4b0-8e53c8b710fd",
+        "x": 282,
+        "y": 449,
+        "viewKind": "tsClass"
+      },
+      {
+        "unit": "modelelement:3b394294-0e47-4d3d-887e-9bbc1a7af786",
+        "x": 431,
+        "y": 573,
+        "viewKind": "UmlFunction"
+      },
+      {
+        "unit": "modelelement:3ee364a5-472f-44f2-bc1b-79df494b2f0f",
+        "x": 136,
+        "y": 347,
+        "viewKind": "UmlUseCase"
+      },
+      {
+        "unit": "modelelement:fc327458-03d1-4b90-847d-ab52a7d82237",
+        "x": 827,
+        "y": 431,
+        "viewKind": "node"
+      },
+      {
+        "unit": "modelelement:09730090-42e0-44c7-bcad-703c53420aa2",
+        "x": 272,
+        "y": 765,
+        "viewKind": "tsClass"
+      },
+      {
+        "unit": "modelelement:255e3d4e-2e90-444f-867a-b3bbfa66f7eb",
+        "x": 414,
+        "y": 225,
+        "viewKind": "tsClass"
+      },
+      {
+        "unit": "modelelement:95508bd3-3ce3-4254-8970-83e2cec51577",
+        "x": 421,
+        "y": 101,
+        "viewKind": "tsClass"
+      }
+    ],
+    "zoom": 0.7561436672967866
+  }
+}

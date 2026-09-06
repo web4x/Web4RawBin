@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f912c8bc-288b-4ab7-aeef-2eed3b9831f0",
+    "name": "reason",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/source-location.ts",
+    "qualifiedName": "SourceIssue.reason",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:4d01a55c-a94b-47f1-a01b-1042c35737b8"
+  }
+}

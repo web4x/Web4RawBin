@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "04ef115b-caa5-4259-accb-24348041fd96",
+    "name": "LIST_CACHE_TTL",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "qualifiedName": "ScenarioIndex.LIST_CACHE_TTL",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:83fde3d3-dadd-43ad-a091-3064016e3eea"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "ior": "ior:class:Diagram",
+  "ownerIor": null,
+  "model": {
+    "uuid": "b7f284d5-9845-4576-acbe-cd348f827014",
+    "name": "Profile diagram",
+    "views": [
+      {
+        "unit": "modelelement:58ba2162-86a7-4ae2-af0f-01908b1febc5",
+        "x": 36,
+        "y": 62,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:0aa95da5-352d-4444-a865-09815dfae184",
+        "x": 847,
+        "y": 364,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:09730090-42e0-44c7-bcad-703c53420aa2",
+        "x": 780,
+        "y": 160,
+        "viewKind": "tsClass"
+      },
+      {
+        "unit": "modelelement:97e5e14e-aaf7-4783-8352-f6da5bbc5e24",
+        "x": 191,
+        "y": 949,
+        "viewKind": "UmlUseCase"
+      },
+      {
+        "unit": "modelelement:2c2be155-4e3c-425e-aaf4-0196f1a3be06",
+        "x": 304,
+        "y": 91,
+        "viewKind": "method"
+      },
+      {
+        "unit": "modelelement:c6b58e5f-35df-460e-aa19-349b91915580",
+        "x": 262,
+        "y": 310,
+        "viewKind": "attribute"
+      },
+      {
+        "unit": "modelelement:b7a1ffb8-2f37-41f3-ab46-330fa46afc37",
+        "x": 39,
+        "y": 309,
+        "viewKind": "attribute"
+      },
+      {
+        "unit": "modelelement:1fc4ea0c-2cd9-46cb-a6ec-156491b96f97",
+        "x": 36,
+        "y": 627,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:d78db08d-77c1-4fb0-ac57-fac77163b878",
+        "x": 45,
+        "y": 459,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:8106d378-04ee-4869-b803-37b21dd2b0bb",
+        "x": 231,
+        "y": 843,
+        "viewKind": "UmlUseCase"
+      },
+      {
+        "unit": "modelelement:d86af73d-4a89-4ce3-ae7d-36b840e8117e",
+        "x": 267,
+        "y": 577,
+        "viewKind": "tsClass"
+      },
+      {
+        "unit": "modelelement:1ac56b78-2703-4442-aec5-9497a7a139b5",
+        "x": 747,
+        "y": 905,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:e8c9f3c9-1fd4-471a-afbc-a5985e9cc7bb",
+        "x": 599,
+        "y": 377,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:89d1f9b6-14d3-4e3f-a5a6-2bcf5082cc91",
+        "x": 319,
+        "y": 723,
+        "viewKind": "attribute"
+      },
+      {
+        "unit": "modelelement:0a3d9347-fd52-4196-a3c9-839e2e46c230",
+        "x": 87,
+        "y": 1235,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:d3384639-f312-4f49-a3e9-ab6a035c53b3",
+        "x": 462,
+        "y": 1261,
+        "viewKind": "attribute"
+      },
+      {
+        "unit": "modelelement:676a51bc-19e3-485e-ad5b-ec37545f73c0",
+        "x": 1007,
+        "y": 621,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:f1309202-83f0-4152-ac8e-5dfe78824e6e",
+        "x": 934,
+        "y": 780,
+        "viewKind": "method"
+      },
+      {
+        "unit": "modelelement:63cc0407-aaa8-4025-a3cb-ff683be7584c",
+        "x": 1141,
+        "y": 264,
+        "viewKind": "type"
+      },
+      {
+        "unit": "modelelement:fc327458-03d1-4b90-847d-ab52a7d82237",
+        "x": 353,
+        "y": 1595,
+        "viewKind": "node"
+      },
+      {
+        "unit": "modelelement:0e6884ef-5631-4b8e-a528-5cff9ff1aabf",
+        "x": 926,
+        "y": 1205,
+        "viewKind": "certificate"
+      },
+      {
+        "unit": "modelelement:95508bd3-3ce3-4254-8970-83e2cec51577",
+        "x": 306,
+        "y": 424,
+        "viewKind": "tsClass"
+      }
+    ],
+    "zoom": 1.5122873345935737
+  }
+}

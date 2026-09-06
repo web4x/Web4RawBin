@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1b146e5c-c850-48f1-a41c-3619a985eaa9",
+    "name": "expect",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/consistency-guard.ts",
+    "qualifiedName": "VacuousOpts.expect",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:de7267a7-a599-4c9c-aeef-3a2b2915054a",
+    "relatesTo": [
+      "ior:instance:19a59547-a908-49c1-abfc-604e6bef7fe0"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:19a59547-a908-49c1-abfc-604e6bef7fe0",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000010"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "0aacb8ee-d731-4187-afc1-66f51ad10010",
+    "name": "lines",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/source-location.ts",
+    "qualifiedName": "SourceLocation.lines",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:24605220-a734-4f5b-aa61-0ccd1037266a"
+  }
+}

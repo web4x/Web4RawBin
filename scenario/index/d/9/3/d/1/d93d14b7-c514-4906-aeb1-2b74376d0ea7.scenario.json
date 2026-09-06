@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d93d14b7-c514-4906-aeb1-2b74376d0ea7",
+    "name": "depth",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skills.ts",
+    "qualifiedName": "ChainStep.depth",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:5b334100-3270-41d9-af00-00de9d6b52e9"
+  }
+}
