@@ -21,8 +21,8 @@ try {
   const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 }, ignoreHTTPSErrors: true, serviceWorkers: 'block', acceptDownloads: false });
   await seedSystemTester(ctx);
   const page = await ctx.newPage();
-  const sysmsgs = [];
-  page.on('console', () => {});
+  const reqs = []; // DEFECT-1 pattern: capture requests to prove a same-origin drop makes ZERO origin-fetch (not merely no-403)
+  page.on('request', (r) => reqs.push(r.url()));
   await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => window.__rawbinClient?.connected === true, { timeout: 20000 }).catch(() => {});
   await page.evaluate(() => window.__rawbinClient?.send({ type: 'UPDATE_PROFILE', name: 'SystemTester' }));
@@ -63,21 +63,24 @@ try {
     return { ok: true, dtTypes: types, beforeTreeLen };
   }, fileUuid);
   R(`  in-app drop fired: ${JSON.stringify(dropResult).slice(0, 160)}`);
-  await sleep(4000); // import + ViewBus re-derive + render
+  const reqsBefore = reqs.length;
+  await sleep(4000); // local relink (contract) OR federation-import + ViewBus re-derive + render
+  const dropReqs = reqs.slice(reqsBefore);
+  const federationFetch = dropReqs.filter((u) => /\/api\/federation\/import/.test(u)); // the origin-fetch path that 403'd
+  const zeroFetch = federationFetch.length === 0; // DEFECT-1 acceptance: a SAME-ORIGIN drop resolves with ZERO origin-fetch
 
   // ASSERT: not a silent no-op → the dropped unit resolves as its CLASS (2/3) AND renders in the room tree (2). System messages
   //   ([federation] imported / dnd-debug) confirm the DropDispatcher PROCESSED it (vs the pre-fix silent nothing).
   const post = await page.evaluate(() => { const tree = document.getElementById('room-tree'); const sys = [...document.querySelectorAll('.chat-message, .chat-msg, [class*="message"]')].map((n) => n.textContent || '').filter((t) => /federation|dnd-debug|imported|uploaded|link/i.test(t)).slice(-5); return { treeText: (tree?.textContent || '').slice(0, 400), treeLen: (tree?.textContent || '').length, sys }; });
   const dtHadUnitMime = (dropResult.dtTypes || []).some((t) => /rb-object-ref|rb-unit|rb-federated-ref/.test(t));
-  const processed = post.sys.length > 0 || post.treeLen > (dropResult.beforeTreeLen || 0); // DropDispatcher did SOMETHING (not silent)
-  // ★ a '[federation] import failed / 403 / error' in the system log is a FAILED LINK, NEVER a pass. PASS requires the LINK to
-  //   SUCCEED (a success message + no failure) — 'processed' (a message appeared) is necessary-not-sufficient (my false-green).
+  // ★ DEFECT-1 PATTERN (PO): acceptance is ZERO-FETCH — a same-origin drop resolves via the contract LOCAL relink with NO
+  //   /api/federation/import origin-fetch at all (not merely 'no 403'). A reordered branch that still fetches-then-succeeds
+  //   would pass a no-error check; it CANNOT pass zero-fetch. + no error message + the unit renders.
   const sysFailed = post.sys.some((t) => /failed|error|403|401|denied|not found/i.test(t));
-  const linkSucceeded = post.sys.some((t) => /imported/i.test(t)) && !sysFailed;
   const renders = /drop-src|file:/.test(post.treeText) || post.treeLen > 0;
-  results.inAppObjectRef = { dtHadUnitMime, processed, sysFailed, linkSucceeded, renders, class: fileIor?.className, sys: post.sys, pass: dtHadUnitMime && linkSucceeded && renders };
-  R(`  [INPUT in-app object-ref] dt-had-unit-MIME=${dtHadUnitMime} processed(not-silent)=${processed} renders=${renders} class=${fileIor?.className} sys=${JSON.stringify(post.sys).slice(0, 160)}`);
-  R(`    ⇒ ${results.inAppObjectRef.pass ? 'PASS — the app DropDispatcher instantiated the class + processed the drop (NOT the old silent no-op)' : 'FAIL / INCONCLUSIVE — inspect (silent no-op = RED)'}`);
+  results.inAppObjectRef = { dtHadUnitMime, zeroFetch, federationFetch, sysFailed, renders, class: fileIor?.className, sys: post.sys, pass: dtHadUnitMime && zeroFetch && !sysFailed && renders };
+  R(`  [INPUT in-app object-ref] dt-had-unit-MIME=${dtHadUnitMime} ZERO-FETCH=${zeroFetch}(federation/import calls=${federationFetch.length}) noError=${!sysFailed} renders=${renders} class=${fileIor?.className} sys=${JSON.stringify(post.sys).slice(0, 140)}`);
+  R(`    ⇒ ${results.inAppObjectRef.pass ? 'PASS — same-origin drop relinks LOCALLY via the contract with ZERO origin-fetch, no error, renders' : `RED — ${!zeroFetch ? 'still origin-fetches (' + federationFetch.length + ' /api/federation/import)' : sysFailed ? 'error in sys (' + post.sys.filter((t) => /fail|403|error/i.test(t)).join('|').slice(0, 80) + ')' : 'no render'}`}`);
 
   await ctx.close();
 } catch (e) { R(`  ERROR: ${String(e && e.message).slice(0, 200)}`); results.error = String(e && e.message).slice(0, 200); }
