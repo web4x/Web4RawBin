@@ -21,6 +21,13 @@ const PROD_INDEX = path.join(ROOT, 'scenario/index');
 
 function main(): void {
   if (!process.argv.includes('--run')) { console.error('regen-model: refusing — pass --run to execute (argv-gated; import never auto-runs).'); process.exit(2); }
+  // R40.81 Slice-3 (PO follow-on, by-construction not a written tripwire): post-flip the model-store is FROZEN and live
+  // reads resolve scenario/index — a regen writing data/model-store/index would be INVISIBLE to live reads (the divergence
+  // the whole arc guards). Read the flip flag (process.env OR .env — where the live flip lives) and REFUSE rather than write
+  // the frozen store. Roll back the flip (MODEL_STORE_SOURCE=model-store) before regenerating, or extend this CLI to target
+  // the live store via the same resolver.
+  const flip = process.env.MODEL_STORE_SOURCE || (() => { try { const m = fs.readFileSync(path.join(ROOT, '.env'), 'utf-8').match(/^\s*MODEL_STORE_SOURCE\s*=\s*(\S+)/m); return m ? m[1].trim() : ''; } catch { return ''; } })();
+  if (flip === 'scenario-index') { console.error('regen-model: REFUSING — MODEL_STORE_SOURCE=scenario-index (R40.81 flip active). Writing data/model-store/index would land in the FROZEN store, invisible to live reads. Roll back the flip (set MODEL_STORE_SOURCE=model-store) before regenerating.'); process.exit(2); }
   const di = process.argv.indexOf('--dir');
   const relDir = di !== -1 && process.argv[di + 1] ? process.argv[di + 1] : 'src/ts/scenario';
   const who = (() => { try { return os.userInfo().username; } catch { return 'unknown'; } })();
