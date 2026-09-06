@@ -29,7 +29,7 @@
       "ior:instance:deeeec90-568c-4019-8163-0c2dfd460741"
     ],
     "crossRefNote": "Containment family: R40.83 (resolve the destination folder by ONE identity), R40.84 (in-place tree update on the drop-add), R40.85 (the fixed upload path this builds on), R40.78 (add-folder-in-room containment). Ties the unit-IS-the-MVC-model + drop-resolves-destination-by-one-identity lessons.",
-    "satisfactionStatus": "UNVERIFIED (captured; drop-target capability unbuilt; no stub RED observed).",
+    "satisfactionStatus": "PARTIAL / RE-OPENED 2026-09-06. The ROOM-folder file-drop is GREEN (tester 6933f7c97 DET 3/3 v0.8.185: lands inside, renders as child, one unit, no regression). BUT the requirement is now BROADER after the scope correction: Folder-implements-DropTarget on EVERY surface (incl model) + the model-folder blob-create path = required work, architect redesigning. So R40.86 is NOT fully satisfied — the per-surface carve-out that would have called it done was struck. Honest partial per R40.54.",
     "acceptanceCriteria": [
       {
         "id": "AC-folder-is-drop-target",
@@ -99,17 +99,41 @@
       },
       {
         "id": "AC-scope-room-files-not-model-blobs",
-        "group": "scope-boundary",
-        "text": "SCOPE (architect design 167c94ca4, PO-approved): ROOM folders accept dropped FILES (via the room upload -> createFileUnit path, parent=target folder). MODEL-COLLECTION file-drop is OUT OF SCOPE — the model store holds model UNITS (minted via mintRealUnit), NOT uploaded file blobs; there is no create path for a file inside a model folder, so a drop would have nowhere to land. This is a genuine BOUNDARY, not deferred work we owe. The drop-target MECHANISM generalizes the moment a model blob-create path exists; re-parenting an existing unit into a folder (drag-move, no mint) is a distinct future op.",
+        "group": "REVOKED",
+        "text": "REVOKED 2026-09-06 (struck-in-place, NOT appended — the carve-out must not survive as text a future agent could act on). This AC WRONGLY enshrined a PER-SURFACE CARVE-OUT (room-folder file-drop IN / model-collection OUT) as a design BOUNDARY. It was a MISSING IMPLEMENTATION dressed up as scope. TRON OVERRULED (verbatim): 'a folder being a drop target is for every folder everywhere... not just in certain rooms. oop folder implements dropTarget... are you kidding me?' A Folder is a drop target EVERYWHERE by virtue of being a Folder; 'the model store has no blob-create path' is WORK TO BUILD, not a permitted absence. SUPERSEDED BY AC-folder-implements-droptarget + AC-model-blob-create-path-required. (WHY it changed: PO ratified a carve-out at my direction; Tron overruled; the capability belongs to the CLASS, not the rendering context.)",
         "gateRef": {
           "kind": "doc",
-          "ref": "architect design 167c94ca4 (PO-approved)",
-          "assertion": "room-folder file-drop IN scope (createFileUnit path); model-collection file-drop OUT of scope (no blob-create path) = boundary not omission"
+          "ref": "REVOKED — Tron overruled 2026-09-06",
+          "assertion": "struck; the drop-target capability is on the Folder CLASS (see superseding ACs), not a per-surface boundary"
         },
-        "stubMustFail": "N/A (scope-boundary declaration recorded so a future reader does not read the model-collection exclusion as an omission; not a failable gate)"
+        "stubMustFail": "N/A (revoked tombstone)",
+        "revoked": true
+      },
+      {
+        "id": "AC-folder-implements-droptarget",
+        "group": "class-capability/OOP-first",
+        "text": "Folder IMPLEMENTS DropTarget — EVERY Folder, EVERY surface (room, model, anywhere), by virtue of being a Folder. The drop-target capability belongs to the Folder CLASS, not the rendering/surface context; a Folder is never a drop target in one place and not another. (OOP-first, sibling of R40.82 Folder-owns-its-children: capability-on-the-class, not a per-context helper — a per-surface carve-out IS the functional-construct defect.)",
+        "gateRef": {
+          "kind": "test",
+          "ref": "Folder.dropTarget capability",
+          "assertion": "a Folder rendered on ANY surface accepts a drop by virtue of its class; a Folder that accepts on one surface but not another => RED"
+        },
+        "stubMustFail": "PENDING: seed a Folder on the model surface, assert it accepts a drop (currently would not) -> RED until built"
+      },
+      {
+        "id": "AC-model-blob-create-path-required",
+        "group": "required-capability/work-owed",
+        "text": "The model store currently has NO create path for a dropped file/blob inside a model folder. This is a REQUIRED CAPABILITY TO BUILD (work owed), NOT a permitted absence or exclusion: a file dropped into a model folder MUST LAND (the create path is built so the drop has somewhere to go). Recorded as required work, never as a scope boundary.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "model-folder file-drop create path",
+          "assertion": "a file dropped into a model folder lands (create path exists); no-create-path => RED (work owed, not a boundary)"
+        },
+        "stubMustFail": "PENDING: drop a file into a model folder -> currently nowhere to land -> RED until the create path is built"
       }
     ],
-    "scopeBoundary": "SCOPE (architect design 167c94ca4, PO-approved): ROOM folders accept dropped FILES (via the room upload -> createFileUnit path, parent=target folder). MODEL-COLLECTION file-drop is OUT OF SCOPE — the model store holds model UNITS (minted via mintRealUnit), NOT uploaded file blobs; there is no create path for a file inside a model folder, so a drop would have nowhere to land. This is a genuine BOUNDARY, not deferred work we owe. The drop-target MECHANISM generalizes the moment a model blob-create path exists; re-parenting an existing unit into a folder (drag-move, no mint) is a distinct future op."
+    "scopeBoundary": "CORRECTED 2026-09-06 (was a per-surface carve-out; STRUCK): the drop-target capability is on the Folder CLASS = every Folder every surface. The model-store blob-create path is REQUIRED WORK (AC-model-blob-create-path-required), not an exclusion. Tron overruled the carve-out; capability belongs to the class, not the rendering context.",
+    "scopeCorrectionNote": "2026-09-06: PO recorded AC-scope-room-files-not-model-blobs (a per-surface carve-out) at PO direction; TRON OVERRULED (verbatim: 'a folder being a drop target is for every folder everywhere... not just in certain rooms. oop folder implements dropTarget... are you kidding me?'). A Folder implements DropTarget by virtue of being a Folder (capability on the class). The model-store missing blob-create path became WORK TO BUILD, not a permitted absence. Old carve-out AC struck-in-place (tombstone kept for revocation traceability, actionable text removed). Architect redesigning on this basis."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
