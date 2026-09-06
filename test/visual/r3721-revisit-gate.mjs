@@ -32,8 +32,12 @@ try {
   await sleep(1500);
   await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.renderSeed) t.renderSeed(rid); }, roomId);
   await sleep(1500);
-  await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.expandPath) { await t.expandPath([`room:${rid}`]).catch(() => {}); await t.expandPath([`roomcoll:${rid}:files`]).catch(() => {}); await t.expandPath([`roomcoll:${rid}:files/Alpha`]).catch(() => {}); } }, roomId);
-  await sleep(1200);
+  await page.evaluate(async (rid) => { const t = document.getElementById('room-tree'); if (t?.expandPath) { await t.expandPath([`room:${rid}`]).catch(() => {}); await t.expandPath([`roomcoll:${rid}:files`]).catch(() => {}); } }, roomId);
+  await sleep(1000);
+  // CLEAN nested-expand (PO): Alpha's tree node is a real Folder unit (ref=folder:<uuid>), NOT roomcoll:…/Alpha — so expandPath by
+  // the location ref never opened it. Find Alpha's NODE by name + toggle-children open, then Beta (its child) should render.
+  const alphaToggled = await page.evaluate(() => { const t = document.getElementById('room-tree'); const a = [...t.querySelectorAll('rb-object-item')].find((n) => ((n.getAttribute('title') || '') + ' ' + (n.textContent || '')).includes('Alpha')); if (!a) return false; a.dispatchEvent(new CustomEvent('toggle-children', { bubbles: true, detail: { open: true } })); a.dispatchEvent(new MouseEvent('click', { bubbles: true })); return true; });
+  await sleep(1500);
   R(`  room=${roomId.slice(0, 12)} served=${servedVersion}`);
 
   const tree = await page.evaluate(() => (document.getElementById('room-tree')?.textContent || '').replace(/\s+/g, ' '));
