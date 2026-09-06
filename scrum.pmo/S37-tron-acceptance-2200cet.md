@@ -2,6 +2,8 @@
 
 **Deadline 22:00 CET.** Each item is machine-verified + at QA-Review awaiting **your** accept (0 Done till Tron). Accept in one pass, top-down — ordered fastest-to-verify-on-your-own-screen first.
 
+**★ Waiting on: YOUR accept — and nothing else.** Every row below is machine-verified and gated; the only thing between it and Done is your word. **Nothing is waiting on us** (we checked each one). Two rows need your *gesture*, not our work, and they're yours to do on accept anyway: **T37.31** = your real-iOS device (background/lock → foreground); **T37.20.4** = your drag of an in-app item onto a tree folder. Both are being machine-hardened too (T37.41), so they'll need no gesture soon.
+
 ## A · VISUAL — verify by glancing at your screen (fastest)
 | # | Delivers | Evidence |
 |---|----------|----------|

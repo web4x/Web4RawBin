@@ -34,9 +34,9 @@ Dropping an image instantiates an Image object that owns its model+view+controll
 
 ## Acceptance Criteria
 
-- [ ] Image is a CLASS implementing UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves an image drop to the Image class (no content-type string-switch anywhere outside MimeType).
-- [ ] A dropped image RESOLVES to an Image scenario unit that is INSTANTIATED; the Image object owns its model+view+controller and RENDERS ITSELF (detail + preview) — not bytes stored, not a handler branch.
-- [ ] DEFINITION OF DONE: the right CLASS (Image) is instantiated AND rendering itself; a mime/format switch handling images = RED (the defect).
+- [ ] **(radical-oop/dispatch)** Image implements UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a image drop (.png/.jpg/image-*) to the Image class; NO content-type string-switch outside MimeType.
+- [ ] **(radical-oop/mvc)** A dropped image RESOLVES to a Image scenario unit that is INSTANTIATED; the Image object owns model+view+controller and RENDERS ITSELF (detail + EXIF/preview) — not bytes-stored, not a handler branch.
+- [ ] **(radical-oop/dod)** DEFINITION OF DONE: the right CLASS (Image) is instantiated AND rendering itself; a mime/format switch handling images = RED (the defect).
 
 ## Subtasks
 

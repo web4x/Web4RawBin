@@ -34,9 +34,9 @@ Dropping a calendar entry (.ics) instantiates a CalendarEntry object that owns i
 
 ## Acceptance Criteria
 
-- [ ] CalendarEntry is a CLASS implementing UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a calendar-entry drop (.ics/text-calendar) to the CalendarEntry class (no content-type string-switch outside MimeType).
-- [ ] A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the object owns its model+view+controller and RENDERS ITSELF (detail + preview) — not bytes stored, not a handler branch.
-- [ ] DEFINITION OF DONE: the right CLASS (CalendarEntry) is instantiated AND rendering itself; a mime/format switch handling calendar entries = RED.
+- [ ] **(radical-oop/dispatch)** CalendarEntry implements UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a calendar-entry drop (.ics/text-calendar) to the CalendarEntry class; NO content-type string-switch outside MimeType.
+- [ ] **(radical-oop/mvc)** A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the CalendarEntry object owns model+view+controller and RENDERS ITSELF (detail + date fields) — not bytes-stored, not a handler branch.
+- [ ] **(radical-oop/dod)** DEFINITION OF DONE: the right CLASS (CalendarEntry) is instantiated AND rendering itself; a mime/format switch handling calendar-entrys = RED (the defect).
 
 ## Subtasks
 

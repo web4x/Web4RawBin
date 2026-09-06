@@ -37,8 +37,8 @@ _Nothing here is Done — Done is YOUR act (approve → recorded as approvedBy/a
 - 🧪 **S40 95d74272** Task 40.6: deploymentRefs -> real typed OOP model (t — _Test: test:T40.11 AC-1(graph)/AC-2(crown)/AC-3(view_
 
 #### ⚠️ NOT READY — 3 (at QA-Review but evidence INCOMPLETE — NOT approvable)
-- 🧪 **S37 257ab50f** Task 37.40: CalendarEntry is a natural CLASS — dropp — _needs: Impl exists but markerPending (not shipped)_
-- 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: Impl exists but markerPending (not shipped)_
+- 🧪 **S37 257ab50f** Task 37.40: CalendarEntry is a natural CLASS — dropp — _needs: NO Impl on chain (unbuilt)_
+- 🧪 **S37 bc0302dd** Task 37.39: Image is a natural CLASS — dropping an i — _needs: NO Impl on chain (unbuilt)_
 - 🧪 **S40 773a1173** Task 40.91: Exactly ONE unit-changed->notify transla — _needs: Impl exists but markerPending (not shipped)_
 
 #### 📱 NEEDS YOUR DEVICE ACTION — 31 (device/pixel @390, e.g. AC-5-DEVICE — a distinct act, batch into ONE device sitting)

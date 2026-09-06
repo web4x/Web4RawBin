@@ -11,6 +11,7 @@
     "acceptanceCriteria": "- [ ] AC-image-unitconvertible-mimetype: Image implements UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a image.\n- [ ] AC-image-instantiated-renders-itself: A dropped image RESOLVES to a Image scenario unit that is INSTANTIATED; the Image object owns mo.\n- [ ] AC-image-dod-class-renders: DEFINITION OF DONE: the right CLASS (Image) is instantiated AND rendering itself; a mime/format .",
     "subtasks": "None (atomic natural-class task).",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — machine-verified + gated; nothing waiting on us.",
     "coveredRequirements": [
       "ior:instance:bc0e6b7c-c598-4ba9-b1b5-b5de90403f19"
     ],

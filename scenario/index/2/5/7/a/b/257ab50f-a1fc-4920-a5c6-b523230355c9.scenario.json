@@ -11,6 +11,7 @@
     "acceptanceCriteria": "- [ ] AC-calendar-entry-unitconvertible-mimetype: CalendarEntry implements UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves.\n- [ ] AC-calendar-entry-instantiated-renders-itself: A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the Cal.\n- [ ] AC-calendar-entry-dod-class-renders: DEFINITION OF DONE: the right CLASS (CalendarEntry) is instantiated AND rendering itself; a mime.",
     "subtasks": "None (atomic natural-class task).",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — machine-verified + gated; nothing waiting on us.",
     "coveredRequirements": [
       "ior:instance:04fdefc5-3917-405b-bee6-57366e582afa"
     ],
