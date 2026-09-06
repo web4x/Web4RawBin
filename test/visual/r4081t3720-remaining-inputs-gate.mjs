@@ -24,11 +24,13 @@ const INPUTS = [
 const browser = await webkit.launch();
 const out = [];
 let roomId = null;
+let servedVersion = '?'; // GATE-PROVENANCE (PO): read the ACTUAL served build at runtime — never a hardcoded literal that can attribute a verdict to the wrong version
 try {
   const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 }, ignoreHTTPSErrors: true, serviceWorkers: 'block' });
   await seedSystemTester(ctx); const page = await ctx.newPage();
   await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => window.__rawbinClient?.connected === true, { timeout: 20000 }).catch(() => {});
+  servedVersion = await page.evaluate(async () => { try { return (await (await fetch('/api/config', { cache: 'no-store' })).json()).version; } catch { return '?'; } });
   await page.evaluate(() => window.__rawbinClient?.send({ type: 'UPDATE_PROFILE', name: 'SystemTester' }));
   await sleep(1500);
   roomId = await page.evaluate(async () => { const c = window.__rawbinClient; c.createRoom('T3720 remaining', 'SystemTester'); for (let i = 0; i < 60; i++) { await new Promise((r) => setTimeout(r, 250)); const t = document.getElementById('room-tree'); if (t?.getAttribute('data-seed-ior')) return t.getAttribute('data-seed-ior'); } return null; });
@@ -51,9 +53,20 @@ try {
     const cls = fresh ? await iorClass(fresh.uuid) : null;
     const instantiated = !!fresh;
     const rightClass = cls && inp.want.test(cls);
-    const pass = instantiated && rightClass;
-    out.push({ ...inp, uuid: fresh?.uuid, cls, instantiated, pass });
-    R(`  [${inp.key}]${inp.ios ? ' (desktop-webkit repro, NOT real iOS)' : ''}: instantiated=${instantiated} class=${cls || 'none'} → ${pass ? 'PASS' : 'FAIL/INCONCLUSIVE'}`);
+    // RENDER (the user outcome, PO): expand the room Files node and assert THIS unit is VISIBLE in the tree — class-resolves is
+    // necessary, rendering-itself is what Tron sees. A unit in /api but invisible once expanded = a render defect (D1 in costume).
+    const rendered = fresh ? await page.evaluate(async ({ roomId, uuid }) => {
+      const t = document.getElementById('room-tree'); if (!t) return false;
+      if (t.expandPath) { await t.expandPath([`room:${roomId}`]).catch(() => {}); await t.expandPath([`roomcoll:${roomId}:files`]).catch(() => {}); }
+      await new Promise((r) => setTimeout(r, 900));
+      const node = [...t.querySelectorAll('rb-object-item, [ref], [data-ref], [uuid], [data-uuid]')].find((n) => [...n.attributes].some((a) => a.value.includes(uuid)));
+      if (!node) return false;
+      const el = node.closest('.tt-row') || node;
+      return el.offsetHeight > 0 && el.getBoundingClientRect().height > 0; // present AND visible (not height-0/clipped)
+    }, { roomId, uuid: fresh.uuid }) : false;
+    const pass = instantiated && rightClass && rendered;
+    out.push({ ...inp, uuid: fresh?.uuid, cls, instantiated, rendered, pass });
+    R(`  [${inp.key}]${inp.ios ? ' (desktop-webkit repro, NOT real iOS)' : ''}: instantiated=${instantiated} class=${cls || 'none'} rendered-visible=${rendered} → ${pass ? 'PASS' : 'FAIL/INCONCLUSIVE'}`);
   }
   // cleanup
   await page.evaluate((rid) => window.__rawbinClient?.deleteRoom?.(rid), roomId); await sleep(1200);
@@ -61,7 +74,7 @@ try {
 } catch (e) { R(`  ERROR: ${String(e && e.message).slice(0, 200)}`); }
 finally { await browser.close().catch(() => {}); }
 
-R(`\n═══ T37.20 REMAINING INPUTS — UNIT CLASS per input (prod v0.8.199) ═══`);
-for (const r of out) R(`  ${r.key.padEnd(34)}: ${r.pass ? 'PASS' : 'FAIL'} (class=${r.cls || 'none'})${r.ios ? ' [desktop-webkit repro, not real iOS]' : ''}`);
-R(`  NOTE: PASS = correct CLASS instantiated; a photo/eml/vcf/ics resolving as bare File = WRONG class = FAIL (Tron: right class, not 'stored').`);
+R(`\n═══ T37.20 REMAINING INPUTS — UNIT CLASS + RENDER per input (prod SERVED v${servedVersion}) ═══`);
+for (const r of out) R(`  ${r.key.padEnd(34)}: ${r.pass ? 'PASS' : 'FAIL'} (class=${r.cls || 'none'}, rendered-visible=${r.rendered})${r.ios ? ' [desktop-webkit repro, not real iOS]' : ''}`);
+R(`  PASS = correct CLASS instantiated AND the unit RENDERS VISIBLE on expand (Tron: right class AND rendering itself, not just 'stored'). Bare File on a typed input, or class-ok-but-invisible = FAIL.`);
 process.exit(out.every((r) => r.pass) ? 0 : 1);

@@ -42,6 +42,8 @@ import './rb-implementation-detail.js';
 import './rb-test-detail.js';
 import './rb-detail-view.js';
 import './rb-diagram-detail.js'; // R32.4: MDA SVG diagram surface as a drawer detail-view (additive; no fork)
+import './rb-natural-detail.js'; // T37.20 DEFECT-2 inc-2: the ONE generic detail element for a natural class that renders itself (registered via natural-render.ts)
+import { hasNaturalRender } from '../mime/natural-render.js'; // OCP: registry lookup — a natural class mounts rb-natural-detail with NO tagMap entry
 import { sprintDisplayName } from '../../../ts/scenario/sprint-label.js'; // R40.4-phase2 shared sprint display-name renderer
 
 export class RbDetailDrawer extends HTMLElement {
@@ -301,7 +303,10 @@ export class RbDetailDrawer extends HTMLElement {
       modelelement: 'rb-modelelement-detail', // R32.10 (INV-M2): MDA M1 element detail
       'puml-src': 'rb-modelelement-detail', // R33.1.1: a puml/ source-.puml leaf mounts rb-modelelement-detail
     };
-    const tag = tagMap[rawType] || tagMap[type] || 'rb-detail-view'; // rawType FIRST preserves synthetic bespoke views; else resolved type; else the generic default
+    // rawType FIRST preserves synthetic bespoke views; else resolved type; else — T37.20 DEFECT-2 inc-2 — a natural class
+    // that REGISTERED its own render mounts the ONE generic rb-natural-detail (it renders itself); else the generic default.
+    // OCP: a 6th natural class registers its render and is picked up HERE by the lookup with ZERO edits to tagMap or this line.
+    const tag = tagMap[rawType] || tagMap[type] || (hasNaturalRender(type) ? 'rb-natural-detail' : 'rb-detail-view');
     panel.dataset.currentRef = ref;
     // MOUNT once (reuse the element when the tag is unchanged → the double-invoke per select updates the ref, never a 2nd
     // element). Pass the REAL graph ONLY (this._graph — may be null in scenario-view); the element derives from that ONE
