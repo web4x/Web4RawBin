@@ -29,7 +29,10 @@
     },
     "satisfactionStatus": "UNVERIFIED (directive captured + state MEASURED; one-store lint + migration DESIGNED-BY-ARCHITECT-PENDING, unbuilt, no stub RED observed — honest third state per R40.54).",
     "crossRef": [
-      "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b"
+      "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b",
+      "ior:instance:929a5117-b30b-4aec-9f50-d9de74e61cbd",
+      "ior:instance:6009a5ad-a39a-4b77-932e-0d597c897bdf",
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
     ],
     "crossRefNote": "Supersedes R40.69's two-store-legitimacy ruling (see supersedes field). Reuses the correct-shape precedents: R17.5 speaking-name symlink tree + data/users room-file symlink dirs. Rides the R40.54 failable-AC family (each AC carries gateRef+stubMustFail). CAPTURE-ONLY, non-blocking on the add-folder fix (architect sequences).",
     "acceptanceCriteria": [
@@ -147,11 +150,11 @@
       {
         "id": "AC-one-canonical-owner-zero-residual",
         "group": "migration/one-owner (folded from R40.95)",
-        "text": "ONE canonical storage owner afterwards (scenario/index via the canonical put/ScenarioIndex), ZERO residual second path: server.ts:122 MODEL_STORE + data/model-store/index + the usage-index.json sidecar routing are removed or re-pointed; isModelUnit routing collapses to the one store. No writer or reader targets a second store.",
+        "text": "ONE canonical owner of the DATA (scenario/index via the canonical put/ScenarioIndex); the model tree PERSISTS as a reference VIEW (folders holding refs), which is NOT a second owner. FORBIDDEN = a SECOND INDEX (units stored twice / a parallel unit store): server.ts:122 MODEL_STORE + data/model-store/index + usage-index.json sidecar are removed or re-pointed to resolve BY LINK. ★ NO CODE FORKS ON WHICH STORE A UNIT LIVES IN — isModelUnit store-routing collapses; a reader resolves a ref into the one index, never branches on model-store-vs-index. A residual second-store PATH or a which-store fork => RED. (Tron: 'a model tree folder holding links to the scenario index is absolutely valid but NOT a second Index!!!!')",
         "gateRef": {
           "kind": "lint",
-          "ref": "residual-second-store lint",
-          "assertion": "no code path reads/writes data/model-store after migration; a residual second-store ref => RED"
+          "ref": "no-second-index + no-which-store-fork lint",
+          "assertion": "no code stores a unit twice or forks on which store it lives in; a model tree of refs is allowed (resolves by link); a second index or a which-store branch => RED"
         },
         "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
       },
@@ -169,11 +172,11 @@
       {
         "id": "AC-zero-data-loss-authored-vs-regenerable",
         "group": "migration/zero-data-loss (PO split)",
-        "text": "ZERO DATA LOSS with a PRESERVATION SPLIT (PO, reconciled vs tester deduped/symlink-aware measure — re-measure at migration-time, moving target). CURRENT: data/model-store = 784 TOTAL / 669 exist ONLY there (669 relocate + 115 overlap-collapse). Of the 669 only-there: ~628 are TsToModel-REGENERABLE (attribute/method/function/interface/class/type/property ModelElements) = need PRESENT-OR-REGENERABLE; but ~41 are AUTHORED + IRREPLACEABLE (19 File, 6 Diagram, 6 PumlArtifact, 4 Folder, 3 Project, 3 UmlTraceRelationship) = need PRESENCE AND CONTENT-SHA INTACT (Tron's real authored data). The gate MUST distinguish: an authored unit missing OR content-sha-changed => RED; a regenerable unit is present-or-regenerable.",
+        "text": "ZERO DATA LOSS by DE-DUPLICATION, not deletion (Tron-refined 2026-09-06). Every unit exists EXACTLY ONCE in scenario/index: the 669 model-store-only units RELOCATE into the one index; the 115 overlap COLLAPSE to a single copy. NOTHING is deleted — storage is de-duplicated. The model tree PERSISTS as reference-structure (folders holding refs into the one index), NOT as a second copy. PRESERVATION SPLIT (re-measure at migration-time, moving target): of the 669, ~628 are TsToModel-REGENERABLE (attribute/method/function/interface/class/type/property) = present-or-regenerable; ~41 are AUTHORED + IRREPLACEABLE (19 File, 6 Diagram, 6 PumlArtifact, 4 Folder, 3 Project, 3 UmlTraceRelationship) = need PRESENCE AND CONTENT-SHA INTACT (the tester attached relPath + contentSha to each). An authored unit missing OR content-sha-changed => RED.",
         "gateRef": {
           "kind": "test",
-          "ref": "authored-vs-regenerable migration gate",
-          "assertion": "all 41 authored units present + content-sha unchanged post-migration; regenerable units present-or-regenerable; an authored unit lost or sha-changed => RED"
+          "ref": "relocate+collapse migration gate",
+          "assertion": "post-migration each uuid exists EXACTLY ONCE in scenario/index (669 relocated, 115 collapsed, 0 deleted); all 41 authored present + relPath/contentSha unchanged"
         },
         "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
       },
@@ -187,9 +190,21 @@
           "assertion": "the migration refuses to run unless a pre-migration snapshot of data/model-store exists; snapshot-absent => RED/refuse"
         },
         "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-one-owner-many-views-by-reference",
+        "group": "principle/generalises (Tron 2026-09-06)",
+        "text": "THE PRINCIPLE (generalises beyond this migration): ONE canonical owner of the DATA, MANY legitimate VIEWS BY REFERENCE. A view that holds REFS is NOT a second owner; storing the same unit twice IS. A model tree of folders holding links into the one index is VALID; a parallel unit store is FORBIDDEN. Same law as one-translator (R40.91) / one-derivation (R40.92 folderChildrenUnder) / capability-on-the-class (R40.82, R40.86) — stated for STORAGE: the owner is singular, the reference-views are plural.",
+        "gateRef": {
+          "kind": "doc",
+          "ref": "one-owner-many-views-by-reference principle",
+          "assertion": "the data has exactly one owner (scenario/index); reference-views (model tree, symlink trees) are unbounded and legitimate; a second OWNER (duplicate physical store) => RED"
+        },
+        "stubMustFail": "Seed a view that OWNS a copy (stores the unit itself) rather than a ref -> RED; a ref-holding view -> GREEN."
       }
     ],
-    "foldedFrom": "R40.95 (36878dd4) retired into this canonical home 2026-09-06 (PO ruling FOLD-not-mint, same precedent as R31.14): two reqs both 'eliminate the second store' = the duplicate-owner defect the req is about. Net-new ACs (resettability-without-2nd-store, no-regression-baseline, one-canonical-owner-zero-residual, migration-stub, authored-vs-regenerable, snapshot-first) moved here."
+    "foldedFrom": "R40.95 (36878dd4) retired into this canonical home 2026-09-06 (PO ruling FOLD-not-mint, same precedent as R31.14): two reqs both 'eliminate the second store' = the duplicate-owner defect the req is about. Net-new ACs (resettability-without-2nd-store, no-regression-baseline, one-canonical-owner-zero-residual, migration-stub, authored-vs-regenerable, snapshot-first) moved here.",
+    "tronRefinement": "2026-09-06 (verbatim): 'a model tree folder holding links to the scenario index is absolutely valid but NOT a second Index!!!!' CORRECTED GOAL: it is NOT 'eliminate the model tree'. FORBIDDEN = a SECOND INDEX (units stored twice). VALID = a model tree of folders holding LINKS/REFS into the ONE scenario index (resolved by link, not by owning copies). zero-data-loss rephrased to relocate+collapse (de-dup, nothing deleted). Principle recorded: one owner of the DATA, many views by reference. This aligns with R40.81's original AC-additional-index-is-symlink-only (a ref-view was always valid)."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
