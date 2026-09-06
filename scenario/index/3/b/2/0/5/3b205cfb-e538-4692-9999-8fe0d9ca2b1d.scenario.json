@@ -41,14 +41,14 @@
       },
       {
         "id": "AC-retire-419-handshake",
-        "group": "retire/supersede",
-        "text": "The functional 419 self-heal handshake req/ACs are RETIRED (Tron-killed, superseded a85ea536a). No handshake requirement is minted. If a standalone handshake req unit exists, it is marked superseded-not-deleted (annotate-not-fabricate) — FLAGGED to architect/PO for the exact unit.",
+        "group": "retire/resolved",
+        "text": "The functional 419 self-heal handshake is RETIRED (Tron-killed). MEASURED (architect 2026-09-06, scanned all Requirement/UseCase units): NO standalone 419-handshake req/UC unit exists; a85ea536a is a DESIGN DOC ONLY (design-upload-stranded-sw-selfheal.md), superseded via banner = the FULL retirement. R40.100 is the by-construction REPLACEMENT. Nothing to mark superseded (no unit to touch). No handshake requirement is minted; a re-introduced handshake req => flag.",
         "gateRef": {
           "kind": "script",
           "ref": "handshake-absent",
           "assertion": "no functional 419 handshake requirement is active; a re-introduced handshake req => flag"
         },
-        "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+        "stubMustFail": "RESOLVED: no 419 req unit exists (architect-measured); a re-introduced functional handshake req => flag/RED"
       },
       {
         "id": "AC-distinct-from-task-374-selfheal",
