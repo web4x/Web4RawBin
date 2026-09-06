@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 99** (254 = 98+52+3+99)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 95**
+- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **54** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 97** (254 = 98+54+3+97)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 93**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 51 | 1 | 14 | 0 | 36 |
+| S37 | 51 | 1 | 16 | 0 | 34 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 25 · build 57
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 23 · build 57
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -47,7 +47,6 @@
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
 | S37 | 61718883 | Planned | build | Task 37.28: Truth-decay / no-freshness-invariant family — co |
 | S37 | 6541850f | In Progress | build | Task 37.30: File/WebItem detail render CONVERGENCE onto the  |
-| S37 | 68364f5e | In Progress | marker | Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE |
 | S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
 | S37 | 802a9597 | In Progress | marker | Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a r |
 | S37 | 82c0c01f | Planned | marker | Task 37.20.3: Detail views actually RENDER for EVERY /model  |
@@ -58,7 +57,6 @@
 | S37 | 9cd50dde | In Progress | marker | Task 37.34: Dir-namespace single base-resolution — ONE resol |
 | S37 | 9fdd8302 | Planned | build | Task 37.16: The board never marks a task RIPE on a S |
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
-| S37 | ae01f065 | Planned | marker | Task 37.20: ONE shared DnD drop contract — buffer carries th |
 | S37 | afe976e3 | Planned | build | Task 37.28.5: guard-coverage freshness guard — coverage DERI |
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
 | S37 | bc0302dd | Planned | marker | Task 37.39: Image is a natural CLASS — dropping an image RES |
