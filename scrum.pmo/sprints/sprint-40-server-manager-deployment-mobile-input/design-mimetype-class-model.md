@@ -43,3 +43,21 @@ The tester counts the dangerous OPERATION anywhere OUTSIDE the MimeType classes:
 
 ## Handoff
 Chain (scenario-first, on build-go): UC `dnd.dispatchByMimeType` → Class `MimeType` (+ subclasses) → Methods `from`/`isBinary`/`parse`/`load`/`saveAsScenarioUnit` → Impls (new module `src/…/mime/`). I wire on build-go (measure built shape first); req mints Tests; expert builds; tester runs the hazard-count gate. Composes with T37.20's DndContract (822e663b) — resolveDragUnit delegates to MimeType. No new store (R40.81-consistent).
+
+## ★ REFINEMENT (Tron 2026-09-06) — NATURAL DOMAIN CLASSES + check-before-create
+Tron: *"we had urls as webItems, images, eml, ical and vcard. so webitem, image, email, contact and calendarEntry as natural classes"* + *"look out for the classes existing… they should all have a traceability."*
+
+**Model correction:** the mime-family wrappers (ImageMime/TextMime/MessageMime/ApplicationMime) are the WRONG granularity for the DOMAIN. The class is the DOMAIN CONCEPT — the THING — not a mime-shaped wrapper: **WebItem** (urls), **Image**, **Email** (.eml), **Contact** (.vcard — a vcard IS a Contact), **CalendarEntry** (.ical). These natural classes OWN `isBinary()`/`parser()`/`load()`/`saveAsScenarioUnit()`. `MimeType.from(header)` still owns the content-type PARSE (dequote boundary + strip params = the outage root) and then **hands off to the natural domain class** that the mimetype resolves to (text/vcard → Contact, message/rfc822 → Email, text/calendar → CalendarEntry, image/* → Image, a url payload → WebItem). **MultipartMime stays** = the TRANSPORT-shape owner (owns boundary parsing); a transport concern, NOT a domain class — keep distinct.
+
+**CHECK-BEFORE-CREATE — measured (code + traceability), NEVER mint blind:**
+| domain class | exists in CODE? | traceability unit (ior:class:Class)? | duplicates | disposition |
+|---|---|---|---|---|
+| **WebItem** | No domain class (has `RbWebItemDetail` VIEW + minted unit-type + drop-dispatcher url handling) | **YES — 7c486fcb** | none | **REUSE 7c486fcb**; complete traceability (Method/Impl for isBinary/parser/load/save) + build the domain code class |
+| **Email** | No domain class (has `EmailIndex` store) | **YES — 3bb26ebe** | none | **REUSE 3bb26ebe**; complete traceability + build code class |
+| **Contact** | No domain class | **YES but named "VCard" — bf440a63** | none | **REUSE bf440a63, RENAME VCard→Contact** (vcard = the MIME, Contact = the domain concept per Tron; display-name rename, uuid stable → req folds; blast radius small) |
+| **Image** | No | **NONE** | none | **MINT scenario-first via req** (genuinely missing) |
+| **CalendarEntry** | No | **NONE** (no CalendarEntry/CalendarEvent/ICal unit) | none | **MINT scenario-first via req** (genuinely missing) |
+
+No duplicate Class units among the five (a duplicate would be a traceability DEFECT under the DRY law — none here). Existing units (WebItem/Email/Contact-née-VCard) are REUSED + traceability-completed, NEVER re-created. Only Image + CalendarEntry are minted (req, scenario-first). The code domain classes do not yet exist for ANY of the five (only views/stores/handlers) — expert builds them under the natural-class model; each gets its full chain (UC → Class → isBinary/parser/load/saveAsScenarioUnit Methods → Impls → Test).
+
+**Layering (final):** `DndContract.resolveDragUnit` (T37.20) → `MimeType.from(contentType)` (owns the header parse) → resolves to the natural DOMAIN class (WebItem/Image/Email/Contact/CalendarEntry) → `.saveAsScenarioUnit()`. MultipartMime is the transport unwrap that precedes it (owns boundary). Three distinct responsibilities, no fork: transport-shape (Multipart) → content-type parse (MimeType.from) → domain concept (the natural class).
