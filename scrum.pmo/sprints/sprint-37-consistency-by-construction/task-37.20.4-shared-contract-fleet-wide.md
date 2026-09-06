@@ -7,9 +7,9 @@
 [task:uuid:369b8636-f449-45cd-b553-c523112d26b3]
 
 ## Status
-- [x] Planned
-- [x] In Progress
-  - [x] refinement
+- [ ] Planned
+- [ ] In Progress
+  - [ ] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing
@@ -18,7 +18,7 @@
 
 ## Remaining Issues
 
--> In-Progress (2026-09-06): the folder-target gap is now VERIFIED-RED (measurement resolved: an in-app UNIT dropped on a FOLDER is a SILENT NO-OP on v0.8.204 — folder handler rb-object-item.ts:82 reads dataTransfer.files ONLY, the unit-ref path is missing; tester walked back its earlier .4 PASS). req AC-tree-folder-drop-target-routes-contract (04d458285) caught it on first use. ACTIVE WORK (expert building): add the in-app UNIT-ref path through the ONE contract (unit->folder MOVE/re-parent, lands inside per R40.86), KEEP the native-files path (two input kinds, each to its owner). .4 STAYS WORK (not QA-Review) until tester re-verifies the fix. Covers R37.20 AC-shared-contract-fleet-wide + AC-tree-folder-drop-target-routes-contract + AC-A2 fleet. 0 Done till Tron.
+STOOD UP Planned (2026-09-06), T37.20 slice 4/6 = SERIALIZE-half + fleet-wide. OWNER=EXPERT. Covers R37.20 AC-shared-contract-fleet-wide + carries AC-A2 to fleet completion (SLICE-A = upload only). Depends on T37.20.1 resolver. req 3-pt verifies + wires UC. 0 Done till Tron.
 
 ## Task Description
 

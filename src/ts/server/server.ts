@@ -2668,6 +2668,48 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
+    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/move-unit')) { // T37.20 .4: RE-PARENT an in-app unit into a room folder (the drop-target contract path; a MOVE, not an ingest)
+      const roomId = filepath.split('/')[3];
+      let mbody = '';
+      req.on('data', (chunk: Buffer) => { mbody += chunk; });
+      req.on('end', () => {
+        try {
+          const { unit, target, playerToken } = JSON.parse(mbody || '{}');
+          if (!playerToken || !tokenToClient.has(String(playerToken))) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Unauthenticated' })); return; } // same member-liveness gate as add-folder/upload
+          const room = roomManager.getRoom(roomId);
+          if (!room) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'Room not found' })); return; }
+          const movedUuid = String(unit || '').replace(/^ior:instance:/, '').split('@')[0];
+          if (!/^[0-9a-fA-F-]{16,40}$/.test(movedUuid)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'bad-unit' })); return; }
+          const sdir = path.join(__dirname, '../../../scenario/index');
+          const shard = (u: string) => path.join(sdir, ...u.slice(0, 5).split(''), `${u}.scenario.json`);
+          const mf = shard(movedUuid);
+          if (!fsSync.existsSync(mf)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'unit-not-found' })); return; }
+          const mj = JSON.parse(fsSync.readFileSync(mf, 'utf-8'));
+          // Resolve the TARGET container from its roomcoll LOCATION ref (the tree node ref is the location, server.ts:1466):
+          // Files ROOT (roomcoll:<id>:files) = top-level; else a nested Folder unit in room.fileUnits whose model.location === target.
+          const tgt = String(target || ''); const rootRef = `roomcoll:${roomId}:files`;
+          let targetIor: string | null = null; let targetFolderFile = ''; let targetLoc = rootRef;
+          if (tgt && tgt !== rootRef) {
+            for (const pu of room.fileUnits) { // the live room units (NO room.model — fileUnits is the source, mirrors add-folder :2637)
+              try { const j = JSON.parse(fsSync.readFileSync(shard(pu), 'utf-8')); if (j.ior === 'ior:class:Folder' && String(j.model.location) === tgt) { targetIor = `ior:instance:${pu}`; targetFolderFile = shard(pu); targetLoc = tgt; break; } } catch { /* skip */ }
+            }
+            if (!targetIor) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: 'target-folder-not-found' })); return; }
+          }
+          const name = String(mj.model.name || movedUuid.slice(0, 8));
+          const oldParent = String(mj.model.parent || '');
+          // RE-PARENT the moved unit: parent + location follow the target (folder OR root). The object moves itself; both-sides children stay consistent.
+          mj.model.parent = targetIor; mj.model.location = `${targetLoc}/${name}`;
+          fsSync.writeFileSync(mf, JSON.stringify(mj, null, 2) + '\n');
+          room.addFileUnit(movedUuid); // idempotent — ensure it is a registered room unit (items-tree reads room.fileUnits)
+          if (targetFolderFile) { try { const tj = JSON.parse(fsSync.readFileSync(targetFolderFile, 'utf-8')); tj.model.children = Array.isArray(tj.model.children) ? tj.model.children : []; if (!tj.model.children.includes(`ior:instance:${movedUuid}`)) tj.model.children.push(`ior:instance:${movedUuid}`); fsSync.writeFileSync(targetFolderFile, JSON.stringify(tj, null, 2) + '\n'); } catch { /* target children best-effort */ } }
+          if (oldParent && oldParent !== targetIor) { try { const of = shard(oldParent.replace('ior:instance:', '')); const oj = JSON.parse(fsSync.readFileSync(of, 'utf-8')); if (Array.isArray(oj.model.children)) { oj.model.children = oj.model.children.filter((c: string) => c !== `ior:instance:${movedUuid}`); fsSync.writeFileSync(of, JSON.stringify(oj, null, 2) + '\n'); publishUnitChanged('ior:class:Folder', String(oj.model.location || '')); } } catch { /* old-parent detach best-effort (no double-appearance) */ } }
+          publishUnitChanged('ior:class:Folder', targetLoc); // target re-derives its direct children → R40.84 live-insert of the moved unit
+          addLog(`[room] move-unit ${movedUuid.slice(0, 8)} → ${targetLoc} (room ${roomId.slice(0, 8)}, from ${oldParent ? oldParent.slice(13, 21) : 'root'})`);
+          res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, uuid: movedUuid, action: 'reparented' }));
+        } catch (e: any) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: false, error: e?.message || 'move-failed' })); }
+      });
+      return;
+    }
     if ((req.method === 'POST' || req.method === 'PUT') && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) { // SLICE-A: PUT = idempotent unit-JSON ingress; POST = native-file multipart edge (both hit this handler)
       const parts = filepath.split('/');
       const roomId = parts[3];

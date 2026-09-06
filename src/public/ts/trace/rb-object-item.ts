@@ -30,7 +30,7 @@ import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js'; // T26.2: application/rb-federated-ref builder
-import { DndContract } from '../dnd-contract.js'; // T37.20.2/.4: THE ONE drag serializer (unit ref under application/rb-unit + bare-ref text/plain; NO #*.show URL)
+import { DndContract, isUnits } from '../dnd-contract.js'; // T37.20.2/.4: THE ONE drag serialize+resolve (unit ref under application/rb-unit; NO #*.show URL). .4 folder target: resolveDragUnit for an in-app unit dropped on a folder.
 
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee', 'verdict']; }
@@ -79,9 +79,16 @@ export class RbObjectItem extends HTMLElement {
       this.addEventListener('drop', (e) => {
         if (!isFolderTarget()) return;
         e.preventDefault(); e.stopPropagation(); this.classList.remove('drop-target');
-        const files = [...((e as DragEvent).dataTransfer?.files ?? [])];
+        const dt = (e as DragEvent).dataTransfer;
+        const files = [...(dt?.files ?? [])];
         const ref = this.getAttribute('ref');
-        if (files.length && ref) void dropDispatcher.acceptDropIntoContainer(files, ref); // ROUTE+DELEGATE (no client re-derive; R40.84 live-inserts inside the folder)
+        if (!ref) return;
+        // TWO INPUT KINDS, each to its owner (PO ruling): a NATIVE OS FILE has no unit yet → ingest+upload (unchanged);
+        if (files.length) { void dropDispatcher.acceptDropIntoContainer(files, ref); return; } // native file → the existing object-owned upload (R40.84 live-inserts inside the folder)
+        // an IN-APP UNIT already IS a unit → ask the ONE contract (NOT a second local resolver) and re-parent it into this folder.
+        // T37.20 .4: this closes the silent-no-op that survived on the folder target (dt.files=0 → old handler did nothing).
+        const r = DndContract.resolveDragUnit(dt);
+        if (isUnits(r)) void dropDispatcher.reparentUnitsIntoContainer(r.units, ref);
       });
     }
     const ref = this.getAttribute('ref');
