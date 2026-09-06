@@ -3689,7 +3689,20 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       const isAuthorized = isSameOrigin || adminKey === ADMIN_KEY || (playerToken && tokenToClient.has(playerToken));
       if (!isAuthorized) { res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthorized' })); return; }
 
-      const relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
+      let relPath = decodeURIComponent(filepath.slice('/api/files/'.length));
+      // R40.81 Slice-3 (architect 03eed6cc7): the MODEL STORE is NOT a generic-file target. A client naming
+      // data/model-store/index directly is the split-brain hole (a model-unit write that bypasses ModelStoreLocator +
+      // r4081d's token scan). REFUSE it — safe-by-construction regardless of caller. A model unit is edited ONLY via the
+      // store-agnostic `model-unit/<uuid>` form below, whose PHYSICAL store the SERVER resolves via the ONE locator, so the
+      // edit READ+WRITE track the same store reads use (coupled; correct pre- AND post-flip).
+      const relNorm = relPath.replace(/\\/g, '/').replace(/^\/+/, '');
+      if (/(^|\/)data\/model-store\//.test(relNorm)) { res.writeHead(403, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'model-store is not a generic file target — edit model units via the pencil (server resolves the store)' })); return; }
+      if (relNorm.startsWith('model-unit/')) {
+        const mu = relNorm.slice('model-unit/'.length).replace(/\.scenario\.json$/, '');
+        if (!/^[0-9a-fA-F-]{16,40}$/.test(mu)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'bad model-unit id' })); return; }
+        const shardAbs = path.join(ModelStoreLocator.dirFor(mu), ...mu.slice(0, 5).split(''), `${mu}.scenario.json`); // store chosen by the ONE locator
+        relPath = path.relative(RepoRegistry.resolve(null) || __dirname, shardAbs); // → store-relative path under the rawbin root; reads+writes below use it, coupled
+      }
 
       if (req.method === 'PUT') {
         // R30.x save-404: writes route to the ALLOWLISTED repo root (RepoRegistry), mirroring the read path — so a diff/

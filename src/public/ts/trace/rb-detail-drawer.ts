@@ -22,7 +22,7 @@ import { selectionModel } from './selection-model.js';
 import './rb-strip.js'; // R33.6.5 item5: setActions() hosts a reused rb-strip in the generic action-bar region
 import { ChatPanel } from './ChatPanel.js';
 import { TraceGraph, makeObject, refUuid, type ObjectType } from '../../../ts/shared/TraceModel.js';
-import { scenarioEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor
+import { scenarioEditorHref, modelUnitEditorHref } from './detail-children.js'; // R-A A1: universal ✎ Edit → scenario editor; R40.81 Slice-3: model-unit edit names NO store (server resolves via ModelStoreLocator)
 import { registerUniversalActions } from './universal-actions.js'; // R35.1 view-independent item-action provider
 import { applicableActionsFor, type ActionDecl } from './action-applicability.js'; // R40.37 one-shot applicability resolver (pure)
 import { resolveRefUnit, isSyntheticRef } from './synthetic-ref.js'; // inc-3: THE sole ref→unit resolver (synthetic + real); nav/detail/action-bar all import this, none re-parse
@@ -127,7 +127,7 @@ export class RbDetailDrawer extends HTMLElement {
       const win = window.open('about:blank', '_blank'); // SYNC in-gesture open (iOS-safe); pointed after the async resolve
       void resolveRefUnit(rawRef).then((r) => { // inc-3: shared resolver (was an inline synthetic-regex+fetch — now can't drift from detail)
         const u = r?.uuid; if (!u) { win?.close(); return; }
-        const url = verb === 'scenario' ? `/scenario?ior=${encodeURIComponent(u)}` : scenarioEditorHref(u, 'data/model-store/index');
+        const url = verb === 'scenario' ? `/scenario?ior=${encodeURIComponent(u)}` : modelUnitEditorHref(u); // R40.81 Slice-3: NO client-named store — the server resolves the model unit's store via ModelStoreLocator (coupled to reads)
         if (win) win.location.href = url; else window.open(url, '_blank'); // fallback if the sync open was itself blocked
       }).catch(() => { win?.close(); /* resolve failed → close the placeholder, no dead tab */ });
       return;

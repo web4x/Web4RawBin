@@ -64,9 +64,19 @@ export function scenarioEditorHref(uuid: string, storeDir = 'scenario/index'): s
   if (!uuid) return '';
   const hex = uuid.replace(/-/g, '');
   if (hex.length < 5) return '';
-  // R35.2 NAV-RESOLVE: synthetic view units (Folder/File/PumlArtifact/Project) are lazy-minted into MODEL_STORE
-  // (data/model-store/index), NOT prod scenario/index — Edit must target their ACTUAL store so OEdit resolves.
+  // R35.2 NAV-RESOLVE: this builds a store-relative Edit path for a PROD scenario/index unit (default storeDir). A MODEL
+  // unit must NOT hardcode data/model-store/index (R40.81 Slice-3, architect 03eed6cc7: a client-named store is the same
+  // split-brain hole as the 6 coupled sites) — use modelUnitEditorHref() below, whose store the SERVER resolves via ModelStoreLocator.
   return `/edit/${storeDir}/${hex[0]}/${hex[1]}/${hex[2]}/${hex[3]}/${hex[4]}/${uuid}.scenario.json`;
+}
+
+// [impl:uuid:PENDING-req-mint] modelUnitEditorHref (R40.81 Slice-3) — Edit href for a MODEL unit that names NO store: the
+// server (/api/files model-unit/ branch) resolves the physical store via the ONE ModelStoreLocator so the edit READ+WRITE
+// track the same store reads use (coupled; correct pre- AND post-flip). The client must NEVER name data/model-store/index.
+export function modelUnitEditorHref(uuid: string): string {
+  const hex = uuid.replace(/-/g, '');
+  if (hex.length < 5) return '';
+  return `/edit/model-unit/${uuid}.scenario.json`;
 }
 // R26.2 was: EVERY detail view renders a 📄 Scenario / ✏️ Edit link in its BODY (source of truth).
 // ★ SUPERSEDED by R-A A1 (T37.21, Tron 2026-09-01): the shared drawer now composes the UNIVERSAL default
