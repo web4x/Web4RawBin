@@ -30,7 +30,7 @@ function scan(extraTask) {
     for (const rref of m.coveredRequirements) { const ru = load(rref.replace('ior:instance:', '')); if (!ru) { reqOk = false; break; } rc += reqAcCount(ru.model?.acceptanceCriteria); }
     if (!reqOk) continue; // covered-req unresolvable → skip (a referential-integrity concern, not AC-parity)
     checked++;
-    if (tc !== rc) violations.push({ name: (m.name || m.uuid || '').slice(0, 46), uuid: (m.uuid || '').slice(0, 8), tc, rc });
+    if (tc !== rc) violations.push({ name: (m.name || m.uuid || '').slice(0, 46), uuid: (m.uuid || '').slice(0, 8), tc, rc, sprintName: String(m.sprintName || ''), status: String(m.status || '') });
   }
   return { checked, violations };
 }
@@ -56,7 +56,14 @@ const withGood = scan(goodTask).violations.length;
 const teeth = withBad === violations.length + 1 && withGood === violations.length;
 R(`  FAILABLE self-test (inject 1-vs-8 => +1 RED; inject 8-vs-8 => +0): ${teeth ? 'PASS (self-biting — a real parity drift cannot pass)' : `FAIL (bad=${withBad} good=${withGood} base=${violations.length})`}`);
 
-const green = violations.length === 0 && teeth;
-R(`OVERALL: ${green ? 'GREEN — every task AC count matches its covered requirement' : 'RED (parity drift present — the board can show a task with fewer ACs than its requirement)'}`);
-R(`  (COUNT parity now; id-level parity = a refinement once req ACs carry stable ids. Mark-not-silence: ${checked} checked / ${violations.length} listed.)`);
+// RATCHET (PO ruling 2026-09-06): the count is the RECORDED BASELINE — it must NEVER increase (touch-it-fix-it, no shrinking
+// denominator). CURRENT-ERA (S37, In-Progress/QA-Review) must reach ZERO; legacy is ratcheted. A number that only reports drifts;
+// a number that GATES cannot. So the gate FAILS if total EXCEEDS baseline OR any current-era task violates.
+const BASELINE = 140;
+const currentEra = violations.filter((v) => /Sprint 37|S37|37/i.test(v.sprintName) && /In Progress|QA/i.test(v.status));
+R(`  RATCHET baseline=${BASELINE} · current-era(S37 In-Progress/QA) violations (must be 0): ${currentEra.length}${currentEra.length ? ' → ' + currentEra.map((v) => v.uuid).join(',') : ''}`);
+const ratchetOk = violations.length <= BASELINE;
+const green = ratchetOk && currentEra.length === 0 && teeth;
+R(`OVERALL: ${green ? 'GREEN (ratchet held + current-era clean)' : `RED — ${!ratchetOk ? `count ${violations.length} EXCEEDS baseline ${BASELINE} (a NEW parity drift was introduced)` : currentEra.length ? `${currentEra.length} current-era violation(s) (must reach 0)` : 'teeth fail'}`}`);
+R(`  (COUNT parity now; id-level parity = a refinement once req ACs carry stable ids. Mark-not-silence: ${checked} checked / ${violations.length} listed; baseline ${BASELINE} = ratchet ceiling.)`);
 process.exit(green ? 0 : 1);
