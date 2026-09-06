@@ -26,3 +26,28 @@ Every drift the PO caught by hand today — lying board, parked QA, stale status
 
 ## Build order + handoff
 Build order (goal): R37.2 → R37.1 → R37.3 → R37.4. **Planner OWNS the board + builds R37.2 with me** (the generators are planner's domain); I design + backstop; tester builds the R37.3 drift-BITE; req mints the requirement ACs (view==f(units), pin==board==files, drift-BITE-must-fail, ci:gates-folded). **Priority: Tron's upload (capture→SLICE-A) OUTRANKS this — R37.2/R37.3 is designed now while the capture is pending; built when the P0 clears.** This design is the sprint's spine; the upload collapse (T37.20) rides the same law.
+
+## ★★ R37.4 LIVE-MVC ENUMERATION — "the list IS the finding" (2026-09-06, PO/Tron)
+Tron: *"the team still fails on using it as live mvc state changes like it works now on add folder."* Add-folder is the WORKING reference: server mutation → the ONE controller broadcasts → the owning ContainerNode re-derives its own children IN PLACE (R40.84). Every other state change must ride the SAME path.
+
+**★ KEY FINDING (measured, reframes the ask): the ONE mechanism ALREADY EXISTS — the failure is BYPASSERS, not absence.**
+- `UnitController.apply` (`src/ts/scenario/unit-controller.ts`, R37.11 "C4 SINGLETON 1 — EVERY unit mutation through the one controller", marker e3729f51) → injected `PublishFn` → server wires it to the UNIT_CHANGED wsClients broadcast (R37.12 `viewBus.emitUnitChanged`) → `live-bridge.ts` → `ViewBus.notify(type:uuid)` → the owning object re-derives (R37.4 `self-heal.ts`). This IS add-folder's path, generalized. R37.4/R37.11/R37.12 are PARTLY BUILT.
+
+**RIDERS (server mutation flows through UnitController → publish → owner re-derive):** file-unit, folder, Room, WebItem, EmailIndex, message-unit, task-policy, AddressIndex, PhoneIndex, CompanyIndex (~10 unit types). add-folder + file-upload-view (R40.84) confirmed live-MVC.
+
+**BYPASSERS (the gap — bespoke: rebuild / reload / separate endpoint, do NOT ride):**
+| mutation | current handler | rides? |
+|---|---|---|
+| federation import | `RoomView.ts:215` **renderSeed** (full client rebuild) | ❌ bypass (re-seed, not owner-re-derive) |
+| avatar change | `rb-avatar.uploadBlob` → `/api/avatar` base64-JSON (separate endpoint) | ❌ likely bypass (not via UnitController) |
+| profile/vcard | `ProfileEditor` → `/api/vcard` base64-JSON | ❌ likely bypass |
+| upload TRANSPORT | 4 client impls (SLICE-A) | ◧ view rides R40.84; transport bespoke (separate P0) |
+| device-enroll / app-update | `location.reload()` | ✅ legit full-reload (not a unit-view mutation) |
+
+**NEEDS-SCAN (honest unknowns — NOT asserting; a follow-up measurement owes these):** file/folder **delete**, **rename/move**, **member join/leave**, **room config change**. They may ride via Room.ts (a rider) or be bespoke — I have not definitively measured each, and today's lesson is do-not-assert-unmeasured. This scan is the enumeration's completion step.
+
+**THE MECHANISM (already exists — route bypassers INTO it):** every mutation goes through `UnitController.apply` (which publishes on the owning ref by construction); the owning client object subscribes to its own ref and re-derives in place. RETIRE the bespoke handlers (federation renderSeed → owner re-derive; avatar/vcard → unit through the controller). Callers NEVER patch views — the object self-heals its own view (R37.4).
+
+**GATE (tester, same 1→0 shape as the ownership lints):** count (a) unit mutations that do NOT flow through UnitController + (b) client view-rebuild/DOM-patch/reload paths OUTSIDE the owning object's re-derive == **0** (positional exceptions: the owner's own re-derive, legit full-reload for device-enroll/app-update). Failable: seed a bespoke handler → RED.
+
+**CONVERGENCE (one law):** T37.20 (the drop contract carries a UNIT) + R37.4 (the unit changes → the owning OBJECT re-renders) are one law — a mutation publishes on the owner, the owner self-heals its view. The upload collapse, the board-as-generated-view (R37.2/R37.3), and this are the SAME one-owner/by-construction discipline at three layers. NEXT: complete the NEEDS-SCAN enumeration, then route each bypasser through UnitController + retire its bespoke handler. Priority: Tron's upload (capture→SLICE-A) still outranks; this is designed now, built as S37.
