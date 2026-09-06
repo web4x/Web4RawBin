@@ -23,7 +23,7 @@
       "gate": "r4090 c9c6acb8a (upload-parser RED baseline; permanent gate, was referenced by NO Test/Impl)"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "P0 — the drop/upload MECHANISM that makes the path WORK (natural-class/MimeType + NativeFileIngress + upload-collapse + REST=unit-JSON). PO decision 2026-09-06 (single-writer=req): P0, not prio-3; Tron request IS the order.",
+    "queuePriority": "NOT A QUEUE ITEM (Tron 2026-09-06: \"next is Task 37.20, NOTHING ELSE\"). This unit is the IMPLEMENTATION / MECHANISM of R37.20 (Tron law: all dnd processing = mimetype-oop-class-first), NOT a competing queue entry. Queue = CURRENT R40.81 root / NEXT R37.20 ONLY. extendsRequirement=R37.20. Not demoted: minted + carried as R37.20 mechanism; it ships WHEN R37.20 ships.",
     "dispatchState": "QUEUED-not-dispatched; architect wires chain (re-point to built reality), planner mints covering task same-turn",
     "repointToBuiltReality": {
       "impl": "server.ts boundary extraction v0.8.190 (7cc4717fb)",
@@ -92,7 +92,9 @@
         },
         "stubMustFail": "PENDING: fix SHIPPED v0.8.190 + r4090 GREEN on prod; chain wire pending"
       }
-    ]
+    ],
+    "mechanismOfR37_20": "R37.20 mimetype-oop-class-first mechanism (Tron: all dnd processing flows through the mimetype OOP class-first contract).",
+    "extendsRequirement": "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
