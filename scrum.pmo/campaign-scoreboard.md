@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **54** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 97** (254 = 98+54+3+97)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 93**
+- **TOTAL S30++ tasks: 254** — Done **98** · QA-Review **56** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (254 = 98+56+3+95)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 51 | 1 | 16 | 0 | 34 |
+| S37 | 51 | 1 | 18 | 0 | 32 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 23 · build 57
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 21 · build 57
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -37,7 +37,6 @@
 | S37 | 0a46b84d | Planned | build | Task 37.19: New req-specific Class units root to the |
 | S37 | 22560ea2 | Planned | build | Task 37.38: Coordination-root parent renders a ROLLED summar |
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
-| S37 | 257ab50f | Planned | marker | Task 37.40: CalendarEntry is a natural CLASS — dropping a ca |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 33b28f6b | Planned | build | Task 37.35: AXIS-2 lint — task<->req AC PARITY (task-md AC s |
 | S37 | 369b8636 | Planned | marker | Task 37.20.4: ONE shared serializer + resolver, EVERY drop t |
@@ -59,7 +58,6 @@
 | S37 | a39efc32 | In Progress | marker | Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single vi |
 | S37 | afe976e3 | Planned | build | Task 37.28.5: guard-coverage freshness guard — coverage DERI |
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
-| S37 | bc0302dd | Planned | marker | Task 37.39: Image is a natural CLASS — dropping an image RES |
 | S37 | bd0e5f4a | Planned | build | Task 37.28.1: boot-state (sprint/version) freshness guard —  |
 | S37 | c18c2efb | Planned | build | Task 37.15: Store-once theme-only names — a stored n |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
