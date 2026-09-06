@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "16c41b03-026f-41d3-9881-3c7934b8421a",
+    "name": "UnitConvertible",
+    "sourceFile": "ior:file:src/public/ts/mime/unit-convertible.ts",
+    "methods": [
+      "ior:instance:44d0350e-427f-4b3f-84d3-4c54063a4802"
+    ],
+    "description": "The interface natural classes implement."
+  }
+}

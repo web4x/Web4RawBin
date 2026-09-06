@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:7f589e75-db29-42ce-ae0f-47f241ce615c",
+  "model": {
+    "uuid": "6d3557ff-eebd-473c-97bf-b266ad40cc35",
+    "name": "NativeFileIngress.toUnit impl",
+    "sourceFile": "ior:file:src/ts/server/NativeFileIngress.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.97): ONE ingress edge, native file in -> unit out; multipart never inward. Expert building."
+  }
+}

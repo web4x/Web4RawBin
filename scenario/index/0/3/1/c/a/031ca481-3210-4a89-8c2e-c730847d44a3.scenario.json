@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:44d0350e-427f-4b3f-84d3-4c54063a4802",
+  "model": {
+    "uuid": "031ca481-3210-4a89-8c2e-c730847d44a3",
+    "name": "UnitConvertible interface impl",
+    "sourceFile": "ior:file:src/public/ts/mime/unit-convertible.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.99): interface {isBinary/load/toUnit/fromUnit}. NATURAL-CLASS SET separate: REUSE WebItem 7c486fcb/Email 3bb26ebe, RENAME VCard bf440a63->Contact (measure 47 refs FIRST), MINT Image+CalendarEntry."
+  }
+}

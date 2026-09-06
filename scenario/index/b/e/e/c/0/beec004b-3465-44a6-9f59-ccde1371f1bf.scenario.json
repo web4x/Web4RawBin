@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:f979256f-7d61-409d-bd61-134dafcb948e",
+  "model": {
+    "uuid": "beec004b-3465-44a6-9f59-ccde1371f1bf",
+    "name": "UnitTransport.putByUuid",
+    "class": "ior:instance:f979256f-7d61-409d-bd61-134dafcb948e",
+    "sourceFile": "ior:file:src/public/ts/unit-transport.ts",
+    "implementations": [
+      "ior:instance:f885c473-e47e-4f75-a8e7-463834a816cc"
+    ],
+    "tests": [],
+    "description": "Idempotent unit-JSON PUT by uuid (R40.96) + substrate of self-heal-by-construction (R40.100)."
+  }
+}

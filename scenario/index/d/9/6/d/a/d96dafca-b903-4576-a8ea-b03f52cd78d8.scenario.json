@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:6091dffe-2ad2-44c7-87fd-f2c1ece4df28",
+  "model": {
+    "uuid": "d96dafca-b903-4576-a8ea-b03f52cd78d8",
+    "name": "NativeFileIngress.parseContentTypeBoundary impl",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "designAhead": false,
+    "tests": [],
+    "description": "REAL/SHIPPED v0.8.190 (7cc4717fb server.ts:2643): dequote boundary+strip;params+trim = outage fix, r4090 prod-GREEN. #126 backfill. Relocates into NativeFileIngress on R40.97."
+  }
+}

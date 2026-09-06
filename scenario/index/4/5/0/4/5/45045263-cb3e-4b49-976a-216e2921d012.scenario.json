@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:Folder",
+  "model": {
+    "uuid": "45045263-cb3e-4b49-976a-216e2921d012",
+    "name": "c4",
+    "kind": "folder",
+    "location": "roomcoll:3231db71-d834-435a-a7f9-a801680ccd62:files/Trash/duplicates/child2/c3/c4",
+    "children": [
+      "ior:instance:8091ce2c-434b-4977-993d-26c8ae2eb614"
+    ],
+    "parent": "ior:instance:c628e717-f2da-47e1-b4d9-feb556daf781",
+    "unitLinks": [
+      "../data/users/8f74dfba-ccf6-4f52-9c0d-b3c327ee53dd/rooms/3231db71-d834-435a-a7f9-a801680ccd62/files/45045263-cb3e-4b49-976a-216e2921d012.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:3231db71-d834-435a-a7f9-a801680ccd62"
+}

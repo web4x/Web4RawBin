@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:16c41b03-026f-41d3-9881-3c7934b8421a",
+  "model": {
+    "uuid": "44d0350e-427f-4b3f-84d3-4c54063a4802",
+    "name": "UnitConvertible.conform",
+    "class": "ior:instance:16c41b03-026f-41d3-9881-3c7934b8421a",
+    "sourceFile": "ior:file:src/public/ts/mime/unit-convertible.ts",
+    "implementations": [
+      "ior:instance:031ca481-3210-4a89-8c2e-c730847d44a3"
+    ],
+    "tests": [],
+    "description": "UnitConvertible contract {isBinary/load/toUnit/fromUnit} (R40.99)."
+  }
+}

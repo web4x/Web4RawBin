@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:d9c338c0-0d34-4706-b40b-3689b50e957c",
+  "model": {
+    "uuid": "78ee6935-5ac1-441b-86f2-f5d7a230e5d3",
+    "name": "BinaryUnit.base64AndHashDedup",
+    "class": "ior:instance:d9c338c0-0d34-4706-b40b-3689b50e957c",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "implementations": [
+      "ior:instance:f7dc4bb3-a0b9-428e-b515-54951ad7eb1c"
+    ],
+    "tests": [],
+    "description": "binary-in-unit: base64-wire + content-ref/hash-dedup-at-rest (R40.98)."
+  }
+}

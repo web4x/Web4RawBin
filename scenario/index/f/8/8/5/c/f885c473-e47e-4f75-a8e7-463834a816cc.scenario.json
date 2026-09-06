@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:beec004b-3465-44a6-9f59-ccde1371f1bf",
+  "model": {
+    "uuid": "f885c473-e47e-4f75-a8e7-463834a816cc",
+    "name": "UnitTransport.putByUuid impl",
+    "sourceFile": "ior:file:src/public/ts/unit-transport.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.96): idempotent unit-JSON PUT by uuid = the ONE internal transport. R40.100 self-heal = its EMERGENT property (idempotent+hash-dedup)."
+  }
+}

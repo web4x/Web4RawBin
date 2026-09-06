@@ -94,3 +94,4 @@ Server Manager: model the deployment surface + fix mobile input control (Tron-au
 - [ ] 🧪 [Task 40.91: Exactly ONE unit-changed->notify translator (single owner) — a 2nd drifted copy is the R40.84-B 4-round defect](./task-40.91-773a1173.md)
 - [ ] 🧪 [Task 40.92: Add folder to a model collection SUCCEEDS but the folder never appears (Tron last visible symptom)](./task-40.92-adc068c5.md)
 - [ ] ⏳ [Task 40.93: Room-folder physical create routes through the ONE owner (createPhysicalFolder), not a raw inline mkdir](./task-40.93-311df491.md)
+- [ ] 📝 [Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1 convergence)](./task-40.81-one-store-unit-resolve-owner.md)

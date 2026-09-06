@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "dbc0d6da-d28c-400d-8002-0b83e24ec1b2",
+    "name": "NativeFileIngress",
+    "sourceFile": "ior:file:src/ts/server/NativeFileIngress.ts",
+    "methods": [
+      "ior:instance:7f589e75-db29-42ce-ae0f-47f241ce615c",
+      "ior:instance:6091dffe-2ad2-44c7-87fd-f2c1ece4df28"
+    ],
+    "description": "The ONE foreign-format ingress boundary (native file -> unit)."
+  }
+}

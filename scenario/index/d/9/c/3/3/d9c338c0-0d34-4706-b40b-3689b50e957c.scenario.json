@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d9c338c0-0d34-4706-b40b-3689b50e957c",
+    "name": "BinaryUnit",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "methods": [
+      "ior:instance:78ee6935-5ac1-441b-86f2-f5d7a230e5d3"
+    ],
+    "description": "Binary content represented WITHIN the unit."
+  }
+}

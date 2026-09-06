@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 241** — Done **98** · QA-Review **53** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 85** (241 = 98+53+3+85)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 81**
+- **TOTAL S30++ tasks: 242** — Done **98** · QA-Review **53** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 86** (242 = 98+53+3+86)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 82**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -27,9 +27,9 @@
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
 | S37 | 39 | 1 | 14 | 0 | 24 |
-| S40 | 82 | 0 | 22 | 0 | 58 |
+| S40 | 83 | 0 | 22 | 0 | 59 |
 
-**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 17 · build 52
+**ACTIONABLE by blocker:** RIPE 9 · two-key 1 · gate 2 · marker 17 · build 53
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -107,6 +107,7 @@
 | S40 | cc6eadc6 | Planned | build | Task 40.38: An [impl:uuid] marker on a method declaratio |
 | S40 | cfe0fc7e | Planned | build | Task 40.74: Method detail full-signature render @390 — visib |
 | S40 | d47ec615 | Planned | build | Task 40.79: Sunburst center circle shows TOTAL size of all c |
+| S40 | d864b05f | In Progress | build | Task 40.81: ONE physical unit store — Unit.resolve OWNS the  |
 | S40 | dd2326a2 | Planned | build | Task 40.80: ONE human-readable size formatter (B/kB/MB/GB/TB |
 | S40 | e270939b | Planned | build | Task 40.90: expandPath waitForNode TIMEOUT on the room ROOT  |
 | S40 | e6663c08 | Planned | build | Task 40.32: Browser gates positively self-assert served= |

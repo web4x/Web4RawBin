@@ -1,0 +1,13 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "f979256f-7d61-409d-bd61-134dafcb948e",
+    "name": "UnitTransport",
+    "sourceFile": "ior:file:src/public/ts/unit-transport.ts",
+    "methods": [
+      "ior:instance:beec004b-3465-44a6-9f59-ccde1371f1bf"
+    ],
+    "description": "The ONE internal transport (REST=unit JSON)."
+  }
+}

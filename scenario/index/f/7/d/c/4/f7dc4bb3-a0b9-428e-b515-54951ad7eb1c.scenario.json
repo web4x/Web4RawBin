@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:Implementation",
+  "ownerIor": "ior:instance:78ee6935-5ac1-441b-86f2-f5d7a230e5d3",
+  "model": {
+    "uuid": "f7dc4bb3-a0b9-428e-b515-54951ad7eb1c",
+    "name": "BinaryUnit.base64AndHashDedup impl",
+    "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
+    "designAhead": true,
+    "tests": [],
+    "description": "DESIGN-AHEAD (R40.98): base64 inline on wire; .content sidecar+sha256 hash-dedup at rest (absorbs file-unit createFileUnit dedup)."
+  }
+}

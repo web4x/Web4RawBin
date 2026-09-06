@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Method",
+  "ownerIor": "ior:instance:dbc0d6da-d28c-400d-8002-0b83e24ec1b2",
+  "model": {
+    "uuid": "6091dffe-2ad2-44c7-87fd-f2c1ece4df28",
+    "name": "NativeFileIngress.parseContentTypeBoundary",
+    "class": "ior:instance:dbc0d6da-d28c-400d-8002-0b83e24ec1b2",
+    "sourceFile": "ior:file:src/ts/server/server.ts",
+    "implementations": [
+      "ior:instance:d96dafca-b903-4576-a8ea-b03f52cd78d8"
+    ],
+    "tests": [],
+    "description": "Owns content-type param parse ONCE = outage root permanent-by-construction (R40.101). Shipped v0.8.190."
+  }
+}

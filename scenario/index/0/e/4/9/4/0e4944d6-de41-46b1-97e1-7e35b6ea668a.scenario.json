@@ -4,11 +4,14 @@
     "uuid": "0e4944d6-de41-46b1-97e1-7e35b6ea668a",
     "name": "binaryUnit.base64AndHashDedup",
     "description": "Binary within the unit: base64 inline on the wire, .content sidecar + sha256 dedup at rest; class owns toUnit/fromUnit.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:d9c338c0-0d34-4706-b40b-3689b50e957c",
+    "method": "ior:instance:78ee6935-5ac1-441b-86f2-f5d7a230e5d3",
     "parent": "ior:instance:97ce5ac6-3c7c-408b-81fe-1081c3370c48",
     "unitLinks": [],
-    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects.",
+    "classes": [
+      "ior:instance:d9c338c0-0d34-4706-b40b-3689b50e957c"
+    ]
   },
   "ownerIor": "ior:instance:97ce5ac6-3c7c-408b-81fe-1081c3370c48"
 }

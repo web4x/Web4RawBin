@@ -4,11 +4,14 @@
     "uuid": "06444973-7f6f-4bb4-81c0-2b23715f8d79",
     "name": "unitTransport.putByUuid",
     "description": "Internal content transfer as an idempotent unit-JSON PUT by uuid; no multipart/bespoke payload on any internal transport.",
-    "class": null,
-    "method": null,
+    "class": "ior:instance:f979256f-7d61-409d-bd61-134dafcb948e",
+    "method": "ior:instance:beec004b-3465-44a6-9f59-ccde1371f1bf",
     "parent": "ior:instance:d7deea49-398e-4ed4-9602-c45fccce172e",
     "unitLinks": [],
-    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects."
+    "note": "class/method=null — architect wires Class+Method on build-go (ping for UC/chain wording), then re-inspects.",
+    "classes": [
+      "ior:instance:f979256f-7d61-409d-bd61-134dafcb948e"
+    ]
   },
   "ownerIor": "ior:instance:d7deea49-398e-4ed4-9602-c45fccce172e"
 }
