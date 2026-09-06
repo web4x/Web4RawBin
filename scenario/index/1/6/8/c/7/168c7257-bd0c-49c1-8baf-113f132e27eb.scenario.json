@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:UseCase",
+  "model": {
+    "uuid": "168c7257-bd0c-49c1-8baf-113f132e27eb",
+    "name": "unit.renameOverridesDerivedName",
+    "description": "unit.rename(newName) sets the object's displayName (user override), which wins over derivedName; originalName preserved; uuid + links stable; renders live everywhere via the one view bus. Registered per class (no central switch).",
+    "class": null,
+    "method": null,
+    "parent": "ior:instance:069b1f8d-ec87-475c-8dee-a15cd0dcfd40",
+    "unitLinks": [],
+    "note": "class/method=null - architect wires on build-go (unit.rename per-class registration + displayName resolver). extends R40.99 naming."
+  },
+  "ownerIor": "ior:instance:069b1f8d-ec87-475c-8dee-a15cd0dcfd40"
+}

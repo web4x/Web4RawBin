@@ -1,0 +1,114 @@
+{
+  "ior": "ior:class:Requirement",
+  "model": {
+    "uuid": "069b1f8d-ec87-475c-8dee-a15cd0dcfd40",
+    "altId": "R40.104",
+    "name": "File/folder RENAME is the object's own behaviour — unit.rename(newName) overriding the derived name (displayName wins)",
+    "description": "Tron directive 2026-09-06 (verbatim: 'we need a file/folder RENAME action'), framed by his standing law 'the solution MUST BE OOP DRY MVC'. RENAMING IS THE OBJECT'S OWN BEHAVIOUR: unit.rename(newName) — NOT a dialog with rename logic in it. The class already OWNS its name (Image names itself from capture time, Email from subject, Contact from full name, CalendarEntry from title+date, File from a clean basename); RENAME is the USER OVERRIDING the derived name ON the object. THREE distinct names: originalName (the raw input string we were wrongly displaying), derivedName (what the class computes for itself), displayName (what the user set — WINS when present). Nothing is lost; a rename never destroys the original. The user-override half of the naming design (R40.99 = the class owns its name; this = the user can override it).",
+    "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
+    "tasks": [],
+    "tests": [],
+    "useCases": [
+      "ior:instance:168c7257-bd0c-49c1-8baf-113f132e27eb"
+    ],
+    "unitLinks": [],
+    "sourceFile": "ior:file:scrum.pmo/sprints/sprint-40-server-manager-deployment-mobile-input/requirements.md",
+    "tronQuote": "> Tron 2026-09-06: 'we need a file/folder RENAME action' + standing law 'the solution MUST BE OOP DRY MVC'. Rename = the user overriding the derived name ON the object.",
+    "discoverySource": {
+      "type": "tron-directive",
+      "relayedBy": "robbin-po",
+      "date": "2026-09-06",
+      "note": "Ordered directly (no confirmation). User-override half of the naming design (R40.99 = class owns its name)."
+    },
+    "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+    "queuePriority": "TIER-A behind the move (PO: planner queues it TIER-A behind the file/folder move work).",
+    "extendsRequirement": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+    "crossRef": [
+      "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5",
+      "ior:instance:bd7ed14d-8af7-41bf-9ee5-98d261b3f661",
+      "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "Two halves of ONE naming design with R40.99 (the class OWNS its name; this = the USER can OVERRIDE it via displayName). Surfaced by the R33.9 action-context lifecycle (rename is a unit verb). Identity-stable rename = same law as the VCard->Contact rename (R40.99 AC-contact-reconcile-vcard-lens). Renders live via the one view bus (R37.20/R37.12 family).",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-rename-is-object-behaviour",
+        "group": "oop/ask-the-object",
+        "text": "Rename is the OBJECT'S OWN behaviour: unit.rename(newName) on the object, NOT a dialog/handler with rename logic in it. Callers ask the object; there is no free rename function/service.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test unit.rename + no-free-rename lint",
+          "assertion": "rename flows through unit.rename(newName); a dialog/handler/free-function containing rename logic => RED"
+        },
+        "stubMustFail": "seed rename logic in a dialog/handler outside the object -> RED"
+      },
+      {
+        "id": "AC-three-names-distinct",
+        "group": "naming/three-names",
+        "text": "THREE distinct names, never conflated: originalName (raw input string — NEVER displayed as the name), derivedName (class-computed), displayName (user-set, WINS when present). Display resolves displayName ?? derivedName; originalName is never the displayed name.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test name-resolution",
+          "assertion": "displayed name = displayName if set else derivedName; originalName shown as the name => RED"
+        },
+        "stubMustFail": "seed the raw originalName rendered as the object's name -> RED"
+      },
+      {
+        "id": "AC-rename-file-and-folder-from-tree",
+        "group": "surface/tree",
+        "text": "A FILE and a FOLDER can both be renamed from the room tree (the action is available on each).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test rename file + folder @390",
+          "assertion": "rename available + works on a file AND a folder from the room tree; unavailable on either => RED"
+        },
+        "stubMustFail": "seed rename missing on a file or a folder in the tree -> RED"
+      },
+      {
+        "id": "AC-persists-renders-everywhere-no-reload",
+        "group": "mvc/live",
+        "text": "The new name PERSISTS and RENDERS EVERYWHERE the object appears (tree, detail, preview) with NO reload — it is the OBJECT'S OWN VIEW updating (MVC, live via the one view bus).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 rename renders all surfaces live",
+          "assertion": "after rename, tree+detail+preview show the new name with no reload; a surface not updating or needing a reload => RED"
+        },
+        "stubMustFail": "seed a surface that shows the stale name after rename (or needs a reload) -> RED"
+      },
+      {
+        "id": "AC-rename-identity-stable",
+        "group": "identity/uuid-stable",
+        "text": "Rename does NOT change identity: the uuid is STABLE, links/children intact (same law as the VCard->Contact rename — a rename is a DISPLAY-name change, never an identifier change).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test rename preserves uuid+refs",
+          "assertion": "after rename, uuid unchanged + all inbound/outbound refs + children resolve; a changed uuid or broken ref => RED"
+        },
+        "stubMustFail": "seed a rename that changes the uuid or breaks a ref/child link -> RED"
+      },
+      {
+        "id": "AC-empty-whitespace-rejected",
+        "group": "validation/fail-closed",
+        "text": "An empty or whitespace-only new name is REJECTED (the rename does not apply; the object keeps its prior name).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test rename validation",
+          "assertion": "rename to '' or whitespace-only is rejected; an accepted empty/whitespace name => RED"
+        },
+        "stubMustFail": "seed rename('') and rename('   ') -> both rejected, else RED"
+      },
+      {
+        "id": "AC-registered-per-class-zero-central-switch",
+        "group": "dry/open-closed",
+        "text": "The rename action is REGISTERED PER CLASS, so a 7th class gains rename with ZERO central-switch edits — both the open-set and closed-set lints stay 0 (no if/switch enumerating classes for rename).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "lint no-central-switch (open/closed)",
+          "assertion": "adding a class's rename requires no edit to a central switch; a switch/if-chain enumerating classes for rename => RED (open+closed lints == 0)"
+        },
+        "stubMustFail": "seed a central switch enumerating classes to decide rename -> RED"
+      }
+    ]
+  },
+  "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
+}
