@@ -62,7 +62,7 @@ function ensureStoreSeeded(): void {
 // A model unit (ModelElement/Diagram) present in the store → its reads reroute to the store (trace units stay prod). Reads the shard directly (no index scan).
 function isModelUnit(uuid: string): boolean {
   try {
-    const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+    const p = path.join(modelReadDir(), ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); // R40.81 Slice-2: read the model-unit shard from the flag-toggled store (default MODEL_STORE; both stores hold it byte-identical pre-Slice-3)
     if (!fsSync.existsSync(p)) return false;
     const ior = JSON.parse(fsSync.readFileSync(p, 'utf-8')).ior;
     return ior === 'ior:class:ModelElement' || ior === 'ior:class:Diagram';
@@ -122,6 +122,23 @@ const __dirname = path.dirname(__filename);
 // referencing __dirname at module-top (was :48) is a const-TDZ ReferenceError that crashed boot. (emergency fix)
 const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
 const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
+
+// [impl:uuid:PENDING-req-mint] R40.81 Slice-2 — the ONE collapsed model-unit READ-SOURCE resolver (architect toggle-flag
+// MODEL_READ_SOURCE, r40.81-slice2-toggle-flag.md 81cc37755). Slice-2 collapses the `isModelUnit ? MODEL_STORE :
+// scenario/index` read-fork (+ mofChildren caller-index + trace-merge model reads + the isModelUnit discriminator) into
+// THIS single owner — no other reader branches on store (radical-OOP; the toggle-removal lint asserts that post-Slice-3).
+// Reads MODEL_READ_SOURCE AT the resolution point (every call) so the flag GENUINELY flips the read → PAIR-2 is not a
+// build-time no-op false-green. DEFAULT 'model-store' = pre-repoint (physically-intact MODEL_STORE, today's behaviour →
+// nothing flips for Tron until proven). 'scenario-index' = post-repoint one-store target (the relocated units resolve
+// from scenario/index). WRITE sites are NOT routed here — they stay on MODEL_STORE until Slice-3. The flip IS the live
+// ROLLBACK lever (flip back, MODEL_STORE intact, no rebuild). Post-Slice-3: deleted + readers hardwired to scenario/index.
+function modelReadDir(): string {
+  return process.env.MODEL_READ_SOURCE === 'scenario-index' ? PROD_INDEX : MODEL_STORE;
+}
+// resolve the READ store for a uuid: a model unit reads from modelReadDir() (flag-toggled); every other unit = prod scenario/index.
+function resolveReadDir(uuid: string): string {
+  return isModelUnit(uuid) ? modelReadDir() : PROD_INDEX;
+}
 
 // Load .env
 const ENV_PATH = path.join(__dirname, '../../../.env');
@@ -1296,7 +1313,7 @@ function authorTrace(from: string, to: string, relation: string, fromType?: stri
 // connectors (those whose from+to are both on the open diagram). Bounded scan (authored traces are few).
 function listTraces(): Array<{ uuid: string; from: string; to: string; relation: string }> {
   try {
-    const idx = new ScenarioIndex(MODEL_STORE);
+    const idx = new ScenarioIndex(modelReadDir());
     const out: Array<{ uuid: string; from: string; to: string; relation: string }> = [];
     for (const u of idx.list()) {
       const x = idx.get(u); if (!x || x.ior !== 'ior:class:UmlTraceRelationship') continue;
@@ -1658,7 +1675,7 @@ function reconcileCanonical(uuid: string, m: Record<string, unknown>, ior?: stri
   // Trace base (prod) → merge the generated M1 counterpart from MODEL_STORE (deterministic key). Files stay pristine.
   if (!isModelUnit(uuid) && key !== uuid && isModelUnit(key)) {
     let g: Record<string, unknown> | undefined;
-    try { g = new ScenarioIndex(MODEL_STORE).get(key)?.model as Record<string, unknown> | undefined; } catch { /* no counterpart */ } // R40.58 D1: consume ScenarioUnit; the loose model is a property-cast, not a call-cast
+    try { g = new ScenarioIndex(modelReadDir()).get(key)?.model as Record<string, unknown> | undefined; } catch { /* no counterpart */ } // R40.58 D1: consume ScenarioUnit; the loose model is a property-cast, not a call-cast
     if (g) {
       const facets = new Set<string>([...(Array.isArray(m.instanceOf) ? m.instanceOf as string[] : []), ...(Array.isArray(g.instanceOf) ? g.instanceOf as string[] : [])]);
       if (facets.size) m.instanceOf = [...facets]; // UNION — never drop a side's facet
@@ -2873,7 +2890,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       // forward-key (/api/trace/children). type = the M2 MODEL-facet metaclass (icon); childCount = members.length (badge).
       try {
         ensureStoreSeeded();
-        const idx = new ScenarioIndex(MODEL_STORE); // R32.5/INV-MOF4: reads the ISOLATED store only (prod scenario/index untouched)
+        const idx = new ScenarioIndex(modelReadDir()); // R32.5/INV-MOF4: reads the ISOLATED store only (prod scenario/index untouched)
         const roots = mofLayerRoots(idx); // R33.1: extracted → named mofLayerRoots (Impl 5afeafe9, strict-AST credit)
         res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
         res.end(JSON.stringify({ roots }));
@@ -3269,7 +3286,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         // payload. Public parity with /api/model/tree (also ungated, data-only). Real ModelElement uuids fall through.
         if (/^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(uuid)) { // R33.3-BUG fix: dispatch must include rawbin: (matches mofChildren's guard :1073) — else rawbin:ts|puml|diagram fell through to the ModelElement path → 404 {} → empty expand
           ensureStoreSeeded();
-          const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), uuid) || [];
+          const mofKids = mofChildren(new ScenarioIndex(modelReadDir()), uuid) || [];
           res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
           res.end(JSON.stringify({ uuid, type: 'collection', name: '', hasChildren: mofKids.length > 0, children: mofKids, parent: null }));
           return;
@@ -3286,7 +3303,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           rcRoom = ci2 < 0 ? rest2 : rest2.slice(0, ci2); rcKind = ci2 < 0 ? '' : rest2.slice(ci2 + 1);
         } else { // the keyToUuid of a MODEL_STORE view-Folder (ensureViewUnit) — rb-detail-base resolves a synthetic ref TO this uuid before /children
           try {
-            const msf = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+            const msf = path.join(modelReadDir(), ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); // R40.81 Slice-2: view-folder model read via the flag-toggled store
             if (fsSync.existsSync(msf)) {
               const mm = (JSON.parse(fsSync.readFileSync(msf, 'utf-8'))?.model || {}) as Record<string, unknown>;
               if (mm.collectionKind && mm.roomRef) { rcRoom = String(mm.roomRef); rcKind = String(mm.collectionKind); } // roomcoll → live room members/files
@@ -3296,7 +3313,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
                 // relpath (ensureViewUnit inconsistency) → reconstruct the ref so mofChildren dispatches (else dir folders 404).
                 const vref = /^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(loc) ? loc : (String(mm.kind) === 'file' ? `file:${loc}` : `dir:${loc}`);
                 if (loc && /^(mof-m1|mof-m2|project:|file:|rawbin:|dir:)/.test(vref)) {
-                  const mofKids = mofChildren(new ScenarioIndex(MODEL_STORE), vref) || []; // same children the REF path returns → varied childCounts feed the sunburst (proportional) + P5 dir sunburst (.puml via the puml-dir branch)
+                  const mofKids = mofChildren(new ScenarioIndex(modelReadDir()), vref) || []; // same children the REF path returns → varied childCounts feed the sunburst (proportional) + P5 dir sunburst (.puml via the puml-dir branch)
                   res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
                   res.end(JSON.stringify({ uuid, type: 'folder', name: String(mm.name || vref), hasChildren: mofKids.length > 0, childCount: mofKids.length, children: mofKids }));
                   return;
@@ -3328,7 +3345,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           return;
         }
         // R32.5: a ModelElement/Diagram uuid resolves from the ISOLATED store (its members are model units too); trace units stay prod (union).
-        const scenarioDir = isModelUnit(uuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = resolveReadDir(uuid); // R40.81 Slice-2: the ONE collapsed read-source resolver (flag-toggled model store / prod scenario-index)
         const idx = new ScenarioIndex(scenarioDir);
         const unit = idx.get(uuid);
         if (!unit) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{}'); return; }
@@ -3584,7 +3601,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         if (ff) { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' }); res.end(JSON.stringify({ unit: ff })); return; }
         // R32.5: model units (ModelElement/Diagram) resolve from the ISOLATED store (diagram surface + tree fetch); trace units stay prod.
         const iorUuid = ior.replace(/^ior:(instance|class):/, '');
-        const scenarioDir = isModelUnit(iorUuid) ? MODEL_STORE : path.join(__dirname, '../../../scenario/index');
+        const scenarioDir = resolveReadDir(iorUuid); // R40.81 Slice-2: the ONE collapsed read-source resolver (flag-toggled)
         const idx = new ScenarioIndex(scenarioDir);
         const resolver = new IORResolver(idx, defaultTemplateRegistry(), path.join(__dirname, '../../..'));
         const result = resolver.resolve(ior);
