@@ -1,0 +1,15 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "77ff595d-a6c7-4022-a437-198c5a714bc7",
+    "name": "Folder",
+    "implements": [
+      "ior:instance:b49a0ec6-58fe-4008-b8b7-e56dab21ffdd"
+    ],
+    "methods": [
+      "ior:instance:ced15069-1447-44b8-97f1-573e88ccc6aa"
+    ],
+    "description": "R40.86 (Tron overrule): the domain Folder class IMPLEMENTS DropTarget ONCE — every folder everywhere (room / model-collection / diagrams / nested / not-yet-existing) IS a drop target by virtue of being a Folder. No per-surface gate; supersedes the per-container DropDispatcher.acceptDropIntoContainer (a81ed3db) carve-out model."
+  }
+}

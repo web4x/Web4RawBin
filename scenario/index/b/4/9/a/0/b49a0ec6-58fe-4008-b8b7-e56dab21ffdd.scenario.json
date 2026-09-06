@@ -1,0 +1,10 @@
+{
+  "ior": "ior:class:Class",
+  "ownerIor": null,
+  "model": {
+    "uuid": "b49a0ec6-58fe-4008-b8b7-e56dab21ffdd",
+    "name": "DropTarget",
+    "methods": [],
+    "description": "R40.86 (Tron): the DropTarget CONTRACT — acceptDrop(files). Capability belongs to the CLASS that implements it, NEVER to the surface an instance renders on. A non-Folder leaf simply does not implement DropTarget (genuine type-level); a Folder that implements it NEVER answers canAccept=false."
+  }
+}
