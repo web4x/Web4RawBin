@@ -44,4 +44,9 @@ Shipped tonight: GoF **Proxy** (v0.8.202) + **MimeType.from Factory** + self-reg
 | **T37.40** CalendarEntry natural class | **SUBSUMED** | v0.8.203/204 instantiate + render CalendarEntry |
 | **T37.20.5** per-target BITE stub-must-fail | **LIKELY SUBSUMED** | the open/closed + mutual-distinctness lints (d2f95670a) already stub-must-fail per class; a separate per-drop-target BITE may be redundant — PO confirm |
 | **T37.20.6** DEVICE @390 | **NOT a build — Tron's device ACCEPTANCE** | the whole contract's real-device verify; belongs in the accept list, not the build queue |
-**If PO rules SUBSUMED: those slices flip to QA-Review under T37.20's evidence (v0.8.202/203/204), NOT Done.**
+**★ PO RULING (2026-09-06) — SPLIT, not a blanket flip:**
+- **37.39 Image + 37.40 CalendarEntry = ✅ FLIPPED QA-Review** (directly gated, tester-measured image→Image / .ics→CalendarEntry, 4/4 class-distinct GREEN v0.8.204 d2f95670a; commit 5cafea364).
+- **.2 file-drags / .3 details-render / .4 serialize-fleet = ⏳ TESTER VERIFIES each AC vs the shipped build, flips on THEIR verdict** (ACs are BROADER than what was measured — no inference-flip; that's the wrong-class-is-fine trap in board form).
+- **.4 has concrete WORK (NOT subsumed):** the TREE folder drop-target (`rb-object-item.ts:82`) still reads `dataTransfer.files` ONLY → an in-app UNIT dropped on a folder is NOT contract-routed (expert finding; **R40.86 re-parent** unit→folder move). This is the proof .4 ("EVERY drop target") isn't done — board it.
+- **.5 per-target BITE = 🔧 WORK (cheap, TIER-A)** — the per-target assertion nobody ran; it PROVES .4.
+- **.6 DEVICE @390 = → moved to the acceptance list** (Tron's real-device confirm, not a build).
