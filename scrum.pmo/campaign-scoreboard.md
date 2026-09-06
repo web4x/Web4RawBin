@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 245** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 90** (245 = 98+52+3+90)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 86**
+- **TOTAL S30++ tasks: 251** — Done **98** · QA-Review **52** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (251 = 98+52+3+96)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 42 | 1 | 14 | 0 | 27 |
+| S37 | 48 | 1 | 14 | 0 | 33 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 17 · build 56
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 23 · build 56
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -38,11 +38,17 @@
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 33b28f6b | Planned | build | Task 37.35: AXIS-2 lint — task<->req AC PARITY (task-md AC s |
+| S37 | 369b8636 | Planned | marker | Task 37.20.4: ONE shared serializer + resolver, EVERY drop t |
+| S37 | 3dd05daa | Planned | marker | Task 37.20.2: A FILE drags as a FILE (its File unit), never  |
+| S37 | 4c083193 | Planned | marker | Task 37.20.5: BITE asserts the contract PER TARGET + stub-mu |
+| S37 | 53571e22 | Planned | marker | Task 37.20.6: DEVICE @390 — Tron verifies on phone: file dra |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
 | S37 | 61718883 | Planned | build | Task 37.28: Truth-decay / no-freshness-invariant family — co |
 | S37 | 6541850f | In Progress | build | Task 37.30: File/WebItem detail render CONVERGENCE onto the  |
+| S37 | 68364f5e | Planned | marker | Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE |
 | S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
 | S37 | 802a9597 | In Progress | marker | Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a r |
+| S37 | 82c0c01f | Planned | marker | Task 37.20.3: Detail views actually RENDER for EVERY /model  |
 | S37 | 968d966d | Planned | build | Task 37.28.3: deploy-instruction (DEPLOY-STATE.md) freshness |
 | S37 | 993b3f2d | Planned | build | Task 37.36: AXIS-3 lint — QA-is-a-SWITCH-STATE validity (eve |
 | S37 | 9b140eee | Planned | build | Task 37.33: Referential-integrity by construction — every co |

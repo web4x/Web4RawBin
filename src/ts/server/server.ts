@@ -78,7 +78,7 @@ import { createRoomHome, generateRoomKeypair, writeRoomJson, scanAllRooms, scanU
 import { encryptFile, decryptFile, fileExists, rekeyUser } from './UserCrypto.js';
 import { validate as validateTrace } from './TraceConsistency.js';
 import { TraceGraph, makeObject, FORWARD_KEYS, type ObjectType, type FlatObject } from '../shared/TraceModel.js';
-import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl } from '../scenario/index.js';
+import { ScenarioIndex, IORResolver, defaultTemplateRegistry, createFileUnit, createMessageUnit, PhoneIndex, normalizePhone, EmailIndex, AddressIndex, CompanyIndex, createWebItemUnit, extractUrl, decodeBinaryUnit } from '../scenario/index.js';
 import { APPROVE_STATUSES, deriveStatusEnum, rolledTaskStatus, PROCESSING_CR_SUBSTEP } from '../scenario/task-status.js'; // R40.37 anti-drift: server 409-gate + client affordance share this ONE set; deriveStatusEnum = T37.26 derived-current pin-role; R40.1 CR-resolve = tick the processing-CR sub-step
 import { FolderService, resolveDirRefAbs, resolveFolderRefToDir, isVirtualModelParent, rawbinToRepoDir } from './FolderService.js'; // R40.37 AC5: mint+persist Folder unit atomically + return it. R37.33: resolveDirRefAbs = the ONE dir-ref→abs resolver. T37.21 Option B: resolveFolderRefToDir maps ANY folder-ish ref→physical dir (fixes bad-parent-loc causes 1+2); rawbinToRepoDir = the ONE rawbin:*→repo-dir source
 import { resolveSprintPin, sprintNumOf, bySprintDisplayOrder } from '../scenario/sprint-pin-resolver.js'; // R40.17: the ONE current-sprint resolver + canonical sprint-number reader; R40.50: the ONE canonical sprint DISPLAY order (server-side; CurrentSprint.slotsFrom stays fs-free)
@@ -2625,7 +2625,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
       });
       return;
     }
-    if (req.method === 'POST' && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) {
+    if ((req.method === 'POST' || req.method === 'PUT') && filepath.startsWith('/api/room/') && filepath.endsWith('/upload')) { // SLICE-A: PUT = idempotent unit-JSON ingress; POST = native-file multipart edge (both hit this handler)
       const parts = filepath.split('/');
       const roomId = parts[3];
       const MAX_UPLOAD = 50 * 1024 * 1024; // 50MB
@@ -2637,6 +2637,53 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (totalSize > MAX_UPLOAD) { captureUploadOutcome('pre-' + Date.now().toString(36), 413, 'too-large:' + totalSize); res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
           const _capId = captureUploadRequest(roomId, req.headers as Record<string, unknown>, body); // P0: PII-safe framing capture to file (runs BEFORE any parse/branch → catches even no-boundary/auth-fail); correlate outcome via _capId
+          // ★ SLICE-A UNIT-JSON INGRESS (object-owned upload, design 4e643add7): the browser read its OWN File bytes
+          // (FileReader→base64) and PUT a scenario UNIT — Tron REST: unit JSON is the ONLY thing on the wire. Handled HERE
+          // BEFORE the multipart parse, so his device's multipart is NEVER hand-parsed on this path → the boundary/param/
+          // encoding failure class is unreachable by construction. The multipart branch below STAYS as the native-file ingress
+          // edge (mimetype-class-model REVISION-3). Idempotent by unit uuid (createFileUnit honours input.uuid) + hash-deduped.
+          if ((req.headers['content-type'] || '').includes('application/json')) {
+            let jp: any; try { jp = JSON.parse(body.toString('utf-8')); } catch { captureUploadOutcome(_capId, 400, 'json-parse-fail'); res.writeHead(400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'bad json' })); return; }
+            const jpt = String(jp?.playerToken || '');
+            if (!jpt || !tokenToClient.has(jpt)) { captureUploadOutcome(_capId, 401, jpt ? 'auth-token-present-but-unknown' : 'auth-token-missing'); addLog(`[upload] unit-JSON auth failed (token ${jpt ? 'present-but-unknown' : 'MISSING'})`); res.writeHead(401, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Unauthenticated' })); return; }
+            const jroom = roomManager.getRoom(roomId);
+            if (!jroom) { captureUploadOutcome(_capId, 404, 'room-not-found'); res.writeHead(404, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'Room not found' })); return; }
+            const dec = decodeBinaryUnit(jp?.unit || {}); // base64→bytes (BinaryUnit.fromUnit f7dc4bb3); createFileUnit re-hashes+dedups+writes the .content sidecar
+            if (dec.content.length > 10 * 1024 * 1024) { captureUploadOutcome(_capId, 413, 'inline-over-10mb'); res.writeHead(413, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: 'file too large for inline upload, max 10MB' })); return; } // >10MB → SLICE-C NativeFileIngress streamed
+            const jparentRef = String(jp?.parent || ''); const jrelated = String(jp?.relatedFile || '');
+            const jscenarioDir = path.join(__dirname, '../../../scenario/index');
+            const jidx = new ScenarioIndex(jscenarioDir);
+            const jln = dec.name.toLowerCase();
+            const jIsWebItem = dec.mimeType === 'text/uri-list' || jln.endsWith('.url') || jln.endsWith('.webloc') || jln.endsWith('.desktop'); // MIRROR the multipart branch's drop-router (url→WebItem, else File)
+            let junit: any;
+            if (jIsWebItem) {
+              const jurl = extractUrl(dec.content.toString('utf-8'), dec.name);
+              if (jurl) {
+                junit = createWebItemUnit(jidx, { uuid: crypto.randomUUID(), url: jurl, name: dec.name, uploaderToken: jpt, roomUuid: roomId, relatedFile: jrelated || undefined }, publishUnitChanged);
+                if (/^https?:/i.test(jurl)) { const jt = await fetchPageTitle(jurl); if (jt) { (junit.model as any).name = jt; jidx.put((junit.model as any).uuid, junit); } }
+                if (jrelated) jroom.removeFileUnit(jrelated); // demote the source file → child of the WebItem (parity with the multipart branch)
+              }
+            }
+            const jdrop = resolveDropContainer(jparentRef, roomId, jidx); // room-root default; folder ref → nest
+            if (!junit) junit = createFileUnit(jidx, { name: dec.name, content: dec.content, mimeType: dec.mimeType, uploaderToken: jpt, fsKey: homeKeyFor(jpt, { mint: true }), roomUuid: roomId, uuid: dec.uuid, ...(jdrop.parentIor ? { parent: jdrop.parentIor, location: `${jdrop.folderLocation}/${dec.name}` } : {}) }, publishUnitChanged); // uuid=dec.uuid → idempotent-by-uuid; sha256 dedup makes a re-send a no-op
+            const jFileUuid = (junit.model as any).uuid;
+            jroom.addFileUnit(jFileUuid);
+            if (jdrop.parentIor) { // mirror the folder-owns-children write (server.ts multipart branch) so a nested file renders inside the folder
+              try {
+                const jpUuid = jdrop.parentIor.replace('ior:instance:', '');
+                const jpf = path.join(jscenarioDir, ...jpUuid.slice(0, 5).split(''), `${jpUuid}.scenario.json`);
+                const jpj = JSON.parse(fsSync.readFileSync(jpf, 'utf-8'));
+                jpj.model.children = Array.isArray(jpj.model.children) ? jpj.model.children : [];
+                if (!jpj.model.children.includes(`ior:instance:${jFileUuid}`)) { jpj.model.children.push(`ior:instance:${jFileUuid}`); fsSync.writeFileSync(jpf, JSON.stringify(jpj, null, 2) + '\n'); }
+              } catch { /* best-effort (mirrors the multipart branch) */ }
+            }
+            publishUnitChanged('ior:class:Folder', jdrop.publishRef); // live-insert into the target node (folder or Files root)
+            jroom.broadcast({ type: MSG.FILE_ADDED, roomId, fileUuid: jFileUuid, name: dec.name, size: dec.content.length, mimeType: dec.mimeType });
+            captureUploadOutcome(_capId, 200, jIsWebItem ? 'success-webitem-unit' : 'success-file-unit');
+            addLog(`[upload] unit-JSON SUCCESS: ${dec.name} (${dec.content.length}b) uuid=${jFileUuid} room=${roomId.slice(0, 8)}`);
+            res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ uuid: jFileUuid, name: dec.name, size: dec.content.length }));
+            return;
+          }
           // DISCRIMINATOR (PO): log the declared Content-Length ALONGSIDE the RAW received body (this count is Buffer.concat
           // of the req.on('data') chunks, BEFORE any parse below). content-length>0 WITH received 0b = the client declared a
           // body but 0 bytes arrived = a mid-flight STRIP (stale SW re-issuing without the streamed body), NOT a parser fault

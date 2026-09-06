@@ -4,8 +4,11 @@
  * State machine: IDLE→DRAGOVER→UPLOADING→COMPLETE.
  */
 
+import { UnitTransport, fileToUnit, urlToUnit } from './unit-transport.js'; // SLICE-A: the ONE object-owned unit-JSON upload — replaces uploadFile (fetch+FormData) + uploadWithProgress (xhr+FormData)
+
 type DropHandler = (file: File, roomId: string, playerToken: string) => Promise<void>;
 type StatusCallback = (state: string, detail?: string) => void;
+const MAX_INLINE = 10 * 1024 * 1024; // SLICE-A: inline unit-JSON cap (base64 ~+33%, held in memory both sides); >10MB → clear reject (SLICE-C streams)
 
 export class DropDispatcher {
   private handlers = new Map<string, DropHandler>();
@@ -54,47 +57,28 @@ export class DropDispatcher {
     dz.classList.remove('rrc-drop-active');
   }
 
-  // [impl:uuid:d6ec181b-3e6f-4b95-9b67-196cdb137ad3] DropDispatcher.uploadFile
-  async uploadFile(file: File, roomId: string, playerToken: string, relatedFileUuid?: string, opts?: { intoFolder?: string }): Promise<{ uuid: string; name: string; size: number } | null> {
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('playerToken', playerToken);
-    if (relatedFileUuid) fd.append('relatedFile', relatedFileUuid); // v0.6.91: WebItem forward-ref to its source file
-    if (opts?.intoFolder) fd.append('parent', opts.intoFolder); // R40.86: drop INTO a folder → server nests the new unit under it (parent=folder; STILL ONE createFileUnit)
-
-    const resp = await fetch(`${this.baseUrl}/api/room/${roomId}/upload`, { method: 'POST', body: fd });
-    if (!resp.ok) return null;
-    return resp.json();
+  // SLICE-A: uploadFile (fetch+FormData) + uploadWithProgress (xhr+FormData) are DELETED — collapsed into the ONE
+  // object-owned unit-JSON upload (saveFileUnit → UnitTransport.putByUuid). No caller builds FormData/xhr/multipart.
+  // saveFileUnit — the ONE client upload: read the File's OWN bytes (FileReader→base64, fileToUnit) → PUT the unit JSON.
+  // The browser never hands a multipart body for this path, so his device's multipart quirks are unreachable by construction.
+  private async saveFileUnit(file: File, roomId: string, playerToken: string, opts?: { intoFolder?: string; relatedFile?: string; onProgress?: (pct: number) => void }): Promise<{ uuid: string; name: string; size: number } | null> {
+    if (file.size > MAX_INLINE) { this.statusCb?.('error', `Failed: ${file.name} — too large (max ${MAX_INLINE / 1024 / 1024}MB)`); return null; } // >10MB → clear reject, never read into memory
+    const unit = await fileToUnit(file); // FileReader→base64 inline (transfer form)
+    return UnitTransport.putByUuid(unit, { roomId, playerToken, baseUrl: this.baseUrl, parent: opts?.intoFolder, relatedFile: opts?.relatedFile, onProgress: opts?.onProgress });
   }
 
   // [impl:uuid:75edb563-67ec-4d20-a87f-449fe889c567] DropDispatcher.acceptDropIntoContainer (R40.86, Method a81ed3db, UC af1bf20b folder.acceptDropIntoContainer) —
   // a FOLDER is a drop target: ROUTE each dropped file through the ONE upload→createFileUnit path with the target folder as parent,
   // then DELEGATE the in-place render to R40.84 reDeriveDirectChildren (fired by the upload's publishUnitChanged) → the item live-inserts
   // INSIDE the folder + persists (R40.92 folderChildrenUnder renders it on reload). DropDispatcher carries NO 2nd containment/add path
-  // (req root-lens guard, LAW-8) — it reuses uploadFile; the ONLY new thing is threading parent=targetFolderRef. ONE mint per file (no double-mint).
+  // (req root-lens guard, LAW-8) — it reuses the ONE object-owned saveFileUnit; the ONLY new thing is threading parent=targetFolderRef. ONE mint per file (no double-mint).
   async acceptDropIntoContainer(files: File[], targetFolderRef: string): Promise<void> {
     const { roomId, token } = this.dropContext(); // the SAME room context dispatch() uses (set by RoomView.setRoomContext)
     if (!roomId || !token) { this.statusCb?.('error', 'No room context for folder drop'); return; }
-    for (const f of files) await this.uploadFile(f, roomId, token, undefined, { intoFolder: targetFolderRef }); // parent=folder → server nests it; no client re-derive (R40.84 live-inserts via publishUnitChanged)
+    for (const f of files) await this.saveFileUnit(f, roomId, token, { intoFolder: targetFolderRef }); // SLICE-A: object-owned unit-JSON; parent=folder → server nests it; R40.84 live-inserts via publishUnitChanged
   }
 
-  // [impl:uuid:0bd88871-d496-448e-84b7-7daf8bee595a] DropDispatcher.uploadWithProgress
-  uploadWithProgress(file: File, roomId: string, playerToken: string, onProgress: (pct: number) => void): Promise<{ uuid: string; name: string; size: number } | null> {
-    return new Promise((resolve) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', `${this.baseUrl}/api/room/${roomId}/upload`);
-      xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(Math.round(e.loaded / e.total * 100)); };
-      xhr.onload = () => {
-        try { resolve(xhr.status === 200 ? JSON.parse(xhr.responseText) : null); }
-        catch { resolve(null); }
-      };
-      xhr.onerror = () => resolve(null);
-      const fd = new FormData();
-      fd.append('file', file);
-      fd.append('playerToken', playerToken);
-      xhr.send(fd);
-    });
-  }
+  // SLICE-A: uploadWithProgress DELETED — its ONLY distinct reason (progress) is now the onProgress PARAM on saveFileUnit → UnitTransport.putByUuid.
 
   // [impl:uuid:971bdde0-004b-4896-bc8c-4570832f6304] DropDispatcher.routeUnknown
   // [impl:uuid:4a159912-978e-46bc-a839-5201857461c5] R25.1 DropDispatcher.routeUnknown
@@ -115,9 +99,7 @@ export class DropDispatcher {
     this.statusCb?.('uploading', `Uploading ${file.name}...`);
     let result: { uuid: string; name: string; size: number } | null = null;
     if (file.type.startsWith('image/') || file.type.startsWith('text/') || file.type.startsWith('application/') || file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type.startsWith('message/')) { // v0.6.81: audio/+video/; v0.6.90: message/ (iOS .eml email drop)
-      result = await this.uploadWithProgress(file, roomId, playerToken, (pct) => {
-        this.statusCb?.('uploading', `${file.name} ${pct}%`);
-      });
+      result = await this.saveFileUnit(file, roomId, playerToken, { onProgress: (pct) => { this.statusCb?.('uploading', `${file.name} ${pct}%`); } }); // SLICE-A: object-owned unit-JSON upload (progress = param)
     } else {
       await this.routeUnknown(file, roomId, playerToken, sendChat);
     }
@@ -136,9 +118,8 @@ export class DropDispatcher {
     try {
       // v0.6.90: caller may pass a display name (e.g. an email subject) → the WebItem name derives from it.
       const name = (displayName && displayName.trim()) || url.split('/').pop() || 'link';
-      const blob = new Blob([url], { type: 'text/uri-list' });
-      const file = new File([blob], `${name}.url`, { type: 'text/uri-list' });
-      const result = await this.uploadFile(file, roomId, playerToken, relatedFileUuid); // v0.6.91: link WebItem→source file
+      // SLICE-A: build the unit directly (urlToUnit → text/uri-list) → the ONE unit-JSON transport; server resolves uri-list→WebItem.
+      const result = await UnitTransport.putByUuid(urlToUnit(url, name), { roomId, playerToken, baseUrl: this.baseUrl, relatedFile: relatedFileUuid }); // v0.6.91: link WebItem→source file
       this.state = 'complete';
       this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name}` : `Failed: ${url}`);
       setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);

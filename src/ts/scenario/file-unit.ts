@@ -133,6 +133,24 @@ export function createFileUnit(idx: ScenarioIndex, input: FileUnitInput, publish
   return unit;
 }
 
+// [impl:uuid:f7dc4bb3-a0b9-428e-b515-54951ad7eb1c] BinaryUnit.base64AndHashDedup / fromUnit (Class d9c338c0, Method 78ee6935,
+// R40.98) — the AT-REST decode half of the binary-in-unit representation. SLICE-A: a browser reads its own File (FileReader
+// → base64) and transfers UNIT JSON (the ONLY thing on the wire, Tron REST law) → the server decodes the base64 content
+// INLINE here and hands the raw fields to createFileUnit, which writes the .content sidecar + sha256 hash-dedup (EXISTING
+// mechanism — no new machinery). Idempotent by uuid (the client's unit.model.uuid flows to createFileUnit) + hash-deduped
+// (a re-send is a no-op / same unit) → self-heal-by-construction. NEVER hand-parses multipart (there is none on this path).
+export function decodeBinaryUnit(unit: { ior?: string; model?: Record<string, unknown> }): { uuid?: string; name: string; mimeType: string; content: Buffer } {
+  const m = (unit?.model || {}) as Record<string, unknown>;
+  const b64 = String(m.contentBase64 || m.content || '');
+  const content = Buffer.from(b64, 'base64'); // transfer form (base64 inline) → bytes; createFileUnit re-hashes + dedups + writes the sidecar
+  return {
+    uuid: m.uuid ? String(m.uuid) : undefined,
+    name: String(m.name || 'file'),
+    mimeType: String(m.mimeType || m.contentType || 'application/octet-stream'),
+    content,
+  };
+}
+
 // Read file content sidecar (returns null if missing).
 export function readFileUnitContent(idx: ScenarioIndex, uuid: string): Buffer | null {
   const unit = idx.get(uuid);
