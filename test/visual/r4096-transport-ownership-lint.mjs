@@ -42,7 +42,9 @@ function scan() {
     const isOwner = OWNER_RE.test(rel);
     if (isOwner) ownerFileFound = rel;
     const lines = fs.readFileSync(f, 'utf8').split('\n');
-    lines.forEach((l, i) => { if (isComment(l)) return; for (const h of HAZARDS) { if (h.re.test(l)) { if (!isOwner) hits.push({ rel, line: i + 1, key: h.key, text: l.trim().slice(0, 90) }); break; } } });
+    // skip comments AND log calls: a `boundary=` literal inside an addLog/console string is diagnostics, NOT multipart handling
+    // (tighten after r4096 false-positived on server.ts:2682 `addLog('[upload] parsed: … boundary=yes …')` — noted, does not move the RED baseline).
+    lines.forEach((l, i) => { if (isComment(l) || /addLog\(|console\.(log|error|warn|info)/.test(l)) return; for (const h of HAZARDS) { if (h.re.test(l)) { if (!isOwner) hits.push({ rel, line: i + 1, key: h.key, text: l.trim().slice(0, 90) }); break; } } });
   }
   return { hits, ownerFileFound, fileCount: files.length };
 }
