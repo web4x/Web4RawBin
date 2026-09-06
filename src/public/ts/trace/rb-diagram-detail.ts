@@ -9,6 +9,7 @@ import { RbPanZoom } from './pan-zoom.js';
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js';
 import { buildDiagramSvg, borderPoint, stripRef, type ViewLink, type DiagramNode, type DiagramRelation, type EdgeKind, type Rect } from './diagram-view-model.js';
+import { DndContract, isUnits } from '../dnd-contract.js'; // T37.20.1: read the drop via the ONE contract, not a per-target getData
 
 // R33.6.3: box transform parser — module-scoped so both wireBoxDrag and rerouteEdges read a box's live (x,y).
 const TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/;
@@ -240,8 +241,9 @@ export class RbDiagramDetail extends HTMLElement {
   // layout width), then persist+re-render via addView. The drop was previously only LABELED (:104), never wired.
   private async onDropAddView(e: DragEvent, content: HTMLElement): Promise<void> {
     e.preventDefault();
-    const raw = e.dataTransfer?.getData('application/rb-object-ref') || e.dataTransfer?.getData('text/plain') || '';
-    const elementUuid = stripRef((raw.split(',')[0] || '').split('\n')[0].trim());
+    // T37.20.1: resolve via the ONE DnD contract (rb-object-ref/rb-unit/text-plain, URL-guarded) — no per-target getData.
+    const res = DndContract.resolveDragUnit(e.dataTransfer);
+    const elementUuid = stripRef(isUnits(res) ? (res.units[0] || '') : '');
     if (!elementUuid) return;
     const rect = content.getBoundingClientRect();
     const scale = content.offsetWidth ? rect.width / content.offsetWidth : 1; // RbPanZoom-aware without reaching into pz internals
