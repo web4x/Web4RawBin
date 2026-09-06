@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 256** — Done **98** · QA-Review **57** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (256 = 98+57+3+96)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
+- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **57** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 97** (257 = 98+57+3+97)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 93**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 53 | 1 | 19 | 0 | 33 |
+| S37 | 54 | 1 | 19 | 0 | 34 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 21 · build 58
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 21 · build 59
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -60,6 +60,7 @@
 | S37 | b43278f7 | Planned | build | Task 37.32: Gate-harness invokes faithfully or marks BROKEN  |
 | S37 | bd0e5f4a | Planned | build | Task 37.28.1: boot-state (sprint/version) freshness guard —  |
 | S37 | c18c2efb | Planned | build | Task 37.15: Store-once theme-only names — a stored n |
+| S37 | c7f5f582 | Planned | build | Task 37.43: Each natural class OWNS its name — derives its o |
 | S37 | cb015b3d | Planned | marker | Task 37.41: Harness-harden the tree-node drop handler — mach |
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | e2068636 | Planned | build | Task 37.28.6: constraint-cycle (structural) freshness guard  |

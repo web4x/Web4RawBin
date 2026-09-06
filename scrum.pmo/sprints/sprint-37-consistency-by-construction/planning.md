@@ -33,6 +33,8 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] 🧪 [Task 37.39: Image is a natural CLASS — dropping an image RESOLVES to an Image unit that is instantiated and renders ITSELF (no mime/format switch) [R40.99, under T37.20]](./task-37.39-image-natural-class.md)
 - [ ] 🧪 [Task 37.40: CalendarEntry is a natural CLASS — dropping a calendar entry RESOLVES to a CalendarEntry unit that is instantiated and renders ITSELF (no mime/format switch) [R40.99, under T37.20]](./task-37.40-calendarentry-natural-class.md)
 - [ ] ⏳ [Task 37.41: Harness-harden the tree-node drop handler — machine-verify drag-onto-tree with a synthetic unit-ref DataTransfer (removes the T37.20.4 instrument-limited caveat) [R37.20]](./task-37.41-harness-harden-tree-node-drop.md)
+- [ ] ⏳ [Task 37.42: RENAME as the object's own behaviour — unit.rename(newName), a 2nd class-registered action (displayName overrides derivedName) [R40.104]](./task-37.42-rename-object-own-behaviour.md)
+- [ ] ⏳ [Task 37.43: Each natural class OWNS its name — derives its own display name (derivedName←class, displayName←user, originalName preserved) [R40.105]](./task-37.43-class-owns-its-name-derived.md)
 - [ ] 🧪 [Task 37.21: TRON 5-PART extended scope — room collections=real Folder units + sunburst + Add-folder-physical(live-MVC/WS) + dedupe detail links + puml physical-folder-tree](./task-37.21-room-collections-real-folder-units.md)
 - [ ] ⏳ [Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)](./task-37.22-ior-clear-origin.md)
 - [ ] ⏳ [Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod](./task-37.23-discovered-server-manager-root.md)
