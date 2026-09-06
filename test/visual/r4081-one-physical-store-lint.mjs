@@ -33,16 +33,20 @@ function scan() {
         (perTree[top] = perTree[top] || { real: 0, sym: 0 }).real++;
         if (!rel.includes(ONE_STORE)) { realOutside++; if (outsideSamples.length < 8) outsideSamples.push(rel); }
         const uuid = x.name.replace('.scenario.json', '');
-        if (!uuidRealTrees.has(uuid)) uuidRealTrees.set(uuid, new Set());
-        uuidRealTrees.get(uuid).add(top);
+        if (!uuidRealTrees.has(uuid)) uuidRealTrees.set(uuid, new Map());
+        uuidRealTrees.get(uuid).set(top, p); // record the REAL path per tree so we can byte-compare a dup
       }
     }
   })(ROOT);
   const dupUuids = [...uuidRealTrees.entries()].filter(([, trees]) => trees.size > 1); // AC-3: same uuid physically real in ≥2 trees
-  return { perTree, realOutside, outsideSamples, dupUuids };
+  // AC-7 zero-data-loss / apply-time re-check (PO: assert FRESH, never trust a stale 0): for every dup, the two real files must be
+  // byte-identical — a divergent dup is UNSAFE to collapse (which version wins?). Measured every run, so re-running at apply re-proves it.
+  const divergent = [];
+  for (const [uuid, trees] of dupUuids) { const paths = [...trees.values()]; try { const a = fs.readFileSync(paths[0]); if (!paths.slice(1).every((q) => fs.readFileSync(q).equals(a))) divergent.push(uuid); } catch { divergent.push(uuid + '(read-err)'); } }
+  return { perTree, realOutside, outsideSamples, dupUuids, divergent };
 }
 
-const { perTree, realOutside, outsideSamples, dupUuids } = scan();
+const { perTree, realOutside, outsideSamples, dupUuids, divergent } = scan();
 R(`═══ R40.81 ONE-PHYSICAL-UNIT-STORE — real unit files OUTSIDE ${ONE_STORE} ═══`);
 R(`  per-tree *.scenario.json (real = a PHYSICAL unit file; symlink = a view INTO the store):`);
 for (const top of Object.keys(perTree).sort()) { const t = perTree[top]; R(`    ${top}: real=${t.real} symlink=${t.sym}${t.real > 0 && top !== 'scenario' ? '   ← DUPLICATE PHYSICAL STORE' : ''}`); }
@@ -51,6 +55,8 @@ for (const s of outsideSamples) R(`      ${s}`);
 R(`  AC-3 uuids with a REAL file in >=2 trees (duplicate physical unit) : ${dupUuids.length}  ${dupUuids.length === 0 ? 'GREEN' : 'RED'}`);
 for (const [u, trees] of dupUuids.slice(0, 6)) R(`      ${u} in {${[...trees].join(', ')}}`);
 R(`  (AC-3 tells the convergence shape: dup>0 => same units stored twice = de-dup+symlink; dup==0 with realOutside>0 => distinct units mislocated = relocate+symlink.)`);
+R(`  AC-7 zero-data-loss — dup real files that are BYTE-DIVERGENT (unsafe to collapse) : ${divergent.length}  ${divergent.length === 0 ? 'GREEN (all identical, measured FRESH this run)' : 'RED — DO NOT MIGRATE'}`);
+for (const u of divergent.slice(0, 8)) R(`      DIVERGENT ${u}`);
 
 // ── FAILABLE self-test (teeth): seed ONE real *.scenario.json OUTSIDE scenario/index → realOutside MUST rise, then remove it.
 const probeDir = path.join(ROOT, `__r4081_probe_${process.pid}`);
