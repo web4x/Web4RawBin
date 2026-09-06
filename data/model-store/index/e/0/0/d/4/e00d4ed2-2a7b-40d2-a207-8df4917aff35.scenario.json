@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e00d4ed2-2a7b-40d2-a207-8df4917aff35",
+    "name": "taskUuid",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "TaskSlot.taskUuid",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:b2738ae2-0051-4fb9-a7d1-ecf054f5e9b0"
+  }
+}

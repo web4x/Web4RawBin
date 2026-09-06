@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a39af185-909c-4447-a6c1-561cc2ef8ee2",
+    "name": "ModelValidator",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "ModelValidator",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:407ed54e-f03e-4001-ab7d-c469fc16291d",
+      "ior:instance:1baa1d32-4c88-481a-a750-ab81b32831ea",
+      "ior:instance:70dfbd66-ff2e-45ad-a159-0892127f08c2",
+      "ior:instance:07d0b415-67c4-4c40-a4ba-647993d49963",
+      "ior:instance:8078662b-26a2-4888-a70b-5ccced43b871"
+    ]
+  }
+}

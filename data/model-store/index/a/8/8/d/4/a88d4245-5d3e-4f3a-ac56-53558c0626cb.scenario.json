@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a88d4245-5d3e-4f3a-ac56-53558c0626cb",
+    "name": "node",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "OpenNode.node",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:0a3d9347-fd52-4196-a3c9-839e2e46c230"
+  }
+}

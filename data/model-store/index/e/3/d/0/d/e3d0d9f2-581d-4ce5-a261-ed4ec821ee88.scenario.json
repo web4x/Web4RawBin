@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e3d0d9f2-581d-4ce5-a261-ed4ec821ee88",
+    "name": "rows",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "FollowUpResult.rows",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:4936ec15-7f07-4e36-a9c0-342a773da6a4",
+    "relatesTo": [
+      "ior:instance:e187a0cf-adfa-4276-a96d-168a7162c414"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:e187a0cf-adfa-4276-a96d-168a7162c414",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000010"
+      }
+    ]
+  }
+}

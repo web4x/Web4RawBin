@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "d6f74138-f77c-41e2-a6be-ad4312475b13",
+    "name": "testsMoved",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "WireResult.testsMoved",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:6af7a6fc-656b-4798-abe8-8f793924be1c"
+  }
+}

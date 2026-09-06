@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1754d89f-98a3-40ae-ad05-f7f9d18e834c",
+    "name": "nextBacklog",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "ThreeSlots.nextBacklog",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:74098a8d-7e57-4b7a-a60d-c865e0d6a6b9"
+  }
+}

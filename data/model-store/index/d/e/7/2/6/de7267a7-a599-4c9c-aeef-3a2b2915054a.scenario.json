@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "de7267a7-a599-4c9c-aeef-3a2b2915054a",
+    "name": "VacuousOpts",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/consistency-guard.ts",
+    "qualifiedName": "VacuousOpts",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:7e33b150-d241-41b2-a2a3-29e7ad8c8347",
+      "ior:instance:1b146e5c-c850-48f1-a41c-3619a985eaa9",
+      "ior:instance:be35e089-d4be-4eed-a7f4-e266aefdf182"
+    ]
+  }
+}

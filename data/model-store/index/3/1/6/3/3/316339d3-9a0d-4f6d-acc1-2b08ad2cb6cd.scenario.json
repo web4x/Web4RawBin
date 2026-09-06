@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "316339d3-9a0d-4f6d-acc1-2b08ad2cb6cd",
+    "name": "sprintReqs",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain.sprintReqs",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "visibility": "private",
+    "parameters": [
+      {
+        "name": "sprint",
+        "type": "string"
+      }
+    ],
+    "returnType": "string[]",
+    "parentClass": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "96d44058-b085-447d-a241-f539d5ee4800",
+    "name": "markerTotal",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/test-marker-attach.ts",
+    "qualifiedName": "ScanResult.markerTotal",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:2e88110e-d9f8-4450-ad97-0fefc5922924"
+  }
+}

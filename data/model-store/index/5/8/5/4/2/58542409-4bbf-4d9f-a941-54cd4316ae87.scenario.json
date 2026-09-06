@@ -1,0 +1,44 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "58542409-4bbf-4d9f-a941-54cd4316ae87",
+    "name": "walkChain",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Scenario.walkChain",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:5456d7c7-c09b-4455-aa7f-f4bcf5b85ae0",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "startIor",
+        "type": "string"
+      },
+      {
+        "name": "direction",
+        "type": "string"
+      },
+      {
+        "name": "maxDepth",
+        "type": "number"
+      }
+    ],
+    "returnType": "ChainStep[]",
+    "documentation": "Walk the chain from a unit (down/up/both, depth-limited) — returns flat steps",
+    "parentClass": "ior:instance:5456d7c7-c09b-4455-aa7f-f4bcf5b85ae0",
+    "relatesTo": [
+      "ior:instance:5b334100-3270-41d9-af00-00de9d6b52e9"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:5b334100-3270-41d9-af00-00de9d6b52e9",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "814e3701-2ec0-4dd3-a9aa-261bcccee1c2",
+    "name": "last",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "VelocityResult.last",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:ff56a4ce-f707-4ad7-a512-d39e00811999"
+  }
+}

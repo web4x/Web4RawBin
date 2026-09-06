@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "5cb440a4-0053-426d-a1cb-ef07b76d8eae",
+    "name": "_r",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "test/fixtures/r32.2-sample.ts",
+    "qualifiedName": "Circle._r",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:54ea2a17-7b18-4d0f-ab41-feb6efe9ae64"
+  }
+}

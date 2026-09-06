@@ -1,0 +1,35 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8888c9b6-5ff4-43e1-af0f-27418efd09f0",
+    "name": "slotsFrom",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "CurrentSprint.slotsFrom",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "index",
+        "type": "ScenarioIndex"
+      }
+    ],
+    "returnType": "ThreeSlots",
+    "parentClass": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57",
+    "relatesTo": [
+      "ior:instance:74098a8d-7e57-4b7a-a60d-c865e0d6a6b9"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:74098a8d-7e57-4b7a-a60d-c865e0d6a6b9",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+      }
+    ]
+  }
+}

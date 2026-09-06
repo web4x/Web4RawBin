@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "6849bc9c-42bb-4b99-a6b6-f9b649e4ac9e",
+    "name": "wipStatus",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "PinData.wipStatus",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:2331f163-511f-4d12-aedf-9f9db6a14afb"
+  }
+}

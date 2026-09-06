@@ -1,0 +1,14 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "a1d2e3f4-0000-4a1b-8c2d-000000000004",
+    "name": "UmlInterface",
+    "metaLevel": "M2",
+    "kind": "interface",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001"
+    ],
+    "instances": []
+  },
+  "ownerIor": null
+}

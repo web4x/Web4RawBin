@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e4737266-5366-4196-a3a7-414475df9ecd",
+    "name": "implRoots",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain.implRoots",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "visibility": "private",
+    "parameters": [],
+    "returnType": "string[]",
+    "documentation": "Real-code roots for [impl:uuid:] markers: src/ + scripts/ + repo-root build scripts (build.mjs, …).\nScan scope MUST match WHERE markers legitimately live — repo-root build code is real code (load-bearing:\nbuild.mjs is invoked by start.mjs; NOT relocated). The shallow root-file scan is correct-by-construction,\nso a NEW repo-root build script can't re-open this scan-coverage gap (bit R31.7 + R31.13).",
+    "parentClass": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206"
+  }
+}

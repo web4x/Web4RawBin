@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e73af71b-3f35-4992-a2b6-e7cd26a4ae0a",
+    "name": "ModelViolation",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "ModelViolation",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:f9787a92-5169-40a0-ad9c-57951b9a9efb",
+      "ior:instance:4ab4b2ba-74f3-4607-a765-307b88a1ca49",
+      "ior:instance:588524df-e721-479a-a821-700e7650d9e2"
+    ],
+    "relatedFrom": [
+      "ior:instance:407ed54e-f03e-4001-ab7d-c469fc16291d",
+      "ior:instance:07d0b415-67c4-4c40-a4ba-647993d49963",
+      "ior:instance:8078662b-26a2-4888-a70b-5ccced43b871"
+    ]
+  }
+}

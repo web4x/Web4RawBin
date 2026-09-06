@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "344aea92-5150-4f6e-ad2c-f00d47d14795",
+    "name": "SkillResult",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/skills.ts",
+    "qualifiedName": "SkillResult",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:c221c37f-650e-4a6a-af62-af970a9b6154",
+      "ior:instance:b7a1ffb8-2f37-41f3-ab46-330fa46afc37",
+      "ior:instance:02d5b1df-5dbf-4bed-acbd-a2b62b447422"
+    ]
+  }
+}

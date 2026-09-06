@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "55e467a2-cb7f-4019-af82-3e0e2102a345",
+    "name": "load",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "CurrentSprint.load",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57",
+    "visibility": "private",
+    "parameters": [],
+    "returnType": "void",
+    "parentClass": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57"
+  }
+}

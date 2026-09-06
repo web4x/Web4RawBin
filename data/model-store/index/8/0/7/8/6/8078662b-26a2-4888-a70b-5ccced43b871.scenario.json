@@ -1,0 +1,39 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8078662b-26a2-4888-a70b-5ccced43b871",
+    "name": "assertSameUuidCrossRepresentation",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/ModelValidator.ts",
+    "qualifiedName": "ModelValidator.assertSameUuidCrossRepresentation",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:a39af185-909c-4447-a6c1-561cc2ef8ee2",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "reps",
+        "type": "Record<string, string>"
+      }
+    ],
+    "returnType": "ModelViolation[]",
+    "parentClass": "ior:instance:a39af185-909c-4447-a6c1-561cc2ef8ee2",
+    "relatesTo": [
+      "ior:instance:e73af71b-3f35-4992-a2b6-e7cd26a4ae0a"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:e73af71b-3f35-4992-a2b6-e7cd26a4ae0a",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+      }
+    ]
+  }
+}

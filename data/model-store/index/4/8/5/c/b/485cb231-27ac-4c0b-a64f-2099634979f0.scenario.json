@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:File",
+  "ownerIor": null,
+  "model": {
+    "uuid": "485cb231-27ac-4c0b-a64f-2099634979f0",
+    "name": "server.ts",
+    "location": "src/ts/server/server.ts",
+    "kind": "file",
+    "sourceFile": "ior:file:src/ts/server/server.ts"
+  }
+}

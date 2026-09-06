@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ee04368e-8b11-46b5-ade7-c4b4059d3a25",
+    "name": "IORResolution",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/ior-resolver.ts",
+    "qualifiedName": "IORResolution",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:47d26f91-6ca6-416a-a592-ea4f6cae061d",
+      "ior:instance:c759816e-f8dd-4f10-a11c-62a68006fc96",
+      "ior:instance:34280032-1e94-4c0e-a244-40cd4eec0f05",
+      "ior:instance:9642f149-b4c5-4731-aaec-d3f591661c14",
+      "ior:instance:c6b58e5f-35df-460e-aa19-349b91915580",
+      "ior:instance:369c9601-d310-4e11-ab0c-2473bbbf9ebe",
+      "ior:instance:8a75b064-1c24-468b-a509-eb4a37051867",
+      "ior:instance:82ad824e-5eed-449b-af31-fec601aca266",
+      "ior:instance:7865c308-139e-41b6-a169-ab6bc1bf87d6"
+    ],
+    "relatedFrom": [
+      "ior:instance:5ceaed1a-f8be-4b85-ae98-d38139e44cd0"
+    ]
+  }
+}

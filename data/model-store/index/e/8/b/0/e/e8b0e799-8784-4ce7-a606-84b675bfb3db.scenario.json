@@ -1,0 +1,25 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e8b0e799-8784-4ce7-a606-84b675bfb3db",
+    "name": "parseFederatedIor",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/federated-ior.ts",
+    "qualifiedName": "parseFederatedIor",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "ior",
+        "type": "string"
+      }
+    ],
+    "returnType": "FederatedRef",
+    "documentation": "Parse the optional `@originHost` suffix. Local IORs (no `@host` / `@self`) yield originHost=null."
+  }
+}

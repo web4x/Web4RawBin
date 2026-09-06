@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "3f7635c2-aea6-434f-a28e-924acd713e3b",
+    "name": "sourceFile",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/TsToModel.ts",
+    "qualifiedName": "Draft.sourceFile",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:27543353-633b-414c-a9be-dd21c2d5e38c"
+  }
+}

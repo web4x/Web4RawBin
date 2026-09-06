@@ -1,0 +1,31 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "54ea2a17-7b18-4d0f-ab41-feb6efe9ae64",
+    "name": "Circle",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "test/fixtures/r32.2-sample.ts",
+    "qualifiedName": "Circle",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:c2fca9c2-5b77-4a1f-aae2-cf9cdf0c981c",
+      "ior:instance:5cb440a4-0053-426d-a1cb-ef07b76d8eae",
+      "ior:instance:614517c4-8823-40d2-a485-9333293e6f76",
+      "ior:instance:ddba503b-5799-44d7-a356-ce13cdb9b8c1"
+    ],
+    "relatesTo": [
+      "ior:instance:0ce4d2fb-4023-4db8-ac2d-4376ce16815c"
+    ],
+    "relations": [
+      {
+        "to": "ior:instance:0ce4d2fb-4023-4db8-ac2d-4376ce16815c",
+        "type": "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000011"
+      }
+    ]
+  }
+}

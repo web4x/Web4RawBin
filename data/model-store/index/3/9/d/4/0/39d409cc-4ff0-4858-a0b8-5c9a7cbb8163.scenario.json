@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "39d409cc-4ff0-4858-a0b8-5c9a7cbb8163",
+    "name": "generateOverview",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/sprint-overview-generator.ts",
+    "qualifiedName": "SprintOverviewGenerator.generateOverview",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:845a8119-810b-4517-a8a1-2711b35d9cdb",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "existing",
+        "type": "string"
+      }
+    ],
+    "returnType": "string",
+    "parentClass": "ior:instance:845a8119-810b-4517-a8a1-2711b35d9cdb"
+  }
+}

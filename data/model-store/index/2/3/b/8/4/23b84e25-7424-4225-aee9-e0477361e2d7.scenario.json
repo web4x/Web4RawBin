@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "23b84e25-7424-4225-aee9-e0477361e2d7",
+    "name": "setNextBacklog",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "CurrentSprint.setNextBacklog",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "taskUuid",
+        "type": "string"
+      }
+    ],
+    "returnType": "boolean",
+    "parentClass": "ior:instance:50c359d2-0550-4810-a124-6da71766ae57"
+  }
+}

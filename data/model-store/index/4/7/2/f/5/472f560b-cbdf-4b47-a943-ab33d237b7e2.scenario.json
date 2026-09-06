@@ -1,0 +1,35 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "472f560b-cbdf-4b47-a943-ab33d237b7e2",
+    "name": "mintAndLink",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/PhoneIndex.ts",
+    "qualifiedName": "PhoneIndex.mintAndLink",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:46076aa7-0599-43c0-a2e7-aa09748723b6",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "profileUuid",
+        "type": "string"
+      },
+      {
+        "name": "rawPhone",
+        "type": "string"
+      },
+      {
+        "name": "phoneUuid",
+        "type": "string"
+      }
+    ],
+    "returnType": "string",
+    "documentation": "R21.6: mint an ior:class:Phone unit (caller supplies a v4 uuid to keep this module\nruntime-crypto-free), link it into Profile.phones[] (multiple supported, idempotent),\nand register the alt/phone symlink. Standardized +CountryDigits enforced at creation.\nReturns the normalized key or null.",
+    "parentClass": "ior:instance:46076aa7-0599-43c0-a2e7-aa09748723b6"
+  }
+}

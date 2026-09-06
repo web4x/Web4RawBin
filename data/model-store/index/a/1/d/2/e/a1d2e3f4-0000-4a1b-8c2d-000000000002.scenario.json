@@ -1,0 +1,18 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "a1d2e3f4-0000-4a1b-8c2d-000000000002",
+    "name": "Relationship",
+    "metaLevel": "M3",
+    "kind": "relationship",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001"
+    ],
+    "instances": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000010",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000011",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000012"
+    ]
+  },
+  "ownerIor": null
+}

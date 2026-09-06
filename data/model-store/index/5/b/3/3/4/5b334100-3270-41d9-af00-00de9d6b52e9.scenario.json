@@ -1,0 +1,26 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "5b334100-3270-41d9-af00-00de9d6b52e9",
+    "name": "ChainStep",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/skills.ts",
+    "qualifiedName": "ChainStep",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:bad68604-880d-494e-a9e7-c6da888a275b",
+      "ior:instance:ed9e6b15-f7aa-49b1-ad06-76355173f87c",
+      "ior:instance:f8ee13d9-91d9-49ad-a949-27d8da82ac5d",
+      "ior:instance:1d39e778-995c-4993-af53-6a6d55eedd5b",
+      "ior:instance:d93d14b7-c514-4906-aeb1-2b74376d0ea7"
+    ],
+    "relatedFrom": [
+      "ior:instance:58542409-4bbf-4d9f-a941-54cd4316ae87"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "8d7d4846-d886-48a5-a567-f07df9642caf",
+    "name": "templates",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "ViewTemplateRegistry.templates",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:db408f2c-c828-4876-a891-a8d4216b7d48"
+  }
+}

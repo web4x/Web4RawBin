@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "99002cb1-432a-48d1-aecf-8a77bd60ded6",
+    "name": "renderChainLinkHtml",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/templates.ts",
+    "qualifiedName": "renderChainLinkHtml",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "ior",
+        "type": "string"
+      },
+      {
+        "name": "resolve",
+        "type": "SlugResolver"
+      }
+    ],
+    "returnType": "string"
+  }
+}

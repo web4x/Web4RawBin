@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "c6dd62b4-2d36-4d58-a14a-cdde82a22688",
+    "name": "uuid",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/trace-tree.ts",
+    "qualifiedName": "TraceNode.uuid",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:ab4def11-ca98-4801-acd8-4d9ee089e306"
+  }
+}

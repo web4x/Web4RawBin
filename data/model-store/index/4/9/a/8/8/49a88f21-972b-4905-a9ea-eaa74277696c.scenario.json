@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "49a88f21-972b-4905-a9ea-eaa74277696c",
+    "name": "detail",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "LintFinding.detail",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:6a894176-d862-4f8a-a3a7-4385881b8ae2"
+  }
+}

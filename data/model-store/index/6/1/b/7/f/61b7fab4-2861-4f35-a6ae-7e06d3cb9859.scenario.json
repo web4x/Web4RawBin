@@ -1,0 +1,16 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "61b7fab4-2861-4f35-a6ae-7e06d3cb9859",
+    "name": "TaskStatusEnum",
+    "metaLevel": "M1",
+    "kind": "type",
+    "sourceFile": "src/ts/scenario/task-status.ts",
+    "qualifiedName": "TaskStatusEnum",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000009",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000020"
+    ]
+  }
+}

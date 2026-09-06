@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "16550a55-c429-4723-a589-892de50e444a",
+    "name": "nameKey",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/CompanyIndex.ts",
+    "qualifiedName": "CompanySuggestion.nameKey",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:e9766c7f-4b50-4583-a255-84ed0df83b01"
+  }
+}

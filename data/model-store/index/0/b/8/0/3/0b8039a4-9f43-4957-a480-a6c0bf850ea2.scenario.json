@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "0b8039a4-9f43-4957-a480-a6c0bf850ea2",
+    "name": "GenerateResult",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/generator.ts",
+    "qualifiedName": "GenerateResult",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:9d3798ef-ac02-4a0c-ac1b-42412d0d791d",
+      "ior:instance:32fb9a97-9e86-4314-a0e7-e6d11fb9b057"
+    ],
+    "relatedFrom": [
+      "ior:instance:39ff0012-3046-4154-a056-e665c2be6499"
+    ]
+  }
+}

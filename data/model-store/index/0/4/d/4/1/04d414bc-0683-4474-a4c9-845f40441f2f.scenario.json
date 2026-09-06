@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "04d414bc-0683-4474-a4c9-845f40441f2f",
+    "name": "FederatedRef",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/federated-ior.ts",
+    "qualifiedName": "FederatedRef",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:89ad9ea1-dd00-4b51-af30-39759d1f8d36",
+      "ior:instance:3c59cb80-eddb-4f1a-a7d5-95fa48a8b671",
+      "ior:instance:a57580ad-43f0-4252-aab0-6297dbe2691e"
+    ]
+  }
+}

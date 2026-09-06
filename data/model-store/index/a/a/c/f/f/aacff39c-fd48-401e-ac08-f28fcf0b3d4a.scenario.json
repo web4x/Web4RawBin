@@ -1,0 +1,11 @@
+{
+  "ior": "ior:class:File",
+  "ownerIor": null,
+  "model": {
+    "uuid": "aacff39c-fd48-401e-ac08-f28fcf0b3d4a",
+    "name": "FeatureManager.ts",
+    "location": "src/ts/server/FeatureManager.ts",
+    "kind": "file",
+    "sourceFile": "ior:file:src/ts/server/FeatureManager.ts"
+  }
+}

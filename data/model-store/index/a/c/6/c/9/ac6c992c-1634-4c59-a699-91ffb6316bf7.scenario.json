@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "ac6c992c-1634-4c59-a699-91ffb6316bf7",
+    "name": "fullStart",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/test-marker-attach.ts",
+    "qualifiedName": "TestBlock.fullStart",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:d78db08d-77c1-4fb0-ac57-fac77163b878"
+  }
+}

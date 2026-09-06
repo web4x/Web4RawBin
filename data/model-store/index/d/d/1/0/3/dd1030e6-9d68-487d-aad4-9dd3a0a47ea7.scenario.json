@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "dd1030e6-9d68-487d-aad4-9dd3a0a47ea7",
+    "name": "HopState",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/CurrentSprint.ts",
+    "qualifiedName": "HopState",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:c9353192-ddfb-48d3-ae9d-aabf6f618bee",
+      "ior:instance:37d68c00-6363-47e8-a4b3-7ef2ea91b079",
+      "ior:instance:79cb7a82-f57d-49ea-a4ed-43dd0a9bc1f0"
+    ]
+  }
+}

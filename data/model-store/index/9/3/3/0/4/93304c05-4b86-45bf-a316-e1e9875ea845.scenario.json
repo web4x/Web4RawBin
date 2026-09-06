@@ -1,0 +1,35 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "93304c05-4b86-45bf-a316-e1e9875ea845",
+    "name": "applyVerification",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/AddressIndex.ts",
+    "qualifiedName": "AddressIndex.applyVerification",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:6d9be734-aaa3-4a0d-a487-ea9b5f9223c7",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "addrUuid",
+        "type": "string"
+      },
+      {
+        "name": "lat",
+        "type": "string | number"
+      },
+      {
+        "name": "lon",
+        "type": "string | number"
+      }
+    ],
+    "returnType": "boolean",
+    "documentation": "Background-job result: mark verified + store both links (AC-c4, AC-d1/d2/d3).",
+    "parentClass": "ior:instance:6d9be734-aaa3-4a0d-a487-ea9b5f9223c7"
+  }
+}

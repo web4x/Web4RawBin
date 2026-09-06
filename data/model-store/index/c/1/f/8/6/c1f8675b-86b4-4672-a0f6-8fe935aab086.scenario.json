@@ -1,0 +1,30 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "c1f8675b-86b4-4672-a0f6-8fe935aab086",
+    "name": "updateMatrixRow",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain.updateMatrixRow",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "reqUuid",
+        "type": "string"
+      },
+      {
+        "name": "matrixPath",
+        "type": "string"
+      }
+    ],
+    "documentation": "Update one requirement's row in the traceability matrix",
+    "parentClass": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206"
+  }
+}

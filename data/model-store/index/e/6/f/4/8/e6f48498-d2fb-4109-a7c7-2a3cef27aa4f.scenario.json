@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e6f48498-d2fb-4109-a7c7-2a3cef27aa4f",
+    "name": "R325Iface",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "test/fixtures/r325-golive-drop.ts",
+    "qualifiedName": "R325Iface",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:7e0376f6-f906-4f18-ab8b-aab42872ed58"
+    ],
+    "relatedFrom": [
+      "ior:instance:2bb791ec-d68f-41fd-a19d-03abbded5c04",
+      "ior:instance:1c636898-7b15-4a17-ad25-a47fe94e7e79"
+    ]
+  }
+}

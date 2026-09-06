@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a589bb05-7b5f-4129-ab24-6cb0801f2780",
+    "name": "testRoots",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain.testRoots",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "visibility": "private",
+    "parameters": [],
+    "returnType": "string[]",
+    "documentation": "Roots for [test:uuid:] markers: test/ + scripts/ (tooling tests live there too).",
+    "parentClass": "ior:instance:666daa9b-cdb3-4b9d-afee-4f65aab61206"
+  }
+}

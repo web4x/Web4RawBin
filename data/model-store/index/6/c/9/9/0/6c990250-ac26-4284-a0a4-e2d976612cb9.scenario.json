@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "6c990250-ac26-4284-a0a4-e2d976612cb9",
+    "name": "uploaderToken",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/WebItem.ts",
+    "qualifiedName": "WebItemInput.uploaderToken",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:7a387be2-cbb2-4b33-af8b-9648012e6b81"
+  }
+}

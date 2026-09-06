@@ -1,0 +1,12 @@
+{
+  "ior": "ior:class:File",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a50e475a-b89d-4f3b-aa63-dd7734491754",
+    "name": "chain-model.ts",
+    "location": "src/ts/shared/chain-model.ts",
+    "kind": "file",
+    "sourceFile": "ior:file:src/ts/shared/chain-model.ts",
+    "ext": "ts"
+  }
+}

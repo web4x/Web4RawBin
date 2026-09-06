@@ -1,0 +1,24 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "a4b05b92-e20b-44b5-a201-9a0e642e370d",
+    "name": "OverviewCheck",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/sprint-overview-generator.ts",
+    "qualifiedName": "OverviewCheck",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:5efd03a8-1667-4a02-ade8-e4515017de04",
+      "ior:instance:d7f65348-a50d-436b-a26f-179a0b75be4b",
+      "ior:instance:5d60edd7-cba0-4642-aebb-10eace920186"
+    ],
+    "relatedFrom": [
+      "ior:instance:baa0b02c-40c5-41e6-a4fd-5c67465e5e47"
+    ]
+  }
+}

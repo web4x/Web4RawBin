@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "c62073e1-9ff7-456c-a460-65c57e334b38",
+    "name": "end",
+    "metaLevel": "M1",
+    "kind": "attribute",
+    "sourceFile": "src/ts/scenario/test-marker-attach.ts",
+    "qualifiedName": "TestBlock.end",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000005",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000017"
+    ],
+    "memberOf": "ior:instance:d78db08d-77c1-4fb0-ac57-fac77163b878"
+  }
+}

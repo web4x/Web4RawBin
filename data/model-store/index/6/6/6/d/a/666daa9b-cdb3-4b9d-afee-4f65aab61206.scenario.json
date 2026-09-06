@@ -1,0 +1,48 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "666daa9b-cdb3-4b9d-afee-4f65aab61206",
+    "name": "Chain",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/skill-classes.ts",
+    "qualifiedName": "Chain",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:b0ddd7be-33f9-4ad8-aa20-5ad3d434d339",
+      "ior:instance:d4082ee6-ebfa-4581-a4ca-7b04f0224c39",
+      "ior:instance:35dd2389-f215-410a-aa38-ef0a36976799",
+      "ior:instance:30e45221-da38-46f1-aa06-d09e66a77761",
+      "ior:instance:e4737266-5366-4196-a3a7-414475df9ecd",
+      "ior:instance:34cce5eb-bd87-4adc-a882-1faf51e3866a",
+      "ior:instance:a589bb05-7b5f-4129-ab24-6cb0801f2780",
+      "ior:instance:a9a9fc92-78fb-4ff4-ad67-630d48a796c6",
+      "ior:instance:03ed4b5b-31a1-4754-a94d-fb3ce176d4b7",
+      "ior:instance:dc6dd880-fea0-4c35-a073-b1d3f1582b3a",
+      "ior:instance:44c84a81-4665-469a-a091-5c34cdd8752b",
+      "ior:instance:b9fdea71-2734-44a8-a68b-20303078f94a",
+      "ior:instance:316339d3-9a0d-4f6d-acc1-2b08ad2cb6cd",
+      "ior:instance:c91ff94e-ffe4-4956-a43e-02778b4f7403",
+      "ior:instance:ee98f598-978d-4096-a26e-f04beec98c97",
+      "ior:instance:235c2de7-2a1b-47cb-ad0a-92a3d47586d8",
+      "ior:instance:5f185420-488a-4b16-a61a-fd30f0f896a7",
+      "ior:instance:d1c031eb-87a8-44c1-a158-0f2d14290be8",
+      "ior:instance:b9c7b3e4-05a8-4d0f-a927-1faff8fec0e2",
+      "ior:instance:92bf4d5f-4933-4b1c-af9d-b0c1a844f044",
+      "ior:instance:5c212778-3a20-4389-a3fb-974153393151",
+      "ior:instance:4e728bbc-888c-4dc1-a0c3-424eb4daa2cb",
+      "ior:instance:5cd2fb1f-307e-4077-aa15-abba21c98c16",
+      "ior:instance:e7c89830-bbc6-45c8-a2e4-e2bb42d4d573",
+      "ior:instance:c1f8675b-86b4-4672-a0f6-8fe935aab086",
+      "ior:instance:124937fc-4a2f-41df-a1bb-e93a53cfc488",
+      "ior:instance:a854781b-61b8-4714-a1ac-fb7c542d59f9",
+      "ior:instance:6498b5a1-5bbe-4749-ae9f-bf4d010174f9",
+      "ior:instance:181e723c-4b80-4f14-a65d-f82ac2576c8b",
+      "ior:instance:1a4a0b22-f37a-4faf-a123-9fb99db8bfdf"
+    ]
+  }
+}

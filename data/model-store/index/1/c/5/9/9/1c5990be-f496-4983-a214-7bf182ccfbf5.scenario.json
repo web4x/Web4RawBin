@@ -1,0 +1,32 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "1c5990be-f496-4983-a214-7bf182ccfbf5",
+    "name": "createMessageUnit",
+    "metaLevel": "M1",
+    "kind": "function",
+    "sourceFile": "src/ts/scenario/message-unit.ts",
+    "qualifiedName": "createMessageUnit",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000008",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000019"
+    ],
+    "visibility": "public",
+    "parameters": [
+      {
+        "name": "idx",
+        "type": "ScenarioIndex"
+      },
+      {
+        "name": "input",
+        "type": "MessageInput"
+      },
+      {
+        "name": "lastMessageIor",
+        "type": "string"
+      }
+    ],
+    "returnType": "ScenarioUnit"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "ior": "ior:class:Diagram",
+  "ownerIor": null,
+  "model": {
+    "uuid": "faa4acad-41a6-48fc-ad0d-dd0044c123f7",
+    "name": "Model diagram (3 classes)",
+    "views": [
+      {
+        "unit": "modelelement:0ce4d2fb-4023-4db8-ac2d-4376ce16815c",
+        "x": 20,
+        "y": 20,
+        "viewKind": "interface"
+      },
+      {
+        "unit": "modelelement:6b9bf49f-79df-418c-a7a5-b9e7cc565ef9",
+        "x": 240,
+        "y": 20,
+        "viewKind": "class"
+      },
+      {
+        "unit": "modelelement:54ea2a17-7b18-4d0f-ab41-feb6efe9ae64",
+        "x": 460,
+        "y": 20,
+        "viewKind": "class"
+      }
+    ]
+  }
+}

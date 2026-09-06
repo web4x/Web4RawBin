@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e9ddca3f-0bae-4798-a4db-276d4385321a",
+    "name": "ClassRegistry",
+    "metaLevel": "M1",
+    "kind": "class",
+    "sourceFile": "src/ts/scenario/classes.ts",
+    "qualifiedName": "ClassRegistry",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000003",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000013"
+    ],
+    "members": [
+      "ior:instance:6ab3ad49-6312-44d7-a2b1-49e46bc65057",
+      "ior:instance:5d58678c-ea42-4a7b-aad7-5f60a51d07e3",
+      "ior:instance:fb09d8ca-015d-4bce-ac7b-297a0a3d9336",
+      "ior:instance:e616c073-5a0e-4255-afae-e8b54d269974"
+    ]
+  }
+}

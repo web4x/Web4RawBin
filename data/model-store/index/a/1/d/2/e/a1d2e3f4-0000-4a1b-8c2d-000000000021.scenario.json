@@ -1,0 +1,17 @@
+{
+  "ior": "ior:class:ModelElement",
+  "model": {
+    "uuid": "a1d2e3f4-0000-4a1b-8c2d-000000000021",
+    "name": "UmlNode",
+    "metaLevel": "M2",
+    "kind": "node",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000001"
+    ],
+    "instances": [
+      "ior:instance:fc327458-03d1-4b90-847d-ab52a7d82237"
+    ],
+    "sentinelNote": "DELIBERATE M2 metamodel SENTINEL — member of the a1d2e3f4-0000-4a1b-8c2d-0000000000NN family (UmlClass=..0003, UmlInterface=..0004, UmlUseCase, etc.). This uuid is INTENTIONALLY patterned, NOT a fabricated/hand-typed accident: a random v4 here would break the M2-family lookup (code keys on the a1d2e3f4 family + sequential slot). Allow-listed alongside the 00000000 system-root. DO NOT re-mint or repair as fabricated — see gating-canon R5 sentinel exception + the identity detector exclusion catalog."
+  },
+  "ownerIor": null
+}

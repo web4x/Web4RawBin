@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "81de95ac-60f7-48ae-a008-0ed1e31f96b4",
+    "name": "list",
+    "metaLevel": "M1",
+    "kind": "method",
+    "sourceFile": "src/ts/scenario/index-store.ts",
+    "qualifiedName": "ScenarioIndex.list",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000006",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000016"
+    ],
+    "memberOf": "ior:instance:83fde3d3-dadd-43ad-a091-3064016e3eea",
+    "visibility": "public",
+    "parameters": [],
+    "returnType": "string[]",
+    "parentClass": "ior:instance:83fde3d3-dadd-43ad-a091-3064016e3eea"
+  }
+}

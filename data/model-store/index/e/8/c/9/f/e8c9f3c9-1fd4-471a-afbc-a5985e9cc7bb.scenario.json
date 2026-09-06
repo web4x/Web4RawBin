@@ -1,0 +1,38 @@
+{
+  "ior": "ior:class:ModelElement",
+  "ownerIor": null,
+  "model": {
+    "uuid": "e8c9f3c9-1fd4-471a-afbc-a5985e9cc7bb",
+    "name": "M1Model",
+    "metaLevel": "M1",
+    "kind": "interface",
+    "sourceFile": "src/ts/scenario/TsToModel.ts",
+    "qualifiedName": "M1Model",
+    "instanceOf": [
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000004",
+      "ior:instance:a1d2e3f4-0000-4a1b-8c2d-000000000015"
+    ],
+    "members": [
+      "ior:instance:06276fd3-9fbe-4379-a1e5-5204b9a8741f",
+      "ior:instance:26bd9c56-636c-4bf4-aa8f-683a73d02b15",
+      "ior:instance:06d21704-c14b-4b1c-a633-b040e869ec2a",
+      "ior:instance:ba85d4a6-68c7-4063-a246-ee45aac0ffeb",
+      "ior:instance:4831edeb-d434-459b-a9f1-e46e125c6125",
+      "ior:instance:103c6898-4b2f-42ca-a201-ade5e3ce632f",
+      "ior:instance:c665b4a5-560e-4e86-a0b1-bb2f6af34e46",
+      "ior:instance:50f65094-9984-411c-a30f-faec7b9eb1d5",
+      "ior:instance:a4c377d7-c7de-4b93-a6cd-76187eeb7160",
+      "ior:instance:92bdee40-a2c4-482c-a338-7b2e82b0a79e",
+      "ior:instance:d822d6ec-814f-4f80-ab06-a75a0fa4ad69",
+      "ior:instance:28fc4036-d819-42bc-a774-c01f7bf07c34",
+      "ior:instance:41f984ea-3eaf-4ecf-aa15-76c612461508",
+      "ior:instance:5846b8db-c738-4f0a-a42f-7cd264a8c9f3",
+      "ior:instance:4c87bfe9-f493-48b1-a782-0daeffd43520",
+      "ior:instance:f571d9f2-0188-45de-aff8-51d465ac1d7f",
+      "ior:instance:db294b0a-e344-49d1-a9fc-0bdd7995e692"
+    ],
+    "relatedFrom": [
+      "ior:instance:89d1f9b6-14d3-4e3f-a5a6-2bcf5082cc91"
+    ]
+  }
+}
