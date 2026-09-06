@@ -2,24 +2,24 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target [R37.20]",
+    "name": "Current: Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE canonical payload (application/rb-object-ref) + ONE shared resolver every target calls [R37.20, slice 1/6 of the DnD drop contract]",
     "chain": {
       "req": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
-      "uc": "",
-      "class": "",
-      "method": "",
+      "uc": "e3fcf5b3-1f1b-4c5e-9cf1-3cfff34d75ac",
+      "class": "822e663b-f528-484e-92f9-825f402fdc8d",
+      "method": "dc4938a6-2d67-4ed7-b608-30be00d50e21",
       "impl": "",
       "test": ""
     },
-    "activeHop": 0,
+    "activeHop": 4,
     "sprintName": "Sprint 37",
-    "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
+    "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (ONE canonical payload + ONE shared resolver, fail-loud) — slice 1/6 of T37.20 DnD drop contract",
     "hopStates": {
-      "req": {
-        "status": "done",
-        "owner": "robbin-req",
-        "updatedAt": "2026-08-12"
-      }
+      "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" },
+      "uc": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" },
+      "class": { "status": "done", "owner": "robbin-architect", "updatedAt": "2026-09-06" },
+      "method": { "status": "done", "owner": "robbin-architect", "updatedAt": "2026-09-06" },
+      "impl": { "status": "in-progress", "owner": "robbin-expert", "updatedAt": "2026-09-06" }
     },
     "nextSprintName": "Sprint 37",
     "nextBacklogOverride": "",
@@ -28,8 +28,8 @@
     "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
     "slots": {
       "current": {
-        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
-        "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target",
+        "taskUuid": "68364f5e-4392-4d2d-ada5-819060b05110",
+        "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (ONE canonical payload + ONE shared resolver, fail-loud) — slice 1/6 of T37.20 DnD drop contract",
         "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       },
       "lastCompleted": {
@@ -38,12 +38,12 @@
         "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
       "nextBacklog": {
-        "taskUuid": "",
-        "taskName": "PENDING: T37.20 own-AC decomposition (SLICE-A buffer-carries-unit + one-serializer/resolver, then details-render / file-drags-as-file / per-target BITE / @390) — architect splits at design, req 3-pt verifies each mint",
+        "taskUuid": "369b8636-f449-45cd-b553-c523112d26b3",
+        "taskName": "Task 37.20.4: ONE shared serializer + resolver fleet-wide (depends on the resolver half) [R37.20 AC-shared-contract + AC-A2 fleet]",
         "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       }
     },
-    "currentTaskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
+    "currentTaskUuid": "68364f5e-4392-4d2d-ada5-819060b05110"
   },
   "ownerIor": null
 }
