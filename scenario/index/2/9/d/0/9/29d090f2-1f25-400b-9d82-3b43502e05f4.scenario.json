@@ -30,44 +30,93 @@
       {
         "id": "AC-independent-v4",
         "group": "functional",
-        "text": "Every NEW unit (any ior:class:*) gets an INDEPENDENT random v4 uuid (uuidgen/uuid4) — NEVER a parent-prefix + mnemonic suffix (no <Method-8char>+a1b2/b1c2/c1d2), never hand-typed / sequential / structured. Minting reads the uuid from uuidgen, never constructs it."
+        "text": "Every NEW unit (any ior:class:*) gets an INDEPENDENT random v4 uuid (uuidgen/uuid4) — NEVER a parent-prefix + mnemonic suffix (no <Method-8char>+a1b2/b1c2/c1d2), never hand-typed / sequential / structured. Minting reads the uuid from uuidgen, never constructs it.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:id-independence",
+          "assertion": "every new-unit uuid is an INDEPENDENT v4, not parent-prefix-derived; a parent-prefix-derived uuid => RED"
+        },
+        "stubMustFail": "seed a child uuid = parent-8char-prefix + suffix -> RED"
       },
       {
         "id": "AC-manufactured-collision-guard",
         "group": "gate",
-        "text": "A fabricated-identifier guard forbids: a child uuid SHARING its parent's 8-char prefix (manufactured-collision detector), a non-v4 uuid (bad version/variant nibble), a malformed/non-hex id, an all-zero tail, and set-wise inter-id nibble-delta regularity (co-minted-set fabrication). It matches RESOLVED markers + on-disk unit uuids, NOT generator source/templates. STUB-MUST-FAIL: a planted parent-prefixed child or non-v4 id -> RED; weaken/remove the guard -> suite RED (else it certifies nothing)."
+        "text": "A fabricated-identifier guard forbids: a child uuid SHARING its parent's 8-char prefix (manufactured-collision detector), a non-v4 uuid (bad version/variant nibble), a malformed/non-hex id, an all-zero tail, and set-wise inter-id nibble-delta regularity (co-minted-set fabrication). It matches RESOLVED markers + on-disk unit uuids, NOT generator source/templates. STUB-MUST-FAIL: a planted parent-prefixed child or non-v4 id -> RED; weaken/remove the guard -> suite RED (else it certifies nothing).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:fabricated-id",
+          "assertion": "a child uuid SHARING its parent 8-char prefix => RED (0 such units)"
+        },
+        "stubMustFail": "seed a child sharing parent 8-char prefix -> RED"
       },
       {
         "id": "AC-resolver-fail-closed",
         "group": "gate",
-        "text": "resolvePrefix is FAIL-CLOSED on an ambiguous 8-char prefix (>1 match -> REFUSE with a named reason), NEVER silent first-match — closing the Test-MOVE wrong-owner-credit path (per resolveprefix-fail-closed-guard.md). Generator (no manufactured collisions) + resolver (no first-match) together, not either alone."
+        "text": "resolvePrefix is FAIL-CLOSED on an ambiguous 8-char prefix (>1 match -> REFUSE with a named reason), NEVER silent first-match — closing the Test-MOVE wrong-owner-credit path (per resolveprefix-fail-closed-guard.md). Generator (no manufactured collisions) + resolver (no first-match) together, not either alone.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "resolvePrefix",
+          "assertion": "an ambiguous 8-char prefix (>1 match) => REFUSE with a named reason, never a silent pick"
+        },
+        "stubMustFail": "seed 2 uuids with the same 8-char prefix; resolvePrefix picks one silently -> RED"
       },
       {
         "id": "AC-retro-remint",
         "group": "functional",
-        "text": "RETRO: the existing -a1b2 Impls + the 35 non-v4 S18 Requirement uuids are re-minted to independent v4; a uuid change = REF-REWRITE (R27.2 remap shape: labelled snapshot -> dry-run + count -> rewrite every referrer -> verify -> conservation-invariant unit-count unchanged before==after). MARKERS-FIRST (2 malformed markers ViewBus e5145c01 / server.ts:1942 dnd01001 before non-v4 unit-uuids, per architect priority — malformed markers are silently-broken chains)."
+        "text": "RETRO: the existing -a1b2 Impls + the 35 non-v4 S18 Requirement uuids are re-minted to independent v4; a uuid change = REF-REWRITE (R27.2 remap shape: labelled snapshot -> dry-run + count -> rewrite every referrer -> verify -> conservation-invariant unit-count unchanged before==after). MARKERS-FIRST (2 malformed markers ViewBus e5145c01 / server.ts:1942 dnd01001 before non-v4 unit-uuids, per architect priority — malformed markers are silently-broken chains).",
+        "gateRef": {
+          "kind": "script",
+          "ref": "v4-audit",
+          "assertion": "count of non-v4 uuids (the -a1b2 Impls + 35 S18 Requirements) == 0 after re-mint"
+        },
+        "stubMustFail": "a remaining non-v4 uuid -> RED"
       },
       {
         "id": "AC-full-uuid-load-bearing",
         "group": "functional",
-        "text": "FULL uuids in EVERY ref, READ + WRITE (no 8-char prefixes in markers/refs/ops). Codified as an AC because the retro-audit came back CLEAN ONLY because every ref was a full uuid — the rule is load-bearing (a prefix ref would have resolved to the wrong manufactured-collision twin)."
+        "text": "FULL uuids in EVERY ref, READ + WRITE (no 8-char prefixes in markers/refs/ops). Codified as an AC because the retro-audit came back CLEAN ONLY because every ref was a full uuid — the rule is load-bearing (a prefix ref would have resolved to the wrong manufactured-collision twin).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:full-uuid",
+          "assertion": "0 8-char-prefix identifiers in any marker/ref/op (read AND write)"
+        },
+        "stubMustFail": "seed an 8-char-prefix ref -> RED"
       },
       {
         "id": "AC-scope-no-silent-caps",
         "group": "functional",
-        "text": "SCOPE (named, no-silent-caps) from the read-only scan: 2 malformed MARKERS + 35 non-v4 S18 Requirement uuids (sequential, self-consistent) + the -a1b2 Impl cluster. EXCLUDE ~10 marker-tooling regex/template false-positives + the short markerPending markers (flip on their C4 mint) — the excluded set is LISTED, never silently dropped; dropping an item from the exclude-list surfaces it back into the guard."
+        "text": "SCOPE (named, no-silent-caps) from the read-only scan: 2 malformed MARKERS + 35 non-v4 S18 Requirement uuids (sequential, self-consistent) + the -a1b2 Impl cluster. EXCLUDE ~10 marker-tooling regex/template false-positives + the short markerPending markers (flip on their C4 mint) — the excluded set is LISTED, never silently dropped; dropping an item from the exclude-list surfaces it back into the guard.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "scope-report",
+          "assertion": "the 2 malformed markers + 35 non-v4 S18 reqs are COUNTED + DECLARED, never silently capped"
+        },
+        "stubMustFail": "an offender uncounted/undeclared -> RED"
       },
       {
         "id": "AC-gate",
         "group": "gate",
-        "text": "TEST/BITE (distinct-intent): plant a child uuid sharing its parent's 8-char prefix -> guard RED; plant a non-v4 / malformed / all-zero-tail id -> RED; resolvePrefix on an ambiguous 8-char -> REFUSE (fail-closed) not first-match; weaken any guard -> suite RED. Verify Impl.tests[] on disk before flip."
+        "text": "TEST/BITE (distinct-intent): plant a child uuid sharing its parent's 8-char prefix -> guard RED; plant a non-v4 / malformed / all-zero-tail id -> RED; resolvePrefix on an ambiguous 8-char -> REFUSE (fail-closed) not first-match; weaken any guard -> suite RED. Verify Impl.tests[] on disk before flip.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "r3714-distinct-intent",
+          "assertion": "BOTH arms RED: plant child-shares-prefix -> guard RED; plant a non-v4 uuid -> guard RED"
+        },
+        "stubMustFail": "self-stub: either arm that cannot go RED => inadmissible"
       },
       {
         "id": "AC-mint-then-stamp-marker-integrity",
         "group": "functional",
-        "text": "[TRON-SCHEDULE, do-NOT-start — captured 2026-08-18 after the THIRD prefix-collision phantom in one day: 3542dcb3 (PO mis-cite) / fa8fffc8-8e2e (R19.18+R19.8.A tasks[]) / a778793d-0f8e (T37.26 sprintDisplayName marker @sprint-label.ts:34)]. Phantom markers exist because markers are HAND-TYPABLE -> make them IMPOSSIBLE, not merely forbidden (PO framing): (a) MINT-THEN-STAMP ONLY — a source [impl:uuid]/[test:uuid]/[uc:uuid] marker may be written ONLY by the tool, from a REAL minted unit's FULL uuid, FAIL-CLOSED if the uuid does not resolve to an existing unit of the correct KIND (an impl-marker MUST resolve to an Implementation), full uuid NEVER an 8-char prefix. (b) STRICT-AUDIT BACKSTOP — a sweep/gate over ALL shipped source markers turns any DANGLING (uuid->no unit) OR PREFIX-SHARING (uuid shares a sibling/parent 8-char prefix) OR WRONG-KIND marker RED, stub-must-fail. Converts phantom-hunting from forbidden to impossible-by-construction. MEASURE FIRST (the open question): how many OTHER shipped deliverables carry phantom / prefix-colliding markers — three in one day is a pattern, not luck. Extends AC-manufactured-collision-guard from mint-time UNIT uuids to shipped SOURCE markers. crossRef R40.38 orphan-marker-lint + R40.43 trace:audit-orphan."
+        "text": "[TRON-SCHEDULE, do-NOT-start — captured 2026-08-18 after the THIRD prefix-collision phantom in one day: 3542dcb3 (PO mis-cite) / fa8fffc8-8e2e (R19.18+R19.8.A tasks[]) / a778793d-0f8e (T37.26 sprintDisplayName marker @sprint-label.ts:34)]. Phantom markers exist because markers are HAND-TYPABLE -> make them IMPOSSIBLE, not merely forbidden (PO framing): (a) MINT-THEN-STAMP ONLY — a source [impl:uuid]/[test:uuid]/[uc:uuid] marker may be written ONLY by the tool, from a REAL minted unit's FULL uuid, FAIL-CLOSED if the uuid does not resolve to an existing unit of the correct KIND (an impl-marker MUST resolve to an Implementation), full uuid NEVER an 8-char prefix. (b) STRICT-AUDIT BACKSTOP — a sweep/gate over ALL shipped source markers turns any DANGLING (uuid->no unit) OR PREFIX-SHARING (uuid shares a sibling/parent 8-char prefix) OR WRONG-KIND marker RED, stub-must-fail. Converts phantom-hunting from forbidden to impossible-by-construction. MEASURE FIRST (the open question): how many OTHER shipped deliverables carry phantom / prefix-colliding markers — three in one day is a pattern, not luck. Extends AC-manufactured-collision-guard from mint-time UNIT uuids to shipped SOURCE markers. crossRef R40.38 orphan-marker-lint + R40.43 trace:audit-orphan.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:mint-then-stamp",
+          "assertion": "[TRON-SCHEDULE do-NOT-start] a marker stamped before its unit is minted => RED"
+        },
+        "stubMustFail": "seed a stamp-before-mint marker -> RED"
       }
-    ]
+    ],
+    "acFailabilityUpgrade": "ACs upgraded prose->FAILABLE (gateRef+stubMustFail added; existing text preserved) — re-point to built reality (PO overnight job 2026-09-06). Each carries a measuring instrument + a RED condition + a stub-must-fail."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

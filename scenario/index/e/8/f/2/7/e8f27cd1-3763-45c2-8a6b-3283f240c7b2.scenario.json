@@ -33,29 +33,60 @@
       {
         "id": "AC-no-sibling-credit",
         "group": "functional",
-        "text": "The scoreboard NEVER marks a task RIPE (flip-ready) using a SIBLING task's Test: a task whose coveredRequirement is shared by sibling tasks is NOT auto-RIPE from the requirement's aggregate green."
+        "text": "The scoreboard NEVER marks a task RIPE (flip-ready) using a SIBLING task's Test: a task whose coveredRequirement is shared by sibling tasks is NOT auto-RIPE from the requirement's aggregate green.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:ripe-scoreboard",
+          "assertion": "a task marked RIPE via a SIBLING task Test (shared coveredRequirement) => RED"
+        },
+        "stubMustFail": "seed a sibling with a passing Test on the shared req + the other task auto-RIPE -> RED"
       },
       {
         "id": "AC-ripe-shared",
         "group": "functional",
-        "text": "Such a task is downgraded to a distinct RIPE-SHARED state = requires manual verify-owner-first (confirm the task's OWN facet is evidenced); it can NEVER auto-flip on a sibling's passing Test."
+        "text": "Such a task is downgraded to a distinct RIPE-SHARED state = requires manual verify-owner-first (confirm the task's OWN facet is evidenced); it can NEVER auto-flip on a sibling's passing Test.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "ripe-shared-state",
+          "assertion": "a shared-req task is downgraded to RIPE-SHARED (manual verify-owner-first), never auto-RIPE"
+        },
+        "stubMustFail": "seed a shared-req task auto-RIPE -> RED"
       },
       {
         "id": "AC-structural-key",
         "group": "functional",
-        "text": "The signal is STRUCTURAL (coveredRequirement shared by >1 task), NOT Impl-ownership — measured-impossible: the shared Impl (e.g. b5f72641) has no sharedByTasks field, so Impl-ownership cannot be the key. Derive shared-ness from the tasks' coveredRequirements, not the Impl."
+        "text": "The signal is STRUCTURAL (coveredRequirement shared by >1 task), NOT Impl-ownership — measured-impossible: the shared Impl (e.g. b5f72641) has no sharedByTasks field, so Impl-ownership cannot be the key. Derive shared-ness from the tasks' coveredRequirements, not the Impl.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "structural-signal",
+          "assertion": "the RIPE-block signal is STRUCTURAL (coveredRequirement shared by >1 task), NOT Impl-ownership"
+        },
+        "stubMustFail": "seed a signal derived from Impl-ownership instead of shared-req -> RED"
       },
       {
         "id": "AC-stub-must-fail",
         "group": "gate",
-        "text": "STUB-MUST-FAIL bite (else the guard certifies nothing): construct a sibling with a passing Test on the shared requirement -> assert the OTHER sibling is NOT marked RIPE (it is RIPE-SHARED); a guard that would auto-RIPE it -> RED. Proves a sibling's passing Test does NOT mark the task ripe."
+        "text": "STUB-MUST-FAIL bite (else the guard certifies nothing): construct a sibling with a passing Test on the shared requirement -> assert the OTHER sibling is NOT marked RIPE (it is RIPE-SHARED); a guard that would auto-RIPE it -> RED. Proves a sibling's passing Test does NOT mark the task ripe.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "sibling-bite",
+          "assertion": "construct a sibling with a passing Test on the shared req -> the guard REDs the auto-RIPE"
+        },
+        "stubMustFail": "self-stub: guard that certifies without this bite => inadmissible"
       },
       {
         "id": "AC-own-facet",
         "group": "functional",
-        "text": "A shared-requirement task reaches TRUE RIPE only when its OWN distinct-intent Test/facet passes (verify-owner-first), never the requirement's aggregate coverage — matches the shared-Impl-two-distinct-Tests anti-double-credit pattern (T40.5 discipline) applied to the board."
+        "text": "A shared-requirement task reaches TRUE RIPE only when its OWN distinct-intent Test/facet passes (verify-owner-first), never the requirement's aggregate coverage — matches the shared-Impl-two-distinct-Tests anti-double-credit pattern (T40.5 discipline) applied to the board.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "own-facet-gate",
+          "assertion": "a shared-req task reaches TRUE RIPE only when its OWN distinct-intent Test/facet passes"
+        },
+        "stubMustFail": "seed TRUE-RIPE without the task own Test passing -> RED"
       }
-    ]
+    ],
+    "acFailabilityUpgrade": "ACs upgraded prose->FAILABLE (gateRef+stubMustFail added; existing text preserved) — re-point to built reality (PO overnight job 2026-09-06). Each carries a measuring instrument + a RED condition + a stub-must-fail."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

@@ -32,35 +32,72 @@
       {
         "id": "AC-sweep-7",
         "group": "functional",
-        "text": "SWEEP the 7 measured unrooted new-req Classes (OwnedOutputGuard 985d8f5b / StepEvidence 0d9a7b85 / SelfHeal 5f17f9f6 / PrecommitOverviewRegen d63e557b / AltIdCanonGuard 13f97053 / DoneProvenance a6cfc8e6 / DeploymentModel 78342cc7): set each ownerIor -> its owning UC (the UC whose .class/.classes[] references it), one mechanical fix per Class. DetailFields 7e7813be is EXCLUDED (measured already-rooted, ownerIor=cee1f429); StaleSteerLog ad92f487 already fixed."
+        "text": "SWEEP the 7 measured unrooted new-req Classes (OwnedOutputGuard 985d8f5b / StepEvidence 0d9a7b85 / SelfHeal 5f17f9f6 / PrecommitOverviewRegen d63e557b / AltIdCanonGuard 13f97053 / DoneProvenance a6cfc8e6 / DeploymentModel 78342cc7): set each ownerIor -> its owning UC (the UC whose .class/.classes[] references it), one mechanical fix per Class. DetailFields 7e7813be is EXCLUDED (measured already-rooted, ownerIor=cee1f429); StaleSteerLog ad92f487 already fixed.",
+        "gateRef": {
+          "kind": "script",
+          "ref": "uplink-sweep",
+          "assertion": "count of unrooted new-req-specific Classes == 0 after the sweep (the 7 measured rooted to their owning UC)"
+        },
+        "stubMustFail": "a remaining req-specific Class with no ownerIor->UC -> RED"
       },
       {
         "id": "AC-shared-keep-owner",
         "group": "functional",
-        "text": "SHARED classes (many UC referencers, e.g. CurrentSprint 43d570be keeps S20, RbDetailView) KEEP their ORIGINAL owner — verify-owner-first, do NOT re-point a shared class + steal its attribution. The sweep touches ONLY new-req-specific Classes (single owning UC)."
+        "text": "SHARED classes (many UC referencers, e.g. CurrentSprint 43d570be keeps S20, RbDetailView) KEEP their ORIGINAL owner — verify-owner-first, do NOT re-point a shared class + steal its attribution. The sweep touches ONLY new-req-specific Classes (single owning UC).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:shared-keep-owner",
+          "assertion": "SHARED classes (many UC referencers, e.g. CurrentSprint) KEEP their ORIGINAL owner; re-rooting a shared class => RED"
+        },
+        "stubMustFail": "seed a shared class re-rooted to a single UC -> RED"
       },
       {
         "id": "AC-recurrence-gate",
         "group": "gate",
-        "text": "A trace-audit RECURRENCE GATE: a Class referenced as a UC's OWN class (req-specific, single UC referencer) with a NULL ownerIor -> FAIL. STUB-MUST-FAIL: plant a null-owner req-specific class -> RED; a rooted one -> GREEN; weaken/remove the gate -> the bite suite goes RED (meta-bite)."
+        "text": "A trace-audit RECURRENCE GATE: a Class referenced as a UC's OWN class (req-specific, single UC referencer) with a NULL ownerIor -> FAIL. STUB-MUST-FAIL: plant a null-owner req-specific class -> RED; a rooted one -> GREEN; weaken/remove the gate -> the bite suite goes RED (meta-bite).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "trace-audit:req-class-uplink",
+          "assertion": "a Class referenced as a single UC OWN class (req-specific, 1 referencer) with NO ownerIor->UC uplink => RED"
+        },
+        "stubMustFail": "seed a req-specific single-referencer Class with no UC uplink -> RED"
       },
       {
         "id": "AC-report-only-then-strict",
         "group": "gate",
-        "text": "★ MANDATORY (PO ruling): the gate lands REPORT-ONLY-LOUD first (surfaces every offender loudly but does NOT fail the build) and flips to STRICT (build-fail) ONLY once the sweep reaches 0 offenders. Precedent: assertStatusConsistent / check:task-status. A gate that is RED from day one is how gates get silently removed (that happened tonight) — report-only-until-clean prevents it."
+        "text": "★ MANDATORY (PO ruling): the gate lands REPORT-ONLY-LOUD first (surfaces every offender loudly but does NOT fail the build) and flips to STRICT (build-fail) ONLY once the sweep reaches 0 offenders. Precedent: assertStatusConsistent / check:task-status. A gate that is RED from day one is how gates get silently removed (that happened tonight) — report-only-until-clean prevents it.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates phased",
+          "assertion": "the gate lands REPORT-ONLY-LOUD first (surfaces every offender loudly, does NOT fail CI), then flips strict; a SILENT report => RED"
+        },
+        "stubMustFail": "seed a report-only run that is silent (not loud) -> RED"
       },
       {
         "id": "AC-integrity-not-false-credit",
         "group": "framing",
-        "text": "EXPLICIT: this is an INTEGRITY / navigability debt (the Class->UC uplink is missing), NOT a false-credit debt — the forward chain still derives, nothing is over-credited. The fix roots the uplink; it must NEVER be resolved by re-pointing credit/attribution (that would convert a harmless navigability gap into a real over-credit)."
+        "text": "EXPLICIT: this is an INTEGRITY / navigability debt (the Class->UC uplink is missing), NOT a false-credit debt — the forward chain still derives, nothing is over-credited. The fix roots the uplink; it must NEVER be resolved by re-pointing credit/attribution (that would convert a harmless navigability gap into a real over-credit).",
+        "gateRef": {
+          "kind": "script",
+          "ref": "classification",
+          "assertion": "this is INTEGRITY/navigability debt (Class->UC uplink missing), NOT false-credit; a false-credit classification => flag"
+        },
+        "stubMustFail": "seed a false-credit classification of an uplink gap -> flag/RED"
       },
       {
         "id": "AC-by-construction-prevention",
         "group": "by-construction",
-        "text": "Going forward, new req-specific Classes are minted WITH ownerIor -> their UC AT MINT (correct-by-construction, robbin-req convention fix adopted 2026-08-12). The recurrence gate catches any that slip; by-construction prevention + gate = the layered fix (neither alone holds)."
+        "text": "Going forward, new req-specific Classes are minted WITH ownerIor -> their UC AT MINT (correct-by-construction, robbin-req convention fix adopted 2026-08-12). The recurrence gate catches any that slip; by-construction prevention + gate = the layered fix (neither alone holds).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:mint-with-owner",
+          "assertion": "new req-specific Classes are minted WITH ownerIor->UC AT MINT; a req-specific Class minted without a UC uplink => RED"
+        },
+        "stubMustFail": "seed a mint of a req-specific Class without the UC uplink -> RED"
       }
     ],
-    "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase chain-integrity sweep + gate, R40.35 finishability precedent; do NOT execute tonight, REMAINING=4)"
+    "campaignScope": "OUTSIDE-S30++-finish-campaign-count (next-phase chain-integrity sweep + gate, R40.35 finishability precedent; do NOT execute tonight, REMAINING=4)",
+    "acFailabilityUpgrade": "ACs upgraded prose->FAILABLE (gateRef+stubMustFail added; existing text preserved) — re-point to built reality (PO overnight job 2026-09-06). Each carries a measuring instrument + a RED condition + a stub-must-fail."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

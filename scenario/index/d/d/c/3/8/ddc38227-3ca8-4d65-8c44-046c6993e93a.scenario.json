@@ -32,29 +32,60 @@
       {
         "id": "AC-store-once",
         "group": "functional",
-        "text": "A unit's stored name contains ONLY the theme, never a DERIVED field: a name embedding its own sprint number (e.g. a 'Sprint N:' prefix that model.number already carries) or any other derived/echoed field is FORBIDDEN. Store-once: a value derived elsewhere is never duplicated in free-text where it can drift."
+        "text": "A unit's stored name contains ONLY the theme, never a DERIVED field: a name embedding its own sprint number (e.g. a 'Sprint N:' prefix that model.number already carries) or any other derived/echoed field is FORBIDDEN. Store-once: a value derived elsewhere is never duplicated in free-text where it can drift.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:name-embed",
+          "assertion": "a stored name embedding a DERIVED field (its own sprint number) => RED"
+        },
+        "stubMustFail": "seed a name \"Sprint 37: X\" (embeds own number) -> RED"
       },
       {
         "id": "AC-guard-refuses",
         "group": "gate",
-        "text": "A lint/guard REFUSES (RED) a stored name that embeds its own sprint number or any derived field, folded into ci:gates — double-numbering becomes IMPOSSIBLE by construction, not merely restorable."
+        "text": "A lint/guard REFUSES (RED) a stored name that embeds its own sprint number or any derived field, folded into ci:gates — double-numbering becomes IMPOSSIBLE by construction, not merely restorable.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:sprint-name-guard",
+          "assertion": "the guard REDs a stored name embedding its own sprint number or any derived field"
+        },
+        "stubMustFail": "seed an embedded-number stored name -> RED"
       },
       {
         "id": "AC-stub-must-fail",
         "group": "gate",
-        "text": "The guard is PROVEN non-vacuous by a STUB-MUST-FAIL bite: plant a 'Sprint 37:'-prefixed sprint name -> RED naming it; a clean theme-only name -> GREEN; weaken/remove the guard -> the bite suite goes RED (meta-bite)."
+        "text": "The guard is PROVEN non-vacuous by a STUB-MUST-FAIL bite: plant a 'Sprint 37:'-prefixed sprint name -> RED naming it; a clean theme-only name -> GREEN; weaken/remove the guard -> the bite suite goes RED (meta-bite).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates name-guard stub",
+          "assertion": "plant a \"Sprint 37:\"-prefixed sprint name -> RED (proves the guard non-vacuous)"
+        },
+        "stubMustFail": "self-stub: guard that stays GREEN on the planted name => inadmissible"
       },
       {
         "id": "AC-sweep-existing",
         "group": "functional",
-        "text": "A one-time SWEEP detects + repairs existing embedded-number names across ALL sprint units (the 3 known: S34, S01-S09 legacy, S37 b86b53cc + any others found), restoring each to theme-only. Idempotent, dry-run + count reported FIRST, verify-owner-first per unit (name field ONLY, never the number/derived source)."
+        "text": "A one-time SWEEP detects + repairs existing embedded-number names across ALL sprint units (the 3 known: S34, S01-S09 legacy, S37 b86b53cc + any others found), restoring each to theme-only. Idempotent, dry-run + count reported FIRST, verify-owner-first per unit (name field ONLY, never the number/derived source).",
+        "gateRef": {
+          "kind": "script",
+          "ref": "name-sweep",
+          "assertion": "count of embedded-number names across ALL sprint units == 0 after the one-time sweep (S34 etc. repaired)"
+        },
+        "stubMustFail": "a remaining embedded-number name -> RED"
       },
       {
         "id": "AC-kills-generator",
         "group": "by-construction",
-        "text": "BY-CONSTRUCTION: after the guard the embedded-number drift class CANNOT recur — the 3rd manual repair is the last. Per the -a1b2 precedent (kill the collision generator, not guard its output) and the fleet doctrine that a 3x-repaired defect is a missing guard, not bad luck."
+        "text": "BY-CONSTRUCTION: after the guard the embedded-number drift class CANNOT recur — the 3rd manual repair is the last. Per the -a1b2 precedent (kill the collision generator, not guard its output) and the fleet doctrine that a 3x-repaired defect is a missing guard, not bad luck.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:name-embed (CI)",
+          "assertion": "by-construction: a NEW embedded-number name => RED at CI (the drift class cannot recur)"
+        },
+        "stubMustFail": "seed a new embedded-number name -> RED"
       }
-    ]
+    ],
+    "acFailabilityUpgrade": "ACs upgraded prose->FAILABLE (gateRef+stubMustFail added; existing text preserved) — re-point to built reality (PO overnight job 2026-09-06). Each carries a measuring instrument + a RED condition + a stub-must-fail."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }

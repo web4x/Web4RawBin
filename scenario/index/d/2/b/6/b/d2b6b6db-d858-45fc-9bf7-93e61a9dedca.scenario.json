@@ -38,30 +38,61 @@
       {
         "id": "AC-single-source-resolver",
         "group": "by-construction",
-        "text": "PRIMARY (prevention, not detection): ONE exported path/config RESOLVER (a single-source function) is imported by BOTH the gate AND the runtime consumer, so the gated-path and the runtime-loaded-path CANNOT diverge by construction. NOT a detector that notices they disagree — police-the-output has lost every campaign instance (R37.15/16/17 + no-flush all killed the generator/chokepoint, never policed the output)."
+        "text": "PRIMARY (prevention, not detection): ONE exported path/config RESOLVER (a single-source function) is imported by BOTH the gate AND the runtime consumer, so the gated-path and the runtime-loaded-path CANNOT diverge by construction. NOT a detector that notices they disagree — police-the-output has lost every campaign instance (R37.15/16/17 + no-flush all killed the generator/chokepoint, never policed the output).",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:resolver-single-source",
+          "assertion": "ONE exported path/config resolver is imported by BOTH the gate and the runtime; a 2nd path resolver => RED"
+        },
+        "stubMustFail": "seed a 2nd path resolver a gate uses -> RED"
       },
       {
         "id": "AC-not-a-detector",
         "group": "by-construction",
-        "text": "The fix must make divergence UNREPRESENTABLE, not merely detectable: a same-named sibling in another dir, a pre-build copy, or a default that differs from the deploy/load path are all FORBIDDEN because both sides resolve through the ONE function. A design that relies on a detector noticing the mismatch has already failed this AC."
+        "text": "The fix must make divergence UNREPRESENTABLE, not merely detectable: a same-named sibling in another dir, a pre-build copy, or a default that differs from the deploy/load path are all FORBIDDEN because both sides resolve through the ONE function. A design that relies on a detector noticing the mismatch has already failed this AC.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "check:divergence-unrepresentable",
+          "assertion": "divergence is UNREPRESENTABLE not merely detectable: gate + runtime resolve via the one function, so a same-named sibling cannot be gated wrong"
+        },
+        "stubMustFail": "seed a same-named sibling in another dir that the gate could resolve differently -> RED"
       },
       {
         "id": "AC-stub-must-fail-divergence",
         "group": "gate",
-        "text": "STUB-MUST-FAIL divergence BITE: plant a DIVERGENCE between the gated-path and the runtime-loaded-path (e.g. gate checks fileX while runtime loads fileY, the R40.34-L1 shape) -> the guard MUST go RED. Proves the single-source prevention is LIVE, not assumed. A guard that cannot fail on a planted divergence certifies nothing."
+        "text": "STUB-MUST-FAIL divergence BITE: plant a DIVERGENCE between the gated-path and the runtime-loaded-path (e.g. gate checks fileX while runtime loads fileY, the R40.34-L1 shape) -> the guard MUST go RED. Proves the single-source prevention is LIVE, not assumed. A guard that cannot fail on a planted divergence certifies nothing.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "divergence-bite",
+          "assertion": "plant a DIVERGENCE between the gated-path and the runtime-loaded-path -> RED"
+        },
+        "stubMustFail": "self-stub: guard GREEN on the planted divergence => inadmissible"
       },
       {
         "id": "AC-wrong-artifact-distinct",
         "group": "context",
-        "text": "WRONG-ARTIFACT is DISTINCT from stale-gate (R37.17 = the product's shape changed; staleness eventually REDs) and wrong-SURFACE (gate-the-AC-surface = tests the abandoned surface). Wrong-artifact = the gate certifies a file the runtime never loads = GREEN-FOREVER, never self-REDs = the worst of the three (nothing surfaces it but a manual audit)."
+        "text": "WRONG-ARTIFACT is DISTINCT from stale-gate (R37.17 = the product's shape changed; staleness eventually REDs) and wrong-SURFACE (gate-the-AC-surface = tests the abandoned surface). Wrong-artifact = the gate certifies a file the runtime never loads = GREEN-FOREVER, never self-REDs = the worst of the three (nothing surfaces it but a manual audit).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "wrong-vs-stale",
+          "assertion": "WRONG-ARTIFACT (resolution) is DISTINCT from stale-gate (R37.17, shape-changed); the gate REDs on wrong-resolution even when nothing is stale"
+        },
+        "stubMustFail": "seed a wrong-artifact-not-stale case; gate stays GREEN -> RED"
       },
       {
         "id": "AC-first-application",
         "group": "functional",
-        "text": "R40.34-L1 is the FIRST application: both check:revoked-tokens AND the server's REVOKED_TOKENS_PATH resolve the revoked list via the ONE resolver (RevokedTokens.unifyLoadPath) — the live divergence (gate=revoked-token-hashes.json ROOT / server=data/revoked-tokens.json DATA_DIR) becomes unrepresentable once both import the single source."
+        "text": "R40.34-L1 is the FIRST application: both check:revoked-tokens AND the server's REVOKED_TOKENS_PATH resolve the revoked list via the ONE resolver (RevokedTokens.unifyLoadPath) — the live divergence (gate=revoked-token-hashes.json ROOT / server=data/revoked-tokens.json DATA_DIR) becomes unrepresentable once both import the single source.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "r4034-L1",
+          "assertion": "both check:revoked-tokens AND the server REVOKED_TOKENS_PATH resolve the SAME path via the one resolver"
+        },
+        "stubMustFail": "seed the two resolving different paths -> RED"
       }
     ],
-    "firstInstanceNote": "R40.34-L1 unifyLoadPath ce8423ad is the FIRST concrete instance of resolveArtifactPath (both gate+runtime import the ONE resolver)."
+    "firstInstanceNote": "R40.34-L1 unifyLoadPath ce8423ad is the FIRST concrete instance of resolveArtifactPath (both gate+runtime import the ONE resolver).",
+    "acFailabilityUpgrade": "ACs upgraded prose->FAILABLE (gateRef+stubMustFail added; existing text preserved) — re-point to built reality (PO overnight job 2026-09-06). Each carries a measuring instrument + a RED condition + a stub-must-fail."
   },
   "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
 }
