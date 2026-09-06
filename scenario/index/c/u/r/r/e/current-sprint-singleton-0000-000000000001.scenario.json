@@ -2,9 +2,9 @@
   "ior": "ior:class:CurrentSprint",
   "model": {
     "uuid": "current-sprint-singleton-0000-000000000001",
-    "name": "Current: Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1) [R40.81 = THE ROOT: drop/upload/render/traceability all resolve against ONE store]",
+    "name": "Current: Task 37.20: ONE shared DnD drop contract — a drop RESOLVES to a scenario UNIT of a CLASS; the class is INSTANTIATED and the OBJECT stores+renders ITSELF (no 'shapes', no mime/format switch) [R37.20, promoted after R40.81 one-store root closed v0.8.199]",
     "chain": {
-      "req": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "req": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
       "uc": "",
       "class": "",
       "method": "",
@@ -12,34 +12,34 @@
       "test": ""
     },
     "activeHop": 1,
-    "sprintName": "Sprint 40",
-    "taskName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1 convergence)",
+    "sprintName": "Sprint 37",
+    "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario UNIT; drop resolves to a CLASS instance that renders itself (no per-mime/format switch)",
     "hopStates": {
       "req": { "status": "done", "owner": "robbin-req", "updatedAt": "2026-09-06" }
     },
     "nextSprintName": "Sprint 37",
     "nextBacklogOverride": "",
-    "lastCompletedUuid": "b5948931-5a36-4779-806d-abe60153aba8",
-    "lastCompletedName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
-    "lastCompletedReqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f",
+    "lastCompletedUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
+    "lastCompletedName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store (one-store ROOT closed v0.8.199, MODEL_STORE deleted ca0b4dd98) [R40.81]",
+    "lastCompletedReqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
     "slots": {
       "current": {
-        "taskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
-        "taskName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store; every index/view is a symlink tree (radical-OOP Slice-1 convergence)",
-        "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
+        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+        "taskName": "Task 37.20: ONE shared DnD drop contract — a drop resolves to a scenario UNIT of a CLASS that is instantiated + renders itself (no mime/format switch)",
+        "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       },
       "lastCompleted": {
-        "taskUuid": "b5948931-5a36-4779-806d-abe60153aba8",
-        "taskName": "Task 36.5: Scenario/Edit always open the correct base ScenarioUnit + usedIn[] usage-ref tracking [R36.5, FOUNDATION build FIRST]",
-        "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
+        "taskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413",
+        "taskName": "Task 40.81: ONE physical unit store — Unit.resolve OWNS the single store (one-store ROOT closed v0.8.199) [R40.81]",
+        "reqUuid": "be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
       },
       "nextBacklog": {
-        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
-        "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit, file-drags-as-file, details render, fleet-wide every drop target [R37.20] (NEXT per Tron 'then Task 37.20, NOTHING ELSE'; its 6 slices + MimeType/ingress mechanism are its IMPLEMENTATION under it, not separate queue items)",
+        "taskUuid": "3dd05daa-d552-4ba2-9642-ae687446805a",
+        "taskName": "Task 37.20.2: a file drags as a FILE (its File unit) — first of the remaining slices under T37.20 (.2/.3/.4/.5/.6), then the natural CLASSES (WebItem/Email/Contact/Image/CalendarEntry)",
         "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       }
     },
-    "currentTaskUuid": "d864b05f-8a0e-4b16-9a45-8230fd745413"
+    "currentTaskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba"
   },
   "ownerIor": null
 }
