@@ -8,10 +8,11 @@
 
 ## CURRENT / NEXT slots (PO coordination call — the pin must show REAL work)
 
-- **CURRENT (expert pulls now):** R40.97 NativeFileIngress single-edge (4d6e701b) — moves content-type parse into ONE owned edge = Tron's outage fix permanent BY CONSTRUCTION · + R40.81 one-store (be8ec6b6, EXISTING, remaining half of his prio-1; Slice-1 OOP itself already SHIPPED 4-axis GREEN).
-- **NEXT:** R40.96 REST-unit-JSON transport (d7deea49) · R40.100 self-heal-by-construction (3b205cfb).
-- **CHAIN-DEBT (NOT expert current):** R40.101 #126 backfill iOS-upload-boundary (6dcdcdf6) — code LIVE + prod-confirmed (server.ts v0.8.190 7cc4717fb, gate r4090), chain MISSING; closed by req+architect chain-wiring; board QA-Review-chain-debt, never the builder's current slot.
-- **PRIO-3 FLAGGED-INFERRED (Tron confirms rank):** R40.98 binary-in-unit (97ce5ac6) · R40.99 natural-classes (92a5d0d4).
+- **CURRENT (expert pulls now) — CORRECTED (PO 2026-09-06; tester caught R40.97 was a moving design REV2->REV3):** **R40.81 one-store (be8ec6b6) = TASK d864b05f (MINTED verified-absent, In-Progress).** Slice-1 Node already SHIPPED+GREEN @v0.8.187, so R40.81 = the OPEN half of Tron's prio-1. Unit.resolve owns the one store. Tester RED-baselines this now.
+- **NEXT:** PRIO-2 remaining slices (Folder/Room/File/Unit as classes — object-owns-behaviour).
+- **QUEUED BEHIND, BUILD-HELD (design still moving REV2->REV3):** transport R40.96 d7deea49 / R40.97 4d6e701b / R40.100 3b205cfb — do NOT put in the expert's CURRENT (builder stalls on a moving design).
+- **CHAIN-DEBT (NOT a builder slot):** R40.101 #126 backfill iOS-upload-boundary (6dcdcdf6) — code LIVE + prod-confirmed (server.ts v0.8.190 7cc4717fb, gate r4090), chain MISSING; closed by req+architect chain-wiring; board QA-Review-chain-debt.
+- **PRIO-3 = PO-RANKED (Tron may overrule — NOT an open Tron-question):** R40.98 binary-in-unit (97ce5ac6) · R40.99 natural-classes (92a5d0d4). Rank follows READINESS (natural-class/transport depend on a design still moving); the mimetype/transport-is-scenario law still binds EVERY task as a standing AC regardless of build rank.
 
 ## The table (SEEDED by planner — PROVISIONAL; req + skill-expert refine in place)
 
