@@ -5,8 +5,8 @@
     "uuid": "f885c473-e47e-4f75-a8e7-463834a816cc",
     "name": "UnitTransport.putByUuid impl",
     "sourceFile": "ior:file:src/public/ts/unit-transport.ts",
-    "designAhead": true,
+    "designAhead": false,
     "tests": [],
-    "description": "DESIGN-AHEAD (R40.96): idempotent unit-JSON PUT by uuid = the ONE internal transport. R40.100 self-heal = its EMERGENT property (idempotent+hash-dedup)."
+    "description": "BUILT v0.8.192 (377881550, SLICE-A). DESIGN-AHEAD (R40.96): idempotent unit-JSON PUT by uuid = the ONE internal transport. R40.100 self-heal = its EMERGENT property (idempotent+hash-dedup)."
   }
 }

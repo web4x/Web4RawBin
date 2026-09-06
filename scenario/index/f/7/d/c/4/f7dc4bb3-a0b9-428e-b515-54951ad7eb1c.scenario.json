@@ -5,8 +5,8 @@
     "uuid": "f7dc4bb3-a0b9-428e-b515-54951ad7eb1c",
     "name": "BinaryUnit.base64AndHashDedup impl",
     "sourceFile": "ior:file:src/ts/scenario/file-unit.ts",
-    "designAhead": true,
+    "designAhead": false,
     "tests": [],
-    "description": "DESIGN-AHEAD (R40.98): base64 inline on wire; .content sidecar+sha256 hash-dedup at rest (absorbs file-unit createFileUnit dedup)."
+    "description": "BUILT v0.8.192 (377881550, SLICE-A). DESIGN-AHEAD (R40.98): base64 inline on wire; .content sidecar+sha256 hash-dedup at rest (absorbs file-unit createFileUnit dedup)."
   }
 }

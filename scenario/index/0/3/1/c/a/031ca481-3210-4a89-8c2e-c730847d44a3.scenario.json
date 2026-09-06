@@ -5,8 +5,8 @@
     "uuid": "031ca481-3210-4a89-8c2e-c730847d44a3",
     "name": "UnitConvertible interface impl",
     "sourceFile": "ior:file:src/public/ts/mime/unit-convertible.ts",
-    "designAhead": true,
+    "designAhead": false,
     "tests": [],
-    "description": "DESIGN-AHEAD (R40.99): interface {isBinary/load/toUnit/fromUnit}. NATURAL-CLASS SET separate: REUSE WebItem 7c486fcb/Email 3bb26ebe, RENAME VCard bf440a63->Contact (measure 47 refs FIRST), MINT Image+CalendarEntry."
+    "description": "BUILT v0.8.192 (377881550, SLICE-A). DESIGN-AHEAD (R40.99): interface {isBinary/load/toUnit/fromUnit}. NATURAL-CLASS SET separate: REUSE WebItem 7c486fcb/Email 3bb26ebe, RENAME VCard bf440a63->Contact (measure 47 refs FIRST), MINT Image+CalendarEntry."
   }
 }
