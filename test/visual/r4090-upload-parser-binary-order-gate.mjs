@@ -100,9 +100,13 @@ const td = await f.teardown(); // kills the scratch server → its buffered stdo
 R(`teardown: prod:4444 up=${td.prodUp} leftoverScratch=${td.leftover}`);
 await sleep(800);
 // ── DISCRIMINATOR (hygiene, PO): the server's own [upload] log — received==content-length ⇒ header/parser fault, not transport.
-// The verdict rests on the response matrix (stronger); this channel is kept working so future diagnoses have it (blind twice today).
+// ⚠ CHANNEL BLIND (diagnosed, NOT buffering): ServerTUI.addLog (server.ts:907) gates the stdout write on process.stdout.isTTY,
+// and the foundation spawns the scratch server with a PIPE (non-TTY) → addLog writes to stdout NOWHERE; the file-append branch
+// (901-902) only runs under IS_PRODUCTION, which the scratch is not. FIX (expert one-liner): have addLog also append to a file
+// when an env (e.g. RB_LOG_FILE) is set — env-agnostic, unconditional — so any harness can read the diagnostic channel. Until
+// then the VERDICT rests on the response matrix (stronger: received==content-length is derivable — same bytes succeed unquoted).
 R(`\n─── server [upload] log (received vs content-length + parsed size + token) ───`);
-try { const log = fs.readFileSync(SERVER_LOG, 'utf8'); const lines = log.split('\n').filter((l) => l.includes('[upload]')); if (!lines.length) R(`  (no [upload] lines captured — server stdout may be unflushed)`); for (const line of lines) R(`  ${line.replace(/^.*?\[upload\]/, '[upload]').slice(0, 160)}`); } catch (e) { R(`  (log unreadable: ${e.message})`); }
+try { const log = fs.readFileSync(SERVER_LOG, 'utf8'); const lines = log.split('\n').filter((l) => l.includes('[upload]')); if (!lines.length) R(`  (channel blind: addLog stdout is isTTY-gated @server.ts:907; scratch stdout is a non-TTY pipe → needs RB_LOG_FILE env fix)`); for (const line of lines) R(`  ${line.replace(/^.*?\[upload\]/, '[upload]').slice(0, 160)}`); } catch (e) { R(`  (log unreadable: ${e.message})`); }
 R(`\n═══ R40.90 UPLOAD PARSER (binary × order × boundary-form) MATRIX ═══`);
 for (const r of results) R(`  ${r.id}: ${r.pass ? 'GREEN' : 'RED '} (status ${r.status}, parsed ${r.parsedSize}/${r.srcSize}b, token ${r.tokenExtracted ? 'ok' : 'MISSING'}) [expect ${r.expect}]`);
 const control = results.find((r) => r.id.startsWith('V0'));
