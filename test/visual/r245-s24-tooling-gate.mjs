@@ -10,10 +10,13 @@ import { execSync } from 'child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { knownBrokenBanner } from './_known-broken-gates.mjs'; // R37.28/T37.32: mark-not-silence (RED reads tracked-infra, not product-broken)
+import { findNode } from '../../scripts/find-node.mjs'; // T37.32 A4: the ONE node-finder — run tsx under node18+ (default node16 → tsx ERR_UNKNOWN_FILE_EXTENSION → null)
 const __repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'); // R37.26 dead-guard repoint: repo-relative (survives a move), replaces a hardcoded pre-move absolute path
 const REPO = __repo;
+const NODE18 = findNode(18); // node18+ for tsx (reuses with-node20's finder via find-node.mjs)
+const TSX = NODE18 ? `"${NODE18}" node_modules/.bin/tsx` : 'npx tsx'; // T37.32 A4: was bare `npx tsx` → ERR_UNKNOWN_FILE_EXTENSION under node16; null fallback keeps the RED signal honest
 const run = (cmd) => { try { return { out: execSync(cmd, { cwd: REPO, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 }), code: 0 }; } catch (e) { return { out: (e.stdout || '') + (e.stderr || ''), code: e.status ?? 1 }; } };
-const OV = 'npx tsx scripts/objectVerb.ts';
+const OV = `${TSX} scripts/objectVerb.ts`;
 
 const results = [];
 let prev = null;
