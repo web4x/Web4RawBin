@@ -3,7 +3,7 @@
   "model": {
     "uuid": "36878dd4-b16e-4b10-8a40-8296edc123c5",
     "altId": "R40.95",
-    "name": "Eliminate MODEL_STORE — ONE store (scenario/index); every unit is a scenario unit",
+    "name": "[RETIRED -> R40.81] Eliminate MODEL_STORE — folded into R40.81 (the one-physical-store canonical home)",
     "description": "Tron: 'FULL MIGRATION... AND NO REGRESSION'. data/model-store (server.ts:122, data/model-store/index) is a GENUINELY SEPARATE store holding 784 units (669 exist ONLY there) — ModelElement 661, Folder 86, File 19, Diagram 6, PumlArtifact 6, Project 3, UmlTraceRelationship 3 + a usage-index.json sidecar — with ~67 source refs across writers (TsToModel.generate, model-folder create, diagram add/move/zoom/create, trace author, element hide/remove) and readers (mofChildren, trace-merge M1, isModelUnit routing, usage-index). ELIMINATE it: migrate every unit into scenario/index (the ONE store rooms already use), zero data loss, no regression, and PRESERVE resettability WITHOUT a second store (re-generate becomes idempotent-in-place / replace-by-deterministic-key / never-wipe-a-store). One canonical owner afterwards, zero residual second path. This EXECUTES R40.81's one-physical-store invariant for the model-store case + adds the resettability-preservation mechanism R40.81 did not specify.",
     "parent": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19",
     "tasks": [],
@@ -24,7 +24,7 @@
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
     "ridesInvariant": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
     "checkBeforeCreateNote": "R40.81 (ONE physical unit store) is the INVARIANT + already carries AC-migration-model-store-only-relocate + AC-migration-overlap-collapse + AC-no-duplicate-real-file-for-uuid. R40.95 RIDES those (does NOT re-specify the raw relocate/collapse) and adds the NET-NEW Tron directive: resettability-without-a-2nd-store + no-regression-baseline + one-canonical-owner-zero-residual. Minted as its own req per PO explicit direction; flagged the R40.81 overlap to PO (fold-into-R40.81 vs keep-R40.95 is the PO's call). NOT a blind duplicate.",
-    "satisfactionStatus": "UNVERIFIED (scenario-first, migration unbuilt; architect designs the mechanism, tester captures the pre-migration baseline now). Honest third state per R40.54.",
+    "satisfactionStatus": "RETIRED 2026-09-06 (tombstone). Folded into R40.81 (be8ec6b6) per PO ruling — see R40.81 for the live ACs. Do NOT design against this req.",
     "crossRef": [
       "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
       "ior:instance:23e77b77-60f7-413d-9d00-81a83486022b",
@@ -35,60 +35,67 @@
     "acceptanceCriteria": [
       {
         "id": "AC-zero-data-loss",
-        "group": "non-negotiable/migration",
-        "text": "ZERO DATA LOSS: every unit in data/model-store is migrated to scenario/index, NONE orphaned (they include Tron's REAL Folders/Files). MEASURED CURRENT split (re-measure at migration-time — moving target): 784 total in data/model-store = 669 model-store-ONLY (relocate to index) + 115 also-in-index (overlap: collapse/dedupe by uuid, keep one). By class: ModelElement 661 / Folder 86 / File 19 / Diagram 6 / PumlArtifact 6 / Project 3 / UmlTraceRelationship 3. Count before==after (index gains the 669; 0 lost). RIDES R40.81 AC-migration-model-store-only-relocate + AC-migration-overlap-collapse (does NOT re-specify them).",
+        "group": "RETIRED",
+        "text": "RETIRED -> folded into R40.81 (be8ec6b6). See R40.81 AC-resettability-without-second-store / AC-no-regression-baseline / AC-one-canonical-owner-zero-residual / AC-migration-failable-stub / AC-zero-data-loss-authored-vs-regenerable / AC-gitignored-store-snapshot-first. This tombstone kept for traceability; do not act on it.",
         "gateRef": {
-          "kind": "test",
-          "ref": "migration dry-run+count",
-          "assertion": "post-migration: 0 units exist ONLY in data/model-store; index unit-count = pre + (model-store-only); no uuid lost"
+          "kind": "doc",
+          "ref": "RETIRED -> R40.81",
+          "assertion": "folded; live ACs on R40.81"
         },
-        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+        "stubMustFail": "N/A (retired tombstone)",
+        "revoked": true
       },
       {
         "id": "AC-no-regression",
-        "group": "non-negotiable/baseline",
-        "text": "NO REGRESSION: the tester's PRE-migration baseline (capturing now) re-runs IDENTICAL post-migration across ALL ~67 source refs — writers (TsToModel.generate bulk, model-folder create, diagram add/move/zoom/create, trace author, element hide/remove) AND readers (mofChildren MOF tree, trace-merge M1 counterpart, isModelUnit routing, usage-index). Byte/behaviour-identical where it was before.",
+        "group": "RETIRED",
+        "text": "RETIRED -> folded into R40.81 (be8ec6b6). See R40.81 AC-resettability-without-second-store / AC-no-regression-baseline / AC-one-canonical-owner-zero-residual / AC-migration-failable-stub / AC-zero-data-loss-authored-vs-regenerable / AC-gitignored-store-snapshot-first. This tombstone kept for traceability; do not act on it.",
         "gateRef": {
-          "kind": "test",
-          "ref": "pre/post baseline diff",
-          "assertion": "the tester's captured baseline re-runs identical after migration; any behavioural delta => RED"
+          "kind": "doc",
+          "ref": "RETIRED -> R40.81",
+          "assertion": "folded; live ACs on R40.81"
         },
-        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+        "stubMustFail": "N/A (retired tombstone)",
+        "revoked": true
       },
       {
         "id": "AC-resettability-without-second-store",
-        "group": "non-negotiable/THE-crux",
-        "text": "RESETTABILITY PRESERVED WITHOUT A SECOND STORE. The ONLY thing the 2nd store bought was a safe re-generate (generate writes ONLY there -> store is wipeable -> prod never clobbered). After migration, re-generate must be IDEMPOTENT-IN-PLACE + REPLACE-BY-DETERMINISTIC-KEY + NEVER wipe-a-store: a re-generate updates existing units in place by their deterministic key, never deletes-and-rewrites a whole store, never clobbers a prod (room) unit. The resettability property is kept; the 2nd store is not.",
+        "group": "RETIRED",
+        "text": "RETIRED -> folded into R40.81 (be8ec6b6). See R40.81 AC-resettability-without-second-store / AC-no-regression-baseline / AC-one-canonical-owner-zero-residual / AC-migration-failable-stub / AC-zero-data-loss-authored-vs-regenerable / AC-gitignored-store-snapshot-first. This tombstone kept for traceability; do not act on it.",
         "gateRef": {
-          "kind": "test",
-          "ref": "re-generate idempotence",
-          "assertion": "a re-generate run is idempotent-in-place (same key -> updated not duplicated), wipes NO store, clobbers NO prod unit"
+          "kind": "doc",
+          "ref": "RETIRED -> R40.81",
+          "assertion": "folded; live ACs on R40.81"
         },
-        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+        "stubMustFail": "N/A (retired tombstone)",
+        "revoked": true
       },
       {
         "id": "AC-one-canonical-owner-zero-residual",
-        "group": "non-negotiable/one-owner",
-        "text": "ONE canonical storage owner afterwards (scenario/index via the canonical put/ScenarioIndex), ZERO residual second path: server.ts:122 MODEL_STORE + data/model-store/index + the usage-index.json sidecar routing are removed or re-pointed; isModelUnit routing collapses to the one store. No writer or reader targets a second store.",
+        "group": "RETIRED",
+        "text": "RETIRED -> folded into R40.81 (be8ec6b6). See R40.81 AC-resettability-without-second-store / AC-no-regression-baseline / AC-one-canonical-owner-zero-residual / AC-migration-failable-stub / AC-zero-data-loss-authored-vs-regenerable / AC-gitignored-store-snapshot-first. This tombstone kept for traceability; do not act on it.",
         "gateRef": {
-          "kind": "test",
-          "ref": "residual-second-store lint",
-          "assertion": "no code path reads/writes data/model-store after migration; isModelUnit routes to the ONE store; a residual second-store ref => RED"
+          "kind": "doc",
+          "ref": "RETIRED -> R40.81",
+          "assertion": "folded; live ACs on R40.81"
         },
-        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+        "stubMustFail": "N/A (retired tombstone)",
+        "revoked": true
       },
       {
         "id": "AC-failable-stub",
-        "group": "self-failability",
-        "text": "FAILABLE gate + stub-must-fail: (a) seed a unit that exists ONLY in data/model-store post-migration -> RED; (b) a re-generate that WIPES a store or CLOBBERS a prod unit -> RED. A suite green on either seed is inadmissible (R40.54).",
+        "group": "RETIRED",
+        "text": "RETIRED -> folded into R40.81 (be8ec6b6). See R40.81 AC-resettability-without-second-store / AC-no-regression-baseline / AC-one-canonical-owner-zero-residual / AC-migration-failable-stub / AC-zero-data-loss-authored-vs-regenerable / AC-gitignored-store-snapshot-first. This tombstone kept for traceability; do not act on it.",
         "gateRef": {
-          "kind": "ci",
-          "ref": "ci:gates model-store-elimination fixture",
-          "assertion": "seeded model-store-only unit => RED; seeded store-wipe/prod-clobber re-generate => RED"
+          "kind": "doc",
+          "ref": "RETIRED -> R40.81",
+          "assertion": "folded; live ACs on R40.81"
         },
-        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+        "stubMustFail": "N/A (retired tombstone)",
+        "revoked": true
       }
-    ]
+    ],
+    "retired": true,
+    "supersededBy": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

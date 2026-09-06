@@ -86,7 +86,8 @@
           "ref": "migrate:relocate-model-store-only (dry-run)",
           "assertion": "744 model-store-only units moved into scenario/index + symlinked back; 0 in model tree remain real; 0 lost"
         },
-        "stubMustFail": "PENDING: dry-run reports 744 + 0 real-remaining-after; any model-tree real file post-migration -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))"
+        "stubMustFail": "PENDING: dry-run reports 744 + 0 real-remaining-after; any model-tree real file post-migration -> RED (PENDING (one-store lint + migration unbuilt; no RED observed yet — honest UNVERIFIED per R40.54))",
+        "countUpdate": "2026-09-06 re-measure: model-store-only is now 669 (was 744); 784 total / 115 overlap. Split: 628 regenerable + 41 authored-irreplaceable. Re-measure at migration-time (moving target)."
       },
       {
         "id": "AC-divergence-which-wins-fail-closed",
@@ -120,8 +121,75 @@
           "assertion": "R40.69 b09bb0308 two-store-legitimacy marked superseded-by R40.81; R40.69 symptom ACs preserved"
         },
         "stubMustFail": "N/A (supersede-record AC; the enforcement is AC-exactly-one-physical-store + AC-no-duplicate-real-file)"
+      },
+      {
+        "id": "AC-resettability-without-second-store",
+        "group": "migration/THE-crux (folded from R40.95)",
+        "text": "RESETTABILITY PRESERVED WITHOUT A SECOND STORE. The ONLY thing the 2nd store bought was a safe re-generate (generate writes ONLY there -> store is wipeable -> prod never clobbered). After migration, re-generate must be IDEMPOTENT-IN-PLACE + REPLACE-BY-DETERMINISTIC-KEY + NEVER wipe-a-store: it updates existing units in place by their deterministic key, never deletes-and-rewrites a whole store, never clobbers a prod (room) unit. The resettability property is kept; the 2nd store is not.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "re-generate idempotence",
+          "assertion": "a re-generate is idempotent-in-place (same key -> updated not duplicated), wipes NO store, clobbers NO prod unit"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-no-regression-baseline",
+        "group": "migration/baseline (folded from R40.95)",
+        "text": "NO REGRESSION: the tester's PRE-migration baseline (captured before the migration runs) re-runs IDENTICAL post-migration across the ~67 source refs — writers (TsToModel.generate bulk, model-folder create, diagram add/move/zoom/create, trace author, element hide/remove) AND readers (mofChildren MOF tree, trace-merge M1 counterpart, isModelUnit routing, usage-index). Byte/behaviour-identical where it was before.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "pre/post baseline diff",
+          "assertion": "the captured baseline re-runs identical after migration; any behavioural delta => RED"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-one-canonical-owner-zero-residual",
+        "group": "migration/one-owner (folded from R40.95)",
+        "text": "ONE canonical storage owner afterwards (scenario/index via the canonical put/ScenarioIndex), ZERO residual second path: server.ts:122 MODEL_STORE + data/model-store/index + the usage-index.json sidecar routing are removed or re-pointed; isModelUnit routing collapses to the one store. No writer or reader targets a second store.",
+        "gateRef": {
+          "kind": "lint",
+          "ref": "residual-second-store lint",
+          "assertion": "no code path reads/writes data/model-store after migration; a residual second-store ref => RED"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-migration-failable-stub",
+        "group": "migration/self-failability (folded from R40.95)",
+        "text": "FAILABLE gate + stub-must-fail for the migration: (a) seed a unit that exists ONLY in data/model-store post-migration -> RED; (b) a re-generate that WIPES a store or CLOBBERS a prod unit -> RED. A suite green on either seed is inadmissible (R40.54).",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "ci:gates model-store-elimination fixture",
+          "assertion": "seeded model-store-only unit => RED; seeded store-wipe/prod-clobber re-generate => RED"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-zero-data-loss-authored-vs-regenerable",
+        "group": "migration/zero-data-loss (PO split)",
+        "text": "ZERO DATA LOSS with a PRESERVATION SPLIT (PO, reconciled vs tester deduped/symlink-aware measure — re-measure at migration-time, moving target). CURRENT: data/model-store = 784 TOTAL / 669 exist ONLY there (669 relocate + 115 overlap-collapse). Of the 669 only-there: ~628 are TsToModel-REGENERABLE (attribute/method/function/interface/class/type/property ModelElements) = need PRESENT-OR-REGENERABLE; but ~41 are AUTHORED + IRREPLACEABLE (19 File, 6 Diagram, 6 PumlArtifact, 4 Folder, 3 Project, 3 UmlTraceRelationship) = need PRESENCE AND CONTENT-SHA INTACT (Tron's real authored data). The gate MUST distinguish: an authored unit missing OR content-sha-changed => RED; a regenerable unit is present-or-regenerable.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "authored-vs-regenerable migration gate",
+          "assertion": "all 41 authored units present + content-sha unchanged post-migration; regenerable units present-or-regenerable; an authored unit lost or sha-changed => RED"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
+      },
+      {
+        "id": "AC-gitignored-store-snapshot-first",
+        "group": "migration/mitigation (PO git note)",
+        "text": "GIT REALITY = the whole data-loss mitigation: scenario/index is TRACKED (6244 files, revertible), but data/model-store is GITIGNORED + UNTRACKED -> a git revert CANNOT restore it. So a ONE-TIME SNAPSHOT of data/model-store is taken BEFORE the migration mutates anything (the migration is gated on the snapshot existing); the authored 41 are verifiable against it by content-sha. No snapshot => the migration must NOT run.",
+        "gateRef": {
+          "kind": "ci",
+          "ref": "pre-migration snapshot gate",
+          "assertion": "the migration refuses to run unless a pre-migration snapshot of data/model-store exists; snapshot-absent => RED/refuse"
+        },
+        "stubMustFail": "PENDING: migration unbuilt; no RED observed — UNVERIFIED per R40.54"
       }
-    ]
+    ],
+    "foldedFrom": "R40.95 (36878dd4) retired into this canonical home 2026-09-06 (PO ruling FOLD-not-mint, same precedent as R31.14): two reqs both 'eliminate the second store' = the duplicate-owner defect the req is about. Net-new ACs (resettability-without-2nd-store, no-regression-baseline, one-canonical-owner-zero-residual, migration-stub, authored-vs-regenerable, snapshot-first) moved here."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }

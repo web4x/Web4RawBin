@@ -8,7 +8,9 @@
     "method": null,
     "parent": "ior:instance:36878dd4-b16e-4b10-8a40-8296edc123c5",
     "unitLinks": [],
-    "note": "Architect designs the migration mechanism + wires Class/Method on build-go (rides R40.81 relocate/collapse); tester captures the pre-migration baseline for AC-no-regression."
+    "note": "RETIRED 2026-09-06 -> R40.95 folded into R40.81; migration UC/chain designed under R40.81 by the architect. Tombstone.",
+    "retired": true,
+    "supersededBy": "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0"
   },
   "ownerIor": "ior:instance:36878dd4-b16e-4b10-8a40-8296edc123c5"
 }
