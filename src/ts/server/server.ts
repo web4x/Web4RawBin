@@ -135,7 +135,7 @@ const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
 class ModelStoreLocator {
   // the model store dir (flag-toggled) — model-unit reads/writes + mof aggregation resolve here.
   static modelDir(): string {
-    const src = process.env.MODEL_STORE_SOURCE || process.env.MODEL_READ_SOURCE; // canonical MODEL_STORE_SOURCE; old name transitional
+    const src = process.env.MODEL_STORE_SOURCE || envVars['MODEL_STORE_SOURCE'] || process.env.MODEL_READ_SOURCE || envVars['MODEL_READ_SOURCE']; // canonical MODEL_STORE_SOURCE (process.env OR .env); old name transitional. Reading .env (envVars) makes the flip DURABLE across restarts → the observation window can't be silently un-flipped by a bare restart.
     return src === 'scenario-index' ? PROD_INDEX : MODEL_STORE;
   }
   // the store backing a specific uuid: a model unit → modelDir() (flag-toggled); every other unit → prod scenario/index.
