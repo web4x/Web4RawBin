@@ -1258,7 +1258,18 @@ function mofModelEls(idx: ScenarioIndex): { els: MofEl[]; m1: MofEl[]; m2: MofEl
   const els = [...idx.list()].map((u) => { const un = idx.get(u); return un ? { uuid: u, ior: un.ior, m: un.model as Record<string, unknown> } : null; }).filter(Boolean) as MofEl[];
   const modelEls = els.filter((x) => x.ior === 'ior:class:ModelElement');
   const m1 = modelEls.filter((x) => x.m.metaLevel === 'M1');
-  return { els, m1, m2: modelEls.filter((x) => x.m.metaLevel === 'M2'), m1Roots: m1.filter((e) => !e.m.memberOf) };
+  // R40.81 Slice-2 TRANSPARENCY (PAIR-2 RED fix, PO branch-a, R40.81-PAIR2-RED-finding.md): scope mof-m1 to the CODE
+  // MODEL TREE so /model answers IDENTICALLY whether read from MODEL_STORE (subset) or scenario/index (FULL 6825-unit
+  // store). MEASURED: the full store adds 10 M1 roots with NO sourceFile AND a populated instanceOf — the DEPLOYMENT model
+  // (node/service/certificate/configFile/keyFile/envValue, instanceOf deployment-M2 a1d2e3f4-…), authored in prod, never in
+  // the model-store code-model subset → they surfaced as an extra derived `project:model` node (childCount 3→4). Keep a root
+  // iff it has a sourceFile (source-generated code model) OR has no instanceOf (a user-authored blank class via /model
+  // 'New class'); EXCLUDE sourceFile-less + instanceOf-populated (= the deployment/derived model, a distinct concern not in
+  // /model's mof-m1). model-store had 0 such → default behaviour UNCHANGED; scenario/index → the 10 strays drop → transparent.
+  // ★ MODEL-semantics flagged to architect (R12): if the deployment model SHOULD appear in /model, that is branch-b (Tron's call).
+  const hasInstanceOf = (e: MofEl) => Array.isArray(e.m.instanceOf) && (e.m.instanceOf as unknown[]).length > 0;
+  const m1Roots = m1.filter((e) => !e.m.memberOf && (e.m.sourceFile || !hasInstanceOf(e)));
+  return { els, m1, m2: modelEls.filter((x) => x.m.metaLevel === 'M2'), m1Roots };
 }
 // S33-P2b (INV-P2b-2/3, NO fork): resolve ONE bounded layer for a SYNTHETIC MOF folder uuid. Shared by mofLayerRoots
 // (top layer) + /api/trace/children (deeper layers). Returns null when the uuid is NOT synthetic (a real ModelElement →
@@ -2963,6 +2974,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // (prod index, else MODEL_STORE), FAIL-CLOSED on an unknown/unresolvable type (400 — never store a silent 'class').
           let elUnit: { ior?: string; model?: Record<string, unknown> } | null = null;
           try { elUnit = new ScenarioIndex(PROD_INDEX).get(elementUuid) ?? null; } catch { /* fall through to model-store */ } // R40.58 D1: consume ScenarioUnit (was `as any` — a type-checker defeat on our own typed fn)
+          // R40.81 Slice-2 (architect ruling a4e1591b8 pt.2): WRITE-PATH VALIDATION read — tracks the WRITE store (MODEL_STORE
+          // now), NOT a resolveReadDir VIEW site. Routing it through the read resolver would validate-against-scenario-index
+          // while the paired write targets MODEL_STORE = split-brain. It moves WITH the writes in Slice-3. Tripwire: if it ever feeds a VIEW, re-audit.
           if (!elUnit) { try { const ef = path.join(MODEL_STORE, ...String(elementUuid).slice(0, 5).split(''), `${elementUuid}.scenario.json`); if (fsSync.existsSync(ef)) elUnit = JSON.parse(fsSync.readFileSync(ef, 'utf-8')); } catch { /* unresolvable */ } }
           const viewKind = elUnit ? deriveViewKind(elUnit.ior, elUnit.model) : null;
           if (!viewKind) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"unknown-view-kind","detail":"element type has no facet mapping — refusing to store a silent class default"}'); return; }
