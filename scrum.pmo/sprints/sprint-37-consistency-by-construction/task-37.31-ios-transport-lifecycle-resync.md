@@ -34,13 +34,13 @@ Keep R37.12's view-bus ALIVE to a RESUMED iOS client: a suspended/dead socket se
 
 ## Acceptance Criteria
 
-- [ ] SHARED HELPER, BOTH TRANSPORTS: one transport-lifecycle helper covers BOTH transports (not a per-transport copy) — the resync logic lives in ONE place.
-- [ ] RESYNC ON RESUME: on visibilitychange->visible AND pageshow (bfcache restore), the helper verifies-or-reconnects the transport and resyncs.
-- [ ] REFETCH NEVER TRUST MEMORY: the resync RE-FETCHES authoritative state from the server; it never trusts in-memory / stale DOM state to be current after a suspend.
-- [ ] FAIL-LOUD ON RESYNC FAIL: if reconnect/refetch fails, the client FAILS LOUD (visible error/retry) — never silently-stale.
-- [ ] GENERAL-CORRECT, NO UA-SNIFF: the fix uses standard visibilitychange/pageshow (no iOS UA-sniff); desktop transports are unaffected.
-- [ ] ★ SEVERED-CHANNEL GATE (tester stub, non-vacuous): a test SEVERS the channel (simulate iOS WS suspend), a change occurs, the client RESUMES -> asserts it REFETCHES + renders FRESH; planted-defect (stays stale on resume) = RED.
-- [ ] ★ DEFERRED — NOT A CLOSING CONDITION (rewordProvenance 2026-09-05, customer-not-tester law): iOS transport-suspend resync (background/lock -> change -> foreground shows FRESH state) is un-mockable in headless/desktop-WebKit, but it MUST NOT close via a Tron-confirms AC (never ask the customer to verify). It is NOT security / NOT owner-auth / NOT basic-functionality. A real-iOS-DEVICE driver (no auth, no owner) would let US verify it LATER; DEFERRED behind basic functionality, no harness proposed now. Recorded so it is never silently closed by asking Tron to confirm.
+- [ ] **(by-construction)** ONE shared transport-lifecycle helper handles BOTH transports (no per-transport fork of reconnect/resync logic) — the DRY single-source that makes the behaviour identical across every live connection.
+- [ ] **(functional)** On visibilitychange->visible AND on pageshow (incl bfcache-restored persisted=true), the helper VERIFIES-OR-RECONNECTS the transport and RE-SYNCS the view. Both events are handled (pageshow catches the bfcache path visibilitychange misses).
+- [ ] **(fail-loud)** RESYNC refetches from the SOURCE (never trusts in-memory/DOM state after the gap) — a suspended client's in-memory model is presumed STALE until refetched.
+- [ ] **(fail-loud)** If reconnect OR resync FAILS, the client FAILS LOUD (a visible stale/disconnected indicator), NEVER silent-stale. A dead-but-silent transport is the exact defect (the DOM looks live but is frozen).
+- [ ] **(by-construction)** NO UA-sniff / iOS-detection / platform branch — the fix is GENERAL-CORRECT via the standard lifecycle events (visibilitychange/pageshow), so it works on every browser that suspends, not just today's iOS Safari. A UA/platform branch in the transport-lifecycle path => RED.
+- [ ] **(gate)** TESTER SEVERED-CHANNEL GATE (stub-must-fail): programmatically SEVER the socket, mutate the data at source, then foreground/visibility-restore -> the view RESYNCS to current (not stale). A build where the severed-then-foregrounded view stays stale => RED. Proves the resync actually catches a dead channel.
+- [ ] **(verify-device)** DEFERRED (bucket-2, 2026-09-05) — NOT a closing condition now and MUST NOT be closed via a Tron-confirms AC. iOS transport-suspend resync is a transport-lifecycle FUNCTIONALITY concern (NOT security, NOT owner-auth, NOT basic-functionality-for-the-folder); un-mockable in headless/desktop-WebKit. When prioritized, verification = a real-iOS-DEVICE driver (no auth, no owner) = OUR harness, never ship-and-ask-Tron. Recorded, no harness proposed now (STOP-SECURITY aligned). Tron on a real device would be ACCEPTANCE, never our verification.
 
 ## Subtasks
 
