@@ -66,14 +66,15 @@
    },
    {
     "id": "AC-tree-folder-drop-target-routes-contract",
-    "group": "serialize-fleet/.4",
-    "text": "EVERY drop target includes the TREE FOLDER target (rb-object-item.ts:82): an in-app UNIT dropped onto a FOLDER routes through the ONE shared drop contract as a unit->folder MOVE/re-parent (the content lands INSIDE the folder, R40.86 destination) — it must NOT read dataTransfer.files ONLY (which handles native files but silently drops in-app units). A drop target reading dataTransfer.files-only / bypassing the shared contract for an in-app unit is the concrete proof .4 (serialize-fleet = EVERY target) is NOT subsumed. crossRef R40.86.",
+    "group": "serialize-fleet/.4/standing-rule",
+    "text": "STANDING RULE (DRY): EVERY drop target asks the ONE resolver — an in-app UNIT dropped onto a tree FOLDER routes through the shared drop contract as a unit->folder MOVE/re-parent (lands INSIDE per R40.86). ★ A NATIVE OS file dropped on a folder legitimately reads dataTransfer.files (that path MUST keep working); the rule targets IN-APP UNIT drops, which must NOT be handled by a files-only read. The gate distinguishes the two: an in-app UNIT that bypasses the contract => RED; a native file reading files is NOT a violation.",
     "gateRef": {
      "kind": "test",
-     "ref": "per-target BITE (tree folder)",
-     "assertion": "an in-app unit dropped on a tree folder routes through the shared contract (unit->folder move); a drop target reading dataTransfer.files-only for an in-app unit => RED"
+     "ref": "per-target BITE (tree folder, unit-vs-native)",
+     "assertion": "an in-app unit dropped on a tree folder routes through the shared contract (re-parent); a native OS file still reads files + uploads. An in-app unit handled by a files-only path => RED; a native-file read is NOT flagged."
     },
-    "stubMustFail": "seed a tree folder drop-target that reads dataTransfer.files only + drop an in-app unit -> the unit is dropped/not-routed -> RED"
+    "stubMustFail": "seed an IN-APP UNIT (not a native file) dropped on a tree folder that is handled by a files-only read (bypasses the contract) -> RED",
+    "verificationStatus": "UNVERIFIED — not RED, not GREEN (PO 2026-09-06). Whether the CODE currently satisfies this is UNMEASURED + CONTESTED: planner read rb-object-item.ts:82 as files-only; TESTER measured .4 PASS (all 4 unit-drop paths route through the contract). Hypothesis: the file has BOTH a native-file read (legit) AND a contract path for unit-refs. DO NOT board work under this AC or fail .4 on it until the expert/tester measurement lands (in-app unit on a folder: does it re-parent? native file on a folder: does it still upload?). If it already routes, this AC is already SATISFIED and .4 passes with a stronger rule attached. Adopted as a RULE, not as defect-evidence."
    }
   ],
   "buildFraming": {
