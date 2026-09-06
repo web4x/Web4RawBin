@@ -17,6 +17,7 @@ const ior = (uuid) => new Promise((res) => { const u = new URL(`${BASE}/api/ior/
 const browser = await webkit.launch();
 const results = {};
 let roomId = null;
+let servedVersion = '?'; // GATE-PROVENANCE (PO): read the ACTUAL served build at runtime, never a hardcoded literal
 try {
   const ctx = await browser.newContext({ viewport: { width: 1200, height: 900 }, ignoreHTTPSErrors: true, serviceWorkers: 'block', acceptDownloads: false });
   await seedSystemTester(ctx);
@@ -25,6 +26,7 @@ try {
   page.on('request', (r) => reqs.push(r.url()));
   await page.goto(`${BASE}/app`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => window.__rawbinClient?.connected === true, { timeout: 20000 }).catch(() => {});
+  servedVersion = await page.evaluate(async () => { try { return (await (await fetch('/api/config', { cache: 'no-store' })).json()).version; } catch { return '?'; } });
   await page.evaluate(() => window.__rawbinClient?.send({ type: 'UPDATE_PROFILE', name: 'SystemTester' }));
   await sleep(1500);
   roomId = await page.evaluate(async () => { const c = window.__rawbinClient; if (!c?.createRoom) return null; c.createRoom('T3720 unit-class', 'SystemTester'); for (let i = 0; i < 60; i++) { await new Promise((r) => setTimeout(r, 250)); const t = document.getElementById('room-tree'); if (t?.getAttribute('data-seed-ior')) return t.getAttribute('data-seed-ior'); } return null; });
@@ -86,7 +88,7 @@ try {
 } catch (e) { R(`  ERROR: ${String(e && e.message).slice(0, 200)}`); results.error = String(e && e.message).slice(0, 200); }
 finally { await browser.close().catch(() => {}); }
 
-R(`\n═══ T37.20 DROP-AS-UNIT-CLASS (prod v0.8.199) ═══`);
+R(`\n═══ T37.20 DROP-AS-UNIT-CLASS (prod SERVED v${servedVersion}) ═══`);
 R(`  Finder-file → File class instantiated       : ${results.finderFile?.pass ? 'PASS' : 'FAIL'} (class=${results.finderFile?.class})`);
 R(`  in-app object-ref → class + processed+render: ${results.inAppObjectRef?.pass ? 'PASS' : 'FAIL/INCONCLUSIVE'} (was silent no-op pre-fix)`);
 R(`  iOS photo/Mail/Contact/Calendar             : NOT RUN this pass (desktop-webkit repros only, flagged; URL→WebItem + those queued)`);
