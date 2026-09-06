@@ -612,14 +612,20 @@ async function federationImport(ref: any, roomId: string): Promise<{ uuid: strin
   const originHost = String(ref?.originHost || '');
   const uuid = parseFederatedIor(String(ref?.ior || '')).uuid;
   if (!uuid) return { error: 'bad ref' };
+  const selfHost = BASE_DOMAIN ? `https://${BASE_DOMAIN}:${HTTPS_PORT}` : ''; // this server's canonical origin = what a same-origin client sends as originHost (location.origin)
   let unit: any = ref?.inline || null; // inline optimization for tiny units
   if (!unit) {
-    if (isLocalOrigin(originHost || null) || !ref?.fetchUrl) { unit = idx.get(uuid) || null; }       // self-origin → local
+    // T37.20 DEFECT-1 (by the book): the origin-decision is isLocalOrigin — call it WITH selfHost (was called without → a
+    // concrete same-origin host read as remote → self-fetch → "origin 403"). ALSO short-circuit when the unit is ALREADY in
+    // this server's store (contentAlreadyLocal, federation-transfer.ts:45): local-born OR already-imported → local read, ZERO
+    // ProxyFetch. Only a genuinely REMOTE, not-yet-local ref with a fetchUrl reaches fedGet.
+    const localUnit = idx.get(uuid) || null;
+    if (isLocalOrigin(originHost || null, selfHost) || !ref?.fetchUrl || localUnit) { unit = localUnit; }
     else { try { const d = await fedGet(String(ref.fetchUrl)); unit = d?.unit || d; } catch (e: any) { return { error: `origin fetch failed: ${e?.message || e}` }; } }
   }
   if (!unit || !unit.ior) return { error: 'unit not resolved' };
   const contentDir = path.join(__dirname, '../../../scenario/content');
-  const t = new Transfer({ index: idx, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
+  const t = new Transfer({ index: idx, selfHost, hasContentHash: (h) => { try { return fsSync.existsSync(path.join(contentDir, `${h}.file.scenario.json`)); } catch { return false; } } });
   const remap = new Map<string, string>();
   const rc = t.reconcileConflict(unit, originHost, remap);                 // T26.5
   if (rc.action !== 'noop') { // T26.5 remap + T26.1 provenance — route through the seam so an imported/updated unit appears LIVE in the room

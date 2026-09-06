@@ -3,6 +3,7 @@
 // writes the scenario UNIT ref(s) via serializeDragUnit; every drop target reads via resolveDragUnit. NO per-target
 // getData/setData outside this module; NO *.show URL; NO URL/href parse in any resolver (AC-A2 + AC-shared-contract-fleet-wide).
 import { selectionModel } from './trace/selection-model.js';
+import { isLocalOrigin, parseFederatedIor } from '../../ts/scenario/federated-ior.js'; // T37.20 DEFECT-1 (Proxy): THE ONE origin-decision helper (pure) — local vs remote chosen ONCE, no scattered if
 
 // THE ONE canonical drag type: the scenario UNIT identity (resolvable ref/ior/uuid; multi-select = JSON list). Never a URL.
 // T37.20.1: the drag SOURCES + drop READERS in the wild emit/read `application/rb-object-ref` (rb-object-item.onDragStart,
@@ -75,4 +76,56 @@ export class DndContract {
     const sel = selectionModel.getSelected();
     return sel.length ? { units: sel } : null;
   }
+}
+
+// T37.20 DEFECT-1 — Proxy (GoF remote-proxy). A dropped unit resolves through ONE polymorphic RefProxy; local vs remote is
+// chosen ONCE, here, by the unit's own originHost (isLocalOrigin) — NOT by an if in the drop handler. The handler calls
+// resolveDropPayload(dt)?.resolve(ctx) and branches on NOTHING; the origin-first branch in RoomView is DELETED, not reordered.
+export interface DropResolveCtx { roomId: string; token: string; log?: (t: string) => void; }
+export interface RefProxy { resolve(ctx: DropResolveCtx): Promise<{ uuid?: string; action?: string; error?: string } | null>; }
+
+async function postImport(ref: unknown, ctx: DropResolveCtx): Promise<{ uuid?: string; action?: string; error?: string }> {
+  try { return await fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ ref, roomId: ctx.roomId, token: ctx.token }) }).then((r) => r.json()); }
+  catch (e) { return { error: (e as Error)?.message || String(e) }; }
+}
+
+// LOCAL: the unit lives on THIS server → relink the LOCAL unit into the room. The ref carries NO fetchUrl, so the server
+// reads it from its own store (contentAlreadyLocal) — ZERO origin fetch, no self-403.
+class LocalRelinkProxy implements RefProxy {
+  constructor(private readonly uuid: string) {}
+  async resolve(ctx: DropResolveCtx) {
+    const here = (typeof location !== 'undefined' && location.origin) || '';
+    const res = await postImport({ ior: `ior:instance:${this.uuid}`, originHost: here }, ctx); // no fetchUrl → server local read
+    if (res?.uuid) ctx.log?.(`[drop] linked object ${String(res.uuid).slice(0, 8)} (${res.action})`); else ctx.log?.(`[drop] object link failed: ${res?.error || '?'}`);
+    return res;
+  }
+}
+// REMOTE: a genuinely cross-origin unit → the server fetches its origin + reconciles + imports (T26.6).
+class RemoteImportProxy implements RefProxy {
+  constructor(private readonly fedRef: unknown) {}
+  async resolve(ctx: DropResolveCtx) {
+    const res = await postImport(this.fedRef, ctx);
+    if (res?.uuid) ctx.log?.(`[federation] imported ${String(res.uuid).slice(0, 8)} (${res.action})`); else ctx.log?.(`[federation] import failed: ${res?.error || '?'}`);
+    return res;
+  }
+}
+
+function bareUnitUuid(ref: string): string { return String(ref || '').replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0]; }
+
+// resolveDropPayload — THE ONE drop entry for a UNIT payload. Returns the polymorphic RefProxy (local vs remote chosen ONCE
+// by isLocalOrigin), or null when the buffer carries NO unit (→ the caller runs its own external file/URL ingestion). The
+// drop handler contains NO originHost comparison — it just asks the proxy to resolve itself.
+export function resolveDropPayload(dt: DataTransfer | null): RefProxy | null {
+  const here = (typeof location !== 'undefined' && location.origin) || '';
+  const fedRaw = dt?.getData('application/rb-federated-ref'); // a cross-instance ref carries its own originHost → proxy chosen from it
+  if (fedRaw) {
+    try {
+      const fr = JSON.parse(fedRaw) as { ior?: string; originHost?: string };
+      const uuid = parseFederatedIor(String(fr?.ior || '')).uuid;
+      if (uuid) return isLocalOrigin(String(fr?.originHost || '') || null, here) ? new LocalRelinkProxy(uuid) : new RemoteImportProxy(fr);
+    } catch { /* not a parseable fed ref → fall through to the unit contract */ }
+  }
+  const r = DndContract.resolveDragUnit(dt); // a same-origin in-app unit (rb-object-ref / rb-unit / bare text / selection)
+  if (isUnits(r)) { const uuid = bareUnitUuid(r.units[0]); if (uuid) return new LocalRelinkProxy(uuid); }
+  return null; // no unit → the caller's external file/URL ingestion (the mint/null case)
 }

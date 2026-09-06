@@ -19,7 +19,7 @@ import './trace/rb-object-item.js';
 import { scenarioEditorHref } from './trace/detail-children.js'; // v0.7.0 (3): ✏️ editor deep-link
 import './trace/rb-trace-tree.js';
 import { dropDispatcher } from './drop-dispatcher.js';
-import { DndContract, isUnits } from './dnd-contract.js'; // T37.20: the ONE canonical drop resolver — the room ASKS it, no per-format branch (fixes the rb-object-ref silent no-op)
+import { resolveDropPayload } from './dnd-contract.js'; // T37.20 DEFECT-1 (Proxy): the ONE drop entry — returns a RefProxy (local vs remote chosen once by originHost); the handler branches on NOTHING
 import type { RbMemberList } from './components/rb-member-list.js';
 import './trace/rb-detail-drawer.js';
 import type { RbDetailDrawer } from './trace/rb-detail-drawer.js';
@@ -208,39 +208,14 @@ export class RoomView {
         const dt = (e as DragEvent).dataTransfer;
         if (!dt) return;
         const log = (text: string) => this.chatSheet?.addMessage('system', 'System', text);
-        // T26.6/T37.20 (Tron: ask the OBJECT where it lives, do NOT branch on the payload format): federation import — an
-        // origin-FETCH — is ONLY for a genuinely REMOTE origin (a DIFFERENT server). A same-origin in-app drag ALSO carries
-        // application/rb-federated-ref (rb-object-item sets originHost = THIS origin), so the old fedRef-FIRST branch made the
-        // server fetch ITSELF → 'origin fetch failed: origin 403' → the in-app object never linked. Now: only a fedRef whose
-        // originHost differs from this origin takes the remote-import path; a same-origin (or unparseable) fedRef FALLS THROUGH
-        // to the ONE contract below, which relinks the LOCAL unit (no self-fetch). Read sync — DataTransfer is event-scoped.
-        const fedRaw = dt.getData('application/rb-federated-ref');
-        let remoteFed: { originHost?: string } | null = null;
-        if (fedRaw) { try { const fr = JSON.parse(fedRaw); const here = (typeof location !== 'undefined' && location.origin) || ''; if (fr && fr.originHost && fr.originHost !== here) remoteFed = fr; } catch { /* not a parseable fed ref → not remote */ } }
-        if (remoteFed) {
-          fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: remoteFed, roomId: this.roomId, token: this.client.playerToken }) })
-            .then(r => r.json()).then(res => {
-              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); } // radical-OOP Slice 1: publish ONE "Files container gained a child" → the owning Node renders its own children in place
-              else log(`[federation] import failed: ${res?.error || '?'}`);
-            }).catch(err => log(`[federation] import error: ${err?.message || err}`));
-          return;
-        }
-        // T37.20 (Tron: everything dropped is a scenario UNIT / class instance, NOT a "shape"): route the drop through the
-        // ONE canonical resolver — an in-app OBJECT (application/rb-object-ref / rb-unit / a bare unit-ref, or a touch
-        // selection) resolves to unit(s); the room ASKS the object to link itself in (via the ONE unit-import path, same-
-        // origin relink), instead of the per-format branch that SILENTLY IGNORED rb-object-ref. External files/URLs are the
-        // resolver's mint/null case → they fall through to their ingress below. NO switch on a mime string here.
-        const resolved = DndContract.resolveDragUnit(dt);
-        if (isUnits(resolved)) {
-          const origin = (typeof location !== 'undefined' && location.origin) ? location.origin : '';
-          for (const ref of resolved.units) {
-            const uuid = String(ref).replace(/^ior:instance:/, '').replace(/^[a-z][\w-]*:/i, '').split('@')[0]; // bare unit uuid
-            if (!uuid) continue;
-            const fref = dropDispatcher.buildFederatedRef({ uuid, type: '', name: uuid, originHost: origin }); // same-origin ref → server relinks the LOCAL unit into this room (contentAlreadyLocal path), the object renders itself via the tree
-            fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: JSON.parse(fref), roomId: this.roomId, token: this.client.playerToken }) })
-              .then(r => r.json()).then(res => { if (res?.uuid) { log(`[drop] linked object ${res.uuid.slice(0, 8)} (${res.action})`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); } else log(`[drop] object link failed: ${res?.error || '?'}`); })
-              .catch(err => log(`[drop] object link error: ${err?.message || err}`));
-          }
+        // T37.20 DEFECT-1 (Proxy, by the book): the drop handler branches on NOTHING. resolveDropPayload returns ONE
+        // polymorphic RefProxy — local vs remote is chosen ONCE inside it by the unit's own originHost (isLocalOrigin), NOT by
+        // an if here. Same-origin in-app unit → LocalRelinkProxy (server reads it from its OWN store, ZERO fetch, no self-403);
+        // genuinely remote unit → RemoteImportProxy (origin fetch). null = the buffer carries NO unit → fall through to the
+        // external file/URL ingestion below. The old originHost-first if-branch (3× failed) is DELETED, not reordered.
+        const proxy = resolveDropPayload(dt);
+        if (proxy) {
+          void proxy.resolve({ roomId: this.roomId, token: this.client.playerToken, log }).then((res) => { if (res?.uuid) ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); }); // radical-OOP Slice 1: publish ONE "Files container gained a child" → the owning Node renders its own children in place
           return;
         }
         // v0.6.86 DnD DIAGNOSTIC: Apple drops emails/calendar/locations as scheme URLs
