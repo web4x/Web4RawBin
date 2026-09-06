@@ -1,59 +1,52 @@
-// R40.81 SLICE-3 SPLIT-BRAIN WRITE LINT (PO order: "your repoint gate should CATCH split-brain — a write landing in one store
-// while reads come from the other"). The Slice-2 READ resolver (server.ts:~136) honours MODEL_READ_SOURCE
-// (scenario-index ? PROD_INDEX : MODEL_STORE). But the model WRITE paths HARDCODE MODEL_STORE — so once Slice-3 flips the read
-// default to scenario-index, a write lands in MODEL_STORE while reads come from PROD_INDEX = SPLIT-BRAIN (the written/updated
-// unit is invisible to reads). The architect ordered WRITE-COUPLING FIRST; this lint proves it happened, by construction.
+// R40.81 SLICE-3 SPLIT-BRAIN WRITE LINT (PO order: catch a write landing in one store while reads come from the other). The
+// hazard: a model store root reached by the MODEL_STORE LITERAL in CODE anywhere except the ONE owner (ModelStoreLocator) — such
+// a write lands in MODEL_STORE unconditionally, so once Slice-3 flips the default to scenario-index it is invisible to reads.
+// Coupling = every store access routes through ModelStoreLocator.modelDir()/dirFor() (flag-honouring), so MODEL_STORE the literal
+// survives ONLY inside its owner (the const definition + the ModelStoreLocator class body).
 //
-// HAZARD (scan the hazard, not the actors): a model-tree WRITE fs-op whose target is a STORE LITERAL (MODEL_STORE / PROD_INDEX)
-// instead of the ONE resolver root that reads use. Owner = the collapsed read-source resolver (POSITIONAL: the function that
-// returns the store root by reading MODEL_READ_SOURCE). Count write-to-literal OUTSIDE that resolver, assert 0.
-// RED-BASELINE NOW (pre-coupling): writes hardcode MODEL_STORE → RED. GREEN when every model write routes through the SAME
-// resolver root as reads (write-coupling). FAILABLE: seed a rogue writeFileSync(MODEL_STORE…) → count rises → teeth.
-// ⚠ NOTE: this is the STRUCTURAL half. The BEHAVIOURAL split-brain probe (write via /api/model/* under MODEL_READ_SOURCE=
-// scenario-index → assert the write is VISIBLE to a read) fires on the SLICE-3 REPOINT COMMIT inside the repoint run (r4081c
-// companion), where the default is flipped and the write path is coupled. Both together = the full split-brain catch.
+// ★ CORRECTED INSTRUMENT (v2): the v1 lint matched `MODEL_STORE` in trailing COMMENTS and `PROD_INDEX` on already-coupled lines →
+//   6 FALSE POSITIVES on the coupled build. Now: STRIP comments, scan the CODE token `\bMODEL_STORE\b`, owner is POSITIONAL (the
+//   const-def line + the ModelStoreLocator class body, brace-tracked — NOT a name allowlist). This matches the expert's own
+//   verify method (MODEL_STORE code-refs == 2: the def + the locator). Confirmed the differential still holds: pre-coupling the
+//   6 write sites carried `path.join(MODEL_STORE, …)` in CODE → RED; post-coupling they use modelDir() → GREEN.
+// HAZARD = a `\bMODEL_STORE\b` code token OUTSIDE the owner. assert 0. FAILABLE: inject one outside → RED.
 import fs from 'node:fs';
 import path from 'node:path';
 const R = (v) => console.log(v);
 const SERVER = path.resolve('src/ts/server/server.ts');
 const src = fs.readFileSync(SERVER, 'utf8').split('\n');
+const stripC = (l) => l.replace(/\/\/.*$/, '').replace(/\/\*.*?\*\//g, ''); // code only — a literal in a comment is not a write
 
-// a WRITE fs-op (mutates a store on disk) + a model-store LITERAL target on the SAME line = a write NOT routed through the resolver.
-const WRITE_OP = /(writeFileSync|mkdirSync|unlinkSync|rmSync|renameSync)\s*\(|generateProjectModel\s*\(/;
-const STORE_LITERAL = /\bMODEL_STORE\b|\bPROD_INDEX\b/;
-// the resolver's OWN body legitimately names the literals to CHOOSE between them — exclude it POSITIONALLY (the ternary that
-// reads MODEL_READ_SOURCE). Detected by the flag reference on/near the line, not by a phrase.
-const isResolverLine = (l) => /MODEL_READ_SOURCE/.test(l);
-// ★ ARCHITECT COUPLE-or-EXEMPT ruling (PO 2026-09-06) is encoded STRUCTURALLY, NEVER a name-based allowlist (an allowlist rots
-// the moment a 7th write site is added). If the architect rules a write EXEMPT (a regenerable view-unit that legitimately lives
-// only in MODEL_STORE), the exemption MUST be POSITIONAL — the write sits inside a designated owner FILE/region the ruling names
-// by PATH, and every EXEMPT write RELOCATES into that owner so the exemption is 'is-it-in-the-owner?' not 'is-it-on-this-list?'.
-// Until the ruling lands, EXEMPT_OWNER is empty → all 6 count (RED). Wire the architect's positional owner here, do NOT list names.
-const EXEMPT_OWNER = null; // e.g. /view-store-generator\.ts$/ once the architect designates the regenerable-view owner by path
-const isExempt = (_l) => false; // positional-only; stays false until a PATH-scoped owner is wired (never a name allowlist)
-
-function scan(lines) {
-  const hits = [];
-  lines.forEach((l, i) => {
-    if (l.trim().startsWith('//') || l.trim().startsWith('*')) return;
-    if (WRITE_OP.test(l) && STORE_LITERAL.test(l) && !isResolverLine(l) && !isExempt(l)) hits.push({ line: i + 1, text: l.trim().slice(0, 120) });
-  });
-  return hits;
+// POSITIONAL owner (rich, not a name-allowlist): the `const MODEL_STORE =` definition line + the ModelStoreLocator class body
+// (from `class ModelStoreLocator {` until its brace closes). A MODEL_STORE code token anywhere else = an uncoupled store access.
+function ownerLineSet(lines) {
+  const owner = new Set();
+  lines.forEach((l, i) => { if (/^\s*const\s+MODEL_STORE\s*=/.test(stripC(l))) owner.add(i); });
+  const start = lines.findIndex((l) => /class\s+ModelStoreLocator\b/.test(stripC(l)));
+  if (start >= 0) { let depth = 0, seen = false; for (let i = start; i < lines.length; i++) { const c = stripC(lines[i]); for (const ch of c) { if (ch === '{') { depth++; seen = true; } else if (ch === '}') depth--; } owner.add(i); if (seen && depth === 0) break; } }
+  return { owner, locatorFound: start >= 0 };
 }
 
-const hits = scan(src);
-R('═══ R40.81 SLICE-3 SPLIT-BRAIN WRITE LINT — model writes NOT routed through the read resolver ═══');
-R(`  read resolver honours MODEL_READ_SOURCE: ${src.some(isResolverLine) ? 'yes (server.ts)' : 'NOT FOUND (⚠ resolver missing)'}`);
-R(`  model WRITE-to-store-LITERAL sites (would land in the wrong store post-read-flip) : ${hits.length}  ${hits.length === 0 ? 'GREEN' : 'RED'}`);
+function scan(lines) {
+  const { owner, locatorFound } = ownerLineSet(lines);
+  const hits = [];
+  lines.forEach((l, i) => { if (owner.has(i)) return; if (/\bMODEL_STORE\b/.test(stripC(l))) hits.push({ line: i + 1, text: stripC(l).trim().slice(0, 110) }); });
+  return { hits, locatorFound };
+}
+
+const { hits, locatorFound } = scan(src);
+R('═══ R40.81 SLICE-3 SPLIT-BRAIN WRITE LINT (v2, code-token + positional owner) ═══');
+R(`  owner = ModelStoreLocator class + the MODEL_STORE const-def (positional, brace-tracked): ${locatorFound ? 'found' : '⚠ NOT FOUND'}`);
+R(`  MODEL_STORE code-token refs OUTSIDE the owner (uncoupled store access) : ${hits.length}  ${hits.length === 0 ? 'GREEN' : 'RED'}`);
 for (const h of hits) R(`    server.ts:${h.line}  ${h.text}`);
 
-// FAILABLE self-test (teeth): a rogue write-to-literal appended to the scanned lines MUST be counted.
-const rogue = src.concat(['  fsSync.writeFileSync(path.join(MODEL_STORE, "x"), "rogue"); // seeded']);
-const teeth = scan(rogue).length === hits.length + 1;
-R(`  FAILABLE self-test (seed a rogue writeFileSync(MODEL_STORE…) → detected): ${teeth ? 'PASS (teeth — a new uncoupled write cannot slip in)' : 'FAIL (toothless)'}`);
+// FAILABLE self-test (teeth): a rogue MODEL_STORE code ref OUTSIDE the owner MUST be counted.
+const rogue = src.concat(['  const rogue = path.join(MODEL_STORE, "x"); // stub']);
+const teeth = scan(rogue).hits.length === hits.length + 1;
+R(`  FAILABLE self-test (inject a stray MODEL_STORE code ref outside the owner → RED): ${teeth ? 'PASS (teeth — the lint CAN fail; a new uncoupled write cannot slip past)' : 'FAIL (toothless — a 0 that cannot go RED is worthless)'}`);
 
-const green = hits.length === 0 && teeth && src.some(isResolverLine);
-R(`OVERALL: ${green ? 'GREEN — every model write routes through the read resolver root (no split-brain)' : 'RED'}`);
-R(`  RED-baseline expectation (pre-coupling): model writes hardcode MODEL_STORE (generate-project 2944 + writeFileSync sites) → RED. Flips GREEN when the expert couples writes to the resolver root (write-coupling FIRST, architect order).`);
-R(`  PAIR with the BEHAVIOURAL probe on the Slice-3 repoint commit: write via /api/model/* under MODEL_READ_SOURCE=scenario-index → the write MUST be visible to a read (invisible = split-brain RED).`);
+const green = hits.length === 0 && teeth && locatorFound;
+R(`OVERALL: ${green ? 'GREEN — every model store access routes through ModelStoreLocator; no uncoupled MODEL_STORE literal (no split-brain by construction)' : 'RED'}`);
+R(`  Differential: pre-coupling 6 write sites carried path.join(MODEL_STORE,…) in CODE = RED; post-coupling (v0.8.196 ModelStoreLocator) = 0 outside owner = GREEN. EXEMPT_OWNER unused (green by COUPLING, not by an exemption entry).`);
+R(`  PAIRS with the BEHAVIOURAL probe (fires on the repoint commit after the flip): a write via /api/model/* under the flipped default MUST be visible to a read.`);
 process.exit(green ? 0 : 1);
