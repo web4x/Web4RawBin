@@ -57,3 +57,26 @@ BUILD is parallel (SLICE-A's correctness is quirk-independent). **DEPLOY is SEQU
 1. **Capture instrumentation deploys to prod FIRST** (prod is still 0.8.190, instrumentation NOT yet live — Tron has been dropping photos into a system capturing nothing).
 2. **★ SLICE-A DEPLOYS SECOND — because SLICE-A DESTROYS THE EVIDENCE.** It changes the client upload path, so once it ships his failing multipart request NO LONGER EXISTS. Deploy it before the capture and: either it works and we never learn the cause, or it fails and we have removed the only artifact that could explain why, with no route back to the failing shape. So SLICE-A ships only AFTER his real failing request is captured.
 **VERIFY-IT-LOGS gate on the instrumentation ship (do not skip — this is the instrument-blindness bug class):** the capture must write to a persistent FILE (the `addLog` isTTY gate makes stdout a silent no-op when not a TTY — a capture that writes NOWHERE is the empty-both-sides / synthetic-subject false-green repeating one more time). BACKSTOP on the instrumentation ship: (a) served==committed on prod (real deploy, not a local build); (b) the capture path writes to a readable FILE, NOT stdout-behind-isTTY; (c) a SYNTHETIC test request produces an actual file entry — prove the instrument records before trusting it for his real request; (d) the real-vs-synthetic control is wired. Only once the capture is live + PROVEN-logging + his real request is in hand → diagnose from the bytes → THEN deploy SLICE-A. Migration paused throughout.
+
+## ★★ SLICE-A ↔ T37.20 AC MAPPING (PO — report against the CURRENT task's ACs, not "a parallel deliverable")
+R40.96/97/98/99/103 are EXTENSIONS of **R37.20 (03e0f803)** (children, core deduped by reference). **T37.20 has been Planned + UNBUILT since 2026-08-12** — we built an extension hierarchy around an unstarted core. (Note: T37.20 carries **6** ACs on disk, not 7 — flagging the count honestly; possibly `resolveDropPayload` was counted separately.) SLICE-A is NOT parallel — it DELIVERS specific T37.20 ACs **for the upload surface**:
+
+| T37.20 AC | SLICE-A delivers? | note |
+|---|---|---|
+| **AC-A2 buffer-carries-unit** | ✅ **for uploads** | the upload payload becomes the scenario UNIT (unit-JSON), never bespoke multipart/URL. (A2 fleet-wide also needs the DRAG buffer — DndContract, below.) |
+| **AC-shared-contract (one serializer+resolver)** | ✅ **upload-surface portion** | 4 upload transports → 1 (`UnitTransport.putByUuid`). Fleet-wide also needs the drag-buffer serializer/resolver. |
+| **AC-BITE-per-target** | ✅ **room-upload target only** | drop-a-file-into-a-room BITEs; diagram/tree/editor + drag BITE remain. |
+| **AC-6-DEVICE @390** | ◧ **partial** | his photo uploading @390 is one facet; full @390 across surfaces remains. |
+| **AC-A1 file-drags-as-file** | ❌ | the DRAG side = `DndContract.serializeDragUnit` (wired 822e663b @ fc7226f19, **UNBUILT**). |
+| **AC-A3 details-render** | ❌ | drawer/detail rendering for /model tree selection — **UNBUILT, nobody scheduled.** |
+
+## ★ HONEST REMAINING SCOPE after SLICE-A (the gap Tron means — the task is never what we're doing)
+Still OPEN on T37.20 after SLICE-A ships:
+1. **DndContract DRAG-buffer build** — `serializeDragUnit`/`resolveDragUnit` (822e663b, wired-but-unbuilt): closes A1 + the drag portion of A2/shared-contract/BITE.
+2. **AC-A3 details-render** — the /model-tree-selection detail view; **unscheduled**.
+3. **AC-BITE per target for diagram / tree / editor** (non-room) + the drag BITE — **unscheduled**.
+4. **AC-6-DEVICE full @390** across all surfaces.
+per-target-BITE and details-render are the two the PO flagged as work nobody scheduled — NAMED here so they get boarded (flag req+planner). T37.20 is NOT DONE when SLICE-A ships — it closes A2(upload)+shared-contract(upload)+BITE(room)+@390(photo); the rest above remains.
+
+## ★ REPORTING DISCIPLINE (Tron's actual complaint — fix it here)
+Every build report on this arc states **WHICH T37.20 AC it closed** (e.g. "SLICE-A closes AC-A2 + AC-shared-contract for the upload surface; A1/A3/BITE-non-room remain"). No more "we shipped an upload fix" untethered from the task's ACs. The task defines DONE; a build closes named ACs; DONE = all 6 green.
