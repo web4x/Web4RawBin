@@ -21,7 +21,7 @@
       "date": "2026-09-06"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "PRIO-3 (INFERRED — Tron numbered only prio-1/prio-2; PO confirming with Tron, re-rank if he differs)",
+    "queuePriority": "PRIO-3 (PO-RANKED 2026-09-06, Tron may overrule). Reasoning (recorded, challengeable): rank follows READINESS not importance - prio-1 (R40.81 one-store) + prio-2 (Folder/Room/File/Unit as classes) are CONCRETE + buildable NOW; the natural-class + transport work depends on a design still MOVING (architect REV2->REV3, NativeFileIngress not yet in code) and building against a moving design rots. The mimetype/transport-is-scenario law still binds every task as a standing AC from today.",
     "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
     "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
     "crossRef": [
