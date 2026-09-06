@@ -8,16 +8,21 @@
     "intention": "Dropping a calendar entry (.ics) instantiates a CalendarEntry object that owns its model+view+controller and renders itself; nothing switches on a content-type string.",
     "context": "Covers R40.99 92a5d0d4 (natural domain classes implement UnitConvertible), UC f4b10768. Implementation UNDER Task 37.20 ae01f065. parent S37 b86b53cc.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "- [ ] CalendarEntry is a CLASS implementing UnitConvertible {isBinary/load/toUnit/fromUnit}; MimeType.from resolves a calendar-entry drop (.ics/text-calendar) to the CalendarEntry class (no content-type string-switch outside MimeType).\n- [ ] A dropped calendar entry RESOLVES to a CalendarEntry scenario unit that is INSTANTIATED; the object owns its model+view+controller and RENDERS ITSELF (detail + preview) — not bytes stored, not a handler branch.\n- [ ] DEFINITION OF DONE: the right CLASS (CalendarEntry) is instantiated AND rendering itself; a mime/format switch handling calendar entries = RED.",
+    "acceptanceCriteria": "- [ ] AC-transport-is-scenario-unit: CROSS-CUTTING (planner constraint on every req in this set): the scenario-unit JSON is the model.\n- [ ] AC-unitconvertible-interface: Each natural class implements UnitConvertible {isBinary, load, toUnit, fromUnit} and owns the co.\n- [ ] AC-reuse-webitem-email: WebItem 7c486fcb + Email 3bb26ebe are REUSED (complete their 4 methods + Impls).\n- [ ] AC-contact-reconcile-vcard-lens: Contact is the natural class; VCard is the FORMAT-LENS.\n- [ ] AC-mint-image-calendarentry: Image + CalendarEntry are MINTED as natural classes (verified absent) with the full UnitConverti.\n- [ ] AC-zero-duplicate-natural-classes: 0 duplicates among the 5 natural classes (a dup = the traceability defect).\n- [ ] AC-class-owns-mvc-renders-itself: Each natural class (WebItem/Email/Contact/Image/CalendarEntry) is a CLASS that OWNS its data AND.\n- [ ] AC-no-mime-format-switch-handler: A handler/function that SWITCHES on a mime/format string to decide behaviour IS THE DEFECT (not .\n- [ ] AC-dod-class-renders-itself-bytes-stored-fails: DEFINITION OF DONE for each: the RIGHT CLASS is instantiated AND rendering itself.\n- [ ] AC-layering-dndcontract-to-natural-class: The dispatch LAYERS: DndContract -> MultipartMime -> MimeType.from -> natural class.",
     "subtasks": "None (atomic natural-class task).",
     "status": "QA Review",
-    "coveredRequirements": [ "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5" ],
-    "useCases": [ "ior:instance:f4b10768-caa2-4065-82d6-cd9e8d103ad6" ],
+    "coveredRequirements": [
+      "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5"
+    ],
+    "useCases": [
+      "ior:instance:f4b10768-caa2-4065-82d6-cd9e8d103ad6"
+    ],
     "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
     "sprintName": "Sprint 37",
     "remainingIssues": "-> QA-Review (PO ruling 2026-09-06, DIRECTLY-GATED not inferred): tester MEASURED .ics-drop -> CalendarEntry class, class-correct AND rendering as itself (4/4 class-DISTINCT, mutual-distinctness GREEN), live prod v0.8.204, gates d2f95670a. Shipped via MimeType.from Factory (v0.8.203) + per-class render registry (v0.8.204). Awaiting Tron accept (0 Done till Tron). Covers R40.99 + UC f4b10768, under T37.20.",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-06"
+    "createdAt": "2026-09-06",
+    "acParitySource": "GENERATED from R40.99 92a5d0d4 (single source, 10 ACs) - faithful projection NOT hand-copy (PO ratchet 2026-09-06). CLASS-SPECIFIC ACs captured to image-calendarentry-specific-acs-captured.md; recommend a specific Image/CalendarEntry req (extends R40.99) to restore specificity, then re-point + project."
   },
   "ownerIor": null
 }
