@@ -1,0 +1,4044 @@
+{
+  "capturedAt": "2026-09-06T10:05:16Z",
+  "servedVersion": "0.8.186",
+  "headSha": "ca146c9b4",
+  "stores": {
+    "scenarioIndex": {
+      "path": "scenario/index",
+      "realFiles": 6109,
+      "symlinks": 0,
+      "uniqueUuids": 6109,
+      "parseErr": 0,
+      "noUuid": 0
+    },
+    "modelStore": {
+      "path": "data/model-store/index",
+      "realFiles": 702,
+      "symlinks": 82,
+      "uniqueUuids": 702,
+      "parseErr": 0,
+      "noUuid": 0
+    }
+  },
+  "overlap": {
+    "inBoth": 33,
+    "modelStoreOnly": 669,
+    "scenarioIndexOnly": 6076
+  },
+  "modelStoreOnlyUnits": [
+    {
+      "uuid": "01493f22-2557-464a-a0a9-fe445345d458",
+      "name": "startImplementing",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "015ac5f0-62ed-46a1-ade6-9ac76234c38e",
+      "name": "hours",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "01a0d09d-1bc0-4a5a-a277-51dbe992a3bb",
+      "name": "feature-manager",
+      "ior": "ior:class:Folder",
+      "kind": "folder"
+    },
+    {
+      "uuid": "01fb16df-9537-4480-af67-83ba97bd2e0f",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "022a821a-8378-4b5e-a01b-8ec188395212",
+      "name": "versionBumps",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "024ff662-5a76-4c8c-aa7e-a43ef6bae3cb",
+      "name": "body",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "02d5b1df-5dbf-4bed-acbd-a2b62b447422",
+      "name": "links",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "03ed4b5b-31a1-4754-a94d-fb3ce176d4b7",
+      "name": "buildStrictImplSet",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "03f83270-98a3-41fe-abd1-f398a610b0c6",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "0411fa64-3d2d-44e2-a425-16056204ce38",
+      "name": "assertNoLiveInjection",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "04125e62-5ce0-4aca-af03-db206428405a",
+      "name": "list",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "04d414bc-0683-4474-a4c9-845f40441f2f",
+      "name": "FederatedRef",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "04ef115b-caa5-4259-accb-24348041fd96",
+      "name": "LIST_CACHE_TTL",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "05c6c99c-6672-454c-a089-7434573a6677",
+      "name": "createFileUnit",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "06276fd3-9fbe-4379-a1e5-5204b9a8741f",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "06d21704-c14b-4b1c-a633-b040e869ec2a",
+      "name": "metaLevel",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "07427319-70c5-43f9-a43b-6b82363a7111",
+      "name": "collectTestBlocks",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "07d0b415-67c4-4c40-a4ba-647993d49963",
+      "name": "assertSerializationEmbedsUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "0826ef3e-996f-4ca8-a14b-e7311b414493",
+      "name": "roomUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "082ff338-69dd-414f-a6ec-f725a2bf8994",
+      "name": "getHopStates",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "08a0ce6f-4a89-4e8c-a9cf-8951fdbc0879",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "08e1f14c-904a-4c28-acef-0d652942ef95",
+      "name": "deriveScheme",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "0941ec68-0975-4237-afd5-41af537bd1b0",
+      "name": "2bd2bdb0-dd9e-497d-a21b-57413af6a310",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "09831b99-7746-4043-aebe-4c361b2e3906",
+      "name": "has",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "09beef37-c7b0-4bdf-ab33-d7a5b88c15b8",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "09c5d8a0-c89a-49bc-ab26-7e61df46733b",
+      "name": "Audit",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "0a3d9347-fd52-4196-a3c9-839e2e46c230",
+      "name": "OpenNode",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "0aa95da5-352d-4444-a865-09815dfae184",
+      "name": "TsToModel",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "0aacb8ee-d731-4187-afc1-66f51ad10010",
+      "name": "lines",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "0b8039a4-9f43-4957-a480-a6c0bf850ea2",
+      "name": "GenerateResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "0c2ad947-aa82-4d9c-ad82-4f69d8383cf8",
+      "name": "validateAllSources",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "0ce4d2fb-4023-4db8-ac2d-4376ce16815c",
+      "name": "Shape",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "0d5395b5-8c2f-4712-a51c-da927f8048d6",
+      "name": "mintAddress",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "0dd6c852-dac7-4424-a701-74afa8c0ffd5",
+      "name": "scenarioRoot",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "0e212bf6-17b8-44c9-a0b7-817003669885",
+      "name": "captureQuote",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "0e2df2e9-7329-4d5d-864c-e04ff304706c",
+      "name": "test1",
+      "ior": "ior:class:Folder",
+      "kind": "folder"
+    },
+    {
+      "uuid": "0e7dbea5-631e-4d60-a48f-c82b4e829438",
+      "name": "relation",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "0f089203-891d-4361-abc6-6869371570f8",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "0f454f67-7699-46ba-a63d-c5aafdb967cc",
+      "name": "profile-view-entry.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "0fd09807-ff2e-4308-a2d4-b5f65f31509c",
+      "name": "taskName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1010b251-fa42-4105-aca1-88ec5d5fa972",
+      "name": "unresolvedRef",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1031f99d-a842-4c04-a557-350fa760aae8",
+      "name": "validMethodLabel",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "103c6898-4b2f-42ca-a201-ade5e3ce632f",
+      "name": "qualifiedName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "104aa12d-71e2-4652-af9a-aed5ffc971d7",
+      "name": "createWebItemUnit",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "11d188b0-4721-4926-aa5e-f78580c7dbb9",
+      "name": "scanImplMarkers",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "123c2397-01af-43c6-ab5b-504fc4b5a775",
+      "name": "register",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "124937fc-4a2f-41df-a1bb-e93a53cfc488",
+      "name": "implRefCounts",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "13f3fadb-b6e9-48f3-a5d1-27826a74e874",
+      "name": "renderIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1409c936-c156-4878-a5bc-bb4a6e4cc9ff",
+      "name": "walkForScenarios",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "15165da0-8668-4778-a29c-5301a9458984",
+      "name": "ref",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1577e125-fee3-40c2-a247-d6b04d219d2c",
+      "name": "BUILD_OWNED_UUIDS",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "15bfc97d-9671-4c5c-aad5-ed4a97988e06",
+      "name": "activeHop",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "15f119c2-fd35-4f28-a8ce-9c19c27c2f9d",
+      "name": "",
+      "ior": "ior:class:UmlTraceRelationship",
+      "kind": ""
+    },
+    {
+      "uuid": "1637b6db-679c-4ad9-a326-811454495a3f",
+      "name": "parseWebloc",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "16550a55-c429-4723-a589-892de50e444a",
+      "name": "nameKey",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "16e39fbc-cdbd-4df9-af31-9816250c230b",
+      "name": "renderStatusHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "1754d89f-98a3-40ae-ad05-f7f9d18e834c",
+      "name": "nextBacklog",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "181e723c-4b80-4f14-a65d-f82ac2576c8b",
+      "name": "renameUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "19a59547-a908-49c1-abfc-604e6bef7fe0",
+      "name": "VacuousExpect",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "19cbb1f8-3ebb-4c0a-a20f-39b356506bfd",
+      "name": "resolve",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "19e7d9f2-dacc-4142-a1c4-cc4611f17ac0",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "19f69c05-a8af-4dfd-a544-f533ef86bacc",
+      "name": "put",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1a4a0b22-f37a-4faf-a123-9fb99db8bfdf",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1ac56b78-2703-4442-aec5-9497a7a139b5",
+      "name": "M1Unit",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "1b146e5c-c850-48f1-a41c-3619a985eaa9",
+      "name": "expect",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1b3f54f7-4543-4c42-ac28-e333253eef1d",
+      "name": "sprintPrefix",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "1b4cddb9-410e-4ac7-a941-b20e9a8a4dcc",
+      "name": "from",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1baa1d32-4c88-481a-a750-ab81b32831ea",
+      "name": "bindByUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1c4d6717-f1f9-4c32-a92e-ea8d209fa00f",
+      "name": "ownerDecl",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "1c5990be-f496-4983-a214-7bf182ccfbf5",
+      "name": "createMessageUnit",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "1c636898-7b15-4a17-ad25-a47fe94e7e79",
+      "name": "render",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1ce1288f-2d55-42ae-a5b2-f8a70cba9634",
+      "name": "filePath",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "1d39e778-995c-4993-af53-6a6d55eedd5b",
+      "name": "relation",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1dc6aaa9-8730-4e9d-adca-5c26a35f5ce9",
+      "name": "Elem",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "1dd59f49-b06c-4e8d-ad4c-73266504ce3e",
+      "name": "ProfileEditor.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "1e2bd5a5-b220-4894-a10a-171cc803d960",
+      "name": "totalCommits",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1ed6f6b9-6986-4ce5-aae5-4dcdf76a4b4b",
+      "name": "methodName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "1f5cabaa-017e-4fe3-a54b-cf3cfba121b2",
+      "name": "EmailIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "1fc4ea0c-2cd9-46cb-a6ec-156491b96f97",
+      "name": "TaskSpec",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "1fcb4939-9656-4124-a7dd-df4c542ae747",
+      "name": "first",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "20b98515-16ae-4463-a8a8-587e2e6e9df5",
+      "name": "walkUp",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "21806277-488d-4c62-ac5f-f20c2270a227",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "219ee2a3-7ea0-48f6-aa64-289d9a58306e",
+      "name": "offset",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "21ed51f1-8031-45a2-ab38-dbc9629e1f67",
+      "name": "statusTransition",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "22777621-aab9-4585-ac48-12e19ecc5be8",
+      "name": "commit",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "22839408-2fd5-4ebf-a7c4-d75e46487d01",
+      "name": "MetaLevel",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "2331f163-511f-4d12-aedf-9f9db6a14afb",
+      "name": "PinData",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "235c2de7-2a1b-47cb-ad0a-92a3d47586d8",
+      "name": "summarize",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "23b84e25-7424-4225-aee9-e0477361e2d7",
+      "name": "setNextBacklog",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "244a4018-a2b2-4ca6-afd0-f8b82c0c00c9",
+      "name": "federatedIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "24605220-a734-4f5b-aa61-0ccd1037266a",
+      "name": "SourceLocation",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "24baafd4-6e46-4bfe-afb1-040337134e60",
+      "name": "reason",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "251ed6ac-eddf-4450-a411-d94db351e763",
+      "name": "MessageKind",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "2612899c-599a-4556-ac15-267ec83fb84d",
+      "name": "nextBacklogOverride",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "26bd9c56-636c-4bf4-aa8f-683a73d02b15",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "26f063c0-72f1-4453-a3d8-1bb14803a303",
+      "name": "extractTsMethodRanges",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "2741027b-a43c-4763-a05d-e06a1dd511d6",
+      "name": "esc",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "27543353-633b-414c-a9be-dd21c2d5e38c",
+      "name": "Draft",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "2888194f-710e-4fa5-a27b-4db89d0027c7",
+      "name": "has",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "28fc4036-d819-42bc-a774-c01f7bf07c34",
+      "name": "relations",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "2bb791ec-d68f-41fd-a19d-03abbded5c04",
+      "name": "face",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "2c2be155-4e3c-425e-aaf4-0196f1a3be06",
+      "name": "create",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "2c7f2d1c-351d-4eba-ae48-624049a79d1d",
+      "name": "roomUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "2da5a2da-a4d6-4d70-ac35-eec26701f0ff",
+      "name": "ChainRefs",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "2e779be1-685c-466e-a404-35c543832aea",
+      "name": "iorInstance",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "2e88110e-d9f8-4450-ad97-0fefc5922924",
+      "name": "ScanResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "2e9325ed-2cf5-4e0a-a0fe-b44290e2a52b",
+      "name": "outsideScope",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "2ea31fe3-d27e-49db-aaca-6ca923fca5f1",
+      "name": "TaskState",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "30e45221-da38-46f1-aa06-d09e66a77761",
+      "name": "walkFiles",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "316339d3-9a0d-4f6d-acc1-2b08ad2cb6cd",
+      "name": "sprintReqs",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "3186551a-88ae-47a6-a150-6dc930d13d9e",
+      "name": "suggest",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "3252f090-09c3-4bed-ae2d-7138c2d64357",
+      "name": "mintOrReuseClass",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "32fb9a97-9e86-4314-a0e7-e6d11fb9b057",
+      "name": "errors",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "33d1d9c9-66f9-454f-ad30-2642a3adabbb",
+      "name": "ImplBucket",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "3412767f-55ee-4ed0-a209-e6b377ace2e1",
+      "name": "declared",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "34280032-1e94-4c0e-a244-40cd4eec0f05",
+      "name": "filePath",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "344aea92-5150-4f6e-ad2c-f00d47d14795",
+      "name": "SkillResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "348369f7-c247-423b-a7b0-94a52252d103",
+      "name": "iorFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "34cce5eb-bd87-4adc-a882-1faf51e3866a",
+      "name": "repoRootScriptFiles",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "35a076ca-c214-4dbc-ab7f-2c4c5c323940",
+      "name": "CompleteEntry",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "35dd2389-f215-410a-aa38-ef0a36976799",
+      "name": "walkMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "35f834bd-f1f2-4e3f-a494-b53e01fc6631",
+      "name": "anonHandler",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "35f871e4-07eb-404e-a720-41dd35173065",
+      "name": "classifyImplMarker",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "35f8f879-fc5d-4338-ad05-2e761fba5311",
+      "name": "file",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "36353bc9-15bf-4971-a703-982a214e68aa",
+      "name": "ensureSymlinkDisk",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "369c9601-d310-4e11-ab0c-2473bbbf9ebe",
+      "name": "html",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "37670f21-5e36-4aa6-a113-b412adb03826",
+      "name": "get",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "37d68c00-6363-47e8-a4b3-7ef2ea91b079",
+      "name": "owner",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "382e31b4-46dc-4ac8-ad5d-aeea19e2ab60",
+      "name": "method",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "38d778b8-d627-44c4-a002-d2228145f9c3",
+      "name": "buildSourceIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "399667ad-26a2-4520-a429-890843f51433",
+      "name": "parseIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "39b2c5f4-a140-4684-af1f-7695611bbec7",
+      "name": "refuseIfVacuous",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "39d409cc-4ff0-4858-a0b8-5c9a7cbb8163",
+      "name": "generateOverview",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "39ff0012-3046-4154-a056-e665c2be6499",
+      "name": "generateAll",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "3a04775d-fdd7-4e8b-a894-ac50cb7177a0",
+      "name": "read",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3b93356f-6044-4eeb-a953-d6185ff820f8",
+      "name": "readFileUnitContent",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "3c09a808-3bb1-457c-a520-c25bb3b0c438",
+      "name": "roomUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3c59cb80-eddb-4f1a-a7d5-95fa48a8b671",
+      "name": "originHost",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3c6e8aeb-a1be-4f98-a370-a7e87bbfdf3e",
+      "name": "freshUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "3cdfe67d-c0d2-42a7-a058-36c377fe67fe",
+      "name": "extraUnitLinks",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3d1e04c7-e555-492e-a381-6418a224037a",
+      "name": "children",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3dc59a24-d9f4-4e0c-aa32-7e80f9fbe25a",
+      "name": "fileHeader",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "3f6de6c1-19dd-4ce3-ab70-7bc9b80594cb",
+      "name": "mvc-boundary-guard.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "3f7635c2-aea6-434f-a28e-924acd713e3b",
+      "name": "sourceFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4049b5ff-0ab7-4e02-a9ff-415a685b3e0c",
+      "name": "pinCurrent",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "407ed54e-f03e-4001-ab7d-c469fc16291d",
+      "name": "validate",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "40a39d08-0e50-4d8e-afdb-a10808496602",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "411d3534-09eb-4c70-a10b-26e8571069da",
+      "name": "excluded",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "41f984ea-3eaf-4ecf-aa15-76c612461508",
+      "name": "visibility",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "43c1ed62-726b-4987-ad6d-947a80b1802f",
+      "name": "buildLinks",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "44c84a81-4665-469a-a091-5c34cdd8752b",
+      "name": "isOrphanByDesign",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "4538969f-c1bc-4543-a248-9783d2d9dab5",
+      "name": "renderMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "454f6b00-fce5-4595-a143-2e5daff592ab",
+      "name": "renderHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "455b6def-9b8e-41c8-a083-8cd21a04393b",
+      "name": "derived",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "46076aa7-0599-43c0-a2e7-aa09748723b6",
+      "name": "PhoneIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "470be0c9-7b28-4978-a745-385b3011726c",
+      "name": "fileCount",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "472c9bb4-3c79-4d8a-a19a-5607525aa2db",
+      "name": "generateSprintOverview",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "472f560b-cbdf-4b47-a943-ab33d237b7e2",
+      "name": "mintAndLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "473dd3b1-8d34-4fed-afa4-d15a540ee286",
+      "name": "markerTotal",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "47b3657e-8d86-4be7-a998-48225c201af9",
+      "name": "parentFolder",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "47d26f91-6ca6-416a-a592-ea4f6cae061d",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "47e8ece5-2c3a-43f7-a6d5-46ca6f37a03d",
+      "name": "frozenLegacySection",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "482c3e9f-02fc-400c-adb5-9f9238864250",
+      "name": "implUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4831edeb-d434-459b-a9f1-e46e125c6125",
+      "name": "sourceFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "485cb231-27ac-4c0b-a64f-2099634979f0",
+      "name": "server.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "4936ec15-7f07-4e36-a9c0-342a773da6a4",
+      "name": "FollowUpResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "49a88f21-972b-4905-a9ea-eaa74277696c",
+      "name": "detail",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "49de2550-4ba0-414e-acd8-6a59820916aa",
+      "name": "area",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "4ab4b2ba-74f3-4607-a765-307b88a1ca49",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4ade2bec-056b-4b18-a951-37ce92f0a971",
+      "name": "test/fixtures/r325-golive-drop.ts",
+      "ior": "ior:class:Project",
+      "kind": "project"
+    },
+    {
+      "uuid": "4b1d80f5-828c-46cd-a175-e7ffa195f843",
+      "name": "pinLines",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "4b6948d0-8ae6-4baf-aa49-a455c7ac5576",
+      "name": "className",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4bf7292f-1eb4-436e-ab71-aa3a671df589",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4bf94518-9351-4079-a70f-87ca1c943f58",
+      "name": "validateNoBackRefs",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "4bf9700c-4e49-4a62-a9f7-0ad390858bd8",
+      "name": "nextBacklog",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4c3c68ad-9823-4b2a-ab30-9fbfd18993e4",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4c87bfe9-f493-48b1-a782-0daeffd43520",
+      "name": "returnType",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "4ce711e4-0f1b-4fa7-a9f6-bc7856902c8a",
+      "name": "AddressIndex.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "4d01a55c-a94b-47f1-a01b-1042c35737b8",
+      "name": "SourceIssue",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "4d25a188-ee01-4416-a37d-5b0f63cc38ca",
+      "name": "selection-model.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "4d61d581-2024-47fd-a63c-794d8406e268",
+      "name": "getInstance",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "4db208c8-599b-4867-acae-363ff12c3ef2",
+      "name": "iorClass",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "4ddf2e4d-0e9a-4fe6-aece-573ba7173e22",
+      "name": "captureQuote",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "4dfcfec5-5aaf-4664-ada0-9cf9a3ddda8e",
+      "name": "extractTsClassRanges",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "4e6f5577-8d8f-4ed6-a347-efa717b3c4a8",
+      "name": "renderTraceTreeHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "4e728bbc-888c-4dc1-a0c3-424eb4daa2cb",
+      "name": "wireImplNode",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "50c359d2-0550-4810-a124-6da71766ae57",
+      "name": "CurrentSprint",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "50f65094-9984-411c-a30f-faec7b9eb1d5",
+      "name": "members",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5140aa1c-f8c0-475c-abd9-997da0f9af71",
+      "name": "linkFull",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5164fe56-9630-44ea-aaf6-65d37d8908c7",
+      "name": "Model diagram (1 classes)",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "52ef7312-cadd-42da-a4ee-d7d2386886d8",
+      "name": "renderChainSection",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "530806a0-c7b1-4fd5-a91d-b44f0419e815",
+      "name": "renderNodeMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "5447725b-9df4-4b3b-a023-adb73b1cb34c",
+      "name": "feature-manager.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "5456d7c7-c09b-4455-aa7f-f4bcf5b85ae0",
+      "name": "Scenario",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "548dc938-62c8-4351-a0fb-070e7a873358",
+      "name": "getFileCommit",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "54ae7465-52da-4709-ad5a-ed3413d41f40",
+      "name": "slug",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "54ea2a17-7b18-4d0f-ab41-feb6efe9ae64",
+      "name": "Circle",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "555ed51f-c3a3-4cfa-a4ef-ca082b19a811",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "558ea596-54e2-4a4c-a605-947901628fa9",
+      "name": "chain",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "55979a79-cb07-4c03-a35c-81834bf34764",
+      "name": "sprint-29-server-dev-lifecycle-chains.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "55e467a2-cb7f-4019-af82-3e0e2102a345",
+      "name": "load",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "55f290be-836d-4abd-abc1-a2e1a43dba8e",
+      "name": "generateOne",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "560bd1e2-15a3-4441-a681-ccbb26299564",
+      "name": "Rules",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "5671d055-53e9-4da6-a850-1ee75e4e34e2",
+      "name": "normalize",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "57d463e6-c4c0-4e9b-ad55-86c8bdef7794",
+      "name": "fictional",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5846b8db-c738-4f0a-a42f-7cd264a8c9f3",
+      "name": "parameters",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "58542409-4bbf-4d9f-a941-54cd4316ae87",
+      "name": "walkChain",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "588524df-e721-479a-a821-700e7650d9e2",
+      "name": "detail",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "58978dc9-a714-4cc3-ad61-9dde16ffac5b",
+      "name": "gitFirstLast",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "589e6fc9-76e4-45ff-a2ca-a975472f1fa2",
+      "name": "IORType",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "58ba2162-86a7-4ae2-af0f-01908b1febc5",
+      "name": "ScenarioUnit",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "58dcb918-7072-48e7-a2e3-23a46b61cb04",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5960a2a1-d874-4c6f-a1f5-750be844af4d",
+      "name": "outsideScope",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5a168e7b-d305-433b-af1f-224e2d3bba06",
+      "name": "renderSourceEdit",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "5b1e1dac-723d-43e6-873f-4613cf53c88c",
+      "name": "demo",
+      "ior": "ior:class:Folder",
+      "kind": "folder"
+    },
+    {
+      "uuid": "5b334100-3270-41d9-af00-00de9d6b52e9",
+      "name": "ChainStep",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "5c212778-3a20-4389-a3fb-974153393151",
+      "name": "scoreboard",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5cb440a4-0053-426d-a1cb-ef07b76d8eae",
+      "name": "_r",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5cb80c46-e033-4867-a9e4-dd5be8437e9e",
+      "name": "nodeKind",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5cd2fb1f-307e-4077-aa15-abba21c98c16",
+      "name": "wireAllMissing",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5ceaed1a-f8be-4b85-ae98-d38139e44cd0",
+      "name": "resolve",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5d58678c-ea42-4a7b-aad7-5f60a51d07e3",
+      "name": "resolve",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5d60edd7-cba0-4642-aebb-10eace920186",
+      "name": "currentUnresolved",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5e7bb92c-5799-4b2a-aea6-0350d4457f93",
+      "name": "methodUuids",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5efd03a8-1667-4a02-ade8-e4515017de04",
+      "name": "ok",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "5f0f6589-9d54-430f-abee-fc2b6ef84e29",
+      "name": "compute",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5f185420-488a-4b16-a61a-fd30f0f896a7",
+      "name": "findClassSourceFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "5fbed155-922c-4120-a5b3-e8c523e41ea0",
+      "name": "b9fa43a2-ea98-462d-b181-624ccb26d8ac",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "5fc4cabc-e284-45f0-a065-86f306e28419",
+      "name": "send",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "60091db4-60a3-43c6-ab65-03792624cce0",
+      "name": "renderChainLinkMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "60e03e73-1e64-4932-ae5c-88dc558f15a2",
+      "name": "isLocalOrigin",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "614517c4-8823-40d2-a485-9333293e6f76",
+      "name": "radius",
+      "ior": "ior:class:ModelElement",
+      "kind": "property"
+    },
+    {
+      "uuid": "6181e1b9-1368-49b5-acb7-b311581e89c5",
+      "name": "parseDesktop",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "61b7fab4-2861-4f35-a6ae-7e06d3cb9859",
+      "name": "TaskStatusEnum",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "6221608e-468c-49aa-ac05-d4d52379517f",
+      "name": "fictional",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "63cc0407-aaa8-4025-a3cb-ff683be7584c",
+      "name": "FederatedLoader",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "6498b5a1-5bbe-4749-ae9f-bf4d010174f9",
+      "name": "snapshotComplete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "649cb70b-602c-415b-a6a8-dd430a6b7545",
+      "name": "show",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "64cadcb8-f224-4d45-a055-7eba6fbeb368",
+      "name": "resolveToProfile",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "65327046-44f7-444e-ac0c-c9db241b7fde",
+      "name": "req",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6538a052-cd81-492a-a1ff-7096c0c4649b",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "665c7f85-fa9a-4fe2-af77-9ddd5d9f476e",
+      "name": "req",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "666daa9b-cdb3-4b9d-afee-4f65aab61206",
+      "name": "Chain",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "676a51bc-19e3-485e-ad5b-ec37545f73c0",
+      "name": "SprintPin",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6849bc9c-42bb-4b99-a6b6-f9b649e4ac9e",
+      "name": "wipStatus",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "685a2537-46a0-4820-ab7e-3dc27e07d096",
+      "name": "lastCompleted",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6910ee9c-9426-48e3-a61b-19dc874c6dda",
+      "name": "mintOrReuseShared",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "6a24cd75-763f-4093-a2b9-e8a6043b462b",
+      "name": "buildTraceTree",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "6a4cb10c-ce77-48a1-a51c-53a0486310d1",
+      "name": "avatar-crop-lifecycle.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "6a7f4524-ec38-4c3d-a348-2fecdc7d5d94",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6a894176-d862-4f8a-a3a7-4385881b8ae2",
+      "name": "LintFinding",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6a943c27-7da3-453f-ae10-8ece61e2cb30",
+      "name": "rel",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "6aab3dcc-5903-437d-a19f-fe29d7239a7f",
+      "name": "filesRewritten",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6ab3ad49-6312-44d7-a2b1-49e46bc65057",
+      "name": "loaders",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6aec1b88-bb4a-4b41-a57c-affdbf78705b",
+      "name": "guardTransition",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "6af7a6fc-656b-4798-abe8-8f793924be1c",
+      "name": "WireResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6b6a20a4-8821-497a-a8fd-1dc4f361de9b",
+      "name": "startTesting",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "6b9bf49f-79df-418c-a7a5-b9e7cc565ef9",
+      "name": "Point",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "6baf7d10-5f5c-4e8b-a237-97e7e59bef5a",
+      "name": "owner",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6bfb42d4-1e64-4693-a973-4a6dde41cd14",
+      "name": "parameters",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6c990250-ac26-4284-a0a4-e2d976612cb9",
+      "name": "uploaderToken",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6cfc70f9-9724-40c2-a541-7103aa88b6d2",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6d10f3ff-6c6d-4386-aac2-5bc044090208",
+      "name": "resolveFederated",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "6d3d91cc-5e0c-46a3-a3e4-047d5833e926",
+      "name": "ImplMarkerRef",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6d9be734-aaa3-4a0d-a487-ea9b5f9223c7",
+      "name": "AddressIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "6dbb0879-a8af-4b9b-a268-b46dcb29c894",
+      "name": "SprintSlot",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6dd5ff7b-6eb4-4a04-afad-84a9a8dadc17",
+      "name": "clearNextBacklogOverride",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "6dda5ee8-0ba3-49a8-ab8c-797e233223ee",
+      "name": "repo",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "6ec6df84-1084-47ca-a230-4a72606d8cf6",
+      "name": "npmRun",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "6ecdd44c-075e-4854-a04b-a0c659da9fe3",
+      "name": "AgentMessageModel",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "6f65f697-8fdc-4088-adde-3a8edc340183",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "70a78d3f-dd04-48c8-a513-668a984ecd1c",
+      "name": "canTransition",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "70cdd572-b8b4-49f7-a82c-05c2c2ee6ec4",
+      "name": "reqUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "70dfbd66-ff2e-45ad-a159-0892127f08c2",
+      "name": "modelMarker",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "71827c10-b339-4160-abdf-0c38fbf19888",
+      "name": "sprintName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "722c68c6-bfee-428a-a917-e4ed3b8c1c0b",
+      "name": "x",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "723794fc-a864-4aaf-aa92-137a91a31035",
+      "name": "assertNonVacuous",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7292af1a-3595-42c1-ab3e-854435c18a4e",
+      "name": "prefixPath",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "72f2e072-9483-48ef-af61-85f4147ea248",
+      "name": "completeFileScope",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "739efe9b-4086-47b3-aaa2-d3ce4ae2e4ea",
+      "name": "number",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "74098a8d-7e57-4b7a-a60d-c865e0d6a6b9",
+      "name": "ThreeSlots",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "744f552a-e63a-44bf-aa68-6a4116800c28",
+      "name": "parentClass",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7530bb10-618d-4c54-a865-81447ab2cb0e",
+      "name": "linkExists",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "75373cf2-e593-47cb-adda-3901045bf2e6",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "75a25aeb-4883-4cb0-a284-4b7a3174ec6a",
+      "name": "registerSymlink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "764dc7b4-3fe7-4460-ac30-c60860e9039a",
+      "name": "hasFederatedLoader",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7652cbc4-2614-40e7-a15c-b200dbf9328c",
+      "name": "tokens",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "76e41529-74a9-4806-a056-82fca1156710",
+      "name": "README.md",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "771bcfdf-6125-4927-a457-4a06a1988e2e",
+      "name": "badgeState",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "7793ec53-ac25-4f56-a9c2-1c04009634b8",
+      "name": "rulePair",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "77d6e24f-feef-4aed-a830-b72935565982",
+      "name": "memberVisibility",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7838d9f4-9b41-447f-a38e-3b979d5a75fa",
+      "name": "error",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7865c308-139e-41b6-a169-ab6bc1bf87d6",
+      "name": "originHost",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "78ae2140-470c-4cb5-afdc-fe8d89567e8d",
+      "name": "unitName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "79cb7a82-f57d-49ea-a4ed-43dd0a9bc1f0",
+      "name": "updatedAt",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7a190059-a996-4b7a-a696-208fb34303c6",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7a2b20a0-e9ba-4418-a4b0-3f1fee7f56b6",
+      "name": "counts",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7a387be2-cbb2-4b33-af8b-9648012e6b81",
+      "name": "WebItemInput",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "7a54a495-d5df-40de-a4fb-520d7d900476",
+      "name": "SprintStatusEnum",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "7abff237-da32-49f7-a0e7-017a27014629",
+      "name": "fileHasGateAssertions",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7b3a3e20-1fbc-444d-a11d-c15f1fb81102",
+      "name": "sprintIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7becd8b3-6292-4bb8-a796-d4bd879483f3",
+      "name": "members",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7c388cd4-59a8-4f56-aefe-9be7ac665f4d",
+      "name": "type",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7c8d1c18-9047-46d7-a21b-6dba39edbd22",
+      "name": "excluded",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7ca28924-bd14-406c-a6c6-684b60af08a9",
+      "name": "R325Widget",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "7cdfcee7-008d-4130-a7ce-c730c6d0457a",
+      "name": "normalizeEmail",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7cfb3e28-d9e2-4cfb-a951-1fd8649f12ba",
+      "name": "isValidPhoneKey",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7d2d760f-aa95-4d58-ac15-0e624489871d",
+      "name": "old",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7dd09aa9-da44-429f-ab6b-4a52374d5658",
+      "name": "senderToken",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7e0376f6-f906-4f18-ab8b-aab42872ed58",
+      "name": "id",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7e181ada-d34f-41cd-ac16-94fdd5a38a20",
+      "name": "persist",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "7e2d504e-8c01-4a1a-a3eb-2932c70f8fff",
+      "name": "renderNodeHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7e33b150-d241-41b2-a2a3-29e7ad8c8347",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7ead2cfb-9cce-4d72-ae44-0d01400a98bf",
+      "name": "lastCompleted",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "7f7621dd-e7ea-470a-a244-b48e90feba1c",
+      "name": "companyDomain",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "7f7ec06d-f3be-4918-ad4f-0a70de22cead",
+      "name": "renderHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "8078662b-26a2-4888-a70b-5ccced43b871",
+      "name": "assertSameUuidCrossRepresentation",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "80b43482-d14d-4e97-aadb-39d63d0b2fe7",
+      "name": "mintNew",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "80d4a991-206c-45f2-ae96-cd350369a28e",
+      "name": "speakSlug",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "81125292-71a0-41f1-a4ec-0015e45b7d8b",
+      "name": "assertStatusConsistent",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "814e3701-2ec0-4dd3-a9aa-261bcccee1c2",
+      "name": "last",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "81de95ac-60f7-48ae-a008-0ed1e31f96b4",
+      "name": "list",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "820ec76c-6f58-4a32-a59f-bdd5cb739acb",
+      "name": "heritage",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "82ad824e-5eed-449b-af31-fec601aca266",
+      "name": "federated",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "83fde3d3-dadd-43ad-a091-3064016e3eea",
+      "name": "ScenarioIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "8412e4f0-fab9-490e-a21f-b3f0d62b498e",
+      "name": "deriveSprintStatus",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "841d68f7-b3d6-41a0-ae34-f3bb2f2c8f08",
+      "name": "loader",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "845a8119-810b-4517-a8a1-2711b35d9cdb",
+      "name": "SprintOverviewGenerator",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "845b29f4-d3ae-479a-a9f5-2003925fca25",
+      "name": "ownerIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8464042b-325e-4bd6-ad94-0ac4788aefc5",
+      "name": "isImplMarkerAttached",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "8530c766-2fce-4df8-abf7-3b4b51b1b569",
+      "name": "statusTransition",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "85ea47a5-c49f-41d7-a21b-b69eb4f81808",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "85f2de9d-6dae-4623-a6a1-a1d47dd6b935",
+      "name": "pwa-update-workflow.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "8679ace1-c38b-4418-af6c-c6af633cd0ba",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "8699030d-c5af-4959-a517-f9679827dce9",
+      "name": "proposeTask",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "86b39a7f-bbed-4d7b-a221-9f25db6dbf50",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "875e4bfa-389e-4e42-a8b2-5e9edef6f571",
+      "name": "linkToProfile",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "887d2de8-2d97-497b-ae89-f523e4dbed7f",
+      "name": "extractUrl",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "8888c9b6-5ff4-43e1-af0f-27418efd09f0",
+      "name": "slotsFrom",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "88a017ab-0e49-48a5-a619-e4b093a47b25",
+      "name": "size",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "88acd989-7bf0-4dac-a2c0-1fa9dbf66b24",
+      "name": "_listCacheTime",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "88b35829-ce2a-4f3f-ad57-c15197dbfe12",
+      "name": "uc",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8977ad90-a644-4107-a3de-46d42655d999",
+      "name": "impl",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "89ad9ea1-dd00-4b51-af30-39759d1f8d36",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "89aff3f3-1607-4db3-aa41-6060c4ff6de5",
+      "name": "CurrentSprint.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "89c3491f-abb8-4e3c-ab68-dd09672aae4d",
+      "name": "chain",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "89d1f9b6-14d3-4e3f-a5a6-2bcf5082cc91",
+      "name": "model",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8a6a5b84-3441-4659-a538-74073a8f9970",
+      "name": "visibility",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8a75b064-1c24-468b-a509-eb4a37051867",
+      "name": "md",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8aba1567-44bc-4f54-a4cf-964be16b37a5",
+      "name": "slots",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8b2cbd2d-fe57-449e-a904-0424c3af52fa",
+      "name": "remove",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "8b7105ba-99ab-4deb-aeba-de4f9a4e2995",
+      "name": "taskName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8c3e5b97-4d47-437f-a2fd-92d86f4382ef",
+      "name": "list",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "8c443856-ecd0-4b45-a582-6292b6c6247c",
+      "name": "root",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8c480f22-56f9-4e72-a704-a423978cb9ff",
+      "name": "instanceOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8cf77cb7-e3b2-4dfb-a438-df40e0a3bf9c",
+      "name": "inReplyTo",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8d7d4846-d886-48a5-a567-f07df9642caf",
+      "name": "templates",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8e218581-914d-4800-af1e-fc57a718b692",
+      "name": "sprintLabel",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "8ea4d35b-b69d-4939-a76e-d4601edf7785",
+      "name": "text",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "8f7c63e6-7828-4d9f-a593-3a0ccfd44c1b",
+      "name": "current",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "906df676-42d1-4dc3-af7d-e78e11433c5b",
+      "name": "scanTestMarkers",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "90b0d42a-fdb0-4952-a839-c0c909272221",
+      "name": "dashboard",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "919dfd94-7aa4-40bb-a8f8-698598f78e10",
+      "name": "tronApprove",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "91b22d5e-5ea3-4f37-a9c2-ce5f298f4a79",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "91b7476b-ea57-44f2-a882-bff5ec9a7cd3",
+      "name": "action",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9260f2bb-5df9-4134-a877-ab75af4f11b7",
+      "name": "iorShort",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "92bdee40-a2c4-482c-a338-7b2e82b0a79e",
+      "name": "relatesTo",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "92bf4d5f-4933-4b1c-af9d-b0c1a844f044",
+      "name": "listComplete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "92f43f3c-a96a-4140-a8b8-107a008b98ac",
+      "name": "walkChain",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "93304c05-4b86-45bf-a316-e1e9875ea845",
+      "name": "applyVerification",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "937f0d25-b32c-4cf9-aa0c-f63efc9bdcf4",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "93ad6472-5c8f-4703-a68e-89782a5b5220",
+      "name": "status",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "93c14828-e125-4133-a90d-2fd2d6fed715",
+      "name": "sentAt",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9454a396-0084-4749-a072-4c0584765048",
+      "name": "ClassLoader",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "94609e31-f8cf-47b5-a764-fa1e1b6a29a5",
+      "name": "ImplMarkerBuckets",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "94c15512-9515-4584-ace5-2ce6386135f9",
+      "name": "deriveName",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9511e7e2-899f-47f4-a1a2-487eb304ba53",
+      "name": "resolveSprintPin",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9642f149-b4c5-4731-aaec-d3f591661c14",
+      "name": "className",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "96d44058-b085-447d-a241-f539d5ee4800",
+      "name": "markerTotal",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "97eb72f3-acc1-4d49-a5e9-823e76d1a141",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "980c16df-7862-4e4f-a215-4bf13beb859b",
+      "name": "use-case.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "981e15d3-ad35-41ca-adfc-32eadbf37978",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "99002cb1-432a-48d1-aecf-8a77bd60ded6",
+      "name": "renderChainLinkHtml",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "99838aa8-ab70-48a2-a68b-4e21415ce0c9",
+      "name": "impl",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "99cb46ee-e643-41eb-a75c-faf4690d3558",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "99f20272-546f-488f-af96-88855919260b",
+      "name": "fileCount",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "99fb9b3d-ad93-480e-ade8-35939ff934fb",
+      "name": "TaskVerb",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "9a1cb786-bec2-4c89-a3a9-56906219c281",
+      "name": "to",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9a8fd065-1e87-4023-ad18-cf6411a163d0",
+      "name": "defaultTemplateRegistry",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9adc2330-34ae-480c-ad47-e34c23116b2f",
+      "name": "typeName",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "9b2823b5-d636-4b28-aa5c-39f761efcfeb",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "9b3b626f-e8fb-4e6c-ae98-76e2fa439cfe",
+      "name": "effort",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9b6b3a8f-5326-417a-ae13-7a26b208acab",
+      "name": "sprintNumOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9c41bee2-3236-4180-a665-dd1741a303ee",
+      "name": "deriveBadge",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9c943d17-9932-4827-acbb-1686d8bbd8e5",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9cd2e395-d641-4944-a290-9f63a5541fc2",
+      "name": "ChainHop",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "9d3798ef-ac02-4a0c-ac1b-42412d0d791d",
+      "name": "filesWritten",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9d81911f-84a5-4f20-af45-5abd7eba8a99",
+      "name": "_listCache",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9df92007-1c89-41ca-a94e-3c1a170efff2",
+      "name": "chainName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "9e5f7c5b-797b-4527-a616-9bdf42b249a8",
+      "name": "esc",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9fb0f004-7b49-45c5-abeb-d33ab1ccdf61",
+      "name": "collectDecls",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "9fc3efd1-da07-44ab-a7fa-fb86f305352d",
+      "name": "total",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a09319a5-d5bd-4318-afef-e0cecb98b830",
+      "name": "companyNameKey",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "a0df222c-49aa-4d4c-af36-0015a4cb4c84",
+      "name": "file",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a0ea40f9-51ba-45fa-ae3c-ad45be96d1eb",
+      "name": "setChain",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a1a066b6-2bd2-45d6-a2d0-ebe278cc84bc",
+      "name": "title",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a205aec9-27af-4bbd-a6cf-f0a8c2b8a9a0",
+      "name": "label",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a2959144-1e32-4c6f-a1aa-58703c53e415",
+      "name": "index",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a29b48ec-16eb-4481-a8d0-548718715c26",
+      "name": "TestMarkerBuckets",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "a39af185-909c-4447-a6c1-561cc2ef8ee2",
+      "name": "ModelValidator",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "a42037db-a050-4e0f-aa11-62350f5f2920",
+      "name": "registerFederatedLoader",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "a4b05b92-e20b-44b5-a201-9a0e642e370d",
+      "name": "OverviewCheck",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "a4c377d7-c7de-4b93-a6cd-76187eeb7160",
+      "name": "memberOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a4cec7a6-5420-4239-a450-21d8ed0b5f94",
+      "name": "method",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a505a5cc-1e27-485d-a358-10e0521d5bdc",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a505d119-0d09-4531-a85b-7cef87d6cca1",
+      "name": "IORResolver",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "a50e475a-b89d-4f3b-aa63-dd7734491754",
+      "name": "chain-model.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "a51fca2f-cac3-4764-a01f-947c0c50d185",
+      "name": "detail-fields.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "a57580ad-43f0-4252-aab0-6297dbe2691e",
+      "name": "raw",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a589bb05-7b5f-4129-ab24-6cb0801f2780",
+      "name": "testRoots",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a59c87bf-11d9-4ff2-adf2-47b9329c887f",
+      "name": "defineUnitType",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a5f83190-3a42-4c62-ad75-a36e7f775f41",
+      "name": "makeId",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "a62a26e5-5a02-4a30-aa14-b05ec723910d",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a6c091fa-a863-4645-afff-c3b38e41223b",
+      "name": "chainDepth",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a7848712-d147-49b3-af1c-cb24a90cb011",
+      "name": "hopUpdate",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a854781b-61b8-4714-a1ac-fb7c542d59f9",
+      "name": "lintMarkers",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a88d4245-5d3e-4f3a-ac56-53558c0626cb",
+      "name": "node",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a92c3626-efc9-4620-a1e3-1c4e87b21588",
+      "name": "type",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a935bb99-e2ac-470f-afad-424afc8cf10d",
+      "name": "readLinkUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a954d0ca-f6cb-427c-ace7-f74c32f98b02",
+      "name": "autoFollow",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "a97143c2-4fdb-4aa1-af7d-7723772775a7",
+      "name": "status",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a9a9fc92-78fb-4ff4-ad67-630d48a796c6",
+      "name": "FAKE_SUFFIX",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "a9c080ac-171a-403d-a6e6-7affda8f7814",
+      "name": "class",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "aa219f06-4470-42a3-a520-ceec0e2822b8",
+      "name": "isValidEmailKey",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "aac5561b-f5bd-4465-a01b-e7ba98bcfdbc",
+      "name": "hopStates",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "aac5e5de-857e-4675-a927-6812eae5e5ae",
+      "name": "trash",
+      "ior": "ior:class:Folder",
+      "kind": "folder"
+    },
+    {
+      "uuid": "aacff39c-fd48-401e-ac08-f28fcf0b3d4a",
+      "name": "FeatureManager.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "aaef1ce5-a3fe-4506-af6d-ffc67a2bd9fd",
+      "name": "consistencyStrict",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ab4def11-ca98-4801-acd8-4d9ee089e306",
+      "name": "TraceNode",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "abbdcdc0-8714-43cf-a895-37c9799fbe7b",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ac1c2f47-4980-4ea6-a298-f51cd652613f",
+      "name": "d5d8989f-7cf3-40a2-bbd9-19b409b5a9c2",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "ac6c992c-1634-4c59-a699-91ffb6316bf7",
+      "name": "fullStart",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ad10c516-1027-4562-a646-4953ee6417c1",
+      "name": "inbox",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "ad742d3f-d835-4863-af33-bf7807694f9a",
+      "name": "relatedFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ae0e6713-0a84-4af3-a847-001f34d24666",
+      "name": "gmapsLinkFor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ae9bfa66-c9a7-42d3-a134-2e22a4ec5bf4",
+      "name": "",
+      "ior": "ior:class:UmlTraceRelationship",
+      "kind": ""
+    },
+    {
+      "uuid": "aff00c2d-92f1-4277-ac6a-a1f07a8afad4",
+      "name": "speakingName",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b07b1c47-6b2d-455c-ac2e-b9b0b254e5bf",
+      "name": "speakingSlug",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b0ddd7be-33f9-4ad8-aa20-5ad3d434d339",
+      "name": "model",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "b2568cb4-3401-4c11-a2a1-0af592ad35a9",
+      "name": "nameMatch",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b2738ae2-0051-4fb9-a7d1-ecf054f5e9b0",
+      "name": "TaskSlot",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "b48ad831-a0a6-4e81-a407-36a405753849",
+      "name": "2746ab4a-55d5-4bae-83dc-b38c6968515e",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "b507ced7-a961-4ad5-ae70-fea04b14e68f",
+      "name": "sprintSlugOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b5676d00-d512-4815-ab0c-ddd79efa5272",
+      "name": "makeSource",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b617130a-ab19-4e5f-a97c-2c05e2594bb7",
+      "name": "generatePlanningMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "b6cce49d-6a3d-41b0-a735-5913db53531e",
+      "name": "lastCompletedName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "b7a1ffb8-2f37-41f3-ab46-330fa46afc37",
+      "name": "unit",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "b7afff08-78bd-4de6-a168-ce1001160bf6",
+      "name": "ok",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "b7f284d5-9845-4576-acbe-cd348f827014",
+      "name": "Profile diagram",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "b7fc2116-330f-463d-ae11-2af1eab3736a",
+      "name": "LinkRelation",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "b8609d6a-ae03-4876-aeff-c4b30434ae35",
+      "name": "walkDown",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b95045e5-32bd-4a9e-aebf-d29f19a5eda2",
+      "name": "FileUnitInput",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "b975cbd9-40f2-43f9-a149-c731d5a07d2c",
+      "name": "documentation",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "b9c7b3e4-05a8-4d0f-a927-1faff8fec0e2",
+      "name": "followUp",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "b9d05f9e-8fa7-4db5-a0e5-f08efa402fe4",
+      "name": "keyToUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "b9fdea71-2734-44a8-a68b-20303078f94a",
+      "name": "implRetiredBySupersede",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "ba66aec2-3c79-4a74-a8b7-217b8ca97ecf",
+      "name": "description",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ba85d4a6-68c7-4063-a246-ee45aac0ffeb",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "baa0b02c-40c5-41e6-a4fd-5c67465e5e47",
+      "name": "checkOverview",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "bac6465f-c869-4033-a7bd-126b64408b04",
+      "name": "parseUrlFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "bad68604-880d-494e-a9e7-c6da888a275b",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "bb372177-68dd-4323-aa3f-db228b1989a2",
+      "name": "proposeTask",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "bb6dd54a-6c95-4662-a507-937567fffeb2",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "bc269778-729c-44f2-a1ad-5a53c9a9988b",
+      "name": "startCreatingTestCases",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "bccba82d-63bf-4ebf-a200-610327f82f1e",
+      "name": "file",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "bd102ea1-3a64-462f-aa20-c2e2a2c070a5",
+      "name": "deriveStatusEnum",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "bd121c35-d298-489d-ab69-4823d50b78c6",
+      "name": "action",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "bd9448d2-ecf3-4e60-a0f2-14e5a671ad3e",
+      "name": "offset",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "bde9ef81-d39b-4a0b-ac2c-496adfd8ef49",
+      "name": "LocalLoader",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "be35e089-d4be-4eed-a7f4-e266aefdf182",
+      "name": "iorClass",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "be8610d8-51b1-4bc7-a75b-4aada882e5c0",
+      "name": "StatusOffender",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "bebf728b-7b21-461f-a45e-6c0672a5ef58",
+      "name": "getThreeSlots",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "befd5361-8f62-4e92-aee0-94f98a39ecce",
+      "name": "renderScenarioLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "bf97ffdb-1e12-4b26-a192-832f6849c07a",
+      "name": "63462717-1771-4775-aeda-d9947d7bcbd2",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "c059bd50-3a27-4dd9-a193-498d3bbb1bb5",
+      "name": "SprintStatus",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "c1a55c71-eb7b-476f-a57a-9fe5a7ccb276",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c1f8675b-86b4-4672-a0f6-8fe935aab086",
+      "name": "updateMatrixRow",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c209e609-6c81-413b-a5a2-301ac89e0eea",
+      "name": "AgentMessage",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "c221c37f-650e-4a6a-af62-af970a9b6154",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c289ad51-0dbd-4a8b-a1c4-4095f5834f7b",
+      "name": "",
+      "ior": "ior:class:UmlTraceRelationship",
+      "kind": ""
+    },
+    {
+      "uuid": "c2fca9c2-5b77-4a1f-aae2-cf9cdf0c981c",
+      "name": "center",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c33c46ad-37d1-4699-a8e9-3a1d524069b1",
+      "name": "sprintRows",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c3874e9a-5b68-4c0a-a980-0519a3395253",
+      "name": "inverseRelation",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "c3b85c40-0b21-4204-a28b-d8cb9dd2422a",
+      "name": "unproven",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c3c0d933-2cab-44a3-a472-60aefbbd86d9",
+      "name": "registerSymlink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c3fbd220-8462-473a-ad5d-1094cbe728fb",
+      "name": "senderName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c42c2962-ee67-479c-ab61-3c3fa2094460",
+      "name": "url",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c456f560-6a5b-43c8-ab06-209f1f8da69e",
+      "name": "ior",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "c4bd04bb-d66e-490b-a505-658ae3013959",
+      "name": "jsDocText",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "c5275945-435f-4ca4-a055-bca79ff4179b",
+      "name": "r20-4-bug-changerequest-chain.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "c5864a87-9590-4b53-a2bd-b747d5dae42d",
+      "name": "signatureType",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c62073e1-9ff7-456c-a460-65c57e334b38",
+      "name": "end",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c665b4a5-560e-4e86-a0b1-bb2f6af34e46",
+      "name": "instanceOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c6b58e5f-35df-460e-aa19-349b91915580",
+      "name": "unit",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c6dd62b4-2d36-4d58-a14a-cdde82a22688",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c7281e34-3cae-4267-a41a-a798eee5e060",
+      "name": "start",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c74c94f5-b414-4bbb-a185-b8e28093a2aa",
+      "name": "methodUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c7514da9-f87c-4fa9-a82e-afe4e631599c",
+      "name": "R325Base",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "c759816e-f8dd-4f10-a11c-62a68006fc96",
+      "name": "type",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c7b8d98b-41a7-47ed-ab29-8dcd3358e9b0",
+      "name": "deriveFavicon",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "c7ccca3d-5ca6-4c3a-a5d3-7888b6f2c6e4",
+      "name": "ownerIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c8146038-c286-4670-af0d-d2e90d5bce5b",
+      "name": "instance",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c83c5a59-2a40-4743-a642-a2fd0ba5bea3",
+      "name": "removeSymlinkDisk",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c8d1420a-8df7-4287-abd6-bede3d456e17",
+      "name": "renderTraceTreeMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "c91ff94e-ffe4-4956-a43e-02778b4f7403",
+      "name": "resolveReqSet",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c9353192-ddfb-48d3-ae9d-aabf6f618bee",
+      "name": "status",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "c9afbec3-eb1f-44a8-a5c8-99a23f6fbc83",
+      "name": "invalidateListCache",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "c9c5a4bc-79b7-47f9-a30c-af1012b69323",
+      "name": "impl",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ca016ae2-b2f6-4d1d-aadf-94a9d2348aec",
+      "name": "TestBucket",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "ca2224bd-6555-40e7-ae0a-0eddf2b37881",
+      "name": "uc",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "caadaa19-cadf-4826-a5f7-7217dc7f9af7",
+      "name": "current",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "cac99736-6d2a-4cef-aacc-b14753f5250f",
+      "name": "cls",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "cb0938e2-64b3-4882-ae15-d01b4c8370df",
+      "name": "TestMarkerRef",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "cb8ef059-cf75-49f7-ac98-02d9ef59eb2a",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "cbc095e4-e774-4cdf-ada3-1317677680d8",
+      "name": "defaults",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "cc28555d-4120-4374-ab02-f908527aef20",
+      "name": "ruleFiles",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "cc480c68-b627-4c2e-a4d8-31debc31de38",
+      "name": "package.json",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "cc9cc0a3-eab1-485d-a353-5baccfae6084",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "cd806f57-967e-4d92-a9be-d5448467abff",
+      "name": "normalizePhone",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "cd8bf4e2-daf8-48b1-abb5-65cb23c1caaa",
+      "name": "UnitIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "cdaf1d18-b612-4578-aa38-6e71cec45144",
+      "name": "assigned",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ce31274b-bb1f-4338-aaeb-33b38040d954",
+      "name": "RenameResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "ce3f9081-375d-40f8-a0a0-c6bd07b7b9c0",
+      "name": "short",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "cef6f005-b1df-4f3f-a937-1d45fa54958e",
+      "name": "end",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d05f4503-a9c5-4d20-adff-d7722a5d33e2",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d0b6d283-03e0-4a0c-a06c-aca412b1d2c9",
+      "name": "osmLinkFor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "d162b85b-c7c6-4fc9-ab7d-a9eee3839a0c",
+      "name": "vacuousReason",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "d170e435-608b-4302-a9df-2c804b10b243",
+      "name": "memberOf",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d1c031eb-87a8-44c1-a158-0f2d14290be8",
+      "name": "resolvePrefix",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "d1d0294f-9608-4323-af2b-32f83b7d090a",
+      "name": "GuardResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "d222aac4-1d3d-4b77-a042-63bcf48a24f8",
+      "name": "SlugResolver",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "d236078c-fb20-4174-a6e2-86336a6e5b32",
+      "name": "resolveToProfile",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "d3384639-f312-4f49-a3e9-ab6a035c53b3",
+      "name": "openNodes",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d4082ee6-ebfa-4581-a4ca-7b04f0224c39",
+      "name": "unitType",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "d411e93a-2a03-40ab-a5c5-3a9116bd66d1",
+      "name": "RawBin",
+      "ior": "ior:class:Project",
+      "kind": "project"
+    },
+    {
+      "uuid": "d4bf27f3-4f8f-43f5-abe2-9cb8dc7fdd0d",
+      "name": "content",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d4e3d709-051b-4cec-9c30-71cf669290d8",
+      "name": "Model diagram",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "d55df09b-d437-4bfe-a155-4f1c30a0c76e",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d6f74138-f77c-41e2-a6be-ad4312475b13",
+      "name": "testsMoved",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d74073cf-dfc5-4506-a38d-3818dbb5ffe5",
+      "name": "addLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "d78db08d-77c1-4fb0-ac57-fac77163b878",
+      "name": "TestBlock",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "d7b0ed3c-c8d5-4f7e-a531-b8dd81832f19",
+      "name": "extractPumlUseCaseRanges",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "d7f65348-a50d-436b-a26f-179a0b75be4b",
+      "name": "reasons",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d822d6ec-814f-4f80-ab06-a75a0fa4ad69",
+      "name": "relatedFrom",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d8ff0fbc-d7a0-465e-aef2-8f1942913363",
+      "name": "metaLevel",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d93d14b7-c514-4906-aeb1-2b74376d0ea7",
+      "name": "depth",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "d9cb9107-c8aa-4047-a46c-a87e115b402b",
+      "name": "getActiveChain",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "dada0a61-9b5e-46f5-a50d-6ebaba38bef3",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "db294b0a-e344-49d1-a9fc-0bdd7995e692",
+      "name": "parentClass",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "db408f2c-c828-4876-a891-a8d4216b7d48",
+      "name": "ViewTemplateRegistry",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "db602f19-bbda-4b74-a6c0-62ae29794cf3",
+      "name": "MintOrReuseResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "dc6dd880-fea0-4c35-a073-b1d3f1582b3a",
+      "name": "markerScanners",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "dc849b91-dd95-4188-a6a3-8aafa4846025",
+      "name": "gitCount",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "dd1030e6-9d68-487d-aad4-9dd3a0a47ea7",
+      "name": "HopState",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "ddba503b-5799-44d7-a356-ce13cdb9b8c1",
+      "name": "area",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "dde6ff85-0a7c-480a-a06b-d3657fc45185",
+      "name": "sourceFile",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ddeb24b5-20df-4ec3-aac7-876bb68873fd",
+      "name": "classUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ddf772ea-2ae7-4361-a2fe-ec6220f06d38",
+      "name": "createTraceLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "de07fa3e-0052-4b5f-ae2e-332368874342",
+      "name": "returnType",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "de7267a7-a599-4c9c-aeef-3a2b2915054a",
+      "name": "VacuousOpts",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "dece4984-541a-4243-a82e-6cf6b3225b9b",
+      "name": "task",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "dee8e1fc-6c6d-4b1d-a703-1c8adf4727f9",
+      "name": "retired",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "deec73e5-81e0-49a6-a351-0ba35283143f",
+      "name": "syncLinks",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e00d4ed2-2a7b-40d2-a207-8df4917aff35",
+      "name": "taskUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e10465e0-d7c2-4ad5-a130-1fe5ba290f75",
+      "name": "Velocity",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "e14d0e7d-bffa-4cb2-a11c-07d70d1dfce3",
+      "name": "domain",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e175d1fb-57dc-4f1c-a7cb-b2b49ddeec33",
+      "name": "text",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e187a0cf-adfa-4276-a96d-168a7162c414",
+      "name": "ChainRow",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "e1aa78a7-5e61-422a-ad7c-f1efacfbcf8c",
+      "name": "validateSource",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "e1e32444-599e-4d7e-aef5-c7748d356562",
+      "name": "isTestMarkerAttached",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "e2e19260-bbe9-43b5-a2bd-f2bc8ca2115d",
+      "name": "splitForCluster",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e3657f5c-5b51-4311-a28b-51ceedcd1eb7",
+      "name": "labelMethod",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "e3cd92dd-7ce3-4c31-a1b1-b01b3df111e5",
+      "name": "acceptanceCriteria",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e3d0d9f2-581d-4ce5-a261-ed4ec821ee88",
+      "name": "rows",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e4737266-5366-4196-a3a7-414475df9ecd",
+      "name": "implRoots",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e4992c23-cb1a-4443-a02c-e0491ffcf229",
+      "name": "unitsRewritten",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e4c06f25-ab54-4e0b-a25e-e2cb11627050",
+      "name": "mintAndLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e52b8241-42e2-4420-a0bc-1b031087cb52",
+      "name": "fullStart",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e544b41e-c3fd-45dd-a848-5dde6b7df04a",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e57cfc45-a500-4515-a431-f9d69fa44750",
+      "name": "mimeType",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e5b5489b-45f4-45ca-acff-34909349943b",
+      "name": "test",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e612f08c-4c5c-4fb7-a390-a5b82c424f65",
+      "name": "isGateProven",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e616c073-5a0e-4255-afae-e8b54d269974",
+      "name": "all",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e6c73143-28c6-40fb-a655-eb531eb8793f",
+      "name": "model",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e6f48498-d2fb-4109-a7c7-2a3cef27aa4f",
+      "name": "R325Iface",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "e73af71b-3f35-4992-a2b6-e7cd26a4ae0a",
+      "name": "ModelViolation",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "e760e775-ed92-4764-a502-6dcf9f0a4408",
+      "name": "new",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e7c89830-bbc6-45c8-a2e4-e2bb42d4d573",
+      "name": "generateMatrix",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e8b0e799-8784-4ce7-a606-84b675bfb3db",
+      "name": "parseFederatedIor",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "e8c9f3c9-1fd4-471a-afbc-a5985e9cc7bb",
+      "name": "M1Model",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "e929e752-87dc-412d-a1b8-c8aafead2b2e",
+      "name": "renderMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "e93b7279-ee47-405d-ab70-b7b150b87bb4",
+      "name": "y",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e95f3baa-d44f-478b-a3f7-45868eefd759",
+      "name": "sprintName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e9766c7f-4b50-4583-a255-84ed0df83b01",
+      "name": "CompanySuggestion",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "e9a8c1d6-ed77-4230-a779-778e99c7b7f6",
+      "name": "reqUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "e9ddca3f-0bae-4798-a4db-276d4385321a",
+      "name": "ClassRegistry",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "e9e5f347-2e9f-4d9d-a4b0-48e6aec8a8b8",
+      "name": "object-verb-usecases.puml",
+      "ior": "ior:class:PumlArtifact",
+      "kind": "puml"
+    },
+    {
+      "uuid": "ea11873f-8d0f-4535-a740-cf3be2f65e3b",
+      "name": "federatedProvenance",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "eb3c160b-5919-43a8-aad4-21005f5697f0",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "eb5f1887-bbde-4fba-a839-562dbb1f45c2",
+      "name": "kind",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "eb81d783-3c9c-4b32-aa6e-b884a5cb17a7",
+      "name": "resetToPlanned",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ecb21992-c8ef-47d8-abf0-bec8193a0c5d",
+      "name": "startRefinement",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ed74d422-fe85-4004-acad-abd71de68ed8",
+      "name": "total",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ed9e6b15-f7aa-49b1-ad06-76355173f87c",
+      "name": "type",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ede126b5-0eae-488d-aebc-d42bed27242a",
+      "name": "addAlias",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "ee007677-0f71-406e-a104-aa91d32fd329",
+      "name": "MessageInput",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "ee04368e-8b11-46b5-ade7-c4b4059d3a25",
+      "name": "IORResolution",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "ee98f598-978d-4096-a26e-f04beec98c97",
+      "name": "walkReq",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "eeb8040b-523e-4cdc-adb1-c14ceab3d9d1",
+      "name": "Decl",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "efb3c9b1-1a92-43db-ab48-9abff3532a33",
+      "name": "ensureRawBinUser",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "f004b860-833c-4ca5-a6dd-f7a3211830ef",
+      "name": "renderTaskLine",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f07e2f45-d5bd-46d5-a950-b6f31e64f998",
+      "name": "reused",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f09f0371-b59b-42a6-aa3e-0746cad7b31d",
+      "name": "unproven",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f1309202-83f0-4152-ac8e-5dfe78824e6e",
+      "name": "commit",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f15f5af3-6154-44a0-aacc-5e49d1dc9b8f",
+      "name": "requestQAReview",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "f1a14bfd-57d4-4241-a958-5c334e3882d6",
+      "name": "lastCompletedReqUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f2cc5ead-84db-4815-af48-946a89c27bb8",
+      "name": "generate",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f3a6b11d-3aef-471f-af81-0235f01cf2b8",
+      "name": "typeRefs",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f51234b0-0233-4fd6-a802-5467f64accc2",
+      "name": "Id",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "f571d9f2-0188-45de-aff8-51d465ac1d7f",
+      "name": "documentation",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f6292750-709a-440d-add7-1f7682585137",
+      "name": "advance",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f6b6e7dc-be3e-4a45-a409-4fb1b696cca6",
+      "name": "ViewGenerator",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "f737af95-5fed-49d8-a2b5-8e8841ec8b2d",
+      "name": "ViewTemplate",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "f7ae8f4a-d882-4d85-a59a-c4476d0904af",
+      "name": "uploaderToken",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f833f671-6a7a-4121-ad9d-48cbf8a8a405",
+      "name": "strict",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f8643e13-c457-4572-a0ae-97b4b95cb18d",
+      "name": "CompanyIndex",
+      "ior": "ior:class:ModelElement",
+      "kind": "class"
+    },
+    {
+      "uuid": "f889db9b-81d6-401e-a7c7-29987d9c50e4",
+      "name": "start",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f8a8d2bb-b2a2-473f-a59d-12a37540348b",
+      "name": "HopStatus",
+      "ior": "ior:class:ModelElement",
+      "kind": "type"
+    },
+    {
+      "uuid": "f8d8986a-a360-4c49-b181-a08a623ea423",
+      "name": "another diagram",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "f8ee13d9-91d9-49ad-a949-27d8da82ac5d",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f8fbca3e-24e4-48e2-a174-f8eace28aa38",
+      "name": "removeLink",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "f912c8bc-288b-4ab7-aeef-2eed3b9831f0",
+      "name": "reason",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f9787a92-5169-40a0-ad9c-57951b9a9efb",
+      "name": "assertion",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "f9a7c6eb-948c-46d6-afa8-32fba528e2c7",
+      "name": "setActiveResolver",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "f9beee35-079d-40c4-ab1d-be4fb84fda1f",
+      "name": "emit",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "fa812b32-b687-4def-a4ba-6312fd988306",
+      "name": "test",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fa886cd4-ca22-4e6a-a8ff-55bc95f217a6",
+      "name": "get",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "faa4acad-41a6-48fc-ad0d-dd0044c123f7",
+      "name": "Model diagram (3 classes)",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "fafd37ae-bc51-4acf-aa30-598bae7097b7",
+      "name": "test/fixtures/r32.2-sample.ts",
+      "ior": "ior:class:Project",
+      "kind": "project"
+    },
+    {
+      "uuid": "fb00246b-b154-4c4c-acca-14abb9378760",
+      "name": "method",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fb09d8ca-015d-4bce-ac7b-297a0a3d9336",
+      "name": "has",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "fb41cf40-13a3-489b-a69d-f0bb4b359042",
+      "name": "test",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fbe6d717-7738-4b57-8600-b5794eb0efd1",
+      "name": "Task State",
+      "ior": "ior:class:Diagram",
+      "kind": ""
+    },
+    {
+      "uuid": "fc18e5b2-2249-4b51-a501-a2335b299505",
+      "name": "uuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fc365be1-59c1-4932-a9e3-fc5e5b8a4839",
+      "name": "taskName",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fc787f6b-8ccf-4e37-a13b-f7c59e38576d",
+      "name": "index.ts",
+      "ior": "ior:class:File",
+      "kind": "file"
+    },
+    {
+      "uuid": "fc7b8517-bbbb-40f1-a061-aee5b39a3a89",
+      "name": "lastCompletedUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fd48afde-1715-4451-aa15-b47960d047a7",
+      "name": "setFocus",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "fe38d1d6-d389-4095-af89-4eddfb18c820",
+      "name": "methodUuid",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fe461e99-6b2d-42a1-a3be-24f95b600778",
+      "name": "qn",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "fe4e366d-010d-43b2-af17-57f5e45ef903",
+      "name": "sprintMd",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    },
+    {
+      "uuid": "fe52a874-42d3-42b7-a6a3-c2e44800e264",
+      "name": "name",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ff11cb86-f8ba-44eb-a343-fef9349eb002",
+      "name": "complete",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ff24293c-a87c-4891-abad-9e5d4770829a",
+      "name": "classifyTestMarker",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ff56a4ce-f707-4ad7-a512-d39e00811999",
+      "name": "VelocityResult",
+      "ior": "ior:class:ModelElement",
+      "kind": "interface"
+    },
+    {
+      "uuid": "ff646936-9152-44a4-a8c9-cd1624602128",
+      "name": "depRefs",
+      "ior": "ior:class:ModelElement",
+      "kind": "attribute"
+    },
+    {
+      "uuid": "ff7437e8-9121-40a1-affa-d58660f2e7cf",
+      "name": "analyzeTestMarkers",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "ff959f3d-f807-4216-a345-51a0a6900929",
+      "name": "isCurrentEra",
+      "ior": "ior:class:ModelElement",
+      "kind": "function"
+    },
+    {
+      "uuid": "fffbdbd0-6a27-4254-a87e-6793eb1ebb47",
+      "name": "read",
+      "ior": "ior:class:ModelElement",
+      "kind": "method"
+    }
+  ]
+}
