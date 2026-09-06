@@ -67,6 +67,13 @@ R(`  FAILABLE self-test (seed a real unit file outside the one store → detecte
 
 const green = realOutside === 0 && dupUuids.length === 0 && teeth;
 R(`OVERALL: ${green ? 'GREEN — exactly ONE physical unit store; all else symlinks into it' : 'RED'}`);
-R(`  RED-baseline expectation (pre-convergence): data/model-store holds real unit files (the duplicate) → RED. Flips GREEN when Unit.resolve convergence symlinks/removes them into scenario/index.`);
+R(`  ★★★ EXPECTED-RED BY DESIGN between Slice-1 and Slice-3 — RED HERE IS CORRECT, NOT A FAILURE ★★★`);
+R(`      The 'one physical store' invariant CANNOT hold while BOTH stores exist on purpose: Slice-1 RELOCATED (copied) the 669`);
+R(`      data-only units INTO scenario/index (read-back byte-verified, 0 divergent) but LEFT data/model-store intact as the`);
+R(`      REVERSIBILITY FLOOR. Slice-3 deletes the duplicate — ONLY AFTER readers repoint (Slice-2) and are proven. dup rose`);
+R(`      33→702 because the 669 now LEGITIMATELY exist in BOTH trees mid-migration (a copy, not a divergence — AC-7 proves 0 diverge).`);
+R(`      ⛔ DO NOT 'fix' this RED by deleting data/model-store early — that destroys the git-untracked reversibility floor. It flips`);
+R(`      GREEN only when real-outside=0 AND dup=0, which REQUIRES the Slice-3 deletion. Until then: RED-structural + GREEN-safety is HEALTHY.`);
+R(`  (post-Slice-3 expectation): data/model-store gone (or all symlinks) → real-outside=0 AND dup=0 → GREEN.`);
 R(`  PAIR: behaviour-unchanged — the same units must resolve byte-identical on /trace + /model after convergence (structural GREEN alone is not sufficient).`);
 process.exit(green ? 0 : 1);
