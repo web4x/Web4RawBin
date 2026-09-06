@@ -68,8 +68,24 @@ function normalize(s: string): string {
   return s.replace(/\r\n/g, '\n').replace(/\r/g, '\n').replace(/\n+$/g, '') + '\n';
 }
 
+// AXIS-2 born-at-parity (R37.34 7698c63b): PROJECT the task AC from its coveredRequirements (the req is the ONE source of truth).
+// Renders one checkbox line per covered-req AC — reusing the requirements-view shape (see generateRequirementsMd) — so
+// taskAcCount == sum(covered-req AC counts) == the T37.35 parity BY CONSTRUCTION. The hand-written acceptanceCriteria field is
+// RETIRED as an authoring surface: a field that cannot be hand-written cannot drift, so minting can never raise the parity count.
+export function projectTaskAc(m: Record<string, unknown>, units: Map<string, ScenarioUnit>): string {
+  const covered = (m.coveredRequirements as string[]) || [];
+  if (!covered.length) return '';
+  const lines: string[] = [];
+  for (const rref of covered) {
+    const ru = units.get(String(rref).replace('ior:instance:', ''));
+    const acs = ((ru?.model as Record<string, unknown> | undefined)?.acceptanceCriteria as Array<Record<string, unknown>>) || [];
+    for (const ac of acs) lines.push(`- [${ac.status === 'met' ? 'x' : ' '}] **(${ac.group || ac.id || ''})** ${ac.text || ''}`);
+  }
+  return lines.join('\n');
+}
+
 // [impl:uuid:88744d89-4520-471e-b732-2d2d2504f817] R27.3 generateTaskMd — per-task-MD (slug-drift + planning.md-collapse fix)
-function generateTaskMd(task: ScenarioUnit): string {
+function generateTaskMd(task: ScenarioUnit, units: Map<string, ScenarioUnit>): string {
   const m = task.model as Record<string, unknown>;
   const lines = [
     GENERATED_HEADER,
@@ -89,7 +105,9 @@ function generateTaskMd(task: ScenarioUnit): string {
   if (m.description) lines.push('## Task Description', '', String(m.description), '');
   if (m.context) lines.push('## Context', '', String(m.context), '');
   if (m.intention) lines.push('## Intention', '', String(m.intention), '');
-  if (m.acceptanceCriteria) lines.push('## Acceptance Criteria', '', String(m.acceptanceCriteria), '');
+  // AXIS-2 born-at-parity: PROJECT from coveredRequirements (source of truth), NEVER the stored hand-written string (drift-at-birth).
+  const projectedAc = projectTaskAc(m, units);
+  if (projectedAc) lines.push('## Acceptance Criteria', '', projectedAc, '');
   if (m.architectDesign) lines.push('## Architect Design', '', String(m.architectDesign), '');
   if (m.implementation) lines.push('## Implementation', '', String(m.implementation), '');
   if (m.dependencies) lines.push('## Dependencies', '', String(m.dependencies), '');
@@ -217,7 +235,7 @@ export function buildSprintOutput(sprintUuid: string, units: Map<string, Scenari
     const task = units.get(uuid);
     if (!task) return;
     const slug = speakingSlug(task);
-    files.set(`${slug}.md`, generateTaskMd(task));
+    files.set(`${slug}.md`, generateTaskMd(task, units));
     for (const c of ((task.model.children as string[]) || [])) collectTask(String(c).replace('ior:instance:', ''));
   }
   for (const ior of taskIors) collectTask(String(ior).replace('ior:instance:', ''));
