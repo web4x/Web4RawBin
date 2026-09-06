@@ -1,0 +1,23 @@
+{
+  "ior": "ior:class:Task",
+  "model": {
+    "uuid": "3dd05daa-d552-4ba2-9642-ae687446805a",
+    "name": "Task 37.20.2: A FILE drags as a FILE (its File unit), never a #collection — [R37.20 AC-A1-file-drags-as-file]",
+    "slug": "task-37.20.2-file-drags-as-file",
+    "description": "Slice 2 of T37.20 (ae01f065 DnD drop contract). Dragging a file yields its File scenario-unit, NEVER #collection.show?uuid=file:... . OWNER = EXPERT.",
+    "intention": "Dragging src/.../X.ts yields the File unit, never a collection or a URL.",
+    "context": "Covers R37.20 03e0f803 (AC-A1-file-drags-as-file). parent S37 b86b53cc. T37.20 monolith slice, per-AC so none drifts unscheduled.",
+    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "acceptanceCriteria": "- [ ] A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnrollDialog.ts yields the File unit, never #collection.show?uuid=file:... .",
+    "subtasks": "None (atomic slice).",
+    "status": "Planned",
+    "coveredRequirements": [ "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57" ],
+    "useCases": [],
+    "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+    "sprintName": "Sprint 37",
+    "remainingIssues": "STOOD UP Planned (2026-09-06), T37.20 slice 2/6. OWNER=EXPERT. Covers R37.20 AC-A1. req 3-pt verifies to this AC + wires UC. 0 Done till Tron.",
+    "createdBy": "robbin-planner",
+    "createdAt": "2026-09-06"
+  },
+  "ownerIor": null
+}
