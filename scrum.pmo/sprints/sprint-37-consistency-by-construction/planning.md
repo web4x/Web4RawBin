@@ -25,7 +25,7 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] 🧪 [Task 37.4.3: CONTROLLER is the UNIQUE DOMINATOR of any unit mutation; single-source Done delegation — R40.10 approve DELEGATES, tronApprove folds in (no second writer)](./task-37.4.3-controller-single-source-done.md)
 - [ ] 🧪 [Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit (not a URL/webitem), file-drags-as-file, details render, fleet-wide every drop target](./task-37.20-shared-dnd-drop-contract.md)
 - [ ] 🧪 [Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE canonical payload (application/rb-object-ref) + ONE shared resolver EVERY target calls [R37.20 AC-resolve-drop-payload-one-resolver]](./task-37.20.1-resolver-half-one-resolver.md)
-- [ ] ⏳ [Task 37.20.2: A FILE drags as a FILE (its File unit), never a #collection — [R37.20 AC-A1-file-drags-as-file]](./task-37.20.2-file-drags-as-file.md)
+- [ ] 🧪 [Task 37.20.2: A FILE drags as a FILE (its File unit), never a #collection — [R37.20 AC-A1-file-drags-as-file]](./task-37.20.2-file-drags-as-file.md)
 - [ ] ⏳ [Task 37.20.3: Detail views actually RENDER for EVERY /model tree selection (not a blank drawer) — [R37.20 AC-A3-details-render]](./task-37.20.3-details-render-every-selection.md)
 - [ ] ⏳ [Task 37.20.4: ONE shared serializer + resolver, EVERY drop target reuses the SAME contract fleet-wide (diagram/room/tree/editor) — [R37.20 AC-shared-contract-fleet-wide + AC-A2 fleet]](./task-37.20.4-shared-contract-fleet-wide.md)
 - [ ] ⏳ [Task 37.20.5: BITE asserts the contract PER TARGET + stub-must-fail (serializer emits a URL again => RED) — [R37.20 AC-BITE-per-target-stub-must-fail]](./task-37.20.5-bite-per-target-stub-must-fail.md)

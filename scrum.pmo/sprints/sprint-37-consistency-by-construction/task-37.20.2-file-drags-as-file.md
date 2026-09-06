@@ -7,18 +7,18 @@
 [task:uuid:3dd05daa-d552-4ba2-9642-ae687446805a]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
-  - [ ] creating test cases
-  - [ ] implementing
-  - [ ] testing
-- [ ] QA Review
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
+  - [x] creating test cases
+  - [x] implementing
+  - [x] testing
+- [x] QA Review
 - [ ] Done
 
 ## Remaining Issues
 
-STOOD UP Planned (2026-09-06), T37.20 slice 2/6. OWNER=EXPERT. Covers R37.20 AC-A1. req 3-pt verifies to this AC + wires UC. 0 Done till Tron.
+-> QA-Review (PO ruling 2026-09-06): tester measured .2 (a file drags as its File unit, not a #collection) = PASS with evidence. T37.20 slice 2/6, covers R37.20 AC-A1. Awaiting Tron accept (0 Done till Tron).
 
 ## Task Description
 

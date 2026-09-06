@@ -30,8 +30,11 @@
 | C1 | **T37.28** truth-decay coordination root (ties the 6 guards) | Every authoritative artifact derives-per-read or carries a proven freshness guard — the whole no-stale-truth family | expert+req |
 | C2 | **T37.22** IOR carries origin for cross-instance DnD (federation) | A dragged object across instances keeps class+host+path origin, reconciled with federation — no forked identity | expert |
 
-## BLOCKED — NOT pullable (unit has ZERO acceptanceCriteria; req must author first)
-T37.14 (measured-random v4 ids) · T37.15 (store-once theme-only names) · T37.16 (never-RIPE-on-snapshot) · T37.17 (gates encode no snapshot) · T37.18 (gate resolves artifact same-way) · T37.19 (req-specific Class units root). **6 tasks — flag req to author ACs before any pull.**
+## ✅ UNBLOCKED → TIER-A (2026-09-06: req upgraded R37.14-19 requirement ACs to failable/single-source, 35 total, task-md renders via coverage; PO OK'd into pull queue)
+T37.14 (measured-random v4 ids) · T37.15 (store-once theme-only names) · T37.16 (never-RIPE-on-snapshot) · T37.17 (gates encode no snapshot) · T37.18 (gate resolves artifact same-way) · T37.19 (req-specific Class units root). **6 tasks now TIER-A — pullable; ACs live on their requirements.**
+
+## ⚠ T37.20.4 folder-drop — HELD (req↔PO conflict, do NOT board yet)
+req ruled (3a2c499e5) a NEW AC on R37.20 (now 8 ACs): tree folder drop-target must route an in-app unit drop through the ONE contract (files-only-at-a-drop-target ⇒ RED). BUT PO measured the tester's .4 = PASS and flagged `rb-object-item.ts:82`'s `dataTransfer.files` read as **likely the legit NATIVE-file-onto-folder path**, and HELD the expert's fix pending a behaviour measurement (native-file vs in-app-unit onto a folder). **Do NOT board the .4 covering task until that verdict lands. Do NOT flip .4.** Surfaced to PO+req.
 
 ## ★ T37.20 IMPLEMENTATION — RE-MEASURED vs what shipped tonight (SUBSUMED analysis — PO RULES, do NOT mark Done)
 Shipped tonight: GoF **Proxy** (v0.8.202) + **MimeType.from Factory** + self-registering **mime registry** (v0.8.203) + per-class **render registry** (v0.8.204). Mapping each slice to it:
