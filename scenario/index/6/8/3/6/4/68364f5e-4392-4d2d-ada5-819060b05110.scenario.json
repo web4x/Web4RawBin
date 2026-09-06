@@ -7,10 +7,10 @@
     "description": "Slice 1 of T37.20 (ae01f065 DnD drop contract), the CONSUME side — FIRST because a serializer without a resolver is HALF a contract (per-target read-side branching survives). Replaces today's 4 payload formats each target resolving itself (the per-target-resolution disease). Architect keeps it in core DndContract 822e663b. OWNER = EXPERT.",
     "intention": "ONE canonical drop payload + ONE shared resolver every drop target calls; fail-loud on unresolvable; a drop updates the view LIVE.",
     "context": "Covers R37.20 03e0f803 (AC-resolve-drop-payload-one-resolver), resolve-half UC e3fcf5b3. parent S37 b86b53cc. Sibling of T37.20 monolith (ae01f065) — sliced per-AC so none drifts unscheduled.",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "acceptanceCriteria": "- [ ] dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared resolver EVERY drop target calls (fail-loud on unresolvable), replacing the 4 per-target payload formats/resolvers.\n- [ ] A drop updates the view LIVE @390.\n- [ ] GATE STUB-MUST-FAIL: a target with its OWN payload format/resolver -> RED (per-target-resolution caught by construction).",
     "subtasks": "None (atomic slice).",
-    "status": "Planned",
+    "status": "In Progress",
     "coveredRequirements": [
       "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
     ],

@@ -7,9 +7,9 @@
 [task:uuid:68364f5e-4392-4d2d-ada5-819060b05110]
 
 ## Status
-- [ ] Planned
-- [ ] In Progress
-  - [ ] refinement
+- [x] Planned
+- [x] In Progress
+  - [x] refinement
   - [ ] creating test cases
   - [ ] implementing
   - [ ] testing

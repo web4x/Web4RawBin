@@ -45,7 +45,7 @@
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
 | S37 | 61718883 | Planned | build | Task 37.28: Truth-decay / no-freshness-invariant family — co |
 | S37 | 6541850f | In Progress | build | Task 37.30: File/WebItem detail render CONVERGENCE onto the  |
-| S37 | 68364f5e | Planned | marker | Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE |
+| S37 | 68364f5e | In Progress | marker | Task 37.20.1: ★ RESOLVER HALF — dnd.resolveDropPayload = ONE |
 | S37 | 7737000b | Planned | build | Task 37.14: Identifiers are measured-random v4 by co |
 | S37 | 802a9597 | In Progress | marker | Task 37.29: BUG18 REGRESSION re-fix — clicking a file in a r |
 | S37 | 82c0c01f | Planned | marker | Task 37.20.3: Detail views actually RENDER for EVERY /model  |
