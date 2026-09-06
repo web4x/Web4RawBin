@@ -1,0 +1,81 @@
+{
+ "ior": "ior:class:Requirement",
+ "model": {
+  "uuid": "7698c63b-2a1f-4066-be62-a439065ef161",
+  "altId": "R37.34",
+  "name": "Semantic drift guards — task/req AC parity + QA-switch-state validity + metric-completeness (the axes R37.3's byte-check is blind to)",
+  "description": "R37.3's fail-loud guard asserts pin==board==files by BYTE-IDENTITY (view==f(units)) — but that STRUCTURAL byte-check is BLIND to SEMANTIC drift the planner's 4-axis finding exposed. This requirement folds the 3 unguarded SEMANTIC drift axes into ci as FAILABLE guards (same 1->0 shape), extending R37.3 to the semantic siblings its structural guard cannot see: (AXIS-2) task<->req AC PARITY - a task's coveredRequirements ACs must match the covering requirement's ACs (T37.20 showed task-md 6 vs req 7 while the byte-check stayed GREEN); (AXIS-3) QA-IS-A-SWITCH-STATE VALIDITY - a QA-Review item must carry a named waiting-on + switch-direction, and evidence-invalidated => NOT QA (T40.85 sat done-while-broken); (AXIS-4) METRIC-COMPLETENESS - the drift --check must NOT silently exclude frozen-legacy/missing-file-creation (it undercounted true drift ~28x, 7 vs 200): every excluded category is COUNTED or DECLARED-excluded, never silently dropped.",
+  "parent": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e",
+  "tasks": [],
+  "tests": [],
+  "useCases": [
+   "ior:instance:7b6d5d23-bd0f-4565-b045-a0b5f0489928"
+  ],
+  "unitLinks": [],
+  "sourceFile": "ior:file:scrum.pmo/sprints/sprint-37-consistency-by-construction/requirements.md",
+  "discoverySource": {
+   "type": "planner-finding",
+   "flaggedBy": "robbin-planner (4-axis drift finding)",
+   "ruledBy": "robbin-po (approved as new work)",
+   "date": "2026-09-06",
+   "note": "AXIS-1 is R37.3's structural byte-check (covered); AXIS-2/3/4 are the SEMANTIC siblings the byte-check is BLIND to. Real cases: T37.20 (task-md 6 vs req 7), T40.85 (Done-while-broken), 7-vs-200 undercount."
+  },
+  "extendsRequirement": "ior:instance:1530c79c-39a6-40b7-8d2b-044d5583aa59",
+  "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
+  "queuePriority": "follows R37.3 (structural guard) — semantic-drift extension; planner boards a covering task per axis (3 lints), tester owns the lints",
+  "crossRef": [
+   "ior:instance:1530c79c-39a6-40b7-8d2b-044d5583aa59",
+   "ior:instance:eec7ebb7-5dd3-431f-9700-a50429c3de03",
+   "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
+   "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+  ],
+  "crossRefNote": "EXTENDS R37.3 (1530c79c, fail-loud pin==board==files byte-check) to the SEMANTIC drift axes it is blind to - child not sibling (extendsRequirement). AXIS-2 exposed by T37.20/R37.20 (task-md 6 vs req 7). AXIS-4 refines R37.3 no-vacuous-truth (all-or-nothing -> per-category-accounted). Same 1->0 failable shape as R37.2/R37.3 gates.",
+  "acceptanceCriteria": [
+   {
+    "id": "AC-axis2-task-req-ac-parity",
+    "group": "semantic-drift/parity",
+    "text": "AXIS-2: a task's rendered ACs (task-md) must MATCH its covering requirement's ACs (count + ids); a task-md showing N ACs while its covered req has M!=N => RED. The T37.20 case (task-md 6 vs req 7) that the byte-check stayed GREEN on is caught. 1->0.",
+    "gateRef": {
+     "kind": "lint",
+     "ref": "ci:gates task-req-ac-parity",
+     "assertion": "for each task: task-md AC set == covered-req AC set (count+ids), else RED"
+    },
+    "stubMustFail": "PENDING: seed a task-md AC count != covered-req AC count -> RED (reproduces T37.20 6-vs-7)"
+   },
+   {
+    "id": "AC-axis3-qa-switch-state-validity",
+    "group": "semantic-drift/qa-validity",
+    "text": "AXIS-3: a QA-Review item is a SWITCH STATE - it must carry a named waiting-on + switch-direction; a QA-Review item with no waiting-on/switch-direction OR whose evidence is INVALIDATED is NOT validly QA => RED. Catches T40.85 (sat Done-while-broken). 1->0.",
+    "gateRef": {
+     "kind": "lint",
+     "ref": "ci:gates qa-switch-state",
+     "assertion": "a QA-Review item lacking waiting-on+switch-direction, or with invalidated evidence, => RED"
+    },
+    "stubMustFail": "PENDING: seed a QA-Review item with no waiting-on (or invalidated evidence) -> RED (reproduces T40.85)"
+   },
+   {
+    "id": "AC-axis4-metric-completeness-no-silent-exclusion",
+    "group": "semantic-drift/completeness",
+    "text": "AXIS-4: the drift --check must NOT silently exclude any category (frozen-legacy, missing-file-creation) - every excluded unit/category is COUNTED or explicitly DECLARED-excluded (with a named reason), never silently dropped. The ~28x undercount (7 reported vs 200 true) => RED. Refines R37.3 no-vacuous-truth from all-or-nothing to per-category-accounted. 1->0.",
+    "gateRef": {
+     "kind": "lint",
+     "ref": "ci:gates drift-metric-completeness",
+     "assertion": "excluded-count + checked-count == total; a silently-excluded category (uncounted, undeclared) => RED"
+    },
+    "stubMustFail": "PENDING: seed a silently-excluded frozen-legacy category -> RED (reproduces 7-vs-200 undercount)"
+   },
+   {
+    "id": "AC-1to0-failable-each-axis",
+    "group": "self-failability",
+    "text": "Each axis lint is FAILABLE with its own RED-proving stub (same 1->0 shape as the existing R37.3/R37.2 gates) - a lint that cannot go RED on its axis's seeded drift is unproven and inadmissible (generalizes R37.3 AC-BITE to the 3 semantic axes).",
+    "gateRef": {
+     "kind": "ci",
+     "ref": "ci:gates (3 axis stubs)",
+     "assertion": "each axis lint observed RED on its seeded drift before it counts as wired"
+    },
+    "stubMustFail": "PENDING: lint unbuilt; RED-proving stub per axis on build (1->0)"
+   }
+  ]
+ },
+ "ownerIor": "ior:instance:b86b53cc-13cb-409a-81d6-2025b5f2979e"
+}

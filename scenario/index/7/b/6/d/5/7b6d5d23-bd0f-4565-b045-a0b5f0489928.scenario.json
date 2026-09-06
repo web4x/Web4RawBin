@@ -1,0 +1,14 @@
+{
+ "ior": "ior:class:UseCase",
+ "model": {
+  "uuid": "7b6d5d23-bd0f-4565-b045-a0b5f0489928",
+  "name": "ciGuard.assertSemanticDriftAxes",
+  "description": "Three failable ci lints extending the R37.3 structural guard to semantic drift: task<->req AC parity, QA-switch-state validity, drift-metric-completeness (count-or-declare-excluded). Each 1->0 with its own RED stub.",
+  "class": null,
+  "method": null,
+  "parent": "ior:instance:7698c63b-2a1f-4066-be62-a439065ef161",
+  "unitLinks": [],
+  "note": "class/method=null - architect wires chain / tester owns the 3 lints on build-go."
+ },
+ "ownerIor": "ior:instance:7698c63b-2a1f-4066-be62-a439065ef161"
+}
