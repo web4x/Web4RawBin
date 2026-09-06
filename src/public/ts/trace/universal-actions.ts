@@ -11,7 +11,15 @@ import { UNIVERSAL_DECLS, type ActionDecl } from './action-applicability.js';
 import { RcLinkResolver } from './rc-link-resolver.js'; // R40.1 CR#86-1: per-pane owner-gated RC deep-link (the ONE existing chain — reused, not redesigned)
 import { isSyntheticRef } from './synthetic-ref.js'; // T37.21 defect-2: strip the redundant outer collection: prefix (same rule as the resolver)
 
-const VERBS = ['add-folder', 'download-vcard', 'preview-file', 'open-newtab', 'proxy-preview', 'qa-approve', 'qa-decline', 'resolve-cr', 'cr-approve', 'pin-current', 'pin-next', 'set-current', 'open-task-file', 'open-rc'];
+// T37.20 INC-1 (architect object-action-mechanism, GoF Command): the Command registry — verb → run(ctx). Completes the
+// R33.9 OFFER-side registry (registerActionProvider/UNIVERSAL_DECLS) on the INVOKE side: the if(verb===…) dispatch switch
+// is GONE — the listener does actionRegistry.get(verb)?.run(ctx). registerAction is exported so a CLASS module can register
+// its own actions (Folder move-into/rename, File move/rename — INC-2/3) at module load; a 3rd affordance / 7th class = a
+// registerAction call, ZERO edits to any central dispatch conditional (OCP; the failable lint asserts no verb-dispatch chain).
+export type ActionCtx = { drawer: HTMLElement; ref: string; uuid: string; verb: string };
+export type ActionCommand = (ctx: ActionCtx) => void | Promise<void>;
+const actionRegistry = new Map<string, ActionCommand>();
+export function registerAction(verb: string, run: ActionCommand): void { actionRegistry.set(verb, run); }
 
 // [impl:uuid:b8f284c6-9cad-4865-adac-53321f4cf666] universalActions.registerUniversalActions (Method 2b03ee86, Class
 // universalActions a9019609, off UC f9c241bf actionBar.convertLegacyButtons) — R35.1: self-register the ONE view-
@@ -33,57 +41,58 @@ export function registerUniversalActions(drawer: HTMLElement & { registerActionD
   // HANDLER below — that is a document listener and must wire exactly ONCE (a per-drawer listener would multi-fire).
   if ((registerUniversalActions as unknown as { _wired?: boolean })._wired) return;
   (registerUniversalActions as unknown as { _wired?: boolean })._wired = true;
+  // Register each universal verb as a Command (verb → run(ctx)). Existing verbs register here once; a CLASS module registers
+  // its own (File/Folder move+rename, INC-2/3) at its module load. NO if(verb===) switch — the listener is a registry lookup.
+  registerAction('add-folder', (c) => void handleAddFolder(c.drawer, c.ref)); // T37.21: provenance-routed (room Files vs model dir); uses the FULL ref
+  registerAction('qa-approve', (c) => handleTaskVerdict(c.drawer, 'approve', c.uuid)); // R40.10 owner QA verdict
+  registerAction('qa-decline', (c) => handleTaskVerdict(c.drawer, 'decline', c.uuid));
+  registerAction('resolve-cr', (c) => handleResolveCr(c.drawer, c.uuid)); // R40.1 CR#86
+  registerAction('cr-approve', (c) => handleCrApprove(c.drawer, c.uuid)); // R40.63 per-CR verdict
+  registerAction('pin-current', (c) => handlePinDesignate(c.drawer, 'current', c.uuid)); // R40.17 (retired from decls; handler kept)
+  registerAction('pin-next', (c) => handlePinDesignate(c.drawer, 'next', c.uuid));
+  registerAction('set-current', (c) => handleSetCurrent(c.drawer, c.uuid)); // T37.26 advance via the seam
+  registerAction('open-task-file', (c) => handleOpenTaskFile(c.uuid)); // T37.26 open the task MD
+  registerAction('open-rc', (c) => { // R40.1 CR#86-1: RC as a STANDARD action (ref 'otmuxpane:%N' → uuid = tmux pane_id). REUSE the owner-gated chain; url→open, null→stated reason, NEVER a fabricated URL.
+    void RcLinkResolver.resolveRcLink(c.uuid).then((link) => {
+      if (link.url) window.open(link.url, '_blank', 'noopener');
+      else surfaceVerdict(c.drawer, 'No RC link for this pane: ' + (link.reason || 'no measured bridge session'), 'warn');
+    }).catch(() => surfaceVerdict(c.drawer, 'RC lookup failed (network)', 'err'));
+  });
+  registerAction('download-vcard', (c) => { // was the rb-detail-view vCard button (fetch real playerToken, then download)
+    void fetch(`/api/ior/ior:instance:${c.uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+      const m = (j?.unit?.model || {}) as Record<string, unknown>;
+      void downloadVCard({ name: String(m.name || c.uuid), playerToken: String(m.playerToken || m.token || c.uuid), phone: m.phone as string, url: m.url as string, avatar: m.avatar as string });
+    }).catch(() => void downloadVCard({ name: c.uuid, playerToken: c.uuid }));
+  });
+  registerAction('open-newtab', (c) => { const cv = c.drawer.querySelector('.cv-actions') as HTMLElement | null; const u = cv?.getAttribute('data-url') || ''; if (u) window.open(u, '_blank'); }); // was .cv-newtab
+  registerAction('preview-file', (c) => { // was .cv-preview-toggle — toggle the pane, lazy-fill via the SAME fillPreviewPane (INV-1)
+    const cv = c.drawer.querySelector('.cv-actions') as HTMLElement | null;
+    const pane = c.drawer.querySelector('rb-preview-pane.cv-preview-content') as RbPreviewPane | null;
+    const resets = c.drawer.querySelectorAll('.cv-reset, .pz-reset');
+    if (!pane || !cv) return;
+    const show = pane.style.display === 'none';
+    pane.style.display = show ? '' : 'none';
+    resets.forEach((r) => { (r as HTMLElement).style.display = show ? '' : 'none'; });
+    if (show && !(pane as HTMLElement).dataset.filled) { fillPreviewPane(pane, cv.getAttribute('data-uuid') || c.uuid, cv.getAttribute('data-mime') || '', cv.getAttribute('data-name') || '', cv.getAttribute('data-token') || undefined); (pane as HTMLElement).dataset.filled = '1'; }
+  });
+  registerAction('proxy-preview', (c) => { // was the rb-webitem #wi-proxy button — reload the frame via the same-origin proxy
+    const frame = c.drawer.querySelector('#wi-frame') as HTMLIFrameElement | null;
+    if (!frame) return;
+    void fetch(`/api/ior/ior:instance:${c.uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
+      const wurl = String(((j?.unit?.model || {}) as Record<string, unknown>).url || '');
+      if (wurl) frame.src = `/api/proxy?url=${encodeURIComponent(wurl)}`;
+    }).catch(() => { /* frame keeps its direct src + the detail's own 3s auto-fallback */ });
+  });
+
+  // THE ONE invoke path — registry lookup, no switch. A verb with no registered Command → a host/model provider handles it.
   document.addEventListener('rb-drawer-action', (e) => {
     const d = (e as CustomEvent<{ verb?: string; ref?: string }>).detail;
     const verb = d?.verb || '';
-    if (!VERBS.includes(verb)) return; // host/model verbs handled by their own provider
+    const cmd = actionRegistry.get(verb);
+    if (!cmd) return;
     const ref = d?.ref || '';
-    if (verb === 'add-folder') { void handleAddFolder(drawer, ref); return; } // T37.21 defect-2: the ONE add-folder dispatch — provenance-routed (room Files vs model dir), uses the FULL ref (not the uuid-slice)
     const uuid = ref.includes(':') ? ref.slice(ref.indexOf(':') + 1) : ref;
-    if (verb === 'qa-approve' || verb === 'qa-decline') { handleTaskVerdict(drawer, verb, uuid); return; } // R40.10 owner QA verdict
-    if (verb === 'resolve-cr') { handleResolveCr(drawer, uuid); return; } // R40.1 CR#86: owner ticks the processing-CR sub-step → band clears → clean QA-Review
-    if (verb === 'cr-approve') { handleCrApprove(drawer, uuid); return; } // R40.63: owner records a VERDICT on ONE ChangeRequest (does NOT clear the task band — that is R40.60 status-core)
-    if (verb === 'pin-current' || verb === 'pin-next') { handlePinDesignate(drawer, verb, uuid); return; } // R40.17 owner pin designation (retired from decls; handler kept dead)
-    if (verb === 'set-current') { handleSetCurrent(drawer, uuid); return; } // T37.26 owner Set-as-Current: advance the task via the seam (derived pin follows)
-    if (verb === 'open-task-file') { handleOpenTaskFile(uuid); return; } // T37.26 open the task MD (the bar is the ONE action surface)
-    if (verb === 'open-rc') { // R40.1 CR#86-1: RC as a STANDARD action — the ref is 'otmuxpane:%N' → uuid = the tmux pane_id.
-      // REUSE the existing owner-gated chain (RcLinkResolver.resolveRcLink); url → open the universal link (app-else-web),
-      // url==null → surface the STATED reason, NEVER a synthesised/fabricated URL (fail-closed, INV-1 = the old button's effect).
-      void RcLinkResolver.resolveRcLink(uuid).then((link) => {
-        if (link.url) window.open(link.url, '_blank', 'noopener');
-        else surfaceVerdict(drawer, 'No RC link for this pane: ' + (link.reason || 'no measured bridge session'), 'warn');
-      }).catch(() => surfaceVerdict(drawer, 'RC lookup failed (network)', 'err'));
-      return;
-    }
-    if (verb === 'download-vcard') { // was the rb-detail-view vCard button (fetch real playerToken, then download)
-      void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
-        const m = (j?.unit?.model || {}) as Record<string, unknown>;
-        void downloadVCard({ name: String(m.name || uuid), playerToken: String(m.playerToken || m.token || uuid), phone: m.phone as string, url: m.url as string, avatar: m.avatar as string });
-      }).catch(() => void downloadVCard({ name: uuid, playerToken: uuid }));
-      return;
-    }
-    // file / webitem verbs operate on the detail rendered in the drawer body; its data-attrs are the ref-context.
-    const cv = drawer.querySelector('.cv-actions') as HTMLElement | null;
-    if (verb === 'open-newtab') { const u = cv?.getAttribute('data-url') || ''; if (u) window.open(u, '_blank'); return; } // was .cv-newtab
-    if (verb === 'preview-file') { // was .cv-preview-toggle — toggle the pane, lazy-fill via the SAME fillPreviewPane (INV-1)
-      const pane = drawer.querySelector('rb-preview-pane.cv-preview-content') as RbPreviewPane | null;
-      const resets = drawer.querySelectorAll('.cv-reset, .pz-reset'); // zoom-reset shows only while the pane is open (content-preview .cv-reset + rb-file-detail .pz-reset)
-      if (!pane || !cv) return;
-      const show = pane.style.display === 'none';
-      pane.style.display = show ? '' : 'none';
-      resets.forEach((r) => { (r as HTMLElement).style.display = show ? '' : 'none'; });
-      if (show && !(pane as HTMLElement).dataset.filled) { fillPreviewPane(pane, cv.getAttribute('data-uuid') || uuid, cv.getAttribute('data-mime') || '', cv.getAttribute('data-name') || '', cv.getAttribute('data-token') || undefined); (pane as HTMLElement).dataset.filled = '1'; }
-      return;
-    }
-    if (verb === 'proxy-preview') { // was the rb-webitem #wi-proxy button — reload the frame via the same-origin proxy
-      const frame = drawer.querySelector('#wi-frame') as HTMLIFrameElement | null;
-      if (!frame) return;
-      void fetch(`/api/ior/ior:instance:${uuid}`).then((r) => (r.ok ? r.json() : null)).then((j) => {
-        const wurl = String(((j?.unit?.model || {}) as Record<string, unknown>).url || '');
-        if (wurl) frame.src = `/api/proxy?url=${encodeURIComponent(wurl)}`;
-      }).catch(() => { /* frame keeps its direct src + the detail's own 3s auto-fallback */ });
-      return;
-    }
+    void cmd({ drawer, ref, uuid, verb });
   });
 }
 
@@ -174,8 +183,7 @@ export function ownerActionFetch(url: string, opts: RequestInit = {}): Promise<R
 }
 
 // Decline prompts for an optional CR reason; CANCEL aborts so an accidental tap can't mint a ChangeRequest.
-function handleTaskVerdict(drawer: HTMLElement, verb: string, uuid: string): void {
-  const action = verb === 'qa-approve' ? 'approve' : 'decline';
+function handleTaskVerdict(drawer: HTMLElement, action: 'approve' | 'decline', uuid: string): void {
   let body: string | undefined;
   if (action === 'decline') {
     const reason = window.prompt('Decline — reason for the Change Request (optional):', '');
@@ -297,8 +305,7 @@ function handleOpenTaskFile(uuid: string): void {
   }).catch(() => { win?.close(); });
 }
 
-function handlePinDesignate(drawer: HTMLElement, verb: string, uuid: string): void {
-  const slot = verb === 'pin-current' ? 'current' : 'next';
+function handlePinDesignate(drawer: HTMLElement, slot: 'current' | 'next', uuid: string): void {
   surfaceVerdict(drawer, slot === 'current' ? '⏳ Setting as current…' : '⏳ Setting as next…', 'warn');
   void ownerActionFetch('/api/current-sprint/designate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ taskUuid: uuid, slot }) }) // R40.52: owner identity via x-player-token header
     .then(async (r) => {
