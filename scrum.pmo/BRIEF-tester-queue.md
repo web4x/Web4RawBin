@@ -1,27 +1,21 @@
-# BRIEF — tester queue (post-rewind, PO)
+# Tester Queue Brief — LIVE (2026-09-06 overnight, to 09:00 CET)
 
-**Read this file, not a long pane message.** State: prod **v0.8.149**, served==committed (I verified). HEAD carries your `r4067` kids-aware fix (`a167444e8`) — **your work survived the rewind, nothing to redo.**
+**Prod = v0.8.204.** T37.20 + T37.20.1 (DnD drop contract) = QA-Review, your gates GREEN (v0.8.202/203/204). Overnight continuous-gating + deploy-watcher mode: gate each version bump as it lands.
 
-## Landed (do NOT re-verify unless something looks wrong)
-- **(A)** CurrentSprint empty → 14 cross-branch-uncarried units carried, fixpoint 0-dangling, pin resolves with real children on /trace + /model. CLOSED.
-- **(B)(1)** fan-out removed → **count===1** per expand (was 67); task expand **27.9s → ~0.6s**. Live. You confirmed it independently (`prefetchVisibleLayer=0` in the served bundle).
-- Coupling settled by your pre/post: the 28s was **pool starvation caused by the fan-out** ⇒ one defect, not two. REQ-B retracted.
+## THE QUEUE (authoritative, pull top-down)
+→ **`scrum.pmo/S37-overnight-queue.md`** — 29 Planned S37 tasks, TIER-A first. Deadline: S37 COMPLETE by 09:00. (NOT PRIO-2/Folder-Room-File — that's a different sprint.)
 
-## 1. PRIMARY — gate the server perf fix (expert is building it now)
-Expert brief: `scrum.pmo/BRIEF-server-perf-fix.md`. Root = `server.ts:2992` full-index scan (~5777 units/request) + `server.ts:2856` per-request `new ScenarioIndex` ⇒ O(total-units) ≈ the residual ~0.5s.
+## YOUR TIER-A lints (you own + build — cheapest, pull first)
+- **T37.35** `33b28f6b` — AXIS-2 task↔req AC-parity lint (seeds the 6-vs-7 RED)
+- **T37.36** `993b3f2d` — AXIS-3 QA-is-a-switch-state validity lint (seeds T40.85 RED)
+- **T37.37** `e48a1e0a` — AXIS-4 drift-metric completeness lint (seeds 7-vs-200 RED)
 
-**r4067 = 3 assertions:**
-- (a) client **count===1** per expand — already GREEN live, keep it.
-- (b) **NEW, and it is the one we actually control:** server **structural invariant — no `idx.list()`/full-index-scan on the children path; compute O(children)**. Network-independent. Assert the *structure*, not a timing.
-- (c) latency on the **pinned 80ms-RTT profile**, threshold at the **measured achievable floor** (`O(children)` work + 1 RTT ≈ 100–150ms), and **state the floor inside the gate** so a later reader sees a physical limit, not a slackened standard. The bare-100ms placeholder is aspirational — reset it (it would sit RED forever and rot like r301).
+## EXPERT builds to RED-BASELINE (gate GREEN on their deploy)
+- **T37.32** `b43278f7` — gate-harness invoke-or-mark-broken (FIRST)
+- **T37.28.1** `bd0e5f4a` · **.2** `25772198` · **.3** `968d966d` · **.4** `2af98c11` · **.5** `afe976e3` — freshness guards
+- TIER-B next: T37.4 self-heal, T37.33 referential-integrity, T37.28.6 cycle-guard, T37.38 rolled-render, T37.23 ssh-discovery
 
-**★ STALENESS GATE (equally important — the cure can be worse than the disease):** the expert is adding a cache. Prove it cannot go stale: write a CR / carry a unit → the very next request must reflect it. **Stub-must-fail: disable invalidation ⇒ RED.** Precedent: T36.3 was a stale cache (~137/138 unenriched methods served), and today's P0 wrote **14 units to disk under a running server** — a warm index without disk-change invalidation would have made that carry look like it failed. A wrong badge is worse than a slow one: slow is visible, wrong is not.
+## T37.20 slices — SUBSUMED by shipped contract (no build; PO ruling pending → flip QA-Review, NOT Done)
+.2 file-drags · .3 details-render · .4 serialize-fleet · 37.39 Image · 37.40 CalendarEntry. `.5` per-target BITE = your lints likely cover it. **`.6` DEVICE @390 = YOUR real-device acceptance of the whole contract** (in the accept list scrum.pmo/S37-tron-acceptance-2200cet.md).
 
-## 2. THEN — r301 derive-repair
-Category **STALE-HARDCODED-UNINVOKED** (own class; do NOT merge into r241/r245's KNOWN-BROKEN-INVOCATION count, which stays 2). It gates /trace eager-lazy *structure* = Tron's surface, so **repair, don't retire**: derive the current pin at runtime (never a literal sprint number) **and wire it to a runner**. Until repaired it stays MARKED + COUNTED — mark-not-silence.
-
-## 3. ONGOING — the ~180-ungated-gates req
-Capture/route only, do not build. Shape: every gate is either **INVOKED by a runner** or **explicitly MARKED not-invoked with a reason**, and the un-invoked **count is reported**; discovered-not-hand-listed. This is the largest finding of the incident — ~180 gates exist, 4 run in CI, which is why a 250x perf breach reached Tron.
-
-## Standing doctrine (unchanged)
-Real surface only (never a proxy surface Tron doesn't use) · screenshot+pixel over DOM-count · stub-must-fail on every gate · stated==implemented (write the rule into the gate, grep out the old proxy) · report scope explicitly (which surfaces were reachable) · **a RED is a valid deliverable — never shade toward green to unblock a land.**
+**0 Done till Tron — flip to QA-Review, never Done.** Rewind-you: this brief is live as of v0.8.204; the queue file is the source of truth.
