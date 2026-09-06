@@ -34,8 +34,8 @@
         "reqUuid": "a8663672-3522-4f0c-b313-d14d13dbba5f"
       },
       "nextBacklog": {
-        "taskUuid": "68364f5e-4392-4d2d-ada5-819060b05110",
-        "taskName": "Task 37.20.1: RESOLVER HALF — dnd.resolveDropPayload (the P0 drop/upload path, NEXT — behind the ONE-store root)",
+        "taskUuid": "ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+        "taskName": "Task 37.20: ONE shared DnD drop contract — buffer carries the scenario unit, file-drags-as-file, details render, fleet-wide every drop target [R37.20] (NEXT per Tron 'then Task 37.20, NOTHING ELSE'; its 6 slices + MimeType/ingress mechanism are its IMPLEMENTATION under it, not separate queue items)",
         "reqUuid": "03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
       }
     },
