@@ -54,7 +54,7 @@ function modelFacetType(model: Record<string, unknown> | undefined, idx: { get(u
 // MODEL_STORE / PROD_INDEX moved BELOW the __dirname shim (R32.5 boot-crash fix): referencing __dirname at module-top = TDZ ReferenceError (shim is a const at :105).
 // Seed the store's M2/M3 metaclasses once (copy from prod's a1d2e… shard) so instanceOf/modelFacetType + ModelValidator resolve self-contained.
 function ensureStoreSeeded(): void {
-  const src = path.join(PROD_INDEX, 'a', '1', 'd', '2', 'e'), dst = path.join(MODEL_STORE, 'a', '1', 'd', '2', 'e');
+  const src = path.join(PROD_INDEX, 'a', '1', 'd', '2', 'e'), dst = path.join(ModelStoreLocator.modelDir(),'a', '1', 'd', '2', 'e');
   fsSync.mkdirSync(dst, { recursive: true });
   if (fsSync.existsSync(src)) for (const f of fsSync.readdirSync(src)) { const d = path.join(dst, f); if (!fsSync.existsSync(d)) fsSync.copyFileSync(path.join(src, f), d); }
 }
@@ -123,22 +123,30 @@ const __dirname = path.dirname(__filename);
 const MODEL_STORE = path.join(__dirname, '../../../data/model-store/index');
 const PROD_INDEX = path.join(__dirname, '../../../scenario/index');
 
-// [impl:uuid:PENDING-req-mint] R40.81 Slice-2 — the ONE collapsed model-unit READ-SOURCE resolver (architect toggle-flag
-// MODEL_READ_SOURCE, r40.81-slice2-toggle-flag.md 81cc37755). Slice-2 collapses the `isModelUnit ? MODEL_STORE :
-// scenario/index` read-fork (+ mofChildren caller-index + trace-merge model reads + the isModelUnit discriminator) into
-// THIS single owner — no other reader branches on store (radical-OOP; the toggle-removal lint asserts that post-Slice-3).
-// Reads MODEL_READ_SOURCE AT the resolution point (every call) so the flag GENUINELY flips the read → PAIR-2 is not a
-// build-time no-op false-green. DEFAULT 'model-store' = pre-repoint (physically-intact MODEL_STORE, today's behaviour →
-// nothing flips for Tron until proven). 'scenario-index' = post-repoint one-store target (the relocated units resolve
-// from scenario/index). WRITE sites are NOT routed here — they stay on MODEL_STORE until Slice-3. The flip IS the live
-// ROLLBACK lever (flip back, MODEL_STORE intact, no rebuild). Post-Slice-3: deleted + readers hardwired to scenario/index.
-function modelReadDir(): string {
-  return process.env.MODEL_READ_SOURCE === 'scenario-index' ? PROD_INDEX : MODEL_STORE;
+// [impl:uuid:PENDING-req-mint] ModelStoreLocator (R40.81 Slice-3 COUPLING, architect design b39bdb697 / PO-accepted) — the
+// SINGLE OWNER of which physical store backs a model unit, consulted by BOTH the read path AND the write path so a flip
+// moves both ATOMICALLY → split-brain is UNREPRESENTABLE by construction (not two call sites agreeing by convention).
+// Governs the STORE (reads + writes), hence MODEL_STORE_SOURCE (renamed from Slice-2's MODEL_READ_SOURCE; the old name is
+// still honoured transitionally so the tester's committed r4081c PAIR-2 runner keeps working until the flag-removal step).
+// Reads the env AT the call (every call) so the flag genuinely flips (PAIR-2 proven not a no-op false-green). DEFAULT
+// 'model-store' = pre-repoint MODEL_STORE (FROZEN — coupling is behaviour-preserving at default: no flip, no model-store
+// mutation). 'scenario-index' = post-flip one-store target. The flip is the live ROLLBACK lever. model-store is NOT deleted
+// in the coupling step (deletion is a later step); flag+lint removal is LAST.
+class ModelStoreLocator {
+  // the model store dir (flag-toggled) — model-unit reads/writes + mof aggregation resolve here.
+  static modelDir(): string {
+    const src = process.env.MODEL_STORE_SOURCE || process.env.MODEL_READ_SOURCE; // canonical MODEL_STORE_SOURCE; old name transitional
+    return src === 'scenario-index' ? PROD_INDEX : MODEL_STORE;
+  }
+  // the store backing a specific uuid: a model unit → modelDir() (flag-toggled); every other unit → prod scenario/index.
+  static dirFor(uuid: string): string {
+    return isModelUnit(uuid) ? ModelStoreLocator.modelDir() : PROD_INDEX;
+  }
 }
-// resolve the READ store for a uuid: a model unit reads from modelReadDir() (flag-toggled); every other unit = prod scenario/index.
-function resolveReadDir(uuid: string): string {
-  return isModelUnit(uuid) ? modelReadDir() : PROD_INDEX;
-}
+// read-path delegates (the collapsed read sites call these; now routed through the ONE ModelStoreLocator owner). The write
+// path routes through ModelStoreLocator.modelDir() directly (wired per the architect's COUPLE/EXEMPT ruling on the 6 sites).
+function modelReadDir(): string { return ModelStoreLocator.modelDir(); }
+function resolveReadDir(uuid: string): string { return ModelStoreLocator.dirFor(uuid); }
 
 // Load .env
 const ENV_PATH = path.join(__dirname, '../../../.env');
@@ -1287,7 +1295,7 @@ function newElement(name: string, kind: string): { ok: boolean; uuid?: string; e
   if (!nm) return { ok: false, error: 'bad-name', status: 400 };
   const uuid = crypto.randomUUID();
   const unit = { ior: 'ior:class:ModelElement', ownerIor: null, model: { uuid, name: nm, metaLevel: 'M1', kind: kind || 'class', members: [], relations: [] } };
-  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  const f = path.join(ModelStoreLocator.modelDir(),...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
   fsSync.mkdirSync(path.dirname(f), { recursive: true });
   fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n');
   return { ok: true, uuid };
@@ -1297,7 +1305,7 @@ function newElement(name: string, kind: string): { ok: boolean; uuid?: string; e
 function createFolder(name: string, parent: string): { ok: boolean; uuid?: string; error?: string } {
   const uuid = crypto.randomUUID();
   const unit = { ior: 'ior:class:Folder', ownerIor: null, model: { uuid, name: String(name || 'New folder').slice(0, 80), parent: String(parent || '') || null, children: [] } };
-  const f = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  const f = path.join(ModelStoreLocator.modelDir(),...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
   fsSync.mkdirSync(path.dirname(f), { recursive: true });
   fsSync.writeFileSync(f, JSON.stringify(unit, null, 2) + '\n'); // INV store-only (MODEL_STORE, prod untouched)
   return { ok: true, uuid };
@@ -1314,7 +1322,7 @@ function authorTrace(from: string, to: string, relation: string, fromType?: stri
   if (!f0 || !t0 || f0 === t0) return { ok: false, error: 'bad-endpoints' };
   const uuid = keyToUuid(`umltrace::${f0}::${t0}::${rel}`);
   const unit = { ior: 'ior:class:UmlTraceRelationship', ownerIor: null, model: { uuid, from: `ior:instance:${f0}`, to: `ior:instance:${t0}`, fromType: String(fromType || 'usecase'), toType: String(toType || 'method'), relation: rel, direction: 'directed', label: rel } };
-  const file = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  const file = path.join(ModelStoreLocator.modelDir(),...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
   fsSync.mkdirSync(path.dirname(file), { recursive: true });
   fsSync.writeFileSync(file, JSON.stringify(unit, null, 2) + '\n'); // idempotent (same uuid) — INV store-only (prod untouched)
   return { ok: true, uuid };
@@ -1406,7 +1414,7 @@ function ensureViewUnit(ior: string): { ior: string; ownerIor: null; model: Reco
     extra.roomRef = roomUuid; extra.collectionKind = ck; extra.virtual = true;
   } else return null; // non-view ref → normal resolver
   const uuid = keyToUuid(key);
-  const dfile = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
+  const dfile = path.join(ModelStoreLocator.modelDir(),...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`);
   if (fsSync.existsSync(dfile)) { try { return JSON.parse(fsSync.readFileSync(dfile, 'utf-8')); } catch { /* corrupt → re-mint below */ } }
   const unit = { ior: iorClass, ownerIor: null as null, model: { uuid, name, location, kind, ...extra } };
   fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
@@ -1502,7 +1510,7 @@ function renameElement(elementUuid: string, name: string): { ok: boolean; error?
   const UUID = /^[0-9a-fA-F-]{16,40}$/; const nm = String(name || '').trim();
   if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
   if (!nm) return { ok: false, error: 'bad-name', status: 400 };
-  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  const f = path.join(ModelStoreLocator.modelDir(),...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
   if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
   const unit = JSON.parse(fsSync.readFileSync(f, 'utf-8'));
   unit.model.name = nm;
@@ -1514,7 +1522,7 @@ function renameElement(elementUuid: string, name: string): { ok: boolean; error?
 function deleteElement(elementUuid: string): { ok: boolean; error?: string; status?: number } {
   const UUID = /^[0-9a-fA-F-]{16,40}$/;
   if (!UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
-  const f = path.join(MODEL_STORE, ...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
+  const f = path.join(ModelStoreLocator.modelDir(),...elementUuid.slice(0, 5).split(''), `${elementUuid}.scenario.json`);
   if (!fsSync.existsSync(f)) return { ok: false, error: 'no-element', status: 404 };
   fsSync.unlinkSync(f);
   return { ok: true };
@@ -1550,7 +1558,7 @@ function sourceDirTree(rel: string, m1Count: Map<string, number>): MofNode[] {
 function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: boolean; removed?: boolean; views?: number; error?: string; status?: number } {
   const UUID = /^[0-9a-fA-F-]{16,40}$/;
   if (!UUID.test(diagramUuid) || !UUID.test(elementUuid)) return { ok: false, error: 'bad-uuid', status: 400 };
-  const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+  const dfile = path.join(ModelStoreLocator.modelDir(),...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
   if (!fsSync.existsSync(dfile)) return { ok: false, error: 'no-diagram', status: 404 };
   const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
   const views: { unit: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
@@ -1570,7 +1578,7 @@ function persistRemoveView(diagramUuid: string, elementUuid: string): { ok: bool
 // and usedIn SURVIVES TsToModel re-generation BY CONSTRUCTION (TsToModel never touches the side-index). Transparent
 // backend swap: add-view/remove-view callers + GET /api/model/used-in + /api/ior behavior UNCHANGED. Tree-INVISIBLE
 // (INV-T byte-diff==0 — usedIn was never in the tree; now not even on the element file). Bidirectional, both sides.
-const usageIndexPath = (): string => path.join(MODEL_STORE, '..', 'usage-index.json'); // one level ABOVE the index shards → never scanned as a unit
+const usageIndexPath = (): string => path.join(ModelStoreLocator.modelDir(),'..', 'usage-index.json'); // one level ABOVE the index shards → never scanned as a unit
 function readUsageIndex(): Record<string, { kind: string; ref: string }[]> {
   try { return JSON.parse(fsSync.readFileSync(usageIndexPath(), 'utf-8')); } catch { return {}; }
 }
@@ -2922,7 +2930,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
             res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-file: must be an existing repo-relative .ts path"}'); return;
           }
           ensureStoreSeeded();
-          const r = new TsToModel(projectRoot).generate([abs], { indexDir: MODEL_STORE, write: true, diagram: true });
+          const r = new TsToModel(projectRoot).generate([abs], { indexDir: ModelStoreLocator.modelDir(), write: true, diagram: true }); // R40.81 Slice-3 couple: regen writes to the SAME store reads resolve (frozen model-store at default; coupled post-flip)
           const roots = r.units.filter((u) => u.model.metaLevel === 'M1' && !u.model.memberOf).length;
           addLog(`[model] generate ${path.relative(projectRoot, abs)} → ${r.units.length} units (${roots} roots) diagram=${r.diagramUuid?.slice(0, 8)} wrote=${r.wrote} (store-only, prod untouched)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, units: r.units.length, roots, diagramUuid: r.diagramUuid, wrote: r.wrote }));
@@ -2941,7 +2949,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const t0 = Date.now();
           // T36.3: the generate-project CORE is now the ONE shared generateProjectModel — HTTP handler + the local CLI
           // (scripts/regen-model.ts) run the SAME path/invariants (INV-P2 bounded/CAP/MODEL_STORE-only). Owner-gate above UNCHANGED.
-          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), MODEL_STORE, PROD_INDEX);
+          const g = generateProjectModel(projectRoot, String(dir || 'src/ts/scenario'), ModelStoreLocator.modelDir(), PROD_INDEX); // R40.81 Slice-3 couple: output store via the ONE locator
           if (!g.ok) { res.writeHead(g.status || 400, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: g.error })); return; }
           addLog(`[model] generate-project ${g.dir} → ${g.files} files → ${g.units} units (${g.roots} roots) wrote=${g.wrote} removed=${g.removed} ${Date.now() - t0}ms (store-only, prod untouched)`);
           res.writeHead(200, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ ok: true, dir: g.dir, files: g.files, units: g.units, roots: g.roots, wrote: g.wrote, removed: g.removed }));
@@ -2963,7 +2971,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const { diagramUuid, elementUuid, x, y } = JSON.parse(body || '{}');
           const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no traversal into the shard path)
           if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
-          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          const dfile = path.join(ModelStoreLocator.modelDir(),...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
           if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
           const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
           const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : (unit.model.views = []);
@@ -2977,7 +2985,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // R40.81 Slice-2 (architect ruling a4e1591b8 pt.2): WRITE-PATH VALIDATION read — tracks the WRITE store (MODEL_STORE
           // now), NOT a resolveReadDir VIEW site. Routing it through the read resolver would validate-against-scenario-index
           // while the paired write targets MODEL_STORE = split-brain. It moves WITH the writes in Slice-3. Tripwire: if it ever feeds a VIEW, re-audit.
-          if (!elUnit) { try { const ef = path.join(MODEL_STORE, ...String(elementUuid).slice(0, 5).split(''), `${elementUuid}.scenario.json`); if (fsSync.existsSync(ef)) elUnit = JSON.parse(fsSync.readFileSync(ef, 'utf-8')); } catch { /* unresolvable */ } }
+          if (!elUnit) { try { const ef = path.join(ModelStoreLocator.modelDir(),...String(elementUuid).slice(0, 5).split(''), `${elementUuid}.scenario.json`); if (fsSync.existsSync(ef)) elUnit = JSON.parse(fsSync.readFileSync(ef, 'utf-8')); } catch { /* unresolvable */ } }
           const viewKind = elUnit ? deriveViewKind(elUnit.ior, elUnit.model) : null;
           if (!viewKind) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"unknown-view-kind","detail":"element type has no facet mapping — refusing to store a silent class default"}'); return; }
           const COLS = 3, i = views.length; // INV-R1: explicit drop coords, else auto-grid (the select-class complement sends none)
@@ -3057,7 +3065,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const UUID = /^[0-9a-fA-F-]{16,40}$/; // path-safety: hex+dash only (no shard-path traversal)
           if (!UUID.test(String(diagramUuid || '')) || !UUID.test(String(elementUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
           if (!Number.isFinite(x) || !Number.isFinite(y)) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-coords"}'); return; }
-          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          const dfile = path.join(ModelStoreLocator.modelDir(),...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
           if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
           const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
           const views: { unit: string; x: number; y: number; viewKind: string }[] = Array.isArray(unit.model.views) ? unit.model.views : [];
@@ -3082,7 +3090,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           if (!UUID.test(String(diagramUuid || ''))) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-uuid"}'); return; }
           const z = Number(zoom);
           if (!Number.isFinite(z) || z < 0.25 || z > 8) { res.writeHead(400, { 'Content-Type': 'application/json' }); res.end('{"error":"bad-zoom"}'); return; } // INV-Z1 range [0.25,8]
-          const dfile = path.join(MODEL_STORE, ...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          const dfile = path.join(ModelStoreLocator.modelDir(),...String(diagramUuid).slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
           if (!fsSync.existsSync(dfile)) { res.writeHead(404, { 'Content-Type': 'application/json' }); res.end('{"error":"no-diagram"}'); return; }
           const unit = JSON.parse(fsSync.readFileSync(dfile, 'utf-8'));
           unit.model.zoom = z;
@@ -3102,7 +3110,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           ensureStoreSeeded();
           const { name } = JSON.parse(body || '{}');
           const diagramUuid = crypto.randomUUID();
-          const dfile = path.join(MODEL_STORE, ...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
+          const dfile = path.join(ModelStoreLocator.modelDir(),...diagramUuid.slice(0, 5).split(''), `${diagramUuid}.scenario.json`);
           fsSync.mkdirSync(path.dirname(dfile), { recursive: true });
           fsSync.writeFileSync(dfile, JSON.stringify({ ior: 'ior:class:Diagram', ownerIor: null, model: { uuid: diagramUuid, name: String(name || 'New diagram').slice(0, 80), views: [] } }, null, 2) + '\n'); // INV-F-3 MODEL_STORE only, prod untouched
           addLog(`[model] add-diagram → empty Diagram ${diagramUuid.slice(0, 8)} (store-only)`);
@@ -3131,9 +3139,9 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // (fail-closed, NO unit). That is the TRUE property (the prior comment claimed this fail-closed but the code did not do it).
           const physicalDir = resolveFolderRefToDir(parentRef); // '' = no physical directory (virtual container OR malformed)
           const out = physicalDir
-            ? FolderService.createPhysicalWithUnit(MODEL_STORE, String(name || ''), parentRef) // physicality-gated: real-dir parent → physical mkdir + unit
-            : isVirtualModelParent(parentRef, MODEL_STORE)
-              ? FolderService.mintRealUnit(MODEL_STORE, String(name || ''), parentRef, 'folder') // KNOWN virtual/model container → store-only unit (no dir)
+            ? FolderService.createPhysicalWithUnit(ModelStoreLocator.modelDir(), String(name || ''), parentRef) // R40.81 Slice-3 couple: store via the ONE locator
+            : isVirtualModelParent(parentRef, ModelStoreLocator.modelDir())
+              ? FolderService.mintRealUnit(ModelStoreLocator.modelDir(), String(name || ''), parentRef, 'folder') // R40.81 Slice-3 couple: store via the ONE locator
               : { ok: false as const, error: 'bad-parent-loc' }; // ★ malformed / unresolvable ref → FAIL-CLOSED, never mint a garbage unit
           if (!out.ok) {
             const halfState = String(out.error || '').startsWith('half-created');
@@ -3196,7 +3204,7 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           const sourceFile = `src/imported/${base}.puml`; // src/ prefix → groups under rawbin:ts (isSrc) as a file-folder
           const detUuid = (key: string): string => { const h = crypto.createHash('sha256').update(key).digest('hex'); return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-a${h.slice(17, 20)}-${h.slice(20, 32)}`; };
           const relsFrom = (u: string): { to: string; type: string }[] => relations.filter((r) => r.from === u).map((r) => ({ to: `ior:instance:${r.to}`, type: String(r.kind) }));
-          const writeUnit = (ior: string, model: Record<string, unknown>): void => { const uuid = String(model.uuid); const p = path.join(MODEL_STORE, ...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); fsSync.mkdirSync(path.dirname(p), { recursive: true }); fsSync.writeFileSync(p, JSON.stringify({ ior, ownerIor: null, model }, null, 2) + '\n'); }; // INV-F-3 MODEL_STORE only
+          const writeUnit = (ior: string, model: Record<string, unknown>): void => { const uuid = String(model.uuid); const p = path.join(ModelStoreLocator.modelDir(),...uuid.slice(0, 5).split(''), `${uuid}.scenario.json`); fsSync.mkdirSync(path.dirname(p), { recursive: true }); fsSync.writeFileSync(p, JSON.stringify({ ior, ownerIor: null, model }, null, 2) + '\n'); }; // INV-F-3 MODEL_STORE only
           let memberCount = 0;
           for (const el of elements) {
             const members: string[] = [];
