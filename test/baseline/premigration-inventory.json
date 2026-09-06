@@ -1,13 +1,13 @@
 {
-  "capturedAt": "2026-09-06T10:05:16Z",
+  "capturedAt": "2026-09-06T10:09:58Z",
   "servedVersion": "0.8.186",
-  "headSha": "ca146c9b4",
+  "headSha": "254d00703",
   "stores": {
     "scenarioIndex": {
       "path": "scenario/index",
-      "realFiles": 6109,
+      "realFiles": 6111,
       "symlinks": 0,
-      "uniqueUuids": 6109,
+      "uniqueUuids": 6111,
       "parseErr": 0,
       "noUuid": 0
     },
@@ -23,7 +23,373 @@
   "overlap": {
     "inBoth": 33,
     "modelStoreOnly": 669,
-    "scenarioIndexOnly": 6076
+    "scenarioIndexOnly": 6078
+  },
+  "reconciliation": {
+    "architectRawEntries": 784,
+    "modelStoreRealFiles": 702,
+    "modelStoreSymlinks": 82,
+    "modelStoreUniqueUuids": 702,
+    "inBothStores": 33,
+    "modelStoreOnly": 669,
+    "note": "784 raw = 702 real + 82 symlinks (deduped by uuid); 702 unique − 33 in-both = 669 model-store-only; gap 115 = 82 symlinks + 33 in-both"
+  },
+  "riskSplit": {
+    "generatedRederivable": {
+      "count": 628,
+      "byKind": {
+        "function": 114,
+        "attribute": 277,
+        "method": 143,
+        "interface": 54,
+        "class": 23,
+        "type": 16,
+        "property": 1
+      },
+      "note": "TsToModel regenerates these from source — present-or-regenerable suffices post-migration"
+    },
+    "authoredIrreplaceable": {
+      "count": 41,
+      "byKind": {
+        "folder": 4,
+        "file": 19,
+        "ior:class:UmlTraceRelationship": 3,
+        "project": 3,
+        "ior:class:Diagram": 6,
+        "puml": 6
+      },
+      "note": "NOT re-derivable — each MUST be present by uuid AND content-intact (contentSha equal) post-migration; total-loss risk",
+      "units": [
+        {
+          "uuid": "01a0d09d-1bc0-4a5a-a277-51dbe992a3bb",
+          "name": "feature-manager",
+          "ior": "ior:class:Folder",
+          "kind": "folder",
+          "relPath": "data/model-store/index/0/1/a/0/d/01a0d09d-1bc0-4a5a-a277-51dbe992a3bb.scenario.json",
+          "contentSha": "599c4e2f9e1d73eadadd7c2d38519025eaad36119d8a94b0a2708adf0535bdf5"
+        },
+        {
+          "uuid": "0941ec68-0975-4237-afd5-41af537bd1b0",
+          "name": "2bd2bdb0-dd9e-497d-a21b-57413af6a310",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/0/9/4/1/e/0941ec68-0975-4237-afd5-41af537bd1b0.scenario.json",
+          "contentSha": "791c268136966dbf89222e8a898d3b9f65c45f8d8f57a2cf911f00441994e5f2"
+        },
+        {
+          "uuid": "0e2df2e9-7329-4d5d-864c-e04ff304706c",
+          "name": "test1",
+          "ior": "ior:class:Folder",
+          "kind": "folder",
+          "relPath": "data/model-store/index/0/e/2/d/f/0e2df2e9-7329-4d5d-864c-e04ff304706c.scenario.json",
+          "contentSha": "e63ec84f1b602abff501df7c63cc1a3d3698c8892e1c9cbfb6423a6ff4966b5e"
+        },
+        {
+          "uuid": "0f454f67-7699-46ba-a63d-c5aafdb967cc",
+          "name": "profile-view-entry.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/0/f/4/5/4/0f454f67-7699-46ba-a63d-c5aafdb967cc.scenario.json",
+          "contentSha": "bf86faafc4aa6b51e897dc054e88d9cb0cb6d804a4555372a4956f40100c3db7"
+        },
+        {
+          "uuid": "15f119c2-fd35-4f28-a8ce-9c19c27c2f9d",
+          "name": "",
+          "ior": "ior:class:UmlTraceRelationship",
+          "kind": "",
+          "relPath": "data/model-store/index/1/5/f/1/1/15f119c2-fd35-4f28-a8ce-9c19c27c2f9d.scenario.json",
+          "contentSha": "7b88c4ba66c39954d822666514c69f85f3ea200b036152a035e7c95a2e143320"
+        },
+        {
+          "uuid": "1dd59f49-b06c-4e8d-ad4c-73266504ce3e",
+          "name": "ProfileEditor.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/1/d/d/5/9/1dd59f49-b06c-4e8d-ad4c-73266504ce3e.scenario.json",
+          "contentSha": "36a8db1f6eca48b0f5a23785a593cf95b3189bfbb921806b0a21de7d0afe09da"
+        },
+        {
+          "uuid": "3f6de6c1-19dd-4ce3-ab70-7bc9b80594cb",
+          "name": "mvc-boundary-guard.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/3/f/6/d/e/3f6de6c1-19dd-4ce3-ab70-7bc9b80594cb.scenario.json",
+          "contentSha": "da91ef7cc89dc4dc7b1fade94fcac899b2e7c58218a6124c391d060e78913e48"
+        },
+        {
+          "uuid": "485cb231-27ac-4c0b-a64f-2099634979f0",
+          "name": "server.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/4/8/5/c/b/485cb231-27ac-4c0b-a64f-2099634979f0.scenario.json",
+          "contentSha": "04a78450fc4abdd6832368b6c5c13833563316f52954a324283d36a346f00bfe"
+        },
+        {
+          "uuid": "4ade2bec-056b-4b18-a951-37ce92f0a971",
+          "name": "test/fixtures/r325-golive-drop.ts",
+          "ior": "ior:class:Project",
+          "kind": "project",
+          "relPath": "data/model-store/index/4/a/d/e/2/4ade2bec-056b-4b18-a951-37ce92f0a971.scenario.json",
+          "contentSha": "367e8f9c327a59768add1271fa3b9e7b6931611b35ee68e6ea48fed43bf67a4f"
+        },
+        {
+          "uuid": "4ce711e4-0f1b-4fa7-a9f6-bc7856902c8a",
+          "name": "AddressIndex.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/4/c/e/7/1/4ce711e4-0f1b-4fa7-a9f6-bc7856902c8a.scenario.json",
+          "contentSha": "78d1a3990967d0459b342fbae6d018aa5b116961394f4ddfcb22e1711cf72cd6"
+        },
+        {
+          "uuid": "4d25a188-ee01-4416-a37d-5b0f63cc38ca",
+          "name": "selection-model.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/4/d/2/5/a/4d25a188-ee01-4416-a37d-5b0f63cc38ca.scenario.json",
+          "contentSha": "3b596f321f3399afbcac21c550436be053cd85cde46ed71ce738df34162af204"
+        },
+        {
+          "uuid": "5164fe56-9630-44ea-aaf6-65d37d8908c7",
+          "name": "Model diagram (1 classes)",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/5/1/6/4/f/5164fe56-9630-44ea-aaf6-65d37d8908c7.scenario.json",
+          "contentSha": "9fed709478b06d08b22a83c6c7729beab18338a5e96b92a4bdae54d836fbd5aa"
+        },
+        {
+          "uuid": "5447725b-9df4-4b3b-a023-adb73b1cb34c",
+          "name": "feature-manager.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/5/4/4/7/7/5447725b-9df4-4b3b-a023-adb73b1cb34c.scenario.json",
+          "contentSha": "167873c1201ae31cf992f77b4bb920193df105b58e1c297f124e3dc242f6e51e"
+        },
+        {
+          "uuid": "55979a79-cb07-4c03-a35c-81834bf34764",
+          "name": "sprint-29-server-dev-lifecycle-chains.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/5/5/9/7/9/55979a79-cb07-4c03-a35c-81834bf34764.scenario.json",
+          "contentSha": "85801e726e877724e871df03ac473be852ab912427517ff46b152ffee660e3c4"
+        },
+        {
+          "uuid": "5b1e1dac-723d-43e6-873f-4613cf53c88c",
+          "name": "demo",
+          "ior": "ior:class:Folder",
+          "kind": "folder",
+          "relPath": "data/model-store/index/5/b/1/e/1/5b1e1dac-723d-43e6-873f-4613cf53c88c.scenario.json",
+          "contentSha": "9f560aa3053d519984793c9a462c2e39caae7ef154fe10e524d1c9945222a9fb"
+        },
+        {
+          "uuid": "5fbed155-922c-4120-a5b3-e8c523e41ea0",
+          "name": "b9fa43a2-ea98-462d-b181-624ccb26d8ac",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/5/f/b/e/d/5fbed155-922c-4120-a5b3-e8c523e41ea0.scenario.json",
+          "contentSha": "0b61ac5e6b7ccbd474957ba3ceb5d136a4dda2df7614b728588b5c31b66d1088"
+        },
+        {
+          "uuid": "6a4cb10c-ce77-48a1-a51c-53a0486310d1",
+          "name": "avatar-crop-lifecycle.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/6/a/4/c/b/6a4cb10c-ce77-48a1-a51c-53a0486310d1.scenario.json",
+          "contentSha": "6840e135298c907a11122de52f81149550ef35d2cf207eebefb3304ce32dd7f8"
+        },
+        {
+          "uuid": "76e41529-74a9-4806-a056-82fca1156710",
+          "name": "README.md",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/7/6/e/4/1/76e41529-74a9-4806-a056-82fca1156710.scenario.json",
+          "contentSha": "c094d60d02c11b6723f0ae1be27a73e6085216200e149df1d5347d77498e30a2"
+        },
+        {
+          "uuid": "85f2de9d-6dae-4623-a6a1-a1d47dd6b935",
+          "name": "pwa-update-workflow.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/8/5/f/2/d/85f2de9d-6dae-4623-a6a1-a1d47dd6b935.scenario.json",
+          "contentSha": "1a79e514d4910b4fd44b9f395772c1b0df848726200d1f8abd8392ab9c9f981b"
+        },
+        {
+          "uuid": "89aff3f3-1607-4db3-aa41-6060c4ff6de5",
+          "name": "CurrentSprint.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/8/9/a/f/f/89aff3f3-1607-4db3-aa41-6060c4ff6de5.scenario.json",
+          "contentSha": "54c62ec3c70aed34180c2bcdc36d06dc3a9b1220e2b5f40596eab9d79ad42788"
+        },
+        {
+          "uuid": "980c16df-7862-4e4f-a215-4bf13beb859b",
+          "name": "use-case.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/9/8/0/c/1/980c16df-7862-4e4f-a215-4bf13beb859b.scenario.json",
+          "contentSha": "d3467eb91699ea63b9b5ac514ea576a171a74b70251e88d82b317ef62d58e933"
+        },
+        {
+          "uuid": "a50e475a-b89d-4f3b-aa63-dd7734491754",
+          "name": "chain-model.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/a/5/0/e/4/a50e475a-b89d-4f3b-aa63-dd7734491754.scenario.json",
+          "contentSha": "1d2f2bde31c1bb660782da5401b1fe3dff6e28a88029b3ea8811ce62084b6c05"
+        },
+        {
+          "uuid": "a51fca2f-cac3-4764-a01f-947c0c50d185",
+          "name": "detail-fields.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/a/5/1/f/c/a51fca2f-cac3-4764-a01f-947c0c50d185.scenario.json",
+          "contentSha": "5a07b936e368b75d8b5e0baf41effdce3b80ae339331d07bccdd1155dcc0c503"
+        },
+        {
+          "uuid": "aac5e5de-857e-4675-a927-6812eae5e5ae",
+          "name": "trash",
+          "ior": "ior:class:Folder",
+          "kind": "folder",
+          "relPath": "data/model-store/index/a/a/c/5/e/aac5e5de-857e-4675-a927-6812eae5e5ae.scenario.json",
+          "contentSha": "f581bcaa9c5db168ee80497bc8d1f2bd59f3398a96c785108f3792bf0e289715"
+        },
+        {
+          "uuid": "aacff39c-fd48-401e-ac08-f28fcf0b3d4a",
+          "name": "FeatureManager.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/a/a/c/f/f/aacff39c-fd48-401e-ac08-f28fcf0b3d4a.scenario.json",
+          "contentSha": "f83c7298addb4bb592ba665adffa481b9f1907edb6d64775eece93e4b5adab7e"
+        },
+        {
+          "uuid": "ac1c2f47-4980-4ea6-a298-f51cd652613f",
+          "name": "d5d8989f-7cf3-40a2-bbd9-19b409b5a9c2",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/a/c/1/c/2/ac1c2f47-4980-4ea6-a298-f51cd652613f.scenario.json",
+          "contentSha": "c2ca4b2f8586828248d44a3bbd8547316a7721e8070466b69dfd11559966ffea"
+        },
+        {
+          "uuid": "ae9bfa66-c9a7-42d3-a134-2e22a4ec5bf4",
+          "name": "",
+          "ior": "ior:class:UmlTraceRelationship",
+          "kind": "",
+          "relPath": "data/model-store/index/a/e/9/b/f/ae9bfa66-c9a7-42d3-a134-2e22a4ec5bf4.scenario.json",
+          "contentSha": "d4dae4982ed50500b29c2e52756290183b2b240b4e16d1b1b3fb1d53e04da5fa"
+        },
+        {
+          "uuid": "b48ad831-a0a6-4e81-a407-36a405753849",
+          "name": "2746ab4a-55d5-4bae-83dc-b38c6968515e",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/b/4/8/a/d/b48ad831-a0a6-4e81-a407-36a405753849.scenario.json",
+          "contentSha": "42e9e800e3c04d546e605aced43b690a8664a41ecfd3b2df49a59c25226c6fbc"
+        },
+        {
+          "uuid": "b7f284d5-9845-4576-acbe-cd348f827014",
+          "name": "Profile diagram",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/b/7/f/2/8/b7f284d5-9845-4576-acbe-cd348f827014.scenario.json",
+          "contentSha": "d6903edeaa9cde461cf16799535ddcd2c81626ef598ba4ac3126a665d5a83361"
+        },
+        {
+          "uuid": "bf97ffdb-1e12-4b26-a192-832f6849c07a",
+          "name": "63462717-1771-4775-aeda-d9947d7bcbd2",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/b/f/9/7/f/bf97ffdb-1e12-4b26-a192-832f6849c07a.scenario.json",
+          "contentSha": "bbce4bcab3af15202989eb53231c098a8fe3fb382d43797ab7211b8a6aa79950"
+        },
+        {
+          "uuid": "c289ad51-0dbd-4a8b-a1c4-4095f5834f7b",
+          "name": "",
+          "ior": "ior:class:UmlTraceRelationship",
+          "kind": "",
+          "relPath": "data/model-store/index/c/2/8/9/a/c289ad51-0dbd-4a8b-a1c4-4095f5834f7b.scenario.json",
+          "contentSha": "1467665788ed32e098d4d042deeacbcddd674983ccc5c8211e19ccf7792558b2"
+        },
+        {
+          "uuid": "c5275945-435f-4ca4-a055-bca79ff4179b",
+          "name": "r20-4-bug-changerequest-chain.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/c/5/2/7/5/c5275945-435f-4ca4-a055-bca79ff4179b.scenario.json",
+          "contentSha": "2983b7c48895b61a1666f94241ff3b538710036554a3a901e454b5becb2435fe"
+        },
+        {
+          "uuid": "cc480c68-b627-4c2e-a4d8-31debc31de38",
+          "name": "package.json",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/c/c/4/8/0/cc480c68-b627-4c2e-a4d8-31debc31de38.scenario.json",
+          "contentSha": "9ddba3d074bda01243fcbce4586182925122c0c0a5ab0ca55ada895eb0393333"
+        },
+        {
+          "uuid": "d411e93a-2a03-40ab-a5c5-3a9116bd66d1",
+          "name": "RawBin",
+          "ior": "ior:class:Project",
+          "kind": "project",
+          "relPath": "data/model-store/index/d/4/1/1/e/d411e93a-2a03-40ab-a5c5-3a9116bd66d1.scenario.json",
+          "contentSha": "8d892436fedb09d312514f66c1d451b255d3421de4d937d027d81592bf4392b1"
+        },
+        {
+          "uuid": "d4e3d709-051b-4cec-9c30-71cf669290d8",
+          "name": "Model diagram",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/d/4/e/3/d/d4e3d709-051b-4cec-9c30-71cf669290d8.scenario.json",
+          "contentSha": "e3c214e84d032f4b9988eddcff542a4fcf2e5d9e5330026813679529a2fd822d"
+        },
+        {
+          "uuid": "e9e5f347-2e9f-4d9d-a4b0-48e6aec8a8b8",
+          "name": "object-verb-usecases.puml",
+          "ior": "ior:class:PumlArtifact",
+          "kind": "puml",
+          "relPath": "data/model-store/index/e/9/e/5/f/e9e5f347-2e9f-4d9d-a4b0-48e6aec8a8b8.scenario.json",
+          "contentSha": "78896b61fb173e134e718c5c8c9edd487b0fb9635df3178ae9cd86bace6d888d"
+        },
+        {
+          "uuid": "f8d8986a-a360-4c49-b181-a08a623ea423",
+          "name": "another diagram",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/f/8/d/8/9/f8d8986a-a360-4c49-b181-a08a623ea423.scenario.json",
+          "contentSha": "3a6724ea87b99d810d71635c81a0cb2afabe932ca236dddbd350fba1eeb6f56d"
+        },
+        {
+          "uuid": "faa4acad-41a6-48fc-ad0d-dd0044c123f7",
+          "name": "Model diagram (3 classes)",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/f/a/a/4/a/faa4acad-41a6-48fc-ad0d-dd0044c123f7.scenario.json",
+          "contentSha": "4d1335aa3d2879f8a7bce36c36c2492b856b9d67b54655ddfc259e2f5cb51ba1"
+        },
+        {
+          "uuid": "fafd37ae-bc51-4acf-aa30-598bae7097b7",
+          "name": "test/fixtures/r32.2-sample.ts",
+          "ior": "ior:class:Project",
+          "kind": "project",
+          "relPath": "data/model-store/index/f/a/f/d/3/fafd37ae-bc51-4acf-aa30-598bae7097b7.scenario.json",
+          "contentSha": "0ee20eca9012dfe62f4e4c891511e1332248b2e307b6a4377af611c95b0900a3"
+        },
+        {
+          "uuid": "fbe6d717-7738-4b57-8600-b5794eb0efd1",
+          "name": "Task State",
+          "ior": "ior:class:Diagram",
+          "kind": "",
+          "relPath": "data/model-store/index/f/b/e/6/d/fbe6d717-7738-4b57-8600-b5794eb0efd1.scenario.json",
+          "contentSha": "f7b931ab8629278d7270fba2f345e396b77956459a32a5ab1f724e935012b1dc"
+        },
+        {
+          "uuid": "fc787f6b-8ccf-4e37-a13b-f7c59e38576d",
+          "name": "index.ts",
+          "ior": "ior:class:File",
+          "kind": "file",
+          "relPath": "data/model-store/index/f/c/7/8/7/fc787f6b-8ccf-4e37-a13b-f7c59e38576d.scenario.json",
+          "contentSha": "490155c7676752804b088d22b9a9224926215bfc2bc9335bd85f185667cc39d7"
+        }
+      ]
+    }
   },
   "modelStoreOnlyUnits": [
     {

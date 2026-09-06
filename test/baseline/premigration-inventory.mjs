@@ -5,6 +5,7 @@
 // Output: a committed JSON artifact (test/baseline/premigration-inventory.json) — the before-picture 'no regression' is judged against.
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 const ROOT = '/var/dev/Workspaces/web4x/Web4RawBin';
 const STORES = {
@@ -27,7 +28,7 @@ function scan(dir) {
         const j = JSON.parse(fs.readFileSync(p, 'utf8'));
         const u = j?.model?.uuid;
         if (!u) { noUuid++; continue; }
-        if (!byUuid.has(u)) byUuid.set(u, { uuid: u, name: String(j?.model?.name || ''), ior: String(j?.ior || ''), kind: String(j?.model?.kind || '') });
+        if (!byUuid.has(u)) byUuid.set(u, { uuid: u, name: String(j?.model?.name || ''), ior: String(j?.ior || ''), kind: String(j?.model?.kind || ''), file: p });
       } catch { parseErr++; }
     }
   };
@@ -43,6 +44,21 @@ const both = [...msU].filter((u) => siU.has(u));
 const modelStoreOnly = [...msU].filter((u) => !siU.has(u));      // ★ DATA-LOSS RISK
 const scenarioIndexOnly = [...siU].filter((u) => !msU.has(u));
 
+// ── RISK SPLIT (PO): (A) GENERATED/re-derivable by TsToModel from source — low risk; (B) AUTHORED/irreplaceable — total risk.
+// class A = model elements TsToModel regenerates; class B = everything else in MODEL_STORE-only (authored artefacts).
+const GENERATED_KINDS = new Set(['attribute', 'method', 'function', 'interface', 'class', 'type', 'property']);
+const isGenerated = (unit) => GENERATED_KINDS.has(unit.kind);
+const relOf = (p) => (p || '').replace(ROOT + '/', '');
+const sha256File = (p) => { try { return crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex'); } catch { return null; } };
+
+const moUnits = modelStoreOnly.map((u) => ms.byUuid.get(u));
+const generated = moUnits.filter(isGenerated);                                   // (A) 628 expected
+const authored = moUnits.filter((u) => !isGenerated(u))                          // (B) 41 expected — the REAL data-loss surface
+  .map((u) => ({ uuid: u.uuid, name: u.name, ior: u.ior, kind: u.kind, relPath: relOf(u.file), contentSha: sha256File(u.file) }))
+  .sort((a, b) => a.uuid.localeCompare(b.uuid));
+const genByKind = {}; for (const u of generated) genByKind[u.kind || u.ior] = (genByKind[u.kind || u.ior] || 0) + 1;
+const authByKind = {}; for (const u of authored) authByKind[u.kind || u.ior] = (authByKind[u.kind || u.ior] || 0) + 1;
+
 const artifact = {
   capturedAt: process.env.CAPTURED_AT || 'unstamped',
   servedVersion: process.env.SERVED_VERSION || 'unknown',
@@ -56,7 +72,14 @@ const artifact = {
     modelStoreOnly: modelStoreOnly.length,       // MUST all land in scenario/index post-migration
     scenarioIndexOnly: scenarioIndexOnly.length,
   },
-  modelStoreOnlyUnits: modelStoreOnly.map((u) => ms.byUuid.get(u)).sort((a, b) => a.uuid.localeCompare(b.uuid)),
+  // reconcile architect 784 vs my 669: 784 raw entries = 702 real files + 82 symlinks (symlinks share their target's uuid →
+  // deduped); 702 unique uuids − 33 that ALSO live in scenario/index (in-both) = 669 MODEL_STORE-only. 82 + 33 = 115 = 784 − 669.
+  reconciliation: { architectRawEntries: 784, modelStoreRealFiles: ms.realFiles, modelStoreSymlinks: ms.symlinks, modelStoreUniqueUuids: msU.size, inBothStores: both.length, modelStoreOnly: modelStoreOnly.length, note: '784 raw = 702 real + 82 symlinks (deduped by uuid); 702 unique − 33 in-both = 669 model-store-only; gap 115 = 82 symlinks + 33 in-both' },
+  riskSplit: {
+    generatedRederivable: { count: generated.length, byKind: genByKind, note: 'TsToModel regenerates these from source — present-or-regenerable suffices post-migration' },
+    authoredIrreplaceable: { count: authored.length, byKind: authByKind, note: 'NOT re-derivable — each MUST be present by uuid AND content-intact (contentSha equal) post-migration; total-loss risk', units: authored },
+  },
+  modelStoreOnlyUnits: moUnits.map((u) => ({ uuid: u.uuid, name: u.name, ior: u.ior, kind: u.kind })).sort((a, b) => a.uuid.localeCompare(b.uuid)),
 };
 
 fs.writeFileSync(path.join(ROOT, 'test/baseline/premigration-inventory.json'), JSON.stringify(artifact, null, 2) + '\n');
@@ -67,9 +90,8 @@ console.log(`  data/model-store/index (ELIMINATED): ${msU.size} unique uuids (${
 console.log(`  in BOTH stores                 : ${both.length}`);
 console.log(`  ★ ONLY in MODEL_STORE (data-loss risk): ${modelStoreOnly.length}  ← every one MUST exist in scenario/index after migration`);
 console.log(`  only in scenario/index         : ${scenarioIndexOnly.length}`);
-if (modelStoreOnly.length) {
-  const byKind = {};
-  for (const u of modelStoreOnly) { const k = ms.byUuid.get(u).kind || ms.byUuid.get(u).ior || '?'; byKind[k] = (byKind[k] || 0) + 1; }
-  console.log(`  MODEL_STORE-only by kind/ior   : ${JSON.stringify(byKind)}`);
-}
-console.log('  → artifact: test/baseline/premigration-inventory.json');
+console.log(`  reconcile architect 784 vs mine 669: 702 real + 82 symlinks = 784; 702 unique − 33 in-both = 669 (gap 115 = 82 symlinks + 33 in-both)`);
+console.log(`  ── RISK SPLIT of the 669 ──`);
+console.log(`  (A) GENERATED/re-derivable (TsToModel): ${generated.length}  ${JSON.stringify(genByKind)}  [LOW risk — regenerate recreates]`);
+console.log(`  (B) AUTHORED/IRREPLACEABLE            : ${authored.length}  ${JSON.stringify(authByKind)}  [TOTAL risk — must be present by uuid + contentSha intact]`);
+console.log('  → artifact: test/baseline/premigration-inventory.json (all 669 by uuid; the ' + authored.length + ' authored carry relPath+contentSha)');
