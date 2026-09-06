@@ -61,3 +61,41 @@ Tron: *"we had urls as webItems, images, eml, ical and vcard. so webitem, image,
 No duplicate Class units among the five (a duplicate would be a traceability DEFECT under the DRY law — none here). Existing units (WebItem/Email/Contact-née-VCard) are REUSED + traceability-completed, NEVER re-created. Only Image + CalendarEntry are minted (req, scenario-first). The code domain classes do not yet exist for ANY of the five (only views/stores/handlers) — expert builds them under the natural-class model; each gets its full chain (UC → Class → isBinary/parser/load/saveAsScenarioUnit Methods → Impls → Test).
 
 **Layering (final):** `DndContract.resolveDragUnit` (T37.20) → `MimeType.from(contentType)` (owns the header parse) → resolves to the natural DOMAIN class (WebItem/Image/Email/Contact/CalendarEntry) → `.saveAsScenarioUnit()`. MultipartMime is the transport unwrap that precedes it (owns boundary). Three distinct responsibilities, no fork: transport-shape (Multipart) → content-type parse (MimeType.from) → domain concept (the natural class).
+
+## ★★ REVISION 2 — REST: unit JSON is the ONLY thing transferred (Tron ruling 2026-09-06)
+Tron VERBATIM: *"transport IS the scenario. json… NOTHING ELSE"* / *"scenario unit json IS THE MODEL AND THE ONLY THING TRANSFERRED IN REST AND ANY OTHER TRANSPORT"* / *"THINK WHAT REST MEANS."* REST = REpresentational State Transfer: what moves is the REPRESENTATION OF STATE, and here that representation IS the scenario unit JSON. **Every transfer carries unit JSON and NOTHING ELSE.**
+
+**OVERRULED — DELETE `MultipartMime` (and the whole transport layer).** There is NO transport layer. Transport IS the scenario. The boundary bug could exist AT ALL only because we invented a NON-REST transport (multipart/form-data + a hand-rolled boundary parser) instead of transferring the unit. With unit-JSON-only there is no boundary, no multipart, no per-mimetype transport branching, no hand-rolled parser — **the entire defect class is unconstructable.** The buffer-native body parse (b42f22931) is now MOOT for the domain (nothing to parse); the boundary-only outage fix remains ONLY as a TOURNIQUET on the existing upload route until this model DELETES that route.
+
+**Revised layering (no transport owner):**
+`DndContract.resolveDragUnit` → `MimeType.from(type)` resolves WHICH natural class (image/*→Image, message/rfc822→Email, text/vcard→Contact, text/calendar→CalendarEntry, url→WebItem) → the natural class **loads and saves ITSELF as a unit** → the UNIT JSON is transferred (the ONLY thing on the wire). MimeType is a pure RESOLVER (which class), never a parser-owner.
+
+### class AND interface (Tron)
+```ts
+interface UnitConvertible {              // every natural class implements it
+  isBinary(): boolean;                   // owned by the class, never guessed at a call site
+  load(raw: Buffer | string): void;      // become itself from dropped bytes/text
+  toUnit(): ScenarioUnit;                // its representation AS a scenario unit (the wire + the model)
+  static fromUnit(u: ScenarioUnit): UnitConvertible;  // reconstruct itself from the unit
+}
+```
+`WebItem`, `Image`, `Email`, `Contact`, `CalendarEntry` implement `UnitConvertible`. The unit JSON is the model AND the wire format — one representation, no second shape.
+
+### Binary content WITHIN the unit representation (the crux of replacing the upload POST) — grounded in file-unit.ts
+The store ALREADY separates a unit from its bytes: `<uuid>.scenario.json` + `<uuid>.content` sidecar + sha256 content-hash DEDUP (content-index symlink) + unitLinks (file-unit.ts createFileUnit / readFileUnitContent). Use it as the TWO forms of the one representation:
+- **TRANSFER form (REST wire):** the unit JSON carries its content INLINE as **base64** (self-contained — the wire is pure unit JSON, per Tron: nothing else moves).
+- **AT-REST form (store):** the unit JSON carries a **content-ref** (contentPath) + the `.content` sidecar + hash dedup (the EXISTING mechanism — no new machinery).
+- The natural class OWNS the conversion: `toUnit()` materializes `.content`→base64-inline for the wire; `fromUnit()` decodes base64→`createFileUnit` (writes `.content`, stores the ref, hash-dedups). Storage stays efficient (deduped sidecar); the wire stays pure unit JSON; the object owns both directions.
+
+**Replacing the upload POST:** the client builds the natural-class object from the dropped File → `toUnit()` (base64 content inline) → transfers that UNIT JSON via the standard unit-transfer REST path (idempotent PUT by uuid), NOT a multipart POST. No boundary, no multipart, no parser. Hash-dedup + uuid-idempotence make a re-send a no-op.
+
+## ★ SELF-HEAL BY CONSTRUCTION (Tron KILLED the functional 419 handshake — supersedes a85ea536a)
+Tron: *"you completely screwed it functional. we will reevaluate it oop… then it CANNOT NOT self heal."* **Do NOT ship the functional handshake (409/419 + client dance).** Self-heal must EMERGE from the OOP model: an object that OWNS its own state reconciles itself.
+- The natural-class object owns its state (its unit + content). `persist()` = an **idempotent PUT of its own representation by uuid**. On any failure it simply re-PUTs its owned representation (bounded).
+- Because transport is **unit-JSON-only** there is NO streamed multipart body to strip (the SW-strip failure mode DOES NOT EXIST), and because the PUT is **idempotent by uuid + hash-deduped**, a re-send is a no-op / same result — there is no partial/stripped state to reconcile.
+- ⇒ Self-heal is not a handshake, it is a PROPERTY: an object owning its state + an idempotent unit-JSON transfer **cannot not self-heal** — reconciliation is the object re-sending itself. `design-upload-stranded-sw-selfheal.md` (a85ea536a) is SUPERSEDED.
+
+## PRIORITIES (Tron) + requirement split for req (QUEUED — do not interrupt working agents)
+- **PRIO 1: Slice-1 OOP (Node owns children-rendering) + R40.81 one-store.** R40.81 = the unit is the single canonical representation (one store); the unit-JSON-only wire is the same law (one representation, model==wire). Pull R40.81's convergence to prio 1.
+- **PRIO 2: remaining slices — Folder / Room / File / Unit.** File/Unit are where `UnitConvertible` + binary-in-unit land; the natural classes (WebItem/Image/Email/Contact/CalendarEntry) build on File/Unit.
+- **req requirement split (queued for lift):** (a) REST-unit-JSON transport — replace the upload POST with idempotent unit-JSON PUT; DELETE multipart/boundary route (defect class unconstructable). (b) binary-in-unit representation — base64-on-wire / content-ref+hash-dedup at rest; natural class owns toUnit/fromUnit. (c) natural classes + UnitConvertible interface — reuse WebItem 7c486fcb/Email 3bb26ebe, rename VCard→Contact bf440a63, mint Image+CalendarEntry. (d) self-heal-by-construction — idempotent-PUT-by-uuid; RETIRE the functional handshake req/ACs. (e) Slice-1 Node + R40.81 (prio 1); Folder/Room/File/Unit (prio 2). Scenario-first; I wire chains on build-go.
