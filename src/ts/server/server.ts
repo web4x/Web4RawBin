@@ -1480,9 +1480,16 @@ function roomFilesChildren(rmodel: Record<string, unknown>, rcRoom: string, nrel
 // location-less as R40.85 shipped; the "root carries a location" refinement is deferred until the prod-log cause is measured).
 function resolveDropContainer(containerRef: string, roomId: string, idx: ScenarioIndex): { parentIor: string | null; folderLocation: string | null; publishRef: string } {
   const rootRef = `roomcoll:${roomId}:files`;
-  if (containerRef) {
+  // T37.20 MOVE-FIX (Tron: a file won't move into a folder): the tree emits a folder node's ref as `<type>:<uuid>` —
+  // `folder:roomcoll:<id>:files[/nested]` (room) or `folder:<uuid>` (model) — so a drop/move TARGET arrives display-type-
+  // PREFIXED, and the branches below (uuid / roomcoll-location) never matched → it fell through to root → nothing moved.
+  // Peel the leading folder:/collection: DISPLAY prefix HERE, once: the ONE resolver OWNS the item-ref spelling (the same
+  // shape universal-actions normalizes) — NOT a strip-hack at a call site, NOT a new format. A real scheme (roomcoll:/
+  // ior:instance:/bare-uuid) has no such prefix → untouched.
+  const cref = String(containerRef || '').replace(/^(folder|collection):/, '');
+  if (cref) {
     // (a) a UUID / ior:instance ref → the Folder unit directly.
-    const uuid = containerRef.replace(/^ior:instance:/, '').split('@')[0];
+    const uuid = cref.replace(/^ior:instance:/, '').split('@')[0];
     const pu = /^[0-9a-fA-F-]{16,40}$/.test(uuid) ? idx.get(uuid) : null;
     const pm = (pu?.model || null) as Record<string, unknown> | null;
     if (pu && pu.ior === 'ior:class:Folder' && pm && String(pm.location || '').startsWith(rootRef)) {
@@ -1491,10 +1498,10 @@ function resolveDropContainer(containerRef: string, roomId: string, idx: Scenari
     // (b) T37.20 .4 FIX: the room folder TREE NODE ref is a roomcoll LOCATION ref (server.ts:1466 emits uuid:location, node ref = location),
     // NOT a uuid — so a NATIVE file dropped on a folder used to fall through to root (location=''). Resolve the room's Folder unit AT that
     // location via the ONE roomFolderByLocation (same identity the move-unit re-parent + the listing use → ONE destination resolver, no fork).
-    if (containerRef.startsWith(rootRef + '/')) {
+    if (cref.startsWith(rootRef + '/')) {
       const rUnit = idx.get(roomId);
-      const folder = rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, containerRef, idx) : null;
-      if (folder) { const fu = String((folder.model as Record<string, unknown>).uuid); return { parentIor: `ior:instance:${fu}`, folderLocation: containerRef, publishRef: containerRef }; }
+      const folder = rUnit ? roomFolderByLocation(rUnit.model as Record<string, unknown>, cref, idx) : null;
+      if (folder) { const fu = String((folder.model as Record<string, unknown>).uuid); return { parentIor: `ior:instance:${fu}`, folderLocation: cref, publishRef: cref }; }
     }
   }
   return { parentIor: null, folderLocation: null, publishRef: rootRef }; // room-root = the default container (absent/unresolvable ref → fail-safe to root, never a 500)
