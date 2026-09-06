@@ -30,7 +30,7 @@
       ]
     },
     "designRef": "architect WebItem design commit 9ae3ac6f5 (WebItem - unified URL/bookmark scenario unit); expert v0.6.87 commit 018398f17 (accept ALL URI schemes on drop + scheme launcher preview)",
-    "implStatus": "QA-Review (T25.2 GREEN cfdda46e6, 2026-06-30): 6/8 ACs verified GREEN \u2014 AC-model, AC-drop, AC-preview, AC-open, AC-import-url(.url), AC-import-webloc(.webloc). DEFERRED as coherent backlog (NOT a partial-failure): AC-folders (parentFolder/children) + AC-import-bookmarks (Google bookmarks HTML). PO chose per-AC marking on the unified task (no R25.2.A-E split). Revisit if folders/bookmarks get their own sprint. Per-AC completion lives on task T25.2 (single source).",
+    "implStatus": "QA-Review (T25.2 GREEN cfdda46e6, 2026-06-30): 6/8 ACs verified GREEN — AC-model, AC-drop, AC-preview, AC-open, AC-import-url(.url), AC-import-webloc(.webloc). DEFERRED as coherent backlog (NOT a partial-failure): AC-folders (parentFolder/children) + AC-import-bookmarks (Google bookmarks HTML). PO chose per-AC marking on the unified task (no R25.2.A-E split). Revisit if folders/bookmarks get their own sprint. Per-AC completion lives on task T25.2 (single source).",
     "crossRef": [
       "ior:instance:649e9f4c-5e19-4a68-aa80-3378b1e1a9cc",
       "ior:instance:8f34c3e5-351c-48b3-8f33-fae45ca279b2"
@@ -82,7 +82,8 @@
     "deferredAcceptanceCriteria": [
       "AC-folders",
       "AC-import-bookmarks"
-    ]
+    ],
+    "oopFramingRef": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5 — radical-OOP MVC ruling (Tron 2026-09-06): this class OWNS data+behaviour and RENDERS ITSELF (mvc-in-object); a mime/format-switch handler is the defect; DoD = the class instantiated + rendering itself, bytes-stored=FAIL. Lives UNDER R37.20 as its mechanism."
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
 }

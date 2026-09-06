@@ -57,7 +57,8 @@
         "group": "fallthrough",
         "text": "If neither key is known, onboarding proceeds normally with 'Authorize This Device' (new profile)."
       }
-    ]
+    ],
+    "oopFramingRef": "ior:instance:92a5d0d4-0e4a-4a0c-bd4b-6e97b9717fa5 — radical-OOP MVC ruling (Tron 2026-09-06): this class OWNS data+behaviour and RENDERS ITSELF (mvc-in-object); a mime/format-switch handler is the defect; DoD = the class instantiated + rendering itself, bytes-stored=FAIL. Lives UNDER R37.20 as its mechanism."
   },
   "ownerIor": "ior:instance:c7d700c6-eaf6-4ba7-9d14-bfa8700a101d"
 }

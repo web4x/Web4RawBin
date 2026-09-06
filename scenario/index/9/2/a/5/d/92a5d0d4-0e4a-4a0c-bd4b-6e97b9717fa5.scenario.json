@@ -28,7 +28,10 @@
       "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
       "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
       "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
-      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a"
+      "ior:instance:eb7b086d-dee4-4a7a-ba97-a83ad372836a",
+      "ior:instance:f8097d7c-07f7-4ef5-90fc-7512b57c1bc2",
+      "ior:instance:a8be009e-8d1c-41ae-8f38-96515a72a929",
+      "ior:instance:d0acb05d-982f-418b-a0d4-667d13435371"
     ],
     "acceptanceCriteria": [
       {
@@ -96,6 +99,50 @@
           "assertion": "two Class units for the same natural concept => RED"
         },
         "stubMustFail": "PENDING: build not started; no RED observed (satisfaction UNVERIFIED per R40.54)"
+      },
+      {
+        "id": "AC-class-owns-mvc-renders-itself",
+        "group": "radical-oop/mvc",
+        "text": "Each natural class (WebItem/Email/Contact/Image/CalendarEntry) is a CLASS that OWNS its data AND behaviour = model+view+controller IN the object: it LOADS itself, STORES itself, and RENDERS ITSELF. There is no shape/handler outside it that renders it (shapes exist only in diagrams).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "the object renders itself",
+          "assertion": "the natural class instance renders its own detail/view; an external renderer for the type => RED"
+        },
+        "stubMustFail": "PENDING: build unbuilt; RED stub on build (a mime/format switch OR bytes-stored-without-class-render -> RED)"
+      },
+      {
+        "id": "AC-no-mime-format-switch-handler",
+        "group": "radical-oop/no-switch",
+        "text": "A handler/function that SWITCHES on a mime/format string to decide behaviour IS THE DEFECT (not an implementation detail). Behaviour is dispatched by asking the OBJECT (MimeType.from -> the natural class), never a switch on the format string.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "no mime/format switch",
+          "assertion": "a switch/if-chain on a mime/format string that selects behaviour => RED; dispatch resolves to the class"
+        },
+        "stubMustFail": "PENDING: build unbuilt; RED stub on build (a mime/format switch OR bytes-stored-without-class-render -> RED)"
+      },
+      {
+        "id": "AC-dod-class-renders-itself-bytes-stored-fails",
+        "group": "radical-oop/dod",
+        "text": "DEFINITION OF DONE for each: the RIGHT CLASS is instantiated AND rendering itself. \"bytes stored\" (a payload persisted without the natural class instantiated + rendering itself) is a FAIL, not partial progress.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "DoD = class instantiated + renders",
+          "assertion": "done requires the natural class instance rendering itself; bytes-stored-only => FAIL/RED"
+        },
+        "stubMustFail": "PENDING: build unbuilt; RED stub on build (a mime/format switch OR bytes-stored-without-class-render -> RED)"
+      },
+      {
+        "id": "AC-layering-dndcontract-to-natural-class",
+        "group": "radical-oop/layering",
+        "text": "The dispatch LAYERS: DndContract -> MultipartMime -> MimeType.from -> natural class. Each layer hands to the next; the natural class is the terminus that owns load/store/render. No layer switches on format to render.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "layering DndContract->...->natural class",
+          "assertion": "the path DndContract->MultipartMime->MimeType.from->natural-class holds; a render decided before the natural class => RED"
+        },
+        "stubMustFail": "PENDING: build unbuilt; RED stub on build (a mime/format switch OR bytes-stored-without-class-render -> RED)"
       }
     ],
     "blastRadius": {
@@ -114,7 +161,9 @@
     },
     "extendsRequirement": "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57",
     "reconcileNote": "RE-HOMED under T37.20/R37.20 (03e0f803) per PO 2026-09-06: R37.20 is the CANONICAL home for the one-transport-contract law (DnD buffer carries the ACTUAL scenario unit, ONE shared serializer+resolver, no per-target format). The CORE transport-is-the-unit law is OWNED by R37.20 AC-A2/AC-shared-contract - this requirement does NOT restate it; it EXTENDS the contract to the CLASS-OWNERSHIP surface of the shared serializer/resolver (UnitConvertible {isBinary/load/toUnit/fromUnit}; refines R37.20 AC-shared-contract from one-shared-fn to owned-by-the-class). Attach as CHILD/extension, not sibling. Was minted beside R37.20 (check-before-create miss, PO-owned).",
-    "mechanismOfR37_20": "R37.20 mimetype-oop-class-first mechanism (Tron: all dnd processing flows through the mimetype OOP class-first contract)."
+    "mechanismOfR37_20": "R37.20 mimetype-oop-class-first mechanism (Tron: all dnd processing flows through the mimetype OOP class-first contract).",
+    "tronQuote": "> Tron 2026-09-06 verbatim: \"there is no fucking shapes... only in diagrams... all other are scenario-units as models in class instances which are mvc objects\".",
+    "blastRadiusOrder": "CONTACT rename (VCard->Contact, uuid-STABLE bf440a63) requires the literal-VCARD blast-radius FIRST (see blastRadius field): rename class-identity, KEEP format-lens; a class-by-name resolution must be re-pointed/flagged BEFORE the display flip."
   },
   "ownerIor": "ior:instance:8e8b32d6-22bf-46f7-bf5c-7da31ef41e19"
 }
