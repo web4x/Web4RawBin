@@ -39,7 +39,7 @@
 | S37 | 25772198 | Planned | build | Task 37.28.2: derived-slot (NEXT/CURRENT) freshness guard —  |
 | S37 | 2af98c11 | Planned | build | Task 37.28.4: req-satisfaction freshness guard — DERIVE sati |
 | S37 | 33b28f6b | Planned | build | Task 37.35: AXIS-2 lint — task<->req AC PARITY (task-md AC s |
-| S37 | 369b8636 | Planned | marker | Task 37.20.4: ONE shared serializer + resolver, EVERY drop t |
+| S37 | 369b8636 | In Progress | marker | Task 37.20.4: ONE shared serializer + resolver, EVERY drop t |
 | S37 | 4c083193 | Planned | marker | Task 37.20.5: BITE asserts the contract PER TARGET + stub-mu |
 | S37 | 53571e22 | Planned | marker | Task 37.20.6: DEVICE @390 — Tron verifies on phone: file dra |
 | S37 | 56f7808a | Planned | marker | Task 37.18: A gate resolves an artifact the SAME WAY |
