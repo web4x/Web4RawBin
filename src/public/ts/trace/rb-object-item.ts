@@ -30,6 +30,7 @@ import { navigate } from './nav.js';
 import { TRACE_ICONS } from './icons.js';
 import { selectionModel } from './selection-model.js';
 import { dropDispatcher } from '../drop-dispatcher.js'; // T26.2: application/rb-federated-ref builder
+import { DndContract } from '../dnd-contract.js'; // T37.20.2/.4: THE ONE drag serializer (unit ref under application/rb-unit + bare-ref text/plain; NO #*.show URL)
 
 export class RbObjectItem extends HTMLElement {
   static get observedAttributes() { return ['ref', 'type', 'title', 'status', 'name', 'description', 'child-count', 'assignee', 'verdict']; }
@@ -153,13 +154,14 @@ export class RbObjectItem extends HTMLElement {
     if (!dt) return;
     const selected = selectionModel.getSelected();
     const refs = selected.length > 0 && selected.includes(ref) ? selected : [ref];
-    const hash = `#${type}.show?uuid=${uuid}`;
+    // T37.20.2/.4 (AC-A1 + AC-A2): a FILE (any unit) drags as its scenario UNIT ref via THE ONE serializer — writes
+    // application/rb-unit + a bare-ref text/plain fallback. The #type.show?uuid= URL serialize (+ text/uri-list /app#hash
+    // + application/rb-object-ref) is DELETED (radical-OOP: duplicates removed, not shimmed) — dragging src/…/X.ts now
+    // yields the File unit, never #collection.show?uuid=file:… . Every drop target reads it via DndContract.resolveDragUnit.
+    DndContract.serializeDragUnit(dt, refs);
     const origin = (typeof location !== 'undefined' && location.origin) ? location.origin : '';
-    dt.setData('text/plain', refs.length > 1 ? refs.join('\n') : hash);
-    dt.setData('text/uri-list', `${origin}/app${hash}`);
-    dt.setData('application/rb-object-ref', refs.join(','));
-    // T26.2: cross-origin federated reference for the PRIMARY unit — receiver's server imports from fetchUrl.
-    // originHost = this server's canonical origin; text/uri-list above stays the human/browser fallback.
+    // T26.2: cross-origin federated reference for the PRIMARY unit (a UNIT ref, not a URL) — receiver's server imports from
+    // fetchUrl. Design R37.20: federated-ref STAYS, only for genuine cross-origin; serializeDragUnit owns the canonical slots.
     if (origin) dt.setData('application/rb-federated-ref', dropDispatcher.buildFederatedRef({ uuid, type, name: this.getAttribute('name') || uuid, originHost: origin }));
     dt.effectAllowed = 'copyLink';
     if (dt.setDragImage) dt.setDragImage(this, 20, 20);
