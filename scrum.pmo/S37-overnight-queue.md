@@ -14,6 +14,7 @@
 | A7 | **T37.28.3** deploy-instruction freshness guard | DEPLOY-STATE.md can't claim something is deployed that isn't — derived from branch reality | expert |
 | A8 | **T37.28.4** req-satisfaction freshness guard | A requirement can't read "satisfied" unless a real covering task proves it | expert |
 | A9 | **T37.28.5** guard-coverage freshness guard | "Covered" means the guard is actually in ci — never a hand-asserted flag | expert |
+| A10 | **T37.41** `cb015b3d` harness-harden tree-node drop (machine-verify drag-onto-tree w/ synthetic unit-ref DataTransfer) | The folder-drop is machine-verified end-to-end → **removes the T37.20.4 caveat**, Tron just accepts. Tester takes AFTER A2. (customer-not-tester: machine-verify what CAN be) | tester |
 
 ## TIER-B — MEDIUM (a bounded build behind an existing seam)
 | # | Task | DoD | Owner |
