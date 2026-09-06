@@ -21,7 +21,7 @@
       "date": "2026-09-06"
     },
     "failableACFamily": "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc",
-    "queuePriority": "PRIO-3",
+    "queuePriority": "PRIO-3 (INFERRED — Tron numbered only prio-1/prio-2; PO confirming with Tron, re-rank if he differs)",
     "dispatchState": "QUEUED-not-dispatched (Tron pull-based: planner queues, builders pull, never interrupt)",
     "satisfactionStatus": "UNVERIFIED (build not started; no stub RED — honest third state per R40.54)",
     "crossRef": [
