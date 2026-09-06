@@ -1,3 +1,5 @@
+> ★ SUPERSEDED 2026-09-06 (PO): the "branch on payload (files vs application/rb-object-ref)" here is a per-payload ad-hoc format — exactly what T37.20's AC-shared-contract-fleet-wide forbids. The canonical home is **T37.20** (sprint-37, `design-r37.20-shared-dnd-drop-contract.md`): ONE serializer + ONE resolver, buffer carries the UNIT, no per-target format, no URL fallback. The measured root below is FOLDED INTO T37.20 as evidence. Kept for the measurement only; do NOT build the payload-branch.
+
 # R40.86 completion — in-app drag of an existing file onto a folder (architect, 2026-09-06)
 
 Tron v0.8.186 iPhone (12:18): dragging existing file `Grüße-für-0f44524b.eml` onto folder `dupChildTest` — the folder **highlights** (drag chip over the row) but the drop **does not land**. Falsifies my earlier iOS platform-limit classification for the IN-APP case. **Measured, not asserted.** Design-only.
