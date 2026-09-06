@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 16 Planning — Sprint 16 — Traceability Ux
+# Sprint 16 Planning — Traceability Ux
 
 ## Sprint Goal
 

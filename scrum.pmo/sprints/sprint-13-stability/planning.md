@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 13 Planning — Sprint 13 — Stability
+# Sprint 13 Planning — Stability
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 15 Planning — Sprint 15 — Traceability Browser
+# Sprint 15 Planning — Traceability Browser
 
 ## Sprint Goal
 

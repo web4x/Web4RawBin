@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 18 Planning — Sprint 18 — Chain Method-Scope & Role Skills
+# Sprint 18 Planning — Chain Method-Scope & Role Skills
 
 ## Sprint Goal
 

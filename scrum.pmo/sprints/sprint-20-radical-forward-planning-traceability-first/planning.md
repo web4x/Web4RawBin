@@ -28,3 +28,4 @@ Apply the S19 marathon lesson FORWARD: chains are built BEFORE/WITH implementati
 - [ ] 🧪 [T: TestCase + Gate as 1st-class scenario units (R20.20 + R20.21)](./t-testcase-gate-as-1st-class-scenario-units-r20-20-r20-21.md)
 - [ ] 🧪 [T: breadth-vs-depth — All Children ≠ Traceability Chain, all types (R20.30)](./t-breadth-vs-depth-all-children-traceability-chain-all-types-r20-30.md)
 - [ ] 🧪 [T-vcard-enrich-store: store uploaded vcard next to avatar + downloadable + NOTE adds download-date + geolocation maps link](./t-vcard-enrich-store-store-uploaded-vcard-next-to-avatar-downloadable-note-adds-.md)
+- [ ] 🔧 [T-url-file-opens-drawer: click url-type file item opens ContentPreviewer drawer (regression fix)](./url-file-item-opens-preview-drawer.md)

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 12 Planning — Sprint 12 — Editor Fixes
+# Sprint 12 Planning — Editor Fixes
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 11 Planning — Sprint 11 — Traceability
+# Sprint 11 Planning — Traceability
 
 ## Sprint Goal
 

@@ -2,7 +2,7 @@
 
 [Back to Sprints](../sprints.overview.md)
 
-# Sprint 14 Planning — Sprint 14 — Legacy Migration
+# Sprint 14 Planning — Legacy Migration
 
 ## Sprint Goal
 

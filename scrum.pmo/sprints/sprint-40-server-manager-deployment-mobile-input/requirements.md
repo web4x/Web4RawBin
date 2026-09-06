@@ -1114,3 +1114,24 @@
   - [ ] **(integrity)** The uploaded bytes round-trip byte-identical (sha256) — the fix is boundary-only, body byte-unchanged.
   - [ ] **(provenance/R30.11)** The chain re-points to BUILT REALITY: Impl = server.ts boundary extraction v0.8.190 (commit 7cc4717fb); Test = r4090 gate c9c6acb8a. NOT design-ahead. Architect wires UC->Class->Method->Impl(shipped)->Test.
   -> uploadIngress.parseContentTypeBoundary [uc:uuid:37032845-7f02-4e3e-b80e-e5351d433667]
+
+- [ ] **R40.102 — Post-Slice-3, the R40.81 reader-source toggle is REMOVED — model-unit readers hardwired to the ONE store**
+  [requirement:uuid:72cb9032-8ae6-454d-92c4-3b967b9844d9]
+  R40.81's Slice-2 repoint is built behind a TEMPORARY reader-source toggle (for verification + reversibility). A SURVIVING toggle = a 2nd reader path = exactly the DRY/one-owner violation the migration exists to kill. So the toggle's REMOVAL is a TRACKED REQUIREMENT, not a doc intention: post-Slice-3, the reader-source toggle is REMOVED — model-unit readers are HARDWIRED to scenario/index (the ONE store), zero flag, zero branch. GATED on Slice-3 completion (the removal happens after Slice-3; this requirement is minted scenario-first NOW so the removal is tracked before it is built).
+  **Acceptance criteria:**
+  - [ ] **(by-construction)** Post-Slice-3, the reader-source toggle is REMOVED: model-unit readers are hardwired to scenario/index (the ONE store) — no flag, no branch, no second reader path.
+  - [ ] **(self-failability)** Failable gate (tester lint, R40.88-family): seed a reader-source branch/flag for a model unit -> RED. A surviving toggle cannot pass.
+  - [ ] **(gating/delta-vs-absolute)** The removal is GATED on Slice-3 completion — the absolute zero-branch assertion is WARN until Slice-3 lands, then RED (delta-vs-absolute, do not RED-gate before the migration that achieves it).
+  - [ ] **(by-construction)** After removal, exactly ONE reader source (scenario/index) — the R40.81 one-store invariant holds with no toggle escape hatch re-introducing a second path.
+  -> readerSource.hardwireToOneStore [uc:uuid:53d04d46-9ac5-41cc-8e7f-3f7a0f301645]
+
+- [ ] **R40.103 — The object owns its upload — all upload transports collapse to ONE owner (client one-owner + server NativeFileIngress)**
+  [requirement:uuid:8bf6535a-c834-4eac-8010-a73d59278af7]
+  Tron: 'EVERYWHERE by oop' — the OBJECT owns its own upload. The architect MEASURED the P0: FOUR upload transports exist, not one — un-owned paths scattered across client + server (client fetch @drop-dispatcher.ts:59 + client xhr @drop-dispatcher.ts:92 = the 2 the r4088 lint RED-baselines; + server multipart parse [pairs r4096, must live only in NativeFileIngress R40.97]; + the 4th per architect measurement 8a9144558). EACH scattered transport is an un-owned second path = the DRY/one-owner violation and the ROOT of the still-broken upload. THE REQUIREMENT: the uploaded object OWNS its upload — ALL upload transports collapse to EXACTLY ONE owner (client-side one owner-object; server-side NativeFileIngress). This is the P0 upload-ownership collapse; the r4088-family lint already RED-baselines it (RED=2, flips GREEN 2->1 on collapse) — re-point to that BUILT lint, do not design-ahead.
+  **Acceptance criteria:**
+  - [ ] **(by-construction/OOP)** The uploaded object OWNS its upload (obj.upload() / obj.toUnit()-then-PUT) — callers ASK the object; there is no free upload function/service/scattered transport. A free upload path for a type => RED.
+  - [ ] **(by-construction)** ALL measured upload transports (architect: FOUR — client fetch drop-dispatcher:59, client xhr drop-dispatcher:92, server multipart, + the 4th) collapse to ONE owner: client-side one owner-object, server-side NativeFileIngress (R40.97). Post-collapse count == 1.
+  - [ ] **(by-construction)** The server multipart upload parse lives ONLY in NativeFileIngress (R40.97) — pairs r4096; a server multipart parse elsewhere => RED.
+  - [ ] **(provenance/R30.11)** Re-point to BUILT reality: the r4088-family upload-ownership lint EXISTS (RED-baseline 6d21619ce, RED=2 on drop-dispatcher fetch+xhr). This requirement covers that chain-less lint (it shipped as a measurement with no covering req). Impl/Test = the r4088 + r4096 gates; architect wires. NOT design-ahead.
+  - [ ] **(gate/delta)** The lint flips GREEN only when the count is 1 (client) / NativeFileIngress-only (server); until the collapse lands it is RED (honest — the upload is still broken), not WARN-suppressed.
+  -> upload.ownedByObjectOneTransport [uc:uuid:65a9e22b-62fa-42d9-a736-7e0c365cbc96]
