@@ -2640,34 +2640,44 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
           // body but 0 bytes arrived = a mid-flight STRIP (stale SW re-issuing without the streamed body), NOT a parser fault
           // (a parse fault would show received==content-length with parsed size=0). PII-safe: header numbers only, no content.
           addLog(`[upload] received ${body.length}b for room ${roomId.slice(0,8)} content-length=${req.headers['content-length'] || 'none'} content-type=${req.headers['content-type']?.slice(0,60)}`);
-          const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
+          // R40.86 BUFFER-NATIVE multipart parse (architect design 45f8ad5b1, ruled b42f22931, never built until now): the OLD
+          // parser did `body.toString('binary').split('--'+boundary)` — worked for a token-FIRST text blob but is FRAGILE for
+          // a real FILE-FIRST binary PNG (Tron's iOS shape). Two hardenings: (1) BOUNDARY — iOS Safari may QUOTE it
+          // (boundary="…") or append params (; charset=…); the old `split('boundary=')[1]` kept the quote → the '--'+boundary
+          // delimiter never matched the RAW body delimiter → 1 corrupted part (garbage token, mangled bytes) → auth-reject.
+          // Dequote + strip params + trim. (2) SPLIT on the RAW Buffer via Buffer.indexOf (binary-safe); fileData = a raw
+          // Buffer.slice, NEVER toString'd; classify each part by its OWN name header (ORDER-INDEPENDENT). Same output vars.
+          let boundary = ((req.headers['content-type'] || '').split('boundary=')[1] || '').trim();
+          boundary = boundary.replace(/^"(.*)"$/, '$1').split(';')[0].trim(); // dequote + drop trailing params (iOS)
           if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
-          const parts = body.toString('binary').split('--' + boundary);
+          const delim = Buffer.from('--' + boundary);
+          const segments: Buffer[] = []; // each = the raw bytes of ONE part, between consecutive delimiters
+          let di = body.indexOf(delim, 0);
+          while (di !== -1) {
+            const next = body.indexOf(delim, di + delim.length);
+            if (next === -1) break; // the trailing '--boundary--' close has no following delimiter
+            segments.push(body.slice(di + delim.length, next));
+            di = next;
+          }
           let fileName = '', mimeType = 'application/octet-stream', fileData = Buffer.alloc(0), playerToken = '', relatedFile = '', parentRef = '';
-          for (const part of parts) {
-            if (part.includes('name="playerToken"')) {
-              playerToken = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
-            }
-            if (part.includes('name="relatedFile"')) { // v0.6.91: WebItem forward-ref to its source file
-              relatedFile = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
-            }
-            if (part.includes('name="parent"')) { // R40.86: drop INTO a folder → the target folder ref (nest the new file under it)
-              parentRef = part.split('\r\n\r\n')[1]?.trim().split('\r\n')[0] || '';
-            }
-            if (part.includes('name="file"')) {
-              const disp = part.match(/filename="([^"]+)"/);
-              // v0.6.92: the body is read as 'binary' (Latin-1) for safe multipart split, so a UTF-8
-              // filename (e.g. "…für…") arrives mojibake'd ("…fÃ¼r…") → re-decode the bytes as UTF-8.
-              if (disp) fileName = Buffer.from(disp[1], 'binary').toString('utf-8');
-              const ct = part.match(/Content-Type:\s*(\S+)/i);
+          const CRLF2 = Buffer.from('\r\n\r\n');
+          for (const seg of segments) {
+            const hEnd = seg.indexOf(CRLF2);
+            if (hEnd === -1) continue; // the '--\r\n' close segment / any header-less noise
+            const headers = seg.slice(0, hEnd).toString('utf8'); // part headers are ASCII — safe to decode
+            let content = seg.slice(hEnd + CRLF2.length);
+            if (content.length >= 2 && content[content.length - 2] === 0x0d && content[content.length - 1] === 0x0a) content = content.slice(0, content.length - 2); // strip the ONE trailing CRLF before the next delimiter
+            const nameM = /name="([^"]*)"/.exec(headers);
+            const name = nameM ? nameM[1] : '';
+            if (name === 'file') {
+              const disp = /filename="([^"]*)"/.exec(headers);
+              if (disp) fileName = Buffer.from(disp[1], 'binary').toString('utf-8'); // v0.6.92 UTF-8 filename (mojibake fix retained)
+              const ct = /Content-Type:\s*(\S+)/i.exec(headers);
               if (ct) mimeType = ct[1];
-              const dataStart = part.indexOf('\r\n\r\n');
-              if (dataStart !== -1) {
-                const raw = part.slice(dataStart + 4);
-                const trimmed = raw.replace(/\r\n$/, '');
-                fileData = Buffer.from(trimmed, 'binary');
-              }
-            }
+              fileData = content; // RAW Buffer slice — the binary bytes are NEVER round-tripped through a string
+            } else if (name === 'playerToken') { playerToken = content.toString('utf8').trim(); }
+            else if (name === 'relatedFile') { relatedFile = content.toString('utf8').trim(); } // v0.6.91 WebItem forward-ref
+            else if (name === 'parent') { parentRef = content.toString('utf8').trim(); } // R40.86 drop-into-folder target
           }
           // R40.86 (PO diagnosability): ONE-read upload diagnostic — every field needed to indict/exonerate a failed upload (the
           // size=0 detector, boundary, token PRESENCE, container ref, outcome). PII-safe: sizes/types/refs + booleans ONLY —
