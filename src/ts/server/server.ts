@@ -2635,7 +2635,11 @@ async function handleRequest(req: http.IncomingMessage, res: http.ServerResponse
         try {
           if (totalSize > MAX_UPLOAD) { res.writeHead(413); res.end(JSON.stringify({ error: `File too large (max ${MAX_UPLOAD / 1024 / 1024}MB)` })); return; }
           const body = Buffer.concat(chunks);
-          addLog(`[upload] received ${body.length}b for room ${roomId.slice(0,8)} content-type=${req.headers['content-type']?.slice(0,60)}`);
+          // DISCRIMINATOR (PO): log the declared Content-Length ALONGSIDE the RAW received body (this count is Buffer.concat
+          // of the req.on('data') chunks, BEFORE any parse below). content-length>0 WITH received 0b = the client declared a
+          // body but 0 bytes arrived = a mid-flight STRIP (stale SW re-issuing without the streamed body), NOT a parser fault
+          // (a parse fault would show received==content-length with parsed size=0). PII-safe: header numbers only, no content.
+          addLog(`[upload] received ${body.length}b for room ${roomId.slice(0,8)} content-length=${req.headers['content-length'] || 'none'} content-type=${req.headers['content-type']?.slice(0,60)}`);
           const boundary = (req.headers['content-type'] || '').split('boundary=')[1];
           if (!boundary) { addLog(`[upload] ERROR: no boundary in content-type`); res.writeHead(400); res.end(JSON.stringify({ error: 'No boundary' })); return; }
           const parts = body.toString('binary').split('--' + boundary);

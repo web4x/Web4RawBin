@@ -17,6 +17,49 @@ class RbUpdateBanner extends HTMLElement {
   connectedCallback(): void {
     this.registerServiceWorker();
     this.checkForUpdate();
+    void this.selfHealStaleWorker(); // T-upload-selfheal: a device stranded on an old body-dropping worker recovers ITSELF
+  }
+
+  // [impl:uuid:PENDING-req-mint] RbUpdateBanner.selfHealStaleWorker — a device STRANDED on a stale service worker (an old
+  // worker that intercepts a POST upload and re-issues it via fetch(event.request), DROPPING the streamed multipart body →
+  // the server receives 0b/token-missing → "Upload failed"; Tron broken a week, and the skipWaiting fix can't reach a device
+  // whose old worker keeps controlling the tab) recovers ITSELF, Tron doing NOTHING. Ask the CONTROLLING worker its version;
+  // if it does not match THIS page's build (or never replies = an old worker with no VERSION handler → the query times out),
+  // it is stale: reg.update(); if a new worker is now waiting, skip-waiting it (→ controllerchange → reload, existing path);
+  // else the old worker still controls → unregister() + ONE guarded reload (sessionStorage guard = never a reload loop). The
+  // page is network-first so its code is current even when the SW is stale — the page is the right place to own the heal.
+  private async selfHealStaleWorker(): Promise<void> {
+    if (!('serviceWorker' in navigator)) return;
+    const controller = navigator.serviceWorker.controller;
+    if (!controller) return; // no controlling worker → nothing stale (a fresh load re-registers the current sw.js)
+    const swVersion = await this.askWorkerVersion(controller);
+    if (swVersion === __BUILD_VERSION__) return; // HEALTHY: the controlling worker matches this page's build
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (!reg) return;
+      await reg.update().catch(() => {});
+      if (reg.waiting) { reg.waiting.postMessage('SKIP_WAITING'); return; } // a fresh worker is ready → activate it → controllerchange → reload
+      // still controlled by the OLD worker (it cannot be superseded in place) → unregister + ONE guarded reload
+      const KEY = 'rb-sw-selfheal-reloaded';
+      if (!sessionStorage.getItem(KEY)) {
+        sessionStorage.setItem(KEY, '1'); // guard: at most one self-heal reload per tab session → no reload loop
+        await reg.unregister().catch(() => {});
+        location.reload(); // reloads UNCONTROLLED → the upload works immediately AND the page re-registers the current sw.js
+      }
+    } catch { /* best-effort self-heal */ }
+  }
+
+  // Ask the controlling worker its version over a MessageChannel. An OLD worker (pre-self-heal) has no 'VERSION' handler and
+  // never replies → resolve null after a short timeout = treat as stale (correct: it IS an old worker that must be replaced).
+  private askWorkerVersion(controller: ServiceWorker): Promise<string | null> {
+    return new Promise((resolve) => {
+      let done = false;
+      const finish = (v: string | null) => { if (!done) { done = true; resolve(v); } };
+      const ch = new MessageChannel();
+      const timer = setTimeout(() => finish(null), 1500);
+      ch.port1.onmessage = (e) => { clearTimeout(timer); finish(String((e.data && (e.data as { version?: string }).version) || '') || null); };
+      try { controller.postMessage({ type: 'VERSION' }, [ch.port2]); } catch { clearTimeout(timer); finish(null); }
+    });
   }
 
   private registerServiceWorker(): void {

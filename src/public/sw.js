@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rawbin-v0.8.187';
+const CACHE_NAME = 'rawbin-v0.8.188';
 // [test:uuid:ed935b58-cea8-4e8a-8079-e592d21ecda2]
 // [impl:uuid:3f6a9ce1-c9b9-43fa-9bd1-b2bfa38e92f2] OfflinePage.reloadButton
 
@@ -13,7 +13,7 @@ const STATIC_SHELL = [
   '/dist/trace-page-B4DNSR73.js',
   '/scenario',
   '/dist/scenario-view-OTYLE6XE.js',
-  '/dist/app-CKPZWQHU.js',
+  '/dist/app-INJVJV7G.js',
 ];
 
 const OFFLINE_HTML = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -34,6 +34,15 @@ async function flushCache(){const keys=await caches.keys();await Promise.all(key
 self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') {
     self.skipWaiting();
+    return;
+  }
+  // SELF-HEAL (T-upload-selfheal): report MY version so the PAGE can detect a device stranded on a STALE controlling
+  // worker (an old worker that re-issues POST uploads and drops the multipart body → the server receives 0b — Tron, a week).
+  // An OLD worker (pre-self-heal) has NO 'VERSION' handler → the page's query TIMES OUT → the page treats it as stale and
+  // recovers itself. version = CACHE_NAME's semver (rawbin-v0.8.187 → 0.8.187) so it tracks every build stamp.
+  if (event.data && event.data.type === 'VERSION') {
+    const v = String(CACHE_NAME).replace(/^rawbin-v/, '');
+    if (event.ports && event.ports[0]) event.ports[0].postMessage({ version: v });
   }
 });
 
