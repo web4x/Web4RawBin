@@ -37,3 +37,17 @@ The expert's prod capture (verbatim Content-Type / content-length-vs-received / 
 
 ## Handoff
 Expert (after / alongside the capture): build the client `UnitConvertible` upload (natural class `.toUnit` → `UnitTransport.putByUuid`, FileReader→base64, onProgress param) + the ONE server unit-receive owner; DELETE paths 1-4; fold avatar/vcard. I wire chains (rides R40.96 UnitTransport / R40.97 NativeFileIngress / R40.98 BinaryUnit / R40.99 natural classes — all already minted). req mints any missing AC; tester runs the scan-hazard gate + the real-request diff. No new store (R40.81-consistent). Migration stays paused (safe, reversible) beneath this P0.
+
+## ★ SLICING (PO condition 1 — his photo fixed FIRST, on-trajectory not throwaway)
+- **SLICE-A (P0, ships first = HIS failing path):** collapse the TWO drop-dispatcher MULTIPART paths (`uploadFile` fetch + `uploadWithProgress` xhr) into the object-owned unit-JSON upload (FileReader→base64→`UnitTransport.putByUuid`, progress = param). Dropping/picking a photo routes here — it IS his failing gesture — and it routes around device-multipart IMMEDIATELY. On-trajectory: this is the FINAL one-method, not a throwaway. DELETE both multipart client paths + the tester's node-multipart. Server: the ONE unit-receive owner for the room-file case.
+- **SLICE-B (after his fix):** fold avatar (`uploadBlob`→`Image` unit) + vcard (→`Contact` unit) into the SAME object-owned path; DELETE those two base64-JSON paths + retire the bespoke `/api/avatar` + `/api/vcard`. Kept SEPARATE because they are NOT his failing path, are already base64-JSON (not broken), and bundling them delays his fix + adds avatar/profile regression risk.
+- **SLICE-C (large/external):** `NativeFileIngress` streamed multipart for files above the inline cap — the ONE owned multipart edge, STREAMED not buffered. Replaces Slice-A's reject-above-cap with a real large-file path; keeps multipart in exactly one owned place.
+
+## ★ SIZE STORY (PO condition 2 — explicit; base64 inflates ~33%, whole file in memory both sides)
+- **Inline unit-JSON path = for ≤ 10 MB raw** (~13.3 MB base64 + JSON), held in memory client AND server — acceptable at 10 MB. His 473 KB photo → ~630 KB JSON, trivially within.
+- **Above 10 MB:** SLICE-A **rejects with a clear error** (HTTP 413 `{error:"file too large for inline upload, max 10MB"}`) — **never silent-fail, never OOM**. SLICE-C then adds the `NativeFileIngress` STREAMED path for 10–50 MB (streamed to disk, not buffered → no OOM). **> 50 MB rejected** (the existing route cap `MAX_UPLOAD = 50*1024*1024`, server.ts:2630).
+- **Route body-size limit:** set the unit-receive route to accept ~15 MB (10 MB inline + base64 + JSON overhead); reject larger with the 413 above.
+- **The 50 MB video case:** must NOT go inline (~67 MB JSON in memory = OOM) → SLICE-C streaming or reject-clear-error; the answer is **"NativeFileIngress handles large/external via streamed multipart"** — multipart stays in exactly ONE owned place, consistent with the model. Small photos/files (the common case + his) = inline unit-JSON.
+
+## Build order for the expert
+SLICE-A first (his photo, on-build-go after the capture) → SLICE-B (avatar/vcard fold) → SLICE-C (NativeFileIngress streamed large). Capture confirms SLICE-A routes around the real quirk + specs SLICE-C's `NativeFileIngress`. I hand SLICE-A when the instrumentation surfaces + the real bytes confirm.
