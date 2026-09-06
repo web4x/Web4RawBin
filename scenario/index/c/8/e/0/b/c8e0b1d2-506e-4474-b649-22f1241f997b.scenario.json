@@ -8,9 +8,10 @@
     "intention": "Kill the inconsistent-separator + double-number display Tron screenshotted, by construction.",
     "context": "UC sprintView.displayName a778793d -> R40.4 9a8cbffe. Supersedes phase-1 renderLabel d6cb7ddd (em-dash). Design design-s37-sprint-name-single-source.md (5569f0509).",
     "statusChecklist": "- [ ] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "**AC (37.24 shape — browser-visible, real-WebKit @390 PIXEL, never a DOM count):** The item view renders EXACTLY 'Sprint <n>: <title>' (sprints) and 'Task <n>.<m>: <title>' (tasks) via the ONE formatter — verified by SCREENSHOT+PIXEL on real WebKit @390 (NEVER a DOM count); the number appears exactly ONCE (no 'Sprint 33 — Sprint 33 —' doubling), no repeated subtitle (rb-object-item.ts:188 dup fixed). PLUS the 7 stub-must-fail gates: no Sprint.number RED / name /Sprint\\d+/ RED / name /Task\\d+\\.\\d+/ RED / persisted sprintName-on-non-Sprint RED / dir!=model.number RED / display-outside-formatter RED / oi-desc==oi-name RED. Attribute-required: Sprint.number + Task.taskIndex are the sole stored number homes.",
+    "acceptanceCriteria": "- [ ] AC-all-surfaces: Every surface shows EXACTLY 'Sprint <n>: <title>' (sprints) / 'Task <n>.<m>: <title>' (tasks), c.\n- [ ] AC-one-helper: The display strings are composed by the ONE formatter family sprintDisplayName/taskDisplayName.\n- [ ] AC-number-required-attribute: Sprint number = REQUIRED typed attribute model.number (declared-not-defaulted); read at RENDER f.\n- [ ] AC-task-index-attribute: A task number has TWO components: the sprint part DERIVES via parent->sprint.number, the '.M' is.\n- [ ] AC-no-persisted-number-except-attribute: DRY (Tron's ONE-attribute): NO persisted sprint-number anywhere except Sprint.number, NO persist.\n- [ ] AC-name-bare-title: model.name = bare title only; no 'Sprint <n>' / 'Task <n>.<m>' prefix ever stored.\n- [ ] AC-two-formatters-exact-colon: ONE formatter family produces EXACTLY 'Sprint <n>: <title>' and 'Task <n>.<m>: <title>' (colon p.\n- [ ] AC-item-dup-fix: Item-view dup fix (rb-object-item.ts:188,197-198): name slot = the formatter; secondary slot = d.\n- [ ] AC-dir-attr-consistency: dir<->attribute consistency: for every Sprint unit, the sprint-<n> directory number == model.num.\n- [ ] AC-migration-reversible-conserving: The migration (sprint + task family) is a DELIBERATE change, so acceptance is NOT INV-T byte-dif.\n- [ ] AC-phased-migration-debt: PHASED (PO ruling.\n- [ ] AC-device-390-exact: @390 mobile (Tron's device): the item name renders EXACTLY 'Sprint <n>: <title>' / 'Task <n>.<m>.\n- [ ] AC-pin-role-entity-single-source: NO double-prefix in pin/slot rows (DRY one-word-one-owner, R40.18 pin view): the ROLE word ('Cur.",
     "subtasks": [],
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — machine-verified + gated; nothing waiting on us.",
     "coveredRequirements": [
       "ior:instance:9a8cbffe-3e5c-4d4c-82a7-583d64dbd1fb"
     ],
@@ -24,7 +25,8 @@
     "crossSprintRationale": "CROSS-SPRINT BY DESIGN (PO ruling 2026-08-17 — do NOT re-home): parented to S37 where the work EXECUTES (and Tron is pinned) while covering R40.4 which keeps its ORIGINAL S40 home (a requirement never migrates — re-homing would rewrite history). Tron rule: new work goes into the EXISTING sprint (only he increments). S37-task -> S40-req is the honest record; the bidirectional wiring (S37.tasks[] + R40.4.tasks[]) makes it legible from both ends.",
     "lastAdvancedAt": "2026-08-18T13:10:25.094Z",
     "lastAdvancedAtSource": "seam",
-    "lastAdvancedAtCommit": "fd77a67be"
+    "lastAdvancedAtCommit": "fd77a67be",
+    "acParitySource": "GENERATED from covered req(s) 9a8cbffe (single-source, PO current-era sweep 2026-09-06)."
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

@@ -8,9 +8,10 @@
     "description": "R37.6 (architect-surfaced during R37.2 design). sprints.overview.md is currently a HAND-MAINTAINED narrative (WIP=1, CURRENT-SPRINT block) — the remaining un-generated board seam. R37.6 makes it a GENERATED view: the sprint table (number/name/status/goal) is generated from the Sprint units, with a PRESERVED-narrative OWNED-region (the WIP/CURRENT-SPRINT human block survives regeneration, mirroring the header guard), + a new --check folded into ci:gates so it cannot drift.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "traceability": "  - up\n    - [Sprint 37 Planning](./planning.md)\n    - Requirement R37.6 `[requirement:uuid:9339cc3b-8035-403b-8bef-8c08df15edc2]`\n  - down\n    - None (atomic task)",
-    "acceptanceCriteria": "- [ ] (functional) The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the Sprint units, not hand-maintained.\n- [ ] (functional) A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration untouched (mirror the GENERATED-header/OWNED-output guard) - the generator writes the table region, preserves the narrative region.\n- [ ] (functional) A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boards) - the overview joins the pin==board==files guard (R37.3).\n- [ ] (gate) TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint-table reflects the Sprint units AND the preserved-narrative region is byte-untouched; injecting table-drift -> --check FAILS. Verify Impl.tests[] on disk before flip.",
+    "acceptanceCriteria": "- [ ] AC-generated: The sprints.overview.md sprint-table (number/name/status/goal per sprint) is GENERATED from the .\n- [ ] AC-preserved-narrative: A PRESERVED-narrative OWNED-region (the WIP / CURRENT-SPRINT human block) survives regeneration .\n- [ ] AC-check-ci: A new --check for sprints.overview.md is folded into ci:gates (fails on drift like the other boa.\n- [ ] AC-gate: TEST EXERCISES AC-generated+AC-preserved-narrative: regenerate sprints.overview.md -> the sprint.\n- [ ] AC-preserved-region: REGION granularity (INV-C6-1): the generator writes ONLY between <!-- GENERATED-INDEX:BEGIN --> .\n- [ ] AC-frozen-legacy-visible: FROZEN-LEGACY VISIBLE (INV-C6-3, no silent cap): the excluded sets - S01-18 frozen-legacy + the .\n- [ ] AC-fail-closed-vacuous: FAIL-CLOSED on vacuous (INV-C6-4, per R37.3): generateOverview on empty sprint set / unresolvabl.\n- [ ] AC-no-status-invention: NO status invention (INV-C6-5): the index status = R37.5 rollup (R37.1 pin marks current/last/ne.",
     "subtasks": "None (atomic task).",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — machine-verified + gated; nothing waiting on us.",
     "coveredRequirements": [
       "ior:instance:9339cc3b-8035-403b-8bef-8c08df15edc2"
     ],
@@ -22,6 +23,7 @@
     "createdAt": "2026-08-07",
     "lastAdvancedAt": "2026-08-11T20:30:46+02:00",
     "lastAdvancedAtSource": "checklist",
-    "lastAdvancedAtCommit": "4beeb4d85"
+    "lastAdvancedAtCommit": "4beeb4d85",
+    "acParitySource": "GENERATED from covered req(s) 9339cc3b (single-source, PO current-era sweep 2026-09-06)."
   }
 }

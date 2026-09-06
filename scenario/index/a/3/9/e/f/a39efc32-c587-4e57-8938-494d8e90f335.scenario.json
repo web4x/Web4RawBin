@@ -8,7 +8,7 @@
     "intention": "Prove the view-bus half on-device: a routed write reaches EVERY subscribed view live @390, no view stale, no reload.",
     "context": "R37.12 ONE VIEW BUS (9afbade1) via UC mvc.subscribeOnRender (6aac0acf) + one-bus (e530e248). Pairs with Task 37.24 (R37.11 controller emit): the controller emits UNIT_CHANGED on the ONE bus; every view subscribes-on-render + revalidates-or-stale-badges. Multiple ad-hoc buses = two-sources-of-update -> unify to one (single-authority family).",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "**AC (browser-visible — the other half of what Tron SEES):** A unit change emitted on the ONE view bus (UnitController.apply UNIT_CHANGED) is reflected LIVE in EVERY subscribed view (item + detail + pin + any registered view) WITHOUT a reload, and a view that cannot prove currency renders a VISIBLE STALE badge — verified by SCREENSHOT+PIXEL on real WebKit @390 (NEVER a DOM count). PLUS **one-bus lint (STUB-MUST-FAIL):** exactly ONE view bus; a 2nd ad-hoc update-bus/emit path -> RED. PLUS **subscribe-on-render coverage:** every view registers its subscription AT render; an unsubscribed view that misses an emitted change -> RED. Gate shape matches Task 37.24 (real-WebKit @390 pixel, never DOM-count).",
+    "acceptanceCriteria": "- [ ] AC-one-event: Every unit mutation emits ONE UNIT_CHANGED{ior,uuid,hash} on the EXISTING viewBus (extended to c.\n- [ ] AC-revision-hash: The revision = a compute-on-read CONTENT-HASH reusing the federation contentHash (single-source).\n- [ ] AC-projection-registry: Every view format REGISTERS as a projection (selects+render); generate-sprint-md = PROJECTION #1.\n- [ ] AC-scoped-debounced: The board pipeline regenerates ONLY the affected sprint's owned board(s), DEBOUNCED (coalesce a .\n- [ ] AC-revalidate-or-stale: The live client subscribes to the ws event and on notify / focus / visibilitychange REVALIDATES .\n- [ ] AC-fail-closed: Unconfirmed currency == STALE, never fresh (same shape as NOT-RUN==RED): a dropped ws / skipped .\n- [ ] AC-gate: TEST EXERCISES AC-one-event+AC-scoped-debounced+AC-revalidate-or-stale+AC-fail-closed (distinct-.\n- [ ] AC-subscribe-on-render-coverage: mvc.subscribeOnRender COVERAGE INVARIANT: EVERY view that renders a ref MUST subscribe to it -> .\n- [ ] AC-one-bus-not-two: ONE view bus, not two: the SECOND observer (trace/ViewBus ref-keyed vs top-level ViewBus classTy.\n- [ ] AC-item-detail-live-390-INV-T: [DEVICE-ONLY @390 pixel.\n- [ ] AC-make-current-live-no-reload: Setting a task as CURRENT propagates to ALL current-displaying views LIVE via the ONE VIEW BUS, .\n- [ ] AC-section-renders-exactly-once: After a live update, each detail-view section renders EXACTLY ONCE (idempotent: replace-not-appe.\n- [ ] AC-all-current-views-rederive-enumerated: EVERY view that displays current re-derives on the bus event - ENUMERATED (not the-views): (1) C.",
     "subtasks": [],
     "status": "In Progress",
     "coveredRequirements": [
@@ -24,7 +24,8 @@
     "createdAt": "2026-08-17",
     "lastAdvancedAt": "2026-08-17T11:32:33+02:00",
     "lastAdvancedAtSource": "checklist",
-    "lastAdvancedAtCommit": "7b1515e01"
+    "lastAdvancedAtCommit": "7b1515e01",
+    "acParitySource": "GENERATED from covered req(s) 9afbade1 (single-source, PO current-era sweep 2026-09-06)."
   },
   "ownerIor": "ior:instance:05e58f81-34ec-4851-b5b7-5749ca9148a3"
 }

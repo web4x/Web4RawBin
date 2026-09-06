@@ -8,9 +8,10 @@
     "intention": "Dragging src/.../X.ts yields the File unit, never a collection or a URL.",
     "context": "Covers R37.20 03e0f803 (AC-A1-file-drags-as-file). parent S37 b86b53cc. T37.20 monolith slice, per-AC so none drifts unscheduled.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "- [ ] A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnrollDialog.ts yields the File unit, never #collection.show?uuid=file:... .",
+    "acceptanceCriteria": "- [ ] AC-A1-file-drags-as-file: A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnroll.\n- [ ] AC-A2-buffer-carries-unit: The DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases.\n- [ ] AC-A3-details-render: Detail views actually RENDER for EVERY /model tree selection (today: empty on all).\n- [ ] AC-shared-contract-fleet-wide: ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY.\n- [ ] AC-BITE-per-target-stub-must-fail: The BITE asserts the contract PER TARGET (diagram · room · tree/collection · editor/drawer) + ST.\n- [ ] AC-6-DEVICE: [DEVICE-ONLY @390 pixel.\n- [ ] AC-resolve-drop-payload-one-resolver: dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared reso.\n- [ ] AC-tree-folder-drop-target-routes-contract: STANDING RULE (DRY): EVERY drop target asks the ONE resolver.",
     "subtasks": "None (atomic slice).",
     "status": "QA Review",
+    "waitingOn": "Tron QA accept — machine-verified + gated; nothing waiting on us.",
     "coveredRequirements": [
       "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
     ],
@@ -21,7 +22,8 @@
     "sprintName": "Sprint 37",
     "remainingIssues": "-> QA-Review (PO ruling 2026-09-06): tester measured .2 (a file drags as its File unit, not a #collection) = PASS with evidence. T37.20 slice 2/6, covers R37.20 AC-A1. Awaiting Tron accept (0 Done till Tron).",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-06"
+    "createdAt": "2026-09-06",
+    "acParitySource": "GENERATED from covered req(s) 03e0f803 (single-source, PO current-era sweep 2026-09-06)."
   },
   "ownerIor": null
 }

@@ -8,9 +8,10 @@
     "intention": "One serializer, one resolver, one contract across diagram/room/tree-collection/editor-drawer + future — single-source, no per-target parsing.",
     "context": "Covers R37.20 03e0f803 (AC-shared-contract-fleet-wide; also completes AC-A2-buffer-carries-unit fleet-wide). Depends on T37.20.1 resolver. R40.37 single-source shape. parent S37 b86b53cc.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
-    "acceptanceCriteria": "- [ ] ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY drop target reuses the SAME contract (diagram/room/tree-collection/editor-drawer + future) — NO per-target format, NO per-target parsing, NO *.show?uuid= URL fallback anywhere.\n- [ ] AC-A2 fleet-wide: the DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases — never a *.show?uuid= URL / #webitem link (fixes cross-instance drops producing plain-URL WebItems), on EVERY target not just upload.",
+    "acceptanceCriteria": "- [ ] AC-A1-file-drags-as-file: A FILE drags as a FILE (its file scenario-unit), NOT a collection: dragging src/.../DeviceEnroll.\n- [ ] AC-A2-buffer-carries-unit: The DnD buffer payload is the scenario UNIT JSON (full {ior,ownerIor,model}) in ALL cases.\n- [ ] AC-A3-details-render: Detail views actually RENDER for EVERY /model tree selection (today: empty on all).\n- [ ] AC-shared-contract-fleet-wide: ONE shared serializer produces the payload + ONE shared resolver/deserializer consumes it; EVERY.\n- [ ] AC-BITE-per-target-stub-must-fail: The BITE asserts the contract PER TARGET (diagram · room · tree/collection · editor/drawer) + ST.\n- [ ] AC-6-DEVICE: [DEVICE-ONLY @390 pixel.\n- [ ] AC-resolve-drop-payload-one-resolver: dnd.resolveDropPayload: ONE canonical drop payload (application/rb-object-ref) + ONE shared reso.\n- [ ] AC-tree-folder-drop-target-routes-contract: STANDING RULE (DRY): EVERY drop target asks the ONE resolver.",
     "subtasks": "None (atomic slice).",
     "status": "QA Review",
+    "waitingOn": "Tron accept via HIS DRAG onto a tree folder (instrument-limited full gesture); server+wiring machine-verified, T37.41 machine-hardening non-blocking.",
     "coveredRequirements": [
       "ior:instance:03e0f803-4b71-4d7d-81d0-e7d9c5040a57"
     ],
@@ -22,7 +23,8 @@
     "sprintName": "Sprint 37",
     "remainingIssues": "-> QA-Review (PO 2026-09-06, served v0.8.205, no-op CLOSED): an in-app unit dropped on a folder now RE-PARENTS — POST /api/room/<id>/move-unit -> 200, action='reparented', location moved '(root)' -> ':files/MoveTarget/moveme.bin'; native upload still works; client keeps BOTH paths (rb-object-item.ts:83-91: files->acceptDropIntoContainer KEPT, resolveDragUnit->reparentUnitsIntoContainer ADDED); both open/closed lints untouched. req AC-tree-folder-drop-target-routes-contract went VERIFIED-RED -> now satisfied. ⚠ CAVEAT (recorded, NOT buried): the end-to-end USER DRAG onto a tree node could NOT be exercised in-harness — a synthetic webkit drag does not deliver the payload to that handler; tester verified the SERVER endpoint (the exact one the in-app path calls) + the client wiring BY READ. Mechanism + wiring PROVEN; the full user gesture is INSTRUMENT-LIMITED. Closing confirmation = Tron's own drag (same shape as T37.31 device-accept; one drag he does anyway on accept). 0 Done till Tron.",
     "createdBy": "robbin-planner",
-    "createdAt": "2026-09-06"
+    "createdAt": "2026-09-06",
+    "acParitySource": "GENERATED from covered req(s) 03e0f803 (single-source, PO current-era sweep 2026-09-06)."
   },
   "ownerIor": null
 }
