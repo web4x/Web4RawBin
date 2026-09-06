@@ -19,6 +19,7 @@ const PRUNE = new Set(['node_modules', '.git', 'dist']);
 function scan() {
   const perTree = {}; // top-level dir → { real, sym }
   let realOutside = 0; const outsideSamples = [];
+  const uuidRealTrees = new Map(); // AC-3: uuid → Set of top-trees holding a REAL file for it (>1 ⇒ duplicate physical unit)
   (function walk(dir) {
     let e = []; try { e = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
     for (const x of e) {
@@ -31,18 +32,25 @@ function scan() {
       if (x.name.endsWith('.scenario.json')) {
         (perTree[top] = perTree[top] || { real: 0, sym: 0 }).real++;
         if (!rel.includes(ONE_STORE)) { realOutside++; if (outsideSamples.length < 8) outsideSamples.push(rel); }
+        const uuid = x.name.replace('.scenario.json', '');
+        if (!uuidRealTrees.has(uuid)) uuidRealTrees.set(uuid, new Set());
+        uuidRealTrees.get(uuid).add(top);
       }
     }
   })(ROOT);
-  return { perTree, realOutside, outsideSamples };
+  const dupUuids = [...uuidRealTrees.entries()].filter(([, trees]) => trees.size > 1); // AC-3: same uuid physically real in ≥2 trees
+  return { perTree, realOutside, outsideSamples, dupUuids };
 }
 
-const { perTree, realOutside, outsideSamples } = scan();
+const { perTree, realOutside, outsideSamples, dupUuids } = scan();
 R(`═══ R40.81 ONE-PHYSICAL-UNIT-STORE — real unit files OUTSIDE ${ONE_STORE} ═══`);
 R(`  per-tree *.scenario.json (real = a PHYSICAL unit file; symlink = a view INTO the store):`);
 for (const top of Object.keys(perTree).sort()) { const t = perTree[top]; R(`    ${top}: real=${t.real} symlink=${t.sym}${t.real > 0 && top !== 'scenario' ? '   ← DUPLICATE PHYSICAL STORE' : ''}`); }
-R(`  real unit files OUTSIDE the one store : ${realOutside}  ${realOutside === 0 ? 'GREEN' : 'RED'}`);
+R(`  AC-1/AC-2 real unit files OUTSIDE the one store : ${realOutside}  ${realOutside === 0 ? 'GREEN' : 'RED'}`);
 for (const s of outsideSamples) R(`      ${s}`);
+R(`  AC-3 uuids with a REAL file in >=2 trees (duplicate physical unit) : ${dupUuids.length}  ${dupUuids.length === 0 ? 'GREEN' : 'RED'}`);
+for (const [u, trees] of dupUuids.slice(0, 6)) R(`      ${u} in {${[...trees].join(', ')}}`);
+R(`  (AC-3 tells the convergence shape: dup>0 => same units stored twice = de-dup+symlink; dup==0 with realOutside>0 => distinct units mislocated = relocate+symlink.)`);
 
 // ── FAILABLE self-test (teeth): seed ONE real *.scenario.json OUTSIDE scenario/index → realOutside MUST rise, then remove it.
 const probeDir = path.join(ROOT, `__r4081_probe_${process.pid}`);
@@ -51,7 +59,7 @@ try { fs.mkdirSync(probeDir, { recursive: true }); fs.writeFileSync(path.join(pr
 finally { try { fs.rmSync(probeDir, { recursive: true, force: true }); } catch {} }
 R(`  FAILABLE self-test (seed a real unit file outside the one store → detected): ${teeth ? 'PASS (teeth — a new physical store cannot slip in)' : 'FAIL (toothless — fix before trusting green)'}`);
 
-const green = realOutside === 0 && teeth;
+const green = realOutside === 0 && dupUuids.length === 0 && teeth;
 R(`OVERALL: ${green ? 'GREEN — exactly ONE physical unit store; all else symlinks into it' : 'RED'}`);
 R(`  RED-baseline expectation (pre-convergence): data/model-store holds real unit files (the duplicate) → RED. Flips GREEN when Unit.resolve convergence symlinks/removes them into scenario/index.`);
 R(`  PAIR: behaviour-unchanged — the same units must resolve byte-identical on /trace + /model after convergence (structural GREEN alone is not sufficient).`);
