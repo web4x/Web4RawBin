@@ -5,6 +5,7 @@
 // [impl:uuid:e289349c-ba8d-4182-9288-9bbd7ac3ed56] RbRoomContent.render
 // [impl:uuid:3fbcebaf-2986-44d6-afd2-7ab810e824f2] RbRoomDetail.modeSet
 import { RawBinClient } from './RawBinClient.js';
+import { ViewBus, viewBusKey } from './trace/ViewBus.js'; // radical-OOP Slice 1: publish "container gained a child" → the owning Node renders its own children (no full re-seed)
 import { formatBytes } from './format-bytes.js'; // T37.21 defect-3: the ONE human-byte formatter (was an inline /1024 copy)
 import { ProfileEditor } from './ProfileEditor.js';
 import { ProfileSheet } from './ProfileSheet.js';
@@ -212,7 +213,7 @@ export class RoomView {
         if (fedRef) {
           fetch('/api/federation/import', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: JSON.parse(fedRef), roomId: this.roomId, token: this.client.playerToken }) })
             .then(r => r.json()).then(res => {
-              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); (document.getElementById('room-tree') as any)?.renderSeed?.(this.roomId); }
+              if (res?.uuid) { log(`[federation] imported ${res.uuid.slice(0, 8)} (${res.action})`); ViewBus.notify(viewBusKey(`roomcoll:${this.roomId}:files`)); } // radical-OOP Slice 1: was a full tree.renderSeed re-seed (DELETED) → publish ONE "Files container gained a child" → the owning Node renders its own children in place
               else log(`[federation] import failed: ${res?.error || '?'}`);
             }).catch(err => log(`[federation] import error: ${err?.message || err}`));
           return;

@@ -29,6 +29,7 @@ import './rb-object-item.js';
 import { TraceGraph, refUuid } from '../../../ts/shared/TraceModel.js';
 import { ViewBus, viewBusKey } from './ViewBus.js';
 import { isSyntheticRef } from './synthetic-ref.js'; // R37.21 Part 2 piece-2: folder/collection nodes live-subscribe on the REF-STRING key
+import { ContainerNode } from './tree-node.js'; // radical-OOP Slice 1: a container node OWNS renderChildren() (collapsed reDeriveDirectChildren) + subscribes its own ref
 import { bySprintDisplayOrder } from '../../../ts/scenario/sprint-label.js'; // R40.50: the ONE canonical sprint display order (client-safe atom; pin-resolver re-exports it server-side)
 
 const LS_KEY = 'rawbin-trace-expanded';
@@ -125,35 +126,11 @@ export class RbTraceTree extends HTMLElement {
     document.removeEventListener('rb-tree-reveal', this.onTreeReveal);
   }
 
-  // [impl:uuid:8693dc2b-680e-4866-8fab-37c0fe2c6cae] reDeriveDirectChildren — R37.21 Part 2 piece-2: on a unit-changed for a folder's ref (an
-  // Add-folder under it), re-fetch its DIRECT children (ONE level) and INSERT any new child node — NO full reload, NO flash
-  // (existing children untouched). Both the acting tab and a passive 2nd browser run this from the SAME all-clients
-  // publishUnitChanged broadcast → the tree updates live. Collapsed node → skip (its badge refreshes on next open).
-  private async reDeriveDirectChildren(node: HTMLElement, ref: string): Promise<void> {
-    let kids = node.querySelector(':scope > .tt-children') as HTMLElement | null;
-    if (!kids) {
-      // R40.84-B FIX-2 (architect 0e5f3343e): a CHILDLESS container (an empty room's FIRST folder — built hasChildren=false, so
-      // no .tt-children div yet) previously hit `if(!kids)return` = silent invisible. CREATE the container (visible) + mark the
-      // node has-children so its first child renders IN PLACE; then continue the normal fetch+append below.
-      kids = document.createElement('div');
-      kids.className = 'tt-children';
-      node.appendChild(kids);
-      node.querySelector(':scope > .tt-row > rb-object-item')?.setAttribute('has-children', '');
-    }
-    try {
-      const res = await fetch(`${this.childrenUrl}${encodeURIComponent(ref)}${this.modeParam}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      const existing = new Set(Array.from(kids.querySelectorAll(':scope > .tt-node > .tt-row > rb-object-item')).map((i) => i.getAttribute('ref') || ''));
-      for (const child of (data.children || []) as TreeNode[]) {
-        const cref = `${(child.type || 'task').toLowerCase()}:${child.uuid}`;
-        if (existing.has(cref)) continue; // reconcile: ADD only new children, never rebuild the existing ones
-        const gk = child.children || [];
-        kids.appendChild(this.buildSeedNode(child.uuid, child.type, child.name, gk, gk.length > 0 || child.hasChildren === true, undefined, child.chainMethod, child.description, false, child.status, child.childCount));
-      }
-      this.computeBadges();
-    } catch { /* best-effort live-insert */ }
-  }
+  // radical-OOP Slice 1 (996a39408): reDeriveDirectChildren is DELETED — its behaviour (ask the ONE children derivation +
+  // add-only in-place reconcile + FIX-2 childless-container + the 3-line runtime disambiguation) now lives ON the container
+  // node itself (ContainerNode.renderChildren, tree-node.ts, carrying the relocated impl 8693dc2b). The node subscribes to its
+  // OWN ref at build (buildSeedNode), so every add path's ONE ViewBus.notify(viewBusKey(ref)) makes the node render its own
+  // children — no caller rebuilds from a ref + external machinery.
 
   // [impl:uuid:9cdf5072-baab-453a-a46b-3fa561e58faa] RbTraceTree.onTreeReveal (Method 152435d1) — R33.7.4 (RED-fix,
   // architect 9e56c218d): a diagram box-select dispatches rb-tree-reveal{ref}. The MODEL tree is SYNTHETIC folders
@@ -447,7 +424,14 @@ export class RbTraceTree extends HTMLElement {
     node.appendChild(row);
     // R37.21 Part 2 piece-2: a synthetic-ref folder/collection node live-subscribes to its OWN ref (canonical REF-STRING
     // key, architect ruling — subscribe==notify by construction) → an Add-folder under it re-derives its DIRECT children live.
-    if (isSyntheticRef(uuid)) this._nodeUnsubs.push(ViewBus.subscribe(viewBusKey(uuid), () => void this.reDeriveDirectChildren(node, uuid)));
+    if (isSyntheticRef(uuid)) { // radical-OOP Slice 1: the container node OWNS rendering its own children (was RbTraceTree.reDeriveDirectChildren) — it self-subscribes to its ref; node CONSTRUCTION (buildSeedNode) is injected as buildChild (reused, not duplicated).
+      const cn = new ContainerNode(uuid, node, {
+        childrenUrl: this.childrenUrl, modeParam: this.modeParam,
+        buildChild: (c) => this.buildSeedNode(c.uuid, c.type ?? 'task', c.name, c.children || [], (c.children || []).length > 0 || c.hasChildren === true, undefined, c.chainMethod, c.description, false, c.status, c.childCount),
+        computeBadges: () => this.computeBadges(),
+      });
+      this._nodeUnsubs.push(() => cn.dispose());
+    }
     if (showExpander) {
       const kids = document.createElement('div');
       kids.className = 'tt-children';
