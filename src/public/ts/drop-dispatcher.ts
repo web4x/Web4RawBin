@@ -130,11 +130,14 @@ export class DropDispatcher {
     this.statusCb?.('uploading', `Fetching ${url}...`);
     try {
       // v0.6.90: caller may pass a display name (e.g. an email subject) → the WebItem name derives from it.
-      const name = (displayName && displayName.trim()) || url.split('/').pop() || 'link';
+      // R40.107 / bug 206a28bc (R40.105 class-owns-name): pass ONLY a genuine human displayName; NEVER a
+      // url.split('/').pop() pseudo-name (that fragment — "watch?v=X" — is echoed VERBATIM by WebItem.deriveName,
+      // so the class's own host+segment derivation never runs). Empty here → the WebItem CLASS names itself.
+      const name = (displayName && displayName.trim()) || '';
       // SLICE-A: build the unit directly (urlToUnit → text/uri-list) → the ONE unit-JSON transport; server resolves uri-list→WebItem.
       const result = await UnitTransport.putByUuid(urlToUnit(url, name), { roomId, playerToken, baseUrl: this.baseUrl, relatedFile: relatedFileUuid }); // v0.6.91: link WebItem→source file
       this.state = 'complete';
-      this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name}` : `Failed: ${url}`);
+      this.statusCb?.(result ? 'complete' : 'error', result ? `Saved ${name || url}` : `Failed: ${url}`); // name may be class-derived now; show the url when no human displayName
       setTimeout(() => { if (this.state === 'complete') { this.state = 'idle'; this.statusCb?.('idle'); } }, 2000);
       return result;
     } catch {
