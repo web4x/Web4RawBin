@@ -1,0 +1,70 @@
+{
+  "ior": "ior:class:Bug",
+  "model": {
+    "uuid": "88df8e4e-d6fa-4819-9edd-09e6b0529745",
+    "name": "5 invisible WebItems in room 3231db71 (parentFolder=room but not in files[]) — 4 restore-to-room + 1 junk (about:blank#blocked) delete",
+    "description": "LIVE defect (architect CORRECTED render-measurement 9a0be1577->corrected): all 30 parentFolder targets are ROOMS (parentFolder = a room-membership marker, NOT a sub-folder pointer). 25 have parentFolder==their own room AND are IN that room files[] -> they render at root CORRECTLY = NOT a defect (transparency 0-delta on retire). The REAL defect = 5 units with parentFolder=room 3231db71 but NOT in its files[] -> INVISIBLE (render nowhere). FIX (INC-4a): add 4 of them to room 3231db71 fileUnits (4 invisible->visible, announced); the 5th = \"about:blank#blocked\" JUNK -> DELETE-candidate (R40.106 delete), not restore. Working robustness.",
+    "acceptanceCriteria": [
+      {
+        "id": "AC-repro-5-invisible",
+        "group": "repro/measured",
+        "text": "REPRO (architect corrected): 5 WebItems have parentFolder=room 3231db71 but are NOT in its files[], so they render NOWHERE. The other 25 render at root correctly (NOT a defect). All 30 parentFolder = room-membership markers, not sub-folder pointers.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test @390 room 3231db71 render",
+          "assertion": "the 5 render nowhere before the fix; if they already render the repro is stale"
+        },
+        "stubMustFail": "n/a repro-documenting"
+      },
+      {
+        "id": "AC-fix-differential-on-the-5",
+        "group": "fix/exact-change",
+        "text": "THE FIX on the 5 (NOT 25+5): add the 4 real ones to room 3231db71 fileUnits (4 invisible->visible IN that room); DELETE the 1 junk (about:blank#blocked). PER-UUID differential: exactly those 5 change (4 appear in room 3231db71, 1 removed); 0-delta on any real one => RED (not fixed); the 25 must show 0-delta (they were never a defect); any change beyond the 5 => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test per-uuid differential (the 5)",
+          "assertion": "the 4 appear in room 3231db71 + the 1 junk removed; the 25 render byte-identical; 0-delta on a real invisible OR any change to the 25 or a 6th unit => RED"
+        },
+        "stubMustFail": "seed a fix that leaves a real invisible unrendered, OR changes one of the 25, OR touches a 6th -> RED"
+      },
+      {
+        "id": "AC-junk-is-delete-not-restore",
+        "group": "junk/delete",
+        "text": "The 1 junk WebItem (about:blank#blocked) is a DELETE-candidate (R40.106 delete: remove unit + all links + zero-dangling + pre-image), NOT restored into the room. Restoring junk into his room => RED.",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test junk-deleted-not-restored",
+          "assertion": "the about:blank#blocked unit is deleted (zero-dangling), not added to any room; restoring it => RED"
+        },
+        "stubMustFail": "seed the junk unit restored into a room instead of deleted -> RED"
+      },
+      {
+        "id": "AC-announced-pre-image",
+        "group": "safety",
+        "text": "The 5-change is ANNOUNCED (behaviour change on his data) + a git pre-image committed before apply (recoverable, R40.81 scoped to 5).",
+        "gateRef": {
+          "kind": "test",
+          "ref": "test announced+pre-image",
+          "assertion": "the change is announced + pre-imaged before apply; silent apply or no pre-image => RED"
+        },
+        "stubMustFail": "seed a silent apply or no pre-image -> RED"
+      }
+    ],
+    "coveredBy": "INC-4a (expert increment) — planner boards the covering task.",
+    "crossRef": [
+      "ior:instance:ff9ed585-a928-46aa-b9ea-3f68c899f208",
+      "ior:instance:be8ec6b6-da9c-41ae-8a45-bdc865baa5d0",
+      "ior:instance:18e98268-1a79-4773-ae28-c536efb40edc"
+    ],
+    "crossRefNote": "The FIX half of R40.106's containment migration (AC-containment-migration-transparent-differential): R40.106 has the generic transparency 0-delta on the ~6893; THIS bug is the announced FIX differential on the 30. Same R40.81 treatment (pre-image, prove-before-retire), scoped to 30.",
+    "measurementProvenance": {
+      "authoritative": "architect 9a0be1577 CORRECTED (self-caught): all 30 parentFolder=ROOMS not Folders. 25=redundant-parentFolder-already-in-files[]=NOT-a-defect (transparency); 5=parentFolder=room 3231db71 not-in-files[]=INVISIBLE=the defect (4 restore + 1 junk-delete). Architect regenerating the corrected 5-uuid enumeration JSON; FOLD the 5 uuids when it lands.",
+      "reqCrossMeasure": "req measured 29 WebItem+parentFolder+no-children (vs architect 30) — the 1-delta + the 25-vs-5 classification are the architect render measurement; defer to their corrected 5-uuid list."
+    },
+    "status": "Open",
+    "createdBy": "robbin-req",
+    "createdAt": "2026-09-06",
+    "authorizedBy": "robbin-po (GO — announced working-robustness bug)"
+  },
+  "ownerIor": null
+}
