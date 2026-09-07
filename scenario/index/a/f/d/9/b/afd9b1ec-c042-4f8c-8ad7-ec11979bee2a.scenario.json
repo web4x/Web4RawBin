@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Contact",
+  "model": {
+    "uuid": "afd9b1ec-c042-4f8c-8ad7-ec11979bee2a",
+    "name": "t.vcf",
+    "contentPath": "index/a/f/d/9/b/afd9b1ec-c042-4f8c-8ad7-ec11979bee2a.content",
+    "size": 28,
+    "mimeType": "text/vcard",
+    "uploadedAt": "2026-09-06T17:41:03.593Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "1bb8d569-6ef0-4348-8d36-414b97ab35be",
+    "contentHash": "a08ae5612feb4b98803cb85842dd392104cae69076e2057b68072e82b8111c5e",
+    "unitLinks": [
+      "content/a08ae5612feb4b98803cb85842dd392104cae69076e2057b68072e82b8111c5e.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/1bb8d569-6ef0-4348-8d36-414b97ab35be/files/afd9b1ec-c042-4f8c-8ad7-ec11979bee2a.scenario.json"
+    ],
+    "kind": "contact"
+  },
+  "ownerIor": "ior:instance:1bb8d569-6ef0-4348-8d36-414b97ab35be"
+}

@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:CalendarEntry",
+  "model": {
+    "uuid": "748728d9-8a26-4b81-8dec-f94125593fa7",
+    "name": "t.ics",
+    "contentPath": "index/7/4/8/7/2/748728d9-8a26-4b81-8dec-f94125593fa7.content",
+    "size": 30,
+    "mimeType": "text/calendar",
+    "uploadedAt": "2026-09-06T17:41:07.122Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "1bb8d569-6ef0-4348-8d36-414b97ab35be",
+    "contentHash": "64cffa57ab77ea1be4adaa108a0789ffd2c186e096910c9c0013a0d9b35780ee",
+    "unitLinks": [
+      "content/64cffa57ab77ea1be4adaa108a0789ffd2c186e096910c9c0013a0d9b35780ee.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/1bb8d569-6ef0-4348-8d36-414b97ab35be/files/748728d9-8a26-4b81-8dec-f94125593fa7.scenario.json"
+    ],
+    "kind": "calendarentry"
+  },
+  "ownerIor": "ior:instance:1bb8d569-6ef0-4348-8d36-414b97ab35be"
+}

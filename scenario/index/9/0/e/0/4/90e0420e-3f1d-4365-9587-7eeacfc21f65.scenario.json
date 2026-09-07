@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "90e0420e-3f1d-4365-9587-7eeacfc21f65",
+    "name": "native-into-folder.bin",
+    "contentPath": "index/9/0/e/0/4/90e0420e-3f1d-4365-9587-7eeacfc21f65.content",
+    "size": 48,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-06T22:44:23.273Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "baba8e7e-c3e6-44c4-b68b-2b56d6c1fed1",
+    "contentHash": "604293d23c930cbc75bf9034a158c2cbef83703e879c368e09674dc6fa9b9fb7",
+    "unitLinks": [
+      "content/604293d23c930cbc75bf9034a158c2cbef83703e879c368e09674dc6fa9b9fb7.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/baba8e7e-c3e6-44c4-b68b-2b56d6c1fed1/files/90e0420e-3f1d-4365-9587-7eeacfc21f65.scenario.json"
+    ],
+    "parent": "ior:instance:c044d969-4ef2-4f49-bb44-4284835d80df",
+    "location": "roomcoll:baba8e7e-c3e6-44c4-b68b-2b56d6c1fed1:files/MoveTarget/native-into-folder.bin"
+  },
+  "ownerIor": "ior:instance:baba8e7e-c3e6-44c4-b68b-2b56d6c1fed1"
+}

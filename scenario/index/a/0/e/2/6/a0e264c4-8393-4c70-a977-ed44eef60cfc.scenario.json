@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "a0e264c4-8393-4c70-a977-ed44eef60cfc",
+    "name": "inc2-moveme.bin",
+    "contentPath": "index/a/0/e/2/6/a0e264c4-8393-4c70-a977-ed44eef60cfc.content",
+    "size": 19,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:07:37.712Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "751c64e4-b175-46f5-b9cc-a53949999467",
+    "contentHash": "f06f9daadc4f0bde1bd4b6bf222e137a52887a00dd15a7455bd21b15c6004e6a",
+    "unitLinks": [
+      "content/f06f9daadc4f0bde1bd4b6bf222e137a52887a00dd15a7455bd21b15c6004e6a.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/751c64e4-b175-46f5-b9cc-a53949999467/files/a0e264c4-8393-4c70-a977-ed44eef60cfc.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:751c64e4-b175-46f5-b9cc-a53949999467"
+}

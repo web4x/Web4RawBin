@@ -1,0 +1,22 @@
+{
+  "ior": "ior:class:Image",
+  "model": {
+    "uuid": "c3e226c5-1ea6-4168-be36-0074b17487e1",
+    "name": "uuid=0CE65624-9F99-4E6D-944D-0A4D3CB3FCE4&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg",
+    "contentPath": "index/c/3/e/2/2/c3e226c5-1ea6-4168-be36-0074b17487e1.content",
+    "size": 196131,
+    "mimeType": "image/jpeg",
+    "uploadedAt": "2026-09-06T22:22:35.622Z",
+    "uploaderToken": "c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6",
+    "roomUuid": "a16262b8-337c-41b5-b2c8-1a298efa7b6c",
+    "contentHash": "ad11c5b5e757f0e0a6ae692444a6d17b4b59bfff7a64aaa8eead887b52f7326c",
+    "unitLinks": [
+      "content/ad11c5b5e757f0e0a6ae692444a6d17b4b59bfff7a64aaa8eead887b52f7326c.file.scenario.json",
+      "../data/users/c09087ec-b6b8-44d2-9bbe-8a2b0e2230b6/rooms/a16262b8-337c-41b5-b2c8-1a298efa7b6c/files/c3e226c5-1ea6-4168-be36-0074b17487e1.scenario.json"
+    ],
+    "kind": "image",
+    "parent": null,
+    "location": "roomcoll:a16262b8-337c-41b5-b2c8-1a298efa7b6c:files/uuid=0CE65624-9F99-4E6D-944D-0A4D3CB3FCE4&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg"
+  },
+  "ownerIor": "ior:instance:a16262b8-337c-41b5-b2c8-1a298efa7b6c"
+}

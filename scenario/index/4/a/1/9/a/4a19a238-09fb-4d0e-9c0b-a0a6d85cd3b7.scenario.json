@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "4a19a238-09fb-4d0e-9c0b-a0a6d85cd3b7",
+    "name": "dragme.bin",
+    "contentPath": "index/4/a/1/9/a/4a19a238-09fb-4d0e-9c0b-a0a6d85cd3b7.content",
+    "size": 41,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-06T22:22:18.246Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "0b35cb1b-5e3c-4eab-a027-638b6405dca4",
+    "contentHash": "10fac921f1240b95edc4564687ef969c126642fc7a40ee73796a46b22efcced4",
+    "unitLinks": [
+      "content/10fac921f1240b95edc4564687ef969c126642fc7a40ee73796a46b22efcced4.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/0b35cb1b-5e3c-4eab-a027-638b6405dca4/files/4a19a238-09fb-4d0e-9c0b-a0a6d85cd3b7.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:0b35cb1b-5e3c-4eab-a027-638b6405dca4"
+}

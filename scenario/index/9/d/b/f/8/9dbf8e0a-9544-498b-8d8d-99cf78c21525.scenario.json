@@ -1,0 +1,20 @@
+{
+  "ior": "ior:class:Email",
+  "model": {
+    "uuid": "9dbf8e0a-9544-498b-8d8d-99cf78c21525",
+    "name": "t.eml",
+    "contentPath": "index/9/d/b/f/8/9dbf8e0a-9544-498b-8d8d-99cf78c21525.content",
+    "size": 27,
+    "mimeType": "message/rfc822",
+    "uploadedAt": "2026-09-06T17:41:00.076Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "1bb8d569-6ef0-4348-8d36-414b97ab35be",
+    "contentHash": "a8e5abec50b9d0a84ee15741d75fbba062b29db418e0b07f0a9a7852f7b18033",
+    "unitLinks": [
+      "content/a8e5abec50b9d0a84ee15741d75fbba062b29db418e0b07f0a9a7852f7b18033.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/1bb8d569-6ef0-4348-8d36-414b97ab35be/files/9dbf8e0a-9544-498b-8d8d-99cf78c21525.scenario.json"
+    ],
+    "kind": "email"
+  },
+  "ownerIor": "ior:instance:1bb8d569-6ef0-4348-8d36-414b97ab35be"
+}

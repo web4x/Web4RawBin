@@ -1,0 +1,21 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "91ee4bc6-209a-475f-8e4b-5c3bc22581ed",
+    "name": "inc2-moveme.bin",
+    "contentPath": "index/9/1/e/e/4/91ee4bc6-209a-475f-8e4b-5c3bc22581ed.content",
+    "size": 19,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:08:45.081Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "4cc89cf2-377c-4759-b638-20509d952788",
+    "contentHash": "774507fa49d92d74b20ddb299ebb717c491c7b070b131b59043b12dde7334251",
+    "unitLinks": [
+      "content/774507fa49d92d74b20ddb299ebb717c491c7b070b131b59043b12dde7334251.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/4cc89cf2-377c-4759-b638-20509d952788/files/91ee4bc6-209a-475f-8e4b-5c3bc22581ed.scenario.json"
+    ],
+    "parent": "ior:instance:8fb9f94b-cb1d-4564-b3b4-f1585a9e352a",
+    "location": "roomcoll:4cc89cf2-377c-4759-b638-20509d952788:files/MoveTarget/inc2-moveme.bin"
+  },
+  "ownerIor": "ior:instance:4cc89cf2-377c-4759-b638-20509d952788"
+}

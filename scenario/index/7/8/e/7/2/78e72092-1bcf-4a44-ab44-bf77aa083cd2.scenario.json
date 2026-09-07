@@ -1,0 +1,19 @@
+{
+  "ior": "ior:class:File",
+  "model": {
+    "uuid": "78e72092-1bcf-4a44-ab44-bf77aa083cd2",
+    "name": "seatbelt.bin",
+    "contentPath": "index/7/8/e/7/2/78e72092-1bcf-4a44-ab44-bf77aa083cd2.content",
+    "size": 15,
+    "mimeType": "application/octet-stream",
+    "uploadedAt": "2026-09-07T17:20:14.911Z",
+    "uploaderToken": "ce981242-74fe-4d44-b5b6-43c641e224df",
+    "roomUuid": "7dc9a919-dbda-4277-ab1a-f58b9a8fbae4",
+    "contentHash": "ee8476f679867f7ef89a822ac9f14e991c20445351f5444f474460f032c5c198",
+    "unitLinks": [
+      "content/ee8476f679867f7ef89a822ac9f14e991c20445351f5444f474460f032c5c198.file.scenario.json",
+      "../data/users/ce981242-74fe-4d44-b5b6-43c641e224df/rooms/7dc9a919-dbda-4277-ab1a-f58b9a8fbae4/files/78e72092-1bcf-4a44-ab44-bf77aa083cd2.scenario.json"
+    ]
+  },
+  "ownerIor": "ior:instance:7dc9a919-dbda-4277-ab1a-f58b9a8fbae4"
+}
