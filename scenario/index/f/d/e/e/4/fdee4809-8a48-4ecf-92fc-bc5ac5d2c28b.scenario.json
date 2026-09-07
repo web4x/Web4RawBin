@@ -8,11 +8,12 @@
     "description": "Deliver R37.22: cross-instance IORs carry a clear origin reconciled onto the existing federated ior:instance:<uuid>@<originHost> scheme (no 2nd format); prod<->test drops resolve the real unit. Architect designs the reconciliation first (scenario-first #126).",
     "intention": "Tron 2026-08-12: IORs need a clear origin for prod<->test DnD; reconcile with the existing federated scheme, don't fork.",
     "context": "Covers R37.22 (aedd0e83) via UC ior.carryOrigin (180512d8); reconciles federated-scenario-transfer.md.",
-    "statusChecklist": "- [ ] Planned\n- [ ] In Progress\n  - [ ] refinement\n  - [ ] creating test cases\n  - [ ] implementing\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
+    "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement\n  - [x] creating test cases\n  - [x] implementing\n  - [x] testing\n- [x] QA Review\n- [ ] Done",
     "implementation": "NOT STARTED (scenario-first #126). Architect designs; expert builds; req mints chain+Test. Units on disk BEFORE implementation.",
     "acceptanceCriteria": "- [ ] AC-C-clear-origin: cross-instance IOR carries class+host+unit-path origin.\n- [ ] AC-C-reconcile-no-fork: reconcile with ior:instance:<uuid>@<originHost> (path from uuid-sharding, class from unit), NO 2nd format.\n- [ ] AC-C-cross-instance-resolves: prod->test drop resolves via origin, not a plain-URL WebItem.\n- [ ] AC-C-DEVICE [@390 Tron]: prod<->test drop carries origin + resolves, verified on device.",
     "subtasks": "None (architect may split at design).",
-    "status": "Planned",
+    "status": "QA Review",
+    "remainingIssues": "FLIPPED Planned -> QA-Review 2026-09-07 (closed by measurement, PO ruling): the cross-instance origin capability is DELIVERED by the T37.20 contract (dnd-contract.ts:6 parseFederatedIor + isLocalOrigin = THE ONE origin-decision helper; the federated ior:instance:<uuid>@<originHost> IS the class+host+path origin). Tester RE-VERIFIED CURRENT on v0.8.211 (not carry-forward): r260-t262 drag-source GREEN DET-3x (emits ior:instance:UUID@origin + fetchUrl, NOT a plain URL) + r263-t267 e2e import GREEN DET-3x (drop RESOLVES to a REAL unit with originHost provenance, children lazy @host, idempotent — NOT an app#file.show WebItem). Together = prod<->test drop resolves-via-origin. AC-C-clear-origin + reconcile-no-fork + cross-instance-resolves = MET. ★ CLOSING AC = AC-C-DEVICE @390 (Tron real prod<->test drop on phone) = a genuine device physics limit (Tron ACCEPTS, we do not ask him to test). QA-Review ceiling; 0 Done till Tron.",
     "coveredRequirements": [
       "ior:instance:aedd0e83-34c8-408a-95e7-a57782c9b1ff"
     ],

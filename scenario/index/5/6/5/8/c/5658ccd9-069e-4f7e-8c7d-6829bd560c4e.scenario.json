@@ -6,6 +6,8 @@
     "slug": "dropzone-visual-highlight-dragenter-exit",
     "description": "R19.42: Drop-zone has clear onDragEnter/onDragExit visual handlers.",
     "status": "In Progress",
+    "supersededBy": "ior:instance:ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+    "supersededReason": "SUBSUMED under Task 37.20 (ONE DnD drop contract), CLOSED BY MEASUREMENT — PO ruling 2026-09-07. Delivered via RoomView.ts:210-212 (dragenter -> dropDispatcher.onDropEnter, dragleave -> onDropExit); tester's ONE measurement GREEN (v0.8.211): dragenter adds .rrc-drop-active, dragleave clears it (the highlight class actually toggles). No build.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:9e8b678b-c522-4929-90c3-d710c4893b6a"

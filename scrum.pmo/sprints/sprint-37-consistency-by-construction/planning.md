@@ -36,7 +36,7 @@ Files = the ONE source of truth; the CurrentSprint pin + the sprint boards (plan
 - [ ] ⏳ [Task 37.42: RENAME as the object's own behaviour — unit.rename(newName), a 2nd class-registered action (displayName overrides derivedName) [R40.104]](./task-37.42-rename-object-own-behaviour.md)
 - [ ] ⏳ [Task 37.43: Each natural class OWNS its name — derives its own display name (derivedName←class, displayName←user, originalName preserved) [R40.105]](./task-37.43-class-owns-its-name-derived.md)
 - [ ] 🧪 [Task 37.21: TRON 5-PART extended scope — room collections=real Folder units + sunburst + Add-folder-physical(live-MVC/WS) + dedupe detail links + puml physical-folder-tree](./task-37.21-room-collections-real-folder-units.md)
-- [ ] ⏳ [Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)](./task-37.22-ior-clear-origin.md)
+- [ ] 🧪 [Task 37.22: IOR carries a clear origin (class+host+path) for cross-instance DnD, reconciled with federated ior@host (no fork)](./task-37.22-ior-clear-origin.md)
 - [ ] ⏳ [Task 37.23: Server-manager root discovered from ssh config on disk (like otmux tree items), not hardcoded WODA.prod](./task-37.23-discovered-server-manager-root.md)
 - [ ] 🧪 [Task 37.24: Realtime-MVC live-update slice — a routed write appears live in item + detail + pin @390](./task-37.24-realtime-mvc-live-update-slice.md)
 - [ ] 📝 [Task 37.25: Realtime-MVC ONE VIEW BUS — unify to a single view bus + views subscribe-on-render, live-update coverage gated @390 (R37.12)](./task-37.25-realtime-mvc-one-view-bus.md)

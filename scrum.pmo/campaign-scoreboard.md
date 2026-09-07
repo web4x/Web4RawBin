@@ -14,8 +14,8 @@
 
 ### LIVE — auto-regenerated from units on commit (cannot go stale; do not hand-edit between the markers)
 
-- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **58** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 96** (257 = 98+58+3+96)
-- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 92**
+- **TOTAL S30++ tasks: 257** — Done **98** · QA-Review **59** · SUPERSEDED-terminal **3** · **REMAINING (<QA-Review): 95** (257 = 98+59+3+95)
+- **★ ACTIONABLE (the campaign number Tron cares about — REMAINING minus law#103 excluded/deferred): 91**
 
 | Sprint | total | Done | QA-Review | superseded | remaining<QA |
 |--------|-------|------|-----------|------------|--------------|
@@ -26,10 +26,10 @@
 | S34 | 7 | 7 | 0 | 0 | 0 |
 | S35 | 4 | 4 | 0 | 0 | 0 |
 | S36 | 5 | 5 | 0 | 0 | 0 |
-| S37 | 54 | 1 | 20 | 0 | 33 |
+| S37 | 54 | 1 | 21 | 0 | 32 |
 | S40 | 83 | 0 | 21 | 0 | 60 |
 
-**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 20 · build 59
+**ACTIONABLE by blocker:** RIPE 10 · two-key 1 · gate 2 · marker 19 · build 59
 
 #### Actionable — drivable now
 | sprint | task | status | blocker | name |
@@ -64,7 +64,6 @@
 | S37 | d6dae432 | Planned | marker | Task 37.23: Server-manager root discovered from ssh config o |
 | S37 | e2068636 | Planned | build | Task 37.28.6: constraint-cycle (structural) freshness guard  |
 | S37 | e48a1e0a | Planned | build | Task 37.37: AXIS-4 lint — drift-metric COMPLETENESS (exclude |
-| S37 | fdee4809 | Planned | marker | Task 37.22: IOR carries a clear origin (class+host+path) for |
 | S37 | ff834c77 | In Progress | gate | Task 37.13: Naming is canon by construction — the be |
 | S40 | 0137dd13 | Planned | build | Task 40.73: 3 unreachable methods — in no Class.methods[], i |
 | S40 | 05d86575 | Planned | build | Task 40.67: State-file currency — boot-currency guard co |

@@ -6,6 +6,8 @@
     "slug": "upload-status-bar-progress-after-drop",
     "description": "R19.43: After drop, show an upload status bar with progress.",
     "status": "In Progress",
+    "supersededBy": "ior:instance:ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+    "supersededReason": "SUBSUMED under Task 37.20 (ONE DnD drop contract), CLOSED BY MEASUREMENT — PO ruling 2026-09-07. Delivered via drop-dispatcher.ts:118 (SLICE-A onProgress param on saveFileUnit -> statusCb); tester's ONE measurement GREEN (v0.8.211): a real drop surfaced #rrc-upload-status 'Uploading NAME -> 3%..100% -> Uploaded NAME' (full pct progression on the real file). No build.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [ ] creating test cases\n  - [x] implementing expert (shipped)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:fd822bbe-da7a-4121-bd80-a4ac7d05c744"

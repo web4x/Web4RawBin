@@ -6,6 +6,8 @@
     "slug": "dnd-file-chain-drop-upload-fileunit-ln-files-tree",
     "description": "Dropping a file onto the room drop-zone triggers upload, creates a FileUnit scenario unit (uuid.content + uuid.scenario.json), emits ln symlinks into the Files tree node. Full chain: drop -> upload -> FileUnit -> ln -> Files-tree. Covers R19.36.",
     "status": "In Progress",
+    "supersededBy": "ior:instance:ae01f065-bb0b-413e-bdd4-ee97f2fa94ba",
+    "supersededReason": "SUBSUMED under Task 37.20 (ONE DnD drop contract), CLOSED BY MEASUREMENT — PO ruling 2026-09-07. Delivered-unproven -> tester's ONE measurement GREEN (775af28c7, v0.8.211): a real #rrc-drop file drop creates a fresh FileUnit (class=File) in the Files tree with the R40.81 one-store symlink present (room files-dir unitLink -> canonical shard, verified lrwxrwxrwx). Intent (drop file -> FileUnit + ln symlinks in Files tree) is the contract + one-store symlink arch, now gate-proven. No build.",
     "statusChecklist": "- [x] Planned\n- [x] In Progress\n  - [x] refinement architect\n  - [x] creating test cases\n  - [x] implementing expert (6afbc901 v0.5.157)\n  - [ ] testing\n- [ ] QA Review\n- [ ] Done",
     "coveredRequirements": [
       "ior:instance:573d5b87-bd20-4eb6-9ec4-87896a6533bb"
